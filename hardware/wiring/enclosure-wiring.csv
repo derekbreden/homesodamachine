@@ -1,0 +1,104 @@
+wire_id,harness,net,from_terminal,to_terminal,awg,modeled_length_mm,route_status,start_status,end_status,service
+AC1-L,AC inlet,L,c14.L,wago-h.1,16,84.432,proposed,nominal,nominal,fixed
+AC1-N,AC inlet,N,c14.N,wago-n.1,16,70.71,proposed,nominal,nominal,fixed
+AC1-PE,AC inlet,PE,c14.PE,wago-g.1,16,53.984,proposed,nominal,nominal,fixed
+AC2-L,PSU primary,L,wago-h.2,psu.L,16,131.202,proposed,nominal,nominal,fixed
+AC2-N,PSU primary,N,wago-n.2,psu.N,16,128.21,unresolved,nominal,nominal,fixed
+AC3-L,Compressor,L,wago-h.3,relay-1.COM,16,106.532,unresolved,nominal,nominal,fixed
+AC4-H,Compressor,H_switched,relay-1.NO,fuse.in,18,639.897,unresolved,nominal,modeled,fixed
+AC4-fuse,Compressor,H_switched,fuse.out,compressor.H,18,99.129,proposed,modeled,unlocated,fixed
+AC5-N,Compressor,N,wago-n.3,compressor.N,18,497.011,unresolved,nominal,unlocated,fixed
+AC6-PE,Compressor,PE,ground.compressor,compressor.PE,18,500.637,unresolved,modeled,unlocated,fixed
+PE-bus,Earth bonds,PE,wago-g.2,ground.inlet,16,88.344,proposed,nominal,modeled,fixed
+PE-carbonator,Earth bonds,PE,ground.carbonator,carbonator.PE,16,187.738,unresolved,modeled,unlocated,fixed
+DC1-V12,12V power,V12,psu.V12,wago-v12.1,16,102.691,proposed,nominal,nominal,fixed
+DC4-V12,12V power,V12,wago-v12.3,J10.V12,16,94.45,proposed,nominal,nominal,fixed
+DC1-GND,12V power,GND,psu.GND,wago-gnd.1,16,107.636,proposed,nominal,nominal,fixed
+DC4-GND,12V power,GND,wago-gnd.3,J10.GND,16,113.092,proposed,nominal,nominal,fixed
+DC2-V12,Diaphragm pump,V12,wago-v12.2,relay-2.COM,16,117.01,proposed,nominal,nominal,fixed
+DC3-positive,Diaphragm pump,pump-switched,relay-2.NO,diaphragm.positive,16,176.789,proposed,nominal,unlocated,fixed
+DC3-negative,Diaphragm pump,GND,wago-gnd.2,diaphragm.negative,16,104.387,proposed,nominal,unlocated,fixed
+J1-COM,J1,V12,J1.COM,wago-mana.1,22,157.091,unresolved,nominal,nominal,fixed
+J1-OUT1,J1,J1.OUT1,J1.OUT1,V-A.negative,22,143.578,proposed,nominal,modeled,fixed
+J1-positive-A,J1,V12,wago-mana.2,V-A.positive,22,98.772,unresolved,nominal,modeled,fixed
+J1-OUT2,J1,J1.OUT2,J1.OUT2,V-B.negative,22,164.991,proposed,nominal,modeled,fixed
+J1-positive-B,J1,V12,wago-mana.3,V-B.positive,22,124.475,unresolved,nominal,modeled,fixed
+J1-OUT3,J1,J1.OUT3,J1.OUT3,V-C.negative,22,270.676,proposed,nominal,modeled,fixed
+J1-positive-C,J1,V12,wago-mana.4,V-C.positive,22,156.866,proposed,nominal,modeled,fixed
+J1-OUT4,J1,J1.OUT4,J1.OUT4,V-D.negative,22,295.05,proposed,nominal,modeled,fixed
+J1-positive-D,J1,V12,wago-mana.5,V-D.positive,22,178.327,proposed,nominal,modeled,fixed
+J1-OUT5,J1,J1.OUT5,J1.OUT5,V-E.negative,22,210.79,unresolved,nominal,modeled,fixed
+J1-positive-E,J1,V12,wago-mana.6,V-E.positive,22,93.979,proposed,nominal,modeled,fixed
+J1-OUT6,J1,J1.OUT6,J1.OUT6,V-F.negative,22,183.14,proposed,nominal,modeled,fixed
+J1-positive-F,J1,V12,wago-mana.7,V-F.positive,22,31.984,proposed,nominal,modeled,fixed
+J1-OUT7,J1,J1.OUT7,J1.OUT7,V-G.negative,22,211.982,proposed,nominal,nominal,fixed
+J1-positive-G,J1,V12,wago-mana.8,V-G.positive,22,77.461,proposed,nominal,nominal,fixed
+J1-OUT8,J1,J1.OUT8,J1.OUT8,V-H.negative,22,238.937,proposed,nominal,modeled,fixed
+J1-positive-H,J1,V12,wago-mana.9,V-H.positive,22,128.633,proposed,nominal,modeled,fixed
+J2-COM,J2,V12,J2.COM,wago-manb.1,22,177.929,proposed,nominal,nominal,fixed
+J2-OUT1,J2,J2.OUT1,J2.OUT1,V-I.negative,22,257.676,proposed,nominal,modeled,fixed
+J2-positive-I,J2,V12,wago-manb.2,V-I.positive,22,179.931,proposed,nominal,modeled,fixed
+J2-OUT2,J2,J2.OUT2,J2.OUT2,V-J.negative,22,277.681,proposed,nominal,nominal,fixed
+J2-positive-J,J2,V12,wago-manb.3,V-J.positive,22,167.682,proposed,nominal,nominal,fixed
+J2-FAN,J2,J2.FAN,J2.FAN,fan.negative,22,344.069,proposed,nominal,unlocated,fixed
+J2-positive-fan,J2,V12,wago-manb.4,fan.positive,22,185.566,proposed,nominal,unlocated,fixed
+J2-OUT3,J2,J2.OUT3,J2.OUT3,V-K.negative,22,67.419,proposed,nominal,modeled,fixed
+J2-positive-K,J2,V12,wago-manb.5,V-K.positive,22,129.322,proposed,nominal,modeled,fixed
+J13-AM2,J13,AM2,J13.AM2,pogo-male.1,22,232.659,proposed,nominal,modeled,fixed
+cartridge-AM2,Cartridge,AM2,pogo-female.1,pump-a.2,22,96.287,unresolved,modeled,unlocated,moves with pump cartridge
+J13-AM1,J13,AM1,J13.AM1,pogo-male.2,22,241.6,proposed,nominal,modeled,fixed
+cartridge-AM1,Cartridge,AM1,pogo-female.2,pump-a.1,22,66.418,proposed,modeled,unlocated,moves with pump cartridge
+J13-BM2,J13,BM2,J13.BM2,pogo-male.3,22,239.138,proposed,nominal,modeled,fixed
+cartridge-BM2,Cartridge,BM2,pogo-female.3,pump-b.2,22,90.684,unresolved,modeled,unlocated,moves with pump cartridge
+J13-BM1,J13,BM1,J13.BM1,pogo-male.4,22,243.064,proposed,nominal,modeled,fixed
+cartridge-BM1,Cartridge,BM1,pogo-female.4,pump-b.1,22,72.41,proposed,modeled,unlocated,moves with pump cartridge
+J3-V5,J3,V5,J3.V5,keystone.2,22,238.697,proposed,nominal,nominal,fixed
+J3-GND,J3,GND,J3.GND,keystone.3,22,231.436,proposed,nominal,nominal,fixed
+J3-IO35,J3,IO35,J3.IO35,keystone.4,22,229.751,proposed,nominal,nominal,fixed
+J3-IO33,J3,IO33,J3.IO33,keystone.5,22,224.058,proposed,nominal,nominal,fixed
+J4-3V3,J4,3V3,J4.3V3,temp-carbonator.V,22,265.154,unresolved,nominal,nominal,fixed
+J4-IO26,J4,IO26,J4.IO26,temp-carbonator.DATA,22,266.043,unresolved,nominal,nominal,fixed
+J4-V5,J4,V5,J4.V5,flow.V,22,260.345,unresolved,nominal,nominal,fixed
+J4-IO25,J4,IO25,J4.IO25,flow.PULSE,22,255.945,unresolved,nominal,nominal,fixed
+J4-GND,J4,GND,J4.GND,wago-sensors.1,22,194.71,proposed,nominal,nominal,fixed
+temp-GND,J4,GND,wago-sensors.2,temp-carbonator.GND,22,408.766,unresolved,nominal,nominal,fixed
+flow-GND,J4,GND,wago-sensors.3,flow.GND,22,328.141,unresolved,nominal,nominal,fixed
+temp-bus-V,J4,3V3,temp-carbonator.V,temp-coil.V,22,179.001,unresolved,nominal,nominal,fixed
+temp-bus-DATA,J4,IO26,temp-carbonator.DATA,temp-coil.DATA,22,182.68,unresolved,nominal,nominal,fixed
+temp-bus-GND,J4,GND,temp-carbonator.GND,temp-coil.GND,22,186.363,unresolved,nominal,nominal,fixed
+J5-V5,J5,V5,J5.V5,relay-1.V5,22,119.884,unresolved,nominal,nominal,fixed
+relay-bus-V5,J5,V5,relay-1.V5,relay-2.V5,22,48.791,proposed,nominal,nominal,fixed
+J5-GND,J5,GND,J5.GND,relay-1.GND,22,115.549,proposed,nominal,nominal,fixed
+relay-bus-GND,J5,GND,relay-1.GND,relay-2.GND,22,55.053,proposed,nominal,nominal,fixed
+J5-IO19,J5,IO19,J5.IO19,relay-1.IN,22,108.556,proposed,nominal,nominal,fixed
+J5-IO2,J5,IO2,J5.IO2,relay-2.IN,22,115.906,unresolved,nominal,nominal,fixed
+J6-GND,J6,GND,J6.GND,wago-reeds-a.1,22,189.054,proposed,nominal,nominal,fixed
+J6-RA1,J6,RA1,J6.RA1,reed-a-1.signal,22,424.649,proposed,nominal,nominal,fixed
+J6-earth-1,J6,GND,reed-a-2.GND,reed-a-1.GND,22,62.937,proposed,nominal,nominal,fixed
+J6-RA2,J6,RA2,J6.RA2,reed-a-2.signal,22,373.427,proposed,nominal,nominal,fixed
+J6-earth-2,J6,GND,reed-a-3.GND,reed-a-2.GND,22,62.937,proposed,nominal,nominal,fixed
+J6-RA3,J6,RA3,J6.RA3,reed-a-3.signal,22,461.928,unresolved,nominal,nominal,fixed
+J6-earth-3,J6,GND,reed-a-4.GND,reed-a-3.GND,22,62.937,proposed,nominal,nominal,fixed
+J6-RA4,J6,RA4,J6.RA4,reed-a-4.signal,22,273.406,proposed,nominal,nominal,fixed
+J6-earth-4,J6,GND,wago-reeds-a.2,reed-a-4.GND,22,498.046,unresolved,nominal,nominal,fixed
+J7-GND,J7,GND,J7.GND,wago-reeds-b.1,22,181.231,proposed,nominal,nominal,fixed
+J7-RB1,J7,RB1,J7.RB1,reed-b-1.signal,22,382.397,proposed,nominal,nominal,fixed
+J7-earth-1,J7,GND,reed-b-2.GND,reed-b-1.GND,22,61.92,proposed,nominal,nominal,fixed
+J7-RB2,J7,RB2,J7.RB2,reed-b-2.signal,22,334.609,proposed,nominal,nominal,fixed
+J7-earth-2,J7,GND,reed-b-3.GND,reed-b-2.GND,22,65.621,proposed,nominal,nominal,fixed
+J7-RB3,J7,RB3,J7.RB3,reed-b-3.signal,22,289.315,proposed,nominal,nominal,fixed
+J7-earth-3,J7,GND,reed-b-4.GND,reed-b-3.GND,22,74.249,unresolved,nominal,nominal,fixed
+J7-RB4,J7,RB4,J7.RB4,reed-b-4.signal,22,314.685,unresolved,nominal,nominal,fixed
+J7-earth-4,J7,GND,wago-reeds-b.2,reed-b-4.GND,22,480.853,unresolved,nominal,nominal,fixed
+J7-CLO,J7,CLO,J7.CLO,reed-carb-1.signal,22,313.166,unresolved,nominal,nominal,fixed
+J7-carb-earth-1,J7,GND,reed-carb-2.GND,reed-carb-1.GND,22,35.817,proposed,nominal,nominal,fixed
+J7-CHI,J7,CHI,J7.CHI,reed-carb-2.signal,22,277.617,unresolved,nominal,nominal,fixed
+J7-carb-earth-2,J7,GND,wago-reeds-b.3,reed-carb-2.GND,22,432.54,unresolved,nominal,nominal,fixed
+J9-B,J9,B,J9.B,display.B,22,282.949,proposed,nominal,unlocated,fixed
+J9-A,J9,A,J9.A,display.A,22,278.859,proposed,nominal,unlocated,fixed
+J9-GND,J9,GND,J9.GND,display.GND,22,288.573,proposed,nominal,unlocated,fixed
+J9-V12,J9,V12,J9.V12,display.V12,22,279.584,unresolved,nominal,unlocated,fixed
+J11-V5,J11,V5,J11.V5,mq6.1,22,457.842,proposed,nominal,nominal,fixed
+J11-GND,J11,GND,J11.GND,mq6.2,22,460.68,proposed,nominal,nominal,fixed
+J11-DOUT,J11,DOUT,J11.DOUT,mq6.3,22,456.708,proposed,nominal,nominal,fixed
+J11-AOUT,J11,AOUT,J11.AOUT,mq6.4,22,674.434,unresolved,nominal,nominal,fixed

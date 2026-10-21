@@ -4643,8 +4643,11 @@ def _solids(a: cq.Assembly):
     What reads the bodies themselves is the STEP, and `manifold_layout.clashes`, which walks
     `a.children` because a solid nobody can see is still a solid in the way."""
     inside = getattr(a, "core_body_names", frozenset())
+    # Installed electrical routing has its own conductor/terminal manifest and
+    # manual interference review. Mechanical packing retains its existing scope.
+    wires = getattr(a, "wiring_body_names", frozenset())
     out = {name: (shape, colour) for name, shape, colour in ml.placed_leaves(a)
-           if name not in inside}
+           if name not in inside and name not in wires}
     if getattr(a, "core_envelope", None) is not None:
         out["foam-assembly"] = (a.core_envelope, C_FOAM)
     return out
@@ -5766,6 +5769,12 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     a.pack = _p
     a.pieces = pieces
     a.seats = dict(SEATS)
+    # Electrical attachments resolve against the complete placed hardware. This
+    # composes the installed twin without adding a recurring wiring check.
+    if str(_hw.parent) not in sys.path:
+        sys.path.insert(0, str(_hw.parent))
+    from hardware.wiring.installed.build import attach
+    attach(a, sys.modules[__name__])
     return a
 
 
@@ -6104,7 +6113,8 @@ def main():
                   or os.environ.get("HSM_BUILD_SOURCE") == "trace")
     a = build_enclosure_assembly(require_box_spec=action)
     out = _here.parent / "enclosure-assembly.step"
-    export_assembly(a, str(out))
+    from hardware.wiring.installed.build import export_enclosure
+    export_enclosure(a, out)
     print(f"-> {out.name}")
     # `export_assembly` keeps the last good sidecar when tessellation fails so a drawing can
     # still be made from the STEP. That fallback is not safe here: the service scenes below

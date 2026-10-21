@@ -140,44 +140,41 @@ Device end: female disconnects at valves, pumps, and fan; the current donor comp
 |---|---|---|---|---|
 | J1 MANIFOLD A `COM` | 221-420 | 9 of 10 | +X, Y169, Z280, beside the valve bank | V-A…V-H positives |
 | J2 MANIFOLD B `COM` | 221-415 | 5 of 5 | +X, Y169, Z246, below the 221-420 | V-I, V-J, condenser fan, V-K positives |
-| J7 REEDS B `GND` | 221-420 | 7 of 10 | −X, aft, over the core's lid | reservoir B's 4 reeds + the carbonator's 2 |
-| J6 REEDS A `GND` | 221-415 | 5 of 5 | −X, aft, over the core's lid | reservoir A's 4 reeds |
+| J7 REEDS B `GND` | 221-420 | 3 of 10 | −X, aft, over the core's lid | reservoir B's 4 reeds + the carbonator's 2 |
+| J6 REEDS A `GND` | 221-415 | 2 of 5 | −X, aft, over the core's lid | reservoir A's 4 reeds |
 | J4 SENSORS `GND` | 221-415 | 3 of 5 | −X, aft | 1-wire bus, DIGITEN meter |
 
 The manifold nuts face inboard. Leave their wire-entry faces and lever sweeps
 open; the lower nut opens toward the front. Only shared positive conductors
 enter these two nuts. Each switched return runs directly to its board OUT pin.
 
-Dress J1 and the four descending J2 conductors aft of the PCB, then along its
-lower +X flank in an unsleeved flat stack. The native straight corridor accepts
-the nine J1 and four J2 conductors together in a 5.1 × 8.5 mm envelope at
-X92.075–97.175, Y178–330, Z242.75–251.25. J2 OUT3 takes the short route to V-K.
-The cross-bank branches pass behind the upper coils at Y151.2, Z280; the E/H
-branches enter the gap between coil tiers, and C/D are reached below their
-downward-facing tabs. The fan pair drops through the +X side gap and passes
-forward above the condenser crown. The
-[native junction review](manifold-junction-clearance-check.json) records the
-terminal directions, paths, stock clearances and bench cuts.
+The [installed enclosure wiring model](README.md) carries all populated board
+connectors, their shared-rail branches and both cartridge halves together in the
+complete machine. [The resolved manifest](enclosure-wiring.json) names every
+conductor, attachment, nominal profile, route, length and assembly owner. The
+[worksheet](enclosure-wiring.csv) gives the same conductors as individual rows.
 
-The twelve complete 1.7 mm wire envelopes keep at least 1.231 mm from native
-stock; the shared bare trunk keeps 1.325 mm. The checked H and I switched
-routes are 505.369 and 480.455 mm from the board's free-wire plane. Their
-550 mm cuts retain 32.981 and 57.895 mm after the additional 11.65 mm span
-from the board-top contact datum. V-K's positive branch is 210.010 mm to one
-tab, and its OUT3 return is 105.311 mm to the other; the 150 mm return cut
-retains 33.039 mm after that board span. Positive and switched conductors
-land on separate tabs at every coil.
+Board pin positions come from the fabricated circuit JSON and the native board
+pose. Valve wire attachments follow the separate metal spades. Proposed wire
+exits permit the flexible tab/disconnect dressing at G/J. The model includes the
+removable XH housing envelopes and individual pogo-joint insulation.
 
-J1's 270° connector placement puts COM at Z263.42, OUT1 at Z265.92 and OUT8
-at Z283.42; the pins share Y320.8. The native PCB placement and canonical
-connector pin map bind those wire starts in the junction review. J1's COM
-route is 223.699 mm; its 300 mm cut retains 64.651 mm after the board span.
+Routing status and terminal fidelity are separate. A proposed route remains an
+assembly layout; unresolved routes stay visible and named. Exact donor lead
+terminations, display connectors, motor tabs and the carbonator metal bond
+landing retain their unlocated status. The [manual review](installed/routing-review.json)
+records mesh intersections and native export readings against their artifact
+hashes. It does not qualify physical harness fit or enclosure closing motions.
 
-The 1.7 mm wire envelopes and shared straight strip establish geometric
-clearance. The review does not qualify Faston boots, bend radii at the tabs,
-sleeving, or a complete dressed harness. The fan's donor lead remains unlocated;
-its checked approach ends in the accessible crown region. Additional cable
-hooks for the installed loom remain open work.
+Each reservoir's four reeds share one continuous common in its 5P column, with
+insulated local taps. The Wago joins that column common to the board return.
+The carbonator pair has its own common branch at the reservoir-B Wago. The two
+probes are parallel-bussed on the three 1-wire conductors.
+
+The model's centreline lengths exclude hidden contact insertion and final cut
+reserve. The bench cuts remain fitting stock; use the current installed route
+and its attachment status before settling a finished length. The fan routes
+end at the condenser-crown approach while its donor lead remains unlocated.
 
 The peristaltic pumps have no such nut: DC-5 is two DRV8870 H-bridge pairs, each motor driven differentially on its own two conductors, so there is no rail to share and nothing to fan out. Four direct conductors run from J13 to the contact pair's male half and four more from its female half to the motor tabs. The contact pair is the cartridge's service disconnect; the four Fastons stay on the pumps.
 
