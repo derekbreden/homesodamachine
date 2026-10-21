@@ -57,3 +57,12 @@ disabled during this startup phase; verify activation at deposition.
 The thread's adhesion monitor checks every five minutes through layer 3,
 every ten minutes through layer 120, then every thirty minutes if stable.
 It observes this exact task and stops when the task ends or changes.
+
+At **00:52:14 CDT**, the [deposition-start observation](deposition-start.json)
+confirms layer **1/833**, **A2** current and target, the mounted right **0.8 mm**
+nozzle, and runtime timelapse **enabled**. Nozzle/bed/chamber read
+**255/70/35 °C**, ordinary and auxiliary part cooling read zero, and no
+print error or HMS alert is reported. Two live camera frames identify no
+confirmed lift or strike; the toolhead, clear PETG and reflected illumination
+prevent a complete body/cap corner-contact assessment. An attached-corner
+baseline is not established by this observation.
