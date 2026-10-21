@@ -53,7 +53,40 @@ click: x=37.638 y=3.600 z=-10.465
 click: x=47.231 y=3.600 z=-10.465
 
 [step] All artwork is intentionally 0.48 mm proud of the flat black face. This is the accepted raised logo, lettering and QR, with the shared embedded colour volume beneath it. The step is the visible relief, not mismatched mating surfaces.
-click: x=41.410 y=3.840 z=2.296
+alternatives: Flush artwork gives up the accepted relief that edges the white on the black face.
+click: x=41.417 y=3.840 z=-1.453
 
 [sliver] This 1.225 mm top-face strip is a letter stroke, printed on its complete embedded ink base and the surrounding plate. It is wider than two 0.4 mm nozzle paths and is part of the physically accepted face-up lettering.
 click: x=-6.839 y=3.840 z=-8.435
+
+[thin] Specific required QR construction: each reading is one of the 0.02 mm squares `build_qr` sets where two white modules of the code touch only at a corner, so the two-colour interface closes in manifold faces instead of two cavity wires crossing at a point. The code's 1.1 mm module pitch stays exact.
+alternatives: Without the joins every diagonal contact is a non-manifold point; a wider join changes the code's modules.
+file: hardware/printed-parts/enclosure/nameplate/nameplate-001.step
+click: x=-41.741 y=3.600 z=-9.348
+click: x=-35.121 y=3.600 z=9.348
+click: x=-45.021 y=3.600 z=-4.952
+click: x=-36.241 y=3.600 z=3.852
+click: x=-42.821 y=3.600 z=-0.553
+click: x=-46.121 y=3.600 z=-0.553
+click: x=-38.441 y=3.600 z=-3.852
+click: x=-37.321 y=3.600 z=0.548
+click: x=-27.421 y=3.600 z=0.548
+click: x=-34.021 y=3.600 z=-10.447
+
+[thin] Specific accepted artwork: each reading is a feature of the nameplate's raised artwork, physically accepted face-up: a stroke of the HOME SODA MACHINE wordmark, 0.83 mm at its thinnest, or a single 1.1 mm module of the QR (`QR_MODULE`), each 0.48 mm proud (`ARTWORK_RISE`) on the 0.72 mm embedded white base (`INK_DEPTH`).
+alternatives: Heavier strokes change the wordmark, and larger modules change the code's size on the plate.
+file: hardware/printed-parts/enclosure/nameplate/nameplate-001.step
+click: x=14.624 y=3.660 z=-6.627
+click: x=-24.628 y=3.480 z=-1.650
+click: x=-39.531 y=3.810 z=10.586
+click: x=-46.266 y=3.390 z=3.850
+click: x=-25.095 y=3.390 z=11.550
+click: x=-30.866 y=3.810 z=11.550
+click: x=-25.095 y=3.810 z=-11.550
+click: x=-46.266 y=3.810 z=11.550
+
+[thin] Accepted wing fit: each reading is one of the plate's two horizontal wings, 1.68 mm thick and projecting 2.40 mm, the thickness of the accepted horizontal-wing fit (horizontal-wing-trial/physical-acceptance.json); the receiver's 2.13 mm slot keeps its 1.23 mm retaining lip over it.
+alternatives: A thicker wing needs a thicker plate or a thinner lip, each a change to the accepted fit.
+file: hardware/printed-parts/enclosure/nameplate/nameplate-001.step
+click: x=-54.662 y=0.000 z=-14.444
+click: x=53.503 y=0.000 z=-14.850
