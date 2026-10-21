@@ -1,7 +1,1 @@
-[thin] Numerical threshold classification at the nominal 3 mm keeper plate. Its two analytic native faces are Z0 and Z3 in the manufacturing frame; the reported anchors span the complete 3.000 mm section. The warning does not identify a sub-3 mm section. The plate fits the 3.5 mm wall slot with 0.25 mm room on each face.
-alternatives: Use the exact native plane spacing to interpret the strict threshold. Increasing the keeper thickness solely to change floating-point ranking consumes its sliding allowance; reducing it creates a thinner bearing plate.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-keeper-outer.step
-click: x=11.647 y=7.556 z=3.000
-click: x=11.647 y=7.556 z=0.000
-click: x=-11.647 y=7.556 z=0.000
-click: x=-11.647 y=7.556 z=3.000
+

@@ -6,19 +6,4 @@ click: x=0.000 y=69.696 z=2.400
 [thin] The front lifting recess leaves a 1.8 mm local cover section above its 1.2 mm opening. Its purpose is finger or nail access under the edge while the plate rests on the apron. This is the specified local cover/access section; the native solid PETG slice records its deposited paths without a physical strength or finish claim.
 alternatives: Filling this strip removes the lifting purchase. Thickening the entire cover adds height; a separate handle adds another feature. Retain the broad under-edge recess.
 file: hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step
-click: x=90.650 y=69.700 z=1.800
-click: x=90.650 y=69.700 z=0.000
-
-[thin] The skirt's continuous entry taper reduces its terminal section from 3 mm to 2.3 mm over the last 1.4 mm of depth. The 0.7 mm setback guides insertion into the silicone mouth. In the production pose the outside contracts as the skirt grows upward; the saved solid PETG slice has no supports. This is a local locating-cover lead-in, not a load-capacity qualification.
-alternatives: A square end removes the insertion lead-in. Keeping 3 mm through the tip requires an additional inner taper or a thicker skirt. Retain the single external lead-in and straight inner surface.
-file: hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step
-click: x=62.150 y=-52.446 z=8.992
-click: x=62.150 y=-54.746 z=9.000
-
-[thin] These anchors are on the continuous nominal 3 mm plate, with opposing native faces at print Z0 and Z3. The thickness ranking includes its 3 mm cutoff; it is reporting the specified sheet rather than a locally thinned feature. No geometry defect is established at these locations.
-alternatives: Thickening the complete sheet solely to leave the ranking changes cover height without correcting a local defect. Retain the specified 3 mm plate.
-file: hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step
-click: x=-69.193 y=-69.392 z=0.000
-click: x=-69.193 y=-69.392 z=3.000
-click: x=-66.843 y=-49.979 z=0.000
-click: x=-66.843 y=-49.979 z=3.000
+click: x=89.950 y=69.709 z=1.800

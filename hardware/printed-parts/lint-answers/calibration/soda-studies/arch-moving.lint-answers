@@ -5,15 +5,3 @@
 alternatives: A solid bridge down to the plinth would join the moving and fixed bodies. Slicer support under this crossbar would fill the deliberate release gap; the bar instead bridges its own two printed legs. Shortening the span would change the retained two-leg portal and its accessible finger opening.
 file: hardware/printed-parts/calibration/soda-studies/arch-moving.step
 click: x=0.000 y=14.750 z=3.560
-
-[thin] These four ranked regions are the moving legs' intentional first-layer relief. Each 3 mm leg retracts 0.35 mm per face at the bed and returns to its full section by Z1; its narrowest bed contact is 2.3 mm. That local exception increases first-layer separation from the fixed running faces and end stops. The native bed-layer model footprints are separate; ordinary leg stock above Z1 remains 3 mm.
-alternatives: Removing the relief retains 3 mm at the bed but removes the additional first-layer air. A 3.7 mm leg with the same relief retains 3 mm bed contact but enlarges this two-leg portal by 1.4 mm along Y or shortens its 13 mm clear span. This short relieved foot is a fit reference, with no load or service-life qualification claimed.
-file: hardware/printed-parts/calibration/soda-studies/arch-moving.step
-click: x=8.422 y=21.595 z=0.013
-click: x=8.422 y=23.900 z=0.000
-click: x=-8.422 y=23.905 z=0.013
-click: x=-8.422 y=21.600 z=0.000
-click: x=-8.422 y=5.595 z=0.013
-click: x=-8.422 y=7.900 z=0.000
-click: x=8.422 y=7.905 z=0.013
-click: x=8.422 y=5.600 z=0.000

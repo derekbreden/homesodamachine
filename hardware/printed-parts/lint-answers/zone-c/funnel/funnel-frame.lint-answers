@@ -11,17 +11,3 @@ click: x=-91.250 y=35.236 z=48.752
 click: x=-89.750 y=35.200 z=49.100
 click: x=91.250 y=35.236 z=48.752
 click: x=89.750 y=35.200 z=49.100
-click: x=-89.750 y=38.023 z=49.432
-click: x=89.750 y=37.705 z=49.110
-
-[thin] Nominal-section classification: these four 3.000 mm readings cross the nominal 3 mm drain web and front roof-surround wall. The floor readings run from Z0 to Z3; the front-wall readings run between Y-69.092 and Y-66.092 in exported frame coordinates. They identify the ordinary full section. The complete native silicone-brim bearing retains its required 3 mm thickness, as recorded in ../../enclosure/enclosure/y-seam-plain-review.json.
-alternatives: Removing material would reduce the ordinary section. Adding stock into the forming clearance or moving the front surround would change the defined funnel fit; the measured nominal section requires no thin-feature allowance.
-file: hardware/printed-parts/zone-c/funnel/funnel-frame.step
-click: x=-14.106 y=-11.406 z=0.000
-click: x=-14.106 y=-11.406 z=3.000
-click: x=62.150 y=-66.092 z=55.092
-click: x=62.150 y=-69.092 z=55.092
-click: x=62.261 y=-69.092 z=52.166
-click: x=62.261 y=-66.092 z=52.166
-click: x=-16.378 y=-20.733 z=3.000
-click: x=-16.378 y=-20.733 z=0.000

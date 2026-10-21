@@ -13,27 +13,5 @@ click: x=0.524 y=-4.532 z=9.835
 [thin] Required wall-conforming TPU collar and axial stop. The tapered collar grows from diameter 11.7 to 17.5 mm between Y3.6 and Y5.9, followed by the Y5.9..7.0 annular stop. This is the flexible retaining collar fitted to the wall's matching ramp and stop; the keeper groove begins at Y7. Installed retention remains physically unqualified.
 alternatives: Making the outer stop 3 mm axially would move the keeper groove and rear collar or consume the fitted ramp. Both alternatives change the closed wall seat and insertion geometry.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-inner.step
-click: x=-7.563 y=1.318 z=12.018
-click: x=-7.563 y=2.251 z=12.952
-
-[thin] Matched flexible sealing interfaces. Diameter 6.10 mm sealing lands grip the diameter 6.35 mm tube. The front sealing section has 2.80 mm nominal radial stock; the minimum branch stock is 2.81 mm. Entry chamfers and the inlet lead/relief have their fitted local profiles. These local sealing sections follow the manually fitted TPU elbow article linked in the dock README; that observation does not qualify this junction's pressure retention or lifetime. At least one anchor in each group is on a sealing land or its entry cone, as recorded in the native review.
-alternatives: A 3 mm wall around the front land requires diameter 12.10 mm and conflicts with the diameter 12.00 mm rigid-wall opening. Thickening free sealing sections changes their fitted cuff compliance. Retain the named sealing geometry and its physical qualification scope.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-inner.step
-click: x=0.264 y=35.693 z=10.106
-click: x=0.164 y=33.991 z=8.182
-click: x=0.239 y=2.408 z=28.088
-click: x=0.143 y=4.934 z=28.616
-click: x=0.021 y=4.975 z=28.544
-click: x=0.021 y=2.387 z=28.317
-click: x=-0.061 y=33.914 z=8.211
-click: x=-0.061 y=35.751 z=10.048
-click: x=-1.479 y=-2.518 z=10.789
-click: x=-0.896 y=-2.063 z=8.215
-
-[thin] Numerical threshold classification at nominal 3 mm construction. Exact native intersections through these rounded mesh anchors, extended 0.02 mm at both ends, contain at least 3.000000 mm of continuous material. The native readings are recorded in pump-dock/elbow-review/native-thickness.json. The strict mesh ranking does not identify sub-3 mm native stock here.
-alternatives: Use the analytic native section to resolve the strict threshold. Enlarging fitted nominal stock solely to change floating-point ranking alters interfaces without answering a different geometry question.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-inner.step
-click: x=8.290 y=8.383 z=15.659
-click: x=8.290 y=6.262 z=13.537
-click: x=-8.682 y=10.133 z=13.909
-click: x=-8.682 y=8.011 z=11.788
+click: x=7.213 y=4.142 z=11.061
+click: x=-1.301 y=3.004 z=12.750
