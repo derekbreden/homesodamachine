@@ -47,13 +47,13 @@
   "finding": "The fixed low camera angle, clear PETG reflections, moving nozzle and foreground cap obscure body/bed contact. Inspected frames do not establish a reliable last-attached/first-lifted bracket. No onset layer is established.",
   "layer_mapping": "Each native job has 740 layers, while each clip has more frames. Exact frame-to-layer correspondence is unverified; frame numbers are not layer numbers.",
   "current_failed_article": "../prints/2026-10-21-mark1-right08-z000/physical-result/physical-result.json",
-  "next_print_strategy": "Proposed brim, denser/hotter extrusion, scoped cooling and throughput trial in next-trial-options.json. Zero added user trim remains; no project or printer setting changed.",
+  "next_print_strategy": "Flow 1.02 supported by Derek; no brim. Review the successful May Water recipe and ordinary Bambu motion settings in historical-recipe-review.json. No executable setting changed.",
   "conditional_options": [
     {
-      "candidate": "Explicit brim / bead packing / supported-path cooling / speed",
+      "candidate": "May Water baseline / walls-only coverage / scoped thermal investigation",
       "details": "next-trial-options.json",
-      "evidence": "body-cooling-paths.json",
-      "status": "Proposed; not sliced or launched."
+      "historical_settings": "historical-recipe-review.json",
+      "status": "Discussion only; not sliced or launched."
     }
   ],
   "manufacturer_reference": "https://help.prusa3d.com/article/warping_2011",

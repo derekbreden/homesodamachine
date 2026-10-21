@@ -53,28 +53,50 @@ changes. Ordinary unchanged progress does not need a notification.
 
 ## Proposed next trial
 
-The [prioritized options](next-trial-options.json) target corner anchorage,
-bead packing/fusion and throughput: a forced 10 mm body brim, flow **1.02**,
-**255/260 °C** first/subsequent nozzle temperature, scoped early body cooling,
-and a **12 mm³/s** speed trial at the retained 0.24 mm layer height. These
-settings are proposed; the saved project and executable recipe remain frozen.
+**Flow 1.02** is supported by Derek. **No brim** is proposed: he reports the
+large object separates from the brim during curl, with difficult bed cleanup
+and a rough edge left after removal. His exact words and the recovered native
+settings are in the [historical recipe review](historical-recipe-review.json).
+The [next-trial discussion](next-trial-options.json) takes the successful May
+Water recipe and ordinary Bambu motion settings as its reference. The saved
+project and executable recipe remain frozen.
 
 The current native G-code emits no brim despite the saved auto-brim setting.
 Its [body cooling paths](body-cooling-paths.json) also show **90% fan commands
-on the solid floor and early walls**, including layers 4 and 12–16. This
-supports reviewing fan inheritance and supported paths, with higher cooling
-retained where bridges/unsupported cap features need it. There is no observed
-fan-change-to-lift onset link. [Prusa's warping guidance](https://help.prusa3d.com/article/warping_2011)
-supports brim/contact and cooling as candidate controls, not a diagnosis of
-this article's cause.
+on the solid floor and early walls**, including layers 4 and 12–16. The
+successful May recipe also saves **90% overhang cooling**. A supported-path
+cooling review remains a hypothesis for the reported curl; no observed
+fan-change-to-lift onset link establishes a required cooling change.
 
 The recovered May 30 water-holding recipe used clear PETG, flow **1.02**,
 **260 °C** after the first layer and a **21 mm³/s** ceiling through a 0.6 mm
 nozzle. It requested **200/300 mm/s** outer/inner walls; these are requested
 speeds, not measured motion. This failed recipe requests 30 mm/s with a
-6 mm³/s ceiling. The options record binds the historical project hash and
-preserves the accepted September 0.97 results. Exact successful sphere
-settings are not recovered, so the May recipe is the quantified comparison.
+6 mm³/s ceiling. Installed Bambu 0.8 mm Standard presets save a **21 mm³/s**
+ceiling for PETG Basic and **16 mm³/s** for Translucent, with ordinary high
+requested speeds. The earlier proposed 12 mm³/s intermediate target has no
+physical result supporting it. The historical review preserves exact preset
+hashes and the accepted September 0.97 results.
+
+May uses six requested Arachne walls, 0.60 mm lines, 100% zig-zag infill,
+15% wall overlap, random seams, conditional scarf and a 15% seam gap. A
+September agent's assertion that filament scarf `none` disables this enabled
+process override is incorrect: Bambu's source selects the process scarf type
+when the override is true. See the source-linked review. Historical emitted
+scarf locations are unverified because the saved May project has no G-code.
+
+Derek recalls the sphere trials as **Bambu defaults + higher flow + walls
+without sparse infill**, with better results. Exact test-bound sphere settings
+remain unrecovered. The April pressure-vessel chat is an initial design
+discussion, and the Git record's printed-NPT-port leak does not establish a
+failure of an unpierced sphere wall. Preserve the reported positive experience
+without assigning missing numeric settings to it.
+
+A walls-only reservoir candidate requires perimeter coverage of the modeled
+wall thickness and a fully solid 3 mm floor. Zero sparse infill can express
+that construction with appropriate bottom shells or verified perimeter
+coverage. The May file's 100% infill and the sphere recollection are distinct
+recipes; neither label establishes actual deposited continuity by itself.
 
 A proposed 25 mm tall full-footprint body base retains the real floor,
 fillets, corners and seam. The options specify a flatness check and one-hour
