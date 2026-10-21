@@ -1,0 +1,137 @@
+{
+  "printer": "Mark1",
+  "job_id": "1359909015",
+  "archive": "2026-10-21-reservoir-left-cap-clear-right08-z000-mark1.gcode.3mf",
+  "checkpoint": "First three layers completed; layer 4 in progress.",
+  "readings": [
+    {
+      "observed_at": "2026-10-21T05:52:14.524532+00:00",
+      "observed_central": "2026-10-21T00:52:14.524532-05:00",
+      "layer_num": 1,
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "nozzle_temper": 255.0,
+      "bed_temper": 70.0,
+      "chamber_temper": 35,
+      "cooling_fan_speed": "0",
+      "big_fan1_speed": "0",
+      "big_fan2_speed": "4",
+      "ams": {
+        "tray_now": "1",
+        "tray_tar": "1",
+        "tray_exist_bits": "f"
+      },
+      "timelapse": "enable",
+      "visual_observation": null
+    },
+    {
+      "observed_at": "2026-10-21T06:07:15.904591+00:00",
+      "observed_central": "2026-10-21T01:07:15.904591-05:00",
+      "layer_num": 2,
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "nozzle_temper": 255.0,
+      "bed_temper": 70.0,
+      "chamber_temper": 35,
+      "cooling_fan_speed": "0",
+      "big_fan1_speed": "0",
+      "big_fan2_speed": "4",
+      "ams": {
+        "tray_now": "1",
+        "tray_tar": "1",
+        "tray_exist_bits": "f"
+      },
+      "timelapse": "enable",
+      "visual_observation": {
+        "source": "Two cua_repl Bambu Studio Device live frames; Mark1 name and exact archive visible",
+        "frame_times_utc": [
+          "2026-10-21T06:07:20.717Z",
+          "2026-10-21T06:07:47.635Z"
+        ],
+        "reported_layer": 2,
+        "body": "Exposed camera-right floor edge and corner appear flat without a visible underside gap or upward curl. The toolhead still obscures part of the body.",
+        "cap": "Foreground cap outline and near corners appear flat across the two frames. No loose raised strand, edge displacement or nozzle strike identified. Reflections limit individual bead-contact assessment.",
+        "assessment": "No newly confirmed lifting or worsening deformation. These are scoped visible-edge observations, not a complete adhesion or sealing acceptance.",
+        "camera_access": "Live and updating; Studio telemetry panel connected."
+      }
+    },
+    {
+      "observed_at": "2026-10-21T06:22:24.278436+00:00",
+      "observed_central": "2026-10-21T01:22:24.278436-05:00",
+      "layer_num": 3,
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "nozzle_temper": 255.0,
+      "bed_temper": 70.0,
+      "chamber_temper": 34,
+      "cooling_fan_speed": "0",
+      "big_fan1_speed": "0",
+      "big_fan2_speed": "4",
+      "ams": {
+        "tray_now": "1",
+        "tray_tar": "1",
+        "tray_exist_bits": "f"
+      },
+      "timelapse": "enable",
+      "visual_observation": {
+        "source": "Two cua_repl Bambu Studio Device live frames; visible Mark1 and exact archive verified",
+        "frame_times_utc": [
+          "2026-10-21T06:22:34.715Z",
+          "2026-10-21T06:22:42.732Z"
+        ],
+        "reported_layer": 3,
+        "body": "Exposed floor outline, including camera-right edge/corner, appears flat without a discernible underside gap or upward curl. Some left/far contact remains obscured or reflective.",
+        "cap": "Near perimeter and near corners appear flat in the second frame; the toolhead obscures the far-left area. No raised loose strand, displacement or nozzle strike confirmed.",
+        "assessment": "No newly confirmed lifting or worsening deformation.",
+        "camera_access": "Live, updating and connected."
+      }
+    },
+    {
+      "observed_at": "2026-10-21T06:27:50.529182+00:00",
+      "observed_central": "2026-10-21T01:27:50.529182-05:00",
+      "layer_num": 4,
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "nozzle_temper": 255.0,
+      "bed_temper": 70.0,
+      "chamber_temper": 34,
+      "cooling_fan_speed": "2",
+      "big_fan1_speed": "0",
+      "big_fan2_speed": "3",
+      "ams": {
+        "tray_now": "1",
+        "tray_tar": "1",
+        "tray_exist_bits": "f"
+      },
+      "timelapse": "enable",
+      "visual_observation": {
+        "source": "Two cua_repl Bambu Studio Device live frames; Mark1 and exact archive verified",
+        "frame_times_utc": [
+          "2026-10-21T06:28:08.305Z",
+          "2026-10-21T06:28:36.301Z"
+        ],
+        "reported_layer": 4,
+        "body": "Exposed camera-right floor edge and corner remain visibly flat without a discernible gap or upward curl; toolhead and glare obscure some remaining contact.",
+        "cap": "Exposed near outline and corners remain flat across frames. Bright edge alone is not treated as lifting. No loose raised strand or nozzle strike confirmed.",
+        "assessment": "First three layers have completed. No confirmed lifting or worsening deformation in inspected visible areas; this is not full adhesion or sealing acceptance.",
+        "camera_access": "Live, updating and connected."
+      }
+    }
+  ],
+  "last_visible_flat": {
+    "observed_at_utc": "2026-10-21T06:28:36.301Z",
+    "layer": 4,
+    "scope": "Exposed camera-right body-floor edge/corner and near cap perimeter/corners; occluded/glare-obscured contact unassessed"
+  },
+  "last_completely_assessed_attached_corner_baseline": null,
+  "first_confirmed_lift": null,
+  "onset_bracket": null,
+  "scope": "Periodic live frames show the named exposed edges/corners without discernible lift. Occluded and reflective contact remains unassessed. This does not establish all-edge adhesion, completion or water hold. The earlier layer 20\u2013100 estimate remains an unverified onset hypothesis.",
+  "cooling_observation": "Legacy part-cooling telemetry changes from zero in layers 1\u20133 to raw 2 in the layer-4 poll. No causal connection to lifting is established.",
+  "monitoring": "This same task-bound heartbeat now checks every ten minutes through layer 120, then every thirty minutes after a stable later observation.",
+  "previous_warning": "nozzle-camera-warning.json"
+}
