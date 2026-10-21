@@ -261,3 +261,8 @@ alternatives: Wider lands change the pitch the closed field settles on. A plain 
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-101.340 y=6.551 z=295.888
 click: x=101.340 y=6.554 z=289.899
+
+[thin] Approved by Derek as drawn: each reading is the wall a flute groove leaves on a 3 mm section. The 1.2 mm groove (`flute_depth`) leaves 1.8 mm between its floor and the inner face (enclosure README, Nothing may relieve into the outermost 3 mm of a fluted face), on front-top's flanks. Derek, 2026-10-21: "The flute grooves on 3mm walls is good with me and approved by me."
+alternatives: A 4.2 mm wall keeps 3 mm under every groove and takes 1.2 mm more of the room inside each flank; a shallower groove changes the texture the corner coupon set.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=104.500 y=169.033 z=293.098
