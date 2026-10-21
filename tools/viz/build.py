@@ -27,6 +27,7 @@ SPEC.json:
       "view": "iso",                               iso front back left right top bottom
       "frame": "shared",                           one target and span for every panel, or "each"
       "sync": true,                                turning one panel turns them all
+      "columns": 2,                                panels per row; left out, the panel count picks it
       "panels": [
         {"name": "Current", "caption": "Snap 1.2 mm", "step": "hardware/.../plate.step"},
         {"name": "Deeper", "pick": true, "models": [
@@ -443,7 +444,7 @@ def render(spec: dict) -> tuple[str, Models]:
     if bar:
         body.append(bar)
     if panel_html:
-        cols = COLUMNS.get(len(panel_html), 4)
+        cols = spec.get("columns") or COLUMNS.get(len(panel_html), 4)
         body.append(f'<div class="viz-grid" style="--cols: {cols}">' + "".join(panel_html) + "</div>")
     foot = "".join(f"<li>{s}</li>" for s in sources)
     tail = (" · 3D drawn with three.js 0.170.0 in the /3d viewer's colours, finishes and light"
