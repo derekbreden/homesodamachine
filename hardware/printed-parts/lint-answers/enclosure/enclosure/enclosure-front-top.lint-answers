@@ -61,8 +61,6 @@ alternatives: A thicker lip needs a deeper inset (cover below flush), thinner wi
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-63.394 y=19.131 z=308.466
 click: x=63.397 y=19.131 z=308.470
-click: x=-101.340 y=6.551 z=295.888
-click: x=-100.628 y=6.152 z=295.888
 
 [thin] Strict-threshold and rounded-anchor diagnosis at nominal 3 mm construction. Every listed finding prints as 3.000 mm. Exact intersections with the current native solid, extended 0.02 mm beyond both rounded picks, contain a continuous material chord of at least 3.000000 mm through each reported location. The measured bounded chords span 3.000000–3.020000 mm; the upper value can be limited by the chosen extension. The STL ranking at the strict 3 mm boundary does not establish a sub-3 mm native section here. These local measurements do not qualify strength, deposition or lifetime.
 alternatives: Correct the reader’s numerical/tessellation boundary using exact native sections when answering this question. Enlarging every nominal section to change floating-point ranking would alter fitted collar, guard and wall interfaces. The lint threshold itself is unchanged.
@@ -158,11 +156,9 @@ click: x=-8.482 y=86.790 z=274.224
 click: x=9.288 y=88.557 z=275.161
 click: x=8.482 y=86.790 z=274.224
 
-[thin] Outside the purchased-elbow conversion: these display, bay-end and interlocking-flank locations are geometrically unchanged outside the dock edit region X[-105,105], Y[78,188], Z[130,250] mm. The sampled bay/seam distances are 1.74–2.56 mm; the display-corner sample is about 0.82 mm. The comparison is recorded in pump-dock/elbow-review/shell-scope.json. These inherited findings remain open for a feature-specific fit, section and print-path review; this answer does not qualify or accept them.
-alternatives: Review the existing bay boundaries, seam engagement and display corner with their mating pieces before changing them. A blanket 3 mm enlargement could consume their fitted clearances. The elbow conversion preserves these unrelated interfaces, and the completion reply identifies this deferred review.
+[thin] Outside the purchased-elbow conversion: these bay-end and interlocking-flank locations are geometrically unchanged outside the dock edit region X[-105,105], Y[78,188], Z[130,250] mm. The sampled bay/seam distances are 1.74–2.56 mm. The comparison is recorded in pump-dock/elbow-review/shell-scope.json. These inherited findings remain open for a feature-specific fit, section and print-path review; this answer does not qualify or accept them.
+alternatives: Review the existing bay boundaries and seam engagement with their mating pieces before changing them. A blanket 3 mm enlargement could consume their fitted clearances. The elbow conversion preserves these unrelated interfaces, and the completion reply identifies this deferred review.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=101.340 y=6.554 z=289.899
-click: x=100.629 y=6.152 z=289.899
 click: x=-107.150 y=82.515 z=164.871
 click: x=-107.500 y=83.050 z=163.250
 click: x=104.500 y=169.032 z=286.210
@@ -259,3 +255,9 @@ click: x=83.437 y=178.290 z=218.063
 click: x=83.437 y=181.290 z=218.063
 click: x=95.607 y=176.350 z=231.154
 click: x=95.607 y=173.350 z=231.154
+
+[thin] Specific cosmetic-flute land at a corner: each reading runs up one of the box's vertical R12 corners along one land of the reeded field, which closes on itself round the box (`flute_count` 272 grooves at 4.9338 mm pitch, 4 mm wide and 1.2 mm deep, leaving 0.93 mm of land between grooves). Where a corner's arc turns the grooves across it obliquely, one land's flank lies flat and its crest reads 0.80-0.82 mm.
+alternatives: Wider lands change the pitch the closed field settles on. A plain band at each corner breaks the closed wrap, and shallower grooves there change the texture's depth on the corners alone.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-101.340 y=6.551 z=295.888
+click: x=101.340 y=6.554 z=289.899

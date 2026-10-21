@@ -10,7 +10,7 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
 click: x=88.753 y=16.839 z=15.650
 click: x=88.753 y=16.839 z=152.250
 
-[thin] Specific cosmetic-flute profile exception: these are true short chords across the authored exterior groove/land contour and entry fade. Five interior samples of every listed segment lie in the actual final fluted STL. The shared profile is 4 mm wide and 1.2 mm deep, with a 5 mm smoothstep fade; current pitch is 5.0073 mm. The corner coupon and full-front photographs in cadlib/flute-evidence/README.md establish their profile and appearance scopes. This is a specific exterior-texture allowance, with no 3 mm finished-wall, exact current-field deposition, surface-quality or load-capacity acceptance.
+[thin] Specific cosmetic-flute profile exception: these are true short chords across the authored exterior groove/land contour and entry fade. Five interior samples of every listed segment lie in the actual final fluted STL. The shared profile is 4 mm wide and 1.2 mm deep, with a 5 mm smoothstep fade; current pitch is 4.9338 mm. The corner coupon and full-front photographs in cadlib/flute-evidence/README.md establish their profile and appearance scopes. This is a specific exterior-texture allowance, with no 3 mm finished-wall, exact current-field deposition, surface-quality or load-capacity acceptance.
 alternatives: Flattening or shallowing changes the retained visible profile. Widening the lands changes the closed field spacing. Assess a finish change against the appearance evidence; a thickness-only cutoff cannot choose that contour.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
 click: x=-107.497 y=62.648 z=39.295
@@ -110,3 +110,9 @@ alternatives: Closing the slot restores the 45° arris where the passage crosses
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
 click: x=-102.279 y=205.863 z=128.171
 click: x=102.279 y=205.863 z=128.171
+
+[thin] Specific cosmetic-flute land at a corner: each reading runs the height of one of the box's vertical R12 corners along one land of the reeded field, which closes on itself round the box (`flute_count` 272 grooves at 4.9338 mm pitch, 4 mm wide and 1.2 mm deep, leaving 0.93 mm of land between grooves). Where a corner's arc turns the grooves across it obliquely, one land's flank lies flat and its crest reads 0.80 mm.
+alternatives: Wider lands change the pitch the closed field settles on. A plain band at each corner breaks the closed wrap, and shallower grooves there change the texture's depth on the corners alone.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
+click: x=-101.340 y=6.520 z=154.499
+click: x=101.340 y=6.520 z=39.004

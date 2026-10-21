@@ -4,7 +4,7 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-40.710 y=458.730 z=294.222
 click: x=-40.710 y=458.780 z=314.272
 
-[thin] Specific cosmetic-flute profile exception: these true short chords lie in the authored exterior groove, land or fade. All five interior samples lie in the exact final fluted STL. The shared groove is 4 mm wide, 1.2 mm deep and uses a 5 mm smoothstep fade; current pitch is 5.0073 mm. The corner-coupon and appearance scopes are recorded in cadlib/flute-evidence/README.md. This is a specific exterior-contour allowance, with no 3 mm finished-wall, exact deposition or load-capacity acceptance.
+[thin] Specific cosmetic-flute profile exception: these true short chords lie in the authored exterior groove, land or fade. All five interior samples lie in the exact final fluted STL. The shared groove is 4 mm wide, 1.2 mm deep and uses a 5 mm smoothstep fade; current pitch is 4.9338 mm. The corner-coupon and appearance scopes are recorded in cadlib/flute-evidence/README.md. This is a specific exterior-contour allowance, with no 3 mm finished-wall, exact deposition or load-capacity acceptance.
 alternatives: Flattening or shallowing changes the retained visible contour. Widening lands changes closed-field spacing. Assess a finish change against the appearance evidence rather than choosing it from a thickness-only cutoff.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=106.300 y=213.453 z=172.559
@@ -15,6 +15,8 @@ click: x=104.500 y=243.300 z=256.684
 alternatives: A thicker lip needs a thicker plate or a thinner wing, each a change to the accepted fit.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-24.549 y=471.293 z=314.939
+click: x=-56.872 y=471.300 z=316.236
+click: x=86.585 y=471.300 z=260.778
 
 [thin] Specific fitted M3 insert-host interface: these sections span 2.000 mm from the Ø4.0 pilot to the Ø8 host's face (mount_boss_dia), ruthex's 1.6 mm minimum wall plus the 0.25 mm supported allowance and 0.15 mm slip. Each measured face sits on a neighbour: relay 1 and 2 pin boxes, the ground stack, the main board's top edge. Inside a fill the host keeps the fill's face, 1.75 mm behind the relieved crown.
 alternatives: A 3 mm host needs every body gap in the bay widened by about 1 mm and relays with pins further from their holes.
@@ -193,7 +195,6 @@ click: x=-43.710 y=370.810 z=344.400
 click: x=-43.710 y=417.210 z=344.400
 click: x=32.650 y=329.153 z=346.861
 click: x=55.075 y=406.653 z=342.286
-click: x=-88.285 y=282.000 z=276.899
 
 [ceiling] Unavoidable populated-electronics mounting profiles: these finite pad ends retain their component mounting planes and insert hosts, with corbel reach limited by the actual pin/blocker fields. Support approaches through the empty interior before electronics installation. Physical cleanup remains unqualified.
 alternatives: An unrestricted corbel enters the populated-board/tail keepout. Shortening changes the insert host or mounting plane; a different layout needs its own full populated clearance review.
@@ -201,16 +202,25 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=97.375 y=338.300 z=259.400
 click: x=97.375 y=338.800 z=327.200
 
-[ceiling] Unavoidable fitted catch bridges: each face is the bearing face of a catch window in `carb-1`'s capped rib, where the anchor cap's lip bears. Back-top prints ceiling-down, so the face is a 14.6 mm bridge carried by the rib's two 3 mm end webs, 4.0 mm over the slab; the window it roofs is the 1.6 mm pocket the lip enters.
+[ledge] Unavoidable fitted catch bridges: each face is the bearing face of a catch window in `carb-1`'s or `co2-2`'s capped rib under the ceiling, where the anchor cap's lip bears. Back-top prints ceiling-down, so the rib stands up off the slab and the face prints as a 10.3 mm bridge between the rib's two 3 mm end webs (`_anchor_cap_interface`: the cap's 10 mm and a slip at each end), roofing the closed pocket the lip enters.
 alternatives: A corbel or column under the face fills the window the lip enters. Sloping the face turns the lip's pull into a spread that walks the wing out of the window, and a window open at its ends gives up the end webs the bridge stands on.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=50.200 y=265.075 z=339.022
-click: x=50.200 y=276.125 z=339.022
+click: x=50.633 y=276.392 z=339.022
+click: x=50.633 y=264.808 z=339.022
+click: x=53.358 y=400.861 z=342.882
+click: x=53.358 y=412.444 z=342.882
 
-[sliver] Unavoidable fitted catch faces: each 1.6 mm strip is the bearing face of a catch window in `carb-1`'s capped rib, as deep as the window: the anchor cap lip's 1.2 mm engagement with a slip and the bridge's 0.25 mm finish allowance past the lip's tip.
+[sliver] Unavoidable fitted catch faces: each 1.6 mm strip is the bearing face of a catch window in a capped rib, `carb-1`'s under the ceiling or `fluid-28`'s on the wall, as deep as the window: the anchor cap lip's 1.2 mm engagement with a slip and the bridge's 0.25 mm finish allowance past the lip's tip.
 alternatives: A deeper window narrows the rib's web for bearing the 1.2 mm lip never uses, and a shallower one lets the lip bottom out. A deeper engagement spreads the cap's wings past the faucet display cover's strain on the same estimate.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=50.200 y=276.125 z=339.022
+click: x=52.350 y=276.125 z=339.022
+click: x=-84.992 y=282.000 z=276.099
+
+[ceiling] Unavoidable fitted catch bridges on a wall: `fluid-28`'s capped rib roots on a wall with its tube level, so the flank that looks print-down and the roof of the catch window cut in it are flat faces over air. Each is a bridge between the rib's two 3 mm end webs, which stand on the tied rib's 45° corbels (`tube_anchor_corbel_depth`); the window is the closed pocket the anchor cap's lip enters.
+alternatives: A corbel under the flank fills the window and the wing's travel. Sloping the flank or the window's roof turns the lip's pull into a spread that walks the wing out of the window.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-91.746 y=282.000 z=275.299
+click: x=-84.685 y=282.000 z=276.899
 
 [slope] Required keystone corbel turn-back: between the corbel's wall-grounded side cheeks the strip turns back at 45 degrees onto the DATA pad's run-out, keeping 1.0 mm off the soda union's clamp-nut envelope and 3.9 mm off the union itself; its lowest printed edge is a 15.56 mm bridge between the cheeks and both faces carry themselves.
 alternatives: Running the strip on up the wall as the cheeks do enters the nut's envelope; filling it enters the union clearance.
@@ -221,3 +231,21 @@ click: x=-40.710 y=463.334 z=322.840
 alternatives: Group facets by the B-rep face they came from before comparing planes, so one face cannot read as two. Drawing the strip as an exact plane removes the scatter; the feature that makes it a B-spline is not yet identified.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-3.262 y=465.378 z=321.095
+
+[thin] Specific cosmetic-flute land at a corner: each reading runs the height of one of the box's vertical R12 corners along one land of the reeded field, which closes on itself round the box (`flute_count` 272 grooves at 4.9338 mm pitch, 4 mm wide and 1.2 mm deep, leaving 0.93 mm of land between grooves). Where a corner's arc turns the grooves across it obliquely, one land's flank lies flat and its crest reads 0.80 mm.
+alternatives: Wider lands change the pitch the closed field settles on. A plain band at each corner breaks the closed wrap, and shallower grooves there change the texture's depth on the corners alone.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=95.799 y=471.295 z=349.371
+click: x=107.138 y=462.219 z=167.648
+click: x=-96.600 y=471.246 z=253.851
+click: x=-106.915 y=462.990 z=167.629
+
+[sliver] Specific fitted keystone swing ease: the strip is the square shoulder that ends the jack's 50° swing ease 1.0 mm over the aperture's top edge (`keystone_ease_shoulder`); 0.84 mm is that slope's run across the shoulder's 1.0 mm. The ease gives the purchased jack's top the room it swings through going in, and retention stays on the back catches.
+alternatives: Running the ease out on the aperture's edge meets the face in a knife edge, and a taller shoulder leaves more open face over the jack.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-40.710 y=467.370 z=311.552
+
+[thin] Specific fitted keystone swing ease: the face's lip over the keystone's swing ease is 0.84 mm at the edge where the ease's square shoulder meets the face (`keystone_ease_shoulder`, 1.0 mm over the aperture's top edge on the ease's 50° slope); it thickens up the slope from there.
+alternatives: Running the ease out on the aperture's edge meets the face in a knife edge, and a taller shoulder leaves more open face over the jack.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-47.755 y=467.790 z=311.620
