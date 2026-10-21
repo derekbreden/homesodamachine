@@ -269,3 +269,8 @@ click: x=95.799 y=471.295 z=127.621
 click: x=-95.799 y=471.295 z=-0.370
 click: x=106.916 y=462.990 z=127.621
 click: x=-106.916 y=462.990 z=-0.370
+
+[thin] Wrong material-thickness classification: a stepped-corner pair. It pairs two faces that meet only at the edge of a corner of solid stock, where the -X flank's reeded field meets the plain block beside it; a ray along each pick's inward normal crosses 9.0 and 10.8 mm of material.
+alternatives: Read a pair as thickness only where the faces stand opposite each other across the material, not where they meet at a corner of it.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
+click: x=-107.331 y=330.081 z=126.438
