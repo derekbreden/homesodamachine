@@ -268,3 +268,38 @@ click: x=-78.073 y=289.131 z=273.899
 click: x=-94.220 y=471.262 z=261.759
 click: x=-94.220 y=471.263 z=320.898
 click: x=-94.220 y=471.208 z=352.234
+
+[thin] Approved by Derek as drawn: each reading is the wall a flute groove leaves on a 3 mm section. The 1.2 mm groove (`flute_depth`) leaves 1.8 mm between its floor and the inner face (enclosure README, Nothing may relieve into the outermost 3 mm of a fluted face): on back-top's two flanks, and over the blind ends of the C14's two insert pilots, which stop one 3 mm wall short of the back face. Derek, 2026-10-21: "The flute grooves on 3mm walls is good with me and approved by me."
+alternatives: A 4.2 mm wall keeps 3 mm under every groove and takes 1.2 mm more of the room inside each flank; a shallower groove changes the texture the corner coupon set.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-104.500 y=213.449 z=197.971
+click: x=104.500 y=213.449 z=197.971
+click: x=-104.500 y=302.251 z=277.527
+click: x=-104.500 y=331.860 z=260.475
+click: x=104.500 y=361.444 z=321.127
+click: x=104.500 y=405.856 z=323.115
+click: x=104.500 y=391.070 z=323.121
+click: x=-106.301 y=257.858 z=286.923
+click: x=106.301 y=376.261 z=328.014
+click: x=104.500 y=356.667 z=260.710
+click: x=104.500 y=356.667 z=293.710
+click: x=104.500 y=321.852 z=255.272
+click: x=104.500 y=321.852 z=322.572
+click: x=106.305 y=425.461 z=328.014
+click: x=104.500 y=455.047 z=261.543
+click: x=104.500 y=455.047 z=294.543
+click: x=88.898 y=468.300 z=336.160
+click: x=-104.500 y=327.028 z=173.586
+click: x=106.308 y=243.211 z=323.188
+click: x=44.902 y=468.300 z=336.011
+
+[thin] The linter is wrong here: each pair runs along back-top's outer face instead of across material. One pick is on the rim of an opening in the back face (the C14's cord aperture, a bulkhead-union pocket, the nameplate receiver) and the other where the nearest flute groove starts to fall away, both within 0.4 mm of the face at Y471.3, so the 1.355-2.331 mm is the width of the flute land along the face between the rim and the groove. The middle of each pair stands 0.06-0.39 mm from the face; a pair across material has its middle half the pair's length, here 0.68-1.17 mm, from every face (probe on the current STL). Reported to Derek.
+alternatives: Read a pair as thickness only where its middle stands about half the pair's length from every surface. No wall change addresses these readings.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=52.750 y=471.186 z=344.003
+click: x=82.027 y=471.172 z=346.188
+click: x=82.032 y=471.155 z=325.938
+click: x=-61.173 y=471.173 z=289.688
+click: x=-61.173 y=471.173 z=323.188
+click: x=-18.024 y=471.031 z=255.312
+click: x=-60.766 y=470.913 z=256.438
