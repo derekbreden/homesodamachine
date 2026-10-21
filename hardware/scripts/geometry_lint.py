@@ -155,8 +155,10 @@ PRINT_UP = {"enclosure-back-top": -1.0, "enclosure-pump-cap": -1.0, "funnel-mold
 #: Degrees about the box's X a piece leans on the bed, after `PRINT_UP`'s flip. The faucet bases
 #: bed on their foot with the -Y edge lifted by `faucet_shell.print_base_build_rot`, which
 #: refresh_print_project.py and prepare_vent_prints.py apply as a negative turn about X; these
-#: entries mirror it. `ledge` reads it.
-PRINT_TILT_X = {"faucet-shell-base": -15.0, "industrial-shell-base": -15.0}
+#: entries mirror it. The nameplate beds on its back, the Y0 plane its wings share, so its
+#: print's up is the box's +Y. `ledge` reads it.
+PRINT_TILT_X = {"faucet-shell-base": -15.0, "industrial-shell-base": -15.0,
+                "nameplate-001": 90.0}
 
 
 def print_up_of(stl):
