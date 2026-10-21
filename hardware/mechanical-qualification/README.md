@@ -593,9 +593,11 @@ retain their scope. This register requests no destructive drop, fixture or purch
 
 ## Infill and deposited structure
 
-The shared [PET-GF profile](../printed-parts/petgf.3mf) requests two wall loops and 15% grid
-infill, with local exceptions. Actual material around a loaded feature depends on nozzle and
-line width, both bore and outer walls, solid layers, narrow-region filling and modifiers.
+The shared [PET-GF profile](../printed-parts/petgf.3mf) requests two wall loops and 15% gyroid
+infill, with local exceptions. This is the production baseline; comparison prints do not
+change it without Derek's explicit instruction. Actual material around a loaded feature
+depends on nozzle and line width, both bore and outer walls, solid layers, narrow-region
+filling and modifiers.
 Thin cold-core walls can already be filled by their perimeter paths. Thick floors, posts
 and grip roofs can retain sparse interiors. Wall count alone is not a strength measurement.
 

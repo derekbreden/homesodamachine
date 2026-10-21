@@ -31,7 +31,10 @@ line on the project and keeps its archive beside it. No printer is contacted.
 ## Recipe
 
 Every project starts from [`petgf.3mf`](../../petgf.3mf): its process and filament
-presets, 0.20 mm first layer, 0.24 mm layers, `auto_brim` and Tree(auto)/Default supports.
+presets, two ordinary walls, 15% gyroid infill, 0.20 mm first layer, 0.24 mm layers,
+`auto_brim` and Tree(auto)/Default supports. Two walls and 15% gyroid remain the production
+baseline unless Derek explicitly requests a change. The local solid modifiers, six-wall
+surface bands and part-specific recipes below retain their specified settings.
 The requested Z trim is Mark1 +0.18 mm and Mark2 +0.04 mm, written as
 `faucet/refresh_print_project.py` writes it. [`petgf_cooling.py`](../../cadlib/petgf_cooling.py)
 applies the localized cooling. Black PET-GF on the left 0.4 mm nozzle prints model,
