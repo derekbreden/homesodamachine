@@ -56,7 +56,7 @@ points, it does not gate:
            rising off it — a Y slope on an X wall.
   thin     material between opposite-facing surfaces at any orientation — a
            fin between touching bores, a skin beside a cut, a knife edge or a
-           ridge — ranked thinnest first out to 3 mm across, with no line
+           ridge — ranked thinnest first out to 2.5 mm across, with no line
            inside that reach where thin becomes fine.
   ledge    a flat face within 30° of facing the bed in the print's pose,
            bounded by edges sharper than 25° and smaller than a ceiling —
@@ -97,8 +97,9 @@ _CEILING_OFF_BED = 0.5
 #: `slope` considers 45-ish undersides at least this big (mm²).
 _SLOPE_AREA = 15.0
 #: `thin` looks this far across the material. It is how far the lint reads, not a pass line:
-#: everything inside it is ranked.
-_THIN_REACH = 3.0
+#: everything inside it is ranked. Derek accepts a wall of 2.5 mm or more as close enough to the
+#: nominal 3 mm, so a section that thick is not read.
+_THIN_REACH = 2.5
 #: `thin` samples the surface about this far apart.
 _THIN_SPACING = 0.7
 #: Facets whose normals are at least 120° apart face each other across material, so a knife
