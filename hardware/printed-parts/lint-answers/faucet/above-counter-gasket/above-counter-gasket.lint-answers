@@ -1,5 +1,4 @@
 [thin] This is the full 2 mm TPU sealing sheet between the rigid plate and countertop, with open shank and rear bundle passages. The thin reading is its specified axial thickness. The centered gasket is unprinted; sealing compression and clamp capacity remain unqualified.
 alternatives: A thicker gasket increases the mounting-stack height and changes donor thread engagement and compression. A thinner sheet reduces compliance. The 2 mm sheet follows the matching plate perimeter and existing stack height.
 file: hardware/printed-parts/faucet/above-counter-gasket/above-counter-gasket.step
-click: x=-5.026 y=-4.897 z=-6.000
-click: x=-5.026 y=-4.897 z=-4.000
+click: x=-6.057 y=-5.894 z=-6.000

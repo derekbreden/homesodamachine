@@ -10,8 +10,6 @@ click: x=11.350 y=14.596 z=18.535
 click: x=-6.858 y=31.404 z=13.714
 click: x=0.018 y=-16.959 z=14.663
 click: x=0.040 y=-14.833 z=14.094
-click: x=-18.421 y=-1.328 z=8.820
-click: x=-15.943 y=-1.094 z=8.758
 click: x=18.412 y=-1.017 z=10.392
 click: x=15.929 y=-0.809 z=10.336
 click: x=29.385 y=-2.355 z=8.712
@@ -26,6 +24,7 @@ click: x=0.008 y=-11.778 z=25.498
 click: x=-0.022 y=-14.674 z=26.273
 click: x=-0.030 y=-12.822 z=33.182
 click: x=-0.045 y=-9.926 z=32.406
+click: x=-18.418 y=-0.948 z=10.376
 
 [ledge] These are the accepted foot's tilted rear shoulder and three screw-pilot terminations. They retain the source geometry in its minus-fifteen-degree pose and Bambu automatic tree support decisions. The bottom donor opening and plate sockets remain accessible before assembly. Reproducing these supported contact surfaces is the purpose of the cooling specimens; coupon release and lifting are physically unevaluated.
 alternatives: Bevels or through-openings would remove the supported contact being investigated and change the pilot geometry. Blocking support would change the accepted process. Neither change isolates the cooling comparison.

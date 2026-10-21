@@ -57,7 +57,9 @@ points, it does not gate:
   thin     material between opposite-facing surfaces at any orientation — a
            fin between touching bores, a skin beside a cut, a knife edge or a
            ridge — ranked thinnest first out to 2.5 mm across, with no line
-           inside that reach where thin becomes fine.
+           inside that reach where thin becomes fine. It is read across the
+           material, between the two faces alone: never along a face, round
+           the corner of a step or over air.
   ledge    a flat face within 30° of facing the bed in the print's pose,
            bounded by edges sharper than 25° and smaller than a ceiling —
            ranked smallest first.
@@ -108,6 +110,18 @@ _THIN_OPPOSITE = -0.5
 #: `thin` measures to a far facet only where it lies behind the sample by this share of the
 #: distance, about 6°: a corner in the sample's own plane is along the surface, not across it.
 _THIN_BEHIND = 0.1
+#: `thin` reads a pair as material between two faces only where nothing else comes near its
+#: middle: every other face stands further than this share of the pair's length from it. Across
+#: a wall nothing does until the wall ends. A pair that runs along a face a hair under it, or
+#: reads a ridge from just under its crest, has another face beside its middle; one that ends on
+#: the edge of a step, cutting the corner of the stock, has the face beyond that edge touching
+#: its end, half its length from its middle.
+_THIN_CLEAR = 0.5
+#: ... and the pair's own two faces at least this share: half the length across a wall, and on a
+#: 60° knife edge, the bluntest `_THIN_OPPOSITE` reads, a quarter off the near face.
+_THIN_CLEAR_OWN = 0.25
+#: A facet whose normal lies within 30° of the facet at either end of a pair is that end's face.
+_THIN_OWN = 0.866
 #: `thin` bins sample normals over this many directions to search each cone apart.
 _THIN_DIRECTIONS = 32
 #: `thin` samples this close, in one thickness band, are one place.
@@ -790,6 +804,13 @@ def material_thickness(mesh, pts, facet, reach=_THIN_REACH):
     along the surface rather than across any material. The distance is to the facet itself, so
     a large facet sampled `_THIN_SPACING` apart still measures to the point straight across.
 
+    Ends that face each other still do not make a pair material between two faces. From an
+    opening's rim to the flank of the flute groove beside it, a pair runs along the face a hair
+    under it; from a rib's crown to a slab past a step, it cuts the corner of the stock; across
+    two walls with a gap between them, it crosses air. So a sample reads its shortest pair only
+    where that pair crosses material between its own two faces (`_crosses_material`), and
+    otherwise nothing: the wall it stands on is read from its samples clear of the edge.
+
     Candidates are searched per direction: the samples are binned by normal over
     `_THIN_DIRECTIONS` directions, and a sample looks only among samples whose normals lie in the
     cone that can face back 120° from its bin — so its own surface and the walls square to it
@@ -811,13 +832,14 @@ def material_thickness(mesh, pts, facet, reach=_THIN_REACH):
     # the widest a bin runs from its direction, so its cone holds every candidate of every member
     spread = float(np.arccos(np.clip((n * dirs[home]).sum(axis=1), -1.0, 1.0)).max())
     cone = np.cos(min(np.pi, np.arccos(-_THIN_OPPOSITE) + spread))
+    index = _FacetIndex(mesh, pts, facet)
     for d in range(len(dirs)):
         mine = np.flatnonzero(home == d)
         cand = np.flatnonzero(n @ dirs[d] < -cone)
         if not len(mine) or not len(cand):
             continue
         tree = cKDTree(pts[cand], balanced_tree=False, compact_nodes=False)
-        _thickness_from(tree, cand, mine, mesh, pts, facet, n, reach, thick, meet)
+        _thickness_from(tree, cand, mine, mesh, index, pts, facet, n, reach, thick, meet)
     far = thick > reach
     thick[far], meet[far] = np.inf, np.nan
     return thick, meet
@@ -832,7 +854,7 @@ def _directions(count):
                             np.cos(polar)])
 
 
-def _thickness_from(tree, cand, mine, mesh, pts, facet, n, reach, thick, meet):
+def _thickness_from(tree, cand, mine, mesh, index, pts, facet, n, reach, thick, meet):
     """`material_thickness` for the samples `mine`, against the candidates `tree` holds: from
     the sample itself, then from half the reach inside for those whose nearest were all air."""
     todo = mine
@@ -866,18 +888,86 @@ def _thickness_from(tree, cand, mine, mesh, pts, facet, n, reach, thick, meet):
             length = np.linalg.norm(gap, axis=1)
             across = ((np.einsum("ij,ij->i", gap, ni) >= _THIN_BEHIND * length - 1e-9)
                       & (np.einsum("ij,ij->i", gap, n[other]) <= 1e-9))
-            row, q, length = row[across], q[across], length[across]
+            across &= length <= reach
+            row, p, q, length = row[across], p[across], q[across], length[across]
+            ni, nj = ni[across], n[other[across]]
             if len(row):
+                # each sample's shortest pair, where it crosses material between its two faces
                 order = np.lexsort((length, row))
                 first = order[np.r_[True, row[order][1:] != row[order][:-1]]]
-                thick[sel[row[first]]] = length[first]
-                meet[sel[row[first]]] = q[first]
+                won = first[_crosses_material(index, p[first], q[first], ni[first], nj[first])]
+                thick[sel[row[won]]] = length[won]
+                meet[sel[row[won]]] = q[won]
             # nothing across yet, and the k nearest ran out inside the bound
             full = np.isfinite(dist[:, -1])
             again.append(sel[~np.isfinite(thick[sel]) & full])
         todo = np.concatenate(again)
         if not len(todo):
             break
+
+
+class _FacetIndex:
+    """What `_crosses_material` asks of the surface: the facets of the samples nearest a point,
+    which settle most pairs, and the facet tree, for every facet whose box meets a box."""
+
+    def __init__(self, mesh, pts, facet):
+        self.tris, self.normals = mesh.triangles, mesh.face_normals
+        self.tree, self.facet = mesh.triangles_tree, facet
+        self.samples = cKDTree(pts, balanced_tree=False, compact_nodes=False)
+
+    def nearest(self, x, k=8):
+        """(facet, point) for the facets the `k` samples nearest each point of `x` lie on."""
+        _, nb = self.samples.query(x, k=k, workers=-1)
+        return self.facet[nb.ravel()], np.repeat(np.arange(len(x)), k)
+
+    def boxed(self, lo, hi):
+        """(facet, box) for each facet whose box meets each box (`lo`, `hi`)."""
+        ids, counts = self.tree.intersection_v(lo, hi)
+        return ids.astype(np.int64), np.repeat(np.arange(len(lo)), counts.astype(np.int64))
+
+    def intrudes(self, facets, at, mid, length, ni, nj):
+        """Whether each facet comes as near the middle of pair `at` as `_THIN_CLEAR` of the pair's
+        length, or nearer than `_THIN_CLEAR_OWN` for a facet of either end's own face."""
+        gap = np.linalg.norm(closest_point(self.tris[facets], mid[at]) - mid[at], axis=1)
+        normal = self.normals[facets]
+        own = ((np.einsum("ij,ij->i", normal, ni[at]) >= _THIN_OWN)
+               | (np.einsum("ij,ij->i", normal, nj[at]) >= _THIN_OWN))
+        return np.where(own, gap < _THIN_CLEAR_OWN * length[at],
+                        gap <= _THIN_CLEAR * length[at] + 1e-6)
+
+
+def _crosses_material(index, p, q, ni, nj):
+    """Which pairs p → q, between faces facing `ni` and `nj`, cross material between those two
+    faces: no other face comes as near its middle as `_THIN_CLEAR` of the pair's length, nor its
+    own two nearer than `_THIN_CLEAR_OWN`, and no facet cuts the segment between its ends. Every
+    facet that could do either stands within half the pair's length of its middle."""
+    length = np.linalg.norm(q - p, axis=1)
+    mid = (p + q) / 2.0
+    good = np.ones(len(p), bool)
+    facets, at = index.nearest(mid)
+    good[at[index.intrudes(facets, at, mid, length, ni, nj)]] = False
+    live = np.flatnonzero(good)
+    half = length[live, None] / 2.0
+    facets, at = index.boxed(mid[live] - half, mid[live] + half)
+    bad = (index.intrudes(facets, at, mid[live], length[live], ni[live], nj[live])
+           | _cuts(index.tris[facets], p[live][at], q[live][at]))
+    good[live[at[bad]]] = False
+    return good
+
+
+def _cuts(tri, a, b):
+    """Whether each triangle cuts the segment a → b away from its ends (Möller–Trumbore)."""
+    e1, e2, d = tri[:, 1] - tri[:, 0], tri[:, 2] - tri[:, 0], b - a
+    h = np.cross(d, e2)
+    det = np.einsum("ij,ij->i", e1, h)
+    live = np.abs(det) > 1e-12
+    inv = np.divide(1.0, det, out=np.zeros_like(det), where=live)
+    s = a - tri[:, 0]
+    u = inv * np.einsum("ij,ij->i", s, h)
+    w = np.cross(s, e1)
+    v = inv * np.einsum("ij,ij->i", d, w)
+    t = inv * np.einsum("ij,ij->i", e2, w)
+    return live & (u >= 0) & (v >= 0) & (u + v <= 1) & (t > 1e-3) & (t < 1 - 1e-3)
 
 
 def _near_sample_pairs(tree, pts, counts, radius):
@@ -1420,6 +1510,14 @@ def _selftest():
             [(0, 0, 0.3), (0, 10, 0.3), (10, 10, 0.3), (10, 0, 0.3)]]
     assert find_thin(sheet(slot)) == [], "a slot of air read as material"
     assert find_thin(sheet(plate(0.0, 5.0))) == [], "a 5 mm slab read as thin"
+    # a strip of face is not a wall: an opening's rim and the flank of the groove beside it face
+    # each other across the land between them, and every pair from the rim to the flank runs
+    # just under the land, ends on an edge of the flank, or has the land beside its middle
+    land = [[(0, -8, 0), (0, 0, 0), (0, 0, 10), (0, -8, 10)],                          # rim
+            [(-1.35, 0, 0), (-1.35, 0, 10), (0, 0, 10), (0, 0, 0)],                    # land
+            [(-1.523, -0.3, 0), (-1.523, -0.3, 10), (-1.35, 0, 10), (-1.35, 0, 0)],    # flank
+            [(-6, -0.3, 0), (-6, -0.3, 10), (-1.523, -0.3, 10), (-1.523, -0.3, 0)]]    # floor
+    assert find_thin(sheet(land)) == [], "a strip of face read as a wall"
     # ranked thinnest first, and an answer keeps the place on the ranking beside its reason
     got = sorted(find_thin(sheet(plate(0.0, 1.0) + plate(0.0, 0.05, x0=20.0))),
                  key=lambda r: -r["score"])
