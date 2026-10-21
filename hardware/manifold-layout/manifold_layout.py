@@ -700,10 +700,10 @@ def pump_plumbing():
 
 
 def fixed_tee_centers(carry=None):
-    """Compatibility accessor for the four printed junction's lower branch roots."""
-    return {name: (carry((authoring_point(data["junction"]["lower_flow_segments"][0]["start_mm"]),
+    """Compatibility accessor for the four printed junctions' inlet-gallery meets."""
+    return {name: (carry((authoring_point(data["junction"]["gallery"]["inlet"]),
                           (0., 0., 1.)))[0] if carry is not None else
-                   authoring_point(data["junction"]["lower_flow_segments"][0]["start_mm"]))
+                   authoring_point(data["junction"]["gallery"]["inlet"]))
             for name, data in pump_plumbing().items()}
 
 
@@ -1275,8 +1275,8 @@ def report(assy: cq.Assembly) -> dict:
     for cid, frm, to, how in SEGMENTS:
         if how == "spine":
             links = lower_links()[cid]
-            note = (f"{sum(s['length_mm'] for s in links['junction']):.3f} mm short valve link + "
-                    f"{sum(s['length_mm'] for s in links['valve']):.3f} mm formed LLDPE, scanned PP0308E elbow")
+            note = (f"{sum(s['length_mm'] for s in links['valve']):.3f} mm short valve link + "
+                    f"{sum(s['length_mm'] for s in links['junction']):.3f} mm formed LLDPE, scanned PP0308E elbow")
         elif how == "turn":
             note = f"{QUARTER_LEN:.2f} mm — one 90° turn at R{BEND_R:g}"
             if cid in SBENDS:

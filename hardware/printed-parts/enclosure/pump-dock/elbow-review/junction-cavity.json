@@ -1,21 +1,23 @@
 {
-  "scope": "Current relaxed manufacturing geometry: one connected body and cavity, circular seal axes and annular-bearing witnesses. No seal/pressure/lifetime qualification.",
+  "scope": "One connected rounded common gallery, circular outlet sockets and annular-stop material witnesses. No sealing, pressure or lifetime qualification.",
   "source_sha256": {
-    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "8732c1b619e7c2a34c98134ce4f0aee24cd2fdeb8db977d0b424367f56300dab",
-    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "cb181ea11e5a5b5b121c4b64dab8ac64d30ff505906b6fd55c7ac01b4be3347a"
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "8fd2e671eeff5b860fa955bb9bcc8791757de82a27187863775aca95a9d1407b",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "6ef5151355ef9324658ee55c33b428021e569a118486ee4b2c116a826466f627"
   },
   "stations": {
     "west-outer": {
       "body_valid": true,
+      "body_solids": 1,
       "connected_cavity": true,
+      "cavity_solids": 1,
       "ports": {
         "upper": {
-          "socket_axis_clear_at_1_3_5_5_mm": [
+          "axis_clear": [
             true,
             true,
             true
           ],
-          "annular_stop_material_at_four_radial_3_mm_witnesses": [
+          "radial_stop_witnesses": [
             true,
             true,
             true,
@@ -23,32 +25,33 @@
           ]
         },
         "lower": {
-          "socket_axis_clear_at_1_3_5_5_mm": [
+          "axis_clear": [
             true,
             true,
             true
           ],
-          "annular_stop_material_at_four_radial_3_mm_witnesses": [
+          "radial_stop_witnesses": [
             true,
             true,
             true,
             true
           ]
         }
-      },
-      "flat_bed_landing_mm2": 118.79393923933998
+      }
     },
     "west-inner": {
       "body_valid": true,
+      "body_solids": 1,
       "connected_cavity": true,
+      "cavity_solids": 1,
       "ports": {
         "upper": {
-          "socket_axis_clear_at_1_3_5_5_mm": [
+          "axis_clear": [
             true,
             true,
             true
           ],
-          "annular_stop_material_at_four_radial_3_mm_witnesses": [
+          "radial_stop_witnesses": [
             true,
             true,
             true,
@@ -56,32 +59,33 @@
           ]
         },
         "lower": {
-          "socket_axis_clear_at_1_3_5_5_mm": [
+          "axis_clear": [
             true,
             true,
             true
           ],
-          "annular_stop_material_at_four_radial_3_mm_witnesses": [
+          "radial_stop_witnesses": [
             true,
             true,
             true,
             true
           ]
         }
-      },
-      "flat_bed_landing_mm2": 118.79393923933998
+      }
     },
     "east-inner": {
       "body_valid": true,
+      "body_solids": 1,
       "connected_cavity": true,
+      "cavity_solids": 1,
       "ports": {
         "upper": {
-          "socket_axis_clear_at_1_3_5_5_mm": [
+          "axis_clear": [
             true,
             true,
             true
           ],
-          "annular_stop_material_at_four_radial_3_mm_witnesses": [
+          "radial_stop_witnesses": [
             true,
             true,
             true,
@@ -89,32 +93,33 @@
           ]
         },
         "lower": {
-          "socket_axis_clear_at_1_3_5_5_mm": [
+          "axis_clear": [
             true,
             true,
             true
           ],
-          "annular_stop_material_at_four_radial_3_mm_witnesses": [
+          "radial_stop_witnesses": [
             true,
             true,
             true,
             true
           ]
         }
-      },
-      "flat_bed_landing_mm2": 118.79393923933998
+      }
     },
     "east-outer": {
       "body_valid": true,
+      "body_solids": 1,
       "connected_cavity": true,
+      "cavity_solids": 1,
       "ports": {
         "upper": {
-          "socket_axis_clear_at_1_3_5_5_mm": [
+          "axis_clear": [
             true,
             true,
             true
           ],
-          "annular_stop_material_at_four_radial_3_mm_witnesses": [
+          "radial_stop_witnesses": [
             true,
             true,
             true,
@@ -122,20 +127,19 @@
           ]
         },
         "lower": {
-          "socket_axis_clear_at_1_3_5_5_mm": [
+          "axis_clear": [
             true,
             true,
             true
           ],
-          "annular_stop_material_at_four_radial_3_mm_witnesses": [
+          "radial_stop_witnesses": [
             true,
             true,
             true,
             true
           ]
         }
-      },
-      "flat_bed_landing_mm2": 118.79393923933998
+      }
     }
   }
 }

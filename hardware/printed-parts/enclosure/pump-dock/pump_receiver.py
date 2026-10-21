@@ -10,7 +10,7 @@ the junction about Y.
 The Ø6.10 bore and 2.8 mm minimum radial cuff wall follow the manually fitted
 TPU elbow article. Six-millimetre lands, wall confinement, permanent service,
 pressure holding and endurance are unqualified on this geometry. The
-aft web provides a flat print landing, with circular lands tilted at most 45 degrees.
+flat-sided web backs the branch sockets. Circular lands tilt at most 45 degrees in the print pose.
 External supports remain accessible before factory mounting. The sealing lands remain circular.
 """
 from functools import lru_cache
@@ -68,7 +68,7 @@ BRANCH_OD = 11.72
 ENTRY_AXIAL = .50
 ENTRY_RADIAL = .25
 WEB_HALF_WIDTH = 7.0
-WEB_RIM_MARGIN = 1.5
+PRINT_FOOT_CORNER = 1.25
 MATERIAL = "Siraya Tech Flex TPU 85A Clear"
 # Clear stock, rather than the black Bambu 90A gasket stock.
 COLOR = cq.Color(.92, .92, .90, .60)
@@ -126,10 +126,8 @@ def _default_junction():
 def _local_junction(junction,origin):
     if junction is None:return _default_junction()
     out=dict(junction)
-    for key in ("upper_flow_segments","lower_flow_segments"):
-        out[key]=tuple({k:tuple(v[i]-origin[i] for i in range(3))
-                        if k in ("start_mm","end_mm","midpoint_mm") else v
-                        for k,v in segment.items()} for segment in junction[key])
+    out['gallery']={k:tuple(v[i]-origin[i] for i in range(3))
+                    for k,v in junction['gallery'].items()}
     for key in ("upper","lower","upper_target","return_target"):
         out[key]=dict(junction[key])
         for field in ("point","tube_stop"):
@@ -139,33 +137,51 @@ def _local_junction(junction,origin):
 
 def _web_wire(junction):
     r=BRANCH_OD/2
-    _,uy,uz=junction['upper']['tube_stop']
+    _,uy,_=junction['upper']['tube_stop']
     mouth=cq.Vector(*junction['lower']['point'])
     axis=cq.Vector(*junction['lower']['axis'])
-    front=REAR_COLLAR_Y[1]-.5;back=REAR_COLLAR_Y[1]
-    rim=((COLLAR_OD/2)**2-WEB_HALF_WIDTH**2)**.5-WEB_RIM_MARGIN
-    top=rim-(back-front)*(uz-rim)/(uy-back)
-    lower=junction['lower_flow_segments'][0]
-    # A broad 45-degree aft face is the print landing. It remains outside
-    # the upper tube corridor and has at least 3 mm horizontal projection.
-    peak=(uy+r,junction['upper']['point'][2])
-    aft=max(peak[0]+3.,lower['midpoint_mm'][1]+r,
-            junction['lower']['tube_stop'][1]+r)
-    foot=mouth.z-(aft-mouth.y)*axis.y/axis.z-r
-    outline=[(front,-rim),(front,top),peak,(aft,sum(peak)-aft),
-             (aft,foot),(mouth.y-r,foot)]
+    front=REAR_COLLAR_Y[1]
+    aft=uy+r
+    top=junction['upper']['point'][2]
+    foot=mouth.z-(aft-mouth.y)*axis.y/axis.z-r/abs(axis.z)
+    # One flat 45-degree bed face at the fore/top corner, clear of all bores.
+    outline=[(front,foot),(front,top-PRINT_FOOT_CORNER),
+             (front+PRINT_FOOT_CORNER,top),(aft,top),(aft,foot)]
     return cq.Wire.makePolygon([cq.Vector(-WEB_HALF_WIDTH,y,z) for y,z in outline],close=True)
 
 
 def crotch_web(junction=None):
-    """One flat-sided web with an integral 45-degree print landing."""
+    """One flat-sided web backing both branch sockets."""
     junction=junction or _default_junction()
     wire=_web_wire(junction)
     web=cq.Solid.extrudeLinear(wire,[],cq.Vector(2*WEB_HALF_WIDTH,0,0))
     mouth=cq.Vector(*junction['lower']['point']);axis=cq.Vector(*junction['lower']['axis'])
     behind=cq.Workplane(cq.Plane(origin=mouth,xDir=(1,0,0),normal=axis*-1)).box(
         400,400,400,centered=(True,True,False)).val()
-    return web.intersect(behind)
+    # The lower wall is parallel to the lower socket, one cuff radius below it.
+    radial=cq.Vector(0.,-axis.z,axis.y).normalized()
+    floor=cq.Workplane(cq.Plane(origin=mouth-radial*(BRANCH_OD/2),
+                     xDir=(1,0,0),normal=radial)).box(
+        400,400,400,centered=(True,True,False)).val()
+    return web.intersect(behind).intersect(floor)
+
+
+def _gallery(junction):
+    """One rounded common passage with short coaxial throats into the sockets."""
+    radius=TUBE_ID/2
+    setback=radius+plumbing.FLOW_REACH
+    points={name:cq.Vector(*junction['gallery'][name])
+            for name in ('upper','lower')}
+    a,b=points['lower'],points['upper'];direction=(b-a).normalized()
+    gallery=(cq.Solid.makeCylinder(radius,(b-a).Length,a,direction)
+             .fuse(cq.Solid.makeSphere(radius,a,angleDegrees1=-90),
+                   cq.Solid.makeSphere(radius,b,angleDegrees1=-90)))
+    inlet=cq.Vector(*junction['gallery']['inlet'])
+    gallery=gallery.fuse(_cylinder(TUBE_ID,RELIEF_TAPER_END_Y,inlet.y))
+    for name,point in points.items():
+        axis=cq.Vector(*junction[name]['axis'])
+        gallery=gallery.fuse(cq.Solid.makeCylinder(radius,setback+.5,point,axis))
+    return gallery.clean()
 
 
 def _geometry(*,installed=False,junction=None):
@@ -174,37 +190,17 @@ def _geometry(*,installed=False,junction=None):
     growth=TUBE_OD**2-SEAL_BORE_D**2 if installed else 0.
     od=math.sqrt(BRANCH_OD**2+growth)
     seal=TUBE_OD if installed else SEAL_BORE_D
-    # One continuous downward-turning inlet trunk and one straight upper branch.
-    trunk='lower'
     throat=TUBE_ID
-    segments=junction[trunk+'_flow_segments']
-    start=(0.,RELIEF_TAPER_END_Y,0.)
-    lead=plumbing._line(start,(0.,1.,0.),segments[0]['start_mm'][1]-start[1])
-    outer_root=max(junction["upper_flow_segments"][0]["start_mm"][1],
-                   junction["lower_flow_segments"][0]["end_mm"][1])
-    outer=_outside(installed).fuse(_cylinder(od,REAR_COLLAR_Y[1]-.5,outer_root+.1),crotch_web(junction))
+    outer=_outside(installed).fuse(crotch_web(junction))
     void=(_cone(FUNNEL_BORE_D,seal,0.,FRONT_SEAL_Y[0])
           .fuse(_cylinder(FUNNEL_BORE_D,-_EPS,0.))
           .fuse(_cylinder(seal,*FRONT_SEAL_Y))
           .fuse(_cylinder(FRONT_RELIEF_D,FRONT_SEAL_Y[1],RELIEF_TAPER_START_Y))
           .fuse(_cone(FRONT_RELIEF_D,throat,RELIEF_TAPER_START_Y,RELIEF_TAPER_END_Y))
-          .fuse(_sweep(throat,(lead,*segments))))
+          .fuse(_gallery(junction)))
     for branch in ("upper","lower"):
-        segments=junction[branch+"_flow_segments"]
-        if branch=='upper':
-            outer=outer.fuse(_sweep(od,segments))
-        else:
-            mouth=cq.Vector(*junction['lower']['point']);d=cq.Vector(*junction['lower']['axis'])
-            outer=outer.fuse(cq.Solid.makeCylinder(od/2,plumbing.SOCKET_DEPTH+1.0,mouth,d*-1))
         port=junction[branch]; d=cq.Vector(*port["axis"])
         stop=cq.Vector(*port["tube_stop"])
-        if branch!=trunk:
-            meet=cq.Vector(0.,stop.y,0.)
-            flow=(meet-stop).normalized()
-            # Both end caps lie inside the passages they join. The half-mm
-            # overlap into the larger seal bore leaves no blind cut remnant.
-            void=void.fuse(cq.Solid.makeCylinder(TUBE_ID/2,(meet-stop).Length+.5,
-                           stop-flow*.5,flow))
         end=stop+d*plumbing.SEAL_LAND
         void=void.fuse(cq.Solid.makeCylinder(seal/2,plumbing.SEAL_LAND,stop,d),
                        cq.Solid.makeCone(seal/2,seal/2+ENTRY_RADIAL,ENTRY_AXIAL,end,d),
@@ -264,9 +260,9 @@ def wet_stations(wall_fore_y=0.,x=0.,z=0.,*,junction=None):
 
 
 def print_rotations(junction=None):
-    # The aft web landing is flat; inlet/upper lands are 45 degrees and the
-    # lower land is 45 degrees from vertical.
-    return 0.,-135.
+    # Inlet/upper lands are 45 degrees from vertical. The diagonal lower
+    # land is nearly vertical; the fore/top chamfer is the flat bed landing.
+    return 180.,-135.
 
 
 def print_build_direction(junction=None):
@@ -275,7 +271,7 @@ def print_build_direction(junction=None):
 
 
 def print_solid(*,junction=None):
-    """The broad aft web landing sits flat on the bed."""
+    """Seat the fore/top chamfer on the bed with all circular lands at most 45 degrees."""
     zrot,xrot=print_rotations(junction)
     solid=geometry(junction=junction)['body'].rotate((0,0,0),(0,0,1),zrot).rotate((0,0,0),(1,0,0),xrot)
     return solid.translate((0,0,-solid.BoundingBox().zmin))
@@ -289,16 +285,15 @@ def engineering_record():
             "relaxed_cuff_od_mm":BODY_OD,"occupied_cuff_od_mm":math.sqrt(BODY_OD**2+TUBE_OD**2-SEAL_BORE_D**2),
             "rear_flange_y_mm":REAR_COLLAR_Y,
             "crotch_web_half_width_mm":WEB_HALF_WIDTH,
-            "flow_passages":"One continuous round inlet trunk and one straight branch. The inner trunk turns into its lower socket; the outer trunk turns into its upper socket.",
-            "inlet_trunk_bore_mm":{"inner":TUBE_ID,"outer":TUBE_ID+.2},
-            "outer_branch_merge_blend_radius_mm":1.,
+            "flow_passages":"One rounded common gallery joins the inlet and two short coaxial outlet throats.",
+            "inlet_trunk_bore_mm":TUBE_ID,
             "groove_y_mm":GROOVE_Y,"keeper_y_mm":KEEPER_Y,"keeper_slot_y_mm":KEEPER_SLOT_Y,
             "keeper_slide_air_mm":KEEPER_SLIDE_AIR,"neck_grip_d_mm":NECK_GRIP_D,"neck_mouth_w_mm":NECK_MOUTH_W,
             "lower_socket_nominal_throat_mm":TUBE_ID,
             "lower_socket_nominal_stop_radial_mm":(SEAL_BORE_D-TUBE_ID)/2,
             "customer_tip_clearance_mm":CUSTOMER_STOP_Y-CUSTOMER_TIP_Y,
             "flow_throat_d_mm":THROAT_D,"relief_taper_y_mm":[RELIEF_TAPER_START_Y,RELIEF_TAPER_END_Y],
-            "print_orientation":"Rotate -135 degrees about X; the integral aft web landing is flat on the bed. Circular lands stand 45/45/20 degrees (inner) or 45/45/45 degrees (outer) from vertical. Exterior Tree(auto)/Default supports.",
+            "print_orientation":"Rotate 180 degrees about Z, then -135 degrees about X; the fore/top chamfer seats flat on the bed. Inlet and upper circular lands stand 45 degrees from vertical; diagonal lower lands stand about 5–7 degrees. Exterior Tree(auto)/Default supports. Source-bound native preparation remains pending.",
             "physical_reference":"future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/physical-result.json",
             "scope":"Native manufacturing geometry. Siraya elbow exterior acceptance does not establish this fork, wet-service suitability, seal retention, pressure holding, support release or lifetime."}
 

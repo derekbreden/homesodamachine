@@ -2,7 +2,7 @@
 
 The ten flavor valves, both KPHM600 pumps and [2](TEE_COUNT) purchased source tees form the
 flavor manifold. Four permanent asymmetric TPU junctions receive the prepared pumps' LLDPE
-stubs through the enclosure wall. Each junction has one straight upper link and a downward socket. One bent tube reaches a scanned PP0308E elbow directly beneath the rear valve; a short straight tube joins the elbow to that valve.
+stubs through the enclosure wall. Each junction has one straight upper link and a diagonal lower socket. One bent tube reaches a scanned PP0308E elbow directly beneath the rear valve; a short straight tube joins the elbow to that valve.
 
 [`manifold_layout.py`](manifold_layout.py) writes `manifold-layout.step` with the purchased hardware, pump stubs, LLDPE members and four printed wet junctions. The [complete enclosure assembly](enclosure_assembly.py) adds the flat keepers, valve-tray clearances and magnet columns from the [permanent dock](/hardware/printed-parts/enclosure/pump-dock/README.md).
 
@@ -18,8 +18,8 @@ from them. There are no reservoir junctions or segments 15/25.
 | 2 × pump | Kamoer KPHM600-SW3B17, modelled on the measured KPHM400 head ([`reference/kamoer-kphm400`](/hardware/reference/kamoer-kphm400/)) — two barbs [59.75](BARB_PITCH) mm apart on one face, both facing the same way, [19.38](BARB_INSET) mm back from the head's front face. |
 | [2](TEE_COUNT2) × tee | John Guest PP0208E ([`reference/tee-connector`](/hardware/reference/tee-connector/README.md)) — run collets [21.25](TEE_RUN) mm either side of the body centre, [42.5](TEE_SPAN) mm end to end, branch reaching the same distance. |
 | 0 × Y-divider | Its two outlets stand [14.7](DIVIDER_PITCH) mm apart ([`reference/y-divider`](/hardware/reference/y-divider/README.md)). |
-| 4 × TPU junction | Permanent wall inlet, upward outlet and lower socket aimed into its supported elbow. Six-millimetre sealing lands share one printed wet body. |
-| 4 × purchased elbow | John Guest PP0308E, using the [scanned exterior](/hardware/reference/jg-pp0308e-elbow/README.md). Fixed collars bear on integral shell seats; release collets remain free. |
+| 4 × TPU junction | Permanent wall inlet, upward outlet and lower socket aimed toward the elbow beneath its rear valve. Six-millimetre sealing lands share one printed wet body. |
+| 4 × purchased elbow | John Guest PP0308E, using the [scanned exterior](/hardware/reference/jg-pp0308e-elbow/README.md). A short straight tube joins each upper leg to its valve; release collets remain free. |
 | [17](TUBE_COUNT2) × LLDPE cut | [8](STRAIGHT_LLDPE_COUNT) straight pump-junction links, four formed lower runs, two formed source links and three fully swallowed butt-joint blanks. The four 26 mm pump stubs are cut from the same LLDPE and supplied in prepared replacement pumps. |
 
 ## Frame
@@ -32,7 +32,7 @@ height, 0 at the pumps' own floor. The unshifted authoring deck references are z
 ## Four limbs, folded in two
 
 Each pump has two permanent wall junctions on its measured [59.75](BARB_PITCH2) mm port
-pitch. The inlet, upward outlet and aft/downward outlet share one TPU body. All four lower sockets point down. The upper outlets align with the fore valve ports.
+pitch. The inlet, upward outlet and aft/downward outlet share one TPU body. The lower sockets point 50 degrees down and aft, with the outer pair clocked slightly inward. The upper outlets align with the fore valve ports.
 
 The logical Y-C/D/F/G names identify these printed junctions. Y-A/B identify the two purchased
 source tees. The lane diagram describes connectivity and the valve placement construction;
@@ -55,7 +55,7 @@ The unshifted deck port references are z [90.81](DECK_Z2) and
 
 ## The fixed lower returns
 
-Fluid-9, 17, 19 and 27 each have an upright PP0308E immediately beneath the rear valve. A short straight tube joins the two purchased push-fit fittings. The junction's downward outlet reaches the elbow's forward leg through one R[14](SPINE_R) LLDPE bend, following the spool observation recorded in `_routing.STOCKS`.
+Fluid-9, 17, 19 and 27 each have an upright PP0308E immediately beneath the rear valve. A short straight tube joins the two purchased push-fit fittings. The junction's diagonal outlet reaches the elbow's forward leg through one shallow R[28](SPINE_R) LLDPE bend, turning 50 degrees at the inner stations and about 49.7 degrees at the outer stations. The purchased elbow supplies the final 90-degree turn into the valve.
 
 The rear valve row and source crossbar stand 8 mm above their deck reference to clear the compressor and condenser. V-A and V-B retain their cold-core seats. The valve joining tube's nominal cut is 28.7 mm. Actual fully seated marks govern purchased-fitting cuts; nominal insertion allowances are 15.7 mm at the elbow and 12 mm at the valve. The bent tube's TPU engagement is nominally 6.35 mm; its interference grip remains physically unqualified. See the [dock assembly procedure](/hardware/assembly/internal-plumbing.md) and [native integration review](/hardware/printed-parts/enclosure/pump-dock/elbow-review/README.md).
 
@@ -135,8 +135,8 @@ Mirror-checked: [9](TWIN_COUNT) twinned pairs, worst off by [0.0000](MIRROR_OFF)
 [3](BUTT_COUNT) of the [17](SEGMENT_COUNT) topology segments are collet butts, with no tube
 exposed between the faces. Four prepared LLDPE pump stubs enter the permanent wall junctions.
 The [4](FORE_STUB_COUNT) upper links to V-E/F/H/I are straight and have
-[14.501](FORE_STUB_EXPOSED) mm exposed. Four lower connections each have two straight LLDPE
-members and one fixed printed return. Add the actual insertion depths for finished blanks;
+[14.501](FORE_STUB_EXPOSED) mm exposed. Four lower connections each have one straight valve link, one shallow R28 formed tube
+and one purchased PP0308E elbow. Add the actual insertion depths for finished blanks;
 the purchased valve's hidden insertion stop is not specified by its exterior model.
 
 The two source quarter turns and their steps retain [6](CORNER_COUNT) formed LLDPE corners.
@@ -144,7 +144,7 @@ Their R[14](MIN_BEND) geometry uses the user’s reported initial-flow observati
 The [neoFlo manufacturer sheet](https://assets.freshwatersystems.com/image/upload/s--N9disqrx--/gjtidjfc0tlprqbhb4ka.pdf)
 publishes a 25.4 mm bend radius for this 1/4-inch OD, 0.170-inch ID LLDPE stock. The R14 bench
 observation does not establish pressure or lifetime performance outside that published basis.
-The pump-junction upper and lower links impose no formed bend on LLDPE.
+The pump-junction upper links are straight; the lower links use shallow R28 bends.
 
 The [8](MOUTH_COUNT) mouths that leave this study are drawn one bend radius long and stop, and
 the fold turns all of them to face the back: V-A-I (tap), V-B-I (funnel), V-G-O (flavor A) and
