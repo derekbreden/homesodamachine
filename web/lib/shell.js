@@ -117,7 +117,12 @@ body {
 /* The bar's own inset stops at the safe area; the rest of it belongs to the
    links, which spend it as hit area (see .nav-icon). The gap closes as the bar
    narrows, so all nine icons land inside a phone's width (364px of a 375px
-   bar) and the right cluster keeps its edge. */
+   bar) and the right cluster keeps its edge.
+
+   iOS paints the status bar above in this bar's colour: Safari samples an
+   opaque, full-width bar that is sticky or fixed at the top edge. A Home
+   Screen app with nothing to sample there gets the system's top-edge blur,
+   which reaches down across the icons. */
 .site-nav {
   display: flex;
   gap: clamp(0.25rem, 2.2vw, 0.75rem);
@@ -386,6 +391,9 @@ const ICON_V = (() => {
 // Everything else (SW navigate bridge, notifications state, live-update
 // owner, toast) lives in public/boot.js loaded as a module — see that
 // file's docstring for the full architecture.
+//
+// The status-bar style is left unset, so iOS paints a Home Screen app's
+// status bar from the page itself (see .site-nav).
 const HEAD_TAGS = `<script>(function(){try{if(localStorage.getItem("hsmFcmToken"))document.documentElement.classList.add("notifs-enabled");}catch(e){}})();</script>
 <script type="module" src="/boot.js"></script>
 <meta charset="utf-8">
@@ -400,8 +408,7 @@ const HEAD_TAGS = `<script>(function(){try{if(localStorage.getItem("hsmFcmToken"
 <link rel="apple-touch-icon" sizes="180x180" href="/pwa-icons/apple-touch-icon-180.png${ICON_V}">
 <link rel="apple-touch-icon" href="/pwa-icons/apple-touch-icon-180.png${ICON_V}">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Soda Machine">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">`;
+<meta name="apple-mobile-web-app-title" content="Soda Machine">`;
 
 export function renderHead({
   title, pageStyles = "", pageHead = "", importMap = null,

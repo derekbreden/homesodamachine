@@ -28,10 +28,12 @@
   margin: 0;
   background: transparent;
   color: inherit;
-  width: 100vw;
-  height: 100vh;
-  max-width: 100vw;
-  max-height: 100vh;
+  /* Sized by its fixed containing block, not viewport units: in a Home
+     Screen app 100vh also counts the status bar (WebKit bug 316008). */
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   inset: 0;
   /* Card sits inside the safe area; backdrop (position:fixed inset:0) still
      covers the full viewport including under the dynamic island and home
