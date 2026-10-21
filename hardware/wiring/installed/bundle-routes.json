@@ -1,0 +1,134 @@
+{
+  "compressor-cord": {
+    "kind": "18 AWG 3-conductor SJOOW",
+    "outer_diameter_mm": 8.0,
+    "inner_diameter_mm": 6.2,
+    "diameter_basis": "Proposed layout envelope; actual purchased jacket OD remains unmeasured",
+    "bend_radius_mm": 8.0,
+    "end_trim_mm": 12.0,
+    "route_status": "unresolved",
+    "cores": {
+      "AC4-H": [
+        1.6,
+        0.0,
+        0.0
+      ],
+      "AC5-N": [
+        -0.8,
+        0.0,
+        1.38564
+      ],
+      "AC6-PE": [
+        -0.8,
+        0.0,
+        -1.38564
+      ]
+    },
+    "stations": [
+      {
+        "part": "pcba",
+        "fraction": [
+          0,
+          1,
+          1
+        ],
+        "offset": [
+          -16.15,
+          7.2,
+          -4.2
+        ]
+      },
+      {
+        "part": "pcba",
+        "fraction": [
+          0,
+          1,
+          1
+        ],
+        "offset": [
+          -23.15,
+          -17.8,
+          10.8
+        ]
+      },
+      {
+        "part": "pcba",
+        "fraction": [
+          0,
+          1,
+          1
+        ],
+        "offset": [
+          -30.15,
+          -102.8,
+          10.8
+        ]
+      },
+      {
+        "part": "pcba",
+        "fraction": [
+          0,
+          1,
+          1
+        ],
+        "offset": [
+          -30.15,
+          -113.8,
+          -35.2
+        ]
+      },
+      {
+        "part": "pcba",
+        "fraction": [
+          0,
+          1,
+          1
+        ],
+        "offset": [
+          -32.15,
+          -147.8,
+          -35.2
+        ]
+      },
+      {
+        "part": "compressor",
+        "fraction": [
+          1,
+          1,
+          1
+        ],
+        "offset": [
+          13.1,
+          15,
+          22
+        ]
+      },
+      {
+        "part": "compressor",
+        "fraction": [
+          1,
+          1,
+          1
+        ],
+        "offset": [
+          4.8,
+          -19,
+          22
+        ]
+      },
+      {
+        "part": "compressor",
+        "fraction": [
+          1,
+          1,
+          1
+        ],
+        "offset": [
+          4.8,
+          -54,
+          10
+        ]
+      }
+    ]
+  }
+}

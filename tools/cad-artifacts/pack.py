@@ -214,6 +214,7 @@ BUNDLED_GLB_DIRS = ("hardware/assembly/scenes/glb",)
 # and one more: it is the piece a customer stands in front of, and `faucet-shell.step` is what
 # /3d opens when anybody asks to look at the faucet.
 BUNDLED_PAYLOAD_DIRS = (
+    "hardware/wiring",
     "hardware/printed-parts/calibration/soda-studies",
     "hardware/printed-parts/fixtures/tube-insertion",
     "hardware/printed-parts/fixtures/pgfun-positioner",
