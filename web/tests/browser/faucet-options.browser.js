@@ -189,22 +189,25 @@ test("machine assembly has no faucet controls or recoloring", async () => {
   } finally { await page.close(); }
 });
 
-test("fresh faucet opens solid, explicit x-ray preference survives style changes, machine keeps its default", async () => {
+test("every model opens solid; a chosen x-ray survives style changes and carries to the machine", async () => {
+  const ghosted = (page) => page.evaluate(() => window.__hsm.currentGroup.children.find((m) => m.userData.side === "front").material.transparent);
+  const pressed = (page) => page.$eval(".xray-toggle", (e) => e.getAttribute("aria-pressed"));
+  const fresh = await openPage(machine, null);
+  try {
+    assert.equal(await ghosted(fresh.page), false);
+    assert.equal(await pressed(fresh.page), "false");
+  } finally { await fresh.page.close(); }
   const { page } = await openPage(sculpted.assembly, null);
   try {
-    const ghosted = () => page.evaluate(() => window.__hsm.currentGroup.children.find((m) => m.userData.side === "front").material.transparent);
-    assert.equal(await ghosted(), false);
-    assert.equal(await page.$eval(".xray-toggle", (e) => e.getAttribute("aria-pressed")), "false");
+    assert.equal(await ghosted(page), false);
+    assert.equal(await pressed(page), "false");
     await page.click(".xray-toggle");
     await choose(page, "style", "industrial");
     await mounted(page, industrial.assembly);
-    assert.equal(await ghosted(), true);
+    assert.equal(await ghosted(page), true);
     assert.equal(await page.evaluate(() => localStorage.getItem("step-xray")), "1");
-    await page.evaluate(async (file) => {
-      localStorage.removeItem("step-xray");
-      await (await import("/js/viewer/step-nav.js")).jumpToStep(file);
-    }, machine);
-    assert.equal(await ghosted(), true);
+    await page.evaluate(async (file) => (await import("/js/viewer/step-nav.js")).jumpToStep(file), machine);
+    assert.equal(await ghosted(page), true);
   } finally { await page.close(); }
 });
 

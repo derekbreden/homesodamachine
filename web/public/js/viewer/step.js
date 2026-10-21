@@ -8,7 +8,7 @@ import * as THREE from "three";
 import { state } from "./state.js";
 import { scene, camera, resetCamera, addStudioLighting, fitCameraDepth, fitFog,
          BG_COLOR, TONE_EXPOSURE } from "./scene.js";
-import { applyXray, syncEdgeResolution, setMeshMaterial, applyModelXrayDefault, xrayForModel } from "./xray.js";
+import { applyXray, syncEdgeResolution, setMeshMaterial } from "./xray.js";
 import { setActiveEdges } from "./edge-picker.js";
 import { clearPickFind } from "./pick-find.js";
 import { clearHighlight } from "./part-highlight.js";
@@ -451,7 +451,6 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     }
 
     state.currentGroup = buildMesh(result, file);
-    applyModelXrayDefault(file);
     applyXray(state.currentGroup); // ghost + edges if x-ray mode is on
     setActiveEdges(result); // BREP edges for the edge picker (lazy-reconstructed)
     clearPickFind(); // stale find highlights reference the old geometry
@@ -541,7 +540,7 @@ function snapThumbnail(group, px = THUMB_SIZE) {
 // so where the meshes came from can't change how the part looks.
 export function renderMeshes(result, px, file = null, finishId = state.faucetFinish) {
   const group = buildMesh(result, file, finishId);
-  applyXray(group, file ? xrayForModel(file) : undefined);
+  applyXray(group);
   return snapThumbnail(group, px);
 }
 
