@@ -50,6 +50,7 @@ def main():
             ax.plot(p[:,0],p[:,1],p[:,2],color='#c7463e' if unresolved else palette[kind(r['harness'])],
                     linewidth=1.05 if unresolved else .85,linestyle=(0,(3,2)) if unresolved else '-',alpha=.82)
         for bundle in model.get('bundles',{}).values():
+            if bundle['geometry_name'] is None:continue
             p=sampled(bundle['segments'],2.)
             outside=np.zeros(len(p),dtype=bool)
             for i,(lo,hi) in enumerate(limits):outside|=(p[:,i]<lo)|(p[:,i]>hi)

@@ -36,7 +36,7 @@ def compose(scene, ea):
         s=shape(route,stock['od_mm'])
         assembly.add(s,name='wire-'+route.connection.id,color=cq.Color(*stock['color']))
     from hardware.wiring.installed.terminations import add_terminations
-    terminations=add_terminations(assembly,at,graph)
+    terminations=add_terminations(assembly,at,graph,routes)
     from hardware.wiring.installed.bundles import add_jackets
     bundles=add_jackets(assembly,at)
     used={id for c in graph for id in (c.start,c.end)}
@@ -50,6 +50,7 @@ def compose(scene, ea):
         'terminal_status_counts':dict(sorted(Counter(at.terminals[id].status for id in used).items())),
         'terminals':{id:asdict(at.terminals[id]) for id in sorted(used)},
         'reference_frames':at.frame_checks,
+        'cable_passages':at.passages,
         'pcb_reference':at.pcb_reference,
         'terminations':terminations,
         'bundles':bundles,

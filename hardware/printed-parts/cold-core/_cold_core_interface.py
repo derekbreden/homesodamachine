@@ -967,14 +967,15 @@ cap_fluid_conduits = {
     "carb-water-out": (52.2, -port_lane_mid_y),
     "co2-in": (co2_cap_x, -port_lane_mid_y),
 }
-# AND THE TWO THAT CARRY A CABLE. A bore in the cap over the mouth of a reed channel is the
-# same column with the same bore, so it stands in the same table and answers to the same
-# gates — `cap-conduit-wall` and `cap-conduit-pair`.
-# What it is not is one end of a line: a reader counting the plumbing counts
-# `cap_fluid_conduits`, and one counting holes in the lid counts these too.
+# Cable passages use the same column and bore construction as fluid conduits.
+# The reservoir passages open over their reed channels; the shared sensor
+# passage opens into the main foam cavity.
 cap_cable_conduits = {
     "reed-cable-a": reed_cable_conduit_xy(+1),
     "reed-cable-b": reed_cable_conduit_xy(-1),
+    # The potted temperature probes, carbonator reeds and earth lead leave
+    # the main foam cavity through one shared passage, west of the pump.
+    "sensor-cable": (-36.0, -74.0),
 }
 cap_conduits = {**cap_fluid_conduits, **cap_cable_conduits}
 # A full-height web closes a foam gap between two columns too narrow to pour; the bore axes and

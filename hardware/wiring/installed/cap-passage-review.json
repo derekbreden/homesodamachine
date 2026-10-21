@@ -1,0 +1,59 @@
+{
+  "scope": "Manual native review of the shared sensor/earth passage through the cap cup and lid. The probe cylinder is inset 0.05 mm radially from the nominal bore. Geometry only; physical printing and foam filling are not qualified.",
+  "passage_axis_mm": [
+    [
+      -73.99999998435449,
+      359.7999999,
+      259.0000001
+    ],
+    [
+      -73.99999998435449,
+      359.7999999,
+      231.8000001
+    ]
+  ],
+  "bore_diameter_mm": 7.5,
+  "column_wall_mm": 2.0,
+  "source_sha256": {
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "5aa7dd2a960dcf46e58416aca98dd54f56c6de2ce1c15b96a544752bbfcd6800",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "57cb43b3e27533e0fec9456c81f7a56dc58c7895a6ff2f90e35a72275054f024"
+  },
+  "hosts": {
+    "hardware/manifold-layout/enclosure-assembly.step": {
+      "cold-core/foam-cap-top": {
+        "valid": true,
+        "solid_count": 1,
+        "bore_probe_overlap_mm3": 0.0
+      },
+      "cold-core/foam-cap-lid-top": {
+        "valid": true,
+        "solid_count": 1,
+        "bore_probe_overlap_mm3": 0.0
+      }
+    },
+    "hardware/cold-core-layout/cold-core-assembly.step": {
+      "foam-cap-top": {
+        "valid": true,
+        "solid_count": 1,
+        "bore_probe_overlap_mm3": 0.0
+      },
+      "foam-cap-lid-top": {
+        "valid": true,
+        "solid_count": 1,
+        "bore_probe_overlap_mm3": 0.0
+      }
+    },
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": {
+      "foam-cap-top": {
+        "valid": true,
+        "solid_count": 1,
+        "bore_probe_overlap_mm3": 0.0
+      },
+      "foam-cap-lid-top": {
+        "valid": true,
+        "solid_count": 1,
+        "bore_probe_overlap_mm3": 0.0
+      }
+    }
+  }
+}

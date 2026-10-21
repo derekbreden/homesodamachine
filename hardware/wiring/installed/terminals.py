@@ -51,7 +51,9 @@ class Attachments:
         return t
 
     def station(self,spec):
-        if 'terminal' in spec:
+        if 'passage' in spec:
+            p=self.passages[spec['passage']]['points_mm'][spec.get('end',0)]
+        elif 'terminal' in spec:
             p=self.terminals[spec['terminal']].point
         else:
             lo,hi=bounds(self.part(spec['part']))
@@ -95,7 +97,24 @@ class Attachments:
     def resolve(self):
         self.board(); self.valves(); self.wagos(); self.power(); self.contacts()
         self.sensors(); self.boundaries()
+        self.cable_passages()
         return self.terminals
+
+    def cable_passages(self):
+        """Cable bore axes carried from the cap's native reference frame."""
+        carry = self.frame('foam-cap-top',
+                          HW/'printed-parts/cold-core/foam-cap/foam-cap-top.step',
+                          (((0,0,1),270),))
+        face = bounds(self.part('foam-cap-lid-top'))[0][2] + self.ea._foam.lid_total_height
+        self.passages = {}
+        for name, xy in self.ea._cci.cap_cable_conduits.items():
+            floor, _ = carry((*xy,0), (0,0,1))
+            self.passages[name] = {
+                'points_mm': [(floor[0],floor[1],face+(5.6 if name=='sensor-cable' else 1.6)),
+                              (floor[0],floor[1],floor[2]-1.6)],
+                'bore_diameter_mm': 2*self.ea._cci.cap_conduit_bore_radius,
+                'basis': 'Native top-cap cable conduit, carried into the installed frame',
+            }
 
     def board(self):
         path=Path(__file__).with_name('connector-map.json')
@@ -211,7 +230,7 @@ class Attachments:
                      'Proposed splice beyond dressed SF76E lead; native first 3 mm remain straight','nominal')
         carry=self.frame('ground-stack',ea.GND_STACK_STEP,ea.RELAY_TURN)
         gnd=ea._gnd;mouth=gnd.eye_od/2-1+gnd.barrel_len
-        for label,i in (('inlet',0),('compressor',4),('carbonator',2)):
+        for label,i in (('inlet',0),('compressor',4),('carbonator',3)):
             angle=math.radians(i*gnd.fan_step)
             p,a=carry((mouth*math.cos(angle),mouth*math.sin(angle),i*gnd.tongue_t+gnd.barrel_d/2),
                       (math.cos(angle),math.sin(angle),0))
@@ -222,8 +241,12 @@ class Attachments:
         for side,part,outward in (('male','pump-contact-male',(0,1,0)),('female','pump-contact-female',(0,-1,0))):
             lo,hi=bounds(self.part(part)); z=(lo[2]+hi[2])/2
             for i,x in enumerate((3.81,1.27,-1.27,-3.81),1):
-                self.put(f'pogo-{side}.{i}',part,((lo[0]+hi[0])/2+x,hi[1] if side=='male' else lo[1],z),outward,
-                         'solder-tail','Native back-tail plane; contact order +X to −X',pin=i)
+                self.put(f'pogo-{side}.{i}',part,((lo[0]+hi[0])/2+x,hi[1] if side=='male' else lo[1],z),
+                         (0.,0.,1.) if side=='female' else outward,
+                         'solder-tail',
+                         ('Native back-tail plane; proposed upward wire dressing into the cartridge motor wells' if side=='female' else
+                          'Native back-tail plane; contact order +X to −X'),
+                         'nominal' if side=='female' else 'modeled',pin=i)
         for bank in ('a','b'):
             name=f'pump-{bank}-motor'; lo,hi=bounds(self.part(name)); c=centre(self.part(name))
             for i,dx in ((1,-4.),(2,4.)):
@@ -248,9 +271,13 @@ class Attachments:
             tank=centre(self.part('carbonator-tube'))
             radial=unit((c[0]-tank[0],c[1]-tank[1],0.))
             joint=add((c[0],c[1],lo[2]),mul(radial,7.))
+            tangent=(-radial[1],radial[0],0.)
             for i,pin in enumerate(('V','DATA','GND')):
-                self.put('temp-'+label+'.'+pin,'cold-core/'+name,(joint[0]+(i-1)*1.8,joint[1],joint[2]),radial,
-                         'TO-92-lead','Proposed insulated solder-joint region 7 mm radially outside the probe; bare lead dressing and pin assignment nominal','nominal')
+                # These are harness splice positions, not the package's pin
+                # order. Dress the bare leads to the arriving ribbon row.
+                row_sign=-1. if label=='coil' else 1.
+                self.put('temp-'+label+'.'+pin,'cold-core/'+name,add(joint,mul(tangent,row_sign*(i-1)*1.85)),radial,
+                         'TO-92-lead','Proposed insulated solder joints 7 mm radially outside the probe, with a tangential 1.85 mm lead row; bare lead dressing and pin assignment nominal','nominal')
         for bank,count in (('a',4),('b',4),('carb',2)):
             for i in range(1,count+1):
                 name=f'reed-{bank}-{i}';lo,hi=bounds(self.part(name));c=centre(self.part(name))
@@ -260,7 +287,18 @@ class Attachments:
                     if bank=='carb':
                         point=(c[0],c[1]+8.,z);axis=(0,1,0)
                         basis='Proposed insulated splice outside the coil; the 14 mm reed capture envelope includes lead/tape room, not measured glass ends'
-                    self.put(name+'.'+label,'cold-core/'+name,point,axis,'reed-lead',basis,'nominal')
+                        if label=='GND':
+                            point=(c[0]-2.8,c[1]+8.,z-3.)
+                            axis=(0,0,1)
+                            basis='Proposed insulated tap on the continuous carbonator-reed common, 2.8 mm beside the signal splice row and 3 mm below its capture envelope; local bare lead dressing nominal'
+                    elif label=='GND':
+                        # One continuous common spine, with a short reed lead
+                        # bent into each insulated tap beside the glass.
+                        point=(c[0]-2.8,c[1],z-3.)
+                        axis=(0,0,1)
+                        basis='Proposed insulated tap on the continuous common spine, 2.8 mm along the channel width beside the reed axis and 3 mm below its capture envelope; local bare lead dressing nominal'
+                    self.put(name+'.'+label,'cold-core/'+name,point,axis,
+                             'insulated-splice' if label=='GND' else 'reed-lead',basis,'nominal')
         # The display reference has no populated rear PCB/terminal geometry.
         carry=self.frame('display',HW/'reference/waveshare-43b-display/waveshare-43b-display.step',(ea.DISPLAY_TILT,))
         for i,label in enumerate(('B','A','GND','V12')):
