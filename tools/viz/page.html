@@ -368,7 +368,7 @@ function orbit(panel) {
 async function mount(el, p, hint) {
   const stage = el.querySelector(".viz-stage");
   const note = stage.querySelector(".viz-note");
-  const panel = { el, stage, own: { ...shared } };
+  const panel = { el, stage, own: p.view ? viewFrom(p.view) : { ...shared } };
   panels.push(panel);
   try {
     const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
