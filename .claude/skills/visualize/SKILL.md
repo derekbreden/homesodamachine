@@ -27,6 +27,7 @@ a screen layout.
 | A render the pipeline already made (`tools/look.sh`, `tools/render/render-step-posed.js`) | The PNG with SendUserFile `display: "render"`, or several side by side as `image` panels of a built page |
 | What a slice commands: seams, speeds, the outer walls as emitted | A page from `tools/gcode/view.py` (`seams` or `speed`), published and opened as an Artifact; [its README](../../../tools/gcode/README.md) has the commands |
 | Timing, flow, wiring, a what-if with a slider, a screen mockup | `show_widget`, inline; promoted to a built page and an Artifact when it should stay open, turn, or be kept |
+| The before and after of an enclosure change, kept | An entry in `changes/`, drawn with `tools/changes/change.mjs`; [its README](../../../changes/README.md) has the steps, and the site shows it at `https://homesodamachine.com/changes` |
 
 ## Built pages
 
@@ -51,8 +52,9 @@ format. `--step`, `--image` and `--fragment` build a page with no spec file.
 - `highlight` lights solids in the viewer's selection amber, and the page prints where they stand
   and how far their centre moved from the first panel, read off their triangles. That line is the
   caption. Type no caption the geometry does not back.
-- `ghost` draws solids translucent and leaves them out of the framing (`enclosure-*` opens the
-  whole machine); `only` drops every other solid from the page.
+- `only` drops every other solid from the page, so nothing stands in front of what the question
+  is about. `ghost` draws solids translucent and leaves them out of the framing (`enclosure-*`
+  opens the whole machine), for context that has to stay in the picture.
 - Every panel shares one camera, one target and one span, so a part that moved between panels is
   seen to move. `"frame": "each"` is for models that do not share a coordinate frame.
 - A candidate that is in no assembly yet goes through a scene STEP: `export_assembly` from
@@ -96,6 +98,8 @@ format. `--step`, `--image` and `--fragment` build a page with no spec file.
 
 - One dominant visual. No summary cards, KPI rows, legends for a single series, or controls
   nobody asked for.
+- Opaque first. Hide what stands in front, or cut a section where the tool can, before drawing
+  anything translucent: x-ray views and ghosts are the hardest pictures to read.
 - Options are lettered A, B, C and drawn at one scale from one camera. At most one is marked as
   the pick, and the chat says why in a line.
 - Values sit on the marks, with units: millimetres on the machine's axes for engineering (front is
