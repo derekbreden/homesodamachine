@@ -1,10 +1,10 @@
-[thin] The internal webs meet the 1.5 mm minimum at both chamfered faces: drain-to-ribbon 1.5625 mm and flavor-to-drain 1.5764 mm. The straight sections are 2.1625 and 2.3764 mm. The complete pair and exterior measurements and seven STL sections are in integration-check.json. The round beverage/drain contact profiles retain their feature-level physical selection; this centered arrangement and flat ribbon slot are unprinted.
+[thin] The internal webs meet the 1.5 mm minimum at both chamfered faces: drain-to-ribbon 1.5625 mm and flavor-to-drain 2.7014 mm. The current native face-distance and stock-passage readings are in integration-check.json. The soda bore retains the A fit dimension and the three 4 mm bores use the B drain dimension; black-stock fit and the complete current arrangement are unmeasured.
 alternatives: More lateral spread needs more exterior stock or further forward placement. More drain/ribbon separation displaces the row along Y from the steel channel. Smaller bore entrances change the selected fit profile. A joined opening removes independent guidance.
 file: hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step
 click: x=0.013 y=8.379 z=9.917
 click: x=0.013 y=10.226 z=9.800
 
-[thin] All three beverage bores have balanced exterior backing: 2.3133 mm in the straight run and 1.7133 mm at each face after the 0.2 mm rim chamfer and 0.4 mm bore entrances. The round stock is centered on their circumcenter and on X=0. The nominal braided diameter is 34 mm within the 34.93 mm counter opening; braid folds and physical feeding are unmeasured.
+[thin] The soda bore has 1.7133 mm face backing and the two 4 mm flavor bores each have 2.8383 mm face backing after the rim and bore entrance chamfers. The round stock is centered on their circumcenter and on X=0. The nominal braided diameter is 34 mm within the 34.93 mm counter opening; braid folds and physical feeding are unmeasured.
 alternatives: Larger stock thickens these walls but uses the remaining 0.465 mm nominal radial braid clearance. Moving bores inward reduces the internal webs or requires more Y displacement. Less rim relief adds material while reducing feeding relief.
 file: hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.step
 click: x=-10.549 y=9.228 z=9.932
