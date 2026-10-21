@@ -86,6 +86,22 @@ uses at least 86.7 mm of full-bead edge clearance. The
 [reservoir comparison placement record](../hardware/printed-parts/cold-core/reservoir/ironing-study/prints/2026-10-06-mark2/physical-result.json)
 records Derek's requirement to move that complete test plate toward the center.
 
+## Mark1 clear PETG spool order
+
+Mark1's AMS 2 Pro A carries Bambu PETG Translucent Clear (`GFG01`, transparent
+`00000000`) in all four slots, feeding its right **0.8 mm Standard-flow** hotend.
+Derek's requested consumption order is **A4 → A2 → A3 → A1**. Start on A4 and
+use every spool fully; remaining quantity is not a launch condition.
+
+AMS unit `0` addresses A1–A4 as trays `0`–`3`. AMS Auto-Refill is enabled and
+all four trays form one identical-filament backup group. Connect selects the
+starting slot; its AMS settings provide only an Auto-Refill toggle. Studio's
+[refill dialog implementation](https://github.com/bambulab/BambuStudio/blob/master/src/slic3r/GUI/AmsMappingPopup.cpp)
+displays the group and highlights a selected tray without setting a custom
+priority. Selecting A4 alone does not establish the requested backup order.
+The [reservoir print record](../hardware/printed-parts/cold-core/reservoir/prints/2026-10-20-mark1-right08/README.md)
+records the launch disposition.
+
 ## Mark2 clear PETG spool order
 
 Mark2's current AMS A load is Bambu PETG Translucent Clear (`GFG01`, transparent
@@ -116,6 +132,7 @@ names carry the requested value (`z004`, `z018`).
 | Mark2 | 0.4 mm | +0.04 mm | `G29.1 Z0.02` | `Bambu Lab H2C 0.4 Standard +0.04 Z trim` |
 | Mark2 | 0.8 mm | +0.04 mm | `G29.1 Z0.02` | `Bambu Lab H2C 0.8 Standard +0.04 Z trim` |
 | Mark1 (`H2C` connection key) | 0.4 mm | +0.18 mm | `G29.1 Z0.16` | `Bambu Lab H2C 0.4 Standard +0.18 Z trim` |
+| Mark1 (`H2C` connection key) | 0.8 mm | +0.18 mm | `G29.1 Z0.16` | `Bambu Lab H2C 0.8 Standard +0.18 Z trim` |
 
 Mark1's standard user Z trim is +0.18 mm. A different trim requires explicit
 authorization for the specific print and remains local to that print.
