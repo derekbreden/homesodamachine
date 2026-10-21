@@ -6,7 +6,7 @@ October 21, 2026**, through one Bambu Connect Send. The printer acknowledged
 [Launch receipt](launch.json) · [Fresh preflight](preflight.json).
 
 The left reservoir and matching cap use the **right 0.8 mm Standard-flow
-hotend**, Bambu PETG Translucent Clear from **A2**, and automatic refill.
+hotend**, Bambu PETG Translucent Clear starting on **A2**, and automatic refill.
 Textured PEI uses **zero added user Z trim**: `G29.1 Z0` clears the trim and
 **`G29.1 Z-0.02`** applies Bambu's stock textured-plate compensation.
 This setting belongs to the clear PETG reservoir recipe; PET-GF profiles retain
@@ -98,3 +98,13 @@ Selected earlier samples at layers 53, 98 and 116 preserve the same visibility
 limits. A2, the right 0.8 mm nozzle and timelapse remain active, with 255/70 °C
 nozzle/bed targets and no current print error or HMS alert. This same monitor
 checks every thirty minutes through the remainder of this task.
+
+The [automatic-refill checkpoint](automatic-refill.json) records **A2 empty**
+and current AMS feed **A1** by **09:42:49 CDT / 14:42:49 UTC**, layer **287**.
+The exact switch time was not observed; the preceding A2 reading was at
+09:12:47 CDT, layer 261. This same task advances through layer **291** with
+the right 0.8 mm nozzle, timelapse enabled, 255/70 °C nozzle/bed targets and
+no current print error or HMS alert. No running-job control was changed.
+Two live views at layers 288 and 291 show no confirmed lift of the exposed
+body and cap edges. Shadowed, occluded and reflective contact remains
+unassessed; no complete attached baseline or lift-onset bracket is established.
