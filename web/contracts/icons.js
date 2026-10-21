@@ -41,6 +41,9 @@ export const ICON_INNER = {
   // Open book, two leaves on a spine — Updates. Two strokes, nothing finer
   // than the gap at the spine.
   book: '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>',
+  // A frame split down the middle, its two halves apart — Changes, each one
+  // shown before and after, side by side.
+  compare: '<path d="M8 19H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h3"></path><path d="M16 5h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3"></path><line x1="12" y1="3" x2="12" y2="21"></line>',
 
   // ── The 3D viewer's tool rail ──────────────────────────────────────────────
   // Magnifier — Find: type a part name or paste pick text.
