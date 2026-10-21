@@ -1,0 +1,42 @@
+{
+  "source_archive": ".cache/reservoir-may-water-right08/slice/reservoir-left-cap-native.gcode.3mf",
+  "source_archive_sha256": "eb4fdd28a4d55a1f0ae6b9bdbe55b032115902e14e17be840a7bd89f3ac0e7d3",
+  "print_only_archive": ".cache/reservoir-may-water-right08/slice/2026-10-21-reservoir-left-cap-maywater-right08-z000-mark1.gcode.3mf",
+  "print_only_archive_sha256": "60df4387d26bcb7481b205cd06dc500ba25e7541e70870cef93a207b707f3a40",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "1319a0673271138b00411402c1b115eb56a6f03a2d983c81b17ecf6205eef39d"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model",
+    "3D/Objects/object_3.model",
+    "3D/Objects/object_4.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ],
+  "native_two_plate_archive": ".cache/reservoir-may-water-right08/slice/reservoir-review.3mf",
+  "native_two_plate_archive_sha256": "8dd8b32adcb9b21da0408b09e62567bfc4cf3543bb7782265dcfa64373a742e6",
+  "selected_parts": [
+    "reservoir-left",
+    "reservoir-cap-left"
+  ],
+  "source_plate": 1,
+  "submitted_plate": 1,
+  "omitted_other_plate_entries": [
+    "Metadata/pick_2.png",
+    "Metadata/plate_2.gcode",
+    "Metadata/plate_2.gcode.md5",
+    "Metadata/plate_2.json",
+    "Metadata/plate_2.png",
+    "Metadata/plate_2_small.png",
+    "Metadata/plate_no_light_2.png",
+    "Metadata/top_2.png"
+  ],
+  "native_gcode_byte_identical": true,
+  "project_settings_byte_identical": true
+}

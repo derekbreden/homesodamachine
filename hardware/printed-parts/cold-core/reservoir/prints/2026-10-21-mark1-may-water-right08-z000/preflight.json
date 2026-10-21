@@ -1,0 +1,164 @@
+{
+  "observed_at": "2026-10-21T21:39:39.168930+00:00",
+  "bed_clear_report": "Mark1 is clear; go ahead and start the next reservoir print.",
+  "start_slot": "A1",
+  "nozzle": "right 0.8 mm Standard",
+  "auto_refill": "Enabled; use loaded A1 and matching available backups.",
+  "Mark1": {
+    "job_id": "1359909015",
+    "subtask_name": "2026-10-21-reservoir-left-cap-clear-right08-z000-mark1.gcode.3mf",
+    "gcode_state": "FAILED",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 0,
+    "total_layer_num": 833,
+    "nozzle_temper": 35.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 27.0,
+    "bed_target_temper": 0.0
+  },
+  "right_extruder": [
+    {
+      "id": 0,
+      "hnow": 0,
+      "snow": 0,
+      "filam_bak": [
+        13
+      ]
+    }
+  ],
+  "nozzles": [
+    {
+      "id": 18,
+      "diameter": 0.4,
+      "type": "HS01"
+    },
+    {
+      "id": 1,
+      "diameter": 0.4,
+      "type": "HS01"
+    },
+    {
+      "id": 17,
+      "diameter": 0.2,
+      "type": "HS00"
+    },
+    {
+      "id": 20,
+      "diameter": 0.2,
+      "type": "HS00"
+    },
+    {
+      "id": 16,
+      "diameter": 0.6,
+      "type": "HS01"
+    },
+    {
+      "id": 0,
+      "diameter": 0.8,
+      "type": "HS01"
+    }
+  ],
+  "ams_trays": [
+    {
+      "id": "0",
+      "tray_type": "PETG",
+      "tray_info_idx": "GFG01",
+      "tray_color": "00000000",
+      "tray_sub_brands": "PETG Translucent"
+    },
+    {
+      "id": "1",
+      "tray_type": null,
+      "tray_info_idx": null,
+      "tray_color": null,
+      "tray_sub_brands": null
+    },
+    {
+      "id": "2",
+      "tray_type": "PETG",
+      "tray_info_idx": "GFG01",
+      "tray_color": "00000000",
+      "tray_sub_brands": "PETG Translucent"
+    },
+    {
+      "id": "3",
+      "tray_type": "PETG",
+      "tray_info_idx": "GFG01",
+      "tray_color": "00000000",
+      "tray_sub_brands": "PETG Translucent"
+    }
+  ],
+  "ams_current_tray": "0",
+  "tray_exist_bits": "d",
+  "Mark2": {
+    "job_id": "1359897271",
+    "subtask_name": "2026-10-21-enclosure-gyroid-comparison-left04-z004-mark2-v1.gcode.3mf",
+    "gcode_state": "FINISH",
+    "print_error": 0,
+    "hms": [
+      {
+        "attr": 201326848,
+        "code": 131095
+      }
+    ],
+    "layer_num": 104,
+    "total_layer_num": 104,
+    "nozzle_temper": 26.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 24.0,
+    "bed_target_temper": 0.0
+  },
+  "shared_circuit": {
+    "other_printer": "Mark2",
+    "same_idle_job_first_observed_at": "2026-10-21T21:34:11.939588+00:00",
+    "elapsed_seconds": 328.963442,
+    "rule_seconds": 180
+  },
+  "final_pre_send_observed_at": "2026-10-21T21:41:37.294212+00:00",
+  "send_dialog": {
+    "source": "cua_repl Bambu Connect Send to print dialog",
+    "verified_at": "2026-10-21T21:41:37.294212+00:00",
+    "printer": "Mark1",
+    "right_tile": "A1 PETG R",
+    "right_nozzle": "0.8 Standard",
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto",
+    "Send_enabled": true
+  },
+  "Mark2_final": {
+    "job_id": "1359897271",
+    "subtask_name": "2026-10-21-enclosure-gyroid-comparison-left04-z004-mark2-v1.gcode.3mf",
+    "gcode_state": "FINISH",
+    "print_error": 0,
+    "hms": [
+      {
+        "attr": 201326848,
+        "code": 131095
+      }
+    ],
+    "layer_num": 104,
+    "total_layer_num": 104,
+    "mc_remaining_time": 0,
+    "nozzle_temper": 26.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 24.0,
+    "bed_target_temper": 0.0
+  },
+  "Mark1_final": {
+    "job_id": "1359909015",
+    "subtask_name": "2026-10-21-reservoir-left-cap-clear-right08-z000-mark1.gcode.3mf",
+    "gcode_state": "FAILED",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 0,
+    "total_layer_num": 833,
+    "mc_remaining_time": 0,
+    "nozzle_temper": 34.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 27.0,
+    "bed_target_temper": 0.0
+  }
+}

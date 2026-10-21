@@ -1,4 +1,4 @@
-"""Build current body/cap pairs with the September PETG base and ironing off.
+"""Build current body/cap pairs with the declared PETG recipe and ironing off.
 
 Run with tools/cad-venv/bin/python. STEP geometry must match the float integration
 record. Slicing belongs in an ignored review directory, not a second repo 3MF.
@@ -68,14 +68,14 @@ def main():
     recipe = json.loads((HERE / "print-settings.json").read_text())
     settings = recipe["project_settings"]
     restored = settings.copy()
-    for changes in (recipe["identity_changes"], recipe.get("process_changes", {}),
+    for changes in (recipe["identity_changes"], recipe.get("process_changes", {}), recipe.get("filament_changes", {}),
                     recipe.get("assignment_changes", {}), recipe.get("machine_changes", {})):
         for key, change in changes.items():
             if settings[key] != change["to"]:
                 raise ValueError(f"Unexpected declared setting: {key}")
             restored[key] = change["from"]
     if sha(canonical(restored)) != recipe["historical_source"]["project_settings_sha256"]:
-        raise ValueError("Undeclared settings differ from the accepted September recipe")
+        raise ValueError("Undeclared settings differ from the frozen native base")
     if settings["ironing_type"] != "no ironing" or settings["enable_support_ironing"] != "0":
         raise ValueError("The current reservoir recipe must disable model and support ironing")
     if (settings["filament_map_mode"] != "Manual" or settings["filament_map"] != ["2"]
@@ -101,15 +101,17 @@ def main():
         "project": "reservoir.3mf", "recipe": "print-settings.json",
         "accepted_result_id": recipe["accepted_result_id"],
         "settings_sha256": sha(canonical(settings)),
-        "physical_settings_match_accepted_recipe_except_declared_changes": True,
+        "settings_match_native_base_except_declared_changes": True,
         "identity_changes": recipe["identity_changes"],
         "process_changes": recipe.get("process_changes", {}),
+        "filament_changes": recipe.get("filament_changes", {}),
+        "physical_recipe_source": recipe.get("physical_recipe_source"),
         "assignment_changes": recipe.get("assignment_changes", {}),
         "machine_changes": recipe.get("machine_changes", {}),
         "minimum_emitted_bead_edge_margin_mm": MIN_EDGE_MARGIN,
         "plate_count": 2, "mesh_tolerance_mm": 0.025,
         "mesh_angular_tolerance_rad": 0.08, "parts": [],
-        "scope": "Current CAD and no-ironing recipe. Coupon finish selection is recorded separately; the physical water hold belongs to the September article.",
+        "scope": "Current CAD and declared no-ironing recipe. Historical water holds belong to their identified articles; this adaptation awaits its own result.",
     }
     number = 0
     for plate_id, side in enumerate(("left", "right"), 1):

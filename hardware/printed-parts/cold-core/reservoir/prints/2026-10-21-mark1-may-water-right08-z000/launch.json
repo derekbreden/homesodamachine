@@ -1,0 +1,93 @@
+{
+  "accepted_at": "2026-10-21T21:42:02.180859+00:00",
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "job": {
+    "job_id": "1362179138",
+    "subtask_name": "2026-10-21-reservoir-left-cap-maywater-right08-z000-mark1.gcode.3mf",
+    "gcode_state": "PREPARE",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 0,
+    "total_layer_num": 833,
+    "mc_remaining_time": 0,
+    "nozzle_temper": 34.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 27.0,
+    "bed_target_temper": 0.0
+  },
+  "previous_job_id": "1359909015",
+  "archive": ".cache/reservoir-may-water-right08/slice/2026-10-21-reservoir-left-cap-maywater-right08-z000-mark1.gcode.3mf",
+  "archive_sha256": "60df4387d26bcb7481b205cd06dc500ba25e7541e70870cef93a207b707f3a40",
+  "gcode_sha256": "1319a0673271138b00411402c1b115eb56a6f03a2d983c81b17ecf6205eef39d",
+  "start_slot": "A1",
+  "auto_refill": true,
+  "backup_order": "automatic printer choice among matching available clear PETG trays",
+  "nozzle": "right 0.8 mm Standard",
+  "user_z_trim_mm": 0,
+  "stock_textured_pei_compensation_mm": -0.02,
+  "recipe": "May Water adapted to 0.8 mm: 255/260 C, 1.02 flow, 21 mm3/s ceiling, no brim or ironing",
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "shared_circuit": {
+    "other_printer": "Mark2",
+    "same_idle_job_first_observed_at": "2026-10-21T21:34:11.939588+00:00",
+    "elapsed_seconds": 328.963442,
+    "rule_seconds": 180
+  },
+  "command_acknowledgment": {
+    "command": "project_file",
+    "result": "SUCCESS",
+    "reason": "SUCCESS",
+    "err_code": 0
+  },
+  "events": [
+    {
+      "observed_at": "2026-10-21T21:41:41.241884+00:00",
+      "job_id": "1359909015",
+      "subtask_name": "2026-10-21-reservoir-left-cap-clear-right08-z000-mark1.gcode.3mf",
+      "gcode_state": "FAILED",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0
+    },
+    {
+      "observed_at": "2026-10-21T21:42:02.180859+00:00",
+      "command": "project_file",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "err_code": 0
+    },
+    {
+      "observed_at": "2026-10-21T21:42:02.180859+00:00",
+      "job_id": 1362179138,
+      "subtask_name": "2026-10-21-reservoir-left-cap-maywater-right08-z000-mark1.gcode.3mf",
+      "gcode_state": "FAILED",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0
+    },
+    {
+      "observed_at": "2026-10-21T21:42:02.502850+00:00",
+      "job_id": "1362179138",
+      "subtask_name": "2026-10-21-reservoir-left-cap-maywater-right08-z000-mark1.gcode.3mf",
+      "gcode_state": "FAILED",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0
+    },
+    {
+      "observed_at": "2026-10-21T21:42:03.728672+00:00",
+      "job_id": "1362179138",
+      "subtask_name": "2026-10-21-reservoir-left-cap-maywater-right08-z000-mark1.gcode.3mf",
+      "gcode_state": "PREPARE",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0
+    }
+  ]
+}

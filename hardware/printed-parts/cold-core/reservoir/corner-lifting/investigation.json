@@ -47,7 +47,7 @@
   "finding": "The fixed low camera angle, clear PETG reflections, moving nozzle and foreground cap obscure body/bed contact. Inspected frames do not establish a reliable last-attached/first-lifted bracket. No onset layer is established.",
   "layer_mapping": "Each native job has 740 layers, while each clip has more frames. Exact frame-to-layer correspondence is unverified; frame numbers are not layer numbers.",
   "current_failed_article": "../prints/2026-10-21-mark1-right08-z000/physical-result/physical-result.json",
-  "next_print_strategy": "Flow 1.02 supported by Derek; no brim. Review the successful May Water recipe and ordinary Bambu motion settings in historical-recipe-review.json. No executable setting changed.",
+  "next_print_strategy": "Current authorized May Water adaptation is task 1362179138; observe this article and retain its own physical outcomes. Prior canceled-task monitor stays paused.",
   "conditional_options": [
     {
       "candidate": "May Water baseline / walls-only coverage / scoped thermal investigation",
@@ -66,5 +66,13 @@
     "live_visibility_limit": "Partial exposed-edge observations through UI layer 526 did not detect the reported curl; no full baseline or onset bracket.",
     "terminal_record": "../prints/2026-10-21-mark1-right08-z000/terminal-observation.json",
     "monitor_status": "PAUSED"
+  },
+  "current_trial": {
+    "job_id": "1362179138",
+    "printer": "Mark1",
+    "recipe": "May Water adapted to right 0.8 mm Standard",
+    "accepted_at_utc": "2026-10-21T21:42:02.180859+00:00",
+    "record": "../prints/2026-10-21-mark1-may-water-right08-z000/README.md",
+    "status": "Accepted; physical outcomes unassessed."
   }
 }
