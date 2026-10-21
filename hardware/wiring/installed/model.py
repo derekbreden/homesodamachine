@@ -81,7 +81,7 @@ def norm(a): return math.sqrt(dot(a, a))
 def unit(a): return mul(a, 1.0 / norm(a))
 
 
-def rounded_segments(points, radius=4.0):
+def rounded_segments(points, radius=4.0, *, keep_collinear=False):
     """Lines and tangent arcs, with a locally limited radius at short approaches.
 
     The actual minimum is returned in the manifest. This is geometric shaping,
@@ -92,6 +92,12 @@ def rounded_segments(points, radius=4.0):
         p = tuple(map(float, p))
         if not pts or math.dist(pts[-1], p) > 1e-6:
             pts.append(p)
+        if not keep_collinear:
+            while len(pts)>2:
+                a,b=sub(pts[-2],pts[-3]),sub(pts[-1],pts[-2])
+                if dot(unit(a),unit(b))<1.-1e-10:
+                    break
+                pts.pop(-2)
     corners = {}
     for i in range(1, len(pts) - 1):
         before, after = sub(pts[i-1], pts[i]), sub(pts[i+1], pts[i])
@@ -128,7 +134,7 @@ def rounded_segments(points, radius=4.0):
     return out
 
 
-def shape(route, diameter):
+def shape(route, diameter, inner_diameter=None):
     import cadquery as cq
     edges = []
     for s in route.segments:
@@ -139,7 +145,8 @@ def shape(route, diameter):
     start = cq.Vector(*route.segments[0]["start_mm"])
     tangent = edges[0].tangentAt(0)
     profile = cq.Wire.makeCircle(diameter/2, start, tangent)
-    return cq.Solid.sweep(profile, [], path, makeSolid=True, isFrenet=False)
+    holes = [] if inner_diameter is None else [cq.Wire.makeCircle(inner_diameter/2, start, tangent)]
+    return cq.Solid.sweep(profile, holes, path, makeSolid=True, isFrenet=False)
 
 
 def finish(connection, points, note="", radius=None):

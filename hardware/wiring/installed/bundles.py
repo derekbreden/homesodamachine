@@ -1,4 +1,4 @@
-"""Common jacket paths and parallel-transported insulated cable cores."""
+"""Shared cable paths and parallel-transported insulated conductors."""
 import json
 import math
 from pathlib import Path
@@ -78,7 +78,7 @@ def trimmed(segments,front,back):
 
 def centreline(b,attachments):
     points=[attachments.station(s) for s in b['stations']]
-    return points,rounded_segments(points,b['bend_radius_mm'])
+    return points,rounded_segments(points,b['bend_radius_mm'],keep_collinear=True)
 
 
 def core_route(connection,attachments):
@@ -96,13 +96,14 @@ def core_route(connection,attachments):
                *[attachments.station(s) for s in fan.get('entry_stations',[])],head,first]
         exit=[last,tail,*[attachments.station(s) for s in fan.get('exit_stations',[])],
               add(end.point,mul(end.outward,fan['end_lands_mm'][1])),end.point]
-        segments=(rounded_segments(entry,fan.get('bend_radius_mm',4.))+
-                  core+rounded_segments(exit,fan.get('bend_radius_mm',4.)))
+        fixed_stations=b.get('jacket',True)
+        segments=(rounded_segments(entry,fan.get('bend_radius_mm',4.),keep_collinear=fixed_stations)+
+                  core+rounded_segments(exit,fan.get('bend_radius_mm',4.),keep_collinear=fixed_stations))
         radii=[s['radius_mm'] for s in segments if s['kind']=='arc']
         route=Route(connection,entry+[s['end_mm'] for s in core]+exit[1:],segments,
                     sum(s['length_mm'] for s in segments),min(radii) if radii else None,
                     fan.get('route_status',b['route_status']),
-                    'Shared SJOOW jacket with transported core sections and individually dressed end fanouts.')
+                    b.get('description','Shared SJOOW jacket with transported core sections and individually dressed end fanouts.'))
         return route
     return None
 
@@ -112,6 +113,11 @@ def add_jackets(assembly,attachments):
     records={}
     for id,b in definitions().items():
         points,shared=centreline(b,attachments)
+        if not b.get('jacket',True):
+            records[id]={**b,'geometry_name':None,'points_mm':points,'segments':shared,
+                         'length_mm':sum(s['length_mm'] for s in shared),
+                         'minimum_bend_mm':min((s['radius_mm'] for s in shared if s['kind']=='arc'),default=None)}
+            continue
         segments=trimmed(shared,b['end_trim_mm'],b['end_trim_mm'])
         edges=[]
         for s in segments:

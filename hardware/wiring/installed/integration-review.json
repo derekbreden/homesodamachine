@@ -1,20 +1,12 @@
 {
   "schema": 1,
   "scope": "Wiring-only integration; existing physical parts retained",
-  "physical_step_sha256": "f8c1101a316f3eed9b7cc6907e5f5e9f3ba716087b37ff3d2eb04b0c6b7783a8",
-  "installed_step_sha256": "ec74b5120cbf9ca0a4ecae4370433117afcf3ab7f23d99df0446f09cb9a8f226",
-  "physical_records_retained": 1669860,
-  "physical_meshes_retained": 401,
+  "physical_step_sha256": "e82d47d8219e7334e857d1ed3161fc7b49b15a41ad7cc26b1a8a27cd621725bb",
+  "installed_step_sha256": "d86aaac4606dac0df300b6ff67c051487758293ec1feaeb3f37a3e5210399c28",
+  "physical_records_retained": 1675576,
+  "physical_meshes_retained": 402,
   "wiring_meshes": 126,
   "all_retained_viewer_arrays_identical": true,
-  "wiring_step_sha256": "9060d47bca1dadac1d33ede725f826f01f60c5b3fb23b0e44bb6bd3a7cd0bd33",
-  "connection_count": 103,
-  "publication": {
-    "assembly_step_sha256": "8e0576306103d1c7a31a8317bfe3ae7a816abf76754b429bf82f963260d396dd",
-    "assembly_mesh_sha256": "4724ce346b2e2055a1da780ad6d293e19148f08989f4876ec5a4bdeae20144aa",
-    "viewer_meshes_with_surface_changes": [
-      "enclosure-back-bottom"
-    ],
-    "scope": "Publisher PET-GF presentation repair and current fluted piece surfaces; installed wire geometry retained."
-  }
+  "wiring_step_sha256": "91dcef105712f5abdc38bbccb3cc6b84ba53a39268798524965037340b02e5be",
+  "connection_count": 103
 }

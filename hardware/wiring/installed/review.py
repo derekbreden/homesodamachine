@@ -101,6 +101,7 @@ def mesh_review():
     bundle_collisions=[]
     for bundle in manifest.get('bundles',{}).values():
         name=bundle['geometry_name']
+        if name is None:continue
         for other in physical:
             if name==other or not near(name,other):continue
             bad=[hit for hit in contacts(objects[name],objects[other]) if hit.penetration_depth>.025]
@@ -111,11 +112,14 @@ def mesh_review():
                     'mesh_penetration_mm':round(float(hit.penetration_depth),4)})
     termination_collisions=[]
     for name,info in manifest.get('terminations',{}).items():
-        if not name.startswith('terminal-fuse-'):continue
+        if not name.startswith(('terminal-fuse-','terminal-pogo-')):continue
         for other in physical:
             if name==other or not near(name,other):continue
             bad=[]
             for hit in contacts(objects[name],objects[other]):
+                if any(base_name(other)==terminals[t]['part'] and
+                       math.dist(hit.pos,terminals[t]['point'])<=8.5
+                       for t in info.get('terminal_ids',[])):continue
                 if (base_name(other)=='thermal-fuse' and 'native_stub_tip_mm' in info and
                         math.dist(hit.pos,info['native_stub_tip_mm'])<=2.5):continue
                 if hit.penetration_depth>.025:bad.append(hit)
@@ -139,7 +143,7 @@ def mesh_review():
     OUTPUT.write_text(json.dumps(report,indent=2)+'\n')
     print(json.dumps({'wires':len(wires),'physical_pairs':len(collisions),
                       'packing_pairs':len(packing),'bundle_pairs':len(bundle_collisions),
-                      'fuse_termination_pairs':len(termination_collisions),
+                      'termination_pairs':len(termination_collisions),
                       'missing':report['coverage_missing']}),flush=True)
 
 
@@ -168,6 +172,12 @@ def native_review():
                                     if not wires[n][0].isValid() or len(wires[n][0].Solids())!=1]
     native['bundles']={}
     for id,b in manifest.get('bundles',{}).items():
+        if b['geometry_name'] is None:
+            from itertools import combinations
+            native['bundles'][id]={'jacket':False,
+                'core_pair_overlap_mm3':{a+' / '+c:wires['wire-'+a][0].intersect(wires['wire-'+c][0]).Volume()
+                                         for a,c in combinations(b['cores'],2)}}
+            continue
         jacket=wires[b['geometry_name']][0]
         overlaps={}
         for core in b['cores']:
