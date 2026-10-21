@@ -2,7 +2,7 @@
 
 Format: facts only. Direct quotes from Derek where applicable. Settings observed in committed `.3mf` snapshots. No interpretation, no hypothesis.
 
-The current next-print recipe is in [watertight-petg.md](watertight-petg.md) and
+The current recipe and result are in [watertight-petg.md](watertight-petg.md) and
 [reservoir.3mf](reservoir.3mf). This file records historical settings and observations. [Water-hold acceptance](water-hold-acceptance.json) identifies the tested articles and reported results.
 
 Geometry: the left flavor reservoir — `reservoir-left.step` (body) + `reservoir-cap-left.step` (cap). Plate composition and settings are recorded per attempt below.
@@ -296,4 +296,23 @@ no ironing and the same supports/cooling/deposition. The printer acknowledged
 SUCCESS and entered PREPARE without faults.
 
 [Native verification, preflight, packaging and launch](prints/2026-10-21-mark1-right08-z000/README.md).
-First-layer attachment, later corner contact and water hold are unassessed.
+
+### Result — stopped; corner curl and water leakage (2026-10-21)
+
+Derek supplied two finished-article photographs and said:
+
+> It leaked many places. It is from the most recent print i just stopped.
+
+The [physical result](prints/2026-10-21-mark1-right08-z000/physical-result/physical-result.json)
+records reported corner curling and the failed water hold for this zero-trim
+article. Leak locations, fill height, hold duration and stop layer are not
+specified. A2 automatically refilled from A1 during the print.
+
+The last live UI observation was layer 526 at **14:13:18 CDT / 19:13:18 UTC**.
+Only exposed body/cap edges were assessable; no complete attached baseline or
+lift onset was established. At **14:41:56 CDT / 19:41:56 UTC**, this exact
+retained task reported FAILED, heaters targeted off and HMS empty. Terminal
+layer 0 is a reset status, not the stop layer. Bambu Studio displayed
+"The task was canceled." The final camera preview was unavailable. The
+[terminal observation](prints/2026-10-21-mark1-right08-z000/terminal-observation.json)
+records these limits and the paused monitor.

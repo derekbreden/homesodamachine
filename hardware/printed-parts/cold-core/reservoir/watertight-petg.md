@@ -1,6 +1,13 @@
 # Printing the reservoir in PETG
 
-Use [reservoir.3mf](reservoir.3mf) for the next print. Its two plates contain
+[reservoir.3mf](reservoir.3mf) preserves the recipe of the current failed
+zero-user-trim article. Derek reports corner curl and water leakage at many
+places and stopped task 1359909015. See the
+[physical result](prints/2026-10-21-mark1-right08-z000/physical-result/physical-result.json)
+and [proposed next trial](corner-lifting/next-trial-options.json). No replacement
+recipe is applied or physically qualified.
+
+The project's two plates contain
 the current left and right body/cap pairs and the September 0.24 mm
 baseline **with ironing off**. [print-settings.json](print-settings.json) holds every saved machine,
 filament and process setting; [reservoir.print.json](reservoir.print.json)
@@ -43,8 +50,7 @@ The project uses the September baseline, with ironing disabled according to the
 [flat-square finish selection](ironing-study/prints/2026-10-06-mark2-squares-v1/physical-result.json).
 Its process and filament display names identify the current reservoir recipe.
 Both plates explicitly assign the right nozzle in Manual mode. The Mark1
-zero-trim retry starts on **A2**, with the printer choosing subsequent spools
-through automatic refill;
+zero-trim article started on **A2** and automatically refilled from **A1**;
 [printer guidance](../../../../tools/bambu-printers.md#mark1-clear-petg-spool-order)
 records the loaded material and refill scope. Bodies print mouth up
 with the floor underside on the bed; caps print exterior face down with their
@@ -72,6 +78,13 @@ and keep it dry during printing. A dry-box humidity reading describes the
 surrounding air rather than residual moisture in the filament.
 
 ## Evidence and print records
+
+The current zero-user-trim left article leaks at many places, as reported by
+Derek. Its corner photographs show a distorted band near the floor-to-wall
+transition. Neither the finished shape nor the limited live camera views
+establishes an onset layer. The stopped job's
+[terminal record](prints/2026-10-21-mark1-right08-z000/terminal-observation.json)
+records the visibility limit and paused task-bound monitor.
 
 The September 0.24 mm article held water, as reported by Derek. Its recovered
 Mark2 slice estimated 20 h 7 min and 414.76 g; those estimates belong to that

@@ -12,10 +12,18 @@ carries both mouths: the fill, and the dip tube the draw line becomes.
 [Level sensing](level-sensing.md) · [Floor and dip tube](floor-and-dip-tube.md) ·
 [Vent](vent.md)
 
-## Next print
+## Print status
 
-Use **[reservoir.3mf](reservoir.3mf)**, the current body/cap pairs with the
-**September 0.24 mm baseline with ironing off**. Plate 1 holds the left body and cap;
+The zero-user-trim Mark1 article has **reported corner curl and water leakage
+at many places**. Derek stopped it. The
+[physical result and photographs](prints/2026-10-21-mark1-right08-z000/physical-result/physical-result.json)
+bind that outcome to task 1359909015. The
+[next-trial options](corner-lifting/next-trial-options.json) propose a forced brim,
+flow 1.02, 260 °C after the first layer, scoped cooling and a 12 mm³/s speed
+trial. These options are not applied to the project or qualified by a print.
+
+**[reservoir.3mf](reservoir.3mf)** preserves the failed article's current body/cap
+pairs and **September 0.24 mm baseline with ironing off**. Plate 1 holds the left body and cap;
 plate 2 holds the right body and cap. Bodies print mouth up and caps exterior
 face down. Both plates use Mark1's right **0.8 mm Standard-flow nozzle**, Bambu
 PETG Translucent Clear and the textured PEI plate.
@@ -30,8 +38,8 @@ seams, zero seam gap, **no ironing** and the September support settings.
 [Native slice review](slice-review.json). Each current body/cap plate estimates
 about **19 h 21 min and 410 g** in Bambu Studio 02.08.02.61. The native
 model/support/brim envelope stays at least **70.5 mm inside the right nozzle's usable bed**.
-Filament assignment is Manual on the right nozzle. The Mark1 zero-trim retry starts on
-**A2** with automatic refill, as requested by Derek. See
+Filament assignment is Manual on the right nozzle. The Mark1 zero-trim article started on
+**A2** and automatically refilled from **A1**. See
 [printer guidance](../../../../tools/bambu-printers.md#mark1-clear-petg-spool-order)
 and the [Mark1 retry record](prints/2026-10-21-mark1-right08-z000/README.md).
 
@@ -78,5 +86,5 @@ Past settings, reported outcomes and source commits are in the
 Historical 3MFs are retained in Git.
 
 Reservoir leak results belong to the articles and process tested. The current
-bodies have no water result of their own; CAD clearance does not establish a new
-print's sealing or finished float sliding.
+left article failed its reported water hold; the matching right body is unassessed.
+CAD clearance does not establish a print's sealing or finished float sliding.

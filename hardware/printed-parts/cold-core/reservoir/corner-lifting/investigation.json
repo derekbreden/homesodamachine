@@ -46,23 +46,25 @@
   ],
   "finding": "The fixed low camera angle, clear PETG reflections, moving nozzle and foreground cap obscure body/bed contact. Inspected frames do not establish a reliable last-attached/first-lifted bracket. No onset layer is established.",
   "layer_mapping": "Each native job has 740 layers, while each clip has more frames. Exact frame-to-layer correspondence is unverified; frame numbers are not layer numbers.",
-  "current_failed_article": "../prints/2026-10-20-mark1-right08/physical-result/physical-result.json",
-  "next_print_strategy": "Apply only zero added user Z trim to address the current first-layer failure, retain the other physical settings, and observe early deposition plus later corner contact on the retry.",
+  "current_failed_article": "../prints/2026-10-21-mark1-right08-z000/physical-result/physical-result.json",
+  "next_print_strategy": "Proposed brim, denser/hotter extrusion, scoped cooling and throughput trial in next-trial-options.json. Zero added user trim remains; no project or printer setting changed.",
   "conditional_options": [
     {
-      "candidate": "Explicit brim at lifting corners",
-      "purpose": "Increase the bed contact holding the reservoir floor down.",
-      "evidence": "Current G-code emits no Brim/Skirt feature despite auto_brim width 5 mm saved.",
-      "when": "Consider only after a continuous, attached first layer is demonstrated and later corner lift remains visible.",
-      "assessment": "Record attached baseline and first visible lift layer; assess brim attachment and corner contact through the suspect interval."
-    },
-    {
-      "candidate": "Review emitted local overhang cooling",
-      "purpose": "Reduce a thermal gradient if lift starts with a cooling change.",
-      "evidence": "Current ordinary cooling is off through layer 3, then 20%; 90% overhang bursts appear from layer 4. No timing link to corner lift is established.",
-      "when": "Only if a new last-attached/first-lifted interval supports examining the corresponding paths and fan transitions.",
-      "assessment": "Compare the exact affected feature and cooling transition; do not change whole-part cooling solely from this unverified association."
+      "candidate": "Explicit brim / bead packing / supported-path cooling / speed",
+      "details": "next-trial-options.json",
+      "evidence": "body-cooling-paths.json",
+      "status": "Proposed; not sliced or launched."
     }
   ],
-  "manufacturer_reference": "https://help.prusa3d.com/article/warping_2011"
+  "manufacturer_reference": "https://help.prusa3d.com/article/warping_2011",
+  "prior_first_layer_failure": "../prints/2026-10-20-mark1-right08/physical-result/physical-result.json",
+  "zero_trim_retry": {
+    "job_id": "1359909015",
+    "disposition": "Derek stopped it; corner curl and actual leaks at many places reported.",
+    "physical_result": "../prints/2026-10-21-mark1-right08-z000/physical-result/physical-result.json",
+    "onset_layer": null,
+    "live_visibility_limit": "Partial exposed-edge observations through UI layer 526 did not detect the reported curl; no full baseline or onset bracket.",
+    "terminal_record": "../prints/2026-10-21-mark1-right08-z000/terminal-observation.json",
+    "monitor_status": "PAUSED"
+  }
 }
