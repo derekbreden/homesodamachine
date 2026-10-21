@@ -62,6 +62,12 @@ def main():
                                           tolerance=.005, angularTolerance=.05, relative=False)
     from flute_payload import cut
     cut(out, out.with_suffix(".stl"))
+    metric_out = _here.parent / "anchor-cap-4mm.step"
+    metric = cap.cap(PRINT_FRAME, 2.0 + cap.fits.slip)
+    export_assembly(one_body(metric, "anchor-cap-4mm", M_PETGF_BLACK), str(metric_out))
+    metric.copy(mesh=False).exportStl(str(metric_out.with_suffix(".stl")),
+                                     tolerance=.005, angularTolerance=.05, relative=False)
+    cut(metric_out, metric_out.with_suffix(".stl"))
     volume = body.val().Volume()
     substitute_md(_here.parent / "README.md", variables={
         "CAP_LEN": f"{cap.CAP_LEN:g} mm",

@@ -104,7 +104,7 @@ westbrass_bore_diameter = 31.5 + 2.0 * bore_clearance
 westbrass_bore_x = 0.0
 westbrass_bore_y = 0.0
 
-# Flavor-tube pill — 1/4" OD LLDPE tubes ([6.35 mm](FLAVOR_TUBE_OD) OD), tangent to the
+# Flavor-tube pill — 1/4" OD LLDPE tubes ([4 mm](FLAVOR_TUBE_OD) OD), tangent to the
 # Westbrass's +Y face (Y=+[15.75 mm](WESTBRASS_RECT_LONG_HALF)); the mounting row is F1-D-F2.
 # [18.15 mm](PILL_L) long axis (X), [7.25 mm](PILL_W) short axis (Y).
 flavor_pill_center = (_faucet_interface.bundle_slot_center_x, +flavor_tube_depth)
@@ -273,12 +273,12 @@ soda_faucet_tube_od = 0.375 * 25.4  # [9.525 mm](SODA_FAUCET_TUBE_OD)
 # [10.22 mm](SODA_FAUCET_HOLE_D) water bore.
 soda_faucet_hole_diameter = soda_faucet_tube_od + 2.0 * bore_clearance + 0.20
 
-# 1/4" LLDPE flavor tubes, tangent to the soda faucet tube at the dispense
+# 4 mm LLDPE flavor tubes, tangent to the soda faucet tube at the dispense
 # point and sitting behind it (more +Y).
 flavor_tube_post_bend_y = soda_faucet_tube_y + _paths.TIGHT_FLAVOR_N
 # neoFlo LLDPE-4 (1/4-inch OD) supplier bend radius: 1 inch.
 # https://assets.freshwatersystems.com/image/upload/s--N9disqrx--/gjtidjfc0tlprqbhb4ka.pdf
-flavor_bend_min_radius = 25.4
+flavor_bend_min_radius = _paths.FLAVOR_MIN_BEND
 flavor_bend_radius = 40.0
 flavor_bend_start_z = _paths.LOWER_START_Z
 flavor_bend_angle_rad = math.acos(
@@ -303,7 +303,7 @@ zone5_z_bottom = zone4_z_top  # [57.5 mm](ZONE5_Z_BOTTOM)
 zone5_z_top = zone4_z_top + 10.0  # [67.5 mm](ZONE5_Z_TOP)
 zone5_height = zone5_z_top - zone5_z_bottom  # [10 mm](ZONE5_HEIGHT)
 # Water → flavor offset along world Y; positive — flavor sits behind water.
-flavor_offset_y_from_water = flavor_tube_post_bend_y - soda_faucet_tube_y  # ≈ [6.059 mm](FLAVOR_OFFSET_Y)
+flavor_offset_y_from_water = flavor_tube_post_bend_y - soda_faucet_tube_y  # ≈ [5.58 mm](FLAVOR_OFFSET_Y)
 
 split_socket_wall = wall_thickness_min
 split_plug_wall = wall_thickness_min
@@ -316,7 +316,7 @@ signal_lane_center_n = 11.55
 signal_ribbon_max_width = _paths.RIBBON_WIDTH
 signal_ribbon_max_depth = _paths.RIBBON_DEPTH
 _tube_soda_bore_r = soda_faucet_hole_diameter / 2.0
-_tube_pill_bore_r = pill_width_y / 2.0
+_tube_pill_bore_r = flavor_tube_hole_dia / 2.0
 _tube_pill_cap_x = (pill_length_x - pill_width_y) / 2.0
 _tube_bore_caps = (
     (_paths.TIGHT_FLAVOR_X, _paths.TIGHT_FLAVOR_N, _tube_pill_bore_r),
@@ -712,7 +712,7 @@ def build_lower_signal_lane() -> cq.Workplane:
         wires[0].translate((0.0, 0.0, bottom-z0)), [], cq.Vector(0, 0, z0-bottom))
     upper = cq.Solid.extrudeLinear(wires[-1], [], cq.Vector(0, 0, 0.2))
     opening = lower.fuse(transition, upper, tol=1e-6).clean()
-    joined = lane.val().fuse(opening,tol=1e-6).clean()
+    joined = lane.val().fuse(opening,tol=1e-6)
     if not joined.isValid() or len(joined.Solids()) != 1:
         raise ValueError("the common lower bundle opening must be one valid native solid")
     return cq.Workplane(obj=joined)

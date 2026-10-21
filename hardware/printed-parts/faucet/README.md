@@ -4,7 +4,7 @@ The faucet has two styles, each in Black or White PET-GF.
 
 | Faucet style | Shape | PET-GF print project |
 |---|---|---|
-| **Sculpted** | Smooth curves and softly blended transitions. | [Complete white project](sculpted/prints/2026-10-15-white-right-mark2/2026-10-15-sculpted-white-complete-right04-z004-mark2.3mf) · [print settings](sculpted/README.md) |
+| **Sculpted** | Smooth curves and softly blended transitions. | [Production project](faucet-petgf.3mf) · [print settings](sculpted/README.md) |
 | **Industrial** | Simple cylinders and crisp, pronounced shoulders. | [Production project](industrial/faucet-industrial-petgf.3mf) · [print settings](industrial/faucet-industrial-petgf.md) |
 
 **Finish** is a separate Black or White choice in the [3D viewer](/3d).
@@ -12,8 +12,9 @@ It applies to the PET-GF shell, display cover and above-counter plate.
 The retained Westbrass lever, display glass, tubing and TPU gasket keep their
 own materials and colors. Each style uses one geometry in either finish.
 Both styles include one black PET-GF [umbilical organizer](umbilical-organizer/README.md)
-below the mounting workspace, with A's accepted Ø6.65 mm beverage bores and
-B's accepted Ø4.40 mm drain bore. The measured ribbon uses a 5.4 × 1.8 mm
+below the mounting workspace, with A's accepted Ø6.65 mm soda bore and
+three Ø4.40 mm flavor/drain bores. The Ø4.40 mm fit is accepted on the white
+drain stock; black 4 mm flavor-stock fit is unmeasured. The measured ribbon uses a 5.4 × 1.8 mm
 flat signal slot in the organizer.
 
 The [Sculpted texture timing study](texture-comparison/2026-09-24/README.md)
@@ -27,7 +28,8 @@ ribbon clearances. The flavors share a capsule without a central divider
 or outlet cusp. The curved joint is at 70°, with a female base and male tip. The white 4 mm OD / 2.5 mm ID drain
 tube ends square with 3 mm of local mouth clearance. A round Ø4 mm underside
 hole opens from the common passage clearance over the bowl. The drink tubes
-continue to their separate dispense outlets. No drain gasket, bung or insertion
+continue to the dispense face: Ø9.525 mm soda and two Ø4 mm black flavors,
+inside a smooth shared opening without a divider between the flavor clearances. No drain gasket, bung or insertion
 tool is required.
 
 The intended result is a visible drip indicating a major fault. Incidental
@@ -107,3 +109,5 @@ binds both bases and the shared tip, verifies the joint and nominal tube
 clearance, and records the absent material at the two picked defects.
 The retained centered-vent and sealed-port records apply to their exact
 sealed-cavity source and artifact hashes.
+
+The [4 mm dispense specification](flavor-lines/README.md) covers the outlet valves, reducers, rear fittings, tube supports, mounting stack and tip. The 27 mm gooseneck retains the water/cable datums and two 2 mm joint walls. Its current minimum inner joint wall is 2.21 mm; the smaller flavor tubes reduce the shared passage and dispense opening.

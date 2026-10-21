@@ -62,6 +62,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "jg-pp0308e-elbow",
            _hw / "reference" / "neofit-bulkhead",
            _hw / "reference" / "neofit-drain-bulkhead",
+           _hw / "reference" / "neofit-flavor-reducer",
            _hw / "reference" / "gasher-check-valve",
            _hw / "reference" / "wr1110-regulator",
            _hw / "reference" / "digiten-flow-sensor"):
@@ -78,6 +79,7 @@ import beduan_solenoid as _beduan                      # noqa: E402
 import jg_bulkhead_union as _jg                        # noqa: E402
 import elbow as _elbow                                 # noqa: E402
 import neofit_drain_bulkhead as _drain_bulkhead
+import neofit_flavor_reducer as _flavor_reducer
 import neofit_bulkhead as _neofit                      # noqa: E402
 import neofit_flow_control as _flowreg                 # noqa: E402
 import water_split as _split                           # noqa: E402
@@ -130,6 +132,11 @@ CAP_BORE_SKEW = _cc.cap_conduit_entry_skew
 # Which reference module states each placed body's stations, and the bore each one carries. The
 # module gives `(position, outward axis)` in the body's own frame; `enclosure_assembly`'s `carry`
 # takes that through the placement, so a port table is written once and rides every later move.
+# Physical adapters on logical valve ports, alongside the gas chain's adapters.
+PORT_ADAPTERS = {**_gas_chain.PORT_ADAPTERS,
+                 "valve-v-g.outlet": "flavor-reducer-v-g",
+                 "valve-v-j.outlet": "flavor-reducer-v-j"}
+
 STATIONS = {
     # The cold core's cap conduits — bores up the cap's own columns, each opening on the lid's
     # outer face. A line reaching one arrives at the deck, not at a body face.
@@ -198,9 +205,11 @@ STATIONS = {
 # the same two mouths the tap-water union does, under the names the topology gives them: the
 # INBOARD collet is what a run inside the box pushes into, the outboard one is what the
 # above-counter umbilical lands on.
-for _b in ("bulkhead-flavor-a", "bulkhead-flavor-b", "bulkhead-carb"):
-    STATIONS[_b] = {"tube-in": (lambda: _jg.port(-1.0), _jg.PORT_D),
-                    "tube-out": (lambda: _jg.port(1.0), _jg.PORT_D)}
+for _b in ("bulkhead-flavor-a", "bulkhead-flavor-b"):
+    STATIONS[_b] = {"tube-in": (lambda: _drain_bulkhead.port(-1.0), 4.0),
+                    "tube-out": (lambda: _drain_bulkhead.port(1.0), 4.0)}
+STATIONS["bulkhead-carb"] = {"tube-in": (lambda: _jg.port(-1.0), _jg.PORT_D),
+                             "tube-out": (lambda: _jg.port(1.0), _jg.PORT_D)}
 
 
 # The flavour manifold's ten solenoid valves. Each stands coil-up with its flow along the pack's
@@ -230,6 +239,16 @@ for _v in VALVES:
         "outlet": ((lambda v=_v, e=_out: (_ml.port(v, e), _ml.port_axis(v, e))),
                    _split.TUBE_D),
     }
+
+def flavor_outlet(v):
+    """4 mm socket beyond the reducer's nominal shoulder at the valve outlet."""
+    end = valve_ends(v)[1]
+    point, axis = _ml.port(v, end), _ml.port_axis(v, end)
+    return (tuple(point[i] + axis[i] * _flavor_reducer.PROUD_LENGTH for i in range(3)), axis)
+
+for _v in ("V-G", "V-J"):
+    STATIONS[f"valve-{_v.lower()}"]["outlet"] = (
+        lambda v=_v: flavor_outlet(v), _flavor_reducer.TUBE_OD)
 
 
 def frames(placed, carries):
@@ -792,11 +811,11 @@ GATE_STUB_CLEAR = 4.0
 # WHAT IT IS MEASURED FROM is V-J's own outlet, which rides `enclosure_assembly.PACK_Y`. Both
 # fences above are on the leg, so both are read from there too, and `bend-radius` is what reports
 # the climb's quarter when the leg is short of the first one.
-GATE_B_JOG_LEG = 19.9
+GATE_B_JOG_LEG = 32.0
 GATE_B_DRAIN_RETURN_RISE = 3.5
 GATE_B_RETURN_WEST = 16.5
 GATE_B_RETURN_HOLD_Y = 412.0
-GATE_B_UNION_APPROACH = 8.01
+GATE_B_UNION_APPROACH = 10.0
 # Where the line comes off the cruise plane onto its union's own storey. The rise is 2.9 mm and
 # the run holds the plane it climbed to for everything before it, so what this figure places is
 # THE ANCHOR: the rib rides the middle of the leg it names, and the middle of this one stands in
@@ -808,25 +827,22 @@ GATE_B_STEP_Y = 393.0
 # apiece, so nearly all of this is straight — the reach is here to keep the corner well over the
 # 2° a lean needs to be a lean, not because the arcs want it.
 GATE_B_RISE_RUN = 20.0
-# Flavor A crosses the lid's fore strip on its capped rib. The adjoining legs pass 2.7 mm lower:
-# under the tap-water crossing and its cap-entry approach, and along the west flank a millimetre
-# under `fluid-28`'s anchor cap, whose wings reach 7.98 mm under that run's axis.
-GATE_A_FORE_DROP = 2.7
-# The crossing's square corners, each side of its capped lid rib's centre. The east one's R14
-# turn off the diagonal leaves 3.1 mm of straight past the rib's east end; the west one, where
-# the run leans down 1.2 mm over `GATE_A_LOW_LEAN_RUN`, a millimetre past its west end.
-GATE_A_JOIN_RUN = 19.4
-GATE_A_POST_EXIT = _anchor_cap.RIB_LEN / 2.0 + 1.0
-GATE_A_LOW_LEAN_RUN = 22.0
-# The west lane is outside the reservoir-B fill column and the discharge chain.
-# Its return begins behind the pump's discharge elbow and crosses the pump's west-rear foot,
-# whose rubber pad stands on the cap's outer face; nothing of the pump stands over that leg.
+# Flavor A crosses above the front valve coils, then follows the west side.
+# Its straight bearing lies behind the discharge-chain support on the cap lid.
+GATE_A_FRONT_Y = 135.0
+GATE_A_FRONT_Z = 283.0
+GATE_A_FRONT_JOIN_X = 35.0
+GATE_A_OUTER_X = -88.0
+GATE_A_DESCENT_START_Y = 175.0
+GATE_A_BEARING_JOIN_Y = 235.0
+GATE_A_BEARING_EXIT_Y = 295.0
+GATE_A_LOW_LANE_JOIN_Y = 325.0
+GATE_A_FORE_HEIGHT = 4.9
 GATE_A_WEST_X = -76.5
 GATE_A_RETURN_START_Y = 345.0
 GATE_A_UNION_JOIN_Y = 375.0
 GATE_A_UNION_LEVEL_RUN = 16.0
 GATE_A_RISE_RUN = 20.0
-
 
 def _gate_a_anchor(F) -> tuple:
     """The installed crossing's axis at the middle of its capped lid rib, from the cap's own
@@ -869,14 +885,15 @@ def station(body: str, port: str):
 
 def _gate_climb_under_cruise(F) -> float:
     """`gate_cruise` read off the placed valve."""
-    return gate_cruise(F["valve-v-i"].at("outlet")[2])
+    return max(gate_cruise(F["valve-v-i"].at("outlet")[2]),
+               F["valve-v-j"].at("outlet")[2] + 31.0)
 
 
 def _fluid_28(F, solids):
     """Flavor B retains the front support and follows its raised west return.
 
     The return rises 3.5 mm, passes 16.5 mm west of the rear union's column and
-    reaches its collet on-axis. Its 8.01 mm approach is measured from the
+    reaches its collet on-axis. Its 10 mm approach is measured from the
     actual union mouth along its outward normal. The rear corners hold R25.4.
     """
     gate = F["valve-v-j"].at("outlet")
@@ -892,47 +909,42 @@ def _fluid_28(F, solids):
         (tin[0] - GATE_B_RETURN_WEST, GATE_B_RETURN_HOLD_Y, climb + GATE_B_DRAIN_RETURN_RISE),
         "bulkhead-flavor-b.tube-in",
         kind="fluid", lead=(0.0, GATE_B_UNION_APPROACH),
-        bend={1: TUBE_BEND, 2: TUBE_BEND,
+        bend={1: 25.0, 2: 25.0,
                             3: 25.4, 4: 25.4, 5: 25.4, 6: 25.4, 7: 25.4},
         note="flavor B: V-J-O → rear union, through the front support and "
              "a raised west return above the ASSE drain")
 
 
 def _fluid_18(F, solids):
-    """Flavor A: cross the low cap bearing, follow the west flank and reach the rear union.
+    """Flavor A crosses the front coils and returns along the west side at R25.
 
-    The capped lid rib bears on a straight tube ahead of the cap valves. The west leg
-    passes outside the fill column and discharge chain, then turns in behind the
-    discharge elbow, holds `LANE_CLEAR` over the pump's west-rear foot and rises onto the
-    rear union's axis.
+    The cap-lid bearing holds the straight fore-aft section before the line
+    descends below the west-side terminals and returns over the pump's rear foot.
     """
     gate = F["valve-v-g"].at("outlet")
     tin = F["bulkhead-flavor-a"].at("tube-in")
-    anchor_x, deck_y, cross_z = _gate_a_anchor(F)
-    join_x = anchor_x + GATE_A_JOIN_RUN
-    post_exit_x = anchor_x - GATE_A_POST_EXIT
-    fore_z = cross_z - GATE_A_FORE_DROP
+    anchor_x, _anchor_y, bearing_z = _gate_a_anchor(F)
+    fore_z = F["foam-assembly"].at("reservoir-a")[2] + GATE_A_FORE_HEIGHT
     low_z = (F["foam-assembly"].at("reservoir-a")[2] + _pump.observed_pad_upper_z()
              + _split.TUBE_D / 2.0 + LANE_CLEAR)
     rise_y = GATE_A_UNION_JOIN_Y + GATE_A_UNION_LEVEL_RUN
     return R.bent(
         "fluid-18", "valve-v-g.outlet",
-        (gate[0], gate[1], fore_z),
-        (join_x, deck_y, cross_z),
-        (post_exit_x, deck_y, cross_z),
-        (post_exit_x - GATE_A_LOW_LEAN_RUN, deck_y, fore_z),
-        (GATE_A_WEST_X, deck_y, fore_z),
+        (gate[0], gate[1], GATE_A_FRONT_Z),
+        (GATE_A_FRONT_JOIN_X, GATE_A_FRONT_Y, GATE_A_FRONT_Z),
+        (GATE_A_OUTER_X, GATE_A_FRONT_Y, GATE_A_FRONT_Z),
+        (GATE_A_OUTER_X, GATE_A_DESCENT_START_Y, GATE_A_FRONT_Z),
+        (anchor_x, GATE_A_BEARING_JOIN_Y, bearing_z),
+        (anchor_x, GATE_A_BEARING_EXIT_Y, bearing_z),
+        (GATE_A_WEST_X, GATE_A_LOW_LANE_JOIN_Y, fore_z),
         (GATE_A_WEST_X, GATE_A_RETURN_START_Y, fore_z),
         (tin[0], GATE_A_UNION_JOIN_Y, low_z),
         (tin[0], rise_y, low_z),
         (tin[0], rise_y + GATE_A_RISE_RUN, tin[2]),
         "bulkhead-flavor-a.tube-in",
-        kind="fluid", bend={1: TUBE_BEND, 2: TUBE_BEND, 3: TUBE_BEND,
-                            4: TUBE_BEND, 5: TUBE_BEND,
-                            6: 25.4, 7: 25.4, 8: 25.4, 9: 25.4},
-        note="flavor A: V-G-O → rear union, over the low fore cap rib, "
-             "aft along the west flank and over the pump's west-rear foot")
-
+        kind="fluid", bend=25.0,
+        note="flavor A: V-G-O → rear union, across the front coils, "
+             "through the west cap bearing and over the pump's west-rear foot")
 
 # --- the four reservoir lines, gate to reservoir and reservoir to gate --------
 #

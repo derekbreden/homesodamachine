@@ -140,7 +140,7 @@ def _cavity(frame, side, s0, s1):
     return frame.section((side * r0, 0.5), mirror, s0, s1)
 
 
-def cap(frame):
+def cap(frame, seat_r=SEAT_R):
     """The cap pushed home: its shoulders on the rib's lips at b = 0, centred on the station."""
     s0, s1 = -CAP_LEN / 2.0, CAP_LEN / 2.0
     ca, sa = math.cos(math.radians(MOUTH_DEG)), math.sin(math.radians(MOUTH_DEG))
@@ -148,9 +148,9 @@ def cap(frame):
         ("L", (WING_OUT, WING_TOP)), ("L", (WING_OUT, 0.0)),
         ("A", (0.0, -WING_OUT), (-WING_OUT, 0.0)),
         ("L", (-WING_OUT, WING_TOP)), ("L", (-WING_IN, WING_TOP)), ("L", (-WING_IN, 0.0)),
-        ("L", (-SEAT_R - MOUTH, 0.0)), ("L", (-SEAT_R * ca, -SEAT_R * sa)),
-        ("A", (0.0, -SEAT_R), (SEAT_R * ca, -SEAT_R * sa)),
-        ("L", (SEAT_R + MOUTH, 0.0)), ("L", (WING_IN, 0.0)),
+        ("L", (-seat_r - MOUTH, 0.0)), ("L", (-seat_r * ca, -seat_r * sa)),
+        ("A", (0.0, -seat_r), (seat_r * ca, -seat_r * sa)),
+        ("L", (seat_r + MOUTH, 0.0)), ("L", (WING_IN, 0.0)),
     ], s0, s1)
     for side in (1, -1):
         body = body.fuse(frame.prism(_lip(side), s0, s1))
@@ -159,13 +159,13 @@ def cap(frame):
     return body.clean()
 
 
-def rib(frame, b_root):
+def rib(frame, b_root, seat_r=SEAT_R):
     """The rib, root face to the axis plane, its seat bored and its outer bottom edges chamfered.
     The windows are cut from the piece once the rib is fused (`windows`)."""
     c = RIB_CHAMFER
     body = frame.prism([(-RIB_R + c, 0.0), (RIB_R - c, 0.0), (RIB_R, c), (RIB_R, b_root),
                         (-RIB_R, b_root), (-RIB_R, c)], -RIB_LEN / 2.0, RIB_LEN / 2.0)
-    return body.cut(frame.bore(SEAT_R, -RIB_LEN / 2.0 - 1.0, RIB_LEN / 2.0 + 1.0))
+    return body.cut(frame.bore(seat_r, -RIB_LEN / 2.0 - 1.0, RIB_LEN / 2.0 + 1.0))
 
 
 def window_top(b_face):

@@ -515,14 +515,11 @@ def mount_art(a):
 
 
 def supply_art(a):
-    a.label("WHITE FAUCET ONLY",102,21,11,BLUE,align="center")
-    for x,y,name in [(43,79,"A"),(128,45,"B")]:
-        a.line(x,38,x,y,MUTED,9)
-        a.line(x,38,x,y,PAPER,6)
-        a.rect(x-15,y,30,48,STEEL)
-        a.line(x,y+48,x,248,INK,9)
-        a.label(name,x,y+28,14,BLUE,align="center")
-    a.label("white above / black below",102,274,10,MUTED,align="center")
+    a.label("CONTINUOUS BLACK FLAVORS",102,21,10.5,BLUE,align="center")
+    for x,name in [(58,"A"),(145,"B")]:
+        a.line(x,45,x,248,INK,6)
+        a.label(name,x,151,13,BLUE,align="center")
+    a.label("4 mm OD / both finishes",102,274,10,MUTED,align="center")
     a.label("BLUE SUPPLY / BOTH FINISHES",371,21,11,BLUE,align="center")
     a.rect(343,40,58,51,BRASS)
     a.rect(350,104,44,18,BRASS)
@@ -651,7 +648,7 @@ def sleeve_art(a):
     a.ellipse(64,65,133,133,"#BCC3CE")
     a.ellipse(108,110,45,45,BLUE)
     a.ellipse(119,121,23,23,PAPER)
-    for x,y,diam,ink in [(205,64,31,INK),(213,105,31,INK),(58,128,20,PAPER)]:
+    for x,y,diam,ink in [(205,72,20,INK),(211,105,20,INK),(58,128,20,PAPER)]:
         a.ellipse(x,y,diam,diam,ink)
         a.ellipse(x+diam*.27,y+diam*.27,diam*.46,diam*.46,PAPER)
     a.rect(204,158,8,44,BLUE)
@@ -778,8 +775,7 @@ def build():
         ("Blue supply, 1/4-inch OD",figure("BLUE_CUT"),figure("BLUE_CUT")),
         ("Soda tube, 3/8-inch OD",figure("SODA_FAUCET_CUT"),figure("SODA_FAUCET_CUT")),
         ("White OVER, 4 mm OD",figure("DRAIN_CUT"),figure("DRAIN_CUT")),
-        ("Flavor A / B, black 1/4-inch OD",figure("FLAVOR_CUT")+" / "+figure("FLAVOR_CUT"),figure("BLACK_A_CUT")+" / "+figure("BLACK_B_CUT")),
-        ("Flavor A / B, white 1/4-inch OD","-",figure("WHITE_A_CUT")+" / "+figure("WHITE_B_CUT")),
+        ("Flavor A / B, black 4 mm OD",figure("FLAVOR_CUT")+" / "+figure("FLAVOR_CUT"),figure("FLAVOR_CUT")+" / "+figure("FLAVOR_CUT")),
     ]
     for x,label in [(38,"TUBE"),(365,"BLACK FAUCET"),(478,"WHITE FAUCET")]:
         text(c,label,x,280,9,"PlexBold",BLUE)
@@ -796,7 +792,7 @@ def build():
         a.arrow(324,-6,324,0,ORANGE)
         a.label("one square cut",238,9,12,BLUE)
         a.label("keep supplied reach",4,96,13,BLUE)
-    paragraph(c,"The 3/8-inch soda tube matches the faucet finish. Both flavor runs are black throughout a Black faucet. A White faucet has white upper runs and black lower runs joined by two PP0408W unions. The OVER is one continuous "+figure("DRAIN_CUT")+" mm run.",34,579,542,11.3,14.2,max_height=58)
+    paragraph(c,"The 3/8-inch soda tube matches the faucet finish. Both flavor runs are continuous black 4 mm tubing, on either faucet finish. Keep their centerline bends at or above R25. The OVER is one continuous "+figure("DRAIN_CUT")+" mm run.",34,579,542,11.3,14.2,max_height=58)
     note(c,"TOOLS AND CONSUMABLES","Tube cutter, 2.5 mm hex key, M3 heat-set tip/iron, fine soldering tip, solder, multimeter, magnifier, modular crimper and 3-prong 6P4C plug. Use the tube insertion jig, foam and PET braid specified for this bench. The linked jig guide gives its assembly and use.")
     footer(c,4,FU+" | matching style parts",SITE+FU)
     end_page(c)
@@ -852,20 +848,20 @@ def build():
          "Exploded order from the shell foot downward. The steel under-counter plate stays loose for the install bag.",
          ["Pass both flavor tails, D and the unterminated wall end of the ribbon through the gasket's matching passage. Pass the bare shank through its center and slide the gasket flat against the printed plate.",
           "Slide the retained donor washer onto the shank, then thread on the retained donor nut loosely. Keep the gap above them for the countertop and laterally inserted steel plate.",
-          "Leave the steel plate off. Thread the organizer onto unjoined flavors, D, flat ribbon and bare blue tube before the unions, supply joint and plug. Keep it below the washer/nut workspace."],
+          "Leave the steel plate off. Thread the organizer onto unjoined flavors, D, flat ribbon and bare blue tube before the supply joint and plug. Keep it below the washer/nut workspace."],
          "The gasket lies flat and covers the base screw heads. The washer/nut are on the shank above the supply joint. The 38 mm routing envelope does not establish maximum clampable countertop thickness.",FU)
-    page(c,14,"Join White runs and the blue supply","A Black faucet has continuous flavor tubes. Both finishes use the same donor supply connection.",supply_art,
-         "White flavor unions at left, B above A. Blue supply connection at right, shown before tightening.",
-         ["On a White faucet, push each white upper flavor run and matching black lower run into its PP0408W union to the 16 mm stops. Keep B's union one 30 mm union length above A's, at the factory stations.",
-          "Keep F1/D/F2 and ribbon straight through the countertop routing zone. Below that zone, preserve the specified R30 flavor/ribbon returns and R25 drain returns around the unions.",
+    page(c,14,"Route flavors and connect blue supply","Both finishes use continuous black 4 mm flavor tubes and the same donor supply connection.",supply_art,
+         "Continuous black flavor tubes at left. Blue supply connection at right, shown before tightening.",
+         ["Keep each black 4 mm flavor tube uncut from its tip to appliance tail. Pass both through the 4.40 mm organizer bores; OVER uses the third 4.40 mm bore, and blue uses 6.65 mm.",
+          "Keep F1/D/F2 and ribbon straight through the countertop routing zone. Below that zone, preserve the specified R30 flavor/ribbon returns and R25 drain returns below the organizer.",
           "Put one Siptenk brass stiffener fully inside the blue 1/4-inch tube end. Insert the stiffened end into the donor's lower compression port and tighten its factory ferrule/nut hand-snug plus 1/4 turn."],
-         "Both White-faucet unions bottom and pass a tug check. The blue tube is connected below the captive hardware. The separate 3/8-inch soda tube remains in the donor's top port.",FU)
+         "Both continuous flavor tubes route freely. The blue tube is connected below the captive hardware. The separate 3/8-inch soda tube remains in the donor's top port.",FU)
     plug_page(c)
     page(c,16,"Insulate and sleeve the bundle","Lay the completed signal cable beside all four tubes before sliding on any braid segment.",sleeve_art,
          "Bundle section at left; two fitted sleeve segments at right. D gathers opposite the cold foam from the flavors.",
          ["Fit foam only to the blue cold tube, one segment at a time, butting the segment above it. The standard run uses five pieces covering "+figure("FOAM_LENGTH")+" mm; leave "+figure("FOAM_BARE_TOP")+" mm bare at the top and 75 mm at the wall tail.",
           "Gather the flavor pair beside the foam and D on its opposite side, with SIG-6 inside the braid. Slide one fitted PET-braid segment over the pack for each foam segment.",
-          "Fit before cutting: braid shortens when expanded. The top braid extends "+figure("SLEEVE_ABOVE_FOAM")+" mm above the foam to the organizer, covering both White-faucet unions or the same length of the continuous Black runs."],
+          "Fit before cutting: braid shortens when expanded. The top braid extends "+figure("SLEEVE_ABOVE_FOAM")+" mm above the foam to the organizer, covering the continuous tubes and flat cable."],
          "Foam joints and braid joints butt without gaps; no braid segment excludes the display cable or D. All four tails remain bare, square and accessible beyond the final sleeve.",FU)
     page(c,17,"Identify, inspect and bag","The customer receives the completed faucet, gasket, captive mount hardware, tubes and signal plug.",final_art,
          "Four identified bare wall tails. One stainless under-counter plate ships loose beside the complete faucet/umbilical.",

@@ -47,8 +47,8 @@ plus 133 mm plus a working gap is what the pair asks of the slot.
 
 ## What the machine needs beyond its own box
 
-- **[60 mm](TURN_IN) behind the rear face** — lead, 90° bend at R12, and collet. The collet
-  stands [9.5 mm](COLLET_PROUD) proud of the wall's own outer face, and the bulkhead ring it
+- **[78.2 mm](TURN_IN) behind the rear face** — 38.5 mm straight lead, a 90° bend at R25, and the outermost socket. The 4 mm FLAVOR sockets
+  stand [14.7 mm](COLLET_PROUD) proud of the wall's own outer face; the 1/4-inch SODA/TAP sockets stand 9.5 mm proud. The bulkhead ring each
   bears on lies flush in that face — the pocket is cut to the ring's own
   [2 mm](BULKHEAD_RING_THICK), so the ring buys the tube nothing
   (`faucet-and-umbilical.md` §1, `printed-parts/enclosure/bulkhead-ring/`).

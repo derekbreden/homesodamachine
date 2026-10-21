@@ -139,6 +139,7 @@ genrule(
         "pysrc/hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "pysrc/hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
+        "pysrc/hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py",
         "pysrc/hardware/reference/neofit-flow-control/neofit_flow_control.py",
         "pysrc/hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py",
         ":out/tee-connector/hardware/reference/tee-connector/tee-connector.step",
@@ -435,6 +436,7 @@ genrule(
         "pysrc/hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "pysrc/hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
+        "pysrc/hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py",
         "pysrc/hardware/reference/neofit-flow-control/neofit_flow_control.py",
         "pysrc/hardware/reference/riteav-keystone/riteav_keystone.py",
         "pysrc/hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
@@ -612,6 +614,7 @@ genrule(
         "pysrc/hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "pysrc/hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
+        "pysrc/hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py",
         "pysrc/hardware/reference/neofit-flow-control/neofit_flow_control.py",
         "pysrc/hardware/reference/riteav-keystone/riteav_keystone.py",
         "pysrc/hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py",
@@ -1075,6 +1078,7 @@ genrule(
         "pysrc/hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "pysrc/hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
+        "pysrc/hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py",
         "pysrc/hardware/reference/neofit-flow-control/neofit_flow_control.py",
         "pysrc/hardware/reference/riteav-keystone/riteav_keystone.py",
         "pysrc/hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py",
@@ -2735,6 +2739,7 @@ genrule(
         ":out/neofit-bulkhead/hardware/reference/neofit-bulkhead/neofit-bulkhead.step",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "pysrc/hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
+        "pysrc/hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py",
         "pysrc/hardware/reference/neofit-flow-control/neofit_flow_control.py",
         ":out/riteav-keystone/hardware/reference/riteav-keystone/riteav-keystone.step",
         "pysrc/hardware/reference/riteav-keystone/riteav_keystone.py",
@@ -3020,6 +3025,7 @@ genrule(
         ":out/neofit-bulkhead/hardware/reference/neofit-bulkhead/neofit-bulkhead.step",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "pysrc/hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
+        "pysrc/hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py",
         "pysrc/hardware/reference/neofit-flow-control/neofit_flow_control.py",
         ":out/riteav-keystone/hardware/reference/riteav-keystone/riteav-keystone.step",
         "pysrc/hardware/reference/riteav-keystone/riteav_keystone.py",
@@ -4334,6 +4340,7 @@ genrule(
         "pysrc/hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "pysrc/hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
+        "pysrc/hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py",
         "pysrc/hardware/reference/neofit-flow-control/neofit_flow_control.py",
         "pysrc/hardware/reference/riteav-keystone/riteav_keystone.py",
         "pysrc/hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py",
@@ -4423,6 +4430,9 @@ genrule(
         allow_empty = True,
     ),
     outs = [
+        "out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/anchor-cap-4mm.step",
+        "out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/anchor-cap-4mm.step.mesh",
+        "out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/anchor-cap-4mm.stl",
         "out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/anchor-cap.step",
         "out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/anchor-cap.step.mesh",
         "out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/anchor-cap.stl",
@@ -4431,11 +4441,14 @@ genrule(
     ],
     cmd = """
 set -e
-O0=$$PWD/$(location out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/anchor-cap.step)
-O1=$$PWD/$(location out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/anchor-cap.step.mesh)
-O2=$$PWD/$(location out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/anchor-cap.stl)
-O3=$$PWD/$(location out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/README.figures.json)
-O4=$$PWD/$(location out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/README.md)
+O0=$$PWD/$(location out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/anchor-cap-4mm.step)
+O1=$$PWD/$(location out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/anchor-cap-4mm.step.mesh)
+O2=$$PWD/$(location out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/anchor-cap-4mm.stl)
+O3=$$PWD/$(location out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/anchor-cap.step)
+O4=$$PWD/$(location out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/anchor-cap.step.mesh)
+O5=$$PWD/$(location out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/anchor-cap.stl)
+O6=$$PWD/$(location out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/README.figures.json)
+O7=$$PWD/$(location out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/README.md)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -4452,11 +4465,14 @@ cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
 HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/anchor-cap/anchor_cap.py > /dev/null
-cp hardware/printed-parts/enclosure/anchor-cap/anchor-cap.step $$O0
-cp hardware/printed-parts/enclosure/anchor-cap/anchor-cap.step.mesh $$O1
-cp hardware/printed-parts/enclosure/anchor-cap/anchor-cap.stl $$O2
-cp hardware/printed-parts/enclosure/anchor-cap/README.figures.json $$O3
-cp hardware/printed-parts/enclosure/anchor-cap/README.md $$O4
+cp hardware/printed-parts/enclosure/anchor-cap/anchor-cap-4mm.step $$O0
+cp hardware/printed-parts/enclosure/anchor-cap/anchor-cap-4mm.step.mesh $$O1
+cp hardware/printed-parts/enclosure/anchor-cap/anchor-cap-4mm.stl $$O2
+cp hardware/printed-parts/enclosure/anchor-cap/anchor-cap.step $$O3
+cp hardware/printed-parts/enclosure/anchor-cap/anchor-cap.step.mesh $$O4
+cp hardware/printed-parts/enclosure/anchor-cap/anchor-cap.stl $$O5
+cp hardware/printed-parts/enclosure/anchor-cap/README.figures.json $$O6
+cp hardware/printed-parts/enclosure/anchor-cap/README.md $$O7
 """,
 )
 
@@ -5194,6 +5210,7 @@ genrule(
         ":out/neofit-bulkhead/hardware/reference/neofit-bulkhead/neofit-bulkhead.step",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "pysrc/hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
+        "pysrc/hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py",
         "pysrc/hardware/reference/neofit-flow-control/neofit_flow_control.py",
         ":out/riteav-keystone/hardware/reference/riteav-keystone/riteav-keystone.step",
         "pysrc/hardware/reference/riteav-keystone/riteav_keystone.py",
@@ -5329,6 +5346,7 @@ genrule(
         "hardware/reference/jg-pp0308e-elbow/scan-measurements.json",
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
         "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
+        "pysrc/hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py",
         "pysrc/hardware/reference/riteav-keystone/riteav_keystone.py",
         "pysrc/hardware/reference/wago-221/wago_221.py",
         "pysrc/hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py",
@@ -5742,6 +5760,7 @@ genrule(
         "pysrc/hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "pysrc/hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
+        "pysrc/hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py",
         "pysrc/hardware/reference/neofit-flow-control/neofit_flow_control.py",
         "pysrc/hardware/reference/riteav-keystone/riteav_keystone.py",
         "pysrc/hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
@@ -5921,6 +5940,7 @@ genrule(
         "pysrc/hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "pysrc/hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
+        "pysrc/hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py",
         "pysrc/hardware/reference/neofit-flow-control/neofit_flow_control.py",
         "pysrc/hardware/reference/riteav-keystone/riteav_keystone.py",
         "pysrc/hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
@@ -6100,6 +6120,7 @@ genrule(
         "pysrc/hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "pysrc/hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
+        "pysrc/hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py",
         "pysrc/hardware/reference/neofit-flow-control/neofit_flow_control.py",
         "pysrc/hardware/reference/riteav-keystone/riteav_keystone.py",
         "pysrc/hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
@@ -9038,6 +9059,44 @@ cp hardware/reference/neofit-drain-bulkhead/neofit-drain-bulkhead.step $$O0
 )
 
 genrule(
+    name = "neofit-flavor-reducer",
+    srcs = [
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_material_base.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/neofit-flavor-reducer/hardware/reference/neofit-flavor-reducer/neofit-flavor-reducer.step",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/neofit-flavor-reducer/hardware/reference/neofit-flavor-reducer/neofit-flavor-reducer.step)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py > /dev/null
+cp hardware/reference/neofit-flavor-reducer/neofit-flavor-reducer.step $$O0
+""",
+)
+
+genrule(
     name = "neofit-flow-control",
     srcs = [
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -9812,6 +9871,7 @@ genrule(
         "pysrc/hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "pysrc/hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
+        "pysrc/hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py",
         "pysrc/hardware/reference/neofit-flow-control/neofit_flow_control.py",
         "pysrc/hardware/reference/riteav-keystone/riteav_keystone.py",
         "pysrc/hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py",
@@ -10451,6 +10511,7 @@ genrule(
         ":out/neofit-bulkhead/hardware/reference/neofit-bulkhead/neofit-bulkhead.step",
         "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
+        "hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py",
         "hardware/reference/neofit-flow-control/neofit_flow_control.py",
         ":out/riteav-keystone/hardware/reference/riteav-keystone/riteav-keystone.step",
         "hardware/reference/riteav-keystone/riteav_keystone.py",
@@ -10752,6 +10813,7 @@ genrule(
         "pysrc/hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "pysrc/hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
+        "pysrc/hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py",
         "pysrc/hardware/reference/neofit-flow-control/neofit_flow_control.py",
         "pysrc/hardware/reference/riteav-keystone/riteav_keystone.py",
         "pysrc/hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py",
@@ -12776,6 +12838,14 @@ genrule(
 )
 
 genrule(
+    name = "pysrc-4b716af44dff",
+    srcs = ["hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py"],
+    outs = ["pysrc/hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
     name = "pysrc-ab588bafb842",
     srcs = ["hardware/reference/neofit-flow-control/neofit_flow_control.py"],
     outs = ["pysrc/hardware/reference/neofit-flow-control/neofit_flow_control.py"],
@@ -13502,6 +13572,7 @@ filegroup(
         ":multiplex-asse1022",
         ":neofit-bulkhead",
         ":neofit-drain-bulkhead",
+        ":neofit-flavor-reducer",
         ":neofit-flow-control",
         ":riteav-keystone",
         ":seaflo-22-pump",

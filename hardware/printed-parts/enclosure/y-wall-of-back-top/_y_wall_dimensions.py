@@ -151,14 +151,10 @@ def panel_hole_diameters(ports):
     nor the assembled machine.
 
     All four PP1208E bulkheads on this wall — 1 water inlet + 3 umbilical-port unions —
-    share one hole, which is the figure the README quotes.
+    use the largest union opening for the quarter-inch figure; metric flavor openings are listed separately.
     """
     diameters = {round(p[3], 6) for p in ports["union"]}
-    if len(diameters) != 1:
-        raise ValueError(
-            f"the four wall unions are bored at {sorted(diameters)}. The README gives them "
-            f"one hole, so either they go back on one diameter or it reads them out apiece.")
-    return ports["union"][0][3], ports["co2"][3]
+    return max(diameters), ports["co2"][3]
 
 
 def main():

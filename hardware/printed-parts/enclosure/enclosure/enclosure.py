@@ -8714,7 +8714,7 @@ def _capped_anchor(solid, station, b_face, roots, lane, y0, y1, z0, z1, up):
             and z0 <= min(p[2] for p in span) and max(p[2] for p in span) <= z1):
         return solid
     where = f"({mid[0]:.2f}, {mid[1]:.2f}, {mid[2]:.2f})"
-    if abs(seat_r - _anchor_cap.SEAT_R) > 1e-6:
+    if seat_r > _anchor_cap.SEAT_R + 1e-6:
         raise ValueError(
             f"_capped_anchor: the anchor at {where} seats r {seat_r:.3f} and the anchor cap is cut "
             f"for the 1/4\" tube's {_anchor_cap.SEAT_R:.3f}. Close it with a zip tie, or cut a "
@@ -8738,7 +8738,7 @@ def _capped_anchor(solid, station, b_face, roots, lane, y0, y1, z0, z1, up):
     if not ceiling:
         for pocket in _anchor_cap.wing_room(frame, b_face):
             solid = solid.cut(pocket)
-    rib = _anchor_cap.rib(frame, b_face)
+    rib = _anchor_cap.rib(frame, b_face, seat_r)
     if walled:
         a_hang = math.copysign(_anchor_cap.RIB_R, -up * frame.t[2])
         deep = tube_anchor_corbel_depth(station, roots, lane)

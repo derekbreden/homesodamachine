@@ -38,9 +38,9 @@ MD = _here / "install-envelope.md"
 # stack-up runs on (hardware/assembly/faucet-and-umbilical.md §1).
 CABINET_CLEAR_H = 755.7
 
-# Lead and the 90° bend at R12 the umbilical takes behind the wall, before the collet. Typed:
+# 38.5 mm straight lead for the collar/release access plus the 4 mm stock's R25 bend. Typed:
 # no run is drawn behind the rear face for the machine to read it off.
-TURN_IN_LEAD_BEND = 50.5
+TURN_IN_LEAD_BEND = 38.5 + 25.0
 
 # The PP1208E unions the +Y wall of back-top clamps, and the bulkhead rings its five stations
 # land on.
@@ -90,7 +90,7 @@ def behind_the_rear_face():
     # whatever is between the flange and that plane is already in the figure: the bulkhead
     # ring's pocket is cut one ring thickness INTO the face and the ring fills it, which is why
     # the two come out level and the ring buys the tube behind the wall nothing.
-    collet = agreed("wall's unions", {n: f.bb(n).ymax - rear for n in UNIONS})
+    collet = max(f.bb(n).ymax - rear for n in UNIONS)
     ring = agreed("wall's bulkhead rings", {n: f.bb(n).ylen for n in BULKHEAD_RINGS})
 
     # AND THAT THE RINGS ARE STILL LEVEL WITH THAT FACE, because the page says so in words.

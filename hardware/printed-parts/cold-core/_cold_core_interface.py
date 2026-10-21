@@ -1190,10 +1190,9 @@ cap_anchors = {
     # `_lines._fluid_14` reads both from this row and holds the run level over the whole rib;
     # `check_run_seated` reads the native tube and seat back together.
     "fluid-14":        CapAnchor(( 38.900,  44.750), 6.35 / 2.0 + fits.slip, 15.894, "x", "cap"),
-    # Flavor A's crossing on the lid's fore strip, ahead of both cap valves, along the cap's Y.
-    # The run lies 7.6 mm over the lid, inside the cap's wings, so the lid gives them their
-    # slots. `_lines._gate_a_anchor` reads the crossing off this row.
-    "fluid-18":        CapAnchor((121.800,  34.000), 6.35 / 2.0 + fits.slip,  7.600, "y", "cap"),
+    # Flavor A's straight west-side run, behind the discharge-chain bearing.
+    # The cap's X direction follows the installed fore-aft tube axis.
+    "fluid-18":        CapAnchor((60.800, -80.500), 4.0 / 2.0 + fits.slip, 14.000, "x", "cap"),
 }
 
 # What a zip tie is, wherever one is cut for on this cap. `enclosure.tie_w` is the same

@@ -1,14 +1,15 @@
 # Faucet umbilical organizer
 
-One floating PET-GF puck keeps the three quarter-inch tubes and 4 mm drain in
+One floating PET-GF puck keeps the quarter-inch soda tube, two 4 mm flavor tubes and 4 mm drain in
 formation below the faucet's plate, washer and nut working area. Each tube can
 be deliberately adjusted while holding the puck in the other hand. The signal
 ribbon passes flat through a separate loose slot. The puck threads over free
 tube and cable ends during factory assembly and sits inside the upper braid.
 
 The [three-increment Mark2 fit comparison](../../../../future/umbilical-organizer-exploration/diameter-increments-mark2/physical-result.json)
-selects A's Ø6.65 mm bores for the three quarter-inch tubes and B's Ø4.40 mm
-bore for the received 4 mm drain tube. The [physical acceptance record](physical-acceptance.json) binds
+selects A's Ø6.65 mm bore for quarter-inch stock and B's Ø4.40 mm
+bore for the received white 4 mm drain tube. The two flavor bores use 4.40 mm
+on the specified black 4 mm stock; that stock's physical sliding fit is unmeasured. The [physical acceptance record](physical-acceptance.json) binds
 these feature-level selections to the exact printed samples, job and settings.
 The combined production puck has [completed Mark1 print telemetry](prints/2026-10-11-current-mark1/README.md);
 its complete fit and flat ribbon slot remain physically unassessed. The selected
@@ -18,7 +19,8 @@ access are unmeasured.
 | Feature | Dimension |
 |---|---|
 | Round stock | Ø[32 mm](ORGANIZER_OD) × [10 mm](ORGANIZER_LENGTH) |
-| Soda and both flavor bores | Ø[6.65 mm](ORGANIZER_TUBE_BORE) |
+| Soda bore | Ø[6.65 mm](ORGANIZER_TUBE_BORE) |
+| Both flavor bores | Ø[4.40 mm](ORGANIZER_FLAVOR_BORE) |
 | Drain bore | Ø[4.40 mm](ORGANIZER_DRAIN_BORE) |
 | Loose flat signal slot | [5.4 × 1.8 mm](ORGANIZER_CABLE_SLOT) |
 | Tube entrance chamfers, both ends | [0.4 mm](ORGANIZER_ENTRY) × 45° |
@@ -56,32 +58,9 @@ forward offsets keep the round stock inside the countertop opening.
 All lines are straight and parallel through the puck; tangent R30 flavor
 and R25 drain bends connect it to the mounting row above.
 
-The minimum material requirement is [1.5 mm](ORGANIZER_MIN_MATERIAL), measured
-edge to edge between every passage and from each passage to the outside,
-including both entrance chamfers and the outer rim chamfers. At the flat faces,
-the drain-to-ribbon web is 1.5625 mm, either flavor-to-drain web is 1.5764 mm,
-and each beverage bore has 1.7133 mm to the outside. Those figures increase
-through the straight portion to 2.1625, 2.3764 and 2.3133 mm respectively.
-The [manual integration check](integration-check.json) records every passage
-pair and exterior wall. These are geometric thicknesses; physical load capacity
-and endurance are unmeasured.
+The minimum material requirement is [1.5 mm](ORGANIZER_MIN_MATERIAL), including both entrance chamfers and the outer rim chamfers. The [integration check](integration-check.json) measures the current geometry. These are geometric thicknesses; physical load capacity and endurance are unmeasured.
 
-The flavor R30 and drain R25 returns to the union layout begin 3 mm below the
-organizer's bottom. The White faucet's upper union begins 7 mm below the
-completed flavor returns; its second union sits end to end below that. Foam on
-the blue tube begins below the lower gathering bends.
-The [manual integration check](integration-check.json) records the accepted bore
-profiles, passage alignment and nominal cable/braid clearances in this assembly.
-
-Thread the organizer before joining the White faucet's flavor unions, before
-clamping the blue tube into the retained Westbrass, and before crimping the
-signal plug. Set the tube positions with two hands, leaving the mounting stack's
-working area clear. Face the soda bore toward the shank and the signal slot
-behind the F1–D–F2 row, matching the plate. Keep the ribbon flat through the slot
-and retain the straight tube section through the puck before bending toward
-the unions. The organizer floats with the bundle; it is not fixed to
-the counter or enclosure. Keep room between gripping stations for the tubes to
-settle as the bundle bends.
+The flavor R30 and drain R25 returns begin 3 mm below the organizer's bottom and gather beside the insulated soda line. Thread the organizer before clamping the blue tube into the Westbrass and before crimping the signal plug. Set positions with two hands, leaving the mounting hardware's working area clear. The organizer floats with the bundle inside the upper braid.
 
 ## Print
 
@@ -91,7 +70,7 @@ new printing; the dated native archives retain their original commands.
 
 PET-GF, flat bottom face on the textured plate with all passages vertical.
 The [white Mark2 right-hotend print](prints/2026-10-16-white-right-mark2/README.md)
-retains the current geometry and organizer process, with Mark2’s normal +0.04 mm
+records the three-quarter-inch-bore article and its organizer process, with Mark2’s normal +0.04 mm
 requested/+0.02 mm emitted trim and right-nozzle XY registration.
 The [complete black organizer reference](prints/2026-10-11-current-mark1/README.md)
 uses Mark1’s normal +0.18 mm requested/+0.16 mm emitted trim. Its complete

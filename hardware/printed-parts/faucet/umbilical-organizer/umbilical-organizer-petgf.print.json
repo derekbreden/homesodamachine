@@ -1,0 +1,108 @@
+{
+  "project": "umbilical-organizer-petgf.3mf",
+  "settings_source": "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer-petgf.3mf",
+  "settings_source_sha256": "4b01a918054c9dab191055a99bb24866739c747e73bc9e6c4bb3594509251975",
+  "settings_sha256": "c0f49e3a2aa401d2c9a91ad25d7e70aa28822da5a8f6c2e73eebb449d52edb74",
+  "source_settings_sha256": "c0f49e3a2aa401d2c9a91ad25d7e70aa28822da5a8f6c2e73eebb449d52edb74",
+  "settings_changes": {},
+  "printer": "Bambu Lab H2C 0.4 Standard +0.04 Z trim",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      25.0,
+      0.0
+    ],
+    [
+      330.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    1
+  ],
+  "plate_border_mm": 20.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "umbilical-organizer",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/faucet/umbilical-organizer/umbilical-organizer.stl",
+      "stl_sha256": "5cc18e3f8ecc95259ed6c2cba9df7e685c6aeb79c3d458130af1c9891f085f39",
+      "triangles": 6344,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0035805702209472656,
+        0.0,
+        5.0
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        177.5,
+        160.0,
+        5.0
+      ],
+      "plate_translation_mm": [
+        177.5,
+        160.0,
+        5.0
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          161.50358057022095,
+          144.0017900466919,
+          0.0
+        ],
+        [
+          193.49641942977905,
+          175.9982099533081,
+          10.0
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.99755792304768e-10
+    }
+  ],
+  "project_sha256": "86e1e493751401434e5305b44c048b941b130b67f2dfc261432dfadb5d3e4792",
+  "settings_preserved_byte_for_byte": true
+}

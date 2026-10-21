@@ -41,20 +41,12 @@ export const FAUCET_FINISHES = [
   { id: "white", label: "White", rgb: [0.8713671192, 0.8713671192, 0.8559926082], roughness: 0.85, metalness: 0 },
 ];
 
-// The flavor pair's runs through the faucet take the finish; their black runs in the umbilical
-// do not.
+// The continuous black 4 mm flavor tubes keep their stock color in either finish.
 const FINISH_BODIES = new Set([
   "shell_base", "shell_tip", "faucet-display-cover-seated", "above_counter_plate",
-  "above_counter_gasket", "lever", "soda_faucet_tube", "flavor_tube_pos_x", "flavor_tube_neg_x",
+  "above_counter_gasket", "lever", "soda_faucet_tube",
 ]);
 
-// A White faucet joins each white flavor tube to its black run with a John Guest union inside the
-// braid; a Black faucet's flavor tube is one black length, and the assembly carries the piece of it
-// that runs where a union would stand as a bridge. Each finish shows its own and not the other's.
-const FINISH_ONLY = new Map([
-  ["flavor_union_pos_x", "white"], ["flavor_union_neg_x", "white"],
-  ["flavor_tube_bridge_pos_x", "black"], ["flavor_tube_bridge_neg_x", "black"],
-]);
 
 export function faucetStyleFor(file) {
   return FAUCET_STYLES.find((style) => style.assembly === file) || null;
@@ -80,7 +72,5 @@ export function isFaucetFinishBody(file, name) {
 }
 
 export function showsInFaucetFinish(file, name, finishId) {
-  file = stepLocation(file).file;
-  const only = faucetStyleFor(file) ? FINISH_ONLY.get(name) : null;
-  return !only || only === finishId;
+  return true;
 }

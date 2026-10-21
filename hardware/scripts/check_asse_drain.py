@@ -16,8 +16,8 @@ CONNECTED = {frozenset(pair) for pair in (
     ("asse-drain-adapter", "asse1022-assembly"),
     ("asse-drain-adapter", "tube-drain-vent"),
     ("tube-drain-vent", "bulkhead-drain"),
-    ("tube-fluid-18", "valve-v-g"), ("tube-fluid-18", "bulkhead-flavor-a"),
-    ("tube-fluid-28", "valve-v-j"), ("tube-fluid-28", "bulkhead-flavor-b"))}
+    ("tube-fluid-18", "valve-v-g"), ("tube-fluid-18", "flavor-reducer-v-g"), ("tube-fluid-18", "bulkhead-flavor-a"),
+    ("tube-fluid-28", "valve-v-j"), ("tube-fluid-28", "flavor-reducer-v-j"), ("tube-fluid-28", "bulkhead-flavor-b"))}
 
 
 def sha(path):
@@ -74,11 +74,10 @@ def write(placed, output=OUTPUT, *, names=NAMES):
     for name in set(names) & {"tube-fluid-18", "tube-fluid-28"}:
         surfaces = [BRepAdaptor_Surface(face.wrapped).Torus()
                     for face in shapes[name].Faces() if face.geomType() == "TORUS"]
-        values = sorted({round(surface.MajorRadius(), 7) for surface in surfaces
-                         if surface.Location().Y() >= 280})
-        radii[name] = {"new_return_centerline_radii_mm": values,
-                       "existing_front_route_scope": "Front supports and their existing bends retained.",
-                       "passed": bool(values) and min(values) >= 25.4 - 1e-6}
+        values = sorted({round(surface.MajorRadius(), 7) for surface in surfaces})
+        radii[name] = {"centerline_radii_mm": values,
+                       "stock_minimum_mm": 25.0,
+                       "passed": bool(values) and min(values) >= 25.0 - 1e-6}
     sources = [Path(__file__), ROOT / "hardware/manifold-layout/_drain.py",
                ROOT / "hardware/manifold-layout/enclosure_assembly.py",
                ROOT / "hardware/manifold-layout/_lines.py",

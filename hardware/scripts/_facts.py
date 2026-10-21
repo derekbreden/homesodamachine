@@ -240,7 +240,7 @@ def gather(whole=None, module=None):
         bb = _boxes.boxed(wp.val() if hasattr(wp, "val") else wp)
         piece_boxes[name] = {"box": [bb.xmin, bb.ymin, bb.zmin, bb.xmax, bb.ymax, bb.zmax]}
 
-    union = ea.y_wall_ports(a.bulkhead_carry, *a.panel_carries.values())
+    union = ea.y_wall_ports(a.bulkhead_carry, a.panel_carries)
     co2 = ea.co2_wall_port(a.co2_inlet_carry)
     drain_pos = a.frames["bulkhead-drain"].ports["inboard"][0]
     drain = ("round", drain_pos[0], drain_pos[2],

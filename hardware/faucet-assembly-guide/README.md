@@ -91,7 +91,7 @@ continuity check verifies those specified connections before power is applied.
 | 5-7 | Cleanup, base inserts, lever attachment and fitting the sleeve to the tube |
 | 8-10 | Sleeved tube into bare donor, flipped-up lever into shell, tip routing and drain end |
 | 11-12 | Dry neck joint, underside screws, beverage ends, wired display and cover |
-| 13-14 | Gasket, captive donor washer/nut, White flavor unions and blue supply |
+| 13-14 | Gasket, captive donor washer/nut, continuous 4 mm flavor runs and blue supply |
 | 15-17 | Wall plug, foam/braid, four collars, final inspection and packing |
 | 18 | Clickable sources and physical evidence scope |
 
