@@ -38,12 +38,12 @@ export const ICON_INNER = {
   home: '<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline>',
   // Dollar sign — Cost (per-unit BOM breakdown).
   dollar: '<line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>',
-  // Open book, two leaves on a spine — Updates. Two strokes, nothing finer
-  // than the gap at the spine.
+  // Open book, two leaves on a spine — the unit page's install guide. Two
+  // strokes, nothing finer than the gap at the spine.
   book: '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>',
-  // A frame split down the middle, its two halves apart — Changes, each one
-  // shown before and after, side by side.
-  compare: '<path d="M8 19H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h3"></path><path d="M16 5h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3"></path><line x1="12" y1="3" x2="12" y2="21"></line>',
+  // A clock turned back on itself — Latest, where Changes and Updates both
+  // begin: what happened lately, newest first.
+  history: '<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path><path d="M12 7v5l4 2"></path>',
 
   // ── The 3D viewer's tool rail ──────────────────────────────────────────────
   // Magnifier — Find: type a part name or paste pick text.
