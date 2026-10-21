@@ -1,5 +1,9 @@
 # Reservoir and cap on Mark1
 
+Mark1 accepted task **1359853920** at **00:02:36 CDT on October 21, 2026**
+through one Bambu Connect Send. [Launch receipt](launch.json) ·
+[Fresh preflight](preflight.json).
+
 Plate 1 contains the current **reservoir-left** and matching **reservoir-cap-left**:
 a full-height body with one flat floor, with fill and draw entering through the cap.
 The body prints mouth up; the cap prints exterior face down. The
@@ -29,7 +33,17 @@ the hashes and confirms unchanged native G-code and project settings.
 The launch file is
 `.cache/reservoir-mark1-right08/slice/2026-10-20-reservoir-left-cap-clear-right08-z018-mark1.gcode.3mf`.
 
-Derek requests **A4 → A2 → A3 → A1**, using each spool fully. All four trays
-report matching clear PETG and form an Auto-Refill group. The available controls
-select A4 but do not set a custom backup order. Launch awaits the spool-order
-choice; no print has been sent.
+The job starts on **A4**, with the printer choosing subsequent spools through
+automatic refill, as authorized by Derek. All four trays report matching clear
+PETG and form an Auto-Refill group. Start the **next print on A2**. Timelapse and
+bed leveling are On; flow dynamic and nozzle offset calibration use Auto.
+
+The fresh preflight finds both printers idle without errors or HMS alerts.
+Mark2's last completed job is unchanged from the preparation session, with no
+new shared-circuit start observed in the three minutes before this launch.
+The printer acknowledges `project_file` with SUCCESS and reports the new task
+in PREPARE without errors. Acceptance supplies no completed-part or water-hold result.
+
+At **00:03:35 CDT**, the [startup observation](startup.json) reports the exact
+task RUNNING at layer 0/833 without errors or HMS alerts, with A4 selected.
+First-layer deposition and runtime timelapse activation are not assessed at this stage.

@@ -40,10 +40,11 @@ own calibrated trim; see [printer profiles](../../../../tools/bambu-printers.md)
 The project uses the September baseline, with ironing disabled according to the
 [flat-square finish selection](ironing-study/prints/2026-10-06-mark2-squares-v1/physical-result.json).
 Its process and filament display names identify the current reservoir recipe.
-Both plates explicitly assign the right nozzle in Manual mode. Mark1 starts on
-A4, with **A4 → A2 → A3 → A1** requested as each spool runs out;
+Both plates explicitly assign the right nozzle in Manual mode. The active Mark1
+job starts on **A4**, with the printer choosing subsequent spools through automatic
+refill. Start the **next print on A2**;
 [printer guidance](../../../../tools/bambu-printers.md#mark1-clear-petg-spool-order)
-records the loaded material and the absence of a custom backup-priority control. Bodies print mouth up
+records the loaded material and refill scope. Bodies print mouth up
 with the floor underside on the bed; caps print exterior face down with their
 gasket rims up. The matching cap belongs with its named left or right body.
 

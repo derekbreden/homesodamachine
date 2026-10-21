@@ -1,0 +1,73 @@
+{
+  "observed_at": "2026-10-21T05:02:16.055412+00:00",
+  "Mark1": {
+    "job_id": "1345913800",
+    "subtask_name": "2026-10-16-sculpted-faucet-mounting-gasket-white-tpu90a-right06-z018-mark1-print-only.gcode.3mf",
+    "gcode_state": "FINISH",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 10,
+    "total_layer_num": 10,
+    "mc_remaining_time": 0,
+    "nozzle_temper": 33.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 25.0,
+    "bed_target_temper": 0.0
+  },
+  "Mark2": {
+    "job_id": "1349558196",
+    "subtask_name": "2026-10-17-sculpted-white-localcool-clearance150-right04-z004-mark2-r2-print-only.gcode.3mf",
+    "gcode_state": "FINISH",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 1022,
+    "total_layer_num": 1022,
+    "mc_remaining_time": 0,
+    "nozzle_temper": 32.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 24.0,
+    "bed_target_temper": 0.0
+  },
+  "ams_trays": [
+    {
+      "id": "0",
+      "tray_type": "PETG",
+      "tray_info_idx": "GFG01",
+      "tray_color": "00000000",
+      "tray_sub_brands": "PETG Translucent"
+    },
+    {
+      "id": "1",
+      "tray_type": "PETG",
+      "tray_info_idx": "GFG01",
+      "tray_color": "00000000",
+      "tray_sub_brands": "PETG Translucent"
+    },
+    {
+      "id": "2",
+      "tray_type": "PETG",
+      "tray_info_idx": "GFG01",
+      "tray_color": "00000000",
+      "tray_sub_brands": "PETG Translucent"
+    },
+    {
+      "id": "3",
+      "tray_type": "PETG",
+      "tray_info_idx": "GFG01",
+      "tray_color": "00000000",
+      "tray_sub_brands": "PETG Translucent"
+    }
+  ],
+  "right_extruder": [
+    {
+      "id": 0,
+      "hnow": 0,
+      "snow": 3,
+      "filam_bak": [
+        15
+      ]
+    }
+  ],
+  "loaded_report": "Derek reports four clear PETG spools feeding the right 0.8 mm hotend.",
+  "launch_instruction": "Just pick A4 and let it auto pick next. We can pick A2 on the next print start."
+}

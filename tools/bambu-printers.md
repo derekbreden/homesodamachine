@@ -90,15 +90,13 @@ records Derek's requirement to move that complete test plate toward the center.
 
 Mark1's AMS 2 Pro A carries Bambu PETG Translucent Clear (`GFG01`, transparent
 `00000000`) in all four slots, feeding its right **0.8 mm Standard-flow** hotend.
-Derek's requested consumption order is **A4 → A2 → A3 → A1**. Start on A4 and
-use every spool fully; remaining quantity is not a launch condition.
+The active reservoir job starts on **A4**, with the printer choosing subsequent
+spools through automatic refill. Derek requests **A2 for the next print start**.
+Use every spool fully; remaining quantity is not a launch condition.
 
 AMS unit `0` addresses A1–A4 as trays `0`–`3`. AMS Auto-Refill is enabled and
 all four trays form one identical-filament backup group. Connect selects the
-starting slot; its AMS settings provide only an Auto-Refill toggle. Studio's
-[refill dialog implementation](https://github.com/bambulab/BambuStudio/blob/master/src/slic3r/GUI/AmsMappingPopup.cpp)
-displays the group and highlights a selected tray without setting a custom
-priority. Selecting A4 alone does not establish the requested backup order.
+starting slot; its AMS settings provide an Auto-Refill toggle.
 The [reservoir print record](../hardware/printed-parts/cold-core/reservoir/prints/2026-10-20-mark1-right08/README.md)
 records the launch disposition.
 
