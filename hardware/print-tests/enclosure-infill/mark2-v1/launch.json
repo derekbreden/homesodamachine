@@ -1,0 +1,33 @@
+{
+  "printer": "Mark2",
+  "observed_at": "2026-10-21T05:32:31.071003+00:00",
+  "archive": {
+    "name": "2026-10-21-enclosure-gyroid-comparison-left04-z004-mark2-v1.gcode.3mf",
+    "sha256": "887a187b73d3f13ae62ce66f4607e11e28e681af52bbe5204f816ce1c07a9e26",
+    "gcode_sha256": "48ceb777c958ac61775f6cd8f3245fc10480756bc1c21219297c2a67f4df4e10",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "161616"
+      }
+    },
+    "objects": [
+      "1-wall-2walls-15gyroid",
+      "1-floor-2walls-15gyroid",
+      "2-wall-4walls-15gyroid",
+      "2-floor-4walls-15gyroid",
+      "3-wall-2walls-25gyroid",
+      "3-floor-2walls-25gyroid",
+      "4-wall-4walls-25gyroid",
+      "4-floor-4walls-25gyroid"
+    ]
+  },
+  "printer_task_id": "1359897271",
+  "gcode_state": "RUNNING",
+  "subtask_name": "2026-10-21-enclosure-gyroid-comparison-left04-z004-mark2-v1.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 104,
+  "mc_remaining_time": 157
+}

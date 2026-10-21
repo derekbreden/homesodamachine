@@ -1,0 +1,161 @@
+{
+  "error_string": "Success.",
+  "export_time": 1662,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 17,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 530.5773315429688,
+        "Bridge": 1194.408203125,
+        "Custom": 304.5924377441406,
+        "Flush": 15.0,
+        "Gap infill": 264.10198974609375,
+        "Inner wall": 1498.153076171875,
+        "Internal solid infill": 1165.2955322265625,
+        "Outer wall": 971.4793090820312,
+        "Sparse infill": 2733.548095703125,
+        "Top surface": 277.9876708984375,
+        "Travel": 472.5562438964844,
+        "Undefined": 463.83624267578125
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 104.56328582763672,
+          "total_used_g": 104.56328582763672
+        }
+      ],
+      "generate_support_material_time": 9,
+      "id": 1,
+      "infill_time": 103,
+      "layer_filament_change": 0,
+      "main_predication": 9094.0185546875,
+      "make_perimeters_time": 28,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 3.0,
+            "height": 25.0,
+            "width": 150.0,
+            "x": 87.5,
+            "y": 86.5,
+            "z": 0.0
+          },
+          "id": 5,
+          "name": "1-wall-2walls-15gyroid",
+          "triangle_count": 24
+        },
+        {
+          "bbox": {
+            "depth": 25.0,
+            "height": 6.0,
+            "width": 150.0,
+            "x": 87.5,
+            "y": 94.5,
+            "z": 0.0
+          },
+          "id": 9,
+          "name": "1-floor-2walls-15gyroid",
+          "triangle_count": 24
+        },
+        {
+          "bbox": {
+            "depth": 3.0,
+            "height": 25.0,
+            "width": 150.0,
+            "x": 87.5,
+            "y": 124.5,
+            "z": 0.0
+          },
+          "id": 13,
+          "name": "2-wall-4walls-15gyroid",
+          "triangle_count": 36
+        },
+        {
+          "bbox": {
+            "depth": 25.0,
+            "height": 6.0,
+            "width": 150.0,
+            "x": 87.5,
+            "y": 132.5,
+            "z": 0.0
+          },
+          "id": 17,
+          "name": "2-floor-4walls-15gyroid",
+          "triangle_count": 36
+        },
+        {
+          "bbox": {
+            "depth": 3.0,
+            "height": 25.0,
+            "width": 150.0,
+            "x": 87.5,
+            "y": 162.5,
+            "z": 0.0
+          },
+          "id": 21,
+          "name": "3-wall-2walls-25gyroid",
+          "triangle_count": 48
+        },
+        {
+          "bbox": {
+            "depth": 25.0,
+            "height": 6.0,
+            "width": 150.0,
+            "x": 87.5,
+            "y": 170.5,
+            "z": 0.0
+          },
+          "id": 25,
+          "name": "3-floor-2walls-25gyroid",
+          "triangle_count": 48
+        },
+        {
+          "bbox": {
+            "depth": 3.0,
+            "height": 25.0,
+            "width": 150.0,
+            "x": 87.5,
+            "y": 200.5,
+            "z": 0.0
+          },
+          "id": 29,
+          "name": "4-wall-4walls-25gyroid",
+          "triangle_count": 60
+        },
+        {
+          "bbox": {
+            "depth": 25.0,
+            "height": 6.0,
+            "width": 150.0,
+            "x": 87.5,
+            "y": 208.5,
+            "z": 0.0
+          },
+          "id": 33,
+          "name": "4-floor-4walls-25gyroid",
+          "triangle_count": 60
+        }
+      ],
+      "sliced_time": 811,
+      "sliced_time_with_cache": 604,
+      "total_predication": 9419.890625,
+      "triangle_count": 336,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 15.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 2
+}
