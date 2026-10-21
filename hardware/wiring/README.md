@@ -47,10 +47,17 @@ Their outer profiles and wire throats are layout envelopes; latch details and th
 on-hand copies' fit are unmeasured. Each pogo solder exit has its own proposed
 heat-shrink sleeve.
 
-The compressor's three conductors share one jacket corridor and a separate
-annular jacket solid. Its 8 mm outside diameter is a proposed layout allowance,
-with an editable common route and distinct core offsets. End fanouts and final
-donor terminations remain proposed.
+The compressor's three conductors share one jacket corridor below the funnel
+frame, through the gap between the valve banks and into the compressor bay.
+The annular jacket uses an 8 mm outside-diameter layout allowance. The three
+core positions rotate together through its bends, preserving their section
+spacing. Each end fanout has independently editable stations.
+
+The thermal fuse's dressed 1 mm leads continue beyond the reference's fixed
+3 mm straight stubs to proposed insulated splice regions beside the retained
+power box. The front lead uses the reference's 35 mm side and the aft lead its
+20 mm side. The compressor earth uses the existing downward-facing ring lug.
+Final donor contacts remain unlocated beside the native power-cover envelope.
 
 Exact compressor, fan, pump-motor, diaphragm-pump and display terminal details,
 and the carbonator's metal bond landing remain unlocated. Power-wire insulation
@@ -96,7 +103,7 @@ The editable source is under [`installed/`](installed/):
 | `routes.py` | Hardware-relative route families and override interpretation |
 | `route-overrides.json` | Individually editable hardware-relative stations and unresolved routing records |
 | `bundle-routes.json` / `bundles.py` | Shared jacket corridor, core placement and jacket geometry |
-| `terminations.py` | Removable housing and solder-exit insulation envelopes |
+| `terminations.py` | Removable housings, dressed fuse leads and joint insulation |
 | `build.py` | Native wiring assembly, manifest, worksheet and enclosure integration |
 
 Rebuild the wiring against the current populated native enclosure:
@@ -131,9 +138,13 @@ and searches unresolved ones. Its output needs the same route and assembly revie
 as hand-authored stations.
 
 The current model has 103 conductor runs. The linked mesh review identifies
-169 wire/body interference pairs across 33 conductors, plus 69 wire/wire pairs.
-Those 33 conductors carry unresolved routing status; the other 70 remain proposed.
-Sixteen device-terminal locations remain unlocated. The review's native readback
-finds all 103 wires valid, each a single solid, with identical installed bounds.
-The ten connector housings, eight pogo sleeves and common compressor jacket are
-also valid native solids. The jacket has no native overlap with its three cores.
+133 wire/body interference pairs across 26 conductors, plus 71 wire/wire pairs.
+The model carries 28 unresolved routes and 75 proposed routes. Sixteen device-terminal
+locations remain unlocated. Native readback finds all 103 wires valid, each a
+single solid, with identical installed bounds. The connector housings, pogo
+sleeves, dressed fuse leads, splice envelopes and shared jacket are also valid.
+
+The [compressor-cable review](installed/compressor-review.json) records no
+hardware or neighboring-wire intersections for its jacket, three cores and
+fuse-to-donor link. Its cores have zero native overlap with each other and with
+the jacket. The fuse leads fit within the reference's available lead lengths.

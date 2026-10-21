@@ -698,33 +698,49 @@
       {
         "terminal": "wago-gnd.3",
         "offset": [
-          -9.9,
-          -18.01,
-          -0.5167
+          -7.9,
+          -26.01,
+          -4.51667
         ]
       },
       {
-        "terminal": "J10.GND",
+        "terminal": "wago-gnd.3",
         "offset": [
-          -14.69,
-          34.2499,
-          10.1
+          -7.9,
+          -34.01,
+          -4.51667
         ]
       },
       {
-        "terminal": "J10.GND",
+        "terminal": "wago-gnd.3",
         "offset": [
-          -6.69,
-          10.2499,
-          6.1
+          -3.9,
+          -48.01,
+          -16.51667
         ]
       },
       {
-        "terminal": "J10.GND",
+        "terminal": "wago-gnd.3",
         "offset": [
-          -2.69,
-          6.2499,
-          2.1
+          -3.9,
+          -80.01,
+          -16.51667
+        ]
+      },
+      {
+        "terminal": "wago-gnd.3",
+        "offset": [
+          -1.9,
+          -90.01,
+          -16.51667
+        ]
+      },
+      {
+        "terminal": "wago-gnd.3",
+        "offset": [
+          0.1,
+          -92.01,
+          -16.51667
         ]
       }
     ],
@@ -734,7 +750,8 @@
       6.0
     ],
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Installed route dressed clear of the shared compressor cable and earlier conductors."
   },
   "DC4-V12": {
     "stations": [
@@ -974,15 +991,7 @@
         "terminal": "wago-g.2",
         "offset": [
           -1.9,
-          -1.51,
-          1.75
-        ]
-      },
-      {
-        "terminal": "wago-g.2",
-        "offset": [
-          -1.9,
-          -5.51,
+          -11.51,
           5.75
         ]
       },
@@ -990,42 +999,35 @@
         "terminal": "wago-g.2",
         "offset": [
           -1.9,
-          -13.51,
-          13.75
+          -15.51,
+          9.75
         ]
       },
       {
-        "terminal": "ground.inlet",
+        "terminal": "wago-g.2",
         "offset": [
-          -6.15,
-          19.2,
-          -2.0442
+          -3.9,
+          -53.51,
+          9.75
         ]
       },
       {
-        "terminal": "ground.inlet",
+        "terminal": "wago-g.2",
         "offset": [
-          1.85,
-          11.2,
-          -10.0442
-        ]
-      },
-      {
-        "terminal": "ground.inlet",
-        "offset": [
-          1.85,
-          3.2,
-          -6.0442
+          0.1,
+          -59.51,
+          11.75
         ]
       }
     ],
     "bend_radius_mm": 3.0,
     "end_lands_mm": [
-      6.0,
+      4.0,
       6.0
     ],
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Installed route dressed clear of the shared compressor cable and earlier conductors."
   },
   "AC2-L": {
     "stations": [
@@ -1097,213 +1099,21 @@
   "AC4-fuse": {
     "stations": [
       {
-        "terminal": "compressor.H",
+        "terminal": "fuse.out",
         "offset": [
-          -5.9,
-          -23.0,
-          -39.0
+          2.5,
+          -13.0,
+          -5.5
         ]
       }
     ],
-    "bend_radius_mm": 2.0,
+    "bend_radius_mm": 3.5,
     "end_lands_mm": [
       6.0,
       6.0
     ],
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
-  },
-  "AC5-N": {
-    "stations": [
-      {
-        "terminal": "wago-n.3",
-        "offset": [
-          -9.9,
-          -17.26,
-          -0.5167
-        ]
-      },
-      {
-        "terminal": "wago-n.3",
-        "offset": [
-          -11.9,
-          -19.26,
-          -2.5167
-        ]
-      },
-      {
-        "terminal": "wago-n.3",
-        "offset": [
-          -13.9,
-          -79.26,
-          -50.5167
-        ]
-      },
-      {
-        "terminal": "wago-n.3",
-        "offset": [
-          0.1,
-          -113.26,
-          -66.5167
-        ]
-      },
-      {
-        "terminal": "wago-n.3",
-        "offset": [
-          0.1,
-          -117.26,
-          -68.5167
-        ]
-      },
-      {
-        "terminal": "wago-n.3",
-        "offset": [
-          6.1,
-          -123.26,
-          -74.5167
-        ]
-      },
-      {
-        "terminal": "compressor.N",
-        "offset": [
-          62.1,
-          93.0,
-          65.0
-        ]
-      },
-      {
-        "terminal": "compressor.N",
-        "offset": [
-          64.1,
-          91.0,
-          63.0
-        ]
-      },
-      {
-        "terminal": "compressor.N",
-        "offset": [
-          64.1,
-          79.0,
-          63.0
-        ]
-      },
-      {
-        "terminal": "compressor.N",
-        "offset": [
-          58.1,
-          73.0,
-          61.0
-        ]
-      },
-      {
-        "terminal": "compressor.N",
-        "offset": [
-          6.1,
-          21.0,
-          33.0
-        ]
-      }
-    ],
-    "bend_radius_mm": 2.0,
-    "end_lands_mm": [
-      6.0,
-      6.0
-    ],
-    "preserve_stations": true,
-    "note": "Unresolved installed route: mesh intersections with anchor-cap-carb-1, cold-core/foam-cap-lid-top, cold-core/foam-cap-top, cold-core/foam-shell, enclosure-back-top, enclosure-front-top, funnel, funnel-frame, tube-fluid-14.",
-    "route_status": "unresolved"
-  },
-  "AC6-PE": {
-    "stations": [
-      {
-        "terminal": "ground.compressor",
-        "offset": [
-          -3.35,
-          -5.8,
-          -3.2404
-        ]
-      },
-      {
-        "terminal": "ground.compressor",
-        "offset": [
-          -1.35,
-          -17.8,
-          -15.2404
-        ]
-      },
-      {
-        "terminal": "ground.compressor",
-        "offset": [
-          -3.35,
-          -33.8,
-          -19.2404
-        ]
-      },
-      {
-        "terminal": "ground.compressor",
-        "offset": [
-          -5.35,
-          -51.8,
-          -43.2404
-        ]
-      },
-      {
-        "terminal": "ground.compressor",
-        "offset": [
-          -5.35,
-          -85.8,
-          -77.2404
-        ]
-      },
-      {
-        "terminal": "ground.compressor",
-        "offset": [
-          2.65,
-          -97.8,
-          -89.2404
-        ]
-      },
-      {
-        "terminal": "compressor.PE",
-        "offset": [
-          58.1,
-          93.0,
-          89.0
-        ]
-      },
-      {
-        "terminal": "compressor.PE",
-        "offset": [
-          54.1,
-          89.0,
-          45.0
-        ]
-      },
-      {
-        "terminal": "compressor.PE",
-        "offset": [
-          36.1,
-          71.0,
-          33.0
-        ]
-      },
-      {
-        "terminal": "compressor.PE",
-        "offset": [
-          6.1,
-          41.0,
-          33.0
-        ]
-      }
-    ],
-    "bend_radius_mm": 2.0,
-    "end_lands_mm": [
-      2.0000000000000164,
-      6.0
-    ],
-    "preserve_stations": true,
-    "note": "Unresolved installed route: mesh intersections with anchor-cap-carb-1, cold-core/foam-cap-top, cold-core/foam-shell, enclosure-back-top, enclosure-front-top, funnel, funnel-frame, tube-carb-1, tube-co2-2, tube-fluid-14.",
-    "route_status": "unresolved"
+    "note": "Short insulated link below the neutral/earth fanout, from the dressed fuse-output splice to the proposed donor hot landing."
   },
   "J1-COM": {
     "stations": [
@@ -1575,8 +1385,8 @@
       6.0
     ],
     "preserve_stations": true,
-    "note": "Unresolved installed route: mesh intersections with terminal-compressor-cord-jacket.",
-    "route_status": "unresolved"
+    "note": "Proposed installed route with separate conductor packing.",
+    "route_status": "proposed"
   },
   "J1-OUT6": {
     "stations": [
@@ -1780,7 +1590,7 @@
       6.0
     ],
     "preserve_stations": true,
-    "note": "Unresolved installed route: mesh intersections with terminal-compressor-cord-jacket.",
+    "note": "Unresolved conductor packing with the display loom.",
     "route_status": "unresolved"
   },
   "J1-positive-B": {
@@ -1808,17 +1618,25 @@
       6.0
     ],
     "preserve_stations": true,
-    "note": "Unresolved installed route: mesh intersections with terminal-compressor-cord-jacket.",
+    "note": "Unresolved conductor packing with the display loom.",
     "route_status": "unresolved"
   },
   "J1-positive-C": {
     "stations": [
       {
-        "terminal": "V-C.positive",
+        "terminal": "wago-mana.4",
         "offset": [
-          25.1,
-          10.91,
-          16.675
+          -46.2,
+          -28.95,
+          -55.96
+        ]
+      },
+      {
+        "terminal": "wago-mana.4",
+        "offset": [
+          -46.2,
+          -34.95,
+          -97.96
         ]
       }
     ],
@@ -1828,7 +1646,8 @@
       6.0
     ],
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Installed route dressed clear of the shared compressor cable and earlier conductors."
   },
   "J1-positive-D": {
     "stations": [
@@ -1985,97 +1804,121 @@
       {
         "terminal": "J11.DOUT",
         "offset": [
-          -16.85,
-          -71.8001,
-          -60.5
+          -26.85,
+          -79.80013,
+          -70.5
         ]
       },
       {
         "terminal": "J11.DOUT",
         "offset": [
-          -44.85,
-          -119.8001,
-          -108.5
+          -28.85,
+          -99.80013,
+          -92.5
         ]
       },
       {
         "terminal": "J11.DOUT",
         "offset": [
-          -44.85,
-          -127.8001,
-          -116.5
+          -30.85,
+          -145.80013,
+          -138.5
         ]
       },
       {
-        "terminal": "mq6.3",
+        "terminal": "J11.DOUT",
         "offset": [
-          111.9,
-          54.7,
-          144.27
+          -36.85,
+          -149.80013,
+          -144.5
         ]
       },
       {
-        "terminal": "mq6.3",
+        "terminal": "J11.DOUT",
         "offset": [
-          111.9,
-          30.7,
-          120.27
+          -46.85,
+          -149.80013,
+          -154.5
         ]
       },
       {
-        "terminal": "mq6.3",
+        "terminal": "J11.DOUT",
         "offset": [
-          95.9,
-          10.7,
-          100.27
+          -56.85,
+          -163.80013,
+          -168.5
         ]
       },
       {
-        "terminal": "mq6.3",
+        "terminal": "J11.DOUT",
         "offset": [
-          79.9,
-          -1.3,
-          84.27
+          -54.85,
+          -171.80013,
+          -176.5
         ]
       },
       {
-        "terminal": "mq6.3",
+        "terminal": "J11.DOUT",
         "offset": [
-          59.9,
-          -5.3,
-          68.27
+          -54.85,
+          -175.80013,
+          -180.5
         ]
       },
       {
-        "terminal": "mq6.3",
+        "terminal": "J11.DOUT",
         "offset": [
-          43.9,
-          -5.3,
-          68.27
+          -66.85,
+          -193.80013,
+          -198.5
         ]
       },
       {
-        "terminal": "mq6.3",
+        "terminal": "J11.DOUT",
         "offset": [
-          39.9,
-          -1.3,
-          64.27
+          -84.85,
+          -207.80013,
+          -216.5
         ]
       },
       {
-        "terminal": "mq6.3",
+        "terminal": "J11.DOUT",
         "offset": [
-          7.9,
-          2.7,
-          4.27
+          -104.85,
+          -211.80013,
+          -232.5
         ]
       },
       {
-        "terminal": "mq6.3",
+        "terminal": "J11.DOUT",
         "offset": [
-          7.9,
-          2.7,
-          0.27
+          -120.85,
+          -211.80013,
+          -232.5
+        ]
+      },
+      {
+        "terminal": "J11.DOUT",
+        "offset": [
+          -124.85,
+          -207.80013,
+          -236.5
+        ]
+      },
+      {
+        "terminal": "J11.DOUT",
+        "offset": [
+          -156.85,
+          -203.80013,
+          -296.5
+        ]
+      },
+      {
+        "terminal": "J11.DOUT",
+        "offset": [
+          -156.85,
+          -203.80013,
+          -300.5
         ]
       }
     ],
@@ -2085,7 +1928,8 @@
       6.0
     ],
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Proposed installed route with separate conductor packing."
   },
   "J11-GND": {
     "stations": [
@@ -2124,16 +1968,24 @@
       {
         "terminal": "J11.GND",
         "offset": [
-          -16.85,
-          -71.7999,
-          -69.5
+          -28.85,
+          -107.79987,
+          -99.5
         ]
       },
       {
         "terminal": "J11.GND",
         "offset": [
-          -44.85,
-          -115.7999,
+          -32.85,
+          -119.79987,
+          -107.5
+        ]
+      },
+      {
+        "terminal": "J11.GND",
+        "offset": [
+          -38.85,
+          -123.79987,
           -113.5
         ]
       },
@@ -2146,67 +1998,67 @@
         ]
       },
       {
-        "terminal": "mq6.2",
+        "terminal": "J11.GND",
         "offset": [
-          115.9,
-          54.7,
-          141.73
+          -52.85,
+          -151.79987,
+          -161.5
         ]
       },
       {
-        "terminal": "mq6.2",
+        "terminal": "J11.GND",
         "offset": [
-          115.9,
-          50.7,
-          141.73
+          -52.85,
+          -155.79987,
+          -161.5
         ]
       },
       {
-        "terminal": "mq6.2",
+        "terminal": "J11.GND",
         "offset": [
-          107.9,
-          22.7,
-          113.73
+          -56.85,
+          -183.79987,
+          -189.5
         ]
       },
       {
-        "terminal": "mq6.2",
+        "terminal": "J11.GND",
         "offset": [
-          83.9,
-          -1.3,
-          89.73
+          -80.85,
+          -207.79987,
+          -213.5
         ]
       },
       {
-        "terminal": "mq6.2",
+        "terminal": "J11.GND",
         "offset": [
-          55.9,
-          -5.3,
-          69.73
+          -108.85,
+          -211.79987,
+          -233.5
         ]
       },
       {
-        "terminal": "mq6.2",
+        "terminal": "J11.GND",
         "offset": [
-          43.9,
-          -5.3,
-          69.73
+          -120.85,
+          -211.79987,
+          -233.5
         ]
       },
       {
-        "terminal": "mq6.2",
+        "terminal": "J11.GND",
         "offset": [
-          35.9,
-          -1.3,
-          61.73
+          -128.85,
+          -207.79987,
+          -241.5
         ]
       },
       {
-        "terminal": "mq6.2",
+        "terminal": "J11.GND",
         "offset": [
-          7.9,
-          -5.3,
-          1.73
+          -156.85,
+          -211.79987,
+          -301.5
         ]
       }
     ],
@@ -2216,7 +2068,8 @@
       6.0
     ],
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Proposed installed route with separate conductor packing."
   },
   "J11-V5": {
     "stations": [
@@ -2994,31 +2847,47 @@
         "offset": [
           -13.9,
           3.0,
+          0.0
+        ]
+      },
+      {
+        "terminal": "wago-manb.3",
+        "offset": [
+          -19.9,
+          3.0,
+          0.0
+        ]
+      },
+      {
+        "terminal": "wago-manb.3",
+        "offset": [
+          -29.9,
+          -7.0,
+          0.0
+        ]
+      },
+      {
+        "terminal": "wago-manb.3",
+        "offset": [
+          -63.9,
+          -11.0,
           -2.0
         ]
       },
       {
         "terminal": "wago-manb.3",
         "offset": [
-          -21.9,
-          -5.0,
+          -119.9,
+          -17.0,
           -2.0
         ]
       },
       {
         "terminal": "wago-manb.3",
         "offset": [
-          -65.9,
-          -13.0,
-          -14.0
-        ]
-      },
-      {
-        "terminal": "V-J.positive",
-        "offset": [
-          58.37,
-          18.91,
-          1.275
+          -123.9,
+          -19.0,
+          -6.0
         ]
       }
     ],
@@ -3028,7 +2897,8 @@
       6.0
     ],
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Installed route dressed clear of the shared compressor cable and earlier conductors."
   },
   "J2-positive-K": {
     "stations": [
@@ -3258,33 +3128,25 @@
       {
         "terminal": "J3.V5",
         "offset": [
-          -4.85,
-          -0.3,
-          -4.1999
+          -22.85,
+          15.7,
+          -2.19987
         ]
       },
       {
         "terminal": "J3.V5",
         "offset": [
-          -8.85,
-          3.7,
-          -8.1999
+          -52.85,
+          45.7,
+          -4.19987
         ]
       },
       {
-        "terminal": "keystone.2",
+        "terminal": "J3.V5",
         "offset": [
-          32.52,
-          -93.78,
-          11.9277
-        ]
-      },
-      {
-        "terminal": "keystone.2",
-        "offset": [
-          0.52,
-          -13.78,
-          3.9277
+          -100.85,
+          95.7,
+          -4.19987
         ]
       }
     ],
@@ -3294,7 +3156,8 @@
       6.0
     ],
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Installed route dressed clear of the shared compressor cable and earlier conductors."
   },
   "J4-GND": {
     "stations": [
@@ -3344,49 +3207,57 @@
       {
         "terminal": "J5.GND",
         "offset": [
-          -4.85,
-          -0.1,
-          5.1001
+          -2.85,
+          5.9,
+          9.10013
         ]
       },
       {
         "terminal": "J5.GND",
         "offset": [
-          -0.85,
-          7.9,
-          13.1001
+          -2.85,
+          21.9,
+          23.10013
+        ]
+      },
+      {
+        "terminal": "J5.GND",
+        "offset": [
+          -6.85,
+          25.9,
+          27.10013
+        ]
+      },
+      {
+        "terminal": "J5.GND",
+        "offset": [
+          -4.85,
+          43.9,
+          57.10013
         ]
       },
       {
         "terminal": "J5.GND",
         "offset": [
           -8.85,
-          15.9,
-          21.1001
+          47.9,
+          61.10013
         ]
       },
       {
-        "terminal": "relay-1.GND",
+        "terminal": "J5.GND",
         "offset": [
-          -4.75,
-          -17.8,
-          -37.7
+          -6.85,
+          51.9,
+          75.10013
         ]
       },
       {
-        "terminal": "relay-1.GND",
+        "terminal": "J5.GND",
         "offset": [
-          -8.75,
-          -5.8,
-          -17.7
-        ]
-      },
-      {
-        "terminal": "relay-1.GND",
-        "offset": [
-          -8.75,
-          -5.8,
-          -1.7
+          -6.85,
+          51.9,
+          77.10013
         ]
       }
     ],
@@ -3396,56 +3267,41 @@
       6.0
     ],
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Installed route dressed clear of the shared compressor cable and earlier conductors."
   },
   "J5-IO19": {
     "stations": [
       {
         "terminal": "J5.IO19",
         "offset": [
-          -0.85,
-          0.4,
-          1.0999
+          -6.85,
+          20.4,
+          21.09987
+        ]
+      },
+      {
+        "terminal": "J5.IO19",
+        "offset": [
+          -4.85,
+          36.4,
+          53.09987
         ]
       },
       {
         "terminal": "J5.IO19",
         "offset": [
           -8.85,
-          8.4,
-          9.0999
+          44.4,
+          63.09987
         ]
       },
       {
         "terminal": "J5.IO19",
         "offset": [
           -8.85,
-          8.4,
-          13.0999
-        ]
-      },
-      {
-        "terminal": "relay-1.IN",
-        "offset": [
-          -12.75,
-          -5.8,
-          -12.24
-        ]
-      },
-      {
-        "terminal": "relay-1.IN",
-        "offset": [
-          -12.75,
-          -1.8,
-          -4.24
-        ]
-      },
-      {
-        "terminal": "relay-1.IN",
-        "offset": [
-          -8.75,
-          -1.8,
-          -0.24
+          44.4,
+          79.09987
         ]
       }
     ],
@@ -3455,7 +3311,8 @@
       6.0
     ],
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Installed route dressed clear of the shared compressor cable and earlier conductors."
   },
   "J5-V5": {
     "stations": [
@@ -3589,25 +3446,33 @@
       {
         "terminal": "relay-1.V5",
         "offset": [
-          -4.75,
-          2.2,
-          0.84
+          -2.75,
+          6.2,
+          -5.16
         ]
       },
       {
         "terminal": "relay-1.V5",
         "offset": [
-          -12.75,
-          6.2,
-          -3.16
+          -4.75,
+          14.2,
+          -13.16
         ]
       },
       {
-        "terminal": "relay-2.V5",
+        "terminal": "relay-1.V5",
         "offset": [
-          -8.75,
-          -0.84,
-          1.6
+          -6.75,
+          18.2,
+          -15.16
+        ]
+      },
+      {
+        "terminal": "relay-1.V5",
+        "offset": [
+          -6.75,
+          22.2,
+          -19.16
         ]
       }
     ],
@@ -3617,7 +3482,8 @@
       6.0
     ],
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Installed route dressed clear of the shared compressor cable and earlier conductors."
   },
   "J6-GND": {
     "stations": [
@@ -3756,17 +3622,25 @@
       {
         "terminal": "J7.GND",
         "offset": [
-          -12.85,
-          -0.8,
-          -8.2
+          -50.85,
+          -2.8,
+          -4.2
         ]
       },
       {
-        "terminal": "wago-reeds-b.1",
+        "terminal": "J7.GND",
         "offset": [
-          62.2,
-          9.55,
-          26.08
+          -52.85,
+          -2.8,
+          -6.2
+        ]
+      },
+      {
+        "terminal": "J7.GND",
+        "offset": [
+          -128.85,
+          -2.8,
+          -24.2
         ]
       }
     ],
@@ -3776,7 +3650,8 @@
       6.0
     ],
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Installed route dressed clear of the shared compressor cable and earlier conductors."
   },
   "J7-earth-1": {
     "stations": [
@@ -3838,64 +3713,48 @@
         "terminal": "J9.A",
         "offset": [
           -8.85,
-          1.2,
-          -4.1999
+          -2.8,
+          -0.19987
         ]
       },
       {
         "terminal": "J9.A",
         "offset": [
-          -24.85,
-          -30.8,
-          -16.1999
+          -20.85,
+          -32.8,
+          1.80013
         ]
       },
       {
         "terminal": "J9.A",
         "offset": [
-          -40.85,
-          -54.8,
-          -16.1999
+          -36.85,
+          -48.8,
+          -8.19987
         ]
       },
       {
         "terminal": "J9.A",
         "offset": [
-          -52.85,
-          -86.8,
-          -28.1999
+          -46.85,
+          -80.8,
+          -22.19987
         ]
       },
       {
-        "terminal": "display.A",
+        "terminal": "J9.A",
         "offset": [
-          33.25,
-          56.7739,
-          -18.5584
+          -54.85,
+          -178.8,
+          -22.19987
         ]
       },
       {
-        "terminal": "display.A",
+        "terminal": "J9.A",
         "offset": [
-          29.25,
-          32.7739,
-          -6.5584
-        ]
-      },
-      {
-        "terminal": "display.A",
-        "offset": [
-          29.25,
-          24.7739,
-          -6.5584
-        ]
-      },
-      {
-        "terminal": "display.A",
-        "offset": [
-          5.25,
-          8.7739,
-          -6.5584
+          -56.85,
+          -204.8,
+          -16.19987
         ]
       }
     ],
@@ -3905,64 +3764,73 @@
       6.0
     ],
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Installed route dressed clear of the shared compressor cable and earlier conductors."
   },
   "J9-B": {
     "stations": [
       {
         "terminal": "J9.B",
         "offset": [
-          -24.85,
+          -18.85,
           -32.3,
-          3.8001
+          1.80013
         ]
       },
       {
         "terminal": "J9.B",
         "offset": [
-          -40.85,
-          -48.3,
-          -12.1999
+          -36.85,
+          -62.3,
+          -6.19987
+        ]
+      },
+      {
+        "terminal": "J9.B",
+        "offset": [
+          -48.85,
+          -76.3,
+          -20.19987
+        ]
+      },
+      {
+        "terminal": "J9.B",
+        "offset": [
+          -48.85,
+          -78.3,
+          -22.19987
         ]
       },
       {
         "terminal": "J9.B",
         "offset": [
           -56.85,
-          -80.3,
-          -28.1999
+          -176.3,
+          -22.19987
         ]
       },
       {
-        "terminal": "display.B",
+        "terminal": "J9.B",
         "offset": [
-          36.75,
-          56.7739,
-          -14.5584
+          -58.85,
+          -202.3,
+          -14.19987
         ]
       },
       {
-        "terminal": "display.B",
+        "terminal": "J9.B",
         "offset": [
-          32.75,
-          32.7739,
-          -2.5584
+          -58.85,
+          -204.3,
+          -14.19987
         ]
       },
       {
-        "terminal": "display.B",
+        "terminal": "J9.B",
         "offset": [
-          32.75,
-          24.7739,
-          -2.5584
-        ]
-      },
-      {
-        "terminal": "display.B",
-        "offset": [
-          0.75,
-          4.7739,
-          -2.5584
+          -84.85,
+          -224.3,
+          -12.19987
         ]
       }
     ],
@@ -3972,96 +3840,57 @@
       6.0
     ],
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Installed route dressed clear of the shared compressor cable and earlier conductors."
   },
   "J9-GND": {
     "stations": [
       {
         "terminal": "J9.GND",
         "offset": [
-          -8.85,
-          -1.3,
-          3.8001
+          -10.85,
+          -3.3,
+          -0.19987
         ]
       },
       {
         "terminal": "J9.GND",
         "offset": [
           -24.85,
-          -21.3,
-          -12.1999
+          -35.3,
+          1.80013
         ]
       },
       {
         "terminal": "J9.GND",
         "offset": [
-          -32.85,
-          -33.3,
-          -12.1999
+          -36.85,
+          -63.3,
+          -6.19987
         ]
       },
       {
         "terminal": "J9.GND",
         "offset": [
-          -44.85,
-          -53.3,
-          -12.1999
+          -42.85,
+          -83.3,
+          -22.19987
         ]
       },
       {
         "terminal": "J9.GND",
         "offset": [
-          -44.85,
-          -65.3,
-          -12.1999
+          -50.85,
+          -181.3,
+          -22.19987
         ]
       },
       {
         "terminal": "J9.GND",
         "offset": [
-          -44.85,
-          -81.3,
-          -28.1999
-        ]
-      },
-      {
-        "terminal": "display.GND",
-        "offset": [
-          33.75,
-          48.7739,
-          -14.5584
-        ]
-      },
-      {
-        "terminal": "display.GND",
-        "offset": [
-          29.75,
-          28.7739,
-          -6.5584
-        ]
-      },
-      {
-        "terminal": "display.GND",
-        "offset": [
-          29.75,
-          24.7739,
-          -6.5584
-        ]
-      },
-      {
-        "terminal": "display.GND",
-        "offset": [
-          5.75,
-          0.7739,
-          -6.5584
-        ]
-      },
-      {
-        "terminal": "display.GND",
-        "offset": [
-          1.75,
-          0.7739,
-          -6.5584
+          -54.85,
+          -207.3,
+          -18.19987
         ]
       }
     ],
@@ -4071,72 +3900,129 @@
       6.0
     ],
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Installed route dressed clear of the shared compressor cable and earlier conductors."
   },
   "J9-V12": {
     "stations": [
       {
         "terminal": "J9.V12",
         "offset": [
-          -8.85,
-          0.2,
-          -0.2001
+          -6.85,
+          -1.8,
+          -2.20013
         ]
       },
       {
         "terminal": "J9.V12",
         "offset": [
-          -12.85,
-          -19.8,
-          -4.2001
+          -14.85,
+          -29.8,
+          -6.20013
         ]
       },
       {
         "terminal": "J9.V12",
         "offset": [
-          -16.85,
-          -27.8,
-          -12.2001
+          -32.85,
+          -47.8,
+          -6.20013
         ]
       },
       {
         "terminal": "J9.V12",
         "offset": [
-          -24.85,
-          -39.8,
-          -20.2001
+          -38.85,
+          -53.8,
+          -10.20013
         ]
       },
       {
         "terminal": "J9.V12",
         "offset": [
-          -40.85,
-          -55.8,
-          -20.2001
+          -50.85,
+          -83.8,
+          -20.20013
         ]
       },
       {
-        "terminal": "display.V12",
+        "terminal": "J9.V12",
         "offset": [
-          38.25,
-          104.7739,
-          -14.5584
+          -50.85,
+          -85.8,
+          -22.20013
         ]
       },
       {
-        "terminal": "display.V12",
+        "terminal": "J9.V12",
         "offset": [
-          34.25,
-          52.7739,
-          -14.5584
+          -56.85,
+          -157.8,
+          -24.20013
         ]
       },
       {
-        "terminal": "display.V12",
+        "terminal": "J9.V12",
         "offset": [
-          26.25,
-          24.7739,
-          -2.5584
+          -54.85,
+          -167.8,
+          -24.20013
+        ]
+      },
+      {
+        "terminal": "J9.V12",
+        "offset": [
+          -54.85,
+          -187.8,
+          -24.20013
+        ]
+      },
+      {
+        "terminal": "J9.V12",
+        "offset": [
+          -58.85,
+          -195.8,
+          -20.20013
+        ]
+      },
+      {
+        "terminal": "J9.V12",
+        "offset": [
+          -60.85,
+          -199.8,
+          -16.20013
+        ]
+      },
+      {
+        "terminal": "J9.V12",
+        "offset": [
+          -58.85,
+          -201.8,
+          -14.20013
+        ]
+      },
+      {
+        "terminal": "J9.V12",
+        "offset": [
+          -58.85,
+          -209.8,
+          -12.20013
+        ]
+      },
+      {
+        "terminal": "J9.V12",
+        "offset": [
+          -58.85,
+          -211.8,
+          -12.20013
+        ]
+      },
+      {
+        "terminal": "J9.V12",
+        "offset": [
+          -76.85,
+          -229.8,
+          -12.20013
         ]
       }
     ],
@@ -4146,8 +4032,8 @@
       6.0
     ],
     "preserve_stations": true,
-    "note": "Unresolved installed route: mesh intersections with terminal-compressor-cord-jacket.",
-    "route_status": "unresolved"
+    "route_status": "proposed",
+    "note": "Installed route dressed clear of the shared compressor cable and earlier conductors."
   },
   "PE-carbonator": {
     "route_status": "unresolved",
@@ -4202,10 +4088,6 @@
     "note": "Manual route review required: no route in search domain. A bounded search failure is not proof that the physical route is impossible."
   },
   "AC2-N": {
-    "route_status": "unresolved",
-    "note": "Manual route review required: attachment exit obstructed. A bounded search failure is not proof that the physical route is impossible."
-  },
-  "AC4-H": {
     "route_status": "unresolved",
     "note": "Manual route review required: attachment exit obstructed. A bounded search failure is not proof that the physical route is impossible."
   },

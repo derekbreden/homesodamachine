@@ -1,4 +1,4 @@
-"""Installed removable housings and individually insulated pogo solder exits.
+"""Installed housings, dressed fuse leads and joint insulation.
 
 These are purchased-part layout envelopes. Latches, crimp barrels and the
 on-hand copies' manufacturing tolerances remain outside this representation.
@@ -44,4 +44,20 @@ def add_terminations(assembly,attachments,connections):
             records[name]={'kind':'Individual solder-joint heat shrink','outer_diameter_mm':2.3,
                            'length_mm':4.,'status':'proposed recovered profile; actual sleeve/finished joint unmeasured',
                            'terminal_ids':[terminal.id]}
+    from .model import Route,Connection,rounded_segments,shape
+    for label,lead in attachments.fuse_leads.items():
+        segments=rounded_segments(lead['points_mm'],lead['bend_radius_mm'])
+        route=Route(Connection('fuse-'+label,'Compressor','','',''),lead['points_mm'],segments)
+        name='terminal-fuse-'+label+'-lead'
+        assembly.add(shape(route,lead['lead_diameter_mm']),name=name,color=cq.Color(.62,.63,.65))
+        records[name]={**lead,'kind':'Dressed thermal-fuse lead','segments':segments,
+                       'retained_lead_length_mm':lead['native_straight_mm']+sum(s['length_mm'] for s in segments)-1.5,
+                       'reference_stub_overlap_mm':1.5,'terminal_ids':['fuse.'+label]}
+        t=terminals['fuse.'+label];p=cq.Vector(*t.point);axis=cq.Vector(*t.outward)
+        sleeve=cq.Solid.makeCylinder(1.6,6.,p,axis).cut(cq.Solid.makeCylinder(1.3,6.02,p-axis*.01,axis))
+        name='terminal-fuse-'+label+'-splice'
+        assembly.add(sleeve,name=name,color=cq.Color(.04,.04,.045))
+        records[name]={'kind':'Insulated fuse-splice envelope','outer_diameter_mm':3.2,
+                       'length_mm':6.,'status':'proposed joint and recovered sleeve profile',
+                       'terminal_ids':['fuse.'+label]}
     return records

@@ -143,7 +143,7 @@ len_reeds_b_mm = 400     # SIG-11 → reservoir B's four level reeds (383)
 len_fan_mm = 650         # J2 FAN → condenser-crown approach (~543 mm), plus donor-lead reserve
 len_reeds_a_mm = 450     # SIG-10 → reservoir A's four level reeds, the far end of the core (442)
 len_gas_mm = 600         # SIG-12 → the MQ-6 low on the rear cabinet floor, the longest in the box (582)
-len_compressor_mm = 400  # AC-4/5/6 — the purchased SJOOW cord to the compressor, not measured here
+len_compressor_mm = 600  # Preparation stock: ~529 mm modeled longest core plus ~70 mm termination/dressing reserve; trim after routing.
 len_umbilical_m = 1.0    # SIG-6 ONLY — the faucet display, up the umbilical and OUT of the box,
                          # above this model's ceiling. The one length still estimated.
 

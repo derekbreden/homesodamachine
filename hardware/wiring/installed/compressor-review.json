@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "scope": "Installed compressor cable, its dressed fuse leads and the neighboring wire crossings. Geometry and proposed arrangement; physical assembly is not accepted by this record.",
+  "reviewed_wire_ids": [
+    "AC4-H",
+    "AC4-fuse",
+    "AC5-N",
+    "AC6-PE"
+  ],
+  "assembly_step_sha256": "ec74b5120cbf9ca0a4ecae4370433117afcf3ab7f23d99df0446f09cb9a8f226",
+  "assembly_mesh_sha256": "bc8123ca5720f763ba7ac6d44e715be7a4a5740a2d59b19e9f7ba6ea0cf1449b",
+  "wiring_step_sha256": "9060d47bca1dadac1d33ede725f826f01f60c5b3fb23b0e44bb6bd3a7cd0bd33",
+  "manifest_sha256": "964ef35713c6774a0a9a0770b037b70abd12dfd7711dd044fb940275037b8695",
+  "jacket_outer_diameter_mm": 8.0,
+  "jacket_length_mm": 378.2968233809903,
+  "jacket_minimum_geometric_bend_mm": 13.600235634150081,
+  "wire_body_intersections": [],
+  "jacket_body_intersections": [],
+  "fuse_detail_body_intersections": [],
+  "cable_wire_packing_intersections": [],
+  "native_core_pair_overlap_mm3": {
+    "AC4-H / AC5-N": 0.0,
+    "AC4-H / AC6-PE": 0.0,
+    "AC5-N / AC6-PE": 0.0
+  },
+  "native_core_jacket_overlap_mm3": {
+    "AC4-H": 0.0,
+    "AC5-N": 0.0,
+    "AC6-PE": 0.0
+  },
+  "fuse_leads": {
+    "in": {
+      "retained_lead_length_mm": 34.00832289601635,
+      "available_lead_mm": 35.0
+    },
+    "out": {
+      "retained_lead_length_mm": 19.295771007475476,
+      "available_lead_mm": 20.0
+    }
+  },
+  "cable_preparation_stock_mm": 600,
+  "neighbor_routes_dressed": [
+    "DC4-GND",
+    "J1-positive-C",
+    "J11-DOUT",
+    "J11-GND",
+    "J2-positive-J",
+    "J3-V5",
+    "J5-GND",
+    "J5-IO19",
+    "J7-GND",
+    "J9-A",
+    "J9-B",
+    "J9-GND",
+    "PE-bus",
+    "relay-bus-V5",
+    "J9-V12"
+  ],
+  "retained_physical_viewer_meshes": 401,
+  "retained_viewer_arrays_identical": true
+}
