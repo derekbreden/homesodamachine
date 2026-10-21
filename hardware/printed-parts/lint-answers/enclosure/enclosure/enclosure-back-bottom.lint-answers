@@ -175,18 +175,6 @@ alternatives: Raising the letters a millimetre or more removes the step and make
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
 click: x=42.011 y=471.900 z=49.657
 
-[thin] Numerical threshold boundary: these exact pairs span authored 3.000 mm core-receiver and anchor sections, with material at all five native interior samples. Endpoint coordinates differ by exactly 3.000 mm along their section axis. Floating-point inclusion at the 3 mm search reach does not establish a smaller design section or qualify printed dimensions and load capacity.
-alternatives: Use an explicit numerical tolerance at the requested section threshold. Enlarging a nominal fitted section solely to change its floating-point rank has no dimensional basis.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=-90.750 y=215.854 z=-0.171
-click: x=-93.750 y=247.624 z=29.122
-click: x=-98.130 y=257.000 z=0.286
-click: x=-94.513 y=317.800 z=141.090
-click: x=-98.407 y=314.800 z=154.900
-click: x=-98.125 y=332.800 z=138.106
-click: x=90.750 y=253.835 z=-0.013
-click: x=94.031 y=257.000 z=0.451
-
 [ceiling] Unavoidable square capture interfaces: these Z169.45 flats are the rear rail catches above mating feet at Z168.70. They retain 0.25 mm running air plus the two supported-face allowances. The square overlap resists lifting without a ramp. Tree(auto)/Default support can leave through the empty slide channels; physical cleanup and loaded behavior remain unqualified.
 alternatives: Sloping introduces a camming bearing. Filling blocks the mating foot; removing overlap loses capture.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
@@ -206,74 +194,16 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
 click: x=-98.250 y=208.900 z=40.800
 click: x=98.250 y=208.900 z=40.800
 
-[thin] Unavoidable at the matched R6 roll: the lower Y-stack head opening (Ø9) leaves a 2.46 mm outboard rim where the handhold's R6 lifting-edge roll and its additive print chamfer meet the ceiling plane; the rim reaches 3 mm about 1.2 mm above it. The opening's axis is fixed by the head passing the handhold's 3 mm inner wall, which stands 0.25 mm off the cold core. A 3 mm rim at the plane needs that roll at R4.5, against Derek's 2026-09-19 request that the bottom grips match the top's rounding "all aspects of it, for all rounded edges".
-alternatives: An R4.5 handhold lifting-edge roll gives a 3.03 mm rim; a local boss round each recess breaks the matched roll at the fastener.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=105.247 y=209.512 z=29.327
-click: x=-105.247 y=209.512 z=29.327
-
 [slope] The linter is wrong for this channel: this 45° face is the roof of the relief over the lower Y-stack screw passage where it crosses back-bottom's upper knuckle underside (`_y_bore_reliefs`). It rises toward the passage inside a slot of the passage's own width, so both of its rising edges stand on the slot's walls 5.6 mm apart and each layer of it is carried at both ends as well as by the layer below; the rule reads one wall and its rising edge, a slope hanging sideways off a single wall.
 alternatives: A level roof over the slot is a down-facing ceiling. A roof rising off the slot walls, a gable, dives under the 45° knuckle face along a V and leaves a ridge down the slot. A vertical end wall where the roof lands meets the knuckle face on a 45° arris. The rule could count a slope whose two rising edges stand on opposed walls as carried.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
 click: x=95.719 y=208.900 z=140.148
 
-[thin] The linter is wrong here: each segment runs from the back rail's under-flare, at its end face on Y456.3, across the open notch between that face and the rear corner column's R15 arc to the column's top edge; its midpoint stands outside both, in air. The flare ends with the arm, so no 45° tip meets the mouth past the arm's end.
-alternatives: Running the flare on into the column fills the notch but carries its 45° tip to the mouth with no arm above it, a knife edge; filling the notch through the column's height leaves a 37° wedge where the arc meets the end plane. The rule could require material along the segment before classifying a thickness.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=-94.362 y=456.203 z=159.388
-click: x=94.362 y=456.203 z=159.388
-
-[thin] Specific required legend relief: each reading is a stroke of the raised disposal warning (hardware/markings/README.md: UL 60335-2-24 7.1DV.4.1(d), letters at least 6.4 mm), 6.5 mm Helvetica Bold caps standing 0.6 mm proud of back-bottom's +Y wall, or one of its full stops. At that size a bold stroke is 0.96-1.41 mm across; the readings run 0.93-1.43 mm, across a stroke at its face or from a stroke's level top to its 45° underside.
+[thin] Specific required legend relief: each reading is a stroke of the raised disposal warning (hardware/markings/README.md: UL 60335-2-24 7.1DV.4.1(d), letters at least 6.4 mm), 6.5 mm Helvetica Bold caps standing 0.6 mm proud of back-bottom's +Y wall. At that size a bold stroke is 0.96-1.41 mm across; the lint reads the narrowest diagonal strokes, 1.04 mm across where they leave the wall.
 alternatives: 3 mm strokes would need letters about 15 mm tall, and a lighter weight thins every stroke further.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=54.915 y=471.872 z=11.607
-click: x=-72.192 y=471.887 z=31.809
-click: x=14.995 y=471.825 z=31.343
-click: x=-61.036 y=471.742 z=50.629
-click: x=-69.820 y=471.739 z=22.491
-click: x=-17.518 y=471.735 z=60.008
-click: x=28.552 y=471.848 z=37.963
-click: x=-15.785 y=471.825 z=31.661
-click: x=5.659 y=471.796 z=40.873
-click: x=-1.995 y=471.669 z=20.716
-click: x=57.603 y=471.825 z=34.139
-click: x=81.351 y=471.862 z=33.324
-click: x=41.716 y=471.862 z=33.324
-click: x=37.042 y=471.850 z=33.378
-click: x=80.107 y=471.850 z=24.751
-click: x=-43.948 y=471.500 z=9.425
-click: x=84.621 y=471.787 z=30.086
-click: x=40.561 y=471.712 z=30.061
-
-[thin] Specific required legend relief: each reading is the tip of a letter's own outline in the raised disposal warning, 6.5 mm Helvetica Bold caps. Every R's leg ends on the baseline on a vertical terminal 0.16 mm tall, and the K's upper arm meets the cap line in a 45° point, so each tip is under 0.25 mm thick over its last few tenths of a millimetre. Each letter keeps that outline down to its 45° underside.
-alternatives: Cutting the tips back to a wider terminal changes Helvetica's outline on every R and on the K; another typeface changes the approved legend.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=60.667 y=471.872 z=46.572
-click: x=-8.575 y=471.872 z=46.572
-click: x=13.505 y=471.872 z=46.572
-click: x=53.007 y=471.872 z=27.814
-click: x=11.734 y=471.872 z=9.055
-click: x=-6.328 y=471.872 z=9.055
-click: x=-28.408 y=471.872 z=9.055
-click: x=23.263 y=471.872 z=18.435
-click: x=51.358 y=471.872 z=18.435
-click: x=-19.379 y=471.872 z=18.435
-click: x=-10.339 y=471.872 z=37.193
-click: x=-35.933 y=471.872 z=37.193
-click: x=45.470 y=471.586 z=52.898
-
-[thin] Specific cosmetic-flute land at a corner: each reading runs the height of one of the box's vertical R12 corners along one land of the reeded field, which closes on itself round the box (`flute_count` 272 grooves at 4.9338 mm pitch, 4 mm wide and 1.2 mm deep, leaving 0.93 mm of land between grooves). Where a corner's arc turns the grooves across it obliquely, one land's flank lies flat and its crest reads 0.80 mm.
-alternatives: Wider lands change the pitch the closed field settles on. A plain band at each corner breaks the closed wrap, and shallower grooves there change the texture's depth on the corners alone.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=95.799 y=471.295 z=127.621
-click: x=-95.799 y=471.295 z=-0.370
-click: x=106.916 y=462.990 z=127.621
-click: x=-106.916 y=462.990 z=-0.370
-
-[thin] Wrong material-thickness classification: a stepped-corner pair. It pairs two faces that meet only at the edge of a corner of solid stock, where the -X flank's reeded field meets the plain block beside it; a ray along each pick's inward normal crosses 9.0 and 10.8 mm of material.
-alternatives: Read a pair as thickness only where the faces stand opposite each other across the material, not where they meet at a corner of it.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=-107.331 y=330.081 z=126.438
+click: x=54.669 y=471.371 z=12.198
+click: x=47.240 y=471.374 z=11.786
 
 [thin] Approved by Derek as drawn: each reading is the wall a flute groove leaves on a 3 mm section. The 1.2 mm groove (`flute_depth`) leaves 1.8 mm between its floor and the inner face (enclosure README, Nothing may relieve into the outermost 3 mm of a fluted face), on back-bottom's flanks beside the Y seam. Derek, 2026-10-21: "The flute grooves on 3mm walls is good with me and approved by me."
 alternatives: A 4.2 mm wall keeps 3 mm under every groove and takes 1.2 mm more of the room inside each flank; a shallower groove changes the texture the corner coupon set.

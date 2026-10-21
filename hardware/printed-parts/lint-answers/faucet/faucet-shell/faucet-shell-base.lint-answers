@@ -16,17 +16,15 @@ click: x=-1.461 y=19.563 z=64.297
 click: x=1.462 y=19.576 z=63.960
 click: x=1.464 y=19.575 z=63.960
 
-[thin] These are the tapered rims of the open Sculpted lever window. Local exact inward readings at the two upper-rim picks are 0.58–0.69 mm; the sidewall picks have approximately 1.56 mm normal backing. They terminate the open motion/insertion clearance rather than the mounting seats or a pressure boundary. Their print finish and resistance to edge damage are unqualified; the organizer 1.5 mm requirement is separate from these retained shell rims.
+[thin] These are the tapered rims of the open Sculpted lever window. The lint reads the two upper rims 1.46–1.54 mm through and the sidewalls about 1.56 mm. They terminate the open motion/insertion clearance rather than the mounting seats or a pressure boundary. Their print finish and resistance to edge damage are unqualified; the organizer 1.5 mm requirement is separate from these retained shell rims.
 alternatives: Filling inward reduces lever motion and donor insertion space. Growing the outer shoulder changes the Sculpted transition envelope. A local rim rounding consumes the same opening clearance and requires a separate lever-fit review.
 file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step
-click: x=7.093 y=-3.460 z=57.835
-click: x=6.850 y=-3.260 z=57.500
-click: x=-6.976 y=-3.437 z=57.912
-click: x=-6.850 y=-3.260 z=57.500
 click: x=-6.850 y=-17.507 z=42.787
 click: x=-7.953 y=-17.765 z=42.859
 click: x=6.850 y=-16.388 z=44.929
 click: x=8.057 y=-16.552 z=45.058
+click: x=6.781 y=-2.378 z=58.955
+click: x=-6.545 y=-2.410 z=59.035
 
 [thin] This isolated near-Z16 reading joins the donor cove and lower passage. The nearest exact cylindrical face has more than 12.6 mm of inward stock at the pick. Lint measures the neighboring transition edge, not a continuous 1.013 mm wall. The named manual native reading is local to this edge.
 alternatives: Adding stock into the opening reduces donor/tube clearance. Removing more stock changes the matching cove without thickening an exterior wall.
@@ -43,26 +41,11 @@ click: x=0.859 y=-17.279 z=227.798
 [thin] These are the continuous foot walls around the three pedestal sockets and insert pilots, between those openings, the donor bore and the outer perimeter. The saved mesh reports 2.2–2.81 mm at the named curved boundaries. The pilot/socket sections match the rigid plate pedestals and existing M3 insert hardware; these readings do not establish clamp capacity.
 alternatives: Larger exterior stock grows the foot, rigid plate and gasket. Smaller sockets change pedestal clearance; smaller insert pilots change the brass fit. Moving the seats changes the common mounting interface.
 file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step
-click: x=0.013 y=-18.200 z=0.800
-click: x=0.027 y=-16.000 z=0.800
-click: x=28.949 y=-2.484 z=0.070
-click: x=26.589 y=-2.306 z=0.070
-click: x=-28.962 y=-2.400 z=0.077
-click: x=-26.592 y=-2.252 z=0.077
-click: x=-18.419 y=-1.605 z=0.800
-click: x=-15.939 y=-1.379 z=0.801
 click: x=18.415 y=-1.655 z=2.401
 click: x=15.934 y=-1.439 z=2.401
-click: x=15.937 y=-1.409 z=1.099
-click: x=18.417 y=-1.626 z=1.099
-click: x=-15.932 y=-1.461 z=1.099
-click: x=-18.413 y=-1.679 z=1.099
-
-[thin] These remaining donor-cavity and stage boundaries have approximately 2.84–3.0 mm of local stock in the saved mesh. They follow the harvested donor clearance envelope and the cylindrical/oval outside profiles. Their ranked thin readings are geometric observations, not a strength qualification.
-alternatives: Growing the outside changes the coordinated foot or body envelope. Moving stock inward reduces donor/lever clearance. Enlarging an opening removes stock rather than increasing backing.
-file: hardware/printed-parts/faucet/faucet-shell/faucet-shell-base.step
-click: x=-8.750 y=-13.057 z=43.330
-click: x=-10.627 y=-14.830 z=44.524
+click: x=-0.013 y=-18.200 z=2.400
+click: x=0.043 y=-16.000 z=1.105
+click: x=-18.417 y=-1.630 z=2.401
 
 [ledge] These are the exposed ends of the donor shoulder beside the rear passage at Z39. They are backed cavity boundaries with 15 degree print inclination, accessible through the open donor bore before hardware/tube installation. An actual print retains Bambu automatic support choices; support removal and contact finish remain unmeasured for this centered article.
 alternatives: A slope or fill changes the donor shoulder and rear passage clearance. Cutting the shoulder away removes its matching cavity datum. Wider ledges consume tube or donor space.

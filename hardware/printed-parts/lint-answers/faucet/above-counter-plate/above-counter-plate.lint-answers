@@ -1,13 +1,3 @@
-[thin] These picks surround the three recessed M3 screw seats. The 4 mm plate carries 2.2 mm locating pedestals above the seats, leaving 3.0 mm of axial material between the screw bearing and pedestal top. Lint measures a diagonal near the counterbore shoulder and pedestal edge; the local inward chord from each reported horizontal-face pick is 4 mm. The matching 6.15 mm head counterbores, 3.9 mm screw holes and pedestal centers define these edges. These geometry readings do not qualify mounting load or printed fit.
-alternatives: A shallower head counterbore would leave the 3 mm screw heads proud of the gasket face. A larger pedestal needs larger shell sockets and moves their walls closer to the donor bore. A smaller screw opening changes assembly clearance.
-file: hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step
-click: x=-19.373 y=-4.942 z=0.000
-click: x=-20.256 y=-4.102 z=-0.800
-click: x=19.373 y=-4.942 z=0.000
-click: x=20.256 y=-4.102 z=-0.800
-click: x=-3.237 y=-19.479 z=0.000
-click: x=-2.313 y=-20.274 z=-0.800
-
 [ledge] These are the three annular M3 head-bearing shoulders at Z=-0.8 mm inside the 6.15 mm counterbores. They hold recessed screw heads behind the gasket and underneath the locating pedestals. The 3.075 mm radial opening is accessible from the underside before the gasket is installed; retain Bambu automatic supports as selected for an actual print and inspect these seats after cleanup.
 alternatives: A sloped bearing does not seat a flat screw head. Omitting the recess puts heads into the gasket/countertop interface. A wider recess reduces the bearing annulus and surrounding plate stock.
 file: hardware/printed-parts/faucet/above-counter-plate/above-counter-plate.step

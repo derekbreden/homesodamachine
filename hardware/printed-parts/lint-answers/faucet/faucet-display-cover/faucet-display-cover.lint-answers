@@ -12,12 +12,8 @@ file: hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.st
 click: x=0.000 y=-134.986 z=213.514
 click: x=0.000 y=-120.447 z=201.671
 
-[thin] Outside the cooling/display-seat task: these rear-corner short-ray regions also occur at the same locations on the successful fan-off cover (0.202/0.232 mm before, 0.229/0.231 mm on this revision). The remaining rear-region chord is 1.822 mm. They remain separate unresolved geometric findings, not an inferred strength acceptance. The complete rear-opening boundary reading is at least 1.22787 mm; it does not disprove a separate short-ray finding. See ../../../faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/surface-review.json. Derek was told these existing flags are retained for separate review.
+[thin] Outside the cooling/display-seat task: these rear-corner short-ray regions also occur at the same locations on the successful fan-off cover; here the lint reads the knife edge the corner leaves, 0.62/0.63 mm across. The remaining rear-region chord is 1.822 mm. They remain separate unresolved geometric findings, not an inferred strength acceptance. The complete rear-opening boundary reading is at least 1.22787 mm; it does not disprove a separate short-ray finding. See ../../../faucet/sculpted/prints/2026-10-17-localized-cooling-display-clearance-mark2/surface-review.json. Derek was told these existing flags are retained for separate review.
 alternatives: Reconcile the rounded skin, cylindrical neck opening and rear lower trim in a dedicated corner revision, then read the complete opening and display-loading envelope. A uniform rear trim does not address their intersection; a blanket wall-thickness increase changes the retained flexure.
 file: hardware/printed-parts/faucet/faucet-display-cover/faucet-display-cover.step
-click: x=-10.221 y=-110.460 z=222.152
-click: x=-10.221 y=-110.244 z=222.227
-click: x=10.227 y=-110.458 z=222.140
-click: x=10.227 y=-110.240 z=222.216
-click: x=0.254 y=-112.356 z=227.936
-click: x=0.254 y=-112.821 z=229.697
+click: x=-10.529 y=-110.833 z=222.027
+click: x=10.561 y=-110.817 z=221.962

@@ -17,29 +17,18 @@ click: x=-0.538 y=48.185 z=8.715
 [thin] The rounded paddle tip meets the front of the open inner channel at these points. This free edge belongs to the exact physically accepted print in physical-acceptance.json; its minimum thickness is not a strength qualification.
 alternatives: Raising the inner floor reduces the accepted channel clearance; extending the tip changes its observed outer silhouette. The retained geometry keeps the identified fit and operation result applicable.
 file: hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.step
-click: x=-0.622 y=1.200 z=6.851
-click: x=-0.628 y=0.839 z=6.851
+click: x=-0.556 y=1.200 z=5.511
 
 [thin] The rear attachment mouth narrows the two side walls as the relief exits the rounded outer end. Both margins are present in the exact physically accepted print in physical-acceptance.json. Their reported thickness does not establish a force or lifetime rating.
 alternatives: Filling inward narrows the accepted attachment passage; widening outward changes the 12.4 mm external envelope. The current mouth retains the printed attachment fit that Derek accepted.
 file: hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.step
-click: x=-0.802 y=52.803 z=11.654
-click: x=-0.802 y=52.803 z=12.400
-click: x=-0.857 y=52.799 z=0.748
-click: x=-0.857 y=52.799 z=0.000
+click: x=-0.700 y=52.354 z=0.000
+click: x=-0.947 y=52.336 z=12.400
 
-[thin] These points lie on the curved forward lip of the cylinder ledge. The larger connected finding also includes the paddle and channel walls within the lint's 3 mm ranking reach. The working ledge and 1.7 mm parallel channel walls are part of the exact print accepted for fit and operation in physical-acceptance.json; quantified strength and endurance remain unmeasured.
+[thin] These points lie on the curved forward lip of the cylinder ledge. The larger connected finding also includes the paddle and channel walls within the lint's 2.5 mm ranking reach. The working ledge and 1.7 mm parallel channel walls are part of the exact print accepted for fit and operation in physical-acceptance.json; quantified strength and endurance remain unmeasured.
 alternatives: Thickening into the pocket changes the cylinder seat; enlarging the underside changes the observed lever profile. Both change the geometry covered by the physical fit and operation record.
 file: hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.step
-click: x=-10.179 y=37.448 z=8.871
-click: x=-9.898 y=36.706 z=8.871
-click: x=-10.175 y=37.455 z=3.529
-click: x=-9.898 y=36.706 z=3.529
-
-[thin] These mirrored margins join the upper attachment relief to the outside shoulder. Their geometry is included in the accepted side-down mesh recorded in physical-acceptance.json. The scope is observed fit and operation, with no numerical strength or endurance claim.
-alternatives: Reducing the relief narrows the accepted upper opening; widening the outside changes the parallel-sided envelope. The retained dimensions keep the identified physical acceptance applicable.
-file: hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.step
-click: x=4.014 y=41.522 z=12.400
-click: x=4.080 y=41.417 z=10.880
-click: x=4.014 y=41.522 z=0.000
-click: x=4.080 y=41.417 z=1.520
+click: x=-10.106 y=37.969 z=9.308
+click: x=-10.106 y=37.969 z=3.092
+click: x=-0.372 y=39.776 z=12.400
+click: x=-0.158 y=22.509 z=0.000

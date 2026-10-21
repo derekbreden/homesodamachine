@@ -43,16 +43,8 @@ click: x=0.859 y=-17.279 z=227.798
 [thin] These are the continuous foot walls around the three pedestal sockets and insert pilots, between those openings, the donor bore and the outer perimeter. The saved mesh reports 2.2–2.81 mm at the named curved boundaries. The pilot/socket sections match the rigid plate pedestals and existing M3 insert hardware; these readings do not establish clamp capacity.
 alternatives: Larger exterior stock grows the foot, rigid plate and gasket. Smaller sockets change pedestal clearance; smaller insert pilots change the brass fit. Moving the seats changes the common mounting interface.
 file: hardware/printed-parts/faucet/industrial/industrial-shell-base.step
-click: x=0.013 y=-18.200 z=0.800
-click: x=0.027 y=-16.000 z=0.800
-click: x=-18.419 y=-1.605 z=0.800
-click: x=-15.939 y=-1.379 z=0.801
 click: x=18.415 y=-1.655 z=2.401
 click: x=15.934 y=-1.439 z=2.401
-click: x=15.937 y=-1.409 z=1.099
-click: x=18.417 y=-1.626 z=1.099
-click: x=-15.932 y=-1.461 z=1.099
-click: x=-18.413 y=-1.679 z=1.099
 click: x=29.384 y=-2.587 z=0.618
 click: x=26.585 y=-2.343 z=0.618
 click: x=26.583 y=-2.370 z=0.799
@@ -61,22 +53,9 @@ click: x=-29.387 y=-2.558 z=0.620
 click: x=-26.588 y=-2.313 z=0.620
 click: x=-26.585 y=-2.345 z=0.799
 click: x=-29.384 y=-2.589 z=0.799
-
-[thin] These remaining donor-cavity and stage boundaries have approximately 2.84–3.0 mm of local stock in the saved mesh. They follow the harvested donor clearance envelope and the cylindrical/oval outside profiles. Their ranked thin readings are geometric observations, not a strength qualification.
-alternatives: Growing the outside changes the coordinated foot or body envelope. Moving stock inward reduces donor/lever clearance. Enlarging an opening removes stock rather than increasing backing.
-file: hardware/printed-parts/faucet/industrial/industrial-shell-base.step
-click: x=-0.085 y=-18.998 z=37.751
-click: x=-0.048 y=-15.999 z=37.751
-click: x=0.008 y=-16.000 z=14.323
-click: x=0.041 y=-18.999 z=14.322
-click: x=0.263 y=-18.997 z=14.816
-click: x=0.225 y=-15.997 z=14.816
-
-[thin] This is the donor shoulder beside the open lever entry, with about 1.93 mm of tessellated backing at the roof edge. The shoulder follows the donor cavity and opens through the bare bottom for assembly and cleanup. Clamp loads bear at the mounting seats rather than this clearance edge. Physical contact finish remains a print observation.
-alternatives: Lowering or filling the shoulder changes the harvested donor fit. Growing the outside alters the Industrial body envelope. Rounding the edge consumes the same cavity clearance.
-file: hardware/printed-parts/faucet/industrial/industrial-shell-base.step
-click: x=7.438 y=-17.838 z=38.971
-click: x=6.850 y=-16.000 z=38.990
+click: x=-0.013 y=-18.200 z=2.400
+click: x=0.043 y=-16.000 z=1.105
+click: x=-18.417 y=-1.630 z=2.401
 
 [ledge] These are the exposed ends of the donor shoulder beside the rear passage at Z39. They are backed cavity boundaries with 15 degree print inclination, accessible through the open donor bore before hardware/tube installation. An actual print retains Bambu automatic support choices; support removal and contact finish remain unmeasured for this centered article.
 alternatives: A slope or fill changes the donor shoulder and rear passage clearance. Cutting the shoulder away removes its matching cavity datum. Wider ledges consume tube or donor space.

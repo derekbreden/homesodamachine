@@ -9,5 +9,4 @@ alternatives: A thicker wing in the same span needs greater bending strain for t
 file: hardware/printed-parts/zone-c/funnel/elbow-cradle.step
 click: x=-15.050 y=9.186 z=21.461
 click: x=-13.750 y=9.186 z=21.461
-click: x=15.050 y=20.444 z=33.837
-click: x=13.750 y=20.444 z=33.837
+click: x=15.050 y=19.672 z=32.651

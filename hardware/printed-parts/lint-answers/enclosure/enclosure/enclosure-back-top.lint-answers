@@ -4,56 +4,26 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-40.710 y=458.730 z=294.222
 click: x=-40.710 y=458.780 z=314.272
 
-[thin] Specific cosmetic-flute profile exception: these true short chords lie in the authored exterior groove, land or fade. All five interior samples lie in the exact final fluted STL. The shared groove is 4 mm wide, 1.2 mm deep and uses a 5 mm smoothstep fade; current pitch is 4.9338 mm. The corner-coupon and appearance scopes are recorded in cadlib/flute-evidence/README.md. This is a specific exterior-contour allowance, with no 3 mm finished-wall, exact deposition or load-capacity acceptance.
-alternatives: Flattening or shallowing changes the retained visible contour. Widening lands changes closed-field spacing. Assess a finish change against the appearance evidence rather than choosing it from a thickness-only cutoff.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=106.300 y=213.453 z=172.559
-click: x=-106.300 y=213.447 z=172.559
-click: x=104.500 y=243.300 z=256.684
-
-[thin] Accepted wing-retention lips: each row is the flat lip over a sideways wing slot of the DATA plate or nameplate receiver, 1.23 mm thick (plate 3.36 - wing 1.68 - 0.45 air), thinning to 0.83 mm only along the slot-mouth line at the apex of the 1.10 x 0.40 mm entry bevel. `plain_lips` keeps the flutes off it. This receiver geometry is the one physically accepted on 2026-09-30 (nameplate/horizontal-wing-trial/physical-acceptance.json).
+[thin] Accepted wing-retention lips: each row is the flat lip over a sideways wing slot of the DATA plate or nameplate receiver, 1.23 mm thick (plate 3.36 - wing 1.68 - 0.45 air), thinning to 0.83 mm at the slot mouth along the 1.10 x 0.40 mm entry bevel; the lint reads it 1.01 mm through, partway up the bevel. `plain_lips` keeps the flutes off it. This receiver geometry is the one physically accepted on 2026-09-30 (nameplate/horizontal-wing-trial/physical-acceptance.json).
 alternatives: A thicker lip needs a thicker plate or a thinner wing, each a change to the accepted fit.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-24.549 y=471.293 z=314.939
-click: x=-56.872 y=471.300 z=316.236
-click: x=86.585 y=471.300 z=260.778
+click: x=-23.878 y=471.297 z=306.752
+click: x=-57.544 y=471.296 z=312.753
+click: x=87.269 y=471.298 z=278.310
+click: x=-18.931 y=471.297 z=278.307
 
 [thin] Specific fitted M3 insert-host interface: these sections span 2.000 mm from the Ø4.0 pilot to the Ø8 host's face (mount_boss_dia), ruthex's 1.6 mm minimum wall plus the 0.25 mm supported allowance and 0.15 mm slip. Each measured face sits on a neighbour: relay 1 and 2 pin boxes, the ground stack, the main board's top edge. Inside a fill the host keeps the fill's face, 1.75 mm behind the relieved crown.
 alternatives: A 3 mm host needs every body gap in the bay widened by about 1 mm and relays with pins further from their holes.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=97.374 y=332.936 z=251.315
-click: x=97.374 y=345.936 z=251.315
 click: x=97.292 y=326.800 z=330.955
+click: x=97.376 y=332.936 z=251.315
+click: x=97.376 y=345.936 z=251.315
 
-[thin] Specific required partition, with a classifier minimum: each row's 1.445 mm minimum pairs the meter anchor's rib crown (Z344.4) inside the tie band with the slab underside (Z343) past the band's end, a corner pair. The real section in the cluster is the 1.95 mm slab between each zip tie's channel and the flow meter's pocket (Y372.56-374.51 and 413.51-415.46). It is the anchor's 1.7 mm inner end web, which the meter's 7.2 mm collar fixes and which keeps the tie on the collar, plus 0.25 mm of slab; the tie channel is the 18 lb tie's 2.5 mm plus 1.0 mm of room; and the pocket keeps 2.0 mm of axial room because the meter is laid into its plain half-bores with nothing locating it along Y, so the pocket walls, not the slab under the label cover's Ø35 rim, are what it meets.
+[thin] Specific required partition: each reading is the 1.95 mm slab between a zip tie's channel and the flow meter's pocket (Y372.56-374.51 and 413.51-415.46). It is the anchor's 1.7 mm inner end web, which the meter's 7.2 mm collar fixes and which keeps the tie on the collar, plus 0.25 mm of slab; the tie channel is the 18 lb tie's 2.5 mm plus 1.0 mm of room; and the pocket keeps 2.0 mm of axial room because the meter is laid into its plain half-bores with nothing locating it along Y, so the pocket walls, not the slab under the label cover's Ø35 rim, are what it meets.
 alternatives: A 3 mm partition needs a positive axial stop holding the meter within about 0.9 mm, e.g. the inner end webs carried over the neck with a lead-in, so the pocket can give up the room; a narrower tie channel or a shifted band thins the collar's end webs.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-55.655 y=372.535 z=344.400
-click: x=-55.655 y=418.935 z=344.400
-
-[thin] Wrong material-thickness classification: stepped-corner pairs. Each pairs two opposed faces that meet only at the edge of a stepped corner of solid stock: a rib crown with the slab underside past a tie band's end, a rib flank with a pocket wall above it, two pockets' roofs either side of a step, a channel floor with the flank face beside a band's end. A ray along each sample's inward normal crosses 5.9-122 mm of material (probe on the current STL).
-alternatives: Reject pairs whose sample's inward chord through the material reaches the search. No wall change addresses these readings.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-83.990 y=448.510 z=348.685
-click: x=-71.575 y=449.010 z=348.363
-click: x=-31.765 y=369.085 z=344.400
-click: x=-31.765 y=415.485 z=344.400
-click: x=-56.468 y=368.847 z=343.000
-click: x=-30.952 y=372.772 z=343.000
-click: x=-30.952 y=419.172 z=343.000
-click: x=-56.468 y=415.247 z=343.000
-click: x=7.612 y=358.638 z=343.333
-click: x=-91.626 y=308.185 z=316.137
-click: x=-13.694 y=358.638 z=343.333
-click: x=-101.250 y=258.533 z=282.714
-click: x=-98.500 y=254.696 z=282.054
-click: x=-98.500 y=258.924 z=282.054
-click: x=-101.250 y=255.394 z=282.952
-click: x=-15.210 y=374.901 z=348.171
-click: x=7.612 y=368.726 z=343.334
-click: x=-13.694 y=368.861 z=343.286
-click: x=-15.935 y=367.689 z=342.840
-click: x=-87.370 y=358.721 z=321.671
+click: x=-54.173 y=415.460 z=347.272
+click: x=-29.759 y=372.560 z=347.629
 
 [ledge] Required Wago bearing tabs: each is a 2.0 mm end tab (`wago_roof_tab`) of a well's lid; on back-top the lid is the pocket's machine -Z face, so these flats are what the lever-nut rests on.
 alternatives: A sloped tab puts the lug on a ramp; a full lid is a 9.3 x 8.7 mm ceiling.
@@ -94,61 +64,6 @@ alternatives: Either face moved onto the other closes a running fit.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-104.125 y=219.800 z=167.650
 click: x=104.125 y=219.800 z=167.650
-
-[thin] Numerical threshold boundary: these exact pairs span authored 3.000 mm anchor, wall or insert-host sections. Native interiors are material and endpoint coordinates differ by exactly 3.000 mm along the section axis. Floating-point inclusion at the 3 mm reach does not establish a smaller design section or qualify printed/load performance.
-alternatives: Use an explicit numerical tolerance at the requested thickness threshold. Enlarging a nominal fitted section solely to change its rank has no dimensional basis.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-98.405 y=317.800 z=175.233
-click: x=-98.466 y=314.800 z=175.401
-click: x=-98.258 y=316.079 z=254.600
-click: x=-95.540 y=321.136 z=254.600
-click: x=-95.544 y=314.620 z=251.600
-click: x=-98.258 y=332.329 z=254.600
-click: x=-95.540 y=337.386 z=254.600
-click: x=-98.106 y=321.355 z=251.600
-click: x=-95.443 y=330.882 z=251.600
-click: x=-98.493 y=252.060 z=312.376
-click: x=-90.858 y=255.060 z=305.455
-click: x=-98.025 y=258.560 z=306.351
-click: x=-98.326 y=277.250 z=284.551
-click: x=-98.134 y=286.750 z=277.584
-click: x=-98.375 y=280.250 z=284.524
-click: x=-90.875 y=283.750 z=277.024
-click: x=-98.315 y=294.450 z=263.705
-click: x=-87.501 y=277.250 z=266.494
-click: x=-87.223 y=280.250 z=264.254
-click: x=-85.501 y=286.750 z=266.948
-click: x=-84.438 y=283.750 z=276.549
-click: x=-98.454 y=261.560 z=306.166
-click: x=-96.953 y=291.450 z=284.729
-click: x=-96.517 y=332.800 z=202.206
-click: x=-98.068 y=342.350 z=254.728
-click: x=-34.760 y=467.790 z=291.849
-click: x=-11.686 y=466.150 z=331.320
-click: x=50.325 y=400.443 z=342.648
-click: x=98.116 y=364.378 z=309.450
-click: x=98.116 y=357.678 z=312.450
-click: x=98.116 y=364.378 z=312.450
-click: x=97.649 y=353.660 z=331.439
-click: x=95.594 y=363.615 z=309.450
-click: x=98.257 y=373.142 z=309.450
-click: x=98.116 y=373.928 z=312.450
-click: x=98.116 y=380.628 z=312.450
-click: x=95.249 y=390.806 z=309.450
-click: x=96.183 y=381.520 z=309.450
-click: x=98.116 y=390.178 z=312.450
-click: x=95.249 y=407.056 z=309.450
-click: x=96.183 y=397.770 z=309.450
-click: x=98.116 y=396.878 z=312.450
-click: x=59.825 y=400.443 z=342.648
-click: x=98.116 y=406.428 z=312.450
-click: x=95.249 y=423.306 z=309.450
-click: x=96.183 y=414.020 z=309.450
-click: x=98.116 y=413.128 z=312.450
-click: x=98.116 y=422.678 z=312.450
-click: x=96.025 y=430.315 z=309.450
-click: x=98.116 y=429.378 z=312.450
-click: x=95.883 y=433.360 z=312.559
 
 [ceiling] Unavoidable PRV chase profile: these flats are the exterior crown and square mouth lower edge of the retained vent. The 12 mm passage and sloped inner air roof remain intact. Support can leave through the empty crown/mouth before core and vent installation; physical cleanup remains unqualified.
 alternatives: Filling reduces the vent passage. A different crown or mouth changes the rib/tube-target envelope and requires its own clearance review.
@@ -238,36 +153,15 @@ alternatives: Group facets by the B-rep face they came from before comparing pla
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-3.262 y=465.378 z=321.095
 
-[thin] Specific cosmetic-flute land at a corner: each reading runs the height of one of the box's vertical R12 corners along one land of the reeded field, which closes on itself round the box (`flute_count` 272 grooves at 4.9338 mm pitch, 4 mm wide and 1.2 mm deep, leaving 0.93 mm of land between grooves). Where a corner's arc turns the grooves across it obliquely, one land's flank lies flat and its crest reads 0.80 mm.
-alternatives: Wider lands change the pitch the closed field settles on. A plain band at each corner breaks the closed wrap, and shallower grooves there change the texture's depth on the corners alone.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=95.799 y=471.295 z=349.371
-click: x=107.138 y=462.219 z=167.648
-click: x=-96.600 y=471.246 z=253.851
-click: x=-106.915 y=462.990 z=167.629
-
 [sliver] Specific fitted keystone swing ease: the strip is the square shoulder that ends the jack's 50° swing ease 1.0 mm over the aperture's top edge (`keystone_ease_shoulder`); 0.84 mm is that slope's run across the shoulder's 1.0 mm. The ease gives the purchased jack's top the room it swings through going in, and retention stays on the back catches.
 alternatives: Running the ease out on the aperture's edge meets the face in a knife edge, and a taller shoulder leaves more open face over the jack.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-40.710 y=467.370 z=311.552
 
-[thin] Specific fitted keystone swing ease: the face's lip over the keystone's swing ease is 0.84 mm at the edge where the ease's square shoulder meets the face (`keystone_ease_shoulder`, 1.0 mm over the aperture's top edge on the ease's 50° slope); it thickens up the slope from there.
+[thin] Specific fitted keystone swing ease: the face's lip over the keystone's swing ease thickens up the ease's 50° slope from 0.84 mm where its square shoulder meets the face (`keystone_ease_shoulder`, 1.0 mm over the aperture's top edge); the lint reads it 1.36 mm through, up the slope.
 alternatives: Running the ease out on the aperture's edge meets the face in a knife edge, and a taller shoulder leaves more open face over the jack.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-47.755 y=467.790 z=311.620
-
-[thin] The linter is wrong here: each pair runs across air. On the capped ribs, `carb-1`'s and `co2-2`'s under the ceiling and `fluid-28`'s on the wall, it spans the open mouth of the tube seat from the lip's 0.8 mm chamfer to the bore's edge, and none of 19 samples along it lies in material. Beside the -X back corner it runs from one flute land across a groove to the next, with 8 to 11 of its 19 samples in air.
-alternatives: Read a pair as thickness only when the segment between its two picks stands in material along its length, not only at its ends.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=59.481 y=267.275 z=332.103
-click: x=59.481 y=273.925 z=332.103
-click: x=62.206 y=403.328 z=335.963
-click: x=62.206 y=409.978 z=335.963
-click: x=-78.073 y=289.131 z=267.249
-click: x=-78.073 y=289.131 z=273.899
-click: x=-94.220 y=471.262 z=261.759
-click: x=-94.220 y=471.263 z=320.898
-click: x=-94.220 y=471.208 z=352.234
+click: x=-37.063 y=467.790 z=312.674
 
 [thin] Approved by Derek as drawn: each reading is the wall a flute groove leaves on a 3 mm section. The 1.2 mm groove (`flute_depth`) leaves 1.8 mm between its floor and the inner face (enclosure README, Nothing may relieve into the outermost 3 mm of a fluted face): on back-top's two flanks, and over the blind ends of the C14's two insert pilots, which stop one 3 mm wall short of the back face. Derek, 2026-10-21: "The flute grooves on 3mm walls is good with me and approved by me."
 alternatives: A 4.2 mm wall keeps 3 mm under every groove and takes 1.2 mm more of the room inside each flank; a shallower groove changes the texture the corner coupon set.
@@ -281,25 +175,16 @@ click: x=104.500 y=405.856 z=323.115
 click: x=104.500 y=391.070 z=323.121
 click: x=-106.301 y=257.858 z=286.923
 click: x=106.301 y=376.261 z=328.014
-click: x=104.500 y=356.667 z=260.710
-click: x=104.500 y=356.667 z=293.710
-click: x=104.500 y=321.852 z=255.272
-click: x=104.500 y=321.852 z=322.572
 click: x=106.305 y=425.461 z=328.014
-click: x=104.500 y=455.047 z=261.543
-click: x=104.500 y=455.047 z=294.543
-click: x=88.898 y=468.300 z=336.160
-click: x=-104.500 y=327.028 z=173.586
-click: x=106.308 y=243.211 z=323.188
-click: x=44.902 y=468.300 z=336.011
-
-[thin] The linter is wrong here: each pair runs along back-top's outer face instead of across material. One pick is on the rim of an opening in the back face (the C14's cord aperture, a bulkhead-union pocket, the nameplate receiver) and the other where the nearest flute groove starts to fall away, both within 0.4 mm of the face at Y471.3, so the 1.355-2.331 mm is the width of the flute land along the face between the rim and the groove. The middle of each pair stands 0.06-0.39 mm from the face; a pair across material has its middle half the pair's length, here 0.68-1.17 mm, from every face (probe on the current STL). Reported to Derek.
-alternatives: Read a pair as thickness only where its middle stands about half the pair's length from every surface. No wall change addresses these readings.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=52.750 y=471.186 z=344.003
-click: x=82.027 y=471.172 z=346.188
-click: x=82.032 y=471.155 z=325.938
-click: x=-61.173 y=471.173 z=289.688
-click: x=-61.173 y=471.173 z=323.188
-click: x=-18.024 y=471.031 z=255.312
-click: x=-60.766 y=470.913 z=256.438
+click: x=-104.500 y=317.050 z=261.183
+click: x=104.500 y=356.645 z=264.859
+click: x=104.500 y=356.645 z=297.859
+click: x=104.500 y=321.837 z=255.293
+click: x=104.500 y=321.828 z=322.556
+click: x=104.500 y=455.043 z=261.511
+click: x=104.500 y=455.043 z=294.511
+click: x=88.893 y=468.300 z=336.260
+click: x=-106.310 y=327.042 z=174.678
+click: x=104.500 y=243.522 z=322.328
+click: x=104.500 y=243.532 z=257.568
+click: x=45.237 y=468.300 z=335.828

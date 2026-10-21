@@ -35,7 +35,3 @@ alternatives: A thicker wing or bezel changes stiffness, display recess and avai
 file: hardware/printed-parts/faucet/industrial/industrial-display-cover.step
 click: x=12.799 y=-141.287 z=189.576
 click: x=14.042 y=-141.213 z=189.514
-click: x=-12.799 y=-141.287 z=189.576
-click: x=-14.042 y=-141.213 z=189.514
-click: x=-10.616 y=-146.890 z=202.127
-click: x=-10.616 y=-145.894 z=201.292

@@ -14,24 +14,6 @@ click: x=-25.850 y=-39.350 z=30.000
 click: x=-25.850 y=-40.150 z=30.000
 click: x=-25.850 y=56.850 z=30.000
 
-[thin] This 2.35 mm outboard border is beside the 0.3 mm deep reference groove at Y57.25; it continues into the full 26 mm axial thickness of the donor block. It is outside the Ø30 contact disk centred at Y40.75, whose outer edge is Y55.75. The groove's nearest edge is Y56.85. The ranking measures the shallow reference border, not the axial load-bearing block section or a detached fin.
-alternatives: Widening the block beyond Y60 thickens only the outboard reference border, adding width and material outside the pad footprint. Removing the groove eliminates the border but also removes the permanent station reference. Neither changes the already full Ø30 pad backing.
-file: hardware/printed-parts/fixtures/tube-insertion/tube-insertion-base.step
-click: x=-25.702 y=60.000 z=30.087
-click: x=-25.702 y=57.650 z=30.087
-
-[thin] These four surface pairs are the upper saddle cheeks, with minimum 2.9 mm radial stock between the Ø32.2 drop-in pocket and Y±19 outer faces. Their stock grows below this short upper band. The cheeks locate the Ø31.5 metal base with 0.35 mm radial loading clearance. The separate 26 mm axial donor block, backed by both factory fixed pads, carries intended insertion reaction; the cheek tips are not that thrust section. No physical load capacity follows from this geometric distinction.
-alternatives: Increasing the outer half-width to 20.1 mm gives 4 mm tip stock but expands the forward saddle envelope by 1.1 mm per side without enlarging the axial reaction block. Reducing the saddle radius consumes the required metal-loading clearance and risks binding placement and removal. The current cheeks retain the open donor-loading nest and its nominal 3 mm local section.
-file: hardware/printed-parts/fixtures/tube-insertion/tube-insertion-base.step
-click: x=11.249 y=-16.100 z=29.980
-click: x=11.249 y=-19.000 z=29.980
-click: x=11.249 y=16.100 z=29.980
-click: x=11.249 y=19.000 z=29.980
-click: x=8.646 y=-19.000 z=29.847
-click: x=8.646 y=-16.098 z=29.904
-click: x=3.354 y=19.000 z=29.847
-click: x=3.354 y=16.098 z=29.904
-
 [ledge] These 0.24 mm² downward faces close the tops of the two shallow reference grooves at Z33. Their unsupported axial reach is only the 0.3 mm groove depth, backed by the donor block; they are not projecting bearing lips. The native base slice emits no support for these local recess ends.
 alternatives: Extending each groove to the top edge removes its closing face but adds a much longer recess without helping pad alignment. A flush face removes the permanent references. Enlarging the ledge means deepening the recess and removing additional block stock.
 file: hardware/printed-parts/fixtures/tube-insertion/tube-insertion-base.step
