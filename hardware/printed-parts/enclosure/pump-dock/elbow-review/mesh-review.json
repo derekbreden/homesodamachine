@@ -1,6 +1,6 @@
 {
-  "recorded_at_utc": "2026-10-20T21:12:09.914822+00:00",
-  "scope": "Complete post-publication review of the changed shell and four junction exports. Unchanged keeper meshes retain their first post-publication scan at identical published SHA-256 values.",
+  "recorded_at_utc": "2026-10-21T00:20:50.869875+00:00",
+  "scope": "Complete post-publication review of the four changed junction manufacturing meshes. Unchanged front-top and keeper meshes retain their recorded scans at identical published SHA-256 values.",
   "unexplained_findings": 0,
   "inherited_findings_open_for_separate_review": 14,
   "physical_scope": "Geometry only; no physical seal, pressure, support-removal or lifetime qualification.",
@@ -892,124 +892,115 @@
     },
     "pump-receiver-west-outer": {
       "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-outer.stl",
-      "stl_sha256": "fe916d59960ee3ace2336274664564ca0a84ad0cb690863f1b544a5f2ad5d40d",
+      "stl_sha256": "e8c6d0a912e0868f100408643e75c05bfcb7894eb0ee49aaf2ec3c3c422a9edb",
       "complete_post_publication_scan": true,
-      "scan_log_sha256": "3d72a8e1d5ccfcd42a0f5813cce40c54e64119a9570ef691df1ee2e64a694217",
+      "scan_log_sha256": "31e3bd11ee679c90f42f3ee9b2da4c12d323895ebbb9dd9069343522585d594b",
       "answers_file": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-pump-receiver-west-outer.lint-answers",
-      "answers_sha256": "bb492783037c382b48e42d3c8baa270ce1b52393aa11ef4808316e0ed27aa4c5",
+      "answers_sha256": "ad96fdf054a938dd5ea94fe9936e3f232a221421119f266419b60830246e2e08",
       "findings": [
         {
           "class": "slope",
-          "reading": "45\u00b0 underside runs along a wall with no level foot \u00b7 slope dir +0.00,-1.00 vs wall n +1.00,-0.00 \u00b7 along 29.7 mm \u00b7 416 mm\u00b2",
+          "reading": "45\u00b0 underside runs along a wall with no level foot \u00b7 slope dir +0.00,-1.00 vs wall n +1.00,+0.00 \u00b7 along 19.2 mm \u00b7 200 mm\u00b2",
           "pick": [
-            "click: x=0.000 y=-23.695 z=10.518"
+            "click: x=0.000 y=13.543 z=10.499"
           ],
-          "disposition": "functional_interface_or_existing_review"
+          "disposition": "functional_fitted_interface_or_support"
         },
         {
           "class": "slope",
-          "reading": "45\u00b0 underside runs along a wall with no level foot \u00b7 slope dir +0.00,-1.00 vs wall n +1.00,-0.00 \u00b7 along 8.3 mm \u00b7 100 mm\u00b2",
+          "reading": "45\u00b0 underside runs along a wall with no level foot \u00b7 slope dir +0.00,+1.00 vs wall n +1.00,+0.00 \u00b7 along 14.1 mm \u00b7 164 mm\u00b2",
           "pick": [
-            "click: x=0.000 y=-9.369 z=26.435"
+            "click: x=0.000 y=30.807 z=4.997"
           ],
-          "disposition": "functional_interface_or_existing_review"
+          "disposition": "functional_fitted_interface_or_support"
         },
         {
           "class": "thin",
           "reading": "0.600 mm of material at its thinnest \u00b7 146.4 mm\u00b2 of surface under 1.6 mm \u00b7 spans 12.9 \u00d7 9.1 \u00d7 9.1 mm",
           "pick": [
-            "click: x=-2.458 y=-4.626 z=39.582",
-            "click: x=-2.458 y=-4.202 z=40.006"
+            "click: x=0.524 y=-4.108 z=10.260",
+            "click: x=0.524 y=-4.532 z=9.835"
           ],
-          "disposition": "functional_interface_or_existing_review"
+          "disposition": "functional_fitted_interface_or_support"
         },
         {
           "class": "thin",
-          "reading": "1.320 mm of material at its thinnest \u00b7 551.9 mm\u00b2 of surface under 3 mm \u00b7 spans 16.9 \u00d7 14.4 \u00d7 14.4 mm \u00b7 in 13 pieces",
+          "reading": "1.320 mm of material at its thinnest \u00b7 515.0 mm\u00b2 of surface under 3 mm \u00b7 spans 16.9 \u00d7 12.8 \u00d7 12.8 mm \u00b7 in 8 pieces",
           "pick": [
-            "click: x=-4.817 y=-8.944 z=36.716",
-            "click: x=-4.817 y=-9.877 z=35.782"
+            "click: x=-7.563 y=1.318 z=12.018",
+            "click: x=-7.563 y=2.251 z=12.952"
           ],
-          "disposition": "functional_interface_or_existing_review"
+          "disposition": "functional_fitted_interface_or_support"
         },
         {
           "class": "thin",
-          "reading": "2.560 mm of material at its thinnest \u00b7 189.8 mm\u00b2 of surface under 3 mm \u00b7 spans 11.7 \u00d7 7.9 \u00d7 13.1 mm",
+          "reading": "2.575 mm of material at its thinnest \u00b7 23.0 mm\u00b2 of surface under 3 mm \u00b7 spans 3.4 \u00d7 0.8 \u00d7 7.4 mm",
           "pick": [
-            "click: x=-0.135 y=-4.691 z=0.002",
-            "click: x=-0.082 y=-2.881 z=1.811"
+            "click: x=-0.960 y=2.440 z=28.105",
+            "click: x=-1.012 y=4.968 z=28.591"
           ],
-          "disposition": "functional_interface_or_existing_review"
+          "disposition": "functional_fitted_interface_or_support"
         },
         {
           "class": "thin",
-          "reading": "2.597 mm of material at its thinnest \u00b7 100.4 mm\u00b2 of surface under 3 mm \u00b7 spans 6.5 \u00d7 7.2 \u00d7 8.3 mm \u00b7 in 3 pieces",
+          "reading": "2.587 mm of material at its thinnest \u00b7 24.2 mm\u00b2 of surface under 3 mm \u00b7 spans 3.9 \u00d7 5.2 \u00d7 5.2 mm",
           "pick": [
-            "click: x=2.773 y=-1.816 z=2.982",
-            "click: x=4.972 y=-2.794 z=2.005"
+            "click: x=0.516 y=35.696 z=10.104",
+            "click: x=0.291 y=33.985 z=8.176"
           ],
-          "disposition": "functional_interface_or_existing_review"
+          "disposition": "functional_fitted_interface_or_support"
+        },
+        {
+          "class": "thin",
+          "reading": "2.598 mm of material at its thinnest \u00b7 16.1 mm\u00b2 of surface under 3 mm \u00b7 spans 4.8 \u00d7 4.6 \u00d7 5.6 mm \u00b7 in 4 pieces",
+          "pick": [
+            "click: x=-1.089 y=5.012 z=28.513",
+            "click: x=-1.089 y=2.424 z=28.293"
+          ],
+          "disposition": "functional_fitted_interface_or_support"
         },
         {
           "class": "thin",
           "reading": "2.598 mm of material at its thinnest \u00b7 14.5 mm\u00b2 of surface under 3 mm \u00b7 spans 3.0 \u00d7 4.1 \u00d7 3.9 mm \u00b7 in 3 pieces",
           "pick": [
-            "click: x=-0.061 y=-32.323 z=22.821",
-            "click: x=-0.061 y=-34.160 z=20.983"
+            "click: x=0.061 y=33.914 z=8.211",
+            "click: x=0.061 y=35.751 z=10.048"
           ],
-          "disposition": "functional_interface_or_existing_review"
+          "disposition": "functional_fitted_interface_or_support"
         },
         {
           "class": "thin",
-          "reading": "2.616 mm of material at its thinnest \u00b7 22.2 mm\u00b2 of surface under 3 mm \u00b7 spans 3.5 \u00d7 5.1 \u00d7 5.1 mm",
+          "reading": "2.676 mm of material at its thinnest \u00b7 4.9 mm\u00b2 of surface under 3 mm \u00b7 spans 0.0 \u00d7 3.6 \u00d7 1.2 mm",
           "pick": [
-            "click: x=0.733 y=-34.049 z=20.872",
-            "click: x=0.410 y=-32.385 z=22.865"
+            "click: x=-7.000 y=8.337 z=28.156",
+            "click: x=-4.365 y=8.277 z=28.617"
           ],
-          "disposition": "functional_interface_or_existing_review"
+          "disposition": "functional_fitted_interface_or_support"
         },
         {
           "class": "thin",
           "reading": "2.678 mm of material at its thinnest \u00b7 110.3 mm\u00b2 of surface under 3 mm \u00b7 spans 11.7 \u00d7 8.3 \u00d7 8.3 mm",
           "pick": [
-            "click: x=5.533 y=-0.142 z=32.979",
-            "click: x=3.441 y=0.393 z=34.563"
+            "click: x=-1.479 y=-2.518 z=10.789",
+            "click: x=-0.896 y=-2.063 z=8.215"
           ],
-          "disposition": "functional_interface_or_existing_review"
+          "disposition": "functional_fitted_interface_or_support"
         },
         {
           "class": "thin",
-          "reading": "3.000 mm of material at its thinnest \u00b7 16.4 mm\u00b2 of surface under 3 mm \u00b7 spans 8.6 \u00d7 1.0 \u00d7 1.0 mm",
+          "reading": "3.000 mm of material at its thinnest \u00b7 4.8 mm\u00b2 of surface under 3 mm \u00b7 spans 1.5 \u00d7 6.2 \u00d7 6.2 mm",
           "pick": [
-            "click: x=0.000 y=-14.534 z=31.600",
-            "click: x=0.000 y=-12.412 z=33.721"
-          ],
-          "disposition": "native_threshold_classification"
-        },
-        {
-          "class": "thin",
-          "reading": "3.000 mm of material at its thinnest \u00b7 13.9 mm\u00b2 of surface under 3 mm \u00b7 spans 10.6 \u00d7 1.8 \u00d7 1.8 mm",
-          "pick": [
-            "click: x=-3.790 y=-4.768 z=21.834",
-            "click: x=-3.790 y=-2.647 z=23.955"
+            "click: x=8.290 y=8.383 z=15.659",
+            "click: x=8.290 y=6.262 z=13.537"
           ],
           "disposition": "native_threshold_classification"
         },
         {
           "class": "thin",
-          "reading": "3.000 mm of material at its thinnest \u00b7 2.3 mm\u00b2 of surface under 3 mm \u00b7 spans 1.1 \u00d7 2.9 \u00d7 2.9 mm \u00b7 in 2 pieces",
+          "reading": "3.000 mm of material at its thinnest \u00b7 3.5 mm\u00b2 of surface under 3 mm \u00b7 spans 1.5 \u00d7 4.8 \u00d7 4.8 mm",
           "pick": [
-            "click: x=7.282 y=-11.113 z=28.179",
-            "click: x=7.282 y=-8.991 z=30.300"
-          ],
-          "disposition": "native_threshold_classification"
-        },
-        {
-          "class": "thin",
-          "reading": "3.000 mm of material at its thinnest \u00b7 2.1 mm\u00b2 of surface under 3 mm \u00b7 spans 1.2 \u00d7 2.9 \u00d7 2.9 mm \u00b7 in 2 pieces",
-          "pick": [
-            "click: x=-7.282 y=-11.113 z=28.179",
-            "click: x=-7.282 y=-8.991 z=30.300"
+            "click: x=-7.600 y=11.877 z=12.165",
+            "click: x=-7.600 y=9.755 z=10.044"
           ],
           "disposition": "native_threshold_classification"
         }
@@ -1017,124 +1008,106 @@
     },
     "pump-receiver-west-inner": {
       "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-west-inner.stl",
-      "stl_sha256": "fe916d59960ee3ace2336274664564ca0a84ad0cb690863f1b544a5f2ad5d40d",
+      "stl_sha256": "733581a0b37c7cb0f7935942cee878694b22ac99dfb96e34f585668862d877f8",
       "complete_post_publication_scan": true,
-      "scan_log_sha256": "d2701ff241e445588314eaf95a6e3963d10722fdaca6b40b9d7dd2b6a804c3e0",
+      "scan_log_sha256": "aa04f0d6b6f50a4faff1756f39020bd0a9aef3efdb965d91e6ec42ae6b1c2fc5",
       "answers_file": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-pump-receiver-west-inner.lint-answers",
-      "answers_sha256": "b8be2d8d814e201ad44b6a35c957935641790cf65856f1232fb12c910772243a",
+      "answers_sha256": "655b46c471754e3ee543abf90bff5b1ebac7f949c8ad8aa1b4ab0d54e9237232",
       "findings": [
         {
           "class": "slope",
-          "reading": "45\u00b0 underside runs along a wall with no level foot \u00b7 slope dir +0.00,-1.00 vs wall n +1.00,-0.00 \u00b7 along 29.7 mm \u00b7 416 mm\u00b2",
+          "reading": "45\u00b0 underside runs along a wall with no level foot \u00b7 slope dir +0.00,-1.00 vs wall n +1.00,+0.00 \u00b7 along 19.2 mm \u00b7 201 mm\u00b2",
           "pick": [
-            "click: x=0.000 y=-23.695 z=10.518"
+            "click: x=0.000 y=13.534 z=10.508"
           ],
-          "disposition": "functional_interface_or_existing_review"
+          "disposition": "functional_fitted_interface_or_support"
         },
         {
           "class": "slope",
-          "reading": "45\u00b0 underside runs along a wall with no level foot \u00b7 slope dir +0.00,-1.00 vs wall n +1.00,-0.00 \u00b7 along 8.3 mm \u00b7 100 mm\u00b2",
+          "reading": "45\u00b0 underside runs along a wall with no level foot \u00b7 slope dir +0.00,+1.00 vs wall n +1.00,+0.00 \u00b7 along 14.1 mm \u00b7 164 mm\u00b2",
           "pick": [
-            "click: x=0.000 y=-9.369 z=26.435"
+            "click: x=0.000 y=30.807 z=4.997"
           ],
-          "disposition": "functional_interface_or_existing_review"
+          "disposition": "functional_fitted_interface_or_support"
         },
         {
           "class": "thin",
           "reading": "0.600 mm of material at its thinnest \u00b7 146.4 mm\u00b2 of surface under 1.6 mm \u00b7 spans 12.9 \u00d7 9.1 \u00d7 9.1 mm",
           "pick": [
-            "click: x=-2.458 y=-4.626 z=39.582",
-            "click: x=-2.458 y=-4.202 z=40.006"
+            "click: x=0.524 y=-4.108 z=10.260",
+            "click: x=0.524 y=-4.532 z=9.835"
           ],
-          "disposition": "functional_interface_or_existing_review"
+          "disposition": "functional_fitted_interface_or_support"
         },
         {
           "class": "thin",
-          "reading": "1.320 mm of material at its thinnest \u00b7 551.9 mm\u00b2 of surface under 3 mm \u00b7 spans 16.9 \u00d7 14.4 \u00d7 14.4 mm \u00b7 in 13 pieces",
+          "reading": "1.320 mm of material at its thinnest \u00b7 514.1 mm\u00b2 of surface under 3 mm \u00b7 spans 16.9 \u00d7 12.8 \u00d7 12.8 mm \u00b7 in 8 pieces",
           "pick": [
-            "click: x=-4.817 y=-8.944 z=36.716",
-            "click: x=-4.817 y=-9.877 z=35.782"
+            "click: x=-7.563 y=1.318 z=12.018",
+            "click: x=-7.563 y=2.251 z=12.952"
           ],
-          "disposition": "functional_interface_or_existing_review"
+          "disposition": "functional_fitted_interface_or_support"
         },
         {
           "class": "thin",
-          "reading": "2.560 mm of material at its thinnest \u00b7 189.8 mm\u00b2 of surface under 3 mm \u00b7 spans 11.7 \u00d7 7.9 \u00d7 13.1 mm",
+          "reading": "2.571 mm of material at its thinnest \u00b7 23.8 mm\u00b2 of surface under 3 mm \u00b7 spans 3.5 \u00d7 5.1 \u00d7 5.1 mm",
           "pick": [
-            "click: x=-0.135 y=-4.691 z=0.002",
-            "click: x=-0.082 y=-2.881 z=1.811"
+            "click: x=0.264 y=35.693 z=10.106",
+            "click: x=0.164 y=33.991 z=8.182"
           ],
-          "disposition": "functional_interface_or_existing_review"
+          "disposition": "functional_fitted_interface_or_support"
         },
         {
           "class": "thin",
-          "reading": "2.597 mm of material at its thinnest \u00b7 100.4 mm\u00b2 of surface under 3 mm \u00b7 spans 6.5 \u00d7 7.2 \u00d7 8.3 mm \u00b7 in 3 pieces",
+          "reading": "2.583 mm of material at its thinnest \u00b7 23.1 mm\u00b2 of surface under 3 mm \u00b7 spans 3.9 \u00d7 0.8 \u00d7 7.2 mm",
           "pick": [
-            "click: x=2.773 y=-1.816 z=2.982",
-            "click: x=4.972 y=-2.794 z=2.005"
+            "click: x=0.239 y=2.408 z=28.088",
+            "click: x=0.143 y=4.934 z=28.616"
           ],
-          "disposition": "functional_interface_or_existing_review"
+          "disposition": "functional_fitted_interface_or_support"
+        },
+        {
+          "class": "thin",
+          "reading": "2.598 mm of material at its thinnest \u00b7 14.5 mm\u00b2 of surface under 3 mm \u00b7 spans 3.1 \u00d7 0.9 \u00d7 5.4 mm \u00b7 in 3 pieces",
+          "pick": [
+            "click: x=0.021 y=4.975 z=28.544",
+            "click: x=0.021 y=2.387 z=28.317"
+          ],
+          "disposition": "functional_fitted_interface_or_support"
         },
         {
           "class": "thin",
           "reading": "2.598 mm of material at its thinnest \u00b7 14.5 mm\u00b2 of surface under 3 mm \u00b7 spans 3.0 \u00d7 4.1 \u00d7 3.9 mm \u00b7 in 3 pieces",
           "pick": [
-            "click: x=-0.061 y=-32.323 z=22.821",
-            "click: x=-0.061 y=-34.160 z=20.983"
+            "click: x=-0.061 y=33.914 z=8.211",
+            "click: x=-0.061 y=35.751 z=10.048"
           ],
-          "disposition": "functional_interface_or_existing_review"
-        },
-        {
-          "class": "thin",
-          "reading": "2.616 mm of material at its thinnest \u00b7 22.2 mm\u00b2 of surface under 3 mm \u00b7 spans 3.5 \u00d7 5.1 \u00d7 5.1 mm",
-          "pick": [
-            "click: x=0.733 y=-34.049 z=20.872",
-            "click: x=0.410 y=-32.385 z=22.865"
-          ],
-          "disposition": "functional_interface_or_existing_review"
+          "disposition": "functional_fitted_interface_or_support"
         },
         {
           "class": "thin",
           "reading": "2.678 mm of material at its thinnest \u00b7 110.3 mm\u00b2 of surface under 3 mm \u00b7 spans 11.7 \u00d7 8.3 \u00d7 8.3 mm",
           "pick": [
-            "click: x=5.533 y=-0.142 z=32.979",
-            "click: x=3.441 y=0.393 z=34.563"
+            "click: x=-1.479 y=-2.518 z=10.789",
+            "click: x=-0.896 y=-2.063 z=8.215"
           ],
-          "disposition": "functional_interface_or_existing_review"
+          "disposition": "functional_fitted_interface_or_support"
         },
         {
           "class": "thin",
-          "reading": "3.000 mm of material at its thinnest \u00b7 16.4 mm\u00b2 of surface under 3 mm \u00b7 spans 8.6 \u00d7 1.0 \u00d7 1.0 mm",
+          "reading": "3.000 mm of material at its thinnest \u00b7 4.8 mm\u00b2 of surface under 3 mm \u00b7 spans 1.5 \u00d7 6.2 \u00d7 6.2 mm",
           "pick": [
-            "click: x=0.000 y=-14.534 z=31.600",
-            "click: x=0.000 y=-12.412 z=33.721"
-          ],
-          "disposition": "native_threshold_classification"
-        },
-        {
-          "class": "thin",
-          "reading": "3.000 mm of material at its thinnest \u00b7 13.9 mm\u00b2 of surface under 3 mm \u00b7 spans 10.6 \u00d7 1.8 \u00d7 1.8 mm",
-          "pick": [
-            "click: x=-3.790 y=-4.768 z=21.834",
-            "click: x=-3.790 y=-2.647 z=23.955"
+            "click: x=8.290 y=8.383 z=15.659",
+            "click: x=8.290 y=6.262 z=13.537"
           ],
           "disposition": "native_threshold_classification"
         },
         {
           "class": "thin",
-          "reading": "3.000 mm of material at its thinnest \u00b7 2.3 mm\u00b2 of surface under 3 mm \u00b7 spans 1.1 \u00d7 2.9 \u00d7 2.9 mm \u00b7 in 2 pieces",
+          "reading": "3.000 mm of material at its thinnest \u00b7 1.7 mm\u00b2 of surface under 3 mm \u00b7 spans 1.4 \u00d7 4.7 \u00d7 4.7 mm \u00b7 in 2 pieces",
           "pick": [
-            "click: x=7.282 y=-11.113 z=28.179",
-            "click: x=7.282 y=-8.991 z=30.300"
-          ],
-          "disposition": "native_threshold_classification"
-        },
-        {
-          "class": "thin",
-          "reading": "3.000 mm of material at its thinnest \u00b7 2.1 mm\u00b2 of surface under 3 mm \u00b7 spans 1.2 \u00d7 2.9 \u00d7 2.9 mm \u00b7 in 2 pieces",
-          "pick": [
-            "click: x=-7.282 y=-11.113 z=28.179",
-            "click: x=-7.282 y=-8.991 z=30.300"
+            "click: x=-8.682 y=10.133 z=13.909",
+            "click: x=-8.682 y=8.011 z=11.788"
           ],
           "disposition": "native_threshold_classification"
         }
@@ -1142,124 +1115,106 @@
     },
     "pump-receiver-east-inner": {
       "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-inner.stl",
-      "stl_sha256": "fe916d59960ee3ace2336274664564ca0a84ad0cb690863f1b544a5f2ad5d40d",
+      "stl_sha256": "733581a0b37c7cb0f7935942cee878694b22ac99dfb96e34f585668862d877f8",
       "complete_post_publication_scan": true,
-      "scan_log_sha256": "372fdbb0ec0f6accbcff3456471f772466f4c50d873eee62b1b7c8b563cb5dc6",
+      "scan_log_sha256": "9b82ca480b641c111ed9ecb077f3e324646aef48e42930823ad9b08b4b2f1fa6",
       "answers_file": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-pump-receiver-east-inner.lint-answers",
-      "answers_sha256": "ed2b6f80d55d5e79723f3654191e98e740974eeed346ffd058818e068d68da81",
+      "answers_sha256": "1711367d485d991e8b4f569005a04a8f63d9bcbadaff56174ff968ef2b436dbf",
       "findings": [
         {
           "class": "slope",
-          "reading": "45\u00b0 underside runs along a wall with no level foot \u00b7 slope dir +0.00,-1.00 vs wall n +1.00,-0.00 \u00b7 along 29.7 mm \u00b7 416 mm\u00b2",
+          "reading": "45\u00b0 underside runs along a wall with no level foot \u00b7 slope dir +0.00,-1.00 vs wall n +1.00,+0.00 \u00b7 along 19.2 mm \u00b7 201 mm\u00b2",
           "pick": [
-            "click: x=0.000 y=-23.695 z=10.518"
+            "click: x=0.000 y=13.534 z=10.508"
           ],
-          "disposition": "functional_interface_or_existing_review"
+          "disposition": "functional_fitted_interface_or_support"
         },
         {
           "class": "slope",
-          "reading": "45\u00b0 underside runs along a wall with no level foot \u00b7 slope dir +0.00,-1.00 vs wall n +1.00,-0.00 \u00b7 along 8.3 mm \u00b7 100 mm\u00b2",
+          "reading": "45\u00b0 underside runs along a wall with no level foot \u00b7 slope dir +0.00,+1.00 vs wall n +1.00,+0.00 \u00b7 along 14.1 mm \u00b7 164 mm\u00b2",
           "pick": [
-            "click: x=0.000 y=-9.369 z=26.435"
+            "click: x=0.000 y=30.807 z=4.997"
           ],
-          "disposition": "functional_interface_or_existing_review"
+          "disposition": "functional_fitted_interface_or_support"
         },
         {
           "class": "thin",
           "reading": "0.600 mm of material at its thinnest \u00b7 146.4 mm\u00b2 of surface under 1.6 mm \u00b7 spans 12.9 \u00d7 9.1 \u00d7 9.1 mm",
           "pick": [
-            "click: x=-2.458 y=-4.626 z=39.582",
-            "click: x=-2.458 y=-4.202 z=40.006"
+            "click: x=0.524 y=-4.108 z=10.260",
+            "click: x=0.524 y=-4.532 z=9.835"
           ],
-          "disposition": "functional_interface_or_existing_review"
+          "disposition": "functional_fitted_interface_or_support"
         },
         {
           "class": "thin",
-          "reading": "1.320 mm of material at its thinnest \u00b7 551.9 mm\u00b2 of surface under 3 mm \u00b7 spans 16.9 \u00d7 14.4 \u00d7 14.4 mm \u00b7 in 13 pieces",
+          "reading": "1.320 mm of material at its thinnest \u00b7 514.1 mm\u00b2 of surface under 3 mm \u00b7 spans 16.9 \u00d7 12.8 \u00d7 12.8 mm \u00b7 in 8 pieces",
           "pick": [
-            "click: x=-4.817 y=-8.944 z=36.716",
-            "click: x=-4.817 y=-9.877 z=35.782"
+            "click: x=-7.563 y=1.318 z=12.018",
+            "click: x=-7.563 y=2.251 z=12.952"
           ],
-          "disposition": "functional_interface_or_existing_review"
+          "disposition": "functional_fitted_interface_or_support"
         },
         {
           "class": "thin",
-          "reading": "2.560 mm of material at its thinnest \u00b7 189.8 mm\u00b2 of surface under 3 mm \u00b7 spans 11.7 \u00d7 7.9 \u00d7 13.1 mm",
+          "reading": "2.571 mm of material at its thinnest \u00b7 23.8 mm\u00b2 of surface under 3 mm \u00b7 spans 3.5 \u00d7 5.1 \u00d7 5.1 mm",
           "pick": [
-            "click: x=-0.135 y=-4.691 z=0.002",
-            "click: x=-0.082 y=-2.881 z=1.811"
+            "click: x=0.264 y=35.693 z=10.106",
+            "click: x=0.164 y=33.991 z=8.182"
           ],
-          "disposition": "functional_interface_or_existing_review"
+          "disposition": "functional_fitted_interface_or_support"
         },
         {
           "class": "thin",
-          "reading": "2.597 mm of material at its thinnest \u00b7 100.4 mm\u00b2 of surface under 3 mm \u00b7 spans 6.5 \u00d7 7.2 \u00d7 8.3 mm \u00b7 in 3 pieces",
+          "reading": "2.583 mm of material at its thinnest \u00b7 23.1 mm\u00b2 of surface under 3 mm \u00b7 spans 3.9 \u00d7 0.8 \u00d7 7.2 mm",
           "pick": [
-            "click: x=2.773 y=-1.816 z=2.982",
-            "click: x=4.972 y=-2.794 z=2.005"
+            "click: x=0.239 y=2.408 z=28.088",
+            "click: x=0.143 y=4.934 z=28.616"
           ],
-          "disposition": "functional_interface_or_existing_review"
+          "disposition": "functional_fitted_interface_or_support"
+        },
+        {
+          "class": "thin",
+          "reading": "2.598 mm of material at its thinnest \u00b7 14.5 mm\u00b2 of surface under 3 mm \u00b7 spans 3.1 \u00d7 0.9 \u00d7 5.4 mm \u00b7 in 3 pieces",
+          "pick": [
+            "click: x=0.021 y=4.975 z=28.544",
+            "click: x=0.021 y=2.387 z=28.317"
+          ],
+          "disposition": "functional_fitted_interface_or_support"
         },
         {
           "class": "thin",
           "reading": "2.598 mm of material at its thinnest \u00b7 14.5 mm\u00b2 of surface under 3 mm \u00b7 spans 3.0 \u00d7 4.1 \u00d7 3.9 mm \u00b7 in 3 pieces",
           "pick": [
-            "click: x=-0.061 y=-32.323 z=22.821",
-            "click: x=-0.061 y=-34.160 z=20.983"
+            "click: x=-0.061 y=33.914 z=8.211",
+            "click: x=-0.061 y=35.751 z=10.048"
           ],
-          "disposition": "functional_interface_or_existing_review"
-        },
-        {
-          "class": "thin",
-          "reading": "2.616 mm of material at its thinnest \u00b7 22.2 mm\u00b2 of surface under 3 mm \u00b7 spans 3.5 \u00d7 5.1 \u00d7 5.1 mm",
-          "pick": [
-            "click: x=0.733 y=-34.049 z=20.872",
-            "click: x=0.410 y=-32.385 z=22.865"
-          ],
-          "disposition": "functional_interface_or_existing_review"
+          "disposition": "functional_fitted_interface_or_support"
         },
         {
           "class": "thin",
           "reading": "2.678 mm of material at its thinnest \u00b7 110.3 mm\u00b2 of surface under 3 mm \u00b7 spans 11.7 \u00d7 8.3 \u00d7 8.3 mm",
           "pick": [
-            "click: x=5.533 y=-0.142 z=32.979",
-            "click: x=3.441 y=0.393 z=34.563"
+            "click: x=-1.479 y=-2.518 z=10.789",
+            "click: x=-0.896 y=-2.063 z=8.215"
           ],
-          "disposition": "functional_interface_or_existing_review"
+          "disposition": "functional_fitted_interface_or_support"
         },
         {
           "class": "thin",
-          "reading": "3.000 mm of material at its thinnest \u00b7 16.4 mm\u00b2 of surface under 3 mm \u00b7 spans 8.6 \u00d7 1.0 \u00d7 1.0 mm",
+          "reading": "3.000 mm of material at its thinnest \u00b7 4.8 mm\u00b2 of surface under 3 mm \u00b7 spans 1.5 \u00d7 6.2 \u00d7 6.2 mm",
           "pick": [
-            "click: x=0.000 y=-14.534 z=31.600",
-            "click: x=0.000 y=-12.412 z=33.721"
-          ],
-          "disposition": "native_threshold_classification"
-        },
-        {
-          "class": "thin",
-          "reading": "3.000 mm of material at its thinnest \u00b7 13.9 mm\u00b2 of surface under 3 mm \u00b7 spans 10.6 \u00d7 1.8 \u00d7 1.8 mm",
-          "pick": [
-            "click: x=-3.790 y=-4.768 z=21.834",
-            "click: x=-3.790 y=-2.647 z=23.955"
+            "click: x=8.290 y=8.383 z=15.659",
+            "click: x=8.290 y=6.262 z=13.537"
           ],
           "disposition": "native_threshold_classification"
         },
         {
           "class": "thin",
-          "reading": "3.000 mm of material at its thinnest \u00b7 2.3 mm\u00b2 of surface under 3 mm \u00b7 spans 1.1 \u00d7 2.9 \u00d7 2.9 mm \u00b7 in 2 pieces",
+          "reading": "3.000 mm of material at its thinnest \u00b7 1.7 mm\u00b2 of surface under 3 mm \u00b7 spans 1.4 \u00d7 4.7 \u00d7 4.7 mm \u00b7 in 2 pieces",
           "pick": [
-            "click: x=7.282 y=-11.113 z=28.179",
-            "click: x=7.282 y=-8.991 z=30.300"
-          ],
-          "disposition": "native_threshold_classification"
-        },
-        {
-          "class": "thin",
-          "reading": "3.000 mm of material at its thinnest \u00b7 2.1 mm\u00b2 of surface under 3 mm \u00b7 spans 1.2 \u00d7 2.9 \u00d7 2.9 mm \u00b7 in 2 pieces",
-          "pick": [
-            "click: x=-7.282 y=-11.113 z=28.179",
-            "click: x=-7.282 y=-8.991 z=30.300"
+            "click: x=-8.682 y=10.133 z=13.909",
+            "click: x=-8.682 y=8.011 z=11.788"
           ],
           "disposition": "native_threshold_classification"
         }
@@ -1267,124 +1222,115 @@
     },
     "pump-receiver-east-outer": {
       "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-receiver-east-outer.stl",
-      "stl_sha256": "fe916d59960ee3ace2336274664564ca0a84ad0cb690863f1b544a5f2ad5d40d",
+      "stl_sha256": "663adac8f7810df7368d13610fc20ef80bc527c89bca139cc528d37950cbd6b4",
       "complete_post_publication_scan": true,
-      "scan_log_sha256": "42b8cd0472280c5eabae49a50c0dca36bcec3385854fa892190290f6a54e53f7",
+      "scan_log_sha256": "5cbd5781125d0e53a642853d58ebb22fdb81c32f223092bd1f040415dd0e4203",
       "answers_file": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-pump-receiver-east-outer.lint-answers",
-      "answers_sha256": "be42e54c49b26224e96aa627e7aa1b6cba2de603a57b16de891c3dcc58ce4629",
+      "answers_sha256": "748ddd44a5cc8b251b7cd2d8c11fded12443d68a0ff75202fa937c3f033edc45",
       "findings": [
         {
           "class": "slope",
-          "reading": "45\u00b0 underside runs along a wall with no level foot \u00b7 slope dir +0.00,-1.00 vs wall n +1.00,-0.00 \u00b7 along 29.7 mm \u00b7 416 mm\u00b2",
+          "reading": "45\u00b0 underside runs along a wall with no level foot \u00b7 slope dir +0.00,-1.00 vs wall n +1.00,+0.00 \u00b7 along 19.2 mm \u00b7 200 mm\u00b2",
           "pick": [
-            "click: x=0.000 y=-23.695 z=10.518"
+            "click: x=0.000 y=13.543 z=10.499"
           ],
-          "disposition": "functional_interface_or_existing_review"
+          "disposition": "functional_fitted_interface_or_support"
         },
         {
           "class": "slope",
-          "reading": "45\u00b0 underside runs along a wall with no level foot \u00b7 slope dir +0.00,-1.00 vs wall n +1.00,-0.00 \u00b7 along 8.3 mm \u00b7 100 mm\u00b2",
+          "reading": "45\u00b0 underside runs along a wall with no level foot \u00b7 slope dir +0.00,+1.00 vs wall n +1.00,+0.00 \u00b7 along 14.1 mm \u00b7 164 mm\u00b2",
           "pick": [
-            "click: x=0.000 y=-9.369 z=26.435"
+            "click: x=0.000 y=30.807 z=4.997"
           ],
-          "disposition": "functional_interface_or_existing_review"
+          "disposition": "functional_fitted_interface_or_support"
         },
         {
           "class": "thin",
           "reading": "0.600 mm of material at its thinnest \u00b7 146.4 mm\u00b2 of surface under 1.6 mm \u00b7 spans 12.9 \u00d7 9.1 \u00d7 9.1 mm",
           "pick": [
-            "click: x=-2.458 y=-4.626 z=39.582",
-            "click: x=-2.458 y=-4.202 z=40.006"
+            "click: x=0.524 y=-4.108 z=10.260",
+            "click: x=0.524 y=-4.532 z=9.835"
           ],
-          "disposition": "functional_interface_or_existing_review"
+          "disposition": "functional_fitted_interface_or_support"
         },
         {
           "class": "thin",
-          "reading": "1.320 mm of material at its thinnest \u00b7 551.9 mm\u00b2 of surface under 3 mm \u00b7 spans 16.9 \u00d7 14.4 \u00d7 14.4 mm \u00b7 in 13 pieces",
+          "reading": "1.320 mm of material at its thinnest \u00b7 515.0 mm\u00b2 of surface under 3 mm \u00b7 spans 16.9 \u00d7 12.8 \u00d7 12.8 mm \u00b7 in 8 pieces",
           "pick": [
-            "click: x=-4.817 y=-8.944 z=36.716",
-            "click: x=-4.817 y=-9.877 z=35.782"
+            "click: x=-7.563 y=1.318 z=12.018",
+            "click: x=-7.563 y=2.251 z=12.952"
           ],
-          "disposition": "functional_interface_or_existing_review"
+          "disposition": "functional_fitted_interface_or_support"
         },
         {
           "class": "thin",
-          "reading": "2.560 mm of material at its thinnest \u00b7 189.8 mm\u00b2 of surface under 3 mm \u00b7 spans 11.7 \u00d7 7.9 \u00d7 13.1 mm",
+          "reading": "2.575 mm of material at its thinnest \u00b7 23.0 mm\u00b2 of surface under 3 mm \u00b7 spans 3.4 \u00d7 0.8 \u00d7 7.4 mm",
           "pick": [
-            "click: x=-0.135 y=-4.691 z=0.002",
-            "click: x=-0.082 y=-2.881 z=1.811"
+            "click: x=0.960 y=2.440 z=28.105",
+            "click: x=1.012 y=4.968 z=28.591"
           ],
-          "disposition": "functional_interface_or_existing_review"
+          "disposition": "functional_fitted_interface_or_support"
         },
         {
           "class": "thin",
-          "reading": "2.597 mm of material at its thinnest \u00b7 100.4 mm\u00b2 of surface under 3 mm \u00b7 spans 6.5 \u00d7 7.2 \u00d7 8.3 mm \u00b7 in 3 pieces",
+          "reading": "2.587 mm of material at its thinnest \u00b7 24.2 mm\u00b2 of surface under 3 mm \u00b7 spans 3.9 \u00d7 5.2 \u00d7 5.2 mm",
           "pick": [
-            "click: x=2.773 y=-1.816 z=2.982",
-            "click: x=4.972 y=-2.794 z=2.005"
+            "click: x=-0.516 y=35.696 z=10.104",
+            "click: x=-0.291 y=33.985 z=8.176"
           ],
-          "disposition": "functional_interface_or_existing_review"
+          "disposition": "functional_fitted_interface_or_support"
+        },
+        {
+          "class": "thin",
+          "reading": "2.598 mm of material at its thinnest \u00b7 16.2 mm\u00b2 of surface under 3 mm \u00b7 spans 4.8 \u00d7 4.6 \u00d7 5.6 mm \u00b7 in 4 pieces",
+          "pick": [
+            "click: x=1.089 y=5.012 z=28.513",
+            "click: x=1.089 y=2.424 z=28.293"
+          ],
+          "disposition": "functional_fitted_interface_or_support"
         },
         {
           "class": "thin",
           "reading": "2.598 mm of material at its thinnest \u00b7 14.5 mm\u00b2 of surface under 3 mm \u00b7 spans 3.0 \u00d7 4.1 \u00d7 3.9 mm \u00b7 in 3 pieces",
           "pick": [
-            "click: x=-0.061 y=-32.323 z=22.821",
-            "click: x=-0.061 y=-34.160 z=20.983"
+            "click: x=0.061 y=33.914 z=8.211",
+            "click: x=0.061 y=35.751 z=10.048"
           ],
-          "disposition": "functional_interface_or_existing_review"
+          "disposition": "functional_fitted_interface_or_support"
         },
         {
           "class": "thin",
-          "reading": "2.616 mm of material at its thinnest \u00b7 22.2 mm\u00b2 of surface under 3 mm \u00b7 spans 3.5 \u00d7 5.1 \u00d7 5.1 mm",
+          "reading": "2.676 mm of material at its thinnest \u00b7 4.9 mm\u00b2 of surface under 3 mm \u00b7 spans 0.0 \u00d7 3.6 \u00d7 1.2 mm",
           "pick": [
-            "click: x=0.733 y=-34.049 z=20.872",
-            "click: x=0.410 y=-32.385 z=22.865"
+            "click: x=7.000 y=8.337 z=28.156",
+            "click: x=4.365 y=8.277 z=28.617"
           ],
-          "disposition": "functional_interface_or_existing_review"
+          "disposition": "functional_fitted_interface_or_support"
         },
         {
           "class": "thin",
           "reading": "2.678 mm of material at its thinnest \u00b7 110.3 mm\u00b2 of surface under 3 mm \u00b7 spans 11.7 \u00d7 8.3 \u00d7 8.3 mm",
           "pick": [
-            "click: x=5.533 y=-0.142 z=32.979",
-            "click: x=3.441 y=0.393 z=34.563"
+            "click: x=-1.479 y=-2.518 z=10.789",
+            "click: x=-0.896 y=-2.063 z=8.215"
           ],
-          "disposition": "functional_interface_or_existing_review"
+          "disposition": "functional_fitted_interface_or_support"
         },
         {
           "class": "thin",
-          "reading": "3.000 mm of material at its thinnest \u00b7 16.4 mm\u00b2 of surface under 3 mm \u00b7 spans 8.6 \u00d7 1.0 \u00d7 1.0 mm",
+          "reading": "3.000 mm of material at its thinnest \u00b7 4.8 mm\u00b2 of surface under 3 mm \u00b7 spans 1.5 \u00d7 6.2 \u00d7 6.2 mm",
           "pick": [
-            "click: x=0.000 y=-14.534 z=31.600",
-            "click: x=0.000 y=-12.412 z=33.721"
-          ],
-          "disposition": "native_threshold_classification"
-        },
-        {
-          "class": "thin",
-          "reading": "3.000 mm of material at its thinnest \u00b7 13.9 mm\u00b2 of surface under 3 mm \u00b7 spans 10.6 \u00d7 1.8 \u00d7 1.8 mm",
-          "pick": [
-            "click: x=-3.790 y=-4.768 z=21.834",
-            "click: x=-3.790 y=-2.647 z=23.955"
+            "click: x=8.290 y=8.383 z=15.659",
+            "click: x=8.290 y=6.262 z=13.537"
           ],
           "disposition": "native_threshold_classification"
         },
         {
           "class": "thin",
-          "reading": "3.000 mm of material at its thinnest \u00b7 2.3 mm\u00b2 of surface under 3 mm \u00b7 spans 1.1 \u00d7 2.9 \u00d7 2.9 mm \u00b7 in 2 pieces",
+          "reading": "3.000 mm of material at its thinnest \u00b7 3.5 mm\u00b2 of surface under 3 mm \u00b7 spans 1.5 \u00d7 4.8 \u00d7 4.8 mm",
           "pick": [
-            "click: x=7.282 y=-11.113 z=28.179",
-            "click: x=7.282 y=-8.991 z=30.300"
-          ],
-          "disposition": "native_threshold_classification"
-        },
-        {
-          "class": "thin",
-          "reading": "3.000 mm of material at its thinnest \u00b7 2.1 mm\u00b2 of surface under 3 mm \u00b7 spans 1.2 \u00d7 2.9 \u00d7 2.9 mm \u00b7 in 2 pieces",
-          "pick": [
-            "click: x=-7.282 y=-11.113 z=28.179",
-            "click: x=-7.282 y=-8.991 z=30.300"
+            "click: x=-7.600 y=11.877 z=12.165",
+            "click: x=-7.600 y=9.755 z=10.044"
           ],
           "disposition": "native_threshold_classification"
         }

@@ -270,136 +270,72 @@
     "pump-receiver-west-outer": [
       {
         "pick": [
-          "click: x=0.000 y=-14.534 z=31.600",
-          "click: x=0.000 y=-12.412 z=33.721"
+          "click: x=8.290 y=8.383 z=15.659",
+          "click: x=8.290 y=6.262 z=13.537"
         ],
-        "native_continuous_material_chord_mm": 3.000000083319726,
+        "native_continuous_material_chord_mm": 3.0000000833197227,
         "line_extension_each_end_mm": 0.02
       },
       {
         "pick": [
-          "click: x=-3.790 y=-4.768 z=21.834",
-          "click: x=-3.790 y=-2.647 z=23.955"
+          "click: x=-7.600 y=11.877 z=12.165",
+          "click: x=-7.600 y=9.755 z=10.044"
         ],
-        "native_continuous_material_chord_mm": 3.0000000000005036,
-        "line_extension_each_end_mm": 0.02
-      },
-      {
-        "pick": [
-          "click: x=7.282 y=-11.113 z=28.179",
-          "click: x=7.282 y=-8.991 z=30.300"
-        ],
-        "native_continuous_material_chord_mm": 3.0000000833197187,
-        "line_extension_each_end_mm": 0.02
-      },
-      {
-        "pick": [
-          "click: x=-7.282 y=-11.113 z=28.179",
-          "click: x=-7.282 y=-8.991 z=30.300"
-        ],
-        "native_continuous_material_chord_mm": 3.0000000833197187,
+        "native_continuous_material_chord_mm": 3.0000000833197227,
         "line_extension_each_end_mm": 0.02
       }
     ],
     "pump-receiver-west-inner": [
       {
         "pick": [
-          "click: x=0.000 y=-14.534 z=31.600",
-          "click: x=0.000 y=-12.412 z=33.721"
+          "click: x=8.290 y=8.383 z=15.659",
+          "click: x=8.290 y=6.262 z=13.537"
         ],
-        "native_continuous_material_chord_mm": 3.000000083319726,
+        "native_continuous_material_chord_mm": 3.0000000833197227,
         "line_extension_each_end_mm": 0.02
       },
       {
         "pick": [
-          "click: x=-3.790 y=-4.768 z=21.834",
-          "click: x=-3.790 y=-2.647 z=23.955"
+          "click: x=-8.682 y=10.133 z=13.909",
+          "click: x=-8.682 y=8.011 z=11.788"
         ],
-        "native_continuous_material_chord_mm": 3.0000000000005036,
-        "line_extension_each_end_mm": 0.02
-      },
-      {
-        "pick": [
-          "click: x=7.282 y=-11.113 z=28.179",
-          "click: x=7.282 y=-8.991 z=30.300"
-        ],
-        "native_continuous_material_chord_mm": 3.0000000833197187,
-        "line_extension_each_end_mm": 0.02
-      },
-      {
-        "pick": [
-          "click: x=-7.282 y=-11.113 z=28.179",
-          "click: x=-7.282 y=-8.991 z=30.300"
-        ],
-        "native_continuous_material_chord_mm": 3.0000000833197187,
+        "native_continuous_material_chord_mm": 3.0000000833197227,
         "line_extension_each_end_mm": 0.02
       }
     ],
     "pump-receiver-east-inner": [
       {
         "pick": [
-          "click: x=0.000 y=-14.534 z=31.600",
-          "click: x=0.000 y=-12.412 z=33.721"
+          "click: x=8.290 y=8.383 z=15.659",
+          "click: x=8.290 y=6.262 z=13.537"
         ],
-        "native_continuous_material_chord_mm": 3.000000083319726,
+        "native_continuous_material_chord_mm": 3.0000000833197227,
         "line_extension_each_end_mm": 0.02
       },
       {
         "pick": [
-          "click: x=-3.790 y=-4.768 z=21.834",
-          "click: x=-3.790 y=-2.647 z=23.955"
+          "click: x=-8.682 y=10.133 z=13.909",
+          "click: x=-8.682 y=8.011 z=11.788"
         ],
-        "native_continuous_material_chord_mm": 3.0000000000005036,
-        "line_extension_each_end_mm": 0.02
-      },
-      {
-        "pick": [
-          "click: x=7.282 y=-11.113 z=28.179",
-          "click: x=7.282 y=-8.991 z=30.300"
-        ],
-        "native_continuous_material_chord_mm": 3.0000000833197187,
-        "line_extension_each_end_mm": 0.02
-      },
-      {
-        "pick": [
-          "click: x=-7.282 y=-11.113 z=28.179",
-          "click: x=-7.282 y=-8.991 z=30.300"
-        ],
-        "native_continuous_material_chord_mm": 3.0000000833197187,
+        "native_continuous_material_chord_mm": 3.0000000833197227,
         "line_extension_each_end_mm": 0.02
       }
     ],
     "pump-receiver-east-outer": [
       {
         "pick": [
-          "click: x=0.000 y=-14.534 z=31.600",
-          "click: x=0.000 y=-12.412 z=33.721"
+          "click: x=8.290 y=8.383 z=15.659",
+          "click: x=8.290 y=6.262 z=13.537"
         ],
-        "native_continuous_material_chord_mm": 3.000000083319726,
+        "native_continuous_material_chord_mm": 3.0000000833197227,
         "line_extension_each_end_mm": 0.02
       },
       {
         "pick": [
-          "click: x=-3.790 y=-4.768 z=21.834",
-          "click: x=-3.790 y=-2.647 z=23.955"
+          "click: x=-7.600 y=11.877 z=12.165",
+          "click: x=-7.600 y=9.755 z=10.044"
         ],
-        "native_continuous_material_chord_mm": 3.0000000000005036,
-        "line_extension_each_end_mm": 0.02
-      },
-      {
-        "pick": [
-          "click: x=7.282 y=-11.113 z=28.179",
-          "click: x=7.282 y=-8.991 z=30.300"
-        ],
-        "native_continuous_material_chord_mm": 3.0000000833197187,
-        "line_extension_each_end_mm": 0.02
-      },
-      {
-        "pick": [
-          "click: x=-7.282 y=-11.113 z=28.179",
-          "click: x=-7.282 y=-8.991 z=30.300"
-        ],
-        "native_continuous_material_chord_mm": 3.0000000833197187,
+        "native_continuous_material_chord_mm": 3.0000000833197227,
         "line_extension_each_end_mm": 0.02
       }
     ]

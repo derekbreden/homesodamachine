@@ -532,5 +532,23 @@
     "tube-fluid-28": "43fbdc60ef20cda4f2c4d5edc59a41b50304d120199138b3d7943dae819800da",
     "tube-fluid-26": "74e6196b782491ae45b631489a2d4bed03034f2b8ad46f4484d4afe4fb5c4ab2",
     "enclosure-front-top": "dbe119c271056a05a7b0b68d4152da76cf703618a6df4319e67ef0513240583a"
+  },
+  "enclosure_native_checks": {
+    "pump-receiver-west-outer": {
+      "valid": true,
+      "max_bounds_error_mm": 3.211653165635653e-12
+    },
+    "pump-receiver-west-inner": {
+      "valid": true,
+      "max_bounds_error_mm": 0.0
+    },
+    "pump-receiver-east-inner": {
+      "valid": true,
+      "max_bounds_error_mm": 0.0
+    },
+    "pump-receiver-east-outer": {
+      "valid": true,
+      "max_bounds_error_mm": 0.0
+    }
   }
 }
