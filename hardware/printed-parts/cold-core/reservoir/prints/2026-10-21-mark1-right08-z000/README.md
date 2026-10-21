@@ -77,3 +77,12 @@ displays a connection failure from 00:57:55 CDT, while fresh LAN MQTT
 at 00:58:16 still identifies this exact RUNNING task. The exposed camera-right
 body-floor edge appears flat; cap contact and occluded edges remain unassessed.
 No confirmed lifting or nozzle strike is established by these observations.
+
+The [early-layer checkpoint](early-layers.json) records **layer 4/833** at
+**01:27:50 CDT**, with the first three layers complete. Sampled live frames
+through 01:28:36 show the exposed camera-right body-floor edge/corner and
+near cap perimeter/corners visibly flat, without a confirmed raised strand,
+underside gap, curl or strike. Occluded and reflective contact remains
+unassessed. A2 and timelapse remain active; nozzle/bed read 255/70 °C.
+Part-cooling telemetry becomes nonzero at layer 4. No onset bracket or
+water-hold result is established. Checks continue every ten minutes.
