@@ -271,3 +271,29 @@ and reports the new job in PREPARE without faults. Finished-part and water-hold
 results are unassessed.
 
 [Native review, preflight, packaging and launch](prints/2026-10-20-mark1-right08/README.md).
+
+### Result — stopped after first-layer non-adherence (2026-10-21)
+
+Derek said:
+
+> Oh interesting,  we do have a failure on the current print, one of the inner Wall layers did not adhere and got lifted up at some point. I've stopped the print.
+
+[Photographs taken before removal](prints/2026-10-20-mark1-right08/physical-result/physical-result.json)
+show a lifted cap perimeter strand and separated first-layer lines. Derek
+removed the failed material and reports the bed clear for a retry with the
++0.18 mm user Z trim removed. A separate
+[earlier corner-lifting report and timelapse review](corner-lifting/README.md)
+has no established onset layer.
+
+## Left reservoir and cap, zero-user-trim PETG retry (2026-10-21, Mark1 task 1359909015)
+
+Mark1 accepted one Send at **00:40:29 CDT**, starting on **A2** with
+automatic refill through the right 0.8 mm Standard nozzle. The added user Z
+trim is **0.00 mm**, with stock Textured PEI compensation emitted as
+**`G29.1 Z-0.02`**. All other executable native commands match the failed A4
+job: 255 °C nozzle, 70 °C bed, 0.30/0.24 mm layers, flow 0.97, 6 mm³/s ceiling,
+no ironing and the same supports/cooling/deposition. The printer acknowledged
+SUCCESS and entered PREPARE without faults.
+
+[Native verification, preflight, packaging and launch](prints/2026-10-21-mark1-right08-z000/README.md).
+First-layer attachment, later corner contact and water hold are unassessed.

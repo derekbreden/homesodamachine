@@ -1,0 +1,28 @@
+[
+  {
+    "plate": 1,
+    "command_count": 1362949,
+    "only_executable_change": [
+      {
+        "command_number": 282,
+        "old": "G29.1 Z0.16",
+        "new": "G29.1 Z-0.02"
+      }
+    ],
+    "support_audit_reused_from": ".cache/reservoir-mark1-right08/slice/plate_1-supports.json",
+    "support_audit_reuse_basis": "All executable toolpath commands identical except the single G29.1 plate-compensation command; geometry, supports and deposition unchanged."
+  },
+  {
+    "plate": 2,
+    "command_count": 1348749,
+    "only_executable_change": [
+      {
+        "command_number": 282,
+        "old": "G29.1 Z0.16",
+        "new": "G29.1 Z-0.02"
+      }
+    ],
+    "support_audit_reused_from": ".cache/reservoir-mark1-right08/slice/plate_2-supports.json",
+    "support_audit_reuse_basis": "All executable toolpath commands identical except the single G29.1 plate-compensation command; geometry, supports and deposition unchanged."
+  }
+]

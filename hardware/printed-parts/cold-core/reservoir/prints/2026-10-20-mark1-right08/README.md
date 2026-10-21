@@ -1,4 +1,4 @@
-# Reservoir and cap on Mark1
+# Reservoir and cap on Mark1 — stopped in the first layer
 
 Mark1 accepted task **1359853920** at **00:02:36 CDT on October 21, 2026**
 through one Bambu Connect Send. [Launch receipt](launch.json) ·
@@ -7,7 +7,7 @@ through one Bambu Connect Send. [Launch receipt](launch.json) ·
 Plate 1 contains the current **reservoir-left** and matching **reservoir-cap-left**:
 a full-height body with one flat floor, with fill and draw entering through the cap.
 The body prints mouth up; the cap prints exterior face down. The
-[current project](../../reservoir.3mf) preserves the September 0.24 mm PETG recipe
+project at commit `a840ea0ac` preserves the September 0.24 mm PETG recipe
 with ironing off, right-nozzle assignment and Mark1's calibrated trim.
 
 Use Mark1's **right 0.8 mm Standard-flow hotend**, clear Bambu PETG Translucent
@@ -16,7 +16,7 @@ from **AMS A4**, and Textured PEI. The recipe uses **255 °C** nozzle, **70 °C*
 limit and **+0.18 mm** user trim, emitted as **G29.1 Z0.16**. Native estimates are
 **19 h 21 min, 410.28 g and 833 layers**, with an empty warning field.
 
-The [native review](../../slice-review.json) identifies the current geometry,
+The [frozen native review](native-review.json) identifies the current geometry,
 right nozzle, trim and full-bead envelope. Model, support and brim beads stay at
 least **70.519 mm inside the right nozzle's usable bed**. All seven detected
 support bodies start at the bed. The matching body and cap are 10.042 mm apart
@@ -47,3 +47,13 @@ in PREPARE without errors. Acceptance supplies no completed-part or water-hold r
 At **00:03:35 CDT**, the [startup observation](startup.json) reports the exact
 task RUNNING at layer 0/833 without errors or HMS alerts, with A4 selected.
 First-layer deposition and runtime timelapse activation are not assessed at this stage.
+
+## Physical result
+
+Derek stopped this print after an inner wall strand failed to adhere and lifted.
+The [three photographs and observation](physical-result/physical-result.json)
+document the first layer before removal. The cap has a raised loose perimeter
+strand beside its semicircular cutout, with visible separations between adjacent
+lines. Exact detachment time and later corner-warp onset are not established.
+Derek removed the failed material and reports Mark1 clear for the
+[zero-user-trim PETG retry](../2026-10-21-mark1-right08-z000/README.md).

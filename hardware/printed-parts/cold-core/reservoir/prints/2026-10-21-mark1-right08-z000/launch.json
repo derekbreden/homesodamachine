@@ -1,0 +1,188 @@
+{
+  "accepted_at": "2026-10-21T05:40:29.514152+00:00",
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "job": {
+    "job_id": "1359909015",
+    "subtask_name": "2026-10-21-reservoir-left-cap-clear-right08-z000-mark1.gcode.3mf",
+    "gcode_state": "PREPARE",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 0,
+    "total_layer_num": 833,
+    "mc_remaining_time": 0,
+    "nozzle_temper": 45.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 50.0,
+    "bed_target_temper": 0.0
+  },
+  "previous_job_id": "1359853920",
+  "archive": ".cache/reservoir-mark1-right08-z000/slice/2026-10-21-reservoir-left-cap-clear-right08-z000-mark1.gcode.3mf",
+  "archive_sha256": "4923eac2e48d262e25dcf5f171b4681ea9f9aebf2ce9986d642409f5c7f46a60",
+  "gcode_sha256": "6a76555dbff987a0ddd1f4d05a8e0cdd555614601f735119b6a5db4d13f329cd",
+  "start_slot": "A2",
+  "auto_refill": true,
+  "backup_order": "automatic printer choice",
+  "nozzle": "right 0.8 mm Standard",
+  "user_z_trim_mm": 0,
+  "stock_textured_pei_compensation_mm": -0.02,
+  "only_executable_change_from_failed_print": "G29.1 Z0.16 -> G29.1 Z-0.02",
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "peer_start_observed_at": "2026-10-21T05:32:31.071003+00:00",
+  "seconds_after_peer_start": 478.443149,
+  "command_acknowledgment": {
+    "command": "project_file",
+    "result": "SUCCESS",
+    "reason": "SUCCESS",
+    "err_code": 0
+  },
+  "events": [
+    {
+      "observed_at": "2026-10-21T05:40:12.899095+00:00",
+      "job_id": "1359853920",
+      "subtask_name": "2026-10-20-reservoir-left-cap-clear-right08-z018-mark1.gcode.3mf",
+      "gcode_state": "FAILED",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0
+    },
+    {
+      "observed_at": "2026-10-21T05:40:14.060640+00:00",
+      "job_id": "1359853920",
+      "subtask_name": "2026-10-20-reservoir-left-cap-clear-right08-z018-mark1.gcode.3mf",
+      "gcode_state": "FAILED",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0
+    },
+    {
+      "observed_at": "2026-10-21T05:40:15.338962+00:00",
+      "job_id": "1359853920",
+      "subtask_name": "2026-10-20-reservoir-left-cap-clear-right08-z018-mark1.gcode.3mf",
+      "gcode_state": "FAILED",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0
+    },
+    {
+      "observed_at": "2026-10-21T05:40:16.717530+00:00",
+      "job_id": "1359853920",
+      "subtask_name": "2026-10-20-reservoir-left-cap-clear-right08-z018-mark1.gcode.3mf",
+      "gcode_state": "FAILED",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0
+    },
+    {
+      "observed_at": "2026-10-21T05:40:17.923689+00:00",
+      "job_id": "1359853920",
+      "subtask_name": "2026-10-20-reservoir-left-cap-clear-right08-z018-mark1.gcode.3mf",
+      "gcode_state": "FAILED",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0
+    },
+    {
+      "observed_at": "2026-10-21T05:40:19.238414+00:00",
+      "job_id": "1359853920",
+      "subtask_name": "2026-10-20-reservoir-left-cap-clear-right08-z018-mark1.gcode.3mf",
+      "gcode_state": "FAILED",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0
+    },
+    {
+      "observed_at": "2026-10-21T05:40:20.759209+00:00",
+      "job_id": "1359853920",
+      "subtask_name": "2026-10-20-reservoir-left-cap-clear-right08-z018-mark1.gcode.3mf",
+      "gcode_state": "FAILED",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0
+    },
+    {
+      "observed_at": "2026-10-21T05:40:21.815577+00:00",
+      "job_id": "1359853920",
+      "subtask_name": "2026-10-20-reservoir-left-cap-clear-right08-z018-mark1.gcode.3mf",
+      "gcode_state": "FAILED",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0
+    },
+    {
+      "observed_at": "2026-10-21T05:40:23.209080+00:00",
+      "job_id": "1359853920",
+      "subtask_name": "2026-10-20-reservoir-left-cap-clear-right08-z018-mark1.gcode.3mf",
+      "gcode_state": "FAILED",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0
+    },
+    {
+      "observed_at": "2026-10-21T05:40:24.609851+00:00",
+      "job_id": "1359853920",
+      "subtask_name": "2026-10-20-reservoir-left-cap-clear-right08-z018-mark1.gcode.3mf",
+      "gcode_state": "FAILED",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0
+    },
+    {
+      "observed_at": "2026-10-21T05:40:25.770688+00:00",
+      "job_id": "1359853920",
+      "subtask_name": "2026-10-20-reservoir-left-cap-clear-right08-z018-mark1.gcode.3mf",
+      "gcode_state": "FAILED",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0
+    },
+    {
+      "observed_at": "2026-10-21T05:40:27.127921+00:00",
+      "job_id": "1359853920",
+      "subtask_name": "2026-10-20-reservoir-left-cap-clear-right08-z018-mark1.gcode.3mf",
+      "gcode_state": "FAILED",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0
+    },
+    {
+      "observed_at": "2026-10-21T05:40:29.514152+00:00",
+      "command": "project_file",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "err_code": 0
+    },
+    {
+      "observed_at": "2026-10-21T05:40:29.514152+00:00",
+      "job_id": 1359909015,
+      "subtask_name": "2026-10-21-reservoir-left-cap-clear-right08-z000-mark1.gcode.3mf",
+      "gcode_state": "FAILED",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0
+    },
+    {
+      "observed_at": "2026-10-21T05:40:29.596389+00:00",
+      "job_id": "1359853920",
+      "subtask_name": "2026-10-20-reservoir-left-cap-clear-right08-z018-mark1.gcode.3mf",
+      "gcode_state": "FAILED",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0
+    },
+    {
+      "observed_at": "2026-10-21T05:40:31.205767+00:00",
+      "job_id": "1359909015",
+      "subtask_name": "2026-10-21-reservoir-left-cap-clear-right08-z000-mark1.gcode.3mf",
+      "gcode_state": "PREPARE",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0
+    }
+  ]
+}

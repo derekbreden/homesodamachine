@@ -1,0 +1,58 @@
+{
+  "observed_at": "2026-10-21T05:42:20.561165+00:00",
+  "job_id": "1359909015",
+  "subtask_name": "2026-10-21-reservoir-left-cap-clear-right08-z000-mark1.gcode.3mf",
+  "gcode_state": "RUNNING",
+  "mc_percent": 0,
+  "layer_num": 0,
+  "total_layer_num": 833,
+  "mc_remaining_time": 1161,
+  "print_error": 0,
+  "hms": [],
+  "nozzle_temper": 114.0,
+  "nozzle_target_temper": 0.0,
+  "bed_temper": 50.0,
+  "bed_target_temper": 50.0,
+  "chamber_temper": null,
+  "cooling_fan_speed": "0",
+  "big_fan1_speed": "0",
+  "big_fan2_speed": "2",
+  "heatbreak_fan_speed": "11",
+  "ams": {
+    "tray_now": "3",
+    "tray_tar": "3",
+    "tray_exist_bits": "f"
+  },
+  "right_extruder": [
+    {
+      "id": 0,
+      "hnow": 0,
+      "snow": 3,
+      "filam_bak": [
+        15
+      ]
+    }
+  ],
+  "camera": {
+    "agora_service": "disable",
+    "brtc_service": "enable",
+    "bs_state": 0,
+    "cap_pic_enable": "enable",
+    "ipcam_dev": "1",
+    "ipcam_record": "disable",
+    "laser_preview_res": 6,
+    "mode_bits": 2,
+    "resolution": "1080p",
+    "rtsp_url": "disable",
+    "timelapse": "disable",
+    "tl_store_hpd_type": 2,
+    "tl_store_path_type": 2,
+    "tutk_server": "enable"
+  },
+  "visual_observation": {
+    "source": "cua_repl, Bambu Studio Device view, Mark1 and exact zero-trim archive visible",
+    "phase": "startup, layer 0/833",
+    "assessment": "Live camera confirmed by two updating frames during startup, layer 0/833. Bed has no model deposition yet. First-layer attachment and corner lift unassessed."
+  },
+  "slot_scope": "A2 was selected and verified in the Send dialog. During pre-material-change startup telemetry still reports the previously loaded A4; verify A2 when model deposition begins."
+}

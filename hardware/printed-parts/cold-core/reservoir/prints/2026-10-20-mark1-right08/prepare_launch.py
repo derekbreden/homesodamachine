@@ -21,7 +21,7 @@ def main():
     with zipfile.ZipFile(source) as archive:
         members = {n: archive.read(n) for n in archive.namelist()}
     gcode = members["Metadata/plate_1.gcode"]
-    review = json.loads((HERE.parents[1] / "slice-review.json").read_text())
+    review = json.loads((HERE / "native-review.json").read_text())
     if hashlib.sha256(gcode).hexdigest() != review["plates"][0]["gcode_sha256"]:
         raise ValueError("Plate 1 differs from the native review")
 

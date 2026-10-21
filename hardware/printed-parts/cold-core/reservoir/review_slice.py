@@ -1,7 +1,7 @@
 """Verify the current reservoir's native slice, nozzle, trim and full bead inset.
 
 Run with tools/cad-venv/bin/python after slicing both plates into
-.cache/reservoir-mark1-right08/slice and auditing their supports there.
+.cache/reservoir-mark1-right08-z000/slice and auditing their supports there.
 """
 
 from __future__ import annotations
@@ -17,7 +17,7 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 ROOT = next(p for p in HERE.parents if (p / "tools/cad-venv").is_dir())
-FOLDER = ROOT / ".cache/reservoir-mark1-right08/slice"
+FOLDER = ROOT / ".cache/reservoir-mark1-right08-z000/slice"
 WORDS = re.compile(r"([A-Z])([-+]?(?:\d+(?:\.\d*)?|\.\d+))")
 
 
@@ -169,7 +169,7 @@ def main():
                     raise ValueError(f"Native {key} differs from the right 0.8 mm assignment")
                 assignment[key] = match[1].strip()
             trims = re.findall(r"^\s*(G29\.1 Z[^\r\n]*)", text, re.MULTILINE)
-            if trims != ["G29.1 Z0 ; clear z-trim value first", "G29.1 Z0.16"]:
+            if trims != ["G29.1 Z0 ; clear z-trim value first", "G29.1 Z-0.02"]:
                 raise ValueError(f"Native Mark1 Z trim differs: {trims}")
             layers = re.findall(r"^; CHANGE_LAYER\n; Z_HEIGHT: ([0-9.]+)\n; LAYER_HEIGHT: ([0-9.]+)", text, re.MULTILINE)
             # The layers climb from the bed to within one layer of the plate's tallest part.
