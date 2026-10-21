@@ -274,3 +274,9 @@ click: x=-106.916 y=462.990 z=-0.370
 alternatives: Read a pair as thickness only where the faces stand opposite each other across the material, not where they meet at a corner of it.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
 click: x=-107.331 y=330.081 z=126.438
+
+[thin] Approved by Derek as drawn: each reading is the wall a flute groove leaves on a 3 mm section. The 1.2 mm groove (`flute_depth`) leaves 1.8 mm between its floor and the inner face (enclosure README, Nothing may relieve into the outermost 3 mm of a fluted face), on back-bottom's flanks beside the Y seam. Derek, 2026-10-21: "The flute grooves on 3mm walls is good with me and approved by me."
+alternatives: A 4.2 mm wall keeps 3 mm under every groove and takes 1.2 mm more of the room inside each flank; a shallower groove changes the texture the corner coupon set.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
+click: x=-104.500 y=213.453 z=98.051
+click: x=104.500 y=213.453 z=98.051
