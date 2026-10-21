@@ -38,7 +38,8 @@
 // so the model is drawn at its own path with everything the viewer keys off that path, and no
 // file is put anywhere for it. Both pictures take one camera — computed once, here, off both
 // versions — at one size, and the run fails if the two pages report different ones. Unaimed, it
-// looks from the viewer's own front-right-above at the highlighted solids, or at everything shown.
+// takes the camera `changed` gives the first region that moved; with nothing moved, it looks from
+// the viewer's own front-right-above at the highlighted solids, or at everything shown.
 // Highlight is the viewer's selection amber, and `--highlight changed` is the solids `changed`
 // stars; ghost is a faint shell left out of the framing; only drops every other solid, and hands
 // the page a payload of just those, so a part-sized view costs a part's worth of parsing.
@@ -524,7 +525,8 @@ const fmtv = (v) => v.map(fmt).join(",");
 
 // A camera on a region: aimed at its centre, from outside the machine on the region's side, a
 // quarter of the way round toward the viewer's own front-right-above, so a face is never met
-// square on. Span is the frame's half-height at the target.
+// square on. Span is the frame's half-height at the target: the region fills about half the
+// frame, so what is round it says where in the machine it is.
 function cameraFor(box, model) {
   const c = centre(box);
   const m = centre(model);
@@ -536,7 +538,7 @@ function cameraFor(box, model) {
   const n = Math.hypot(...dir);
   dir = dir.map((v) => v / n);
   const up = Math.abs(dir[2]) > 0.95 ? [0, 1, 0] : [0, 0, 1];
-  const span = Math.max(12, 0.5 * Math.hypot(...extent(box)) * 1.3);
+  const span = Math.max(15, Math.hypot(...extent(box)));
   return { target: c, cam: dir, up, span };
 }
 
@@ -932,15 +934,22 @@ async function render(opts) {
   const frame = union((subject.length ? subject : shown).map((m) => m.box));
   const whole = union(shown.map((m) => m.box));
   const radius = Math.max(...extent(frame)) / 2;
-  const span = opts.span != null ? Number(opts.span) : null;
+  // UNAIMED, IT LOOKS AT WHAT MOVED. A view given no target, direction, span or zoom takes the
+  // camera `changed` prints for the first region that moved among the solids shown; with nothing
+  // moved, it looks from the viewer's own front-right-above at the subject.
+  const aimed = ["target", "cam", "up", "span", "zoom"].some((k) => opts[k] != null);
+  const region = aimed ? null : analysis.found.find((r) => r.bodies.some((b) => shown.some((m) => m.body === b)));
+  if (region) console.log(`  aimed at ${region.name}: ${region.bodies.join(", ")}, moved up to ${fmt(region.dmax)} mm` +
+    ` (--target ${fmtv(region.camera.target)} --cam ${region.camera.cam.map((v) => v.toFixed(3)).join(",")} --span ${fmt(region.camera.span)})`);
+  const span = opts.span != null ? Number(opts.span) : region ? region.camera.span : null;
   const zoom = Number(opts.zoom ?? 3);
   if (span != null && !(span > 0)) die(`bad --span: ${opts.span}`);
   if (!(zoom > 0)) die(`bad --zoom: ${opts.zoom}`);
   const o = {
     width: size.width, height: size.height,
-    cam: opts.cam ? vec(opts.cam, "cam") : [1, -1, 1],
-    target: opts.target ? vec(opts.target, "target") : centre(frame),
-    up: opts.up ? vec(opts.up, "up") : [0, 0, 1],
+    cam: opts.cam ? vec(opts.cam, "cam") : region ? region.camera.cam : [1, -1, 1],
+    target: opts.target ? vec(opts.target, "target") : region ? region.camera.target : centre(frame),
+    up: opts.up ? vec(opts.up, "up") : region ? region.camera.up : [0, 0, 1],
     ortho: !!opts.ortho, span, zoom, radius,
     half: span ?? radius * 1.1,
     wholeCentre: centre(whole), wholeRadius: Math.hypot(...extent(whole)) / 2,
