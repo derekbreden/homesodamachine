@@ -1,0 +1,84 @@
+{
+  "views": [
+    {
+      "name": "e-arms",
+      "caption": "Cut through the middle arm of the E in FEDERAL on back-bottom's disposal warning, looking along the wall; the wall is on the left",
+      "before": "e-arms-before.webp",
+      "after": "e-arms-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 698.4,
+          "y": 272.8,
+          "r": 33.8,
+          "label": "Level top",
+          "at": [
+            72.37,
+            471.9,
+            22.23
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          658.6725484548199,
+          471.55,
+          21.6
+        ],
+        "target": [
+          72.37,
+          471.55,
+          21.6
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 1.6,
+        "near": 431.09943377315165,
+        "far": 1066.2605279325398,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            72.37,
+            471.6,
+            21.66
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
+          "from": "file",
+          "sha256": "602136f271af933a7a6bf7b7e469c191f0fba114fc25173c817e6348fb70199e",
+          "commit": null
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
+          "from": "tree",
+          "sha256": "cc55171347442a39da21c0263998a7d76bec6be8a4b6fb996442b620e7c47995",
+          "commit": "ae34dbd698cdf0597c852ebc9b5a201813a29836",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-back-bottom"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
