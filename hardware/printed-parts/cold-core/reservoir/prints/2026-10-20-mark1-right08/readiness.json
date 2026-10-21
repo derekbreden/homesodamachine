@@ -1,5 +1,5 @@
 {
-  "status": "ready_to_print_pending_spool_order_choice",
+  "status": "launched",
   "project_sha256": "93e21e7c8cf52b74aae9dd4eef36657f1fe0eca264bbc41df4c2f2b182589baa",
   "project_matches_current_source_exports": true,
   "native_slice_review": "../../slice-review.json",
@@ -10,12 +10,6 @@
   "nozzle_diameter_mm": 0.8,
   "nozzle_flow": "Standard",
   "start_slot": "A4",
-  "requested_consumption_order": [
-    "A4",
-    "A2",
-    "A3",
-    "A1"
-  ],
   "custom_backup_priority_control_available": false,
   "options": {
     "Timelapse": "On",
@@ -27,5 +21,12 @@
   "native_estimated_mass_g": 410.284,
   "native_layer_count": 833,
   "minimum_full_bead_edge_margin_mm": 70.519003,
-  "physical_scope": "Ready for the requested print. No water-hold, cap-seal or installed float-motion acceptance for this article."
+  "physical_scope": "Ready for the requested print. No water-hold, cap-seal or installed float-motion acceptance for this article.",
+  "launch_record": "launch.json",
+  "auto_refill": true,
+  "backup_order": "automatic printer choice",
+  "next_print_start_slot": "A2",
+  "launch_authorization": "Just pick A4 and let it auto pick next. We can pick A2 on the next print start.",
+  "job_id": "1359853920",
+  "startup_record": "startup.json"
 }
