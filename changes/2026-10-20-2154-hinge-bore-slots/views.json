@@ -1,0 +1,225 @@
+{
+  "views": [
+    {
+      "name": "lower-crossings",
+      "caption": "Cut through the M5 passage where it crosses the 45° joint between back-bottom's lower knuckle and front-bottom's knuckle, −X wall",
+      "before": "lower-crossings-before.webp",
+      "after": "lower-crossings-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 600,
+          "y": 450,
+          "r": 175,
+          "label": "Slots",
+          "at": [
+            -98.3,
+            208.9,
+            50.2
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/enclosure/enclosure.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          719.1298572845207,
+          208.9,
+          50.2
+        ],
+        "target": [
+          -98.25,
+          208.9,
+          50.2
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 9,
+        "near": 379.9697672366426,
+        "far": 1265.4646126282066,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            -98.25,
+            208.9,
+            50.2
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure_front_bottom",
+        "enclosure_back_bottom"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "file",
+          "sha256": "6a295439fad6707d36ead5305df12d260a6290dd485a2ed56be340d8252b2d8e",
+          "commit": "c2be7ce2a03e170ee1674d6dee8892b498a2240e"
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "file",
+          "sha256": "2516c3fa8849ad63ef188ab43a102ba50806bddffd8fa280cb91383a50107267",
+          "commit": "074738cb6936f20c1171bbbf671f4baadcccbd7f"
+        }
+      },
+      "changed": [
+        "enclosure_front_bottom",
+        "enclosure_back_bottom"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "lower-knuckle",
+      "caption": "Back-bottom's lower knuckle at the −X wall, looking down onto its 45° top face",
+      "before": "lower-knuckle-before.webp",
+      "after": "lower-knuckle-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 600,
+          "y": 450,
+          "r": 135,
+          "label": "Slot",
+          "at": [
+            -98.3,
+            208.9,
+            50.2
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/enclosure/enclosure.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -80.49979268078577,
+          212.85560162649205,
+          66.0224065059682
+        ],
+        "target": [
+          -98.3,
+          208.9,
+          50.2
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.2965760002086821,
+        "far": 539.1525677888254,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure_back_bottom"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "file",
+          "sha256": "6a295439fad6707d36ead5305df12d260a6290dd485a2ed56be340d8252b2d8e",
+          "commit": "c2be7ce2a03e170ee1674d6dee8892b498a2240e"
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "file",
+          "sha256": "2516c3fa8849ad63ef188ab43a102ba50806bddffd8fa280cb91383a50107267",
+          "commit": "074738cb6936f20c1171bbbf671f4baadcccbd7f"
+        }
+      },
+      "changed": [
+        "enclosure_front_bottom",
+        "enclosure_back_bottom"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "upper-knuckle",
+      "caption": "Back-bottom's upper knuckle at the −X wall, looking up at its 45° underside",
+      "before": "upper-knuckle-before.webp",
+      "after": "upper-knuckle-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 600,
+          "y": 450,
+          "r": 135,
+          "label": "Slot",
+          "at": [
+            -98.2,
+            208.9,
+            132.4
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/enclosure/enclosure.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -77.938608204713,
+          215.65379726509568,
+          121.14367122484057
+        ],
+        "target": [
+          -98.2,
+          208.9,
+          132.4
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.2960703140174865,
+        "far": 538.8997246932277,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure_back_bottom"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "file",
+          "sha256": "6a295439fad6707d36ead5305df12d260a6290dd485a2ed56be340d8252b2d8e",
+          "commit": "c2be7ce2a03e170ee1674d6dee8892b498a2240e"
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "file",
+          "sha256": "2516c3fa8849ad63ef188ab43a102ba50806bddffd8fa280cb91383a50107267",
+          "commit": "074738cb6936f20c1171bbbf671f4baadcccbd7f"
+        }
+      },
+      "changed": [
+        "enclosure_front_bottom",
+        "enclosure_back_bottom"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
