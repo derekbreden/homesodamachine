@@ -52,6 +52,10 @@ For hardware optimizations, identify the customer outcome, supporting evidence a
 Existing specifications carry no presumption of correctness. Start from product requirements, load paths and applicable manufacturer guidance; justify deviations with evidence relevant to the property being assessed. Prefer a supported, straightforward correction when testing would not change that decision.
 Missing evidence is a limit on a claim, not automatically a task for the founder. Before requesting a measurement or test, explain the decision it changes, why it is worth the effort, the exact procedure, fixtures and tools, and acceptance criteria derived from the application. Use existing tools where possible; any requested purchase needs an Amazon Prime link and a clear purpose.
 
+## Enclosure Changes
+
+Every change to the enclosure's geometry has an entry in [`changes/`](changes/README.md), shown at [homesodamachine.com/changes](https://homesodamachine.com/changes): a before and an after picture of what changed, from one camera, with a short lede. The before is the snapshot taken ahead of the rebuild, `node tools/changes/change.mjs snapshot`; nothing else keeps it. [`changes/README.md`](changes/README.md) has the rest. Recording follows the change and never holds it up.
+
 ## What Runs Every Time
 
 "Correctness" is far too broad a goal to enforce on every commit. Everyone can defend a check once it is in; no one defends keeping one out. I will. Whatever runs on every commit, every build or every edit costs time on each run, and you don't predict well how often it will run when it doesn't need to.

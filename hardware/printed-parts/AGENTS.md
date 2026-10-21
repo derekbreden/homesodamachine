@@ -2,12 +2,15 @@
 
 ## Publish loop
 
+    node tools/changes/change.mjs snapshot
     tools/cad-venv/bin/python hardware/scripts/materialize_pump_cartridge.py
     tools/cad-venv/bin/python tools/publish_now.py
 
-The piece's own generator cuts its STEP, STL and payload (the pump cartridge has the dedicated
-materializer above); `publish_now.py` grafts the changed payload into both viewer hosts — the
-enclosure aggregate and the appliance assembly — and tells the site.
+The snapshot sets aside the geometry the generator replaces, for the change's
+[before and after](../../changes/README.md). The piece's own generator cuts its STEP, STL and
+payload (the pump cartridge has the dedicated materializer above); `publish_now.py` grafts the
+changed payload into both viewer hosts — the enclosure aggregate and the appliance assembly —
+and tells the site.
 
 After the publish is live — never before, and never as a gate in the build path — lint the
 piece you changed and fix what it flags while Derek is already looking:
@@ -18,6 +21,9 @@ Findings print as pick text: paste one into the /3d Find box, or feed it to `pic
 Answers live in `lint-answers/`, at each piece's own path; its AGENTS.md says when a finding is
 answered instead of fixed. A defect fixed at one station usually has siblings; the lint's job is
 to find them before Derek does.
+
+Once the publish is live, record the change from that snapshot: the view that shows it, before
+and after, as [`changes/README.md`](../../changes/README.md) describes.
 
 ## What each file shows
 
