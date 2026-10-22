@@ -6035,7 +6035,6 @@ def pump_dock_figures(box):
         "DOCK_ANCHOR_WALL": f"{_dock.RIB_R - _dock.JOURNAL_R:.4g} mm",
         "DOCK_FORE_VALVE_Z": f"Z{upper[2]:.6g}",
         "DOCK_FORE_VALVE_Y": f"Y{upper[1]:.6g}",
-        "DOCK_FORE_VALVE_SET": f"{plumbing.FORE_VALVE_SET:.3g} mm",
         "DOCK_UPPER_TUBE": f"{next(iter(stations))['upper_exposed_mm']:.4g} mm",
         "DOCK_LOWER_PORT_Z": f"Z{row - plumbing.RUN_FACE:.6g}",
         "DOCK_HAIRPIN_LEAD": f"{plumbing.HAIRPIN_LEAD:.3g} mm",

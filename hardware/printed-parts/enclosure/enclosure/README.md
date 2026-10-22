@@ -1448,8 +1448,8 @@ straight pull drags each tee forward its [1.5 mm](DOCK_TRAVEL) collet stroke unt
 holds the collet pressed and the tube draws out; pushing the cartridge home returns each tee
 to connected. Each tee's branch lies in a tee anchor on front-top's seam plane, a half journal
 that holds it in X and Z and lets it slide along Y, and a printed tee cap snaps down on
-top of the branch and closes the journal. The fore valves stand fixed over the tees, so the
-short upper tube bends half the stroke each way; one R14 hairpin of LLDPE joins each tee's
+top of the branch and closes the journal. The fore valves stand fixed over the tees' connected axes, so
+the short upper tube stands straight in service and bends the stroke at release; one R14 hairpin of LLDPE joins each tee's
 lower port to its rear valve. The tees, caps, valves and tubing stay in the machine. All
 permanent plumbing is assembled on loose front-top before that piece joins the compressor
 half. The [pump-dock specification](../pump-dock/README.md) gives the stations, the tee cap,
@@ -1490,7 +1490,7 @@ faces to the cartridge body. The top clamp has no separate grip.
 
 Each tee's upper collet takes one short LLDPE tube up into its fore valve's bottom collet;
 the fore valve stands fixed on its tray posts with its axis at
-[Y107.29](DOCK_FORE_VALVE_Y), the middle of the tee's travel. Each lower collet takes one R14
+[Y108.04](DOCK_FORE_VALVE_Y), over its tee's connected axis. Each lower collet takes one R14
 hairpin aft and up into its rear valve's bottom collet, through the port channel front-top
 keeps under each rear valve.
 

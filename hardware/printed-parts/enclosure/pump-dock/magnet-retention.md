@@ -139,5 +139,4 @@ full frame. It checks the pause loading, the blocks' capture after printing,
 initial and repeated withdrawal force, the meeting poles' seat and pogo
 compression, then the docked tees' defined pressure and temperature cases. A
 passing CAD check does not establish that the magnets draw the cartridge onto its
-seat against the O-ring drag and hold it there against the upper tubes' and hairpins'
-spring, or that its removal is comfortable. The separate packing tape restrains the cartridge in transit.
+seat against the O-ring drag and hold it there against the hairpins' spring, or that its removal is comfortable. The separate packing tape restrains the cartridge in transit.

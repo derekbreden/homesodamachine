@@ -9,8 +9,8 @@ THE PLATE'S AFT FACE IS THE RELEASE FACE. In service each tee stands at `connect
 branch collet extended, its nose on that face, and the pump tube bottomed at the tee's stop.
 Pulling the cartridge drags the tee forward the collet's 1.5 mm stroke while the plate holds
 the collet in, and at `released` the collet is pressed home and the tube draws out. The fore
-valve's axis stands at the middle of that travel, so its tube bends half the stroke one way
-in service and half the other way at release.
+valve's axis stands over the connected run axis, so its tube stands straight in service and
+bends the whole stroke at release.
 
 This module holds geometry data only; the dock's solids and the manifold read the same
 figures.
@@ -37,8 +37,6 @@ BRANCH_FACE_PRESSED = tee.BRANCH_PRESSED_REACH   # pressed collet face from the 
 TRAVEL = tee.BRANCH_COLLET_TRAVEL                # the tee's whole travel: one collet stroke
 RUN_FACE = tee.RUN_HALF                          # each run collet face from the tee's centre
 TIP_DEPTH = tee.BRANCH_INSERTION_EXTENDED        # a bottomed tube past the extended face
-# The fore valve's axis, fore of the connected run axis: the middle of the travel.
-FORE_VALVE_SET = TRAVEL / 2.0
 # The pump tube's tip, aft of the plate's fore face, with the cartridge seated.
 TIP_FROM_FORE = PLATE_T + TIP_DEPTH
 # The 1/4 in LLDPE stock's bend radius (bench test on the spool) and the straight tube each
@@ -98,8 +96,8 @@ def tee_axis_y(fore_y, state="connected"):
 
 
 def fore_valve_axis_y(fore_y):
-    """The fore valve's port axis in Y, at the middle of its tee's travel."""
-    return tee_axis_y(fore_y) - FORE_VALVE_SET
+    """The fore valve's port axis in Y: over its tee's connected run axis."""
+    return tee_axis_y(fore_y)
 
 
 def tip_y(fore_y):
