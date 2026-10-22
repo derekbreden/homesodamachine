@@ -1,6 +1,6 @@
 {
   "project": "reservoir.3mf",
-  "project_sha256": "553e621c6bc9c17d2ba2762408405a8948c6f15272e31e5e969f14518f3b34e9",
+  "project_sha256": "f15476b457b75a342964a335f065dc648fc1b190dbc6d2fea56af9c12b66d642",
   "recipe": "print-settings.json",
   "slicer_version": "02.08.02.61",
   "return_code": 0,
@@ -12,8 +12,8 @@
         "reservoir-left",
         "reservoir-cap-left"
       ],
-      "estimated_seconds": 20518.715,
-      "estimated_mass_g": 431.043,
+      "estimated_seconds": 20748.273,
+      "estimated_mass_g": 430.663,
       "ironing_estimated_seconds": 0,
       "ironing_enable_commands": 0,
       "ironing_feature_paths": 0,
@@ -21,7 +21,7 @@
       "first_layer_height_mm": 0.3,
       "normal_layer_height_mm": 0.24,
       "warning_message": "",
-      "gcode_sha256": "1319a0673271138b00411402c1b115eb56a6f03a2d983c81b17ecf6205eef39d",
+      "gcode_sha256": "f41be9bb88f0092ee3033d61742992ab9b821d6f406eda03817e937e6b04b235",
       "embedded_gcode_md5_verified": true,
       "emitted_nozzle_assignment": {
         "filament_map": "2",
@@ -61,7 +61,7 @@
         ],
         "minimum_full_bead_edge_margin_mm": 70.519003,
         "minimum_body_cap_full_bead_box_gap_mm": 10.042005999999986,
-        "deposited_move_count": 859005,
+        "deposited_move_count": 945409,
         "support_move_count": 5314,
         "scope": "Native deposited model, support and brim beads, including arc extrema and half-width. Vendor startup purge/calibration paths are excluded. Placement does not establish adhesion."
       },
@@ -83,25 +83,28 @@
         "support_bodies": 7
       },
       "support_scope": "All detected support bodies start at the bed. Bodies without explicit interface labels have no inferred contact build-up.",
+      "model_features": [
+        "Inner wall",
+        "Outer wall",
+        "Overhang wall"
+      ],
+      "model_fill_feature_paths": 0,
       "brim_feature_paths": 0,
       "native_settings": {
+        "wall_loops": "999",
+        "sparse_infill_density": "0%",
+        "top_shell_layers": "0",
+        "bottom_shell_layers": "0",
+        "top_shell_thickness": "0",
+        "bottom_shell_thickness": "0",
         "filament_flow_ratio": "1.02",
         "filament_max_volumetric_speed": "21",
         "nozzle_temperature": "260",
         "nozzle_temperature_initial_layer": "255",
         "brim_type": "no_brim",
         "brim_width": "0",
-        "seam_position": "random",
-        "seam_gap": "15%",
-        "seam_slope_conditional": "1",
-        "wall_loops": "6",
-        "line_width": "0.8"
-      },
-      "model_temperature_commands": [
-        "M104 S255 T0 ; rise temp in advance",
-        "M104 S255",
-        "M104 S260 ; set nozzle temperature"
-      ]
+        "ironing_type": "no ironing"
+      }
     },
     {
       "plate": 2,
@@ -109,8 +112,8 @@
         "reservoir-right",
         "reservoir-cap-right"
       ],
-      "estimated_seconds": 20544.305,
-      "estimated_mass_g": 430.981,
+      "estimated_seconds": 20781.729,
+      "estimated_mass_g": 430.579,
       "ironing_estimated_seconds": 0,
       "ironing_enable_commands": 0,
       "ironing_feature_paths": 0,
@@ -118,7 +121,7 @@
       "first_layer_height_mm": 0.3,
       "normal_layer_height_mm": 0.24,
       "warning_message": "",
-      "gcode_sha256": "c4b0edbc126c58b4b080ef9e7b0333c518023605aae6d54c7761545bc9bfc96f",
+      "gcode_sha256": "f6c1238aaaa87129effaa877e91af1f9fd4337f6bca7a2cdf4de88ab2f45b16b",
       "embedded_gcode_md5_verified": true,
       "emitted_nozzle_assignment": {
         "filament_map": "2",
@@ -158,7 +161,7 @@
         ],
         "minimum_full_bead_edge_margin_mm": 70.519003,
         "minimum_body_cap_full_bead_box_gap_mm": 10.042005999999986,
-        "deposited_move_count": 848831,
+        "deposited_move_count": 922901,
         "support_move_count": 5281,
         "scope": "Native deposited model, support and brim beads, including arc extrema and half-width. Vendor startup purge/calibration paths are excluded. Placement does not establish adhesion."
       },
@@ -180,28 +183,31 @@
         "support_bodies": 7
       },
       "support_scope": "All detected support bodies start at the bed. Bodies without explicit interface labels have no inferred contact build-up.",
+      "model_features": [
+        "Inner wall",
+        "Outer wall",
+        "Overhang wall"
+      ],
+      "model_fill_feature_paths": 0,
       "brim_feature_paths": 0,
       "native_settings": {
+        "wall_loops": "999",
+        "sparse_infill_density": "0%",
+        "top_shell_layers": "0",
+        "bottom_shell_layers": "0",
+        "top_shell_thickness": "0",
+        "bottom_shell_thickness": "0",
         "filament_flow_ratio": "1.02",
         "filament_max_volumetric_speed": "21",
         "nozzle_temperature": "260",
         "nozzle_temperature_initial_layer": "255",
         "brim_type": "no_brim",
         "brim_width": "0",
-        "seam_position": "random",
-        "seam_gap": "15%",
-        "seam_slope_conditional": "1",
-        "wall_loops": "6",
-        "line_width": "0.8"
-      },
-      "model_temperature_commands": [
-        "M104 S255 T0 ; rise temp in advance",
-        "M104 S255",
-        "M104 S260 ; set nozzle temperature"
-      ]
+        "ironing_type": "no ironing"
+      }
     }
   ],
-  "scope": "Native slice of current body/cap geometry with ironing off. Coupon finish selection and the historical water-hold acceptance apply to their tested articles; this slice supplies no new physical sealing result.",
+  "scope": "Walls-only May Water adaptation on current CAD. Native placement, supports, settings and model wall-only feature inspection; physical fusion, adhesion and sealing await the printed article.",
   "slicer_added_metadata": {
     "filament_map_2": [
       "1"

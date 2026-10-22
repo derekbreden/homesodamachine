@@ -14,10 +14,10 @@ carries both mouths: the fill, and the dip tube the draw line becomes.
 
 ## Current print
 
-Mark1 task **1362179138** prints the current left reservoir and matching cap with the
-**May Water recipe adapted to the right 0.8 mm Standard nozzle**. It was accepted
-at **16:42:02 CDT on October 21, 2026**, starting on **A1** with automatic refill.
-[Launch, adaptation and native review](prints/2026-10-21-mark1-may-water-right08-z000/README.md).
+Mark1 task **1362982574** prints the current left reservoir and matching cap with the
+**walls-only May Water recipe through the right 0.8 mm Standard nozzle**. It was accepted
+at **23:25:22 CDT on October 21, 2026**, starting on **A4** with automatic refill.
+[Launch, adaptation and native review](prints/2026-10-21-mark1-walls-only-right08-z000-a4/README.md).
 
 Use **[reservoir.3mf](reservoir.3mf)** for the current pairs: plate 1 is left,
 plate 2 is right. Bodies print mouth up; caps print exterior face down.
@@ -32,14 +32,14 @@ cooling and auxiliary off. Random conditional scarf seams retain the May 15% gap
 Stock Textured PEI compensation emits **`G29.1 Z-0.02`**. The
 [flat-square finish result](ironing-study/prints/2026-10-06-mark2-squares-v1/physical-result.json)
 supplies the ironing-Off preference; it supplies no water-hold result.
-Current automatic Tree/Default supports serve the flat-floor geometry.
+**999 requested walls** continue inward across each section; sparse, top and bottom fill are disabled. Current automatic Tree/Default supports serve the flat-floor geometry.
 
 [Complete settings](print-settings.json) · [Printing guide](watertight-petg.md) ·
 [Project verification](reservoir.print.json) · [Native slice review](slice-review.json).
-The left body/cap plate estimates **5 h 42 min and 431 g**, with a **70.5 mm**
+The left body/cap plate estimates **5 h 46 min and 431 g**, with a **70.5 mm**
 minimum full-bead bed-edge inset. This adaptation awaits its own physical result.
 
-The preceding zero-trim article has
+The preceding May-adapted article has [reported leakage between floor infill and walls](prints/2026-10-21-mark1-may-water-right08-z000/physical-result/physical-result.json). The earlier zero-trim article has
 [reported corner curl and leaks at many places](prints/2026-10-21-mark1-right08-z000/physical-result/physical-result.json).
 The [historical review](corner-lifting/historical-recipe-review.json) identifies
 the successful May source and exact limits of the recovered sphere record.

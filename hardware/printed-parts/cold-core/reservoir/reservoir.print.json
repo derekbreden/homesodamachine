@@ -2,7 +2,8 @@
   "project": "reservoir.3mf",
   "recipe": "print-settings.json",
   "accepted_result_id": "may-30-clear-06",
-  "settings_sha256": "30798287dd753bccb525e8bbc92c8214e6ba9a342ae084b5f275e9cb179ea49b",
+  "settings_sha256": "a2879c3825f86c5de3eba05f4513f19d062bfea92e7f6ba374bd87160a4fa4a5",
+  "settings_match_native_base_except_declared_changes": true,
   "identity_changes": {
     "filament_settings_id": {
       "from": [
@@ -14,13 +15,13 @@
     },
     "print_settings_id": {
       "from": "Reservoir PETG 0.8 - 0.24mm seal trial(reservoir-08-seal-trial-024.3mf)",
-      "to": "Reservoir May Water 0.8 - 0.24mm"
+      "to": "Reservoir May Water 0.8 - walls only"
     }
   },
   "process_changes": {
     "bottom_shell_layers": {
       "from": "12",
-      "to": "3"
+      "to": "0"
     },
     "bottom_shell_thickness": {
       "from": "2",
@@ -150,6 +151,10 @@
       "from": "0.9",
       "to": "0.8"
     },
+    "sparse_infill_density": {
+      "from": "100%",
+      "to": "0%"
+    },
     "sparse_infill_line_width": {
       "from": "0.9",
       "to": "0.8"
@@ -170,11 +175,11 @@
     },
     "top_shell_layers": {
       "from": "12",
-      "to": "3"
+      "to": "0"
     },
     "top_shell_thickness": {
       "from": "2",
-      "to": "0.8"
+      "to": "0"
     },
     "top_surface_line_width": {
       "from": "0.9",
@@ -193,6 +198,10 @@
         "200",
         "200"
       ]
+    },
+    "wall_loops": {
+      "from": "6",
+      "to": "999"
     }
   },
   "filament_changes": {
@@ -429,6 +438,5 @@
     }
   ],
   "scope": "Current CAD and declared no-ironing recipe. Historical water holds belong to their identified articles; this adaptation awaits its own result.",
-  "project_sha256": "553e621c6bc9c17d2ba2762408405a8948c6f15272e31e5e969f14518f3b34e9",
-  "settings_match_native_base_except_declared_changes": true
+  "project_sha256": "f15476b457b75a342964a335f065dc648fc1b190dbc6d2fea56af9c12b66d642"
 }

@@ -1,0 +1,115 @@
+{
+  "reported_on_central": "2026-10-21",
+  "recorded_at_utc": "2026-10-22T04:17:22.497667+00:00",
+  "printer": "Mark1",
+  "job_id": "1362179138",
+  "archive": "2026-10-21-reservoir-left-cap-maywater-right08-z000-mark1.gcode.3mf",
+  "binding": "Most recent reservoir print in this thread. Fresh Mark1 status retains this exact archive/task at FINISH, 833/833. Article identification follows the conversation sequence; the photographs do not encode task identity.",
+  "founder_quotes": [
+    "Leaks between infill and wall.",
+    "I think I'd rather continue the walls forever, as we did in the sphere pressure vessel test. Another agent suggested at some point infill works better, but I haven't seen that.",
+    "I think the reason this showed up for us now and not on the original may water job, is because we no longer have the much thicker and sloped floor."
+  ],
+  "reported_results": {
+    "water_hold": "Failed; leakage reported between infill and wall.",
+    "corner_lift": "Not separately reported for this article.",
+    "cap_result": "Not separately reported.",
+    "fill_height_mm": null,
+    "hold_duration": null,
+    "water_temperature_c": null
+  },
+  "photo_observations": [
+    "Five off-plate views show the underside and lower body. Multiple droplets are visible along the boundary between the diagonal floor-fill region and the concentric perimeter band.",
+    "The photographs and report localize visible exits. They do not establish the complete internal leak path, every leak location, onset during printing, or a quantified leak rate."
+  ],
+  "settings": {
+    "flow_ratio": 1.02,
+    "nozzle_c_first_subsequent": [
+      255,
+      260
+    ],
+    "volumetric_ceiling_mm3_s": 21,
+    "nozzle_mm": 0.8,
+    "first_normal_layer_mm": [
+      0.3,
+      0.24
+    ],
+    "nominal_line_width_mm": 0.8,
+    "wall_loops": 6,
+    "sparse_infill_density": "100%",
+    "sparse_infill_pattern": "zig-zag",
+    "infill_wall_overlap": "15%",
+    "user_z_trim_mm": 0,
+    "stock_textured_pei_z_mm": -0.02,
+    "ironing": "Off",
+    "brim": "None"
+  },
+  "job_status_at_report": {
+    "observed_at": "2026-10-22T04:11:32.076768+00:00",
+    "job_id": "1362179138",
+    "subtask_name": "2026-10-21-reservoir-left-cap-maywater-right08-z000-mark1.gcode.3mf",
+    "gcode_state": "FINISH",
+    "layer_num": 833,
+    "total_layer_num": 833,
+    "mc_remaining_time": 0,
+    "mc_percent": 100,
+    "print_error": 0,
+    "hms": [],
+    "bed_temper": 37.0,
+    "bed_target_temper": 0.0
+  },
+  "selected_next_construction": "Continue model perimeters across each section, including the floor, with zero sparse/top/bottom fill. Retain other May controls. No inference that infill is necessary for sealing.",
+  "historical_scope": "Historical May and September accepted water holds retain their article-specific scope. This adapted flat-floor article has a reported failed water hold.",
+  "photos": [
+    {
+      "file": "photo-1.jpg",
+      "sha256": "76fb7233d3373d486292a9afbb0d61e947062909bcdd709f73954b38df6d4e80",
+      "size_px": [
+        2880,
+        3840
+      ],
+      "metadata": "EXIF/XMP/IPTC/comments removed; compressed image data unchanged",
+      "decoded_pixel_identity_verified": true
+    },
+    {
+      "file": "photo-2.jpg",
+      "sha256": "d50ca91ed1913b0bb7f6d27399b77ad97f1e8909c3d2ba892ce12cd0ffb05fa2",
+      "size_px": [
+        2880,
+        3840
+      ],
+      "metadata": "EXIF/XMP/IPTC/comments removed; compressed image data unchanged",
+      "decoded_pixel_identity_verified": true
+    },
+    {
+      "file": "photo-3.jpg",
+      "sha256": "f306f269a9f53e1095e257b36222266f659e1d8f811caf55dea6dea950fc4d6b",
+      "size_px": [
+        2880,
+        3840
+      ],
+      "metadata": "EXIF/XMP/IPTC/comments removed; compressed image data unchanged",
+      "decoded_pixel_identity_verified": true
+    },
+    {
+      "file": "photo-4.jpg",
+      "sha256": "b64aab7df81be8e39ca85f9f231227c1d04fef78320f88f05d8f70a2dc401bcb",
+      "size_px": [
+        2880,
+        3840
+      ],
+      "metadata": "EXIF/XMP/IPTC/comments removed; compressed image data unchanged",
+      "decoded_pixel_identity_verified": true
+    },
+    {
+      "file": "photo-5.jpg",
+      "sha256": "c9cf1747a50e294c39cbac7daa6f7d73cd5a0f97f7668528d7320374f212750f",
+      "size_px": [
+        2880,
+        3840
+      ],
+      "metadata": "EXIF/XMP/IPTC/comments removed; compressed image data unchanged",
+      "decoded_pixel_identity_verified": true
+    }
+  ]
+}

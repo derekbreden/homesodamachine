@@ -1,0 +1,100 @@
+{
+  "accepted_at": "2026-10-22T04:25:22.734787+00:00",
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "job": {
+    "job_id": "1362982574",
+    "subtask_name": "2026-10-21-reservoir-left-cap-walls-only-right08-z000-a4-mark1.gcode.3mf",
+    "gcode_state": "PREPARE",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 833,
+    "total_layer_num": 833,
+    "mc_remaining_time": 0,
+    "nozzle_temper": 39.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 34.0,
+    "bed_target_temper": 0.0
+  },
+  "previous_job_id": "1362179138",
+  "archive": ".cache/reservoir-walls-only-right08/slice/2026-10-21-reservoir-left-cap-walls-only-right08-z000-a4-mark1.gcode.3mf",
+  "archive_sha256": "577aefc34e98063fa4882ae50081f11062ab5896aa474f2ee7a659f0100de31e",
+  "gcode_sha256": "f41be9bb88f0092ee3033d61742992ab9b821d6f406eda03817e937e6b04b235",
+  "start_slot": "A4",
+  "auto_refill": true,
+  "backup_order": "automatic printer choice among matching available clear PETG trays",
+  "nozzle": "right 0.8 mm Standard",
+  "user_z_trim_mm": 0,
+  "stock_textured_pei_compensation_mm": -0.02,
+  "recipe": "Walls-only May Water: 999 loops, zero sparse/top/bottom fill, 255/260 C, 1.02 flow, 21 mm3/s, no brim/ironing",
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "shared_circuit": {
+    "requirement_seconds": 180,
+    "Mark2_idle_verified_at": "2026-10-22T04:15:22.764055+00:00",
+    "Mark2_retained_job": "1359897271",
+    "rule": "Same idle finished job must be retained at final pre-send check, at least 180 seconds after this observation.",
+    "seconds_between_idle_baseline_and_acceptance": 599.970732
+  },
+  "command_acknowledgment": {
+    "command": "project_file",
+    "result": "SUCCESS",
+    "reason": "SUCCESS",
+    "err_code": 0
+  },
+  "events": [
+    {
+      "observed_at": "2026-10-22T04:24:59.388209+00:00",
+      "job_id": "1362179138",
+      "subtask_name": "2026-10-21-reservoir-left-cap-maywater-right08-z000-mark1.gcode.3mf",
+      "gcode_state": "FINISH",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 833
+    },
+    {
+      "observed_at": "2026-10-22T04:25:22.734787+00:00",
+      "command": "project_file",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "err_code": 0
+    },
+    {
+      "observed_at": "2026-10-22T04:25:22.734787+00:00",
+      "job_id": 1362982574,
+      "subtask_name": "2026-10-21-reservoir-left-cap-walls-only-right08-z000-a4-mark1.gcode.3mf",
+      "gcode_state": "FINISH",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 833
+    },
+    {
+      "observed_at": "2026-10-22T04:25:23.006444+00:00",
+      "job_id": "1362179138",
+      "subtask_name": "2026-10-21-reservoir-left-cap-maywater-right08-z000-mark1.gcode.3mf",
+      "gcode_state": "FINISH",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 833
+    },
+    {
+      "observed_at": "2026-10-22T04:25:24.617358+00:00",
+      "job_id": "1362982574",
+      "subtask_name": "2026-10-21-reservoir-left-cap-walls-only-right08-z000-a4-mark1.gcode.3mf",
+      "gcode_state": "PREPARE",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 833
+    }
+  ],
+  "preferred_spool_order": [
+    "A4",
+    "A1",
+    "A3"
+  ],
+  "backup_priority_scope": "Automatic refill retained; exact automatic backup priority is unverified."
+}
