@@ -48,6 +48,9 @@ points, it does not gate:
   step     two parallel same-facing planes, offset by less than a millimeter,
            whose footprints overlap — an edge that could be flush and is not,
            or a feature emerging by a smear (0.25 mm of boss out of a wall).
+  bump     a patch that rises off a flat face by less than a millimeter and
+           comes back down to it on both sides — a round boss poking 0.25 mm
+           past the flat it is fused into, the curved smear `step` cannot see.
   sliver   an axis-aligned face that is a strip — long, and thinner than a
            ligament (a 0.1 mm land, a 1.5 mm ledge carrying a plate).
   ceiling  a horizontal down-facing face above air — carried by a corbel, by a
@@ -90,6 +93,15 @@ _STEP_MAX_MM = 1.0
 #: `step` needs this much footprint overlap to call two planes one edge.
 _STEP_OVERLAP_MINOR = 0.2
 _STEP_OVERLAP_MAJOR = 2.0
+#: `bump` reads a patch rising off a flat face by more than the first of these and no more than
+#: the second: past a millimeter it is a feature, under a fiftieth it is the tessellation.
+_BUMP_MIN_MM = 0.02
+_BUMP_MAX_MM = 1.0
+#: A bump's facets face within 70° of its flat's own normal: the flanks of a dome or a crescent,
+#: not the walls of a boss standing out of the face.
+_BUMP_FACING = float(np.cos(np.radians(70.0)))
+#: A flat must be at least this big (mm²) to carry a bump.
+_BUMP_FLAT_AREA = 1.0
 #: `sliver` is a strip thinner than this and at least this long.
 _SLIVER_MINOR = 1.6
 _SLIVER_MAJOR = 4.0
@@ -138,7 +150,7 @@ _LEDGE_FACING = float(np.cos(np.radians(30.0)))
 #: round trip and nothing else. It is not a radius, and there is no flag to widen it.
 _ANSWER_TOL = 0.002
 
-_CLASSES = ("step", "sliver", "ceiling", "slope", "thin", "ledge")
+_CLASSES = ("step", "bump", "sliver", "ceiling", "slope", "thin", "ledge")
 #: The classes that rank: an answer is printed beside the finding and never hides it.
 _RANKED = ("thin", "ledge")
 
@@ -448,6 +460,102 @@ def find_steps(planes):
                              click(_vec(*p))],
                 })
                 break
+    return found
+
+
+def find_bumps(planes):
+    """Patches that rise off a flat face by under a millimeter and come back down to it.
+
+    `step` reads two parallel planes; a round boss poking 0.25 mm past the flat it is fused
+    into is no plane at all. So from each authored flat, the facets beside it that face its way
+    and stand just outside it are grown into patches, and a patch is a bump when the flat meets
+    it on both of its sides: it rose off the face and came back down. A fillet rising into a wall
+    leaves the flat on one side only, and keeps climbing; a boss standing out of the face is
+    walls, which face across it, not out of it. The click is the patch's highest point.
+    """
+    every = [p for group in planes.values() for p in group]
+    if not every:
+        return []
+    mesh, vids = every[0].mesh, every[0].vids
+    nrm, cen, tri = mesh.face_normals, mesh.triangles_center, mesh.triangles
+    k = len(vids)
+    incidence = sp.csr_matrix((np.ones(3 * k), (vids.ravel(), np.repeat(np.arange(k), 3))),
+                              shape=(int(vids.max()) + 1, k))
+
+    def touching(facets):
+        verts = np.unique(vids[facets])
+        return np.unique(incidence[verts].indices), verts
+
+    # A chord of a curved surface is a strip bounded by gentle folds; a flat with a bump on it
+    # can be too, where the bump is all it meets, so a flat is also one too wide for a chord.
+    flats = [p for p in every if p.area >= _BUMP_FLAT_AREA
+             and not (p.soft_frac() > 0.75 and float((p.uv_hi - p.uv_lo).min()) < 2.0)]
+    # Each facet's own flat, if it lies in one. A bump does not grow into another flat within
+    # 3° of its own: that is the same face, tessellated a hair off, or a step's raised top, which
+    # `step` reads.
+    flat_n = np.zeros((k, 3))
+    for p in flats:
+        flat_n[p.f] = p.n
+    level = np.cos(np.radians(3.0))
+
+    found, seen = [], set()
+    for flat in flats:
+        n, o = flat.n, flat.o
+        mine = np.zeros(k, bool)
+        mine[flat.f] = True
+
+        def rises(facets):
+            h = cen[facets] @ n - o
+            low = (tri[facets] @ n - o).min(axis=1)
+            return facets[(~mine[facets]) & (nrm[facets] @ n >= _BUMP_FACING)
+                          & (flat_n[facets] @ n < level)
+                          & (h > _BUMP_MIN_MM / 2) & (h <= _BUMP_MAX_MM) & (low >= -0.01)]
+
+        seeds, flat_verts = touching(flat.f)
+        seeds = rises(seeds)
+        todo = set(int(x) for x in seeds)
+        while todo:
+            start = todo.pop()
+            patch, frontier = {start}, np.array([start])
+            while len(frontier):
+                nxt = rises(touching(frontier)[0])
+                nxt = nxt[[int(x) not in patch for x in nxt]]
+                patch.update(int(x) for x in nxt)
+                frontier = nxt
+            todo -= patch
+            key = tuple(sorted(patch))
+            if key in seen:
+                continue
+            facets = np.array(key)
+            pts = tri[facets].reshape(-1, 3)
+            height = pts @ n - o
+            top = float(height.max())
+            if not (_BUMP_MIN_MM < top <= _BUMP_MAX_MM):
+                continue
+            # the flanks of a raised flat climb to it and stop: a step's, which `step` reads
+            beside = touching(facets)[0]
+            beside = beside[~mine[beside] & (flat_n[beside] @ n >= level)]
+            if (cen[beside] @ n - o > _BUMP_MIN_MM).any():
+                continue
+            # the flat on both sides: where the patch meets it, across the patch's narrow way
+            uv = np.column_stack([pts @ flat.u, pts @ flat.v])
+            mid = uv.mean(axis=0)
+            _, _, axes = np.linalg.svd(uv - mid, full_matrices=False)
+            across = (uv - mid) @ axes[1]
+            along = (uv - mid) @ axes[0]
+            met = np.isin(vids[facets].ravel(), flat_verts)
+            width = float(np.ptp(across))
+            if not (met.any() and across[met].min() < -width / 4 and across[met].max() > width / 4):
+                continue
+            seen.add(key)
+            at = pts[int(np.argmax(height))]
+            length = float(np.ptp(along))
+            found.append({
+                "class": "bump", "score": length / top,
+                "line": (f"{top:.3f} mm bump off a flat face"
+                         f" · {length:.1f} × {width:.1f} mm"),
+                "pick": [plane_face(_vec(*n), _vec(*flat.thru()), "faceA"), click(_vec(*at))],
+            })
     return found
 
 
@@ -1329,6 +1437,7 @@ def lint(stl, classes=_CLASSES):
     if any(name != "thin" for name in classes):        # `thin` reads facets, not planes
         planes, boundary, level = plane_map(mesh)
     finders = {"step": lambda: find_steps(planes),
+               "bump": lambda: find_bumps(planes),
                "sliver": lambda: find_slivers(planes, q_min, s),
                "ceiling": lambda: find_ceilings(planes, mesh, q_min, s),
                "slope": lambda: find_slopes(planes, boundary, level, s),
@@ -1421,6 +1530,23 @@ def _selftest():
     assert len(got) == 1 and "Δ0.500" in got[0]["line"], got
     at = dict(pick_points("\n".join(got[0]["pick"])))["click"]
     assert 0 < at[0] < 10 and 0 < at[1] < 10 and abs(at[2] - 10) < 1e-9, at
+
+    # bump: an up-facing flat with a 0.25 mm crescent across it — an arc rising off the flat
+    # and coming back down to it, run 8 mm — found once, its click on the crest. A fillet
+    # rising off the same flat into a wall leaves the flat on one side only: no bump.
+    def strips(profile, y1=8.0):
+        return [[(xa, 0, za), (xb, 0, zb), (xb, y1, zb), (xa, y1, za)]
+                for (xa, za), (xb, zb) in zip(profile, profile[1:])]
+    half = float(np.sqrt(4.0 ** 2 - 3.75 ** 2))
+    arc = [(10 + half + 4 * np.sin(t), -3.75 + 4 * np.cos(t))
+           for t in np.linspace(-np.arcsin(half / 4), np.arcsin(half / 4), 7)]
+    crescent = strips([(0, 0)] + arc + [(20 + 2 * half, 0)])
+    got = find_bumps(planes_of(sheet(crescent)))
+    assert len(got) == 1 and got[0]["line"].startswith("0.250 mm bump"), got
+    at = dict(pick_points("\n".join(got[0]["pick"])))["click"]
+    assert abs(at[0] - 10 - half) < 1e-3 and abs(at[2] - 0.25) < 1e-6, at
+    fillet = [(10 + 2 * np.sin(t), 2 - 2 * np.cos(t)) for t in np.linspace(0, np.pi / 2, 7)]
+    assert find_bumps(planes_of(sheet(strips([(0, 0)] + fillet + [(12, 10)])))) == [], "fillet"
 
     # sliver: a 0.5 × 30 strip sharing its plane with a healthy 10 × 30 face —
     # only the island is the strip
