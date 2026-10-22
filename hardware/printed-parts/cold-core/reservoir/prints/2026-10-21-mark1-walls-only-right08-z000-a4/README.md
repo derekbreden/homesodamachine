@@ -47,11 +47,25 @@ The preceding May-adapted article has a [reported leak at the floor-fill/perimet
 boundary](../2026-10-21-mark1-may-water-right08-z000/physical-result/physical-result.json).
 Its [geometry comparison](../2026-10-21-mark1-may-water-right08-z000/physical-result/floor-layout-comparison.json)
 confirms a sloped historical May floor with sampled 3 mm material thickness.
-Historical water holds remain scoped to their tested articles. Corner contact,
-adhesion and water hold for this walls-only article are unassessed.
+Historical water holds remain scoped to their tested articles. This walls-only article has reported seam leakage; corner contact and adhesion were not separately reported.
 
 At **23:29:25 CDT**, runtime current/target tray **3 (A4)** and right-extruder
 `snow=3` confirm A4 loaded to the mounted right **0.8 mm** nozzle. The task was
 RUNNING at **0/833**, with no print error/HMS. Two changing live camera frames
 showed the empty plate during startup; first-layer contact and runtime timelapse
 activation at deposition remain unassessed. [Startup observation](startup.json).
+
+## Physical result
+
+Derek reports: **“Leaks along the seam”**. The off-plate photograph shows multiple
+droplets along a branching junction across the concentric floor paths and at
+lower corners. The article fails its reported water hold. Fill height, hold
+duration and the complete internal water route are unreported. The retained
+job reports FINISH at 833/833, with no print error/HMS.
+
+The photographed line qualitatively resembles the perimeter-convergence regions
+in the native floor reading. This is not a calibrated point registration or
+proof that a layer-change/scarf seam is the exit mechanism. The native comparison
+examines closing those junctions while retaining walls-only construction.
+[Photograph and result](physical-result/physical-result.json) ·
+[Native seam/junction comparison](physical-result/seam-comparison.json).

@@ -10,8 +10,7 @@ the current left and right body/cap pairs. [print-settings.json](print-settings.
 filament and process setting; [reservoir.print.json](reservoir.print.json)
 identifies the current geometry and project. The baseline water-hold acceptance source is
 `may-30-clear-06` in [water-hold-acceptance.json](water-hold-acceptance.json).
-Its water hold belongs to the historical May article; this adaptation awaits
-its own physical sealing and corner-flatness results.
+Its water hold belongs to the historical May article. The current walls-only article has [reported seam leakage](prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json); corner-flatness and adhesion are not separately reported.
 
 ## Current recipe
 
@@ -77,6 +76,10 @@ and keep it dry during printing. A dry-box humidity reading describes the
 surrounding air rather than residual moisture in the filament.
 
 ## Evidence and print records
+
+The walls-only article has reported seam leakage. Its underside photograph shows
+droplets along a branching floor junction resembling the native perimeter
+convergence regions. [Physical result](prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json).
 
 The preceding May-adapted left article has [reported floor-fill/perimeter leakage](prints/2026-10-21-mark1-may-water-right08-z000/physical-result/physical-result.json). The earlier zero-user-trim left article leaks at many places, as reported by
 Derek. Its corner photographs show a distorted band near the floor-to-wall

@@ -1,16 +1,20 @@
 {
   "recorded_on": "2026-10-21",
-  "status": "Walls-only May Water launched as Mark1 task 1362982574 from A4; physical outcomes unassessed.",
+  "status": "Walls-only article task 1362982574 has reported seam leakage; native floor-junction comparisons are diagnostic only.",
   "customer_outcome": "A flat, leak-free vented reservoir in less production time.",
-  "trigger": "../prints/2026-10-21-mark1-may-water-right08-z000/physical-result/physical-result.json",
+  "trigger": "../prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json",
   "priority": [
     {
-      "candidate": "Continue model perimeters inward across every section, including the floor.",
-      "status": "Selected and launched.",
-      "implementation": "999 requested Arachne walls, 0% sparse fill and zero top/bottom shell fill; native model features only walls. Other May controls retained.",
-      "purpose": "Remove the floor-raster/perimeter boundary where Derek reports leakage.",
-      "evidence": "Derek reports better sphere-trial results with walls-only construction. The current May-adapted raster-filled article leaks along its floor/perimeter boundary.",
-      "limits": "No claim that the exact sphere preset was recovered or that native XY footprint inspection establishes physical sealing."
+      "candidate": "Close the floor perimeter-convergence junctions while retaining walls-only and flow 1.02.",
+      "purpose": "Address the branching floor line where leakage is reported.",
+      "evidence": "The photograph qualitatively matches native medial-junction pockets. Zeroing the saved seam gap alone leaves those nominal pockets essentially unchanged; a larger Arachne wall-transition angle adds center-wall paths and reduces them.",
+      "comparison": "../prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/seam-comparison.json",
+      "limits": "The photograph is not calibrated to toolpath coordinates. Nominal bead envelopes do not establish the complete water route or physical sealing. No subsequent recipe or print is selected by this comparison.",
+      "native_candidate": {
+        "wall_transition_angle": "59",
+        "other_executable_settings": "Retain the printed walls-only / 1.02 recipe.",
+        "status": "Best native candidate examined; residual nominal pockets remain; not a selected next print."
+      }
     }
   ],
   "screen": {
@@ -94,6 +98,7 @@
     "job_id": "1362982574",
     "recipe": "Walls-only May Water",
     "record": "../prints/2026-10-21-mark1-walls-only-right08-z000-a4/README.md",
-    "start_slot": "A4"
+    "start_slot": "A4",
+    "status": "FINISH 833/833; Derek reports seam leakage. See the article physical result."
   }
 }

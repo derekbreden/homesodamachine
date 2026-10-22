@@ -5,7 +5,7 @@ Mark1 task **1362982574** is the current
 accepted at **23:25:22 CDT October 21 / 04:25:22 UTC October 22**. It uses the right
 0.8 mm Standard nozzle, flow **1.02**, **255/260 °C**, **21 mm³/s**, May speeds,
 **no brim**, zero added user trim and ironing Off. A4 starts the print with
-automatic refill. Model paths are walls only, including the floor; sparse/top/bottom fill are disabled. Startup supplies no corner-contact or water-hold result.
+automatic refill. Model paths are walls only, including the floor; sparse/top/bottom fill are disabled. The completed article has [reported seam leakage](../prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json). Corner curl and adhesion were not separately reported for it.
 The canceled job's task-bound scheduled monitor remains paused.
 
 The preceding May-adapted task 1362179138 has [reported leakage between floor fill and walls](../prints/2026-10-21-mark1-may-water-right08-z000/physical-result/physical-result.json), with droplets visible at that boundary. Corner curl is not separately reported for that article.

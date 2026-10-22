@@ -73,7 +73,7 @@
     "recipe": "Walls-only May Water, right 0.8 mm Standard, start A4",
     "accepted_at_utc": "2026-10-22T04:25:22.734787+00:00",
     "record": "../prints/2026-10-21-mark1-walls-only-right08-z000-a4/README.md",
-    "status": "Accepted; physical outcomes unassessed."
+    "status": "FINISH 833/833; Derek reports seam leakage. See the article physical result."
   },
-  "current_strategy": "Current task 1362982574 uses walls-only May Water, right 0.8 mm Standard, start A4. The preceding May adaptation has a reported floor-fill/perimeter leak. Old task-bound monitor remains paused."
+  "current_strategy": "Task 1362982574 completed and has reported seam leakage. Native comparisons target floor perimeter-convergence junctions while retaining walls-only and flow 1.02. Old task-bound monitor remains paused."
 }

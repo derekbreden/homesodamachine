@@ -374,3 +374,18 @@ geometry, placement, zero user Z trim, no brim, ironing Off and Tree/Default
 supports are retained. Native estimate: **5 h 46 min, 430.66 g, 833 layers**.
 No physical adhesion, corner-flatness or water-hold result is established.
 [Adaptation, native review and launch](prints/2026-10-21-mark1-walls-only-right08-z000-a4/README.md).
+
+
+### Result — walls-only article leaks along the seam (2026-10-22)
+
+Derek said: **“Leaks along the seam”**. The underside photograph shows droplets
+along a branching junction across the concentric floor paths and at lower
+corners. The retained task 1362982574 reports FINISH at 833/833, with no print
+error/HMS; those status fields do not establish sealing. This article fails
+its reported water hold. Fill height, duration and complete internal flow path
+are unreported. [Physical result](prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json).
+
+The pictured junction qualitatively resembles the native medial-junction pockets
+recorded before launch. Native comparisons retain walls-only and flow 1.02 and
+separately examine seam gap and Arachne's junction controls. A saved setting or
+bead-envelope comparison is not a physical sealing result.
