@@ -1,0 +1,42 @@
+{
+  "source_archive": ".cache/reservoir-walls-only-right08/slice/reservoir-left-cap-native.gcode.3mf",
+  "source_archive_sha256": "e5e6525c9a2ee854dcc75b77531c0358a0fdd83a819398205c4fb3657d9a7086",
+  "print_only_archive": ".cache/reservoir-walls-only-right08/slice/2026-10-21-reservoir-left-cap-walls-only-right08-z000-a4-mark1.gcode.3mf",
+  "print_only_archive_sha256": "577aefc34e98063fa4882ae50081f11062ab5896aa474f2ee7a659f0100de31e",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "f41be9bb88f0092ee3033d61742992ab9b821d6f406eda03817e937e6b04b235"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model",
+    "3D/Objects/object_3.model",
+    "3D/Objects/object_4.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ],
+  "native_two_plate_archive": ".cache/reservoir-walls-only-right08/slice/reservoir-review.3mf",
+  "native_two_plate_archive_sha256": "92e1833e1565be651377449d7e637da3fae7a64b3a7859abe1378c46caa2a8f0",
+  "selected_parts": [
+    "reservoir-left",
+    "reservoir-cap-left"
+  ],
+  "source_plate": 1,
+  "submitted_plate": 1,
+  "omitted_other_plate_entries": [
+    "Metadata/pick_2.png",
+    "Metadata/plate_2.gcode",
+    "Metadata/plate_2.gcode.md5",
+    "Metadata/plate_2.json",
+    "Metadata/plate_2.png",
+    "Metadata/plate_2_small.png",
+    "Metadata/plate_no_light_2.png",
+    "Metadata/top_2.png"
+  ],
+  "native_gcode_byte_identical": true,
+  "project_settings_byte_identical": true
+}

@@ -1,7 +1,7 @@
 """Verify the current reservoir's native slice, nozzle, trim and full bead inset.
 
 Run with tools/cad-venv/bin/python after slicing both plates into
-.cache/reservoir-may-water-right08/slice and auditing their supports there.
+.cache/reservoir-walls-only-right08/slice and auditing their supports there.
 """
 
 from __future__ import annotations
@@ -17,7 +17,7 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 ROOT = next(p for p in HERE.parents if (p / "tools/cad-venv").is_dir())
-FOLDER = ROOT / ".cache/reservoir-may-water-right08/slice"
+FOLDER = ROOT / ".cache/reservoir-walls-only-right08/slice"
 WORDS = re.compile(r"([A-Z])([-+]?(?:\d+(?:\.\d*)?|\.\d+))")
 
 
