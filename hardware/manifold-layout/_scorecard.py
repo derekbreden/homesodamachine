@@ -732,6 +732,10 @@ TOUCHING_OK = {frozenset(p) for p in (
     ("elbow-cradle", "funnel-frame"),
     ("elbow-cradle", "funnel"),
     ("funnel", "funnel-drain-stub"),
+    # A REDUCER IN ITS VALVE'S OUTLET. Its quarter-inch stem stands in the push-to-connect mouth
+    # with its shoulder on the collet (`neofit_flavor_reducer`), so the pair reads 0 and it is
+    # the fitting made up; `pack-closes` holds what they share to the stem.
+    *((f"valve-v-{v}", f"flavor-reducer-v-{v}") for v in "gj"),
     # EACH PUMP ELBOW ON ITS BARB, AND ITS TWO BANDS ON IT. The elbow is drawn installed: its
     # socket opened to the barb's largest scanned crest, so the barb meets the bore and its tip
     # meets the passage shelf, and each closed band is drawn on the cuff's installed diameter.
@@ -1069,6 +1073,37 @@ def drain_seal_contact(a, bodies) -> dict:
             "pass": excess <= _clearing.HIT_VOL}
 
 
+def reducer_port_contact(a, bodies) -> dict:
+    """Read each flavor reducer's common material with its valve against the reducer's own stem.
+
+    The reducer's quarter-inch stem stands in the valve's push-to-connect outlet with its
+    shoulder on the collet (`neofit_flavor_reducer`), and the valve is drawn without that
+    mouth's bore, so the two share the stem. Anything they share outside the stem, the reducer's
+    body or shoulder in the valve, is still an interference.
+    """
+    import cadquery as cq
+    ref = _hw / "reference" / "neofit-flavor-reducer"
+    if str(ref) not in sys.path:
+        sys.path.insert(0, str(ref))
+    import neofit_flavor_reducer as _reducer
+
+    stems = {}
+    for v in ("g", "j"):
+        reducer, valve = bodies[f"flavor-reducer-v-{v}"], bodies[f"valve-v-{v}"]
+        r = _reducer.STEM_OD / 2.0
+        faces = [face for face in reducer.Faces() if face.geomType() == "CYLINDER"
+                 and abs(face._geomAdaptor().Cylinder().Radius() - r) < 1e-3]
+        axis = faces[0]._geomAdaptor().Cylinder().Axis()
+        o = cq.Vector(axis.Location().X(), axis.Location().Y(), axis.Location().Z())
+        d = cq.Vector(axis.Direction().X(), axis.Direction().Y(), axis.Direction().Z())
+        t = [(p - o).dot(d) for face in faces for p in (vx.Center() for vx in face.Vertices())]
+        stem = cq.Solid.makeCylinder(r + 0.01, max(t) - min(t) + 0.02, o + d * (min(t) - 0.01), d)
+        common = reducer.intersect(valve)
+        total = common.Volume()
+        stems[v] = (total, common.cut(stem).Volume() if total > 0 else 0.0)
+    return {"stems": stems, "pass": all(out <= _clearing.HIT_VOL for _in, out in stems.values())}
+
+
 def pack_clashes(a) -> tuple:
     """The one exact pairwise-clash reading for an assembled machine.
 
@@ -1095,6 +1130,16 @@ def pack_clashes(a) -> tuple:
         except Exception as exc:
             unanswered.append(("g-ganen-pump", "foam-assembly",
                                "rubber foot contact: " + str(exc).splitlines()[0]))
+    reducer_pairs = {frozenset((f"valve-v-{v}", f"flavor-reducer-v-{v}")) for v in "gj"}
+    if any(frozenset((hit.a, hit.b)) in reducer_pairs for hit in bad):
+        try:
+            reading = reducer_port_contact(a, bodies)
+            a.reducer_port_reading = reading
+            if reading["pass"]:
+                bad = [hit for hit in bad if frozenset((hit.a, hit.b)) not in reducer_pairs]
+        except Exception as exc:
+            unanswered.append(("valve-v-g", "flavor-reducer-v-g",
+                               "reducer stems in their ports: " + str(exc).splitlines()[0]))
     seal_pair = frozenset(("funnel-drain-stub", "funnel"))
     if any(frozenset((hit.a, hit.b)) == seal_pair for hit in bad):
         try:
@@ -1120,6 +1165,10 @@ def _pack_closes(a) -> Check:
             f"{reading['free_foot_contact_mm3']:.3f} mm³ contact, "
             f"{reading['rigid_overlap_mm3']:.6f} mm³ rigid interference, "
             f"{reading['outside_contact_masks_mm3']:.6f} mm³ outside the contact masks")
+    if ports := getattr(a, "reducer_port_reading", None):
+        detail.append("Flavor reducer stems in their valve outlets: " + "; ".join(
+            f"v-{v} {inside:.1f} mm³ in the stem, {out:.6f} mm³ outside it"
+            for v, (inside, out) in ports["stems"].items()))
     if seal := getattr(a, "drain_seal_contact_reading", None):
         detail.append(
             f"Drain stub in the plug's land: {seal['land_contact_mm3']:.2f} mm³ in the push-on "
