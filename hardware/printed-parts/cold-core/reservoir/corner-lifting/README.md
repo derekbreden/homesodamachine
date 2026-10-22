@@ -1,13 +1,15 @@
 # Reservoir adhesion observations
 
-Mark1 task **1364550539** is the current
+Mark1 task **1365626370** is printing the current [five-wall / solid-floor recipe](../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/README.md), with flow 1.05, 30% overlap and 265/270 °C. Startup camera observations at layer 0 show the empty plate; model adhesion is unassessed. The old task-bound monitor remains paused.
+
+Mark1 task **1364550539** is the most recent completed
 [59° walls-only May Water trial](../prints/2026-10-22-mark1-walls-t59-right08-z000/README.md),
 accepted at **11:40:35 CDT / 16:40:35 UTC October 22**. It uses the right
 0.8 mm Standard nozzle, flow **1.02**, **255/260 °C**, **21 mm³/s**, May speeds,
 **no brim**, zero added user trim and ironing Off. A1 starts the print with
 automatic refill to A3. Model paths are walls only, including the floor; sparse/top/bottom fill are disabled. Arachne's **59° wall transition angle** adds center-wall paths at floor junctions. The completed article has [reported bottom leakage at the same location and a new vertical-edge defect](../prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/physical-result.json). Corner-flatness and lift onset remain unassessed.
 [Startup observation](../prints/2026-10-22-mark1-walls-t59-right08-z000/startup.json) confirms A1 at the mounted right nozzle and changing live frames of the empty plate. Body/cap first-layer contact is unassessed at layer 0.
-The 59° setting has no demonstrated sealing improvement. [Sampled wall paths](../prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/wall-junction-review.json) add four sub-millimeter segments near curved-wall ends; these are a plausible contributor to the bristles. The proposed next screen restores 10° and tests 1.05 flow while retaining walls-only.
+The 59° setting has no demonstrated sealing improvement. [Sampled wall paths](../prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/wall-junction-review.json) add four sub-millimeter segments near curved-wall ends; these are a plausible contributor to the bristles. The current recipe uses five wall loops, solid floor fill, 30% overlap, flow 1.05, 265/270 °C and a 10° Arachne threshold. [Current recipe review](../recipe-reviews/2026-10-22-flow105-overlap30/README.md).
 The canceled job's task-bound scheduled monitor remains paused.
 
 The preceding walls-only task 1362982574 has [reported seam leakage](../prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json). Corner curl and adhesion were not separately reported for it.
@@ -67,13 +69,13 @@ changes. Ordinary unchanged progress does not need a notification.
 
 ## Current recipe and investigation options
 
-**Flow 1.02** and **no brim** are selected by Derek. He reports the
+**Flow 1.05**, **30% Infill/Wall overlap**, **higher nozzle temperature** and **no brim** are selected by Derek. He reports the
 large object separates from the brim during curl, with difficult bed cleanup
 and a rough edge left after removal. His exact words and the recovered native
 settings are in the [historical recipe review](historical-recipe-review.json).
 The [recipe discussion](next-trial-options.json) takes the successful May
 Water recipe and ordinary Bambu motion settings as its reference. The current
-project and native slice implement the [authorized 59° adaptation](../prints/2026-10-22-mark1-walls-t59-right08-z000/adaptation.json).
+project and native slice implement the [five-wall adaptation](../recipe-reviews/2026-10-22-flow105-overlap30/adaptation.json), with 265/270 °C first/subsequent nozzle temperatures.
 
 The preceding failed slice emitted no brim despite its saved auto-brim setting.
 Its [body cooling paths](body-cooling-paths.json) show **90% fan commands
@@ -106,11 +108,13 @@ discussion, and the Git record's printed-NPT-port leak does not establish a
 failure of an unpierced sphere wall. Preserve the reported positive experience
 without assigning missing numeric settings to it.
 
-The selected walls-only recipe continues perimeters across the modeled
-wall thickness and 3 mm floor, with sparse and top/bottom shell fill disabled.
-Native model feature labels contain only walls. The XY floor reading is linked
-from the launch record; it supplies no physical fusion or water-hold result. The May file's 100% infill and the sphere recollection are distinct
-recipes; neither label establishes actual deposited continuity by itself.
+The selected recipe uses five requested wall loops. Native counts two through
+four leave fill in the ordinary curved-corner walls; five contains only wall
+features through both ordinary body-wall bands. Broad floor/cap faces and
+locally thicker bosses receive solid fill at 30% overlap. Arachne retains its
+10° parameter default from May; the installed stock H2C 0.8 profiles select
+Classic. [Wall-count review and preset sources](../recipe-reviews/2026-10-22-flow105-overlap30/README.md).
+These planned paths supply no physical fusion or water-hold result.
 
 A proposed 25 mm tall full-footprint body base retains the real floor,
 fillets, corners and seam. The options specify a flatness check and one-hour

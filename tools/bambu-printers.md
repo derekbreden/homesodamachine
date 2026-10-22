@@ -92,17 +92,16 @@ Use up the **most depleted suitable spool first**, then progress toward fuller
 spools. Remaining quantity is not a launch condition; no weighing is required.
 
 Mark1's AMS 2 Pro A carries Bambu PETG Translucent Clear (`GFG01`, transparent
-`00000000`) in **A1 and A3**; A2 and A4 are empty. It feeds the right **0.8 mm
-Standard-flow** hotend. The 59° walls-only reservoir print starts on **A1**.
-A1 reports **6%** remaining and A3 **100%** at preflight.
-The preferred consumption order is **A1 → A3**. Use each spool fully.
+`00000000`) in **A3**; A1, A2 and A4 are empty. It feeds the right **0.8 mm
+Standard-flow** hotend. Reservoir task **1365626370** starts on **A3**, which
+reports **39%** at preflight. Use it fully, then select the most depleted
+suitable replacement when one is loaded.
 
-AMS unit `0` addresses A1–A4 as trays `0`–`3`. Automatic refill is enabled for
-matching available clear PETG spools, visibly checked in Mark1's AMS Settings
-for this launch. A3 is the only other loaded matching spool. Connect selects
-the starting slot but provides no verified backup-priority editor.
-The [59° walls-only launch record](../hardware/printed-parts/cold-core/reservoir/prints/2026-10-22-mark1-walls-t59-right08-z000/README.md)
-records the selected start and refill scope.
+AMS unit `0` addresses A1–A4 as trays `0`–`3`. **AMS filament backup is On**,
+visibly checked in Mark1's AMS Settings during this launch. No other matching
+refill spool is loaded at preflight. The [flow-1.05 / overlap-30 launch record](../hardware/printed-parts/cold-core/reservoir/prints/2026-10-22-mark1-flow105-overlap30-right08-z000/README.md)
+records the selected start and refill scope. Refresh actual slot contents and
+depletion before future launches.
 
 ## Mark2 clear PETG spool order
 

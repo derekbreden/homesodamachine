@@ -1,0 +1,83 @@
+{
+  "slicer_version": "02.08.02.61",
+  "source": "Installed BambuStudio.app/Contents/Resources/profiles/BBL",
+  "machine": "Bambu Lab H2C 0.8 nozzle",
+  "min_layer_height_mm": [
+    0.16,
+    0.16
+  ],
+  "max_layer_height_mm": [
+    0.56,
+    0.56
+  ],
+  "default_print_profile": "0.40mm Standard @BBL H2C 0.8 nozzle",
+  "process_presets": [
+    {
+      "name": "0.24mm Balanced Quality @BBL H2C 0.8 nozzle",
+      "layer_height_mm": 0.24,
+      "first_layer_height_mm": 0.4,
+      "wall_generator": "classic",
+      "infill_wall_overlap": "15%",
+      "inheritance": [
+        "0.24mm Balanced Quality @BBL H2C 0.8 nozzle",
+        "fdm_process_dual_0.24_nozzle_0.8",
+        "fdm_process_dual_common",
+        "fdm_process_common"
+      ]
+    },
+    {
+      "name": "0.32mm Balanced Quality @BBL H2C 0.8 nozzle",
+      "layer_height_mm": 0.32,
+      "first_layer_height_mm": 0.4,
+      "wall_generator": "classic",
+      "infill_wall_overlap": "15%",
+      "inheritance": [
+        "0.32mm Balanced Quality @BBL H2C 0.8 nozzle",
+        "fdm_process_dual_0.32_nozzle_0.8",
+        "fdm_process_dual_common",
+        "fdm_process_common"
+      ]
+    },
+    {
+      "name": "0.32mm Balanced Strength @BBL H2C 0.8 nozzle",
+      "layer_height_mm": 0.32,
+      "first_layer_height_mm": 0.4,
+      "wall_generator": "classic",
+      "infill_wall_overlap": "15%",
+      "inheritance": [
+        "0.32mm Balanced Strength @BBL H2C 0.8 nozzle",
+        "fdm_process_dual_0.32_nozzle_0.8",
+        "fdm_process_dual_common",
+        "fdm_process_common"
+      ]
+    },
+    {
+      "name": "0.40mm Standard @BBL H2C 0.8 nozzle",
+      "layer_height_mm": 0.4,
+      "first_layer_height_mm": 0.4,
+      "wall_generator": "classic",
+      "infill_wall_overlap": "15%",
+      "inheritance": [
+        "0.40mm Standard @BBL H2C 0.8 nozzle",
+        "fdm_process_dual_0.40_nozzle_0.8",
+        "fdm_process_dual_common",
+        "fdm_process_common"
+      ]
+    }
+  ],
+  "source_sha256": {
+    "machine/Bambu Lab H2C 0.8 nozzle.json": "6ffe6f54b3bbf5d8cd4f102abdc65aa9cf9feeaa5c141f4a072c04696e581395",
+    "process/0.24mm Balanced Quality @BBL H2C 0.8 nozzle.json": "9e3c361cea0cedc7f28fd68f64476d40cd0b6d6d366cd69234cbef8e340a3e00",
+    "process/fdm_process_dual_0.24_nozzle_0.8.json": "ede723bb8e30a586a80ed0cef214aebf604cbc6ca1ff06a35ebf83cd77a88206",
+    "process/fdm_process_dual_common.json": "743303a5c3c1962f8c8d178d21e23fc409027ea48574017db51230eac72bd063",
+    "process/fdm_process_common.json": "d7981c4b92854f251b8697e1bb621c63fe393f263fb8024ab63c401525d543d7",
+    "process/0.32mm Balanced Quality @BBL H2C 0.8 nozzle.json": "c4056763a0d07882e1c122c996f7a756028d763b8e6167e38e6f3991ba1da5b8",
+    "process/fdm_process_dual_0.32_nozzle_0.8.json": "35e1dc529f32b756f8ad33f3cb723e7284613ff304ced9398260a8ac69e95b6d",
+    "process/0.32mm Balanced Strength @BBL H2C 0.8 nozzle.json": "5bd3118494c31c6816824740430bc11f115a8ede8d60d0b1e041a84a00a5504d",
+    "process/0.40mm Standard @BBL H2C 0.8 nozzle.json": "853f830aa8ad60c05c3daea359ae620700a8d15332284d89353bc074d814817d",
+    "process/fdm_process_dual_0.40_nozzle_0.8.json": "2d2ab2168b4286f8105d376eac4841d23f7e183fe9f93c9989f5a9bef780b6a9"
+  },
+  "arachne_threshold_default_degrees": 10,
+  "arachne_threshold_source": "https://raw.githubusercontent.com/bambulab/BambuStudio/v02.08.02.61/src/libslic3r/PrintConfig.cpp",
+  "note": "Classic is inherited by these installed stock H2C 0.8 profiles. The recovered May file selects Arachne with its default 10-degree transition threshold. Machine limits allow custom heights; they are not supplied process presets."
+}

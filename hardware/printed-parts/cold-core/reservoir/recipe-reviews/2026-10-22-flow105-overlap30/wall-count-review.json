@@ -1,0 +1,333 @@
+{
+  "recorded_on": "2026-10-22",
+  "selected_wall_loops": 5,
+  "nominal_line_width_mm": 0.8,
+  "normal_layer_height_mm": 0.24,
+  "selection_basis": "Lowest tested requested count with only wall features through the ordinary body walls, including curved corners, on both complete plates. Counts 2-4 retain non-wall fill there. The straight nominal 3 mm wall alone does not set the count for the thick curved corners.",
+  "checks": [
+    {
+      "wall_loops": 2,
+      "return_code": 0,
+      "scope": "Positive XY extrusion commands in the ordinary body-wall band 12 < Z < 175 mm, excluding the floor, lower rod boss and top insert bosses. Feature labels identify planned toolpaths, not actual fusion or sealing.",
+      "plates": [
+        {
+          "plate": 1,
+          "gcode_sha256": "d0af553bc6d22d9d7bb0d093a7bc4240e345a394c5869d8b547ded01a6792f90",
+          "body_feature_move_counts": {
+            "Inner wall": 392976,
+            "Outer wall": 199079,
+            "Bottom surface": 428,
+            "Internal solid infill": 17505,
+            "Sparse infill": 66028,
+            "Floating vertical shell": 718,
+            "Top surface": 785
+          },
+          "ordinary_wall_feature_move_counts": {
+            "Inner wall": 317211,
+            "Outer wall": 151989,
+            "Internal solid infill": 10806,
+            "Sparse infill": 48375
+          },
+          "nonwall_samples": {
+            "Internal solid infill": [
+              {
+                "z_mm": 12.06,
+                "line": "G1 X185.076 Y226.096 E.02939"
+              },
+              {
+                "z_mm": 12.06,
+                "line": "G1 X185.213 Y226.313 E.03012"
+              },
+              {
+                "z_mm": 12.06,
+                "line": "G1 X185.389 Y226.53 E.03364"
+              }
+            ],
+            "Sparse infill": [
+              {
+                "z_mm": 12.06,
+                "line": "G1 X256.71 Y221.375 E.83571"
+              },
+              {
+                "z_mm": 12.06,
+                "line": "G1 X256.844 Y221.529 E.01608"
+              },
+              {
+                "z_mm": 12.06,
+                "line": "G1 X257.191 Y222.036 E.04816"
+              }
+            ]
+          },
+          "plate_warning": ""
+        },
+        {
+          "plate": 2,
+          "gcode_sha256": "d1d24e166ccc984b36c59b54955f06ba40d41821879edd711fc17888cc9a8f16",
+          "body_feature_move_counts": {
+            "Inner wall": 387738,
+            "Outer wall": 196954,
+            "Bottom surface": 424,
+            "Internal solid infill": 19306,
+            "Sparse infill": 64999,
+            "Floating vertical shell": 724,
+            "Top surface": 777
+          },
+          "ordinary_wall_feature_move_counts": {
+            "Inner wall": 311819,
+            "Outer wall": 150027,
+            "Internal solid infill": 12585,
+            "Sparse infill": 47649
+          },
+          "nonwall_samples": {
+            "Internal solid infill": [
+              {
+                "z_mm": 12.06,
+                "line": "G1 X254.925 Y92.077 E.02783"
+              },
+              {
+                "z_mm": 12.06,
+                "line": "G1 X255.161 Y92.198 E.02898"
+              },
+              {
+                "z_mm": 12.06,
+                "line": "G1 X255.32 Y92.304 E.02179"
+              }
+            ],
+            "Sparse infill": [
+              {
+                "z_mm": 12.06,
+                "line": "G1 X185.869 Y99.188 E.35132"
+              },
+              {
+                "z_mm": 12.06,
+                "line": "G1 X186.454 Y99.743 E.06326"
+              },
+              {
+                "z_mm": 12.06,
+                "line": "G1 X188.211 Y97.986 E.19489"
+              }
+            ]
+          },
+          "plate_warning": ""
+        }
+      ]
+    },
+    {
+      "wall_loops": 3,
+      "return_code": 0,
+      "scope": "Positive XY extrusion commands in the ordinary body-wall band 12 < Z < 175 mm, excluding the floor, lower rod boss and top insert bosses. Feature labels identify planned toolpaths, not actual fusion or sealing.",
+      "plates": [
+        {
+          "plate": 1,
+          "gcode_sha256": "36d99c52e80d234523aaf7b2678d072376f3cba8b0911878535fdf4e80ab1ead",
+          "body_feature_move_counts": {
+            "Inner wall": 473566,
+            "Outer wall": 199079,
+            "Bottom surface": 422,
+            "Internal solid infill": 2739,
+            "Sparse infill": 48257,
+            "Floating vertical shell": 382,
+            "Top surface": 578
+          },
+          "ordinary_wall_feature_move_counts": {
+            "Inner wall": 377281,
+            "Outer wall": 151989,
+            "Sparse infill": 38680
+          },
+          "nonwall_samples": {
+            "Sparse infill": [
+              {
+                "z_mm": 12.06,
+                "line": "G1 X254.678 Y220.465 E.04905"
+              },
+              {
+                "z_mm": 12.06,
+                "line": "G1 X255.237 Y220.996 E.06041"
+              },
+              {
+                "z_mm": 12.06,
+                "line": "G1 X254.561 Y221.672 E.07498"
+              }
+            ]
+          },
+          "plate_warning": ""
+        },
+        {
+          "plate": 2,
+          "gcode_sha256": "45d926d235bb737743e52e6014ceea1767eefc3e070e702ea62b7a65fd240e74",
+          "body_feature_move_counts": {
+            "Inner wall": 465893,
+            "Outer wall": 196954,
+            "Bottom surface": 419,
+            "Internal solid infill": 2748,
+            "Sparse infill": 48456,
+            "Floating vertical shell": 387,
+            "Top surface": 574
+          },
+          "ordinary_wall_feature_move_counts": {
+            "Inner wall": 369557,
+            "Outer wall": 150027,
+            "Sparse infill": 38829
+          },
+          "nonwall_samples": {
+            "Sparse infill": [
+              {
+                "z_mm": 12.06,
+                "line": "G1 X189.998 Y227.315 E.09436"
+              },
+              {
+                "z_mm": 12.06,
+                "line": "G1 X189.487 Y226.76 E.05916"
+              },
+              {
+                "z_mm": 12.06,
+                "line": "G1 X188.428 Y227.82 E.11749"
+              }
+            ]
+          },
+          "plate_warning": ""
+        }
+      ]
+    },
+    {
+      "wall_loops": 4,
+      "return_code": 0,
+      "scope": "Positive XY extrusion commands in the ordinary body-wall band 12 < Z < 175 mm, excluding the floor, lower rod boss and top insert bosses. Feature labels identify planned toolpaths, not actual fusion or sealing.",
+      "plates": [
+        {
+          "plate": 1,
+          "gcode_sha256": "30a02dc38d1eb7195fd2722ce11ee12e7db93b998322bba5b3d977cba8310360",
+          "body_feature_move_counts": {
+            "Inner wall": 519930,
+            "Outer wall": 199079,
+            "Bottom surface": 416,
+            "Internal solid infill": 27247,
+            "Sparse infill": 2652,
+            "Floating vertical shell": 202,
+            "Top surface": 522
+          },
+          "ordinary_wall_feature_move_counts": {
+            "Inner wall": 415021,
+            "Outer wall": 151989,
+            "Internal solid infill": 21199
+          },
+          "nonwall_samples": {
+            "Internal solid infill": [
+              {
+                "z_mm": 12.06,
+                "line": "G1 X255.347 Y223.581 E.07841"
+              },
+              {
+                "z_mm": 12.06,
+                "line": "G1 X255.057 Y224.521 E.09505"
+              },
+              {
+                "z_mm": 12.06,
+                "line": "G1 X254.859 Y225.008 E.05077"
+              }
+            ]
+          },
+          "plate_warning": ""
+        },
+        {
+          "plate": 2,
+          "gcode_sha256": "d15e1cafd2b7b1f3be64b91720eb5cc720978404cae6018a894b3ccf4c1ac742",
+          "body_feature_move_counts": {
+            "Inner wall": 511178,
+            "Outer wall": 196954,
+            "Bottom surface": 413,
+            "Internal solid infill": 27450,
+            "Sparse infill": 2636,
+            "Floating vertical shell": 204,
+            "Top surface": 515
+          },
+          "ordinary_wall_feature_move_counts": {
+            "Inner wall": 406349,
+            "Outer wall": 150027,
+            "Internal solid infill": 21350
+          },
+          "nonwall_samples": {
+            "Internal solid infill": [
+              {
+                "z_mm": 12.06,
+                "line": "G1 X186.226 Y223.195 E.0492"
+              },
+              {
+                "z_mm": 12.06,
+                "line": "G1 X186.072 Y223.665 E.04736"
+              },
+              {
+                "z_mm": 12.06,
+                "line": "G1 X186.008 Y223.991 E.03179"
+              }
+            ]
+          },
+          "plate_warning": ""
+        }
+      ]
+    },
+    {
+      "wall_loops": 5,
+      "return_code": 0,
+      "scope": "Positive XY extrusion commands in the ordinary body-wall band 12 < Z < 175 mm, excluding the floor, lower rod boss and top insert bosses. Feature labels identify planned toolpaths, not actual fusion or sealing.",
+      "plates": [
+        {
+          "plate": 1,
+          "gcode_sha256": "b5677135452366a0ceea169da14e2056e1c1acd03d2a320ac927984f79664de4",
+          "body_feature_move_counts": {
+            "Inner wall": 549143,
+            "Outer wall": 199079,
+            "Bottom surface": 411,
+            "Internal solid infill": 2750,
+            "Sparse infill": 2100,
+            "Floating vertical shell": 44,
+            "Top surface": 479
+          },
+          "ordinary_wall_feature_move_counts": {
+            "Inner wall": 438516,
+            "Outer wall": 151989
+          },
+          "nonwall_samples": {},
+          "plate_warning": ""
+        },
+        {
+          "plate": 2,
+          "gcode_sha256": "cfe70c23eab1dc7f96d47be78a8219bcaeeccda44c8f3ef90d54f9a81855d116",
+          "body_feature_move_counts": {
+            "Inner wall": 540737,
+            "Outer wall": 196954,
+            "Bottom surface": 405,
+            "Internal solid infill": 2740,
+            "Sparse infill": 2104,
+            "Floating vertical shell": 45,
+            "Top surface": 484
+          },
+          "ordinary_wall_feature_move_counts": {
+            "Inner wall": 430105,
+            "Outer wall": 150027
+          },
+          "nonwall_samples": {},
+          "plate_warning": ""
+        }
+      ]
+    }
+  ],
+  "native_slice_reuse": {
+    "canonical_project_sha256": "4d7a276ab3e3dd7ec1b93206dd56559ce5bd8d5daf5e394c9a3715571a71b387",
+    "native_input_project_sha256": "96c39c4b3ab829cf4a4565737a57249e71272083b8f4f2050e861a5e2f80d0a0",
+    "all_geometry_and_placement_members_byte_identical": [
+      "3D/3dmodel.model",
+      "3D/Objects/object_1.model",
+      "3D/Objects/object_2.model",
+      "3D/Objects/object_3.model",
+      "3D/Objects/object_4.model",
+      "3D/_rels/3dmodel.model.rels",
+      "Metadata/model_settings.config",
+      "[Content_Types].xml",
+      "_rels/.rels"
+    ],
+    "all_project_settings_semantically_identical": true,
+    "difference": "JSON whitespace in project_settings.config only. Native count-5 slice is reused; no changed physical setting or geometry."
+  },
+  "scope": "Feature labels and native geometry only. This is not a printed water-hold result. Broad floor and cap areas and locally thicker bosses retain 100% solid fill."
+}

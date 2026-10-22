@@ -1,16 +1,19 @@
 # Printing the reservoir in PETG
 
-[reservoir.3mf](reservoir.3mf) uses the **walls-only May Water recipe through Mark1's
-right 0.8 mm Standard nozzle**, with **flow 1.02, no brim, zero added user Z
-trim and ironing Off**, with **59° Arachne wall transitions**. The left body/cap pair is accepted as task
-**1364550539**. [Adaptation and launch](prints/2026-10-22-mark1-walls-t59-right08-z000/README.md).
+[reservoir.3mf](reservoir.3mf) uses the **five-wall May Water adaptation**
+through Mark1's right 0.8 mm Standard nozzle: **flow 1.05, 30% Infill/Wall overlap,
+265/270 °C, no brim, zero added user Z trim and ironing Off**. Arachne uses its
+10° default transition threshold. Mark1 task **1365626370** is printing the left
+body and cap from A3; [launch and startup](prints/2026-10-22-mark1-flow105-overlap30-right08-z000/README.md).
+This recipe has no completed water-hold result.
+[Adaptation, wall-count comparison and installed preset facts](recipe-reviews/2026-10-22-flow105-overlap30/README.md).
 
 The project's two plates contain
 the current left and right body/cap pairs. [print-settings.json](print-settings.json) holds every saved machine,
 filament and process setting; [reservoir.print.json](reservoir.print.json)
 identifies the current geometry and project. The baseline water-hold acceptance source is
 `may-30-clear-06` in [water-hold-acceptance.json](water-hold-acceptance.json).
-Its water hold belongs to the historical May article. The current 59° trial [still leaks at the bottom and has a new vertical-edge defect](prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/physical-result.json). The preceding walls-only article has [reported seam leakage](prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json); corner-flatness and adhesion are not separately reported for that article.
+Its water hold belongs to the historical May article. The most recent 59° article [still leaks at the bottom and has a new vertical-edge defect](prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/physical-result.json). The preceding walls-only article has [reported seam leakage](prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json); corner-flatness and adhesion are not separately reported for that article.
 
 ## Current recipe
 
@@ -19,18 +22,18 @@ Its water hold belongs to the historical May article. The current 59° trial [st
 | Active nozzle | Mark1 right 0.8 mm, Standard flow |
 | Filament | Bambu PETG Translucent Clear, GFG01 |
 | Layer height, first / subsequent | 0.30 / 0.24 mm |
-| Nozzle temperature, first / subsequent | 255 / 260 °C |
+| Nozzle temperature, first / subsequent | 265 / 270 °C |
 | Textured PEI bed, first / subsequent | 70 / 70 °C |
-| Flow ratio / maximum volumetric speed | 1.02 / 21 mm³/s |
+| Flow ratio / maximum volumetric speed | 1.05 / 21 mm³/s |
 | Requested outer / inner wall speeds | 200 / 300 mm/s |
 | Requested solid fill / sparse fill / top speeds | 250 / 350 / 200 mm/s |
-| Requested wall width / wall loops | 0.80 mm / 999, Arachne; continue inward across each section |
-| Arachne wall transition angle | 59°; center-wall paths at floor perimeter-convergence junctions |
+| Requested wall width / wall loops | 0.80 mm / 5, Arachne; ordinary walls and curved corners entirely wall paths |
+| Arachne wall transition angle | 10°, the Arachne default |
 | Fill / top / first-layer width | 0.80 mm |
-| Model fill | 0% sparse; zero top/bottom shell fill; native model features are walls only |
-| Saved infill / wall overlap | 15%; no model infill boundary in this slice |
-| Floor construction | Modeled 3 mm floor filled with continued perimeters |
-| Saved top / bottom pattern | Zig-zag; shell fill disabled |
+| Model fill | 100% zig-zag; top 3 layers with 0.8 mm minimum thickness; bottom 3 layers |
+| Infill / Wall overlap | 30% |
+| Floor construction | Modeled 3 mm floor, perimeter loops and solid fill |
+| Top / bottom pattern | Zig-zag |
 | Ironing, model and supports | Off |
 | Wall order | Inner then outer |
 | Seam | Random, scarf on all walls; inner walls included; conditional; gap 15% |
@@ -51,12 +54,25 @@ this material and article. PET-GF profiles retain their own trim settings.
 The project uses the May Water controls, with ironing disabled according to the
 [flat-square finish selection](ironing-study/prints/2026-10-06-mark2-squares-v1/physical-result.json).
 Its process and filament display names identify the current reservoir recipe.
-Both plates explicitly assign the right nozzle in Manual mode. The Mark1
-walls-only May Water article starts on **A1**, with matching-spool automatic refill to A3;
-[printer guidance](../../../../tools/bambu-printers.md#mark1-clear-petg-spool-order)
-records the loaded material and refill scope. Bodies print mouth up
-with the floor underside on the bed; caps print exterior face down with their
-gasket rims up. The matching cap belongs with its named left or right body.
+Both plates explicitly assign the right nozzle in Manual mode. Use the matching
+spool with the least filament remaining first and automatic refill to the other
+matching stock; [printer guidance](../../../../tools/bambu-printers.md#mark1-clear-petg-spool-order)
+records the consumption policy. Refresh actual slots before a future Send.
+Bodies print mouth up with the floor underside on the bed; caps print exterior
+face down with their gasket rims up. The matching cap belongs with its named
+left or right body.
+
+## Layer heights and wall generator
+
+The recipe uses **0.24 mm** ordinary layers and a **0.30 mm** first layer.
+Installed H2C 0.8 mm presets offer **0.24 mm Balanced Quality**, **0.32 mm Balanced
+Quality/Strength** and **0.40 mm Standard**. Their first-layer height is 0.40 mm.
+The machine profile allows custom layer heights from **0.16 to 0.56 mm**.
+[Installed preset inheritance and hashes](recipe-reviews/2026-10-22-flow105-overlap30/installed-presets.json).
+
+Those stock process presets inherit **Classic**. The recovered May project
+selects **Arachne**, which varies bead widths and counts to fit the geometry.
+Its **10°** wall-transition threshold is the [source-defined Arachne default](https://github.com/bambulab/BambuStudio/blob/v02.08.02.61/src/libslic3r/PrintConfig.cpp#L6395).
 
 ## The part and its seal
 
@@ -69,8 +85,13 @@ draw line goes on down to the floor as its own dip tube. The printed floor and
 walls are the whole fluid barrier. [Floor and dip tube](floor-and-dip-tube.md)
 describes them.
 
-Arachne fits widths to the geometry. The 999-wall request continues inward until the cross-section is filled; actual track count follows local thickness. Check the emitted wall, corner,
-seam and floor/wall paths when refreshing geometry. The wall-only feature inspection and a closed mesh do not establish that the deposited part holds water. Ironing is disabled on every model and support surface.
+Five requested wall loops are the lowest tested count with only wall features
+through both bodies' ordinary straight walls and thick curved corners. Counts
+two through four retain fill there. Broad floor/cap faces and locally thicker
+bosses retain solid fill. The [native comparison](recipe-reviews/2026-10-22-flow105-overlap30/wall-count-review.json)
+examines the complete ordinary wall band, not just a nominal wall-width estimate.
+Native coverage does not establish deposited fusion or water holding. Ironing
+is disabled on every model and support surface.
 
 Dry the actual stock using the [shop drying table](../../../ledger/tools.md)
 and keep it dry during printing. A dry-box humidity reading describes the
@@ -82,7 +103,7 @@ The preceding walls-only article has reported seam leakage. Its underside photog
 droplets along a branching floor junction resembling the native perimeter
 convergence regions. [Physical result](prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json).
 
-The current 59° transition trial adds center-wall paths at those junctions. The
+The printed 59° transition trial adds center-wall paths at those junctions. The
 [native comparison](prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/seam-comparison.json)
 shows about 72% less nominal layer-12 pocket area, with residual modeled pockets.
 The printed article still leaks at the same reported location. The calculation supplies no demonstrated sealing benefit. A [wall-path reading](prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/wall-junction-review.json) identifies additional short extrusion segments near the curved-wall ends; their causal relation to the edge defect is unverified.
@@ -97,7 +118,7 @@ records the visibility limit and paused task-bound monitor.
 The September 0.24 mm article held water, as reported by Derek. Its recovered
 Mark2 slice estimated 20 h 7 min and 414.76 g; those estimates belong to that
 historical geometry. The [current native slice review](slice-review.json)
-estimates **6 h 2 min and 433 g** per body/cap plate, with **zero ironing**,
+estimates **5 h 42 min and 444 g** per body/cap plate, with **zero ironing**,
 833 layers and an empty plate-warning field. The model/support/brim full bead
 envelope stays at least **70.5 mm from the nearest right-nozzle usable bed edge**, including
 arc extrema and bead width. The matching body and cap envelopes are 10.04 mm
