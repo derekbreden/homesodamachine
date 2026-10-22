@@ -1,0 +1,60 @@
+{
+  "views": [
+    {
+      "name": "flank",
+      "caption": "Front-bottom's −X flank from outside, over the condenser intake. The vent grooves beside the MQ-6 sensor were held solid around the chute cut for its can; with the sensor standing off the wall they vent like the rest.",
+      "before": "flank-before.webp",
+      "after": "flank-after.webp",
+      "width": 1200,
+      "height": 900,
+      "model": "printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -254.02907688057195,
+          145.4547643978396,
+          94.2011297877681
+        ],
+        "target": [
+          -100,
+          54,
+          22
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 36.215026119380866,
+        "far": 608.9297000800502,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
+          "from": "snapshot",
+          "sha256": "011de9441d839788407f98e275e1b21aa23a4c7d367cf2af90ecc21abca5381c",
+          "commit": "33debaf50e21264f2599a0d04d80e0655d7b0da8",
+          "taken": "2026-10-22T21:18:50.858Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
+          "from": "tree",
+          "sha256": "1bf05de9732bf3ca95bc4a3903a56c94fdd227dcfbc63b2f50cad753a501cbf6",
+          "commit": "dda107fc3029a9b948144e28f59befa757528760",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-front-bottom"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
