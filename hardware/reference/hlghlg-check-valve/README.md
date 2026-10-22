@@ -5,7 +5,8 @@ It sits west of the G Ganen pump, inlet aft and outlet forward toward the cold
 core's water-in conduit. The flow arrow points away from the pump.
 
 The cap lid's round cradle supports the fixed barrel. One four-inch tie holds
-it down, clear of both moving collets. The pump uses its ordinary printed TPU
+it down, clear of both moving collets. The tie crosses a 2.8 mm wide, 3.25 mm
+high tunnel with a flat lid floor and open mouths on both sides. The pump uses its ordinary printed TPU
 elbow and two socket clamps. `water-6` connects the elbow to the check inlet;
 `water-5` connects the outlet to the core.
 
