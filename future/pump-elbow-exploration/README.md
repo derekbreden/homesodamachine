@@ -7,8 +7,8 @@ them on 1/4" LLDPE ([internal plumbing](../../hardware/assembly/internal-plumbin
 The 715 mL funnel and the relocations it needs remain a proposal.
 
 **Status: single Siraya elbow exterior accepted; internal stringing reported.
-The deposited-path Siraya pair is submitted, with its physical result pending.**
-Mark1 accepted [task 1344414329](prints/2026-10-16-deposited-links-siraya85a-mark1/README.md)
+The deposited-path Siraya pair is submitted to Mark2, with its physical result pending.**
+Mark2 accepted [task 1365546966](prints/2026-10-22-deposited-links-siraya85a-mark2/README.md)
 with clear Siraya Tech TPU 85A on the right 0.6 mm nozzle and the glued Engineering
 Plate at zero local user Z trim. Its layer tours print the native wall and fin
 paths through turns, using contained straight transfers between paths. All
@@ -64,6 +64,9 @@ neighboring hardware are considered together.
 
 ## Files
 
+- [Mark2 deposited-path trial](prints/2026-10-22-deposited-links-siraya85a-mark2/README.md)
+  binds the byte-identical processed archive to its Mark2 launch, right 0.6 mm
+  nozzle, Siraya clear TPU 85A, glued Engineering Plate and zero user Z trim.
 - [Deposited-path Siraya trial](prints/2026-10-16-deposited-links-siraya85a-mark1/README.md)
   contains the editable pair, native and processed archives, per-layer path
   record, independent emitted-command review and launch receipt. The manual

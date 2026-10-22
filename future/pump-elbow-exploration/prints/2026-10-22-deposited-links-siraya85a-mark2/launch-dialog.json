@@ -1,0 +1,18 @@
+{
+  "printer": "Mark2",
+  "observed_at_utc": "2026-10-22T23:01:20.087522+00:00",
+  "options": {
+    "Timelapse": "Off",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "mapped_tiles": [
+    "Ext TPU R"
+  ],
+  "nozzle_labels": [
+    "Left Nozzle",
+    "Right Nozzle",
+    "Nozzle Offset Calibration"
+  ]
+}

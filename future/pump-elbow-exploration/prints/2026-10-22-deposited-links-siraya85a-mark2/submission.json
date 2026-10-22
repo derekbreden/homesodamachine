@@ -1,0 +1,23 @@
+{
+  "prepared_at_utc": "2026-10-22T23:00:32.086024+00:00",
+  "printer": "Mark2",
+  "source_archive": "future/pump-elbow-exploration/prints/2026-10-16-deposited-links-siraya85a-mark1/2026-10-16-elbows-deposited-links-siraya85a-right06-z000-mark1.gcode.3mf",
+  "submitted_archive": ".cache/pump-elbow-exploration/2026-10-22-deposited-links-mark2/2026-10-22-elbows-siraya-links-mark2-z000.gcode.3mf",
+  "submitted_name": "2026-10-22-elbows-siraya-links-mark2-z000.gcode.3mf",
+  "archive_sha256": "e48038ec34adf03cdd635e53f4359348f1e0a787a8056a7b523d055d82b898e7",
+  "gcode_sha256": "2e2052b96de0fc177a27430732a133e15cfe40eddcf4799ec901eaa64a6fcbe0",
+  "byte_identical_to_reviewed_archive": true,
+  "processed_layer_tours": 184,
+  "g29_1_commands": [
+    "G29.1 Z0 ; clear z-trim value first"
+  ],
+  "local_user_z_trim_mm": 0,
+  "camera_trip_commands": 0,
+  "source_emitted_review": "../2026-10-16-deposited-links-siraya85a-mark1/emitted-command-review.json",
+  "requested_options": {
+    "Timelapse": "Off",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  }
+}
