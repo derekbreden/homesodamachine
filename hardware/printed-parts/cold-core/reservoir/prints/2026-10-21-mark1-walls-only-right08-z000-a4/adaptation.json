@@ -1,0 +1,45 @@
+{
+  "recorded_on_central": "2026-10-21",
+  "baseline": "baseline-settings.json",
+  "baseline_print": "../2026-10-21-mark1-may-water-right08-z000/README.md",
+  "setting_changes": {
+    "wall_loops": {
+      "from": "6",
+      "to": "999"
+    },
+    "sparse_infill_density": {
+      "from": "100%",
+      "to": "0%"
+    },
+    "top_shell_layers": {
+      "from": "3",
+      "to": "0"
+    },
+    "top_shell_thickness": {
+      "from": "0.8",
+      "to": "0"
+    },
+    "bottom_shell_layers": {
+      "from": "3",
+      "to": "0"
+    },
+    "print_settings_id": {
+      "from": "Reservoir May Water 0.8 - 0.24mm",
+      "to": "Reservoir May Water 0.8 - walls only"
+    }
+  },
+  "retained": "May Water 255/260 C, flow 1.02, 21 mm3/s, 0.30/0.24 mm layers, nominal 0.8 mm lines, Arachne, random conditional scarf, cooling, right 0.8 Standard, zero user Z trim, no brim, no ironing, same geometry/placement and Tree Default supports.",
+  "reason": "Derek reports leakage between floor infill and walls and selects continued perimeters as used in his sphere pressure trials.",
+  "start_slot": "A4",
+  "preferred_consumption_order": [
+    "A4",
+    "A1",
+    "A3"
+  ],
+  "order_basis": "Derek selects A4 first as the spool to finish; current telemetry reports A1 57%, A3 100%, A4 unknown. Auto-refill backup priority is not verified.",
+  "founder_quotes": [
+    "I think I'd rather continue the walls forever, as we did in the sphere pressure vessel test. Another agent suggested at some point infill works better, but I haven't seen that.",
+    "Mark1 bed is clear and ready for walls only. I think there is still filament on A4 that is unused please use that first.",
+    "Do you understand what I meant about the spool order? That we want to use up the spools that are most empty first ..."
+  ]
+}

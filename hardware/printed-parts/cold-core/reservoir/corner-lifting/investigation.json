@@ -68,11 +68,12 @@
     "monitor_status": "PAUSED"
   },
   "current_trial": {
-    "job_id": "1362179138",
+    "job_id": "1362982574",
     "printer": "Mark1",
-    "recipe": "May Water adapted to right 0.8 mm Standard",
-    "accepted_at_utc": "2026-10-21T21:42:02.180859+00:00",
-    "record": "../prints/2026-10-21-mark1-may-water-right08-z000/README.md",
+    "recipe": "Walls-only May Water, right 0.8 mm Standard, start A4",
+    "accepted_at_utc": "2026-10-22T04:25:22.734787+00:00",
+    "record": "../prints/2026-10-21-mark1-walls-only-right08-z000-a4/README.md",
     "status": "Accepted; physical outcomes unassessed."
-  }
+  },
+  "current_strategy": "Current task 1362982574 uses walls-only May Water, right 0.8 mm Standard, start A4. The preceding May adaptation has a reported floor-fill/perimeter leak. Old task-bound monitor remains paused."
 }

@@ -1,12 +1,14 @@
 # Reservoir adhesion observations
 
-Mark1 task **1362179138** is the current
-[May Water adaptation](../prints/2026-10-21-mark1-may-water-right08-z000/README.md),
-accepted at **16:42:02 CDT / 21:42:02 UTC on October 21**. It uses the right
+Mark1 task **1362982574** is the current
+[walls-only May Water adaptation](../prints/2026-10-21-mark1-walls-only-right08-z000-a4/README.md),
+accepted at **23:25:22 CDT October 21 / 04:25:22 UTC October 22**. It uses the right
 0.8 mm Standard nozzle, flow **1.02**, **255/260 °C**, **21 mm³/s**, May speeds,
-**no brim**, zero added user trim and ironing Off. A1 starts the print with
-automatic refill. Startup supplies no corner-contact or water-hold result.
+**no brim**, zero added user trim and ironing Off. A4 starts the print with
+automatic refill. Model paths are walls only, including the floor; sparse/top/bottom fill are disabled. Startup supplies no corner-contact or water-hold result.
 The canceled job's task-bound scheduled monitor remains paused.
+
+The preceding May-adapted task 1362179138 has [reported leakage between floor fill and walls](../prints/2026-10-21-mark1-may-water-right08-z000/physical-result/physical-result.json), with droplets visible at that boundary. Corner curl is not separately reported for that article.
 
 The zero-user-trim Mark1 retry, task **1359909015**, has **reported corner curl
 and actual water leakage at many places**. Derek stopped it and identified
@@ -67,7 +69,7 @@ and a rough edge left after removal. His exact words and the recovered native
 settings are in the [historical recipe review](historical-recipe-review.json).
 The [recipe discussion](next-trial-options.json) takes the successful May
 Water recipe and ordinary Bambu motion settings as its reference. The current
-project and native slice implement the [authorized adaptation](../prints/2026-10-21-mark1-may-water-right08-z000/adaptation.json).
+project and native slice implement the [authorized adaptation](../prints/2026-10-21-mark1-walls-only-right08-z000-a4/adaptation.json).
 
 The preceding failed slice emitted no brim despite its saved auto-brim setting.
 Its [body cooling paths](body-cooling-paths.json) show **90% fan commands
@@ -100,10 +102,10 @@ discussion, and the Git record's printed-NPT-port leak does not establish a
 failure of an unpierced sphere wall. Preserve the reported positive experience
 without assigning missing numeric settings to it.
 
-A walls-only reservoir candidate requires perimeter coverage of the modeled
-wall thickness and a fully solid 3 mm floor. Zero sparse infill can express
-that construction with appropriate bottom shells or verified perimeter
-coverage. The May file's 100% infill and the sphere recollection are distinct
+The selected walls-only recipe continues perimeters across the modeled
+wall thickness and 3 mm floor, with sparse and top/bottom shell fill disabled.
+Native model feature labels contain only walls. The XY floor reading is linked
+from the launch record; it supplies no physical fusion or water-hold result. The May file's 100% infill and the sphere recollection are distinct
 recipes; neither label establishes actual deposited continuity by itself.
 
 A proposed 25 mm tall full-footprint body base retains the real floor,

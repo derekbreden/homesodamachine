@@ -57,3 +57,12 @@ Startup acceptance establishes no first-layer adhesion, corner-flatness or water
 result. Those observations belong to this article. The canceled task 1359909015 and
 its [curl/leak photographs](../2026-10-21-mark1-right08-z000/physical-result/physical-result.json)
 retain their result. Its task-bound scheduled monitor remains paused.
+
+## Physical result
+
+Derek reports **“Leaks between infill and wall.”** Five off-plate photographs
+show droplets along the floor-fill/perimeter boundary. This article's water hold
+failed; fill height, duration and complete internal leak paths are unreported.
+The retained task reports FINISH at 833/833 with no print error/HMS.
+[Photographs and result](physical-result/physical-result.json) ·
+[Floor geometry comparison](physical-result/floor-layout-comparison.json).

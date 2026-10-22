@@ -1,0 +1,34 @@
+{
+  "recorded_on_central": "2026-10-21",
+  "question": "I think the reason this showed up for us now and not on the original may water job, is because we no longer have the much thicker and sloped floor.",
+  "may_native_project": "git:f25975cd045cc835eccf1a207cb12fe48dc63ada:hardware/printed-parts/cold-core/reservoir/reservoir.3mf",
+  "may_native_sha256": "498f70012f0c83ea7200c1d4c31c85be4daeb6cb8a7be9ab3228a765eb9c74c1",
+  "method": "Direct vertical intersections with triangles in 3D/Objects/object_2.model; coordinates are the saved mesh local frame, before rigid placement. Source CAD independently defines floor_slope_rise = 6.0 and the underside V shifted downward by the 3 mm reservoir wall thickness.",
+  "may_samples": [
+    {
+      "local_xy_mm": [
+        0,
+        40
+      ],
+      "floor_z_intersections_mm": [
+        -83.3066,
+        -80.3066
+      ],
+      "vertical_material_mm": 3.0
+    },
+    {
+      "local_xy_mm": [
+        0,
+        60
+      ],
+      "floor_z_intersections_mm": [
+        -81.04245,
+        -78.04245
+      ],
+      "vertical_material_mm": 3.0
+    }
+  ],
+  "current_geometry": "A flat 3 mm floor with 6 mm internal corner fillets; no current geometry change for the walls-only print.",
+  "finding": "The recovered May native floor is sloped; sampled vertical material thickness is 3 mm, matching the current nominal floor thickness. Its slope changes which strips print on each layer and how the floor joins walls.",
+  "causal_limit": "A changed floor/path layout is a plausible contributor to different sealing. These geometry readings do not establish the cause of leakage or show that infill outperforms continued perimeters."
+}

@@ -341,3 +341,36 @@ The 16:48:41 CDT startup check found layer 0/833, no print error/HMS, bed 70 °C
 and the mounted right 0.8 mm nozzle. Live camera frames showed the empty plate
 during startup; runtime timelapse activation at deposition is unassessed.
 Finished-article corner contact and water hold are unassessed.
+
+
+### Result — May-adapted article leaks at the floor-fill/perimeter boundary (2026-10-21)
+
+Derek said: **“Leaks between infill and wall.”** Five underside photographs show
+multiple droplets along that boundary. The retained task 1362179138 reports
+FINISH at 833/833 with no print error/HMS; fill height and hold duration are
+unreported. [Physical result](prints/2026-10-21-mark1-may-water-right08-z000/physical-result/physical-result.json).
+The saved May mesh has a sloped floor with sampled 3 mm vertical material thickness;
+the geometry comparison does not establish the cause of different sealing.
+
+## Left reservoir and cap, walls-only May Water (2026-10-21, Mark1 task 1362982574)
+
+Derek said:
+
+> I think I'd rather continue the walls forever, as we did in the sphere pressure vessel test. Another agent suggested at some point infill works better, but I haven't seen that.
+
+> Mark1 bed is clear and ready for walls only. I think there is still filament on A4 that is unused please use that first.
+
+> Do you understand what I meant about the spool order? That we want to use up the spools that are most empty first ...
+
+Mark1 accepted one foreground Send at **23:25:22 CDT October 21 / 04:25:22 UTC
+October 22** and acknowledged SUCCESS with no print error/HMS. The Send dialog
+selected **A4 PETG R** and right **0.8 mm Standard**. Matching-spool automatic
+refill is retained; preferred depletion order is **A4 → A1 → A3**, with automatic
+backup priority unverified. A1 reports 57%, A3 100%, A4 unknown; A2 is empty.
+
+**999 requested walls**, **0% sparse fill**, zero top/bottom shell fill. Native
+model features contain only walls, including the floor. Other May controls,
+geometry, placement, zero user Z trim, no brim, ironing Off and Tree/Default
+supports are retained. Native estimate: **5 h 46 min, 430.66 g, 833 layers**.
+No physical adhesion, corner-flatness or water-hold result is established.
+[Adaptation, native review and launch](prints/2026-10-21-mark1-walls-only-right08-z000-a4/README.md).

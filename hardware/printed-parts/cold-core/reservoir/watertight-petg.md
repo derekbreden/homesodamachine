@@ -1,9 +1,9 @@
 # Printing the reservoir in PETG
 
-[reservoir.3mf](reservoir.3mf) uses the **May Water recipe adapted to Mark1's
+[reservoir.3mf](reservoir.3mf) uses the **walls-only May Water recipe through Mark1's
 right 0.8 mm Standard nozzle**, with **flow 1.02, no brim, zero added user Z
 trim and ironing Off**. The left body/cap pair is accepted as task
-**1362179138**. [Adaptation and launch](prints/2026-10-21-mark1-may-water-right08-z000/README.md).
+**1362982574**. [Adaptation and launch](prints/2026-10-21-mark1-walls-only-right08-z000-a4/README.md).
 
 The project's two plates contain
 the current left and right body/cap pairs. [print-settings.json](print-settings.json) holds every saved machine,
@@ -25,11 +25,12 @@ its own physical sealing and corner-flatness results.
 | Flow ratio / maximum volumetric speed | 1.02 / 21 mm³/s |
 | Requested outer / inner wall speeds | 200 / 300 mm/s |
 | Requested solid fill / sparse fill / top speeds | 250 / 350 / 200 mm/s |
-| Requested wall width / wall loops | 0.80 mm / six, Arachne |
+| Requested wall width / wall loops | 0.80 mm / 999, Arachne; continue inward across each section |
 | Fill / top / first-layer width | 0.80 mm |
-| Fill / wall overlap | 100% zig-zag / 15% |
-| Top / bottom shell settings | Three layers; 0.8 / 0 mm minimum thickness; modeled 3 mm floor filled at 100% |
-| Top / bottom pattern | Zig-zag |
+| Model fill | 0% sparse; zero top/bottom shell fill; native model features are walls only |
+| Saved infill / wall overlap | 15%; no model infill boundary in this slice |
+| Floor construction | Modeled 3 mm floor filled with continued perimeters |
+| Saved top / bottom pattern | Zig-zag; shell fill disabled |
 | Ironing, model and supports | Off |
 | Wall order | Inner then outer |
 | Seam | Random, scarf on all walls; inner walls included; conditional; gap 15% |
@@ -51,7 +52,7 @@ The project uses the May Water controls, with ironing disabled according to the
 [flat-square finish selection](ironing-study/prints/2026-10-06-mark2-squares-v1/physical-result.json).
 Its process and filament display names identify the current reservoir recipe.
 Both plates explicitly assign the right nozzle in Manual mode. The Mark1
-May Water article starts on **A1**, with matching-spool automatic refill;
+walls-only May Water article starts on **A4**, with matching-spool automatic refill;
 [printer guidance](../../../../tools/bambu-printers.md#mark1-clear-petg-spool-order)
 records the loaded material and refill scope. Bodies print mouth up
 with the floor underside on the bed; caps print exterior face down with their
@@ -68,11 +69,8 @@ draw line goes on down to the floor as its own dip tube. The printed floor and
 walls are the whole fluid barrier. [Floor and dip tube](floor-and-dip-tube.md)
 describes them.
 
-Arachne fits widths to the geometry. Six requested walls are a limit, rather
-than six tracks everywhere in a 3 mm wall. Check the emitted wall, corner,
-seam and floor/wall paths when refreshing geometry. Nominal
-100% fill and a closed mesh do not establish that the deposited part holds
-water. Ironing is disabled on every model and support surface.
+Arachne fits widths to the geometry. The 999-wall request continues inward until the cross-section is filled; actual track count follows local thickness. Check the emitted wall, corner,
+seam and floor/wall paths when refreshing geometry. The wall-only feature inspection and a closed mesh do not establish that the deposited part holds water. Ironing is disabled on every model and support surface.
 
 Dry the actual stock using the [shop drying table](../../../ledger/tools.md)
 and keep it dry during printing. A dry-box humidity reading describes the
@@ -80,7 +78,7 @@ surrounding air rather than residual moisture in the filament.
 
 ## Evidence and print records
 
-The preceding zero-user-trim left article leaks at many places, as reported by
+The preceding May-adapted left article has [reported floor-fill/perimeter leakage](prints/2026-10-21-mark1-may-water-right08-z000/physical-result/physical-result.json). The earlier zero-user-trim left article leaks at many places, as reported by
 Derek. Its corner photographs show a distorted band near the floor-to-wall
 transition. Neither the finished shape nor the limited live camera views
 establishes an onset layer. The stopped job's
@@ -90,7 +88,7 @@ records the visibility limit and paused task-bound monitor.
 The September 0.24 mm article held water, as reported by Derek. Its recovered
 Mark2 slice estimated 20 h 7 min and 414.76 g; those estimates belong to that
 historical geometry. The [current native slice review](slice-review.json)
-estimates **5 h 42 min and 431 g** per body/cap plate, with **zero ironing**,
+estimates **5 h 46 min and 431 g** per body/cap plate, with **zero ironing**,
 833 layers and an empty plate-warning field. The model/support/brim full bead
 envelope stays at least **70.5 mm from the nearest right-nozzle usable bed edge**, including
 arc extrema and bead width. The matching body and cap envelopes are 10.04 mm
