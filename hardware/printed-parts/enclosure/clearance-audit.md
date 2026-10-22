@@ -13,6 +13,13 @@ direction. Steel washer bearing planes retain their nominal source positions and
 this pass's fit assessment. The core crown remains at its Z253.4 reference; the native
 review checks the enclosure pocket and hold-downs against the five external printed bodies.
 
+An allowance is surface, not air. A printed face stands proud of its CAD face: press two
+printed 1 mm parts together and they measure 2.15 mm. So 0.15 mm between two nominal faces
+is a friction fit, hard to slide; sliding needs 0.25 and is still tight; an overhang's
+underside sags into bumps and takes 0.25 more. Each allowance describes the surface of the
+face it is on and stays on that face. It is not free space a stack can spend elsewhere, and
+a body resting on a face rests on its rough surface, about where it is drawn.
+
 The allowances reserve room for rough or oozed printed material beyond the nominal CAD
 face. Seating under gravity or screw load uses that room too. A modeled gap does not
 assume an equally large empty space after printing.
