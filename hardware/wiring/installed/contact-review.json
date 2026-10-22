@@ -1,7 +1,7 @@
 {
   "scope": "Manual exact-solid follow-up of the full-scene mesh contact witnesses. Only contact within 8.5 mm of a shared electrical node or the named endpoint part is excluded. No physical assembly acceptance is established.",
-  "assembly_step_sha256": "d86aaac4606dac0df300b6ff67c051487758293ec1feaeb3f37a3e5210399c28",
-  "manifest_sha256": "881d8d7466f25332f65eb7b3d1ea167569e1b7d036eff434105869de98350a4f",
+  "assembly_step_sha256": "b8e5a3b64c51d264bd1d768e8f0a45dbe11413e7272ad422f7585b48a20e07e6",
+  "manifest_sha256": "197d5fb53f97c3bc468ea39a81d4274121c1f5ada5081f340041706d59978284",
   "physical_pairs": [
     {
       "a": "wire-J1-COM",
@@ -33,6 +33,15 @@
       ]
     },
     {
+      "a": "wire-J6-GND",
+      "b": "wire-J6-earth-3",
+      "whole_overlap_mm3": 0.0,
+      "outside_endpoint_overlap_mm3": 0.0,
+      "local_endpoint_nodes": [
+        "reed-a-4.GND"
+      ]
+    },
+    {
       "a": "wire-J6-earth-1",
       "b": "wire-J6-earth-2",
       "whole_overlap_mm3": 0.0,
@@ -48,15 +57,6 @@
       "outside_endpoint_overlap_mm3": 0.0,
       "local_endpoint_nodes": [
         "reed-a-3.GND"
-      ]
-    },
-    {
-      "a": "wire-J6-earth-3",
-      "b": "wire-J6-earth-4",
-      "whole_overlap_mm3": 0.0,
-      "outside_endpoint_overlap_mm3": 0.0,
-      "local_endpoint_nodes": [
-        "reed-a-4.GND"
       ]
     },
     {

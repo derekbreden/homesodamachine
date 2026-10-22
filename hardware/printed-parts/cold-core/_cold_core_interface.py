@@ -1141,49 +1141,23 @@ for _name in cap_cradles:
                          f"valve plinth {_name}: conduit passage preserves each socket wall")
 
 
-# --- Chain anchors on the lid's outer face -----------------------------------
+# --- Body and tube cradles on the lid's outer face ---------------------------
 #
-# ONE RIB UNDER A BODY THAT LIES OVER THIS FACE. The discharge chain is three fittings made up on
-# the bench as one bar, a push-fit collet at each end: the discharge elbow's tube comes in at one
-# and the line to the core leaves from the other. Between them it lies in this.
+# The single water check's fixed barrel rests in a round cradle. A tie through
+# the channel beneath it prevents lift-out and leaves both collets accessible.
+# The pump and check share this lid; their tube spans no enclosure joint.
+# Tube cradles use the existing removable anchor caps.
 #
-# THE SEAT IS A BORE, concentric with the section it takes. Every hex on that chain sits on a
-# made-up thread, so where its flats land is wherever the thread stopped, and nothing on the body
-# is clocked — the check's arrow is axial.
-#
-# IT OPENS UP, AND THE ZIP TIE ONLY PRELOADS IT. The chain lies IN this rib, so cutting the zip tie
-# leaves it where it lies; what the zip tie carries is lift-out and the pump's own pulse. The pump
-# bolts to this same plate through `deck_mounts`, so the tube between them spans no joint.
-#
-# The station lives here, in the cap's own frame, because the rib is printed in this part.
-# `foam_cap.add_chain_anchors` stands it, `enclosure_assembly.build_discharge_chain` seats the
-# body on `cap_anchor_axis_over_face`, and `check_disch_seated` reads the gap back off the two
-# placed solids rather than off this table.
-#
-# Per anchor: the seat's centre in the CAP'S OWN frame, and the radius of the bore — the seated
-# section's own circumradius plus the slip the machine closes on it. The rib is extruded along the
-# cap's +X, or its +Y where the row says `along="y"`.
-#   WHAT CLOSES IT IS STATED: a zip tie through the rib's channel, or the anchor cap
-# (`_anchor_cap_interface`), the printed other half of the pipe. A capped row's rib is one solid
-# post from the lid's face to the axis plane with a catch window in each flank, cut for the 1/4"
-# tube; where the lid stands inside the cap's wings it gives each wing a slot
-# (`_anchor_cap_interface.wing_room`), the room back-top's ceiling gives over `co2-2`.
-#   A RIB MAY BE LONGER THAN THE SECTION IT BEARS ON. The chain seats on the GASHER's 18 mm hex,
-# and the sections either side of the bore are thinner than it and do not touch it.
-# `enclosure_assembly.anchor_rows` holds that: every section under a rib clears the bore, and
-# exactly one fills it.
-#   A ROW MAY STATE ITS OWN HEIGHT, and one kind of row has to. A CHAIN is free in Z — nothing
-# above it fixes it — so it is seated on the rib and the rib takes the height the section stack
-# asks for. A RUN is not: the plane a tube lies on is set by the two ports it joins, so there the
-# rib comes to the tube instead, and `over_face` is what it has to reach. `check_run_seated` reads
-# that back off the placed solids.
+# Centres and bore radii are in the cap frame. A stated `over_face` holds the
+# installed axis at its required height; otherwise the floor and channel stock
+# determine it. `anchor_rows` compares the bore and the sections under its span.
 CapAnchor = namedtuple("CapAnchor", "centre seat_r over_face along closure")
 CapAnchor.__new__.__defaults__ = (None, "x", "tie")
 cap_anchors = {
     #                             centre         seat_r                  over_face along closure
     # The check stands far enough forward of the pump that the discharge elbow's tube makes
     # both of its R14 turns before the inlet collet.
-    "discharge-chain": CapAnchor((71.000, -60.500), 8.5 + fits.slip, 14.700),
+    "discharge-chain": CapAnchor((71.000, -60.500), 6.3 + fits.slip, 14.700),
     # Reservoir A's fill runs aft along this straight cap lane, its rib behind V-A's plinth with
     # the full room required by `cap_anchor_room`.
     #
@@ -1199,10 +1173,9 @@ cap_anchors = {
 # What a zip tie is, wherever one is cut for on this cap. `enclosure.tie_w` is the same
 # fastener stated for the other box; `enclosure_assembly.check_tie_vocabulary` holds the two
 # against each other.
-#   WHAT PICKS THE TIE IS THE LOOP, not the width: `cap_anchor_tie_loop` is [76.7 mm](ANCHOR_LOOP)
-# round the chain and its rib, past the ~69 mm a 4" closes, so this one takes the 6" 18 lb the
-# ledger already carries. An 18 lb zip tie is 0.1" across at every length it is sold in, so the
-# longer tie goes through the same cavity.
+# `cap_anchor_tie_loop` gives the water check and its rib a 61.3 mm loop,
+# within the approximately 69 mm closed loop of the owned four-inch tie.
+# Its 2.5 mm band crosses only the fixed barrel, clear of both moving collets.
 cap_anchor_tie_w = 2.5              # the 18 lb zip tie, across its width — 0.1"
 cap_anchor_cav_buffer = 2.0 * fits.slip
 cap_anchor_cav_w = cap_anchor_tie_w + cap_anchor_cav_buffer

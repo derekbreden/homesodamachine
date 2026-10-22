@@ -110,9 +110,9 @@ reeds_per_carbonator = 2
 solenoid_count = sum(1 for n in ml.P if n.startswith("V-"))
 tee_count = len(ml.PURCHASED_TEES)
 
-# Cable management (~15), the water-3 post, the flavor tap's pair and the ASSE sleeve's two lands.
+# Cable management (~15), water-3 post, flow regulator, ASSE sleeve pair, water check.
 four_inch_ties_per_build = 20
-# Meter (two), water check chain, regulator and CO2 check.
+# Meter (two), water split, WR1105 and CO2 check.
 six_inch_ties_per_build = 5
 
 # PP1208E bulkheads: soda umbilical and tap-water inlet. The flavor pair uses 4 mm ABU44M-E.

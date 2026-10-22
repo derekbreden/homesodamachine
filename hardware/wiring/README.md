@@ -163,9 +163,9 @@ the current physical meshes and earlier wires; `--retry` preserves saved routes
 and searches unresolved ones. Its output needs the same route and assembly review
 as hand-authored stations.
 
-The current model has 103 proposed conductor routes and no unresolved routes.
+The current model has 102 proposed conductor routes and no unresolved routes.
 Sixteen device-terminal locations remain unlocated. Native readback finds all
-103 wires valid, each a single solid, with identical installed bounds. All
+102 wires valid, each a single solid, with identical installed bounds. All
 22 connector and insulation bodies are valid single solids. Shared bundle
 cores have zero native overlap with each other or the compressor jacket.
 
@@ -180,3 +180,11 @@ The [compressor-cable review](installed/compressor-review.json) records no
 hardware or neighboring-wire intersections for its jacket, three cores and
 fuse-to-donor link. Its cores have zero native overlap with each other and with
 the jacket. The fuse leads fit within the reference's available lead lengths.
+
+The [WAGO arrangement review](installed/wago-arrangement-review.json) records nine
+connectors: seven 221-413, one 221-415 and one 221-420. Reservoir A has a continuous
+common from J6. The two west-wall commons each use all three ports of a 221-413.
+The five power blocks run front to rear as +12 V, DC GND, PE, L and N.
+Their 14 connections total 1718 mm with 64 modeled bends. The reservoir-A
+common totals 293 mm. These figures describe installed conductor geometry;
+bench cutting includes the termination and service allowances above.

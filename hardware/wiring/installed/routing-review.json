@@ -1,11 +1,11 @@
 {
   "schema": 1,
   "scope": "One manual full-scene mesh interference review of every wire, every wire pair and cable jackets against physical bodies. Tessellated penetration is a routing witness, not a native-solid or physical assembly qualification.",
-  "manifest_sha256": "881d8d7466f25332f65eb7b3d1ea167569e1b7d036eff434105869de98350a4f",
-  "assembly_step_sha256": "d86aaac4606dac0df300b6ff67c051487758293ec1feaeb3f37a3e5210399c28",
-  "assembly_mesh_sha256": "d77990dcd20ff5f75f9739ea26240a2bb06a819b4a402e8f6b56d711a74d5f21",
-  "wire_count": 103,
-  "physical_mesh_count": 425,
+  "manifest_sha256": "197d5fb53f97c3bc468ea39a81d4274121c1f5ada5081f340041706d59978284",
+  "assembly_step_sha256": "b8e5a3b64c51d264bd1d768e8f0a45dbe11413e7272ad422f7585b48a20e07e6",
+  "assembly_mesh_sha256": "08feec26c674aadf76b7c72ea5562ae73aae8ad72a06048fd3fe89b201e7a41c",
+  "wire_count": 102,
+  "physical_mesh_count": 424,
   "coverage_missing": [],
   "physical_interference_pairs": [
     {
@@ -43,6 +43,16 @@
       "mesh_penetration_mm": 0.0439
     },
     {
+      "a": "J6-GND",
+      "b": "J6-earth-3",
+      "point_mm": [
+        -35.936,
+        458.864,
+        143.7
+      ],
+      "mesh_penetration_mm": 0.03
+    },
+    {
       "a": "J6-earth-1",
       "b": "J6-earth-2",
       "point_mm": [
@@ -61,16 +71,6 @@
         89.7
       ],
       "mesh_penetration_mm": 0.0491
-    },
-    {
-      "a": "J6-earth-3",
-      "b": "J6-earth-4",
-      "point_mm": [
-        -35.601,
-        459.095,
-        143.7
-      ],
-      "mesh_penetration_mm": 0.0367
     },
     {
       "a": "J7-earth-1",
@@ -96,21 +96,21 @@
       "a": "J7-earth-3",
       "b": "J7-earth-4",
       "point_mm": [
-        -35.601,
-        190.095,
+        -35.936,
+        189.864,
         143.7
       ],
-      "mesh_penetration_mm": 0.0442
+      "mesh_penetration_mm": 0.0317
     },
     {
       "a": "J7-carb-earth-1",
       "b": "J7-carb-earth-2",
       "point_mm": [
-        -3.65,
-        396.55,
+        -1.975,
+        396.347,
         100.332
       ],
-      "mesh_penetration_mm": 0.0424
+      "mesh_penetration_mm": 0.046
     }
   ],
   "bundle_interference_pairs": [],
@@ -119,12 +119,12 @@
   "endpoint_contact_scope": "Only the named endpoint part within 8.5 mm of its attachment. All other contact with that part remains in the reading.",
   "native": {
     "scope": "All standalone native wires and their installed native placements, read back from both STEP files.",
-    "wiring_step_sha256": "91dcef105712f5abdc38bbccb3cc6b84ba53a39268798524965037340b02e5be",
+    "wiring_step_sha256": "ad4ac430b285a82aa7be5adf9bf380d747e81599b875106e8baa4839f6126068",
     "all_valid_single_solids": true,
     "maximum_installed_bounds_error_mm": 0.0,
     "invalid": [],
-    "wire_count": 103,
-    "reference_frame_maximum_extent_residual_mm": 8.981260180007666e-12,
+    "wire_count": 102,
+    "reference_frame_maximum_extent_residual_mm": 7.815970093361102e-14,
     "termination_count": 22,
     "invalid_terminations": [],
     "bundles": {
@@ -145,16 +145,16 @@
       "reed-column-a": {
         "jacket": false,
         "core_pair_overlap_mm3": {
-          "J6-earth-4 / J6-RA1": 0.0,
-          "J6-earth-4 / J6-RA2": 0.0,
-          "J6-earth-4 / J6-RA3": 0.0,
-          "J6-earth-4 / J6-RA4": 0.0,
           "J6-RA1 / J6-RA2": 0.0,
           "J6-RA1 / J6-RA3": 0.0,
           "J6-RA1 / J6-RA4": 0.0,
+          "J6-RA1 / J6-GND": 0.0,
           "J6-RA2 / J6-RA3": 0.0,
           "J6-RA2 / J6-RA4": 0.0,
-          "J6-RA3 / J6-RA4": 0.0
+          "J6-RA2 / J6-GND": 0.0,
+          "J6-RA3 / J6-RA4": 0.0,
+          "J6-RA3 / J6-GND": 0.0,
+          "J6-RA4 / J6-GND": 0.0
         }
       },
       "reed-column-b": {

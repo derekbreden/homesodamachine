@@ -104,10 +104,12 @@ def connections():
     for label, relay in (("IO19", 1), ("IO2", 2)):
         wire("J5-"+label, "J5", label, "J5."+label, f"relay-{relay}.IN", schedule=f"LV-{1 if relay==1 else 2}")
     for j, bank in (("J6", "a"), ("J7", "b")):
-        wire(j+"-GND", j, "GND", j+".GND", f"wago-reeds-{bank}.1", schedule="SIG-10" if bank=="a" else "SIG-11")
+        wire(j+"-GND", j, "GND", j+".GND", "reed-a-4.GND" if bank=="a" else "wago-reeds-b.1", schedule="SIG-10" if bank=="a" else "SIG-11")
         for i in range(1, 5):
             signal=f"R{bank.upper()}{i}"
             wire(j+"-"+signal, j, signal, j+"."+signal, f"reed-{bank}-{i}.signal", schedule="SIG-10" if bank=="a" else "SIG-11")
+            if bank=="a" and i==4:
+                continue
             ground_start=f'wago-reeds-{bank}.2' if i==4 else f'reed-{bank}-{i+1}.GND'
             wire(f"{j}-earth-{i}", j, "GND", ground_start, f"reed-{bank}-{i}.GND", schedule="SIG-10" if bank=="a" else "SIG-11",
                  note="Continuous common down the reed column; short soldered taps, individually insulated.")

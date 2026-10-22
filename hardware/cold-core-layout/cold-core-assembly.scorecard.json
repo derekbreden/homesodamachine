@@ -44,6 +44,7 @@
    "value": "28/35",
    "target": "a body per billed part",
    "detail": [
+    "reservoir cap screws: no row in bom.md matching \"BNUOK M3 \u00d7 12 mm DIN 912 socket head cap, 304 stainless\"",
     "PTFE thread tape \u2014 billed, no solid here (\"Millrose 70894 Nickel Guard\")",
     "pour-in-place foam \u2014 billed, no solid here (\"closed-cell pour-in-place PU foam\")",
     "foil tape \u2014 billed, no solid here (\"3M 425 aluminum foil tape\")",
