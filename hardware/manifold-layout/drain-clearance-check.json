@@ -1,7 +1,7 @@
 {
   "scope": "Nominal exact B-rep clearance of the direct TPU ASSE sleeve and dedicated drain against the complete installed assembly population, including cold-core bodies and retained flavor returns. Connected interfaces are excluded. The white 4 mm return requires at least 1 mm to every unconnected body. Pump occupied envelopes are read per component. The sleeve's expanded shape is an occupancy approximation. Hardware tolerances, zip-tie heads, actual bending, seals and vent performance are unmeasured.",
   "conservative_cold_core_envelope_included": true,
-  "installed_body_count": 251,
+  "installed_body_count": 250,
   "checked_members": [
     "asse-drain-adapter",
     "tube-drain-vent",
@@ -14,6 +14,11 @@
       "solids": 1,
       "minimum_unconnected_gap_mm": 0.0,
       "neighbors": [
+        {
+          "name": "flow-regulator",
+          "gap_mm": 1.6344191,
+          "overlap_mm3": 0
+        },
         {
           "name": "enclosure-back-top",
           "gap_mm": 2.7082912,
@@ -49,12 +54,12 @@
         },
         {
           "name": "foam-assembly",
-          "gap_mm": 9.2293031,
+          "gap_mm": 6.3889592,
           "overlap_mm3": 0
         },
         {
           "name": "cold-core/foam-cap-lid-top",
-          "gap_mm": 9.2293031,
+          "gap_mm": 6.3889592,
           "overlap_mm3": 0
         }
       ],
@@ -187,17 +192,12 @@
         },
         {
           "name": "wago-reeds-b",
-          "gap_mm": 3.7976103,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "wago-reeds-a",
-          "gap_mm": 5.9364314,
+          "gap_mm": 3.8027314,
           "overlap_mm3": 0
         },
         {
           "name": "wago-sensors",
-          "gap_mm": 7.4,
+          "gap_mm": 7.677293,
           "overlap_mm3": 0
         },
         {
@@ -212,12 +212,12 @@
         },
         {
           "name": "flow-regulator",
-          "gap_mm": 29.0123583,
+          "gap_mm": 8.5767701,
           "overlap_mm3": 0
         },
         {
           "name": "discharge-chain",
-          "gap_mm": 9.5122463,
+          "gap_mm": 11.0122463,
           "overlap_mm3": 0
         },
         {
@@ -237,12 +237,12 @@
         },
         {
           "name": "tube-water-6",
-          "gap_mm": 14.5243685,
+          "gap_mm": 14.8372463,
           "overlap_mm3": 0
         },
         {
           "name": "tube-water-5",
-          "gap_mm": 17.0423959,
+          "gap_mm": 15.3412458,
           "overlap_mm3": 0
         },
         {
@@ -257,7 +257,7 @@
         },
         {
           "name": "tube-fluid-2",
-          "gap_mm": 36.8121743,
+          "gap_mm": 18.5993513,
           "overlap_mm3": 0
         },
         {
@@ -385,17 +385,12 @@
       "neighbors": [
         {
           "name": "wago-reeds-b",
-          "gap_mm": 6.13,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "wago-reeds-a",
-          "gap_mm": 5.8476408,
+          "gap_mm": 7.275326,
           "overlap_mm3": 0
         },
         {
           "name": "wago-sensors",
-          "gap_mm": 5.1029111,
+          "gap_mm": 8.6193897,
           "overlap_mm3": 0
         },
         {
@@ -405,7 +400,7 @@
         },
         {
           "name": "flow-regulator",
-          "gap_mm": 3.9114758,
+          "gap_mm": 16.0874343,
           "overlap_mm3": 0
         },
         {
@@ -431,11 +426,6 @@
         {
           "name": "tube-water-3",
           "gap_mm": 9.2613976,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "tube-fluid-2",
-          "gap_mm": 11.9730899,
           "overlap_mm3": 0
         },
         {
@@ -465,12 +455,12 @@
         },
         {
           "name": "foam-assembly",
-          "gap_mm": 13.6239999,
+          "gap_mm": 12.6693633,
           "overlap_mm3": 0
         },
         {
           "name": "cold-core/foam-cap-lid-top",
-          "gap_mm": 13.6239999,
+          "gap_mm": 12.6693633,
           "overlap_mm3": 0
         },
         {
@@ -508,8 +498,8 @@
   "source_sha256": {
     "hardware/scripts/check_asse_drain.py": "91f5b3bab308ee253339de62919f18cc32d70098476a52bfa61e89cb5d97c418",
     "hardware/manifold-layout/_drain.py": "d4f6db44b344125cf6f9b1bc6be341002dae887d78966ada3029e1e452b94c2a",
-    "hardware/manifold-layout/enclosure_assembly.py": "7aa9982d1ce1daa6d24f855560a306565c70ec2fa5081101bd6e4c3728428b7b",
-    "hardware/manifold-layout/_lines.py": "be59432491e98bcfcae34544927893498dc7bc69518405e2342fe2113e66697f",
+    "hardware/manifold-layout/enclosure_assembly.py": "a35cb0e7cf25e01955633b93f59489d8da8dbfa18c094822e850c351d880835a",
+    "hardware/manifold-layout/_lines.py": "1af4c0625cfc6fc2529dba10ddd6e63318395d0139c414f2c85dd08dc25b8dbc",
     "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "f53b68d07c045338361615eb032e5c97c90a8a03d8ea3d30444efb300444303f",
     "hardware/reference/asse1022-assembly/asse1022_assembly.py": "4481085380d131f5d85696f5c366058382b07577c6881a274495e5d67ec2b3eb",
     "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py": "f30085fb80f68e34f87256784733bd6773af44115b97790d124551914d5ca918"
