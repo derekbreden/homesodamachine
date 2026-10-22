@@ -1,6 +1,6 @@
 {
   "scope": "Manual layout review of the single water check and its two installed tubes. Nominal reference dimensions and existing elbow retained; no pressure or physical assembly qualification.",
-  "assembly_step_sha256": "b8e5a3b64c51d264bd1d768e8f0a45dbe11413e7272ad422f7585b48a20e07e6",
+  "assembly_step_sha256": "ba1df09203440faccbc7ce6955bc8f18691f8c74190fc8060c28f1b228956122",
   "reference_step_sha256": "4d6081ce0a082adf6e37db80ccd3192784767a3ed42a99665c186e058b52b0cb",
   "native_bodies": {
     "discharge-chain": {
@@ -31,6 +31,6 @@
   },
   "cradle_bore_mm": 12.9,
   "cradle_length_mm": 8.8,
-  "tie_loop_mm": 61.303930108599204,
+  "tie_loop_mm": 65.3039301085992,
   "tie": "4 inch, 18 lb, fixed barrel only"
 }

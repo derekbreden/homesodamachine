@@ -1173,7 +1173,7 @@ cap_anchors = {
 # What a zip tie is, wherever one is cut for on this cap. `enclosure.tie_w` is the same
 # fastener stated for the other box; `enclosure_assembly.check_tie_vocabulary` holds the two
 # against each other.
-# `cap_anchor_tie_loop` gives the water check and its rib a 61.3 mm loop,
+# `cap_anchor_tie_loop` gives the water check and its rib a 65.3 mm loop,
 # within the approximately 69 mm closed loop of the owned four-inch tie.
 # Its 2.5 mm band crosses only the fixed barrel, clear of both moving collets.
 cap_anchor_tie_w = 2.5              # the 18 lb zip tie, across its width — 0.1"
@@ -1188,13 +1188,15 @@ cap_anchor_len = cap_anchor_cav_w + 2.0 * cap_anchor_cav_wall
 # the height the rib's two ends stand, and the zip tie's channel between them. `valve_seat`'s is
 # the wall this face already carries.
 cap_anchor_wall = cap_cradle_wall
+# Leave the supported-surface allowance at the roof, above the flat lid floor.
+cap_anchor_channel_height = cap_anchor_wall + fits.supported_surface
 
 
 def cap_anchor_axis_over_face(name):
     """How far the seated body's AXIS stands over the lid's outer face.
 
     Three layers of the rib, read from the face up: the channel the zip tie is pushed through, one
-    `cap_anchor_wall`; the material under the bore, one more; then the bore's own radius. A body
+    `cap_anchor_channel_height`; the material under the bore, one `cap_anchor_wall`; then the bore's own radius. A body
     seated lower than that sits on its own zip tie. A capped rib has no channel, so its two
     layers are the material under the bore and the bore.
 
@@ -1203,7 +1205,7 @@ def cap_anchor_axis_over_face(name):
     seated body has."""
     row = cap_anchors[name]
     stated = row.over_face
-    least = row.seat_r + (1.0 if row.closure == "cap" else 2.0) * cap_anchor_wall
+    least = row.seat_r + cap_anchor_wall + (0.0 if row.closure == "cap" else cap_anchor_channel_height)
     if stated is None:
         return least
     if stated < least - 1e-9:
@@ -1221,11 +1223,12 @@ def cap_anchor_tie_loop(name):
     back behind it — the convex perimeter of that pair, and not of the lid the rib stands on.
     Read on the bore rather than on the body, which is the section this part knows.
 
-    The hull is the rib's rectangle with a cap of the bore over it: its floor, its two flanks,
+    The hull uses the rib's actual height beneath the stated axis, with the bore above it: its floor, its two flanks,
     a tangent from each top corner onto the bore, and the arc between the two tangent points."""
     r = cap_anchors[name].seat_r
-    w = r + cap_anchor_wall                       # the rib's half-width, and its depth
-    return 2.0 * w + 2.0 * w + 2.0 * math.sqrt(w * w - r * r) + r * (math.pi - 2.0 * math.acos(r / w))
+    w = r + cap_anchor_wall                       # the rib's half-width
+    h = cap_anchor_axis_over_face(name) - cap_anchor_channel_height
+    return 2.0 * w + 2.0 * h + 2.0 * math.sqrt(w * w - r * r) + r * (math.pi - 2.0 * math.acos(r / w))
 
 
 def cap_anchor_slotted(name):
