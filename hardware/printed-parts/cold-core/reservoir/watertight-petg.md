@@ -10,7 +10,7 @@ the current left and right body/cap pairs. [print-settings.json](print-settings.
 filament and process setting; [reservoir.print.json](reservoir.print.json)
 identifies the current geometry and project. The baseline water-hold acceptance source is
 `may-30-clear-06` in [water-hold-acceptance.json](water-hold-acceptance.json).
-Its water hold belongs to the historical May article. The current 59° trial awaits its own water-hold result. The preceding walls-only article has [reported seam leakage](prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json); corner-flatness and adhesion are not separately reported for that article.
+Its water hold belongs to the historical May article. The current 59° trial [still leaks at the bottom and has a new vertical-edge defect](prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/physical-result.json). The preceding walls-only article has [reported seam leakage](prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json); corner-flatness and adhesion are not separately reported for that article.
 
 ## Current recipe
 
@@ -85,7 +85,7 @@ convergence regions. [Physical result](prints/2026-10-21-mark1-walls-only-right0
 The current 59° transition trial adds center-wall paths at those junctions. The
 [native comparison](prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/seam-comparison.json)
 shows about 72% less nominal layer-12 pocket area, with residual modeled pockets.
-That calculation does not establish deposited fusion or physical sealing.
+The printed article still leaks at the same reported location. The calculation supplies no demonstrated sealing benefit. A [wall-path reading](prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/wall-junction-review.json) identifies additional short extrusion segments near the curved-wall ends; their causal relation to the edge defect is unverified.
 
 The preceding May-adapted left article has [reported floor-fill/perimeter leakage](prints/2026-10-21-mark1-may-water-right08-z000/physical-result/physical-result.json). The earlier zero-user-trim left article leaks at many places, as reported by
 Derek. Its corner photographs show a distorted band near the floor-to-wall

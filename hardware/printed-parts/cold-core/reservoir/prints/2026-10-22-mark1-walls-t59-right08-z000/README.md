@@ -43,7 +43,7 @@ empty. Retain automatic refill and use each spool fully. [Preflight](preflight.j
 
 The preceding walls-only article has [reported seam leakage](../2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json).
 The historical May and September water holds remain scoped to their tested
-articles. The new trial has no physical water-hold result yet.
+articles. This trial has **reported bottom leakage and a new vertical-edge defect**.
 
 The foreground Send dialog selected **A1 PETG R** and the mounted right
 **0.8 mm Standard** hotend. Timelapse and bed leveling were **On**; flow dynamic
@@ -56,3 +56,30 @@ nozzle. The task was RUNNING at **0/833** with no print error/HMS. Clear live
 camera frames show the head moving across the empty plate during startup.
 Body/cap first-layer contact is unassessed. Runtime timelapse activation remains
 unassessed before deposition. [Startup observation](startup.json).
+
+## Physical result
+
+Derek reports bottom leakage at the same location, possibly worse, and a new
+vertical-edge defect. Photos 1–4 show repeated projecting strands beside the
+curved wall. Photo 5 shows droplets at the floor's branching junction and
+perimeter. The retained task reports **FINISH 833/833**, with no print error/HMS.
+This is a failed reported water hold. Water head, hold duration and leak rate
+are unreported, so the degree of worsening is unquantified.
+[Five photographs and result](physical-result/physical-result.json).
+
+The native wall-path comparison at layers **120, 400 and 700** finds **nine**
+continuous extrusion runs at 59°, versus **five** at 10°. Four additional runs
+are sub-millimeter segments at the curved-wall end junctions. These extra local
+starts/stops are a plausible contributor to the edge bristles; their physical
+cause and photo-to-path registration remain unverified. The submitted body
+G-code contains no explicit extrusion Z ramps away from nominal layer heights,
+despite saved conditional scarf controls.
+[Path reading and proposed next trial](physical-result/wall-junction-review.json) ·
+[Wall-path comparison](physical-result/wall-paths.png).
+
+The 59° setting has no demonstrated sealing benefit for this article. The
+smaller nominal XY pocket metric did not predict a successful water hold.
+The proposed next screen restores **10°**, retains walls-only, and tests
+**1.05 flow** on the actual floor/lower-wall geometry. This is a proposed
+physical extrusion trial; the saved project remains the identified failed
+59° / 1.02 recipe. No subsequent print has been started.

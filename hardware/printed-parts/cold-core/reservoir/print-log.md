@@ -417,3 +417,24 @@ bed-edge inset, and seven bed-rooted support bodies. The regenerated project is
 byte-identical to the compared 59° candidate; its completed native slice is
 reused and packaging preserves every submitted G-code byte.
 [Adaptation, review and launch](prints/2026-10-22-mark1-walls-t59-right08-z000/README.md).
+
+### Result — 59° trial retains bottom leakage and adds a vertical-edge defect (2026-10-22)
+
+Derek said:
+
+> Not sure that made any difference at all. I do see this new defect along this vertical edge (first 4 photos), but leak on the bottom (last photo) appears in the same place, and perhaps worse.
+
+Photos 1–4 show repeated projecting strands along a vertical edge beside the
+curved wall. Photo 5 shows droplets at the branching floor junction and
+perimeter. Derek reports the bottom leak at the same location, possibly worse.
+Water head, duration and leak rate are unreported; worsening is unquantified.
+The retained task 1364550539 reports **FINISH 833/833**, 100%, with no print
+error/HMS at **17:54:31 CDT / 22:54:31 UTC**. This is a failed reported water
+hold. Corner-lift onset and vertical-edge leakage are unassessed.
+[Five photographs and result](prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/physical-result.json).
+
+Native wall-path samples at layers 120, 400 and 700 have nine continuous runs
+at 59° versus five at 10°, including four additional sub-millimeter segments
+near curved-wall ends. The submitted body G-code has no explicit extrusion Z
+ramps away from nominal layer heights.
+[Native reading](prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/wall-junction-review.json).

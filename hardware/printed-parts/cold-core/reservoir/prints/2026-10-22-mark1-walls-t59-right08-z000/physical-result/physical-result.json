@@ -1,0 +1,105 @@
+{
+  "reported_at_recorded_utc": "2026-10-22T22:58:45.544965+00:00",
+  "reported_at_recorded_central": "2026-10-22T17:58:45.544965-05:00",
+  "printer": "Mark1",
+  "job_id": "1364550539",
+  "archive": "2026-10-22-reservoir-left-cap-walls-t59-right08-z000-a1-mark1.gcode.3mf",
+  "binding": "Derek supplies this result in direct follow-up to the launched 59-degree trial in this thread. Attribution is from conversation context; photographs have no visible task identifier.",
+  "founder_quote": "Not sure that made any difference at all. I do see this new defect along this vertical edge (first 4 photos), but leak on the bottom (last photo) appears in the same place, and perhaps worse.",
+  "result": "Failed reported water hold; no demonstrated sealing improvement from the 59-degree transition trial.",
+  "observed": [
+    {
+      "photos": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "location": "Vertical edge beside the curved wall",
+      "finding": "Repeated projecting thin strands/bristles and local roughness along the edge. Derek identifies this as a new defect.",
+      "limits": "Exact printed height, onset layer, strand attachment mechanism and any leak through this vertical edge are unverified."
+    },
+    {
+      "photos": [
+        5
+      ],
+      "location": "Floor underside at the branching perimeter-convergence region and perimeter",
+      "finding": "Several visible droplets, including larger drops near the branch. Derek reports bottom leakage in the same place and perhaps worse.",
+      "limits": "Water head, hold duration and leak rate are unreported; a quantitative worsening cannot be inferred from droplet sizes or photographs."
+    }
+  ],
+  "assessment": "The nominal pocket-area reduction in the native comparison did not establish a successful physical sealing result. Do not carry the 59-degree setting forward as a demonstrated improvement.",
+  "curl_scope": "No new corner-lift or onset observation is established by these off-plate photographs.",
+  "job_status_at_report": {
+    "job_id": "1364550539",
+    "subtask_name": "2026-10-22-reservoir-left-cap-walls-t59-right08-z000-a1-mark1.gcode.3mf",
+    "gcode_state": "FINISH",
+    "layer_num": 833,
+    "total_layer_num": 833,
+    "mc_percent": 100,
+    "print_error": 0,
+    "hms": [],
+    "bed_temper": 59.0,
+    "bed_target_temper": 0.0,
+    "observed_at_utc": "2026-10-22T22:54:31.037011+00:00",
+    "observed_at_central": "2026-10-22T17:54:31.064636-05:00"
+  },
+  "photos": [
+    {
+      "file": "photo-1.jpg",
+      "sha256": "54439f259770f43708f0b3eba8893e98763578e60432b985320933cfbfa76cbb",
+      "size_px": [
+        2880,
+        3840
+      ],
+      "metadata": "Application metadata (including EXIF/XMP/IPTC) and comments removed; compressed image scan unchanged. Source orientation is 1.",
+      "decoded_pixel_identity_verified": true,
+      "role": "Vertical-edge defect"
+    },
+    {
+      "file": "photo-2.jpg",
+      "sha256": "56a8d0359f5dd462d9b2f9c6bc6feeade6293ab2664a06c60bffcffbd7f5d29e",
+      "size_px": [
+        2880,
+        3840
+      ],
+      "metadata": "Application metadata (including EXIF/XMP/IPTC) and comments removed; compressed image scan unchanged. Source orientation is 1.",
+      "decoded_pixel_identity_verified": true,
+      "role": "Vertical-edge defect"
+    },
+    {
+      "file": "photo-3.jpg",
+      "sha256": "135496b84c9a24c3e4de3de81b0aa0924a2b4a7eff534d341e6abaf85a24f1a9",
+      "size_px": [
+        2880,
+        3840
+      ],
+      "metadata": "Application metadata (including EXIF/XMP/IPTC) and comments removed; compressed image scan unchanged. Source orientation is 1.",
+      "decoded_pixel_identity_verified": true,
+      "role": "Vertical-edge defect"
+    },
+    {
+      "file": "photo-4.jpg",
+      "sha256": "0e1af9bafd0af0ad58763d95897f5c472ed23867cc87be83f9c12822d896e8b7",
+      "size_px": [
+        2880,
+        3840
+      ],
+      "metadata": "Application metadata (including EXIF/XMP/IPTC) and comments removed; compressed image scan unchanged. Source orientation is 1.",
+      "decoded_pixel_identity_verified": true,
+      "role": "Vertical-edge defect"
+    },
+    {
+      "file": "photo-5.jpg",
+      "sha256": "62bd920d23bac48bf8b20dc9040edcbda0eb2ddacddb744af9560fdb90d7f944",
+      "size_px": [
+        2880,
+        3840
+      ],
+      "metadata": "Application metadata (including EXIF/XMP/IPTC) and comments removed; compressed image scan unchanged. Source orientation is 1.",
+      "decoded_pixel_identity_verified": true,
+      "role": "Bottom leakage"
+    }
+  ],
+  "toolpath_review": "wall-junction-review.json"
+}

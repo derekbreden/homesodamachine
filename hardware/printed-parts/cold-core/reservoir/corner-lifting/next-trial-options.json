@@ -1,24 +1,21 @@
 {
   "recorded_on": "2026-10-22",
-  "status": "59-degree walls-only trial task 1364550539 accepted on Mark1, starting A1 with automatic refill to A3; physical results pending.",
+  "status": "59-degree trial fails its reported water hold and has a new vertical-edge defect. Proposed next trial is 10 degrees with 1.05 flow; no next print started.",
   "customer_outcome": "A flat, leak-free vented reservoir in less production time.",
-  "trigger": "../prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json",
+  "trigger": "../prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/physical-result.json",
   "priority": [
     {
-      "candidate": "Close the floor perimeter-convergence junctions while retaining walls-only and flow 1.02.",
-      "purpose": "Address the branching floor line where leakage is reported.",
-      "evidence": "The photograph qualitatively matches native medial-junction pockets. Zeroing the saved seam gap alone leaves those nominal pockets essentially unchanged; a larger Arachne wall-transition angle adds center-wall paths and reduces them.",
-      "comparison": "../prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/seam-comparison.json",
-      "limits": "The photograph is not calibrated to toolpath coordinates. Nominal bead envelopes do not establish the complete water route or physical sealing. The selected 59-degree trial supplies its own result.",
-      "native_candidate": {
-        "wall_transition_angle": "59",
-        "other_executable_settings": "Retain the printed walls-only / 1.02 recipe.",
-        "status": "Selected and sent as task 1364550539; residual nominal pockets remain."
-      }
+      "candidate": "Restore 10-degree Arachne transitions and test flow 1.05 with walls-only construction.",
+      "purpose": "Remove the unsuccessful global routing change and test additional material at floor meeting lines.",
+      "evidence": "The 59-degree article still leaks at the same reported bottom location. Native wall samples add four short segments near curved-wall ends. Derek reports earlier successful sealing with higher flow.",
+      "record": "../prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/wall-junction-review.json",
+      "retained": "Walls-only; May temperatures, speeds and cooling; no brim; zero added user trim; ironing off.",
+      "limits": "Flow 1.05 is proposed, not an established optimum. Extra path starts are a plausible contributor to edge bristles, not a proven cause. Physical sealing needs its own result.",
+      "status": "Proposed only; current project retains the identified failed 59-degree / 1.02 trial recipe."
     }
   ],
   "screen": {
-    "candidate": "One 25 mm tall, full-footprint body base retaining the real 3 mm floor, 6 mm floor fillets, corners, wall thickness and seam; no reduced-footprint cube.",
+    "candidate": "One 25 mm tall, full-footprint body base retaining the real 3 mm floor, 6 mm floor fillets, corners and wall thickness; proposed 10-degree Arachne, 1.05 flow, walls-only recipe.",
     "decision": "Screen floor/corner distortion and lower-wall/floor seepage before committing another full-height body.",
     "tools": "Existing printer/build plate, water, dry tissue and a flat household surface; no purchase.",
     "procedure": [
@@ -101,6 +98,7 @@
     "accepted_at_utc": "2026-10-22T16:40:35.753433+00:00",
     "record": "../prints/2026-10-22-mark1-walls-t59-right08-z000/README.md",
     "start_slot": "A1",
-    "status": "RUNNING 0/833 during startup; A1/right 0.8 mapping confirmed; no print error/HMS; physical results pending."
+    "status": "FINISH 833/833; Derek reports bottom leakage at the same location, perhaps worse, and a new vertical-edge defect.",
+    "physical_result": "../prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/physical-result.json"
   }
 }
