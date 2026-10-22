@@ -1,0 +1,80 @@
+{
+  "scope": "One-off native exterior and exported artifact review; no physical specimen acceptance or installed fit established.",
+  "valid_native_solids": 10,
+  "native_solids": 10,
+  "valid_reloaded_step_solids": 10,
+  "reloaded_step_solids": 10,
+  "component_overlap_volume_mm3": 0,
+  "overlaps": [],
+  "bounds_mm": {
+    "x": [
+      -29.75,
+      29.75
+    ],
+    "y": [
+      -31.5,
+      31.500000000000004
+    ],
+    "z": [
+      -15.5,
+      37.5
+    ]
+  },
+  "reloaded_bounds_mm": {
+    "x": [
+      -29.75,
+      29.75
+    ],
+    "y": [
+      -31.5,
+      31.500000000000004
+    ],
+    "z": [
+      -15.5,
+      37.5
+    ]
+  },
+  "ports": {
+    "inlet": [
+      [
+        -29.75,
+        0.0,
+        0.0
+      ],
+      [
+        -1.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "outlet": [
+      [
+        29.75,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0,
+        0.0
+      ]
+    ]
+  },
+  "features": {
+    "inlet_open": true,
+    "outlet_open": true,
+    "inlet_ring_present": true,
+    "outlet_ring_present": true,
+    "near_fork_slot_open": true,
+    "opposite_fork_slot_open": true,
+    "near_fork_ear_present": true,
+    "opposite_fork_ear_present": true,
+    "cross_recess_open": true,
+    "adjuster_face_present": true
+  },
+  "payload_matches_step": true,
+  "files": {
+    "yetaha-pressure-regulator.step": "a6fe4f51ebda256915d4d54e08ab94a0ed6c2db580fe3c440d099cf4133502cd",
+    "yetaha-pressure-regulator.step.mesh": "58e68642cf5d57f5beb76da0766a1a57dd6bf3e9bac6a98417606c43db9343f8"
+  }
+}
