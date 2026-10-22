@@ -188,3 +188,16 @@ click: x=-106.310 y=327.042 z=174.678
 click: x=104.500 y=243.522 z=322.328
 click: x=104.500 y=243.532 z=257.568
 click: x=45.237 y=468.300 z=335.828
+
+[ceiling] Outside the water-check/WAGO arrangement change and unresolved: these faces are in the retained rear-wall ledges and west plumbing-cradle region, outside the resized WAGO pockets. Their support placement and removal need their own review; this entry does not accept the flat print-down spans.
+alternatives: Reconcile each ledge with its mating hardware and print pose, or provide the appropriate removable support through its actual access. Those interfaces are not revised by the connector arrangement.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=34.170 y=469.545 z=256.518
+click: x=-88.285 y=289.125 z=289.522
+click: x=-78.070 y=470.225 z=257.624
+
+[slope] Outside the water-check/WAGO arrangement change and unresolved: these are retained rear-wall slopes at Y465.990, away from the connector wells. Their direction along the adjacent wall remains a print-geometry question, not an accepted support claim.
+alternatives: Coordinate a level foot or wall-directed support with the adjoining rear-wall feature and its fit. This pass does not change that rear-wall construction.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=38.670 y=465.990 z=270.918
+click: x=29.670 y=465.990 z=270.918
