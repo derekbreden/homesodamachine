@@ -1,12 +1,15 @@
 # Reservoir adhesion observations
 
-Mark1 task **1362982574** is the current
-[walls-only May Water adaptation](../prints/2026-10-21-mark1-walls-only-right08-z000-a4/README.md),
-accepted at **23:25:22 CDT October 21 / 04:25:22 UTC October 22**. It uses the right
+Mark1 task **1364550539** is the current
+[59° walls-only May Water trial](../prints/2026-10-22-mark1-walls-t59-right08-z000/README.md),
+accepted at **11:40:35 CDT / 16:40:35 UTC October 22**. It uses the right
 0.8 mm Standard nozzle, flow **1.02**, **255/260 °C**, **21 mm³/s**, May speeds,
-**no brim**, zero added user trim and ironing Off. A4 starts the print with
-automatic refill. Model paths are walls only, including the floor; sparse/top/bottom fill are disabled. The completed article has [reported seam leakage](../prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json). Corner curl and adhesion were not separately reported for it.
+**no brim**, zero added user trim and ironing Off. A1 starts the print with
+automatic refill to A3. Model paths are walls only, including the floor; sparse/top/bottom fill are disabled. Arachne's **59° wall transition angle** adds center-wall paths at floor junctions. The new article has no physical sealing or corner-flatness result yet.
+[Startup observation](../prints/2026-10-22-mark1-walls-t59-right08-z000/startup.json) confirms A1 at the mounted right nozzle and changing live frames of the empty plate. Body/cap first-layer contact is unassessed at layer 0.
 The canceled job's task-bound scheduled monitor remains paused.
+
+The preceding walls-only task 1362982574 has [reported seam leakage](../prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json). Corner curl and adhesion were not separately reported for it.
 
 The preceding May-adapted task 1362179138 has [reported leakage between floor fill and walls](../prints/2026-10-21-mark1-may-water-right08-z000/physical-result/physical-result.json), with droplets visible at that boundary. Corner curl is not separately reported for that article.
 
@@ -63,13 +66,13 @@ changes. Ordinary unchanged progress does not need a notification.
 
 ## Current recipe and investigation options
 
-**Flow 1.02** is supported by Derek. **No brim** is proposed: he reports the
+**Flow 1.02** and **no brim** are selected by Derek. He reports the
 large object separates from the brim during curl, with difficult bed cleanup
 and a rough edge left after removal. His exact words and the recovered native
 settings are in the [historical recipe review](historical-recipe-review.json).
 The [recipe discussion](next-trial-options.json) takes the successful May
 Water recipe and ordinary Bambu motion settings as its reference. The current
-project and native slice implement the [authorized adaptation](../prints/2026-10-21-mark1-walls-only-right08-z000-a4/adaptation.json).
+project and native slice implement the [authorized 59° adaptation](../prints/2026-10-22-mark1-walls-t59-right08-z000/adaptation.json).
 
 The preceding failed slice emitted no brim despite its saved auto-brim setting.
 Its [body cooling paths](body-cooling-paths.json) show **90% fan commands

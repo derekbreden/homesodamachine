@@ -1,0 +1,163 @@
+{
+  "observed_at": "2026-10-22T16:35:41.666263+00:00",
+  "Mark1": {
+    "job_id": "1362982574",
+    "subtask_name": "2026-10-21-reservoir-left-cap-walls-only-right08-z000-a4-mark1.gcode.3mf",
+    "gcode_state": "FINISH",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 833,
+    "total_layer_num": 833,
+    "mc_remaining_time": 0,
+    "bed_temper": 24.0,
+    "bed_target_temper": 0.0,
+    "nozzle_temper": 32.0,
+    "nozzle_target_temper": 0.0,
+    "cooling_fan_speed": "0",
+    "big_fan1_speed": "0",
+    "big_fan2_speed": "0",
+    "trays": [
+      {
+        "id": "0",
+        "tray_type": "PETG",
+        "tray_color": "00000000",
+        "tray_info_idx": "GFG01",
+        "remain": 6
+      },
+      {
+        "id": "1",
+        "tray_type": null,
+        "tray_color": null,
+        "tray_info_idx": null,
+        "remain": null
+      },
+      {
+        "id": "2",
+        "tray_type": "PETG",
+        "tray_color": "00000000",
+        "tray_info_idx": "GFG01",
+        "remain": 100
+      },
+      {
+        "id": "3",
+        "tray_type": null,
+        "tray_color": null,
+        "tray_info_idx": null,
+        "remain": null
+      }
+    ],
+    "ams_status_fields": {
+      "ams_exist_bits": "1",
+      "tray_exist_bits": "5",
+      "tray_now": "255",
+      "tray_tar": "255",
+      "version": 21819
+    },
+    "right_extruder": [
+      {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65535,
+        "temp": 32
+      }
+    ]
+  },
+  "Mark2": {
+    "job_id": "1359897271",
+    "subtask_name": "2026-10-21-enclosure-gyroid-comparison-left04-z004-mark2-v1.gcode.3mf",
+    "gcode_state": "FINISH",
+    "print_error": 0,
+    "hms": [
+      {
+        "attr": 201326848,
+        "code": 131095
+      }
+    ],
+    "layer_num": 104,
+    "total_layer_num": 104,
+    "mc_remaining_time": 0,
+    "bed_temper": 24.0,
+    "bed_target_temper": 0.0,
+    "nozzle_temper": 26.0,
+    "nozzle_target_temper": 0.0,
+    "cooling_fan_speed": "0",
+    "big_fan1_speed": "0",
+    "big_fan2_speed": "0"
+  },
+  "shared_circuit": {
+    "requirement_seconds": 180,
+    "Mark2_idle_verified_at": "2026-10-22T16:33:11.980561+00:00",
+    "Mark2_retained_job": "1359897271",
+    "source": "Fresh tools/bambu_printer.py status observation in this session",
+    "rule": "Retain the same idle finished task at final pre-send check, at least 180 seconds after the initial observation.",
+    "minimum_idle_interval_seconds": 430.286208
+  },
+  "spool_order": {
+    "start": "A1",
+    "preferred": [
+      "A1",
+      "A3"
+    ],
+    "basis": "A1 6% remaining, A3 100%; A2 and A4 empty. Most depleted matching spool first; use each fully.",
+    "automatic_refill": "Retain enabled matching-spool refill. Only A3 is another loaded matching spool."
+  },
+  "app_connection_observation": {
+    "application": "Bambu Connect Beta",
+    "condition": "Initially no printers; Refresh restores Mark1/Mark2 entries but the Send dialog retains No hotends available. No Send clicked. Restarting the app before further selection.",
+    "submitted": false,
+    "resolution": "App restart restored live printer data; Mark1 Device shows the correct finished task, A1/A3 PETG, A2/A4 empty."
+  },
+  "ams_auto_refill_verification": {
+    "source": "cua_repl Bambu Connect Mark1 Device / AMS Settings",
+    "observed_at": "2026-10-22T16:39:49.586360+00:00",
+    "checkbox_value": 1,
+    "changed": false,
+    "matching_remaining_backup": "A3"
+  },
+  "final_pre_send_observed_at": "2026-10-22T16:40:22.266646+00:00",
+  "send_dialog": {
+    "source": "cua_repl Bambu Connect Send to print dialog",
+    "verified_at": "2026-10-22T16:40:22.266646+00:00",
+    "printer": "Mark1",
+    "right_tile": "A1 PETG R",
+    "right_nozzle": "0.8 Standard",
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto",
+    "Send_enabled": true
+  },
+  "Mark2_final": {
+    "job_id": "1359897271",
+    "subtask_name": "2026-10-21-enclosure-gyroid-comparison-left04-z004-mark2-v1.gcode.3mf",
+    "gcode_state": "FINISH",
+    "print_error": 0,
+    "hms": [
+      {
+        "attr": 201326848,
+        "code": 131095
+      }
+    ],
+    "layer_num": 104,
+    "total_layer_num": 104,
+    "mc_remaining_time": 0,
+    "nozzle_temper": 26.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 24.0,
+    "bed_target_temper": 0.0
+  },
+  "Mark1_final": {
+    "job_id": "1362982574",
+    "subtask_name": "2026-10-21-reservoir-left-cap-walls-only-right08-z000-a4-mark1.gcode.3mf",
+    "gcode_state": "FINISH",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 833,
+    "total_layer_num": 833,
+    "mc_remaining_time": 0,
+    "nozzle_temper": 32.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 24.0,
+    "bed_target_temper": 0.0
+  }
+}

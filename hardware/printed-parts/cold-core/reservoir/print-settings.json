@@ -1486,7 +1486,7 @@
     "wall_generator": "arachne",
     "wall_loops": "999",
     "wall_sequence": "inner wall/outer wall",
-    "wall_transition_angle": "10",
+    "wall_transition_angle": "59",
     "wall_transition_filter_deviation": "25%",
     "wall_transition_length": "100%",
     "wipe": [
@@ -1718,6 +1718,10 @@
     "wall_loops": {
       "from": "6",
       "to": "999"
+    },
+    "wall_transition_angle": {
+      "from": "10",
+      "to": "59"
     }
   },
   "assignment_changes": {
@@ -1742,7 +1746,7 @@
       ]
     }
   },
-  "accepted_result_scope": "Historical May water hold belongs to its identified article. The flat-floor walls-only 0.8 mm article, Mark1 task 1362982574, has reported seam leakage; see its physical-result record.",
+  "accepted_result_scope": "Historical May water hold belongs to its identified article. The current 59-degree Arachne walls-only adaptation awaits its own physical result. Mark1 task 1362982574 has reported seam leakage; see its physical-result record.",
   "machine_changes": {
     "extruder_nozzle_stats": {
       "from": [

@@ -1,0 +1,170 @@
+{
+  "coordinate_frame": null,
+  "first_layer_z_mm": 0.3,
+  "inputs": {
+    "gcode": "plate_1.gcode",
+    "gcode_sha256": "3aa321122c0ef532409af674ceccb25f6ac745a9ce78b2381ad95a715d3ab474",
+    "model": null,
+    "model_sha256": null,
+    "profile": null,
+    "profile_sha256": null
+  },
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+  "interfaces": [
+    {
+      "bbox_xy_mm": [
+        122.8,
+        186.8,
+        134.4,
+        198.4
+      ],
+      "build_up_mm": 1.68,
+      "first_z_mm": 1.98,
+      "id": "interface-1",
+      "last_z_mm": 2.46,
+      "tree": "tree-4"
+    }
+  ],
+  "piece": "reservoir-left-and-cap",
+  "schema": 1,
+  "slicer": "BambuStudio 02.08.02.61",
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.18",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.35",
+    "support_on_build_plate_only": "1",
+    "support_style": "default",
+    "support_threshold_angle": "30",
+    "support_top_z_distance": "0.18",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "bed_rooted_bodies": 7,
+    "bodies_without_interface_labels": 6,
+    "explicit_interface_islands": 1,
+    "interface_islands": null,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "shortest_labelled_build_up_mm": 1.68,
+    "support_bodies": 7
+  },
+  "trees": [
+    {
+      "base_z_mm": 0.3,
+      "bbox_xy_mm": [
+        99.2,
+        93.6,
+        104.0,
+        98.0
+      ],
+      "first_interface_z_mm": null,
+      "id": "tree-1",
+      "interface_reading": "unlabelled",
+      "interfaces": [],
+      "root": "bed",
+      "shortest_build_up_mm": null,
+      "top_z_mm": 3.9
+    },
+    {
+      "base_z_mm": 0.3,
+      "bbox_xy_mm": [
+        99.2,
+        157.6,
+        104.0,
+        162.4
+      ],
+      "first_interface_z_mm": null,
+      "id": "tree-2",
+      "interface_reading": "unlabelled",
+      "interfaces": [],
+      "root": "bed",
+      "shortest_build_up_mm": null,
+      "top_z_mm": 3.9
+    },
+    {
+      "base_z_mm": 0.3,
+      "bbox_xy_mm": [
+        99.2,
+        222.0,
+        104.0,
+        226.4
+      ],
+      "first_interface_z_mm": null,
+      "id": "tree-3",
+      "interface_reading": "unlabelled",
+      "interfaces": [],
+      "root": "bed",
+      "shortest_build_up_mm": null,
+      "top_z_mm": 3.9
+    },
+    {
+      "base_z_mm": 0.3,
+      "bbox_xy_mm": [
+        122.8,
+        186.4,
+        134.8,
+        198.4
+      ],
+      "first_interface_z_mm": 1.98,
+      "id": "tree-4",
+      "interface_reading": "explicit_feature",
+      "interfaces": [
+        "interface-1"
+      ],
+      "root": "bed",
+      "shortest_build_up_mm": 1.68,
+      "top_z_mm": 2.46
+    },
+    {
+      "base_z_mm": 0.3,
+      "bbox_xy_mm": [
+        135.6,
+        157.6,
+        140.4,
+        162.4
+      ],
+      "first_interface_z_mm": null,
+      "id": "tree-5",
+      "interface_reading": "unlabelled",
+      "interfaces": [],
+      "root": "bed",
+      "shortest_build_up_mm": null,
+      "top_z_mm": 3.9
+    },
+    {
+      "base_z_mm": 0.3,
+      "bbox_xy_mm": [
+        164.0,
+        93.6,
+        168.8,
+        98.0
+      ],
+      "first_interface_z_mm": null,
+      "id": "tree-6",
+      "interface_reading": "unlabelled",
+      "interfaces": [],
+      "root": "bed",
+      "shortest_build_up_mm": null,
+      "top_z_mm": 3.9
+    },
+    {
+      "base_z_mm": 0.3,
+      "bbox_xy_mm": [
+        164.0,
+        222.0,
+        168.8,
+        226.4
+      ],
+      "first_interface_z_mm": null,
+      "id": "tree-7",
+      "interface_reading": "unlabelled",
+      "interfaces": [],
+      "root": "bed",
+      "shortest_build_up_mm": null,
+      "top_z_mm": 3.9
+    }
+  ]
+}

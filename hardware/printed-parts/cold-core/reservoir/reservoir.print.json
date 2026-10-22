@@ -2,7 +2,7 @@
   "project": "reservoir.3mf",
   "recipe": "print-settings.json",
   "accepted_result_id": "may-30-clear-06",
-  "settings_sha256": "a2879c3825f86c5de3eba05f4513f19d062bfea92e7f6ba374bd87160a4fa4a5",
+  "settings_sha256": "a9c40941f29ff5c05743da5a85dbf43fffca9924289ccedfe0ae28c768539cd2",
   "settings_match_native_base_except_declared_changes": true,
   "identity_changes": {
     "filament_settings_id": {
@@ -202,6 +202,10 @@
     "wall_loops": {
       "from": "6",
       "to": "999"
+    },
+    "wall_transition_angle": {
+      "from": "10",
+      "to": "59"
     }
   },
   "filament_changes": {
@@ -438,5 +442,5 @@
     }
   ],
   "scope": "Current CAD and declared no-ironing recipe. Historical water holds belong to their identified articles; this adaptation awaits its own result.",
-  "project_sha256": "f15476b457b75a342964a335f065dc648fc1b190dbc6d2fea56af9c12b66d642"
+  "project_sha256": "3f890ae5fdf1ec05e08080b1bf767ca7b25fb8dbec8c1eb67fca1568fe4ebc19"
 }
