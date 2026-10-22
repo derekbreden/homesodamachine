@@ -2,7 +2,7 @@
   "project": "reservoir.3mf",
   "recipe": "print-settings.json",
   "accepted_result_id": "may-30-clear-06",
-  "settings_sha256": "a9c40941f29ff5c05743da5a85dbf43fffca9924289ccedfe0ae28c768539cd2",
+  "settings_sha256": "21d48f2a50ad1ad461b0429edbeaa893dbfe4e76883eaceb49b556036361f162",
   "settings_match_native_base_except_declared_changes": true,
   "identity_changes": {
     "filament_settings_id": {
@@ -10,18 +10,18 @@
         "Reservoir PETG Translucent 255C(reservoir-08-seal-trial-024.3mf)"
       ],
       "to": [
-        "Reservoir May Water Clear 260C Flow1.02"
+        "Reservoir May Water Clear 270C Flow1.05"
       ]
     },
     "print_settings_id": {
       "from": "Reservoir PETG 0.8 - 0.24mm seal trial(reservoir-08-seal-trial-024.3mf)",
-      "to": "Reservoir May Water 0.8 - walls only"
+      "to": "Reservoir May Water 0.8 - solid walls overlap30 flow105"
     }
   },
   "process_changes": {
     "bottom_shell_layers": {
       "from": "12",
-      "to": "0"
+      "to": "3"
     },
     "bottom_shell_thickness": {
       "from": "2",
@@ -48,6 +48,10 @@
         "50",
         "50"
       ]
+    },
+    "infill_wall_overlap": {
+      "from": "15%",
+      "to": "30%"
     },
     "initial_layer_infill_speed": {
       "from": [
@@ -151,10 +155,6 @@
       "from": "0.9",
       "to": "0.8"
     },
-    "sparse_infill_density": {
-      "from": "100%",
-      "to": "0%"
-    },
     "sparse_infill_line_width": {
       "from": "0.9",
       "to": "0.8"
@@ -175,11 +175,11 @@
     },
     "top_shell_layers": {
       "from": "12",
-      "to": "0"
+      "to": "3"
     },
     "top_shell_thickness": {
       "from": "2",
-      "to": "0"
+      "to": "0.8"
     },
     "top_surface_line_width": {
       "from": "0.9",
@@ -201,11 +201,7 @@
     },
     "wall_loops": {
       "from": "6",
-      "to": "999"
-    },
-    "wall_transition_angle": {
-      "from": "10",
-      "to": "59"
+      "to": "5"
     }
   },
   "filament_changes": {
@@ -223,8 +219,8 @@
         "0.97"
       ],
       "to": [
-        "1.02",
-        "1.02"
+        "1.05",
+        "1.05"
       ]
     },
     "filament_max_volumetric_speed": {
@@ -263,8 +259,18 @@
         "255"
       ],
       "to": [
-        "260",
-        "260"
+        "270",
+        "270"
+      ]
+    },
+    "nozzle_temperature_initial_layer": {
+      "from": [
+        "255",
+        "255"
+      ],
+      "to": [
+        "265",
+        "265"
       ]
     },
     "slow_down_layer_time": {
@@ -442,5 +448,5 @@
     }
   ],
   "scope": "Current CAD and declared no-ironing recipe. Historical water holds belong to their identified articles; physical outcomes belong to the print records.",
-  "project_sha256": "3f890ae5fdf1ec05e08080b1bf767ca7b25fb8dbec8c1eb67fca1568fe4ebc19"
+  "project_sha256": "4d7a276ab3e3dd7ec1b93206dd56559ce5bd8d5daf5e394c9a3715571a71b387"
 }

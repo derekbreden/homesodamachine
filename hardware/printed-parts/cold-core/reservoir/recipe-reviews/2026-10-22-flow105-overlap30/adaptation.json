@@ -1,0 +1,117 @@
+{
+  "recorded_on_central": "2026-10-22",
+  "status": "Native-reviewed recipe launched on Mark1 as task 1365626370. Physical water-hold result unassessed.",
+  "baseline_commit": "17d1e6a91",
+  "recipe": "../../print-settings.json",
+  "setting_changes": {
+    "bottom_shell_layers": {
+      "from": "0",
+      "to": "3"
+    },
+    "filament_flow_ratio": {
+      "from": [
+        "1.02",
+        "1.02"
+      ],
+      "to": [
+        "1.05",
+        "1.05"
+      ]
+    },
+    "filament_settings_id": {
+      "from": [
+        "Reservoir May Water Clear 260C Flow1.02"
+      ],
+      "to": [
+        "Reservoir May Water Clear 270C Flow1.05"
+      ]
+    },
+    "infill_wall_overlap": {
+      "from": "15%",
+      "to": "30%"
+    },
+    "nozzle_temperature": {
+      "from": [
+        "260",
+        "260"
+      ],
+      "to": [
+        "270",
+        "270"
+      ]
+    },
+    "nozzle_temperature_initial_layer": {
+      "from": [
+        "255",
+        "255"
+      ],
+      "to": [
+        "265",
+        "265"
+      ]
+    },
+    "print_settings_id": {
+      "from": "Reservoir May Water 0.8 - walls only",
+      "to": "Reservoir May Water 0.8 - solid walls overlap30 flow105"
+    },
+    "sparse_infill_density": {
+      "from": "0%",
+      "to": "100%"
+    },
+    "top_shell_layers": {
+      "from": "0",
+      "to": "3"
+    },
+    "top_shell_thickness": {
+      "from": "0",
+      "to": "0.8"
+    },
+    "wall_loops": {
+      "from": "999",
+      "to": "5"
+    },
+    "wall_transition_angle": {
+      "from": "59",
+      "to": "10"
+    }
+  },
+  "selection": {
+    "wall_loops": 5,
+    "wall_scope": "Ordinary straight and curved-corner body walls. Broad floor/cap faces and thicker bosses use solid fill as needed.",
+    "solid_floor": "100% zig-zag infill, top 3 layers/minimum 0.8 mm, bottom 3 layers; 30% overlap.",
+    "flow_ratio": 1.05,
+    "nozzle_c_first_subsequent": [
+      265,
+      270
+    ],
+    "bed_c_first_subsequent": [
+      70,
+      70
+    ],
+    "layer_mm_first_subsequent": [
+      0.3,
+      0.24
+    ],
+    "nozzle": "Mark1 right 0.8 mm Standard",
+    "wall_generator": "Arachne",
+    "wall_transition_angle_degrees": 10,
+    "no_brim": true,
+    "added_user_z_trim_mm": 0,
+    "stock_textured_pei_compensation_mm": -0.02,
+    "ironing": "Off"
+  },
+  "wall_count_basis": "Bambu Studio 02.08.02.61 native slices of both complete plates. Counts 2, 3 and 4 retain fill in the ordinary wall/corner band; 5 has only wall features there. See wall-count-review.json. Native features do not establish physical sealing.",
+  "temperature_basis": "Increase both deposition temperatures by 10 C; subsequent 270 C is the saved clear-PETG profile upper range.",
+  "retained": "Current body/cap CAD, placement, 0.8 mm nominal line widths, May motion/cooling, 21 mm3/s ceiling, random conditional scarf with 15% gap, right-nozzle mapping and automatic Tree(auto)/Default bed-only supports.",
+  "arachne_basis": "Recovered May native project selects Arachne with transition angle 10 degrees. Installed stock H2C 0.8 profiles inherit Classic; 10 degrees is the Arachne parameter default, not evidence that stock profiles select Arachne. The failed 59-degree experiment is excluded.",
+  "sources": {
+    "installed_presets": "installed-presets.json",
+    "wall_count_review": "wall-count-review.json",
+    "failed_article": "../../prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/physical-result.json"
+  },
+  "founder_quotes": [
+    "Is 10 degrees the bambu preset default or have we already drifted from those defaults on something you chose for the walls? This arachne thing?",
+    "What I'd like is:\n\n\n\n- 1.05 flow rate\n- enough walls for our actual walls to be entirely walls, no more\n- double the XY overlap (does bambu slicer call this wall/infill overlap? Its at 15% now?)\n- higher temp\n\n\n\nAnd I need you to tell me what layer height we've been using, and what layer heights are available on this nozzle."
+  ],
+  "launch": "../../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/launch.json"
+}

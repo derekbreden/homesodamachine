@@ -1,0 +1,243 @@
+{
+  "Mark1": {
+    "job_id": "1364550539",
+    "subtask_name": "2026-10-22-reservoir-left-cap-walls-t59-right08-z000-a1-mark1.gcode.3mf",
+    "gcode_state": "FINISH",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 833,
+    "total_layer_num": 833,
+    "mc_percent": 100,
+    "mc_remaining_time": 0,
+    "bed_temper": 39.0,
+    "bed_target_temper": 0.0,
+    "nozzle_temper": 42.0,
+    "nozzle_target_temper": 0.0,
+    "stg_cur": -1,
+    "filam_bak": null,
+    "cooling_fan_speed": "0",
+    "big_fan1_speed": "0",
+    "big_fan2_speed": "0",
+    "observed_at_utc": "2026-10-22T23:22:48.287211+00:00",
+    "printer": "Mark1",
+    "ams": {
+      "tray_now": "255",
+      "tray_tar": "255",
+      "tray_exist_bits": "4"
+    },
+    "ams_units": [
+      {
+        "unit": "0",
+        "trays": [
+          {
+            "id": "0",
+            "tray_type": null,
+            "tray_color": null,
+            "tray_info_idx": null,
+            "remain": null,
+            "state": 26
+          },
+          {
+            "id": "1",
+            "tray_type": null,
+            "tray_color": null,
+            "tray_info_idx": null,
+            "remain": null,
+            "state": 26
+          },
+          {
+            "id": "2",
+            "tray_type": "PETG",
+            "tray_color": "00000000",
+            "tray_info_idx": "GFG01",
+            "remain": 39,
+            "state": 11
+          },
+          {
+            "id": "3",
+            "tray_type": null,
+            "tray_color": null,
+            "tray_info_idx": null,
+            "remain": null,
+            "state": 26
+          }
+        ]
+      }
+    ],
+    "extruders": [
+      {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65535,
+        "temp": 42,
+        "stat": 0,
+        "state": null
+      },
+      {
+        "id": 1,
+        "hnow": 1,
+        "snow": 65024,
+        "temp": 39,
+        "stat": 393216,
+        "state": null
+      }
+    ],
+    "nozzles": [
+      {
+        "id": 18,
+        "diameter": 0.4,
+        "type": "HS01"
+      },
+      {
+        "id": 1,
+        "diameter": 0.4,
+        "type": "HS01"
+      },
+      {
+        "id": 17,
+        "diameter": 0.2,
+        "type": "HS00"
+      },
+      {
+        "id": 20,
+        "diameter": 0.2,
+        "type": "HS00"
+      },
+      {
+        "id": 0,
+        "diameter": 0.8,
+        "type": "HS01"
+      }
+    ],
+    "active_state": 32770,
+    "timelapse": "disable"
+  },
+  "Mark2": {
+    "job_id": "1365546966",
+    "subtask_name": "2026-10-22-elbows-siraya-links-mark2-z000.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 29,
+    "total_layer_num": 184,
+    "mc_percent": 11,
+    "mc_remaining_time": 97,
+    "bed_temper": 35.0,
+    "bed_target_temper": 35.0,
+    "nozzle_temper": 215.0,
+    "nozzle_target_temper": 215.0,
+    "stg_cur": 0,
+    "filam_bak": null,
+    "cooling_fan_speed": "15",
+    "big_fan1_speed": "0",
+    "big_fan2_speed": "10",
+    "observed_at_utc": "2026-10-22T23:22:48.593698+00:00",
+    "printer": "Mark2",
+    "ams": {
+      "tray_now": "0",
+      "tray_tar": "0",
+      "tray_exist_bits": "0"
+    },
+    "ams_units": [],
+    "extruders": [
+      {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280,
+        "temp": 14090455,
+        "stat": 197376,
+        "state": null
+      },
+      {
+        "id": 1,
+        "hnow": 1,
+        "snow": 65024,
+        "temp": 31,
+        "stat": 196608,
+        "state": null
+      }
+    ],
+    "nozzles": [
+      {
+        "id": 17,
+        "diameter": 0.4,
+        "type": "HS01"
+      },
+      {
+        "id": 1,
+        "diameter": 0.4,
+        "type": "HS01"
+      },
+      {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      {
+        "id": 18,
+        "diameter": 0.2,
+        "type": "HS00"
+      },
+      {
+        "id": 20,
+        "diameter": 0.8,
+        "type": "HH01"
+      }
+    ],
+    "active_state": 2,
+    "timelapse": "disable"
+  },
+  "shared_circuit": {
+    "Mark2_job_id": "1365546966",
+    "Mark2_accepted_at_or_before_utc": "2026-10-22T23:01:33.029838+00:00",
+    "source": "future/pump-elbow-exploration/prints/2026-10-22-deposited-links-siraya85a-mark2/launch.json",
+    "required_start_spacing_seconds": 180,
+    "scope": "Mark2 is running its same job observed in PREPARE more than 20 minutes before this preflight.",
+    "minimum_start_spacing_seconds_at_final_preflight": 2142.858108
+  },
+  "start_slot": "A3",
+  "spool_order_basis": "Only AMS A3 is loaded with matching clear PETG, reported 39%; A1, A2 and A4 empty. Use it fully. Remaining quantity is not a launch gate.",
+  "founder_authorization": "Okay, good enough, start that print",
+  "final_pre_send_observed_at_utc": "2026-10-22T23:37:15.887946+00:00",
+  "send_dialog": {
+    "source": "cua_repl Bambu Studio Send print job screenshot",
+    "printer": "Mark1",
+    "right_tile": "A3 PETG R",
+    "mounted_right_nozzle": "0.8 mm Standard, from fresh nozzle/hnow status",
+    "Timelapse": "On",
+    "Auto Bed Leveling": "On",
+    "Flow Dynamics Calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto",
+    "Send_enabled": true,
+    "visible_job_title": "2026-10-22-reservoir-left-cap-flow105-overlap30-right08-z000-a3-mark1.gcode_Left body and cap",
+    "route": "Reviewed print-only archive opened from existing staging folder; no reslice."
+  },
+  "Mark2_final": {
+    "job_id": "1365546966",
+    "subtask_name": "2026-10-22-elbows-siraya-links-mark2-z000.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 52,
+    "total_layer_num": 184,
+    "mc_remaining_time": 83,
+    "nozzle_temper": 215.0,
+    "nozzle_target_temper": 215.0,
+    "bed_temper": 35.0,
+    "bed_target_temper": 35.0
+  },
+  "Mark1_final": {
+    "job_id": "1364550539",
+    "subtask_name": "2026-10-22-reservoir-left-cap-walls-t59-right08-z000-a1-mark1.gcode.3mf",
+    "gcode_state": "FINISH",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 833,
+    "total_layer_num": 833,
+    "mc_remaining_time": 0,
+    "nozzle_temper": 40.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 35.0,
+    "bed_target_temper": 0.0
+  }
+}

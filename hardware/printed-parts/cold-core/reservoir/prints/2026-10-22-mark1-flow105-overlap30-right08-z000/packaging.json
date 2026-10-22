@@ -1,0 +1,42 @@
+{
+  "source_archive": ".cache/reservoir-flow105-overlap30/walls-5/reservoir-left-cap-native.gcode.3mf",
+  "source_archive_sha256": "20c934ab69bc309e165e101359ffcaee85abf555724d1678804093a233895802",
+  "print_only_archive": ".cache/reservoir-flow105-overlap30/walls-5/2026-10-22-reservoir-left-cap-flow105-overlap30-right08-z000-a3-mark1.gcode.3mf",
+  "print_only_archive_sha256": "28e0cfb1263ce3de928cc753d2d3c3a9437e1497e9d315cd333ac86456da7e15",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "b5677135452366a0ceea169da14e2056e1c1acd03d2a320ac927984f79664de4"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model",
+    "3D/Objects/object_3.model",
+    "3D/Objects/object_4.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ],
+  "native_two_plate_archive": ".cache/reservoir-flow105-overlap30/walls-5/reservoir-review.3mf",
+  "native_two_plate_archive_sha256": "900d8b6e8a91835413ccd36fac8b1ab470401588fdd69fdca2592914d40a56cc",
+  "selected_parts": [
+    "reservoir-left",
+    "reservoir-cap-left"
+  ],
+  "source_plate": 1,
+  "submitted_plate": 1,
+  "omitted_other_plate_entries": [
+    "Metadata/pick_2.png",
+    "Metadata/plate_2.gcode",
+    "Metadata/plate_2.gcode.md5",
+    "Metadata/plate_2.json",
+    "Metadata/plate_2.png",
+    "Metadata/plate_2_small.png",
+    "Metadata/plate_no_light_2.png",
+    "Metadata/top_2.png"
+  ],
+  "native_gcode_byte_identical": true,
+  "project_settings_byte_identical": true
+}

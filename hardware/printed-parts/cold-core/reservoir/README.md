@@ -12,40 +12,48 @@ carries both mouths: the fill, and the dip tube the draw line becomes.
 [Level sensing](level-sensing.md) · [Floor and dip tube](floor-and-dip-tube.md) ·
 [Vent](vent.md)
 
-## Current print
+## Current print recipe
 
-Mark1 task **1364550539** completed the current left reservoir and matching cap with the
-**walls-only May Water recipe through the right 0.8 mm Standard nozzle** and
-**59° Arachne wall transitions** at floor junctions. It was accepted
-at **11:40:35 CDT on October 22, 2026**, starting on **A1** with automatic refill to A3.
-[Launch, adaptation and native review](prints/2026-10-22-mark1-walls-t59-right08-z000/README.md).
+[reservoir.3mf](reservoir.3mf) contains the current left and right
+body/cap pairs through **Mark1's right 0.8 mm Standard nozzle**. The recipe uses
+**1.05 flow, five requested Arachne wall loops, 30% Infill/Wall overlap and
+265/270 °C** first/subsequent nozzle temperatures. Mark1 task **1365626370** is
+printing the left pair from A3. [Launch and startup](prints/2026-10-22-mark1-flow105-overlap30-right08-z000/README.md).
+Water holding is unassessed.
+[Settings, wall-count comparison and installed presets](recipe-reviews/2026-10-22-flow105-overlap30/README.md).
 
-Use **[reservoir.3mf](reservoir.3mf)** for the current pairs: plate 1 is left,
-plate 2 is right. Bodies print mouth up; caps print exterior face down.
-Bambu PETG Translucent Clear uses **255/260 °C** first/subsequent nozzle,
-**70 °C** bed, **1.02 flow**, **21 mm³/s** ceiling, **0.30/0.24 mm** layers and
-**0.80 mm** lines. May's requested wall speeds are **200/300 mm/s** outer/inner,
-with **250/200 mm/s** solid/top speeds; actual motion is flow/acceleration limited.
-Ordinary cooling is **10–20%**, first three layers off, with 90% local overhang
-cooling and auxiliary off. Random conditional scarf seams retain the May 15% gap.
+The ordinary body walls and their thick curved corners contain only native
+wall paths. Five is the lowest tested requested count that achieves this on
+both bodies; counts two through four retain fill in the corner sections.
+Broad floor and cap faces use **100% solid zig-zag fill**, with May's three
+bottom and three top layers (0.8 mm minimum top thickness). Arachne uses its
+**10° default transition threshold**. The installed Bambu H2C 0.8 presets
+select **Classic**; Arachne is a recovered May recipe selection.
+
+Retain **0.30/0.24 mm** first/subsequent layers, **0.80 mm** nominal lines,
+**70 °C** bed and a **21 mm³/s** ceiling. May's requested wall speeds are
+**200/300 mm/s** outer/inner, with **250/200 mm/s** solid/top speeds; actual
+motion is flow/acceleration limited. Ordinary cooling is **10–20%**, first
+three layers off, with 90% local overhang cooling and auxiliary off. Random
+conditional scarf seams retain the May 15% gap. Automatic Tree/Default supports
+serve the current geometry.
 
 **No brim, zero added user Z trim and ironing Off** are explicit selections.
-Stock Textured PEI compensation emits **`G29.1 Z-0.02`**. The
-[flat-square finish result](ironing-study/prints/2026-10-06-mark2-squares-v1/physical-result.json)
-supplies the ironing-Off preference; it supplies no water-hold result.
-**999 requested walls** continue inward across each section; sparse, top and bottom fill are disabled. Arachne's **59° transition angle** adds center-wall paths at perimeter-convergence junctions. Current automatic Tree/Default supports serve the flat-floor geometry.
-
+Stock Textured PEI compensation emits **`G29.1 Z-0.02`**.
 [Complete settings](print-settings.json) · [Printing guide](watertight-petg.md) ·
 [Project verification](reservoir.print.json) · [Native slice review](slice-review.json).
-The left body/cap plate estimates **6 h 2 min and 433 g**, with a **70.5 mm**
-minimum full-bead bed-edge inset. The [native junction comparison](prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/seam-comparison.json) shows reduced nominal floor pockets. The [physical trial](prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/physical-result.json) **still leaks from the bottom** and has a new vertical-edge strand defect. The 59° setting has no demonstrated sealing benefit for this article.
+The left body/cap plate estimates **5 h 42 min and 444 g**, with a **70.5 mm**
+minimum full-bead bed-edge inset. These are native estimates and path checks,
+not physical sealing results.
 
-The preceding walls-only article has [reported seam leakage](prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json), a failed water hold.
-
-The preceding May-adapted article has [reported leakage between floor infill and walls](prints/2026-10-21-mark1-may-water-right08-z000/physical-result/physical-result.json). The earlier zero-trim article has
-[reported corner curl and leaks at many places](prints/2026-10-21-mark1-right08-z000/physical-result/physical-result.json).
+Mark1's most recent article, task **1364550539**, has [reported bottom leakage
+and a vertical-edge strand defect](prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/physical-result.json).
+Its exact 59° walls-only settings and launch belong to that print record.
+The preceding walls-only article has [reported seam leakage](prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json).
+The preceding May-adapted article has [reported leakage between floor fill and walls](prints/2026-10-21-mark1-may-water-right08-z000/physical-result/physical-result.json).
+The earlier zero-trim article has [reported corner curl and leaks at many places](prints/2026-10-21-mark1-right08-z000/physical-result/physical-result.json).
 The [historical review](corner-lifting/historical-recipe-review.json) identifies
-the successful May source and exact limits of the recovered sphere record.
+the successful May source and limits of the recovered sphere record.
 Historical May and September water holds remain scoped to their tested articles
 in [water-hold-acceptance.json](water-hold-acceptance.json).
 
@@ -72,5 +80,5 @@ Past settings, reported outcomes and source commits are in the
 Historical 3MFs are retained in Git.
 
 Reservoir leak results belong to the articles and process tested. The current
-59° walls-only left article fails its reported water hold; the matching right body is unassessed.
+five-wall recipe has no completed water-hold result.
 CAD clearance does not establish a print's sealing or finished float sliding.
