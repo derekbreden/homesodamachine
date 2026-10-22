@@ -1,0 +1,15 @@
+[sliver] These are the explicit 0.9 mm lip tips, 1.2 mm engagement faces and 1.5 mm wing ends of the anchor cap's snap interface (`_anchor_cap_interface`), which the tee cap shares with its half pipe sized to the tee anchor's journal; they are not remnants of intersecting solids. Release force and endurance on this article are unmeasured.
+alternatives: Thicker lip tips or wings change the catch/window engagement and the spring motion. Removing these faces removes the capture.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-tee-cap.step
+click: x=12.650 y=11.850 z=3.923
+click: x=-12.650 y=11.850 z=3.923
+click: x=10.700 y=9.322 z=3.923
+click: x=-10.700 y=9.322 z=3.923
+click: x=11.300 y=8.872 z=3.923
+click: x=-11.300 y=8.872 z=3.923
+
+[thin] Specific flexure: the cap's two spring wings are 1.5 mm thick from the round end of each wing gap to their tips, the anchor cap's wing. Everything else in the cap is the solid saddle round the bore, 2.75 mm, which keeps 2.5 mm past the bore's mouth ease.
+alternatives: A thicker wing strains more going on, past the faucet display cover's on the same beam estimate. Filling the gap stiffens the wing's root, which then takes the whole bend over a shorter length.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-tee-cap.step
+click: x=12.640 y=-2.895 z=0.975
+click: x=-12.640 y=-2.895 z=0.975

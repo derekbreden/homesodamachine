@@ -59,7 +59,6 @@ Print upright with the large socket on the bed and the small socket up.
 The internal reducer, external taper and bore-entry chamfers rise 60° above the bed;
 recessed tie shoulders expand at 0.5 mm per millimetre of build rise. No supports are needed inside the sealing bores.
 Print it in **Siraya Tech Flex TPU 85A Clear**, the stock the
-[pump dock's](/hardware/printed-parts/enclosure/pump-dock/README.md) wet parts and the
 [G Ganen elbows](/hardware/printed-parts/diaphragm-pump-sleeve/README.md) print in, dry, one
 part to a plate, with the recipe of the
 [accepted Siraya single](/future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/README.md):

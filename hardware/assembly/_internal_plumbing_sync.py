@@ -55,6 +55,8 @@ def main():
     # length a bench cuts is read off the run and not rounded beside it.
     _f = _facts.read()
     _runs = {r.id: r for r in _f.runs}
+    # Each pump tee's hairpin blank, by tee: the inner pair and the outer pair are mirrors.
+    _hairpin_cut = {tee: _ml.lower_link_length(cid) for cid, tee in _ml.LOWER_CONNECTIONS.items()}
 
     # The loops a tie is picked by on this path, off the hull `enclosure` states for its own ribs
     # and the seats the pack actually bored: each anchored BODY answers with its own.
@@ -98,8 +100,19 @@ def main():
         # The valve and purchased-tee census comes from the placed layout.
         "MANIFOLD_VALVES": f"{sum(1 for n in _ml.P if n.startswith('V-'))}",
         "MANIFOLD_TEES": f"{len(_ml.PURCHASED_TEES)}",
+        # The pump tees' collet stroke, and the fore valve set at the middle of it.
+        "DOCK_TEE_STROKE": f"{_ml._returns.TRAVEL:.3g} mm",
+        "DOCK_FORE_VALVE_SET": f"{_ml._returns.FORE_VALVE_SET:.3g} mm",
+        # Each upper tube and hairpin blank: its exposed path, a tube bottomed in the tee's
+        # extended run collet, and the valve's layout estimate.
+        "DOCK_TEE_INSERTION": f"{_ml._returns.RUN_INSERTION:.4g} mm",
+        "DOCK_VALVE_INSERTION": f"{_ml._returns.VALVE_INSERTION_NOMINAL:.4g} mm",
         "DOCK_FORE_LINK": f"{_ml.FORE_STUB_EXPOSED:.6g} mm",
         "DOCK_UPPER_TAIL": f"{_ml.FORE_STUB_EXPOSED + _ml._returns.RUN_INSERTION + _ml._returns.VALVE_INSERTION_NOMINAL:.6g} mm",
+        "DOCK_HAIRPIN_INNER": f"{_hairpin_cut['Y-C']:.4g} mm",
+        "DOCK_HAIRPIN_OUTER": f"{_hairpin_cut['Y-D']:.4g} mm",
+        # The prepared pump's tube, cut to its clamped length plus its reach to the seated tip.
+        "DOCK_PUMP_TUBE_CUT": f"{_ml.PUMP_TUBE_CUT:.3g} mm",
         "POGO_INSERT_HOST_DEPTH": f"{_enc._pogo.ear_back() + _enc.pogo_heatset_setback + _enc.pump_contact_face_recess:.4g} mm",
         "POGO_INSERT_SETBACK": f"{_enc.pogo_heatset_setback:.4g} mm",
         "DOCK_BODY_GAP": f"{_enc.bay_back_y(_f.box['collet_plate']) - _enc.pump_cartridge_aft_y(_f.box['pump_trays'], _f.box['collet_plate']):.4g} mm",

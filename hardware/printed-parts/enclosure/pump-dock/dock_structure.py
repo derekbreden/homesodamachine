@@ -5,9 +5,9 @@ ANCHOR: a rib rooted on front-top's seam plane behind the collet plate, its top 
 journal round the branch collar. A TEE CAP snaps down on top of the branch and closes the
 journal: the anchor cap's section (`_anchor_cap_interface`), its half pipe sized to the
 journal, two spring wings down the rib's flanks and a lip on each clicking into a window.
-The journal holds the tee in X and Z and lets it slide its 1.5 mm along Y. Inside the cap a
-stop meets the branch collar's shoulder just aft of `connected`, so pushing the cartridge in
-cannot drive the tee back past its service station. The plate is the fore stop.
+The journal holds the tee in X and Z and lets it slide along Y: the plate stops the collet at
+the fore end of its 1.5 mm stroke, and in service the bottomed pump tube holds the tee at
+`connected`.
 
 The collet plate itself is front-top's bulkhead (`enclosure._bulkhead`); this module cuts its
 tube holes and supplies the anchors, the caps and the magnet bosses that back the plate's
@@ -39,26 +39,14 @@ TEES = {'west-outer': 'Y-G', 'west-inner': 'Y-F', 'east-inner': 'Y-C', 'east-out
 # The half journal round the branch collar: the tee reference's printed journal, its sampled
 # collar envelope and one running clearance.
 JOURNAL_R = tee.COLLAR_ENVELOPE_D / 2.0 + fits.running
-RIB_R = JOURNAL_R + anchor.WALL
+# The bore's mouth ease runs out over a longer arc on this bore than on the anchor cap's, so the
+# rib's wall and the cap's saddle each stand a quarter thicker than the anchor cap's: the saddle
+# keeps its 2.5 mm past the ease, and the wing gap stays the anchor cap's.
+THICKER = 0.25
+RIB_R = JOURNAL_R + anchor.WALL + THICKER
 WING_IN = RIB_R + anchor.WING_AIR
 WING_OUT = WING_IN + anchor.WING
-SADDLE_R = JOURNAL_R + anchor.SADDLE
-# The branch collar's shoulder rises from the root to the collar. The cap's stop is a flat
-# annulus whose inner edge stands at SHOULDER_R, struck on the clearance reference's
-# conservative shoulder (`tee_connector.BRANCH_ENVELOPE_SHOULDER`): there the envelope reaches
-# that radius at SHOULDER_STATION from the run axis. The scanned PP0208E's shoulder is a cone
-# that reaches the same radius at 12.62 mm, so a real tee travels about a millimetre further
-# aft than STOP_AIR before its shoulder meets the stop.
-SHOULDER_R = 7.6
-SHOULDER_STATION = (tee.BRANCH_ENVELOPE_SHOULDER[0]
-                    + (SHOULDER_R - tee.ARM_R) / (tee.BARREL_R - tee.ARM_R)
-                    * (tee.BRANCH_ENVELOPE_SHOULDER[1] - tee.BRANCH_ENVELOPE_SHOULDER[0]))
-SCANNED_SHOULDER_STATION = 12.62
-# The tee's overtravel aft of connected before the reference shoulder meets the stop.
-STOP_AIR = 0.3
-# The anchor's and the cap's aft ends stand this far fore of the run arms' collars with the
-# tee at released, its most forward station.
-RUN_AIR = 0.5
+SADDLE_R = JOURNAL_R + anchor.SADDLE + THICKER
 # The cap's crown to the bulkhead overhead.
 CAP_TOP_AIR = 1.0
 HOLE_R = 4.25                          # the plate's tube hole: a face left under each collet
@@ -101,23 +89,14 @@ def frame(plate, x, z):
 
 
 def rib_length(plate):
-    """The anchor along the branch: from the release face to RUN_AIR fore of the lower run
-    collar with the tee at released."""
-    fore = plate['fore_y']
-    return (plumbing.tee_axis_y(fore, 'released') - tee.BARREL_R - RUN_AIR
-            - plumbing.plate_aft_y(fore))
+    """The anchor along the branch: from the release face to the bulkhead's aft face, the
+    plane the front rail channels open on, so the anchor ends flush with both."""
+    return plate['wall_aft_y'] - plumbing.plate_aft_y(plate['fore_y'])
 
 
 def window_length(plate):
     """Each catch window: from the plate to the anchor's aft end web."""
     return rib_length(plate) - anchor.END_WEB
-
-
-def stop_station(plate):
-    """The cap's stop face along the branch, measured from the release face."""
-    fore = plate['fore_y']
-    return (plumbing.tee_axis_y(fore) - SHOULDER_STATION + STOP_AIR
-            - plumbing.plate_aft_y(fore))
 
 
 def cap_crown_z(z):
@@ -185,18 +164,18 @@ def _cavity(f, side, s0, s1):
 
 def cap(plate, x, z):
     """One tee cap snapped home: shoulders on the anchor's lips at the branch axis, wings and
-    lips centred in their windows, the stop just aft of the collar's shoulder."""
+    lips centred in their windows. One section the whole length of the window, less a slip at
+    each end, the way the anchor cap is one section the length of its own."""
     f = frame(plate, x, z)
     air = anchor.END_AIR
     w0, w1 = air, window_length(plate) - air
-    s_stop, s_end = stop_station(plate), rib_length(plate)
-    body = _half_pipe(f, JOURNAL_R, w0, s_stop).fuse(_half_pipe(f, SHOULDER_R, s_stop, s_end))
+    body = _half_pipe(f, JOURNAL_R, w0, w1)
     for side in (1, -1):
         wing = [(side * WING_IN, 0.0), (side * WING_OUT, 0.0), (side * WING_OUT, anchor.WING_TOP),
                 (side * WING_IN, anchor.WING_TOP)]
         body = body.fuse(f.prism(wing, w0, w1)).fuse(f.prism(_lip(side), w0, w1))
     for side in (1, -1):
-        body = body.cut(_cavity(f, side, w0 - 1.0, w1))
+        body = body.cut(_cavity(f, side, w0 - 1.0, w1 + 1.0))
     return body.clean()
 
 

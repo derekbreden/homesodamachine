@@ -8,16 +8,16 @@ flowchart LR
   %% `manifold_layout.LIMBS` and holds exactly the bodies that limb chains;
   %% `_fluid_topology_sync.py` gates it against that table.
 
-  %% [4](LIMB_COUNT) limbs carry the [10](LIMB_VALVES) valves and [6](TEE_COUNT) junctions:
-  %% [2](PURCHASED_TEE_COUNT) purchased tees and [4](TPU_JUNCTION_COUNT) printed TPU junctions,
-  %% over [2](PUMP_COUNT) pumps.
+  %% [4](LIMB_COUNT) limbs carry the [10](LIMB_VALVES) valves and [6](TEE_COUNT) junctions,
+  %% all [6](PURCHASED_TEE_COUNT) purchased PP0208E tees and [4](PUMP_TEE_COUNT) of them on the
+  %% pump ports, over [2](PUMP_COUNT) pumps.
 
   %% A LIMB IS A LANE. Every valve is straight through and every junction's run takes two valve
-  %% ports, so a limb is a lane of valves and one junction. A permanent pump-side TPU
-  %% junction connects its inlet to a prepared pump stem, its upper outlet to a straight
-  %% link and its lower outlet to straight links and a fixed printed return.
+  %% ports, so a limb is a lane of valves and one junction. A pump tee takes a prepared pump's
+  %% tube in its branch, reaches its fore valve on a short upper tube and reaches its rear valve
+  %% on one R14 hairpin.
 
-  %% THE PACK OCCUPIES TWO FIXED DECKS connected by four printed returns with straight links.
+  %% THE PACK OCCUPIES TWO FIXED DECKS joined by the pump tees' four R14 hairpins.
   %% [8](UPPER_COUNT) bodies ride up onto the second deck — drawn with a dashed border — and
   %% [8](LOWER_COUNT) stay on the first.
 
@@ -59,7 +59,7 @@ flowchart LR
   end
 
   %% ---- Along a limb's own lane ----
-  %% Y-A/Y-B butt their valves. The four pump junctions use straight upper links. Blue.
+  %% Y-A/Y-B butt their valves. The four pump tees reach their fore valves on short upper tubes. Blue.
   YA --> VC
   YB --> VD
   VE --> YC
@@ -67,8 +67,8 @@ flowchart LR
   YD --> VF
   YG --> VI
 
-  %% ---- Fixed lower returns ----
-  %% Each connection has two straight LLDPE links and one printed TPU return. Orange.
+  %% ---- Lower returns ----
+  %% Each is one R14 LLDPE hairpin from a pump tee's lower port to its rear valve. Orange.
   VC --> YC
   YD --> VG
   VD --> YF
@@ -86,7 +86,7 @@ flowchart LR
   YA <--> YB
 
   %% ---- Styling ----
-  %% Y-A/Y-B are PP0208E tees. Y-C/Y-D/Y-F/Y-G are printed TPU junctions.
+  %% All six junctions are PP0208E tees; Y-C/Y-D/Y-F/Y-G stand on the pump ports.
   %% What each port reaches is fluid-topology.md "Junctions".
   classDef tee fill:#c2410c,stroke:#7c2d12,color:#ffffff,stroke-width:2px;
   class YA,YB,YC,YD,YF,YG tee;

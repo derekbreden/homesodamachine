@@ -1,8 +1,10 @@
 {
   "/hardware/printed-parts/enclosure/enclosure/enclosure.py": {
-    "DOCK_ANCHOR_LEN": "12.1 mm",
+    "DOCK_ANCHOR_LEN": "11.15 mm",
+    "DOCK_BARREL_AIR": "2.95 mm",
     "DOCK_BAY_FACE_Y": "Y82.515",
-    "DOCK_CAP_STRAIN": "1.10%",
+    "DOCK_CAP_LEN": "7.846 mm",
+    "DOCK_CAP_STRAIN": "1.08%",
     "DOCK_CARTRIDGE_BACK": "Y82.265",
     "DOCK_CAVITY": "0.65 mm",
     "DOCK_COLLAR_ENVELOPE": "\u00d816.5 mm",
@@ -32,15 +34,13 @@
     "DOCK_RELEASED_Y": "Y106.54",
     "DOCK_RELEASE_Y": "Y85.69",
     "DOCK_ROW_Z": "Z186.174",
-    "DOCK_SCANNED_STOP": "1.08 mm",
-    "DOCK_STOP_AIR": "0.3 mm",
     "DOCK_TIP_FROM_BACK": "14.925 mm",
     "DOCK_TIP_Y": "Y97.19",
     "DOCK_TRAVEL": "1.5 mm",
     "DOCK_UPPER_TUBE": "15.28 mm",
     "DOCK_WALL_AFT_Y": "Y96.836",
     "DOCK_WING": "1.5 mm",
-    "TEE_CAP_COUNT": "4",
-    "TEE_COUNT": "4"
+    "PUMP_TEE_COUNT": "4",
+    "TEE_CAP_COUNT": "4"
   }
 }

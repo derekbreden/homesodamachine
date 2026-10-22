@@ -474,17 +474,17 @@
       ],
       "passed": true
     },
-    "tube-fluid-28": {
+    "tube-fluid-18": {
       "centerline_radii_mm": [
-        25.0,
-        25.4
+        25.0
       ],
       "stock_minimum_mm": 25.0,
       "passed": true
     },
-    "tube-fluid-18": {
+    "tube-fluid-28": {
       "centerline_radii_mm": [
-        25.0
+        25.0,
+        25.4
       ],
       "stock_minimum_mm": 25.0,
       "passed": true
@@ -493,7 +493,7 @@
   "source_sha256": {
     "hardware/scripts/check_asse_drain.py": "91f5b3bab308ee253339de62919f18cc32d70098476a52bfa61e89cb5d97c418",
     "hardware/manifold-layout/_drain.py": "d4f6db44b344125cf6f9b1bc6be341002dae887d78966ada3029e1e452b94c2a",
-    "hardware/manifold-layout/enclosure_assembly.py": "c4b422984f8145a1341878dfbe17f9cc41db54600255803c1a446a147e52c011",
+    "hardware/manifold-layout/enclosure_assembly.py": "9d14471f12f0065c8eb4b751c0ed73ff98e9c89161d6861503ec23241ad2ca53",
     "hardware/manifold-layout/_lines.py": "1af4c0625cfc6fc2529dba10ddd6e63318395d0139c414f2c85dd08dc25b8dbc",
     "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "f53b68d07c045338361615eb032e5c97c90a8a03d8ea3d30444efb300444303f",
     "hardware/reference/asse1022-assembly/asse1022_assembly.py": "4481085380d131f5d85696f5c366058382b07577c6881a274495e5d67ec2b3eb",

@@ -1442,7 +1442,7 @@ the complete flavour pack's common station.
 carries two straight [33.2 mm](DOCK_PUMP_TUBE) tubes of 1/4" LLDPE in its tube ends, clamped by
 the pump head's own housing, which carries their axial loads into the rigid head. The tubes
 pass the cradle's open tube passages and the bay bulkhead's collet plate into
-[4](TEE_COUNT) John Guest PP0208E tees, one on each pump port, each branch on its tube's axis
+[4](PUMP_TEE_COUNT) John Guest PP0208E tees, one on each pump port, each branch on its tube's axis
 and each run upright. The customer's pump change does not cut, trim or transfer a tube.
 
 The collet plate's aft face at [Y85.69](DOCK_RELEASE_Y) is the release face. Seated, each tube
@@ -1452,7 +1452,7 @@ extended with its nose on the release face. The collet grips the tube against pr
 straight pull drags each tee forward its [1.5 mm](DOCK_TRAVEL) collet stroke until the plate
 holds the collet pressed and the tube draws out; pushing the cartridge home returns each tee
 to connected. Each tee's branch lies in a tee anchor on front-top's seam plane, a half journal
-that holds it in X and Z and lets it slide that stroke, and a printed tee cap snaps down on
+that holds it in X and Z and lets it slide along Y, and a printed tee cap snaps down on
 top of the branch and closes the journal. The fore valves stand fixed over the tees, so the
 short upper tube bends half the stroke each way; one R14 hairpin of LLDPE joins each tee's
 lower port to its rear valve. The tees, caps, valves and tubing stay in the machine. All
@@ -1551,7 +1551,7 @@ cartridge-facing plane is Y [82.515 mm](BAY_BACK_Y); its full backing depth is
 plane.
 
 Across the tee row the bulkhead is the [3.175 mm](DOCK_PLATE_T) collet plate, from the seam
-to [Z200.324](DOCK_PLATE_TOP_Z), with four [Ø8.5 mm](DOCK_HOLE_D) teardropped tube holes.
+to [Z200.574](DOCK_PLATE_TOP_Z), with four [Ø8.5 mm](DOCK_HOLE_D) teardropped tube holes.
 Behind it on the seam plane stand the four tee anchors and the two magnet bosses. Over the
 tee caps the bulkhead grows back on a 45° underside to its full depth at
 [Y96.836](DOCK_WALL_AFT_Y), which continues into the ridge/contact wall above; outboard of

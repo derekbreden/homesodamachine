@@ -6086,7 +6086,7 @@ def pump_dock_figures(box):
     condenser_top = box.pack.cond_airway[3] if box.pack.cond_airway else None
     columns = _retention.column_stations(plate["holes"])
     return {
-        "TEE_COUNT": str(len(plate["holes"])),
+        "PUMP_TEE_COUNT": str(len(plate["holes"])),
         "TEE_CAP_COUNT": str(len(plate["holes"])),
         "DOCK_ROW_Z": f"Z{row:.6g}",
         "DOCK_BAY_FACE_Y": f"Y{fore:.6g}",
@@ -6103,13 +6103,16 @@ def pump_dock_figures(box):
         "DOCK_COLLAR_ENVELOPE": f"Ø{_dock.tee.COLLAR_ENVELOPE_D:.4g} mm",
         "DOCK_JOURNAL_AIR": f"{_dock.JOURNAL_R - _dock.tee.COLLAR_ENVELOPE_D / 2.0:.4g} mm",
         "DOCK_ANCHOR_LEN": f"{_dock.rib_length(plate):.4g} mm",
+        "DOCK_CAP_LEN": f"{_dock.window_length(plate) - 2.0 * _dock.anchor.END_AIR:.4g} mm",
+        "DOCK_BARREL_AIR": (f"{plumbing.tee_axis_y(fore) - _dock.tee.BARREL_R - plate['wall_aft_y']:.3g}"
+                            " mm"),
         "DOCK_WING": f"{_dock.anchor.WING:.4g} mm",
         "DOCK_ENGAGE": f"{_dock.anchor.ENGAGE:.4g} mm",
         "DOCK_LEAD_IN": f"{_dock.anchor.LEAD_IN:.4g}°",
         "DOCK_CAP_STRAIN": f"{100 * _dock.wing_strain():.2f}%",
         "DOCK_CAVITY": f"{_dock.WING_IN - _dock.SADDLE_R:.4g} mm",
-        "DOCK_STOP_AIR": f"{_dock.STOP_AIR:.4g} mm",
-        "DOCK_SCANNED_STOP": (f"{_dock.SCANNED_SHOULDER_STATION - _dock.SHOULDER_STATION + _dock.STOP_AIR:.3g} mm"),
+        "DOCK_SADDLE": f"{_dock.SADDLE_R - _dock.JOURNAL_R:.4g} mm",
+        "DOCK_ANCHOR_WALL": f"{_dock.RIB_R - _dock.JOURNAL_R:.4g} mm",
         "DOCK_FORE_VALVE_Z": f"Z{upper[2]:.6g}",
         "DOCK_FORE_VALVE_Y": f"Y{upper[1]:.6g}",
         "DOCK_FORE_VALVE_SET": f"{plumbing.FORE_VALVE_SET:.3g} mm",
@@ -6202,6 +6205,19 @@ def pump_contact_lead_axis_z(box):
     return box.pump_bay[2] - pogo_lead_skin - apex
 
 
+def _lead_bore_end(box):
+    """Where the lead bore stops: a wall and a millimetre past the bay bulkhead's aft face, or a
+    millimetre past the far face of the valve tray standing on that face, whichever is aft."""
+    wall_back = box.pack.collet_plate["wall_aft_y"]
+    end = wall_back + wall + 1.0
+    for plane, sign, _seats in box.pack.valve_trays:
+        face = plane - sign * _valve_tray.SEAT
+        near, far = sorted((face, face - sign * _valve_tray.THICK))
+        if near <= wall_back + 1.0 and far >= wall_back:
+            end = max(end, far + 1.0)
+    return end
+
+
 def _lead_bore_floor(box):
     """The crown of the valve tray standing on the bay bulkhead's aft face, or None: the lead
     bore runs out through that face above it and ends on the face below it."""
@@ -6241,10 +6257,9 @@ def _pump_contact_fixed_cuts(box):
     datum, and its rear opening crosses the bulkhead's aft face and the central tray top with
     the same supported roof profile.
     """
-    plate = box.pack.collet_plate
     x, z = pump_contact_station(box)
     face, up = pump_contact_faces(box)[0], PIECE_PRINT_UP["front-top"]
-    axis, wall_back = pump_contact_lead_axis_z(box), plate["wall_aft_y"]
+    axis = pump_contact_lead_axis_z(box)
     reach = max(math.hypot(cx, z - axis) for cx in _pogo.contact_xs())
     need = reach + _pogo.TAIL_D / 2.0 + pogo_joint + pogo_lead_air
     if need > pogo_lead_r:
@@ -6253,7 +6268,7 @@ def _pump_contact_fixed_cuts(box):
             f"contact's joint at {reach:.3f} mm and needs {need:.3f}: it no longer takes the tails")
     seat, bores = _pogo_seat(face, 1.0, x, z, up)
     lead = _teardrop_y(pogo_lead_r, x, axis, face + _pogo.ear_back() - .01,
-                       wall_back + wall + 1.0, up=up)
+                       _lead_bore_end(box), up=up)
     return [seat, *bores, lead]
 
 
@@ -8275,7 +8290,7 @@ def _valve_trays(solid, inner, stations, y0, y1, z0, z1,
             solid = solid.cut(clearance)
             for socket in _valve_socket_cutters(plane, sign, sx, sz):
                 solid = solid.cut(socket)
-            chan = 2.0 * (half + abs(sz - mid_z))
+            chan = 2.0 * max(half + abs(sz - mid_z), top - sz)
             chan += 2.0 * wedge_depth
             solid = solid.cut(_valve_tray.build_port_channel(chan + 2.0)
                               .val().moved(turn).moved(at))

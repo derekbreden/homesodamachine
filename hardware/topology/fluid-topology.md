@@ -23,36 +23,37 @@ All valves are normally closed solenoid valves. Flow direction is inlet (I) to o
 
 ## The pack
 
-[4](LIMB_COUNT) limbs connect the [10](LIMB_VALVES) valves, [6](TEE_COUNT) three-port junctions and [2](PUMP_COUNT) pumps. The junctions comprise [2](PURCHASED_TEE_COUNT) purchased tees and [4](TPU_JUNCTION_COUNT) permanent printed TPU junctions.
+[4](LIMB_COUNT) limbs connect the [10](LIMB_VALVES) valves, [6](TEE_COUNT) three-port junctions and [2](PUMP_COUNT) pumps. All [6](PURCHASED_TEE_COUNT) junctions are purchased PP0208E tees, [4](PUMP_TEE_COUNT) of them on the pump ports.
 
-**A limb is a lane.** Each pump has an inner and outer valve lane. Channel A stands east of the mirror plane and channel B west. The two source tees meet their neighbouring valves face to face. At the pump wall, each permanent TPU junction receives a prepared pump's LLDPE stub, connects upward to its fore valve through a straight LLDPE link and sends its lower arm aft at 45°. A fixed printed return connects that arm to the aft valve through two straight links.
+**A limb is a lane.** Each pump has an inner and outer valve lane. Channel A stands east of the mirror plane and channel B west. The two source tees meet their neighbouring valves face to face. Behind front-top's collet plate, each pump tee takes a prepared pump's LLDPE tube in its branch, reaches its fore valve on a short upper tube and reaches its rear valve on one R14 hairpin from its lower port.
 
-**The pack occupies two fixed decks.** The topology assigns [8](UPPER_COUNT) logical nodes to the upper deck and [8](LOWER_COUNT) to the lower one. Four shallow R28 LLDPE runs reach purchased PP0308E elbows directly beneath the rear valves; the elbows supply the final 90-degree turns. The source pair's formed R14 paths on segments 3 and 5 have their separate retained scope.
+**The pack occupies two fixed decks.** The topology assigns [8](UPPER_COUNT) logical nodes to the upper deck and [8](LOWER_COUNT) to the lower one. The four hairpins cross between them, each from a pump tee's lower port aft and up into its rear valve's bottom collet. The source pair's formed R14 paths on segments 3 and 5 have their separate retained scope.
 
 Per-limb grouping is in [fluid-topology-limbs.mmd](/hardware/topology/fluid-topology-limbs.mmd); where each body stands and how it is turned is [`manifold-layout/README.md`](/hardware/manifold-layout/README.md).
 
 ## Junctions
 
-The six three-port junction identifiers are **Y-A, Y-B, Y-C, Y-D, Y-F and Y-G**. Y-A and Y-B are purchased PP0208E tees. Y-C, Y-D, Y-F and Y-G are permanent printed TPU junctions with an orthogonal pump inlet/upper outlet and a lower arm angled 45° aft. The `Y-` identifiers and numbered hydraulic ports remain the topology's names.
+The six three-port junction identifiers are **Y-A, Y-B, Y-C, Y-D, Y-F and Y-G**, all purchased John Guest PP0208E tees. Y-A and Y-B stand on the inner limbs. Y-C, Y-D, Y-F and Y-G stand on the pump ports, each branch on its pump tube's axis and each run upright. The `Y-` identifiers and numbered hydraulic ports are the topology's names.
 
-**Neither reservoir has a junction.** Each carries **two mouths of its own**, both bores in its own cap — the fill, ending above the liquid, and the draw, whose line goes on down to the floor as the reservoir's dip tube — so each pair's two valves reach one directly and nothing stands between them. Every junction here therefore joins two VALVES, or connects the valves to a pump through its permanent receiver.
+**Neither reservoir has a junction.** Each carries **two mouths of its own**, both bores in its own cap — the fill, ending above the liquid, and the draw, whose line goes on down to the floor as the reservoir's dip tube — so each pair's two valves reach one directly and nothing stands between them. Every junction here therefore joins two VALVES, or connects two valves to a pump port.
 
-Y-A and Y-B inherit location from their fixed face-to-face valve joints. The closed PET-GF wall locates Y-C, Y-D, Y-F and Y-G in X/Z; a flat interior keeper captures each junction in Y. Their returns and the return block they snap into remain stationary during a pump change.
+Y-A and Y-B inherit location from their fixed face-to-face valve joints. Each pump tee's branch lies in a tee anchor's journal under a snapped-on tee cap, which holds it in X and Z and lets it slide along Y; the collet plate stops it fore at the end of its collet stroke. Its upper tube and hairpin flex with that travel, and the tee, cap and both tubes stay in the machine during a pump change.
 
 **Y-A and Y-B are the SELECTS-SOURCE junction.** Each stands on its own inner limb's axis, one valve forward of the select it feeds, so its RUN is the limb — the source valve one side, the select the other. The two branches face each other across the mirror plane and meet on segment 6, which is what puts all four ports on one hydraulic node. Every mode opens exactly one of {V-A, V-B} and exactly one of {V-C, V-D}, so the traffic the pair carries is always one source to one select — straight down a limb, or down half a limb, across the bar and down the other half.
 
-**Y-C, Y-D, Y-F and Y-G are the pump-side junctions.** The prepared pump's
-LLDPE stub enters the TPU funnel and its 6 mm front sealing land. That slip
-joint separates when the pump cartridge is withdrawn. The upper port has a
-straight [14.501 mm](UPPER_LINK_EXPOSED) exposed link to its fore valve. The lower
-port has a straight link to a fixed TPU return and a second straight link from
-the return to its aft valve. The fixed socket stops of the junction and the return,
-seated in the return block, capture the first link; the purchased valve's collet anchors
-the second. Factory cuts and assembly
-follow the [dock procedure](/hardware/printed-parts/enclosure/pump-dock/README.md).
+**Y-C, Y-D, Y-F and Y-G are the pump tees.** The prepared pump's LLDPE tube
+passes front-top's collet plate into the branch and bottoms at the tee's stop,
+and the branch collet grips it against pressure. Pulling the cartridge drags the
+tube, the collet and the tee forward until the plate holds the collet in, and the
+tube draws out; pushing the cartridge in returns the tee. The upper port reaches
+its fore valve on a short tube with [15.2756 mm](UPPER_LINK_EXPOSED) exposed. The
+fore valve stands over the middle of the tee's travel, so that tube stands off
+straight one way in service and the other way at release. The lower port reaches
+its rear valve on one R14 hairpin, which flexes with the tee. Factory cuts and assembly
+follow [internal plumbing §3](/hardware/assembly/internal-plumbing.md#3-flavor-manifold-v-a-through-v-j--y-a-y-b-y-c-y-d-y-f-y-g--pumps).
 Y-C and Y-F take suction; Y-D and Y-G discharge.
 
-Y-A's and Y-B's run ports are numbered from the source end down the limb. The pump-side junction port numbers are given below; Y-C-3 and Y-F-3 reach the two suctions, and Y-D-1 and Y-G-1 reach the two discharges.
+Y-A's and Y-B's run ports are numbered from the source end down the limb. The pump tees' port numbers are given below; Y-C-3 and Y-F-3 reach the two suctions, and Y-D-1 and Y-G-1 reach the two discharges.
 
 | Junction | Port 1 | Port 2 | Port 3 |
 |---|---|---|---|
@@ -68,18 +69,17 @@ Y-A's and Y-B's run ports are numbered from the source end down the limb. The pu
 Each segment is one labelled edge in [fluid-topology-manifold.mmd](/hardware/topology/fluid-topology-manifold.mmd).
 [`_scorecard.py`](/hardware/manifold-layout/_scorecard.py) reads these tables as the flavor
 connection inventory. A segment is a face-to-face `butt`, a known `straight`, a
-`elbow-and-tube` with an upright valve elbow, short valve link and bent run, a `pump-dock` connection, a `turn` out of
-a deck plane, or a swept `drawn` run.
-Of [26](SEGMENT_COUNT) manifold segments, [3](BUTT_COUNT) carry no exposed tube and
-[4](UPPER_LINK_COUNT) straight upper links have [14.501 mm](UPPER_LINK_EXPOSED)
-exposed spans. The four printed lower returns use [8](LOWER_LINK_COUNT) straight
-links. Reported LLDPE paths total [3172.1 mm](FLUID_TOTAL); exposed lengths need
-their actual fitting insertions when making finished blanks. A butt joint still
-needs tube through both fittings despite its zero exposed length. The factory
-sets captive link lengths from the mounted stop spans and fully seats valve-side
-links in the actual purchased collets.
-Machined pump stems and the continuous TPU fluid passages are separate components,
-not tube-stock cuts. A bare run of
+`hairpin` bent at the stock's radius from a pump tee to its rear valve, a `pump-dock`
+connection, a `turn` out of a deck plane, or a swept `drawn` run.
+Of [26](SEGMENT_COUNT) manifold segments, [3](BUTT_COUNT) carry no exposed tube,
+[4](UPPER_LINK_COUNT) short upper tubes have [15.2756 mm](UPPER_LINK_EXPOSED) exposed
+and [4](LOWER_HAIRPIN_COUNT) hairpins are reported as cut stock, both insertions
+included. Reported LLDPE paths total [3192.7 mm](FLUID_TOTAL); the other exposed
+lengths need their actual fitting insertions when making finished blanks. A butt
+joint still needs tube through both fittings despite its zero exposed length. The
+factory marks each actual fully seated insertion in the purchased collets before
+cutting.
+The pump tubes come fitted in the prepared pumps and are not counted here. A bare run of
 [`_fluid_topology_sync.py`](/hardware/topology/_fluid_topology_sync.py) prints every
 construction, known stock length and exposed path.
 
@@ -102,28 +102,28 @@ Four of the seven conduits in the cold core's top cap are this circuit's: a fill
 
 | # | From | To | Notes |
 |---|---|---|---|
-| 9 | V-C-O | Y-C-1 | Two straight LLDPE links and a fixed compound TPU return |
-| 10 | V-E-O | Y-C-2 | Straight upper LLDPE link; add actual valve and TPU socket insertion |
-| 11 | Y-C-3 | P-A-I | Permanent TPU junction → prepared pump A suction stem; this slip joint separates for service |
-| 12 | P-A-O | Y-D-1 | Prepared pump A discharge stem → permanent TPU junction; this slip joint separates for service |
-| 13 | Y-D-2 | V-F-I | Straight upper LLDPE link; add actual TPU socket and valve insertion |
+| 9 | V-C-O | Y-C-1 | One R14 LLDPE hairpin from Y-C's lower port aft and up into V-C's bottom collet; flexes with the tee |
+| 10 | V-E-O | Y-C-2 | Short upper LLDPE tube from V-E's bottom collet into Y-C's upper port; add actual valve and tee insertion |
+| 11 | Y-C-3 | P-A-I | Prepared pump A suction tube in Y-C's branch collet, through the collet plate; pulling the cartridge releases it |
+| 12 | P-A-O | Y-D-1 | Prepared pump A discharge tube through the collet plate into Y-D's branch collet; pulling the cartridge releases it |
+| 13 | Y-D-2 | V-F-I | Short upper LLDPE tube from Y-D's upper port into V-F's bottom collet; add actual tee and valve insertion |
 | 14 | V-F-O | Reservoir A fill bore | Aft and down the `reservoir-a-fill` cap conduit, onto the bore in the reservoir's own cap, above the liquid |
 | 16 | Reservoir A draw | V-E-I | The dip tube up off A's floor and out its `reservoir-a` cap conduit, forward across the deck between V-A and V-K |
-| 17 | Y-D-3 | V-G-I | Fixed compound TPU return and two straight LLDPE links |
+| 17 | Y-D-3 | V-G-I | One R14 LLDPE hairpin from Y-D's lower port aft and up into V-G's bottom collet, leaning inboard; flexes with the tee |
 | 18 | V-G-O | bulkhead-flavor-a tube-in | Aft over the pack and across the machine to the +Y wall of back-top |
 
 ### Channel B
 
 | # | From | To | Notes |
 |---|---|---|---|
-| 19 | V-D-O | Y-F-1 | Two straight LLDPE links and a fixed compound TPU return |
-| 20 | V-H-O | Y-F-2 | Straight upper LLDPE link; add actual valve and TPU socket insertion |
-| 21 | Y-F-3 | P-B-I | Permanent TPU junction → prepared pump B suction stem; this slip joint separates for service |
-| 22 | P-B-O | Y-G-1 | Prepared pump B discharge stem → permanent TPU junction; this slip joint separates for service |
-| 23 | Y-G-3 | V-I-I | Straight upper LLDPE link; add actual TPU socket and valve insertion |
+| 19 | V-D-O | Y-F-1 | One R14 LLDPE hairpin from Y-F's lower port aft and up into V-D's bottom collet; flexes with the tee |
+| 20 | V-H-O | Y-F-2 | Short upper LLDPE tube from V-H's bottom collet into Y-F's upper port; add actual valve and tee insertion |
+| 21 | Y-F-3 | P-B-I | Prepared pump B suction tube in Y-F's branch collet, through the collet plate; pulling the cartridge releases it |
+| 22 | P-B-O | Y-G-1 | Prepared pump B discharge tube through the collet plate into Y-G's branch collet; pulling the cartridge releases it |
+| 23 | Y-G-3 | V-I-I | Short upper LLDPE tube from Y-G's upper port into V-I's bottom collet; add actual tee and valve insertion |
 | 24 | V-I-O | Reservoir B fill bore | Aft and down the `reservoir-b-fill` cap conduit, onto the bore in the reservoir's own cap, above the liquid |
 | 26 | Reservoir B draw | V-H-I | The dip tube up off B's floor and out its `reservoir-b` cap conduit, forward west of the funnel drain's elbow |
-| 27 | Y-G-2 | V-J-I | Fixed compound TPU return and two straight LLDPE links |
+| 27 | Y-G-2 | V-J-I | One R14 LLDPE hairpin from Y-G's lower port aft and up into V-J's bottom collet, leaning inboard; flexes with the tee |
 | 28 | V-J-O | bulkhead-flavor-b tube-in | Aft to the +Y wall of back-top |
 
 ---
