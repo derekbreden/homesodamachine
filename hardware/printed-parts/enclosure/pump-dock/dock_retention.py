@@ -1,15 +1,16 @@
 """Printed-in SB443-IN columns for the pump cartridge's magnetic seat.
 
-Each pump's load line carries one column of four attracting pairs, centred
-between that pump's two fluid ports. In each mating part the column is one
-vertical slot, open at the mating face, whose side walls carry a printed rail
-in each of the blocks' two side grooves. The blocks drop down the rails at one
-print pause, bare pole faces toward the mate, and the first layer after the
-pause closes over them. Pulled toward its mate, each block bears on its rails
-with its pole half the frame gap proud of its face, so the poles of a seated
-pair meet in the middle of the gap and the meeting poles seat the cartridge.
-The slots are cut into solid walls: front-top's receiver wall and the
-cartridge's aft wall between each pump's two tube passages.
+Each pump's load line carries one column of two attracting pairs, centred
+between that pump's two fluid ports: four pairs in all. In each mating part
+the column is one vertical slot, open at the mating face, whose side walls
+carry a printed rail in each of the blocks' two side grooves. The blocks drop
+down the rails at one print pause, bare pole faces toward the mate, and the
+first layer after the pause closes over them. Pulled toward its mate, each
+block bears on its rails with its pole half the frame gap proud of its face,
+so the poles of a seated pair meet in the middle of the gap and the meeting
+poles seat the cartridge. The slots are cut into solid walls: front-top's
+collet plate and the boss behind it, and the cartridge's aft wall between each
+pump's two tube passages.
 No magnetic force or printed strength is inferred from this geometry.
 """
 
@@ -31,7 +32,7 @@ GROOVE_TOLERANCE = 0.010 * 25.4
 GROOVED_WIDTH = 0.188 * 25.4
 MAX_SERVICE_C = 80.0
 
-ROWS_PER_COLUMN = 4
+ROWS_PER_COLUMN = 2
 COLUMNS_PER_HALF = 2
 MAGNETS_PER_HALF = ROWS_PER_COLUMN * COLUMNS_PER_HALF
 
@@ -48,7 +49,7 @@ RAIL_TIP_AIR = 0.09
 RAIL_TIP_HALF = GROOVED_WIDTH / 2.0 + RAIL_TIP_AIR
 # Air behind the thickest block pushed in onto its rails.
 FLOOR_AIR = 0.15
-# Air over a stack of four drawing-maximum blocks, under the first closing layer.
+# Air over a column of drawing-maximum blocks, under the first closing layer.
 STACK_AIR = 0.15
 
 
@@ -88,8 +89,8 @@ def stations(holes):
 
 
 def column_limits(z):
-    """The slot's floor and roof in Z: four nominal blocks stand on the floor, and the
-    first layer over the slot clears four drawing-maximum blocks by STACK_AIR."""
+    """The slot's floor and roof in Z: the column's nominal blocks stand on the floor, and
+    the first layer over the slot clears as many drawing-maximum blocks by STACK_AIR."""
     bottom = z - ROWS_PER_COLUMN * BAR / 2.0
     return bottom, bottom + ROWS_PER_COLUMN * (BAR + GENERAL_TOLERANCE) + STACK_AIR
 
@@ -226,7 +227,7 @@ def dimensions(i):
             "first_layer_over_slot_z_mm": [z + top for _x, z in columns],
             "drawing_maximum_stack_air_mm": STACK_AIR,
             "nominal_stack_air_mm": top - bottom - ROWS_PER_COLUMN * BAR,
-            "assembly": "Four blocks per slot dropped down the rails at one print pause per "
+            "assembly": "Two blocks per slot dropped down the rails at one print pause per "
                         "part, alternating poles; the next layer closes over them",
             "magnet_pull_force_established": False,
             "customer_adjustment": False}
