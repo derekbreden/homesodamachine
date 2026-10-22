@@ -1,5 +1,12 @@
 """Per-face clearances for rigid printed mating parts.
 
+AN ALLOWANCE IS SURFACE, NOT AIR. A printed face stands proud of its CAD face: press two
+printed 1 mm parts together and they measure 2.15 mm. So 0.15 mm between two nominal faces is
+a friction fit, hard to slide; sliding needs 0.25 and is still tight; an overhang's underside
+sags into bumps and takes 0.25 more. Each allowance describes the surface of the face it is
+on and stays on that face. It is not free space a stack can spend elsewhere, and a body
+resting on a face rests on its rough surface, about where it is drawn.
+
 Head-on assembly seats use `slip`; faces that slide past their mates use `running`.
 
 Rough or oozed printed material occupies space beyond the nominal face. The modeled gap
@@ -24,16 +31,17 @@ Compliant gaskets and seals use their specified installed squeeze in the compres
 direction rather than a rigid-fit clearance through their thickness.
 """
 
-#: Assembly clearance at a printed seat.
+#: What two printed faces pressed together add to their nominal stack: a seat, a friction fit.
 slip = 0.15
 
 #: Additional clearance on each face that slides past its mate.
 sliding_extra = 0.10
 
-#: Clearance on each face of a moving service fit.
+#: A face that slides past its mate: still a tight slide.
 running = slip + sliding_extra
 
-#: Extra room per supported-overhang mating face, assigned once to either part of its gap.
+#: The sag and bumps of a supported overhang's underside, per supported mating face, assigned
+#: once to either part of its gap.
 supported_surface = 0.25
 
 #: Additional clearance across the floor of a printed cavity a part slides to: the layers where
