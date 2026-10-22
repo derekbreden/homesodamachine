@@ -1,0 +1,25 @@
+{
+  "recorded_on_central": "2026-10-22",
+  "baseline": "baseline-settings.json",
+  "baseline_print": "../2026-10-21-mark1-walls-only-right08-z000-a4/README.md",
+  "setting_changes": {
+    "wall_transition_angle": {
+      "from": "10",
+      "to": "59"
+    }
+  },
+  "retained": "999 requested walls; zero sparse/top/bottom fill; flow 1.02; 255/260 C; 21 mm3/s; 70 C bed; 0.30/0.24 mm layers; nominal 0.8 mm lines; Arachne; inner then outer; random conditional scarf with 15% seam gap; May cooling and speeds; right 0.8 mm Standard; zero added user Z trim; stock Textured PEI -0.02 mm; no brim or ironing; unchanged geometry, placement and Tree(auto)/Default bed-only supports.",
+  "reason": "Derek reports seam leakage on the walls-only article. Native comparisons show 59 degrees adds center-wall paths at the floor perimeter-convergence junctions and reduces nominal layer-12 XY pockets by about 72%. Residual modeled pockets remain; the new printed article supplies the sealing result.",
+  "comparison": "../2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/seam-comparison.json",
+  "start_slot": "A1",
+  "preferred_consumption_order": [
+    "A1",
+    "A3"
+  ],
+  "order_basis": "Fresh telemetry: A1 6%, A3 100%; A2 and A4 empty. Use each matching spool fully, with automatic refill.",
+  "founder_quotes": [
+    "Leaks along the seam",
+    "Proceed with a print you think will work. Bed is clear.",
+    "Do you understand what I meant about the spool order? That we want to use up the spools that are most empty first ..."
+  ]
+}

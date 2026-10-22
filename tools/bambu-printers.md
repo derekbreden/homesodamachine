@@ -92,17 +92,17 @@ Use up the **most depleted suitable spool first**, then progress toward fuller
 spools. Remaining quantity is not a launch condition; no weighing is required.
 
 Mark1's AMS 2 Pro A carries Bambu PETG Translucent Clear (`GFG01`, transparent
-`00000000`) in **A4, A1 and A3**; A2 is empty. It feeds the right **0.8 mm
-Standard-flow** hotend. The walls-only reservoir print starts on **A4**, as Derek
-specified. A1 reports **57%** remaining, A3 **100%**, and A4 **unknown** at preflight.
-The preferred consumption order is **A4 → A1 → A3**. Use each spool fully.
+`00000000`) in **A1 and A3**; A2 and A4 are empty. It feeds the right **0.8 mm
+Standard-flow** hotend. The 59° walls-only reservoir print starts on **A1**.
+A1 reports **6%** remaining and A3 **100%** at preflight.
+The preferred consumption order is **A1 → A3**. Use each spool fully.
 
 AMS unit `0` addresses A1–A4 as trays `0`–`3`. Automatic refill is enabled for
-matching available clear PETG spools. Connect selects the starting slot but
-provides no verified backup-priority editor; automatic A1-before-A3 selection
-is unverified. Apply the preferred order when selecting a replacement or a
-later starting spool. The [walls-only launch record](../hardware/printed-parts/cold-core/reservoir/prints/2026-10-21-mark1-walls-only-right08-z000-a4/README.md)
-records the selected start and limits.
+matching available clear PETG spools, visibly checked in Mark1's AMS Settings
+for this launch. A3 is the only other loaded matching spool. Connect selects
+the starting slot but provides no verified backup-priority editor.
+The [59° walls-only launch record](../hardware/printed-parts/cold-core/reservoir/prints/2026-10-22-mark1-walls-t59-right08-z000/README.md)
+records the selected start and refill scope.
 
 ## Mark2 clear PETG spool order
 

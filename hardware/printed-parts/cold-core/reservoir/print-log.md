@@ -389,3 +389,31 @@ The pictured junction qualitatively resembles the native medial-junction pockets
 recorded before launch. Native comparisons retain walls-only and flow 1.02 and
 separately examine seam gap and Arachne's junction controls. A saved setting or
 bead-envelope comparison is not a physical sealing result.
+
+## Left reservoir and cap, 59° Arachne walls-only May Water (2026-10-22, Mark1 task 1364550539)
+
+Derek authorized:
+
+> Proceed with a print you think will work. Bed is clear.
+
+Mark1 accepted the full-height left body and matching cap at **11:40:35 CDT /
+16:40:35 UTC**, acknowledging `project_file` SUCCESS with no print error/HMS.
+The foreground Send dialog selected **A1 PETG R** and right **0.8 mm Standard**.
+A1 reports **6%**, A3 **100%**, and A2/A4 are empty. AMS Auto-Refill is visibly
+enabled. Use A1 fully, then A3. Timelapse and bed leveling are On; flow dynamic
+and nozzle offset calibration are Auto. Mark2 retained its same idle finished
+task for more than the required 180-second interval.
+
+The physical setting change is **Arachne wall transition angle 10° → 59°**.
+**999 requested walls**, zero sparse/top/bottom fill, **flow 1.02**, **255/260 °C**,
+**21 mm³/s**, **70 °C** bed, **0.30/0.24 mm** layers, nominal **0.8 mm** lines,
+wall order, random conditional scarf with 15% gap, May cooling/speeds, unchanged
+geometry/placement and automatic Tree/Default supports are retained. **No brim,
+zero added user trim, ironing Off**; stock Textured PEI `G29.1 Z-0.02`.
+
+The native model features are walls only. Plate 1 estimates **6 h 2 min,
+433.03 g and 833 layers**, with no plate warning, at least **70.5 mm** full-bead
+bed-edge inset, and seven bed-rooted support bodies. The regenerated project is
+byte-identical to the compared 59° candidate; its completed native slice is
+reused and packaging preserves every submitted G-code byte.
+[Adaptation, review and launch](prints/2026-10-22-mark1-walls-t59-right08-z000/README.md).

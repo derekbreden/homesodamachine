@@ -14,10 +14,11 @@ carries both mouths: the fill, and the dip tube the draw line becomes.
 
 ## Current print
 
-Mark1 task **1362982574** completed the current left reservoir and matching cap with the
-**walls-only May Water recipe through the right 0.8 mm Standard nozzle**. It was accepted
-at **23:25:22 CDT on October 21, 2026**, starting on **A4** with automatic refill.
-[Launch, adaptation and native review](prints/2026-10-21-mark1-walls-only-right08-z000-a4/README.md).
+Mark1 task **1364550539** is printing the current left reservoir and matching cap with the
+**walls-only May Water recipe through the right 0.8 mm Standard nozzle** and
+**59° Arachne wall transitions** at floor junctions. It was accepted
+at **11:40:35 CDT on October 22, 2026**, starting on **A1** with automatic refill to A3.
+[Launch, adaptation and native review](prints/2026-10-22-mark1-walls-t59-right08-z000/README.md).
 
 Use **[reservoir.3mf](reservoir.3mf)** for the current pairs: plate 1 is left,
 plate 2 is right. Bodies print mouth up; caps print exterior face down.
@@ -32,12 +33,14 @@ cooling and auxiliary off. Random conditional scarf seams retain the May 15% gap
 Stock Textured PEI compensation emits **`G29.1 Z-0.02`**. The
 [flat-square finish result](ironing-study/prints/2026-10-06-mark2-squares-v1/physical-result.json)
 supplies the ironing-Off preference; it supplies no water-hold result.
-**999 requested walls** continue inward across each section; sparse, top and bottom fill are disabled. Current automatic Tree/Default supports serve the flat-floor geometry.
+**999 requested walls** continue inward across each section; sparse, top and bottom fill are disabled. Arachne's **59° transition angle** adds center-wall paths at perimeter-convergence junctions. Current automatic Tree/Default supports serve the flat-floor geometry.
 
 [Complete settings](print-settings.json) · [Printing guide](watertight-petg.md) ·
 [Project verification](reservoir.print.json) · [Native slice review](slice-review.json).
-The left body/cap plate estimates **5 h 46 min and 431 g**, with a **70.5 mm**
-minimum full-bead bed-edge inset. Its [reported seam leakage](prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json) is a failed water hold. The pictured floor junction is being compared with the native perimeter-convergence paths.
+The left body/cap plate estimates **6 h 2 min and 433 g**, with a **70.5 mm**
+minimum full-bead bed-edge inset. The [native junction comparison](prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/seam-comparison.json) shows reduced nominal floor pockets; physical sealing is unassessed.
+
+The preceding walls-only article has [reported seam leakage](prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json), a failed water hold.
 
 The preceding May-adapted article has [reported leakage between floor infill and walls](prints/2026-10-21-mark1-may-water-right08-z000/physical-result/physical-result.json). The earlier zero-trim article has
 [reported corner curl and leaks at many places](prints/2026-10-21-mark1-right08-z000/physical-result/physical-result.json).
@@ -69,5 +72,5 @@ Past settings, reported outcomes and source commits are in the
 Historical 3MFs are retained in Git.
 
 Reservoir leak results belong to the articles and process tested. The current
-walls-only article has reported seam leakage; the matching right body is unassessed.
+59° walls-only article and matching right body are unassessed.
 CAD clearance does not establish a print's sealing or finished float sliding.

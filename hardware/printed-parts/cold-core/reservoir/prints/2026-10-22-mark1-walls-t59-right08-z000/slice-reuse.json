@@ -1,0 +1,9 @@
+{
+  "current_project_sha256": "3f890ae5fdf1ec05e08080b1bf767ca7b25fb8dbec8c1eb67fca1568fe4ebc19",
+  "previously_reviewed_candidate_sha256": "3f890ae5fdf1ec05e08080b1bf767ca7b25fb8dbec8c1eb67fca1568fe4ebc19",
+  "byte_identical": true,
+  "native_slice_source": ".cache/reservoir-walls-only-right08/seam-investigation/transition59/slice",
+  "native_slice_archive_sha256": "e060ff5683f91b3e8e4b97c007fa1c424f6313d5a570a1f65df2aa7678053343",
+  "reason": "The regenerated declared 59-degree recipe produces the identical source project; reuse its completed native two-plate slice without reslicing.",
+  "comparison": "../2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/seam-comparison.json"
+}

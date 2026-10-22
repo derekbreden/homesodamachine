@@ -1,7 +1,7 @@
 """Verify the current reservoir's native slice, nozzle, trim and full bead inset.
 
 Run with tools/cad-venv/bin/python after slicing both plates into
-.cache/reservoir-walls-only-right08/slice and auditing their supports there.
+.cache/reservoir-walls-t59-right08/slice and auditing their supports there.
 """
 
 from __future__ import annotations
@@ -17,7 +17,7 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 ROOT = next(p for p in HERE.parents if (p / "tools/cad-venv").is_dir())
-FOLDER = ROOT / ".cache/reservoir-walls-only-right08/slice"
+FOLDER = ROOT / ".cache/reservoir-walls-t59-right08/slice"
 WORDS = re.compile(r"([A-Z])([-+]?(?:\d+(?:\.\d*)?|\.\d+))")
 
 
@@ -163,6 +163,10 @@ def main():
             if hashlib.md5(data).hexdigest() != archive.read(name + ".md5").decode().strip().lower():
                 raise ValueError("Embedded G-code checksum failed")
             text = data.decode()
+            model_features = sorted(set(re.findall(r"^; FEATURE: (.+)$", text, re.MULTILINE))
+                                    - {"Custom", "Support", "Support interface"})
+            if set(model_features) - {"Inner wall", "Outer wall", "Overhang wall"}:
+                raise ValueError(f"Unexpected model fill feature: {model_features}")
             assignment = {}
             for key, expected in (("filament_map", "2"), ("filament_nozzle_map", "1"), ("nozzle_diameter", "0.8,0.8")):
                 match = re.search(r"^; " + key + r" = (.+)$", text, re.MULTILINE)
@@ -192,6 +196,8 @@ def main():
                 estimated_mass_g=round(sum(v["total_used_g"] for v in row["filaments"]), 3),
                 ironing_estimated_seconds=0, ironing_enable_commands=0, ironing_feature_paths=0,
                 layer_count=len(layers), first_layer_height_mm=0.30, normal_layer_height_mm=0.24,
+                model_features=model_features,
+                wall_transition_angle_degrees=float(source["wall_transition_angle"]),
                 warning_message=row["warning_message"], gcode_sha256=sha(data), embedded_gcode_md5_verified=True,
                 emitted_nozzle_assignment=assignment, z_trim_commands=trims, placement=placement,
                 wall_cooling_above_cap_pwm_values=cooling, support_summary=support,

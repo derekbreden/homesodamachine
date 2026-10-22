@@ -1,0 +1,86 @@
+{
+  "accepted_at": "2026-10-22T16:40:35.753433+00:00",
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "job": {
+    "job_id": "1364550539",
+    "subtask_name": "2026-10-22-reservoir-left-cap-walls-t59-right08-z000-a1-mark1.gcode.3mf",
+    "gcode_state": "PREPARE",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 833,
+    "total_layer_num": 833,
+    "mc_remaining_time": 0,
+    "nozzle_temper": 32.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 24.0,
+    "bed_target_temper": 0.0
+  },
+  "previous_job_id": "1362982574",
+  "archive": ".cache/reservoir-walls-t59-right08/slice/2026-10-22-reservoir-left-cap-walls-t59-right08-z000-a1-mark1.gcode.3mf",
+  "archive_sha256": "baf387e8f912c302fa58b1ff43170eef2f234478f74dc8161c69fe0289cc724b",
+  "gcode_sha256": "3aa321122c0ef532409af674ceccb25f6ac745a9ce78b2381ad95a715d3ab474",
+  "start_slot": "A1",
+  "auto_refill": true,
+  "backup_order": "A1 then A3; A2 and A4 are empty; only A3 is another loaded matching spool",
+  "nozzle": "right 0.8 mm Standard",
+  "user_z_trim_mm": 0,
+  "stock_textured_pei_compensation_mm": -0.02,
+  "recipe": "Walls-only May Water: Arachne transition angle 59 degrees, 999 loops, zero sparse/top/bottom fill, 255/260 C, 1.02 flow, 21 mm3/s, no brim/ironing",
+  "options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "shared_circuit": {
+    "requirement_seconds": 180,
+    "Mark2_idle_verified_at": "2026-10-22T16:33:11.980561+00:00",
+    "Mark2_retained_job": "1359897271",
+    "source": "Fresh tools/bambu_printer.py status observation in this session",
+    "rule": "Retain the same idle finished task at final pre-send check, at least 180 seconds after the initial observation.",
+    "minimum_idle_interval_seconds": 430.286208
+  },
+  "command_acknowledgment": {
+    "command": "project_file",
+    "result": "SUCCESS",
+    "reason": "SUCCESS",
+    "err_code": 0
+  },
+  "events": [
+    {
+      "observed_at": "2026-10-22T16:40:24.194190+00:00",
+      "job_id": "1362982574",
+      "subtask_name": "2026-10-21-reservoir-left-cap-walls-only-right08-z000-a4-mark1.gcode.3mf",
+      "gcode_state": "FINISH",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 833
+    },
+    {
+      "observed_at": "2026-10-22T16:40:35.753433+00:00",
+      "command": "project_file",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "err_code": 0
+    },
+    {
+      "observed_at": "2026-10-22T16:40:35.753433+00:00",
+      "job_id": 1364550539,
+      "subtask_name": "2026-10-22-reservoir-left-cap-walls-t59-right08-z000-a1-mark1.gcode.3mf",
+      "gcode_state": "FINISH",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 833
+    },
+    {
+      "observed_at": "2026-10-22T16:40:36.772178+00:00",
+      "job_id": "1364550539",
+      "subtask_name": "2026-10-22-reservoir-left-cap-walls-t59-right08-z000-a1-mark1.gcode.3mf",
+      "gcode_state": "PREPARE",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 833
+    }
+  ]
+}
