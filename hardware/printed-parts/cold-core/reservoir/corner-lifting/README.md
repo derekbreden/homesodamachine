@@ -5,8 +5,9 @@ Mark1 task **1364550539** is the current
 accepted at **11:40:35 CDT / 16:40:35 UTC October 22**. It uses the right
 0.8 mm Standard nozzle, flow **1.02**, **255/260 °C**, **21 mm³/s**, May speeds,
 **no brim**, zero added user trim and ironing Off. A1 starts the print with
-automatic refill to A3. Model paths are walls only, including the floor; sparse/top/bottom fill are disabled. Arachne's **59° wall transition angle** adds center-wall paths at floor junctions. The new article has no physical sealing or corner-flatness result yet.
+automatic refill to A3. Model paths are walls only, including the floor; sparse/top/bottom fill are disabled. Arachne's **59° wall transition angle** adds center-wall paths at floor junctions. The completed article has [reported bottom leakage at the same location and a new vertical-edge defect](../prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/physical-result.json). Corner-flatness and lift onset remain unassessed.
 [Startup observation](../prints/2026-10-22-mark1-walls-t59-right08-z000/startup.json) confirms A1 at the mounted right nozzle and changing live frames of the empty plate. Body/cap first-layer contact is unassessed at layer 0.
+The 59° setting has no demonstrated sealing improvement. [Sampled wall paths](../prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/wall-junction-review.json) add four sub-millimeter segments near curved-wall ends; these are a plausible contributor to the bristles. The proposed next screen restores 10° and tests 1.05 flow while retaining walls-only.
 The canceled job's task-bound scheduled monitor remains paused.
 
 The preceding walls-only task 1362982574 has [reported seam leakage](../prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json). Corner curl and adhesion were not separately reported for it.

@@ -14,7 +14,7 @@ carries both mouths: the fill, and the dip tube the draw line becomes.
 
 ## Current print
 
-Mark1 task **1364550539** is printing the current left reservoir and matching cap with the
+Mark1 task **1364550539** completed the current left reservoir and matching cap with the
 **walls-only May Water recipe through the right 0.8 mm Standard nozzle** and
 **59° Arachne wall transitions** at floor junctions. It was accepted
 at **11:40:35 CDT on October 22, 2026**, starting on **A1** with automatic refill to A3.
@@ -38,7 +38,7 @@ supplies the ironing-Off preference; it supplies no water-hold result.
 [Complete settings](print-settings.json) · [Printing guide](watertight-petg.md) ·
 [Project verification](reservoir.print.json) · [Native slice review](slice-review.json).
 The left body/cap plate estimates **6 h 2 min and 433 g**, with a **70.5 mm**
-minimum full-bead bed-edge inset. The [native junction comparison](prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/seam-comparison.json) shows reduced nominal floor pockets; physical sealing is unassessed.
+minimum full-bead bed-edge inset. The [native junction comparison](prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/seam-comparison.json) shows reduced nominal floor pockets. The [physical trial](prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/physical-result.json) **still leaks from the bottom** and has a new vertical-edge strand defect. The 59° setting has no demonstrated sealing benefit for this article.
 
 The preceding walls-only article has [reported seam leakage](prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json), a failed water hold.
 
@@ -72,5 +72,5 @@ Past settings, reported outcomes and source commits are in the
 Historical 3MFs are retained in Git.
 
 Reservoir leak results belong to the articles and process tested. The current
-59° walls-only article and matching right body are unassessed.
+59° walls-only left article fails its reported water hold; the matching right body is unassessed.
 CAD clearance does not establish a print's sealing or finished float sliding.
