@@ -353,7 +353,7 @@ pogo_fasteners_per_build = 2 * len(_enc._pogo.ear_xs())
 # it crosses.
 m3x60_per_build = pump_cap_screws_per_build
 
-# Each return cover shares its cradle's two host locks.
+# No dock fixture takes a lock screw; the M3 x 12 count follows that.
 m3x12_per_build = dock_fixture_locks_per_build
 
 # WHICH M3 BODY EACH STATION TAKES. ruthex's short and full-length M3 are the same insert but
@@ -576,7 +576,8 @@ def main(*, only_bom=False):
         "SEAM_LONG_SCREWS_COST": pack_line_cost(enclosure_seam_long_rods_per_build, "10.74", 10),
         "SEAM_SHORT_SCREWS_COST": pack_line_cost(enclosure_seam_short_rods_per_build, "7.50", 40),
         "SEAM_INSERTS": f"{enclosure_seam_inserts_per_build:.4g}",
-        "DOCK_STUBS": f"{len(_f.box['collet_plate']['holes'])}",
+        "DOCK_PUMP_TUBES": f"{len(_f.box['collet_plate']['holes'])}",
+        "PUMP_TUBE_CUT": f"{ml.PUMP_TUBE_CUT:.3g} mm",
         "DOCK_TEES": f"{len(ml.PUMP_JUNCTIONS)}",
         "DOCK_RETURNS": f"{len(ml.LOWER_CONNECTIONS)}",
 
@@ -679,6 +680,8 @@ def main(*, only_bom=False):
             "DISPLAY_COVER_SCREWS": f"{display_cover_screws_per_build:.4g}",
             "PUMP_CAP_SCREWS": f"{pump_cap_screws_per_build:.4g}",
             "DOCK_LOCKS": f"{dock_fixture_locks_per_build:.4g}",
+            # The blocks loaded at the front-top and cartridge print pauses.
+            "DOCK_MAGNETS": f"{dock_magnets_per_build:.4g}",
             "C14_SCREWS": f"{c14_screws_per_build:.4g}",
             "NAMEPLATE_SCREWS": f"{nameplate_screws_per_build:.4g}",
             "FLOOR_SCREWS": f"{floor_screws_per_build:.4g}",

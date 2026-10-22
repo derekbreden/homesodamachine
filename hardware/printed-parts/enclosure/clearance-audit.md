@@ -136,7 +136,7 @@ to the geometry identified by their input hashes.
 | Lower stack faces | Back-bottom's lower knuckle stands on the handhold ceiling at Z29.25. Front-bottom's knuckle starts at Z41.453553 on an underside rising 45° aft from the seam plane Y200, over back-bottom's top at Z41.1. Front-bottom's top rises 45° inboard from Z125.95 at `interior_x`; back-bottom's upper knuckle starts at Z126.303553 and ends on the Z seam at Z160. Each sloped pair keeps 0.353553 mm in Z, 0.25 mm square to the faces. |
 | Upper stack faces | Upper axes are at X±97.7, 9.8 mm from the exterior. Front-top's insert mouth is Z299.65 and back-top's block starts at Z299.9, leaving 0.25 mm. |
 | Screw-head pockets | The lower opening runs 11.55 mm up from the handhold ceiling to its floor at Z40.8 and ends on the handhold inner wall's finger-facing plane; the upper runs 8 mm down from the roof to its floor at Z347. Each M5 head bears directly on its printed floor: the lower head's face stands 6.55 mm above the ceiling, the upper 3 mm inside the roof. |
-| Pump receiver floor | Floor Z164.845 is 0.35 mm below the cartridge bed Z165.195. Front-top's actual bed is Z160.25, leaving 4.595 mm of floor stock. |
+| Pump bay floor | Floor Z164.845 is 0.35 mm below the cartridge bed Z165.195. Front-top's actual bed is Z160.25, leaving 4.595 mm of floor stock. |
 | Funnel front rail | Frame foot Z306.9 to receiver underside Z307.4 gives 0.50 mm: 0.25 running + 0.25 supported. |
 | Core pocket and hold-downs | The pocket follows the rounded core plan with 0.25 mm around it, from the floor to Z253.65. The whole floor is one plane at Z−0.35, the core's 0.25 mm running + 0.10 mm cavity-floor transition, over a 5.65 mm slab. The complete hold-down profile stands 0.25 mm above the nominal Z253.4 crown. The native review checks finite material at both hold-foot lands and the complete 8 mm foot stock. |
 | PRV chase beside core | Lip X−90.75 to core flank X−90.5 gives 0.25 mm. |
@@ -172,7 +172,7 @@ stages to its identified artifacts. It retains every measured finite planar
 patch, its normal, print direction, required allowance and actual gap, together with
 complete local stock checks. The stages cover quadrants and frame, four M5 insert
 hosts and four washer floors,
-pump receiver, nameplate and DATA, rings, window covers, tee carrier, the 45° bedding
+pump bay, nameplate and DATA, rings, window covers, tee carrier, the 45° bedding
 edge and the five external core bodies. The [cradle finish](enclosure/cradle-finish-review.json)
 binds the canonical body to its measured lower-mouth candidate by native equality and
 records complete local stock and capture. Its lower mouth is open aft of local Y15.5;
@@ -186,9 +186,9 @@ interpretations of its 18 ranked thickness pairs, without a whole-mesh thickness
 The 35 insert-station readings
 and 14 finished-knuckle queries remain evidence for their original artifact hashes.
 The current stock-only stage does not refresh screw engagement or blind-tip reserve.
-Those records do not qualify the permanent pump dock; its wall bores, keeper and
-rear-support seats, flange captures and magnetic mounts have their own
-[engineering record](pump-dock/README.md).
+Those records do not qualify the pump dock; the [pump dock](pump-dock/README.md)
+specifies its collet plate, tee anchors, tee caps and magnet slots with their
+clearances.
 
 The [quadrant reading](mating-clearance-check.json) records the four current enclosure
 STEP hashes and its complete finite-patch and explicit-probe results. Its measured

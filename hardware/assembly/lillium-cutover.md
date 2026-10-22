@@ -124,8 +124,9 @@ Front-top is the fixture for the whole flavor side.
    seated with two M1.4×8, laid along the bulkhead crown below the funnel frame,
    its unplugged J13 end supported clear of the closing slides.
 2. **The manifold** per
-   [internal plumbing §3](internal-plumbing.md#3-flavor-manifold-v-a-through-v-j--y-a-y-b-y-c-y-d-y-f-y-g--pumps)
-   steps 1–3: the tee carrier with Y-C, Y-D, Y-F and Y-G
+   [internal plumbing §3](internal-plumbing.md#3-flavor-manifold-v-a-through-v-j--y-a-y-b-y-c-y-d-y-f-y-g--pumps),
+   whose steps 1–4 dock the pumps on the machine's four pump tees under tee caps. This build's
+   dock is the tee carrier with Y-C, Y-D, Y-F and Y-G
    ([tee carrier](/hardware/printed-parts/enclosure/tee-carrier/README.md#assembly)); the aft
    valves V-C, V-D, V-G and V-J and their window covers; the fore valves V-E, V-F, V-H and V-I
    with the four bowed stubs; Y-A and Y-B butted to V-C and V-D, with the crossbar between them;
@@ -143,9 +144,9 @@ Cuts, black 1/4" LLDPE:
 | Run | Joins | Cut |
 |---|---|---|
 | fluid-6, 7, 8 | the Y-A–Y-B crossbar; Y-A → V-C; Y-B → V-D | butts: both insertion depths, no exposed tube |
-| fluid-9, 19 | V-C → Y-C; V-D → Y-F | the inner hairpin ([the fold](/hardware/manifold-layout/README.md#the-fold)) |
+| fluid-9, 19 | V-C → Y-C; V-D → Y-F | the inner hairpin ([the lower returns](/hardware/manifold-layout/README.md#the-lower-returns)) |
 | fluid-17, 27 | Y-D → V-G; Y-G → V-J | the outer hairpin (the same) |
-| fluid-10, 13, 20, 23 | the four bowed stubs | fit at the bench (§3 step 3) |
+| fluid-10, 13, 20, 23 | the four bowed stubs | fit at the bench (§3 step 2) |
 | dip tube | Y-B port 1 → bottle | at the bench |
 
 ## 3. Back-top on the bench
@@ -241,7 +242,7 @@ the order [§4](enclosure-mechanical.md#4-close-the-front-column) and
 5. **The FLAVOR risers:** V-G and V-J to the two FLAVOR bulkheads, `fluid-18` and `fluid-28`, at
    their developed lengths in the assembly facts
    ([internal plumbing §4](internal-plumbing.md#4-risers-up-to-the-umbilical-bulkheads-on-the-y-wall)).
-6. **The pump cartridge** goes in last, through the front bay (§3 step 4). Its four tubes bottom
+6. **The pump cartridge** goes in last, through the front bay (§3 step 7). Its four tubes bottom
    at release with the cartridge short of seating, then it seats through the final push. Tug
    all four.
 

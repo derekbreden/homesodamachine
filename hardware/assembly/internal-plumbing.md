@@ -1,12 +1,12 @@
 # Internal Plumbing
 
-The procedure for closing every internal fluid path inside the assembled enclosure — CO2 line from the inlet on the +Y wall of back-top to the cold core's `co2-in` cap conduit, filtered tap-water from the +Y wall's inlet through the backflow preventer to the `water-in` cap conduit, the full two-channel flavor manifold (source-select valves, peristaltic pumps, reservoir fills and draws, gooseneck outputs), and the three risers that land on the umbilical bulkheads on the +Y wall. **§3's permanent junctions, keepers, fixed returns, valves and tubing are assembled on the bench into `enclosure-front-top` while that piece is still loose.** The rest stages where the slide order puts it ([`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) §6): work on `enclosure-back-top`'s own walls — the tap-water chain in its anchor, the water split in its rib — happens on that piece on the bench before its column closes; work on the cold core's lid — the pump's two elbows, the check chain and the tubes between them — happens on the core's open cart before it rides in; the crossing runs and the risers are made up through the open Y-seam mouth after the ride; and only the pump cartridge's connection cycle waits for a fully closed chassis. Feeds [`wiring.md`](/hardware/assembly/wiring.md) and the first powered run at [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md).
+The procedure for closing every internal fluid path inside the assembled enclosure — CO2 line from the inlet on the +Y wall of back-top to the cold core's `co2-in` cap conduit, filtered tap-water from the +Y wall's inlet through the backflow preventer to the `water-in` cap conduit, the full two-channel flavor manifold (source-select valves, peristaltic pumps, reservoir fills and draws, gooseneck outputs), and the three risers that land on the umbilical bulkheads on the +Y wall. **§3's pump tees, tee caps, valves, upper tubes and hairpins are assembled on the bench into `enclosure-front-top` while that piece is still loose.** The rest stages where the slide order puts it ([`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) §6): work on `enclosure-back-top`'s own walls — the tap-water chain in its anchor, the water split in its rib — happens on that piece on the bench before its column closes; work on the cold core's lid — the pump's two elbows, the check chain and the tubes between them — happens on the core's open cart before it rides in; the crossing runs and the risers are made up through the open Y-seam mouth after the ride; and only the pump cartridge's connection cycle waits for a fully closed chassis. Feeds [`wiring.md`](/hardware/assembly/wiring.md) and the first powered run at [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md).
 
 Design intent and the path-by-path enumeration live in [`/hardware/README.md`](/hardware/README.md) "Carbonation" + "Flavor" + "Safety". The valve / Y-junction / tube-segment truth table this manifold builds to is [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md) — the manifold matches that file segment-for-segment. Cold-core internal plumbing (everything inside the foam shell) is already complete per [`cold-core.md`](/hardware/assembly/cold-core.md). Refrigerant lines are already brazed and charged per [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md). Above-counter umbilical (faucet, 3-tube bundle, foam insulation, sleeve) is already built per [`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md).
 
 ## Scope
 
-In: the slide order's stages per [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) §6 — `enclosure-back-top` populated on the bench (one PP1208E SODA bulkhead + two ABU44M-E 4 mm FLAVOR bulkheads + the water-inlet PP1208E 1/4" JG QC + the CO2 neoFit ABU44 + the 4 mm OVER bulkhead + the RJ11 keystone + the C14; electronics bay on its wall; unpowered), the cold core charged and staged on its cart with its [7](CAP_FLUID_LINES) cap conduits standing proud of the top lid, and — for the runs made up at the mouth and the pump cartridge's connection cycle — the ridden-together chassis. Plus the parts listed under "Inputs per appliance" below. **§3 runs ahead of all of it** — its permanent junctions, keepers, fixed returns and valve rows are assembled on `enclosure-front-top` before that piece joins anything, so what they need off this list is the printed set and the parts, not a chassis.
+In: the slide order's stages per [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) §6 — `enclosure-back-top` populated on the bench (one PP1208E SODA bulkhead + two ABU44M-E 4 mm FLAVOR bulkheads + the water-inlet PP1208E 1/4" JG QC + the CO2 neoFit ABU44 + the 4 mm OVER bulkhead + the RJ11 keystone + the C14; electronics bay on its wall; unpowered), the cold core charged and staged on its cart with its [7](CAP_FLUID_LINES) cap conduits standing proud of the top lid, and — for the runs made up at the mouth and the pump cartridge's connection cycle — the ridden-together chassis. Plus the parts listed under "Inputs per appliance" below. **§3 runs ahead of all of it** — its pump tees, tee caps, hairpins and valve rows are assembled on `enclosure-front-top` before that piece joins anything, so what they need off this list is the printed set and the parts, not a chassis.
 
 **Every warm-side fluid termination on the cold core is a cap conduit.** All [7](CAP_FLUID_LINES) of them are Ø[7.5 mm](CAP_CONDUIT_D) bores up the cap's own columns, opening upward on the lid's outer face — so a line reaching one arrives at the deck the electronics bay stands on, not at a body face, and leans into a countersunk lip on the way in. Three are the carbonator's own (`water-in`, `co2-in`, `carb-water-out`) and four are the reservoirs' (`reservoir-a`, `reservoir-a-fill`, `reservoir-b`, `reservoir-b-fill`). No fluid line crosses a shell wall: the core's front face is mated against the refrigeration base — the condenser flush on it, the compressor's plate inset at each end, because the condenser is the deeper of the two and the pair is struck on one centre before it is yawed — so a bore struck there would open into that base rather than into the machine. What is left on that face is the copper/PRV slot on each lane, and neither of the two is this procedure's — both reed cables leave by the lid, each up the channel its own column stands in.
 
@@ -37,7 +37,8 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §3 (
 | John Guest PI010822S 1/4" PTC × 1/4" NPTF M adapter, gray acetal | Owned FWS stock; [`bom.md`](/hardware/ledger/bom.md) §4 | 4 CO2 connections per build, one in each female NPT port: WR1105 IN, GASHER inlet, bottom carbonator elbow, and the shipped primary regulator's outlet. Two are installed here; the third is inside the cold core, and the fourth goes into the regulator at [acceptance](/hardware/assembly/acceptance-and-burn-in.md) step 1. |
 | John Guest PI450822S 1/4" PTC × 1/4" NPTF F adapter, gray acetal | FWS WEBFWS100708594; [`bom.md`](/hardware/ledger/bom.md) §4 | 2 CO2 connections per build, one on each male NPT outlet: WR1105 OUT and GASHER outlet. |
 | Beduan 12 V 1/4" NC solenoid valve | B07NWCQJK9 | [10](MANIFOLD_VALVES) valves per build — V-A through V-J per [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md) |
-| John Guest PP0208E union tee, 1/4", black PP | FWS WEBFWS100681220 (see [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §8) | [2](MANIFOLD_TEES) Tees per build — Y-A and Y-B per [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md). Y-A and Y-B stand on the two inner source limbs. Y-C, Y-D, Y-F and Y-G are one-piece printed TPU junctions. Neither reservoir has a junction. Same JG black-PP NSF 51+61 family as the §3 install-kit tee |
+| John Guest PP0208E union tee, 1/4", black PP | FWS WEBFWS100681220 (see [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §8) | [6](MANIFOLD_TEES) tees per build per [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md): Y-A and Y-B on the two inner source limbs, and the four pump tees Y-C, Y-D, Y-F and Y-G, one on each pump port behind front-top's collet plate ([pump dock](/hardware/printed-parts/enclosure/pump-dock/README.md)). Neither reservoir has a tee. Same JG black-PP NSF 51+61 family as the §3 install-kit tee |
+| Tee cap | Printed PET-GF ([pump dock](/hardware/printed-parts/enclosure/pump-dock/README.md)) | Four per build, one snapped down over each pump tee's branch on its tee anchor |
 | Kamoer KPHM600-SW3B17 12 V peristaltic pump | B09MVPJXFJ | 2 complete pumps per build, located in the fitted cradle wells and retained by the broad `enclosure-pump-cap` ([`printed-parts/enclosure/pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/README.md)); the assembled cartridge slides into the front bay with both pumps aboard |
 | Female faston receptacles (pump leads) | [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 | Pump-lead electrical connection — two differential motor pairs on DC-5's four cartridge leads from the contact pair's female half, kept on the pump tabs through cartridge service |
 | 1/4" OD LLDPE tubing — **four spools**, white / blue / red / black | FWS neoFlo, one shelf and one price (see [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §3, §4) | Every line run in this procedure. Which spool a run is cut off is what it carries: **white** the tap water (+Y wall's bulkhead → ASSE chain → split → V-K → G Ganen → `water-in`, and the split's flavour branch through the flow regulator to V-A), **blue** the carbonated water (`carb-water-out` → DIGITEN → the blue-ringed union), **red** the CO2 (ABU44 → WR1105 → GASHER → `co2-in`), **black** the flavour manifold and the two risers off it. Struck once in [`_routing.SPOOLS`](/hardware/scripts/_routing.py), which reads the rear face's own `port_colors`, so a line and the ring around the hole it leaves by are one colour |
@@ -47,11 +48,11 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §3 (
 | Anchor cap | Printed PET-GF ([`printed-parts/enclosure/anchor-cap/`](/hardware/printed-parts/enclosure/anchor-cap/README.md)) | Five per build, one on each 1/4" tube rib: `carb-1`'s and `co2-2`'s crossings under back-top's top wall, `fluid-28`'s on its −X wall, and `fluid-14`'s and `fluid-18`'s on the cold core's lid |
 | Millrose 70894 PTFE thread-seal tape | B07C9ZV4PG | Anti-seize on every NPT joint cut in this procedure (≥8 joints per build across water + CO2 paths) |
 
-Tooling: Mudder PTFE tubing cutter (the cold kit's own SKU, [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §14, used here at the bench), 5/16" hex-driver and crescent wrench for the NPT joints, and scissor for the clear-PVC vent stub cut-to-length.
+Tooling: Mudder PTFE tubing cutter (the cold kit's own SKU, [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §14, used here at the bench), 5/16" hex-driver and crescent wrench for the NPT joints, scissor for the clear-PVC vent stub cut-to-length, and the printed tube setting jig that sets the pump tube tips ([pump dock](/hardware/printed-parts/enclosure/pump-dock/README.md)).
 
 ## Procedure
 
-The section numbers follow the three fluid systems; the physical build does not. Run §3 steps 1–3 first on loose `enclosure-front-top`, then close the enclosure around that subassembly. Make the CO2 and water paths at the bench/cart stages their bodies expose, complete §3 step 4 when the closed chassis accepts the pump cartridge, and land the three risers last after the manifold and service bay establish their routing space.
+The section numbers follow the three fluid systems; the physical build does not. Run §3 steps 1–4 first on loose `enclosure-front-top`, then close the enclosure around that subassembly. Build the pump cartridge on the bench (§3 steps 5–6), make the CO2 and water paths at the bench/cart stages their bodies expose, complete §3 step 7 when the closed chassis accepts the pump cartridge, and land the three risers last after the manifold and service bay establish their routing space.
 
 ### 1. CO2 path: the +Y wall's ABU44 → WR1105 → GASHER → `co2-in` cap conduit
 
@@ -130,35 +131,64 @@ The water path is now closed dry from the +Y wall to the cold core's crown. Ever
 Build to [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md) segment-for-segment. The truth table there names every valve, every Y-junction, and every tube segment by number; this step describes the build cadence around that truth table, not its content.
 
 **This step begins on the bench with `enclosure-front-top` open and both valve rows absent.**
-The two valve trays and four one-piece TPU pump junctions are stationary. The permanent TPU
-junction inlets pass through the bay wall; their recessed collars locate against the wall and three
-flat interior keepers capture their rear grooves. The receiver funnels are the only surfaces
-the four cartridge tube tips enter. The [pump service procedure](/hardware/service/pump-replacement.md)
-describes the separating joints and the complete prepared pumps supplied for a customer swap.
+Front-top carries the two valve trays, the collet plate and a tee anchor behind each of the
+plate's four holes. One purchased PP0208E pump tee stands on each pump port, Y-C and Y-D on
+pump A and Y-F and Y-G on pump B, its branch facing the pump on the tube row and its run
+upright. A snapped-on PET-GF tee cap closes each anchor's journal, which holds the tee in X
+and Z and lets it slide along Y; the collet plate stops it fore at the end of the collet's
+[1.5 mm](DOCK_TEE_STROKE) stroke. The four
+cartridge tube tips pass the plate's holes into the tees' branch collets. The
+[pump dock](/hardware/printed-parts/enclosure/pump-dock/README.md) describes the release on
+pull; the [pump service procedure](/hardware/service/pump-replacement.md) describes the
+separating joints and the complete prepared pumps supplied for a customer swap.
 
 **V-A and V-B stand on the cold core's cap.** Their two forward runs reach Y-A and Y-B across
 the Y seam. Build those connections while the core and front-top remain accessible.
 
-Lay out the ten Beduan valves, two PP0208E tees, four TPU junctions and four purchased PP0308E elbows. Cut stationary links from the [current manifold geometry](/hardware/manifold-layout/README.md), including engagement at both actual fittings. Exposed path length is not a tube-blank cut length. Use black LLDPE except for `fluid-3`, which uses white. Square-cut, deburr without scoring the sealing surface, and tag each segment.
+Lay out the ten Beduan valves, the [6](MANIFOLD_TEES) PP0208E tees and the four tee caps. Cut stationary links from the [current manifold geometry](/hardware/manifold-layout/README.md), including engagement at both actual fittings. Exposed path length is not a tube-blank cut length. Use black LLDPE except for `fluid-3`, which uses white. Square-cut, deburr without scoring the sealing surface, and tag each segment.
 
-1. **Prepare the keepers and connected groups.** Insert each flat keeper from front-top's seam and park it above the junction collar path. For each upper link, seat uncut tube fully in its actual fore valve, mark the release face and cut [21.001 mm](DOCK_UPPER_TAIL) beyond that mark: [14.501 mm](DOCK_FORE_LINK) exposed plus 6.5 mm into TPU. Connect the upper link, junction and fore valve off the wall.
+1. **Seat the rear valves.** Press V-C, V-D, V-G and V-J onto their tray posts with the
+   topology's coil clocks. Each bottom collet opens down into front-top's port channel,
+   which runs from the seam up into its tray and keeps room for the collet and its hairpin.
 
-2. **Fit the permanent junctions.** Bring each junction/upper-link/fore-valve group forward along −Y, seating the fore valve on its +Y-facing posts and folding the flexible inlet lip through its wall opening. Inspect full lip recovery. Turn front-top upright and lower the keepers onto the necks: one per outer junction and one for the inner pair. Check capture by pushing and pulling the junction along Y. Lift the keeper to its parked position for factory removal.
+2. **Fit each tee with its upper tube and fore valve.** The upper tubes are `fluid-10`
+   (Y-C to V-E), `fluid-13` (Y-D to V-F), `fluid-20` (Y-F to V-H) and `fluid-23` (Y-G to
+   V-I). Each nominal blank is [38.9256 mm](DOCK_UPPER_TAIL): [15.2756 mm](DOCK_FORE_LINK)
+   exposed, [11.65 mm](DOCK_TEE_INSERTION) bottomed in the tee's extended upper collet and
+   an estimated [12 mm](DOCK_VALVE_INSERTION) in the valve. Seat uncut tube fully in the
+   actual fore valve's bottom collet, mark the tube at the collet face, and cut it the
+   exposed length plus the tee's insertion beyond that mark. Push the tube fully into the
+   tee's upper collet and the fore valve's bottom collet. Bring the tee, tube and valve in
+   together, the branch along its anchor's journal toward the collet plate, and press the
+   fore valve onto its tray posts. The fore valve's axis stands at the middle of the tee's
+   travel, so the upper tube stands [0.75 mm](DOCK_FORE_VALVE_SET) off straight at
+   connected and as far the other way at release.
 
-3. **Fit the elbows beneath the rear valves.** Make a short straight tube joining each PP0308E's upper leg to the bottom port of V-C, V-D, V-G or V-J, leaving a nominal 1 mm exposed gap. Mark actual fully seated depths in both fittings before cutting; 28.7 mm is the nominal complete blank, using estimated 15.7 mm elbow and 12 mm valve insertions. Fit the connected rear valves on their posts with the topology's coil clocks. Each elbow stands upright and faces its junction. Connect the black LLDPE tube from the diagonal junction outlet through one shallow R28 bend of about 50 degrees to the elbow's forward leg. Allow 6.35 mm nominal TPU engagement, mark the purchased fitting's actual insertion, seat fully and tug-check the push-fit joints. The TPU end's pressure retention remains physically unqualified; the bent tube is not a positive axial restraint. Complete this work while front-top is loose, before it closes over the condenser/compressor half.
+3. **Snap the tee caps.** Press each tee cap straight down over its tee's branch, a wing
+   either side of the anchor, until both lips click into their windows. Tug each tee
+   forward along Y: it slides until the collet plate holds its collet.
 
-4. **Build and prepare the Kamoer cartridge.** Pull Kamoer's barbed connectors out of
-   both pumps' tube ends and push a 26 mm stub of black 1/4" LLDPE into each BPT end
-   under the loosened pump-head housing. Lower both complete pumps into their fitted
-   wells with the stubs facing +Y through the cradle's open tube passages. Set the
-   free tips to the [prepared-pump datum](/hardware/service/pump-replacement.md#factory-preparation-of-replacement-pumps)
-   with the printed tube setting jig against the cartridge's flat rear face,
-   then tighten each housing so it clamps the tube around its stubs. Keep the exposed
-   stubs straight and verify all four tip positions, a firm hand pull on each stub and
-   pump-end sealing before closing the clamp. The customer's replacement pumps receive
-   this same factory preparation.
+4. **Fit the hairpins.** Each lower return is one hairpin of black LLDPE from a tee's lower
+   collet: down, a turn aft at the stock's R14 bend radius, a straight, a turn up and a
+   straight up into its rear valve's bottom collet. `fluid-9` runs from Y-C to V-C and
+   `fluid-19` from Y-F to V-D; `fluid-17` from Y-D to V-G and `fluid-27` from Y-G to V-J
+   lean inboard to their valves. The nominal blanks are [102.6 mm](DOCK_HAIRPIN_INNER) for
+   the inner two and [111.2 mm](DOCK_HAIRPIN_OUTER) for the outer two: the exposed path,
+   [11.65 mm](DOCK_TEE_INSERTION) into the tee and an estimated
+   [12 mm](DOCK_VALVE_INSERTION) into the valve. From front-top's underside, push each
+   hairpin up into the tee's lower collet and its rear valve's bottom collet together. Use
+   actual insertion marks and tug-check every push-fit joint. The hairpin flexes with the
+   tee's travel. Complete this work while front-top is loose, before it closes over the
+   condenser/compressor half.
 
-5. **Fit the electrical contact and clamp.** Install the cap's two M1.4 inserts with
+5. **Prepare the pumps.** Pull Kamoer's barbed connectors out of both pumps' tube ends.
+   Cut four [33.2 mm](DOCK_PUMP_TUBE_CUT) tubes of black 1/4" LLDPE, square and burr-free
+   with eased outer edges, and push one into each BPT end under the loosened pump-head
+   housing. Lower both complete pumps into their fitted wells with the tubes facing +Y
+   through the cradle's open tube passages. The customer's replacement pumps receive this
+   same [factory preparation](/hardware/service/pump-replacement.md#factory-preparation-of-replacement-pumps).
+
+6. **Fit the electrical contact and cap, then set the tube tips.** Install the cap's two M1.4 inserts with
    their tops [5.125 mm](POGO_INSERT_HOST_DEPTH) inside its aft printed face, [2 mm](POGO_INSERT_SETBACK) behind the recessed ear-bearing datum, using
    the recessed-seat procedure in
    [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) §1. Solder four
@@ -170,23 +200,31 @@ Lay out the ten Beduan valves, two PP0208E tees, four TPU junctions and four pur
    [accepted holder scope](/hardware/reference/kamoer-kphm400/physical-fit.json).
    Route the +X groove pair to pump A and the −X pair to pump B; the four leads are
    `AM2`, `AM1`, `BM2`, `BM1` from +X to −X. Crimp their female Faston receptacles and
-   connect them to the marked motor tabs. Keep all leads below the crown.
+   connect them to the marked motor tabs. Keep all leads below the crown. With the cap
+   closed, set the printed tube setting jig on the cartridge's flat rear face and slide each
+   tube until its tip meets its jig stop at the seated datum, where it bottoms in its tee.
+   Tighten each housing so it clamps the BPT tube around its LLDPE tube. Keep the exposed
+   tubes straight and verify all four tip positions, a firm hand pull on each tube and
+   pump-end sealing.
 
-6. **Verify the closed dock after chassis assembly.** Inspect both parts' printed-in
-   magnet columns and their exposed attracting faces. With power disconnected, slide the
-   cartridge on its floor and present all four tube ends squarely to the TPU funnels. Push
-   evenly until the magnets draw the cartridge onto its seat and it finishes flush. Confirm
-   that every receiver remains seated, every tube enters straight and the pogo pair reaches
-   its designed compression. The meeting magnet poles establish closure, with
+7. **Connect the cartridge after chassis assembly.** Both parts arrive with their
+   SB443-IN blocks loaded at their print pauses: two in each of the two slots in front-top's
+   bosses behind the collet plate, and two in each of the two slots in the cartridge's flat
+   back. Inspect the columns' exposed attracting faces. With power disconnected, slide the
+   cartridge on its floor and present all four tube tips squarely to the collet plate's
+   holes. Push evenly: the tips enter the tees' branch collets and bottom, each tee returns
+   to connected, and the magnets draw the cartridge onto its seat with the front face flush.
+   Confirm that every tube enters straight and the pogo pair reaches its designed
+   compression. The meeting magnet poles establish closure, with
    [0.25 mm](DOCK_BODY_GAP) of air between the broad aft planes. Withdraw and reinsert
-   straight to confirm that the four slip joints separate together while the permanent
-   junctions, returns and keepers remain fixed. Magnetic attraction alone does not establish
-   sealing.
+   straight to confirm that each tee slides its stroke to the plate, the four tubes release
+   together, and the tees, caps and tubing stay in the machine. Magnetic attraction alone
+   does not establish sealing.
 
 Y-A and Y-B remain on the inner limbs with their branches facing one another across the
 mirror plane. V-A's inlet takes the water split through the flow regulator. V-B's inlet
 takes `fluid-4` from the fixed PP0308E elbow beneath the funnel frame. No reservoir has a
-junction: V-F/V-E reach reservoir A's fill/draw conduits and V-I/V-H reach reservoir B's.
+tee: V-F/V-E reach reservoir A's fill/draw conduits and V-I/V-H reach reservoir B's.
 
 Route and retain fixed spans while the front-top is accessible. The four reservoir lines
 land on the cold core's own cap conduits: `fluid-14` to `reservoir-a-fill`, `fluid-24` to
@@ -204,7 +242,7 @@ fixed collets.
 
 The carbonated-water riser leaves `carb-water-out` directly for the rear blue-ringed
 bulkhead through the DIGITEN meter. Flavor A leaves V-G on `fluid-18`; flavor B leaves
-V-J on `fluid-28`. Complete these routes in step 4.
+V-J on `fluid-28`. Complete these routes in §4.
 
 ### 4. Risers up to the umbilical bulkheads on the +Y wall
 
@@ -231,8 +269,8 @@ A finished internally-plumbed appliance:
 - CO2 path closed dry from the +Y wall's ABU44 bulkhead, `co2-0` to WR1105 IN, `co2-1` from WR1105 OUT to the downstream GASHER check, and `co2-2` from its outlet PI450822S to the cold core's `co2-in` conduit; made-up placement, support and hose clearances recorded
 - Water path closed dry from the +Y wall's PP1208E 1/4" JG QC bulkhead — its inboard collet butted to the ASSE chain's inlet — through the PP010822E + GAGIRA 316L SS reducing coupling, the Multiplex 19-0897 ASSE 1022 backflow preventer, the PI4512F6S + PP061208W outlet stack, `water-2` to the PP0208E water split, `water-3` to V-K, `water-7` to the clamped suction elbow on the G Ganen pump, `water-6` from the clamped discharge elbow to the made-up PP010822E + GASHER + PP450822E chain, and `water-5` onto the `water-in` cap conduit
 - Multiplex atmospheric vent through the black adapter stack and 4 mm OVER bulkhead to the dedicated faucet outlet over the sink bowl
-- Flavor manifold built segment-for-segment per [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md): [10](MANIFOLD_VALVES) Beduan valves, [2](MANIFOLD_TEES) PP0208E Tees, four permanent TPU junctions captured by the wall and three gravity-seated flat keepers, four purchased PP0308E elbows beneath the rear valves, short valve links and bent lower tubes, plus 2 Kamoer pumps held in the fitted cradle by the broad cap and its [2](CAP_SCREWS) M3 screws
-- Pump stubs 11, 12, 21 and 22 engage their permanent TPU receivers with the cartridge on its meeting magnet poles; all four tips retain 0.50 mm to the internal shoulders, and the fixed junctions and returns remain stationary
+- Flavor manifold built segment-for-segment per [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md): [10](MANIFOLD_VALVES) Beduan valves and [6](MANIFOLD_TEES) PP0208E tees, the four pump tees on their tee anchors under snapped-on tee caps, each with its straight upper tube to its fore valve and its R14 hairpin to its rear valve, plus 2 Kamoer pumps held in the fitted cradle by the broad cap and its [2](CAP_SCREWS) M3 screws
+- Pump tubes 11, 12, 21 and 22 pass the collet plate and bottom in their pump tees' branch collets, each tee at connected, with the cartridge on its meeting magnet poles; withdrawal releases all four while the tees, tee caps and tubing stay in the machine
 - All four reservoir runs closed onto their own cap conduits — `fluid-14` and `fluid-24` onto the two fill bores above the liquid, `fluid-16` and `fluid-26` as the two dip tubes, each down its draw bore to its reservoir's floor
 - Three beverage risers connected: blue 1/4-inch tubing to PP1208E SODA; the two black 4 mm lines from the outlet-valve reducers to the two ABU44M-E FLAVOR ports.
 - Seat flavor A in its 4.30 mm cap-lid bearing and close it with the 4 mm anchor cap. Seat flavor B in the west-wall 4.30 mm saddle and retain it with one owned 6-inch, 18 lb zip tie, without flattening the tube. Keep both routes at R25 or larger.
@@ -251,17 +289,22 @@ Procedure-level gaps that need answers before unit 1 ships:
 1. **Pump enclosure-mount mechanism.** The cartridge has two fitted lower wells and one broad cap, closed by [2](CAP_SCREWS) M3×[60](CAP_SCREW_LEN) screws from above. The raised crown surrounds the motor ends with open terminal wells. Derek confirms firm retention and no vertical play in his accepted assembled pair; the local comparison and current cap checks are linked from the [physical-fit record](/hardware/reference/kamoer-kphm400/physical-fit.json). The cartridge comes out first, the clamp lifts, then each complete pump lifts out of the cradle ([`/hardware/service/pump-replacement.md`](/hardware/service/pump-replacement.md)). [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) owns the printed parts.
 2. **The pack's two seam-crossing runs still need a motion gate.** V-A and V-B stand on the cold core's cap while Y-A and Y-B ride in the front-top manifold, so their two runs cross the Y seam. Their assembly moment is the open-cart stage before the back assembly rides over the core, with both mouths still reachable. [`_lines.py`](/hardware/manifold-layout/_lines.py) draws neither run, so the tree still lacks a geometry check that proves the available reach and the closing sweep.
 3. ~~**Tap-water tap-point into the flavor manifold (V-A inlet).**~~ **CLOSED.** The flavor tap comes off the **water split** — the JG PP0208E 1/4" union tee one tube-length forward of the ASSE 1022's outlet (`reference/water-split/`): its forward run collet → `fluid-1` → SB-FPV-40 pressure regulator → `fluid-2` → V-A ([`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md) tube segments 1 and 2). The ASSE leaves at 1/4", so the split and the tap run are both plain 1/4" PTC — no 3/8"-to-1/4" branch chain. See [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §3.
-4. **Purchased union elbow.** The funnel drain uses one PP0308E under its frame,
-   billed in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §8. The pump-side
-   turns are part of the four printed TPU junctions and four printed TPU returns.
-   Three other manifold joints use fully swallowed straight blanks.
+4. **Pump dock release and retention.** The upper tube's spring at 0.75 mm each way, the
+   hairpins' spring across the tee's travel, the complete release and insertion force, the tee caps' snap and retention on printed parts,
+   the anchors' fit and the prepared pump's tube clamp under docking load are unmeasured.
+   The dock's seals and lifetime under fluid and cleaning, and the depressurization of a
+   failed pump before release, have no physical result, and material data alone do not
+   establish the finished wet parts' food-contact suitability
+   ([pump dock evidence](/hardware/printed-parts/enclosure/pump-dock/README.md#engineering-evidence)).
 5. **Pump elbow qualification and shipped clamp.** Four clamps per build, two on each [printed elbow](/hardware/printed-parts/diaphragm-pump-sleeve/README.md). The owned YDS butterfly clamps carry the fit and pressure trial; their plated carbon-steel screw and low-pressure listing do not suit the wet bay, so the shipped clamp follows the trial's pressure and retention result. Siraya fit on the G Ganen barbs, pressure holding, 24-hour relaxation and the filament's wetted-service suitability have no physical result yet; the elbow README states the acceptance screen. The ASSE sleeve uses two four-inch nylon ties, one per inserted part. [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §3 lists the elbows and clamps; §11 lists the ties.
 6. ~~**A cradle for the WR1110 body.**~~ **CLOSED.** The regulator lies in a bored rib off the top wall, closed on the scanned ⌀18.87 barrel between its two wrench hexes (`enclosure._tube_anchors` off [`enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py)'s `BODY_ANCHOR_SITES`). It crosses the +Y wall one `PORT_PITCH` east of the carb union and on the panel deck's own storey, so the top wall reaches it the way it reaches the flow meter one column west. [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) owns the part.
 7. ~~**Cabinet-internal carbonated-water insulation segment count.**~~ **CLOSED — cut-to-length pieces, not 1-ft segments.** The cold-core-exit → blue-ringed-bulkhead run has a fixed length per build, is closed entirely in-shop and is never field-trimmed, so the 1-ft granularity that serves the above-counter umbilical buys nothing here and would leave up to 12" of bare tube on the coldest part of the line. The riser is authored in [`_lines.py`](/hardware/manifold-layout/_lines.py) as `carb-1` and `carb-2`, and the flow meter between them means **a piece per run, not one** — each cut to its own run's developed length, which the enclosure-assembly build prints per line, and slid on before the collets go down. `carb-1`'s is cut in two at its rib, whose bore and anchor cap close on the bare tube. [`bom.md`](/hardware/ledger/bom.md) §9 carries 84 in of CARGEN per build: the 24 in this riser takes, which covers all three pieces, plus the umbilical's five 1-ft segments.
-8. **Stationary fore-link stock lengths.** Each junction-to-valve blank includes
-   both fittings’ insertion depths as well as its [14.501 mm](DOCK_FORE_LINK)
-   straight exposed path. Step 1 derives the valve engagement from the actual
-   received valve rather than using its nominal CAD insertion depth.
+8. **Upper tube and hairpin stock lengths.** Each tee-to-valve blank includes both
+   fittings' insertion depths as well as its exposed path, [15.2756 mm](DOCK_FORE_LINK)
+   for an upper tube. The tee's [11.65 mm](DOCK_TEE_INSERTION) is a tube bottomed in an
+   extended run collet of the reference tee; the valve's [12 mm](DOCK_VALVE_INSERTION) is
+   a layout estimate. §3 steps 2 and 4 take the valve engagement from the actual received
+   valve's fully seated mark.
 
 9. **Downstream CO2 check fit.** The nominal CAD layout includes the four warm gas adapters and local check cradle. Confirm the received fitting envelopes, thread make-up and physical hose bends, then qualify the support and route clearances while retaining the regulator bracket and enclosure envelope.
 10. **Owned GASHER construction and sealing.** The owned ASIN is B0FV2D2FFX. Repository descriptions conflict between stainless/PTFE and nickel-plated copper/unspecified soft seat; the dimensional drawing does not resolve the wetted construction. Record supplier evidence for body and seat material, pressure rating, CO2/carbonated-water compatibility and cracking pressure, and measure reverse leakage under the actual pressure cycle. Do not treat either unsupported material description as qualified.

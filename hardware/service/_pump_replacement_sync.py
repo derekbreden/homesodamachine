@@ -3,8 +3,8 @@
 Run: tools/cad-venv/bin/python hardware/service/_pump_replacement_sync.py
 
 The separating joints come from the manifold topology and the bodies the cartridge
-carries. Socket count and seating geometry come from the same declared dock that
-builds the enclosure; this driver does not build another appliance.
+carries. Tee count, prepared-tube lengths and seating geometry come from the same
+declared dock that builds the enclosure; this driver does not build another appliance.
 """
 
 import sys
@@ -37,7 +37,7 @@ RIDES_OUT = "enclosure-pump-cartridge"
 #: The bay wall and its two valve trays keep the stationary flavor manifold.
 BAY = "enclosure-front-top"
 
-#: The four slip joints between the prepared pump stubs and the permanent receivers.
+#: The four joints the collet plate releases: each prepared pump tube in its pump tee.
 EXPECTED = ("fluid-11", "fluid-12", "fluid-21", "fluid-22")
 
 
@@ -49,8 +49,8 @@ def _fastening_by_body():
 def holder(name: str, decked: frozenset):
     """The enclosure piece holding a body, including its fixed host.
 
-    Pump heads ride the cartridge. Permanent junctions and returns have fixed
-    dry hosts; each commercial source tee inherits the valve in `TEE_LANDS`.
+    Pump heads ride the cartridge. Each pump tee stands on front-top's tee anchor
+    under its tee cap; each source tee inherits the valve in `TEE_LANDS`.
     """
     if name in decked:
         return RIDES_OUT
@@ -88,8 +88,8 @@ def parting(decked: frozenset) -> tuple:
     return tuple(sorted(out))
 
 
-def socket_joints() -> tuple:
-    """Pump branches served by the four stationary receiver sockets."""
+def collet_joints() -> tuple:
+    """Pump branches served by the four pump tees' branch collets."""
     return tuple(sorted(f"fluid-{cid}" for cid, _f, _t, how in _ml.SEGMENTS
                         if how in _ml.BARB_OF))
 
@@ -98,9 +98,9 @@ def main():
     f = _facts.read()
     decked = frozenset(f.pump_trays)
     found = parting(decked)
-    if found != tuple(sorted(EXPECTED)) or found != socket_joints():
+    if found != tuple(sorted(EXPECTED)) or found != collet_joints():
         raise ValueError(
-            f"cartridge joints {found}, dock sockets {socket_joints()}, and the service "
+            f"cartridge joints {found}, tee collets {collet_joints()}, and the service "
             f"table {tuple(sorted(EXPECTED))} must identify the same connections")
 
     plate = f.box["collet_plate"]
@@ -108,13 +108,18 @@ def main():
     variables = {
         "JOINT_COUNT": f"{len(found)}",
         "CART_PUMPS": f"{len(decked)}",
-        "RECEIVERS": f"{len(plate['holes'])}",
-        "RETURNS": f"{len(plate['holes'])}",
-        "KEEPERS": f"{len(_enc._dock.KEEPERS)}",
+        # One pump tee behind each collet-plate hole, and one tee cap over each.
+        "PUMP_TEES": f"{len(plate['holes'])}",
+        "TEE_CAPS": f"{len(plate['holes'])}",
+        # Each mating part carries its own half of the magnet pairs.
+        "CART_MAGNETS": f"{_enc._retention.MAGNETS_PER_HALF}",
         "TRAY_VALVES": f"{sum(1 for n in valves if holder(n, decked) == BAY)}",
         "CAP_VALVES": f"{len(cap_cradles)}",
         "BOX_TEES": f"{sum(holder(_ml.body_name(n), decked) != RIDES_OUT for n in _ml.PURCHASED_TEES)}",
         "TUBE_OD": f"{_ml.TUBE_D:.4g} mm",
+        "TEE_STROKE": f"{_enc._dock.plumbing.TRAVEL:.3g} mm",
+        "TUBE_CUT": f"{_ml.PUMP_TUBE_CUT:.3g} mm",
+        "TUBE_HELD": f"{_ml.PUMP_TUBE_HELD:.5g} mm",
         "TUBE_PROJECTION": f"{_ml.PUMP_TUBE_PROJECTION:.6g} mm",
         "TIP_Y": f"{plate['seated_tube_bottom_y']:.6g} mm",
         "TIP_FROM_CARTRIDGE": f"{plate['seated_tube_bottom_y'] - _enc.pump_cartridge_aft_y(f.box['pump_trays'], plate):.6g} mm",
@@ -124,11 +129,10 @@ def main():
     }
     substitute_md(_here / "pump-replacement.md", variables=variables)
     print("-> pump-replacement.md")
-    print(f"   {len(found)} slip joints: {', '.join(found)}")
-    print(f"   {variables['CART_PUMPS']} prepared pumps leave; "
-          f"{variables['RECEIVERS']} permanent junctions, "
-          f"{variables['RETURNS']} purchased elbows and "
-          f"{variables['BOX_TEES']} source tees stay")
+    print(f"   {len(found)} collet joints: {', '.join(found)}")
+    print(f"   {variables['CART_PUMPS']} prepared pumps leave with {variables['TUBE_CUT']} tubes; "
+          f"{variables['PUMP_TEES']} pump tees under {variables['TEE_CAPS']} tee caps "
+          f"({variables['BOX_TEES']} tees in all) stay")
 
 
 if __name__ == "__main__":

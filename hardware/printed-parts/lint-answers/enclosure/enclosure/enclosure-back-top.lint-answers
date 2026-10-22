@@ -210,7 +210,7 @@ click: x=-106.300 y=302.250 z=275.356
 alternatives: Reconcile each ledge with its mating hardware and print pose, or provide the appropriate removable support through its actual access. Those interfaces are not revised by the connector arrangement.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=34.170 y=469.545 z=256.518
-click: x=-88.285 y=289.125 z=289.522
+click: x=-88.285 y=289.125 z=288.022
 click: x=-78.070 y=470.225 z=257.624
 
 [slope] Outside the water-check/WAGO arrangement change and unresolved: these are retained rear-wall slopes at Y465.990, away from the connector wells. Their direction along the adjacent wall remains a print-geometry question, not an accepted support claim.

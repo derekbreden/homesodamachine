@@ -44544,7 +44544,7 @@
     "Nominal and unlocated terminals remain visible in the graph and manifest; no exact donor termination is invented.",
     "The electrical graph does not qualify grounding, mains isolation, current capacity or energization."
   ],
-  "physical_scene_sha256": "68d49584715c68c859606632cb3638cac110b36f55fa64d44f7db4a3bffa73bf",
+  "physical_scene_sha256": "82c971faa36658c182413f12c479e2512bc10d28a1799d0c477ffad65a74e882",
   "source_sha256": {
     "hardware/wiring/installed/build.py": "f5459bc4e0c25926c79b11524c46f5d10accc71d154c6ee36317dbeba6d24553",
     "hardware/wiring/installed/connections.py": "ff6f0155d08273f9fd1bed9624c2f78d0758d4bec19869689de923335c600756",

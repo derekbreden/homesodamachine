@@ -356,22 +356,43 @@ and successful insertion are accepted for the reported use. The individual
 effects of centering and added backing, physical pressure distribution,
 numerical forces and endurance are not measured separately.
 
-## Permanent pump dock
+## Pump dock
 
-The [pump-dock design](../printed-parts/enclosure/pump-dock/README.md) defines four
-permanent Siraya Tech Flex TPU 85A receivers in closed PET-GF wall bores. The wall
-locates X/Z; three flat keepers snapped onto the receiver necks capture Y. Straight LLDPE
-links join each upper socket to its fore valve and, through four fixed TPU returns seated in
-one PET-GF return block, each lower socket to its aft valve. Factory-prepared complete pumps carry two straight 1/4" LLDPE stubs each, clamped
-by the pump head's own housing, which carries their axial load into the head. The
-customer replaces complete pumps and leaves the receiver assembly installed.
+The [pump-dock design](../printed-parts/enclosure/pump-dock/README.md) passes each
+factory-prepared pump's two straight 1/4" LLDPE tubes, clamped by the pump head's own
+housing, through front-top's collet plate into four purchased John Guest PP0208E tees.
+Each tee's branch collet grips its tube against pressure. The branch runs in a tee anchor
+under a snapped-on PET-GF tee cap, which holds the tee in X and Z and lets it slide along
+Y; the plate stops it at the fore end of its 1.5 mm collet stroke, and in service the
+bottomed pump tube holds it at connected. Pulling the cartridge drags each tee forward until the plate holds the collet in and
+the tube draws out. A short upper tube joins each tee to its fixed fore valve, which stands
+over the middle of the stroke, and one R14 LLDPE hairpin joins it to its rear valve; both
+flex with the tee. Four SB443-IN pairs, one column of two on each pump's own line, seat the
+cartridge. The customer replaces complete pumps; the tees, caps, valves and tubing stay in
+the machine.
 
-The [fluid geometry review](../printed-parts/enclosure/pump-dock/fluid-geometry-review.json)
-records the source-derived sealing lands, tube stations, nominal occupied envelopes
-and pressure-load cases. The [fixed-pack and fixture review](../printed-parts/enclosure/pump-dock/pack-integration-review.json)
-and [external route review](../printed-parts/enclosure/pump-dock/external-route-review.json)
-record local native clearances at their bound source and obstacle geometry. The
-[core-stop review](../printed-parts/enclosure/pump-dock/core-stop-native-review.json)
+The [push-connect observations](../reference/tee-connector/README.md#observed-push-connect-action)
+establish, on the identified PP0208E, easy withdrawal with the collet held in, relocking
+after a small separating tug and insertion against spring-level collet force. They carry no
+instrumented force reading. The tee cap is the [anchor cap](../printed-parts/enclosure/anchor-cap/README.md)'s
+section with its half pipe sized to the anchor's journal; on that part's beam estimate its
+wings stay within the accepted faucet display cover's strain, which compares shapes and
+predicts neither retention force nor life. The
+[magnetic mount record](../printed-parts/enclosure/pump-dock/magnet-retention.md) defines
+the printed-in slots, rails and pause loading.
+
+The dock has no physical release, seal, lifetime or cleaning acceptance. The upper tube's
+spring at 0.75 mm off straight each way and the hairpins' spring across the tee's travel are
+unmeasured; at connected the upper tube pulls the tee forward
+and, through the bottomed pump tube, pushes the cartridge against its magnets, and at
+release it adds to the pull. The complete release and insertion force, the tee caps' snap
+and retention on printed parts, the anchors' fit, the pump tube clamp under docking load,
+the magnets' assembled seat and rail capture, and sealing and lifetime under fluid and
+cleaning are unmeasured. Material data alone do not establish finished wet-part
+food-contact suitability. Release with a failed or stalled pump needs a demonstrated
+depressurization route ([pump dock evidence](../printed-parts/enclosure/pump-dock/README.md#engineering-evidence)).
+
+The [core-stop review](../printed-parts/enclosure/pump-dock/core-stop-native-review.json)
 records the lower quadrants' complete bearing faces and webs against its Box and native inputs.
 The [cold-core cradle review](../printed-parts/cold-core/foam-cap/valve-cradle-native-review.json)
 binds the cap lid's fixed-valve stations and conduit passage to matching native lid leaves
@@ -382,22 +403,8 @@ cold-core lid. Exact classifier diagnoses, specified cosmetic contours and unres
 sensor, floor, rear-interface, warning and valve-fixture findings retain their
 individual native/source scopes. They do not qualify physical print quality,
 support cleanup or load capacity.
-The [pressure and retention review](../printed-parts/enclosure/pump-dock/pressure-retention-review.json)
-maps single-channel flow and blocked-fill modes to separating loads and defines
-the dry/wet assembly qualification with the available fixtures and tools.
-The [magnetic mount record](../printed-parts/enclosure/pump-dock/magnet-retention.md)
-describes eight attracting SB443-IN pairs, one four-high column on each pump's own
-line, printed in on rails in one slot per column in each part, their bare poles meeting at
-the cartridge's seat. These are geometry and design-basis records. They establish no
-accepted seal, assembled retaining force, rail capture, cleanability or service life. The stub clamp's pull-out, tip location
-and pump-end joint also remain physical qualifications of this assembly.
-
-The [Bambu TPU elbow fit](../../future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json)
-and [Siraya exterior result](../../future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/physical-result.json)
-retain their separate material, geometry and process scopes. Neither qualifies the
-permanent receiver. The accepted tee-carrier surfaces, sliding fit and RC62 print
-articles remain in their linked records; those observations do not transfer
-to the fixed pump dock.
+The accepted tee-carrier surfaces, sliding fit and RC62 print articles remain in their
+linked records; those observations do not transfer to the pump dock.
 
 ## Pump cartridge magnetic contacts
 

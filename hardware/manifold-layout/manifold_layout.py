@@ -1362,13 +1362,14 @@ def report(assy: cq.Assembly) -> dict:
     print(f"crossbar {CROSSBAR:.2f} mm exposed; the two reservoir crossings enter their collets "
           + ", ".join(f"{skew_deg(*RUNS[t], branch_port(t)[1]):.1f}°" for t in JOINS)
           + " off axis")
-    print(f"upper links: {len(FORE_STUBS)} straight, {FORE_STUB_EXPOSED:g} mm exposed")
+    print(f"upper tubes: {len(FORE_STUBS)}, {FORE_STUB_EXPOSED:g} mm exposed, each "
+          f"{_returns.FORE_VALVE_SET:g} mm off straight at connected")
     f, u = FOLD_BINDS
     print(f"fold: hinge at y {HINGE_Y:.2f} z {HINGE_Z:.2f}, decks at z {DECK_Z:.2f} and "
           f"{UPPER_Z:.2f} — {DECK_SEP:g} apart, which {f} standing over {u} sets")
-    print(f"lower links: {len(SPINE)} purchased elbows, each beneath its rear valve with a short valve link and bent LLDPE tube; "
-          f"{spine_tube_length(INNER_X):.3f} mm inner and {spine_tube_length(OUTER_X):.3f} mm outer "
-          f"nominal tube stock including insertion; formed tube radius R{SPINE_R:g}")
+    print(f"lower links: {len(SPINE)} R{SPINE_R:g} hairpins, each from its pump tee's lower port "
+          f"to its rear valve; {spine_tube_length(INNER_X):.3f} mm inner and "
+          f"{spine_tube_length(OUTER_X):.3f} mm outer nominal tube stock including insertion")
     steps = [(v, *source_step(v)) for v in SBENDS.values()]
     hairpins = hairpins_drawn()
     print(f"step: {len(SBENDS)} two-arc steps at R{BEND_R:g}, each {SOURCE_TRAVEL:g} along the "
@@ -1452,12 +1453,13 @@ def main():
     print(f"-> {out.name}")
     r = report(assy)
     bb, reach = r["bb"], r["reach"]
-    straight_lldpe_count = len(FORE_STUBS) + len(LOWER_CONNECTIONS)
+    pump_tee_tube_count = len(FORE_STUBS) + len(LOWER_CONNECTIONS)
     swallowed_lldpe_count = sum(
         how == "butt" or (how == "crossbar" and dist(*RUNS[how]) < 1e-9)
         for _cid, _frm, _to, how in SEGMENTS)
-    lldpe_cut_count = (straight_lldpe_count + len(LOWER_CONNECTIONS) + len(QUARTERS) + len(JOINS)
-                       + swallowed_lldpe_count)
+    # The pump tubes are cut too, and come fitted in the prepared pumps.
+    lldpe_cut_count = (pump_tee_tube_count + len(QUARTERS) + len(JOINS) + swallowed_lldpe_count
+                       + len(BARB_OF))
     substitute_md(
         _here.parent / "README.md",
         variables={
@@ -1516,7 +1518,7 @@ def main():
                                   if s[3] not in ("spine", "turn")
                                   and r["made"].get(s[3], 0.0) < 1e-9)),
             "TUBE_COUNT": str(lldpe_cut_count),
-            "STRAIGHT_LLDPE_COUNT": str(straight_lldpe_count),
+            "PUMP_TEE_TUBE_COUNT": str(pump_tee_tube_count),
             "STRAIGHT_COUNT": str(sum(1 for s in SEGMENTS if s[3] in RUNS
                                       and r["made"].get(s[3], 0.0) >= 1e-9)),
             "MOUTH_COUNT": str(len(MOUTHS)),

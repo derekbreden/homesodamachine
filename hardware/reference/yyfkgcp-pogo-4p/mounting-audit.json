@@ -123,15 +123,15 @@
   },
   "source_sha256": {
     "hardware/reference/yyfkgcp-pogo-4p/audit_mounting.py": "5881bc5d21c76bb9a7679e73733276cb1c5ce35aa2dffad8b7ec3f2ffeba085b",
-    "hardware/manifold-layout/enclosure-box.json": "8e16c8c198c5263c7a3b588d8e6f1566d90f66a69ac7a3e33befddbf69639031",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "019d97e2786d4fbb5610c355ade49cb0ed11af87defceb65a3c4916f5d91a061",
+    "hardware/manifold-layout/enclosure-box.json": "c836b0759c0cd67d7a7a1e3ac813a85c8433621cfb18833ad00535617cddb747",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "0eebecfe5e3a543c13219c2ab4d78d40cf27162b0b92c22efb945bb04abbae47",
     "hardware/manifold-layout/enclosure_assembly.py": "9d14471f12f0065c8eb4b751c0ed73ff98e9c89161d6861503ec23241ad2ca53",
     "hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py": "7a2cc5efd8b6de98cb596c4b5d5ed94028a7c7c869f6763d6dc9e1bf310a3f44",
     "hardware/printed-parts/cadlib/fits.py": "85b7eedd9af4ee77c4321575410b6e232c7572bda27609faf83c4bfdf5e77ab1",
     "hardware/scripts/_box_spec.py": "28a36eba80476971d762f9c8b941517c8978725de7fbe05a904d4f86199fcef8"
   },
   "artifact_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "7c29eb73140c5aeb502301c0a072c3b18288b63b4ec8e2d72a025a870465d182",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "2941359ad3c20b3946088358115e2ea06dc65227bef56557c6af673d68d15bec",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step": "21a12194da0c9c7b3984905ace0f26d8b57e9c12bbba4b5a264e75ee955a95c6",
     "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step": "1ee2d2b81d6ba91043fd48ce5c69e2865c205b0c2b65eb2275edc2c04f2f0d6d"
   },

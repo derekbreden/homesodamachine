@@ -17,14 +17,16 @@ flowchart LR
   %% never reaches.
 
   %% [26](SEGMENT_COUNT) flavor segments. [3](BUTT_COUNT) are collet butted to collet and carry
-  %% no tube at all; [9](DRAWN_COUNT) are swept runs between placed bodies; the rest include
-  %% [4](UPPER_LINK_COUNT) straight upper links, [8](LOWER_LINK_COUNT) straight lower links,
-  %% printed TPU junctions/returns and the source pair's two quarter-and-step turns. Reported tube lengths total
-  %% [3172.1 mm](FLUID_TOTAL) of 1/4" LLDPE over [63](FLUID_BENDS) corners, and the longest is
-  %% [fluid-18](LONGEST_ID) at [517.2 mm](LONGEST_LEN). [0](OPEN_COUNT) are mouths with nothing
+  %% no tube at all; [9](DRAWN_COUNT) are swept runs between placed bodies; the rest are
+  %% [4](UPPER_LINK_COUNT) short upper tubes, [4](LOWER_HAIRPIN_COUNT) R14 hairpins, the four
+  %% prepared pump tubes through the collet plate and the source pair's two quarter-and-step
+  %% turns. Reported tube lengths total
+  %% [3192.7 mm](FLUID_TOTAL) of 1/4" LLDPE over [67](FLUID_BENDS) corners, and the longest is
+  %% [fluid-18](LONGEST_ID) at [518.7 mm](LONGEST_LEN). [0](OPEN_COUNT) are mouths with nothing
   %% on the far end of them: EVERY FLAVOR SEGMENT IN THIS CHART IS MADE. The stock total
-  %% excludes machined pump stems and printed TPU passages. Mouth-to-mouth link lengths
-  %% need their actual socket or fitting insertions for cut blanks. The funnel's gravity
+  %% excludes the pump tubes, which come fitted in the prepared pumps. The hairpins are
+  %% reported as cut stock with both insertions; the other mouth-to-mouth lengths need their
+  %% actual fitting insertions for cut blanks. The funnel's gravity
   %% drain is drawn like the rest — the funnel is seated in the box rather than placed in the
   %% pack, so `fluid-4` is authored after the box exists, off the same frames.
 
@@ -57,10 +59,10 @@ flowchart LR
   %% =========================
   %% The flavour manifold
   %% =========================
-  %% Four limbs, two fixed decks. Each lane joins its valves through one junction:
-  %% Y-A/Y-B are purchased tees; Y-C/Y-D/Y-F/Y-G are permanent printed TPU junctions.
-  %% Each prepared pump stem enters its junction through the closed pump-bay wall.
-  %% Straight upper links and fixed TPU returns connect the two valve rows.
+  %% Four limbs, two fixed decks. Each lane joins its valves through one junction, a
+  %% purchased PP0208E tee. Y-C/Y-D/Y-F/Y-G stand on the pump ports behind front-top's collet
+  %% plate, each taking a prepared pump tube in its branch collet. Short upper tubes reach the
+  %% fore valves and R14 hairpins the rear valves.
   %% Channel A stands east of the mirror plane in the
   %% machine and channel B west, the pack posed face down on the refrigeration stratum's crown.
   subgraph Manifold["manifold pack — four limbs on two decks"]
@@ -139,9 +141,9 @@ flowchart LR
   %% =========================
   %% Channel A — fluid-9 … fluid-18
   %% =========================
-  %% Y-C and Y-D are pump A's permanent TPU junctions. fluid-9 and fluid-17 each use
-  %% two straight LLDPE links and one fixed printed TPU return. fluid-10 and fluid-13
-  %% are straight upper links to the fore valves.
+  %% Y-C and Y-D are pump A's tees. fluid-9 and fluid-17 are R14 hairpins to the rear valves,
+  %% fluid-10 and fluid-13 short upper tubes to the fore valves, and fluid-11 and fluid-12 the
+  %% prepared pump tubes through the collet plate.
   VC -->|"fluid-9"| YC
   VE -->|"fluid-10"| YC
   YC -->|"fluid-11<br/>pump-dock"| PA
@@ -155,8 +157,8 @@ flowchart LR
   %% =========================
   %% Channel B — fluid-19 … fluid-28
   %% =========================
-  %% Channel B mirrors channel A about x = 0. Y-F and Y-G are pump B's permanent junctions;
-  %% fluid-19 and fluid-27 use straight links and fixed TPU returns. V-I-O and V-H-I — the reservoir's fill gate and its draw
+  %% Channel B mirrors channel A about x = 0. Y-F and Y-G are pump B's tees;
+  %% fluid-19 and fluid-27 are its hairpins. V-I-O and V-H-I — the reservoir's fill gate and its draw
   %% gate — leave on their own axes off the lower deck, as channel A's V-F-O and V-E-I do.
   VD -->|"fluid-19"| YF
   VH -->|"fluid-20"| YF
@@ -202,10 +204,9 @@ flowchart LR
   %% Outside the pack (group:outside) — no run carries it.
   linkStyle 28,29 stroke:#555,stroke-width:1px
 
-  %% Junction fittings. Y-A/Y-B are purchased PP0208E tees; their branches meet across
-  %% the mirror plane. Y-C/Y-D/Y-F/Y-G are permanent printed TPU junctions at the
-  %% prepared pump stems. Neither
-  %% reservoir has one. fluid-topology.md "Junctions" carries where each port goes.
+  %% Junction fittings, all purchased PP0208E tees. Y-A/Y-B's branches meet across the
+  %% mirror plane; Y-C/Y-D/Y-F/Y-G stand on the pump ports, each branch on its pump tube.
+  %% Neither reservoir has one. fluid-topology.md "Junctions" carries where each port goes.
   classDef tee fill:#c2410c,stroke:#7c2d12,color:#ffffff,stroke-width:2px;
   class YA,YB,YC,YD,YF,YG tee;
   %% The fixed upper-deck bodies.

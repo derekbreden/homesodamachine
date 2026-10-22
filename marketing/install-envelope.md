@@ -54,10 +54,11 @@ plus 133 mm plus a working gap is what the pair asks of the slot.
   (`faucet-and-umbilical.md` §1, `printed-parts/enclosure/bulkhead-ring/`).
 - **300 mm of pull-forward** — the umbilical's service loop, sized to bring the +Y wall of
   back-top to the cabinet face so its own connections can be reached.
-- **[74.27 mm](CART_DRAW) of draw at the FRONT face** — the pump cartridge comes straight
-  out of the bay with both peristaltic pumps and their tubing aboard, and that figure is its
-  own depth, exterior face to the aft face that stops on the collet plate. A hand on the
-  face and somewhere to set it down are on top of it. This is the one service access that
+- **[92.19 mm](CART_DRAW) of draw at the FRONT face** — the pump cartridge comes straight
+  out of the bay with both peristaltic pumps and their tubing aboard, and that figure runs
+  from its exterior face to the tips of its four pump tubes, which reach
+  [14.925 mm](CART_TUBE_REACH) on past its flat back, through the collet plate and into their
+  tees. A hand on the face and somewhere to set it down are on top of it. This is the one service access that
   faces the room rather than a wall
   ([`service/pump-replacement.md`](/hardware/service/pump-replacement.md)).
   **It is a draw, not a standing clearance.** The pull-forward above is what answers it: the

@@ -7,12 +7,13 @@ assembly and its physical observations are indexed in
 the male half stays in front-top's bay bulkhead. Its four leads stay on the pump tabs
 when the cartridge is withdrawn.
 
-The lower cradle and fixed receiver wall carry eight attracting SB443-IN pairs,
-one four-high column on each pump's own load line at the fluid-port row. Each
-part's print pauses once while the blocks drop down the printed rails of one slot
-per column; the next layer closes over them, and the bare poles meet at the
-cartridge's seat ([magnet record](../pump-dock/magnet-retention.md)).
-Installed retention and contact compression remain physical qualifications.
+The lower cradle and front-top's collet plate carry four attracting SB443-IN pairs,
+one column of two on each pump's own load line at the pump tube row; front-top's
+slots run on into bosses behind the plate. Each part's print pauses once while two
+blocks drop down the printed rails of each column's slot; the next layer closes
+over them, and the bare poles meet at the cartridge's seat
+([magnet design](../pump-dock/magnet-retention.md)).
+Installed seating force and contact compression remain physical qualifications.
 
 The cap has a broad underside, fitted octagonal boss openings and Ø37 motor bores.
 Derek confirms that the assembled holder retains both pumps firmly with no vertical
@@ -24,12 +25,13 @@ motor end open. Two M3×60 screws seat in counterbores accessible from above.
 
 The cartridge uses the relieved enclosure floor. The cap and cartridge share an
 aft face at Y82.265 mm, with a complete 3 mm skirt band and 0.250 mm body clearance
-to the receiver wall. The contact faces are each recessed 0.125 mm, giving a
-0.500 mm nominal mating gap. The four prepared LLDPE stubs are clamped in the pump
-heads and pass the lower cradle's open tube passages. Their tips enter permanent TPU
-receivers and finish 0.50 mm before the internal shoulders.
-The meeting magnet poles establish that position; the broad aft planes retain
-their stated clearance.
+to the collet plate. The contact faces are each recessed 0.125 mm, giving a
+0.500 mm nominal mating gap. The four prepared pump tubes are clamped in the pump
+heads and pass the lower cradle's open tube passages and the collet plate. Their
+tips stand at Y97.19 mm, 14.925 mm behind the cartridge's back, bottomed in the
+PP0208E tees with the tees at connected ([pump dock](../pump-dock/README.md)).
+The meeting magnet poles seat the cartridge; the broad aft planes retain their
+stated clearance.
 
 The [fitted-well audit](/hardware/reference/kamoer-kphm400/fitted-well-audit/README.md)
 records its sampled 0.004 mm match to the retained printed input and its cap,
@@ -67,6 +69,6 @@ linked above. The cap's purchased pogo magnets arrive inside the connector.
 The [support audit](pump-support-audit.md) names the actual support bodies and their
 removal lanes. Remove them before installing pumps or screws. The complete enclosure
 trial checks the raised crown with actual terminal connectors, pump seating, marked
-stub tip positions, stub clamping, simultaneous four-receiver insertion, fixed
-receiver/tee retention and straight cartridge withdrawal.
+tube tip positions, tube clamping, simultaneous insertion into the four tees, the
+tee caps' retention and straight cartridge withdrawal.
 Physical support-removal effort and operation remain observations of that trial.

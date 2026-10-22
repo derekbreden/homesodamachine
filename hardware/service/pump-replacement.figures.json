@@ -1,19 +1,22 @@
 {
   "/hardware/service/_pump_replacement_sync.py": {
-    "BOX_TEES": "2",
+    "BOX_TEES": "6",
     "CAP_SCREWS": "2",
     "CAP_SCREW_LEN": "60",
     "CAP_VALVES": "3",
+    "CART_MAGNETS": "4",
     "CART_PUMPS": "2",
     "DOCK_BODY_GAP": "0.25 mm",
     "JOINT_COUNT": "4",
-    "KEEPERS": "3",
-    "RECEIVERS": "4",
-    "RETURNS": "4",
-    "TIP_FROM_CARTRIDGE": "7.75 mm",
-    "TIP_Y": "90.015 mm",
+    "PUMP_TEES": "4",
+    "TEE_CAPS": "4",
+    "TEE_STROKE": "1.5 mm",
+    "TIP_FROM_CARTRIDGE": "14.925 mm",
+    "TIP_Y": "97.19 mm",
     "TRAY_VALVES": "8",
+    "TUBE_CUT": "33.2 mm",
+    "TUBE_HELD": "13.149 mm",
     "TUBE_OD": "6.35 mm",
-    "TUBE_PROJECTION": "12.851 mm"
+    "TUBE_PROJECTION": "20.026 mm"
   }
 }

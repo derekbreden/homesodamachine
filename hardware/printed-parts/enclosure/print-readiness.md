@@ -11,14 +11,14 @@ carbonator.
 The complete enclosure print includes the four shell quadrants (front-top, front-bottom,
 back-top, back-bottom), pump cartridge and cap, machine display cover, the
 five [anchor caps](anchor-cap/README.md) on the tube ribs of back-top and the cold core's lid and the two G Ganen cold-core
-mounting parts. Its permanent pump dock has four asymmetric TPU
-junctions, four purchased PP0308E elbows beneath the rear valves and three interior keepers.
+mounting parts. It also includes the pump dock's four [tee caps](pump-dock/README.md#tee-anchors-and-tee-caps),
+which hold the four purchased PP0208E pump tees in their tee anchors behind front-top's collet plate.
 The front flanks are continuous across the fixed dock room.
 
-The [October 18 wet preparations](pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/README.md) retain their saved meshes and native slice scope. Current junctions require source-bound native projects; those archived estimates do not describe this geometry. The three PET-GF keepers use the [current part handoff](pump-dock/petgf-production-parts.md). The [elbow review](pump-dock/elbow-review/README.md) records the current native assembly and clearance scope.
-The complete dock requires assembled physical qualification: seal fit, flexible
-funnel insertion, socket-stop restraint, keeper and closing-cover retention,
-the pump heads' stub clamps and the printed-in SB443-IN columns that seat the cartridge.
+The tee caps use the [PET-GF part handoff](pump-dock/petgf-production-parts.md).
+The complete dock requires assembled physical qualification: the tees' seals and their
+release under the collet plate, the tee caps' snap and retention, the anchors' fit,
+the pump heads' tube clamps and the printed-in SB443-IN columns that seat the cartridge.
 The [pump-holder acceptance](../../reference/kamoer-kphm400/physical-fit.json) and
 [connector coupon acceptance](../../reference/yyfkgcp-pogo-4p/physical-observations.json)
 retain their identified scopes; neither establishes the current wet seals or
@@ -65,12 +65,13 @@ the Y seam's interlocking blocks and their roots, Z hooks and end stops, and the
 complete insert hosts and blind caps. The general 15% infill recipe does not
 establish solid material in those regions. Each fresh native review must verify
 their actual placement and emitted deposition as well as the show surfaces.
-The manual specification also identifies the backing behind the keeper slots, magnet columns, rigid-stop roots and recessed pogo hosts. The three separate keepers use six walls and 100% infill in their flat manufacturing pose. They seat downward over the necks by gravity. Bind these settings and modifier regions to each production native project and emitted paths; they do not establish support removal or physical load capacity.
+The manual specification also identifies the SB443-IN column walls, their roofs and roots, and the recessed pogo hosts. The tee caps use six walls and 100% infill throughout, standing on their fore ends as exported. Bind these settings and modifier regions to each production native project and emitted paths; they do not establish support removal or physical load capacity.
 Each pump-dock job binds the current magnetic mounts and seating faces to its native
 geometry. The [SB443-IN native reading](pump-dock/printed-capture-native-review.json)
 records clear loading slots, one insertion pause per part and rail paths joined into
-the parent wall throughout both columns; its [filament footprints](pump-dock/printed-capture-beads.png)
-show those connections. The [RC62 print jobs](enclosure/magnet-retention/queue.json) are evidence for
+the parent wall throughout both columns of the four-block jobs it binds; its
+[filament footprints](pump-dock/printed-capture-beads.png) show those connections.
+The two-block slots and front-top's magnet bosses have no native reading. The [RC62 print jobs](enclosure/magnet-retention/queue.json) are evidence for
 their identified ring-magnet articles; their pauses and covering layers do not qualify
 the bare-face SB443-IN columns loaded at front-top's and the cartridge plate's pauses.
 
@@ -168,7 +169,7 @@ load-capacity or drop result.
 | Kamoer cartridge and cap | Derek confirms both pumps are firmly held with screws tightened and no vertical play. The current cap keeps the broad fitted holder geometry; its surrounding crown reaches the cartridge top while motor ends and spade-terminal wells remain open. This holder result does not qualify the cap's pogo connector. Raised-crown fit and four-tube operation remain full-assembly observations. [Physical record](../../reference/kamoer-kphm400/physical-fit.json). |
 | Pump cartridge electrical contacts | The YYFKGCP halves mount in pump-cap and front-top seats, each recessed 0.125 mm for a 0.500 mm nominal contact-face gap. The [mounting audit](../../reference/yyfkgcp-pogo-4p/mounting-audit.md) records its identified exports, nominal mating and conditional 0.200–0.800 mm compression range. The founder accepts connector fit and mating/compression in the printed test piece, reported 2026-10-04; that result retains its own seat geometry. Full-enclosure compression, insert retention, continuity, operating resistance and lifetime remain unmeasured. [Physical scope](../../reference/yyfkgcp-pogo-4p/physical-observations.json). |
 | RC62 ring-magnet print articles | The [C3 open-pocket selection](enclosure/magnet-retention/fit-coupons/physical-fit-selection.json), [v4 lower-cradle result](enclosure/magnet-retention/v4/physical-result.json) and [H2C C3/V69 covering-layer acceptance](enclosure/magnet-retention/selected-fit-v1/h2c-v20/physical-acceptance.json) retain their recorded ring-pocket fit, rattle and first-layer scopes. They establish no SB443-IN mount fit, force, heat exposure or endurance. |
-| Permanent TPU pump dock and SB443-IN retention | The wall locates each junction in X/Z; downward-open flat keepers capture Y. Four scanned PP0308E elbows join the rear valves through short push-fit tubes. Single-bend tubes connect the junctions to those elbows; their TPU grip remains physically unqualified. The complete dock's insertion/withdrawal force, magnet capture, hydraulic retention, sealing, cleanability and repeated service cycles remain physical qualifications. Permanent dock parts remain installed during customer pump replacement. |
+| Pump dock and SB443-IN seat | No physical result. Each purchased PP0208E tee lies in its tee anchor under a printed tee cap; the collet plate holds each branch collet in as the cartridge is pulled, and one LLDPE hairpin joins each tee to its rear valve. The complete dock's insertion and withdrawal force, the tee caps' snap and retention, the magnets' seat, sealing, cleanability and repeated service cycles remain physical qualifications. The tees, tee caps, valves and tubing remain installed during customer pump replacement. |
 | Beduan sockets | The [upright hand-fit selection](enclosure/magnet-retention/fit-coupons/physical-fit-selection.json) sets V69 / Ø6.90 mm for production sockets. V70 / Ø7.00 mm is the conditional alternate for a valve or print orientation that does not fit V69 well. The shared seat retains its exterior envelope and zip-tie passages. The earlier Ø7.2 coupon's easy-insertion and positive tie-retention result retains its [bound scope](../fixtures/valve-socket-fit/physical-acceptance.json). Installed tie access, retention force and endurance remain full-assembly observations. |
 | Faucet lever | The flat-sided lever with the 9 mm cylinder channel has accepted fit and function. Reuse it. [Physical record](../faucet/lever-replica/physical-acceptance.json). |
 | Faucet display cover | Its broad, substantial flexing walls and retaining lips work in PET-GF. This is Derek's accepted simple snap-fit example. [Physical record](../faucet/faucet-display-cover/physical-acceptance.json). |
@@ -177,16 +178,16 @@ load-capacity or drop result.
 | C14 inlet and cord | The identified inlet/C13 station has earlier acceptance in the [native interface record](tee-readiness/full-enclosure-print/hard-contact-review/README.md). The [October 17 assembly feedback](enclosure/assembly-fit-review/assembly-feedback.json) reports that the female side fits and the mating cord body needs 3 mm more X access. The [assembly-fit review](enclosure/assembly-fit-review/README.md) specifies a centered 28.3 × 19.3 mm cord bore, independent of the flange pocket's 0.65 mm per-edge X/Z clearance, fixed Y seating depth and screw stations. Physical fit of the wider bore is unmeasured. |
 | G Ganen feet and flow | Derek identifies four identical flexible rubber feet with approximately 7 mm pads; they slide fore/aft independently and can be removed. Captured scan positions are not a fixed bolt pattern. Discharge is enclosure −X, corresponding to reference +Y at +90° yaw. Actual screw passage, washer seating and loaded rubber behavior remain assembly observations. [Sample authority](../../reference/g-ganen-pump/scan-evidence.json). |
 
-## Permanent junction and return support
+## Pump tees and returns
 
-Four TPU junctions connect through single-bend LLDPE runs to four PP0308E elbows beneath the rear valves. The wall and gravity-seated flat keepers locate the junctions. Broad TPU stock backs both branch sockets. Each elbow joins its mounted valve through a short push-fit tube. The rear valve row stands 8 mm above its deck reference to clear the compressor and condenser. See the [native review](pump-dock/elbow-review/README.md) for clearances and the distinction between measured exterior geometry, assumed insertion lengths and physical acceptance.
+Four purchased PP0208E tees take the pump tubes behind the collet plate. Each lies in a tee anchor whose Ø17 mm half journal holds the branch collar in X and Z and lets the tee slide along Y, under a tee cap that snaps down on top of the branch; the collet plate stops it fore at released, and in service the bottomed pump tube holds it at connected. One R14 LLDPE hairpin joins each tee's lower collet to its rear valve's bottom collet, its lowest surface 1.25 mm over the condenser's top at the east-outer station, and a short upper tube joins the tee to its fore valve. The rear valve row stands 8 mm above its deck reference to clear the compressor and condenser. A hairpin's cut length allows the tee's run insertion and a layout estimate of the valve's; actual fully seated marks govern the factory cuts.
 
-The two purchased PP0208E tees form the source crossbar. Their registered envelope
+Two more purchased PP0208E tees form the source crossbar. The PP0208E's registered envelope
 uses a conservative Ø16.5 fixed collar and Ø17.0 journal. The received-part
 [run and branch measurements](../../reference/jg-pp0208e-tee/branch-operating-measurements.json)
-retain their commercial-fitting scope. Customer pump withdrawal does not actuate
-those collets. See the [permanent dock](pump-dock/README.md) for its station-specific
-manufacturing outputs, fixture load paths and assembly order.
+retain their commercial-fitting scope. Customer pump withdrawal actuates the four pump tees'
+branch collets and not the source tees'. See the [pump dock](pump-dock/README.md) for its
+stations, manufacturing outputs and assembly order.
 
 ## Remaining work for the complete working appliance
 
@@ -197,13 +198,13 @@ unmeasured does not by itself supply a task or test for the founder.
 
 | Area | Work needed |
 | --- | --- |
-| Final permanent dock | Bind the four current TPU junctions and three PET-GF keepers to their production projects and emitted paths. Wet-bore strands, supported sealing surfaces and physical fit remain scoped to the actual part. See the [manufacturing handoff](pump-dock/petgf-production-parts.md) and [native integration review](pump-dock/elbow-review/README.md). |
+| Final pump dock | Bind the tee cap and the cartridge's and front-top's two-block magnet slots to their production projects and emitted paths. The tee caps' snap and retention, the anchors' fit and the release under the collet plate remain scoped to the actual parts. See the [manufacturing handoff](pump-dock/petgf-production-parts.md). |
 | Remaining enclosure geometry | Resolve the front-top seam-to-roof and display-wing corners, plus the sensor/scarf, rear-interface, handhold/floor, warning, lid-perimeter and valve-fixture findings in the [manual interface review](pump-dock/lint-interface-review.json) and the [front-top findings](../lint-answers/enclosure/enclosure/enclosure-front-top.lint-answers). Keep each classifier diagnosis and supported functional section tied to its exact feature; unresolved inherited geometry remains open. |
 | Production deposition and finish | Complete fresh native preparations for the final meshes, dense fastener hosts and roots, support removal, visible transitions and the back-top sliding grooves. The rejected full-shell articles and accepted local surfaces above retain their recorded scopes. Prepared settings do not establish deposited material or usable cleanup. |
 | Complete assembly | Close the current [assembly feedback](enclosure/assembly-fit-review/README.md) against the populated machine: cord and driver access, valve and tube installation, pump feet and washers, routing, lid/deck stations, funnel frame and all four closing quadrants. A nominal CAD gap is not complete assembly acceptance. Production LLDPE routes retain nominal ¼-inch and ⅜-inch outside diameters. |
 | Cold-core moisture boundary | The warm-side closure is the foil bands on the dry casing seams ([seam review](../cold-core/foam-cap/seam-moisture-review.json)) plus, at final assembly, a 3M 425 foil collar pressed from each conduit's tube or cable onto the lid face round its annulus, the same at both copper exits, a foil patch over each cap-screw head pocket and over any cap foam left showing ([cold core](../../assembly/cold-core.md#7-final-assembly)). It needs no printed sealing land; its effect on condensation inside the core is unmeasured. |
 | Condensate and refill water | Condensate is addressed by insulating the meter, union and tails and by the umbilical's drip loop. The funnel's integral silicone apron covers the exposed frame/roof joints to the exterior sides; its broad, flat underside rests on the roof. The [overflow review](../zone-c/funnel/overflow-review/README.md) records the native geometry and assembly checks. Physical overpour and roof-runoff exclusion remain unqualified. Floor water needs feet under the slab, a purchase. |
-| Loads, retention and electrical contacts | Assess the complete grip-to-floor and seam load paths, fastener/insert backing, cartridge seats, eight-pair magnetic capture, four wet joints and pogo contacts for actual operating, handling and customer replacement conditions. The dock's geometric motion allowance still needs the manufacturing, temperature and loaded-deformation contributions. Complete-assembly pressure/leak/prime performance, repeated tube/stub restraint, holding/removal force, electrical continuity, cleanability/drainage and creep/lifetime remain open. The [mechanical register](../../mechanical-qualification/README.md), [pressure/retention assessment](pump-dock/pressure-retention-review.json) and [contact audit](../../reference/yyfkgcp-pogo-4p/mounting-audit.md) identify the current basis and limits. Coupon fit, magnet catalogue pull and saved infill settings retain their specific scopes. |
+| Loads, retention and electrical contacts | Assess the complete grip-to-floor and seam load paths, fastener/insert backing, cartridge seats, the four-pair magnetic seat, the four tees' collet joints and pogo contacts for actual operating, handling and customer replacement conditions. The dock's geometric motion allowance still needs the manufacturing, temperature and loaded-deformation contributions. Complete-assembly pressure/leak/prime performance, repeated tube restraint in the collets, the upper tubes' and hairpins' spring, holding/removal force, electrical continuity, cleanability/drainage and creep/lifetime remain open. The [mechanical register](../../mechanical-qualification/README.md) and [contact audit](../../reference/yyfkgcp-pogo-4p/mounting-audit.md) identify the current basis and limits. Coupon fit, magnet catalogue pull and saved infill settings retain their specific scopes. |
 | Finished appliance function | Close the relevant material, cleaning, fluid, electrical, control and commissioning work in [concerns](../../concerns.md) and [acceptance and burn-in](../../assembly/acceptance-and-burn-in.md). Any resolution that changes a printed part, access, load path or manufacturing process belongs in this print's design review. The current Lillium-fed soda observation retains its complete stated scope. |
 
 Known design and manufacturing problems are addressed before releasing the affected

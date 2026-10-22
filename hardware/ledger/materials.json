@@ -422,6 +422,17 @@
             ]
           },
           {
+            "material": "HSM-000329",
+            "quantity": 4,
+            "unit": "ea",
+            "bodies": [
+              "tee-cap-y-c",
+              "tee-cap-y-d",
+              "tee-cap-y-f",
+              "tee-cap-y-g"
+            ]
+          },
+          {
             "material": "HSM-000077",
             "quantity": 1,
             "unit": "ea",
@@ -462,30 +473,6 @@
             ]
           },
           {
-            "material": "HSM-000084",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "enclosure-tee-carrier-plate"
-            ]
-          },
-          {
-            "material": "HSM-000085",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "enclosure-window-cover-west"
-            ]
-          },
-          {
-            "material": "HSM-000086",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "enclosure-window-cover-east"
-            ]
-          },
-          {
             "material": "HSM-000087",
             "quantity": 1,
             "unit": "ea",
@@ -511,9 +498,9 @@
           },
           {
             "material": "HSM-000328",
-            "quantity": 8,
+            "quantity": 4,
             "unit": "ea",
-            "note": "Two four-high columns ride the printed rails of front-top's two bay-wall slots, loaded at its print pause; the moving blocks belong to the pump cartridge."
+            "note": "Two columns of two ride the printed rails of front-top's two slots, in bosses behind the collet plate, loaded at its print pause; the moving blocks belong to the pump cartridge."
           },
           {
             "material": "HSM-000166",
@@ -594,17 +581,6 @@
             "bodies": [
               "tube-collar-co2",
               "tube-collar-co2-word"
-            ]
-          },
-          {
-            "material": "HSM-000275",
-            "quantity": 4,
-            "unit": "ea",
-            "bodies": [
-              "tee-carrier-spring-west-lower",
-              "tee-carrier-spring-west-upper",
-              "tee-carrier-spring-east-lower",
-              "tee-carrier-spring-east-upper"
             ]
           },
           {
@@ -4471,7 +4447,7 @@
         }
       ],
       "bom": {
-        "scope": "Complete removable cartridge: two pumps, lower cradle, top clamp, connecting tube ends, moving contacts and leads, SB443-IN magnet blocks and mounting hardware. Fixed tees, release mechanism and male contacts belong to the machine. Tube blanks are fitted during assembly; motor-tab terminal sizes are recorded in the wiring procedure when established.",
+        "scope": "Complete removable cartridge: two pumps, lower cradle, top clamp, prepared pump tubes, moving contacts and leads, SB443-IN magnet blocks and mounting hardware. The pump tees, their tee caps, the collet plate and the male contacts belong to the machine. Pump tubes are fitted during assembly; motor-tab terminal sizes are recorded in the wiring procedure when established.",
         "source": "assembly/internal-plumbing.md",
         "items": [
           {
@@ -4513,9 +4489,9 @@
           },
           {
             "material": "HSM-000328",
-            "quantity": 8,
+            "quantity": 4,
             "unit": "ea",
-            "note": "Two four-high columns ride the printed rails of the cradle's two slots, loaded at its print pause; no adhesive."
+            "note": "Two columns of two ride the printed rails of the cartridge's two slots in its flat back, loaded at its print pause; no adhesive."
           },
           {
             "material": "HSM-000164",
@@ -4548,7 +4524,7 @@
               "tube-fluid-21",
               "tube-fluid-22"
             ],
-            "note": "Fit the pump-end engagement before setting each free tip 17.53 mm beyond the rigid outlet-axis station; this is not a tube-blank length."
+            "note": "Cut 33.2 mm: 13.149 mm held in the BPT tube under the head's clamp and 20.026 mm beyond the barb plane, each tip set against the tube setting jig at the seated datum, where it bottoms in its pump tee."
           },
           {
             "material": "HSM-000169",
@@ -4698,7 +4674,8 @@
         "fluid-11",
         "fluid-12",
         "fluid-21",
-        "fluid-22"
+        "fluid-22",
+        "prepared pump tube"
       ],
       "documents": [
         {
@@ -6470,6 +6447,26 @@
       ],
       "aliases": [
         "Anchor cap"
+      ]
+    },
+    {
+      "id": "HSM-000329",
+      "description": "Pump tee cap",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/enclosure/enclosure/enclosure-tee-cap.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "printed-parts/enclosure/pump-dock/README.md"
+        }
+      ],
+      "aliases": [
+        "Tee cap",
+        "enclosure-tee-cap"
       ]
     },
     {
