@@ -73,9 +73,7 @@ axis runs along X, so the pair shares one transform and still faces itself acros
 
 ### The source valves' step
 
-The flavour flow regulator sits aft of tube-water-2. Fluid-1 feeds it below the
-funnel frame. Fluid-2 turns through the rear service lane, rises west of the water pump,
-and crosses directly to V-A's vertical inlet approach. Both routes keep R14 bends.
+The internal SB-FPV-40 pressure regulator sits beside the water pump in one tied cradle on the cold-core lid. Fluid-1 feeds it below the funnel frame. Fluid-2 turns up at its rear end, returns through the west service corridor and crosses onto V-A's inlet approach. Both routes keep R14 bends.
 
 Y-A/B and V-C/D sit 9.5 mm below the outer limbs in the enclosure. Both source
 bends move with that group. V-A and V-B have mounting planes 1.4 mm below the cap

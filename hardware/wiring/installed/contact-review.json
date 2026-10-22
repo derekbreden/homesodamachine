@@ -1,7 +1,7 @@
 {
   "scope": "Manual exact-solid follow-up of the full-scene mesh contact witnesses. Only contact within 8.5 mm of a shared electrical node or the named endpoint part is excluded. No physical assembly acceptance is established.",
-  "assembly_step_sha256": "ba1df09203440faccbc7ce6955bc8f18691f8c74190fc8060c28f1b228956122",
-  "manifest_sha256": "3f9bed500447d2749f355e67c48211c68280214c2c478c8a242fbd2135e9ad92",
+  "assembly_step_sha256": "14baefeb40b299080928c61466bfe831cfec4bbf01713c36bbff36a745b48940",
+  "manifest_sha256": "2f2beca01f843c85021c5ee5182727e52f25da2c5f9977ad47194dafaaaf3795",
   "physical_pairs": [
     {
       "a": "wire-J1-COM",

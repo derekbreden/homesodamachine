@@ -17,7 +17,7 @@
 
 All valves are normally closed solenoid valves. Flow direction is inlet (I) to outlet (O) only.
 
-**A stopped pump is not a closed valve.** A parked KPHM600 head passes flow both ways — gravity drains a standing line down through one — so every path in this manifold is held by its NC solenoids alone, and each dispense path carries a gate at both ends of its pump. It is also what carries the clean-fill modes below, where tap water, throttled by the flow regulator (the needle valve on V-A's feed), crosses an idle pump to reach a reservoir.
+**A stopped pump is not a closed valve.** A parked KPHM600 head passes flow both ways — gravity drains a standing line down through one — so every path in this manifold is held by its NC solenoids alone, and each dispense path carries a gate at both ends of its pump. It is also what carries the clean-fill modes below, where tap water, pressure-limited by the internal SB-FPV-40 on V-A's feed, crosses an idle pump to reach a reservoir.
 
 > **V-K** — the water-supply fill/shutoff solenoid, an 11th valve of the same Beduan NC type — is **not** part of this manifold. It stands on the cold core's crown east of the G Ganen pump and gates the carbonator fill on the water-split's branch to that pump's suction, downstream of the ASSE 1022 (see [`fluid-topology-carbonator.mmd`](/hardware/topology/fluid-topology-carbonator.mmd) and [`assembly/internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §2), driven off the main board's spare `J2.OUT3` channel.
 
@@ -73,7 +73,7 @@ a deck plane, or a swept `drawn` run.
 Of [26](SEGMENT_COUNT) manifold segments, [3](BUTT_COUNT) carry no exposed tube and
 [4](UPPER_LINK_COUNT) straight upper links have [14.501 mm](UPPER_LINK_EXPOSED)
 exposed spans. The four printed lower returns use [8](LOWER_LINK_COUNT) straight
-links. Reported LLDPE paths total [2968.5 mm](FLUID_TOTAL); exposed lengths need
+links. Reported LLDPE paths total [3172.1 mm](FLUID_TOTAL); exposed lengths need
 their actual fitting insertions when making finished blanks. A butt joint still
 needs tube through both fittings despite its zero exposed length. The factory
 sets captive link lengths from the mounted stop spans and fully seats valve-side

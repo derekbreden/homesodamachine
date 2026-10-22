@@ -115,11 +115,14 @@ Platypus bag → TEE → [dispensing solenoid] → [pump] → dispensing point
 
 Each flavor line gets its own clean solenoid and tee. The needle valve and water supply are shared — a second tee splits the water line to both clean solenoids.
 
-### Why a Needle Valve Instead of a Pressure Regulator
+### Clean-water pressure
 
-Household water pressure is 40-80 PSI. The flavoring lines operate at well under 10 PSI. A pressure regulator in the 1/4" RO ecosystem is designed to protect RO membranes — they reduce to ~60 PSI, not the 5-10 PSI we need, and aren't reliable at the extreme low end of their range.
-
-A needle valve restricts *flow* by physically narrowing the passage with a screw. Turn it down and only a trickle gets through, regardless of input pressure. The pressure issue solves itself because so little water can pass at once. Simpler, cheaper, and more reliable at low flow rates.
+A needle valve restricts flowing water through the prototype's cleaning circuit.
+A blocked path can still reach supply pressure. The integrated enclosure's V-A
+feed uses an internal [Hydronix SB-FPV-40 pressure regulator](/hardware/reference/shok-blok-regulator/README.md).
+Reservoir level sensing ends the clean fill; the regulator limits its supply
+pressure. The manufacturer's output table and the provisional installed
+envelope are recorded beside the reference.
 
 ### Clean Cycle Sequence
 

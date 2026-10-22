@@ -108,7 +108,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "sf76e-thermal-fuse",
            _hw / "printed-parts" / "refrigeration" / "fuse-clamp",
            _hw / "reference" / "water-split",
-           _hw / "reference" / "neofit-flow-control",
+           _hw / "reference" / "shok-blok-regulator",
            _hw / "reference" / "beduan-solenoid",
            _hw / "reference" / "jg-bulkhead-union",
            _hw / "reference" / "iec-c14-inlet",
@@ -197,7 +197,8 @@ import pump_receiver as _receiver                    # noqa: E402
 # third reader. It reaches for `enclosure_assembly` inside its own functions and never at import,
 # so the arrow points one way.
 import _y_wall_dimensions as _rear                    # noqa: E402
-import neofit_flow_control as _flowreg                # noqa: E402
+import shok_blok_regulator as _flowreg                # noqa: E402
+import _water_pressure_regulator as _water_regulator
 import water_split as _split                          # noqa: E402
 sys.path.insert(0, str(_hw / "reference" / "neofit-drain-bulkhead"))
 import neofit_drain_bulkhead as _drain_bulkhead
@@ -320,8 +321,8 @@ C_FUSE = M_TINNED_STEEL
 C_CLAMP = M_PETG_BLACK
 # The PP0208E union tee on the ASSE chain's outlet.
 C_SPLIT = M_JG_BLACK_PP
-# The ABCVU44-E flow-control bulkhead throttling the flavour leg.
-C_FLOWREG = M_NEOFIT_ACETAL
+# The internal fixed-pressure valve on the flavour clean-water feed.
+C_FLOWREG = M_JG_GREY_ACETAL
 # V-K is the same Beduan solenoid as the ten on the manifold, so it is the same body.
 C_VK = ml.C_VALVE
 # The four PP1208E unions the +Y wall of back-top clamps — the fittings the customer meets.
@@ -2453,22 +2454,17 @@ BODY_ANCHOR_SITES = (
     ("wr1110", _wr1110.barrel, (0.0, 0.0, 1.0), "enclosure-back-top"),
     # The downstream check's inlet boss; the bowed connecting tubes do not locate its body.
     ("gasher-co2", _gas_chain.check_socket, (0.0, 0.0, 1.0), "enclosure-back-top"),
-    # Both flavour-tap bodies hang from the west wall. The regulator sits aft of
-    # water-2; its feed passes below the funnel frame. Each seat closes on its
-    # reference module's round run section, clear of the hub, collet and adjuster.
+    # The water split's seat closes on its fixed run section in the west wall.
     ("water-split", lambda: _split.clearance_seat(_enc.tube_anchor_len, _enc.tie_w),
      (-1.0, 0.0, 0.0), "enclosure-back-top"),
-    ("flow-regulator", _flowreg.run_barrel, (-1.0, 0.0, 0.0), "enclosure-back-top"),
 )
 
 # The same statement for the body anchors' end webs, read the same way (`ANCHOR_END_FORMS`).
-# Both west-wall bodies use end corbels. The split's columns would cross
-# tube-water-2; the regulator's would cross the ASSE outlet above its inlet.
+# The split's end corbels leave tube-water-2 clear.
 BODY_ANCHOR_END_FORMS = {
     "wr1110": ("corbel", "corbel"),
     "gasher-co2": ("corbel", "corbel"),
     "water-split": ("corbel", "corbel"),
-    "flow-regulator": ("corbel", "corbel"),
 }
 
 
@@ -3987,8 +3983,8 @@ SPLIT_TURN = (((0.0, 1.0, 0.0), -90.0),)
 # THE FUNNEL'S BOWL IS THE FORWARD LANE'S CEILING. The chain crosses the wall on the panel deck
 # and the lane it hands the water to runs forward under that bowl, so the tap steps down out of
 # the deck between the chain and the split, in the open room aft of the funnel. Everything
-# forward of the split — the regulator, its tap and the tube down to the flavour gates — lies on
-# the storey this step lands on.
+# forward of the split is its tube crossing beneath the bowl. The pressure regulator has
+# its own seat beside the pump on the cold-core lid.
 #
 # What the step leaves once the funnel is in the box is the
 # first moment the bowl exists to measure against: the box is sized around this pack and the
@@ -4009,15 +4005,10 @@ BOWL_CLEAR = 1.0
 # mouths face each other down one column with the step between them, so what this has to be is
 # the run that step's two corners and the lean between them take.
 WATER_2 = 42.0
-# The split and regulator share a column 1.5 mm inboard of the bare anchor-slip
-# station. This leaves the regulator inlet's full tube lead past the front shell
-# and keeps the hairpin at least 1.48 mm clear of that shell. Their complete wall
-# anchors follow the column; the rolled hub keeps its own shallow relief.
-# `water-2` already leans across from
-# the union column above, and every line leaving this pair is struck from its carried ports.
-SPLIT_FLANK_CLEAR = BODY_ANCHOR_SLIP + 1.5
-SPLIT_COLUMN = (_enc.back_top_flank_face()[0] + _flowreg.HUB / 2.0
-                + SPLIT_FLANK_CLEAR)
+# The split's retained column is 8.65 mm inboard of the west flank face.
+# Its fixed-collar seat and local wall relief follow this column.
+SPLIT_FLANK_OFFSET = 8.65
+SPLIT_COLUMN = _enc.back_top_flank_face()[0] + SPLIT_FLANK_OFFSET
 
 
 def build_split(asse_carry):
@@ -4036,28 +4027,19 @@ def build_split(asse_carry):
                      station=(_split.supply(), target))
 
 
-# --- the flow regulator, inline on the flavour tap -------------------------
-#
-# The regulator runs fore–aft behind water-2. Its adjuster points inboard and
-# 30 degrees down. The west-wall barrel seat rides the body's placement.
-FLOWREG_TURN = (((0.0, 0.0, 1.0), -90.0), ((0.0, 1.0, 0.0), 90.0),
-                ((1.0, 0.0, 0.0), 180.0), ((0.0, 1.0, 0.0), 30.0))
-FLOWREG_AFT = 82.0
-FLOWREG_INBOARD = 7.0
-FLOWREG_RISE = 11.0
+# --- the internal water-pressure regulator --------------------------------
 
 
-def build_flowreg(split_carry):
-    """Seat the regulator aft of water-2, below the ASSE chain and in the rear service lane.
-
-    The split supplies the placement datum. The inward offset leaves room for
-    fluid-1's R14 inlet bend beside water-2; the outlet crosses the service lane.
-    """
-    hub, _axis = split_carry(((0.0, 0.0, 0.0), (0.0, 1.0, 0.0)))
-    target = (hub[0] + FLOWREG_INBOARD,
-              hub[1] - _flowreg.REACH + FLOWREG_AFT,
-              hub[2] + FLOWREG_RISE)
-    return seat_body(_flowreg.build(), FLOWREG_TURN, seat="flow-regulator",
+def build_flowreg(foam_carry):
+    """The pressure valve beside the pump, following its cradle on the core's lid."""
+    x, y = _foam.spin_xy(_water_regulator.INLET_XY)
+    u = _water_regulator.AXIS
+    target, axis = foam_carry(((x, y, _foam.cap_face_z + _water_regulator.INLET_OVER_FACE),
+                               (-u[0], -u[1], u[2])))
+    yaw = math.degrees(math.atan2(axis[1], axis[0]))
+    pitch = math.degrees(math.atan2(-axis[2], math.hypot(axis[0], axis[1])))
+    turns = (((0.0, 1.0, 0.0), pitch), ((0.0, 0.0, 1.0), yaw))
+    return seat_body(_flowreg.build(), turns, seat="flow-regulator",
                      station=(_flowreg.inlet(), target))
 
 
@@ -4425,7 +4407,7 @@ def build_pack() -> cq.Assembly:
     # THE DECK COMES DOWN ONTO WHAT IS ALREADY STANDING, so its four bodies are struck against
     # the assembly as it is at this point. THE WEST LANE HANGS OFF IT and is not in the strike:
     # the tap-water union takes the deck's own storey, the chain butts that union, and the
-    # split and the regulator take station off the chain. NEITHER IS THE GAS
+    # split takes station off the chain. THE GAS
     # CHAIN: it takes that same storey rather than standing under it, so it goes up after the
     # strike and answers to `deck_storey` the way the union row does.
     a.gate_z = flavor_storey(gate_cruise, water_pump_carry)
@@ -4457,7 +4439,7 @@ def build_pack() -> cq.Assembly:
     a.add(asse, name="asse1022-assembly", color=C_ASSE)
     split, split_carry = build_split(asse_carry)
     a.add(split, name="water-split", color=C_SPLIT)
-    flowreg, flowreg_carry = build_flowreg(split_carry)
+    flowreg, flowreg_carry = build_flowreg(foam_carry)
     a.add(flowreg, name="flow-regulator", color=C_FLOWREG)
     disch, disch_carry = build_discharge_chain(foam_carry)
     a.add(disch, name="discharge-chain", color=_dis.M_JG_WHITE_PP)
@@ -5245,7 +5227,7 @@ def wedge_fills(placed, authored_rooms=()) -> Bound:
 
 
 def flank_reliefs(placed):
-    """Native-footprint pockets for the fixed split and regulator in the west flank.
+    """Native-footprint pocket for the water split in the west flank.
 
     Each footprint includes the near-wall surface within its clearance so that
     pocket corners clear drafted collars. Both pockets stay within the added
@@ -5253,8 +5235,7 @@ def flank_reliefs(placed):
     """
     face = _enc.back_top_flank_face()[0]
     pockets = []
-    for name, air, approach in (("flow-regulator", BODY_ANCHOR_SLIP, BODY_ANCHOR_SLIP),
-                                ("water-split", fits.running, fits.running)):
+    for name, air, approach in (("water-split", fits.running, fits.running),):
         shape = placed[name][0]
         b = box(shape)
         if b.xmin >= face + approach:

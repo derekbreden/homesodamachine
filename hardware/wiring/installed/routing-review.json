@@ -1,9 +1,9 @@
 {
   "schema": 1,
   "scope": "One manual full-scene mesh interference review of every wire, every wire pair and cable jackets against physical bodies. Tessellated penetration is a routing witness, not a native-solid or physical assembly qualification.",
-  "manifest_sha256": "3f9bed500447d2749f355e67c48211c68280214c2c478c8a242fbd2135e9ad92",
-  "assembly_step_sha256": "ba1df09203440faccbc7ce6955bc8f18691f8c74190fc8060c28f1b228956122",
-  "assembly_mesh_sha256": "b546485d14a093f2aaf7c88bb0b5c39f71e13c23123f9f5e419ea285e067f70f",
+  "manifest_sha256": "2f2beca01f843c85021c5ee5182727e52f25da2c5f9977ad47194dafaaaf3795",
+  "assembly_step_sha256": "14baefeb40b299080928c61466bfe831cfec4bbf01713c36bbff36a745b48940",
+  "assembly_mesh_sha256": "04ca6517a008ab371d1ae3e0778a7b0955a04c6f273215c145c8773e026fe7b8",
   "wire_count": 102,
   "physical_mesh_count": 424,
   "coverage_missing": [],
@@ -119,7 +119,7 @@
   "endpoint_contact_scope": "Only the named endpoint part within 8.5 mm of its attachment. All other contact with that part remains in the reading.",
   "native": {
     "scope": "All standalone native wires and their installed native placements, read back from both STEP files.",
-    "wiring_step_sha256": "ad4ac430b285a82aa7be5adf9bf380d747e81599b875106e8baa4839f6126068",
+    "wiring_step_sha256": "d0182b93c7d3d7347cab17ef9e8e4428a834db55f6658e250f47956b5048c438",
     "all_valid_single_solids": true,
     "maximum_installed_bounds_error_mm": 0.0,
     "invalid": [],

@@ -3384,9 +3384,17 @@
       {
         "terminal": "ground.carbonator",
         "offset": [
-          -111.75,
-          -3.8,
-          -14.04423
+          -122.75,
+          0.2,
+          -24.044229
+        ]
+      },
+      {
+        "terminal": "ground.carbonator",
+        "offset": [
+          -135.75,
+          2.2,
+          -24.044229
         ]
       },
       {
@@ -3445,7 +3453,7 @@
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
+    "note": "Dressed connection through existing assembly space, with individually separated conductors."
   },
   "J4-3V3": {
     "stations": [
@@ -4543,9 +4551,33 @@
       {
         "terminal": "wago-sensors.3",
         "offset": [
+          55.9,
+          -25.0,
+          51.266667
+        ]
+      },
+      {
+        "terminal": "wago-sensors.3",
+        "offset": [
+          55.9,
+          -25.0,
+          61.266667
+        ]
+      },
+      {
+        "terminal": "wago-sensors.3",
+        "offset": [
+          69.19,
+          43.0,
+          61.266667
+        ]
+      },
+      {
+        "terminal": "wago-sensors.3",
+        "offset": [
           69.19,
           60.81,
-          51.266667
+          61.266667
         ]
       }
     ],
