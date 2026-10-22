@@ -127,3 +127,64 @@ click: x=-131.897 y=-87.851 z=1.127
 click: x=-132.407 y=-89.827 z=1.129
 click: x=131.897 y=87.851 z=1.127
 click: x=132.407 y=89.827 z=1.129
+
+[sliver] Outside the internal-regulator change and unresolved: these retained lid-rim, screw-seat and anchor-cap-catch features are outside the new post. The exact-native comparison in reference/shok-blok-regulator/installation-review.json establishes unchanged material outside the post window. It does not accept these fine sections, catch strips or print-down lands.
+alternatives: Reconcile the complete lid seating interface or the catch with its mating anchor cap before removing its thin strip, ledge or recess. Those fitted interfaces require their own review.
+file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+click: x=65.950 y=-74.975 z=8.939
+click: x=55.650 y=-86.025 z=8.939
+click: x=55.650 y=-74.975 z=8.939
+
+[ceiling] Required regulator tie passage: this roof bridges the 2.8 mm tie width across a 25.4 mm open-ended passage with 3.25 mm nominal height. Both Y mouths stay accessible before the regulator is seated. Retain Tree(auto)/Default; physical support removal is unqualified.
+alternatives: Filling the passage prevents the single tie. An inclined roof adds faces and changes the passage without eliminating its through span. Preserve the simple flat bridge and open mouths.
+file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+click: x=-99.773 y=-56.981 z=25.456
+
+[thin] Outside the internal-regulator change and unresolved: these retained lid-rim, screw-seat and anchor-cap-catch features are outside the new post. The exact-native comparison in reference/shok-blok-regulator/installation-review.json establishes unchanged material outside the post window. It does not accept these fine sections, catch strips or print-down lands.
+alternatives: Reconcile the complete lid seating interface or the catch with its mating anchor cap before removing its thin strip, ledge or recess. Those fitted interfaces require their own review.
+file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+click: x=-131.897 y=87.851 z=1.123
+click: x=-132.407 y=89.827 z=1.126
+click: x=131.897 y=-87.851 z=1.123
+click: x=132.407 y=-89.827 z=1.126
+click: x=-106.699 y=58.962 z=4.303
+click: x=-108.633 y=59.616 z=4.303
+click: x=39.969 y=88.149 z=1.127
+click: x=39.969 y=90.200 z=1.127
+click: x=39.969 y=-88.149 z=1.127
+click: x=39.969 y=-90.200 z=1.127
+click: x=-40.031 y=-88.149 z=1.127
+click: x=-40.031 y=-90.200 z=1.127
+click: x=-40.031 y=88.149 z=1.127
+click: x=-40.031 y=90.200 z=1.127
+click: x=139.149 y=0.031 z=1.127
+click: x=141.200 y=0.031 z=1.127
+click: x=-139.149 y=0.031 z=1.127
+click: x=-141.200 y=0.031 z=1.127
+click: x=-42.180 y=-84.600 z=0.000
+click: x=-42.180 y=-84.600 z=2.250
+click: x=-134.683 y=0.557 z=0.000
+click: x=-134.683 y=0.557 z=2.250
+click: x=-38.089 y=84.368 z=0.000
+click: x=-38.089 y=84.368 z=2.250
+click: x=132.501 y=-83.661 z=0.000
+click: x=132.501 y=-83.661 z=2.250
+click: x=40.018 y=-83.637 z=0.000
+click: x=40.018 y=-83.637 z=2.250
+click: x=39.480 y=83.721 z=0.000
+click: x=39.480 y=83.721 z=2.250
+click: x=129.428 y=84.307 z=0.000
+click: x=129.428 y=84.307 z=2.250
+click: x=136.588 y=2.744 z=0.000
+click: x=136.588 y=2.744 z=2.250
+click: x=-141.200 y=-32.665 z=3.135
+click: x=-139.239 y=-32.518 z=4.667
+click: x=141.200 y=-32.665 z=3.135
+click: x=139.239 y=-32.518 z=4.667
+
+[ledge] Outside the internal-regulator change and unresolved: these retained lid-rim, screw-seat and anchor-cap-catch features are outside the new post. The exact-native comparison in reference/shok-blok-regulator/installation-review.json establishes unchanged material outside the post window. It does not accept these fine sections, catch strips or print-down lands.
+alternatives: Reconcile the complete lid seating interface or the catch with its mating anchor cap before removing its thin strip, ledge or recess. Those fitted interfaces require their own review.
+file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+click: x=59.083 y=-75.242 z=12.478
+click: x=37.183 y=39.492 z=14.372
+click: x=37.183 y=50.008 z=14.372

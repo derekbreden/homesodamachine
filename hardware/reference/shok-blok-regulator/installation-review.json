@@ -330,5 +330,74 @@
     "Listing-based length and photo-scaled sections; inlet/outlet assignment and tube insertion provisional.",
     "Use the actual flow marking from supply to V-A; acquisition and physical fit are not recorded."
   ],
-  "pass": true
+  "pass": true,
+  "printed_piece_change_scope": {
+    "scope": "Exact native material comparison against pre-change appliance ba1df092. The stated windows contain the regulator mount additions/removals; material outside them is unchanged to Boolean tolerance. The lid bottom is unchanged. This is a scope comparison, not acceptance of retained geometry.",
+    "pieces": [
+      {
+        "body": "cold-core/foam-cap-lid-top",
+        "changed_region_world_mm": [
+          [
+            -71,
+            418,
+            253
+          ],
+          [
+            -43,
+            429,
+            289
+          ]
+        ],
+        "removed_mm3": 0.0,
+        "added_mm3": 6116.828390397848,
+        "removed_outside_region_mm3": 0.0,
+        "added_outside_region_mm3": 0.0
+      },
+      {
+        "body": "enclosure-back-top",
+        "changed_region_world_mm": [
+          [
+            -109,
+            280,
+            270
+          ],
+          [
+            -40,
+            365,
+            355
+          ]
+        ],
+        "removed_mm3": 1896.0311934757044,
+        "added_mm3": 0.0,
+        "removed_outside_region_mm3": 0.0,
+        "added_outside_region_mm3": 0.0
+      },
+      {
+        "body": "cold-core/foam-cap-lid-bottom",
+        "removed_mm3": 0.0,
+        "added_mm3": 0.0
+      }
+    ]
+  },
+  "post_publication_lint": {
+    "scope": "One whole-piece run of geometry_lint.py --all after the reviewed artifacts were live. Retained findings use the exact-native scope comparison, accepted exceptions remain scoped, and the new post has one required tie-passage ceiling. No physical print acceptance.",
+    "pieces": [
+      {
+        "piece": "foam-cap-lid-top",
+        "printed_facets": 21104,
+        "findings": 30,
+        "previously_answered": 6
+      },
+      {
+        "piece": "enclosure-back-top",
+        "printed_facets": 604976,
+        "findings": 68,
+        "previously_answered": 36
+      }
+    ],
+    "answer_files": [
+      "hardware/printed-parts/lint-answers/cold-core/foam-cap/foam-cap-lid-top.lint-answers",
+      "hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-back-top.lint-answers"
+    ]
+  }
 }
