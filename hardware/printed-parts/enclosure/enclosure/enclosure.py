@@ -190,10 +190,17 @@ pump_station_drop = _interface.pump_station_drop
 # mass stands on, the face a body bolted DOWN rather than hung on a flank is anchored to
 # (`_floor_bosses`), and the one face of the box that prints flat on the bed — where section
 # is filament and nothing else: no bridge, no support, no standing wall to warp.
-# `appliance_height` is struck to its UNDERSIDE and the cavity keeps its own floor plane at
-# the pack's z = 0, so the slab stands in the silhouette: the machine is `floor_t`, the
-# cavity, and one `wall` of top.
+# `appliance_height` is struck to its UNDERSIDE, `floor_t` under the pack's z = 0, so the
+# slab stands in the silhouette: the machine is `floor_t`, the cavity, and one `wall` of top.
 floor_t = 6.0
+# THE FLOOR IS ONE PLANE, AND IT STANDS THE CORE'S FLOOR ALLOWANCE UNDER THE PACK'S z = 0. The
+# cold core rests on it and slides over it to its seat, so the face it bears on takes the
+# running allowance and the cavity-floor transition: the floor's own rough surface fills that,
+# and the core rests on the surface about where it is drawn (`fits`). Taken as the whole
+# floor's plane, the allowance makes no step anywhere on the floor.
+floor_drop = fits.clearance(sliding=True, at_floor=True)
+# What is left of the slab under that plane, down to the underside `floor_t` stands on.
+slab_t = floor_t - floor_drop
 # The +Y wall stands one wall off the rearmost content — the cold core, the
 # only thing near the back — so the core seats flush against the rear Z-seam
 # lip's inner face rather than against the wall the lip hangs off. A body mounted
@@ -2238,7 +2245,7 @@ def seam_bosses(inner, y_joint, splits):
     rail actually takes."""
     y0, y1 = y_stack_y(y_joint)
     low, high = y_stack(inner)
-    out = [(y0, y1, inner[4] - floor_t, low[-1][2]), (y0, y1, high[0][1], inner[5])]
+    out = [(y0, y1, inner[4] - slab_t, low[-1][2]), (y0, y1, high[0][1], inner[5])]
     for col, zj in (("front", splits[0]), ("back", splits[1])):
         for _x_in, _sx, ry0, ry1, _lane in _z_rail_runs(inner, y_joint, col, None):
             out.append((ry0, ry1, zj, zj + z_rise))
@@ -2281,7 +2288,7 @@ def _bed_band(inner):
     where the station collars stop too); the top piece runs the seam plane to the top
     wall's outer face. Both print standing on a Z face, so the bed's Z bounds each of
     them, and each bound is one end of this band."""
-    oz0, oz1 = inner[4] - floor_t, inner[5] + wall
+    oz0, oz1 = inner[4] - slab_t, inner[5] + wall
     return oz1 - H2C_Z, oz0 + H2C_Z - z_rise
 
 
@@ -2426,8 +2433,8 @@ def _dims(pack):
     ix0, ix1 = interior_x()
     iy0 = front_plane_y
     iy1 = rear_plane_y
-    iz0 = min(czmin, 0.0)
-    iz1 = (iz0 - floor_t) + appliance_height - ceiling_skin
+    iz0 = min(czmin, 0.0) - floor_drop
+    iz1 = (iz0 - slab_t) + appliance_height - ceiling_skin
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     y_joint = y_seam
     splits = _z_joints(placed, inner, z_seam, pack.collet_plate, y_joint)
@@ -2576,7 +2583,7 @@ def _dims(pack):
             f"downward"])))
     ox0, ox1 = ix0 - wall, ix1 + wall
     oy0, oy1 = iy0 - front_wall, iy1 + wall
-    outer = (ox0, ox1, oy0, oy1, iz0 - floor_t, iz1 + ceiling_skin)
+    outer = (ox0, ox1, oy0, oy1, iz0 - slab_t, iz1 + ceiling_skin)
     # The one thing the Y seam cannot do is cut the display housing: the facet is a
     # solid surface chamfered into the top-front arris and it prints as part of the
     # front-top piece, so the seam stands behind its back plane.
@@ -3629,7 +3636,7 @@ def _ceiling_corbels(solid, inner, centre, y_joint):
 
 def _handhold_levels(inner):
     """Standing floor, lifting ceiling and the full section above it."""
-    bed = inner[4] - floor_t
+    bed = inner[4] - slab_t
     roof = bed + handhold_height + fits.supported_surface
     return bed, roof, roof + handhold_roof
 
@@ -3999,7 +4006,7 @@ def _y_lip_channel(inner, y_joint):
     seam. The corner stacks grow after it (`_y_stacks`)."""
     ix0, ix1, _iy0, _iy1, iz0, iz1 = inner
     y0, y1 = y_joint, y_joint + lip_len + 1.0
-    zlo, zhi = iz0 - floor_t - 1.0, iz1 + ceiling_skin + 1.0
+    zlo, zhi = iz0 - slab_t - 1.0, iz1 + ceiling_skin + 1.0
     flanks = _ybox(ix0 - 1.0, ix0 + fits.running, y0, y1, zlo, zhi).fuse(
         _ybox(ix1 - fits.running, ix1 + 1.0, y0, y1, zlo, zhi))
     return flanks.fuse(_ybox(ix0 - 1.0, ix1 + 1.0, y0, y1,
@@ -4012,7 +4019,7 @@ def _floor_tongue(inner, y_joint):
     The floor is the one seam face whose cavity side is occupied — the cold core
     rides on it — so it cannot carry the proud tongue the walls and ceiling do
     (`_front_lip`). Its tongue stays within the slab instead. The FRONT floor runs
-    aft at the slab's whole `floor_t` thickness and ENDS SQUARE on the plane the
+    aft at the slab's whole `slab_t` thickness and ENDS SQUARE on the plane the
     handholds' inner walls end on (`_handhold_backing_end`); the BACK floor gives up
     that envelope and starts square one `fits.running` aft. Both joint ends keep the
     slab's whole section from the bed to the core's bearing floor, so the floor joint
@@ -4020,8 +4027,8 @@ def _floor_tongue(inner, y_joint):
     on the print bed and its joint face is plumb, so neither asks support. Assembled,
     the top remains one plane at z=iz0.
 
-    THE JOINT IS SQUARE BECAUSE THE SLAB CANNOT LAP. Under the core the slab is 5.65 mm
-    (`floor_t` less the core pocket's floor allowance), and a lap inside it with one
+    THE JOINT IS SQUARE BECAUSE THE SLAB CANNOT LAP. The slab is 5.65 mm (`slab_t`, `floor_t`
+    less the floor's allowance under the core), and a lap inside it with one
     `fits.running` between its members leaves no way for both members to keep the
     nominal 3 mm section. Nothing here has to align the halves: the corner knuckle stacks
     and their M5 rods do (`_y_stacks`).
@@ -4032,7 +4039,7 @@ def _floor_tongue(inner, y_joint):
     Returns (tongue, relief): the solid the FRONT half fuses and the matching
     envelope the BACK half cuts."""
     ix0, ix1, _iy0, _iy1, iz0, _iz1 = inner
-    zbed = iz0 - floor_t
+    zbed = iz0 - slab_t
     root = y_joint - 1.0                              # robust face overlap into front slab
     tongue = _ybox(ix0 + fits.running, ix1 - fits.running,
                    root, _handhold_backing_end(y_joint, "front"), zbed, iz0)
@@ -4391,7 +4398,7 @@ def _rail_keep(inner):
     sweeps past."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     return _round_z(_ybox(ix0, ix1, (iy0 - front_wall) + wall, iy1,
-                          iz0 - floor_t - 1.0, iz1 + wall + 1.0),
+                          iz0 - slab_t - 1.0, iz1 + wall + 1.0),
                     corner_round - wall)
 
 
@@ -4775,6 +4782,10 @@ def _front_relief_cuts(inner, regions, slip=0.0):
     iz0 = inner[4]
     cuts = []
     for x0, x1, z0, z1, floor in regions:
+        # A region stated from the pack's floor, z = 0, is a pocket from the cavity floor, which
+        # stands `floor_drop` under it: stopped at z = 0 it would leave that much wall standing
+        # in its mouth as a sill.
+        z0 = min(z0, iz0) if z0 <= stated_bound_tol else z0
         x0, x1, z0, z1 = x0 + slip, x1 - slip, z0 + slip, z1 - slip
         floor = floor + slip
         depth = iy0 - floor
@@ -7698,8 +7709,10 @@ def _core_fit_pocket(box):
     """The core's rounded plan with running room at every enclosing printed face.
 
     Corner centres/radius come from the front stops and the aft face/crown from the
-    hold-down stations. The pocket spans the floor through the lid, including positive
-    allowance below the core and above its crown. Core and component positions stay fixed.
+    hold-down stations. The pocket runs from the floor through the lid, with the allowance
+    above the core's crown; the one floor plane carries the allowance below it (`floor_drop`),
+    so the pocket starts on that plane and cuts no step into it. Core and component positions
+    stay fixed.
     Each corner is a `_zcyl` on its round's own axis — at the front, the bore `_core_stops`
     cuts — so a corner block's round and the pocket's below it are one surface.
     """
@@ -7715,7 +7728,7 @@ def _core_fit_pocket(box):
     x1 = max(cx + radius for cx, _cy, radius in stops)
     fore = min(cy - radius for _cx, cy, radius in stops)
     air = fits.running
-    z0 = box.inner[4] - fits.clearance(sliding=True, at_floor=True)
+    z0 = box.inner[4]
     z1 = crown + fits.running
     xa, xb, ya, yb = x0 + r, x1 - r, fore + r, aft - r
     pocket = _ybox(xa, xb, fore - air, aft + air, z0, z1).fuse(
