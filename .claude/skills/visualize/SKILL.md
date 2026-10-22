@@ -23,6 +23,7 @@ a screen layout.
 | Showing | Surface |
 |---|---|
 | A published part or assembly to turn around | The site viewer: `https://homesodamachine.com/3d#step:` and the path under `hardware/`, percent-encoded (`faucet-layout%2Ffaucet-assembly.step`). It draws what main published, not an edit on this disk. |
+| A feature of a published part, on the part itself: where it is, lit and labelled | The same link closing on `?find=` and pick text, which the viewer's Find box runs once the part is drawn: `face:` lights the face a point lies on, `box:` exactly the surface inside a box, `view:` turns the camera to the side it is seen from, and quoted words closing any line are pinned to that pick. `link()` in `hardware/scripts/pick_text.py` composes it. |
 | Options or states of real geometry, an unpublished candidate, a part among its neighbours | A page from `tools/viz/build.py`, one lettered panel per option, published and opened as an Artifact |
 | A render the pipeline already made (`tools/look.sh`, `tools/render/render-step-posed.js`) | The PNG with SendUserFile `display: "render"`, or several side by side as `image` panels of a built page |
 | What a slice commands: seams, speeds, the outer walls as emitted | A page from `tools/gcode/view.py` (`seams` or `speed`), published and opened as an Artifact; [its README](../../../tools/gcode/README.md) has the commands |

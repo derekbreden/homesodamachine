@@ -21,11 +21,12 @@ import { LineMaterial } from "three/addons/lines/LineMaterial.js";
 import { scene, camera, renderer, controls } from "./scene.js";
 import { state } from "./state.js";
 import { parsePicks, matchPicks, matchNames, pickFileToViewerPath } from "./pick-format.js";
-import { getFindData, faceHighlightGeometry } from "./edge-picker.js";
+import { getFindData, faceHighlightGeometry, faceNearest, boxHighlightGeometry } from "./edge-picker.js";
 import { scenePartNames } from "./part-highlight.js";
 import { jumpToStep } from "./step-nav.js";
 import { makeToolButton } from "./tool-rail.js";
 import { materialForFile, materialForComponent, searchMaterials, explodeBom, occurrenceBodies, matchesBody } from "/contracts/materials.js";
+import { HSM_EVENTS } from "/contracts/client-events.js";
 
 const FIND = 0xff5ce1; // found-entity highlight (magenta — distinct from select/hover)
 const EDGE_THRESHOLD_DEG = 30; // feature-edge angle for a whole-solid highlight
@@ -52,6 +53,7 @@ function clearOverlay() {
     if (child.geometry) child.geometry.dispose();
     if (child.material && child.material !== findLineMat) child.material.dispose();
   }
+  clearLabels();
 }
 
 function addEdgeHighlight(edge, box) {
@@ -65,9 +67,29 @@ function addEdgeHighlight(edge, box) {
   overlay.add(line);
 }
 
+// The middle of a lit surface, area-weighted: where a label on a face or a box
+// stands. On a curved face it falls inside the curve (a bore's, on its axis),
+// which still points at the feature.
+function surfaceMiddle(geo) {
+  const p = geo.getAttribute("position").array, mid = new THREE.Vector3(), c = new THREE.Vector3();
+  const a = new THREE.Vector3(), b = new THREE.Vector3(), d = new THREE.Vector3();
+  let total = 0;
+  for (let i = 0; i < p.length; i += 9) {
+    a.fromArray(p, i); b.fromArray(p, i + 3); d.fromArray(p, i + 6);
+    const area = b.clone().sub(a).cross(d.clone().sub(a)).length();
+    mid.addScaledVector(c.copy(a).add(b).add(d).multiplyScalar(1 / 3), area);
+    total += area;
+  }
+  return total ? mid.multiplyScalar(1 / total) : null;
+}
+
 function addFaceHighlight(gid, box) {
   const geo = faceHighlightGeometry(gid);
-  if (!geo) return;
+  return geo ? addSurfaceHighlight(geo, box) : null;
+}
+
+// Returns the lit mesh, and where on it a label stands.
+function addSurfaceHighlight(geo, box) {
   geo.computeBoundingBox();
   box.union(geo.boundingBox);
   const mat = new THREE.MeshBasicMaterial({
@@ -77,6 +99,7 @@ function addFaceHighlight(gid, box) {
   const mesh = new THREE.Mesh(geo, mat);
   mesh.renderOrder = 997;
   overlay.add(mesh);
+  return { lit: mesh, at: surfaceMiddle(geo) };
 }
 
 // A whole named solid: its feature edges plus a faint shell, depth-test off
@@ -122,14 +145,21 @@ function addPointHighlight(p, box) {
 }
 
 // Keep the current view direction, re-target onto the matches, and dolly
-// to frame them — same ease + duration as the reset-view flight.
+// to frame them — same ease + duration as the reset-view flight. A `view:`
+// line names the direction instead, upright, so a link can show a feature
+// from the side it is seen from: inside a wall, under a ledge.
 let flyToken = 0;
-function flyToBox(box) {
+function flyToBox(box, view = null) {
   if (box.isEmpty()) return;
   const center = box.getCenter(new THREE.Vector3());
   const size = box.getSize(new THREE.Vector3());
   const maxDim = Math.max(size.x, size.y, size.z, 2);
-  const dir = camera.position.clone().sub(controls.target).normalize();
+  let dir = camera.position.clone().sub(controls.target).normalize();
+  if (view) {
+    const az = THREE.MathUtils.degToRad(view.az), el = THREE.MathUtils.degToRad(view.el);
+    dir = new THREE.Vector3(Math.cos(el) * Math.cos(az), Math.cos(el) * Math.sin(az), Math.sin(el));
+    camera.up.set(0, 0, 1);
+  }
   const destTarget = center;
   const destPos = center.clone().addScaledVector(dir, maxDim * 2.2);
 
@@ -275,7 +305,7 @@ async function runFind() {
     setStatus("still loading the model — try again in a moment");
     return;
   }
-  const { picks, files, names } = parsePicks(textarea.value);
+  const { picks, files, names, view } = parsePicks(textarea.value);
   // Known material descriptions can include units, punctuation and more words
   // than the compact CAD-key grammar used by pasted geometry reports.
   for (const line of textarea.value.split("\n").map((line) => line.trim()).filter(Boolean))
@@ -316,21 +346,176 @@ async function runFind() {
     status.push(nameStatus(nameHits));
   }
 
+  const labels = [];
   if (picks.length) {
     const { edges, faces } = getFindData();
     const results = matchPicks(picks, edges, faces);
     let matched = 0;
     for (const r of results) {
-      if (r.type === "edge") { addEdgeHighlight(edges[r.index], box); matched++; }
-      else if (r.type === "face") { addFaceHighlight(r.index, box); matched++; }
-      else if (r.type === "point") { addPointHighlight(r.pick.p, box); matched++; }
+      const { pick } = r;
+      let at = null, lit = null;
+      if (r.type === "edge") {
+        const e = edges[r.index];
+        addEdgeHighlight(e, box);
+        at = e.points[Math.floor(e.points.length / 2)];
+        matched++;
+      } else if (r.type === "face") {
+        ({ lit, at } = addFaceHighlight(r.index, box) || {});
+        matched++;
+      } else if (r.type === "point") {
+        addPointHighlight(pick.p, box);
+        at = pick.p;
+        matched++;
+      } else if (r.type === "face-at") {
+        // A point no face comes near still marks its spot, and counts against the readout.
+        const gid = faceNearest(pick.p);
+        if (gid >= 0) { ({ lit } = addFaceHighlight(gid, box) || {}); matched++; } else addPointHighlight(pick.p, box);
+        at = pick.p;
+      } else if (r.type === "box") {
+        const geo = boxHighlightGeometry(pick.lo, pick.hi);
+        if (geo) { ({ lit, at } = addSurfaceHighlight(geo, box)); matched++; }
+      }
+      if (pick.text && at) labels.push({ at: new THREE.Vector3(at.x, at.y, at.z), lit, text: pick.text });
     }
     status.push(`${matched}/${results.length} picks matched`);
   }
 
   setStatus(status.filter(Boolean).join(" · "));
-  flyToBox(box);
+  flyToBox(box, view);
+  showLabels(labels);
 }
+
+// --- labels ---
+// A pick's quoted words, pinned to it on screen: a dot on the spot, the words
+// standing off it on a leader, following it as the view turns. Labels step
+// clear of each other and keep inside the view however narrow. One whose spot
+// the model hides from this side is drawn faint on a dashed leader: it says
+// where the thing is without claiming it can be seen. A label's own lit surface
+// does not hide it — the middle of a lit bar lies inside the bar, and what is
+// seen of it is the lit face in front. That reading waits for the view to
+// settle, since a ray through a whole model costs more than a frame, and is
+// skipped on a model too heavy to cast through at all.
+const SVGNS = "http://www.w3.org/2000/svg";
+const LABEL_CAST_MAX_TRIS = 600000;
+const ray = new THREE.Raycaster();
+let labelLayer = null, labelMarks = [], labelFrame = 0, labelPose = "", labelSettle = 0;
+
+function showLabels(list) {
+  clearLabels();
+  const wrapper = state.currentCadWrapper;
+  if (!list.length || !wrapper) return;
+  labelLayer = document.createElement("div");
+  labelLayer.className = "pick-find-labels";
+  const svg = document.createElementNS(SVGNS, "svg");
+  labelLayer.appendChild(svg);
+  labelMarks = list.map(({ at, lit, text }) => {
+    const [halo, line, dot] = ["line", "line", "circle"].map((tag) => document.createElementNS(SVGNS, tag));
+    halo.setAttribute("class", "pick-find-label-halo");
+    line.setAttribute("class", "pick-find-label-line");
+    dot.setAttribute("class", "pick-find-label-dot");
+    dot.setAttribute("r", "4");
+    svg.append(halo, line, dot);
+    const words = document.createElement("div");
+    words.className = "pick-find-label";
+    words.textContent = text;
+    labelLayer.appendChild(words);
+    return { at, lit, parts: [halo, line, dot, words] };
+  });
+  wrapper.appendChild(labelLayer);
+  const frame = () => { placeLabels(); labelFrame = requestAnimationFrame(frame); };
+  labelFrame = requestAnimationFrame(frame);
+}
+
+function clearLabels() {
+  cancelAnimationFrame(labelFrame);
+  clearTimeout(labelSettle);
+  labelFrame = 0;
+  labelPose = "";
+  if (labelLayer) labelLayer.remove();
+  labelLayer = null;
+  labelMarks = [];
+}
+
+function placeLabels() {
+  if (!labelLayer || !labelLayer.isConnected) return;
+  const W = labelLayer.clientWidth, H = labelLayer.clientHeight;
+  const placed = [];
+  for (const m of labelMarks) {
+    const v = m.at.clone().project(camera);
+    const shown = v.z > -1 && v.z < 1;
+    m.parts.forEach((el) => { el.style.display = shown ? "" : "none"; });
+    if (!shown) continue;
+    const [halo, line, dot, words] = m.parts;
+    const x = (v.x + 1) / 2 * W, y = (1 - v.y) / 2 * H;
+    const dx = x > W * 0.6 ? -22 : 22, dy = -22;
+    const w = words.offsetWidth, h = words.offsetHeight;
+    const lx = Math.max(4, Math.min(W - w - 4, x + dx - (dx < 0 ? w : 0)));
+    const fit = (top) => Math.max(4, Math.min(H - h - 4, top));
+    const clear = (top) => placed.every((b) => lx >= b.x + b.w + 3 || lx + w + 3 <= b.x
+      || top >= b.y + b.h + 3 || top + h + 3 <= b.y);
+    const tries = [fit(y + dy - h / 2)];
+    for (const b of placed) tries.push(b.y - h - 4, b.y + b.h + 4);
+    const ly = tries.find((top) => top === fit(top) && clear(top)) ?? tries[0];
+    placed.push({ x: lx, y: ly, w, h });
+    const ex = dx < 0 ? lx + w : lx, ey = ly + h / 2;
+    for (const el of [halo, line]) {
+      el.setAttribute("x1", x); el.setAttribute("y1", y);
+      el.setAttribute("x2", ex); el.setAttribute("y2", ey);
+    }
+    dot.setAttribute("cx", x);
+    dot.setAttribute("cy", y);
+    words.style.transform = `translate(${lx}px, ${ly}px)`;
+  }
+  const pose = [...camera.position.toArray(), ...controls.target.toArray(), W, H]
+    .map((n) => n.toFixed(3)).join(",");
+  if (pose !== labelPose) {
+    labelPose = pose;
+    clearTimeout(labelSettle);
+    labelSettle = setTimeout(hideLabels, 150);
+  }
+}
+
+function hideLabels() {
+  const solids = (state.currentGroup?.children || []).filter((c) => c.isMesh && c.visible !== false);
+  const tris = solids.reduce((n, c) => n + (c.geometry.index ? c.geometry.index.count : 0) / 3, 0);
+  if (tris > LABEL_CAST_MAX_TRIS) return;
+  for (const m of labelMarks) {
+    const to = m.at.clone().sub(camera.position);
+    const dist = to.length();
+    ray.set(camera.position, to.normalize());
+    ray.far = dist;
+    const hit = ray.intersectObjects(solids, false)[0];
+    const own = m.lit ? ray.intersectObject(m.lit, false)[0] : null;
+    const reach = own ? own.distance : dist;
+    const behind = !!hit && hit.distance < reach - Math.max(0.5, reach * 0.004);
+    m.parts.forEach((el) => el.classList.toggle("is-behind", behind));
+  }
+}
+
+// --- a find carried by a link ---
+// `#step:<path>?find=<pick text>` (route.js) opens the model and runs its pick
+// text through this box once the model is drawn, so a conversation can point at
+// a feature on the piece itself, lit and labelled, with one link. The box keeps
+// the text, for whoever opens it to see what lit and why.
+let pendingFind = null;
+
+export function findWhenMounted(file, text) {
+  pendingFind = { file, text };
+  if (state.mountedDetail?.type === "step" && state.mountedDetail.file === file) runPendingFind();
+}
+
+function runPendingFind() {
+  const { text } = pendingFind;
+  pendingFind = null;
+  if (!panel) buildPanel();
+  textarea.value = text;
+  // A frame on, past the camera the open restores, which is the one it flies from.
+  requestAnimationFrame(() => runFind());
+}
+
+window.addEventListener(HSM_EVENTS.STEP_MOUNTED, (e) => {
+  if (pendingFind && e.detail?.file === pendingFind.file) runPendingFind();
+});
 
 // --- public API ---
 // Highlights only — step.js calls this on every load, including the swaps the

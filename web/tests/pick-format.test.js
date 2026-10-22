@@ -324,9 +324,59 @@ test("pick_text.py composer output round-trips through the parser", (t) => {
   const out = execFileSync(venvPython, [script], { encoding: "utf8", timeout: 120_000 });
   const { picks } = parsePicks(out);
   const kinds = picks.map((p) => p.kind).sort();
-  assert.deepEqual(kinds, ["circle", "edge", "edge-arc", "face-cylinder", "face-plane", "point"]);
+  assert.deepEqual(kinds, ["box", "circle", "edge", "edge-arc", "face-at", "face-cylinder", "face-plane", "point"]);
   // Every non-empty line parsed — the composer emits nothing the parser drops.
   assert.equal(picks.length, out.trim().split("\n").length);
+  // And the words it gave a pick come back as that pick's words, not as coordinates.
+  assert.equal(picks.find((p) => p.kind === "point").text, "the click · 3.75 up");
+  assert.equal(picks.find((p) => p.kind === "box").text, "the far end");
+});
+
+// --- pointing at a feature: face at a point, box, view, words ---
+
+test("a pick's closing quoted words are its label, on any kind of line", () => {
+  const { picks } = parsePicks([
+    'click: x=1.000 y=2.000 z=3.000 "upper keeper · 1.4 mm"',
+    `${STRAIGHT_LINE} \u201cthe lip\u201d`,
+    "click: x=4.000 y=5.000 z=6.000",
+  ].join("\n"));
+  assert.deepEqual(picks.map((p) => p.text), ["upper keeper · 1.4 mm", "the lip", undefined]);
+  // The words hold digits and a `·`, and none of it reaches the coordinates.
+  assert.deepEqual(picks[0].p, { x: 1, y: 2, z: 3 });
+  assert.equal(picks[1].kind, "edge");
+});
+
+test("a face named by one point on it is a face-at pick, the copy blob's curved face too", () => {
+  const { picks } = parsePicks([
+    "face: x=97.292 y=262.800 z=343.955",
+    "faceA: curved · near x=1.000 y=2.000 z=3.000",
+  ].join("\n"));
+  assert.deepEqual(picks.map((p) => p.kind), ["face-at", "face-at"]);
+  assert.deepEqual(picks[0].p, { x: 97.292, y: 262.8, z: 343.955 });
+});
+
+test("a box takes its two corners in either order", () => {
+  const { picks } = parsePicks("box: x=-33.235 y=459.880 z=291.600 to x=-48.185 y=457.580 z=294.722");
+  assert.equal(picks.length, 1);
+  assert.equal(picks[0].kind, "box");
+  assert.deepEqual(picks[0].lo, { x: -48.185, y: 457.58, z: 291.6 });
+  assert.deepEqual(picks[0].hi, { x: -33.235, y: 459.88, z: 294.722 });
+});
+
+test("a view line names the side to look from and is no pick", () => {
+  const { picks, view } = parsePicks("view: az=-70 el=25\nclick: x=0.000 y=0.000 z=0.000");
+  assert.deepEqual(view, { az: -70, el: 25 });
+  assert.deepEqual(picks.map((p) => p.kind), ["point"]);
+  assert.equal(parsePicks("click: x=0.000 y=0.000 z=0.000").view, null);
+});
+
+test("quoted words on a line that points at nothing are prose, not a name", () => {
+  assert.deepEqual(parsePicks('He said "hello"').names, []);
+});
+
+test("face-at and box picks pass through to the viewer's own geometry", () => {
+  const { picks } = parsePicks("face: x=1.000 y=2.000 z=3.000\nbox: x=0.000 y=0.000 z=0.000 to x=1.000 y=1.000 z=1.000");
+  assert.deepEqual(matchPicks(picks, [], []).map((r) => r.type), ["face-at", "box"]);
 });
 
 test("pickFileToViewerPath strips the content root", () => {

@@ -87,6 +87,7 @@ let isAssembly = false; // >1 solid — then occt carries real component names
 let meshRecs = null;    // per occt-mesh: {name, pos, idx, nrm, faces, triFace}
 let faceTable = null;   // global face id -> {rec, fi}
 let faceClass = null;   // global face id -> classified record (cache)
+let faceBoxes = null;   // global face id -> [minx, miny, minz, maxx, maxy, maxz] (cache)
 
 export function setActiveEdges(result) {
   edgeSource = (result && result.meshes) || null;
@@ -95,6 +96,7 @@ export function setActiveEdges(result) {
   meshRecs = null;
   faceTable = null;
   faceClass = null;
+  faceBoxes = null;
   clearSelection();
   setHover(null);
   disposeAllEdgesLayer();
@@ -449,6 +451,99 @@ export function faceHighlightGeometry(gid) {
   }
   const geo = new THREE.BufferGeometry();
   geo.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
+  return geo;
+}
+
+// THE FACE A POINT LIES ON, for a `face:` pick that gives a point on the face
+// rather than its parameters: the face whose triangles come nearest `p`. The
+// drawn surface is a reduction of the solid, so a point taken off the solid can
+// stand a little off every triangle; `tol` is how far it may. Returns the global
+// face id, or -1 when no shown face comes that near.
+export function faceNearest(p, tol = 0.5) {
+  ensureEdges();
+  if (!faceTable) return -1;
+  if (!faceBoxes) {
+    faceBoxes = faceTable.map((entry) => {
+      if (!entry) return null;
+      const { rec, fi } = entry, f = rec.faces[fi], b = [Infinity, Infinity, Infinity, -Infinity, -Infinity, -Infinity];
+      for (let t = f.first; t <= f.last; t++) {
+        for (let k = 0; k < 3; k++) {
+          const v = rec.idx[t * 3 + k] * 3;
+          for (let j = 0; j < 3; j++) {
+            b[j] = Math.min(b[j], rec.pos[v + j]);
+            b[j + 3] = Math.max(b[j + 3], rec.pos[v + j]);
+          }
+        }
+      }
+      return b;
+    });
+  }
+  const q = new THREE.Vector3(p.x, p.y, p.z), tri = new THREE.Triangle(), near = new THREE.Vector3();
+  let best = -1, bestD = tol;
+  faceTable.forEach((entry, gid) => {
+    const b = faceBoxes[gid];
+    if (!entry || offView(entry.rec.name)) return;
+    const out = Math.hypot(Math.max(b[0] - q.x, 0, q.x - b[3]), Math.max(b[1] - q.y, 0, q.y - b[4]),
+      Math.max(b[2] - q.z, 0, q.z - b[5]));
+    if (out > bestD) return;
+    const { rec, fi } = entry, f = rec.faces[fi];
+    for (let t = f.first; t <= f.last; t++) {
+      tri.a.fromArray(rec.pos, rec.idx[t * 3] * 3);
+      tri.b.fromArray(rec.pos, rec.idx[t * 3 + 1] * 3);
+      tri.c.fromArray(rec.pos, rec.idx[t * 3 + 2] * 3);
+      const d = tri.closestPointToPoint(q, near).distanceTo(q);
+      if (d < bestD) { bestD = d; best = gid; }
+    }
+  });
+  return best;
+}
+
+// THE SURFACE INSIDE A BOX, for a `box:` pick: every shown triangle's part
+// within it, cut exactly at the box's planes. A face is often more than the
+// thing being pointed at — one plane carries a pocket's rim and the bar
+// standing in it — and a box takes only what it holds, with a straight edge
+// where it cuts. A face lying in one of its planes is the box's boundary, not
+// its content, and stays dark. Non-indexed triangle soup, like
+// faceHighlightGeometry; null when the box holds no surface.
+export function boxHighlightGeometry(lo, hi) {
+  ensureEdges();
+  if (!meshRecs) return null;
+  const e = 1e-4;
+  const planes = [[1, 0, 0, hi.x - e], [-1, 0, 0, -lo.x - e], [0, 1, 0, hi.y - e], [0, -1, 0, -lo.y - e],
+    [0, 0, 1, hi.z - e], [0, 0, -1, -lo.z - e]];
+  const out = [];
+  const keep = (poly) => {
+    for (let i = 1; i < poly.length - 1; i++) out.push(...poly[0], ...poly[i], ...poly[i + 1]);
+  };
+  for (const rec of meshRecs) {
+    if (!rec || offView(rec.name)) continue;
+    const { pos, idx } = rec;
+    for (let t = 0; t < idx.length; t += 3) {
+      let poly = [0, 1, 2].map((k) => [pos[idx[t + k] * 3], pos[idx[t + k] * 3 + 1], pos[idx[t + k] * 3 + 2]]);
+      if (poly.every((v) => v[0] < lo.x) || poly.every((v) => v[0] > hi.x)
+          || poly.every((v) => v[1] < lo.y) || poly.every((v) => v[1] > hi.y)
+          || poly.every((v) => v[2] < lo.z) || poly.every((v) => v[2] > hi.z)) continue;
+      for (const [nx, ny, nz, d] of planes) {
+        const s = poly.map((v) => v[0] * nx + v[1] * ny + v[2] * nz - d);
+        if (s.every((x) => x <= 0)) continue;
+        const next = [];
+        poly.forEach((a, i) => {
+          const j = (i + 1) % poly.length, b = poly[j];
+          if (s[i] <= 0) next.push(a);
+          if ((s[i] < 0 && s[j] > 0) || (s[i] > 0 && s[j] < 0)) {
+            const u = s[i] / (s[i] - s[j]);
+            next.push([a[0] + (b[0] - a[0]) * u, a[1] + (b[1] - a[1]) * u, a[2] + (b[2] - a[2]) * u]);
+          }
+        });
+        poly = next;
+        if (poly.length < 3) break;
+      }
+      if (poly.length >= 3) keep(poly);
+    }
+  }
+  if (!out.length) return null;
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute("position", new THREE.Float32BufferAttribute(out, 3));
   return geo;
 }
 

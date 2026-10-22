@@ -35,9 +35,29 @@ plane_face() / cylinder_face(). Demo (also the round-trip test
 fixture):
 
     tools/cad-venv/bin/python hardware/scripts/pick_text.py
+
+POINTING A PERSON AT A FEATURE OF A PART, rather than at an edge they already
+clicked: face_at() lights the face a point lies on, box_line() lights exactly
+the surface inside a box (a face is often more than the feature — one plane
+carries a pocket's rim and the bar standing in it), view_line() says which side
+to look from, and every composer takes `text`, the words the viewer pins to the
+pick on screen. link() turns the lines into one URL that opens the part on the
+site with all of it lit and labelled:
+
+    print(link(step_path, [
+        view_line(-70, 25),
+        box_line((-48.18, 457.6, 291.6), (-33.24, 459.9, 294.7), text="lower keeper · 1.3 mm"),
+        face_at(cq.Vector(97.3, 262.8, 343.9), text="relay 1 post · 2.0 mm"),
+    ]))
 """
 
+from __future__ import annotations
+
 from pathlib import Path
+from urllib.parse import quote
+
+# Where link() points: the site's viewer, which draws what main published.
+SITE = "https://homesodamachine.com"
 
 
 # --- number / point formatting (mirrors pick-format.js fnum/fpt) ---
@@ -88,12 +108,55 @@ def curved_face(near, label: str = "face") -> str:
     return f"{label}: curved · near {fpt(near)}"
 
 
-def click(p) -> str:
-    return f"click: {fpt(p)}"
+def _said(line: str, text: str | None) -> str:
+    """A pick line closing on the words the viewer pins to it, in quotes."""
+    return f'{line} "{text}"' if text else line
+
+
+def click(p, text: str | None = None) -> str:
+    return _said(f"click: {fpt(p)}", text)
+
+
+def face_at(p, text: str | None = None) -> str:
+    """The face a point lies on — any point on it, taken off the solid."""
+    return _said(f"face: {fpt(p)}", text)
+
+
+def box_line(lo, hi, text: str | None = None) -> str:
+    """The surface inside an axis-aligned box, cut at its planes. `lo` and `hi` are
+    opposite corners, as points or (x, y, z). A face lying in one of the box's planes
+    is its boundary and stays dark, so a box drawn to a wall's face leaves the wall out."""
+    lo, hi = (_vec(*v) if isinstance(v, (tuple, list)) else v for v in (lo, hi))
+    return _said(f"box: {fpt(lo)} to {fpt(hi)}", text)
+
+
+def view_line(az: float, el: float) -> str:
+    """The side to look from: azimuth from +X toward +Y (front is -90), elevation up
+    from level, both in degrees."""
+    return f"view: az={az:g} el={el:g}"
 
 
 def solid_line(name: str) -> str:
     return f"solid: {name}"
+
+
+def link(step_path, lines, site: str = SITE) -> str:
+    """One URL that opens `step_path` in the site's viewer and runs `lines` through
+    its Find box once the model is drawn: every pick lit, its words pinned to it, the
+    camera on them from a `view_line`. The site draws what main published, so a link
+    shows the pushed part, not an edit on this disk."""
+    path = _repo_relative(step_path)
+    if path.startswith("hardware/"):
+        path = path[len("hardware/"):]
+    return f"{site}/3d#step:{quote(path, safe='')}?find={quote(chr(10).join(lines), safe='')}"
+
+
+def _repo_relative(step_path) -> str:
+    p = Path(step_path).resolve()
+    for parent in p.parents:
+        if (parent / ".git").exists():
+            return str(p.relative_to(parent))
+    return str(step_path)
 
 
 def file_line(step_path, surface: str = "step") -> str:
@@ -108,12 +171,8 @@ def file_line(step_path, surface: str = "step") -> str:
     the other one's name sends the reader to a file that does not hold it,
     so `surface="mesh"` says the payload and the suffix says it in the path
     itself. `pick-format.js` pickFileToViewerPath takes it back off."""
-    p = Path(step_path).resolve()
     tail = ".mesh" if surface == "mesh" else ""
-    for parent in p.parents:
-        if (parent / ".git").exists():
-            return f"file: {p.relative_to(parent)}{tail}"
-    return f"file: {step_path}{tail}"
+    return f"file: {_repo_relative(step_path)}{tail}"
 
 
 # --- CadQuery composers ---
@@ -232,7 +291,9 @@ def _demo() -> str:
         if not face_kinds_wanted:
             break
 
-    lines.append(click(_vec(1.0, -2.5, 3.75)))
+    lines.append(click(_vec(1.0, -2.5, 3.75), text="the click · 3.75 up"))
+    lines.append(face_at(_vec(0.0, 0.0, 2.0)))
+    lines.append(box_line((-10.0, -5.0, -2.0), (-6.0, 5.0, 2.0), text="the far end"))
     return "\n".join(lines)
 
 

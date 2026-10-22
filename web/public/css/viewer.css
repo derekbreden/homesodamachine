@@ -1068,6 +1068,41 @@
 .component-edit-status.ok { color: #7CFF8A; }
 .component-edit-status.err { color: #ff6b81; }
 
+/* Labels a find pins to its picks (pick-find.js): a dot on the spot, words on
+   a leader, over the model and under every panel. Faint and dashed where the
+   model hides the spot from this side. */
+.cad-wrapper > .pick-find-labels {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+.pick-find-labels svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.pick-find-label-halo { stroke: rgba(10, 15, 31, 0.85); stroke-width: 3.5; }
+.pick-find-label-line { stroke: #ffffff; stroke-width: 1.5; }
+.pick-find-label-dot { fill: #ff5ce1; stroke: #111a33; stroke-width: 1.5; }
+.pick-find-label-dot.is-behind { fill: none; stroke: #ffffff; }
+.pick-find-label-line.is-behind { stroke-dasharray: 3 3; }
+.pick-find-label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font: 600 12px/1.25 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sans-serif;
+  color: #111a33;
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 6px;
+  padding: 3px 7px;
+  white-space: nowrap;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+.pick-find-label.is-behind { opacity: 0.55; }
+
 /* Find box — top-right panel (clear of the ContentViewer close X), paste
    pick text and highlight every recognizable pick at once. Reuses the
    edge-panel head/button styles. */

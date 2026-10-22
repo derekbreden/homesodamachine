@@ -9,6 +9,15 @@
 // what you have before. Names need no format: they are matched on letters
 // and digits alone (parseNames / matchNames).
 //
+// And it takes what a conversation needs to point at a feature of a part:
+//
+//   face: x=… y=… z=…                     the face that point lies on
+//   box: x=… y=… z=… to x=… y=… z=…        the surface inside that box, cut at its planes
+//   view: az=… el=…                        the side to look from, in degrees: azimuth
+//                                          from +X toward +Y, elevation up from level
+//   … "upper keeper · 1.4 mm"              any pick line may close on quoted words,
+//                                          which the viewer pins to the pick on screen
+//
 // Deliberately dependency-free: points are plain {x, y, z} objects
 // (THREE.Vector3 satisfies the shape), so node:test can exercise parsing
 // and matching without a browser or three.js.
@@ -143,14 +152,23 @@ export function parseNames(body) {
   return line.split(",").map((q) => q.trim()).filter(Boolean);
 }
 
+// THE WORDS A PICK CARRIES close its line in quotes, straight or curly, so they
+// can hold anything a label needs (numbers, a `·`) without being read as the
+// pick's own coordinates.
+const WORDS_RE = /\s*["\u201c]([^"\u201c\u201d]*)["\u201d]\s*$/;
+
 export function parsePicks(text) {
   const picks = [];
   const files = [];
   const names = [];
   const solids = [];
+  let view = null;
   for (const raw of String(text || "").split("\n")) {
-    const line = raw.trim();
+    const said = raw.trim().match(WORDS_RE);
+    const words = said ? said[1].trim() || null : null;
+    const line = said ? raw.trim().slice(0, said.index).trim() : raw.trim();
     if (!line) continue;
+    const add = (pick) => picks.push(words ? { ...pick, text: words } : pick);
     // strip one leading "label:" (file:, solid:, edge:, faceA:, click:, …)
     const m = line.match(/^([A-Za-z][\w-]*)\s*:\s*(.*)$/);
     const label = m ? m[1].toLowerCase() : null;
@@ -159,12 +177,30 @@ export function parsePicks(text) {
     // the path is the head of the line; `fileLine`'s readings follow it after a ·
     if (label === "file") { files.push(body.split("·")[0].trim()); continue; }
     if (label === "solid") { solids.push(...parseNames(body)); continue; }
+    if (label === "view") {
+      const az = numAfter(body, new RegExp(`az=${NUM}`));
+      const el = numAfter(body, new RegExp(`el=${NUM}`));
+      if (az != null && el != null) view = { az, el };
+      continue;
+    }
+    if (label === "box") {
+      const [a, b] = triples(body);
+      if (a && b) {
+        add({
+          kind: "box",
+          lo: { x: Math.min(a.x, b.x), y: Math.min(a.y, b.y), z: Math.min(a.z, b.z) },
+          hi: { x: Math.max(a.x, b.x), y: Math.max(a.y, b.y), z: Math.max(a.z, b.z) },
+          line,
+        });
+      }
+      continue;
+    }
 
     if (/circle\s*[⌀ø]/i.test(body)) {
       const d = numAfter(body, new RegExp(`[⌀ø]\\s*${NUM}`));
       const center = tripleAfter(body, "center");
       const axis = tripleAfter(body, "axis");
-      if (d != null && center) picks.push({ kind: "circle", d, center, axis, line });
+      if (d != null && center) add({ kind: "circle", d, center, axis, line });
       continue;
     }
     if (body.includes("→")) {
@@ -172,7 +208,7 @@ export function parsePicks(text) {
       if (pts.length < 2) continue;
       const len = numAfter(body, new RegExp(`len\\s+${NUM}`));
       if (/\barc\b/.test(body)) {
-        picks.push({
+        add({
           kind: "edge-arc", a: pts[0], b: pts[1], len,
           r: numAfter(body, new RegExp(`r=${NUM}`)),
           center: tripleAfter(body, "center"),
@@ -181,37 +217,44 @@ export function parsePicks(text) {
         });
       } else {
         // straight and unclassified curves match the same way: by endpoints
-        picks.push({ kind: "edge", a: pts[0], b: pts[1], len, line });
+        add({ kind: "edge", a: pts[0], b: pts[1], len, line });
       }
       continue;
     }
     if (/\bplane\b/.test(body)) {
       const n = tripleAfter(body, "n ");
       const thru = tripleAfter(body, "thru");
-      if (n && thru) picks.push({ kind: "face-plane", n, thru, line });
+      if (n && thru) add({ kind: "face-plane", n, thru, line });
       continue;
     }
     if (/\bcylinder\b/.test(body)) {
       const r = numAfter(body, new RegExp(`r=${NUM}`));
       const axis = tripleAfter(body, "axis");
       const dir = tripleAfter(body, "dir");
-      if (r != null && axis && dir) picks.push({ kind: "face-cylinder", r, axis, dir, line });
+      if (r != null && axis && dir) add({ kind: "face-cylinder", r, axis, dir, line });
+      continue;
+    }
+    const pts = triples(body);
+    // A face named by one point on it: a `face:` line, and the copy blob's own
+    // curved-face line, whose `near` point is all a swept skin can say.
+    if (label && label.startsWith("face") && pts.length === 1) {
+      add({ kind: "face-at", p: pts[0], line });
       continue;
     }
     // anything else holding coordinate triples: point markers
-    // (click:, old endpoints: rows, curved-face "near" lines, bare points)
-    const pts = triples(body);
+    // (click:, old endpoints: rows, bare points)
     if (pts.length) {
-      for (const p of pts) picks.push({ kind: "point", p, line });
+      for (const p of pts) add({ kind: "point", p, line });
       continue;
     }
-    names.push(...parseNames(body));
+    // Quoted words on a line that points at nothing are prose, not a name.
+    if (!words) names.push(...parseNames(body));
   }
   // A copy-all blob's `solid:` line names the body its picks came off — the
   // container, not the target, so it stands only when nothing else does. A
   // paste of just that one line is someone asking for the whole part.
   if (!picks.length) names.push(...solids);
-  return { picks, files, names };
+  return { picks, files, names, view };
 }
 
 // --- name matching ---
@@ -325,10 +368,14 @@ export const MATCH_TOLERANCE = 0.5;
 // Match every parsed pick against the viewer's entities. `edges` and
 // `faces` are arrays of records as above; faces may be omitted. Points
 // always "match" (they render as markers). Returns one result per pick:
-// { pick, type: "edge"|"face"|"point"|null, index?, score? }.
+// { pick, type: "edge"|"face"|"point"|"face-at"|"box"|null, index?, score? }.
 export function matchPicks(picks, edges, faces) {
   return picks.map((pick) => {
-    if (pick.kind === "point") return { pick, type: "point" };
+    // A point marks itself; a face at a point and a box are found in the
+    // geometry itself, by the viewer (edge-picker.js), not among these records.
+    if (pick.kind === "point" || pick.kind === "face-at" || pick.kind === "box") {
+      return { pick, type: pick.kind };
+    }
     if (pick.kind === "face-plane" || pick.kind === "face-cylinder") {
       let best = -1, bestScore = Infinity;
       (faces || []).forEach((f, i) => {
