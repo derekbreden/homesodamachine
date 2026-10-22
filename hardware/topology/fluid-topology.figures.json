@@ -1,18 +1,18 @@
 {
   "/hardware/topology/_fluid_topology_sync.py": {
     "BUTT_COUNT": "3",
-    "FLUID_TOTAL": "3172.1 mm",
+    "FLUID_TOTAL": "3192.7 mm",
     "LIMB_COUNT": "4",
     "LIMB_VALVES": "10",
     "LOWER_COUNT": "8",
-    "LOWER_LINK_COUNT": "8",
+    "LOWER_HAIRPIN_COUNT": "4",
     "PUMP_COUNT": "2",
-    "PURCHASED_TEE_COUNT": "2",
+    "PUMP_TEE_COUNT": "4",
+    "PURCHASED_TEE_COUNT": "6",
     "SEGMENT_COUNT": "26",
     "TEE_COUNT": "6",
-    "TPU_JUNCTION_COUNT": "4",
     "UPPER_COUNT": "8",
     "UPPER_LINK_COUNT": "4",
-    "UPPER_LINK_EXPOSED": "14.501 mm"
+    "UPPER_LINK_EXPOSED": "15.2756 mm"
   }
 }

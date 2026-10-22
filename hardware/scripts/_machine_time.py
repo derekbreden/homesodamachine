@@ -8,8 +8,7 @@ MACHINE IS OCCUPIED, which is not costed and answers turnaround + throughput.
 The print estimate uses §7 masses, which are geometry-derived and commit-gated
 (_bom_masses.py), plus §12's float quantity and the accepted ASA Aero slice.
 For §7 parts, shape changes propagate through mass, print hours and throughput.
-The float contribution is a provisional native-slice allowance. The permanent
-Current TPU pump junctions require source-bound native slice estimates.
+The float contribution is a provisional native-slice allowance.
 
   * Print hours = each §7 row's mass × its GROUP's hours-per-kg, except the
     faucet batch, whose duration is read directly from its committed slice. THE KG IS

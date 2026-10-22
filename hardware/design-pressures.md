@@ -21,11 +21,12 @@ belongs to the structure.
 
 **Field service.** One operation: the pump swap in
 [`service/pump-replacement.md`](/hardware/service/pump-replacement.md), which runs on the bench's
-own front opening. Pulling the cartridge withdraws four short LLDPE stubs from
-stationary TPU receivers. The rigid wall and locked flat keepers carry receiver reaction
-into the enclosure, while each pump head's own housing clamps its stubs. The enclosure
-can be braced by a hand, foot, cupboard edge or its own weight. The fixed commercial
-tees and rear plumbing stay put, and `enclosure-front-top` stays on. Every other
+own front opening. Pulling the cartridge drags the four pump tees forward their collet
+stroke against front-top's collet plate, which holds each collet in while its pump tube
+draws out. The plate carries that reaction into the enclosure, while each pump head's own
+housing clamps its tubes. The enclosure can be braced by a hand, foot, cupboard edge or
+its own weight. The tees, their caps, the valves and the rear plumbing stay in the machine, and
+`enclosure-front-top` stays on. Every other
 physical fault is answered by shipping a replacement; units are sold over the
 internet to customers in other states, and the returned unit comes back to Derek. Diagnosis
 of a returned unit is a teardown with factory tools — cutting included — not a repair.
@@ -42,12 +43,18 @@ destroyed is a part that comes out by being destroyed.
   comes onto it. This constrains the ORDER, not the grouping: a chain of butts installs in
   chain order, each body free as its own joint closes. What it forbids is fixing both ends
   first, and a body whose butts run on two axes being last in. The flavour manifold has three
-  interior butt joints; the four pump-side-tee-to-fore-valve links are stationary curved paths,
-  not butts ([`manifold-layout/`](/hardware/manifold-layout/README.md)).
-- **The pump dock separates at its permanent TPU receivers.** The wall contains each receiver
-  in X/Z and a flat interior keeper captures Y. Y-C, Y-D, Y-F and Y-G, their fore links and
-  their hairpins are fixed. Complete replacement pumps carry factory-fitted LLDPE
-  stubs; the customer replaces no receiver or other dock component.
+  interior butt joints: Y-A to V-C, Y-B to V-D and the crossbar between Y-A and Y-B. Each
+  pump tee reaches its fore valve on a short tube that stands off straight, not a butt
+  ([`manifold-layout/`](/hardware/manifold-layout/README.md)).
+- **The pump dock separates at the pump tees' branch collets.** Each tee's branch lies in an
+  anchor's journal under a snapped-on cap, which holds it in X and Z and lets it slide along
+  Y; the collet plate stops it fore at the end of its collet stroke. Pulling the cartridge drags the
+  tees forward against the plate, which holds each collet in while the tube draws out, and
+  pushing it in returns them. The fore valves stand over the middle of that travel, so each
+  upper tube bends half the stroke either way, and each hairpin flexes with its tee
+  ([pump dock](/hardware/printed-parts/enclosure/pump-dock/README.md)). Complete
+  replacement pumps carry factory-fitted LLDPE tubes; the customer replaces no dock
+  component.
 - **The enclosure's rigid barbed lips close on sequential motions.** The first motion
   places each lip clear of its roof; the next slides it under the roof. Flat bearing faces
   retain the seam, and the Y seam's vertical screws prevent the reverse motion.
@@ -67,19 +74,21 @@ destroyed is a part that comes out by being destroyed.
   [`reference/tee-connector/`](/hardware/reference/tee-connector/README.md): a 1/4" tube meets
   resistance at 7 mm, is held from 8.5 mm and bottoms at 10 mm, all from the sleeve's face with
   the sleeve pressed home. Each run sleeve travels 1.65 mm; the branch sleeve travels
-  1.50 mm. The permanent rear tails seat 11.50 mm beyond the extended branch faces;
-  the commercial collets operate only during factory assembly.
-- **Exposed path length is not stock cut length.** The four stationary fore links are
-  reported between their fitting mouths. Each blank also includes the actual insertion
-  at both fittings; the valve-side insertion is established while preparing the blank.
-  [`manifold-layout/`](/hardware/manifold-layout/README.md) and the assembly procedure
-  supply the current paths and cut instructions.
+  1.50 mm. A pump tube bottoms 11.50 mm beyond its tee's extended branch face, and a tube
+  in a run collet 11.65 mm beyond the extended run face. The branch collets release at
+  every pump change; the run collets operate only during factory assembly.
+- **Exposed path length is not stock cut length.** The four upper tubes are reported
+  between their fitting mouths. Each blank also includes the actual insertion at both
+  fittings; the valve-side insertion is established while preparing the blank. The four
+  hairpins are reported as cut stock: exposed path, the tee's run insertion and a nominal
+  valve insertion. [`manifold-layout/`](/hardware/manifold-layout/README.md) and the
+  assembly procedure supply the current paths and cut instructions.
 - **The commercial collet action has its own physical evidence.** The
   [`tee-connector observations`](/hardware/reference/tee-connector/README.md#observed-push-connect-action)
   establish extraction while depressed, relocking after a small separating tug and
-  insertion against spring-level collet tension on the identified fittings. They provide
-  no seal or endurance acceptance for the TPU dock. During its assembled dry cycle,
-  record simultaneous stem insertion and withdrawal, rigid seating and fixed-plumbing behavior.
+  insertion against spring-level collet tension on the identified fittings. They carry no
+  instrumented force and provide no seal or endurance acceptance for the assembled dock,
+  whose complete release and insertion force are unmeasured.
 - **Clearance around a fitting is not a placement criterion.** Room for a hand, a spanner or a
   collet release ranks below volume. Where a run needs room, it needs it to be *routed*, not to
   be reached.

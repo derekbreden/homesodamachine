@@ -53,6 +53,9 @@ BULKHEAD_RINGS = ("bulkhead-ring-carb", "bulkhead-ring-co2", "bulkhead-ring-flav
 
 # The piece a hand hauls out of the front bay, both peristaltic pumps and their tubing aboard.
 PUMP_CARTRIDGE = "enclosure-pump-cartridge"
+# The four prepared pump tubes it carries, which stand on past its flat back, through the collet
+# plate and into their tees. NAMED, like the unions: a tube renamed out of the pack raises here.
+PUMP_TUBES = ("tube-fluid-11", "tube-fluid-12", "tube-fluid-21", "tube-fluid-22")
 
 # What two bodies struck to one figure may differ by and still be that figure. The boxes are an
 # optimal-box reading of tessellated solids, so a ring's own 2 mm comes back 2.0000002.
@@ -111,24 +114,28 @@ def main():
     front = f.box.outer[2]
     collet, ring = behind_the_rear_face()
 
-    # WHAT THE FRONT OWES: how far the pump cartridge's aft face stands behind the front face,
-    # which is how far forward of that face it has to come to clear the bay. Both pumps and
-    # their tubing ride out on it, and it is the one service access on this machine that faces
-    # the room instead of a wall. The page also calls that figure the pump cartridge's OWN
-    # depth, which it is while the piece's face and the box's are one plane — held, not assumed.
+    # WHAT THE FRONT OWES: how far the tips of the pump tubes the cartridge carries stand behind
+    # the front face, which is how far forward of that face it has to come to clear the bay. Both
+    # pumps and their tubing ride out on it, and it is the one service access on this machine
+    # that faces the room instead of a wall. The tubes reach on past the cartridge's flat back
+    # into their tees, so the draw is the piece's depth plus that reach. The page measures it
+    # from the cartridge's own face, which is the box's front face while the two are one plane —
+    # held, not assumed.
     cart = f.bb(PUMP_CARTRIDGE)
     if abs(cart.ymin - front) > TOL:
         raise SystemExit(
             f"  the pump cartridge's face stands {cart.ymin - front:.4f} mm off the box's front "
-            f"face.\n  install-envelope.md states the draw as the piece's own depth, which is "
-            f"only that while the two are one plane.")
+            f"face.\n  install-envelope.md measures the draw from the piece's own face, which is "
+            f"only the box's while the two are one plane.")
+    tips = agreed("pump tube tips", {n: f.bb(n).ymax for n in PUMP_TUBES})
 
     variables = {
         "CABINET_CLEAR_H": f"{CABINET_CLEAR_H:.4g} mm",
         "COLLET_PROUD": f"{collet:g} mm",
         "BULKHEAD_RING_THICK": f"{ring:g} mm",
         "TURN_IN": f"{TURN_IN_LEAD_BEND + collet:g} mm",
-        "CART_DRAW": f"{cart.ymax - front:.4g} mm",
+        "CART_DRAW": f"{tips - front:.4g} mm",
+        "CART_TUBE_REACH": f"{tips - cart.ymax:g} mm",
     }
     substitute_md(MD, variables=variables)
     print(f"-> {MD.relative_to(_root)}")

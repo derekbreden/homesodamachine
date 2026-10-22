@@ -75,10 +75,11 @@ body. The measured sleeve stroke sets the tees' fore-to-aft movement. The 7 and 
 insertion observations describe how the tube enters the fitting.
 
 At the fore stop the plate holds each sleeve fully depressed and a bottomed tube projects
-10 mm beyond that face. The return stroke is 2.00 mm: 1.50 mm of branch-sleeve extension while its
-nose stays at the plate, followed by a 0.5 mm plate-to-nose gap. Tube length places each tip at the internal stop at connected with the cartridge
-fully seated: 11.50 mm beyond the extended branch sleeve. At the fore stop, the cartridge is
-2.00 mm short of seating when its tubes bottom; it advances through that final 2.00 mm to seat.
+10 mm beyond that face. The return stroke is the 1.50 mm of branch-sleeve extension, the nose
+staying at the plate throughout. Tube length places each tip at the internal stop at connected
+with the cartridge fully seated: 11.50 mm beyond the extended branch sleeve. The tubes bottom
+with the cartridge up to 1.50 mm short of seating, the whole 1.50 mm with a tee at the fore
+stop; it advances through that to seat, pushing each tee back to connected.
 
 ## Observed push-connect action
 

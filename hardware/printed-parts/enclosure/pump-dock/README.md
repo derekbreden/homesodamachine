@@ -12,9 +12,9 @@ In service each tee stands at **connected**: its branch collet extended with its
 
 ## Tee anchors and tee caps
 
-Each tee's branch lies in a tee anchor: a rib rooted on front-top's seam plane behind the plate, its top a [Ø17 mm](DOCK_JOURNAL) half journal round the branch collar (the collar's [Ø16.5 mm](DOCK_COLLAR_ENVELOPE) sampled envelope and [0.25 mm](DOCK_JOURNAL_AIR) of running air), [12.1 mm](DOCK_ANCHOR_LEN) long, with a catch window in each flank. A tee cap snaps down on top of the branch and closes the journal. It is the [anchor cap](../anchor-cap/README.md)'s section with its half pipe sized to the journal: two [1.5 mm](DOCK_WING) spring wings run down the anchor's flanks and each wing's lip, [1.2 mm](DOCK_ENGAGE) of engagement behind a [30°](DOCK_LEAD_IN) ramp, clicks into its window. On the anchor cap's beam estimate a wing reaches [1.10%](DOCK_CAP_STRAIN) strain going on.
+Each tee's branch lies in a tee anchor: a rib rooted on front-top's seam plane behind the plate, its top a [Ø17 mm](DOCK_JOURNAL) half journal round the branch collar (the collar's [Ø16.5 mm](DOCK_COLLAR_ENVELOPE) sampled envelope and [0.25 mm](DOCK_JOURNAL_AIR) of running air), [11.15 mm](DOCK_ANCHOR_LEN) long from the release face to the bulkhead's aft face, where it ends flush, with a catch window in each flank. A tee cap snaps down on top of the branch and closes the journal. It is the [anchor cap](../anchor-cap/README.md)'s snap section with its half pipe sized to the journal and a [2.75 mm](DOCK_SADDLE) saddle over the anchor's [3.25 mm](DOCK_ANCHOR_WALL) wall, both thicker than the anchor cap's so the saddle keeps its stock past the bore's mouth ease, [7.846 mm](DOCK_CAP_LEN) long: two [1.5 mm](DOCK_WING) spring wings run down the anchor's flanks and each wing's lip, [1.2 mm](DOCK_ENGAGE) of engagement behind a [30°](DOCK_LEAD_IN) ramp, clicks into its window. On the anchor cap's beam estimate a wing reaches [1.08%](DOCK_CAP_STRAIN) strain going on.
 
-The journal holds the tee in X and Z and lets it slide its stroke along Y. Inside the cap a flat stop stands [0.3 mm](DOCK_STOP_AIR) aft of connected on the clearance reference's conservative branch shoulder; on the scanned PP0208E the shoulder meets it [1.08 mm](DOCK_SCANNED_STOP) aft of connected. The stop takes the tee's push while the cartridge goes in; the plate is the fore stop.
+The journal holds the tee in X and Z and lets it slide along Y. The plate stops it fore, holding the collet pressed home at released. Aft of connected the anchor leaves it free until its run barrel meets the anchor's aft end, [2.95 mm](DOCK_BARREL_AIR) on: in service the bottomed pump tube holds it at connected, and with the cartridge out the upper tube draws it toward the middle of its travel.
 
 ## Fore valves, upper tubes and hairpins
 
@@ -34,7 +34,7 @@ Keep front-top loose, with access from its interior and underside. The [internal
 
 1. Seat the rear valves on their tray posts.
 2. For each tee: push the upper tube into the tee's upper collet and its fore valve's bottom collet, with both fully seated. Bring the tee, tube and valve in together, the branch along its anchor's journal toward the plate, and press the fore valve onto its tray posts.
-3. Snap each tee cap down over its branch until both lips click into their windows. Tug the tee: it slides its stroke and no further.
+3. Snap each tee cap down over its branch until both lips click into their windows. Tug the tee forward: it slides until the plate holds its collet.
 4. From front-top's underside, push each hairpin up into the tee's lower collet and its rear valve's bottom collet together. Use actual insertion marks and tug-check every push-fit joint.
 5. Prepare the complete pumps and their tubes, close the cartridge cap and set the four tips against the tube setting jig. Assemble the pogo contacts before loading the dock; load the SB443-IN blocks at each printed part's pause.
 6. Join front-top to the lower enclosure after its plumbing and fixtures are fitted. Follow [assembly acceptance](../../../assembly/acceptance-and-burn-in.md) and the [customer pump procedure](../../../service/pump-replacement.md).
@@ -44,7 +44,7 @@ Keep front-top loose, with access from its interior and underside. The [internal
 | Part / quantity | Material / export stem |
 | --- | --- |
 | Tee cap, [4](TEE_CAP_COUNT) | PET-GF; `enclosure-tee-cap` |
-| Pump tee, [4](TEE_COUNT) | John Guest PP0208E, purchased |
+| Pump tee, [4](PUMP_TEE_COUNT) | John Guest PP0208E, purchased |
 | Tube setting jig, factory tool | PET-GF; `enclosure-pump-tube-setting-jig` |
 
 The tee anchors, the collet plate and front-top's magnet bosses are front-top's own material. The tee cap prints standing on its fore end, the section on the bed: every layer is the whole section, nothing overhangs and each wing bends along its own extrusion lines. Print it solid, with at least six walls and 100% infill, and keep the [0.65 mm](DOCK_CAVITY) gaps between the half pipe and the wings open. The [PET-GF handoff](petgf-production-parts.md) specifies the caps' process.
@@ -53,10 +53,11 @@ The one factory tool is separate from the appliance's installed dock pieces: the
 
 ## Engineering evidence
 
-The dock has no physical release, seal, lifetime or cleaning acceptance. The upper tube's spring at 0.75 mm each way is unmeasured; at connected it pulls the tee forward and, through the bottomed pump tube, pushes the cartridge against its magnets, and at release it adds to the pull. The complete withdrawal and insertion force, the tee caps' snap and retention on printed parts, the anchors' fit and the prepared pump's tube clamp under docking load are unmeasured. Material data alone do not establish finished wet-part food-contact suitability.
+The dock has no physical release, seal, lifetime or cleaning acceptance. The upper tube's spring at 0.75 mm each way and the hairpins' spring across the tee's travel are unmeasured. At connected the upper tube pulls the tee forward and, through the bottomed pump tube, pushes the cartridge against its magnets; at release it adds to the pull. The complete withdrawal and insertion force, the tee caps' snap and retention on printed parts, the anchors' fit and the prepared pump's tube clamp under docking load are unmeasured. Material data alone do not establish finished wet-part food-contact suitability.
 
 Customer release requires a demonstrated depressurization route for a failed or stalled pump. A timed command or accepted PWM does not establish rotation, flow or that both ports have vented. The customer procedure remains conditional on the qualified depressurized service state.
 
 ## Sources
 [value](NAME) texts are updated by:
+- `/<stdin>`
 - `/hardware/printed-parts/enclosure/enclosure/enclosure.py`

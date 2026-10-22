@@ -50,9 +50,8 @@ is reported too stiff.
 
 ## Material and print
 
-Print in **Siraya Tech Flex TPU 85A Clear** (SKU ST3008), the stock the
-[pump dock's](/hardware/printed-parts/enclosure/pump-dock/README.md) wet TPU parts
-print in. 85A gives the stretch a hand fit over the barb crests needs.
+Print in **Siraya Tech Flex TPU 85A Clear** (SKU ST3008). 85A gives the stretch a
+hand fit over the barb crests needs.
 
 Use the recipe of the
 [accepted Siraya single](/future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/README.md):

@@ -38,8 +38,6 @@ frame. The rim at the handhold's R6 lip is in
 | Two C14 stations | M3 short, 4.0 mm | 5.25 mm | Full tunnel stock and closed rear wall |
 | Four compressor posts | M5, 9.5 mm | 10.5 mm | Manufacturer pilot and minimum surrounding stock |
 | Four pogo anchors | M1.4, 4.0 mm | 5.5 mm | Insert top 7.25 mm behind the recessed connector face, 7.375 mm inside the printed host face; M1.4×8 engagement 2.75 mm, tip 2.75 mm before blind end |
-| Four factory keeper locks | M3 short, 4.0 mm | Through the 5 mm keeper boss | Front-driven M3×8 screws and 0.5 mm washers sit in 3.75 mm deep crowned wall recesses. The head is recessed 0.25 mm; 3.25 mm of wall backs the washer. Each keeper boss has 3 mm radial material around the knurl. The screw reaches 4.10 mm past the insert entry, engaging the full 4 mm insert and ending 0.90 mm before the boss back |
-| Eight shared cradle/cover locks | M3 short, 4.0 mm | 5.75 mm below the nominal host plane; 6.00 mm from the raised entry | M3×12 screws pass through the 3 mm cover tab, 0.15 mm supported inter-tab gap, 3 mm base tab and 0.5 mm washer. The insert entry is on the 0.25 mm raised host land. The tip projects 5.35 mm past that entry, or 5.10 mm below the nominal host plane, with 0.65 mm blind-tip room |
 
 ZWMSSLL publishes Ø2.3 mm knurl, Ø2.0 mm lead and 4 mm body dimensions for its
 M1.4 insert, without a host pilot, wall or pocket-depth recommendation. Ø2.0 mm is
@@ -93,25 +91,23 @@ and the native 1 mm lifting engagement are checked by the enclosure producer.
 [Print regions](print-regions.json) require local 100% infill through
 the complete insert hosts, blind caps and supporting roots, every Y-seam knuckle
 and its root, and Z hook/foot/stop roots. The manual specification also covers the
-three return-block insert hosts in the aft tray foot, the wall stock behind the three
-keeper slots, the SB443 column walls and their host roots, the rigid-stop bearings
-and the recessed pogo hosts. It binds the six main pieces and the eleven dock
-manufacturing STEP/STLs by hash. The dock manufacturing exports already
-contain their print poses; the main pieces retain their prescribed source-to-print
+SB443 column walls, their roofs and roots in front-top and the cartridge, the
+recessed pogo hosts and the whole tee cap. It binds the six main pieces and the tee
+cap's STEP/STL by hash. The tee cap's manufacturing export already contains its
+print pose; the main pieces retain their prescribed source-to-print
 transforms. Plate X/Y nesting remains part of the native project.
 
 These modifiers change deposition
 only inside the existing material. Reinforcement boxes set infill density and pattern
-and inherit the ordinary wall settings. The three keepers and the return block use
-six walls and 100% infill throughout their connected load paths. The manual wet
-preparation records solid deposition under its retained Siraya recipe.
+and inherit the ordinary wall settings. The tee cap uses six walls and 100% infill
+throughout, both wings and lips included.
 General enclosure infill remains 15%; normal walls,
 fine show-layer bands, production orientations and support policy remain part
 of each native review. A CAD solid or a few perimeter loops do not make the
 interior solid. Each production job requires these regions bound to its current
 mesh and a fresh emitted-path and support-removal review. The
 [RC62 archives](../magnet-retention/queue.json) retain their identified article
-scope; their print pauses do not apply to the post-print SB443 mounts.
+scope; their print pauses do not qualify the SB443-IN columns' loading pauses.
 
 The corner stacks follow manufacturer insert geometry and carry the seam's load
 path on steel screws. They do not establish survival of a 4–6 inch drop.

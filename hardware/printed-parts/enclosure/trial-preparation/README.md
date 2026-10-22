@@ -23,8 +23,8 @@ A run writes `.cache/prints/trial/<date>-<piece>-<printer>-<mesh digest>/`: the 
 and its measured span, the painted face counts, the ribbon, window and modifier boxes, and
 each recipe change with its reason. `--printer` selects Mark1 (connection key `H2C`) or Mark2;
 `--part` replaces a plate's declared parts, with per-part quantity, axis turns, walls and
-infill. The `dock-petgf` plate is the whole dry dock: two outer keepers, the inner-pair
-keeper and the one return block. Their manufacturing STLs already contain the print pose; use `turns=x:0`
+infill. The `dock-petgf` plate is the pump dock's four tee caps, one `enclosure-tee-cap` STL at
+quantity 4. Its manufacturing STL already contains the print pose; use `turns=x:0`
 for explicit declarations. Preparation imports no CAD kernel. `--slice` runs the installed Bambu Studio command
 line on the project and keeps its archive beside it. No printer is contacted.
 
@@ -58,7 +58,7 @@ for fixed-width brim types.
 | `pump-cartridge-cap` | Mark1 | Cartridge: 0.08 mm band over the lower hand-pocket rims, six-wall band through the upper rim transitions; magnet slots; cap crown-down | Support XY 1.0 mm; support on the model's layers; one magnet pause |
 | `funnel-frame` | Mark2 | — | No brim or elephant-foot compensation; support XY 0.50 mm |
 | `factory-tools` | Mark2 | Tube tip setting jig as exported | — |
-| `dock-petgf` | Mark1 | Three keepers and the return block, manufacturing exports already in print pose; the keepers lie flat and the block lies on its top face | Six walls, 100% zig-zag per part |
+| `dock-petgf` | Mark1 | Four tee caps from the one manufacturing export, already in print pose standing on its fore end | Six walls, 100% zig-zag per part |
 | `labels` | Mark2 | [`../../drain-readiness/prepare.py`](../../drain-readiness/prepare.py) `labels`, under the CAD lock: closing layers on each face-up chip and DATA face and lettering top | — |
 
 ## Declared features

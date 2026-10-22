@@ -41,18 +41,19 @@ Tooling (bench, shared across all units — not per-build consumed): the test-ri
 Verify the chassis came out of [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) with all checkboxes signed off. The unit is sitting on the bench, AC cord unplugged, all +Y wall's connections capped or plugged. Visually inspect the exterior — no displaced fittings, no shipping-damage cracks in the printed enclosure, the compressor's four floor screws are home, its ground ring is under its own earth screw, and the donor moulded cover is intact, unmodified, and securely retained over the terminal/PTC assembly with its factory lead exit undamaged; the C14 inlet recess is clean; the umbilical bulkheads on the +Y wall are seated. Both pump brackets bear in the lower cradle behind the cartridge face, the top clamp is screwed down and their DC-5 spade pairs are on the motor tabs, landed at [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3. The contact pair's male half sits in its 0.125 mm recessed bay-bulkhead seat with both screws home; the fixed J13-side 4P ribbon lies along the bulkhead crown below the funnel frame, clear of the closing slides, with a relaxed exit behind the insulated contact joints, and the cartridge's four leads lie in the clamp's crown grooves.
 
 Cycle the pump dock dry before attaching either bench supply. Brace the enclosure and
-withdraw the cartridge straight along its floor. All four prepared LLDPE stubs must
-slide out together while the TPU receivers, their keepers, four fixed TPU returns and the return block stay fixed. Confirm that the electrical contact pair parts with the
-cartridge and that its fixed half and ribbon remain undisturbed. Inspect all four
-socket entrances and tube tips for cuts, displaced TPU, loose material or scoring.
+withdraw the cartridge straight along its floor. All four prepared LLDPE tubes must
+release and draw out together as the cartridge comes away. Confirm that the electrical
+contact pair parts with the cartridge and that its fixed half and ribbon remain undisturbed. Inspect the four collet
+faces through the plate's holes and the four tube tips for cuts, debris, loose material
+or scoring.
 
 With power removed and the cartridge out, check continuity from J13 to each fixed contact
 and confirm no contact is shorted to its neighbor or to a mounting screw. Reinsert the
-cartridge evenly, guiding the four straight tips into the TPU funnels until the rigid
-seats meet and the front perimeter is flush. The magnets must hold that position without
-receiver displacement or visible tube bending. A magnetic snap alone is not a seating
-check. Confirm continuity from each J13 contact to the correct pump tab: `AM2`/`AM1` to
-pump A on +X and `BM2`/`BM1` to pump B. Record the completed insertion/withdrawal cycle
+cartridge evenly, guiding the four straight tips through the plate's holes into the tees'
+collets until they bottom, each tee returns to connected, and the magnets draw the
+cartridge onto its meeting poles with the front perimeter flush. The magnets must hold
+that position. A magnetic snap alone is not a seating check. Confirm continuity from each J13 contact to the correct
+pump tab: `AM2`/`AM1` to pump A on +X and `BM2`/`BM1` to pump B. Record the completed insertion/withdrawal cycle
 and repeat it if any part was reseated or corrected. Wet sealing and retention under
 pressure are checked with the completed flavor paths, separately from this dry cycle.
 
@@ -60,14 +61,15 @@ Connect the test-rig water source to the +Y wall's PP1208E 1/4" JG QC inlet, pus
 
 **Set the primary to [75 PSI](CO2_PRIMARY_SET). It ships at this setting, and the customer never adjusts it.** Loosen the jam nut on the slotted adjusting screw and back the screw out until it turns freely. Open the cylinder valve. Turn the screw in a quarter turn at a time until the upper 160 PSI gauge settles at [75 PSI](CO2_PRIMARY_SET) [± 5 PSI](CO2_PRIMARY_TOL) with no gas flowing; the secondary then feeds the nominal [43.5 PSI](CO2_CENTERLINE). Come up to 75 from below: if the needle passes it, back the screw out, close the cylinder valve and open the faucet until the gauge falls under 75, then reopen the valve and come up again. Hold the screw and tighten the jam nut against the bonnet. Close the cylinder valve, open the faucet until the gauge falls, reopen the valve and confirm the needle settles back at 75. Draw one paint-pen line across the screw end, the jam nut and the bonnet, so any later turn shows. Record the setting in the unit's log. A trial at another feed uses a bench regulator and is a separate test, not the qualification. Record the initial charging, air removal and conditioning sequence so carbonation comparisons use the same CO2 headspace condition. Do not yet open the water-side test-rig valve. Place the [12 oz](GLASS_OZ) target glass on the bench under the faucet position (the faucet itself is on its under-counter mount; the bench can take the chassis with the faucet temporarily oriented over a catch tray or with a stub line into the same target glass — bench-rig detail at Derek's discretion).
 
-**Pass:** all four tube ends separate and reenter together; the cartridge closes on its
-meeting magnet poles; the junctions, keepers, returns, dry captures, fixed electrical half
-and ribbon stay undisturbed; all four J13-to-pump connections are continuous and correctly
-mapped; the dedicated faucet OVER outlet is open over the test sink; and no bench gas
-connection leaks. **Fail:** damaged or displaced TPU, a bent, caught or slipped stub, incomplete
-seating, a loose or chipped magnet, a displaced fixed contact or lead, incorrect continuity,
-or a leaking rig connection. Correct the specific fault and repeat the dry cycle before
-continuing.
+**Pass:** all four tubes release and reenter together, each bottoming in its tee; the
+cartridge closes on its meeting magnet poles; the fixed electrical half and ribbon stay
+undisturbed; all four J13-to-pump connections are
+continuous and correctly mapped; the dedicated faucet OVER outlet is open over the test
+sink; and no bench gas connection leaks. **Fail:** a damaged collet, a tube that will not
+release or will not bottom, a bent, caught or slipped tube,
+incomplete seating, a loose or chipped magnet, a displaced fixed contact or lead, incorrect
+continuity, or a leaking rig connection. Correct the specific fault and repeat the dry
+cycle before continuing.
 
 ### 2. Power on + interlock check
 
@@ -113,9 +115,9 @@ Re-fill the carbonator using the refill queued by the falling low-level crossing
 
 Run the metered dispense (target [~250 mL](METERED_WATER) water + [~12.5 mL](METERED_FLAVOR) flavor A concentrate, totalling [~262.5 mL](METERED_TOTAL)). The graduated cylinder receives the mixed product; the carbonator low-reed will likely assert mid-pour and queue a refill which firmware will defer until the dispense window closes.
 
-During flow and the following closed-valve hold, inspect both pump-end joints, both
-sides of the TPU junctions, returns and fixed tube links. No seepage, air ingress visible in the
-clear receiver, receiver migration or cartridge movement off its seats is acceptable.
+During flow and the following closed-valve hold, inspect both pump-end joints, the
+cartridge's seat and the bay floor below it. No seepage or cartridge movement off its
+seats is acceptable.
 Apply the same inspection to channel B in step 7. The dock's separate pressure and
 endurance qualification sets the operating envelope; a clean dispense alone does not
 establish that envelope.
@@ -190,7 +192,7 @@ Confirm before releasing the unit: no water audible on a gentle tilt, both reser
 A unit that has passed acceptance and burn-in:
 
 - Carbonator first-water-fill completed without leak
-- Pump dock cycled dry through seated → withdrawn → seated; four LLDPE stubs separated and reentered together, permanent junctions/keepers/returns and dry captures stayed fixed, the electrical pair parted and mated without disturbing its fixed half or ribbon, and J13-to-tab continuity was confirmed with the cartridge on its meeting magnet poles
+- Pump dock cycled dry through seated → withdrawn → seated; four LLDPE tubes released and reentered together, each bottoming in its tee, the electrical pair parted and mated without disturbing its fixed half or ribbon, and J13-to-tab continuity was confirmed with the cartridge on its meeting magnet poles
 - Gas-feed and carbonator pressures recorded through refill and hold; downstream check reverse sealing qualified; no external leakage or SV-125 relief event during normal operation
 - Dedicated faucet OVER outlet open over the bowl; no unexplained vent discharge
 - Initial fill, refill and pump restart completed with measured inlet/discharge/carbonator pressure and supply margin
