@@ -1289,6 +1289,7 @@
       "hardware/reference/waveshare-43b-display/waveshare-43b-display.step",
       "hardware/reference/worm-clamp/worm-clamp.step",
       "hardware/reference/wr1110-regulator/wr1110-regulator.step",
+      "hardware/reference/yetaha-pressure-regulator/yetaha-pressure-regulator.step",
       "hardware/reference/yyfkgcp-pogo-4p/pogo-4p-female.step",
       "hardware/reference/yyfkgcp-pogo-4p/pogo-4p-male.step",
       "hardware/wiring/enclosure-wiring.step",
@@ -2709,7 +2710,8 @@
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.stl": "2690c95cbd4672b6026e177c1727c34ca0271b5aadffd688c1187712739b081a",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "582ebdc05920fbc0afac9c5df8ea40d066be47f4879af6822a6f6f0b3ee23ac9",
     "hardware/reference/hlghlg-check-valve/hlghlg-check-valve.step": "4d6081ce0a082adf6e37db80ccd3192784767a3ed42a99665c186e058b52b0cb",
-    "hardware/reference/shok-blok-regulator/shok-blok-regulator.step": "847d8b1c999a1d635cc3cfcca61ca17d593ba3202e53f435251a555c32b488f5"
+    "hardware/reference/shok-blok-regulator/shok-blok-regulator.step": "847d8b1c999a1d635cc3cfcca61ca17d593ba3202e53f435251a555c32b488f5",
+    "hardware/reference/yetaha-pressure-regulator/yetaha-pressure-regulator.step": "a6fe4f51ebda256915d4d54e08ab94a0ed6c2db580fe3c440d099cf4133502cd"
   },
   "sidecars": {
     "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "13ff20ceebd365daa799d996d569343c8cab1c54c3929bf93d5daae95fe43b73",
@@ -4015,6 +4017,7 @@
     "hardware/reference/waveshare-43b-display/waveshare-43b-display.step": 1787356215,
     "hardware/reference/worm-clamp/worm-clamp.step": 1787578592,
     "hardware/reference/wr1110-regulator/wr1110-regulator.step": 1790196723,
+    "hardware/reference/yetaha-pressure-regulator/yetaha-pressure-regulator.step": 1792659891,
     "hardware/reference/yyfkgcp-pogo-4p/pogo-4p-female.step": 1790919001,
     "hardware/reference/yyfkgcp-pogo-4p/pogo-4p-male.step": 1790919001,
     "hardware/wiring/enclosure-wiring.step": 1792647328,
