@@ -1,0 +1,84 @@
+{
+  "views": [
+    {
+      "name": "underside",
+      "caption": "Relay 2's lower mounting bar on back-top's right wall, seen from inside the box. The rings are where the two bumps stood under its insert holes.",
+      "before": "underside-before.webp",
+      "after": "underside-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 835.7,
+          "y": 501.7,
+          "r": 50.9,
+          "label": "bump",
+          "at": [
+            96.25,
+            331.751,
+            251.15
+          ]
+        },
+        {
+          "x": 378.9,
+          "y": 519.2,
+          "r": 48.3,
+          "label": "bump",
+          "at": [
+            96.25,
+            344.751,
+            251.15
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/enclosure/enclosure-back-top.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          67.13839167856466,
+          334.5372118294922,
+          242.0252011693523
+        ],
+        "target": [
+          96.3,
+          338.3,
+          253
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.13787373447227352,
+        "far": 466.02278763429274,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+          "from": "snapshot",
+          "sha256": "e543bf2d4749c7f5f46f8267a5d9be8a729b316c9e1bd1d8f06b90bff0aa139d",
+          "commit": "5a26eb706d30e40897d6cf184cb99b9775d7f568",
+          "taken": "2026-10-22T05:39:30.040Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+          "from": "tree",
+          "sha256": "101adbb845704a08b9ac7d64034329086f871c40f4bf68899b1dfd99f760072b",
+          "commit": "c437f18b661b2a9e8f07c16166048b89bad209eb",
+          "published": true
+        }
+      },
+      "changed": [],
+      "withinMeshing": [
+        "enclosure-back-top"
+      ]
+    }
+  ]
+}

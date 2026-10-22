@@ -169,6 +169,10 @@ def build():
     The two open bands at the body's back receive the receptacle catches. They represent the
     module's flexible tang and latch regions rather than solid rectangular moulding, and keep
     the purchased body and the printed snap features from occupying the same material.
+
+    THE BLOCK STANDS TALLER HERE THAN THE JACK DOES. It rises behind the upper catch, where the
+    delivered jack has nothing, so either catch has room to grow inboard, toward the punch-down
+    block, should a fit ever ask for a thicker one. The catches hold the jack as drawn.
     """
     face = (cq.Workplane("XZ").rect(FACE_W, FACE_H).extrude(LIP_D)
             .translate((0.0, 0.0, 0.0)))
