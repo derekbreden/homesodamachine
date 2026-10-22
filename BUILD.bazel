@@ -130,6 +130,7 @@ genrule(
         "hardware/reference/g-ganen-pump/reference-parameters.json",
         "pysrc/hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
         "pysrc/hardware/reference/gasher-check-valve/gasher_check_valve.py",
+        "pysrc/hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
         "pysrc/hardware/reference/jg-pp010822e/jg_pp010822e.py",
         "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json",
@@ -424,6 +425,7 @@ genrule(
         "pysrc/hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
         "pysrc/hardware/reference/gasher-check-valve/gasher_check_valve.py",
         "pysrc/hardware/reference/ground-ring-stack/ground_ring_stack.py",
+        "pysrc/hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py",
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
         "pysrc/hardware/reference/jg-pp010822e/jg_pp010822e.py",
@@ -601,6 +603,7 @@ genrule(
         "pysrc/hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
         "pysrc/hardware/reference/gasher-check-valve/gasher_check_valve.py",
         "pysrc/hardware/reference/ground-ring-stack/ground_ring_stack.py",
+        "pysrc/hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py",
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
         "pysrc/hardware/reference/jg-pp010822e/jg_pp010822e.py",
@@ -1066,6 +1069,7 @@ genrule(
         "pysrc/hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
         "pysrc/hardware/reference/gasher-check-valve/gasher_check_valve.py",
         "pysrc/hardware/reference/ground-ring-stack/ground_ring_stack.py",
+        "pysrc/hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py",
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
         "pysrc/hardware/reference/jg-pp010822e/jg_pp010822e.py",
@@ -2720,6 +2724,7 @@ genrule(
         "pysrc/hardware/reference/gasher-check-valve/gasher_check_valve.py",
         ":out/ground-ring-stack/hardware/reference/ground-ring-stack/ground-ring-stack.step",
         "pysrc/hardware/reference/ground-ring-stack/ground_ring_stack.py",
+        "pysrc/hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py",
         ":out/iec-c14-inlet/hardware/reference/iec-c14-inlet/iec-c14-inlet.step",
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
         ":out/jg-bulkhead-union/hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step",
@@ -3006,6 +3011,7 @@ genrule(
         "pysrc/hardware/reference/gasher-check-valve/gasher_check_valve.py",
         ":out/ground-ring-stack/hardware/reference/ground-ring-stack/ground-ring-stack.step",
         "pysrc/hardware/reference/ground-ring-stack/ground_ring_stack.py",
+        "pysrc/hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py",
         ":out/iec-c14-inlet/hardware/reference/iec-c14-inlet/iec-c14-inlet.step",
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
         ":out/jg-bulkhead-union/hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step",
@@ -3511,8 +3517,10 @@ genrule(
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh",
+        "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.stl",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
+        "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
         "out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl",
         "out/foam-cap/hardware/printed-parts/cold-core/_foam_cap.py",
@@ -3525,12 +3533,14 @@ O1=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-
 O2=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl)
 O3=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step)
 O4=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh)
-O5=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step)
-O6=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh)
-O7=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step)
-O8=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl)
-O9=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/_foam_cap.py)
-O10=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam_cap.py)
+O5=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.stl)
+O6=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step)
+O7=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh)
+O8=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl)
+O9=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step)
+O10=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl)
+O11=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/_foam_cap.py)
+O12=$$PWD/$(location out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam_cap.py)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -3552,12 +3562,14 @@ cp hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step $$O1
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl $$O2
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step $$O3
 cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh $$O4
-cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step $$O5
-cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh $$O6
-cp hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step $$O7
-cp hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl $$O8
-cp hardware/printed-parts/cold-core/_foam_cap.py $$O9
-cp hardware/printed-parts/cold-core/foam-cap/foam_cap.py $$O10
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.stl $$O5
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step $$O6
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh $$O7
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl $$O8
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step $$O9
+cp hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl $$O10
+cp hardware/printed-parts/cold-core/_foam_cap.py $$O11
+cp hardware/printed-parts/cold-core/foam-cap/foam_cap.py $$O12
 """,
 )
 
@@ -4328,6 +4340,7 @@ genrule(
         "pysrc/hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
         "pysrc/hardware/reference/gasher-check-valve/gasher_check_valve.py",
         "pysrc/hardware/reference/ground-ring-stack/ground_ring_stack.py",
+        "pysrc/hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py",
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
         "pysrc/hardware/reference/jg-pp010822e/jg_pp010822e.py",
@@ -5190,6 +5203,7 @@ genrule(
         "pysrc/hardware/reference/gasher-check-valve/gasher_check_valve.py",
         ":out/ground-ring-stack/hardware/reference/ground-ring-stack/ground-ring-stack.step",
         "pysrc/hardware/reference/ground-ring-stack/ground_ring_stack.py",
+        "pysrc/hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py",
         ":out/iec-c14-inlet/hardware/reference/iec-c14-inlet/iec-c14-inlet.step",
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
         ":out/jg-bulkhead-union/hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step",
@@ -5340,6 +5354,7 @@ genrule(
         "pysrc/hardware/printed-parts/zone-c/funnel/funnel.py",
         "pysrc/hardware/printed-parts/zone-c/funnel/funnel_frame.py",
         "pysrc/hardware/reference/beduan-solenoid/beduan_solenoid.py",
+        "pysrc/hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py",
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
         "pysrc/hardware/reference/jg-pp0308e-elbow/elbow.py",
@@ -5747,6 +5762,7 @@ genrule(
         "pysrc/hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
         "pysrc/hardware/reference/gasher-check-valve/gasher_check_valve.py",
         "pysrc/hardware/reference/ground-ring-stack/ground_ring_stack.py",
+        "pysrc/hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py",
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
         "pysrc/hardware/reference/jg-pp010822e/jg_pp010822e.py",
@@ -5927,6 +5943,7 @@ genrule(
         "pysrc/hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
         "pysrc/hardware/reference/gasher-check-valve/gasher_check_valve.py",
         "pysrc/hardware/reference/ground-ring-stack/ground_ring_stack.py",
+        "pysrc/hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py",
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
         "pysrc/hardware/reference/jg-pp010822e/jg_pp010822e.py",
@@ -6107,6 +6124,7 @@ genrule(
         "pysrc/hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
         "pysrc/hardware/reference/gasher-check-valve/gasher_check_valve.py",
         "pysrc/hardware/reference/ground-ring-stack/ground_ring_stack.py",
+        "pysrc/hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py",
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
         "pysrc/hardware/reference/jg-pp010822e/jg_pp010822e.py",
@@ -8465,6 +8483,44 @@ cp hardware/reference/ground-ring-stack/ground-ring-stack.step $$O0
 )
 
 genrule(
+    name = "hlghlg-check-valve",
+    srcs = [
+        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
+        "pysrc/hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py",
+        "pysrc/hardware/scripts/_cadq_export.py",
+        "pysrc/hardware/scripts/_material_base.py",
+        "pysrc/hardware/scripts/_materials.py",
+        "pysrc/hardware/scripts/_mesh_payload.py",
+        "pysrc/hardware/scripts/_run_lock.py",
+        "pysrc/tools/docgen/__init__.py",
+    ],
+    outs = [
+        "out/hlghlg-check-valve/hardware/reference/hlghlg-check-valve/hlghlg-check-valve.step",
+    ],
+    cmd = """
+set -e
+O0=$$PWD/$(location out/hlghlg-check-valve/hardware/reference/hlghlg-check-valve/hlghlg-check-valve.step)
+for f in $(SRCS); do
+  case $$f in
+    */node_modules/*) continue;;
+    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
+    */pysrc/*) t=$${f##*/pysrc/};;
+    *) t=$$f;;
+  esac
+  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
+done
+for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
+  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
+done
+cd work
+ln -sfn $$HSM_WORKSPACE/.cache .cache
+D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py > /dev/null
+cp hardware/reference/hlghlg-check-valve/hlghlg-check-valve.step $$O0
+""",
+)
+
+genrule(
     name = "iec-c14-inlet",
     srcs = [
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
@@ -9858,6 +9914,7 @@ genrule(
         "pysrc/hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
         "pysrc/hardware/reference/gasher-check-valve/gasher_check_valve.py",
         "pysrc/hardware/reference/ground-ring-stack/ground_ring_stack.py",
+        "pysrc/hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py",
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
         "pysrc/hardware/reference/jg-pp010822e/jg_pp010822e.py",
@@ -10489,6 +10546,7 @@ genrule(
         "hardware/reference/gasher-check-valve/gasher_check_valve.py",
         ":out/ground-ring-stack/hardware/reference/ground-ring-stack/ground-ring-stack.step",
         "hardware/reference/ground-ring-stack/ground_ring_stack.py",
+        "hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py",
         ":out/iec-c14-inlet/hardware/reference/iec-c14-inlet/iec-c14-inlet.step",
         "hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
         ":out/jg-bulkhead-union/hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step",
@@ -10801,6 +10859,7 @@ genrule(
         "pysrc/hardware/reference/gagira-reducing-coupling/gagira_reducing_coupling.py",
         "pysrc/hardware/reference/gasher-check-valve/gasher_check_valve.py",
         "pysrc/hardware/reference/ground-ring-stack/ground_ring_stack.py",
+        "pysrc/hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py",
         "pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
         "pysrc/hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
         "pysrc/hardware/reference/jg-pp010822e/jg_pp010822e.py",
@@ -12710,6 +12769,14 @@ genrule(
 )
 
 genrule(
+    name = "pysrc-24692c243f89",
+    srcs = ["hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py"],
+    outs = ["pysrc/hardware/reference/hlghlg-check-valve/hlghlg_check_valve.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
     name = "pysrc-d73dddd32534",
     srcs = ["hardware/reference/iec-c14-inlet/iec_c14_inlet.py"],
     outs = ["pysrc/hardware/reference/iec-c14-inlet/iec_c14_inlet.py"],
@@ -13557,6 +13624,7 @@ filegroup(
         ":gagira-reducing-coupling",
         ":gasher-check-valve",
         ":ground-ring-stack",
+        ":hlghlg-check-valve",
         ":iec-c14-inlet",
         ":jg-bulkhead-union",
         ":jg-pp010822e",

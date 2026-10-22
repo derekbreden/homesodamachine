@@ -6,9 +6,9 @@ Every splice in the machine where one conductor becomes many, mains and DC alike
 
 | SKU | poles | where | count |
 |---|---|---|---|
-| 221-413 | 3 | the mains H / N / G and the 12 V + / GND rails, in a row on the +X wall | 5 |
-| 221-415 | 5 | J2 MANIFOLD B `COM`, J6 REEDS A `GND`, J4 SENSORS `GND` | 3 |
-| 221-420 | 10 | J1 MANIFOLD A `COM`, J7 REEDS B `GND` | 2 |
+| 221-413 | 3 | mains L / N / PE, 12 V + / GND, J7 REEDS B `GND`, J4 SENSORS `GND` | 7 |
+| 221-415 | 5 | J2 MANIFOLD B `COM` | 1 |
+| 221-420 | 10 | J1 MANIFOLD A `COM` | 1 |
 
 None has a mounting hole — each is a free splice, so a **printed press-fit well**
 grown into an enclosure wall's own inner face is the whole mount

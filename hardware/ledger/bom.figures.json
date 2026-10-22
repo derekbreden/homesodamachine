@@ -1,7 +1,7 @@
 {
   "/hardware/scripts/_bom_sync.py": {
     "AERO_FLOATS": "3",
-    "ANCHOR_LOOP": "76.7 mm",
+    "ANCHOR_LOOP": "61.3 mm",
     "C14_BORE": "5.25",
     "C14_FLANGE_T": "3.25",
     "C14_INSERTS": "2",

@@ -171,11 +171,28 @@
       },
       "AC5-N": {
         "end_lands_mm": [
-          6.0,
+          8.0,
           6.0
         ],
         "bend_radius_mm": 4.0,
-        "entry_stations": [],
+        "entry_stations": [
+          {
+            "terminal": "wago-n.3",
+            "offset": [
+              -16.070084,
+              -34.422941,
+              -1.524769
+            ]
+          },
+          {
+            "terminal": "wago-n.3",
+            "offset": [
+              -19.070084,
+              -82.422941,
+              -7.524769
+            ]
+          }
+        ],
         "exit_stations": [
           {
             "terminal": "compressor.N",
@@ -311,10 +328,6 @@
     ],
     "route_status": "proposed",
     "cores": {
-      "J6-earth-4": [
-        1.65,
-        2.0206672185931328e-16
-      ],
       "J6-RA1": [
         0.5098780407186635,
         -1.5692432518870032
@@ -330,78 +343,13 @@
       "J6-RA4": [
         0.5098780407186627,
         1.5692432518870034
+      ],
+      "J6-GND": [
+        1.65,
+        2.0206672185931328e-16
       ]
     },
     "fanouts": {
-      "J6-earth-4": {
-        "entry_stations": [
-          {
-            "terminal": "wago-reeds-a.2",
-            "offset": [
-              3.9,
-              16.25,
-              -2.0
-            ]
-          },
-          {
-            "terminal": "wago-reeds-a.2",
-            "offset": [
-              3.9,
-              32.25,
-              -2.0
-            ]
-          },
-          {
-            "terminal": "wago-reeds-a.2",
-            "offset": [
-              1.9,
-              36.25,
-              0.0
-            ]
-          },
-          {
-            "terminal": "wago-reeds-a.2",
-            "offset": [
-              5.9,
-              81.25,
-              0.0
-            ]
-          },
-          {
-            "terminal": "wago-reeds-a.2",
-            "offset": [
-              25.9,
-              133.25,
-              -14.0
-            ]
-          },
-          {
-            "terminal": "wago-reeds-a.2",
-            "offset": [
-              94.9,
-              134.25,
-              -15.0
-            ]
-          }
-        ],
-        "exit_stations": [
-          {
-            "passage": "reed-cable-a",
-            "end": 1,
-            "offset": [
-              -2.8,
-              0,
-              -11.8
-            ]
-          }
-        ],
-        "end_lands_mm": [
-          3.0,
-          4.0
-        ],
-        "bend_radius_mm": 2.0,
-        "route_status": "proposed"
-      },
       "J6-RA1": {
         "entry_stations": [
           {
@@ -773,6 +721,67 @@
         ],
         "bend_radius_mm": 2.0,
         "route_status": "proposed"
+      },
+      "J6-GND": {
+        "entry_stations": [
+          {
+            "terminal": "J6.GND",
+            "offset": [
+              -5.85,
+              3.59999,
+              -3.95
+            ]
+          },
+          {
+            "terminal": "J6.GND",
+            "offset": [
+              -5.85,
+              18.59999,
+              -3.95
+            ]
+          },
+          {
+            "terminal": "J6.GND",
+            "offset": [
+              -83.85,
+              135.59999,
+              -3.95
+            ]
+          },
+          {
+            "terminal": "J6.GND",
+            "offset": [
+              -89.85,
+              171.59999,
+              -3.95
+            ]
+          },
+          {
+            "terminal": "J6.GND",
+            "offset": [
+              -95.85,
+              177.59999,
+              2.05
+            ]
+          }
+        ],
+        "exit_stations": [
+          {
+            "passage": "reed-cable-a",
+            "end": 1,
+            "offset": [
+              -2.8,
+              0,
+              -11.8
+            ]
+          }
+        ],
+        "end_lands_mm": [
+          3.0,
+          4.0
+        ],
+        "bend_radius_mm": 4.0,
+        "route_status": "proposed"
       }
     }
   },
@@ -841,97 +850,9 @@
           {
             "terminal": "wago-reeds-b.2",
             "offset": [
-              52.2,
-              -27.45,
-              1.04
-            ]
-          },
-          {
-            "terminal": "wago-reeds-b.2",
-            "offset": [
-              66.2,
-              -29.45,
-              3.04
-            ]
-          },
-          {
-            "terminal": "wago-reeds-b.2",
-            "offset": [
-              86.2,
-              -31.45,
-              13.04
-            ]
-          },
-          {
-            "terminal": "wago-reeds-b.2",
-            "offset": [
-              87.2,
-              -47.45,
-              14.04
-            ]
-          },
-          {
-            "terminal": "wago-reeds-b.2",
-            "offset": [
-              93.2,
-              -59.45,
-              14.04
-            ]
-          },
-          {
-            "terminal": "wago-reeds-b.2",
-            "offset": [
-              119.2,
-              -65.45,
-              10.04
-            ]
-          },
-          {
-            "terminal": "wago-reeds-b.2",
-            "offset": [
-              114.05,
-              -70.15,
-              8.04
-            ]
-          },
-          {
-            "terminal": "wago-reeds-b.2",
-            "offset": [
-              86.05,
-              -88.15,
-              10.04
-            ]
-          },
-          {
-            "terminal": "wago-reeds-b.2",
-            "offset": [
-              64.05,
-              -94.15,
-              6.04
-            ]
-          },
-          {
-            "terminal": "wago-reeds-b.2",
-            "offset": [
-              56.05,
-              -94.15,
-              6.04
-            ]
-          },
-          {
-            "terminal": "wago-reeds-b.2",
-            "offset": [
-              52.05,
-              -94.15,
-              2.04
-            ]
-          },
-          {
-            "terminal": "wago-reeds-b.2",
-            "offset": [
-              52.05,
-              -96.15,
-              0.04
+              24.75,
+              -56.2,
+              6.0
             ]
           }
         ],

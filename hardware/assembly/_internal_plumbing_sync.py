@@ -41,7 +41,7 @@ import enclosure as _enc  # noqa: E402  — the box, and the hull its own zip ti
 import _facts  # noqa: E402  — the placed pack and its runs, off the last build
 import enclosure_assembly as _ea  # noqa: E402,F401  — holds the closure this doc watches
 import manifold_layout as _ml  # noqa: E402  — the manifold's own census
-import seaflo_discharge_chain as _dis  # noqa: E402  — on the path once `_lines` is imported
+import hlghlg_check_valve as _dis  # noqa: E402  — on the path once `_lines` is imported
 import diaphragm_pump_sleeve as _pump_elbow  # noqa: E402  — likewise, the elbow on each barb
 import wr1110_regulator as _wr1110  # noqa: E402  — the barrel the box bores a rib for
 import digiten_flow_sensor as _digiten  # noqa: E402  — the arm its two anchors bore for

@@ -117,8 +117,8 @@ def export(a):
                             "diaphragm_pump_sleeve.TUBE_DEPTH: the printed elbow's tube socket, "
                             "mouth to shelf")}
            for elbow in ("pump-elbow-suction", "pump-elbow-discharge")},
-        "discharge-chain": {"inlet": ("collet", COLLET_GRIP, "tee-connector README INSERTION 10.0"),
-                            "tube-port": ("collet", COLLET_GRIP, "tee-connector README INSERTION 10.0")},
+        "discharge-chain": {"inlet": ("collet", COLLET_GRIP, "HLGHLG nominal insertion estimate; mark actual full seating"),
+                            "tube-port": ("collet", COLLET_GRIP, "HLGHLG nominal insertion estimate; mark actual full seating")},
         "foam-assembly": {"water-in": "cap-bore", "carb-water-out": "cap-bore", "reservoir-a": "cap-bore",
                           "reservoir-b": "cap-bore", "reservoir-a-fill": "cap-bore",
                           "reservoir-b-fill": "cap-bore", "co2-in": "cap-bore",

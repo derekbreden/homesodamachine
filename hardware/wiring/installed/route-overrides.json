@@ -60,7 +60,7 @@
       {
         "terminal": "psu.GND",
         "offset": [
-          -8.55,
+          -28.05,
           -4.0,
           0.0
         ]
@@ -68,390 +68,263 @@
       {
         "terminal": "psu.GND",
         "offset": [
-          -8.55,
-          -4.0,
-          26.1
-        ]
-      },
-      {
-        "terminal": "psu.GND",
-        "offset": [
-          -17.05,
-          -4.0,
-          26.1
-        ]
-      },
-      {
-        "terminal": "psu.GND",
-        "offset": [
-          -17.05,
-          73.21,
-          26.1
-        ]
-      },
-      {
-        "terminal": "psu.GND",
-        "offset": [
-          -17.05,
-          73.21,
-          32.58333
+          -28.05,
+          24.46,
+          32.583333
         ]
       }
     ],
     "end_lands_mm": [
       4.0,
-      4.0
+      8.0
     ],
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
+    "note": "Dressed connection through existing assembly space, with individually separated conductors."
   },
   "DC1-V12": {
     "stations": [
       {
         "terminal": "psu.V12",
         "offset": [
-          5.95,
-          -4.0,
-          0.0
-        ]
-      },
-      {
-        "terminal": "psu.V12",
-        "offset": [
-          5.95,
-          -4.0,
-          34.6
-        ]
-      },
-      {
-        "terminal": "psu.V12",
-        "offset": [
-          -13.05,
-          2.2,
-          34.6
-        ]
-      },
-      {
-        "terminal": "psu.V12",
-        "offset": [
-          -13.05,
-          56.96,
-          34.6
-        ]
-      },
-      {
-        "terminal": "psu.V12",
-        "offset": [
-          -13.05,
-          56.96,
-          40.58333
+          -6.15,
+          0.21,
+          8.583333
         ]
       }
     ],
     "end_lands_mm": [
-      4.0,
-      4.0
+      6.0,
+      8.0
     ],
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
+    "note": "Dressed connection through existing assembly space, with individually separated conductors."
   },
   "DC4-GND": {
     "stations": [
       {
         "terminal": "wago-gnd.3",
         "offset": [
-          -31.4,
-          0.0,
-          1.48333
+          -10.210003,
+          -15.50995,
+          -2.616672
         ]
       },
       {
         "terminal": "wago-gnd.3",
         "offset": [
-          -31.4,
-          -19.01,
-          -2.51667
+          -4.210003,
+          -27.50995,
+          -8.616672
         ]
       },
       {
         "terminal": "wago-gnd.3",
         "offset": [
-          -31.4,
-          -83.01,
-          1.48333
-        ]
-      },
-      {
-        "terminal": "wago-gnd.3",
-        "offset": [
-          -31.4,
-          -98.01,
-          -14.61667
-        ]
-      },
-      {
-        "terminal": "wago-gnd.3",
-        "offset": [
-          -23.21,
-          -96.25995,
-          -16.61667
-        ]
-      },
-      {
-        "terminal": "wago-gnd.3",
-        "offset": [
-          -3.21,
-          -96.25995,
-          -14.61667
+          -1.210003,
+          -42.50995,
+          -11.616672
         ]
       }
     ],
     "end_lands_mm": [
-      4.0,
-      4.0
+      8.0,
+      3.0
     ],
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
+    "note": "Dressed connection through existing assembly space, with individually separated conductors."
   },
   "DC4-V12": {
     "stations": [
       {
         "terminal": "wago-v12.3",
         "offset": [
-          -7.21,
-          -34.00995,
-          -3.61666
+          -1.210003,
+          -8.25995,
+          -7.616662
         ]
       },
       {
         "terminal": "wago-v12.3",
         "offset": [
-          -5.21,
-          -46.00995,
-          -15.61666
+          -1.210003,
+          -17.25995,
+          -16.616662
         ]
       },
       {
         "terminal": "wago-v12.3",
         "offset": [
-          -3.21,
-          -56.00995,
-          -15.61666
-        ]
-      },
-      {
-        "terminal": "wago-v12.3",
-        "offset": [
-          -1.21,
-          -64.00995,
-          -13.61666
-        ]
-      },
-      {
-        "terminal": "wago-v12.3",
-        "offset": [
-          -1.21,
-          -70.00995,
-          -19.61666
-        ]
-      },
-      {
-        "terminal": "wago-v12.3",
-        "offset": [
-          0.79,
-          -76.00995,
-          -19.61666
+          -1.210003,
+          -26.25995,
+          -16.616662
         ]
       }
     ],
     "end_lands_mm": [
-      4.0,
-      4.0
+      8.0,
+      3.0
     ],
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
+    "note": "Dressed connection through existing assembly space, with individually separated conductors."
   },
   "AC1-L": {
-    "stations": [
-      {
-        "terminal": "c14.L",
-        "offset": [
-          9.8,
-          -4.0,
-          0.0
-        ]
-      },
-      {
-        "terminal": "c14.L",
-        "offset": [
-          9.8,
-          -69.2,
-          -22.67725
-        ]
-      },
-      {
-        "terminal": "c14.L",
-        "offset": [
-          9.8,
-          -75.2,
-          -22.67725
-        ]
-      }
-    ],
+    "stations": [],
     "end_lands_mm": [
-      4.0,
-      4.0
+      3.0,
+      8.0
     ],
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
+    "note": "Dressed connection through existing assembly space, with individually separated conductors."
   },
   "AC1-N": {
     "stations": [
       {
         "terminal": "c14.N",
         "offset": [
-          -0.5,
-          -52.95,
-          -22.87725
-        ]
-      },
-      {
-        "terminal": "c14.N",
-        "offset": [
-          -0.5,
-          -58.95,
-          -22.87725
+          0.9,
+          -7.2,
+          -19.877248
         ]
       }
     ],
     "end_lands_mm": [
-      4.0,
-      4.0
+      3.0,
+      8.0
     ],
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
+    "note": "Dressed connection through existing assembly space, with individually separated conductors."
   },
   "AC1-PE": {
     "stations": [
       {
         "terminal": "c14.PE",
         "offset": [
-          0.65,
-          -12.7,
-          -1.62725
+          1.65,
+          -15.7,
+          -11.627248
+        ]
+      },
+      {
+        "terminal": "c14.PE",
+        "offset": [
+          1.65,
+          -21.7,
+          -11.627248
         ]
       }
     ],
     "end_lands_mm": [
-      4.0,
-      4.0
+      3.0,
+      8.0
     ],
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
+    "note": "Dressed connection through existing assembly space, with individually separated conductors."
   },
   "AC3-L": {
     "stations": [
       {
         "terminal": "wago-h.3",
         "offset": [
-          -1.15,
-          -32.21,
-          0.18333
+          -10.15,
+          -30.96,
+          2.183333
         ]
       },
       {
         "terminal": "wago-h.3",
         "offset": [
-          -3.15,
-          -38.21,
-          0.18333
+          -12.15,
+          -80.96,
+          0.183333
         ]
       },
       {
         "terminal": "wago-h.3",
         "offset": [
-          -3.15,
-          -80.21,
-          -1.81667
+          -14.15,
+          -88.96,
+          0.183333
+        ]
+      },
+      {
+        "terminal": "wago-h.3",
+        "offset": [
+          -6.15,
+          -138.96,
+          2.183333
         ]
       }
     ],
     "end_lands_mm": [
-      4.0,
-      4.0
+      8.0,
+      3.0
     ],
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
+    "note": "Dressed connection through existing assembly space, with individually separated conductors."
   },
   "DC2-V12": {
     "stations": [
       {
         "terminal": "wago-v12.2",
         "offset": [
-          -13.9,
-          -1.76,
-          -6.25
-        ]
-      },
-      {
-        "terminal": "wago-v12.2",
-        "offset": [
-          -25.9,
-          -13.76,
-          -18.25
-        ]
-      },
-      {
-        "terminal": "relay-2.COM",
-        "offset": [
-          -24.75,
-          20.7,
-          8.6
+          -15.9,
+          -17.71,
+          -12.25
         ]
       }
     ],
-    "bend_radius_mm": 3.0,
     "end_lands_mm": [
-      6.0,
-      6.0
+      8.0,
+      3.0
     ],
+    "bend_radius_mm": 3.0,
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Dressed connection through existing assembly space, with individually separated conductors."
   },
   "DC3-negative": {
     "stations": [
       {
-        "terminal": "diaphragm.negative",
+        "terminal": "wago-gnd.2",
         "offset": [
-          19.9289,
-          4.4,
-          8.333
+          -25.9,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "terminal": "wago-gnd.2",
+        "offset": [
+          -25.9,
+          82.34,
+          -38.583036
         ]
       }
     ],
-    "bend_radius_mm": 3.0,
     "end_lands_mm": [
-      6.0,
-      6.0
+      8.0,
+      4.0
     ],
+    "bend_radius_mm": 3.0,
     "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
+    "route_status": "proposed",
+    "note": "Dressed connection through existing assembly space, with individually separated conductors."
   },
   "DC3-positive": {
     "stations": [
@@ -517,60 +390,36 @@
       {
         "terminal": "wago-g.2",
         "offset": [
-          -1.9,
-          -11.51,
-          5.75
+          -20.9,
+          0.0,
+          17.75
         ]
       },
       {
         "terminal": "wago-g.2",
         "offset": [
-          -1.9,
-          -15.51,
-          9.75
-        ]
-      },
-      {
-        "terminal": "wago-g.2",
-        "offset": [
-          -3.9,
-          -53.51,
-          9.75
-        ]
-      },
-      {
-        "terminal": "wago-g.2",
-        "offset": [
-          0.1,
-          -59.51,
-          11.75
+          -20.9,
+          -67.71,
+          17.75
         ]
       }
     ],
-    "bend_radius_mm": 3.0,
     "end_lands_mm": [
-      4.0,
-      6.0
+      8.0,
+      4.0
     ],
+    "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Installed route dressed clear of the shared compressor cable and earlier conductors."
+    "note": "Dressed connection through existing assembly space, with individually separated conductors."
   },
   "AC2-L": {
     "stations": [
       {
         "terminal": "wago-h.2",
         "offset": [
-          -15.9,
-          0.0,
-          -2.0
-        ]
-      },
-      {
-        "terminal": "wago-h.2",
-        "offset": [
           -19.9,
-          0.0,
+          -48.75,
           0.0
         ]
       },
@@ -578,15 +427,7 @@
         "terminal": "wago-h.2",
         "offset": [
           -19.9,
-          84.99,
-          -3.25
-        ]
-      },
-      {
-        "terminal": "wago-h.2",
-        "offset": [
-          -19.9,
-          88.99,
+          40.24,
           -5.25
         ]
       },
@@ -594,27 +435,19 @@
         "terminal": "wago-h.2",
         "offset": [
           -6.9,
-          100.79,
-          -5.25
-        ]
-      },
-      {
-        "terminal": "wago-h.2",
-        "offset": [
-          -6.9,
-          100.79,
+          52.04,
           -46.85
         ]
       }
     ],
     "end_lands_mm": [
-      4.0,
+      8.0,
       4.0
     ],
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
+    "note": "Dressed connection through existing assembly space, with individually separated conductors."
   },
   "AC4-fuse": {
     "stations": [
@@ -2750,8 +2583,16 @@
         "terminal": "J4.GND",
         "offset": [
           -2.75,
-          2.2,
-          -2.2
+          1.2,
+          -1.933333
+        ]
+      },
+      {
+        "terminal": "J4.GND",
+        "offset": [
+          -3.75,
+          3.2,
+          -1.933333
         ]
       },
       {
@@ -2759,71 +2600,47 @@
         "offset": [
           -5.75,
           5.2,
-          -2.2
+          -1.933333
         ]
       },
       {
         "terminal": "J4.GND",
         "offset": [
-          -31.75,
+          -30.75,
           23.2,
-          -4.2
+          -3.933333
         ]
       },
       {
         "terminal": "J4.GND",
         "offset": [
-          -33.75,
-          24.2,
-          -5.2
+          -39.75,
+          26.2,
+          -6.933333
         ]
       },
       {
         "terminal": "J4.GND",
         "offset": [
-          -40.75,
-          25.2,
-          -6.2
+          -62.75,
+          27.2,
+          -7.933333
         ]
       },
       {
         "terminal": "J4.GND",
         "offset": [
-          -69.75,
-          28.2,
-          -9.2
+          -97.75,
+          38.2,
+          -16.933333
         ]
       },
       {
         "terminal": "J4.GND",
         "offset": [
-          -103.75,
-          41.2,
-          -19.2
-        ]
-      },
-      {
-        "terminal": "J4.GND",
-        "offset": [
-          -112.75,
-          44.2,
-          -22.2
-        ]
-      },
-      {
-        "terminal": "J4.GND",
-        "offset": [
-          -139.75,
-          60.2,
-          -27.2
-        ]
-      },
-      {
-        "terminal": "J4.GND",
-        "offset": [
-          -142.75,
-          62.2,
-          -29.2
+          -141.75,
+          58.2,
+          -37.933333
         ]
       }
     ],
@@ -2834,7 +2651,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
+    "note": "Dressed connection through existing assembly space, with individually separated conductors."
   },
   "J5-GND": {
     "stations": [
@@ -3103,57 +2920,6 @@
     "route_status": "proposed",
     "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
-  "J6-GND": {
-    "stations": [
-      {
-        "terminal": "J6.GND",
-        "offset": [
-          -8.85,
-          -1.7,
-          1.1
-        ]
-      },
-      {
-        "terminal": "J6.GND",
-        "offset": [
-          -16.85,
-          6.3,
-          1.1
-        ]
-      },
-      {
-        "terminal": "J6.GND",
-        "offset": [
-          -32.85,
-          18.3,
-          -2.9
-        ]
-      },
-      {
-        "terminal": "wago-reeds-a.1",
-        "offset": [
-          61.9,
-          -22.75,
-          -26.0
-        ]
-      },
-      {
-        "terminal": "wago-reeds-a.1",
-        "offset": [
-          29.9,
-          -10.75,
-          -6.0
-        ]
-      }
-    ],
-    "bend_radius_mm": 2.0,
-    "end_lands_mm": [
-      6.0,
-      6.0
-    ],
-    "preserve_stations": true,
-    "note": "Proposed installed route searched against current physical geometry and earlier conductors; physical dressing remains open."
-  },
   "J6-earth-1": {
     "stations": [],
     "end_lands_mm": [
@@ -3212,24 +2978,16 @@
           -0.35,
           -25.28
         ]
-      },
-      {
-        "terminal": "J7.GND",
-        "offset": [
-          -162.05,
-          -8.35,
-          -38.28
-        ]
       }
     ],
     "end_lands_mm": [
-      6.0,
+      3.0,
       3.0
     ],
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
+    "note": "Dressed connection through existing assembly space, with individually separated conductors."
   },
   "J7-earth-1": {
     "stations": [],
@@ -3958,17 +3716,17 @@
       {
         "terminal": "wago-sensors.2",
         "offset": [
-          5.175,
-          2.59164,
+          19.9,
+          7.0,
           0.0
         ]
       },
       {
         "terminal": "wago-sensors.2",
         "offset": [
-          13.175,
-          22.59164,
-          -17.0
+          5.175,
+          2.59164,
+          6.0
         ]
       },
       {
@@ -3976,7 +3734,15 @@
         "offset": [
           13.175,
           22.59164,
-          -44.2
+          -11.0
+        ]
+      },
+      {
+        "terminal": "wago-sensors.2",
+        "offset": [
+          13.175,
+          22.59164,
+          -38.2
         ]
       },
       {
@@ -3984,7 +3750,7 @@
         "offset": [
           54.75,
           -19.753,
-          -43.73721
+          -37.73721
         ]
       },
       {
@@ -3992,7 +3758,7 @@
         "offset": [
           87.75,
           -83.753,
-          -63.73721
+          -57.73721
         ]
       },
       {
@@ -4000,7 +3766,7 @@
         "offset": [
           87.75,
           -84.753,
-          -144.73721
+          -138.73721
         ]
       }
     ],
@@ -4011,7 +3777,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
+    "note": "Dressed connection through existing assembly space, with individually separated conductors."
   },
   "J7-CHI": {
     "stations": [
@@ -4250,65 +4016,57 @@
       {
         "terminal": "wago-reeds-b.3",
         "offset": [
-          8.925,
-          49.14164,
-          -11.0
+          10.625,
+          55.09164,
+          -4.733333
         ]
       },
       {
         "terminal": "wago-reeds-b.3",
         "offset": [
-          10.925,
-          51.14164,
-          -11.0
+          10.625,
+          55.09164,
+          -31.783333
         ]
       },
       {
         "terminal": "wago-reeds-b.3",
         "offset": [
-          10.925,
-          51.14164,
-          -38.05
+          12.1,
+          53.05,
+          -33.733333
         ]
       },
       {
         "terminal": "wago-reeds-b.3",
         "offset": [
-          12.4,
-          49.1,
-          -40.0
+          18.1,
+          57.05,
+          -33.733333
         ]
       },
       {
         "terminal": "wago-reeds-b.3",
         "offset": [
-          18.4,
-          53.1,
-          -40.0
+          84.1,
+          95.05,
+          -47.733333
         ]
       },
       {
         "terminal": "wago-reeds-b.3",
         "offset": [
-          84.4,
-          91.1,
-          -54.0
+          88.1,
+          97.05,
+          -51.733333
         ]
       },
       {
         "terminal": "wago-reeds-b.3",
         "offset": [
-          88.4,
-          93.1,
-          -58.0
-        ]
-      },
-      {
-        "terminal": "wago-reeds-b.3",
-        "offset": [
-          88.4,
-          93.1,
-          -138.51611
+          88.1,
+          97.05,
+          -132.249443
         ]
       }
     ],
@@ -4319,7 +4077,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
+    "note": "Dressed connection through existing assembly space, with individually separated conductors."
   },
   "cartridge-AM2": {
     "stations": [
@@ -4383,15 +4141,7 @@
         "terminal": "wago-n.2",
         "offset": [
           -3.85,
-          23.54,
-          -13.85
-        ]
-      },
-      {
-        "terminal": "wago-n.2",
-        "offset": [
-          -3.85,
-          70.54,
+          21.79,
           -14.85
         ]
       },
@@ -4399,19 +4149,19 @@
         "terminal": "wago-n.2",
         "offset": [
           2.15,
-          84.54,
+          35.79,
           -34.85
         ]
       }
     ],
     "end_lands_mm": [
-      4.0,
-      4.0
+      8.0,
+      3.0
     ],
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
+    "note": "Dressed connection through existing assembly space, with individually separated conductors."
   },
   "J1-OUT3": {
     "stations": [
@@ -4795,34 +4545,18 @@
         "offset": [
           69.19,
           60.81,
-          45.0
-        ]
-      },
-      {
-        "terminal": "wago-sensors.3",
-        "offset": [
-          71.19,
-          60.81,
-          45.0
-        ]
-      },
-      {
-        "terminal": "wago-sensors.3",
-        "offset": [
-          71.19,
-          60.81,
-          70.9
+          51.266667
         ]
       }
     ],
     "end_lands_mm": [
       3.0,
-      2.5
+      3.0
     ],
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
+    "note": "Dressed connection through existing assembly space, with individually separated conductors."
   },
   "J5-IO2": {
     "stations": [

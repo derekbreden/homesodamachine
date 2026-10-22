@@ -45,14 +45,10 @@
    "id": "coverage",
    "label": "Every placed body is declared in the fastening table",
    "kind": "gate",
-   "status": "fail",
-   "value": "135/137 declared",
+   "status": "pass",
+   "value": "136/136 declared",
    "target": "all declared",
-   "detail": [
-    "placed, undeclared: flavor-reducer-v-g",
-    "placed, undeclared: flavor-reducer-v-j",
-    "declared, unplaced: anchor-cap-fluid-28"
-   ],
+   "detail": [],
    "active": true
   },
   {
@@ -92,13 +88,12 @@
    "label": "Pairs outside named pack-floor exclusions stand a millimetre apart",
    "kind": "gate",
    "status": "fail",
-   "value": "3 under, tightest 0.000 mm",
+   "value": "2 under, tightest 0.000 mm",
    "target": "\u2265 1 mm",
    "detail": [
     "every body pair, and every drawn run against what its own line does not join it to \u2014 the exact solid distance, with boxes only as a prefilter",
     "valve-v-g \u2014 flavor-reducer-v-g: 0.000 mm \u2014 \u2717 under the global pack floor",
     "valve-v-j \u2014 flavor-reducer-v-j: 0.000 mm \u2014 \u2717 under the global pack floor",
-    "water-2 \u2014 enclosure-back-top: 0.686 mm \u2014 \u2717 under the global pack floor",
     "compressor \u2014 thermal-fuse: 0.000 mm \u2014 excluded from the global pack floor",
     "compressor \u2014 fuse-clamp: 0.000 mm \u2014 excluded from the global pack floor",
     "thermal-fuse \u2014 fuse-clamp: 0.000 mm \u2014 excluded from the global pack floor",
@@ -221,10 +216,7 @@
     "fluid-16 \u2014 coil-v-a: 1.583 mm",
     "bulkhead-flavor-a \u2014 bulkhead-ring-flavor-a-word: 1.584 mm",
     "bulkhead-flavor-b \u2014 bulkhead-ring-flavor-b-word: 1.584 mm",
-    "wago-reeds-a \u2014 foam-assembly: 1.600 mm",
-    "wago-sensors \u2014 foam-assembly: 1.600 mm",
     "elbow-cradle \u2014 funnel-drain-stub: 1.641 mm",
-    "wago-reeds-b \u2014 foam-assembly: 1.700 mm",
     "g-ganen-pump \u2014 pump-elbow-suction-clamp-barb: 1.718 mm",
     "fluid-16 \u2014 vk-solenoid: 1.735 mm",
     "co2-2 \u2014 pcba: 1.875 mm"
@@ -545,16 +537,16 @@
    "label": "Every print-down slope on a ceiling-down piece has its stated carry",
    "kind": "goal",
    "status": "fail",
-   "value": "41 print-down slope(s): 24 under a body, 7 within 1 mm of one, 2 in a kept room, 8 could be columns",
+   "value": "40 print-down slope(s): 23 under a body, 7 within 1 mm of one, 2 in a kept room, 8 could be columns",
    "target": "no unaccounted slope a column could replace, and every named room standing",
    "detail": [
     "enclosure-back-top: a 45\u00b0 face at x 96.25..98.50 y 240.55..250.05 z 327.95..330.20: a column of 147 mm\u00b3 rising 12.8 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=-0.707 y=0.000 z=0.707 \u00b7 thru x=97.375 y=245.300 z=329.071\nclick: x=97.375 y=245.300 z=329.071",
     "enclosure-back-top: a 45\u00b0 face at x 87.67..92.88 y 465.30..465.65 z 251.57..251.92: a column of 11 mm\u00b3 rising 103.1 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=-0.707 z=0.707 \u00b7 thru x=90.340 y=465.472 z=251.741\nclick: x=90.340 y=465.472 z=251.741",
     "enclosure-back-top: a 45\u00b0 face at x -61.06..-51.49 y 464.19..465.30 z 321.98..323.09: a column of 95 mm\u00b3 rising 25.5 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=-0.707 z=0.707 \u00b7 thru x=-56.171 y=464.740 z=322.534\nclick: x=-56.171 y=464.740 z=322.534",
     "enclosure-back-top: a 45\u00b0 face at x -29.93..-20.36 y 464.19..465.30 z 321.98..323.09: a column of 198 mm\u00b3 rising 25.5 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=-0.707 z=0.707 \u00b7 thru x=-25.249 y=464.740 z=322.534\nclick: x=-25.249 y=464.740 z=322.534",
+    "enclosure-back-top: a 45\u00b0 face at x -98.50..-90.50 y 312.01..315.01 z 315.01..323.01: a column of 294 mm\u00b3 rising 20.0 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.707 y=0.000 z=0.707 \u00b7 thru x=-94.500 y=313.510 z=319.011\nclick: x=-94.500 y=313.510 z=319.011",
     "enclosure-back-top: a 45\u00b0 face at x -98.50..-90.50 y 252.06..255.06 z 305.41..313.41: a column of 406 mm\u00b3 rising 29.6 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.707 y=0.000 z=0.707 \u00b7 thru x=-94.500 y=253.560 z=309.411\nclick: x=-94.500 y=253.560 z=309.411",
     "enclosure-back-top: a 45\u00b0 face at x -98.50..-90.50 y 258.56..261.56 z 305.41..313.41: a column of 406 mm\u00b3 rising 29.6 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.707 y=0.000 z=0.707 \u00b7 thru x=-94.500 y=260.060 z=309.411\nclick: x=-94.500 y=260.060 z=309.411",
-    "enclosure-back-top: a 45\u00b0 face at x -95.20..-90.50 y 312.01..315.01 z 315.01..319.71: a column of 179 mm\u00b3 rising 23.3 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.707 y=0.000 z=0.707 \u00b7 thru x=-92.850 y=313.510 z=317.361\nclick: x=-92.850 y=313.510 z=317.361",
     "enclosure-back-top: a 45\u00b0 face at x -95.20..-90.50 y 305.51..308.51 z 315.01..319.71: a column of 179 mm\u00b3 rising 23.3 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.707 y=0.000 z=0.707 \u00b7 thru x=-92.850 y=307.010 z=317.361\nclick: x=-92.850 y=307.010 z=317.361"
    ],
    "active": false
@@ -767,7 +759,7 @@
    "label": "Every placement is stated as a rule, and the solid lands on it",
    "kind": "goal",
    "status": "fail",
-   "value": "131/137 stated",
+   "value": "130/136 stated",
    "target": "a stated rule per body, each landing on it",
    "detail": [
     "anchor-cap-carb-1: no seat states where it stands",
@@ -833,7 +825,7 @@
     "fluid-4: 200.0 mm unheld, 0.0 over",
     "carb-1: 183.0 mm, held at its anchor",
     "co2-2: 177.3 mm, held at its anchor",
-    "fluid-28: 183.2 mm, held at its anchor",
+    "fluid-28: 176.1 mm, held at its anchor",
     "fluid-18: 310.7 mm unheld \u2014 left loose; Flavor A's line to its rear union. A capped lid rib holds the fore crossing (`_cold_core_interface.cap_anchors`). The remaining line follows the west flank, turns in over the pump's west-rear foot and returns to the rear union. Those unretained spans need a support and relaxed-tube review. The authored centreline does not establish physical tube shape or its clearance to neighbouring parts."
    ],
    "active": false

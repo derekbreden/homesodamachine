@@ -1,0 +1,90 @@
+{
+  "scope": "One manual review of installed WAGO arrangement and affected routes. Closed reference envelopes and nominal wire profiles; no physical harness or motion acceptance.",
+  "assembly_step_sha256": "b8e5a3b64c51d264bd1d768e8f0a45dbe11413e7272ad422f7585b48a20e07e6",
+  "assembly_mesh_sha256": "08feec26c674aadf76b7c72ea5562ae73aae8ad72a06048fd3fe89b201e7a41c",
+  "wiring_step_sha256": "ad4ac430b285a82aa7be5adf9bf380d747e81599b875106e8baa4839f6126068",
+  "manifest_sha256": "197d5fb53f97c3bc468ea39a81d4274121c1f5ada5081f340041706d59978284",
+  "wago_count": 9,
+  "device_junctions": {
+    "wago-mana": [
+      "wago-mana.1",
+      "wago-mana.2",
+      "wago-mana.3",
+      "wago-mana.4",
+      "wago-mana.5",
+      "wago-mana.6",
+      "wago-mana.7",
+      "wago-mana.8",
+      "wago-mana.9"
+    ],
+    "wago-manb": [
+      "wago-manb.1",
+      "wago-manb.2",
+      "wago-manb.3",
+      "wago-manb.4",
+      "wago-manb.5"
+    ],
+    "wago-reeds-b": [
+      "wago-reeds-b.1",
+      "wago-reeds-b.2",
+      "wago-reeds-b.3"
+    ],
+    "wago-sensors": [
+      "wago-sensors.1",
+      "wago-sensors.2",
+      "wago-sensors.3"
+    ]
+  },
+  "power_row_front_to_rear": [
+    "+12 V",
+    "DC GND",
+    "PE",
+    "L",
+    "N"
+  ],
+  "power_connection_ids": [
+    "AC1-L",
+    "AC1-N",
+    "AC1-PE",
+    "AC2-L",
+    "AC2-N",
+    "AC3-L",
+    "AC5-N",
+    "PE-bus",
+    "DC1-GND",
+    "DC1-V12",
+    "DC2-V12",
+    "DC3-negative",
+    "DC4-GND",
+    "DC4-V12"
+  ],
+  "power_routes": {
+    "before": {
+      "length_mm": 1958.212,
+      "modeled_bends": 82
+    },
+    "installed": {
+      "length_mm": 1718.0600000000002,
+      "modeled_bends": 64
+    }
+  },
+  "reservoir_a_common": {
+    "before": {
+      "length_mm": 485.424,
+      "modeled_bends": 18
+    },
+    "installed": {
+      "length_mm": 293.295,
+      "modeled_bends": 10
+    },
+    "construction": "One continuous J6 common beside the signal conductors, with insulated local reed taps; no reservoir-A WAGO."
+  },
+  "native_wire_count": 102,
+  "native_all_wires_single_valid_solids": true,
+  "unintended_wire_body_overlaps_mm3": 0.0,
+  "unintended_wire_packing_overlaps_mm3": 0.0,
+  "manual_review_records": [
+    "routing-review.json",
+    "contact-review.json"
+  ]
+}

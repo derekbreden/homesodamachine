@@ -178,14 +178,16 @@
           },
           {
             "material": "HSM-000050",
-            "quantity": 5,
+            "quantity": 7,
             "unit": "ea",
             "bodies": [
               "wago-h",
               "wago-n",
               "wago-g",
               "wago-v12",
-              "wago-gnd"
+              "wago-gnd",
+              "wago-reeds-b",
+              "wago-sensors"
             ]
           },
           {
@@ -198,21 +200,18 @@
           },
           {
             "material": "HSM-000052",
-            "quantity": 2,
+            "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "wago-mana",
-              "wago-reeds-b"
+              "wago-mana"
             ]
           },
           {
             "material": "HSM-000053",
-            "quantity": 3,
+            "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "wago-manb",
-              "wago-reeds-a",
-              "wago-sensors"
+              "wago-manb"
             ]
           },
           {
@@ -3087,15 +3086,16 @@
     },
     {
       "id": "HSM-000058",
-      "description": "Water-pump discharge check fitting assembly",
-      "kind": "assembly",
+      "description": "Water-pump discharge check valve \u00b7 1/4 inch push-connect",
+      "kind": "purchased",
       "models": [
         {
-          "file": "reference/seaflo-discharge-chain/seaflo-discharge-chain.step"
+          "file": "reference/hlghlg-check-valve/hlghlg-check-valve.step"
         }
       ],
       "aliases": [
-        "discharge chain"
+        "Water-pump discharge check",
+        "HLGHLG B0FSSZS6HH"
       ],
       "documents": [
         {
@@ -3108,30 +3108,10 @@
         },
         {
           "title": "Check-valve specification and qualification scope",
-          "path": "reference/gasher-check-valve/README.md"
+          "path": "reference/hlghlg-check-valve/README.md"
         }
       ],
-      "bom": {
-        "scope": "Bench-made threaded fitting chain between two push-to-connect collets: the discharge elbow's tube enters one and the line to the cold core leaves the other. Tubing, mounting and the rib tie belong to the machine. The CAD envelope combines these fittings; individual fittings have no geometry bindings in that model. Thread-sealing consumables are detailed in the cost BOM.",
-        "source": "assembly/internal-plumbing.md",
-        "items": [
-          {
-            "material": "HSM-000013",
-            "quantity": 1,
-            "unit": "ea"
-          },
-          {
-            "material": "HSM-000056",
-            "quantity": 1,
-            "unit": "ea"
-          },
-          {
-            "material": "HSM-000177",
-            "quantity": 1,
-            "unit": "ea"
-          }
-        ]
-      }
+      "manufacturer_number": "B0FSSZS6HH"
     },
     {
       "id": "HSM-000059",

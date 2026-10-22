@@ -55,7 +55,7 @@ against the actual stepped rear fitting, tubes and shell. The rear +Y foot has
 **1.2745 mm** clearance to the flavor-A union. The pump's cap-bearing datum,
 rigid-body placement and sliding-foot positions are separate inputs.
 
-The discharge check chain retains its cap anchor. The pan retains its
+The single push-connect discharge check rests in its cap-lid cradle. The pan retains its
 core-relative withdrawal station. The printed elbows on both barbs, their tubes
 and the adjacent reservoir-A fill route follow the measured port axes and current
 pump placement.

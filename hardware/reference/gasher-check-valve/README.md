@@ -2,19 +2,13 @@
 
 Owned SKU B0FV2D2FFX has a female 1/4-inch NPT inlet and male 1/4-inch NPT
 outlet in the nominal dimensional drawing. Verify the supplied body's arrow
-runs female → male. The two roles are:
-
-- **gasher-water** — the G Ganen discharge check in the PP010822E → GASHER →
-  PP450822E chain.
-- **gasher-co2** — the check downstream of the WR1105, before the cold core's
-  plain bottom gas port. Its female inlet takes PI010822S; its male outlet
-  takes PI450822S.
+runs female → male. It serves the **gasher-co2** position downstream of the WR1105, before the cold core's plain bottom gas port. Its female inlet takes PI010822S; its male outlet takes PI450822S.
 
 The owned valve's exact body and seat materials are not established by the
 source drawing. Stainless/PTFE and nickel-plated-copper/soft-seat descriptions
 in the source record conflict. Confirm the supplier specification, pressure
 rating, CO2/carbonated-water suitability, cracking pressure and reverse sealing
-before qualifying the part for either duty. The gas-check placement must
+before qualifying the part for this duty. The gas-check placement must
 include the adapters, as specified in
 [internal plumbing](/hardware/assembly/internal-plumbing.md).
 

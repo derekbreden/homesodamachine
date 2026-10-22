@@ -21,7 +21,7 @@ from world_workplane import (WorldWorkplane, xy_plane_z_up, xz_plane_y_up,
                              yz_plane_x_up)
 import fits
 from _cadq_export import export_assembly
-from _show_skin import write_bed_file
+from _show_skin import write_bed_file, piece_mesh
 import _materials as _mat
 from _materials import one_body
 import valve_seat as seat
@@ -695,6 +695,8 @@ def main():
     # beyond the show-field proximity and receive no cosmetic flute cuts.
     for shape, name in ((cap_top, "foam-cap-top"), (cap_bottom, "foam-cap-bottom")):
         write_bed_file(shape, _here / f"{name}.stl")
+    for shape, name in ((lid_top, "foam-cap-lid-top"), (lid_bottom, "foam-cap-lid-bottom")):
+        piece_mesh(shape).export(str(_here / f"{name}.stl"))
 
     variables = {
         "LID_Z_H": f"{lid_total_height:.4g} mm",

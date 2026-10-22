@@ -53,7 +53,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "condenser-block",
            _hw / "reference" / "g-ganen-pump" / "installation",
            _hw / "printed-parts" / "diaphragm-pump-sleeve",
-           _hw / "reference" / "seaflo-discharge-chain",
+           _hw / "reference" / "hlghlg-check-valve",
            _hw / "reference" / "asse1022-assembly",
            _hw / "reference" / "water-split",
            _hw / "reference" / "neofit-flow-control",
@@ -74,7 +74,7 @@ import asse1022_assembly as _asse                      # noqa: E402
 import funnel as _funnel                        # noqa: E402
 import g_ganen_installation as _pump                         # noqa: E402
 import diaphragm_pump_sleeve as _pump_elbow            # noqa: E402
-import seaflo_discharge_chain as _dis                  # noqa: E402
+import hlghlg_check_valve as _dis                  # noqa: E402
 import beduan_solenoid as _beduan                      # noqa: E402
 import jg_bulkhead_union as _jg                        # noqa: E402
 import elbow as _elbow                                 # noqa: E402
@@ -612,18 +612,18 @@ def _water_7(F):
 
 
 def _water_6(F):
-    """water-6 — the discharge elbow's tube socket to the check chain's inlet collet.
+    """water-6 — the discharge elbow's tube socket to the single check's inlet collet.
 
     The elbow's leg points forward and down under the gravity drain's route; the chain lies
     a column west on the cap's plane, inlet aft. `DISCHARGE_LEAD` plants the two straights."""
     return R.bent(
         "water-6", "pump-elbow-discharge.tube", "discharge-chain.inlet",
         kind="water", bend=TUBE_BEND, lead=DISCHARGE_LEAD,
-        note="carb water: the G Ganen's discharge elbow → the check chain's inlet collet")
+        note="carb water: the G Ganen's discharge elbow → the single check's inlet collet")
 
 
 def _water_5(F):
-    """water-5 — the discharge chain's collet to the cold core's water-in conduit, and the
+    """water-5 — the single discharge check's outlet to the cold core's water-in conduit, and the
     tap-water path's only descent.
 
     ONE SLANT ACROSS THE FALL. The collet looks forward off the far end of the laid-down chain
@@ -637,7 +637,7 @@ def _water_5(F):
     return R.bent(
         "water-5", "discharge-chain.tube-port", "foam-assembly.water-in",
         kind="water", lead=TUBE_BEND, skew=(R.COLLET_SKEW, CAP_BORE_SKEW),
-        note="carb water: discharge chain's collet → the core's water-in cap conduit, one "
+        note="carb water: water check's outlet → the core's water-in cap conduit, one "
              "slant across the fall")
 
 

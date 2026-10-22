@@ -184,9 +184,8 @@ class Attachments:
 
     def wagos(self):
         ea=self.ea
-        sizes={**{n:'413' for n in ('wago-h','wago-n','wago-g','wago-v12','wago-gnd')},
-               'wago-mana':'420','wago-manb':'415','wago-reeds-a':'415',
-               'wago-reeds-b':'420','wago-sensors':'415'}
+        sizes={**{n:'413' for n in ea.WAGO_POLES},
+               **{n:row[3] for n,row in ea.CLUSTER_WAGOS.items()}}
         dims={'413':(18.8,18.6,8.4,3,1),'415':(30.,18.6,8.4,5,1),'420':(29.8,18.3,15.8,10,2)}
         for name,size in sizes.items():
             carry=self.frame(name,ea.wago_step(size),ea.WAGO_TURN_WEST if 'reeds-' in name or name=='wago-sensors' else ea.WAGO_TURN)

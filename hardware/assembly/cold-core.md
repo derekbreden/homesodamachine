@@ -160,10 +160,10 @@ The bands restrict cabinet-air entry at the perimeter joints and the collars and
 
 ## Warm-side check valves
 
-Water-inlet and CO2-inlet lines each carry a GASHER B0FV2D2FFX 1/4-inch male × female check outside the shell. Exact body and seat materials for the owned SKU remain unresolved; [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) records the source and reverse-sealing qualification required for their actual duty.
+The water and CO2 lines each carry a warm-side check outside the shell.
 
-- **Water-side check:** the made-up discharge chain on the G Ganen pump's west flank, between the PP010822E taking the discharge elbow's tube and the PP450822E feeding `water-5`.
-- **CO2-side check:** downstream of the WR1105 and upstream of the `co2-in` conduit, with its arrow toward the carbonator. A PI010822S male connector takes its female inlet and a PI450822S female adapter its male outlet. This check prevents reverse water flow reaching the regulator. Its made-up placement and warm hose clearances require the fit record in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §1.
+- **Water-side check:** one [HLGHLG B0FSSZS6HH 1/4-inch push-connect check](/hardware/reference/hlghlg-check-valve/README.md) on the G Ganen pump's west flank. The pump elbow's tube enters its aft inlet; its forward outlet feeds `water-5`. A round lid cradle and one tie support its fixed barrel. Its model uses listing dimensions; pressure, cracking and reverse-sealing performance remain unqualified.
+- **CO2-side check:** the GASHER B0FV2D2FFX downstream of the WR1105, with its arrow toward the carbonator. A PI010822S male connector takes its female inlet and a PI450822S female adapter its male outlet. This check prevents reverse water flow reaching the regulator. Its material and qualification scope remain in the [GASHER reference](/hardware/reference/gasher-check-valve/README.md) and made-up placement in [internal plumbing](/hardware/assembly/internal-plumbing.md) §1.
 
 The [manufacturer specifies its gray acetal range, PI010822S and PI450822S, for CO2 beverage gas](https://www.johnguest.com/ca/en/od-tube-fittings/acetal-gray/threaded-connectors/male-connector-nptf-thread). PP adapters remain on the water paths.
 
