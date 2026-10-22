@@ -1,30 +1,30 @@
 {
-  "checked_at_utc": "2026-10-21T09:52:48.667180+00:00",
-  "method": "Fetch the published populated and standalone wiring native/viewer artifacts, cap cup/lid native/viewer artifacts and both cold-core native hosts through the live object manifest, decompress and compare SHA-256 with the published pointer.",
-  "pointer_commit": "51d8530fa598782e82ecdcae52adbd1fd8679515",
+  "checked_at_utc": "2026-10-22T03:28:45.637033+00:00",
+  "method": "Fetch the published native/viewer assembly, standalone wiring, cap and reference parts and the changed printing meshes, decompress and compare SHA-256 with the live pointer. Read the live component catalog for the selected check and WAGO quantities.",
+  "pointer_commit": "78b04d44d0bb5b11d800a03c7c178098faeb3c89",
   "members": [
     {
       "path": "hardware/manifold-layout/enclosure-assembly.step",
-      "sha256": "d86aaac4606dac0df300b6ff67c051487758293ec1feaeb3f37a3e5210399c28",
-      "bytes": 109353552,
+      "sha256": "ba1df09203440faccbc7ce6955bc8f18691f8c74190fc8060c28f1b228956122",
+      "bytes": 108151567,
       "pass": true
     },
     {
       "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
-      "sha256": "d77990dcd20ff5f75f9739ea26240a2bb06a819b4a402e8f6b56d711a74d5f21",
-      "bytes": 47511920,
+      "sha256": "b546485d14a093f2aaf7c88bb0b5c39f71e13c23123f9f5e419ea285e067f70f",
+      "bytes": 38933040,
       "pass": true
     },
     {
       "path": "hardware/wiring/enclosure-wiring.step",
-      "sha256": "91dcef105712f5abdc38bbccb3cc6b84ba53a39268798524965037340b02e5be",
-      "bytes": 6790497,
+      "sha256": "ad4ac430b285a82aa7be5adf9bf380d747e81599b875106e8baa4839f6126068",
+      "bytes": 6522918,
       "pass": true
     },
     {
       "path": "hardware/wiring/enclosure-wiring.step.mesh",
-      "sha256": "e1e1878fa68b15eda6c959d70a812517de94f09d5a3c3a92f08dc197182f3a08",
-      "bytes": 7391068,
+      "sha256": "39b11848b55b88124a75ebc851029f439a37a528a817f372a70ba5dd4492bef0",
+      "bytes": 7093328,
       "pass": true
     },
     {
@@ -35,34 +35,77 @@
     },
     {
       "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
-      "sha256": "162f1ee3bda798d78799b7fe151d4da9645186e0878298b1da8d034529a79b23",
-      "bytes": 522076,
+      "sha256": "ccda2a04836cc7a63a5b64a3846d2318687857f58145877da5b37541285b21ab",
+      "bytes": 516248,
       "pass": true
     },
     {
       "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
-      "sha256": "57cb43b3e27533e0fec9456c81f7a56dc58c7895a6ff2f90e35a72275054f024",
-      "bytes": 750598,
+      "sha256": "dfc6d56f34d87cc3807e5ad43ba83890817bd1e48a7b5b9fe4514d7ea712b6d8",
+      "bytes": 740826,
       "pass": true
     },
     {
       "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
-      "sha256": "54c89fbe948e1c678bb58330302d5fa74f7209b15ed00c5e8b3ae93ca5b5113c",
-      "bytes": 238064,
+      "sha256": "acd970c5f4a629f19a509590b9a31110f82a574f3ceed71396289a27ec709552",
+      "bytes": 734696,
       "pass": true
     },
     {
       "path": "hardware/cold-core-layout/cold-core-assembly.step",
-      "sha256": "981bd397ba2bee28c6bee0bd6dde46f089313b063a7fbffe6cc4a7c437d9954e",
-      "bytes": 7604238,
+      "sha256": "b9e43b4fd62fc1d5c451270f8f88338d7411fb4a2223bf55d29a6781fd003ce3",
+      "bytes": 5908150,
       "pass": true
     },
     {
       "path": "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step",
-      "sha256": "5a93437d1668d990c935e0cfd12f928ba719bcdbcc4fa29523cbadf5fa278d4a",
-      "bytes": 3351150,
+      "sha256": "e41876ace48b9126349e8d43aa5740000a3a61fad25383d5794c2972bf3b8173",
+      "bytes": 2913058,
+      "pass": true
+    },
+    {
+      "path": "hardware/reference/hlghlg-check-valve/hlghlg-check-valve.step",
+      "sha256": "4d6081ce0a082adf6e37db80ccd3192784767a3ed42a99665c186e058b52b0cb",
+      "bytes": 31004,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+      "sha256": "456235ce3684962996b1e167b7a50d20f4b7b87d9b2232b82c5afb08bd427126",
+      "bytes": 2715677,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+      "sha256": "83f47b81023d644e3d50cfd846b08c4759fa4f8e94ed1123fbb8a1ec97fdeb51",
+      "bytes": 6575244,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+      "sha256": "fd5accc156ee7c270f76432edd671690e66fd327ab3cc1e7096aef74d8100f8a",
+      "bytes": 30843584,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
+      "sha256": "cad9c601bb6a03a210f385b2f9544798195d74e7ac9e78d3da71ae4c84c8e6f6",
+      "bytes": 1044484,
       "pass": true
     }
   ],
-  "all_match": true
+  "all_match": true,
+  "catalog": {
+    "water_check": {
+      "id": "HSM-000058",
+      "description": "Water-pump discharge check valve \u00b7 1/4 inch push-connect",
+      "model": "reference/hlghlg-check-valve/hlghlg-check-valve.step"
+    },
+    "wago_quantities": {
+      "221-413": 7,
+      "221-415": 1,
+      "221-420": 1
+    },
+    "pass": true
+  }
 }

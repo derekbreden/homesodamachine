@@ -1,0 +1,273 @@
+{
+  "views": [
+    {
+      "name": "west-commons",
+      "caption": "Two three-port commons; the reservoir-A connector and its wall well are removed.",
+      "before": "west-commons-before.webp",
+      "after": "west-commons-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 612.4,
+          "y": 443.5,
+          "r": 64.9,
+          "label": "Reservoir A junction removed",
+          "at": [
+            -96,
+            318.75,
+            270
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -36.218876935605564,
+          406.77227741686585,
+          351.1687204952208
+        ],
+        "target": [
+          -94,
+          319,
+          270
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.24584422587822666,
+        "far": 520.0080333372694,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            -70,
+            319,
+            270
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "wago-reeds-a",
+        "wago-reeds-b",
+        "wago-sensors"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "d77990dcd20ff5f75f9739ea26240a2bb06a819b4a402e8f6b56d711a74d5f21",
+          "commit": "f12b5754e93561fce2fae6c5dd66e0f6df756206",
+          "taken": "2026-10-22T02:22:26.656Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "b546485d14a093f2aaf7c88bb0b5c39f71e13c23123f9f5e419ea285e067f70f",
+          "commit": "78b04d44d0bb5b11d800a03c7c178098faeb3c89",
+          "published": true
+        }
+      },
+      "changed": [
+        "wire-J6-earth-4",
+        "wago-reeds-a",
+        "wire-J6-GND",
+        "wire-J7-earth-4",
+        "wire-DC4-GND",
+        "wire-DC3-negative",
+        "wire-AC1-L",
+        "wire-DC1-V12",
+        "wire-DC1-GND",
+        "wire-AC1-N",
+        "wire-AC3-L",
+        "wire-AC5-N",
+        "wire-DC4-V12",
+        "wire-AC2-N",
+        "wire-DC2-V12",
+        "wago-gnd",
+        "wago-h",
+        "wago-n",
+        "wago-v12",
+        "wire-AC2-L",
+        "wire-PE-bus",
+        "discharge-chain",
+        "tube-water-5",
+        "tube-water-6",
+        "wire-J4-GND",
+        "wire-temp-GND",
+        "wire-AC1-PE",
+        "wire-J7-carb-earth-2",
+        "enclosure-back-top",
+        "wire-J7-GND",
+        "wago-reeds-b",
+        "wire-flow-GND",
+        "wago-sensors",
+        "cold-core/foam-cap-lid-top"
+      ],
+      "withinMeshing": [
+        "cold-core/evap-coil",
+        "funnel-frame",
+        "funnel",
+        "cold-core/foam-cap-bottom",
+        "cold-core/foam-cap-lid-bottom",
+        "cold-core/foam-cap-top"
+      ]
+    },
+    {
+      "name": "power-row",
+      "caption": "Front to rear: +12 V, DC GND, PE, L, N. The 14 connections use 240 mm less wire and 18 fewer modeled bends.",
+      "before": "power-row-before.webp",
+      "after": "power-row-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 520.9,
+          "y": 456,
+          "r": 45.8,
+          "label": "Power row",
+          "at": [
+            95,
+            393,
+            322
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -3.374638563030757,
+          527.035565963079,
+          492.24707780260593
+        ],
+        "target": [
+          82,
+          381,
+          320
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 73.83235788312686,
+        "far": 938.0203431313315,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            0,
+            0,
+            300
+          ],
+          "normal": [
+            0,
+            0,
+            -1
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "wago-h",
+        "wago-n",
+        "wago-g",
+        "wago-v12",
+        "wago-gnd",
+        "wire-AC1-*",
+        "wire-AC2-*",
+        "wire-AC3-L",
+        "wire-AC5-N",
+        "wire-PE-bus",
+        "wire-DC1-*",
+        "wire-DC2-V12",
+        "wire-DC3-negative",
+        "wire-DC4-*",
+        "psu",
+        "pcba",
+        "relay-1",
+        "relay-2",
+        "c14-inlet"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "d77990dcd20ff5f75f9739ea26240a2bb06a819b4a402e8f6b56d711a74d5f21",
+          "commit": "f12b5754e93561fce2fae6c5dd66e0f6df756206",
+          "taken": "2026-10-22T02:22:26.656Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "b546485d14a093f2aaf7c88bb0b5c39f71e13c23123f9f5e419ea285e067f70f",
+          "commit": "78b04d44d0bb5b11d800a03c7c178098faeb3c89",
+          "published": true
+        }
+      },
+      "changed": [
+        "wire-J6-earth-4",
+        "wago-reeds-a",
+        "wire-J6-GND",
+        "wire-J7-earth-4",
+        "wire-DC4-GND",
+        "wire-DC3-negative",
+        "wire-AC1-L",
+        "wire-DC1-V12",
+        "wire-DC1-GND",
+        "wire-AC1-N",
+        "wire-AC3-L",
+        "wire-AC5-N",
+        "wire-DC4-V12",
+        "wire-AC2-N",
+        "wire-DC2-V12",
+        "wago-gnd",
+        "wago-h",
+        "wago-n",
+        "wago-v12",
+        "wire-AC2-L",
+        "wire-PE-bus",
+        "discharge-chain",
+        "tube-water-5",
+        "tube-water-6",
+        "wire-J4-GND",
+        "wire-temp-GND",
+        "wire-AC1-PE",
+        "wire-J7-carb-earth-2",
+        "enclosure-back-top",
+        "wire-J7-GND",
+        "wago-reeds-b",
+        "wire-flow-GND",
+        "wago-sensors",
+        "cold-core/foam-cap-lid-top"
+      ],
+      "withinMeshing": [
+        "cold-core/evap-coil",
+        "funnel-frame",
+        "funnel",
+        "cold-core/foam-cap-bottom",
+        "cold-core/foam-cap-lid-bottom",
+        "cold-core/foam-cap-top"
+      ]
+    }
+  ]
+}
