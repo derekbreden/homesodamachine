@@ -10,7 +10,7 @@ AC4-fuse,Compressor,H_switched,fuse.out,compressor.H,18,36.777,proposed,nominal,
 AC5-N,Compressor,N,wago-n.3,compressor.N,18,544.416,proposed,nominal,unlocated,fixed
 AC6-PE,Compressor,PE,ground.compressor,compressor.PE,18,471.457,proposed,modeled,unlocated,fixed
 PE-bus,Earth bonds,PE,wago-g.2,ground.inlet,16,123.318,proposed,nominal,modeled,fixed
-PE-carbonator,Earth bonds,PE,ground.carbonator,carbonator.PE,16,442.941,proposed,modeled,unlocated,fixed
+PE-carbonator,Earth bonds,PE,ground.carbonator,carbonator.PE,16,444.989,proposed,modeled,unlocated,fixed
 DC1-V12,12V power,V12,psu.V12,wago-v12.1,16,55.633,proposed,nominal,nominal,fixed
 DC4-V12,12V power,V12,wago-v12.3,J10.V12,16,51.526,proposed,nominal,nominal,fixed
 DC1-GND,12V power,GND,psu.GND,wago-gnd.1,16,97.882,proposed,nominal,nominal,fixed
@@ -62,7 +62,7 @@ J4-V5,J4,V5,J4.V5,flow.V,22,190.249,proposed,nominal,nominal,fixed
 J4-IO25,J4,IO25,J4.IO25,flow.PULSE,22,191.609,proposed,nominal,nominal,fixed
 J4-GND,J4,GND,J4.GND,wago-sensors.1,22,194.521,proposed,nominal,nominal,fixed
 temp-GND,J4,GND,wago-sensors.2,temp-carbonator.GND,22,291.912,proposed,nominal,nominal,fixed
-flow-GND,J4,GND,wago-sensors.3,flow.GND,22,140.542,proposed,nominal,nominal,fixed
+flow-GND,J4,GND,wago-sensors.3,flow.GND,22,200.347,proposed,nominal,nominal,fixed
 temp-bus-V,J4,3V3,temp-carbonator.V,temp-coil.V,22,100.71,proposed,nominal,nominal,fixed
 temp-bus-DATA,J4,IO26,temp-carbonator.DATA,temp-coil.DATA,22,106.557,proposed,nominal,nominal,fixed
 temp-bus-GND,J4,GND,temp-carbonator.GND,temp-coil.GND,22,112.525,proposed,nominal,nominal,fixed

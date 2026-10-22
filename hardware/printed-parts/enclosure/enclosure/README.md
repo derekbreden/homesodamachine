@@ -846,8 +846,7 @@ access face with a slope.
 
 The ground boss's full-width column joins the ceiling. The ASSE anchor's end sections continue
 from the V's arris to the slab pocket's roof as rectangular blocks. The `fluid-28` anchor has
-an ordinary corbel at each end. The flow-regulator anchor has two end corbels beneath the ASSE
-outlet. Each tube-anchor and
+an ordinary corbel at each end. The water-pressure regulator rests in its tied cradle on the cold-core lid. Each tube-anchor and
 body-anchor end names its form in `TUBE_ANCHOR_END_FORMS` or `BODY_ANCHOR_END_FORMS`, and each
 Wago tower names its column in `WELL_COLUMNS`.
 

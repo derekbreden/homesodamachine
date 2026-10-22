@@ -3072,17 +3072,17 @@
     },
     {
       "id": "HSM-000057",
-      "description": "neoFit ABCVU44-E flow-control valve \u00b7 1/4 inch",
+      "description": "Water-pressure regulator \u00b7 Hydronix SB-FPV-40 \u00b7 internal 1/4 inch feed",
       "kind": "purchased",
       "models": [
         {
-          "file": "reference/neofit-flow-control/neofit-flow-control.step"
+          "file": "reference/shok-blok-regulator/shok-blok-regulator.step"
         }
       ],
       "aliases": [
-        "Neofit flow control"
+        "Water pressure regulator"
       ],
-      "manufacturer_number": "ABCVU44-E"
+      "manufacturer_number": "SB-FPV-40"
     },
     {
       "id": "HSM-000058",

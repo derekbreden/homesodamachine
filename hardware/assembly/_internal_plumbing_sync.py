@@ -115,7 +115,7 @@ def main():
         "DIGITEN_WEST_SET": f"{_ea.DIGITEN_WEST_SET:.4g} mm",
         "WR1110_LOOP": f"{_enc.tube_anchor_tie_loop(_body_seats['wr1110']):.3g} mm",
         "SPLIT_LOOP": f"{_enc.tube_anchor_tie_loop(_body_seats['water-split']):.3g} mm",
-        "FLOWREG_LOOP": f"{_enc.tube_anchor_tie_loop(_body_seats['flow-regulator']):.3g} mm",
+        "FLOWREG_LOOP": f"{_ea._water_regulator.tie_loop():.3g} mm",
         # And the meter's, on the seat `enclosure_assembly.digiten_anchors` strikes: the
         # fixed collar's own radius and the slip its bore stands off it by. A flow-meter anchor
         # reaches `flow_meter_anchor_wall` off that axis where a rib reaches `wall`, and
