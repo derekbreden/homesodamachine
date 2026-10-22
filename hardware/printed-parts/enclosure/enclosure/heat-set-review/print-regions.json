@@ -260,22 +260,22 @@
   },
   "source_sha256": {
     "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "e40d0ca8dcb631cf6b56c34403c0b04482c92f5a394f95c73fa04b9760fded46",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "0eebecfe5e3a543c13219c2ab4d78d40cf27162b0b92c22efb945bb04abbae47",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "c0d83f53f73175d95ce6f7f3f086896ed25b4acca8bf407cd3ac1971d4731e2a",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "264bb52da73675dcd41f7fff8bc5fce6eabd06336fc3cf8b7a9b8560c21e5040",
-    "hardware/manifold-layout/enclosure-box.json": "c836b0759c0cd67d7a7a1e3ac813a85c8433621cfb18833ad00535617cddb747",
+    "hardware/manifold-layout/enclosure-box.json": "03dfa9abb3295235be7b657f1d683d19c39d8944e4973ea1921922ac9b5ecdd0",
     "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "cecbbbdfe79103fb57e996197d802871e53069ee354169ee48679165983a0604",
     "hardware/printed-parts/enclosure/pump-dock/dock_retention.py": "8bc24f8bae454f027afa3ca9465ed83b3bfc390b5bcbe35b97e7ee01b172d0e4",
-    "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "45bbb30e2150396fa53673a962ae57bcd0ac06c0132b5da4e1e0176bb9657faa",
+    "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "923ac4148ff35b5959fcc4092b23d0a7fe9364b517a68172c33369c235fda497",
     "hardware/printed-parts/petgf.3mf": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0"
   },
   "native_artifact_sha256": {
     "front-bottom": {
-      ".step": "625d5a13937f8680db48b3b07aa7e4745eb5865b57484e01dffa6e5ae66b6c6b",
-      ".stl": "62a3d94e8bd4a423f183c213c8b32f0bb61b47729278447ef7690afac490cd8b"
+      ".step": "c7a2b9c801d7e7586dce979abe66d1720ab771a6d6c882d8328b305106494301",
+      ".stl": "98c87eff77a5d92f74348c23fbe96028153025948811505cc3aa017675add6eb"
     },
     "front-top": {
-      ".step": "2941359ad3c20b3946088358115e2ea06dc65227bef56557c6af673d68d15bec",
-      ".stl": "a14b4e6f805b669e8b08705b87d9f0d32b2efaab9aa535a8cc5a22f77608ac1e"
+      ".step": "ac27e633be6d385ac91effdd2c1945ff76ae8e415aa0daea929052914a688209",
+      ".stl": "c70b5216ccfbc931b1cc1c03490523f1ba6012d37ffac36ba6cc769b164346f3"
     },
     "back-bottom": {
       ".step": "9cd6a2e8acddd375fc1946762ac077fec9d765d6a955b4e07c9f6d795af2b162",

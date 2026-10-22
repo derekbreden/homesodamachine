@@ -32,8 +32,8 @@ height, 0 at the pumps' own floor. The unshifted authoring deck references are z
 ## Four limbs, folded in two
 
 Each pump has two tees on its measured [59.75](BARB_PITCH2) mm port pitch, each branch on
-its pump tube's axis and each run upright. Each fore valve stands directly over its tee, over
-the middle of the tee's travel. The inner rear valves stand on their tees' columns; the outer
+its pump tube's axis and each run upright. Each fore valve stands directly over its tee's
+connected axis. The inner rear valves stand on their tees' columns; the outer
 two stand inboard of theirs.
 
 The logical Y-C/D/F/G names identify the pump tees. Y-A/B identify the two source tees. The
@@ -140,8 +140,8 @@ Mirror-checked: [9](TWIN_COUNT) twinned pairs, worst off by [0.0000](MIRROR_OFF)
 [3](BUTT_COUNT) of the [17](SEGMENT_COUNT) topology segments are collet butts, with no tube
 exposed between the faces. Four prepared LLDPE pump tubes pass the collet plate into the pump
 tees' branch collets. The [4](FORE_STUB_COUNT) upper tubes to V-E/F/H/I have
-[15.2756](FORE_STUB_EXPOSED) mm exposed; with each fore valve over the middle of its tee's
-travel, a tube stands off straight one way in service and the other way at release. The four
+[15.251](FORE_STUB_EXPOSED) mm exposed; with each fore valve over its tee's connected axis,
+a tube stands straight in service and bends the tee's stroke at release. The four
 lower connections are each one R14 hairpin. Add the actual insertion depths for finished blanks;
 the purchased valve's hidden insertion stop is not specified by its exterior model.
 
