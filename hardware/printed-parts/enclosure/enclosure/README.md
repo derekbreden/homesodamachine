@@ -669,14 +669,9 @@ is asked, groove by groove, what stands ROOTED on its inner face, probing one
 [3 mm](VENT_CLEAR) wall inward and keeping that same margin past both jambs and both ends. The
 transoms are the opening vocabulary: if a root's margin enters one course, that whole segment
 stays solid and fluted rather than becoming a one-off short slit. A single opening marooned past
-such a land stays wall too. The MQ-6's two posts stop below the vent band, but its can chute is
-cut through the added inner flank skin beside it. The two intake grooves whose jambs would leave
-less than one 3 mm wall to that chute stay solid through the courses the chute reaches, and vent
-like any other above it, there being no chute up there to leave a strip against; the chute is not
-widened into a vent, and no strip thinner than a wall survives between the two openings. Over
-the chute, the skin between two crossing slots on one flank of its arched roof ends level at
-the crown of the can's sweep, square to both jambs. All
-[89](VENT_RUNS_IN) realized intake openings are the full [24.5 mm](VENT_SHORTEST) segment;
+such a land stays wall too. The MQ-6's two posts stop below the vent band, and its can stands
+off the flank face, so nothing of the sensor reaches the vent. All
+[92](VENT_RUNS_IN) realized intake openings are the full [24.5 mm](VENT_SHORTEST) segment;
 [0](VENT_SHORT) have a different height.
 
 **[3](VENT_TRANSOMS) transom bands cross that vent, and they are why it prints.** A mullion is
@@ -700,7 +695,7 @@ climbs, and the ceiling closes at exactly the angle the box supports nothing ste
 
 | | slots | openings | thinnest mullion | tallest opening | free area |
 |---|---|---|---|---|---|
-| −X intake | [23](VENT_SLOTS_IN) | [89](VENT_RUNS_IN) | [1.8338 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_IN) | [63.3 cm²](VENT_OPEN_IN) |
+| −X intake | [23](VENT_SLOTS_IN) | [92](VENT_RUNS_IN) | [1.8338 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_IN) | [65.5 cm²](VENT_OPEN_IN) |
 | +X exhaust | [23](VENT_SLOTS_OUT) | [92](VENT_RUNS_OUT) | [1.8338 mm](VENT_MEAS_MULLION) | [24.5 mm](VENT_TOWER_OUT) | [65.5 cm²](VENT_OPEN_OUT) |
 
 Both read off the built piece at the flank's mid-section, over the fan's own band. A pierced field

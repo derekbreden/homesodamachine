@@ -658,7 +658,7 @@ wago_pitch = max(2.0 * wago_half("413")[0], wago_swing("413") + wago_lever_clear
 # is what settles the rest: only the ENDS of the long run have material clear of the can, so the
 # grooves take those, and what a groove may swallow there is what the can leaves and no more.
 mq6_rail_wall = 3.0         # post section around the groove, and the shoulder under the card
-mq6_slot_press = fits.running       # per-side slip in the groove, the wells' own figure
+mq6_slot_press = fits.running       # per-side slip in the groove
 mq6_grip = 5.0              # how much of the card's long run each groove swallows at its end
 # The pins face EAST off the card and the loom lands on them out of the bay, so the cheek on
 # that side is cut away across the header — this is what the cut leaves either side of the pin
@@ -674,7 +674,7 @@ mq6_card_z = _mq6.PCB_Y     # 20 — height, the card's short side
 # bottoms in a well cut back to `lip_face_x` (`_front_bottom_flank_skin`), so THE WALL IS STILL
 # THE DATUM IN X and what stands the card off it is the can's own height. Across, the can is what
 # the well opens and what the two posts stand clear of, and both read this one figure.
-mq6_can_yz = _mq6.CAN_D     # 19 — the can's diameter, in the plane the well is cut on
+mq6_can_yz = _mq6.CAN_D     # 19 — the can's diameter, across the card
 
 # --- the condenser block's four flanges -------------------------------------
 #
@@ -1002,8 +1002,7 @@ def lip_face_x():
 
     A wall a Z-seam lip stands on is `2 * wall` thick from the floor slab to the lip rim
     (`_lip_underwall`), so what a body seated low on a flank meets is this plane and not
-    the other one. The MQ-6's can bottoms on it through the well cut back to it
-    (`_west_cradle`), which is what stands its card off the flank in X."""
+    the other one."""
     ix0, ix1 = interior_x()
     return (ix0 + wall, ix1 - wall)
 
@@ -1732,8 +1731,7 @@ def documented(box):
 #   floor_bosses  the floor slab's mounting bosses, (x, y, the plane the boss top reaches, the
 #                 section the donor's own bore leaves the post standing in it)
 #   west_cradle   the −X strip's MQ-6 card slot, (x, y, z) — the card's own mid-plane, and its
-#                 centre along the strip and in height. The can's silhouette is read off the
-#                 reference module round that centre, and is what the flank wells
+#                 centre along the strip and in height
 #   cond_cradle   the front wall's condenser rails, one (face, x0, x1, fz0, fz1, root) per fore
 #                 flange — the plane the block's fore face rests on, that flange's width, its
 #                 two faces in height, and how far the rail runs down under it
@@ -4535,93 +4533,15 @@ def _lip_underwall(inner, y_joint, zj):
                      inner[4], zj)
 
 
-def mq6_chute_reach(sz):
-    """How high the MQ-6's can ever rides in front-bottom's west skin, off its own station —
-    `(the top of the can's sweep, the inner end of the roof closed over it)`.
-
-    THE CARD IS ONLY HELD TO THE CHUTE'S X ONCE ITS FOOT IS IN THE POSTS' GROOVES, and a groove
-    opens at the post's crown one half card above the station, so the can's highest ride is with
-    the card's foot at that mouth — one whole `mq6_card_z` above where it seats. The roof closes
-    at 45° ACROSS THE THREE-MILLIMETRE SKIN, not across the can's nineteen-millimetre width, so
-    its rise is the skin's own depth. Read by the skin that cuts the chute and by the vent that
-    has to stay a wall from it, so neither can drift off the other."""
-    half = mq6_can_yz / 2.0 + mq6_slot_press
-    crown = sz + mq6_card_z + half
-    skin = front_bottom_flank_face()[0] - lip_face_x()[0]
-    return crown, crown + skin
-
-
-def _mq6_chute(sy, sz):
-    """The MQ-6 can's exact straight-drop envelope through front-bottom's west skin.
-
-    In the wall's YZ section the round can sweeps through one card height, so the opening is a
-    CAPSULE: two semicircles joined by the can centre's vertical travel.  It is not the capsule's
-    rectangular bounding box — those four corners are air no installed or moving part occupies.
-
-    Across X, the wall-side section is that exact capsule.  At the skin's inboard face only its
-    upper boundary has risen by the skin depth, making the printed ceiling a 45-degree roof while
-    leaving the can's lower and side clearance where the can itself earns it.  The two repeated
-    end sections merely carry the cut cleanly through both faces of the skin."""
-    lx0, _lx1 = lip_face_x()
-    fx0, _fx1 = front_bottom_flank_face()
-    half = mq6_can_yz / 2.0 + mq6_slot_press
-    travel = mq6_card_z
-    rise = fx0 - lx0
-
-    def profile(workplane, roof_rise):
-        top_axis = sz + travel + roof_rise
-        return (
-            workplane
-            .moveTo(sy - half, sz)
-            .lineTo(sy - half, top_axis)
-            .threePointArc((sy, top_axis + half), (sy + half, top_axis))
-            .lineTo(sy + half, sz)
-            .threePointArc((sy, sz - half), (sy - half, sz))
-            .wire()
-        )
-
-    chute = profile(cq.Workplane("YZ", origin=(lx0 - 1.0, 0.0, 0.0)), 0.0)
-    chute = profile(chute.workplane(offset=1.0), 0.0)
-    chute = profile(chute.workplane(offset=rise), rise)
-    chute = profile(chute.workplane(offset=1.0), rise)
-    return chute.loft(ruled=True).val()
-
-
-def _front_bottom_flank_skin(inner, west_cradle, y_joint, zj):
-    """The extra skin inboard of front-bottom's two flanks, slab to seam mouth, WELLED on the
-    west where the MQ-6's can reaches into it.
-
-    The strips are struck like back-bottom's. THE WELL IS THE CAN AND NOT THE BOARD: the card
-    itself stands the can's whole height off this flank and never enters the section, and what
-    does enter is one Ø`mq6_can_yz` cylinder — so the well is that silhouette off the station
-    (`enclosure_assembly.mq6_cradle`), opened one `mq6_slot_press` round, and the can bottoms on
-    `lip_face_x` at the back of it.
-
-    AND IT IS A CHUTE, not a pocket — THE CAN'S OWN SWEEP AND NOT A MILLIMETRE OVER IT. The card
-    comes down into its posts from above carrying the can with it, so a well closed over the
-    seated can's crown is a well the can cannot enter. WHAT SETS THE TOP IS WHERE THAT DESCENT
-    STARTS BEING HELD TO THIS X: the card is loose in the bay's lane until its foot enters the
-    grooves, and a groove opens at the post's crown one half card above the station — so the
-    highest the can ever rides in this skin is with the card's foot at that mouth, one whole
-    `mq6_card_z` above where it seats. Above that the card is in an open hand and the skin is
-    skin. THE SECTION IS THE ROUND CAN'S SWEPT CAPSULE, not the rectangle around it: the four
-    corners of that rectangle clear no installed or moving part. AND THE ROOF CROSSES THE SKIN,
-    NOT THE CAN. The opening is nineteen millimetres across the can in Y but only three
-    millimetres through this added skin in X. Its wall-side capsule starts on the exact top of
-    the can's sweep; only that upper boundary rises at 45° to the skin's inboard face. Every
-    layer therefore grows off the wall below it, while a Y gable would spend one needless can
-    radius in height and leave flat three-millimetre bridges where the vent slots intersected
-    it. The posts reject a card turned round on their own — the can would stand into their east
-    cheeks — so nothing up here was orienting anything. Cut here rather than left to the cradle,
-    because what the cradle builds is posts standing on a face and this is the face they stand
-    on. THE EAST STRIP NEEDS NO WELL: the only body against that flank is the condenser's block,
-    and the block is stood off this very face."""
+def _front_bottom_flank_skin(inner, y_joint, zj):
+    """The extra skin inboard of front-bottom's two flanks, slab to seam mouth, struck like
+    back-bottom's. Nothing seated low on either flank reaches into it: the MQ-6's can stands
+    off the west face (`enclosure_assembly.build_mq6`) and the condenser's block is stood off
+    the east one."""
     lx0, lx1 = lip_face_x()
     fx0, fx1 = front_bottom_flank_face()
-    west = _ybox(lx0, fx0, inner[2], y_joint, inner[4], zj)
-    for _sx, sy, sz in west_cradle:
-        west = west.cut(_mq6_chute(sy, sz))
-    return west.fuse(_ybox(fx1, lx1, inner[2], y_joint, inner[4], zj))
+    return (_ybox(lx0, fx0, inner[2], y_joint, inner[4], zj)
+            .fuse(_ybox(fx1, lx1, inner[2], y_joint, inner[4], zj)))
 
 
 def _plate_foot(inner, plate, zj):
@@ -7210,9 +7130,8 @@ def _west_cradle(solid, inner, stations, y0, y1, z0, z1):
 
     THE WALL IT IS STRUCK FROM IS THE ONE THAT IS THERE. The card stands under a Z seam, and a
     flank under a seam carries its lip's own wall down to the slab — so the datum is
-    `lip_face_x` and not `interior_x`, `2 * wall` of flank and not one. The can bottoms on that
-    plane, through the well `_front_bottom_flank_skin` opens for it, and
-    `enclosure_assembly.build_mq6` seats the card on the same call."""
+    `lip_face_x` and not `interior_x`, `2 * wall` of flank and not one, and each post is rooted
+    on it through front-bottom's added skin."""
     span, off = _mq6.header_span()
     across = _mq6.PIN_SQ / 2.0 + mq6_header_relief
     grip = min(mq6_grip, (mq6_card_y - mq6_can_yz) / 2.0)
@@ -7527,47 +7446,7 @@ def vent_measure(solid, outer, airway, sx):
             "band": (bz0, bz1)}
 
 
-def _vent_chute_courses(sx, y, west_cradle, airway):
-    """The courses one groove gives up to the MQ-6 chute — the ones the chute is actually IN.
-
-    The chute is cut only from front-bottom's added inner skin. A vent in the next groove can
-    therefore leave an unnamed strip of that skin between its slot jamb and the chute edge even
-    though both openings are individually valid, so where the strip would be thinner than `wall`
-    the groove stays solid rather than opening further into the chute and trading the nib for a
-    leak in the sensor well. Grooves crossing the chute itself keep their vents, because there is
-    no intervening material to protect — except a groove whose jamb the chute takes short of the
-    slot's centre: there the slot's 45° hip meets the chute's side in a knife edge, so that
-    groove stays solid through the chute's courses too.
-
-    AND IT IS A HEIGHT AND NOT THE WHOLE COLUMN. What the strip is thin BESIDE is the chute, and
-    `mq6_chute_reach` says where that stops — one card above the can's seat and a radius of gable
-    over it. Above that the skin is whole across this groove and the next, so a course up there
-    gives up nothing to a feature it does not reach; only the courses the chute's own clearance
-    enters stay solid."""
-    if sx > 0.0 or not west_cradle:
-        return ()
-    slot_lo = y - reeding.pierce_width / 2.0
-    slot_hi = y + reeding.pierce_width / 2.0
-    chute_half = mq6_can_yz / 2.0 + mq6_slot_press
-    blocked = []
-    for _x, cy, cz in west_cradle:
-        chute_lo, chute_hi = cy - chute_half, cy + chute_half
-        if slot_hi <= chute_lo:
-            gap = chute_lo - slot_hi
-        elif chute_hi <= slot_lo:
-            gap = slot_lo - chute_hi
-        elif chute_lo < slot_lo < chute_hi < y or y < chute_lo < slot_hi < chute_hi:
-            gap = 0.0
-        else:
-            continue
-        if gap < wall - stated_bound_tol:
-            top = mq6_chute_reach(cz)[1] + cond_vent_clear
-            blocked.extend(course for course in vent_segments(airway)
-                           if course[0] < top - stated_bound_tol)
-    return tuple(blocked)
-
-
-def _flank_vents(solid, inner, outer, airway, y0, y1, z0, z1, west_cradle=()):
+def _flank_vents(solid, inner, outer, airway, y0, y1, z0, z1):
     """The condenser's INTAKE and EXHAUST cut into a piece's ±X flanks, for the piece whose
     bands hold the block's airway.
 
@@ -7588,19 +7467,6 @@ def _flank_vents(solid, inner, outer, airway, y0, y1, z0, z1, west_cradle=()):
     land in one course, that aperture stays fluted wall too. Two adjacent openings are a grille;
     one isolated slit is the same accidental-looking nick the full-segment rule removes in Z.
 
-    NO THIN STRIP BESIDE THE MQ-6 CHUTE. On the intake flank the grooves whose slot jambs
-    would stop less than one wall from that chute, or whose jamb alone it takes, stay whole
-    through the courses the chute reaches. The chute keeps its fitted outline and the wall keeps complete stock; neither
-    opening is widened into the other merely to erase their narrow intersection — and above the
-    chute both grooves vent like any other, there being nothing up there to leave a strip against.
-
-    AND THE SKIN BETWEEN TWO SLOTS ON ONE FLANK OF THE CHUTE ENDS LEVEL. Over the chute, the
-    added skin left between two crossing slots is a tooth standing on the chute's arched roof.
-    Where both slots stand on one flank of the arch, the arch under the tooth falls toward the
-    outer slot and would meet its jamb at an acute edge, so the tooth ends level at the crown of
-    the can's sweep (`mq6_chute_reach`), on the roof's own 45° across the skin. The tooth over
-    the crown stands on the arch's top.
-
     LAST OF THE FLANK'S WORK, after every rail, fin, pod and pocket either wall carries — because
     a slot is air, air a later step fuses back in is not a slot, and because what decides where
     each slot stops is what the piece has standing on that face when the cut is made."""
@@ -7611,9 +7477,7 @@ def _flank_vents(solid, inner, outer, airway, y0, y1, z0, z1, west_cradle=()):
         return solid
     runs = {}
     for sx, y in vent_grooves(outer, airway):
-        blocked = _vent_chute_courses(sx, y, west_cradle, airway)
-        got = tuple(course for course in _vent_runs(solid, outer, airway, sx, y)
-                    if course not in blocked)
+        got = tuple(_vent_runs(solid, outer, airway, sx, y))
         runs.setdefault(sx, []).append((y, got))
     courses = vent_segments(airway)
     for sx, columns in runs.items():
@@ -7629,18 +7493,6 @@ def _flank_vents(solid, inner, outer, airway, y0, y1, z0, z1, west_cradle=()):
                for sx, columns in runs.items() for y, got in columns for rz0, rz1 in got]
     if not cutters:
         return solid
-    half = reeding.pierce_width / 2.0
-    chute_half = mq6_can_yz / 2.0 + mq6_slot_press
-    lx0, fx0 = lip_face_x()[0], vent_flank_face(-1.0)
-    for _x, cy, cz in (west_cradle if -1.0 in runs else ()):
-        crown, inboard = mq6_chute_reach(cz)
-        axis = cz + mq6_card_z                     # the can's axis at its highest ride
-        over = [y for y, got in runs[-1.0] if abs(y - cy) < chute_half + half
-                and any(rz0 <= axis and inboard <= rz1 for rz0, rz1 in got)]
-        for ya, yb in zip(over, over[1:]):
-            if not ya + half < cy < yb - half:
-                cutters.append(_xz_prism(ya, yb, ((lx0, axis), (fx0 + 1.0, axis),
-                                                  (fx0 + 1.0, inboard + 1.0), (lx0, crown))))
     return solid.cut(*cutters)
 
 
@@ -9179,7 +9031,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         if y_side == "front":
             # And front-bottom's own extra section on the west flank, welled round the card.
             piece = piece.fuse(_front_bottom_flank_skin(
-                inner, box.pack.west_cradle, y_joint, zj).intersect(col))
+                inner, y_joint, zj).intersect(col))
             # And the two feet the collet plate stands on, which carry that same face inboard
             # under the plate's ends. Fused with the skin, before every pocket, so anything cut
             # into this flank later is cut out of the whole of it.
@@ -9385,8 +9237,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # a relief is: they are air, and air a later step fuses back in is not a vent. What stops
     # each slot is read off the piece as it stands HERE — every rail, fin, pod, pocket and
     # relief on those two flanks already in it.
-    piece = _flank_vents(piece, inner, outer, box.pack.cond_airway, ylo, yhi, zlo, zhi,
-                         box.pack.west_cradle)
+    piece = _flank_vents(piece, inner, outer, box.pack.cond_airway, ylo, yhi, zlo, zhi)
     if z_side == "top":
         # THE SLIDE'S OWN CARVING, after everything a top piece fuses. The channel is cut
         # through whatever now stands in the rail's lane — the foot slabs, the flank

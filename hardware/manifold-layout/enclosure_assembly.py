@@ -806,7 +806,7 @@ def cap_face(foam):
 # the one below (`enclosure._west_cradle`). The card drops in from above between them.
 #
 # The turn is two quarters: −90° about X stands the card up on its long side with the can facing
-# aft, then +90° about Z swings that long side into the strip and the can into the wall.
+# aft, then +90° about Z swings that long side into the strip and the can toward the wall.
 MQ6_STEP = _hw / "reference" / "mq6-gas-sensor" / "mq6-gas-sensor.step"
 MQ6_TURN = ((X_AXIS[1].toTuple(), -90.0), (Z_AXIS[1].toTuple(), 90.0))
 # The card's own fore edge, stated: the long side runs aft off it. Nothing on this flank is a
@@ -819,12 +819,9 @@ MQ6_Y0 = 38.3
 def build_mq6(comp, cond):
     """The MQ-6 along the −X strip, as low as the card stands.
 
-    WEST until the CAN bottoms in its well, not on the boss plane every body on the other flank
-    stands on — nothing bolts this card down, it drops into a slot printed on the wall
-    (`enclosure._west_cradle`) and the wall is what the far end of it lands on. That face is
-    `lip_face_x` and not `interior_x`: the card stands under a Z seam, and a flank under a seam
-    carries its lip's own wall down to the slab, `2 * wall` of it. The well through the flank's
-    own extra section is what lets the can reach that plane.
+    WEST to one clearance floor off front-bottom's flank face, where its can stands. Nothing
+    bolts this card down: it drops into a slot printed on the wall (`enclosure._west_cradle`),
+    and the slot's two posts are what place it.
 
     FORE on its own stated `MQ6_Y0`, which is the card's fore edge — the long side runs aft off
     it. The grille costs this station nothing and is costed nothing by it: the cradle's posts
@@ -838,7 +835,7 @@ def build_mq6(comp, cond):
     ignition source in the compartment."""
     body = import_step(str(MQ6_STEP)).val()
     return seat_body(body, MQ6_TURN, seat="mq6-sensor",
-                     x0=_enc.lip_face_x()[0], y0=MQ6_Y0,
+                     x0=_enc.front_bottom_flank_face()[0] + _card.CLEARANCE_FLOOR, y0=MQ6_Y0,
                      z0=box(comp).zmin + _enc.mq6_rail_wall)
 
 
