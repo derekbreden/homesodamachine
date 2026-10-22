@@ -225,7 +225,7 @@
     "flow_ratio": 1.02,
     "brim": "None, per Derek's reported experience.",
     "reference": "Walls-only May Water controls on the current flat-floor geometry, using flow 1.02 and the retained 21 mm3/s ceiling.",
-    "volumetric_speed": "Selected 21 mm3/s for the May adaptation. Installed Basic Standard-flow also uses 21; Translucent uses 16. This article awaits its own physical result.",
+    "volumetric_speed": "Selected 21 mm3/s for the walls-only May adaptation. Its physical result is reported seam leakage; the record does not isolate volumetric speed as its cause.",
     "cooling": "May success includes a 90% overhang override. Current 90% body/floor commands remain an observed fact, not proof they caused lift or a requirement to remove them. A localized cooling change remains a separate testable option.",
     "ironing": "Retain Off according to Derek's physical finish preference; May top ironing is historical, not established necessary for sealing.",
     "evidence_rule": "Retain settings demonstrated by successful articles as the baseline. Later proposed optimizations do not establish superior sealing or speed without a relevant physical comparison."
@@ -236,6 +236,6 @@
     "recipe": "Walls-only May Water, right 0.8 mm Standard, start A4",
     "accepted_at_utc": "2026-10-22T04:25:22.734787+00:00",
     "record": "../prints/2026-10-21-mark1-walls-only-right08-z000-a4/README.md",
-    "status": "Accepted; physical outcomes unassessed."
+    "status": "FINISH 833/833; Derek reports seam leakage. See the article physical result."
   }
 }
