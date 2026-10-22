@@ -6701,13 +6701,13 @@ def _east_bosses(solid, roots, outer, stations, fills, y0, y1, z0, z1, up=1.0):
     for k, station in enumerate(mine):
         sy, sz, tip = station[:3]
         stands = roots[1] - tip >= east_boss_min_stand - stated_bound_tol
-        if stands and not replaces_corbel(station):
+        if stands and not replaces_corbel(station) and k not in paired:
             # Keep the manufacturer's complete radial ligament behind the relieved insert
             # crown. Only this local boss grows; the component's seating plane is unchanged.
-            # A station inside a fill keeps that fill's flat faces instead: the fill's edge
-            # stands one `boss_ligament` off the hole, so behind the relieved crown it keeps
-            # the ruthex 1.6 mm wall, and a stem grown past the face would only leave a
-            # crescent on it and stand in the pins the fill was read clear of.
+            # A station inside a fill or a bar keeps its flat faces instead: their edges stand
+            # one `boss_ligament` off the hole, so behind the relieved crown each keeps the
+            # ruthex 1.6 mm wall, and a stem grown past the face would only leave a crescent
+            # on it and stand in the pins the fill or bar was read clear of.
             solid = solid.fuse(_supported_cut(_east_boss_stem(roots[1], station, up), up))
         setback = east_boss_insert_setback(station)
         insert_tip = tip + setback
@@ -7764,7 +7764,7 @@ asse_cradle_lip = 4.0       # block carried past the flanks, so the V cut is nev
 # reaches round is the body together with the web between that body and the cavity — the convex
 # perimeter of the pair, and not of the wall the rib stands on:
 #
-#     fluid-28 tube in its rib    [65.1 mm](LOOP_TUBE_RIB)
+#     fluid-28 tube in its rib    [31.8 mm](LOOP_TUBE_RIB)
 #     DIGITEN arm in its anchor   [81.2 mm](LOOP_DIGITEN)
 #     WR1110 barrel in its rib    [83.2 mm](LOOP_WR1110)
 #     ASSE barrel in its anchor   105.2 mm
