@@ -1,0 +1,72 @@
+{
+  "reported_on_central": "2026-10-22",
+  "recorded_at_utc": "2026-10-22T16:06:13.458936+00:00",
+  "printer": "Mark1",
+  "job_id": "1362982574",
+  "archive": "2026-10-21-reservoir-left-cap-walls-only-right08-z000-a4-mark1.gcode.3mf",
+  "binding": "Most recent reservoir article in this thread; fresh status retains this exact archive/task FINISH at 833/833. Photograph does not independently identify a task.",
+  "founder_quote": "Leaks along the seam",
+  "reported_results": {
+    "water_hold": "Failed: leakage reported along the seam.",
+    "fill_height_mm": null,
+    "hold_duration": null,
+    "water_temperature_c": null,
+    "cap_result": "Not separately reported.",
+    "corner_lift": "Not separately reported for this article."
+  },
+  "photo_observations": [
+    "Off-plate view shows the textured underside and concentric perimeter paths of the reservoir floor. Several water droplets are visible along a branching junction across the floor and at lower corners.",
+    "The pictured junction qualitatively resembles where nested perimeter paths converge in the saved floor-path plot. No calibrated photograph-to-toolpath registration establishes individual pore coordinates.",
+    "A reported seam is not assigned to a layer-change start/stop, scarf ramp, or medial junction solely from its name. Water can track before emerging; the complete internal route remains unmeasured."
+  ],
+  "prior_native_observation": "../floor-wall-coverage.json",
+  "prior_observation_scope": "Before launch, the nominal XY reading retained about 10 mm2 of small medial-junction pockets per full-floor layer. That reading was not proof of physical through-floor leakage; this photo now makes those junctions a priority for comparison.",
+  "saved_seam_controls": {
+    "seam_position": "random",
+    "seam_gap": "15%",
+    "seam_slope_type": "all",
+    "seam_slope_conditional": "1",
+    "seam_slope_inner_walls": "1",
+    "seam_slope_gap": "0"
+  },
+  "retained_recipe": {
+    "wall_loops": 999,
+    "sparse_infill": "0%",
+    "top_bottom_shell_fill": "0",
+    "flow_ratio": 1.02,
+    "nozzle_mm": 0.8,
+    "nozzle_c_first_subsequent": [
+      255,
+      260
+    ],
+    "user_z_trim_mm": 0,
+    "brim": "None",
+    "ironing": "Off"
+  },
+  "job_status_at_report": {
+    "observed_at_utc": "2026-10-22T16:03:29.921717+00:00",
+    "observed_central": "2026-10-22T11:03:29.921717-05:00",
+    "job_id": "1362982574",
+    "subtask_name": "2026-10-21-reservoir-left-cap-walls-only-right08-z000-a4-mark1.gcode.3mf",
+    "gcode_state": "FINISH",
+    "layer_num": 833,
+    "total_layer_num": 833,
+    "mc_percent": 100,
+    "print_error": 0,
+    "hms": [],
+    "bed_temper": 24.0,
+    "bed_target_temper": 0.0
+  },
+  "photos": [
+    {
+      "file": "photo-1.jpg",
+      "sha256": "dcedb0e483049a7b17739e4bec01a04086296ebfd4dd8fc5acd4955d33165f5f",
+      "size_px": [
+        3840,
+        2880
+      ],
+      "metadata": "EXIF/XMP/IPTC/comments removed; compressed image data unchanged",
+      "decoded_pixel_identity_verified": true
+    }
+  ]
+}

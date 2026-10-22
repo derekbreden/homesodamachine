@@ -1,0 +1,692 @@
+{
+  "recorded_at_utc": "2026-10-22T16:19:17.552574+00:00",
+  "purpose": "Localize the reported floor seam leakage and compare perimeter-junction closure while retaining 999 walls, 0% sparse/top/bottom fill and flow 1.02.",
+  "printed_task": "1362982574",
+  "printed_project_sha256": "f15476b457b75a342964a335f065dc648fc1b190dbc6d2fea56af9c12b66d642",
+  "printed_gcode_sha256": "f41be9bb88f0092ee3033d61742992ab9b821d6f406eda03817e937e6b04b235",
+  "baseline_settings": {
+    "wall_generator": "arachne",
+    "wall_loops": "999",
+    "seam_gap": "15%",
+    "wall_transition_angle": "10",
+    "wall_distribution_count": "1",
+    "min_feature_size": "25%",
+    "min_bead_width": "85%"
+  },
+  "baseline_floor_layer_1_uncovered_interior_mm2": 9.929631,
+  "baseline_floor_layer_12_uncovered_interior_mm2": 9.950675,
+  "method": "Union of nominal wall-bead XY footprints using emitted per-move widths and arcs sampled at 0.25 mm chords. Target is the enclosing native outer-wall loop buffered by its half-width. All twelve floor layers inspected.",
+  "measurement_limits": [
+    "Commanded XY footprint, not measured deposited shape or a guarantee of fusion/water hold. Scarf Z/flow ramps are not a physical bead model.",
+    "The LINE_WIDTH annotation gives a nominal width for the path; these envelopes do not reconstruct every instantaneous deposited width or the effects of pressure advance.",
+    "No calibrated photograph registration, 3D fluid-path reconstruction or physical water-hold comparison is supplied."
+  ],
+  "first_layer_volume_crosscheck": {
+    "printed": {
+      "first_layer_volume_derived_uncovered_interior_mm2": 8.862730960563116,
+      "emitted_width_min_max_mm": [
+        0.6052723384660467,
+        1.1254669070351229
+      ],
+      "height_mm": 0.3,
+      "scope": "First layer only, positive E motion at fixed 0.30 mm; bead footprint inferred from commanded volume and stadium section, including 1.02 flow. No claim about measured molten bead shape or full-thickness continuity."
+    },
+    "zero-gap": {
+      "first_layer_volume_derived_uncovered_interior_mm2": 8.858935652034793,
+      "emitted_width_min_max_mm": [
+        0.6052723384660467,
+        1.1254669070351229
+      ],
+      "height_mm": 0.3,
+      "scope": "First layer only, positive E motion at fixed 0.30 mm; bead footprint inferred from commanded volume and stadium section, including 1.02 flow. No claim about measured molten bead shape or full-thickness continuity."
+    },
+    "transition59": {
+      "first_layer_volume_derived_uncovered_interior_mm2": 1.3797942679573423,
+      "emitted_width_min_max_mm": [
+        0.6052723384660467,
+        1.5532126551971
+      ],
+      "height_mm": 0.3,
+      "scope": "First layer only, positive E motion at fixed 0.30 mm; bead footprint inferred from commanded volume and stadium section, including 1.02 flow. No claim about measured molten bead shape or full-thickness continuity."
+    }
+  },
+  "candidates": [
+    {
+      "candidate": "zero-gap",
+      "setting_changes": {
+        "seam_gap": {
+          "from": "15%",
+          "to": "0%"
+        }
+      },
+      "candidate_project_sha256": "999874290506c1c61c9b525d19670435c43ae7b88e383448d5107ea89e896c2b",
+      "native_return_code": 0,
+      "plate_warnings": [
+        "",
+        ""
+      ],
+      "plate_1_gcode_sha256": "339d0862fb8104f81f2226350208a0cdd4a0c97c1d48ae3b3bc6149a3438d99f",
+      "plate_1_model_features": [
+        "Inner wall",
+        "Outer wall",
+        "Overhang wall"
+      ],
+      "floor_layer_1_uncovered_interior_mm2": 9.926333,
+      "floor_layer_12_uncovered_interior_mm2": 9.950125,
+      "all_floor_layers": [
+        {
+          "layer": 1,
+          "z_mm": 0.3,
+          "wall_runs": 45,
+          "nominal_enclosed_area_mm2": 8282.5468,
+          "uncovered_area_mm2": 9.929756,
+          "uncovered_interior_area_mm2": 9.926333
+        },
+        {
+          "layer": 2,
+          "z_mm": 0.54,
+          "wall_runs": 45,
+          "nominal_enclosed_area_mm2": 8348.2943,
+          "uncovered_area_mm2": 9.962149,
+          "uncovered_interior_area_mm2": 9.959386
+        },
+        {
+          "layer": 3,
+          "z_mm": 0.78,
+          "wall_runs": 45,
+          "nominal_enclosed_area_mm2": 8348.2931,
+          "uncovered_area_mm2": 9.957448,
+          "uncovered_interior_area_mm2": 9.95465
+        },
+        {
+          "layer": 4,
+          "z_mm": 1.02,
+          "wall_runs": 45,
+          "nominal_enclosed_area_mm2": 8348.385,
+          "uncovered_area_mm2": 9.962573,
+          "uncovered_interior_area_mm2": 9.959813
+        },
+        {
+          "layer": 5,
+          "z_mm": 1.26,
+          "wall_runs": 45,
+          "nominal_enclosed_area_mm2": 8348.3634,
+          "uncovered_area_mm2": 9.956355,
+          "uncovered_interior_area_mm2": 9.953559
+        },
+        {
+          "layer": 6,
+          "z_mm": 1.5,
+          "wall_runs": 45,
+          "nominal_enclosed_area_mm2": 8348.3964,
+          "uncovered_area_mm2": 9.962404,
+          "uncovered_interior_area_mm2": 9.959678
+        },
+        {
+          "layer": 7,
+          "z_mm": 1.74,
+          "wall_runs": 45,
+          "nominal_enclosed_area_mm2": 8348.3451,
+          "uncovered_area_mm2": 9.95705,
+          "uncovered_interior_area_mm2": 9.954317
+        },
+        {
+          "layer": 8,
+          "z_mm": 1.98,
+          "wall_runs": 45,
+          "nominal_enclosed_area_mm2": 8348.4122,
+          "uncovered_area_mm2": 9.963637,
+          "uncovered_interior_area_mm2": 9.960906
+        },
+        {
+          "layer": 9,
+          "z_mm": 2.22,
+          "wall_runs": 45,
+          "nominal_enclosed_area_mm2": 8348.3012,
+          "uncovered_area_mm2": 9.959031,
+          "uncovered_interior_area_mm2": 9.9563
+        },
+        {
+          "layer": 10,
+          "z_mm": 2.46,
+          "wall_runs": 45,
+          "nominal_enclosed_area_mm2": 8348.3702,
+          "uncovered_area_mm2": 9.954252,
+          "uncovered_interior_area_mm2": 9.951493
+        },
+        {
+          "layer": 11,
+          "z_mm": 2.7,
+          "wall_runs": 45,
+          "nominal_enclosed_area_mm2": 8348.3989,
+          "uncovered_area_mm2": 9.961863,
+          "uncovered_interior_area_mm2": 9.959068
+        },
+        {
+          "layer": 12,
+          "z_mm": 2.94,
+          "wall_runs": 45,
+          "nominal_enclosed_area_mm2": 8348.2824,
+          "uncovered_area_mm2": 9.95289,
+          "uncovered_interior_area_mm2": 9.950125
+        }
+      ]
+    },
+    {
+      "candidate": "transition59",
+      "setting_changes": {
+        "wall_transition_angle": {
+          "from": "10",
+          "to": "59"
+        }
+      },
+      "candidate_project_sha256": "3f890ae5fdf1ec05e08080b1bf767ca7b25fb8dbec8c1eb67fca1568fe4ebc19",
+      "native_return_code": 0,
+      "plate_warnings": [
+        "",
+        ""
+      ],
+      "plate_1_gcode_sha256": "3aa321122c0ef532409af674ceccb25f6ac745a9ce78b2381ad95a715d3ab474",
+      "plate_1_model_features": [
+        "Inner wall",
+        "Outer wall",
+        "Overhang wall"
+      ],
+      "floor_layer_1_uncovered_interior_mm2": 1.924466,
+      "floor_layer_12_uncovered_interior_mm2": 2.778983,
+      "all_floor_layers": [
+        {
+          "layer": 1,
+          "z_mm": 0.3,
+          "wall_runs": 57,
+          "nominal_enclosed_area_mm2": 8282.5381,
+          "uncovered_area_mm2": 1.928244,
+          "uncovered_interior_area_mm2": 1.924466
+        },
+        {
+          "layer": 2,
+          "z_mm": 0.54,
+          "wall_runs": 54,
+          "nominal_enclosed_area_mm2": 8348.2946,
+          "uncovered_area_mm2": 2.78079,
+          "uncovered_interior_area_mm2": 2.777672
+        },
+        {
+          "layer": 3,
+          "z_mm": 0.78,
+          "wall_runs": 54,
+          "nominal_enclosed_area_mm2": 8348.2931,
+          "uncovered_area_mm2": 2.780775,
+          "uncovered_interior_area_mm2": 2.777625
+        },
+        {
+          "layer": 4,
+          "z_mm": 1.02,
+          "wall_runs": 54,
+          "nominal_enclosed_area_mm2": 8348.3882,
+          "uncovered_area_mm2": 2.778908,
+          "uncovered_interior_area_mm2": 2.775794
+        },
+        {
+          "layer": 5,
+          "z_mm": 1.26,
+          "wall_runs": 54,
+          "nominal_enclosed_area_mm2": 8348.3708,
+          "uncovered_area_mm2": 2.779282,
+          "uncovered_interior_area_mm2": 2.776131
+        },
+        {
+          "layer": 6,
+          "z_mm": 1.5,
+          "wall_runs": 54,
+          "nominal_enclosed_area_mm2": 8348.3956,
+          "uncovered_area_mm2": 2.778162,
+          "uncovered_interior_area_mm2": 2.775108
+        },
+        {
+          "layer": 7,
+          "z_mm": 1.74,
+          "wall_runs": 54,
+          "nominal_enclosed_area_mm2": 8348.346,
+          "uncovered_area_mm2": 2.77984,
+          "uncovered_interior_area_mm2": 2.776752
+        },
+        {
+          "layer": 8,
+          "z_mm": 1.98,
+          "wall_runs": 54,
+          "nominal_enclosed_area_mm2": 8348.4112,
+          "uncovered_area_mm2": 2.777822,
+          "uncovered_interior_area_mm2": 2.774736
+        },
+        {
+          "layer": 9,
+          "z_mm": 2.22,
+          "wall_runs": 54,
+          "nominal_enclosed_area_mm2": 8348.3029,
+          "uncovered_area_mm2": 2.78219,
+          "uncovered_interior_area_mm2": 2.779105
+        },
+        {
+          "layer": 10,
+          "z_mm": 2.46,
+          "wall_runs": 54,
+          "nominal_enclosed_area_mm2": 8348.3708,
+          "uncovered_area_mm2": 2.780459,
+          "uncovered_interior_area_mm2": 2.777345
+        },
+        {
+          "layer": 11,
+          "z_mm": 2.7,
+          "wall_runs": 54,
+          "nominal_enclosed_area_mm2": 8348.3901,
+          "uncovered_area_mm2": 2.779963,
+          "uncovered_interior_area_mm2": 2.776818
+        },
+        {
+          "layer": 12,
+          "z_mm": 2.94,
+          "wall_runs": 54,
+          "nominal_enclosed_area_mm2": 8348.2852,
+          "uncovered_area_mm2": 2.782104,
+          "uncovered_interior_area_mm2": 2.778983
+        }
+      ]
+    },
+    {
+      "candidate": "transition59-min0",
+      "setting_changes": {
+        "wall_transition_angle": {
+          "from": "10",
+          "to": "59"
+        },
+        "min_feature_size": {
+          "from": "25%",
+          "to": "0%"
+        }
+      },
+      "candidate_project_sha256": "26ad51c298e8840b6c196168e046b41758525f498c87d208cbbcc0cb38cc552f",
+      "native_return_code": 0,
+      "plate_warnings": [
+        "",
+        ""
+      ],
+      "plate_1_gcode_sha256": "54a57e71cbb8157e4a444953fe85963b727a542819e0358c634c568bbee01ac2",
+      "plate_1_model_features": [
+        "Inner wall",
+        "Outer wall",
+        "Overhang wall"
+      ],
+      "floor_layer_1_uncovered_interior_mm2": 1.924466,
+      "floor_layer_12_uncovered_interior_mm2": 2.778983,
+      "all_floor_layers": [
+        {
+          "layer": 1,
+          "z_mm": 0.3,
+          "wall_runs": 57,
+          "nominal_enclosed_area_mm2": 8282.5381,
+          "uncovered_area_mm2": 1.928244,
+          "uncovered_interior_area_mm2": 1.924466
+        },
+        {
+          "layer": 2,
+          "z_mm": 0.54,
+          "wall_runs": 54,
+          "nominal_enclosed_area_mm2": 8348.2946,
+          "uncovered_area_mm2": 2.78079,
+          "uncovered_interior_area_mm2": 2.777672
+        },
+        {
+          "layer": 3,
+          "z_mm": 0.78,
+          "wall_runs": 54,
+          "nominal_enclosed_area_mm2": 8348.2931,
+          "uncovered_area_mm2": 2.780775,
+          "uncovered_interior_area_mm2": 2.777625
+        },
+        {
+          "layer": 4,
+          "z_mm": 1.02,
+          "wall_runs": 54,
+          "nominal_enclosed_area_mm2": 8348.3882,
+          "uncovered_area_mm2": 2.778908,
+          "uncovered_interior_area_mm2": 2.775794
+        },
+        {
+          "layer": 5,
+          "z_mm": 1.26,
+          "wall_runs": 54,
+          "nominal_enclosed_area_mm2": 8348.3708,
+          "uncovered_area_mm2": 2.779282,
+          "uncovered_interior_area_mm2": 2.776131
+        },
+        {
+          "layer": 6,
+          "z_mm": 1.5,
+          "wall_runs": 54,
+          "nominal_enclosed_area_mm2": 8348.3956,
+          "uncovered_area_mm2": 2.778162,
+          "uncovered_interior_area_mm2": 2.775108
+        },
+        {
+          "layer": 7,
+          "z_mm": 1.74,
+          "wall_runs": 54,
+          "nominal_enclosed_area_mm2": 8348.346,
+          "uncovered_area_mm2": 2.77984,
+          "uncovered_interior_area_mm2": 2.776752
+        },
+        {
+          "layer": 8,
+          "z_mm": 1.98,
+          "wall_runs": 54,
+          "nominal_enclosed_area_mm2": 8348.4112,
+          "uncovered_area_mm2": 2.777822,
+          "uncovered_interior_area_mm2": 2.774736
+        },
+        {
+          "layer": 9,
+          "z_mm": 2.22,
+          "wall_runs": 54,
+          "nominal_enclosed_area_mm2": 8348.3029,
+          "uncovered_area_mm2": 2.78219,
+          "uncovered_interior_area_mm2": 2.779105
+        },
+        {
+          "layer": 10,
+          "z_mm": 2.46,
+          "wall_runs": 54,
+          "nominal_enclosed_area_mm2": 8348.3708,
+          "uncovered_area_mm2": 2.780459,
+          "uncovered_interior_area_mm2": 2.777345
+        },
+        {
+          "layer": 11,
+          "z_mm": 2.7,
+          "wall_runs": 54,
+          "nominal_enclosed_area_mm2": 8348.3901,
+          "uncovered_area_mm2": 2.779963,
+          "uncovered_interior_area_mm2": 2.776818
+        },
+        {
+          "layer": 12,
+          "z_mm": 2.94,
+          "wall_runs": 54,
+          "nominal_enclosed_area_mm2": 8348.2852,
+          "uncovered_area_mm2": 2.782104,
+          "uncovered_interior_area_mm2": 2.778983
+        }
+      ]
+    },
+    {
+      "candidate": "transition59-distribute3",
+      "setting_changes": {
+        "wall_transition_angle": {
+          "from": "10",
+          "to": "59"
+        },
+        "wall_distribution_count": {
+          "from": "1",
+          "to": "3"
+        }
+      },
+      "candidate_project_sha256": "1b9e5b13ad209c9b0da850dfab1bc4e69234bdad2a8660204ceec9f67066d5a1",
+      "native_return_code": 0,
+      "plate_warnings": [
+        "",
+        ""
+      ],
+      "plate_1_gcode_sha256": "4950c0a9b53dd6fea1fe6cfe3271419886ca6de5c400bb43c6d58d0b2fc682f6",
+      "plate_1_model_features": [
+        "Inner wall",
+        "Outer wall",
+        "Overhang wall"
+      ],
+      "floor_layer_1_uncovered_interior_mm2": 2.70098,
+      "floor_layer_12_uncovered_interior_mm2": 3.478066,
+      "all_floor_layers": [
+        {
+          "layer": 1,
+          "z_mm": 0.3,
+          "wall_runs": 64,
+          "nominal_enclosed_area_mm2": 8282.5381,
+          "uncovered_area_mm2": 2.704757,
+          "uncovered_interior_area_mm2": 2.70098
+        },
+        {
+          "layer": 2,
+          "z_mm": 0.54,
+          "wall_runs": 63,
+          "nominal_enclosed_area_mm2": 8348.2946,
+          "uncovered_area_mm2": 3.478114,
+          "uncovered_interior_area_mm2": 3.474996
+        },
+        {
+          "layer": 3,
+          "z_mm": 0.78,
+          "wall_runs": 63,
+          "nominal_enclosed_area_mm2": 8348.2931,
+          "uncovered_area_mm2": 3.476337,
+          "uncovered_interior_area_mm2": 3.473187
+        },
+        {
+          "layer": 4,
+          "z_mm": 1.02,
+          "wall_runs": 63,
+          "nominal_enclosed_area_mm2": 8348.3882,
+          "uncovered_area_mm2": 3.474614,
+          "uncovered_interior_area_mm2": 3.471501
+        },
+        {
+          "layer": 5,
+          "z_mm": 1.26,
+          "wall_runs": 63,
+          "nominal_enclosed_area_mm2": 8348.3708,
+          "uncovered_area_mm2": 3.474859,
+          "uncovered_interior_area_mm2": 3.471708
+        },
+        {
+          "layer": 6,
+          "z_mm": 1.5,
+          "wall_runs": 63,
+          "nominal_enclosed_area_mm2": 8348.3956,
+          "uncovered_area_mm2": 3.475617,
+          "uncovered_interior_area_mm2": 3.472563
+        },
+        {
+          "layer": 7,
+          "z_mm": 1.74,
+          "wall_runs": 63,
+          "nominal_enclosed_area_mm2": 8348.346,
+          "uncovered_area_mm2": 3.477321,
+          "uncovered_interior_area_mm2": 3.474234
+        },
+        {
+          "layer": 8,
+          "z_mm": 1.98,
+          "wall_runs": 63,
+          "nominal_enclosed_area_mm2": 8348.4112,
+          "uncovered_area_mm2": 3.472585,
+          "uncovered_interior_area_mm2": 3.469499
+        },
+        {
+          "layer": 9,
+          "z_mm": 2.22,
+          "wall_runs": 64,
+          "nominal_enclosed_area_mm2": 8348.3029,
+          "uncovered_area_mm2": 3.445717,
+          "uncovered_interior_area_mm2": 3.442632
+        },
+        {
+          "layer": 10,
+          "z_mm": 2.46,
+          "wall_runs": 64,
+          "nominal_enclosed_area_mm2": 8348.3708,
+          "uncovered_area_mm2": 3.443489,
+          "uncovered_interior_area_mm2": 3.440375
+        },
+        {
+          "layer": 11,
+          "z_mm": 2.7,
+          "wall_runs": 63,
+          "nominal_enclosed_area_mm2": 8348.3901,
+          "uncovered_area_mm2": 3.477074,
+          "uncovered_interior_area_mm2": 3.473929
+        },
+        {
+          "layer": 12,
+          "z_mm": 2.94,
+          "wall_runs": 63,
+          "nominal_enclosed_area_mm2": 8348.2852,
+          "uncovered_area_mm2": 3.481186,
+          "uncovered_interior_area_mm2": 3.478066
+        }
+      ]
+    },
+    {
+      "candidate": "classic",
+      "setting_changes": {
+        "wall_generator": {
+          "from": "arachne",
+          "to": "classic"
+        }
+      },
+      "candidate_project_sha256": "1402f7f9a9158974fed6d09090cf73b224bee109ce908e133e183a9c7bbdc7ee",
+      "native_return_code": 0,
+      "plate_warnings": [
+        "",
+        ""
+      ],
+      "plate_1_gcode_sha256": "5fca78303b8530193c99996126297c4ecb906e2d89e5c83fc68b53a671ab1658",
+      "plate_1_model_features": [
+        "Gap infill",
+        "Inner wall",
+        "Outer wall",
+        "Overhang wall"
+      ],
+      "floor_layer_1_uncovered_interior_mm2": 4.175899,
+      "floor_layer_12_uncovered_interior_mm2": 5.095463,
+      "all_floor_layers": [
+        {
+          "layer": 1,
+          "z_mm": 0.3,
+          "wall_runs": 57,
+          "nominal_enclosed_area_mm2": 8282.6593,
+          "uncovered_area_mm2": 4.177738,
+          "uncovered_interior_area_mm2": 4.175899
+        },
+        {
+          "layer": 2,
+          "z_mm": 0.54,
+          "wall_runs": 55,
+          "nominal_enclosed_area_mm2": 8348.5719,
+          "uncovered_area_mm2": 5.103549,
+          "uncovered_interior_area_mm2": 5.101713
+        },
+        {
+          "layer": 3,
+          "z_mm": 0.78,
+          "wall_runs": 55,
+          "nominal_enclosed_area_mm2": 8348.567,
+          "uncovered_area_mm2": 5.097837,
+          "uncovered_interior_area_mm2": 5.095999
+        },
+        {
+          "layer": 4,
+          "z_mm": 1.02,
+          "wall_runs": 56,
+          "nominal_enclosed_area_mm2": 8348.5628,
+          "uncovered_area_mm2": 5.095744,
+          "uncovered_interior_area_mm2": 5.093906
+        },
+        {
+          "layer": 5,
+          "z_mm": 1.26,
+          "wall_runs": 55,
+          "nominal_enclosed_area_mm2": 8348.5658,
+          "uncovered_area_mm2": 5.096217,
+          "uncovered_interior_area_mm2": 5.094379
+        },
+        {
+          "layer": 6,
+          "z_mm": 1.5,
+          "wall_runs": 55,
+          "nominal_enclosed_area_mm2": 8348.5492,
+          "uncovered_area_mm2": 5.10345,
+          "uncovered_interior_area_mm2": 5.10161
+        },
+        {
+          "layer": 7,
+          "z_mm": 1.74,
+          "wall_runs": 56,
+          "nominal_enclosed_area_mm2": 8348.5696,
+          "uncovered_area_mm2": 5.094977,
+          "uncovered_interior_area_mm2": 5.09314
+        },
+        {
+          "layer": 8,
+          "z_mm": 1.98,
+          "wall_runs": 55,
+          "nominal_enclosed_area_mm2": 8348.5482,
+          "uncovered_area_mm2": 5.103013,
+          "uncovered_interior_area_mm2": 5.101177
+        },
+        {
+          "layer": 9,
+          "z_mm": 2.22,
+          "wall_runs": 56,
+          "nominal_enclosed_area_mm2": 8348.5676,
+          "uncovered_area_mm2": 5.096004,
+          "uncovered_interior_area_mm2": 5.094169
+        },
+        {
+          "layer": 10,
+          "z_mm": 2.46,
+          "wall_runs": 55,
+          "nominal_enclosed_area_mm2": 8348.5731,
+          "uncovered_area_mm2": 5.11241,
+          "uncovered_interior_area_mm2": 5.110573
+        },
+        {
+          "layer": 11,
+          "z_mm": 2.7,
+          "wall_runs": 55,
+          "nominal_enclosed_area_mm2": 8348.5874,
+          "uncovered_area_mm2": 5.095815,
+          "uncovered_interior_area_mm2": 5.093979
+        },
+        {
+          "layer": 12,
+          "z_mm": 2.94,
+          "wall_runs": 55,
+          "nominal_enclosed_area_mm2": 8348.5838,
+          "uncovered_area_mm2": 5.0973,
+          "uncovered_interior_area_mm2": 5.095463
+        }
+      ]
+    }
+  ],
+  "findings": [
+    "The photograph qualitatively matches the branching convergence regions across the floor. It does not identify a single layer-change/scarf start-stop seam.",
+    "Zero seam gap leaves the modeled junction pockets essentially unchanged. This does not establish that zero gap has no physical sealing benefit.",
+    "Increasing the Arachne wall-transition angle from 10 to 59 adds center-wall paths and reduces nominal uncovered area from about 9.95 to 2.78 mm2 on floor layer 12 (about 72%). Residual pockets remain.",
+    "Reducing the minimum feature size to zero adds no improvement to this floor reading; distributing the change over three walls increases the residual nominal pocket area relative to angle 59 alone.",
+    "Classic retains the 999-wall/zero-sparse/top/bottom recipe and emits local Gap infill paths. Its nominal residual area is about 5.10 mm2 on layer 12, larger than the 59-degree Arachne candidate.",
+    "The strongest native candidate among these comparisons is Arachne angle 59 with the other printed settings retained. None establishes complete nominal closure or physical watertightness."
+  ],
+  "next_direction": "Retain walls-only and flow 1.02. Target local junction closure; angle 59 is the best native candidate examined, not a selected or physically accepted next recipe. No printer command was issued by this comparison.",
+  "artifacts": {
+    "printed_floor_paths": "../floor-wall-paths.png",
+    "transition59_floor_paths": "transition59-floor-paths.png"
+  },
+  "references": [
+    {
+      "url": "https://github.com/bambulab/BambuStudio/blob/v02.08.02.61/src/libslic3r/PrintConfig.cpp#L5784",
+      "scope": "Arachne wall-transition angle controls whether wedges receive center-wall transitions."
+    },
+    {
+      "url": "https://github.com/bambulab/BambuStudio/blob/v02.08.02.61/src/libslic3r/PrintConfig.cpp#L4591",
+      "scope": "Seam gap shortens closed-loop extrusion by a percentage of nozzle diameter."
+    }
+  ]
+}
