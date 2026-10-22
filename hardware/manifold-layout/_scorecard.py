@@ -316,7 +316,7 @@ MOUNTS = (
     ("bulkhead-drain", "enclosure-back-top", "bulkhead"),
     ("asse-drain-adapter", "asse1022-assembly", "sleeve"),
     # The gas sensor drops into two grooved posts printed on the floor of the bay it watches
-    # (`enclosure._west_cradle`), and its can bottoms in a well cut back to the wall. The sensor
+    # (`enclosure._west_cradle`), and its can stands just off the wall. The sensor
     # board carries no mounting hole, so a slot is the only way it is ever held — the same bargain
     # the lever nuts strike, and the same wall-as-datum.
     ("mq6-sensor", "enclosure-front-bottom", "cradle"),
