@@ -1,0 +1,53 @@
+{
+  "scope": "Manual print-geometry follow-through after live publication. Native and STL geometry only; no physical cleanup, retention or life acceptance.",
+  "printed_files": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "fd5accc156ee7c270f76432edd671690e66fd327ab3cc1e7096aef74d8100f8a",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "cad9c601bb6a03a210f385b2f9544798195d74e7ac9e78d3da71ae4c84c8e6f6"
+  },
+  "check_cradle": {
+    "native_valid_single_solid": true,
+    "native_point_is_material": {
+      "(71, -60.5, 5.25)": true,
+      "(71, -60.5, 5.5)": false,
+      "(71, -60.5, 8.5)": false,
+      "(71, -60.5, 8.75)": true
+    },
+    "floor_plane_z_mm": 5.4,
+    "channel_roof_z_mm": 8.65,
+    "channel_height_mm": 3.25,
+    "channel_width_mm": 2.8,
+    "stock_under_bore_mm": 5.0,
+    "tie_loop_mm": 65.3039301085992
+  },
+  "lint_summary": {
+    "back_top": {
+      "findings": 72,
+      "answered_at_reading": 32
+    },
+    "cap_lid_top": {
+      "findings": 33,
+      "answered_at_reading": 2
+    }
+  },
+  "unresolved_outside_arrangement": [
+    {
+      "part": "enclosure-back-top",
+      "features": "Rear-wall flat ledges and slopes; west plumbing-cradle roof. These are outside the edited WAGO pockets.",
+      "classes": [
+        "ceiling",
+        "slope"
+      ]
+    },
+    {
+      "part": "foam-cap-lid-top",
+      "features": "Water-3 side-post floor recess, fluid-18 anchor-cap catches and existing lid-rim/tie-seat narrow sections.",
+      "classes": [
+        "step",
+        "sliver",
+        "ledge",
+        "thin"
+      ]
+    }
+  ],
+  "retained_acceptance": "The nameplate/DATA wing receiver lips retain their recorded physical acceptance and its scope; the lint continues to rank those thin features."
+}

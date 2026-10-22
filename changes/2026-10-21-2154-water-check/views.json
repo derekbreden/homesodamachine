@@ -1,0 +1,204 @@
+{
+  "views": [
+    {
+      "name": "installed",
+      "caption": "One push-connect check in a round barrel cradle, with the existing discharge elbow.",
+      "before": "installed-before.webp",
+      "after": "installed-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 550.6,
+          "y": 468.7,
+          "r": 42.5,
+          "label": "Water check",
+          "at": [
+            -60.5,
+            259.1,
+            268.1
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -68.26248034238941,
+          359.0606466009683,
+          475.4617766895437
+        ],
+        "target": [
+          -50,
+          263,
+          268
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "fov": 45,
+        "near": 0.41824065363574764,
+        "far": 550.6480671295913,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "discharge-chain",
+        "tube-water-5",
+        "tube-water-6",
+        "pump-elbow-discharge",
+        "g-ganen-pump",
+        "cold-core/foam-cap-lid-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "d77990dcd20ff5f75f9739ea26240a2bb06a819b4a402e8f6b56d711a74d5f21",
+          "commit": "f12b5754e93561fce2fae6c5dd66e0f6df756206",
+          "taken": "2026-10-22T02:22:26.656Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "b546485d14a093f2aaf7c88bb0b5c39f71e13c23123f9f5e419ea285e067f70f",
+          "commit": "78b04d44d0bb5b11d800a03c7c178098faeb3c89",
+          "published": true
+        }
+      },
+      "changed": [
+        "wire-J6-earth-4",
+        "wago-reeds-a",
+        "wire-J6-GND",
+        "wire-J7-earth-4",
+        "wire-DC4-GND",
+        "wire-DC3-negative",
+        "wire-AC1-L",
+        "wire-DC1-V12",
+        "wire-DC1-GND",
+        "wire-AC1-N",
+        "wire-AC3-L",
+        "wire-AC5-N",
+        "wire-DC4-V12",
+        "wire-AC2-N",
+        "wire-DC2-V12",
+        "wago-gnd",
+        "wago-h",
+        "wago-n",
+        "wago-v12",
+        "wire-AC2-L",
+        "wire-PE-bus",
+        "discharge-chain",
+        "tube-water-5",
+        "tube-water-6",
+        "wire-J4-GND",
+        "wire-temp-GND",
+        "wire-AC1-PE",
+        "wire-J7-carb-earth-2",
+        "enclosure-back-top",
+        "wire-J7-GND",
+        "wago-reeds-b",
+        "wire-flow-GND",
+        "wago-sensors",
+        "cold-core/foam-cap-lid-top"
+      ],
+      "withinMeshing": [
+        "cold-core/evap-coil",
+        "funnel-frame",
+        "funnel",
+        "cold-core/foam-cap-bottom",
+        "cold-core/foam-cap-lid-bottom",
+        "cold-core/foam-cap-top"
+      ]
+    },
+    {
+      "name": "tie-channel",
+      "caption": "The tie passes over a flat lid floor; clearance is at the roof.",
+      "before": "tie-channel-before.webp",
+      "after": "tie-channel-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 600,
+          "y": 481.5,
+          "r": 48,
+          "label": "Tie passage",
+          "at": [
+            71,
+            -60.5,
+            7
+          ]
+        }
+      ],
+      "model": "printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          116.41214025707683,
+          -109.2899027555371,
+          20.25920832820087
+        ],
+        "target": [
+          71,
+          -60.5,
+          9
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.3199278905408487,
+        "far": 495.7426652829193,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            71,
+            -60.5,
+            7
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "foam-cap-lid-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
+          "from": "snapshot",
+          "sha256": "54c89fbe948e1c678bb58330302d5fa74f7209b15ed00c5e8b3ae93ca5b5113c",
+          "commit": "f12b5754e93561fce2fae6c5dd66e0f6df756206",
+          "taken": "2026-10-22T02:22:13.398Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
+          "from": "tree",
+          "sha256": "acd970c5f4a629f19a509590b9a31110f82a574f3ceed71396289a27ec709552",
+          "commit": "78b04d44d0bb5b11d800a03c7c178098faeb3c89",
+          "published": true
+        }
+      },
+      "changed": [
+        "foam-cap-lid-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
