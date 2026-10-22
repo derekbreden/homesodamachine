@@ -137,6 +137,26 @@ body {
   opacity: 0.85;
   pointer-events: none;
 }
+.viz-marks { position: absolute; inset: 0; pointer-events: none; }
+.viz-marks svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.viz-mark-halo { stroke: rgba(10, 15, 31, 0.85); stroke-width: 3.5; }
+.viz-mark-line { stroke: #ffffff; stroke-width: 1.5; }
+.viz-mark-dot { fill: #ffa733; stroke: #111a33; stroke-width: 1.5; }
+.viz-mark-dot.is-behind { fill: none; stroke: #ffffff; }
+.viz-mark-line.is-behind { stroke-dasharray: 3 3; }
+.viz-mark.is-behind { opacity: 0.55; }
+.viz-mark {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font: 600 12px/1.25 var(--text);
+  color: #111a33;
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 6px;
+  padding: 3px 7px;
+  white-space: nowrap;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
 .viz-note.is-error { opacity: 1; background: rgba(10, 15, 31, 0.72); border-radius: 6px; padding: 8px 10px; }
 .viz-caption { margin: 0; font: 13px/1.45 var(--data); color: var(--muted); overflow-wrap: anywhere; }
 .viz-nowrap { white-space: nowrap; }
@@ -281,8 +301,10 @@ async function buildGroup(p) {
 // THE SAME CAMERA MEANS THE SAME TARGET AND THE SAME SPAN. Panels drawn in one frame (the scene
 // STEPs all stand in the machine's coordinates) are aimed at the centre of everything the page
 // shows, so a part that moved between panels is seen to move; aimed each at its own centre, the
-// motion would be framed away. `"frame": "each"` is for models that do not share a frame.
+// motion would be framed away. `"frame": "each"` is for models that do not share a frame, and
+// a panel's own `focus` aims it at one feature of a large piece.
 function frameFor(panel) {
+  if (panel.focus) return panel.focus;
   if (spec.frame === "each") return panel.sphere;
   const box = new THREE.Box3();
   for (const p of panels) if (p.box) box.union(p.box);
@@ -309,10 +331,94 @@ function place(panel) {
   panel.fill.target.position.copy(center);
 }
 
+// A mark is a label pinned to a point of the model: its dot stays on the point as the panel
+// turns, and the label stands its own pixel offset away on a leader.
+const SVGNS = "http://www.w3.org/2000/svg";
+function addMarks(panel, marks) {
+  const layer = document.createElement("div");
+  layer.className = "viz-marks";
+  const svg = document.createElementNS(SVGNS, "svg");
+  layer.append(svg);
+  panel.marks = marks.map((m) => {
+    const [halo, line, dot] = ["line", "line", "circle"].map((tag) => document.createElementNS(SVGNS, tag));
+    halo.setAttribute("class", "viz-mark-halo");
+    line.setAttribute("class", "viz-mark-line");
+    dot.setAttribute("class", "viz-mark-dot");
+    dot.setAttribute("r", "3.5");
+    svg.append(halo, line, dot);
+    const label = document.createElement("div");
+    label.className = "viz-mark";
+    label.textContent = m.text;
+    layer.append(label);
+    return { at: new THREE.Vector3(...m.at), dx: m.dx ?? 18, dy: m.dy ?? -18, parts: [halo, line, dot, label] };
+  });
+  panel.stage.append(layer);
+}
+
+function placeMarks(panel) {
+  if (!panel.marks) return;
+  const r = panel.stage.getBoundingClientRect();
+  const placed = [];
+  for (const m of panel.marks) {
+    const v = m.at.clone().project(panel.camera);
+    const shown = v.z > -1 && v.z < 1;
+    m.parts.forEach((el) => { el.style.display = shown ? "" : "none"; });
+    if (!shown) continue;
+    const [halo, line, dot, label] = m.parts;
+    const x = (v.x + 1) / 2 * r.width, y = (1 - v.y) / 2 * r.height;
+    // The label keeps inside the stage, however narrow, and its leader follows it there.
+    const w = label.offsetWidth, h = label.offsetHeight;
+    const lx = Math.max(4, Math.min(r.width - w - 4, x + m.dx - (m.dx < 0 ? w : 0)));
+    const fit = (v) => Math.max(4, Math.min(r.height - h - 4, v));
+    // Nor does it sit on a label already placed: it steps above or below the one in its way,
+    // its own side first, wherever the stage leaves room.
+    const clear = (v) => placed.every((b) => lx >= b.x + b.w + 3 || lx + w + 3 <= b.x || v >= b.y + b.h + 3 || v + h + 3 <= b.y);
+    const want = fit(y + m.dy - h / 2);
+    const tries = [want];
+    for (const b of placed) {
+      const above = b.y - h - 4, below = b.y + b.h + 4;
+      tries.push(...(m.dy < 0 ? [above, below] : [below, above]));
+    }
+    const ly = tries.find((v) => v === fit(v) && clear(v)) ?? want;
+    placed.push({ x: lx, y: ly, w, h });
+    const ex = m.dx < 0 ? lx + w : lx, ey = ly + h / 2;
+    for (const el of [halo, line]) {
+      el.setAttribute("x1", x); el.setAttribute("y1", y);
+      el.setAttribute("x2", ex); el.setAttribute("y2", ey);
+    }
+    dot.setAttribute("cx", x);
+    dot.setAttribute("cy", y);
+    label.style.transform = `translate(${lx}px, ${ly}px)`;
+  }
+}
+
+// A mark whose point the piece itself hides from this camera is drawn faint, on a dashed leader:
+// it says where the feature is without claiming it can be seen. Read once the view settles, since
+// a ray through the whole piece costs more than a frame.
+const ray = new THREE.Raycaster();
+function hideMarks(panel) {
+  if (!panel.marks) return;
+  const solids = panel.group.children.filter((c) => c.isMesh && !c.userData.ghost);
+  for (const m of panel.marks) {
+    const to = m.at.clone().sub(panel.camera.position);
+    const dist = to.length();
+    ray.set(panel.camera.position, to.normalize());
+    ray.far = dist;
+    const hit = ray.intersectObjects(solids, false)[0];
+    const behind = !!hit && hit.distance < dist - Math.max(0.5, dist * 0.004);
+    m.parts.forEach((el) => el.classList.toggle("is-behind", behind));
+  }
+}
+
 function draw(panel) {
   if (!panel.renderer) return;
   place(panel);
   panel.renderer.render(panel.scene, panel.camera);
+  placeMarks(panel);
+  if (panel.marks) {
+    clearTimeout(panel.settle);
+    panel.settle = setTimeout(() => hideMarks(panel), 150);
+  }
 }
 
 function drawAll() { for (const p of panels) draw(p); }
@@ -369,6 +475,7 @@ async function mount(el, p, hint) {
   const stage = el.querySelector(".viz-stage");
   const note = stage.querySelector(".viz-note");
   const panel = { el, stage, own: p.view ? viewFrom(p.view) : { ...shared } };
+  if (p.focus) panel.focus = new THREE.Sphere(new THREE.Vector3(...p.focus.center), p.focus.radius);
   panels.push(panel);
   try {
     const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
@@ -399,6 +506,7 @@ async function mount(el, p, hint) {
     });
     showEdges(panel, edgesOn);
     stage.prepend(renderer.domElement);
+    if (p.marks && p.marks.length) addMarks(panel, p.marks);
     note.textContent = hint ? "Drag to turn · scroll to zoom" : "";
     note.classList.remove("is-error");
     orbit(panel);
@@ -451,6 +559,7 @@ document.querySelectorAll(".viz-panel[data-panel]").forEach((el) => {
 });
 Promise.allSettled(mounts).then(() => {
   drawAll();
+  panels.forEach(hideMarks);
   requestAnimationFrame(() => { window.__vizReady = true; });
 });
 </script>
