@@ -1,0 +1,81 @@
+{
+  "checked_at_utc": "2026-10-22T05:44:29.983829+00:00",
+  "scope": "Fetch published native, printing and viewer geometry and compare decompressed SHA-256 with the reviewed build pointer at 5a26eb706; read current component catalog. This establishes publication only.",
+  "members": [
+    {
+      "path": "hardware/manifold-layout/enclosure-assembly.step",
+      "sha256": "14baefeb40b299080928c61466bfe831cfec4bbf01713c36bbff36a745b48940",
+      "bytes": 108139255,
+      "pass": true
+    },
+    {
+      "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+      "sha256": "04ca6517a008ab371d1ae3e0778a7b0955a04c6f273215c145c8773e026fe7b8",
+      "bytes": 47736160,
+      "pass": true
+    },
+    {
+      "path": "hardware/wiring/enclosure-wiring.step",
+      "sha256": "d0182b93c7d3d7347cab17ef9e8e4428a834db55f6658e250f47956b5048c438",
+      "bytes": 6549131,
+      "pass": true
+    },
+    {
+      "path": "hardware/reference/shok-blok-regulator/shok-blok-regulator.step",
+      "sha256": "847d8b1c999a1d635cc3cfcca61ca17d593ba3202e53f435251a555c32b488f5",
+      "bytes": 38806,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+      "sha256": "8d10e5ec0a5cbfcf5ad0dcf1924551bf45aa83f3cdf23f2c9e243e2f4d174240",
+      "bytes": 789078,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
+      "sha256": "582ebdc05920fbc0afac9c5df8ea40d066be47f4879af6822a6f6f0b3ee23ac9",
+      "bytes": 1055284,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
+      "sha256": "9daa44792d160a835177314591433682ac30f09a00abb80a6cb4621fd6bf1867",
+      "bytes": 742944,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+      "sha256": "7d06f4d96b2c69f402e0cd474583c124a21d7388db4602cc55bbbc64ef112d90",
+      "bytes": 2651036,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+      "sha256": "1ffb5b3a4d1c4a571e25e9a264b1ab6accc99fd157c74f195af558284034af44",
+      "bytes": 30248884,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+      "sha256": "e543bf2d4749c7f5f46f8267a5d9be8a729b316c9e1bd1d8f06b90bff0aa139d",
+      "bytes": 15312476,
+      "pass": true
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure.step",
+      "sha256": "1e770ad4c679a0c5e26d5658e2e335ada2e206d9e1d516b10cf47b0887ef26e3",
+      "bytes": 24650440,
+      "pass": true
+    }
+  ],
+  "catalog": {
+    "id": "HSM-000057",
+    "description": "Water-pressure regulator \u00b7 Hydronix SB-FPV-40 \u00b7 internal 1/4 inch feed",
+    "model": "reference/shok-blok-regulator/shok-blok-regulator.step",
+    "pass": true
+  },
+  "site_version": {
+    "commit": "2484f4aeff2e426717e7517e56f52d7a9e0a1036"
+  }
+}
