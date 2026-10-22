@@ -942,7 +942,7 @@ def _fore_segments(a, b):
 
 
 def fore_stub_path(a, b, radius: float = MIN_BEND):
-    """The upper tube's centreline: half the tee's travel off straight at connected."""
+    """The upper tube's centreline: straight from the tee's upper collet to its fore valve."""
     edges = []
     for s in _fore_segments(a, b):
         p, q = cq.Vector(*s["start_mm"]), cq.Vector(*s["end_mm"])
@@ -1330,8 +1330,8 @@ def report(assy: cq.Assembly) -> dict:
                         f"between: {SOURCE_TRAVEL:g} along and "
                         f"{math.hypot(*source_cross(v)):.2f} across")
         elif how in FORE_STUBS:
-            note = (f"{FORE_STUB_EXPOSED:.3f} mm upper tube, "
-                    f"{_returns.FORE_VALVE_SET:g} mm off straight at connected")
+            note = (f"{FORE_STUB_EXPOSED:.3f} mm upper tube, straight at connected and bent "
+                    f"{_returns.TRAVEL:g} mm at release")
         else:
             length = made.get(how, 0.0)
             note = ("butt — 0 mm outside the collets" if length < 1e-9
@@ -1362,8 +1362,8 @@ def report(assy: cq.Assembly) -> dict:
     print(f"crossbar {CROSSBAR:.2f} mm exposed; the two reservoir crossings enter their collets "
           + ", ".join(f"{skew_deg(*RUNS[t], branch_port(t)[1]):.1f}°" for t in JOINS)
           + " off axis")
-    print(f"upper tubes: {len(FORE_STUBS)}, {FORE_STUB_EXPOSED:g} mm exposed, each "
-          f"{_returns.FORE_VALVE_SET:g} mm off straight at connected")
+    print(f"upper tubes: {len(FORE_STUBS)}, {FORE_STUB_EXPOSED:g} mm exposed, each straight at "
+          f"connected and bent {_returns.TRAVEL:g} mm at release")
     f, u = FOLD_BINDS
     print(f"fold: hinge at y {HINGE_Y:.2f} z {HINGE_Z:.2f}, decks at z {DECK_Z:.2f} and "
           f"{UPPER_Z:.2f} — {DECK_SEP:g} apart, which {f} standing over {u} sets")

@@ -1,7 +1,7 @@
 {
   "/hardware/topology/_fluid_topology_sync.py": {
     "BUTT_COUNT": "3",
-    "FLUID_TOTAL": "3192.7 mm",
+    "FLUID_TOTAL": "3189.9 mm",
     "LIMB_COUNT": "4",
     "LIMB_VALVES": "10",
     "LOWER_COUNT": "8",
@@ -13,6 +13,6 @@
     "TEE_COUNT": "6",
     "UPPER_COUNT": "8",
     "UPPER_LINK_COUNT": "4",
-    "UPPER_LINK_EXPOSED": "15.2756 mm"
+    "UPPER_LINK_EXPOSED": "15.251 mm"
   }
 }

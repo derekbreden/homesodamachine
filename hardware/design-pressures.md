@@ -44,14 +44,15 @@ destroyed is a part that comes out by being destroyed.
   chain order, each body free as its own joint closes. What it forbids is fixing both ends
   first, and a body whose butts run on two axes being last in. The flavour manifold has three
   interior butt joints: Y-A to V-C, Y-B to V-D and the crossbar between Y-A and Y-B. Each
-  pump tee reaches its fore valve on a short tube that stands off straight, not a butt
+  pump tee reaches its fore valve on a short straight tube, not a butt
   ([`manifold-layout/`](/hardware/manifold-layout/README.md)).
 - **The pump dock separates at the pump tees' branch collets.** Each tee's branch lies in an
   anchor's journal under a snapped-on cap, which holds it in X and Z and lets it slide along
   Y; the collet plate stops it fore at the end of its collet stroke. Pulling the cartridge drags the
   tees forward against the plate, which holds each collet in while the tube draws out, and
-  pushing it in returns them. The fore valves stand over the middle of that travel, so each
-  upper tube bends half the stroke either way, and each hairpin flexes with its tee
+  pushing it in returns them. The fore valves stand over the tees' connected axes, so each
+  upper tube stands straight in service and bends the stroke at release, and each hairpin
+  flexes with its tee
   ([pump dock](/hardware/printed-parts/enclosure/pump-dock/README.md)). Complete
   replacement pumps carry factory-fitted LLDPE tubes; the customer replaces no dock
   component.

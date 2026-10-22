@@ -102,7 +102,6 @@ def main():
         "MANIFOLD_TEES": f"{len(_ml.PURCHASED_TEES)}",
         # The pump tees' collet stroke, and the fore valve set at the middle of it.
         "DOCK_TEE_STROKE": f"{_ml._returns.TRAVEL:.3g} mm",
-        "DOCK_FORE_VALVE_SET": f"{_ml._returns.FORE_VALVE_SET:.3g} mm",
         # Each upper tube and hairpin blank: its exposed path, a tube bottomed in the tee's
         # extended run collet, and the valve's layout estimate.
         "DOCK_TEE_INSERTION": f"{_ml._returns.RUN_INSERTION:.4g} mm",

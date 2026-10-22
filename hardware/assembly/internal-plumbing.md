@@ -153,16 +153,16 @@ Lay out the ten Beduan valves, the [6](MANIFOLD_TEES) PP0208E tees and the four 
 
 2. **Fit each tee with its upper tube and fore valve.** The upper tubes are `fluid-10`
    (Y-C to V-E), `fluid-13` (Y-D to V-F), `fluid-20` (Y-F to V-H) and `fluid-23` (Y-G to
-   V-I). Each nominal blank is [38.9256 mm](DOCK_UPPER_TAIL): [15.2756 mm](DOCK_FORE_LINK)
+   V-I). Each nominal blank is [38.901 mm](DOCK_UPPER_TAIL): [15.251 mm](DOCK_FORE_LINK)
    exposed, [11.65 mm](DOCK_TEE_INSERTION) bottomed in the tee's extended upper collet and
    an estimated [12 mm](DOCK_VALVE_INSERTION) in the valve. Seat uncut tube fully in the
    actual fore valve's bottom collet, mark the tube at the collet face, and cut it the
    exposed length plus the tee's insertion beyond that mark. Push the tube fully into the
    tee's upper collet and the fore valve's bottom collet. Bring the tee, tube and valve in
    together, the branch along its anchor's journal toward the collet plate, and press the
-   fore valve onto its tray posts. The fore valve's axis stands at the middle of the tee's
-   travel, so the upper tube stands [0.75 mm](DOCK_FORE_VALVE_SET) off straight at
-   connected and as far the other way at release.
+   fore valve onto its tray posts. The fore valve's axis stands over the tee's connected
+   axis, so the upper tube stands straight at connected and bends the tee's
+   [1.5 mm](DOCK_TEE_STROKE) stroke at release.
 
 3. **Snap the tee caps.** Press each tee cap straight down over its tee's branch, a wing
    either side of the anchor, until both lips click into their windows. Tug each tee
@@ -289,7 +289,7 @@ Procedure-level gaps that need answers before unit 1 ships:
 1. **Pump enclosure-mount mechanism.** The cartridge has two fitted lower wells and one broad cap, closed by [2](CAP_SCREWS) M3×[60](CAP_SCREW_LEN) screws from above. The raised crown surrounds the motor ends with open terminal wells. Derek confirms firm retention and no vertical play in his accepted assembled pair; the local comparison and current cap checks are linked from the [physical-fit record](/hardware/reference/kamoer-kphm400/physical-fit.json). The cartridge comes out first, the clamp lifts, then each complete pump lifts out of the cradle ([`/hardware/service/pump-replacement.md`](/hardware/service/pump-replacement.md)). [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) owns the printed parts.
 2. **The pack's two seam-crossing runs still need a motion gate.** V-A and V-B stand on the cold core's cap while Y-A and Y-B ride in the front-top manifold, so their two runs cross the Y seam. Their assembly moment is the open-cart stage before the back assembly rides over the core, with both mouths still reachable. [`_lines.py`](/hardware/manifold-layout/_lines.py) draws neither run, so the tree still lacks a geometry check that proves the available reach and the closing sweep.
 3. ~~**Tap-water tap-point into the flavor manifold (V-A inlet).**~~ **CLOSED.** The flavor tap comes off the **water split** — the JG PP0208E 1/4" union tee one tube-length forward of the ASSE 1022's outlet (`reference/water-split/`): its forward run collet → `fluid-1` → SB-FPV-40 pressure regulator → `fluid-2` → V-A ([`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md) tube segments 1 and 2). The ASSE leaves at 1/4", so the split and the tap run are both plain 1/4" PTC — no 3/8"-to-1/4" branch chain. See [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §3.
-4. **Pump dock release and retention.** The upper tube's spring at 0.75 mm each way, the
+4. **Pump dock release and retention.** The upper tube's spring at its 1.5 mm release bend, the
    hairpins' spring across the tee's travel, the complete release and insertion force, the tee caps' snap and retention on printed parts,
    the anchors' fit and the prepared pump's tube clamp under docking load are unmeasured.
    The dock's seals and lifetime under fluid and cleaning, and the depressurization of a
@@ -300,7 +300,7 @@ Procedure-level gaps that need answers before unit 1 ships:
 6. ~~**A cradle for the WR1110 body.**~~ **CLOSED.** The regulator lies in a bored rib off the top wall, closed on the scanned ⌀18.87 barrel between its two wrench hexes (`enclosure._tube_anchors` off [`enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py)'s `BODY_ANCHOR_SITES`). It crosses the +Y wall one `PORT_PITCH` east of the carb union and on the panel deck's own storey, so the top wall reaches it the way it reaches the flow meter one column west. [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) owns the part.
 7. ~~**Cabinet-internal carbonated-water insulation segment count.**~~ **CLOSED — cut-to-length pieces, not 1-ft segments.** The cold-core-exit → blue-ringed-bulkhead run has a fixed length per build, is closed entirely in-shop and is never field-trimmed, so the 1-ft granularity that serves the above-counter umbilical buys nothing here and would leave up to 12" of bare tube on the coldest part of the line. The riser is authored in [`_lines.py`](/hardware/manifold-layout/_lines.py) as `carb-1` and `carb-2`, and the flow meter between them means **a piece per run, not one** — each cut to its own run's developed length, which the enclosure-assembly build prints per line, and slid on before the collets go down. `carb-1`'s is cut in two at its rib, whose bore and anchor cap close on the bare tube. [`bom.md`](/hardware/ledger/bom.md) §9 carries 84 in of CARGEN per build: the 24 in this riser takes, which covers all three pieces, plus the umbilical's five 1-ft segments.
 8. **Upper tube and hairpin stock lengths.** Each tee-to-valve blank includes both
-   fittings' insertion depths as well as its exposed path, [15.2756 mm](DOCK_FORE_LINK)
+   fittings' insertion depths as well as its exposed path, [15.251 mm](DOCK_FORE_LINK)
    for an upper tube. The tee's [11.65 mm](DOCK_TEE_INSERTION) is a tube bottomed in an
    extended run collet of the reference tee; the valve's [12 mm](DOCK_VALVE_INSERTION) is
    a layout estimate. §3 steps 2 and 4 take the valve engagement from the actual received

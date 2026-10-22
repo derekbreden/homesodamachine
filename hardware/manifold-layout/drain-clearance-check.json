@@ -87,12 +87,12 @@
         },
         {
           "name": "coil-v-e",
-          "gap_mm": 15.4626809,
+          "gap_mm": 15.0064025,
           "overlap_mm3": 0
         },
         {
           "name": "coil-v-f",
-          "gap_mm": 8.7359182,
+          "gap_mm": 8.0326736,
           "overlap_mm3": 0
         },
         {
@@ -112,12 +112,12 @@
         },
         {
           "name": "coil-v-h",
-          "gap_mm": 15.4626809,
+          "gap_mm": 15.0064025,
           "overlap_mm3": 0
         },
         {
           "name": "coil-v-i",
-          "gap_mm": 1.7778557,
+          "gap_mm": 1.6751753,
           "overlap_mm3": 0
         },
         {
@@ -277,17 +277,17 @@
         },
         {
           "name": "tube-fluid-26",
-          "gap_mm": 5.4531245,
+          "gap_mm": 5.5563782,
           "overlap_mm3": 0
         },
         {
           "name": "tube-fluid-14",
-          "gap_mm": 5.1206553,
+          "gap_mm": 5.1741035,
           "overlap_mm3": 0
         },
         {
           "name": "tube-fluid-16",
-          "gap_mm": 4.557158,
+          "gap_mm": 4.7109193,
           "overlap_mm3": 0
         },
         {

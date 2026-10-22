@@ -366,7 +366,7 @@ under a snapped-on PET-GF tee cap, which holds the tee in X and Z and lets it sl
 Y; the plate stops it at the fore end of its 1.5 mm collet stroke, and in service the
 bottomed pump tube holds it at connected. Pulling the cartridge drags each tee forward until the plate holds the collet in and
 the tube draws out. A short upper tube joins each tee to its fixed fore valve, which stands
-over the middle of the stroke, and one R14 LLDPE hairpin joins it to its rear valve; both
+over the tee's connected axis, and one R14 LLDPE hairpin joins it to its rear valve; both
 flex with the tee. Four SB443-IN pairs, one column of two on each pump's own line, seat the
 cartridge. The customer replaces complete pumps; the tees, caps, valves and tubing stay in
 the machine.
@@ -382,10 +382,9 @@ predicts neither retention force nor life. The
 the printed-in slots, rails and pause loading.
 
 The dock has no physical release, seal, lifetime or cleaning acceptance. The upper tube's
-spring at 0.75 mm off straight each way and the hairpins' spring across the tee's travel are
-unmeasured; at connected the upper tube pulls the tee forward
-and, through the bottomed pump tube, pushes the cartridge against its magnets, and at
-release it adds to the pull. The complete release and insertion force, the tee caps' snap
+spring at its 1.5 mm release bend and the hairpins' spring across the tee's travel are
+unmeasured; both add to the pull at release, and the straight upper tube loads nothing at
+connected. The complete release and insertion force, the tee caps' snap
 and retention on printed parts, the anchors' fit, the pump tube clamp under docking load,
 the magnets' assembled seat and rail capture, and sealing and lifetime under fluid and
 cleaning are unmeasured. Material data alone do not establish finished wet-part

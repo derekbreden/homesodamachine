@@ -46,9 +46,9 @@ passes front-top's collet plate into the branch and bottoms at the tee's stop,
 and the branch collet grips it against pressure. Pulling the cartridge drags the
 tube, the collet and the tee forward until the plate holds the collet in, and the
 tube draws out; pushing the cartridge in returns the tee. The upper port reaches
-its fore valve on a short tube with [15.2756 mm](UPPER_LINK_EXPOSED) exposed. The
-fore valve stands over the middle of the tee's travel, so that tube stands off
-straight one way in service and the other way at release. The lower port reaches
+its fore valve on a short tube with [15.251 mm](UPPER_LINK_EXPOSED) exposed. The
+fore valve stands over the tee's connected axis, so that tube stands straight in
+service and bends the tee's stroke at release. The lower port reaches
 its rear valve on one R14 hairpin, which flexes with the tee. Factory cuts and assembly
 follow [internal plumbing §3](/hardware/assembly/internal-plumbing.md#3-flavor-manifold-v-a-through-v-j--y-a-y-b-y-c-y-d-y-f-y-g--pumps).
 Y-C and Y-F take suction; Y-D and Y-G discharge.
@@ -72,9 +72,9 @@ connection inventory. A segment is a face-to-face `butt`, a known `straight`, a
 `hairpin` bent at the stock's radius from a pump tee to its rear valve, a `pump-dock`
 connection, a `turn` out of a deck plane, or a swept `drawn` run.
 Of [26](SEGMENT_COUNT) manifold segments, [3](BUTT_COUNT) carry no exposed tube,
-[4](UPPER_LINK_COUNT) short upper tubes have [15.2756 mm](UPPER_LINK_EXPOSED) exposed
+[4](UPPER_LINK_COUNT) short upper tubes have [15.251 mm](UPPER_LINK_EXPOSED) exposed
 and [4](LOWER_HAIRPIN_COUNT) hairpins are reported as cut stock, both insertions
-included. Reported LLDPE paths total [3192.7 mm](FLUID_TOTAL); the other exposed
+included. Reported LLDPE paths total [3189.9 mm](FLUID_TOTAL); the other exposed
 lengths need their actual fitting insertions when making finished blanks. A butt
 joint still needs tube through both fittings despite its zero exposed length. The
 factory marks each actual fully seated insertion in the purchased collets before
