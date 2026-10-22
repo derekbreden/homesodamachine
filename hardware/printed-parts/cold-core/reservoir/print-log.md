@@ -438,3 +438,47 @@ at 59° versus five at 10°, including four additional sub-millimeter segments
 near curved-wall ends. The submitted body G-code has no explicit extrusion Z
 ramps away from nominal layer heights.
 [Native reading](prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/wall-junction-review.json).
+
+
+## Left reservoir and cap, five walls / flow 1.05 / overlap 30% (2026-10-22, Mark1 task 1365626370)
+
+Derek requested:
+
+> - 1.05 flow rate
+> - enough walls for our actual walls to be entirely walls, no more
+> - double the XY overlap (does bambu slicer call this wall/infill overlap? Its at 15% now?)
+> - higher temp
+
+He authorized:
+
+> Okay, good enough, start that print
+
+Mark1's new task **1365626370** was freshly verified running at **18:39:14 CDT /
+23:39:14 UTC**, after one Studio Send click and `project_file` SUCCESS. The
+printer reports **`Flavor_reservoirs_-_PETG_0.24_mm`**, the normalized native
+project Title. The visible archive, new task, native estimate and receipt bind
+that name to the submitted left body/cap plate. The verification timestamp is
+not the exact command-acceptance instant.
+
+The selected recipe is **five requested Arachne wall loops**, **100% solid
+zig-zag floor fill**, **30% Infill/Wall overlap**, **flow 1.05** and **265/270 °C**
+first/subsequent nozzle. Counts 2–4 leave non-wall fill in the ordinary corner
+walls; 5 has only wall features through both complete ordinary body-wall bands.
+The 10° transition threshold is the Arachne parameter default. The recovered
+May file selects Arachne; installed stock H2C 0.8 profiles select Classic.
+The current normal/first layer heights remain **0.24/0.30 mm**. Installed presets
+provide **0.24, 0.32 and 0.40 mm**, with a **0.16–0.56 mm** custom machine range.
+[Recipe and source facts](recipe-reviews/2026-10-22-flow105-overlap30/README.md).
+
+The right **0.8 mm Standard** nozzle is selected, with **A3 PETG R**. A3 is the
+only matching loaded spool (39%); A1/A2/A4 are empty. AMS backup is visibly On.
+Timelapse and bed leveling are On; flow dynamics and nozzle offset calibration
+are Auto. Mark2 retains its same running task with at least 2,142 seconds
+between its observed acceptance and final preflight.
+
+The reviewed plate estimates **5 h 42 min, 444.28 g and 833 layers**, no plate
+warning, seven bed-rooted support bodies and a 70.5 mm minimum full-bead bed-edge
+inset. No brim, zero added user Z trim and ironing Off remain selected. Camera
+startup observations show the empty bed at layer 0. Model contact and sealing
+remain unassessed; no scheduled monitor was created or reactivated.
+[Launch, complete recipe and startup](prints/2026-10-22-mark1-flow105-overlap30-right08-z000/README.md).
