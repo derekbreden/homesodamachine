@@ -234,9 +234,6 @@ PUMP_DOCK_PORTS = {
     "east-inner": ("Y-C", "fluid-11"),
     "east-outer": ("Y-D", "fluid-12"),
 }
-# Keepers by the receivers they hold, as `pump-dock/dock_structure.KEEPERS` names them.
-PUMP_DOCK_KEEPERS = {"west": ("west-outer",), "middle": ("west-inner", "east-inner"),
-                     "east": ("east-outer",)}
 
 MOUNTS = (
     # THE ONE BODY ON THE FLOOR THE SLAB FASTENS. Four posts stand on the front piece's slab
@@ -432,16 +429,14 @@ MOUNTS = (
     # The assembled cradle and clamp ride out of the front bay with both pumps aboard.
     ("pump-a-head", "enclosure-pump-cartridge", "case"),
     ("pump-b-head", "enclosure-pump-cartridge", "case"),
-    # The wall locates X/Z; downward-open keepers seat on the necks and capture Y.
-    *((f"pump-receiver-{port}",
-       ("enclosure-front-top", f"pump-keeper-{keeper}"), "wall-seat-and-keeper")
-      for keeper, ports in PUMP_DOCK_KEEPERS.items() for port in ports),
-    *((f"pump-keeper-{keeper}", "enclosure-front-top", "slot-slide-and-gravity-seat")
-      for keeper in PUMP_DOCK_KEEPERS),
-    # Each elbow is joined to its mounted valve by a short push-fit tube.
-    *((f"pump-elbow-{port}", valve, "short-push-fit-link") for port,valve in
-      (("west-outer","valve-v-j"),("west-inner","valve-v-d"),
-       ("east-inner","valve-v-c"),("east-outer","valve-v-g"))),
+    # Each pump tee's branch lies in its anchor's half journal and a tee cap snaps down over
+    # it: X and Z held, its collet stroke free along Y between the collet plate and the
+    # cap's stop.
+    *((f"tee-{tee.lower()}", ("enclosure-front-top", f"tee-cap-{tee.lower()}"),
+       "anchor-and-cap")
+      for tee, _segment in PUMP_DOCK_PORTS.values()),
+    *((f"tee-cap-{tee.lower()}", "enclosure-front-top", "lips-in-anchor-windows")
+      for tee, _segment in PUMP_DOCK_PORTS.values()),
     # Each SB443-IN block rides its column slot's printed rails in its two side grooves,
     # closed in by the layer printed over the column at the part's one pause.
     *((f"pump-dock-SB443-{side}-{column}-{row}", host, "rails-in-printed-slot")
@@ -647,9 +642,13 @@ TOUCHING_OK = {frozenset(p) for p in (
       for row in range(1, dock_retention.ROWS_PER_COLUMN + 1)
       for offset in (-1, 1)
       if 1 <= row + offset <= dock_retention.ROWS_PER_COLUMN),
-    # Intentional near-contact interfaces of the permanent receiver assembly.
-    *((f"pump-receiver-{port}", f"pump-keeper-{keeper}")
-      for keeper, ports in PUMP_DOCK_KEEPERS.items() for port in ports),
+    # Each pump tee's extended collet stands on the collet plate's release face, its collar
+    # runs in the anchor's journal under its cap, and the cap's shoulders sit on the anchor.
+    *((f"tee-{tee.lower()}", host)
+      for tee, _segment in PUMP_DOCK_PORTS.values()
+      for host in ("enclosure-front-top", f"tee-cap-{tee.lower()}")),
+    *((f"tee-cap-{tee.lower()}", "enclosure-front-top")
+      for tee, _segment in PUMP_DOCK_PORTS.values()),
 
     # Nominal made-up thread faces. Physical NPT engagement remains a fit qualification.
     ("wr1110", _gas_chain.REG_IN_ADAPTER),
@@ -761,10 +760,10 @@ TOUCHING_OK = {frozenset(p) for p in (
 MADE_AS = {
     "drawn":     "drawn as a run",
     "straight":  "made by a lane's own straight",
-    "pump-dock": "made by a prepared pump's LLDPE stub in a permanent TPU junction",
+    "pump-dock": "made by a prepared pump's LLDPE tube through the collet plate into a tee",
     "butt":      "made by a butt between two collets",
     "mate":      "made up across the plane its two bodies share",
-    "elbow-and-tube": "purchased PP0308E below the valve, short valve link and bent LLDPE tube",
+    "hairpin":   "one LLDPE hairpin bent at the stock's radius from the tee to the valve",
     "turn":      "made by a quarter turn and the step off it",
     "not drawn": "still to route",
 }
@@ -775,10 +774,10 @@ def made_of(how: str) -> str:
     """One `manifold_layout.SEGMENTS` row's own `how` column, as one of `MADE_AS`'s names.
 
     `SEGMENTS` supplies the construction. Its compatibility names for the lower
-    and fore paths identify purchased elbows with formed tubes and straight upper links."""
+    and fore paths identify the hairpins and the short upper tubes."""
     import manifold_layout as ml
     if how == "spine":
-        return "elbow-and-tube"
+        return "hairpin"
     if how in ml.BARB_OF:
         return "pump-dock"
     if how in ml.FORE_STUBS:

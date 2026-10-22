@@ -59,10 +59,10 @@ back now faces up.
 
 `PACK_CROWN` locates the manifold above the refrigeration base. Eight flavor valves stand in
 the two valve trays and two stand on the cold core's cap. The cap also carries the separate
-water-fill valve. The pump cartridge supports both pump heads. Each permanent TPU junction
-locates in the receiver wall; a gravity-seated flat keeper captures Y, and the
-short push-fit tubes join the four purchased PP0308E elbows directly beneath the rear valves. The two purchased tees butt
-onto held valves.
+water-fill valve. The pump cartridge supports both pump heads. Each pump tube enters a
+purchased PP0208E tee behind front-top's collet plate; the tee stands in a tee anchor under a
+snap-down tee cap, and one R14 hairpin joins its lower port to the rear valve beneath it. The
+crossbar's two tees butt onto held valves.
 The `mounted` axis records these load paths.
 
 Run it
@@ -191,7 +191,6 @@ import nameplate as _np                               # noqa: E402
 import valve_tray as _vtray                           # noqa: E402
 import pump_tray as _tray                             # noqa: E402
 import dock_structure as _dock
-import pump_receiver as _receiver                    # noqa: E402
 # One table: what a colour MEANS on the rear face. The iso line-art paints its discs from it and
 # the quick-start sheet aims its arrows by it, and the ring this module lays in the wall is the
 # third reader. It reaches for `enclosure_assembly` inside its own functions and never at import,
@@ -423,44 +422,22 @@ def record_seat(name, *, turns=(), planes=None, station=None, got=None, members=
     return SEATS[name]
 
 
-def _dock_face_witness(solid, point, normal):
-    """Read a construction witness off the nearest parallel native plane."""
-    vertex = cq.Vertex.makeVertex(*point)
-    direction = cq.Vector(*normal).normalized()
-    reads = []
-    for face in solid.Faces():
-        if face.geomType() != 'PLANE' or abs(face.normalAt().dot(direction)) < 1 - 1e-7:
-            continue
-        distance = _BRepDist(vertex.wrapped, face.wrapped)
-        distance.Perform()
-        hit = distance.PointOnShape2(1)
-        reads.append((distance.Value(), (hit.X(), hit.Y(), hit.Z())))
-    return min(reads, key=lambda row: row[0])[1]
-
-
 def record_pump_dock_seats(box_spec, dock_parts, retention):
-    """World-authored dock parts on wall/port and bare-pole construction datums."""
+    """World-authored dock parts on the release face and bare-pole construction datums."""
     plate = box_spec.pack.collet_plate
-    fore = plate['fore_y']
-    # The asymmetric branches do not have a symmetric bounding box. The
-    # unchanged pump-facing lip locates each receiver on the wall's fore face.
-    for suffix, (x, z) in zip(_dock.STATIONS, plate['holes']):
-        name = f'pump-receiver-{suffix}'
-        record_seat(name, planes={'y0': fore + _receiver.FRONT_LIP_Y[0]},
+    aft = plate['aft_y']
+    for _station, tee_name, x, z in _dock.stations(plate):
+        # Each tee stands at connected: its extended branch collet on the release face,
+        # its run upright on the pump tube's axis.
+        name = 'tee-' + tee_name.lower()
+        record_seat(name, planes={'y0': aft, 'cx': x, 'z0': z - _dock.plumbing.RUN_FACE},
                     got=box(dock_parts[name]))
-    # Each keeper seats downward on the occupied neck crown in its wall slot.
-    for keeper in _dock.KEEPERS:
-        name = f'pump-keeper-{keeper}'
-        record_seat(name, planes={'y0': fore + _receiver.KEEPER_Y[0],
-                                 'z0': _dock.keeper_arc_z(plate) - _dock.KEEPER_BELOW},
+        # Each cap snaps home on its anchor's lips: centred over the branch, its fore end
+        # one end air off the plate and its lips' tips down the anchor's flanks.
+        name = 'tee-cap-' + tee_name.lower()
+        record_seat(name, planes={'cx': x, 'y0': aft + _dock.anchor.END_AIR,
+                                  'z0': z - _dock.anchor.WING_TOP},
                     got=box(dock_parts[name]))
-    # The scanned upper release face locates each purchased elbow.
-    for suffix,(x,_z) in zip(_dock.STATIONS,plate['holes']):
-        layout=_dock.plumbing.layouts(plate)[str(x)]['elbow']
-        point=(cq.Vector(*layout['up_face'])+cq.Vector(*layout['x_axis'])*3.8).toTuple()
-        name='pump-elbow-'+suffix
-        record_seat(name,station=point,
-                    got=_dock_face_witness(dock_parts[name],point,layout['up_axis']))
     interface = retention['interface']
     magnet_spec = _enc._retention
     columns = magnet_spec.column_stations(plate['holes'])
@@ -1246,13 +1223,13 @@ def pump_tray_plans(a=None, shell=None) -> dict:
             for head, (_axis, _sign, centre) in pump_tray_seats(placed).items()}
 
 
-# --- the fixed pump receiver wall -------------------------------------------
-# The fixed wall stands behind the cartridge back by the body air. The fitted
-# pump tips and original valve ports locate the permanent wet parts.
+# --- the bay bulkhead and its collet plate ------------------------------------
+# The plate stands behind the cartridge back by the frame gap. The fitted pump tubes and
+# the original valve ports locate the four tees and their tubes.
 
 
 def collet_plate_spec(mcarry, tray_stations, valve_trays=()) -> dict:
-    """Pump-dock declaration (the persisted Pack field retains its schema name)."""
+    """The bay bulkhead, its collet plate and the four tee stations behind it."""
     holes, upper_ports, return_ports = [], {}, {}
     for name in sorted(ml.BARB_OF):
         (px, _py, pz), _axis = mcarry((ml.barb_station(name), (0., 0., 1.)))
@@ -1266,18 +1243,25 @@ def collet_plate_spec(mcarry, tray_stations, valve_trays=()) -> dict:
     holes = sorted(holes)
     fore = round(ml.pump_wall_fore_y(), 6)
     row = holes[0][1]
-    return {"holes": tuple(holes), "fore_y": fore, "aft_y": fore+3.175,
+    plumbing = _dock.plumbing
+    return {"holes": tuple(holes), "fore_y": fore,
+            "aft_y": round(plumbing.plate_aft_y(fore), 6),
             "wall_aft_y": fore+14.321,
-            "receiver_wall_aft_y": fore+_receiver.WALL_THICKNESS,
+            "plate_top_z": round(_dock.plate_top_z(row), 6),
+            "plate_x": round(max(abs(x) for x, _z in holes) + _dock.WING_OUT
+                             + _dock.CAP_TOP_AIR, 6),
             "x0": _enc.interior_x()[0], "x1": _enc.interior_x()[1],
             "z0": _enc.z_seam, "z1": 218.85,
-            "hole_d": _receiver.WALL_BORE_D,
+            "hole_d": 2.0 * _dock.HOLE_R,
             "seat_z": round(_enc.bay_floor_z(tray_stations)[1],6),
             "upper_ports": upper_ports, "return_ports": return_ports,
             "valve_trays": tuple(valve_trays),
             "fixture_print_bed_z": _enc.z_seam + _enc.slide_slip,
-            "seated_tube_bottom_y": fore+_receiver.CUSTOMER_TIP_Y,
-            "tube_bottom_y": fore+_receiver.CUSTOMER_STOP_Y,
+            "tee_axis_y": round(plumbing.tee_axis_y(fore), 6),
+            "tee_released_y": round(plumbing.tee_axis_y(fore, "released"), 6),
+            "seated_tube_bottom_y": round(plumbing.tip_y(fore), 6),
+            "pump_tube_cut": round(ml.PUMP_TUBE_CUT, 6),
+            "tube_bottom_y": round(plumbing.tip_y(fore), 6),
             "assembly_state": "seated"}
 
 
@@ -1374,14 +1358,12 @@ def _boxed(x0, x1, y0, y1, z0, z1):
 
 
 # What rides FRONT-TOP into its own close: the flavour pack is made up into the trays
-# and the receiver wall on the bench (`internal-plumbing.md` §3), so the piece arrives
+# and the tee anchors on the bench (`internal-plumbing.md` §3), so the piece arrives
 # carrying it and the sweep has to carry it too — LESS the bodies cradled on the cold
 # core's own cap, which are the core's riders and nobody else's. The crossing runs to
 # the bulkheads and the pumps' own tubes are made up later and are not in the box yet.
-# The receiver bulkhead and fixed supports are integral with front-top.
-FRONT_RIDERS = ("valve-v-", "coil-v-", "tee-y-", "turn-", "step-",
-                "pump-receiver-",
-                *("pump-elbow-"+station for station in _dock.STATIONS))
+# The bulkhead, its collet plate and the tee anchors are integral with front-top.
+FRONT_RIDERS = ("valve-v-", "coil-v-", "tee-y-", "tee-cap-", "turn-", "step-")
 # What rides THE CORE on its cart — everything standing on or cradled in the cap's lid
 # when the back assembly comes over: the water pump with its two elbows and their clamps,
 # the made-up check chain, and the three cap-cradled valves with their coils and port stubs.
@@ -5804,7 +5786,7 @@ def report(a: cq.Assembly, clashes=None) -> None:
     print(f"  base crown       z {crown:.2f}   manifold low face    z {pack.zmin:.2f}   "
           f"gap {pack.zmin - crown:.2f}")
     print(f"  the pump-head faces stand z {pump_face:.2f}, {pump_face - crown:.2f} mm over the "
-          f"crown; the valve trays, receiver wall and dry fixtures support the manifold")
+          f"crown; the valve trays, tee anchors and dry fixtures support the manifold")
     print(f"  the base's own two crowns differ by {abs(sh.zmax - co.zmax):.2f}")
     base_aft = max(sh.ymax, co.ymax)
     print(f"  base aft face    y {base_aft:.2f}   foam front face      y {fo.ymin:.2f}   "

@@ -8,12 +8,7 @@
     "back-top": "Source STEP/STL coordinates in the appliance frame",
     "pump-cartridge": "Source STEP/STL coordinates in the appliance frame",
     "pump-cap": "Source STEP/STL coordinates in the appliance frame",
-    "pump-receiver-west-outer": "Canonical manufacturing STEP/STL, already bedded in print pose",
-    "pump-receiver-west-inner": "Canonical manufacturing STEP/STL, already bedded in print pose",
-    "pump-receiver-east-inner": "Canonical manufacturing STEP/STL, already bedded in print pose",
-    "pump-receiver-east-outer": "Canonical manufacturing STEP/STL, already bedded in print pose",
-    "pump-keeper-outer": "Canonical manufacturing STEP/STL, already bedded in print pose",
-    "pump-keeper-middle": "Canonical manufacturing STEP/STL, already bedded in print pose"
+    "tee-cap": "Canonical manufacturing STEP/STL, already bedded in print pose"
   },
   "print_poses": {
     "front-bottom": {
@@ -220,177 +215,7 @@
         ]
       ]
     },
-    "pump-receiver-west-outer": {
-      "up_axis_in_source": [
-        0,
-        0,
-        1
-      ],
-      "bed_face": "Manufacturing export is already bedded in print pose",
-      "source_to_print_mm": [
-        [
-          1,
-          0,
-          0,
-          0
-        ],
-        [
-          0,
-          1,
-          0,
-          0
-        ],
-        [
-          0,
-          0,
-          1,
-          0
-        ],
-        [
-          0,
-          0,
-          0,
-          1
-        ]
-      ]
-    },
-    "pump-receiver-west-inner": {
-      "up_axis_in_source": [
-        0,
-        0,
-        1
-      ],
-      "bed_face": "Manufacturing export is already bedded in print pose",
-      "source_to_print_mm": [
-        [
-          1,
-          0,
-          0,
-          0
-        ],
-        [
-          0,
-          1,
-          0,
-          0
-        ],
-        [
-          0,
-          0,
-          1,
-          0
-        ],
-        [
-          0,
-          0,
-          0,
-          1
-        ]
-      ]
-    },
-    "pump-receiver-east-inner": {
-      "up_axis_in_source": [
-        0,
-        0,
-        1
-      ],
-      "bed_face": "Manufacturing export is already bedded in print pose",
-      "source_to_print_mm": [
-        [
-          1,
-          0,
-          0,
-          0
-        ],
-        [
-          0,
-          1,
-          0,
-          0
-        ],
-        [
-          0,
-          0,
-          1,
-          0
-        ],
-        [
-          0,
-          0,
-          0,
-          1
-        ]
-      ]
-    },
-    "pump-receiver-east-outer": {
-      "up_axis_in_source": [
-        0,
-        0,
-        1
-      ],
-      "bed_face": "Manufacturing export is already bedded in print pose",
-      "source_to_print_mm": [
-        [
-          1,
-          0,
-          0,
-          0
-        ],
-        [
-          0,
-          1,
-          0,
-          0
-        ],
-        [
-          0,
-          0,
-          1,
-          0
-        ],
-        [
-          0,
-          0,
-          0,
-          1
-        ]
-      ]
-    },
-    "pump-keeper-outer": {
-      "up_axis_in_source": [
-        0,
-        0,
-        1
-      ],
-      "bed_face": "Manufacturing export is already bedded in print pose",
-      "source_to_print_mm": [
-        [
-          1,
-          0,
-          0,
-          0
-        ],
-        [
-          0,
-          1,
-          0,
-          0
-        ],
-        [
-          0,
-          0,
-          1,
-          0
-        ],
-        [
-          0,
-          0,
-          0,
-          1
-        ]
-      ]
-    },
-    "pump-keeper-middle": {
+    "tee-cap": {
       "up_axis_in_source": [
         0,
         0,
@@ -426,78 +251,51 @@
     }
   },
   "part_process_overrides": {
-    "pump-keeper-outer": {
+    "tee-cap": {
       "wall_loops": "6",
       "sparse_infill_density": "100%",
       "sparse_infill_pattern": "zig-zag",
-      "purpose": "The keeper crown and U sides carry the junction collar into the wall backing. Whole-object solid deposition includes each groove bearing."
-    },
-    "pump-keeper-middle": {
-      "wall_loops": "6",
-      "sparse_infill_density": "100%",
-      "sparse_infill_pattern": "zig-zag",
-      "purpose": "The keeper crown and U sides carry the junction collar into the wall backing. Whole-object solid deposition includes each groove bearing."
+      "purpose": "Each spring wing flexes at every snap and its lip carries the tee into the anchor window. Whole-object solid deposition includes both wings and lips."
     }
   },
   "source_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "bca8d6eb91d0611115b62cb8d7dcf22451e5bb472f53af1b3a97d2244b405b72",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "f307f9e76d78e1e5a058ca4c3c5e171f4d142120dcf3c20ccb57c83764366018",
+    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "e40d0ca8dcb631cf6b56c34403c0b04482c92f5a394f95c73fa04b9760fded46",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "019d97e2786d4fbb5610c355ade49cb0ed11af87defceb65a3c4916f5d91a061",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "264bb52da73675dcd41f7fff8bc5fce6eabd06336fc3cf8b7a9b8560c21e5040",
-    "hardware/manifold-layout/enclosure-box.json": "f4a9be483de8e47279886b1feffcc82a6cdb651b764c37c10dab1b06b530794d",
-    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "8ded695d7e60356ac1f813489ad2351fabf113e31fe2b33df969bbef84f37fdb",
-    "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py": "3e77e06debc9b947b2d8999b67fb1e20dd3f7da31deec88a1da715b446c13ebe",
-    "hardware/printed-parts/enclosure/pump-dock/dock_retention.py": "74d4077df6d02934422037635a0083b218687317555fd4cf30e53994fc4f2dc0",
-    "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "c45204fddbdeb705192e03172df5fa9a8142cc9effd27fdf449f262c379e7579",
-    "hardware/printed-parts/petgf.3mf": "afe8b7d865690b511cfdbf7087393c7e9d29398facf6797323acb0ff9dc6c45c"
+    "hardware/manifold-layout/enclosure-box.json": "8e16c8c198c5263c7a3b588d8e6f1566d90f66a69ac7a3e33befddbf69639031",
+    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "8a69fddf31c463397bd1c281dac16c5d1165f3e977a01719b2b7c08c51ff2fab",
+    "hardware/printed-parts/enclosure/pump-dock/dock_retention.py": "8bc24f8bae454f027afa3ca9465ed83b3bfc390b5bcbe35b97e7ee01b172d0e4",
+    "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "45bbb30e2150396fa53673a962ae57bcd0ac06c0132b5da4e1e0176bb9657faa",
+    "hardware/printed-parts/petgf.3mf": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0"
   },
   "native_artifact_sha256": {
     "front-bottom": {
-      ".step": "527de107e9e5f5d12f81bed4606b82e57952bd8e0401646c19d48db459fe9ab2",
-      ".stl": "db09d9da5a87faab648c25fc997aa92ceb91a9f9c85582f2fef0bb013b8ea532"
+      ".step": "625d5a13937f8680db48b3b07aa7e4745eb5865b57484e01dffa6e5ae66b6c6b",
+      ".stl": "62a3d94e8bd4a423f183c213c8b32f0bb61b47729278447ef7690afac490cd8b"
     },
     "front-top": {
-      ".step": "e3d85f4da5a5c306623d827dbfc9cf930f7a928d58780528f1e490d7eaa6c69a",
-      ".stl": "abb0af6e3bd384a3f38150dc80cd3156e78bf93bf31a38c9fc3f94688f519cda"
+      ".step": "7c29eb73140c5aeb502301c0a072c3b18288b63b4ec8e2d72a025a870465d182",
+      ".stl": "3b320441f8a20d6fd36df81697313f49bdd301e05b0a509f4d6bb0f52db6edd3"
     },
     "back-bottom": {
-      ".step": "89e3f4a760184ac18123ff34b2b4b9dfd4e19ee444f3f1dd949204f18de0eee8",
-      ".stl": "e77fd73bd51b1fc2835f9ec4957b93aad32c33741161d52c433d24f3f8b9ec5b"
+      ".step": "9cd6a2e8acddd375fc1946762ac077fec9d765d6a955b4e07c9f6d795af2b162",
+      ".stl": "205ad39269bed707a8a6f4eebeee4503f6374338f7712560e9d1e027b748d902"
     },
     "back-top": {
-      ".step": "20a672231ed2d134095c443f21c089e95c46b3af92cdec97de4dceb6fdc2c0ff",
-      ".stl": "17c04da0f3ef675a0f03b9965afcc392226b27393d9e7f58e9eb23592b1334de"
+      ".step": "fffda46c36ff29151b0380022f37d5456b04f644e6aa9cfc674ef1902388fee0",
+      ".stl": "99174a4e3c0846235fa77af3d91a35cacda441dc1191accab4d65763d1bc2ddb"
     },
     "pump-cartridge": {
-      ".step": "ebf2ca8b1ebc52c3d8979a92d1cf60ef28f5d48e2020f3c0879164f5562585de",
-      ".stl": "fd84d158eb58c2a9db9a7c30bd8001b41c2edc95d4271f970210d0401a7cf8b2"
+      ".step": "1ee2d2b81d6ba91043fd48ce5c69e2865c205b0c2b65eb2275edc2c04f2f0d6d",
+      ".stl": "07fc37ccd4c4238406c0f3d0f3117ec71184720c15b85d6cae04d843cccb0c78"
     },
     "pump-cap": {
-      ".step": "0941f4982ce97a60c876ec519b06b35dc55166ca86a8c1a49e9db8e65ea1848e",
-      ".stl": "119b7c35f59b9117f5849e45b9da5975b4b0b36fde29db7ad7148a67e65b92ba"
+      ".step": "21a12194da0c9c7b3984905ace0f26d8b57e9c12bbba4b5a264e75ee955a95c6",
+      ".stl": "bbcb05f67b2bc71eba6d031bd3eab53661feb4606a7971875294fa8f26df8580"
     },
-    "pump-receiver-west-outer": {
-      ".step": "d0926e659d98f8fdab0bdb8254cb4e3a58cc3661314f419a8dbd3e5c86b88b58",
-      ".stl": "e8c6d0a912e0868f100408643e75c05bfcb7894eb0ee49aaf2ec3c3c422a9edb"
-    },
-    "pump-receiver-west-inner": {
-      ".step": "d0b3dc76999bb86dbaa153fda86f62142b561d868f0d51b88916749eb910b804",
-      ".stl": "733581a0b37c7cb0f7935942cee878694b22ac99dfb96e34f585668862d877f8"
-    },
-    "pump-receiver-east-inner": {
-      ".step": "a4b3ae581bad58428e5c091dac683c4a9810b7e181300526b347078c6a48696b",
-      ".stl": "733581a0b37c7cb0f7935942cee878694b22ac99dfb96e34f585668862d877f8"
-    },
-    "pump-receiver-east-outer": {
-      ".step": "aff7c415ec9b66193be4b06504e4c046ac0673a490b18dd38869f31405111893",
-      ".stl": "663adac8f7810df7368d13610fc20ef80bc527c89bca139cc528d37950cbd6b4"
-    },
-    "pump-keeper-outer": {
-      ".step": "760c88c55d3a1c27c5458849588dbf62413fa6baa4023209f0a7e81cd5d9c41f",
-      ".stl": "9a24bc88414058182934ed0bccc696d0025d08f3ff4ed37877b2ca078679a6c5"
-    },
-    "pump-keeper-middle": {
-      ".step": "76ccc52fccd018d5469e21618d701fe883e84fed8dbe6297d4f5056bd5a41ea3",
-      ".stl": "4e9f0dcd8ef9ee10275b897e45f88efab3921f11595c3745cb6858c84435e474"
+    "tee-cap": {
+      ".step": "5c639a220c4c15a13cef7eea8b043a727a3dd8ec7078768f681e5313599cb0c8",
+      ".stl": "a28b513ace3f8dbba90cad5cfe7c6f93f651ef2a5d1799df5392bd308d270407"
     }
   },
   "pieces": {
@@ -940,101 +738,14 @@
         ]
       },
       {
-        "name": "Dock keeper slot west, backing skin and fingers",
-        "machine_bounds_mm": [
-          -94.35,
-          -69.85,
-          93.015,
-          96.836,
-          160.25,
-          211.374
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag",
-        "applied_source_bounds_mm": [
-          -94.35,
-          -69.85,
-          93.015,
-          96.836,
-          160.25,
-          211.374
-        ],
-        "print_bounds_mm": [
-          -94.35,
-          -69.85,
-          93.015,
-          96.836,
-          0.0,
-          51.123999999999995
-        ]
-      },
-      {
-        "name": "Dock keeper slot middle, backing skin and fingers",
-        "machine_bounds_mm": [
-          -34.6,
-          34.6,
-          93.015,
-          96.836,
-          160.25,
-          211.374
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag",
-        "applied_source_bounds_mm": [
-          -34.6,
-          34.6,
-          93.015,
-          96.836,
-          160.25,
-          211.374
-        ],
-        "print_bounds_mm": [
-          -34.6,
-          34.6,
-          93.015,
-          96.836,
-          0.0,
-          51.123999999999995
-        ]
-      },
-      {
-        "name": "Dock keeper slot east, backing skin and fingers",
-        "machine_bounds_mm": [
-          69.85,
-          94.35,
-          93.015,
-          96.836,
-          160.25,
-          211.374
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag",
-        "applied_source_bounds_mm": [
-          69.85,
-          94.35,
-          93.015,
-          96.836,
-          160.25,
-          211.374
-        ],
-        "print_bounds_mm": [
-          69.85,
-          94.35,
-          93.015,
-          96.836,
-          0.0,
-          51.123999999999995
-        ]
-      },
-      {
         "name": "SB443 column 1: rail slot walls, roof over the blocks and root",
         "machine_bounds_mm": [
           -58.49999999999999,
           -45.949999999999996,
           82.415,
           90.5041,
-          170.47400000000002,
-          202.43040000000002
+          176.824,
+          195.87720000000002
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
@@ -1043,16 +754,16 @@
           -45.949999999999996,
           82.415,
           90.5041,
-          170.47400000000002,
-          202.43040000000002
+          176.824,
+          195.87720000000002
         ],
         "print_bounds_mm": [
           -58.49999999999999,
           -45.949999999999996,
           82.415,
           90.5041,
-          10.224000000000018,
-          42.18040000000002
+          16.574000000000012,
+          35.627200000000016
         ]
       },
       {
@@ -1062,8 +773,8 @@
           58.49999999999999,
           82.415,
           90.5041,
-          170.47400000000002,
-          202.43040000000002
+          176.824,
+          195.87720000000002
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
@@ -1072,16 +783,16 @@
           58.49999999999999,
           82.415,
           90.5041,
-          170.47400000000002,
-          202.43040000000002
+          176.824,
+          195.87720000000002
         ],
         "print_bounds_mm": [
           45.949999999999996,
           58.49999999999999,
           82.415,
           90.5041,
-          10.224000000000018,
-          42.18040000000002
+          16.574000000000012,
+          35.627200000000016
         ]
       }
     ],
@@ -1121,7 +832,7 @@
           -107.5,
           -90.75,
           200.0,
-          219.81,
+          223.55,
           125.30355339059328,
           160.0
         ],
@@ -1131,7 +842,7 @@
           -107.5,
           -90.75,
           200.14999389648438,
-          219.81,
+          223.55,
           125.30355339059328,
           160.0
         ],
@@ -1139,7 +850,7 @@
           -107.5,
           -90.75,
           200.14999389648438,
-          219.81,
+          223.55,
           131.30355339059327,
           166.0
         ]
@@ -1179,7 +890,7 @@
           90.75,
           107.5,
           200.0,
-          219.81,
+          223.55,
           125.30355339059328,
           160.0
         ],
@@ -1189,7 +900,7 @@
           90.75,
           107.5,
           200.14999389648438,
-          219.81,
+          223.55,
           125.30355339059328,
           160.0
         ],
@@ -1197,7 +908,7 @@
           90.75,
           107.5,
           200.14999389648438,
-          219.81,
+          223.55,
           131.30355339059327,
           166.0
         ]
@@ -1996,8 +1707,8 @@
           -45.949999999999996,
           74.27590000000001,
           82.365,
-          170.47400000000002,
-          202.43040000000002
+          176.824,
+          195.87720000000002
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
@@ -2006,16 +1717,16 @@
           -45.949999999999996,
           74.27590000000001,
           82.26499938964844,
-          170.47400000000002,
-          202.43040000000002
+          176.824,
+          195.87720000000002
         ],
         "print_bounds_mm": [
           -58.49999999999999,
           -45.949999999999996,
           74.27590000000001,
           82.26499938964844,
-          5.278992675781268,
-          37.23539267578127
+          11.628992675781262,
+          30.682192675781266
         ]
       },
       {
@@ -2025,8 +1736,8 @@
           58.49999999999999,
           74.27590000000001,
           82.365,
-          170.47400000000002,
-          202.43040000000002
+          176.824,
+          195.87720000000002
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
@@ -2035,16 +1746,16 @@
           58.49999999999999,
           74.27590000000001,
           82.26499938964844,
-          170.47400000000002,
-          202.43040000000002
+          176.824,
+          195.87720000000002
         ],
         "print_bounds_mm": [
           45.949999999999996,
           58.49999999999999,
           74.27590000000001,
           82.26499938964844,
-          5.278992675781268,
-          37.23539267578127
+          11.628992675781262,
+          30.682192675781266
         ]
       }
     ],
@@ -2079,69 +1790,34 @@
         ]
       }
     ],
-    "pump-receiver-west-outer": [],
-    "pump-receiver-west-inner": [],
-    "pump-receiver-east-inner": [],
-    "pump-receiver-east-outer": [],
-    "pump-keeper-outer": [
+    "tee-cap": [
       {
-        "name": "Complete keeper, downward-open U and crown",
+        "name": "Complete tee cap, half pipe, spring wings and lips",
         "machine_bounds_mm": [
-          -12.0,
-          12.0,
-          -7.6,
-          7.6,
-          0.0,
-          3.0000000000000018
+          -13.150000000000015,
+          13.15,
+          -11.725,
+          11.725000000000001,
+          -2.000551255640486e-27,
+          11.950000000000001
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
         "applied_source_bounds_mm": [
-          -12.0,
-          12.0,
-          -7.599999904632568,
-          7.599999904632568,
+          -13.149999618530273,
+          13.149999618530273,
+          -11.725,
+          11.725000000000001,
           0.0,
-          3.0
+          11.949999809265137
         ],
         "print_bounds_mm": [
-          -12.0,
-          12.0,
-          -7.599999904632568,
-          7.599999904632568,
+          -13.149999618530273,
+          13.149999618530273,
+          -11.725,
+          11.725000000000001,
           0.0,
-          3.0
-        ]
-      }
-    ],
-    "pump-keeper-middle": [
-      {
-        "name": "Complete keeper, downward-open U and crown",
-        "machine_bounds_mm": [
-          -34.35,
-          34.35,
-          -7.6,
-          7.6,
-          0.0,
-          3.0000000000000018
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag",
-        "applied_source_bounds_mm": [
-          -34.349998474121094,
-          34.349998474121094,
-          -7.599999904632568,
-          7.599999904632568,
-          0.0,
-          3.0
-        ],
-        "print_bounds_mm": [
-          -34.349998474121094,
-          34.349998474121094,
-          -7.599999904632568,
-          7.599999904632568,
-          0.0,
-          3.0
+          11.949999809265137
         ]
       }
     ]

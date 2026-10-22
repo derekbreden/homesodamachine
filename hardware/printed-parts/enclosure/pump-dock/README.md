@@ -1,60 +1,62 @@
-# Permanent pump dock
+# Pump dock
 
-The customer withdraws the complete two-pump cartridge, changes the prepared pumps under its two-screw cap, and pushes the cartridge home. Four short straight LLDPE stubs, clamped in the pump heads, enter permanent TPU junctions together. The junctions, purchased elbows, tubing, keepers and magnets remain in the machine. Customer service requires only complete prepared replacement pumps.
+The customer withdraws the complete two-pump cartridge, changes the prepared pumps under its two-screw cap, and pushes the cartridge home. Each pump's two straight LLDPE tubes pass front-top's collet plate into four purchased John Guest PP0208E tees. Pulling the cartridge drags each tee forward its collet stroke against the plate, which holds the collet in while the tube draws out. The tees, their caps, the plate, the valves and the tubing stay in the machine; customer service requires only complete prepared replacement pumps.
 
-## Fluid path and support
+## Tees and collet plate
 
-Each junction has a pump-facing funnel, an upward outlet to the fore valve and a diagonal outlet aimed toward the rear valve. A black 1/4-inch LLDPE tube leaves that outlet, turns about 50 degrees at R28 and enters the forward leg of a [scanned John Guest PP0308E elbow](../../../reference/jg-pp0308e-elbow/README.md) directly beneath the rear valve. A short straight tube joins that elbow's upper leg to the valve. The front seal is a continuous 6 mm long Ø6.10 mm TPU land around the smooth Ø6.35 mm pump stub. Two purchased PP0208E tees form the source crossbar.
+One PP0208E stands on each pump port: Y-C (X22.35) and Y-D (X82.1) on pump A, Y-F (X-22.35) and Y-G (X-82.1) on pump B. Each tee's branch faces its pump on the pump tube's axis, [Z186.174](DOCK_ROW_Z); its run stands upright.
 
-The closed PET-GF wall locates each junction in X/Z. Three flat 3 mm PET-GF keepers capture its rear groove in Y: one per outer junction and one for the inner pair. Their plain Ø12.4 mm U openings face downward and seat on the occupied junction necks by gravity. Each keeper parks above the collar during factory insertion, then slides down over the necks. The slots have 0.25 mm sliding clearance on both faces and a raised 45-degree roof. The wall backs the keeper against aft load. The upper link clocks each junction.
+The collet plate is front-top's bay bulkhead: [3.175 mm](DOCK_PLATE_T) of PET-GF from the bay face at [Y82.515](DOCK_BAY_FACE_Y), [0.25 mm](DOCK_FRAME_GAP) behind the cartridge's flat back, to the release face at [Y85.69](DOCK_RELEASE_Y). Four [Ø8.5 mm](DOCK_HOLE_D) teardropped holes pass the tubes and leave a face under each branch collet. Over the tee caps the bulkhead grows back on a 45° underside to its full depth at [Y96.836](DOCK_WALL_AFT_Y), which carries the contact pair's seat and the display backing and roots the fore valve tray; outboard of the caps it stands full depth from the seam.
 
-Broad flat-sided TPU connects each junction's rear collar and two sealing sockets. One rounded Ø4.3 mm common gallery connects the inlet and two short coaxial outlet throats. The lower outlet points 50 degrees down and aft. The outer lower sockets are clocked slightly inward to align with their elbows. Both branch sealing lands remain circular, 6 mm long with a 0.5 mm entry, and their Ø4.3 mm throats retain annular tube stops.
+In service each tee stands at **connected**: its branch collet extended with its nose on the release face, its run axis at [Y108.04](DOCK_CONNECTED_Y), the pump tube bottomed at the tee's own stop. The collet grips the tube and holds it against pressure. Pulling the cartridge drags the tube, the collet and the tee forward until the plate holds the collet; the tee travels on the collet's [1.5 mm](DOCK_TRAVEL) stroke to **released**, run axis [Y106.54](DOCK_RELEASED_Y), where the collet is pressed home and the tube draws out. Pushing the cartridge in pushes each tee back to connected.
 
-Each purchased elbow stands upright beneath V-C, V-D, V-G or V-J, with a nominal 1 mm gap between its upper release face and the valve's bottom release face. Both push-fit collets grip the short joining tube. The rear valve row and source crossbar stand 8 mm above their deck reference to clear the compressor and condenser. V-A and V-B retain their cold-core seats; their connecting tube bends follow the raised crossbar. Round clearances in the rear tray foot clear the elbow bodies.
+## Tee anchors and tee caps
 
-Each lower tube has one R28 centerline bend: 50 degrees at the inner stations and about 49.7 degrees at the outer stations. The purchased elbow supplies the final 90-degree turn into the valve. R28 exceeds the 25.4 mm radius listed for this size in the [neoFlo tubing sheet](https://assets.freshwatersystems.com/image/upload/s--N9disqrx--/gjtidjfc0tlprqbhb4ka.pdf). Its straight ends enter the TPU land and purchased elbow coaxially. Nominal insertion allowances are 6.35 mm into TPU, 15.7 mm into the elbow and 12 mm into the valve; actual fully seated marks govern purchased-fitting cuts. The nominal valve joining tube is 28.7 mm. The bent tube's grip in TPU is an unqualified interference fit, with no claimed positive axial stop from the bend. See the [current geometry review](elbow-review/README.md) for placement and evidence limits.
+Each tee's branch lies in a tee anchor: a rib rooted on front-top's seam plane behind the plate, its top a [Ø17 mm](DOCK_JOURNAL) half journal round the branch collar (the collar's [Ø16.5 mm](DOCK_COLLAR_ENVELOPE) sampled envelope and [0.25 mm](DOCK_JOURNAL_AIR) of running air), [12.1 mm](DOCK_ANCHOR_LEN) long, with a catch window in each flank. A tee cap snaps down on top of the branch and closes the journal. It is the [anchor cap](../anchor-cap/README.md)'s section with its half pipe sized to the journal: two [1.5 mm](DOCK_WING) spring wings run down the anchor's flanks and each wing's lip, [1.2 mm](DOCK_ENGAGE) of engagement behind a [30°](DOCK_LEAD_IN) ramp, clicks into its window. On the anchor cap's beam estimate a wing reaches [1.10%](DOCK_CAP_STRAIN) strain going on.
+
+The journal holds the tee in X and Z and lets it slide its stroke along Y. Inside the cap a flat stop stands [0.3 mm](DOCK_STOP_AIR) aft of connected on the clearance reference's conservative branch shoulder; on the scanned PP0208E the shoulder meets it [1.08 mm](DOCK_SCANNED_STOP) aft of connected. The stop takes the tee's push while the cartridge goes in; the plate is the fore stop.
+
+## Fore valves, upper tubes and hairpins
+
+V-E, V-F, V-H and V-I stand fixed on their tray posts directly over the tees, bottom collets at [Z222.675](DOCK_FORE_VALVE_Z). Each fore valve's axis is [Y107.29](DOCK_FORE_VALVE_Y), [0.75 mm](DOCK_FORE_VALVE_SET) fore of its tee's connected axis: the middle of the tee's travel. The short upper tube between them, [15.28 mm](DOCK_UPPER_TUBE) exposed, stands [0.75 mm](DOCK_FORE_VALVE_SET) off straight in service and as far the other way at release.
+
+Each lower return is one hairpin of the machine's black 1/4" LLDPE from the tee's lower collet ([Z164.924](DOCK_LOWER_PORT_Z)) to its rear valve's bottom collet: [0.5 mm](DOCK_HAIRPIN_LEAD) of straight tube, a turn aft at the stock's [14 mm](DOCK_HAIRPIN_R) bend radius, a straight, a turn up and a straight up into the valve. Its lowest surface is [Z147.249](DOCK_HAIRPIN_FLOOR), [1.25 mm](DOCK_CONDENSER_AIR) over the condenser's top at the east-outer station. The hairpin flexes with the tee's travel. V-C and V-D take their hairpins at [Z168.675](DOCK_INNER_RETURN_Z), V-G and V-J at [Z176.675](DOCK_OUTER_RETURN_Z); the outer hairpins lean inboard to V-G and V-J at [X±73.82](DOCK_OUTER_RETURN_X).
 
 ## Cartridge and magnets
 
-Each prepared pump carries two straight 26 mm stubs of the machine's black 1/4" LLDPE, pushed into its BPT tube ends in place of Kamoer's barbs. The pump head's own housing, tightened at the factory, clamps the tube around each stub. Docking and withdrawal friction pass from each stub through that clamp into the rigid head, which the cradle and cap hold; the flexible tube outside the clamp carries no axial load as a free column. Each stub seals on its own 6.35 mm OD at both ends, so pressure inside it nearly balances along its length. The stubs pass the cradle's plain open tube passages. The four tips end at Y90.015 mm, 7.750 mm behind the cartridge's Y82.265 mm back datum: across the 0.250 mm body air, the junction's 1 mm entry and 6 mm seal land, and 0.5 mm beyond it. The [pump procedure](../../../service/pump-replacement.md#factory-preparation-of-replacement-pumps) sets each tip against the tube setting jig.
+Each prepared pump carries two straight [33.2 mm](DOCK_PUMP_TUBE) tubes of the machine's black 1/4" LLDPE, pushed into its BPT tube ends in place of Kamoer's barbs. The pump head's own housing, tightened at the factory, clamps the tube around each one. Docking and withdrawal friction pass from each tube through that clamp into the rigid head, which the cradle and cap hold. The tubes pass the cradle's plain open tube passages and the collet plate; their tips stand at [Y97.19](DOCK_TIP_Y), [14.925 mm](DOCK_TIP_FROM_BACK) behind the cartridge's [Y82.265](DOCK_CARTRIDGE_BACK) back datum, bottomed in the tees at connected. The [pump procedure](../../../service/pump-replacement.md#factory-preparation-of-replacement-pumps) sets each tip against the tube setting jig.
 
-The meeting poles of the two SB443-IN columns seat the cartridge, with 0.250 mm of air between the broad faces. Each pump's own load line carries one column of four attracting pairs; each block sits in one slot per part, held by printed rails and loaded at that part's print pause. At K&J's 3.42 lbf steel rating each column carries 60.9 N against the 52.4 N screen for its pump's 80 psi blocked fill. The [magnet design](magnet-retention.md) defines polarity, slots and loading. Pull force to steel is not an installed retention rating. Follow the [contact mounting audit](../../../reference/yyfkgcp-pogo-4p/mounting-audit.md) for actual assembly and compression.
+[4](DOCK_MAGNET_PAIRS) SB443-IN pairs seat the cartridge: one column of [2](DOCK_MAGNET_ROWS) attracting pairs on each pump's own load line, at [X±52.225](DOCK_MAGNET_X) centred on the tube row. Front-top's two slots stand in bosses behind the collet plate; the cartridge's are in its flat back. The meeting poles set the cartridge's final position with [0.25 mm](DOCK_FRAME_GAP) of air between the broad faces. The collets hold the tubes against pressure, so the magnets only seat the cartridge. The [magnet design](magnet-retention.md) defines polarity, slots and loading. Follow the [contact mounting audit](../../../reference/yyfkgcp-pogo-4p/mounting-audit.md) for the contact pair's assembly and compression.
 
 ## Factory assembly
 
 Keep front-top loose, with access from its interior and underside. The [internal plumbing procedure](../../../assembly/internal-plumbing.md) owns the complete sequence.
 
-1. Finish the shell's rigid seats. Insert the three keepers from the seam and park them above the junction collars.
-2. Prepare each junction, straight upper link and fore valve off the wall. Mark actual fully seated tube depths before cutting; preserve the upper link's TPU engagement and stop room.
-3. Seat the fore valve on its posts and fold the junction's flexible inlet lip through its wall bore. Confirm full lip recovery.
-4. Turn front-top upright and lower the three keepers onto the junction necks, one per outer junction and one for the inner pair. Each crown rests on the occupied neck; check capture by pushing and pulling along Y.
-5. Join each rear valve to its upright purchased elbow with the short straight tube, then fit the rear valves on their posts. Connect the R28 bent tubes between the junctions and the elbows' forward legs. Use actual insertion marks and tug-check the push-fit joints. Complete the work with front-top loose and accessible.
-6. Prepare the complete pumps and their stubs, close the cartridge cap and set the four tips against the tube setting jig. Assemble the pogo contacts before loading the dock; load the SB443-IN blocks at each printed part's pause.
-7. Join front-top to the lower enclosure after its plumbing and fixtures are fitted. Follow [assembly acceptance](../../../assembly/acceptance-and-burn-in.md) and the [customer pump procedure](../../../service/pump-replacement.md).
-
-Removing a complete wet branch for factory work requires an isolated, demonstrated depressurized flavor circuit; it is not part of customer pump replacement.
+1. Seat the rear valves on their tray posts.
+2. For each tee: push the upper tube into the tee's upper collet and its fore valve's bottom collet, with both fully seated. Bring the tee, tube and valve in together, the branch along its anchor's journal toward the plate, and press the fore valve onto its tray posts.
+3. Snap each tee cap down over its branch until both lips click into their windows. Tug the tee: it slides its stroke and no further.
+4. From front-top's underside, push each hairpin up into the tee's lower collet and its rear valve's bottom collet together. Use actual insertion marks and tug-check every push-fit joint.
+5. Prepare the complete pumps and their tubes, close the cartridge cap and set the four tips against the tube setting jig. Assemble the pogo contacts before loading the dock; load the SB443-IN blocks at each printed part's pause.
+6. Join front-top to the lower enclosure after its plumbing and fixtures are fitted. Follow [assembly acceptance](../../../assembly/acceptance-and-burn-in.md) and the [customer pump procedure](../../../service/pump-replacement.md).
 
 ## Manufacture
 
-Seven printed dock pieces have manufacturing outputs under `../enclosure/`; station-specific wet parts carry the suffixes `west-outer`, `west-inner`, `east-inner` and `east-outer`:
-
 | Part / quantity | Material / export stem |
 | --- | --- |
-| Asymmetric junction, 4 | Siraya Tech Flex TPU85A Clear; `enclosure-pump-receiver-{station}` |
-| Outer keeper, 2 | PET-GF; `enclosure-pump-keeper-outer` |
-| Inner-pair keeper, 1 | PET-GF; `enclosure-pump-keeper-middle` |
-| Purchased union elbow, 4 | John Guest PP0308E; scanned native reference in the assembly |
+| Tee cap, [4](TEE_CAP_COUNT) | PET-GF; `enclosure-tee-cap` |
+| Pump tee, [4](TEE_COUNT) | John Guest PP0208E, purchased |
+| Tube setting jig, factory tool | PET-GF; `enclosure-pump-tube-setting-jig` |
 
-STEP and STL manufacturing outputs contain the print pose. Junctions orient their inlet and upper lands 45 degrees from vertical and their lower lands about 5–7 degrees from vertical; a fore/top chamfer supplies the flat bed landing, and the exposed undersides use Tree(auto)/Default supports. Keepers lie flat on their wall face. The [PET-GF handoff](petgf-production-parts.md) specifies the keepers' process. Prepare each wet part as one object per plate and inspect actual bore crossings and attachment paths. The saved [October 18 wet projects](print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/README.md) are evidence only for their recorded meshes; they do not prepare the current junctions. Current feed and printing-time estimates require source-bound native projects.
+The tee anchors, the collet plate and front-top's magnet bosses are front-top's own material. The tee cap prints standing on its fore end, the section on the bed: every layer is the whole section, nothing overhangs and each wing bends along its own extrusion lines. Print it solid, with at least six walls and 100% infill, and keep the [0.65 mm](DOCK_CAVITY) gaps between the half pipe and the wings open. The [PET-GF handoff](petgf-production-parts.md) specifies the caps' process.
 
-The retained Siraya elbow observation accepts exterior quality and reports internal stringing. The [finned-pair failure](../../../../future/pump-elbow-exploration/prints/2026-10-16-vertical-center-web-tpu85a-mark1/physical-result.json) records bore-crossing strands despite connected fins. Enclosed nozzle travel does not prove that a taut ooze strand stays outside a bore. Each record keeps its own material, geometry and process scope.
-
-The one factory tool is separate from the appliance's installed dock pieces: the [tube setting jig](../enclosure/enclosure-pump-tube-setting-jig.stl), which seats on the cartridge back and stops all four stub tips at their datum.
+The one factory tool is separate from the appliance's installed dock pieces: the [tube setting jig](../enclosure/enclosure-pump-tube-setting-jig.stl), which seats on the cartridge back and stops all four tube tips at their datum.
 
 ## Engineering evidence
 
-The [pressure and retention review](pressure-retention-review.json) preserves the actual single-channel paths, reachable blocked-fill case, compound comparisons and isolated qualification procedure: at its 80 psi blocked-fill screen each port separates with 17.5 N. These are engineering evidence, not a system pressure rating.
-
-The current dock has no physical seal, lifetime or cleaning acceptance. The complete frame still needs measured simultaneous seal seating, extraction effort, hydraulic retention and permanent-part aging under the actual fluid, temperature and cleaning exposure. The short factory assembly and geometry readings establish none of those properties. The prepared pump's stub clamp also requires an actual free-rotation, pumping and stub pull-out result. Material data alone do not establish finished wet-part food-contact suitability.
+The dock has no physical release, seal, lifetime or cleaning acceptance. The upper tube's spring at 0.75 mm each way is unmeasured; at connected it pulls the tee forward and, through the bottomed pump tube, pushes the cartridge against its magnets, and at release it adds to the pull. The complete withdrawal and insertion force, the tee caps' snap and retention on printed parts, the anchors' fit and the prepared pump's tube clamp under docking load are unmeasured. Material data alone do not establish finished wet-part food-contact suitability.
 
 Customer release requires a demonstrated depressurization route for a failed or stalled pump. A timed command or accepted PWM does not establish rotation, flow or that both ports have vented. The customer procedure remains conditional on the qualified depressurized service state.
+
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/printed-parts/enclosure/enclosure/enclosure.py`

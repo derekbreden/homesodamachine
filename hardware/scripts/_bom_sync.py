@@ -105,8 +105,8 @@ dock_magnets_per_build = 2 * len(dock_retention.stations(_f.box["collet_plate"][
 # `_reed_channels.py`.
 reeds_per_carbonator = 2
 
-# Purchased flavor-manifold fittings come from the pack's own declarations.
-# Pump-side logical Y nodes are printed TPU junctions, billed separately.
+# Purchased flavor-manifold fittings come from the pack's own declarations: every Y node is
+# a purchased PP0208E, the four on the pump ports included.
 solenoid_count = sum(1 for n in ml.P if n.startswith("V-"))
 tee_count = len(ml.PURCHASED_TEES)
 
@@ -142,8 +142,8 @@ total_reeds_per_build = reeds_per_carbonator + reservoir_reeds_total
 # PP1208E per build: soda umbilical (1) + water inlet (1) = 2.
 pp1208e_per_build = panel_umbilical_bulkheads + panel_water_inlet_bulkheads
 
-# Four dock elbows and the funnel drain use purchased PP0308E stock.
-pp0308e_per_build = len(ml.LOWER_CONNECTIONS) + 1
+# The funnel drain uses purchased PP0308E stock.
+pp0308e_per_build = 1
 
 # EVERY VALVE IN THIS MACHINE STANDS IN FOUR BOSSES (`valve_seat`) PRINTED INTO A PART §7
 # ALREADY BILLS — three on the cold core's cap lid (`_cold_core_interface.cap_cradles`), eight on
@@ -264,11 +264,9 @@ display_cover_wings_per_build = len(_enc._display_wings.support_exits(1.0))
 pump_cap_inserts_per_build = len(_enc.cap_screw_ys(_f.box["inner"], _f.box["collet_plate"]))
 pump_cap_screws_per_build = pump_cap_inserts_per_build
 
-# The receivers' flat keepers snap onto their necks and take no fastener: one per outer
-# receiver and one for the inner pair.
-dock_keepers_per_build = len(_enc._dock.KEEPERS)
+# One tee cap snaps down over each pump tee and takes no fastener.
+dock_caps_per_build = len(_f.box["collet_plate"]["holes"])
 dock_fixture_locks_per_build = 0
-# Current wet parts have no source-bound production slices or feed estimate.
 
 # The C14 inlet's two, read off the receptacle's own flange. `enclosure._c14_tunnel_geometry`
 # stands a TUNNEL off the +Y wall's inner face and bores ONE INSERT PER PANEL SCREW the moulding
@@ -579,12 +577,12 @@ def main(*, only_bom=False):
         "SEAM_SHORT_SCREWS_COST": pack_line_cost(enclosure_seam_short_rods_per_build, "7.50", 40),
         "SEAM_INSERTS": f"{enclosure_seam_inserts_per_build:.4g}",
         "DOCK_STUBS": f"{len(_f.box['collet_plate']['holes'])}",
-        "DOCK_RECEIVERS": f"{len(ml.PUMP_JUNCTIONS)}",
+        "DOCK_TEES": f"{len(ml.PUMP_JUNCTIONS)}",
         "DOCK_RETURNS": f"{len(ml.LOWER_CONNECTIONS)}",
 
         "PP0308E_TOTAL": f"{pp0308e_per_build}",
         "PP0308E_COST": pack_line_cost(pp0308e_per_build, "68.49", 30),
-        "DOCK_KEEPERS": f"{dock_keepers_per_build:.4g}",
+        "DOCK_CAPS": f"{dock_caps_per_build:.4g}",
         "DOCK_FIXTURE_LOCKS": f"{dock_fixture_locks_per_build:.4g}",
         "PUMP_CAP_INSERTS": f"{pump_cap_inserts_per_build:.4g}",
         "PUMP_CAP_SCREWS": f"{pump_cap_screws_per_build:.4g}",

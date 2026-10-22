@@ -6,7 +6,7 @@ The enclosure assembly is the source of truth for the arrangement.
 the pack, [`_lines.py`](/hardware/manifold-layout/_lines.py) authors every run BETWEEN placed
 bodies and `_routing.Run.length` measures the built centreline, and
 [`manifold_layout.py`](/hardware/manifold-layout/manifold_layout.py) makes the flavour manifold's
-own interior — including butts, straight links and printed TPU returns. This
+own interior — including butts, upper tubes and hairpins. This
 driver reads all three and holds the charts to them.
 
 Two jobs:
@@ -94,9 +94,9 @@ class Seg:
 
       `drawn`    — a run `_lines.py` authors between two placed bodies, swept and measured.
       `straight` — a lane's own straight inside the manifold, drawn and measured the same way.
-      `pump-dock`— a prepared pump's LLDPE stub sealing in a permanent TPU junction.
-      `elbow-and-tube` — a purchased PP0308E beneath the valve, short valve link and bent LLDPE run;
-                   the reported tube length excludes the purchased elbow's internal passage.
+      `pump-dock`— a prepared pump's LLDPE tube through the collet plate into a pump tee.
+      `hairpin`  — one LLDPE hairpin bent at the stock's radius from the pump tee to the rear
+                   valve; the reported length is its cut stock, both insertions included.
       `butt`     — two collets face to face, no tube between them, 0.0 mm.
       `turn`     — a quarter out of the deck plane and the step that follows it.
       `not drawn`— a mouth of the manifold study with nothing on the far end of it yet.
@@ -109,7 +109,7 @@ class Seg:
     id: str
     ends: tuple           # one or two anchor names; one means the far end is not placed
     made: str
-    length: float = None  # reported LLDPE path; prepared pump stubs and TPU passages are separate
+    length: float = None  # reported LLDPE path; the prepared pump tubes are separate
     corners: int = 0
     developed: float = None  # exposed centreline where it is known but cut length is not
 
@@ -138,8 +138,8 @@ def _interior(cid: int, how: str) -> tuple:
     makes each interior connection, the card reads that column to score `routed`, and this
     reads it to label an edge — so classifying it twice is how the chart and the card come to
     disagree about the same segment. What is this driver's own is the mm and the corners, off
-    `manifold_layout`'s figures: `lower_link_length` the short valve link and bent lower tube,
-    `FORE_STUBS` the straight upper links, `QUARTER_LEN` the source quarter out of the
+    `manifold_layout`'s figures: `lower_link_length` the lower hairpin,
+    `FORE_STUBS` the short upper tubes, `QUARTER_LEN` the source quarter out of the
     deck plane, `source_step` its following step and `RUNS` the remaining straights.
 
     The step is the one figure that is the SEGMENT'S and not the kind's: each source valve is
@@ -148,11 +148,10 @@ def _interior(cid: int, how: str) -> tuple:
     if how in ml.BARB_OF:
         return (kind, 0.0, 0, None)
     if how == "spine":
-        # Both the short valve link and bent LLDPE run count as tube stock.
-        corners=sum(s['kind']=='arc' for s in ml.pump_plumbing()[ml.LOWER_CONNECTIONS[cid]]['elbow']['formed_tube'])
+        corners = sum(s['kind'] == 'arc' for s in ml.lower_links()[cid])
         return (kind, ml.lower_link_length(cid), corners, None)
     if how in ml.FORE_STUBS:
-        return (kind, ml.dist(*ml.FORE_STUBS[how]), 0, None)
+        return (kind, ml.fore_stub_length(*ml.FORE_STUBS[how]), 0, None)
     if kind == "turn":                                       # the quarter, then the step's pair
         return (kind, ml.QUARTER_LEN + ml.source_step(ml.SBENDS[cid])[2], 3, None)
     if kind == "butt":
@@ -601,7 +600,7 @@ def rewrite_linkstyles(lines: list[str], edges: list[Edge]) -> list[str]:
 
 
 def manifold_variables(segs: dict) -> dict:
-    """Reported LLDPE paths, excluding prepared pump stubs and printed passages."""
+    """Reported LLDPE paths, excluding the prepared pump tubes."""
     fluid = [s for k, s in segs.items() if k.startswith("fluid-")]
     cut = [s for s in fluid if s.length]
     longest = max(cut, key=lambda s: s.length)
@@ -610,8 +609,8 @@ def manifold_variables(segs: dict) -> dict:
         "DRAWN_COUNT":   f"{sum(1 for s in fluid if s.made == 'drawn')}",
         "BUTT_COUNT":    f"{sum(1 for s in fluid if s.made == 'butt')}",
         "UPPER_LINK_COUNT": f"{len(ml.FORE_STUBS)}",
-        "UPPER_LINK_EXPOSED": f"{ml.dist(*next(iter(ml.FORE_STUBS.values()))):.6g} mm",
-        "LOWER_LINK_COUNT": f"{2 * len(ml.LOWER_CONNECTIONS)}",
+        "UPPER_LINK_EXPOSED": f"{ml.FORE_STUB_EXPOSED:.6g} mm",
+        "LOWER_HAIRPIN_COUNT": f"{len(ml.LOWER_CONNECTIONS)}",
         "OPEN_COUNT":    f"{sum(1 for s in fluid if s.made == 'not drawn')}",
         "FLUID_TOTAL":   f"{sum(s.length for s in cut):.1f} mm",
         "FLUID_BENDS":   f"{sum(s.corners for s in fluid)}",
@@ -630,7 +629,7 @@ def limb_variables() -> dict:
         "LIMB_VALVES":  f"{len(valves)}",
         "TEE_COUNT":    f"{len(tees)}",
         "PURCHASED_TEE_COUNT": f"{len(ml.PURCHASED_TEES)}",
-        "TPU_JUNCTION_COUNT": f"{len(ml.PUMP_JUNCTIONS)}",
+        "PUMP_TEE_COUNT": f"{len(ml.PUMP_JUNCTIONS)}",
         "UPPER_COUNT":  f"{sum(1 for p in ml.P.values() if p['fold'])}",
         "LOWER_COUNT":  f"{sum(1 for p in ml.P.values() if not p['fold'])}",
         "PUMP_COUNT":   f"{len(ml.PUMPS)}",
@@ -717,7 +716,7 @@ def main() -> int:
               f"{' → '.join(s.ends)}")
     print(f"  {'REPORTED':<9} {sum(s.length or 0.0 for s in fluid):7.1f} mm over "
           f"{len(fluid)} segments; add actual fitting insertions to mouth-to-mouth paths; "
-          "prepared pump stubs and TPU passages excluded")
+          "prepared pump tubes excluded")
     print(f"  limbs {limb_vars['LIMB_COUNT']}, valves {limb_vars['LIMB_VALVES']}, "
           f"junctions {limb_vars['TEE_COUNT']}, pumps {limb_vars['PUMP_COUNT']} "
           f"({limb_vars['UPPER_COUNT']} upper-deck bodies, {limb_vars['LOWER_COUNT']} lower)")

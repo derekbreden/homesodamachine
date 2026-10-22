@@ -68,7 +68,6 @@
     "hardware/printed-parts/enclosure/pump-dock/dock_retention.py",
     "hardware/printed-parts/enclosure/pump-dock/dock_structure.py",
     "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py",
-    "hardware/printed-parts/enclosure/pump-dock/pump_receiver.py",
     "hardware/printed-parts/enclosure/pump-tray/pump_case.py",
     "hardware/printed-parts/enclosure/pump-tray/pump_tray.py",
     "hardware/printed-parts/enclosure/valve-tray/valve_tray.py",

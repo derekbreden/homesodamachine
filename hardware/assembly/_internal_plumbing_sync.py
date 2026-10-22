@@ -95,12 +95,11 @@ def main():
         # joint in it is modeled at its engagement, so `LENGTH` is inlet mouth to outlet
         # mouth on the stack the bench actually screws together.
         "DISCHARGE_CHAIN_LEN": f"{_dis.LENGTH:.4g} mm",
-        # The valve and purchased-tee census comes from the placed layout; the
-        # permanent printed junctions and returns have their separate dock count.
+        # The valve and purchased-tee census comes from the placed layout.
         "MANIFOLD_VALVES": f"{sum(1 for n in _ml.P if n.startswith('V-'))}",
         "MANIFOLD_TEES": f"{len(_ml.PURCHASED_TEES)}",
         "DOCK_FORE_LINK": f"{_ml.FORE_STUB_EXPOSED:.6g} mm",
-        "DOCK_UPPER_TAIL": f"{_ml.FORE_STUB_EXPOSED + _enc._receiver.plumbing.SOCKET_DEPTH:.6g} mm",
+        "DOCK_UPPER_TAIL": f"{_ml.FORE_STUB_EXPOSED + _ml._returns.RUN_INSERTION + _ml._returns.VALVE_INSERTION_NOMINAL:.6g} mm",
         "POGO_INSERT_HOST_DEPTH": f"{_enc._pogo.ear_back() + _enc.pogo_heatset_setback + _enc.pump_contact_face_recess:.4g} mm",
         "POGO_INSERT_SETBACK": f"{_enc.pogo_heatset_setback:.4g} mm",
         "DOCK_BODY_GAP": f"{_enc.bay_back_y(_f.box['collet_plate']) - _enc.pump_cartridge_aft_y(_f.box['pump_trays'], _f.box['collet_plate']):.4g} mm",

@@ -1,39 +1,55 @@
-"""Shared port and flow-path datums for the permanent pump plumbing.
+"""Station datums for the four pump tees, the collet plate and the tubes that join them.
 
-Coordinates are enclosure millimetres: +Y points inward and +Z points up.
-The supplied pump wall and purchased valve ports locate every part. This
-module contains geometry data only; the wet solids and dry fixtures consume
-the same data without importing an assembly generator.
+Coordinates are enclosure millimetres: +Y points inward and +Z points up. Each pump port
+feeds one purchased PP0208E tee, its branch toward the pump and its run upright. The fore
+valve stands over the run on one short tube; the rear valve's bottom port takes one R14
+hairpin from the run's lower port.
+
+THE PLATE'S AFT FACE IS THE RELEASE FACE. In service each tee stands at `connected`: its
+branch collet extended, its nose on that face, and the pump tube bottomed at the tee's stop.
+Pulling the cartridge drags the tee forward the collet's 1.5 mm stroke while the plate holds
+the collet in, and at `released` the collet is pressed home and the tube draws out. The fore
+valve's axis stands at the middle of that travel, so its tube bends half the stroke one way
+in service and half the other way at release.
+
+This module holds geometry data only; the dock's solids and the manifold read the same
+figures.
 """
 
 import math
+import sys
+from pathlib import Path
+
+_hw = next(p for p in Path(__file__).resolve().parents if p.name == "hardware")
+for _p in (_hw / "reference" / "tee-connector", _hw / "scripts"):
+    if str(_p) not in sys.path:
+        sys.path.insert(0, str(_p))
+import tee_connector as tee  # noqa: E402
+import _routing  # noqa: E402
 
 
-TUBE_OD = 6.35
+TUBE_OD = tee.TUBE_D
 TUBE_ID = 4.30
-SEAL_BORE_D = 6.10
-CUFF_OD = 11.72
-CUFF_WALL = (CUFF_OD - SEAL_BORE_D) / 2
-OCCUPIED_CUFF_OD = math.sqrt(CUFF_OD ** 2 + TUBE_OD ** 2 - SEAL_BORE_D ** 2)
-FLOW_OD = CUFF_OD
-SEAL_LAND = 6.0
-ENTRY_LEAD = .5
-SOCKET_DEPTH = SEAL_LAND + ENTRY_LEAD
-FLOW_REACH = 3.0
-MOUTH_TO_CURVE = SOCKET_DEPTH + FLOW_REACH
-
-UPPER_ARC_R = 12.2
-UPPER_MOUTH_Z = 22.0
-LOWER_ARC_R = 6.0
-LOWER_TURN_DEG = 50.0
-LOWER_POST_ARC = 11.4
-
-# Factory links are cut against the mounted stop span. This nominal target
-# does not include the complete manufacturing, thermal or loaded tolerance
-# budget; the total permitted play bounds the remaining seal engagement.
-LINK_NOMINAL_AXIAL_PLAY = .15
-LINK_MAX_TOTAL_AXIAL_PLAY = .5
-LINK_MIN_SEAL_ENGAGEMENT = SEAL_LAND - LINK_MAX_TOTAL_AXIAL_PLAY
+# The collet plate: Derek's 1/8 in plate, printed into front-top.
+PLATE_T = 3.175
+BRANCH_FACE = tee.BRANCH_REACH                   # extended collet face from the run axis
+BRANCH_FACE_PRESSED = tee.BRANCH_PRESSED_REACH   # pressed collet face from the run axis
+TRAVEL = tee.BRANCH_COLLET_TRAVEL                # the tee's whole travel: one collet stroke
+RUN_FACE = tee.RUN_HALF                          # each run collet face from the tee's centre
+TIP_DEPTH = tee.BRANCH_INSERTION_EXTENDED        # a bottomed tube past the extended face
+# The fore valve's axis, fore of the connected run axis: the middle of the travel.
+FORE_VALVE_SET = TRAVEL / 2.0
+# The pump tube's tip, aft of the plate's fore face, with the cartridge seated.
+TIP_FROM_FORE = PLATE_T + TIP_DEPTH
+# The 1/4 in LLDPE stock's bend radius (bench test on the spool) and the straight tube each
+# collet keeps before a bend starts.
+HAIRPIN_R = _routing.stock_of("fluid", TUBE_OD).min_bend
+HAIRPIN_LEAD = 0.5
+# Cut-length allowances: a tube bottomed in a run collet standing extended, and the valve's
+# layout estimate. Actual fully seated marks govern factory cuts.
+RUN_INSERTION = tee.RUN_INSERTION_EXTENDED
+VALVE_INSERTION_NOMINAL = 12.0
+STATES = ("connected", "released")
 
 
 def _add(a, b):
@@ -44,6 +60,11 @@ def _scale(a, k):
     return tuple(v * k for v in a)
 
 
+def _unit(v):
+    n = math.sqrt(sum(c * c for c in v))
+    return _scale(v, 1.0 / n)
+
+
 def _line(start, direction, length):
     return {"kind": "line", "start_mm": tuple(start),
             "end_mm": _add(start, _scale(direction, length)),
@@ -51,140 +72,138 @@ def _line(start, direction, length):
             "length_mm": float(length)}
 
 
-def _arc(start, horizontal, radius, theta, sweep):
-    """A circle in the horizontal/+Z plane; angles are measured from horizontal."""
-    sign = math.copysign(1., sweep)
-
-    def point(fraction):
-        angle = theta + fraction * sweep
-        return _add(start, _add(
-            _scale(horizontal, sign * radius * (math.sin(angle) - math.sin(theta))),
-            (0., 0., sign * radius * (math.cos(theta) - math.cos(angle)))))
-
-    def tangent(angle):
-        return _add(_scale(horizontal, math.cos(angle)), (0., 0., math.sin(angle)))
-
-    return {"kind": "arc", "start_mm": tuple(start), "midpoint_mm": point(.5),
-            "end_mm": point(1.), "radius_mm": float(radius),
-            "sweep_degrees": math.degrees(sweep),
-            "start_tangent": tangent(theta), "end_tangent": tangent(theta + sweep),
-            "length_mm": radius * abs(sweep)}
+def _quarter(start, d_in, d_out, r):
+    """A 90-degree turn of radius `r` from heading `d_in` onto `d_out`."""
+    centre = _add(start, _scale(d_out, r))
+    end = _add(centre, _scale(d_in, r))
+    mid = _add(centre, _scale(_add(d_in, _scale(d_out, -1.0)), r / math.sqrt(2.0)))
+    return {"kind": "arc", "start_mm": tuple(start), "midpoint_mm": mid, "end_mm": end,
+            "radius_mm": float(r), "sweep_degrees": 90.0,
+            "start_tangent": tuple(d_in), "end_tangent": tuple(d_out),
+            "length_mm": r * math.pi / 2.0}
 
 
-def _fork_arc(root, radius, angle, across):
-    """Turn from +Y toward an X/Z direction, without changing the inlet axis."""
-    def point(fraction):
-        a = angle * fraction
-        return _add(root, _add((0., radius * math.sin(a), 0.),
-                              _scale(across, radius * (1. - math.cos(a)))))
-
-    return {"kind": "arc", "start_mm": tuple(root), "midpoint_mm": point(.5),
-            "end_mm": point(1.), "radius_mm": float(radius),
-            "sweep_degrees": math.degrees(angle), "start_tangent": (0., 1., 0.),
-            "end_tangent": _add((0., math.cos(angle), 0.),
-                                  _scale(across, math.sin(angle))),
-            "length_mm": radius * abs(angle)}
+def plate_aft_y(fore_y):
+    """The release face: the collet plate's aft face."""
+    return fore_y + PLATE_T
 
 
-# Scanned exterior release-face station; the scan does not establish internal stops.
-ELBOW_FACE = 20.56239
-ELBOW_INSERTION_NOMINAL = 15.7  # layout estimate only; factory marking sets actual cuts
-VALVE_INSERTION_NOMINAL = 12.0
-STUB_FACE_GAP = 1.0
-TUBE_BEND_R = 28.0
+def tee_axis_y(fore_y, state="connected"):
+    """The tee's run axis in Y: its extended collet on the release face at `connected`, its
+    pressed collet on that face one stroke further fore at `released`."""
+    if state not in STATES:
+        raise ValueError(f"a tee stands {' or '.join(STATES)}, not {state!r}")
+    y = plate_aft_y(fore_y) + BRANCH_FACE
+    return y - TRAVEL if state == "released" else y
 
 
-def _unit(v):
-    return _scale(v, 1.0 / math.sqrt(sum(c*c for c in v)))
+def fore_valve_axis_y(fore_y):
+    """The fore valve's port axis in Y, at the middle of its tee's travel."""
+    return tee_axis_y(fore_y) - FORE_VALVE_SET
 
 
-def _cross(a, b):
-    return (a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0])
+def tip_y(fore_y):
+    """The pump tube's seated tip: bottomed at the stop of a tee standing at connected."""
+    return fore_y + TIP_FROM_FORE
 
 
-def elbow_layout(wall_fore_y, x, z, return_port, bed_z=None, *, lower=None):
-    """An upright scanned PP0308E immediately below the rear valve.
-
-    The forward leg faces the junction. One shallow R28 tube bend turns the
-    diagonal outlet toward that leg; a short straight tube joins elbow and
-    valve. Displayed tubing ends at the known mouths, not imagined stops.
-    """
-    target = tuple(return_port['point'])
-    if lower is None:
-        lower = junction_ports(wall_fore_y, x, z,
-            {'point': (x, wall_fore_y + 22.775, z + UPPER_MOUTH_Z),
-             'axis': (0., 0., -1.)}, return_port)['lower']
-    mouth = tuple(lower['point'])
-    corner = (target[0], target[1], target[2] - STUB_FACE_GAP - ELBOW_FACE)
-    up = (0., 0., 1.)
-    aft = _unit((mouth[0] - corner[0], mouth[1] - corner[1], 0.))
-    up_face = _add(corner, _scale(up, ELBOW_FACE))
-    out_face = _add(corner, _scale(aft, ELBOW_FACE))
-    horizontal = _scale(aft, -1.)
-    direction = tuple(lower['axis'])
-    beta = math.atan2(-direction[2], math.hypot(*direction[:2]))
-    lead = (mouth[2] - corner[2] - TUBE_BEND_R * (1. - math.cos(beta))) / math.sin(beta)
-    path = [_line(mouth, direction, lead)]
-    path.append(_arc(path[-1]['end_mm'], horizontal, TUBE_BEND_R, -beta, beta))
-    tail = sum((out_face[i] - path[-1]['end_mm'][i]) * horizontal[i] for i in range(3))
-    path.append(_line(path[-1]['end_mm'], horizontal, tail))
-    stub = _line(up_face, up, STUB_FACE_GAP)
-    return {'corner':corner, 'up_axis':up, 'aft_axis':aft, 'x_axis':_cross(aft,up),
-            'up_face':up_face, 'aft_face':out_face, 'tilt_degrees':0.,
-            'target':dict(return_port), 'stub':(stub,), 'formed_tube':tuple(path),
-            'stub_cut_nominal_mm':STUB_FACE_GAP+ELBOW_INSERTION_NOMINAL+VALVE_INSERTION_NOMINAL,
-            'formed_cut_nominal_mm':sum(s['length_mm'] for s in path)+ELBOW_INSERTION_NOMINAL+SOCKET_DEPTH-LINK_NOMINAL_AXIAL_PLAY,
-            'formed_exposed_length_mm':sum(s['length_mm'] for s in path),
-            'tube_turn_degrees':math.degrees(beta), 'tube_bend_radius_mm':TUBE_BEND_R,
-            'junction_straight_exposed_mm':lead,
-            'elbow_straight_exposed_mm':tail,
-            'valve_straight_exposed_mm':STUB_FACE_GAP}
+def tee_ports(fore_y, x, z, state="connected"):
+    """The tee's centre and its three collet faces, as point and outward axis."""
+    y = tee_axis_y(fore_y, state)
+    return {"centre": (x, y, z),
+            "branch": {"point": (x, plate_aft_y(fore_y), z), "axis": (0.0, -1.0, 0.0)},
+            "upper": {"point": (x, y, z + RUN_FACE), "axis": (0.0, 0.0, 1.0)},
+            "lower": {"point": (x, y, z - RUN_FACE), "axis": (0.0, 0.0, -1.0)}}
 
 
-def junction_ports(wall_fore_y, x, z, upper_port, return_port, bed_z=None):
-    """Upward valve link and a diagonal outlet aimed at the rear elbow."""
-    upper_target = tuple(upper_port['point'])
-    upper_root = (x,upper_target[1]-UPPER_ARC_R,z)
-    arc = _fork_arc(upper_root,UPPER_ARC_R,math.pi/2,(0.,0.,1.))
-    upper = (arc,_line(arc['end_mm'],(0.,0.,1.),UPPER_MOUTH_Z-UPPER_ARC_R))
-    mouth=upper[-1]['end_mm']
-    target = tuple(return_port['point'])
-    angle = math.radians(LOWER_TURN_DEG)
-    intercept = upper_root[1] + LOWER_ARC_R * math.tan(angle / 2)
-    phi = math.asin((target[0] - x) / (math.tan(angle) * (target[1] - intercept)))
-    lower_arc = _fork_arc(upper_root, LOWER_ARC_R,
-                          angle, (math.sin(phi), 0., -math.cos(phi)))
-    lower_axis = lower_arc['end_tangent']
-    lower = (lower_arc, _line(lower_arc['end_mm'], lower_axis, LOWER_POST_ARC))
-    lower_mouth = lower[-1]['end_mm']
-    upper_stop = _add(mouth,(0.,0.,-SOCKET_DEPTH))
-    lower_stop = _add(lower_mouth,_scale(lower_axis,-SOCKET_DEPTH))
-    setback = TUBE_ID/2 + FLOW_REACH
-    gallery_upper = _add(upper_stop,(0.,0.,-setback))
-    gallery_lower = _add(lower_stop,_scale(lower_axis,-setback))
-    inlet_y = gallery_lower[1] + (gallery_upper[1]-gallery_lower[1]) * (
-        (z-gallery_lower[2])/(gallery_upper[2]-gallery_lower[2]))
-    return {'wall_fore_y':float(wall_fore_y), 'pump_axis':(float(x),float(z)),
-            'upper_root_local_y':upper_root[1]-wall_fore_y,
-            'gallery':{'upper':gallery_upper,'lower':gallery_lower,'inlet':(x,inlet_y,z)},
-            'upper':{'point':mouth,'axis':(0.,0.,1.),'tube_stop':upper_stop},
-            'lower':{'point':lower_mouth,'axis':lower_axis,
-                     'tube_stop':lower_stop},
-            'upper_target':dict(upper_port),'return_target':dict(return_port),
-            'lower_clock_about_y_degrees':math.degrees(phi),
-            'seal_land_mm':SEAL_LAND,'socket_depth_mm':SOCKET_DEPTH}
+def hairpin(start, end, r=HAIRPIN_R, lead=HAIRPIN_LEAD):
+    """One tube from a downward collet at `start` to another at `end`: down, an `r` turn
+    toward the other port, a straight, an `r` turn up and a straight up into it.
+
+    The lower of the two ports keeps `lead` of straight tube before its turn begins, so the
+    run's lowest surface stands `lead + r + TUBE_OD/2` under that port."""
+    (x0, y0, z0), (x1, y1, z1) = start, end
+    span = math.hypot(x1 - x0, y1 - y0)
+    straight = span - 2.0 * r
+    if straight < 0.0:
+        raise ValueError(f"the ports stand {span:g} mm apart, closer than a hairpin of R{r:g}")
+    across = _unit((x1 - x0, y1 - y0, 0.0))
+    down, up = (0.0, 0.0, -1.0), (0.0, 0.0, 1.0)
+    floor = min(z0, z1) - lead - r
+    path = [_line(start, down, z0 - (floor + r))]
+    path.append(_quarter(path[-1]["end_mm"], down, across, r))
+    path.append(_line(path[-1]["end_mm"], across, straight))
+    path.append(_quarter(path[-1]["end_mm"], across, up, r))
+    path.append(_line(path[-1]["end_mm"], up, z1 - (floor + r)))
+    return tuple(s for s in path if s["length_mm"] > 1e-9)
 
 
-def station(wall_fore_y,x,z,upper_port,return_port,bed_z=None):
-    if bed_z is None:bed_z=z-25.924
-    junction=junction_ports(wall_fore_y,x,z,upper_port,return_port,bed_z)
-    elbow=elbow_layout(wall_fore_y,x,z,return_port,bed_z,lower=junction['lower'])
-    start=junction['upper']['point']
-    return {'junction':junction,'elbow':elbow,
-            'upper_tube':_line(start,(0.,0.,1.),upper_port['point'][2]-start[2])}
+def s_bend(start, end):
+    """A tube from an upward collet at `start` into a downward one at `end`, both axes
+    upright: two equal arcs when the axes are offset, one straight when they are not."""
+    (x0, y0, z0), (x1, y1, z1) = start, end
+    length = z1 - z0
+    offset = math.hypot(x1 - x0, y1 - y0)
+    up = (0.0, 0.0, 1.0)
+    if offset < 1e-9:
+        return (_line(start, up, length),)
+    side = _unit((x1 - x0, y1 - y0, 0.0))
+    theta = 2.0 * math.atan2(offset, length)
+    r = length / (2.0 * math.sin(theta))
+    centre = _add(start, _scale(side, r))
+
+    def at(phi):
+        return _add(centre, _add(_scale(side, -r * math.cos(phi)), _scale(up, r * math.sin(phi))))
+
+    mid = at(theta)
+    turn = _add(_scale(side, math.sin(theta)), _scale(up, math.cos(theta)))
+    first = {"kind": "arc", "start_mm": tuple(start), "midpoint_mm": at(theta / 2.0),
+             "end_mm": mid, "radius_mm": r, "sweep_degrees": math.degrees(theta),
+             "start_tangent": up, "end_tangent": turn, "length_mm": r * theta}
+    mirror = lambda p: tuple(2.0 * mid[i] - p[i] for i in range(3))  # noqa: E731
+    second = {"kind": "arc", "start_mm": mid, "midpoint_mm": mirror(at(theta / 2.0)),
+              "end_mm": tuple(end), "radius_mm": r, "sweep_degrees": math.degrees(theta),
+              "start_tangent": turn, "end_tangent": up, "length_mm": r * theta}
+    return first, second
+
+
+def station(fore_y, x, z, upper_port, return_port):
+    """One pump port's tee, its fore valve's tube and its hairpin to the rear valve."""
+    ports = tee_ports(fore_y, x, z)
+    upper_start = ports["upper"]["point"]
+    lower_start = ports["lower"]["point"]
+    upper = s_bend(upper_start, tuple(upper_port["point"]))
+    lower = hairpin(lower_start, tuple(return_port["point"]))
+    return {"tee": ports, "released": tee_ports(fore_y, x, z, "released"),
+            "upper_target": dict(upper_port), "return_target": dict(return_port),
+            "upper_tube": upper, "hairpin": lower,
+            "upper_exposed_mm": sum(s["length_mm"] for s in upper),
+            "hairpin_exposed_mm": sum(s["length_mm"] for s in lower),
+            "hairpin_floor_z": min(lower_start[2], return_port["point"][2])
+                               - HAIRPIN_LEAD - HAIRPIN_R - TUBE_OD / 2.0}
 
 
 def layouts(plate):
-    return {str(x):station(plate['fore_y'],x,z,plate['upper_ports'][str(x)],
-                          plate['return_ports'][str(x)],plate['fixture_print_bed_z'])
-            for x,z in plate['holes']}
+    return {str(x): station(plate["fore_y"], x, z, plate["upper_ports"][str(x)],
+                            plate["return_ports"][str(x)])
+            for x, z in plate["holes"]}
+
+
+def sweep(diameter, segments):
+    """A round tube of `diameter` swept along the centreline `segments`."""
+    import cadquery as cq
+    edges = []
+    for s in segments:
+        a, b = cq.Vector(*s["start_mm"]), cq.Vector(*s["end_mm"])
+        edges.append(cq.Edge.makeThreePointArc(a, cq.Vector(*s["midpoint_mm"]), b)
+                     if s["kind"] == "arc" else cq.Edge.makeLine(a, b))
+    first = segments[0]
+    profile = cq.Wire.makeCircle(diameter / 2.0, cq.Vector(*first["start_mm"]),
+                                 cq.Vector(*first["start_tangent"]))
+    return cq.Solid.sweep(profile, [], cq.Wire.assembleEdges(edges), makeSolid=True,
+                          isFrenet=True)
+
+
+def tube(segments):
+    """The tube itself: its outside swept, its bore swept out."""
+    return sweep(TUBE_OD, segments).cut(sweep(TUBE_ID, segments)).clean()
