@@ -1,0 +1,123 @@
+{
+  "printer": "Mark1",
+  "job_id": "1364550539",
+  "snapshots": [
+    {
+      "job_id": "1364550539",
+      "subtask_name": "2026-10-22-reservoir-left-cap-walls-t59-right08-z000-a1-mark1.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 833,
+      "stg_cur": 4,
+      "mc_remaining_time": 362,
+      "mc_percent": 0,
+      "bed_temper": 24.0,
+      "bed_target_temper": 24.0,
+      "nozzle_temper": 31.0,
+      "nozzle_target_temper": 0.0,
+      "cooling_fan_speed": "0",
+      "big_fan1_speed": "0",
+      "big_fan2_speed": "0",
+      "heatbreak_fan_speed": "14",
+      "filam_bak": null,
+      "observed_at_utc": "2026-10-22T16:43:38.125238+00:00",
+      "observed_at_central": "2026-10-22T11:43:38.125238-05:00",
+      "source": "Fresh tools/bambu_printer.py status over existing connection",
+      "timelapse": "disable",
+      "chamber_temperature_c": 26,
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 0,
+        "temperature_c": 255,
+        "target_c": 255
+      },
+      "mounted_right_nozzle": {
+        "id": 0,
+        "diameter": 0.8,
+        "type": "HS01"
+      },
+      "ams": {
+        "tray_now": "0",
+        "tray_tar": "0",
+        "tray_exist_bits": "5"
+      }
+    },
+    {
+      "job_id": "1364550539",
+      "subtask_name": "2026-10-22-reservoir-left-cap-walls-t59-right08-z000-a1-mark1.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 833,
+      "stg_cur": 14,
+      "mc_remaining_time": 361,
+      "mc_percent": 0,
+      "bed_temper": 56.0,
+      "bed_target_temper": 70.0,
+      "nozzle_temper": 33.0,
+      "nozzle_target_temper": 0.0,
+      "cooling_fan_speed": "14",
+      "big_fan1_speed": "0",
+      "big_fan2_speed": "0",
+      "heatbreak_fan_speed": "14",
+      "filam_bak": null,
+      "observed_at_utc": "2026-10-22T16:45:01.699881+00:00",
+      "observed_at_central": "2026-10-22T11:45:01.699881-05:00",
+      "source": "Fresh tools/bambu_printer.py status over existing connection",
+      "timelapse": "disable",
+      "chamber_temperature_c": 29,
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 0,
+        "temperature_c": 200,
+        "target_c": 175
+      },
+      "mounted_right_nozzle": {
+        "id": 0,
+        "diameter": 0.8,
+        "type": "HS01"
+      },
+      "ams": {
+        "tray_now": "0",
+        "tray_tar": "0",
+        "tray_exist_bits": "5"
+      }
+    }
+  ],
+  "camera_observations": [
+    {
+      "observed_at_utc": "2026-10-22T16:43:38.125238+00:00",
+      "observed_at_central": "2026-10-22T11:43:38.125238-05:00",
+      "time_scope": "First clear frame obtained immediately after this telemetry sample; a subsequent frame displayed dynamic-flow calibration.",
+      "layer": 0,
+      "source": "cua_repl Bambu Studio Device live camera after Play / Initializing",
+      "visible_printer": "Mark1",
+      "visible_archive": "2026-10-22-reservoir-left-cap-walls-t59-right08-z000-a1-mark1.gcode.3mf",
+      "body": "Not deposited; bed clear at startup.",
+      "cap": "Not deposited; bed clear at startup.",
+      "assessment": "Clear view of empty Textured PEI plate with toolhead parked at rear-left. First-layer adhesion and corner contact unassessed.",
+      "stream_limit": "Two clear frames show the parked head; changing head position has not yet been verified."
+    },
+    {
+      "observed_at_utc": "2026-10-22T16:46:07.625772+00:00",
+      "observed_at_central": "2026-10-22T11:46:07.625772-05:00",
+      "time_scope": "Recorded immediately after the live camera frame.",
+      "layer": 0,
+      "source": "cua_repl Bambu Studio Device live camera",
+      "visible_printer": "Mark1",
+      "visible_archive": "2026-10-22-reservoir-left-cap-walls-t59-right08-z000-a1-mark1.gcode.3mf",
+      "phase": "Cleaning nozzle tip",
+      "body": "Not deposited; bed clear.",
+      "cap": "Not deposited; bed clear.",
+      "assessment": "Toolhead moved from rear-left to rear-center, confirming changing live frames. Bed position also changed during startup. No model deposition yet; body/cap first-layer contact unassessed."
+    }
+  ],
+  "scope": "Startup observation only; status is not a visual adhesion or sealing check.",
+  "runtime_mapping": "AMS unit 0 current/target tray 0 (A1), right extruder snow 0, mounted hnow 0 nozzle diameter 0.8 mm.",
+  "timelapse_scope": "On selected in Send; runtime reports disable before deposition. Activation during model deposition is unassessed."
+}

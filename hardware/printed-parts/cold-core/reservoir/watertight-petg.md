@@ -2,15 +2,15 @@
 
 [reservoir.3mf](reservoir.3mf) uses the **walls-only May Water recipe through Mark1's
 right 0.8 mm Standard nozzle**, with **flow 1.02, no brim, zero added user Z
-trim and ironing Off**. The left body/cap pair is accepted as task
-**1362982574**. [Adaptation and launch](prints/2026-10-21-mark1-walls-only-right08-z000-a4/README.md).
+trim and ironing Off**, with **59° Arachne wall transitions**. The left body/cap pair is accepted as task
+**1364550539**. [Adaptation and launch](prints/2026-10-22-mark1-walls-t59-right08-z000/README.md).
 
 The project's two plates contain
 the current left and right body/cap pairs. [print-settings.json](print-settings.json) holds every saved machine,
 filament and process setting; [reservoir.print.json](reservoir.print.json)
 identifies the current geometry and project. The baseline water-hold acceptance source is
 `may-30-clear-06` in [water-hold-acceptance.json](water-hold-acceptance.json).
-Its water hold belongs to the historical May article. The current walls-only article has [reported seam leakage](prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json); corner-flatness and adhesion are not separately reported.
+Its water hold belongs to the historical May article. The current 59° trial awaits its own water-hold result. The preceding walls-only article has [reported seam leakage](prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json); corner-flatness and adhesion are not separately reported for that article.
 
 ## Current recipe
 
@@ -25,6 +25,7 @@ Its water hold belongs to the historical May article. The current walls-only art
 | Requested outer / inner wall speeds | 200 / 300 mm/s |
 | Requested solid fill / sparse fill / top speeds | 250 / 350 / 200 mm/s |
 | Requested wall width / wall loops | 0.80 mm / 999, Arachne; continue inward across each section |
+| Arachne wall transition angle | 59°; center-wall paths at floor perimeter-convergence junctions |
 | Fill / top / first-layer width | 0.80 mm |
 | Model fill | 0% sparse; zero top/bottom shell fill; native model features are walls only |
 | Saved infill / wall overlap | 15%; no model infill boundary in this slice |
@@ -51,7 +52,7 @@ The project uses the May Water controls, with ironing disabled according to the
 [flat-square finish selection](ironing-study/prints/2026-10-06-mark2-squares-v1/physical-result.json).
 Its process and filament display names identify the current reservoir recipe.
 Both plates explicitly assign the right nozzle in Manual mode. The Mark1
-walls-only May Water article starts on **A4**, with matching-spool automatic refill;
+walls-only May Water article starts on **A1**, with matching-spool automatic refill to A3;
 [printer guidance](../../../../tools/bambu-printers.md#mark1-clear-petg-spool-order)
 records the loaded material and refill scope. Bodies print mouth up
 with the floor underside on the bed; caps print exterior face down with their
@@ -77,9 +78,14 @@ surrounding air rather than residual moisture in the filament.
 
 ## Evidence and print records
 
-The walls-only article has reported seam leakage. Its underside photograph shows
+The preceding walls-only article has reported seam leakage. Its underside photograph shows
 droplets along a branching floor junction resembling the native perimeter
 convergence regions. [Physical result](prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json).
+
+The current 59° transition trial adds center-wall paths at those junctions. The
+[native comparison](prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/seam-comparison.json)
+shows about 72% less nominal layer-12 pocket area, with residual modeled pockets.
+That calculation does not establish deposited fusion or physical sealing.
 
 The preceding May-adapted left article has [reported floor-fill/perimeter leakage](prints/2026-10-21-mark1-may-water-right08-z000/physical-result/physical-result.json). The earlier zero-user-trim left article leaks at many places, as reported by
 Derek. Its corner photographs show a distorted band near the floor-to-wall
@@ -91,7 +97,7 @@ records the visibility limit and paused task-bound monitor.
 The September 0.24 mm article held water, as reported by Derek. Its recovered
 Mark2 slice estimated 20 h 7 min and 414.76 g; those estimates belong to that
 historical geometry. The [current native slice review](slice-review.json)
-estimates **5 h 46 min and 431 g** per body/cap plate, with **zero ironing**,
+estimates **6 h 2 min and 433 g** per body/cap plate, with **zero ironing**,
 833 layers and an empty plate-warning field. The model/support/brim full bead
 envelope stays at least **70.5 mm from the nearest right-nozzle usable bed edge**, including
 arc extrema and bead width. The matching body and cap envelopes are 10.04 mm
