@@ -1,0 +1,281 @@
+{
+  "views": [
+    {
+      "name": "placement",
+      "caption": "The pressure regulator rests beside the pump on one tied post. Two tubes connect the split and V-A.",
+      "before": "placement-before.webp",
+      "after": "placement-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 678.9,
+          "y": 486.7,
+          "r": 62,
+          "label": "Regulator",
+          "at": [
+            -57,
+            380,
+            295
+          ]
+        },
+        {
+          "x": 594.8,
+          "y": 630.2,
+          "r": 27.1,
+          "label": "Cradle",
+          "at": [
+            -57,
+            424,
+            270
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -182.99762250587173,
+          596.3855868137107,
+          515.9132985499849
+        ],
+        "target": [
+          -20,
+          370,
+          285
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 175.08603743497903,
+        "far": 781.3330585667416,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "water-split",
+        "tube-water-2",
+        "g-ganen-pump",
+        "flow-regulator",
+        "tube-fluid-1",
+        "tube-fluid-2",
+        "cold-core/foam-cap-lid-top",
+        "valve-v-a",
+        "coil-v-a",
+        "wire-flow-GND",
+        "wire-PE-carbonator"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "b546485d14a093f2aaf7c88bb0b5c39f71e13c23123f9f5e419ea285e067f70f",
+          "commit": "92bfba88afdc475c643bbfbb1bb0649caf8f4106",
+          "taken": "2026-10-22T04:44:12.395Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "04ca6517a008ab371d1ae3e0778a7b0955a04c6f273215c145c8773e026fe7b8",
+          "commit": "5a26eb706d30e40897d6cf184cb99b9775d7f568",
+          "published": true
+        }
+      },
+      "changed": [
+        "tube-fluid-2",
+        "flow-regulator",
+        "wire-flow-GND",
+        "tube-fluid-1",
+        "cold-core/foam-cap-lid-top",
+        "enclosure-back-top",
+        "wire-PE-carbonator"
+      ],
+      "withinMeshing": [
+        "cold-core/foam-cap-lid-bottom"
+      ]
+    },
+    {
+      "name": "funnel-space",
+      "caption": "The regulator stays in the rear bay. The funnel can extend forward toward -Y.",
+      "before": "funnel-space-before.webp",
+      "after": "funnel-space-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 943.2,
+          "y": 536.1,
+          "r": 58.3,
+          "label": "Funnel grows toward -Y",
+          "at": [
+            0,
+            105,
+            355
+          ]
+        },
+        {
+          "x": 358.3,
+          "y": 404.5,
+          "r": 35.3,
+          "label": "Regulator stays aft",
+          "at": [
+            -55,
+            390,
+            296
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -293.04254621600546,
+          25.91383571639534,
+          661.3031827700069
+        ],
+        "target": [
+          0,
+          275,
+          295
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 245.7640968299691,
+        "far": 974.6794079983213,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "funnel",
+        "funnel-frame",
+        "g-ganen-pump",
+        "flow-regulator",
+        "tube-fluid-1",
+        "tube-fluid-2",
+        "cold-core/foam-cap-lid-top",
+        "water-split",
+        "tube-water-2"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "b546485d14a093f2aaf7c88bb0b5c39f71e13c23123f9f5e419ea285e067f70f",
+          "commit": "92bfba88afdc475c643bbfbb1bb0649caf8f4106",
+          "taken": "2026-10-22T04:44:12.395Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "04ca6517a008ab371d1ae3e0778a7b0955a04c6f273215c145c8773e026fe7b8",
+          "commit": "5a26eb706d30e40897d6cf184cb99b9775d7f568",
+          "published": true
+        }
+      },
+      "changed": [
+        "tube-fluid-2",
+        "flow-regulator",
+        "wire-flow-GND",
+        "tube-fluid-1",
+        "cold-core/foam-cap-lid-top",
+        "enclosure-back-top",
+        "wire-PE-carbonator"
+      ],
+      "withinMeshing": [
+        "cold-core/foam-cap-lid-bottom"
+      ]
+    },
+    {
+      "name": "wall-mount",
+      "caption": "The needle valve wall mount is gone; the split keeps its existing seat.",
+      "before": "wall-mount-before.webp",
+      "after": "wall-mount-after.webp",
+      "width": 1000,
+      "height": 800,
+      "marks": [
+        {
+          "x": 490.6,
+          "y": 371.7,
+          "r": 84.9,
+          "label": "Needle mount removed",
+          "at": [
+            -99,
+            319,
+            305
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          3.3969696196699886,
+          320,
+          302
+        ],
+        "target": [
+          -98,
+          320,
+          302
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.0944030171622244,
+        "far": 444.28742897926816,
+        "aspect": 1.25
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "b546485d14a093f2aaf7c88bb0b5c39f71e13c23123f9f5e419ea285e067f70f",
+          "commit": "92bfba88afdc475c643bbfbb1bb0649caf8f4106",
+          "taken": "2026-10-22T04:44:12.395Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "04ca6517a008ab371d1ae3e0778a7b0955a04c6f273215c145c8773e026fe7b8",
+          "commit": "5a26eb706d30e40897d6cf184cb99b9775d7f568",
+          "published": true
+        }
+      },
+      "changed": [
+        "tube-fluid-2",
+        "flow-regulator",
+        "wire-flow-GND",
+        "tube-fluid-1",
+        "cold-core/foam-cap-lid-top",
+        "enclosure-back-top",
+        "wire-PE-carbonator"
+      ],
+      "withinMeshing": [
+        "cold-core/foam-cap-lid-bottom"
+      ]
+    }
+  ]
+}

@@ -52,6 +52,8 @@ click: x=-19.462 y=468.550 z=260.553
 click: x=-58.077 y=468.550 z=295.002
 click: x=-23.541 y=468.550 z=295.002
 click: x=87.802 y=468.550 z=260.553
+click: x=-19.462 y=468.550 z=260.518
+click: x=87.802 y=468.550 z=260.518
 
 [slope] Wrong slope classification for the nameplate's release diamond: its two roof faces stand 48° across 3.6 mm of pad stock, a through-opening's gable roof carried by the stock beside it at every layer, not a corbel running along a wall.
 alternatives: Read hole roofs separately from sideways corbels.
@@ -188,6 +190,10 @@ click: x=-106.310 y=327.042 z=174.678
 click: x=104.500 y=243.522 z=322.328
 click: x=104.500 y=243.532 z=257.568
 click: x=45.237 y=468.300 z=335.828
+click: x=-104.500 y=331.855 z=263.959
+click: x=-106.300 y=331.850 z=263.959
+click: x=-104.500 y=302.224 z=275.356
+click: x=-106.300 y=302.250 z=275.356
 
 [ceiling] Outside the water-check/WAGO arrangement change and unresolved: these faces are in the retained rear-wall ledges and west plumbing-cradle region, outside the resized WAGO pockets. Their support placement and removal need their own review; this entry does not accept the flat print-down spans.
 alternatives: Reconcile each ledge with its mating hardware and print pose, or provide the appropriate removable support through its actual access. Those interfaces are not revised by the connector arrangement.
@@ -201,3 +207,50 @@ alternatives: Coordinate a level foot or wall-directed support with the adjoinin
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=38.670 y=465.990 z=270.918
 click: x=29.670 y=465.990 z=270.918
+
+[bump] Outside the internal-regulator change and unresolved: these retained rear connector, electronics-mount and anchor/well surfaces are outside the removed needle-mount window. The exact-native comparison in reference/shok-blok-regulator/installation-review.json establishes unchanged material outside that window. It does not accept the retained pads, narrow lands, ceilings or catch profiles.
+alternatives: Reconcile each connector, insert host, anchor cap or lever-nut with its complete support and access profile. Preserve the already accepted receiver and flute exceptions at their named instances; the remaining interfaces need their own review.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=96.250 y=331.751 z=251.150
+click: x=96.250 y=344.751 z=251.150
+
+[ceiling] Outside the internal-regulator change and unresolved: these retained rear connector, electronics-mount and anchor/well surfaces are outside the removed needle-mount window. The exact-native comparison in reference/shok-blok-regulator/installation-review.json establishes unchanged material outside that window. It does not accept the retained pads, narrow lands, ceilings or catch profiles.
+alternatives: Reconcile each connector, insert host, anchor cap or lever-nut with its complete support and access profile. Preserve the already accepted receiver and flute exceptions at their named instances; the remaining interfaces need their own review.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-40.710 y=470.225 z=257.624
+
+[thin] Outside the internal-regulator change and unresolved: these retained rear connector, electronics-mount and anchor/well surfaces are outside the removed needle-mount window. The exact-native comparison in reference/shok-blok-regulator/installation-review.json establishes unchanged material outside that window. It does not accept the retained pads, narrow lands, ceilings or catch profiles.
+alternatives: Reconcile each connector, insert host, anchor cap or lever-nut with its complete support and access profile. Preserve the already accepted receiver and flute exceptions at their named instances; the remaining interfaces need their own review.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-47.666 y=458.080 z=291.671
+click: x=-47.666 y=459.380 z=291.671
+click: x=-42.101 y=458.080 z=316.282
+click: x=-42.101 y=459.480 z=316.282
+click: x=93.291 y=338.758 z=334.045
+click: x=93.291 y=338.775 z=335.794
+click: x=97.292 y=258.796 z=328.950
+click: x=97.292 y=258.796 z=327.200
+click: x=97.292 y=331.796 z=319.150
+click: x=97.292 y=331.796 z=317.400
+click: x=97.292 y=344.796 z=319.150
+click: x=97.292 y=344.796 z=317.400
+click: x=97.292 y=260.800 z=343.955
+click: x=97.292 y=262.800 z=343.955
+click: x=97.292 y=322.800 z=331.220
+click: x=97.292 y=320.800 z=331.220
+click: x=97.292 y=322.800 z=344.220
+click: x=97.292 y=320.800 z=344.220
+click: x=97.377 y=245.093 z=318.209
+click: x=97.377 y=245.177 z=320.453
+
+[ledge] Outside the internal-regulator change and unresolved: these retained rear connector, electronics-mount and anchor/well surfaces are outside the removed needle-mount window. The exact-native comparison in reference/shok-blok-regulator/installation-review.json establishes unchanged material outside that window. It does not accept the retained pads, narrow lands, ceilings or catch profiles.
+alternatives: Reconcile each connector, insert host, anchor cap or lever-nut with its complete support and access profile. Preserve the already accepted receiver and flute exceptions at their named instances; the remaining interfaces need their own review.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=97.000 y=321.333 z=261.400
+click: x=53.358 y=401.394 z=342.882
+click: x=53.358 y=411.911 z=342.882
+click: x=-101.400 y=298.817 z=260.200
+click: x=-101.400 y=305.517 z=260.200
+click: x=-101.400 y=331.317 z=260.200
+click: x=-101.400 y=338.017 z=260.200
+click: x=-43.202 y=458.947 z=294.222
