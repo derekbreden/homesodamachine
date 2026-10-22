@@ -95,7 +95,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "jg-pp0308e-elbow",
            _hw / "reference" / "funnel-drain-stub",
            _hw / "printed-parts" / "diaphragm-pump-sleeve",
-           _hw / "reference" / "seaflo-discharge-chain",
+           _hw / "reference" / "hlghlg-check-valve",
            _hw / "reference" / "waveshare-43b-display",
            _hw / "reference" / "meanwell-irm90",
            _hw / "reference" / "teyleten-relay",
@@ -164,7 +164,7 @@ import funnel_drain_stub as _stub                     # noqa: E402
 import valve_seat as _vseat                           # noqa: E402
 import manifold_layout as ml                          # noqa: E402
 import diaphragm_pump_sleeve as _pump_elbow           # noqa: E402
-import seaflo_discharge_chain as _dis                 # noqa: E402
+import hlghlg_check_valve as _dis                 # noqa: E402
 import waveshare_43b_display as _disp                 # noqa: E402
 import asse1022_assembly as _asse                     # noqa: E402
 import flare38_14ptc as _oad                          # noqa: E402
@@ -238,45 +238,17 @@ def wago_step(size):
     return WAGO_STEPS[size]
 
 
-# The five lever nuts, in the order the row runs fore to aft. Three carry the mains poles and
-# two the 12 V rails; they are one row because they are one part in one kind of well, and the
-# wall does not care which conductor a lug splices.
-WAGO_POLES = ("wago-h", "wago-n", "wago-g", "wago-v12", "wago-gnd")
+# Power lever nuts in front-to-rear order, beside the loads and supply they serve.
+WAGO_POLES = ("wago-v12", "wago-gnd", "wago-g", "wago-h", "wago-n")
 
-# The five DEVICE-CLUSTER lever nuts, as `name: (side, y, z, size)`. Each is the far end of one
-# board loom, where a single `COM` or `GND` conductor becomes the fan-out its cluster's devices
-# land on — `wiring/ac-wiring-schedule.md` "Loom terminations". So each stands on the flank its
-# own cluster stands on rather than beside the main board the trunk leaves:
-#
-#   wago-mana     J1 MANIFOLD A `COM` → V-A…V-H, on the +X flank beside the valves
-#   wago-manb     J2 MANIFOLD B `COM` → V-I, V-J, the condenser fan and V-K,
-#                 directly below J1's fan-out on the +X flank
-#   wago-reeds-b  J7 REEDS B `GND` → reservoir B's four reeds plus the carbonator's two
-#   wago-reeds-a  J6 REEDS A `GND` → reservoir A's four reeds
-#   wago-sensors  J4 SENSORS `GND` → the 1-wire bus and the DIGITEN meter,
-#                 both of which land aft and west
-#
-# THE LAST THREE ARE ONE BLOCK, aft on the west wall on one storey, at the same `wago_pitch`
-# the five poles keep on the wall opposite. `wago-sensors` stands where its own cluster lands
-# and the two reed nuts close up forward of it, which clears the whole band ahead for the tap
-# water's split and the flavour tap under it. Every station clears the side walls' seam
-# furniture (`enclosure.seam_bosses`) by the lever swing as well as the well, so a lug can be
-# worked in place.
-#
-# THE STOREY IS THE COLD CORE'S OWN CROWN, and it is as low as this wall goes. What used to hold
-# the block up was a tube: `fluid-28` ran the west outboard strip and its section fenced this
-# band for the whole height it crossed at. That run now holds its union's own column three
-# millimetres further inboard than these wells reach, so nothing of the plumbing is under them
-# and the block comes down onto the one thing that is — the shell of the core itself. Re-read
-# what is left by dropping a lug onto it:
-#
-#     w.travel("wago-reeds-b", (0, 0, -1))
+# Device commons stay beside their branches. Reservoir A has one continuous common
+# from J6 and needs no junction block. The two west-side three-way junctions each
+# use a 221-413; the manifold blocks travel with the removable front-top shell.
 CLUSTER_WAGOS = {
     "wago-mana": (+1, 169.0, 280.0, "420"),
     "wago-manb": (+1, 169.0, 246.0, "415"),
-    "wago-reeds-b": (-1, 335.0 - 2.0 * _enc.wago_pitch, 270.0, "420"),
-    "wago-reeds-a": (-1, 335.0 - 1.0 * _enc.wago_pitch, 270.0, "415"),
-    "wago-sensors": (-1, 335.0, 270.0, "415"),
+    "wago-reeds-b": (-1, 335.0 - 2.0 * _enc.wago_pitch, 270.0, "413"),
+    "wago-sensors": (-1, 335.0, 270.0, "413"),
 }
 
 FOAM_STEP = _hw / "printed-parts" / "cold-core" / "foam-assembly" / "foam-assembly.step"
@@ -1695,21 +1667,17 @@ def build_pump_elbows(water_pump_carry):
     return out
 
 
-# --- the discharge chain, in the lane west of the pump ---------------------
-#
-# The three fittings that take the discharge elbow's tube, hold the carbonator's pressure off the
-# pump when it is idle, and hand the water over on 1/4" tube: PP010822E collet, GASHER check,
-# PP450822E collet, made up on the bench as one piece.
-#
-# It is LAID, not stood: both of its mouths face along the machine and a run reaches either
-# square on. It lies INLET AFT, OUTLET FORWARD — the inlet looks back at the elbow its tube comes
-# from, and the outlet looks forward, down the machine at the core's water-in conduit.
+# --- the water discharge check, west of the pump ----------------------------
+# The single push-connect check lies inlet aft and outlet forward. Its fixed
+# barrel rests in a round lid cradle; one tie holds it down clear of both collets.
+# `discharge-chain` is the stable assembly/topology key for this water check.
 DISCH_CHAIN_TURN = (((1.0, 0.0, 0.0), -90.0),)
-# What a printed rib holds its chain off itself, radially. `chains-seated` reads it back.
 CHAIN_SEAT_SLIP = fits.slip
+
+
 def build_discharge_chain(foam_carry):
-    """Seat the check's actual hex midpoint on the printed discharge anchor."""
-    section = next(row for row in _dis.sections() if row[0] == "GASHER hex")
+    """Seat the fixed barrel midpoint on the printed discharge-check anchor."""
+    section = next(row for row in _dis.sections() if row[0] == "barrel")
     mid = (section[2] + section[3]) / 2.0
     return seat_body(_dis.build(), DISCH_CHAIN_TURN, seat="discharge-chain",
                      station=(((0.0, 0.0, -mid), (0.0, 0.0, 1.0)),
@@ -3415,7 +3383,7 @@ def build_wago_row(psu, wall_seat, inlet):
 
 
 def build_cluster_wagos():
-    """The five device-cluster lever nuts, as `[(name, solid, carry, size)]`.
+    """The four device-cluster lever nuts, as `[(name, solid, carry, size)]`.
 
     Each is stationed on the flank of the cluster it fans out to (`CLUSTER_WAGOS`) and seats the
     same way the row on the brick's crown does: the butt goes to `interior_x` on its own side,
@@ -4492,7 +4460,7 @@ def build_pack() -> cq.Assembly:
     flowreg, flowreg_carry = build_flowreg(split_carry)
     a.add(flowreg, name="flow-regulator", color=C_FLOWREG)
     disch, disch_carry = build_discharge_chain(foam_carry)
-    a.add(disch, name="discharge-chain", color=C_SUCT)
+    a.add(disch, name="discharge-chain", color=_dis.M_JG_WHITE_PP)
     # The rib the cap prints against the sections of the chain it stands under, read back off
     # the placed body — the same reading the pump's four columns take.
     a.anchors = anchor_rows(foam_carry, {"discharge-chain": (disch_carry, _dis)})

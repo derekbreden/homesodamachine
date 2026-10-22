@@ -308,7 +308,6 @@ MOUNTS = (
     ("wago-mana", "enclosure-front-top", "well"),
     ("wago-manb", "enclosure-front-top", "well"),
     ("wago-reeds-b", "enclosure-back-top", "well"),
-    ("wago-reeds-a", "enclosure-back-top", "well"),
     ("wago-sensors", "enclosure-back-top", "well"),
     # THE TAP-WATER CHAIN LIES IN AN ANCHOR PRINTED ON THE −X WALL. `enclosure._asse_cradle` cuts
     # a 120° V to each of the chain's own three sections, so the steps between them are faces
