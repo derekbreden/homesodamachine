@@ -70,6 +70,7 @@ points, it does not gate:
 A `.step` argument is answered from the `.stl` beside it."""
 
 import argparse
+import os
 import re
 import sys
 from pathlib import Path
@@ -80,6 +81,10 @@ import trimesh
 from scipy.spatial import cKDTree
 from trimesh.triangles import closest_point
 
+# The lint reads a piece; it builds nothing. Taking the CAD build lock through `pick_read`'s
+# imports would queue it behind every build and, while another lint holds the lock, follow that
+# run and print its report for a different piece as if it were this one's.
+os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from pick_read import points as pick_points  # noqa: E402
 from pick_text import click, file_line, plane_face, straight, _vec  # noqa: E402
@@ -102,6 +107,13 @@ _BUMP_MAX_MM = 1.0
 _BUMP_FACING = float(np.cos(np.radians(70.0)))
 #: A flat must be at least this big (mm²) to carry a bump.
 _BUMP_FLAT_AREA = 1.0
+#: ... and a bump has flanks: some of it leans at least this far off the flat. A face bowed a
+#: third of a millimeter over a hundred is a curve, not a bump.
+_BUMP_FLANK = float(np.cos(np.radians(5.0)))
+#: ... and runs at least this far (mm), and stands at least this wide: a patch a tenth across is
+#: the mesh, and a ridge narrower than a printed line is a crease in it, not the part.
+_BUMP_RUN = 0.5
+_BUMP_WIDTH = 0.3
 #: `sliver` is a strip thinner than this and at least this long.
 _SLIVER_MINOR = 1.6
 _SLIVER_MAJOR = 4.0
@@ -532,24 +544,34 @@ def find_bumps(planes):
             top = float(height.max())
             if not (_BUMP_MIN_MM < top <= _BUMP_MAX_MM):
                 continue
+            if (nrm[facets] @ n > _BUMP_FLANK).all():
+                continue
             # the flanks of a raised flat climb to it and stop: a step's, which `step` reads
             beside = touching(facets)[0]
             beside = beside[~mine[beside] & (flat_n[beside] @ n >= level)]
             if (cen[beside] @ n - o > _BUMP_MIN_MM).any():
                 continue
-            # the flat on both sides: where the patch meets it, across the patch's narrow way
+            # the flat on both sides, all along it: in each slice across the patch's long way, both
+            # of its far edges are where it meets the flat. A rim round a recessed face meets the
+            # flat along its inner edge only.
             uv = np.column_stack([pts @ flat.u, pts @ flat.v])
             mid = uv.mean(axis=0)
             _, _, axes = np.linalg.svd(uv - mid, full_matrices=False)
             across = (uv - mid) @ axes[1]
             along = (uv - mid) @ axes[0]
             met = np.isin(vids[facets].ravel(), flat_verts)
-            width = float(np.ptp(across))
-            if not (met.any() and across[met].min() < -width / 4 and across[met].max() > width / 4):
+            cuts = np.linspace(along.min(), along.max(), 9)[1:-1]
+            held = []
+            for part in np.split(np.argsort(along), np.searchsorted(np.sort(along), cuts)):
+                if len(part) > 1:
+                    held.append(met[part[np.argmin(across[part])]] and met[part[np.argmax(across[part])]])
+            if not held or sum(held) < 0.75 * len(held):
+                continue
+            width, length = float(np.ptp(across)), float(np.ptp(along))
+            if length < _BUMP_RUN or width < _BUMP_WIDTH:
                 continue
             seen.add(key)
             at = pts[int(np.argmax(height))]
-            length = float(np.ptp(along))
             found.append({
                 "class": "bump", "score": length / top,
                 "line": (f"{top:.3f} mm bump off a flat face"
@@ -1547,6 +1569,12 @@ def _selftest():
     assert abs(at[0] - 10 - half) < 1e-3 and abs(at[2] - 0.25) < 1e-6, at
     fillet = [(10 + 2 * np.sin(t), 2 - 2 * np.cos(t)) for t in np.linspace(0, np.pi / 2, 7)]
     assert find_bumps(planes_of(sheet(strips([(0, 0)] + fillet + [(12, 10)])))) == [], "fillet"
+    # nor does a 45° rim rising 0.34 mm round a recessed face: it meets the flat along its inner
+    # edge only, however the patch as a whole lies about it
+    inner = [(2, 2, 0), (18, 2, 0), (18, 18, 0), (2, 18, 0)]
+    outer = [(1.66, 1.66, 0.34), (18.34, 1.66, 0.34), (18.34, 18.34, 0.34), (1.66, 18.34, 0.34)]
+    rim = [[outer[i], outer[(i + 1) % 4], inner[(i + 1) % 4], inner[i]] for i in range(4)]
+    assert find_bumps(planes_of(sheet([inner] + rim))) == [], "rim"
 
     # sliver: a 0.5 × 30 strip sharing its plane with a healthy 10 × 30 face —
     # only the island is the strip
