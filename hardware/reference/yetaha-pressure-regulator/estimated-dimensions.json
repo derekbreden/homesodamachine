@@ -1,0 +1,290 @@
+{
+  "part": "Yetaha B07GDGYHZV / SZ070030063979RK-1",
+  "coordinate_frame": "millimetres; flow +X; cap +Z; origin midpoint of opposed tube mouths on their common axis",
+  "nominal": {
+    "port_face_span": 59.5,
+    "socket_diameter": 14.0,
+    "collet_diameter": 10.6,
+    "bell_diameter": 25.5,
+    "base_width": 22.0,
+    "base_depth": 22.0,
+    "bonnet_width": 34.5,
+    "bonnet_depth": 34.5,
+    "bonnet_corner_radius": 4.5,
+    "bolt_pitch_x": 24.5,
+    "bolt_pitch_y": 24.5,
+    "boss_diameter": 9.0,
+    "cap_hex_across_flats": 24.0,
+    "cap_hex_across_corners": 27.712812921102035,
+    "adjuster_disc_diameter": 21.5,
+    "foot_tip_span": 63.0,
+    "foot_width": 12.0,
+    "foot_thickness": 3.5,
+    "foot_slot_width": 4.2,
+    "foot_slot_closed_end_station": 23.5,
+    "port_axis_height_above_mount_plane": 15.5,
+    "overall_height": 53.0,
+    "z": {
+      "mount_plane": -15.5,
+      "foot_top": -12.0,
+      "base_top": -8.5,
+      "bell_top": 10.0,
+      "bonnet_bottom": 8.5,
+      "bonnet_top": 13.5,
+      "boss_top": 23.5,
+      "cap_top": 37.5,
+      "plastic_boss_top": 21.5
+    }
+  },
+  "plausible_intervals": {
+    "port_face_span": [
+      55,
+      64
+    ],
+    "socket_diameter": [
+      13,
+      15
+    ],
+    "collet_diameter": [
+      9.7,
+      11.5
+    ],
+    "bonnet_width": [
+      32,
+      37
+    ],
+    "bolt_pitch": [
+      23,
+      26.5
+    ],
+    "cap_hex_across_flats": [
+      22,
+      26
+    ],
+    "foot_tip_span": [
+      58,
+      68
+    ],
+    "foot_width": [
+      11,
+      13
+    ],
+    "port_axis_height_above_mount_plane": [
+      14,
+      18
+    ],
+    "overall_height": [
+      50,
+      58
+    ]
+  },
+  "ports": {
+    "inlet": {
+      "at": [
+        -29.75,
+        0,
+        0
+      ],
+      "outward": [
+        -1,
+        0,
+        0
+      ],
+      "tube_od": 6.35
+    },
+    "outlet": {
+      "at": [
+        29.75,
+        0,
+        0
+      ],
+      "outward": [
+        1,
+        0,
+        0
+      ],
+      "tube_od": 6.35
+    }
+  },
+  "mounting": {
+    "plane_z": -15.5,
+    "slots": [
+      {
+        "x": 0,
+        "y_sign": -1,
+        "root_station": 23.5,
+        "tip_station": 31.5,
+        "width": 4.2
+      },
+      {
+        "x": 0,
+        "y_sign": 1,
+        "root_station": 23.5,
+        "tip_station": 31.5,
+        "width": 4.2
+      }
+    ],
+    "rear_foot_note": "Symmetry completion: gallery consistently shows the near fork well; the opposed fork is obscured. Retaining both is conservative for layout."
+  },
+  "evidence": [
+    {
+      "source": "https://www.amazon.com/dp/B07GDGYHZV",
+      "images": [
+        "51xYGSw305L",
+        "51lGwjPCQOL",
+        "51hneEr+MfL",
+        "51hTPRAXPTL",
+        "51DtKPxRTgL",
+        "61C5j53+zjL"
+      ],
+      "observed": "Opposed QC sockets, four-corner rounded-square bonnet, tall hex-sided housing and central cross adjuster, front fork across flow, flow arrow left to right."
+    },
+    {
+      "source": "hardware/reference/beduan-solenoid/README.md",
+      "observed": "Native-scale scanned similar RO valve: bolt pitch 24.4\u00d724.85, cap 33.5\u00d733.8, collet 10.2, tube 6.35.",
+      "inference": "Photo screw-pitch/bonnet ratio agrees closely with a 24.5 mm pitch and 34.5 mm bonnet. Similar family is a scale anchor, not proof of identical mould."
+    },
+    {
+      "source": "hardware/reference/jg-pp0208e-tee/README.md",
+      "observed": "Measured 1/4-inch collets: 10.43 median, 10.24\u201310.77 mm.",
+      "inference": "10.6 mm nominal collet is a cross-check, not transferred as a dimensional specification."
+    }
+  ],
+  "limits": [
+    "No physical Yetaha specimen measured; intervals are engineering bounds, not statistical tolerances.",
+    "Tube engagement, collet release stroke, pressure behaviour and adjuster travel are not inferred from these exterior photos.",
+    "The catalogue package dimensions are excluded from all calculations."
+  ],
+  "adjustment_access": {
+    "axis": [
+      0,
+      0,
+      1
+    ],
+    "face_center": [
+      0,
+      0,
+      37.5
+    ],
+    "visible_disc_diameter": 21.5,
+    "suggested_tool_corridor_diameter": 23,
+    "suggested_tool_corridor_height": 20,
+    "note": "20mm approach is a layout allowance for a flat blade/coin; it is not a manufacturer-required operating space."
+  },
+  "status": "Estimated exterior reference; not installed in the enclosure assembly; no received specimen measured.",
+  "display_features": {
+    "tube_entry_bore_diameter": 6.5,
+    "tube_entry_leadin_diameter": 6.9,
+    "tube_entry_leadin_depth": 0.55,
+    "visible_mouth_depth": 7.5,
+    "clip_inner_diameter": 10.9,
+    "clip_outer_diameter": 14.3,
+    "clip_thickness": 1.0,
+    "clip_opening_degrees": 100,
+    "adjuster_disc_depth": 2.5,
+    "adjuster_cross_width": 3.2,
+    "adjuster_cross_span": 18,
+    "adjuster_cross_depth": 1.5,
+    "nut_across_flats": 6.5,
+    "nut_height": 1.3,
+    "stud_diameter": 3.5,
+    "stud_height": 0.7,
+    "note": "Estimated visible forms only. Fastener sizes do not identify a thread specification; shallow mouth closures do not establish insertion depth."
+  },
+  "pixel_datums": {
+    "frontal_photo": {
+      "image_id": "51hneEr+MfL",
+      "url": "https://m.media-amazon.com/images/I/51hneEr+MfL._AC_SL1500_.jpg",
+      "size_px": [
+        1500,
+        1500
+      ],
+      "selection": "Manually read visible edges and feature centres. Coordinates are approximate pixels, not metrology.",
+      "front_bolt_centres_px": [
+        [
+          519,
+          575
+        ],
+        [
+          999,
+          585
+        ]
+      ],
+      "rear_bolt_centres_px": [
+        [
+          514,
+          357
+        ],
+        [
+          995,
+          370
+        ]
+      ],
+      "bonnet_horizontal_span_px": 665,
+      "port_face_horizontal_span_px": 1140,
+      "port_axis_centre_px": [
+        750,
+        840
+      ],
+      "cap_face_centre_px": [
+        760,
+        182
+      ],
+      "base_front_lower_edge_y_px": 1190,
+      "near_fork_tip_y_px": 1375,
+      "inferred_camera_elevation_degrees": 27,
+      "scale_from_24_5mm_pattern_px_per_mm": 19.6,
+      "fork_inference": "(1375-1190)/(19.6*sin(27deg)) is about21mm beyond the base edge; about11mm base half-depth gives about32mm centre-to-tip."
+    },
+    "qc_closeup": {
+      "image_id": "61C5j53+zjL",
+      "url": "https://m.media-amazon.com/images/I/61C5j53+zjL._AC_SL1500_.jpg",
+      "size_px": [
+        1500,
+        1500
+      ],
+      "outer_rim_ellipse_major_px": 349,
+      "visible_entry_ellipse_major_px": 227,
+      "entry_to_outer_major_ratio": 0.65,
+      "method": "Ellipse fits to manually selected visible boundary witnesses.",
+      "inference": "A10.6mm outer rim gives about6.9mm visible lead-in, compatible with a6.35mm tube and a small chamfer. The chamfer entrance is not a calibrated6.35mm datum."
+    }
+  },
+  "sources": [
+    {
+      "kind": "primary_product",
+      "url": "https://www.amazon.com/dp/B07GDGYHZV",
+      "model": "SZ070030063979RK-1",
+      "gallery_image_ids": [
+        "51xYGSw305L",
+        "51lGwjPCQOL",
+        "51hneEr+MfL",
+        "51hTPRAXPTL",
+        "51DtKPxRTgL",
+        "61C5j53+zjL"
+      ]
+    },
+    {
+      "kind": "scanned_family_comparison",
+      "path": "hardware/reference/beduan-solenoid/README.md",
+      "bolt_pitch_mm": [
+        24.4,
+        24.85
+      ],
+      "cap_mm": [
+        33.5,
+        33.8
+      ],
+      "collet_diameter_mm": 10.2
+    },
+    {
+      "kind": "scanned_qc_comparison",
+      "path": "hardware/reference/jg-pp0208e-tee/README.md",
+      "collet_median_diameter_mm": 10.43,
+      "clean_readings_mm": [
+        10.24,
+        10.77
+      ]
+    }
+  ]
+}
