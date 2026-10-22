@@ -97,7 +97,7 @@ J9-B,J9,B,J9.B,display.B,22,279.428,proposed,nominal,unlocated,fixed
 J9-A,J9,A,J9.A,display.A,22,274.3,proposed,nominal,unlocated,fixed
 J9-GND,J9,GND,J9.GND,display.GND,22,285.784,proposed,nominal,unlocated,fixed
 J9-V12,J9,V12,J9.V12,display.V12,22,293.462,proposed,nominal,unlocated,fixed
-J11-V5,J11,V5,J11.V5,mq6.1,22,457.842,proposed,nominal,nominal,fixed
-J11-GND,J11,GND,J11.GND,mq6.2,22,461.878,proposed,nominal,nominal,fixed
-J11-DOUT,J11,DOUT,J11.DOUT,mq6.3,22,462.562,proposed,nominal,nominal,fixed
-J11-AOUT,J11,AOUT,J11.AOUT,mq6.4,22,471.502,proposed,nominal,nominal,fixed
+J11-V5,J11,V5,J11.V5,mq6.1,22,455.921,proposed,nominal,nominal,fixed
+J11-GND,J11,GND,J11.GND,mq6.2,22,460.19,proposed,nominal,nominal,fixed
+J11-DOUT,J11,DOUT,J11.DOUT,mq6.3,22,461.452,proposed,nominal,nominal,fixed
+J11-AOUT,J11,AOUT,J11.AOUT,mq6.4,22,469.065,proposed,nominal,nominal,fixed
