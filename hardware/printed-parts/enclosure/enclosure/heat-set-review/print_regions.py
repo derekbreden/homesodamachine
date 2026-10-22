@@ -34,7 +34,7 @@ def transformed_bounds(bounds, transform):
 
 def print_pose(piece, mesh_bounds):
     """Source-coordinate orientation and bed datum; plate X/Y nesting is separate."""
-    if piece.startswith(('pump-receiver-', 'pump-keeper-')):
+    if piece in DOCK_PIECES:
         return dict(up_axis_in_source=[0, 0, 1],
                     bed_face='Manufacturing export is already bedded in print pose',
                     source_to_print_mm=[[1, 0, 0, 0], [0, 1, 0, 0],
@@ -48,24 +48,8 @@ def print_pose(piece, mesh_bounds):
                                     [0, 0, sign, offset], [0, 0, 0, 1]])
 
 
-def dock_piece_names(dock):
-    return (*(f'{part}-{station}' for station in dock.STATIONS
-              for part in ('pump-receiver',)),
-            'pump-keeper-outer', 'pump-keeper-middle')
-
-
-def _junction_print_bounds(dock, receiver, plate, station, bounds):
-    """A local junction box carried into that junction's manufacturing pose."""
-    x, z = dict(zip(dock.STATIONS, plate['holes']))[station]
-    junction = receiver._local_junction(
-        dock.plumbing.layouts(plate)[str(x)]['junction'], (x, plate['fore_y'], z))
-    zrot, xrot = receiver.print_rotations(junction)
-    corners = e.cq.Solid.makeBox(bounds[1]-bounds[0], bounds[3]-bounds[2], bounds[5]-bounds[4],
-                                 e.cq.Vector(bounds[0], bounds[2], bounds[4]))
-    posed = corners.rotate((0, 0, 0), (0, 0, 1), zrot).rotate((0, 0, 0), (1, 0, 0), xrot)
-    floor = receiver.print_solid(junction=junction).BoundingBox().zmin
-    b = posed.BoundingBox()
-    return [b.xmin, b.xmax, b.ymin, b.ymax, b.zmin-floor, b.zmax-floor]
+# The dock's printed part, exported standing in its print pose.
+DOCK_PIECES = ('tee-cap',)
 
 
 def dock_regions(box, region):
@@ -73,13 +57,6 @@ def dock_regions(box, region):
     plate = box.pack.collet_plate
     if not plate:
         return
-    dock, receiver = e._dock, e._receiver
-    fore = plate['fore_y']
-    # Each keeper bears aft on the wall stock behind its slot: the skin under the receiver
-    # bays and the fingers beside them carry the receivers' aft load into the wall.
-    for name, b in dock.keeper_backing(plate).items():
-        region('front-top', f'Dock keeper slot {name}, backing skin and fingers', b)
-
     retention = e.pump_retention_features(box)
     for side, piece in (('moving', 'pump-cartridge'), ('fixed', 'front-top')):
         for number, shape in enumerate(retention[side]['cutter'].Solids(), start=1):
@@ -91,15 +68,14 @@ def dock_regions(box, region):
             b[2 if side == 'moving' else 3] += -e.wall if side == 'moving' else e.wall
             region(piece, f'SB443 column {number}: rail slot walls, roof over the blocks and root', b)
 
-    # Keepers are exported in their flat print pose.
-    for name in ('pump-keeper-outer', 'pump-keeper-middle'):
-        solid = e.cq.importers.importStep(str(ENC/f'enclosure-{name}.step')).val()
-        region(name, 'Complete keeper, downward-open U and crown', shape_bounds(solid))
+    # The tee cap is exported standing on its fore end.
+    solid = e.cq.importers.importStep(str(ENC/'enclosure-tee-cap.step')).val()
+    region('tee-cap', 'Complete tee cap, half pipe, spring wings and lips', shape_bounds(solid))
 
 
 def main():
     box, _bounds, box_path = _declared_box(_box_spec, e)
-    pieces = {name: [] for name in (*e.PIECE_COLORS, *dock_piece_names(e._dock))}
+    pieces = {name: [] for name in (*e.PIECE_COLORS, *DOCK_PIECES)}
     def region(piece, name, bounds, **evidence):
         pieces[piece].append(dict(name=name, machine_bounds_mm=bounds,
                                  sparse_infill_density='100%', sparse_infill_pattern='zig-zag',
@@ -170,20 +146,20 @@ def main():
             row['print_bounds_mm'] = transformed_bounds(
                 clipped, poses[name]['source_to_print_mm'])
     paths=[Path(__file__),ENC/'enclosure.py',ENC/'_enclosure_interface.py',box_path,
-           Path(e._dock.__file__),Path(e._receiver.__file__),
+           Path(e._dock.__file__),
            Path(e._retention.__file__),
            Path(e._dock.plumbing.__file__),
            ROOT/'hardware/printed-parts/petgf.3mf']
     report=dict(scope='Local 100% infill modifiers in existing native material; complete insert hosts, blind caps, roots and seam load paths. No load capacity or lifetime qualification.',
                 use='Manual print-preparation specification only. Modifier boxes intersect existing material and add no geometry. applied_source_bounds_mm clips each requested box to the model bounds before its prescribed print transform; plate X/Y nesting is separate. Bind a fresh native project and emitted paths to these hashes before production printing; this is not a build gate or a sliced-print result.',
                 coordinate_frames={name: ('Canonical manufacturing STEP/STL, already bedded in print pose'
-                                         if name.startswith(('pump-receiver-', 'pump-keeper-'))
+                                         if name in DOCK_PIECES
                                          else 'Source STEP/STL coordinates in the appliance frame') for name in pieces},
                 print_poses=poses,
                 part_process_overrides={name: dict(wall_loops='6', sparse_infill_density='100%',
                     sparse_infill_pattern='zig-zag',
-                    purpose='The keeper crown and U sides carry the junction collar into the wall backing. Whole-object solid deposition includes each groove bearing.')
-                    for name in pieces if name.startswith('pump-keeper-')},
+                    purpose='Each spring wing flexes at every snap and its lip carries the tee into the anchor window. Whole-object solid deposition includes both wings and lips.')
+                    for name in DOCK_PIECES},
                 source_sha256={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in paths},
                 native_artifact_sha256={name:{suffix:hashlib.sha256((ENC/f'enclosure-{name}{suffix}').read_bytes()).hexdigest()
                                              for suffix in ('.step','.stl')} for name in pieces},pieces=pieces)

@@ -174,7 +174,6 @@ import valve_seat as _seat
 import valve_tray as _valve_tray
 import pump_tray as _tray
 import dock_structure as _dock
-import pump_receiver as _receiver
 import _enclosure_interface as _interface
 import _swept_top
 import _display_wing_interface as _display_wings
@@ -985,7 +984,7 @@ def front_top_flank_root_z():
 
 
 def tray_corbel_roots(stations, wall_aft_y):
-    """Where each corbelled valve tray's root corbel meets the receiver wall's aft face (`_valve_trays`):
+    """Where each corbelled valve tray's root corbel meets the bulkhead's aft face (`_valve_trays`):
     the plate's floor, less the depth it overhangs that face."""
     roots = []
     for plane, sign, seats in stations:
@@ -1510,14 +1509,14 @@ rail_reach_in = (max(front_top_flank_t, back_top_flank_t) - wall) + slide_slip +
 # THE PUMPS SLIDE OUT OF THE FRONT OF THE BOX. The front wall's flat span — corner column to
 # corner column — and the large lower cradle come out of front-top as one piece, the PUMP
 # CARTRIDGE. Both pumps drop into that cradle and one top clamp closes on their stamped
-# brackets. The cradle keeps its nominal bed while the receiver floor retreats by
+# brackets. The cradle keeps its nominal bed while the receiving floor retreats by
 # `pump_bay_floor_air`; the stationary perimeter keeps its separate running clearance.
-# Eight printed-in SB443-IN pairs pull the lower cradle toward the bulkhead,
-# four on each pump's own port line, and their meeting poles seat it
+# Four printed-in SB443-IN pairs pull the lower cradle toward the bulkhead,
+# two on each pump's own port line, and their meeting poles seat it
 # (`dock_retention`). Each prepared pump's head clamps its
-# two straight LLDPE stubs; the stubs pass the cradle's open tube passages.
-# Four permanent TPU receivers carry radial seals. Pulling the complete
-# cartridge withdraws only the stubs; the receivers and commercial tees stay.
+# two straight LLDPE tubes; they pass the cradle's open tube passages and the collet
+# plate into four purchased tees. Pulling the cartridge drags each tee forward its
+# collet stroke against the plate, which holds the collet in while the tube draws out.
 #
 # FRONT-TOP CARRIES A FLOOR ACROSS THE BAY (`_bay_floor`), and everything in this storey
 # slides across it. The floor begins at front-top's actual bed, above the nominal
@@ -1527,9 +1526,9 @@ rail_reach_in = (max(front_top_flank_t, back_top_flank_t) - wall) + slide_slip +
 # floor crosses it wall to wall and only the front boss's own plinth still stands over the
 # mouth here.
 #
-# THE CLOSED RECEIVER WALL LOCATES THE TPU IN X/Z. Flat keepers slide up
-# slots behind its interior face from the seam and snap onto the receiver
-# necks, capturing the grooves in Y. The wall joins the bay floor, lintel and
+# THE BULKHEAD IS THE COLLET PLATE ACROSS THE TEES' BAND (`_bulkhead`), full thickness
+# above the tee caps. Behind the plate each tee's branch lies in a tee anchor and a tee cap
+# snaps down on top of it (`dock_structure`). The bulkhead joins the bay floor, lintel and
 # both flanks; front-bottom supports its two lower ends.
 #
 # The full-width opening extends from the show face to this bulkhead. The cartridge's
@@ -1791,9 +1790,9 @@ def documented(box):
 #                 cap a bracket stands in, the core's aft face, and the plane its cap presents
 #   vent_chase    the cold core's PRV relief line, one (x, y, z) — the core's west flank, which
 #                 the chase's lip lands on, and the tube's own axis where it comes through
-#   collet_plate  the fixed receiver-wall interface, retaining its assembly schema name:
-#                 wall Y datums, X/Z extent, four receiver axes and fixed valve ports,
-#                 as `enclosure_assembly.collet_plate_spec` derives from the pump pack.
+#   collet_plate  the bay bulkhead and its collet plate: wall Y datums, X/Z extent, the
+#                 four tee axes and fixed valve ports, as `enclosure_assembly.collet_plate_spec`
+#                 derives from the pump pack.
 Pack = namedtuple(
     "Pack", "placed front_ports back_ports east_ports west_ports funnel c14 "
             "east_bosses east_mount_fills side_wells floor_bosses west_cradle cond_cradle cond_mount "
@@ -2869,7 +2868,7 @@ def _bay_storey_segments(inner, outer, bay, plate):
     symmetric in x about it. It is walked from the middle out (`flute_rails`), which is why
     the segments read from one mouth edge straight through to the other.
 
-    ITS TWO LONG OUTBOARD STRETCHES ARE AIR. From the front-wall interior plane to the receiver wall
+    ITS TWO LONG OUTBOARD STRETCHES ARE AIR. From the front-wall interior plane to the bulkhead
     the side wall is cut away over this whole storey (`_bay_cut`), so these two segments carry
     the global arc coordinate across each window but never become flute rails. The central
     segment carries phase across the lower tee face, which is berthed or hidden; above it the
@@ -2881,7 +2880,7 @@ def _bay_storey_segments(inner, outer, bay, plate):
     which is what keeps the flutes off the mouth arris."""
     bx0, bx1 = bay_x_span(inner)
     fore = inner[2]                        # the flank opening begins on the front-wall plane
-    aft = plate["aft_y"]                   # the receiver wall's fore face, the storey's back
+    aft = plate["aft_y"]                   # the collet plate's aft face, the storey's back
     ledge = bx0 - outer[0]                 # exposed front-wall section, mouth to exterior
     window = aft - fore
     return (
@@ -4194,7 +4193,7 @@ def _z_rail_runs(inner, y_joint, col, plate, chase=()):
     run reaches a structural limit rather than a horizon: the front's is
     `wall + z_lip_y_margin` short of the joint, where the Y telescope's overlap
     begins; the back's is the rear wall's own corner round. The front opens on the
-    receiver wall (`plate["wall_aft_y"]`), the back on that same corner."""
+    bulkhead's flank ends (`plate["wall_aft_y"]`), the back on that same corner."""
     iy0, iy1 = inner[2], inner[3]
     out = []
     for x_in, sx in ((inner[0], +1.0), (inner[1], -1.0)):
@@ -4312,7 +4311,7 @@ def _z_rail_heads(inner, y_joint, zj, col, plate, chase=(), *, runs=None):
         sy = 1.0 if y1 > y0 else -1.0        # open end to closed: the way this column goes
         if col == "front" and plate:
             # Both rail ends have running room at the assembled position,
-            # including the entrance beside the receiver-wall rear face.
+            # including the entrance beside the bulkhead's rear face.
             y0 += slide_slip
         x_hk, x_f, x_a, x_h1 = _rail_x(x_in, sx, col)
         arm = _xz_prism(y0, y1, [(x_a, zj), (x_a, catch_z),
@@ -4634,7 +4633,7 @@ def _plate_foot(inner, plate, zj):
     hollow under the plate's middle.
 
     Each land reaches `plate_foot_reach` inboard of the flank. Its `plate_foot_y` run is
-    centred on the plate's two Y faces, and aft it runs on to the receiver wall's aft face, where
+    centred on the plate's two Y faces, and aft it runs on to the bulkhead's aft face, where
     the rail arm's under-flare takes over; the mouth face fore of it is the flank's own,
     unbroken and flush.
 
@@ -5796,10 +5795,10 @@ def _flank_lip_drop(inner, plate, y_joint, zj):
 
     `_front_flat_lip_drop`'s twin, turned a quarter: that one gives the lip up across the
     bay's own flat, this one gives it up round the corners and back down each flank as far
-    as the receiver wall's aft face (`plate["wall_aft_y"]`) — which is where the front column's
+    as the bulkhead's aft face (`plate["wall_aft_y"]`) — which is where the front column's
     RAIL then starts (`_z_rail_runs`). What the telescope was doing over that run is done
     better by what stands there now — the seam's cap over it, the bay floor bedded through
-    it, the receiver wall across it — and a lip that registers nothing is a wall poking into a
+    it, the bulkhead across it — and a lip that registers nothing is a wall poking into a
     cavity cut to receive it."""
     # Down to the mouth and NOT past it: below the seam this run is front-bottom's own wall,
     # which the drop has no business in — only the lip standing proud of the mouth.
@@ -5807,7 +5806,7 @@ def _flank_lip_drop(inner, plate, y_joint, zj):
 
 
 def _flank_lip_run(inner, plate, y_joint, z):
-    """The drop's OUTLINE over a z band given: wall to wall and back to the receiver wall's aft
+    """The drop's OUTLINE over a z band given: wall to wall and back to the bay bulkhead's aft
     face.
 
     `_flank_lip_drop` asks for the lip's own band, which is what a piece is cut on.
@@ -5841,15 +5840,23 @@ def _bay_floor(inner, y_joint, plate, pump_trays):
     return slab
 
 
-def _receiver_wall(inner, y_joint, plate, bay):
-    """Closed receiver wall, solid from the bay face to its aft plane.
+def _bulkhead(inner, y_joint, plate, bay):
+    """The bay's back: the collet plate across the tees' band and the full bulkhead round it.
 
-    The upper bulkhead retains its contact and display backing. The keeper
-    slots and receiver bays are cut with the dock's fixed features, after the
-    bay floor joins the wall.
+    Between the two outer tee caps and from the seam up to `plate_top_z` the bulkhead is the
+    collet plate alone, its aft face the release face the four tee collets meet. Over the tee
+    caps it grows back on a 45-degree underside to its full depth, which keeps the contact
+    pair's seat and the display backing and roots the fore valve tray; outboard of the caps it
+    stands full depth from the seam, where the flank rails start on its aft face. The tube
+    holes, the tee anchors and the magnet bosses are the dock's fixed features, taken after
+    the bay floor joins the plate.
     """
-    return _ybox(inner[0], inner[1], bay_back_y(plate),
-                 plate["wall_aft_y"], z_seam, bay[2])
+    fore, aft, back = bay_back_y(plate), plate["aft_y"], plate["wall_aft_y"]
+    top, half = plate["plate_top_z"], plate["plate_x"]
+    wall = _ybox(inner[0], inner[1], fore, back, z_seam, bay[2])
+    return wall.cut(_yz_prism(-half, half, [
+        (aft, z_seam - 1.0), (back + 1.0, z_seam - 1.0),
+        (back + 1.0, top + back + 1.0 - aft), (aft, top)]))
 
 
 def _ridge_wall(inner, outer, plate, bay, funnel):
@@ -6060,7 +6067,7 @@ def _cap_screws(box):
 
 def pump_retention_features(box):
     """The two magnet slots in each mating half and their blocks (`dock_retention`): the
-    cartridge's in its flat back, front-top's in the receiver wall's bay face."""
+    cartridge's in its flat back, front-top's in the collet plate's bay face."""
     plate = box.pack.collet_plate
     return _retention.features(
         plate["holes"], pump_cartridge_aft_y(box.pack.pump_trays, plate), bay_back_y(plate))
@@ -6069,20 +6076,61 @@ def pump_retention_features(box):
 def pump_dock_figures(box):
     plate = box.pack.collet_plate
     back = pump_cartridge_aft_y(box.pack.pump_trays, plate)
+    plumbing = _dock.plumbing
+    fore = plate["fore_y"]
+    row = plate["holes"][0][1]
+    stations = plumbing.layouts(plate).values()
+    upper = next(iter(plate["upper_ports"].values()))["point"]
+    returns = sorted(plate["return_ports"].values(), key=lambda p: abs(p["point"][0]))
+    floor = min(s["hairpin_floor_z"] for s in stations)
+    condenser_top = box.pack.cond_airway[3] if box.pack.cond_airway else None
+    columns = _retention.column_stations(plate["holes"])
     return {
-        "RECEIVER_COUNT": str(len(plate["holes"])),
-        "KEEPER_COUNT": str(len(_dock.KEEPERS)),
-        "DOCK_TIP_Y": f"{plate['seated_tube_bottom_y']:.6g} mm",
+        "TEE_COUNT": str(len(plate["holes"])),
+        "TEE_CAP_COUNT": str(len(plate["holes"])),
+        "DOCK_ROW_Z": f"Z{row:.6g}",
+        "DOCK_BAY_FACE_Y": f"Y{fore:.6g}",
+        "DOCK_RELEASE_Y": f"Y{plate['aft_y']:.6g}",
+        "DOCK_WALL_AFT_Y": f"Y{plate['wall_aft_y']:.6g}",
+        "DOCK_PLATE_TOP_Z": f"Z{plate['plate_top_z']:.6g}",
+        "DOCK_PLATE_T": f"{plumbing.PLATE_T:.4g} mm",
+        "DOCK_HOLE_D": f"Ø{2 * _dock.HOLE_R:.4g} mm",
+        "DOCK_FRAME_GAP": f"{bay_back_y(plate) - back:.4g} mm",
+        "DOCK_CONNECTED_Y": f"Y{plumbing.tee_axis_y(fore):.6g}",
+        "DOCK_RELEASED_Y": f"Y{plumbing.tee_axis_y(fore, 'released'):.6g}",
+        "DOCK_TRAVEL": f"{plumbing.TRAVEL:.3g} mm",
+        "DOCK_JOURNAL": f"Ø{2 * _dock.JOURNAL_R:.4g} mm",
+        "DOCK_COLLAR_ENVELOPE": f"Ø{_dock.tee.COLLAR_ENVELOPE_D:.4g} mm",
+        "DOCK_JOURNAL_AIR": f"{_dock.JOURNAL_R - _dock.tee.COLLAR_ENVELOPE_D / 2.0:.4g} mm",
+        "DOCK_ANCHOR_LEN": f"{_dock.rib_length(plate):.4g} mm",
+        "DOCK_WING": f"{_dock.anchor.WING:.4g} mm",
+        "DOCK_ENGAGE": f"{_dock.anchor.ENGAGE:.4g} mm",
+        "DOCK_LEAD_IN": f"{_dock.anchor.LEAD_IN:.4g}°",
+        "DOCK_CAP_STRAIN": f"{100 * _dock.wing_strain():.2f}%",
+        "DOCK_CAVITY": f"{_dock.WING_IN - _dock.SADDLE_R:.4g} mm",
+        "DOCK_STOP_AIR": f"{_dock.STOP_AIR:.4g} mm",
+        "DOCK_SCANNED_STOP": (f"{_dock.SCANNED_SHOULDER_STATION - _dock.SHOULDER_STATION + _dock.STOP_AIR:.3g} mm"),
+        "DOCK_FORE_VALVE_Z": f"Z{upper[2]:.6g}",
+        "DOCK_FORE_VALVE_Y": f"Y{upper[1]:.6g}",
+        "DOCK_FORE_VALVE_SET": f"{plumbing.FORE_VALVE_SET:.3g} mm",
+        "DOCK_UPPER_TUBE": f"{next(iter(stations))['upper_exposed_mm']:.4g} mm",
+        "DOCK_LOWER_PORT_Z": f"Z{row - plumbing.RUN_FACE:.6g}",
+        "DOCK_HAIRPIN_LEAD": f"{plumbing.HAIRPIN_LEAD:.3g} mm",
+        "DOCK_HAIRPIN_R": f"{plumbing.HAIRPIN_R:.4g} mm",
+        "DOCK_HAIRPIN_FLOOR": f"Z{floor:.6g}",
+        "DOCK_CONDENSER_AIR": (f"{floor - condenser_top:.3g} mm" if condenser_top is not None
+                               else "no station"),
+        "DOCK_INNER_RETURN_Z": f"Z{returns[0]['point'][2]:.6g}",
+        "DOCK_OUTER_RETURN_Z": f"Z{returns[-1]['point'][2]:.6g}",
+        "DOCK_OUTER_RETURN_X": f"X±{abs(returns[-1]['point'][0]):.6g}",
+        "DOCK_PUMP_TUBE": f"{plate['pump_tube_cut']:.3g} mm",
+        "DOCK_TIP_Y": f"Y{plate['seated_tube_bottom_y']:.6g}",
         "DOCK_TIP_FROM_BACK": f"{plate['seated_tube_bottom_y']-back:.6g} mm",
-        "DOCK_LAND": f"{_receiver.FRONT_SEAL_Y[1]-_receiver.FRONT_SEAL_Y[0]:.4g} mm",
-        "DOCK_SEAL_BORE": f"{_receiver.SEAL_BORE_D:.4g} mm",
+        "DOCK_CARTRIDGE_BACK": f"Y{back:.6g}",
+        "DOCK_MAGNET_X": f"X±{abs(columns[0][0]):.6g}",
+        "DOCK_MAGNET_PAIRS": str(len(_retention.stations(plate["holes"]))),
         "DOCK_MAGNET_COUNT": str(2*len(_retention.stations(plate["holes"]))),
         "DOCK_MAGNET_ROWS": str(_retention.ROWS_PER_COLUMN),
-        "DOCK_KEEPER_T": f"{_receiver.KEEPER_THICKNESS:.4g} mm",
-        "DOCK_KEEPER_SLIDE_AIR": f"{_receiver.KEEPER_SLIDE_AIR:.4g} mm",
-        "DOCK_NECK_GRIP": f"{_receiver.NECK_GRIP_D:.4g} mm",
-        "DOCK_NECK_MOUTH": f"{_receiver.NECK_MOUTH_W:.4g} mm",
-        "DOCK_NECK": f"{_receiver.BODY_OD:.4g} mm",
     }
 
 
@@ -8114,8 +8162,8 @@ def _valve_trays(solid, inner, stations, y0, y1, z0, z1,
     placed on.
 
     A PLATE THAT OUTRUNS ITS OWN WALL IS CORBELLED AT THE ROOT. `wall_aft_y` is
-    `collet_plate_spec`'s own `wall_aft_y` — the receiver wall's aft face, the plane wall support
-    actually ends at (`_receiver_wall`). Where that plane falls strictly inside a plate's own
+    `collet_plate_spec`'s own `wall_aft_y` — the bulkhead's aft face over the tee caps, the plane
+    wall support actually ends at (`_bulkhead`). Where that plane falls strictly inside a plate's own
     near/far span, the plate stands on the wall for the inboard share of its thickness and
     overhangs open bay air for the rest: `far - wall_aft_y`, read off the two planes and never
     typed. The corbel rises 45° off the wall's own aft face and closes at the plate's own far
@@ -8164,8 +8212,8 @@ def _valve_trays(solid, inner, stations, y0, y1, z0, z1,
         floor = mid_z - half
         wedge_depth = 0.0
         if wall_aft_y is not None and near < wall_aft_y < far:
-            # One 45-degree keel under the plate's whole thickness. Ahead of the wall's aft
-            # face the plate stands over the keeper pocket, where a flat floor is a ceiling.
+            # One 45-degree keel under the plate's whole thickness. Behind the bulkhead's aft
+            # face the plate stands over open bay air, where a flat floor is a ceiling.
             wedge_depth = (far - near) / 2.0
             tray = tray.fuse(_yz_prism(inner[0], inner[1], [
                 (far, floor), (near, floor), ((near + far) / 2.0, floor - wedge_depth),
@@ -9132,7 +9180,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
             # The front flat's share of both skins goes to the bay's floor and the heads
             # that pass through its berth; the flat sill is front-top's.
             piece = piece.cut(_front_flat_lip_drop(inner, zj))
-            # And both flanks over the same run, round the corners to the receiver wall's aft
+            # And both flanks over the same run, round the corners to the bulkhead's aft
             # face — the rail starts on that face and nothing crosses the seam fore of it.
             piece = piece.cut(_flank_lip_drop(inner, box.pack.collet_plate, y_joint, zj))
         # The rail heads and their stop blocks — the whole of what stands proud of this
@@ -9248,10 +9296,10 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # And the flavour manifold's valve trays, on whichever piece owns each deck's band. A plate
     # wall to wall with its seats standing on it, so it goes on after the wells and the bosses
     # for the same reason they go after the seam's own bosses.
-    # The permanent junction wall, ahead of the valve trays — BEFORE the valve trays,
+    # The bay's bulkhead and collet plate, ahead of the valve trays — BEFORE the valve trays,
     # because a tray's seats are cut out of whatever stands on that plane and this stands on it.
     if y_side == "front" and z_side == "top" and box.pump_bay and box.pack.collet_plate:
-        piece = piece.fuse(_receiver_wall(inner, y_joint, box.pack.collet_plate, box.pump_bay))
+        piece = piece.fuse(_bulkhead(inner, y_joint, box.pack.collet_plate, box.pump_bay))
         # And the rib that stands on that wall's crown, carrying the ridge the display's
         # through-hole leaves across the housing's back. With the wall, because it stands on
         # it — and after the facet's own cuts, which the half took before it was split.
@@ -9266,7 +9314,8 @@ def build_piece(box, y_side, z_side, halves_cache=None):
                     if (y_side, z_side) == ("front", "top") else ()),
     )
     if (y_side, z_side) == ('front', 'top') and box.pack.collet_plate:
-        piece = piece.cut(_dock.elbow_clearances(box.pack.collet_plate))
+        for cutter in _dock.return_clearances(box.pack.collet_plate):
+            piece = piece.cut(cutter)
     # The removable cartridge bears on the floor joined to the bay bulkhead.
     if y_side == "front" and z_side == "top" and box.pump_bay and box.pack.collet_plate:
         piece = piece.fuse(_bay_floor(inner, y_joint, box.pack.collet_plate, box.pack.pump_trays))
@@ -9297,7 +9346,8 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         if box.pack.collet_plate:
             for cutter in _pump_contact_fixed_cuts(box):
                 piece = piece.cut(cutter)
-            stocks, cuts = _dock.fixed_features(box.pack.collet_plate)
+            stocks, cuts = _dock.fixed_features(
+                box.pack.collet_plate, pump_retention_features(box)["interface"])
             for stock in stocks:
                 piece = piece.fuse(stock)
             for cutter in (*cuts, pump_retention_features(box)["fixed"]["cutter"]):
@@ -10001,12 +10051,12 @@ def _piece_mesh(solid):
 
 
 def _collet_plate_body(plate):
-    """Fixed receiver-wall bearing envelope, excluded from show-surface flutes."""
+    """The collet plate's bearing envelope, excluded from show-surface flutes."""
     return _xz_prism(plate["fore_y"], plate["aft_y"], plate_outline(plate))
 
 
 def export_pump_dock(box):
-    """Write station-specific wet parts, dry captures and factory tools."""
+    """Write the tee cap and the factory tube setting jig."""
     import flute_payload
     from _materials import M_PETGF_BLACK
     products = _dock.manufacturing_parts(box.pack.collet_plate)
@@ -10425,7 +10475,7 @@ def main():
         "BOX_SIZE": (f"{bo[1] - bo[0]:.6g} × {bo[3] - bo[2]:.6g} × "
                      f"{bo[5] - bo[4]:.6g} mm"),
         "FRONT_WALL": f"{front_wall:.4g} mm",
-        # How far the fore valve tray's flat underside reaches aft of the receiver wall.
+        # How far the fore valve tray's flat underside reaches aft of the bay bulkhead.
         "FORE_TRAY_OVERHANG": (
             f"{max(plane - sign * _valve_tray.SEAT for plane, sign, _seats in box.pack.valve_trays if sign > 0) - box.pack.collet_plate['wall_aft_y']:.4g} mm"
             if box.pack.collet_plate else "no station"),
@@ -10442,6 +10492,9 @@ def main():
         variables=variables,
     )
     print("-> README.md")
+    if box.pack.collet_plate:
+        substitute_md(_dock.HERE / "README.md", variables=pump_dock_figures(box))
+        print("-> pump-dock/README.md")
 
 
 if __name__ == "__main__":

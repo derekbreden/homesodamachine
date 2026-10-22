@@ -182,7 +182,7 @@ SCENES = (
         cam=(0.8, -1.0, 0.9), up=(0, 0, 1), zoom=4.4, look="centre",
         note="The same pose as the back top and the other half of the same box: on its ceiling, "
              "the mouth to the room. Every seat under this manifold is the piece's own "
-             "material, including the permanent receiver wall. The sliding funnel frame is installed; "
+             "material, including the collet plate and the four tee anchors. The sliding funnel frame is installed; "
              "the silicone funnel and pump cartridge enter with the box standing.",
     ),
     # THE UNIT THAT FILLS THAT BAY, rooted on its two printed pieces: the full-height lower
@@ -196,10 +196,10 @@ SCENES = (
         note="Upright on its lower cradle, the same pose in which it is assembled and installed: "
              "both complete pumps drop through straight wells until their molded skirts bear "
              "on the cradle lands, then the small top clamp lowers over both octagonal bosses "
-             "and takes two screws. Each pump head clamps its two short LLDPE stubs, which "
-             "pass the cradle's open tube passages. Eight printed-in SB443-IN magnet pairs, one "
-             "column on each pump's line, hold the installed cartridge where their bare poles "
-             "meet; the four stubs enter permanent TPU receivers in the bay wall.",
+             "and takes two screws. Each pump head clamps its two short LLDPE tubes, which "
+             "pass the cradle's open tube passages. Four printed-in SB443-IN magnet pairs, two "
+             "on each pump's line, hold the installed cartridge where their bare poles meet; "
+             "the four tubes pass the collet plate into the tees behind it.",
     ),
     # THE PAIR IS WORKED FLAT ON A BENCH, so the camera is a person standing over it: nearly
     # down the lid's own normal, leaned just far enough onto the near edge that a valve and
@@ -321,7 +321,7 @@ BARE = {"cap-lid-fill"}
 #
 # A body the fastening table leaves without a parent and this table does not name is REPORTED,
 # not dropped — see `holders`. The flavour pack's fixed valves and plumbing are
-# assembled on front-top's trays and receiver wall.
+# assembled on front-top's trays and tee anchors.
 BEARS_ON = {
     # Standing on a printed floor.
     "foam-assembly": "enclosure-back-bottom",
@@ -342,12 +342,9 @@ BEARS_ON = {
     # Hanging off the line they splice, on the wall that line is cradled against.
     "water-split": "enclosure-back-top",
     "flow-regulator": "enclosure-back-top",
-    # The wall and its gravity-seated flat keeper jointly retain each TPU receiver.
-    **{f"pump-receiver-{port}": "enclosure-front-top"
-       for port in ("west-outer", "west-inner", "east-inner", "east-outer")},
-    # Short push-fit tubes join these elbows to front-top's mounted rear valves.
-    **{f"pump-elbow-{port}": "enclosure-front-top"
-       for port in ("west-outer", "west-inner", "east-inner", "east-outer")},
+    # Each pump tee lies in its anchor under the tee cap that snaps down over it.
+    **{f"tee-{tee}": "enclosure-front-top" for tee in ("y-c", "y-d", "y-f", "y-g")},
+    **{f"tee-cap-{tee}": "enclosure-front-top" for tee in ("y-c", "y-d", "y-f", "y-g")},
     # Riding another body rather than a piece.
     "fuse-clamp": "compressor",
 }
@@ -380,17 +377,16 @@ def holders():
         # A mounted body keeps its name; a run's rib holds its tube. Both may state an
         # explicit seat height, so that geometric value does not identify the occupant.
         out[name if name in out else f"tube-{name}"] = "foam-assembly"
-    # Prepared pump stubs ride the cartridge; the upper links, bent lower tubes and short valve links stay on
-    # front-top with their permanent junctions and purchased elbows.
+    # Prepared pump tubes ride the cartridge; the upper tubes and lower hairpins stay on
+    # front-top with the pump tees.
     pump_at = {x: name for name, x in _ml.PUMPS.items()}
     for cid, _frm, _to, how in _ml.SEGMENTS:
         if how in _ml.BARB_OF:
             out[f"tube-fluid-{cid}"] = f"{pump_at[_ml.BARB_OF[how][0]]}-head"
         elif how in _ml.FORE_STUBS:
             out[f"tube-fluid-{cid}"] = "enclosure-front-top"
-    for cid, links in _ml.lower_links().items():
-        for member in links:
-            out[f"tube-fluid-{cid}-{member}"] = "enclosure-front-top"
+    for cid in _ml.lower_links():
+        out[f"tube-fluid-{cid}"] = "enclosure-front-top"
     # A RIDER GOES WHERE ITS HOST GOES — `_scorecard.RIDES`, the coils on their valves and the
     # Kamoers' rear bosses and motor cans on their heads. One purchased thing apiece, drawn as
     # several so each takes its own colour.

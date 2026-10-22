@@ -104,7 +104,7 @@ PROFILES = {
     # Small parts carry the two-wall, 15% recipe. The organizer's accepted
     # fit-trial slice uses this recipe; the other rows are profile estimates.
     "small": (0.87, 0.45, 0.15),
-    # Solid PET-GF: the collet press, the dock's keepers, and the anchor cap.
+    # Solid PET-GF: the collet press, the tee caps, and the anchor cap.
     # Their manual print specification uses a 0.4 nozzle, at least 6 walls and
     # 100% infill. Bill their complete geometry until native production slices.
     "tool":  (2.70, 0.45, 1.00),
@@ -151,11 +151,12 @@ PARTS = {
         "enclosure/enclosure/enclosure-pump-cartridge.step",
         "enclosure/enclosure/enclosure-pump-cap.step",
     ],
-    "Enclosure — pump receiver keepers (one set)": [
-        # Two outer keepers, one per outer receiver, and the inner pair's keeper.
-        "enclosure/enclosure/enclosure-pump-keeper-outer.step",
-        "enclosure/enclosure/enclosure-pump-keeper-outer.step",
-        "enclosure/enclosure/enclosure-pump-keeper-middle.step",
+    "Enclosure — tee caps (one set)": [
+        # One cap over each of the four pump tees.
+        "enclosure/enclosure/enclosure-tee-cap.step",
+        "enclosure/enclosure/enclosure-tee-cap.step",
+        "enclosure/enclosure/enclosure-tee-cap.step",
+        "enclosure/enclosure/enclosure-tee-cap.step",
     ],
     "Carbonator reed bridge": ["cold-core/reed-bridge/reed-bridge.step"],
     "Enclosure — back bottom + back top (two quadrants)": [
@@ -241,7 +242,7 @@ GROUP_OF = [
     ("Enclosure — front",           "ext"),
     ("Enclosure — back",            "ext"),
     ("Enclosure — pump cartridge",  "ext"),
-    ("Enclosure — pump receiver",   "tool"),
+    ("Enclosure — tee caps",        "tool"),
     ("Display cover plate",         "ext"),
     ("Anchor cap",                  "tool"),
     ("Flavor reservoir",            "tight"),

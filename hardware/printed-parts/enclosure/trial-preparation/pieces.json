@@ -279,24 +279,13 @@
       "spacing_mm": 12,
       "parts": [
         {
-          "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-keeper-outer.stl",
-          "quantity": 2,
+          "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-tee-cap.stl",
+          "quantity": 4,
           "pose": {"turns": [["x", 0]]},
-          "regions": "pump-keeper-outer",
+          "regions": "tee-cap",
           "object_settings": {
-            "wall_loops": {"value": "6", "reason": "The complete keeper carries each receiver groove bearing and its downward-open U."},
-            "sparse_infill_density": {"value": "100%", "reason": "Complete groove bearing and U-crown load path."},
-            "sparse_infill_pattern": {"value": "zig-zag", "reason": "Solid structural-part recipe."}
-          }
-        },
-        {
-          "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-keeper-middle.stl",
-          "quantity": 1,
-          "pose": {"turns": [["x", 0]]},
-          "regions": "pump-keeper-middle",
-          "object_settings": {
-            "wall_loops": {"value": "6", "reason": "The complete keeper carries each receiver groove bearing and its downward-open U."},
-            "sparse_infill_density": {"value": "100%", "reason": "Complete groove bearing and U-crown load path."},
+            "wall_loops": {"value": "6", "reason": "Each spring wing flexes at every snap and its lip carries the tee into the anchor window."},
+            "sparse_infill_density": {"value": "100%", "reason": "Complete wing and lip load path."},
             "sparse_infill_pattern": {"value": "zig-zag", "reason": "Solid structural-part recipe."}
           }
         }

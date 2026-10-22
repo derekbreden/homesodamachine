@@ -607,8 +607,8 @@ the rail in places the pump cartridge stands in front of, and a face another bod
 against is not one anybody finishes. `flute_skin._shadow_mask` asks, at every station, whether
 a berthed body stands between that face and the storey's mouth — the same question the show
 mask asks, asked of the other bodies — so the bay wall carries flutes only where the pump cartridge
-leaves it visible, and its functional receiver/seating band is left plain. Nothing is listed: the
-lower cradle and top clamp are what the assembly stands there; the receiver wall is part of front-top.
+leaves it visible, and its functional seating band is left plain. Nothing is listed: the
+lower cradle and top clamp are what the assembly stands there; the bay bulkhead is part of front-top.
 
 **Nothing may relieve into the outermost [3 mm](FLUTE_BACKING) of a fluted face.** The exterior
 profile ([print-log.md](print-log.md)) lays two wall loops a side at 0.42 and 0.45, so one
@@ -1001,7 +1001,7 @@ follows `c14_station_x`.
 
 **The pump-cartridge storey has no fixed front-top frame in its withdrawal span.** `_bay_cut`
 removes the complete exterior front-wall band, both rounded corners and both side skins from
-the bay floor through the lintel, then continues aft to the permanent receiver wall. The installed cradle
+the bay floor through the lintel, then continues aft to the bay bulkhead. The installed cradle
 owns that same [215 mm](CRADLE_WIDE) exterior width. Its outline is vertical in Z: there is
 no 45° narrowing toward the sill. Only the two hand pockets interrupt that width. The cartridge has [0.25 mm](PUMP_CARTRIDGE_Z_CLEARANCE) of functional Z clearance
 above the sill and [0.5 mm](PUMP_CARTRIDGE_TOP_AIR) below the lintel; it has no cosmetic reveal or corresponding X/Y inset.
@@ -1367,8 +1367,8 @@ planes, and the front display-support columns have no section anywhere in this w
 The pump stations use a [3 mm](PUMP_STATION_DROP) downward world-Z datum. The stationary
 manifold, tees and tube passages stand 2 mm above the manifold's nominal datum. The pump
 reference's rear boss and motor axis stands 1 mm toward Y− from its head datum, and the
-clamp's fitted octagon and motor-can openings follow that rear-stack axis. Four straight LLDPE stubs, clamped in the pump heads, connect the complete pumps to the
-permanent TPU receivers.
+clamp's fitted octagon and motor-can openings follow that rear-stack axis. Four straight LLDPE tubes, clamped in the pump heads, connect the complete pumps to the
+four pump tees behind the bay bulkhead.
 
 **Each pump drops into that cradle from Z+.** Two straight wells pass the motor, boss, molded
 flange, head and tube fittings. The fitted head well leaves flat skirt lands on −Y and both X
@@ -1438,51 +1438,42 @@ bulkhead. The show face shares the fixed front plane at [0 mm](PUMP_FACE_OFFSET)
 stands one flute depth ahead of the pump-pocket datum. The pump wells and their Y+ edge occupy
 the complete flavour pack's common station.
 
-**Four permanent TPU receivers form the pump dock.** Each complete replacement pump
-carries two straight stubs of 1/4" LLDPE in its tube ends, clamped by the pump head's
-own housing, which carries their axial loads into the rigid head. The stubs pass the
-cradle's open tube passages. The customer's pump change does not cut, trim or
-transfer a stub.
+**Four purchased PP0208E tees form the pump dock.** Each complete replacement pump
+carries two straight [33.2 mm](DOCK_PUMP_TUBE) tubes of 1/4" LLDPE in its tube ends, clamped by
+the pump head's own housing, which carries their axial loads into the rigid head. The tubes
+pass the cradle's open tube passages and the bay bulkhead's collet plate into
+[4](TEE_COUNT) John Guest PP0208E tees, one on each pump port, each branch on its tube's axis
+and each run upright. The customer's pump change does not cut, trim or transfer a tube.
 
-The stubs enter [4](RECEIVER_COUNT) custom TPU funnels followed by
-Ø[6.1 mm](DOCK_SEAL_BORE), [6 mm](DOCK_LAND) straight sealing lands. The rigid wall
-locates the receivers in X/Z. Their recessed collars fit in the wall, and
-[3](KEEPER_COUNT) flat PET-GF keepers capture Y: one for each outer receiver and one for
-the inner pair, the magnet column between each pump's ports dividing the wall into three
-bays. Each keeper is [3 mm](DOCK_KEEPER_T) thick and runs in its slot behind the wall's
-interior face, [0.25 mm](DOCK_KEEPER_SLIDE_AIR) from each slot face. It goes in from the
-seam and parks above the collars while the receivers are fitted, then slides down until its
-downward-open [12.4 mm](DOCK_NECK_MOUTH) U seats on the [11.7 mm](DOCK_NECK) receiver necks
-by gravity, its [12.4 mm](DOCK_NECK_GRIP) crown resting on the occupied neck. The slot's
-faces back the keeper both ways in Y; no screw, insert or washer. Each receiver is a
-complete asymmetric Y with 90° between its pump inlet and upper branch, and a lower
-branch aimed 50° down and aft. Its upper link is straight. From the lower branch a 1/4"
-LLDPE tube makes one R28 bend into the forward leg of a purchased PP0308E elbow standing
-directly beneath its rear valve, and a short straight tube joins the elbow's upper leg to
-that valve. All permanent plumbing is assembled on loose front-top before that piece joins
-the compressor half.
+The collet plate's aft face at [Y85.69](DOCK_RELEASE_Y) is the release face. Seated, each tube
+bottoms at its tee's stop with its tip [14.925 mm](DOCK_TIP_FROM_BACK) aft of the cartridge
+back, at enclosure [Y97.19](DOCK_TIP_Y), and the tee stands at connected: its branch collet
+extended with its nose on the release face. The collet grips the tube against pressure. A
+straight pull drags each tee forward its [1.5 mm](DOCK_TRAVEL) collet stroke until the plate
+holds the collet pressed and the tube draws out; pushing the cartridge home returns each tee
+to connected. Each tee's branch lies in a tee anchor on front-top's seam plane, a half journal
+that holds it in X and Z and lets it slide that stroke, and a printed tee cap snaps down on
+top of the branch and closes the journal. The fore valves stand fixed over the tees, so the
+short upper tube bends half the stroke each way; one R14 hairpin of LLDPE joins each tee's
+lower port to its rear valve. The tees, caps, valves and tubing stay in the machine. All
+permanent plumbing is assembled on loose front-top before that piece joins the compressor
+half. The [pump-dock specification](../pump-dock/README.md) gives the stations, the tee cap,
+the tube setting jig and the material selections.
 
-The meeting magnet poles set full insertion, with the stub tips
-[7.75 mm](DOCK_TIP_FROM_BACK) aft of the cartridge back, at enclosure
-Y[90.015 mm](DOCK_TIP_Y). The tips remain 0.5 mm short of their internal shoulders.
-A straight pull withdraws the four stubs while every junction, keeper, elbow and
-fixed tube remains in place. No commercial collet moves during a pump
-change. The [pump-dock specification](../pump-dock/README.md) supplies the manufacturing
-parts, native geometry review, tube setting jig and material selections.
-
-**Printed-in SB443-IN pairs seat and retain the cartridge.**
-[16](DOCK_MAGNET_COUNT) magnets stand in one [4](DOCK_MAGNET_ROWS)-high column on each
+**Printed-in SB443-IN pairs seat the cartridge.**
+[8](DOCK_MAGNET_COUNT) magnets stand in one [2](DOCK_MAGNET_ROWS)-high column on each
 pump's own load line in each half. Each column is one slot open at the mating face, with a
 printed rail standing in each of the blocks' side grooves; the blocks drop down the rails at
 the part's one print pause and the next layer closes over them. Pulled onto its rails, each
 pole stands 0.125 mm proud of its face, so the poles meet in the middle of the 0.25 mm gap
-and seat the cartridge. The [magnet record](../pump-dock/magnet-retention.md) gives the slot,
+and seat the cartridge. The collets hold the tubes against pressure; the magnets hold the
+cartridge seated. The [magnet record](../pump-dock/magnet-retention.md) gives the slot,
 the pause and the loading. Installed holding force and the printed rails' fit remain physical
 qualifications rather than advertised-array calculations.
 
 The cradle's flat aft edge is at y [82.265 mm](PUMP_CARTRIDGE_AFT_Y),
 [0.25 mm](CARTRIDGE_BULKHEAD_KISS) fore of the bay bulkhead. Its accepted pump-seat
-fit keeps its recorded scope; the stub clamp, TPU sealing and the complete magnetic
+fit keeps its recorded scope; the tube clamp, the tees' release and the complete magnetic
 dock require their own assembled physical results.
 
 **Both pulls are tall rounded pockets centred on the cradle's Y run.** Each is [15.75 mm](PULL_DEPTH)
@@ -1500,24 +1491,21 @@ push during insertion. The cradle keeps [24.63 mm](PULL_FORE_STOCK) of stock for
 of the pocket and [24.63 mm](PULL_AFT_STOCK) aft of it. The inboard walls join both grip
 faces to the cartridge body. The top clamp has no separate grip.
 
-## Fixed plumbing behind the receiver wall
+## Fixed plumbing behind the collet plate
 
-Four permanent TPU junctions combine the pump-facing funnel, tight inlet land
-and two branches in one printed wet body. The inlet and upper outlet are at
-90 degrees; the lower outlet points 45 degrees aft from downward. The upper
-LLDPE link runs straight to its original valve port. Each lower outlet joins
-one permanent printed return containing a 45-degree turn, a straight passage
-and a 90-degree turn. Two straight LLDPE links connect that body to the junction
-and the original aft valve port.
+Each tee's upper collet takes one short LLDPE tube up into its fore valve's bottom collet;
+the fore valve stands fixed on its tray posts with its axis at
+[Y107.29](DOCK_FORE_VALVE_Y), the middle of the tee's travel. Each lower collet takes one R14
+hairpin aft and up into its rear valve's bottom collet, through the port channel front-top
+keeps under each rear valve.
 
 Both front flanks retain their full [9 mm](FRONT_TOP_FLANK) section across this room.
-The flat receiver keepers install from the open interior before the valve rows close
-access. Each junction's solid TPU between its branches backs its upper socket; the
-return block's channels seat the returns, so the fixed socket stops locate the short
-diagonal links against axial motion. The aft valves and coils enter from the loose
-piece's underside and move onto their mounting posts. The Beduan socket fit retains
-its identified physical acceptance; ties supply retention. Factory assembly and the
-complete dock's physical qualification are specified in
+The tees, upper tubes and fore valves go in together from the open interior, and the tee
+caps snap down before the valve rows close access. The rear valves and coils enter from the
+loose piece's underside and move onto their mounting posts, and each hairpin pushes up into
+its tee's lower collet and its rear valve together. The Beduan socket fit retains its
+identified physical acceptance; ties supply retention. Factory assembly and the complete
+dock's physical qualification are specified in
 [`internal-plumbing.md`](../../../assembly/internal-plumbing.md) §3 and the
 [pump-dock record](../pump-dock/README.md).
 
@@ -1544,7 +1532,7 @@ relief also remains. The scanned rigid front-rim envelope keeps
 [4.595 mm](PUMP_BAY_FLOOR_STOCK) of stock above front-top's Z160.25 print bed and keeps one
 flat insertion/withdrawal lane. It runs into the full thickness of the bulkhead.
 
-Front-bottom's lip drops around the front and both flanks as far as the receiver-wall backing datum.
+Front-bottom's lip drops around the front and both flanks as far as the bay bulkhead's backing datum.
 The floor crosses that run wall to wall.
 The remaining side lips and rails telescope along their complete working runs.
 
@@ -1558,15 +1546,17 @@ is [2 mm](PLATE_FOOT_COND_AIR).
 
 One rectangular bulkhead joins the floor, lintel and both enclosure flanks. Its flat
 cartridge-facing plane is Y [82.515 mm](BAY_BACK_Y); its full backing depth is
-[14.321 mm](BAY_BULKHEAD_T), with the receiver-row interior recessed as described below. The cradle and clamp share one flat back at y
+[14.321 mm](BAY_BULKHEAD_T), with the collet plate band described below. The cradle and clamp share one flat back at y
 [82.265 mm](PUMP_CARTRIDGE_AFT_Y), one [0.25 mm](CARTRIDGE_BULKHEAD_KISS) kiss fore of that
 plane.
 
-The receiver row has a 7 mm wall section with four closed Ø12 mm bores and recessed
-front lips and rear collar seats. The interior access recess leaves flat keeper guides,
-their lock hosts and the fixed socket mounting fixtures. The full
-backing depth continues into the ridge/contact wall above. The Z-seam rail channels
-begin at the bulkhead's retained aft datum.
+Across the tee row the bulkhead is the [3.175 mm](DOCK_PLATE_T) collet plate, from the seam
+to [Z200.324](DOCK_PLATE_TOP_Z), with four [Ø8.5 mm](DOCK_HOLE_D) teardropped tube holes.
+Behind it on the seam plane stand the four tee anchors and the two magnet bosses. Over the
+tee caps the bulkhead grows back on a 45° underside to its full depth at
+[Y96.836](DOCK_WALL_AFT_Y), which continues into the ridge/contact wall above; outboard of
+the caps it stands full depth from the seam. The Z-seam rail channels begin at the
+bulkhead's retained aft datum.
 
 The clamp lifts through the cradle's straight upper wells, which open through its aft
 face. Its broad underside, fitted boss openings and motor bores close over both pumps.
@@ -1657,7 +1647,7 @@ contact is rated 12 V and 2 A.
 
 The [mounting audit](/hardware/reference/yyfkgcp-pogo-4p/mounting-audit.md) covers
 the current exported seats, drawing tolerances and physical evidence. The purchased
-connector halves contain their own magnets. The separate eight-pair
+connector halves contain their own magnets. The separate four-pair
 [SB443-IN dock array](../pump-dock/magnet-retention.md) acts at the four fluid-port
 row, its bare poles meeting at the cartridge's seat. Its retention does
 not establish pin compression or electrical continuity. The

@@ -31,7 +31,7 @@ def main():
         for n,(v,f) in meshes.items():
             if n.startswith(('wire-','terminal-pogo')):continue
             if n.startswith('cold-core/') and not any(s in n for s in ('carbonator-tube','reed-','probe-')):continue
-            if n.startswith(('tube-','enclosure-','pump-receiver','pump-keeper','anchor-','magnet-','turn-','step-','stub-')):continue
+            if n.startswith(('tube-','enclosure-','tee-cap-','anchor-','magnet-','turn-','step-','stub-')):continue
             tri=v[f]
             mask=np.ones(len(tri),dtype=bool)
             for i,(lo,hi) in enumerate(limits):mask&=(tri[:,:,i].max(1)>=lo)&(tri[:,:,i].min(1)<=hi)

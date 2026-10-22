@@ -199,7 +199,7 @@ def native_checks(enc, box):
             tube = enc._ycyl(3.175,x,outlet_z,datum[1],plate['seated_tube_bottom_y'])
             empty(f'X{x:g} quarter-inch tube clears emitted cradle',tube,cradle)
             empty(f'X{x:g} quarter-inch tube clears fixed plate passage',tube,wall)
-    for dy in (0.,-enc._receiver.CUSTOMER_TIP_Y,-20.,-80.):
+    for dy in (0.,-enc._dock.plumbing.TIP_FROM_FORE,-20.,-80.):
         empty(f'cradle/plate at {dy:g} mm cartridge withdrawal',
               cradle.translate((0,dy,0)),wall)
         empty(f'cap/plate at {dy:g} mm cartridge withdrawal',
