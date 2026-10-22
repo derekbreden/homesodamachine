@@ -1,0 +1,68 @@
+{
+  "printer": "Mark2",
+  "printer_task_id": "1365546966",
+  "snapshots": [
+    {
+      "job_id": "1365546966",
+      "subtask_name": "2026-10-22-elbows-siraya-links-mark2-z000.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 184,
+      "stg_cur": 13,
+      "mc_remaining_time": 128,
+      "mc_percent": 0,
+      "bed_temper": 25.0,
+      "bed_target_temper": 25.0,
+      "nozzle_temper": 33.0,
+      "nozzle_target_temper": 0.0,
+      "observed_at_utc": "2026-10-22T23:01:54.247867+00:00",
+      "observed_at_central": "2026-10-22T18:01:54.247867-05:00",
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280,
+        "temp": 8847494,
+        "temperature_c": 134,
+        "target_c": 135
+      },
+      "mounted_right_nozzle": {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      "timelapse": "disable"
+    },
+    {
+      "job_id": "1365546966",
+      "subtask_name": "2026-10-22-elbows-siraya-links-mark2-z000.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 184,
+      "stg_cur": 74,
+      "mc_remaining_time": 128,
+      "mc_percent": 0,
+      "bed_temper": 25.0,
+      "bed_target_temper": 25.0,
+      "observed_at_utc": "2026-10-22T23:03:33.555005+00:00",
+      "observed_at_central": "2026-10-22T18:03:33.555005-05:00",
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280,
+        "temperature_c": 75,
+        "target_c": 0
+      },
+      "mounted_right_nozzle": {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      "timelapse": "disable"
+    }
+  ],
+  "scope": "Task-bound startup telemetry; no visual adhesion or finished-part assessment."
+}

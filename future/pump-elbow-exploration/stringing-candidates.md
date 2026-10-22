@@ -1,12 +1,12 @@
 # TPU stringing candidates
 
 **Status: the deposited-path Siraya pair is submitted; its physical stringing result is pending.**
-The [current trial](prints/2026-10-16-deposited-links-siraya85a-mark1/README.md)
+The [current trial](prints/2026-10-22-deposited-links-siraya85a-mark2/README.md)
 prints native wall and fin paths through turns and uses straight material-contained
 chords between those paths. Its emitted review covers every free attachment span,
 including a conservative case that ignores extrusion runs shorter than 1 mm as
 attachments. It adds 1.21% deposition on existing inner-wall paths, with no part
-retractions, Z hops or photo trips. Mark1 accepted task 1344414329 with clear
+retractions, Z hops or photo trips. Mark2 accepted task 1365546966 with clear
 Siraya Tech TPU 85A; allow about 2 hours / 8.55 g. Actual strand attachment and
 string reduction remain unassessed.
 

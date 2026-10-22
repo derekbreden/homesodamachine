@@ -1,0 +1,31 @@
+{
+  "printer": "Mark2",
+  "observed_at": "2026-10-22T23:01:33.029838+00:00",
+  "archive": {
+    "name": "2026-10-22-elbows-siraya-links-mark2-z000.gcode.3mf",
+    "sha256": "e48038ec34adf03cdd635e53f4359348f1e0a787a8056a7b523d055d82b898e7",
+    "gcode_sha256": "2e2052b96de0fc177a27430732a133e15cfe40eddcf4799ec901eaa64a6fcbe0",
+    "slots": {
+      "2": {
+        "type": "TPU",
+        "colour": "FFFFFF"
+      }
+    },
+    "objects": [
+      "Vertical centre-web TPU elbow pair"
+    ]
+  },
+  "printer_task_id": "1365546966",
+  "gcode_state": "PREPARE",
+  "subtask_name": "2026-10-22-elbows-siraya-links-mark2-z000.gcode.3mf",
+  "print_error": 0,
+  "hms": [
+    {
+      "attr": 201326848,
+      "code": 131095
+    }
+  ],
+  "layer_num": 104,
+  "total_layer_num": 104,
+  "mc_remaining_time": 0
+}

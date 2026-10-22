@@ -1,0 +1,12 @@
+{
+  "status": "RUNNING; physical stringing result pending",
+  "printer": "Mark2",
+  "printer_task_id": "1365546966",
+  "archive_sha256": "e48038ec34adf03cdd635e53f4359348f1e0a787a8056a7b523d055d82b898e7",
+  "gcode_sha256": "2e2052b96de0fc177a27430732a133e15cfe40eddcf4799ec901eaa64a6fcbe0",
+  "material": "Siraya Tech Flex TPU 85A Clear",
+  "right_nozzle_mm": 0.6,
+  "local_user_z_trim_mm": 0,
+  "scope": "Evaluate strands inside both bores and between exterior surfaces and the three fins. Startup telemetry is not a physical stringing, fin-removal, fit, pressure, retention or lifetime assessment.",
+  "startup_status": "startup.json"
+}

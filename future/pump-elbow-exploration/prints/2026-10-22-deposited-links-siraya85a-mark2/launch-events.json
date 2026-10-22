@@ -1,0 +1,56 @@
+{
+  "events": [
+    {
+      "job_id": "1359897271",
+      "subtask_name": "2026-10-21-enclosure-gyroid-comparison-left04-z004-mark2-v1.gcode.3mf",
+      "gcode_state": "FINISH",
+      "print_error": 0,
+      "hms": [
+        {
+          "attr": 201326848,
+          "code": 131095
+        }
+      ],
+      "layer_num": 104
+    },
+    {
+      "command": "project_file",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "err_code": 0
+    },
+    {
+      "job_id": 1365546966,
+      "subtask_name": "2026-10-22-elbows-siraya-links-mark2-z000.gcode.3mf",
+      "gcode_state": "FINISH",
+      "print_error": 0,
+      "hms": [
+        {
+          "attr": 201326848,
+          "code": 131095
+        }
+      ],
+      "layer_num": 104
+    },
+    {
+      "job_id": "1365546966",
+      "subtask_name": "2026-10-22-elbows-siraya-links-mark2-z000.gcode.3mf",
+      "gcode_state": "PREPARE",
+      "print_error": 0,
+      "hms": [
+        {
+          "attr": 201326848,
+          "code": 131095
+        }
+      ],
+      "layer_num": 104
+    }
+  ],
+  "command_reply": {
+    "command": "project_file",
+    "result": "SUCCESS",
+    "reason": "SUCCESS",
+    "err_code": 0
+  },
+  "observed_activity": true
+}
