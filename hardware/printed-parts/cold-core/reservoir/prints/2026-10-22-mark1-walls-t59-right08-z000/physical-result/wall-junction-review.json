@@ -1,0 +1,1263 @@
+{
+  "scope": "Native XY paths and extrusion starts/ends; photo-to-toolpath position registration and physical causality are unverified.",
+  "sources": {
+    "angle10": {
+      "gcode_sha256": "f41be9bb88f0092ee3033d61742992ab9b821d6f406eda03817e937e6b04b235",
+      "printed_task": "1362982574"
+    },
+    "angle59": {
+      "gcode_sha256": "3aa321122c0ef532409af674ceccb25f6ac745a9ce78b2381ad95a715d3ab474",
+      "printed_task": "1364550539"
+    }
+  },
+  "layers": [
+    {
+      "layer": 120,
+      "z_mm": 28.86,
+      "angle10": {
+        "run_count": 5,
+        "runs": [
+          {
+            "start": [
+              209.836,
+              92.35,
+              28.86
+            ],
+            "end": [
+              209.716,
+              92.35,
+              28.86
+            ],
+            "length_mm": 406.6615737823713,
+            "closed_distance_mm": 0.12000000000000455,
+            "z_min_max_mm": [
+              28.86,
+              28.86
+            ],
+            "xy_bounds_mm": [
+              [
+                185.119,
+                92.35
+              ],
+              [
+                252.567,
+                227.65
+              ]
+            ]
+          },
+          {
+            "start": [
+              208.647,
+              229.111,
+              28.86
+            ],
+            "end": [
+              208.767,
+              229.111,
+              28.86
+            ],
+            "length_mm": 433.4063180263406,
+            "closed_distance_mm": 0.12000000000000455,
+            "z_min_max_mm": [
+              28.86,
+              28.86
+            ],
+            "xy_bounds_mm": [
+              [
+                183.657,
+                90.888
+              ],
+              [
+                258.323,
+                229.112
+              ]
+            ]
+          },
+          {
+            "start": [
+              234.032,
+              136.761,
+              28.86
+            ],
+            "end": [
+              234.067,
+              136.646,
+              28.86
+            ],
+            "length_mm": 438.1206714360229,
+            "closed_distance_mm": 0.12020815280172079,
+            "z_min_max_mm": [
+              28.86,
+              28.86
+            ],
+            "xy_bounds_mm": [
+              [
+                182.919,
+                90.155
+              ],
+              [
+                259.072,
+                229.85
+              ]
+            ]
+          },
+          {
+            "start": [
+              184.734,
+              225.48,
+              28.86
+            ],
+            "end": [
+              186.5,
+              227.583,
+              28.86
+            ],
+            "length_mm": 2.779203155844926,
+            "closed_distance_mm": 2.7461545841412507,
+            "z_min_max_mm": [
+              28.86,
+              28.86
+            ],
+            "xy_bounds_mm": [
+              [
+                184.734,
+                225.48
+              ],
+              [
+                186.5,
+                227.583
+              ]
+            ]
+          },
+          {
+            "start": [
+              184.934,
+              94.115,
+              28.86
+            ],
+            "end": [
+              187.301,
+              91.952,
+              28.86
+            ],
+            "length_mm": 3.254066669812325,
+            "closed_distance_mm": 3.206440082084794,
+            "z_min_max_mm": [
+              28.86,
+              28.86
+            ],
+            "xy_bounds_mm": [
+              [
+                184.934,
+                91.952
+              ],
+              [
+                187.301,
+                94.115
+              ]
+            ]
+          }
+        ]
+      },
+      "angle59": {
+        "run_count": 9,
+        "runs": [
+          {
+            "start": [
+              234.031,
+              136.764,
+              28.86
+            ],
+            "end": [
+              234.066,
+              136.649,
+              28.86
+            ],
+            "length_mm": 438.1254427320872,
+            "closed_distance_mm": 0.12020815280172079,
+            "z_min_max_mm": [
+              28.86,
+              28.86
+            ],
+            "xy_bounds_mm": [
+              [
+                182.919,
+                90.151
+              ],
+              [
+                259.072,
+                229.85
+              ]
+            ]
+          },
+          {
+            "start": [
+              184.383,
+              217.717,
+              28.86
+            ],
+            "end": [
+              184.383,
+              217.837,
+              28.86
+            ],
+            "length_mm": 411.7227336857561,
+            "closed_distance_mm": 0.11999999999997613,
+            "z_min_max_mm": [
+              28.86,
+              28.86
+            ],
+            "xy_bounds_mm": [
+              [
+                184.383,
+                91.613
+              ],
+              [
+                253.314,
+                228.386
+              ]
+            ]
+          },
+          {
+            "start": [
+              219.021,
+              227.648,
+              28.86
+            ],
+            "end": [
+              219.141,
+              227.648,
+              28.86
+            ],
+            "length_mm": 406.66036351936805,
+            "closed_distance_mm": 0.12000000000000455,
+            "z_min_max_mm": [
+              28.86,
+              28.86
+            ],
+            "xy_bounds_mm": [
+              [
+                185.119,
+                92.35
+              ],
+              [
+                252.567,
+                227.65
+              ]
+            ]
+          },
+          {
+            "start": [
+              184.565,
+              225.073,
+              28.86
+            ],
+            "end": [
+              187.675,
+              228.201,
+              28.86
+            ],
+            "length_mm": 4.550768758629278,
+            "closed_distance_mm": 4.410950464469081,
+            "z_min_max_mm": [
+              28.86,
+              28.86
+            ],
+            "xy_bounds_mm": [
+              [
+                184.565,
+                225.073
+              ],
+              [
+                187.675,
+                228.201
+              ]
+            ]
+          },
+          {
+            "start": [
+              250.024,
+              228.25,
+              28.86
+            ],
+            "end": [
+              250.358,
+              228.156,
+              28.86
+            ],
+            "length_mm": 0.34698126763228904,
+            "closed_distance_mm": 0.34697550345809863,
+            "z_min_max_mm": [
+              28.86,
+              28.86
+            ],
+            "xy_bounds_mm": [
+              [
+                250.024,
+                228.156
+              ],
+              [
+                250.358,
+                228.25
+              ]
+            ]
+          },
+          {
+            "start": [
+              254.02,
+              219.38,
+              28.86
+            ],
+            "end": [
+              253.879,
+              219.128,
+              28.86
+            ],
+            "length_mm": 0.28876855269543167,
+            "closed_distance_mm": 0.28876461002001325,
+            "z_min_max_mm": [
+              28.86,
+              28.86
+            ],
+            "xy_bounds_mm": [
+              [
+                253.879,
+                219.128
+              ],
+              [
+                254.02,
+                219.38
+              ]
+            ]
+          },
+          {
+            "start": [
+              253.876,
+              100.875,
+              28.86
+            ],
+            "end": [
+              254.044,
+              100.594,
+              28.86
+            ],
+            "length_mm": 0.3273924034780723,
+            "closed_distance_mm": 0.32739120330272387,
+            "z_min_max_mm": [
+              28.86,
+              28.86
+            ],
+            "xy_bounds_mm": [
+              [
+                253.876,
+                100.594
+              ],
+              [
+                254.044,
+                100.875
+              ]
+            ]
+          },
+          {
+            "start": [
+              250.365,
+              91.842,
+              28.86
+            ],
+            "end": [
+              249.988,
+              91.74,
+              28.86
+            ],
+            "length_mm": 0.3905649949453843,
+            "closed_distance_mm": 0.39055473368019494,
+            "z_min_max_mm": [
+              28.86,
+              28.86
+            ],
+            "xy_bounds_mm": [
+              [
+                249.988,
+                91.74
+              ],
+              [
+                250.365,
+                91.842
+              ]
+            ]
+          },
+          {
+            "start": [
+              187.691,
+              91.792,
+              28.86
+            ],
+            "end": [
+              184.584,
+              94.878,
+              28.86
+            ],
+            "length_mm": 4.516110475573605,
+            "closed_distance_mm": 4.379137472151335,
+            "z_min_max_mm": [
+              28.86,
+              28.86
+            ],
+            "xy_bounds_mm": [
+              [
+                184.584,
+                91.792
+              ],
+              [
+                187.691,
+                94.878
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "layer": 400,
+      "z_mm": 96.06,
+      "angle10": {
+        "run_count": 5,
+        "runs": [
+          {
+            "start": [
+              185.12,
+              202.373,
+              96.06
+            ],
+            "end": [
+              185.12,
+              202.493,
+              96.06
+            ],
+            "length_mm": 406.66957905205544,
+            "closed_distance_mm": 0.12000000000000455,
+            "z_min_max_mm": [
+              96.06,
+              96.06
+            ],
+            "xy_bounds_mm": [
+              [
+                185.119,
+                92.35
+              ],
+              [
+                252.567,
+                227.65
+              ]
+            ]
+          },
+          {
+            "start": [
+              183.658,
+              147.892,
+              96.06
+            ],
+            "end": [
+              183.658,
+              148.012,
+              96.06
+            ],
+            "length_mm": 433.39697426141976,
+            "closed_distance_mm": 0.12000000000000455,
+            "z_min_max_mm": [
+              96.06,
+              96.06
+            ],
+            "xy_bounds_mm": [
+              [
+                183.657,
+                90.889
+              ],
+              [
+                258.324,
+                229.112
+              ]
+            ]
+          },
+          {
+            "start": [
+              212.386,
+              90.154,
+              96.06
+            ],
+            "end": [
+              212.266,
+              90.154,
+              96.06
+            ],
+            "length_mm": 438.14409563280014,
+            "closed_distance_mm": 0.12000000000000455,
+            "z_min_max_mm": [
+              96.06,
+              96.06
+            ],
+            "xy_bounds_mm": [
+              [
+                182.919,
+                90.152
+              ],
+              [
+                259.075,
+                229.85
+              ]
+            ]
+          },
+          {
+            "start": [
+              187.277,
+              91.962,
+              96.06
+            ],
+            "end": [
+              184.718,
+              94.536,
+              96.06
+            ],
+            "length_mm": 3.702495371867011,
+            "closed_distance_mm": 3.629594605462155,
+            "z_min_max_mm": [
+              96.06,
+              96.06
+            ],
+            "xy_bounds_mm": [
+              [
+                184.718,
+                91.962
+              ],
+              [
+                187.277,
+                94.536
+              ]
+            ]
+          },
+          {
+            "start": [
+              185.037,
+              226.046,
+              96.06
+            ],
+            "end": [
+              187.294,
+              228.044,
+              96.06
+            ],
+            "length_mm": 3.05531030409018,
+            "closed_distance_mm": 3.0143080466336047,
+            "z_min_max_mm": [
+              96.06,
+              96.06
+            ],
+            "xy_bounds_mm": [
+              [
+                185.037,
+                226.046
+              ],
+              [
+                187.294,
+                228.044
+              ]
+            ]
+          }
+        ]
+      },
+      "angle59": {
+        "run_count": 9,
+        "runs": [
+          {
+            "start": [
+              212.387,
+              90.154,
+              96.06
+            ],
+            "end": [
+              212.267,
+              90.154,
+              96.06
+            ],
+            "length_mm": 438.14084445125866,
+            "closed_distance_mm": 0.12000000000000455,
+            "z_min_max_mm": [
+              96.06,
+              96.06
+            ],
+            "xy_bounds_mm": [
+              [
+                182.919,
+                90.152
+              ],
+              [
+                259.075,
+                229.85
+              ]
+            ]
+          },
+          {
+            "start": [
+              196.768,
+              91.614,
+              96.06
+            ],
+            "end": [
+              196.648,
+              91.614,
+              96.06
+            ],
+            "length_mm": 411.72375170470536,
+            "closed_distance_mm": 0.12000000000000455,
+            "z_min_max_mm": [
+              96.06,
+              96.06
+            ],
+            "xy_bounds_mm": [
+              [
+                184.383,
+                91.613
+              ],
+              [
+                253.314,
+                228.386
+              ]
+            ]
+          },
+          {
+            "start": [
+              185.12,
+              196.002,
+              96.06
+            ],
+            "end": [
+              185.12,
+              196.122,
+              96.06
+            ],
+            "length_mm": 406.6649430011473,
+            "closed_distance_mm": 0.12000000000000455,
+            "z_min_max_mm": [
+              96.06,
+              96.06
+            ],
+            "xy_bounds_mm": [
+              [
+                185.119,
+                92.35
+              ],
+              [
+                252.567,
+                227.65
+              ]
+            ]
+          },
+          {
+            "start": [
+              184.579,
+              225.102,
+              96.06
+            ],
+            "end": [
+              187.657,
+              228.196,
+              96.06
+            ],
+            "length_mm": 4.4997362724353245,
+            "closed_distance_mm": 4.364277718019327,
+            "z_min_max_mm": [
+              96.06,
+              96.06
+            ],
+            "xy_bounds_mm": [
+              [
+                184.579,
+                225.102
+              ],
+              [
+                187.657,
+                228.196
+              ]
+            ]
+          },
+          {
+            "start": [
+              250.03,
+              228.248,
+              96.06
+            ],
+            "end": [
+              250.354,
+              228.156,
+              96.06
+            ],
+            "length_mm": 0.33680855096034173,
+            "closed_distance_mm": 0.33680855096034173,
+            "z_min_max_mm": [
+              96.06,
+              96.06
+            ],
+            "xy_bounds_mm": [
+              [
+                250.03,
+                228.156
+              ],
+              [
+                250.354,
+                228.248
+              ]
+            ]
+          },
+          {
+            "start": [
+              254.039,
+              219.403,
+              96.06
+            ],
+            "end": [
+              253.854,
+              219.084,
+              96.06
+            ],
+            "length_mm": 0.36876417108282783,
+            "closed_distance_mm": 0.36876279638811577,
+            "z_min_max_mm": [
+              96.06,
+              96.06
+            ],
+            "xy_bounds_mm": [
+              [
+                253.854,
+                219.084
+              ],
+              [
+                254.039,
+                219.403
+              ]
+            ]
+          },
+          {
+            "start": [
+              253.876,
+              100.874,
+              96.06
+            ],
+            "end": [
+              254.036,
+              100.606,
+              96.06
+            ],
+            "length_mm": 0.3121281787983893,
+            "closed_distance_mm": 0.3121281787983893,
+            "z_min_max_mm": [
+              96.06,
+              96.06
+            ],
+            "xy_bounds_mm": [
+              [
+                253.876,
+                100.606
+              ],
+              [
+                254.036,
+                100.874
+              ]
+            ]
+          },
+          {
+            "start": [
+              250.363,
+              91.844,
+              96.06
+            ],
+            "end": [
+              249.991,
+              91.741,
+              96.06
+            ],
+            "length_mm": 0.3860045518917725,
+            "closed_distance_mm": 0.38599611397006084,
+            "z_min_max_mm": [
+              96.06,
+              96.06
+            ],
+            "xy_bounds_mm": [
+              [
+                249.991,
+                91.741
+              ],
+              [
+                250.363,
+                91.844
+              ]
+            ]
+          },
+          {
+            "start": [
+              187.658,
+              91.807,
+              96.06
+            ],
+            "end": [
+              184.577,
+              94.871,
+              96.06
+            ],
+            "length_mm": 4.476685857498502,
+            "closed_distance_mm": 4.345187798012865,
+            "z_min_max_mm": [
+              96.06,
+              96.06
+            ],
+            "xy_bounds_mm": [
+              [
+                184.577,
+                91.807
+              ],
+              [
+                187.658,
+                94.871
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "layer": 700,
+      "z_mm": 168.06,
+      "angle10": {
+        "run_count": 5,
+        "runs": [
+          {
+            "start": [
+              185.12,
+              186.471,
+              168.06
+            ],
+            "end": [
+              185.12,
+              186.591,
+              168.06
+            ],
+            "length_mm": 406.66563487213807,
+            "closed_distance_mm": 0.12000000000000455,
+            "z_min_max_mm": [
+              168.06,
+              168.06
+            ],
+            "xy_bounds_mm": [
+              [
+                185.119,
+                92.35
+              ],
+              [
+                252.567,
+                227.65
+              ]
+            ]
+          },
+          {
+            "start": [
+              183.658,
+              152.052,
+              168.06
+            ],
+            "end": [
+              183.658,
+              152.172,
+              168.06
+            ],
+            "length_mm": 433.38774194932506,
+            "closed_distance_mm": 0.12000000000000455,
+            "z_min_max_mm": [
+              168.06,
+              168.06
+            ],
+            "xy_bounds_mm": [
+              [
+                183.657,
+                90.89
+              ],
+              [
+                258.323,
+                229.112
+              ]
+            ]
+          },
+          {
+            "start": [
+              182.921,
+              137.324,
+              168.06
+            ],
+            "end": [
+              182.921,
+              137.444,
+              168.06
+            ],
+            "length_mm": 438.1317541741262,
+            "closed_distance_mm": 0.11999999999997613,
+            "z_min_max_mm": [
+              168.06,
+              168.06
+            ],
+            "xy_bounds_mm": [
+              [
+                182.919,
+                90.154
+              ],
+              [
+                259.075,
+                229.85
+              ]
+            ]
+          },
+          {
+            "start": [
+              185.036,
+              226.047,
+              168.06
+            ],
+            "end": [
+              187.305,
+              228.049,
+              168.06
+            ],
+            "length_mm": 3.0669096417971478,
+            "closed_distance_mm": 3.025948611592745,
+            "z_min_max_mm": [
+              168.06,
+              168.06
+            ],
+            "xy_bounds_mm": [
+              [
+                185.036,
+                226.047
+              ],
+              [
+                187.305,
+                228.049
+              ]
+            ]
+          },
+          {
+            "start": [
+              187.289,
+              91.957,
+              168.06
+            ],
+            "end": [
+              184.732,
+              94.507,
+              168.06
+            ],
+            "length_mm": 3.682715038056733,
+            "closed_distance_mm": 3.6111977237476207,
+            "z_min_max_mm": [
+              168.06,
+              168.06
+            ],
+            "xy_bounds_mm": [
+              [
+                184.732,
+                91.957
+              ],
+              [
+                187.289,
+                94.507
+              ]
+            ]
+          }
+        ]
+      },
+      "angle59": {
+        "run_count": 9,
+        "runs": [
+          {
+            "start": [
+              182.921,
+              137.322,
+              168.06
+            ],
+            "end": [
+              182.921,
+              137.442,
+              168.06
+            ],
+            "length_mm": 438.12872332974524,
+            "closed_distance_mm": 0.12000000000000455,
+            "z_min_max_mm": [
+              168.06,
+              168.06
+            ],
+            "xy_bounds_mm": [
+              [
+                182.919,
+                90.154
+              ],
+              [
+                259.075,
+                229.85
+              ]
+            ]
+          },
+          {
+            "start": [
+              184.385,
+              113.017,
+              168.06
+            ],
+            "end": [
+              184.385,
+              113.137,
+              168.06
+            ],
+            "length_mm": 411.72485446011535,
+            "closed_distance_mm": 0.12000000000000455,
+            "z_min_max_mm": [
+              168.06,
+              168.06
+            ],
+            "xy_bounds_mm": [
+              [
+                184.383,
+                91.614
+              ],
+              [
+                253.314,
+                228.386
+              ]
+            ]
+          },
+          {
+            "start": [
+              185.122,
+              146.765,
+              168.06
+            ],
+            "end": [
+              185.122,
+              146.885,
+              168.06
+            ],
+            "length_mm": 406.6595451040696,
+            "closed_distance_mm": 0.12000000000000455,
+            "z_min_max_mm": [
+              168.06,
+              168.06
+            ],
+            "xy_bounds_mm": [
+              [
+                185.119,
+                92.35
+              ],
+              [
+                252.567,
+                227.649
+              ]
+            ]
+          },
+          {
+            "start": [
+              187.67,
+              228.198,
+              168.06
+            ],
+            "end": [
+              184.58,
+              225.108,
+              168.06
+            ],
+            "length_mm": 4.5061516512179995,
+            "closed_distance_mm": 4.369919907732848,
+            "z_min_max_mm": [
+              168.06,
+              168.06
+            ],
+            "xy_bounds_mm": [
+              [
+                184.58,
+                225.108
+              ],
+              [
+                187.67,
+                228.198
+              ]
+            ]
+          },
+          {
+            "start": [
+              250.031,
+              228.249,
+              168.06
+            ],
+            "end": [
+              250.382,
+              228.153,
+              168.06
+            ],
+            "length_mm": 0.36389175576274113,
+            "closed_distance_mm": 0.3638914673360727,
+            "z_min_max_mm": [
+              168.06,
+              168.06
+            ],
+            "xy_bounds_mm": [
+              [
+                250.031,
+                228.153
+              ],
+              [
+                250.382,
+                228.249
+              ]
+            ]
+          },
+          {
+            "start": [
+              254.038,
+              219.403,
+              168.06
+            ],
+            "end": [
+              253.858,
+              219.094,
+              168.06
+            ],
+            "length_mm": 0.3576059575308191,
+            "closed_distance_mm": 0.3576045301726488,
+            "z_min_max_mm": [
+              168.06,
+              168.06
+            ],
+            "xy_bounds_mm": [
+              [
+                253.858,
+                219.094
+              ],
+              [
+                254.038,
+                219.403
+              ]
+            ]
+          },
+          {
+            "start": [
+              253.876,
+              100.876,
+              168.06
+            ],
+            "end": [
+              254.027,
+              100.622,
+              168.06
+            ],
+            "length_mm": 0.295497063265519,
+            "closed_distance_mm": 0.29549450079484907,
+            "z_min_max_mm": [
+              168.06,
+              168.06
+            ],
+            "xy_bounds_mm": [
+              [
+                253.876,
+                100.622
+              ],
+              [
+                254.027,
+                100.876
+              ]
+            ]
+          },
+          {
+            "start": [
+              250.362,
+              91.845,
+              168.06
+            ],
+            "end": [
+              249.995,
+              91.743,
+              168.06
+            ],
+            "length_mm": 0.3809213331732145,
+            "closed_distance_mm": 0.3809107507015175,
+            "z_min_max_mm": [
+              168.06,
+              168.06
+            ],
+            "xy_bounds_mm": [
+              [
+                249.995,
+                91.743
+              ],
+              [
+                250.362,
+                91.845
+              ]
+            ]
+          },
+          {
+            "start": [
+              187.665,
+              91.805,
+              168.06
+            ],
+            "end": [
+              184.576,
+              94.875,
+              168.06
+            ],
+            "length_mm": 4.487304863122072,
+            "closed_distance_mm": 4.355091388248925,
+            "z_min_max_mm": [
+              168.06,
+              168.06
+            ],
+            "xy_bounds_mm": [
+              [
+                184.576,
+                91.805
+              ],
+              [
+                187.665,
+                94.875
+              ]
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "finding": "At sampled layers 120, 400 and 700, the 59-degree body has nine continuous extrusion runs versus five at 10 degrees. Four additional runs are sub-millimeter segments at curved-wall end junctions. Other wall paths and start locations also change.",
+  "interpretation": "Extra local extrusion starts/stops are a plausible contributor to the newly reported vertical-edge bristles. Photo-to-toolpath registration and a causal link remain unverified.",
+  "scarf_path_reading": {
+    "gcode_sha256": "3aa321122c0ef532409af674ceccb25f6ac745a9ce78b2381ad95a715d3ab474",
+    "positive_model_extrusion_moves": 1215590,
+    "extrusion_moves_with_z_below_or_above_nominal": 0,
+    "layers_with_non_nominal_extruding_z": [],
+    "examples": [],
+    "scope": "Body only. Explicit XYZ extrusion commands compared with each nominal layer height; no claim about molten bead form."
+  },
+  "scarf_interpretation": "No body extrusion command ramps Z away from the nominal layer height in the submitted G-code. Saved conditional scarf controls do not demonstrate an emitted scarf ramp. Disabling a nominal scarf setting alone has no demonstrated corrective effect for this article.",
+  "next_candidate": {
+    "status": "Proposed only; no recipe changed or print started.",
+    "setting_changes_from_last_trial": {
+      "wall_transition_angle": {
+        "from": "59",
+        "to": "10"
+      },
+      "filament_flow_ratio": {
+        "from": "1.02",
+        "to": "1.05"
+      }
+    },
+    "purpose": "Remove the unsuccessful routing change and test whether additional deposited material closes the floor meeting lines.",
+    "flow_increase_percent_relative_to_1_02": 2.941,
+    "retained": "Walls-only, no brim, zero added user trim, ironing off, May temperatures and motion controls.",
+    "evidence_scope": "Derek reports earlier sealing success with increased flow; the two recent 1.02 walls-only articles leak. A 1.05 value is a proposed physical trial, not an established optimum.",
+    "manufacturer_reference": "https://help.prusa3d.com/article/watertight-prints_112324",
+    "physical_screen": "../../../corner-lifting/next-trial-options.json"
+  }
+}

@@ -47,7 +47,7 @@
   "finding": "The fixed low camera angle, clear PETG reflections, moving nozzle and foreground cap obscure body/bed contact. Inspected frames do not establish a reliable last-attached/first-lifted bracket. No onset layer is established.",
   "layer_mapping": "Each native job has 740 layers, while each clip has more frames. Exact frame-to-layer correspondence is unverified; frame numbers are not layer numbers.",
   "current_failed_article": "../prints/2026-10-21-mark1-right08-z000/physical-result/physical-result.json",
-  "next_print_strategy": "Current authorized 59-degree walls-only trial is task 1364550539; its water hold and corner-flatness result are pending.",
+  "next_print_strategy": "Proposed 10-degree / 1.05-flow full-footprint base screen; no next print started.",
   "conditional_options": [
     {
       "candidate": "May Water baseline / walls-only coverage / scoped thermal investigation",
@@ -74,7 +74,8 @@
     "accepted_at_utc": "2026-10-22T16:40:35.753433+00:00",
     "record": "../prints/2026-10-22-mark1-walls-t59-right08-z000/README.md",
     "start_slot": "A1",
-    "status": "RUNNING 0/833 during startup; A1/right 0.8 mapping confirmed; no print error/HMS; physical results pending."
+    "status": "FINISH 833/833; Derek reports bottom leakage at the same location, perhaps worse, and a new vertical-edge defect.",
+    "physical_result": "../prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/physical-result.json"
   },
-  "current_strategy": "Task 1364550539 applies 59-degree Arachne wall transitions at floor perimeter-convergence junctions, retaining walls-only and flow 1.02. Observe this article and retain its own physical results. Old task-bound monitor remains paused."
+  "current_strategy": "The 59-degree walls-only article has reported bottom leakage and a new vertical-edge defect; no demonstrated sealing benefit. Proposed next screen restores 10 degrees and tests 1.05 flow, retaining walls-only. Old task-bound monitor remains paused."
 }

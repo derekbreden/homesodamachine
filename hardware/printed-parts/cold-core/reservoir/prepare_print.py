@@ -111,7 +111,7 @@ def main():
         "minimum_emitted_bead_edge_margin_mm": MIN_EDGE_MARGIN,
         "plate_count": 2, "mesh_tolerance_mm": 0.025,
         "mesh_angular_tolerance_rad": 0.08, "parts": [],
-        "scope": "Current CAD and declared no-ironing recipe. Historical water holds belong to their identified articles; this adaptation awaits its own result.",
+        "scope": "Current CAD and declared no-ironing recipe. Historical water holds belong to their identified articles; physical outcomes belong to the print records.",
     }
     number = 0
     for plate_id, side in enumerate(("left", "right"), 1):
