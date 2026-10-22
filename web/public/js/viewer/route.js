@@ -28,7 +28,8 @@ import {
   openMmdDetail, closeMmdDetail,
   openPcbDetail, closePcbDetail,
 } from "./detail-shims.js";
-import { routeToStep, parseStepHash } from "./step-nav.js";
+import { routeToStep, parseStepHash, stepFind } from "./step-nav.js";
+import { findWhenMounted } from "./pick-find.js";
 import { openMaterial } from "./material-nav.js";
 import { modelForMaterial } from "/contracts/materials.js";
 
@@ -59,7 +60,7 @@ function wantFromHash(raw) {
     if (!raw.startsWith(prefix)) continue;
     if (type === "step") {
       const path = parseStepHash(raw);
-      return { type, file: path[path.length - 1], path };
+      return { type, file: path[path.length - 1], path, find: stepFind(raw) };
     }
     return { type, file: decodeHash(raw).slice(prefix.length), path: null };
   }
@@ -73,6 +74,7 @@ window.addEventListener("popstate", () => {
     return;
   }
   const want = wantFromHash(location.hash ? location.hash.slice(1) : "");
+  if (want.find) findWhenMounted(want.file, want.find);
   // Already showing the right thing? Nothing to do.
   if (want.type && state.currentDetail
       && state.currentDetail.type === want.type && state.currentDetail.file === want.file) {
@@ -134,6 +136,7 @@ export function applyInitialRoute(occtPromise) {
   if (!location.hash) return;
   const raw = location.hash.slice(1);
   const want = wantFromHash(raw);
+  if (want.find) findWhenMounted(want.file, want.find);
   if (want.material) { occtPromise.then(() => openMaterial(want.material, false, { tab: want.tab })); }
   else if (want.type) open(want.type, want.file, false, want.path);
   else open("step", decodeHash(raw), false);

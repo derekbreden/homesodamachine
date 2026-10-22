@@ -70,12 +70,21 @@ const decode = (s) => { try { return decodeURIComponent(s); } catch { return s; 
 
 /** The models a `step:` hash names, outermost first. `raw` is undecoded. */
 export function parseStepHash(raw) {
-  const body = raw.slice(STEP_PREFIX.length);
+  const body = raw.slice(STEP_PREFIX.length).split("?")[0];
   const parts = body.split("/").map(decode);
   // A hand-typed path that never went through `stepHash` carries bare `/` and
   // splits into pieces that are not models — it is one file, and it says so by
   // having a piece that does not end in `.step`.
   return parts.length > 1 && parts.every((p) => /\.step$/i.test(stepLocation(p).file)) ? parts : [decode(body)];
+}
+
+// WHAT TO LIGHT ON ARRIVAL. A `step:` hash may close on `?find=<pick text>`,
+// which the Find box runs once the model is drawn (pick-find.js
+// findWhenMounted). Every path in the walk is percent-encoded, so the first
+// bare `?` is where the walk ends.
+export function stepFind(raw) {
+  const q = raw.indexOf("?");
+  return q < 0 ? null : new URLSearchParams(raw.slice(q + 1)).get("find");
 }
 
 // HOW MANY HISTORY ENTRIES STAND BETWEEN THE PAGE AND THIS MODEL. Dismissing the
