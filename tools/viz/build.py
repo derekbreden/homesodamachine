@@ -40,7 +40,11 @@ SPEC.json:
     }
 
 A panel's own `"view"` is where that panel starts when the panels turn on their own
-(`"sync": false`): one feature seen from below, the next from its wall's outside.
+(`"sync": false`): one feature seen from below, the next from its wall's outside. Its own
+`"focus": {"center": [x, y, z], "radius": r}` aims it at one feature of a large piece, in the
+piece's own millimetres, with the rest of the piece still drawn round it. Its `"marks"`,
+`[{"at": [x, y, z], "text": "1.3 mm", "dx": 18, "dy": -18}]`, pin labels to points of the model:
+each label stands `dx`, `dy` pixels off its point on a leader and follows it as the panel turns.
 
 `only` keeps the solids whose names match and drops the rest from the page; `highlight` draws
 matches in the viewer's selection amber; `ghost` draws them translucent and leaves them out of
@@ -364,8 +368,9 @@ def render(spec: dict) -> tuple[str, Models]:
     ref_box, ref_label = None, None
     for i, p in enumerate(spec["panels"]):
         entry = {"label": p["label"], "name": p.get("name", "")}
-        if "view" in p:
-            entry["view"] = p["view"]
+        for key in ("view", "focus", "marks"):
+            if key in p:
+                entry[key] = p[key]
         tag = esc(p["label"])
         name = esc(p.get("name", ""))
         pick = bool(p.get("pick"))
