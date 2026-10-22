@@ -343,7 +343,7 @@ MOUNTS = (
     # between that fitting's hub and the collet the tap arrives by — the one round section on
     # either body that is not a box, a branch or the adjuster a hand has to reach.
     ("water-split", "enclosure-back-top", "cradle"),
-    ("flow-regulator", "enclosure-back-top", "cradle"),
+    ("flow-regulator", "foam-assembly", "cradle"),
     ("vk-solenoid", "foam-assembly", "cradle"),
     # EVERY FITTING ON THE +Y WALL OF BACK-TOP IS CLAMPED THROUGH IT. The flange lands on the ring in its
     # pad, the barrel passes a bore struck one `PORT_HOLE_SLIP` over it, and the fitting's own nut
@@ -682,6 +682,8 @@ TOUCHING_OK = {frozenset(p) for p in (
     # THE MADE-UP CHAIN IN THE RIB THAT LID STANDS. A bore closed on a section reads its own
     # slip, and that reading IS the seat holding.
     ("foam-assembly", "discharge-chain"),
+    # Fixed socket in the lid's inclined pressure-regulator cradle.
+    ("foam-assembly", "flow-regulator"),
     ("foam-assembly", "anchor-cap-fluid-14"),
     ("foam-assembly", "anchor-cap-fluid-18"),
     # THE CUTOFF LIES ON THE COMPRESSOR'S POWER BOX. A one-shot fuse opens on the temperature of

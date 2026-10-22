@@ -26,6 +26,7 @@ import _materials as _mat
 from _materials import one_body
 import valve_seat as seat
 import _foam_cap as _foam_cap_module
+import _water_pressure_regulator as _water_regulator
 from _foam_cap import (
     build_foam_cap,
     build_foam_cap_lid,
@@ -338,6 +339,8 @@ def add_chain_anchors(lid, face_z, names=None):
         )
         lid = lid.union(rib.cut(bore).clean().val())
 
+    if names is None:
+        lid = lid.union(_water_regulator.cradle(face_z)).clean()
     return lid
 
 
@@ -600,7 +603,8 @@ def main():
     cap_expect = deck_column_volume + conduit_column_volume
     lid_expect = (deck_lid_hole_volume + conduit_lid_hole_volume
                   + conduit_lid_relief_volume - cradle_volume - anchor_volume
-                  - side_anchor_volume - plate_gain)
+                  - side_anchor_volume - plate_gain
+                  - _water_regulator.cradle(lid_total_height).Volume())
     # The open-sided head pockets share one XY section through the pad's
     # outward web. Only the lower lid's supported recess adds 0.25 mm depth.
     head_cut_area = head_access_pockets(0.0, 1.0).intersect(
@@ -668,7 +672,8 @@ def main():
     side_proud = max((cap_side_anchor_height(n) for n in cap_side_anchors), default=0.0)
     for name, lid, proud in (
         ("foam-cap-lid-bottom", lid_bottom, 0.0),
-        ("foam-cap-lid-top", lid_top, max(cradle_proud, anchor_proud, side_proud)),
+        ("foam-cap-lid-top", lid_top, max(cradle_proud, anchor_proud, side_proud,
+                                        _water_regulator.proud())),
     ):
         zlen = lid.val().BoundingBox().zlen
         assert math.isclose(zlen, lid_total_height + proud, abs_tol=1e-6), \

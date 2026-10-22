@@ -56,7 +56,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "hlghlg-check-valve",
            _hw / "reference" / "asse1022-assembly",
            _hw / "reference" / "water-split",
-           _hw / "reference" / "neofit-flow-control",
+           _hw / "reference" / "shok-blok-regulator",
            _hw / "reference" / "beduan-solenoid",
            _hw / "reference" / "jg-bulkhead-union",
            _hw / "reference" / "jg-pp0308e-elbow",
@@ -81,7 +81,7 @@ import elbow as _elbow                                 # noqa: E402
 import neofit_drain_bulkhead as _drain_bulkhead
 import neofit_flavor_reducer as _flavor_reducer
 import neofit_bulkhead as _neofit                      # noqa: E402
-import neofit_flow_control as _flowreg                 # noqa: E402
+import shok_blok_regulator as _flowreg                 # noqa: E402
 import water_split as _split                           # noqa: E402
 import manifold_layout as _ml                           # noqa: E402
 import compressor as _comp                             # noqa: E402
@@ -522,21 +522,22 @@ FLUID_1_DIAGONAL = 20.0
 
 
 def _fluid_1(F):
-    """Feed the aft regulator below the frame, rising beside water-2 at its inlet."""
+    """Feed the internal pressure valve below the frame and beside water-2."""
     split, reg = F["water-split"], F["flow-regulator"]
     src, dst = split.at("to-flavor"), reg.at("inlet")
     fore = src[1] - TUBE_BEND
     lane_x = src[0] + FLUID_1_INBOARD
-    join = dst[1] - FLUID_1_APPROACH
+    approach = reg.normal("inlet")
+    join = tuple(dst[k] + 22.0*approach[k] for k in range(3))
     return R.bent(
         "fluid-1", "water-split.to-flavor",
         (src[0], fore, src[2]),
         (lane_x, fore, src[2]),
-        (lane_x, join - FLUID_1_DIAGONAL, src[2]),
-        (dst[0], join, dst[2]),
+        (lane_x, join[1] - FLUID_1_DIAGONAL, src[2]),
+        join,
         "flow-regulator.inlet",
-        kind="fluid", bend=TUBE_BEND,
-        note="flavor tap: split run -> regulator, below the frame and rising inboard of water-2")
+        kind="fluid", bend=TUBE_BEND, lead=(0.0, FLUID_1_APPROACH),
+        note="flavor clean water: split run -> internal pressure regulator, below the frame")
 
 
 # What each collet on the step gets straight off its own axis before `water-2` starts to lean.
@@ -659,36 +660,33 @@ def _co2_2(F):
 # The outlet turns east ahead of the pan, then climbs in the lane west of the
 # pump. The high crossing approaches V-A on its existing vertical column.
 FLUID_2_LEAD = TUBE_BEND
-FLUID_2_RISER_X = -42.0
-FLUID_2_RISE_FORE = 5.0
+FLUID_2_RETURN_X = -54.0
+FLUID_2_RETURN_FORE_Y = 357.0
+FLUID_2_OVER_CAP = 66.1
 # The upper crossing descends gently onto the axial inlet quarter, leaving the
 # pump's rounded front casting its full clearance.
 FLUID_2_DESCENT_EAST = 0.5
 
 
 def _fluid_2(F):
-    """Cross ahead of the drip pan, rise west of the pump, then descend into V-A.
-
-    The high crossing is one bend radius above the regulator outlet. The final
-    R14 inlet quarter holds V-A's X column outside the pump's front casting.
-    """
+    """Turn above the regulator's rear end and return west of the pump into V-A."""
     reg, vk_a = F["flow-regulator"], F["valve-v-a"]
     out, inlet = reg.at("outlet"), vk_a.at("inlet")
-    lane = out[1] + FLUID_2_LEAD
-    tap = F["water-split"].at("to-flavor")
-    lane_x = tap[0] + FLUID_1_INBOARD
-    cross_z = out[2] + TUBE_BEND
+    heading = reg.normal("outlet")
+    turn = tuple(out[k] + 25.0*heading[k] for k in range(3))
+    cross_z = F["foam-assembly"].at("carb-water-out")[2] + FLUID_2_OVER_CAP
     inlet_turn = inlet[1] + TUBE_BEND
     return R.bent(
         "fluid-2", "flow-regulator.outlet",
-        (lane_x, lane, out[2]),
-        (FLUID_2_RISER_X, lane - FLUID_2_RISE_FORE, cross_z),
+        turn,
+        (FLUID_2_RETURN_X, turn[1], cross_z),
+        (FLUID_2_RETURN_X, FLUID_2_RETURN_FORE_Y, cross_z),
         (inlet[0] + FLUID_2_DESCENT_EAST, inlet_turn, cross_z),
         (inlet[0], inlet_turn, inlet[2]),
         "valve-v-a.inlet",
-        kind="fluid", lead=(FLUID_2_LEAD, _ml.STUB),
-        note="tap water: regulator outlet ahead of the drip pan, rising west of the pump, "
-             "then down V-A's column into the axial inlet quarter")
+        kind="fluid", bend=TUBE_BEND, lead=(8.0, FLUID_2_LEAD),
+        note="clean water: internal regulator outlet, rear rising return west of the pump, "
+             "then V-A's axial inlet quarter")
 
 
 # --- the funnel's gravity drain ---------------------------------------------

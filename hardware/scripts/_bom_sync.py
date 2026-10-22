@@ -110,10 +110,10 @@ reeds_per_carbonator = 2
 solenoid_count = sum(1 for n in ml.P if n.startswith("V-"))
 tee_count = len(ml.PURCHASED_TEES)
 
-# Cable management (~15), water-3 post, flow regulator, ASSE sleeve pair, water check.
-four_inch_ties_per_build = 20
-# Meter (two), water split, WR1105 and CO2 check.
-six_inch_ties_per_build = 5
+# Cable management (~15), water-3 post, ASSE sleeve pair, water check.
+four_inch_ties_per_build = 19
+# Meter (two), water split, water regulator, WR1105 and CO2 check.
+six_inch_ties_per_build = 6
 
 # PP1208E bulkheads: soda umbilical and tap-water inlet. The flavor pair uses 4 mm ABU44M-E.
 panel_umbilical_bulkheads = 1
@@ -450,6 +450,7 @@ if _missing:
         f"at that radius. The row reads the seat a body offers, so a body whose section moved "
         f"without its rib is a figure with nothing behind it.")
 body_tie_loops = {n: _enc.tube_anchor_tie_loop(r) for n, r in _body_seats.items()}
+body_tie_loops['flow-regulator'] = _ea._water_regulator.tie_loop()
 # The flavour tap's two barrels are quoted separately: each loop follows its
 # body's own seat radius through SPLIT_LOOP and FLOWREG_LOOP below.
 # AND THE COLD CORE'S CAP CARRIES THE OTHER FAMILY, on its own wall and its own fastener.

@@ -1,0 +1,334 @@
+{
+  "schema": 1,
+  "scope": "Manual nominal CAD integration review of the internal regulator, post and two tube routes. Closing movement sampled every 2 mm over 268 mm; mesh contacts receive native-solid follow-up. Case/core tube connections and electrical dressing are installed after closing. This is not physical fit or pressure qualification.",
+  "assembly_step_sha256": "14baefeb40b299080928c61466bfe831cfec4bbf01713c36bbff36a745b48940",
+  "assembly_mesh_sha256": "04ca6517a008ab371d1ae3e0778a7b0955a04c6f273215c145c8773e026fe7b8",
+  "source_sha256": {
+    "hardware/reference/shok-blok-regulator/shok_blok_regulator.py": "d30ed83777c4d7adb42f69d2f192a889e4dc9f3f8b1c15afc0b215c3279355f1",
+    "hardware/printed-parts/cold-core/_water_pressure_regulator.py": "fdc279ab687697f005a83ef8348d46695db083ef975d1a9d95cdf874763cbbf6",
+    "hardware/manifold-layout/enclosure_assembly.py": "a35cb0e7cf25e01955633b93f59489d8da8dbfa18c094822e850c351d880835a",
+    "hardware/manifold-layout/_lines.py": "1af4c0625cfc6fc2529dba10ddd6e63318395d0139c414f2c85dd08dc25b8dbc",
+    "hardware/wiring/installed/route-overrides.json": "f5e7507dc92ed1f4d0895fab8ac917c634119f2564014c9076d58d201360fcd5"
+  },
+  "bodies": {
+    "flow-regulator": {
+      "valid": true,
+      "solids": 1,
+      "bounds_mm": [
+        -71.83172958725757,
+        328.01905316746894,
+        274.72179949012775,
+        -36.097534582412415,
+        430.07050968727987,
+        312.91179729458054
+      ]
+    },
+    "regulator-cradle": {
+      "valid": true,
+      "solids": 1,
+      "bounds_mm": [
+        -69.68104093591715,
+        419.1701262677856,
+        253.39999989999987,
+        -44.28104073591693,
+        427.97550450182666,
+        288.0876962706342
+      ]
+    },
+    "tube-fluid-1": {
+      "valid": true,
+      "solids": 1,
+      "bounds_mm": [
+        -93.02499999999999,
+        204.83499999999998,
+        290.83558073754403,
+        -44.8168624578988,
+        329.54543493951667,
+        307.76683561888154
+      ]
+    },
+    "tube-fluid-2": {
+      "valid": true,
+      "solids": 1,
+      "bounds_mm": [
+        -61.59225799673465,
+        286.46,
+        259.875,
+        27.820781938268723,
+        456.89290032058,
+        322.67500010000003
+      ]
+    }
+  },
+  "post_material_in_lid_mm3": 6116.828390398638,
+  "post_volume_mm3": 6116.828390398638,
+  "static_pairs_within_3mm": [
+    {
+      "a": "flow-regulator",
+      "b": "cold-core/foam-cap-lid-top",
+      "gap_mm": 0.25,
+      "unintended_overlap_mm3": 0.0
+    },
+    {
+      "a": "flow-regulator",
+      "b": "asse-drain-adapter",
+      "gap_mm": 1.63442,
+      "unintended_overlap_mm3": 0.0
+    },
+    {
+      "a": "flow-regulator",
+      "b": "tube-fluid-1",
+      "gap_mm": 0.0,
+      "unintended_overlap_mm3": 0.0
+    },
+    {
+      "a": "flow-regulator",
+      "b": "tube-fluid-2",
+      "gap_mm": 0.0,
+      "unintended_overlap_mm3": 0.0
+    },
+    {
+      "a": "flow-regulator",
+      "b": "regulator-cradle",
+      "gap_mm": 0.25,
+      "unintended_overlap_mm3": 0.0
+    },
+    {
+      "a": "flow-regulator",
+      "b": "tube-fluid-1",
+      "gap_mm": 0.0,
+      "unintended_overlap_mm3": 0.0
+    },
+    {
+      "a": "flow-regulator",
+      "b": "tube-fluid-2",
+      "gap_mm": 0.0,
+      "unintended_overlap_mm3": 0.0
+    },
+    {
+      "a": "regulator-cradle",
+      "b": "flow-regulator",
+      "gap_mm": 0.25,
+      "unintended_overlap_mm3": 0.0
+    },
+    {
+      "a": "regulator-cradle",
+      "b": "tube-fluid-18",
+      "gap_mm": 1.57104,
+      "unintended_overlap_mm3": 0.0
+    },
+    {
+      "a": "tube-fluid-1",
+      "b": "water-split",
+      "gap_mm": 0.0,
+      "unintended_overlap_mm3": 0.0
+    },
+    {
+      "a": "tube-fluid-1",
+      "b": "flow-regulator",
+      "gap_mm": 0.0,
+      "unintended_overlap_mm3": 0.0
+    },
+    {
+      "a": "tube-fluid-1",
+      "b": "funnel-frame",
+      "gap_mm": 2.71442,
+      "unintended_overlap_mm3": 0.0
+    },
+    {
+      "a": "tube-fluid-1",
+      "b": "enclosure-front-top",
+      "gap_mm": 1.03485,
+      "unintended_overlap_mm3": 0.0
+    },
+    {
+      "a": "tube-fluid-2",
+      "b": "valve-v-a",
+      "gap_mm": 0.025,
+      "unintended_overlap_mm3": 0.0
+    },
+    {
+      "a": "tube-fluid-2",
+      "b": "g-ganen-pump",
+      "gap_mm": 1.09079,
+      "unintended_overlap_mm3": 0.0
+    },
+    {
+      "a": "tube-fluid-2",
+      "b": "flow-regulator",
+      "gap_mm": 0.0,
+      "unintended_overlap_mm3": 0.0
+    },
+    {
+      "a": "tube-fluid-2",
+      "b": "digiten-flow",
+      "gap_mm": 2.88261,
+      "unintended_overlap_mm3": 0.0
+    }
+  ],
+  "closing_movement": {
+    "step_mm": 2,
+    "maximum_y_offset_mm": 268,
+    "moving_mesh_count": 120,
+    "unintended_contacts": []
+  },
+  "tubes": {
+    "fluid-1": {
+      "cut_length_mm": 158.06370433513658,
+      "previous_cut_length_mm": 136.50884027528048,
+      "tightest_bend_mm": 14.0,
+      "ends": [
+        {
+          "port": "water-split.to-flavor",
+          "kind": "collet",
+          "host": "water-split",
+          "at": [
+            -89.85,
+            222.01,
+            294.0105808375568
+          ],
+          "tangent": [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          "heading": [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          "skew_deg": 0.0,
+          "grip_length_mm": 10.0,
+          "grip_source": "tee-connector README: teeth hold from 8.5 (GRIP_DEPTH), tube bottoms at 10.0 (INSERTION)",
+          "contact_s": [
+            -10.0,
+            0.0
+          ]
+        },
+        {
+          "port": "flow-regulator.inlet",
+          "kind": "collet",
+          "host": "flow-regulator",
+          "at": [
+            -49.29999998435922,
+            328.9999999,
+            301.99999999999994
+          ],
+          "tangent": [
+            0.08001084220372794,
+            -0.9851334946333972,
+            0.15202060018708255
+          ],
+          "heading": [
+            0.08001084220372787,
+            -0.9851334946333968,
+            0.1520206001870835
+          ],
+          "skew_deg": 0.0,
+          "grip_length_mm": 10.0,
+          "grip_source": "tee-connector README: teeth hold from 8.5 (GRIP_DEPTH), tube bottoms at 10.0 (INSERTION)",
+          "contact_s": [
+            158.06370433513655,
+            168.06370433513655
+          ]
+        }
+      ]
+    },
+    "fluid-2": {
+      "cut_length_mm": 298.3510369698319,
+      "previous_cut_length_mm": 198.75407083161772,
+      "tightest_bend_mm": 14.0,
+      "ends": [
+        {
+          "port": "flow-regulator.outlet",
+          "kind": "collet",
+          "host": "flow-regulator",
+          "at": [
+            -57.429101552257976,
+            429.0895629547531,
+            286.55470702099234
+          ],
+          "tangent": [
+            -0.08001084220372794,
+            0.9851334946333972,
+            -0.15202060018708255
+          ],
+          "heading": [
+            -0.0800108422037281,
+            0.9851334946333972,
+            -0.15202060018708166
+          ],
+          "skew_deg": 0.0,
+          "grip_length_mm": 10.0,
+          "grip_source": "tee-connector README: teeth hold from 8.5 (GRIP_DEPTH), tube bottoms at 10.0 (INSERTION)",
+          "contact_s": [
+            -10.0,
+            0.0
+          ]
+        },
+        {
+          "port": "valve-v-a.inlet",
+          "kind": "collet",
+          "host": "valve-v-a",
+          "at": [
+            24.270000000000003,
+            286.46000000000004,
+            263.05
+          ],
+          "tangent": [
+            -0.0,
+            1.0,
+            0.0
+          ],
+          "heading": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "skew_deg": 0.0,
+          "grip_length_mm": 10.0,
+          "grip_source": "tee-connector README: teeth hold from 8.5 (GRIP_DEPTH), tube bottoms at 10.0 (INSERTION)",
+          "contact_s": [
+            298.35103696983197,
+            308.35103696983197
+          ]
+        }
+      ]
+    }
+  },
+  "wire_detours": {
+    "PE-carbonator": {
+      "length_mm": 444.989,
+      "previous_length_mm": 442.941,
+      "arcs": 15,
+      "previous_arcs": 14
+    },
+    "flow-GND": {
+      "length_mm": 200.347,
+      "previous_length_mm": 140.542,
+      "arcs": 6,
+      "previous_arcs": 3
+    }
+  },
+  "tie": {
+    "length_inch": 6,
+    "conservative_loop_mm": 86.59727316333371,
+    "band_s_from_inlet_mm": [
+      94.75,
+      97.25
+    ],
+    "fixed_socket_s_mm": [
+      76.4,
+      98.0
+    ]
+  },
+  "funnel": {
+    "enlargement_direction": "enclosure -Y",
+    "current_native_shape_unchanged": true
+  },
+  "reference_limits": [
+    "Listing-based length and photo-scaled sections; inlet/outlet assignment and tube insertion provisional.",
+    "Use the actual flow marking from supply to V-A; acquisition and physical fit are not recorded."
+  ],
+  "pass": true
+}
