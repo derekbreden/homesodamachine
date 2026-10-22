@@ -1,0 +1,115 @@
+{
+  "views": [
+    {
+      "name": "upper-tube",
+      "caption": "Section through the east-inner tee's upper tube. Before, the fore valve stood 0.75 mm fore of the tee and the tube bent to reach it; now the valve stands over the tee at connected and the tube is straight.",
+      "before": "upper-tube-before.webp",
+      "after": "upper-tube-after.webp",
+      "width": 900,
+      "height": 900,
+      "marks": [
+        {
+          "x": 443.1,
+          "y": 442.5,
+          "r": 37.5,
+          "label": "upper tube",
+          "at": [
+            22.35,
+            108.04,
+            215
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          94.71853518247028,
+          108.5,
+          217.39474140729882
+        ],
+        "target": [
+          22.35,
+          108.5,
+          214.5
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.14706605326999042,
+        "far": 213.4472994277603,
+        "aspect": 1,
+        "section": {
+          "at": [
+            22.35,
+            108,
+            215
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "tee-y-c",
+        "tube-fluid-10",
+        "valve-v-e",
+        "coil-v-e"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "34003913f71f6dd5e4aab21b71255a0476f3e62c63e9f5e2f5b3481be0a2621e",
+          "commit": "dda107fc3029a9b948144e28f59befa757528760",
+          "taken": "2026-10-22T21:31:13.127Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "b98e7283153f4396e975ca02e9a97c519788df636d36e29c6be1e22b3568c543",
+          "commit": "ea4023077542339efe7daa0bc086cce68979697b",
+          "published": true
+        }
+      },
+      "changed": [],
+      "withinMeshing": [
+        "wire-J2-OUT1",
+        "tube-fluid-26",
+        "wire-J1-positive-H",
+        "enclosure-front-top",
+        "wire-J2-positive-I",
+        "wire-J1-positive-F",
+        "wire-J1-positive-E",
+        "tube-fluid-16",
+        "wire-J1-OUT5",
+        "wire-J1-OUT8",
+        "valve-v-f",
+        "valve-v-i",
+        "valve-v-e",
+        "valve-v-h",
+        "coil-v-e",
+        "coil-v-h",
+        "coil-v-f",
+        "coil-v-i",
+        "wire-J1-OUT6",
+        "tube-fluid-14",
+        "tube-fluid-24",
+        "tube-fluid-10",
+        "tube-fluid-13",
+        "tube-fluid-20",
+        "tube-fluid-23"
+      ]
+    }
+  ]
+}
