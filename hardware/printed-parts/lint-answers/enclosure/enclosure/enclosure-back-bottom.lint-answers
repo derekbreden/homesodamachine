@@ -1,8 +1,3 @@
-[step] Unavoidable core-clearance level boundary: these planes are the finite receiver floor at Z−0.35 and surrounding floor at Z0. The rounded core footprint retains its 0.25 mm running room and 0.10 mm cavity-floor transition. This same-normal plane comparison identifies the perimeter of those required levels, rather than material projecting into the core room.
-alternatives: Lowering the surrounding platform changes unrelated floor datums. A perimeter run-out still joins the required levels and must preserve the complete core clearance.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=-90.733 y=458.372 z=0.000
-
 [sliver] Specific required legend relief: the integral disposal warning (hardware/markings/README.md: UL 60335-2-24 7.1DV.4.1(d), letters at least 6.4 mm) is raised lettering, as Derek asked: 6.5 mm Helvetica Bold caps 0.6 mm proud of back-bottom's +Y wall, which prints floor-down so every layer draws the letters as bumps in its outer wall. These strips are the letters' 0.6 mm relief flanks, each stroke's level top among them, and the 1.35 mm faces of each I. At 6.4 mm a bold stroke is 0.96-1.41 mm; 3 mm strokes would need letters about 15 mm tall.
 alternatives: Any legend standing 0.6 mm proud has these 0.6 mm flanks; 3 mm strokes would need letters about 15 mm tall.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step

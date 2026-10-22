@@ -1,0 +1,73 @@
+{
+  "views": [
+    {
+      "name": "floor",
+      "caption": "Back-bottom's floor at its left wall, seen from just above the floor. The strip along the wall stood 0.35 mm proud of the floor round the cold core; now it is all one floor.",
+      "before": "floor-before.webp",
+      "after": "floor-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 560.3,
+          "y": 416,
+          "r": 40.8,
+          "label": "step",
+          "at": [
+            -93.3,
+            395,
+            0
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/enclosure/enclosure-back-bottom.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -69.70160794659259,
+          377.57404286539395,
+          27.107044431609435
+        ],
+        "target": [
+          -91,
+          395,
+          0
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.19866957246901448,
+        "far": 490.2031518710538,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
+          "from": "snapshot",
+          "sha256": "cc55171347442a39da21c0263998a7d76bec6be8a4b6fb996442b620e7c47995",
+          "commit": "f87d2686bcb252faf0da765aae4cde8821b2d99c",
+          "taken": "2026-10-22T07:20:45.790Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
+          "from": "tree",
+          "sha256": "1830304d0a17827ea24522bd711031fe08b64e85ad6fd63e966b66986b635448",
+          "commit": "f87d2686bcb252faf0da765aae4cde8821b2d99c",
+          "published": false
+        }
+      },
+      "changed": [],
+      "withinMeshing": [
+        "enclosure-back-bottom"
+      ]
+    }
+  ]
+}
