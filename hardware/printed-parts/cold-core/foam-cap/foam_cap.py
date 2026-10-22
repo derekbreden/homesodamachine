@@ -88,6 +88,7 @@ from _cold_core_interface import (
     cap_anchor_cav_wall,
     cap_anchor_len,
     cap_anchor_wall,
+    cap_anchor_channel_height,
     outer_shell_wall,
     outer_shell_x_length,
     outer_shell_y_length,
@@ -289,7 +290,7 @@ def add_chain_anchors(lid, face_z, names=None):
     A ROW THE ANCHOR CAP CLOSES is the cap's own rib (`capped_lid_rib`) and takes none of what
     follows.
 
-    THE CHANNEL IS A REMAINDER: the rib stands one `cap_anchor_wall` over the face down its whole
+    THE CHANNEL IS A REMAINDER: the rib stands `cap_anchor_channel_height` over the face down its whole
     length and only its two ends carry on down to meet it, so the zip tie's channel is the room
     between those ends. The lid's own face is the channel's floor and the rib's underside is its
     roof — neither is drawn, and there is no cut anywhere in it to graze a face with.
@@ -324,10 +325,10 @@ def add_chain_anchors(lid, face_z, names=None):
                 .extrude(length)
             )
 
-        rib = block(x0, cap_anchor_len, face_z + cap_anchor_wall, axis_z)
+        rib = block(x0, cap_anchor_len, face_z + cap_anchor_channel_height, axis_z)
         for s0, s1 in ((0.0, cap_anchor_cav_wall),
                        (cap_anchor_cav_wall + cap_anchor_cav_w, cap_anchor_len)):
-            rib = rib.union(block(x0 + s0, s1 - s0, face_z, face_z + cap_anchor_wall))
+            rib = rib.union(block(x0 + s0, s1 - s0, face_z, face_z + cap_anchor_channel_height))
         bore = (
             WorldWorkplane(yz_plane_x_up)
             .workplane(offset=x0)
@@ -336,11 +337,7 @@ def add_chain_anchors(lid, face_z, names=None):
             .extrude(cap_anchor_len)
         )
         lid = lid.union(rib.cut(bore).clean().val())
-        # Clearance belongs to the opposite floor of this supported tunnel.
-        # Recess the thick lid locally, preserving the rib and body's seat.
-        floor_relief = block(x0 + cap_anchor_cav_wall, cap_anchor_cav_w,
-                             face_z - fits.supported_surface, face_z)
-        lid = lid.cut(floor_relief.val())
+
     return lid
 
 
@@ -557,13 +554,11 @@ def main():
     tied = {n: s for n, s in cap_anchors.items() if s.closure != "cap"}
     anchor_volume = sum(
         cap_anchor_len * 2.0 * (s.seat_r + cap_anchor_wall)
-        * (cap_anchor_axis_over_face(n) - cap_anchor_wall)
+        * (cap_anchor_axis_over_face(n) - cap_anchor_channel_height)
         - 0.5 * math.pi * s.seat_r ** 2 * cap_anchor_len
-        + 2.0 * cap_anchor_cav_wall * 2.0 * (s.seat_r + cap_anchor_wall) * cap_anchor_wall
+        + 2.0 * cap_anchor_cav_wall * 2.0 * (s.seat_r + cap_anchor_wall) * cap_anchor_channel_height
         for n, s in tied.items()
     )
-    anchor_volume -= sum(cap_anchor_cav_w * 2.0 * (s.seat_r + cap_anchor_wall)
-                         * fits.supported_surface for s in tied.values())
     anchor_volume += sum(capped_lid_rib_volume(n) for n in cap_anchors if n not in tied)
     # A SIDEWAYS anchor is priced the way it is laid down: one block the post's whole footprint,
     # standing the lid's face to its own crown, carrying a HALF bore because the pipe's axis is

@@ -7,10 +7,10 @@
     "AC5-N",
     "AC6-PE"
   ],
-  "assembly_step_sha256": "b8e5a3b64c51d264bd1d768e8f0a45dbe11413e7272ad422f7585b48a20e07e6",
-  "assembly_mesh_sha256": "08feec26c674aadf76b7c72ea5562ae73aae8ad72a06048fd3fe89b201e7a41c",
+  "assembly_step_sha256": "ba1df09203440faccbc7ce6955bc8f18691f8c74190fc8060c28f1b228956122",
+  "assembly_mesh_sha256": "b546485d14a093f2aaf7c88bb0b5c39f71e13c23123f9f5e419ea285e067f70f",
   "wiring_step_sha256": "ad4ac430b285a82aa7be5adf9bf380d747e81599b875106e8baa4839f6126068",
-  "manifest_sha256": "197d5fb53f97c3bc468ea39a81d4274121c1f5ada5081f340041706d59978284",
+  "manifest_sha256": "3f9bed500447d2749f355e67c48211c68280214c2c478c8a242fbd2135e9ad92",
   "jacket_outer_diameter_mm": 8.0,
   "jacket_length_mm": 378.2968233809903,
   "jacket_minimum_geometric_bend_mm": 13.600235634150081,
