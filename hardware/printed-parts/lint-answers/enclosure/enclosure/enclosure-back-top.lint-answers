@@ -12,17 +12,31 @@ click: x=-57.544 y=471.296 z=312.753
 click: x=87.269 y=471.298 z=278.310
 click: x=-18.931 y=471.297 z=278.307
 
-[thin] Specific fitted M3 insert-host interface: these sections span 2.000 mm from the Ø4.0 pilot to the Ø8 host's face (mount_boss_dia), ruthex's 1.6 mm minimum wall plus the 0.25 mm supported allowance and 0.15 mm slip. Each measured face sits on a neighbour: relay 1 and 2 pin boxes, the ground stack, the main board's top edge. Inside a fill the host keeps the fill's face, 1.75 mm behind the relieved crown.
+[thin] Set aside by Derek: the M3 insert hosts on the +X wall that relay 1, relay 2, the ground stack and the main board screw to. Each spans 2.000 mm from the Ø4.0 pilot to the Ø8 host's face (mount_boss_dia), ruthex's 1.6 mm minimum wall plus the 0.25 mm supported allowance and 0.15 mm slip. Inside a fill or a bar the host keeps that flat face, 1.75 mm behind the relieved crown; the main board's sleeve reads 2.25 mm under its insert's entry. Each measured face sits on a neighbour: relay 1 and 2 pin boxes, the ground stack, the main board's top edge. Derek, 2026-10-22: "Regarding (E) I'm far less concerned about the 2 mm thick walls, and far more concerned about those bumps." and "So we really don't want to waste time chasing 2 mm thickness edges when we still have "bumps" or other defects to solve."
 alternatives: A 3 mm host needs every body gap in the bay widened by about 1 mm and relays with pins further from their holes.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=97.292 y=326.800 z=330.955
-click: x=97.376 y=332.936 z=251.315
-click: x=97.376 y=345.936 z=251.315
+click: x=97.292 y=331.804 z=253.150
+click: x=97.292 y=344.804 z=253.150
+click: x=93.291 y=338.758 z=334.045
+click: x=97.292 y=258.796 z=328.950
+click: x=97.292 y=331.796 z=319.150
+click: x=97.292 y=344.796 z=319.150
+click: x=97.292 y=260.800 z=343.955
+click: x=97.292 y=322.800 z=331.220
+click: x=97.292 y=322.800 z=344.220
+click: x=97.377 y=245.093 z=318.209
+
+[thin] Approved by Derek as drawn: the keystone receptacle's two catches across its pocket's inner end, the upper 1.4 mm and the lower 1.3 mm thick (`CATCH_UPPER`, `CATCH_LOWER` in hardware/reference/riteav-keystone/riteav_keystone.py), which the jack's tang and latch hook. Test fits have held the jack stable, and they print. The delivered jack has nothing behind the upper catch where the model's block rises, so either catch has room to grow inboard should a fit ever ask for it. Derek, 2026-10-22: "So make a note of that in case it matters later, but test fitting has been good so far and quite stable and all printable, so let's leave it be. Approved as is."
+alternatives: A thicker catch grows inboard, into the room the delivered jack leaves behind it; its face toward the opening is the jack's seat and stays where it is.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-47.666 y=458.080 z=291.671
+click: x=-37.024 y=458.080 z=315.040
 
 [thin] Specific required partition: each reading is the 1.95 mm slab between a zip tie's channel and the flow meter's pocket (Y372.56-374.51 and 413.51-415.46). It is the anchor's 1.7 mm inner end web, which the meter's 7.2 mm collar fixes and which keeps the tie on the collar, plus 0.25 mm of slab; the tie channel is the 18 lb tie's 2.5 mm plus 1.0 mm of room; and the pocket keeps 2.0 mm of axial room because the meter is laid into its plain half-bores with nothing locating it along Y, so the pocket walls, not the slab under the label cover's Ø35 rim, are what it meets.
 alternatives: A 3 mm partition needs a positive axial stop holding the meter within about 0.9 mm, e.g. the inner end webs carried over the neck with a lead-in, so the pocket can give up the room; a narrower tie channel or a shifted band thins the collar's end webs.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-54.173 y=415.460 z=347.272
+click: x=-54.202 y=415.460 z=346.832
 click: x=-29.759 y=372.560 z=347.629
 
 [ledge] Required Wago bearing tabs: each is a 2.0 mm end tab (`wago_roof_tab`) of a well's lid; on back-top the lid is the pocket's machine -Z face, so these flats are what the lever-nut rests on.
@@ -163,33 +177,30 @@ click: x=-40.710 y=467.370 z=311.552
 [thin] Specific fitted keystone swing ease: the face's lip over the keystone's swing ease thickens up the ease's 50° slope from 0.84 mm where its square shoulder meets the face (`keystone_ease_shoulder`, 1.0 mm over the aperture's top edge); the lint reads it 1.36 mm through, up the slope.
 alternatives: Running the ease out on the aperture's edge meets the face in a knife edge, and a taller shoulder leaves more open face over the jack.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-37.063 y=467.790 z=312.674
+click: x=-44.357 y=467.790 z=312.674
 
 [thin] Approved by Derek as drawn: each reading is the wall a flute groove leaves on a 3 mm section. The 1.2 mm groove (`flute_depth`) leaves 1.8 mm between its floor and the inner face (enclosure README, Nothing may relieve into the outermost 3 mm of a fluted face): on back-top's two flanks, and over the blind ends of the C14's two insert pilots, which stop one 3 mm wall short of the back face. Derek, 2026-10-21: "The flute grooves on 3mm walls is good with me and approved by me."
 alternatives: A 4.2 mm wall keeps 3 mm under every groove and takes 1.2 mm more of the room inside each flank; a shallower groove changes the texture the corner coupon set.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-104.500 y=213.449 z=197.971
 click: x=104.500 y=213.449 z=197.971
-click: x=-104.500 y=302.251 z=277.527
-click: x=-104.500 y=331.860 z=260.475
 click: x=104.500 y=361.444 z=321.127
 click: x=104.500 y=405.856 z=323.115
 click: x=104.500 y=391.070 z=323.121
 click: x=-106.301 y=257.858 z=286.923
 click: x=106.301 y=376.261 z=328.014
 click: x=106.305 y=425.461 z=328.014
-click: x=-104.500 y=317.050 z=261.183
-click: x=104.500 y=356.645 z=264.859
-click: x=104.500 y=356.645 z=297.859
+click: x=104.500 y=356.667 z=260.710
+click: x=104.500 y=356.667 z=293.710
 click: x=104.500 y=321.837 z=255.293
-click: x=104.500 y=321.828 z=322.556
-click: x=104.500 y=455.043 z=261.511
-click: x=104.500 y=455.043 z=294.511
-click: x=88.893 y=468.300 z=336.260
-click: x=-106.310 y=327.042 z=174.678
-click: x=104.500 y=243.522 z=322.328
-click: x=104.500 y=243.532 z=257.568
-click: x=45.237 y=468.300 z=335.828
+click: x=104.500 y=321.852 z=322.572
+click: x=104.500 y=455.047 z=261.543
+click: x=104.500 y=455.047 z=294.543
+click: x=88.889 y=468.300 z=335.862
+click: x=-104.500 y=327.028 z=173.586
+click: x=104.500 y=243.540 z=322.310
+click: x=104.500 y=243.534 z=257.618
+click: x=45.190 y=468.300 z=336.362
 click: x=-104.500 y=331.855 z=263.959
 click: x=-106.300 y=331.850 z=263.959
 click: x=-104.500 y=302.224 z=275.356
@@ -208,40 +219,10 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=38.670 y=465.990 z=270.918
 click: x=29.670 y=465.990 z=270.918
 
-[bump] Outside the internal-regulator change and unresolved: these retained rear connector, electronics-mount and anchor/well surfaces are outside the removed needle-mount window. The exact-native comparison in reference/shok-blok-regulator/installation-review.json establishes unchanged material outside that window. It does not accept the retained pads, narrow lands, ceilings or catch profiles.
-alternatives: Reconcile each connector, insert host, anchor cap or lever-nut with its complete support and access profile. Preserve the already accepted receiver and flute exceptions at their named instances; the remaining interfaces need their own review.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=96.250 y=331.751 z=251.150
-click: x=96.250 y=344.751 z=251.150
-
 [ceiling] Outside the internal-regulator change and unresolved: these retained rear connector, electronics-mount and anchor/well surfaces are outside the removed needle-mount window. The exact-native comparison in reference/shok-blok-regulator/installation-review.json establishes unchanged material outside that window. It does not accept the retained pads, narrow lands, ceilings or catch profiles.
 alternatives: Reconcile each connector, insert host, anchor cap or lever-nut with its complete support and access profile. Preserve the already accepted receiver and flute exceptions at their named instances; the remaining interfaces need their own review.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-40.710 y=470.225 z=257.624
-
-[thin] Outside the internal-regulator change and unresolved: these retained rear connector, electronics-mount and anchor/well surfaces are outside the removed needle-mount window. The exact-native comparison in reference/shok-blok-regulator/installation-review.json establishes unchanged material outside that window. It does not accept the retained pads, narrow lands, ceilings or catch profiles.
-alternatives: Reconcile each connector, insert host, anchor cap or lever-nut with its complete support and access profile. Preserve the already accepted receiver and flute exceptions at their named instances; the remaining interfaces need their own review.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-47.666 y=458.080 z=291.671
-click: x=-47.666 y=459.380 z=291.671
-click: x=-42.101 y=458.080 z=316.282
-click: x=-42.101 y=459.480 z=316.282
-click: x=93.291 y=338.758 z=334.045
-click: x=93.291 y=338.775 z=335.794
-click: x=97.292 y=258.796 z=328.950
-click: x=97.292 y=258.796 z=327.200
-click: x=97.292 y=331.796 z=319.150
-click: x=97.292 y=331.796 z=317.400
-click: x=97.292 y=344.796 z=319.150
-click: x=97.292 y=344.796 z=317.400
-click: x=97.292 y=260.800 z=343.955
-click: x=97.292 y=262.800 z=343.955
-click: x=97.292 y=322.800 z=331.220
-click: x=97.292 y=320.800 z=331.220
-click: x=97.292 y=322.800 z=344.220
-click: x=97.292 y=320.800 z=344.220
-click: x=97.377 y=245.093 z=318.209
-click: x=97.377 y=245.177 z=320.453
 
 [ledge] Outside the internal-regulator change and unresolved: these retained rear connector, electronics-mount and anchor/well surfaces are outside the removed needle-mount window. The exact-native comparison in reference/shok-blok-regulator/installation-review.json establishes unchanged material outside that window. It does not accept the retained pads, narrow lands, ceilings or catch profiles.
 alternatives: Reconcile each connector, insert host, anchor cap or lever-nut with its complete support and access profile. Preserve the already accepted receiver and flute exceptions at their named instances; the remaining interfaces need their own review.
@@ -250,7 +231,7 @@ click: x=97.000 y=321.333 z=261.400
 click: x=53.358 y=401.394 z=342.882
 click: x=53.358 y=411.911 z=342.882
 click: x=-101.400 y=298.817 z=260.200
-click: x=-101.400 y=305.517 z=260.200
+click: x=-101.400 y=306.183 z=260.200
 click: x=-101.400 y=331.317 z=260.200
-click: x=-101.400 y=338.017 z=260.200
+click: x=-101.400 y=338.683 z=260.200
 click: x=-43.202 y=458.947 z=294.222
