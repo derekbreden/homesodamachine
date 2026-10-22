@@ -92,7 +92,7 @@ at both flanks; the tongue continues across the middle under the cold core. Its 
 ends stand on the plane each handhold's inner wall ends on, the wall at its full 3 mm
 section, so the floor and both inner walls close on one pair of plumb faces with one
 running fit between them. The joint is square because the slab cannot lap: it is 5.65 mm
-under the core, and a lap inside it with one running fit between its members cannot keep
+thick, and a lap inside it with one running fit between its members cannot keep
 both members at the nominal 3 mm section. The corner knuckle stacks and their M5 rods align
 the halves.
 
@@ -346,9 +346,9 @@ The **+Y wall keeps one `rear_seam_clear`**, the rear Z-seam lip's own thickness
 on the body where it meets one, not a rule about the wall: beside one — over or under
 one — the band is the wall's own air. Of the three bodies on the slab only the cold
 core meets the band at the seam's storey; the compressor and condenser stand wholly
-under the mouth. The core's rounded fit pocket extends 0.35 mm below its nominal
-floor plane: 0.25 mm running plus 0.10 mm cavity-floor transition allowance. The slab
-retains 5.65 mm under that pocket. The print-corner relief runs
+under the mouth. The floor is one plane 0.35 mm under the pack's z = 0, the allowance of
+the face the core rests and slides on: 0.25 mm running plus 0.10 mm cavity-floor transition.
+The slab under it is 5.65 mm. The print-corner relief runs
 on the standing verticals and the Y-seam's floor joint stays inside the slab.
 
 The pack's enclosing seam features retain their applicable fit allowances, and both
@@ -527,9 +527,9 @@ Four features, two mirror pairs, and nothing on either that is not a face of the
   band, taken on both flanks so the pair is a mirror.
 
 The whole core pocket follows that same rounded plan with 0.25 mm around it,
-from Z−0.35 under the core to Z253.65 above its cap crown. Its floor allowance is
-0.25 mm running plus 0.10 mm at the cavity-floor transition. The remaining floor is
-5.65 mm thick. The floor, front blocks, rear seam band and cap brackets bound
+from the floor to Z253.65 above its cap crown. The floor under it is the box's one floor
+plane at Z−0.35, which carries the core's 0.25 mm running plus 0.10 mm cavity-floor
+transition; the slab is 5.65 mm thick. The floor, front blocks, rear seam band and cap brackets bound
 the nominal core envelope in all directions with the modeled allowance at their mating faces.
 The [core-stop native review](../pump-dock/core-stop-native-review.json) records the
 lower quadrants' bearing faces, supporting webs and pairwise closure against its
