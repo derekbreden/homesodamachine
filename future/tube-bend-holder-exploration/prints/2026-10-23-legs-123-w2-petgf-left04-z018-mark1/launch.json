@@ -1,0 +1,28 @@
+{
+  "printer": "H2C",
+  "observed_at": "2026-10-23T07:34:00.326482+00:00",
+  "archive": {
+    "name": "2026-10-23-tube-bend-holders-w2-legs123-petgf-left04-z018-mark1.gcode.3mf",
+    "sha256": "ebf085f5c9793f4b233de9fb8b98ffe4d3d01af01675bd8292a9ae43d50fa81b",
+    "gcode_sha256": "8009684c6acd87a70922c1d2ab13bfcba6d5859d7dc2f7bee315300925e4ad9c",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "000000"
+      }
+    },
+    "objects": [
+      "1 mm legs",
+      "2 mm legs",
+      "3 mm legs"
+    ]
+  },
+  "printer_task_id": "1366458433",
+  "gcode_state": "RUNNING",
+  "subtask_name": "2026-10-23-tube-bend-holders-w2-legs123-petgf-left04-z018-mark1.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 51,
+  "mc_remaining_time": 0
+}
