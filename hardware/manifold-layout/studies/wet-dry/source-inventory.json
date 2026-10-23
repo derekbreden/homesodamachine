@@ -1,0 +1,2459 @@
+{
+  "scope": "Frozen bare component meshes in original installed world poses, for wet/dry layout study only",
+  "units": "mm",
+  "frame": "+X right/east, +Y aft/outboard at rear wall, +Z up",
+  "mesh_convention": "NPZ v float32 (N,3), f int32 (M,3); no labels, collars, mounts or wires included",
+  "transform_rule": "For placement: v_new = R @ v_old + t; apply R and t to datum points, R only to directions",
+  "source_mesh": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+  "source_mesh_sha256": "201d9c90a008ce7902c679e1bcd78e49a4fb2447d1a1aa4c79be73b1a9151e0a",
+  "pointer_mesh_sha256": "201d9c90a008ce7902c679e1bcd78e49a4fb2447d1a1aa4c79be73b1a9151e0a",
+  "source_mesh_matches_current_pointer": true,
+  "pointer_source_commit": "2eaea329d128836d567f242e6e87a7e187a4fb53",
+  "pointer_marks_enclosure_assembly_unproven": true,
+  "observed_git_head": "d89d522e8f6c59ff1669ae9dc17a9be6e3d95367",
+  "source_sha256": {
+    "hardware/cad-artifacts.json": "62d3e017a48676d44176540791b2875671d54ddc5f0fba9906e16379dc8d095d",
+    "hardware/manifold-layout/enclosure-assembly.facts.json": "b2cef644b0368e0a951302cd3966775b7a6ba24864fae9187f0abbbf70c3d97f",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "201d9c90a008ce7902c679e1bcd78e49a4fb2447d1a1aa4c79be73b1a9151e0a",
+    "hardware/manifold-layout/enclosure_assembly.py": "80b0218a6124d8ffa1837a85d807f82ff8df2629965bf3dfb9dc55a583523104",
+    "hardware/reference/ground-ring-stack/ground_ring_stack.py": "9594158d7554e6fc6d7115a88fdcbbb7bbd5b758763903174139b3de7da8d614",
+    "hardware/reference/iec-c14-inlet/iec_c14_inlet.py": "833422c7c9cad6e0cd1cb63efa559bb50f12f649314d572ed78752bb5036cba9",
+    "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py": "62b13c9c562db4ef857c159beae7e6adac08d1bb0d35aaa0c8903117b696f5c4",
+    "hardware/reference/meanwell-irm90/meanwell_irm90.py": "8ab9b6cb253542c44ceada14c0e536d46ad62f568311b6eb1ee4dd47a4ee3916",
+    "hardware/reference/neofit-bulkhead/neofit_bulkhead.py": "ef3668b27b4a7373a24ce19ce484954fcc09f6a2a78442df2dc1d3ba35407c24",
+    "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "f53b68d07c045338361615eb032e5c97c90a8a03d8ea3d30444efb300444303f",
+    "hardware/reference/riteav-keystone/riteav_keystone.py": "74b6c8af93182fab6a2792fe78c2ff2f92fd8a1242b0d1d01bc9f8dab7c36cba",
+    "hardware/reference/teyleten-relay/teyleten_relay.py": "399a018b815d29ffe60b9f751475539184d1f6eec14a5eb61db0ba9ce19da608",
+    "hardware/reference/wago-221/wago_221.py": "821d652a3c00bf686552602a912135c97825210095333d8fefad7ba040731efd",
+    "hardware/wiring/enclosure-wiring.json": "0e2dd8902df0b47dd0871885333c9d3e495d38e5bf5931e54abe9a8d6589da0b"
+  },
+  "source_authority": "Pointer pins preserved mesh bytes. Its unproven marker means this is not a source-regenerated assembly. Reference generators establish interface roles and nominal dimensions; generated facts and wiring carry their stated evidence scopes.",
+  "parts": {
+    "psu": {
+      "snapshot": "psu.npz",
+      "snapshot_sha256": "4e5102ad53f5a9940541167ea6b779b57cf50d5169429f551b4dc59d0ee02c3e",
+      "source_mesh_component_names": [
+        "psu"
+      ],
+      "source_mesh_bounds_mm": [
+        [
+          64.75,
+          350.79998779296875,
+          253.39999389648438
+        ],
+        [
+          98.25,
+          459.79998779296875,
+          305.3999938964844
+        ]
+      ],
+      "source_analytic_bounds_mm": [
+        64.75,
+        350.8,
+        253.39999999999998,
+        98.25,
+        459.8,
+        305.4
+      ],
+      "vertices": 520,
+      "triangles": 492,
+      "reference_source": "hardware/reference/meanwell-irm90/meanwell_irm90.py",
+      "original_terminals": {
+        "psu.GND": {
+          "id": "psu.GND",
+          "part": "psu",
+          "point": [
+            88.05,
+            352.8,
+            283.4
+          ],
+          "outward": [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          "kind": "screw",
+          "basis": "Representative terminal block; pole pitch and wire entry nominal",
+          "status": "nominal",
+          "pin": ""
+        },
+        "psu.L": {
+          "id": "psu.L",
+          "part": "psu",
+          "point": [
+            88.05,
+            457.8,
+            275.4
+          ],
+          "outward": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "kind": "screw",
+          "basis": "Representative terminal block; pole pitch and wire entry nominal",
+          "status": "nominal",
+          "pin": ""
+        },
+        "psu.N": {
+          "id": "psu.N",
+          "part": "psu",
+          "point": [
+            88.05,
+            457.8,
+            283.4
+          ],
+          "outward": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "kind": "screw",
+          "basis": "Representative terminal block; pole pitch and wire entry nominal",
+          "status": "nominal",
+          "pin": ""
+        },
+        "psu.V12": {
+          "id": "psu.V12",
+          "part": "psu",
+          "point": [
+            88.05,
+            352.8,
+            275.4
+          ],
+          "outward": [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          "kind": "screw",
+          "basis": "Representative terminal block; pole pitch and wire entry nominal",
+          "status": "nominal",
+          "pin": ""
+        }
+      },
+      "original_card_ports": {},
+      "mount": {
+        "hole_centers_world_mm": [
+          [
+            98.25,
+            356.3,
+            262.9
+          ],
+          [
+            98.25,
+            454.3,
+            262.9
+          ],
+          [
+            98.25,
+            356.3,
+            295.9
+          ],
+          [
+            98.25,
+            454.3,
+            295.9
+          ]
+        ],
+        "component_side_axis_world": [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        "basis": "Existing generated mount datums; plane is board/base seating face, not pin-tail bounding face"
+      },
+      "native_to_original_world": {
+        "rotation": [
+          [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "translation_mm": [
+          98.25,
+          405.3,
+          279.4
+        ],
+        "native_frame": "X width 52, Y length 109, Z outward from mounting base; four holes 33 by 98 mm"
+      },
+      "interface_axes_world": {
+        "component_and_screw_access": [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        "ac_wire_entry": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "dc_wire_entry": [
+          0.0,
+          -1.0,
+          0.0
+        ]
+      }
+    },
+    "c14-inlet": {
+      "snapshot": "c14-inlet.npz",
+      "snapshot_sha256": "ba93ea960806d4e83a0268ce1a6ad650125197fa35a1ca4457cc59d699544b9e",
+      "source_mesh_component_names": [
+        "c14-inlet"
+      ],
+      "source_mesh_bounds_mm": [
+        [
+          42.04768753051758,
+          436.2099914550781,
+          325.14556884765625
+        ],
+        [
+          91.75231170654297,
+          463.04998779296875,
+          347.27557373046875
+        ]
+      ],
+      "source_analytic_bounds_mm": [
+        42.01500000000001,
+        436.21000000000004,
+        325.1455808375568,
+        91.78500000000001,
+        463.05,
+        347.2755808375568
+      ],
+      "vertices": 1850,
+      "triangles": 1684,
+      "reference_source": "hardware/reference/iec-c14-inlet/iec_c14_inlet.py",
+      "original_terminals": {
+        "c14.L": {
+          "id": "c14.L",
+          "part": "c14-inlet",
+          "point": [
+            60.2,
+            436.21,
+            338.6605808375568
+          ],
+          "outward": [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          "kind": "solder-tab",
+          "basis": "Scanned tab positions; L/N assignment awaits physical moulded marks",
+          "status": "nominal",
+          "pin": ""
+        },
+        "c14.N": {
+          "id": "c14.N",
+          "part": "c14-inlet",
+          "point": [
+            74.0,
+            436.21,
+            338.86058083755677
+          ],
+          "outward": [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          "kind": "solder-tab",
+          "basis": "Scanned tab positions; L/N assignment awaits physical moulded marks",
+          "status": "nominal",
+          "pin": ""
+        },
+        "c14.PE": {
+          "id": "c14.PE",
+          "part": "c14-inlet",
+          "point": [
+            67.25,
+            436.21,
+            333.61058083755677
+          ],
+          "outward": [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          "kind": "solder-tab",
+          "basis": "Scanned tab positions; L/N assignment awaits physical moulded marks",
+          "status": "nominal",
+          "pin": ""
+        }
+      },
+      "original_card_ports": {},
+      "native_to_original_world": {
+        "rotation": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "translation_mm": [
+          66.9,
+          461.21,
+          336.2105808375568
+        ],
+        "native_frame": "Y outward mating axis; origin at outboard face of flange ears"
+      },
+      "mount": {
+        "hole_centers_world_mm": [
+          [
+            46.795,
+            461.21,
+            336.2105808375568
+          ],
+          [
+            87.00500000000001,
+            461.21,
+            336.2105808375568
+          ]
+        ],
+        "hole_diameter_mm": 3.24,
+        "screw_pitch_mm": 40.21,
+        "outward_axis_world": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "basis": "Current scanned reference: panel_screws(), 40.21 mm pitch",
+        "old_wall_facts_holes_xz_mm": [
+          [
+            46.900000000000006,
+            336.2105808375568
+          ],
+          [
+            86.9,
+            336.2105808375568
+          ]
+        ],
+        "old_wall_facts_pitch_mm": 40.0,
+        "note": "Old wall facts contain a different 40.0 mm screw pitch; use the current scanned reference for a new mount"
+      },
+      "interfaces": {
+        "outboard_mating_axis": {
+          "point_mm": [
+            66.9,
+            461.21,
+            336.2105808375568
+          ],
+          "outward_axis": [
+            0.0,
+            1.0,
+            0.0
+          ]
+        },
+        "proud_rim_depth_mm": 1.84,
+        "tab_tip_local_y_mm": -25.0,
+        "rim_outer_width_height_mm": [
+          31.03,
+          22.13
+        ],
+        "rim_corner_radius_mm": 6.0
+      }
+    },
+    "relay-1": {
+      "snapshot": "relay-1.npz",
+      "snapshot_sha256": "cd585702c8b74c7aa4d01bbcc7eefc37a27889664309aaa7f29801a89bfd481c",
+      "source_mesh_component_names": [
+        "relay-1"
+      ],
+      "source_mesh_bounds_mm": [
+        [
+          79.25,
+          256.79998779296875,
+          329.20001220703125
+        ],
+        [
+          98.25,
+          326.79998779296875,
+          346.20001220703125
+        ]
+      ],
+      "source_analytic_bounds_mm": [
+        79.25,
+        256.8,
+        329.20000000000005,
+        98.25,
+        326.8,
+        346.20000000000005
+      ],
+      "vertices": 544,
+      "triangles": 508,
+      "reference_source": "hardware/reference/teyleten-relay/teyleten_relay.py",
+      "original_terminals": {
+        "relay-1.COM": {
+          "id": "relay-1.COM",
+          "part": "relay-1",
+          "point": [
+            84.75,
+            266.8,
+            332.70000000000005
+          ],
+          "outward": [
+            -1.0,
+            0.0,
+            -2.220446049250313e-16
+          ],
+          "kind": "screw",
+          "basis": "Representative relay contact block; pole order nominal",
+          "status": "nominal",
+          "pin": ""
+        },
+        "relay-1.GND": {
+          "id": "relay-1.GND",
+          "part": "relay-1",
+          "point": [
+            84.75,
+            317.8,
+            337.70000000000005
+          ],
+          "outward": [
+            -1.0,
+            0.0,
+            -2.220446049250313e-16
+          ],
+          "kind": "logic-header",
+          "basis": "Representative VCC/GND/IN header; lead termination unlocated",
+          "status": "nominal",
+          "pin": ""
+        },
+        "relay-1.IN": {
+          "id": "relay-1.IN",
+          "part": "relay-1",
+          "point": [
+            84.75,
+            317.8,
+            340.24000000000007
+          ],
+          "outward": [
+            -1.0,
+            0.0,
+            -2.220446049250313e-16
+          ],
+          "kind": "logic-header",
+          "basis": "Representative VCC/GND/IN header; lead termination unlocated",
+          "status": "nominal",
+          "pin": ""
+        },
+        "relay-1.NO": {
+          "id": "relay-1.NO",
+          "part": "relay-1",
+          "point": [
+            84.75,
+            266.8,
+            337.70000000000005
+          ],
+          "outward": [
+            -1.0,
+            0.0,
+            -2.220446049250313e-16
+          ],
+          "kind": "screw",
+          "basis": "Representative relay contact block; pole order nominal",
+          "status": "nominal",
+          "pin": ""
+        },
+        "relay-1.V5": {
+          "id": "relay-1.V5",
+          "part": "relay-1",
+          "point": [
+            84.75,
+            317.8,
+            335.16
+          ],
+          "outward": [
+            -1.0,
+            0.0,
+            -2.220446049250313e-16
+          ],
+          "kind": "logic-header",
+          "basis": "Representative VCC/GND/IN header; lead termination unlocated",
+          "status": "nominal",
+          "pin": ""
+        }
+      },
+      "original_card_ports": {},
+      "mount": {
+        "hole_centers_world_mm": [
+          [
+            96.25,
+            324.8,
+            331.20000000000005
+          ],
+          [
+            96.25,
+            324.8,
+            344.20000000000005
+          ],
+          [
+            96.25,
+            258.8,
+            331.20000000000005
+          ],
+          [
+            96.25,
+            258.8,
+            344.20000000000005
+          ]
+        ],
+        "component_side_axis_world": [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        "basis": "Existing generated mount datums; plane is board/base seating face, not pin-tail bounding face"
+      }
+    },
+    "relay-2": {
+      "snapshot": "relay-2.npz",
+      "snapshot_sha256": "454eb7a9b0dab85f439181431705e2a29ae9d0ec9309d0e9e3a19e68bff37235",
+      "source_mesh_component_names": [
+        "relay-2"
+      ],
+      "source_mesh_bounds_mm": [
+        [
+          79.25,
+          329.79998779296875,
+          253.39999389648438
+        ],
+        [
+          98.25,
+          346.79998779296875,
+          323.3999938964844
+        ]
+      ],
+      "source_analytic_bounds_mm": [
+        79.25,
+        329.8,
+        253.39999999999998,
+        98.25,
+        346.8,
+        323.4
+      ],
+      "vertices": 544,
+      "triangles": 508,
+      "reference_source": "hardware/reference/teyleten-relay/teyleten_relay.py",
+      "original_terminals": {
+        "relay-2.COM": {
+          "id": "relay-2.COM",
+          "part": "relay-2",
+          "point": [
+            84.75,
+            343.3,
+            263.4
+          ],
+          "outward": [
+            -1.0,
+            2.220446049250313e-16,
+            -2.465190328815662e-32
+          ],
+          "kind": "screw",
+          "basis": "Representative relay contact block; pole order nominal",
+          "status": "nominal",
+          "pin": ""
+        },
+        "relay-2.GND": {
+          "id": "relay-2.GND",
+          "part": "relay-2",
+          "point": [
+            84.75,
+            338.3,
+            314.4
+          ],
+          "outward": [
+            -1.0,
+            2.220446049250313e-16,
+            -2.465190328815662e-32
+          ],
+          "kind": "logic-header",
+          "basis": "Representative VCC/GND/IN header; lead termination unlocated",
+          "status": "nominal",
+          "pin": ""
+        },
+        "relay-2.IN": {
+          "id": "relay-2.IN",
+          "part": "relay-2",
+          "point": [
+            84.75,
+            335.76,
+            314.4
+          ],
+          "outward": [
+            -1.0,
+            2.220446049250313e-16,
+            -2.465190328815662e-32
+          ],
+          "kind": "logic-header",
+          "basis": "Representative VCC/GND/IN header; lead termination unlocated",
+          "status": "nominal",
+          "pin": ""
+        },
+        "relay-2.NO": {
+          "id": "relay-2.NO",
+          "part": "relay-2",
+          "point": [
+            84.75,
+            338.3,
+            263.4
+          ],
+          "outward": [
+            -1.0,
+            2.220446049250313e-16,
+            -2.465190328815662e-32
+          ],
+          "kind": "screw",
+          "basis": "Representative relay contact block; pole order nominal",
+          "status": "nominal",
+          "pin": ""
+        },
+        "relay-2.V5": {
+          "id": "relay-2.V5",
+          "part": "relay-2",
+          "point": [
+            84.75,
+            340.84000000000003,
+            314.4
+          ],
+          "outward": [
+            -1.0,
+            2.220446049250313e-16,
+            -2.465190328815662e-32
+          ],
+          "kind": "logic-header",
+          "basis": "Representative VCC/GND/IN header; lead termination unlocated",
+          "status": "nominal",
+          "pin": ""
+        }
+      },
+      "original_card_ports": {},
+      "mount": {
+        "hole_centers_world_mm": [
+          [
+            96.25,
+            344.8,
+            321.4
+          ],
+          [
+            96.25,
+            331.8,
+            321.4
+          ],
+          [
+            96.25,
+            344.8,
+            255.39999999999998
+          ],
+          [
+            96.25,
+            331.8,
+            255.39999999999998
+          ]
+        ],
+        "component_side_axis_world": [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        "basis": "Existing generated mount datums; plane is board/base seating face, not pin-tail bounding face"
+      }
+    },
+    "ground-stack": {
+      "snapshot": "ground-stack.npz",
+      "snapshot_sha256": "e23fce61bbac7526fe1b7199b866a5fd3720d0e482737f798ed018fc5fcc5e71",
+      "source_mesh_component_names": [
+        "ground-stack"
+      ],
+      "source_mesh_bounds_mm": [
+        [
+          84.44999694824219,
+          329.79998779296875,
+          329.2076416015625
+        ],
+        [
+          98.25,
+          347.79998779296875,
+          346.88079833984375
+        ]
+      ],
+      "source_analytic_bounds_mm": [
+        84.45,
+        329.8,
+        329.2,
+        98.25,
+        347.80000020000006,
+        346.88845746812086
+      ],
+      "vertices": 1230,
+      "triangles": 1132,
+      "reference_source": "hardware/reference/ground-ring-stack/ground_ring_stack.py",
+      "original_terminals": {
+        "ground.carbonator": {
+          "id": "ground.carbonator",
+          "part": "ground-stack",
+          "point": [
+            87.75,
+            347.80000010000003,
+            338.0442287340604
+          ],
+          "outward": [
+            -7.649642804525106e-32,
+            1.0,
+            3.4450928483976665e-16
+          ],
+          "kind": "ring-barrel",
+          "basis": "Native crimp-barrel free end; compressor uses the downward-facing lug",
+          "status": "modeled",
+          "pin": "4"
+        },
+        "ground.compressor": {
+          "id": "ground.compressor",
+          "part": "ground-stack",
+          "point": [
+            86.95,
+            343.30000010000003,
+            330.2500001000005
+          ],
+          "outward": [
+            1.922962686383563e-16,
+            0.5000000000000007,
+            -0.8660254037844383
+          ],
+          "kind": "ring-barrel",
+          "basis": "Native crimp-barrel free end; compressor uses the downward-facing lug",
+          "status": "modeled",
+          "pin": "5"
+        },
+        "ground.inlet": {
+          "id": "ground.inlet",
+          "part": "ground-stack",
+          "point": [
+            90.15,
+            329.80000010000003,
+            338.0442287340604
+          ],
+          "outward": [
+            4.930380657631324e-32,
+            -1.0,
+            -2.220446049250313e-16
+          ],
+          "kind": "ring-barrel",
+          "basis": "Native crimp-barrel free end; compressor uses the downward-facing lug",
+          "status": "modeled",
+          "pin": "1"
+        }
+      },
+      "original_card_ports": {},
+      "mount": {
+        "hole_centers_world_mm": [
+          [
+            92.25,
+            338.80000010000003,
+            338.0442287340604
+          ]
+        ],
+        "component_side_axis_world": [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        "basis": "Existing generated mount datums; plane is board/base seating face, not pin-tail bounding face"
+      }
+    },
+    "keystone-jack": {
+      "snapshot": "keystone-jack.npz",
+      "snapshot_sha256": "975b593dca2f6ccf0d7cbfe07a89698b7cf385742e77c87fad250c1eae0cb9e0",
+      "source_mesh_component_names": [
+        "keystone-jack"
+      ],
+      "source_mesh_bounds_mm": [
+        [
+          -48.03499984741211,
+          437.7799987792969,
+          291.9972839355469
+        ],
+        [
+          -33.3849983215332,
+          467.7799987792969,
+          316.14727783203125
+        ]
+      ],
+      "source_analytic_bounds_mm": [
+        -48.035,
+        437.78,
+        291.9972904187784,
+        -33.38499999999999,
+        467.78,
+        316.1472904187784
+      ],
+      "vertices": 160,
+      "triangles": 100,
+      "reference_source": "hardware/reference/riteav-keystone/riteav_keystone.py",
+      "original_terminals": {
+        "keystone.2": {
+          "id": "keystone.2",
+          "part": "keystone-jack",
+          "point": [
+            -44.519999999999996,
+            437.78,
+            304.0722904187784
+          ],
+          "outward": [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          "kind": "IDC",
+          "basis": "Native jack envelope; individual IDC locations nominal, electrical pin map from cable schedule",
+          "status": "nominal",
+          "pin": "2"
+        },
+        "keystone.3": {
+          "id": "keystone.3",
+          "part": "keystone-jack",
+          "point": [
+            -41.98,
+            437.78,
+            304.0722904187784
+          ],
+          "outward": [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          "kind": "IDC",
+          "basis": "Native jack envelope; individual IDC locations nominal, electrical pin map from cable schedule",
+          "status": "nominal",
+          "pin": "3"
+        },
+        "keystone.4": {
+          "id": "keystone.4",
+          "part": "keystone-jack",
+          "point": [
+            -39.43999999999999,
+            437.78,
+            304.0722904187784
+          ],
+          "outward": [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          "kind": "IDC",
+          "basis": "Native jack envelope; individual IDC locations nominal, electrical pin map from cable schedule",
+          "status": "nominal",
+          "pin": "4"
+        },
+        "keystone.5": {
+          "id": "keystone.5",
+          "part": "keystone-jack",
+          "point": [
+            -36.89999999999999,
+            437.78,
+            304.0722904187784
+          ],
+          "outward": [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          "kind": "IDC",
+          "basis": "Native jack envelope; individual IDC locations nominal, electrical pin map from cable schedule",
+          "status": "nominal",
+          "pin": "5"
+        }
+      },
+      "original_card_ports": {},
+      "native_to_original_world": {
+        "rotation": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "translation_mm": [
+          -40.71,
+          467.78,
+          302.4022904187784
+        ]
+      },
+      "interfaces": {
+        "outboard_mating_face": {
+          "point_mm": [
+            -40.71,
+            467.78,
+            302.4022904187784
+          ],
+          "outward_axis": [
+            0.0,
+            1.0,
+            0.0
+          ]
+        },
+        "inboard_idc_face_y_mm": 437.78
+      },
+      "mount": {
+        "kind": "Snap receptacle, no bolt holes",
+        "aperture_width_height_mm": [
+          14.9,
+          16.3
+        ],
+        "aperture_radius_mm": 0.4,
+        "lip_depth_mm": 3.0,
+        "pocket_width_height_mm": [
+          14.9,
+          24.4
+        ],
+        "pocket_center_rise_mm": 1.67,
+        "catch_face_depth_mm": 9.7,
+        "basis": "Current reference receptacle dimensions; body depth and individual IDC centers remain nominal"
+      }
+    },
+    "wago-v12": {
+      "snapshot": "wago-v12.npz",
+      "snapshot_sha256": "00d41fdb4bdcd5f4af4f3bafe832d1008c3d40add69b5d7e42623ab59583a386",
+      "source_mesh_component_names": [
+        "wago-v12"
+      ],
+      "source_mesh_bounds_mm": [
+        [
+          85.9000015258789,
+          356.80999755859375,
+          312.8500061035156
+        ],
+        [
+          104.5,
+          365.2099914550781,
+          331.6499938964844
+        ]
+      ],
+      "source_analytic_bounds_mm": [
+        85.9,
+        356.81,
+        312.84999999999997,
+        104.5,
+        365.21000000000004,
+        331.65
+      ],
+      "vertices": 96,
+      "triangles": 60,
+      "reference_source": "hardware/reference/wago-221/wago_221.py",
+      "original_terminals": {
+        "wago-v12.1": {
+          "id": "wago-v12.1",
+          "part": "wago-v12",
+          "point": [
+            85.9,
+            361.01,
+            315.98333333333335
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "1"
+        },
+        "wago-v12.2": {
+          "id": "wago-v12.2",
+          "part": "wago-v12",
+          "point": [
+            85.9,
+            361.01,
+            322.25
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "2"
+        },
+        "wago-v12.3": {
+          "id": "wago-v12.3",
+          "part": "wago-v12",
+          "point": [
+            85.9,
+            361.01,
+            328.51666666666665
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "3"
+        }
+      },
+      "original_card_ports": {},
+      "native_to_original_world": {
+        "rotation": [
+          [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "translation_mm": [
+          95.2,
+          365.21000000000004,
+          322.25
+        ]
+      },
+      "mount": {
+        "kind": "Free 221-413 body, no mounting holes",
+        "body_native_width_depth_height_mm": [
+          18.8,
+          18.6,
+          8.4
+        ]
+      },
+      "interface_axes_world": {
+        "wire_entry": [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        "lever_opening": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "lever_hinge": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "lever_open_height_from_native_seat_mm": 15.25,
+      "extra_open_lever_travel_beyond_closed_envelope_mm": 6.85,
+      "physical_poles": 3
+    },
+    "wago-gnd": {
+      "snapshot": "wago-gnd.npz",
+      "snapshot_sha256": "df1730a2a4e06d3b409e0b01078a93ea798a71364c1b5bde51050183f25c57e8",
+      "source_mesh_component_names": [
+        "wago-gnd"
+      ],
+      "source_mesh_bounds_mm": [
+        [
+          85.9000015258789,
+          373.05999755859375,
+          312.8500061035156
+        ],
+        [
+          104.5,
+          381.4599914550781,
+          331.6499938964844
+        ]
+      ],
+      "source_analytic_bounds_mm": [
+        85.9,
+        373.06,
+        312.84999999999997,
+        104.5,
+        381.46000000000004,
+        331.65
+      ],
+      "vertices": 96,
+      "triangles": 60,
+      "reference_source": "hardware/reference/wago-221/wago_221.py",
+      "original_terminals": {
+        "wago-gnd.1": {
+          "id": "wago-gnd.1",
+          "part": "wago-gnd",
+          "point": [
+            85.9,
+            377.26,
+            315.98333333333335
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "1"
+        },
+        "wago-gnd.2": {
+          "id": "wago-gnd.2",
+          "part": "wago-gnd",
+          "point": [
+            85.9,
+            377.26,
+            322.25
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "2"
+        },
+        "wago-gnd.3": {
+          "id": "wago-gnd.3",
+          "part": "wago-gnd",
+          "point": [
+            85.9,
+            377.26,
+            328.51666666666665
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "3"
+        }
+      },
+      "original_card_ports": {},
+      "native_to_original_world": {
+        "rotation": [
+          [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "translation_mm": [
+          95.2,
+          381.46000000000004,
+          322.25
+        ]
+      },
+      "mount": {
+        "kind": "Free 221-413 body, no mounting holes",
+        "body_native_width_depth_height_mm": [
+          18.8,
+          18.6,
+          8.4
+        ]
+      },
+      "interface_axes_world": {
+        "wire_entry": [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        "lever_opening": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "lever_hinge": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "lever_open_height_from_native_seat_mm": 15.25,
+      "extra_open_lever_travel_beyond_closed_envelope_mm": 6.85,
+      "physical_poles": 3
+    },
+    "wago-g": {
+      "snapshot": "wago-g.npz",
+      "snapshot_sha256": "553a313046f2c8adf2b572ca39a5b6ba9ea6976b357db55ed5cdc202d80de177",
+      "source_mesh_component_names": [
+        "wago-g"
+      ],
+      "source_mesh_bounds_mm": [
+        [
+          85.9000015258789,
+          389.30999755859375,
+          312.8500061035156
+        ],
+        [
+          104.5,
+          397.7099914550781,
+          331.6499938964844
+        ]
+      ],
+      "source_analytic_bounds_mm": [
+        85.9,
+        389.31,
+        312.84999999999997,
+        104.5,
+        397.71000000000004,
+        331.65
+      ],
+      "vertices": 96,
+      "triangles": 60,
+      "reference_source": "hardware/reference/wago-221/wago_221.py",
+      "original_terminals": {
+        "wago-g.1": {
+          "id": "wago-g.1",
+          "part": "wago-g",
+          "point": [
+            85.9,
+            393.51,
+            315.98333333333335
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "1"
+        },
+        "wago-g.2": {
+          "id": "wago-g.2",
+          "part": "wago-g",
+          "point": [
+            85.9,
+            393.51,
+            322.25
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "2"
+        }
+      },
+      "original_card_ports": {},
+      "native_to_original_world": {
+        "rotation": [
+          [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "translation_mm": [
+          95.2,
+          397.71000000000004,
+          322.25
+        ]
+      },
+      "mount": {
+        "kind": "Free 221-413 body, no mounting holes",
+        "body_native_width_depth_height_mm": [
+          18.8,
+          18.6,
+          8.4
+        ]
+      },
+      "interface_axes_world": {
+        "wire_entry": [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        "lever_opening": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "lever_hinge": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "lever_open_height_from_native_seat_mm": 15.25,
+      "extra_open_lever_travel_beyond_closed_envelope_mm": 6.85,
+      "physical_poles": 3
+    },
+    "wago-h": {
+      "snapshot": "wago-h.npz",
+      "snapshot_sha256": "0a6114f085c649f30492c96eddc838a5577df210ea06bc9ba89bb9a1c7038fdb",
+      "source_mesh_component_names": [
+        "wago-h"
+      ],
+      "source_mesh_bounds_mm": [
+        [
+          85.9000015258789,
+          405.55999755859375,
+          312.8500061035156
+        ],
+        [
+          104.5,
+          413.9599914550781,
+          331.6499938964844
+        ]
+      ],
+      "source_analytic_bounds_mm": [
+        85.9,
+        405.56,
+        312.84999999999997,
+        104.5,
+        413.96000000000004,
+        331.65
+      ],
+      "vertices": 96,
+      "triangles": 60,
+      "reference_source": "hardware/reference/wago-221/wago_221.py",
+      "original_terminals": {
+        "wago-h.1": {
+          "id": "wago-h.1",
+          "part": "wago-h",
+          "point": [
+            85.9,
+            409.76,
+            315.98333333333335
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "1"
+        },
+        "wago-h.2": {
+          "id": "wago-h.2",
+          "part": "wago-h",
+          "point": [
+            85.9,
+            409.76,
+            322.25
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "2"
+        },
+        "wago-h.3": {
+          "id": "wago-h.3",
+          "part": "wago-h",
+          "point": [
+            85.9,
+            409.76,
+            328.51666666666665
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "3"
+        }
+      },
+      "original_card_ports": {},
+      "native_to_original_world": {
+        "rotation": [
+          [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "translation_mm": [
+          95.2,
+          413.96000000000004,
+          322.25
+        ]
+      },
+      "mount": {
+        "kind": "Free 221-413 body, no mounting holes",
+        "body_native_width_depth_height_mm": [
+          18.8,
+          18.6,
+          8.4
+        ]
+      },
+      "interface_axes_world": {
+        "wire_entry": [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        "lever_opening": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "lever_hinge": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "lever_open_height_from_native_seat_mm": 15.25,
+      "extra_open_lever_travel_beyond_closed_envelope_mm": 6.85,
+      "physical_poles": 3
+    },
+    "wago-n": {
+      "snapshot": "wago-n.npz",
+      "snapshot_sha256": "39c3afa1c2f66a6a438f95b7a1c474227a2950ac4c9fa1853eda5f6e59aa7076",
+      "source_mesh_component_names": [
+        "wago-n"
+      ],
+      "source_mesh_bounds_mm": [
+        [
+          85.9000015258789,
+          421.80999755859375,
+          312.8500061035156
+        ],
+        [
+          104.5,
+          430.2099914550781,
+          331.6499938964844
+        ]
+      ],
+      "source_analytic_bounds_mm": [
+        85.9,
+        421.81,
+        312.84999999999997,
+        104.5,
+        430.21000000000004,
+        331.65
+      ],
+      "vertices": 96,
+      "triangles": 60,
+      "reference_source": "hardware/reference/wago-221/wago_221.py",
+      "original_terminals": {
+        "wago-n.1": {
+          "id": "wago-n.1",
+          "part": "wago-n",
+          "point": [
+            85.9,
+            426.01,
+            315.98333333333335
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "1"
+        },
+        "wago-n.2": {
+          "id": "wago-n.2",
+          "part": "wago-n",
+          "point": [
+            85.9,
+            426.01,
+            322.25
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "2"
+        },
+        "wago-n.3": {
+          "id": "wago-n.3",
+          "part": "wago-n",
+          "point": [
+            85.9,
+            426.01,
+            328.51666666666665
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "3"
+        }
+      },
+      "original_card_ports": {},
+      "native_to_original_world": {
+        "rotation": [
+          [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          [
+            1.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "translation_mm": [
+          95.2,
+          430.21000000000004,
+          322.25
+        ]
+      },
+      "mount": {
+        "kind": "Free 221-413 body, no mounting holes",
+        "body_native_width_depth_height_mm": [
+          18.8,
+          18.6,
+          8.4
+        ]
+      },
+      "interface_axes_world": {
+        "wire_entry": [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        "lever_opening": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "lever_hinge": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "lever_open_height_from_native_seat_mm": 15.25,
+      "extra_open_lever_travel_beyond_closed_envelope_mm": 6.85,
+      "physical_poles": 3
+    },
+    "bulkhead-water": {
+      "snapshot": "bulkhead-water.npz",
+      "snapshot_sha256": "29aa11af954710606032b5f6246ce9978039843ca7267232466740b22f5b95a5",
+      "source_mesh_component_names": [
+        "bulkhead-water"
+      ],
+      "source_mesh_bounds_mm": [
+        [
+          -89.5,
+          446.510009765625,
+          324.8639221191406
+        ],
+        [
+          -66.63999938964844,
+          480.79998779296875,
+          347.5572509765625
+        ]
+      ],
+      "source_analytic_bounds_mm": [
+        -89.5,
+        446.51,
+        324.7805808375568,
+        -66.63999999999999,
+        480.8,
+        347.6405808375568
+      ],
+      "vertices": 742,
+      "triangles": 724,
+      "reference_source": "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
+      "original_terminals": {},
+      "original_card_ports": {
+        "inboard": {
+          "axis": [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          "diam": 6.35,
+          "pos": [
+            -78.07,
+            446.51,
+            336.2105808375568
+          ]
+        },
+        "outboard": {
+          "axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "diam": 6.35,
+          "pos": [
+            -78.07,
+            480.8,
+            336.2105808375568
+          ]
+        }
+      },
+      "family": "jg-6.35",
+      "native_to_original_world": {
+        "rotation": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "translation_mm": [
+          -78.07,
+          471.3,
+          336.2105808375568
+        ]
+      },
+      "interfaces": {
+        "outer_flange_seating_face": {
+          "point_mm": [
+            -78.07,
+            471.3,
+            336.2105808375568
+          ],
+          "outward_axis": [
+            0.0,
+            1.0,
+            0.0
+          ]
+        },
+        "inboard_mouth": {
+          "point_mm": [
+            -78.07,
+            446.51,
+            336.2105808375568
+          ],
+          "outward_axis": [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          "tube_od_mm": 6.35
+        },
+        "outboard_mouth": {
+          "point_mm": [
+            -78.07,
+            480.8,
+            336.2105808375568
+          ],
+          "outward_axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "tube_od_mm": 6.35
+        }
+      }
+    },
+    "bulkhead-carb": {
+      "snapshot": "bulkhead-carb.npz",
+      "snapshot_sha256": "464e68c3486ff8e1f9c099b112e2a008f89bca94c23bfb4baf5714385edb2575",
+      "source_mesh_component_names": [
+        "bulkhead-carb"
+      ],
+      "source_mesh_bounds_mm": [
+        [
+          -52.13999938964844,
+          446.510009765625,
+          324.8639221191406
+        ],
+        [
+          -29.280000686645508,
+          480.79998779296875,
+          347.5572509765625
+        ]
+      ],
+      "source_analytic_bounds_mm": [
+        -52.13999999999999,
+        446.51,
+        324.7805808375568,
+        -29.279999999999994,
+        480.8,
+        347.6405808375568
+      ],
+      "vertices": 742,
+      "triangles": 724,
+      "reference_source": "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
+      "original_terminals": {},
+      "original_card_ports": {
+        "tube-in": {
+          "axis": [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          "diam": 6.35,
+          "pos": [
+            -40.709999999999994,
+            446.51,
+            336.2105808375568
+          ]
+        },
+        "tube-out": {
+          "axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "diam": 6.35,
+          "pos": [
+            -40.709999999999994,
+            480.8,
+            336.2105808375568
+          ]
+        }
+      },
+      "family": "jg-6.35",
+      "native_to_original_world": {
+        "rotation": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "translation_mm": [
+          -40.71,
+          471.3,
+          336.2105808375568
+        ]
+      },
+      "interfaces": {
+        "outer_flange_seating_face": {
+          "point_mm": [
+            -40.71,
+            471.3,
+            336.2105808375568
+          ],
+          "outward_axis": [
+            0.0,
+            1.0,
+            0.0
+          ]
+        },
+        "inboard_mouth": {
+          "point_mm": [
+            -40.71,
+            446.51,
+            336.2105808375568
+          ],
+          "outward_axis": [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          "tube_od_mm": 6.35
+        },
+        "outboard_mouth": {
+          "point_mm": [
+            -40.71,
+            480.8,
+            336.2105808375568
+          ],
+          "outward_axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "tube_od_mm": 6.35
+        }
+      }
+    },
+    "bulkhead-flavor-a": {
+      "snapshot": "bulkhead-flavor-a.npz",
+      "snapshot_sha256": "0f4a9b31396e293db97c1d8dd6711dfd65ffee81bbb3ea87b3535b673c41bc92",
+      "source_mesh_component_names": [
+        "bulkhead-flavor-a"
+      ],
+      "source_mesh_bounds_mm": [
+        [
+          -51.629798889160156,
+          453.6000061035156,
+          258.02398681640625
+        ],
+        [
+          -29.790203094482422,
+          486.0,
+          280.02398681640625
+        ]
+      ],
+      "source_analytic_bounds_mm": [
+        -51.709999999999994,
+        453.6,
+        258.024,
+        -29.709999999999994,
+        486.0,
+        280.024
+      ],
+      "vertices": 424,
+      "triangles": 416,
+      "reference_source": "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
+      "original_terminals": {},
+      "original_card_ports": {
+        "tube-in": {
+          "axis": [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          "diam": 4.0,
+          "pos": [
+            -40.709999999999994,
+            453.6,
+            269.024
+          ]
+        },
+        "tube-out": {
+          "axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "diam": 4.0,
+          "pos": [
+            -40.709999999999994,
+            486.0,
+            269.024
+          ]
+        }
+      },
+      "family": "neofit-4",
+      "native_to_original_world": {
+        "rotation": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "translation_mm": [
+          -40.71,
+          471.3,
+          269.024
+        ]
+      },
+      "interfaces": {
+        "outer_flange_seating_face": {
+          "point_mm": [
+            -40.71,
+            471.3,
+            269.024
+          ],
+          "outward_axis": [
+            0.0,
+            1.0,
+            0.0
+          ]
+        },
+        "inboard_mouth": {
+          "point_mm": [
+            -40.71,
+            453.6,
+            269.024
+          ],
+          "outward_axis": [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          "tube_od_mm": 4.0
+        },
+        "outboard_mouth": {
+          "point_mm": [
+            -40.71,
+            486.0,
+            269.024
+          ],
+          "outward_axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "tube_od_mm": 4.0
+        }
+      }
+    },
+    "bulkhead-flavor-b": {
+      "snapshot": "bulkhead-flavor-b.npz",
+      "snapshot_sha256": "5e0654ea864d829ae42a85d3225cae0318c9f1dcc30b6caf7bc002ca43f5c514",
+      "source_mesh_component_names": [
+        "bulkhead-flavor-b"
+      ],
+      "source_mesh_bounds_mm": [
+        [
+          -88.98979949951172,
+          453.6000061035156,
+          258.02398681640625
+        ],
+        [
+          -67.15019989013672,
+          486.0,
+          280.02398681640625
+        ]
+      ],
+      "source_analytic_bounds_mm": [
+        -89.07,
+        453.6,
+        258.024,
+        -67.07,
+        486.0,
+        280.024
+      ],
+      "vertices": 424,
+      "triangles": 416,
+      "reference_source": "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
+      "original_terminals": {},
+      "original_card_ports": {
+        "tube-in": {
+          "axis": [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          "diam": 4.0,
+          "pos": [
+            -78.07,
+            453.6,
+            269.024
+          ]
+        },
+        "tube-out": {
+          "axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "diam": 4.0,
+          "pos": [
+            -78.07,
+            486.0,
+            269.024
+          ]
+        }
+      },
+      "family": "neofit-4",
+      "native_to_original_world": {
+        "rotation": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "translation_mm": [
+          -78.07,
+          471.3,
+          269.024
+        ]
+      },
+      "interfaces": {
+        "outer_flange_seating_face": {
+          "point_mm": [
+            -78.07,
+            471.3,
+            269.024
+          ],
+          "outward_axis": [
+            0.0,
+            1.0,
+            0.0
+          ]
+        },
+        "inboard_mouth": {
+          "point_mm": [
+            -78.07,
+            453.6,
+            269.024
+          ],
+          "outward_axis": [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          "tube_od_mm": 4.0
+        },
+        "outboard_mouth": {
+          "point_mm": [
+            -78.07,
+            486.0,
+            269.024
+          ],
+          "outward_axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "tube_od_mm": 4.0
+        }
+      }
+    },
+    "bulkhead-drain": {
+      "snapshot": "bulkhead-drain.npz",
+      "snapshot_sha256": "ba06ce1ab25f630a4f004003ffe411b97fbe5cb9ef02bb6986d113694d9a71d5",
+      "source_mesh_component_names": [
+        "bulkhead-drain"
+      ],
+      "source_mesh_bounds_mm": [
+        [
+          -88.98979949951172,
+          453.6000061035156,
+          291.40228271484375
+        ],
+        [
+          -67.15019989013672,
+          486.0,
+          313.40228271484375
+        ]
+      ],
+      "source_analytic_bounds_mm": [
+        -89.07,
+        453.6,
+        291.4022904187784,
+        -67.07,
+        486.0,
+        313.4022904187784
+      ],
+      "vertices": 424,
+      "triangles": 416,
+      "reference_source": "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
+      "original_terminals": {},
+      "original_card_ports": {
+        "inboard": {
+          "axis": [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          "diam": 4.0,
+          "pos": [
+            -78.07,
+            453.6,
+            302.4022904187784
+          ]
+        },
+        "outboard": {
+          "axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "diam": 4.0,
+          "pos": [
+            -78.07,
+            486.0,
+            302.4022904187784
+          ]
+        }
+      },
+      "family": "neofit-4",
+      "native_to_original_world": {
+        "rotation": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "translation_mm": [
+          -78.07,
+          471.3,
+          302.4022904187784
+        ]
+      },
+      "interfaces": {
+        "outer_flange_seating_face": {
+          "point_mm": [
+            -78.07,
+            471.3,
+            302.4022904187784
+          ],
+          "outward_axis": [
+            0.0,
+            1.0,
+            0.0
+          ]
+        },
+        "inboard_mouth": {
+          "point_mm": [
+            -78.07,
+            453.6,
+            302.4022904187784
+          ],
+          "outward_axis": [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          "tube_od_mm": 4.0
+        },
+        "outboard_mouth": {
+          "point_mm": [
+            -78.07,
+            486.0,
+            302.4022904187784
+          ],
+          "outward_axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "tube_od_mm": 4.0
+        }
+      }
+    },
+    "co2-inlet": {
+      "snapshot": "co2-inlet.npz",
+      "snapshot_sha256": "2f62824c498dfb3e3f1f7748600e3d06ac81c78204cd4a85cb060b8dfc040c78",
+      "source_mesh_component_names": [
+        "co2-inlet"
+      ],
+      "source_mesh_bounds_mm": [
+        [
+          -15.477704048156738,
+          454.0025939941406,
+          323.9212951660156
+        ],
+        [
+          8.777704238891602,
+          488.1910095214844,
+          347.9998474121094
+        ]
+      ],
+      "source_analytic_bounds_mm": [
+        -15.477704284542995,
+        454.00260000000003,
+        323.83287655301376,
+        8.777704284543006,
+        488.19100000000003,
+        348.0882851220998
+      ],
+      "vertices": 424,
+      "triangles": 416,
+      "reference_source": "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
+      "original_terminals": {},
+      "original_card_ports": {},
+      "family": "neofit-6.35",
+      "native_to_original_world": {
+        "rotation": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "translation_mm": [
+          -3.35,
+          471.3,
+          335.9605808375568
+        ]
+      },
+      "interfaces": {
+        "outer_flange_seating_face": {
+          "point_mm": [
+            -3.35,
+            471.3,
+            335.9605808375568
+          ],
+          "outward_axis": [
+            0.0,
+            1.0,
+            0.0
+          ]
+        },
+        "inboard_mouth": {
+          "point_mm": [
+            -3.35,
+            454.00260000000003,
+            335.9605808375568
+          ],
+          "outward_axis": [
+            0.0,
+            -1.0,
+            0.0
+          ],
+          "tube_od_mm": 6.35
+        },
+        "outboard_mouth": {
+          "point_mm": [
+            -3.35,
+            488.19100000000003,
+            335.9605808375568
+          ],
+          "outward_axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "tube_od_mm": 6.35
+        }
+      }
+    }
+  },
+  "bulkhead_families": {
+    "jg-6.35": {
+      "reference": "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py",
+      "basis": "Simplified McMaster 51055K3 occupancy stand-in; not an exact PP1208E scan",
+      "tube_od_mm": 6.35,
+      "thread_major_diameter_mm": 17.14,
+      "source_bare_barrel_span_mm": 15.29,
+      "layout_hole_diameter_mm": 17.44,
+      "inboard_mouth_local_y_mm": -24.79,
+      "outboard_mouth_local_y_mm": 9.5,
+      "flange_envelope_diameter_mm": 22.86,
+      "tube_insertion_mm": null,
+      "tube_insertion_note": "Source 4 mm bore recess is visual geometry, not established insertion depth; use an explicit host estimate if needed",
+      "nut": {
+        "separate_mesh_included": false,
+        "note": "Fused body/barrel/far-body only; retention nut must be placed separately. Existing estimated study nut is 20 AF by 4 mm thick."
+      }
+    },
+    "neofit-4": {
+      "reference": "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
+      "part_number": "ABU44M-E",
+      "basis": "Manufacturer dimensional sheet, ABU44M row, plus conservative flange envelope",
+      "tube_od_mm": 4.0,
+      "thread_major_diameter_mm": 15.0,
+      "thread_pitch_mm": 1.5,
+      "layout_hole_diameter_mm": 15.3,
+      "drawing_A_flange_to_nut_gap_mm": 8.1,
+      "drawing_E_nut_thickness_mm": 6.5,
+      "flange_across_flats_mm": 17.0,
+      "nut_across_flats_mm": 18.0,
+      "flange_envelope_diameter_mm": 22.0,
+      "nut_corner_envelope_diameter_mm": 20.784609690826525,
+      "inboard_mouth_local_y_mm": -17.7,
+      "outboard_mouth_local_y_mm": 14.7,
+      "tube_insertion_mm": 14.7,
+      "nut": {
+        "separate_mesh_included": false,
+        "note": "Inboard fused cylinder is a nut-sized occupancy envelope, not a separately positioned measured nut"
+      }
+    },
+    "neofit-6.35": {
+      "reference": "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
+      "part_number": "ABU44",
+      "basis": "Inch dimensioned manufacturer ABU44 row carried in the current source",
+      "tube_od_mm": 6.35,
+      "thread_major_diameter_mm": 17.0,
+      "thread_pitch_mm": 1.5,
+      "layout_hole_diameter_mm": 17.3,
+      "drawing_A_flange_to_nut_gap_mm": 7.899399999999999,
+      "drawing_E_nut_thickness_mm": 7.010400000000001,
+      "flange_across_flats_mm": 18.9992,
+      "nut_across_flats_mm": 21.005799999999997,
+      "flange_envelope_diameter_mm": 21.93838646877507,
+      "nut_corner_envelope_diameter_mm": 24.255408569086878,
+      "inboard_mouth_local_y_mm": -17.2974,
+      "outboard_mouth_local_y_mm": 16.891,
+      "tube_insertion_mm": 16.891,
+      "nut": {
+        "separate_mesh_included": false,
+        "note": "Inboard fused cylinder is a nut-sized occupancy envelope, not a separately positioned measured nut"
+      }
+    }
+  },
+  "datum_discrepancies": [
+    {
+      "part": "bulkhead-flavor-a",
+      "field": "facts.mouths",
+      "old_value_mm": [
+        -40.709999999999994,
+        446.51,
+        269.024
+      ],
+      "reference_and_card_ports_value_mm": [
+        -40.71,
+        453.6,
+        269.024
+      ],
+      "instruction": "Use explicit interfaces.inboard_mouth; the old facts mouth is stale"
+    },
+    {
+      "part": "bulkhead-flavor-b",
+      "field": "facts.mouths",
+      "old_value_mm": [
+        -78.07,
+        446.51,
+        269.024
+      ],
+      "reference_and_card_ports_value_mm": [
+        -78.07,
+        453.6,
+        269.024
+      ],
+      "instruction": "Use explicit interfaces.inboard_mouth; the old facts mouth is stale"
+    }
+  ],
+  "bulkhead_panel_mount_study": {
+    "nominal_rear_wall_y_mm": [
+      462.3,
+      471.3
+    ],
+    "common_inward_recess_depth_mm": 3.0,
+    "proposed_retained_panel_y_mm": [
+      465.3,
+      471.3
+    ],
+    "proposed_retained_stock_mm": 6.0,
+    "status": "Simple placement proposal only; no wall geometry changed",
+    "nut_seating_interpretation": "The primary NeoFit drawing dimensions A from the fixed flange bearing face to the adjustable nut near face, and E across the nut separately. A is the illustrated clamping gap; E is not subtracted from A. The inboard source cylinder is a coarse nut-sized envelope, not a measured thread stop. The drawing alone does not establish an absolute maximum permissible panel thickness."
+  },
+  "primary_neofit_drawing": {
+    "url": "https://assets.freshwatersystems.com/image/upload/qnbgcy8djx3nj2weqz9v.pdf",
+    "local_file": "neofit-bulkhead-drawing.pdf",
+    "sha256": "be814887271fa70ba47b7a79f8abe12b2b1d1a5e42adc414f61185753faf9bb5",
+    "render": "neofit-bulkhead-drawing.png"
+  },
+  "inherited_pcb_snapshot": {
+    "path": "../ceiling-fit/parts/pcba.npz",
+    "sha256": "28e8af12a0ea2e0bd1ab59b9a016be4decd7c4dd9d428ba763372ce303b11d28",
+    "source": "../ceiling-fit/context-sources.json"
+  }
+}

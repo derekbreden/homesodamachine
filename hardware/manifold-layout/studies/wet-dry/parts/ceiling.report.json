@@ -1,0 +1,19 @@
+{
+  "units": "mm",
+  "valid": true,
+  "solid_count": 1,
+  "volume_mm3": 372695.7,
+  "bounds_mm": [
+    [
+      -107.50000010000001,
+      243.99999989999998,
+      345.9999998999999
+    ],
+    [
+      107.50000010000001,
+      471.3000001000001,
+      355.0000001
+    ]
+  ],
+  "scope": "Plain study context; final equipment carrier and connector retention not designed"
+}

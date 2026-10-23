@@ -1,0 +1,1081 @@
+{
+  "source_mesh": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+  "source_mesh_sha256": "201d9c90a008ce7902c679e1bcd78e49a4fb2447d1a1aa4c79be73b1a9151e0a",
+  "source_mesh_matches_current_pointer": true,
+  "pointer_source_commit": "2eaea329d128836d567f242e6e87a7e187a4fb53",
+  "pointer_marks_assembly_unproven": true,
+  "source_sha256": {
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "201d9c90a008ce7902c679e1bcd78e49a4fb2447d1a1aa4c79be73b1a9151e0a",
+    "hardware/manifold-layout/enclosure-assembly.facts.json": "b2cef644b0368e0a951302cd3966775b7a6ba24864fae9187f0abbbf70c3d97f",
+    "hardware/wiring/enclosure-wiring.json": "0e2dd8902df0b47dd0871885333c9d3e495d38e5bf5931e54abe9a8d6589da0b",
+    "hardware/reference/wago-221/wago_221.py": "821d652a3c00bf686552602a912135c97825210095333d8fefad7ba040731efd",
+    "hardware/cad-artifacts.json": "62d3e017a48676d44176540791b2875671d54ddc5f0fba9906e16379dc8d095d"
+  },
+  "placements": {
+    "wago-mana": {
+      "source_snapshot": "tmp/wet-dry-aux-electronics/cluster-source/wago-mana.npz",
+      "source_snapshot_sha256": "52e6785428ac74807b64be5b6775ed86e3be90a37de59b0182f3559bba4b88ab",
+      "source_component_names": [
+        "wago-mana"
+      ],
+      "source_mesh_bounds_mm": [
+        [
+          86.19999694824219,
+          161.10000610351562,
+          265.1000061035156
+        ],
+        [
+          104.5,
+          176.89999389648438,
+          294.8999938964844
+        ]
+      ],
+      "source_analytic_bounds_mm": [
+        86.19999999999999,
+        161.1,
+        265.1,
+        104.5,
+        176.9,
+        294.90000000000003
+      ],
+      "source_terminals": {
+        "wago-mana.1": {
+          "id": "wago-mana.1",
+          "part": "wago-mana",
+          "point": [
+            86.19999999999999,
+            172.95000000000002,
+            268.08
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "1"
+        },
+        "wago-mana.2": {
+          "id": "wago-mana.2",
+          "part": "wago-mana",
+          "point": [
+            86.19999999999999,
+            172.95000000000002,
+            274.04
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "2"
+        },
+        "wago-mana.3": {
+          "id": "wago-mana.3",
+          "part": "wago-mana",
+          "point": [
+            86.19999999999999,
+            172.95000000000002,
+            280.0
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "3"
+        },
+        "wago-mana.4": {
+          "id": "wago-mana.4",
+          "part": "wago-mana",
+          "point": [
+            86.19999999999999,
+            172.95000000000002,
+            285.96
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "4"
+        },
+        "wago-mana.5": {
+          "id": "wago-mana.5",
+          "part": "wago-mana",
+          "point": [
+            86.19999999999999,
+            172.95000000000002,
+            291.92
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "5"
+        },
+        "wago-mana.6": {
+          "id": "wago-mana.6",
+          "part": "wago-mana",
+          "point": [
+            86.19999999999999,
+            165.05,
+            268.08
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "6"
+        },
+        "wago-mana.7": {
+          "id": "wago-mana.7",
+          "part": "wago-mana",
+          "point": [
+            86.19999999999999,
+            165.05,
+            274.04
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "7"
+        },
+        "wago-mana.8": {
+          "id": "wago-mana.8",
+          "part": "wago-mana",
+          "point": [
+            86.19999999999999,
+            165.05,
+            280.0
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "8"
+        },
+        "wago-mana.9": {
+          "id": "wago-mana.9",
+          "part": "wago-mana",
+          "point": [
+            86.19999999999999,
+            165.05,
+            285.96
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "9"
+        }
+      },
+      "part_size": "420",
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        6.0,
+        421.3999938964844,
+        -1.7000061035156477
+      ],
+      "bounds_mm": [
+        [
+          -98.5,
+          244.5,
+          263.4
+        ],
+        [
+          -80.19999694824219,
+          260.29998779296875,
+          293.1999877929687
+        ]
+      ],
+      "terminals": {
+        "wago-mana.1": {
+          "id": "wago-mana.1",
+          "part": "wago-mana",
+          "point": [
+            -80.19999999999999,
+            248.44999389648436,
+            266.37999389648434
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "1"
+        },
+        "wago-mana.2": {
+          "id": "wago-mana.2",
+          "part": "wago-mana",
+          "point": [
+            -80.19999999999999,
+            248.44999389648436,
+            272.3399938964844
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "2"
+        },
+        "wago-mana.3": {
+          "id": "wago-mana.3",
+          "part": "wago-mana",
+          "point": [
+            -80.19999999999999,
+            248.44999389648436,
+            278.29999389648435
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "3"
+        },
+        "wago-mana.4": {
+          "id": "wago-mana.4",
+          "part": "wago-mana",
+          "point": [
+            -80.19999999999999,
+            248.44999389648436,
+            284.25999389648433
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "4"
+        },
+        "wago-mana.5": {
+          "id": "wago-mana.5",
+          "part": "wago-mana",
+          "point": [
+            -80.19999999999999,
+            248.44999389648436,
+            290.21999389648437
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "5"
+        },
+        "wago-mana.6": {
+          "id": "wago-mana.6",
+          "part": "wago-mana",
+          "point": [
+            -80.19999999999999,
+            256.34999389648436,
+            266.37999389648434
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "6"
+        },
+        "wago-mana.7": {
+          "id": "wago-mana.7",
+          "part": "wago-mana",
+          "point": [
+            -80.19999999999999,
+            256.34999389648436,
+            272.3399938964844
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "7"
+        },
+        "wago-mana.8": {
+          "id": "wago-mana.8",
+          "part": "wago-mana",
+          "point": [
+            -80.19999999999999,
+            256.34999389648436,
+            278.29999389648435
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "8"
+        },
+        "wago-mana.9": {
+          "id": "wago-mana.9",
+          "part": "wago-mana",
+          "point": [
+            -80.19999999999999,
+            256.34999389648436,
+            284.25999389648433
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "9"
+        }
+      },
+      "vertices": 264,
+      "triangles": 172,
+      "placed_world_mesh": "cluster-wago-mana.npz",
+      "wire_entry_world": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "lever_opening_axes_world": [
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ]
+      ],
+      "mount": {
+        "kind": "Free lever connector, no holes",
+        "back_face_x_mm": -98.5
+      }
+    },
+    "wago-manb": {
+      "source_snapshot": "tmp/wet-dry-aux-electronics/cluster-source/wago-manb.npz",
+      "source_snapshot_sha256": "5d778ff6905b7c408e8dd625a518b576eefea1f97879b3f6777a51ca41eb1da2",
+      "source_component_names": [
+        "wago-manb"
+      ],
+      "source_mesh_bounds_mm": [
+        [
+          85.9000015258789,
+          164.8000030517578,
+          231.0
+        ],
+        [
+          104.5,
+          173.1999969482422,
+          261.0
+        ]
+      ],
+      "source_analytic_bounds_mm": [
+        85.9,
+        164.8,
+        231.0,
+        104.5,
+        173.20000000000002,
+        261.0
+      ],
+      "source_terminals": {
+        "wago-manb.1": {
+          "id": "wago-manb.1",
+          "part": "wago-manb",
+          "point": [
+            85.9,
+            169.0,
+            234.0
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "1"
+        },
+        "wago-manb.2": {
+          "id": "wago-manb.2",
+          "part": "wago-manb",
+          "point": [
+            85.9,
+            169.0,
+            240.0
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "2"
+        },
+        "wago-manb.3": {
+          "id": "wago-manb.3",
+          "part": "wago-manb",
+          "point": [
+            85.9,
+            169.0,
+            246.0
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "3"
+        },
+        "wago-manb.4": {
+          "id": "wago-manb.4",
+          "part": "wago-manb",
+          "point": [
+            85.9,
+            169.0,
+            252.0
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "4"
+        },
+        "wago-manb.5": {
+          "id": "wago-manb.5",
+          "part": "wago-manb",
+          "point": [
+            85.9,
+            169.0,
+            258.0
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "5"
+        }
+      },
+      "part_size": "415",
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        6.0,
+        441.1999969482422,
+        49.0
+      ],
+      "bounds_mm": [
+        [
+          -98.5,
+          268.0,
+          280.0
+        ],
+        [
+          -79.9000015258789,
+          276.3999938964844,
+          310.0
+        ]
+      ],
+      "terminals": {
+        "wago-manb.1": {
+          "id": "wago-manb.1",
+          "part": "wago-manb",
+          "point": [
+            -79.9,
+            272.1999969482422,
+            283.0
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "1"
+        },
+        "wago-manb.2": {
+          "id": "wago-manb.2",
+          "part": "wago-manb",
+          "point": [
+            -79.9,
+            272.1999969482422,
+            289.0
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "2"
+        },
+        "wago-manb.3": {
+          "id": "wago-manb.3",
+          "part": "wago-manb",
+          "point": [
+            -79.9,
+            272.1999969482422,
+            295.0
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "3"
+        },
+        "wago-manb.4": {
+          "id": "wago-manb.4",
+          "part": "wago-manb",
+          "point": [
+            -79.9,
+            272.1999969482422,
+            301.0
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "4"
+        },
+        "wago-manb.5": {
+          "id": "wago-manb.5",
+          "part": "wago-manb",
+          "point": [
+            -79.9,
+            272.1999969482422,
+            307.0
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "5"
+        }
+      },
+      "vertices": 144,
+      "triangles": 92,
+      "placed_world_mesh": "cluster-wago-manb.npz",
+      "wire_entry_world": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "lever_opening_axes_world": [
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "mount": {
+        "kind": "Free lever connector, no holes",
+        "back_face_x_mm": -98.5
+      }
+    },
+    "wago-sensors": {
+      "source_snapshot": "tmp/wet-dry-aux-electronics/cluster-source/wago-sensors.npz",
+      "source_snapshot_sha256": "0ae1fbf5b84b71a641117789f8d9f5614ec59b58c1266d1fe78ac889b7e5e537",
+      "source_component_names": [
+        "wago-sensors"
+      ],
+      "source_mesh_bounds_mm": [
+        [
+          -104.5,
+          330.79998779296875,
+          260.6000061035156
+        ],
+        [
+          -85.9000015258789,
+          339.20001220703125,
+          279.3999938964844
+        ]
+      ],
+      "source_analytic_bounds_mm": [
+        -104.5,
+        330.79999999999995,
+        260.59999999999997,
+        -85.9,
+        339.2,
+        279.4
+      ],
+      "source_terminals": {
+        "wago-sensors.1": {
+          "id": "wago-sensors.1",
+          "part": "wago-sensors",
+          "point": [
+            -85.9,
+            335.0,
+            276.26666666666665
+          ],
+          "outward": [
+            1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "1"
+        },
+        "wago-sensors.2": {
+          "id": "wago-sensors.2",
+          "part": "wago-sensors",
+          "point": [
+            -85.9,
+            335.0,
+            270.0
+          ],
+          "outward": [
+            1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "2"
+        },
+        "wago-sensors.3": {
+          "id": "wago-sensors.3",
+          "part": "wago-sensors",
+          "point": [
+            -85.9,
+            335.0,
+            263.73333333333335
+          ],
+          "outward": [
+            1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "3"
+        }
+      },
+      "part_size": "413",
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      ],
+      "translation_mm": [
+        6.0,
+        583.7000122070312,
+        584.3999938964844
+      ],
+      "bounds_mm": [
+        [
+          -98.5,
+          244.5,
+          305.0
+        ],
+        [
+          -79.9000015258789,
+          252.9000244140625,
+          323.79998779296875
+        ]
+      ],
+      "terminals": {
+        "wago-sensors.1": {
+          "id": "wago-sensors.1",
+          "part": "wago-sensors",
+          "point": [
+            -79.9,
+            248.70001220703125,
+            308.1333272298177
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            -1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "1"
+        },
+        "wago-sensors.2": {
+          "id": "wago-sensors.2",
+          "part": "wago-sensors",
+          "point": [
+            -79.9,
+            248.70001220703125,
+            314.3999938964844
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            -1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "2"
+        },
+        "wago-sensors.3": {
+          "id": "wago-sensors.3",
+          "part": "wago-sensors",
+          "point": [
+            -79.9,
+            248.70001220703125,
+            320.666660563151
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            -1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "3"
+        }
+      },
+      "vertices": 96,
+      "triangles": 60,
+      "placed_world_mesh": "cluster-wago-sensors.npz",
+      "wire_entry_world": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "lever_opening_axes_world": [
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "mount": {
+        "kind": "Free lever connector, no holes",
+        "back_face_x_mm": -98.5
+      }
+    },
+    "wago-reeds-b": {
+      "source_snapshot": "tmp/wet-dry-aux-electronics/cluster-source/wago-reeds-b.npz",
+      "source_snapshot_sha256": "2cb271db99051e06301250dd6ce3849a363a428d266443d1ae89a31ea8324ab2",
+      "source_component_names": [
+        "wago-reeds-b"
+      ],
+      "source_mesh_bounds_mm": [
+        [
+          -104.5,
+          298.29998779296875,
+          260.6000061035156
+        ],
+        [
+          -85.9000015258789,
+          306.70001220703125,
+          279.3999938964844
+        ]
+      ],
+      "source_analytic_bounds_mm": [
+        -104.5,
+        298.29999999999995,
+        260.59999999999997,
+        -85.9,
+        306.7,
+        279.4
+      ],
+      "source_terminals": {
+        "wago-reeds-b.1": {
+          "id": "wago-reeds-b.1",
+          "part": "wago-reeds-b",
+          "point": [
+            -85.9,
+            302.5,
+            276.26666666666665
+          ],
+          "outward": [
+            1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "1"
+        },
+        "wago-reeds-b.2": {
+          "id": "wago-reeds-b.2",
+          "part": "wago-reeds-b",
+          "point": [
+            -85.9,
+            302.5,
+            270.0
+          ],
+          "outward": [
+            1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "2"
+        },
+        "wago-reeds-b.3": {
+          "id": "wago-reeds-b.3",
+          "part": "wago-reeds-b",
+          "point": [
+            -85.9,
+            302.5,
+            263.73333333333335
+          ],
+          "outward": [
+            1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "3"
+        }
+      },
+      "part_size": "413",
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      ],
+      "translation_mm": [
+        6.0,
+        571.7000122070312,
+        594.3999938964844
+      ],
+      "bounds_mm": [
+        [
+          -98.5,
+          265.0,
+          315.0
+        ],
+        [
+          -79.9000015258789,
+          273.4000244140625,
+          333.79998779296875
+        ]
+      ],
+      "terminals": {
+        "wago-reeds-b.1": {
+          "id": "wago-reeds-b.1",
+          "part": "wago-reeds-b",
+          "point": [
+            -79.9,
+            269.20001220703125,
+            318.1333272298177
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            -1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "1"
+        },
+        "wago-reeds-b.2": {
+          "id": "wago-reeds-b.2",
+          "part": "wago-reeds-b",
+          "point": [
+            -79.9,
+            269.20001220703125,
+            324.3999938964844
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            -1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "2"
+        },
+        "wago-reeds-b.3": {
+          "id": "wago-reeds-b.3",
+          "part": "wago-reeds-b",
+          "point": [
+            -79.9,
+            269.20001220703125,
+            330.666660563151
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            -1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "3"
+        }
+      },
+      "vertices": 96,
+      "triangles": 60,
+      "placed_world_mesh": "cluster-wago-reeds-b.npz",
+      "wire_entry_world": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "lever_opening_axes_world": [
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "mount": {
+        "kind": "Free lever connector, no holes",
+        "back_face_x_mm": -98.5
+      }
+    }
+  }
+}

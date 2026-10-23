@@ -1,0 +1,1217 @@
+{
+  "scope": "Candidate arrangement; bare components and plain context solids. Removable electronics carrier, fasteners and complete wire/tube routes are not designed here.",
+  "description": {
+    "electronics_wall": "-X",
+    "rear_wet_connections_half": "+X",
+    "pcb_orientation": "Horizontal, components upward, above supply and relays",
+    "relay_service": "Wire relay terminals before installing PCB; PCB removal gives subsequent terminal access",
+    "water_header_poses": "ceiling-fit, unchanged",
+    "planned_funnel_minus_y_expansion": "No added electronics occupies the forward funnel area",
+    "wago_groups": "Five main-power connectors at rear; four manifold/sensor connectors on forward -X wall"
+  },
+  "instances": [
+    {
+      "name": "bulkhead-water",
+      "geometry": "bulkhead-water",
+      "translation": [
+        115.31999887123159,
+        -3.0,
+        -1.8345329570204854
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "center_x_mm": 37.2499988712316,
+      "center_z_mm": 334.3760478805363,
+      "flange_seat_y_mm": 468.3,
+      "role": "wet",
+      "kind": "component",
+      "context": true,
+      "label": "Water in"
+    },
+    {
+      "name": "bulkhead-carb",
+      "geometry": "bulkhead-carb",
+      "translation": [
+        112.71,
+        -3.0,
+        -3.2105808375567904
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "center_x_mm": 72,
+      "center_z_mm": 333,
+      "flange_seat_y_mm": 468.3,
+      "role": "wet",
+      "kind": "component",
+      "context": true,
+      "label": "Soda out"
+    },
+    {
+      "name": "bulkhead-drain",
+      "geometry": "bulkhead-drain",
+      "translation": [
+        123.07,
+        -3.0,
+        -1.4022904187784206
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "center_x_mm": 45,
+      "center_z_mm": 301,
+      "flange_seat_y_mm": 468.3,
+      "role": "wet",
+      "kind": "component",
+      "context": true,
+      "label": "Faucet vent / drain"
+    },
+    {
+      "name": "co2-inlet",
+      "geometry": "co2-inlet",
+      "translation": [
+        75.35,
+        -3.0,
+        -34.96058083755679
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "center_x_mm": 72,
+      "center_z_mm": 301,
+      "flange_seat_y_mm": 468.3,
+      "role": "wet",
+      "kind": "component",
+      "context": true,
+      "label": "CO2 in"
+    },
+    {
+      "name": "bulkhead-flavor-a",
+      "geometry": "bulkhead-flavor-a",
+      "translation": [
+        85.71,
+        -3.0,
+        0.9759999999999991
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "center_x_mm": 45,
+      "center_z_mm": 270,
+      "flange_seat_y_mm": 468.3,
+      "role": "wet",
+      "kind": "component",
+      "context": true,
+      "label": "Flavor A"
+    },
+    {
+      "name": "bulkhead-flavor-b",
+      "geometry": "bulkhead-flavor-b",
+      "translation": [
+        150.07,
+        -3.0,
+        0.9759999999999991
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "center_x_mm": 72,
+      "center_z_mm": 270,
+      "flange_seat_y_mm": 468.3,
+      "role": "wet",
+      "kind": "component",
+      "context": true,
+      "label": "Flavor B"
+    },
+    {
+      "name": "psu",
+      "geometry": "psu",
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      ],
+      "translation": [
+        -0.25,
+        -0.79998779296875,
+        558.7999938964844
+      ],
+      "role": "electronics",
+      "kind": "component",
+      "context": true,
+      "label": "Mean Well \u00b7 AC aft"
+    },
+    {
+      "name": "relay-1",
+      "geometry": "relay-1",
+      "rotation": [
+        [
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        -423.20001220703125,
+        95.20001220703125,
+        405.65
+      ],
+      "role": "electronics",
+      "kind": "component",
+      "context": true,
+      "label": "Relay 1 \u00b7 beneath PCB"
+    },
+    {
+      "name": "relay-2",
+      "geometry": "relay-2",
+      "rotation": [
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        -403.79998779296875,
+        675.3999938964844,
+        405.65
+      ],
+      "role": "electronics",
+      "kind": "component",
+      "context": true,
+      "label": "Relay 2 \u00b7 beneath PCB"
+    },
+    {
+      "name": "c14-inlet",
+      "geometry": "c14-inlet",
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation": [
+        -140.4,
+        10.090000000000032,
+        -3.2105808375567904
+      ],
+      "role": "electronics",
+      "kind": "component",
+      "context": true,
+      "label": "C14 power inlet"
+    },
+    {
+      "name": "keystone-jack",
+      "geometry": "keystone-jack",
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation": [
+        -10.29,
+        3.5200000000000387,
+        -25.40229041877842
+      ],
+      "role": "electronics",
+      "kind": "component",
+      "context": true,
+      "label": "Faucet data"
+    },
+    {
+      "name": "ground-stack",
+      "geometry": "ground-stack",
+      "rotation": [
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation": [
+        308.8000001,
+        364.05,
+        -44.044228734060425
+      ],
+      "role": "electronics",
+      "kind": "component",
+      "context": true,
+      "label": "Ground stud"
+    },
+    {
+      "name": "wago-v12",
+      "geometry": "wago-v12",
+      "rotation": [
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation": [
+        308.00999450683594,
+        357.8,
+        -7.450006103515648
+      ],
+      "role": "electronics",
+      "kind": "component",
+      "context": true,
+      "label": "WAGO 12 V"
+    },
+    {
+      "name": "wago-gnd",
+      "geometry": "wago-gnd",
+      "rotation": [
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation": [
+        342.25999450683594,
+        357.8,
+        -7.450006103515648
+      ],
+      "role": "electronics",
+      "kind": "component",
+      "context": true,
+      "label": "WAGO DC ground"
+    },
+    {
+      "name": "wago-g",
+      "geometry": "wago-g",
+      "rotation": [
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation": [
+        340.50999450683594,
+        357.8,
+        13.349993896484364
+      ],
+      "role": "electronics",
+      "kind": "component",
+      "context": true,
+      "label": "WAGO ground"
+    },
+    {
+      "name": "wago-h",
+      "geometry": "wago-h",
+      "rotation": [
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation": [
+        374.75999450683594,
+        357.8,
+        13.349993896484364
+      ],
+      "role": "electronics",
+      "kind": "component",
+      "context": true,
+      "label": "WAGO line"
+    },
+    {
+      "name": "wago-n",
+      "geometry": "wago-n",
+      "rotation": [
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation": [
+        409.00999450683594,
+        357.8,
+        13.349993896484364
+      ],
+      "role": "electronics",
+      "kind": "component",
+      "context": true,
+      "label": "WAGO neutral"
+    },
+    {
+      "name": "pcba",
+      "geometry": "pcba",
+      "rotation": [
+        [
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        -349.3999938964844,
+        111.01606750488281,
+        426.25
+      ],
+      "role": "electronics",
+      "kind": "component",
+      "context": true,
+      "label": "Main PCB \u00b7 horizontal"
+    },
+    {
+      "name": "carb-nut",
+      "geometry": "bulkhead-retention-nut-estimate",
+      "translation": [
+        34.7500011287684,
+        0,
+        -1.376047880536305
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "role": "neutral",
+      "kind": "component",
+      "context": true,
+      "label": "Soda bulkhead \u00b7 estimated retention nut"
+    },
+    {
+      "name": "wago-mana",
+      "geometry": "wago-mana",
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation": [
+        6.0,
+        421.3999938964844,
+        -1.7000061035156477
+      ],
+      "role": "electronics",
+      "kind": "component",
+      "context": true,
+      "label": "WAGO manifold A"
+    },
+    {
+      "name": "wago-manb",
+      "geometry": "wago-manb",
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation": [
+        6.0,
+        441.1999969482422,
+        49.0
+      ],
+      "role": "electronics",
+      "kind": "component",
+      "context": true,
+      "label": "WAGO manifold B"
+    },
+    {
+      "name": "wago-sensors",
+      "geometry": "wago-sensors",
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      ],
+      "translation": [
+        6.0,
+        583.7000122070312,
+        584.3999938964844
+      ],
+      "role": "electronics",
+      "kind": "component",
+      "context": true,
+      "label": "WAGO sensors"
+    },
+    {
+      "name": "wago-reeds-b",
+      "geometry": "wago-reeds-b",
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      ],
+      "translation": [
+        6.0,
+        571.7000122070312,
+        594.3999938964844
+      ],
+      "role": "electronics",
+      "kind": "component",
+      "context": true,
+      "label": "WAGO reed sensors"
+    }
+  ],
+  "pins": [
+    {
+      "text": "Water in",
+      "at": [
+        37.2499988712316,
+        480,
+        334.3760478805363
+      ],
+      "views": [
+        "rear",
+        "wet"
+      ]
+    },
+    {
+      "text": "Soda out",
+      "at": [
+        72,
+        480,
+        333
+      ],
+      "views": [
+        "rear",
+        "wet"
+      ]
+    },
+    {
+      "text": "Faucet vent / drain",
+      "at": [
+        45,
+        480,
+        301
+      ],
+      "views": [
+        "rear",
+        "wet"
+      ]
+    },
+    {
+      "text": "CO2 in",
+      "at": [
+        72,
+        480,
+        301
+      ],
+      "views": [
+        "rear",
+        "wet"
+      ]
+    },
+    {
+      "text": "Flavor A",
+      "at": [
+        45,
+        480,
+        270
+      ],
+      "views": [
+        "rear",
+        "wet"
+      ]
+    },
+    {
+      "text": "Flavor B",
+      "at": [
+        72,
+        480,
+        270
+      ],
+      "views": [
+        "rear",
+        "wet"
+      ]
+    },
+    {
+      "text": "Mean Well \u00b7 AC aft",
+      "at": [
+        -81.75,
+        404.5,
+        279.4
+      ],
+      "views": [
+        "three",
+        "electronics",
+        "service",
+        "top"
+      ]
+    },
+    {
+      "text": "Relay 1 \u00b7 beneath PCB",
+      "at": [
+        -85.5,
+        387.0,
+        316.9
+      ],
+      "views": [
+        "service"
+      ]
+    },
+    {
+      "text": "Relay 2 \u00b7 beneath PCB",
+      "at": [
+        -65.5,
+        387.0,
+        316.9
+      ],
+      "views": [
+        "service"
+      ]
+    },
+    {
+      "text": "C14 power inlet",
+      "at": [
+        -73.50000038146973,
+        459.71998962402347,
+        332.9999904515057
+      ],
+      "views": [
+        "rear",
+        "electronics"
+      ]
+    },
+    {
+      "text": "Faucet data",
+      "at": [
+        -50.999999084472655,
+        456.2999987792969,
+        278.66999046501064
+      ],
+      "views": [
+        "rear",
+        "electronics"
+      ]
+    },
+    {
+      "text": "Ground stud",
+      "at": [
+        -29.999987692968773,
+        455.3999984741211,
+        293.9999912366427
+      ],
+      "views": [
+        "rear",
+        "electronics"
+      ]
+    },
+    {
+      "text": "WAGO 12 V",
+      "at": [
+        -53.0,
+        453.00000076293946,
+        314.79999389648435
+      ],
+      "views": [
+        "electronics"
+      ]
+    },
+    {
+      "text": "WAGO DC ground",
+      "at": [
+        -35.0,
+        453.00000076293946,
+        314.79999389648435
+      ],
+      "views": [
+        "electronics"
+      ]
+    },
+    {
+      "text": "WAGO ground",
+      "at": [
+        -53.0,
+        453.00000076293946,
+        335.59999389648436
+      ],
+      "views": [
+        "electronics"
+      ]
+    },
+    {
+      "text": "WAGO line",
+      "at": [
+        -35.0,
+        453.00000076293946,
+        335.59999389648436
+      ],
+      "views": [
+        "electronics"
+      ]
+    },
+    {
+      "text": "WAGO neutral",
+      "at": [
+        -17.0,
+        453.00000076293946,
+        335.59999389648436
+      ],
+      "views": [
+        "electronics"
+      ]
+    },
+    {
+      "text": "Main PCB \u00b7 horizontal",
+      "at": [
+        -59.59999084472656,
+        392.4080276489258,
+        338.5500030517578
+      ],
+      "views": [
+        "three",
+        "electronics",
+        "top"
+      ]
+    },
+    {
+      "text": "WAGO manifold A",
+      "at": [
+        -89.3499984741211,
+        252.39999389648438,
+        278.29999389648435
+      ],
+      "views": [
+        "electronics",
+        "service"
+      ]
+    },
+    {
+      "text": "WAGO manifold B",
+      "at": [
+        -89.20000076293945,
+        272.1999969482422,
+        295.0
+      ],
+      "views": [
+        "electronics",
+        "service"
+      ]
+    },
+    {
+      "text": "WAGO sensors",
+      "at": [
+        -89.20000076293945,
+        248.70001220703125,
+        314.3999938964844
+      ],
+      "views": [
+        "electronics",
+        "service"
+      ]
+    },
+    {
+      "text": "WAGO reed sensors",
+      "at": [
+        -89.20000076293945,
+        269.20001220703125,
+        324.3999938964844
+      ],
+      "views": [
+        "electronics",
+        "service"
+      ]
+    }
+  ],
+  "mates": [
+    {
+      "a": "left-wall",
+      "b": "back-wall"
+    },
+    {
+      "a": "right-wall",
+      "b": "back-wall"
+    },
+    {
+      "a": "bulkhead-water",
+      "b": "back-wall",
+      "connection": "Barrel through bore in common 6 mm panel area"
+    },
+    {
+      "a": "bulkhead-carb",
+      "b": "back-wall",
+      "connection": "Barrel through bore in common 6 mm panel area"
+    },
+    {
+      "a": "bulkhead-drain",
+      "b": "back-wall",
+      "connection": "Barrel through bore in common 6 mm panel area"
+    },
+    {
+      "a": "co2-inlet",
+      "b": "back-wall",
+      "connection": "Barrel through bore in common 6 mm panel area"
+    },
+    {
+      "a": "bulkhead-flavor-a",
+      "b": "back-wall",
+      "connection": "Barrel through bore in common 6 mm panel area"
+    },
+    {
+      "a": "bulkhead-flavor-b",
+      "b": "back-wall",
+      "connection": "Barrel through bore in common 6 mm panel area"
+    },
+    {
+      "a": "c14-inlet",
+      "b": "back-wall",
+      "connection": "Panel envelope; final mounting/retention detail is outside the study"
+    },
+    {
+      "a": "keystone-jack",
+      "b": "back-wall",
+      "connection": "Panel envelope; final mounting/retention detail is outside the study"
+    },
+    {
+      "a": "bulkhead-carb",
+      "b": "carb-nut"
+    },
+    {
+      "a": "carb-nut",
+      "b": "back-wall"
+    },
+    {
+      "a": "bulkhead-nut",
+      "b": "back-wall"
+    }
+  ],
+  "wet_ports": [
+    {
+      "name": "bulkhead-water",
+      "label": "Water in",
+      "center_x_mm": 37.2499988712316,
+      "center_z_mm": 334.3760478805363,
+      "tube_od_mm": 6.35,
+      "inboard_mouth_mm": [
+        37.2499988712316,
+        443.51,
+        334.3760478805363
+      ],
+      "bore_diameter_mm": 17.44
+    },
+    {
+      "name": "bulkhead-carb",
+      "label": "Soda out",
+      "center_x_mm": 72,
+      "center_z_mm": 333,
+      "tube_od_mm": 6.35,
+      "inboard_mouth_mm": [
+        72,
+        443.51,
+        333
+      ],
+      "bore_diameter_mm": 17.44
+    },
+    {
+      "name": "bulkhead-drain",
+      "label": "Faucet vent / drain",
+      "center_x_mm": 45,
+      "center_z_mm": 301,
+      "tube_od_mm": 4,
+      "inboard_mouth_mm": [
+        45,
+        450.6,
+        301
+      ],
+      "bore_diameter_mm": 15.3
+    },
+    {
+      "name": "co2-inlet",
+      "label": "CO2 in",
+      "center_x_mm": 72,
+      "center_z_mm": 301,
+      "tube_od_mm": 6.35,
+      "inboard_mouth_mm": [
+        72,
+        451.0026,
+        301
+      ],
+      "bore_diameter_mm": 17.3
+    },
+    {
+      "name": "bulkhead-flavor-a",
+      "label": "Flavor A",
+      "center_x_mm": 45,
+      "center_z_mm": 270,
+      "tube_od_mm": 4,
+      "inboard_mouth_mm": [
+        45,
+        450.6,
+        270
+      ],
+      "bore_diameter_mm": 15.3
+    },
+    {
+      "name": "bulkhead-flavor-b",
+      "label": "Flavor B",
+      "center_x_mm": 72,
+      "center_z_mm": 270,
+      "tube_od_mm": 4,
+      "inboard_mouth_mm": [
+        72,
+        450.6,
+        270
+      ],
+      "bore_diameter_mm": 15.3
+    }
+  ],
+  "water_inboard_mouth_mm": [
+    37.2499988712316,
+    443.51,
+    334.3760478805363
+  ],
+  "panel": {
+    "outer_wall_y_mm": 471.3,
+    "inner_wall_y_mm": 462.3,
+    "common_exterior_recess_depth_mm": 3,
+    "flange_seat_y_mm": 468.3,
+    "retained_panel_mm": 6,
+    "suggested_common_rectangle_mm": {
+      "xmin": 20,
+      "xmax": 94,
+      "zmin": 256,
+      "zmax": 347
+    },
+    "bore_diameters_mm": {
+      "bulkhead-water": 17.44,
+      "bulkhead-carb": 17.44,
+      "bulkhead-drain": 15.3,
+      "bulkhead-flavor-a": 15.3,
+      "bulkhead-flavor-b": 15.3,
+      "co2-inlet": 17.3
+    },
+    "basis": "NeoFit dimensional sheet A is the flange-to-adjustable-nut gap; E nut thickness is a separate dimension. The 6 mm panel is below the 8.1 mm (4 mm family) and 7.8994 mm (CO2) A values. No wall geometry is changed by this scratch study."
+  },
+  "structure_labels": {
+    "left-wall": "Dry side \u00b7 plain 9 mm wall \u00b7 carrier/mounts not detailed",
+    "right-wall": "Wet side \u00b7 plain 9 mm wall",
+    "back-wall": "Bare rear panel \u00b7 common 3 mm recess leaves 6 mm stock at fluid fittings",
+    "ceiling": "Ceiling \u00b7 at least 3 mm roof stock \u00b7 additional flat PCB recess"
+  },
+  "report_components": [
+    "pcba",
+    "psu",
+    "relay-1",
+    "relay-2",
+    "c14-inlet",
+    "keystone-jack",
+    "ground-stack",
+    "wago-v12",
+    "wago-gnd",
+    "wago-g",
+    "wago-h",
+    "wago-n",
+    "bulkhead-water",
+    "bulkhead-carb",
+    "bulkhead-drain",
+    "co2-inlet",
+    "bulkhead-flavor-a",
+    "bulkhead-flavor-b",
+    "wago-mana",
+    "wago-manb",
+    "wago-sensors",
+    "wago-reeds-b"
+  ],
+  "measure_pairs": [
+    [
+      "psu",
+      "va"
+    ],
+    [
+      "psu",
+      "funnel-frame"
+    ],
+    [
+      "pcba",
+      "pump"
+    ],
+    [
+      "pcba",
+      "wago-h"
+    ],
+    [
+      "pcba",
+      "relay-1"
+    ],
+    [
+      "pcba",
+      "relay-2"
+    ],
+    [
+      "bulkhead-drain",
+      "pump"
+    ],
+    [
+      "c14-inlet",
+      "wago-v12"
+    ]
+  ]
+}
