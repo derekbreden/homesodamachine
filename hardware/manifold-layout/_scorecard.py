@@ -430,7 +430,7 @@ MOUNTS = (
     ("pump-a-head", "enclosure-pump-cartridge", "case"),
     ("pump-b-head", "enclosure-pump-cartridge", "case"),
     # Each pump tee's branch stands in its bore through front-top's tee wall: X and Z held,
-    # its collet stroke free along Y with the collet plate at its fore end.
+    # its pressed collet on the collet plate fore and its lower return aft.
     *((f"tee-{tee.lower()}", "enclosure-front-top", "bore-in-tee-wall")
       for tee, _segment in PUMP_DOCK_PORTS.values()),
     # Each SB443-IN block rides its column slot's printed rails in its two side grooves,
@@ -463,6 +463,9 @@ RIDES = {
     **{name: "wr1110" for name in _gas_chain.ADAPTER_NAMES[:2]},
     **{name: "gasher-co2" for name in _gas_chain.ADAPTER_NAMES[2:]},
     **{name: "g-ganen-pump" for name in PUMP_ELBOW_BODIES},
+    # Each lower return's two stem elbows ride the collets their stems are bottomed in.
+    **{f"stem-elbow-{tee.lower()}": f"tee-{tee.lower()}" for tee in ("Y-C", "Y-D", "Y-F", "Y-G")},
+    **{f"stem-elbow-{v}": f"valve-{v}" for v in ("v-c", "v-d", "v-g", "v-j")},
 }
 
 
@@ -638,7 +641,7 @@ TOUCHING_OK = {frozenset(p) for p in (
       for row in range(1, dock_retention.ROWS_PER_COLUMN + 1)
       for offset in (-1, 1)
       if 1 <= row + offset <= dock_retention.ROWS_PER_COLUMN),
-    # Each pump tee's extended collet stands on the collet plate's release face and its collar
+    # Each pump tee's pressed collet stands on the collet plate's release face and its collar
     # runs in its bore through the tee wall.
     *((f"tee-{tee.lower()}", "enclosure-front-top")
       for tee, _segment in PUMP_DOCK_PORTS.values()),
@@ -756,7 +759,7 @@ MADE_AS = {
     "pump-dock": "made by a prepared pump's LLDPE tube through the collet plate into a tee",
     "butt":      "made by a butt between two collets",
     "mate":      "made up across the plane its two bodies share",
-    "hairpin":   "one LLDPE hairpin bent at the stock's radius from the tee to the valve",
+    "elbows":    "made by a stem elbow in each collet and one straight LLDPE tube between them",
     "turn":      "made by a quarter turn and the step off it",
     "not drawn": "still to route",
 }
@@ -767,10 +770,10 @@ def made_of(how: str) -> str:
     """One `manifold_layout.SEGMENTS` row's own `how` column, as one of `MADE_AS`'s names.
 
     `SEGMENTS` supplies the construction. Its compatibility names for the lower
-    and fore paths identify the hairpins and the short upper tubes."""
+    and fore paths identify the lower returns and the short upper tubes."""
     import manifold_layout as ml
     if how == "spine":
-        return "hairpin"
+        return "elbows"
     if how in ml.BARB_OF:
         return "pump-dock"
     if how in ml.FORE_STUBS:
@@ -1096,6 +1099,16 @@ def reducer_port_contact(a, bodies) -> dict:
     return {"stems": stems, "pass": all(out <= _clearing.HIT_VOL for _in, out in stems.values())}
 
 
+def elbow_stem_contact(a, bodies) -> dict:
+    """Read each stem elbow's common material with the fitting its stem is bottomed in against the
+    stem itself (`dock_structure.stem_overlap`)."""
+    import dock_structure as _dock
+
+    stems = {name[len("stem-elbow-"):]: _dock.stem_overlap(bodies[name], bodies[_dock.elbow_host(name)])
+             for name in sorted(n for n in bodies if n.startswith("stem-elbow-"))}
+    return {"stems": stems, "pass": all(out <= _clearing.HIT_VOL for _in, out in stems.values())}
+
+
 def pack_clashes(a) -> tuple:
     """The one exact pairwise-clash reading for an assembled machine.
 
@@ -1132,6 +1145,17 @@ def pack_clashes(a) -> tuple:
         except Exception as exc:
             unanswered.append(("valve-v-g", "flavor-reducer-v-g",
                                "reducer stems in their ports: " + str(exc).splitlines()[0]))
+    import dock_structure as _dock
+    stem_pairs = {frozenset((n, _dock.elbow_host(n))) for n in bodies if n.startswith("stem-elbow-")}
+    if any(frozenset((hit.a, hit.b)) in stem_pairs for hit in bad):
+        try:
+            reading = elbow_stem_contact(a, bodies)
+            a.elbow_stem_reading = reading
+            if reading["pass"]:
+                bad = [hit for hit in bad if frozenset((hit.a, hit.b)) not in stem_pairs]
+        except Exception as exc:
+            unanswered.append(("stem-elbow", "its collet",
+                               "elbow stems in their collets: " + str(exc).splitlines()[0]))
     seal_pair = frozenset(("funnel-drain-stub", "funnel"))
     if any(frozenset((hit.a, hit.b)) == seal_pair for hit in bad):
         try:
@@ -1161,6 +1185,10 @@ def _pack_closes(a) -> Check:
         detail.append("Flavor reducer stems in their valve outlets: " + "; ".join(
             f"v-{v} {inside:.1f} mm³ in the stem, {out:.6f} mm³ outside it"
             for v, (inside, out) in ports["stems"].items()))
+    if stems := getattr(a, "elbow_stem_reading", None):
+        detail.append("Stem elbows in their collets: " + "; ".join(
+            f"{n} {inside:.1f} mm³ in the stem, {out:.6f} mm³ outside it"
+            for n, (inside, out) in stems["stems"].items()))
     if seal := getattr(a, "drain_seal_contact_reading", None):
         detail.append(
             f"Drain stub in the plug's land: {seal['land_contact_mm3']:.2f} mm³ in the push-on "
@@ -1515,7 +1543,7 @@ def _mounted() -> Check:
 
     The construction each open row stands on today rides in the detail, so the list says what
     a joint would be converting FROM. `pack` is a flavour-manifold body whose connected chain
-    has not earned its own printed fastening row; it is not a claim that a flexible hairpin is
+    has not earned its own printed fastening row; it is not a claim that a flexible tube is
     a structural support.
 
     A RIDER IS NOT A JOINT. `RIDES`'s rows are part of another placed body and answer to its

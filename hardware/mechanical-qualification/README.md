@@ -366,13 +366,13 @@ numerical forces and endurance are not measured separately.
 The [pump-dock design](../printed-parts/enclosure/pump-dock/README.md) passes each
 factory-prepared pump's two straight 1/4" LLDPE tubes, clamped by the pump head's own
 housing, through front-top's collet plate into four purchased John Guest PP0208E tees.
-Each tee's branch collet grips its tube against pressure. The branch runs in a bore through
-front-top's tee wall, which holds the tee in X and Z and lets it slide along Y; the plate stops it at the fore end of its 1.5 mm collet stroke, and in service the
-bottomed pump tube holds it at connected. Pulling the cartridge drags each tee forward until the plate holds the collet in and
-the tube draws out. A short upper tube joins each tee to its fixed fore valve, which stands
-over the tee's connected axis, and one R14 LLDPE hairpin joins it to its rear valve; both
-flex with the tee. Four SB443-IN pairs, one column of two on each pump's own line, seat the
-cartridge. The customer replaces complete pumps; the tees, valves and tubing stay in the
+The collet plate holds each tee's branch collet pressed home its whole 1.5 mm stroke, so the
+collet never grips: the tube seals on its O-ring and draws straight out when the cartridge is
+pulled. The branch stands in a bore through front-top's tee wall, which holds the tee in X and
+Z; the plate stops it fore and its lower return stops it aft. A short straight tube joins each
+tee to its fixed fore valve, which stands over the tee's run axis, and a lower return of two
+stem elbows and one straight tube joins it to its rear valve. Four SB443-IN pairs, one column
+of two on each pump's own line, seat the cartridge and hold its tubes in against pressure. The customer replaces complete pumps; the tees, valves and tubing stay in the
 machine.
 
 The [push-connect observations](../reference/tee-connector/README.md#observed-push-connect-action)
@@ -382,10 +382,10 @@ instrumented force reading. The
 [magnetic mount record](../printed-parts/enclosure/pump-dock/magnet-retention.md) defines
 the printed-in slots, rails and pause loading.
 
-The dock has no physical release, seal, lifetime or cleaning acceptance. The upper tube's
-spring at its 1.5 mm release bend and the hairpins' spring across the tee's travel are
-unmeasured; both add to the pull at release, and the straight upper tube loads nothing at
-connected. The complete release and insertion force, the tees' running fit in their bores,
+The dock has no physical seal, retention, lifetime or cleaning acceptance. The magnets'
+margin against the line pressure on four tubes is unmeasured. The O-ring friction of four tubes
+through pressed collets, the complete withdrawal and insertion force, the cut stem elbows'
+seal, the tees' running fit in their bores,
 the pump tube clamp under docking load,
 the magnets' assembled seat and rail capture, and sealing and lifetime under fluid and
 cleaning are unmeasured. Material data alone do not establish finished wet-part

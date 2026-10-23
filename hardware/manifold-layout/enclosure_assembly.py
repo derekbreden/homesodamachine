@@ -61,8 +61,8 @@ back now faces up.
 the two valve trays and two stand on the cold core's cap. The cap also carries the separate
 water-fill valve. The pump cartridge supports both pump heads. Each pump tube enters a
 purchased PP0208E tee behind front-top's collet plate; the tee's branch stands in a bore
-through front-top's tee wall, and one R14 hairpin joins its lower port to the rear valve beneath
-it. The
+through front-top's tee wall with its collet held pressed, and a stem elbow in its lower port and
+another in the rear valve beneath it join the two on one straight tube. The
 crossbar's two tees butt onto held valves.
 The `mounted` axis records these load paths.
 
@@ -424,15 +424,27 @@ def record_seat(name, *, turns=(), planes=None, station=None, got=None, members=
 
 
 def record_pump_dock_seats(box_spec, dock_parts, retention):
-    """World-authored dock parts on the release face and bare-pole construction datums."""
+    """World-authored dock parts on the release face, their returns' elbows, and bare-pole
+    construction datums."""
     plate = box_spec.pack.collet_plate
     aft = plate['aft_y']
     for _station, tee_name, x, z in _dock.stations(plate):
-        # Each tee stands at connected: its extended branch collet on the release face,
-        # its run upright on the pump tube's axis.
+        # Each tee stands with its pressed branch collet on the release face, its run upright
+        # on the pump tube's axis.
         name = 'tee-' + tee_name.lower()
         record_seat(name, planes={'y0': aft, 'cx': x, 'z0': z - _dock.plumbing.RUN_FACE},
                     got=box(dock_parts[name]))
+        # Its return's two elbows: each stem bottomed in its collet, both sockets level.
+        target = plate['return_ports'][str(x)]
+        lower = _dock.plumbing.tee_ports(plate['fore_y'], x, z)['lower']['point']
+        line = _dock.plumbing.elbow_return(lower, tuple(target['point']))
+        for host, port_z, row, inserted in (
+                (tee_name, lower[2], line['elbows'][0], _dock.plumbing.RUN_INSERTION),
+                (target['valve'], target['point'][2], line['elbows'][1],
+                 _dock.plumbing.VALVE_INSERTION_NOMINAL)):
+            name = 'stem-elbow-' + host.lower()
+            record_seat(name, planes={'z0': line['floor_z'], 'z1': port_z + inserted},
+                        got=box(dock_parts[name]))
     interface = retention['interface']
     magnet_spec = _enc._retention
     columns = magnet_spec.column_stations(plate['holes'])
@@ -1231,7 +1243,7 @@ def collet_plate_spec(mcarry, tray_stations, valve_trays=()) -> dict:
         for ports, valve, end in ((upper_ports, upper_valve, 'front'),
                                   (return_ports, return_valve, 'back')):
             point, axis = mcarry((ml.port(valve, end), ml.port_axis(valve, end)))
-            ports[str(x)] = {'point': tuple(point), 'axis': tuple(axis)}
+            ports[str(x)] = {'point': tuple(point), 'axis': tuple(axis), 'valve': valve}
     holes = sorted(holes)
     fore = round(ml.pump_wall_fore_y(), 6)
     plumbing = _dock.plumbing
@@ -1246,7 +1258,6 @@ def collet_plate_spec(mcarry, tray_stations, valve_trays=()) -> dict:
             "valve_trays": tuple(valve_trays),
             "fixture_print_bed_z": _enc.z_seam + _enc.slide_slip,
             "tee_axis_y": round(plumbing.tee_axis_y(fore), 6),
-            "tee_released_y": round(plumbing.tee_axis_y(fore, "released"), 6),
             "seated_tube_bottom_y": round(plumbing.tip_y(fore), 6),
             "pump_tube_cut": round(ml.PUMP_TUBE_CUT, 6),
             "tube_bottom_y": round(plumbing.tip_y(fore), 6),
@@ -1351,7 +1362,7 @@ def _boxed(x0, x1, y0, y1, z0, z1):
 # core's own cap, which are the core's riders and nobody else's. The crossing runs to
 # the bulkheads and the pumps' own tubes are made up later and are not in the box yet.
 # The tee wall and its collet plate are integral with front-top.
-FRONT_RIDERS = ("valve-v-", "coil-v-", "tee-y-", "turn-", "step-")
+FRONT_RIDERS = ("valve-v-", "coil-v-", "tee-y-", "stem-elbow-", "turn-", "step-")
 # What rides THE CORE on its cart — everything standing on or cradled in the cap's lid
 # when the back assembly comes over: the water pump with its two elbows and their clamps,
 # the made-up check chain, and the three cap-cradled valves with their coils and port stubs.

@@ -1,7 +1,7 @@
 """The enclosure assembly's tube runs — every line between two placed bodies, authored port to port.
 
 The manifold's own 21 segments are drawn by `manifold_layout.py`, which knows its butt joints
-and its hairpins. This module is for the runs BETWEEN sub-assemblies: a mouth on one placed body
+and its lower returns. This module is for the runs BETWEEN sub-assemblies: a mouth on one placed body
 to a mouth on another, through whatever the pack leaves between them.
 
 Each run is one `R.bent(...)` — the source port, hand-placed interior waypoints, the destination
@@ -881,10 +881,18 @@ def station(body: str, port: str):
     return STATIONS[body][port][0]()
 
 
+# How high the west gate's line climbs over the aft row's outlet plane before it cruises aft:
+# room for the reducer on V-J's outlet and the riser's R25 quarter off it, with flavor A's capped
+# bearing on the core's lid passing under the run and under the flanks of its back-top anchor.
+# V-J stands `manifold_layout.OUTER_AFT_DROP` below that row, so the climb is read off the row.
+GATE_B_CLIMB = 29.5
+
+
 def _gate_climb_under_cruise(F) -> float:
-    """`gate_cruise` read off the placed valve."""
+    """`gate_cruise` read off the placed valve, or `GATE_B_CLIMB` over the aft row's outlet
+    plane, whichever is higher."""
     return max(gate_cruise(F["valve-v-i"].at("outlet")[2]),
-               F["valve-v-j"].at("outlet")[2] + 31.0)
+               F["valve-v-j"].at("outlet")[2] + _ml.OUTER_AFT_DROP + GATE_B_CLIMB)
 
 
 def _fluid_28(F, solids):

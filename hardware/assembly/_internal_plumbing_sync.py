@@ -55,8 +55,10 @@ def main():
     # length a bench cuts is read off the run and not rounded beside it.
     _f = _facts.read()
     _runs = {r.id: r for r in _f.runs}
-    # Each pump tee's hairpin blank, by tee: the inner pair and the outer pair are mirrors.
-    _hairpin_cut = {tee: _ml.lower_link_length(cid) for cid, tee in _ml.LOWER_CONNECTIONS.items()}
+    # Each pump tee's lower return: its tube blank, by tee — the inner pair and the outer pair
+    # are mirrors — and its two stem elbows' cut stems.
+    _return_cut = {tee: _ml.lower_link_length(cid) for cid, tee in _ml.LOWER_CONNECTIONS.items()}
+    _elbows = _ml.pump_plumbing()['Y-C']['return']['elbows']
 
     # The loops a tie is picked by on this path, off the hull `enclosure` states for its own ribs
     # and the seats the pack actually bored: each anchored BODY answers with its own.
@@ -100,16 +102,23 @@ def main():
         # The valve and purchased-tee census comes from the placed layout.
         "MANIFOLD_VALVES": f"{sum(1 for n in _ml.P if n.startswith('V-'))}",
         "MANIFOLD_TEES": f"{len(_ml.PURCHASED_TEES)}",
-        # The pump tees' collet stroke, and the fore valve set at the middle of it.
-        "DOCK_TEE_STROKE": f"{_ml._returns.TRAVEL:.3g} mm",
-        # Each upper tube and hairpin blank: its exposed path, a tube bottomed in the tee's
-        # extended run collet, and the valve's layout estimate.
+        # The pump tees' branch collet stroke, which the collet plate holds pressed.
+        "DOCK_TEE_STROKE": f"{_ml._returns.tee.BRANCH_COLLET_TRAVEL:.3g} mm",
+        # Each upper tube blank: its exposed path, a tube bottomed in the tee's extended run
+        # collet, and the valve's layout estimate.
         "DOCK_TEE_INSERTION": f"{_ml._returns.RUN_INSERTION:.4g} mm",
         "DOCK_VALVE_INSERTION": f"{_ml._returns.VALVE_INSERTION_NOMINAL:.4g} mm",
         "DOCK_FORE_LINK": f"{_ml.FORE_STUB_EXPOSED:.6g} mm",
         "DOCK_UPPER_TAIL": f"{_ml.FORE_STUB_EXPOSED + _ml._returns.RUN_INSERTION + _ml._returns.VALVE_INSERTION_NOMINAL:.6g} mm",
-        "DOCK_HAIRPIN_INNER": f"{_hairpin_cut['Y-C']:.4g} mm",
-        "DOCK_HAIRPIN_OUTER": f"{_hairpin_cut['Y-D']:.4g} mm",
+        # Each lower return: its tube blank with both elbows' socket depths, and each elbow's
+        # stem cut past its shoulder — the tee's to the run collet's seat, the valve's to the
+        # valve's layout estimate and the stem it shows below the collet.
+        "DOCK_RETURN_INNER": f"{_return_cut['Y-C']:.4g} mm",
+        "DOCK_RETURN_OUTER": f"{_return_cut['Y-D']:.4g} mm",
+        "DOCK_ELBOW_SOCKET": f"{_ml._returns.elbow.SOCKET_INSERTION:.4g} mm",
+        "DOCK_TEE_ELBOW_STEM": f"{_elbows[0]['stem']:.4g} mm",
+        "DOCK_VALVE_ELBOW_STEM": f"{_elbows[1]['stem']:.4g} mm",
+        "DOCK_VALVE_ELBOW_SHOWING": f"{_elbows[1]['showing']:.3g} mm",
         # The prepared pump's tube, cut to its clamped length plus its reach to the seated tip.
         "DOCK_PUMP_TUBE_CUT": f"{_ml.PUMP_TUBE_CUT:.3g} mm",
         "POGO_INSERT_HOST_DEPTH": f"{_enc._pogo.ear_back() + _enc.pogo_heatset_setback + _enc.pump_contact_face_recess:.4g} mm",

@@ -20,13 +20,16 @@
     "DECK_INSERTS": "4",
     "DIGITEN_LOOP": "81.2 mm",
     "DISPLAY_COVER_MOUNT": "retained flush with `enclosure-front-top`'s 30\u00b0 display plane by 2 coplanar horizontal wings. The TPU ring bears between the cover's lap and the glass. The cover takes 0 screws and 0 inserts.",
+    "DOCK_ELBOWS": "8",
+    "DOCK_ELBOWS_COST": "$9.65",
     "DOCK_MAGNETS": "8",
     "DOCK_MAGNET_COST": "$11.29",
     "DOCK_PUMP_TUBES": "4",
+    "DOCK_RETURNS": "4",
     "DOCK_TEES": "4",
     "END_CAPS": "2",
-    "FLAVOR_4MM_COST": "$2.03",
-    "FLAVOR_4MM_FT": "15.63",
+    "FLAVOR_4MM_COST": "$2.04",
+    "FLAVOR_4MM_FT": "15.68",
     "FLAVOR_CUT": "1963",
     "FLOOR_INSERTS": "4",
     "FLOOR_SCREWS": "4",
@@ -136,7 +139,7 @@
     "WR1110_LOOP": "83.2 mm"
   },
   "/hardware/scripts/_bom_totals.py": {
-    "BOM_GRAND": "$1,443.00",
+    "BOM_GRAND": "$1,452.66",
     "BOM_SEC1": "$175.03",
     "BOM_SEC11": "$38.99",
     "BOM_SEC12": "$29.78",
@@ -149,7 +152,7 @@
     "BOM_SEC5": "$142.25",
     "BOM_SEC6": "$18.64",
     "BOM_SEC7": "$165.40",
-    "BOM_SEC8": "$232.38",
-    "BOM_SEC9": "$78.71"
+    "BOM_SEC8": "$242.03",
+    "BOM_SEC9": "$78.72"
   }
 }
