@@ -1,0 +1,18 @@
+{
+  "printer": "Mark2",
+  "task_id": "1368553558",
+  "reason": "Textured PEI slice mismatches the glued Engineering Plate reported by Derek. Printer displayed build plate mismatch 0500-8051 before model deposition. Stopped through Bambu Connect Stop Printing.",
+  "user_correction": "I have an engineering plate glued and ready there ...",
+  "observation": {
+    "job_id": "1368553558",
+    "subtask_name": "2026-10-23-touch-flo-sleeve-tpu85a-right06-z004-mark2-continuous-cap.gcode.3mf",
+    "gcode_state": "FAILED",
+    "print_error": 50348044,
+    "hms": [],
+    "layer_num": 0,
+    "total_layer_num": 87,
+    "nozzle_target_temper": 0.0,
+    "bed_target_temper": 0.0,
+    "observed_at_utc": "2026-10-23T21:34:49.661020+00:00"
+  }
+}

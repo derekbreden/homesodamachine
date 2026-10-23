@@ -50,6 +50,10 @@ Cap-down on the bed. First layer is the annular cap (Ø [10.44 mm](ORING_OUTER_D
 solid disk with a Ø [6.5 mm](CAP_HOLE_D) hole); the [0.62 mm](ORING_WALL_T)
 cylindrical wall extrudes upward using the saved single-wall recipe.
 
+The saved spiral recipe commands three solid cap layers totaling **0.66 mm**
+(0.30 + 0.18 + 0.18 mm), then one continuous spiral wall. The **2.1 mm** cap
+dimension above describes the CAD region, not this recipe's solid cap thickness.
+
 ## Material
 
 **Bambu TPU 85A**, using the
@@ -61,6 +65,14 @@ no quantified sealing-pressure, insertion-force or lifetime result.
 The [Mark1 print project and launch record](prints/2026-10-13-tpu85a-right06-mark1/README.md)
 retain that project's mesh and process, with the filament mapped to the right
 0.6 mm nozzle, Mark1's +0.18 mm trim, and one cap-down sleeve centered on the bed.
+
+The [Mark2 sleeve print](prints/2026-10-23-black-tpu85a-right06-mark2/README.md)
+uses black Bambu TPU 85A on the right 0.6 mm nozzle, the glued Engineering Plate
+and zero added user Z trim. Its processed archive prints through turns in the
+three cap layers, with straight material-contained transfers, and preserves
+the native continuous spiral wall. Timelapse is off. Printed stringing, fit and
+sealing results are pending; use the processed archive directly to retain the
+cap routing.
 
 ## Assembly
 

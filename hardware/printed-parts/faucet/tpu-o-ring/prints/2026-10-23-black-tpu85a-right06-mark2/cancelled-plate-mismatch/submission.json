@@ -1,0 +1,17 @@
+{
+  "source_archive": "2026-10-23-touch-flo-sleeve-tpu85a-right06-z004-mark2-continuous-cap.gcode.3mf",
+  "imported_copy": ".cache/printer-control/imports/648da475ff5800489b9034da2f6ae9104ebced843cbc75b613a20dfa760d377f/2026-10-23-touch-flo-sleeve-tpu85a-right06-z004-mark2-continuous-cap.gcode.3mf",
+  "archive_sha256": "648da475ff5800489b9034da2f6ae9104ebced843cbc75b613a20dfa760d377f",
+  "gcode_sha256": "e36d05fda283995dfa359f8419372349cf30d1a863c23736ff19574f703ad10f",
+  "expected_printer": "Mark2",
+  "submitted_name": "2026-10-23-touch-flo-sleeve-tpu85a-right06-z004-mark2-continuous-cap.gcode.3mf",
+  "options": {
+    "Timelapse": "Off",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "imported_archive_sha256_after_send": "648da475ff5800489b9034da2f6ae9104ebced843cbc75b613a20dfa760d377f",
+  "imported_gcode_sha256_after_send": "e36d05fda283995dfa359f8419372349cf30d1a863c23736ff19574f703ad10f",
+  "imported_gcode_matches_review": true
+}

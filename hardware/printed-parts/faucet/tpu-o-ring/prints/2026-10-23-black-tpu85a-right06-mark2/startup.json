@@ -1,0 +1,123 @@
+{
+  "printer": "Mark2",
+  "printer_task_id": "1368570348",
+  "snapshots": [
+    {
+      "job_id": "1368570348",
+      "subtask_name": "2026-10-23-touch-flo-sleeve-tpu85a-right06-z000-mark2-continuous-cap.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 87,
+      "mc_percent": 0,
+      "mc_remaining_time": 11,
+      "stg_cur": 74,
+      "bed_temper": 25.0,
+      "bed_target_temper": 25.0,
+      "observed_at_utc": "2026-10-23T21:39:24.743588+00:00",
+      "observed_at_central": "2026-10-23T16:39:24.743588-05:00",
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280,
+        "temperature_c": 124,
+        "target_c": 0
+      },
+      "mounted_right_nozzle": {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      "timelapse": "disable"
+    },
+    {
+      "job_id": "1368570348",
+      "subtask_name": "2026-10-23-touch-flo-sleeve-tpu85a-right06-z000-mark2-continuous-cap.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 87,
+      "mc_percent": 0,
+      "mc_remaining_time": 11,
+      "stg_cur": 74,
+      "bed_temper": 25.0,
+      "bed_target_temper": 25.0,
+      "observed_at_utc": "2026-10-23T21:40:03.236608+00:00",
+      "observed_at_central": "2026-10-23T16:40:03.236608-05:00",
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280,
+        "temperature_c": 87,
+        "target_c": 0
+      },
+      "mounted_right_nozzle": {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      "timelapse": "disable"
+    },
+    {
+      "job_id": "1368570348",
+      "subtask_name": "2026-10-23-touch-flo-sleeve-tpu85a-right06-z000-mark2-continuous-cap.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 87,
+      "mc_percent": 0,
+      "mc_remaining_time": 11,
+      "stg_cur": 4,
+      "bed_temper": 25.0,
+      "bed_target_temper": 25.0,
+      "observed_at_utc": "2026-10-23T21:40:53.573151+00:00",
+      "observed_at_central": "2026-10-23T16:40:53.573151-05:00",
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280,
+        "temperature_c": 250,
+        "target_c": 250
+      },
+      "mounted_right_nozzle": {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      "timelapse": "disable"
+    },
+    {
+      "job_id": "1368570348",
+      "subtask_name": "2026-10-23-touch-flo-sleeve-tpu85a-right06-z000-mark2-continuous-cap.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 1,
+      "total_layer_num": 87,
+      "mc_percent": 53,
+      "mc_remaining_time": 5,
+      "stg_cur": 0,
+      "bed_temper": 35.0,
+      "bed_target_temper": 35.0,
+      "observed_at_utc": "2026-10-23T21:46:36.044105+00:00",
+      "observed_at_central": "2026-10-23T16:46:36.044105-05:00",
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280,
+        "temperature_c": 225,
+        "target_c": 225
+      },
+      "mounted_right_nozzle": {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      "timelapse": "disable"
+    }
+  ],
+  "scope": "Task-bound startup observations; layer progress establishes passage beyond plate detection, not visual adhesion, stringing, fit or sealing."
+}

@@ -1,0 +1,84 @@
+{
+  "printer": "Mark2",
+  "observed_at": "2026-10-23T21:38:13.278037+00:00",
+  "archive": {
+    "name": "2026-10-23-touch-flo-sleeve-tpu85a-right06-z000-mark2-continuous-cap.gcode.3mf",
+    "sha256": "0d26f90af214159359d9bd5cdf33f88f4c88b28519f11ab4bf27439b1578d5b4",
+    "gcode_sha256": "0af11e2f5c00a43d30436ef02fbc0c4a2e591eec48a0ae3662d8610e9500a218"
+  },
+  "printer_task_id": "1368570348",
+  "job_id": "1368570348",
+  "subtask_name": "2026-10-23-touch-flo-sleeve-tpu85a-right06-z000-mark2-continuous-cap.gcode.3mf",
+  "gcode_state": "RUNNING",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 0,
+  "total_layer_num": 87,
+  "plate": "Engineering Plate",
+  "local_user_z_trim_mm": 0,
+  "options": {
+    "Timelapse": "Off",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "events": [
+    {
+      "observed_at_utc": "2026-10-23T21:37:13.220295+00:00",
+      "job_id": "1368553558",
+      "subtask_name": "2026-10-23-touch-flo-sleeve-tpu85a-right06-z004-mark2-continuous-cap.gcode.3mf",
+      "gcode_state": "FAILED",
+      "print_error": 50348044,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 87
+    },
+    {
+      "observed_at_utc": "2026-10-23T21:38:09.507895+00:00",
+      "command": "project_file",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "err_code": 0
+    },
+    {
+      "observed_at_utc": "2026-10-23T21:38:09.508336+00:00",
+      "job_id": 1368570348,
+      "subtask_name": "2026-10-23-touch-flo-sleeve-tpu85a-right06-z000-mark2-continuous-cap.gcode.3mf",
+      "gcode_state": "FAILED",
+      "print_error": 50348044,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 87
+    },
+    {
+      "observed_at_utc": "2026-10-23T21:38:10.998480+00:00",
+      "job_id": "1368570348",
+      "subtask_name": "2026-10-23-touch-flo-sleeve-tpu85a-right06-z000-mark2-continuous-cap.gcode.3mf",
+      "gcode_state": "PREPARE",
+      "print_error": 50348044,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 87
+    },
+    {
+      "observed_at_utc": "2026-10-23T21:38:12.241884+00:00",
+      "job_id": "1368570348",
+      "subtask_name": "2026-10-23-touch-flo-sleeve-tpu85a-right06-z000-mark2-continuous-cap.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 50348044,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 87
+    },
+    {
+      "observed_at_utc": "2026-10-23T21:38:13.277996+00:00",
+      "job_id": "1368570348",
+      "subtask_name": "2026-10-23-touch-flo-sleeve-tpu85a-right06-z000-mark2-continuous-cap.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 87
+    }
+  ]
+}

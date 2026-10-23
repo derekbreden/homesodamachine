@@ -1,0 +1,12 @@
+{
+  "status": "Cancelled at layer 0 after build-plate mismatch; no printed article",
+  "printer": "Mark2",
+  "printer_task_id": "1368553558",
+  "archive_sha256": "648da475ff5800489b9034da2f6ae9104ebced843cbc75b613a20dfa760d377f",
+  "gcode_sha256": "e36d05fda283995dfa359f8419372349cf30d1a863c23736ff19574f703ad10f",
+  "material": "Black Bambu TPU 85A",
+  "right_nozzle_mm": 0.6,
+  "local_user_z_trim_mm": 0.04,
+  "startup_status": "startup.json",
+  "scope": "Task 1368553558 used a Textured PEI slice while the installed plate is the glued Engineering Plate. Printer plate detection stopped the job before model deposition. Cancellation is recorded in cancellation.json. No stringing, fit or sealing result exists for this attempt."
+}

@@ -1,0 +1,17 @@
+{
+  "printer": "Mark2",
+  "recorded_at_utc": "2026-10-23T21:39:58.566067+00:00",
+  "source": "cua_repl Bambu Connect imported-file summary plus Send to print AX and screenshot before Send",
+  "options": {
+    "Timelapse": "Off",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "mapped_tile": "Ext TPU R",
+  "active_nozzle": "Right 0.6 mm Standard",
+  "send_enabled": true,
+  "plate": "Engineering Plate / Engineering",
+  "local_user_z_trim_mm": 0,
+  "imported_gcode_matches_review": true
+}

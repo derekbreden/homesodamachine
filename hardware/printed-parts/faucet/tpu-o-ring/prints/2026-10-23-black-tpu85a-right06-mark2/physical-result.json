@@ -1,0 +1,13 @@
+{
+  "status": "RUNNING; physical stringing, fit and sealing result pending",
+  "printer": "Mark2",
+  "printer_task_id": "1368570348",
+  "archive_sha256": "0d26f90af214159359d9bd5cdf33f88f4c88b28519f11ab4bf27439b1578d5b4",
+  "gcode_sha256": "0af11e2f5c00a43d30436ef02fbc0c4a2e591eec48a0ae3662d8610e9500a218",
+  "material": "Black Bambu TPU 85A",
+  "plate": "Glued Engineering Plate",
+  "right_nozzle_mm": 0.6,
+  "local_user_z_trim_mm": 0,
+  "startup_status": "startup.json",
+  "scope": "One Touch-Flo sealing sleeve with deposited cap tours and the retained native spiral. Printed strands, tube-plus-sleeve seating and sealing require their own physical result."
+}

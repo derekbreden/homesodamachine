@@ -1,0 +1,104 @@
+{
+  "user_ready_statement": "Next on Mark II, I'm going to need us to print the TPU things I need for the faucet, the industrial black faucet that I just printed a bit ago. Mark II is loaded with the black Bamboo TPU 85A now on the right hot end on that same 0.6 nozzle. I'd like to start with the print of the gasket that goes inside the touch flow. I think it might be called an O-ring or something still, but it's not an O-ring. It's a sleeve. So we need to print that sleeve first. And I'd ask that you consider carefully if there's any lessons we've learned from our avoiding threads other places that might apply here for this print as you start it. Thanks.",
+  "material": "Black Bambu TPU 85A",
+  "plate": "Saved Textured PEI Plate recipe",
+  "right_nozzle_mm": 0.6,
+  "local_user_z_trim_mm": 0.04,
+  "observations": [
+    {
+      "job_id": "1366458433",
+      "subtask_name": "2026-10-23-tube-bend-holders-w2-legs123-petgf-left04-z018-mark1.gcode.3mf",
+      "gcode_state": "FINISH",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 51,
+      "total_layer_num": 51,
+      "mc_percent": 100,
+      "mc_remaining_time": 0,
+      "nozzle_target_temper": 0.0,
+      "bed_target_temper": 0.0,
+      "printer": "H2C",
+      "observed_at_utc": "2026-10-23T21:29:56.565655+00:00",
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_color": "000000FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "TPU",
+          "tray_color": "FFFFFFFF"
+        }
+      ],
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65535
+      },
+      "mounted_right_nozzle": {
+        "id": null,
+        "diameter": null,
+        "type": null
+      }
+    },
+    {
+      "job_id": "1366512080",
+      "subtask_name": "2026-10-23-industrial-faucet-black-complete-petgf-left04-z004-mark2.gcode.3mf",
+      "gcode_state": "FINISH",
+      "print_error": 0,
+      "hms": [
+        {
+          "attr": 201326848,
+          "code": 131095
+        }
+      ],
+      "layer_num": 1245,
+      "total_layer_num": 1245,
+      "mc_percent": 100,
+      "mc_remaining_time": 0,
+      "nozzle_target_temper": 0.0,
+      "bed_target_temper": 0.0,
+      "printer": "Mark2",
+      "observed_at_utc": "2026-10-23T21:29:56.565698+00:00",
+      "external_spools": [
+        {
+          "id": "254",
+          "tray_type": "PET-CF",
+          "tray_color": "161616FF"
+        },
+        {
+          "id": "255",
+          "tray_type": "TPU",
+          "tray_color": "161616FF"
+        }
+      ],
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280
+      },
+      "mounted_right_nozzle": {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      }
+    },
+    {
+      "job_id": "1366458433",
+      "subtask_name": "2026-10-23-tube-bend-holders-w2-legs123-petgf-left04-z018-mark1.gcode.3mf",
+      "gcode_state": "FINISH",
+      "print_error": 0,
+      "hms": [],
+      "observed_at_utc": "2026-10-23T21:30:58.278358+00:00",
+      "printer": "H2C"
+    }
+  ],
+  "shared_circuit": {
+    "minimum_seconds": 180,
+    "other_printer": "Mark1",
+    "retained_finished_job_id": "1366458433",
+    "first_idle_observation_utc": "2026-10-23T21:19:24.226876+00:00",
+    "unchanged_idle_interval_seconds": 632.338843
+  }
+}
