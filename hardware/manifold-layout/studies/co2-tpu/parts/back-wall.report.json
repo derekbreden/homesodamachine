@@ -1,0 +1,81 @@
+{
+  "units": "mm",
+  "valid": true,
+  "solid_count": 1,
+  "volume_mm3": 127658.86320869341,
+  "bounds_mm": [
+    [
+      -98.50000010000007,
+      462.2992390348819,
+      253.39999989999993
+    ],
+    [
+      98.50000010000007,
+      471.3039028904879,
+      346.0000001000001
+    ]
+  ],
+  "vertices": 3520,
+  "triangles": 3492,
+  "scope": "Native study context; connector retention and equipment carriers are outside this model",
+  "retained_wet_panel_mm": 6.0,
+  "wet_bore_count": 6,
+  "interior_relief_mm": {
+    "xmin": 24.0,
+    "xmax": 91.0,
+    "ymin": 462.29,
+    "ymax": 465.3,
+    "zmin": 258.0,
+    "zmax": 348.0,
+    "retained_panel_mm": 6.0,
+    "flange_seat_y_mm": 471.3,
+    "nut_seat_y_mm": 465.3
+  },
+  "dry_openings": {
+    "c14": {
+      "flange_center_mm": [
+        -86.5,
+        471.3,
+        282.0
+      ],
+      "rotation": [
+        [
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "flange_pocket_half_xz_mm": [
+        25.135,
+        11.2
+      ],
+      "flange_pocket_ymin_mm": 468.05,
+      "body_opening_half_xz_mm": [
+        15.725,
+        11.325
+      ],
+      "body_opening_ymin_mm": 462.29,
+      "mount_pitch_mm": 40.21,
+      "mount_hole_radius_mm": 1.7
+    },
+    "keystone": {
+      "xmin": -94.0749998474121,
+      "xmax": -78.9249983215332,
+      "ymin": 462.29,
+      "ymax": 471.31,
+      "zmin": 311.34499351676845,
+      "zmax": 335.99498741325283,
+      "basis": "Selected bare keystone mesh bounds plus0.25mm around the opening; retention is outside this study."
+    }
+  }
+}

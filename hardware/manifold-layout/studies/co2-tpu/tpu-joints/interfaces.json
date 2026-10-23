@@ -1,0 +1,334 @@
+{
+  "units": "mm",
+  "scope": "Threadless installed TPU gas-joint layout candidates, plus relaxed geometry; no gas-service qualification claimed",
+  "material_basis": "Siraya Tech Flex TPU85A Clear pump-sleeve baseline; these metal cuff interfaces have no physical acceptance record",
+  "source_sha256": {
+    "hardware/printed-parts/diaphragm-pump-sleeve/diaphragm_pump_sleeve.py": "771c930718d531406210fbadee20b3ba9746bb9c4f52f4c2f4272e470c4458f4",
+    "hardware/printed-parts/diaphragm-pump-sleeve/README.md": "cdef7d53383665b5ce5cf1fde3e976c31ccb3fd2c538250287c06dba29f020b5",
+    "hardware/reference/wr1110-regulator/wr1110_regulator.py": "c03d2848209d140d64c25ed42785c145b3a6a9f3e9e2474358b7662e1fd31e87",
+    "hardware/reference/wr1110-regulator/scan-measurements.json": "fa91bcc72ef8d8d9cf438e693665e1fdc7eb0c9d8d428bd152f2704f670627a4",
+    "hardware/reference/gasher-check-valve/gasher_check_valve.py": "bc6043a5736f6a5ca93b9814fdc8f844eb19e80a37e4f762ca9016f540967892",
+    "future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json": "81f090c4649e0614023743f616abd58e1cedcf726fb867c294ebca5de414286d",
+    "future/pump-elbow-exploration/prints/2026-10-22-deposited-links-siraya85a-mark2/physical-result.json": "09761cd0079e43febcb04434973a2a459b28a86c52b76bdd2ac9f34682c1bf1f"
+  },
+  "geometry": {
+    "regulator-inlet-tpu-relaxed": {
+      "npz": "geometry/regulator-inlet-tpu-relaxed.npz",
+      "npz_sha256": "5754ddf7e465a7c22b0857494ddbc663823814e737c2c10453888a96f29196e5",
+      "step": "geometry/regulator-inlet-tpu-relaxed.step",
+      "step_sha256": "5a0afc81d46b1e74af75bbbfb7800e8fd284d8cd13616b96a8a3d6abb83cbd94",
+      "bounds_mm": [
+        [
+          -12.97354793548584,
+          -18.5,
+          -12.972434997558594
+        ],
+        [
+          12.975000381469727,
+          9.0,
+          12.975000381469727
+        ]
+      ],
+      "volume_mm3": 4789.627140760302,
+      "valid_native_solid": true,
+      "native_solid_count": 1,
+      "vertices": 4194,
+      "triangles": 5286
+    },
+    "check-outlet-tpu-relaxed": {
+      "npz": "geometry/check-outlet-tpu-relaxed.npz",
+      "npz_sha256": "100adb16cc711832499569a21798be9c2153880524118a0580e62b02a8c81f48",
+      "step": "geometry/check-outlet-tpu-relaxed.step",
+      "step_sha256": "01b9a2d665a2bf048b891d7ec81d94debdffe09766b66a6bd2ff54ffc182b52a",
+      "bounds_mm": [
+        [
+          -9.524999618530273,
+          9.0,
+          -18.5
+        ],
+        [
+          9.524999618530273,
+          34.181724548339844,
+          9.52437686920166
+        ]
+      ],
+      "volume_mm3": 4747.738455325849,
+      "valid_native_solid": true,
+      "native_solid_count": 1,
+      "vertices": 4397,
+      "triangles": 5372
+    },
+    "regulator-inlet-tpu": {
+      "npz": "geometry/regulator-inlet-tpu.npz",
+      "npz_sha256": "c928c8c38c8f4e95f2ecf90c093c73e5365f0fc3d3d734c381387c527bd6b3ff",
+      "step": "geometry/regulator-inlet-tpu.step",
+      "step_sha256": "af5c4c1c3cea36d6f669fff8dab550fc949de0926bd3230b8ed7615e2ad2abdd",
+      "bounds_mm": [
+        [
+          -13.071792602539062,
+          -18.5,
+          -13.070671081542969
+        ],
+        [
+          13.07325553894043,
+          9.0,
+          13.07325553894043
+        ]
+      ],
+      "volume_mm3": 5018.387974454157,
+      "valid_native_solid": true,
+      "native_solid_count": 1,
+      "vertices": 4152,
+      "triangles": 5232
+    },
+    "check-outlet-tpu": {
+      "npz": "geometry/check-outlet-tpu.npz",
+      "npz_sha256": "8a8719e6928ad0fda029e1df26ad36a346d1d278d178a0dbb77110c63bf72266",
+      "step": "geometry/check-outlet-tpu.step",
+      "step_sha256": "02aec461fc3e19c7f3d6a750686b68b6d2b108023f7d81394d175d09d6526fbf",
+      "bounds_mm": [
+        [
+          -9.613661766052246,
+          9.0,
+          -18.5
+        ],
+        [
+          9.613661766052246,
+          34.25780487060547,
+          9.612896919250488
+        ]
+      ],
+      "volume_mm3": 4778.5814622013095,
+      "valid_native_solid": true,
+      "native_solid_count": 1,
+      "vertices": 4390,
+      "triangles": 5354
+    },
+    "regulator-inlet-band-cuff": {
+      "npz": "geometry/regulator-inlet-band-cuff.npz",
+      "npz_sha256": "db26912f991904a0ccd2b13f4b31b237e6f246881004a97466493fc42264ab18",
+      "step": "geometry/regulator-inlet-band-cuff.step",
+      "step_sha256": "90c2ea0ea2a6bddb45c38b48b6dbf4e499abc3bb8aac4d062badd1bb27a339d1",
+      "bounds_mm": [
+        [
+          -13.671725273132324,
+          0.0,
+          -13.667135238647461
+        ],
+        [
+          13.671725273132324,
+          9.0,
+          13.67325496673584
+        ]
+      ],
+      "volume_mm3": 453.74385716368215,
+      "valid_native_solid": true,
+      "native_solid_count": 1,
+      "vertices": 844,
+      "triangles": 840
+    },
+    "regulator-inlet-band-tube": {
+      "npz": "geometry/regulator-inlet-band-tube.npz",
+      "npz_sha256": "17984cc895f6c69c5bac658a262ce10bd0686590f457fd4b014e2b03e8058f52",
+      "step": "geometry/regulator-inlet-band-tube.step",
+      "step_sha256": "8d714eb12c308936ff809909576cd310d458718d89faca8ba41668df545b79bc",
+      "bounds_mm": [
+        [
+          -6.5154032707214355,
+          -18.5,
+          -6.513216018676758
+        ],
+        [
+          6.5154032707214355,
+          -9.5,
+          6.516132831573486
+        ]
+      ],
+      "volume_mm3": 210.90841047672643,
+      "valid_native_solid": true,
+      "native_solid_count": 1,
+      "vertices": 844,
+      "triangles": 840
+    },
+    "check-outlet-band-cuff": {
+      "npz": "geometry/check-outlet-band-cuff.npz",
+      "npz_sha256": "1e8bbbd5bca9cf4a1005ca2a40d37b42772a35628d57dd0d40ced654510e4ffb",
+      "step": "geometry/check-outlet-band-cuff.step",
+      "step_sha256": "288c31c7fe45c11ee4a21c086291e03203b373c8931336ad1ca19642cbf0bd3c",
+      "bounds_mm": [
+        [
+          -10.213662147521973,
+          9.0,
+          -10.212519645690918
+        ],
+        [
+          10.209091186523438,
+          18.0,
+          10.212519645690918
+        ]
+      ],
+      "volume_mm3": 336.3626324664622,
+      "valid_native_solid": true,
+      "native_solid_count": 1,
+      "vertices": 844,
+      "triangles": 840
+    },
+    "check-outlet-band-tube": {
+      "npz": "geometry/check-outlet-band-tube.npz",
+      "npz_sha256": "e84840a3c9fe96fd212d5fee73cf9a92c86048e2756313c8f99bd64b8bc289ff",
+      "step": "geometry/check-outlet-band-tube.step",
+      "step_sha256": "0b40a58508a3cdb8f7a12ffcad4c53fae771944527fb882d79e242e1faaa3c9b",
+      "bounds_mm": [
+        [
+          -6.516132831573486,
+          18.400728225708008,
+          -18.5
+        ],
+        [
+          6.513216018676758,
+          31.431535720825195,
+          -9.5
+        ]
+      ],
+      "volume_mm3": 210.90841047672643,
+      "valid_native_solid": true,
+      "native_solid_count": 1,
+      "vertices": 844,
+      "triangles": 840
+    }
+  },
+  "reference": {
+    "wr1110": {
+      "npz": "reference/wr1110.npz",
+      "sha256": "9c201ed1677eeaf7f1a424c422a5cea9f21f897823e67f6fa824f0cc9d0c9f2b",
+      "source": "hardware/manifold-layout/studies/co2-grid/co2-parts/geometry/wr1110.npz"
+    },
+    "gasher-co2": {
+      "npz": "reference/gasher-co2.npz",
+      "sha256": "b6d950d39b317889b4b72cb51de5c597263a2d72c8b45f8f94aef476ead6120a",
+      "source": "hardware/manifold-layout/studies/co2-grid/co2-parts/geometry/gasher-co2.npz"
+    }
+  },
+  "shared": {
+    "relaxed_radial_wall_mm": 2.8,
+    "tube_socket_relaxed_diameter_mm": 6.1,
+    "tube_socket_installed_diameter_mm": 6.35,
+    "tube_engagement_mm": 15.0,
+    "tube_socket_relaxed_od_mm": 11.7,
+    "tube_socket_installed_od_mm": 11.832265210009451,
+    "passage_diameter_mm": 4.4,
+    "tube_stop_from_corner_axis_mm": 3.5,
+    "tube_mouth_from_corner_axis_mm": 18.5,
+    "clamp_band_width_mm": 9.0,
+    "band_skin_thickness_mm": 0.6,
+    "band_to_elbow_leg_air_mm": 1.0,
+    "entry_radial_chamfer_mm": 0.4,
+    "new_cuff_diametral_interference_estimate_mm": 0.25
+  },
+  "regulator": {
+    "frame": "WR1110/WR1105 native female inletfaceY0, flow+Y",
+    "cuff_installed_max_bore_mm": 20.6,
+    "cuff_installed_af_mm": 19.0,
+    "cuff_relaxed_max_bore_mm": 20.35,
+    "cuff_relaxed_af_mm": 18.75,
+    "cuff_engagement_mm": 9.0,
+    "cuff_span_y_mm": [
+      0.0,
+      9.0
+    ],
+    "cuff_installed_od_mm": 26.146510283401113,
+    "source_straight_hex_band_y_mm": [
+      0.8,
+      13.35
+    ],
+    "tube_mouth": {
+      "point_mm": [
+        0.0,
+        -18.5,
+        0.0
+      ],
+      "outward_axis": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    },
+    "tube_end_at_stop_mm": [
+      0.0,
+      -3.5,
+      0.0
+    ],
+    "flow_entry_face_mm": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "outer_neck_length_installed_mm": 7.5,
+    "notes": "Cuff follows the external clipped wrench-boss profile over its first9mm; no printed NPT or internal threaded insert. The9mm band lies over this cuff."
+  },
+  "check": {
+    "frame": "GASHER native centerY0, femalein\u2212Y, maletipY20, flow+Y; tubeleg\u2212Z",
+    "stub_installed_diameter_mm": 13.7,
+    "cuff_relaxed_bore_mm": 13.45,
+    "cuff_installed_od_mm": 19.227324306829587,
+    "cuff_engagement_mm": 11.0,
+    "cuff_span_y_mm": [
+      9.0,
+      20.0
+    ],
+    "metal_tip_mm": [
+      0.0,
+      20.0,
+      0.0
+    ],
+    "corner_axis_mm": [
+      0.0,
+      24.916132605004726,
+      0.0
+    ],
+    "turn_reach_past_metal_tip_mm": 4.916132605004726,
+    "turn_reach_rule": "\u2212(11mm cuff\u22129mm band)+1mm air+installed tube radius",
+    "tube_mouth": {
+      "point_mm": [
+        0.0,
+        24.916132605004726,
+        -18.5
+      ],
+      "outward_axis": [
+        0.0,
+        0.0,
+        -1.0
+      ]
+    },
+    "tube_end_at_stop_mm": [
+      0.0,
+      24.916132605004726,
+      -3.5
+    ],
+    "notes": "Cuff covers the existing male stub to shoulderY9; the turn is inside TPU, without an additional elbow or threaded fitting."
+  },
+  "clamps": {
+    "representation": "Four9mm-wide closed rings with0.6mm radial band skin; housing/screw/key are not modeled",
+    "installed_cuff_band_inner_diameters_mm": [
+      26.146510283401113,
+      19.227324306829587
+    ],
+    "installed_tube_band_inner_diameter_mm": 11.832265210009451,
+    "owned10_to16mm_band_fit": "Tube seats only; both new metal-cuff bands require a larger diameter range"
+  },
+  "physical_evidence_scope": {
+    "existing_pump_articles": "Identified articles have qualitative manual fit, stringing and seal-comparison observations. Preserve that acceptance for those articles and recipes.",
+    "new_joint_interfaces": "External regulator hex cuff and check threaded-stub cuff are layout estimates, without physical fit or gas acceptance.",
+    "installed_envelope_method": "The pump source's annular-area conservation formula opens the relaxed bore and grows OD; it is an occupancy approximation, not a deformation or clamp-load model."
+  },
+  "direct_metal_joint": {
+    "connection": "WR1105 male outlet directly into GASHER female inlet; retained without intermediate TPU",
+    "nominal_engagement_mm": 9.18,
+    "check_center_in_regulator_frame_mm": [
+      0.0,
+      74.47,
+      0.0
+    ],
+    "scope": "Scanned-stub-bounded make-up estimate"
+  }
+}
