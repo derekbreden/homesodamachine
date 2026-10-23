@@ -54,6 +54,8 @@ def library():
     for name, path in MODEL_FILES.items():
         with np.load(REF / path) as data:
             result[name] = (data["v"], data["f"])
+        with np.load(HERE / "trimmed" / (name + ".npz")) as data:
+            result[name + "-trimmed"] = (data["v"], data["f"])
     return result
 
 
@@ -62,20 +64,23 @@ def instance(name, geometry, translation=(0, 0, 0), rotation=I, **metadata):
             "rotation": np.asarray(rotation).tolist(), **metadata}
 
 
-def variant(kind, insertion=12.7, socket_reach_offset=0):
+def variant(kind, insertion=12.7, socket_reach_offset=0, trim=True):
     """Hold pump, check, V-K and existing bent TPU adapters in their poses."""
-    result = {"id": kind, "instances": [], "pins": copy.deepcopy(BASE["pins"]),
-              "arrows": copy.deepcopy(BASE["arrows"]), "mates": [],
-              "unknown_host_insertion_mm": insertion}
     baseline = kind == "union"
+    trim = trim and not baseline
+    result = {"id": kind + ("-stock" if not trim and not baseline else ""), "instances": [], "pins": copy.deepcopy(BASE["pins"]),
+              "arrows": copy.deepcopy(BASE["arrows"]), "mates": [],
+              "unknown_host_insertion_mm": insertion, "trimmed_stems": trim}
     tip_reach = -ED["stem_tip"][0][0]
     socket_reach = ED["socket"][0][1] + socket_reach_offset
-    elbow = VK_MOUTH + [0, 0, tip_reach - insertion]
+    elbow_reach = -ED["stem_shoulder"][0][0] if trim else tip_reach - insertion
+    elbow = VK_MOUTH + [0, 0, elbow_reach]
     socket = elbow + [socket_reach, 0, 0]
-    check_elbow = CHECK_MOUTH + [0, insertion - tip_reach, 0]
+    check_elbow = CHECK_MOUTH + [0, -elbow_reach, 0]
     carb = check_elbow + [0, 0, -socket_reach]
     if kind == "run":
-        center = socket + [-RD["run_stem"]["position_mm"][0] - 16.891, 0, 0]
+        reach = -RD["run_stem"]["shoulder_mm"][0] if trim else -RD["run_stem"]["position_mm"][0] - 16.891
+        center = socket + [reach, 0, 0]
         asse = center + RD["branch_socket"]["position_mm"]
         reg = center + RD["run_socket"]["position_mm"]
         tee_geometry, tee_rotation = "run-stem", I
@@ -83,7 +88,8 @@ def variant(kind, insertion=12.7, socket_reach_offset=0):
         spec = BD["neofit" if kind == "neofit-branch" else "john-guest"]
         p = spec["ports"]
         center = socket + [p["run_plus"]["position"][0], 0, 0]
-        asse = center + [0, -(p["branch_stem"]["position"][1] - 15), 0]
+        reach = p["branch_stem"]["shoulder"][1] if trim else p["branch_stem"]["position"][1] - 15
+        asse = center + [0, -reach, 0]
         reg = center + p["run_plus"]["position"]
         tee_geometry, tee_rotation = kind, BRANCH_R
     else:
@@ -116,6 +122,9 @@ def variant(kind, insertion=12.7, socket_reach_offset=0):
                           "tee": {"run": "NeoFit ATRU444-E run-stem tee into the elbow",
                                   "neofit-branch": "NeoFit ATBU444-E branch stem into the ASSE TPU adapter",
                                   "jg-branch": "John Guest CI580808W branch stem · published pressed-collet state"}[kind]}[n]
+            if trim:
+                geometry += "-trimmed"
+                m["label"] += " · stem trimmed, shoulder flush"
         result["instances"].append(instance(n, geometry, delta, rotation, **m))
 
     pin_groups = {"ASSE 1022": asse_delta, "Water in": asse_delta,
@@ -156,14 +165,17 @@ def variant(kind, insertion=12.7, socket_reach_offset=0):
                 j["point"] = points[pair].tolist()
             if pair in (frozenset(("check", "carbonator-fold")), frozenset(("vk", "tee-fold"))):
                 j.update(connection="male stem into female socket", insertion_mm=insertion,
-                         shoulder_gap_mm=21.0058 - insertion)
+                         shoulder_gap_mm=0 if trim else 21.0058 - insertion,
+                         stem_trim_mm=21.0058 - insertion if trim else 0)
             elif pair == frozenset(("tee-fold", "tee")) and kind == "run":
                 j.update(connection="male stem into NeoFit socket", insertion_mm=16.891,
-                         shoulder_gap_mm=21.0058 - 16.891)
+                         shoulder_gap_mm=0 if trim else 21.0058 - 16.891,
+                         stem_trim_mm=21.0058 - 16.891 if trim else 0)
             elif pair == frozenset(("asse-outlet-tpu", "tee")) and kind != "run":
                 length = BD["neofit" if kind == "neofit-branch" else "john-guest"]["model_mm"]["stem_length"]
                 j.update(connection="male stem into TPU socket", insertion_mm=15,
-                         shoulder_gap_mm=length - 15)
+                         shoulder_gap_mm=0 if trim else length - 15,
+                         stem_trim_mm=length - 15 if trim else 0)
             elif pair == frozenset(("tee-fold", "tee")):
                 depth = BD["neofit" if kind == "neofit-branch" else "john-guest"]["model_mm"]["female_insertion"]
                 j.update(connection="female sockets joined by concealed tube",
@@ -229,16 +241,22 @@ def main():
     args = parser.parse_args()
     geometries = library()
     variants = [variant(k) for k in ("run", "neofit-branch", "jg-branch", "union")]
+    variants.append(variant("run", trim=False))
     summary = {"scope": BASE["scope"], "units": "mm", "envelope_excludes": sorted(HANDOFFS),
                "unknown_host_insertion": {"nominal_mm": 12.7, "range_mm": [10, 15],
-                   "status": "layout estimate, not measured tolerance"}, "variants": {}}
+                   "status": "layout estimate, controls cut length; flush shoulders fix exterior poses"},
+               "stem_assumption": "Stems are trimmed to host depth with shoulders flush at socket mouths", "variants": {}}
     for scene in variants:
-        report = {k: scene[k] for k in ("tee_center_mm", "asse_translation_mm", "flavor_translation_mm", "mates")}
+        report = {k: scene[k] for k in ("trimmed_stems", "tee_center_mm", "asse_translation_mm", "flavor_translation_mm", "mates")}
         report.update(envelope(world_meshes(scene, geometries)))
         if args.check:
             report["unrelated_body_interferences"] = interference(scene, geometries)
-        if scene["id"] != "union":
-            study = [envelope(world_meshes(variant(scene["id"], d, offset), geometries))["size_xyz_mm"]
+        if scene["trimmed_stems"]:
+            study = [envelope(world_meshes(variant(scene["id"], socket_reach_offset=offset), geometries))["size_xyz_mm"]
+                     for offset in (-1, 0, 1)]
+            report["envelope_range_for_elbow_reach_estimate_mm"] = [np.min(study, axis=0).tolist(), np.max(study, axis=0).tolist()]
+        elif scene["id"] != "union":
+            study = [envelope(world_meshes(variant(scene["id"].removesuffix("-stock"), d, offset, trim=False), geometries))["size_xyz_mm"]
                      for d in (10, 12.7, 15) for offset in (-1, 0, 1)]
             report["envelope_range_for_host_depth_and_elbow_reach_estimates_mm"] = [np.min(study, axis=0).tolist(), np.max(study, axis=0).tolist()]
         summary["variants"][scene["id"]] = report
