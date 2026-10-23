@@ -2,6 +2,7 @@
 
 This arrangement uses only the selected wet/dry component group and ideal shell
 context. V-B and its connected routes are left for placement on the other side.
+WAGO junctions are placed after the primary components and wire routes.
 The manual --check asks about the carried PCB plugs and local leads.
 """
 from pathlib import Path
@@ -20,6 +21,9 @@ base = parent.base
 
 def pose(geometries):
     scene = parent.pose(geometries)
+    deferred = {m["name"] for m in scene["instances"] if m["name"].startswith("wago-")}
+    scene["instances"] = [m for m in scene["instances"] if m["name"] not in deferred]
+    scene["mates"] = [m for m in scene["mates"] if m["a"] not in deferred and m["b"] not in deferred]
     # Source-world pose: board underside Z257; bottom tails Z255.
     rotation = [[0,0,1],[0,1,0],[-1,0,0]]
     translation = [-325.3999938964844,-53.98393249511719,353.25]
@@ -29,15 +33,19 @@ def pose(geometries):
     scene["instances"] = [m for m in scene["instances"] if "connection_owner" not in m]
     scene["instances"].extend(parent.connections.instances(scene["instances"]))
     scene.update(id="pcb-low-fore",title="PCB flat, low and forward")
-    scene["pins"] = [p for p in scene["pins"] if not p["text"].startswith("Main PCB")]
+    scene["pins"] = [p for p in scene["pins"] if not p["text"].startswith(("Main PCB", "WAGO"))]
     scene["pins"].append({"text":"PCB · low and forward","at":[-35.6,227.4,267.6],
                           "views":["three","top","electronics"]})
     scene["layout"].update(pcb_orientation="Flat on its back, components upward, near the front of the cold core",
         pcb_underside_z_mm=257, pcb_footprint_mm={"xmin":-72,"xmax":.800018310546875,
         "ymin":182,"ymax":272.81605529785156},
-        context_scope="Selected water header, existing dry-side electronics and WAGOs, funnel/frame and ideal walls/ceiling; V-B and reservoir routes set aside",
+        context_scope="Selected water header, dry-side electronics, funnel/frame and ideal walls/ceiling; WAGOs deferred, V-B and reservoir routes set aside",
+        deferred_wagos=sorted(deferred),
+        wago_placement="Place junctions last, after primary components and wire routes, where connections are needed",
+        psu_mount_service="Fasten supply before the rear inlet/data parts covering its rear mounting axes",
         relay_service="PCB is forward of the relays and supply; no PCB removal for their terminal tool columns",
         planned_funnel_minus_y_expansion="Future funnel shape to be considered with the PCB below its current bowl")
+    scene["layout"].pop("wago_groups", None)
     return scene
 
 
@@ -62,7 +70,7 @@ def check(scene, geometries):
             if fcl.collide(objects[name],objects[other],fcl.CollisionRequest(),fcl.CollisionResult()):
                 hits.append([name,other])
     v=np.vstack([meshes[n][0] for n in moving])
-    return {"scope":"Repositioned PCB, mating plugs and local conductors against the selected previous component group; V-B and reservoir routes excluded",
+    return {"scope":"Repositioned PCB, mating plugs and local conductors against the selected component group; WAGOs deferred, V-B and reservoir routes excluded",
             "interferences":hits,"connected_pcb_bounds_mm":[v.min(0).tolist(),v.max(0).tolist()],
             "lowest_tail_to_plain_core_mm":float(meshes["pcba"][0][:,2].min()-253.4),
             "pcb_to_funnel_mm":parent.parent.lower.surface_distance(meshes["pcba"],meshes["funnel"]),

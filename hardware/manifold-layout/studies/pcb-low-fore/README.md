@@ -6,10 +6,15 @@ spans X−72..0.80, Y182..272.82 and Z255..276.10 mm. Its tails have 1.6 mm nomi
 clearance to the plain cap. Mating JST housings and local wire departures move
 with the board; the connected envelope reaches Z276.25 mm.
 
-The water header, power supply, relays, WAGOs, rear connectors, funnel/frame and
+The water header, power supply, relays, rear connectors, funnel/frame and
 ideal wall/ceiling solids retain the selected poses in
 [`../wet-dry/`](../wet-dry/). V-B and the reservoir routes are outside this
 component group; V-B is available for placement on the other side.
+
+Place WAGO junctions last, after the primary components and wire routes, where
+the connections are actually needed. Their locations remain unspecified while
+the funnel and primary components are arranged. All nine WAGOs are deferred
+from this study's scene and clearance queries.
 
 [`study.json`](study.json) records the selected poses and the manual intersection
 query. The repositioned PCB, plugs and local leads have no surface intersection
