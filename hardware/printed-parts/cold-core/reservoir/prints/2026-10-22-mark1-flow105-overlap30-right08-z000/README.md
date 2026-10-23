@@ -60,3 +60,11 @@ flow 1.05, five walls, 30% overlap and 265/270 °C as the current recipe. The
 combined settings have supporting physical evidence; this result does not
 isolate which setting supplied the improvement. Fill height, exact printed
 height and cap/gasket assembly sealing are unspecified.
+
+Derek also reports aesthetic concerns with this print. His [next intended
+trial](../../corner-lifting/next-trial-options.json) retains every setting here
+except nozzle temperatures, using **255 °C first layer / 260 °C subsequent
+layers**. The temperature pair is recorded in the recipe adaptation as the
+values before the 10 °C increase. This is a planning note: Derek reports the
+printer is busy with other work and filament is not loaded. The submitted
+recipe and its one-hour water-hold result remain unchanged.

@@ -1,9 +1,17 @@
 {
   "recorded_on": "2026-10-23",
-  "status": "Derek reports a one-hour water hold on the intentionally partially printed Mark1 task 1365626370 article. Retain the tested five-wall, 1.05-flow, 30%-overlap, 265/270 C recipe.",
-  "customer_outcome": "A flat, leak-free vented reservoir in less production time.",
-  "trigger": "../prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/physical-result.json",
+  "status": "Derek reports a one-hour water hold and aesthetic concerns on the intentionally partially printed Mark1 task 1365626370 article. Keep its recipe as the tested baseline; the next intended trial changes only nozzle temperatures to 255/260 C.",
+  "customer_outcome": "A flat, leak-free vented reservoir with acceptable appearance and less production time.",
+  "trigger": "../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json",
   "priority": [
+    {
+      "candidate": "Try all settings from the one-hour water-hold article with 255 C first-layer and 260 C subsequent-layer nozzle temperatures.",
+      "purpose": "Address Derek's aesthetic concerns while assessing whether the recipe retains water holding at the previous temperatures.",
+      "evidence": "Derek reports aesthetic concerns and intends to try a temperature-only change. The existing one-hour water hold applies to the 265/270 C article.",
+      "record": "../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json",
+      "retained": "All other settings from task 1365626370, including flow 1.05, five Arachne walls at 10 degrees, 30% overlap, solid floor fill, 0.30/0.24 mm layers, May motion/cooling, 70 C bed, no brim, zero added trim and ironing off.",
+      "status": "Intent recorded only; no project prepared or print scheduled. Derek reports the printer is occupied and filament is not loaded."
+    },
     {
       "candidate": "Retain the current five-wall, 1.05-flow, 30%-overlap, 265/270 C recipe as the baseline.",
       "purpose": "Fill actual body walls and curved corners entirely with wall paths; use solid floor fill with increased overlap and melt temperature.",
@@ -11,7 +19,7 @@
       "evidence": "The identified printed portion held water for one hour, reported by Derek on 2026-10-23. Native counts 2-4 retain fill in the ordinary corners; 5 contains only wall features there.",
       "retained": "0.30/0.24 mm layers, 0.8 mm lines, Arachne at its 10-degree default, May motion/cooling, 21 mm3/s, 70 C bed, no brim, zero added trim, ironing off and current automatic supports.",
       "limits": "One-hour water hold for the printed portion. Exact cut height, water head and cap/gasket sealing are unspecified; the combined recipe changes are not causally isolated.",
-      "status": "Positive physical water-hold evidence; no recipe change selected."
+      "status": "Positive physical water-hold evidence; retain this tested recipe as the comparison baseline."
     }
   ],
   "historical_comparison": {
@@ -103,5 +111,29 @@
     "duration_reported_hours": 1,
     "article": "Intentionally stopped before print completion.",
     "scope": "Printed portion at the unreported water head; corner flatness and lift onset unassessed."
+  },
+  "next_intended_trial": {
+    "recorded_on": "2026-10-23",
+    "recorded_at_central": "2026-10-23T02:15:23.905916-05:00",
+    "status": "Intent only; awaiting a future print request.",
+    "baseline_task_id": "1365626370",
+    "baseline_settings": "../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/settings.json",
+    "baseline_settings_file_sha256": "a1d008a858e4ad444e9ff6526e31afc1234231f4b92222bd0cc847bddcabf48e",
+    "only_planned_setting_changes": {
+      "nozzle_temperature_initial_layer": {
+        "baseline_c": 265,
+        "planned_c": 255
+      },
+      "nozzle_temperature": {
+        "baseline_c": 270,
+        "planned_c": 260
+      }
+    },
+    "previous_temperature_source": "../recipe-reviews/2026-10-22-flow105-overlap30/adaptation.json",
+    "previous_temperature_basis": "The adaptation records 255 C initial / 260 C subsequent before the 10 C increase.",
+    "all_other_settings": "Retain the complete baseline settings unchanged; current executable project and frozen print settings remain at 265/270 C.",
+    "reported_availability": "Printer busy with other work; filament not loaded, as reported by Derek.",
+    "comparison": "Compare appearance and water holding with the identified 265/270 C article; no outcome is claimed for the planned temperatures.",
+    "founder_quote": "Please record I have some aesthetic concerns with the print, and I'd like to consider trying all of those same settings, but back to our previous temperatures. The printer is busy elsewise now, and I don't have filament loaded, but just make a note of what I intend to try next."
   }
 }
