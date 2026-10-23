@@ -1,5 +1,5 @@
 {
- "gatesPass": true,
+ "gatesPass": false,
  "size": [
   {
    "id": "enclosure",
@@ -46,7 +46,7 @@
    "label": "Every placed body is declared in the fastening table",
    "kind": "gate",
    "status": "pass",
-   "value": "121/121 declared",
+   "value": "129/129 declared",
    "target": "all declared",
    "detail": [],
    "active": true
@@ -73,10 +73,16 @@
    "id": "pack-closes",
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
-   "status": "pass",
-   "value": "0 clash, 0 unanswered",
+   "status": "fail",
+   "value": "5 clash, 1 unanswered",
    "target": "0 clash, 0 unanswered",
    "detail": [
+    "valve-v-c \u2229 stem-elbow-v-c   77.1 mm\u00b3, x[   19.17,   25.52] y[  163.07,  169.41] z[  176.18,  180.68]",
+    "valve-v-g \u2229 stem-elbow-v-g   77.1 mm\u00b3, x[   70.65,   76.99] y[  163.07,  169.41] z[  176.18,  180.68]",
+    "valve-v-d \u2229 stem-elbow-v-d   77.1 mm\u00b3, x[  -25.52,  -19.17] y[  163.07,  169.41] z[  176.18,  180.68]",
+    "valve-v-j \u2229 stem-elbow-v-j   77.1 mm\u00b3, x[  -76.99,  -70.65] y[  163.07,  169.41] z[  176.18,  180.68]",
+    "anchor-cap-fluid-18 \u2229 tube-fluid-28   64.1 mm\u00b3, x[  -80.07,  -76.22] y[  258.00,  268.00] z[  272.87,  275.36]",
+    "stem-elbow ? its collet   elbow stems in their collets: 'OCP.OCP.Geom.Geom_RectangularTrimmedSurface' object has no attribute 'Cylinder'",
     "Flavor reducer stems in their valve outlets: v-g 258.0 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; v-j 258.0 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it",
     "Drain stub in the plug's land: 17.02 mm\u00b3 in the push-on seal's ring, 0.000000 mm\u00b3 outside it"
    ],
@@ -86,11 +92,13 @@
    "id": "clearance-floor",
    "label": "Pairs outside named pack-floor exclusions stand a millimetre apart",
    "kind": "gate",
-   "status": "pass",
-   "value": "0 under, tightest 1.037 mm",
+   "status": "fail",
+   "value": "2 under, tightest 0.000 mm",
    "target": "\u2265 1 mm",
    "detail": [
     "every body pair, and every drawn run against what its own line does not join it to \u2014 the exact solid distance, with boxes only as a prefilter",
+    "fluid-28 \u2014 anchor-cap-fluid-18: 0.000 mm \u2014 \u2717 under the global pack floor",
+    "fluid-18 \u2014 enclosure-back-top: 0.073 mm \u2014 \u2717 under the global pack floor",
     "compressor \u2014 thermal-fuse: 0.000 mm \u2014 excluded from the global pack floor",
     "compressor \u2014 fuse-clamp: 0.000 mm \u2014 excluded from the global pack floor",
     "thermal-fuse \u2014 fuse-clamp: 0.000 mm \u2014 excluded from the global pack floor",
@@ -182,6 +190,7 @@
     "water-3 \u2014 enclosure-back-top: 1.325 mm",
     "bulkhead-carb \u2014 bulkhead-ring-carb-word: 1.342 mm",
     "bulkhead-water \u2014 bulkhead-ring-water-word: 1.387 mm",
+    "fluid-28 \u2014 fluid-18: 1.428 mm",
     "g-ganen-pump \u2014 pump-elbow-discharge-clamp-barb: 1.431 mm",
     "carb-1 \u2014 pcba: 1.453 mm",
     "vk-solenoid \u2014 funnel-frame: 1.456 mm",
@@ -190,14 +199,14 @@
     "fluid-16 \u2014 coil-v-a: 1.583 mm",
     "bulkhead-flavor-a \u2014 bulkhead-ring-flavor-a-word: 1.584 mm",
     "bulkhead-flavor-b \u2014 bulkhead-ring-flavor-b-word: 1.584 mm",
-    "fluid-28 \u2014 water-split: 1.636 mm",
     "elbow-cradle \u2014 funnel-drain-stub: 1.641 mm",
     "flow-regulator \u2014 asse-drain-adapter: 1.641 mm",
     "fluid-18 \u2014 coil-v-i: 1.678 mm",
     "g-ganen-pump \u2014 pump-elbow-suction-clamp-barb: 1.718 mm",
     "fluid-16 \u2014 vk-solenoid: 1.735 mm",
     "co2-2 \u2014 pcba: 1.875 mm",
-    "fluid-14 \u2014 fluid-16: 1.885 mm"
+    "fluid-14 \u2014 fluid-16: 1.885 mm",
+    "fluid-28 \u2014 water-split: 1.895 mm"
    ],
    "active": true
   },
@@ -560,7 +569,7 @@
    "label": "The Z-seam rim stays under the flavour deck's lowest plate",
    "kind": "gate",
    "status": "pass",
-   "value": "rim at 174.80, lowest wall root at 184.40",
+   "value": "rim at 174.80, lowest wall root at 176.40",
    "target": "air between them",
    "detail": [],
    "active": true
@@ -747,7 +756,7 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "gate",
    "status": "pass",
-   "value": "85/85 mounted, 32 part of another body, 5 nothing fastens",
+   "value": "85/85 mounted, 40 part of another body, 5 nothing fastens",
    "target": "a printed joint per body",
    "detail": [
     "funnel: wall-capture \u2014 nothing fastens it; The silicone brim rests on the roof ledge and its plug on the cradle's hook tops within the frame's socket, its sealing land on the drain stub. The funnel lifts out by hand for the dishwasher, the land sliding off the stub.",
@@ -763,7 +772,7 @@
    "label": "Every placement is stated as a rule, and the solid lands on it",
    "kind": "goal",
    "status": "fail",
-   "value": "115/121 stated",
+   "value": "123/129 stated",
    "target": "a stated rule per body, each landing on it",
    "detail": [
     "anchor-cap-carb-1: no seat states where it stands",
@@ -784,25 +793,25 @@
    "target": "every connection made",
    "detail": [
     "a connection is MADE when the machine holds a path for it: a run `_lines.py` draws, one of the pack's own constructions \u2014 a butt between two collets, a fixed TPU return with straight links, a permanent pump dock, or a quarter turn and the step off it \u2014 or a joint made up across a plane two bodies already share",
-    "drawn 22, hairpin 4, pump-dock 4, straight 4, butt 3, turn 2 \u2014 0 still to route",
+    "drawn 22, elbows 4, pump-dock 4, straight 4, butt 3, turn 2 \u2014 0 still to route",
     "by circuit \u2014 co2 3/3, fluid 26/26, refrigerant 3/3, water 7/7",
     "fluid-3 (fluid): V-A-O \u2192 Y-A-1 \u2014 made by a quarter turn and the step off it",
     "fluid-5 (fluid): V-B-O \u2192 Y-B-1 \u2014 made by a quarter turn and the step off it",
     "fluid-6 (fluid): Y-A-3 \u2192 Y-B-3 \u2014 made by a butt between two collets",
     "fluid-7 (fluid): Y-A-2 \u2192 V-C-I \u2014 made by a butt between two collets",
     "fluid-8 (fluid): Y-B-2 \u2192 V-D-I \u2014 made by a butt between two collets",
-    "fluid-9 (fluid): V-C-O \u2192 Y-C-1 \u2014 one LLDPE hairpin bent at the stock's radius from the tee to the valve",
+    "fluid-9 (fluid): V-C-O \u2192 Y-C-1 \u2014 made by a stem elbow in each collet and one straight LLDPE tube between them",
     "fluid-10 (fluid): V-E-O \u2192 Y-C-2 \u2014 made by a lane's own straight",
     "fluid-11 (fluid): Y-C-3 \u2192 P-A-I \u2014 made by a prepared pump's LLDPE tube through the collet plate into a tee",
     "fluid-12 (fluid): P-A-O \u2192 Y-D-1 \u2014 made by a prepared pump's LLDPE tube through the collet plate into a tee",
     "fluid-13 (fluid): Y-D-2 \u2192 V-F-I \u2014 made by a lane's own straight",
-    "fluid-17 (fluid): Y-D-3 \u2192 V-G-I \u2014 one LLDPE hairpin bent at the stock's radius from the tee to the valve",
-    "fluid-19 (fluid): V-D-O \u2192 Y-F-1 \u2014 one LLDPE hairpin bent at the stock's radius from the tee to the valve",
+    "fluid-17 (fluid): Y-D-3 \u2192 V-G-I \u2014 made by a stem elbow in each collet and one straight LLDPE tube between them",
+    "fluid-19 (fluid): V-D-O \u2192 Y-F-1 \u2014 made by a stem elbow in each collet and one straight LLDPE tube between them",
     "fluid-20 (fluid): V-H-O \u2192 Y-F-2 \u2014 made by a lane's own straight",
     "fluid-21 (fluid): Y-F-3 \u2192 P-B-I \u2014 made by a prepared pump's LLDPE tube through the collet plate into a tee",
     "fluid-22 (fluid): P-B-O \u2192 Y-G-1 \u2014 made by a prepared pump's LLDPE tube through the collet plate into a tee",
     "fluid-23 (fluid): Y-G-3 \u2192 V-I-I \u2014 made by a lane's own straight",
-    "fluid-27 (fluid): Y-G-2 \u2192 V-J-I \u2014 one LLDPE hairpin bent at the stock's radius from the tee to the valve"
+    "fluid-27 (fluid): Y-G-2 \u2192 V-J-I \u2014 made by a stem elbow in each collet and one straight LLDPE tube between them"
    ],
    "active": false
   },
@@ -830,8 +839,8 @@
     "fluid-4: 200.0 mm unheld, 0.0 over",
     "carb-1: 183.0 mm, held at its anchor",
     "co2-2: 177.3 mm, held at its anchor",
-    "fluid-28: 175.5 mm, held at its anchor",
-    "fluid-18: 312.2 mm unheld \u2014 left loose; Flavor A's line to its rear union. A capped lid rib holds the fore crossing (`_cold_core_interface.cap_anchors`). The remaining line follows the west flank, turns in over the pump's west-rear foot and returns to the rear union. Those unretained spans need a support and relaxed-tube review. The authored centreline does not establish physical tube shape or its clearance to neighbouring parts."
+    "fluid-28: 173.3 mm, held at its anchor",
+    "fluid-18: 320.2 mm unheld \u2014 left loose; Flavor A's line to its rear union. A capped lid rib holds the fore crossing (`_cold_core_interface.cap_anchors`). The remaining line follows the west flank, turns in over the pump's west-rear foot and returns to the rear union. Those unretained spans need a support and relaxed-tube review. The authored centreline does not establish physical tube shape or its clearance to neighbouring parts."
    ],
    "active": false
   },
