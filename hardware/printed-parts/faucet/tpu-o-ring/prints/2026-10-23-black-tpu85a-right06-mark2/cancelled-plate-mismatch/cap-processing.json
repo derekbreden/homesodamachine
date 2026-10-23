@@ -1,0 +1,61 @@
+{
+  "source": "2026-10-23-touch-flo-sleeve-tpu85a-right06-z004-mark2.gcode.3mf",
+  "source_archive_sha256": "555bcafcc5a4eaa62fd4eea5445ae7e55545c2204bb2ac3d8da44049ccca2697",
+  "archive": "2026-10-23-touch-flo-sleeve-tpu85a-right06-z004-mark2-continuous-cap.gcode.3mf",
+  "archive_sha256": "648da475ff5800489b9034da2f6ae9104ebced843cbc75b613a20dfa760d377f",
+  "gcode_sha256": "e36d05fda283995dfa359f8419372349cf30d1a863c23736ff19574f703ad10f",
+  "cap_layers": [
+    {
+      "layer": 1,
+      "native_components": 6,
+      "native_deposition_e_mm": 7.0374300000000005,
+      "added_deposition_e_mm": 0.0,
+      "free_chords": 6,
+      "duplicated_features": [],
+      "start_end_xy_mm": [
+        174.896,
+        157.572
+      ]
+    },
+    {
+      "layer": 2,
+      "native_components": 3,
+      "native_deposition_e_mm": 3.8194,
+      "added_deposition_e_mm": 0.0,
+      "free_chords": 5,
+      "duplicated_features": [],
+      "start_end_xy_mm": [
+        178.637,
+        155.932
+      ]
+    },
+    {
+      "layer": 3,
+      "native_components": 32,
+      "native_deposition_e_mm": 3.87896,
+      "added_deposition_e_mm": 0.0,
+      "free_chords": 47,
+      "duplicated_features": [],
+      "start_end_xy_mm": [
+        180.764,
+        157.942
+      ]
+    }
+  ],
+  "native_spiral_from_source_line": 2421,
+  "native_spiral_and_shutdown_sha256": "6b6faf5cc3fcedbf0d2c372ca0c0d55d03ca8b66faad88133ceb464663795df1",
+  "source_native_cap_height_mm": 0.66,
+  "outline": {
+    "native_mesh_member": "3D/Objects/object_17.model",
+    "archive_sha256": "555bcafcc5a4eaa62fd4eea5445ae7e55545c2204bb2ac3d8da44049ccca2697",
+    "section_heights_mm": {
+      "1": 0.15,
+      "2": 0.39,
+      "3": 0.5700000000000001
+    },
+    "first_layer_outer_brim_width_mm": 5.0,
+    "first_layer_brim_object_gap_mm": 0,
+    "hole_area_cutoff_mm2": null
+  },
+  "scope": "Only the three planar cap layers are spliced into deposited tours. Native spiral and shutdown bytes are retained; startup is retained. No sending or physical acceptance."
+}

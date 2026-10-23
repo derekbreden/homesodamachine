@@ -1,0 +1,35 @@
+{
+  "status": "Native slice prepared; physical result pending",
+  "project_sha256": "9d6549c5d72d06823d9620e719ea1b558df8a70c28c459218b330f83ce200b31",
+  "archive": "2026-10-23-touch-flo-sleeve-tpu85a-right06-z004-mark2.gcode.3mf",
+  "archive_sha256": "555bcafcc5a4eaa62fd4eea5445ae7e55545c2204bb2ac3d8da44049ccca2697",
+  "gcode_sha256": "37144b2e361135d8687378e3e6874e8b42e39826eff2d2aeb44b424aafae5ec4",
+  "plate_trim_commands_mm": [
+    0.0,
+    0.02
+  ],
+  "bead_envelope": {
+    "extrusion_bounds_xy_mm": [
+      [
+        172.08750500000002,
+        154.58750500000002
+      ],
+      [
+        182.91249499999998,
+        165.41249499999998
+      ]
+    ],
+    "maximum_line_width_mm": 0.80699,
+    "bounds_padding_mm": 0.503495
+  },
+  "bead_margin_mm": [
+    147.08750500000002,
+    154.58750500000002,
+    147.08750500000002,
+    154.58750500000002
+  ],
+  "layers": 87,
+  "estimated_seconds": 660.5385131835938,
+  "estimated_filament_g": 0.399311363697052,
+  "slicer_warning": ""
+}
