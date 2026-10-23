@@ -1,14 +1,18 @@
 # TPU stringing candidates
 
-**Status: the deposited-path Siraya pair is submitted; its physical stringing result is pending.**
+**Status: the deposited-path Siraya pair is accepted on Mark2 with no strings
+reported and seal seeming as good as before.**
 The [current trial](prints/2026-10-22-deposited-links-siraya85a-mark2/README.md)
 prints native wall and fin paths through turns and uses straight material-contained
 chords between those paths. Its emitted review covers every free attachment span,
 including a conservative case that ignores extrusion runs shorter than 1 mm as
 attachments. It adds 1.21% deposition on existing inner-wall paths, with no part
 retractions, Z hops or photo trips. Mark2 accepted task 1365546966 with clear
-Siraya Tech TPU 85A; allow about 2 hours / 8.55 g. Actual strand attachment and
-string reduction remain unassessed.
+Siraya Tech TPU 85A; allow about 2 hours / 8.55 g. The
+[physical result](prints/2026-10-22-deposited-links-siraya85a-mark2/physical-result.json)
+records Derek's report: “That worked very well. I see no strings, and seal seems
+as good as before.” Acceptance belongs to this combined geometry, material and
+processed-path recipe; the seal comparison is qualitative.
 
 The vertical center-web Bambu pair retains dense bore and exterior-to-fin stringing. The
 [tested trial](prints/2026-10-16-vertical-center-web-tpu85a-mark1/README.md) connects
@@ -38,12 +42,12 @@ contains a layer-49 example: zero nozzle travel outside the model, with a
 
 The anchoring mechanism requires a continuous deposited path through the
 connection or a reliable new attachment before changing direction. The
-[deposited-path trial](prints/2026-10-16-deposited-links-siraya85a-mark1/README.md)
+[deposited-path trial](prints/2026-10-22-deposited-links-siraya85a-mark2/README.md)
 splices the existing paths into layer tours, printing through the turns. Its
 free transfers and potential taut spans are straight and contained within
-material. Its physical result is pending. One connected model and travel-wall
-avoidance alone do not establish attachment, and no completed trial in this
-study demonstrates this mechanism as a stringing fix.
+material. Its finished Mark2 pair has no visible strings reported. One connected
+model and travel-wall avoidance alone do not establish attachment; the accepted
+result belongs to the complete deposited-path Siraya recipe.
 
 ## Departure lap
 
