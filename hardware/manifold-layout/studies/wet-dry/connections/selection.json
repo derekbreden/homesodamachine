@@ -1,0 +1,681 @@
+{
+  "scope": "Installed local connector bodies and wire departures, with optional access probes; not full enclosure harness routing",
+  "physical": [
+    {
+      "name": "terminal-J1",
+      "owner": "pcba",
+      "geometry": "J1-plug",
+      "kind": "component",
+      "role": "plug",
+      "label": "J1 \u00b7 XHP-9 mating housing"
+    },
+    {
+      "name": "local-lead-J1",
+      "owner": "pcba",
+      "geometry": "J1-wire-edge",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J1 \u00b7 local edgeward wire departure"
+    },
+    {
+      "name": "terminal-J11",
+      "owner": "pcba",
+      "geometry": "J11-plug",
+      "kind": "component",
+      "role": "plug",
+      "label": "J11 \u00b7 XHP-4 mating housing"
+    },
+    {
+      "name": "local-lead-J11",
+      "owner": "pcba",
+      "geometry": "J11-wire-edge",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J11 \u00b7 local edgeward wire departure"
+    },
+    {
+      "name": "terminal-J13",
+      "owner": "pcba",
+      "geometry": "J13-plug",
+      "kind": "component",
+      "role": "plug",
+      "label": "J13 \u00b7 XHP-4 mating housing"
+    },
+    {
+      "name": "local-lead-J13",
+      "owner": "pcba",
+      "geometry": "J13-wire-edge",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J13 \u00b7 local edgeward wire departure"
+    },
+    {
+      "name": "terminal-J2",
+      "owner": "pcba",
+      "geometry": "J2-plug",
+      "kind": "component",
+      "role": "plug",
+      "label": "J2 \u00b7 XHP-6 mating housing"
+    },
+    {
+      "name": "local-lead-J2",
+      "owner": "pcba",
+      "geometry": "J2-wire-edge",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J2 \u00b7 local edgeward wire departure"
+    },
+    {
+      "name": "terminal-J3",
+      "owner": "pcba",
+      "geometry": "J3-plug",
+      "kind": "component",
+      "role": "plug",
+      "label": "J3 \u00b7 XHP-4 mating housing"
+    },
+    {
+      "name": "local-lead-J3",
+      "owner": "pcba",
+      "geometry": "J3-wire-edge",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J3 \u00b7 local edgeward wire departure"
+    },
+    {
+      "name": "terminal-J4",
+      "owner": "pcba",
+      "geometry": "J4-plug",
+      "kind": "component",
+      "role": "plug",
+      "label": "J4 \u00b7 XHP-7 mating housing"
+    },
+    {
+      "name": "local-lead-J4",
+      "owner": "pcba",
+      "geometry": "J4-wire-edge",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J4 \u00b7 local edgeward wire departure"
+    },
+    {
+      "name": "terminal-J5",
+      "owner": "pcba",
+      "geometry": "J5-plug",
+      "kind": "component",
+      "role": "plug",
+      "label": "J5 \u00b7 XHP-4 mating housing"
+    },
+    {
+      "name": "local-lead-J5",
+      "owner": "pcba",
+      "geometry": "J5-wire-edge",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J5 \u00b7 local edgeward wire departure"
+    },
+    {
+      "name": "terminal-J6",
+      "owner": "pcba",
+      "geometry": "J6-plug",
+      "kind": "component",
+      "role": "plug",
+      "label": "J6 \u00b7 XHP-5 mating housing"
+    },
+    {
+      "name": "local-lead-J6",
+      "owner": "pcba",
+      "geometry": "J6-wire-edge",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J6 \u00b7 local edgeward wire departure"
+    },
+    {
+      "name": "terminal-J7",
+      "owner": "pcba",
+      "geometry": "J7-plug",
+      "kind": "component",
+      "role": "plug",
+      "label": "J7 \u00b7 XHP-7 mating housing"
+    },
+    {
+      "name": "local-lead-J7",
+      "owner": "pcba",
+      "geometry": "J7-wire-edge",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J7 \u00b7 local edgeward wire departure"
+    },
+    {
+      "name": "terminal-J9",
+      "owner": "pcba",
+      "geometry": "J9-plug",
+      "kind": "component",
+      "role": "plug",
+      "label": "J9 \u00b7 XHP-4 mating housing"
+    },
+    {
+      "name": "local-lead-J9",
+      "owner": "pcba",
+      "geometry": "J9-wire-edge",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J9 \u00b7 local edgeward wire departure"
+    },
+    {
+      "name": "local-lead-J10.GND",
+      "owner": "pcba",
+      "geometry": "J10.GND-wire-straight",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J10.GND \u00b7 12 mm side-entry wire departure"
+    },
+    {
+      "name": "local-lead-J10.V12",
+      "owner": "pcba",
+      "geometry": "J10.V12-wire-straight",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J10.V12 \u00b7 12 mm side-entry wire departure"
+    },
+    {
+      "name": "local-lead-psu-AC-N",
+      "owner": "psu",
+      "geometry": "psu-AC-N-wire-bent",
+      "kind": "tube",
+      "role": "wire",
+      "label": "psu AC-N \u00b7 local terminal wire departure"
+    },
+    {
+      "name": "local-lead-psu-AC-L",
+      "owner": "psu",
+      "geometry": "psu-AC-L-wire-bent",
+      "kind": "tube",
+      "role": "wire",
+      "label": "psu AC-L \u00b7 local terminal wire departure"
+    },
+    {
+      "name": "local-lead-psu-DC-minus-2",
+      "owner": "psu",
+      "geometry": "psu-DC-minus-2-wire",
+      "kind": "tube",
+      "role": "wire",
+      "label": "psu DC-minus-2 \u00b7 local terminal wire departure"
+    },
+    {
+      "name": "local-lead-psu-DC-plus-1",
+      "owner": "psu",
+      "geometry": "psu-DC-plus-1-wire",
+      "kind": "tube",
+      "role": "wire",
+      "label": "psu DC-plus-1 \u00b7 local terminal wire departure"
+    },
+    {
+      "name": "local-lead-relay-1-COM",
+      "owner": "relay-1",
+      "geometry": "relay-1-COM-wire",
+      "kind": "tube",
+      "role": "wire",
+      "label": "relay-1 COM \u00b7 local terminal wire departure"
+    },
+    {
+      "name": "local-lead-relay-1-NO",
+      "owner": "relay-1",
+      "geometry": "relay-1-NO-wire",
+      "kind": "tube",
+      "role": "wire",
+      "label": "relay-1 NO \u00b7 local terminal wire departure"
+    },
+    {
+      "name": "local-lead-relay-2-COM",
+      "owner": "relay-2",
+      "geometry": "relay-2-COM-wire",
+      "kind": "tube",
+      "role": "wire",
+      "label": "relay-2 COM \u00b7 local terminal wire departure"
+    },
+    {
+      "name": "local-lead-relay-2-NO",
+      "owner": "relay-2",
+      "geometry": "relay-2-NO-wire",
+      "kind": "tube",
+      "role": "wire",
+      "label": "relay-2 NO \u00b7 local terminal wire departure"
+    }
+  ],
+  "probes": [
+    {
+      "name": "probe-J1-pull",
+      "owner": "pcba",
+      "geometry": "J1-pull-sweep",
+      "kind": "probe",
+      "role": "clearance",
+      "label": "J1 \u00b7 6 mm axial mating sweep"
+    },
+    {
+      "name": "probe-J11-pull",
+      "owner": "pcba",
+      "geometry": "J11-pull-sweep",
+      "kind": "probe",
+      "role": "clearance",
+      "label": "J11 \u00b7 6 mm axial mating sweep"
+    },
+    {
+      "name": "probe-J13-pull",
+      "owner": "pcba",
+      "geometry": "J13-pull-sweep",
+      "kind": "probe",
+      "role": "clearance",
+      "label": "J13 \u00b7 6 mm axial mating sweep"
+    },
+    {
+      "name": "probe-J2-pull",
+      "owner": "pcba",
+      "geometry": "J2-pull-sweep",
+      "kind": "probe",
+      "role": "clearance",
+      "label": "J2 \u00b7 6 mm axial mating sweep"
+    },
+    {
+      "name": "probe-J3-pull",
+      "owner": "pcba",
+      "geometry": "J3-pull-sweep",
+      "kind": "probe",
+      "role": "clearance",
+      "label": "J3 \u00b7 6 mm axial mating sweep"
+    },
+    {
+      "name": "probe-J4-pull",
+      "owner": "pcba",
+      "geometry": "J4-pull-sweep",
+      "kind": "probe",
+      "role": "clearance",
+      "label": "J4 \u00b7 6 mm axial mating sweep"
+    },
+    {
+      "name": "probe-J5-pull",
+      "owner": "pcba",
+      "geometry": "J5-pull-sweep",
+      "kind": "probe",
+      "role": "clearance",
+      "label": "J5 \u00b7 6 mm axial mating sweep"
+    },
+    {
+      "name": "probe-J6-pull",
+      "owner": "pcba",
+      "geometry": "J6-pull-sweep",
+      "kind": "probe",
+      "role": "clearance",
+      "label": "J6 \u00b7 6 mm axial mating sweep"
+    },
+    {
+      "name": "probe-J7-pull",
+      "owner": "pcba",
+      "geometry": "J7-pull-sweep",
+      "kind": "probe",
+      "role": "clearance",
+      "label": "J7 \u00b7 6 mm axial mating sweep"
+    },
+    {
+      "name": "probe-J9-pull",
+      "owner": "pcba",
+      "geometry": "J9-pull-sweep",
+      "kind": "probe",
+      "role": "clearance",
+      "label": "J9 \u00b7 6 mm axial mating sweep"
+    },
+    {
+      "name": "probe-J10.GND-driver",
+      "owner": "pcba",
+      "geometry": "J10.GND-driver",
+      "kind": "probe",
+      "role": "clearance",
+      "label": "J10.GND \u00b7 normal screwdriver shaft"
+    },
+    {
+      "name": "probe-J10.V12-driver",
+      "owner": "pcba",
+      "geometry": "J10.V12-driver",
+      "kind": "probe",
+      "role": "clearance",
+      "label": "J10.V12 \u00b7 normal screwdriver shaft"
+    },
+    {
+      "name": "probe-psu-AC-N-driver",
+      "owner": "psu",
+      "geometry": "psu-AC-N-driver",
+      "kind": "probe",
+      "role": "clearance",
+      "label": "psu AC-N \u00b7 normal screwdriver shaft"
+    },
+    {
+      "name": "probe-psu-AC-L-driver",
+      "owner": "psu",
+      "geometry": "psu-AC-L-driver",
+      "kind": "probe",
+      "role": "clearance",
+      "label": "psu AC-L \u00b7 normal screwdriver shaft"
+    },
+    {
+      "name": "probe-psu-DC-minus-1-driver",
+      "owner": "psu",
+      "geometry": "psu-DC-minus-1-driver",
+      "kind": "probe",
+      "role": "clearance",
+      "label": "psu DC-minus-1 \u00b7 normal screwdriver shaft"
+    },
+    {
+      "name": "probe-psu-DC-minus-2-driver",
+      "owner": "psu",
+      "geometry": "psu-DC-minus-2-driver",
+      "kind": "probe",
+      "role": "clearance",
+      "label": "psu DC-minus-2 \u00b7 normal screwdriver shaft"
+    },
+    {
+      "name": "probe-psu-DC-plus-1-driver",
+      "owner": "psu",
+      "geometry": "psu-DC-plus-1-driver",
+      "kind": "probe",
+      "role": "clearance",
+      "label": "psu DC-plus-1 \u00b7 normal screwdriver shaft"
+    },
+    {
+      "name": "probe-psu-DC-plus-2-driver",
+      "owner": "psu",
+      "geometry": "psu-DC-plus-2-driver",
+      "kind": "probe",
+      "role": "clearance",
+      "label": "psu DC-plus-2 \u00b7 normal screwdriver shaft"
+    },
+    {
+      "name": "probe-relay-1-COM-driver",
+      "owner": "relay-1",
+      "geometry": "relay-1-COM-driver",
+      "kind": "probe",
+      "role": "clearance",
+      "label": "relay-1 COM \u00b7 normal screwdriver shaft"
+    },
+    {
+      "name": "probe-relay-1-NO-driver",
+      "owner": "relay-1",
+      "geometry": "relay-1-NO-driver",
+      "kind": "probe",
+      "role": "clearance",
+      "label": "relay-1 NO \u00b7 normal screwdriver shaft"
+    },
+    {
+      "name": "probe-relay-1-NC-driver",
+      "owner": "relay-1",
+      "geometry": "relay-1-NC-driver",
+      "kind": "probe",
+      "role": "clearance",
+      "label": "relay-1 NC \u00b7 normal screwdriver shaft"
+    },
+    {
+      "name": "probe-relay-2-COM-driver",
+      "owner": "relay-2",
+      "geometry": "relay-2-COM-driver",
+      "kind": "probe",
+      "role": "clearance",
+      "label": "relay-2 COM \u00b7 normal screwdriver shaft"
+    },
+    {
+      "name": "probe-relay-2-NO-driver",
+      "owner": "relay-2",
+      "geometry": "relay-2-NO-driver",
+      "kind": "probe",
+      "role": "clearance",
+      "label": "relay-2 NO \u00b7 normal screwdriver shaft"
+    },
+    {
+      "name": "probe-relay-2-NC-driver",
+      "owner": "relay-2",
+      "geometry": "relay-2-NC-driver",
+      "kind": "probe",
+      "role": "clearance",
+      "label": "relay-2 NC \u00b7 normal screwdriver shaft"
+    }
+  ],
+  "optional_unused_header": "J8",
+  "power_logical_poles": {
+    "psu.L": "AC-L",
+    "psu.N": "AC-N",
+    "psu.V12": "DC-plus-1",
+    "psu.GND": "DC-minus-2"
+  },
+  "service": {
+    "roof": "Removed for normal mating and tool access; installed connectors and wires clear the closed roof",
+    "PCB_carrier": "Lift for full normal PSU and relay terminal service; retain the distinction between short 40 mm shaft clearance and full vertical tool access",
+    "J10": "Normal tool access in place with roof removed"
+  },
+  "selected_reference_poses": {
+    "psu": {
+      "rotation": [
+        [
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation_mm": [
+        -349.3999938964844,
+        -4.79998779296875,
+        351.65
+      ],
+      "bounds_mm": [
+        [
+          -96.0,
+          346.0,
+          253.39999999999998
+        ],
+        [
+          -44.0,
+          455.0,
+          286.9
+        ]
+      ],
+      "body_interferences": []
+    },
+    "pcba": {
+      "rotation": [
+        [
+          0.0,
+          -1.2246467991473532e-16,
+          -1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          1.2246467991473532e-16
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation_mm": [
+        236.2000122070313,
+        662.7999877929688,
+        420.25
+      ],
+      "bounds_mm": [
+        [
+          -90.0,
+          336.00000000000006,
+          322.0
+        ],
+        [
+          -17.199981689453097,
+          426.81605529785156,
+          343.1000061035156
+        ]
+      ],
+      "body_interferences": []
+    },
+    "relay-1": {
+      "rotation": [
+        [
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation_mm": [
+        -423.20001220703125,
+        110.20001220703125,
+        388.15
+      ],
+      "bounds_mm": [
+        [
+          -94.0,
+          367.0,
+          289.9
+        ],
+        [
+          -77.0,
+          437.0,
+          308.9
+        ]
+      ],
+      "body_interferences": []
+    },
+    "relay-2": {
+      "rotation": [
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation_mm": [
+        -403.79998779296875,
+        690.3999938964844,
+        388.15
+      ],
+      "bounds_mm": [
+        [
+          -74.0,
+          367.0,
+          289.9
+        ],
+        [
+          -57.0,
+          437.0,
+          308.9
+        ]
+      ],
+      "body_interferences": []
+    },
+    "keystone-jack": {
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        -45.79,
+        3.5200000000000387,
+        19.59770958122158
+      ],
+      "bounds_mm": [
+        [
+          -93.8249998474121,
+          441.2999987792969,
+          311.59499351676845
+        ],
+        [
+          -79.1749983215332,
+          471.2999987792969,
+          335.74498741325283
+        ]
+      ],
+      "body_interferences": []
+    },
+    "c14-inlet": {
+      "rotation": [
+        [
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation_mm": [
+        -422.7105808375568,
+        10.090000000000032,
+        348.9
+      ],
+      "bounds_mm": [
+        [
+          -97.56501198990054,
+          446.29999145507816,
+          257.147688293457
+        ],
+        [
+          -75.43500710708804,
+          473.1399877929688,
+          306.8523124694824
+        ]
+      ],
+      "body_interferences": []
+    }
+  },
+  "local_lead_shapes": {
+    "JST": "1.7 mm OD;3 mm straight exit,R4 centreline bend,8 mm tangent,individual populated conductors",
+    "J10": "3 mm OD;12 mm straight side-entry departure",
+    "PSU_AC": "3 mm OD;2 mm straight,R5 upward bend,8 mm tangent",
+    "PSU_DC_and_relays": "3 mm OD;12 mm straight side-entry departure"
+  }
+}

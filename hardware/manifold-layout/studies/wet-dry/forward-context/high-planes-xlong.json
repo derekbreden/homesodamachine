@@ -1,0 +1,1950 @@
+{
+  "scope": "Focused low and upper forward PCB alternatives, actual board and active plugs/local leads plus separate access probes; current retained wetdry scene and frozen front wet context",
+  "candidate_footprint_mm": [
+    [
+      -96,
+      182
+    ],
+    [
+      -5.1839447021484375,
+      254.80001831054688
+    ]
+  ],
+  "units": "mm",
+  "cases": [
+    {
+      "clocking_deg": 90,
+      "underside_z_mm": 310,
+      "pose": {
+        "rotation": [
+          [
+            0,
+            -1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            -1,
+            0,
+            0
+          ]
+        ],
+        "translation": [
+          230.79998779296875,
+          -71.39999389648438,
+          406.25
+        ]
+      },
+      "board_bounds_mm": [
+        [
+          -96.0,
+          182.0,
+          308.0
+        ],
+        [
+          -5.1839447021484375,
+          254.80001831054688,
+          329.1000061035156
+        ]
+      ],
+      "hits": [
+        {
+          "part": "pcba",
+          "category": "board",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -76.59500122070312,
+            190.54971313476562,
+            327.510009765625
+          ]
+        },
+        {
+          "part": "pcba",
+          "category": "board",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -76.59500122070312,
+            190.54971313476562,
+            311.5999984741211
+          ]
+        },
+        {
+          "part": "pcba",
+          "category": "board",
+          "obstacle": "wago-sensors",
+          "witness_mm": [
+            -88.9000015258789,
+            252.9000244140625,
+            312.8999938964844
+          ]
+        },
+        {
+          "part": "pcba",
+          "category": "board",
+          "obstacle": "forward-coil-v-b",
+          "witness_mm": [
+            -37.3413200378418,
+            248.11000061035156,
+            308.1623229980469
+          ]
+        },
+        {
+          "part": "terminal-J1",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -91.25,
+            199.75,
+            349.0
+          ]
+        },
+        {
+          "part": "local-lead-J1",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -94.0,
+            196.17001342773438,
+            328.4000015258789
+          ]
+        },
+        {
+          "part": "local-lead-J13",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -71.23614501953125,
+            187.07513427734375,
+            324.3975830078125
+          ]
+        },
+        {
+          "part": "local-lead-J13",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -62.79948425292969,
+            186.8754119873047,
+            322.45892333984375
+          ]
+        },
+        {
+          "part": "terminal-J2",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -87.6500244140625,
+            215.6199951171875,
+            313.6500015258789
+          ]
+        },
+        {
+          "part": "local-lead-J2",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -91.19281005859375,
+            217.28396606445312,
+            327.82057189941406
+          ]
+        },
+        {
+          "part": "terminal-J5",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -31.95728874206543,
+            188.028564453125,
+            317.7327880859375
+          ]
+        },
+        {
+          "part": "terminal-J5",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -43.200103759765625,
+            184.15028381347656,
+            313.6500015258789
+          ]
+        },
+        {
+          "part": "local-lead-J5",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -38.725006103515625,
+            188.23623657226562,
+            324.40418243408203
+          ]
+        },
+        {
+          "part": "terminal-J6",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -44.5,
+            189.85000610351562,
+            321.4000015258789
+          ]
+        },
+        {
+          "part": "terminal-J6",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -59.300018310546875,
+            189.85000610351562,
+            313.6500015258789
+          ]
+        },
+        {
+          "part": "local-lead-J6",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -56.16387939453125,
+            187.92498779296875,
+            324.4024124145508
+          ]
+        },
+        {
+          "part": "local-lead-J6",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -57.75,
+            187.5,
+            321.4000015258789
+          ]
+        },
+        {
+          "part": "terminal-J7",
+          "category": "installed",
+          "obstacle": "wago-sensors",
+          "witness_mm": [
+            -79.9000015258789,
+            252.30001831054688,
+            312.8999938964844
+          ]
+        },
+        {
+          "part": "local-lead-J7",
+          "category": "installed",
+          "obstacle": "wago-sensors",
+          "witness_mm": [
+            -82.76388549804688,
+            249.22500610351562,
+            321.4000015258789
+          ]
+        },
+        {
+          "part": "probe-J1-pull",
+          "category": "access",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -91.25,
+            199.75,
+            349.0
+          ]
+        },
+        {
+          "part": "probe-J13-pull",
+          "category": "access",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -72.90011596679688,
+            184.15028381347656,
+            327.4000015258789
+          ]
+        },
+        {
+          "part": "probe-J13-pull",
+          "category": "access",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -72.90011596679688,
+            184.15028381347656,
+            313.6500015258789
+          ]
+        },
+        {
+          "part": "probe-J2-pull",
+          "category": "access",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -87.6500244140625,
+            215.6199951171875,
+            313.6500015258789
+          ]
+        },
+        {
+          "part": "probe-J5-pull",
+          "category": "access",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -31.95728874206543,
+            188.028564453125,
+            317.7327880859375
+          ]
+        },
+        {
+          "part": "probe-J5-pull",
+          "category": "access",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -43.200103759765625,
+            184.15028381347656,
+            313.6500015258789
+          ]
+        },
+        {
+          "part": "probe-J6-pull",
+          "category": "access",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -59.300018310546875,
+            189.85000610351562,
+            327.4000015258789
+          ]
+        },
+        {
+          "part": "probe-J6-pull",
+          "category": "access",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -59.12919616699219,
+            191.30552673339844,
+            321.7574157714844
+          ]
+        },
+        {
+          "part": "probe-J7-pull",
+          "category": "access",
+          "obstacle": "wago-sensors",
+          "witness_mm": [
+            -79.9000015258789,
+            244.5,
+            323.79998779296875
+          ]
+        },
+        {
+          "part": "probe-J10.GND-driver",
+          "category": "access",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -89.83447265625,
+            241.625,
+            321.6000061035156
+          ]
+        },
+        {
+          "part": "probe-J10.GND-driver",
+          "category": "access",
+          "obstacle": "ceiling",
+          "witness_mm": [
+            -90.47500610351562,
+            244.01553344726562,
+            321.6000061035156
+          ]
+        },
+        {
+          "part": "probe-J10.V12-driver",
+          "category": "access",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -92.22500610351562,
+            235.98446655273438,
+            361.50000762939453
+          ]
+        }
+      ]
+    },
+    {
+      "clocking_deg": 90,
+      "underside_z_mm": 316,
+      "pose": {
+        "rotation": [
+          [
+            0,
+            -1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            -1,
+            0,
+            0
+          ]
+        ],
+        "translation": [
+          230.79998779296875,
+          -71.39999389648438,
+          412.25
+        ]
+      },
+      "board_bounds_mm": [
+        [
+          -96.0,
+          182.0,
+          314.0
+        ],
+        [
+          -5.1839447021484375,
+          254.80001831054688,
+          335.1000061035156
+        ]
+      ],
+      "hits": [
+        {
+          "part": "pcba",
+          "category": "board",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -76.59500122070312,
+            190.54971313476562,
+            317.5999984741211
+          ]
+        },
+        {
+          "part": "pcba",
+          "category": "board",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -86.60501098632812,
+            190.54971313476562,
+            333.510009765625
+          ]
+        },
+        {
+          "part": "pcba",
+          "category": "board",
+          "obstacle": "wago-sensors",
+          "witness_mm": [
+            -88.9000015258789,
+            252.9000244140625,
+            312.8999938964844
+          ]
+        },
+        {
+          "part": "terminal-J1",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -91.25,
+            199.75,
+            349.0
+          ]
+        },
+        {
+          "part": "local-lead-J1",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -94.0,
+            196.17001342773438,
+            334.4000015258789
+          ]
+        },
+        {
+          "part": "terminal-J13",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -72.89990234375,
+            189.85028076171875,
+            327.4000015258789
+          ]
+        },
+        {
+          "part": "terminal-J13",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -70.26432037353516,
+            175.8095245361328,
+            323.8939514160156
+          ]
+        },
+        {
+          "part": "local-lead-J13",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -70.92501831054688,
+            186.76400756835938,
+            327.4000015258789
+          ]
+        },
+        {
+          "part": "terminal-J2",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -87.6500244140625,
+            215.6199951171875,
+            319.6500015258789
+          ]
+        },
+        {
+          "part": "local-lead-J2",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -91.19281005859375,
+            217.28396606445312,
+            333.82057189941406
+          ]
+        },
+        {
+          "part": "terminal-J5",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -38.28322982788086,
+            187.31668090820312,
+            324.4144287109375
+          ]
+        },
+        {
+          "part": "terminal-J6",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -59.300018310546875,
+            189.85000610351562,
+            327.4000015258789
+          ]
+        },
+        {
+          "part": "terminal-J6",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -59.300018310546875,
+            184.15000915527344,
+            319.6500015258789
+          ]
+        },
+        {
+          "part": "local-lead-J6",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -57.32501220703125,
+            188.23611450195312,
+            327.4000015258789
+          ]
+        },
+        {
+          "part": "terminal-J7",
+          "category": "installed",
+          "obstacle": "wago-sensors",
+          "witness_mm": [
+            -88.4000244140625,
+            246.45001220703125,
+            319.6500015258789
+          ]
+        },
+        {
+          "part": "probe-J1-pull",
+          "category": "access",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -91.25,
+            199.75,
+            349.0
+          ]
+        },
+        {
+          "part": "probe-J13-pull",
+          "category": "access",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -72.90011596679688,
+            184.15028381347656,
+            333.4000015258789
+          ]
+        },
+        {
+          "part": "probe-J13-pull",
+          "category": "access",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -72.90011596679688,
+            184.15028381347656,
+            319.6500015258789
+          ]
+        },
+        {
+          "part": "probe-J2-pull",
+          "category": "access",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -87.6500244140625,
+            215.6199951171875,
+            319.6500015258789
+          ]
+        },
+        {
+          "part": "probe-J5-pull",
+          "category": "access",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -38.28322982788086,
+            187.31668090820312,
+            324.4144287109375
+          ]
+        },
+        {
+          "part": "probe-J6-pull",
+          "category": "access",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -59.300018310546875,
+            189.85000610351562,
+            333.4000015258789
+          ]
+        },
+        {
+          "part": "probe-J6-pull",
+          "category": "access",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -59.300018310546875,
+            184.15000915527344,
+            319.6500015258789
+          ]
+        },
+        {
+          "part": "probe-J7-pull",
+          "category": "access",
+          "obstacle": "wago-sensors",
+          "witness_mm": [
+            -88.4000244140625,
+            246.45001220703125,
+            319.6500015258789
+          ]
+        },
+        {
+          "part": "probe-J10.GND-driver",
+          "category": "access",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -89.83447265625,
+            241.625,
+            327.6000061035156
+          ]
+        },
+        {
+          "part": "probe-J10.GND-driver",
+          "category": "access",
+          "obstacle": "ceiling",
+          "witness_mm": [
+            -90.47500610351562,
+            244.01553344726562,
+            327.6000061035156
+          ]
+        },
+        {
+          "part": "probe-J10.V12-driver",
+          "category": "access",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -74.21485900878906,
+            227.71766662597656,
+            355.0
+          ]
+        }
+      ]
+    },
+    {
+      "clocking_deg": 90,
+      "underside_z_mm": 324,
+      "pose": {
+        "rotation": [
+          [
+            0,
+            -1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            -1,
+            0,
+            0
+          ]
+        ],
+        "translation": [
+          230.79998779296875,
+          -71.39999389648438,
+          420.25
+        ]
+      },
+      "board_bounds_mm": [
+        [
+          -96.0,
+          182.0,
+          322.0
+        ],
+        [
+          -5.1839447021484375,
+          254.80001831054688,
+          343.1000061035156
+        ]
+      ],
+      "hits": [
+        {
+          "part": "pcba",
+          "category": "board",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -82.5,
+            203.39151000976562,
+            331.5140686035156
+          ]
+        },
+        {
+          "part": "pcba",
+          "category": "board",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -86.54998779296875,
+            184.0300750732422,
+            325.5999984741211
+          ]
+        },
+        {
+          "part": "pcba",
+          "category": "board",
+          "obstacle": "wago-sensors",
+          "witness_mm": [
+            -86.67367553710938,
+            248.20318603515625,
+            322.0
+          ]
+        },
+        {
+          "part": "terminal-J1",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -91.25,
+            199.75,
+            349.0
+          ]
+        },
+        {
+          "part": "local-lead-J1",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -94.0,
+            196.17001342773438,
+            342.4000015258789
+          ]
+        },
+        {
+          "part": "terminal-J13",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -72.89990234375,
+            189.85028076171875,
+            327.6500015258789
+          ]
+        },
+        {
+          "part": "terminal-J2",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -87.6500244140625,
+            215.6199951171875,
+            327.6500015258789
+          ]
+        },
+        {
+          "part": "local-lead-J2",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -90.0,
+            229.669921875,
+            335.4000015258789
+          ]
+        },
+        {
+          "part": "terminal-J6",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -59.300018310546875,
+            189.85000610351562,
+            327.6500015258789
+          ]
+        },
+        {
+          "part": "probe-J1-pull",
+          "category": "access",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -91.25,
+            199.75,
+            349.0
+          ]
+        },
+        {
+          "part": "probe-J13-pull",
+          "category": "access",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -72.90011596679688,
+            184.15028381347656,
+            327.6500015258789
+          ]
+        },
+        {
+          "part": "probe-J2-pull",
+          "category": "access",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -87.6500244140625,
+            215.6199951171875,
+            327.6500015258789
+          ]
+        },
+        {
+          "part": "probe-J6-pull",
+          "category": "access",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -59.300018310546875,
+            189.85000610351562,
+            327.6500015258789
+          ]
+        },
+        {
+          "part": "probe-J10.GND-driver",
+          "category": "access",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -89.83447265625,
+            241.625,
+            335.6000061035156
+          ]
+        },
+        {
+          "part": "probe-J10.GND-driver",
+          "category": "access",
+          "obstacle": "ceiling",
+          "witness_mm": [
+            -90.47500610351562,
+            244.01553344726562,
+            335.6000061035156
+          ]
+        },
+        {
+          "part": "probe-J10.V12-driver",
+          "category": "access",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -74.21485900878906,
+            227.71766662597656,
+            355.0
+          ]
+        }
+      ]
+    },
+    {
+      "clocking_deg": 270,
+      "underside_z_mm": 310,
+      "pose": {
+        "rotation": [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            -1
+          ],
+          [
+            -1,
+            0,
+            0
+          ]
+        ],
+        "translation": [
+          -331.9839324951172,
+          508.20001220703125,
+          406.25
+        ]
+      },
+      "board_bounds_mm": [
+        [
+          -96.0,
+          182.0,
+          308.0
+        ],
+        [
+          -5.1839447021484375,
+          254.80001831054688,
+          329.1000061035156
+        ]
+      ],
+      "hits": [
+        {
+          "part": "pcba",
+          "category": "board",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -55.022212982177734,
+            197.11248779296875,
+            321.5335998535156
+          ]
+        },
+        {
+          "part": "pcba",
+          "category": "board",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -55.741554260253906,
+            193.77557373046875,
+            321.1522521972656
+          ]
+        },
+        {
+          "part": "pcba",
+          "category": "board",
+          "obstacle": "wago-sensors",
+          "witness_mm": [
+            -88.9000015258789,
+            252.9000244140625,
+            312.8999938964844
+          ]
+        },
+        {
+          "part": "pcba",
+          "category": "board",
+          "obstacle": "forward-coil-v-b",
+          "witness_mm": [
+            -37.3413200378418,
+            248.11000061035156,
+            308.1623229980469
+          ]
+        },
+        {
+          "part": "terminal-J1",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -13.533920288085938,
+            222.37994384765625,
+            321.4000015258789
+          ]
+        },
+        {
+          "part": "local-lead-J1",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -10.758926391601562,
+            224.04391479492188,
+            324.3975830078125
+          ]
+        },
+        {
+          "part": "terminal-J2",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -13.029298782348633,
+            209.8858184814453,
+            322.9700012207031
+          ]
+        },
+        {
+          "part": "local-lead-J2",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -10.447830200195312,
+            205.8551025390625,
+            324.3958206176758
+          ]
+        },
+        {
+          "part": "local-lead-J2",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -11.183944702148438,
+            214.62994384765625,
+            321.4000015258789
+          ]
+        },
+        {
+          "part": "local-lead-J3",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -77.75892639160156,
+            188.53231811523438,
+            325.7748260498047
+          ]
+        },
+        {
+          "part": "local-lead-J3",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -78.18392944335938,
+            187.01449584960938,
+            325.3143997192383
+          ]
+        },
+        {
+          "part": "terminal-J4",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -47.28392028808594,
+            190.35000610351562,
+            321.4000015258789
+          ]
+        },
+        {
+          "part": "terminal-J4",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -67.08393859863281,
+            190.35000610351562,
+            321.4000015258789
+          ]
+        },
+        {
+          "part": "local-lead-J4",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -63.03392028808594,
+            188.0,
+            324.4000015258789
+          ]
+        },
+        {
+          "part": "local-lead-J4",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -64.68394470214844,
+            188.85000610351562,
+            321.4000015258789
+          ]
+        },
+        {
+          "part": "terminal-J7",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -31.95728874206543,
+            188.028564453125,
+            317.7327880859375
+          ]
+        },
+        {
+          "part": "terminal-J7",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -32.58393859863281,
+            184.6500244140625,
+            313.6500015258789
+          ]
+        },
+        {
+          "part": "local-lead-J7",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -28.420059204101562,
+            188.42501831054688,
+            321.4000015258789
+          ]
+        },
+        {
+          "part": "terminal-J9",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -31.95728874206543,
+            188.028564453125,
+            317.7327880859375
+          ]
+        },
+        {
+          "part": "terminal-J9",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -46.08403015136719,
+            184.65029907226562,
+            313.6500015258789
+          ]
+        },
+        {
+          "part": "local-lead-J9",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -39.10893249511719,
+            188.73623657226562,
+            324.40418243408203
+          ]
+        },
+        {
+          "part": "probe-J1-pull",
+          "category": "access",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -13.533920288085938,
+            222.37994384765625,
+            327.4000015258789
+          ]
+        },
+        {
+          "part": "probe-J2-pull",
+          "category": "access",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -7.8339385986328125,
+            203.8800048828125,
+            327.4000015258789
+          ]
+        },
+        {
+          "part": "probe-J2-pull",
+          "category": "access",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -13.029298782348633,
+            209.8858184814453,
+            322.9700012207031
+          ]
+        },
+        {
+          "part": "probe-J3-pull",
+          "category": "access",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -68.28382873535156,
+            190.349853515625,
+            327.4000015258789
+          ]
+        },
+        {
+          "part": "probe-J3-pull",
+          "category": "access",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -80.58383178710938,
+            190.35028076171875,
+            313.6500015258789
+          ]
+        },
+        {
+          "part": "probe-J4-pull",
+          "category": "access",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -67.08393859863281,
+            190.35000610351562,
+            327.4000015258789
+          ]
+        },
+        {
+          "part": "probe-J4-pull",
+          "category": "access",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -62.79948425292969,
+            186.8754119873047,
+            322.45892333984375
+          ]
+        },
+        {
+          "part": "probe-J7-pull",
+          "category": "access",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -31.95728874206543,
+            188.028564453125,
+            317.7327880859375
+          ]
+        },
+        {
+          "part": "probe-J7-pull",
+          "category": "access",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -32.58393859863281,
+            184.6500244140625,
+            313.6500015258789
+          ]
+        },
+        {
+          "part": "probe-J9-pull",
+          "category": "access",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -31.95728874206543,
+            188.028564453125,
+            317.7327880859375
+          ]
+        },
+        {
+          "part": "probe-J9-pull",
+          "category": "access",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -46.08403015136719,
+            184.65029907226562,
+            313.6500015258789
+          ]
+        },
+        {
+          "part": "probe-J10.GND-driver",
+          "category": "access",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -8.958938598632812,
+            195.8155517578125,
+            321.6000061035156
+          ]
+        },
+        {
+          "part": "probe-J10.V12-driver",
+          "category": "access",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -10.708938598632812,
+            200.8155517578125,
+            321.6000061035156
+          ]
+        }
+      ]
+    },
+    {
+      "clocking_deg": 270,
+      "underside_z_mm": 316,
+      "pose": {
+        "rotation": [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            -1
+          ],
+          [
+            -1,
+            0,
+            0
+          ]
+        ],
+        "translation": [
+          -331.9839324951172,
+          508.20001220703125,
+          412.25
+        ]
+      },
+      "board_bounds_mm": [
+        [
+          -96.0,
+          182.0,
+          314.0
+        ],
+        [
+          -5.1839447021484375,
+          254.80001831054688,
+          335.1000061035156
+        ]
+      ],
+      "hits": [
+        {
+          "part": "pcba",
+          "category": "board",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -68.18388366699219,
+            190.4400634765625,
+            324.6000061035156
+          ]
+        },
+        {
+          "part": "pcba",
+          "category": "board",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -80.68389892578125,
+            184.53009033203125,
+            317.5999984741211
+          ]
+        },
+        {
+          "part": "pcba",
+          "category": "board",
+          "obstacle": "wago-sensors",
+          "witness_mm": [
+            -98.5,
+            252.9000244140625,
+            323.79998779296875
+          ]
+        },
+        {
+          "part": "terminal-J1",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -13.533920288085938,
+            222.37994384765625,
+            327.4000015258789
+          ]
+        },
+        {
+          "part": "local-lead-J1",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -10.758926391601562,
+            226.54379272460938,
+            330.3975830078125
+          ]
+        },
+        {
+          "part": "terminal-J2",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -7.8339385986328125,
+            203.8800048828125,
+            327.4000015258789
+          ]
+        },
+        {
+          "part": "terminal-J2",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -13.029298782348633,
+            209.8858184814453,
+            322.9700012207031
+          ]
+        },
+        {
+          "part": "local-lead-J2",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -10.758926391601562,
+            208.0438232421875,
+            327.4000015258789
+          ]
+        },
+        {
+          "part": "terminal-J3",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -68.28382873535156,
+            190.349853515625,
+            327.4000015258789
+          ]
+        },
+        {
+          "part": "terminal-J3",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -80.58403015136719,
+            184.65029907226562,
+            319.6500015258789
+          ]
+        },
+        {
+          "part": "local-lead-J3",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -76.10893249511719,
+            187.12347412109375,
+            331.34745025634766
+          ]
+        },
+        {
+          "part": "terminal-J4",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -67.08393859863281,
+            190.35000610351562,
+            327.4000015258789
+          ]
+        },
+        {
+          "part": "terminal-J4",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -62.79948425292969,
+            186.8754119873047,
+            322.45892333984375
+          ]
+        },
+        {
+          "part": "local-lead-J4",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -63.03392028808594,
+            188.0,
+            327.4000015258789
+          ]
+        },
+        {
+          "part": "terminal-J7",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -32.58393859863281,
+            184.6500244140625,
+            319.6500015258789
+          ]
+        },
+        {
+          "part": "terminal-J9",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -38.28322982788086,
+            187.31668090820312,
+            324.4144287109375
+          ]
+        },
+        {
+          "part": "local-lead-J10.V12",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -4.535065174102783,
+            195.97898864746094,
+            319.5322265625
+          ]
+        },
+        {
+          "part": "local-lead-J10.V12",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -6.2338714599609375,
+            199.30001831054688,
+            320.0600051879883
+          ]
+        },
+        {
+          "part": "probe-J1-pull",
+          "category": "access",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -62.5,
+            223.39151000976562,
+            331.5140686035156
+          ]
+        },
+        {
+          "part": "probe-J1-pull",
+          "category": "access",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -12.499995231628418,
+            222.39193725585938,
+            327.6818542480469
+          ]
+        },
+        {
+          "part": "probe-J11-pull",
+          "category": "access",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -81.83366394042969,
+            200.59991455078125,
+            333.4000015258789
+          ]
+        },
+        {
+          "part": "probe-J11-pull",
+          "category": "access",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -87.53407287597656,
+            188.30010986328125,
+            333.4000015258789
+          ]
+        },
+        {
+          "part": "probe-J2-pull",
+          "category": "access",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -7.8339385986328125,
+            203.8800048828125,
+            333.4000015258789
+          ]
+        },
+        {
+          "part": "probe-J2-pull",
+          "category": "access",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -13.029298782348633,
+            209.8858184814453,
+            322.9700012207031
+          ]
+        },
+        {
+          "part": "probe-J3-pull",
+          "category": "access",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -80.58383178710938,
+            190.35028076171875,
+            319.6500015258789
+          ]
+        },
+        {
+          "part": "probe-J3-pull",
+          "category": "access",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -80.58403015136719,
+            184.65029907226562,
+            319.6500015258789
+          ]
+        },
+        {
+          "part": "probe-J4-pull",
+          "category": "access",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -67.08393859863281,
+            190.35000610351562,
+            333.4000015258789
+          ]
+        },
+        {
+          "part": "probe-J4-pull",
+          "category": "access",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -62.79948425292969,
+            186.8754119873047,
+            322.45892333984375
+          ]
+        },
+        {
+          "part": "probe-J7-pull",
+          "category": "access",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -32.58393859863281,
+            184.6500244140625,
+            319.6500015258789
+          ]
+        },
+        {
+          "part": "probe-J9-pull",
+          "category": "access",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -38.28322982788086,
+            187.31668090820312,
+            324.4144287109375
+          ]
+        }
+      ]
+    },
+    {
+      "clocking_deg": 270,
+      "underside_z_mm": 324,
+      "pose": {
+        "rotation": [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            -1
+          ],
+          [
+            -1,
+            0,
+            0
+          ]
+        ],
+        "translation": [
+          -331.9839324951172,
+          508.20001220703125,
+          420.25
+        ]
+      },
+      "board_bounds_mm": [
+        [
+          -96.0,
+          182.0,
+          322.0
+        ],
+        [
+          -5.1839447021484375,
+          254.80001831054688,
+          343.1000061035156
+        ]
+      ],
+      "hits": [
+        {
+          "part": "pcba",
+          "category": "board",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -81.74386596679688,
+            188.19998168945312,
+            332.6000061035156
+          ]
+        },
+        {
+          "part": "pcba",
+          "category": "board",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -87.65386962890625,
+            188.19998168945312,
+            325.5999984741211
+          ]
+        },
+        {
+          "part": "terminal-J1",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -62.5,
+            223.39151000976562,
+            331.5140686035156
+          ]
+        },
+        {
+          "part": "terminal-J1",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -12.499995231628418,
+            222.39193725585938,
+            327.6818542480469
+          ]
+        },
+        {
+          "part": "local-lead-J1",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -11.183944702148438,
+            228.93002319335938,
+            335.4000015258789
+          ]
+        },
+        {
+          "part": "terminal-J11",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -81.83407592773438,
+            188.2999267578125,
+            335.4000015258789
+          ]
+        },
+        {
+          "part": "terminal-J11",
+          "category": "installed",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -87.53407287597656,
+            188.30010986328125,
+            335.4000015258789
+          ]
+        },
+        {
+          "part": "terminal-J2",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -13.533920288085938,
+            203.8800048828125,
+            327.6500015258789
+          ]
+        },
+        {
+          "part": "terminal-J3",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -80.58403015136719,
+            184.65029907226562,
+            327.6500015258789
+          ]
+        },
+        {
+          "part": "local-lead-J3",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -76.533935546875,
+            176.00015258789062,
+            342.4000015258789
+          ]
+        },
+        {
+          "part": "terminal-J4",
+          "category": "installed",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -67.08393859863281,
+            190.35000610351562,
+            327.6500015258789
+          ]
+        },
+        {
+          "part": "probe-J1-pull",
+          "category": "access",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -7.8339385986328125,
+            222.37994384765625,
+            341.4000015258789
+          ]
+        },
+        {
+          "part": "probe-J1-pull",
+          "category": "access",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -12.499995231628418,
+            222.39193725585938,
+            327.6818542480469
+          ]
+        },
+        {
+          "part": "probe-J11-pull",
+          "category": "access",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -81.83366394042969,
+            200.59991455078125,
+            341.4000015258789
+          ]
+        },
+        {
+          "part": "probe-J11-pull",
+          "category": "access",
+          "obstacle": "funnel-frame",
+          "witness_mm": [
+            -87.53366088867188,
+            200.60009765625,
+            327.6500015258789
+          ]
+        },
+        {
+          "part": "probe-J2-pull",
+          "category": "access",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -13.533920288085938,
+            203.8800048828125,
+            327.6500015258789
+          ]
+        },
+        {
+          "part": "probe-J3-pull",
+          "category": "access",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -80.58403015136719,
+            184.65029907226562,
+            327.6500015258789
+          ]
+        },
+        {
+          "part": "probe-J4-pull",
+          "category": "access",
+          "obstacle": "funnel",
+          "witness_mm": [
+            -67.08393859863281,
+            190.35000610351562,
+            327.6500015258789
+          ]
+        }
+      ]
+    }
+  ],
+  "scope_limit": "These specified footprints and heights; no claim that all forward arrangements fail. Separate access-probe intersections are not installed-part collisions.",
+  "source_inputs": {
+    "inventory_sha256": "9628dbc9b22df9e8c745790a2c533d4bae33d8a728b968ae32f8ecc5d39bd43f",
+    "pose_sha256": "1be0fb86fe09015324b9c7aefc12e5c2afefc81b715f0006a4ce45a1ced398cc",
+    "query_context_sha256": "b79881f30df725b6b0f17af7b7957be6768751f37eefd78a0cb222d3dfb3e85f",
+    "connection_model_sha256": "018a8e2bfd33fcd06b8ca7f3993a2257fceaa4a787abe0a2ec031507d3ffe694",
+    "connection_selection_sha256": "4e20db1e99169bc4f21cfba9e743006d79624eb5dc2496391609c29f2f225a68",
+    "connection_geometry_sha256": {
+      "J1-plug.npz": "9de37cfc2f0a0639a9aefea541af0d15ce22703fd09aed92f3bab27f36909a68",
+      "J1-pull-sweep.npz": "717d76be0cefaab99f835e84f7d4a42611c35c5f441e0798ecd066d29d795c9a",
+      "J1-wire-edge.npz": "b457f1be857c6d432396d8c1a5726769e33aa09406bfc21ad9141d092419e83c",
+      "J1-wire-inward.npz": "55532b0a2085cb981ece3e9f943069a8d0397376854acf4c5d490ae2c3937448",
+      "J10.GND-driver.npz": "c8baac22129fefd0f4c97b967f34c2715eb2941056c4ac094d217bccf978ea81",
+      "J10.GND-wire-down-r4.npz": "9a5b7fc99c12096fc13a83743f7b88aa8d1335097b6d40337b954ad5cd12919d",
+      "J10.GND-wire-down-r5.npz": "e5a27ea301eb3cfb730571b0b7f19d04162e21d456c3eaa2bb9eccfcb00a4fc5",
+      "J10.GND-wire-down-r6.npz": "55dbda7cd1cf9d511e114f69389238211c50f30644c46d50afe26896272195bd",
+      "J10.GND-wire-straight.npz": "37c573572135790b61cabb69db582f3af18324d3bb2408fa96efdd14ccbd35d0",
+      "J10.GND-wire-up-r4.npz": "2eb427beaafb9de06a57b9de1d76c926cf629c27b34b5db73d3be434ffd39804",
+      "J10.GND-wire-up-r5.npz": "fb3ae0e5f0297fde6d0e2a36d856bc745b9b90bace9d7099aa182aa72c82ab3d",
+      "J10.GND-wire-up-r6.npz": "4108854176104aff2d824a9bf74c7c8fcedcc90a97b6e26c6364eae7996e2945",
+      "J10.V12-driver.npz": "8c7c31c6ccc3db1e58528f600e5c2b60828bc73c961f08f3e74dcf6186f33679",
+      "J10.V12-wire-down-r4.npz": "a9e0ccea7476eb3c3c4605ae12d0dee49d0c3db55af8c6bed207ecbb850a1c96",
+      "J10.V12-wire-down-r5.npz": "d791584690bd3eb868661755578f75a1254b422f095f9de5d25c13b721f4f5db",
+      "J10.V12-wire-down-r6.npz": "94652ec03b85c94c46ce4677b99e1ba4f82aaea199dc7e099ead58cbfe273a17",
+      "J10.V12-wire-straight.npz": "69b8e7351721a6c1621d66a008e0ba2ecfdcf87e4ec68307675bfff7ad45d18e",
+      "J10.V12-wire-up-r4.npz": "74632418727e5c19f94551a6cbd462a500bdcd38375d52be94a7f74c83eaeb65",
+      "J10.V12-wire-up-r5.npz": "dda1165c93c39880f3144063d7c3920d18e637f5b3b3dc3046eff3c33362d1b7",
+      "J10.V12-wire-up-r6.npz": "362f9b04354876c1e514a66eae039578120d27da2b008cda3f2c1fc112d27229",
+      "J11-plug.npz": "3d8ecd1c33c55e9e2fdd6cf08488c1143ff8b017ed6822ea5727aed3066a6253",
+      "J11-pull-sweep.npz": "3978f5b84477f6ebfaf6f88f01ec5fc968b66cb6d477728026987615a1e2c943",
+      "J11-wire-edge.npz": "14635a6920ab90134f504f11a94ff413f86f87522a656574943acf930649ef76",
+      "J11-wire-inward.npz": "c3795ec74e186bea3874e12d1155fdd84fbfef3772606f13aab1d7330d62e060",
+      "J13-plug.npz": "8ae3a3ac3ac90f453b4c384b4c99bbae28688a3743e23f3197d097d6c07f49b1",
+      "J13-pull-sweep.npz": "27871fba1124bdfe9de33fd03ad8e8752db344f8d753ca9831e7ee753ab098d9",
+      "J13-wire-edge.npz": "571c8ab305cb7f0fd708f0f17498efc6d55b1568f2c06dbd6b986fbce62ea7a4",
+      "J13-wire-inward.npz": "e58246899ca21ae9d0f26b0649eb63349e859aa8298ab5e0265befc0a4f93b9a",
+      "J2-plug.npz": "431ae88796d2c8b0ab90b0107c3b382820e90767de1e2390f5aaecd976f7b1f9",
+      "J2-pull-sweep.npz": "33036d5a9c2471e38a6747e1884bb388ab656b6c718090b1de83727b23a7fb1d",
+      "J2-wire-edge.npz": "0ab610b4f61f4912ddbdb44cd3d539be9abfcb32639c8ff700b057b0f5692469",
+      "J2-wire-inward.npz": "e49c6ecdc839b028f24eea0ffa9536a996356b843e1ab29170ecfbaed6fa9213",
+      "J3-plug.npz": "b656825d0a4a01de5129a57c52b0b2898bc39b54479ea1b0779579733d37189a",
+      "J3-pull-sweep.npz": "3788bda951dd83ed77d8229782d082f64c8db22561465d236d5e18093f4769a0",
+      "J3-wire-edge.npz": "b08b76076c0f740170c3bfda528c5d9f2b62075acd3e3cc13724ccb4bde1a78c",
+      "J3-wire-inward.npz": "bfebe54b8782e3d085b73799bc7692b7754ddd1cb7af2663e9c86cc93acb0bf8",
+      "J4-plug.npz": "40a431f34cf6b4612278997a21e775470f6b937dd9b0a7a4c0f595a8c724f806",
+      "J4-pull-sweep.npz": "1a72b3a3205261f066d8689ba324abffd775cb385f1449f924f8079a5e4e5103",
+      "J4-wire-edge.npz": "9625dd83eb0cf299a8b47c334dedc229d531c8da780e38edead502f9c02f0e24",
+      "J4-wire-inward.npz": "e0c7988e7fd84562839fffb9e41df21a40c78a5fca42b7ac4154b60b0de1e87a",
+      "J5-plug.npz": "c07a1e96c088e19ccb6d20cf1ebf52fd6e83f8758d83276d31e8ba06ad7c8da2",
+      "J5-pull-sweep.npz": "6b28cef02875bf67a9ff256c90f9690d6f41c6fc567e78cb1b2eb0ba67fccbc5",
+      "J5-wire-edge.npz": "176ae96c88d22396e138e9f33e46f1eca2d4df2aac6271000d17a621a1ada1c7",
+      "J5-wire-inward.npz": "b198a56192837282865d91bf63a0e0d8e0770dd104d3ed603ba3b075b1595f31",
+      "J6-plug.npz": "f53803a6792a51de29301693e9eee8cfdcba90dba3107cc3b853ecd746655bb0",
+      "J6-pull-sweep.npz": "566bd9e31abfc00813c338326fc5da2769f097a92b2eaf4835a9252b74c1e223",
+      "J6-wire-edge.npz": "2a8df97ae1b2d093190e32a8165ecee020a798e91a60b2ac9108101d5213739a",
+      "J6-wire-inward.npz": "349a4317d724951c124a39e555511aeb13d9f56a83c8371ef3da7712efa0f22f",
+      "J7-plug.npz": "07906da6b975a4c74d67509fa3e216c33f6ce5643f5f018b3852dd76fcb1c143",
+      "J7-pull-sweep.npz": "cbd13d3e2e64afbf65829fdd4dcbac78ec66f63309b90bd368776bfcdc87bf7d",
+      "J7-wire-edge.npz": "4a07d91ed3b6014864e215f3232b965db6502ec79ad5cd3322e446c55ba2ef26",
+      "J7-wire-inward.npz": "3e68a1a512bd150b7a8c1ae35b6b39ebaf90ce589010d8c34a1b4868020a7f49",
+      "J8-plug.npz": "724ed580683a231d9bcc22a39b9c8fd0229190a6d87e2b4f72031b8a1809e8f5",
+      "J8-pull-sweep.npz": "a9c5167e7befdc7c1ad97cb5b40615529b7b283001ad8645c694ebe45273fbfd",
+      "J8-wire-edge.npz": "9bf1d074f01f87463a5547fd34d3faeddfc56f07ba58ce887018298235c40b4a",
+      "J8-wire-inward.npz": "6833c08dcae0ce4f8aae63bde2a1d20655b2f1178bcc5188923ce3503b267ac9",
+      "J9-plug.npz": "14fcb69321605f77c773f63d3b2fa864482cfab5c3c351a86955d534f9825b2a",
+      "J9-pull-sweep.npz": "5d53bc2d48c980bd408458b1340ef0060f8714fbe65026957ae7f071395c0f0c",
+      "J9-wire-edge.npz": "84bb01d7ab4d6dfa338ba17e65b2b8b19475f21a2b3cc01cbd31f2ccc2d4d1eb",
+      "J9-wire-inward.npz": "a972c5f0b18e4e6cd52b611171d83e601cf9f0ccd45b7fc2bef0d9ab9e6cb685"
+    }
+  },
+  "connection_geometry_sha256": {
+    "J1-plug.npz": "9de37cfc2f0a0639a9aefea541af0d15ce22703fd09aed92f3bab27f36909a68",
+    "J1-pull-sweep.npz": "717d76be0cefaab99f835e84f7d4a42611c35c5f441e0798ecd066d29d795c9a",
+    "J1-wire-edge.npz": "b457f1be857c6d432396d8c1a5726769e33aa09406bfc21ad9141d092419e83c",
+    "J1-wire-inward.npz": "55532b0a2085cb981ece3e9f943069a8d0397376854acf4c5d490ae2c3937448",
+    "J10.GND-driver.npz": "c8baac22129fefd0f4c97b967f34c2715eb2941056c4ac094d217bccf978ea81",
+    "J10.GND-wire-down-r4.npz": "9a5b7fc99c12096fc13a83743f7b88aa8d1335097b6d40337b954ad5cd12919d",
+    "J10.GND-wire-down-r5.npz": "e5a27ea301eb3cfb730571b0b7f19d04162e21d456c3eaa2bb9eccfcb00a4fc5",
+    "J10.GND-wire-down-r6.npz": "55dbda7cd1cf9d511e114f69389238211c50f30644c46d50afe26896272195bd",
+    "J10.GND-wire-straight.npz": "37c573572135790b61cabb69db582f3af18324d3bb2408fa96efdd14ccbd35d0",
+    "J10.GND-wire-up-r4.npz": "2eb427beaafb9de06a57b9de1d76c926cf629c27b34b5db73d3be434ffd39804",
+    "J10.GND-wire-up-r5.npz": "fb3ae0e5f0297fde6d0e2a36d856bc745b9b90bace9d7099aa182aa72c82ab3d",
+    "J10.GND-wire-up-r6.npz": "4108854176104aff2d824a9bf74c7c8fcedcc90a97b6e26c6364eae7996e2945",
+    "J10.V12-driver.npz": "8c7c31c6ccc3db1e58528f600e5c2b60828bc73c961f08f3e74dcf6186f33679",
+    "J10.V12-wire-down-r4.npz": "a9e0ccea7476eb3c3c4605ae12d0dee49d0c3db55af8c6bed207ecbb850a1c96",
+    "J10.V12-wire-down-r5.npz": "d791584690bd3eb868661755578f75a1254b422f095f9de5d25c13b721f4f5db",
+    "J10.V12-wire-down-r6.npz": "94652ec03b85c94c46ce4677b99e1ba4f82aaea199dc7e099ead58cbfe273a17",
+    "J10.V12-wire-straight.npz": "69b8e7351721a6c1621d66a008e0ba2ecfdcf87e4ec68307675bfff7ad45d18e",
+    "J10.V12-wire-up-r4.npz": "74632418727e5c19f94551a6cbd462a500bdcd38375d52be94a7f74c83eaeb65",
+    "J10.V12-wire-up-r5.npz": "dda1165c93c39880f3144063d7c3920d18e637f5b3b3dc3046eff3c33362d1b7",
+    "J10.V12-wire-up-r6.npz": "362f9b04354876c1e514a66eae039578120d27da2b008cda3f2c1fc112d27229",
+    "J11-plug.npz": "3d8ecd1c33c55e9e2fdd6cf08488c1143ff8b017ed6822ea5727aed3066a6253",
+    "J11-pull-sweep.npz": "3978f5b84477f6ebfaf6f88f01ec5fc968b66cb6d477728026987615a1e2c943",
+    "J11-wire-edge.npz": "14635a6920ab90134f504f11a94ff413f86f87522a656574943acf930649ef76",
+    "J11-wire-inward.npz": "c3795ec74e186bea3874e12d1155fdd84fbfef3772606f13aab1d7330d62e060",
+    "J13-plug.npz": "8ae3a3ac3ac90f453b4c384b4c99bbae28688a3743e23f3197d097d6c07f49b1",
+    "J13-pull-sweep.npz": "27871fba1124bdfe9de33fd03ad8e8752db344f8d753ca9831e7ee753ab098d9",
+    "J13-wire-edge.npz": "571c8ab305cb7f0fd708f0f17498efc6d55b1568f2c06dbd6b986fbce62ea7a4",
+    "J13-wire-inward.npz": "e58246899ca21ae9d0f26b0649eb63349e859aa8298ab5e0265befc0a4f93b9a",
+    "J2-plug.npz": "431ae88796d2c8b0ab90b0107c3b382820e90767de1e2390f5aaecd976f7b1f9",
+    "J2-pull-sweep.npz": "33036d5a9c2471e38a6747e1884bb388ab656b6c718090b1de83727b23a7fb1d",
+    "J2-wire-edge.npz": "0ab610b4f61f4912ddbdb44cd3d539be9abfcb32639c8ff700b057b0f5692469",
+    "J2-wire-inward.npz": "e49c6ecdc839b028f24eea0ffa9536a996356b843e1ab29170ecfbaed6fa9213",
+    "J3-plug.npz": "b656825d0a4a01de5129a57c52b0b2898bc39b54479ea1b0779579733d37189a",
+    "J3-pull-sweep.npz": "3788bda951dd83ed77d8229782d082f64c8db22561465d236d5e18093f4769a0",
+    "J3-wire-edge.npz": "b08b76076c0f740170c3bfda528c5d9f2b62075acd3e3cc13724ccb4bde1a78c",
+    "J3-wire-inward.npz": "bfebe54b8782e3d085b73799bc7692b7754ddd1cb7af2663e9c86cc93acb0bf8",
+    "J4-plug.npz": "40a431f34cf6b4612278997a21e775470f6b937dd9b0a7a4c0f595a8c724f806",
+    "J4-pull-sweep.npz": "1a72b3a3205261f066d8689ba324abffd775cb385f1449f924f8079a5e4e5103",
+    "J4-wire-edge.npz": "9625dd83eb0cf299a8b47c334dedc229d531c8da780e38edead502f9c02f0e24",
+    "J4-wire-inward.npz": "e0c7988e7fd84562839fffb9e41df21a40c78a5fca42b7ac4154b60b0de1e87a",
+    "J5-plug.npz": "c07a1e96c088e19ccb6d20cf1ebf52fd6e83f8758d83276d31e8ba06ad7c8da2",
+    "J5-pull-sweep.npz": "6b28cef02875bf67a9ff256c90f9690d6f41c6fc567e78cb1b2eb0ba67fccbc5",
+    "J5-wire-edge.npz": "176ae96c88d22396e138e9f33e46f1eca2d4df2aac6271000d17a621a1ada1c7",
+    "J5-wire-inward.npz": "b198a56192837282865d91bf63a0e0d8e0770dd104d3ed603ba3b075b1595f31",
+    "J6-plug.npz": "f53803a6792a51de29301693e9eee8cfdcba90dba3107cc3b853ecd746655bb0",
+    "J6-pull-sweep.npz": "566bd9e31abfc00813c338326fc5da2769f097a92b2eaf4835a9252b74c1e223",
+    "J6-wire-edge.npz": "2a8df97ae1b2d093190e32a8165ecee020a798e91a60b2ac9108101d5213739a",
+    "J6-wire-inward.npz": "349a4317d724951c124a39e555511aeb13d9f56a83c8371ef3da7712efa0f22f",
+    "J7-plug.npz": "07906da6b975a4c74d67509fa3e216c33f6ce5643f5f018b3852dd76fcb1c143",
+    "J7-pull-sweep.npz": "cbd13d3e2e64afbf65829fdd4dcbac78ec66f63309b90bd368776bfcdc87bf7d",
+    "J7-wire-edge.npz": "4a07d91ed3b6014864e215f3232b965db6502ec79ad5cd3322e446c55ba2ef26",
+    "J7-wire-inward.npz": "3e68a1a512bd150b7a8c1ae35b6b39ebaf90ce589010d8c34a1b4868020a7f49",
+    "J8-plug.npz": "724ed580683a231d9bcc22a39b9c8fd0229190a6d87e2b4f72031b8a1809e8f5",
+    "J8-pull-sweep.npz": "a9c5167e7befdc7c1ad97cb5b40615529b7b283001ad8645c694ebe45273fbfd",
+    "J8-wire-edge.npz": "9bf1d074f01f87463a5547fd34d3faeddfc56f07ba58ce887018298235c40b4a",
+    "J8-wire-inward.npz": "6833c08dcae0ce4f8aae63bde2a1d20655b2f1178bcc5188923ce3503b267ac9",
+    "J9-plug.npz": "14fcb69321605f77c773f63d3b2fa864482cfab5c3c351a86955d534f9825b2a",
+    "J9-pull-sweep.npz": "5d53bc2d48c980bd408458b1340ef0060f8714fbe65026957ae7f071395c0f0c",
+    "J9-wire-edge.npz": "84bb01d7ab4d6dfa338ba17e65b2b8b19475f21a2b3cc01cbd31f2ccc2d4d1eb",
+    "J9-wire-inward.npz": "a972c5f0b18e4e6cd52b611171d83e601cf9f0ccd45b7fc2bef0d9ab9e6cb685"
+  }
+}

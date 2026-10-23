@@ -1,0 +1,86 @@
+{
+  "scope": "Retained front wet-part relationships for the low forward PCB diagnostic view",
+  "vb": {
+    "role": "Normally closed funnel gate, V-B",
+    "cap_cradled": true,
+    "member_of_front_butted_chain": false,
+    "original_body_center_mm": [
+      -22.35,
+      256.71,
+      252.0
+    ],
+    "inlet_mm": [
+      -22.35,
+      286.46,
+      263.05
+    ],
+    "inlet_outward": [
+      0,
+      1,
+      0
+    ],
+    "outlet_mm": [
+      -22.35,
+      226.96,
+      263.05
+    ],
+    "outlet_outward": [
+      0,
+      -1,
+      0
+    ],
+    "original_body_bounds_mm": [
+      [
+        -39.1,
+        226.96,
+        252.0
+      ],
+      [
+        -5.6,
+        286.46,
+        278
+      ]
+    ],
+    "original_coil_bounds_mm": [
+      [
+        -39.1,
+        229.61,
+        278
+      ],
+      [
+        -5.6,
+        273.61,
+        309.3
+      ]
+    ],
+    "inlet_connection": "Separate fluid-4 drawn tube from funnel drain elbow; an existing U approaches the aft-facing inlet",
+    "outlet_connection": "Separate formed R14 turn/step, fluid-5, to the fixed Y-B tee. Y-B remains directly connected to the accepted front source/valve chain."
+  },
+  "retained_core_openings": {
+    "reservoir_b_fill": {
+      "point_mm": [
+        -43.5,
+        233.3,
+        253.4
+      ],
+      "tube_od_mm": 6.35,
+      "path": "tube-fluid-24 from V-I outlet"
+    },
+    "reservoir_b_draw": {
+      "point_mm": [
+        -9.5,
+        229.5,
+        253.4
+      ],
+      "tube_od_mm": 6.35,
+      "path": "tube-fluid-26 to V-H inlet"
+    }
+  },
+  "fore_context": {
+    "peristaltic_pumps_last_y_mm": 75.969,
+    "dock_connectors_last_y_mm": 87.153,
+    "display_last_y_mm": 89.104,
+    "upper_fore_valve_coils_last_y_mm": 154.29,
+    "note": "Pumps, docks and display are well forward of the proposed Y182..281 bay. The source tees/upper coils become relevant for the alternative PCB starting near Y154.5."
+  }
+}

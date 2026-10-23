@@ -1,0 +1,81 @@
+{
+  "scope": "Frozen geometry/source evidence; runtime model.py reads only local JSON and NPZ assets",
+  "captured_source_sha256": {
+    "hardware/wiring/installed/connector-map.json": "8986c0f9b7e7394d965af41546f90fd4425f8ccb98a6360db6bbff8ba64a2126",
+    "hardware/wiring/enclosure-wiring.json": "0e2dd8902df0b47dd0871885333c9d3e495d38e5bf5931e54abe9a8d6589da0b",
+    "hardware/pcb/pcba/out/pcba.glb": "16314ee4bb4a38c002eb73cec124cf7b83115b179e3f4fa2c206cdb7c30fba5d",
+    "hardware/wiring/installed/terminals.py": "ee7eb91bfd1a9b0707a144d652eea5baa3eecd30551a1b89bb286e5dc8ae4370",
+    "hardware/wiring/installed/terminations.py": "3675b6eb9e558bf8f4640a4ca395761d91430ff745062562fe67c63a6a2aed3c",
+    "hardware/reference/meanwell-irm90/meanwell_irm90.py": "8ab9b6cb253542c44ceada14c0e536d46ad62f568311b6eb1ee4dd47a4ee3916",
+    "hardware/reference/teyleten-relay/teyleten_relay.py": "399a018b815d29ffe60b9f751475539184d1f6eec14a5eb61db0ba9ce19da608",
+    "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py": "86e62dc6bcb7a24031dd3e3e4bfa0b22b378abce40095a4ebc7b3787d5456ccf",
+    "tmp/pcb-connection-clearance/sources/jst-xh-current.pdf": "9426b136902f11900825077535e5c65032b7fbc31ffb59c5e9e1f463bb20fb90",
+    "tmp/pcb-connection-clearance/sources/meanwell-irm90.pdf": "9cdb78ca8cc9738b32e28950c193dc627dfeedf9fad8739ae963506af2f4d348"
+  },
+  "associated_component_meshes": {
+    "pcba": {
+      "path": "hardware/manifold-layout/studies/ceiling-fit/parts/pcba.npz",
+      "sha256": "28e8af12a0ea2e0bd1ab59b9a016be4decd7c4dd9d428ba763372ce303b11d28"
+    },
+    "psu": {
+      "path": "hardware/manifold-layout/studies/wet-dry/parts/psu.npz",
+      "sha256": "4e5102ad53f5a9940541167ea6b779b57cf50d5169429f551b4dc59d0ee02c3e"
+    },
+    "relay-1": {
+      "path": "hardware/manifold-layout/studies/wet-dry/parts/relay-1.npz",
+      "sha256": "cd585702c8b74c7aa4d01bbcc7eefc37a27889664309aaa7f29801a89bfd481c"
+    },
+    "relay-2": {
+      "path": "hardware/manifold-layout/studies/wet-dry/parts/relay-2.npz",
+      "sha256": "454eb7a9b0dab85f439181431705e2a29ae9d0ec9309d0e9e3a19e68bff37235"
+    }
+  },
+  "primary_sources": {
+    "jst_xh": "https://www.jst-mfg.com/product/pdf/eng/eXH.pdf",
+    "jst_product": "https://www.jst-mfg.com/product/index.php?lang=2&series=277",
+    "jst_handling": "https://www.jst-mfg.com/product/pdf/eng/handling_e.pdf",
+    "meanwell": "https://www.meanwell.com/Upload/PDF/IRM-90/IRM-90-spec.pdf"
+  },
+  "preserved_pdf_sha256": {
+    "jst-xh-current.pdf": "9426b136902f11900825077535e5c65032b7fbc31ffb59c5e9e1f463bb20fb90",
+    "meanwell-irm90.pdf": "9cdb78ca8cc9738b32e28950c193dc627dfeedf9fad8739ae963506af2f4d348"
+  },
+  "physical_parameters": {
+    "JST": {
+      "pitch_mm": 2.5,
+      "mated_height_above_board_top_mm": 9.8,
+      "housing_depth_mm": 5.7,
+      "main_housing_height_mm": 7.5,
+      "bottom_detail_mm": 0.25,
+      "housing_width": "(N-1)*2.5+4.8 mm"
+    },
+    "PSU": {
+      "physical_AC_poles": 2,
+      "AC_pitch_mm": 7.5,
+      "physical_DC_poles": 4,
+      "DC_pitch_mm": 5.0,
+      "head_and_mouth_height_basis": "Representative reference-block geometry; not a measured terminal scan"
+    },
+    "relay": "Calipered overall reference; side-entry mouth position and direction are explicit estimates, separate from modeled top screw approach"
+  },
+  "estimate_limits": [
+    "The JST dimensions are official nominal dimensions; the purchased XUNPU/CQRobot equivalents are represented by those nominal envelopes.",
+    "The housing body is7.5 mm plus0.25 mm bottom detail; width and depth are maximum envelopes.",
+    "A6 mm pull gives clearance beyond the7 mm shroud from the2.05 mm mating floor; it is a geometric service allowance, not an official extraction-stroke specification.",
+    "3 mm straight exit,4 mm centerline bend radius and8 mm tangent run are explicit lead-shaping estimates for1.7 mm silicone conductors. No large finger volume is asserted.",
+    "Driver cylinders model a3.5 mm diameter straight working shaft for40 mm above each screw, without a handle/finger envelope."
+  ],
+  "wire_population": {
+    "active_JST_housings": 10,
+    "optional_J8": "I2C expansion cable unused; header physically populated",
+    "J2_OUT4": "No crimp in cavity3",
+    "J4_IO23_IO27": "Reserved, no cable",
+    "relay_NC": "Unused physical screw pole"
+  },
+  "installed_scope": "10 JST plugs,10 local JST lead groups,2 J10 groups,4 PSU groups,4 relay groups; not complete enclosure harness routes",
+  "service": {
+    "roof": "Removed for normal mating and tool access; installed connectors and wires clear the closed roof",
+    "PCB_carrier": "Lift for full normal PSU and relay terminal service; retain the distinction between short 40 mm shaft clearance and full vertical tool access",
+    "J10": "Normal tool access in place with roof removed"
+  }
+}

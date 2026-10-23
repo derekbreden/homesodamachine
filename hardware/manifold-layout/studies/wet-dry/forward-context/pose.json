@@ -1,0 +1,474 @@
+{
+  "scope": "Two illustrative forward PCB poses, with all retained wet parts fixed",
+  "units": "mm",
+  "pcb_board_underside_z_mm": {
+    "low": 257,
+    "high": 316
+  },
+  "ghost": {
+    "name": "forward-pcb-ghost-low",
+    "geometry": "forward-pcba-source",
+    "rotation": [
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        -1,
+        0,
+        0
+      ]
+    ],
+    "translation": [
+      -327.3999938964844,
+      -53.98393249511719,
+      353.25
+    ],
+    "role": "electronics",
+    "kind": "component",
+    "context": true,
+    "ghost": true,
+    "label": "Farther forward \u00b7 low PCB ghost \u00b7 clashes with retained wet parts"
+  },
+  "ghost_populated_bounds_mm": {
+    "low": [
+      [
+        -74.0,
+        182.0,
+        255.0
+      ],
+      [
+        -1.199981689453125,
+        272.81605529785156,
+        276.1000061035156
+      ]
+    ],
+    "high": [
+      [
+        -74,
+        182,
+        314
+      ],
+      [
+        -1.199981689453125,
+        272.81605529785156,
+        335.1000061035156
+      ]
+    ]
+  },
+  "nominal_populated_bounds_mm": [
+    [
+      -74,
+      182,
+      255
+    ],
+    [
+      -1.2,
+      272.816,
+      276.1
+    ]
+  ],
+  "obstacles": [
+    {
+      "name": "forward-valve-v-b",
+      "geometry": "forward-valve-v-b",
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "role": "wet",
+      "kind": "component",
+      "context": true,
+      "label": "V-B \u00b7 retained funnel gate"
+    },
+    {
+      "name": "forward-coil-v-b",
+      "geometry": "forward-coil-v-b",
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "role": "wet",
+      "kind": "component",
+      "context": true,
+      "label": "V-B coil"
+    },
+    {
+      "name": "forward-tee-y-b",
+      "geometry": "forward-tee-y-b",
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "role": "wet",
+      "kind": "component",
+      "context": true,
+      "label": "Y-B \u00b7 fixed source tee"
+    },
+    {
+      "name": "forward-turn-fluid-5",
+      "geometry": "forward-turn-fluid-5",
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "role": "wet",
+      "kind": "tube",
+      "context": true,
+      "label": "V-B outlet \u00b7 formed R14 turn"
+    },
+    {
+      "name": "forward-step-fluid-5",
+      "geometry": "forward-step-fluid-5",
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "role": "wet",
+      "kind": "tube",
+      "context": true,
+      "label": "V-B outlet \u00b7 formed R14 step"
+    },
+    {
+      "name": "forward-tube-fluid-4",
+      "geometry": "forward-tube-fluid-4",
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "role": "wet",
+      "kind": "tube",
+      "context": true,
+      "label": "Funnel-to-V-B tube"
+    },
+    {
+      "name": "forward-tube-fluid-24",
+      "geometry": "forward-tube-fluid-24",
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "role": "wet",
+      "kind": "tube",
+      "context": true,
+      "label": "Reservoir B fill tube"
+    },
+    {
+      "name": "forward-tube-fluid-26",
+      "geometry": "forward-tube-fluid-26",
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "role": "wet",
+      "kind": "tube",
+      "context": true,
+      "label": "Reservoir B draw tube"
+    },
+    {
+      "name": "forward-funnel-drain-union",
+      "geometry": "forward-funnel-drain-union",
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "role": "wet",
+      "kind": "component",
+      "context": true,
+      "label": "Funnel drain elbow"
+    },
+    {
+      "name": "forward-funnel-drain-stub",
+      "geometry": "forward-funnel-drain-stub",
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "role": "wet",
+      "kind": "tube",
+      "context": true,
+      "label": "Funnel drain stub"
+    },
+    {
+      "name": "forward-elbow-cradle",
+      "geometry": "forward-elbow-cradle",
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "role": "wet",
+      "kind": "component",
+      "context": true,
+      "label": "Funnel elbow cradle"
+    }
+  ],
+  "retained_wet_poses_unchanged": true,
+  "ghosts": {
+    "low": {
+      "name": "forward-pcb-ghost-low",
+      "geometry": "forward-pcba-source",
+      "rotation": [
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "translation": [
+        -327.3999938964844,
+        -53.98393249511719,
+        353.25
+      ],
+      "role": "electronics",
+      "kind": "component",
+      "context": true,
+      "ghost": true,
+      "label": "Farther forward \u00b7 low PCB ghost \u00b7 clashes with retained wet parts"
+    },
+    "high": {
+      "name": "forward-pcb-ghost-high",
+      "geometry": "forward-pcba-source",
+      "rotation": [
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "translation": [
+        -327.3999938964844,
+        -53.98393249511719,
+        412.25
+      ],
+      "role": "electronics",
+      "kind": "component",
+      "context": true,
+      "ghost": true,
+      "label": "Farther forward \u00b7 raised PCB ghost \u00b7 intersects funnel and frame"
+    }
+  }
+}

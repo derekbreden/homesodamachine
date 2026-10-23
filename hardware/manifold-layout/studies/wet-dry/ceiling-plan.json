@@ -36,19 +36,6 @@
       ],
       "highest_body_z_mm": 349.8760478805363,
       "minimum_roof_gap_mm": 2.123952119463695
-    },
-    {
-      "name": "electronics",
-      "xmin": -97.0,
-      "xmax": -22.0,
-      "ymin": 346.0,
-      "ymax": 439.0,
-      "zmax": 351.0,
-      "bodies": [
-        "pcba"
-      ],
-      "highest_body_z_mm": 349.1000061035156,
-      "minimum_roof_gap_mm": 1.8999938964844
     }
   ],
   "minimum_stock_mm": 3.0

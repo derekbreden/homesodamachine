@@ -1,0 +1,194 @@
+{
+  "scope": "Selected existing funnel/frame, current WAGOs and ceiling for manual forward-pose mesh queries",
+  "instances": [
+    {
+      "name": "funnel",
+      "source_npz": "hardware/manifold-layout/studies/ceiling-fit/parts/funnel.npz",
+      "sha256": "770caa3e4d2c515257e930a1800a014da58ab7af8977eb63d5cf511013592ba8",
+      "rotation": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "funnel-frame",
+      "source_npz": "hardware/manifold-layout/studies/ceiling-fit/parts/funnel-frame.npz",
+      "sha256": "e8e63683fb48306b5d5e0e52e291ea124a3ae1028a1a0f9f86e16c2912cdba7a",
+      "rotation": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "ceiling",
+      "source_npz": "hardware/manifold-layout/studies/wet-dry/parts/ceiling.npz",
+      "sha256": "334fe4046134c54b46596211f49569e1f68484d3c650f9d5db127a9b6d9a4bf6",
+      "rotation": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "wago-mana",
+      "source_npz": "hardware/manifold-layout/studies/wet-dry/parts/wago-mana.npz",
+      "sha256": "52e6785428ac74807b64be5b6775ed86e3be90a37de59b0182f3559bba4b88ab",
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation": [
+        6.0,
+        421.3999938964844,
+        -1.7000061035156477
+      ]
+    },
+    {
+      "name": "wago-manb",
+      "source_npz": "hardware/manifold-layout/studies/wet-dry/parts/wago-manb.npz",
+      "sha256": "5d778ff6905b7c408e8dd625a518b576eefea1f97879b3f6777a51ca41eb1da2",
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation": [
+        6.0,
+        441.1999969482422,
+        49.0
+      ]
+    },
+    {
+      "name": "wago-sensors",
+      "source_npz": "hardware/manifold-layout/studies/wet-dry/parts/wago-sensors.npz",
+      "sha256": "0ae1fbf5b84b71a641117789f8d9f5614ec59b58c1266d1fe78ac889b7e5e537",
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      ],
+      "translation": [
+        6.0,
+        583.7000122070312,
+        584.3999938964844
+      ]
+    },
+    {
+      "name": "wago-reeds-b",
+      "source_npz": "hardware/manifold-layout/studies/wet-dry/parts/wago-reeds-b.npz",
+      "sha256": "2cb271db99051e06301250dd6ce3849a363a428d266443d1ae89a31ea8324ab2",
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      ],
+      "translation": [
+        6.0,
+        571.7000122070312,
+        594.3999938964844
+      ]
+    }
+  ]
+}

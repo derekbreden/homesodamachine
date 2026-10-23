@@ -1,0 +1,2198 @@
+{
+  "scope": "Selected local PCB mating plugs and leads; mutual component and wire clearance only. Surroundings are checked by the dry-placement agent.",
+  "pcb_rotation": [
+    [
+      0.0,
+      0.0,
+      -1.0
+    ],
+    [
+      0.0,
+      -1.0,
+      0.0
+    ],
+    [
+      -1.0,
+      0.0,
+      0.0
+    ]
+  ],
+  "pcb_translation_mm": [
+    236.20001220703125,
+    662.7999877929688,
+    420.25
+  ],
+  "pcb_bounds_mm": [
+    [
+      -90.0,
+      336.0,
+      322.0
+    ],
+    [
+      -17.199981689453125,
+      426.81605529785156,
+      343.1000061035156
+    ]
+  ],
+  "selection": {
+    "active_jst": "All ten active JST housings; all individual populated wires turn toward their nearest board edge",
+    "J8": "Physically populated header, unused expansion cable; not rendered as a permanent plug or wire",
+    "J10": "Two 3 mm OD source-stock wire stubs leave straight for12 mm along their actual -Y side-entry axis",
+    "service": "Tools and pull sweeps are access probes, not installed physical components"
+  },
+  "world_datums": {
+    "J1.COM": {
+      "id": "J1.COM",
+      "pin": 1,
+      "point_mm": [
+        -27.220007792968772,
+        341.99998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J1.OUT1": {
+      "id": "J1.OUT1",
+      "pin": 2,
+      "point_mm": [
+        -29.72012979296875,
+        341.99998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J1.OUT2": {
+      "id": "J1.OUT2",
+      "pin": 3,
+      "point_mm": [
+        -32.21999779296874,
+        341.99998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J1.OUT3": {
+      "id": "J1.OUT3",
+      "pin": 4,
+      "point_mm": [
+        -34.720119792968774,
+        341.99998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J1.OUT4": {
+      "id": "J1.OUT4",
+      "pin": 5,
+      "point_mm": [
+        -37.219987792968766,
+        341.99998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J1.OUT5": {
+      "id": "J1.OUT5",
+      "pin": 6,
+      "point_mm": [
+        -39.72010979296874,
+        341.99998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J1.OUT6": {
+      "id": "J1.OUT6",
+      "pin": 7,
+      "point_mm": [
+        -42.219977792968734,
+        341.99998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J1.OUT7": {
+      "id": "J1.OUT7",
+      "pin": 8,
+      "point_mm": [
+        -44.72009979296877,
+        341.99998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J1.OUT8": {
+      "id": "J1.OUT8",
+      "pin": 9,
+      "point_mm": [
+        -47.21996779296876,
+        341.99998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J11.GND": {
+      "id": "J11.GND",
+      "pin": 1,
+      "point_mm": [
+        -81.29998779296875,
+        415.0001147929687,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J11.V5": {
+      "id": "J11.V5",
+      "pin": 2,
+      "point_mm": [
+        -78.79998779296875,
+        414.9998607929688,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J11.DOUT": {
+      "id": "J11.DOUT",
+      "pin": 3,
+      "point_mm": [
+        -76.29998779296875,
+        414.9998607929688,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J11.AOUT": {
+      "id": "J11.AOUT",
+      "pin": 4,
+      "point_mm": [
+        -73.79998779296875,
+        414.9998607929688,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J13.AM2": {
+      "id": "J13.AM2",
+      "pin": 1,
+      "point_mm": [
+        -22.699860792968764,
+        368.99998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J13.AM1": {
+      "id": "J13.AM1",
+      "pin": 2,
+      "point_mm": [
+        -22.700114792968748,
+        366.49998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J13.BM2": {
+      "id": "J13.BM2",
+      "pin": 3,
+      "point_mm": [
+        -22.700114792968748,
+        363.99998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J13.BM1": {
+      "id": "J13.BM1",
+      "pin": 4,
+      "point_mm": [
+        -22.700114792968748,
+        361.49998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J2.COM": {
+      "id": "J2.COM",
+      "pin": 1,
+      "point_mm": [
+        -65.71991179296879,
+        341.99998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J2.FAN": {
+      "id": "J2.FAN",
+      "pin": 2,
+      "point_mm": [
+        -63.22004379296874,
+        341.99998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J2.OUT4": {
+      "id": "J2.OUT4",
+      "pin": 3,
+      "point_mm": [
+        -60.71992179296876,
+        341.99998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J2.OUT3": {
+      "id": "J2.OUT3",
+      "pin": 4,
+      "point_mm": [
+        -58.22005379296877,
+        341.99998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J2.OUT2": {
+      "id": "J2.OUT2",
+      "pin": 5,
+      "point_mm": [
+        -55.71993179296874,
+        341.99998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J2.OUT1": {
+      "id": "J2.OUT1",
+      "pin": 6,
+      "point_mm": [
+        -53.220063792968745,
+        341.99998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J3.IO33": {
+      "id": "J3.IO33",
+      "pin": 1,
+      "point_mm": [
+        -84.00011479296876,
+        401.49998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J3.IO35": {
+      "id": "J3.IO35",
+      "pin": 2,
+      "point_mm": [
+        -83.99986079296878,
+        403.99998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J3.V5": {
+      "id": "J3.V5",
+      "pin": 3,
+      "point_mm": [
+        -83.99986079296878,
+        406.49998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J3.GND": {
+      "id": "J3.GND",
+      "pin": 4,
+      "point_mm": [
+        -83.99986079296878,
+        408.99998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J4.IO23": {
+      "id": "J4.IO23",
+      "pin": 1,
+      "point_mm": [
+        -83.99998779296874,
+        380.49998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J4.IO27": {
+      "id": "J4.IO27",
+      "pin": 2,
+      "point_mm": [
+        -83.99998779296874,
+        382.99998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J4.IO26": {
+      "id": "J4.IO26",
+      "pin": 3,
+      "point_mm": [
+        -83.99998779296874,
+        385.49998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J4.IO25": {
+      "id": "J4.IO25",
+      "pin": 4,
+      "point_mm": [
+        -83.99998779296874,
+        387.99998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J4.V5": {
+      "id": "J4.V5",
+      "pin": 5,
+      "point_mm": [
+        -83.99998779296874,
+        390.49998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J4.GND": {
+      "id": "J4.GND",
+      "pin": 6,
+      "point_mm": [
+        -83.99998779296874,
+        392.99998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J4.3V3": {
+      "id": "J4.3V3",
+      "pin": 7,
+      "point_mm": [
+        -83.99998779296874,
+        395.49998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J5.GND": {
+      "id": "J5.GND",
+      "pin": 1,
+      "point_mm": [
+        -22.699860792968764,
+        398.6999877929687,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J5.V5": {
+      "id": "J5.V5",
+      "pin": 2,
+      "point_mm": [
+        -22.700114792968748,
+        396.1999877929687,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J5.IO2": {
+      "id": "J5.IO2",
+      "pin": 3,
+      "point_mm": [
+        -22.700114792968748,
+        393.6999877929687,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J5.IO19": {
+      "id": "J5.IO19",
+      "pin": 4,
+      "point_mm": [
+        -22.700114792968748,
+        391.1999877929687,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J6.RA1": {
+      "id": "J6.RA1",
+      "pin": 1,
+      "point_mm": [
+        -22.699987792968784,
+        375.09999779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J6.RA2": {
+      "id": "J6.RA2",
+      "pin": 2,
+      "point_mm": [
+        -22.699987792968784,
+        377.5998657929687,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J6.RA3": {
+      "id": "J6.RA3",
+      "pin": 3,
+      "point_mm": [
+        -22.699987792968784,
+        380.09998779296876,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J6.RA4": {
+      "id": "J6.RA4",
+      "pin": 4,
+      "point_mm": [
+        -22.699987792968784,
+        382.60010979296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J6.GND": {
+      "id": "J6.GND",
+      "pin": 5,
+      "point_mm": [
+        -22.699987792968784,
+        385.09997779296873,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J7.GND": {
+      "id": "J7.GND",
+      "pin": 1,
+      "point_mm": [
+        -83.9999877929688,
+        345.99998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J7.CHI": {
+      "id": "J7.CHI",
+      "pin": 2,
+      "point_mm": [
+        -83.9999877929688,
+        348.49998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J7.CLO": {
+      "id": "J7.CLO",
+      "pin": 3,
+      "point_mm": [
+        -83.99998779296874,
+        350.99998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J7.RB4": {
+      "id": "J7.RB4",
+      "pin": 4,
+      "point_mm": [
+        -83.99998779296874,
+        353.49998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J7.RB3": {
+      "id": "J7.RB3",
+      "pin": 5,
+      "point_mm": [
+        -83.99998779296874,
+        355.99998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J7.RB2": {
+      "id": "J7.RB2",
+      "pin": 6,
+      "point_mm": [
+        -83.99998779296874,
+        358.49998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J7.RB1": {
+      "id": "J7.RB1",
+      "pin": 7,
+      "point_mm": [
+        -83.99998779296874,
+        360.99998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J9.V12": {
+      "id": "J9.V12",
+      "pin": 1,
+      "point_mm": [
+        -84.00011479296876,
+        366.99998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J9.GND": {
+      "id": "J9.GND",
+      "pin": 2,
+      "point_mm": [
+        -83.99986079296878,
+        369.49998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J9.A": {
+      "id": "J9.A",
+      "pin": 3,
+      "point_mm": [
+        -83.99986079296878,
+        371.99998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J9.B": {
+      "id": "J9.B",
+      "pin": 4,
+      "point_mm": [
+        -83.99986079296878,
+        374.49998779296874,
+        335.4
+      ],
+      "axis": [
+        -3.749399456654644e-33,
+        -6.123233995736766e-17,
+        1.0
+      ]
+    },
+    "J10.GND": {
+      "wire_mouth": {
+        "point_mm": [
+          -77.69998279296874,
+          337.0499373929687,
+          329.5600028
+        ],
+        "axis": [
+          -6.123233995736766e-17,
+          -1.0,
+          -6.123233995736766e-17
+        ]
+      },
+      "screw_head": {
+        "point_mm": [
+          -77.69998279296874,
+          340.6499877929687,
+          335.500007
+        ],
+        "axis": [
+          -3.749399456654644e-33,
+          -6.123233995736766e-17,
+          1.0
+        ]
+      }
+    },
+    "J10.V12": {
+      "wire_mouth": {
+        "point_mm": [
+          -72.69999279296877,
+          337.0499373929687,
+          329.5600028
+        ],
+        "axis": [
+          -6.123233995736766e-17,
+          -1.0,
+          -6.123233995736766e-17
+        ]
+      },
+      "screw_head": {
+        "point_mm": [
+          -72.69999279296877,
+          340.6499877929687,
+          335.500007
+        ],
+        "axis": [
+          -3.749399456654644e-33,
+          -6.123233995736766e-17,
+          1.0
+        ]
+      }
+    }
+  },
+  "wire_pairs": {
+    "J1__J11": {
+      "collision": false,
+      "distance_mm": 76.01470404429827
+    },
+    "J1__J13": {
+      "collision": false,
+      "distance_mm": 18.364915597769386
+    },
+    "J1__J2": {
+      "collision": false,
+      "distance_mm": 4.300079345703125
+    },
+    "J1__J3": {
+      "collision": false,
+      "distance_mm": 68.25096339034727
+    },
+    "J1__J4": {
+      "collision": false,
+      "distance_mm": 55.29283440378874
+    },
+    "J1__J5": {
+      "collision": false,
+      "distance_mm": 47.71456248418704
+    },
+    "J1__J6": {
+      "collision": false,
+      "distance_mm": 31.723683735761245
+    },
+    "J1__J7": {
+      "collision": false,
+      "distance_mm": 35.30733066975935
+    },
+    "J1__J9": {
+      "collision": false,
+      "distance_mm": 42.77699833802892
+    },
+    "J1__J10.GND": {
+      "collision": false,
+      "distance_mm": 29.153146606098144
+    },
+    "J1__J10.V12": {
+      "collision": false,
+      "distance_mm": 24.36402898144161
+    },
+    "J11__J13": {
+      "collision": false,
+      "distance_mm": 67.0927663905706
+    },
+    "J11__J2": {
+      "collision": false,
+      "distance_mm": 71.75625889408094
+    },
+    "J11__J3": {
+      "collision": false,
+      "distance_mm": 4.891190895580757
+    },
+    "J11__J4": {
+      "collision": false,
+      "distance_mm": 18.003751372878327
+    },
+    "J11__J5": {
+      "collision": false,
+      "distance_mm": 51.97717324240598
+    },
+    "J11__J6": {
+      "collision": false,
+      "distance_mm": 57.50489310847292
+    },
+    "J11__J7": {
+      "collision": false,
+      "distance_mm": 52.36978852139576
+    },
+    "J11__J9": {
+      "collision": false,
+      "distance_mm": 38.89396014212824
+    },
+    "J11__J10.GND": {
+      "collision": false,
+      "distance_mm": 77.22981780556876
+    },
+    "J11__J10.V12": {
+      "collision": false,
+      "distance_mm": 77.22981780556876
+    },
+    "J13__J2": {
+      "collision": false,
+      "distance_mm": 34.51943058711176
+    },
+    "J13__J3": {
+      "collision": false,
+      "distance_mm": 67.68393974802761
+    },
+    "J13__J4": {
+      "collision": false,
+      "distance_mm": 61.83979839245584
+    },
+    "J13__J5": {
+      "collision": false,
+      "distance_mm": 20.5
+    },
+    "J13__J6": {
+      "collision": false,
+      "distance_mm": 4.4000244140625
+    },
+    "J13__J7": {
+      "collision": false,
+      "distance_mm": 59.601981315819195
+    },
+    "J13__J9": {
+      "collision": false,
+      "distance_mm": 59.60210338183628
+    },
+    "J13__J10.GND": {
+      "collision": false,
+      "distance_mm": 58.269377311837054
+    },
+    "J13__J10.V12": {
+      "collision": false,
+      "distance_mm": 53.78366855475432
+    },
+    "J2__J3": {
+      "collision": false,
+      "distance_mm": 60.58903165311085
+    },
+    "J2__J4": {
+      "collision": false,
+      "distance_mm": 45.49877807087362
+    },
+    "J2__J5": {
+      "collision": false,
+      "distance_mm": 56.198260216759195
+    },
+    "J2__J6": {
+      "collision": false,
+      "distance_mm": 43.3662042665791
+    },
+    "J2__J7": {
+      "collision": false,
+      "distance_mm": 17.05576121523468
+    },
+    "J2__J9": {
+      "collision": false,
+      "distance_mm": 29.28082416265106
+    },
+    "J2__J10.GND": {
+      "collision": false,
+      "distance_mm": 12.053444924834716
+    },
+    "J2__J10.V12": {
+      "collision": false,
+      "distance_mm": 8.415810285927131
+    },
+    "J3__J4": {
+      "collision": false,
+      "distance_mm": 4.300018310546875
+    },
+    "J3__J5": {
+      "collision": false,
+      "distance_mm": 59.66598638842387
+    },
+    "J3__J6": {
+      "collision": false,
+      "distance_mm": 61.81394926262038
+    },
+    "J3__J7": {
+      "collision": false,
+      "distance_mm": 38.800018310546875
+    },
+    "J3__J9": {
+      "collision": false,
+      "distance_mm": 25.300018310546875
+    },
+    "J3__J10.GND": {
+      "collision": false,
+      "distance_mm": 63.99909097110549
+    },
+    "J3__J10.V12": {
+      "collision": false,
+      "distance_mm": 64.58249435122922
+    },
+    "J4__J5": {
+      "collision": false,
+      "distance_mm": 59.6039944226629
+    },
+    "J4__J6": {
+      "collision": false,
+      "distance_mm": 59.601348533996656
+    },
+    "J4__J7": {
+      "collision": false,
+      "distance_mm": 22.800018310546875
+    },
+    "J4__J9": {
+      "collision": false,
+      "distance_mm": 9.300018310546875
+    },
+    "J4__J10.GND": {
+      "collision": false,
+      "distance_mm": 48.1319048540898
+    },
+    "J4__J10.V12": {
+      "collision": false,
+      "distance_mm": 48.9049484871366
+    },
+    "J5__J6": {
+      "collision": false,
+      "distance_mm": 4.399993896484375
+    },
+    "J5__J7": {
+      "collision": false,
+      "distance_mm": 66.63906753578492
+    },
+    "J5__J9": {
+      "collision": false,
+      "distance_mm": 61.891200844212364
+    },
+    "J5__J10.GND": {
+      "collision": false,
+      "distance_mm": 75.52546135605041
+    },
+    "J5__J10.V12": {
+      "collision": false,
+      "distance_mm": 72.09956114188809
+    },
+    "J6__J7": {
+      "collision": false,
+      "distance_mm": 61.24517041904837
+    },
+    "J6__J9": {
+      "collision": false,
+      "distance_mm": 59.602904158233066
+    },
+    "J6__J10.GND": {
+      "collision": false,
+      "distance_mm": 65.06749102260521
+    },
+    "J6__J10.V12": {
+      "collision": false,
+      "distance_mm": 61.08305438496295
+    },
+    "J7__J9": {
+      "collision": false,
+      "distance_mm": 4.300018310546875
+    },
+    "J7__J10.GND": {
+      "collision": false,
+      "distance_mm": 10.685690919791096
+    },
+    "J7__J10.V12": {
+      "collision": false,
+      "distance_mm": 13.58019616304635
+    },
+    "J9__J10.GND": {
+      "collision": false,
+      "distance_mm": 29.962126302375076
+    },
+    "J9__J10.V12": {
+      "collision": false,
+      "distance_mm": 31.16188343564513
+    },
+    "J10.GND__J10.V12": {
+      "collision": false,
+      "distance_mm": 2.0
+    }
+  },
+  "plug_pairs": {
+    "J1__J11": {
+      "collision": false,
+      "distance_mm": 71.68838580375906
+    },
+    "J1__J13": {
+      "collision": false,
+      "distance_mm": 14.750113431653809
+    },
+    "J1__J2": {
+      "collision": false,
+      "distance_mm": 1.199920654296875
+    },
+    "J1__J3": {
+      "collision": false,
+      "distance_mm": 63.430900684619395
+    },
+    "J1__J4": {
+      "collision": false,
+      "distance_mm": 46.5293392591548
+    },
+    "J1__J5": {
+      "collision": false,
+      "distance_mm": 44.4500963411452
+    },
+    "J1__J6": {
+      "collision": false,
+      "distance_mm": 28.350006103515625
+    },
+    "J1__J7": {
+      "collision": false,
+      "distance_mm": 32.029937744140625
+    },
+    "J1__J9": {
+      "collision": false,
+      "distance_mm": 37.89439904261211
+    },
+    "J11__J13": {
+      "collision": false,
+      "distance_mm": 62.047385000709134
+    },
+    "J11__J2": {
+      "collision": false,
+      "distance_mm": 68.37846134245896
+    },
+    "J11__J3": {
+      "collision": false,
+      "distance_mm": 1.2501727857878122
+    },
+    "J11__J4": {
+      "collision": false,
+      "distance_mm": 14.750068653550843
+    },
+    "J11__J5": {
+      "collision": false,
+      "distance_mm": 47.767556525141416
+    },
+    "J11__J6": {
+      "collision": false,
+      "distance_mm": 52.73366979936335
+    },
+    "J11__J7": {
+      "collision": false,
+      "distance_mm": 49.250068634197866
+    },
+    "J11__J9": {
+      "collision": false,
+      "distance_mm": 35.75016018530545
+    },
+    "J13__J2": {
+      "collision": false,
+      "distance_mm": 29.69249533218069
+    },
+    "J13__J3": {
+      "collision": false,
+      "distance_mm": 63.01487188360065
+    },
+    "J13__J4": {
+      "collision": false,
+      "distance_mm": 56.99531991081787
+    },
+    "J13__J5": {
+      "collision": false,
+      "distance_mm": 17.399993873781742
+    },
+    "J13__J6": {
+      "collision": false,
+      "distance_mm": 1.299896240234375
+    },
+    "J13__J7": {
+      "collision": false,
+      "distance_mm": 56.5997314453125
+    },
+    "J13__J9": {
+      "collision": false,
+      "distance_mm": 56.600075036828166
+    },
+    "J2__J3": {
+      "collision": false,
+      "distance_mm": 56.396963313665864
+    },
+    "J2__J4": {
+      "collision": false,
+      "distance_mm": 36.36101438309684
+    },
+    "J2__J5": {
+      "collision": false,
+      "distance_mm": 51.37985891588632
+    },
+    "J2__J6": {
+      "collision": false,
+      "distance_mm": 38.312076161885855
+    },
+    "J2__J7": {
+      "collision": false,
+      "distance_mm": 13.529998779296875
+    },
+    "J2__J9": {
+      "collision": false,
+      "distance_mm": 24.354132875995514
+    },
+    "J3__J4": {
+      "collision": false,
+      "distance_mm": 1.19989013671875
+    },
+    "J3__J5": {
+      "collision": false,
+      "distance_mm": 56.60024176683873
+    },
+    "J3__J6": {
+      "collision": false,
+      "distance_mm": 57.776597974232885
+    },
+    "J3__J7": {
+      "collision": false,
+      "distance_mm": 35.69989013671875
+    },
+    "J3__J9": {
+      "collision": false,
+      "distance_mm": 22.199981664273746
+    },
+    "J4__J5": {
+      "collision": false,
+      "distance_mm": 56.5997314453125
+    },
+    "J4__J6": {
+      "collision": false,
+      "distance_mm": 56.600006103515625
+    },
+    "J4__J7": {
+      "collision": false,
+      "distance_mm": 14.699981689453125
+    },
+    "J4__J9": {
+      "collision": false,
+      "distance_mm": 1.19989013671875
+    },
+    "J5__J6": {
+      "collision": false,
+      "distance_mm": 1.299896240234375
+    },
+    "J5__J7": {
+      "collision": false,
+      "distance_mm": 62.03784280992619
+    },
+    "J5__J9": {
+      "collision": false,
+      "distance_mm": 57.83694944647129
+    },
+    "J6__J7": {
+      "collision": false,
+      "distance_mm": 57.358961495718994
+    },
+    "J6__J9": {
+      "collision": false,
+      "distance_mm": 56.5997314453125
+    },
+    "J7__J9": {
+      "collision": false,
+      "distance_mm": 1.19989013671875
+    }
+  },
+  "wire_to_other_plug": {
+    "J1__J11": {
+      "collision": false,
+      "distance_mm": 73.83913720911566
+    },
+    "J1__J13": {
+      "collision": false,
+      "distance_mm": 16.394335412820624
+    },
+    "J1__J2": {
+      "collision": false,
+      "distance_mm": 2.75
+    },
+    "J1__J3": {
+      "collision": false,
+      "distance_mm": 65.82725367118252
+    },
+    "J1__J4": {
+      "collision": false,
+      "distance_mm": 49.06062681365949
+    },
+    "J1__J5": {
+      "collision": false,
+      "distance_mm": 46.001302175712745
+    },
+    "J1__J6": {
+      "collision": false,
+      "distance_mm": 29.928779170832673
+    },
+    "J1__J7": {
+      "collision": false,
+      "distance_mm": 33.618112225849245
+    },
+    "J1__J9": {
+      "collision": false,
+      "distance_mm": 40.33628377476256
+    },
+    "J11__J1": {
+      "collision": false,
+      "distance_mm": 73.8392227775662
+    },
+    "J11__J13": {
+      "collision": false,
+      "distance_mm": 64.57096079462973
+    },
+    "J11__J2": {
+      "collision": false,
+      "distance_mm": 70.03060546518829
+    },
+    "J11__J3": {
+      "collision": false,
+      "distance_mm": 2.772376414977757
+    },
+    "J11__J4": {
+      "collision": false,
+      "distance_mm": 16.25389096716708
+    },
+    "J11__J5": {
+      "collision": false,
+      "distance_mm": 49.868999020177064
+    },
+    "J11__J6": {
+      "collision": false,
+      "distance_mm": 55.121513259486335
+    },
+    "J11__J7": {
+      "collision": false,
+      "distance_mm": 50.75132899170344
+    },
+    "J11__J9": {
+      "collision": false,
+      "distance_mm": 37.251855350391175
+    },
+    "J13__J1": {
+      "collision": false,
+      "distance_mm": 16.437296536727718
+    },
+    "J13__J11": {
+      "collision": false,
+      "distance_mm": 64.56727796659973
+    },
+    "J13__J2": {
+      "collision": false,
+      "distance_mm": 32.08729327690584
+    },
+    "J13__J3": {
+      "collision": false,
+      "distance_mm": 65.34132942334809
+    },
+    "J13__J4": {
+      "collision": false,
+      "distance_mm": 58.80845559509206
+    },
+    "J13__J5": {
+      "collision": false,
+      "distance_mm": 18.950028246155952
+    },
+    "J13__J6": {
+      "collision": false,
+      "distance_mm": 2.850006103515625
+    },
+    "J13__J7": {
+      "collision": false,
+      "distance_mm": 58.099884033203125
+    },
+    "J13__J9": {
+      "collision": false,
+      "distance_mm": 58.099970584749556
+    },
+    "J2__J1": {
+      "collision": false,
+      "distance_mm": 2.75
+    },
+    "J2__J11": {
+      "collision": false,
+      "distance_mm": 70.03048343999062
+    },
+    "J2__J13": {
+      "collision": false,
+      "distance_mm": 32.10399318218784
+    },
+    "J2__J3": {
+      "collision": false,
+      "distance_mm": 58.457568056246366
+    },
+    "J2__J4": {
+      "collision": false,
+      "distance_mm": 38.613607526919225
+    },
+    "J2__J5": {
+      "collision": false,
+      "distance_mm": 53.77418944709301
+    },
+    "J2__J6": {
+      "collision": false,
+      "distance_mm": 40.836542105712326
+    },
+    "J2__J7": {
+      "collision": false,
+      "distance_mm": 15.164718201526185
+    },
+    "J2__J9": {
+      "collision": false,
+      "distance_mm": 26.803678206440722
+    },
+    "J3__J1": {
+      "collision": false,
+      "distance_mm": 65.84429395447265
+    },
+    "J3__J11": {
+      "collision": false,
+      "distance_mm": 2.816141101839827
+    },
+    "J3__J13": {
+      "collision": false,
+      "distance_mm": 65.34132942334809
+    },
+    "J3__J2": {
+      "collision": false,
+      "distance_mm": 58.49261638441736
+    },
+    "J3__J4": {
+      "collision": false,
+      "distance_mm": 2.75
+    },
+    "J3__J5": {
+      "collision": false,
+      "distance_mm": 58.101657002834976
+    },
+    "J3__J6": {
+      "collision": false,
+      "distance_mm": 59.763072995079966
+    },
+    "J3__J7": {
+      "collision": false,
+      "distance_mm": 37.25
+    },
+    "J3__J9": {
+      "collision": false,
+      "distance_mm": 23.750016036445885
+    },
+    "J4__J1": {
+      "collision": false,
+      "distance_mm": 52.78464375124985
+    },
+    "J4__J11": {
+      "collision": false,
+      "distance_mm": 16.30291476812704
+    },
+    "J4__J13": {
+      "collision": false,
+      "distance_mm": 59.78658737798907
+    },
+    "J4__J2": {
+      "collision": false,
+      "distance_mm": 43.2682130167705
+    },
+    "J4__J3": {
+      "collision": false,
+      "distance_mm": 2.7499965127869883
+    },
+    "J4__J5": {
+      "collision": false,
+      "distance_mm": 58.099790457691505
+    },
+    "J4__J6": {
+      "collision": false,
+      "distance_mm": 58.100006103515625
+    },
+    "J4__J7": {
+      "collision": false,
+      "distance_mm": 21.25
+    },
+    "J4__J9": {
+      "collision": false,
+      "distance_mm": 7.750016048622763
+    },
+    "J5__J1": {
+      "collision": false,
+      "distance_mm": 46.04882322613855
+    },
+    "J5__J11": {
+      "collision": false,
+      "distance_mm": 49.834466044807826
+    },
+    "J5__J13": {
+      "collision": false,
+      "distance_mm": 18.94996560920573
+    },
+    "J5__J2": {
+      "collision": false,
+      "distance_mm": 53.79122584127427
+    },
+    "J5__J3": {
+      "collision": false,
+      "distance_mm": 58.101657002834976
+    },
+    "J5__J4": {
+      "collision": false,
+      "distance_mm": 58.099884033203125
+    },
+    "J5__J6": {
+      "collision": false,
+      "distance_mm": 2.8499755859375
+    },
+    "J5__J7": {
+      "collision": false,
+      "distance_mm": 64.32908164717472
+    },
+    "J5__J9": {
+      "collision": false,
+      "distance_mm": 59.833576517044285
+    },
+    "J6__J1": {
+      "collision": false,
+      "distance_mm": 29.975091293449367
+    },
+    "J6__J11": {
+      "collision": false,
+      "distance_mm": 55.102601081566476
+    },
+    "J6__J13": {
+      "collision": false,
+      "distance_mm": 2.8499900354966834
+    },
+    "J6__J2": {
+      "collision": false,
+      "distance_mm": 40.83925884501616
+    },
+    "J6__J3": {
+      "collision": false,
+      "distance_mm": 59.763081216570555
+    },
+    "J6__J4": {
+      "collision": false,
+      "distance_mm": 58.100006103515625
+    },
+    "J6__J5": {
+      "collision": false,
+      "distance_mm": 2.850022154868765
+    },
+    "J6__J7": {
+      "collision": false,
+      "distance_mm": 59.26635634888679
+    },
+    "J6__J9": {
+      "collision": false,
+      "distance_mm": 58.099793930383775
+    },
+    "J7__J1": {
+      "collision": false,
+      "distance_mm": 33.57051244310918
+    },
+    "J7__J11": {
+      "collision": false,
+      "distance_mm": 50.80104102351208
+    },
+    "J7__J13": {
+      "collision": false,
+      "distance_mm": 58.09979740429966
+    },
+    "J7__J2": {
+      "collision": false,
+      "distance_mm": 15.12029906690565
+    },
+    "J7__J3": {
+      "collision": false,
+      "distance_mm": 37.24999648855782
+    },
+    "J7__J4": {
+      "collision": false,
+      "distance_mm": 16.25
+    },
+    "J7__J5": {
+      "collision": false,
+      "distance_mm": 64.32898252488997
+    },
+    "J7__J6": {
+      "collision": false,
+      "distance_mm": 59.266350324295246
+    },
+    "J7__J9": {
+      "collision": false,
+      "distance_mm": 2.7499965127869883
+    },
+    "J9__J1": {
+      "collision": false,
+      "distance_mm": 40.32203322235284
+    },
+    "J9__J11": {
+      "collision": false,
+      "distance_mm": 37.30136023384334
+    },
+    "J9__J13": {
+      "collision": false,
+      "distance_mm": 58.09997058564567
+    },
+    "J9__J2": {
+      "collision": false,
+      "distance_mm": 26.815638968183368
+    },
+    "J9__J3": {
+      "collision": false,
+      "distance_mm": 23.749996492320165
+    },
+    "J9__J4": {
+      "collision": false,
+      "distance_mm": 2.75
+    },
+    "J9__J5": {
+      "collision": false,
+      "distance_mm": 59.833576517044285
+    },
+    "J9__J6": {
+      "collision": false,
+      "distance_mm": 58.099884033203125
+    },
+    "J9__J7": {
+      "collision": false,
+      "distance_mm": 2.75
+    },
+    "J10.GND__J1": {
+      "collision": false,
+      "distance_mm": 26.62804266945914
+    },
+    "J10.GND__J11": {
+      "collision": false,
+      "distance_mm": 75.59995321027822
+    },
+    "J10.GND__J13": {
+      "collision": false,
+      "distance_mm": 55.70012401068151
+    },
+    "J10.GND__J2": {
+      "collision": false,
+      "distance_mm": 8.236892487840933
+    },
+    "J10.GND__J3": {
+      "collision": false,
+      "distance_mm": 62.098313225079444
+    },
+    "J10.GND__J4": {
+      "collision": false,
+      "distance_mm": 41.123096534746125
+    },
+    "J10.GND__J5": {
+      "collision": false,
+      "distance_mm": 72.76243585137156
+    },
+    "J10.GND__J6": {
+      "collision": false,
+      "distance_mm": 62.347801021683054
+    },
+    "J10.GND__J7": {
+      "collision": false,
+      "distance_mm": 6.993261003668018
+    },
+    "J10.GND__J9": {
+      "collision": false,
+      "distance_mm": 27.658695800744535
+    },
+    "J10.V12__J1": {
+      "collision": false,
+      "distance_mm": 21.63916359371228
+    },
+    "J10.V12__J11": {
+      "collision": false,
+      "distance_mm": 75.59979248046875
+    },
+    "J10.V12__J13": {
+      "collision": false,
+      "distance_mm": 51.146912149439544
+    },
+    "J10.V12__J2": {
+      "collision": false,
+      "distance_mm": 3.4708114517493103
+    },
+    "J10.V12__J3": {
+      "collision": false,
+      "distance_mm": 62.495617073113976
+    },
+    "J10.V12__J4": {
+      "collision": false,
+      "distance_mm": 41.72060870452829
+    },
+    "J10.V12__J5": {
+      "collision": false,
+      "distance_mm": 69.3388410534972
+    },
+    "J10.V12__J6": {
+      "collision": false,
+      "distance_mm": 58.315935671774476
+    },
+    "J10.V12__J7": {
+      "collision": false,
+      "distance_mm": 9.91997084349225
+    },
+    "J10.V12__J9": {
+      "collision": false,
+      "distance_mm": 28.539535759141952
+    }
+  },
+  "pull_to_other_lead": {
+    "J1__J11": {
+      "collision": false,
+      "distance_mm": 73.8392227775662
+    },
+    "J1__J13": {
+      "collision": false,
+      "distance_mm": 16.437296536727718
+    },
+    "J1__J2": {
+      "collision": false,
+      "distance_mm": 2.75
+    },
+    "J1__J3": {
+      "collision": false,
+      "distance_mm": 65.84429395447265
+    },
+    "J1__J4": {
+      "collision": false,
+      "distance_mm": 52.78464375124985
+    },
+    "J1__J5": {
+      "collision": false,
+      "distance_mm": 46.04882322613855
+    },
+    "J1__J6": {
+      "collision": false,
+      "distance_mm": 29.975091293449367
+    },
+    "J1__J7": {
+      "collision": false,
+      "distance_mm": 33.57051244310918
+    },
+    "J1__J9": {
+      "collision": false,
+      "distance_mm": 40.32203322235284
+    },
+    "J1__J10.GND": {
+      "collision": false,
+      "distance_mm": 26.62804266945914
+    },
+    "J1__J10.V12": {
+      "collision": false,
+      "distance_mm": 21.63916359371228
+    },
+    "J11__J1": {
+      "collision": false,
+      "distance_mm": 73.83913720911566
+    },
+    "J11__J13": {
+      "collision": false,
+      "distance_mm": 64.56727796659973
+    },
+    "J11__J2": {
+      "collision": false,
+      "distance_mm": 70.03048343999062
+    },
+    "J11__J3": {
+      "collision": false,
+      "distance_mm": 2.816141101839827
+    },
+    "J11__J4": {
+      "collision": false,
+      "distance_mm": 16.30291476812704
+    },
+    "J11__J5": {
+      "collision": false,
+      "distance_mm": 49.834466044807826
+    },
+    "J11__J6": {
+      "collision": false,
+      "distance_mm": 55.102601081566476
+    },
+    "J11__J7": {
+      "collision": false,
+      "distance_mm": 50.80104102351208
+    },
+    "J11__J9": {
+      "collision": false,
+      "distance_mm": 37.30136023384334
+    },
+    "J11__J10.GND": {
+      "collision": false,
+      "distance_mm": 75.59995321027822
+    },
+    "J11__J10.V12": {
+      "collision": false,
+      "distance_mm": 75.59979248046875
+    },
+    "J13__J1": {
+      "collision": false,
+      "distance_mm": 16.394335412820624
+    },
+    "J13__J11": {
+      "collision": false,
+      "distance_mm": 64.57096079462973
+    },
+    "J13__J2": {
+      "collision": false,
+      "distance_mm": 32.10399318218784
+    },
+    "J13__J3": {
+      "collision": false,
+      "distance_mm": 65.34132942334809
+    },
+    "J13__J4": {
+      "collision": false,
+      "distance_mm": 59.78658737798907
+    },
+    "J13__J5": {
+      "collision": false,
+      "distance_mm": 18.94996560920573
+    },
+    "J13__J6": {
+      "collision": false,
+      "distance_mm": 2.8499900354966834
+    },
+    "J13__J7": {
+      "collision": false,
+      "distance_mm": 58.09979740429966
+    },
+    "J13__J9": {
+      "collision": false,
+      "distance_mm": 58.09997058564568
+    },
+    "J13__J10.GND": {
+      "collision": false,
+      "distance_mm": 55.70012401068151
+    },
+    "J13__J10.V12": {
+      "collision": false,
+      "distance_mm": 51.146912149439544
+    },
+    "J2__J1": {
+      "collision": false,
+      "distance_mm": 2.75
+    },
+    "J2__J11": {
+      "collision": false,
+      "distance_mm": 70.03060546518829
+    },
+    "J2__J13": {
+      "collision": false,
+      "distance_mm": 32.08729327690584
+    },
+    "J2__J3": {
+      "collision": false,
+      "distance_mm": 58.49261638441736
+    },
+    "J2__J4": {
+      "collision": false,
+      "distance_mm": 43.2682130167705
+    },
+    "J2__J5": {
+      "collision": false,
+      "distance_mm": 53.79122584127427
+    },
+    "J2__J6": {
+      "collision": false,
+      "distance_mm": 40.83925884501616
+    },
+    "J2__J7": {
+      "collision": false,
+      "distance_mm": 15.12029906690565
+    },
+    "J2__J9": {
+      "collision": false,
+      "distance_mm": 26.815638968183368
+    },
+    "J2__J10.GND": {
+      "collision": false,
+      "distance_mm": 8.236892487840933
+    },
+    "J2__J10.V12": {
+      "collision": false,
+      "distance_mm": 3.4708114517493103
+    },
+    "J3__J1": {
+      "collision": false,
+      "distance_mm": 65.82725367118252
+    },
+    "J3__J11": {
+      "collision": false,
+      "distance_mm": 2.772376414977757
+    },
+    "J3__J13": {
+      "collision": false,
+      "distance_mm": 65.34132942334809
+    },
+    "J3__J2": {
+      "collision": false,
+      "distance_mm": 58.457568056246366
+    },
+    "J3__J4": {
+      "collision": false,
+      "distance_mm": 2.7499965127869883
+    },
+    "J3__J5": {
+      "collision": false,
+      "distance_mm": 58.101657002834976
+    },
+    "J3__J6": {
+      "collision": false,
+      "distance_mm": 59.763081216570555
+    },
+    "J3__J7": {
+      "collision": false,
+      "distance_mm": 37.24999648855782
+    },
+    "J3__J9": {
+      "collision": false,
+      "distance_mm": 23.749996492320165
+    },
+    "J3__J10.GND": {
+      "collision": false,
+      "distance_mm": 62.098313225079444
+    },
+    "J3__J10.V12": {
+      "collision": false,
+      "distance_mm": 62.495617073113976
+    },
+    "J4__J1": {
+      "collision": false,
+      "distance_mm": 49.06062681365949
+    },
+    "J4__J11": {
+      "collision": false,
+      "distance_mm": 16.25389096716708
+    },
+    "J4__J13": {
+      "collision": false,
+      "distance_mm": 58.80845559509206
+    },
+    "J4__J2": {
+      "collision": false,
+      "distance_mm": 38.613607526919225
+    },
+    "J4__J3": {
+      "collision": false,
+      "distance_mm": 2.75
+    },
+    "J4__J5": {
+      "collision": false,
+      "distance_mm": 58.099884033203125
+    },
+    "J4__J6": {
+      "collision": false,
+      "distance_mm": 58.100006103515625
+    },
+    "J4__J7": {
+      "collision": false,
+      "distance_mm": 16.25
+    },
+    "J4__J9": {
+      "collision": false,
+      "distance_mm": 2.75
+    },
+    "J4__J10.GND": {
+      "collision": false,
+      "distance_mm": 41.123096534746125
+    },
+    "J4__J10.V12": {
+      "collision": false,
+      "distance_mm": 41.72060870452829
+    },
+    "J5__J1": {
+      "collision": false,
+      "distance_mm": 46.001302175712745
+    },
+    "J5__J11": {
+      "collision": false,
+      "distance_mm": 49.868999020177064
+    },
+    "J5__J13": {
+      "collision": false,
+      "distance_mm": 18.949984517652794
+    },
+    "J5__J2": {
+      "collision": false,
+      "distance_mm": 53.77418944709301
+    },
+    "J5__J3": {
+      "collision": false,
+      "distance_mm": 58.101657002834976
+    },
+    "J5__J4": {
+      "collision": false,
+      "distance_mm": 58.09979045769151
+    },
+    "J5__J6": {
+      "collision": false,
+      "distance_mm": 2.8499784364785246
+    },
+    "J5__J7": {
+      "collision": false,
+      "distance_mm": 64.32898252488997
+    },
+    "J5__J9": {
+      "collision": false,
+      "distance_mm": 59.833576517044285
+    },
+    "J5__J10.GND": {
+      "collision": false,
+      "distance_mm": 72.76243585137156
+    },
+    "J5__J10.V12": {
+      "collision": false,
+      "distance_mm": 69.3388410534972
+    },
+    "J6__J1": {
+      "collision": false,
+      "distance_mm": 29.928779170832673
+    },
+    "J6__J11": {
+      "collision": false,
+      "distance_mm": 55.121513259486335
+    },
+    "J6__J13": {
+      "collision": false,
+      "distance_mm": 2.850006103515625
+    },
+    "J6__J2": {
+      "collision": false,
+      "distance_mm": 40.836542105712326
+    },
+    "J6__J3": {
+      "collision": false,
+      "distance_mm": 59.763072995079966
+    },
+    "J6__J4": {
+      "collision": false,
+      "distance_mm": 58.100006103515625
+    },
+    "J6__J5": {
+      "collision": false,
+      "distance_mm": 2.8499755859375
+    },
+    "J6__J7": {
+      "collision": false,
+      "distance_mm": 59.266350324295246
+    },
+    "J6__J9": {
+      "collision": false,
+      "distance_mm": 58.09988403320312
+    },
+    "J6__J10.GND": {
+      "collision": false,
+      "distance_mm": 62.347801021683054
+    },
+    "J6__J10.V12": {
+      "collision": false,
+      "distance_mm": 58.315935671774476
+    },
+    "J7__J1": {
+      "collision": false,
+      "distance_mm": 33.618112225849245
+    },
+    "J7__J11": {
+      "collision": false,
+      "distance_mm": 50.75132899170344
+    },
+    "J7__J13": {
+      "collision": false,
+      "distance_mm": 58.099884033203125
+    },
+    "J7__J2": {
+      "collision": false,
+      "distance_mm": 15.164718201526185
+    },
+    "J7__J3": {
+      "collision": false,
+      "distance_mm": 37.25
+    },
+    "J7__J4": {
+      "collision": false,
+      "distance_mm": 21.25
+    },
+    "J7__J5": {
+      "collision": false,
+      "distance_mm": 64.32908164717472
+    },
+    "J7__J6": {
+      "collision": false,
+      "distance_mm": 59.26635634888679
+    },
+    "J7__J9": {
+      "collision": false,
+      "distance_mm": 2.75
+    },
+    "J7__J10.GND": {
+      "collision": false,
+      "distance_mm": 6.993261003668018
+    },
+    "J7__J10.V12": {
+      "collision": false,
+      "distance_mm": 9.91997084349225
+    },
+    "J9__J1": {
+      "collision": false,
+      "distance_mm": 40.33628377476256
+    },
+    "J9__J11": {
+      "collision": false,
+      "distance_mm": 37.251855350391175
+    },
+    "J9__J13": {
+      "collision": false,
+      "distance_mm": 58.099970584749556
+    },
+    "J9__J2": {
+      "collision": false,
+      "distance_mm": 26.803678206440722
+    },
+    "J9__J3": {
+      "collision": false,
+      "distance_mm": 23.749972304810598
+    },
+    "J9__J4": {
+      "collision": false,
+      "distance_mm": 7.7499723276767405
+    },
+    "J9__J5": {
+      "collision": false,
+      "distance_mm": 59.833576517044285
+    },
+    "J9__J6": {
+      "collision": false,
+      "distance_mm": 58.099793930383775
+    },
+    "J9__J7": {
+      "collision": false,
+      "distance_mm": 2.7499965127869883
+    },
+    "J9__J10.GND": {
+      "collision": false,
+      "distance_mm": 27.658695800744535
+    },
+    "J9__J10.V12": {
+      "collision": false,
+      "distance_mm": 28.539535759141952
+    }
+  },
+  "collisions": {
+    "wire_pairs": {},
+    "plug_pairs": {},
+    "wire_to_other_plug": {},
+    "pull_to_other_lead": {}
+  },
+  "within_header_conductor_gap_mm": 0.8,
+  "J10_pair_conductor_gap_mm": 2.0,
+  "service_access_condition": "Normal roof removed for tool and mating access; only installed plug and wire bodies require closed-roof clearance",
+  "note": "Local wire departures are connected to correct terminals but are not completed enclosure harness routes.",
+  "source_geometry_manifest": "selection.json",
+  "surrounding_body_evidence": "arrangement-audit.json",
+  "local_PCB_evidence": "pcb-mutual-audit.json"
+}

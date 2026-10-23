@@ -1,13 +1,16 @@
 {
-  "scope": "Candidate arrangement; bare components and plain context solids. Removable electronics carrier, fasteners and complete wire/tube routes are not designed here.",
+  "scope": "Selected-component arrangement with installed JST housings, local wire departures and separate terminal tool paths. Removable PCB carrier, fasteners and complete wire/tube routes remain to design.",
   "description": {
     "electronics_wall": "-X",
     "rear_wet_connections_half": "+X",
-    "pcb_orientation": "Horizontal, components upward, above supply and relays",
-    "relay_service": "Wire relay terminals before installing PCB; PCB removal gives subsequent terminal access",
+    "pcb_orientation": "Horizontal, components upward; J10 wire entry faces forward (-Y)",
+    "relay_service": "Lift the PCB carrier for upward-facing relay terminal access",
     "water_header_poses": "ceiling-fit, unchanged",
     "planned_funnel_minus_y_expansion": "No added electronics occupies the forward funnel area",
-    "wago_groups": "Five main-power connectors at rear; four manifold/sensor connectors on forward -X wall"
+    "wago_groups": "Five main-power connectors at rear; four manifold/sensor connectors on forward -X wall",
+    "psu_orientation": "Flat on its back, AC aft and DC fore, screws upward",
+    "psu_mount_service": "Fasten the supply before the rear inlet/data/WAGO parts covering its rear mounting axes; remove those parts for supply replacement",
+    "connection_scope": "Ten active JST plugs and their local wire bends, J10 power leads and selected PSU/relay local conductors; separate unplugging and screwdriver probes"
   },
   "instances": [
     {
@@ -213,9 +216,9 @@
       "geometry": "psu",
       "rotation": [
         [
-          -1.0,
           0.0,
-          0.0
+          0.0,
+          1.0
         ],
         [
           0.0,
@@ -223,20 +226,20 @@
           0.0
         ],
         [
+          -1.0,
           0.0,
-          0.0,
-          -1.0
+          0.0
         ]
       ],
       "translation": [
-        -0.25,
-        -0.79998779296875,
-        558.7999938964844
+        -349.3999938964844,
+        -4.79998779296875,
+        351.65
       ],
       "role": "electronics",
       "kind": "component",
       "context": true,
-      "label": "Mean Well \u00b7 AC aft"
+      "label": "Mean Well \u00b7 flat, AC aft"
     },
     {
       "name": "relay-1",
@@ -260,8 +263,8 @@
       ],
       "translation": [
         -423.20001220703125,
-        95.20001220703125,
-        405.65
+        110.20001220703125,
+        388.15
       ],
       "role": "electronics",
       "kind": "component",
@@ -290,8 +293,8 @@
       ],
       "translation": [
         -403.79998779296875,
-        675.3999938964844,
-        405.65
+        690.3999938964844,
+        388.15
       ],
       "role": "electronics",
       "kind": "component",
@@ -303,30 +306,30 @@
       "geometry": "c14-inlet",
       "rotation": [
         [
-          1.0,
-          0.0,
-          0.0
-        ],
-        [
-          0.0,
-          1.0,
-          0.0
-        ],
-        [
           0.0,
           0.0,
           1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
         ]
       ],
       "translation": [
-        -140.4,
+        -422.7105808375568,
         10.090000000000032,
-        -3.2105808375567904
+        348.9
       ],
       "role": "electronics",
       "kind": "component",
       "context": true,
-      "label": "C14 power inlet"
+      "label": "C14 power inlet \u00b7 vertical"
     },
     {
       "name": "keystone-jack",
@@ -349,9 +352,9 @@
         ]
       ],
       "translation": [
-        -10.29,
+        -45.79,
         3.5200000000000387,
-        -25.40229041877842
+        19.59770958122158
       ],
       "role": "electronics",
       "kind": "component",
@@ -544,13 +547,13 @@
       "rotation": [
         [
           0.0,
-          0.0,
-          1.0
+          -1.2246467991473532e-16,
+          -1.0
         ],
         [
           0.0,
-          1.0,
-          0.0
+          -1.0,
+          1.2246467991473532e-16
         ],
         [
           -1.0,
@@ -559,14 +562,14 @@
         ]
       ],
       "translation": [
-        -349.3999938964844,
-        111.01606750488281,
-        426.25
+        236.2000122070313,
+        662.7999877929688,
+        420.25
       ],
       "role": "electronics",
       "kind": "component",
       "context": true,
-      "label": "Main PCB \u00b7 horizontal"
+      "label": "Main PCB \u00b7 flat, components upward"
     },
     {
       "name": "carb-nut",
@@ -793,11 +796,11 @@
       ]
     },
     {
-      "text": "Mean Well \u00b7 AC aft",
+      "text": "Mean Well \u00b7 flat",
       "at": [
-        -81.75,
-        404.5,
-        279.4
+        -70,
+        400.5,
+        270
       ],
       "views": [
         "three",
@@ -810,8 +813,8 @@
       "text": "Relay 1 \u00b7 beneath PCB",
       "at": [
         -85.5,
-        387.0,
-        316.9
+        402,
+        299.4
       ],
       "views": [
         "service"
@@ -821,8 +824,8 @@
       "text": "Relay 2 \u00b7 beneath PCB",
       "at": [
         -65.5,
-        387.0,
-        316.9
+        402,
+        299.4
       ],
       "views": [
         "service"
@@ -831,9 +834,9 @@
     {
       "text": "C14 power inlet",
       "at": [
-        -73.50000038146973,
+        -86.50000954849429,
         459.71998962402347,
-        332.9999904515057
+        282.0000003814697
       ],
       "views": [
         "rear",
@@ -843,9 +846,9 @@
     {
       "text": "Faucet data",
       "at": [
-        -50.999999084472655,
+        -86.49999908447265,
         456.2999987792969,
-        278.66999046501064
+        323.66999046501064
       ],
       "views": [
         "rear",
@@ -920,11 +923,11 @@
       ]
     },
     {
-      "text": "Main PCB \u00b7 horizontal",
+      "text": "Main PCB \u00b7 plugged in",
       "at": [
-        -59.59999084472656,
-        392.4080276489258,
-        338.5500030517578
+        -53.59999084472656,
+        381.40802764892584,
+        332.5500030517578
       ],
       "views": [
         "three",
@@ -1154,7 +1157,7 @@
     "left-wall": "Dry side \u00b7 plain 9 mm wall \u00b7 carrier/mounts not detailed",
     "right-wall": "Wet side \u00b7 plain 9 mm wall",
     "back-wall": "Bare rear panel \u00b7 common 3 mm recess leaves 6 mm stock at fluid fittings",
-    "ceiling": "Ceiling \u00b7 at least 3 mm roof stock \u00b7 additional flat PCB recess"
+    "ceiling": "Ceiling \u00b7 9 mm stock over electronics \u00b7 3 mm over ASSE / regulator"
   },
   "report_components": [
     "pcba",

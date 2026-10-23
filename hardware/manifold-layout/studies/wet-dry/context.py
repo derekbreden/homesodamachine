@@ -33,12 +33,19 @@ def build():
     c14 = by_name["c14-inlet"]
     datum = np.array(sources["c14-inlet"]["native_to_original_world"]["translation_mm"])
     center = np.array(c14["rotation"]) @ datum + c14["translation"]
-    x,y,z = center
+    r = np.array(c14["rotation"])
     # Scanned flange pocket, manufacturer opening envelope and actual 40.21 mm pitch.
-    back = back.cut(box(x-25.135,x+25.135,468.05,471.31,z-11.2,z+11.2))
-    back = back.cut(box(x-15.725,x+15.725,462.29,471.31,z-11.325,z+11.325))
+    # Rotate the opening with the inlet, including its vertical screw pitch.
+    def opening(half_x, half_z, y0):
+        corners = np.array([[dx,0,dz] for dx in (-half_x,half_x)
+                            for dz in (-half_z,half_z)]) @ r.T + center
+        low,high = corners.min(0),corners.max(0)
+        return box(low[0],high[0],y0,471.31,low[2],high[2])
+    back = back.cut(opening(25.135,11.2,468.05))
+    back = back.cut(opening(15.725,11.325,462.29))
     for dx in (-20.105,20.105):
-        back = back.cut(cq.Solid.makeCylinder(1.7,9.02,cq.Vector(x+dx,462.29,z),cq.Vector(0,1,0)))
+        hole = center + r @ np.array([dx,0,0])
+        back = back.cut(cq.Solid.makeCylinder(1.7,9.02,cq.Vector(hole[0],462.29,hole[2]),cq.Vector(0,1,0)))
     # Bare keystone occupancy opening only; a clip/retainer is not specified here.
     k = by_name["keystone-jack"]
     with np.load(HERE / "parts/keystone-jack.npz") as d:

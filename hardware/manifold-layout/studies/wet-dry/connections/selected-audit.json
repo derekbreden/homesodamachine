@@ -1,0 +1,4246 @@
+{
+  "scope": "Combined selected local connector/wire/access geometry; mutual clearance, with surrounding-body checks retained from final-candidate.json",
+  "component_poses": {
+    "psu": {
+      "rotation": [
+        [
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation_mm": [
+        -349.3999938964844,
+        -4.79998779296875,
+        351.65
+      ],
+      "bounds_mm": [
+        [
+          -96.0,
+          346.0,
+          253.39999999999998
+        ],
+        [
+          -44.0,
+          455.0,
+          286.9
+        ]
+      ],
+      "body_interferences": []
+    },
+    "pcba": {
+      "rotation": [
+        [
+          0.0,
+          -1.2246467991473532e-16,
+          -1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          1.2246467991473532e-16
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation_mm": [
+        236.2000122070313,
+        662.7999877929688,
+        420.25
+      ],
+      "bounds_mm": [
+        [
+          -90.0,
+          336.00000000000006,
+          322.0
+        ],
+        [
+          -17.199981689453097,
+          426.81605529785156,
+          343.1000061035156
+        ]
+      ],
+      "body_interferences": []
+    },
+    "relay-1": {
+      "rotation": [
+        [
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation_mm": [
+        -423.20001220703125,
+        110.20001220703125,
+        388.15
+      ],
+      "bounds_mm": [
+        [
+          -94.0,
+          367.0,
+          289.9
+        ],
+        [
+          -77.0,
+          437.0,
+          308.9
+        ]
+      ],
+      "body_interferences": []
+    },
+    "relay-2": {
+      "rotation": [
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation_mm": [
+        -403.79998779296875,
+        690.3999938964844,
+        388.15
+      ],
+      "bounds_mm": [
+        [
+          -74.0,
+          367.0,
+          289.9
+        ],
+        [
+          -57.0,
+          437.0,
+          308.9
+        ]
+      ],
+      "body_interferences": []
+    },
+    "keystone-jack": {
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        -45.79,
+        3.5200000000000387,
+        19.59770958122158
+      ],
+      "bounds_mm": [
+        [
+          -93.8249998474121,
+          441.2999987792969,
+          311.59499351676845
+        ],
+        [
+          -79.1749983215332,
+          471.2999987792969,
+          335.74498741325283
+        ]
+      ],
+      "body_interferences": []
+    },
+    "c14-inlet": {
+      "rotation": [
+        [
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation_mm": [
+        -422.7105808375568,
+        10.090000000000032,
+        348.9
+      ],
+      "bounds_mm": [
+        [
+          -97.56501198990054,
+          446.29999145507816,
+          257.147688293457
+        ],
+        [
+          -75.43500710708804,
+          473.1399877929688,
+          306.8523124694824
+        ]
+      ],
+      "body_interferences": []
+    }
+  },
+  "power_wire_choices": {
+    "psu.V12": "DC-plus-1",
+    "psu.GND": "DC-minus-2",
+    "basis": "Inner screw of each duplicated DC bus, from official physical pole table; no production wire map edit"
+  },
+  "power_lead_sources": {
+    "psu.AC-N": {
+      "source": "geometry/psu-AC-N-wire-bent.npz",
+      "shape": "2 mm straight, R5 upward quarter bend, 8 mm tangent; 3 mm OD"
+    },
+    "psu.AC-L": {
+      "source": "geometry/psu-AC-L-wire-bent.npz",
+      "shape": "2 mm straight, R5 upward quarter bend, 8 mm tangent; 3 mm OD"
+    },
+    "psu.DC-minus-2": {
+      "source": "geometry/psu-DC-minus-2-wire.npz",
+      "shape": "12 mm straight side-entry departure, 3 mm OD"
+    },
+    "psu.DC-plus-1": {
+      "source": "geometry/psu-DC-plus-1-wire.npz",
+      "shape": "12 mm straight side-entry departure, 3 mm OD"
+    },
+    "relay-1.COM": {
+      "source": "geometry/relay-1-COM-wire.npz",
+      "shape": "12 mm straight side-entry departure, 3 mm OD"
+    },
+    "relay-1.NO": {
+      "source": "geometry/relay-1-NO-wire.npz",
+      "shape": "12 mm straight side-entry departure, 3 mm OD"
+    },
+    "relay-2.COM": {
+      "source": "geometry/relay-2-COM-wire.npz",
+      "shape": "12 mm straight side-entry departure, 3 mm OD"
+    },
+    "relay-2.NO": {
+      "source": "geometry/relay-2-NO-wire.npz",
+      "shape": "12 mm straight side-entry departure, 3 mm OD"
+    }
+  },
+  "wire_pairs": {
+    "J1__J11": {
+      "collision": false,
+      "distance_mm": 76.01470404429827
+    },
+    "J1__J13": {
+      "collision": false,
+      "distance_mm": 18.364915597769386
+    },
+    "J1__J2": {
+      "collision": false,
+      "distance_mm": 4.300079345703125
+    },
+    "J1__J3": {
+      "collision": false,
+      "distance_mm": 68.25096339034727
+    },
+    "J1__J4": {
+      "collision": false,
+      "distance_mm": 55.29283440378874
+    },
+    "J1__J5": {
+      "collision": false,
+      "distance_mm": 47.71456248418704
+    },
+    "J1__J6": {
+      "collision": false,
+      "distance_mm": 31.723683735761245
+    },
+    "J1__J7": {
+      "collision": false,
+      "distance_mm": 35.30733066975935
+    },
+    "J1__J9": {
+      "collision": false,
+      "distance_mm": 42.77699833802892
+    },
+    "J1__J10.GND": {
+      "collision": false,
+      "distance_mm": 29.153146606098144
+    },
+    "J1__J10.V12": {
+      "collision": false,
+      "distance_mm": 24.36402898144161
+    },
+    "J1__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 132.42436476467282
+    },
+    "J1__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 131.12784614805022
+    },
+    "J1__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 74.37155492913932
+    },
+    "J1__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 72.93344009253899
+    },
+    "J1__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 57.50444061544041
+    },
+    "J1__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 54.03065453618582
+    },
+    "J1__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 97.30717597344798
+    },
+    "J1__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 98.07643340220078
+    },
+    "J11__J13": {
+      "collision": false,
+      "distance_mm": 67.0927663905706
+    },
+    "J11__J2": {
+      "collision": false,
+      "distance_mm": 71.75624373233953
+    },
+    "J11__J3": {
+      "collision": false,
+      "distance_mm": 4.891176770203688
+    },
+    "J11__J4": {
+      "collision": false,
+      "distance_mm": 18.003751372878327
+    },
+    "J11__J5": {
+      "collision": false,
+      "distance_mm": 51.97717324240598
+    },
+    "J11__J6": {
+      "collision": false,
+      "distance_mm": 57.50489310847292
+    },
+    "J11__J7": {
+      "collision": false,
+      "distance_mm": 52.36978852139576
+    },
+    "J11__J9": {
+      "collision": false,
+      "distance_mm": 38.89396014212824
+    },
+    "J11__J10.GND": {
+      "collision": false,
+      "distance_mm": 77.2298025724425
+    },
+    "J11__J10.V12": {
+      "collision": false,
+      "distance_mm": 77.2298025724425
+    },
+    "J11__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 72.18560710548306
+    },
+    "J11__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 72.57934817587184
+    },
+    "J11__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 96.53797721278848
+    },
+    "J11__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 96.7345901023339
+    },
+    "J11__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 56.24875272609318
+    },
+    "J11__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 55.649996057240315
+    },
+    "J11__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 41.262653601674586
+    },
+    "J11__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 40.04120583345602
+    },
+    "J13__J2": {
+      "collision": false,
+      "distance_mm": 34.51943058711176
+    },
+    "J13__J3": {
+      "collision": false,
+      "distance_mm": 67.68393974802761
+    },
+    "J13__J4": {
+      "collision": false,
+      "distance_mm": 61.83979839245584
+    },
+    "J13__J5": {
+      "collision": false,
+      "distance_mm": 20.5
+    },
+    "J13__J6": {
+      "collision": false,
+      "distance_mm": 4.4000244140625
+    },
+    "J13__J7": {
+      "collision": false,
+      "distance_mm": 59.601981315819195
+    },
+    "J13__J9": {
+      "collision": false,
+      "distance_mm": 59.60210338183628
+    },
+    "J13__J10.GND": {
+      "collision": false,
+      "distance_mm": 58.269377311837054
+    },
+    "J13__J10.V12": {
+      "collision": false,
+      "distance_mm": 53.78366855475432
+    },
+    "J13__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 117.7272940426547
+    },
+    "J13__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 114.75120289278041
+    },
+    "J13__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 86.46131150598791
+    },
+    "J13__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 83.77004760132613
+    },
+    "J13__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 74.99399948434713
+    },
+    "J13__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 70.6582703552511
+    },
+    "J13__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 80.96195424998764
+    },
+    "J13__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 83.31034906921363
+    },
+    "J2__J3": {
+      "collision": false,
+      "distance_mm": 60.58903165311085
+    },
+    "J2__J4": {
+      "collision": false,
+      "distance_mm": 45.49877807087362
+    },
+    "J2__J5": {
+      "collision": false,
+      "distance_mm": 56.198260216759195
+    },
+    "J2__J6": {
+      "collision": false,
+      "distance_mm": 43.3662042665791
+    },
+    "J2__J7": {
+      "collision": false,
+      "distance_mm": 17.05576121523468
+    },
+    "J2__J9": {
+      "collision": false,
+      "distance_mm": 29.28082416265106
+    },
+    "J2__J10.GND": {
+      "collision": false,
+      "distance_mm": 12.053444924834716
+    },
+    "J2__J10.V12": {
+      "collision": false,
+      "distance_mm": 8.41580968509897
+    },
+    "J2__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 129.98789368785074
+    },
+    "J2__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 129.74070772882447
+    },
+    "J2__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 70.54966668865384
+    },
+    "J2__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 70.30614928720672
+    },
+    "J2__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 45.92084338550205
+    },
+    "J2__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 43.597982739285385
+    },
+    "J2__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 96.44985515909077
+    },
+    "J2__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 96.42315491807192
+    },
+    "J3__J4": {
+      "collision": false,
+      "distance_mm": 4.300018310546875
+    },
+    "J3__J5": {
+      "collision": false,
+      "distance_mm": 59.66598638842387
+    },
+    "J3__J6": {
+      "collision": false,
+      "distance_mm": 61.81394926262038
+    },
+    "J3__J7": {
+      "collision": false,
+      "distance_mm": 38.800018310546875
+    },
+    "J3__J9": {
+      "collision": false,
+      "distance_mm": 25.300018310546875
+    },
+    "J3__J10.GND": {
+      "collision": false,
+      "distance_mm": 63.999090922429865
+    },
+    "J3__J10.V12": {
+      "collision": false,
+      "distance_mm": 64.58249435122922
+    },
+    "J3__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 77.00210933833006
+    },
+    "J3__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 78.29254710085623
+    },
+    "J3__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 88.57970555299218
+    },
+    "J3__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 89.35615772967206
+    },
+    "J3__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 46.39202651228273
+    },
+    "J3__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 45.958909306242994
+    },
+    "J3__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 47.865977732493356
+    },
+    "J3__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 45.748259290339604
+    },
+    "J4__J5": {
+      "collision": false,
+      "distance_mm": 59.6039944226629
+    },
+    "J4__J6": {
+      "collision": false,
+      "distance_mm": 59.601348533996656
+    },
+    "J4__J7": {
+      "collision": false,
+      "distance_mm": 22.800018310546875
+    },
+    "J4__J9": {
+      "collision": false,
+      "distance_mm": 9.300018310546875
+    },
+    "J4__J10.GND": {
+      "collision": false,
+      "distance_mm": 48.13190478927962
+    },
+    "J4__J10.V12": {
+      "collision": false,
+      "distance_mm": 48.9049484871366
+    },
+    "J4__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 86.16918799287834
+    },
+    "J4__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 87.37278508753141
+    },
+    "J4__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 80.10197140750984
+    },
+    "J4__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 80.94489261382743
+    },
+    "J4__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 38.38079192654724
+    },
+    "J4__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 37.886962218261914
+    },
+    "J4__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 55.57006553131728
+    },
+    "J4__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 53.756696013244394
+    },
+    "J5__J6": {
+      "collision": false,
+      "distance_mm": 4.399993896484375
+    },
+    "J5__J7": {
+      "collision": false,
+      "distance_mm": 66.63906753578492
+    },
+    "J5__J9": {
+      "collision": false,
+      "distance_mm": 61.891200844212364
+    },
+    "J5__J10.GND": {
+      "collision": false,
+      "distance_mm": 75.52546135605041
+    },
+    "J5__J10.V12": {
+      "collision": false,
+      "distance_mm": 72.09956114188809
+    },
+    "J5__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 97.2486260712487
+    },
+    "J5__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 93.62381147699513
+    },
+    "J5__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 95.57354939521822
+    },
+    "J5__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 93.14593835371024
+    },
+    "J5__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 77.52798509691709
+    },
+    "J5__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 73.334446703343
+    },
+    "J5__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 60.88488445533425
+    },
+    "J5__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 63.95104857376752
+    },
+    "J6__J7": {
+      "collision": false,
+      "distance_mm": 61.24517041904837
+    },
+    "J6__J9": {
+      "collision": false,
+      "distance_mm": 59.602904158233066
+    },
+    "J6__J10.GND": {
+      "collision": false,
+      "distance_mm": 65.06749102260521
+    },
+    "J6__J10.V12": {
+      "collision": false,
+      "distance_mm": 61.08305438496295
+    },
+    "J6__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 106.08602933796945
+    },
+    "J6__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 102.77339496313843
+    },
+    "J6__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 89.53308304264425
+    },
+    "J6__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 86.93695371379822
+    },
+    "J6__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 75.08046370837833
+    },
+    "J6__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 70.75002488267754
+    },
+    "J6__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 69.23180024652325
+    },
+    "J6__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 71.96399719371355
+    },
+    "J7__J9": {
+      "collision": false,
+      "distance_mm": 4.300018310546875
+    },
+    "J7__J10.GND": {
+      "collision": false,
+      "distance_mm": 10.685689304551653
+    },
+    "J7__J10.V12": {
+      "collision": false,
+      "distance_mm": 13.58019616304635
+    },
+    "J7__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 113.59459268031853
+    },
+    "J7__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 114.51520238710758
+    },
+    "J7__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 71.10212332214854
+    },
+    "J7__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 72.02091279540174
+    },
+    "J7__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 35.9467987800017
+    },
+    "J7__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 35.50594455002298
+    },
+    "J7__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 82.34373250296669
+    },
+    "J7__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 81.1236490427585
+    },
+    "J9__J10.GND": {
+      "collision": false,
+      "distance_mm": 29.962126198403972
+    },
+    "J9__J10.V12": {
+      "collision": false,
+      "distance_mm": 31.16188343564513
+    },
+    "J9__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 102.35442037062985
+    },
+    "J9__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 103.37516709607769
+    },
+    "J9__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 73.47323249292923
+    },
+    "J9__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 74.39130950963082
+    },
+    "J9__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 35.94677479694945
+    },
+    "J9__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 35.5059417568508
+    },
+    "J9__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 71.07819583847626
+    },
+    "J9__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 69.669658585796
+    },
+    "J10.GND__J10.V12": {
+      "collision": false,
+      "distance_mm": 2.0
+    },
+    "J10.GND__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 131.96157398241968
+    },
+    "J10.GND__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 132.39847742633657
+    },
+    "J10.GND__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 63.174373652820016
+    },
+    "J10.GND__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 63.78088509358153
+    },
+    "J10.GND__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 38.04575958545198
+    },
+    "J10.GND__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 36.84795370360532
+    },
+    "J10.GND__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 100.86123557592262
+    },
+    "J10.GND__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 100.2047355418257
+    },
+    "J10.V12__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 131.9066227677289
+    },
+    "J10.V12__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 132.06005053339356
+    },
+    "J10.V12__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 62.960318213392064
+    },
+    "J10.V12__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 63.174373652820016
+    },
+    "J10.V12__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 39.818086412326245
+    },
+    "J10.V12__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 38.04575958545198
+    },
+    "J10.V12__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 100.2047355418257
+    },
+    "J10.V12__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 99.7774607853268
+    },
+    "psu.AC-N__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 4.5
+    },
+    "psu.AC-N__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 105.00001220703126
+    },
+    "psu.AC-N__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 105.0502975902682
+    },
+    "psu.AC-N__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 88.94817781725871
+    },
+    "psu.AC-N__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 88.228557032151
+    },
+    "psu.AC-N__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 27.56844774816111
+    },
+    "psu.AC-N__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 25.836396271118105
+    },
+    "psu.AC-L__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 105.05029796792397
+    },
+    "psu.AC-L__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 105.00001220703126
+    },
+    "psu.AC-L__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 90.53606148139762
+    },
+    "psu.AC-L__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 89.41072848114064
+    },
+    "psu.AC-L__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 25.273654353738106
+    },
+    "psu.AC-L__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 24.670890390129593
+    },
+    "psu.DC-minus-2__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 2.0
+    },
+    "psu.DC-minus-2__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 37.96661657327185
+    },
+    "psu.DC-minus-2__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 36.07580870918684
+    },
+    "psu.DC-minus-2__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 91.03550748509869
+    },
+    "psu.DC-minus-2__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 90.5565579850063
+    },
+    "psu.DC-plus-1__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 40.391384898537964
+    },
+    "psu.DC-plus-1__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 37.96661657327185
+    },
+    "psu.DC-plus-1__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 90.5565579850063
+    },
+    "psu.DC-plus-1__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 90.30775267988793
+    },
+    "relay-1.COM__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 2.0
+    },
+    "relay-1.COM__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 66.70832032063167
+    },
+    "relay-1.COM__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 64.8459713474939
+    },
+    "relay-1.NO__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 64.8459713474939
+    },
+    "relay-1.NO__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 63.324560795950255
+    },
+    "relay-2.COM__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 2.0
+    }
+  },
+  "wire_to_other_plug": {
+    "J1__J11": {
+      "collision": false,
+      "distance_mm": 73.83913720911566
+    },
+    "J1__J13": {
+      "collision": false,
+      "distance_mm": 16.394335412820624
+    },
+    "J1__J2": {
+      "collision": false,
+      "distance_mm": 2.75
+    },
+    "J1__J3": {
+      "collision": false,
+      "distance_mm": 65.82725367118252
+    },
+    "J1__J4": {
+      "collision": false,
+      "distance_mm": 49.06062681365949
+    },
+    "J1__J5": {
+      "collision": false,
+      "distance_mm": 46.001302175712745
+    },
+    "J1__J6": {
+      "collision": false,
+      "distance_mm": 29.928779170832673
+    },
+    "J1__J7": {
+      "collision": false,
+      "distance_mm": 33.618112225849245
+    },
+    "J1__J9": {
+      "collision": false,
+      "distance_mm": 40.33628377476256
+    },
+    "J11__J1": {
+      "collision": false,
+      "distance_mm": 73.8392227775662
+    },
+    "J11__J13": {
+      "collision": false,
+      "distance_mm": 64.57096079462973
+    },
+    "J11__J2": {
+      "collision": false,
+      "distance_mm": 70.0305902566712
+    },
+    "J11__J3": {
+      "collision": false,
+      "distance_mm": 2.7723612780864237
+    },
+    "J11__J4": {
+      "collision": false,
+      "distance_mm": 16.25389096716708
+    },
+    "J11__J5": {
+      "collision": false,
+      "distance_mm": 49.868999020177064
+    },
+    "J11__J6": {
+      "collision": false,
+      "distance_mm": 55.121513259486335
+    },
+    "J11__J7": {
+      "collision": false,
+      "distance_mm": 50.75132899170344
+    },
+    "J11__J9": {
+      "collision": false,
+      "distance_mm": 37.251855350391175
+    },
+    "J13__J1": {
+      "collision": false,
+      "distance_mm": 16.437296536727718
+    },
+    "J13__J11": {
+      "collision": false,
+      "distance_mm": 64.56727796659973
+    },
+    "J13__J2": {
+      "collision": false,
+      "distance_mm": 32.08729327690584
+    },
+    "J13__J3": {
+      "collision": false,
+      "distance_mm": 65.34132942334809
+    },
+    "J13__J4": {
+      "collision": false,
+      "distance_mm": 58.80845559509206
+    },
+    "J13__J5": {
+      "collision": false,
+      "distance_mm": 18.950028246155952
+    },
+    "J13__J6": {
+      "collision": false,
+      "distance_mm": 2.850006103515625
+    },
+    "J13__J7": {
+      "collision": false,
+      "distance_mm": 58.099884033203125
+    },
+    "J13__J9": {
+      "collision": false,
+      "distance_mm": 58.099970584749556
+    },
+    "J2__J1": {
+      "collision": false,
+      "distance_mm": 2.75
+    },
+    "J2__J11": {
+      "collision": false,
+      "distance_mm": 70.03048343999062
+    },
+    "J2__J13": {
+      "collision": false,
+      "distance_mm": 32.10399318218784
+    },
+    "J2__J3": {
+      "collision": false,
+      "distance_mm": 58.457568056246366
+    },
+    "J2__J4": {
+      "collision": false,
+      "distance_mm": 38.613607526919225
+    },
+    "J2__J5": {
+      "collision": false,
+      "distance_mm": 53.77418944709301
+    },
+    "J2__J6": {
+      "collision": false,
+      "distance_mm": 40.836542105712326
+    },
+    "J2__J7": {
+      "collision": false,
+      "distance_mm": 15.164718201526185
+    },
+    "J2__J9": {
+      "collision": false,
+      "distance_mm": 26.803678206440722
+    },
+    "J3__J1": {
+      "collision": false,
+      "distance_mm": 65.84429395447265
+    },
+    "J3__J11": {
+      "collision": false,
+      "distance_mm": 2.81617144602537
+    },
+    "J3__J13": {
+      "collision": false,
+      "distance_mm": 65.34132942334809
+    },
+    "J3__J2": {
+      "collision": false,
+      "distance_mm": 58.49261638441736
+    },
+    "J3__J4": {
+      "collision": false,
+      "distance_mm": 2.75
+    },
+    "J3__J5": {
+      "collision": false,
+      "distance_mm": 58.101657002834976
+    },
+    "J3__J6": {
+      "collision": false,
+      "distance_mm": 59.763072995079966
+    },
+    "J3__J7": {
+      "collision": false,
+      "distance_mm": 37.25
+    },
+    "J3__J9": {
+      "collision": false,
+      "distance_mm": 23.750016036445885
+    },
+    "J4__J1": {
+      "collision": false,
+      "distance_mm": 52.78464375124985
+    },
+    "J4__J11": {
+      "collision": false,
+      "distance_mm": 16.302930024333683
+    },
+    "J4__J13": {
+      "collision": false,
+      "distance_mm": 59.78658737798907
+    },
+    "J4__J2": {
+      "collision": false,
+      "distance_mm": 43.2682130167705
+    },
+    "J4__J3": {
+      "collision": false,
+      "distance_mm": 2.7499965127869883
+    },
+    "J4__J5": {
+      "collision": false,
+      "distance_mm": 58.099790457691505
+    },
+    "J4__J6": {
+      "collision": false,
+      "distance_mm": 58.100006103515625
+    },
+    "J4__J7": {
+      "collision": false,
+      "distance_mm": 21.25
+    },
+    "J4__J9": {
+      "collision": false,
+      "distance_mm": 7.750016048622763
+    },
+    "J5__J1": {
+      "collision": false,
+      "distance_mm": 46.04882322613855
+    },
+    "J5__J11": {
+      "collision": false,
+      "distance_mm": 49.834466044807826
+    },
+    "J5__J13": {
+      "collision": false,
+      "distance_mm": 18.94996560920573
+    },
+    "J5__J2": {
+      "collision": false,
+      "distance_mm": 53.79122584127427
+    },
+    "J5__J3": {
+      "collision": false,
+      "distance_mm": 58.101657002834976
+    },
+    "J5__J4": {
+      "collision": false,
+      "distance_mm": 58.099884033203125
+    },
+    "J5__J6": {
+      "collision": false,
+      "distance_mm": 2.8499755859375
+    },
+    "J5__J7": {
+      "collision": false,
+      "distance_mm": 64.32908164717472
+    },
+    "J5__J9": {
+      "collision": false,
+      "distance_mm": 59.833576517044285
+    },
+    "J6__J1": {
+      "collision": false,
+      "distance_mm": 29.975091293449367
+    },
+    "J6__J11": {
+      "collision": false,
+      "distance_mm": 55.102601081566476
+    },
+    "J6__J13": {
+      "collision": false,
+      "distance_mm": 2.8499900354966834
+    },
+    "J6__J2": {
+      "collision": false,
+      "distance_mm": 40.83925884501616
+    },
+    "J6__J3": {
+      "collision": false,
+      "distance_mm": 59.763081216570555
+    },
+    "J6__J4": {
+      "collision": false,
+      "distance_mm": 58.100006103515625
+    },
+    "J6__J5": {
+      "collision": false,
+      "distance_mm": 2.850022154868765
+    },
+    "J6__J7": {
+      "collision": false,
+      "distance_mm": 59.26635634888679
+    },
+    "J6__J9": {
+      "collision": false,
+      "distance_mm": 58.099793930383775
+    },
+    "J7__J1": {
+      "collision": false,
+      "distance_mm": 33.57051244310918
+    },
+    "J7__J11": {
+      "collision": false,
+      "distance_mm": 50.8010562820352
+    },
+    "J7__J13": {
+      "collision": false,
+      "distance_mm": 58.09979740429966
+    },
+    "J7__J2": {
+      "collision": false,
+      "distance_mm": 15.12029906690565
+    },
+    "J7__J3": {
+      "collision": false,
+      "distance_mm": 37.24999648855782
+    },
+    "J7__J4": {
+      "collision": false,
+      "distance_mm": 16.25
+    },
+    "J7__J5": {
+      "collision": false,
+      "distance_mm": 64.32898252488997
+    },
+    "J7__J6": {
+      "collision": false,
+      "distance_mm": 59.266350324295246
+    },
+    "J7__J9": {
+      "collision": false,
+      "distance_mm": 2.7499965127869883
+    },
+    "J9__J1": {
+      "collision": false,
+      "distance_mm": 40.32203322235284
+    },
+    "J9__J11": {
+      "collision": false,
+      "distance_mm": 37.30137549213964
+    },
+    "J9__J13": {
+      "collision": false,
+      "distance_mm": 58.09997058564567
+    },
+    "J9__J2": {
+      "collision": false,
+      "distance_mm": 26.815638968183368
+    },
+    "J9__J3": {
+      "collision": false,
+      "distance_mm": 23.749996492320165
+    },
+    "J9__J4": {
+      "collision": false,
+      "distance_mm": 2.75
+    },
+    "J9__J5": {
+      "collision": false,
+      "distance_mm": 59.833576517044285
+    },
+    "J9__J6": {
+      "collision": false,
+      "distance_mm": 58.099884033203125
+    },
+    "J9__J7": {
+      "collision": false,
+      "distance_mm": 2.75
+    },
+    "J10.GND__J1": {
+      "collision": false,
+      "distance_mm": 26.62804266945914
+    },
+    "J10.GND__J11": {
+      "collision": false,
+      "distance_mm": 75.59995916160526
+    },
+    "J10.GND__J13": {
+      "collision": false,
+      "distance_mm": 55.70012401068151
+    },
+    "J10.GND__J2": {
+      "collision": false,
+      "distance_mm": 8.236892487840933
+    },
+    "J10.GND__J3": {
+      "collision": false,
+      "distance_mm": 62.098313225079444
+    },
+    "J10.GND__J4": {
+      "collision": false,
+      "distance_mm": 41.123096534746125
+    },
+    "J10.GND__J5": {
+      "collision": false,
+      "distance_mm": 72.76243585137156
+    },
+    "J10.GND__J6": {
+      "collision": false,
+      "distance_mm": 62.347801021683054
+    },
+    "J10.GND__J7": {
+      "collision": false,
+      "distance_mm": 6.993261003668018
+    },
+    "J10.GND__J9": {
+      "collision": false,
+      "distance_mm": 27.658695800744535
+    },
+    "J10.V12__J1": {
+      "collision": false,
+      "distance_mm": 21.63916359371228
+    },
+    "J10.V12__J11": {
+      "collision": false,
+      "distance_mm": 75.59979248046875
+    },
+    "J10.V12__J13": {
+      "collision": false,
+      "distance_mm": 51.146912149439544
+    },
+    "J10.V12__J2": {
+      "collision": false,
+      "distance_mm": 3.4708114517493103
+    },
+    "J10.V12__J3": {
+      "collision": false,
+      "distance_mm": 62.495617073113976
+    },
+    "J10.V12__J4": {
+      "collision": false,
+      "distance_mm": 41.72060870452829
+    },
+    "J10.V12__J5": {
+      "collision": false,
+      "distance_mm": 69.3388410534972
+    },
+    "J10.V12__J6": {
+      "collision": false,
+      "distance_mm": 58.315935671774476
+    },
+    "J10.V12__J7": {
+      "collision": false,
+      "distance_mm": 9.91997084349225
+    },
+    "J10.V12__J9": {
+      "collision": false,
+      "distance_mm": 28.539535759141952
+    },
+    "psu.AC-N__J1": {
+      "collision": false,
+      "distance_mm": 127.3522148726289
+    },
+    "psu.AC-N__J11": {
+      "collision": false,
+      "distance_mm": 64.94721574911122
+    },
+    "psu.AC-N__J13": {
+      "collision": false,
+      "distance_mm": 111.92303049334734
+    },
+    "psu.AC-N__J2": {
+      "collision": false,
+      "distance_mm": 125.17200015851398
+    },
+    "psu.AC-N__J3": {
+      "collision": false,
+      "distance_mm": 69.90656540297262
+    },
+    "psu.AC-N__J4": {
+      "collision": false,
+      "distance_mm": 79.62960565059778
+    },
+    "psu.AC-N__J5": {
+      "collision": false,
+      "distance_mm": 90.68175429823987
+    },
+    "psu.AC-N__J6": {
+      "collision": false,
+      "distance_mm": 99.87433942279692
+    },
+    "psu.AC-N__J7": {
+      "collision": false,
+      "distance_mm": 108.22442127125211
+    },
+    "psu.AC-N__J9": {
+      "collision": false,
+      "distance_mm": 96.5768371143231
+    },
+    "psu.AC-L__J1": {
+      "collision": false,
+      "distance_mm": 126.1462943046768
+    },
+    "psu.AC-L__J11": {
+      "collision": false,
+      "distance_mm": 65.15112032107473
+    },
+    "psu.AC-L__J13": {
+      "collision": false,
+      "distance_mm": 108.92089962189839
+    },
+    "psu.AC-L__J2": {
+      "collision": false,
+      "distance_mm": 125.04532273311202
+    },
+    "psu.AC-L__J3": {
+      "collision": false,
+      "distance_mm": 71.12037485024416
+    },
+    "psu.AC-L__J4": {
+      "collision": false,
+      "distance_mm": 80.71941585560262
+    },
+    "psu.AC-L__J5": {
+      "collision": false,
+      "distance_mm": 86.94928511629782
+    },
+    "psu.AC-L__J6": {
+      "collision": false,
+      "distance_mm": 96.4981014506882
+    },
+    "psu.AC-L__J7": {
+      "collision": false,
+      "distance_mm": 109.0287822526577
+    },
+    "psu.AC-L__J9": {
+      "collision": false,
+      "distance_mm": 97.47733760794581
+    },
+    "psu.DC-minus-2__J1": {
+      "collision": false,
+      "distance_mm": 66.538836728916
+    },
+    "psu.DC-minus-2__J11": {
+      "collision": false,
+      "distance_mm": 89.95606289070048
+    },
+    "psu.DC-minus-2__J13": {
+      "collision": false,
+      "distance_mm": 79.00481019308025
+    },
+    "psu.DC-minus-2__J2": {
+      "collision": false,
+      "distance_mm": 62.70316228866429
+    },
+    "psu.DC-minus-2__J3": {
+      "collision": false,
+      "distance_mm": 81.28607166739845
+    },
+    "psu.DC-minus-2__J4": {
+      "collision": false,
+      "distance_mm": 70.01594844608509
+    },
+    "psu.DC-minus-2__J5": {
+      "collision": false,
+      "distance_mm": 88.22241404700974
+    },
+    "psu.DC-minus-2__J6": {
+      "collision": false,
+      "distance_mm": 82.02842564704694
+    },
+    "psu.DC-minus-2__J7": {
+      "collision": false,
+      "distance_mm": 63.21569826024871
+    },
+    "psu.DC-minus-2__J9": {
+      "collision": false,
+      "distance_mm": 65.3588819429037
+    },
+    "psu.DC-plus-1__J1": {
+      "collision": false,
+      "distance_mm": 65.04703955416248
+    },
+    "psu.DC-plus-1__J11": {
+      "collision": false,
+      "distance_mm": 90.0405407709489
+    },
+    "psu.DC-plus-1__J13": {
+      "collision": false,
+      "distance_mm": 76.15617281715484
+    },
+    "psu.DC-plus-1__J2": {
+      "collision": false,
+      "distance_mm": 62.54999694824221
+    },
+    "psu.DC-plus-1__J3": {
+      "collision": false,
+      "distance_mm": 81.99955434001569
+    },
+    "psu.DC-plus-1__J4": {
+      "collision": false,
+      "distance_mm": 70.84301642201359
+    },
+    "psu.DC-plus-1__J5": {
+      "collision": false,
+      "distance_mm": 85.68078527180839
+    },
+    "psu.DC-plus-1__J6": {
+      "collision": false,
+      "distance_mm": 79.28847641405903
+    },
+    "psu.DC-plus-1__J7": {
+      "collision": false,
+      "distance_mm": 64.1305266273064
+    },
+    "psu.DC-plus-1__J9": {
+      "collision": false,
+      "distance_mm": 66.24413116397687
+    },
+    "relay-1.COM__J1": {
+      "collision": false,
+      "distance_mm": 51.072728349237046
+    },
+    "relay-1.COM__J11": {
+      "collision": false,
+      "distance_mm": 50.096264539904126
+    },
+    "relay-1.COM__J13": {
+      "collision": false,
+      "distance_mm": 70.1966318037113
+    },
+    "relay-1.COM__J2": {
+      "collision": false,
+      "distance_mm": 38.45304330379733
+    },
+    "relay-1.COM__J3": {
+      "collision": false,
+      "distance_mm": 39.26511485289161
+    },
+    "relay-1.COM__J4": {
+      "collision": false,
+      "distance_mm": 28.697464919380636
+    },
+    "relay-1.COM__J5": {
+      "collision": false,
+      "distance_mm": 72.29701297177027
+    },
+    "relay-1.COM__J6": {
+      "collision": false,
+      "distance_mm": 70.20712595206838
+    },
+    "relay-1.COM__J7": {
+      "collision": false,
+      "distance_mm": 27.928208232253482
+    },
+    "relay-1.COM__J9": {
+      "collision": false,
+      "distance_mm": 27.928191022266958
+    },
+    "relay-1.NO__J1": {
+      "collision": false,
+      "distance_mm": 47.303427517074134
+    },
+    "relay-1.NO__J11": {
+      "collision": false,
+      "distance_mm": 49.66524391638413
+    },
+    "relay-1.NO__J13": {
+      "collision": false,
+      "distance_mm": 65.6586606262474
+    },
+    "relay-1.NO__J2": {
+      "collision": false,
+      "distance_mm": 35.87947171427678
+    },
+    "relay-1.NO__J3": {
+      "collision": false,
+      "distance_mm": 39.138519687231025
+    },
+    "relay-1.NO__J4": {
+      "collision": false,
+      "distance_mm": 28.52405719721324
+    },
+    "relay-1.NO__J5": {
+      "collision": false,
+      "distance_mm": 67.89956422140517
+    },
+    "relay-1.NO__J6": {
+      "collision": false,
+      "distance_mm": 65.66986009337897
+    },
+    "relay-1.NO__J7": {
+      "collision": false,
+      "distance_mm": 27.749993896484398
+    },
+    "relay-1.NO__J9": {
+      "collision": false,
+      "distance_mm": 27.749993896484398
+    },
+    "relay-2.COM__J1": {
+      "collision": false,
+      "distance_mm": 93.0284810827347
+    },
+    "relay-2.COM__J11": {
+      "collision": false,
+      "distance_mm": 32.931843916818316
+    },
+    "relay-2.COM__J13": {
+      "collision": false,
+      "distance_mm": 75.5761100849681
+    },
+    "relay-2.COM__J2": {
+      "collision": false,
+      "distance_mm": 92.41476594925044
+    },
+    "relay-2.COM__J3": {
+      "collision": false,
+      "distance_mm": 40.52922886150479
+    },
+    "relay-2.COM__J4": {
+      "collision": false,
+      "distance_mm": 48.93440404607133
+    },
+    "relay-2.COM__J5": {
+      "collision": false,
+      "distance_mm": 54.44724717246485
+    },
+    "relay-2.COM__J6": {
+      "collision": false,
+      "distance_mm": 63.273520807602225
+    },
+    "relay-2.COM__J7": {
+      "collision": false,
+      "distance_mm": 77.28018064476001
+    },
+    "relay-2.COM__J9": {
+      "collision": false,
+      "distance_mm": 65.48874048559404
+    },
+    "relay-2.NO__J1": {
+      "collision": false,
+      "distance_mm": 93.7048436903733
+    },
+    "relay-2.NO__J11": {
+      "collision": false,
+      "distance_mm": 31.703329621515874
+    },
+    "relay-2.NO__J13": {
+      "collision": false,
+      "distance_mm": 77.96319417548236
+    },
+    "relay-2.NO__J2": {
+      "collision": false,
+      "distance_mm": 92.41476594925044
+    },
+    "relay-2.NO__J3": {
+      "collision": false,
+      "distance_mm": 38.25730256729322
+    },
+    "relay-2.NO__J4": {
+      "collision": false,
+      "distance_mm": 47.069905038987685
+    },
+    "relay-2.NO__J5": {
+      "collision": false,
+      "distance_mm": 57.71493701918275
+    },
+    "relay-2.NO__J6": {
+      "collision": false,
+      "distance_mm": 66.10633963531724
+    },
+    "relay-2.NO__J7": {
+      "collision": false,
+      "distance_mm": 76.11324708302686
+    },
+    "relay-2.NO__J9": {
+      "collision": false,
+      "distance_mm": 64.10754977385012
+    }
+  },
+  "tool_to_wire": {
+    "J10.GND__J1": {
+      "collision": false,
+      "distance_mm": 27.8800048828125
+    },
+    "J10.GND__J11": {
+      "collision": false,
+      "distance_mm": 71.75828111136668
+    },
+    "J10.GND__J13": {
+      "collision": false,
+      "distance_mm": 56.25455344540882
+    },
+    "J10.GND__J2": {
+      "collision": false,
+      "distance_mm": 9.38006591796875
+    },
+    "J10.GND__J3": {
+      "collision": false,
+      "distance_mm": 58.58971128806264
+    },
+    "J10.GND__J4": {
+      "collision": false,
+      "distance_mm": 42.71712456045264
+    },
+    "J10.GND__J5": {
+      "collision": false,
+      "distance_mm": 72.1660256674644
+    },
+    "J10.GND__J6": {
+      "collision": false,
+      "distance_mm": 62.30016644769185
+    },
+    "J10.GND__J7": {
+      "collision": false,
+      "distance_mm": 5.726383824744523
+    },
+    "J10.GND__J9": {
+      "collision": false,
+      "distance_mm": 24.57141161631816
+    },
+    "J10.GND__J10.GND": {
+      "collision": false,
+      "distance_mm": 4.902491815960245
+    },
+    "J10.GND__J10.V12": {
+      "collision": false,
+      "distance_mm": 6.113923814324442
+    },
+    "J10.GND__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 130.29127896942606
+    },
+    "J10.GND__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 130.73376454605497
+    },
+    "J10.GND__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 70.58437266528054
+    },
+    "J10.GND__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 71.00460183287936
+    },
+    "J10.GND__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 41.40343883266621
+    },
+    "J10.GND__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 40.285615120897674
+    },
+    "J10.GND__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 98.37424581204948
+    },
+    "J10.GND__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 97.6626459921858
+    },
+    "J10.V12__J1": {
+      "collision": false,
+      "distance_mm": 22.8800048828125
+    },
+    "J10.V12__J11": {
+      "collision": false,
+      "distance_mm": 71.75828111136668
+    },
+    "J10.V12__J13": {
+      "collision": false,
+      "distance_mm": 51.595472363835626
+    },
+    "J10.V12__J2": {
+      "collision": false,
+      "distance_mm": 4.38006591796875
+    },
+    "J10.V12__J3": {
+      "collision": false,
+      "distance_mm": 59.33595598477477
+    },
+    "J10.V12__J4": {
+      "collision": false,
+      "distance_mm": 43.7350307398851
+    },
+    "J10.V12__J5": {
+      "collision": false,
+      "distance_mm": 68.5880846030953
+    },
+    "J10.V12__J6": {
+      "collision": false,
+      "distance_mm": 58.12768031585552
+    },
+    "J10.V12__J7": {
+      "collision": false,
+      "distance_mm": 9.913341492428794
+    },
+    "J10.V12__J9": {
+      "collision": false,
+      "distance_mm": 26.090838946992
+    },
+    "J10.V12__J10.GND": {
+      "collision": false,
+      "distance_mm": 6.113910165328041
+    },
+    "J10.V12__J10.V12": {
+      "collision": false,
+      "distance_mm": 4.902491815960245
+    },
+    "J10.V12__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 130.23562299754673
+    },
+    "J10.V12__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 130.3910170006111
+    },
+    "J10.V12__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 70.50000915527346
+    },
+    "J10.V12__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 70.58437266528054
+    },
+    "J10.V12__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 43.023190610132595
+    },
+    "J10.V12__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 41.40343883266621
+    },
+    "J10.V12__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 97.6626459921858
+    },
+    "J10.V12__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 97.18200076131932
+    },
+    "psu.AC-N__J1": {
+      "collision": false,
+      "distance_mm": 111.37368254443498
+    },
+    "psu.AC-N__J11": {
+      "collision": false,
+      "distance_mm": 39.960875228292885
+    },
+    "psu.AC-N__J13": {
+      "collision": false,
+      "distance_mm": 96.54415332110646
+    },
+    "psu.AC-N__J2": {
+      "collision": false,
+      "distance_mm": 108.4653726299602
+    },
+    "psu.AC-N__J3": {
+      "collision": false,
+      "distance_mm": 48.00689062714715
+    },
+    "psu.AC-N__J4": {
+      "collision": false,
+      "distance_mm": 59.13344736027868
+    },
+    "psu.AC-N__J5": {
+      "collision": false,
+      "distance_mm": 74.72054372491093
+    },
+    "psu.AC-N__J6": {
+      "collision": false,
+      "distance_mm": 84.12178333885814
+    },
+    "psu.AC-N__J7": {
+      "collision": false,
+      "distance_mm": 90.5489717295628
+    },
+    "psu.AC-N__J9": {
+      "collision": false,
+      "distance_mm": 77.94589465823712
+    },
+    "psu.AC-N__J10.GND": {
+      "collision": false,
+      "distance_mm": 112.24517790802572
+    },
+    "psu.AC-N__J10.V12": {
+      "collision": false,
+      "distance_mm": 112.1805693812873
+    },
+    "psu.AC-N__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 3.010405740893584
+    },
+    "psu.AC-N__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 6.267471217472277
+    },
+    "psu.AC-N__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 99.27562240732905
+    },
+    "psu.AC-N__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 99.4114530002081
+    },
+    "psu.AC-N__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 77.26981946400548
+    },
+    "psu.AC-N__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 76.44033621066825
+    },
+    "psu.AC-N__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 10.85745393532502
+    },
+    "psu.AC-N__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 6.367098680414988
+    },
+    "psu.AC-L__J1": {
+      "collision": false,
+      "distance_mm": 109.82894301619886
+    },
+    "psu.AC-L__J11": {
+      "collision": false,
+      "distance_mm": 40.63219707892907
+    },
+    "psu.AC-L__J13": {
+      "collision": false,
+      "distance_mm": 92.90194428358834
+    },
+    "psu.AC-L__J2": {
+      "collision": false,
+      "distance_mm": 108.16901453177638
+    },
+    "psu.AC-L__J3": {
+      "collision": false,
+      "distance_mm": 49.964242968325316
+    },
+    "psu.AC-L__J4": {
+      "collision": false,
+      "distance_mm": 60.81023842136165
+    },
+    "psu.AC-L__J5": {
+      "collision": false,
+      "distance_mm": 69.96149583476677
+    },
+    "psu.AC-L__J6": {
+      "collision": false,
+      "distance_mm": 79.91542049010185
+    },
+    "psu.AC-L__J7": {
+      "collision": false,
+      "distance_mm": 91.70123380457409
+    },
+    "psu.AC-L__J9": {
+      "collision": false,
+      "distance_mm": 79.28152499324568
+    },
+    "psu.AC-L__J10.GND": {
+      "collision": false,
+      "distance_mm": 112.72236587858235
+    },
+    "psu.AC-L__J10.V12": {
+      "collision": false,
+      "distance_mm": 112.3580524589602
+    },
+    "psu.AC-L__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 6.2674849059889635
+    },
+    "psu.AC-L__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 3.010405740893584
+    },
+    "psu.AC-L__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 99.4114530002081
+    },
+    "psu.AC-L__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 99.27562240732905
+    },
+    "psu.AC-L__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 79.07056836967601
+    },
+    "psu.AC-L__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 77.80183159797718
+    },
+    "psu.AC-L__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 4.496815344629893
+    },
+    "psu.AC-L__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 2.75
+    },
+    "psu.DC-minus-1__J1": {
+      "collision": false,
+      "distance_mm": 40.76969798778408
+    },
+    "psu.DC-minus-1__J11": {
+      "collision": false,
+      "distance_mm": 66.71184655485878
+    },
+    "psu.DC-minus-1__J13": {
+      "collision": false,
+      "distance_mm": 60.13292061462006
+    },
+    "psu.DC-minus-1__J2": {
+      "collision": false,
+      "distance_mm": 31.102579578464596
+    },
+    "psu.DC-minus-1__J3": {
+      "collision": false,
+      "distance_mm": 55.16113328946321
+    },
+    "psu.DC-minus-1__J4": {
+      "collision": false,
+      "distance_mm": 42.40223147620256
+    },
+    "psu.DC-minus-1__J5": {
+      "collision": false,
+      "distance_mm": 70.70085666092812
+    },
+    "psu.DC-minus-1__J6": {
+      "collision": false,
+      "distance_mm": 63.54098755501461
+    },
+    "psu.DC-minus-1__J7": {
+      "collision": false,
+      "distance_mm": 28.584953450221086
+    },
+    "psu.DC-minus-1__J9": {
+      "collision": false,
+      "distance_mm": 31.471409474157408
+    },
+    "psu.DC-minus-1__J10.GND": {
+      "collision": false,
+      "distance_mm": 24.77101919479839
+    },
+    "psu.DC-minus-1__J10.V12": {
+      "collision": false,
+      "distance_mm": 25.203454007601955
+    },
+    "psu.DC-minus-1__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 99.31812493840708
+    },
+    "psu.DC-minus-1__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 99.78551583474032
+    },
+    "psu.DC-minus-1__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 4.653682863813856
+    },
+    "psu.DC-minus-1__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 8.304096342241222
+    },
+    "psu.DC-minus-1__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 11.98250389200268
+    },
+    "psu.DC-minus-1__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 8.213055600055544
+    },
+    "psu.DC-minus-1__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 80.26090268617716
+    },
+    "psu.DC-minus-1__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 79.44691623971318
+    },
+    "psu.DC-minus-2__J1": {
+      "collision": false,
+      "distance_mm": 37.508462587985974
+    },
+    "psu.DC-minus-2__J11": {
+      "collision": false,
+      "distance_mm": 66.71371980128126
+    },
+    "psu.DC-minus-2__J13": {
+      "collision": false,
+      "distance_mm": 55.84773263326821
+    },
+    "psu.DC-minus-2__J2": {
+      "collision": false,
+      "distance_mm": 29.84892116476199
+    },
+    "psu.DC-minus-2__J3": {
+      "collision": false,
+      "distance_mm": 55.97099111576506
+    },
+    "psu.DC-minus-2__J4": {
+      "collision": false,
+      "distance_mm": 43.37493434255619
+    },
+    "psu.DC-minus-2__J5": {
+      "collision": false,
+      "distance_mm": 67.06809420305986
+    },
+    "psu.DC-minus-2__J6": {
+      "collision": false,
+      "distance_mm": 59.47246170311955
+    },
+    "psu.DC-minus-2__J7": {
+      "collision": false,
+      "distance_mm": 29.683320277828592
+    },
+    "psu.DC-minus-2__J9": {
+      "collision": false,
+      "distance_mm": 32.67186330602742
+    },
+    "psu.DC-minus-2__J10.GND": {
+      "collision": false,
+      "distance_mm": 25.268830439679707
+    },
+    "psu.DC-minus-2__J10.V12": {
+      "collision": false,
+      "distance_mm": 24.77101919479839
+    },
+    "psu.DC-minus-2__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 99.27563457935896
+    },
+    "psu.DC-minus-2__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 99.41146558836572
+    },
+    "psu.DC-minus-2__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 3.010398644698074
+    },
+    "psu.DC-minus-2__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 4.653682863813856
+    },
+    "psu.DC-minus-2__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 16.383682890278457
+    },
+    "psu.DC-minus-2__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 11.98250389200268
+    },
+    "psu.DC-minus-2__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 79.44691623971318
+    },
+    "psu.DC-minus-2__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 78.94182984957975
+    },
+    "psu.DC-plus-1__J1": {
+      "collision": false,
+      "distance_mm": 34.66412060637862
+    },
+    "psu.DC-plus-1__J11": {
+      "collision": false,
+      "distance_mm": 66.99791256191162
+    },
+    "psu.DC-plus-1__J13": {
+      "collision": false,
+      "distance_mm": 51.69110502697561
+    },
+    "psu.DC-plus-1__J2": {
+      "collision": false,
+      "distance_mm": 29.30560858057043
+    },
+    "psu.DC-plus-1__J3": {
+      "collision": false,
+      "distance_mm": 57.13434842162394
+    },
+    "psu.DC-plus-1__J4": {
+      "collision": false,
+      "distance_mm": 44.81500581407517
+    },
+    "psu.DC-plus-1__J5": {
+      "collision": false,
+      "distance_mm": 63.621123752036304
+    },
+    "psu.DC-plus-1__J6": {
+      "collision": false,
+      "distance_mm": 55.55619049747311
+    },
+    "psu.DC-plus-1__J7": {
+      "collision": false,
+      "distance_mm": 31.545196808404825
+    },
+    "psu.DC-plus-1__J9": {
+      "collision": false,
+      "distance_mm": 34.51953250595263
+    },
+    "psu.DC-plus-1__J10.GND": {
+      "collision": false,
+      "distance_mm": 26.49156826242378
+    },
+    "psu.DC-plus-1__J10.V12": {
+      "collision": false,
+      "distance_mm": 25.268830439679707
+    },
+    "psu.DC-plus-1__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 99.4114649804223
+    },
+    "psu.DC-plus-1__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 99.2756346511354
+    },
+    "psu.DC-plus-1__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 4.653688430769081
+    },
+    "psu.DC-plus-1__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 3.010398644698074
+    },
+    "psu.DC-plus-1__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 21.053971848004046
+    },
+    "psu.DC-plus-1__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 16.383682890278457
+    },
+    "psu.DC-plus-1__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 78.94182984957975
+    },
+    "psu.DC-plus-1__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 78.75158728559063
+    },
+    "psu.DC-plus-2__J1": {
+      "collision": false,
+      "distance_mm": 32.34683522561027
+    },
+    "psu.DC-plus-2__J11": {
+      "collision": false,
+      "distance_mm": 67.65146092719094
+    },
+    "psu.DC-plus-2__J13": {
+      "collision": false,
+      "distance_mm": 47.69666065399795
+    },
+    "psu.DC-plus-2__J2": {
+      "collision": false,
+      "distance_mm": 29.260355746154975
+    },
+    "psu.DC-plus-2__J3": {
+      "collision": false,
+      "distance_mm": 58.66289122742911
+    },
+    "psu.DC-plus-2__J4": {
+      "collision": false,
+      "distance_mm": 46.7480968918535
+    },
+    "psu.DC-plus-2__J5": {
+      "collision": false,
+      "distance_mm": 60.391254590024296
+    },
+    "psu.DC-plus-2__J6": {
+      "collision": false,
+      "distance_mm": 51.82670068752227
+    },
+    "psu.DC-plus-2__J7": {
+      "collision": false,
+      "distance_mm": 34.04554861719573
+    },
+    "psu.DC-plus-2__J9": {
+      "collision": false,
+      "distance_mm": 36.86574108356508
+    },
+    "psu.DC-plus-2__J10.GND": {
+      "collision": false,
+      "distance_mm": 28.505142412103826
+    },
+    "psu.DC-plus-2__J10.V12": {
+      "collision": false,
+      "distance_mm": 26.49156826242378
+    },
+    "psu.DC-plus-2__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 99.7855146174123
+    },
+    "psu.DC-plus-2__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 99.31812461878633
+    },
+    "psu.DC-plus-2__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 8.304122748600143
+    },
+    "psu.DC-plus-2__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 4.653688430769085
+    },
+    "psu.DC-plus-2__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 25.847820831958938
+    },
+    "psu.DC-plus-2__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 21.053971848004046
+    },
+    "psu.DC-plus-2__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 78.75158728559063
+    },
+    "psu.DC-plus-2__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 78.76428441876432
+    },
+    "relay-1.COM__J1": {
+      "collision": false,
+      "distance_mm": 53.09443378323911
+    },
+    "relay-1.COM__J11": {
+      "collision": false,
+      "distance_mm": 36.57606369023588
+    },
+    "relay-1.COM__J13": {
+      "collision": false,
+      "distance_mm": 65.68909734334652
+    },
+    "relay-1.COM__J2": {
+      "collision": false,
+      "distance_mm": 40.29602681762555
+    },
+    "relay-1.COM__J3": {
+      "collision": false,
+      "distance_mm": 21.899993896484375
+    },
+    "relay-1.COM__J4": {
+      "collision": false,
+      "distance_mm": 5.899993896484375
+    },
+    "relay-1.COM__J5": {
+      "collision": false,
+      "distance_mm": 66.72829350298866
+    },
+    "relay-1.COM__J6": {
+      "collision": false,
+      "distance_mm": 65.20277153647099
+    },
+    "relay-1.COM__J7": {
+      "collision": false,
+      "distance_mm": 13.4000244140625
+    },
+    "relay-1.COM__J9": {
+      "collision": true,
+      "distance_mm": 0.0
+    },
+    "relay-1.COM__J10.GND": {
+      "collision": false,
+      "distance_mm": 39.82329539381028
+    },
+    "relay-1.COM__J10.V12": {
+      "collision": false,
+      "distance_mm": 41.41430959376408
+    },
+    "relay-1.COM__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 85.15508543149357
+    },
+    "relay-1.COM__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 86.8455410364595
+    },
+    "relay-1.COM__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 50.05857117415779
+    },
+    "relay-1.COM__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 51.9096382957753
+    },
+    "relay-1.COM__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 5.129571132170798
+    },
+    "relay-1.COM__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 6.400288328861356
+    },
+    "relay-1.COM__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 60.8478426818394
+    },
+    "relay-1.COM__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 58.74699957473468
+    },
+    "relay-1.NO__J1": {
+      "collision": false,
+      "distance_mm": 49.33290063726438
+    },
+    "relay-1.NO__J11": {
+      "collision": false,
+      "distance_mm": 35.648398463351455
+    },
+    "relay-1.NO__J13": {
+      "collision": false,
+      "distance_mm": 60.72936824148773
+    },
+    "relay-1.NO__J2": {
+      "collision": false,
+      "distance_mm": 37.60277585360119
+    },
+    "relay-1.NO__J3": {
+      "collision": false,
+      "distance_mm": 21.899993896484375
+    },
+    "relay-1.NO__J4": {
+      "collision": false,
+      "distance_mm": 5.899993896484375
+    },
+    "relay-1.NO__J5": {
+      "collision": false,
+      "distance_mm": 61.85197048157651
+    },
+    "relay-1.NO__J6": {
+      "collision": false,
+      "distance_mm": 60.203000705670135
+    },
+    "relay-1.NO__J7": {
+      "collision": false,
+      "distance_mm": 13.4000244140625
+    },
+    "relay-1.NO__J9": {
+      "collision": true,
+      "distance_mm": 0.0
+    },
+    "relay-1.NO__J10.GND": {
+      "collision": false,
+      "distance_mm": 38.716092602711285
+    },
+    "relay-1.NO__J10.V12": {
+      "collision": false,
+      "distance_mm": 39.82329539381028
+    },
+    "relay-1.NO__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 84.3586896164812
+    },
+    "relay-1.NO__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 85.66001754238991
+    },
+    "relay-1.NO__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 48.6529603210146
+    },
+    "relay-1.NO__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 50.05857117415779
+    },
+    "relay-1.NO__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 6.400288328861356
+    },
+    "relay-1.NO__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 5.129571132170798
+    },
+    "relay-1.NO__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 58.74699957473468
+    },
+    "relay-1.NO__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 57.00779326688606
+    },
+    "relay-1.NC__J1": {
+      "collision": false,
+      "distance_mm": 45.77311019183069
+    },
+    "relay-1.NC__J11": {
+      "collision": false,
+      "distance_mm": 35.40915405557673
+    },
+    "relay-1.NC__J13": {
+      "collision": false,
+      "distance_mm": 55.77683053237052
+    },
+    "relay-1.NC__J2": {
+      "collision": false,
+      "distance_mm": 35.4142305649233
+    },
+    "relay-1.NC__J3": {
+      "collision": false,
+      "distance_mm": 22.17793018234888
+    },
+    "relay-1.NC__J4": {
+      "collision": false,
+      "distance_mm": 6.624278077637526
+    },
+    "relay-1.NC__J5": {
+      "collision": false,
+      "distance_mm": 56.99708195238265
+    },
+    "relay-1.NC__J6": {
+      "collision": false,
+      "distance_mm": 55.20327138763251
+    },
+    "relay-1.NC__J7": {
+      "collision": false,
+      "distance_mm": 13.849572350707117
+    },
+    "relay-1.NC__J9": {
+      "collision": false,
+      "distance_mm": 1.73146037005371
+    },
+    "relay-1.NC__J10.GND": {
+      "collision": false,
+      "distance_mm": 38.22218784052329
+    },
+    "relay-1.NC__J10.V12": {
+      "collision": false,
+      "distance_mm": 38.716092602711285
+    },
+    "relay-1.NC__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 83.81835655237931
+    },
+    "relay-1.NC__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 84.72094513358188
+    },
+    "relay-1.NC__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 47.67596999393693
+    },
+    "relay-1.NC__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 48.6529603210146
+    },
+    "relay-1.NC__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 9.543765222584764
+    },
+    "relay-1.NC__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 6.400288328861356
+    },
+    "relay-1.NC__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 57.00779326688606
+    },
+    "relay-1.NC__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 55.63130497537175
+    },
+    "relay-2.COM__J1": {
+      "collision": false,
+      "distance_mm": 83.46330452099266
+    },
+    "relay-2.COM__J11": {
+      "collision": false,
+      "distance_mm": 10.699981690149443
+    },
+    "relay-2.COM__J13": {
+      "collision": false,
+      "distance_mm": 66.6343491955065
+    },
+    "relay-2.COM__J2": {
+      "collision": false,
+      "distance_mm": 82.43156033677424
+    },
+    "relay-2.COM__J3": {
+      "collision": false,
+      "distance_mm": 27.025476649446503
+    },
+    "relay-2.COM__J4": {
+      "collision": false,
+      "distance_mm": 36.7192524368578
+    },
+    "relay-2.COM__J5": {
+      "collision": false,
+      "distance_mm": 44.63959166990164
+    },
+    "relay-2.COM__J6": {
+      "collision": false,
+      "distance_mm": 53.891013502754376
+    },
+    "relay-2.COM__J7": {
+      "collision": false,
+      "distance_mm": 67.5032420355697
+    },
+    "relay-2.COM__J9": {
+      "collision": false,
+      "distance_mm": 54.93384734399836
+    },
+    "relay-2.COM__J10.GND": {
+      "collision": false,
+      "distance_mm": 89.58650760564564
+    },
+    "relay-2.COM__J10.V12": {
+      "collision": false,
+      "distance_mm": 88.84673617011416
+    },
+    "relay-2.COM__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 42.0064436792122
+    },
+    "relay-2.COM__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 40.45201671274397
+    },
+    "relay-2.COM__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 87.04279993951164
+    },
+    "relay-2.COM__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 86.5069519389318
+    },
+    "relay-2.COM__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 60.8478426818394
+    },
+    "relay-2.COM__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 58.74699957473468
+    },
+    "relay-2.COM__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 5.129571132170798
+    },
+    "relay-2.COM__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 6.400288328861356
+    },
+    "relay-2.NO__J1": {
+      "collision": false,
+      "distance_mm": 84.40333817173764
+    },
+    "relay-2.NO__J11": {
+      "collision": false,
+      "distance_mm": 5.699981690760248
+    },
+    "relay-2.NO__J13": {
+      "collision": false,
+      "distance_mm": 69.49919437365878
+    },
+    "relay-2.NO__J2": {
+      "collision": false,
+      "distance_mm": 82.40031786164518
+    },
+    "relay-2.NO__J3": {
+      "collision": false,
+      "distance_mm": 23.297896282692708
+    },
+    "relay-2.NO__J4": {
+      "collision": false,
+      "distance_mm": 33.93086622276473
+    },
+    "relay-2.NO__J5": {
+      "collision": false,
+      "distance_mm": 48.715272385527896
+    },
+    "relay-2.NO__J6": {
+      "collision": false,
+      "distance_mm": 57.38056541866945
+    },
+    "relay-2.NO__J7": {
+      "collision": false,
+      "distance_mm": 66.02793248632106
+    },
+    "relay-2.NO__J9": {
+      "collision": false,
+      "distance_mm": 53.110535563316525
+    },
+    "relay-2.NO__J10.GND": {
+      "collision": false,
+      "distance_mm": 88.84673617011416
+    },
+    "relay-2.NO__J10.V12": {
+      "collision": false,
+      "distance_mm": 88.3840636720633
+    },
+    "relay-2.NO__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 40.881453715937695
+    },
+    "relay-2.NO__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 40.0482923126976
+    },
+    "relay-2.NO__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 86.5069519389318
+    },
+    "relay-2.NO__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 86.24646505083358
+    },
+    "relay-2.NO__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 58.74699957473468
+    },
+    "relay-2.NO__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 57.00779326688606
+    },
+    "relay-2.NO__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 6.400288328861356
+    },
+    "relay-2.NO__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 5.129571132170798
+    },
+    "relay-2.NC__J1": {
+      "collision": false,
+      "distance_mm": 85.6175980497839
+    },
+    "relay-2.NC__J11": {
+      "collision": false,
+      "distance_mm": 0.6999817000970899
+    },
+    "relay-2.NC__J13": {
+      "collision": false,
+      "distance_mm": 72.59572676450392
+    },
+    "relay-2.NC__J2": {
+      "collision": false,
+      "distance_mm": 82.53855636622484
+    },
+    "relay-2.NC__J3": {
+      "collision": false,
+      "distance_mm": 19.920999117511332
+    },
+    "relay-2.NC__J4": {
+      "collision": false,
+      "distance_mm": 31.69075363150307
+    },
+    "relay-2.NC__J5": {
+      "collision": false,
+      "distance_mm": 52.94962117651836
+    },
+    "relay-2.NC__J6": {
+      "collision": false,
+      "distance_mm": 61.01650789873096
+    },
+    "relay-2.NC__J7": {
+      "collision": false,
+      "distance_mm": 64.82139381179428
+    },
+    "relay-2.NC__J9": {
+      "collision": false,
+      "distance_mm": 51.693736056373645
+    },
+    "relay-2.NC__J10.GND": {
+      "collision": false,
+      "distance_mm": 88.3840636720633
+    },
+    "relay-2.NC__J10.V12": {
+      "collision": false,
+      "distance_mm": 88.20285082860309
+    },
+    "relay-2.NC__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 40.1729471989011
+    },
+    "relay-2.NC__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 40.26618653657718
+    },
+    "relay-2.NC__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 86.24646505083358
+    },
+    "relay-2.NC__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 86.27544687664421
+    },
+    "relay-2.NC__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 57.00779326688606
+    },
+    "relay-2.NC__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 55.63130497537175
+    },
+    "relay-2.NC__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 9.543765222584764
+    },
+    "relay-2.NC__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 6.400288328861356
+    }
+  },
+  "pull_to_other_lead": {
+    "J1__J11": {
+      "collision": false,
+      "distance_mm": 73.8392227775662
+    },
+    "J1__J13": {
+      "collision": false,
+      "distance_mm": 16.437296536727718
+    },
+    "J1__J2": {
+      "collision": false,
+      "distance_mm": 2.75
+    },
+    "J1__J3": {
+      "collision": false,
+      "distance_mm": 65.84429395447265
+    },
+    "J1__J4": {
+      "collision": false,
+      "distance_mm": 52.78464375124985
+    },
+    "J1__J5": {
+      "collision": false,
+      "distance_mm": 46.04882322613855
+    },
+    "J1__J6": {
+      "collision": false,
+      "distance_mm": 29.975091293449367
+    },
+    "J1__J7": {
+      "collision": false,
+      "distance_mm": 33.57051244310918
+    },
+    "J1__J9": {
+      "collision": false,
+      "distance_mm": 40.32203322235284
+    },
+    "J1__J10.GND": {
+      "collision": false,
+      "distance_mm": 26.62804266945914
+    },
+    "J1__J10.V12": {
+      "collision": false,
+      "distance_mm": 21.63916359371228
+    },
+    "J1__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 127.3522148726289
+    },
+    "J1__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 126.1462943046768
+    },
+    "J1__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 66.538836728916
+    },
+    "J1__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 65.04703955416248
+    },
+    "J1__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 51.072728349237046
+    },
+    "J1__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 47.303427517074134
+    },
+    "J1__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 93.0284810827347
+    },
+    "J1__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 93.7048436903733
+    },
+    "J11__J1": {
+      "collision": false,
+      "distance_mm": 73.83913720911566
+    },
+    "J11__J13": {
+      "collision": false,
+      "distance_mm": 64.56727796659973
+    },
+    "J11__J2": {
+      "collision": false,
+      "distance_mm": 70.03048343999062
+    },
+    "J11__J3": {
+      "collision": false,
+      "distance_mm": 2.81617144602537
+    },
+    "J11__J4": {
+      "collision": false,
+      "distance_mm": 16.302930024333683
+    },
+    "J11__J5": {
+      "collision": false,
+      "distance_mm": 49.834466044807826
+    },
+    "J11__J6": {
+      "collision": false,
+      "distance_mm": 55.102601081566476
+    },
+    "J11__J7": {
+      "collision": false,
+      "distance_mm": 50.8010562820352
+    },
+    "J11__J9": {
+      "collision": false,
+      "distance_mm": 37.30137549213964
+    },
+    "J11__J10.GND": {
+      "collision": false,
+      "distance_mm": 75.59995916160526
+    },
+    "J11__J10.V12": {
+      "collision": false,
+      "distance_mm": 75.59979248046875
+    },
+    "J11__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 64.94721574911122
+    },
+    "J11__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 65.15112032107473
+    },
+    "J11__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 89.95606289070048
+    },
+    "J11__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 90.0405407709489
+    },
+    "J11__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 50.096264539904126
+    },
+    "J11__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 49.66524391638413
+    },
+    "J11__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 32.931843916818316
+    },
+    "J11__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 31.703329621515874
+    },
+    "J13__J1": {
+      "collision": false,
+      "distance_mm": 16.394335412820624
+    },
+    "J13__J11": {
+      "collision": false,
+      "distance_mm": 64.57096079462973
+    },
+    "J13__J2": {
+      "collision": false,
+      "distance_mm": 32.10399318218784
+    },
+    "J13__J3": {
+      "collision": false,
+      "distance_mm": 65.34132942334809
+    },
+    "J13__J4": {
+      "collision": false,
+      "distance_mm": 59.78658737798907
+    },
+    "J13__J5": {
+      "collision": false,
+      "distance_mm": 18.94996560920573
+    },
+    "J13__J6": {
+      "collision": false,
+      "distance_mm": 2.8499900354966834
+    },
+    "J13__J7": {
+      "collision": false,
+      "distance_mm": 58.09979740429966
+    },
+    "J13__J9": {
+      "collision": false,
+      "distance_mm": 58.09997058564568
+    },
+    "J13__J10.GND": {
+      "collision": false,
+      "distance_mm": 55.70012401068151
+    },
+    "J13__J10.V12": {
+      "collision": false,
+      "distance_mm": 51.146912149439544
+    },
+    "J13__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 111.92303049334734
+    },
+    "J13__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 108.92089962189839
+    },
+    "J13__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 79.00481019308025
+    },
+    "J13__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 76.15617281715484
+    },
+    "J13__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 70.1966318037113
+    },
+    "J13__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 65.6586606262474
+    },
+    "J13__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 75.5761100849681
+    },
+    "J13__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 77.96319417548236
+    },
+    "J2__J1": {
+      "collision": false,
+      "distance_mm": 2.75
+    },
+    "J2__J11": {
+      "collision": false,
+      "distance_mm": 70.0305902566712
+    },
+    "J2__J13": {
+      "collision": false,
+      "distance_mm": 32.08729327690584
+    },
+    "J2__J3": {
+      "collision": false,
+      "distance_mm": 58.49261638441736
+    },
+    "J2__J4": {
+      "collision": false,
+      "distance_mm": 43.2682130167705
+    },
+    "J2__J5": {
+      "collision": false,
+      "distance_mm": 53.79122584127427
+    },
+    "J2__J6": {
+      "collision": false,
+      "distance_mm": 40.83925884501616
+    },
+    "J2__J7": {
+      "collision": false,
+      "distance_mm": 15.12029906690565
+    },
+    "J2__J9": {
+      "collision": false,
+      "distance_mm": 26.815638968183368
+    },
+    "J2__J10.GND": {
+      "collision": false,
+      "distance_mm": 8.236892487840933
+    },
+    "J2__J10.V12": {
+      "collision": false,
+      "distance_mm": 3.4708114517493103
+    },
+    "J2__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 125.17200015851398
+    },
+    "J2__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 125.04532273311202
+    },
+    "J2__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 62.70316228866429
+    },
+    "J2__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 62.54999694824221
+    },
+    "J2__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 38.45304330379733
+    },
+    "J2__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 35.87947171427678
+    },
+    "J2__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 92.41476594925044
+    },
+    "J2__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 92.41476594925044
+    },
+    "J3__J1": {
+      "collision": false,
+      "distance_mm": 65.82725367118252
+    },
+    "J3__J11": {
+      "collision": false,
+      "distance_mm": 2.7723612780864237
+    },
+    "J3__J13": {
+      "collision": false,
+      "distance_mm": 65.34132942334809
+    },
+    "J3__J2": {
+      "collision": false,
+      "distance_mm": 58.457568056246366
+    },
+    "J3__J4": {
+      "collision": false,
+      "distance_mm": 2.7499965127869883
+    },
+    "J3__J5": {
+      "collision": false,
+      "distance_mm": 58.101657002834976
+    },
+    "J3__J6": {
+      "collision": false,
+      "distance_mm": 59.763081216570555
+    },
+    "J3__J7": {
+      "collision": false,
+      "distance_mm": 37.24999648855782
+    },
+    "J3__J9": {
+      "collision": false,
+      "distance_mm": 23.749996492320165
+    },
+    "J3__J10.GND": {
+      "collision": false,
+      "distance_mm": 62.098313225079444
+    },
+    "J3__J10.V12": {
+      "collision": false,
+      "distance_mm": 62.495617073113976
+    },
+    "J3__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 69.90656540297262
+    },
+    "J3__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 71.12037485024416
+    },
+    "J3__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 81.28607166739845
+    },
+    "J3__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 81.99955434001569
+    },
+    "J3__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 39.26511485289161
+    },
+    "J3__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 39.138519687231025
+    },
+    "J3__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 40.52922886150479
+    },
+    "J3__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 38.25730256729322
+    },
+    "J4__J1": {
+      "collision": false,
+      "distance_mm": 49.06062681365949
+    },
+    "J4__J11": {
+      "collision": false,
+      "distance_mm": 16.25389096716708
+    },
+    "J4__J13": {
+      "collision": false,
+      "distance_mm": 58.80845559509206
+    },
+    "J4__J2": {
+      "collision": false,
+      "distance_mm": 38.613607526919225
+    },
+    "J4__J3": {
+      "collision": false,
+      "distance_mm": 2.75
+    },
+    "J4__J5": {
+      "collision": false,
+      "distance_mm": 58.099884033203125
+    },
+    "J4__J6": {
+      "collision": false,
+      "distance_mm": 58.100006103515625
+    },
+    "J4__J7": {
+      "collision": false,
+      "distance_mm": 16.25
+    },
+    "J4__J9": {
+      "collision": false,
+      "distance_mm": 2.75
+    },
+    "J4__J10.GND": {
+      "collision": false,
+      "distance_mm": 41.123096534746125
+    },
+    "J4__J10.V12": {
+      "collision": false,
+      "distance_mm": 41.72060870452829
+    },
+    "J4__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 79.62960565059778
+    },
+    "J4__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 80.71941585560262
+    },
+    "J4__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 70.01594844608509
+    },
+    "J4__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 70.84301642201359
+    },
+    "J4__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 28.697464919380636
+    },
+    "J4__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 28.52405719721324
+    },
+    "J4__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 48.93440404607133
+    },
+    "J4__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 47.069905038987685
+    },
+    "J5__J1": {
+      "collision": false,
+      "distance_mm": 46.001302175712745
+    },
+    "J5__J11": {
+      "collision": false,
+      "distance_mm": 49.868999020177064
+    },
+    "J5__J13": {
+      "collision": false,
+      "distance_mm": 18.949984517746532
+    },
+    "J5__J2": {
+      "collision": false,
+      "distance_mm": 53.77418944709301
+    },
+    "J5__J3": {
+      "collision": false,
+      "distance_mm": 58.101657002834976
+    },
+    "J5__J4": {
+      "collision": false,
+      "distance_mm": 58.09979045769151
+    },
+    "J5__J6": {
+      "collision": false,
+      "distance_mm": 2.8499784365728176
+    },
+    "J5__J7": {
+      "collision": false,
+      "distance_mm": 64.32898252488997
+    },
+    "J5__J9": {
+      "collision": false,
+      "distance_mm": 59.833576517044285
+    },
+    "J5__J10.GND": {
+      "collision": false,
+      "distance_mm": 72.76243585137156
+    },
+    "J5__J10.V12": {
+      "collision": false,
+      "distance_mm": 69.3388410534972
+    },
+    "J5__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 90.68175429823987
+    },
+    "J5__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 86.94928511629782
+    },
+    "J5__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 88.22241404700974
+    },
+    "J5__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 85.68078527180839
+    },
+    "J5__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 72.29701297177027
+    },
+    "J5__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 67.89956422140517
+    },
+    "J5__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 54.44724717246485
+    },
+    "J5__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 57.71493701918275
+    },
+    "J6__J1": {
+      "collision": false,
+      "distance_mm": 29.928779170832673
+    },
+    "J6__J11": {
+      "collision": false,
+      "distance_mm": 55.121513259486335
+    },
+    "J6__J13": {
+      "collision": false,
+      "distance_mm": 2.850006103515625
+    },
+    "J6__J2": {
+      "collision": false,
+      "distance_mm": 40.836542105712326
+    },
+    "J6__J3": {
+      "collision": false,
+      "distance_mm": 59.763072995079966
+    },
+    "J6__J4": {
+      "collision": false,
+      "distance_mm": 58.100006103515625
+    },
+    "J6__J5": {
+      "collision": false,
+      "distance_mm": 2.8499755859375
+    },
+    "J6__J7": {
+      "collision": false,
+      "distance_mm": 59.266350324295246
+    },
+    "J6__J9": {
+      "collision": false,
+      "distance_mm": 58.09988403320312
+    },
+    "J6__J10.GND": {
+      "collision": false,
+      "distance_mm": 62.347801021683054
+    },
+    "J6__J10.V12": {
+      "collision": false,
+      "distance_mm": 58.315935671774476
+    },
+    "J6__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 99.87433942279692
+    },
+    "J6__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 96.4981014506882
+    },
+    "J6__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 82.02842564704694
+    },
+    "J6__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 79.28847641405903
+    },
+    "J6__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 70.20712595206838
+    },
+    "J6__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 65.66986009337897
+    },
+    "J6__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 63.273520807602225
+    },
+    "J6__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 66.10633963531724
+    },
+    "J7__J1": {
+      "collision": false,
+      "distance_mm": 33.618112225849245
+    },
+    "J7__J11": {
+      "collision": false,
+      "distance_mm": 50.75132899170344
+    },
+    "J7__J13": {
+      "collision": false,
+      "distance_mm": 58.099884033203125
+    },
+    "J7__J2": {
+      "collision": false,
+      "distance_mm": 15.164718201526185
+    },
+    "J7__J3": {
+      "collision": false,
+      "distance_mm": 37.25
+    },
+    "J7__J4": {
+      "collision": false,
+      "distance_mm": 21.25
+    },
+    "J7__J5": {
+      "collision": false,
+      "distance_mm": 64.32908164717472
+    },
+    "J7__J6": {
+      "collision": false,
+      "distance_mm": 59.26635634888679
+    },
+    "J7__J9": {
+      "collision": false,
+      "distance_mm": 2.75
+    },
+    "J7__J10.GND": {
+      "collision": false,
+      "distance_mm": 6.993261003668018
+    },
+    "J7__J10.V12": {
+      "collision": false,
+      "distance_mm": 9.91997084349225
+    },
+    "J7__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 108.22442127125211
+    },
+    "J7__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 109.0287822526577
+    },
+    "J7__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 63.21569826024871
+    },
+    "J7__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 64.1305266273064
+    },
+    "J7__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 27.928208232253482
+    },
+    "J7__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 27.749993896484398
+    },
+    "J7__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 77.28018064476001
+    },
+    "J7__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 76.11324708302686
+    },
+    "J9__J1": {
+      "collision": false,
+      "distance_mm": 40.33628377476256
+    },
+    "J9__J11": {
+      "collision": false,
+      "distance_mm": 37.251855350391175
+    },
+    "J9__J13": {
+      "collision": false,
+      "distance_mm": 58.099970584749556
+    },
+    "J9__J2": {
+      "collision": false,
+      "distance_mm": 26.803678206440722
+    },
+    "J9__J3": {
+      "collision": false,
+      "distance_mm": 23.749972304904173
+    },
+    "J9__J4": {
+      "collision": false,
+      "distance_mm": 7.749972327770871
+    },
+    "J9__J5": {
+      "collision": false,
+      "distance_mm": 59.833576517044285
+    },
+    "J9__J6": {
+      "collision": false,
+      "distance_mm": 58.099793930383775
+    },
+    "J9__J7": {
+      "collision": false,
+      "distance_mm": 2.7499965127869883
+    },
+    "J9__J10.GND": {
+      "collision": false,
+      "distance_mm": 27.658695800744535
+    },
+    "J9__J10.V12": {
+      "collision": false,
+      "distance_mm": 28.539535759141952
+    },
+    "J9__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 96.5768371143231
+    },
+    "J9__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 97.47733760794581
+    },
+    "J9__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 65.3588819429037
+    },
+    "J9__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 66.24413116397687
+    },
+    "J9__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 27.928191022266958
+    },
+    "J9__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 27.749993896484398
+    },
+    "J9__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 65.48874048559404
+    },
+    "J9__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 64.10754977385012
+    }
+  },
+  "collisions": {
+    "wire_pairs": {},
+    "wire_to_other_plug": {},
+    "tool_to_wire": {
+      "relay-1.COM__J9": {
+        "collision": true,
+        "distance_mm": 0.0
+      },
+      "relay-1.NO__J9": {
+        "collision": true,
+        "distance_mm": 0.0
+      }
+    },
+    "pull_to_other_lead": {},
+    "service_tool_to_wire": {}
+  },
+  "service": {
+    "installed": "All local plugs and dressed leads checked with roof in place by dry-placement agent",
+    "normal_access": "Roof removed; remove silicone funnel only when the particular forward access path requires it; frame stays",
+    "PCB_carrier_lift": "Full normal PSU and relay terminal service lifts the single PCB carrier; record distinguishes short 40 mm shaft from full vertical access",
+    "J10": "Normal screw access in place with roof removed; no prewiring requirement"
+  },
+  "surrounding_body_evidence": "arrangement-audit.json",
+  "local_PCB_evidence": "pcb-mutual-audit.json",
+  "limits": "These are local departures, not completed harness routes. Relay side-entry mouth geometry and all wire bend shapes remain explicit best estimates.",
+  "source_geometry_manifest": "selection.json",
+  "service_tool_to_wire": {
+    "J10.GND__J1": {
+      "collision": false,
+      "distance_mm": 27.8800048828125
+    },
+    "J10.GND__J11": {
+      "collision": false,
+      "distance_mm": 71.75828111136668
+    },
+    "J10.GND__J13": {
+      "collision": false,
+      "distance_mm": 56.25455344540882
+    },
+    "J10.GND__J2": {
+      "collision": false,
+      "distance_mm": 9.38006591796875
+    },
+    "J10.GND__J3": {
+      "collision": false,
+      "distance_mm": 58.58971128806264
+    },
+    "J10.GND__J4": {
+      "collision": false,
+      "distance_mm": 42.71712456045264
+    },
+    "J10.GND__J5": {
+      "collision": false,
+      "distance_mm": 72.1660256674644
+    },
+    "J10.GND__J6": {
+      "collision": false,
+      "distance_mm": 62.30016644769185
+    },
+    "J10.GND__J7": {
+      "collision": false,
+      "distance_mm": 5.726383824744523
+    },
+    "J10.GND__J9": {
+      "collision": false,
+      "distance_mm": 24.57141161631816
+    },
+    "J10.GND__J10.GND": {
+      "collision": false,
+      "distance_mm": 4.902491815960245
+    },
+    "J10.GND__J10.V12": {
+      "collision": false,
+      "distance_mm": 6.113923814324442
+    },
+    "J10.GND__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 130.29127896942606
+    },
+    "J10.GND__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 130.73376454605497
+    },
+    "J10.GND__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 70.58437266528054
+    },
+    "J10.GND__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 71.00460183287936
+    },
+    "J10.GND__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 41.40343883266621
+    },
+    "J10.GND__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 40.285615120897674
+    },
+    "J10.GND__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 98.37424581204948
+    },
+    "J10.GND__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 97.6626459921858
+    },
+    "J10.V12__J1": {
+      "collision": false,
+      "distance_mm": 22.8800048828125
+    },
+    "J10.V12__J11": {
+      "collision": false,
+      "distance_mm": 71.75828111136668
+    },
+    "J10.V12__J13": {
+      "collision": false,
+      "distance_mm": 51.595472363835626
+    },
+    "J10.V12__J2": {
+      "collision": false,
+      "distance_mm": 4.38006591796875
+    },
+    "J10.V12__J3": {
+      "collision": false,
+      "distance_mm": 59.33595598477477
+    },
+    "J10.V12__J4": {
+      "collision": false,
+      "distance_mm": 43.7350307398851
+    },
+    "J10.V12__J5": {
+      "collision": false,
+      "distance_mm": 68.5880846030953
+    },
+    "J10.V12__J6": {
+      "collision": false,
+      "distance_mm": 58.12768031585552
+    },
+    "J10.V12__J7": {
+      "collision": false,
+      "distance_mm": 9.913341492428794
+    },
+    "J10.V12__J9": {
+      "collision": false,
+      "distance_mm": 26.090838946992
+    },
+    "J10.V12__J10.GND": {
+      "collision": false,
+      "distance_mm": 6.113910165328041
+    },
+    "J10.V12__J10.V12": {
+      "collision": false,
+      "distance_mm": 4.902491815960245
+    },
+    "J10.V12__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 130.23562299754673
+    },
+    "J10.V12__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 130.3910170006111
+    },
+    "J10.V12__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 70.50000915527346
+    },
+    "J10.V12__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 70.58437266528054
+    },
+    "J10.V12__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 43.023190610132595
+    },
+    "J10.V12__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 41.40343883266621
+    },
+    "J10.V12__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 97.6626459921858
+    },
+    "J10.V12__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 97.18200076131932
+    },
+    "psu.AC-N__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 3.010405740893584
+    },
+    "psu.AC-N__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 6.267471217472277
+    },
+    "psu.AC-N__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 99.27562240732905
+    },
+    "psu.AC-N__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 99.4114530002081
+    },
+    "psu.AC-N__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 77.26981946400548
+    },
+    "psu.AC-N__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 76.44033621066825
+    },
+    "psu.AC-N__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 10.85745393532502
+    },
+    "psu.AC-N__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 6.367098680414988
+    },
+    "psu.AC-L__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 6.2674849059889635
+    },
+    "psu.AC-L__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 3.010405740893584
+    },
+    "psu.AC-L__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 99.4114530002081
+    },
+    "psu.AC-L__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 99.27562240732905
+    },
+    "psu.AC-L__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 79.07056836967601
+    },
+    "psu.AC-L__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 77.80183159797718
+    },
+    "psu.AC-L__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 4.496815344629893
+    },
+    "psu.AC-L__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 2.75
+    },
+    "psu.DC-minus-1__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 99.31812493840708
+    },
+    "psu.DC-minus-1__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 99.78551583474032
+    },
+    "psu.DC-minus-1__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 4.653682863813856
+    },
+    "psu.DC-minus-1__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 8.304096342241222
+    },
+    "psu.DC-minus-1__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 11.98250389200268
+    },
+    "psu.DC-minus-1__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 8.213055600055544
+    },
+    "psu.DC-minus-1__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 80.26090268617716
+    },
+    "psu.DC-minus-1__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 79.44691623971318
+    },
+    "psu.DC-minus-2__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 99.27563457935896
+    },
+    "psu.DC-minus-2__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 99.41146558836572
+    },
+    "psu.DC-minus-2__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 3.010398644698074
+    },
+    "psu.DC-minus-2__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 4.653682863813856
+    },
+    "psu.DC-minus-2__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 16.383682890278457
+    },
+    "psu.DC-minus-2__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 11.98250389200268
+    },
+    "psu.DC-minus-2__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 79.44691623971318
+    },
+    "psu.DC-minus-2__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 78.94182984957975
+    },
+    "psu.DC-plus-1__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 99.4114649804223
+    },
+    "psu.DC-plus-1__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 99.2756346511354
+    },
+    "psu.DC-plus-1__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 4.653688430769081
+    },
+    "psu.DC-plus-1__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 3.010398644698074
+    },
+    "psu.DC-plus-1__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 21.053971848004046
+    },
+    "psu.DC-plus-1__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 16.383682890278457
+    },
+    "psu.DC-plus-1__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 78.94182984957975
+    },
+    "psu.DC-plus-1__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 78.75158728559063
+    },
+    "psu.DC-plus-2__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 99.7855146174123
+    },
+    "psu.DC-plus-2__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 99.31812461878633
+    },
+    "psu.DC-plus-2__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 8.304122748600143
+    },
+    "psu.DC-plus-2__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 4.653688430769085
+    },
+    "psu.DC-plus-2__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 25.847820831958938
+    },
+    "psu.DC-plus-2__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 21.053971848004046
+    },
+    "psu.DC-plus-2__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 78.75158728559063
+    },
+    "psu.DC-plus-2__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 78.76428441876432
+    },
+    "relay-1.COM__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 85.15508543149357
+    },
+    "relay-1.COM__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 86.8455410364595
+    },
+    "relay-1.COM__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 50.05857117415779
+    },
+    "relay-1.COM__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 51.9096382957753
+    },
+    "relay-1.COM__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 5.129571132170798
+    },
+    "relay-1.COM__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 6.400288328861356
+    },
+    "relay-1.COM__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 60.8478426818394
+    },
+    "relay-1.COM__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 58.74699957473468
+    },
+    "relay-1.NO__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 84.3586896164812
+    },
+    "relay-1.NO__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 85.66001754238991
+    },
+    "relay-1.NO__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 48.6529603210146
+    },
+    "relay-1.NO__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 50.05857117415779
+    },
+    "relay-1.NO__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 6.400288328861356
+    },
+    "relay-1.NO__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 5.129571132170798
+    },
+    "relay-1.NO__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 58.74699957473468
+    },
+    "relay-1.NO__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 57.00779326688606
+    },
+    "relay-1.NC__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 83.81835655237931
+    },
+    "relay-1.NC__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 84.72094513358188
+    },
+    "relay-1.NC__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 47.67596999393693
+    },
+    "relay-1.NC__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 48.6529603210146
+    },
+    "relay-1.NC__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 9.543765222584764
+    },
+    "relay-1.NC__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 6.400288328861356
+    },
+    "relay-1.NC__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 57.00779326688606
+    },
+    "relay-1.NC__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 55.63130497537175
+    },
+    "relay-2.COM__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 42.0064436792122
+    },
+    "relay-2.COM__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 40.45201671274397
+    },
+    "relay-2.COM__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 87.04279993951164
+    },
+    "relay-2.COM__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 86.5069519389318
+    },
+    "relay-2.COM__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 60.8478426818394
+    },
+    "relay-2.COM__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 58.74699957473468
+    },
+    "relay-2.COM__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 5.129571132170798
+    },
+    "relay-2.COM__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 6.400288328861356
+    },
+    "relay-2.NO__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 40.881453715937695
+    },
+    "relay-2.NO__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 40.0482923126976
+    },
+    "relay-2.NO__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 86.5069519389318
+    },
+    "relay-2.NO__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 86.24646505083358
+    },
+    "relay-2.NO__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 58.74699957473468
+    },
+    "relay-2.NO__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 57.00779326688606
+    },
+    "relay-2.NO__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 6.400288328861356
+    },
+    "relay-2.NO__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 5.129571132170798
+    },
+    "relay-2.NC__psu.AC-N": {
+      "collision": false,
+      "distance_mm": 40.1729471989011
+    },
+    "relay-2.NC__psu.AC-L": {
+      "collision": false,
+      "distance_mm": 40.26618653657718
+    },
+    "relay-2.NC__psu.DC-minus-2": {
+      "collision": false,
+      "distance_mm": 86.24646505083358
+    },
+    "relay-2.NC__psu.DC-plus-1": {
+      "collision": false,
+      "distance_mm": 86.27544687664421
+    },
+    "relay-2.NC__relay-1.COM": {
+      "collision": false,
+      "distance_mm": 57.00779326688606
+    },
+    "relay-2.NC__relay-1.NO": {
+      "collision": false,
+      "distance_mm": 55.63130497537175
+    },
+    "relay-2.NC__relay-2.COM": {
+      "collision": false,
+      "distance_mm": 9.543765222584764
+    },
+    "relay-2.NC__relay-2.NO": {
+      "collision": false,
+      "distance_mm": 6.400288328861356
+    }
+  }
+}

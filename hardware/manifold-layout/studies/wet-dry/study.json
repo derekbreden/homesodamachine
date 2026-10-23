@@ -131,11 +131,14 @@
     "rigid_header_rotations_unchanged": true,
     "electronics_wall": "-X",
     "rear_wet_connections_half": "+X",
-    "pcb_orientation": "Horizontal, components upward, above supply and relays",
-    "relay_service": "Wire relay terminals before installing PCB; PCB removal gives subsequent terminal access",
+    "pcb_orientation": "Horizontal, components upward; J10 wire entry faces forward (-Y)",
+    "relay_service": "Lift the PCB carrier for upward-facing relay terminal access",
     "water_header_poses": "ceiling-fit, unchanged",
     "planned_funnel_minus_y_expansion": "No added electronics occupies the forward funnel area",
-    "wago_groups": "Five main-power connectors at rear; four manifold/sensor connectors on forward -X wall"
+    "wago_groups": "Five main-power connectors at rear; four manifold/sensor connectors on forward -X wall",
+    "psu_orientation": "Flat on its back, AC aft and DC fore, screws upward",
+    "psu_mount_service": "Fasten the supply before the rear inlet/data/WAGO parts covering its rear mounting axes; remove those parts for supply replacement",
+    "connection_scope": "Ten active JST plugs and their local wire bends, J10 power leads and selected PSU/relay local conductors; separate unplugging and screwdriver probes"
   },
   "metrics": {
     "electronics_wall": "-X",
@@ -219,62 +222,62 @@
       ],
       "psu": [
         [
-          -98.5,
-          350.0,
+          -96.0,
+          346.0,
           253.39999999999998
         ],
         [
-          -65.0,
-          459.0,
-          305.4
+          -44.0,
+          455.0,
+          286.9
         ]
       ],
       "relay-1": [
         [
           -94.0,
-          352.0,
-          307.4
+          367.0,
+          289.9
         ],
         [
           -77.0,
-          422.0,
-          326.4
+          437.0,
+          308.9
         ]
       ],
       "relay-2": [
         [
           -74.0,
-          352.0,
-          307.4
+          367.0,
+          289.9
         ],
         [
           -57.0,
-          422.0,
-          326.4
+          437.0,
+          308.9
         ]
       ],
       "c14-inlet": [
         [
-          -98.35231246948243,
+          -97.56501198990054,
           446.29999145507816,
-          321.93498801009946
+          257.147688293457
         ],
         [
-          -48.64768829345704,
+          -75.43500710708804,
           473.1399877929688,
-          344.06499289291196
+          306.8523124694824
         ]
       ],
       "keystone-jack": [
         [
-          -58.32499984741211,
+          -93.8249998474121,
           441.2999987792969,
-          266.59499351676845
+          311.59499351676845
         ],
         [
-          -43.6749983215332,
+          -79.1749983215332,
           471.2999987792969,
-          290.74498741325283
+          335.74498741325283
         ]
       ],
       "ground-stack": [
@@ -351,14 +354,14 @@
       ],
       "pcba": [
         [
-          -96.0,
-          347.0,
-          328.0
+          -90.0,
+          336.00000000000006,
+          322.0
         ],
         [
-          -23.199981689453125,
-          437.81605529785156,
-          349.1000061035156
+          -17.199981689453097,
+          426.81605529785156,
+          343.1000061035156
         ]
       ],
       "wago-mana": [
@@ -411,15 +414,30 @@
       ]
     },
     "unrelated_body_interferences": [],
+    "installed_connections": {
+      "scope": "Installed mating housings and local lead meshes against selected bodies, tubes, clamps and rebuilt wall/roof solids; intended contacts excluded",
+      "installed_connection_meshes": 30,
+      "interferences": [],
+      "changed_electronics_to_retained_forward_context": [],
+      "pcb_lead_top_z_mm": 343.25,
+      "pcb_lead_to_ordinary_ceiling_mm": 2.75,
+      "pcb_lead_to_left_wall_mm": 2.4998779296875,
+      "access_audit": "connections/selected-audit.json",
+      "service": {
+        "roof": "Removed for normal mating and tool access; installed connectors and wires clear the closed roof",
+        "PCB_carrier": "Lift for full normal PSU and relay terminal service; retain the distinction between short 40 mm shaft clearance and full vertical tool access",
+        "J10": "Normal tool access in place with roof removed"
+      }
+    },
     "selected_gaps_mm": {
-      "psu_to_va": 1.7007409816845032,
-      "psu_to_funnel-frame": 120.93637197051389,
-      "pcba_to_pump": 20.915049030387976,
-      "pcba_to_wago-h": 5.883946228027355,
-      "pcba_to_relay-1": 1.6000000000000227,
-      "pcba_to_relay-2": 1.6000000000000227,
+      "psu_to_va": 5.372656584218186,
+      "psu_to_funnel-frame": 135.91149905089324,
+      "pcba_to_pump": 12.147372672152244,
+      "pcba_to_wago-h": 17.75718086815788,
+      "pcba_to_relay-1": 13.100000000000023,
+      "pcba_to_relay-2": 13.452632383145064,
       "bulkhead-drain_to_pump": 3.598516790067501,
-      "c14-inlet_to_wago-v12": 5.586153304284564
+      "c14-inlet_to_wago-v12": 22.86045700055315
     }
   },
   "instances": [
@@ -1499,9 +1517,9 @@
       "geometry": "psu",
       "rotation": [
         [
-          -1.0,
           0.0,
-          0.0
+          0.0,
+          1.0
         ],
         [
           0.0,
@@ -1509,20 +1527,20 @@
           0.0
         ],
         [
+          -1.0,
           0.0,
-          0.0,
-          -1.0
+          0.0
         ]
       ],
       "translation": [
-        -0.25,
-        -0.79998779296875,
-        558.7999938964844
+        -349.3999938964844,
+        -4.79998779296875,
+        351.65
       ],
       "role": "electronics",
       "kind": "component",
       "context": true,
-      "label": "Mean Well \u00b7 AC aft"
+      "label": "Mean Well \u00b7 flat, AC aft"
     },
     {
       "name": "relay-1",
@@ -1546,8 +1564,8 @@
       ],
       "translation": [
         -423.20001220703125,
-        95.20001220703125,
-        405.65
+        110.20001220703125,
+        388.15
       ],
       "role": "electronics",
       "kind": "component",
@@ -1576,8 +1594,8 @@
       ],
       "translation": [
         -403.79998779296875,
-        675.3999938964844,
-        405.65
+        690.3999938964844,
+        388.15
       ],
       "role": "electronics",
       "kind": "component",
@@ -1589,30 +1607,30 @@
       "geometry": "c14-inlet",
       "rotation": [
         [
-          1.0,
-          0.0,
-          0.0
-        ],
-        [
-          0.0,
-          1.0,
-          0.0
-        ],
-        [
           0.0,
           0.0,
           1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
         ]
       ],
       "translation": [
-        -140.4,
+        -422.7105808375568,
         10.090000000000032,
-        -3.2105808375567904
+        348.9
       ],
       "role": "electronics",
       "kind": "component",
       "context": true,
-      "label": "C14 power inlet"
+      "label": "C14 power inlet \u00b7 vertical"
     },
     {
       "name": "keystone-jack",
@@ -1635,9 +1653,9 @@
         ]
       ],
       "translation": [
-        -10.29,
+        -45.79,
         3.5200000000000387,
-        -25.40229041877842
+        19.59770958122158
       ],
       "role": "electronics",
       "kind": "component",
@@ -1830,13 +1848,13 @@
       "rotation": [
         [
           0.0,
-          0.0,
-          1.0
+          -1.2246467991473532e-16,
+          -1.0
         ],
         [
           0.0,
-          1.0,
-          0.0
+          -1.0,
+          1.2246467991473532e-16
         ],
         [
           -1.0,
@@ -1845,14 +1863,14 @@
         ]
       ],
       "translation": [
-        -349.3999938964844,
-        111.01606750488281,
-        426.25
+        236.2000122070313,
+        662.7999877929688,
+        420.25
       ],
       "role": "electronics",
       "kind": "component",
       "context": true,
-      "label": "Main PCB \u00b7 horizontal"
+      "label": "Main PCB \u00b7 flat, components upward"
     },
     {
       "name": "carb-nut",
@@ -2003,6 +2021,936 @@
       "kind": "component",
       "context": true,
       "label": "WAGO reed sensors"
+    },
+    {
+      "name": "terminal-J1",
+      "geometry": "connection-J1-plug",
+      "kind": "component",
+      "role": "plug",
+      "label": "J1 \u00b7 XHP-9 mating housing",
+      "rotation": [
+        [
+          0.0,
+          -1.2246467991473532e-16,
+          -1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          1.2246467991473532e-16
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        236.2000122070313,
+        662.7999877929688,
+        420.25
+      ],
+      "context": true,
+      "connection_owner": "pcba"
+    },
+    {
+      "name": "local-lead-J1",
+      "geometry": "connection-J1-wire-edge",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J1 \u00b7 local edgeward wire departure",
+      "rotation": [
+        [
+          0.0,
+          -1.2246467991473532e-16,
+          -1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          1.2246467991473532e-16
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        236.2000122070313,
+        662.7999877929688,
+        420.25
+      ],
+      "context": true,
+      "connection_owner": "pcba"
+    },
+    {
+      "name": "terminal-J11",
+      "geometry": "connection-J11-plug",
+      "kind": "component",
+      "role": "plug",
+      "label": "J11 \u00b7 XHP-4 mating housing",
+      "rotation": [
+        [
+          0.0,
+          -1.2246467991473532e-16,
+          -1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          1.2246467991473532e-16
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        236.2000122070313,
+        662.7999877929688,
+        420.25
+      ],
+      "context": true,
+      "connection_owner": "pcba"
+    },
+    {
+      "name": "local-lead-J11",
+      "geometry": "connection-J11-wire-edge",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J11 \u00b7 local edgeward wire departure",
+      "rotation": [
+        [
+          0.0,
+          -1.2246467991473532e-16,
+          -1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          1.2246467991473532e-16
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        236.2000122070313,
+        662.7999877929688,
+        420.25
+      ],
+      "context": true,
+      "connection_owner": "pcba"
+    },
+    {
+      "name": "terminal-J13",
+      "geometry": "connection-J13-plug",
+      "kind": "component",
+      "role": "plug",
+      "label": "J13 \u00b7 XHP-4 mating housing",
+      "rotation": [
+        [
+          0.0,
+          -1.2246467991473532e-16,
+          -1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          1.2246467991473532e-16
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        236.2000122070313,
+        662.7999877929688,
+        420.25
+      ],
+      "context": true,
+      "connection_owner": "pcba"
+    },
+    {
+      "name": "local-lead-J13",
+      "geometry": "connection-J13-wire-edge",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J13 \u00b7 local edgeward wire departure",
+      "rotation": [
+        [
+          0.0,
+          -1.2246467991473532e-16,
+          -1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          1.2246467991473532e-16
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        236.2000122070313,
+        662.7999877929688,
+        420.25
+      ],
+      "context": true,
+      "connection_owner": "pcba"
+    },
+    {
+      "name": "terminal-J2",
+      "geometry": "connection-J2-plug",
+      "kind": "component",
+      "role": "plug",
+      "label": "J2 \u00b7 XHP-6 mating housing",
+      "rotation": [
+        [
+          0.0,
+          -1.2246467991473532e-16,
+          -1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          1.2246467991473532e-16
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        236.2000122070313,
+        662.7999877929688,
+        420.25
+      ],
+      "context": true,
+      "connection_owner": "pcba"
+    },
+    {
+      "name": "local-lead-J2",
+      "geometry": "connection-J2-wire-edge",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J2 \u00b7 local edgeward wire departure",
+      "rotation": [
+        [
+          0.0,
+          -1.2246467991473532e-16,
+          -1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          1.2246467991473532e-16
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        236.2000122070313,
+        662.7999877929688,
+        420.25
+      ],
+      "context": true,
+      "connection_owner": "pcba"
+    },
+    {
+      "name": "terminal-J3",
+      "geometry": "connection-J3-plug",
+      "kind": "component",
+      "role": "plug",
+      "label": "J3 \u00b7 XHP-4 mating housing",
+      "rotation": [
+        [
+          0.0,
+          -1.2246467991473532e-16,
+          -1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          1.2246467991473532e-16
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        236.2000122070313,
+        662.7999877929688,
+        420.25
+      ],
+      "context": true,
+      "connection_owner": "pcba"
+    },
+    {
+      "name": "local-lead-J3",
+      "geometry": "connection-J3-wire-edge",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J3 \u00b7 local edgeward wire departure",
+      "rotation": [
+        [
+          0.0,
+          -1.2246467991473532e-16,
+          -1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          1.2246467991473532e-16
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        236.2000122070313,
+        662.7999877929688,
+        420.25
+      ],
+      "context": true,
+      "connection_owner": "pcba"
+    },
+    {
+      "name": "terminal-J4",
+      "geometry": "connection-J4-plug",
+      "kind": "component",
+      "role": "plug",
+      "label": "J4 \u00b7 XHP-7 mating housing",
+      "rotation": [
+        [
+          0.0,
+          -1.2246467991473532e-16,
+          -1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          1.2246467991473532e-16
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        236.2000122070313,
+        662.7999877929688,
+        420.25
+      ],
+      "context": true,
+      "connection_owner": "pcba"
+    },
+    {
+      "name": "local-lead-J4",
+      "geometry": "connection-J4-wire-edge",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J4 \u00b7 local edgeward wire departure",
+      "rotation": [
+        [
+          0.0,
+          -1.2246467991473532e-16,
+          -1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          1.2246467991473532e-16
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        236.2000122070313,
+        662.7999877929688,
+        420.25
+      ],
+      "context": true,
+      "connection_owner": "pcba"
+    },
+    {
+      "name": "terminal-J5",
+      "geometry": "connection-J5-plug",
+      "kind": "component",
+      "role": "plug",
+      "label": "J5 \u00b7 XHP-4 mating housing",
+      "rotation": [
+        [
+          0.0,
+          -1.2246467991473532e-16,
+          -1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          1.2246467991473532e-16
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        236.2000122070313,
+        662.7999877929688,
+        420.25
+      ],
+      "context": true,
+      "connection_owner": "pcba"
+    },
+    {
+      "name": "local-lead-J5",
+      "geometry": "connection-J5-wire-edge",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J5 \u00b7 local edgeward wire departure",
+      "rotation": [
+        [
+          0.0,
+          -1.2246467991473532e-16,
+          -1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          1.2246467991473532e-16
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        236.2000122070313,
+        662.7999877929688,
+        420.25
+      ],
+      "context": true,
+      "connection_owner": "pcba"
+    },
+    {
+      "name": "terminal-J6",
+      "geometry": "connection-J6-plug",
+      "kind": "component",
+      "role": "plug",
+      "label": "J6 \u00b7 XHP-5 mating housing",
+      "rotation": [
+        [
+          0.0,
+          -1.2246467991473532e-16,
+          -1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          1.2246467991473532e-16
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        236.2000122070313,
+        662.7999877929688,
+        420.25
+      ],
+      "context": true,
+      "connection_owner": "pcba"
+    },
+    {
+      "name": "local-lead-J6",
+      "geometry": "connection-J6-wire-edge",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J6 \u00b7 local edgeward wire departure",
+      "rotation": [
+        [
+          0.0,
+          -1.2246467991473532e-16,
+          -1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          1.2246467991473532e-16
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        236.2000122070313,
+        662.7999877929688,
+        420.25
+      ],
+      "context": true,
+      "connection_owner": "pcba"
+    },
+    {
+      "name": "terminal-J7",
+      "geometry": "connection-J7-plug",
+      "kind": "component",
+      "role": "plug",
+      "label": "J7 \u00b7 XHP-7 mating housing",
+      "rotation": [
+        [
+          0.0,
+          -1.2246467991473532e-16,
+          -1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          1.2246467991473532e-16
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        236.2000122070313,
+        662.7999877929688,
+        420.25
+      ],
+      "context": true,
+      "connection_owner": "pcba"
+    },
+    {
+      "name": "local-lead-J7",
+      "geometry": "connection-J7-wire-edge",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J7 \u00b7 local edgeward wire departure",
+      "rotation": [
+        [
+          0.0,
+          -1.2246467991473532e-16,
+          -1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          1.2246467991473532e-16
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        236.2000122070313,
+        662.7999877929688,
+        420.25
+      ],
+      "context": true,
+      "connection_owner": "pcba"
+    },
+    {
+      "name": "terminal-J9",
+      "geometry": "connection-J9-plug",
+      "kind": "component",
+      "role": "plug",
+      "label": "J9 \u00b7 XHP-4 mating housing",
+      "rotation": [
+        [
+          0.0,
+          -1.2246467991473532e-16,
+          -1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          1.2246467991473532e-16
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        236.2000122070313,
+        662.7999877929688,
+        420.25
+      ],
+      "context": true,
+      "connection_owner": "pcba"
+    },
+    {
+      "name": "local-lead-J9",
+      "geometry": "connection-J9-wire-edge",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J9 \u00b7 local edgeward wire departure",
+      "rotation": [
+        [
+          0.0,
+          -1.2246467991473532e-16,
+          -1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          1.2246467991473532e-16
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        236.2000122070313,
+        662.7999877929688,
+        420.25
+      ],
+      "context": true,
+      "connection_owner": "pcba"
+    },
+    {
+      "name": "local-lead-J10.GND",
+      "geometry": "connection-J10.GND-wire-straight",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J10.GND \u00b7 12 mm side-entry wire departure",
+      "rotation": [
+        [
+          0.0,
+          -1.2246467991473532e-16,
+          -1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          1.2246467991473532e-16
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        236.2000122070313,
+        662.7999877929688,
+        420.25
+      ],
+      "context": true,
+      "connection_owner": "pcba"
+    },
+    {
+      "name": "local-lead-J10.V12",
+      "geometry": "connection-J10.V12-wire-straight",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J10.V12 \u00b7 12 mm side-entry wire departure",
+      "rotation": [
+        [
+          0.0,
+          -1.2246467991473532e-16,
+          -1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          1.2246467991473532e-16
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        236.2000122070313,
+        662.7999877929688,
+        420.25
+      ],
+      "context": true,
+      "connection_owner": "pcba"
+    },
+    {
+      "name": "local-lead-psu-AC-N",
+      "geometry": "connection-psu-AC-N-wire-bent",
+      "kind": "tube",
+      "role": "wire",
+      "label": "psu AC-N \u00b7 local terminal wire departure",
+      "rotation": [
+        [
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        -349.3999938964844,
+        -4.79998779296875,
+        351.65
+      ],
+      "context": true,
+      "connection_owner": "psu"
+    },
+    {
+      "name": "local-lead-psu-AC-L",
+      "geometry": "connection-psu-AC-L-wire-bent",
+      "kind": "tube",
+      "role": "wire",
+      "label": "psu AC-L \u00b7 local terminal wire departure",
+      "rotation": [
+        [
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        -349.3999938964844,
+        -4.79998779296875,
+        351.65
+      ],
+      "context": true,
+      "connection_owner": "psu"
+    },
+    {
+      "name": "local-lead-psu-DC-minus-2",
+      "geometry": "connection-psu-DC-minus-2-wire",
+      "kind": "tube",
+      "role": "wire",
+      "label": "psu DC-minus-2 \u00b7 local terminal wire departure",
+      "rotation": [
+        [
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        -349.3999938964844,
+        -4.79998779296875,
+        351.65
+      ],
+      "context": true,
+      "connection_owner": "psu"
+    },
+    {
+      "name": "local-lead-psu-DC-plus-1",
+      "geometry": "connection-psu-DC-plus-1-wire",
+      "kind": "tube",
+      "role": "wire",
+      "label": "psu DC-plus-1 \u00b7 local terminal wire departure",
+      "rotation": [
+        [
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        -349.3999938964844,
+        -4.79998779296875,
+        351.65
+      ],
+      "context": true,
+      "connection_owner": "psu"
+    },
+    {
+      "name": "local-lead-relay-1-COM",
+      "geometry": "connection-relay-1-COM-wire",
+      "kind": "tube",
+      "role": "wire",
+      "label": "relay-1 COM \u00b7 local terminal wire departure",
+      "rotation": [
+        [
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        -423.20001220703125,
+        110.20001220703125,
+        388.15
+      ],
+      "context": true,
+      "connection_owner": "relay-1"
+    },
+    {
+      "name": "local-lead-relay-1-NO",
+      "geometry": "connection-relay-1-NO-wire",
+      "kind": "tube",
+      "role": "wire",
+      "label": "relay-1 NO \u00b7 local terminal wire departure",
+      "rotation": [
+        [
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        -423.20001220703125,
+        110.20001220703125,
+        388.15
+      ],
+      "context": true,
+      "connection_owner": "relay-1"
+    },
+    {
+      "name": "local-lead-relay-2-COM",
+      "geometry": "connection-relay-2-COM-wire",
+      "kind": "tube",
+      "role": "wire",
+      "label": "relay-2 COM \u00b7 local terminal wire departure",
+      "rotation": [
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        -403.79998779296875,
+        690.3999938964844,
+        388.15
+      ],
+      "context": true,
+      "connection_owner": "relay-2"
+    },
+    {
+      "name": "local-lead-relay-2-NO",
+      "geometry": "connection-relay-2-NO-wire",
+      "kind": "tube",
+      "role": "wire",
+      "label": "relay-2 NO \u00b7 local terminal wire departure",
+      "rotation": [
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        -403.79998779296875,
+        690.3999938964844,
+        388.15
+      ],
+      "context": true,
+      "connection_owner": "relay-2"
     },
     {
       "name": "bulkhead-carb-departure",
@@ -2272,7 +3220,7 @@
       "role": "structure",
       "kind": "component",
       "context": true,
-      "label": "Ceiling \u00b7 at least 3 mm roof stock \u00b7 additional flat PCB recess"
+      "label": "Ceiling \u00b7 9 mm stock over electronics \u00b7 3 mm over ASSE / regulator"
     }
   ],
   "mates": [
@@ -2462,6 +3410,156 @@
       "a": "bulkhead-water",
       "b": "bulkhead-nut",
       "connection": "Estimated retention nut on reference barrel"
+    },
+    {
+      "a": "terminal-J1",
+      "b": "pcba",
+      "connection": "Mated XH housing in its PCB header"
+    },
+    {
+      "a": "local-lead-J1",
+      "b": "terminal-J1",
+      "connection": "Populated conductors leave their crimp housing"
+    },
+    {
+      "a": "terminal-J11",
+      "b": "pcba",
+      "connection": "Mated XH housing in its PCB header"
+    },
+    {
+      "a": "local-lead-J11",
+      "b": "terminal-J11",
+      "connection": "Populated conductors leave their crimp housing"
+    },
+    {
+      "a": "terminal-J13",
+      "b": "pcba",
+      "connection": "Mated XH housing in its PCB header"
+    },
+    {
+      "a": "local-lead-J13",
+      "b": "terminal-J13",
+      "connection": "Populated conductors leave their crimp housing"
+    },
+    {
+      "a": "terminal-J2",
+      "b": "pcba",
+      "connection": "Mated XH housing in its PCB header"
+    },
+    {
+      "a": "local-lead-J2",
+      "b": "terminal-J2",
+      "connection": "Populated conductors leave their crimp housing"
+    },
+    {
+      "a": "terminal-J3",
+      "b": "pcba",
+      "connection": "Mated XH housing in its PCB header"
+    },
+    {
+      "a": "local-lead-J3",
+      "b": "terminal-J3",
+      "connection": "Populated conductors leave their crimp housing"
+    },
+    {
+      "a": "terminal-J4",
+      "b": "pcba",
+      "connection": "Mated XH housing in its PCB header"
+    },
+    {
+      "a": "local-lead-J4",
+      "b": "terminal-J4",
+      "connection": "Populated conductors leave their crimp housing"
+    },
+    {
+      "a": "terminal-J5",
+      "b": "pcba",
+      "connection": "Mated XH housing in its PCB header"
+    },
+    {
+      "a": "local-lead-J5",
+      "b": "terminal-J5",
+      "connection": "Populated conductors leave their crimp housing"
+    },
+    {
+      "a": "terminal-J6",
+      "b": "pcba",
+      "connection": "Mated XH housing in its PCB header"
+    },
+    {
+      "a": "local-lead-J6",
+      "b": "terminal-J6",
+      "connection": "Populated conductors leave their crimp housing"
+    },
+    {
+      "a": "terminal-J7",
+      "b": "pcba",
+      "connection": "Mated XH housing in its PCB header"
+    },
+    {
+      "a": "local-lead-J7",
+      "b": "terminal-J7",
+      "connection": "Populated conductors leave their crimp housing"
+    },
+    {
+      "a": "terminal-J9",
+      "b": "pcba",
+      "connection": "Mated XH housing in its PCB header"
+    },
+    {
+      "a": "local-lead-J9",
+      "b": "terminal-J9",
+      "connection": "Populated conductors leave their crimp housing"
+    },
+    {
+      "a": "local-lead-J10.GND",
+      "b": "pcba",
+      "connection": "Side-entry conductor at its terminal mouth"
+    },
+    {
+      "a": "local-lead-J10.V12",
+      "b": "pcba",
+      "connection": "Side-entry conductor at its terminal mouth"
+    },
+    {
+      "a": "local-lead-psu-AC-N",
+      "b": "psu",
+      "connection": "Side-entry conductor at its terminal mouth"
+    },
+    {
+      "a": "local-lead-psu-AC-L",
+      "b": "psu",
+      "connection": "Side-entry conductor at its terminal mouth"
+    },
+    {
+      "a": "local-lead-psu-DC-minus-2",
+      "b": "psu",
+      "connection": "Side-entry conductor at its terminal mouth"
+    },
+    {
+      "a": "local-lead-psu-DC-plus-1",
+      "b": "psu",
+      "connection": "Side-entry conductor at its terminal mouth"
+    },
+    {
+      "a": "local-lead-relay-1-COM",
+      "b": "relay-1",
+      "connection": "Side-entry conductor at its terminal mouth"
+    },
+    {
+      "a": "local-lead-relay-1-NO",
+      "b": "relay-1",
+      "connection": "Side-entry conductor at its terminal mouth"
+    },
+    {
+      "a": "local-lead-relay-2-COM",
+      "b": "relay-2",
+      "connection": "Side-entry conductor at its terminal mouth"
+    },
+    {
+      "a": "local-lead-relay-2-NO",
+      "b": "relay-2",
+      "connection": "Side-entry conductor at its terminal mouth"
     },
     {
       "a": "left-wall",
