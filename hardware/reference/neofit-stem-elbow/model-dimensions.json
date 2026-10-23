@@ -1,0 +1,160 @@
+{
+  "part": "NeoFit 1/4-inch tube \u00d7 1/4-inch stem elbow",
+  "geometry_status": "Supplier envelope dimensions with estimated molded form and axis-intersection datum; not a scan",
+  "units": "mm",
+  "sources": [
+    {
+      "url": "https://www.freshwatersystems.com/products/neofit-acetal-white-stem-elbow-1-4-tube-x-1-4-stem?variant=48366191542456",
+      "role": "User-linked solid-white acetal ATEU44W:10PK; photograph, nominal connections and part-family identification"
+    },
+    {
+      "url": "https://www.freshwatersystems.com/products/neofit-acetal-natural-white-stem-elbow-1-4-tube-x-1-4-stem",
+      "role": "Natural-white acetal ATEU44-W product page containing the family dimension drawing download"
+    },
+    {
+      "url": "https://assets.freshwatersystems.com/image/upload/s--ua8owcZg--/mlf6gjlehc9xpkjrbfw2.pdf",
+      "role": "NeoFit Tube Elbow Union drawing, ATEU44 row, inch dimensions; accessed 2026-10-22",
+      "sha256": "bd5392f79188f0034b711506804d96a33238a5dfa9a630a6c2ba37a7474bdf93",
+      "local_copy": "source/stem-elbow-dimensions.pdf"
+    },
+    {
+      "url": "https://www.freshwatersystems.com/products/neofit-polypropylene-natural-white-stem-elbow-1-4-tube-od-x-1-4-stem",
+      "role": "PTEU44-W material variant named by first displayed user link; similar photographed form, no variant-specific dimension drawing located"
+    },
+    {
+      "path": "hardware/reference/jg-pp0308e-elbow/README.md",
+      "role": "Scanned John Guest 1/4-inch elbow: precedent for separate body/collet representation, not NeoFit dimensions"
+    },
+    {
+      "path": "hardware/reference/jg-pp0208e-tee/README.md",
+      "role": "Measured 10 mm tube stop from pressed sleeve and 1.65 mm sleeve stroke; evidence that receiving insertion must be host-specific"
+    },
+    {
+      "path": "hardware/reference/neofit-flavor-reducer/README.md",
+      "role": "Supplier-derived NeoFit stem reference; its listed 21.006 mm male stem length agrees with ATEU44 row. This is not a NeoFit scan"
+    }
+  ],
+  "published_ATEU44_row": {
+    "stem_OD_D1_inch": 0.25,
+    "tube_OD_D2_inch": 0.25,
+    "collar_OD_P_inch": 0.61,
+    "free_stem_A_inch": 0.827,
+    "female_insertion_B_inch": 0.665,
+    "overall_stem_axis_E_inch": 1.37,
+    "overall_socket_axis_L_inch": 0.988,
+    "listed_weight_g": 3.7,
+    "stem_OD_mm": 6.35,
+    "tube_OD_mm": 6.35,
+    "collar_OD_mm": 15.494,
+    "free_stem_mm": 21.0058,
+    "female_insertion_mm": 16.891,
+    "overall_stem_axis_mm": 34.798,
+    "overall_socket_axis_mm": 25.0952,
+    "B_interpretation": "Axial socket engagement: mouth to illustrated tube stop. Internal teeth/seals and moving-collet endpoint are not dimensioned"
+  },
+  "derived_and_estimated_geometry": {
+    "stem_tip_reach_mm": 27.051,
+    "stem_tip_derivation": "E minus P/2: stem tip to crossing, using socket collar radial maximum as the overall E endpoint",
+    "stem_shoulder_reach_mm": 6.0452,
+    "stem_shoulder_derivation": "stem tip reach minus published free stem A",
+    "socket_mouth_reach_mm": 19.05,
+    "socket_mouth_derivation": "L minus 6.0452 mm hub back reach, assuming the hub has equal back reach on its orthogonal axes",
+    "socket_mouth_plausible_range_mm": [
+      18.05,
+      20.05
+    ],
+    "flow_bore_mm": 4.3,
+    "flow_bore_status": "Illustrative passage only; not measured on this fitting",
+    "hub_shape_status": "Rounded block and revolved socket bands estimated from supplier photographs and line drawing",
+    "collet_status": "Circular layout envelope; lip, grab ring, seal, ovality, release stroke and operation endpoint are not qualified",
+    "range_status": "Study uncertainty, not manufacturing tolerance"
+  },
+  "canonical_interfaces": {
+    "socket_mouth": {
+      "point": [
+        0.0,
+        19.05,
+        0.0
+      ],
+      "outward_axis": [
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    "socket_nominal_stop": {
+      "point": [
+        0.0,
+        2.159,
+        0.0
+      ]
+    },
+    "stem_tip": {
+      "point": [
+        -27.051,
+        0.0,
+        0.0
+      ],
+      "insertion_axis": [
+        -1.0,
+        0.0,
+        0.0
+      ]
+    },
+    "stem_shoulder": {
+      "point": [
+        -6.0452,
+        0.0,
+        0.0
+      ],
+      "outward_axis": [
+        -1.0,
+        0.0,
+        0.0
+      ]
+    }
+  },
+  "seated_mating_estimates": {
+    "equation": "Host mouth X = insertion - 27.051; shoulder-to-host gap = 21.0058 - insertion; bend-axis projection from host = 27.051 - insertion",
+    "neofit_female_row": {
+      "host_insertion_mm": 16.891,
+      "host_mouth_point": [
+        -10.16,
+        0.0,
+        0.0
+      ],
+      "shoulder_gap_mm": 4.1148,
+      "bend_axis_projection_mm": 10.16
+    },
+    "unknown_valve_or_check_socket": {
+      "status": "Best layout estimate for unmeasured VK/check receiving sockets, not a supplier specification",
+      "nominal_insertion_mm": 12.7,
+      "plausible_insertion_range_mm": [
+        10.0,
+        15.0
+      ],
+      "host_mouth_point_nominal": [
+        -14.351,
+        0.0,
+        0.0
+      ],
+      "nominal_shoulder_gap_mm": 8.3058,
+      "nominal_bend_axis_projection_mm": 14.351,
+      "bend_axis_projection_range_mm": [
+        12.051,
+        17.051
+      ]
+    },
+    "interactions": [
+      "The inserted male stem occupies the host's female tube corridor; that intentional overlap is not a body collision",
+      "A positive shoulder gap is expected when the male tip bottoms before the shoulder meets the host collet",
+      "Replacement of a union elbow removes that elbow's receiving socket and tube link; it does not add this stem elbow after the union elbow",
+      "The release collet remains a moving part; the displayed gap is a seating estimate, not a release-tool qualification"
+    ]
+  },
+  "material_variants": {
+    "ATEU44W_solid_white_acetal": "Uses ATEU44 family dimensions as best envelope estimate. Product photograph supports same form, but exact suffix-specific dimensions are not independently supplied",
+    "ATEU44-W_natural_white_acetal": "ATEU44 family drawing is linked from this product page",
+    "PTEU44-W_polypropylene": "Same envelope may be used as a provisional layout estimate; separate PP tooling dimensions are not established. No identical-geometry claim or duplicate mesh"
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "part": "neoFit ATRU444-E",
+  "description": "Acetal black run-stem tee, 1/4-inch OD stem and two 1/4-inch tube sockets",
+  "alternate_part_in_listing": "CI530808W",
+  "units": "mm",
+  "authority": "Manufacturer nominal dimensional row; undimensioned profiles are estimated",
+  "sources": [
+    {
+      "url": "https://www.freshwatersystems.com/products/neofit-acetal-black-stem-run-tee-1-4-tube-x-stem-1-4",
+      "role": "Identity, compatibility, exterior photograph and technical-download link"
+    },
+    {
+      "url": "https://assets.freshwatersystems.com/image/upload/s--rN_5qBOD--/nvkzj79bbgumy8drpkff.pdf",
+      "local_copy": "source/run-stem-tee-dimensions.pdf",
+      "role": "Run Stem Tee sheet, ATRU444 row and dimension-arrow interpretation"
+    },
+    {
+      "path": "../neofit-flavor-reducer/neofit_flavor_reducer.py",
+      "role": "Same-family catalogue-derived 21.0058 mm stem projection and 6.35 mm stem OD"
+    },
+    {
+      "path": "../neofit-bulkhead/neofit_bulkhead.py",
+      "role": "Catalogue-derived female-body family reference; not a scan or insertion-depth measurement"
+    },
+    {
+      "path": "../neofit-flow-control/neofit_flow_control.py",
+      "role": "Photo-derived same-family exterior reference; not independent measured dimensions"
+    },
+    {
+      "path": "../jg-pp0208e-tee/scan-registration.json",
+      "role": "Distinct John Guest family scan and bench record: 10 mm insertion from pressed sleeve plus 1.65 mm release travel"
+    }
+  ],
+  "manufacturer_row_inches": {
+    "D1_stem_od": 0.25,
+    "D2_branch_tube_od": 0.25,
+    "D3_run_tube_od": 0.25,
+    "P_max_collar_diameter": 0.610,
+    "L1_junction_to_stem_tip": 1.063,
+    "L2_overall_run_length": 1.890,
+    "E_junction_to_branch_socket_face": 0.827,
+    "A_stem_shoulder_to_tip": 0.827,
+    "B2_branch_tube_depth": 0.665,
+    "B3_run_tube_depth": 0.665,
+    "weight_g": 6.4
+  },
+  "manufacturer_dimensions_mm": {
+    "tube_od": 6.35,
+    "stem_od": 6.35,
+    "max_collar_diameter": 15.494,
+    "junction_to_stem_tip": 27.0002,
+    "overall_run_length": 48.006,
+    "stem_shoulder_to_tip": 21.0058,
+    "junction_to_run_socket_face": 21.0058,
+    "junction_to_branch_socket_face": 21.0058,
+    "female_socket_insertion_depth": 16.891
+  },
+  "native_frame": {
+    "origin": "Run/branch centreline intersection",
+    "run_stem_outward_axis": [-1, 0, 0],
+    "run_socket_outward_axis": [1, 0, 0],
+    "branch_socket_outward_axis": [0, -1, 0],
+    "stem_tip_mm": [-27.0002, 0, 0],
+    "stem_shoulder_mm": [-5.9944, 0, 0],
+    "run_socket_mouth_mm": [21.0058, 0, 0],
+    "branch_socket_mouth_mm": [0, -21.0058, 0],
+    "run_tube_stop_mm": [4.1148, 0, 0],
+    "branch_tube_stop_mm": [0, -4.1148, 0]
+  },
+  "mating": {
+    "placement_formula": "Stem tip = host resting mouth - host outward axis * insertion. Stem shoulder = host resting mouth + host outward axis * (21.0058 - insertion).",
+    "matching_neofit_female_host": {
+      "insertion_mm": 16.891,
+      "basis": "Published tube depth B2/B3",
+      "residual_shoulder_to_host_mouth_mm": 4.1148
+    },
+    "measured_jg_pp0208e_host": {
+      "insertion_from_resting_mouth_mm": 11.65,
+      "basis": "10.0 mm from pressed sleeve plus 1.65 mm sleeve stroke",
+      "residual_shoulder_to_host_mouth_mm": 9.3558
+    },
+    "unmeasured_valve_or_check_host": {
+      "insertion_layout_estimate_mm": 12.7,
+      "insertion_layout_range_mm": [10.0, 15.0],
+      "basis": "Cross-family layout estimate, not a measured host depth",
+      "residual_shoulder_to_host_mouth_mm": 8.3058,
+      "residual_range_mm": [6.0058, 11.0058]
+    },
+    "release_collet_travel_mm": null,
+    "shoulder_fully_buried": false
+  },
+  "undimensioned_estimates_mm": {
+    "root_diameter": 11.2,
+    "through_passage_diameter": 4.35,
+    "collet_rim_diameter": 13.3,
+    "stem_tip_chamfer": 0.3,
+    "profile_source": "Product exterior photograph and manufacturer schematic, constrained to published overall lengths and maximum collar diameter"
+  },
+  "scope": "Native component assembly-layout reference. All nominal catalogue dimensions retain their property scope; this model does not establish manufacturing tolerance, seal design, fit or pressure qualification."
+}
