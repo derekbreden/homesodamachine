@@ -1,0 +1,2312 @@
+{
+  "scope": "Four additional fore -X-wall WAGOs, mesh-only arrangement and clearance audit",
+  "placement_note": "Manifold-B station starts at Y268; all four bodies have their backs on X-98.5.",
+  "units": "mm",
+  "source_mesh": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+  "source_mesh_sha256": "201d9c90a008ce7902c679e1bcd78e49a4fb2447d1a1aa4c79be73b1a9151e0a",
+  "source_mesh_matches_current_pointer": true,
+  "pointer_source_commit": "2eaea329d128836d567f242e6e87a7e187a4fb53",
+  "pointer_marks_assembly_unproven": true,
+  "source_sha256": {
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "201d9c90a008ce7902c679e1bcd78e49a4fb2447d1a1aa4c79be73b1a9151e0a",
+    "hardware/manifold-layout/enclosure-assembly.facts.json": "b2cef644b0368e0a951302cd3966775b7a6ba24864fae9187f0abbbf70c3d97f",
+    "hardware/wiring/enclosure-wiring.json": "0e2dd8902df0b47dd0871885333c9d3e495d38e5bf5931e54abe9a8d6589da0b",
+    "hardware/reference/wago-221/wago_221.py": "821d652a3c00bf686552602a912135c97825210095333d8fefad7ba040731efd",
+    "hardware/cad-artifacts.json": "62d3e017a48676d44176540791b2875671d54ddc5f0fba9906e16379dc8d095d"
+  },
+  "study_source_sha256": {
+    "hardware/manifold-layout/studies/wet-dry/study.py": "1bf1979a38a7820e95e881e90663c8a0d34512da256b055204374410daa613b6",
+    "hardware/manifold-layout/studies/wet-dry/layout.json": "49a4c7af9e2cec288897e79a5fa491f2132cb973a2b9ea2ff439032af085fa11"
+  },
+  "study_obstacle_count": 58,
+  "study_obstacle_names": [
+    "asse",
+    "asse-inlet-tpu",
+    "asse-outlet-tpu",
+    "tee",
+    "vk",
+    "reg",
+    "va",
+    "pump-sliding-foot",
+    "pump",
+    "vent-sleeve",
+    "water-in",
+    "pump-inlet-tpu",
+    "pump-inlet-barb-band",
+    "pump-inlet-tube-band",
+    "pump-outlet-tpu",
+    "pump-outlet-barb-band",
+    "pump-outlet-tube-band",
+    "check",
+    "carbonator-fold",
+    "check-carbonator",
+    "tee-fold",
+    "lower-valve-elbow",
+    "lower-pump-elbow",
+    "tee-regulator-tube",
+    "reg-va-elbow",
+    "va-outlet-elbow",
+    "va-flavor",
+    "funnel",
+    "funnel-frame",
+    "bulkhead-nut",
+    "bulkhead-water",
+    "bulkhead-carb",
+    "bulkhead-drain",
+    "co2-inlet",
+    "bulkhead-flavor-a",
+    "bulkhead-flavor-b",
+    "psu",
+    "relay-1",
+    "relay-2",
+    "c14-inlet",
+    "keystone-jack",
+    "ground-stack",
+    "wago-v12",
+    "wago-gnd",
+    "wago-g",
+    "wago-h",
+    "wago-n",
+    "pcba",
+    "carb-nut",
+    "bulkhead-carb-departure",
+    "bulkhead-drain-departure",
+    "co2-inlet-departure",
+    "bulkhead-flavor-a-departure",
+    "bulkhead-flavor-b-departure",
+    "left-wall",
+    "right-wall",
+    "back-wall",
+    "ceiling"
+  ],
+  "placements": {
+    "wago-mana": {
+      "source_snapshot": "parts/wago-mana.npz",
+      "source_snapshot_sha256": "52e6785428ac74807b64be5b6775ed86e3be90a37de59b0182f3559bba4b88ab",
+      "source_component_names": [
+        "wago-mana"
+      ],
+      "source_mesh_bounds_mm": [
+        [
+          86.19999694824219,
+          161.10000610351562,
+          265.1000061035156
+        ],
+        [
+          104.5,
+          176.89999389648438,
+          294.8999938964844
+        ]
+      ],
+      "source_analytic_bounds_mm": [
+        86.19999999999999,
+        161.1,
+        265.1,
+        104.5,
+        176.9,
+        294.90000000000003
+      ],
+      "source_terminals": {
+        "wago-mana.1": {
+          "id": "wago-mana.1",
+          "part": "wago-mana",
+          "point": [
+            86.19999999999999,
+            172.95000000000002,
+            268.08
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "1"
+        },
+        "wago-mana.2": {
+          "id": "wago-mana.2",
+          "part": "wago-mana",
+          "point": [
+            86.19999999999999,
+            172.95000000000002,
+            274.04
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "2"
+        },
+        "wago-mana.3": {
+          "id": "wago-mana.3",
+          "part": "wago-mana",
+          "point": [
+            86.19999999999999,
+            172.95000000000002,
+            280.0
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "3"
+        },
+        "wago-mana.4": {
+          "id": "wago-mana.4",
+          "part": "wago-mana",
+          "point": [
+            86.19999999999999,
+            172.95000000000002,
+            285.96
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "4"
+        },
+        "wago-mana.5": {
+          "id": "wago-mana.5",
+          "part": "wago-mana",
+          "point": [
+            86.19999999999999,
+            172.95000000000002,
+            291.92
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "5"
+        },
+        "wago-mana.6": {
+          "id": "wago-mana.6",
+          "part": "wago-mana",
+          "point": [
+            86.19999999999999,
+            165.05,
+            268.08
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "6"
+        },
+        "wago-mana.7": {
+          "id": "wago-mana.7",
+          "part": "wago-mana",
+          "point": [
+            86.19999999999999,
+            165.05,
+            274.04
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "7"
+        },
+        "wago-mana.8": {
+          "id": "wago-mana.8",
+          "part": "wago-mana",
+          "point": [
+            86.19999999999999,
+            165.05,
+            280.0
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "8"
+        },
+        "wago-mana.9": {
+          "id": "wago-mana.9",
+          "part": "wago-mana",
+          "point": [
+            86.19999999999999,
+            165.05,
+            285.96
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "9"
+        }
+      },
+      "part_size": "420",
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        6.0,
+        421.3999938964844,
+        -1.7000061035156477
+      ],
+      "bounds_mm": [
+        [
+          -98.5,
+          244.5,
+          263.4
+        ],
+        [
+          -80.19999694824219,
+          260.29998779296875,
+          293.1999877929687
+        ]
+      ],
+      "terminals": {
+        "wago-mana.1": {
+          "id": "wago-mana.1",
+          "part": "wago-mana",
+          "point": [
+            -80.19999999999999,
+            248.44999389648436,
+            266.37999389648434
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "1"
+        },
+        "wago-mana.2": {
+          "id": "wago-mana.2",
+          "part": "wago-mana",
+          "point": [
+            -80.19999999999999,
+            248.44999389648436,
+            272.3399938964844
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "2"
+        },
+        "wago-mana.3": {
+          "id": "wago-mana.3",
+          "part": "wago-mana",
+          "point": [
+            -80.19999999999999,
+            248.44999389648436,
+            278.29999389648435
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "3"
+        },
+        "wago-mana.4": {
+          "id": "wago-mana.4",
+          "part": "wago-mana",
+          "point": [
+            -80.19999999999999,
+            248.44999389648436,
+            284.25999389648433
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "4"
+        },
+        "wago-mana.5": {
+          "id": "wago-mana.5",
+          "part": "wago-mana",
+          "point": [
+            -80.19999999999999,
+            248.44999389648436,
+            290.21999389648437
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "5"
+        },
+        "wago-mana.6": {
+          "id": "wago-mana.6",
+          "part": "wago-mana",
+          "point": [
+            -80.19999999999999,
+            256.34999389648436,
+            266.37999389648434
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "6"
+        },
+        "wago-mana.7": {
+          "id": "wago-mana.7",
+          "part": "wago-mana",
+          "point": [
+            -80.19999999999999,
+            256.34999389648436,
+            272.3399938964844
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "7"
+        },
+        "wago-mana.8": {
+          "id": "wago-mana.8",
+          "part": "wago-mana",
+          "point": [
+            -80.19999999999999,
+            256.34999389648436,
+            278.29999389648435
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "8"
+        },
+        "wago-mana.9": {
+          "id": "wago-mana.9",
+          "part": "wago-mana",
+          "point": [
+            -80.19999999999999,
+            256.34999389648436,
+            284.25999389648433
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "9"
+        }
+      },
+      "vertices": 264,
+      "triangles": 172,
+      "placed_world_mesh": "cluster-wago-mana.npz",
+      "wire_entry_world": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "lever_opening_axes_world": [
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ]
+      ],
+      "mount": {
+        "kind": "Free lever connector, no holes",
+        "back_face_x_mm": -98.5
+      },
+      "nearest_unrelated_study_mesh": [
+        "va-flavor",
+        {
+          "collision": false,
+          "distance_mm": 4.046991151780113
+        }
+      ]
+    },
+    "wago-manb": {
+      "source_snapshot": "parts/wago-manb.npz",
+      "source_snapshot_sha256": "5d778ff6905b7c408e8dd625a518b576eefea1f97879b3f6777a51ca41eb1da2",
+      "source_component_names": [
+        "wago-manb"
+      ],
+      "source_mesh_bounds_mm": [
+        [
+          85.9000015258789,
+          164.8000030517578,
+          231.0
+        ],
+        [
+          104.5,
+          173.1999969482422,
+          261.0
+        ]
+      ],
+      "source_analytic_bounds_mm": [
+        85.9,
+        164.8,
+        231.0,
+        104.5,
+        173.20000000000002,
+        261.0
+      ],
+      "source_terminals": {
+        "wago-manb.1": {
+          "id": "wago-manb.1",
+          "part": "wago-manb",
+          "point": [
+            85.9,
+            169.0,
+            234.0
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "1"
+        },
+        "wago-manb.2": {
+          "id": "wago-manb.2",
+          "part": "wago-manb",
+          "point": [
+            85.9,
+            169.0,
+            240.0
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "2"
+        },
+        "wago-manb.3": {
+          "id": "wago-manb.3",
+          "part": "wago-manb",
+          "point": [
+            85.9,
+            169.0,
+            246.0
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "3"
+        },
+        "wago-manb.4": {
+          "id": "wago-manb.4",
+          "part": "wago-manb",
+          "point": [
+            85.9,
+            169.0,
+            252.0
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "4"
+        },
+        "wago-manb.5": {
+          "id": "wago-manb.5",
+          "part": "wago-manb",
+          "point": [
+            85.9,
+            169.0,
+            258.0
+          ],
+          "outward": [
+            -1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "5"
+        }
+      },
+      "part_size": "415",
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        6.0,
+        441.1999969482422,
+        49.0
+      ],
+      "bounds_mm": [
+        [
+          -98.5,
+          268.0,
+          280.0
+        ],
+        [
+          -79.9000015258789,
+          276.3999938964844,
+          310.0
+        ]
+      ],
+      "terminals": {
+        "wago-manb.1": {
+          "id": "wago-manb.1",
+          "part": "wago-manb",
+          "point": [
+            -79.9,
+            272.1999969482422,
+            283.0
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "1"
+        },
+        "wago-manb.2": {
+          "id": "wago-manb.2",
+          "part": "wago-manb",
+          "point": [
+            -79.9,
+            272.1999969482422,
+            289.0
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "2"
+        },
+        "wago-manb.3": {
+          "id": "wago-manb.3",
+          "part": "wago-manb",
+          "point": [
+            -79.9,
+            272.1999969482422,
+            295.0
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "3"
+        },
+        "wago-manb.4": {
+          "id": "wago-manb.4",
+          "part": "wago-manb",
+          "point": [
+            -79.9,
+            272.1999969482422,
+            301.0
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "4"
+        },
+        "wago-manb.5": {
+          "id": "wago-manb.5",
+          "part": "wago-manb",
+          "point": [
+            -79.9,
+            272.1999969482422,
+            307.0
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "5"
+        }
+      },
+      "vertices": 144,
+      "triangles": 92,
+      "placed_world_mesh": "cluster-wago-manb.npz",
+      "wire_entry_world": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "lever_opening_axes_world": [
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "mount": {
+        "kind": "Free lever connector, no holes",
+        "back_face_x_mm": -98.5
+      },
+      "nearest_unrelated_study_mesh": [
+        "va-outlet-elbow",
+        {
+          "collision": false,
+          "distance_mm": 14.226369539849081
+        }
+      ]
+    },
+    "wago-sensors": {
+      "source_snapshot": "parts/wago-sensors.npz",
+      "source_snapshot_sha256": "0ae1fbf5b84b71a641117789f8d9f5614ec59b58c1266d1fe78ac889b7e5e537",
+      "source_component_names": [
+        "wago-sensors"
+      ],
+      "source_mesh_bounds_mm": [
+        [
+          -104.5,
+          330.79998779296875,
+          260.6000061035156
+        ],
+        [
+          -85.9000015258789,
+          339.20001220703125,
+          279.3999938964844
+        ]
+      ],
+      "source_analytic_bounds_mm": [
+        -104.5,
+        330.79999999999995,
+        260.59999999999997,
+        -85.9,
+        339.2,
+        279.4
+      ],
+      "source_terminals": {
+        "wago-sensors.1": {
+          "id": "wago-sensors.1",
+          "part": "wago-sensors",
+          "point": [
+            -85.9,
+            335.0,
+            276.26666666666665
+          ],
+          "outward": [
+            1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "1"
+        },
+        "wago-sensors.2": {
+          "id": "wago-sensors.2",
+          "part": "wago-sensors",
+          "point": [
+            -85.9,
+            335.0,
+            270.0
+          ],
+          "outward": [
+            1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "2"
+        },
+        "wago-sensors.3": {
+          "id": "wago-sensors.3",
+          "part": "wago-sensors",
+          "point": [
+            -85.9,
+            335.0,
+            263.73333333333335
+          ],
+          "outward": [
+            1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "3"
+        }
+      },
+      "part_size": "413",
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      ],
+      "translation_mm": [
+        6.0,
+        583.7000122070312,
+        584.3999938964844
+      ],
+      "bounds_mm": [
+        [
+          -98.5,
+          244.5,
+          305.0
+        ],
+        [
+          -79.9000015258789,
+          252.9000244140625,
+          323.79998779296875
+        ]
+      ],
+      "terminals": {
+        "wago-sensors.1": {
+          "id": "wago-sensors.1",
+          "part": "wago-sensors",
+          "point": [
+            -79.9,
+            248.70001220703125,
+            308.1333272298177
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            -1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "1"
+        },
+        "wago-sensors.2": {
+          "id": "wago-sensors.2",
+          "part": "wago-sensors",
+          "point": [
+            -79.9,
+            248.70001220703125,
+            314.3999938964844
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            -1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "2"
+        },
+        "wago-sensors.3": {
+          "id": "wago-sensors.3",
+          "part": "wago-sensors",
+          "point": [
+            -79.9,
+            248.70001220703125,
+            320.666660563151
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            -1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "3"
+        }
+      },
+      "vertices": 96,
+      "triangles": 60,
+      "placed_world_mesh": "cluster-wago-sensors.npz",
+      "wire_entry_world": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "lever_opening_axes_world": [
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "mount": {
+        "kind": "Free lever connector, no holes",
+        "back_face_x_mm": -98.5
+      },
+      "nearest_unrelated_study_mesh": [
+        "funnel-frame",
+        {
+          "collision": false,
+          "distance_mm": 17.927873870850185
+        }
+      ]
+    },
+    "wago-reeds-b": {
+      "source_snapshot": "parts/wago-reeds-b.npz",
+      "source_snapshot_sha256": "2cb271db99051e06301250dd6ce3849a363a428d266443d1ae89a31ea8324ab2",
+      "source_component_names": [
+        "wago-reeds-b"
+      ],
+      "source_mesh_bounds_mm": [
+        [
+          -104.5,
+          298.29998779296875,
+          260.6000061035156
+        ],
+        [
+          -85.9000015258789,
+          306.70001220703125,
+          279.3999938964844
+        ]
+      ],
+      "source_analytic_bounds_mm": [
+        -104.5,
+        298.29999999999995,
+        260.59999999999997,
+        -85.9,
+        306.7,
+        279.4
+      ],
+      "source_terminals": {
+        "wago-reeds-b.1": {
+          "id": "wago-reeds-b.1",
+          "part": "wago-reeds-b",
+          "point": [
+            -85.9,
+            302.5,
+            276.26666666666665
+          ],
+          "outward": [
+            1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "1"
+        },
+        "wago-reeds-b.2": {
+          "id": "wago-reeds-b.2",
+          "part": "wago-reeds-b",
+          "point": [
+            -85.9,
+            302.5,
+            270.0
+          ],
+          "outward": [
+            1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "2"
+        },
+        "wago-reeds-b.3": {
+          "id": "wago-reeds-b.3",
+          "part": "wago-reeds-b",
+          "point": [
+            -85.9,
+            302.5,
+            263.73333333333335
+          ],
+          "outward": [
+            1.0,
+            1.1102230246251565e-16,
+            1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "3"
+        }
+      },
+      "part_size": "413",
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      ],
+      "translation_mm": [
+        6.0,
+        571.7000122070312,
+        594.3999938964844
+      ],
+      "bounds_mm": [
+        [
+          -98.5,
+          265.0,
+          315.0
+        ],
+        [
+          -79.9000015258789,
+          273.4000244140625,
+          333.79998779296875
+        ]
+      ],
+      "terminals": {
+        "wago-reeds-b.1": {
+          "id": "wago-reeds-b.1",
+          "part": "wago-reeds-b",
+          "point": [
+            -79.9,
+            269.20001220703125,
+            318.1333272298177
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            -1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "1"
+        },
+        "wago-reeds-b.2": {
+          "id": "wago-reeds-b.2",
+          "part": "wago-reeds-b",
+          "point": [
+            -79.9,
+            269.20001220703125,
+            324.3999938964844
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            -1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "2"
+        },
+        "wago-reeds-b.3": {
+          "id": "wago-reeds-b.3",
+          "part": "wago-reeds-b",
+          "point": [
+            -79.9,
+            269.20001220703125,
+            330.666660563151
+          ],
+          "outward": [
+            1.0,
+            -1.1102230246251565e-16,
+            -1.1102230246251565e-16
+          ],
+          "kind": "WAGO-port",
+          "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+          "status": "nominal",
+          "pin": "3"
+        }
+      },
+      "vertices": 96,
+      "triangles": 60,
+      "placed_world_mesh": "cluster-wago-reeds-b.npz",
+      "wire_entry_world": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "lever_opening_axes_world": [
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "mount": {
+        "kind": "Free lever connector, no holes",
+        "back_face_x_mm": -98.5
+      },
+      "nearest_unrelated_study_mesh": [
+        "ceiling",
+        {
+          "collision": false,
+          "distance_mm": 12.20001220703125
+        }
+      ]
+    }
+  },
+  "closed_body_queries": {
+    "wago-mana": {
+      "asse": {
+        "collision": false,
+        "distance_mm": 135.49301743311798
+      },
+      "asse-inlet-tpu": {
+        "collision": false,
+        "distance_mm": 165.69205006874122
+      },
+      "asse-outlet-tpu": {
+        "collision": false,
+        "distance_mm": 128.3120235643156
+      },
+      "tee": {
+        "collision": false,
+        "distance_mm": 110.7514270694908
+      },
+      "vk": {
+        "collision": false,
+        "distance_mm": 144.62741867615773
+      },
+      "reg": {
+        "collision": false,
+        "distance_mm": 50.26461510370039
+      },
+      "va": {
+        "collision": false,
+        "distance_mm": 31.98976052818665
+      },
+      "pump-sliding-foot": {
+        "collision": false,
+        "distance_mm": 175.31708725720966
+      },
+      "pump": {
+        "collision": false,
+        "distance_mm": 81.19212016377024
+      },
+      "vent-sleeve": {
+        "collision": false,
+        "distance_mm": 127.72266325648773
+      },
+      "water-in": {
+        "collision": false,
+        "distance_mm": 184.5415508321431
+      },
+      "pump-inlet-tpu": {
+        "collision": false,
+        "distance_mm": 134.43918817973338
+      },
+      "pump-inlet-barb-band": {
+        "collision": false,
+        "distance_mm": 134.1329391245329
+      },
+      "pump-inlet-tube-band": {
+        "collision": false,
+        "distance_mm": 138.48588875049836
+      },
+      "pump-outlet-tpu": {
+        "collision": false,
+        "distance_mm": 83.80308771803803
+      },
+      "pump-outlet-barb-band": {
+        "collision": false,
+        "distance_mm": 87.08699371692364
+      },
+      "pump-outlet-tube-band": {
+        "collision": false,
+        "distance_mm": 95.11143669894952
+      },
+      "check": {
+        "collision": false,
+        "distance_mm": 103.51503406706976
+      },
+      "carbonator-fold": {
+        "collision": false,
+        "distance_mm": 140.32701130618057
+      },
+      "check-carbonator": {
+        "collision": false,
+        "distance_mm": 155.9882831018644
+      },
+      "tee-fold": {
+        "collision": false,
+        "distance_mm": 147.79737356141072
+      },
+      "lower-valve-elbow": {
+        "collision": false,
+        "distance_mm": 142.5863854247775
+      },
+      "lower-pump-elbow": {
+        "collision": false,
+        "distance_mm": 130.7326070430617
+      },
+      "tee-regulator-tube": {
+        "collision": false,
+        "distance_mm": 89.61239599984087
+      },
+      "reg-va-elbow": {
+        "collision": false,
+        "distance_mm": 45.887820057819795
+      },
+      "va-outlet-elbow": {
+        "collision": false,
+        "distance_mm": 23.989773498157376
+      },
+      "va-flavor": {
+        "collision": false,
+        "distance_mm": 4.046991151780113
+      },
+      "funnel": {
+        "collision": false,
+        "distance_mm": 43.15462636716573
+      },
+      "funnel-frame": {
+        "collision": false,
+        "distance_mm": 33.22787778953032
+      },
+      "bulkhead-nut": {
+        "collision": false,
+        "distance_mm": 228.28690378715015
+      },
+      "bulkhead-water": {
+        "collision": false,
+        "distance_mm": 218.34025361144296
+      },
+      "bulkhead-carb": {
+        "collision": false,
+        "distance_mm": 237.73651391326973
+      },
+      "bulkhead-drain": {
+        "collision": false,
+        "distance_mm": 222.3851938309918
+      },
+      "co2-inlet": {
+        "collision": false,
+        "distance_mm": 236.74579466524796
+      },
+      "bulkhead-flavor-a": {
+        "collision": false,
+        "distance_mm": 222.28879141862805
+      },
+      "bulkhead-flavor-b": {
+        "collision": false,
+        "distance_mm": 237.3710461714236
+      },
+      "psu": {
+        "collision": false,
+        "distance_mm": 89.70001220703125
+      },
+      "relay-1": {
+        "collision": false,
+        "distance_mm": 93.11999051910198
+      },
+      "relay-2": {
+        "collision": false,
+        "distance_mm": 93.32616244352842
+      },
+      "c14-inlet": {
+        "collision": false,
+        "distance_mm": 189.2078922309229
+      },
+      "keystone-jack": {
+        "collision": false,
+        "distance_mm": 182.32609901840823
+      },
+      "ground-stack": {
+        "collision": false,
+        "distance_mm": 193.83097268024804
+      },
+      "wago-v12": {
+        "collision": false,
+        "distance_mm": 185.23877924204572
+      },
+      "wago-gnd": {
+        "collision": false,
+        "distance_mm": 188.3226097288463
+      },
+      "wago-g": {
+        "collision": false,
+        "distance_mm": 187.75932957617806
+      },
+      "wago-h": {
+        "collision": false,
+        "distance_mm": 190.80242619761376
+      },
+      "wago-n": {
+        "collision": false,
+        "distance_mm": 195.46244100311407
+      },
+      "pcba": {
+        "collision": false,
+        "distance_mm": 95.54236162876057
+      },
+      "carb-nut": {
+        "collision": false,
+        "distance_mm": 246.11238116480376
+      },
+      "bulkhead-carb-departure": {
+        "collision": false,
+        "distance_mm": 224.4939176913214
+      },
+      "bulkhead-drain-departure": {
+        "collision": false,
+        "distance_mm": 210.3358590354762
+      },
+      "co2-inlet-departure": {
+        "collision": false,
+        "distance_mm": 226.73480482748454
+      },
+      "bulkhead-flavor-a-departure": {
+        "collision": false,
+        "distance_mm": 210.1911829876836
+      },
+      "bulkhead-flavor-b-departure": {
+        "collision": false,
+        "distance_mm": 227.072968979064
+      },
+      "left-wall": {
+        "collision": true,
+        "distance_mm": 0.0
+      },
+      "right-wall": {
+        "collision": false,
+        "distance_mm": 178.6999969482422
+      },
+      "back-wall": {
+        "collision": false,
+        "distance_mm": 202.0
+      },
+      "ceiling": {
+        "collision": false,
+        "distance_mm": 52.80001220703127
+      }
+    },
+    "wago-manb": {
+      "asse": {
+        "collision": false,
+        "distance_mm": 123.65212003209385
+      },
+      "asse-inlet-tpu": {
+        "collision": false,
+        "distance_mm": 150.83656529362665
+      },
+      "asse-outlet-tpu": {
+        "collision": false,
+        "distance_mm": 118.43895269535201
+      },
+      "tee": {
+        "collision": false,
+        "distance_mm": 101.45415170435905
+      },
+      "vk": {
+        "collision": false,
+        "distance_mm": 141.5997017694965
+      },
+      "reg": {
+        "collision": false,
+        "distance_mm": 37.816654221379295
+      },
+      "va": {
+        "collision": false,
+        "distance_mm": 15.889754424671025
+      },
+      "pump-sliding-foot": {
+        "collision": false,
+        "distance_mm": 160.99363348917834
+      },
+      "pump": {
+        "collision": false,
+        "distance_mm": 72.82864589569118
+      },
+      "vent-sleeve": {
+        "collision": false,
+        "distance_mm": 111.29632646039452
+      },
+      "water-in": {
+        "collision": false,
+        "distance_mm": 169.3927114699629
+      },
+      "pump-inlet-tpu": {
+        "collision": false,
+        "distance_mm": 126.70222609445582
+      },
+      "pump-inlet-barb-band": {
+        "collision": false,
+        "distance_mm": 126.45386441339595
+      },
+      "pump-inlet-tube-band": {
+        "collision": false,
+        "distance_mm": 132.30008887280596
+      },
+      "pump-outlet-tpu": {
+        "collision": false,
+        "distance_mm": 71.00803461997357
+      },
+      "pump-outlet-barb-band": {
+        "collision": false,
+        "distance_mm": 74.95909671600721
+      },
+      "pump-outlet-tube-band": {
+        "collision": false,
+        "distance_mm": 80.72008445209339
+      },
+      "check": {
+        "collision": false,
+        "distance_mm": 88.85268288447426
+      },
+      "carbonator-fold": {
+        "collision": false,
+        "distance_mm": 125.04460006618426
+      },
+      "check-carbonator": {
+        "collision": false,
+        "distance_mm": 141.85156030046997
+      },
+      "tee-fold": {
+        "collision": false,
+        "distance_mm": 140.67474880570634
+      },
+      "lower-valve-elbow": {
+        "collision": false,
+        "distance_mm": 139.78337261368642
+      },
+      "lower-pump-elbow": {
+        "collision": false,
+        "distance_mm": 127.6409104789532
+      },
+      "tee-regulator-tube": {
+        "collision": false,
+        "distance_mm": 76.86652512401062
+      },
+      "reg-va-elbow": {
+        "collision": false,
+        "distance_mm": 24.643336032029474
+      },
+      "va-outlet-elbow": {
+        "collision": false,
+        "distance_mm": 14.226369539849081
+      },
+      "va-flavor": {
+        "collision": false,
+        "distance_mm": 14.390771578509284
+      },
+      "funnel": {
+        "collision": false,
+        "distance_mm": 51.1723059712601
+      },
+      "funnel-frame": {
+        "collision": false,
+        "distance_mm": 45.17946478601166
+      },
+      "bulkhead-nut": {
+        "collision": false,
+        "distance_mm": 211.73991481137514
+      },
+      "bulkhead-water": {
+        "collision": false,
+        "distance_mm": 202.26205781388472
+      },
+      "bulkhead-carb": {
+        "collision": false,
+        "distance_mm": 222.90332772098066
+      },
+      "bulkhead-drain": {
+        "collision": false,
+        "distance_mm": 208.50677706500412
+      },
+      "co2-inlet": {
+        "collision": false,
+        "distance_mm": 223.66182748609012
+      },
+      "bulkhead-flavor-a": {
+        "collision": false,
+        "distance_mm": 208.69003646763719
+      },
+      "bulkhead-flavor-b": {
+        "collision": false,
+        "distance_mm": 224.65092552354224
+      },
+      "psu": {
+        "collision": false,
+        "distance_mm": 73.60000610351562
+      },
+      "relay-1": {
+        "collision": false,
+        "distance_mm": 75.60000610351562
+      },
+      "relay-2": {
+        "collision": false,
+        "distance_mm": 75.82988158277034
+      },
+      "c14-inlet": {
+        "collision": false,
+        "distance_mm": 170.89146801694696
+      },
+      "keystone-jack": {
+        "collision": false,
+        "distance_mm": 166.31516532194078
+      },
+      "ground-stack": {
+        "collision": false,
+        "distance_mm": 178.0616572064777
+      },
+      "wago-v12": {
+        "collision": false,
+        "distance_mm": 168.83300258130873
+      },
+      "wago-gnd": {
+        "collision": false,
+        "distance_mm": 172.17950785565372
+      },
+      "wago-g": {
+        "collision": false,
+        "distance_mm": 169.608439532413
+      },
+      "wago-h": {
+        "collision": false,
+        "distance_mm": 172.93994022612335
+      },
+      "wago-n": {
+        "collision": false,
+        "distance_mm": 178.0377013169122
+      },
+      "pcba": {
+        "collision": false,
+        "distance_mm": 74.70529319056661
+      },
+      "carb-nut": {
+        "collision": false,
+        "distance_mm": 230.90164747368945
+      },
+      "bulkhead-carb-departure": {
+        "collision": false,
+        "distance_mm": 210.43893700740722
+      },
+      "bulkhead-drain-departure": {
+        "collision": false,
+        "distance_mm": 197.19102986034963
+      },
+      "co2-inlet-departure": {
+        "collision": false,
+        "distance_mm": 214.5305150622435
+      },
+      "bulkhead-flavor-a-departure": {
+        "collision": false,
+        "distance_mm": 197.43873038840505
+      },
+      "bulkhead-flavor-b-departure": {
+        "collision": false,
+        "distance_mm": 215.285049039135
+      },
+      "left-wall": {
+        "collision": true,
+        "distance_mm": 0.0
+      },
+      "right-wall": {
+        "collision": false,
+        "distance_mm": 178.4000015258789
+      },
+      "back-wall": {
+        "collision": false,
+        "distance_mm": 185.89999389648438
+      },
+      "ceiling": {
+        "collision": false,
+        "distance_mm": 36.0
+      }
+    },
+    "wago-sensors": {
+      "asse": {
+        "collision": false,
+        "distance_mm": 133.74835227991016
+      },
+      "asse-inlet-tpu": {
+        "collision": false,
+        "distance_mm": 166.7332543213262
+      },
+      "asse-outlet-tpu": {
+        "collision": false,
+        "distance_mm": 125.18358047092096
+      },
+      "tee": {
+        "collision": false,
+        "distance_mm": 106.88216545069442
+      },
+      "vk": {
+        "collision": false,
+        "distance_mm": 146.17108511335724
+      },
+      "reg": {
+        "collision": false,
+        "distance_mm": 50.14865767343031
+      },
+      "va": {
+        "collision": false,
+        "distance_mm": 39.3897239070929
+      },
+      "pump-sliding-foot": {
+        "collision": false,
+        "distance_mm": 187.7076111828227
+      },
+      "pump": {
+        "collision": false,
+        "distance_mm": 87.12941180829428
+      },
+      "vent-sleeve": {
+        "collision": false,
+        "distance_mm": 127.48298995681105
+      },
+      "water-in": {
+        "collision": false,
+        "distance_mm": 185.9031744507237
+      },
+      "pump-inlet-tpu": {
+        "collision": false,
+        "distance_mm": 140.1362784510286
+      },
+      "pump-inlet-barb-band": {
+        "collision": false,
+        "distance_mm": 139.79741101153726
+      },
+      "pump-inlet-tube-band": {
+        "collision": false,
+        "distance_mm": 145.00147804200793
+      },
+      "pump-outlet-tpu": {
+        "collision": false,
+        "distance_mm": 92.55551677808728
+      },
+      "pump-outlet-barb-band": {
+        "collision": false,
+        "distance_mm": 95.76333331524293
+      },
+      "pump-outlet-tube-band": {
+        "collision": false,
+        "distance_mm": 104.32643601218543
+      },
+      "check": {
+        "collision": false,
+        "distance_mm": 112.66049910261479
+      },
+      "carbonator-fold": {
+        "collision": false,
+        "distance_mm": 149.2265474451822
+      },
+      "check-carbonator": {
+        "collision": false,
+        "distance_mm": 168.76801616661285
+      },
+      "tee-fold": {
+        "collision": false,
+        "distance_mm": 144.7692812749904
+      },
+      "lower-valve-elbow": {
+        "collision": false,
+        "distance_mm": 149.90549360343587
+      },
+      "lower-pump-elbow": {
+        "collision": false,
+        "distance_mm": 138.34578941238001
+      },
+      "tee-regulator-tube": {
+        "collision": false,
+        "distance_mm": 84.54699379894929
+      },
+      "reg-va-elbow": {
+        "collision": false,
+        "distance_mm": 44.91882910597243
+      },
+      "va-outlet-elbow": {
+        "collision": false,
+        "distance_mm": 48.3863376605959
+      },
+      "va-flavor": {
+        "collision": false,
+        "distance_mm": 40.816888933912814
+      },
+      "funnel": {
+        "collision": false,
+        "distance_mm": 25.718602730926726
+      },
+      "funnel-frame": {
+        "collision": false,
+        "distance_mm": 17.927873870850185
+      },
+      "bulkhead-nut": {
+        "collision": false,
+        "distance_mm": 231.19902750952969
+      },
+      "bulkhead-water": {
+        "collision": false,
+        "distance_mm": 221.04700373010627
+      },
+      "bulkhead-carb": {
+        "collision": false,
+        "distance_mm": 240.38897948704258
+      },
+      "bulkhead-drain": {
+        "collision": false,
+        "distance_mm": 228.52177436758822
+      },
+      "co2-inlet": {
+        "collision": false,
+        "distance_mm": 242.48076891336888
+      },
+      "bulkhead-flavor-a": {
+        "collision": false,
+        "distance_mm": 230.93945318578625
+      },
+      "bulkhead-flavor-b": {
+        "collision": false,
+        "distance_mm": 245.49958198208654
+      },
+      "psu": {
+        "collision": false,
+        "distance_mm": 97.0999755859375
+      },
+      "relay-1": {
+        "collision": false,
+        "distance_mm": 99.0999755859375
+      },
+      "relay-2": {
+        "collision": false,
+        "distance_mm": 99.27545103971465
+      },
+      "c14-inlet": {
+        "collision": false,
+        "distance_mm": 193.53493811146828
+      },
+      "keystone-jack": {
+        "collision": false,
+        "distance_mm": 190.2931774082887
+      },
+      "ground-stack": {
+        "collision": false,
+        "distance_mm": 201.3058427257829
+      },
+      "wago-v12": {
+        "collision": false,
+        "distance_mm": 192.14557365105864
+      },
+      "wago-gnd": {
+        "collision": false,
+        "distance_mm": 195.0925976004454
+      },
+      "wago-g": {
+        "collision": false,
+        "distance_mm": 192.16056185463316
+      },
+      "wago-h": {
+        "collision": false,
+        "distance_mm": 195.10735941292225
+      },
+      "wago-n": {
+        "collision": false,
+        "distance_mm": 199.63988043945062
+      },
+      "pcba": {
+        "collision": false,
+        "distance_mm": 95.10838872933431
+      },
+      "carb-nut": {
+        "collision": false,
+        "distance_mm": 248.94326359834625
+      },
+      "bulkhead-carb-departure": {
+        "collision": false,
+        "distance_mm": 226.52048488584072
+      },
+      "bulkhead-drain-departure": {
+        "collision": false,
+        "distance_mm": 216.09648701055698
+      },
+      "co2-inlet-departure": {
+        "collision": false,
+        "distance_mm": 232.0682087430703
+      },
+      "bulkhead-flavor-a-departure": {
+        "collision": false,
+        "distance_mm": 218.83208286122817
+      },
+      "bulkhead-flavor-b-departure": {
+        "collision": false,
+        "distance_mm": 235.06756599442144
+      },
+      "left-wall": {
+        "collision": true,
+        "distance_mm": 0.0
+      },
+      "right-wall": {
+        "collision": false,
+        "distance_mm": 178.4000015258789
+      },
+      "back-wall": {
+        "collision": false,
+        "distance_mm": 209.39996337890625
+      },
+      "ceiling": {
+        "collision": false,
+        "distance_mm": 22.20001220703125
+      }
+    },
+    "wago-reeds-b": {
+      "asse": {
+        "collision": false,
+        "distance_mm": 122.72517166772839
+      },
+      "asse-inlet-tpu": {
+        "collision": false,
+        "distance_mm": 151.16027580619416
+      },
+      "asse-outlet-tpu": {
+        "collision": false,
+        "distance_mm": 116.91129251148693
+      },
+      "tee": {
+        "collision": false,
+        "distance_mm": 99.77941432102028
+      },
+      "vk": {
+        "collision": false,
+        "distance_mm": 142.03121282129058
+      },
+      "reg": {
+        "collision": false,
+        "distance_mm": 33.13471350316557
+      },
+      "va": {
+        "collision": false,
+        "distance_mm": 18.91702895059619
+      },
+      "pump-sliding-foot": {
+        "collision": false,
+        "distance_mm": 171.5771617029261
+      },
+      "pump": {
+        "collision": false,
+        "distance_mm": 78.81821781494627
+      },
+      "vent-sleeve": {
+        "collision": false,
+        "distance_mm": 111.01972255591288
+      },
+      "water-in": {
+        "collision": false,
+        "distance_mm": 169.89066098060178
+      },
+      "pump-inlet-tpu": {
+        "collision": false,
+        "distance_mm": 132.12098214722164
+      },
+      "pump-inlet-barb-band": {
+        "collision": false,
+        "distance_mm": 131.82821944081536
+      },
+      "pump-inlet-tube-band": {
+        "collision": false,
+        "distance_mm": 139.48695776286894
+      },
+      "pump-outlet-tpu": {
+        "collision": false,
+        "distance_mm": 79.27514001879791
+      },
+      "pump-outlet-barb-band": {
+        "collision": false,
+        "distance_mm": 83.69388203591221
+      },
+      "pump-outlet-tube-band": {
+        "collision": false,
+        "distance_mm": 89.48140942566978
+      },
+      "check": {
+        "collision": false,
+        "distance_mm": 97.23493160732126
+      },
+      "carbonator-fold": {
+        "collision": false,
+        "distance_mm": 132.2421995372073
+      },
+      "check-carbonator": {
+        "collision": false,
+        "distance_mm": 153.21249339292746
+      },
+      "tee-fold": {
+        "collision": false,
+        "distance_mm": 139.41437094914698
+      },
+      "lower-valve-elbow": {
+        "collision": false,
+        "distance_mm": 147.74854408352215
+      },
+      "lower-pump-elbow": {
+        "collision": false,
+        "distance_mm": 136.47032969512776
+      },
+      "tee-regulator-tube": {
+        "collision": false,
+        "distance_mm": 74.33395486834506
+      },
+      "reg-va-elbow": {
+        "collision": false,
+        "distance_mm": 24.189736114124173
+      },
+      "va-outlet-elbow": {
+        "collision": false,
+        "distance_mm": 42.98252414935049
+      },
+      "va-flavor": {
+        "collision": false,
+        "distance_mm": 49.16380147917026
+      },
+      "funnel": {
+        "collision": false,
+        "distance_mm": 30.9932950364559
+      },
+      "funnel-frame": {
+        "collision": false,
+        "distance_mm": 31.166106380516645
+      },
+      "bulkhead-nut": {
+        "collision": false,
+        "distance_mm": 212.9326673545498
+      },
+      "bulkhead-water": {
+        "collision": false,
+        "distance_mm": 203.3605110336372
+      },
+      "bulkhead-carb": {
+        "collision": false,
+        "distance_mm": 224.0992380277663
+      },
+      "bulkhead-drain": {
+        "collision": false,
+        "distance_mm": 211.40411340448435
+      },
+      "co2-inlet": {
+        "collision": false,
+        "distance_mm": 226.43976711480093
+      },
+      "bulkhead-flavor-a": {
+        "collision": false,
+        "distance_mm": 215.3459505978067
+      },
+      "bulkhead-flavor-b": {
+        "collision": false,
+        "distance_mm": 230.91722059856087
+      },
+      "psu": {
+        "collision": false,
+        "distance_mm": 77.1991985694555
+      },
+      "relay-1": {
+        "collision": false,
+        "distance_mm": 78.70683681936387
+      },
+      "relay-2": {
+        "collision": false,
+        "distance_mm": 78.92766422563983
+      },
+      "c14-inlet": {
+        "collision": false,
+        "distance_mm": 172.89996704101566
+      },
+      "keystone-jack": {
+        "collision": false,
+        "distance_mm": 171.23797671925107
+      },
+      "ground-stack": {
+        "collision": false,
+        "distance_mm": 182.19630465303163
+      },
+      "wago-v12": {
+        "collision": false,
+        "distance_mm": 171.80620597670483
+      },
+      "wago-gnd": {
+        "collision": false,
+        "distance_mm": 175.0958953742344
+      },
+      "wago-g": {
+        "collision": false,
+        "distance_mm": 171.80620597670483
+      },
+      "wago-h": {
+        "collision": false,
+        "distance_mm": 175.0958953742344
+      },
+      "wago-n": {
+        "collision": false,
+        "distance_mm": 180.13265318009326
+      },
+      "pcba": {
+        "collision": false,
+        "distance_mm": 74.47762376070169
+      },
+      "carb-nut": {
+        "collision": false,
+        "distance_mm": 232.13564990551572
+      },
+      "bulkhead-carb-departure": {
+        "collision": false,
+        "distance_mm": 211.31050813739347
+      },
+      "bulkhead-drain-departure": {
+        "collision": false,
+        "distance_mm": 200.03060440662674
+      },
+      "co2-inlet-departure": {
+        "collision": false,
+        "distance_mm": 217.1490223560627
+      },
+      "bulkhead-flavor-a-departure": {
+        "collision": false,
+        "distance_mm": 204.47904227219937
+      },
+      "bulkhead-flavor-b-departure": {
+        "collision": false,
+        "distance_mm": 221.767803843827
+      },
+      "left-wall": {
+        "collision": true,
+        "distance_mm": 0.0
+      },
+      "right-wall": {
+        "collision": false,
+        "distance_mm": 178.4000015258789
+      },
+      "back-wall": {
+        "collision": false,
+        "distance_mm": 188.89996337890625
+      },
+      "ceiling": {
+        "collision": false,
+        "distance_mm": 12.20001220703125
+      }
+    }
+  },
+  "connector_pair_queries": {
+    "wago-mana__wago-manb": {
+      "collision": false,
+      "distance_mm": 7.70001220703125
+    },
+    "wago-mana__wago-sensors": {
+      "collision": false,
+      "distance_mm": 11.800012207031273
+    },
+    "wago-mana__wago-reeds-b": {
+      "collision": false,
+      "distance_mm": 22.300911348484288
+    },
+    "wago-manb__wago-sensors": {
+      "collision": false,
+      "distance_mm": 15.0999755859375
+    },
+    "wago-manb__wago-reeds-b": {
+      "collision": false,
+      "distance_mm": 5.0
+    },
+    "wago-sensors__wago-reeds-b": {
+      "collision": false,
+      "distance_mm": 12.0999755859375
+    }
+  },
+  "unrelated_body_collisions": {
+    "wago-mana": {},
+    "wago-manb": {},
+    "wago-sensors": {},
+    "wago-reeds-b": {}
+  },
+  "mounting_plane_contact_queries": {
+    "wago-mana": {
+      "collision": true,
+      "distance_mm": 0.0
+    },
+    "wago-manb": {
+      "collision": true,
+      "distance_mm": 0.0
+    },
+    "wago-sensors": {
+      "collision": true,
+      "distance_mm": 0.0
+    },
+    "wago-reeds-b": {
+      "collision": true,
+      "distance_mm": 0.0
+    }
+  },
+  "conservative_open_lever_extra_space": {
+    "wago-mana": [
+      {
+        "direction": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "extra_space_bounds_mm": [
+          [
+            -89.19999694824219,
+            260.29998779296875,
+            263.4
+          ],
+          [
+            -80.19999694824219,
+            267.1499877929688,
+            293.1999877929687
+          ]
+        ],
+        "collisions": {},
+        "nearest": [
+          "va-flavor",
+          {
+            "collision": false,
+            "distance_mm": 0.6781230743001676
+          }
+        ]
+      },
+      {
+        "direction": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "extra_space_bounds_mm": [
+          [
+            -89.19999694824219,
+            237.65,
+            263.4
+          ],
+          [
+            -80.19999694824219,
+            244.5,
+            293.1999877929687
+          ]
+        ],
+        "collisions": {},
+        "nearest": [
+          "left-wall",
+          {
+            "collision": false,
+            "distance_mm": 9.300003051757812
+          }
+        ]
+      }
+    ],
+    "wago-manb": [
+      {
+        "direction": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "extra_space_bounds_mm": [
+          [
+            -88.9000015258789,
+            276.3999938964844,
+            280.0
+          ],
+          [
+            -79.9000015258789,
+            283.2499938964844,
+            310.0
+          ]
+        ],
+        "collisions": {},
+        "nearest": [
+          "wago-reeds-b",
+          {
+            "collision": false,
+            "distance_mm": 5.8309361937396105
+          }
+        ]
+      }
+    ],
+    "wago-sensors": [
+      {
+        "direction": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "extra_space_bounds_mm": [
+          [
+            -88.9000015258789,
+            252.9000244140625,
+            305.0
+          ],
+          [
+            -79.9000015258789,
+            259.7500244140625,
+            323.79998779296875
+          ]
+        ],
+        "collisions": {},
+        "nearest": [
+          "wago-reeds-b",
+          {
+            "collision": false,
+            "distance_mm": 5.249975585937477
+          }
+        ]
+      }
+    ],
+    "wago-reeds-b": [
+      {
+        "direction": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "extra_space_bounds_mm": [
+          [
+            -88.9000015258789,
+            273.4000244140625,
+            315.0
+          ],
+          [
+            -79.9000015258789,
+            280.2500244140625,
+            333.79998779296875
+          ]
+        ],
+        "collisions": {},
+        "nearest": [
+          "wago-manb",
+          {
+            "collision": false,
+            "distance_mm": 5.0
+          }
+        ]
+      }
+    ]
+  },
+  "lever_estimate_basis": "6.85 mm extra travel is measured for 221-413 in current reference; used as a stated occupancy estimate for 415 and both 420 rows. Rectangular probe covers the complete lever-width range and the front 9 mm of depth.",
+  "note": "These are unmounted component poses. Intended sidewall mounting contact is separate; no enclosure mount or wire geometry is changed."
+}
