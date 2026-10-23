@@ -3,7 +3,7 @@
 Both Kamoer KPHM600 pumps leave the appliance together in `enclosure-pump-cartridge`.
 The customer replaces complete prepared pumps: each replacement has two straight 1/4" LLDPE tubes
 already fitted in its pump tubing and clamped there by the pump head's own housing. The four
-pump tees, their tee caps, front-top's collet plate, the valves, the tubing and front-top's
+pump tees, front-top's collet plate, the valves, the tubing and front-top's
 magnets remain installed during pump changes.
 No enclosure quadrant comes off for a pump change.
 
@@ -25,16 +25,15 @@ properties do not follow from the CAD fit.
 
 | Rides out on `enclosure-pump-cartridge` | Stays in the appliance |
 |---|---|
-| [2](CART_PUMPS) complete pumps, their four clamped LLDPE tubes and the fitted top clamp | [4](PUMP_TEES) PP0208E pump tees behind the collet plate, each held on its tee anchor by one of [4](TEE_CAPS) snapped-on tee caps |
+| [2](CART_PUMPS) complete pumps, their four clamped LLDPE tubes and the fitted top clamp | [4](PUMP_TEES) PP0208E pump tees, each in its bore through front-top's tee wall behind the collet plate |
 | The contact pair's female half, its four motor leads and the two Faston pairs | The male contact half and fixed J13 ribbon behind the bulkhead |
 | The cartridge's [4](CART_MAGNETS) printed-in SB443-IN magnets | Their [4](CART_MAGNETS) printed-in mates in front-top |
 | | The pump tees' upper tubes and hairpins, and the source tees Y-A and Y-B: [6](BOX_TEES) PP0208E tees in all |
 | | [8](TRAY_VALVES) valves on the two front-top trays and [3](CAP_VALVES) valves in the cold core's cap |
 | | All other tubing, the funnel, display and cold core |
 
-Each pump tee's branch lies in a tee anchor, a rib on front-top's seam plane behind the collet
-plate, and a PET-GF tee cap snapped down over the branch closes the anchor's journal. The
-journal holds the tee in X and Z and lets it slide along Y: the plate stops it at the fore end
+Each pump tee's branch stands in a bore through front-top's tee wall behind the collet plate.
+The bore holds the tee in X and Z and lets it slide along Y: the plate stops it at the fore end
 of its collet stroke, and the seated cartridge's bottomed pump tube holds it at connected. The
 tee's upper collet takes a short tube to its fore valve and its lower collet one LLDPE hairpin to its rear valve; both
 tubes flex with the tee's travel. These parts stay assembled during a customer pump change.
@@ -54,8 +53,8 @@ the tube and holds it against pressure. Pushing the cartridge in passes the four
 through the plate's holes into the collets; the tips bottom in the tees and push each tee back
 to connected. The two magnet columns then draw the cartridge home, and their meeting poles set
 its final position with [0.25 mm](DOCK_BODY_GAP) of air between the broad faces; the magnets
-seat the cartridge and do not hold the tubes. A straight pull parts the magnets, the contact pair and the four collet joints while the tees,
-their caps and the tubing stay in the machine.
+seat the cartridge and do not hold the tubes. A straight pull parts the magnets, the contact pair and the four collet joints while the tees
+and the tubing stay in the machine.
 
 ## Dry mode
 
@@ -156,7 +155,7 @@ the tubes.
 - All four straight tubes pass the collet plate and bottom in their pump tees, each tee
   at connected; the cartridge sits on its meeting magnet poles with its front face
   flush, and the contact pair is engaged.
-- The pump tees, tee caps, collet plate, upper tubes, hairpins and front-top's magnets
+- The pump tees, collet plate, upper tubes, hairpins and front-top's magnets
   remain installed in the appliance.
 - Both channels prime and dispense with no observed dock or pump-end seepage.
 - The water, CO2 and carbonated-water connections remain closed.

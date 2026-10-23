@@ -130,7 +130,7 @@ claim are connector specifications, not results for the assembled machine.
 
 The separate SB443-IN array attracts along Y in one column of two blocks per pump on each
 half, between each pump's two port axes: four pairs, eight blocks. Its load path enters
-the cradle and front-top's collet plate and the magnet bosses behind it through the
+the cradle and front-top's tee wall through the
 printed rails in each column's slot. The
 [retention geometry module](../../printed-parts/enclosure/pump-dock/dock_retention.py)
 does not establish installed pull, printed-mount strength or the force required

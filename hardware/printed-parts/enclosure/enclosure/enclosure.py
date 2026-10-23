@@ -1525,10 +1525,10 @@ rail_reach_in = (max(front_top_flank_t, back_top_flank_t) - wall) + slide_slip +
 # floor crosses it wall to wall and only the front boss's own plinth still stands over the
 # mouth here.
 #
-# THE BULKHEAD IS THE COLLET PLATE ACROSS THE TEES' BAND (`_bulkhead`), full thickness
-# above the tee caps. Behind the plate each tee's branch lies in a tee anchor and a tee cap
-# snaps down on top of it (`dock_structure`). The bulkhead joins the bay floor, lintel and
-# both flanks; front-bottom supports its two lower ends.
+# THE BULKHEAD IS THE TEE WALL (`_bulkhead`): one flat slab the bay's whole width and height,
+# its fore 3.175 mm the collet plate. Behind the plate each tee's branch stands in a
+# collar-clear bore through the rest of the wall (`dock_structure`). The bulkhead joins the bay
+# floor, lintel and both flanks; front-bottom supports its two lower ends.
 #
 # The full-width opening extends from the show face to this bulkhead. The cartridge's
 # front, rounded corners and flanks share the enclosure silhouette. Its hand pockets,
@@ -5761,22 +5761,15 @@ def _bay_floor(inner, y_joint, plate, pump_trays):
 
 
 def _bulkhead(inner, y_joint, plate, bay):
-    """The bay's back: the collet plate across the tees' band and the full bulkhead round it.
+    """The bay's back: the tee wall, one flat slab from the bay face to the wall's aft face, wall
+    to wall and from the seam to the lintel.
 
-    Between the two outer tee caps and from the seam up to `plate_top_z` the bulkhead is the
-    collet plate alone, its aft face the release face the four tee collets meet. Over the tee
-    caps it grows back on a 45-degree underside to its full depth, which keeps the contact
-    pair's seat and the display backing and roots the fore valve tray; outboard of the caps it
-    stands full depth from the seam, where the flank rails start on its aft face. The tube
-    holes, the tee anchors and the magnet bosses are the dock's fixed features, taken after
-    the bay floor joins the plate.
+    Its fore 3.175 mm is the collet plate, whose aft face is the release face the four tee
+    collets meet. The wall keeps the contact pair's seat and the display backing, roots the fore
+    valve tray, and its aft face is where the flank rails start. The tube holes and the tees'
+    bores are the dock's (`dock_structure.wall_cuts`), taken after the bay floor joins the wall.
     """
-    fore, aft, back = bay_back_y(plate), plate["aft_y"], plate["wall_aft_y"]
-    top, half = plate["plate_top_z"], plate["plate_x"]
-    wall = _ybox(inner[0], inner[1], fore, back, z_seam, bay[2])
-    return wall.cut(_yz_prism(-half, half, [
-        (aft, z_seam - 1.0), (back + 1.0, z_seam - 1.0),
-        (back + 1.0, top + back + 1.0 - aft), (aft, top)]))
+    return _ybox(inner[0], inner[1], bay_back_y(plate), plate["wall_aft_y"], z_seam, bay[2])
 
 
 def _ridge_wall(inner, outer, plate, bay, funnel):
@@ -6007,32 +6000,24 @@ def pump_dock_figures(box):
     columns = _retention.column_stations(plate["holes"])
     return {
         "PUMP_TEE_COUNT": str(len(plate["holes"])),
-        "TEE_CAP_COUNT": str(len(plate["holes"])),
         "DOCK_ROW_Z": f"Z{row:.6g}",
         "DOCK_BAY_FACE_Y": f"Y{fore:.6g}",
         "DOCK_RELEASE_Y": f"Y{plate['aft_y']:.6g}",
         "DOCK_WALL_AFT_Y": f"Y{plate['wall_aft_y']:.6g}",
-        "DOCK_PLATE_TOP_Z": f"Z{plate['plate_top_z']:.6g}",
+        "DOCK_WALL_T": f"{plate['wall_aft_y'] - bay_back_y(plate):.6g} mm",
         "DOCK_PLATE_T": f"{plumbing.PLATE_T:.4g} mm",
         "DOCK_HOLE_D": f"Ø{2 * _dock.HOLE_R:.4g} mm",
         "DOCK_FRAME_GAP": f"{bay_back_y(plate) - back:.4g} mm",
         "DOCK_CONNECTED_Y": f"Y{plumbing.tee_axis_y(fore):.6g}",
         "DOCK_RELEASED_Y": f"Y{plumbing.tee_axis_y(fore, 'released'):.6g}",
         "DOCK_TRAVEL": f"{plumbing.TRAVEL:.3g} mm",
-        "DOCK_JOURNAL": f"Ø{2 * _dock.JOURNAL_R:.4g} mm",
+        "DOCK_BORE": f"Ø{2 * _dock.BORE_R:.4g} mm",
         "DOCK_COLLAR_ENVELOPE": f"Ø{_dock.tee.COLLAR_ENVELOPE_D:.4g} mm",
-        "DOCK_JOURNAL_AIR": f"{_dock.JOURNAL_R - _dock.tee.COLLAR_ENVELOPE_D / 2.0:.4g} mm",
-        "DOCK_ANCHOR_LEN": f"{_dock.rib_length(plate):.4g} mm",
-        "DOCK_CAP_LEN": f"{_dock.window_length(plate) - 2.0 * _dock.anchor.END_AIR:.4g} mm",
+        "DOCK_BORE_AIR": f"{_dock.BORE_R - _dock.tee.COLLAR_ENVELOPE_D / 2.0:.4g} mm",
+        "DOCK_BORE_DEPTH": f"{_dock.bore_depth(plate):.4g} mm",
         "DOCK_BARREL_AIR": (f"{plumbing.tee_axis_y(fore) - _dock.tee.BARREL_R - plate['wall_aft_y']:.3g}"
                             " mm"),
-        "DOCK_WING": f"{_dock.anchor.WING:.4g} mm",
-        "DOCK_ENGAGE": f"{_dock.anchor.ENGAGE:.4g} mm",
-        "DOCK_LEAD_IN": f"{_dock.anchor.LEAD_IN:.4g}°",
-        "DOCK_CAP_STRAIN": f"{100 * _dock.wing_strain():.2f}%",
-        "DOCK_CAVITY": f"{_dock.WING_IN - _dock.SADDLE_R:.4g} mm",
-        "DOCK_SADDLE": f"{_dock.SADDLE_R - _dock.JOURNAL_R:.4g} mm",
-        "DOCK_ANCHOR_WALL": f"{_dock.RIB_R - _dock.JOURNAL_R:.4g} mm",
+        "DOCK_BODY_AIR": f"{_dock.BODY_AIR:.4g} mm",
         "DOCK_FORE_VALVE_Z": f"Z{upper[2]:.6g}",
         "DOCK_FORE_VALVE_Y": f"Y{upper[1]:.6g}",
         "DOCK_UPPER_TUBE": f"{next(iter(stations))['upper_exposed_mm']:.4g} mm",
@@ -8028,8 +8013,8 @@ def _valve_trays(solid, inner, stations, y0, y1, z0, z1,
     placed on.
 
     A PLATE THAT OUTRUNS ITS OWN WALL IS CORBELLED AT THE ROOT. `wall_aft_y` is
-    `collet_plate_spec`'s own `wall_aft_y` — the bulkhead's aft face over the tee caps, the plane
-    wall support actually ends at (`_bulkhead`). Where that plane falls strictly inside a plate's own
+    `collet_plate_spec`'s own `wall_aft_y` — the tee wall's aft face, the plane wall support
+    actually ends at (`_bulkhead`). Where that plane falls strictly inside a plate's own
     near/far span, the plate stands on the wall for the inboard share of its thickness and
     overhangs open bay air for the rest: `far - wall_aft_y`, read off the two planes and never
     typed. The corbel rises 45° off the wall's own aft face and closes at the plate's own far
@@ -9212,11 +9197,8 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         if box.pack.collet_plate:
             for cutter in _pump_contact_fixed_cuts(box):
                 piece = piece.cut(cutter)
-            stocks, cuts = _dock.fixed_features(
-                box.pack.collet_plate, pump_retention_features(box)["interface"])
-            for stock in stocks:
-                piece = piece.fuse(stock)
-            for cutter in (*cuts, pump_retention_features(box)["fixed"]["cutter"]):
+            for cutter in (*_dock.wall_cuts(box.pack.collet_plate),
+                           pump_retention_features(box)["fixed"]["cutter"]):
                 piece = piece.cut(cutter)
     # And then the columns give up whatever the pack stands in them (`_column_relief`), which is
     # last of everything: a relief is air, and air a later step fuses back in is not a relief.
@@ -9921,22 +9903,17 @@ def _collet_plate_body(plate):
 
 
 def export_pump_dock(box):
-    """Write the tee cap and the factory tube setting jig."""
+    """Write the factory tube setting jig."""
     import flute_payload
     from _materials import M_PETGF_BLACK
-    products = _dock.manufacturing_parts(box.pack.collet_plate)
-    tools = (
-        ("enclosure-pump-tube-setting-jig", _dock.tube_setting_jig(
-            box.pack.collet_plate, pump_cartridge_aft_y(
-                box.pack.pump_trays, box.pack.collet_plate)), M_PETGF_BLACK),)
-    products.update({stem: {"shape": shape, "color": color} for stem, shape, color in tools})
-    for stem, product in products.items():
-        shape, color = product["shape"], product["color"]
-        step = _here.parent / (stem + ".step")
-        stl = step.with_suffix(".stl")
-        export_assembly(one_body(shape, stem, color), str(step))
-        _piece_mesh(shape).export(str(stl))
-        flute_payload.cut(step, stl)
+    stem = "enclosure-pump-tube-setting-jig"
+    shape = _dock.tube_setting_jig(box.pack.collet_plate, pump_cartridge_aft_y(
+        box.pack.pump_trays, box.pack.collet_plate))
+    step = _here.parent / (stem + ".step")
+    stl = step.with_suffix(".stl")
+    export_assembly(one_body(shape, stem, M_PETGF_BLACK), str(step))
+    _piece_mesh(shape).export(str(stl))
+    flute_payload.cut(step, stl)
 
 
 def _export_pieces(pieces, assy):
