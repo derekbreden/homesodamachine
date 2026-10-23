@@ -70,9 +70,9 @@ The [Mark2 sleeve print](prints/2026-10-23-black-tpu85a-right06-mark2/README.md)
 uses black Bambu TPU 85A on the right 0.6 mm nozzle, the glued Engineering Plate
 and zero added user Z trim. Its processed archive prints through turns in the
 three cap layers, with straight material-contained transfers, and preserves
-the native continuous spiral wall. Timelapse is off. Printed stringing, fit and
-sealing results are pending; use the processed archive directly to retain the
-cap routing.
+the native continuous spiral wall. Timelapse is off. Derek reports that the print
+“came out pretty well”; specific stringing, assembled fit and sealing results
+are unreported. Use the processed archive directly to retain the cap routing.
 
 ## Assembly
 

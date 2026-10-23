@@ -141,7 +141,10 @@ distinct from the **2.1 mm** cap region in CAD.
 
 Printing is confirmed beyond plate detection at **1/87**, with the right
 0.6 mm nozzle at **225°C**, bed at **35°C**, external TPU feed verified and
-no print error or HMS. Printed stringing, fit and sealing results are pending.
+no print error or HMS. The printer subsequently reports FINISH at 100%
+without errors or HMS. Derek reports: “Okay, that came out pretty well.”
+This accepts general print quality; specific stringing, assembled fit and
+sealing are unreported.
 
 ## Queued for the next session (forward-looking advice)
 

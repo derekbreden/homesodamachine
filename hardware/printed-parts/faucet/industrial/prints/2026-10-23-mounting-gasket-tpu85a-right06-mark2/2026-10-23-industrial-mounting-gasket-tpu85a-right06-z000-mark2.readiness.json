@@ -1,0 +1,84 @@
+{
+  "status": "Native slice prepared; physical result pending",
+  "project_sha256": "681d80d6f3bdc7f58fb9aa8990229a24ba93d86f060e6de75437e933d09910fc",
+  "archive": "2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2.gcode.3mf",
+  "archive_sha256": "f2a0b8b935146134f50c538ba1687ba6766c0c25257ca7a6d5497f6de4a9dff7",
+  "gcode_sha256": "6160ec963d9cf2b4f6a5a8ede0dd00dc9848f5cb8490e313320c4b8b5c153420",
+  "plate_trim_commands_mm": [
+    0.0
+  ],
+  "bead_envelope": {
+    "extrusion_bounds_xy_mm": [
+      [
+        147.8990539727545,
+        130.3900307744578
+      ],
+      [
+        207.10058293903793,
+        189.5969853330305
+      ]
+    ],
+    "maximum_line_width_mm": 0.624531,
+    "bounds_padding_mm": 0.41226549999999995
+  },
+  "bead_margin_mm": [
+    122.8990539727545,
+    130.3900307744578,
+    122.89941706096207,
+    130.4030146669695
+  ],
+  "layers": 10,
+  "estimated_seconds": 2578.297119140625,
+  "estimated_filament_g": 5.884626865386963,
+  "slicer_warning": "",
+  "effective_settings": {
+    "curr_bed_type": "Engineering Plate",
+    "filament_nozzle_map": [
+      "1"
+    ],
+    "filament_map": [
+      "2"
+    ],
+    "filament_settings_id": [
+      "Bambu TPU 85A @BBL H2C"
+    ],
+    "nozzle_diameter": [
+      "0.6",
+      "0.6"
+    ],
+    "nozzle_temperature": [
+      "225",
+      "225"
+    ],
+    "nozzle_temperature_initial_layer": [
+      "225",
+      "225"
+    ],
+    "eng_plate_temp": [
+      "35"
+    ],
+    "eng_plate_temp_initial_layer": [
+      "35"
+    ],
+    "filament_max_volumetric_speed": [
+      "2.2",
+      "2.2"
+    ],
+    "filament_flow_ratio": [
+      "1",
+      "1"
+    ],
+    "layer_height": "0.18",
+    "initial_layer_print_height": "0.3",
+    "wall_loops": "2",
+    "wall_generator": "arachne",
+    "sparse_infill_density": "100%",
+    "sparse_infill_pattern": "zig-zag",
+    "top_shell_layers": "3",
+    "bottom_shell_layers": "3",
+    "enable_support": "0",
+    "brim_type": "no_brim",
+    "seam_gap": "0%",
+    "time_lapse_gcode": ""
+  }
+}

@@ -1,6 +1,6 @@
 # Touch-Flo sealing sleeve — Mark2 task 1368570348
 
-**Status: printing beyond plate detection; printed stringing, fit and sealing pending.**
+**Status: finished; general print quality accepted qualitatively.**
 Mark2 accepted one black Bambu TPU 85A sleeve on **2026-10-23 at 16:38 CDT**.
 The [launch receipt](launch.json) binds the submitted processed archive to task
 **1368570348**. The source estimate is **11 minutes / 0.40 g**, with 87 layers.
@@ -52,7 +52,8 @@ including layer transfers, stay inside native material sections retaining the
 hole. The same check passes for **33 chords** when deposition runs shorter than
 **1 mm** are ignored as possible attachments. There are **no in-part retractions,
 Z hops or camera commands**. [Cap processing](cap-processing.json) records each
-tour. Physical strand capture, fit and sealing remain unassessed for this print.
+tour. Derek reports “Okay, that came out pretty well.” for this print. Specific
+stringing, assembled fit and sealing results remain unreported.
 
 ## Launch
 
@@ -62,13 +63,14 @@ external TPU spool and shared-circuit spacing. The
 **Timelapse Off**, **Bed Leveling On**, **Flow Calibration Auto** and **Nozzle
 Offset Calibration Auto**. [Submission readback](submission.json) binds the
 imported G-code to the reviewed file. [Startup telemetry](startup.json) and
-the pending [physical result](physical-result.json) belong to this task.
+the [physical result](physical-result.json) belong to this task.
 
 At **16:46:36 CDT**, task-bound telemetry confirms **RUNNING at 1/87**,
 **225°C** at the right 0.6 mm nozzle, **35°C** at the bed, timelapse disabled
 and no print error or HMS. Model printing has begun beyond plate detection.
-Bambu Connect also displays **Printing, 2/87**. Visual adhesion and finished
-stringing, fit and sealing remain unassessed.
+Bambu Connect also displays **Printing, 2/87**. The printer subsequently reports
+FINISH at 100% with no error or HMS.
+Derek’s general print-quality report is recorded in the physical result.
 
 The separate [cancelled plate-mismatch attempt](cancelled-plate-mismatch/README.md)
 has no printed article or physical acceptance.
