@@ -1,0 +1,300 @@
+{
+  "units": "mm",
+  "frame": {
+    "origin": "Intersection of nominal run and stem axes",
+    "run": "X",
+    "branch_stem": "+Y",
+    "free_axis": "Z"
+  },
+  "status": "Estimated purchased-part references for arrangement studies, not production printed parts",
+  "sources": {
+    "neofit_product": {
+      "url": "https://www.freshwatersystems.com/products/neofit-acetal-black-branch-stem-tee-1-4-tube-x-stem-1-4",
+      "role": "Manufacturer-brand listing, topology and product photograph",
+      "part": "ATBU444-E"
+    },
+    "neofit_drawing": {
+      "url": "https://assets.freshwatersystems.com/image/upload/s--KgZtyNy0--/w05r40lzxq5efdcb3d9e.pdf",
+      "role": "Manufacturer-brand Branch Tee Union drawing, ATBU444 row; listed downloads on product page",
+      "published_row": {
+        "stem_diameter_mm": 6.35,
+        "tube_diameter_in": 0.25,
+        "collar_diameter_in": 0.61,
+        "A_in": 0.827,
+        "B_tube_deep_in": 0.665,
+        "H_in": 1.37,
+        "L_in": 1.583
+      },
+      "local_copy": "source/neofit-atbu444-drawing.pdf",
+      "sha256": "1667a8719a1c38349e15299937840082095dd33abb9c1b8ae88b54a8d78aae40",
+      "bytes": 92198
+    },
+    "jg_product": {
+      "url": "https://www.freshwatersystems.com/products/john-guest-branch-stem-tee-1-4-x-1-4-x-1-4-od-stem-branch",
+      "role": "Requested product and photographs identify the perpendicular-stem geometry",
+      "part": "CI580808W"
+    },
+    "jg_drawing": {
+      "url": "https://www.johnguest.com/sites/jg/files/2023-04/JG%20Drinks%20White%20Acetal%20Stem%20Tee%20Data%20Sheet.pdf",
+      "role": "Manufacturer dimensioned CI580808W drawing, page 2",
+      "published_row_mm": {
+        "tube_od": 6.35,
+        "stem_od": 6.35,
+        "C_run_span": 38.9,
+        "D_run_reach": 19.5,
+        "E_tube_insertion": 15.7,
+        "F_collar_od": 15.2,
+        "G_flow_bore": 4.3,
+        "H_stem_length": 20.0,
+        "I_junction_to_tip": 26.0,
+        "J_total_branch_envelope": 33.6
+      },
+      "collet_state": "Released/pressed, per starred dimensions on drawing",
+      "local_copy": "source/jg-ci580808w-datasheet.pdf",
+      "sha256": "75f44286dca38e177b45e6c2f2568ec90b2a844004d08dbe4f6dac0cd6a04a9b",
+      "bytes": 799515
+    },
+    "jg_other_drawing": {
+      "url": "https://www.johnguest.com/sites/jg/files/2023-04/JG%20Drinks%20White%20Acetal%20Branch%20Stem%20Tee%20Data%20Sheet.pdf",
+      "role": "Naming cross-check: page 2 contains CI530808W run-stem drawing, despite front page CI580808W label; not used for perpendicular-stem dimensions"
+    },
+    "local_jg_scan": {
+      "path": "hardware/reference/jg-pp0208e-tee/README.md",
+      "role": "Scanned physical polypropylene tee; contextual socket family and collet motion only. Its larger collar and physical insertion depth are not transferred to either acetal tee."
+    },
+    "local_neofit_reducer": {
+      "path": "hardware/reference/neofit-flavor-reducer/README.md",
+      "role": "Separate NeoFit catalog part shares published 21.006 mm stem length. Family cross-check only; no scanned geometry transplanted."
+    },
+    "local_neofit_flow_control": {
+      "path": "hardware/reference/neofit-flow-control/neofit_flow_control.py",
+      "role": "Its 13.7 mm collet dimension is an estimate, not scan evidence; direct part drawings supply these models\u2019 collar dimensions."
+    }
+  },
+  "neofit_dimension_interpretation": {
+    "issue": "Diagram labels E as half-run reach and L as axis-to-tip, while table instead provides H and L with values inconsistent with those arrows. H1.370 and L1.583 are interpreted as overall branch height and overall run span, respectively.",
+    "basis": "This yields collar \u00d815.494, run span 40.2082, branch tip 27.051, shoulder 6.0452, and stem 21.0058: consistent with direct product photograph proportions, the separate NeoFit run-stem tee family (junction-to-tip 27.0002 and shoulder 5.9944), and the dimensioned JG perpendicular-stem envelope.",
+    "confidence": "Published values, interpreted axis mapping; around 1 mm envelope sensitivity is appropriate, not a measured tolerance.",
+    "not_used": "Shipping dimensions are not part dimensions; illustrative PDF line art is not assumed exactly to scale."
+  },
+  "variants": {
+    "neofit": {
+      "part_number": "ATBU444-E",
+      "artifact_stem": "neofit-atbu444-e-estimate",
+      "color_rgb": [
+        0.14,
+        0.14,
+        0.15
+      ],
+      "model_mm": {
+        "run_span": 40.2082,
+        "collar_od": 15.494,
+        "root_od": 12.0904,
+        "stem_shoulder_y": 6.0452,
+        "stem_tip_y": 27.051,
+        "stem_length": 21.0058,
+        "female_insertion": 16.891,
+        "flow_bore_od": 4.3,
+        "collar_near": 7.7,
+        "collar_far": 16.75,
+        "collet_near": 18.25,
+        "collet_od": 13.5,
+        "branch_boss_od": 9.2
+      },
+      "ports": {
+        "run_minus": {
+          "type": "female_push_connect",
+          "tube_od_mm": 6.35,
+          "position": [
+            -20.1041,
+            0,
+            0
+          ],
+          "outward": [
+            -1,
+            0,
+            0
+          ],
+          "insertion_mm": 16.891
+        },
+        "run_plus": {
+          "type": "female_push_connect",
+          "tube_od_mm": 6.35,
+          "position": [
+            20.1041,
+            0,
+            0
+          ],
+          "outward": [
+            1,
+            0,
+            0
+          ],
+          "insertion_mm": 16.891
+        },
+        "branch_stem": {
+          "type": "male_stem",
+          "stem_od_mm": 6.35,
+          "position": [
+            0,
+            27.051,
+            0
+          ],
+          "outward": [
+            0,
+            1,
+            0
+          ],
+          "shoulder": [
+            0,
+            6.0452,
+            0
+          ],
+          "shoulder_to_tip_mm": 21.0058
+        }
+      },
+      "evidence": {
+        "tube_and_stem_od": "published on direct product drawing",
+        "female_insertion": "published on direct product drawing; transfer into another host is controlled by that host",
+        "collar_od": "published on direct product drawing",
+        "run_span": "interpreted published NeoFit L overall dimension",
+        "stem_length": "published A",
+        "stem_tip_y": "inferred as total H branch envelope minus collar radius; drawing axis labels inconsistent",
+        "molded_steps_root_collet_and_tip_chamfer": "photo-based visual approximation, not measured or scan fitted",
+        "internal_bore": "illustrative \u00d84.3 based on same-size JG family",
+        "scan_status": "Neither purchased part has been scanned. Local scans inform family plausibility only."
+      },
+      "mating": {
+        "formula": "For host insertion depth D and unit stem outward axis a: host mouth = stem tip - D*a. Stem shoulder remains stem_length-D outside the mouth; do not bury the entire stem.",
+        "asse_tpu_host_insertion_mm": 15.0,
+        "asse_tpu_host_junction_to_mouth_mm": 12.051,
+        "asse_tpu_host_shoulder_to_mouth_mm": 6.0058,
+        "host_insertion_study_range_mm": [
+          11.65,
+          16.891
+        ],
+        "host_insertion_range_status": "layout sensitivity range spanning measured resting-face physical JG tee depth and NeoFit published depth; not a manufacturing tolerance or guaranteed compatibility",
+        "junction_to_host_mouth_range_mm": [
+          10.16,
+          15.401
+        ],
+        "shoulder_to_host_mouth_range_mm": [
+          4.1148,
+          9.3558
+        ],
+        "neofit_host_nominal_insertion_mm": 16.891,
+        "neofit_host_junction_to_mouth_mm": 10.16,
+        "neofit_host_shoulder_to_mouth_mm": 4.1148
+      }
+    },
+    "john-guest": {
+      "part_number": "CI580808W",
+      "artifact_stem": "john-guest-ci580808w-estimate",
+      "color_rgb": [
+        0.9,
+        0.9,
+        0.87
+      ],
+      "model_mm": {
+        "run_span": 38.9,
+        "collar_od": 15.2,
+        "root_od": 10.4,
+        "stem_shoulder_y": 6.0,
+        "stem_tip_y": 26.0,
+        "stem_length": 20.0,
+        "female_insertion": 15.7,
+        "flow_bore_od": 4.3,
+        "collar_near": 6.8,
+        "collar_far": 16.2,
+        "collet_near": 18.15,
+        "collet_od": 10.4,
+        "branch_boss_od": 9.0
+      },
+      "ports": {
+        "run_minus": {
+          "type": "female_push_connect",
+          "tube_od_mm": 6.35,
+          "position": [
+            -19.45,
+            0,
+            0
+          ],
+          "outward": [
+            -1,
+            0,
+            0
+          ],
+          "insertion_mm": 15.7
+        },
+        "run_plus": {
+          "type": "female_push_connect",
+          "tube_od_mm": 6.35,
+          "position": [
+            19.45,
+            0,
+            0
+          ],
+          "outward": [
+            1,
+            0,
+            0
+          ],
+          "insertion_mm": 15.7
+        },
+        "branch_stem": {
+          "type": "male_stem",
+          "stem_od_mm": 6.35,
+          "position": [
+            0,
+            26.0,
+            0
+          ],
+          "outward": [
+            0,
+            1,
+            0
+          ],
+          "shoulder": [
+            0,
+            6.0,
+            0
+          ],
+          "shoulder_to_tip_mm": 20.0
+        }
+      },
+      "evidence": {
+        "tube_and_stem_od": "published on direct product drawing",
+        "female_insertion": "published on direct product drawing; transfer into another host is controlled by that host",
+        "collar_od": "published on direct product drawing",
+        "run_span": "published C released-collet span; +/-19.45 gives exact symmetric span; D19.5 is separately rounded on drawing",
+        "stem_length": "published H",
+        "stem_tip_y": "published I",
+        "molded_steps_root_collet_and_tip_chamfer": "photo-based visual approximation, not measured or scan fitted",
+        "internal_bore": "published G",
+        "scan_status": "Neither purchased part has been scanned. Local scans inform family plausibility only."
+      },
+      "mating": {
+        "formula": "For host insertion depth D and unit stem outward axis a: host mouth = stem tip - D*a. Stem shoulder remains stem_length-D outside the mouth; do not bury the entire stem.",
+        "asse_tpu_host_insertion_mm": 15.0,
+        "asse_tpu_host_junction_to_mouth_mm": 11.0,
+        "asse_tpu_host_shoulder_to_mouth_mm": 5.0,
+        "host_insertion_study_range_mm": [
+          11.65,
+          16.891
+        ],
+        "host_insertion_range_status": "layout sensitivity range spanning measured resting-face physical JG tee depth and NeoFit published depth; not a manufacturing tolerance or guaranteed compatibility",
+        "junction_to_host_mouth_range_mm": [
+          9.109,
+          14.35
+        ],
+        "shoulder_to_host_mouth_range_mm": [
+          3.109,
+          8.35
+        ],
+        "neofit_host_nominal_insertion_mm": 16.891,
+        "neofit_host_junction_to_mouth_mm": 9.109,
+        "neofit_host_shoulder_to_mouth_mm": 3.109
+      }
+    }
+  }
+}
