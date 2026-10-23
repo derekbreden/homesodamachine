@@ -1,0 +1,267 @@
+{
+  "scope": "One-time frozen-source reconstruction and direct-chain external occupancy query; no enclosure or routing claim",
+  "coordinate_frame": "Regulator female faceY0, flow+Y",
+  "direct_chain_parts": [
+    "wr1110",
+    "co2-adapter-regulator-in",
+    "gasher-co2",
+    "co2-adapter-check-out"
+  ],
+  "direct_chain_bounds_mm": [
+    [
+      -9.71674633026123,
+      -13.699999809265137,
+      -10.879098892211914
+    ],
+    [
+      9.716745376586914,
+      115.47,
+      10.879110336303711
+    ]
+  ],
+  "direct_chain_size_xyz_mm": [
+    19.433491706848145,
+    129.16999980926514,
+    21.758209228515625
+  ],
+  "direct_chain_tube_mouth_span_mm": 129.17,
+  "direct_chain_ports": {
+    "inlet": {
+      "point_mm": [
+        0.0,
+        -13.7,
+        0.0
+      ],
+      "outward_axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "kind": "tube_socket",
+      "tube_od_mm": 6.35,
+      "tube_insertion_mm": 15.7,
+      "tube_insertion_basis": "Manufacturer dimension with collet released; selected layout depth"
+    },
+    "outlet": {
+      "point_mm": [
+        0.0,
+        115.47,
+        0.0
+      ],
+      "outward_axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "kind": "tube_socket",
+      "tube_od_mm": 6.35,
+      "tube_insertion_mm": 15.7,
+      "tube_insertion_basis": "Manufacturer dimension with collet released; selected layout depth"
+    }
+  },
+  "source_reconstruction_max_bound_error_mm": {
+    "wr1110": 1.6235351267823717e-06,
+    "gasher-co2": 6.652832098552608e-07,
+    "co2-adapter-regulator-in": 2.8381350603012834e-07,
+    "co2-adapter-regulator-out": 1.6235351267823717e-06,
+    "co2-adapter-check-in": 6.652832098552608e-07,
+    "co2-adapter-check-out": 6.652832098552608e-07
+  },
+  "cap_source_cross_check_error_mm": 0.0,
+  "unintended_pair_intersections": [],
+  "pairs": [
+    {
+      "a": "wr1110",
+      "b": "co2-adapter-regulator-in",
+      "intended_thread_mate": true,
+      "triangle_surface_intersection": false,
+      "distance_mm": 6.005859177093952e-06
+    },
+    {
+      "a": "wr1110",
+      "b": "gasher-co2",
+      "intended_thread_mate": true,
+      "triangle_surface_intersection": true,
+      "distance_mm": 0.0
+    },
+    {
+      "a": "wr1110",
+      "b": "co2-adapter-check-out",
+      "intended_thread_mate": false,
+      "triangle_surface_intersection": false,
+      "distance_mm": 20.00921249320802
+    },
+    {
+      "a": "co2-adapter-regulator-in",
+      "b": "gasher-co2",
+      "intended_thread_mate": false,
+      "triangle_surface_intersection": false,
+      "distance_mm": 54.469988555908195
+    },
+    {
+      "a": "co2-adapter-regulator-in",
+      "b": "co2-adapter-check-out",
+      "intended_thread_mate": false,
+      "triangle_surface_intersection": false,
+      "distance_mm": 83.47
+    },
+    {
+      "a": "gasher-co2",
+      "b": "co2-adapter-check-out",
+      "intended_thread_mate": true,
+      "triangle_surface_intersection": true,
+      "distance_mm": 0.0
+    }
+  ],
+  "mesh_quality": {
+    "co2-adapter-check-in": {
+      "sha256": "b0699c0ee060f4391dc56ed2e52a2b195821ff4a138397d1214ce44fe7f4a404",
+      "finite_vertices": true,
+      "bounds_mm": [
+        [
+          -9.54341983795166,
+          -33.70000076293945,
+          -8.75
+        ],
+        [
+          9.54341983795166,
+          -20.0,
+          8.75
+        ]
+      ],
+      "watertight": false,
+      "triangles": 1608
+    },
+    "co2-adapter-check-out": {
+      "sha256": "1c804147540d5e04e6f599cd1c19f0c2c6f20f09bd8f771c7748244bd95bff98",
+      "finite_vertices": true,
+      "bounds_mm": [
+        [
+          -9.54341983795166,
+          9.0,
+          -8.75
+        ],
+        [
+          9.54341983795166,
+          41.0,
+          8.75
+        ]
+      ],
+      "watertight": false,
+      "triangles": 1776
+    },
+    "co2-adapter-regulator-in": {
+      "sha256": "2e01f98035ce7c83627b0392e589733d84a33e434ab44b7917be26eefe814fce",
+      "finite_vertices": true,
+      "bounds_mm": [
+        [
+          -9.54341983795166,
+          -13.699999809265137,
+          -8.75
+        ],
+        [
+          9.54341983795166,
+          0.0,
+          8.75
+        ]
+      ],
+      "watertight": false,
+      "triangles": 1608
+    },
+    "co2-adapter-regulator-out": {
+      "sha256": "f3d2b87831b20bd5e81958dacf61fc482f95cba397cdbd4104bfc59682ed6768",
+      "finite_vertices": true,
+      "bounds_mm": [
+        [
+          -9.54341983795166,
+          54.470001220703125,
+          -8.75
+        ],
+        [
+          9.54341983795166,
+          86.47000122070312,
+          8.75
+        ]
+      ],
+      "watertight": false,
+      "triangles": 1776
+    },
+    "fitting-pi010822s": {
+      "sha256": "34a1fa3c37190b506e8c114e34d0538cd435441a5e45acebda4784a910ca00c7",
+      "finite_vertices": true,
+      "bounds_mm": [
+        [
+          -9.54341983795166,
+          0.0,
+          -8.75
+        ],
+        [
+          9.54341983795166,
+          28.0,
+          8.75
+        ]
+      ],
+      "watertight": false,
+      "triangles": 2112
+    },
+    "fitting-pi450822s": {
+      "sha256": "7a69af12266e33415a8262085bcd1173be6d408deeafb337dc497e18c90c7555",
+      "finite_vertices": true,
+      "bounds_mm": [
+        [
+          -9.54341983795166,
+          0.0,
+          -8.75
+        ],
+        [
+          9.54341983795166,
+          32.0,
+          8.75
+        ]
+      ],
+      "watertight": false,
+      "triangles": 1776
+    },
+    "gasher-co2": {
+      "sha256": "b6d950d39b317889b4b72cb51de5c597263a2d72c8b45f8f94aef476ead6120a",
+      "finite_vertices": true,
+      "bounds_mm": [
+        [
+          -8.5,
+          -20.000011444091797,
+          -7.706491470336914
+        ],
+        [
+          8.500001907348633,
+          19.999988555908203,
+          7.706472396850586
+        ]
+      ],
+      "watertight": false,
+      "triangles": 254
+    },
+    "wr1110": {
+      "sha256": "9c201ed1677eeaf7f1a424c422a5cea9f21f897823e67f6fa824f0cc9d0c9f2b",
+      "finite_vertices": true,
+      "bounds_mm": [
+        [
+          -9.71674633026123,
+          6.005859177093953e-06,
+          -10.879098892211914
+        ],
+        [
+          9.716745376586914,
+          63.650001525878906,
+          10.879110336303711
+        ]
+      ],
+      "watertight": false,
+      "triangles": 2454
+    }
+  },
+  "limits": [
+    "Metal reference mouths contain display closures and simplified thread envelopes; the direct threaded pair is intentional overlap and not an internal-interference test.",
+    "Nominal full14.3mm inlet-adapter thread engagement and9.18mm direct regulator/check engagement are layout estimates.",
+    "No host enclosure, roof, support, gas tube or other assembly component is checked here; the parent study owns those checks."
+  ]
+}

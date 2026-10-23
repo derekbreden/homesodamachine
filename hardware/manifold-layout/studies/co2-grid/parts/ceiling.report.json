@@ -1,0 +1,137 @@
+{
+  "units": "mm",
+  "valid": true,
+  "solid_count": 1,
+  "volume_mm3": 396718.4999999999,
+  "bounds_mm": [
+    [
+      -107.50000010000005,
+      243.99999989999995,
+      345.9999998999999
+    ],
+    [
+      107.50000010000005,
+      471.3000001000001,
+      355.0000001
+    ]
+  ],
+  "vertices": 96,
+  "triangles": 60,
+  "scope": "Native study context; connector retention and equipment carriers are outside this model",
+  "roof": {
+    "units": "mm",
+    "slab_bounds_mm": {
+      "xmin": -107.5,
+      "xmax": 107.5,
+      "ymin": 244.0,
+      "ymax": 471.3,
+      "zmin": 346.0,
+      "zmax": 355.0
+    },
+    "slab_dimensions_mm": {
+      "x": 215.0,
+      "y": 227.3,
+      "z": 9.0
+    },
+    "minimum_stock_mm": 3.0,
+    "pockets": [
+      {
+        "name": "asse",
+        "requested_bounds_mm": {
+          "xmin": 24.0,
+          "xmax": 50.0,
+          "ymin": 321.0,
+          "ymax": 471.3,
+          "zmin": 346.0,
+          "zmax": 352.0
+        },
+        "bounds_mm": {
+          "xmin": 24.0,
+          "xmax": 50.0,
+          "ymin": 321.0,
+          "ymax": 471.3,
+          "zmin": 346.0,
+          "zmax": 352.0
+        },
+        "active": true,
+        "dimensions_mm": {
+          "x": 26.0,
+          "y": 150.3,
+          "z": 6.0
+        },
+        "roof_z_mm": 352.0,
+        "ceiling_stock_mm": 3.0,
+        "minimum_stock_within_footprint_mm": 3.0
+      },
+      {
+        "name": "regulator",
+        "requested_bounds_mm": {
+          "xmin": -40.0,
+          "xmax": -15.0,
+          "ymin": 263.0,
+          "ymax": 336.0,
+          "zmin": 346.0,
+          "zmax": 352.0
+        },
+        "bounds_mm": {
+          "xmin": -40.0,
+          "xmax": -15.0,
+          "ymin": 263.0,
+          "ymax": 336.0,
+          "zmin": 346.0,
+          "zmax": 352.0
+        },
+        "active": true,
+        "dimensions_mm": {
+          "x": 25.0,
+          "y": 73.0,
+          "z": 6.0
+        },
+        "roof_z_mm": 352.0,
+        "ceiling_stock_mm": 3.0,
+        "minimum_stock_within_footprint_mm": 3.0
+      },
+      {
+        "name": "co2",
+        "requested_bounds_mm": {
+          "xmin": 64.0,
+          "xmax": 91.0,
+          "ymin": 310.0,
+          "ymax": 471.3,
+          "zmin": 346.0,
+          "zmax": 348.0
+        },
+        "bounds_mm": {
+          "xmin": 64.0,
+          "xmax": 91.0,
+          "ymin": 310.0,
+          "ymax": 471.3,
+          "zmin": 346.0,
+          "zmax": 348.0
+        },
+        "active": true,
+        "dimensions_mm": {
+          "x": 27.0,
+          "y": 161.3,
+          "z": 2.0
+        },
+        "roof_z_mm": 348.0,
+        "ceiling_stock_mm": 7.0,
+        "minimum_stock_within_footprint_mm": 7.0
+      }
+    ],
+    "valid": true,
+    "solid_count": 1,
+    "uncut_volume_mm3": 439825.5,
+    "volume_mm3": 396718.4999999999,
+    "removed_volume_mm3": 43107.00000000012,
+    "bounds_mm": {
+      "xmin": -107.50000010000005,
+      "xmax": 107.50000010000005,
+      "ymin": 243.99999989999995,
+      "ymax": 471.3000001000001,
+      "zmin": 345.9999998999999,
+      "zmax": 355.0000001
+    }
+  }
+}

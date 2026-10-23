@@ -1,0 +1,458 @@
+{
+  "units": "mm",
+  "scope": "Frozen CO2 hardware and interfaces for an isolated layout study",
+  "source_mesh": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+  "source_mesh_sha256": "201d9c90a008ce7902c679e1bcd78e49a4fb2447d1a1aa4c79be73b1a9151e0a",
+  "facts": "hardware/manifold-layout/enclosure-assembly.facts.json",
+  "facts_sha256": "b2cef644b0368e0a951302cd3966775b7a6ba24864fae9187f0abbbf70c3d97f",
+  "pointer": "hardware/cad-artifacts.json",
+  "pointer_sha256": "e0107347c907ef0418b2d6a2ce9353a1e3abcd5c9771e2da8f9c1246bf45edc4",
+  "mesh_matches_pointer": true,
+  "pointer_source": {
+    "commit": "2eaea329d128836d567f242e6e87a7e187a4fb53"
+  },
+  "pointer_marks_source_unproven": true,
+  "observed_git_head": "a116caaeb3dd50f61d85da957aecf97983f9594c",
+  "source_sha256": {
+    "hardware/manifold-layout/_gas_chain.py": "d650ec1d0166b1a3878153d5ad062df36c504af51d1cd7e90805f8bc8bfa9617",
+    "hardware/manifold-layout/_lines.py": "6faaf0fc271f12c5c799d0cde55b778ae8798f25f88900b2eac36b06e9b25012",
+    "hardware/manifold-layout/enclosure_assembly.py": "80b0218a6124d8ffa1837a85d807f82ff8df2629965bf3dfb9dc55a583523104",
+    "hardware/reference/wr1110-regulator/wr1110_regulator.py": "c03d2848209d140d64c25ed42785c145b3a6a9f3e9e2474358b7662e1fd31e87",
+    "hardware/reference/wr1110-regulator/README.md": "c7a0357d4ef60572bf2851aab9b56c2e19deb132408e856eb9883c73c718320c",
+    "hardware/reference/wr1110-regulator/scan-measurements.json": "fa91bcc72ef8d8d9cf438e693665e1fdc7eb0c9d8d428bd152f2704f670627a4",
+    "hardware/reference/wr1110-regulator/scan-model-check.json": "64dd0c9bac376d565e94798bfa38b7f37af71c05a29769e7f28c4134160d15df",
+    "hardware/reference/gasher-check-valve/gasher_check_valve.py": "bc6043a5736f6a5ca93b9814fdc8f844eb19e80a37e4f762ca9016f540967892",
+    "hardware/reference/gasher-check-valve/README.md": "33744e688c0d05aa2d90591a665751bb528afb8cb0a149daf861f1adca262df6",
+    "hardware/reference/jg-pp010822e/jg_pp010822e.py": "72a71557dc61a11a45e61c431f2fa15cf3605b0b55af51c695a65dd4dc616b55",
+    "hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py": "42bd798213a8b0be16b80d52a67e1bf77909f50084ba47d4611d43354c9a009c",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "ada7a2df4745a4be40123c55cc7f4b6c821b4bf08ac7608d2b736a6911bdcccf",
+    "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py": "cb052ab8ceef20c4901531f13793e13970ab625cc26fd2b7bcf80e441ba1c5b3",
+    "hardware/printed-parts/cold-core/_foam_cap.py": "0fc0317aa9a1ade53152a350169025b31bb96d269ce7e4041380c168098d168e",
+    "hardware/assembly/internal-plumbing.md": "ae7ce043b9b45d01fd92a1ecaf4edd9008b26c049b6fafbeac907d3d1445fc62",
+    "hardware/ledger/bom.md": "98f43a70c4cc8fdc8915dbaddfa0cf7fa64f88bc18786cb1b2fbbe13f08c97db"
+  },
+  "canonical_frames_to_original_world": {
+    "regulator": {
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        -3.3499999999999983,
+        396.00260000000003,
+        335.9605808375568
+      ]
+    },
+    "check": {
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        32.65,
+        343.6526,
+        335.9605808375568
+      ]
+    }
+  },
+  "authored_meshes": {
+    "wr1110": {
+      "snapshot": "geometry/wr1110.npz",
+      "sha256": "9c201ed1677eeaf7f1a424c422a5cea9f21f897823e67f6fa824f0cc9d0c9f2b",
+      "coordinate_group": "regulator",
+      "source_component_names": [
+        "wr1110"
+      ],
+      "source_world_bounds_mm": [
+        [
+          -13.06674575805664,
+          332.35260009765625,
+          325.08148193359375
+        ],
+        [
+          6.366745948791504,
+          396.0025939941406,
+          346.8396911621094
+        ]
+      ],
+      "canonical_bounds_mm": [
+        [
+          -9.716745948791502,
+          6.005859404467628e-06,
+          -10.87909890396304
+        ],
+        [
+          9.716745758056643,
+          63.64999990234378,
+          10.879110324552585
+        ]
+      ],
+      "source_analytic_bounds_mm": [
+        -13.066745885600273,
+        332.35260000000005,
+        325.0814802311806,
+        6.366745885600271,
+        396.00260000000003,
+        346.83968144393305
+      ],
+      "vertices": 2604,
+      "triangles": 2454
+    },
+    "gasher-co2": {
+      "snapshot": "geometry/gasher-co2.npz",
+      "sha256": "b6d950d39b317889b4b72cb51de5c597263a2d72c8b45f8f94aef476ead6120a",
+      "coordinate_group": "check",
+      "source_component_names": [
+        "gasher-co2"
+      ],
+      "source_world_bounds_mm": [
+        [
+          24.149999618530273,
+          323.652587890625,
+          328.25408935546875
+        ],
+        [
+          41.150001525878906,
+          363.652587890625,
+          343.66705322265625
+        ]
+      ],
+      "canonical_bounds_mm": [
+        [
+          -8.500000381469725,
+          -20.000012109375007,
+          -7.70649148208804
+        ],
+        [
+          8.500001525878908,
+          19.999987890624993,
+          7.70647238509946
+        ]
+      ],
+      "source_analytic_bounds_mm": [
+        24.149999999998265,
+        323.6526,
+        328.2105808375568,
+        41.15000000000173,
+        363.6526,
+        343.7105808375568
+      ],
+      "vertices": 298,
+      "triangles": 254
+    },
+    "co2-adapter-regulator-in": {
+      "snapshot": "authored/co2-adapter-regulator-in.npz",
+      "sha256": "094734b4fc2143b02328b480dc2b8eb4ca96257b5ce2ae82c4ae0c2b34651e2e",
+      "coordinate_group": "regulator",
+      "source_component_names": [
+        "co2-adapter-regulator-in"
+      ],
+      "source_world_bounds_mm": [
+        [
+          -10.494709968566895,
+          396.0025939941406,
+          327.7105712890625
+        ],
+        [
+          3.7947096824645996,
+          414.5025939941406,
+          344.2105712890625
+        ]
+      ],
+      "canonical_bounds_mm": [
+        [
+          -7.1447096824645975,
+          -18.499993994140596,
+          -8.25000954849429
+        ],
+        [
+          7.144709968566897,
+          6.005859404467628e-06,
+          8.24999045150571
+        ]
+      ],
+      "source_analytic_bounds_mm": [
+        -10.494709581221615,
+        396.00260000000003,
+        327.7105808375568,
+        3.7947095812216283,
+        414.50260000000003,
+        344.2105808375568
+      ],
+      "vertices": 142,
+      "triangles": 124
+    },
+    "co2-adapter-regulator-out": {
+      "snapshot": "authored/co2-adapter-regulator-out.npz",
+      "sha256": "c72be1ab2db7ccea9ef4183f2c2bfe7f0a98be1732015c402434f6ef18594caf",
+      "coordinate_group": "regulator",
+      "source_component_names": [
+        "co2-adapter-regulator-out"
+      ],
+      "source_world_bounds_mm": [
+        [
+          -10.810242652893066,
+          315.5325927734375,
+          327.7105712890625
+        ],
+        [
+          4.11024284362793,
+          341.5325927734375,
+          344.2105712890625
+        ]
+      ],
+      "canonical_bounds_mm": [
+        [
+          -7.4602428436279276,
+          54.47000722656253,
+          -8.25000954849429
+        ],
+        [
+          7.4602426528930685,
+          80.47000722656253,
+          8.24999045150571
+        ]
+      ],
+      "source_analytic_bounds_mm": [
+        -10.850000000000001,
+        315.5326,
+        327.7105808375568,
+        4.149999999999999,
+        341.5326,
+        344.2105808375568
+      ],
+      "vertices": 404,
+      "triangles": 358
+    },
+    "co2-adapter-check-in": {
+      "snapshot": "authored/co2-adapter-check-in.npz",
+      "sha256": "8dce59b01ceb711e282ac70480e7c075df305d7e9f74f5d68993845b0ef8ce74",
+      "coordinate_group": "check",
+      "source_component_names": [
+        "co2-adapter-check-in"
+      ],
+      "source_world_bounds_mm": [
+        [
+          25.505290985107422,
+          305.152587890625,
+          327.7105712890625
+        ],
+        [
+          39.794708251953125,
+          323.652587890625,
+          344.2105712890625
+        ]
+      ],
+      "canonical_bounds_mm": [
+        [
+          -7.144709014892577,
+          -38.50001210937501,
+          -8.25000954849429
+        ],
+        [
+          7.144708251953126,
+          -20.000012109375007,
+          8.24999045150571
+        ]
+      ],
+      "source_analytic_bounds_mm": [
+        25.505290418778376,
+        305.1526,
+        327.7105808375568,
+        39.79470958122162,
+        323.6526,
+        344.2105808375568
+      ],
+      "vertices": 142,
+      "triangles": 124
+    },
+    "co2-adapter-check-out": {
+      "snapshot": "authored/co2-adapter-check-out.npz",
+      "sha256": "e5dc64e13e17700ecde94bb8ef448e13f887489db474637c61e0db45a0ff9e38",
+      "coordinate_group": "check",
+      "source_component_names": [
+        "co2-adapter-check-out"
+      ],
+      "source_world_bounds_mm": [
+        [
+          25.189756393432617,
+          352.652587890625,
+          327.7105712890625
+        ],
+        [
+          40.1102409362793,
+          378.652587890625,
+          344.2105712890625
+        ]
+      ],
+      "canonical_bounds_mm": [
+        [
+          -7.460243606567381,
+          8.999987890624993,
+          -8.25000954849429
+        ],
+        [
+          7.460240936279298,
+          34.99998789062499,
+          8.24999045150571
+        ]
+      ],
+      "source_analytic_bounds_mm": [
+        25.15,
+        352.6526,
+        327.7105808375568,
+        40.15,
+        378.6526,
+        344.2105808375568
+      ],
+      "vertices": 404,
+      "triangles": 358
+    }
+  },
+  "cap_handoff": {
+    "name": "foam-assembly.co2-in",
+    "point_mm": [
+      77.50000001564078,
+      322.2999999,
+      253.4
+    ],
+    "outward_axis": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "tube_od_mm": 6.35,
+    "guide_bore_diameter_mm": 7.5,
+    "connection_kind": "Passive cap conduit for a continuous red tube",
+    "tube_insertion_mm": null,
+    "tube_terminates_here": false,
+    "route_destination_below_cap": "PI010822S on the carbonator bottom plain gas-port elbow",
+    "source": "hardware/manifold-layout/enclosure-assembly.facts.json:card_ports.foam-assembly.co2-in",
+    "cross_check": {
+      "cap_authored_xy_mm": [
+        1.5,
+        77.5
+      ],
+      "core_native_after_cap_half_turn_xy_mm": [
+        -1.5,
+        -77.5
+      ],
+      "core_native_cap_face_z_mm": 233.4,
+      "core_to_world_rotation": [
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "core_to_world_translation_mm": [
+        1.564078e-08,
+        323.7999999,
+        20.0
+      ],
+      "source_basis": "cap_conduits and spin_xy; FOAM_YAW90; existing fact-pack registration"
+    }
+  },
+  "reference_scope": {
+    "wr1110": "Two native MINI2 scans establish exterior; used as WR1105 same-series envelope. Internal flow path, vent and thread form are not resolved.",
+    "gasher-co2": "Nominal 40mm manufacturer-drawing exterior, not a scan or measured made-up assembly.",
+    "authored_adapters": "Nominal purchased gray-acetal JG PI010822S/PI450822S. Existing source reuses water-fitting dimensions; active model uses the retained manufacturer sheets instead."
+  },
+  "orientation": {
+    "native_flow_axis": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "required_flow_order": [
+      "inlet bulkhead",
+      "WR1105 secondary regulator",
+      "GASHER check",
+      "carbonator bottom gas port"
+    ],
+    "body_flow_direction": "Female inlet to male outlet for both metal bodies",
+    "gravity_orientation_requirement_found": false,
+    "claim_scope": "No mandatory gravity orientation found in the retained geometry/evidence sources; not an independent manufacturer operating qualification."
+  },
+  "known_adapter_discrepancies": {
+    "PI010822S": {
+      "authored_collet_plus_hex_reach_mm": 18.5,
+      "authored_hex_corner_diameter_mm": 16.5,
+      "drawing_mouth_to_thread_shoulder_mm": 13.7,
+      "drawing_thread_projection_mm": 14.3,
+      "drawing_across_flats_mm": 17.5,
+      "drawing_max_body_diameter_mm": 19.1
+    },
+    "PI450822S": {
+      "authored_overall_mm": 26.0,
+      "authored_hex_corner_diameter_mm": 16.5,
+      "drawing_overall_mm": 32.0,
+      "drawing_across_flats_mm": 17.5,
+      "drawing_max_body_diameter_mm": 19.1
+    }
+  },
+  "primary_sources": [
+    {
+      "title": "John Guest PI010822S dimension sheet, PM/PI011S01/23",
+      "url": "https://www.webstaurantstore.com/documents/specsheets/jg_drinks_grey_acetal_straight_adaptor_nptf_thread_data_sheet.pdf",
+      "local": "sources/jg-pi010822s-datasheet.pdf",
+      "dimension_page": 2,
+      "interpretation": "Exact PI010822S row: B15.7 insertion, C13.7, D14.3, E4.4 bore, F17.5AF, G19.1max. B and C referenced to released collet.",
+      "sha256": "be3c35908df63af29c5fc9938a7a9b1920ed9d630427749942ea4ca08bae8f2a"
+    },
+    {
+      "title": "John Guest PI450822S dimension sheet (supplier-hosted manufacturer drawing)",
+      "url": "https://assets.freshwatersystems.com/image/upload/s--4bPImpOZ--/gvawd5hhd3qlszcljx2f.pdf",
+      "local": "sources/jg-pi450822s-datasheet.pdf",
+      "dimension_page": 2,
+      "interpretation": "Exact PI450822S NPTF row: B32.0 overall, C15.7 insertion, D14.8 threaded-end section, E15.0body, F17.5AF, G5.3bore, H19.1max. Page2 generic heading says BSP despite row and page1 being NPTF; dimensions recorded against exact SKU.",
+      "sha256": "e893a94855ec2fc72d1b011ff3870f02fc5444008c2b1e1829015e1c8ae46ffd"
+    },
+    {
+      "title": "John Guest gray acetal male connector product page",
+      "url": "https://www.johnguest.com/ca/en/od-tube-fittings/acetal-gray/threaded-connectors/male-connector-nptf-thread",
+      "supports": "PI010822S product identity, gray-acetal/nitrile construction and CO2 beverage gas service"
+    },
+    {
+      "title": "John Guest gray acetal female connector product page",
+      "url": "https://www.johnguest.com/us/en/od-tube-fittings/acetal-gray/threaded-connectors/female-connector-nptf-thread",
+      "supports": "PI450822S product identity, gray-acetal/nitrile construction and CO2 beverage gas service"
+    }
+  ]
+}

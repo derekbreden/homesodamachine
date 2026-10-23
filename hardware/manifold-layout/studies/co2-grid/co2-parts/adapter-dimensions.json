@@ -1,0 +1,138 @@
+{
+  "units": "mm",
+  "meshes": {
+    "fitting-pi010822s": {
+      "file": "geometry/fitting-pi010822s.npz",
+      "sha256": "34a1fa3c37190b506e8c114e34d0538cd435441a5e45acebda4784a910ca00c7",
+      "bounds_mm": [
+        [
+          -9.54341983795166,
+          0.0,
+          -8.75
+        ],
+        [
+          9.54341983795166,
+          28.0,
+          8.75
+        ]
+      ],
+      "vertices": 2148,
+      "triangles": 2112
+    },
+    "fitting-pi450822s": {
+      "file": "geometry/fitting-pi450822s.npz",
+      "sha256": "7a69af12266e33415a8262085bcd1173be6d408deeafb337dc497e18c90c7555",
+      "bounds_mm": [
+        [
+          -9.54341983795166,
+          0.0,
+          -8.75
+        ],
+        [
+          9.54341983795166,
+          32.0,
+          8.75
+        ]
+      ],
+      "vertices": 1810,
+      "triangles": 1776
+    },
+    "co2-adapter-regulator-in": {
+      "file": "geometry/co2-adapter-regulator-in.npz",
+      "sha256": "2e01f98035ce7c83627b0392e589733d84a33e434ab44b7917be26eefe814fce",
+      "bounds_mm": [
+        [
+          -9.54341983795166,
+          -13.699999809265137,
+          -8.75
+        ],
+        [
+          9.54341983795166,
+          0.0,
+          8.75
+        ]
+      ],
+      "vertices": 1640,
+      "triangles": 1608
+    },
+    "co2-adapter-check-in": {
+      "file": "geometry/co2-adapter-check-in.npz",
+      "sha256": "b0699c0ee060f4391dc56ed2e52a2b195821ff4a138397d1214ce44fe7f4a404",
+      "bounds_mm": [
+        [
+          -9.54341983795166,
+          -33.70000076293945,
+          -8.75
+        ],
+        [
+          9.54341983795166,
+          -20.0,
+          8.75
+        ]
+      ],
+      "vertices": 1640,
+      "triangles": 1608
+    },
+    "co2-adapter-regulator-out": {
+      "file": "geometry/co2-adapter-regulator-out.npz",
+      "sha256": "f3d2b87831b20bd5e81958dacf61fc482f95cba397cdbd4104bfc59682ed6768",
+      "bounds_mm": [
+        [
+          -9.54341983795166,
+          54.470001220703125,
+          -8.75
+        ],
+        [
+          9.54341983795166,
+          86.47000122070312,
+          8.75
+        ]
+      ],
+      "vertices": 1810,
+      "triangles": 1776
+    },
+    "co2-adapter-check-out": {
+      "file": "geometry/co2-adapter-check-out.npz",
+      "sha256": "1c804147540d5e04e6f599cd1c19f0c2c6f20f09bd8f771c7748244bd95bff98",
+      "bounds_mm": [
+        [
+          -9.54341983795166,
+          9.0,
+          -8.75
+        ],
+        [
+          9.54341983795166,
+          41.0,
+          8.75
+        ]
+      ],
+      "vertices": 1810,
+      "triangles": 1776
+    }
+  },
+  "publication_supported": {
+    "male": {
+      "mouth_to_thread_shoulder_mm": 13.7,
+      "thread_projection_mm": 14.3,
+      "max_diameter_mm": 19.1,
+      "across_flats_mm": 17.5,
+      "bore_mm": 4.4
+    },
+    "female": {
+      "overall_mm": 32.0,
+      "thread_section_mm": 14.8,
+      "body_diameter_mm": 15.0,
+      "max_diameter_mm": 19.1,
+      "across_flats_mm": 17.5,
+      "bore_mm": 5.3
+    },
+    "tube_insertion_released_collet_mm": 15.7
+  },
+  "estimates": [
+    "Undimensioned collet, hex and body transition lengths are envelope estimates.",
+    "Simple cylindrical NPT envelopes and socket cavities do not reproduce the thread form or sealing mechanism.",
+    "Selected male inlet engagement is the full14.3mm published thread projection, placing its shoulder at the metal female face. Actual NPT make-up can stand the shoulder further out.",
+    "Selected female outlet engagements retain source11mm on Gasher and scanned-stub-bounded9.18mm on regulator. Actual engagement is not measured.",
+    "Both fitting mouth datums and15.7mm tube insertion use the sheet's released-collet position; resting collet travel is not established for these exact parts."
+  ]
+}
