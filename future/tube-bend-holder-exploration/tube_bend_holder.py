@@ -45,6 +45,9 @@ ORGANIZER_BORE = 6.65
 CHANNEL_D = 6.8
 MOUTH = 0.5                         # the 45-degree lead-in at each end
 WALLS = (2.0, 3.0, 4.0)
+# Straight legs on both sides of the turn, on the 2 mm wall that holds the bend.
+LEG_WALL = 2.0
+LEGS = (1.0, 2.0, 3.0)
 PETGF_DENSITY = 1.43                # g/cm3, Polymaker Fiberon PET-GF15 data sheet
 
 R_C = CHANNEL_D / 2.0
@@ -93,20 +96,30 @@ def _mouth(wall):
                              ruled=True)
 
 
-def holder(wall):
+def holder(wall, leg=0.0):
+    """The holder, with a straight `leg` running on from both ends of the turn."""
     zc = section(wall)["channel_centre_z_mm"]
     axis = ((0.0, 0.0, 0.0), (0.0, 1.0, 0.0))     # XZ workplane: local y is world +Z
     body = _d_face(wall).revolve(TURN, *axis)
     channel = _teardrop(cq.Workplane("XZ"), BEND_R, zc, R_C).revolve(TURN, *axis)
-    start = _mouth(wall)
     # The holder is symmetric about the plane halfway round the turn.
     half = math.radians(TURN / 2.0)
-    end = start.mirror(cq.Vector(math.sin(half), -math.cos(half), 0.0), cq.Vector(0, 0, 0))
+    plane, origin = cq.Vector(math.sin(half), -math.cos(half), 0.0), cq.Vector(0, 0, 0)
+    start = _mouth(wall)
+    if leg > 0.0:
+        # The XZ workplane's normal is -Y: each leg runs on out of the 0-degree end, and its
+        # mirror out of the 90-degree end. The lead-in moves to the leg's end.
+        body_leg = _d_face(wall).extrude(leg)
+        channel_leg = _teardrop(cq.Workplane("XZ"), BEND_R, zc, R_C).extrude(leg)
+        body = body.union(body_leg).union(body_leg.mirror(plane, origin))
+        channel = channel.union(channel_leg).union(channel_leg.mirror(plane, origin))
+        start = start.translate(cq.Vector(0.0, -leg, 0.0))
+    end = start.mirror(plane, origin)
     return body.cut(channel).cut(cq.Workplane().add(start)).cut(cq.Workplane().add(end)).clean()
 
 
-def name(wall):
-    return f"holder-w{wall:g}"
+def name(wall, leg=0.0):
+    return f"holder-w{wall:g}" + (f"-leg{leg:g}" if leg else "")
 
 
 def document(volumes):
@@ -121,25 +134,29 @@ def document(volumes):
         figures |= {f"WIDTH_{tag}": f"{s['width_mm']:.1f} mm",
                     f"HEIGHT_{tag}": f"{s['height_mm']:.1f} mm",
                     f"BASE_{tag}": f"R{s['base_inner_r_mm']:.1f}–R{s['base_outer_r_mm']:.1f}",
-                    f"MASS_{tag}": f"{volumes[wall] / 1000.0 * PETGF_DENSITY:.1f} g"}
+                    f"MASS_{tag}": f"{volumes[wall, 0.0] / 1000.0 * PETGF_DENSITY:.1f} g"}
+    for leg in LEGS:
+        tag = f"LEG{leg:g}"
+        side = section(LEG_WALL)["base_outer_r_mm"] + leg
+        figures |= {f"SQUARE_{tag}": f"{side:.1f} mm",
+                    f"MASS_{tag}": f"{volumes[LEG_WALL, leg] / 1000.0 * PETGF_DENSITY:.1f} g"}
     substitute_md(HERE / "README.md", variables=figures)
     substitute_py_comments(Path(__file__), variables=figures)
 
 
 def main():
     volumes = {}
-    for wall in WALLS:
-        part = holder(wall)
+    for wall, leg in [(w, 0.0) for w in WALLS] + [(LEG_WALL, leg) for leg in LEGS]:
+        part = holder(wall, leg)
         solid = part.val()
-        assert solid.isValid(), name(wall)
-        volumes[wall] = solid.Volume()
-        export_step(part, str(HERE / f"{name(wall)}.step"))
-        cq.exporters.export(part, str(HERE / f"{name(wall)}.stl"),
+        assert solid.isValid(), name(wall, leg)
+        volumes[wall, leg] = solid.Volume()
+        export_step(part, str(HERE / f"{name(wall, leg)}.step"))
+        cq.exporters.export(part, str(HERE / f"{name(wall, leg)}.stl"),
                             tolerance=0.01, angularTolerance=0.1)
         s = section(wall)
-        print(f"{name(wall)}: {s['width_mm']:.1f} wide x {s['height_mm']:.2f} tall, "
-              f"base R{s['base_inner_r_mm']:.1f}-R{s['base_outer_r_mm']:.1f}, "
-              f"{volumes[wall] / 1000.0:.2f} cm3")
+        print(f"{name(wall, leg)}: {s['width_mm']:.1f} wide x {s['height_mm']:.2f} tall, "
+              f"legs {leg:g} mm, {volumes[wall, leg] / 1000.0:.2f} cm3")
     document(volumes)
 
 

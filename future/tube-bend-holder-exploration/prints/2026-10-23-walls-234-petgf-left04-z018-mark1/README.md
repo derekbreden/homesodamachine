@@ -8,6 +8,12 @@ print error ([launch receipt](launch.json)). The native estimate is **22 min 15 
 Facing the printer, left to right: the [2, 3 and 4 mm holders](../../README.md), each on its
 flat back, identified by size.
 
+Mark1 reported FINISH at 68 of 68 layers with no error. Derek reports **“2 mm works.”**
+([physical result and photos](physical-result.json)). The 3 and 4 mm holders' results are
+unreported.
+
+![The 2 mm holder on the tube](photos/03-holder-close.jpg)
+
 ## Process
 
 - Polymaker Fiberon PET-GF15, black, on Mark1's fixed left hardened 0.4 mm nozzle from
