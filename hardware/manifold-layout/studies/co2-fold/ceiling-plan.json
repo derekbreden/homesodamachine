@@ -1,0 +1,56 @@
+{
+  "slab": {
+    "xmin": -107.5,
+    "xmax": 107.5,
+    "ymin": 244.0,
+    "ymax": 471.3,
+    "zmin": 346.0,
+    "zmax": 355.0
+  },
+  "pockets": [
+    {
+      "name": "asse",
+      "xmin": 24.0,
+      "xmax": 50.0,
+      "ymin": 321.0,
+      "ymax": 471.3,
+      "zmax": 352.0,
+      "bodies": [
+        "asse",
+        "asse-inlet-tpu",
+        "asse-outlet-tpu",
+        "bulkhead-water"
+      ],
+      "highest_body_z_mm": 350.87604757536053,
+      "minimum_roof_gap_mm": 1.1239524246394694
+    },
+    {
+      "name": "regulator",
+      "xmin": -40.0,
+      "xmax": -15.0,
+      "ymin": 263.0,
+      "ymax": 336.0,
+      "zmax": 352.0,
+      "bodies": [
+        "reg"
+      ],
+      "highest_body_z_mm": 349.8760478805363,
+      "minimum_roof_gap_mm": 1.3958988712315943,
+      "crown_to_pocket_roof_gap_mm": 2.123952119463695
+    },
+    {
+      "name": "co2",
+      "xmin": 64.0,
+      "xmax": 91.0,
+      "ymin": 310.0,
+      "ymax": 471.3,
+      "zmax": 352.0,
+      "bodies": [
+        "co2-inlet",
+        "co2-inlet-nut"
+      ],
+      "retained_roof_stock_mm": 3.0
+    }
+  ],
+  "minimum_stock_mm": 3.0
+}
