@@ -1,0 +1,19 @@
+{
+  "source": "../../../../reference/neofit-stem-elbow/neofit_stem_elbow.py",
+  "units": "mm",
+  "receiving_host": "NeoFit stem elbow female socket",
+  "remaining_stem_mm": 16.891,
+  "removed_mm": 4.114799999999999,
+  "native_tip_mm": [
+    -22.936200000000003,
+    0.0,
+    0.0
+  ],
+  "native_shoulder_mm": [
+    -6.045200000000005,
+    0.0,
+    0.0
+  ],
+  "assumption": "Square-cut stem, shoulder flush at receiving mouth",
+  "valid": true
+}
