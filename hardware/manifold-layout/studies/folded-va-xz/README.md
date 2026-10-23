@@ -1,48 +1,56 @@
 # Folded V-A within ideal X/Z bounds
 
-V-A has vertical ports, inlet above outlet and head toward −Y, matching V-K.
-One flush stem elbow connects the regulator outlet to V-A. The connected group
-retains the lowered ASSE orientation, downward regulator head, 15 mm exposed
+V-A has vertical ports, inlet above outlet and head in the same direction as V-K.
+The regulator connects to the female socket of one stem elbow; that elbow's
+trimmed male stem inserts into V-A's upper port. V-A's lower port is **16.9 mm
+above the cold-core cap**. A second stem elbow turns that outlet forward toward
+the flavor manifold; its exterior clears the cap by **3.11 mm**. The connected
+group retains the lowered ASSE orientation, downward regulator head, 15 mm exposed
 tee–regulator tube and existing pump adapters.
 
-| Elbow arrangement | Group X | Group Z | Centered side gap | V-A outlet above core |
-|---|---:|---:|---:|---:|
-| Male stem into regulator: tighter fold | 173.3 mm | 98.9 mm | 11.8 mm each | 3.9 mm |
-| Male stem into V-A: raised outlet | 186.3 mm | 98.9 mm | 5.3 mm each | 16.9 mm |
+The discharge-side rear rubber slider occupies its reference position on the
+pump's rail. Its translation from the captured study benchmark is 30 mm toward
+the motor rear. It has **9.69 mm nearest clearance to the carbonator outlet
+elbow** and **13.36 mm to a full 24 mm downward outlet-tube continuation**. The
+view's carbonator direction stub ends at the cap face. These are explicit path
+clearances; the general unrelated-body check excludes tubes and clamps.
 
-The raised-outlet arrangement places V-A 13.0 mm higher and 13.0 mm farther along
-the regulator's outlet axis. Both arrangements use one identical elbow with a
-trimmed 12.7 mm male stem; the other connection is a concealed 29.591 mm tube
-between female mouths. Stem shoulders are flush under the accepted trimming
-assumption. The modeled fitting profiles and unmeasured socket depths retain the
-[reference models' estimated scope](../stem-fittings/README.md).
+The entire connected group is registered to the enclosure with a proper 180° Z
+rotation of the free-space study frame. The ASSE inlet points toward the actual
+**+Y back wall**, pump discharge points −X, and both valve heads point aft (+Y).
+This changes no internal component orientations. The back-wall reference is a
+plain 9 mm slab at Y462.3–471.3, with an illustrative 10 mm gap to the rearmost
+hardware. Its purpose is orientation; full Y packing remains outside this study.
+The cap block is cropped in Y for display. Water-in and flavor handoff stubs
+show connection directions without claiming completed installation routes.
 
-The current nominal enclosure is 215 mm wide with its exterior roof at Z355.
+The hardware group, including the V-A outlet elbow, occupies **186.3 mm across X**
+and **98.9 mm across Z**. The current nominal enclosure is 215 mm wide with its
+exterior roof at Z355.
 Plain 9 mm sidewalls leave **197 mm across X**; a 9 mm ceiling has its underside
 at Z346. The current plain cold-core cap is at Z253.4, leaving **92.6 mm above
-the core**. Both arrangements fit the width and exceed that height by **6.35 mm**.
+the core**. Centering the group gives **5.35 mm per side**; it exceeds the available
+height by **6.35 mm**.
 ASSE defines the top of the group. The regulator also reaches 5.35 mm into the
 ideal ceiling; the ASSE inlet and outlet TPU adapters reach 1.22 and 0.59 mm into
 it. This comparison seats the scanned pump foot plane on the plain cap and
 includes no mounting allowance.
 
-The tighter fold places V-A's downward outlet 3.9 mm above the plain cap. The
-raised outlet leaves 16.9 mm there. The study stops at that external connection
-port: neither includes an outlet turn or claims a completed route to the flavor
-manifold. Arbitrary water-in, vent, flavor and carbonator handoff stubs are omitted
-from both the envelope and the view. Real local joints and adapters remain.
+External handoff stubs are excluded from the hardware envelope. Existing mounts,
+cuts, ceiling reliefs and all other equipment above the core are outside the
+study. Production geometry is untouched.
 
-Only X/Z are assessed. Each group is centered independently across X. The view
-uses plain sidewalls and ceiling, plus a cropped plain cold-core block. Its Y
-extent is illustrative. Existing mounts, cuts, ceiling reliefs and all other
-equipment above the core are outside the study. Production geometry is untouched.
+Stem shoulders sit flush under the accepted trimming assumption. Valve/regulator
+insertion is estimated at 12.7 mm; the concealed tube joining the regulator and
+elbow is 29.591 mm. The fitting profiles and unmeasured socket depths retain the
+[reference models' estimated scope](../stem-fittings/README.md).
 
 [`ideal-space.json`](ideal-space.json) records the dimensions, derivation and
-source datums. [`study.json`](study.json) records body poses, local and placed
-connection datums, interface assumptions and measured envelopes. The manual mesh
-check finds no unrelated-body intersections in either fold; intended mating
-overlaps are excluded. This establishes geometry at the reference-model fidelity,
-not a qualified installation.
+source datums. [`study.json`](study.json) records body poses, frame registration,
+connections, envelopes and manual body/path clearances. The manual mesh check
+finds no unrelated-body intersections; intended mating overlaps are excluded.
+The checks establish geometry at the reference models' fidelity, not a qualified
+installation.
 
 From the repository root:
 

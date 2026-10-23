@@ -10,12 +10,16 @@
   "world_core_plain_top_z_mm": 253.4,
   "world_core_plain_x_mm": [-90.5, 90.5],
   "headroom_mm": 92.6,
+  "back_wall_reference_outer_y_mm": 471.3,
+  "back_wall_reference_inner_y_mm": 462.3,
+  "back_wall_scope": "Plain 9 mm rear wall provides +Y orientation; Y packing is not finalized",
   "derivation": {
     "outer_roof_z": "361 mm appliance height - 6 mm floor slab = 355 mm",
     "internal_width": "215 mm nominal exterior - 2 * 9 mm = 197 mm",
     "ceiling_underside": "355 - 9 = 346 mm",
     "core_top": "Native plain cap face 233.4 mm - native floor (-20 mm) = world Z253.4 mm",
-    "headroom": "346 - 253.4 = 92.6 mm"
+    "headroom": "346 - 253.4 = 92.6 mm",
+    "back_wall_reference": "Current nominal exterior Y = 468.3 + 3 = 471.3 mm; plain 9 mm reference interior = 462.3 mm"
   },
   "sources": {
     "hardware/printed-parts/enclosure/enclosure/enclosure.py": ["floor_t = 6.0", "appliance_height = 361.0", "appliance_width = 215.0"],
