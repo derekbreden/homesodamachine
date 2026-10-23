@@ -1,0 +1,279 @@
+{
+  "scope": "One-time local installed TPU/band/metal occupancy query; no enclosure or gas-performance claim",
+  "parts": [
+    "regulator-inlet-tpu",
+    "regulator-inlet-band-cuff",
+    "regulator-inlet-band-tube",
+    "check-outlet-tpu",
+    "check-outlet-band-cuff",
+    "check-outlet-band-tube",
+    "wr1110",
+    "gasher-co2"
+  ],
+  "bounds_mm": [
+    [
+      -13.671725273132324,
+      -18.5,
+      -18.5
+    ],
+    [
+      13.671725273132324,
+      108.72780487060547,
+      13.67325496673584
+    ]
+  ],
+  "size_xyz_mm": [
+    27.34345054626465,
+    127.22780487060547,
+    32.17325496673584
+  ],
+  "tube_ports_in_direct_assembly": {
+    "inlet": {
+      "point_mm": [
+        0.0,
+        -18.5,
+        0.0
+      ],
+      "outward_axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "tube_od_mm": 6.35,
+      "tube_insertion_mm": 15.0,
+      "tube_end_at_stop_mm": [
+        0.0,
+        -3.5,
+        0.0
+      ],
+      "owner": "regulator-inlet-tpu"
+    },
+    "outlet": {
+      "point_mm": [
+        0.0,
+        99.38613260500472,
+        -18.5
+      ],
+      "outward_axis": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "tube_od_mm": 6.35,
+      "tube_insertion_mm": 15.0,
+      "tube_end_at_stop_mm": [
+        0.0,
+        99.38613260500472,
+        -3.5
+      ],
+      "owner": "check-outlet-tpu"
+    }
+  },
+  "all_native_models_valid": true,
+  "all_native_models_single_solid": true,
+  "unintended_pair_intersections": [],
+  "minimum_cuff_to_tube_band_distance_mm": 0.4007282257080078,
+  "pairs": [
+    {
+      "a": "regulator-inlet-tpu",
+      "b": "regulator-inlet-band-cuff",
+      "intended_contact": true,
+      "surface_intersection": true,
+      "distance_mm": 0.0
+    },
+    {
+      "a": "regulator-inlet-tpu",
+      "b": "regulator-inlet-band-tube",
+      "intended_contact": true,
+      "surface_intersection": true,
+      "distance_mm": 0.0
+    },
+    {
+      "a": "regulator-inlet-tpu",
+      "b": "check-outlet-tpu",
+      "intended_contact": false,
+      "surface_intersection": false,
+      "distance_mm": 74.47786902379347
+    },
+    {
+      "a": "regulator-inlet-tpu",
+      "b": "check-outlet-band-cuff",
+      "intended_contact": false,
+      "surface_intersection": false,
+      "distance_mm": 74.47156430896112
+    },
+    {
+      "a": "regulator-inlet-tpu",
+      "b": "check-outlet-band-tube",
+      "intended_contact": false,
+      "surface_intersection": false,
+      "distance_mm": 83.870728225708
+    },
+    {
+      "a": "regulator-inlet-tpu",
+      "b": "wr1110",
+      "intended_contact": true,
+      "surface_intersection": true,
+      "distance_mm": 0.0
+    },
+    {
+      "a": "regulator-inlet-tpu",
+      "b": "gasher-co2",
+      "intended_contact": false,
+      "surface_intersection": false,
+      "distance_mm": 45.56527304849507
+    },
+    {
+      "a": "regulator-inlet-band-cuff",
+      "b": "regulator-inlet-band-tube",
+      "intended_contact": false,
+      "surface_intersection": false,
+      "distance_mm": 11.541549733638394
+    },
+    {
+      "a": "regulator-inlet-band-cuff",
+      "b": "check-outlet-tpu",
+      "intended_contact": false,
+      "surface_intersection": false,
+      "distance_mm": 74.55009496569119
+    },
+    {
+      "a": "regulator-inlet-band-cuff",
+      "b": "check-outlet-band-cuff",
+      "intended_contact": false,
+      "surface_intersection": false,
+      "distance_mm": 74.5247023631259
+    },
+    {
+      "a": "regulator-inlet-band-cuff",
+      "b": "check-outlet-band-tube",
+      "intended_contact": false,
+      "surface_intersection": false,
+      "distance_mm": 83.870728225708
+    },
+    {
+      "a": "regulator-inlet-band-cuff",
+      "b": "wr1110",
+      "intended_contact": false,
+      "surface_intersection": false,
+      "distance_mm": 2.7676716825396928
+    },
+    {
+      "a": "regulator-inlet-band-cuff",
+      "b": "gasher-co2",
+      "intended_contact": false,
+      "surface_intersection": false,
+      "distance_mm": 45.779850662686826
+    },
+    {
+      "a": "regulator-inlet-band-tube",
+      "b": "check-outlet-tpu",
+      "intended_contact": false,
+      "surface_intersection": false,
+      "distance_mm": 92.97287655333062
+    },
+    {
+      "a": "regulator-inlet-band-tube",
+      "b": "check-outlet-band-cuff",
+      "intended_contact": false,
+      "surface_intersection": false,
+      "distance_mm": 93.0214677383854
+    },
+    {
+      "a": "regulator-inlet-band-tube",
+      "b": "check-outlet-band-tube",
+      "intended_contact": false,
+      "surface_intersection": false,
+      "distance_mm": 102.41429038963683
+    },
+    {
+      "a": "regulator-inlet-band-tube",
+      "b": "wr1110",
+      "intended_contact": false,
+      "surface_intersection": false,
+      "distance_mm": 9.514896259252213
+    },
+    {
+      "a": "regulator-inlet-band-tube",
+      "b": "gasher-co2",
+      "intended_contact": false,
+      "surface_intersection": false,
+      "distance_mm": 63.969988555908195
+    },
+    {
+      "a": "check-outlet-tpu",
+      "b": "check-outlet-band-cuff",
+      "intended_contact": true,
+      "surface_intersection": true,
+      "distance_mm": 0.0
+    },
+    {
+      "a": "check-outlet-tpu",
+      "b": "check-outlet-band-tube",
+      "intended_contact": true,
+      "surface_intersection": true,
+      "distance_mm": 0.0
+    },
+    {
+      "a": "check-outlet-tpu",
+      "b": "wr1110",
+      "intended_contact": false,
+      "surface_intersection": false,
+      "distance_mm": 20.068243767688198
+    },
+    {
+      "a": "check-outlet-tpu",
+      "b": "gasher-co2",
+      "intended_contact": true,
+      "surface_intersection": true,
+      "distance_mm": 0.0
+    },
+    {
+      "a": "check-outlet-band-cuff",
+      "b": "check-outlet-band-tube",
+      "intended_contact": false,
+      "surface_intersection": false,
+      "distance_mm": 0.4007282257080078
+    },
+    {
+      "a": "check-outlet-band-cuff",
+      "b": "wr1110",
+      "intended_contact": false,
+      "surface_intersection": false,
+      "distance_mm": 20.571470178941155
+    },
+    {
+      "a": "check-outlet-band-cuff",
+      "b": "gasher-co2",
+      "intended_contact": false,
+      "surface_intersection": false,
+      "distance_mm": 1.10934962234334
+    },
+    {
+      "a": "check-outlet-band-tube",
+      "b": "wr1110",
+      "intended_contact": false,
+      "surface_intersection": false,
+      "distance_mm": 29.720945333301852
+    },
+    {
+      "a": "check-outlet-band-tube",
+      "b": "gasher-co2",
+      "intended_contact": false,
+      "surface_intersection": false,
+      "distance_mm": 2.699941635131836
+    },
+    {
+      "a": "wr1110",
+      "b": "gasher-co2",
+      "intended_contact": true,
+      "surface_intersection": true,
+      "distance_mm": 0.0
+    }
+  ],
+  "limits": [
+    "Threaded metal pair, matched installed cuffs and bands are intended contacts. Their coincident or display surfaces do not establish a mechanical or sealing result.",
+    "The closed rings omit clamp housing/screw/key occupancy. Metal-cuff bands need larger ranges than the owned10\u201316mm tube clamps.",
+    "Installed diameters use the pump model's annular-area approximation. New metal cuff interference and contact length remain estimates."
+  ]
+}
