@@ -1,0 +1,74 @@
+{
+  "assumption": "Stems may be square-cut so their shoulders meet the receiving socket mouths",
+  "units": "mm",
+  "models": {
+    "stem-elbow": {
+      "host": "V-K or check socket",
+      "remaining_stem_mm": 12.7,
+      "removed_mm": 8.305799999999998,
+      "native_tip_mm": [
+        -18.745200000000004,
+        0.0,
+        0.0
+      ],
+      "native_shoulder_mm": [
+        -6.045200000000005,
+        0.0,
+        0.0
+      ],
+      "valid": true,
+      "solid_count": 2
+    },
+    "run-stem": {
+      "host": "NeoFit elbow socket",
+      "remaining_stem_mm": 16.891,
+      "removed_mm": 4.114799999999999,
+      "native_tip_mm": [
+        -22.885399999999997,
+        0.0,
+        0.0
+      ],
+      "native_shoulder_mm": [
+        -5.994399999999999,
+        0.0,
+        0.0
+      ],
+      "valid": true,
+      "solid_count": 1
+    },
+    "neofit-branch": {
+      "host": "ASSE TPU outlet socket",
+      "remaining_stem_mm": 15.0,
+      "removed_mm": 6.005799999999997,
+      "native_tip_mm": [
+        0.0,
+        21.0452,
+        0.0
+      ],
+      "native_shoulder_mm": [
+        0,
+        6.0452,
+        0
+      ],
+      "valid": true,
+      "solid_count": 1
+    },
+    "jg-branch": {
+      "host": "ASSE TPU outlet socket",
+      "remaining_stem_mm": 15.0,
+      "removed_mm": 5.0,
+      "native_tip_mm": [
+        0.0,
+        21.0,
+        0.0
+      ],
+      "native_shoulder_mm": [
+        0,
+        6.0,
+        0
+      ],
+      "valid": true,
+      "solid_count": 1
+    }
+  }
+}
