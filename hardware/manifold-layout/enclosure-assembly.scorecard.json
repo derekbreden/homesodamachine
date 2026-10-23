@@ -1,5 +1,5 @@
 {
- "gatesPass": false,
+ "gatesPass": true,
  "size": [
   {
    "id": "enclosure",
@@ -73,17 +73,12 @@
    "id": "pack-closes",
    "label": "No two solids overlap (pack closes)",
    "kind": "gate",
-   "status": "fail",
-   "value": "5 clash, 1 unanswered",
+   "status": "pass",
+   "value": "0 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
    "detail": [
-    "valve-v-c \u2229 stem-elbow-v-c   77.1 mm\u00b3, x[   19.17,   25.52] y[  163.07,  169.41] z[  176.18,  180.68]",
-    "valve-v-g \u2229 stem-elbow-v-g   77.1 mm\u00b3, x[   70.65,   76.99] y[  163.07,  169.41] z[  176.18,  180.68]",
-    "valve-v-d \u2229 stem-elbow-v-d   77.1 mm\u00b3, x[  -25.52,  -19.17] y[  163.07,  169.41] z[  176.18,  180.68]",
-    "valve-v-j \u2229 stem-elbow-v-j   77.1 mm\u00b3, x[  -76.99,  -70.65] y[  163.07,  169.41] z[  176.18,  180.68]",
-    "anchor-cap-fluid-18 \u2229 tube-fluid-28   64.1 mm\u00b3, x[  -80.07,  -76.22] y[  258.00,  268.00] z[  272.87,  275.36]",
-    "stem-elbow ? its collet   elbow stems in their collets: 'OCP.OCP.Geom.Geom_RectangularTrimmedSurface' object has no attribute 'Cylinder'",
     "Flavor reducer stems in their valve outlets: v-g 258.0 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; v-j 258.0 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it",
+    "Stem elbows in their collets: v-c 77.2 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; v-d 77.2 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; v-g 77.2 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; v-j 77.2 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; y-c 0.2 mm\u00b3 in the stem, 0.224926 mm\u00b3 outside it; y-d 0.2 mm\u00b3 in the stem, 0.224926 mm\u00b3 outside it; y-f 0.2 mm\u00b3 in the stem, 0.224926 mm\u00b3 outside it; y-g 0.2 mm\u00b3 in the stem, 0.224926 mm\u00b3 outside it",
     "Drain stub in the plug's land: 17.02 mm\u00b3 in the push-on seal's ring, 0.000000 mm\u00b3 outside it"
    ],
    "active": true
@@ -92,13 +87,11 @@
    "id": "clearance-floor",
    "label": "Pairs outside named pack-floor exclusions stand a millimetre apart",
    "kind": "gate",
-   "status": "fail",
-   "value": "2 under, tightest 0.000 mm",
+   "status": "pass",
+   "value": "0 under, tightest 1.037 mm",
    "target": "\u2265 1 mm",
    "detail": [
     "every body pair, and every drawn run against what its own line does not join it to \u2014 the exact solid distance, with boxes only as a prefilter",
-    "fluid-28 \u2014 anchor-cap-fluid-18: 0.000 mm \u2014 \u2717 under the global pack floor",
-    "fluid-18 \u2014 enclosure-back-top: 0.073 mm \u2014 \u2717 under the global pack floor",
     "compressor \u2014 thermal-fuse: 0.000 mm \u2014 excluded from the global pack floor",
     "compressor \u2014 fuse-clamp: 0.000 mm \u2014 excluded from the global pack floor",
     "thermal-fuse \u2014 fuse-clamp: 0.000 mm \u2014 excluded from the global pack floor",
@@ -190,7 +183,6 @@
     "water-3 \u2014 enclosure-back-top: 1.325 mm",
     "bulkhead-carb \u2014 bulkhead-ring-carb-word: 1.342 mm",
     "bulkhead-water \u2014 bulkhead-ring-water-word: 1.387 mm",
-    "fluid-28 \u2014 fluid-18: 1.428 mm",
     "g-ganen-pump \u2014 pump-elbow-discharge-clamp-barb: 1.431 mm",
     "carb-1 \u2014 pcba: 1.453 mm",
     "vk-solenoid \u2014 funnel-frame: 1.456 mm",
@@ -199,14 +191,14 @@
     "fluid-16 \u2014 coil-v-a: 1.583 mm",
     "bulkhead-flavor-a \u2014 bulkhead-ring-flavor-a-word: 1.584 mm",
     "bulkhead-flavor-b \u2014 bulkhead-ring-flavor-b-word: 1.584 mm",
+    "fluid-28 \u2014 water-split: 1.636 mm",
     "elbow-cradle \u2014 funnel-drain-stub: 1.641 mm",
     "flow-regulator \u2014 asse-drain-adapter: 1.641 mm",
     "fluid-18 \u2014 coil-v-i: 1.678 mm",
     "g-ganen-pump \u2014 pump-elbow-suction-clamp-barb: 1.718 mm",
     "fluid-16 \u2014 vk-solenoid: 1.735 mm",
     "co2-2 \u2014 pcba: 1.875 mm",
-    "fluid-14 \u2014 fluid-16: 1.885 mm",
-    "fluid-28 \u2014 water-split: 1.895 mm"
+    "fluid-14 \u2014 fluid-16: 1.885 mm"
    ],
    "active": true
   },
@@ -839,7 +831,7 @@
     "fluid-4: 200.0 mm unheld, 0.0 over",
     "carb-1: 183.0 mm, held at its anchor",
     "co2-2: 177.3 mm, held at its anchor",
-    "fluid-28: 173.3 mm, held at its anchor",
+    "fluid-28: 175.5 mm, held at its anchor",
     "fluid-18: 320.2 mm unheld \u2014 left loose; Flavor A's line to its rear union. A capped lid rib holds the fore crossing (`_cold_core_interface.cap_anchors`). The remaining line follows the west flank, turns in over the pump's west-rear foot and returns to the rear union. Those unretained spans need a support and relaxed-tube review. The authored centreline does not establish physical tube shape or its clearance to neighbouring parts."
    ],
    "active": false
