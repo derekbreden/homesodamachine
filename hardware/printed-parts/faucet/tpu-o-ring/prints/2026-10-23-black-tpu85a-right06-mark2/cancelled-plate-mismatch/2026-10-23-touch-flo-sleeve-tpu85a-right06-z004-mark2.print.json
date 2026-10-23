@@ -1,0 +1,88 @@
+{
+  "source_project": "hardware/printed-parts/faucet/tpu-o-ring/tpu-o-ring-85A-6mm.3mf",
+  "source_project_sha256": "b1e51287c3c28af3c6fc955a19ce149b034c2a2aefca94418c98c76e3aa57f32",
+  "project": "2026-10-23-touch-flo-sleeve-tpu85a-right06-z004-mark2.3mf",
+  "project_sha256": "9d6549c5d72d06823d9620e719ea1b558df8a70c28c459218b330f83ce200b31",
+  "mesh_members_sha256": {
+    "3D/Objects/object_17.model": "ca4061a588bcd4b5b57d1f55ef26b4986aee3632d853548f9a3a7cbf796baa70"
+  },
+  "mesh_unchanged": true,
+  "settings_changes": {
+    "filament_colour": {
+      "from": [
+        "#000000",
+        "#000000"
+      ],
+      "to": [
+        "#161616",
+        "#161616"
+      ]
+    },
+    "filament_map": {
+      "from": [
+        "1",
+        "1"
+      ],
+      "to": [
+        "2",
+        "2"
+      ]
+    },
+    "filament_nozzle_map": {
+      "from": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "to": [
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1"
+      ]
+    },
+    "machine_start_gcode": {
+      "from_sha256": "5499421b3710406f697894fb6f68e9f7c8f9f38beb638a368d1bb09624ca98d7",
+      "to_sha256": "64bf615b4e93868d2c82ce0fc29b302bb68ef8e5895b3e352389785afc0f606e",
+      "requested_z_trim_mm": 0.04
+    },
+    "print_compatible_printers": {
+      "from": [
+        "Bambu Lab H2C 0.6 nozzle"
+      ],
+      "to": [
+        "Bambu Lab H2C 0.6 Standard +0.04 Z trim"
+      ]
+    },
+    "print_settings_id": {
+      "from": "0.18mm Balanced Quality @BBL H2C 0.6 nozzle",
+      "to": "Touch-Flo sleeve Bambu85A spiral Mark2"
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.6 nozzle",
+      "to": "Bambu Lab H2C 0.6 Standard +0.04 Z trim"
+    },
+    "reduce_crossing_wall": {
+      "from": "0",
+      "to": "1"
+    },
+    "seam_gap": {
+      "from": "15%",
+      "to": "0%"
+    },
+    "time_lapse_gcode": {
+      "from": ";===== machine: H2C timelapse =====\n;======== date: 20260122 ========\n\n; SKIPPABLE_START\n; SKIPTYPE: timelapse\n\nM1002 judge_flag timelapse_record_flag\nM622 J1\n    {if !spiral_mode}\n        M993 A2 B2 C2\n        M993 A0 B0 C0\n    {endif}\n\n    {if !spiral_mode && !(has_timelapse_safe_pos) }\n        {if most_used_physical_extruder_id!= curr_physical_extruder_id || timelapse_type == 1}\n            M83\n            G1 Z{max_layer_z + 0.4} F1200\n            M400\n        {endif}\n    {endif}\n\n    {if has_timelapse_safe_pos && !spiral_mode}\n        M9711 M{timelapse_type} E{most_used_physical_extruder_id} U{timelapse_pos_x} V{timelapse_pos_y} Z{layer_z + 0.4} S11 C10 O0 T3000\n    {else}\n        {if spiral_mode}\n            M971 S11 C10 O0\n            M1004 S5 P1  ; external shutter\n        {else}\n            M9711 M{timelapse_type} E{most_used_physical_extruder_id} Z{layer_z + 0.4} S11 C10 O0 T3000\n        {endif}\n    {endif}\n\n    {if !spiral_mode && !(has_timelapse_safe_pos) }\n        {if most_used_physical_extruder_id!= curr_physical_extruder_id || timelapse_type == 1}\n            G90\n            G1 Z{max_layer_z + 3.0} F1200\n            G1 Y295 F30000\n            G1 Y265 F18000\n            M83\n        {endif}\n    {endif}\n    \n    {if !spiral_mode}\n        M993 A3 B3 C3\n    {endif}\nM623\n; SKIPPABLE_END\n",
+      "to": ""
+    }
+  },
+  "count": 1,
+  "pose": "Saved cap-down orientation; centered at X177.5 Y160",
+  "printer": "Mark2",
+  "material": "Black Bambu TPU 85A",
+  "nozzle_mapping": "Right fixed 0.6 mm; external spool 255"
+}

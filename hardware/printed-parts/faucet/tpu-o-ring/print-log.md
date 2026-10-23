@@ -124,6 +124,25 @@ and centers the cap-down sleeve on textured PEI. The native estimate is
 11 minutes and 0.4 g. Fresh startup is RUNNING at 0/87, with no printer
 error or HMS fault. Physical fit and seal results are pending.
 
+## 2026-10-23 — black Bambu 85A sleeve with deposited cap tours on Mark2
+
+Mark2 accepted [one Touch-Flo sealing sleeve](prints/2026-10-23-black-tpu85a-right06-mark2/README.md)
+as task **1368570348** at **16:38 CDT**. It retains the accepted fit project's
+mesh, Bambu TPU 85A recipe and spiral mode, centered cap-down on the bed. The
+right 0.6 mm nozzle uses black external TPU, the glued Engineering Plate at
+35°C and zero added user Z trim. The source estimate is **11 minutes / 0.40 g**.
+
+The three planar cap layers use deposited tours, with every free attachment
+chord contained within cap stock, including a check ignoring printed runs
+shorter than 1 mm as attachments. No cap plastic is added. The native continuous
+spiral and shutdown bytes are retained. In-part retractions, Z hops and camera
+commands are absent; Timelapse is Off. The saved recipe's solid cap is **0.66 mm**,
+distinct from the **2.1 mm** cap region in CAD.
+
+Printing is confirmed beyond plate detection at **1/87**, with the right
+0.6 mm nozzle at **225°C**, bed at **35°C**, external TPU feed verified and
+no print error or HMS. Printed stringing, fit and sealing results are pending.
+
 ## Queued for the next session (forward-looking advice)
 
 In recommended order — try one change at a time, simplest first:
