@@ -482,3 +482,24 @@ inset. No brim, zero added user Z trim and ironing Off remain selected. Camera
 startup observations show the empty bed at layer 0. Model contact and sealing
 remain unassessed; no scheduled monitor was created or reactivated.
 [Launch, complete recipe and startup](prints/2026-10-22-mark1-flow105-overlap30-right08-z000/README.md).
+
+
+### Result — one-hour water hold on the intentionally stopped article (2026-10-23)
+
+Derek reported:
+
+> We've been holding water for an hour now (though you may see I did stop the print a bit early, there is plenty there to test with)
+
+The printed portion of Mark1 task **1365626370** held water for **one hour** at
+the time of the report. This is positive physical sealing evidence for the
+selected **1.05 flow, five walls, 30% overlap and 265/270 °C** recipe. Retain
+the recipe as the current baseline. The report does not isolate which change
+supplied the improvement.
+
+The printer no longer retains this task at the read-only status check, so an
+exact stop layer, printed height or actual elapsed print time is unavailable.
+Water head and cap/gasket assembly sealing are unspecified. No new corner
+flatness or lift-onset observation is supplied. The result applies to the
+printed article and reported one-hour hold.
+[Physical result](prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json) ·
+[Status visibility limit](prints/2026-10-22-mark1-flow105-overlap30-right08-z000/terminal-observation.json).

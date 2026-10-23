@@ -17,9 +17,11 @@ carries both mouths: the fill, and the dip tube the draw line becomes.
 [reservoir.3mf](reservoir.3mf) contains the current left and right
 body/cap pairs through **Mark1's right 0.8 mm Standard nozzle**. The recipe uses
 **1.05 flow, five requested Arachne wall loops, 30% Infill/Wall overlap and
-265/270 °C** first/subsequent nozzle temperatures. Mark1 task **1365626370** is
-printing the left pair from A3. [Launch and startup](prints/2026-10-22-mark1-flow105-overlap30-right08-z000/README.md).
-Water holding is unassessed.
+265/270 °C** first/subsequent nozzle temperatures. The partially printed left
+article, Mark1 task **1365626370**, has a **reported one-hour water hold** on
+October 23, 2026. Derek intentionally stopped the print early.
+[Physical result](prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json) ·
+[Launch and startup](prints/2026-10-22-mark1-flow105-overlap30-right08-z000/README.md).
 [Settings, wall-count comparison and installed presets](recipe-reviews/2026-10-22-flow105-overlap30/README.md).
 
 The ordinary body walls and their thick curved corners contain only native
@@ -46,7 +48,7 @@ The left body/cap plate estimates **5 h 42 min and 444 g**, with a **70.5 mm**
 minimum full-bead bed-edge inset. These are native estimates and path checks,
 not physical sealing results.
 
-Mark1's most recent article, task **1364550539**, has [reported bottom leakage
+The 59° walls-only article, task **1364550539**, has [reported bottom leakage
 and a vertical-edge strand defect](prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/physical-result.json).
 Its exact 59° walls-only settings and launch belong to that print record.
 The preceding walls-only article has [reported seam leakage](prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json).
@@ -80,5 +82,6 @@ Past settings, reported outcomes and source commits are in the
 Historical 3MFs are retained in Git.
 
 Reservoir leak results belong to the articles and process tested. The current
-five-wall recipe has no completed water-hold result.
+five-wall recipe has a reported one-hour water hold on the printed portion;
+the exact print height and water head are unspecified.
 CAD clearance does not establish a print's sealing or finished float sliding.

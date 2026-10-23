@@ -1,0 +1,59 @@
+{
+  "id": "october-22-flow105-overlap30-partial",
+  "reported_at_recorded_utc": "2026-10-23T07:08:17.610971+00:00",
+  "reported_at_recorded_central": "2026-10-23T02:08:17.610971-05:00",
+  "reported_date": "2026-10-23",
+  "reported_by": "Derek",
+  "printer": "Mark1",
+  "job_id": "1365626370",
+  "archive": "2026-10-22-reservoir-left-cap-flow105-overlap30-right08-z000-a3-mark1.gcode.3mf",
+  "archive_sha256": "28e0cfb1263ce3de928cc753d2d3c3a9437e1497e9d315cd333ac86456da7e15",
+  "gcode_sha256": "b5677135452366a0ceea169da14e2056e1c1acd03d2a320ac927984f79664de4",
+  "binding": "Direct follow-up to this job in the launch thread. Attribution comes from the conversation and saved launch; the printer has moved on to another task.",
+  "founder_quote": "We've been holding water for an hour now (though you may see I did stop the print a bit early, there is plenty there to test with)",
+  "result": "Held water for one hour at the time of the report, as reported by Derek.",
+  "status": "held_water",
+  "hold_duration_reported_hours": 1,
+  "ongoing_at_report": true,
+  "article_completion": "Intentionally stopped before print completion, as reported by Derek.",
+  "stop_layer": null,
+  "printed_height_mm": null,
+  "fill_height_mm": null,
+  "water_temperature_c": null,
+  "recipe": {
+    "nozzle_mm": 0.8,
+    "nozzle_flow_type": "Standard",
+    "active_nozzle": "right",
+    "filament_flow_ratio": 1.05,
+    "wall_loops": 5,
+    "wall_generator": "arachne",
+    "wall_transition_angle_degrees": 10.0,
+    "infill_wall_overlap_percent": 30.0,
+    "sparse_infill_density": "100%",
+    "nozzle_c_first_subsequent": [
+      265.0,
+      270.0
+    ],
+    "bed_c_first_subsequent": [
+      70.0,
+      70.0
+    ],
+    "layer_mm_first_subsequent": [
+      0.3,
+      0.24
+    ],
+    "maximum_volumetric_speed_mm3_s": 21.0,
+    "brim": "no_brim",
+    "added_user_z_trim_mm": 0,
+    "ironing": "no ironing",
+    "complete_settings": "../settings.json",
+    "settings_file_sha256": "a1d008a858e4ad444e9ff6526e31afc1234231f4b92222bd0cc847bddcabf48e",
+    "scope": "Submitted native recipe. These values are not newly measured extrusion or temperature data."
+  },
+  "scope": "Successful reported water hold of the printed portion of the left reservoir. Full-height water head, unprinted upper section and cap/gasket assembly are not established by this report.",
+  "corner_lifting": "No new corner-flatness or lift-onset observation is supplied.",
+  "interpretation": "Positive physical evidence supports retaining this recipe as the current baseline. Several recipe settings changed together; the result does not isolate the contribution of flow, temperature, overlap or wall count.",
+  "terminal_status_source": "../terminal-observation.json",
+  "terminal_status_limit": "Fresh printer status no longer identifies task 1365626370. A terminal layer, actual elapsed print time or stop height cannot be assigned from the current job.",
+  "source_media": "Text report in the current chat; no new photograph supplied."
+}
