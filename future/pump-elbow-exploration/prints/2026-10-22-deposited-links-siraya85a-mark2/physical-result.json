@@ -1,5 +1,5 @@
 {
-  "status": "RUNNING; physical stringing result pending",
+  "status": "Finished: no strings reported; seal seems as good as before",
   "printer": "Mark2",
   "printer_task_id": "1365546966",
   "archive_sha256": "e48038ec34adf03cdd635e53f4359348f1e0a787a8056a7b523d055d82b898e7",
@@ -7,6 +7,27 @@
   "material": "Siraya Tech Flex TPU 85A Clear",
   "right_nozzle_mm": 0.6,
   "local_user_z_trim_mm": 0,
-  "scope": "Evaluate strands inside both bores and between exterior surfaces and the three fins. Startup telemetry is not a physical stringing, fin-removal, fit, pressure, retention or lifetime assessment.",
-  "startup_status": "startup.json"
+  "scope": "Acceptance for visible stringing quality and a qualitative seal comparison applies to Mark2 task 1365546966 and its identified geometry, Siraya material and processed archive. The report does not identify the comparison article, test pressure, hold duration or fixture. Fin-removal effort, fitting force, quantified pressure holding, retention and lifetime are unmeasured.",
+  "startup_status": "startup.json",
+  "reported_date": "2026-10-22",
+  "recorded_at": "2026-10-23T02:58:37.389963+00:00",
+  "reporter": "Derek",
+  "user_report": "That worked very well. I see no strings, and seal seems as good as before.",
+  "accepted_observations": [
+    "Derek reports seeing no strings on the identified deposited-path Siraya pair.",
+    "Derek reports the seal seems as good as before. This is a qualitative comparison."
+  ],
+  "process_decision": "Retain the identified processed archive and Siraya recipe as the accepted print baseline for these finned elbow pairs.",
+  "completion_telemetry": {
+    "job_id": "1365546966",
+    "subtask_name": "2026-10-22-elbows-siraya-links-mark2-z000.gcode.3mf",
+    "gcode_state": "FINISH",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 184,
+    "total_layer_num": 184,
+    "mc_percent": 100,
+    "mc_remaining_time": 0,
+    "observed_at_utc": "2026-10-23T02:56:53.964186+00:00"
+  }
 }

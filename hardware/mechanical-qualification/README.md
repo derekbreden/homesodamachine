@@ -66,9 +66,11 @@ is the Siraya Tech Flex TPU 85A Clear elbow the assembly places on both G Ganen
 barbs: a 90° turn from either scanned barb to 1/4 in LLDPE under two clamp bands,
 printed as a V on its flat foot. Its geometry is the compact elbow below; the
 identified Bambu TPU 85A article's manual fit and the Siraya single's exterior
-acceptance belong to their own prints. Siraya fit on the pump, clamp retention,
-pressure holding, relaxation and lifetime are unmeasured; its README states the
-pressure screen.
+acceptance belong to their own prints. The
+[Mark2 deposited-path pair](../../future/pump-elbow-exploration/prints/2026-10-22-deposited-links-siraya85a-mark2/physical-result.json)
+has no strings reported and a qualitative seal comparison: “seal seems as good
+as before.” Numerical fitting force, clamp retention, quantified pressure holding,
+relaxation and lifetime are unmeasured; its README states the pressure screen.
 
 The [compact TPU 85A elbow study](../../future/pump-elbow-exploration/README.md)
 records [left-lip curl, nozzle pickup and increased curl after a runtime fan reduction](../../future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-engineering-z000-mark1/physical-result.json).
@@ -98,8 +100,10 @@ It uses 215°C normal layers, a 225°C first layer and verified 10 mm/s exterior
 commands. Completion telemetry reports FINISH at layer 184/184 without errors.
 The [two-object trial](../../future/pump-elbow-exploration/prints/2026-10-14-compact-two-siraya85a-overhang10-engineering-z000-mark1/README.md)
 is accepted by Mark1 as task 1337964351 with Nearest seams and wall-crossing
-avoidance; its physical result is pending. Siraya fit and clean passages remain
-unqualified; the earlier Bambu article retains its separate manual-fit acceptance.
+avoidance; its physical result is pending. The Mark2 deposited-path pair has
+reported no visible strings and qualitative seal acceptance, with FINISH at
+184/184 and no printer faults. The earlier Bambu article retains its separate
+manual-fit acceptance.
 
 The [Industrial complete faucet](../printed-parts/faucet/industrial/physical-acceptance.json)
 is accepted for shipping by Derek for the identified Mark2 print and variable-layer recipe.
@@ -289,6 +293,7 @@ linked here are the authority for each observation, including their print bindin
 | [Faucet lever](../printed-parts/faucet/lever-replica/physical-acceptance.json) | Fit and functional operation accepted for the identified print. [Assembly observations](../printed-parts/faucet/lever-replica/assembly-observations.json) establish lever attachment before tube/shell insertion, sleeve fitting on the tube first, and the shell-guided lever motion. | Operating force, assembled contact pose and endurance are unmeasured. Sliding-friction comparison is qualitative. |
 | [Centred tube insertion tool](../printed-parts/fixtures/tube-insertion/physical-acceptance.json) | Successful insertion reported 2026-10-13 with the identified Mark1 plus-handle jaws and proud TPU inserts. The handle alone works well for starting insertion; the full tool makes the final press very easy. Derek reports it is far easier than before. | Effort comparison is qualitative. Numerical insertion and grip forces, structural load capacity, pressure sealing and endurance are unmeasured. |
 | [Compact TPU 85A elbow](../../future/pump-elbow-exploration/prints/2026-10-13-compact-single-tpu85a-outer10-engineering-z000-mark1/physical-result.json) | The identified rough-edged 225°C / 10 mm/s Mark1 article has reported firm, stretchy friction fit and manageable manual insertion without a jig. | Qualitative fit acceptance applies to this article. Fit after correcting the 45° surfaces or changing the recipe, sealing, pressure retention and lifetime remain unassessed. |
+| [Deposited-path Siraya TPU 85A elbows](../../future/pump-elbow-exploration/prints/2026-10-22-deposited-links-siraya85a-mark2/physical-result.json) | Mark2 task 1365546966 has no strings reported and seal seeming as good as before, using the right 0.6 mm nozzle, glued Engineering Plate and zero user Z trim. | Acceptance applies to the identified processed-path recipe. The seal comparison has no pressure, hold duration, fixture or identified comparison article; quantified pressure holding, retention and lifetime remain unmeasured. |
 | [Complete Industrial faucet](../printed-parts/faucet/industrial/physical-acceptance.json) | Identified complete Mark2 print accepted for shipping and overall appearance. The recipe uses 0.24 mm normally, 0.12 mm in the two base shoulder bands, a continuous reinforced foot, the 70° joint, smooth passages and 0.50 mm longer cover wings. The [0.08 mm reference](../printed-parts/faucet/industrial/prints/2026-10-09-two-shoulders008-with-lever-mark2/physical-result/physical-result.json) retains its beautiful shoulder finish and thin-support removal acceptance. | Lifting on supported base surfaces and a visible seam are recorded. The [all-fine trial](../printed-parts/faucet/industrial/prints/2026-10-09-tip-root024-mark2/physical-result/physical-result.json) has tip and wing disruption; initiating contact, shifting and lifting remain hypotheses. Separate coupons investigate the finish. Fault discharge, load capacity and endurance are unmeasured. |
 | [Reservoir water hold](../printed-parts/cold-core/reservoir/water-hold-acceptance.json) | The May 30 Bambu PETG clear assembly held water for several hours with its bulkhead and TPU gaskets. Both September 0.8 mm nozzle recipes, at 0.18 and 0.24 mm layers, also held water, reported 2026-10-05. | These results belong to the identified articles and recipes. September hold duration, temperature and fill height are unspecified; warm aging and retained sealing load remain unmeasured. |
 

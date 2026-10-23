@@ -6,8 +6,8 @@ the assembly places one on each G Ganen barb and runs `water-7` and `water-6` to
 them on 1/4" LLDPE ([internal plumbing](../../hardware/assembly/internal-plumbing.md) §2).
 The 715 mL funnel and the relocations it needs remain a proposal.
 
-**Status: single Siraya elbow exterior accepted; internal stringing reported.
-The deposited-path Siraya pair is submitted to Mark2, with its physical result pending.**
+**Status: deposited-path Siraya pair accepted on Mark2: no strings reported,
+and seal seems as good as before.**
 Mark2 accepted [task 1365546966](prints/2026-10-22-deposited-links-siraya85a-mark2/README.md)
 with clear Siraya Tech TPU 85A on the right 0.6 mm nozzle and the glued Engineering
 Plate at zero local user Z trim. Its layer tours print the native wall and fin
@@ -16,8 +16,11 @@ paths through turns, using contained straight transfers between paths. All
 opening, including a conservative check that ignores deposited runs shorter
 than 1 mm as attachments. Added deposition retraces inner walls and totals
 1.21%. Timelapse, in-part retractions and Z hops are off. Allow about
-2 hours / 8.55 g. These are commanded-path checks; physical string reduction,
-fin removal and fit remain unassessed.
+2 hours / 8.55 g. The [physical result](prints/2026-10-22-deposited-links-siraya85a-mark2/physical-result.json)
+records Derek's report, “That worked very well. I see no strings, and seal seems
+as good as before.” Completion telemetry reports FINISH at 184/184 without
+errors. The seal comparison is qualitative; fin-removal effort, fitting force,
+quantified pressure holding, retention and lifetime remain unmeasured.
 
 The [vertical center-web Bambu trial's physical result](prints/2026-10-16-vertical-center-web-tpu85a-mark1/physical-result.json)
 shows dense bore and exterior-to-fin strings. A free strand can straighten
@@ -52,7 +55,8 @@ with manageable manual insertion and no jig. Its cuff dimensions and walls
 are the fit baseline; fit after correcting the surfaces or changing the print
 recipe remains unassessed. The compact layout study includes the water
 connections and a 715 mL funnel proposal. Its occupancy result applies to the
-compact fitting envelopes. Pressure holding, retained grip and lifetime remain
+compact fitting envelopes. The Mark2 pair has the qualitative seal acceptance
+linked above; quantified pressure holding, retained grip and lifetime remain
 unmeasured.
 
 The customer outcome is a larger filling bowl in a compact appliance, with
@@ -66,7 +70,8 @@ neighboring hardware are considered together.
 
 - [Mark2 deposited-path trial](prints/2026-10-22-deposited-links-siraya85a-mark2/README.md)
   binds the byte-identical processed archive to its Mark2 launch, right 0.6 mm
-  nozzle, Siraya clear TPU 85A, glued Engineering Plate and zero user Z trim.
+  nozzle, Siraya clear TPU 85A, glued Engineering Plate and zero user Z trim,
+  with no strings reported and a qualitative seal comparison accepted.
 - [Deposited-path Siraya trial](prints/2026-10-16-deposited-links-siraya85a-mark1/README.md)
   contains the editable pair, native and processed archives, per-layer path
   record, independent emitted-command review and launch receipt. The manual

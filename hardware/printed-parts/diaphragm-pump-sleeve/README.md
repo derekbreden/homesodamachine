@@ -53,15 +53,24 @@ is reported too stiff.
 Print in **Siraya Tech Flex TPU 85A Clear** (SKU ST3008). 85A gives the stretch a
 hand fit over the barb crests needs.
 
-Use the recipe of the
-[accepted Siraya single](/future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/README.md):
-Mark1's right 0.6 mm nozzle, glued Engineering Plate, zero user Z trim, 225°C first
-layer and 215°C normal layers, six walls, 100% infill, 10 mm/s outer walls and no
-supports. The STL is exported in its print pose: a V standing on the flat foot, both
+Use the
+[accepted deposited-path pair](/future/pump-elbow-exploration/prints/2026-10-22-deposited-links-siraya85a-mark2/README.md)
+and its
+[processed archive](/future/pump-elbow-exploration/prints/2026-10-16-deposited-links-siraya85a-mark1/2026-10-16-elbows-deposited-links-siraya85a-right06-z000-mark1.gcode.3mf).
+The accepted Mark2 print uses the right 0.6 mm nozzle, glued Engineering Plate,
+zero user Z trim, 225°C first layer and 215°C normal layers, six walls, 100%
+infill, 10 mm/s outer walls and no supports. It prints through turns along the
+walls and cutaway fins, with contained straight transfers between deposited
+paths and timelapse off. Use the processed archive directly; reslicing the
+editable project omits this path processing.
+
+The STL is exported in its print pose: a V standing on the flat foot, both
 mouths up, [22.2](PRINT_HEIGHT) mm tall, every bore crown and lower face at 45° or
-steeper. That article's exterior is accepted ("Turned out perfect"), and internal
-stringing is reported. The [stringing candidates](/future/pump-elbow-exploration/stringing-candidates.md)
-record the routing trials and the deposited-path pair whose result is pending.
+steeper. The
+[Mark2 pair's physical result](/future/pump-elbow-exploration/prints/2026-10-22-deposited-links-siraya85a-mark2/physical-result.json)
+records no strings seen and seal seeming as good as before. The
+[stringing candidates](/future/pump-elbow-exploration/stringing-candidates.md)
+record the routing mechanism and related trials.
 
 Before fitting, look through both sockets and the corner passage against a light and
 clear any strand. A loose strand in the suction elbow reaches the pump's own valves;
@@ -91,8 +100,10 @@ is chosen after the trial's pressure and retention result.
 
 ## Acceptance
 
-Each result belongs to the identified print, filament and clamp. Pressure holding,
-retained grip and lifetime have no physical result yet.
+Each result belongs to the identified print, filament and clamp. The Mark2
+deposited-path pair has reported acceptance for no visible strings and a
+qualitative seal comparison. Quantified pressure holding, retained grip and lifetime remain
+unmeasured.
 
 - **Fit:** both elbows seat on the pump without splitting or whitening, both tubes
   stop at their marks, and the clamps close within their range.
