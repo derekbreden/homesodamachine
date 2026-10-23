@@ -1,0 +1,513 @@
+{
+  "scope": "Six bare wet/gas bulkheads on the +X rear-panel half; unchanged ceiling-fit water hardware; initial 20 mm inward tube departures only",
+  "source_inventory": "source-inventory.json",
+  "source_geometry_frame": "Frozen source NPZ v/f in the original world pose, with all original flange seats at Y471.3; listed instance translations apply directly",
+  "instances": [
+    {
+      "name": "bulkhead-water",
+      "geometry": "bulkhead-water",
+      "translation": [
+        115.31999887123159,
+        -3.0,
+        -1.8345329570204854
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "center_x_mm": 37.2499988712316,
+      "center_z_mm": 334.3760478805363,
+      "flange_seat_y_mm": 468.3
+    },
+    {
+      "name": "bulkhead-carb",
+      "geometry": "bulkhead-carb",
+      "translation": [
+        112.71,
+        -3.0,
+        -3.2105808375567904
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "center_x_mm": 72,
+      "center_z_mm": 333,
+      "flange_seat_y_mm": 468.3
+    },
+    {
+      "name": "bulkhead-drain",
+      "geometry": "bulkhead-drain",
+      "translation": [
+        123.07,
+        -3.0,
+        -1.4022904187784206
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "center_x_mm": 45,
+      "center_z_mm": 301,
+      "flange_seat_y_mm": 468.3
+    },
+    {
+      "name": "co2-inlet",
+      "geometry": "co2-inlet",
+      "translation": [
+        75.35,
+        -3.0,
+        -34.96058083755679
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "center_x_mm": 72,
+      "center_z_mm": 301,
+      "flange_seat_y_mm": 468.3
+    },
+    {
+      "name": "bulkhead-flavor-a",
+      "geometry": "bulkhead-flavor-a",
+      "translation": [
+        85.71,
+        -3.0,
+        0.9759999999999991
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "center_x_mm": 45,
+      "center_z_mm": 270,
+      "flange_seat_y_mm": 468.3
+    },
+    {
+      "name": "bulkhead-flavor-b",
+      "geometry": "bulkhead-flavor-b",
+      "translation": [
+        150.07,
+        -3.0,
+        0.9759999999999991
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "center_x_mm": 72,
+      "center_z_mm": 270,
+      "flange_seat_y_mm": 468.3
+    }
+  ],
+  "panel_study": {
+    "outer_wall_y_mm": 471.3,
+    "inner_wall_y_mm": 462.3,
+    "common_exterior_recess_depth_mm": 3,
+    "flange_seat_y_mm": 468.3,
+    "retained_panel_mm": 6,
+    "suggested_common_rectangle_mm": {
+      "xmin": 20,
+      "xmax": 94,
+      "zmin": 256,
+      "zmax": 347
+    },
+    "bore_diameters_mm": {
+      "bulkhead-water": 17.44,
+      "bulkhead-carb": 17.44,
+      "bulkhead-drain": 15.3,
+      "bulkhead-flavor-a": 15.3,
+      "bulkhead-flavor-b": 15.3,
+      "co2-inlet": 17.3
+    },
+    "basis": "NeoFit dimensional sheet A is the flange-to-adjustable-nut gap; E nut thickness is a separate dimension. The 6 mm panel is below the 8.1 mm (4 mm family) and 7.8994 mm (CO2) A values. No wall geometry is changed by this scratch study."
+  },
+  "connection": {
+    "water_link_visible_mm": 29.125039471813352,
+    "water_link_direction": [
+      0,
+      -1,
+      0
+    ],
+    "water_inboard_mouth_mm": [
+      37.2499988712316,
+      443.51,
+      334.3760478805363
+    ],
+    "asse_mouth_mm": [
+      37.2499988712316,
+      414.38496052818664,
+      334.3760478805363
+    ],
+    "note": "The fixed straight water connection is preserved; source collet overlap is intentional."
+  },
+  "minimum_gaps_mm": {
+    "bulkhead_to_fixed_water_group": 3.598516790067501,
+    "initial20mm_tube_to_fixed_water_group": 5.467011677806227,
+    "bulkhead_pair": 4.55575969696045,
+    "tube_to_other_bulkhead": 12.87859017889961,
+    "tube_to_other_tube": 21.825000000000003
+  },
+  "parts": {
+    "bulkhead-water": {
+      "pose": {
+        "name": "bulkhead-water",
+        "geometry": "bulkhead-water",
+        "translation": [
+          115.31999887123159,
+          -3.0,
+          -1.8345329570204854
+        ],
+        "rotation": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "center_x_mm": 37.2499988712316,
+        "center_z_mm": 334.3760478805363,
+        "flange_seat_y_mm": 468.3
+      },
+      "inboard_mouth_mm": [
+        37.2499988712316,
+        443.51,
+        334.3760478805363
+      ],
+      "tube_od_mm": 6.35,
+      "ceiling_underside_gap_mm": 0.27728198045798536,
+      "core_top_gap_mm": 69.62938916212013,
+      "right_wall_gap_mm": 49.82000051841685,
+      "minimum_fixed_body_gap_mm": 18.948165998560057,
+      "minimum_initial_departure_to_water_group_mm": 9.125039471813352,
+      "minimum_departure_to_other_bulkheads_mm": 20.687308114103608,
+      "minimum_departure_to_other_departures_mm": 28.433317989351426,
+      "body_collisions": [],
+      "departure_collisions": []
+    },
+    "bulkhead-carb": {
+      "pose": {
+        "name": "bulkhead-carb",
+        "geometry": "bulkhead-carb",
+        "translation": [
+          112.71,
+          -3.0,
+          -3.2105808375567904
+        ],
+        "rotation": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "center_x_mm": 72,
+        "center_z_mm": 333,
+        "flange_seat_y_mm": 468.3
+      },
+      "inboard_mouth_mm": [
+        72,
+        443.51,
+        333
+      ],
+      "tube_od_mm": 6.35,
+      "ceiling_underside_gap_mm": 1.6533298609942904,
+      "core_top_gap_mm": 68.25334128158383,
+      "right_wall_gap_mm": 15.070000686645514,
+      "minimum_fixed_body_gap_mm": 20.191944659124257,
+      "minimum_initial_departure_to_water_group_mm": 27.26800674889565,
+      "minimum_departure_to_other_bulkheads_mm": 18.382051337955037,
+      "minimum_departure_to_other_departures_mm": 25.649999999999977,
+      "body_collisions": [],
+      "departure_collisions": []
+    },
+    "bulkhead-drain": {
+      "pose": {
+        "name": "bulkhead-drain",
+        "geometry": "bulkhead-drain",
+        "translation": [
+          123.07,
+          -3.0,
+          -1.4022904187784206
+        ],
+        "rotation": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "center_x_mm": 45,
+        "center_z_mm": 301,
+        "flange_seat_y_mm": 468.3
+      },
+      "inboard_mouth_mm": [
+        45,
+        450.6,
+        301
+      ],
+      "tube_od_mm": 4,
+      "ceiling_underside_gap_mm": 34.00000770393467,
+      "core_top_gap_mm": 36.599992296065324,
+      "right_wall_gap_mm": 42.580199890136726,
+      "minimum_fixed_body_gap_mm": 3.598516790067501,
+      "minimum_initial_departure_to_water_group_mm": 11.791793701713907,
+      "minimum_departure_to_other_bulkheads_mm": 12.87859017889961,
+      "minimum_departure_to_other_departures_mm": 21.825000000000003,
+      "body_collisions": [],
+      "departure_collisions": []
+    },
+    "co2-inlet": {
+      "pose": {
+        "name": "co2-inlet",
+        "geometry": "co2-inlet",
+        "translation": [
+          75.35,
+          -3.0,
+          -34.96058083755679
+        ],
+        "rotation": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "center_x_mm": 72,
+        "center_z_mm": 301,
+        "flange_seat_y_mm": 468.3
+      },
+      "inboard_mouth_mm": [
+        72,
+        451.0026,
+        301
+      ],
+      "tube_od_mm": 6.35,
+      "ceiling_underside_gap_mm": 32.960733425447415,
+      "core_top_gap_mm": 35.56071432845883,
+      "right_wall_gap_mm": 14.372295761108404,
+      "minimum_fixed_body_gap_mm": 27.768530434146918,
+      "minimum_initial_departure_to_water_group_mm": 36.59591011677696,
+      "minimum_departure_to_other_bulkheads_mm": 13.508463745117197,
+      "minimum_departure_to_other_departures_mm": 21.825000000000003,
+      "body_collisions": [],
+      "departure_collisions": []
+    },
+    "bulkhead-flavor-a": {
+      "pose": {
+        "name": "bulkhead-flavor-a",
+        "geometry": "bulkhead-flavor-a",
+        "translation": [
+          85.71,
+          -3.0,
+          0.9759999999999991
+        ],
+        "rotation": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "center_x_mm": 45,
+        "center_z_mm": 270,
+        "flange_seat_y_mm": 468.3
+      },
+      "inboard_mouth_mm": [
+        45,
+        450.6,
+        270
+      ],
+      "tube_od_mm": 4,
+      "ceiling_underside_gap_mm": 65.00001318359375,
+      "core_top_gap_mm": 5.599986816406243,
+      "right_wall_gap_mm": 42.58020309448243,
+      "minimum_fixed_body_gap_mm": 4.065120104676155,
+      "minimum_initial_departure_to_water_group_mm": 5.467011677806227,
+      "minimum_departure_to_other_bulkheads_mm": 14.683464355470011,
+      "minimum_departure_to_other_departures_mm": 23.0,
+      "body_collisions": [],
+      "departure_collisions": []
+    },
+    "bulkhead-flavor-b": {
+      "pose": {
+        "name": "bulkhead-flavor-b",
+        "geometry": "bulkhead-flavor-b",
+        "translation": [
+          150.07,
+          -3.0,
+          0.9759999999999991
+        ],
+        "rotation": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "center_x_mm": 72,
+        "center_z_mm": 270,
+        "flange_seat_y_mm": 468.3
+      },
+      "inboard_mouth_mm": [
+        72,
+        450.6,
+        270
+      ],
+      "tube_od_mm": 4,
+      "ceiling_underside_gap_mm": 65.00001318359375,
+      "core_top_gap_mm": 5.599986816406243,
+      "right_wall_gap_mm": 15.580199890136726,
+      "minimum_fixed_body_gap_mm": 12.179493761631933,
+      "minimum_initial_departure_to_water_group_mm": 16.177137634189293,
+      "minimum_departure_to_other_bulkheads_mm": 14.683466949464165,
+      "minimum_departure_to_other_departures_mm": 23.0,
+      "body_collisions": [],
+      "departure_collisions": []
+    }
+  },
+  "ceiling_note": "The water body has 0.277 mm to the plain underside; extending the existing ASSE ceiling recess toward the rear panel can provide additional roof gap. The carbonated-water body at Z333 has 1.653 mm plain underside gap.",
+  "limits": [
+    "Bare body envelopes and visible departure corridors only; retention hardware is represented by existing coarse source envelopes except the separate JG retention nuts.",
+    "Complete tubing routes, external hose sweep, new dry-side parts and final mounting details are not resolved by this local study.",
+    "Current source facts mouths entries for flavor bulkheads are stale; family/card_ports Y453.6 inboard datum is used."
+  ]
+}

@@ -1,0 +1,959 @@
+{
+  "scope": "Nominal populated-PCB connector terminals in horizontal dry-side candidate; no wire routes added",
+  "terminals": {
+    "J1.COM": {
+      "id": "J1.COM",
+      "part": "pcba",
+      "point": [
+        -85.97997389648435,
+        431.8160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "1"
+    },
+    "J1.OUT1": {
+      "id": "J1.OUT1",
+      "part": "pcba",
+      "point": [
+        -83.47985189648432,
+        431.8160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "2"
+    },
+    "J1.OUT2": {
+      "id": "J1.OUT2",
+      "part": "pcba",
+      "point": [
+        -80.97998389648433,
+        431.8160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "3"
+    },
+    "J1.OUT3": {
+      "id": "J1.OUT3",
+      "part": "pcba",
+      "point": [
+        -78.4798618964843,
+        431.8160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "4"
+    },
+    "J1.OUT4": {
+      "id": "J1.OUT4",
+      "part": "pcba",
+      "point": [
+        -75.9799938964843,
+        431.8160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "5"
+    },
+    "J1.OUT5": {
+      "id": "J1.OUT5",
+      "part": "pcba",
+      "point": [
+        -73.47987189648438,
+        431.8160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "6"
+    },
+    "J1.OUT6": {
+      "id": "J1.OUT6",
+      "part": "pcba",
+      "point": [
+        -70.98000389648428,
+        431.8160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "7"
+    },
+    "J1.OUT7": {
+      "id": "J1.OUT7",
+      "part": "pcba",
+      "point": [
+        -68.47988189648436,
+        431.8160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "8"
+    },
+    "J1.OUT8": {
+      "id": "J1.OUT8",
+      "part": "pcba",
+      "point": [
+        -65.98001389648437,
+        431.8160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "9"
+    },
+    "J10.GND": {
+      "id": "J10.GND",
+      "part": "pcba",
+      "point": [
+        -35.499998896484385,
+        436.7661179048829,
+        335.5600028
+      ],
+      "outward": [
+        1.1102230246251565e-16,
+        1.0,
+        -1.1102230246251565e-16
+      ],
+      "kind": "screw",
+      "basis": "KF301 native component envelope, +X side wire entry; mouth height nominal, separate from screw axis",
+      "status": "nominal",
+      "pin": "1"
+    },
+    "J10.V12": {
+      "id": "J10.V12",
+      "part": "pcba",
+      "point": [
+        -40.4999888964843,
+        436.7661179048829,
+        335.5600028
+      ],
+      "outward": [
+        1.1102230246251565e-16,
+        1.0,
+        -1.1102230246251565e-16
+      ],
+      "kind": "screw",
+      "basis": "KF301 native component envelope, +X side wire entry; mouth height nominal, separate from screw axis",
+      "status": "nominal",
+      "pin": "2"
+    },
+    "J11.AOUT": {
+      "id": "J11.AOUT",
+      "part": "pcba",
+      "point": [
+        -39.399993896484375,
+        358.8161945048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "4"
+    },
+    "J11.DOUT": {
+      "id": "J11.DOUT",
+      "part": "pcba",
+      "point": [
+        -36.899993896484375,
+        358.8161945048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "3"
+    },
+    "J11.GND": {
+      "id": "J11.GND",
+      "part": "pcba",
+      "point": [
+        -31.899993896484375,
+        358.81594050488286,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "1"
+    },
+    "J11.V5": {
+      "id": "J11.V5",
+      "part": "pcba",
+      "point": [
+        -34.399993896484375,
+        358.8161945048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "2"
+    },
+    "J13.AM1": {
+      "id": "J13.AM1",
+      "part": "pcba",
+      "point": [
+        -90.49986689648438,
+        407.3160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "2"
+    },
+    "J13.AM2": {
+      "id": "J13.AM2",
+      "part": "pcba",
+      "point": [
+        -90.5001208964843,
+        404.8160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "1"
+    },
+    "J13.BM1": {
+      "id": "J13.BM1",
+      "part": "pcba",
+      "point": [
+        -90.49986689648438,
+        412.3160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "4"
+    },
+    "J13.BM2": {
+      "id": "J13.BM2",
+      "part": "pcba",
+      "point": [
+        -90.49986689648438,
+        409.8160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "3"
+    },
+    "J2.COM": {
+      "id": "J2.COM",
+      "part": "pcba",
+      "point": [
+        -47.48006989648434,
+        431.8160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "1"
+    },
+    "J2.FAN": {
+      "id": "J2.FAN",
+      "part": "pcba",
+      "point": [
+        -49.97993789648433,
+        431.8160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "2"
+    },
+    "J2.OUT1": {
+      "id": "J2.OUT1",
+      "part": "pcba",
+      "point": [
+        -59.97991789648438,
+        431.8160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "6"
+    },
+    "J2.OUT2": {
+      "id": "J2.OUT2",
+      "part": "pcba",
+      "point": [
+        -57.480049896484275,
+        431.8160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "5"
+    },
+    "J2.OUT3": {
+      "id": "J2.OUT3",
+      "part": "pcba",
+      "point": [
+        -54.979927896484355,
+        431.8160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "4"
+    },
+    "J3.GND": {
+      "id": "J3.GND",
+      "part": "pcba",
+      "point": [
+        -29.20012089648435,
+        364.8160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "4"
+    },
+    "J3.IO33": {
+      "id": "J3.IO33",
+      "part": "pcba",
+      "point": [
+        -29.19986689648431,
+        372.3160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "1"
+    },
+    "J3.IO35": {
+      "id": "J3.IO35",
+      "part": "pcba",
+      "point": [
+        -29.20012089648435,
+        369.8160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "2"
+    },
+    "J3.V5": {
+      "id": "J3.V5",
+      "part": "pcba",
+      "point": [
+        -29.20012089648435,
+        367.3160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "3"
+    },
+    "J4.3V3": {
+      "id": "J4.3V3",
+      "part": "pcba",
+      "point": [
+        -29.19999389648433,
+        378.3160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "7"
+    },
+    "J4.GND": {
+      "id": "J4.GND",
+      "part": "pcba",
+      "point": [
+        -29.19999389648433,
+        380.8160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "6"
+    },
+    "J4.IO25": {
+      "id": "J4.IO25",
+      "part": "pcba",
+      "point": [
+        -29.19999389648433,
+        385.8160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "4"
+    },
+    "J4.IO26": {
+      "id": "J4.IO26",
+      "part": "pcba",
+      "point": [
+        -29.19999389648433,
+        388.3160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "3"
+    },
+    "J4.V5": {
+      "id": "J4.V5",
+      "part": "pcba",
+      "point": [
+        -29.19999389648433,
+        383.3160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "5"
+    },
+    "J5.GND": {
+      "id": "J5.GND",
+      "part": "pcba",
+      "point": [
+        -90.5001208964843,
+        375.11606750488284,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "1"
+    },
+    "J5.IO19": {
+      "id": "J5.IO19",
+      "part": "pcba",
+      "point": [
+        -90.49986689648438,
+        382.61606750488284,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "4"
+    },
+    "J5.IO2": {
+      "id": "J5.IO2",
+      "part": "pcba",
+      "point": [
+        -90.49986689648438,
+        380.11606750488284,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "3"
+    },
+    "J5.V5": {
+      "id": "J5.V5",
+      "part": "pcba",
+      "point": [
+        -90.49986689648438,
+        377.61606750488284,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "2"
+    },
+    "J6.GND": {
+      "id": "J6.GND",
+      "part": "pcba",
+      "point": [
+        -90.49999389648428,
+        388.71607750488283,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "5"
+    },
+    "J6.RA1": {
+      "id": "J6.RA1",
+      "part": "pcba",
+      "point": [
+        -90.49999389648428,
+        398.7160575048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "1"
+    },
+    "J6.RA2": {
+      "id": "J6.RA2",
+      "part": "pcba",
+      "point": [
+        -90.49999389648428,
+        396.21618950488283,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "2"
+    },
+    "J6.RA3": {
+      "id": "J6.RA3",
+      "part": "pcba",
+      "point": [
+        -90.49999389648428,
+        393.7160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "3"
+    },
+    "J6.RA4": {
+      "id": "J6.RA4",
+      "part": "pcba",
+      "point": [
+        -90.49999389648428,
+        391.2159455048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "4"
+    },
+    "J7.CHI": {
+      "id": "J7.CHI",
+      "part": "pcba",
+      "point": [
+        -29.19999389648433,
+        425.3160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "2"
+    },
+    "J7.CLO": {
+      "id": "J7.CLO",
+      "part": "pcba",
+      "point": [
+        -29.19999389648433,
+        422.8160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "3"
+    },
+    "J7.GND": {
+      "id": "J7.GND",
+      "part": "pcba",
+      "point": [
+        -29.19999389648433,
+        427.8160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "1"
+    },
+    "J7.RB1": {
+      "id": "J7.RB1",
+      "part": "pcba",
+      "point": [
+        -29.19999389648433,
+        412.8160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "7"
+    },
+    "J7.RB2": {
+      "id": "J7.RB2",
+      "part": "pcba",
+      "point": [
+        -29.19999389648433,
+        415.3160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "6"
+    },
+    "J7.RB3": {
+      "id": "J7.RB3",
+      "part": "pcba",
+      "point": [
+        -29.19999389648433,
+        417.8160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "5"
+    },
+    "J7.RB4": {
+      "id": "J7.RB4",
+      "part": "pcba",
+      "point": [
+        -29.19999389648433,
+        420.3160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "4"
+    },
+    "J9.A": {
+      "id": "J9.A",
+      "part": "pcba",
+      "point": [
+        -29.20012089648435,
+        401.8160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "3"
+    },
+    "J9.B": {
+      "id": "J9.B",
+      "part": "pcba",
+      "point": [
+        -29.20012089648435,
+        399.3160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "4"
+    },
+    "J9.GND": {
+      "id": "J9.GND",
+      "part": "pcba",
+      "point": [
+        -29.20012089648435,
+        404.3160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "2"
+    },
+    "J9.V12": {
+      "id": "J9.V12",
+      "part": "pcba",
+      "point": [
+        -29.19986689648431,
+        406.8160675048828,
+        341.4
+      ],
+      "outward": [
+        1.232595164407831e-32,
+        1.1102230246251565e-16,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "basis": "connector-map.json fabricated physical pad and native board pose; JST XH nominal 9.8 mm assembled height",
+      "status": "nominal",
+      "pin": "1"
+    }
+  }
+}
