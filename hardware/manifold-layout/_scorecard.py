@@ -429,13 +429,9 @@ MOUNTS = (
     # The assembled cradle and clamp ride out of the front bay with both pumps aboard.
     ("pump-a-head", "enclosure-pump-cartridge", "case"),
     ("pump-b-head", "enclosure-pump-cartridge", "case"),
-    # Each pump tee's branch lies in its anchor's half journal and a tee cap snaps down over
-    # it: X and Z held, its collet stroke free along Y between the collet plate and the
-    # cap's stop.
-    *((f"tee-{tee.lower()}", ("enclosure-front-top", f"tee-cap-{tee.lower()}"),
-       "anchor-and-cap")
-      for tee, _segment in PUMP_DOCK_PORTS.values()),
-    *((f"tee-cap-{tee.lower()}", "enclosure-front-top", "lips-in-anchor-windows")
+    # Each pump tee's branch stands in its bore through front-top's tee wall: X and Z held,
+    # its collet stroke free along Y with the collet plate at its fore end.
+    *((f"tee-{tee.lower()}", "enclosure-front-top", "bore-in-tee-wall")
       for tee, _segment in PUMP_DOCK_PORTS.values()),
     # Each SB443-IN block rides its column slot's printed rails in its two side grooves,
     # closed in by the layer printed over the column at the part's one pause.
@@ -642,12 +638,9 @@ TOUCHING_OK = {frozenset(p) for p in (
       for row in range(1, dock_retention.ROWS_PER_COLUMN + 1)
       for offset in (-1, 1)
       if 1 <= row + offset <= dock_retention.ROWS_PER_COLUMN),
-    # Each pump tee's extended collet stands on the collet plate's release face, its collar
-    # runs in the anchor's journal under its cap, and the cap's shoulders sit on the anchor.
-    *((f"tee-{tee.lower()}", host)
-      for tee, _segment in PUMP_DOCK_PORTS.values()
-      for host in ("enclosure-front-top", f"tee-cap-{tee.lower()}")),
-    *((f"tee-cap-{tee.lower()}", "enclosure-front-top")
+    # Each pump tee's extended collet stands on the collet plate's release face and its collar
+    # runs in its bore through the tee wall.
+    *((f"tee-{tee.lower()}", "enclosure-front-top")
       for tee, _segment in PUMP_DOCK_PORTS.values()),
 
     # Nominal made-up thread faces. Physical NPT engagement remains a fit qualification.

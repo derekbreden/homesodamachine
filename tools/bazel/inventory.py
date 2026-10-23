@@ -229,8 +229,7 @@ IMPLICIT_SOLIDS = {
     "hardware/printed-parts/enclosure/enclosure/enclosure.py": (
         "hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
     ) + tuple(
-        f"hardware/printed-parts/enclosure/enclosure/{stem}.{suffix}"
-        for stem in ("enclosure-tee-cap", "enclosure-pump-tube-setting-jig")
+        f"hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.{suffix}"
         for suffix in ("step", "stl", "step.mesh")
     ),
     # THE TWO NATIVE LIDS OF THE CAP STACK. Their directory also holds two STL-backed cups;

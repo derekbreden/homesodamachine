@@ -46,7 +46,7 @@
    "label": "Every placed body is declared in the fastening table",
    "kind": "gate",
    "status": "pass",
-   "value": "125/125 declared",
+   "value": "121/121 declared",
    "target": "all declared",
    "detail": [],
    "active": true
@@ -162,10 +162,6 @@
     "discharge-chain \u2014 foam-assembly: 0.150 mm \u2014 excluded from the global pack floor",
     "funnel-frame \u2014 elbow-cradle: 0.150 mm \u2014 excluded from the global pack floor",
     "flow-regulator \u2014 foam-assembly: 0.248 mm \u2014 excluded from the global pack floor",
-    "tee-y-f \u2014 tee-cap-y-f: 0.250 mm \u2014 excluded from the global pack floor",
-    "tee-y-c \u2014 tee-cap-y-c: 0.250 mm \u2014 excluded from the global pack floor",
-    "tee-y-g \u2014 tee-cap-y-g: 0.250 mm \u2014 excluded from the global pack floor",
-    "tee-y-d \u2014 tee-cap-y-d: 0.250 mm \u2014 excluded from the global pack floor",
     "funnel-frame \u2014 funnel-drain-union: 0.364 mm \u2014 excluded from the global pack floor",
     "display \u2014 display-cover: 1.000 mm \u2014 excluded from the global pack floor",
     "fluid-1 \u2014 enclosure-front-top: 1.037 mm",
@@ -751,7 +747,7 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "gate",
    "status": "pass",
-   "value": "89/89 mounted, 32 part of another body, 5 nothing fastens",
+   "value": "85/85 mounted, 32 part of another body, 5 nothing fastens",
    "target": "a printed joint per body",
    "detail": [
     "funnel: wall-capture \u2014 nothing fastens it; The silicone brim rests on the roof ledge and its plug on the cradle's hook tops within the frame's socket, its sealing land on the drain stub. The funnel lifts out by hand for the dishwasher, the land sliding off the stub.",
@@ -767,7 +763,7 @@
    "label": "Every placement is stated as a rule, and the solid lands on it",
    "kind": "goal",
    "status": "fail",
-   "value": "119/125 stated",
+   "value": "115/121 stated",
    "target": "a stated rule per body, each landing on it",
    "detail": [
     "anchor-cap-carb-1: no seat states where it stands",

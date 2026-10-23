@@ -1,17 +1,15 @@
 {
   "/hardware/printed-parts/enclosure/enclosure/enclosure.py": {
-    "DOCK_ANCHOR_LEN": "11.15 mm",
-    "DOCK_ANCHOR_WALL": "3.25 mm",
     "DOCK_BARREL_AIR": "2.95 mm",
     "DOCK_BAY_FACE_Y": "Y82.515",
-    "DOCK_CAP_LEN": "7.846 mm",
-    "DOCK_CAP_STRAIN": "1.08%",
+    "DOCK_BODY_AIR": "1.454 mm",
+    "DOCK_BORE": "\u00d817 mm",
+    "DOCK_BORE_AIR": "0.25 mm",
+    "DOCK_BORE_DEPTH": "11.15 mm",
     "DOCK_CARTRIDGE_BACK": "Y82.265",
-    "DOCK_CAVITY": "0.65 mm",
     "DOCK_COLLAR_ENVELOPE": "\u00d816.5 mm",
     "DOCK_CONDENSER_AIR": "1.25 mm",
     "DOCK_CONNECTED_Y": "Y108.04",
-    "DOCK_ENGAGE": "1.2 mm",
     "DOCK_FORE_VALVE_Y": "Y108.04",
     "DOCK_FORE_VALVE_Z": "Z222.675",
     "DOCK_FRAME_GAP": "0.25 mm",
@@ -20,9 +18,6 @@
     "DOCK_HAIRPIN_R": "14 mm",
     "DOCK_HOLE_D": "\u00d88.5 mm",
     "DOCK_INNER_RETURN_Z": "Z168.675",
-    "DOCK_JOURNAL": "\u00d817 mm",
-    "DOCK_JOURNAL_AIR": "0.25 mm",
-    "DOCK_LEAD_IN": "30\u00b0",
     "DOCK_LOWER_PORT_Z": "Z164.924",
     "DOCK_MAGNET_PAIRS": "4",
     "DOCK_MAGNET_ROWS": "2",
@@ -34,14 +29,12 @@
     "DOCK_RELEASED_Y": "Y106.54",
     "DOCK_RELEASE_Y": "Y85.69",
     "DOCK_ROW_Z": "Z186.174",
-    "DOCK_SADDLE": "2.75 mm",
     "DOCK_TIP_FROM_BACK": "14.925 mm",
     "DOCK_TIP_Y": "Y97.19",
     "DOCK_TRAVEL": "1.5 mm",
     "DOCK_UPPER_TUBE": "15.25 mm",
     "DOCK_WALL_AFT_Y": "Y96.836",
-    "DOCK_WING": "1.5 mm",
-    "PUMP_TEE_COUNT": "4",
-    "TEE_CAP_COUNT": "4"
+    "DOCK_WALL_T": "14.321 mm",
+    "PUMP_TEE_COUNT": "4"
   }
 }

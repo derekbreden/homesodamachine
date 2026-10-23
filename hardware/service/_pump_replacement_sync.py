@@ -49,8 +49,8 @@ def _fastening_by_body():
 def holder(name: str, decked: frozenset):
     """The enclosure piece holding a body, including its fixed host.
 
-    Pump heads ride the cartridge. Each pump tee stands on front-top's tee anchor
-    under its tee cap; each source tee inherits the valve in `TEE_LANDS`.
+    Pump heads ride the cartridge. Each pump tee stands in its bore through front-top's
+    tee wall; each source tee inherits the valve in `TEE_LANDS`.
     """
     if name in decked:
         return RIDES_OUT
@@ -108,9 +108,8 @@ def main():
     variables = {
         "JOINT_COUNT": f"{len(found)}",
         "CART_PUMPS": f"{len(decked)}",
-        # One pump tee behind each collet-plate hole, and one tee cap over each.
+        # One pump tee in the tee wall behind each collet-plate hole.
         "PUMP_TEES": f"{len(plate['holes'])}",
-        "TEE_CAPS": f"{len(plate['holes'])}",
         # Each mating part carries its own half of the magnet pairs.
         "CART_MAGNETS": f"{_enc._retention.MAGNETS_PER_HALF}",
         "TRAY_VALVES": f"{sum(1 for n in valves if holder(n, decked) == BAY)}",
@@ -131,7 +130,7 @@ def main():
     print("-> pump-replacement.md")
     print(f"   {len(found)} collet joints: {', '.join(found)}")
     print(f"   {variables['CART_PUMPS']} prepared pumps leave with {variables['TUBE_CUT']} tubes; "
-          f"{variables['PUMP_TEES']} pump tees under {variables['TEE_CAPS']} tee caps "
+          f"{variables['PUMP_TEES']} pump tees in the tee wall "
           f"({variables['BOX_TEES']} tees in all) stay")
 
 

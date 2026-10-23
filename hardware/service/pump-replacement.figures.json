@@ -9,7 +9,6 @@
     "DOCK_BODY_GAP": "0.25 mm",
     "JOINT_COUNT": "4",
     "PUMP_TEES": "4",
-    "TEE_CAPS": "4",
     "TEE_STROKE": "1.5 mm",
     "TIP_FROM_CARTRIDGE": "14.925 mm",
     "TIP_Y": "97.19 mm",

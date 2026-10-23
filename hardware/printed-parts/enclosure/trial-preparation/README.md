@@ -23,9 +23,7 @@ A run writes `.cache/prints/trial/<date>-<piece>-<printer>-<mesh digest>/`: the 
 and its measured span, the painted face counts, the ribbon, window and modifier boxes, and
 each recipe change with its reason. `--printer` selects Mark1 (connection key `H2C`) or Mark2;
 `--part` replaces a plate's declared parts, with per-part quantity, axis turns, walls and
-infill. The `dock-petgf` plate is the pump dock's four tee caps, one `enclosure-tee-cap` STL at
-quantity 4. Its manufacturing STL already contains the print pose; use `turns=x:0`
-for explicit declarations. Preparation imports no CAD kernel. `--slice` runs the installed Bambu Studio command
+infill. Preparation imports no CAD kernel. `--slice` runs the installed Bambu Studio command
 line on the project and keeps its archive beside it. No printer is contacted.
 
 ## Recipe

@@ -165,7 +165,7 @@ def main():
             _box["inner"], _box["y_joint"], "back",
             _box["collet_plate"] if _box["pump_bay"] else None,
             _box["vent_chase"]):.4g} mm",
-        # One pump tee, tee anchor and tee cap behind each collet-plate hole.
+        # One pump tee in the tee wall behind each collet-plate hole.
         "DOCK_TEES": f"{len(_plate['holes'])}",
         "DOCK_LOCK_INSERTS": "0",
         "SHELL_SHORT_INSERTS": f"{len(_box['east_bosses']) + len(_c14.panel_screws())}",

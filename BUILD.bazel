@@ -2625,9 +2625,6 @@ genrule(
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-tee-cap.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-tee-cap.step.mesh",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-tee-cap.stl",
         "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
         ":out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-001.step",
@@ -5389,9 +5386,6 @@ genrule(
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-tee-cap.step",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-tee-cap.step.mesh",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-tee-cap.stl",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/README.figures.json",
@@ -5423,16 +5417,13 @@ O17=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/en
 O18=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step)
 O19=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh)
 O20=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl)
-O21=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-tee-cap.step)
-O22=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-tee-cap.step.mesh)
-O23=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-tee-cap.stl)
-O24=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step)
-O25=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh)
-O26=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.figures.json)
-O27=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.md)
-O28=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.py)
-O29=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/pump-dock/README.figures.json)
-O30=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/pump-dock/README.md)
+O21=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step)
+O22=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh)
+O23=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.figures.json)
+O24=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.md)
+O25=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.py)
+O26=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/pump-dock/README.figures.json)
+O27=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/pump-dock/README.md)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -5472,16 +5463,13 @@ cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl $$O17
 cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step $$O18
 cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh $$O19
 cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl $$O20
-cp hardware/printed-parts/enclosure/enclosure/enclosure-tee-cap.step $$O21
-cp hardware/printed-parts/enclosure/enclosure/enclosure-tee-cap.step.mesh $$O22
-cp hardware/printed-parts/enclosure/enclosure/enclosure-tee-cap.stl $$O23
-cp hardware/printed-parts/enclosure/enclosure/enclosure.step $$O24
-cp hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh $$O25
-cp hardware/printed-parts/enclosure/enclosure/README.figures.json $$O26
-cp hardware/printed-parts/enclosure/enclosure/README.md $$O27
-cp hardware/printed-parts/enclosure/enclosure/enclosure.py $$O28
-cp hardware/printed-parts/enclosure/pump-dock/README.figures.json $$O29
-cp hardware/printed-parts/enclosure/pump-dock/README.md $$O30
+cp hardware/printed-parts/enclosure/enclosure/enclosure.step $$O21
+cp hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh $$O22
+cp hardware/printed-parts/enclosure/enclosure/README.figures.json $$O23
+cp hardware/printed-parts/enclosure/enclosure/README.md $$O24
+cp hardware/printed-parts/enclosure/enclosure/enclosure.py $$O25
+cp hardware/printed-parts/enclosure/pump-dock/README.figures.json $$O26
+cp hardware/printed-parts/enclosure/pump-dock/README.md $$O27
 """,
 )
 
@@ -9817,9 +9805,6 @@ genrule(
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-tee-cap.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-tee-cap.step.mesh",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-tee-cap.stl",
         "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
         ":out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-001.step",

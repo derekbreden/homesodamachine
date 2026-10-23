@@ -60,8 +60,9 @@ back now faces up.
 `PACK_CROWN` locates the manifold above the refrigeration base. Eight flavor valves stand in
 the two valve trays and two stand on the cold core's cap. The cap also carries the separate
 water-fill valve. The pump cartridge supports both pump heads. Each pump tube enters a
-purchased PP0208E tee behind front-top's collet plate; the tee stands in a tee anchor under a
-snap-down tee cap, and one R14 hairpin joins its lower port to the rear valve beneath it. The
+purchased PP0208E tee behind front-top's collet plate; the tee's branch stands in a bore
+through front-top's tee wall, and one R14 hairpin joins its lower port to the rear valve beneath
+it. The
 crossbar's two tees butt onto held valves.
 The `mounted` axis records these load paths.
 
@@ -431,12 +432,6 @@ def record_pump_dock_seats(box_spec, dock_parts, retention):
         # its run upright on the pump tube's axis.
         name = 'tee-' + tee_name.lower()
         record_seat(name, planes={'y0': aft, 'cx': x, 'z0': z - _dock.plumbing.RUN_FACE},
-                    got=box(dock_parts[name]))
-        # Each cap snaps home on its anchor's lips: centred over the branch, its fore end
-        # one end air off the plate and its lips' tips down the anchor's flanks.
-        name = 'tee-cap-' + tee_name.lower()
-        record_seat(name, planes={'cx': x, 'y0': aft + _dock.anchor.END_AIR,
-                                  'z0': z - _dock.anchor.WING_TOP},
                     got=box(dock_parts[name]))
     interface = retention['interface']
     magnet_spec = _enc._retention
@@ -1239,14 +1234,10 @@ def collet_plate_spec(mcarry, tray_stations, valve_trays=()) -> dict:
             ports[str(x)] = {'point': tuple(point), 'axis': tuple(axis)}
     holes = sorted(holes)
     fore = round(ml.pump_wall_fore_y(), 6)
-    row = holes[0][1]
     plumbing = _dock.plumbing
     return {"holes": tuple(holes), "fore_y": fore,
             "aft_y": round(plumbing.plate_aft_y(fore), 6),
-            "wall_aft_y": fore+14.321,
-            "plate_top_z": round(_dock.plate_top_z(row), 6),
-            "plate_x": round(max(abs(x) for x, _z in holes) + _dock.WING_OUT
-                             + _dock.CAP_TOP_AIR, 6),
+            "wall_aft_y": round(_dock.wall_aft_y(fore), 6),
             "x0": _enc.interior_x()[0], "x1": _enc.interior_x()[1],
             "z0": _enc.z_seam, "z1": 218.85,
             "hole_d": 2.0 * _dock.HOLE_R,
@@ -1355,12 +1346,12 @@ def _boxed(x0, x1, y0, y1, z0, z1):
 
 
 # What rides FRONT-TOP into its own close: the flavour pack is made up into the trays
-# and the tee anchors on the bench (`internal-plumbing.md` §3), so the piece arrives
+# and the tee wall's bores on the bench (`internal-plumbing.md` §3), so the piece arrives
 # carrying it and the sweep has to carry it too — LESS the bodies cradled on the cold
 # core's own cap, which are the core's riders and nobody else's. The crossing runs to
 # the bulkheads and the pumps' own tubes are made up later and are not in the box yet.
-# The bulkhead, its collet plate and the tee anchors are integral with front-top.
-FRONT_RIDERS = ("valve-v-", "coil-v-", "tee-y-", "tee-cap-", "turn-", "step-")
+# The tee wall and its collet plate are integral with front-top.
+FRONT_RIDERS = ("valve-v-", "coil-v-", "tee-y-", "turn-", "step-")
 # What rides THE CORE on its cart — everything standing on or cradled in the cap's lid
 # when the back assembly comes over: the water pump with its two elbows and their clamps,
 # the made-up check chain, and the three cap-cradled valves with their coils and port stubs.
@@ -5783,7 +5774,7 @@ def report(a: cq.Assembly, clashes=None) -> None:
     print(f"  base crown       z {crown:.2f}   manifold low face    z {pack.zmin:.2f}   "
           f"gap {pack.zmin - crown:.2f}")
     print(f"  the pump-head faces stand z {pump_face:.2f}, {pump_face - crown:.2f} mm over the "
-          f"crown; the valve trays, tee anchors and dry fixtures support the manifold")
+          f"crown; the valve trays, the tee wall and dry fixtures support the manifold")
     print(f"  the base's own two crowns differ by {abs(sh.zmax - co.zmax):.2f}")
     base_aft = max(sh.ymax, co.ymax)
     print(f"  base aft face    y {base_aft:.2f}   foam front face      y {fo.ymin:.2f}   "

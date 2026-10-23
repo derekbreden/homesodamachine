@@ -11,10 +11,6 @@ Which anchors take a cap is stated in `enclosure_assembly.TUBE_ANCHOR_CLOSURES` 
 lid with the funnel's elbow cradle 8.1 mm above it, along 12.7 mm of straight, and a cap reaches
 7.98 mm from the tube's axis on both sides while its rib needs 16.3 mm of straight.
 
-The pump dock's four [tee caps](../pump-dock/README.md#tee-anchors-and-tee-caps) use this snap
-interface with the half pipe sized to a PP0208E tee's branch collar and a thicker saddle, one
-section their whole length; they are their own part, `enclosure-tee-cap`.
-
 ## Geometry
 
 The cap is one section extruded [10 mm](CAP_LEN) along the tube, [15.95 mm](CAP_WIDTH) across
@@ -52,7 +48,7 @@ filament.
 PET-GF15 on the 0.4 mm nozzle, standing on its end as exported: the section on the bed and the
 tube's axis vertical. Every layer is the whole section, so nothing overhangs and no supports are
 needed, and each wing bends along its own extrusion lines. Print it solid — at least six walls
-and 100% infill, the recipe the collet press and the pump dock's tee caps use — with a 0.20 mm
+and 100% infill, the recipe the collet press uses — with a 0.20 mm
 first layer and 0.24 mm layers. Keep the 0.65 mm gaps open: they are what lets the wings
 spring. Part cooling stays off, per the [localized cooling policy](../../cooling/README.md): the
 cap has no bridge or overhang that needs it, and general cooling is what left PET-GF snap covers

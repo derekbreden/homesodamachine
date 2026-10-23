@@ -7,8 +7,7 @@
     "back-bottom": "Source STEP/STL coordinates in the appliance frame",
     "back-top": "Source STEP/STL coordinates in the appliance frame",
     "pump-cartridge": "Source STEP/STL coordinates in the appliance frame",
-    "pump-cap": "Source STEP/STL coordinates in the appliance frame",
-    "tee-cap": "Canonical manufacturing STEP/STL, already bedded in print pose"
+    "pump-cap": "Source STEP/STL coordinates in the appliance frame"
   },
   "print_poses": {
     "front-bottom": {
@@ -214,56 +213,15 @@
           1
         ]
       ]
-    },
-    "tee-cap": {
-      "up_axis_in_source": [
-        0,
-        0,
-        1
-      ],
-      "bed_face": "Manufacturing export is already bedded in print pose",
-      "source_to_print_mm": [
-        [
-          1,
-          0,
-          0,
-          0
-        ],
-        [
-          0,
-          1,
-          0,
-          0
-        ],
-        [
-          0,
-          0,
-          1,
-          0
-        ],
-        [
-          0,
-          0,
-          0,
-          1
-        ]
-      ]
     }
   },
-  "part_process_overrides": {
-    "tee-cap": {
-      "wall_loops": "6",
-      "sparse_infill_density": "100%",
-      "sparse_infill_pattern": "zig-zag",
-      "purpose": "Each spring wing flexes at every snap and its lip carries the tee into the anchor window. Whole-object solid deposition includes both wings and lips."
-    }
-  },
+  "part_process_overrides": {},
   "source_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "e40d0ca8dcb631cf6b56c34403c0b04482c92f5a394f95c73fa04b9760fded46",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "c0d83f53f73175d95ce6f7f3f086896ed25b4acca8bf407cd3ac1971d4731e2a",
+    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "062fe207fb7301bbf9a72d19469424509f62ba97cd124960365425aaa0336d9f",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "68b76c2bc3cd7019e391a66448c3590e5858d8031556b4f4e380cba2e014f818",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "264bb52da73675dcd41f7fff8bc5fce6eabd06336fc3cf8b7a9b8560c21e5040",
-    "hardware/manifold-layout/enclosure-box.json": "03dfa9abb3295235be7b657f1d683d19c39d8944e4973ea1921922ac9b5ecdd0",
-    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "cecbbbdfe79103fb57e996197d802871e53069ee354169ee48679165983a0604",
+    "hardware/manifold-layout/enclosure-box.json": "f2ddb001f946dde7a4858fb1f9ff01044cca7857fe8dcda7d87e9b9f687896da",
+    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "970cc52cca7f1cdbc7854bbbd2edafe1e698593a58c10a7237d2e564cbc039d8",
     "hardware/printed-parts/enclosure/pump-dock/dock_retention.py": "8bc24f8bae454f027afa3ca9465ed83b3bfc390b5bcbe35b97e7ee01b172d0e4",
     "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "923ac4148ff35b5959fcc4092b23d0a7fe9364b517a68172c33369c235fda497",
     "hardware/printed-parts/petgf.3mf": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0"
@@ -274,8 +232,8 @@
       ".stl": "98c87eff77a5d92f74348c23fbe96028153025948811505cc3aa017675add6eb"
     },
     "front-top": {
-      ".step": "ac27e633be6d385ac91effdd2c1945ff76ae8e415aa0daea929052914a688209",
-      ".stl": "c70b5216ccfbc931b1cc1c03490523f1ba6012d37ffac36ba6cc769b164346f3"
+      ".step": "925c14610de58d4c9d1d989ce6319ae24c4e628644b0e808fc4a436adbaf786e",
+      ".stl": "8624c80add07213d04f9aeb87e380f9c66d3bd327b2af0d95d9ee9e3055c5fd6"
     },
     "back-bottom": {
       ".step": "9cd6a2e8acddd375fc1946762ac077fec9d765d6a955b4e07c9f6d795af2b162",
@@ -292,10 +250,6 @@
     "pump-cap": {
       ".step": "21a12194da0c9c7b3984905ace0f26d8b57e9c12bbba4b5a264e75ee955a95c6",
       ".stl": "bbcb05f67b2bc71eba6d031bd3eab53661feb4606a7971875294fa8f26df8580"
-    },
-    "tee-cap": {
-      ".step": "ace66d89af3ca79ee23547d2af02d972b3fedd589a61ac5f4bf98ed1b4de28d7",
-      ".stl": "a709809b0a4f43eae93d7db5e8defe583812f48af3281695e9633a2129e714a3"
     }
   },
   "pieces": {
@@ -1787,37 +1741,6 @@
           -68.64,
           3.250011230468715,
           14.05001123046867
-        ]
-      }
-    ],
-    "tee-cap": [
-      {
-        "name": "Complete tee cap, half pipe, spring wings and lips",
-        "machine_bounds_mm": [
-          -13.4,
-          13.4,
-          -11.85,
-          11.85,
-          -2.000551255640486e-27,
-          7.846000000000014
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag",
-        "applied_source_bounds_mm": [
-          -13.399999618530273,
-          13.399999618530273,
-          -11.85,
-          11.85,
-          0.0,
-          7.846000000000014
-        ],
-        "print_bounds_mm": [
-          -13.399999618530273,
-          13.399999618530273,
-          -11.85,
-          11.85,
-          0.0,
-          7.846000000000014
         ]
       }
     ]

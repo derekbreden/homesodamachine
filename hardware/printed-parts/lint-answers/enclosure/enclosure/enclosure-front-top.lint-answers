@@ -85,38 +85,6 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-52.225 y=85.010 z=192.877
 click: x=52.225 y=85.010 z=192.877
 
-[ledge] Unavoidable fitted catch bridges: each face is the bearing face of a tee anchor's catch window, where the tee cap's lip bears. Front-top prints seam-down, so the anchor stands up off the bed and the face prints as an 8.1 mm bridge between the collet plate and the anchor's 3 mm aft end web (`dock_structure.window_length`: the tee cap's length and a slip at each end), roofing the closed pocket the lip enters.
-alternatives: A corbel or column under the face fills the window the lip enters. Sloping the face turns the lip's pull into a spread that walks the wing out of the window, and a window open at its aft end gives up the end web the bridge stands on.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-92.783 y=88.405 z=179.252
-click: x=-71.417 y=88.405 z=179.252
-click: x=-33.033 y=88.405 z=179.252
-click: x=33.033 y=88.405 z=179.252
-click: x=71.417 y=88.405 z=179.252
-click: x=92.783 y=88.405 z=179.252
-click: x=-11.667 y=88.405 z=179.252
-click: x=11.667 y=88.405 z=179.252
-
-[sliver] Unavoidable fitted catch faces: each 1.6 mm strip is the bearing face or the floor of a tee anchor's catch window, as deep as the window: the tee cap lip's 1.2 mm engagement with a slip and the bridge's 0.25 mm finish allowance past the lip's tip.
-alternatives: A deeper window narrows the anchor's web for bearing the 1.2 mm lip never uses, and a shallower one lets the lip bottom out. A deeper engagement spreads the cap's wings past the faucet display cover's strain on the same estimate.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-11.400 y=89.763 z=179.252
-click: x=11.400 y=89.763 z=179.252
-click: x=-93.050 y=89.763 z=179.252
-click: x=-71.150 y=89.763 z=179.252
-click: x=-33.300 y=89.763 z=179.252
-click: x=33.300 y=89.763 z=179.252
-click: x=71.150 y=89.763 z=179.252
-click: x=93.050 y=89.763 z=179.252
-click: x=-11.400 y=89.763 z=175.274
-click: x=11.400 y=89.763 z=175.274
-click: x=-93.050 y=89.763 z=175.274
-click: x=-71.150 y=89.763 z=175.274
-click: x=-33.300 y=89.763 z=175.274
-click: x=33.300 y=89.763 z=175.274
-click: x=71.150 y=89.763 z=175.274
-click: x=93.050 y=89.763 z=175.274
-
 [thin] Approved by Derek as drawn: each reading is the wall a flute groove leaves on a 3 mm section. The 1.2 mm groove (`flute_depth`) leaves 1.8 mm between its floor and the inner face (enclosure README, Nothing may relieve into the outermost 3 mm of a fluted face), on front-top's flanks. Derek, 2026-10-21: "The flute grooves on 3mm walls is good with me and approved by me."
 alternatives: A 4.2 mm wall keeps 3 mm under every groove and takes 1.2 mm more of the room inside each flank; a shallower groove changes the texture the corner coupon set.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step

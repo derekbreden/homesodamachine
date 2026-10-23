@@ -274,23 +274,6 @@
         {"stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl"}
       ]
     },
-    "dock-petgf": {
-      "printer": "Mark1",
-      "spacing_mm": 12,
-      "parts": [
-        {
-          "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-tee-cap.stl",
-          "quantity": 4,
-          "pose": {"turns": [["x", 0]]},
-          "regions": "tee-cap",
-          "object_settings": {
-            "wall_loops": {"value": "6", "reason": "Each spring wing flexes at every snap and its lip carries the tee into the anchor window."},
-            "sparse_infill_density": {"value": "100%", "reason": "Complete wing and lip load path."},
-            "sparse_infill_pattern": {"value": "zig-zag", "reason": "Solid structural-part recipe."}
-          }
-        }
-      ]
-    },
     "labels": {
       "printer": "Mark2",
       "external": {

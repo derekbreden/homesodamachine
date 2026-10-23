@@ -25,7 +25,7 @@ own front opening. Pulling the cartridge drags the four pump tees forward their 
 stroke against front-top's collet plate, which holds each collet in while its pump tube
 draws out. The plate carries that reaction into the enclosure, while each pump head's own
 housing clamps its tubes. The enclosure can be braced by a hand, foot, cupboard edge or
-its own weight. The tees, their caps, the valves and the rear plumbing stay in the machine, and
+its own weight. The tees, the valves and the rear plumbing stay in the machine, and
 `enclosure-front-top` stays on. Every other
 physical fault is answered by shipping a replacement; units are sold over the
 internet to customers in other states, and the returned unit comes back to Derek. Diagnosis
@@ -46,9 +46,8 @@ destroyed is a part that comes out by being destroyed.
   interior butt joints: Y-A to V-C, Y-B to V-D and the crossbar between Y-A and Y-B. Each
   pump tee reaches its fore valve on a short straight tube, not a butt
   ([`manifold-layout/`](/hardware/manifold-layout/README.md)).
-- **The pump dock separates at the pump tees' branch collets.** Each tee's branch lies in an
-  anchor's journal under a snapped-on cap, which holds it in X and Z and lets it slide along
-  Y; the collet plate stops it fore at the end of its collet stroke. Pulling the cartridge drags the
+- **The pump dock separates at the pump tees' branch collets.** Each tee's branch stands in
+  a bore through front-top's tee wall, which holds it in X and Z and lets it slide along Y; the collet plate stops it fore at the end of its collet stroke. Pulling the cartridge drags the
   tees forward against the plate, which holds each collet in while the tube draws out, and
   pushing it in returns them. The fore valves stand over the tees' connected axes, so each
   upper tube stands straight in service and bends the stroke at release, and each hairpin

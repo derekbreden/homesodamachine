@@ -191,8 +191,8 @@ prepared pumps using the [service procedure](/hardware/service/pump-replacement.
 [`enclosure_assembly.py`](enclosure_assembly.py) → `enclosure-assembly.step` mates its bodies with nothing between
 them: the compressor's own +X tangent to the condenser's intake face, while the pack's pose is
 read from the fixed manifold's occupied envelope above the pair's crown.
-The eight deck valves bear in front-top's two trays. The pump tees run in front-top's tee
-anchors under their tee caps. The cold core is not one of the pair — it
+The eight deck valves bear in front-top's two trays. The pump tees run in their bores through
+front-top's tee wall. The cold core is not one of the pair — it
 is packed off the +Y wall of back-top instead, so a LANE stands between it and the compressor bay, and
 the two legs of the loop that cross it are drawn in copper.
 

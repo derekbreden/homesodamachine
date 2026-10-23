@@ -5,8 +5,8 @@
     tools/cad-venv/bin/python hardware/printed-parts/enclosure/trial-preparation/prepare.py front-top
     tools/cad-venv/bin/python hardware/printed-parts/enclosure/trial-preparation/prepare.py front-top --printer Mark2 --slice --review
     tools/cad-venv/bin/python hardware/printed-parts/enclosure/trial-preparation/prepare.py all --slice --review
-    tools/cad-venv/bin/python hardware/printed-parts/enclosure/trial-preparation/prepare.py dock-petgf \
-        --part hardware/printed-parts/enclosure/enclosure/enclosure-tee-cap.stl,quantity=4,turns=x:0,walls=6,infill=100
+    tools/cad-venv/bin/python hardware/printed-parts/enclosure/trial-preparation/prepare.py factory-tools \
+        --part hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl,quantity=1,turns=x:0
 
 `pieces.json` declares every piece: its meshes, pose, printer, recipe changes with
 their reasons, and the named features read from each mesh. Preparation writes the
