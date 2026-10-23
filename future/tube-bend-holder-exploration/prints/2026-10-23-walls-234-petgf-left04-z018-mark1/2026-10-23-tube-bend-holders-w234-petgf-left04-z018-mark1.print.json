@@ -1,0 +1,260 @@
+{
+  "project": "2026-10-23-tube-bend-holders-w234-petgf-left04-z018-mark1.3mf",
+  "settings_source": ".cache/tube-bend-holder-print/2026-10-23-tube-bend-holders-w234-petgf-left04-z018-mark1-settings.3mf",
+  "settings_source_sha256": "c6b927a2f0d8655da33a6b30ea9b813c76e95ebfce5c002720975f9a9dfebefe",
+  "settings_sha256": "19f93e34c0af9b14c7ad98750c0189a840baaeae684df6918bee403efade8888",
+  "source_settings_sha256": "565d3a98b439c6b945b5ff4fd0fccdc04bc29112ff839afdeeca61e1589eeb81",
+  "settings_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "409b1516f0401361a02b18a34420c10ca83bc33615e8896cade2fea42edee871",
+      "requested_z_trim_mm": 0.18
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
+    }
+  },
+  "printer": "Bambu Lab H2C 0.4 Standard +0.18 Z trim",
+  "process": "0.24mm PET-GF solid - tube bend holders",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 6,
+  "sparse_infill_percent": 100.0,
+  "sparse_infill_pattern": "zig-zag",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 20.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "2 mm wall",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "future/tube-bend-holder-exploration/holder-w2.stl",
+      "stl_sha256": "8db7cdf826596e91de8dae8dfc06c53a5b0a3c9f680d8ce9da150acde69d0d06",
+      "triangles": 13608,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        9.699999809265137,
+        9.699999809265137,
+        6.103323936462402
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        134.5,
+        160.0,
+        6.103323936462402
+      ],
+      "plate_translation_mm": [
+        134.5,
+        160.0,
+        6.103323936462402
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          124.80000019073486,
+          150.30000019073486,
+          0.0
+        ],
+        [
+          144.19999980926514,
+          169.69999980926514,
+          12.206647872924805
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "3 mm wall",
+      "plate": 1,
+      "object_id": "4",
+      "part_id": "3",
+      "member": "3D/Objects/object_2.model",
+      "identify_id": 1902,
+      "source": "future/tube-bend-holder-exploration/holder-w3.stl",
+      "stl_sha256": "8096442fb80d946bfaf7f7172d95fee3309df68da3b4a7a179110622f99ca66c",
+      "triangles": 17064,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        10.199999809265137,
+        10.199999809265137,
+        7.103168487548828
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        162.5,
+        160.0,
+        7.103168487548828
+      ],
+      "plate_translation_mm": [
+        162.5,
+        160.0,
+        7.103168487548828
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          152.30000019073486,
+          149.80000019073486,
+          0.0
+        ],
+        [
+          172.69999980926514,
+          170.19999980926514,
+          14.206336975097656
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    },
+    {
+      "name": "4 mm wall",
+      "plate": 1,
+      "object_id": "6",
+      "part_id": "5",
+      "member": "3D/Objects/object_3.model",
+      "identify_id": 1903,
+      "source": "future/tube-bend-holder-exploration/holder-w4.stl",
+      "stl_sha256": "c59f5085937deaa8434331fc8bfa2322b8537892064c6271b7aafe2ed1ae944d",
+      "triangles": 16772,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        10.699999809265137,
+        10.699999809265137,
+        8.103013038635254
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        191.5,
+        160.0,
+        8.103013038635254
+      ],
+      "plate_translation_mm": [
+        191.5,
+        160.0,
+        8.103013038635254
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          180.80000019073486,
+          149.30000019073486,
+          0.0
+        ],
+        [
+          202.19999980926514,
+          170.69999980926514,
+          16.206026077270508
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 5.000000413701855e-10
+    }
+  ],
+  "project_sha256": "c319a7424bd2a94d04117ebe8e16b95bc260a3b2f9766b35fed0532c4a878ea2",
+  "settings_preserved_byte_for_byte": false,
+  "status": "offline project preparation; no printer submission",
+  "printer_submission": false,
+  "intended_printer": "Mark1 (H2C)",
+  "material": "PET-GF",
+  "nozzle_mapping": "Left hardened 0.4 mm; black PET-GF external spool 254",
+  "original_settings_source": "hardware/printed-parts/petgf.3mf",
+  "original_settings_source_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+  "task_process_changes": {
+    "wall_loops": {
+      "from": "2",
+      "to": "6"
+    },
+    "sparse_infill_density": {
+      "from": "15%",
+      "to": "100%"
+    },
+    "sparse_infill_pattern": {
+      "from": "gyroid",
+      "to": "zig-zag"
+    },
+    "enable_prime_tower": {
+      "from": "1",
+      "to": "0"
+    },
+    "print_settings_id": {
+      "from": "0.24mm PET-GF faucet",
+      "to": "0.24mm PET-GF solid - tube bend holders"
+    }
+  },
+  "print_pose": "flat back of the D on the plate; channel's teardrop point up"
+}
