@@ -1,0 +1,568 @@
+{
+  "scope": "Free-space water-group socket-fitting benchmark; enclosure and supports omitted. Meshes are layout references, not a manufacturing release.",
+  "units": "mm",
+  "envelope_excludes": [
+    "check-carbonator",
+    "va-flavor",
+    "vent",
+    "water-in"
+  ],
+  "unknown_host_insertion": {
+    "nominal_mm": 12.7,
+    "range_mm": [
+      10,
+      15
+    ],
+    "status": "layout estimate, not measured tolerance"
+  },
+  "variants": {
+    "run": {
+      "tee_center_mm": [
+        24.243067394995265,
+        0.0,
+        92.351
+      ],
+      "asse_translation_mm": [
+        -12.65319000000001,
+        1.3441999999999972,
+        -6.211389999999994
+      ],
+      "flavor_translation_mm": [
+        -12.897390000000016,
+        0.0,
+        -6.211389999999994
+      ],
+      "mates": [
+        {
+          "a": "asse-outlet-tpu",
+          "b": "tee",
+          "point": [
+            24.243067394995265,
+            -21.005799999999997,
+            92.351
+          ],
+          "exposed_tube_mm": 0.0,
+          "connection": "female faces meet; concealed tube connects sockets"
+        },
+        {
+          "a": "tee",
+          "b": "reg",
+          "point": [
+            45.24886739499526,
+            0.0,
+            92.351
+          ],
+          "exposed_tube_mm": 0.0,
+          "connection": "female faces meet; concealed tube connects sockets"
+        },
+        {
+          "a": "reg",
+          "b": "va",
+          "point": [
+            104.74886739499526,
+            0.0,
+            92.351
+          ],
+          "exposed_tube_mm": 0.0,
+          "connection": "female faces meet; concealed tube connects sockets"
+        },
+        {
+          "a": "vk",
+          "b": "pump-inlet-tpu",
+          "point": [
+            -4.916132605004726,
+            0.0,
+            18.5
+          ],
+          "exposed_tube_mm": 0.0,
+          "connection": "female faces meet; concealed tube connects sockets"
+        },
+        {
+          "a": "pump-outlet-tpu",
+          "b": "check",
+          "point": [
+            79.19456592743953,
+            -18.529465054624836,
+            0.0445200642486725
+          ],
+          "exposed_tube_mm": 0.0,
+          "connection": "female faces meet; concealed tube connects sockets"
+        },
+        {
+          "a": "check",
+          "b": "carbonator-fold",
+          "point": [
+            79.19456592743953,
+            -69.52946505462484,
+            0.0445200642486725
+          ],
+          "exposed_tube_mm": 0.0,
+          "connection": "male stem into female socket",
+          "insertion_mm": 12.7,
+          "shoulder_gap_mm": 8.305800000000001
+        },
+        {
+          "a": "vk",
+          "b": "tee-fold",
+          "point": [
+            -4.916132605004726,
+            0.0,
+            78.0
+          ],
+          "exposed_tube_mm": 0.0,
+          "connection": "male stem into female socket",
+          "insertion_mm": 12.7,
+          "shoulder_gap_mm": 8.305800000000001
+        },
+        {
+          "a": "tee-fold",
+          "b": "tee",
+          "point": [
+            14.133867394995267,
+            0.0,
+            92.351
+          ],
+          "exposed_tube_mm": 0.0,
+          "connection": "male stem into NeoFit socket",
+          "insertion_mm": 16.891,
+          "shoulder_gap_mm": 4.1148000000000025
+        }
+      ],
+      "bounds_mm": [
+        [
+          -21.666135641121762,
+          -126.0058,
+          -26.72430830751182
+        ],
+        [
+          164.24886627429214,
+          44.61154368121635,
+          108.85099969482422
+        ]
+      ],
+      "size_xyz_mm": [
+        185.9150019154139,
+        170.61734368121634,
+        135.57530800233604
+      ],
+      "unrelated_body_interferences": [],
+      "envelope_range_for_host_depth_and_elbow_reach_estimates_mm": [
+        [
+          184.9150019154139,
+          170.61734368121634,
+          133.27530800233603
+        ],
+        [
+          186.9150019154139,
+          170.61734368121634,
+          138.27530800233603
+        ]
+      ]
+    },
+    "neofit-branch": {
+      "tee_center_mm": [
+        34.237967394995266,
+        0.0,
+        92.351
+      ],
+      "asse_translation_mm": [
+        -2.658290000000008,
+        10.298999999999996,
+        -6.211389999999994
+      ],
+      "flavor_translation_mm": [
+        -3.8041900000000055,
+        0.0,
+        -6.211389999999994
+      ],
+      "mates": [
+        {
+          "a": "asse-outlet-tpu",
+          "b": "tee",
+          "point": [
+            34.237967394995266,
+            -12.050999999999998,
+            92.351
+          ],
+          "exposed_tube_mm": 0.0,
+          "connection": "male stem into TPU socket",
+          "insertion_mm": 15,
+          "shoulder_gap_mm": 6.005800000000001
+        },
+        {
+          "a": "tee",
+          "b": "reg",
+          "point": [
+            54.34206739499527,
+            0.0,
+            92.351
+          ],
+          "exposed_tube_mm": 0.0,
+          "connection": "female faces meet; concealed tube connects sockets"
+        },
+        {
+          "a": "reg",
+          "b": "va",
+          "point": [
+            113.84206739499527,
+            0.0,
+            92.351
+          ],
+          "exposed_tube_mm": 0.0,
+          "connection": "female faces meet; concealed tube connects sockets"
+        },
+        {
+          "a": "vk",
+          "b": "pump-inlet-tpu",
+          "point": [
+            -4.916132605004726,
+            0.0,
+            18.5
+          ],
+          "exposed_tube_mm": 0.0,
+          "connection": "female faces meet; concealed tube connects sockets"
+        },
+        {
+          "a": "pump-outlet-tpu",
+          "b": "check",
+          "point": [
+            79.19456592743953,
+            -18.529465054624836,
+            0.0445200642486725
+          ],
+          "exposed_tube_mm": 0.0,
+          "connection": "female faces meet; concealed tube connects sockets"
+        },
+        {
+          "a": "check",
+          "b": "carbonator-fold",
+          "point": [
+            79.19456592743953,
+            -69.52946505462484,
+            0.0445200642486725
+          ],
+          "exposed_tube_mm": 0.0,
+          "connection": "male stem into female socket",
+          "insertion_mm": 12.7,
+          "shoulder_gap_mm": 8.305800000000001
+        },
+        {
+          "a": "vk",
+          "b": "tee-fold",
+          "point": [
+            -4.916132605004726,
+            0.0,
+            78.0
+          ],
+          "exposed_tube_mm": 0.0,
+          "connection": "male stem into female socket",
+          "insertion_mm": 12.7,
+          "shoulder_gap_mm": 8.305800000000001
+        },
+        {
+          "a": "tee-fold",
+          "b": "tee",
+          "point": [
+            14.133867394995267,
+            0.0,
+            92.351
+          ],
+          "exposed_tube_mm": 0.0,
+          "connection": "female sockets joined by concealed tube",
+          "concealed_tube_length_mm": 33.782
+        }
+      ],
+      "bounds_mm": [
+        [
+          -21.666135641121762,
+          -117.051,
+          -26.72430830751182
+        ],
+        [
+          173.34206627429214,
+          44.61154368121635,
+          108.85099969482422
+        ]
+      ],
+      "size_xyz_mm": [
+        195.0082019154139,
+        161.66254368121633,
+        135.57530800233604
+      ],
+      "unrelated_body_interferences": [],
+      "envelope_range_for_host_depth_and_elbow_reach_estimates_mm": [
+        [
+          194.0082019154139,
+          161.66254368121633,
+          133.27530800233603
+        ],
+        [
+          196.0082019154139,
+          161.66254368121633,
+          138.27530800233603
+        ]
+      ]
+    },
+    "jg-branch": {
+      "tee_center_mm": [
+        33.583867394995266,
+        0.0,
+        92.351
+      ],
+      "asse_translation_mm": [
+        -3.3123900000000077,
+        11.349999999999994,
+        -6.211389999999994
+      ],
+      "flavor_translation_mm": [
+        -5.112390000000005,
+        0.0,
+        -6.211389999999994
+      ],
+      "mates": [
+        {
+          "a": "asse-outlet-tpu",
+          "b": "tee",
+          "point": [
+            33.583867394995266,
+            -11.0,
+            92.351
+          ],
+          "exposed_tube_mm": 0.0,
+          "connection": "male stem into TPU socket",
+          "insertion_mm": 15,
+          "shoulder_gap_mm": 5.0
+        },
+        {
+          "a": "tee",
+          "b": "reg",
+          "point": [
+            53.03386739499527,
+            0.0,
+            92.351
+          ],
+          "exposed_tube_mm": 0.0,
+          "connection": "female faces meet; concealed tube connects sockets"
+        },
+        {
+          "a": "reg",
+          "b": "va",
+          "point": [
+            112.53386739499527,
+            0.0,
+            92.351
+          ],
+          "exposed_tube_mm": 0.0,
+          "connection": "female faces meet; concealed tube connects sockets"
+        },
+        {
+          "a": "vk",
+          "b": "pump-inlet-tpu",
+          "point": [
+            -4.916132605004726,
+            0.0,
+            18.5
+          ],
+          "exposed_tube_mm": 0.0,
+          "connection": "female faces meet; concealed tube connects sockets"
+        },
+        {
+          "a": "pump-outlet-tpu",
+          "b": "check",
+          "point": [
+            79.19456592743953,
+            -18.529465054624836,
+            0.0445200642486725
+          ],
+          "exposed_tube_mm": 0.0,
+          "connection": "female faces meet; concealed tube connects sockets"
+        },
+        {
+          "a": "check",
+          "b": "carbonator-fold",
+          "point": [
+            79.19456592743953,
+            -69.52946505462484,
+            0.0445200642486725
+          ],
+          "exposed_tube_mm": 0.0,
+          "connection": "male stem into female socket",
+          "insertion_mm": 12.7,
+          "shoulder_gap_mm": 8.305800000000001
+        },
+        {
+          "a": "vk",
+          "b": "tee-fold",
+          "point": [
+            -4.916132605004726,
+            0.0,
+            78.0
+          ],
+          "exposed_tube_mm": 0.0,
+          "connection": "male stem into female socket",
+          "insertion_mm": 12.7,
+          "shoulder_gap_mm": 8.305800000000001
+        },
+        {
+          "a": "tee-fold",
+          "b": "tee",
+          "point": [
+            14.133867394995267,
+            0.0,
+            92.351
+          ],
+          "exposed_tube_mm": 0.0,
+          "connection": "female sockets joined by concealed tube",
+          "concealed_tube_length_mm": 32.590999999999994
+        }
+      ],
+      "bounds_mm": [
+        [
+          -21.666135641121762,
+          -116.0,
+          -26.72430830751182
+        ],
+        [
+          172.03386627429214,
+          44.61154368121635,
+          108.85099969482422
+        ]
+      ],
+      "size_xyz_mm": [
+        193.7000019154139,
+        160.61154368121635,
+        135.57530800233604
+      ],
+      "unrelated_body_interferences": [],
+      "envelope_range_for_host_depth_and_elbow_reach_estimates_mm": [
+        [
+          192.7000019154139,
+          160.61154368121635,
+          133.27530800233603
+        ],
+        [
+          194.7000019154139,
+          160.61154368121635,
+          138.27530800233603
+        ]
+      ]
+    },
+    "union": {
+      "tee_center_mm": [
+        36.896257394995274,
+        0.0,
+        98.56239
+      ],
+      "asse_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "flavor_translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mates": [
+        {
+          "a": "asse-outlet-tpu",
+          "b": "tee",
+          "point": [
+            36.896257394995274,
+            -22.349999999999994,
+            98.56239
+          ],
+          "exposed_tube_mm": 0.0
+        },
+        {
+          "a": "tee",
+          "b": "reg",
+          "point": [
+            58.146257394995274,
+            0.0,
+            98.56239
+          ],
+          "exposed_tube_mm": 0.0
+        },
+        {
+          "a": "reg",
+          "b": "va",
+          "point": [
+            117.64625739499527,
+            0.0,
+            98.56239
+          ],
+          "exposed_tube_mm": 0.0
+        },
+        {
+          "a": "vk",
+          "b": "pump-inlet-tpu",
+          "point": [
+            -4.916132605004726,
+            0.0,
+            18.5
+          ],
+          "exposed_tube_mm": 0.0
+        },
+        {
+          "a": "pump-outlet-tpu",
+          "b": "check",
+          "point": [
+            79.19456592743953,
+            -18.529465054624836,
+            0.0445200642486725
+          ],
+          "exposed_tube_mm": 0.0
+        },
+        {
+          "a": "check",
+          "b": "carbonator-fold",
+          "point": [
+            79.19456592743953,
+            -69.52946505462484,
+            0.0445200642486725
+          ],
+          "exposed_tube_mm": 0.0
+        },
+        {
+          "a": "vk",
+          "b": "tee-fold",
+          "point": [
+            -4.916132605004726,
+            0.0,
+            78.0
+          ],
+          "exposed_tube_mm": 0.0
+        },
+        {
+          "a": "tee-fold",
+          "b": "tee",
+          "point": [
+            15.646257394995274,
+            0.0,
+            98.56239
+          ],
+          "exposed_tube_mm": 0.0
+        }
+      ],
+      "bounds_mm": [
+        [
+          -21.666135641121762,
+          -127.35,
+          -26.72430830751182
+        ],
+        [
+          177.14625627429214,
+          44.61154368121635,
+          115.06238969482422
+        ]
+      ],
+      "size_xyz_mm": [
+        198.8123919154139,
+        171.96154368121634,
+        141.78669800233604
+      ],
+      "unrelated_body_interferences": []
+    }
+  }
+}
