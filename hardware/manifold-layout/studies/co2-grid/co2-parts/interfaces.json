@@ -1,0 +1,230 @@
+{
+  "regulator": {
+    "flow_axis": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "tube_inlet": {
+      "point_mm": [
+        0.0,
+        -13.7,
+        0.0
+      ],
+      "outward_axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "kind": "tube_socket",
+      "tube_od_mm": 6.35,
+      "tube_insertion_mm": 15.7,
+      "tube_insertion_basis": "Manufacturer dimension with collet released; selected layout depth"
+    },
+    "tube_outlet": {
+      "point_mm": [
+        0.0,
+        86.47,
+        0.0
+      ],
+      "outward_axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "kind": "tube_socket",
+      "tube_od_mm": 6.35,
+      "tube_insertion_mm": 15.7,
+      "tube_insertion_basis": "Manufacturer dimension with collet released; selected layout depth"
+    },
+    "metal_inlet": {
+      "point_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "outward_axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "kind": "female_1/4_NPT"
+    },
+    "metal_outlet": {
+      "point_mm": [
+        0.0,
+        63.65,
+        0.0
+      ],
+      "outward_axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "kind": "male_1/4_NPT"
+    },
+    "outlet_thread_shoulder_y_mm": 54.47,
+    "outlet_exposed_thread_projection_mm": 9.18,
+    "barrel": {
+      "point_mm": [
+        0.0,
+        32.35,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "diameter_mm": 18.87,
+      "length_mm": 35.4
+    },
+    "selected_male_inlet_engagement_mm": 14.3,
+    "selected_female_outlet_engagement_mm": 9.18,
+    "tube_mouth_span_mm": 100.17
+  },
+  "check": {
+    "flow_axis": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "tube_inlet": {
+      "point_mm": [
+        0.0,
+        -33.7,
+        0.0
+      ],
+      "outward_axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "kind": "tube_socket",
+      "tube_od_mm": 6.35,
+      "tube_insertion_mm": 15.7,
+      "tube_insertion_basis": "Manufacturer dimension with collet released; selected layout depth"
+    },
+    "tube_outlet": {
+      "point_mm": [
+        0.0,
+        41.0,
+        0.0
+      ],
+      "outward_axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "kind": "tube_socket",
+      "tube_od_mm": 6.35,
+      "tube_insertion_mm": 15.7,
+      "tube_insertion_basis": "Manufacturer dimension with collet released; selected layout depth"
+    },
+    "metal_inlet": {
+      "point_mm": [
+        0.0,
+        -20.0,
+        0.0
+      ],
+      "outward_axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "kind": "female_1/4_NPT"
+    },
+    "metal_outlet": {
+      "point_mm": [
+        0.0,
+        20.0,
+        0.0
+      ],
+      "outward_axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "kind": "male_1/4_NPT"
+    },
+    "outlet_thread_shoulder_y_mm": 9.0,
+    "outlet_exposed_thread_projection_mm": 11.0,
+    "round_inlet_boss": {
+      "point_mm": [
+        0.0,
+        -14.5,
+        0.0
+      ],
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "diameter_mm": 15.5,
+      "length_mm": 11.0
+    },
+    "selected_male_inlet_engagement_mm": 14.3,
+    "selected_female_outlet_engagement_mm": 11.0,
+    "tube_mouth_span_mm": 74.7
+  },
+  "cap_handoff": {
+    "name": "foam-assembly.co2-in",
+    "point_mm": [
+      77.50000001564078,
+      322.2999999,
+      253.4
+    ],
+    "outward_axis": [
+      0.0,
+      0.0,
+      1.0
+    ],
+    "tube_od_mm": 6.35,
+    "guide_bore_diameter_mm": 7.5,
+    "connection_kind": "Passive cap conduit for a continuous red tube",
+    "tube_insertion_mm": null,
+    "tube_terminates_here": false,
+    "route_destination_below_cap": "PI010822S on the carbonator bottom plain gas-port elbow",
+    "source": "hardware/manifold-layout/enclosure-assembly.facts.json:card_ports.foam-assembly.co2-in",
+    "cross_check": {
+      "cap_authored_xy_mm": [
+        1.5,
+        77.5
+      ],
+      "core_native_after_cap_half_turn_xy_mm": [
+        -1.5,
+        -77.5
+      ],
+      "core_native_cap_face_z_mm": 233.4,
+      "core_to_world_rotation": [
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "core_to_world_translation_mm": [
+        1.564078e-08,
+        323.7999999,
+        20.0
+      ],
+      "source_basis": "cap_conduits and spin_xy; FOAM_YAW90; existing fact-pack registration"
+    }
+  },
+  "connection_assumptions": {
+    "metal_threads": "1/4NPT female inlet and male outlet on regulator and check; no need for a push-connect transition between compatible threaded ports.",
+    "male_inlet_makeup": "Full14.3mm published thread projection is the selected layout engagement. With11mm engagement the inlet mouth stands3.3mm farther out.",
+    "female_outlet_makeup": "9.18mm on regulator, bounded by scanned exposed stub;11mm on Gasher, from nominal reference.",
+    "internal_geometry": "External occupancy models; simple bores/thread cylinders do not establish sealing or actual internal flow."
+  }
+}
