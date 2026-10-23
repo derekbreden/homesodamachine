@@ -116,7 +116,7 @@ def main():
         "CAP_VALVES": f"{len(cap_cradles)}",
         "BOX_TEES": f"{sum(holder(_ml.body_name(n), decked) != RIDES_OUT for n in _ml.PURCHASED_TEES)}",
         "TUBE_OD": f"{_ml.TUBE_D:.4g} mm",
-        "TEE_STROKE": f"{_enc._dock.plumbing.TRAVEL:.3g} mm",
+        "TEE_STROKE": f"{_enc._dock.tee.BRANCH_COLLET_TRAVEL:.3g} mm",
         "TUBE_CUT": f"{_ml.PUMP_TUBE_CUT:.3g} mm",
         "TUBE_HELD": f"{_ml.PUMP_TUBE_HELD:.5g} mm",
         "TUBE_PROJECTION": f"{_ml.PUMP_TUBE_PROJECTION:.6g} mm",

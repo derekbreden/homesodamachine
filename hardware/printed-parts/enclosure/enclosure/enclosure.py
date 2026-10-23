@@ -5309,7 +5309,7 @@ def pump_skirt_band_aft_y(pump_trays):
 def pump_cartridge_aft_y(pump_trays, plate):
     """The cartridge's one flat back, cradle and clamp alike: the bay bulkhead less its kiss.
 
-    At full seat the tubes are bottomed and the tees stand at connected. The flat back
+    At full seat the tubes are bottomed in the tees. The flat back
     preserves the complete skirt band, spending at most one hundredth of a millimetre of the
     preferred plate air when the independently stated measured stations meet there."""
     nominal_aft = bay_back_y(plate) - cap_kiss
@@ -5995,11 +5995,13 @@ def pump_dock_figures(box):
     stations = plumbing.layouts(plate).values()
     upper = next(iter(plate["upper_ports"].values()))["point"]
     returns = sorted(plate["return_ports"].values(), key=lambda p: abs(p["point"][0]))
-    floor = min(s["hairpin_floor_z"] for s in stations)
+    lines = sorted((s["return"] for s in stations), key=lambda r: r["exposed_mm"])
+    floor = min(r["floor_z"] for r in lines)
     condenser_top = box.pack.cond_airway[3] if box.pack.cond_airway else None
     columns = _retention.column_stations(plate["holes"])
     return {
         "PUMP_TEE_COUNT": str(len(plate["holes"])),
+        "DOCK_ELBOWS": str(2 * len(plate["holes"])),
         "DOCK_ROW_Z": f"Z{row:.6g}",
         "DOCK_BAY_FACE_Y": f"Y{fore:.6g}",
         "DOCK_RELEASE_Y": f"Y{plate['aft_y']:.6g}",
@@ -6008,27 +6010,26 @@ def pump_dock_figures(box):
         "DOCK_PLATE_T": f"{plumbing.PLATE_T:.4g} mm",
         "DOCK_HOLE_D": f"Ø{2 * _dock.HOLE_R:.4g} mm",
         "DOCK_FRAME_GAP": f"{bay_back_y(plate) - back:.4g} mm",
-        "DOCK_CONNECTED_Y": f"Y{plumbing.tee_axis_y(fore):.6g}",
-        "DOCK_RELEASED_Y": f"Y{plumbing.tee_axis_y(fore, 'released'):.6g}",
-        "DOCK_TRAVEL": f"{plumbing.TRAVEL:.3g} mm",
+        "DOCK_TEE_Y": f"Y{plumbing.tee_axis_y(fore):.6g}",
+        "DOCK_STROKE": f"{_dock.tee.BRANCH_COLLET_TRAVEL:.3g} mm",
         "DOCK_BORE": f"Ø{2 * _dock.BORE_R:.4g} mm",
         "DOCK_COLLAR_ENVELOPE": f"Ø{_dock.tee.COLLAR_ENVELOPE_D:.4g} mm",
         "DOCK_BORE_AIR": f"{_dock.BORE_R - _dock.tee.COLLAR_ENVELOPE_D / 2.0:.4g} mm",
         "DOCK_BORE_DEPTH": f"{_dock.bore_depth(plate):.4g} mm",
-        "DOCK_BARREL_AIR": (f"{plumbing.tee_axis_y(fore) - _dock.tee.BARREL_R - plate['wall_aft_y']:.3g}"
-                            " mm"),
         "DOCK_BODY_AIR": f"{_dock.BODY_AIR:.4g} mm",
         "DOCK_FORE_VALVE_Z": f"Z{upper[2]:.6g}",
         "DOCK_FORE_VALVE_Y": f"Y{upper[1]:.6g}",
         "DOCK_UPPER_TUBE": f"{next(iter(stations))['upper_exposed_mm']:.4g} mm",
         "DOCK_LOWER_PORT_Z": f"Z{row - plumbing.RUN_FACE:.6g}",
-        "DOCK_HAIRPIN_LEAD": f"{plumbing.HAIRPIN_LEAD:.3g} mm",
-        "DOCK_HAIRPIN_R": f"{plumbing.HAIRPIN_R:.4g} mm",
-        "DOCK_HAIRPIN_FLOOR": f"Z{floor:.6g}",
+        "DOCK_ELBOW_DROP": f"{plumbing.ELBOW_DROP:.3g} mm",
+        "DOCK_RETURN_Z": f"Z{lines[0]['elbows'][0]['crossing'][2]:.6g}",
+        "DOCK_RETURN_FLOOR": f"Z{floor:.6g}",
         "DOCK_CONDENSER_AIR": (f"{floor - condenser_top:.3g} mm" if condenser_top is not None
                                else "no station"),
-        "DOCK_INNER_RETURN_Z": f"Z{returns[0]['point'][2]:.6g}",
-        "DOCK_OUTER_RETURN_Z": f"Z{returns[-1]['point'][2]:.6g}",
+        "DOCK_RETURN_VALVE_Z": f"Z{returns[0]['point'][2]:.6g}",
+        "DOCK_STEM_SHOWING": f"{lines[0]['elbows'][1]['showing']:.3g} mm",
+        "DOCK_RETURN_TUBE": f"{lines[0]['exposed_mm']:.4g} mm",
+        "DOCK_OUTER_RETURN_TUBE": f"{lines[-1]['exposed_mm']:.4g} mm",
         "DOCK_OUTER_RETURN_X": f"X±{abs(returns[-1]['point'][0]):.6g}",
         "DOCK_PUMP_TUBE": f"{plate['pump_tube_cut']:.3g} mm",
         "DOCK_TIP_Y": f"Y{plate['seated_tube_bottom_y']:.6g}",

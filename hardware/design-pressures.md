@@ -21,10 +21,9 @@ belongs to the structure.
 
 **Field service.** One operation: the pump swap in
 [`service/pump-replacement.md`](/hardware/service/pump-replacement.md), which runs on the bench's
-own front opening. Pulling the cartridge drags the four pump tees forward their collet
-stroke against front-top's collet plate, which holds each collet in while its pump tube
-draws out. The plate carries that reaction into the enclosure, while each pump head's own
-housing clamps its tubes. The enclosure can be braced by a hand, foot, cupboard edge or
+own front opening. Front-top's collet plate holds the four pump tees' branch collets pressed,
+so pulling the cartridge draws each pump tube straight out of its tee. The tees' bores carry
+the tubes' friction into the enclosure, while each pump head's own housing clamps its tubes. The enclosure can be braced by a hand, foot, cupboard edge or
 its own weight. The tees, the valves and the rear plumbing stay in the machine, and
 `enclosure-front-top` stays on. Every other
 physical fault is answered by shipping a replacement; units are sold over the
@@ -47,12 +46,11 @@ destroyed is a part that comes out by being destroyed.
   pump tee reaches its fore valve on a short straight tube, not a butt
   ([`manifold-layout/`](/hardware/manifold-layout/README.md)).
 - **The pump dock separates at the pump tees' branch collets.** Each tee's branch stands in
-  a bore through front-top's tee wall, which holds it in X and Z and lets it slide along Y; the collet plate stops it fore at the end of its collet stroke. Pulling the cartridge drags the
-  tees forward against the plate, which holds each collet in while the tube draws out, and
-  pushing it in returns them. The fore valves stand over the tees' connected axes, so each
-  upper tube stands straight in service and bends the stroke at release, and each hairpin
-  flexes with its tee
-  ([pump dock](/hardware/printed-parts/enclosure/pump-dock/README.md)). Complete
+  a bore through front-top's tee wall, which holds it in X and Z, and the collet plate holds
+  its branch collet pressed, so no tee moves: the tubes slide in on the collets' O-rings and
+  draw straight out, and the cartridge's magnets hold them in against pressure. Each upper tube
+  stands straight under its fore valve, and each lower return is two stem elbows and a straight
+  tube ([pump dock](/hardware/printed-parts/enclosure/pump-dock/README.md)). Complete
   replacement pumps carry factory-fitted LLDPE tubes; the customer replaces no dock
   component.
 - **The enclosure's rigid barbed lips close on sequential motions.** The first motion
@@ -75,13 +73,13 @@ destroyed is a part that comes out by being destroyed.
   resistance at 7 mm, is held from 8.5 mm and bottoms at 10 mm, all from the sleeve's face with
   the sleeve pressed home. Each run sleeve travels 1.65 mm; the branch sleeve travels
   1.50 mm. A pump tube bottoms 11.50 mm beyond its tee's extended branch face, and a tube
-  in a run collet 11.65 mm beyond the extended run face. The branch collets release at
-  every pump change; the run collets operate only during factory assembly.
+  in a run collet 11.65 mm beyond the extended run face. The branch collets stay pressed and
+  the run collets operate only during factory assembly.
 - **Exposed path length is not stock cut length.** The four upper tubes are reported
   between their fitting mouths. Each blank also includes the actual insertion at both
   fittings; the valve-side insertion is established while preparing the blank. The four
-  hairpins are reported as cut stock: exposed path, the tee's run insertion and a nominal
-  valve insertion. [`manifold-layout/`](/hardware/manifold-layout/README.md) and the
+  lower return tubes are reported as cut stock: the straight between their elbows and each
+  elbow's socket depth. [`manifold-layout/`](/hardware/manifold-layout/README.md) and the
   assembly procedure supply the current paths and cut instructions.
 - **The commercial collet action has its own physical evidence.** The
   [`tee-connector observations`](/hardware/reference/tee-connector/README.md#observed-push-connect-action)

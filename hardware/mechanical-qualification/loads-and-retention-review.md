@@ -32,7 +32,7 @@ review.
 | M3 wall-mount inserts (supply, relay, C14, boards) | C14 cord insertion, about 50 N; the 0.33 kg supply at 50 g, 162 N over its screws | Screw → ruthex M3 → boss; C14 insertion loads its two inserts in pull-out because the flange lands from inside | Under 100 N per insert against an assumed 300 N | Adequate |
 | M1.4 connector inserts | Connector magnets plus four 0.44 N springs | Ear plate → two M1.4×8 → M1.4×4 inserts per half | Under 10 N per half | Adequate; installation access is the open item ([mounting audit](../reference/yyfkgcp-pogo-4p/mounting-audit.md)) |
 | Pump tubes under blocked-fill pressure | Blocked-fill pressure over each pump tube's sealed section | Tube → its tee's branch collet; the tube's far end in the pump head's housing clamp. The tube carries the separating load between collet and clamp, and the magnets carry none of it | Not calculated: the collet's grip is the fitting's own and the clamp's hold is unmeasured | Open; see [cartridge seat](#cartridge-seat) |
-| Cartridge seat | Whatever the hairpins' spring leaves at connected, pushing the cartridge forward through the bottomed pump tubes; the upper tubes stand straight there | Pump tubes → pump heads → cartridge → four SB443-IN pairs, one column of two on each pump's own line, printed in on rails, bare poles meeting across the frame gap | 60.9 N for all four pairs at the catalogue steel rating, 30.4 N per pump's column, against an unmeasured spring | Open; no margin until the spring is known |
+| Cartridge seat | Line pressure on each pump tube's 31.7 mm² section, pushing it out of its pressed collet; no collet grips | Pump tubes → pump heads → cartridge → four SB443-IN pairs, one column of two on each pump's own line, printed in on rails, bare poles meeting across the frame gap | 60.9 N for all four pairs at the catalogue steel rating, 30.4 N per pump's column: the thrust of about 70 psi in all four tubes at once | Open; no margin until the installed pull and the tubes' pressure are known |
 | Pogo contact current | Pump start and jam current, held at the trip | DRV8870 current regulation through the 0.2 Ω sense resistor on each ISEN (R28, R29) | 1.54–1.81 A against 2 A: 1.10 at the ceiling; 1.65 A nominal, about twice the 0.8 A running current | Adequate in the board source; the start under the trip needs a physical observation; see below |
 
 ## Y-seam head recesses
@@ -94,19 +94,18 @@ within 1 s of its command
 
 ## Cartridge seat
 
-The tees' branch collets grip the pump tubes and carry the pressure
+The collet plate holds the tees' branch collets pressed, so no collet grips a pump tube
 ([pump dock](../printed-parts/enclosure/pump-dock/README.md)). Under a blocked fill each tube
-holds its separating load between its collet and the pump head's housing clamp, so the load
-does not reach the cartridge's seat. The clamp's hold under that load is unmeasured.
+is pushed out with the pressure on its 31.7 mm² section, through the pump head's housing clamp
+into the cartridge and onto its seat. The clamp's hold under that load is unmeasured.
 
 The four SB443-IN pairs seat the cartridge, one column of two on each pump's own line, their
 bare poles setting its flat back 0.25 mm off the collet plate. K&J rates one block at 3.42 lbf
 to thick steel, 15.21 N, so the four pairs give 60.9 N and each pump's column 30.4 N; that
-catalogue figure is not an installed rating. At connected each upper tube stands straight and
-loads nothing; the hairpins' spring across the tees' travel is unmeasured, so no seat margin is
-stated. Straight removal parts all four pairs, presses four collets home against the plate,
-drags four tubes through their O-rings and bends four upper tubes the whole stroke; that total
-is unmeasured.
+catalogue figure is not an installed rating. It matches the thrust of about 70 psi in all four
+tubes at once; the pressure the tubes see is unstated, so no seat margin is stated. Straight
+removal parts all four pairs and drags four tubes through their O-rings in the pressed collets;
+that total is unmeasured.
 
 ## Evidence limits
 

@@ -6,7 +6,7 @@ The enclosure assembly is the source of truth for the arrangement.
 the pack, [`_lines.py`](/hardware/manifold-layout/_lines.py) authors every run BETWEEN placed
 bodies and `_routing.Run.length` measures the built centreline, and
 [`manifold_layout.py`](/hardware/manifold-layout/manifold_layout.py) makes the flavour manifold's
-own interior — including butts, upper tubes and hairpins. This
+own interior — including butts, upper tubes and lower returns. This
 driver reads all three and holds the charts to them.
 
 Two jobs:
@@ -95,8 +95,9 @@ class Seg:
       `drawn`    — a run `_lines.py` authors between two placed bodies, swept and measured.
       `straight` — a lane's own straight inside the manifold, drawn and measured the same way.
       `pump-dock`— a prepared pump's LLDPE tube through the collet plate into a pump tee.
-      `hairpin`  — one LLDPE hairpin bent at the stock's radius from the pump tee to the rear
-                   valve; the reported length is its cut stock, both insertions included.
+      `elbows`   — a stem elbow in the pump tee's lower collet and one in the rear valve's,
+                   one straight LLDPE tube between them; the reported length is its cut stock,
+                   both socket insertions included.
       `butt`     — two collets face to face, no tube between them, 0.0 mm.
       `turn`     — a quarter out of the deck plane and the step that follows it.
       `not drawn`— a mouth of the manifold study with nothing on the far end of it yet.
@@ -138,7 +139,7 @@ def _interior(cid: int, how: str) -> tuple:
     makes each interior connection, the card reads that column to score `routed`, and this
     reads it to label an edge — so classifying it twice is how the chart and the card come to
     disagree about the same segment. What is this driver's own is the mm and the corners, off
-    `manifold_layout`'s figures: `lower_link_length` the lower hairpin,
+    `manifold_layout`'s figures: `lower_link_length` the lower return's tube,
     `FORE_STUBS` the short upper tubes, `QUARTER_LEN` the source quarter out of the
     deck plane, `source_step` its following step and `RUNS` the remaining straights.
 
@@ -610,7 +611,7 @@ def manifold_variables(segs: dict) -> dict:
         "BUTT_COUNT":    f"{sum(1 for s in fluid if s.made == 'butt')}",
         "UPPER_LINK_COUNT": f"{len(ml.FORE_STUBS)}",
         "UPPER_LINK_EXPOSED": f"{ml.FORE_STUB_EXPOSED:.6g} mm",
-        "LOWER_HAIRPIN_COUNT": f"{len(ml.LOWER_CONNECTIONS)}",
+        "LOWER_RETURN_COUNT": f"{len(ml.LOWER_CONNECTIONS)}",
         "OPEN_COUNT":    f"{sum(1 for s in fluid if s.made == 'not drawn')}",
         "FLUID_TOTAL":   f"{sum(s.length for s in cut):.1f} mm",
         "FLUID_BENDS":   f"{sum(s.corners for s in fluid)}",

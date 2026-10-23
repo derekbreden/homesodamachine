@@ -1,14 +1,17 @@
-"""Front-top's tee wall and the pump tees that stand in it.
+"""Front-top's tee wall, the pump tees that stand in it and the stem elbows of their returns.
 
 Each pump port feeds a purchased PP0208E tee (`fixed_returns`). Its branch stands in the TEE
 WALL: front-top's bay bulkhead, one flat slab the bay's whole width and height
-(`enclosure._bulkhead`), whose fore 3.175 mm is the collet plate. Behind the plate each tee has
+(`enclosure._bulkhead`), whose fore band is the collet plate. Behind the plate each tee has
 one collar-clear bore through the rest of the wall; ahead of the bore a smaller tube hole leaves
-a face under the collet. The bore holds the tee in X and Z and lets it slide along Y: the plate
-stops the collet at the fore end of its 1.5 mm stroke, and in service the bottomed pump tube
-holds the tee at `connected`.
+a face that holds the branch collet pressed. The bore holds the tee in X and Z; the plate stops
+it fore through its pressed collet, and its lower return, anchored in the rear valve, stops it
+aft.
 
-Both are horizontal bores in a piece printed on Z, so each is teardropped.
+Each lower return carries a NeoFit stem elbow in the tee's lower collet and another in the rear
+valve's bottom collet, their stems cut to stand where `fixed_returns.elbow_return` puts them.
+
+Both wall cuts are horizontal bores in a piece printed on Z, so each is teardropped.
 """
 from functools import lru_cache
 from pathlib import Path
@@ -20,13 +23,15 @@ import cadquery as cq
 HERE = Path(__file__).resolve().parent
 HW = next(p for p in HERE.parents if p.name == 'hardware')
 for _p in (HW / 'printed-parts' / 'cadlib', HW / 'printed-parts' / 'enclosure' / 'enclosure',
-           HW / 'reference' / 'tee-connector', HW / 'scripts'):
+           HW / 'reference' / 'tee-connector', HW / 'reference' / 'neofit-stem-elbow',
+           HW / 'scripts'):
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 import fits  # noqa: E402
 import tee_connector as tee  # noqa: E402
 import dock_retention as retention  # noqa: E402
 import fixed_returns as plumbing  # noqa: E402
+import neofit_stem_elbow as stem_elbow  # noqa: E402
 
 STATIONS = ('west-outer', 'west-inner', 'east-inner', 'east-outer')
 # The tee at each station, in the plate's hole order (west to east).
@@ -35,8 +40,7 @@ TEES = {'west-outer': 'Y-G', 'west-inner': 'Y-F', 'east-inner': 'Y-C', 'east-out
 # The bore round the branch collar: the scanned tee's sampled collar envelope and one running
 # clearance.
 BORE_R = tee.COLLAR_ENVELOPE_D / 2.0 + fits.running
-# The wall's aft face stands this far fore of the tee's run barrel with the tee at released, its
-# most forward station, so the wall never ends the tee's travel.
+# The wall's aft face stands this far fore of the tee's run barrel.
 BODY_AIR = 1.454
 HOLE_R = 4.25                          # the plate's tube hole: a face left under each collet
 RETURN_CHANNEL_R = 8.1                 # a rear valve's port channel in its tray (`valve_tray`)
@@ -71,8 +75,8 @@ def stations(plate):
 
 
 def wall_aft_y(fore_y):
-    """The tee wall's aft face: `BODY_AIR` fore of the run barrel of a tee at released."""
-    return plumbing.tee_axis_y(fore_y, 'released') - tee.BARREL_R - BODY_AIR
+    """The tee wall's aft face: `BODY_AIR` fore of the tee's run barrel."""
+    return plumbing.tee_axis_y(fore_y) - tee.BARREL_R - BODY_AIR
 
 
 def bore_depth(plate):
@@ -82,7 +86,7 @@ def bore_depth(plate):
 
 def return_clearances(plate):
     """Under each rear valve, its port channel carried down through front-top to the seam:
-    the valve's bottom collet and the hairpin rising into it."""
+    the valve's bottom collet and the stem elbow under it."""
     out = []
     for port in plate['return_ports'].values():
         x, y, z = port['point']
@@ -112,24 +116,93 @@ def wall_cuts(plate):
 
 @lru_cache(maxsize=1)
 def _tee_native():
+    """The scanned tee with its branch collet pressed home."""
     from _cadq_export import import_step
-    return import_step(str(HW / 'reference' / 'tee-connector' / 'tee-connector.step')).val()
+    native = import_step(str(HW / 'reference' / 'tee-connector' / 'tee-connector.step')).val()
+    return tee.depress_branch(native, tee.BRANCH_COLLET_TRAVEL)
 
 
-def tee_body(plate, x, z, state='connected'):
+def tee_body(plate, x, z):
     """The purchased tee at its station: run upright, branch toward the pump."""
-    y = plumbing.tee_axis_y(plate['fore_y'], state)
+    y = plumbing.tee_axis_y(plate['fore_y'])
     pose = cq.Location(cq.Plane(origin=(x, y, z), xDir=(-1, 0, 0), normal=(0, 0, 1)))
     return _tee_native().moved(pose)
 
 
+@lru_cache(maxsize=1)
+def _elbow_native():
+    """The stem elbow's body and release collet in its own frame: axes crossing at the origin,
+    stem out -X, socket out +Y."""
+    return tuple(piece.val() for _name, piece in stem_elbow.build())
+
+
+def elbow_body(row):
+    """One `fixed_returns.elbow_return` elbow: its stem cut `row['stem']` past the shoulder and
+    standing up into its collet, its socket opening along `row['socket']`."""
+    body, collet = _elbow_native()
+    keep = stem_elbow.HUB_BACK_REACH + row['stem']
+    body = body.cut(cq.Solid.makeBox(40.0, 40.0, 40.0, cq.Vector(-keep - 40.0, -20.0, -20.0)))
+    ux, uy, _uz = row['socket']
+    pose = cq.Location(cq.Plane(origin=row['crossing'], xDir=(0, 0, -1), normal=(uy, -ux, 0)))
+    return cq.Compound.makeCompound([body.moved(pose), collet.moved(pose)])
+
+
+def elbow_host(name):
+    """The body a return's stem elbow stands in, by assembly name: its tee, or its rear valve."""
+    host = name[len('stem-elbow-'):]
+    return ('tee-' if host.startswith('y-') else 'valve-') + host
+
+
+def stem_overlap(elbow, host):
+    """`(inside, outside)`: the volume a placed stem elbow shares with the fitting its stem is
+    bottomed in, and how much of that lies outside the stem itself.
+
+    The tee is drawn with a tube-clear bore and the valve without its port's full bore, so the two
+    share at most the stem. Anything they share outside it, the elbow's hub or shoulder in its
+    host, is an interference."""
+    from OCP.BRepAdaptor import BRepAdaptor_Surface
+    r = stem_elbow.STEM_OD / 2.0
+
+    def outer(face):
+        # The stem's surface faces away from its axis; the socket's bore, the one other
+        # cylinder of its radius, faces in.
+        axis = BRepAdaptor_Surface(face.wrapped).Cylinder().Axis()
+        o = cq.Vector(axis.Location().X(), axis.Location().Y(), axis.Location().Z())
+        d = cq.Vector(axis.Direction().X(), axis.Direction().Y(), axis.Direction().Z())
+        p = face.positionAt(0.5, 0.5)
+        off = p - (o + d * (p - o).dot(d))
+        return face.normalAt(p).dot(off) > 0.0
+
+    faces = [face for face in elbow.Faces() if face.geomType() == 'CYLINDER'
+             and abs(BRepAdaptor_Surface(face.wrapped).Cylinder().Radius() - r) < 1e-3
+             and outer(face)]
+    axis = BRepAdaptor_Surface(faces[0].wrapped).Cylinder().Axis()
+    o = cq.Vector(axis.Location().X(), axis.Location().Y(), axis.Location().Z())
+    d = cq.Vector(axis.Direction().X(), axis.Direction().Y(), axis.Direction().Z())
+    t = [(p - o).dot(d) for face in faces for p in (v.Center() for v in face.Vertices())]
+    stem = cq.Solid.makeCylinder(r + 0.01, max(t) - min(t) + 0.02, o + d * (min(t) - 0.01), d)
+    common = elbow.intersect(host)
+    inside = common.Volume()
+    return inside, (common.cut(stem).Volume() if inside > 0 else 0.0)
+
+
 def parts(plate):
-    return {'tee-' + name.lower(): tee_body(plate, x, z) for _station, name, x, z in stations(plate)}
+    """Each tee, and the stem elbows of its return: `stem-elbow-y-c` in the tee's lower collet
+    and `stem-elbow-v-c` in its rear valve's."""
+    out = {}
+    for _station, name, x, z in stations(plate):
+        out['tee-' + name.lower()] = tee_body(plate, x, z)
+        target = plate['return_ports'][str(x)]
+        lower = plumbing.tee_ports(plate['fore_y'], x, z)['lower']['point']
+        at_tee, at_valve = plumbing.elbow_return(lower, tuple(target['point']))['elbows']
+        out['stem-elbow-' + name.lower()] = elbow_body(at_tee)
+        out['stem-elbow-' + target['valve'].lower()] = elbow_body(at_valve)
+    return out
 
 
-def part_color(_name):
-    from _materials import M_JG_BLACK_PP
-    return M_JG_BLACK_PP
+def part_color(name):
+    from _materials import M_JG_BLACK_PP, M_NEOFIT_WHITE_ACETAL
+    return M_NEOFIT_WHITE_ACETAL if name.startswith('stem-elbow-') else M_JG_BLACK_PP
 
 
 def tube_setting_jig(plate, cartridge_face_y):

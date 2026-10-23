@@ -4,9 +4,10 @@ The ten flavor valves, both KPHM600 pumps and [6](TEE_COUNT) purchased PP0208E t
 flavor manifold. Two source tees join the source valves to the channel selects and to each
 other. Four stand on the pump ports behind
 front-top's collet plate, each taking a prepared pump's LLDPE tube in its branch; each pump
-tee reaches its fore valve on a short upper tube and its rear valve on one R14 hairpin.
+tee reaches its fore valve on a short upper tube and its rear valve on a lower return: a stem
+elbow in each collet and one straight tube between them.
 
-[`manifold_layout.py`](manifold_layout.py) writes `manifold-layout.step` with the purchased hardware, the pump tubes and the LLDPE members. The [complete enclosure assembly](enclosure_assembly.py) adds the collet plate, tee anchors and tee caps, valve trays and magnet columns from the [pump dock](/hardware/printed-parts/enclosure/pump-dock/README.md).
+[`manifold_layout.py`](manifold_layout.py) writes `manifold-layout.step` with the purchased hardware, the pump tubes and the LLDPE members. The [complete enclosure assembly](enclosure_assembly.py) adds the tee wall and its collet plate, valve trays and magnet columns from the [pump dock](/hardware/printed-parts/enclosure/pump-dock/README.md).
 
 The connections follow [`fluid-topology.md`](/hardware/topology/fluid-topology.md).
 Each reservoir has separate fill and draw mouths; segments 14/24 fill them and 16/26 draw
@@ -19,8 +20,9 @@ from them. There are no reservoir junctions or segments 15/25.
 | 10 × valve | Beduan 12 V NC solenoid ([`reference/beduan-solenoid`](/hardware/reference/beduan-solenoid/README.md)) — [59.5](VALVE_LEN) mm collet face to collet face, straight through, port axis [11.05](VALVE_PORT_Z) mm over its own mounting plane. Two of them pack no closer than [34.25](VALVE_PITCH) mm. |
 | 2 × pump | Kamoer KPHM600-SW3B17, modelled on the measured KPHM400 head ([`reference/kamoer-kphm400`](/hardware/reference/kamoer-kphm400/)) — two barbs [59.75](BARB_PITCH) mm apart on one face, both facing the same way, [19.38](BARB_INSET) mm back from the head's front face. |
 | [6](TEE_COUNT2) × tee | John Guest PP0208E ([`reference/tee-connector`](/hardware/reference/tee-connector/README.md)) — run collets [21.25](TEE_RUN) mm either side of the body centre, [42.5](TEE_SPAN) mm end to end, branch reaching the same distance. |
+| [8](RETURN_ELBOW_COUNT) × stem elbow | NeoFit ATEU44W ([`reference/neofit-stem-elbow`](/hardware/reference/neofit-stem-elbow/README.md)) — two on each lower return, one in the pump tee's lower collet and one in the rear valve's bottom collet, each stem cut to length. |
 | 0 × Y-divider | Its two outlets stand [14.7](DIVIDER_PITCH) mm apart ([`reference/y-divider`](/hardware/reference/y-divider/README.md)). |
-| [17](TUBE_COUNT2) × LLDPE cut | [8](PUMP_TEE_TUBE_COUNT) pump-tee tubes — four short upper tubes and four R14 hairpins — two formed source links, three fully swallowed butt-joint blanks and the four pump tubes, which come fitted in the prepared pumps. |
+| [17](TUBE_COUNT2) × LLDPE cut | [8](PUMP_TEE_TUBE_COUNT) pump-tee tubes — four short upper tubes and four lower return tubes — two formed source links, three fully swallowed butt-joint blanks and the four pump tubes, which come fitted in the prepared pumps. |
 
 ## Frame
 
@@ -33,12 +35,12 @@ height, 0 at the pumps' own floor. The unshifted authoring deck references are z
 
 Each pump has two tees on its measured [59.75](BARB_PITCH2) mm port pitch, each branch on
 its pump tube's axis and each run upright. Each fore valve stands directly over its tee's
-connected axis. The inner rear valves stand on their tees' columns; the outer
+run axis. The inner rear valves stand on their tees' columns; the outer
 two stand inboard of theirs.
 
 The logical Y-C/D/F/G names identify the pump tees. Y-A/B identify the two source tees. The
-lane diagram describes connectivity and the valve placement construction; the four hairpins
-are the connections crossing its fold line.
+lane diagram describes connectivity and the valve placement construction; the four lower
+returns are the connections crossing its fold line.
 
 ```
                           `|` = the hinge; everything left of it is folded up and over
@@ -57,14 +59,17 @@ The unshifted deck port references are z [90.81](DECK_Z2) and
 
 ## The lower returns
 
-Fluid-9, 17, 19 and 27 are each one hairpin of black 1/4" LLDPE from a pump tee's lower port
-to its rear valve's bottom collet, bent at the stock's R[14](SPINE_R) radius: a short straight
-down, a turn aft, a straight, a turn up and a straight up into the valve. The outer two lean
-inboard to V-G and V-J. Each hairpin flexes with its tee's travel. Its cut stock is the exposed
-path, the tee's run insertion and a nominal valve insertion; a bare run of
+Fluid-9, 17, 19 and 27 are each a lower return from a pump tee's lower port to its rear valve's
+bottom collet: a NeoFit stem elbow in each collet and one straight tube of black 1/4" LLDPE
+between their sockets. The tee's elbow has its stem cut to the run collet's seat, so its axes
+cross [6.05](RETURN_DROP) mm under the collet face; the valve's elbow keeps
+[3.75](RETURN_SHOWING) mm of stem below its collet and crosses at the same height, so the tube
+runs level. The inner two have [20.10](RETURN_EXPOSED) mm of tube between the sockets and
+[53.88](RETURN_CUT) mm of cut stock; the outer two lean inboard to V-G and V-J, with
+[20.69](OUTER_RETURN_EXPOSED) mm and [54.47](OUTER_RETURN_CUT) mm. A bare run of
 [`_fluid_topology_sync.py`](/hardware/topology/_fluid_topology_sync.py) prints each figure.
 
-The rear valve row and source crossbar stand 8 mm above their deck reference to clear the compressor and condenser; V-G and V-J stand 1.5 mm lower than that row offset. V-A and V-B keep their cold-core seats. Actual fully seated marks govern every cut. See the [pump dock](/hardware/printed-parts/enclosure/pump-dock/README.md) and the [internal plumbing procedure](/hardware/assembly/internal-plumbing.md).
+The rear valve row and source crossbar stand 8 mm above their deck reference to clear the compressor and condenser. V-G and V-J drop as far as V-C and V-D, so all four rear valves' bottom collets stand at one height. V-A and V-B keep their cold-core seats. Actual fully seated marks govern every cut. See the [pump dock](/hardware/printed-parts/enclosure/pump-dock/README.md) and the [internal plumbing procedure](/hardware/assembly/internal-plumbing.md).
 
 ## The quarter turns
 
@@ -140,9 +145,9 @@ Mirror-checked: [9](TWIN_COUNT) twinned pairs, worst off by [0.0000](MIRROR_OFF)
 [3](BUTT_COUNT) of the [17](SEGMENT_COUNT) topology segments are collet butts, with no tube
 exposed between the faces. Four prepared LLDPE pump tubes pass the collet plate into the pump
 tees' branch collets. The [4](FORE_STUB_COUNT) upper tubes to V-E/F/H/I have
-[15.251](FORE_STUB_EXPOSED) mm exposed; with each fore valve over its tee's connected axis,
-a tube stands straight in service and bends the tee's stroke at release. The four
-lower connections are each one R14 hairpin. Add the actual insertion depths for finished blanks;
+[15.251](FORE_STUB_EXPOSED) mm exposed; with each fore valve over its tee's run axis, each
+tube stands straight. The four lower connections are each a lower return of two stem elbows and
+one straight tube. Add the actual insertion depths for finished blanks;
 the purchased valve's hidden insertion stop is not specified by its exterior model.
 
 The two source quarter turns and their steps have [6](CORNER_COUNT) formed LLDPE corners.
@@ -150,8 +155,6 @@ Their R[14](MIN_BEND) geometry uses the user’s reported initial-flow observati
 The [neoFlo manufacturer sheet](https://assets.freshwatersystems.com/image/upload/s--N9disqrx--/gjtidjfc0tlprqbhb4ka.pdf)
 publishes a 25.4 mm bend radius for this 1/4-inch OD, 0.170-inch ID LLDPE stock. The R14 bench
 observation does not establish pressure or lifetime performance outside that published basis.
-The four hairpins bend at the same R14 and flex with their tees at every pump change; the
-same limit applies to them.
 
 The [8](MOUTH_COUNT) mouths that leave this study are drawn one bend radius long and stop, and
 the fold turns all of them to face the back: V-A-I (tap), V-B-I (funnel), V-G-O (flavor A) and
@@ -160,10 +163,10 @@ V-I-O and V-H-I for B — on the lower.
 
 ## Envelope
 
-[198](ENV_X) × [162](ENV_Y) × [272](ENV_Z) mm — [8.71](ENV_L) L of bounding box over the
+[198](ENV_X) × [158](ENV_Y) × [272](ENV_Z) mm — [8.50](ENV_L) L of bounding box over the
 bodies and the tube between them, with [0](CLASHES) pairs of placed solids sharing volume.
 Add one [14](STUB_LEN) mm mouth stub on each of the [8](MOUTH_COUNT2) and it is
-[198](REACH_X) × [162](REACH_Y) × [286](REACH_Z).
+[198](REACH_X) × [158](REACH_Y) × [286](REACH_Z).
 
 Two figures in [`manifold_layout.py`](manifold_layout.py) are the study's own rather than any
 part's. `BUTT` is the tube left outside a pair of butted quick-connects, and it is 0.
@@ -177,13 +180,13 @@ flat back, so each bottoms at its tee's stop with the cartridge seated
 
 Both pumps ride out on the cartridge. Each pump head's own housing clamps its two tubes and
 carries their insertion and withdrawal reactions into the head, which the cradle and cap
-hold. The tubes pass front-top's collet plate into the pump tees' branch collets, which grip
-them against pressure. Pulling the cartridge drags each tee forward its collet stroke until
-the plate holds the collet in and the tube draws out. With the cartridge on its meeting
-magnet poles, its flat back and the plate's bay face have 0.250 mm clearance.
+hold. The tubes pass front-top's collet plate into the pump tees' branch collets, which the
+plate holds pressed, so each tube seals on its collet's O-ring and draws straight out when the
+cartridge is pulled; the magnets hold the cartridge in against pressure. With the cartridge on
+its meeting magnet poles, its flat back and the plate's bay face have 0.250 mm clearance.
 
-The complete enclosure assembly supplies the collet plate, tee anchors and tee caps, valve
-trays and the printed-in SB443-IN columns. Customers replace complete
+The complete enclosure assembly supplies the tee wall and its collet plate, valve trays and the
+printed-in SB443-IN columns. Customers replace complete
 prepared pumps using the [service procedure](/hardware/service/pump-replacement.md).
 
 ## Standing it on the compressor bay

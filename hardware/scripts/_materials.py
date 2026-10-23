@@ -54,6 +54,7 @@ M_JG_WHITE_PP = cq.Color(0.90, 0.90, 0.87)
 # the PI4512F6S flare swivel inside `reference/flare38-14ptc`.
 M_JG_GREY_ACETAL = cq.Color(0.55, 0.56, 0.57)
 M_NEOFIT_ACETAL = cq.Color(0.14, 0.14, 0.15)   # neoFit's black acetal bulkhead bodies
+M_NEOFIT_WHITE_ACETAL = cq.Color(0.90, 0.91, 0.88)   # neoFit's white acetal ATEU44W stem elbows
 # Bambu PETG Basic Black 30105, and what comes off it: the drip pan, the fuse clamp, the two
 # copper-line plugs, the PRV shroud and the reed bridge. Sampled off the store's own product
 # photograph, and the triple `_y_wall_dimensions.port_colors` draws black LLDPE at.
@@ -238,6 +239,7 @@ FINISHES = [
     (M_JG_WHITE_PP,      0.45, _DIELECTRIC),
     (M_JG_GREY_ACETAL,   0.35, _DIELECTRIC),   # acetal is slick in the hand
     (M_NEOFIT_ACETAL,    0.35, _DIELECTRIC),
+    (M_NEOFIT_WHITE_ACETAL, 0.35, _DIELECTRIC),
     (M_PETG_BLACK,       0.45, _DIELECTRIC),   # the flank that blooms bronze in flute-evidence/02
     (M_PETGF_BLACK,      0.85, _DIELECTRIC),   # glass fill scatters; it holds neutral in that frame
     (M_PETG_TRANSLUCENT, 0.40, _DIELECTRIC),   # the black stock's own gloss, on a clear spool
