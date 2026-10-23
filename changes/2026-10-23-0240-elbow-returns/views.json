@@ -1,0 +1,321 @@
+{
+  "views": [
+    {
+      "name": "outer",
+      "caption": "The east-outer station from outboard, V-G in amber: it drops 8 mm to V-C and V-D's height, and its return leans inboard from the tee on two stem elbows and one straight tube.",
+      "before": "outer-before.webp",
+      "after": "outer-after.webp",
+      "width": 1200,
+      "height": 900,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          189.88850146362563,
+          99.18902448773103,
+          217.7221253659064
+        ],
+        "target": [
+          79,
+          138,
+          190
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 7.224130315559421,
+        "far": 288.5486421203772,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "valve-v-g"
+      ],
+      "ghost": [],
+      "only": [
+        "tee-y-d",
+        "stem-elbow-y-d",
+        "stem-elbow-v-g",
+        "tube-fluid-17",
+        "valve-v-g",
+        "coil-v-g",
+        "valve-v-f",
+        "coil-v-f",
+        "tube-fluid-13",
+        "flavor-reducer-v-g",
+        "tube-fluid-12"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "3fd93ba49f7229563ba01aef55ba84c24bd3599dc1f25200a15c796aebf6ec41",
+          "commit": "d1f502eac53ce0b08d11e44b233e39ab53c2c6e3",
+          "taken": "2026-10-23T06:55:23.930Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "201d9c90a008ce7902c679e1bcd78e49a4fb2447d1a1aa4c79be73b1a9151e0a",
+          "commit": "b3707a1804f311e6bf73e3a404e38920a88485ed",
+          "published": true
+        }
+      },
+      "changed": [
+        "stem-elbow-v-c",
+        "stem-elbow-v-d",
+        "stem-elbow-v-g",
+        "stem-elbow-v-j",
+        "stem-elbow-y-c",
+        "stem-elbow-y-d",
+        "stem-elbow-y-f",
+        "stem-elbow-y-g",
+        "tube-fluid-17",
+        "tube-fluid-27",
+        "tube-fluid-19",
+        "tube-fluid-9",
+        "enclosure-front-top",
+        "wire-J2-positive-J",
+        "wire-J2-OUT2",
+        "wire-J1-OUT7",
+        "valve-v-g",
+        "valve-v-j",
+        "coil-v-g",
+        "coil-v-j",
+        "flavor-reducer-v-g",
+        "flavor-reducer-v-j",
+        "tube-fluid-18",
+        "tube-fluid-28",
+        "wire-J1-positive-G",
+        "tee-y-c",
+        "tee-y-d",
+        "tee-y-f",
+        "tee-y-g",
+        "enclosure-front-bottom"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "return",
+      "caption": "Section through the east-inner station. Before, an R14 hairpin of LLDPE from the tee's lower collet down, aft and up into V-C. After, a trimmed stem elbow in each collet and one straight tube between them, the elbows in amber.",
+      "before": "return-before.webp",
+      "after": "return-after.webp",
+      "width": 1200,
+      "height": 900,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          128.4905182676231,
+          132,
+          190.24562073070493
+        ],
+        "target": [
+          22.35,
+          132,
+          186
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.2873404003612751,
+        "far": 510.68921918015604,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            22.35,
+            130,
+            190
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "stem-elbow-*"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-front-top",
+        "tee-y-c",
+        "tube-fluid-9",
+        "tube-fluid-10",
+        "tube-fluid-11",
+        "valve-v-c",
+        "coil-v-c",
+        "valve-v-e",
+        "coil-v-e",
+        "stem-elbow-y-c",
+        "stem-elbow-v-c",
+        "enclosure-pump-cartridge"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "3fd93ba49f7229563ba01aef55ba84c24bd3599dc1f25200a15c796aebf6ec41",
+          "commit": "d1f502eac53ce0b08d11e44b233e39ab53c2c6e3",
+          "taken": "2026-10-23T06:55:23.930Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "201d9c90a008ce7902c679e1bcd78e49a4fb2447d1a1aa4c79be73b1a9151e0a",
+          "commit": "b3707a1804f311e6bf73e3a404e38920a88485ed",
+          "published": true
+        }
+      },
+      "changed": [
+        "stem-elbow-v-c",
+        "stem-elbow-v-d",
+        "stem-elbow-v-g",
+        "stem-elbow-v-j",
+        "stem-elbow-y-c",
+        "stem-elbow-y-d",
+        "stem-elbow-y-f",
+        "stem-elbow-y-g",
+        "tube-fluid-17",
+        "tube-fluid-27",
+        "tube-fluid-19",
+        "tube-fluid-9",
+        "enclosure-front-top",
+        "wire-J2-positive-J",
+        "wire-J2-OUT2",
+        "wire-J1-OUT7",
+        "valve-v-g",
+        "valve-v-j",
+        "coil-v-g",
+        "coil-v-j",
+        "flavor-reducer-v-g",
+        "flavor-reducer-v-j",
+        "tube-fluid-18",
+        "tube-fluid-28",
+        "wire-J1-positive-G",
+        "tee-y-c",
+        "tee-y-d",
+        "tee-y-f",
+        "tee-y-g",
+        "enclosure-front-bottom"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "collet",
+      "caption": "The branch collet at the collet plate, cut down the middle, front-top in amber. Before, the collet stood extended on a 3.175 mm plate and the tee slid 1.5 mm forward at release. After, the release face stands one stroke deeper and holds the collet pressed home.",
+      "before": "collet-before.webp",
+      "after": "collet-after.webp",
+      "width": 1200,
+      "height": 700,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          46.49213562373095,
+          91,
+          186.2
+        ],
+        "target": [
+          22.35,
+          91,
+          186.2
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.17525416318022505,
+        "far": 447.44654716678315,
+        "aspect": 1.7142857142857142,
+        "section": {
+          "at": [
+            22.35,
+            90,
+            190
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-front-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-front-top",
+        "tee-y-c",
+        "tube-fluid-11",
+        "enclosure-pump-cartridge"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "3fd93ba49f7229563ba01aef55ba84c24bd3599dc1f25200a15c796aebf6ec41",
+          "commit": "d1f502eac53ce0b08d11e44b233e39ab53c2c6e3",
+          "taken": "2026-10-23T06:55:23.930Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "201d9c90a008ce7902c679e1bcd78e49a4fb2447d1a1aa4c79be73b1a9151e0a",
+          "commit": "b3707a1804f311e6bf73e3a404e38920a88485ed",
+          "published": true
+        }
+      },
+      "changed": [
+        "stem-elbow-v-c",
+        "stem-elbow-v-d",
+        "stem-elbow-v-g",
+        "stem-elbow-v-j",
+        "stem-elbow-y-c",
+        "stem-elbow-y-d",
+        "stem-elbow-y-f",
+        "stem-elbow-y-g",
+        "tube-fluid-17",
+        "tube-fluid-27",
+        "tube-fluid-19",
+        "tube-fluid-9",
+        "enclosure-front-top",
+        "wire-J2-positive-J",
+        "wire-J2-OUT2",
+        "wire-J1-OUT7",
+        "valve-v-g",
+        "valve-v-j",
+        "coil-v-g",
+        "coil-v-j",
+        "flavor-reducer-v-g",
+        "flavor-reducer-v-j",
+        "tube-fluid-18",
+        "tube-fluid-28",
+        "wire-J1-positive-G",
+        "tee-y-c",
+        "tee-y-d",
+        "tee-y-f",
+        "tee-y-g",
+        "enclosure-front-bottom"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
