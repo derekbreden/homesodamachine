@@ -1,5 +1,27 @@
 # Industrial faucet print log
 
+## Complete black faucet — 2026-10-23, Mark2
+
+The [complete five-part plate](prints/2026-10-23-black-complete-mark2/README.md)
+is task [1366512080](prints/2026-10-23-black-complete-mark2/launch.json),
+observed accepted at 03:06:47 CDT in PREPARE with no reported fault. It contains
+one base, shared tip, Industrial display cover, rigid counter plate and
+side-down lever, using current source geometry, selected rear seams, base fine
+bands, seven rim arcs, tip fins and hidden-root disc. The print uses black
+PET-GF on Mark2's fixed left hardened standard-flow 0.4 mm nozzle, external
+slot 254, Textured PEI and its +0.04/+0.02 mm trim.
+
+Ordinary part and auxiliary cooling are off; bridges and qualifying overhangs
+receive 70% after three fan-off layers. Bridge flow is 125%, bridges 15 mm/s
+and overhang limits 15/10 mm/s. Timelapse and bed leveling are On, with flow
+dynamic and nozzle-offset calibration Auto. The
+[full settings export](prints/2026-10-23-black-complete-mark2/all-settings.json)
+contains the prepared and native dictionaries, object/component settings,
+filament presets and layer ranges. The native slice has no warnings, 1245
+layers, 41.8755 mm minimum full-bead bed margin and an estimate of 6 h 48 min
+35 s / 162.74 g at saved profile density. Physical completion and assembly
+acceptance remain unreported.
+
 ## Complete faucet with selected edge supports — 2026-10-15
 
 The [complete five-part run](prints/2026-10-15-all-learnings/README.md) is

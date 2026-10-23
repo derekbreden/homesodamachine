@@ -1,0 +1,496 @@
+{
+  "recorded_at_utc": "2026-10-23T08:04:24.173496+00:00",
+  "project": "hardware/printed-parts/faucet/industrial/prints/2026-10-23-black-complete-mark2/2026-10-23-industrial-faucet-black-complete-petgf-left04-z004-mark2.3mf",
+  "archive": "hardware/printed-parts/faucet/industrial/prints/2026-10-23-black-complete-mark2/2026-10-23-industrial-faucet-black-complete-petgf-left04-z004-mark2.gcode.3mf",
+  "archive_sha256": "364c103cd8c930934eb68ca3bd41e2a9ef1521a2274e64d587e0e5c99cb45d93",
+  "gcode_sha256": "e8afa1cd049b33100ab473d9e2f83d828a7505f05ee2efa84f53732afa11a740",
+  "embedded_checksum_matches": true,
+  "slicer": "BambuStudio 02.08.02.61",
+  "requested_z_trim_mm": 0.04,
+  "emitted_trim_values_mm": [
+    0.0,
+    0.02
+  ],
+  "material_commands": [
+    {
+      "part": "industrial-shell-base",
+      "extruding_commands": 980153,
+      "first_three_fans": [
+        0.0
+      ],
+      "later_fans": [
+        0.0,
+        70.0
+      ],
+      "bridge_speeds": [
+        15.0
+      ],
+      "overhang_speeds": [
+        10.0,
+        15.0
+      ],
+      "features": [
+        "Bridge",
+        "Brim",
+        "Floating vertical shell",
+        "Gap infill",
+        "Inner wall",
+        "Internal solid infill",
+        "Outer wall",
+        "Overhang wall",
+        "Sparse infill",
+        "Support",
+        "Support interface",
+        "Support transition",
+        "Top surface"
+      ],
+      "fan_by_feature": {
+        "Support": [
+          0.0,
+          70.0
+        ],
+        "Brim": [
+          0.0
+        ],
+        "Outer wall": [
+          0.0,
+          70.0
+        ],
+        "Overhang wall": [
+          0.0,
+          70.0
+        ],
+        "Inner wall": [
+          0.0,
+          70.0
+        ],
+        "Bridge": [
+          0.0,
+          70.0
+        ],
+        "Internal solid infill": [
+          0.0
+        ],
+        "Sparse infill": [
+          0.0
+        ],
+        "Floating vertical shell": [
+          0.0
+        ],
+        "Support transition": [
+          0.0
+        ],
+        "Support interface": [
+          0.0
+        ],
+        "Top surface": [
+          0.0
+        ],
+        "Gap infill": [
+          0.0
+        ]
+      }
+    },
+    {
+      "part": "faucet-shell-tip",
+      "extruding_commands": 431474,
+      "first_three_fans": [
+        0.0
+      ],
+      "later_fans": [
+        0.0,
+        70.0
+      ],
+      "bridge_speeds": [
+        15.0
+      ],
+      "overhang_speeds": [
+        10.0,
+        15.0
+      ],
+      "features": [
+        "Bottom surface",
+        "Bridge",
+        "Brim",
+        "Floating vertical shell",
+        "Gap infill",
+        "Inner wall",
+        "Internal solid infill",
+        "Outer wall",
+        "Overhang wall",
+        "Sparse infill",
+        "Support",
+        "Support interface",
+        "Top surface"
+      ],
+      "fan_by_feature": {
+        "Support": [
+          0.0,
+          70.0
+        ],
+        "Brim": [
+          0.0
+        ],
+        "Inner wall": [
+          0.0,
+          70.0
+        ],
+        "Outer wall": [
+          0.0,
+          70.0
+        ],
+        "Bottom surface": [
+          0.0
+        ],
+        "Internal solid infill": [
+          0.0
+        ],
+        "Top surface": [
+          0.0
+        ],
+        "Gap infill": [
+          0.0
+        ],
+        "Sparse infill": [
+          0.0
+        ],
+        "Floating vertical shell": [
+          0.0
+        ],
+        "Support interface": [
+          0.0,
+          70.0
+        ],
+        "Overhang wall": [
+          70.0
+        ],
+        "Bridge": [
+          70.0
+        ]
+      }
+    },
+    {
+      "part": "industrial-display-cover",
+      "extruding_commands": 51093,
+      "first_three_fans": [
+        0.0
+      ],
+      "later_fans": [
+        0.0,
+        70.0
+      ],
+      "bridge_speeds": [
+        15.0
+      ],
+      "overhang_speeds": [
+        10.0,
+        15.0
+      ],
+      "features": [
+        "Bridge",
+        "Floating vertical shell",
+        "Gap infill",
+        "Inner wall",
+        "Internal solid infill",
+        "Outer wall",
+        "Overhang wall",
+        "Sparse infill",
+        "Support",
+        "Support interface",
+        "Top surface"
+      ],
+      "fan_by_feature": {
+        "Support": [
+          0.0,
+          70.0
+        ],
+        "Inner wall": [
+          0.0,
+          70.0
+        ],
+        "Outer wall": [
+          0.0,
+          70.0
+        ],
+        "Gap infill": [
+          0.0
+        ],
+        "Internal solid infill": [
+          0.0
+        ],
+        "Sparse infill": [
+          0.0
+        ],
+        "Floating vertical shell": [
+          0.0
+        ],
+        "Top surface": [
+          0.0
+        ],
+        "Overhang wall": [
+          70.0
+        ],
+        "Support interface": [
+          0.0,
+          70.0
+        ],
+        "Bridge": [
+          70.0
+        ]
+      }
+    },
+    {
+      "part": "industrial-above-counter-plate",
+      "extruding_commands": 33739,
+      "first_three_fans": [
+        0.0
+      ],
+      "later_fans": [
+        0.0,
+        70.0
+      ],
+      "bridge_speeds": [
+        15.0
+      ],
+      "overhang_speeds": [
+        10.0
+      ],
+      "features": [
+        "Bottom surface",
+        "Bridge",
+        "Floating vertical shell",
+        "Gap infill",
+        "Inner wall",
+        "Internal solid infill",
+        "Outer wall",
+        "Overhang wall",
+        "Sparse infill",
+        "Support",
+        "Top surface"
+      ],
+      "fan_by_feature": {
+        "Support": [
+          0.0,
+          70.0
+        ],
+        "Inner wall": [
+          0.0
+        ],
+        "Outer wall": [
+          0.0
+        ],
+        "Bottom surface": [
+          0.0
+        ],
+        "Internal solid infill": [
+          0.0
+        ],
+        "Sparse infill": [
+          0.0
+        ],
+        "Floating vertical shell": [
+          0.0
+        ],
+        "Bridge": [
+          70.0
+        ],
+        "Overhang wall": [
+          70.0
+        ],
+        "Top surface": [
+          0.0
+        ],
+        "Gap infill": [
+          0.0
+        ]
+      }
+    },
+    {
+      "part": "lever-replica",
+      "extruding_commands": 30858,
+      "first_three_fans": [
+        0.0
+      ],
+      "later_fans": [
+        0.0,
+        70.0
+      ],
+      "bridge_speeds": [
+        15.0
+      ],
+      "overhang_speeds": [
+        10.0,
+        15.0
+      ],
+      "features": [
+        "Bottom surface",
+        "Bridge",
+        "Floating vertical shell",
+        "Gap infill",
+        "Inner wall",
+        "Internal solid infill",
+        "Outer wall",
+        "Overhang wall",
+        "Sparse infill",
+        "Support",
+        "Support interface",
+        "Top surface"
+      ],
+      "fan_by_feature": {
+        "Support": [
+          0.0,
+          70.0
+        ],
+        "Inner wall": [
+          0.0,
+          70.0
+        ],
+        "Outer wall": [
+          0.0,
+          70.0
+        ],
+        "Bottom surface": [
+          0.0
+        ],
+        "Internal solid infill": [
+          0.0
+        ],
+        "Sparse infill": [
+          0.0
+        ],
+        "Gap infill": [
+          0.0
+        ],
+        "Top surface": [
+          0.0
+        ],
+        "Floating vertical shell": [
+          0.0
+        ],
+        "Support interface": [
+          0.0,
+          70.0
+        ],
+        "Overhang wall": [
+          70.0
+        ],
+        "Bridge": [
+          70.0
+        ]
+      }
+    }
+  ],
+  "heater_commands": {
+    "M104": [
+      "M104 S0",
+      "M104 S0 T0; turn off hotend",
+      "M104 S0 T1; turn off hotend",
+      "M104 S265",
+      "M104 S265 T1 ; rise temp in advance",
+      "M104 S280 ; set nozzle temperature"
+    ],
+    "M109": [
+      "M109 S140 A"
+    ],
+    "M140": [
+      "M140 S0 ; turn off bed",
+      "M140 S80"
+    ],
+    "M190": [
+      "M190 S80",
+      "M190 S80; ensure bed temp"
+    ]
+  },
+  "fit": {
+    "minimum_shared_bed_margin_mm": 41.9042445,
+    "complete_layer_bead_bounds": {
+      "extrusion_bounds_xy_mm": [
+        [
+          41.875517,
+          73.200517
+        ],
+        [
+          266.683483,
+          274.736483
+        ]
+      ],
+      "maximum_line_width_mm": 0.786966,
+      "bounds_padding_mm": 0.493483
+    },
+    "complete_layer_bead_minimum_bed_margin_mm": 41.875517,
+    "minimum_toolpath_separation_mm": 0.5194684999999879,
+    "pairwise_toolpath_separations": [
+      {
+        "parts": [
+          "industrial-shell-base",
+          "faucet-shell-tip"
+        ],
+        "separation_mm": 28.13176150000001
+      },
+      {
+        "parts": [
+          "industrial-shell-base",
+          "industrial-display-cover"
+        ],
+        "separation_mm": 107.64307139811189
+      },
+      {
+        "parts": [
+          "faucet-shell-tip",
+          "industrial-display-cover"
+        ],
+        "separation_mm": 29.100369999999998
+      },
+      {
+        "parts": [
+          "industrial-shell-base",
+          "industrial-above-counter-plate"
+        ],
+        "separation_mm": 46.70924450000001
+      },
+      {
+        "parts": [
+          "faucet-shell-tip",
+          "industrial-above-counter-plate"
+        ],
+        "separation_mm": 24.255517000000026
+      },
+      {
+        "parts": [
+          "industrial-display-cover",
+          "industrial-above-counter-plate"
+        ],
+        "separation_mm": 79.6426076759998
+      },
+      {
+        "parts": [
+          "industrial-shell-base",
+          "lever-replica"
+        ],
+        "separation_mm": 0.5194684999999879
+      },
+      {
+        "parts": [
+          "faucet-shell-tip",
+          "lever-replica"
+        ],
+        "separation_mm": 29.871818698970483
+      },
+      {
+        "parts": [
+          "industrial-display-cover",
+          "lever-replica"
+        ],
+        "separation_mm": 116.50615049346476
+      },
+      {
+        "parts": [
+          "industrial-above-counter-plate",
+          "lever-replica"
+        ],
+        "separation_mm": 18.83122400000002
+      }
+    ]
+  },
+  "physical_result": "Pending for this exact print; linked physical references retain their original scope."
+}
