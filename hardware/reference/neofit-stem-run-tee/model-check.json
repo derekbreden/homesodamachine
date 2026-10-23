@@ -1,0 +1,81 @@
+{
+  "valid": true,
+  "solids": 1,
+  "volume_mm3": 5214.613690285679,
+  "bounds_mm": [
+    [
+      -27.00907788982151,
+      -21.016879908953587,
+      -7.766752343330809
+    ],
+    [
+      21.016879908953587,
+      7.766752343330809,
+      7.766752343330809
+    ]
+  ],
+  "mesh_vertices": 5374,
+  "mesh_faces": 5298,
+  "ports": {
+    "run_stem": {
+      "position_mm": [
+        -27.000199999999996,
+        0.0,
+        0.0
+      ],
+      "outward_axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "shoulder_mm": [
+        -5.994399999999999,
+        0.0,
+        0.0
+      ],
+      "kind": "male_stem",
+      "diameter_mm": 6.35,
+      "stem_length_mm": 21.005799999999997
+    },
+    "run_socket": {
+      "position_mm": [
+        21.005799999999997,
+        0.0,
+        0.0
+      ],
+      "outward_axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "kind": "female_push_fit",
+      "tube_od_mm": 6.35,
+      "insertion_depth_mm": 16.891,
+      "tube_stop_mm": [
+        4.114799999999999,
+        0.0,
+        0.0
+      ]
+    },
+    "branch_socket": {
+      "position_mm": [
+        0.0,
+        -21.005799999999997,
+        0.0
+      ],
+      "outward_axis": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "kind": "female_push_fit",
+      "tube_od_mm": 6.35,
+      "insertion_depth_mm": 16.891,
+      "tube_stop_mm": [
+        0.0,
+        -4.114799999999999,
+        0.0
+      ]
+    }
+  }
+}

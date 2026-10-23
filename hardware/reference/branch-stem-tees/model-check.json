@@ -1,0 +1,140 @@
+{
+  "neofit": {
+    "valid": true,
+    "solid_count": 1,
+    "volume_mm3": 5288.586448646653,
+    "vertices": 7279,
+    "triangles": 7342,
+    "bounds_min_mm": [
+      -20.107121182086352,
+      -7.749600531823889,
+      -7.750467407099701
+    ],
+    "bounds_max_mm": [
+      20.107121182086352,
+      27.054980905042655,
+      7.750467407099701
+    ],
+    "ports": {
+      "run_minus": {
+        "type": "female_push_connect",
+        "tube_od_mm": 6.35,
+        "position": [
+          -20.1041,
+          0,
+          0
+        ],
+        "outward": [
+          -1,
+          0,
+          0
+        ],
+        "insertion_mm": 16.891
+      },
+      "run_plus": {
+        "type": "female_push_connect",
+        "tube_od_mm": 6.35,
+        "position": [
+          20.1041,
+          0,
+          0
+        ],
+        "outward": [
+          1,
+          0,
+          0
+        ],
+        "insertion_mm": 16.891
+      },
+      "branch_stem": {
+        "type": "male_stem",
+        "stem_od_mm": 6.35,
+        "position": [
+          0,
+          27.051,
+          0
+        ],
+        "outward": [
+          0,
+          1,
+          0
+        ],
+        "shoulder": [
+          0,
+          6.0452,
+          0
+        ],
+        "shoulder_to_tip_mm": 21.0058
+      }
+    }
+  },
+  "john-guest": {
+    "valid": true,
+    "solid_count": 1,
+    "volume_mm3": 4573.09500307104,
+    "vertices": 7417,
+    "triangles": 7586,
+    "bounds_min_mm": [
+      -19.452327452125783,
+      -7.602551188403454,
+      -7.603401614645375
+    ],
+    "bounds_max_mm": [
+      19.452327452125783,
+      26.003980905042656,
+      7.603401614645375
+    ],
+    "ports": {
+      "run_minus": {
+        "type": "female_push_connect",
+        "tube_od_mm": 6.35,
+        "position": [
+          -19.45,
+          0,
+          0
+        ],
+        "outward": [
+          -1,
+          0,
+          0
+        ],
+        "insertion_mm": 15.7
+      },
+      "run_plus": {
+        "type": "female_push_connect",
+        "tube_od_mm": 6.35,
+        "position": [
+          19.45,
+          0,
+          0
+        ],
+        "outward": [
+          1,
+          0,
+          0
+        ],
+        "insertion_mm": 15.7
+      },
+      "branch_stem": {
+        "type": "male_stem",
+        "stem_od_mm": 6.35,
+        "position": [
+          0,
+          26.0,
+          0
+        ],
+        "outward": [
+          0,
+          1,
+          0
+        ],
+        "shoulder": [
+          0,
+          6.0,
+          0
+        ],
+        "shoulder_to_tip_mm": 20.0
+      }
+    }
+  }
+}
