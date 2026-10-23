@@ -118,15 +118,15 @@
   ],
   "water_group_translation_mm": [
     0.0,
-    -29.0,
+    -7.0,
     0.0
   ],
   "pcb_translation_from_pcb_low_fore_mm": [
-    4.0,
+    0.0,
     0.0,
     0.0
   ],
-  "J7_lead_geometry": "connection-J7-wire-inward",
+  "J7_lead_geometry": "connection-J7-wire-edge",
   "gas_rotation": [
     [
       -1.0,
@@ -245,6 +245,7 @@
       "source_basis": "cap_conduits and spin_xy; FOAM_YAW90; existing fact-pack registration"
     }
   },
+  "gas_drop_status": "Unresolved: proposed centreline intersects V-K",
   "gas_drop_centerline_mm": [
     [
       77.5,

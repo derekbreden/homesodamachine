@@ -6,7 +6,7 @@
       "geometry": "asse",
       "translation": [
         74.14625626622687,
-        258.0349605281867,
+        280.0349605281867,
         235.8136578805363
       ],
       "rotation": [
@@ -35,7 +35,7 @@
       "geometry": "asse-inlet-tpu",
       "translation": [
         74.14625626622687,
-        258.0349605281867,
+        280.0349605281867,
         235.8136578805363
       ],
       "rotation": [
@@ -64,7 +64,7 @@
       "geometry": "asse-outlet-tpu",
       "translation": [
         74.14625626622687,
-        258.0349605281867,
+        280.0349605281867,
         235.8136578805363
       ],
       "rotation": [
@@ -93,7 +93,7 @@
       "geometry": "neofit-branch-trimmed",
       "translation": [
         37.2499988712316,
-        274.3397605281867,
+        296.3397605281867,
         334.3760478805363
       ],
       "rotation": [
@@ -122,7 +122,7 @@
       "geometry": "vk",
       "translation": [
         71.48796626622686,
-        274.3397605281867,
+        296.3397605281867,
         250.33084788053628
       ],
       "rotation": [
@@ -151,7 +151,7 @@
       "geometry": "reg",
       "translation": [
         60.29215626622687,
-        274.3397605281866,
+        296.3397605281866,
         235.8136578805363
       ],
       "rotation": [
@@ -180,7 +180,7 @@
       "geometry": "vk",
       "translation": [
         -81.32023373377311,
-        274.3397605281867,
+        296.3397605281867,
         250.33084788053628
       ],
       "rotation": [
@@ -209,7 +209,7 @@
       "geometry": "pump-sliding-foot",
       "translation": [
         46.392766266226865,
-        337.64701731402886,
+        359.64701731402886,
         280.1243083075118
       ],
       "rotation": [
@@ -238,7 +238,7 @@
       "geometry": "pump",
       "translation": [
         46.392766266226865,
-        307.64701731402886,
+        329.64701731402886,
         280.1243083075118
       ],
       "rotation": [
@@ -267,7 +267,7 @@
       "geometry": "vent-sleeve",
       "translation": [
         74.14625626622687,
-        258.0349605281867,
+        280.0349605281867,
         235.8136578805363
       ],
       "rotation": [
@@ -325,7 +325,7 @@
       "geometry": "pump-inlet-tpu",
       "translation": [
         46.392766266226865,
-        307.64701731402886,
+        329.64701731402886,
         280.1243083075118
       ],
       "rotation": [
@@ -354,7 +354,7 @@
       "geometry": "pump-inlet-barb-band",
       "translation": [
         46.392766266226865,
-        307.64701731402886,
+        329.64701731402886,
         280.1243083075118
       ],
       "rotation": [
@@ -383,7 +383,7 @@
       "geometry": "pump-inlet-tube-band",
       "translation": [
         46.392766266226865,
-        307.64701731402886,
+        329.64701731402886,
         280.1243083075118
       ],
       "rotation": [
@@ -412,7 +412,7 @@
       "geometry": "pump-outlet-tpu",
       "translation": [
         46.392766266226865,
-        307.64701731402886,
+        329.64701731402886,
         280.1243083075118
       ],
       "rotation": [
@@ -441,7 +441,7 @@
       "geometry": "pump-outlet-barb-band",
       "translation": [
         46.392766266226865,
-        307.64701731402886,
+        329.64701731402886,
         280.1243083075118
       ],
       "rotation": [
@@ -470,7 +470,7 @@
       "geometry": "pump-outlet-tube-band",
       "translation": [
         46.392766266226865,
-        307.64701731402886,
+        329.64701731402886,
         280.1243083075118
       ],
       "rotation": [
@@ -499,7 +499,7 @@
       "geometry": "check",
       "translation": [
         46.392766266226865,
-        307.64701731402886,
+        329.64701731402886,
         280.1243083075118
       ],
       "rotation": [
@@ -528,7 +528,7 @@
       "geometry": "stem-elbow-trimmed",
       "translation": [
         -32.80179966121266,
-        383.2216823686537,
+        405.2216823686537,
         280.16882837176047
       ],
       "rotation": [
@@ -557,7 +557,7 @@
       "geometry": "carbonator-to-cap",
       "translation": [
         46.392766266226865,
-        293.1298273140289,
+        315.1298273140289,
         281.6366983075118
       ],
       "rotation": [
@@ -586,7 +586,7 @@
       "geometry": "stem-elbow-trimmed",
       "translation": [
         76.40409887123158,
-        274.3397605281867,
+        296.3397605281867,
         334.3760478805363
       ],
       "rotation": [
@@ -615,7 +615,7 @@
       "geometry": "stem-elbow-trimmed",
       "translation": [
         76.40409887123158,
-        274.3397605281867,
+        296.3397605281867,
         262.78564788053626
       ],
       "rotation": [
@@ -644,7 +644,7 @@
       "geometry": "stacked-elbow",
       "translation": [
         51.30889887123159,
-        274.3397605281866,
+        296.3397605281866,
         262.78564788053626
       ],
       "rotation": [
@@ -673,7 +673,7 @@
       "geometry": "tee-regulator-tube",
       "translation": [
         17.145898871231594,
-        274.3397605281867,
+        296.3397605281867,
         334.3760478805363
       ],
       "rotation": [
@@ -702,7 +702,7 @@
       "geometry": "stem-elbow-trimmed",
       "translation": [
         -76.40410112876839,
-        274.3397605281867,
+        296.3397605281867,
         334.3760478805363
       ],
       "rotation": [
@@ -731,7 +731,7 @@
       "geometry": "stem-elbow-trimmed",
       "translation": [
         -76.40410112876839,
-        274.3397605281867,
+        296.3397605281867,
         262.7856478805363
       ],
       "rotation": [
@@ -760,7 +760,7 @@
       "geometry": "flavor-handoff",
       "translation": [
         -76.40410112876839,
-        255.28976052818666,
+        277.28976052818666,
         262.7856478805363
       ],
       "rotation": [
@@ -1243,7 +1243,7 @@
         ]
       ],
       "translation": [
-        -321.3999938964844,
+        -325.3999938964844,
         -53.98393249511719,
         353.25
       ],
@@ -1396,7 +1396,7 @@
         ]
       ],
       "translation": [
-        -321.3999938964844,
+        -325.3999938964844,
         -53.98393249511719,
         353.25
       ],
@@ -1427,7 +1427,7 @@
         ]
       ],
       "translation": [
-        -321.3999938964844,
+        -325.3999938964844,
         -53.98393249511719,
         353.25
       ],
@@ -1458,7 +1458,7 @@
         ]
       ],
       "translation": [
-        -321.3999938964844,
+        -325.3999938964844,
         -53.98393249511719,
         353.25
       ],
@@ -1489,7 +1489,7 @@
         ]
       ],
       "translation": [
-        -321.3999938964844,
+        -325.3999938964844,
         -53.98393249511719,
         353.25
       ],
@@ -1520,7 +1520,7 @@
         ]
       ],
       "translation": [
-        -321.3999938964844,
+        -325.3999938964844,
         -53.98393249511719,
         353.25
       ],
@@ -1551,7 +1551,7 @@
         ]
       ],
       "translation": [
-        -321.3999938964844,
+        -325.3999938964844,
         -53.98393249511719,
         353.25
       ],
@@ -1582,7 +1582,7 @@
         ]
       ],
       "translation": [
-        -321.3999938964844,
+        -325.3999938964844,
         -53.98393249511719,
         353.25
       ],
@@ -1613,7 +1613,7 @@
         ]
       ],
       "translation": [
-        -321.3999938964844,
+        -325.3999938964844,
         -53.98393249511719,
         353.25
       ],
@@ -1644,7 +1644,7 @@
         ]
       ],
       "translation": [
-        -321.3999938964844,
+        -325.3999938964844,
         -53.98393249511719,
         353.25
       ],
@@ -1675,7 +1675,7 @@
         ]
       ],
       "translation": [
-        -321.3999938964844,
+        -325.3999938964844,
         -53.98393249511719,
         353.25
       ],
@@ -1706,7 +1706,7 @@
         ]
       ],
       "translation": [
-        -321.3999938964844,
+        -325.3999938964844,
         -53.98393249511719,
         353.25
       ],
@@ -1737,7 +1737,7 @@
         ]
       ],
       "translation": [
-        -321.3999938964844,
+        -325.3999938964844,
         -53.98393249511719,
         353.25
       ],
@@ -1768,7 +1768,7 @@
         ]
       ],
       "translation": [
-        -321.3999938964844,
+        -325.3999938964844,
         -53.98393249511719,
         353.25
       ],
@@ -1799,7 +1799,7 @@
         ]
       ],
       "translation": [
-        -321.3999938964844,
+        -325.3999938964844,
         -53.98393249511719,
         353.25
       ],
@@ -1830,7 +1830,7 @@
         ]
       ],
       "translation": [
-        -321.3999938964844,
+        -325.3999938964844,
         -53.98393249511719,
         353.25
       ],
@@ -1861,7 +1861,7 @@
         ]
       ],
       "translation": [
-        -321.3999938964844,
+        -325.3999938964844,
         -53.98393249511719,
         353.25
       ],
@@ -1892,7 +1892,7 @@
         ]
       ],
       "translation": [
-        -321.3999938964844,
+        -325.3999938964844,
         -53.98393249511719,
         353.25
       ],
@@ -1901,10 +1901,10 @@
     },
     {
       "name": "local-lead-J7",
-      "geometry": "connection-J7-wire-inward",
+      "geometry": "connection-J7-wire-edge",
       "kind": "tube",
       "role": "wire",
-      "label": "J7 \u00b7 local leads turn inward over the board",
+      "label": "J7 \u00b7 local edgeward wire departure",
       "rotation": [
         [
           0.0,
@@ -1923,7 +1923,7 @@
         ]
       ],
       "translation": [
-        -321.3999938964844,
+        -325.3999938964844,
         -53.98393249511719,
         353.25
       ],
@@ -1954,7 +1954,7 @@
         ]
       ],
       "translation": [
-        -321.3999938964844,
+        -325.3999938964844,
         -53.98393249511719,
         353.25
       ],
@@ -1985,7 +1985,7 @@
         ]
       ],
       "translation": [
-        -321.3999938964844,
+        -325.3999938964844,
         -53.98393249511719,
         353.25
       ],
@@ -2016,7 +2016,7 @@
         ]
       ],
       "translation": [
-        -321.3999938964844,
+        -325.3999938964844,
         -53.98393249511719,
         353.25
       ],
@@ -2047,7 +2047,7 @@
         ]
       ],
       "translation": [
-        -321.3999938964844,
+        -325.3999938964844,
         -53.98393249511719,
         353.25
       ],
@@ -2906,7 +2906,8 @@
       "role": "gas",
       "kind": "tube",
       "context": true,
-      "label": "CO\u2082 \u00b7 broad S into the fixed core guide"
+      "label": "CO\u2082 \u00b7 unresolved drop intersects V-K",
+      "route_status": "unresolved"
     }
   ],
   "pins": [
@@ -2914,7 +2915,7 @@
       "text": "ASSE 1022",
       "at": [
         30.894704515762854,
-        332.88497029381165,
+        354.88497029381165,
         334.37604757536053
       ]
     },
@@ -2922,7 +2923,7 @@
       "text": "Pump",
       "at": [
         9.131731853279923,
-        343.16773681640626,
+        365.16773681640626,
         283.6669677734375
       ]
     },
@@ -2930,7 +2931,7 @@
       "text": "V-K",
       "at": [
         76.4041,
-        291.93975747642884,
+        313.93975747642884,
         298.5808490012394
       ]
     },
@@ -2938,7 +2939,7 @@
       "text": "Regulator",
       "at": [
         -27.604101128768406,
-        274.3397605281866,
+        296.3397605281866,
         323.3760478805363
       ]
     },
@@ -2946,7 +2947,7 @@
       "text": "V-A",
       "at": [
         -76.40409999999997,
-        291.93975747642884,
+        313.93975747642884,
         298.5808490012394
       ]
     },
@@ -2955,7 +2956,7 @@
       "short": "Inlet \u2192 back",
       "at": [
         37.2499988712316,
-        405.38496052818664,
+        427.38496052818664,
         334.3760478805363
       ]
     },
@@ -2964,7 +2965,7 @@
       "short": "Flavor",
       "at": [
         -76.40410112876839,
-        235.28976052818666,
+        257.28976052818666,
         262.7856478805363
       ]
     },
@@ -2973,7 +2974,7 @@
       "short": "Carbonator",
       "at": [
         -32.801799661212655,
-        383.22168236865383,
+        405.22168236865383,
         257.2594141858803
       ]
     },
@@ -3052,7 +3053,7 @@
     {
       "text": "PCB \u00b7 low and forward",
       "at": [
-        -31.6,
+        -35.6,
         227.4,
         267.6
       ],
@@ -3091,7 +3092,7 @@
     {
       "at": [
         37.2499988712316,
-        385.38496052818664,
+        407.38496052818664,
         334.3760478805363
       ],
       "dir": [
@@ -3105,7 +3106,7 @@
     {
       "at": [
         -76.40410112876839,
-        235.28976052818666,
+        257.28976052818666,
         262.7856478805363
       ],
       "dir": [
@@ -3123,7 +3124,7 @@
       "b": "tee",
       "point": [
         37.2499988712316,
-        280.38496052818664,
+        302.38496052818664,
         334.3760478805363
       ],
       "exposed_tube_mm": 0.0,
@@ -3137,7 +3138,7 @@
       "b": "check",
       "point": [
         -32.80179966121266,
-        326.1764823686537,
+        348.1764823686537,
         280.16882837176047
       ],
       "exposed_tube_mm": 0.0,
@@ -3148,7 +3149,7 @@
       "b": "carbonator-fold",
       "point": [
         -32.80179966121266,
-        377.1764823686537,
+        399.1764823686537,
         280.16882837176047
       ],
       "exposed_tube_mm": 0.0,
@@ -3162,7 +3163,7 @@
       "b": "tee-fold",
       "point": [
         76.40409887123158,
-        274.3397605281867,
+        296.3397605281867,
         328.3308478805363
       ],
       "exposed_tube_mm": 0.0,
@@ -3176,7 +3177,7 @@
       "b": "tee",
       "point": [
         57.3540988712316,
-        274.3397605281867,
+        296.3397605281867,
         334.3760478805363
       ],
       "exposed_tube_mm": 0.0,
@@ -3188,7 +3189,7 @@
       "b": "lower-pump-elbow",
       "point": [
         51.30889887123159,
-        291.2373169002318,
+        313.2373169002318,
         271.5819589626637
       ],
       "connection": "female mouths connected by concealed tube",
@@ -3200,7 +3201,7 @@
       "b": "lower-valve-elbow",
       "point": [
         57.3540988712316,
-        274.3397605281867,
+        296.3397605281867,
         262.78564788053626
       ],
       "connection": "male stem into NeoFit socket",
@@ -3213,7 +3214,7 @@
       "b": "vk",
       "point": [
         76.40409887123158,
-        274.3397605281867,
+        296.3397605281867,
         268.8308478805363
       ],
       "connection": "male stem into valve socket",
@@ -3226,7 +3227,7 @@
       "b": "tee-regulator-tube",
       "point": [
         17.145898871231594,
-        274.3397605281867,
+        296.3397605281867,
         334.3760478805363
       ],
       "insertion_mm": 16.891,
@@ -3237,7 +3238,7 @@
       "b": "reg",
       "point": [
         2.1458988712315943,
-        274.3397605281867,
+        296.3397605281867,
         334.3760478805363
       ],
       "insertion_mm": 12.7,
@@ -3249,7 +3250,7 @@
       "b": "reg-va-elbow",
       "point": [
         -76.40410112876839,
-        274.3397605281867,
+        296.3397605281867,
         328.3308478805363
       ],
       "exposed_tube_mm": 0,
@@ -3263,7 +3264,7 @@
       "b": "reg-va-elbow",
       "point": [
         -57.3541011287684,
-        274.3397605281867,
+        296.3397605281867,
         334.3760478805363
       ],
       "exposed_tube_mm": 0,
@@ -3276,7 +3277,7 @@
       "b": "va-outlet-elbow",
       "point": [
         -76.40410112876839,
-        274.3397605281867,
+        296.3397605281867,
         268.8308478805363
       ],
       "connection": "trimmed male stem into valve outlet",
@@ -3289,7 +3290,7 @@
       "b": "va-flavor",
       "point": [
         -76.40410112876839,
-        255.28976052818666,
+        277.28976052818666,
         262.7856478805363
       ],
       "connection": "tube in NeoFit socket",
@@ -3523,7 +3524,7 @@
       "b": "asse-inlet-tpu",
       "point": [
         37.2499988712316,
-        385.38496052818664,
+        407.38496052818664,
         334.3760478805363
       ],
       "insertion_mm": 15.0
@@ -3799,17 +3800,17 @@
     "reg_va_exposed_tube_mm": 0,
     "va_inlet_world_mm": [
       -76.40410112876839,
-      274.3397605281867,
+      296.3397605281867,
       328.3308478805363
     ],
     "va_outlet_world_mm": [
       -76.40410112876839,
-      274.3397605281867,
+      296.3397605281867,
       268.8308478805363
     ],
     "flavor_mouth_world_mm": [
       -76.40410112876839,
-      255.28976052818666,
+      277.28976052818666,
       262.7856478805363
     ],
     "flavor_handoff_direction_world": [
@@ -3830,7 +3831,7 @@
     "comparison_y_placement": "Rear fittings seated in the common 6mm panel, water inlet straight to ASSE, gas drop registered to the fixed core guide",
     "asse_inlet_mouth_world_mm": [
       37.2499988712316,
-      385.38496052818664,
+      407.38496052818664,
       334.3760478805363
     ],
     "pump_joint_angle_degrees": 27.5,
@@ -3845,15 +3846,15 @@
     "rear_wet_connections_half": "+X",
     "pcb_orientation": "Flat on its back, components upward, near the front of the cold core",
     "relay_service": "PCB is forward of the relays and supply; no PCB removal for their terminal tool columns",
-    "water_header_poses": "Rigid group29mm fore; original valve head rotations and all fitting axes retained",
+    "water_header_poses": "Rigid group7mm fore; original valve head rotations and all fitting axes retained",
     "planned_funnel_minus_y_expansion": "Future funnel shape to be considered with the PCB below its current bowl",
     "psu_orientation": "Flat on its back, AC aft and DC fore, screws upward",
     "psu_mount_service": "Fasten supply before the rear inlet/data parts covering its rear mounting axes",
     "connection_scope": "Ten active JST plugs and their local wire bends, J10 power leads and selected PSU/relay local conductors; separate unplugging and screwdriver probes",
     "pcb_underside_z_mm": 257,
     "pcb_footprint_mm": {
-      "xmin": -68.0,
-      "xmax": 4.800018310546875,
+      "xmin": -72.0,
+      "xmax": 0.800018310546875,
       "ymin": 182.0,
       "ymax": 272.81605529785156
     },
@@ -3872,7 +3873,7 @@
     "wago_placement": "Place junctions last, after primary components and wire routes, where connections are needed",
     "water_header_translation_from_pcb_low_fore_mm": [
       0.0,
-      -29.0,
+      -7.0,
       0.0
     ],
     "valve_clocking": "Original aft-facing heads",
@@ -3929,27 +3930,33 @@
     },
     "deferred_connections": "Soda, vent and flavor ports show local departures; full onward routes are not placed",
     "pcb_inboard_translation_mm": [
-      4.0,
+      0.0,
       0.0,
       0.0
     ],
-    "pcb_lead_dressing": "J7 bends inward over the board; other local lead choices follow their carried models",
+    "pcb_lead_dressing": "PCB-low-fore local plug and lead models",
+    "co2_route_status": "Unresolved: the proposed drop to the fixed core guide intersects V-K",
     "co2_clamps": "Four9mm closed bands on the two metal cuffs and two tube sockets"
   },
   "metrics": {
     "scope": "All selected installed bodies, TPU joints and bands, tubes, local wires, bare nuts and native wall/roof context; intended mates excluded",
-    "unrelated_interferences": [],
+    "unrelated_interferences": [
+      [
+        "vk",
+        "co2-core-drop"
+      ]
+    ],
     "selected_gaps_mm": {
-      "co2-core-drop_to_vk": 3.524128605808822,
-      "co2-core-drop_to_pump": 28.91039623141418,
-      "check-outlet-tpu_to_vk": 11.885724649182261,
-      "pump_to_pcba": 2.418723911514264,
-      "va-outlet-elbow_to_pcba": 1.6452014005464295,
-      "reg_to_funnel": 5.143521541689233,
+      "co2-core-drop_to_vk": 0.0,
+      "co2-core-drop_to_pump": 27.911350198545154,
+      "check-outlet-tpu_to_vk": 4.5451988792968905,
+      "pump_to_pcba": 17.971469111463385,
+      "va-outlet-elbow_to_pcba": 4.510924590338943,
+      "reg_to_funnel": 23.025612622910707,
       "reg_to_ceiling": 1.3958988712315943,
       "asse_to_ceiling": 1.1239524246394694,
       "regulator-inlet-band-cuff_to_ceiling": 0.9506971527278552,
-      "bulkhead-flavor-a-departure_to_pump": 21.472448248984954
+      "bulkhead-flavor-a-departure_to_pump": 3.8695054017633335
     },
     "minimum_ceiling_stock_mm": 3.0,
     "gas_pocket_stock_mm": 6.0,

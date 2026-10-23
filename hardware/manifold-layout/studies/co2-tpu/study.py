@@ -26,8 +26,8 @@ parent = module("co2_grid_parent", HERE.parent / "co2-grid/study.py")
 tpu = module("co2_tpu_joints", HERE / "tpu-joints/model.py")
 base = parent.base
 I = np.eye(3)
-FORE = np.array([0., -29., 0.])
-PCB_SHIFT = np.array([4., 0., 0.])
+FORE = np.array([0., -7., 0.])
+PCB_SHIFT = np.zeros(3)
 GAS_R = np.diag([-1., -1., 1.])
 GAS_INLET = parent.GAS_INLET.copy()
 GAS_T = GAS_INLET - GAS_R @ np.array([0., -18.5, 0.])
@@ -90,9 +90,6 @@ def pose(geometries):
                 m["label"] = name.upper().replace("V", "V-") + " · original aft-facing head"
         if name == "pcba" or m.get("connection_owner") == "pcba":
             m["translation"] = (np.array(m["translation"]) + PCB_SHIFT).tolist()
-        if name == "local-lead-J7":
-            m.update(geometry="connection-J7-wire-inward",
-                     label="J7 · local leads turn inward over the board")
         if name == "water-in":
             m.update(geometry="tpu-water-link", translation=[0., 0., 0.], rotation=I.tolist())
     # Restore source header mate datums with the same rigid translation.
@@ -108,7 +105,7 @@ def pose(geometries):
         base.instance("co2-inlet-link", "tpu-inlet-link", role="gas", kind="tube", context=True,
                       label="CO₂ · concealed inlet tube between touching mouths"),
         base.instance("co2-core-drop", "tpu-core-drop", role="gas", kind="tube", context=True,
-                      label="CO₂ · broad S into the fixed core guide"),
+                      label="CO₂ · unresolved drop intersects V-K", route_status="unresolved"),
     ])
     scene["mates"].extend(tpu.mates())
     scene["mates"].extend([
@@ -141,17 +138,18 @@ def pose(geometries):
         scene["layout"][key] = (np.array(source["layout"][key]) + FORE).tolist()
     scene["layout"].update(
         water_header_translation_from_pcb_low_fore_mm=FORE.tolist(),
-        water_header_poses="Rigid group29mm fore; original valve head rotations and all fitting axes retained",
+        water_header_poses="Rigid group7mm fore; original valve head rotations and all fitting axes retained",
         va_head_direction=[0, 1, 0], vk_head_direction=[0, 1, 0],
         valve_clocking="Original aft-facing heads",
         pcb_inboard_translation_mm=PCB_SHIFT.tolist(),
-        pcb_footprint_mm={"xmin": -68., "xmax": 4.800018310546875,
+        pcb_footprint_mm={"xmin": -72., "xmax": 0.800018310546875,
                           "ymin": 182., "ymax": 272.81605529785156},
-        pcb_lead_dressing="J7 bends inward over the board; other local lead choices follow their carried models",
+        pcb_lead_dressing="PCB-low-fore local plug and lead models",
         co2_flow="Rear bulkhead → threadless TPU inlet cuff → WR regulator → directly threaded Gasher check → TPU90°outlet cuff → continuous tube to core",
         co2_datums={"inlet_mouth_mm": GAS_INLET.tolist(),
                     "outlet_mouth_mm": gas_ports()["outlet"]["point_mm"],
                     "core_guide_mm": parent.gas.cap_handoff()["point_mm"]},
+        co2_route_status="Unresolved: the proposed drop to the fixed core guide intersects V-K",
         co2_clamps="Four9mm closed bands on the two metal cuffs and two tube sockets",
         context_scope="Selected water and CO2 assemblies, dry electronics with local leads, funnel/frame and native walls/roof; WAGOs deferred, V-B and reservoir routes set aside",
     )
@@ -214,9 +212,10 @@ def main():
         "units": "mm", "grid": parent.grid(),
         "water_group_translation_mm": FORE.tolist(),
         "pcb_translation_from_pcb_low_fore_mm": PCB_SHIFT.tolist(),
-        "J7_lead_geometry": "connection-J7-wire-inward",
+        "J7_lead_geometry": "connection-J7-wire-edge",
         "gas_rotation": GAS_R.tolist(), "gas_regulator_translation_mm": GAS_T.tolist(),
         "gas": gas_ports(), "core_handoff": parent.gas.cap_handoff(),
+        "gas_drop_status": "Unresolved: proposed centreline intersects V-K",
         "gas_drop_centerline_mm": drop_points().tolist(),
         "direct_metal_joint": tpu.interfaces()["direct_metal_joint"],
         "joint_geometry_source": "tpu-joints/interfaces.json",

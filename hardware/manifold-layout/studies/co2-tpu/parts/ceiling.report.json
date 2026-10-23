@@ -2,7 +2,7 @@
   "units": "mm",
   "valid": true,
   "solid_count": 1,
-  "volume_mm3": 388265.3999999999,
+  "volume_mm3": 392363.39999999985,
   "bounds_mm": [
     [
       -107.50000010000005,
@@ -40,7 +40,7 @@
         "requested_bounds_mm": {
           "xmin": 24.0,
           "xmax": 50.0,
-          "ymin": 313.0,
+          "ymin": 321.0,
           "ymax": 471.3,
           "zmin": 346.0,
           "zmax": 352.0
@@ -48,7 +48,7 @@
         "bounds_mm": {
           "xmin": 24.0,
           "xmax": 50.0,
-          "ymin": 313.0,
+          "ymin": 321.0,
           "ymax": 471.3,
           "zmin": 346.0,
           "zmax": 352.0
@@ -56,7 +56,7 @@
         "active": true,
         "dimensions_mm": {
           "x": 26.0,
-          "y": 158.3,
+          "y": 150.3,
           "z": 6.0
         },
         "roof_z_mm": 352.0,
@@ -68,7 +68,7 @@
         "requested_bounds_mm": {
           "xmin": -40.0,
           "xmax": -15.0,
-          "ymin": 241.0,
+          "ymin": 263.0,
           "ymax": 336.0,
           "zmin": 346.0,
           "zmax": 352.0
@@ -76,7 +76,7 @@
         "bounds_mm": {
           "xmin": -40.0,
           "xmax": -15.0,
-          "ymin": 244.0,
+          "ymin": 263.0,
           "ymax": 336.0,
           "zmin": 346.0,
           "zmax": 352.0
@@ -84,7 +84,7 @@
         "active": true,
         "dimensions_mm": {
           "x": 25.0,
-          "y": 92.0,
+          "y": 73.0,
           "z": 6.0
         },
         "roof_z_mm": 352.0,
@@ -123,8 +123,8 @@
     "valid": true,
     "solid_count": 1,
     "uncut_volume_mm3": 439825.5,
-    "volume_mm3": 388265.3999999999,
-    "removed_volume_mm3": 51560.10000000009,
+    "volume_mm3": 392363.39999999985,
+    "removed_volume_mm3": 47462.10000000015,
     "bounds_mm": {
       "xmin": -107.50000010000005,
       "xmax": 107.50000010000005,

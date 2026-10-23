@@ -1,12 +1,12 @@
 # TPU CO₂ arrangement
 
-The selected gas path is rear bulkhead → straight TPU external-boss cuff → WR regulator → directly threaded Gasher check → TPU outlet elbow → continuous tube through the fixed cold-core guide. The two TPU joints and four clamp bands are modeled in [tpu-joints](tpu-joints/model.py); their datums and evidence scope are in [joint interfaces](tpu-joints/interfaces.json).
+The proposed gas path is rear bulkhead → straight TPU external-boss cuff → WR regulator → directly threaded Gasher check → TPU outlet elbow → continuous tube through the fixed cold-core guide. The drop tube intersects V-K and remains unresolved. The two TPU joints and four clamp bands are modeled in [tpu-joints](tpu-joints/model.py); their datums and evidence scope are in [joint interfaces](tpu-joints/interfaces.json).
 
-The water group sits 29 mm fore of the PCB-low-fore source registration. Its fitting axes and original aft-facing V-K/V-A heads are retained. The low forward PCB and its plugs move 4 mm inboard; J7 leads turn inward over the board. The regular six-port grid and cold-core handoff retain their coordinates.
+The water group sits 7 mm fore of the PCB-low-fore source registration. Its fitting axes and original aft-facing V-K/V-A heads are retained. The low forward PCB, plugs and local leads use their PCB-low-fore poses. The regular six-port grid and cold-core handoff retain their coordinates.
 
 The three named ceiling pockets leave 3 mm above the water components and 6 mm above the gas lane. The rear fittings share one interior relief, retaining 6 mm of mounting panel. Native STEP, mesh and solid reports are in [parts](parts/).
 
-The manual selected-mesh query reports no unrelated intersections. Gas tube–V-K clearance is 3.52 mm, pump–PCB 2.42 mm, and V-A outlet elbow–PCB 1.65 mm. Full onward soda, vent and flavor routes, complete wire routing, WAGO placement, V-B and reservoir routes are outside this selected arrangement. Local departures and wire bends establish their stated local occupied space.
+The manual selected-mesh query records the unresolved CO₂ tube–V-K intersection. Full onward soda, vent and flavor routes, complete wire routing, WAGO placement, V-B and reservoir routes are outside this selected arrangement. Local departures and wire bends establish their stated local occupied space.
 
 Regenerate the viewer payload and optionally ask the selected-mesh fit question:
 
