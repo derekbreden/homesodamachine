@@ -1,0 +1,63 @@
+{
+  "status": "offline slice reviewed; no physical print or force qualification",
+  "printer_submission": false,
+  "project": "2026-10-23-tube-bend-holders-w234-petgf-left04-z018-mark1.3mf",
+  "project_sha256": "c319a7424bd2a94d04117ebe8e16b95bc260a3b2f9766b35fed0532c4a878ea2",
+  "archive": "2026-10-23-tube-bend-holders-w234-petgf-left04-z018-mark1.gcode.3mf",
+  "archive_sha256": "25ab49f9f26b7a080e069873e6b644215b95d7a689b96a5feb4a66a93fb87ff8",
+  "gcode_sha256": "0d2808b8b22033198dd8f2967a1fc5a78d0f4954e3c3cf47a519a7b598845598",
+  "source_stls": {
+    "future/tube-bend-holder-exploration/holder-w2.stl": "8db7cdf826596e91de8dae8dfc06c53a5b0a3c9f680d8ce9da150acde69d0d06",
+    "future/tube-bend-holder-exploration/holder-w3.stl": "8096442fb80d946bfaf7f7172d95fee3309df68da3b4a7a179110622f99ca66c",
+    "future/tube-bend-holder-exploration/holder-w4.stl": "c59f5085937deaa8434331fc8bfa2322b8537892064c6271b7aafe2ed1ae944d"
+  },
+  "printer": "Mark1 (H2C)",
+  "nozzle_mapping": "Left hardened 0.4 mm; black PET-GF external spool 254",
+  "plate_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "features": [
+    "Bottom surface",
+    "Bridge",
+    "Custom",
+    "Floating vertical shell",
+    "Gap infill",
+    "Inner wall",
+    "Internal solid infill",
+    "Outer wall",
+    "Overhang wall",
+    "Sparse infill",
+    "Top surface"
+  ],
+  "support_generated": false,
+  "bead_envelope": {
+    "extrusion_bounds_xy_mm": [
+      [
+        124.56541650000001,
+        149.0654165
+      ],
+      [
+        202.4295835,
+        170.9295835
+      ]
+    ],
+    "maximum_line_width_mm": 0.689167,
+    "bounds_padding_mm": 0.4445835
+  },
+  "bead_margin_mm": [
+    124.56541650000001,
+    149.0654165,
+    122.5704165,
+    149.0704165
+  ],
+  "layers": 68,
+  "estimated_seconds": 1335.3074951171875,
+  "estimated_filament_g": 10.3036470413208,
+  "slicer_warning": "",
+  "native_process": {
+    "layer_height": 0.23999999463558197,
+    "wall_loops": 6,
+    "sparse_infill_density": 100.0
+  }
+}
