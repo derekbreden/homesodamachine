@@ -1,0 +1,73 @@
+{
+  "checked_date": "2026-10-23",
+  "scope": "Compact replacement CO2 secondary regulator; manufacturer suitability and signed-in Amazon Prime availability research",
+  "purchase_criteria": {
+    "ports": "Native 6.35 mm OD push-connect inlet and outlet",
+    "medium": "CO2 gas, with a downstream check protecting the regulator from reverse water flow",
+    "normal_supply_psi": 75,
+    "primary_relief_psi": "130 +/- 4",
+    "setting": "Adjustable through the selected approximately 3 bar carbonator setting",
+    "availability": "In stock with immediate dispatch; Amazon Prime offers only"
+  },
+  "best_technical_candidate": {
+    "manufacturer": "KegLand",
+    "model": "Duotight KL26918",
+    "manufacturer_url": "https://kegland.com.au/products/duotight-inline-in-line-regulator-with-integrated-gauge-for-water-or-gas-6-35mm-1-4-push-in",
+    "ports_mm": 6.35,
+    "manufacturer_explicitly_lists_CO2": true,
+    "manufacturer_published_operating_range_psi": [0, 150],
+    "separate_exact_SKU_maximum_inlet_specification_found": false,
+    "regulator_type": "Downstream pressure-reducing inline regulator, not a spunding or flow-control valve",
+    "construction": "Acetal/POM, EPDM seals, stainless gripping teeth",
+    "gauge": "Integrated 0-150 psi gauge; its published approximate +/-15 psi accuracy does not establish a precise 43.5 psi setting",
+    "gauge_source": "https://kegland.com.au/products/mini-gauge-0-150psi-0-10bar-for-inline-duotight-regulator-or-blowtie",
+    "dimensions_status": "No manufacturer overall drawing found; photograph-scaled dimensions are not a received-part measurement",
+    "photo_estimate_mm": {
+      "socket_mouth_span": 75,
+      "body_width": 33,
+      "mounting_ear_span": [50, 55],
+      "scale_basis": "Manufacturer's 27 mm gauge face in a near-normal front photograph"
+    },
+    "prime_offer_verified": false,
+    "immediate_dispatch_verified": false,
+    "amazon_check": "The exact KL26918 Prime-filtered search returned no results. Prime-filtered brand, Duotight family and broader inline push-connect/secondary-gas searches did not establish a matching purchase offer.",
+    "selection": "Technical candidate only; no replacement selected for the production pack"
+  },
+  "other_manufacturer_findings": [
+    {
+      "model": "KegLand KL51569",
+      "url": "https://kegland.com.au/products/duotight-6-35mm-1-4-check-valve-and-integrated-inline-regulator-to-upgrade-duotight-manifold",
+      "finding": "Integrated check and regulator, but a proprietary manifold inlet rather than a second native 1/4-inch tube socket. Internal check position relative to regulation is not established by a published section."
+    },
+    {
+      "model": "GovReg / CMBecker inline secondary",
+      "url": "https://www.govreg.us/",
+      "finding": "Compact 2-inch body; barbed/threaded interfaces and a separate setting tool, not two native push-connect ports."
+    },
+    {
+      "model": "Micro Matic SR1 301010101103",
+      "url": "https://media-cdn.micro-matic.com/v-638851320015341164/ee/a8/465a-bbd2-4a47-8b9d-39d80b200045/301010101103-drawing.pdf",
+      "finding": "0-4 bar and 3/8-inch John Guest ports; substantially larger than the selected compact gas lane."
+    },
+    {
+      "model": "Talos 1077301",
+      "url": "https://www.talosdispense.com/talos-secondary-co2-beer-keg-regulator.html",
+      "finding": "8 mm barbs; published 0-70 psi inlet range is below the normal 75 psi feed."
+    },
+    {
+      "model": "TOF secondary regulator family",
+      "url": "https://www.tofinusa.com/product-category/dispensing/pressure-regulators/secondary-beer/",
+      "finding": "Barbed or 1/4-inch NPT interfaces; no compact native two-socket replacement established."
+    }
+  ],
+  "user_linked_water_regulator": {
+    "amazon_url": "https://www.amazon.com/dp/B0G8SS89HS",
+    "manufacturer_url": "https://filtrationwarehouse.com/product/1-4-pressure-regulator-60psi/",
+    "prime_offer_observed": true,
+    "nominal_body_mm": [31.75, 31.75, 63.5],
+    "fixed_setting_psi": 60,
+    "published_duty": "Water filtration pressure regulation",
+    "finding": "Native 1/4-inch push-connects, but no CO2 suitability established in the seller/manufacturer material reviewed; the fixed 60 psi also differs from the selected secondary setting. This is not evidence that the part physically fails on gas."
+  },
+  "result": "No immediate-dispatch Prime purchase meeting the complete requested combination was verified in this search. The TPU arrangement remains an isolated layout alternative using retained metal bodies."
+}
