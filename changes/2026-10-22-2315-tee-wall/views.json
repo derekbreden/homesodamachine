@@ -1,0 +1,167 @@
+{
+  "views": [
+    {
+      "name": "aft-face",
+      "caption": "The tee wall's aft face, cut just behind it, front-top in amber: four tees' branches in four round bores through one flat slab. Before, each tee lay in an anchor under a snap-down cap, in a pocket with a 45° underside.",
+      "before": "aft-face-before.webp",
+      "after": "aft-face-after.webp",
+      "width": 1200,
+      "height": 480,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          0,
+          199.5404040204108,
+          225.88914140714377
+        ],
+        "target": [
+          0,
+          97,
+          190
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.18739198722845735,
+        "far": 453.51545919089926,
+        "aspect": 2.5,
+        "section": {
+          "at": [
+            0,
+            99,
+            190
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-front-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-front-top",
+        "tee-y-*",
+        "tee-cap-y-*"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "b98e7283153f4396e975ca02e9a97c519788df636d36e29c6be1e22b3568c543",
+          "commit": "41c851ca660583e32a34b9d62fd29749417fd3db",
+          "taken": "2026-10-23T03:45:13.583Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "3fd93ba49f7229563ba01aef55ba84c24bd3599dc1f25200a15c796aebf6ec41",
+          "commit": "345aec254d9153aaecc78397b68601336a3a212d",
+          "published": true
+        }
+      },
+      "changed": [
+        "tee-cap-y-c",
+        "tee-cap-y-d",
+        "tee-cap-y-f",
+        "tee-cap-y-g",
+        "enclosure-front-top"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "station",
+      "caption": "Section through the east-inner tee, front-top in amber. Its branch slides in a Ø17 mm bore through the 14.3 mm tee wall, behind the Ø8.5 mm hole in the collet plate. Before, a thinner bulkhead with a half-journal anchor under the branch and a snap-down cap over it.",
+      "before": "station-before.webp",
+      "after": "station-after.webp",
+      "width": 1200,
+      "height": 900,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          104.28590898230078,
+          97,
+          193.91615453893806
+        ],
+        "target": [
+          22.35,
+          97,
+          189
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.23962647086604466,
+        "far": 486.8322544325408,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            22.35,
+            95,
+            190
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-front-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-front-top",
+        "enclosure-pump-cartridge",
+        "pump-a-head",
+        "tee-y-c",
+        "tee-cap-y-c",
+        "tube-fluid-9",
+        "tube-fluid-10",
+        "tube-fluid-11"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "b98e7283153f4396e975ca02e9a97c519788df636d36e29c6be1e22b3568c543",
+          "commit": "41c851ca660583e32a34b9d62fd29749417fd3db",
+          "taken": "2026-10-23T03:45:13.583Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "3fd93ba49f7229563ba01aef55ba84c24bd3599dc1f25200a15c796aebf6ec41",
+          "commit": "345aec254d9153aaecc78397b68601336a3a212d",
+          "published": true
+        }
+      },
+      "changed": [
+        "tee-cap-y-c",
+        "tee-cap-y-d",
+        "tee-cap-y-f",
+        "tee-cap-y-g",
+        "enclosure-front-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
