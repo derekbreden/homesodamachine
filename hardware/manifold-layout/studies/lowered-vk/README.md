@@ -21,20 +21,29 @@ new fitting is **3.09 mm above** that plane. V-K moves **28.32 mm downward**,
 
 An upper stem elbow turns V-K's inlet toward the tee. A **NeoFit branch-stem tee**
 inserts directly into the ASSE TPU outlet adapter; its straight run supplies V-K
-and the regulator/V-A branch. The regulator and V-A are clocked a quarter-turn
-about their fluid axes, with their heads outward toward +Y relative to the run.
+and the regulator/V-A branch. In the outward-clocked variants, the regulator
+and V-A are clocked a quarter-turn about their fluid axes, with their heads
+toward +Y relative to the run.
 The pump discharge TPU elbow, single check and downward carbonator handoff retain
 their poses.
 
-Two connected arrangements are recorded:
+The straight-tube arrangement preserves ASSE's orientation and points the
+regulator head downward toward −Z. A **15 mm visible tube** separates the tee
+and regulator, giving the regulator **6.48 mm nearest clearance to the pump**.
+The regulator and V-A translate together 15 mm toward +X; V-A retains its outward
+head clock. The modeled tube includes its socket engagement: 16.891 mm in the tee
+and an estimated 12.7 mm in the regulator, for 44.591 mm total modeled length.
+
+Three lowered arrangements are recorded:
 
 | Upper group | ASSE nearest surface gap to pump | ASSE bottom above pump crown |
 |---|---:|---:|
 | Clocked 20° inward about V-K's upper port | 5.64 mm | 5.41 mm |
 | ASSE orientation preserved | 9.54 mm | 5.41 mm |
+| ASSE orientation preserved, regulator down, 15 mm tube | 9.54 mm | 5.41 mm |
 
 The inward clock turns the upper elbow, tee, ASSE and flavor-water branch as a
-connected group. V-K keeps its orientation. Both layouts have no unrelated body
+connected group. V-K keeps its orientation. All three layouts have no unrelated body
 intersections in the manual mesh check. The run-stem reference
 arrangement has a 37.93 mm nearest ASSE-to-pump gap. Gaps describe these reference
 geometries; the supplier-estimated fitting profiles and unmeasured host depths
