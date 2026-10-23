@@ -1,0 +1,175 @@
+{
+  "source": "2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2.gcode.3mf",
+  "source_archive_sha256": "f2a0b8b935146134f50c538ba1687ba6766c0c25257ca7a6d5497f6de4a9dff7",
+  "archive": "2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf",
+  "archive_sha256": "da062870e394d3f18708d37d26eb1a53fbf2cbc12ab5cff5aa7ae8e0c07b905b",
+  "gcode_sha256": "c7731c4ed42a04ec61860841973548255e25d97f4767e1f4378953ffb875bbfe",
+  "layers": [
+    {
+      "layer": 1,
+      "native_components": 9,
+      "native_odd_endpoints": 6,
+      "native_deposition_e_mm": 307.65055,
+      "added_deposition_e_mm": 0,
+      "free_chords": 17,
+      "native_deposition_commands": 415,
+      "start_end_xy_mm": [
+        205.1,
+        167.028
+      ],
+      "nominal_motion_seconds": 336.9770075908599
+    },
+    {
+      "layer": 2,
+      "native_components": 10,
+      "native_odd_endpoints": 8,
+      "native_deposition_e_mm": 187.71746,
+      "added_deposition_e_mm": 0,
+      "free_chords": 14,
+      "native_deposition_commands": 392,
+      "start_end_xy_mm": [
+        205.22,
+        167.059
+      ],
+      "nominal_motion_seconds": 206.1224463895053
+    },
+    {
+      "layer": 3,
+      "native_components": 9,
+      "native_odd_endpoints": 6,
+      "native_deposition_e_mm": 187.88963999999999,
+      "added_deposition_e_mm": 0,
+      "free_chords": 13,
+      "native_deposition_commands": 405,
+      "start_end_xy_mm": [
+        205.22,
+        167.059
+      ],
+      "nominal_motion_seconds": 206.1112780747644
+    },
+    {
+      "layer": 4,
+      "native_components": 10,
+      "native_odd_endpoints": 8,
+      "native_deposition_e_mm": 186.52128,
+      "added_deposition_e_mm": 0,
+      "free_chords": 14,
+      "native_deposition_commands": 390,
+      "start_end_xy_mm": [
+        205.222,
+        167.059
+      ],
+      "nominal_motion_seconds": 204.80964567526368
+    },
+    {
+      "layer": 5,
+      "native_components": 9,
+      "native_odd_endpoints": 6,
+      "native_deposition_e_mm": 186.69699,
+      "added_deposition_e_mm": 0,
+      "free_chords": 13,
+      "native_deposition_commands": 391,
+      "start_end_xy_mm": [
+        205.22,
+        167.059
+      ],
+      "nominal_motion_seconds": 204.80635995249492
+    },
+    {
+      "layer": 6,
+      "native_components": 10,
+      "native_odd_endpoints": 8,
+      "native_deposition_e_mm": 187.71192,
+      "added_deposition_e_mm": 0,
+      "free_chords": 14,
+      "native_deposition_commands": 393,
+      "start_end_xy_mm": [
+        205.22,
+        167.059
+      ],
+      "nominal_motion_seconds": 206.113720052393
+    },
+    {
+      "layer": 7,
+      "native_components": 9,
+      "native_odd_endpoints": 6,
+      "native_deposition_e_mm": 187.88012,
+      "added_deposition_e_mm": 0,
+      "free_chords": 13,
+      "native_deposition_commands": 414,
+      "start_end_xy_mm": [
+        205.224,
+        167.06
+      ],
+      "nominal_motion_seconds": 206.10183699711905
+    },
+    {
+      "layer": 8,
+      "native_components": 10,
+      "native_odd_endpoints": 8,
+      "native_deposition_e_mm": 187.70984,
+      "added_deposition_e_mm": 0,
+      "free_chords": 14,
+      "native_deposition_commands": 396,
+      "start_end_xy_mm": [
+        205.22,
+        167.059
+      ],
+      "nominal_motion_seconds": 206.11174077673326
+    },
+    {
+      "layer": 9,
+      "native_components": 9,
+      "native_odd_endpoints": 6,
+      "native_deposition_e_mm": 187.89149,
+      "added_deposition_e_mm": 0,
+      "free_chords": 13,
+      "native_deposition_commands": 404,
+      "start_end_xy_mm": [
+        205.22,
+        167.059
+      ],
+      "nominal_motion_seconds": 206.11325840907074
+    },
+    {
+      "layer": 10,
+      "native_components": 7,
+      "native_odd_endpoints": 8,
+      "native_deposition_e_mm": 187.69412,
+      "added_deposition_e_mm": 0,
+      "free_chords": 8,
+      "native_deposition_commands": 355,
+      "start_end_xy_mm": [
+        159.934,
+        136.99
+      ],
+      "nominal_motion_seconds": 206.10681800578234
+    }
+  ],
+  "startup_bytes_sha256": "de0b6116c84979204a97e986ea95af07be4f47da4507da22b5cd9a49dda35d0b",
+  "shutdown_bytes_sha256": "0e60e557bc28d37297cb634469d66e798d1944dd812cebcef9d05e3cf3f55357",
+  "native_start_and_end_positions_preserved": true,
+  "nominal_part_motion_seconds": 2189.3741119239867,
+  "added_deposition_e_mm": 0,
+  "outline": {
+    "native_mesh_member": "3D/Objects/object_1.model",
+    "archive_sha256": "f2a0b8b935146134f50c538ba1687ba6766c0c25257ca7a6d5497f6de4a9dff7",
+    "section_heights_mm": {
+      "1": 0.15,
+      "2": 0.39,
+      "3": 0.5700000000000001,
+      "4": 0.75,
+      "5": 0.9299999999999999,
+      "6": 1.1099999999999999,
+      "7": 1.29,
+      "8": 1.47,
+      "9": 1.65,
+      "10": 1.83
+    },
+    "first_layer_outer_brim_width_mm": 0.0,
+    "first_layer_brim_object_gap_mm": 0,
+    "hole_area_cutoff_mm2": null
+  },
+  "processing_script_sha256": "cd48edc5453bb429bf2daa4f11c0c86906e58b08be87705f4387d18f26c69acf",
+  "scope": "Native beads reordered/reversed into deposited tours with contained straight transfers. No added plastic, geometry edits or sending. Native startup/shutdown bytes retained."
+}

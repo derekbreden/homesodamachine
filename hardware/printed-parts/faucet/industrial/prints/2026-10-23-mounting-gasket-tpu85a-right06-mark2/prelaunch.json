@@ -1,0 +1,92 @@
+{
+  "observed_at_utc": "2026-10-23T22:05:50.815652+00:00",
+  "printer": "Mark2",
+  "physical_plate": "Glued Engineering Plate; cleared by Derek",
+  "authorization_verbatim": "Okay, that came out pretty well. Go ahead and start the above-counter mounting gasket for the faucet now, the one that goes under the faucet but above the counter. I've again got the plate cleared and glued, and it is the engineering plate. And please incorporate all lessons we've learned. Thanks.",
+  "physical_material": "Black Bambu TPU 85A, right fixed 0.6 mm; retained loading report",
+  "requested_z_trim_mm": 0,
+  "Mark2": {
+    "job_id": "1368570348",
+    "subtask_name": "2026-10-23-touch-flo-sleeve-tpu85a-right06-z000-mark2-continuous-cap.gcode.3mf",
+    "gcode_state": "FINISH",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 86,
+    "total_layer_num": 87,
+    "mc_percent": 100,
+    "mc_remaining_time": 0,
+    "stg_cur": -1,
+    "bed_temper": 30.0,
+    "bed_target_temper": 0.0,
+    "observed_at_utc": "2026-10-23T22:05:50.815580+00:00",
+    "external_spools": {
+      "254": {
+        "type": "PET-CF",
+        "colour": "161616FF"
+      },
+      "255": {
+        "type": "TPU",
+        "colour": "161616FF"
+      }
+    },
+    "right_extruder": {
+      "id": 0,
+      "hnow": 0,
+      "snow": 65280,
+      "temperature_c": 34,
+      "target_c": 0
+    },
+    "mounted_right_nozzle": {
+      "id": 0,
+      "diameter": 0.6,
+      "type": "HS01"
+    },
+    "timelapse": "disable"
+  },
+  "Mark1": {
+    "job_id": "1366458433",
+    "subtask_name": "2026-10-23-tube-bend-holders-w2-legs123-petgf-left04-z018-mark1.gcode.3mf",
+    "gcode_state": "FINISH",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 51,
+    "total_layer_num": 51,
+    "mc_percent": 100,
+    "mc_remaining_time": 0,
+    "stg_cur": -1,
+    "bed_temper": 25.0,
+    "bed_target_temper": 0.0,
+    "observed_at_utc": "2026-10-23T22:05:50.815667+00:00",
+    "external_spools": {
+      "254": {
+        "type": "PET-CF",
+        "colour": "000000FF"
+      },
+      "255": {
+        "type": "TPU",
+        "colour": "FFFFFFFF"
+      }
+    },
+    "right_extruder": {
+      "id": 0,
+      "hnow": 0,
+      "snow": 65535,
+      "temperature_c": 0,
+      "target_c": 0
+    },
+    "mounted_right_nozzle": {
+      "id": null,
+      "diameter": null,
+      "type": null
+    },
+    "timelapse": "disable"
+  },
+  "shared_circuit": {
+    "minimum_start_spacing_seconds": 180,
+    "other_printer_same_idle_task_first_observed_at_utc": "2026-10-23T21:19:24.226876+00:00",
+    "other_printer_same_idle_task_id": "1366458433",
+    "spacing_satisfied": true
+  },
+  "source_archive_sha256": "da062870e394d3f18708d37d26eb1a53fbf2cbc12ab5cff5aa7ae8e0c07b905b",
+  "source_gcode_sha256": "c7731c4ed42a04ec61860841973548255e25d97f4767e1f4378953ffb875bbfe"
+}

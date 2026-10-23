@@ -1,0 +1,12 @@
+{
+  "status": "Printing; physical result pending",
+  "printer": "Mark2",
+  "printer_task_id": "1368637649",
+  "archive_sha256": "da062870e394d3f18708d37d26eb1a53fbf2cbc12ab5cff5aa7ae8e0c07b905b",
+  "gcode_sha256": "c7731c4ed42a04ec61860841973548255e25d97f4767e1f4378953ffb875bbfe",
+  "material": "Black Bambu TPU 85A",
+  "right_nozzle_mm": 0.6,
+  "plate": "Glued Engineering Plate",
+  "local_user_z_trim_mm": 0,
+  "scope": "One Industrial above-counter mounting gasket. Finished stringing, flatness, counter fit and spill sealing are unreported."
+}

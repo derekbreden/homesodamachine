@@ -1,0 +1,965 @@
+{
+  "printer": "Mark2",
+  "printer_task_id": "1368637649",
+  "snapshots": [
+    {
+      "job_id": "1368637649",
+      "subtask_name": "2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf",
+      "gcode_state": "PREPARE",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 86,
+      "total_layer_num": 87,
+      "mc_percent": 0,
+      "mc_remaining_time": 0,
+      "stg_cur": -1,
+      "bed_temper": 30.0,
+      "bed_target_temper": 0.0,
+      "observed_at_utc": "2026-10-23T22:07:00.945921+00:00",
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "161616FF"
+        },
+        "255": {
+          "type": "TPU",
+          "colour": "161616FF"
+        }
+      },
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280,
+        "temperature_c": 34,
+        "target_c": 0
+      },
+      "mounted_right_nozzle": {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      "timelapse": "disable"
+    },
+    {
+      "job_id": "1368637649",
+      "subtask_name": "2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 10,
+      "mc_percent": 0,
+      "mc_remaining_time": 42,
+      "stg_cur": -1,
+      "bed_temper": 30.0,
+      "bed_target_temper": 0.0,
+      "observed_at_utc": "2026-10-23T22:07:05.952366+00:00",
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "161616FF"
+        },
+        "255": {
+          "type": "TPU",
+          "colour": "161616FF"
+        }
+      },
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280,
+        "temperature_c": 34,
+        "target_c": 0
+      },
+      "mounted_right_nozzle": {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      "timelapse": "disable"
+    },
+    {
+      "job_id": "1368637649",
+      "subtask_name": "2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 10,
+      "mc_percent": 0,
+      "mc_remaining_time": 42,
+      "stg_cur": 13,
+      "bed_temper": 30.0,
+      "bed_target_temper": 30.0,
+      "observed_at_utc": "2026-10-23T22:07:15.974172+00:00",
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "161616FF"
+        },
+        "255": {
+          "type": "TPU",
+          "colour": "161616FF"
+        }
+      },
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280,
+        "temperature_c": 143,
+        "target_c": 145
+      },
+      "mounted_right_nozzle": {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      "timelapse": "disable"
+    },
+    {
+      "job_id": "1368637649",
+      "subtask_name": "2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 10,
+      "mc_percent": 0,
+      "mc_remaining_time": 42,
+      "stg_cur": 13,
+      "bed_temper": 30.0,
+      "bed_target_temper": 30.0,
+      "observed_at_utc": "2026-10-23T22:07:46.024554+00:00",
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "161616FF"
+        },
+        "255": {
+          "type": "TPU",
+          "colour": "161616FF"
+        }
+      },
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280,
+        "temperature_c": 145,
+        "target_c": 145
+      },
+      "mounted_right_nozzle": {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      "timelapse": "disable"
+    },
+    {
+      "job_id": "1368637649",
+      "subtask_name": "2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 10,
+      "mc_percent": 0,
+      "mc_remaining_time": 42,
+      "stg_cur": 74,
+      "bed_temper": 30.0,
+      "bed_target_temper": 30.0,
+      "observed_at_utc": "2026-10-23T22:08:06.053829+00:00",
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "161616FF"
+        },
+        "255": {
+          "type": "TPU",
+          "colour": "161616FF"
+        }
+      },
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280,
+        "temperature_c": 143,
+        "target_c": 0
+      },
+      "mounted_right_nozzle": {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      "timelapse": "disable"
+    },
+    {
+      "job_id": "1368637649",
+      "subtask_name": "2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 10,
+      "mc_percent": 0,
+      "mc_remaining_time": 42,
+      "stg_cur": 74,
+      "bed_temper": 30.0,
+      "bed_target_temper": 30.0,
+      "observed_at_utc": "2026-10-23T22:08:36.093445+00:00",
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "161616FF"
+        },
+        "255": {
+          "type": "TPU",
+          "colour": "161616FF"
+        }
+      },
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280,
+        "temperature_c": 104,
+        "target_c": 0
+      },
+      "mounted_right_nozzle": {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      "timelapse": "disable"
+    },
+    {
+      "job_id": "1368637649",
+      "subtask_name": "2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 10,
+      "mc_percent": 0,
+      "mc_remaining_time": 42,
+      "stg_cur": 74,
+      "bed_temper": 30.0,
+      "bed_target_temper": 30.0,
+      "observed_at_utc": "2026-10-23T22:09:06.124883+00:00",
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "161616FF"
+        },
+        "255": {
+          "type": "TPU",
+          "colour": "161616FF"
+        }
+      },
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280,
+        "temperature_c": 81,
+        "target_c": 0
+      },
+      "mounted_right_nozzle": {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      "timelapse": "disable"
+    },
+    {
+      "job_id": "1368637649",
+      "subtask_name": "2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 10,
+      "mc_percent": 0,
+      "mc_remaining_time": 42,
+      "stg_cur": 72,
+      "bed_temper": 30.0,
+      "bed_target_temper": 30.0,
+      "observed_at_utc": "2026-10-23T22:09:16.142940+00:00",
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "161616FF"
+        },
+        "255": {
+          "type": "TPU",
+          "colour": "161616FF"
+        }
+      },
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280,
+        "temperature_c": 76,
+        "target_c": 0
+      },
+      "mounted_right_nozzle": {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      "timelapse": "disable"
+    },
+    {
+      "job_id": "1368637649",
+      "subtask_name": "2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 10,
+      "mc_percent": 0,
+      "mc_remaining_time": 42,
+      "stg_cur": 4,
+      "bed_temper": 30.0,
+      "bed_target_temper": 30.0,
+      "observed_at_utc": "2026-10-23T22:09:26.157799+00:00",
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "161616FF"
+        },
+        "255": {
+          "type": "TPU",
+          "colour": "161616FF"
+        }
+      },
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280,
+        "temperature_c": 103,
+        "target_c": 225
+      },
+      "mounted_right_nozzle": {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      "timelapse": "disable"
+    },
+    {
+      "job_id": "1368637649",
+      "subtask_name": "2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 10,
+      "mc_percent": 0,
+      "mc_remaining_time": 42,
+      "stg_cur": 4,
+      "bed_temper": 30.0,
+      "bed_target_temper": 30.0,
+      "observed_at_utc": "2026-10-23T22:09:56.192282+00:00",
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "161616FF"
+        },
+        "255": {
+          "type": "TPU",
+          "colour": "161616FF"
+        }
+      },
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280,
+        "temperature_c": 250,
+        "target_c": 250
+      },
+      "mounted_right_nozzle": {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      "timelapse": "disable"
+    },
+    {
+      "job_id": "1368637649",
+      "subtask_name": "2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 10,
+      "mc_percent": 0,
+      "mc_remaining_time": 42,
+      "stg_cur": 4,
+      "bed_temper": 30.0,
+      "bed_target_temper": 30.0,
+      "observed_at_utc": "2026-10-23T22:10:26.254253+00:00",
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "161616FF"
+        },
+        "255": {
+          "type": "TPU",
+          "colour": "161616FF"
+        }
+      },
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280,
+        "temperature_c": 249,
+        "target_c": 225
+      },
+      "mounted_right_nozzle": {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      "timelapse": "disable"
+    },
+    {
+      "job_id": "1368637649",
+      "subtask_name": "2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 10,
+      "mc_percent": 0,
+      "mc_remaining_time": 42,
+      "stg_cur": 54,
+      "bed_temper": 30.0,
+      "bed_target_temper": 30.0,
+      "observed_at_utc": "2026-10-23T22:10:36.267683+00:00",
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "161616FF"
+        },
+        "255": {
+          "type": "TPU",
+          "colour": "161616FF"
+        }
+      },
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280,
+        "temperature_c": 225,
+        "target_c": 225
+      },
+      "mounted_right_nozzle": {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      "timelapse": "disable"
+    },
+    {
+      "job_id": "1368637649",
+      "subtask_name": "2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 10,
+      "mc_percent": 0,
+      "mc_remaining_time": 42,
+      "stg_cur": 8,
+      "bed_temper": 30.0,
+      "bed_target_temper": 35.0,
+      "observed_at_utc": "2026-10-23T22:10:41.276625+00:00",
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "161616FF"
+        },
+        "255": {
+          "type": "TPU",
+          "colour": "161616FF"
+        }
+      },
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280,
+        "temperature_c": 224,
+        "target_c": 225
+      },
+      "mounted_right_nozzle": {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      "timelapse": "disable"
+    },
+    {
+      "job_id": "1368637649",
+      "subtask_name": "2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 10,
+      "mc_percent": 0,
+      "mc_remaining_time": 42,
+      "stg_cur": 14,
+      "bed_temper": 35.0,
+      "bed_target_temper": 35.0,
+      "observed_at_utc": "2026-10-23T22:11:01.304642+00:00",
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "161616FF"
+        },
+        "255": {
+          "type": "TPU",
+          "colour": "161616FF"
+        }
+      },
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280,
+        "temperature_c": 225,
+        "target_c": 225
+      },
+      "mounted_right_nozzle": {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      "timelapse": "disable"
+    },
+    {
+      "job_id": "1368637649",
+      "subtask_name": "2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 10,
+      "mc_percent": 0,
+      "mc_remaining_time": 42,
+      "stg_cur": 14,
+      "bed_temper": 35.0,
+      "bed_target_temper": 35.0,
+      "observed_at_utc": "2026-10-23T22:11:31.332185+00:00",
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "161616FF"
+        },
+        "255": {
+          "type": "TPU",
+          "colour": "161616FF"
+        }
+      },
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280,
+        "temperature_c": 224,
+        "target_c": 185
+      },
+      "mounted_right_nozzle": {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      "timelapse": "disable"
+    },
+    {
+      "job_id": "1368637649",
+      "subtask_name": "2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 10,
+      "mc_percent": 0,
+      "mc_remaining_time": 42,
+      "stg_cur": 14,
+      "bed_temper": 35.0,
+      "bed_target_temper": 35.0,
+      "observed_at_utc": "2026-10-23T22:12:01.367261+00:00",
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "161616FF"
+        },
+        "255": {
+          "type": "TPU",
+          "colour": "161616FF"
+        }
+      },
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280,
+        "temperature_c": 185,
+        "target_c": 185
+      },
+      "mounted_right_nozzle": {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      "timelapse": "disable"
+    },
+    {
+      "job_id": "1368637649",
+      "subtask_name": "2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 10,
+      "mc_percent": 0,
+      "mc_remaining_time": 42,
+      "stg_cur": 14,
+      "bed_temper": 35.0,
+      "bed_target_temper": 35.0,
+      "observed_at_utc": "2026-10-23T22:12:31.400171+00:00",
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "161616FF"
+        },
+        "255": {
+          "type": "TPU",
+          "colour": "161616FF"
+        }
+      },
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280,
+        "temperature_c": 185,
+        "target_c": 185
+      },
+      "mounted_right_nozzle": {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      "timelapse": "disable"
+    },
+    {
+      "job_id": "1368637649",
+      "subtask_name": "2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 10,
+      "mc_percent": 0,
+      "mc_remaining_time": 42,
+      "stg_cur": 14,
+      "bed_temper": 35.0,
+      "bed_target_temper": 35.0,
+      "observed_at_utc": "2026-10-23T22:13:01.435339+00:00",
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "161616FF"
+        },
+        "255": {
+          "type": "TPU",
+          "colour": "161616FF"
+        }
+      },
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280,
+        "temperature_c": 155,
+        "target_c": 145
+      },
+      "mounted_right_nozzle": {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      "timelapse": "disable"
+    },
+    {
+      "job_id": "1368637649",
+      "subtask_name": "2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 10,
+      "mc_percent": 11,
+      "mc_remaining_time": 38,
+      "stg_cur": 1,
+      "bed_temper": 35.0,
+      "bed_target_temper": 35.0,
+      "observed_at_utc": "2026-10-23T22:13:11.449636+00:00",
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "161616FF"
+        },
+        "255": {
+          "type": "TPU",
+          "colour": "161616FF"
+        }
+      },
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280,
+        "temperature_c": 140,
+        "target_c": 140
+      },
+      "mounted_right_nozzle": {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      "timelapse": "disable"
+    },
+    {
+      "job_id": "1368637649",
+      "subtask_name": "2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 10,
+      "mc_percent": 11,
+      "mc_remaining_time": 38,
+      "stg_cur": 1,
+      "bed_temper": 35.0,
+      "bed_target_temper": 35.0,
+      "observed_at_utc": "2026-10-23T22:13:41.488373+00:00",
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "161616FF"
+        },
+        "255": {
+          "type": "TPU",
+          "colour": "161616FF"
+        }
+      },
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280,
+        "temperature_c": 140,
+        "target_c": 140
+      },
+      "mounted_right_nozzle": {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      "timelapse": "disable"
+    },
+    {
+      "job_id": "1368637649",
+      "subtask_name": "2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 10,
+      "mc_percent": 11,
+      "mc_remaining_time": 38,
+      "stg_cur": 1,
+      "bed_temper": 35.0,
+      "bed_target_temper": 35.0,
+      "observed_at_utc": "2026-10-23T22:14:11.527116+00:00",
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "161616FF"
+        },
+        "255": {
+          "type": "TPU",
+          "colour": "161616FF"
+        }
+      },
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280,
+        "temperature_c": 140,
+        "target_c": 140
+      },
+      "mounted_right_nozzle": {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      "timelapse": "disable"
+    },
+    {
+      "job_id": "1368637649",
+      "subtask_name": "2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 10,
+      "mc_percent": 11,
+      "mc_remaining_time": 38,
+      "stg_cur": 3,
+      "bed_temper": 35.0,
+      "bed_target_temper": 35.0,
+      "observed_at_utc": "2026-10-23T22:14:31.539822+00:00",
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "161616FF"
+        },
+        "255": {
+          "type": "TPU",
+          "colour": "161616FF"
+        }
+      },
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280,
+        "temperature_c": 140,
+        "target_c": 140
+      },
+      "mounted_right_nozzle": {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      "timelapse": "disable"
+    },
+    {
+      "job_id": "1368637649",
+      "subtask_name": "2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 10,
+      "mc_percent": 11,
+      "mc_remaining_time": 38,
+      "stg_cur": 3,
+      "bed_temper": 35.0,
+      "bed_target_temper": 35.0,
+      "observed_at_utc": "2026-10-23T22:15:01.569258+00:00",
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "161616FF"
+        },
+        "255": {
+          "type": "TPU",
+          "colour": "161616FF"
+        }
+      },
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280,
+        "temperature_c": 224,
+        "target_c": 225
+      },
+      "mounted_right_nozzle": {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      "timelapse": "disable"
+    },
+    {
+      "job_id": "1368637649",
+      "subtask_name": "2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 10,
+      "mc_percent": 11,
+      "mc_remaining_time": 38,
+      "stg_cur": 3,
+      "bed_temper": 35.0,
+      "bed_target_temper": 35.0,
+      "observed_at_utc": "2026-10-23T22:15:31.600732+00:00",
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "161616FF"
+        },
+        "255": {
+          "type": "TPU",
+          "colour": "161616FF"
+        }
+      },
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280,
+        "temperature_c": 225,
+        "target_c": 225
+      },
+      "mounted_right_nozzle": {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      "timelapse": "disable"
+    },
+    {
+      "job_id": "1368637649",
+      "subtask_name": "2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 1,
+      "total_layer_num": 10,
+      "mc_percent": 0,
+      "mc_remaining_time": 37,
+      "stg_cur": 0,
+      "bed_temper": 35.0,
+      "bed_target_temper": 35.0,
+      "observed_at_utc": "2026-10-23T22:15:51.626245+00:00",
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "161616FF"
+        },
+        "255": {
+          "type": "TPU",
+          "colour": "161616FF"
+        }
+      },
+      "right_extruder": {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65280,
+        "temperature_c": 225,
+        "target_c": 225
+      },
+      "mounted_right_nozzle": {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      "timelapse": "disable"
+    }
+  ],
+  "scope": "Task-bound startup telemetry; layer progress establishes passage beyond plate detection, not visual adhesion or finished gasket performance.",
+  "cua_confirmation": {
+    "observed_at_utc": "2026-10-23T22:16:24.849976+00:00",
+    "printer": "Mark2",
+    "job_name": "2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf",
+    "visible_state": "Printing",
+    "visible_layer": "1 / 10",
+    "remaining_minutes": 37
+  }
+}
