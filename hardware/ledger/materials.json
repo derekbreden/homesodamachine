@@ -119,6 +119,21 @@
             ]
           },
           {
+            "material": "HSM-000330",
+            "quantity": 8,
+            "unit": "ea",
+            "bodies": [
+              "stem-elbow-y-c",
+              "stem-elbow-v-c",
+              "stem-elbow-y-d",
+              "stem-elbow-v-g",
+              "stem-elbow-y-f",
+              "stem-elbow-v-d",
+              "stem-elbow-y-g",
+              "stem-elbow-v-j"
+            ]
+          },
+          {
             "material": "HSM-000161",
             "quantity": 1,
             "unit": "ea"
@@ -2814,6 +2829,23 @@
           "path": "reference/tee-connector/README.md"
         }
       ]
+    },
+    {
+      "id": "HSM-000330",
+      "description": "neoFit ATEU44W \u00b7 1/4 inch tube \u00d7 1/4 inch stem elbow",
+      "kind": "purchased",
+      "models": [
+        {
+          "file": "reference/neofit-stem-elbow/neofit-stem-elbow.step"
+        }
+      ],
+      "documents": [
+        {
+          "title": "Part details",
+          "path": "reference/neofit-stem-elbow/README.md"
+        }
+      ],
+      "manufacturer_number": "ATEU44W"
     },
     {
       "id": "HSM-000044",

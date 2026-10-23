@@ -1,14 +1,15 @@
 """Two-channel flavor manifold with a purchased PP0208E tee on each pump port.
 
 Each pump tee stands behind front-top's collet plate, its branch on the pump tube and its
-run upright (`fixed_returns`). The fore valve stands over the run on one short tube; one R14
-hairpin joins the run's lower port to the rear valve's bottom port. Pump replacement pulls
-the tees forward their collet stroke against the plate and withdraws only the pump tubes.
+run upright (`fixed_returns`). The fore valve stands over the run on one short tube; a lower
+return, a stem elbow in each collet and one straight tube, joins the run's lower port to the rear
+valve's bottom port. The plate holds each tee's branch collet pressed, so pump replacement
+withdraws only the pump tubes.
 
 Authoring frame: X spans the two channels; +Y becomes enclosure +Z; +Z becomes
 enclosure +Y. The pump station retains its fitted physical datum. The fore
-valves keep their height and stand over the middle of their tees' travel; the rear row
-stands 8 mm over its deck reference. The two source turns
+valves keep their height and stand over their tees' run axes; the rear row stands 8 mm over
+its deck reference. The two source turns
 retain their own construction independently of the pump-port connections.
 """
 
@@ -101,7 +102,7 @@ FORE_STUB_GAP = FORE_VALVE_RISE + CARRIER_DROP
 # EXPOSED tube between the two sleeve faces, not the cut length swallowed by their collets.
 # The valve's own insertion depth is not measured, so the cut length remains a bench figure.
 FORE_VALVES = frozenset(("V-E", "V-F", "V-H", "V-I"))
-# The two outer aft valves stand inboard of their pump ports; their hairpins lean across
+# The two outer aft valves stand inboard of their pump ports; their lower returns lean across
 # to them.
 OUTER_AFT_X = 73.82  # valve axes retain the seam-rail running room
 # Pump-tee authoring reference retained by the valve placement construction.
@@ -111,9 +112,9 @@ AFT_DECK_AFT_SHIFT = 0.0
 # The rear row's height over its deck reference. The cold-core valves retain their
 # existing seats.
 AFT_PACK_RISE = 8.0
-# V-G and V-J stand this much lower again, so their upturned spade terminals clear the coils
-# of V-F and V-I over the middle of their tees' travel.
-OUTER_AFT_DROP = 1.5
+# V-G and V-J stand as low as V-C and V-D, so all four rear valves' bottom collets stand at one
+# height and each lower return's two stem elbows face each other level.
+OUTER_AFT_DROP = INNER_LIMB_DROP
 # Existing world lift is independent of the fixed routing's lowest surface.
 WORLD_LIFT = 191.425
 PACK_ORIGIN_Y = 14.48
@@ -349,9 +350,6 @@ FOLD_BINDS = ("a folded valve's underside", "the spades of the one beneath it")
 HINGE_Z = DECK_Z + DECK_SEP / 2.0
 UPPER_Z = DECK_Z + DECK_SEP                  # the folded deck's port-axis height
 FOLD_AXIS = (cq.Vector(0.0, HINGE_Y, HINGE_Z), cq.Vector(1.0, HINGE_Y, HINGE_Z))
-
-# The lower hairpins' centreline radius: the stock's own bend floor.
-SPINE_R = _returns.HAIRPIN_R
 
 
 def fold_pt(p) -> tuple:
@@ -654,8 +652,8 @@ def quarter(x: float, z0: float):
 
 
 def fore_deck_aft_shift() -> float:
-    """The fore valves' move in enclosure +Y off their deck station, onto the middle of
-    their tees' travel behind the collet plate."""
+    """The fore valves' move in enclosure +Y off their deck station, over their tees' run
+    axes behind the collet plate."""
     return _returns.fore_valve_axis_y(pump_wall_fore_y()) - (DECK_Z + PACK_ORIGIN_Y)
 
 
@@ -704,7 +702,7 @@ _plumbing_cache = None
 
 
 def pump_plumbing():
-    """World-frame tees, upper tubes and hairpins from their actual ports."""
+    """World-frame tees, upper tubes and lower returns from their actual ports."""
     global _plumbing_cache
     if _plumbing_cache is not None:
         return _plumbing_cache
@@ -727,7 +725,7 @@ def _tee_ports(name):
 
 
 def fixed_tee_centers(carry=None):
-    """The four pump tees' centres, standing at connected."""
+    """The four pump tees' centres."""
     return {name: (carry((authoring_point(_tee_ports(name)["centre"]), (0., 0., 1.)))[0]
                    if carry is not None else authoring_point(_tee_ports(name)["centre"]))
             for name in sorted(PUMP_JUNCTIONS)}
@@ -843,8 +841,9 @@ def _authored(segment):
 
 
 def lower_links() -> dict:
-    """Each lower hairpin's centreline segments in the manifold authoring frame."""
-    return {cid: tuple(_authored(s) for s in pump_plumbing()[name]['hairpin'])
+    """Each lower return's straight tube, between its two elbows' socket mouths, as centreline
+    segments in the manifold authoring frame."""
+    return {cid: tuple(_authored(s) for s in pump_plumbing()[name]['return']['tube'])
             for cid, name in LOWER_CONNECTIONS.items()}
 
 
@@ -853,36 +852,22 @@ def lower_tube(segments):
 
 
 def lower_link_length(cid: int) -> float:
-    """A hairpin's cut stock: its exposed path and its insertion into tee and valve."""
-    data = pump_plumbing()[LOWER_CONNECTIONS[cid]]
-    return (data['hairpin_exposed_mm'] + _returns.RUN_INSERTION
-            + _returns.VALVE_INSERTION_NOMINAL)
+    """A lower return tube's cut stock: its straight between the two elbows and the depth each
+    elbow's socket takes."""
+    return pump_plumbing()[LOWER_CONNECTIONS[cid]]['return']['cut_mm']
 
 
 def _junction_at_author_x(x):
     return min(PUMP_JUNCTIONS, key=lambda name: abs(P[name]["x"] - x))
 
 
-def spine_radius(carrier_offset: float = CARRIER_SQUEEZE, x: float = 0.0) -> float:
-    """Centerline bend radius of the lower hairpin."""
-    return _returns.HAIRPIN_R
+def return_exposed(x: float) -> float:
+    """The lower return tube's straight between its two elbows, at the limb on `x`."""
+    return pump_plumbing()[_junction_at_author_x(x)]['return']['exposed_mm']
 
 
-def spine_offset_x(x: float) -> float:
-    name = _junction_at_author_x(x)
-    data = pump_plumbing()[name]
-    return authoring_point(data["return_target"]["point"])[0] - x
-
-
-def spine_middle_length(x: float) -> float:
-    """The hairpin's straight run between its two turns."""
-    segments = pump_plumbing()[_junction_at_author_x(x)]['hairpin']
-    lines = [s for s in segments if s['kind'] == 'line']
-    return max(s['length_mm'] for s in lines)
-
-
-def spine_tube_length(x: float) -> float:
-    """Nominal cut stock for one hairpin, including both insertions."""
+def return_cut(x: float) -> float:
+    """The lower return tube's cut stock at the limb on `x`."""
     name = _junction_at_author_x(x)
     return lower_link_length(next(cid for cid, junction in LOWER_CONNECTIONS.items()
                                   if junction == name))
@@ -1063,14 +1048,12 @@ _bounds.state(
     + ". `SOURCE_JOG` is the lever: the floor climbs with the cross, and the travel is the "
       "pack's to give, not this run's.")
 
-# Each lower connection is one R14 hairpin from a pump tee's lower collet to its rear valve.
+# Each lower connection is a lower return: a stem elbow in a pump tee's lower collet, one
+# straight tube, and a stem elbow in its rear valve's bottom collet.
 LOWER_CONNECTIONS = {9: "Y-C", 17: "Y-D", 19: "Y-F", 27: "Y-G"}
 # Compatibility station lookup for topology/accounting callers.
 SPINE = {cid: LIMBS[P[frm.rsplit("-", 1)[0]]["limb"]]["x"]
          for cid, frm, _to, how in SEGMENTS if how == "spine"}
-SPINE_LEN = spine_tube_length(INNER_X)
-SPINE_MIDDLE_LEN = spine_middle_length(INNER_X)
-SPINE_STRAIGHT = SPINE_MIDDLE_LEN
 
 # The eight mouths that leave this study. Each is drawn one `STUB` along its own axis, which is
 # the straight its first corner needs before it can turn at all.
@@ -1131,6 +1114,11 @@ def build_assembly(carrier_offset: float = CARRIER_SQUEEZE, *, include_fixed_wet
             x, _y, z = enclosure_point(barb_station(name))
             body = dock_structure.tee_body({"fore_y": fore}, x, z)
             a.add(authoring_shape(body), name=body_name(name), color=C_TEE)
+            at_tee, at_valve = pump_plumbing()[name]['return']['elbows']
+            for host, row in ((name, at_tee), (PUMP_VALVES[name][1], at_valve)):
+                elbow = f"stem-elbow-{host.lower()}"
+                a.add(authoring_shape(dock_structure.elbow_body(row)), name=elbow,
+                      color=dock_structure.part_color(elbow))
     for cid, (x, z0) in QUARTERS.items():
         a.add(quarter(x, z0).translate((0.0, -INNER_LIMB_DROP + AFT_PACK_RISE, AFT_DECK_AFT_SHIFT)),
               name=f"turn-fluid-{cid}", color=_routing.tube_color(f"fluid-{cid}"))
@@ -1314,9 +1302,9 @@ def report(assy: cq.Assembly) -> dict:
     print(f"\n{len(SEGMENTS)} connections")
     for cid, frm, to, how in SEGMENTS:
         if how == "spine":
-            segments = lower_links()[cid]
-            note = (f"{sum(s['length_mm'] for s in segments):.3f} mm hairpin, two turns at "
-                    f"R{_returns.HAIRPIN_R:g}")
+            line = pump_plumbing()[LOWER_CONNECTIONS[cid]]['return']
+            note = (f"{line['exposed_mm']:.3f} mm straight between two stem elbows, "
+                    f"{line['elbows'][1]['showing']:.3f} mm of stem below the valve")
         elif how == "turn":
             note = f"{QUARTER_LEN:.2f} mm — one 90° turn at R{BEND_R:g}"
             if cid in SBENDS:
@@ -1330,8 +1318,7 @@ def report(assy: cq.Assembly) -> dict:
                         f"between: {SOURCE_TRAVEL:g} along and "
                         f"{math.hypot(*source_cross(v)):.2f} across")
         elif how in FORE_STUBS:
-            note = (f"{FORE_STUB_EXPOSED:.3f} mm upper tube, straight at connected and bent "
-                    f"{_returns.TRAVEL:g} mm at release")
+            note = f"{FORE_STUB_EXPOSED:.3f} mm upper tube, straight"
         else:
             length = made.get(how, 0.0)
             note = ("butt — 0 mm outside the collets" if length < 1e-9
@@ -1362,14 +1349,13 @@ def report(assy: cq.Assembly) -> dict:
     print(f"crossbar {CROSSBAR:.2f} mm exposed; the two reservoir crossings enter their collets "
           + ", ".join(f"{skew_deg(*RUNS[t], branch_port(t)[1]):.1f}°" for t in JOINS)
           + " off axis")
-    print(f"upper tubes: {len(FORE_STUBS)}, {FORE_STUB_EXPOSED:g} mm exposed, each straight at "
-          f"connected and bent {_returns.TRAVEL:g} mm at release")
+    print(f"upper tubes: {len(FORE_STUBS)}, {FORE_STUB_EXPOSED:g} mm exposed, each straight")
     f, u = FOLD_BINDS
     print(f"fold: hinge at y {HINGE_Y:.2f} z {HINGE_Z:.2f}, decks at z {DECK_Z:.2f} and "
           f"{UPPER_Z:.2f} — {DECK_SEP:g} apart, which {f} standing over {u} sets")
-    print(f"lower links: {len(SPINE)} R{SPINE_R:g} hairpins, each from its pump tee's lower port "
-          f"to its rear valve; {spine_tube_length(INNER_X):.3f} mm inner and "
-          f"{spine_tube_length(OUTER_X):.3f} mm outer nominal tube stock including insertion")
+    print(f"lower links: {len(SPINE)} lower returns, each a stem elbow in its pump tee's lower "
+          f"port, one straight tube and a stem elbow in its rear valve; {return_cut(INNER_X):.3f} mm "
+          f"inner and {return_cut(OUTER_X):.3f} mm outer nominal tube stock including insertion")
     steps = [(v, *source_step(v)) for v in SBENDS.values()]
     hairpins = hairpins_drawn()
     print(f"step: {len(SBENDS)} two-arc steps at R{BEND_R:g}, each {SOURCE_TRAVEL:g} along the "
@@ -1399,6 +1385,21 @@ def report(assy: cq.Assembly) -> dict:
             print(f"  {a} / {b}   x sums to {dx:.4f}, y differs by {dy:.4f}")
 
     bad, unanswered = clashes(assy)
+    # A lower return's stem elbow shares its stem with the fitting it is bottomed in, and only what
+    # lies outside the stem is an interference (`dock_structure.stem_overlap`).
+    stems = {}
+    for c in bad:
+        elbow = next((n for n in (c.a, c.b) if n.startswith("stem-elbow-")), None)
+        if elbow is not None:
+            import dock_structure
+            host = dock_structure.elbow_host(elbow)
+            if {c.a, c.b} == {elbow, host}:
+                solids = {n: shape for n, shape, _colour in placed_leaves(assy)}
+                stems[frozenset((c.a, c.b))] = dock_structure.stem_overlap(solids[elbow], solids[host])
+    bad = [c for c in bad if stems.get(frozenset((c.a, c.b)), (0.0, 1.0))[1] > 1.0]
+    if stems:
+        print(f"\nstem elbows in their collets: {len(stems)}, worst "
+              f"{max(out for _in, out in stems.values()):.6f} mm³ outside the stem")
     print(f"\nclash check: {len(bad)} pair(s) sharing volume, "
           f"{len(unanswered)} the boolean would not answer for")
     for c in bad:
@@ -1430,19 +1431,21 @@ def selftest() -> int:
         if dist(path.startPoint().toTuple(), a) > 1e-6 or dist(path.endPoint().toTuple(), b) > 1e-6:
             failures.append(f"{name} misses its collet")
     for cid, segments in lower_links().items():
-        tee_name = LOWER_CONNECTIONS[cid]
-        valve = PUMP_VALVES[tee_name][1]
-        if dist(segments[0]["start_mm"], port(tee_name, "front")) > 1e-6 \
-                or dist(segments[-1]["end_mm"], port(valve, "back")) > 1e-6:
-            failures.append(f"fluid-{cid} hairpin misses its tee or valve")
+        line = pump_plumbing()[LOWER_CONNECTIONS[cid]]['return']
+        mouths = [authoring_point(tuple(e['crossing'][i] + e['socket'][i]
+                                        * _returns.elbow.SOCKET_MOUTH_REACH for i in range(3)))
+                  for e in line['elbows']]
+        if dist(segments[0]["start_mm"], mouths[0]) > 1e-6 \
+                or dist(segments[-1]["end_mm"], mouths[1]) > 1e-6:
+            failures.append(f"fluid-{cid} misses its elbows' sockets")
         shape = lower_tube(segments)
         if not shape.isValid() or len(shape.Solids()) != 1:
-            failures.append(f"fluid-{cid} is not one valid hairpin")
+            failures.append(f"fluid-{cid} is not one valid return tube")
     for failure in failures:
         print(f"FAIL: {failure}")
     if failures:
         return 1
-    print("PASS: four prepared pump tubes, four upper tubes and four R14 hairpins meet their stations")
+    print("PASS: four prepared pump tubes, four upper tubes and four lower returns meet their stations")
     return 0
 
 
@@ -1469,12 +1472,14 @@ def main():
             "REACH_Z": f"{reach.zlen:.0f}", "STUB_LEN": f"{STUB:g}",
             "DECK_Z": f"{DECK_Z:.2f}", "DECK_Z2": f"{DECK_Z:.2f}",
             "UPPER_Z": f"{UPPER_Z:.2f}", "UPPER_Z2": f"{UPPER_Z:.2f}",
-            "SPINE_R": f"{SPINE_R:g}", "SPINE_LEN": f"{SPINE_LEN:.2f}",
-            "SPINE_STRAIGHT": f"{SPINE_STRAIGHT:.2f}",
-            "SPINE_MIDDLE_LEN": f"{SPINE_MIDDLE_LEN:.2f}",
+            "RETURN_ELBOW_COUNT": str(2 * len(LOWER_CONNECTIONS)),
+            "RETURN_EXPOSED": f"{return_exposed(INNER_X):.2f}",
+            "RETURN_CUT": f"{return_cut(INNER_X):.2f}",
             "OUTER_AFT_INSET": f"{OUTER_AFT_INSET:g}",
-            "OUTER_SPINE_MIDDLE_LEN": f"{spine_middle_length(OUTER_X):.2f}",
-            "OUTER_SPINE_LEN": f"{spine_tube_length(OUTER_X):.2f}",
+            "OUTER_RETURN_EXPOSED": f"{return_exposed(OUTER_X):.2f}",
+            "OUTER_RETURN_CUT": f"{return_cut(OUTER_X):.2f}",
+            "RETURN_DROP": f"{_returns.ELBOW_DROP:.3g}",
+            "RETURN_SHOWING": f"{pump_plumbing()[_junction_at_author_x(INNER_X)]['return']['elbows'][1]['showing']:.3g}",
             "DECK_SEP": f"{DECK_SEP:g}",
             "SPINE_COUNT": str(len(SPINE)), "MIN_BEND2": f"{MIN_BEND:g}",
             "QUARTER_R": f"{BEND_R:g}", "QUARTER_LEN": f"{QUARTER_LEN:.2f}",

@@ -15,9 +15,9 @@ flowchart LR
   %% A LIMB IS A LANE. Every valve is straight through and every junction's run takes two valve
   %% ports, so a limb is a lane of valves and one junction. A pump tee takes a prepared pump's
   %% tube in its branch, reaches its fore valve on a short upper tube and reaches its rear valve
-  %% on one R14 hairpin.
+  %% on a lower return: two stem elbows and a straight tube.
 
-  %% THE PACK OCCUPIES TWO FIXED DECKS joined by the pump tees' four R14 hairpins.
+  %% THE PACK OCCUPIES TWO FIXED DECKS joined by the pump tees' four lower returns.
   %% [8](UPPER_COUNT) bodies ride up onto the second deck — drawn with a dashed border — and
   %% [8](LOWER_COUNT) stay on the first.
 
@@ -68,7 +68,8 @@ flowchart LR
   YG --> VI
 
   %% ---- Lower returns ----
-  %% Each is one R14 LLDPE hairpin from a pump tee's lower port to its rear valve. Orange.
+  %% Each is a stem elbow in a pump tee's lower port, one straight LLDPE tube and a stem elbow
+  %% in its rear valve. Orange.
   VC --> YC
   YD --> VG
   VD --> YF

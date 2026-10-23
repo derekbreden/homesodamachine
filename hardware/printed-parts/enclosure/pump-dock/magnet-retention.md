@@ -83,15 +83,15 @@ aside.
 
 ## Retention
 
-In service the tees' branch collets grip the pump tubes and hold them against
-pressure; a collet releases its tube only when the collet plate holds it in as
-the cartridge is pulled. The magnets seat the cartridge; they do not carry the
-blocked-fill load.
+The collet plate holds the tees' branch collets pressed, so no collet grips a
+pump tube: the magnets seat the cartridge and hold it, and its four tubes, in
+against line pressure. Each tube is pushed out with the pressure on its 31.7 mm²
+section.
 
 K&J rates one SB443-IN at 3.42 lbf, 15.21 N, to thick steel. On that rating a
 column's two pairs come to 30.4 N, and straight removal of the whole cartridge,
-which parts all four pairs, to 4 × 15.21 = 60.9 N, plus the four collet
-releases, the O-ring drags and the upper tubes' and hairpins' spring. These figures are
+which parts all four pairs, to 4 × 15.21 = 60.9 N, plus the O-ring drags. That
+is the thrust of about 70 psi in all four tubes at once. These figures are
 arithmetic on the catalogue steel rating, not an installed rating.
 
 ## Loading at the print pause
@@ -138,4 +138,4 @@ full frame. It checks the pause loading, the blocks' capture after printing,
 initial and repeated withdrawal force, the meeting poles' seat and pogo
 compression, then the docked tees' defined pressure and temperature cases. A
 passing CAD check does not establish that the magnets draw the cartridge onto its
-seat against the O-ring drag and hold it there against the hairpins' spring, or that its removal is comfortable. The separate packing tape restrains the cartridge in transit.
+seat against the O-ring drag and hold it there against line pressure on four tubes, or that its removal is comfortable. The separate packing tape restrains the cartridge in transit.

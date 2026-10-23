@@ -18,14 +18,14 @@ flowchart LR
 
   %% [26](SEGMENT_COUNT) flavor segments. [3](BUTT_COUNT) are collet butted to collet and carry
   %% no tube at all; [9](DRAWN_COUNT) are swept runs between placed bodies; the rest are
-  %% [4](UPPER_LINK_COUNT) short upper tubes, [4](LOWER_HAIRPIN_COUNT) R14 hairpins, the four
+  %% [4](UPPER_LINK_COUNT) short upper tubes, [4](LOWER_RETURN_COUNT) lower return tubes, the four
   %% prepared pump tubes through the collet plate and the source pair's two quarter-and-step
   %% turns. Reported tube lengths total
-  %% [3189.9 mm](FLUID_TOTAL) of 1/4" LLDPE over [67](FLUID_BENDS) corners, and the longest is
-  %% [fluid-18](LONGEST_ID) at [518.7 mm](LONGEST_LEN). [0](OPEN_COUNT) are mouths with nothing
+  %% [2995.0 mm](FLUID_TOTAL) of 1/4" LLDPE over [59](FLUID_BENDS) corners, and the longest is
+  %% [fluid-18](LONGEST_ID) at [526.7 mm](LONGEST_LEN). [0](OPEN_COUNT) are mouths with nothing
   %% on the far end of them: EVERY FLAVOR SEGMENT IN THIS CHART IS MADE. The stock total
-  %% excludes the pump tubes, which come fitted in the prepared pumps. The hairpins are
-  %% reported as cut stock with both insertions; the other mouth-to-mouth lengths need their
+  %% excludes the pump tubes, which come fitted in the prepared pumps. The lower return tubes are
+  %% reported as cut stock with both socket insertions; the other mouth-to-mouth lengths need their
   %% actual fitting insertions for cut blanks. The funnel's gravity
   %% drain is drawn like the rest — the funnel is seated in the box rather than placed in the
   %% pack, so `fluid-4` is authored after the box exists, off the same frames.
@@ -62,7 +62,7 @@ flowchart LR
   %% Four limbs, two fixed decks. Each lane joins its valves through one junction, a
   %% purchased PP0208E tee. Y-C/Y-D/Y-F/Y-G stand on the pump ports behind front-top's collet
   %% plate, each taking a prepared pump tube in its branch collet. Short upper tubes reach the
-  %% fore valves and R14 hairpins the rear valves.
+  %% fore valves and lower returns, two stem elbows and a straight tube, the rear valves.
   %% Channel A stands east of the mirror plane in the
   %% machine and channel B west, the pack posed face down on the refrigeration stratum's crown.
   subgraph Manifold["manifold pack — four limbs on two decks"]
@@ -141,7 +141,7 @@ flowchart LR
   %% =========================
   %% Channel A — fluid-9 … fluid-18
   %% =========================
-  %% Y-C and Y-D are pump A's tees. fluid-9 and fluid-17 are R14 hairpins to the rear valves,
+  %% Y-C and Y-D are pump A's tees. fluid-9 and fluid-17 are lower returns to the rear valves,
   %% fluid-10 and fluid-13 short upper tubes to the fore valves, and fluid-11 and fluid-12 the
   %% prepared pump tubes through the collet plate.
   VC -->|"fluid-9"| YC
@@ -158,7 +158,7 @@ flowchart LR
   %% Channel B — fluid-19 … fluid-28
   %% =========================
   %% Channel B mirrors channel A about x = 0. Y-F and Y-G are pump B's tees;
-  %% fluid-19 and fluid-27 are its hairpins. V-I-O and V-H-I — the reservoir's fill gate and its draw
+  %% fluid-19 and fluid-27 are its lower returns. V-I-O and V-H-I — the reservoir's fill gate and its draw
   %% gate — leave on their own axes off the lower deck, as channel A's V-F-O and V-E-I do.
   VD -->|"fluid-19"| YF
   VH -->|"fluid-20"| YF

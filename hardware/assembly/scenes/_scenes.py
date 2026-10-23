@@ -376,7 +376,7 @@ def holders():
         # A mounted body keeps its name; a run's rib holds its tube. Both may state an
         # explicit seat height, so that geometric value does not identify the occupant.
         out[name if name in out else f"tube-{name}"] = "foam-assembly"
-    # Prepared pump tubes ride the cartridge; the upper tubes and lower hairpins stay on
+    # Prepared pump tubes ride the cartridge; the upper tubes and lower returns stay on
     # front-top with the pump tees.
     pump_at = {x: name for name, x in _ml.PUMPS.items()}
     for cid, _frm, _to, how in _ml.SEGMENTS:

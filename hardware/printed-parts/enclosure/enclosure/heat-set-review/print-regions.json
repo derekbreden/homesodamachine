@@ -218,22 +218,22 @@
   "part_process_overrides": {},
   "source_sha256": {
     "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "062fe207fb7301bbf9a72d19469424509f62ba97cd124960365425aaa0336d9f",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "68b76c2bc3cd7019e391a66448c3590e5858d8031556b4f4e380cba2e014f818",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "7cb7d7b87001d7e812be8982fd82abd202aa9d6dc5e9d6bfe7d9862c4ccb4606",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "264bb52da73675dcd41f7fff8bc5fce6eabd06336fc3cf8b7a9b8560c21e5040",
-    "hardware/manifold-layout/enclosure-box.json": "f2ddb001f946dde7a4858fb1f9ff01044cca7857fe8dcda7d87e9b9f687896da",
-    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "970cc52cca7f1cdbc7854bbbd2edafe1e698593a58c10a7237d2e564cbc039d8",
+    "hardware/manifold-layout/enclosure-box.json": "56410b1b114171818191af3cd8dcc2ce2fe9bcbd5f3a38514ac837cee7e45006",
+    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "199db7b3b7905359bd3b558f5bb5008c9087244959ca60c4312f0ddafa223a1a",
     "hardware/printed-parts/enclosure/pump-dock/dock_retention.py": "8bc24f8bae454f027afa3ca9465ed83b3bfc390b5bcbe35b97e7ee01b172d0e4",
-    "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "923ac4148ff35b5959fcc4092b23d0a7fe9364b517a68172c33369c235fda497",
+    "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "c21b06c884d40a03d7338e192f8f0810ea15ebb7ef5782f92eac1b0df04f0eef",
     "hardware/printed-parts/petgf.3mf": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0"
   },
   "native_artifact_sha256": {
     "front-bottom": {
-      ".step": "c7a2b9c801d7e7586dce979abe66d1720ab771a6d6c882d8328b305106494301",
-      ".stl": "98c87eff77a5d92f74348c23fbe96028153025948811505cc3aa017675add6eb"
+      ".step": "75e7b73de8b4c51892984a126f346ad42642ac5dfcdfb3cf4d6f2677bdded391",
+      ".stl": "15ad64083558718c68f179aab98f4b466689a4a04b2996626c3be739e5e7a738"
     },
     "front-top": {
-      ".step": "925c14610de58d4c9d1d989ce6319ae24c4e628644b0e808fc4a436adbaf786e",
-      ".stl": "8624c80add07213d04f9aeb87e380f9c66d3bd327b2af0d95d9ee9e3055c5fd6"
+      ".step": "1a8469db9c9e765c1de4ed741ea16955e65b22ccff3719b33f29ea6215a3a743",
+      ".stl": "a3cb902610204a3bd7d4af16034d994b856eec0b07c2c5426a9885f2d0927be4"
     },
     "back-bottom": {
       ".step": "9cd6a2e8acddd375fc1946762ac077fec9d765d6a955b4e07c9f6d795af2b162",

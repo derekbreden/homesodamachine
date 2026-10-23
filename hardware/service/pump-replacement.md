@@ -9,15 +9,15 @@ No enclosure quadrant comes off for a pump change.
 
 [4](JOINT_COUNT) flavor joints separate when the cartridge is pulled straight forward.
 Each smooth Ø[6.35 mm](TUBE_OD) pump tube passes front-top's collet plate and stands bottomed
-in the branch collet of a John Guest PP0208E pump tee. Pulling the cartridge drags each tube
-and its tee forward the collet's [1.5 mm](TEE_STROKE) stroke while the plate holds the collet
-in; at the end of the stroke the collet is pressed home and the tube draws out. The
-tees stay connected to their upper tubes and hairpins. Water, CO2 and carbonated-water
-connections stay closed, so the carbonator remains connected and charged.
+in the branch collet of a John Guest PP0208E pump tee. The plate holds each branch collet
+pressed home its whole [1.5 mm](TEE_STROKE) stroke, so the collet never grips: the tube seals
+on its O-ring and draws straight out when the cartridge is pulled. No tee moves, and each stays
+connected to its upper tube and lower return. Water, CO2 and carbonated-water connections stay
+closed, so the carbonator remains connected and charged.
 
 This is the service procedure for the built dock geometry. Pump-holder fit has its
 [recorded physical acceptance](/hardware/reference/kamoer-kphm400/physical-fit.json).
-The complete dock's release and insertion forces, sealing, retention under pressure,
+The complete dock's withdrawal and insertion forces, sealing, retention under pressure,
 cleanability and endurance remain to be established on the assembled hardware; those
 properties do not follow from the CAD fit.
 
@@ -28,15 +28,15 @@ properties do not follow from the CAD fit.
 | [2](CART_PUMPS) complete pumps, their four clamped LLDPE tubes and the fitted top clamp | [4](PUMP_TEES) PP0208E pump tees, each in its bore through front-top's tee wall behind the collet plate |
 | The contact pair's female half, its four motor leads and the two Faston pairs | The male contact half and fixed J13 ribbon behind the bulkhead |
 | The cartridge's [4](CART_MAGNETS) printed-in SB443-IN magnets | Their [4](CART_MAGNETS) printed-in mates in front-top |
-| | The pump tees' upper tubes and hairpins, and the source tees Y-A and Y-B: [6](BOX_TEES) PP0208E tees in all |
+| | The pump tees' upper tubes and lower returns with their stem elbows, and the source tees Y-A and Y-B: [6](BOX_TEES) PP0208E tees in all |
 | | [8](TRAY_VALVES) valves on the two front-top trays and [3](CAP_VALVES) valves in the cold core's cap |
 | | All other tubing, the funnel, display and cold core |
 
 Each pump tee's branch stands in a bore through front-top's tee wall behind the collet plate.
-The bore holds the tee in X and Z and lets it slide along Y: the plate stops it at the fore end
-of its collet stroke, and the seated cartridge's bottomed pump tube holds it at connected. The
-tee's upper collet takes a short tube to its fore valve and its lower collet one LLDPE hairpin to its rear valve; both
-tubes flex with the tee's travel. These parts stay assembled during a customer pump change.
+The bore holds the tee in X and Z; the plate holds its branch collet pressed. The tee's upper
+collet takes a short straight tube to its fore valve, and its lower return runs from a stem
+elbow in its lower collet, along one straight tube, into a stem elbow in its rear valve. These
+parts stay assembled during a customer pump change.
 
 ## The four separating joints
 
@@ -47,14 +47,13 @@ tubes flex with the tee's travel. These parts stay assembled during a customer p
 | `fluid-21` | pump B suction tube | pump tee Y-F branch collet | 3 and 4 |
 | `fluid-22` | pump B discharge tube | pump tee Y-G branch collet | 3 and 4 |
 
-In service each tee stands at **connected**: its branch collet extended with its nose on the
-collet plate's release face and the pump tube bottomed at the tee's own stop. The collet grips
-the tube and holds it against pressure. Pushing the cartridge in passes the four tube tips
-through the plate's holes into the collets; the tips bottom in the tees and push each tee back
-to connected. The two magnet columns then draw the cartridge home, and their meeting poles set
+Each tee's branch collet stays pressed on the collet plate's release face, and the pump tube
+stands bottomed at the tee's own stop, sealed by the collet's O-ring. Pushing the cartridge in
+passes the four tube tips through the plate's holes and the pressed collets until they bottom
+in the tees. The two magnet columns then draw the cartridge home, and their meeting poles set
 its final position with [0.25 mm](DOCK_BODY_GAP) of air between the broad faces; the magnets
-seat the cartridge and do not hold the tubes. A straight pull parts the magnets, the contact pair and the four collet joints while the tees
-and the tubing stay in the machine.
+hold the cartridge, and its tubes, in against pressure. A straight pull parts the magnets, the
+contact pair and the four collet joints while the tees and the tubing stay in the machine.
 
 ## Dry mode
 
@@ -94,9 +93,9 @@ rotation, flow or venting.
 
 2. **Withdraw the depressurized cartridge.** With the release condition above
    satisfied, brace the appliance and pull evenly using the cradle's
-   hand pockets. Keep the cradle on its bay floor and draw it straight forward. Each
-   tee slides its [1.5 mm](TEE_STROKE) stroke until the collet plate holds its collet
-   in, and the four tubes draw out together as the electrical contacts separate. If
+   hand pockets. Keep the cradle on its bay floor and draw it straight forward. The
+   four tubes draw out of the pressed collets together as the electrical contacts
+   separate. If
    resistance becomes uneven or a tube remains caught, stop and return the cartridge
    to its seat; do not twist it or use a pump as a lever.
 
@@ -118,9 +117,8 @@ rotation, flow or venting.
    +X crown-groove pair serves pump A and the −X pair serves pump B. Return the leads to
    their grooves below the clamp crown. With power still disconnected, set the cartridge
    on its bay floor and present all four tube tips to the collet plate's holes. Push
-   squarely and evenly: the tips enter the tees' collets and bottom, the tees return to
-   connected, and the magnets draw the cartridge onto its seat with the front face
-   flush. Check the complete perimeter and the electrical contact engagement. The tubes
+   squarely and evenly: the tips pass the tees' pressed collets and bottom, and the
+   magnets draw the cartridge onto its seat with the front face flush. Check the complete perimeter and the electrical contact engagement. The tubes
    must remain straight, and the cartridge must hold its seat when gently pulled.
 
 6. **Re-prime and observe.** Restore power and prime each channel through the funnel-fill
@@ -152,10 +150,10 @@ the tubes.
 
 - Both complete pumps sit firmly on their cradle lands under the seated clamp.
 - Both Faston pairs are connected and all four leads remain below the crown.
-- All four straight tubes pass the collet plate and bottom in their pump tees, each tee
-  at connected; the cartridge sits on its meeting magnet poles with its front face
-  flush, and the contact pair is engaged.
-- The pump tees, collet plate, upper tubes, hairpins and front-top's magnets
+- All four straight tubes pass the collet plate and bottom in their pump tees; the
+  cartridge sits on its meeting magnet poles with its front face flush, and the contact
+  pair is engaged.
+- The pump tees, collet plate, upper tubes, lower returns and front-top's magnets
   remain installed in the appliance.
 - Both channels prime and dispense with no observed dock or pump-end seepage.
 - The water, CO2 and carbonated-water connections remain closed.

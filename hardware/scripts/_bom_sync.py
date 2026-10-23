@@ -580,6 +580,9 @@ def main(*, only_bom=False):
         "PUMP_TUBE_CUT": f"{ml.PUMP_TUBE_CUT:.3g} mm",
         "DOCK_TEES": f"{len(ml.PUMP_JUNCTIONS)}",
         "DOCK_RETURNS": f"{len(ml.LOWER_CONNECTIONS)}",
+        # Two NeoFit ATEU44W stem elbows on each lower return, off the bag of 10.
+        "DOCK_ELBOWS": f"{2 * len(ml.LOWER_CONNECTIONS)}",
+        "DOCK_ELBOWS_COST": pack_line_cost(2 * len(ml.LOWER_CONNECTIONS), "12.06", 10),
 
         "PP0308E_TOTAL": f"{pp0308e_per_build}",
         "PP0308E_COST": pack_line_cost(pp0308e_per_build, "68.49", 30),

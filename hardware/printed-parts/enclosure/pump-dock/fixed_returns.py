@@ -1,16 +1,16 @@
-"""Station datums for the four pump tees, the collet plate and the tubes that join them.
+"""Station datums for the four pump tees, the collet plate and the fittings and tubes that join
+them.
 
 Coordinates are enclosure millimetres: +Y points inward and +Z points up. Each pump port
 feeds one purchased PP0208E tee, its branch toward the pump and its run upright. The fore
-valve stands over the run on one short tube; the rear valve's bottom port takes one R14
-hairpin from the run's lower port.
+valve stands over the run on one short straight tube. The lower return reaches the rear valve's
+bottom port: a trimmed NeoFit stem elbow in the tee's lower collet, one straight tube, and a
+second stem elbow in the valve.
 
-THE PLATE'S AFT FACE IS THE RELEASE FACE. In service each tee stands at `connected`: its
-branch collet extended, its nose on that face, and the pump tube bottomed at the tee's stop.
-Pulling the cartridge drags the tee forward the collet's 1.5 mm stroke while the plate holds
-the collet in, and at `released` the collet is pressed home and the tube draws out. The fore
-valve's axis stands over the connected run axis, so its tube stands straight in service and
-bends the whole stroke at release.
+THE PLATE'S AFT FACE IS THE RELEASE FACE, AND IT HOLDS EACH BRANCH COLLET PRESSED. Each tee
+stands with its branch collet pushed home against that face, so the collet never grips: the
+pump tube slides in through it to the tee's stop and draws straight back out, sealed by the
+collet's O-ring. No tee moves.
 
 This module holds geometry data only; the dock's solids and the manifold read the same
 figures.
@@ -21,33 +21,30 @@ import sys
 from pathlib import Path
 
 _hw = next(p for p in Path(__file__).resolve().parents if p.name == "hardware")
-for _p in (_hw / "reference" / "tee-connector", _hw / "scripts"):
+for _p in (_hw / "reference" / "tee-connector", _hw / "reference" / "neofit-stem-elbow",
+           _hw / "scripts"):
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
 import tee_connector as tee  # noqa: E402
-import _routing  # noqa: E402
+import neofit_stem_elbow as elbow  # noqa: E402
 
 
 TUBE_OD = tee.TUBE_D
 TUBE_ID = 4.30
-# The collet plate: Derek's 1/8 in plate, printed into front-top.
-PLATE_T = 3.175
-BRANCH_FACE = tee.BRANCH_REACH                   # extended collet face from the run axis
+# The collet plate, from the bay face to the release face: 1/8 in and one branch collet stroke,
+# so the face holds each collet pressed home.
+PLATE_T = 3.175 + tee.BRANCH_COLLET_TRAVEL
 BRANCH_FACE_PRESSED = tee.BRANCH_PRESSED_REACH   # pressed collet face from the run axis
-TRAVEL = tee.BRANCH_COLLET_TRAVEL                # the tee's whole travel: one collet stroke
 RUN_FACE = tee.RUN_HALF                          # each run collet face from the tee's centre
-TIP_DEPTH = tee.BRANCH_INSERTION_EXTENDED        # a bottomed tube past the extended face
+TIP_DEPTH = tee.INSERTION                        # a bottomed tube past the pressed face
 # The pump tube's tip, aft of the plate's fore face, with the cartridge seated.
 TIP_FROM_FORE = PLATE_T + TIP_DEPTH
-# The 1/4 in LLDPE stock's bend radius (bench test on the spool) and the straight tube each
-# collet keeps before a bend starts.
-HAIRPIN_R = _routing.stock_of("fluid", TUBE_OD).min_bend
-HAIRPIN_LEAD = 0.5
-# Cut-length allowances: a tube bottomed in a run collet standing extended, and the valve's
+# Seat depths: a stem or tube bottomed in a run collet standing extended, and the valve's
 # layout estimate. Actual fully seated marks govern factory cuts.
 RUN_INSERTION = tee.RUN_INSERTION_EXTENDED
 VALVE_INSERTION_NOMINAL = 12.0
-STATES = ("connected", "released")
+# A stem elbow's axes cross this far under the face its shoulder stands on.
+ELBOW_DROP = elbow.HUB_BACK_REACH
 
 
 def _add(a, b):
@@ -70,70 +67,68 @@ def _line(start, direction, length):
             "length_mm": float(length)}
 
 
-def _quarter(start, d_in, d_out, r):
-    """A 90-degree turn of radius `r` from heading `d_in` onto `d_out`."""
-    centre = _add(start, _scale(d_out, r))
-    end = _add(centre, _scale(d_in, r))
-    mid = _add(centre, _scale(_add(d_in, _scale(d_out, -1.0)), r / math.sqrt(2.0)))
-    return {"kind": "arc", "start_mm": tuple(start), "midpoint_mm": mid, "end_mm": end,
-            "radius_mm": float(r), "sweep_degrees": 90.0,
-            "start_tangent": tuple(d_in), "end_tangent": tuple(d_out),
-            "length_mm": r * math.pi / 2.0}
-
-
 def plate_aft_y(fore_y):
     """The release face: the collet plate's aft face."""
     return fore_y + PLATE_T
 
 
-def tee_axis_y(fore_y, state="connected"):
-    """The tee's run axis in Y: its extended collet on the release face at `connected`, its
-    pressed collet on that face one stroke further fore at `released`."""
-    if state not in STATES:
-        raise ValueError(f"a tee stands {' or '.join(STATES)}, not {state!r}")
-    y = plate_aft_y(fore_y) + BRANCH_FACE
-    return y - TRAVEL if state == "released" else y
+def tee_axis_y(fore_y):
+    """The tee's run axis in Y: its pressed branch collet on the release face."""
+    return plate_aft_y(fore_y) + BRANCH_FACE_PRESSED
 
 
 def fore_valve_axis_y(fore_y):
-    """The fore valve's port axis in Y: over its tee's connected run axis."""
+    """The fore valve's port axis in Y: over its tee's run axis."""
     return tee_axis_y(fore_y)
 
 
 def tip_y(fore_y):
-    """The pump tube's seated tip: bottomed at the stop of a tee standing at connected."""
+    """The pump tube's seated tip: bottomed at the tee's stop."""
     return fore_y + TIP_FROM_FORE
 
 
-def tee_ports(fore_y, x, z, state="connected"):
+def tee_ports(fore_y, x, z):
     """The tee's centre and its three collet faces, as point and outward axis."""
-    y = tee_axis_y(fore_y, state)
+    y = tee_axis_y(fore_y)
     return {"centre": (x, y, z),
             "branch": {"point": (x, plate_aft_y(fore_y), z), "axis": (0.0, -1.0, 0.0)},
             "upper": {"point": (x, y, z + RUN_FACE), "axis": (0.0, 0.0, 1.0)},
             "lower": {"point": (x, y, z - RUN_FACE), "axis": (0.0, 0.0, -1.0)}}
 
 
-def hairpin(start, end, r=HAIRPIN_R, lead=HAIRPIN_LEAD):
-    """One tube from a downward collet at `start` to another at `end`: down, an `r` turn
-    toward the other port, a straight, an `r` turn up and a straight up into it.
+def elbow_return(start, end):
+    """The lower return from the tee's downward lower collet at `start` to the rear valve's
+    downward bottom collet at `end`: a stem elbow in each, one straight tube between them.
 
-    The lower of the two ports keeps `lead` of straight tube before its turn begins, so the
-    run's lowest surface stands `lead + r + TUBE_OD/2` under that port."""
+    The tee's elbow is cut to the run collet's seat depth, so its shoulder stands on the collet
+    face and its axes cross `ELBOW_DROP` under it. The valve's elbow keeps enough stem below its
+    collet to cross at that same height, so the two sockets face each other on one straight
+    line and the tube between them runs level. Each `elbows` row is the elbow's crossing, the
+    way its socket opens, its stem's length past the shoulder and how much of that stands
+    outside the collet."""
     (x0, y0, z0), (x1, y1, z1) = start, end
+    z = z0 - ELBOW_DROP
+    showing = z1 - ELBOW_DROP - z
+    spare = elbow.STEM_LENGTH - VALVE_INSERTION_NOMINAL
+    if not -1e-9 <= showing <= spare + 1e-9:
+        raise ValueError(
+            f"the valve's collet stands {z1 - z0:+g} mm off the tee's, so its elbow would show "
+            f"{showing:g} mm of stem below it, outside the 0 to {spare:g} mm its stem has")
     span = math.hypot(x1 - x0, y1 - y0)
-    straight = span - 2.0 * r
-    if straight < 0.0:
-        raise ValueError(f"the ports stand {span:g} mm apart, closer than a hairpin of R{r:g}")
-    across = _unit((x1 - x0, y1 - y0, 0.0))
-    down, up = (0.0, 0.0, -1.0), (0.0, 0.0, 1.0)
-    floor = min(z0, z1) - lead - r
-    path = [_line(start, down, z0 - (floor + r))]
-    path.append(_quarter(path[-1]["end_mm"], down, across, r))
-    path.append(_line(path[-1]["end_mm"], across, straight))
-    path.append(_quarter(path[-1]["end_mm"], across, up, r))
-    path.append(_line(path[-1]["end_mm"], up, z1 - (floor + r)))
-    return tuple(s for s in path if s["length_mm"] > 1e-9)
+    exposed = span - 2.0 * elbow.SOCKET_MOUTH_REACH
+    if exposed <= 0.0:
+        raise ValueError(f"the ports stand {span:g} mm apart, closer than two elbows' sockets")
+    u = _unit((x1 - x0, y1 - y0, 0.0))
+    back = (-u[0], -u[1], 0.0)
+    mouth = (x0 + u[0] * elbow.SOCKET_MOUTH_REACH, y0 + u[1] * elbow.SOCKET_MOUTH_REACH, z)
+    return {"elbows": ({"crossing": (x0, y0, z), "socket": u,
+                        "stem": RUN_INSERTION, "showing": 0.0},
+                       {"crossing": (x1, y1, z), "socket": back,
+                        "stem": VALVE_INSERTION_NOMINAL + showing, "showing": showing}),
+            "tube": (_line(mouth, u, exposed),),
+            "exposed_mm": exposed,
+            "cut_mm": exposed + 2.0 * elbow.SOCKET_INSERTION,
+            "floor_z": z - elbow.COLLAR_OD / 2.0}
 
 
 def s_bend(start, end):
@@ -166,19 +161,13 @@ def s_bend(start, end):
 
 
 def station(fore_y, x, z, upper_port, return_port):
-    """One pump port's tee, its fore valve's tube and its hairpin to the rear valve."""
+    """One pump port's tee, its fore valve's tube and its lower return to the rear valve."""
     ports = tee_ports(fore_y, x, z)
-    upper_start = ports["upper"]["point"]
-    lower_start = ports["lower"]["point"]
-    upper = s_bend(upper_start, tuple(upper_port["point"]))
-    lower = hairpin(lower_start, tuple(return_port["point"]))
-    return {"tee": ports, "released": tee_ports(fore_y, x, z, "released"),
-            "upper_target": dict(upper_port), "return_target": dict(return_port),
-            "upper_tube": upper, "hairpin": lower,
-            "upper_exposed_mm": sum(s["length_mm"] for s in upper),
-            "hairpin_exposed_mm": sum(s["length_mm"] for s in lower),
-            "hairpin_floor_z": min(lower_start[2], return_port["point"][2])
-                               - HAIRPIN_LEAD - HAIRPIN_R - TUBE_OD / 2.0}
+    upper = s_bend(ports["upper"]["point"], tuple(upper_port["point"]))
+    lower = elbow_return(ports["lower"]["point"], tuple(return_port["point"]))
+    return {"tee": ports, "upper_target": dict(upper_port), "return_target": dict(return_port),
+            "upper_tube": upper, "return": lower,
+            "upper_exposed_mm": sum(s["length_mm"] for s in upper)}
 
 
 def layouts(plate):

@@ -277,7 +277,7 @@ band. Each catch lies wholly over its six-millimetre foot and keeps a complete e
 outside its channel.
 
 **Lifting a seated top lands each foot's flat top face on its head's flat underside,
-along both whole runs** — [94 mm](RAIL_RUN_FRONT) per flank on the front column,
+along both whole runs** — [93 mm](RAIL_RUN_FRONT) per flank on the front column,
 [232 mm](RAIL_RUN_BACK) and [220 mm](RAIL_RUN_BACK_W) on the back — horizontal printed
 face on horizontal printed face after the specified clearance is taken up. The two
 back flanks differ by the PRV passage: it crosses the −X run and takes
@@ -594,7 +594,7 @@ field is symmetric in x whatever its pitch.
 plan is one of them. With the pump cartridge in, the bay storey shows the two narrow mouth
 returns outboard of the cavity planes; those two actual surfaces are two open rails.
 `_bay_storey_segments` carries their one global arc coordinate from one mouth edge to the other:
-[364.38 mm](STOREY_RUN) over the storey at z [177.8..284.4 mm](STOREY_BAND). The two open flanks
+[367.38 mm](STOREY_RUN) over the storey at z [177.8..284.4 mm](STOREY_BAND). The two open flanks
 and the lower tee face advance the phase but carry no cutter: the former are air, the latter is
 berthed or hidden, and the upper closure face stands on another Y plane. The datum remains
 **x = 0** and the pitch remains [4.9338 mm](FLUTE_PITCH), so both ledges retain the machine's
@@ -1440,16 +1440,15 @@ pass the cradle's open tube passages and the bay bulkhead's collet plate into
 [4](PUMP_TEE_COUNT) John Guest PP0208E tees, one on each pump port, each branch on its tube's axis
 and each run upright. The customer's pump change does not cut, trim or transfer a tube.
 
-The collet plate's aft face at [Y85.69](DOCK_RELEASE_Y) is the release face. Seated, each tube
-bottoms at its tee's stop with its tip [14.925 mm](DOCK_TIP_FROM_BACK) aft of the cartridge
-back, at enclosure [Y97.19](DOCK_TIP_Y), and the tee stands at connected: its branch collet
-extended with its nose on the release face. The collet grips the tube against pressure. A
-straight pull drags each tee forward its [1.5 mm](DOCK_TRAVEL) collet stroke until the plate
-holds the collet pressed and the tube draws out; pushing the cartridge home returns each tee
-to connected. Each tee's branch stands in a bore through the bay bulkhead, the tee wall,
-which holds it in X and Z and lets it slide along Y. The fore valves stand fixed over the tees' connected axes, so
-the short upper tube stands straight in service and bends the stroke at release; one R14 hairpin of LLDPE joins each tee's
-lower port to its rear valve. The tees, valves and tubing stay in the machine. All
+The collet plate's aft face at [Y87.19](DOCK_RELEASE_Y) is the release face, and it holds each
+tee's branch collet pressed home its whole [1.5 mm](DOCK_STROKE) stroke. A pressed collet does
+not grip: seated, each tube passes it on its O-ring and bottoms at its tee's stop with its tip
+[14.925 mm](DOCK_TIP_FROM_BACK) aft of the cartridge back, at enclosure
+[Y97.19](DOCK_TIP_Y), and a straight pull draws it straight out. No tee moves. Each tee's
+branch stands in a bore through the bay bulkhead, the tee wall, which holds it in X and Z. The
+fore valves stand fixed over the tees' run axes, so the short upper tube stands straight; each
+tee's lower port reaches its rear valve on a lower return of two stem elbows and one straight
+tube. The tees, valves and tubing stay in the machine. All
 permanent plumbing is assembled on loose front-top before that piece joins the compressor
 half. The [pump-dock specification](../pump-dock/README.md) gives the stations, the tee wall's
 bores, the tube setting jig and the material selections.
@@ -1460,15 +1459,15 @@ pump's own load line in each half. Each column is one slot open at the mating fa
 printed rail standing in each of the blocks' side grooves; the blocks drop down the rails at
 the part's one print pause and the next layer closes over them. Pulled onto its rails, each
 pole stands 0.125 mm proud of its face, so the poles meet in the middle of the 0.25 mm gap
-and seat the cartridge. The collets hold the tubes against pressure; the magnets hold the
-cartridge seated. The [magnet record](../pump-dock/magnet-retention.md) gives the slot,
+and seat the cartridge. No collet grips a pump tube, so the magnets hold the cartridge, and
+its tubes, in against pressure. The [magnet record](../pump-dock/magnet-retention.md) gives the slot,
 the pause and the loading. Installed holding force and the printed rails' fit remain physical
 qualifications rather than advertised-array calculations.
 
 The cradle's flat aft edge is at y [82.265 mm](PUMP_CARTRIDGE_AFT_Y),
 [0.25 mm](CARTRIDGE_BULKHEAD_KISS) fore of the bay bulkhead. Its accepted pump-seat
-fit keeps its recorded scope; the tube clamp, the tees' release and the complete magnetic
-dock require their own assembled physical results.
+fit keeps its recorded scope; the tube clamp, the pressed collets' seal and the complete
+magnetic dock require their own assembled physical results.
 
 **Both pulls are tall rounded pockets centred on the cradle's Y run.** Each is [15.75 mm](PULL_DEPTH)
 deep and [28 mm](PULL_RUN) long in Y, from z [177.43 mm](PULL_FLOOR_Z)
@@ -1489,15 +1488,16 @@ faces to the cartridge body. The top clamp has no separate grip.
 
 Each tee's upper collet takes one short LLDPE tube up into its fore valve's bottom collet;
 the fore valve stands fixed on its tray posts with its axis at
-[Y108.04](DOCK_FORE_VALVE_Y), over its tee's connected axis. Each lower collet takes one R14
-hairpin aft and up into its rear valve's bottom collet, through the port channel front-top
-keeps under each rear valve.
+[Y108.04](DOCK_FORE_VALVE_Y), over its tee's run axis. Each lower collet takes a stem elbow
+whose socket faces aft, and its rear valve's bottom collet one facing fore; one straight tube
+joins the two sockets at [Z158.879](DOCK_RETURN_Z), under the port channel front-top keeps
+under each rear valve.
 
 Both front flanks retain their full [9 mm](FRONT_TOP_FLANK) section across this room.
 The tees, upper tubes and fore valves go in together from the open interior, each tee's
 branch into its bore, before the valve rows close access. The rear valves and coils enter from the
-loose piece's underside and move onto their mounting posts, and each hairpin pushes up into
-its tee's lower collet and its rear valve together. The Beduan socket fit retains its
+loose piece's underside and move onto their mounting posts; each lower return's elbows push
+up into its tee's lower collet and its rear valve, and its tube into both sockets. The Beduan socket fit retains its
 identified physical acceptance; ties supply retention. Factory assembly and the complete
 dock's physical qualification are specified in
 [`internal-plumbing.md`](../../../assembly/internal-plumbing.md) §3 and the
@@ -1540,13 +1540,13 @@ is [2 mm](PLATE_FOOT_COND_AIR).
 
 One rectangular bulkhead joins the floor, lintel and both enclosure flanks. Its flat
 cartridge-facing plane is Y [82.515 mm](BAY_BACK_Y); its full backing depth is
-[14.321 mm](BAY_BULKHEAD_T) wall to wall and from the seam to the lintel. The cradle and clamp share one flat back at y
+[15.821 mm](BAY_BULKHEAD_T) wall to wall and from the seam to the lintel. The cradle and clamp share one flat back at y
 [82.265 mm](PUMP_CARTRIDGE_AFT_Y), one [0.25 mm](CARTRIDGE_BULKHEAD_KISS) kiss fore of that
 plane.
 
-The bulkhead is the tee wall: one flat slab whose fore [3.175 mm](DOCK_PLATE_T) is the collet
+The bulkhead is the tee wall: one flat slab whose fore [4.675 mm](DOCK_PLATE_T) is the collet
 plate. Each pump tee has a teardropped [Ø17 mm](DOCK_BORE) bore from the plate's aft face out
-through the wall's aft face at [Y96.836](DOCK_WALL_AFT_Y), and ahead of it a teardropped
+through the wall's aft face at [Y98.336](DOCK_WALL_AFT_Y), and ahead of it a teardropped
 [Ø8.5 mm](DOCK_HOLE_D) tube hole through the plate. The two magnet slots are cut into the wall
 from the bay face. The full depth continues into the ridge/contact wall above, and the Z-seam
 rail channels begin at the wall's aft face.
