@@ -1,0 +1,2793 @@
+{
+  "headers": {
+    "J1": {
+      "housing": "XHP-9",
+      "pins": [
+        {
+          "id": "J1.COM",
+          "pin": 1,
+          "point_mm": [
+            -61.97997389648435,
+            266.8160675048828,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J1.OUT1",
+          "pin": 2,
+          "point_mm": [
+            -59.47985189648438,
+            266.8160675048828,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J1.OUT2",
+          "pin": 3,
+          "point_mm": [
+            -56.979983896484384,
+            266.8160675048828,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J1.OUT3",
+          "pin": 4,
+          "point_mm": [
+            -54.47986189648435,
+            266.8160675048828,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J1.OUT4",
+          "pin": 5,
+          "point_mm": [
+            -51.97999389648436,
+            266.8160675048828,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J1.OUT5",
+          "pin": 6,
+          "point_mm": [
+            -49.47987189648438,
+            266.8160675048828,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J1.OUT6",
+          "pin": 7,
+          "point_mm": [
+            -46.98000389648439,
+            266.8160675048828,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J1.OUT7",
+          "pin": 8,
+          "point_mm": [
+            -44.47988189648436,
+            266.8160675048828,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J1.OUT8",
+          "pin": 9,
+          "point_mm": [
+            -41.980013896484365,
+            266.8160675048828,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        }
+      ],
+      "installed_harness": true,
+      "unused_basis": null
+    },
+    "J11": {
+      "housing": "XHP-4",
+      "pins": [
+        {
+          "id": "J11.GND",
+          "pin": 1,
+          "point_mm": [
+            -7.899993896484375,
+            193.81594050488283,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J11.V5",
+          "pin": 2,
+          "point_mm": [
+            -10.399993896484375,
+            193.81619450488282,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J11.DOUT",
+          "pin": 3,
+          "point_mm": [
+            -12.899993896484375,
+            193.81619450488282,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J11.AOUT",
+          "pin": 4,
+          "point_mm": [
+            -15.399993896484375,
+            193.81619450488282,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        }
+      ],
+      "installed_harness": true,
+      "unused_basis": null
+    },
+    "J13": {
+      "housing": "XHP-4",
+      "pins": [
+        {
+          "id": "J13.AM2",
+          "pin": 1,
+          "point_mm": [
+            -66.50012089648436,
+            239.81606750488282,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J13.AM1",
+          "pin": 2,
+          "point_mm": [
+            -66.49986689648438,
+            242.31606750488282,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J13.BM2",
+          "pin": 3,
+          "point_mm": [
+            -66.49986689648438,
+            244.81606750488282,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J13.BM1",
+          "pin": 4,
+          "point_mm": [
+            -66.49986689648438,
+            247.31606750488282,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        }
+      ],
+      "installed_harness": true,
+      "unused_basis": null
+    },
+    "J2": {
+      "housing": "XHP-6",
+      "pins": [
+        {
+          "id": "J2.COM",
+          "pin": 1,
+          "point_mm": [
+            -23.480069896484338,
+            266.8160675048828,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J2.FAN",
+          "pin": 2,
+          "point_mm": [
+            -25.979937896484387,
+            266.8160675048828,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J2.OUT4",
+          "pin": 3,
+          "point_mm": [
+            -28.480059896484363,
+            266.8160675048828,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": false
+        },
+        {
+          "id": "J2.OUT3",
+          "pin": 4,
+          "point_mm": [
+            -30.979927896484355,
+            266.8160675048828,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J2.OUT2",
+          "pin": 5,
+          "point_mm": [
+            -33.48004989648439,
+            266.8160675048828,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J2.OUT1",
+          "pin": 6,
+          "point_mm": [
+            -35.97991789648438,
+            266.8160675048828,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        }
+      ],
+      "installed_harness": true,
+      "unused_basis": null
+    },
+    "J3": {
+      "housing": "XHP-4",
+      "pins": [
+        {
+          "id": "J3.IO33",
+          "pin": 1,
+          "point_mm": [
+            -5.199866896484366,
+            207.31606750488282,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J3.IO35",
+          "pin": 2,
+          "point_mm": [
+            -5.20012089648435,
+            204.81606750488282,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J3.V5",
+          "pin": 3,
+          "point_mm": [
+            -5.20012089648435,
+            202.31606750488282,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J3.GND",
+          "pin": 4,
+          "point_mm": [
+            -5.20012089648435,
+            199.81606750488282,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        }
+      ],
+      "installed_harness": true,
+      "unused_basis": null
+    },
+    "J4": {
+      "housing": "XHP-7",
+      "pins": [
+        {
+          "id": "J4.IO23",
+          "pin": 1,
+          "point_mm": [
+            -5.199993896484386,
+            228.31606750488282,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": false
+        },
+        {
+          "id": "J4.IO27",
+          "pin": 2,
+          "point_mm": [
+            -5.199993896484386,
+            225.81606750488282,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": false
+        },
+        {
+          "id": "J4.IO26",
+          "pin": 3,
+          "point_mm": [
+            -5.199993896484386,
+            223.31606750488282,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J4.IO25",
+          "pin": 4,
+          "point_mm": [
+            -5.199993896484386,
+            220.81606750488282,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J4.V5",
+          "pin": 5,
+          "point_mm": [
+            -5.199993896484386,
+            218.31606750488282,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J4.GND",
+          "pin": 6,
+          "point_mm": [
+            -5.199993896484386,
+            215.81606750488282,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J4.3V3",
+          "pin": 7,
+          "point_mm": [
+            -5.199993896484386,
+            213.31606750488282,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        }
+      ],
+      "installed_harness": true,
+      "unused_basis": null
+    },
+    "J5": {
+      "housing": "XHP-4",
+      "pins": [
+        {
+          "id": "J5.GND",
+          "pin": 1,
+          "point_mm": [
+            -66.50012089648436,
+            210.11606750488284,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J5.V5",
+          "pin": 2,
+          "point_mm": [
+            -66.49986689648438,
+            212.61606750488284,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J5.IO2",
+          "pin": 3,
+          "point_mm": [
+            -66.49986689648438,
+            215.11606750488284,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J5.IO19",
+          "pin": 4,
+          "point_mm": [
+            -66.49986689648438,
+            217.61606750488284,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        }
+      ],
+      "installed_harness": true,
+      "unused_basis": null
+    },
+    "J6": {
+      "housing": "XHP-5",
+      "pins": [
+        {
+          "id": "J6.RA1",
+          "pin": 1,
+          "point_mm": [
+            -66.49999389648434,
+            233.71605750488283,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J6.RA2",
+          "pin": 2,
+          "point_mm": [
+            -66.49999389648434,
+            231.21618950488283,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J6.RA3",
+          "pin": 3,
+          "point_mm": [
+            -66.49999389648434,
+            228.7160675048828,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J6.RA4",
+          "pin": 4,
+          "point_mm": [
+            -66.49999389648434,
+            226.21594550488282,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J6.GND",
+          "pin": 5,
+          "point_mm": [
+            -66.49999389648434,
+            223.71607750488283,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        }
+      ],
+      "installed_harness": true,
+      "unused_basis": null
+    },
+    "J7": {
+      "housing": "XHP-7",
+      "pins": [
+        {
+          "id": "J7.GND",
+          "pin": 1,
+          "point_mm": [
+            -5.1999938964843295,
+            262.8160675048828,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J7.CHI",
+          "pin": 2,
+          "point_mm": [
+            -5.1999938964843295,
+            260.3160675048828,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J7.CLO",
+          "pin": 3,
+          "point_mm": [
+            -5.199993896484386,
+            257.8160675048828,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J7.RB4",
+          "pin": 4,
+          "point_mm": [
+            -5.199993896484386,
+            255.31606750488282,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J7.RB3",
+          "pin": 5,
+          "point_mm": [
+            -5.199993896484386,
+            252.81606750488282,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J7.RB2",
+          "pin": 6,
+          "point_mm": [
+            -5.199993896484386,
+            250.31606750488282,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J7.RB1",
+          "pin": 7,
+          "point_mm": [
+            -5.199993896484386,
+            247.81606750488282,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        }
+      ],
+      "installed_harness": true,
+      "unused_basis": null
+    },
+    "J8": {
+      "housing": "XHP-4",
+      "pins": [
+        {
+          "id": "J8.GND",
+          "pin": 1,
+          "point_mm": [
+            -66.50012089648436,
+            253.36606750488284,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": false
+        },
+        {
+          "id": "J8.3V3",
+          "pin": 2,
+          "point_mm": [
+            -66.49986689648438,
+            255.86606750488284,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": false
+        },
+        {
+          "id": "J8.SDA",
+          "pin": 3,
+          "point_mm": [
+            -66.49986689648438,
+            258.36606750488284,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": false
+        },
+        {
+          "id": "J8.SCL",
+          "pin": 4,
+          "point_mm": [
+            -66.49986689648438,
+            260.86606750488284,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": false
+        }
+      ],
+      "installed_harness": false,
+      "unused_basis": "I2C expansion, unused"
+    },
+    "J9": {
+      "housing": "XHP-4",
+      "pins": [
+        {
+          "id": "J9.V12",
+          "pin": 1,
+          "point_mm": [
+            -5.199866896484366,
+            241.81606750488282,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J9.GND",
+          "pin": 2,
+          "point_mm": [
+            -5.20012089648435,
+            239.31606750488282,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J9.A",
+          "pin": 3,
+          "point_mm": [
+            -5.20012089648435,
+            236.81606750488282,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        },
+        {
+          "id": "J9.B",
+          "pin": 4,
+          "point_mm": [
+            -5.20012089648435,
+            234.31606750488282,
+            268.4
+          ],
+          "axis": [
+            3.749399456654644e-33,
+            6.123233995736766e-17,
+            1.0
+          ],
+          "installed_wire": true
+        }
+      ],
+      "installed_harness": true,
+      "unused_basis": null
+    }
+  },
+  "J10": {
+    "J10.GND": {
+      "wire_mouth": {
+        "point_mm": [
+          -11.499998896484385,
+          271.7661179048829,
+          262.5600028
+        ],
+        "axis": [
+          6.123233995736766e-17,
+          1.0,
+          -6.123233995736766e-17
+        ]
+      },
+      "screw_head": {
+        "point_mm": [
+          -11.499998896484385,
+          268.16606750488285,
+          268.500007
+        ],
+        "axis": [
+          3.749399456654644e-33,
+          6.123233995736766e-17,
+          1.0
+        ]
+      }
+    },
+    "J10.V12": {
+      "wire_mouth": {
+        "point_mm": [
+          -16.499988896484354,
+          271.7661179048829,
+          262.5600028
+        ],
+        "axis": [
+          6.123233995736766e-17,
+          1.0,
+          -6.123233995736766e-17
+        ]
+      },
+      "screw_head": {
+        "point_mm": [
+          -16.499988896484354,
+          268.16606750488285,
+          268.500007
+        ],
+        "axis": [
+          3.749399456654644e-33,
+          6.123233995736766e-17,
+          1.0
+        ]
+      }
+    }
+  },
+  "power": {
+    "psu": {
+      "AC-N": {
+        "wire_mouth": {
+          "point_mm": [
+            -73.7499938964844,
+            453.00001220703126,
+            263.59999999999997
+          ],
+          "axis": [
+            0.0,
+            1.0,
+            0.0
+          ]
+        },
+        "screw_head": {
+          "point_mm": [
+            -73.7499938964844,
+            449.00001220703126,
+            267.09999999999997
+          ],
+          "axis": [
+            6.123233995736766e-17,
+            0.0,
+            1.0
+          ]
+        },
+        "basis": "Official Mean Well top-view AC pair pitch7.5 and DC four-pole pitch5; head/mouth heights and end insets from representative reference model. The physical labels follow the published top view, separate from older nominal logical wire assignments."
+      },
+      "AC-L": {
+        "wire_mouth": {
+          "point_mm": [
+            -66.2499938964844,
+            453.00001220703126,
+            263.59999999999997
+          ],
+          "axis": [
+            0.0,
+            1.0,
+            0.0
+          ]
+        },
+        "screw_head": {
+          "point_mm": [
+            -66.2499938964844,
+            449.00001220703126,
+            267.09999999999997
+          ],
+          "axis": [
+            6.123233995736766e-17,
+            0.0,
+            1.0
+          ]
+        },
+        "basis": "Official Mean Well top-view AC pair pitch7.5 and DC four-pole pitch5; head/mouth heights and end insets from representative reference model. The physical labels follow the published top view, separate from older nominal logical wire assignments."
+      },
+      "DC-minus-1": {
+        "wire_mouth": {
+          "point_mm": [
+            -77.4999938964844,
+            348.00001220703126,
+            263.59999999999997
+          ],
+          "axis": [
+            0.0,
+            -1.0,
+            0.0
+          ]
+        },
+        "screw_head": {
+          "point_mm": [
+            -77.4999938964844,
+            352.00001220703126,
+            267.09999999999997
+          ],
+          "axis": [
+            6.123233995736766e-17,
+            0.0,
+            1.0
+          ]
+        },
+        "basis": "Official Mean Well top-view AC pair pitch7.5 and DC four-pole pitch5; head/mouth heights and end insets from representative reference model. The physical labels follow the published top view, separate from older nominal logical wire assignments."
+      },
+      "DC-minus-2": {
+        "wire_mouth": {
+          "point_mm": [
+            -72.4999938964844,
+            348.00001220703126,
+            263.59999999999997
+          ],
+          "axis": [
+            0.0,
+            -1.0,
+            0.0
+          ]
+        },
+        "screw_head": {
+          "point_mm": [
+            -72.4999938964844,
+            352.00001220703126,
+            267.09999999999997
+          ],
+          "axis": [
+            6.123233995736766e-17,
+            0.0,
+            1.0
+          ]
+        },
+        "basis": "Official Mean Well top-view AC pair pitch7.5 and DC four-pole pitch5; head/mouth heights and end insets from representative reference model. The physical labels follow the published top view, separate from older nominal logical wire assignments."
+      },
+      "DC-plus-1": {
+        "wire_mouth": {
+          "point_mm": [
+            -67.4999938964844,
+            348.00001220703126,
+            263.59999999999997
+          ],
+          "axis": [
+            0.0,
+            -1.0,
+            0.0
+          ]
+        },
+        "screw_head": {
+          "point_mm": [
+            -67.4999938964844,
+            352.00001220703126,
+            267.09999999999997
+          ],
+          "axis": [
+            6.123233995736766e-17,
+            0.0,
+            1.0
+          ]
+        },
+        "basis": "Official Mean Well top-view AC pair pitch7.5 and DC four-pole pitch5; head/mouth heights and end insets from representative reference model. The physical labels follow the published top view, separate from older nominal logical wire assignments."
+      },
+      "DC-plus-2": {
+        "wire_mouth": {
+          "point_mm": [
+            -62.4999938964844,
+            348.00001220703126,
+            263.59999999999997
+          ],
+          "axis": [
+            0.0,
+            -1.0,
+            0.0
+          ]
+        },
+        "screw_head": {
+          "point_mm": [
+            -62.4999938964844,
+            352.00001220703126,
+            267.09999999999997
+          ],
+          "axis": [
+            6.123233995736766e-17,
+            0.0,
+            1.0
+          ]
+        },
+        "basis": "Official Mean Well top-view AC pair pitch7.5 and DC four-pole pitch5; head/mouth heights and end insets from representative reference model. The physical labels follow the published top view, separate from older nominal logical wire assignments."
+      }
+    },
+    "relay-1": {
+      "COM": {
+        "wire_mouth": {
+          "point_mm": [
+            -90.5000122070312,
+            371.50001220703126,
+            298.4
+          ],
+          "axis": [
+            -1.8369701987210297e-16,
+            -1.0,
+            -3.374459510989179e-32
+          ]
+        },
+        "screw_head": {
+          "point_mm": [
+            -90.5000122070312,
+            377.00001220703126,
+            303.4
+          ],
+          "axis": [
+            -1.8369701987210297e-16,
+            0.0,
+            1.0
+          ]
+        },
+        "basis": "Calipered overall relay reference and representative three-pole side-entry block. Screw heads +Z are modeled; wire mouth at +X end / Z6.5 is a stated best estimate because source formerly conflates top screw approach and conductor entry."
+      },
+      "NO": {
+        "wire_mouth": {
+          "point_mm": [
+            -85.5000122070312,
+            371.50001220703126,
+            298.4
+          ],
+          "axis": [
+            -1.8369701987210297e-16,
+            -1.0,
+            -3.374459510989179e-32
+          ]
+        },
+        "screw_head": {
+          "point_mm": [
+            -85.5000122070312,
+            377.00001220703126,
+            303.4
+          ],
+          "axis": [
+            -1.8369701987210297e-16,
+            0.0,
+            1.0
+          ]
+        },
+        "basis": "Calipered overall relay reference and representative three-pole side-entry block. Screw heads +Z are modeled; wire mouth at +X end / Z6.5 is a stated best estimate because source formerly conflates top screw approach and conductor entry."
+      },
+      "NC": {
+        "wire_mouth": {
+          "point_mm": [
+            -80.5000122070312,
+            371.50001220703126,
+            298.4
+          ],
+          "axis": [
+            -1.8369701987210297e-16,
+            -1.0,
+            -3.374459510989179e-32
+          ]
+        },
+        "screw_head": {
+          "point_mm": [
+            -80.5000122070312,
+            377.00001220703126,
+            303.4
+          ],
+          "axis": [
+            -1.8369701987210297e-16,
+            0.0,
+            1.0
+          ]
+        },
+        "basis": "Calipered overall relay reference and representative three-pole side-entry block. Screw heads +Z are modeled; wire mouth at +X end / Z6.5 is a stated best estimate because source formerly conflates top screw approach and conductor entry."
+      }
+    },
+    "relay-2": {
+      "COM": {
+        "wire_mouth": {
+          "point_mm": [
+            -60.49998779296874,
+            432.4999938964844,
+            298.4
+          ],
+          "axis": [
+            1.224646799147353e-16,
+            1.0,
+            -3.374459510989179e-32
+          ]
+        },
+        "screw_head": {
+          "point_mm": [
+            -60.49998779296874,
+            426.9999938964844,
+            303.4
+          ],
+          "axis": [
+            1.8369701987210297e-16,
+            1.1248198369963932e-32,
+            1.0
+          ]
+        },
+        "basis": "Calipered overall relay reference and representative three-pole side-entry block. Screw heads +Z are modeled; wire mouth at +X end / Z6.5 is a stated best estimate because source formerly conflates top screw approach and conductor entry."
+      },
+      "NO": {
+        "wire_mouth": {
+          "point_mm": [
+            -65.49998779296874,
+            432.4999938964844,
+            298.4
+          ],
+          "axis": [
+            1.224646799147353e-16,
+            1.0,
+            -3.374459510989179e-32
+          ]
+        },
+        "screw_head": {
+          "point_mm": [
+            -65.49998779296874,
+            426.9999938964844,
+            303.4
+          ],
+          "axis": [
+            1.8369701987210297e-16,
+            1.1248198369963932e-32,
+            1.0
+          ]
+        },
+        "basis": "Calipered overall relay reference and representative three-pole side-entry block. Screw heads +Z are modeled; wire mouth at +X end / Z6.5 is a stated best estimate because source formerly conflates top screw approach and conductor entry."
+      },
+      "NC": {
+        "wire_mouth": {
+          "point_mm": [
+            -70.49998779296874,
+            432.4999938964844,
+            298.4
+          ],
+          "axis": [
+            1.224646799147353e-16,
+            1.0,
+            -3.374459510989179e-32
+          ]
+        },
+        "screw_head": {
+          "point_mm": [
+            -70.49998779296874,
+            426.9999938964844,
+            303.4
+          ],
+          "axis": [
+            1.8369701987210297e-16,
+            1.1248198369963932e-32,
+            1.0
+          ]
+        },
+        "basis": "Calipered overall relay reference and representative three-pole side-entry block. Screw heads +Z are modeled; wire mouth at +X end / Z6.5 is a stated best estimate because source formerly conflates top screw approach and conductor entry."
+      }
+    }
+  },
+  "logical": {
+    "J1.COM": {
+      "id": "J1.COM",
+      "part": "pcba",
+      "point": [
+        -61.97997389648435,
+        266.8160675048828,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "1",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J1.OUT1": {
+      "id": "J1.OUT1",
+      "part": "pcba",
+      "point": [
+        -59.47985189648438,
+        266.8160675048828,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "2",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J1.OUT2": {
+      "id": "J1.OUT2",
+      "part": "pcba",
+      "point": [
+        -56.979983896484384,
+        266.8160675048828,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "3",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J1.OUT3": {
+      "id": "J1.OUT3",
+      "part": "pcba",
+      "point": [
+        -54.47986189648435,
+        266.8160675048828,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "4",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J1.OUT4": {
+      "id": "J1.OUT4",
+      "part": "pcba",
+      "point": [
+        -51.97999389648436,
+        266.8160675048828,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "5",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J1.OUT5": {
+      "id": "J1.OUT5",
+      "part": "pcba",
+      "point": [
+        -49.47987189648438,
+        266.8160675048828,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "6",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J1.OUT6": {
+      "id": "J1.OUT6",
+      "part": "pcba",
+      "point": [
+        -46.98000389648439,
+        266.8160675048828,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "7",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J1.OUT7": {
+      "id": "J1.OUT7",
+      "part": "pcba",
+      "point": [
+        -44.47988189648436,
+        266.8160675048828,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "8",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J1.OUT8": {
+      "id": "J1.OUT8",
+      "part": "pcba",
+      "point": [
+        -41.980013896484365,
+        266.8160675048828,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "9",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J11.GND": {
+      "id": "J11.GND",
+      "part": "pcba",
+      "point": [
+        -7.899993896484375,
+        193.81594050488283,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "1",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J11.V5": {
+      "id": "J11.V5",
+      "part": "pcba",
+      "point": [
+        -10.399993896484375,
+        193.81619450488282,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "2",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J11.DOUT": {
+      "id": "J11.DOUT",
+      "part": "pcba",
+      "point": [
+        -12.899993896484375,
+        193.81619450488282,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "3",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J11.AOUT": {
+      "id": "J11.AOUT",
+      "part": "pcba",
+      "point": [
+        -15.399993896484375,
+        193.81619450488282,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "4",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J13.AM2": {
+      "id": "J13.AM2",
+      "part": "pcba",
+      "point": [
+        -66.50012089648436,
+        239.81606750488282,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "1",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J13.AM1": {
+      "id": "J13.AM1",
+      "part": "pcba",
+      "point": [
+        -66.49986689648438,
+        242.31606750488282,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "2",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J13.BM2": {
+      "id": "J13.BM2",
+      "part": "pcba",
+      "point": [
+        -66.49986689648438,
+        244.81606750488282,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "3",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J13.BM1": {
+      "id": "J13.BM1",
+      "part": "pcba",
+      "point": [
+        -66.49986689648438,
+        247.31606750488282,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "4",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J2.COM": {
+      "id": "J2.COM",
+      "part": "pcba",
+      "point": [
+        -23.480069896484338,
+        266.8160675048828,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "1",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J2.FAN": {
+      "id": "J2.FAN",
+      "part": "pcba",
+      "point": [
+        -25.979937896484387,
+        266.8160675048828,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "2",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J2.OUT4": {
+      "id": "J2.OUT4",
+      "part": "pcba",
+      "point": [
+        -28.480059896484363,
+        266.8160675048828,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "3",
+      "installed_wire": false,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J2.OUT3": {
+      "id": "J2.OUT3",
+      "part": "pcba",
+      "point": [
+        -30.979927896484355,
+        266.8160675048828,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "4",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J2.OUT2": {
+      "id": "J2.OUT2",
+      "part": "pcba",
+      "point": [
+        -33.48004989648439,
+        266.8160675048828,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "5",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J2.OUT1": {
+      "id": "J2.OUT1",
+      "part": "pcba",
+      "point": [
+        -35.97991789648438,
+        266.8160675048828,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "6",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J3.IO33": {
+      "id": "J3.IO33",
+      "part": "pcba",
+      "point": [
+        -5.199866896484366,
+        207.31606750488282,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "1",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J3.IO35": {
+      "id": "J3.IO35",
+      "part": "pcba",
+      "point": [
+        -5.20012089648435,
+        204.81606750488282,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "2",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J3.V5": {
+      "id": "J3.V5",
+      "part": "pcba",
+      "point": [
+        -5.20012089648435,
+        202.31606750488282,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "3",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J3.GND": {
+      "id": "J3.GND",
+      "part": "pcba",
+      "point": [
+        -5.20012089648435,
+        199.81606750488282,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "4",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J4.IO23": {
+      "id": "J4.IO23",
+      "part": "pcba",
+      "point": [
+        -5.199993896484386,
+        228.31606750488282,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "1",
+      "installed_wire": false,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J4.IO27": {
+      "id": "J4.IO27",
+      "part": "pcba",
+      "point": [
+        -5.199993896484386,
+        225.81606750488282,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "2",
+      "installed_wire": false,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J4.IO26": {
+      "id": "J4.IO26",
+      "part": "pcba",
+      "point": [
+        -5.199993896484386,
+        223.31606750488282,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "3",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J4.IO25": {
+      "id": "J4.IO25",
+      "part": "pcba",
+      "point": [
+        -5.199993896484386,
+        220.81606750488282,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "4",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J4.V5": {
+      "id": "J4.V5",
+      "part": "pcba",
+      "point": [
+        -5.199993896484386,
+        218.31606750488282,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "5",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J4.GND": {
+      "id": "J4.GND",
+      "part": "pcba",
+      "point": [
+        -5.199993896484386,
+        215.81606750488282,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "6",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J4.3V3": {
+      "id": "J4.3V3",
+      "part": "pcba",
+      "point": [
+        -5.199993896484386,
+        213.31606750488282,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "7",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J5.GND": {
+      "id": "J5.GND",
+      "part": "pcba",
+      "point": [
+        -66.50012089648436,
+        210.11606750488284,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "1",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J5.V5": {
+      "id": "J5.V5",
+      "part": "pcba",
+      "point": [
+        -66.49986689648438,
+        212.61606750488284,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "2",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J5.IO2": {
+      "id": "J5.IO2",
+      "part": "pcba",
+      "point": [
+        -66.49986689648438,
+        215.11606750488284,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "3",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J5.IO19": {
+      "id": "J5.IO19",
+      "part": "pcba",
+      "point": [
+        -66.49986689648438,
+        217.61606750488284,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "4",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J6.RA1": {
+      "id": "J6.RA1",
+      "part": "pcba",
+      "point": [
+        -66.49999389648434,
+        233.71605750488283,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "1",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J6.RA2": {
+      "id": "J6.RA2",
+      "part": "pcba",
+      "point": [
+        -66.49999389648434,
+        231.21618950488283,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "2",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J6.RA3": {
+      "id": "J6.RA3",
+      "part": "pcba",
+      "point": [
+        -66.49999389648434,
+        228.7160675048828,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "3",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J6.RA4": {
+      "id": "J6.RA4",
+      "part": "pcba",
+      "point": [
+        -66.49999389648434,
+        226.21594550488282,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "4",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J6.GND": {
+      "id": "J6.GND",
+      "part": "pcba",
+      "point": [
+        -66.49999389648434,
+        223.71607750488283,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "5",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J7.GND": {
+      "id": "J7.GND",
+      "part": "pcba",
+      "point": [
+        -5.1999938964843295,
+        262.8160675048828,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "1",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J7.CHI": {
+      "id": "J7.CHI",
+      "part": "pcba",
+      "point": [
+        -5.1999938964843295,
+        260.3160675048828,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "2",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J7.CLO": {
+      "id": "J7.CLO",
+      "part": "pcba",
+      "point": [
+        -5.199993896484386,
+        257.8160675048828,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "3",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J7.RB4": {
+      "id": "J7.RB4",
+      "part": "pcba",
+      "point": [
+        -5.199993896484386,
+        255.31606750488282,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "4",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J7.RB3": {
+      "id": "J7.RB3",
+      "part": "pcba",
+      "point": [
+        -5.199993896484386,
+        252.81606750488282,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "5",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J7.RB2": {
+      "id": "J7.RB2",
+      "part": "pcba",
+      "point": [
+        -5.199993896484386,
+        250.31606750488282,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "6",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J7.RB1": {
+      "id": "J7.RB1",
+      "part": "pcba",
+      "point": [
+        -5.199993896484386,
+        247.81606750488282,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "7",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J8.GND": {
+      "id": "J8.GND",
+      "part": "pcba",
+      "point": [
+        -66.50012089648436,
+        253.36606750488284,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "1",
+      "installed_wire": false,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J8.3V3": {
+      "id": "J8.3V3",
+      "part": "pcba",
+      "point": [
+        -66.49986689648438,
+        255.86606750488284,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "2",
+      "installed_wire": false,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J8.SDA": {
+      "id": "J8.SDA",
+      "part": "pcba",
+      "point": [
+        -66.49986689648438,
+        258.36606750488284,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "3",
+      "installed_wire": false,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J8.SCL": {
+      "id": "J8.SCL",
+      "part": "pcba",
+      "point": [
+        -66.49986689648438,
+        260.86606750488284,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "4",
+      "installed_wire": false,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J9.V12": {
+      "id": "J9.V12",
+      "part": "pcba",
+      "point": [
+        -5.199866896484366,
+        241.81606750488282,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "1",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J9.GND": {
+      "id": "J9.GND",
+      "part": "pcba",
+      "point": [
+        -5.20012089648435,
+        239.31606750488282,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "2",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J9.A": {
+      "id": "J9.A",
+      "part": "pcba",
+      "point": [
+        -5.20012089648435,
+        236.81606750488282,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "3",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J9.B": {
+      "id": "J9.B",
+      "part": "pcba",
+      "point": [
+        -5.20012089648435,
+        234.31606750488282,
+        268.4
+      ],
+      "outward": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "kind": "JST-XH",
+      "status": "nominal",
+      "pin": "4",
+      "installed_wire": true,
+      "basis": "Frozen fabricated pin map and official JST nominal mated height; header normal verified in imported component models"
+    },
+    "J10.GND": {
+      "id": "J10.GND",
+      "part": "pcba",
+      "point": [
+        -11.499998896484385,
+        271.7661179048829,
+        262.5600028
+      ],
+      "outward": [
+        6.123233995736766e-17,
+        1.0,
+        -6.123233995736766e-17
+      ],
+      "kind": "screw",
+      "status": "nominal",
+      "installed_wire": true,
+      "screw_head_mm": [
+        -11.499998896484385,
+        268.16606750488285,
+        268.500007
+      ],
+      "screw_axis": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "basis": "Current KF301 imported model bounds and actual pad row; wire-mouth height is a nominal source estimate"
+    },
+    "J10.V12": {
+      "id": "J10.V12",
+      "part": "pcba",
+      "point": [
+        -16.499988896484354,
+        271.7661179048829,
+        262.5600028
+      ],
+      "outward": [
+        6.123233995736766e-17,
+        1.0,
+        -6.123233995736766e-17
+      ],
+      "kind": "screw",
+      "status": "nominal",
+      "installed_wire": true,
+      "screw_head_mm": [
+        -16.499988896484354,
+        268.16606750488285,
+        268.500007
+      ],
+      "screw_axis": [
+        3.749399456654644e-33,
+        6.123233995736766e-17,
+        1.0
+      ],
+      "basis": "Current KF301 imported model bounds and actual pad row; wire-mouth height is a nominal source estimate"
+    },
+    "psu.N": {
+      "id": "psu.N",
+      "part": "psu",
+      "physical_pole": "AC-N",
+      "point": [
+        -73.7499938964844,
+        453.00001220703126,
+        263.59999999999997
+      ],
+      "outward": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "screw_head_mm": [
+        -73.7499938964844,
+        449.00001220703126,
+        267.09999999999997
+      ],
+      "screw_axis": [
+        6.123233995736766e-17,
+        0.0,
+        1.0
+      ],
+      "kind": "screw",
+      "status": "nominal",
+      "installed_wire": true,
+      "basis": "Official Mean Well top-view AC pair pitch7.5 and DC four-pole pitch5; head/mouth heights and end insets from representative reference model. The physical labels follow the published top view, separate from older nominal logical wire assignments."
+    },
+    "psu.L": {
+      "id": "psu.L",
+      "part": "psu",
+      "physical_pole": "AC-L",
+      "point": [
+        -66.2499938964844,
+        453.00001220703126,
+        263.59999999999997
+      ],
+      "outward": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "screw_head_mm": [
+        -66.2499938964844,
+        449.00001220703126,
+        267.09999999999997
+      ],
+      "screw_axis": [
+        6.123233995736766e-17,
+        0.0,
+        1.0
+      ],
+      "kind": "screw",
+      "status": "nominal",
+      "installed_wire": true,
+      "basis": "Official Mean Well top-view AC pair pitch7.5 and DC four-pole pitch5; head/mouth heights and end insets from representative reference model. The physical labels follow the published top view, separate from older nominal logical wire assignments."
+    },
+    "psu.GND": {
+      "id": "psu.GND",
+      "part": "psu",
+      "physical_pole": "DC-minus-2",
+      "point": [
+        -72.4999938964844,
+        348.00001220703126,
+        263.59999999999997
+      ],
+      "outward": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "screw_head_mm": [
+        -72.4999938964844,
+        352.00001220703126,
+        267.09999999999997
+      ],
+      "screw_axis": [
+        6.123233995736766e-17,
+        0.0,
+        1.0
+      ],
+      "kind": "screw",
+      "status": "nominal",
+      "installed_wire": true,
+      "basis": "Official Mean Well top-view AC pair pitch7.5 and DC four-pole pitch5; head/mouth heights and end insets from representative reference model. The physical labels follow the published top view, separate from older nominal logical wire assignments."
+    },
+    "psu.V12": {
+      "id": "psu.V12",
+      "part": "psu",
+      "physical_pole": "DC-plus-1",
+      "point": [
+        -67.4999938964844,
+        348.00001220703126,
+        263.59999999999997
+      ],
+      "outward": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "screw_head_mm": [
+        -67.4999938964844,
+        352.00001220703126,
+        267.09999999999997
+      ],
+      "screw_axis": [
+        6.123233995736766e-17,
+        0.0,
+        1.0
+      ],
+      "kind": "screw",
+      "status": "nominal",
+      "installed_wire": true,
+      "basis": "Official Mean Well top-view AC pair pitch7.5 and DC four-pole pitch5; head/mouth heights and end insets from representative reference model. The physical labels follow the published top view, separate from older nominal logical wire assignments."
+    },
+    "relay-1.COM": {
+      "id": "relay-1.COM",
+      "part": "relay-1",
+      "physical_pole": "COM",
+      "point": [
+        -90.5000122070312,
+        371.50001220703126,
+        298.4
+      ],
+      "outward": [
+        -1.8369701987210297e-16,
+        -1.0,
+        -3.374459510989179e-32
+      ],
+      "screw_head_mm": [
+        -90.5000122070312,
+        377.00001220703126,
+        303.4
+      ],
+      "screw_axis": [
+        -1.8369701987210297e-16,
+        0.0,
+        1.0
+      ],
+      "kind": "screw",
+      "status": "nominal",
+      "installed_wire": true,
+      "basis": "Calipered overall relay reference and representative three-pole side-entry block. Screw heads +Z are modeled; wire mouth at +X end / Z6.5 is a stated best estimate because source formerly conflates top screw approach and conductor entry."
+    },
+    "relay-1.NO": {
+      "id": "relay-1.NO",
+      "part": "relay-1",
+      "physical_pole": "NO",
+      "point": [
+        -85.5000122070312,
+        371.50001220703126,
+        298.4
+      ],
+      "outward": [
+        -1.8369701987210297e-16,
+        -1.0,
+        -3.374459510989179e-32
+      ],
+      "screw_head_mm": [
+        -85.5000122070312,
+        377.00001220703126,
+        303.4
+      ],
+      "screw_axis": [
+        -1.8369701987210297e-16,
+        0.0,
+        1.0
+      ],
+      "kind": "screw",
+      "status": "nominal",
+      "installed_wire": true,
+      "basis": "Calipered overall relay reference and representative three-pole side-entry block. Screw heads +Z are modeled; wire mouth at +X end / Z6.5 is a stated best estimate because source formerly conflates top screw approach and conductor entry."
+    },
+    "relay-1.NC": {
+      "id": "relay-1.NC",
+      "part": "relay-1",
+      "physical_pole": "NC",
+      "point": [
+        -80.5000122070312,
+        371.50001220703126,
+        298.4
+      ],
+      "outward": [
+        -1.8369701987210297e-16,
+        -1.0,
+        -3.374459510989179e-32
+      ],
+      "screw_head_mm": [
+        -80.5000122070312,
+        377.00001220703126,
+        303.4
+      ],
+      "screw_axis": [
+        -1.8369701987210297e-16,
+        0.0,
+        1.0
+      ],
+      "kind": "screw",
+      "status": "nominal",
+      "installed_wire": false,
+      "basis": "Calipered overall relay reference and representative three-pole side-entry block. Screw heads +Z are modeled; wire mouth at +X end / Z6.5 is a stated best estimate because source formerly conflates top screw approach and conductor entry."
+    },
+    "relay-2.COM": {
+      "id": "relay-2.COM",
+      "part": "relay-2",
+      "physical_pole": "COM",
+      "point": [
+        -60.49998779296874,
+        432.4999938964844,
+        298.4
+      ],
+      "outward": [
+        1.224646799147353e-16,
+        1.0,
+        -3.374459510989179e-32
+      ],
+      "screw_head_mm": [
+        -60.49998779296874,
+        426.9999938964844,
+        303.4
+      ],
+      "screw_axis": [
+        1.8369701987210297e-16,
+        1.1248198369963932e-32,
+        1.0
+      ],
+      "kind": "screw",
+      "status": "nominal",
+      "installed_wire": true,
+      "basis": "Calipered overall relay reference and representative three-pole side-entry block. Screw heads +Z are modeled; wire mouth at +X end / Z6.5 is a stated best estimate because source formerly conflates top screw approach and conductor entry."
+    },
+    "relay-2.NO": {
+      "id": "relay-2.NO",
+      "part": "relay-2",
+      "physical_pole": "NO",
+      "point": [
+        -65.49998779296874,
+        432.4999938964844,
+        298.4
+      ],
+      "outward": [
+        1.224646799147353e-16,
+        1.0,
+        -3.374459510989179e-32
+      ],
+      "screw_head_mm": [
+        -65.49998779296874,
+        426.9999938964844,
+        303.4
+      ],
+      "screw_axis": [
+        1.8369701987210297e-16,
+        1.1248198369963932e-32,
+        1.0
+      ],
+      "kind": "screw",
+      "status": "nominal",
+      "installed_wire": true,
+      "basis": "Calipered overall relay reference and representative three-pole side-entry block. Screw heads +Z are modeled; wire mouth at +X end / Z6.5 is a stated best estimate because source formerly conflates top screw approach and conductor entry."
+    },
+    "relay-2.NC": {
+      "id": "relay-2.NC",
+      "part": "relay-2",
+      "physical_pole": "NC",
+      "point": [
+        -70.49998779296874,
+        432.4999938964844,
+        298.4
+      ],
+      "outward": [
+        1.224646799147353e-16,
+        1.0,
+        -3.374459510989179e-32
+      ],
+      "screw_head_mm": [
+        -70.49998779296874,
+        426.9999938964844,
+        303.4
+      ],
+      "screw_axis": [
+        1.8369701987210297e-16,
+        1.1248198369963932e-32,
+        1.0
+      ],
+      "kind": "screw",
+      "status": "nominal",
+      "installed_wire": false,
+      "basis": "Calipered overall relay reference and representative three-pole side-entry block. Screw heads +Z are modeled; wire mouth at +X end / Z6.5 is a stated best estimate because source formerly conflates top screw approach and conductor entry."
+    }
+  },
+  "scope": "Installed local connector bodies and wire departures, with optional access probes; not full enclosure harness routing",
+  "service": {
+    "scope": "Terminal datums and local installed leads; full service sequence is not designed here",
+    "PCB": "Flat near the front of the core; below the removable funnel",
+    "power": "The supply and relay terminal columns are aft of the PCB footprint"
+  }
+}
