@@ -10,6 +10,13 @@ with a straight [leg](../../README.md#legs) running on from both ends of its 90�
 the printer, left to right: 1, 2 and 3 mm legs. Each millimetre of leg adds a millimetre to
 both sides of the holder's square footprint, which identifies them.
 
+Mark1 reported FINISH at 51 of 51 layers with no error. Derek reports **“3 mm legs and 2 mm
+thickness works pretty well”** and keeps it as an option where a corner needs one
+([physical result and photos](physical-result.json)). The 1 and 2 mm legs' results are
+unreported.
+
+![The holder's flat back, a short straight run at each end of the turn](photos/02-flat-back.jpg)
+
 ## Process
 
 The [wall comparison's](../2026-10-23-walls-234-petgf-left04-z018-mark1/README.md#process),

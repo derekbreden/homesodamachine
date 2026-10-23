@@ -7,8 +7,9 @@ puts that bend at a [14 mm](BEND_R) centreline radius, from the spool bench test
 tightly round a dense cylinder. The holder is a body round the bend that keeps the tube from
 flattening and kinking there. Nothing in the enclosure carries one.
 
-**The 2 mm wall works** ([physical result](prints/2026-10-23-walls-234-petgf-left04-z018-mark1/physical-result.json)).
-Straight legs on both sides of its turn are printing.
+**The 2 mm wall with 3 mm legs works pretty well** ([physical result](prints/2026-10-23-legs-123-w2-petgf-left04-z018-mark1/physical-result.json)):
+`holder-w2-leg3` is the option for a 1/4" LLDPE corner at R14 that needs holding. Nothing in
+the enclosure carries one yet, and which corners need one is unassessed.
 
 ## Section
 
@@ -61,7 +62,7 @@ and `holder-w2-leg1`, `-leg2` and `-leg3`, each as a STEP and the STL the slicer
 - [2, 3 and 4 mm walls on Mark1](prints/2026-10-23-walls-234-petgf-left04-z018-mark1/README.md),
   task 1366393391: the 2 mm wall works.
 - [2 mm wall with 1, 2 and 3 mm legs on Mark1](prints/2026-10-23-legs-123-w2-petgf-left04-z018-mark1/README.md),
-  task 1366458433.
+  task 1366458433: the 3 mm legs work pretty well.
 
 ## Sources
 [value](NAME) texts are updated by:
