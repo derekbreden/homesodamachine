@@ -1,0 +1,1989 @@
+{
+  "scope": "Current nominal enclosure, plain ideal 9 mm sidewalls and ceiling, current plain cold-core cap; X/Z only",
+  "units": "mm",
+  "ideal_space": {
+    "scope": "Current nominal enclosure, plain ideal 9 mm sidewalls and ceiling, current plain cold-core cap; X/Z only",
+    "units": "mm",
+    "outer_x_mm": [
+      -107.5,
+      107.5
+    ],
+    "outer_z_mm": [
+      -6.0,
+      355.0
+    ],
+    "ideal_wall_and_ceiling_mm": 9.0,
+    "ideal_inner_x_mm": [
+      -98.5,
+      98.5
+    ],
+    "ideal_inner_x_span_mm": 197.0,
+    "ideal_roof_underside_z_mm": 346.0,
+    "world_core_plain_top_z_mm": 253.4,
+    "world_core_plain_x_mm": [
+      -90.5,
+      90.5
+    ],
+    "headroom_mm": 92.6,
+    "derivation": {
+      "outer_roof_z": "361 mm appliance height - 6 mm floor slab = 355 mm",
+      "internal_width": "215 mm nominal exterior - 2 * 9 mm = 197 mm",
+      "ceiling_underside": "355 - 9 = 346 mm",
+      "core_top": "Native plain cap face 233.4 mm - native floor (-20 mm) = world Z253.4 mm",
+      "headroom": "346 - 253.4 = 92.6 mm"
+    },
+    "sources": {
+      "hardware/printed-parts/enclosure/enclosure/enclosure.py": [
+        "floor_t = 6.0",
+        "appliance_height = 361.0",
+        "appliance_width = 215.0"
+      ],
+      "hardware/printed-parts/cold-core/_foam_cap.py": [
+        "stack_floor_z",
+        "cap_face_z"
+      ],
+      "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py": [
+        "cap_face_over_floor = cap_face_z - stack_floor_z"
+      ],
+      "hardware/printed-parts/cold-core/_cold_core_interface.py": [
+        "Plain core short axis 2 * (145 / 2 + 16 + 2) = 181 mm"
+      ],
+      "hardware/manifold-layout/enclosure_assembly.py": [
+        "cap_face",
+        "Current core floor seated at world Z0; native core yaw +90 degrees"
+      ]
+    },
+    "exclusions": [
+      "Y fit",
+      "Existing wall cuts and mounts",
+      "Ceiling pockets and projections",
+      "Cold-core mounting pads above plain cap",
+      "Other equipment above cold core",
+      "Mounting or assembly clearance allowance"
+    ]
+  },
+  "envelope": "Hardware, adapters and local joints up to external connection ports; arbitrary handoff stubs omitted",
+  "placement": "Each variant centered in X; scanned pump foot plane on plain core cap; no mounting or assembly allowance",
+  "variants": {
+    "tight": {
+      "title": "Tighter fold",
+      "layout": {
+        "pump_tpu_clock_degrees_below_plus_y": 25,
+        "upper_group_clock_degrees": 0,
+        "vk_translation_mm": [
+          -25.0952,
+          34.0318574032262,
+          -28.324115728363257
+        ],
+        "vk_head_direction": [
+          0,
+          -1,
+          0
+        ],
+        "vk_ports_axis": [
+          0,
+          0,
+          1
+        ],
+        "vk_bottom_mouth_mm": [
+          -30.011332605004725,
+          34.0318574032262,
+          -9.824115728363257
+        ],
+        "pump_mouth_mm": [
+          -4.916132605004726,
+          16.766694060178025,
+          -7.81843784220294
+        ],
+        "pump_elbow_junction_mm": [
+          -4.916132605004726,
+          34.0318574032262,
+          -15.869315728363262
+        ],
+        "valve_elbow_junction_mm": [
+          -30.011332605004725,
+          34.0318574032262,
+          -15.869315728363262
+        ],
+        "tee_regulator_exposed_tube_mm": 15,
+        "regulator_head_direction": [
+          0,
+          0,
+          -1
+        ],
+        "va_head_direction": [
+          0,
+          -1,
+          0
+        ],
+        "tee_regulator_total_tube_mm": 44.591,
+        "va_ports_axis": [
+          0,
+          0,
+          1
+        ],
+        "va_inlet_local_mm": [
+          109.79206739499527,
+          34.0318574032262,
+          36.67108427163676
+        ],
+        "va_outlet_local_mm": [
+          109.79206739499527,
+          34.0318574032262,
+          -22.828915728363242
+        ],
+        "reg_outlet_local_mm": [
+          103.74686739499526,
+          34.0318574032262,
+          55.721084271636755
+        ],
+        "reg_va_elbow_male_host": "reg",
+        "reg_va_exposed_tube_mm": 0,
+        "va_inlet_world_mm": [
+          69.9017011287684,
+          34.0318574032262,
+          316.79539257914854
+        ],
+        "va_outlet_world_mm": [
+          69.9017011287684,
+          34.0318574032262,
+          257.29539257914854
+        ],
+        "comparison_y_placement": "unconstrained; no Y fit claim"
+      },
+      "metrics": {
+        "local_bounds_mm": [
+          [
+            -46.76133564112176,
+            -115.65298268597115,
+            -26.72430830751182
+          ],
+          [
+            126.5420681735755,
+            65.53185740322621,
+            72.22108396646098
+          ]
+        ],
+        "width_x_mm": 173.30340381469728,
+        "height_z_mm": 98.9453922739728,
+        "ideal_width_x_mm": 197.0,
+        "ideal_height_z_mm": 92.6,
+        "centered_side_gap_mm": 11.848298092651362,
+        "ceiling_intrusion_mm": 6.345392273972806,
+        "va_outlet_above_core_mm": 3.8953925791485773,
+        "group_translation_for_xz_comparison_mm": [
+          -39.89036626622687,
+          0.0,
+          280.1243083075118
+        ],
+        "placed_bounds_mm": [
+          [
+            -86.65170190734864,
+            -115.65298268597115,
+            253.39999999999998
+          ],
+          [
+            86.65170190734864,
+            65.53185740322621,
+            352.3453922739728
+          ]
+        ],
+        "highest_body": "asse",
+        "lower_height_datum": "pump scanned foot plane",
+        "unrelated_body_interferences": [],
+        "va_to_regulator_surface_gap_mm": 7.803184939957191,
+        "va_to_pump_surface_gap_mm": 19.13546557892323,
+        "body_ceiling_intrusions_mm": {
+          "asse": 6.345392273972777,
+          "asse-inlet-tpu": 1.2203925791485517,
+          "asse-outlet-tpu": 0.5853925791485608,
+          "reg": 5.345392579148552
+        }
+      },
+      "mates": [
+        {
+          "a": "asse-outlet-tpu",
+          "b": "tee",
+          "point": [
+            -30.747598871231602,
+            27.986657403226197,
+            335.84539257914855
+          ],
+          "exposed_tube_mm": 0.0,
+          "connection": "male stem into TPU socket",
+          "insertion_mm": 15,
+          "shoulder_gap_mm": 0,
+          "stem_trim_mm": 6.005800000000001
+        },
+        {
+          "a": "pump-outlet-tpu",
+          "b": "check",
+          "point": [
+            39.30419966121266,
+            -18.529465054624836,
+            280.16882837176047
+          ],
+          "exposed_tube_mm": 0.0,
+          "connection": "female faces meet; concealed tube connects sockets"
+        },
+        {
+          "a": "check",
+          "b": "carbonator-fold",
+          "point": [
+            39.30419966121266,
+            -69.52946505462484,
+            280.16882837176047
+          ],
+          "exposed_tube_mm": 0.0,
+          "connection": "male stem into female socket",
+          "insertion_mm": 12.7,
+          "shoulder_gap_mm": 0,
+          "stem_trim_mm": 8.305800000000001
+        },
+        {
+          "a": "vk",
+          "b": "tee-fold",
+          "point": [
+            -69.90169887123159,
+            34.0318574032262,
+            329.80019257914853
+          ],
+          "exposed_tube_mm": 0.0,
+          "connection": "male stem into female socket",
+          "insertion_mm": 12.7,
+          "shoulder_gap_mm": 0,
+          "stem_trim_mm": 8.305800000000001
+        },
+        {
+          "a": "tee-fold",
+          "b": "tee",
+          "point": [
+            -50.851698871231605,
+            34.0318574032262,
+            335.84539257914855
+          ],
+          "exposed_tube_mm": 0.0,
+          "connection": "female sockets joined by concealed tube",
+          "concealed_tube_length_mm": 33.782
+        },
+        {
+          "a": "pump-inlet-tpu",
+          "b": "lower-pump-elbow",
+          "point": [
+            -44.8064988712316,
+            16.766694060178025,
+            272.3058704653089
+          ],
+          "connection": "female mouths connected by concealed tube",
+          "concealed_tube_length_mm": 31.891,
+          "exposed_tube_mm": 0
+        },
+        {
+          "a": "lower-pump-elbow",
+          "b": "lower-valve-elbow",
+          "point": [
+            -50.851698871231605,
+            34.0318574032262,
+            264.2549925791485
+          ],
+          "connection": "male stem into NeoFit socket",
+          "insertion_mm": 16.891,
+          "shoulder_gap_mm": 0,
+          "exposed_tube_mm": 0
+        },
+        {
+          "a": "lower-valve-elbow",
+          "b": "vk",
+          "point": [
+            -69.90169887123159,
+            34.0318574032262,
+            270.30019257914853
+          ],
+          "connection": "male stem into valve socket",
+          "insertion_mm": 12.7,
+          "shoulder_gap_mm": 0,
+          "exposed_tube_mm": 0
+        },
+        {
+          "a": "tee",
+          "b": "tee-regulator-tube",
+          "point": [
+            -10.6434988712316,
+            34.0318574032262,
+            335.84539257914855
+          ],
+          "insertion_mm": 16.891,
+          "connection": "tube in NeoFit tee"
+        },
+        {
+          "a": "tee-regulator-tube",
+          "b": "reg",
+          "point": [
+            4.3565011287684,
+            34.0318574032262,
+            335.84539257914855
+          ],
+          "insertion_mm": 12.7,
+          "insertion_basis": "layout estimate",
+          "connection": "tube in regulator"
+        },
+        {
+          "a": "reg",
+          "b": "reg-va-elbow",
+          "point": [
+            63.85650112876839,
+            34.0318574032262,
+            335.84539257914855
+          ],
+          "exposed_tube_mm": 0,
+          "connection": "trimmed male stem into socket",
+          "insertion_mm": 12.7,
+          "shoulder_gap_mm": 0,
+          "host_insertion_basis": "12.7 mm layout estimate; flush shoulders fix exterior pose"
+        },
+        {
+          "a": "va",
+          "b": "reg-va-elbow",
+          "point": [
+            69.9017011287684,
+            34.0318574032262,
+            316.79539257914854
+          ],
+          "exposed_tube_mm": 0,
+          "connection": "female mouths meet on concealed tube",
+          "concealed_tube_length_mm": 29.591,
+          "host_insertion_basis": "12.7 mm layout estimate; flush shoulders fix exterior pose"
+        }
+      ],
+      "instances": [
+        {
+          "name": "asse",
+          "geometry": "asse",
+          "translation": [
+            -67.64385626622688,
+            50.33665740322619,
+            237.28300257914856
+          ],
+          "rotation": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "label": "ASSE 1022 \u00b7 directly over pump \u00b7 orientation preserved",
+          "role": "neutral",
+          "kind": "component"
+        },
+        {
+          "name": "asse-inlet-tpu",
+          "geometry": "asse-inlet-tpu",
+          "translation": [
+            -67.64385626622688,
+            50.33665740322619,
+            237.28300257914856
+          ],
+          "rotation": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "label": "Proposed straight TPU inlet adapter \u00b7 ASSE",
+          "role": "custom",
+          "kind": "adapter"
+        },
+        {
+          "name": "asse-outlet-tpu",
+          "geometry": "asse-outlet-tpu",
+          "translation": [
+            -67.64385626622688,
+            50.33665740322619,
+            237.28300257914856
+          ],
+          "rotation": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "label": "Proposed straight TPU outlet adapter \u00b7 ASSE",
+          "role": "custom",
+          "kind": "adapter"
+        },
+        {
+          "name": "tee",
+          "geometry": "neofit-branch-trimmed",
+          "translation": [
+            -30.747598871231602,
+            34.0318574032262,
+            335.84539257914855
+          ],
+          "rotation": [
+            [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              -1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "label": "NeoFit ATBU444-E branch stem into the ASSE TPU adapter \u00b7 stem trimmed, shoulder flush",
+          "role": "stem",
+          "kind": "component"
+        },
+        {
+          "name": "vk",
+          "geometry": "vk",
+          "translation": [
+            -64.98556626622687,
+            34.0318574032262,
+            251.80019257914853
+          ],
+          "rotation": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "label": "V-K \u00b7 lowered, vertical ports, head still \u2212Y",
+          "role": "neutral",
+          "kind": "component"
+        },
+        {
+          "name": "reg",
+          "geometry": "reg",
+          "translation": [
+            -53.789756266226874,
+            34.03185740322621,
+            237.28300257914856
+          ],
+          "rotation": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "label": "Regulator \u00b7 head down, straight tube from tee",
+          "role": "neutral",
+          "kind": "component"
+        },
+        {
+          "name": "va",
+          "geometry": "vk",
+          "translation": [
+            74.81783373377311,
+            34.0318574032262,
+            238.79539257914854
+          ],
+          "rotation": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "label": "V-A \u00b7 vertical ports, inlet above outlet, head \u2212Y like V-K",
+          "role": "neutral",
+          "kind": "component"
+        },
+        {
+          "name": "pump-sliding-foot",
+          "geometry": "pump-sliding-foot",
+          "translation": [
+            -39.89036626622687,
+            0.0,
+            280.1243083075118
+          ],
+          "rotation": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "label": "Discharge-side rear rubber slider \u00b7 moved 30 mm toward pump head",
+          "role": "neutral",
+          "kind": "component"
+        },
+        {
+          "name": "pump",
+          "geometry": "pump",
+          "translation": [
+            -39.89036626622687,
+            0.0,
+            280.1243083075118
+          ],
+          "rotation": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "label": "G Ganen pump \u00b7 flow +X, motor projects toward \u2212Y",
+          "role": "neutral",
+          "kind": "component"
+        },
+        {
+          "name": "vent-sleeve",
+          "geometry": "vent-sleeve",
+          "translation": [
+            -67.64385626622688,
+            50.33665740322619,
+            237.28300257914856
+          ],
+          "rotation": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "label": "Straight ASSE vent adapter",
+          "role": "custom",
+          "kind": "adapter"
+        },
+        {
+          "name": "pump-inlet-tpu",
+          "geometry": "pump-inlet-tpu",
+          "translation": [
+            -39.89036626622687,
+            0.0,
+            280.1243083075118
+          ],
+          "rotation": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              -0.42261826174069933,
+              0.90630778703665
+            ],
+            [
+              0.0,
+              -0.90630778703665,
+              -0.42261826174069933
+            ]
+          ],
+          "label": "Existing TPU pump elbow \u00b7 clocked 25\u00b0 downward toward +Y",
+          "role": "custom",
+          "kind": "adapter"
+        },
+        {
+          "name": "pump-inlet-barb-band",
+          "geometry": "pump-inlet-barb-band",
+          "translation": [
+            -39.89036626622687,
+            0.0,
+            280.1243083075118
+          ],
+          "rotation": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              -0.42261826174069933,
+              0.90630778703665
+            ],
+            [
+              0.0,
+              -0.90630778703665,
+              -0.42261826174069933
+            ]
+          ],
+          "label": "Pump inlet barb band",
+          "role": "neutral",
+          "kind": "clamp"
+        },
+        {
+          "name": "pump-inlet-tube-band",
+          "geometry": "pump-inlet-tube-band",
+          "translation": [
+            -39.89036626622687,
+            0.0,
+            280.1243083075118
+          ],
+          "rotation": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              -0.42261826174069933,
+              0.90630778703665
+            ],
+            [
+              0.0,
+              -0.90630778703665,
+              -0.42261826174069933
+            ]
+          ],
+          "label": "Pump inlet tube band",
+          "role": "neutral",
+          "kind": "clamp"
+        },
+        {
+          "name": "pump-outlet-tpu",
+          "geometry": "pump-outlet-tpu",
+          "translation": [
+            -39.89036626622687,
+            0.0,
+            280.1243083075118
+          ],
+          "rotation": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "label": "Existing printed TPU pump outlet elbow \u00b7 direct 90-degree turn",
+          "role": "custom",
+          "kind": "adapter"
+        },
+        {
+          "name": "pump-outlet-barb-band",
+          "geometry": "pump-outlet-barb-band",
+          "translation": [
+            -39.89036626622687,
+            0.0,
+            280.1243083075118
+          ],
+          "rotation": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "label": "Pump outlet barb band",
+          "role": "neutral",
+          "kind": "clamp"
+        },
+        {
+          "name": "pump-outlet-tube-band",
+          "geometry": "pump-outlet-tube-band",
+          "translation": [
+            -39.89036626622687,
+            0.0,
+            280.1243083075118
+          ],
+          "rotation": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "label": "Pump outlet tube band",
+          "role": "neutral",
+          "kind": "clamp"
+        },
+        {
+          "name": "check",
+          "geometry": "check",
+          "translation": [
+            -39.89036626622687,
+            0.0,
+            280.1243083075118
+          ],
+          "rotation": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "label": "Single check \u00b7 axis Y, flow toward \u2212Y",
+          "role": "neutral",
+          "kind": "component"
+        },
+        {
+          "name": "carbonator-fold",
+          "geometry": "stem-elbow-trimmed",
+          "translation": [
+            39.30419966121266,
+            -75.57466505462484,
+            280.16882837176047
+          ],
+          "rotation": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              -1,
+              0,
+              0
+            ],
+            [
+              0,
+              -1,
+              0
+            ]
+          ],
+          "label": "NeoFit stem elbow directly into check outlet \u00b7 stem trimmed, shoulder flush",
+          "role": "stem",
+          "kind": "elbow"
+        },
+        {
+          "name": "tee-fold",
+          "geometry": "stem-elbow-trimmed",
+          "translation": [
+            -69.90169887123159,
+            34.0318574032262,
+            335.84539257914855
+          ],
+          "rotation": [
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ],
+            [
+              1.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "label": "NeoFit stem elbow directly into V-K \u00b7 stem trimmed, shoulder flush",
+          "role": "stem",
+          "kind": "elbow"
+        },
+        {
+          "name": "lower-valve-elbow",
+          "geometry": "stem-elbow-trimmed",
+          "translation": [
+            -69.90169887123159,
+            34.0318574032262,
+            264.2549925791485
+          ],
+          "rotation": [
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              -1
+            ],
+            [
+              -1,
+              0,
+              0
+            ]
+          ],
+          "role": "stem",
+          "kind": "elbow",
+          "label": "Valve-side stem elbow \u00b7 directly into V-K"
+        },
+        {
+          "name": "lower-pump-elbow",
+          "geometry": "stacked-elbow",
+          "translation": [
+            -44.8064988712316,
+            34.0318574032262,
+            264.2549925791485
+          ],
+          "rotation": [
+            [
+              1.0,
+              -0.0,
+              0.0
+            ],
+            [
+              0.0,
+              -0.9063077870366499,
+              -0.42261826174069944
+            ],
+            [
+              0.0,
+              0.42261826174069944,
+              -0.9063077870366499
+            ]
+          ],
+          "role": "stem",
+          "kind": "elbow",
+          "label": "Pump-side stem elbow \u00b7 stem plugs into the other elbow"
+        },
+        {
+          "name": "tee-regulator-tube",
+          "geometry": "tee-regulator-tube",
+          "translation": [
+            -10.6434988712316,
+            34.0318574032262,
+            335.84539257914855
+          ],
+          "rotation": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "role": "flavor",
+          "kind": "tube",
+          "label": "Straight 1/4-inch tube \u00b7 15 mm exposed between tee and regulator"
+        },
+        {
+          "name": "reg-va-elbow",
+          "geometry": "stem-elbow-trimmed",
+          "translation": [
+            69.9017011287684,
+            34.0318574032262,
+            335.84539257914855
+          ],
+          "rotation": [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              -1,
+              0
+            ]
+          ],
+          "role": "stem",
+          "kind": "elbow",
+          "label": "Regulator\u2013V-A \u00b7 one flush stem elbow \u00b7 stem into REG"
+        }
+      ]
+    },
+    "raised": {
+      "title": "Raised outlet",
+      "layout": {
+        "pump_tpu_clock_degrees_below_plus_y": 25,
+        "upper_group_clock_degrees": 0,
+        "vk_translation_mm": [
+          -25.0952,
+          34.0318574032262,
+          -28.324115728363257
+        ],
+        "vk_head_direction": [
+          0,
+          -1,
+          0
+        ],
+        "vk_ports_axis": [
+          0,
+          0,
+          1
+        ],
+        "vk_bottom_mouth_mm": [
+          -30.011332605004725,
+          34.0318574032262,
+          -9.824115728363257
+        ],
+        "pump_mouth_mm": [
+          -4.916132605004726,
+          16.766694060178025,
+          -7.81843784220294
+        ],
+        "pump_elbow_junction_mm": [
+          -4.916132605004726,
+          34.0318574032262,
+          -15.869315728363262
+        ],
+        "valve_elbow_junction_mm": [
+          -30.011332605004725,
+          34.0318574032262,
+          -15.869315728363262
+        ],
+        "tee_regulator_exposed_tube_mm": 15,
+        "regulator_head_direction": [
+          0,
+          0,
+          -1
+        ],
+        "va_head_direction": [
+          0,
+          -1,
+          0
+        ],
+        "tee_regulator_total_tube_mm": 44.591,
+        "va_ports_axis": [
+          0,
+          0,
+          1
+        ],
+        "va_inlet_local_mm": [
+          122.79686739499526,
+          34.0318574032262,
+          49.67588427163675
+        ],
+        "va_outlet_local_mm": [
+          122.79686739499526,
+          34.0318574032262,
+          -9.824115728363253
+        ],
+        "reg_outlet_local_mm": [
+          103.74686739499526,
+          34.0318574032262,
+          55.721084271636755
+        ],
+        "reg_va_elbow_male_host": "va",
+        "reg_va_exposed_tube_mm": 0,
+        "va_inlet_world_mm": [
+          76.40410112876839,
+          34.0318574032262,
+          329.80019257914853
+        ],
+        "va_outlet_world_mm": [
+          76.40410112876839,
+          34.0318574032262,
+          270.30019257914853
+        ],
+        "comparison_y_placement": "unconstrained; no Y fit claim"
+      },
+      "metrics": {
+        "local_bounds_mm": [
+          [
+            -46.76133564112176,
+            -115.65298268597115,
+            -26.72430830751182
+          ],
+          [
+            139.5468681735755,
+            65.53185740322621,
+            72.22108396646098
+          ]
+        ],
+        "width_x_mm": 186.30820381469726,
+        "height_z_mm": 98.9453922739728,
+        "ideal_width_x_mm": 197.0,
+        "ideal_height_z_mm": 92.6,
+        "centered_side_gap_mm": 5.3458980926513675,
+        "ceiling_intrusion_mm": 6.345392273972806,
+        "va_outlet_above_core_mm": 16.900192579148566,
+        "group_translation_for_xz_comparison_mm": [
+          -46.392766266226865,
+          0.0,
+          280.1243083075118
+        ],
+        "placed_bounds_mm": [
+          [
+            -93.15410190734863,
+            -115.65298268597115,
+            253.39999999999998
+          ],
+          [
+            93.15410190734863,
+            65.53185740322621,
+            352.3453922739728
+          ]
+        ],
+        "highest_body": "asse",
+        "lower_height_datum": "pump scanned foot plane",
+        "unrelated_body_interferences": [],
+        "va_to_regulator_surface_gap_mm": 12.178339105642584,
+        "va_to_pump_surface_gap_mm": 33.001947702392926,
+        "body_ceiling_intrusions_mm": {
+          "asse": 6.345392273972777,
+          "asse-inlet-tpu": 1.2203925791485517,
+          "asse-outlet-tpu": 0.5853925791485608,
+          "reg": 5.345392579148552
+        }
+      },
+      "mates": [
+        {
+          "a": "asse-outlet-tpu",
+          "b": "tee",
+          "point": [
+            -37.2499988712316,
+            27.986657403226197,
+            335.84539257914855
+          ],
+          "exposed_tube_mm": 0.0,
+          "connection": "male stem into TPU socket",
+          "insertion_mm": 15,
+          "shoulder_gap_mm": 0,
+          "stem_trim_mm": 6.005800000000001
+        },
+        {
+          "a": "pump-outlet-tpu",
+          "b": "check",
+          "point": [
+            32.80179966121266,
+            -18.529465054624836,
+            280.16882837176047
+          ],
+          "exposed_tube_mm": 0.0,
+          "connection": "female faces meet; concealed tube connects sockets"
+        },
+        {
+          "a": "check",
+          "b": "carbonator-fold",
+          "point": [
+            32.80179966121266,
+            -69.52946505462484,
+            280.16882837176047
+          ],
+          "exposed_tube_mm": 0.0,
+          "connection": "male stem into female socket",
+          "insertion_mm": 12.7,
+          "shoulder_gap_mm": 0,
+          "stem_trim_mm": 8.305800000000001
+        },
+        {
+          "a": "vk",
+          "b": "tee-fold",
+          "point": [
+            -76.40409887123158,
+            34.0318574032262,
+            329.80019257914853
+          ],
+          "exposed_tube_mm": 0.0,
+          "connection": "male stem into female socket",
+          "insertion_mm": 12.7,
+          "shoulder_gap_mm": 0,
+          "stem_trim_mm": 8.305800000000001
+        },
+        {
+          "a": "tee-fold",
+          "b": "tee",
+          "point": [
+            -57.3540988712316,
+            34.0318574032262,
+            335.84539257914855
+          ],
+          "exposed_tube_mm": 0.0,
+          "connection": "female sockets joined by concealed tube",
+          "concealed_tube_length_mm": 33.782
+        },
+        {
+          "a": "pump-inlet-tpu",
+          "b": "lower-pump-elbow",
+          "point": [
+            -51.30889887123159,
+            16.766694060178025,
+            272.3058704653089
+          ],
+          "connection": "female mouths connected by concealed tube",
+          "concealed_tube_length_mm": 31.891,
+          "exposed_tube_mm": 0
+        },
+        {
+          "a": "lower-pump-elbow",
+          "b": "lower-valve-elbow",
+          "point": [
+            -57.3540988712316,
+            34.0318574032262,
+            264.2549925791485
+          ],
+          "connection": "male stem into NeoFit socket",
+          "insertion_mm": 16.891,
+          "shoulder_gap_mm": 0,
+          "exposed_tube_mm": 0
+        },
+        {
+          "a": "lower-valve-elbow",
+          "b": "vk",
+          "point": [
+            -76.40409887123158,
+            34.0318574032262,
+            270.30019257914853
+          ],
+          "connection": "male stem into valve socket",
+          "insertion_mm": 12.7,
+          "shoulder_gap_mm": 0,
+          "exposed_tube_mm": 0
+        },
+        {
+          "a": "tee",
+          "b": "tee-regulator-tube",
+          "point": [
+            -17.145898871231594,
+            34.0318574032262,
+            335.84539257914855
+          ],
+          "insertion_mm": 16.891,
+          "connection": "tube in NeoFit tee"
+        },
+        {
+          "a": "tee-regulator-tube",
+          "b": "reg",
+          "point": [
+            -2.1458988712315943,
+            34.0318574032262,
+            335.84539257914855
+          ],
+          "insertion_mm": 12.7,
+          "insertion_basis": "layout estimate",
+          "connection": "tube in regulator"
+        },
+        {
+          "a": "va",
+          "b": "reg-va-elbow",
+          "point": [
+            76.40410112876839,
+            34.0318574032262,
+            329.80019257914853
+          ],
+          "exposed_tube_mm": 0,
+          "connection": "trimmed male stem into socket",
+          "insertion_mm": 12.7,
+          "shoulder_gap_mm": 0,
+          "host_insertion_basis": "12.7 mm layout estimate; flush shoulders fix exterior pose"
+        },
+        {
+          "a": "reg",
+          "b": "reg-va-elbow",
+          "point": [
+            57.3541011287684,
+            34.0318574032262,
+            335.84539257914855
+          ],
+          "exposed_tube_mm": 0,
+          "connection": "female mouths meet on concealed tube",
+          "concealed_tube_length_mm": 29.591,
+          "host_insertion_basis": "12.7 mm layout estimate; flush shoulders fix exterior pose"
+        }
+      ],
+      "instances": [
+        {
+          "name": "asse",
+          "geometry": "asse",
+          "translation": [
+            -74.14625626622687,
+            50.33665740322619,
+            237.28300257914856
+          ],
+          "rotation": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "label": "ASSE 1022 \u00b7 directly over pump \u00b7 orientation preserved",
+          "role": "neutral",
+          "kind": "component"
+        },
+        {
+          "name": "asse-inlet-tpu",
+          "geometry": "asse-inlet-tpu",
+          "translation": [
+            -74.14625626622687,
+            50.33665740322619,
+            237.28300257914856
+          ],
+          "rotation": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "label": "Proposed straight TPU inlet adapter \u00b7 ASSE",
+          "role": "custom",
+          "kind": "adapter"
+        },
+        {
+          "name": "asse-outlet-tpu",
+          "geometry": "asse-outlet-tpu",
+          "translation": [
+            -74.14625626622687,
+            50.33665740322619,
+            237.28300257914856
+          ],
+          "rotation": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "label": "Proposed straight TPU outlet adapter \u00b7 ASSE",
+          "role": "custom",
+          "kind": "adapter"
+        },
+        {
+          "name": "tee",
+          "geometry": "neofit-branch-trimmed",
+          "translation": [
+            -37.2499988712316,
+            34.0318574032262,
+            335.84539257914855
+          ],
+          "rotation": [
+            [
+              -1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              -1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "label": "NeoFit ATBU444-E branch stem into the ASSE TPU adapter \u00b7 stem trimmed, shoulder flush",
+          "role": "stem",
+          "kind": "component"
+        },
+        {
+          "name": "vk",
+          "geometry": "vk",
+          "translation": [
+            -71.48796626622686,
+            34.0318574032262,
+            251.80019257914853
+          ],
+          "rotation": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "label": "V-K \u00b7 lowered, vertical ports, head still \u2212Y",
+          "role": "neutral",
+          "kind": "component"
+        },
+        {
+          "name": "reg",
+          "geometry": "reg",
+          "translation": [
+            -60.29215626622687,
+            34.03185740322621,
+            237.28300257914856
+          ],
+          "rotation": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "label": "Regulator \u00b7 head down, straight tube from tee",
+          "role": "neutral",
+          "kind": "component"
+        },
+        {
+          "name": "va",
+          "geometry": "vk",
+          "translation": [
+            81.32023373377311,
+            34.0318574032262,
+            251.80019257914853
+          ],
+          "rotation": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "label": "V-A \u00b7 vertical ports, inlet above outlet, head \u2212Y like V-K",
+          "role": "neutral",
+          "kind": "component"
+        },
+        {
+          "name": "pump-sliding-foot",
+          "geometry": "pump-sliding-foot",
+          "translation": [
+            -46.392766266226865,
+            0.0,
+            280.1243083075118
+          ],
+          "rotation": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "label": "Discharge-side rear rubber slider \u00b7 moved 30 mm toward pump head",
+          "role": "neutral",
+          "kind": "component"
+        },
+        {
+          "name": "pump",
+          "geometry": "pump",
+          "translation": [
+            -46.392766266226865,
+            0.0,
+            280.1243083075118
+          ],
+          "rotation": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "label": "G Ganen pump \u00b7 flow +X, motor projects toward \u2212Y",
+          "role": "neutral",
+          "kind": "component"
+        },
+        {
+          "name": "vent-sleeve",
+          "geometry": "vent-sleeve",
+          "translation": [
+            -74.14625626622687,
+            50.33665740322619,
+            237.28300257914856
+          ],
+          "rotation": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "label": "Straight ASSE vent adapter",
+          "role": "custom",
+          "kind": "adapter"
+        },
+        {
+          "name": "pump-inlet-tpu",
+          "geometry": "pump-inlet-tpu",
+          "translation": [
+            -46.392766266226865,
+            0.0,
+            280.1243083075118
+          ],
+          "rotation": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              -0.42261826174069933,
+              0.90630778703665
+            ],
+            [
+              0.0,
+              -0.90630778703665,
+              -0.42261826174069933
+            ]
+          ],
+          "label": "Existing TPU pump elbow \u00b7 clocked 25\u00b0 downward toward +Y",
+          "role": "custom",
+          "kind": "adapter"
+        },
+        {
+          "name": "pump-inlet-barb-band",
+          "geometry": "pump-inlet-barb-band",
+          "translation": [
+            -46.392766266226865,
+            0.0,
+            280.1243083075118
+          ],
+          "rotation": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              -0.42261826174069933,
+              0.90630778703665
+            ],
+            [
+              0.0,
+              -0.90630778703665,
+              -0.42261826174069933
+            ]
+          ],
+          "label": "Pump inlet barb band",
+          "role": "neutral",
+          "kind": "clamp"
+        },
+        {
+          "name": "pump-inlet-tube-band",
+          "geometry": "pump-inlet-tube-band",
+          "translation": [
+            -46.392766266226865,
+            0.0,
+            280.1243083075118
+          ],
+          "rotation": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              -0.42261826174069933,
+              0.90630778703665
+            ],
+            [
+              0.0,
+              -0.90630778703665,
+              -0.42261826174069933
+            ]
+          ],
+          "label": "Pump inlet tube band",
+          "role": "neutral",
+          "kind": "clamp"
+        },
+        {
+          "name": "pump-outlet-tpu",
+          "geometry": "pump-outlet-tpu",
+          "translation": [
+            -46.392766266226865,
+            0.0,
+            280.1243083075118
+          ],
+          "rotation": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "label": "Existing printed TPU pump outlet elbow \u00b7 direct 90-degree turn",
+          "role": "custom",
+          "kind": "adapter"
+        },
+        {
+          "name": "pump-outlet-barb-band",
+          "geometry": "pump-outlet-barb-band",
+          "translation": [
+            -46.392766266226865,
+            0.0,
+            280.1243083075118
+          ],
+          "rotation": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "label": "Pump outlet barb band",
+          "role": "neutral",
+          "kind": "clamp"
+        },
+        {
+          "name": "pump-outlet-tube-band",
+          "geometry": "pump-outlet-tube-band",
+          "translation": [
+            -46.392766266226865,
+            0.0,
+            280.1243083075118
+          ],
+          "rotation": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "label": "Pump outlet tube band",
+          "role": "neutral",
+          "kind": "clamp"
+        },
+        {
+          "name": "check",
+          "geometry": "check",
+          "translation": [
+            -46.392766266226865,
+            0.0,
+            280.1243083075118
+          ],
+          "rotation": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "label": "Single check \u00b7 axis Y, flow toward \u2212Y",
+          "role": "neutral",
+          "kind": "component"
+        },
+        {
+          "name": "carbonator-fold",
+          "geometry": "stem-elbow-trimmed",
+          "translation": [
+            32.80179966121266,
+            -75.57466505462484,
+            280.16882837176047
+          ],
+          "rotation": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              -1,
+              0,
+              0
+            ],
+            [
+              0,
+              -1,
+              0
+            ]
+          ],
+          "label": "NeoFit stem elbow directly into check outlet \u00b7 stem trimmed, shoulder flush",
+          "role": "stem",
+          "kind": "elbow"
+        },
+        {
+          "name": "tee-fold",
+          "geometry": "stem-elbow-trimmed",
+          "translation": [
+            -76.40409887123158,
+            34.0318574032262,
+            335.84539257914855
+          ],
+          "rotation": [
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ],
+            [
+              1.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "label": "NeoFit stem elbow directly into V-K \u00b7 stem trimmed, shoulder flush",
+          "role": "stem",
+          "kind": "elbow"
+        },
+        {
+          "name": "lower-valve-elbow",
+          "geometry": "stem-elbow-trimmed",
+          "translation": [
+            -76.40409887123158,
+            34.0318574032262,
+            264.2549925791485
+          ],
+          "rotation": [
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              -1
+            ],
+            [
+              -1,
+              0,
+              0
+            ]
+          ],
+          "role": "stem",
+          "kind": "elbow",
+          "label": "Valve-side stem elbow \u00b7 directly into V-K"
+        },
+        {
+          "name": "lower-pump-elbow",
+          "geometry": "stacked-elbow",
+          "translation": [
+            -51.30889887123159,
+            34.0318574032262,
+            264.2549925791485
+          ],
+          "rotation": [
+            [
+              1.0,
+              -0.0,
+              0.0
+            ],
+            [
+              0.0,
+              -0.9063077870366499,
+              -0.42261826174069944
+            ],
+            [
+              0.0,
+              0.42261826174069944,
+              -0.9063077870366499
+            ]
+          ],
+          "role": "stem",
+          "kind": "elbow",
+          "label": "Pump-side stem elbow \u00b7 stem plugs into the other elbow"
+        },
+        {
+          "name": "tee-regulator-tube",
+          "geometry": "tee-regulator-tube",
+          "translation": [
+            -17.145898871231594,
+            34.0318574032262,
+            335.84539257914855
+          ],
+          "rotation": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "role": "flavor",
+          "kind": "tube",
+          "label": "Straight 1/4-inch tube \u00b7 15 mm exposed between tee and regulator"
+        },
+        {
+          "name": "reg-va-elbow",
+          "geometry": "stem-elbow-trimmed",
+          "translation": [
+            76.40410112876839,
+            34.0318574032262,
+            335.84539257914855
+          ],
+          "rotation": [
+            [
+              0,
+              -1,
+              0
+            ],
+            [
+              0,
+              0,
+              -1
+            ],
+            [
+              1,
+              0,
+              0
+            ]
+          ],
+          "role": "stem",
+          "kind": "elbow",
+          "label": "Regulator\u2013V-A \u00b7 one flush stem elbow \u00b7 stem into VA"
+        }
+      ]
+    }
+  }
+}
