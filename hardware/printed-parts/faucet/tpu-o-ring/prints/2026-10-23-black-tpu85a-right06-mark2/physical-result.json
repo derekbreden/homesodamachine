@@ -1,5 +1,5 @@
 {
-  "status": "RUNNING; physical stringing, fit and sealing result pending",
+  "status": "Print quality accepted qualitatively; specific stringing, fit and sealing unreported",
   "printer": "Mark2",
   "printer_task_id": "1368570348",
   "archive_sha256": "0d26f90af214159359d9bd5cdf33f88f4c88b28519f11ab4bf27439b1578d5b4",
@@ -9,5 +9,16 @@
   "right_nozzle_mm": 0.6,
   "local_user_z_trim_mm": 0,
   "startup_status": "startup.json",
-  "scope": "One Touch-Flo sealing sleeve with deposited cap tours and the retained native spiral. Printed strands, tube-plus-sleeve seating and sealing require their own physical result."
+  "scope": "One Touch-Flo sleeve on the identified archive and recipe. The report accepts general print quality; it does not identify stringing, assembled seating or a seal test.",
+  "reported_date": "2026-10-23",
+  "reported_by": "Derek",
+  "verbatim": "Okay, that came out pretty well.",
+  "printer_completion": {
+    "gcode_state": "FINISH",
+    "printer_task_id": "1368570348",
+    "percent": 100,
+    "print_error": 0,
+    "hms": [],
+    "observed_at_utc": "2026-10-23T22:05:50.815580+00:00"
+  }
 }

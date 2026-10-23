@@ -1,0 +1,17 @@
+{
+  "observed_at_utc": "2026-10-23T22:06:48.064105+00:00",
+  "application": "Bambu Connect",
+  "observation": "CUA accessibility tree and screenshot immediately before Send",
+  "printer": "Mark2",
+  "plate_label": "Engineering",
+  "import_summary_bed_type": "Engineering Plate",
+  "material_tile": "Ext TPU R",
+  "nozzle_column": "Right Nozzle",
+  "timelapse": "Off",
+  "bed_leveling": "On",
+  "flow_calibration": "Auto",
+  "nozzle_offset_calibration": "Auto",
+  "send_enabled": true,
+  "displayed_native_estimate_minutes": 43,
+  "displayed_grams": 5.88
+}

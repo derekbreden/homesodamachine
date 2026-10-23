@@ -4,6 +4,12 @@
 
 The [selected recipe](finish-selection.json) uses A2 with Back on the base, tip and mounting plate, rear-center seam enforcement through the base's full rear silhouette and the tip's exposed curved neck, ordinary corner seams on the cover and lever, and E's eight coarse lip layers. The [production approval](prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json) binds the exact base-and-tip print, complete project and source meshes. The other three rigid parts retain the [accepted complete-print reference](prints/2026-10-13-a2-back-mark2/physical-result.json). Black and white use the same rigid geometry; the TPU gasket and lever sleeve, PET-GF organizer and steel under-counter plate are separate parts.
 
+The [black TPU above-counter mounting gasket](prints/2026-10-23-mounting-gasket-tpu85a-right06-mark2/README.md)
+uses the current Industrial footprint on Mark2's right 0.6 mm nozzle, black
+Bambu TPU 85A, glued Engineering Plate and zero added user Z trim. Its processed
+archive uses deposited turns and contained straight transfers through all ten
+solid layers, with timelapse off. Finished fit and spill sealing are unreported.
+
 | Position | Part | CAD X rotation |
 | --- | --- | ---: |
 | Left | Industrial shell base | −15° |

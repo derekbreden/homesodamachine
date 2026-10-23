@@ -1,0 +1,179 @@
+{
+  "project": "2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2.3mf",
+  "settings_source": "hardware/printed-parts/gaskets.3mf",
+  "settings_source_sha256": "07b85189418db5d95e986983650d9d454c2cd42c56fdf178edec691683fa0513",
+  "settings_sha256": "fe316646299ae502e0b40c5095a9920a87aca89e772259c5a35cfc7bde70b4e0",
+  "source_settings_sha256": "fe316646299ae502e0b40c5095a9920a87aca89e772259c5a35cfc7bde70b4e0",
+  "settings_changes": {
+    "brim_type": {
+      "from": "auto_brim",
+      "to": "no_brim"
+    },
+    "brim_width": {
+      "from": "5",
+      "to": "0"
+    },
+    "curr_bed_type": {
+      "from": "Textured PEI Plate",
+      "to": "Engineering Plate"
+    },
+    "filament_colour": {
+      "from": [
+        "#000000"
+      ],
+      "to": [
+        "#161616"
+      ]
+    },
+    "filament_map": {
+      "from": [
+        "1"
+      ],
+      "to": [
+        "2"
+      ]
+    },
+    "filament_nozzle_map": {
+      "from": [
+        "0"
+      ],
+      "to": [
+        "1"
+      ]
+    },
+    "print_compatible_printers": {
+      "from": [
+        "Bambu Lab H2C 0.6 nozzle"
+      ],
+      "to": [
+        "Bambu Lab H2C 0.6 Standard zero user Z trim"
+      ]
+    },
+    "print_settings_id": {
+      "from": "0.18mm Balanced Quality @BBL H2C 0.6 nozzle",
+      "to": "Industrial solid mounting gasket Bambu85A Mark2"
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.6 nozzle",
+      "to": "Bambu Lab H2C 0.6 Standard zero user Z trim"
+    },
+    "reduce_crossing_wall": {
+      "from": "0",
+      "to": "1"
+    },
+    "seam_gap": {
+      "from": "15%",
+      "to": "0%"
+    },
+    "time_lapse_gcode": {
+      "from": ";===== machine: H2C timelapse =====\n;======== date: 20260122 ========\n\n; SKIPPABLE_START\n; SKIPTYPE: timelapse\n\nM1002 judge_flag timelapse_record_flag\nM622 J1\n    {if !spiral_mode}\n        M993 A2 B2 C2\n        M993 A0 B0 C0\n    {endif}\n\n    {if !spiral_mode && !(has_timelapse_safe_pos) }\n        {if most_used_physical_extruder_id!= curr_physical_extruder_id || timelapse_type == 1}\n            M83\n            G1 Z{max_layer_z + 0.4} F1200\n            M400\n        {endif}\n    {endif}\n\n    {if has_timelapse_safe_pos && !spiral_mode}\n        M9711 M{timelapse_type} E{most_used_physical_extruder_id} U{timelapse_pos_x} V{timelapse_pos_y} Z{layer_z + 0.4} S11 C10 O0 T3000\n    {else}\n        {if spiral_mode}\n            M971 S11 C10 O0\n            M1004 S5 P1  ; external shutter\n        {else}\n            M9711 M{timelapse_type} E{most_used_physical_extruder_id} Z{layer_z + 0.4} S11 C10 O0 T3000\n        {endif}\n    {endif}\n\n    {if !spiral_mode && !(has_timelapse_safe_pos) }\n        {if most_used_physical_extruder_id!= curr_physical_extruder_id || timelapse_type == 1}\n            G90\n            G1 Z{max_layer_z + 3.0} F1200\n            G1 Y295 F30000\n            G1 Y265 F18000\n            M83\n        {endif}\n    {endif}\n    \n    {if !spiral_mode}\n        M993 A3 B3 C3\n    {endif}\nM623\n; SKIPPABLE_END\n",
+      "to": ""
+    }
+  },
+  "printer": "Mark2",
+  "process": "Industrial solid mounting gasket Bambu85A Mark2",
+  "filament": [
+    "Bambu TPU 85A @BBL H2C"
+  ],
+  "layer_height_mm": 0.18,
+  "nozzle_diameter_mm": [
+    0.6,
+    0.6
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.62,
+    "inner_wall_line_width": 0.62,
+    "sparse_infill_line_width": 0.62,
+    "internal_solid_infill_line_width": 0.62,
+    "top_surface_line_width": 0.62,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 100.0,
+  "sparse_infill_pattern": "zig-zag",
+  "saved_profile_filament_density_g_cm3": [
+    1.22
+  ],
+  "bed_type": "Engineering Plate",
+  "shared_printable_area_mm": [
+    [
+      25.0,
+      0.0
+    ],
+    [
+      330.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    1
+  ],
+  "plate_border_mm": 80.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "industrial-above-counter-gasket",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.stl",
+      "stl_sha256": "306ad5f786ecfeccb85c3b9c3a883fcb2646c883619d6738814042ac51e33edc",
+      "triangles": 3036,
+      "rotation_x_degrees": 0.0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        -5.0
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -0.0,
+        1.0,
+        177.5,
+        160.0,
+        1.0
+      ],
+      "plate_translation_mm": [
+        177.5,
+        160.0,
+        1.0
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          148.0,
+          130.5,
+          0.0
+        ],
+        [
+          207.0,
+          189.5,
+          2.0
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.99755792304768e-10
+    }
+  ],
+  "project_sha256": "681d80d6f3bdc7f58fb9aa8990229a24ba93d86f060e6de75437e933d09910fc",
+  "settings_preserved_byte_for_byte": true,
+  "material": "Black Bambu TPU 85A",
+  "nozzle_mapping": "Right fixed 0.6 mm; external spool 255",
+  "requested_z_trim_mm": 0,
+  "mesh_sha256": "306ad5f786ecfeccb85c3b9c3a883fcb2646c883619d6738814042ac51e33edc",
+  "count": 1,
+  "preparation_script_sha256": "e0d308d58e7aeb6c83f17d45da24bc77d93ecdf0d69e9abcaad73c3e8c0419be"
+}

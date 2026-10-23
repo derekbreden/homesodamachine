@@ -1,5 +1,26 @@
 # Industrial faucet print log
 
+## Above-counter mounting gasket — 2026-10-23, Mark2
+
+Mark2 accepted [one current Industrial TPU gasket](prints/2026-10-23-mounting-gasket-tpu85a-right06-mark2/README.md)
+as task **1368637649** at **17:07 CDT**. The flat, centered gasket uses black
+Bambu TPU 85A through the right fixed 0.6 mm nozzle, the cleared and glued
+Engineering Plate at 35°C, zero added user Z trim and 225°C nozzle temperature.
+The dense recipe has two Arachne walls, 100% zigzag infill and 0.30/0.18 mm layers.
+The native estimate is 43 minutes / 5.88 g, with ten layers.
+
+Every layer follows deposited tours through turns, with straight contained
+transfers. All 3,955 native deposition commands are accounted for without
+added plastic. Both openings remain present; no checked free attachment chord
+crosses them, including the conservative 1 mm attachment-run check. In-part
+retractions, Z hops and camera commands are absent. Timelapse is Off, bed
+leveling On, flow and nozzle-offset calibration Auto. Native startup/shutdown
+bytes and their entry/final positions are retained. Printed stringing,
+flatness, counter fit and spill sealing are unreported.
+At **17:15:51 CDT**, the exact task is RUNNING at **1/10** beyond plate
+detection, with **225°C** at the right nozzle, **35°C** at the bed, timelapse
+disabled, no print error and no HMS. Bambu Connect displays Printing, 1/10.
+
 ## Complete black faucet — 2026-10-23, Mark2
 
 The [complete five-part plate](prints/2026-10-23-black-complete-mark2/README.md)
