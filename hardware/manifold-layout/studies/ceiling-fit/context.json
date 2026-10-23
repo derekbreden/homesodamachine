@@ -1,0 +1,196 @@
+{
+  "scope": "A few proposed neighbours; current funnel/frame reference geometry, moved PCB and water bulkhead. No production-pack migration.",
+  "instances": [
+    {
+      "name": "bulkhead-water",
+      "geometry": "bulkhead-water",
+      "translation": [
+        115.31999887123159,
+        0.0,
+        -1.8345329574082143
+      ],
+      "rotation": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "role": "carbonator",
+      "kind": "component",
+      "context": true,
+      "label": "Water bulkhead \u00b7 rear wall \u00b7 straight into ASSE"
+    },
+    {
+      "name": "pcba",
+      "geometry": "pcba",
+      "translation": [
+        -6.0,
+        116.01606750488281,
+        3.0000061035156307
+      ],
+      "rotation": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "role": "electronics",
+      "kind": "component",
+      "context": true,
+      "label": "Main PCB \u00b7 populated model \u00b7 four M3 wall standoffs \u00b7 3mm above cap"
+    },
+    {
+      "name": "funnel",
+      "geometry": "funnel",
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "role": "neutral",
+      "kind": "component",
+      "context": true,
+      "label": "Current silicone funnel \u00b7 existing world pose"
+    },
+    {
+      "name": "funnel-frame",
+      "geometry": "funnel-frame",
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "role": "neutral",
+      "kind": "component",
+      "context": true,
+      "label": "Current funnel frame \u00b7 existing world pose"
+    },
+    {
+      "name": "bulkhead-nut",
+      "geometry": "bulkhead-retention-nut-estimate",
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "role": "neutral",
+      "kind": "component",
+      "context": true,
+      "label": "Water bulkhead retention nut \u00b7 estimated 20mm AF \u00d74mm \u00b7 seats on inner wall"
+    }
+  ],
+  "pins": [
+    {
+      "text": "Water bulkhead",
+      "at": [
+        37.24999917640737,
+        463.6549987792969,
+        334.37605359044335
+      ],
+      "context": true
+    },
+    {
+      "text": "Main PCB",
+      "at": [
+        81.69999694824219,
+        397.4080276489258,
+        292.8000091552734
+      ],
+      "context": true
+    },
+    {
+      "text": "Current funnel",
+      "at": [
+        0.0,
+        164.69575119018555,
+        332.0249938964844
+      ],
+      "context": true
+    }
+  ],
+  "mates": [
+    {
+      "a": "funnel",
+      "b": "funnel-frame",
+      "connection": "Existing silicone/frame seating interface"
+    },
+    {
+      "a": "bulkhead-water",
+      "b": "bulkhead-nut",
+      "connection": "Estimated retention nut on reference barrel"
+    }
+  ]
+}
