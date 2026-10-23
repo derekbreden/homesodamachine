@@ -1,0 +1,574 @@
+{
+  "meshes": [
+    {
+      "name": "asse",
+      "label": "ASSE 1022 \u00b7 orientation preserved; translated to follow the tee",
+      "role": "neutral",
+      "kind": "component",
+      "vertices": "v0",
+      "faces": "f0"
+    },
+    {
+      "name": "asse-inlet-tpu",
+      "label": "Proposed straight TPU inlet adapter \u00b7 ASSE",
+      "role": "custom",
+      "kind": "adapter",
+      "vertices": "v1",
+      "faces": "f1"
+    },
+    {
+      "name": "asse-outlet-tpu",
+      "label": "Proposed straight TPU outlet adapter \u00b7 ASSE",
+      "role": "custom",
+      "kind": "adapter",
+      "vertices": "v2",
+      "faces": "f2"
+    },
+    {
+      "name": "tee",
+      "label": "Purchased 1/4-inch push-connect tee",
+      "role": "neutral",
+      "kind": "component",
+      "vertices": "v3",
+      "faces": "f3"
+    },
+    {
+      "name": "vk",
+      "label": "V-K \u00b7 vertical ports, head points toward \u2212Y",
+      "role": "neutral",
+      "kind": "component",
+      "vertices": "v4",
+      "faces": "f4"
+    },
+    {
+      "name": "reg",
+      "label": "Compact Yetaha regulator \u00b7 folded over pump, photo-based exterior estimate",
+      "role": "neutral",
+      "kind": "component",
+      "vertices": "v5",
+      "faces": "f5"
+    },
+    {
+      "name": "va",
+      "label": "V-A \u00b7 after regulator, extending toward +X",
+      "role": "neutral",
+      "kind": "component",
+      "vertices": "v6",
+      "faces": "f6"
+    },
+    {
+      "name": "pump-sliding-foot",
+      "label": "Discharge-side rear rubber slider \u00b7 moved 30 mm toward pump head",
+      "role": "neutral",
+      "kind": "component",
+      "vertices": "v7",
+      "faces": "f7"
+    },
+    {
+      "name": "pump",
+      "label": "G Ganen pump \u00b7 flow +X, motor projects toward \u2212Y",
+      "role": "neutral",
+      "kind": "component",
+      "vertices": "v8",
+      "faces": "f8"
+    },
+    {
+      "name": "vent-sleeve",
+      "label": "Straight ASSE vent adapter",
+      "role": "custom",
+      "kind": "adapter",
+      "vertices": "v9",
+      "faces": "f9"
+    },
+    {
+      "name": "water-in",
+      "label": "Water supply \u00b7 1/4-inch tube",
+      "role": "neutral",
+      "kind": "tube",
+      "vertices": "v10",
+      "faces": "f10"
+    },
+    {
+      "name": "va-flavor",
+      "label": "To flavor manifold",
+      "role": "flavor",
+      "kind": "tube",
+      "vertices": "v11",
+      "faces": "f11"
+    },
+    {
+      "name": "vent",
+      "label": "ASSE atmospheric vent \u00b7 4 mm tube to faucet",
+      "role": "neutral",
+      "kind": "tube",
+      "vertices": "v12",
+      "faces": "f12"
+    },
+    {
+      "name": "pump-inlet-tpu",
+      "label": "Existing printed TPU pump inlet elbow \u00b7 direct 90-degree turn",
+      "role": "custom",
+      "kind": "adapter",
+      "vertices": "v13",
+      "faces": "f13"
+    },
+    {
+      "name": "pump-inlet-barb-band",
+      "label": "Pump inlet barb band",
+      "role": "neutral",
+      "kind": "clamp",
+      "vertices": "v14",
+      "faces": "f14"
+    },
+    {
+      "name": "pump-inlet-tube-band",
+      "label": "Pump inlet tube band",
+      "role": "neutral",
+      "kind": "clamp",
+      "vertices": "v15",
+      "faces": "f15"
+    },
+    {
+      "name": "pump-outlet-tpu",
+      "label": "Existing printed TPU pump outlet elbow \u00b7 direct 90-degree turn",
+      "role": "custom",
+      "kind": "adapter",
+      "vertices": "v16",
+      "faces": "f16"
+    },
+    {
+      "name": "pump-outlet-barb-band",
+      "label": "Pump outlet barb band",
+      "role": "neutral",
+      "kind": "clamp",
+      "vertices": "v17",
+      "faces": "f17"
+    },
+    {
+      "name": "pump-outlet-tube-band",
+      "label": "Pump outlet tube band",
+      "role": "neutral",
+      "kind": "clamp",
+      "vertices": "v18",
+      "faces": "f18"
+    },
+    {
+      "name": "check",
+      "label": "Single check \u00b7 axis Y, flow toward \u2212Y",
+      "role": "neutral",
+      "kind": "component",
+      "vertices": "v19",
+      "faces": "f19"
+    },
+    {
+      "name": "carbonator-fold",
+      "label": "Purchased/scanned John Guest 1/4-inch union elbow",
+      "role": "neutral",
+      "kind": "elbow",
+      "vertices": "v20",
+      "faces": "f20"
+    },
+    {
+      "name": "check-carbonator",
+      "label": "To carbonator \u00b7 outlet points down in \u2212Z",
+      "role": "carbonator",
+      "kind": "tube",
+      "vertices": "v21",
+      "faces": "f21"
+    },
+    {
+      "name": "tee-fold",
+      "label": "John Guest union elbow \u00b7 V-K to tee",
+      "role": "neutral",
+      "kind": "elbow",
+      "vertices": "v22",
+      "faces": "f22"
+    }
+  ],
+  "pins": [
+    {
+      "text": "ASSE 1022",
+      "at": [
+        48.896257394995274,
+        -75.35,
+        98.56239
+      ],
+      "offset": [
+        10,
+        4
+      ],
+      "short": "ASSE"
+    },
+    {
+      "text": "Tee",
+      "at": [
+        36.896257394995274,
+        0.0,
+        98.56239
+      ],
+      "offset": [
+        -10,
+        15
+      ]
+    },
+    {
+      "text": "V-K \u00b7 head \u2212Y",
+      "at": [
+        -4.916132605004726,
+        -46.25,
+        48.25
+      ],
+      "offset": [
+        -48,
+        10
+      ],
+      "short": "V-K \u00b7 \u2212Y"
+    },
+    {
+      "text": "Pump",
+      "at": [
+        38,
+        -65,
+        20
+      ],
+      "offset": [
+        -20,
+        5
+      ]
+    },
+    {
+      "text": "Regulator",
+      "at": [
+        87.89625739499527,
+        0.0,
+        61.06238999999999
+      ],
+      "offset": [
+        -28,
+        -28
+      ],
+      "short": "Regulator"
+    },
+    {
+      "text": "V-A",
+      "at": [
+        147.39625739499527,
+        0.0,
+        52.31238999999999
+      ],
+      "offset": [
+        8,
+        -16
+      ]
+    },
+    {
+      "text": "Water in",
+      "at": [
+        36.896257394995274,
+        -162.35,
+        98.56239
+      ],
+      "offset": [
+        10,
+        -15
+      ]
+    },
+    {
+      "text": "To flavor manifold",
+      "at": [
+        201.14625739499527,
+        0.0,
+        98.56239
+      ],
+      "offset": [
+        -102,
+        15
+      ],
+      "short": "Flavor manifold"
+    },
+    {
+      "text": "Vent to faucet",
+      "at": [
+        124.89625739499527,
+        -75.35,
+        98.56239
+      ],
+      "offset": [
+        -105,
+        -10
+      ],
+      "short": "Faucet vent"
+    },
+    {
+      "text": "Single check \u00b7 \u2212Y",
+      "at": [
+        79.19456592743953,
+        -44.029465054624836,
+        7.0445200642486725
+      ],
+      "offset": [
+        8,
+        -8
+      ],
+      "short": "Check \u00b7 \u2212Y"
+    },
+    {
+      "text": "To carbonator \u00b7 \u2212Z",
+      "at": [
+        79.19456592743953,
+        -90.09185505462483,
+        -44.51786993575133
+      ],
+      "offset": [
+        10,
+        4
+      ],
+      "short": "Carbonator \u00b7 \u2212Z"
+    },
+    {
+      "text": "+X",
+      "at": [
+        170,
+        30,
+        -15
+      ],
+      "offset": [
+        3,
+        -10
+      ]
+    },
+    {
+      "text": "+Y",
+      "at": [
+        140,
+        60,
+        -15
+      ],
+      "offset": [
+        3,
+        -10
+      ]
+    },
+    {
+      "text": "+Z",
+      "at": [
+        140,
+        30,
+        15
+      ],
+      "offset": [
+        3,
+        -10
+      ]
+    },
+    {
+      "text": "Added elbow",
+      "at": [
+        -4.916132605004726,
+        0.0,
+        98.56239
+      ],
+      "offset": [
+        -72,
+        -24
+      ]
+    }
+  ],
+  "arrows": [
+    {
+      "at": [
+        41.896257394995274,
+        -156.35,
+        98.56239
+      ],
+      "dir": [
+        0,
+        1,
+        0
+      ],
+      "role": "neutral",
+      "length": 9
+    },
+    {
+      "at": [
+        183.14625739499527,
+        0.0,
+        93.56239
+      ],
+      "dir": [
+        1,
+        0,
+        0
+      ],
+      "role": "flavor",
+      "length": 12
+    },
+    {
+      "at": [
+        106.89625739499527,
+        -75.35,
+        98.56239
+      ],
+      "dir": [
+        1,
+        0,
+        0
+      ],
+      "role": "neutral",
+      "length": 12
+    },
+    {
+      "at": [
+        86.19456592743953,
+        -28.529465054624836,
+        0.0445200642486725
+      ],
+      "dir": [
+        0,
+        -1,
+        0
+      ],
+      "role": "carbonator",
+      "length": 22
+    },
+    {
+      "at": [
+        84.19456592743953,
+        -90.09185505462483,
+        -25.517869935751328
+      ],
+      "dir": [
+        0,
+        0,
+        -1
+      ],
+      "role": "carbonator",
+      "length": 14
+    },
+    {
+      "at": [
+        140,
+        30,
+        -15
+      ],
+      "dir": [
+        1,
+        0,
+        0
+      ],
+      "role": "neutral",
+      "length": 25
+    },
+    {
+      "at": [
+        140,
+        30,
+        -15
+      ],
+      "dir": [
+        0,
+        1,
+        0
+      ],
+      "role": "neutral",
+      "length": 25
+    },
+    {
+      "at": [
+        140,
+        30,
+        -15
+      ],
+      "dir": [
+        0,
+        0,
+        1
+      ],
+      "role": "neutral",
+      "length": 25
+    }
+  ],
+  "interfaces": [
+    {
+      "a": "asse-outlet-tpu",
+      "b": "tee",
+      "point": [
+        36.896257394995274,
+        -22.349999999999994,
+        98.56239
+      ],
+      "exposed_tube_mm": 0.0
+    },
+    {
+      "a": "tee",
+      "b": "reg",
+      "point": [
+        58.146257394995274,
+        0.0,
+        98.56239
+      ],
+      "exposed_tube_mm": 0.0
+    },
+    {
+      "a": "reg",
+      "b": "va",
+      "point": [
+        117.64625739499527,
+        0.0,
+        98.56239
+      ],
+      "exposed_tube_mm": 0.0
+    },
+    {
+      "a": "vk",
+      "b": "pump-inlet-tpu",
+      "point": [
+        -4.916132605004726,
+        0.0,
+        18.5
+      ],
+      "exposed_tube_mm": 0.0
+    },
+    {
+      "a": "pump-outlet-tpu",
+      "b": "check",
+      "point": [
+        79.19456592743953,
+        -18.529465054624836,
+        0.0445200642486725
+      ],
+      "exposed_tube_mm": 0.0
+    },
+    {
+      "a": "check",
+      "b": "carbonator-fold",
+      "point": [
+        79.19456592743953,
+        -69.52946505462484,
+        0.0445200642486725
+      ],
+      "exposed_tube_mm": 0.0
+    },
+    {
+      "a": "vk",
+      "b": "tee-fold",
+      "point": [
+        -4.916132605004726,
+        0.0,
+        78.0
+      ],
+      "exposed_tube_mm": 0.0
+    },
+    {
+      "a": "tee-fold",
+      "b": "tee",
+      "point": [
+        15.646257394995274,
+        0.0,
+        98.56239
+      ],
+      "exposed_tube_mm": 0.0
+    }
+  ],
+  "scope": "Free-space water-group socket-fitting benchmark; enclosure and supports omitted. Meshes are layout references, not a manufacturing release."
+}
