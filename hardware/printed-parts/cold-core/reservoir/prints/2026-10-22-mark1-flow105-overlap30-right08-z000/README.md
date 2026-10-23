@@ -1,7 +1,10 @@
 # Mark1 left reservoir and cap: flow 1.05, overlap 30%
 
-Mark1 task **1365626370** is printing the full-height left reservoir and matching
-cap through the **right 0.8 mm Standard** nozzle. Acceptance was freshly verified
+Mark1 task **1365626370** identifies the left reservoir article, intentionally
+stopped before completion. Derek reports a **one-hour water hold** on the printed
+portion on **October 23, 2026**. [Physical result](physical-result/physical-result.json).
+The submitted plate includes the matching cap and uses the **right 0.8 mm Standard**
+nozzle. Launch acceptance was freshly verified
 at **18:39:14 CDT / 23:39:14 UTC, October 22, 2026**, after one Bambu Studio Send
 click and a `project_file` SUCCESS acknowledgment. That timestamp is the
 verification time, not the exact command-acceptance instant.
@@ -35,9 +38,25 @@ matching native estimate bind that name to this submission.
 
 [Startup observations](startup.json) distinguish selected material/options
 from runtime state. The live camera shows the empty plate during layer-0
-preparation. Body/cap first-layer contact, corner attachment and sealing are
-unassessed. No scheduled monitor was created or reactivated.
+preparation. First-layer contact and corner attachment are unassessed. The
+[reported one-hour water hold](physical-result/physical-result.json) applies to
+the printed portion. [Current status limit](terminal-observation.json) records
+that the printer no longer retains this task; exact stop layer and height are
+unspecified. No scheduled monitor was created or reactivated.
 
 Derek authorized:
 
 > Okay, good enough, start that print
+
+
+## Water-hold report
+
+Derek reported on October 23:
+
+> We've been holding water for an hour now (though you may see I did stop the print a bit early, there is plenty there to test with)
+
+This is a successful reported one-hour hold for the printed article. Retain
+flow 1.05, five walls, 30% overlap and 265/270 °C as the current recipe. The
+combined settings have supporting physical evidence; this result does not
+isolate which setting supplied the improvement. Fill height, exact printed
+height and cap/gasket assembly sealing are unspecified.

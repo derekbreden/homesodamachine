@@ -2,7 +2,7 @@
   "schema": 1,
   "part": "flavor-reservoir",
   "reported_by": "Derek",
-  "recorded_date": "2026-10-05",
+  "recorded_date": "2026-10-23",
   "records": [
     {
       "id": "may-30-clear-06",
@@ -119,8 +119,47 @@
       "scope": "Reported water hold of this September recipe and printed article; current CAD requires its own slice.",
       "source_commit": "67994c7efaed7589ff26db350b90eea089fbd3e8",
       "source_path": "hardware/printed-parts/cold-core/reservoir/reservoir-08-seal-trial-024.3mf"
+    },
+    {
+      "id": "october-22-flow105-overlap30-partial",
+      "status": "held_water",
+      "printer": "Mark1",
+      "job_id": "1365626370",
+      "print_date": "2026-10-22",
+      "reported_date": "2026-10-23",
+      "reported_by": "Derek",
+      "quote": "We've been holding water for an hour now (though you may see I did stop the print a bit early, there is plenty there to test with)",
+      "material": "Bambu PETG Translucent Clear",
+      "article_completion": "Intentionally stopped before completion, as reported by Derek.",
+      "hold_duration": "one hour at report; ongoing",
+      "hold_duration_reported_hours": 1,
+      "fill_height_mm": null,
+      "water_temperature_C": null,
+      "stop_layer": null,
+      "printed_height_mm": null,
+      "recipe": "prints/2026-10-22-mark1-flow105-overlap30-right08-z000/settings.json",
+      "physical_result": "prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json",
+      "archive_sha256": "28e0cfb1263ce3de928cc753d2d3c3a9437e1497e9d315cd333ac86456da7e15",
+      "gcode_sha256": "b5677135452366a0ceea169da14e2056e1c1acd03d2a320ac927984f79664de4",
+      "nozzle_mm": 0.8,
+      "nozzle_flow_type": "Standard",
+      "layer_height_mm": 0.24,
+      "first_layer_height_mm": 0.3,
+      "nozzle_c_first_subsequent": [
+        265,
+        270
+      ],
+      "flow_ratio": 1.05,
+      "wall_loops": 5,
+      "wall_generator": "arachne",
+      "wall_transition_angle_degrees": 10,
+      "infill_wall_overlap_percent": 30,
+      "sparse_infill_density": "100%",
+      "maximum_volumetric_speed_mm3_s": 21,
+      "observation": "The printed reservoir portion held water for one hour at the time of the report. Derek intentionally stopped the print early.",
+      "scope": "Reported water hold of this partially printed article and recipe. Cut height and water head are unspecified; unprinted upper-section and cap/gasket sealing are unassessed."
     }
   ],
-  "scope": "May and both September reservoir recipes have reported water-holding results. The record supplies no pressure rating, documented cold 24-hour hold or aging result.",
+  "scope": "May and both September reservoir recipes have reported water-holding results. The current 1.05-flow, five-wall, 30%-overlap recipe has a reported one-hour water hold on an intentionally shortened article. Results remain scoped to the identified articles and reported conditions.",
   "clock_scope": "Printer file timestamps and timelapse filenames are preserved as reported; their different clock conventions are not normalized."
 }

@@ -1,6 +1,6 @@
 # Reservoir adhesion observations
 
-Mark1 task **1365626370** is printing the current [five-wall / solid-floor recipe](../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/README.md), with flow 1.05, 30% overlap and 265/270 °C. Startup camera observations at layer 0 show the empty plate; model adhesion is unassessed. The old task-bound monitor remains paused.
+Mark1 task **1365626370** has a **reported one-hour water hold** on the printed portion, reported October 23, 2026. Derek intentionally stopped it early. Retain the current [five-wall / solid-floor recipe](../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/README.md): flow 1.05, 30% overlap and 265/270 °C. [Physical result](../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json). Exact cut height, fill height, corner flatness and lift onset are unspecified. The old task-bound monitor remains paused.
 
 Mark1 task **1364550539** is the most recent completed
 [59° walls-only May Water trial](../prints/2026-10-22-mark1-walls-t59-right08-z000/README.md),
@@ -116,8 +116,7 @@ locally thicker bosses receive solid fill at 30% overlap. Arachne retains its
 Classic. [Wall-count review and preset sources](../recipe-reviews/2026-10-22-flow105-overlap30/README.md).
 These planned paths supply no physical fusion or water-hold result.
 
-A proposed 25 mm tall full-footprint body base retains the real floor,
-fillets, corners and seam. The options specify a flatness check and one-hour
-20 mm water-head screen using existing tools. That screen can reject floor
-and lower-wall seepage before another full-height print; a pass does not
-qualify the full reservoir, cap/gasket seal or cold service.
+The [reported one-hour water hold](../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json)
+applies to the printed portion of the current article. Exact cut height and
+water head are unspecified; it supplies no new corner-flatness or lift-onset
+observation. The selected recipe remains the baseline.
