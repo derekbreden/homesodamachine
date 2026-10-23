@@ -9,8 +9,8 @@ alternatives: Sloping down into the source stadium consumes the purchased body c
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=0.000 y=84.653 z=277.924
 
-[sliver] These six faces bound the purchased outer valve-yoke approach pockets. Their 1.35 mm depth is the authored difference between the flank at |X|98.5 and the yoke approach at |X|99.85, including finite fore/aft and lower end planes. The current native windows retain those fitting boundaries; this is no printed-fit or strength acceptance.
-alternatives: Filling the pocket enters the yoke approach. Cutting the entire flank to the pocket plane removes adjoining rail and mounting stock. Retain the finite purchased-part approach envelope.
+[sliver] Set aside by Derek, not accepted: these six faces bound the 1.35 mm pockets the outer fore valves' coil yokes need in the flank. Flattening the flank needs those valves 1.35 mm inboard, which puts their upper tubes, or with the tees moved their pump tubes, 1.35 mm off straight and pushing on the tee and cartridge. Derek: "I don't love it. But it's not the highest priority problem."
+alternatives: Move the outer fore valves 1.35 mm inboard and accept the bent upper tube, or move valve and tee together and accept the bent pump tube. Thinning the whole flank to the pocket floor drags the seam-rail and funnel-frame grooves outboard.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-99.175 y=153.902 z=253.100
 click: x=99.175 y=153.632 z=253.100
