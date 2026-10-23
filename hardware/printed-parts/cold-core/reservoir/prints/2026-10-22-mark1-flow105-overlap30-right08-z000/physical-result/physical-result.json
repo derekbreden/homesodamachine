@@ -55,5 +55,15 @@
   "interpretation": "Positive physical evidence supports retaining this recipe as the current baseline. Several recipe settings changed together; the result does not isolate the contribution of flow, temperature, overlap or wall count.",
   "terminal_status_source": "../terminal-observation.json",
   "terminal_status_limit": "Fresh printer status no longer identifies task 1365626370. A terminal layer, actual elapsed print time or stop height cannot be assigned from the current job.",
-  "source_media": "Text report in the current chat; no new photograph supplied."
+  "source_media": "Text report in the current chat; no new photograph supplied.",
+  "aesthetic_feedback": {
+    "reported_date": "2026-10-23",
+    "recorded_at_central": "2026-10-23T02:15:23.905916-05:00",
+    "reported_by": "Derek",
+    "assessment": "Derek has aesthetic concerns with this print; the specific surface concerns are not described in this report.",
+    "founder_quote": "Please record I have some aesthetic concerns with the print, and I'd like to consider trying all of those same settings, but back to our previous temperatures. The printer is busy elsewise now, and I don't have filament loaded, but just make a note of what I intend to try next.",
+    "next_trial_intent": "Retain all settings from this article except nozzle temperatures: use 255 C first layer and 260 C subsequent layers.",
+    "next_trial_plan": "../../../corner-lifting/next-trial-options.json",
+    "water_hold_result": "The reported one-hour water hold remains a positive sealing result for this printed portion at 265/270 C."
+  }
 }
