@@ -35,6 +35,12 @@ def library():
     result = base.library()
     with np.load(HERE / "parts/stem-elbow-neofit-host.npz") as data:
         result["stacked-elbow"] = (data["v"], data["f"])
+    import trimesh
+    tube = trimesh.creation.annulus(r_min=2.12, r_max=3.175, height=44.591, sections=48)
+    # Fifteen exposed millimetres plus 16.891 mm in the tee and an estimated
+    # 12.7 mm in the regulator. Native tube frame starts at the tee mouth.
+    r = np.array([[0, 0, 1], [0, 1, 0], [-1, 0, 0]])
+    result["tee-regulator-tube"] = (tube.vertices @ r.T + [5.4045, 0, 0], tube.faces)
     return result
 
 
@@ -143,6 +149,51 @@ def pose(kind="inward"):
     return scene
 
 
+def spaced_regulator():
+    """Preserve the lowered ASSE pose; extend the downward regulator past pump."""
+    scene = pose("straight")
+    scene.update(id="spaced", title="Lowered ASSE · regulator head down")
+    axis = np.array(scene["layout"]["vk_bottom_mouth_mm"]) + [0, 0, 65.5452]
+    extension = np.array([15.0, 0, 0])
+    for m in scene["instances"]:
+        n = m["name"]
+        if n == "reg":
+            m["translation"] = (axis + RX90.T @ (np.array(m["translation"]) - axis)).tolist()
+            m["rotation"] = (RX90.T @ np.array(m["rotation"])).tolist()
+            m["label"] = "Regulator · head down, straight tube from tee"
+        if n in {"reg", "va", "va-flavor"}:
+            m["translation"] = (np.array(m["translation"]) + extension).tolist()
+    mates = []
+    for j in scene["mates"]:
+        if {j["a"], j["b"]} == {"tee", "reg"}:
+            tee_mouth = np.array(j["point"])
+            continue
+        if {j["a"], j["b"]} == {"reg", "va"}:
+            j["point"] = (np.array(j["point"]) + extension).tolist()
+        mates.append(j)
+    scene["instances"].append(base.instance("tee-regulator-tube", "tee-regulator-tube", tee_mouth,
+        role="flavor", kind="tube", label="Straight 1/4-inch tube · 15 mm exposed between tee and regulator"))
+    mates.extend([
+        {"a": "tee", "b": "tee-regulator-tube", "point": tee_mouth.tolist(),
+         "insertion_mm": 16.891, "connection": "tube in NeoFit tee"},
+        {"a": "tee-regulator-tube", "b": "reg", "point": (tee_mouth + extension).tolist(),
+         "insertion_mm": 12.7, "insertion_basis": "layout estimate", "connection": "tube in regulator"},
+    ])
+    scene["mates"] = mates
+    for p in scene["pins"]:
+        if p["text"] == "Regulator":
+            p["at"] = (axis + RX90.T @ (np.array(p["at"]) - axis)).tolist()
+        if p["text"] in {"Regulator", "V-A", "To flavor manifold"}:
+            p["at"] = (np.array(p["at"]) + extension).tolist()
+    scene["pins"].append({"text": "15 mm tube", "at": (tee_mouth + extension / 2).tolist(), "offset": [-30, -24]})
+    for a in scene["arrows"]:
+        if a["role"] == "flavor":
+            a["at"] = (np.array(a["at"]) + extension).tolist()
+    scene["layout"].update(tee_regulator_exposed_tube_mm=15, regulator_head_direction=[0, 0, -1],
+                           va_head_direction=[0, 1, 0], tee_regulator_total_tube_mm=44.591)
+    return scene
+
+
 def surface_distance(a, b):
     import fcl
     objects = []
@@ -160,7 +211,7 @@ def main():
     geometries = library()
     reference = base.variant("run")
     reference.update(id="reference", title="Previous arrangement")
-    scenes = [pose("inward"), pose("straight"), reference]
+    scenes = [spaced_regulator(), pose("inward"), pose("straight"), reference]
     report = {"scope": "Free-space relationship study for pump, V-K and ASSE; supports and enclosure omitted",
               "objective": "Bring ASSE close above pump with V-K vertical and its head toward −Y",
               "units": "mm", "variants": {}}
@@ -174,12 +225,15 @@ def main():
                    "inlet_fittings_above_support_plane_mm": min(float(meshes[n][0][:, 2].min()) for n in elbows) - floor}
         if args.check:
             metrics["asse_to_pump_surface_gap_mm"] = surface_distance(meshes["asse"], meshes["pump"])
+            if scene["id"] == "spaced":
+                metrics["regulator_to_pump_surface_gap_mm"] = surface_distance(meshes["reg"], meshes["pump"])
+                metrics["tee_regulator_tube_to_pump_surface_gap_mm"] = surface_distance(meshes["tee-regulator-tube"], meshes["pump"])
             metrics["unrelated_body_interferences"] = base.interference(scene, geometries)
         scene["metrics"] = metrics
         report["variants"][scene["id"]] = {"layout": scene.get("layout"), "metrics": metrics,
                                              "interfaces": scene["mates"], "instances": scene["instances"]}
     (HERE / "study.json").write_text(json.dumps(report, indent=2) + "\n")
-    # Display only the geometries these three scenes use.
+    # Display only the geometries these scenes use.
     used = {m["geometry"] for s in scenes for m in s["instances"]}
     packed = {n: base.pack(*geometries[n], 5200 if n == "pump" else 3600) for n in sorted(used)}
     out = HERE / "out"; out.mkdir(exist_ok=True)
