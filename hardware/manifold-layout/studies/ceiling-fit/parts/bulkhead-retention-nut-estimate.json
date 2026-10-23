@@ -1,0 +1,51 @@
+{
+  "status": "Estimated occupancy geometry; not measured threads or retention capacity",
+  "across_flats_mm": 20.0,
+  "across_corners_mm": 23.094010767585033,
+  "axial_thickness_mm": 4.0,
+  "nominal_barrel_clearance_bore_mm": 17.14,
+  "wall_contact_y_mm": 462.3,
+  "axial_bounds_y_mm": [
+    458.3,
+    462.3
+  ],
+  "bounds_mm": [
+    [
+      25.702993392944336,
+      458.29998779296875,
+      324.37603759765625
+    ],
+    [
+      48.79700469970703,
+      462.29998779296875,
+      344.37603759765625
+    ]
+  ],
+  "valid_solids": 1,
+  "volume_mm3": 462.7048129205531,
+  "triangles": 528,
+  "barrel_thread_span_y_mm": [
+    456.01,
+    471.3
+  ],
+  "wall_span_y_mm": [
+    462.3,
+    471.3
+  ],
+  "available_inboard_thread_span_mm": 6.29,
+  "unused_inboard_thread_mm_with_4mm_nut": 2.29,
+  "optional_thicker_nut_occupancy_mm": 6.0,
+  "optional_6mm_nut_y_mm": [
+    456.3,
+    462.3
+  ],
+  "optional_6mm_nut_clearance_to_far_socket_body_mm": 0.29,
+  "source_reference": "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py:44-67,157-159",
+  "dimension_basis": "20 mm hex across flats and 4 mm axial thickness are explicit best estimates for occupancy on the reference 17.14 mm barrel; body/collet source has no nut",
+  "manufacturer_family_page": "https://www.johnguest.com/ca/en/od-tube-fittings/polypropylene-black/bulkhead/bulkhead-union",
+  "manufacturer_page_scope": "Nominal 1/4-inch connections and 0.67-inch mounting hole; it does not establish this estimated nut geometry",
+  "frame": "Installed context study world coordinates; identity placement transform",
+  "source_reference_sha256": "62b13c9c562db4ef857c159beae7e6adac08d1bb0d35aaa0c8903117b696f5c4",
+  "step_sha256": "a74fa46645dc8b79c740c02306368069cf5eef18489b6d6e9f73bedecf4862cd",
+  "snapshot_npz_sha256": "f12558942b667d6e6f9e17c3dec18692b7a8e72c51b93a0faacc0dbf0936f1d3"
+}

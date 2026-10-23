@@ -1,0 +1,23 @@
+{
+  "scope": "Nominal pump-joint clocking limits; not physical tolerance accuracy",
+  "cases": {
+    "practical_27_5_degrees": {
+      "clock_angle_degrees_below_plus_y_local": 27.5,
+      "lowering_from_25_degrees_mm": 1.4693446986122591,
+      "minimum_moving_body_cap_gap_mm": 1.4939729325694202,
+      "cap_limiting_body": "lower-pump-elbow"
+    },
+    "max_with_1mm_cap_clearance": {
+      "clock_angle_degrees_below_plus_y_local": 28.289706449822326,
+      "lowering_from_25_degrees_mm": 1.9267564496474148,
+      "minimum_moving_body_cap_gap_mm": 1.0000000000002274,
+      "cap_limiting_body": "lower-pump-elbow"
+    },
+    "nominal_cap_contact_limit": {
+      "clock_angle_degrees_below_plus_y_local": 29.913091112126608,
+      "lowering_from_25_degrees_mm": 2.85633598347482,
+      "minimum_moving_body_cap_gap_mm": 2.842170943040401e-14,
+      "cap_limiting_body": "lower-pump-elbow"
+    }
+  }
+}

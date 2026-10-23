@@ -1,0 +1,41 @@
+{
+  "source_mesh": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+  "source_mesh_sha256": "201d9c90a008ce7902c679e1bcd78e49a4fb2447d1a1aa4c79be73b1a9151e0a",
+  "pointer_sha256": "a7fbeee5a4fe8011a0081d053586266f5e9d1f0ce9c58796ed09d2c6fa76e692",
+  "pointer_mesh_sha256": "201d9c90a008ce7902c679e1bcd78e49a4fb2447d1a1aa4c79be73b1a9151e0a",
+  "source_mesh_matches_current_pointer": true,
+  "pointer_source_commit": "2eaea329d128836d567f242e6e87a7e187a4fb53",
+  "pointer_source_is_unproven_for_enclosure_mesh": true,
+  "source_sha256": {
+    "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py": "86e62dc6bcb7a24031dd3e3e4bfa0b22b378abce40095a4ebc7b3787d5456ccf",
+    "hardware/pcb/pcba/out/pcba.glb": "16314ee4bb4a38c002eb73cec124cf7b83115b179e3f4fa2c206cdb7c30fba5d",
+    "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py": "62b13c9c562db4ef857c159beae7e6adac08d1bb0d35aaa0c8903117b696f5c4",
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "50a03ba1acee43951b86df0a8f3979a7809a91fa349d4a3cdb7c449231868f3b",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "219fe11ff9f3b077ccbd1c1b901077ba7ab3834787ba5de69915ec4a1434b235",
+    "hardware/manifold-layout/enclosure_assembly.py": "80b0218a6124d8ffa1837a85d807f82ff8df2629965bf3dfb9dc55a583523104",
+    "hardware/wiring/enclosure-wiring.json": "0e2dd8902df0b47dd0871885333c9d3e495d38e5bf5931e54abe9a8d6589da0b"
+  },
+  "source_authority": "Current generators identify part dimensions and interface roles; pointer pins preserved artifact bytes but marks enclosure assembly unproven against source commit",
+  "parts": {
+    "pcba": {
+      "source_component": "pcba",
+      "snapshot_sha256": "28e8af12a0ea2e0bd1ab59b9a016be4decd7c4dd9d428ba763372ce303b11d28",
+      "basis": "Frozen installed reference mesh; study pose in context.json"
+    },
+    "bulkhead-water": {
+      "source_component": "bulkhead-water",
+      "snapshot_sha256": "29aa11af954710606032b5f6246ce9978039843ca7267232466740b22f5b95a5",
+      "basis": "Frozen installed reference mesh; study pose in context.json"
+    },
+    "funnel": {
+      "source_component": "funnel",
+      "snapshot_sha256": "770caa3e4d2c515257e930a1800a014da58ab7af8977eb63d5cf511013592ba8",
+      "basis": "Frozen installed reference mesh; study pose in context.json"
+    },
+    "funnel-frame": {
+      "source_component": "funnel-frame",
+      "snapshot_sha256": "e8e63683fb48306b5d5e0e52e291ea124a3ae1028a1a0f9f86e16c2912cdba7a",
+      "basis": "Frozen installed reference mesh; study pose in context.json"
+    }
+  }
+}
