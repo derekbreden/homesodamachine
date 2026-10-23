@@ -1,0 +1,141 @@
+{
+  "date": "2026-10-23",
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "printer_task_id": "1366393391",
+  "status": "completed; the 2 mm holder works",
+  "machine_completion": {
+    "printer": "H2C",
+    "observed_at": "2026-10-23T07:30:54.376827+00:00",
+    "gcode_state": "FINISH",
+    "subtask_name": "2026-10-23-tube-bend-holders-w234-petgf-left04-z018-mark1.gcode.3mf",
+    "mc_percent": 100,
+    "layer_num": 68,
+    "total_layer_num": 68,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_temper": 53.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 60.0,
+    "bed_target_temper": 0.0,
+    "lights_report": [
+      {
+        "mode": "on",
+        "node": "chamber_light"
+      },
+      {
+        "mode": "flashing",
+        "node": "work_light"
+      },
+      {
+        "mode": "on",
+        "node": "chamber_light2"
+      }
+    ],
+    "external_spools": {
+      "254": {
+        "type": "PET-CF",
+        "colour": "000000FF"
+      },
+      "255": {
+        "type": "TPU",
+        "colour": "FFFFFFFF"
+      }
+    },
+    "nozzle_type": "HS01-0.4",
+    "nozzles": [
+      {
+        "id": 18,
+        "type": "HS01",
+        "diameter": 0.4,
+        "sn": "20D06A611000397"
+      },
+      {
+        "id": 1,
+        "type": "HS01",
+        "diameter": 0.4,
+        "sn": "N/A"
+      },
+      {
+        "id": 17,
+        "type": "HS00",
+        "diameter": 0.2,
+        "sn": "20D06A5C1907799"
+      },
+      {
+        "id": 20,
+        "type": "HS00",
+        "diameter": 0.2,
+        "sn": "20D06A5C1907737"
+      },
+      {
+        "id": 19,
+        "type": "HS01",
+        "diameter": 0.8,
+        "sn": "20D06A610807096"
+      }
+    ]
+  },
+  "user_observations": [
+    {
+      "verbatim": "2 mm works."
+    }
+  ],
+  "selected_candidate": {
+    "wall_mm": 2.0,
+    "channel_d_mm": 6.8,
+    "centreline_bend_r_mm": 14.0,
+    "turn_degrees": 90.0,
+    "section": "D on its back with a pointed teardrop channel; dome centred 1.41 mm above the channel centre",
+    "source_stl": "future/tube-bend-holder-exploration/holder-w2.stl"
+  },
+  "scope_limits": [
+    "The report covers the 2 mm holder. The 3 and 4 mm holders' results are unreported.",
+    "Threading force, roundness through the turn, flow, pressure and retention over time are unmeasured."
+  ],
+  "photos": [
+    {
+      "path": "photos/01-bore.jpg",
+      "shows": "Looking into the tube's cut end, a holder on the tube behind it.",
+      "source_sha256": "d7beeda9d47c28f7cb7368ef89b09c2bdf7bcb3db6269d1a31f6710b98a67c96",
+      "sha256": "3a81a3e42f5448214986bd27af071176472cd78e029e529f40eb33f4bf1e1a33",
+      "size_px": [
+        1512,
+        2016
+      ],
+      "treatment": "JPEG scan data and decoded pixels preserved; EXIF, Apple application data and comments omitted. The source carried no location."
+    },
+    {
+      "path": "photos/02-holder-on-tube.jpg",
+      "shows": "A holder seated at the tube's bend, the tube through both mouths.",
+      "source_sha256": "fafb5969228164f09c556ad11658af865f1e181d789b469808547846ea1da7c9",
+      "sha256": "8d980253b794834b4585a4a200caff7480df5c6a931fd2129b5bae530bf9fe2f",
+      "size_px": [
+        1512,
+        2016
+      ],
+      "treatment": "JPEG scan data and decoded pixels preserved; EXIF, Apple application data and comments omitted. The source carried no location."
+    },
+    {
+      "path": "photos/03-holder-close.jpg",
+      "shows": "The same holder and bend, closer.",
+      "source_sha256": "3107fcdfb3080af2b6e61028827aa9c31ba2e4c0aae9ba5df26a68962033fd80",
+      "sha256": "5edf7b5ff8bf3e717a1249426b6fd39e2895f1179577545b136818de919cfffa",
+      "size_px": [
+        1512,
+        2016
+      ],
+      "treatment": "JPEG scan data and decoded pixels preserved; EXIF, Apple application data and comments omitted. The source carried no location."
+    }
+  ],
+  "photo_assessment": {
+    "scope": "Assistant visual interpretation, separate from the user report",
+    "observations": [
+      "The tube's cut end shows an open, round bore.",
+      "The holder sits at the bend with the tube through both mouths and no visible crack in the holder.",
+      "Outside the holder, both legs of the tube keep curving rather than running straight."
+    ],
+    "limits": "The photos do not identify which holder is shown and do not quantify roundness through the turn, kinking or force."
+  }
+}

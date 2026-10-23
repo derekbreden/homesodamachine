@@ -1,0 +1,63 @@
+{
+  "status": "offline slice reviewed; no physical print or force qualification",
+  "printer_submission": false,
+  "project": "2026-10-23-tube-bend-holders-w2-legs123-petgf-left04-z018-mark1.3mf",
+  "project_sha256": "0990831397a1711f61d521d406ded5652aab4b336fceff34413ea77c153f704e",
+  "archive": "2026-10-23-tube-bend-holders-w2-legs123-petgf-left04-z018-mark1.gcode.3mf",
+  "archive_sha256": "ebf085f5c9793f4b233de9fb8b98ffe4d3d01af01675bd8292a9ae43d50fa81b",
+  "gcode_sha256": "8009684c6acd87a70922c1d2ab13bfcba6d5859d7dc2f7bee315300925e4ad9c",
+  "source_stls": {
+    "future/tube-bend-holder-exploration/holder-w2-leg1.stl": "cfc5f2990bb87ab4e255adf2a731620b11df21b4fd0f6f6961c3ec071267ee2d",
+    "future/tube-bend-holder-exploration/holder-w2-leg2.stl": "25234054ef470ea9d72e1fcdb59291040cdc24af5426b319001cf21e4b0939b6",
+    "future/tube-bend-holder-exploration/holder-w2-leg3.stl": "976410183d9ea00c6dc25243a9ceca80ec1d874bb76f5c5663dbd68fcbcf55bc"
+  },
+  "printer": "Mark1 (H2C)",
+  "nozzle_mapping": "Left hardened 0.4 mm; black PET-GF external spool 254",
+  "plate_trim_commands_mm": [
+    0.0,
+    0.16
+  ],
+  "features": [
+    "Bottom surface",
+    "Bridge",
+    "Custom",
+    "Floating vertical shell",
+    "Gap infill",
+    "Inner wall",
+    "Internal solid infill",
+    "Outer wall",
+    "Overhang wall",
+    "Sparse infill",
+    "Top surface"
+  ],
+  "support_generated": false,
+  "bead_envelope": {
+    "extrusion_bounds_xy_mm": [
+      [
+        124.0730795,
+        148.57307949999998
+      ],
+      [
+        201.92692050000002,
+        171.42692050000002
+      ]
+    ],
+    "maximum_line_width_mm": 0.673841,
+    "bounds_padding_mm": 0.43692050000000004
+  },
+  "bead_margin_mm": [
+    124.0730795,
+    148.57307949999998,
+    123.07307949999998,
+    148.57307949999998
+  ],
+  "layers": 51,
+  "estimated_seconds": 1103.9564208984375,
+  "estimated_filament_g": 7.6805806159973145,
+  "slicer_warning": "",
+  "native_process": {
+    "layer_height": 0.23999999463558197,
+    "wall_loops": 6,
+    "sparse_infill_density": 100.0
+  }
+}

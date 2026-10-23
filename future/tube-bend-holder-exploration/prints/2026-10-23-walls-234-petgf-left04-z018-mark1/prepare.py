@@ -25,13 +25,7 @@ _spec.loader.exec_module(fixture)
 writer = fixture.writer
 
 STEM = "2026-10-23-tube-bend-holders-w234-petgf-left04-z018-mark1"
-SPEC = {
-    "id": STEM,
-    "printer": "Mark1 (H2C)",
-    "material": "PET-GF",
-    "z_trim_mm": 0.18,
-    "nozzle_mapping": "Left hardened 0.4 mm; black PET-GF external spool 254",
-}
+TITLE = "Tube bend holders 2/3/4 mm - black PET-GF - Mark1"
 PROFILE = ROOT / "hardware/printed-parts/petgf.3mf"
 SOURCE = ROOT / "future/tube-bend-holder-exploration"
 # One row across the middle of the left nozzle's plate, 2 mm wall on the left.
@@ -52,13 +46,15 @@ REQUESTED = {
 }
 
 
-def main():
+def main(folder=HERE, stem=STEM, parts=PARTS, title=TITLE):
+    spec = {"id": stem, "printer": "Mark1 (H2C)", "material": "PET-GF", "z_trim_mm": 0.18,
+            "nozzle_mapping": "Left hardened 0.4 mm; black PET-GF external spool 254"}
     with zipfile.ZipFile(PROFILE) as archive:
         members = {name: archive.read(name) for name in archive.namelist()}
     settings = json.loads(members[writer.SETTINGS_MEMBER])
     nozzle = float(settings["nozzle_diameter"][0])
     settings["print_compatible_printers"] = [
-        f"Bambu Lab H2C {nozzle:g} Standard +{SPEC['z_trim_mm']:.2f} Z trim",
+        f"Bambu Lab H2C {nozzle:g} Standard +{spec['z_trim_mm']:.2f} Z trim",
         f"Bambu Lab H2C {nozzle:g} nozzle"]
     settings["filament_colour"] = ["#000000"]
     changes = {}
@@ -67,18 +63,17 @@ def main():
             changes[key] = {"from": settings.get(key), "to": value}
             settings[key] = value
     members[writer.SETTINGS_MEMBER] = (json.dumps(settings, indent=2) + "\n").encode()
-    profile = ROOT / ".cache/tube-bend-holder-print" / f"{STEM}-settings.3mf"
+    profile = ROOT / ".cache/tube-bend-holder-print" / f"{stem}-settings.3mf"
     writer.archive_write(profile, members)
 
-    project = HERE / f"{STEM}.3mf"
+    project = folder / f"{stem}.3mf"
     report = writer.refresh(
-        profile, project, parts=tuple((name, SOURCE / stl, 0.0) for name, stl, _ in PARTS),
-        offsets=tuple(offset for *_, offset in PARTS),
-        title="Tube bend holders 2/3/4 mm - black PET-GF - Mark1",
-        z_trim=SPEC["z_trim_mm"], plate_border=20.0)
+        profile, project, parts=tuple((name, SOURCE / stl, 0.0) for name, stl, _ in parts),
+        offsets=tuple(offset for *_, offset in parts), title=title,
+        z_trim=spec["z_trim_mm"], plate_border=20.0)
     report.update(status="offline project preparation; no printer submission",
-                  printer_submission=False, intended_printer=SPEC["printer"],
-                  material=SPEC["material"], nozzle_mapping=SPEC["nozzle_mapping"],
+                  printer_submission=False, intended_printer=spec["printer"],
+                  material=spec["material"], nozzle_mapping=spec["nozzle_mapping"],
                   original_settings_source=str(PROFILE.relative_to(ROOT)),
                   original_settings_source_sha256=fixture.sha(PROFILE),
                   task_process_changes=changes,
@@ -88,7 +83,7 @@ def main():
     slices = ROOT / ".cache/tube-bend-holder-print/slices"
     slices.mkdir(parents=True, exist_ok=True)
     attempt = slices / f"{len(list(slices.iterdir())) + 1:02d}"
-    record = fixture.slice_project(project, report, SPEC, attempt, ready_directory=HERE)
+    record = fixture.slice_project(project, report, spec, attempt, ready_directory=folder)
     print(json.dumps({key: record[key] for key in
                       ("archive", "layers", "estimated_seconds", "estimated_filament_g",
                        "support_generated", "features", "plate_trim_commands_mm",
