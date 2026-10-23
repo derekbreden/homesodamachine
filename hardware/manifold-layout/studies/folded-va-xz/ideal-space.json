@@ -1,0 +1,28 @@
+{
+  "scope": "Current nominal enclosure, plain ideal 9 mm sidewalls and ceiling, current plain cold-core cap; X/Z only",
+  "units": "mm",
+  "outer_x_mm": [-107.5, 107.5],
+  "outer_z_mm": [-6.0, 355.0],
+  "ideal_wall_and_ceiling_mm": 9.0,
+  "ideal_inner_x_mm": [-98.5, 98.5],
+  "ideal_inner_x_span_mm": 197.0,
+  "ideal_roof_underside_z_mm": 346.0,
+  "world_core_plain_top_z_mm": 253.4,
+  "world_core_plain_x_mm": [-90.5, 90.5],
+  "headroom_mm": 92.6,
+  "derivation": {
+    "outer_roof_z": "361 mm appliance height - 6 mm floor slab = 355 mm",
+    "internal_width": "215 mm nominal exterior - 2 * 9 mm = 197 mm",
+    "ceiling_underside": "355 - 9 = 346 mm",
+    "core_top": "Native plain cap face 233.4 mm - native floor (-20 mm) = world Z253.4 mm",
+    "headroom": "346 - 253.4 = 92.6 mm"
+  },
+  "sources": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": ["floor_t = 6.0", "appliance_height = 361.0", "appliance_width = 215.0"],
+    "hardware/printed-parts/cold-core/_foam_cap.py": ["stack_floor_z", "cap_face_z"],
+    "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py": ["cap_face_over_floor = cap_face_z - stack_floor_z"],
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": ["Plain core short axis 2 * (145 / 2 + 16 + 2) = 181 mm"],
+    "hardware/manifold-layout/enclosure_assembly.py": ["cap_face", "Current core floor seated at world Z0; native core yaw +90 degrees"]
+  },
+  "exclusions": ["Y fit", "Existing wall cuts and mounts", "Ceiling pockets and projections", "Cold-core mounting pads above plain cap", "Other equipment above cold core", "Mounting or assembly clearance allowance"]
+}
