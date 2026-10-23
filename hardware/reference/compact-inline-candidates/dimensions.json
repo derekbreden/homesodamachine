@@ -1,0 +1,419 @@
+{
+  "units": "mm",
+  "model_scope": "Off-the-shelf layout candidates; no purchasing, installation or gas qualification implied",
+  "canonical_frame": "Flow+Z, inlet release faceZ0, outlet release faceZlength; radial axesX/Y",
+  "pisco_rvfup_quarter": {
+    "requested_code": "RVFUP1/4-1/4-0.3",
+    "dimensioned_oem_family": "RVFUP1/4-1/4 with preset code",
+    "published": {
+      "length_mm": 62.4,
+      "max_diameter_mm": 21.5,
+      "secondary_body_diameter_mm": 20.0,
+      "L1_mm": 37.7,
+      "L2_mm": 20.2,
+      "tube_od_mm": 6.35,
+      "inlet_insertion_C1_mm": 17.0,
+      "outlet_insertion_C2_mm": 17.0,
+      "preset_MPa": 0.3,
+      "preset_psi_catalog": 44,
+      "maximum_service_pressure_MPa": 1.0,
+      "maximum_service_pressure_psi_catalog": 145
+    },
+    "ports": {
+      "inlet": {
+        "point_mm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "outward_axis": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "tube_od_mm": 6.35,
+        "insertion_mm": 17.0,
+        "tube_stop_mm": [
+          0.0,
+          0.0,
+          17.0
+        ]
+      },
+      "outlet": {
+        "point_mm": [
+          0.0,
+          0.0,
+          62.4
+        ],
+        "outward_axis": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "tube_od_mm": 6.35,
+        "insertion_mm": 17.0,
+        "tube_stop_mm": [
+          0.0,
+          0.0,
+          45.4
+        ]
+      }
+    },
+    "flow_mapping": "OEM long-neckIN is nativeZ0; short-neckOUT is nativeZ62.4; normal regulated flow+Z",
+    "published_axial_landmarks_from_inlet_mm": {
+      "B_minus_L1": 24.7,
+      "B_minus_L2": 42.2
+    },
+    "estimated_form": {
+      "front_profile_z_radius_mm": [
+        [
+          2.0,
+          6.2
+        ],
+        [
+          3.2,
+          6.2
+        ],
+        [
+          3.8,
+          7.4
+        ],
+        [
+          4.4,
+          7.5
+        ],
+        [
+          17.0,
+          7.5
+        ],
+        [
+          18.0,
+          9.8
+        ],
+        [
+          18.8,
+          10.0
+        ],
+        [
+          24.7,
+          10.0
+        ],
+        [
+          24.7,
+          10.75
+        ],
+        [
+          26.5,
+          10.75
+        ]
+      ],
+      "rear_profile_z_radius_mm": [
+        [
+          42.2,
+          10.0
+        ],
+        [
+          52.8,
+          10.0
+        ],
+        [
+          53.2,
+          9.7
+        ],
+        [
+          54.0,
+          7.2
+        ],
+        [
+          55.0,
+          5.6
+        ],
+        [
+          59.4,
+          5.6
+        ],
+        [
+          60.4,
+          5.8
+        ]
+      ],
+      "central_wrench_af_mm": 20.0,
+      "central_wrench_clipped_max_diameter_mm": 21.5,
+      "central_wrench_span_z_mm": [
+        26.5,
+        42.2
+      ],
+      "collet_outer_diameter_mm": 13.5,
+      "scope": "Undimensioned necks, collets, wrench flats and material boundaries follow the OEM drawing/photo approximately; measured landmarks and maximum envelope remain fixed"
+    },
+    "socket_scope": "Both blind bores reach17mm from release face, without modeling regulator internals",
+    "operating_scope": "OEM specifies air and permits reverse free flow; retain a separate downstream check. Exact CO2 service is not established by this layout reference.",
+    "source_materials": "OEM construction includes PBT resin body, aluminum fitting body, NBR/HNBR seals and POM release rings; the native solids estimate the visible material split",
+    "source_pdf": "sources/pisco-preset-regulator.pdf",
+    "source_pdf_sha256": "d1b60a49d31df4282935442d16e6878907b4dbf631921aac72b5b89a8b14c0c3",
+    "source_pdf_drawing_page": 4,
+    "source_pdf_specification_page": 3,
+    "source_url": "https://shop.pisco.com/wp-content/themes/agency-ecommerce/assets/images/preset-regulator.pdf",
+    "product_url": "https://shop.pisco.com/product/rvfup1-4-1-4-0-3/",
+    "geometry": "geometry/candidate-regulator.npz",
+    "mesh_sha256": "af7f88609fc55e567ea9d3434a9f0e16f5109149ed596ffce6be3c6adfa991e1",
+    "step": "geometry/candidate-regulator.step",
+    "step_sha256": "08cc291161a54961c062f89ae4213f46c099d6e1fc4f77322da5d9e706fd87ae",
+    "bounds_mm": [
+      [
+        -10.74530029296875,
+        -10.748797416687012,
+        0.0
+      ],
+      [
+        10.75,
+        10.748797416687012,
+        62.400001525878906
+      ]
+    ],
+    "size_xyz_mm": [
+      21.49530029296875,
+      21.497594833374023,
+      62.400001525878906
+    ],
+    "parts": [
+      {
+        "name": "body",
+        "mesh": "candidate-regulator-body.npz",
+        "sha256": "ab96ebc328ed0b28af4974e70376d193c2b5dbe5d94117280cac9c121aeae4de",
+        "valid_native_solid": true,
+        "native_solid_count": 1,
+        "volume_mm3": 10403.904438026873,
+        "triangles": 2866
+      },
+      {
+        "name": "outlet_fitting",
+        "mesh": "candidate-regulator-outlet_fitting.npz",
+        "sha256": "09381843fb7f31a82cf7d3dd50c2c3acd44b48c909006c0c24f7211ff79ad211",
+        "valid_native_solid": true,
+        "native_solid_count": 1,
+        "volume_mm3": 3822.664677247137,
+        "triangles": 2416
+      },
+      {
+        "name": "inlet_collet",
+        "mesh": "candidate-regulator-inlet_collet.npz",
+        "sha256": "7b49f0fb995b58d4e3b0514da163ce9106053f4ee1b9096018b598f87b698ac2",
+        "valid_native_solid": true,
+        "native_solid_count": 1,
+        "volume_mm3": 222.93919567118274,
+        "triangles": 840
+      },
+      {
+        "name": "outlet_collet",
+        "mesh": "candidate-regulator-outlet_collet.npz",
+        "sha256": "26521785794452dc7f10235003b9db0e65650403517e42e7d29a0aff66be5294",
+        "valid_native_solid": true,
+        "native_solid_count": 1,
+        "volume_mm3": 222.9391956711827,
+        "triangles": 840
+      }
+    ],
+    "vertices": 6618,
+    "triangles": 6962
+  },
+  "fluidfit_hcvu_quarter": {
+    "requested_code": "HCVU1/4-1/4G",
+    "dimensioned_oem_row": "HCVU1/4-1/4",
+    "published": {
+      "length_mm": 45.5,
+      "max_diameter_mm": 15.5,
+      "tube_od_mm": 6.35,
+      "tube_insertion_mm": 16.1,
+      "weight_g": 7.4
+    },
+    "ports": {
+      "inlet": {
+        "point_mm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "outward_axis": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "tube_od_mm": 6.35,
+        "insertion_mm": 16.1,
+        "tube_stop_mm": [
+          0.0,
+          0.0,
+          16.1
+        ]
+      },
+      "outlet": {
+        "point_mm": [
+          0.0,
+          0.0,
+          45.5
+        ],
+        "outward_axis": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "tube_od_mm": 6.35,
+        "insertion_mm": 16.1,
+        "tube_stop_mm": [
+          0.0,
+          0.0,
+          29.4
+        ]
+      }
+    },
+    "flow_mapping": "OEM arrow runs from the short stepped socket end to the long cylindrical-body end; that direction is native+Z",
+    "estimated_form": {
+      "collet_length_mm": 1.5,
+      "collet_outer_diameter_mm": 13.4,
+      "body_profile_z_radius_mm": [
+        [
+          1.5,
+          7.0
+        ],
+        [
+          2.2,
+          7.4
+        ],
+        [
+          4.0,
+          7.4
+        ],
+        [
+          4.4,
+          7.75
+        ],
+        [
+          8.2,
+          7.75
+        ],
+        [
+          8.7,
+          7.4
+        ],
+        [
+          9.2,
+          7.4
+        ],
+        [
+          9.6,
+          7.75
+        ],
+        [
+          10.2,
+          7.4
+        ],
+        [
+          13.8,
+          6.5
+        ],
+        [
+          14.3,
+          7.4
+        ],
+        [
+          15.5,
+          7.4
+        ],
+        [
+          16.0,
+          5.1
+        ],
+        [
+          17.5,
+          5.1
+        ],
+        [
+          17.5,
+          6.7
+        ],
+        [
+          22.0,
+          6.7
+        ],
+        [
+          24.0,
+          7.75
+        ],
+        [
+          41.6,
+          7.75
+        ],
+        [
+          42.5,
+          7.3
+        ],
+        [
+          44.0,
+          7.3
+        ]
+      ],
+      "scope": "Axial transitions, necks, collet detail and neutral gray display finish are outline-derived estimates; nominal overall and maximum diameter remain controlled by the OEM row"
+    },
+    "socket_scope": "Both blind bores reach16.1mm from their release faces, receiving the nominal full inserted stem without an artificial shallow display closure. The central valve mechanism is not modeled.",
+    "source_pdf": "sources/fluidfit-hcvu-inch.pdf",
+    "source_pdf_sha256": "5e2014b5ebc0e86583b2b681bb7e05512ac6568dabf8f4f6dfe0c97771e55692",
+    "source_url": "https://www.fluidfit.net/eng/open_content/product/view.php?pm_no=262",
+    "source_drawing_url": "https://www.fluidfit.net/lib/pm_download.php?c_name=pdf_Metric_PT&pm_no=262",
+    "catalog_url": "https://www.fluidfit.net/catalog/Catalog_Fluidfit_2026_eng.pdf",
+    "application_scope": "Manufacturer POM-family catalog lists water, liquid foods, air and gas. Generic air/gas applicability is distinct from exact CO2 duty qualification.",
+    "color_suffix_scope": "RequestedG variant uses the HCVU1/4-1/4 family's dimensions; no distinctG-suffix geometry is established here",
+    "geometry": "geometry/candidate-check.npz",
+    "mesh_sha256": "c90d90f06e05d8ec07f01f64103279d46687fd641052395285327386964abad1",
+    "step": "geometry/candidate-check.step",
+    "step_sha256": "f5efad2beb883be549e42ceffec15eb2cfebee02b28321962cadf490ad6e1fc7",
+    "bounds_mm": [
+      [
+        -7.7465314865112305,
+        -7.7491326332092285,
+        0.0
+      ],
+      [
+        7.75,
+        7.7491326332092285,
+        45.5
+      ]
+    ],
+    "size_xyz_mm": [
+      15.49653148651123,
+      15.498265266418457,
+      45.5
+    ],
+    "parts": [
+      {
+        "name": "body",
+        "mesh": "candidate-check-body.npz",
+        "sha256": "0e4319fe00195fe0bf2d9a4839af64e0ee41f31874c1d3238fa5c6a8a2021969",
+        "valid_native_solid": true,
+        "native_solid_count": 1,
+        "volume_mm3": 6354.091315170494,
+        "triangles": 5884
+      },
+      {
+        "name": "inlet_collet",
+        "mesh": "candidate-check-inlet_collet.npz",
+        "sha256": "50bcc0d1bd75f928e9658e976b4e1a10d6595aac4a88568bdef1731de060f9c8",
+        "valid_native_solid": true,
+        "native_solid_count": 1,
+        "volume_mm3": 164.03531516407827,
+        "triangles": 840
+      },
+      {
+        "name": "outlet_collet",
+        "mesh": "candidate-check-outlet_collet.npz",
+        "sha256": "5a1f86c70d9125c33d8eb5aff136a3c86103503961d385f733edbdee56b022b9",
+        "valid_native_solid": true,
+        "native_solid_count": 1,
+        "volume_mm3": 164.03531516407827,
+        "triangles": 840
+      }
+    ],
+    "vertices": 7200,
+    "triangles": 7564
+  }
+}

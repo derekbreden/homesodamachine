@@ -1,0 +1,34 @@
+{
+  "checked_date": "2026-10-23",
+  "scope": "Geometry candidates for the folded CO2 study; purchase selection remains open",
+  "regulator": {
+    "manufacturer": "PISCO",
+    "part": "RVFUP1/4-1/4-0.3",
+    "product_url": "https://shop.pisco.com/product/rvfup1-4-1-4-0-3/",
+    "specification_url": "https://shop.pisco.com/wp-content/themes/agency-ecommerce/assets/images/preset-regulator.pdf",
+    "overall_length_mm": 62.4,
+    "maximum_diameter_mm": 21.5,
+    "socket_insertion_mm": 17.0,
+    "preset_MPa": 0.3,
+    "published_medium": "Air",
+    "free_reverse_flow": true,
+    "stock": "Manufacturer store displays In Stock",
+    "immediate_dispatch": "No dispatch time established",
+    "CO2_suitability": "No model-specific approval or incompatibility established",
+    "pressure_tolerance_scope": "Published +/-0.025MPa applies with inlet at preset+0.3MPa; that does not establish the same accuracy at the normal75psi feed",
+    "prime_offer_verified": false,
+    "prime_search": "Signed-in Prime-filtered exact-family search returned only unrelated sponsored results"
+  },
+  "check": {
+    "manufacturer": "Fluidfit",
+    "part": "HCVU1/4-1/4G",
+    "product_url": "https://www.fluidfit.net/eng/open_content/product/view.php?pm_no=262",
+    "overall_length_mm": 45.5,
+    "maximum_diameter_mm": 15.5,
+    "socket_insertion_mm": 16.1,
+    "service_evidence": "Manufacturer POM-family catalog includes air/gas applications; exact duty and received fittings remain unverified",
+    "stock": "No immediate-dispatch purchase established"
+  },
+  "stems": "NeoFit ATEU44 layout reference; square cuts retain each host socket full insertion",
+  "purchase_status": "No order or production replacement selected"
+}
