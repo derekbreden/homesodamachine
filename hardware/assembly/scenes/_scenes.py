@@ -182,7 +182,7 @@ SCENES = (
         cam=(0.8, -1.0, 0.9), up=(0, 0, 1), zoom=4.4, look="centre",
         note="The same pose as the back top and the other half of the same box: on its ceiling, "
              "the mouth to the room. Every seat under this manifold is the piece's own "
-             "material, including the collet plate and the four tee anchors. The sliding funnel frame is installed; "
+             "material, including the collet plate and the tee wall's four bores. The sliding funnel frame is installed; "
              "the silicone funnel and pump cartridge enter with the box standing.",
     ),
     # THE UNIT THAT FILLS THAT BAY, rooted on its two printed pieces: the full-height lower
@@ -321,7 +321,7 @@ BARE = {"cap-lid-fill"}
 #
 # A body the fastening table leaves without a parent and this table does not name is REPORTED,
 # not dropped — see `holders`. The flavour pack's fixed valves and plumbing are
-# assembled on front-top's trays and tee anchors.
+# assembled on front-top's trays and in its tee wall.
 BEARS_ON = {
     # Standing on a printed floor.
     "foam-assembly": "enclosure-back-bottom",
@@ -342,9 +342,8 @@ BEARS_ON = {
     # Hanging off the line they splice, on the wall that line is cradled against.
     "water-split": "enclosure-back-top",
     "flow-regulator": "enclosure-back-top",
-    # Each pump tee lies in its anchor under the tee cap that snaps down over it.
+    # Each pump tee's branch stands in its bore through front-top's tee wall.
     **{f"tee-{tee}": "enclosure-front-top" for tee in ("y-c", "y-d", "y-f", "y-g")},
-    **{f"tee-cap-{tee}": "enclosure-front-top" for tee in ("y-c", "y-d", "y-f", "y-g")},
     # Riding another body rather than a piece.
     "fuse-clamp": "compressor",
 }

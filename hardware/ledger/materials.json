@@ -422,17 +422,6 @@
             ]
           },
           {
-            "material": "HSM-000329",
-            "quantity": 4,
-            "unit": "ea",
-            "bodies": [
-              "tee-cap-y-c",
-              "tee-cap-y-d",
-              "tee-cap-y-f",
-              "tee-cap-y-g"
-            ]
-          },
-          {
             "material": "HSM-000077",
             "quantity": 1,
             "unit": "ea",
@@ -4447,7 +4436,7 @@
         }
       ],
       "bom": {
-        "scope": "Complete removable cartridge: two pumps, lower cradle, top clamp, prepared pump tubes, moving contacts and leads, SB443-IN magnet blocks and mounting hardware. The pump tees, their tee caps, the collet plate and the male contacts belong to the machine. Pump tubes are fitted during assembly; motor-tab terminal sizes are recorded in the wiring procedure when established.",
+        "scope": "Complete removable cartridge: two pumps, lower cradle, top clamp, prepared pump tubes, moving contacts and leads, SB443-IN magnet blocks and mounting hardware. The pump tees, the collet plate and the male contacts belong to the machine. Pump tubes are fitted during assembly; motor-tab terminal sizes are recorded in the wiring procedure when established.",
         "source": "assembly/internal-plumbing.md",
         "items": [
           {
@@ -6447,26 +6436,6 @@
       ],
       "aliases": [
         "Anchor cap"
-      ]
-    },
-    {
-      "id": "HSM-000329",
-      "description": "Pump tee cap",
-      "kind": "manufactured",
-      "models": [
-        {
-          "file": "printed-parts/enclosure/enclosure/enclosure-tee-cap.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Part details",
-          "path": "printed-parts/enclosure/pump-dock/README.md"
-        }
-      ],
-      "aliases": [
-        "Tee cap",
-        "enclosure-tee-cap"
       ]
     },
     {

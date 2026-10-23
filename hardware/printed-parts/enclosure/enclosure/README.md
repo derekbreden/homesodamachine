@@ -1446,14 +1446,13 @@ back, at enclosure [Y97.19](DOCK_TIP_Y), and the tee stands at connected: its br
 extended with its nose on the release face. The collet grips the tube against pressure. A
 straight pull drags each tee forward its [1.5 mm](DOCK_TRAVEL) collet stroke until the plate
 holds the collet pressed and the tube draws out; pushing the cartridge home returns each tee
-to connected. Each tee's branch lies in a tee anchor on front-top's seam plane, a half journal
-that holds it in X and Z and lets it slide along Y, and a printed tee cap snaps down on
-top of the branch and closes the journal. The fore valves stand fixed over the tees' connected axes, so
+to connected. Each tee's branch stands in a bore through the bay bulkhead, the tee wall,
+which holds it in X and Z and lets it slide along Y. The fore valves stand fixed over the tees' connected axes, so
 the short upper tube stands straight in service and bends the stroke at release; one R14 hairpin of LLDPE joins each tee's
-lower port to its rear valve. The tees, caps, valves and tubing stay in the machine. All
+lower port to its rear valve. The tees, valves and tubing stay in the machine. All
 permanent plumbing is assembled on loose front-top before that piece joins the compressor
-half. The [pump-dock specification](../pump-dock/README.md) gives the stations, the tee cap,
-the tube setting jig and the material selections.
+half. The [pump-dock specification](../pump-dock/README.md) gives the stations, the tee wall's
+bores, the tube setting jig and the material selections.
 
 **Printed-in SB443-IN pairs seat the cartridge.**
 [8](DOCK_MAGNET_COUNT) magnets stand in one [2](DOCK_MAGNET_ROWS)-high column on each
@@ -1495,8 +1494,8 @@ hairpin aft and up into its rear valve's bottom collet, through the port channel
 keeps under each rear valve.
 
 Both front flanks retain their full [9 mm](FRONT_TOP_FLANK) section across this room.
-The tees, upper tubes and fore valves go in together from the open interior, and the tee
-caps snap down before the valve rows close access. The rear valves and coils enter from the
+The tees, upper tubes and fore valves go in together from the open interior, each tee's
+branch into its bore, before the valve rows close access. The rear valves and coils enter from the
 loose piece's underside and move onto their mounting posts, and each hairpin pushes up into
 its tee's lower collet and its rear valve together. The Beduan socket fit retains its
 identified physical acceptance; ties supply retention. Factory assembly and the complete
@@ -1541,17 +1540,16 @@ is [2 mm](PLATE_FOOT_COND_AIR).
 
 One rectangular bulkhead joins the floor, lintel and both enclosure flanks. Its flat
 cartridge-facing plane is Y [82.515 mm](BAY_BACK_Y); its full backing depth is
-[14.321 mm](BAY_BULKHEAD_T), with the collet plate band described below. The cradle and clamp share one flat back at y
+[14.321 mm](BAY_BULKHEAD_T) wall to wall and from the seam to the lintel. The cradle and clamp share one flat back at y
 [82.265 mm](PUMP_CARTRIDGE_AFT_Y), one [0.25 mm](CARTRIDGE_BULKHEAD_KISS) kiss fore of that
 plane.
 
-Across the tee row the bulkhead is the [3.175 mm](DOCK_PLATE_T) collet plate, from the seam
-to [Z200.574](DOCK_PLATE_TOP_Z), with four [Ø8.5 mm](DOCK_HOLE_D) teardropped tube holes.
-Behind it on the seam plane stand the four tee anchors and the two magnet bosses. Over the
-tee caps the bulkhead grows back on a 45° underside to its full depth at
-[Y96.836](DOCK_WALL_AFT_Y), which continues into the ridge/contact wall above; outboard of
-the caps it stands full depth from the seam. The Z-seam rail channels begin at the
-bulkhead's retained aft datum.
+The bulkhead is the tee wall: one flat slab whose fore [3.175 mm](DOCK_PLATE_T) is the collet
+plate. Each pump tee has a teardropped [Ø17 mm](DOCK_BORE) bore from the plate's aft face out
+through the wall's aft face at [Y96.836](DOCK_WALL_AFT_Y), and ahead of it a teardropped
+[Ø8.5 mm](DOCK_HOLE_D) tube hole through the plate. The two magnet slots are cut into the wall
+from the bay face. The full depth continues into the ridge/contact wall above, and the Z-seam
+rail channels begin at the wall's aft face.
 
 The clamp lifts through the cradle's straight upper wells, which open through its aft
 face. Its broad underside, fitted boss openings and motor bores close over both pumps.

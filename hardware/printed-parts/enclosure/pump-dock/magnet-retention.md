@@ -27,10 +27,9 @@ definition.
 | Air over two nominal / drawing-maximum blocks | 0.353 / 0.150 mm |
 
 Each column is one vertical slot, open at its part's mating face and cut into
-solid stock. Front-top's opens in the collet plate's bay face and runs through
-the 3.175 mm plate, which carries its rails, into a boss behind the plate; the
-boss stands on the seam plane and keeps 3 mm of wall past the slot's floor,
-sides and roof. The cartridge's is cut into its aft wall between each pump's two
+solid stock. Front-top's opens in the bay face of the tee wall and runs through
+the 3.175 mm collet plate, which carries its rails, into the wall behind it, which
+keeps its full depth past the slot's floor, sides and roof. The cartridge's is cut into its aft wall between each pump's two
 tube passages, with at least 3 mm of wall around it. The slot's section is wide
 at the face for the block's front band, narrowed by a printed rail standing in
 each of the block's two side grooves, and wide again for the back band. The
@@ -55,7 +54,7 @@ and the [filament footprints](printed-capture-beads.png) show the perimeter
 turning out from the wall around the rail tip and returning to the wall, with
 the inner wall path and dense root fill alongside it. These deposited-path
 observations are evidence for the rail construction on those recorded jobs. The
-two-block slots and front-top's bosses have no native slice reading; physical
+two-block slots have no native slice reading; physical
 fit and retention keep their scope below.
 
 The metal-insert fit retains 0.10 mm beside each block, 0.05 mm at each nominal

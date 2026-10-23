@@ -9,7 +9,7 @@ when the cartridge is withdrawn.
 
 The lower cradle and front-top's collet plate carry four attracting SB443-IN pairs,
 one column of two on each pump's own load line at the pump tube row; front-top's
-slots run on into bosses behind the plate. Each part's print pauses once while two
+slots run on into the tee wall behind the plate. Each part's print pauses once while two
 blocks drop down the printed rails of each column's slot; the next layer closes
 over them, and the bare poles meet at the cartridge's seat
 ([magnet design](../pump-dock/magnet-retention.md)).

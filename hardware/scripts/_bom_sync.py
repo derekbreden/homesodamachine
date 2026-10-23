@@ -264,8 +264,8 @@ display_cover_wings_per_build = len(_enc._display_wings.support_exits(1.0))
 pump_cap_inserts_per_build = len(_enc.cap_screw_ys(_f.box["inner"], _f.box["collet_plate"]))
 pump_cap_screws_per_build = pump_cap_inserts_per_build
 
-# One tee cap snaps down over each pump tee and takes no fastener.
-dock_caps_per_build = len(_f.box["collet_plate"]["holes"])
+# Each pump tee stands in its bore through front-top's tee wall and takes no fastener.
+dock_tees_per_build = len(_f.box["collet_plate"]["holes"])
 dock_fixture_locks_per_build = 0
 
 # The C14 inlet's two, read off the receptacle's own flange. `enclosure._c14_tunnel_geometry`
@@ -583,7 +583,7 @@ def main(*, only_bom=False):
 
         "PP0308E_TOTAL": f"{pp0308e_per_build}",
         "PP0308E_COST": pack_line_cost(pp0308e_per_build, "68.49", 30),
-        "DOCK_CAPS": f"{dock_caps_per_build:.4g}",
+        "DOCK_TEES": f"{dock_tees_per_build:.4g}",
         "DOCK_FIXTURE_LOCKS": f"{dock_fixture_locks_per_build:.4g}",
         "PUMP_CAP_INSERTS": f"{pump_cap_inserts_per_build:.4g}",
         "PUMP_CAP_SCREWS": f"{pump_cap_screws_per_build:.4g}",

@@ -34,11 +34,6 @@ def transformed_bounds(bounds, transform):
 
 def print_pose(piece, mesh_bounds):
     """Source-coordinate orientation and bed datum; plate X/Y nesting is separate."""
-    if piece in DOCK_PIECES:
-        return dict(up_axis_in_source=[0, 0, 1],
-                    bed_face='Manufacturing export is already bedded in print pose',
-                    source_to_print_mm=[[1, 0, 0, 0], [0, 1, 0, 0],
-                                        [0, 0, 1, 0], [0, 0, 0, 1]])
     sign = -1.0 if piece == 'pump-cap' else (
         1.0 if piece == 'pump-cartridge' else e.print_up(*piece.split('-')))
     offset = -float(mesh_bounds[0][2]) if sign > 0 else float(mesh_bounds[1][2])
@@ -46,10 +41,6 @@ def print_pose(piece, mesh_bounds):
                 bed_face='Z minus' if sign > 0 else 'Z plus',
                 source_to_print_mm=[[1, 0, 0, 0], [0, sign, 0, 0],
                                     [0, 0, sign, offset], [0, 0, 0, 1]])
-
-
-# The dock's printed part, exported standing in its print pose.
-DOCK_PIECES = ('tee-cap',)
 
 
 def dock_regions(box, region):
@@ -68,14 +59,10 @@ def dock_regions(box, region):
             b[2 if side == 'moving' else 3] += -e.wall if side == 'moving' else e.wall
             region(piece, f'SB443 column {number}: rail slot walls, roof over the blocks and root', b)
 
-    # The tee cap is exported standing on its fore end.
-    solid = e.cq.importers.importStep(str(ENC/'enclosure-tee-cap.step')).val()
-    region('tee-cap', 'Complete tee cap, half pipe, spring wings and lips', shape_bounds(solid))
-
 
 def main():
     box, _bounds, box_path = _declared_box(_box_spec, e)
-    pieces = {name: [] for name in (*e.PIECE_COLORS, *DOCK_PIECES)}
+    pieces = {name: [] for name in e.PIECE_COLORS}
     def region(piece, name, bounds, **evidence):
         pieces[piece].append(dict(name=name, machine_bounds_mm=bounds,
                                  sparse_infill_density='100%', sparse_infill_pattern='zig-zag',
@@ -152,14 +139,9 @@ def main():
            ROOT/'hardware/printed-parts/petgf.3mf']
     report=dict(scope='Local 100% infill modifiers in existing native material; complete insert hosts, blind caps, roots and seam load paths. No load capacity or lifetime qualification.',
                 use='Manual print-preparation specification only. Modifier boxes intersect existing material and add no geometry. applied_source_bounds_mm clips each requested box to the model bounds before its prescribed print transform; plate X/Y nesting is separate. Bind a fresh native project and emitted paths to these hashes before production printing; this is not a build gate or a sliced-print result.',
-                coordinate_frames={name: ('Canonical manufacturing STEP/STL, already bedded in print pose'
-                                         if name in DOCK_PIECES
-                                         else 'Source STEP/STL coordinates in the appliance frame') for name in pieces},
+                coordinate_frames={name: 'Source STEP/STL coordinates in the appliance frame' for name in pieces},
                 print_poses=poses,
-                part_process_overrides={name: dict(wall_loops='6', sparse_infill_density='100%',
-                    sparse_infill_pattern='zig-zag',
-                    purpose='Each spring wing flexes at every snap and its lip carries the tee into the anchor window. Whole-object solid deposition includes both wings and lips.')
-                    for name in DOCK_PIECES},
+                part_process_overrides={},
                 source_sha256={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in paths},
                 native_artifact_sha256={name:{suffix:hashlib.sha256((ENC/f'enclosure-{name}{suffix}').read_bytes()).hexdigest()
                                              for suffix in ('.step','.stl')} for name in pieces},pieces=pieces)
