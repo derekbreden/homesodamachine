@@ -1,0 +1,423 @@
+{
+  "units": "mm",
+  "source_mesh": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+  "source_mesh_sha256": "201d9c90a008ce7902c679e1bcd78e49a4fb2447d1a1aa4c79be73b1a9151e0a",
+  "source_facts": "hardware/manifold-layout/enclosure-assembly.facts.json",
+  "source_facts_sha256": "b2cef644b0368e0a951302cd3966775b7a6ba24864fae9187f0abbbf70c3d97f",
+  "pointer_mesh_sha256": "201d9c90a008ce7902c679e1bcd78e49a4fb2447d1a1aa4c79be73b1a9151e0a",
+  "source_mesh_matches_current_pointer": true,
+  "pointer_source_commit": "2eaea329d128836d567f242e6e87a7e187a4fb53",
+  "pointer_marks_enclosure_assembly_unproven": true,
+  "source_authority": "Pointer pins preserved mesh bytes. Its unproven marker means this is not a source-regenerated assembly. Reference generators establish interface roles and nominal dimensions; generated facts and wiring carry their stated evidence scopes.",
+  "scope": "Frozen selected physical neighbors and populated-board input for the farther-forward PCB diagnostic view",
+  "mesh_frame": "All neighbor NPZs carry unchanged original assembly world coordinates; the board uses pose.json",
+  "parts": {
+    "valve-v-b": {
+      "snapshot": "parts/valve-v-b.npz",
+      "snapshot_sha256": "0bb91bf81b1abff0a6f6cba76ca641d9ce439c5b84500f2a326dba0b25423d63",
+      "source_mesh_component_names": [
+        "valve-v-b"
+      ],
+      "role": "retained-forward-neighbor",
+      "source_bounds_mm": [
+        [
+          -39.099998474121094,
+          226.9600067138672,
+          252.0
+        ],
+        [
+          -5.599999904632568,
+          286.4599914550781,
+          278.0
+        ]
+      ],
+      "snapshot_bounds_mm": [
+        [
+          -39.099998474121094,
+          226.9600067138672,
+          252.0
+        ],
+        [
+          -5.599999904632568,
+          286.4599914550781,
+          278.0
+        ]
+      ],
+      "vertices": 7485,
+      "triangles": 8974,
+      "note": "Actual source component in original world pose"
+    },
+    "coil-v-b": {
+      "snapshot": "parts/coil-v-b.npz",
+      "snapshot_sha256": "6f8818b66f0d12fb5deadc4ef30362ad2c025d079699e63c2d9009ca04db9178",
+      "source_mesh_component_names": [
+        "coil-v-b/1",
+        "coil-v-b/2",
+        "coil-v-b/3"
+      ],
+      "role": "retained-forward-neighbor",
+      "source_bounds_mm": [
+        [
+          -39.099998474121094,
+          229.61000061035156,
+          278.0
+        ],
+        [
+          -5.599999904632568,
+          273.6099853515625,
+          309.29998779296875
+        ]
+      ],
+      "snapshot_bounds_mm": [
+        [
+          -39.099998474121094,
+          229.61000061035156,
+          278.0
+        ],
+        [
+          -5.599999904632568,
+          273.6099853515625,
+          309.29998779296875
+        ]
+      ],
+      "vertices": 4067,
+      "triangles": 4970,
+      "note": "Actual source component in original world pose"
+    },
+    "tee-y-b": {
+      "snapshot": "parts/tee-y-b.npz",
+      "snapshot_sha256": "0ad43cc6ddcdd7d52b9d39309800b8b7a98ffbdd7f87621be4bc4f64cbf57be6",
+      "source_mesh_component_names": [
+        "tee-y-b"
+      ],
+      "role": "retained-forward-neighbor",
+      "source_bounds_mm": [
+        [
+          -30.53984832763672,
+          157.99000549316406,
+          228.1750030517578
+        ],
+        [
+          2.1316282072803006e-14,
+          174.49000549316406,
+          270.67498779296875
+        ]
+      ],
+      "snapshot_bounds_mm": [
+        [
+          -30.53984832763672,
+          157.99000549316406,
+          228.1750030517578
+        ],
+        [
+          2.1316282072803006e-14,
+          174.49000549316406,
+          270.67498779296875
+        ]
+      ],
+      "vertices": 1413,
+      "triangles": 1382,
+      "note": "Actual source component in original world pose"
+    },
+    "turn-fluid-5": {
+      "snapshot": "parts/turn-fluid-5.npz",
+      "snapshot_sha256": "5789139fee52f380dd8d15c01150342e48b8ba39d2d35146b3cea15a83683bb3",
+      "source_mesh_component_names": [
+        "turn-fluid-5"
+      ],
+      "role": "retained-forward-neighbor",
+      "source_bounds_mm": [
+        [
+          -25.501850128173828,
+          163.06500244140625,
+          270.67498779296875
+        ],
+        [
+          -19.198148727416992,
+          180.24000549316406,
+          287.8500061035156
+        ]
+      ],
+      "snapshot_bounds_mm": [
+        [
+          -25.501850128173828,
+          163.06500244140625,
+          270.67498779296875
+        ],
+        [
+          -19.198148727416992,
+          180.24000549316406,
+          287.8500061035156
+        ]
+      ],
+      "vertices": 268,
+      "triangles": 412,
+      "note": "Actual source component in original world pose"
+    },
+    "step-fluid-5": {
+      "snapshot": "parts/step-fluid-5.npz",
+      "snapshot_sha256": "b99d07617ea50703557e19c94b0039a9de3e1938bb7bb54af07ca74e3cdaad0c",
+      "source_mesh_component_names": [
+        "step-fluid-5"
+      ],
+      "role": "retained-forward-neighbor",
+      "source_bounds_mm": [
+        [
+          -25.524999618530273,
+          180.24000549316406,
+          259.8981628417969
+        ],
+        [
+          -19.174999237060547,
+          226.9600067138672,
+          287.82684326171875
+        ]
+      ],
+      "snapshot_bounds_mm": [
+        [
+          -25.524999618530273,
+          180.24000549316406,
+          259.8981628417969
+        ],
+        [
+          -19.174999237060547,
+          226.9600067138672,
+          287.82684326171875
+        ]
+      ],
+      "vertices": 322,
+      "triangles": 412,
+      "note": "Actual source component in original world pose"
+    },
+    "tube-fluid-4": {
+      "snapshot": "parts/tube-fluid-4.npz",
+      "snapshot_sha256": "24e9c57dd3caea3618c0345a92ae5680fbd1fc1ac739617d0b0277ff1c53afdc",
+      "source_mesh_component_names": [
+        "tube-fluid-4"
+      ],
+      "role": "retained-forward-neighbor",
+      "source_bounds_mm": [
+        [
+          -47.720703125,
+          182.2581329345703,
+          259.89715576171875
+        ],
+        [
+          3.151850700378418,
+          313.1694641113281,
+          283.5849914550781
+        ]
+      ],
+      "snapshot_bounds_mm": [
+        [
+          -47.720703125,
+          182.2581329345703,
+          259.89715576171875
+        ],
+        [
+          3.151850700378418,
+          313.1694641113281,
+          283.5849914550781
+        ]
+      ],
+      "vertices": 1132,
+      "triangles": 1712,
+      "note": "Actual source component in original world pose"
+    },
+    "tube-fluid-24": {
+      "snapshot": "parts/tube-fluid-24.npz",
+      "snapshot_sha256": "60bede2ca737988fa89b165505f54fac41bd1f7e84424a9ce463e16343cee3e4",
+      "source_mesh_component_names": [
+        "tube-fluid-24"
+      ],
+      "role": "retained-forward-neighbor",
+      "source_bounds_mm": [
+        [
+          -85.2518539428711,
+          104.86906433105469,
+          253.39999389648438
+        ],
+        [
+          -40.348148345947266,
+          236.47500610351562,
+          298.75
+        ]
+      ],
+      "snapshot_bounds_mm": [
+        [
+          -85.2518539428711,
+          104.86906433105469,
+          253.39999389648438
+        ],
+        [
+          -40.348148345947266,
+          236.47500610351562,
+          298.75
+        ]
+      ],
+      "vertices": 1078,
+      "triangles": 1556,
+      "note": "Actual source component in original world pose"
+    },
+    "tube-fluid-26": {
+      "snapshot": "parts/tube-fluid-26.npz",
+      "snapshot_sha256": "8151679fb6731f2e4c4a088a684d90d77ce05167ec1e1ac0c5ac0a4717e869e8",
+      "source_mesh_component_names": [
+        "tube-fluid-26"
+      ],
+      "role": "retained-forward-neighbor",
+      "source_bounds_mm": [
+        [
+          -36.461917877197266,
+          104.8804702758789,
+          253.39999389648438
+        ],
+        [
+          -6.324999809265137,
+          232.65185546875,
+          298.6081848144531
+        ]
+      ],
+      "snapshot_bounds_mm": [
+        [
+          -36.461917877197266,
+          104.8804702758789,
+          253.39999389648438
+        ],
+        [
+          -6.324999809265137,
+          232.65185546875,
+          298.6081848144531
+        ]
+      ],
+      "vertices": 835,
+      "triangles": 1192,
+      "note": "Actual source component in original world pose"
+    },
+    "funnel-drain-union": {
+      "snapshot": "parts/funnel-drain-union.npz",
+      "snapshot_sha256": "071cdb74faf244d2aa82ceba931c6e4f45871e9c74c9f4956a9e8700f2bc29a8",
+      "source_mesh_component_names": [
+        "funnel-drain-union/1",
+        "funnel-drain-union/2",
+        "funnel-drain-union/3"
+      ],
+      "role": "retained-forward-neighbor",
+      "source_bounds_mm": [
+        [
+          -8.1628999710083,
+          153.66473388671875,
+          272.3066101074219
+        ],
+        [
+          8.1628999710083,
+          182.2581329345703,
+          300.9723815917969
+        ]
+      ],
+      "snapshot_bounds_mm": [
+        [
+          -8.1628999710083,
+          153.66473388671875,
+          272.3066101074219
+        ],
+        [
+          8.1628999710083,
+          182.2581329345703,
+          300.9723815917969
+        ]
+      ],
+      "vertices": 9516,
+      "triangles": 9296,
+      "note": "Actual source component in original world pose"
+    },
+    "funnel-drain-stub": {
+      "snapshot": "parts/funnel-drain-stub.npz",
+      "snapshot_sha256": "60bc0f6ece7412e9aa5ffc7d97bbfe459fd3e63a08d342da13282a86ff398d3d",
+      "source_mesh_component_names": [
+        "funnel-drain-stub"
+      ],
+      "role": "retained-forward-neighbor",
+      "source_bounds_mm": [
+        [
+          -3.174999952316284,
+          158.5438995361328,
+          285.27239990234375
+        ],
+        [
+          3.174999952316284,
+          164.84759521484375,
+          311.0648193359375
+        ]
+      ],
+      "snapshot_bounds_mm": [
+        [
+          -3.174999952316284,
+          158.5438995361328,
+          285.27239990234375
+        ],
+        [
+          3.174999952316284,
+          164.84759521484375,
+          311.0648193359375
+        ]
+      ],
+      "vertices": 212,
+      "triangles": 208,
+      "note": "Actual source component in original world pose"
+    },
+    "elbow-cradle": {
+      "snapshot": "parts/elbow-cradle.npz",
+      "snapshot_sha256": "ad26660967f0a8c2aac435362c3069c5cc5333904c4633155ecb5e4979c13758",
+      "source_mesh_component_names": [
+        "elbow-cradle"
+      ],
+      "role": "retained-forward-neighbor",
+      "source_bounds_mm": [
+        [
+          -18.149999618530273,
+          150.45574951171875,
+          269.09710693359375
+        ],
+        [
+          18.149999618530273,
+          182.2581329345703,
+          306.04998779296875
+        ]
+      ],
+      "snapshot_bounds_mm": [
+        [
+          -18.149999618530273,
+          150.45574951171875,
+          269.09710693359375
+        ],
+        [
+          18.149999618530273,
+          182.2581329345703,
+          306.04998779296875
+        ]
+      ],
+      "vertices": 3532,
+      "triangles": 3202,
+      "note": "Actual source component in original world pose"
+    },
+    "pcba-source": {
+      "snapshot": "parts/pcba-source.npz",
+      "snapshot_sha256": "28e8af12a0ea2e0bd1ab59b9a016be4decd7c4dd9d428ba763372ce303b11d28",
+      "source_snapshot": "hardware/manifold-layout/studies/ceiling-fit/parts/pcba.npz",
+      "source_snapshot_sha256": "28e8af12a0ea2e0bd1ab59b9a016be4decd7c4dd9d428ba763372ce303b11d28",
+      "role": "ghost-input-only",
+      "note": "Original populated board geometry; only the explicitly transformed ghost pose is used, never the original installed pose as an obstacle"
+    }
+  },
+  "relationship_sources": {
+    "hardware/topology/fluid-topology.md": "83037e23aaab5df3ef787faf1e180847aba1601df15970c075524ab43db57e85",
+    "hardware/manifold-layout/manifold_layout.py": "2cd39eb23500cdde5f629938877aa1162488d45a8b700e0d1479d02794313eac",
+    "hardware/manifold-layout/_lines.py": "6faaf0fc271f12c5c799d0cde55b778ae8798f25f88900b2eac36b06e9b25012",
+    "hardware/manifold-layout/enclosure_assembly.py": "80b0218a6124d8ffa1837a85d807f82ff8df2629965bf3dfb9dc55a583523104",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "ada7a2df4745a4be40123c55cc7f4b6c821b4bf08ac7608d2b736a6911bdcccf"
+  },
+  "query_context": "query-context.json",
+  "connection_model": "../connections/model.py",
+  "connection_model_sha256": "018a8e2bfd33fcd06b8ca7f3993a2257fceaa4a787abe0a2ec031507d3ffe694"
+}
