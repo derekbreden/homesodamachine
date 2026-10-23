@@ -1,32 +1,19 @@
 {
-  "recorded_on": "2026-10-22",
-  "status": "Mark1 task 1365626370 is printing the five-wall, 1.05-flow, 30%-overlap, 265/270 C recipe with 10-degree Arachne transitions. Water holding is unassessed.",
+  "recorded_on": "2026-10-23",
+  "status": "Derek reports a one-hour water hold on the intentionally partially printed Mark1 task 1365626370 article. Retain the tested five-wall, 1.05-flow, 30%-overlap, 265/270 C recipe.",
   "customer_outcome": "A flat, leak-free vented reservoir in less production time.",
   "trigger": "../prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/physical-result.json",
   "priority": [
     {
-      "candidate": "Five requested wall loops, 100% solid zig-zag floor fill, 30% Infill/Wall overlap, flow 1.05 and 265/270 C first/subsequent nozzle temperatures.",
+      "candidate": "Retain the current five-wall, 1.05-flow, 30%-overlap, 265/270 C recipe as the baseline.",
       "purpose": "Fill actual body walls and curved corners entirely with wall paths; use solid floor fill with increased overlap and melt temperature.",
       "record": "../recipe-reviews/2026-10-22-flow105-overlap30/README.md",
-      "evidence": "Native counts 2-4 leave fill in the ordinary corner walls; 5 has only wall features through both ordinary wall bands. Derek requests flow 1.05, doubled overlap and higher temperature.",
+      "evidence": "The identified printed portion held water for one hour, reported by Derek on 2026-10-23. Native counts 2-4 retain fill in the ordinary corners; 5 contains only wall features there.",
       "retained": "0.30/0.24 mm layers, 0.8 mm lines, Arachne at its 10-degree default, May motion/cooling, 21 mm3/s, 70 C bed, no brim, zero added trim, ironing off and current automatic supports.",
-      "limits": "Native-reviewed and started; no completed physical water-hold result.",
-      "status": "Launched on Mark1 as task 1365626370."
+      "limits": "One-hour water hold for the printed portion. Exact cut height, water head and cap/gasket sealing are unspecified; the combined recipe changes are not causally isolated.",
+      "status": "Positive physical water-hold evidence; no recipe change selected."
     }
   ],
-  "screen": {
-    "candidate": "Optional 25 mm tall full-footprint body base retaining the real floor, corners and wall thickness, using the selected five-wall/solid-fill recipe.",
-    "decision": "Screen floor/corner distortion and lower-wall/floor seepage before committing another full-height body.",
-    "tools": "Existing printer/build plate, water, dry tissue and a flat household surface; no purchase.",
-    "procedure": [
-      "Use the selected candidate recipe and native-reviewed floor/wall coverage, with no brim; record actual elapsed time.",
-      "Inspect exposed corner contact during printing where camera visibility permits. After complete cooling and removal, place the base on an existing flat surface and inspect each bottom corner for visible upward curl or rocking.",
-      "Dry the outside, fill with water to 20 mm above the internal floor, place on dry tissue and inspect immediately, at 15 minutes and at 60 minutes."
-    ],
-    "acceptance": "No visible upward-curved bottom corner or rocking on the flat surface; no wet spot or visible seepage through floor, corner, seam or lower wall during the one-hour hold. Record any failure location.",
-    "scope": "A pass is a low-head floor/lower-wall screen only. A short article cannot validate full-height stress, full reservoir hydrostatic head, cap/gasket seal or cold service. Full-height water hold remains necessary for reservoir acceptance.",
-    "status": "Optional screen only; no cropped geometry or print prepared."
-  },
   "historical_comparison": {
     "may_30": {
       "acceptance_id": "may-30-clear-06",
@@ -108,6 +95,13 @@
     "printer": "Mark1",
     "record": "../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/README.md",
     "start_slot": "A3",
-    "status": "RUNNING, layer-0 startup; no completed physical result."
+    "status": "Intentionally stopped early, as reported by Derek; printed portion held water for one hour at report.",
+    "physical_result": "../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json"
+  },
+  "reported_water_hold": {
+    "result": "../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json",
+    "duration_reported_hours": 1,
+    "article": "Intentionally stopped before print completion.",
+    "scope": "Printed portion at the unreported water head; corner flatness and lift onset unassessed."
   }
 }

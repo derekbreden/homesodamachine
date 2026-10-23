@@ -1,0 +1,9 @@
+{
+  "printer": "Mark1",
+  "observed_at_utc": "2026-10-23T07:04:41.659312+00:00",
+  "observed_at_central": "2026-10-23T02:04:41.659312-05:00",
+  "source": "Fresh read-only tools/bambu_printer.py Connection status",
+  "expected_task_id": "1365626370",
+  "matches_expected_task": false,
+  "identity_scope": "Printer no longer reports the tested task. Its current job is not attributed to this article."
+}

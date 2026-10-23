@@ -3,9 +3,10 @@
 [reservoir.3mf](reservoir.3mf) uses the **five-wall May Water adaptation**
 through Mark1's right 0.8 mm Standard nozzle: **flow 1.05, 30% Infill/Wall overlap,
 265/270 °C, no brim, zero added user Z trim and ironing Off**. Arachne uses its
-10° default transition threshold. Mark1 task **1365626370** is printing the left
-body and cap from A3; [launch and startup](prints/2026-10-22-mark1-flow105-overlap30-right08-z000/README.md).
-This recipe has no completed water-hold result.
+10° default transition threshold. Mark1 task **1365626370** has a **reported
+one-hour water hold** on its intentionally partially printed left body,
+reported October 23, 2026. [Physical result](prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json) ·
+[Launch and startup](prints/2026-10-22-mark1-flow105-overlap30-right08-z000/README.md).
 [Adaptation, wall-count comparison and installed preset facts](recipe-reviews/2026-10-22-flow105-overlap30/README.md).
 
 The project's two plates contain
@@ -98,6 +99,12 @@ and keep it dry during printing. A dry-box humidity reading describes the
 surrounding air rather than residual moisture in the filament.
 
 ## Evidence and print records
+
+The current five-wall / solid-floor recipe has a **reported one-hour water
+hold** on the intentionally shortened task-1365626370 article. Retain its
+selected settings as the current baseline. Exact printed height, water head
+and cap/gasket assembly sealing are unspecified.
+[Physical report](prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json).
 
 The preceding walls-only article has reported seam leakage. Its underside photograph shows
 droplets along a branching floor junction resembling the native perimeter

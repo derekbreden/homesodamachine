@@ -1742,7 +1742,7 @@
       ]
     }
   },
-  "accepted_result_scope": "Historical May water hold belongs to its identified article. Mark1 task 1365626370 is printing the current five-wall, flow-1.05, 30-percent-overlap, 265/270 C adaptation. It has no completed water-hold result. Failed articles and their exact recipes are recorded in prints/.",
+  "accepted_result_scope": "Historical May water hold belongs to its identified article. The current five-wall, flow-1.05, 30%-overlap, 265/270 C adaptation has a reported one-hour water hold on the intentionally partially printed Mark1 task 1365626370 article. Exact printed height and water head are unspecified; see its physical-result record.",
   "machine_changes": {
     "extruder_nozzle_stats": {
       "from": [
@@ -1869,5 +1869,7 @@
         "12"
       ]
     }
-  }
+  },
+  "current_article_result_id": "october-22-flow105-overlap30-partial",
+  "current_article_result": "prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json"
 }

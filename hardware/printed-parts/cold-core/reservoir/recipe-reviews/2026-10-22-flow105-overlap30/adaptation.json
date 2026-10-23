@@ -1,6 +1,6 @@
 {
   "recorded_on_central": "2026-10-22",
-  "status": "Native-reviewed recipe launched on Mark1 as task 1365626370. Physical water-hold result unassessed.",
+  "status": "Mark1 task 1365626370 was intentionally stopped early. Derek reports one hour holding water on the printed portion on 2026-10-23.",
   "baseline_commit": "17d1e6a91",
   "recipe": "../../print-settings.json",
   "setting_changes": {
@@ -113,5 +113,6 @@
     "Is 10 degrees the bambu preset default or have we already drifted from those defaults on something you chose for the walls? This arachne thing?",
     "What I'd like is:\n\n\n\n- 1.05 flow rate\n- enough walls for our actual walls to be entirely walls, no more\n- double the XY overlap (does bambu slicer call this wall/infill overlap? Its at 15% now?)\n- higher temp\n\n\n\nAnd I need you to tell me what layer height we've been using, and what layer heights are available on this nozzle."
   ],
-  "launch": "../../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/launch.json"
+  "launch": "../../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/launch.json",
+  "physical_result": "../../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json"
 }

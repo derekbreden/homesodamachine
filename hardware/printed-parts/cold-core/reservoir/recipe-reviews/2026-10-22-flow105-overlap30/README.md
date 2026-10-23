@@ -3,9 +3,12 @@
 The current recipe uses **five requested Arachne wall loops**, **1.05 filament
 flow**, **30% Infill/Wall overlap** and **265/270 °C** first/subsequent nozzle
 temperatures through Mark1's right **0.8 mm Standard** nozzle. Mark1 task
-**1365626370** is printing the left body and matching cap.
+**1365626370** identifies the intentionally partially printed left article.
+Derek reports a **one-hour water hold** on October 23, 2026.
+[Physical result](../../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json).
 [Launch and startup](../../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/README.md).
-No physical sealing result is established for this recipe.
+The result supports the current recipe for the tested portion; exact print
+height, water head and cap/gasket assembly sealing are unspecified.
 
 The broad floor and cap faces use **100% zig-zag fill**, with three bottom
 shell layers and three top layers / 0.8 mm minimum top thickness. The modeled
