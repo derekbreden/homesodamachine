@@ -24,6 +24,13 @@ October 23, 2026. Derek intentionally stopped the print early.
 [Launch and startup](prints/2026-10-22-mark1-flow105-overlap30-right08-z000/README.md).
 [Settings, wall-count comparison and installed presets](recipe-reviews/2026-10-22-flow105-overlap30/README.md).
 
+Derek reports aesthetic concerns with this article. His [next intended
+trial](corner-lifting/next-trial-options.json) retains all of its settings except
+nozzle temperatures: **255 °C first layer / 260 °C subsequent layers**. This is
+an intention recorded for later; the printer is occupied and filament is not
+loaded, as reported October 23. The current project retains the tested
+265/270 °C recipe.
+
 The ordinary body walls and their thick curved corners contain only native
 wall paths. Five is the lowest tested requested count that achieves this on
 both bodies; counts two through four retain fill in the corner sections.
