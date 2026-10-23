@@ -1,103 +1,158 @@
 {
-  "scope": "Nominal transformed component datums; no new wire routes",
+  "scope": "Nominal logical terminal datums in the selected dry-side arrangement; physical power-pole and separate wire/screw interfaces are in connections/interfaces.json",
   "terminals": {
     "psu.GND": {
       "id": "psu.GND",
       "part": "psu",
+      "physical_pole": "DC-minus-2",
       "point": [
-        -88.3,
-        352.00001220703126,
-        275.3999938964844
+        -72.4999938964844,
+        348.00001220703126,
+        263.59999999999997
       ],
       "outward": [
         0.0,
         -1.0,
         0.0
       ],
-      "kind": "screw",
-      "basis": "Representative terminal block; pole pitch and wire entry nominal",
-      "status": "nominal",
-      "pin": ""
-    },
-    "psu.L": {
-      "id": "psu.L",
-      "part": "psu",
-      "point": [
-        -88.3,
-        457.00001220703126,
-        283.3999938964844
-      ],
-      "outward": [
-        0.0,
-        1.0,
-        0.0
-      ],
-      "kind": "screw",
-      "basis": "Representative terminal block; pole pitch and wire entry nominal",
-      "status": "nominal",
-      "pin": ""
-    },
-    "psu.N": {
-      "id": "psu.N",
-      "part": "psu",
-      "point": [
-        -88.3,
-        457.00001220703126,
-        275.3999938964844
-      ],
-      "outward": [
-        0.0,
-        1.0,
-        0.0
-      ],
-      "kind": "screw",
-      "basis": "Representative terminal block; pole pitch and wire entry nominal",
-      "status": "nominal",
-      "pin": ""
-    },
-    "psu.V12": {
-      "id": "psu.V12",
-      "part": "psu",
-      "point": [
-        -88.3,
+      "screw_head_mm": [
+        -72.4999938964844,
         352.00001220703126,
-        283.3999938964844
+        267.09999999999997
       ],
-      "outward": [
-        0.0,
-        -1.0,
-        0.0
-      ],
-      "kind": "screw",
-      "basis": "Representative terminal block; pole pitch and wire entry nominal",
-      "status": "nominal",
-      "pin": ""
-    },
-    "relay-1.COM": {
-      "id": "relay-1.COM",
-      "part": "relay-1",
-      "point": [
-        -90.5000122070312,
-        362.00001220703126,
-        320.9
-      ],
-      "outward": [
-        -2.220446049250313e-16,
+      "screw_axis": [
+        6.123233995736766e-17,
         0.0,
         1.0
       ],
       "kind": "screw",
-      "basis": "Representative relay contact block; pole order nominal",
       "status": "nominal",
-      "pin": ""
+      "installed_wire": true,
+      "basis": "Official Mean Well top-view AC pair pitch7.5 and DC four-pole pitch5; head/mouth heights and end insets from representative reference model. The physical labels follow the published top view, separate from older nominal logical wire assignments."
+    },
+    "psu.L": {
+      "id": "psu.L",
+      "part": "psu",
+      "physical_pole": "AC-L",
+      "point": [
+        -66.2499938964844,
+        453.00001220703126,
+        263.59999999999997
+      ],
+      "outward": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "screw_head_mm": [
+        -66.2499938964844,
+        449.00001220703126,
+        267.09999999999997
+      ],
+      "screw_axis": [
+        6.123233995736766e-17,
+        0.0,
+        1.0
+      ],
+      "kind": "screw",
+      "status": "nominal",
+      "installed_wire": true,
+      "basis": "Official Mean Well top-view AC pair pitch7.5 and DC four-pole pitch5; head/mouth heights and end insets from representative reference model. The physical labels follow the published top view, separate from older nominal logical wire assignments."
+    },
+    "psu.N": {
+      "id": "psu.N",
+      "part": "psu",
+      "physical_pole": "AC-N",
+      "point": [
+        -73.7499938964844,
+        453.00001220703126,
+        263.59999999999997
+      ],
+      "outward": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "screw_head_mm": [
+        -73.7499938964844,
+        449.00001220703126,
+        267.09999999999997
+      ],
+      "screw_axis": [
+        6.123233995736766e-17,
+        0.0,
+        1.0
+      ],
+      "kind": "screw",
+      "status": "nominal",
+      "installed_wire": true,
+      "basis": "Official Mean Well top-view AC pair pitch7.5 and DC four-pole pitch5; head/mouth heights and end insets from representative reference model. The physical labels follow the published top view, separate from older nominal logical wire assignments."
+    },
+    "psu.V12": {
+      "id": "psu.V12",
+      "part": "psu",
+      "physical_pole": "DC-plus-1",
+      "point": [
+        -67.4999938964844,
+        348.00001220703126,
+        263.59999999999997
+      ],
+      "outward": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "screw_head_mm": [
+        -67.4999938964844,
+        352.00001220703126,
+        267.09999999999997
+      ],
+      "screw_axis": [
+        6.123233995736766e-17,
+        0.0,
+        1.0
+      ],
+      "kind": "screw",
+      "status": "nominal",
+      "installed_wire": true,
+      "basis": "Official Mean Well top-view AC pair pitch7.5 and DC four-pole pitch5; head/mouth heights and end insets from representative reference model. The physical labels follow the published top view, separate from older nominal logical wire assignments."
+    },
+    "relay-1.COM": {
+      "id": "relay-1.COM",
+      "part": "relay-1",
+      "physical_pole": "COM",
+      "point": [
+        -90.5000122070312,
+        371.50001220703126,
+        298.4
+      ],
+      "outward": [
+        -1.8369701987210297e-16,
+        -1.0,
+        -3.374459510989179e-32
+      ],
+      "screw_head_mm": [
+        -90.5000122070312,
+        377.00001220703126,
+        303.4
+      ],
+      "screw_axis": [
+        -1.8369701987210297e-16,
+        0.0,
+        1.0
+      ],
+      "kind": "screw",
+      "status": "nominal",
+      "installed_wire": true,
+      "basis": "Calipered overall relay reference and representative three-pole side-entry block. Screw heads +Z are modeled; wire mouth at +X end / Z6.5 is a stated best estimate because source formerly conflates top screw approach and conductor entry."
     },
     "relay-1.GND": {
       "id": "relay-1.GND",
       "part": "relay-1",
       "point": [
         -85.5000122070312,
-        413.00001220703126,
-        320.9
+        428.00001220703126,
+        303.4
       ],
       "outward": [
         -2.220446049250313e-16,
@@ -114,8 +169,8 @@
       "part": "relay-1",
       "point": [
         -82.96001220703118,
-        413.00001220703126,
-        320.9
+        428.00001220703126,
+        303.4
       ],
       "outward": [
         -2.220446049250313e-16,
@@ -130,28 +185,39 @@
     "relay-1.NO": {
       "id": "relay-1.NO",
       "part": "relay-1",
+      "physical_pole": "NO",
       "point": [
         -85.5000122070312,
-        362.00001220703126,
-        320.9
+        371.50001220703126,
+        298.4
       ],
       "outward": [
-        -2.220446049250313e-16,
+        -1.8369701987210297e-16,
+        -1.0,
+        -3.374459510989179e-32
+      ],
+      "screw_head_mm": [
+        -85.5000122070312,
+        377.00001220703126,
+        303.4
+      ],
+      "screw_axis": [
+        -1.8369701987210297e-16,
         0.0,
         1.0
       ],
       "kind": "screw",
-      "basis": "Representative relay contact block; pole order nominal",
       "status": "nominal",
-      "pin": ""
+      "installed_wire": true,
+      "basis": "Calipered overall relay reference and representative three-pole side-entry block. Screw heads +Z are modeled; wire mouth at +X end / Z6.5 is a stated best estimate because source formerly conflates top screw approach and conductor entry."
     },
     "relay-1.V5": {
       "id": "relay-1.V5",
       "part": "relay-1",
       "point": [
         -88.04001220703122,
-        413.00001220703126,
-        320.9
+        428.00001220703126,
+        303.4
       ],
       "outward": [
         -2.220446049250313e-16,
@@ -166,28 +232,39 @@
     "relay-2.COM": {
       "id": "relay-2.COM",
       "part": "relay-2",
+      "physical_pole": "COM",
       "point": [
         -60.49998779296874,
-        411.9999938964844,
-        320.9
+        432.4999938964844,
+        298.4
       ],
       "outward": [
-        2.220446049250313e-16,
-        2.465190328815662e-32,
+        1.224646799147353e-16,
+        1.0,
+        -3.374459510989179e-32
+      ],
+      "screw_head_mm": [
+        -60.49998779296874,
+        426.9999938964844,
+        303.4
+      ],
+      "screw_axis": [
+        1.8369701987210297e-16,
+        1.1248198369963932e-32,
         1.0
       ],
       "kind": "screw",
-      "basis": "Representative relay contact block; pole order nominal",
       "status": "nominal",
-      "pin": ""
+      "installed_wire": true,
+      "basis": "Calipered overall relay reference and representative three-pole side-entry block. Screw heads +Z are modeled; wire mouth at +X end / Z6.5 is a stated best estimate because source formerly conflates top screw approach and conductor entry."
     },
     "relay-2.GND": {
       "id": "relay-2.GND",
       "part": "relay-2",
       "point": [
         -65.49998779296874,
-        360.9999938964844,
-        320.9
+        375.9999938964844,
+        303.4
       ],
       "outward": [
         2.220446049250313e-16,
@@ -204,8 +281,8 @@
       "part": "relay-2",
       "point": [
         -68.03998779296876,
-        360.9999938964844,
-        320.9
+        375.9999938964844,
+        303.4
       ],
       "outward": [
         2.220446049250313e-16,
@@ -220,28 +297,39 @@
     "relay-2.NO": {
       "id": "relay-2.NO",
       "part": "relay-2",
+      "physical_pole": "NO",
       "point": [
         -65.49998779296874,
-        411.9999938964844,
-        320.9
+        432.4999938964844,
+        298.4
       ],
       "outward": [
-        2.220446049250313e-16,
-        2.465190328815662e-32,
+        1.224646799147353e-16,
+        1.0,
+        -3.374459510989179e-32
+      ],
+      "screw_head_mm": [
+        -65.49998779296874,
+        426.9999938964844,
+        303.4
+      ],
+      "screw_axis": [
+        1.8369701987210297e-16,
+        1.1248198369963932e-32,
         1.0
       ],
       "kind": "screw",
-      "basis": "Representative relay contact block; pole order nominal",
       "status": "nominal",
-      "pin": ""
+      "installed_wire": true,
+      "basis": "Calipered overall relay reference and representative three-pole side-entry block. Screw heads +Z are modeled; wire mouth at +X end / Z6.5 is a stated best estimate because source formerly conflates top screw approach and conductor entry."
     },
     "relay-2.V5": {
       "id": "relay-2.V5",
       "part": "relay-2",
       "point": [
         -62.95998779296872,
-        360.9999938964844,
-        320.9
+        375.9999938964844,
+        303.4
       ],
       "outward": [
         2.220446049250313e-16,
@@ -257,9 +345,9 @@
       "id": "c14.L",
       "part": "c14-inlet",
       "point": [
-        -80.2,
+        -84.05000000000001,
         446.3,
-        335.45
+        288.7
       ],
       "outward": [
         0.0,
@@ -275,9 +363,9 @@
       "id": "c14.N",
       "part": "c14-inlet",
       "point": [
-        -66.4,
+        -83.85000000000002,
         446.3,
-        335.65
+        274.9
       ],
       "outward": [
         0.0,
@@ -293,9 +381,9 @@
       "id": "c14.PE",
       "part": "c14-inlet",
       "point": [
-        -73.15,
+        -89.10000000000002,
         446.3,
-        330.4
+        281.65
       ],
       "outward": [
         0.0,
@@ -311,9 +399,9 @@
       "id": "keystone.2",
       "part": "keystone-jack",
       "point": [
-        -54.809999999999995,
+        -90.31,
         441.3,
-        278.66999999999996
+        323.66999999999996
       ],
       "outward": [
         0.0,
@@ -329,9 +417,9 @@
       "id": "keystone.3",
       "part": "keystone-jack",
       "point": [
-        -52.269999999999996,
+        -87.77,
         441.3,
-        278.66999999999996
+        323.66999999999996
       ],
       "outward": [
         0.0,
@@ -347,9 +435,9 @@
       "id": "keystone.4",
       "part": "keystone-jack",
       "point": [
-        -49.72999999999999,
+        -85.22999999999999,
         441.3,
-        278.66999999999996
+        323.66999999999996
       ],
       "outward": [
         0.0,
@@ -365,9 +453,9 @@
       "id": "keystone.5",
       "part": "keystone-jack",
       "point": [
-        -47.18999999999999,
+        -82.69,
         441.3,
-        278.66999999999996
+        323.66999999999996
       ],
       "outward": [
         0.0,
@@ -1044,6 +1132,64 @@
       "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
       "status": "nominal",
       "pin": "3"
+    },
+    "relay-1.NC": {
+      "id": "relay-1.NC",
+      "part": "relay-1",
+      "physical_pole": "NC",
+      "point": [
+        -80.5000122070312,
+        371.50001220703126,
+        298.4
+      ],
+      "outward": [
+        -1.8369701987210297e-16,
+        -1.0,
+        -3.374459510989179e-32
+      ],
+      "screw_head_mm": [
+        -80.5000122070312,
+        377.00001220703126,
+        303.4
+      ],
+      "screw_axis": [
+        -1.8369701987210297e-16,
+        0.0,
+        1.0
+      ],
+      "kind": "screw",
+      "status": "nominal",
+      "installed_wire": false,
+      "basis": "Calipered overall relay reference and representative three-pole side-entry block. Screw heads +Z are modeled; wire mouth at +X end / Z6.5 is a stated best estimate because source formerly conflates top screw approach and conductor entry."
+    },
+    "relay-2.NC": {
+      "id": "relay-2.NC",
+      "part": "relay-2",
+      "physical_pole": "NC",
+      "point": [
+        -70.49998779296874,
+        432.4999938964844,
+        298.4
+      ],
+      "outward": [
+        1.224646799147353e-16,
+        1.0,
+        -3.374459510989179e-32
+      ],
+      "screw_head_mm": [
+        -70.49998779296874,
+        426.9999938964844,
+        303.4
+      ],
+      "screw_axis": [
+        1.8369701987210297e-16,
+        1.1248198369963932e-32,
+        1.0
+      ],
+      "kind": "screw",
+      "status": "nominal",
+      "installed_wire": false,
+      "basis": "Calipered overall relay reference and representative three-pole side-entry block. Screw heads +Z are modeled; wire mouth at +X end / Z6.5 is a stated best estimate because source formerly conflates top screw approach and conductor entry."
     }
   }
 }
