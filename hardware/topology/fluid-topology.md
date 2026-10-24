@@ -215,7 +215,7 @@ This table is canonical for the integrated flavor manifold. Pumps run forward on
 
 - Open: V-B, V-C, V-G
 - Pump A: ON
-- Funnel: dry, open to air
+- Funnel: dry, open to air; in the clean cycle, whatever it holds
 - Path: Air → V-B → V-C → P-A → V-G → flavor tube A
 - Reservoir A is not on the path; V-F stays closed and the whole discharge goes to flavor tube A
 
@@ -223,7 +223,7 @@ This table is canonical for the integrated flavor manifold. Pumps run forward on
 
 - Open: V-B, V-D, V-J
 - Pump B: ON
-- Funnel: dry, open to air
+- Funnel: dry, open to air; in the clean cycle, whatever it holds
 - Path: Air → V-B → V-D → P-B → V-J → flavor tube B
 - Reservoir B is not on the path; V-I stays closed
 
@@ -231,6 +231,12 @@ The two Through states with the two Purge In states above them air-fill every se
 manifold carries except the two reservoir draws, whose ports stand under the liquid.
 [`/hardware/service/pump-replacement.md`](/hardware/service/pump-replacement.md) runs the four of
 them as the dry cycle before a pump replacement.
+
+The clean cycle ([`machine_policy.h`](/firmware/lib/machine_policy/machine_policy.h)) opens with
+the channel's Through state on whatever the funnel holds — air when it is dry, or water poured
+in before a flavor change — and then runs its rounds of Clean Water Fill and Clean Flush. Tap
+water enters at Y-A, so segments 4 and 5, from the funnel's drain through V-B to Y-B, carry
+water only from the funnel.
 
 ## Sources
 [value](NAME) texts are updated by:

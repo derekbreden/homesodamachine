@@ -38,16 +38,21 @@ foundation the next connected bench uses.
   §9). In and Through run 20 s and 30 s; Out runs the clean flush's 150 s or its reed. Every
   answer, step and ending is an `AirStatePayload` on `MSG_RESP_AIR`.
 - **The clean cycle.** `MSG_CLEAN_START` from the enclosure, or `clean <a|b> [rounds] [s]`
-  from the console, puts tap water through the channel three rounds over. A round opens the
-  channel's tap-water path — V-A, its select and its return, `CleanWaterFillA/B` — with the
-  pump off, tap pressure crossing the idle head into the reservoir until the full reed closes
-  or 90 s pass; then its dispense path — its draw and its flavor tube, `CleanFlushA/B` — with
-  the pump on, out through the faucet until the empty reed closes — the float down at the
-  reservoir's empty mark — and 8 s more have drawn the flavor tube clear, or 150 s pass. Between steps the pump stops and every valve
-  is closed for a quarter second. It is refused on the same grounds as the fill, and every
-  answer, every step and every ending is a complete `CleanStatePayload` on `MSG_RESP_CLEAN`,
-  which carries the round, the step, the step's clock and an estimate of the minutes left;
-  `MSG_CLEAN_QUERY` reads it back and `MSG_CLEAN_STOP` ends it after the settle.
+  from the console, first draws the funnel through the channel and out of the faucet — V-B,
+  its select and its flavor tube, `AirPurgeThroughA/B` — with the pump on for 114 s: the
+  slowest rated head empties a full 531 mL funnel in 84 s, and the dry cycle's 30 s on this
+  path draws the line behind it clear. A dry funnel gives it air; water poured in before a
+  flavor change rinses the funnel's path, which no other step reaches. Then it puts tap water
+  through the channel three rounds over. A round opens the channel's tap-water path — V-A, its
+  select and its return, `CleanWaterFillA/B` — with the pump off, tap pressure crossing the
+  idle head into the reservoir until the full reed closes or 90 s pass; then its dispense path
+  — its draw and its flavor tube, `CleanFlushA/B` — with the pump on, out through the faucet
+  until the empty reed closes — the float down at the reservoir's empty mark — and 8 s more
+  have drawn the flavor tube clear, or 150 s pass. Between steps the pump stops and every
+  valve is closed for a quarter second. It is refused on the same grounds as the fill, and
+  every answer, every step and every ending is a complete `CleanStatePayload` on
+  `MSG_RESP_CLEAN`, which carries the round, the step, the step's clock and an estimate of the
+  minutes left; `MSG_CLEAN_QUERY` reads it back and `MSG_CLEAN_STOP` ends it after the settle.
 - **The funnel fill.** `MSG_FILL_START` from the enclosure, or `fill <a|b> [s]` from the
   console, opens the channel's funnel path — three valves, `FunnelFillA/B` in
   [`machine_policy`](/firmware/lib/machine_policy/machine_policy.h) — and draws with that
@@ -149,7 +154,7 @@ pio device monitor -e appliance
 |---|---|
 | `pump <a\|b> [ms]` | run one flavor pump, bounded — default 2000, ceiling 60000 |
 | `fill <a\|b> [s]` | the funnel fill: the channel's funnel path open and its pump drawing, for `s` s (default 80) or until the reservoir's full reed closes |
-| `clean <a\|b> [rounds] [s]` | the clean cycle: tap water in through the idle pump, then pumped out the faucet, `rounds` times (default 3); `s` caps every step (default 90 in, 150 out) |
+| `clean <a\|b> [rounds] [s]` | the clean cycle: the funnel pumped through to the faucet, then tap water in through the idle pump and pumped out the faucet, `rounds` times (default 3); `s` caps every step (default 114 funnel, 90 in, 150 out) |
 | `ui <page> [a\|b] [go]` | put a customer page on the enclosure — choose, prime, fill, clean, settings, pump-service — optionally for a flavor, `go` pressing its START |
 | `flavor [a\|b]` | read or set the main-board-owned flavor selection, and the logo pair beside it |
 | `ratio [a\|b] [6-24]` | read or set what a channel pours at, persisted in NVS and carried to the enclosure on its next poll |

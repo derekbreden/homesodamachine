@@ -15,9 +15,11 @@ absolute/idempotent selection, corrupt storage, and failed-write retry state.
 the dispense/refill exclusion, every possible off-before-on valve-mask transition, the
 prime/timed-pump deadlines shared with the J9 protocol, the funnel fill's plan, its
 draw-time budget against the slowest rated head, and its full-reed-before-clock ending, and
-the clean cycle's two steps per channel, its full-reed and empty-reed-plus-tail endings, the
-sum of what is left of a cycle, and its wire contract, the reservoir gauge's reading of one
-float passing four reeds up through a fill and down through a draw, and the air cycles' steps — the dry
+the clean cycle's opening funnel step — the Through state, timed to empty a full funnel at the
+slowest rated head and draw the line clear — and its two steps a round per channel, its
+full-reed and empty-reed-plus-tail endings, the sum of what is left of a cycle, and its wire
+contract, the reservoir gauge's reading of one float passing four reeds up through a fill and
+down through a draw, and the air cycles' steps — the dry
 sweep of both channels that draws on no reservoir, and the purge that airs one and draws it
 out. It also checks that Prime queries renew the main-board lease while giving queued J9
 announcements a turn, that snapshots stay fresh through a full queue at dark-display polling

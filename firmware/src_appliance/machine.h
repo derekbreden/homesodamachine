@@ -23,7 +23,7 @@ enum MachineState : uint8_t {
     ST_IDLE,      // nothing driven
     ST_PUMPING,   // a wet held prime or a bounded console motor check
     ST_FILLING,   // a funnel fill: three valves open, that channel's pump drawing
-    ST_CLEANING,  // a clean cycle: one topology state at a time, the pump on for the flushes
+    ST_CLEANING,  // a clean cycle: one topology state at a time, the pump on for the funnel and the flushes
     ST_AIRING,    // an air cycle: the funnel open to air, a pump carrying it along the path
     ST_SELFTEST,  // the commissioning walk: one load at a time, briefly
     ST_POURING,   // carbonated water is flowing: the selected channel's dispense path open, its pump on a duty cycle
@@ -171,12 +171,14 @@ void machineReadFillState(MachineFillState &state);
 uint16_t machineValvesOpen();   // the logical valves the expanders hold open, bit 0 = V-A
 
 // ── The clean cycle ───────────────────────────────────────────────────────
-// Runs machine_policy::kCleanRounds rounds — or `rounds`, when the console
-// names one — of the channel's tap-water fill and pumped flush, each step
-// ending on its reed or at its planned time; `stepPlannedMs` shortens every
-// step's planned time when the console names one. Refused while anything else
-// runs, while the expanders are unverified, and under the gas alarm; every
-// answer, every step, and every ending goes out through machineOnCleanState.
+// Draws the funnel through the channel to the faucet for its planned time,
+// then runs machine_policy::kCleanRounds rounds — or `rounds`, when the
+// console names one — of the channel's tap-water fill and pumped flush, each
+// step ending on its reed or at its planned time; `stepPlannedMs` shortens
+// every step's planned time when the console names one. Refused while
+// anything else runs, while the expanders are unverified, and under the gas
+// alarm; every answer, every step, and every ending goes out through
+// machineOnCleanState.
 bool machineCleanBegin(uint8_t channel, uint8_t rounds = 0, uint32_t stepPlannedMs = 0);
 void machineCleanStop();   // ends a running cycle on request; nothing otherwise
 bool machineIsCleaning();

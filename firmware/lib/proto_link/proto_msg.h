@@ -226,9 +226,10 @@ constexpr uint8_t MSG_UI_SHOW      = 0x5A;  // UiShowPayload
 constexpr uint8_t MSG_RESP_UI_SHOW = 0x5B;  // ResponsePayload: 1 shown, 0 not
 
 // ── The clean cycle, as the main board runs it (0x5C..) ──────────────────
-// MSG_CLEAN_START (0x0F) asks the main board to put tap water through the
-// channel the way concentrate goes: rounds of a tap-water fill through the
-// idle pump into the reservoir, then a pumped flush out through the faucet.
+// MSG_CLEAN_START (0x0F) asks the main board to draw the funnel through the
+// channel and out through the faucet, then put tap water through the channel
+// the way concentrate goes: rounds of a tap-water fill through the idle pump
+// into the reservoir, then a pumped flush out through the faucet.
 // The main board answers that request, every step it moves to, and every
 // ending with its complete clean state; a query gets the same answer, and
 // STOP ends a cycle early and is answered the same way.
@@ -322,6 +323,7 @@ constexpr uint8_t CLEAN_PHASE_RUNNING = 1;
 
 constexpr uint8_t CLEAN_STEP_WATER_FILL = 0;  // tap water in through the idle pump
 constexpr uint8_t CLEAN_STEP_FLUSH      = 1;  // pumped out through the faucet
+constexpr uint8_t CLEAN_STEP_FUNNEL     = 2;  // the funnel pumped through to the faucet, before round 1
 
 // How the last cycle ended, kept while OFF. NONE while running, and before any.
 constexpr uint8_t CLEAN_OUTCOME_NONE    = 0;
@@ -338,7 +340,7 @@ struct __attribute__((packed)) CleanStatePayload {
   uint8_t  channel;        // PUMP_CHANNEL_*
   uint8_t  outcome;        // CLEAN_OUTCOME_*
   uint8_t  step;           // CLEAN_STEP_*: running now, or when the cycle ended
-  uint8_t  round;          // 1..rounds
+  uint8_t  round;          // 1..rounds; 0 for the funnel
   uint8_t  rounds;         // how many rounds this cycle is
   uint32_t stepElapsedMs;  // how long this step has been, or was, running
   uint32_t stepPlannedMs;  // how long it runs unless its reed ends it first

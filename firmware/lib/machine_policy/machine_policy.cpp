@@ -78,7 +78,22 @@ Operation fillOperation(uint8_t channel) {
     return channel == 0 ? Operation::FunnelFillA : Operation::FunnelFillB;
 }
 
+uint8_t cleanSteps(uint8_t rounds) {
+    return static_cast<uint8_t>(rounds * 2 + 1);
+}
+
+CleanStep cleanStepAt(uint8_t step_index) {
+    if (step_index == 0) return CleanStep::Funnel;
+    return (step_index & 1) ? CleanStep::WaterFill : CleanStep::Flush;
+}
+
+uint8_t cleanRoundAt(uint8_t step_index) {
+    return static_cast<uint8_t>((step_index + 1) / 2);
+}
+
 Operation cleanOperation(uint8_t channel, CleanStep step) {
+    if (step == CleanStep::Funnel)
+        return channel == 0 ? Operation::AirPurgeThroughA : Operation::AirPurgeThroughB;
     if (step == CleanStep::WaterFill)
         return channel == 0 ? Operation::CleanWaterFillA : Operation::CleanWaterFillB;
     return channel == 0 ? Operation::CleanFlushA : Operation::CleanFlushB;
@@ -175,11 +190,11 @@ uint32_t airCycleLeftMs(AirMode mode, uint8_t step_index,
 uint32_t cleanCycleLeftMs(uint8_t step_index, uint8_t rounds,
                           uint32_t step_elapsed_ms, uint32_t step_planned_ms,
                           uint32_t water_fill_planned_ms, uint32_t flush_planned_ms) {
-    const uint8_t steps = static_cast<uint8_t>(rounds * 2);
+    const uint8_t steps = cleanSteps(rounds);
     if (step_index >= steps) return 0;
     uint32_t left = step_elapsed_ms >= step_planned_ms ? 0 : step_planned_ms - step_elapsed_ms;
     for (uint8_t i = static_cast<uint8_t>(step_index + 1); i < steps; ++i)
-        left += (i & 1) ? flush_planned_ms : water_fill_planned_ms;
+        left += cleanStepAt(i) == CleanStep::Flush ? flush_planned_ms : water_fill_planned_ms;
     return left;
 }
 
