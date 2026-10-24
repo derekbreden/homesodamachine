@@ -1,0 +1,46 @@
+{
+  "reported_date": "2026-10-24",
+  "evidence_kind": "Founder physical fit report and six supplied photographs",
+  "parts": {
+    "insulation": "Owned pipe foam discussed as CARGEN, nominal 6.35 mm bore and 9.525 mm wall; not dimensioned in these photographs",
+    "fitting": "Printed tube elbow shown inside the foam. Exact CAD revision and print article are not identified.",
+    "comparison": "Purchased black push-connect elbow shown alongside the insulated printed elbow"
+  },
+  "report": {
+    "reported_by": "Derek",
+    "quote": "You should see that we've got a printed elbow option, and that printed elbow option can fit inside of this insulation. And it appears that the insulation doesn't expand too much. The compression is mostly happening on the inside."
+  },
+  "observations": [
+    "The printed elbow is enclosed by the foam around the bend, with tube leaving both ends.",
+    "The foam follows the elbow and retains a comparatively compact outer profile in the supplied views.",
+    "Derek reports little outer expansion and compression occurring mainly inside the foam wall."
+  ],
+  "design_basis": "A printed elbow can fit inside this owned foam. Packaging estimates may allow local wall compression around the fitting rather than adding a full nominal foam-wall thickness outside the fitting body.",
+  "scope": "Qualitative fit evidence for the pictured article. The photographs provide no numerical outer diameter, wall compression, fitting revision or thermal measurement. This record supplies no deformation law for other fittings.",
+  "photos": [
+    {
+      "file": "photo-1.jpg",
+      "sha256": "7c8220273c70b41c90a436aa6a4e75edbde2b84e03a4dfcc84583d034b12e1e5"
+    },
+    {
+      "file": "photo-2.jpg",
+      "sha256": "be32df718ac9739452df6011cb1ba811dc69ecef4eaad289ea17c58137ad8e18"
+    },
+    {
+      "file": "photo-3.jpg",
+      "sha256": "388c3b28b3da022d2c41c4048901cb0012bac8b96d7e5eff48c8efe28d2cad91"
+    },
+    {
+      "file": "photo-4.jpg",
+      "sha256": "85315850e0dce54310cde1e377d4d59c9083eb2b0783abf923bb33404696bf35"
+    },
+    {
+      "file": "photo-5.jpg",
+      "sha256": "0cdc8e3c6cf25fb200fc886f88cfe8601506f1e6bc986c5acc9674e10d300766"
+    },
+    {
+      "file": "photo-6.jpg",
+      "sha256": "ec1189e15adcc2f47f83a4a06bd8237078c0f7c985ac8434196eb54f297bd0f9"
+    }
+  ]
+}
