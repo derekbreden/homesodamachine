@@ -14,9 +14,9 @@ S = 19.05
 H = 6.0452
 JG_DEPTH = 15.7
 NEOFIT_DEPTH = 16.891
-VB_ORIGIN = np.array([38., 239.90434, 280.41])
+VB_ORIGIN = np.array([38., 244.90434, 280.41])
 VB_ROTATION = np.array([[0., 0., 1.], [0., 1., 0.], [-1., 0., 0.]])
-DRAIN_CORNER = np.array([0., 174.19575, 280.41])
+DRAIN_CORNER = np.array([0., 179.19575, 280.41])
 YB_MOUTH = np.array([-22.35, 166.24, 270.675])
 
 

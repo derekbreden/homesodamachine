@@ -96,47 +96,43 @@
     "va-east-turn_to_vk": 27.783258030536665,
     "va-east-turn_to_lower-pump-elbow": 4.044513686752829,
     "va-ya-straight_to_pcba": 31.169694117396432,
-    "va-ya-straight_to_funnel-frame": 21.799447572807985,
+    "va-ya-straight_to_funnel-frame": 20.00479389648433,
     "reg_to_ceiling": 1.123952119463695
   },
   "under_head_tube_to_plain_core_mm": 5.025000000000006,
   "funnel_gate_gaps_mm": {
     "vb_to_pcba": 48.64878279273824,
     "vb_to_funnel-frame": 2.7399908603673566,
-    "vb_to_funnel": 24.225906273500428,
-    "vb-core-support_to_funnel": 19.962300834782425,
+    "vb_to_funnel": 24.791035616556634,
+    "vb-core-support_to_funnel": 20.470399614638236,
     "vb-core-support_to_pcba": 44.199981689453125,
     "vb-core-support_to_funnel-frame": 0.69000244140625,
-    "vb-outlet-return_to_pump": 8.65148113214647,
+    "vb-outlet-return_to_pump": 4.801655596693548,
     "vb-outlet-return_to_vb-core-support": 40.17878965481885,
-    "vb-outlet-stem_to_right-wall": 2.132803601901637,
+    "vb-outlet-stem_to_right-wall": 1.767485541686689,
     "drain-outlet-stem_to_funnel-drain-cradle": 0.7642188879394496,
-    "drain-vb-east-link_to_vb-yb-link": 24.900595023718406,
-    "drain-outlet-stem_to_ya-stem-elbow": 10.994314207787166,
-    "va-ya-straight_to_vb-inlet-turn": 1.8373229099745636,
-    "va-ya-straight_to_drain-vb-east-link": 1.6052485312172584,
-    "vb-yb-link_to_ya-stem-elbow": 35.73113526606848,
+    "drain-vb-east-link_to_vb-yb-link": 24.968262407406844,
+    "drain-outlet-stem_to_ya-stem-elbow": 13.883392111630009,
+    "va-ya-straight_to_vb-inlet-turn": 3.100643201191594,
+    "va-ya-straight_to_drain-vb-east-link": 3.5460673294685323,
+    "vb-yb-link_to_ya-stem-elbow": 35.731135268528384,
     "vb-yb-link_to_funnel-drain-cradle": 4.43396842340638,
-    "vb-yb-link_to_funnel-frame": 6.384853851010277,
+    "vb-yb-link_to_funnel-frame": 6.812012449691369,
     "vb-yb-link_to_va-ya-straight": 38.96793722828249,
-    "vb-yb-link_to_pcba": 7.690911004940059,
+    "vb-yb-link_to_pcba": 7.026975377500308,
     "ya-stem-elbow_to_funnel-drain-cradle": 0.6643452639749938,
     "yb-stem-elbow_to_funnel-drain-cradle": 0.6643452639749938,
     "va-ya-straight_to_pcba": 31.169694117396432,
     "va-ya-straight_to_funnel-drain-cradle": 4.43396842340638,
-    "funnel-drain-bridge_to_funnel-frame": 0.25,
-    "funnel-drain-bridge_to_funnel": 0.29998779296875,
-    "funnel-drain-bridge_to_vb": 16.703580395461355,
-    "funnel-drain-bridge_to_pcba": 34.29998779296875,
-    "drain-outlet-stem_to_local-lead-J3": 9.330409473504155,
-    "vb-yb-link_to_local-lead-J3": 7.771988297735154,
+    "drain-outlet-stem_to_local-lead-J3": 9.329840013672397,
+    "vb-yb-link_to_local-lead-J3": 7.60982831042398,
     "digiten-flow_to_pump": 6.833225151614847,
     "digiten-flow_to_asse": 7.184862976116747,
     "digiten-flow_to_psu": 84.60000038146973,
     "digiten-flow_to_ceiling": 30.47395250093342,
     "soda-meter-bulkhead_to_pump": 17.273582155096758,
-    "vb-yb-cross_to_pcba": 18.228987764858893,
-    "vb-yb-cross_to_funnel-frame": 28.310627643439354,
+    "vb-yb-cross_to_pcba": 18.711657371514292,
+    "vb-yb-cross_to_funnel-frame": 32.640756257007645,
     "digiten-flow_to_gas-check": 1.0534677505493164,
     "digiten-flow_to_gas-regulator": 4.1890761443314934,
     "digiten-flow_to_gas-core-drop": 7.94967675771313,
@@ -154,33 +150,33 @@
   "vb_bounds_mm": [
     [
       37.99998779296874,
-      210.15434112070312,
+      215.15434112070312,
       263.65999922141975
     ],
     [
       95.30000610351561,
-      269.6543411207031,
+      274.6543411207031,
       297.160003036117
     ]
   ],
   "vb_wall_bounds_mm": [
     [
       34.0,
-      220.87933349609375,
+      225.87933349609375,
       253.39999389648438
     ],
     [
       43.20000076293945,
-      258.9293518066406,
+      263.9293518066406,
       299.2099914550781
     ]
   ],
   "vb_body_to_plain_core_mm": 10.259999221419747,
   "funnel_route_minimum_radii_mm": {
     "va": 27.15553541413927,
-    "vb": 27.700064181654504
+    "vb": 27.439694078421073
   },
-  "vb_exposed_tube_length_mm": 117.75972443294609,
+  "vb_exposed_tube_length_mm": 122.62455509856997,
   "pcb_bounds_mm": [
     [
       -83.0,
@@ -221,22 +217,22 @@
     "inlet_control_mm": [
       [
         19.05,
-        204.10914,
+        209.10914,
         280.41
       ],
       [
         22.7,
-        204.10914,
+        209.10914,
         280.41
       ],
       [
         26.349999999999998,
-        204.10914,
+        209.10914,
         280.41
       ],
       [
         29.999999999999996,
-        204.10914,
+        209.10914,
         280.41
       ]
     ],
@@ -248,12 +244,12 @@
     "return_control_mm": [
       [
         -24.836523961791983,
-        255.13715000000002,
+        260.13715,
         290.7940737508485
       ],
       [
         -24.836523961791983,
-        235.13715000000002,
+        240.13715000000002,
         290.7940737508485
       ],
       [
@@ -268,8 +264,8 @@
       ]
     ],
     "return_crown_mm": 2.0,
-    "return_minimum_radius_mm": 27.700064181654504,
-    "return_exposed_length_mm": 71.80946529877099,
+    "return_minimum_radius_mm": 27.439694078421073,
+    "return_exposed_length_mm": 76.67429596439487,
     "yb_clock_west_of_aft_degrees": 7.5,
     "return_minimum_y_mm": 185.1270246091711,
     "insertions_mm": {
@@ -332,9 +328,13 @@
       {
         "probe": "probe-J2-pull",
         "blocked_with_funnel_assembly_installed": [],
-        "vertical_headroom_30mm_obstructions": [],
+        "vertical_headroom_30mm_obstructions": [
+          "vb-outlet-return"
+        ],
         "blocked_after_funnel_frame_removed": [],
-        "vertical_headroom_30mm_after_funnel_frame_removed": [],
+        "vertical_headroom_30mm_after_funnel_frame_removed": [
+          "vb-outlet-return"
+        ],
         "blocked_after_front_top_removed": []
       },
       {
@@ -392,6 +392,5 @@
     ]
   },
   "flexible_lead_conflicts": [],
-  "hard_interferences": [],
-  "j3_local_scope": "Native installed conductor departures cropped to Y198..215; full installed routes reviewed separately in production."
+  "hard_interferences": []
 }
