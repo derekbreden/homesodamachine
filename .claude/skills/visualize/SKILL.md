@@ -80,6 +80,11 @@ format. `--step`, `--image` and `--fragment` build a page with no spec file.
 
 ## Inline widgets
 
+Apply the shared [mobile compatibility skill](../../../tools/viz/inline-mobile/SKILL.md)
+when creating or editing inline HTML. It supplies the common theme helper for
+text, native controls, legends and canvas/WebGL colors; retain this skill's own
+surface and publishing contract.
+
 - Load `read_me` from the visualize tools with the module that fits before the first
   `show_widget` call. Its rules (680 px wide, the colour ramps, `sendPrompt`) are the widget's
   contract.

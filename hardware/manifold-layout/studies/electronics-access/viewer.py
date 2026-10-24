@@ -96,7 +96,9 @@ def main():
     args = parser.parse_args()
     data = compact_meshes(detail_payload() if args.detail else payload())
     packed = gzip.compress(json.dumps(data, separators=(',', ':')).encode(), 9, mtime=0)
-    text = (HERE / 'viewer.html').read_text().replace('<!-- ARRANGEMENT_DATA -->',
+    helper = (HERE.parents[3] / 'tools/viz/inline-mobile/assets/theme.js').read_text()
+    template = (HERE / 'viewer.html').read_text().replace('// INLINE_MOBILE_THEME', helper)
+    text = template.replace('<!-- ARRANGEMENT_DATA -->',
         '<script id="qa-data" type="application/octet-stream">' + base64.b64encode(packed).decode() + '</script>')
     if args.detail:text=text.replace('electronics-access-arrangement','electronics-access-fastener-detail')
     args.output.parent.mkdir(parents=True, exist_ok=True)

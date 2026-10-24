@@ -65,6 +65,14 @@ Every change to the enclosure's geometry has an entry in [`changes/`](changes/RE
 - In your own loop, check what the change touched, once. Don't re-run the machine's checks after every small edit.
 - Taking something off that path needs no defense beyond its cost.
 
+## Inline Visualizations
+
+When creating or editing an inline HTML visualization, apply the
+[mobile compatibility skill](tools/viz/inline-mobile/SKILL.md) alongside the
+host's visualization instructions. Reuse its shared theme helper for text,
+native controls, legends and canvas/WebGL colors. Save inline fragments in the
+current chat's visualization directory. This adds no automatic build or commit check.
+
 ## Privacy
 
 This repository is public. Do not include the founder's family relationships or private details about relatives in repository content, including examples and transcripts. Refer to participants generically, such as "nearby beta household."
