@@ -1,0 +1,143 @@
+<div id="faucet-seat-review">
+  <div class="seat-title"><strong>Industrial display head</strong><span class="text-small">4.5 mm total reduction</span></div>
+  <div class="viz-controls">
+    <button type="button" class="btn" data-view="feet" aria-pressed="true">Foot seats</button>
+    <button type="button" class="btn" data-view="section" aria-pressed="false">Side section</button>
+    <button type="button" class="btn" data-view="assembly" aria-pressed="false">Assembled</button>
+    <label class="form-check"><input type="checkbox" class="form-check-input" id="seat-marks" checked><span class="form-check-label">Highlight changes</span></label>
+  </div>
+  <div class="seat-pair">
+    <div class="seat-pane" data-side="before">
+      <div class="seat-heading"><strong>Before</strong><span class="text-small">Printed reference</span></div>
+      <div class="seat-stage cursor-interaction" role="img" aria-label="Rotatable 3D printed reference: four raised display supports"><canvas></canvas><svg class="seat-labels" aria-hidden="true"></svg></div>
+    </div>
+    <div class="seat-pane" data-side="after">
+      <div class="seat-heading"><strong>After</strong><span class="text-small">Review candidate · 4.5 mm lower</span></div>
+      <div class="seat-stage cursor-interaction" role="img" aria-label="Rotatable 3D candidate: four foot recesses and lowered display cover"><canvas></canvas><svg class="seat-labels" aria-hidden="true"></svg></div>
+    </div>
+  </div>
+  <div class="seat-breakdown text-small"><span>1.5 mm clearance lift</span><span>+</span><span>2.0 mm original supports</span><span>+</span><span>1.0 mm recesses</span></div>
+  <div class="seat-detail text-small" aria-live="polite">Four foot seats · Ø4 mm pockets, 1 mm below the former support bases</div>
+  <div class="seat-legend text-small"><span><i data-swatch="old"></i>Removed stock</span><span><i data-swatch="new"></i>New bearing floors</span><span><i data-swatch="overlap"></i>Modeled component/tube overlap</span></div>
+</div>
+<style>
+  #faucet-seat-review { color:var(--foreground); }
+  #faucet-seat-review .seat-title, #faucet-seat-review .seat-heading { display:flex; align-items:baseline; flex-wrap:wrap; gap:8px; }
+  #faucet-seat-review .seat-title { margin-bottom:12px; padding-right:90px; }
+  #faucet-seat-review .seat-pair { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:16px; margin-top:12px; }
+  #faucet-seat-review .seat-heading { justify-content:space-between; gap:4px; }
+  #faucet-seat-review .seat-stage { height:330px; position:relative; touch-action:none; }
+  #faucet-seat-review canvas, #faucet-seat-review .seat-labels { width:100%; height:100%; display:block; }
+  #faucet-seat-review .seat-labels { position:absolute; inset:0; pointer-events:none; overflow:visible; }
+  #faucet-seat-review .seat-labels text { fill:var(--foreground); font:inherit; }
+  #faucet-seat-review .seat-labels path, #faucet-seat-review .seat-labels line { stroke:var(--foreground); stroke-width:1; fill:none; opacity:.8; }
+  #faucet-seat-review .seat-labels circle { stroke:var(--foreground); stroke-width:1; fill:var(--background); }
+  #faucet-seat-review .seat-breakdown, #faucet-seat-review .seat-legend { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  #faucet-seat-review .seat-breakdown { justify-content:center; margin:8px 0 10px; }
+  #faucet-seat-review .seat-detail { min-height:2.5em; text-align:center; }
+  #faucet-seat-review .seat-legend { justify-content:center; margin-top:6px; }
+  #faucet-seat-review .seat-legend span { display:inline-flex; gap:5px; align-items:center; }
+  #faucet-seat-review .seat-legend i { display:inline-block; width:10px; height:10px; }
+  #faucet-seat-review [data-swatch="old"] { background:var(--viz-series-2); }
+  #faucet-seat-review [data-swatch="new"] { background:var(--viz-series-1); }
+  #faucet-seat-review [data-swatch="overlap"] { background:var(--destructive); }
+  @media(max-width:580px) { #faucet-seat-review .seat-pair { grid-template-columns:minmax(0,1fr); gap:12px; } #faucet-seat-review .seat-stage { height:290px; } }
+</style>
+<script id="seat-review-data" type="application/json">__MODEL_DATA__</script>
+<script type="module">
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js';
+const root=document.getElementById('faucet-seat-review');
+const data=JSON.parse(document.getElementById('seat-review-data').textContent);
+const measures=data.measurements;
+const state={view:'feet',marks:true,theta:.78,phi:.64,radius:86,target:[0,25,8]};
+const views={
+  feet:{theta:.68,phi:.54,radius:85,target:[0,25,8]},
+  section:{theta:.08,phi:1.34,radius:87,target:[0,25,10]},
+  assembly:{theta:1.03,phi:.95,radius:88,target:[0,25,10]}
+};
+const readTheme=()=>{
+  const css=getComputedStyle(root),get=k=>css.getPropertyValue(k).trim();
+  const resolve=k=>{const el=document.createElement('span');el.style.color=get(k);root.appendChild(el);const c=getComputedStyle(el).color;el.remove();return new THREE.Color(c);};
+  const fg=resolve('--foreground'),bg=resolve('--background');
+  return {body:fg.clone().lerp(bg,.54),cover:fg.clone().lerp(bg,.25),hardware:fg.clone().lerp(bg,.45),screen:fg.clone().lerp(bg,.12),tube:fg.clone().lerp(bg,.7),old:resolve('--viz-series-2'),new:resolve('--viz-series-1'),overlap:resolve('--destructive'),line:fg};
+};
+let colors=readTheme();
+async function unzip(encoded,type){const bytes=Uint8Array.from(atob(encoded),c=>c.charCodeAt(0));const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));const out=await new Response(stream).arrayBuffer();return type==='i'?new Uint32Array(out):new Float32Array(out);}
+const geometries={};
+await Promise.all(Object.entries(data.meshes).map(async([name,row])=>{const [positions,indices]=await Promise.all([unzip(row.positions,'v'),unzip(row.indices,'i')]);const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(positions,3));g.setIndex(new THREE.BufferAttribute(indices,1));g.computeVertexNormals();geometries[name]=g;}));
+const overlapVertices=geometries.overlaps.attributes.position;
+let overlapAnchor=null,anchorDistance=Infinity;
+for(let i=0;i<overlapVertices.count;i++){const p=new THREE.Vector3().fromBufferAttribute(overlapVertices,i);if(p.x>=0)continue;const d=p.distanceToSquared(new THREE.Vector3(-2,10,8));if(d<anchorDistance){anchorDistance=d;overlapAnchor=p;}}
+const panels=[];
+for(const pane of root.querySelectorAll('.seat-pane')){
+  const side=pane.dataset.side,stage=pane.querySelector('.seat-stage'),canvas=pane.querySelector('canvas');
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,preserveDrawingBuffer:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setClearColor(0,0);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.9;
+  const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(38,1,.1,1000);camera.up.set(0,0,1);
+  const luminous=colors.line.clone();if(luminous.r+luminous.g+luminous.b<1.5)luminous.setRGB(1-luminous.r,1-luminous.g,1-luminous.b);
+  scene.add(new THREE.HemisphereLight(luminous,luminous.clone().multiplyScalar(.65),1.5));
+  const key=new THREE.DirectionalLight(luminous,1.5);key.position.set(30,-15,70);scene.add(key);
+  const fill=new THREE.DirectionalLight(luminous,.6);fill.position.set(-40,60,25);scene.add(fill);
+  const meshes={};
+  const add=(id,name,color,opacity=1)=>{const mat=new THREE.MeshStandardMaterial({color,roughness:.68,metalness:.06,side:THREE.DoubleSide,transparent:opacity<1,opacity,depthWrite:opacity===1,polygonOffset:id==='highlight',polygonOffsetFactor:-1,polygonOffsetUnits:-1});const mesh=new THREE.Mesh(geometries[name],mat);mesh.userData.sourceName=name;scene.add(mesh);meshes[id]=mesh;return mesh;};
+  add('tip',side==='before'?'beforeTip':'afterTip',colors.body);
+  add('cover',side==='before'?'beforeCover':'afterCover',colors.cover);
+  add('hardware',side==='before'?'beforeDisplay':'afterDisplay',colors.hardware);
+  add('screen',side==='before'?'beforeScreen':'afterScreen',colors.screen);
+  add('flavorLeft','flavorLeft',colors.tube);add('flavorRight','flavorRight',colors.tube);add('water','water',colors.tube);
+  add('highlight',side==='before'?'oldNubs':'newFloors',side==='before'?colors.old:colors.new);
+  if(side==='after'){const m=add('overlap','overlaps',colors.overlap);m.material.depthTest=false;m.material.depthWrite=false;}
+  const crownPoints=[[-14.9,0,23.85],[14.9,0,23.85],[14.9,49.75,23.85],[-14.9,49.75,23.85],[-14.9,0,23.85]];
+  const crown=new THREE.Line(new THREE.BufferGeometry().setFromPoints(crownPoints.map(p=>new THREE.Vector3(...p))),new THREE.LineDashedMaterial({color:colors.line,transparent:true,opacity:.5,dashSize:1,gapSize:.8}));crown.computeLineDistances();scene.add(crown);
+  panels.push({side,pane,stage,renderer,scene,camera,meshes,crown,labels:pane.querySelector('svg')});
+}
+function label(panel,point,text,slot){
+  const w=panel.stage.clientWidth,h=panel.stage.clientHeight;
+  const p=new THREE.Vector3(...point).project(panel.camera),x=(p.x*.5+.5)*w,y=(-p.y*.5+.5)*h;
+  const tx=slot==='top'?8:8,ty=slot==='top'?24:h-18;
+  const ns='http://www.w3.org/2000/svg';
+  const line=document.createElementNS(ns,'path');line.setAttribute('d',`M${x},${y} L${Math.max(20,Math.min(w-20,x))},${ty+(slot==='top'?9:-11)} L${tx+8},${ty+(slot==='top'?9:-11)}`);panel.labels.appendChild(line);
+  const circle=document.createElementNS(ns,'circle');circle.setAttribute('cx',x);circle.setAttribute('cy',y);circle.setAttribute('r','3');panel.labels.appendChild(circle);
+  const t=document.createElementNS(ns,'text');t.setAttribute('x',tx);t.setAttribute('y',ty);t.textContent=text;panel.labels.appendChild(t);
+}
+function draw(){
+  for(const p of panels){
+    const w=p.stage.clientWidth,h=p.stage.clientHeight;p.renderer.setSize(w,h,false);p.camera.aspect=w/h;
+    const target=new THREE.Vector3(...state.target),s=Math.sin(state.phi);
+    p.camera.position.copy(target).add(new THREE.Vector3(state.radius*s*Math.cos(state.theta),state.radius*s*Math.sin(state.theta),state.radius*Math.cos(state.phi)));
+    p.camera.lookAt(target);p.camera.updateProjectionMatrix();p.camera.updateMatrixWorld();
+    const open=state.view==='feet',section=state.view==='section';
+    for(const [name,m] of Object.entries(p.meshes)){
+      m.visible=name==='tip'||name==='highlight'||!open;
+      const source=m.userData.sourceName;m.geometry=section&&geometries[source+'Section']?geometries[source+'Section']:geometries[source];
+      if(name==='overlap'){m.visible=state.marks&&section;m.renderOrder=4;}
+      if(name==='highlight')m.visible=state.marks&&open;
+      if(m.geometry.attributes.position.count===0)m.visible=false;
+    }
+    p.crown.visible=p.side==='after'&&state.marks&&!open;
+    p.renderer.render(p.scene,p.camera);p.labels.replaceChildren();p.labels.setAttribute('viewBox',`0 0 ${w} ${h}`);
+    if(open&&state.marks){
+      label(p,[8.5,5.24,p.side==='before'?11.6:7.1],p.side==='before'?'Four raised supports':'Four 1 mm recesses','top');
+      label(p,[-8.5,44.24,p.side==='before'?11.6:7.1],p.side==='before'?'3.5 mm above support bases':'Same foot centers','bottom');
+    }else if(!open){
+      label(p,[section?0:14.9,25,p.side==='before'?23.85:19.35],p.side==='before'?'Cover crown: +6.32 mm':'Cover crown: +1.82 mm','top');
+      if(section&&overlapAnchor){const anchor=overlapAnchor.clone();if(p.side==='before')anchor.z+=4.5;label(p,anchor.toArray(),p.side==='before'?'Tube/component gap: 3.79 mm':'Envelope overlap: 0.71 mm','bottom');}
+    }
+  }
+  root.querySelector('.seat-detail').textContent=state.view==='feet'?'Four foot seats · Ø4 mm pockets, 1 mm below the former support bases':state.view==='section'?'Conservative component envelopes · red marks the modeled tube intersections':'Cover and display move inward 4.5 mm; the neck and snap bearings stay fixed';
+  window.__vizReady=true;
+}
+let pending=false;function schedule(){if(!pending){pending=true;requestAnimationFrame(()=>{pending=false;draw();});}}
+function save(){if(window.openai?.setWidgetState)window.openai.setWidgetState({modelContent:{view:state.view,totalReductionMm:4.5},privateContent:{...state}}).catch(()=>{});}
+function setView(view){state.view=view;Object.assign(state,views[view]);for(const b of root.querySelectorAll('[data-view]'))b.setAttribute('aria-pressed',b.dataset.view===view?'true':'false');schedule();}
+for(const b of root.querySelectorAll('[data-view]'))b.addEventListener('click',()=>{setView(b.dataset.view);save();});
+root.querySelector('#seat-marks').addEventListener('change',e=>{state.marks=e.target.checked;schedule();save();});
+for(const p of panels){let last=null;p.stage.addEventListener('pointerdown',e=>{last={x:e.clientX,y:e.clientY};p.stage.setPointerCapture(e.pointerId);});p.stage.addEventListener('pointermove',e=>{if(!last)return;state.theta-=(e.clientX-last.x)*.009;state.phi=Math.max(.12,Math.min(2.75,state.phi+(e.clientY-last.y)*.009));last={x:e.clientX,y:e.clientY};schedule();});p.stage.addEventListener('pointerup',()=>{last=null;save();});p.stage.addEventListener('pointercancel',()=>{last=null;});p.stage.addEventListener('wheel',e=>{e.preventDefault();state.radius=Math.max(38,Math.min(150,state.radius*Math.exp(e.deltaY*.001)));schedule();},{passive:false});}
+new ResizeObserver(schedule).observe(root);
+function recolor(){colors=readTheme();for(const p of panels){for(const [id,m] of Object.entries(p.meshes)){const key=id==='tip'?'body':id==='highlight'?(p.side==='before'?'old':'new'):id.startsWith('flavor')||id==='water'?'tube':id;m.material.color.copy(colors[key]);}p.crown.material.color.copy(colors.line);}schedule();}
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',recolor);
+new MutationObserver(recolor).observe(document.documentElement,{attributes:true,attributeFilter:['class','style','data-theme']});
+const restore=value=>{if(value?.privateContent?.view&&views[value.privateContent.view]){const s=value.privateContent;setView(s.view);state.marks=s.marks!==false;for(const key of ['theta','phi','radius'])if(Number.isFinite(s[key]))state[key]=s[key];if(Array.isArray(s.target)&&s.target.length===3)state.target=s.target;root.querySelector('#seat-marks').checked=state.marks;schedule();}};
+restore(window.openai?.widgetState);window.addEventListener('openai:set_globals',e=>restore(e.detail?.globals?.widgetState));
+window.__seatReview={setView,draw,state,panels};draw();
+</script>
