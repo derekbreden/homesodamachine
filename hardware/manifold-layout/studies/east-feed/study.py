@@ -6,6 +6,7 @@ participate in the manual fit query; harness drawings are omitted.
 from pathlib import Path
 import argparse
 import copy
+import hashlib
 import importlib.util
 import json
 import numpy as np
@@ -163,6 +164,23 @@ def check(scene,g):
     result['scope']='Flat under-head elbow, direct Y-A tube, centered PCB/local connections and native push-connect regulator against the selected arrangement'
     return result
 
+def viewer_data(scene,g):
+    comp=comparison(g);visible=copy.deepcopy(scene)
+    visible['instances']=[m for m in visible['instances'] if not m.get('display_suppressed')]
+    for key in ('layout','metrics','mates'):visible.pop(key,None)
+    overrides={key:[m for m in pose(g,key)['instances'] if m['name'] in ('reg','tee-regulator-tube')] for key in REGULATORS}
+    used={m['geometry'] for s in (visible,comp) for m in s['instances']}|{m['geometry'] for ms in overrides.values() for m in ms}
+    packed={};shared={}
+    for name in sorted(used):
+        v,f=g[name]
+        identity=(v.shape,f.shape,hashlib.sha256(v.tobytes()+f.tobytes()).digest())
+        if identity in shared:
+            packed[name]={'alias':shared[identity]}
+        else:
+            shared[identity]=name
+            packed[name]=base.pack(v,f,10000 if name in ('va-under-head','va-to-ya') else 12000 if name.startswith('connection-') else 5200 if name in ('pump','pump-under-head') else 3000)
+    return {'geometries':packed,'variants':[visible],'comparison':comp,'regulator_overrides':overrides,'grid':parent.parent.grid()}
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--check',action='store_true');args=parser.parse_args()
     g=library();scene=pose(g);alternative=pose(g,'frizzlife')
@@ -173,13 +191,8 @@ def main():
     datums=parent.connections.world_datums(scene['instances'])
     datums['service']={'scope':'Local envelopes only; harness drawings omitted','J10':'Wire entry east; long vertical driver service requires funnel/frame removal'}
     (HERE/'connection-datums.json').write_text(json.dumps(datums,indent=2)+'\n')
-    comp=comparison(g);visible=copy.deepcopy(scene);visible['instances']=[m for m in visible['instances'] if not m.get('display_suppressed') and not m.get('render_only')]
-    for key in ('layout','metrics','mates'):visible.pop(key,None)
-    overrides={key:[m for m in pose(g,key)['instances'] if m['name'] in ('reg','tee-regulator-tube')] for key in REGULATORS}
-    used={m['geometry'] for s in (visible,comp) for m in s['instances']}|{m['geometry'] for ms in overrides.values() for m in ms}
-    packed={n:base.pack(*g[n],10000 if n in ('va-under-head','va-to-ya') else 12000 if n.startswith('connection-') else 5200 if n in ('pump','pump-under-head') else 3000) for n in sorted(used)}
     out=HERE/'out';out.mkdir(exist_ok=True)
-    (out/'viewer-data.json').write_text(json.dumps({'geometries':packed,'variants':[visible],'comparison':comp,'regulator_overrides':overrides,'grid':parent.parent.grid()},separators=(',',':')))
+    (out/'viewer-data.json').write_text(json.dumps(viewer_data(scene,g),separators=(',',':')))
     print(json.dumps({'selected':scene.get('metrics',{}),'frizzlife':alternative.get('metrics',{})},indent=2))
 
 if __name__=='__main__':main()
