@@ -1,118 +1,125 @@
-# V-B on the cold-core roof, east of the PCB
+# Expanded funnel and compact aft-side plumbing
 
-This isolated above-core arrangement places V-B on the cold-core roof east of
-the PCB. V-A, its mounting seat, the upstream water group and the photographed
-flat elbow under the pump head retain their established poses. The drain
-elbow, stub, cradle, Y-A and Y-B retain their production datums. WAGOs and
-ground placement remain deferred.
+This isolated above-core arrangement has an aft-expanded funnel, V-B on the
+cold-core roof east of the PCB, and a transverse flow meter connected to the
+soda bulkhead. V-A, V-K, the pump and PCB retain their established poses.
+Ground and WAGO placement remain deferred.
 
-## Forward plumbing
+## Funnel and opening
 
-V-B lies square on its side, head east and flow aft. Its native origin is
-`(38,241.92153,280.41)` mm. Its body occupies X38..95.30,
-Y212.172..271.672 and Z263.66..297.16 mm. The funnel drain turns east, then
-aft directly into V-B. Two nested stem elbows reverse its outlet toward the
-front, west of its mounting wall. Their fold plane rises 25 degrees; the
-valve stays aligned with the enclosure axes. The return follows one straight
-fore run and a formed U into Y-B. Five added elbows connect the B chain;
-exposed tubing totals 210.47 mm. The U has a minimum modeled centerline
-radius of 21.17 mm. The two feed fittings clock their transverse arms upward
-10 degrees; the short joining tube rises between their mouths. No route crosses above the west PCB.
+The silicone funnel extends 35 mm in +Y. Its fore edge remains Y87, its aft
+edge is Y277.392, and its X width and Z elevations are fixed. The complete
+native wet cavity to the mouth is 698.21 mL; cover displacement is excluded.
+The outlet remains `(0,161.69575,306.05)` mm, and the drain elbow remains
+`(0,161.69575,280.41)` mm.
 
-V-A has one continuous low tube and one stem elbow at Y-A. The elbow faces
-aft, clocked 7.5 degrees east. The tube stays low and west of V-B's mounting
-wall before rising into Y-A; its two tangent spans have a minimum modeled
-centerline radius of 27.16 mm. Y-B's stem faces fore, clocked 7.5 degrees west.
-Both stems clear the retained drain cradle by 0.66 mm. V-A's tube clears the
-board by 31.17 mm. The high B return passes above the low A feed.
+The matching drop-in frame reaches Y270.692. Its four M3 fastener seats face
+up; the rear stations are at Y259.492. A matching smooth gravity cover is
+included in the native assets. The broad upper-wall and roof opening ends
+at Y279, retaining the lower sidewalls and leaving 2.290 mm in plan before
+the valve supports. The overflow apron remains continuous.
 
-[route.json](route.json) records every fitting pose, tube centerline and
-insertion assumption. The drain stem is 19.006 mm long, with 3.306 mm exposed
-beyond its nominal 15.7 mm receiving depth to clear the cradle. Other stem
-shoulders sit flush. Socket engagements are family-based layout estimates.
+[funnel-expansion-plan.json](funnel-expansion-plan.json) specifies the native
+construction. [funnel-expansion.json](funnel-expansion.json) records capacity,
+source hashes, six valid solids and targeted fit results. The STEPs and meshes
+in `parts/expanded-funnel*` use the study's world frame. Frame receivers and
+production-shell integration remain separate.
 
-## V-B wall and mounting parent
+## Forward water paths
 
-The native [V-B support](parts/vb-core-support.step) is one valid solid:
-an upright 9.2 mm seat wall with four shared V69 blind sockets and the valve's
-port channel. It rises from the core roof at Z253.4 to Z299.21 mm, within
-X34..43.2 and Y222.897..260.947 mm. Each blind socket retains 3 mm of stock
-behind its floor. The wall and valve are carried by **back-bottom**;
-[mount-plan.json](mount-plan.json) fixes their attachment and world coordinates.
-The geometry uses the existing
-[valve-seat](../../../printed-parts/valve-seat/README.md) dimensions and retains
-the scope of that part's physical fit evidence. Fusion into the production
-core lid, installed post retention and loads remain outside this arrangement
-study. PCB fasteners remain to design.
+V-B lies square on its side, head east and flow aft, at native origin
+`(38,227.40434,280.41)` mm. Its inlet stem seats directly in the valve. The
+opposed drain and valve stems have 10-degree upward clocks and an 11.59 mm
+exposed tube between them. That tube's minimum modeled radius is 32.22 mm.
 
-The funnel drain outlet stem and Y-B elbow are carried by front-top. V-B's
-inlet and return tubes are carried by back-bottom and connect to those two
-front-top fittings during final assembly.
+The outlet stem points west, rising 8 degrees. A straight 35.00 mm exposed
+cross run goes above the PCB into a two-socket elbow. That elbow turns the
+return fore, descending into Y-B's aft-facing stem. The descending tube has
+59.62 mm exposed length and a 40.27 mm minimum modeled radius; its minimum
+Y is 185.127. The plumbing remains on the aft side of Y-B. The highest fitting
+surface is Z298.884, below the frame's Z299.9 underside.
 
-## Fit and PCB connections
+[b_plumbing.py](b_plumbing.py) describes those fitting poses, seated interfaces,
+centerlines and dimensions. V-A uses one continuous low tube into Y-A's single
+aft-facing stem elbow, with minimum modeled radius 27.16 mm. Both tee stems
+clock 7.5 degrees outward for drain-cradle clearance.
 
-The flat board's long dimension runs fore–aft. Its footprint is
-X−83..−10.200 and Y186.387..277.203 mm; underside Z257 and pin tails Z255.
-It has 15.5 mm to the ideal west wall and 17.65 mm beside the west J5/J6
-housings. The north/south gaps to V-A's support and the core's fore edge are
-4.087 mm each. Normal local lead estimates travel with the board.
+The native [V-B wall](parts/vb-core-support.step) rises from Z253.4 to Z299.21,
+within X34..43.2 and Y208.379..246.429. Its 9.2 mm section contains four shared
+V69 blind sockets and the port channel, retaining 3 mm behind socket floors.
+The wall and valve travel with back-bottom. The existing
+[valve-seat](../../../printed-parts/valve-seat/README.md) fit evidence keeps its
+original scope; fusion into the production core lid and installed retention
+remain separate.
 
-The [manual fit report](fit-report.json) has no unrelated solid-body or local
-lead intersections. V-B clears the funnel frame by 10.39 mm. Its nested outlet
-clears the pump by 1.27 mm and its wall by 0.54 mm. The low A tube clears the
-B inlet union by 0.73 mm; the A and B feed elbows clear by 1.17 mm. The raised
-B feed tube passes its high return by 0.39 mm. These are nominal mesh gaps,
-with purchased-part dimensions and socket depths partly estimated.
+[route.json](route.json) records all fitting poses, tube centerlines and socket
+assumptions. The drain stem is 19.006 mm long with 3.306 mm exposed beyond its
+nominal 15.7 mm insertion to clear the cradle. Other stem shoulders seat flush.
+Dimensions and cut lengths are layout estimates.
 
-All ten 6 mm JST housing withdrawal sweeps and all ten 30 mm vertical columns
-above the housing outlines clear with the funnel/frame installed and the roof
-removed. These are nominal housing/access envelopes; finger reach and complete
-harness manipulation are not modeled. Local leads are suppressed in the viewer;
-installed mating housings remain visible.
-
-## Flow-meter placement candidate
+## Soda outlet
 
 The [measured DIGITEN reference](../../../reference/digiten-flow-sensor/README.md)
-sits above the pump, aft of the ASSE, with its label up and port axis fore–aft.
-Its native origin is `(0,412,326.1)` mm. The exterior occupies
-X−9.15..26.50, Y381.50..442.50 and Z316.70..345.00 mm. Its nominal inlet is
-at `(0,381.5,326.1)` and outlet at `(0,442.5,326.1)` mm, using the reference's
-port convention. This candidate clears the pump by 4.57 mm, ASSE by 9.98 mm
-and the ordinary ceiling underside by 1 mm. It requires no roof relief at
-this pose.
+runs east–west above the pump, with its label up. Its native origin is
+`(-3,440.4648,326.1)` mm; the nominal outlet is at `(27.5,440.4648,326.1)` mm.
+A 38.03 mm exposed tube falls into the existing west-facing soda-bulkhead stem
+socket at `(58.45,440.4648,306.376)` mm. Both socket entries are axial; the tube
+centerline has two R14 transitions of 45.95 degrees and a straight diagonal.
+No additional fittings are introduced.
 
-[The frozen mesh source record](parts/digiten-flow.source.json) identifies its
-reference and source hashes. Placement is open for review. A back-bottom
-carrier from the cold-core roof is proposed; retaining details and complete
-carbonated-water connections are pending. The flexible pigtail is omitted.
+[soda_route.py](soda_route.py) records the route and the actual upstream core
+handoff for the next connection. The inlet route, pigtail and meter retention
+remain pending. This candidate clears the pump by 4.71 mm and the ordinary
+ceiling by 1 mm; supplied panel/boss/support envelopes also clear. A core-roof
+carrier is proposed while placement is reviewed.
+
+## PCB access and fit
+
+The board footprint is X−83..−10.200 and Y186.387..277.203 mm, with underside
+Z257 and pin tails Z255. Plumbing may pass above the PCB. Electrical
+connections are completed before the funnel/frame drops in; the roof also
+remains open for connection access.
+
+The J11 local lead estimate dresses aft with a 1 mm straight exit and R4 bend.
+Its four conductor paths and source records are in
+[pcb-j11-dressed-lead-source.json](parts/pcb-j11-dressed-lead-source.json).
+PCB and mating housing datums are fixed. Other local connection estimates
+travel with their owners. Full harness routing is separate.
+
+[fit-report.json](fit-report.json) records the combined exterior fit, intended
+seats, local lead checks, nominal 6 mm JST withdrawal sweeps and 30 mm vertical
+columns. Installed and funnel/frame-removed access states are both reported;
+those columns are diagnostic envelopes, not mandatory clear space above every
+connector. Finger reach and complete harness manipulation are not modeled.
 
 ## Arrangement highlighting
 
 One whole-arrangement camera supports Assembly quadrant, Latest changes and
 Normal highlights. Changing highlight preserves the camera. Native walls,
-V-B's support and the integral V-A/V-K/relay support overlays remain visible;
-the roof is hidden for interior inspection.
+V-B's wall and the integral V-A/V-K/relay support overlays remain visible; the
+roof is hidden. The matching funnel cover is a native asset; the interior
+view shows the funnel open. Local leads are suppressed while mating housings
+remain visible.
 
 [assembly-ownership.json](assembly-ownership.json) follows mounting parents.
-The funnel/frame, drain and Y-A/Y-B fittings belong to front-top. Walls,
-V-A/V-K, relays and rear fittings belong to back-top. Cold-core equipment,
-V-B and its wall, the PCB, pump and Mean Well belong to back-bottom. The
-flow-meter carrier is proposed as back-bottom. No
-front-bottom equipment is represented in this above-core scene. Part details
-identify attachment bases and unfinished production integration.
+Funnel/frame and front manifold fittings are front-top; walls, V-A/V-K and
+rear fittings are back-top; core-mounted equipment, PCB and V-B are back-bottom.
+The meter carrier is proposed as back-bottom. Part details identify proposed
+attachments and the final tube connections between quadrants.
 
-Latest changes compares the selected geometry and poses against the explicit
-[highlight baseline](highlight-baseline.json). Mesh signatures use decompressed
-geometry and normalized poses, independently of compressed archive timestamps.
+Latest changes compares against [highlight-baseline.json](highlight-baseline.json).
+Mesh signatures use decompressed geometry and normalized poses independently
+of compressed archive timestamps.
 
-Rebuild the support through the shared native CAD queue, then query and package
-the selected scene manually:
+Rebuild native assets through the shared CAD queue, then manually query and
+package the selected scene:
 
 ```sh
-PYTHONPATH=. tmp/takeover/cadq "V-B cold-core roof support" -- tools/cad-venv/bin/python hardware/manifold-layout/studies/funnel-gate/build_support.py
+PYTHONPATH=. tmp/takeover/cadq "Expanded funnel group" -- tools/cad-venv/bin/python hardware/manifold-layout/studies/funnel-gate/build_funnel.py
+PYTHONPATH=. tmp/takeover/cadq "V-B cold-core roof wall" -- tools/cad-venv/bin/python hardware/manifold-layout/studies/funnel-gate/build_support.py
 tools/cad-venv/bin/python hardware/manifold-layout/studies/funnel-gate/study.py --check
 python3 hardware/manifold-layout/studies/funnel-gate/viewer.py hardware/manifold-layout/studies/funnel-gate/out/whole-arrangement.html
 ```
 
-No command is added to the build or commit path. Production enclosure geometry
-and complete harness routes retain their separate scope.
+No command is added to the build or commit path. Production enclosure geometry,
+retaining details and complete harness/tube routes retain their separate scope.

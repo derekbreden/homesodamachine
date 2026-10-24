@@ -1,21 +1,14 @@
 # Above-core arrangement
 
-The selected [funnel-gate layout](funnel-gate/README.md) places the water
-group, folded CO₂ path, low forward PCB, flat Mean Well, dry-wall relays and
-rear connections above the existing cold core. V-B lies square on its side
-on the core roof east of the PCB, against an upright socket wall carried by
-back-bottom. The funnel drain feeds it through an east/aft turn; nested stem
-elbows return its outlet fore into a formed U to Y-B. V-A routes under the
-pump head, through the flat union elbow
-between the pump and V-K, then low and fore into Y-A's single stem elbow.
-The B feed fittings clock up 10 degrees, with their return passing high.
-The measured DIGITEN flow-meter candidate sits aft of the ASSE above the pump,
-label up and ports fore–aft.
-The PCB lies west, long dimension fore–aft, with open space above its JSTs.
-The purchased YZMSZ native push-connect regulator estimate is the working choice.
-Its [native sidewalls](wall-supported/README.md) include
-the valve seats and relay bosses; its rear wall carries the C14 and RJ11.
-Ground and WAGO placement follow the primary components and full wire routes.
+The selected [funnel-gate layout](funnel-gate/README.md) has a 35 mm aft-expanded
+funnel, a compact B inlet seated directly in V-B, and a high aft-side return
+above the PCB into Y-B. V-B lies square on the core roof east of the west
+fore–aft PCB. V-A feeds Y-A through the flat under-head elbow and one low tube.
+The transverse measured DIGITEN meter connects to the rear soda bulkhead.
+The inline YZMSZ native push-connect regulator estimate remains the water choice.
+Native sidewalls, valve seats, relay bosses, the empty rear openings and
+expanded upper-shell opening are included in the study. Ground and WAGOs
+follow the primary components and full wire routes.
 
 The study's whole-arrangement viewer has three highlight modes: assembly
 quadrant, latest changes and normal. Its explicit mounting-parent map carries

@@ -1,5 +1,5 @@
 {
-  "source_commit": "e9751cd0e16d312928ea20a049bc80268a9c837e",
+  "source_commit": "4cd9be6eb963a4fd557b6c535dda87ef6292d0d3",
   "parts": {
     "asse": "6a21501d4787e143e21f294b277a50872c4024dbc005698f0cca129c6685e862",
     "asse-inlet-tpu": "38a009eab80736a9e45eaabf3a59280ce3408973724bf51f1fd453bf6b7c7599",
@@ -81,25 +81,23 @@
     "vk-support-highlight": "c2d7ef8edfb573b087cb4a6e77559ded80ad0533da2f65d8d476a661f288112f",
     "va-support-highlight": "b0d8a97c6aff54053419c96dbd2901e5e91da4ac14de86cf4a58808c39642c4e",
     "va-east-turn": "09d25c1e153138bb2704f3db462a780ff65e235a905db7d9528447eac60cdf29",
-    "va-ya-straight": "5af6d7f05945834db216ce2f09373b12759b6af49f9ded4b30271b03f920f405",
-    "ya-stem-elbow": "cd9a649db3a10115dd9d6163019cf2dbf115e78d26609168f1e0d873bc7db16a",
+    "va-ya-straight": "e3da60ec97ca37e10e3734655a3037358286e1bb1de5dfebfc93e1cb95932cf8",
+    "ya-stem-elbow": "c13e7f849363113a57fed2196fea41a60c76d88244ed9b7e85053ce313695d13",
     "tee-ya-target": "02043c70d1d1d0d4ef97ff5d133e882117be7ffe85a5a08f7c392cef57fe7aca",
     "vb": "67acd59b824a941aab7977cba518c9f9b666a579d1415378434648a75a864fc3",
+    "digiten-flow": "2b613205132217ee99fbe301f87094beac4d3cef1adaa23618d9e67d5aceb3ec",
     "vb-core-support": "7ff2120445e9c038adaebcf52f1931e5c43fe18886149cdee3240c12b3101af7",
     "tee-yb-target": "de2431d4ec85ee2252740a60628ae203d5c24f5d10c570f7ba047405838c6e04",
     "funnel-drain-union": "b29f48720d1611ddaf716670ca7068b60ea96ee92e133377ef7a4b0a80cdb5b2",
     "funnel-drain-stub": "108007fca89453a228edc5133d10acc8054e469d6665b7df740eba3a40ec3515",
     "funnel-drain-cradle": "afdd6276a018838ea6276a0373b318307af6d1756b96f2b7abee949f574b0137",
-    "ya-fold-inner": "c8316c19910309cae0bc3e40898aa7e0346565b953a42de28f2e82794e1f3b57",
-    "ya-fold-return": "a5ba1fbade4dad59f5ee2867274d5281186983e073a907fbf1e5a4c41a944376",
-    "drain-outlet-stem": "860e25205e02bba15f49b73a553445a638f0d758f2cab3841465a92bffa18e69",
-    "vb-inlet-turn": "bd7a84014e7a122fd530a6e9c9cedacaae5dc033e16352d19bc106745b75ce82",
-    "vb-outlet-stem": "c00bf7418e9031a43a77824a967ee0c9f9d7ae110d3772de19e343bc01b4dbfe",
-    "vb-outlet-return": "96f6f28ce2e1e07f755ac61b5305d9ef8da2a006add631bb5e7c3e1e7749abf6",
+    "drain-outlet-stem": "83cdebcc55c36eda99eebfc9dd688d11cfd07cf52b9441275b10dfc72e584ef9",
+    "vb-inlet-turn": "fea591d67e15703fda8fdd8b995cdc29a77995ca4698e08caa616797cd6adf03",
+    "vb-outlet-stem": "01850c974b498aece0717a6aaf44b90f374d41220b78b2dbb6a3a0978153469f",
+    "vb-outlet-return": "f1d56955751080399575b16aa068bd6d7c85663aadd90d62d244e8c35df3af61",
     "yb-stem-elbow": "7c0ec0cc52b2af6eda6b2524ef2e62e8f366e97fd89344598a9a5222adb5fce0",
-    "ya-concealed-link": "5d75593ca4379b97b40c9c8a1ddb56a661b71ca980173bc8bab8703b8365ca5a",
-    "drain-vb-east-link": "dfdc4620f9d617a954bb59cc4bf31148fd413ff3b8da041d166af31cebf93c23",
+    "drain-vb-east-link": "f9c749975fcef06e789e049f6aa41d3c06345d20db182d2b3bd50dcdadaf3346",
     "drain-vb-inlet-link": "46863a75f363f1c47aa07d18d5183a4a9d32e9d22f0b856ffdcc6d58ceb741ce",
-    "vb-yb-link": "7ba48746997d845ecf2afe58a73a4927754d0d21ff5825eef854f6babbc0ae20"
+    "vb-yb-link": "c8cb82a0fe43b6d641efdd87353e940810c19f14db9b9dd0282b4228e0c05cf1"
   }
 }
