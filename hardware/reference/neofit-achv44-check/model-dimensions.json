@@ -12,137 +12,156 @@
   "sources": [
     {
       "url": "https://www.freshwatersystems.com/products/neofit-acetal-black-single-check-valves-1-4-tube-0-3-psi-crack-pressure",
-      "role": "Exact ACHV44-E product identity, nominal connections, materials, cracking pressure and linked3Dmedia",
+      "role": "Exact ACHV44-E product identity, nominal connections, materials, cracking pressure and linked 3D media",
       "accessed": "2026-10-24"
     },
     {
       "url": "https://cdn.shopify.com/3d/models/o/939a932bdf15ab37/yihuwtagfre0ay5n1gao.glb",
-      "role": "Exact product3Dmedia; exterior proportions and oval collets; arbitrary absolute scale",
+      "role": "Exact product 3D media; exterior proportions and oval collets; arbitrary absolute scale",
       "sha256": "4d253d6666b44c97d899a1fd67a433922273cac70f7e8eda60a995528265ace4"
     },
     {
       "url": "https://cdn.shopify.com/3d/models/o/913a0b443c00f8bc/yihuwtagfre0ay5n1gao.usdz",
-      "role": "Same product3Dmedia; declares metersPerUnit=1 with a roughly7-unit-long fitting, so file units do not establish actual dimensions",
+      "role": "Same product 3D media; declares metersPerUnit=1 with a roughly 7-unit-long fitting, so file units do not establish actual dimensions",
       "sha256": "4b57ab5d31fbb017ba9ab7b44100fdf1590269dcbfad4623840a4fc31c24ebea"
     },
     {
       "url": "https://assets.freshwatersystems.com/image/upload/s--FacjKp_O--/xa3vlqau7opjabwxmc5o.pdf",
-      "role": "October2025 neoFit catalogue: ACHV44 nominal1/4-inch connection and pack count; no body length or diameter table",
+      "role": "October 2025 neoFit catalogue: ACHV44 nominal 1/4-inch connection and pack count; no body length or diameter table",
       "sha256": "2a3ad35bac64ba78ce77304bcacb1bf8925ae33f04f5990568f1ab9154eafc70"
     },
     {
       "url": "https://www.freshwatersystems.com/cdn/shop/files/k0cfkkmwjuonpej2gfex_8a55c425-2e10-4b2c-864f-aed9e186b30f.jpg",
       "role": "Supplier cutaway: fixed case and separate sleeves; inferred forward direction from the inlet-facing poppet head and downstream spring. Direction is unverified on physical hardware"
+    },
+    {
+      "url": "https://assets.freshwatersystems.com/image/upload/s--ua8owcZg--/mlf6gjlehc9xpkjrbfw2.pdf",
+      "path": "hardware/reference/neofit-stem-elbow/source/stem-elbow-dimensions.pdf",
+      "role": "ATEU44 row: diameter P=.610in and female engagement B=.665in; published sibling dimensions, inferred for ACHV44",
+      "sha256": "bd5392f79188f0034b711506804d96a33238a5dfa9a630a6c2ba37a7474bdf93"
+    },
+    {
+      "url": "https://assets.freshwatersystems.com/image/upload/s--rN_5qBOD--/nvkzj79bbgumy8drpkff.pdf",
+      "path": "hardware/reference/neofit-stem-run-tee/source/run-stem-tee-dimensions.pdf",
+      "role": "ATRU444 row: diameter P=.610in and female engagement B2/B3=.665in; independent sibling row supporting the family inference",
+      "sha256": "e31e3bc9c9d7ab4605155b08ea70e6ff3619cc11ce6795adf9774861f09f02f2"
     }
   ],
   "vendor_model_calibration": {
-    "basis": "The collet mesh has an elliptical tube opening. Its minor diameter is normalized to the published6.35mm tubeOD. This is an absolute-scale inference from a display model, not an engineering dimension",
+    "basis": "Normalize the exterior fixed socket collar of vendor GLB body node0 to the sibling neoFit P=.610in=15.494mm diameter. This is the short outlet socket body, not the larger check-valve barrel and not the stylized tube opening.",
     "body_node": 0,
-    "collet_node": 2,
-    "collet_local_minor_radius": 0.5739097595,
-    "collet_node_scale": 1.018428087234497,
-    "millimetres_per_model_unit": 5.432124953066388,
+    "exterior_collar_landmark": {
+      "body_local_y_interval": [
+        0.588787,
+        0.914139
+      ],
+      "radius_model_units": 1.0,
+      "source_correspondence": "The outer cylindrical female socket collar below the release collet; sibling sheets label its maximum diameter P"
+    },
+    "millimetres_per_model_unit": 7.746999999999999,
     "body_local_inlet_face_y": -6.041673556729616,
     "body_local_outlet_face_y": 1.11356158303324,
-    "method": "Transform both collet lip-plane centers into the fixed-body node0 frame; project onto itsYaxis; subtract inlet projection; apply scale. Straighten small source collet tilts into shared coaxial interfaces",
-    "scope": "No dimensional tolerance is established. Decimal precision preserves one shared CAD datum and is not measurement accuracy"
+    "method": "Transform both collet lip-plane centers into body node0; project onto its Y axis; subtract the inlet projection; apply the family exterior-collar scale. Straighten small source collet tilts into shared coaxial interfaces.",
+    "internal_media_scope": "The display model has a stylized oval tube corridor. Nominal6.35mm tube passages and family16.891mm engagement are represented analytically; the internal display mesh does not control scale or insertion.",
+    "scope": "Same-family exterior inference with no established dimensional tolerance. Decimal precision preserves one shared CAD datum and is not measurement accuracy."
   },
   "model_mm": {
-    "mouth_spacing": 38.868131347763274,
-    "maximum_fixed_body_diameter": 11.82415,
+    "mouth_spacing": 55.43160662774284,
+    "maximum_fixed_body_diameter": 16.862957100847176,
+    "socket_collar_diameter": 15.493999999999998,
     "maximum_oval_collet_radii": [
-      5.1465,
-      4.1
+      7.339657287797431,
+      5.847196129402403
     ],
     "flow_bore": 4.24,
     "fixed_body_profile_from_inlet_station_radius": [
       [
-        1.046084,
-        4.688
+        1.4918678819097033,
+        6.685769623082552
       ],
       [
-        1.48337,
-        5.451
+        2.1155012981638155,
+        7.773918561310365
       ],
       [
-        3.110834,
-        5.912075
+        4.43650159122278,
+        8.431478550423588
       ],
       [
-        14.159233,
-        5.912075
+        20.1931249738797,
+        8.431478550423588
       ],
       [
-        17.068679,
-        5.409986
+        24.342417995807825,
+        7.715426633980778
       ],
       [
-        24.802939,
-        5.409986
+        35.372597297220466,
+        7.715426633980778
       ],
       [
-        25.510202,
-        4.699442
+        36.381257169432544,
+        6.7020875787197784
       ],
       [
-        26.138155,
-        3.921168
+        37.27680945017563,
+        5.592155695691845
       ],
       [
-        27.387001,
-        4.675945
+        39.05784542515604,
+        6.668577440316712
       ],
       [
-        27.782459,
-        5.432128
+        39.62182603172706,
+        7.747
       ],
       [
-        29.101379,
-        5.432128
+        41.50279771928595,
+        7.747
       ],
       [
-        29.101379,
-        5.267481
+        41.50279771928595,
+        7.512193784122122
       ],
       [
-        30.165533,
-        5.267481
+        43.02043604852694,
+        7.512193784122122
       ],
       [
-        30.165533,
-        5.432128
+        43.02043604852694,
+        7.747
       ],
       [
-        35.776375,
-        5.432128
+        51.022312542450955,
+        7.747
       ],
       [
-        35.776375,
-        5.267481
+        51.022312542450955,
+        7.512193784122122
       ],
       [
-        36.018647,
-        5.267481
+        51.36782764017353,
+        7.512193784122122
       ],
       [
-        36.018647,
-        5.432128
+        51.36782764017353,
+        7.747
       ],
       [
-        37.784631,
-        5.432128
+        53.88637759368245,
+        7.747
       ],
       [
-        38.251251,
-        4.675945
+        54.55184555902435,
+        6.668577440316712
       ]
     ],
     "fixed_bearing_band_from_inlet_s0_s1_radius": [
-      3.110834,
-      14.159233,
-      5.912075
+      4.43650159122278,
+      20.1931249738797,
+      8.431478550423588
     ],
-    "molded_form_status": "Revolved circular fixed-case envelope and analytic oval collet lips. Small source ring duplicates are simplified. Grip teeth, seals, spring and poppet are not modeled"
+    "molded_form_status": "Revolved circular fixed-case envelope and analytic oval collet lips. Small source ring duplicates are simplified. Grip teeth, seals, spring and poppet are not modeled."
   },
   "native_frame": {
     "origin": "Midpoint between nominal collet mouth planes",
@@ -155,7 +174,7 @@
     "inlet": {
       "position": [
         0.0,
-        -19.434065673881637,
+        -27.71580331387142,
         0.0
       ],
       "outward": [
@@ -164,13 +183,13 @@
         0.0
       ],
       "tube_od_mm": 6.35,
-      "insertion_mm": 12.7,
-      "insertion_status": "estimated_unmeasured"
+      "insertion_mm": 16.891,
+      "insertion_status": "same_family_inference_unmeasured_check"
     },
     "outlet": {
       "position": [
         0.0,
-        19.434065673881637,
+        27.71580331387142,
         0.0
       ],
       "outward": [
@@ -179,23 +198,37 @@
         0.0
       ],
       "tube_od_mm": 6.35,
-      "insertion_mm": 12.7,
-      "insertion_status": "estimated_unmeasured"
+      "insertion_mm": 16.891,
+      "insertion_status": "same_family_inference_unmeasured_check"
     }
   },
   "socket_insertion": {
-    "inlet_mm": 12.7,
-    "outlet_mm": 12.7,
-    "basis": "Common unmeasured1/4-inch check socket layout estimate; neither supplied by the catalogue nor inferred from stylized internal vendor meshes",
-    "plausible_study_range_mm": [
-      10.0,
-      15.0
-    ],
-    "range_status": "Uncertainty interval, not manufacturing tolerance or an assembly cutting instruction"
+    "inlet_mm": 16.891,
+    "outlet_mm": 16.891,
+    "basis": "Same-family inference from published ATEU44 B and ATRU444 B2/B3=.665in. ACHV44-specific tube stop and operating collet plane remain unmeasured.",
+    "status": "same_family_inference_unmeasured_check"
   },
   "limits": [
     "No physical dimensional, release-stroke, insertion, sealing, gripping, cracking-pressure or reverse-leak test is recorded by this model.",
     "CAD contact and clearance results apply to this nominal exterior; they do not establish installed hardware fit, pressure suitability or service life.",
     "Supports bear only on the fixed cylindrical band; moving collets remain outside that bearing band."
-  ]
+  ],
+  "same_family_inference": {
+    "siblings": [
+      "ATEU44",
+      "ATRU444"
+    ],
+    "published_sibling_socket_collar_od_inch": 0.61,
+    "published_sibling_socket_collar_od_mm": 15.494,
+    "published_sibling_female_engagement_inch": 0.665,
+    "published_sibling_female_engagement_mm": 16.891,
+    "scope": "These values are published for the sibling fittings. Corresponding ACHV44 values remain unmeasured family inferences, not published ACHV44 dimensions."
+  },
+  "axial_consistency": {
+    "fixed_barrel_length_mm": 15.756623382656922,
+    "two_socket_engagements_mm": 33.782,
+    "space_between_nominal_tube_ends_mm": 21.64960662774284,
+    "inlet_tube_end_to_barrel_end_mm": 3.302124973879703,
+    "interpretation": "The two nominal inserted tube ends do not overlap. The remaining axial space is a packaging consistency check, not a valve-internal design or performance qualification."
+  }
 }
