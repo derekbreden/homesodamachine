@@ -4,29 +4,41 @@ V-A supplies clean water to **Y-A port1**, the flavor manifold's shared-source
 tee. That junction connects the water and funnel gates to the two channel
 selects. Its retained production mouth is `(22.35,166.24,270.675)` mm, facing
 upward. A trimmed NeoFit stem elbow seats in that mouth, with its female
-socket facing the arriving straight tube.
+socket facing aft toward the arriving tube.
 
 The V-A outlet stem elbow points east. The 1/4-inch tube passes beneath the
-pump head and enters the purchased, scanned JG PP0308E union elbow between
-the pump and V-K. The union elbow's axis intersection is
-`(44.5,296.3398,276.7202)` mm, aligned in Y with the two valves. Its inlet is
-clocked 45° downward toward the under-head tube; its outlet
-starts one straight, level tube to the Y-A stem elbow. Both ends enter their
-sockets squarely. The route follows
-the [physical head-side passage photographs](../../../reference/g-ganen-pump/under-head-tube/physical-observations.json).
-The G Ganen reference and water-group positions are retained.
+pump head and enters the purchased, scanned JG PP0308E union elbow lying
+flat on the core beneath the head. The union elbow's axis intersection is
+`(33.1317,309.1355,261.6)` mm. Its inlet faces west (−X) and its outlet faces
+fore (−Y); both axes are horizontal. A shallow aft offset in the incoming
+tube places its socket behind the lower pressure-switch block. One direct
+tube rises gently 15.12 mm to the Y-A stem elbow. Both tube ends enter their
+sockets squarely. The arrangement follows the received pump's
+[flat-elbow photographs](../../../reference/g-ganen-pump/under-head-tube/flat-elbow-observation.json)
+and [tube-passage photographs](../../../reference/g-ganen-pump/under-head-tube/physical-observations.json).
+Pump and water-group positions are retained.
 
 The [route](route.json) records the two smooth centerline spans, fitting poses,
-actual Y-A datum and nominal socket engagements. Its minimum sampled bend
-radius is 14.12 mm. The selected exterior-mesh query finds 2.83 mm to the
-pump and a nominal 1.01 mm from the tube underside to the plain cold-core
-crown. The union elbow clears the pump by 1.24 mm, V-K by 12.85 mm and the
-existing pump-side elbow by 0.75 mm.
-The straight downstream tube clears the PCB by 24.89 mm and the
-funnel frame by 20.00 mm. These are geometry results, not received-part
-measurement accuracy or physical installation acceptance. The JG scan does
-not establish insertion depth; the 15.7 mm engagement is a family-based
-layout estimate.
+actual Y-A datum and nominal socket engagements. The incoming and onward
+spans have minimum sampled radii of 61.75 mm and 95.74 mm. The union elbow's
+underside is at nominal Z253.437, effectively resting at the core's Z253.4
+crown. The physical photographs establish the flat arrangement; this nominal
+position does not supply a clearance allowance. The JG scan does not establish
+insertion depth; the 15.7 mm engagement is a family-based layout estimate.
+
+The pump reference represents the rigid underside measured in two raw scans;
+flexible lead loops are separate from that rigid envelope. The corrected
+native exterior supplies the study's pump body while the three installed feet
+and independently positioned fourth slider retain their study poses. The
+[frozen study mesh and its sources](parts/pump-under-head-source.json) record
+that geometry and the exact native-to-enclosure transform.
+
+The selected exterior query reports no unrelated intersections with either
+ordered regulator. Nominal elbow gaps are 0.19 mm to the corrected rigid pump,
+4.04 mm to the existing pump-side elbow and 27.78 mm to V-K. The onward tube
+clears the PCB by 19.46 mm and the funnel frame by 20.00 mm. These mesh
+distances are layout results; the photographs establish the received-part
+fit and do not measure these installed clearances.
 
 ## PCB placement
 
