@@ -10,6 +10,7 @@ import copy
 import gzip
 import hashlib
 import json
+import struct
 
 HERE = Path(__file__).resolve().parent
 
@@ -54,11 +55,33 @@ def payload():
             'geometries': {name: geometries[name] for name in sorted(used)}}
 
 
+def compact_meshes(data):
+    """Lossless display-mesh encoding; retain every coordinate and triangle."""
+    for mesh in data['geometries'].values():
+        if mesh.get('alias'):
+            continue
+        raw = gzip.decompress(base64.b64decode(mesh['data']))
+        offset = mesh['vc'] * 6
+        positions = [row[0] for row in struct.iter_unpack('<h', raw[:offset])]
+        delta = [positions[i] - (positions[i - 3] if i >= 3 else 0)
+                 for axis in range(3) for i in range(axis, len(positions), 3)]
+        vertices = raw[:offset]
+        if min(delta) >= -32768 and max(delta) <= 32767:
+            vertices = struct.pack(f'<{len(delta)}h', *delta)
+            mesh['position_encoding'] = 'axis-delta'
+        indices = [row[0] for row in struct.iter_unpack('<I', raw[offset:])]
+        mesh['index_bytes'] = 2 if max(indices) < 65536 else 4
+        triangles = (struct.pack(f'<{len(indices)}H', *indices)
+                     if mesh['index_bytes'] == 2 else raw[offset:])
+        mesh['data'] = base64.b64encode(gzip.compress(vertices + triangles, 9, mtime=0)).decode()
+    return data
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('output', type=Path)
     args = parser.parse_args()
-    data = payload()
+    data = compact_meshes(payload())
     packed = gzip.compress(json.dumps(data, separators=(',', ':')).encode(),
                            compresslevel=9, mtime=0)
     text = (HERE / 'viewer.html').read_text().replace('<!-- ARRANGEMENT_DATA -->',
