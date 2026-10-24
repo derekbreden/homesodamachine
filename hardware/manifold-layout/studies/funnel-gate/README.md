@@ -65,6 +65,36 @@ assumptions. The drain stem is 19.006 mm long with 3.306 mm exposed beyond its
 nominal 15.7 mm insertion to clear the cradle. Other stem shoulders seat flush.
 Dimensions and cut lengths are layout estimates.
 
+## Purchased check valves
+
+Both the pump-discharge and CO₂ paths use the shared
+[neoFit ACHV44-E reference](../../../reference/neofit-achv44-check/README.md).
+[purchased_checks.py](purchased_checks.py) imports its native STEP and derives
+socket datums and engagement from its API. The 55.432 mm mouth spacing and
+16.863 mm maximum barrel diameter are estimates from supplier display media
+scaled against the published sibling neoFit fixed collar. Socket engagement
+is a same-family estimate of 16.891 mm.
+
+The pump-side inlet stays fixed. The outlet's stem elbow points down, with
+a 7.719 mm exposed vertical tube to the proposed passive core guide at
+`(−32.8018,410.05329,253.4)` mm. The guide adds no fitting; the continuous
+internal tube to the real carbonator port is production integration work.
+
+The CO₂ fold retains its five stem elbows. Each nominal male shoulder has
+0.4 mm exposure. The regulator and fold are 0.7 mm east and 1.2 mm down from
+their fixed-terminal construction frame; shallow tube transitions keep the
+rear bulkhead and core guide fixed. The upper U has a single rectangular
+ceiling pocket, roof Z352, with 3 mm of ceiling retained and 1.041 mm air above
+the fitting. The meter clears the purchased gas check by 1.072 mm in the
+exterior-mesh query.
+
+[purchased-checks-native.json](purchased-checks-native.json) records the shared
+source hashes, selected frames, seated interfaces, valid native solids and
+ceiling pocket. The local NPZ files are display derivatives of that reference.
+The manual native export captures the selected production frames and tube
+curves in this record. Routine study queries use that snapshot; subsequent
+production placement edits cannot move the clean study's components.
+
 ## Soda line
 
 The [measured DIGITEN reference](../../../reference/digiten-flow-sensor/README.md)
@@ -91,7 +121,7 @@ Three stem elbows and two tube pieces form this above-core line. Socket
 depths remain family-based layout estimates. [soda_route.py](soda_route.py)
 records the poses and seated interfaces; [fit-report.json](fit-report.json)
 records the combined exterior clearance. The measured exterior clears the
-pump by 6.83 mm and CO₂ check by 1.05 mm. The inlet elbow clears the pump by
+pump by 6.83 mm and CO₂ check by 1.07 mm. The inlet elbow clears the pump by
 1.85 mm; the new drop clears its inlet TPU elbow by 13.84 mm. Meter pigtail
 and core-roof retention detail remain pending.
 
@@ -112,6 +142,13 @@ isolated exterior fit. The native envelope is in
 [parts/soda-rise-insulation.step](parts/soda-rise-insulation.step). Stock foam
 dimensions are nominal; the model does not establish thermal performance.
 Production mounts and complete wiring retain their separate scope.
+
+The [printed-elbow foam fit](../../../reference/cargen-pipe-insulation/elbow-fit-2026-10-24/physical-observation.json)
+has physical evidence: the pictured elbow fits inside the owned sleeve with
+little visible outer expansion. Its foam wall compresses locally around the
+fitting. A fitting's insulation envelope need not add a full nominal foam
+wall outside its body. This is qualitative fit evidence for that article;
+the selected scene's straight sleeve retains its stated dimensions.
 
 ## PCB access and fit
 
@@ -165,6 +202,7 @@ package the selected scene:
 ```sh
 PYTHONPATH=. tmp/takeover/cadq "Expanded funnel group" -- tools/cad-venv/bin/python hardware/manifold-layout/studies/funnel-gate/build_funnel.py
 PYTHONPATH=. tmp/takeover/cadq "V-B cold-core roof wall" -- tools/cad-venv/bin/python hardware/manifold-layout/studies/funnel-gate/build_support.py
+PYTHONPATH=. tmp/takeover/cadq "Shared purchased checks" -- tools/cad-venv/bin/python hardware/manifold-layout/studies/funnel-gate/purchased_checks.py --freeze
 tools/cad-venv/bin/python hardware/manifold-layout/studies/funnel-gate/study.py --check
 python3 hardware/manifold-layout/studies/funnel-gate/viewer.py hardware/manifold-layout/studies/funnel-gate/out/whole-arrangement.html
 ```
