@@ -11,9 +11,12 @@ The panel is 100 × 126.55 × 9 mm, with R3 corners and 0.25 mm clearance around
 its edge. Its only bearing surfaces are four integral bosses on the
 fixed roof. Each has a full-height root extending 9 mm into the adjacent front
 or rear fixed roof. The rear roots also fill the 9 mm rear-wall thickness.
-The −X pair are 18 mm wide and connect into the sidewall. The +X pair are
-16 mm wide and stop flush at the aperture edge, with attachment through their
-front/rear roots.
+The −X pair are 18 mm wide and connect into the sidewall. The +X pair have
+matching full-depth 9 mm roots into the adjacent +X roof, giving each boss
+two substantial attachments. Those blocks span 25 mm in X. Their inner ends
+stop 4.5 mm from the screw axis to clear the vent adapter, with at least
+2.5 mm of radial stock around the pilot. Screw centres and the 9 mm front/rear
+roots follow the same symmetric pattern.
 There is no perimeter rim. The bosses form a symmetric screw
 pattern, 6.75 mm from each panel edge. A 6 × 2 mm notch through the panel's
 front edge admits a flat screwdriver for lifting the panel.

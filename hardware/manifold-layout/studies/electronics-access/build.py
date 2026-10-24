@@ -111,19 +111,29 @@ def main():
     for index,(x,y) in enumerate(f['centres_xy_mm']):
         front=y<(p['ymin']+p['ymax'])/2
         east=x>(p['xmin']+p['xmax'])/2
-        # The east pair rely on their broad fore/aft roots. Their +X faces
-        # stop at the aperture edge; only the west pair extend into a wall.
-        x0=x-half;x1=opening['xmax'] if east else x+half
-        y0=opening['ymin']-root if front else y-reach
-        y1=y+reach if front else opening['ymax']+root
+        # Full-depth orthogonal roots support each east boss in X and Y.
+        # Its shorter inner end clears the vent adapter without a notch.
+        inner=f['east_boss_inner_reach_mm'] if east else reach
+        x0=x-half;x1=opening['xmax']+root if east else x+half
+        y0=opening['ymin']-root if front else y-inner
+        y1=y+inner if front else opening['ymax']+root
         boss=box(x0,x1,y0,y1,f['boss_bottom_z_mm'],p['zmax']).cut(panel_void)
         boss=boss.cut(cylinder(f['pilot_diameter_mm']/2,x,y,
             f['bearing_z_mm']-f['pilot_depth_mm'],f['bearing_z_mm']+.1)).clean()
+        roof_overlap=boss.intersect(bare_roof)
+        y_root=box(x0,x1,y0 if front else opening['ymax'],
+            opening['ymin'] if front else y1,p['zmin'],p['zmax'])
         attachments.append({'boss':index,'root_edge':'front' if front else 'rear',
             'x_bounds_mm':[x0,x1],
-            'side_attachment':'None; flush +X face' if east else 'Into −X wall',
+            'y_bounds_mm':[y0,y1],
+            'side_attachment':'Full-depth 9 mm +X roof root' if east else 'Into −X wall',
+            'side_roof_root_depth_mm':root if east else None,
             'roof_root_depth_mm':root,
-            'fixed_roof_volume_overlap_mm3':max(0.,boss.intersect(bare_roof).Volume()),
+            'minimum_pilot_radial_stock_mm':min(x-x0,x1-x,y-y0,y1-y)-f['pilot_diameter_mm']/2,
+            'front_rear_root_roof_overlap_mm3':max(0.,roof_overlap.intersect(y_root).Volume()),
+            'side_root_roof_overlap_mm3':max(0.,roof_overlap.intersect(
+                box(opening['xmax'],x1,y0,y1,p['zmin'],p['zmax'])).Volume()) if east else None,
+            'fixed_roof_volume_overlap_mm3':max(0.,roof_overlap.Volume()),
             'rear_wall_volume_overlap_mm3':max(0.,boss.intersect(wall).Volume())})
         boss_shapes.append(boss);fixed=fixed.fuse(boss)
         panel=panel.cut(cylinder(f['clearance_hole_diameter_mm']/2,x,y,p['zmin']-.1,p['zmax']+.1),
@@ -138,7 +148,8 @@ def main():
     for index,boss in enumerate(boss_shapes):export(f'panel-boss-{index}',boss,native=False)
     # True native half sections through one fastener axis show every bearing floor.
     x,y=f['centres_xy_mm'][f['detail_corner_index']]
-    window=box(x-12,x+12,y,opening['ymax']+root,f['boss_bottom_z_mm']-1,p['zmax']+1)
+    detail_xmax=opening['xmax']+root+3 if x>(p['xmin']+p['xmax'])/2 else x+12
+    window=box(x-12,detail_xmax,y,opening['ymax']+root,f['boss_bottom_z_mm']-1,p['zmax']+1)
     section={'section-frame':fixed,'section-panel':panel,
              'section-screw':bolt.translate((x,y,f['counterbore_floor_z_mm'])),
              'section-insert':heatset.translate((x,y,f['bearing_z_mm']))}
@@ -149,7 +160,7 @@ def main():
         'scope':plan['scope'],'source_plan_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),
         'valid_single_solids':{name:shape.isValid() and len(shape.Solids())==1 for name,shape in parts.items()},
         'panel_size_mm':[p['xmax']-p['xmin'],p['ymax']-p['ymin'],p['zmax']-p['zmin']],
-        'panel_bearing':'Four discrete bosses with 9 mm fore/aft roof roots; −X pair join the wall, +X pair have flush sides; no perimeter rim',
+        'panel_bearing':'Four discrete bosses supported on two sides: 9 mm fore/aft roof roots and either the −X wall or a full-depth 9 mm +X roof root; no perimeter rim',
         'boss_centres_xy_mm':f['centres_xy_mm'],
         'boss_attachments':attachments,
         'fastener_stack_mm':{'head_bearing_z':f['counterbore_floor_z_mm'],
@@ -159,7 +170,7 @@ def main():
             'insert_top_z':f['bearing_z_mm'],'insert_bottom_z':f['bearing_z_mm']-f['insert_length_mm'],
             'screw_tip_z':tip,'pilot_bottom_z':bottom,'tip_reserve':tip-bottom,
             'insert_engagement':f['insert_length_mm'],'blind_floor_stock':bottom-f['boss_bottom_z_mm'],
-            'minimum_boss_stock_from_pilot':min(half,reach)-f['pilot_diameter_mm']/2,
+            'minimum_boss_stock_from_pilot':min(a['minimum_pilot_radial_stock_mm'] for a in attachments),
             'counterbore_to_panel_edge':f['edge_offset_mm']-f['counterbore_diameter_mm']/2},
         'closed_panel_fixed_ceiling_intersection_mm3':max(0.,panel.intersect(fixed).Volume()),
         'lift_samples':[{'lift_mm':lift,'fixed_ceiling_intersection_mm3':max(0.,panel.translate((0,0,lift)).intersect(fixed).Volume())}

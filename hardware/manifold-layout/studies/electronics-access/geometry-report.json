@@ -13,7 +13,7 @@
     126.55000000000001,
     9.0
   ],
-  "panel_bearing": "Four discrete bosses with 9 mm fore/aft roof roots; \u2212X pair join the wall, +X pair have flush sides; no perimeter rim",
+  "panel_bearing": "Four discrete bosses supported on two sides: 9 mm fore/aft roof roots and either the \u2212X wall or a full-depth 9 mm +X roof root; no perimeter rim",
   "boss_centres_xy_mm": [
     [
       -91.5,
@@ -40,8 +40,16 @@
         -100.5,
         -82.5
       ],
+      "y_bounds_mm": [
+        326.25,
+        348.25
+      ],
       "side_attachment": "Into \u2212X wall",
+      "side_roof_root_depth_mm": null,
       "roof_root_depth_mm": 9.0,
+      "minimum_pilot_radial_stock_mm": 4.0,
+      "front_rear_root_roof_overlap_mm3": 1458.0000000000002,
+      "side_root_roof_overlap_mm3": null,
       "fixed_roof_volume_overlap_mm3": 1712.4005870920303,
       "rear_wall_volume_overlap_mm3": 0.0
     },
@@ -50,11 +58,19 @@
       "root_edge": "front",
       "x_bounds_mm": [
         -14.0,
-        2.0
+        11.0
       ],
-      "side_attachment": "None; flush +X face",
+      "y_bounds_mm": [
+        326.25,
+        346.75
+      ],
+      "side_attachment": "Full-depth 9 mm +X roof root",
+      "side_roof_root_depth_mm": 9.0,
       "roof_root_depth_mm": 9.0,
-      "fixed_roof_volume_overlap_mm3": 1316.40058709203,
+      "minimum_pilot_radial_stock_mm": 2.5,
+      "front_rear_root_roof_overlap_mm3": 2025.0000000000002,
+      "side_root_roof_overlap_mm3": 1660.5,
+      "fixed_roof_volume_overlap_mm3": 2976.900587092029,
       "rear_wall_volume_overlap_mm3": 0.0
     },
     {
@@ -64,8 +80,16 @@
         -100.5,
         -82.5
       ],
+      "y_bounds_mm": [
+        449.3,
+        471.3
+      ],
       "side_attachment": "Into \u2212X wall",
+      "side_roof_root_depth_mm": null,
       "roof_root_depth_mm": 9.0,
+      "minimum_pilot_radial_stock_mm": 4.0,
+      "front_rear_root_roof_overlap_mm3": 1458.0,
+      "side_root_roof_overlap_mm3": null,
       "fixed_roof_volume_overlap_mm3": 1712.4005870920303,
       "rear_wall_volume_overlap_mm3": 1512.0
     },
@@ -74,12 +98,20 @@
       "root_edge": "rear",
       "x_bounds_mm": [
         -14.0,
-        2.0
+        11.0
       ],
-      "side_attachment": "None; flush +X face",
+      "y_bounds_mm": [
+        450.8,
+        471.3
+      ],
+      "side_attachment": "Full-depth 9 mm +X roof root",
+      "side_roof_root_depth_mm": 9.0,
       "roof_root_depth_mm": 9.0,
-      "fixed_roof_volume_overlap_mm3": 1316.4005870920303,
-      "rear_wall_volume_overlap_mm3": 1511.9999999999998
+      "minimum_pilot_radial_stock_mm": 2.5,
+      "front_rear_root_roof_overlap_mm3": 2025.0,
+      "side_root_roof_overlap_mm3": 1660.5,
+      "fixed_roof_volume_overlap_mm3": 2976.90058709203,
+      "rear_wall_volume_overlap_mm3": 2362.5
     }
   ],
   "fastener_stack_mm": {
@@ -94,7 +126,7 @@
     "tip_reserve": 1.3000000000000114,
     "insert_engagement": 5.7,
     "blind_floor_stock": 3.0,
-    "minimum_boss_stock_from_pilot": 4.0,
+    "minimum_boss_stock_from_pilot": 2.5,
     "counterbore_to_panel_edge": 3.65
   },
   "closed_panel_fixed_ceiling_intersection_mm3": 0.0,
@@ -133,5 +165,5 @@
     "depth_mm": 2.0,
     "through_panel_thickness": true
   },
-  "retention_detail": "Four discrete integral corner bosses are the panel's only bearing surfaces. Each boss has a 9 mm root into its adjacent front/rear fixed roof edge; the rear roots fill the rear-wall thickness. The \u2212X pair connect into the sidewall. The +X pair stop flush at the aperture edge and attach through their front/rear roots. Four recessed M3x12 screws engage RX-M3x5.7 heatsets. No perimeter rim."
+  "retention_detail": "Four discrete integral corner bosses are the panel's only bearing surfaces. Each boss has a 9 mm root into its adjacent front/rear fixed roof edge; the rear roots fill the rear-wall thickness. The \u2212X pair connect into the sidewall. The +X pair also have full-depth 9 mm roots into the +X fixed roof, supporting each boss on two sides. Four recessed M3x12 screws engage RX-M3x5.7 heatsets. No perimeter rim."
 }

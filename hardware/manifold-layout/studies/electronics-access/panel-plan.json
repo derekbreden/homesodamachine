@@ -17,6 +17,7 @@
     "edge_offset_mm": 6.75,
     "boss_width_mm": 18.0,
     "boss_inner_reach_mm": 6.0,
+    "east_boss_inner_reach_mm": 4.5,
     "roof_root_depth_mm": 9.0,
     "boss_bottom_z_mm": 335.5,
     "bearing_z_mm": 346.0,
@@ -34,7 +35,7 @@
     "clearance_hole_diameter_mm": 3.4,
     "counterbore_diameter_mm": 6.2,
     "counterbore_floor_z_mm": 351.8,
-    "detail_corner_index": 2
+    "detail_corner_index": 3
   },
   "pry_notch": {
     "edge": "front",
@@ -50,6 +51,6 @@
   },
   "illustrated_lift_mm": 70.0,
   "equipment_carried_by_panel": [],
-  "retention_detail": "Four discrete integral corner bosses are the panel's only bearing surfaces. Each boss has a 9 mm root into its adjacent front/rear fixed roof edge; the rear roots fill the rear-wall thickness. The −X pair connect into the sidewall. The +X pair stop flush at the aperture edge and attach through their front/rear roots. Four recessed M3x12 screws engage RX-M3x5.7 heatsets. No perimeter rim.",
+  "retention_detail": "Four discrete integral corner bosses are the panel's only bearing surfaces. Each boss has a 9 mm root into its adjacent front/rear fixed roof edge; the rear roots fill the rear-wall thickness. The −X pair connect into the sidewall. The +X pair also have full-depth 9 mm roots into the +X fixed roof, supporting each boss on two sides. Four recessed M3x12 screws engage RX-M3x5.7 heatsets. No perimeter rim.",
   "assembly_purpose": "Connect the rear-wall C14 inlet to the cold-core-mounted Mean Well through the open electronics bay, then install the empty panel last."
 }

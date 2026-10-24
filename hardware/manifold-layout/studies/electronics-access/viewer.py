@@ -71,8 +71,10 @@ def payload():
 
 
 def detail_payload():
-    plan=json.loads((HERE/'panel-plan.json').read_text());x,y=plan['fasteners']['centres_xy_mm'][2]
-    roles={'section-frame':('support','Fixed boss · 3 mm blind floor'),
+    plan=json.loads((HERE/'panel-plan.json').read_text());p=plan['panel'];f=plan['fasteners']
+    x,y=f['centres_xy_mm'][f['detail_corner_index']]
+    xmax=p['xmax']+p['edge_clearance_mm']+f['roof_root_depth_mm']+3 if x>(p['xmin']+p['xmax'])/2 else x+12
+    roles={'section-frame':('support','Fixed corner boss · full-depth 9 mm +X and +Y roots'),
            'section-panel':('closure','9 mm panel · Ø6.2 × 3.2 mm counterbore'),
            'section-screw':('hardware-screw','M3 × 12 screw · 1.3 mm tip reserve'),
            'section-insert':('hardware-insert','RX-M3×5.7 heatset · full nominal engagement')}
@@ -82,7 +84,7 @@ def detail_payload():
                     'status':'modelled','basis':label}}
         for name,(role,label) in roles.items()]
     return {'detail':True,'scene':{'instances':instances},'access_panel':plan,
-        'detail_bounds':[[x-12,y,334.5],[x+12,plan['panel']['ymax']+plan['panel']['edge_clearance_mm']+plan['fasteners']['roof_root_depth_mm'],356]],
+        'detail_bounds':[[x-12,y,334.5],[xmax,p['ymax']+p['edge_clearance_mm']+f['roof_root_depth_mm'],356]],
         'quadrants':[{'id':'back-top','label':'Boss','series':3},{'id':'electronics-access','label':'Panel','series':5}],
         'geometries':{name:packed_mesh(HERE/'parts'/(name+'.npz')) for name in roles}}
 
