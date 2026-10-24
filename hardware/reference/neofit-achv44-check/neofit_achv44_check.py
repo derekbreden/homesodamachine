@@ -1,9 +1,10 @@
 """neoFit ACHV44-E analytic layout reference from the vendor's product media.
 
-Only the 6.35 mm tube connection and product identity are published dimensions.
-The exterior is scaled from the vendor's arbitrary-unit GLB using the minor
-collet opening; socket depths, the open passage and flow orientation are
-explicit layout estimates. See model-dimensions.json for the evidence scope.
+The ACHV44-E listing gives nominal connections and product identity. Exterior
+scale and socket engagement are inferred from neoFit ATEU44/ATRU444 published
+1/4-inch socket dimensions. The vendor GLB supplies the check-specific form.
+These are same-family layout estimates, not published ACHV44 dimensions.
+See model-dimensions.json for the evidence scope.
 Native Y runs with the inferred flow; the origin bisects the two mouth planes.
 """
 from pathlib import Path
@@ -13,32 +14,45 @@ import sys
 HERE = Path(__file__).resolve().parent
 NAME = 'neofit-achv44-check'
 TUBE_OD = 6.35
-LENGTH = 38.868131347763274
-SOCKET_INSERTION = 12.7
+LENGTH = 55.43160662774284
+FAMILY_SOCKET_COLLAR_OD = .610 * 25.4
+SOCKET_INSERTION = .665 * 25.4
 FLOW_BORE = 4.24
-MAX_BODY_RADIUS = 5.912075
-VENDOR_SCALE_MM = 5.432124953066388
+MAX_BODY_RADIUS = 8.431478550423588
+VENDOR_SCALE_MM = FAMILY_SOCKET_COLLAR_OD / 2.
+# Vendor node0 outlet socket collar has radius1.0. It corresponds to the
+# sibling sheets' maximum female collar diameter, not the larger check barrel.
 
 # (station from inlet mouth, radius), mm. The circular envelope retains the
 # vendor body's distinct barrel, taper and socket bands. Sub-0.01 mm duplicate
 # rings in its tessellation are represented by the adjacent analytic shoulder.
 FIXED_PROFILE = (
-    (1.046084, 4.688), (1.483370, 5.451),
-    (3.110834, MAX_BODY_RADIUS), (14.159233, MAX_BODY_RADIUS),
-    (17.068679, 5.409986), (24.802939, 5.409986),
-    (25.510202, 4.699442), (26.138155, 3.921168),
-    (27.387001, 4.675945), (27.782459, 5.432128),
-    (29.101379, 5.432128), (29.101379, 5.267481),
-    (30.165533, 5.267481), (30.165533, 5.432128),
-    (35.776375, 5.432128), (35.776375, 5.267481),
-    (36.018647, 5.267481), (36.018647, 5.432128),
-    (37.784631, 5.432128), (38.251251, 4.675945),
+    (1.4918678819097033, 6.685769623082552),
+    (2.1155012981638155, 7.773918561310365),
+    (4.43650159122278, 8.431478550423588),
+    (20.1931249738797, 8.431478550423588),
+    (24.342417995807825, 7.715426633980778),
+    (35.372597297220466, 7.715426633980778),
+    (36.381257169432544, 6.7020875787197784),
+    (37.27680945017563, 5.592155695691845),
+    (39.05784542515604, 6.668577440316712),
+    (39.62182603172706, 7.747),
+    (41.50279771928595, 7.747),
+    (41.50279771928595, 7.512193784122122),
+    (43.02043604852694, 7.512193784122122),
+    (43.02043604852694, 7.747),
+    (51.022312542450955, 7.747),
+    (51.022312542450955, 7.512193784122122),
+    (51.36782764017353, 7.512193784122122),
+    (51.36782764017353, 7.747),
+    (53.88637759368245, 7.747),
+    (54.55184555902435, 6.668577440316712),
 )
-COLLET_MAJOR_RADIUS = 5.1465
-COLLET_MINOR_RADIUS = 4.10
-COLLET_LIP_LENGTH = .55
-COLLET_STEM_RADIUS = 3.85
-COLLET_REACH = 4.65
+COLLET_MAJOR_RADIUS = 7.339657287797431
+COLLET_MINOR_RADIUS = 5.847196129402403
+COLLET_LIP_LENGTH = 0.7843799685783712
+COLLET_STEM_RADIUS = 5.490659780048598
+COLLET_REACH = 6.6315760979807745
 
 
 def inlet():
@@ -52,7 +66,7 @@ def outlet():
 
 
 def socket_depth(port=None):
-    """Unmeasured receiving depth, a common 12.7 mm layout estimate."""
+    """16.891 mm sibling neoFit socket depth, inferred for this unmeasured check."""
     return SOCKET_INSERTION
 
 
@@ -64,13 +78,13 @@ def ports():
         result[name] = {'position': position, 'outward': outward,
                         'tube_od_mm': TUBE_OD,
                         'insertion_mm': socket_depth(name),
-                        'insertion_status': 'estimated_unmeasured'}
+                        'insertion_status': 'same_family_inference_unmeasured_check'}
     return result
 
 
 def bearing_band():
     """Fixed cylindrical barrel: (start, end, radius), measured from inlet."""
-    return 3.110834, 14.159233, MAX_BODY_RADIUS
+    return 4.43650159122278, 20.1931249738797, MAX_BODY_RADIUS
 
 
 def sections():
@@ -117,8 +131,8 @@ def build_parts():
         body = body.cut(_cylinder(TUBE_OD / 2., lo, hi))
     # Clearance around each illustrative moving collet keeps the fixed case
     # separate from its stem. Grab rings, seals and valve internals are absent.
-    body = body.cut(_cylinder(3.90, -.01, COLLET_REACH + .05))
-    body = body.cut(_cylinder(3.90, LENGTH - COLLET_REACH - .05, LENGTH + .01))
+    body = body.cut(_cylinder(COLLET_STEM_RADIUS + .05, -.01, COLLET_REACH + .05))
+    body = body.cut(_cylinder(COLLET_STEM_RADIUS + .05, LENGTH - COLLET_REACH - .05, LENGTH + .01))
 
     def collet(s0, sign):
         mouth = s0 - LENGTH / 2.
