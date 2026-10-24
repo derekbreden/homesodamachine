@@ -3,23 +3,23 @@
   "unrelated_interferences": [],
   "fold_hardware_bounds_mm": [
     [
-      66.75469970703125,
-      361.01519978256226,
-      256.13864766309854
+      67.45469970703125,
+      360.21519978256225,
+      254.53864766309857
     ],
     [
-      88.25,
+      88.95,
       438.0025992370605,
-      346.12304809797405
+      350.9594547257169
     ]
   ],
   "fold_hardware_size_mm": [
     21.49530029296875,
-    76.98739945449825,
-    89.98440043487551
+    77.78739945449826,
+    96.42080706261834
   ],
-  "fold_hardware_floor_gap_mm": 2.738647663098533,
-  "fold_hardware_to_plain_ceiling_mm": -0.12304809797404914,
+  "fold_hardware_floor_gap_mm": 1.138647663098567,
+  "fold_hardware_to_plain_ceiling_mm": -4.95945472571691,
   "minimum_pocket_roof_stock_mm": 3.0,
   "changed_component_bounds_mm": {
     "c14-inlet": [
@@ -133,9 +133,9 @@
     "soda-meter-bulkhead_to_pump": 17.273582155096758,
     "vb-yb-cross_to_pcba": 18.711657371514292,
     "vb-yb-cross_to_funnel-frame": 30.872510247363444,
-    "digiten-flow_to_gas-check": 1.0534677505493164,
-    "digiten-flow_to_gas-regulator": 4.1890761443314934,
-    "digiten-flow_to_gas-core-drop": 7.94967675771313,
+    "digiten-flow_to_gas-check": 1.0722944259643583,
+    "digiten-flow_to_gas-regulator": 4.795178702371458,
+    "digiten-flow_to_gas-core-drop": 7.949676758895409,
     "soda-inlet-stem_to_vk": 9.031917950576917,
     "soda-inlet-stem_to_right-wall": 40.75386667251587,
     "soda-inlet-stem_to_pump": 1.8502321440175415,
@@ -144,7 +144,7 @@
     "soda-core-rise_to_right-wall": 45.325,
     "soda-core-rise_to_pump-inlet-tpu": 13.844435178616918,
     "soda-core-rise_to_lower-pump-elbow": 35.436144753607046,
-    "soda-outlet-return-stem_to_gas-regulator": 7.717395533392231,
+    "soda-outlet-return-stem_to_gas-regulator": 7.810319291938807,
     "soda-outlet-return-stem_to_pump": 12.698954273602519
   },
   "vb_bounds_mm": [

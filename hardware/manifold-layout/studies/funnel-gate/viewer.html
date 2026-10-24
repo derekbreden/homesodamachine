@@ -46,7 +46,7 @@ const mobileTheme=createInlineMobileTheme(root);
 let selected=null,ready=false;
 function cssColor(token){return mobileTheme.cssColor(token);}
 function color(token){const p=mobileTheme.rgba(token);return new THREE.Color(p[0]/255,p[1]/255,p[2]/255).convertSRGBToLinear();}
-function roleColor(role){const series={custom:1,stem:1,flavor:1,carbonator:1,wet:1,gas:6,tpu:6,'gas-regulator':6,'gas-check':2,electronics:5,wire:5,plug:5,support:3,structure:3}[role];return series?color(`viz-series-${series}`):color('foreground').lerp(color('background'),.44);}
+function roleColor(role){const series={custom:1,stem:1,flavor:1,carbonator:1,wet:1,gas:6,tpu:6,'gas-regulator':6,'gas-check':2,insulation:2,electronics:5,wire:5,plug:5,support:3,structure:3}[role];return series?color(`viz-series-${series}`):color('foreground').lerp(color('background'),.44);}
 function meshColor(part){
   if(highlight.value==='quadrant')return part.assembly?.quadrant?color(`viz-series-${ownerById[part.assembly.quadrant].series}`):color('foreground').lerp(color('background'),.5);
   if(highlight.value==='changes')return part.latest_change?color('viz-series-1'):color('foreground').lerp(color('background'),.64);
@@ -61,7 +61,7 @@ function makeLegend(){
   legend.replaceChildren();
   const items=highlight.value==='quadrant'?data.quadrants.map(q=>({label:q.label,token:`viz-series-${q.series}`})):
     highlight.value==='changes'?[{label:'Changed or added',token:'viz-series-1'},{label:'Unchanged',token:'muted-foreground'}]:
-    [{label:'Printed structure',token:'viz-series-3'},{label:'Water',token:'viz-series-1'},{label:'Electronics',token:'viz-series-5'}];
+    [{label:'Printed structure',token:'viz-series-3'},{label:'Water',token:'viz-series-1'},{label:'Electronics',token:'viz-series-5'},{label:'Insulation',token:'viz-series-2'}];
   if(highlight.value==='quadrant'&&bodies.some(b=>!b.userData.assembly?.quadrant))items.push({label:'Mount undecided',token:'muted-foreground'});
   for(const item of items){const span=document.createElement('span'),mark=document.createElement('i');mark.style.background=cssColor(item.token);mark.setAttribute('aria-hidden','true');span.append(mark,document.createTextNode(item.label));legend.append(span);}
   const roof=document.createElement('span');roof.textContent='Roof hidden';legend.append(roof);

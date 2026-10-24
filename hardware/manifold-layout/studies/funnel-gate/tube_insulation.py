@@ -91,7 +91,7 @@ def check():
     sleeve = obj(sleeve_mesh)
     gaps = {}; hits = []
     for name, mesh in world.items():
-        if name == 'soda-core-rise':
+        if name in ('soda-core-rise', NAME):
             continue  # Intended foam/tube bore contact.
         other = obj(mesh)
         gaps[name] = float(fcl.distance(sleeve, other, fcl.DistanceRequest(), fcl.DistanceResult()))

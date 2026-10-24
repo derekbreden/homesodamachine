@@ -169,6 +169,7 @@
         "pump-outlet-barb-band",
         "pump-outlet-tube-band",
         "check",
+        "pump-check-link",
         "carbonator-fold",
         "check-carbonator"
       ]
@@ -181,6 +182,7 @@
         "digiten-flow",
         "soda-meter-bulkhead",
         "soda-core-rise",
+        "soda-rise-insulation",
         "soda-inlet-stem"
       ]
     }
