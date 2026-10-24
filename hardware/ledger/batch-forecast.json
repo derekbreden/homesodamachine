@@ -192,7 +192,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 344
+            "line": 345
           }
         ],
         "note": "Ten batch-2 assembled boards credited, including the reusable bench board, subject to normal acceptance. The ten batch-1 boards are excluded: the bench log records undrilled vias and explicitly rules out rework. See hardware/pcb/pcba/bench-log.md."
@@ -227,7 +227,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 442
+            "line": 443
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -262,15 +262,15 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 336
-          },
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 338
+            "line": 337
           },
           {
             "path": "hardware/ledger/purchases.md",
             "line": 339
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 340
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -305,15 +305,15 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 337
-          },
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 340
+            "line": 338
           },
           {
             "path": "hardware/ledger/purchases.md",
             "line": 341
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 342
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -348,11 +348,11 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 454
+            "line": 455
           },
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 455
+            "line": 456
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -1155,7 +1155,7 @@
           },
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 235
+            "line": 236
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -1340,7 +1340,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 223
+            "line": 224
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -1690,7 +1690,7 @@
           },
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 237
+            "line": 238
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -2153,7 +2153,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 269
+            "line": 270
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -2188,7 +2188,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 271
+            "line": 272
           }
         ],
         "note": "Recorded purchase supplies 3 coil cuts. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
@@ -2223,7 +2223,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 445
+            "line": 446
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -2258,7 +2258,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 275
+            "line": 276
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -2307,7 +2307,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 276
+            "line": 277
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -2342,7 +2342,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 449
+            "line": 450
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -2377,7 +2377,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 450
+            "line": 451
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -2412,7 +2412,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 285
+            "line": 286
           }
         ],
         "note": "Recorded purchase supplies 12 charges. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
@@ -2447,7 +2447,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 282
+            "line": 283
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -2482,7 +2482,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 296
+            "line": 297
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -2517,7 +2517,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 294
+            "line": 295
           }
         ],
         "note": "Recorded purchase supplies 3 pieces. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
@@ -2552,7 +2552,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 295
+            "line": 296
           }
         ],
         "note": "Recorded purchase supplies 20 pieces. A provisional one-machine consumption reserve of 2 is deducted for development; the remaining stock is uncounted and marked *."
@@ -2588,7 +2588,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 440
+            "line": 441
           }
         ],
         "note": "Recorded purchase supplies 25 ft. A provisional one-machine consumption reserve of 1.3 is deducted for development; the remaining stock is uncounted and marked *."
@@ -2623,7 +2623,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 303
+            "line": 304
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -2659,7 +2659,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 304
+            "line": 305
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -2694,7 +2694,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 273
+            "line": 274
           }
         ],
         "note": "Recorded purchase supplies 7 builds. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
@@ -2729,7 +2729,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 299
+            "line": 300
           }
         ],
         "note": "Recorded purchase supplies 180 ft. A provisional one-machine consumption reserve of 15 is deducted for development; the remaining stock is uncounted and marked *."
@@ -2764,7 +2764,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 300
+            "line": 301
           }
         ],
         "note": "Recorded purchase supplies 50 pieces. A provisional one-machine consumption reserve of 4 is deducted for development; the remaining stock is uncounted and marked *."
@@ -2799,7 +2799,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 301
+            "line": 302
           }
         ],
         "note": "Recorded purchase supplies 100 pieces. A provisional one-machine consumption reserve of 4 is deducted for development; the remaining stock is uncounted and marked *."
@@ -2834,7 +2834,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 302
+            "line": 303
           }
         ],
         "note": "Recorded purchase supplies 50 pairs. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
@@ -2869,11 +2869,11 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 192
+            "line": 193
           },
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 193
+            "line": 194
           }
         ],
         "note": "Two acquired pumps plus five ordered October 11 (Amazon 114-5708094-2581869), charged $212.45 on October 12 and arriving October 13. Usable remainder after development is not separately counted."
@@ -2909,10 +2909,6 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 194
-          },
-          {
-            "path": "hardware/ledger/purchases.md",
             "line": 195
           },
           {
@@ -2930,6 +2926,10 @@
           {
             "path": "hardware/ledger/purchases.md",
             "line": 199
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 200
           }
         ],
         "note": "Fourteen acquired valves plus ten ordered October 11 (Amazon 114-5870152-3334654), charged $96.40 on October 12 and arriving October 13. Usable remainder after development is not separately counted."
@@ -2964,7 +2964,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 238
+            "line": 239
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -3000,7 +3000,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 239
+            "line": 240
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -3035,7 +3035,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 319
+            "line": 320
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -3089,7 +3089,7 @@
           },
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 236
+            "line": 237
           }
         ],
         "note": "Forty elbows acquired: ten in FWS order WEBFWS100675224 and thirty in WEBFWS100684731. Usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -3124,7 +3124,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 764
+            "line": 765
           }
         ],
         "note": "Recorded purchase supplies 1098 g. A provisional one-machine consumption reserve of 273 is deducted for development; the remaining stock is uncounted and marked *."
@@ -3159,7 +3159,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 765
+            "line": 766
           }
         ],
         "note": "Recorded purchase supplies 150 g. A provisional one-machine consumption reserve of 1.5 is deducted for development; the remaining stock is uncounted and marked *."
@@ -3194,7 +3194,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 766
+            "line": 767
           }
         ],
         "note": "Recorded purchase supplies 50 builds. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
@@ -3229,7 +3229,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 767
+            "line": 768
           }
         ],
         "note": "Recorded purchase supplies 25 pieces. A provisional one-machine consumption reserve of 1 is deducted for development; the remaining stock is uncounted and marked *."
@@ -3265,7 +3265,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 311
+            "line": 312
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -3399,11 +3399,11 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 320
+            "line": 321
           },
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 321
+            "line": 322
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -3438,7 +3438,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 324
+            "line": 325
           }
         ],
         "note": "Recorded purchase supplies 12 ft. A provisional one-machine consumption reserve of 7 is deducted for development; the remaining stock is uncounted and marked *."
@@ -3474,7 +3474,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 424
+            "line": 425
           }
         ],
         "note": "Recorded purchase supplies 15.24 m. A provisional one-machine consumption reserve of 2 is deducted for development; the remaining stock is uncounted and marked *."
@@ -3509,7 +3509,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 425
+            "line": 426
           }
         ],
         "note": "Recorded purchase supplies 15.24 m. A provisional one-machine consumption reserve of 2.2 is deducted for development; the remaining stock is uncounted and marked *."
@@ -3545,7 +3545,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 426
+            "line": 427
           }
         ],
         "note": "Recorded purchase supplies 15.24 m. A provisional one-machine consumption reserve of 1.55 is deducted for development; the remaining stock is uncounted and marked *."
@@ -3581,7 +3581,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 427
+            "line": 428
           }
         ],
         "note": "Recorded purchase supplies 15.24 m. A provisional one-machine consumption reserve of 1.2 is deducted for development; the remaining stock is uncounted and marked *."
@@ -3616,7 +3616,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 394
+            "line": 395
           }
         ],
         "note": "Recorded purchase supplies 150 pieces. A provisional one-machine consumption reserve of 10 is deducted for development; the remaining stock is uncounted and marked *."
@@ -3651,7 +3651,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 431
+            "line": 432
           }
         ],
         "note": "Recorded purchase supplies 200 pieces. A provisional one-machine consumption reserve of 23 is deducted for development; the remaining stock is uncounted and marked *."
@@ -3686,7 +3686,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 430
+            "line": 431
           }
         ],
         "note": "Recorded purchase supplies 100 pieces. A provisional one-machine consumption reserve of 7 is deducted for development; the remaining stock is uncounted and marked *."
@@ -3721,7 +3721,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 432
+            "line": 433
           }
         ],
         "note": "Recorded purchase supplies 100 pieces. A provisional one-machine consumption reserve of 2 is deducted for development; the remaining stock is uncounted and marked *."
@@ -3756,7 +3756,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 405
+            "line": 406
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -3792,7 +3792,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 458
+            "line": 459
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -3827,7 +3827,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 459
+            "line": 460
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -3862,15 +3862,15 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 460
-          },
-          {
-            "path": "hardware/ledger/purchases.md",
             "line": 461
           },
           {
             "path": "hardware/ledger/purchases.md",
             "line": 462
+          },
+          {
+            "path": "hardware/ledger/purchases.md",
+            "line": 463
           }
         ],
         "note": "Ten pairs received: four by October 4 and the six delayed pairs on October 9. All three charges are confirmed."
@@ -3905,7 +3905,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 406
+            "line": 407
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -3941,7 +3941,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 407
+            "line": 408
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -3976,7 +3976,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 396
+            "line": 397
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4012,7 +4012,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 395
+            "line": 396
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4047,7 +4047,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 397
+            "line": 398
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4082,7 +4082,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 433
+            "line": 434
           }
         ],
         "note": "Recorded purchase supplies 250 ft. A provisional one-machine consumption reserve of 30 is deducted for development; the remaining stock is uncounted and marked *."
@@ -4117,7 +4117,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 438
+            "line": 439
           }
         ],
         "note": "Recorded purchase supplies 100 ft. A provisional one-machine consumption reserve of 5 is deducted for development; the remaining stock is uncounted and marked *."
@@ -4171,7 +4171,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 367
+            "line": 368
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4206,7 +4206,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 376
+            "line": 377
           }
         ],
         "note": "Recorded purchase supplies 5 rods. A provisional one-machine consumption reserve of 2.5 is deducted for development; the remaining stock is uncounted and marked *."
@@ -4241,7 +4241,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 362
+            "line": 363
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4276,7 +4276,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 493
+            "line": 494
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4311,11 +4311,11 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 491
+            "line": 492
           },
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 492
+            "line": 493
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4350,7 +4350,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 502
+            "line": 503
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4385,7 +4385,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 486
+            "line": 487
           }
         ],
         "note": "One 200-piece pack delivered October 6; its $8.57 charge is confirmed."
@@ -4420,7 +4420,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 499
+            "line": 500
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4455,7 +4455,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 495
+            "line": 496
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4490,7 +4490,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 498
+            "line": 499
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4525,7 +4525,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 497
+            "line": 498
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4561,7 +4561,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 505
+            "line": 506
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4596,7 +4596,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 506
+            "line": 507
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4632,7 +4632,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 487
+            "line": 488
           }
         ],
         "note": "One 50-piece pack delivered October 7; its $8.78 charge is confirmed. A further pack is needed for twenty machines."
@@ -4668,7 +4668,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 508
+            "line": 509
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4703,7 +4703,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 503
+            "line": 504
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4738,7 +4738,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 504
+            "line": 505
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4774,7 +4774,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 501
+            "line": 502
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4809,7 +4809,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 510
+            "line": 511
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -4843,7 +4843,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 392
+            "line": 393
           }
         ],
         "note": "One matching 100-piece Baomain pack acquired; the usable remainder is estimated. Other mixed-width assortments are not credited."
@@ -4877,7 +4877,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 393
+            "line": 394
           }
         ],
         "note": "One matching 100-piece Baomain pack acquired; the usable remainder is estimated. Other mixed-width assortments are not credited."
@@ -4940,7 +4940,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 439
+            "line": 440
           }
         ],
         "note": "Existing assortments do not have recorded usable counts in the required sizes. No numerical stock credit; size-specific refill/assortment allowance remains *."
@@ -4974,7 +4974,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 439
+            "line": 440
           }
         ],
         "note": "Existing assortments do not have recorded usable counts in the required sizes. No numerical stock credit; size-specific refill/assortment allowance remains *."
@@ -5014,7 +5014,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 428
+            "line": 429
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -5049,7 +5049,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 437
+            "line": 438
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -5084,7 +5084,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 435
+            "line": 436
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -5119,7 +5119,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 436
+            "line": 437
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -5154,7 +5154,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 608
+            "line": 609
           }
         ],
         "note": "Existing assortments do not have recorded usable counts in the required sizes. No numerical stock credit; size-specific refill/assortment allowance remains *."
@@ -5216,7 +5216,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 419
+            "line": 420
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -5251,7 +5251,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 420
+            "line": 421
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
@@ -5321,7 +5321,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 576
+            "line": 577
           }
         ],
         "note": "Approximately 14.3 kg: the October 4 report of about 12 kg, less about 1.6 kg in the prints logged through October 6 and about 5.1 kg in the 35 Black PET-GF15 jobs logged October 7\u201313 (4,590 slicer grams at the profile's 1.29 g/cm\u00b3, 1.43 g/cm\u00b3 for Fiberon; failed and stopped jobs at their upper bounds, jobs still printing in full), plus the three 3 kg spools delivered October 10. This current balance replaces purchase totals as the forecast credit."
@@ -5385,7 +5385,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 573
+            "line": 574
           }
         ],
         "note": "Remaining quantity is provisional: 0.8 kg credited from acquired stock after a development-use reserve. No current measured balance; estimate marked *."
@@ -5449,7 +5449,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 572
+            "line": 573
           }
         ],
         "note": "Remaining quantity is provisional: 0.9 kg credited from acquired stock after a development-use reserve. No current measured balance; estimate marked *."
@@ -5513,7 +5513,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 571
+            "line": 572
           }
         ],
         "note": "Remaining quantity is provisional: 0.9 kg credited from acquired stock after a development-use reserve. No current measured balance; estimate marked *."
@@ -5595,7 +5595,7 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 669
+            "line": 670
           }
         ],
         "note": "Approximately 12.3 kg: about 3 kg after the prints logged through October 6, less 0.65 kg in the funnel-mold core and the right reservoir and cap printed October 7, plus the ten 1 kg refills delivered October 8. This current balance replaces purchase totals as the forecast credit."
@@ -5708,11 +5708,11 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 650
+            "line": 651
           },
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 670
+            "line": 671
           }
         ],
         "note": "Remaining quantity is provisional: one of the two 1 kg White 46100 spools acquired in April is credited, less the 42 g three-float print of October 8; the other remains reserved for development. Two more spools ordered October 8 are in transit."
@@ -5744,11 +5744,11 @@
         "sources": [
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 653
+            "line": 654
           },
           {
             "path": "hardware/ledger/purchases.md",
-            "line": 667
+            "line": 668
           }
         ],
         "note": "Remaining quantity is provisional: 0.5 kg credited across the acquired Bambu TPU 90A and 85A spools after a development-use reserve, less about 0.1 kg in the TPU jobs logged October 8\u201313. No current measured balance; estimate marked *."
