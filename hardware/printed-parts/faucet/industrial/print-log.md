@@ -1,5 +1,17 @@
 # Industrial faucet print log
 
+## Display seating feedback — 2026-10-24
+
+The [eight photographs and physical observation](prints/2026-10-23-black-complete-mark2/physical-result/physical-result.json)
+record an approximately 1.5 mm display/cover gap and substantial apparent tube
+clearance on a black Industrial head. Derek requests removing the earlier
+additional 1.5 mm of clearance, the original supports, and adding 1 mm foot
+recesses at the same locations. The
+[4.5 mm lower review candidate](display-seat-review/2026-10-24/README.md)
+contains the requested geometry and before/after views. Its conservative
+component model intersects the tube routes and tip. It has no physical fit
+result or submitted print; production geometry remains the reference.
+
 ## Above-counter mounting gasket — 2026-10-23, Mark2
 
 Mark2 accepted [one current Industrial TPU gasket](prints/2026-10-23-mounting-gasket-tpu85a-right06-mark2/README.md)

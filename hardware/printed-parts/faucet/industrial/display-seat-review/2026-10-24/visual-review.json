@@ -1,0 +1,20 @@
+{
+  "errors": [],
+  "synchronizedCameras": true,
+  "phone": {
+    "pageWidth": 358,
+    "availableWidth": 358,
+    "labels": [
+      "Four raised supports",
+      "3.5 mm above support bases",
+      "Four 1 mm recesses",
+      "Same foot centers"
+    ]
+  },
+  "viewModes": [
+    "feet",
+    "section",
+    "assembly"
+  ],
+  "fragmentBytes": 447158
+}

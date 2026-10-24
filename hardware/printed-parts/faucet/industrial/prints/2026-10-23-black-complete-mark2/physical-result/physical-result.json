@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "reported_date": "2026-10-24",
+  "status": "Display seating and cover-height correction requested",
+  "authority": "Direct user observation and supplied photographs",
+  "related_launch": "hardware/printed-parts/faucet/industrial/prints/2026-10-23-black-complete-mark2/launch.json",
+  "article_identification": "Black Industrial head shown in the follow-up to this print. The user did not separately identify the exact photographed part by task ID.",
+  "observations": {
+    "display_to_cover_gap": "User estimates about 1.5 mm while the display is inserted; no calibrated image measurement.",
+    "tube_clearance": "User reports substantial clearance between the tubes and the lowest display components.",
+    "supports": "User identifies four raised display supports and requests their removal and 1 mm deep insets at the same locations.",
+    "cover_height": "User requests removal of the earlier additional 1.5 mm of display room, plus the original supports and the 1 mm recess."
+  },
+  "photos": [
+    {
+      "file": "photo-1.jpg",
+      "source_attachment": "Photo 1.jpg"
+    },
+    {
+      "file": "photo-2.jpg",
+      "source_attachment": "Photo 2.jpg"
+    },
+    {
+      "file": "photo-3.jpg",
+      "source_attachment": "Photo 3.jpg"
+    },
+    {
+      "file": "photo-4.jpg",
+      "source_attachment": "Photo 4.jpg"
+    },
+    {
+      "file": "photo-5.jpg",
+      "source_attachment": "Photo 5.jpg"
+    },
+    {
+      "file": "photo-6.jpg",
+      "source_attachment": "Photo 6.jpg"
+    },
+    {
+      "file": "photo-7.jpg",
+      "source_attachment": "Photo 7.jpg"
+    },
+    {
+      "file": "photo-8.jpg",
+      "source_attachment": "Photo 8.jpg"
+    }
+  ],
+  "photo_processing": "Published derivatives are limited to 1600 pixels on the long edge and omit EXIF metadata. Original attachments remain in the chat.",
+  "review_candidate": "hardware/printed-parts/faucet/industrial/display-seat-review/2026-10-24/README.md",
+  "scope": "These observations concern visible gap and seating height. They do not establish a measured gap, remaining tube clearance, retention force or an overall assembly acceptance."
+}
