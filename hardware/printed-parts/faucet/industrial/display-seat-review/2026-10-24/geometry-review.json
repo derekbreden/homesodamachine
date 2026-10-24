@@ -1,0 +1,111 @@
+{
+  "status": "Visual review candidate; no print submitted; production geometry remains the reference",
+  "recorded_at_utc": "2026-10-24T05:50:08.360439+00:00",
+  "source_commit": "c6aeefe26dcff8d521a757331043542690da19db",
+  "source_sha256": {
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.step": "ffe226a32be53b2d4b086d9acb819fc87164f4b92c59db5f19aa7b8bba006339",
+    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "ced30018682bec2b3099ebc6db8da75198fda923cc9a86d1189f2f03ebfdabe8",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "7f3dd1f885342701c3c667d48880fedb3f03f069338dc7091687988f7c613e71",
+    "hardware/printed-parts/faucet/industrial/industrial_display_cover.py": "0b3defadfeafabcabf83442df8d31570fe21f3af7adbfaf259d0210f08fdf600",
+    "hardware/reference/touch-flo-faucet/display-reference/component-envelopes.json": "bc39121b5724d5551fa3144647f3e3c13280a0f0d38a84e1bac0ef91da30b3ac"
+  },
+  "history": {
+    "clearance_lift_commit": "5271aa710fdb3ddb7bb735a7114d80cbc4ad324b",
+    "clearance_lift_mm": 1.5,
+    "original_support_height_mm": 2.0,
+    "four_mm_tubes_commit": "8742c66249d4e96f56e3635657f041b573e6ab25"
+  },
+  "drop_breakdown_mm": {
+    "added_clearance_lift": 1.5,
+    "original_supports": 2.0,
+    "new_recess": 1.0
+  },
+  "total_display_and_bezel_drop_mm": 4.5,
+  "display_normal_world": [
+    0.0,
+    -0.7660444431189779,
+    0.6427876096865395
+  ],
+  "inward_displacement_world_mm": [
+    -0.0,
+    3.4471999940354006,
+    -2.8925442435894277
+  ],
+  "foot_centers_x_s_mm": [
+    [
+      -8.5,
+      5.239999999999998
+    ],
+    [
+      -8.5,
+      44.239999999999995
+    ],
+    [
+      8.5,
+      5.239999999999998
+    ],
+    [
+      8.5,
+      44.239999999999995
+    ]
+  ],
+  "before_foot_bearing_n_mm": 11.6,
+  "pre_lift_foot_bearing_n_mm": 10.1,
+  "former_support_base_and_new_surrounding_seat_n_mm": 8.1,
+  "new_recess_floor_n_mm": 7.1,
+  "recess_diameter_mm": 4.0,
+  "recess_depth_below_former_support_base_mm": 1.0,
+  "recess_floor_count": 4,
+  "recess_floor_areas_mm2": [
+    12.239358787188287,
+    12.239358787188287,
+    12.239358787188284,
+    12.23935878718828
+  ],
+  "before_cover_top_n_mm": 23.85,
+  "after_cover_top_n_mm": 19.35,
+  "cover_bezel_thickness_before_after_mm": [
+    1.3000000000000007,
+    1.3000000000000007
+  ],
+  "glass_to_bezel_gap_before_after_mm": [
+    0.6000000000000014,
+    0.6000000000000014
+  ],
+  "uncut_round_neck_crown_n_mm": 17.527512922,
+  "cover_proudness_above_uncut_round_neck_before_after_mm": [
+    6.322487078000002,
+    1.8224870780000018
+  ],
+  "retained_snap_datums": {
+    "bottom_n_mm": 3.3,
+    "top_n_mm": 6.3,
+    "radial_engagement_mm": 1.1999999999999993,
+    "industrial_wing_extension_mm": 0.5
+  },
+  "conservative_hardware_to_flavor_tubes": [
+    {
+      "flavor_side": -1,
+      "before_hardware_gap_mm": 3.790493630027192,
+      "after_intersection_mm3": 12.267327431923833,
+      "scope": "Conservative vendor-derived component envelope against modeled tube wall"
+    },
+    {
+      "flavor_side": 1,
+      "before_hardware_gap_mm": 3.7904936300271808,
+      "after_intersection_mm3": 12.267327604913149,
+      "scope": "Conservative vendor-derived component envelope against modeled tube wall"
+    }
+  ],
+  "normal_drop_beyond_first_modeled_tube_contact_mm": 0.7095063699728192,
+  "after_hardware_to_tip_intersection_mm3": 14.719986019668454,
+  "after_cover_to_tip_intersection_mm3": 0.0,
+  "after_hardware_to_cover_intersection_mm3": 0.0,
+  "native_tip_volume_before_after_mm3": [
+    47833.791738083506,
+    46731.37682341873
+  ],
+  "removed_tip_stock_mm3": 1102.4159139689411,
+  "interpretation": "The surrounding seating area is lowered to the former support bases at N8.10, and each foot drops another 1.00 mm into its pocket. This is the complete 4.50 mm reduction, rather than removing only material above the existing N10.10 pocket floor.",
+  "physical_scope": "Photos report excess display-cover gap and substantial tube clearance. Vendor component envelopes are conservative, and their modeled overlap is not a physical interference measurement. Fit and retention of this candidate are untested."
+}
