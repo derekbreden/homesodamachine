@@ -1,0 +1,144 @@
+{
+  "scope": "Selected isolated above-core arrangement; manual geometry and connector-access review, separate from production assembly integration.",
+  "customer_outcome": "A drain near the fore-aft mouth center, with square equipment and the same compact fitting topology.",
+  "units": "mm",
+  "mouth_center_y": 179.19575,
+  "outlet_y": 174.19575,
+  "outlet_fore_of_mouth_center": 5.0,
+  "fixed_bridge_aft_edge_y": 199.00814,
+  "quadrant_seam_y": 200.0,
+  "bridge_to_seam": 0.9918600000000026,
+  "bridge_socket_wall": 4.0,
+  "exact_center_bridge_aft_edge_y": 204.00814,
+  "vb_native_origin": [
+    38.0,
+    239.90434,
+    280.41
+  ],
+  "b_route": {
+    "elbow_count": 6,
+    "inlet_exposed_length": 10.949999999999996,
+    "inlet_stem_outlet_lift_degrees": 0.0,
+    "return_crown": 2.0,
+    "return_minimum_radius": 27.700064181654504,
+    "return_exposed_length": 71.80946529877099
+  },
+  "native_valid_single_solids": {
+    "expanded-funnel": true,
+    "expanded-funnel-frame": true,
+    "expanded-funnel-cover": true,
+    "expanded-funnel-drain-bridge": true,
+    "expanded-funnel-ceiling": true,
+    "expanded-funnel-left-wall": true,
+    "expanded-funnel-right-wall": true
+  },
+  "capacity_to_mouth_ml": 698.2103525072448,
+  "hard_interferences": [],
+  "local_lead_interferences": [],
+  "nominal_jst_pull_blockers": {
+    "probe-J1-pull": [],
+    "probe-J11-pull": [],
+    "probe-J13-pull": [],
+    "probe-J2-pull": [],
+    "probe-J3-pull": [],
+    "probe-J4-pull": [],
+    "probe-J5-pull": [],
+    "probe-J6-pull": [],
+    "probe-J7-pull": [],
+    "probe-J9-pull": []
+  },
+  "j11_pull_to_return_gap": 0.3601573882686977,
+  "installed_wiring_screen": {
+    "scope": "125 cached production wire and termination solids screened against the translated fittings, valve and wall before production redress. Full harness routing is outside the isolated scene.",
+    "j3_minimum_gap": 7.079097632461012,
+    "contacts_for_production_redress": [
+      [
+        "funnel-drain-union",
+        "wire-J9-B"
+      ],
+      [
+        "funnel-drain-union",
+        "wire-J9-A"
+      ],
+      [
+        "funnel-drain-union",
+        "wire-J9-GND"
+      ],
+      [
+        "funnel-drain-cradle",
+        "wire-J9-B"
+      ],
+      [
+        "funnel-drain-cradle",
+        "wire-J9-A"
+      ],
+      [
+        "funnel-drain-cradle",
+        "wire-J9-GND"
+      ],
+      [
+        "funnel-drain-cradle",
+        "wire-J9-V12"
+      ],
+      [
+        "funnel-drain-stub",
+        "wire-J9-B"
+      ],
+      [
+        "funnel-drain-stub",
+        "wire-J9-A"
+      ],
+      [
+        "funnel-drain-stub",
+        "wire-J9-GND"
+      ],
+      [
+        "vb",
+        "wire-PE-bus"
+      ],
+      [
+        "vb",
+        "wire-J1-positive-B"
+      ],
+      [
+        "vb",
+        "wire-J2-positive-K"
+      ],
+      [
+        "vb-core-support",
+        "wire-PE-bus"
+      ],
+      [
+        "drain-outlet-stem",
+        "wire-J1-COM"
+      ],
+      [
+        "drain-outlet-stem",
+        "wire-J1-OUT7"
+      ],
+      [
+        "drain-outlet-stem",
+        "wire-J7-RB1"
+      ],
+      [
+        "drain-outlet-stem",
+        "wire-J9-V12"
+      ],
+      [
+        "vb-inlet-turn",
+        "wire-J1-positive-A"
+      ],
+      [
+        "vb-outlet-stem",
+        "wire-J1-OUT2"
+      ]
+    ],
+    "production_review": "hardware/wiring/installed/above-core-review"
+  },
+  "sources": {
+    "b_plumbing.py": "c12227bbe4862be93452f2e8cc6ed4ab745751f4da6405b0c8fa92037df13217",
+    "mount-plan.json": "aa941a7134016af91e9b8f62af2545c46766636b46a2dbca7e7c1e0dbd1711c0",
+    "funnel-expansion-plan.json": "8a7f74becaf18a10a7bfc75f66ebc44f065c05b7b1aef480059b0cc44ff4d9f5",
+    "parts/pcb-j3-dressed-lead-source.json": "9f4e4d5cf338873f1da36fe4281e05f94850defd6a60224aa87d3d2871a3fddd"
+  }
+}

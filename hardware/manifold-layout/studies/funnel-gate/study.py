@@ -31,7 +31,8 @@ VB_ORIGIN=np.array(MOUNT_PLAN['vb_native_origin_mm'],float)
 VB_NATIVE_R=np.array(MOUNT_PLAN['vb_native_rotation'],float)
 VK_SOURCE_R=np.array([[1.,0.,0.],[0.,0.,-1.],[0.,1.,0.]])
 VK_SOURCE_T=np.array([-4.916132605004726,11.05,48.25])
-DRAIN_CORNER=np.array([0.,161.69575,280.41])
+DRAIN_CORNER=b_plumbing.DRAIN_CORNER.copy()
+DRAIN_SHIFT=DRAIN_CORNER-np.array([0.,161.69575,280.41])
 YB_MOUTH=np.array([-22.35,166.24,270.675])
 YA_MOUTH=parent.DEST.copy()
 FLOW_R=soda_route.METER_R
@@ -94,7 +95,9 @@ def library():
         g['digiten-flow']=mesh['v'],mesh['f']
     with np.load(HERE/'parts/pcb-j11-dressed-lead.npz') as mesh:
         g['pcb-j11-dressed-lead']=mesh['v'],mesh['f']
-    for suffix in ('','-frame','-cover','-ceiling','-left-wall','-right-wall'):
+    with np.load(HERE/'parts/pcb-j3-dressed-lead.npz') as mesh:
+        g['pcb-j3-dressed-lead']=mesh['v'],mesh['f']
+    for suffix in ('','-frame','-cover','-drain-bridge','-ceiling','-left-wall','-right-wall'):
         key='expanded-funnel'+suffix
         with np.load(HERE/'parts'/(key+'.npz')) as mesh:g[key]=mesh['v'],mesh['f']
     return g
@@ -114,6 +117,8 @@ def pose(g):
             joint=d['joints'][item['name']];item.update(geometry=joint['geometry'],rotation=joint['rotation'],translation=joint['corner'])
         if item['name']=='local-lead-J11':
             item.update(geometry='pcb-j11-dressed-lead',label='J11 · conductors dress aft with a low R4 bend')
+        if item['name']=='local-lead-J3':
+            item.update(geometry='pcb-j3-dressed-lead',label='J3 · local conductor exits dress aft')
         if item['name']=='pcba' or item.get('connection_owner')=='pcba':
             item.update(rotation=PCB_R.tolist(),translation=PCB_T.tolist())
             if item['name']=='pcba':item['label']='Main PCB · west · long dimension fore–aft · connect before funnel/frame'
@@ -126,13 +131,14 @@ def pose(g):
         base.instance('vb','vk',vb_t,vb_r,role='wet',kind='component',label='V-B · east of PCB · head east · flow aft · cold-core roof'),
         base.instance('digiten-flow','digiten-flow',FLOW_T,FLOW_R,role='wet',kind='component',label='DIGITEN flow meter · aft between pump and CO2 · ports fore–aft · outlet collets meet'),
         base.instance('vb-core-support','vb-core-support',role='support',kind='component',label='V-B socket wall · rooted in the cold-core roof · back-bottom'),
+        base.instance('funnel-drain-bridge','expanded-funnel-drain-bridge',role='support',kind='component',label='Fixed drain bridge · wholly on front-top · 0.992 mm fore of seam'),
         base.instance('tee-yb-target','forward-tee-y-b',role='wet',kind='component',context=True,label='Y-B · funnel-source tee · fixed production position'),
         base.instance('funnel-drain-union','jg-turn-elbow',DRAIN_CORNER,I,role='wet',kind='elbow',label='Funnel drain · scanned JG union elbow · aft outlet'),
-        base.instance('funnel-drain-stub','forward-funnel-drain-stub',role='wet',kind='tube',context=True,label='Funnel drain stub · existing production position'),
-        base.instance('funnel-drain-cradle','forward-elbow-cradle',role='support',kind='component',context=True,label='Funnel drain elbow cradle · existing production position')])
+        base.instance('funnel-drain-stub','forward-funnel-drain-stub',DRAIN_SHIFT,role='wet',kind='tube',context=True,label='Funnel drain stub · 5 mm fore of mouth center'),
+        base.instance('funnel-drain-cradle','forward-elbow-cradle',DRAIN_SHIFT,role='support',kind='component',context=True,label='Funnel drain elbow cradle · centered beneath the outlet')])
     labels={
-        'drain-outlet-stem':'B feed · drain stem elbow · outlet clocked up 10 degrees',
-        'vb-inlet-turn':'B feed · stem elbow seated directly in V-B · pickup clocked up 10 degrees',
+        'drain-outlet-stem':'B feed · drain stem elbow · level east outlet',
+        'vb-inlet-turn':'B feed · stem elbow seated directly in V-B · level west pickup',
         'vb-outlet-stem':'V-B outlet · stem elbow points west and up 8 degrees',
         'vb-outlet-return':'B return · two-socket elbow turns the cross-PCB tube toward Y-B',
         'yb-stem-elbow':'Y-B · aft-facing stem elbow · clocked 7.5 degrees west',
@@ -146,17 +152,19 @@ def pose(g):
         scene['instances'].append(base.instance(name,name,role='carbonator' if name.startswith('soda-') else 'flavor',kind='tube',label=name.replace('-',' ')))
     pairs=[('funnel-drain-union','funnel-drain-stub'),('funnel-drain-union','funnel-drain-cradle'),
         ('funnel-drain-cradle','funnel-drain-stub'),('funnel-drain-stub','funnel'),
-        ('funnel','funnel-drain-cradle'),*d['mates']]
+        ('funnel','funnel-drain-cradle'),
+        ('funnel-drain-bridge','funnel-drain-cradle'),*d['mates']]
     scene['mates'].extend({'a':a,'b':b,'connection':'Intended seated fitting, tube insertion or existing drain support'} for a,b in pairs)
     scene['mates'].append({'a':'vb','b':'vb-core-support','connection':'Four existing posts seat in shared V69 blind sockets'})
     scene.update(id='funnel-gate',title='West PCB and V-B on the east cold-core roof')
     scene['layout'].update(funnel_gate=d,
         flow_meter={'native_origin_mm':FLOW_T.tolist(),'native_rotation':FLOW_R.tolist(),'attachment':'Proposed core-mounted support aft between the pump and CO2 path; retention detail is to design','scope':'Direct-down inlet to proposed aft core guide and concealed outlet join shown; internal core integration, pigtail and retention remain separate'},
-        funnel_expansion={'aft_extension_mm':35.,'capacity_to_mouth_ml':698.2103525072449,
-            'capacity_gain_ml':167.66999557999816,'receipt':'funnel-expansion.json'},
+        funnel_expansion={'aft_extension_mm':35.,
+            'capacity_to_mouth_ml':json.loads((HERE/'funnel-expansion.json').read_text())['capacity_to_mouth_ml'],
+            'outlet_fore_of_mouth_center_mm':5.,'receipt':'funnel-expansion.json'},
         pcb_footprint_mm={'xmin':-83.,'xmax':-10.1999817,'ymin':186.3868525,'ymax':277.2029078},
         pcb_orientation='Flat, long dimension fore–aft; funnel/frame drops in after electrical connections',
-        route_context='V-A and upstream group fixed; V-B on the core roof east of the PCB; Y-A/Y-B and funnel drain retain production datums',
+        route_context='V-A, upstream group and Y-A/Y-B fixed; funnel outlet at Y174.19575; V-B on the core roof east of the PCB',
         pending_structure='Native V-B wall roots in the cold-core roof; production fusion and installed retention remain to qualify. PCB retention is to design.',
         pcb_local_lead_dressing='J11 dresses aft with a 1 mm straight exit and R4 bend; other local estimates carry with the PCB')
     return scene
@@ -166,7 +174,7 @@ def check(scene,g):
     import fcl
     def obj(mesh):
         v,f=mesh;m=fcl.BVHModel();m.beginModel(len(v),len(f));m.addSubModel(v,f.astype(np.int32));m.endModel();return fcl.CollisionObject(m)
-    names=['vb','pcba','pump','funnel-frame','funnel','left-wall','right-wall','drain-outlet-stem','drain-vb-east-link','vb-yb-cross','soda-meter-bulkhead','vb-inlet-turn','vb-outlet-stem','vb-outlet-return','vb-yb-link','vb-core-support','ya-stem-elbow','yb-stem-elbow','va-ya-straight','funnel-drain-cradle','digiten-flow','asse','psu','ceiling']
+    names=['vb','pcba','pump','funnel-frame','funnel','left-wall','right-wall','drain-outlet-stem','drain-vb-east-link','vb-yb-cross','soda-meter-bulkhead','vb-inlet-turn','vb-outlet-stem','vb-outlet-return','vb-yb-link','vb-core-support','ya-stem-elbow','yb-stem-elbow','va-ya-straight','funnel-drain-cradle','funnel-drain-bridge','local-lead-J3','digiten-flow','asse','psu','ceiling']
     names+=['vk','gas-check','gas-regulator','gas-core-drop','pump-inlet-tpu','lower-pump-elbow',*soda_route.route()['joints'],*soda_route.route()['tubes']]
     objects={n:obj(meshes[n]) for n in names if n in meshes}
     pairs=[('vb','pcba'),('vb','funnel-frame'),('vb','funnel'),
@@ -180,6 +188,9 @@ def check(scene,g):
         ('vb-yb-link','va-ya-straight'),('vb-yb-link','pcba'),
         ('ya-stem-elbow','funnel-drain-cradle'),
         ('yb-stem-elbow','funnel-drain-cradle'),('va-ya-straight','pcba'),('va-ya-straight','funnel-drain-cradle'),
+        ('funnel-drain-bridge','funnel-frame'),('funnel-drain-bridge','funnel'),
+        ('funnel-drain-bridge','vb'),('funnel-drain-bridge','pcba'),
+        ('drain-outlet-stem','local-lead-J3'),('vb-yb-link','local-lead-J3'),
         ('digiten-flow','pump'),('digiten-flow','asse'),('digiten-flow','psu'),('digiten-flow','ceiling'),
         ('soda-meter-bulkhead','pump'),('vb-yb-cross','pcba'),('vb-yb-cross','funnel-frame'),
         ('digiten-flow','gas-check'),('digiten-flow','gas-regulator'),('digiten-flow','gas-core-drop'),

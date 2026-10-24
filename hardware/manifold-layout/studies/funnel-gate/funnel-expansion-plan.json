@@ -2,8 +2,6 @@
   "scope": "Isolated native silicone funnel, drop-in frame and matching gravity cover; production generators and enclosure geometry remain separate",
   "units": "mm",
   "aft_extension_mm": 35.0,
-  "original_collar_center_world_mm": [0.0, 161.69575, 349.0],
-  "original_apron_bounds_y_mm": [87.0, 242.3915079232813],
   "valve_support_fore_face_y_mm": 281.2897605281867,
   "shell_opening_cut_mm": {
     "xmin": -120.0,
@@ -15,10 +13,31 @@
   },
   "preserve": [
     "Fore plan boundary, X width and all Z elevations",
-    "Outlet bore, plug, drain stub, union elbow and fixed drain bridge stations",
+    "Drain Z elevations, plug, stub, union elbow and fixed bridge geometry; outlet and support are on Y174.19575",
     "6 mm silicone normal walls, 3 mm flat overflow apron and smooth gravity cover skirt",
     "Four upward-access M3 drop-in frame fastener seats; rear stations follow the aft boundary"
   ],
-  "construction": "Increase collar, brim, apron, frame and cover depth by the aft extension; translate their plan centres by half that extension; offset the outlet by the negative half extension in the new collar frame",
-  "frame_context": "Current production drop-in frame DEFAULT_INNER and seam-clearance construction; broad flat upper-shell opening extends aft35mm; frame receivers remain separate"
+  "construction": "Absolute mouth/apron/frame dimensions keep the fore edge fixed and extend aft 35 mm. The outlet is 5 mm fore of the mouth center, with its entire fixed support bridge fore of the quadrant seam.",
+  "frame_context": "Current production drop-in frame DEFAULT_INNER and seam-clearance construction; broad flat upper-shell opening extends aft 35 mm; frame receivers remain separate",
+  "collar_center_world_mm": [
+    0.0,
+    179.19575,
+    349.0
+  ],
+  "collar_depth_mm": 158.39151584656256,
+  "apron_depth_mm": 190.39151584656256,
+  "frame_depth_mm": 182.99151584656255,
+  "frame_corbel_foot_half_depth_mm": 65.80425,
+  "frame_body_width_mm": 176.5,
+  "outlet_bore_exit_world_mm": [
+    0.0,
+    174.19575,
+    306.05
+  ],
+  "drain_union_corner_world_mm": [
+    0.0,
+    174.19575,
+    280.41
+  ],
+  "quadrant_seam_y_mm": 200.0
 }

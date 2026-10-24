@@ -1,0 +1,49 @@
+{
+  "coordinate_frame": "Frozen PCB source-world coordinates; carry with the PCB instance pose.",
+  "scope": "Local segments of the four existing production J3 insulated conductor solids, cropped to the connector departure region. End-to-end routes are not shown in the arrangement study.",
+  "world_crop_bounds_mm": [
+    [
+      -30.0,
+      198.0,
+      267.0
+    ],
+    [
+      -8.0,
+      215.0,
+      286.0
+    ]
+  ],
+  "sources": [
+    {
+      "part": "wire-J3-V5",
+      "native_sha256": "76fb6599d7bfc942b9c2e307fd2e03577270d026b191bba32b513996ea72c2be"
+    },
+    {
+      "part": "wire-J3-GND",
+      "native_sha256": "17a6c73269b2d72f7eb0accb0e569910056235182184a8cf8589b6b7391a6491"
+    },
+    {
+      "part": "wire-J3-IO35",
+      "native_sha256": "8c095d5cca0576c403502ec21db4c2754cd1f267994df7c3eac608d9625a2498"
+    },
+    {
+      "part": "wire-J3-IO33",
+      "native_sha256": "7f71330bc7345facca881abe9d465ac5da9bc29bea828d7dbcb4c2060c44ab0e"
+    }
+  ],
+  "vertex_count": 14456,
+  "triangle_count": 25232,
+  "npz_sha256": "5759ec2b67beff5883ceacd228dc4a61a513e00d9cd04831c46dd23fa4f71983",
+  "world_bounds_mm": [
+    [
+      -17.2637939453125,
+      203.35300852102694,
+      268.4000015258789
+    ],
+    [
+      -15.349853515625,
+      214.999996436066,
+      275.1658935546875
+    ]
+  ]
+}

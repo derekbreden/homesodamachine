@@ -3,7 +3,7 @@
   "attachment": "Integral upright seat wall on the east side of the cold-core roof",
   "vb_native_origin_mm": [
     38.0,
-    227.40434,
+    239.90434,
     280.41
   ],
   "vb_native_rotation": [
@@ -26,12 +26,12 @@
   "seat_wall_bounds_mm": [
     [
       34.0,
-      208.37934,
+      220.87934,
       253.4
     ],
     [
       43.2,
-      246.42934,
+      258.92934,
       299.21
     ]
   ],
