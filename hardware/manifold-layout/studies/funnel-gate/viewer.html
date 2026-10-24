@@ -9,7 +9,7 @@
       </select>
     </label>
   </div>
-  <div id="qa-stage" role="img" aria-label="Rotatable above-core arrangement with PCB west and V-B east of it on the cold-core roof. V-B seats against a visible upright wall rooted in the core roof. Its return stair-steps above the PCB on the aft side. The funnel extends 35 millimetres aft. An aft edge-on flow meter between the pump and CO2 path has no exposed outlet tube. Its inlet turns directly down aft of the pump elbow to a proposed new core guide. Colours identify the carrying quadrant; select a part for its attachment. All printed walls and support features are included; the roof is hidden.">
+  <div id="qa-stage" role="img" aria-label="Rotatable above-core arrangement with PCB west and V-B east of it on the cold-core roof. V-B seats against a visible upright wall rooted in the core roof. Its return stair-steps above the PCB on the aft side. The funnel extends 35 millimetres aft. Its outlet is 5 millimetres fore of the mouth center, with a fixed bridge wholly on front-top. An aft edge-on flow meter between the pump and CO2 path has no exposed outlet tube. Its inlet turns directly down aft of the pump elbow to a proposed new core guide. Colours identify the carrying quadrant; select a part for its attachment. All printed walls and support features are included; the roof is hidden.">
     <div id="qa-labels"></div>
   </div>
   <div id="qa-legend" class="viz-row text-small" aria-label="Assembly ownership legend"></div>
@@ -78,7 +78,7 @@ function addPart(part,geometry){const mesh=new THREE.Mesh(geometry,new THREE.Mes
 function build(){
   for(const part of data.scene.instances)addPart(part,geometries[part.geometry]);
   addPart({name:'cold-core-top',label:'Cold-core top · context',role:'structure',rotation:[[1,0,0],[0,1,0],[0,0,1]],translation:[0,321.3,245.4],assembly:{quadrant:'back-bottom',status:'located',basis:'Cold core carried by back-bottom'}},new THREE.BoxGeometry(181,278,16));
-  pin('Funnel · 698 mL',[-72,248,350]);
+  pin('Funnel · 698 mL',[-72,248,350]);pin('Outlet',[0,174.19575,306.05]);
   for(const[name,label]of[['vb-core-support','V-B wall'],['vb','V-B'],['pcba','PCB'],['digiten-flow','Flow meter']]){const mesh=bodies.find(b=>b.userData.name===name);if(mesh){const center=mesh.geometry.boundingBox.getCenter(new THREE.Vector3());mesh.localToWorld(center);pin(label,center.toArray());}}
   pin('BACK · +Y',[0,480,354]);pin('Soda out',[77.5,471.3,306.376]);pin('Core soda',[50,354.3696,253.4]);pin('Cold-core top',[72,414,253.4]);
   const lineGeometry=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-98.5,462.3,253.4),new THREE.Vector3(98.5,462.3,253.4)]),backEdge=new THREE.Line(lineGeometry,new THREE.LineBasicMaterial({transparent:true,opacity:.2}));scene.add(backEdge);neutral.push(backEdge);
