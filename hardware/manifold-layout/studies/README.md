@@ -2,11 +2,12 @@
 
 The selected [funnel-gate layout](funnel-gate/README.md) places the water
 group, folded CO₂ path, low forward PCB, flat Mean Well, dry-wall relays and
-rear connections above the existing cold core. V-B lies on its side west of
-the PCB, connecting the retained funnel drain elbow to Y-B. V-A routes under
-the pump head, through a flat union elbow between the pump and V-K, then
-along the PCB's east perimeter to Y-A. The PCB's long dimension runs across X;
-its Y position is centered between V-A's support and the core's front edge.
+rear connections above the existing cold core. V-B lies on its side in the
+fore/east area, connecting the retained funnel drain elbow to Y-B through
+short, mostly straight runs. A socket wall and overhead bridge carry V-B on
+the funnel frame. V-A routes under the pump head, through the flat union elbow
+between the pump and V-K, then directly fore to Y-A's compact return.
+The PCB lies west, long dimension fore–aft, with open space above its JSTs.
 The purchased YZMSZ native push-connect regulator estimate is the working choice.
 Its [native sidewalls](wall-supported/README.md) include
 the valve seats and relay bosses; its rear wall carries the C14 and RJ11.
