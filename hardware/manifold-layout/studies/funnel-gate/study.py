@@ -73,7 +73,7 @@ def route():
         'va_fore_minimum_radius_mm':va_radius,'vb_return_minimum_radius_mm':b['metrics']['return_minimum_radius_mm'],
         'vb_exposed_tube_length_mm':exposed_b,'b_plumbing':b['metrics'],'soda_route':soda,
         'pcb_native_rotation':PCB_R.tolist(),'pcb_native_translation_mm':PCB_T.tolist(),
-        'hardware_scope':'V-A stays low; V-B feeds Y-B through an aft-side stair over the PCB. The valve inlet uses a directly seated stem elbow. The transverse meter connects to the soda bulkhead.',
+        'hardware_scope':'V-A stays low; V-B feeds Y-B through an aft-side stair over the PCB. The valve inlet uses a directly seated stem elbow. The edge-on meter between the pump and CO2 path connects to both the core soda outlet and rear bulkhead.',
         'insertions_mm':{'JG_socket':JG_DEPTH,'NeoFit_socket':NEOFIT_DEPTH,'Beduan_socket':12.7,'YA_YB_tee':15.7},
         'drain_stem_exposure_mm':DRAIN_STEM_EXPOSED,
         'drain_stem_length_mm':JG_DEPTH+DRAIN_STEM_EXPOSED,
@@ -84,6 +84,9 @@ def library():
     v,f=g['stem-elbow-trimmed'];v=v.copy();mask=v[:,0]<-H
     v[mask,0]=-H+(v[mask,0]+H)*(JG_DEPTH+DRAIN_STEM_EXPOSED)/12.7
     g['drain-stem-elbow']=v,f
+    v,f=g['gas-stem-elbow'];v=v.copy();mask=v[:,0]<-H
+    v[mask,0]=-H+(v[mask,0]+H)*(15.7+soda_route.CORE_STEM_EXPOSED)/15.7
+    g['soda-core-stem-elbow']=v,f
     for name,points in route()['tubes'].items():g[name]=tube(points)
     with np.load(HERE/'parts/vb-core-support.npz') as mesh:
         g['vb-core-support']=mesh['v'],mesh['f']
@@ -121,7 +124,7 @@ def pose(g):
     vb_r=VB_NATIVE_R@VK_SOURCE_R.T;vb_t=VB_ORIGIN-vb_r@VK_SOURCE_T
     scene['instances'].extend([
         base.instance('vb','vk',vb_t,vb_r,role='wet',kind='component',label='V-B · east of PCB · head east · flow aft · cold-core roof'),
-        base.instance('digiten-flow','digiten-flow',FLOW_T,FLOW_R,role='wet',kind='component',label='DIGITEN flow meter · transverse above pump · outlet toward soda bulkhead · label up'),
+        base.instance('digiten-flow','digiten-flow',FLOW_T,FLOW_R,role='wet',kind='component',label='DIGITEN flow meter · edge-on between pump and CO2 · ports fore–aft · label east'),
         base.instance('vb-core-support','vb-core-support',role='support',kind='component',label='V-B socket wall · rooted in the cold-core roof · back-bottom'),
         base.instance('tee-yb-target','forward-tee-y-b',role='wet',kind='component',context=True,label='Y-B · funnel-source tee · fixed production position'),
         base.instance('funnel-drain-union','jg-turn-elbow',DRAIN_CORNER,I,role='wet',kind='elbow',label='Funnel drain · scanned JG union elbow · aft outlet'),
@@ -132,7 +135,10 @@ def pose(g):
         'vb-inlet-turn':'B feed · stem elbow seated directly in V-B · pickup clocked up 10 degrees',
         'vb-outlet-stem':'V-B outlet · stem elbow points west and up 8 degrees',
         'vb-outlet-return':'B return · two-socket elbow turns the cross-PCB tube toward Y-B',
-        'yb-stem-elbow':'Y-B · aft-facing stem elbow · clocked 7.5 degrees west'}
+        'yb-stem-elbow':'Y-B · aft-facing stem elbow · clocked 7.5 degrees west',
+        'soda-core-elbow':'Core soda · union elbow turns the retained riser west',
+        'soda-core-stem':'Core soda · nested aft-facing stem · 3 mm exposed for valve-wall root clearance',
+        'soda-outlet-return-stem':'Soda outlet · fore-facing stem nested directly in the bulkhead elbow'}
     for name,j in d['joints'].items():
         if name in ('ya-stem-elbow','soda-stem-elbow'):continue
         scene['instances'].append(base.instance(name,j['geometry'],j['corner'],j['rotation'],role='stem' if j['geometry']!='jg-turn-elbow' else 'wet',kind='elbow',label=labels.get(name,name.replace('-',' '))))
@@ -146,7 +152,7 @@ def pose(g):
     scene['mates'].append({'a':'vb','b':'vb-core-support','connection':'Four existing posts seat in shared V69 blind sockets'})
     scene.update(id='funnel-gate',title='West PCB and V-B on the east cold-core roof')
     scene['layout'].update(funnel_gate=d,
-        flow_meter={'native_origin_mm':FLOW_T.tolist(),'native_rotation':FLOW_R.tolist(),'attachment':'Proposed core-mounted support over the pump; retention detail is to design','scope':'Placement and outlet route shown; upstream carbonated-water route remains pending'},
+        flow_meter={'native_origin_mm':FLOW_T.tolist(),'native_rotation':FLOW_R.tolist(),'attachment':'Proposed core-mounted support between the pump and CO2 path; retention detail is to design','scope':'Both core inlet and bulkhead outlet routes shown; pigtail and retention detail remain separate'},
         funnel_expansion={'aft_extension_mm':35.,'capacity_to_mouth_ml':698.2103525072449,
             'capacity_gain_ml':167.66999557999816,'receipt':'funnel-expansion.json'},
         pcb_footprint_mm={'xmin':-83.,'xmax':-10.1999817,'ymin':186.3868525,'ymax':277.2029078},
@@ -162,6 +168,7 @@ def check(scene,g):
     def obj(mesh):
         v,f=mesh;m=fcl.BVHModel();m.beginModel(len(v),len(f));m.addSubModel(v,f.astype(np.int32));m.endModel();return fcl.CollisionObject(m)
     names=['vb','pcba','pump','funnel-frame','funnel','left-wall','right-wall','drain-outlet-stem','drain-vb-east-link','vb-yb-cross','soda-meter-bulkhead','vb-inlet-turn','vb-outlet-stem','vb-outlet-return','vb-yb-link','vb-core-support','ya-stem-elbow','yb-stem-elbow','va-ya-straight','funnel-drain-cradle','digiten-flow','asse','psu','ceiling']
+    names+=['vk','gas-check','gas-regulator','gas-core-drop',*soda_route.route()['joints'],*soda_route.route()['tubes']]
     objects={n:obj(meshes[n]) for n in names if n in meshes}
     pairs=[('vb','pcba'),('vb','funnel-frame'),('vb','funnel'),
         ('vb-core-support','funnel'),('vb-core-support','pcba'),('vb-core-support','funnel-frame'),
@@ -175,7 +182,12 @@ def check(scene,g):
         ('ya-stem-elbow','funnel-drain-cradle'),
         ('yb-stem-elbow','funnel-drain-cradle'),('va-ya-straight','pcba'),('va-ya-straight','funnel-drain-cradle'),
         ('digiten-flow','pump'),('digiten-flow','asse'),('digiten-flow','psu'),('digiten-flow','ceiling'),
-        ('soda-meter-bulkhead','pump'),('vb-yb-cross','pcba'),('vb-yb-cross','funnel-frame')]
+        ('soda-meter-bulkhead','pump'),('vb-yb-cross','pcba'),('vb-yb-cross','funnel-frame'),
+        ('digiten-flow','gas-check'),('digiten-flow','gas-regulator'),('digiten-flow','gas-core-drop'),
+        ('soda-core-elbow','vk'),('soda-core-elbow','right-wall'),
+        ('soda-core-stem','vk'),('soda-core-stem','right-wall'),('soda-core-stem','pump'),
+        ('soda-core-meter','vk'),('soda-core-meter','pump'),('soda-core-meter','right-wall'),
+        ('soda-outlet-return-stem','gas-regulator'),('soda-outlet-return-stem','pump')]
     result['funnel_gate_gaps_mm']={a+'_to_'+b:float(fcl.distance(objects[a],objects[b],fcl.DistanceRequest(),fcl.DistanceResult())) for a,b in pairs}
     result['vb_bounds_mm']=[meshes['vb'][0].min(0).tolist(),meshes['vb'][0].max(0).tolist()]
     result['vb_wall_bounds_mm']=[meshes['vb-core-support'][0].min(0).tolist(),meshes['vb-core-support'][0].max(0).tolist()]
@@ -239,6 +251,8 @@ def viewer_data(scene,g):
     for name in data['geometries']:
         if name.startswith('expanded-funnel'):
             data['geometries'][name]=base.pack(*g[name],2200)
+        elif name in ('soda-core-meter','soda-core-stem-elbow'):
+            data['geometries'][name]=base.pack(*g[name],600 if name=='soda-core-meter' else 1200)
     return data
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--check',action='store_true');args=parser.parse_args()

@@ -9,7 +9,7 @@
       </select>
     </label>
   </div>
-  <div id="qa-stage" role="img" aria-label="Rotatable above-core arrangement with PCB west and V-B east of it on the cold-core roof. V-B seats against a visible upright wall rooted in the core roof. Its return stair-steps above the PCB on the aft side. The funnel extends 35 millimetres aft; a transverse flow meter connects to the soda bulkhead. Colours identify the carrying quadrant; select a part for its attachment. All printed walls and support features are included; the roof is hidden.">
+  <div id="qa-stage" role="img" aria-label="Rotatable above-core arrangement with PCB west and V-B east of it on the cold-core roof. V-B seats against a visible upright wall rooted in the core roof. Its return stair-steps above the PCB on the aft side. The funnel extends 35 millimetres aft. An edge-on flow meter between the pump and CO2 path connects to both the cold core and soda bulkhead. Colours identify the carrying quadrant; select a part for its attachment. All printed walls and support features are included; the roof is hidden.">
     <div id="qa-labels"></div>
   </div>
   <div id="qa-legend" class="viz-row text-small" aria-label="Assembly ownership legend"></div>
@@ -18,6 +18,7 @@
 </div>
 <style>
 #quadrant-arrangement{color:var(--foreground,CanvasText)}
+#quadrant-arrangement,#quadrant-arrangement :is(h3,label,select,option,span){-webkit-text-fill-color:currentColor}
 #quadrant-arrangement #qa-swatch{position:absolute;width:0;height:0;overflow:hidden;pointer-events:none}
 #quadrant-arrangement #qa-stage{position:relative;width:100%;height:clamp(360px,77vw,560px);touch-action:none;overflow:hidden}
 #quadrant-arrangement canvas{display:block;width:100%;height:100%}
@@ -45,8 +46,40 @@ const ambient=new THREE.AmbientLight(),sun=new THREE.DirectionalLight();ambient.
 const geometries={},bodies=[],neutral=[],pins=[],group=new THREE.Group();scene.add(group);
 const swatch=root.querySelector('#qa-swatch'),palette=document.createElement('canvas');palette.width=palette.height=1;
 const cx=palette.getContext('2d',{willReadFrequently:true});let selected=null,ready=false;
-function cssColor(token){const fallback=token==='foreground'?'CanvasText':token==='background'?'Canvas':'var(--blue,Highlight)';swatch.style.color=`var(--${token},${fallback})`;return getComputedStyle(swatch).color;}
-function color(token){cx.clearRect(0,0,1,1);cx.fillStyle='CanvasText';cx.fillStyle=cssColor(token);cx.fillRect(0,0,1,1);const p=cx.getImageData(0,0,1,1).data;return new THREE.Color(p[0]/255,p[1]/255,p[2]/255).convertSRGBToLinear();}
+let themeColors={};
+function sampleColor(value){
+  if(!value)return null;
+  for(const candidate of [value,`hsl(${value})`,`rgb(${value})`]){
+    if(!CSS.supports('color',candidate))continue;
+    swatch.style.color=candidate;cx.clearRect(0,0,1,1);cx.fillStyle='transparent';cx.fillStyle=getComputedStyle(swatch).color;cx.fillRect(0,0,1,1);
+    const p=Array.from(cx.getImageData(0,0,1,1).data);
+    if(p[3])return{p,css:`rgba(${p[0]},${p[1]},${p[2]},${p[3]/255})`};
+  }
+  return null;
+}
+function normalizeTheme(){
+  // Read outside this viewer so its resolved overrides cannot feed back into the host palette.
+  const host=getComputedStyle(root.parentElement);
+  function pick(names,fallback,chromatic=false,opaque=true){
+    for(const value of [...names.map(name=>host.getPropertyValue(`--${name}`).trim()),fallback]){
+      const c=sampleColor(value);
+      if(c&&(!opaque||c.p[3]>=250)&&(!chromatic||Math.max(...c.p.slice(0,3))-Math.min(...c.p.slice(0,3))>=20))return c;
+    }
+    return sampleColor(fallback);
+  }
+  const bg=pick(['background','color-background-primary'],'Canvas');
+  let fg=pick(['foreground','color-text-primary'],'CanvasText');
+  function luminance(c){return c.p.slice(0,3).map(v=>{v/=255;return v<=.04045?v/12.92:((v+.055)/1.055)**2.4;}).reduce((sum,v,i)=>sum+v*[.2126,.7152,.0722][i],0);}
+  function contrast(a,b){const x=luminance(a),y=luminance(b);return(Math.max(x,y)+.05)/(Math.min(x,y)+.05);}
+  if(contrast(fg,bg)<4.5)fg=[sampleColor('CanvasText'),sampleColor('Canvas')].sort((a,b)=>contrast(b,bg)-contrast(a,bg))[0];
+  themeColors={foreground:fg.css,background:bg.css,'muted-foreground':pick(['muted-foreground','color-text-secondary'],'CanvasText',false,false).css};
+  const names=['blue','orange','green','purple','purple','green'];
+  for(let i=1;i<=6;i++)themeColors[`viz-series-${i}`]=pick([`viz-series-${i}`,names[i-1]],'Highlight',true).css;
+  themeColors.primary=themeColors['viz-series-1'];
+  for(const [name,value]of Object.entries(themeColors))root.style.setProperty(`--${name}`,value);
+}
+function cssColor(token){return themeColors[token]||themeColors.foreground;}
+function color(token){cx.clearRect(0,0,1,1);cx.fillStyle=cssColor(token);cx.fillRect(0,0,1,1);const p=cx.getImageData(0,0,1,1).data;return new THREE.Color(p[0]/255,p[1]/255,p[2]/255).convertSRGBToLinear();}
 function roleColor(role){const series={custom:1,stem:1,flavor:1,carbonator:1,wet:1,gas:6,tpu:6,'gas-regulator':6,'gas-check':2,electronics:5,wire:5,plug:5,support:3,structure:3}[role];return series?color(`viz-series-${series}`):color('foreground').lerp(color('background'),.44);}
 function meshColor(part){
   if(highlight.value==='quadrant')return part.assembly?.quadrant?color(`viz-series-${ownerById[part.assembly.quadrant].series}`):color('foreground').lerp(color('background'),.5);
@@ -68,12 +101,13 @@ function makeLegend(){
   const roof=document.createElement('span');roof.textContent='Roof hidden';legend.append(roof);
 }
 function theme(){
+  normalizeTheme();
   makeLegend();
   const fg=color('foreground');
   for(const mesh of bodies)mesh.material.color.copy(meshColor(mesh.userData));for(const line of neutral)line.material.color.copy(fg);
   renderer.render(scene,camera);
 }
-async function decode(name,m){const raw=Uint8Array.from(atob(m.data),c=>c.charCodeAt(0)),bytes=await new Response(new Blob([raw]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer(),packed=new Int16Array(bytes,0,m.vc*3),positions=new Float32Array(packed.length);for(let i=0;i<packed.length;i++)positions[i]=packed[i]/50;const dv=new DataView(bytes),indices=new Uint32Array(m.ic);for(let i=0;i<m.ic;i++)indices[i]=dv.getUint32(m.vc*6+i*4,true);const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(positions,3));g.setIndex(new THREE.BufferAttribute(indices,1));g.computeVertexNormals();g.computeBoundingBox();geometries[name]=g;}
+async function decode(name,m){const raw=Uint8Array.from(atob(m.data),c=>c.charCodeAt(0)),bytes=await new Response(new Blob([raw]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer(),packed=new Int16Array(bytes,0,m.vc*3),positions=new Float32Array(packed.length);if(m.position_encoding==='axis-delta'){for(let axis=0;axis<3;axis++){let sum=0;for(let vertex=0;vertex<m.vc;vertex++){sum+=packed[axis*m.vc+vertex];positions[vertex*3+axis]=sum/50;}}}else{for(let i=0;i<packed.length;i++)positions[i]=packed[i]/50;}const dv=new DataView(bytes),indices=new Uint32Array(m.ic),width=m.index_bytes||4;for(let i=0;i<m.ic;i++)indices[i]=width===2?dv.getUint16(m.vc*6+i*2,true):dv.getUint32(m.vc*6+i*4,true);const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(positions,3));g.setIndex(new THREE.BufferAttribute(indices,1));g.computeVertexNormals();g.computeBoundingBox();geometries[name]=g;}
 function pin(text,at){const el=document.createElement('span');el.className='qa-label text-small';el.textContent=text;labels.append(el);pins.push({el,at:new THREE.Vector3(...at)});}
 function addPart(part,geometry){const mesh=new THREE.Mesh(geometry,new THREE.MeshStandardMaterial({roughness:.68,metalness:.08,side:THREE.DoubleSide})),r=part.rotation;mesh.quaternion.setFromRotationMatrix(new THREE.Matrix4().set(...r[0],0,...r[1],0,...r[2],0,0,0,0,1));mesh.position.set(...part.translation);mesh.userData=part;const n=part.name,opacity=n==='cold-core-top'?.12:n.endsWith('-wall')?.22:n==='funnel'?.08:n==='funnel-frame'?.2:1;mesh.material.opacity=opacity;mesh.material.transparent=opacity<1;mesh.material.depthWrite=opacity===1;mesh.visible=n!=='ceiling';group.add(mesh);bodies.push(mesh);return mesh;}
 function build(){
@@ -81,7 +115,7 @@ function build(){
   addPart({name:'cold-core-top',label:'Cold-core top · context',role:'structure',rotation:[[1,0,0],[0,1,0],[0,0,1]],translation:[0,321.3,245.4],assembly:{quadrant:'back-bottom',status:'located',basis:'Cold core carried by back-bottom'}},new THREE.BoxGeometry(181,278,16));
   pin('Funnel · 698 mL',[-72,248,350]);
   for(const[name,label]of[['vb-core-support','V-B wall'],['vb','V-B'],['pcba','PCB'],['digiten-flow','Flow meter']]){const mesh=bodies.find(b=>b.userData.name===name);if(mesh){const center=mesh.geometry.boundingBox.getCenter(new THREE.Vector3());mesh.localToWorld(center);pin(label,center.toArray());}}
-  pin('BACK · +Y',[0,480,354]);pin('Soda out',[77.5,471.3,306.376]);pin('Cold-core top',[72,414,253.4]);
+  pin('BACK · +Y',[0,480,354]);pin('Soda out',[77.5,471.3,306.376]);pin('Core soda',[77.5,271.6,253.4]);pin('Cold-core top',[72,414,253.4]);
   const lineGeometry=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-98.5,462.3,253.4),new THREE.Vector3(98.5,462.3,253.4)]),backEdge=new THREE.Line(lineGeometry,new THREE.LineBasicMaterial({transparent:true,opacity:.2}));scene.add(backEdge);neutral.push(backEdge);
   window.__assemblyParts=bodies.map(b=>({name:b.userData.name,owner:b.userData.assembly?.quadrant,changed:!!b.userData.latest_change,visible:b.visible}));
   theme();

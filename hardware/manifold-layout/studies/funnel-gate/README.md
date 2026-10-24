@@ -1,7 +1,7 @@
 # Expanded funnel and compact aft-side plumbing
 
 This isolated above-core arrangement has an aft-expanded funnel, V-B on the
-cold-core roof east of the PCB, and a transverse flow meter connected to the
+cold-core roof east of the PCB, and an edge-on flow meter between the pump and CO₂ path connected to the
 soda bulkhead. V-A, V-K, the pump and PCB retain their established poses.
 Ground and WAGO placement remain deferred.
 
@@ -57,21 +57,31 @@ assumptions. The drain stem is 19.006 mm long with 3.306 mm exposed beyond its
 nominal 15.7 mm insertion to clear the cradle. Other stem shoulders seat flush.
 Dimensions and cut lengths are layout estimates.
 
-## Soda outlet
+## Soda line
 
 The [measured DIGITEN reference](../../../reference/digiten-flow-sensor/README.md)
-runs east–west above the pump, with its label up. Its native origin is
-`(-3,440.4648,326.1)` mm; the nominal outlet is at `(27.5,440.4648,326.1)` mm.
-A 38.03 mm exposed tube falls into the existing west-facing soda-bulkhead stem
-socket at `(58.45,440.4648,306.376)` mm. Both socket entries are axial; the tube
-centerline has two R14 transitions of 45.95 degrees and a straight diagonal.
-No additional fittings are introduced.
+stands on edge between the pump and CO₂ path, with ports fore–aft, label east
+and lead root down. Its native origin is `(52.4048,372,306.37605)` mm. The
+collet faces are at Y341.5 and Y402.5. Main component axes remain square.
 
-[soda_route.py](soda_route.py) records the route and the actual upstream core
-handoff for the next connection. The inlet route, pigtail and meter retention
-remain pending. This candidate clears the pump by 4.71 mm and the ordinary
-ceiling by 1 mm; supplied panel/boss/support envelopes also clear. A core-roof
-carrier is proposed while placement is reviewed.
+The core soda port stays `(77.5,271.6,253.4)` mm. Its straight riser enters a
+union elbow, which receives an aft-facing stem elbow directly. That fold
+places the feed west of V-K. The 51.09 mm exposed feed enters the meter
+axially, with a gentle 4.512 mm lateral offset and minimum centerline radius
+95.50 mm. The core-fold stem retains 3 mm of exposed stem to clear the
+existing valve-wall root; its estimated insertion remains 15.7 mm.
+
+The meter outlet has a straight 18.915 mm exposed tube into a fore-facing
+stem elbow nested directly in the bulkhead's west-facing elbow. The bulkhead
+grid is fixed. Four elbows total make the route's turns: one union and three
+stems, with no tube between either nested pair. The riser extends 12 mm below
+the core handoff plane. Socket depths remain layout estimates.
+
+[soda_route.py](soda_route.py) records both routes, insertion assumptions and
+all fitting poses. [fit-report.json](fit-report.json) records the combined
+exterior clearance: meter to pump 1.46 mm, meter to CO₂ check 1.40 mm, core-fold
+stem to valve-wall root 1.17 mm and meter to ceiling 30.47 mm. The meter pigtail
+and retention detail remain pending; a core-roof carrier is proposed.
 
 ## PCB access and fit
 

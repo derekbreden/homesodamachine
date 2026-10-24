@@ -100,7 +100,8 @@
         "soda-stem-elbow",
         "bulkhead-drain-departure",
         "bulkhead-flavor-a-departure",
-        "bulkhead-flavor-b-departure"
+        "bulkhead-flavor-b-departure",
+        "soda-outlet-return-stem"
       ]
     },
     {
@@ -175,10 +176,14 @@
     {
       "quadrant": "back-bottom",
       "status": "proposed",
-      "basis": "Transverse flow-meter candidate above the pump with outlet tube to the rear bulkhead; a core-roof carrier is proposed. Retention remains pending placement review.",
+      "basis": "Edge-on meter between pump and CO2 path, inlet plumbing from the retained core soda port and outlet tube; core-roof retention is proposed while its detail is designed.",
       "names": [
         "digiten-flow",
-        "soda-meter-bulkhead"
+        "soda-meter-bulkhead",
+        "soda-core-rise",
+        "soda-core-elbow",
+        "soda-core-stem",
+        "soda-core-meter"
       ]
     }
   ],
@@ -210,8 +215,8 @@
     },
     {
       "carried_part": "soda-meter-bulkhead",
-      "other_part": "soda-stem-elbow",
-      "note": "Back-bottom flow-meter outlet tube connects to the back-top soda bulkhead stem elbow"
+      "other_part": "soda-outlet-return-stem",
+      "note": "Back-bottom meter outlet tube connects to the fore-facing stem nested in the back-top soda bulkhead elbow"
     }
   ],
   "connection_owner_rule": "Mating housings and local conductors inherit their component's assembly owner. This does not claim a complete end-to-end harness route."

@@ -4,7 +4,8 @@ The selected [funnel-gate layout](funnel-gate/README.md) has a 35 mm aft-expande
 funnel, a compact B inlet seated directly in V-B, and a high aft-side return
 above the PCB into Y-B. V-B lies square on the core roof east of the west
 fore–aft PCB. V-A feeds Y-A through the flat under-head elbow and one low tube.
-The transverse measured DIGITEN meter connects to the rear soda bulkhead.
+The measured DIGITEN meter stands on edge between the pump and CO₂ path,
+with its core inlet and rear soda-bulkhead outlet routes drawn.
 The inline YZMSZ native push-connect regulator estimate remains the water choice.
 Native sidewalls, valve seats, relay bosses, the empty rear openings and
 expanded upper-shell opening are included in the study. Ground and WAGOs
