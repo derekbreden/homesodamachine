@@ -181,6 +181,7 @@ Check valves, water-inlet jet fittings, diagnostic pumps and carbonation parts, 
 | <!--purchase:pur-75e2868ec892406fa186ca13d17e7497--> TAISHER forged 316L SS 90° street elbow, 1/4" female NPT × 1/4" male NPT, 2-pack — water-inlet jet qualification coupon and spare | [B0CZ38MYL1](https://www.amazon.com/dp/B0CZ38MYL1) | 1 pk (2) | $22.51 | 112-0884852-3444230 | 2026-09-15 | 2026-09-17 | ACQUIRED |
 | <!--purchase:pur-51e99d8549c9421081ecf1e8151ed165--> G Ganen 12 V diaphragm pump, advertised 110 psi / 4.5 L/min — the selected diaphragm pump; this received sample is its [measured reference](/hardware/reference/g-ganen-pump/README.md) | [B07F35PTFR](https://www.amazon.com/dp/B07F35PTFR) | 1 | $19.29 | 112-0884852-3444230 | 2026-09-15 | 2026-09-17 | ACQUIRED |
 | <!--purchase:pur-b45edf5bf83a442a9c580969adbfa616--> IEIK 12 V 60 W diaphragm pump, advertised 116 psi / 5 L/min — measurement-only purchase | [B07YXTHNRQ](https://www.amazon.com/dp/B07YXTHNRQ) | 1 | $20.37 | 112-0884852-3444230 | 2026-09-15 | 2026-09-17 | ACQUIRED (diagnostic stock, no production allocation) |
+| <!--purchase:pur-43767918757a4173a8b69a9b725d64fd--> Fresh Water Systems order WEBFWS100715131 — neoFit **ACHV44-E** acetal black single check valve, 1/4" tube, 0.3 psi crack pressure (bag of 10) + neoFit **ATEU44W** acetal white stem elbow, 1/4" tube × 1/4" stem (3 × bag of 10) + neoFit **ATBU444-E** acetal black branch stem tee, 1/4" tube × 1/4" stem (bag of 10) + neoFlo **LLDPE4M-BLACK** black 4 mm OD LLDPE tubing (100 ft) | [FWS](https://www.freshwatersystems.com/) | 4 line items | $173.54 | WEBFWS100715131 | 2026-10-24 | — | ON-ORDER (ground, 4–5 business days. Merchandise by line: ACHV44-E $80.40; ATEU44W $36.18 for 30; ATBU444-E $17.64; black 4 mm tubing $13.00 for 100 ft — $147.22 merchandise + $14.58 shipping + $11.74 tax. Check valves for the CO2 and water-side checks; stem elbows for the pump dock's lower returns and the above-core layout's trimmed-stem joints; the branch tee for that layout's water split; the tubing for the black 4 mm flavor dispense lines) |
 
 ## 5. Flavor subsystem
 
@@ -805,16 +806,16 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | Acquired hardware valuation — includes replaced/returned originals | [$39,487.86](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,519.51](LEDGER_LABOR) |
 | Acquired procurement valuation (combined) | [$46,007.37](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$838.50](LEDGER_ON_ORDER) |
+| ON-ORDER | [$1,012.04](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Recorded procurement valuation — includes commitments** | [$46,898.94](LEDGER_GRAND_TOTAL) |
+| **Recorded procurement valuation — includes commitments** | [$47,072.48](LEDGER_GRAND_TOTAL) |
 
 Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
-| Final vendor amounts | [$20,600.58](LEDGER_FINAL_VENDOR) |
+| Final vendor amounts | [$20,774.12](LEDGER_FINAL_VENDOR) |
 | Estimated amounts | [$2,308.68](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$23,989.68](LEDGER_LEGACY_UNVERIFIED) |
 

@@ -6,16 +6,14 @@ Checked October 21, 2026 against the current BOM, purchase ledger, batch invento
 
 | Item | Order quantity | Purpose / evidence | Listed price before shipping/tax |
 |---|---:|---|---:|
-| [neoFlo black 4 mm OD / 2.5 mm ID LLDPE — 25 ft](https://www.freshwatersystems.com/products/black-4mm-od-lldpe-polyethylene-tubing?variant=51082187931832) | 1 length | Both internal dispense runs, two continuous 1,963 mm faucet runs, fitting engagements and cutting allowance. No black 4 mm acquisition is recorded. | $4.50 |
 | [McMaster 91290A290 M5 × 120 mm, black-oxide class 12.9 socket screws](https://www.mcmaster.com/91290A290/) | 1 pack of 10; use 2 | Current BOM's two long lower Y-seam screws. No matching acquisition found. The ordered M5 × 150 mm stainless screws are a different specification and receive no credit for this row. | $10.74 recorded catalog allowance; current quote unconfirmed |
 | [Waterdrop 15UC-UF, 1/4-inch inline filter — Prime](https://www.amazon.com/dp/B085G9TZ4L) | 1 | Fresh filter for a customer unit. The acquired February filter is prototype stock with unrecorded remaining service life. Signed-in Prime listing verified October 21. | $59.99 |
-
-The [100 ft black 4 mm option](https://www.freshwatersystems.com/products/black-4mm-od-lldpe-polyethylene-tubing?variant=50723039248568) is **$13.00**, if stocking subsequent builds. The 25 ft length covers unit 1. Compare Fresh Water Systems' delivered total before checkout: the October drain-parts receipt contains substantial shipping charges, so the merchandise price alone does not predict delivered cost.
 
 ## Already purchased for the 4 mm flavor path
 
 | Item | Unit 1 allocation | Recorded stock and source |
 |---|---:|---|
+| [neoFlo black 4 mm OD / 2.5 mm ID LLDPE](https://www.freshwatersystems.com/products/black-4mm-od-lldpe-polyethylene-tubing?variant=50723039248568) | Both internal dispense runs, two continuous 1,963 mm faucet runs, fitting engagements and cutting allowance | 100 ft, FWS WEBFWS100715131, ordered October 24 ([purchase ledger](purchases.md)). |
 | [ARD4M4-E, 4 mm tube × 1/4-inch stem reducer](https://www.freshwatersystems.com/products/neofit-acetal-black-stem-reducer-4mm-5-32-tube-x-1-4-stem?variant=42404048339128) | 2 | Bag of 10, FWS WEBFWS100711469, delivered October 9 ([purchase ledger](purchases.md)). Remaining loose stock is uncounted. |
 | [ABU44M-E, 4 mm bulkhead](https://www.freshwatersystems.com/products/neofit-acetal-black-bulkhead-connector-4mm-5-32-tube) | 2 FLAVOR + 1 OVER | Same delivered order, bag of 10. The flavor pair and drain together consume three fittings per machine. |
 | White 4 mm OVER tubing | One continuous faucet run and internal return | Four 25 ft lengths delivered on the same order. Keep this stock assigned to the white OVER circuit. |
