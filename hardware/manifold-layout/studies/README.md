@@ -1,7 +1,8 @@
 # Above-core arrangement
 
 The selected [funnel-gate layout](funnel-gate/README.md) has a 35 mm aft-expanded
-funnel with its outlet 5 mm fore of the mouth center, a compact B inlet seated directly in V-B, and a high aft-side return
+funnel with its outlet centered on the mouth and its drain snapped into the
+removable frame, a compact B inlet seated directly in V-B, and a high aft-side return
 above the PCB into Y-B. V-B lies square on the core roof east of the west
 fore–aft PCB. V-A feeds Y-A through the flat under-head elbow and one low tube.
 The measured DIGITEN meter stands on edge between the pump and CO₂ path,

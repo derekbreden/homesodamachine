@@ -13,11 +13,11 @@
   },
   "preserve": [
     "Fore plan boundary, X width and all Z elevations",
-    "Drain Z elevations, plug, stub, union elbow and fixed bridge geometry; outlet and support are on Y174.19575",
+    "Drain Z elevations, plug, stub, elbow and accepted cradle snap geometry; outlet is centered on the mouth",
     "6 mm silicone normal walls, 3 mm flat overflow apron and smooth gravity cover skirt",
     "Four upward-access M3 drop-in frame fastener seats; rear stations follow the aft boundary"
   ],
-  "construction": "Absolute mouth/apron/frame dimensions keep the fore edge fixed and extend aft 35 mm. The outlet is 5 mm fore of the mouth center, with its entire fixed support bridge fore of the quadrant seam.",
+  "construction": "Absolute mouth, apron and frame dimensions keep the fore edge fixed and extend aft 35 mm. The centered drain cradle snaps into the removable frame.",
   "frame_context": "Current production drop-in frame DEFAULT_INNER and seam-clearance construction; broad flat upper-shell opening extends aft 35 mm; frame receivers remain separate",
   "collar_center_world_mm": [
     0.0,
@@ -31,13 +31,12 @@
   "frame_body_width_mm": 176.5,
   "outlet_bore_exit_world_mm": [
     0.0,
-    174.19575,
+    179.19575,
     306.05
   ],
   "drain_union_corner_world_mm": [
     0.0,
-    174.19575,
+    179.19575,
     280.41
-  ],
-  "quadrant_seam_y_mm": 200.0
+  ]
 }

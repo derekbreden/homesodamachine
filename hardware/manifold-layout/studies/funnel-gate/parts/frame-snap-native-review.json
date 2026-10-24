@@ -1,0 +1,17 @@
+{
+  "scope": "Native geometry at the centered outlet. Original cradle geometry, frame web and plug socket; no physical retention or life claim.",
+  "drain_attachment": "Cradle snap hooks engage the removable funnel frame.",
+  "web_thickness_mm": 3.0,
+  "socket_depth_mm": 19.0,
+  "missing_snap_web_mm3": 0.0,
+  "stock_in_plug_clearance_mm3": 0.0,
+  "cradle_frame_overlap_mm3": 0.0,
+  "silicone_frame_overlap_mm3": 0.0,
+  "native_files": {
+    "hardware/manifold-layout/studies/funnel-gate/parts/expanded-funnel-frame.step": "53f7d3e0561d03e45141740be8b6f0957d18fa61a671ded191899d3eb25f5ab5",
+    "hardware/manifold-layout/studies/funnel-gate/parts/expanded-funnel.step": "e057c7ed4edf6f4ddccb07310007fb3b6a5997137d60f40b2bb7287c725e7694",
+    "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": "27ab3ca34c264355eaba4b61d082baa2230356b10a44b721c19e9dca978c7e92"
+  },
+  "physical_reference": "hardware/printed-parts/zone-c/funnel/cradle-trial/physical-acceptance.json",
+  "passed": true
+}

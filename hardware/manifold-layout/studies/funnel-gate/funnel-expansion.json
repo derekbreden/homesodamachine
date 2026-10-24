@@ -2,8 +2,8 @@
   "scope": "Isolated native silicone funnel, drop-in frame and matching gravity cover; production generators and enclosure geometry remain separate",
   "units": "mm",
   "source_sha256": {
-    "hardware/printed-parts/zone-c/funnel/funnel.py": "ed5238e4b86f6d6de00978089493f55a1baefbb12873ba218c729610a4c408a4",
-    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "53ac58f4425d5274a3d743d2694804cf17c72743a109fd0ad92f7dc52d64dbc3",
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "62b3c64da5adb542663062f33b1b007666ac68b952a892e5c63f464240ec7ef2",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "1f8e9a626759c9c342c08b4456ebe73b34ea230fe9eb2a3370ddfc4acc7ce2f3",
     "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": "27ab3ca34c264355eaba4b61d082baa2230356b10a44b721c19e9dca978c7e92",
     "hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py": "58e219cf45026eac70fae61ccc76eb7df6261bc27b74b92ed979b929feaf8b63",
     "hardware/manifold-layout/studies/east-feed/parts/east-feed-ceiling.step": "e95046f067ee746da9528bfea02b503cede9a75098f6b1b513dab1bbaa2f058c",
@@ -19,16 +19,16 @@
   ],
   "outlet_bore_exit_world_mm": [
     0.0,
-    174.19575,
+    179.19575,
     306.05
   ],
   "drain_union_corner_world_mm": [
     0.0,
-    174.19575,
+    179.19575,
     280.41
   ],
-  "outlet_fore_of_mouth_center_mm": 5.0,
-  "capacity_to_mouth_ml": 698.2103525072448,
+  "outlet_fore_of_mouth_center_mm": 0.0,
+  "capacity_to_mouth_ml": 698.2103525072451,
   "capacity_method": "Complete native wet cavity closed at mouth and outlet planes; no cover displacement",
   "silicone_normal_wall_mm": 6.0,
   "apron_thickness_mm": 3.0,
@@ -112,15 +112,7 @@
   },
   "shell_upper_fore_edge_y_mm": 279.0,
   "shell_cut_to_valve_support_fore_face_mm": 2.2897605281867186,
-  "fixed_drain_bridge": {
-    "x": 0.0,
-    "y": 174.19575,
-    "floor_z": 299.9,
-    "socket_floor_z": 302.9,
-    "top_z": 311.9,
-    "width": 44.6,
-    "depth": 49.62478
-  },
+  "drain_attachment": "Elbow cradle snaps into the removable funnel frame's 3 mm bottom web",
   "parts": {
     "expanded-funnel": {
       "valid": true,
@@ -137,9 +129,9 @@
           358.0
         ]
       ],
-      "material_volume_mm3": 331018.98435615853,
-      "vertices": 5460,
-      "triangles": 7938
+      "material_volume_mm3": 331004.0087773321,
+      "vertices": 5706,
+      "triangles": 8444
     },
     "expanded-funnel-frame": {
       "valid": true,
@@ -156,9 +148,9 @@
           355.0
         ]
       ],
-      "material_volume_mm3": 561596.7819764338,
-      "vertices": 7507,
-      "triangles": 10048
+      "material_volume_mm3": 656409.8609664417,
+      "vertices": 8196,
+      "triangles": 10556
     },
     "expanded-funnel-cover": {
       "valid": true,
@@ -178,25 +170,6 @@
       "material_volume_mm3": 105786.50426323307,
       "vertices": 1424,
       "triangles": 1356
-    },
-    "expanded-funnel-drain-bridge": {
-      "valid": true,
-      "solid_count": 1,
-      "bounds_mm": [
-        [
-          -107.5,
-          149.38336181640625,
-          299.8999938964844
-        ],
-        [
-          107.5,
-          199.0081329345703,
-          311.8999938964844
-        ]
-      ],
-      "material_volume_mm3": 112791.16066193822,
-      "vertices": 1510,
-      "triangles": 1772
     },
     "expanded-funnel-ceiling": {
       "valid": true,
@@ -257,7 +230,5 @@
     }
   },
   "qualification_scope": "Native isolated arrangement geometry. Casting, print fit, support removal and capacity in use remain outside this geometric result.",
-  "bridge_aft_edge_y_mm": 199.00814,
-  "bridge_to_quadrant_seam_mm": 0.9918600000000026,
   "apron_plan_to_valve_support_fore_face_mm": 3.8982505184210936
 }
