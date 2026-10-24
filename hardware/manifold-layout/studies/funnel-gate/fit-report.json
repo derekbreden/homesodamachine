@@ -1,5 +1,5 @@
 {
-  "scope": "Manual exterior fit query of the selected east-water/west-PCB arrangement, native V-B support and local installed electrical connections; intended seats and frame fusion excluded",
+  "scope": "Manual exterior fit query of the selected core-roof V-B/west-PCB arrangement, native V-B wall and local installed electrical connections; intended seated connections excluded",
   "unrelated_interferences": [],
   "fold_hardware_bounds_mm": [
     [
@@ -101,11 +101,22 @@
   },
   "under_head_tube_to_plain_core_mm": 5.025000000000006,
   "funnel_gate_gaps_mm": {
-    "vb_to_pcba": 60.973200991917984,
-    "vb_to_funnel-frame": 2.7399931179040777,
-    "vb-frame-support_to_funnel": 13.430726938788245,
-    "vb-frame-support_to_pcba": 55.10338485910783,
-    "ya-fold-inner_to_vb-frame-support": 2.135272400865169,
+    "vb_to_pcba": 48.64878279273824,
+    "vb_to_funnel-frame": 10.386518797034448,
+    "vb_to_funnel": 30.229740738055234,
+    "vb-core-support_to_funnel": 26.624941233478918,
+    "vb-core-support_to_pcba": 44.199981689453125,
+    "vb-core-support_to_funnel-frame": 11.51372321086147,
+    "vb-outlet-return_to_pump": 1.2738511916710602,
+    "vb-outlet-return_to_vb-core-support": 1.383196759895604,
+    "vb-outlet-stem_to_right-wall": 0.9068537395450065,
+    "drain-outlet-stem_to_funnel-drain-cradle": 0.7642188879394496,
+    "vb-yb-link_to_ya-fold-inner": 0.8274383505172839,
+    "vb-yb-link_to_ya-stem-elbow": 1.4345233527174355,
+    "vb-yb-link_to_funnel-drain-cradle": 4.43396842340638,
+    "vb-yb-link_to_funnel-frame": 7.731930000180682,
+    "vb-yb-link_to_va-ya-straight": 15.568130432203937,
+    "vb-yb-link_to_pcba": 28.403492991520007,
     "ya-fold-return_to_funnel-drain-cradle": 7.29291724763267,
     "ya-stem-elbow_to_funnel-drain-cradle": 0.6643452639749938,
     "yb-stem-elbow_to_funnel-drain-cradle": 0.6643452639749938,
@@ -114,21 +125,34 @@
   },
   "vb_bounds_mm": [
     [
-      39.99998779296874,
-      113.54674887929687,
-      263.65999696388303
+      37.99998779296874,
+      212.17153112070312,
+      263.65999922141975
     ],
     [
-      97.30000610351561,
-      173.04674887929687,
-      297.1600007785803
+      95.30000610351561,
+      271.6715311207031,
+      297.160003036117
     ]
   ],
+  "vb_wall_bounds_mm": [
+    [
+      34.0,
+      222.8965301513672,
+      253.39999389648438
+    ],
+    [
+      43.20000076293945,
+      260.946533203125,
+      299.2099914550781
+    ]
+  ],
+  "vb_body_to_plain_core_mm": 10.259999221419747,
   "funnel_route_minimum_radii_mm": {
     "va": 53.91318706446771,
-    "vb": 14.622572799859734
+    "vb": 20.912130282788134
   },
-  "vb_exposed_tube_length_mm": 70.86460783268787,
+  "vb_exposed_tube_length_mm": 208.80224260213737,
   "pcb_bounds_mm": [
     [
       -83.0,
