@@ -1,0 +1,78 @@
+{
+  "component": "soda-rise-insulation",
+  "stock": {
+    "description": "Owned CARGEN closed-cell nitrile pipe foam",
+    "source": "hardware/ledger/purchases.md",
+    "asin": "B0D2XFK337",
+    "nominal_id_mm": 6.35,
+    "nominal_wall_mm": 9.524999999999999,
+    "nominal_od_mm": 25.4
+  },
+  "tube": "soda-core-rise",
+  "center_xy_mm": [
+    50.0,
+    354.3696
+  ],
+  "lower_z_mm": 264.5,
+  "upper_z_mm": 279.5,
+  "cut_length_mm": 15.0,
+  "installation": "Two square end cuts; a straight longitudinal slit permits wrapping the sleeve around the tube with the pump installed. Close that slit with the existing foil tape. No shaped reliefs or extra mount.",
+  "scope": "Nominal uncompressed stock envelope. Only the middle of the exposed straight soda riser is insulated. Device bodies, fittings and tube end sections are bare. Main component and tube poses are fixed. Geometric fit does not establish thermal performance.",
+  "exposed_tube_length_mm": 33.92604788053629,
+  "bare_lower_length_mm": 11.099999999999994,
+  "bare_upper_length_mm": 7.826047880536294,
+  "hard_contact_parts": [],
+  "nearest_parts_mm": [
+    [
+      "pump",
+      1.4054765578449457
+    ],
+    [
+      "pump-inlet-tpu",
+      4.338193887066608
+    ],
+    [
+      "pump-inlet-barb-band",
+      4.667594501152451
+    ],
+    [
+      "vk",
+      7.589147793399994
+    ],
+    [
+      "soda-inlet-stem",
+      7.826048643475758
+    ],
+    [
+      "digiten-flow",
+      8.584544409053883
+    ],
+    [
+      "gas-core-drop",
+      15.166671975757273
+    ],
+    [
+      "pump-inlet-tube-band",
+      17.460764671279264
+    ],
+    [
+      "lower-pump-elbow",
+      25.910316897021513
+    ],
+    [
+      "gas-lower-b",
+      27.19323255265447
+    ],
+    [
+      "gas-check",
+      28.583915547856726
+    ],
+    [
+      "va-east-turn",
+      30.736952639586914
+    ]
+  ],
+  "clearance_to_plain_core_roof_mm": 11.099999999999994,
+  "passed": true,
+  "query_scope": "Full native sleeve display mesh against the isolated arrangement exterior meshes; intended sleeve/tube bore contact excluded. Production mounts and complete wiring are separate."
+}

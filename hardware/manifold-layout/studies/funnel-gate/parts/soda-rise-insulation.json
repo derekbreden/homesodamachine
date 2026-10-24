@@ -1,0 +1,38 @@
+{
+  "component": "soda-rise-insulation",
+  "stock": {
+    "description": "Owned CARGEN closed-cell nitrile pipe foam",
+    "source": "hardware/ledger/purchases.md",
+    "asin": "B0D2XFK337",
+    "nominal_id_mm": 6.35,
+    "nominal_wall_mm": 9.524999999999999,
+    "nominal_od_mm": 25.4
+  },
+  "tube": "soda-core-rise",
+  "center_xy_mm": [
+    50.0,
+    354.3696
+  ],
+  "lower_z_mm": 264.5,
+  "upper_z_mm": 279.5,
+  "cut_length_mm": 15.0,
+  "installation": "Two square end cuts; a straight longitudinal slit permits wrapping the sleeve around the tube with the pump installed. Close that slit with the existing foil tape. No shaped reliefs or extra mount.",
+  "scope": "Nominal uncompressed stock envelope. Only the middle of the exposed straight soda riser is insulated. Device bodies, fittings and tube end sections are bare. Main component and tube poses are fixed. Geometric fit does not establish thermal performance.",
+  "valid": true,
+  "solids": 1,
+  "bounds_mm": [
+    [
+      37.3,
+      341.67211041192013,
+      264.5
+    ],
+    [
+      62.7,
+      367.0670895880798,
+      279.5
+    ]
+  ],
+  "volume_mm3": 7125.573924808561,
+  "producer_sha256": "8ea03734ab077e47e991054108b1eaf4cc093728d640ce2fbd2b1a0387f7b2e6",
+  "step_sha256": "71a31a9b241cfa8dac86a468de12d8c59720cd73c7a34431892356a3771aaec7"
+}
