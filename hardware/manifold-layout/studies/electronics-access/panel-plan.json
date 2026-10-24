@@ -16,7 +16,8 @@
     "centres_xy_mm": [[-91.5,342.25],[-5.0,342.25],[-91.5,455.3],[-5.0,455.3]],
     "edge_offset_mm": 6.75,
     "boss_width_mm": 18.0,
-    "boss_depth_mm": 12.0,
+    "boss_inner_reach_mm": 6.0,
+    "roof_root_depth_mm": 9.0,
     "boss_bottom_z_mm": 335.5,
     "bearing_z_mm": 346.0,
     "insert": "ruthex RX-M3x5.7",
@@ -43,12 +44,12 @@
     "through_panel_thickness": true
   },
   "c14": {
-    "flange_centre_mm": [-65.75,471.3,327.0],
-    "translation_from_parent_mm": [2.75,0.0,-3.0],
+    "flange_centre_mm": [-61.75,471.3,323.0],
+    "translation_from_parent_mm": [6.75,0.0,-7.0],
     "balance_basis": "Approximately equal scanned-flange clearance to the ideal left inner wall and ordinary ceiling underside"
   },
   "illustrated_lift_mm": 70.0,
   "equipment_carried_by_panel": [],
-  "retention_detail": "Four discrete integral corner bosses are the panel's only bearing surfaces. Four recessed M3x12 screws engage RX-M3x5.7 heatsets. No perimeter rim.",
+  "retention_detail": "Four discrete integral corner bosses are the panel's only bearing surfaces. Each boss has a 9 mm root into its adjacent fixed roof edge; the rear roots fill the rear-wall thickness. Four recessed M3x12 screws engage RX-M3x5.7 heatsets. No perimeter rim.",
   "assembly_purpose": "Connect the rear-wall C14 inlet to the cold-core-mounted Mean Well through the open electronics bay, then install the empty panel last."
 }
