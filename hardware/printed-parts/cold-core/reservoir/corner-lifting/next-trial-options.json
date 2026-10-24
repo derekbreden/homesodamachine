@@ -1,6 +1,6 @@
 {
-  "recorded_on": "2026-10-23",
-  "status": "Derek reports a one-hour water hold and aesthetic concerns on the intentionally partially printed Mark1 task 1365626370 article. Keep its recipe as the tested baseline; the next intended trial changes only nozzle temperatures to 255/260 C.",
+  "recorded_on": "2026-10-24",
+  "status": "Mark1 task 1371867808 is printing the selected 255/260 C temperature-only trial. All other executable commands match the task-1365626370 water-holding baseline; appearance and sealing are unassessed.",
   "customer_outcome": "A flat, leak-free vented reservoir with acceptable appearance and less production time.",
   "trigger": "../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json",
   "priority": [
@@ -10,7 +10,8 @@
       "evidence": "Derek reports aesthetic concerns and intends to try a temperature-only change. The existing one-hour water hold applies to the 265/270 C article.",
       "record": "../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json",
       "retained": "All other settings from task 1365626370, including flow 1.05, five Arachne walls at 10 degrees, 30% overlap, solid floor fill, 0.30/0.24 mm layers, May motion/cooling, 70 C bed, no brim, zero added trim and ironing off.",
-      "status": "Intent recorded only; no project prepared or print scheduled. Derek reports the printer is occupied and filament is not loaded."
+      "status": "Launched on Mark1 as task 1371867808",
+      "launch": "../prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/launch.json"
     },
     {
       "candidate": "Retain the current five-wall, 1.05-flow, 30%-overlap, 265/270 C recipe as the baseline.",
@@ -99,12 +100,15 @@
     "physical_result": "../prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/physical-result.json"
   },
   "current_trial": {
-    "job_id": "1365626370",
+    "job_id": "1371867808",
     "printer": "Mark1",
-    "record": "../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/README.md",
-    "start_slot": "A3",
-    "status": "Intentionally stopped early, as reported by Derek; printed portion held water for one hour at report.",
-    "physical_result": "../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json"
+    "record": "../prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/README.md",
+    "start_slot": "A1",
+    "status": "RUNNING, layer-0 startup; no physical outcome yet.",
+    "nozzle_c_first_subsequent": [
+      255,
+      260
+    ]
   },
   "reported_water_hold": {
     "result": "../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json",
@@ -115,7 +119,7 @@
   "next_intended_trial": {
     "recorded_on": "2026-10-23",
     "recorded_at_central": "2026-10-23T02:15:23.905916-05:00",
-    "status": "Intent only; awaiting a future print request.",
+    "status": "Launched on Mark1 as task 1371867808",
     "baseline_task_id": "1365626370",
     "baseline_settings": "../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/settings.json",
     "baseline_settings_file_sha256": "a1d008a858e4ad444e9ff6526e31afc1234231f4b92222bd0cc847bddcabf48e",
@@ -131,9 +135,12 @@
     },
     "previous_temperature_source": "../recipe-reviews/2026-10-22-flow105-overlap30/adaptation.json",
     "previous_temperature_basis": "The adaptation records 255 C initial / 260 C subsequent before the 10 C increase.",
-    "all_other_settings": "Retain the complete baseline settings unchanged; current executable project and frozen print settings remain at 265/270 C.",
-    "reported_availability": "Printer busy with other work; filament not loaded, as reported by Derek.",
+    "all_other_settings": "Retain the baseline settings except the two nozzle temperatures. The baseline reservoir.3mf and print-settings.json retain 265/270 C; the launched trial has its own frozen settings.json at 255/260 C.",
+    "reported_availability": "Derek reports Mark1 available with four translucent PETG spools feeding the right 0.8 mm hotend.",
     "comparison": "Compare appearance and water holding with the identified 265/270 C article; no outcome is claimed for the planned temperatures.",
-    "founder_quote": "Please record I have some aesthetic concerns with the print, and I'd like to consider trying all of those same settings, but back to our previous temperatures. The printer is busy elsewise now, and I don't have filament loaded, but just make a note of what I intend to try next."
+    "founder_quote": "Please record I have some aesthetic concerns with the print, and I'd like to consider trying all of those same settings, but back to our previous temperatures. The printer is busy elsewise now, and I don't have filament loaded, but just make a note of what I intend to try next.",
+    "launched_on": "2026-10-24",
+    "launch": "../prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/launch.json",
+    "trial_settings": "../prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/settings.json"
   }
 }
