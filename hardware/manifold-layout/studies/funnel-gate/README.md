@@ -95,6 +95,24 @@ pump by 6.83 mm and CO₂ check by 1.05 mm. The inlet elbow clears the pump by
 1.85 mm; the new drop clears its inlet TPU elbow by 13.84 mm. Meter pigtail
 and core-roof retention detail remain pending.
 
+### Tube insulation
+
+One 15 mm square-cut sleeve of the owned CARGEN pipe foam covers the middle
+of the vertical soda tube at X50, Y354.3696, Z264.5..279.5 mm. Its nominal
+6.35 mm bore and 9.525 mm wall give 25.4 mm outside diameter. A straight
+longitudinal slit allows installation around the connected tube; close the
+slit with the existing foil tape. No shaped relief, printed retainer or
+component movement is needed. The lower 11.1 mm and upper 7.826 mm of the
+33.926 mm exposed tube remain bare. The meter outlet join has no exposed tube.
+The meter and fitting bodies remain bare.
+
+[tube_insulation.py](tube_insulation.py) owns the cut-stock envelope and manual
+query; [tube-insulation-review.json](tube-insulation-review.json) records its
+isolated exterior fit. The native envelope is in
+[parts/soda-rise-insulation.step](parts/soda-rise-insulation.step). Stock foam
+dimensions are nominal; the model does not establish thermal performance.
+Production mounts and complete wiring retain their separate scope.
+
 ## PCB access and fit
 
 The board footprint is X−83..−10.200 and Y186.387..277.203 mm, with underside
