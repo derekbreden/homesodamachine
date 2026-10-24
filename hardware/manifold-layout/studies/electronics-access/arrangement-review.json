@@ -52,12 +52,12 @@
   },
   "study_meshes_sha256": {
     "parts/access-back-wall.npz": "006d7b4f5165e6112eb6e60fb611a420d95971d7dfa886ccf332683a2c84f6ea",
-    "parts/access-fixed-ceiling.npz": "557e139753cc2e41ee35c9a57e38d5cd8f1657cf498a2a00f754242fd662848e",
+    "parts/access-fixed-ceiling.npz": "80b3a2d9aff5db0fc519ebd28f0051c4521eddefca6708b7eaccb3b75062441c",
     "parts/electronics-access-panel.npz": "2715a2c9629e2d6e26d78628a416d02cd4e43f0755a1117d14588d1f4ea1b181",
     "parts/panel-boss-0.npz": "96651d051c834c3d893d98aab4829300772b4ae8459c5f5ad0387d6cdcaaa2d7",
-    "parts/panel-boss-1.npz": "cf36d005fb0c13b965cce8c1a5d4d50a90f59a1d8b8864c27577fef4a3cd0659",
+    "parts/panel-boss-1.npz": "2250dc62b6265e3dc2858240f48b924a3ae95658697df4c974f401bd20210cf9",
     "parts/panel-boss-2.npz": "24f57fb13e625a5e0b32132b4967c1aacec3020e19cfbe617b36261cab328578",
-    "parts/panel-boss-3.npz": "8540b73d84bdb820e65a66d9096874f9b86ffd44e984888cceee4a54594335e0",
+    "parts/panel-boss-3.npz": "b6e8c4c89fcd672f2b52245f6a445f70ee584f898ab954caaeb8c249b7781b4e",
     "parts/panel-insert-rx-m3x5p7.npz": "24a9e87681e2bc801573fa9d715dd46ab79ed2bb905ea8d9a9d5f88b50f85ffd",
     "parts/panel-screw-m3x12.npz": "07d099c4d2a4db6d8b78d6f6dbf2e14450ecd4aa2248b7e7872b01a7fb68a909",
     "parts/section-frame.npz": "3d4f498559412ac46da4f600698584304fdf463d70dfeaf08180e74c19c3627d",
@@ -65,5 +65,5 @@
     "parts/section-panel.npz": "54fa44c68ed95dd2f832d5193c55ab6d6bdcd947e6a4bd37d74b0a63be1dab19",
     "parts/section-screw.npz": "29155e892c6338f7e06ba200b5fde6da7571bd379363f42d5149bdb6640fc906"
   },
-  "input_scene_sha256": "2c59b2418e63c1a29320912fef4bc73537f3174377884bf2bacc9352200da1b1"
+  "input_scene_sha256": "cd8490453feae247145f8d87cf10a3f8d663681f637cd4cf35baa0a4e88f1087"
 }

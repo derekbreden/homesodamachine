@@ -110,12 +110,18 @@ def main():
     wall=back_wall(plan);boss_shapes=[];attachments=[]
     for index,(x,y) in enumerate(f['centres_xy_mm']):
         front=y<(p['ymin']+p['ymax'])/2
+        east=x>(p['xmin']+p['xmax'])/2
+        # The east pair rely on their broad fore/aft roots. Their +X faces
+        # stop at the aperture edge; only the west pair extend into a wall.
+        x0=x-half;x1=opening['xmax'] if east else x+half
         y0=opening['ymin']-root if front else y-reach
         y1=y+reach if front else opening['ymax']+root
-        boss=box(x-half,x+half,y0,y1,f['boss_bottom_z_mm'],p['zmax']).cut(panel_void)
+        boss=box(x0,x1,y0,y1,f['boss_bottom_z_mm'],p['zmax']).cut(panel_void)
         boss=boss.cut(cylinder(f['pilot_diameter_mm']/2,x,y,
             f['bearing_z_mm']-f['pilot_depth_mm'],f['bearing_z_mm']+.1)).clean()
         attachments.append({'boss':index,'root_edge':'front' if front else 'rear',
+            'x_bounds_mm':[x0,x1],
+            'side_attachment':'None; flush +X face' if east else 'Into −X wall',
             'roof_root_depth_mm':root,
             'fixed_roof_volume_overlap_mm3':max(0.,boss.intersect(bare_roof).Volume()),
             'rear_wall_volume_overlap_mm3':max(0.,boss.intersect(wall).Volume())})
@@ -143,7 +149,7 @@ def main():
         'scope':plan['scope'],'source_plan_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),
         'valid_single_solids':{name:shape.isValid() and len(shape.Solids())==1 for name,shape in parts.items()},
         'panel_size_mm':[p['xmax']-p['xmin'],p['ymax']-p['ymin'],p['zmax']-p['zmin']],
-        'panel_bearing':'Four discrete heatset bosses, each 18 mm wide with a 9 mm root into the fixed roof; no perimeter rim',
+        'panel_bearing':'Four discrete bosses with 9 mm fore/aft roof roots; −X pair join the wall, +X pair have flush sides; no perimeter rim',
         'boss_centres_xy_mm':f['centres_xy_mm'],
         'boss_attachments':attachments,
         'fastener_stack_mm':{'head_bearing_z':f['counterbore_floor_z_mm'],

@@ -50,6 +50,6 @@
   },
   "illustrated_lift_mm": 70.0,
   "equipment_carried_by_panel": [],
-  "retention_detail": "Four discrete integral corner bosses are the panel's only bearing surfaces. Each boss has a 9 mm root into its adjacent fixed roof edge; the rear roots fill the rear-wall thickness. Four recessed M3x12 screws engage RX-M3x5.7 heatsets. No perimeter rim.",
+  "retention_detail": "Four discrete integral corner bosses are the panel's only bearing surfaces. Each boss has a 9 mm root into its adjacent front/rear fixed roof edge; the rear roots fill the rear-wall thickness. The −X pair connect into the sidewall. The +X pair stop flush at the aperture edge and attach through their front/rear roots. Four recessed M3x12 screws engage RX-M3x5.7 heatsets. No perimeter rim.",
   "assembly_purpose": "Connect the rear-wall C14 inlet to the cold-core-mounted Mean Well through the open electronics bay, then install the empty panel last."
 }
