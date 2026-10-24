@@ -37,9 +37,6 @@
         "tee-yb-target",
         "ya-stem-elbow",
         "yb-stem-elbow",
-        "ya-fold-inner",
-        "ya-fold-return",
-        "ya-concealed-link",
         "drain-outlet-stem"
       ]
     },
@@ -175,13 +172,21 @@
         "carbonator-fold",
         "check-carbonator"
       ]
+    },
+    {
+      "quadrant": "back-bottom",
+      "status": "proposed",
+      "basis": "Flow-meter placement above the pump; a carrier from the cold-core roof is proposed. Retention detail is pending placement review.",
+      "names": [
+        "digiten-flow"
+      ]
     }
   ],
   "boundary_handoffs": [
     {
       "carried_part": "va-ya-straight",
-      "other_part": "ya-fold-return",
-      "note": "Back-top V-A feed connects to the front-top Y-A fold"
+      "other_part": "ya-stem-elbow",
+      "note": "Back-top low V-A feed connects directly to front-top Y-A stem elbow"
     },
     {
       "carried_part": "drain-vb-east-link",

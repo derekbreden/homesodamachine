@@ -95,8 +95,8 @@
     "va-east-turn_to_pump": 0.19220997032116588,
     "va-east-turn_to_vk": 27.783258030536665,
     "va-east-turn_to_lower-pump-elbow": 4.044513686752829,
-    "va-ya-straight_to_pcba": 15.561429060505805,
-    "va-ya-straight_to_funnel-frame": 33.30858889648431,
+    "va-ya-straight_to_pcba": 31.169694117396432,
+    "va-ya-straight_to_funnel-frame": 20.00479389648433,
     "reg_to_ceiling": 1.123952119463695
   },
   "under_head_tube_to_plain_core_mm": 5.025000000000006,
@@ -107,21 +107,27 @@
     "vb-core-support_to_funnel": 26.624941233478918,
     "vb-core-support_to_pcba": 44.199981689453125,
     "vb-core-support_to_funnel-frame": 11.51372321086147,
-    "vb-outlet-return_to_pump": 1.2738511916710602,
-    "vb-outlet-return_to_vb-core-support": 1.383196759895604,
-    "vb-outlet-stem_to_right-wall": 0.9068537395450065,
+    "vb-outlet-return_to_pump": 1.2738387763912773,
+    "vb-outlet-return_to_vb-core-support": 0.5445307774918007,
+    "vb-outlet-stem_to_right-wall": 0.645232551335063,
     "drain-outlet-stem_to_funnel-drain-cradle": 0.7642188879394496,
-    "vb-yb-link_to_ya-fold-inner": 0.8274383505172839,
-    "vb-yb-link_to_ya-stem-elbow": 1.4345233527174355,
+    "drain-vb-east-link_to_vb-yb-link": 0.3941814181521625,
+    "drain-outlet-stem_to_ya-stem-elbow": 1.166750694159055,
+    "va-ya-straight_to_vb-inlet-turn": 0.7281969908646024,
+    "va-ya-straight_to_drain-vb-east-link": 1.8014265344067397,
+    "vb-yb-link_to_ya-stem-elbow": 3.549200147800091,
     "vb-yb-link_to_funnel-drain-cradle": 4.43396842340638,
-    "vb-yb-link_to_funnel-frame": 7.731930000180682,
-    "vb-yb-link_to_va-ya-straight": 15.568130432203937,
+    "vb-yb-link_to_funnel-frame": 5.709304100531085,
+    "vb-yb-link_to_va-ya-straight": 8.067516595704488,
     "vb-yb-link_to_pcba": 28.403492991520007,
-    "ya-fold-return_to_funnel-drain-cradle": 7.29291724763267,
     "ya-stem-elbow_to_funnel-drain-cradle": 0.6643452639749938,
     "yb-stem-elbow_to_funnel-drain-cradle": 0.6643452639749938,
-    "va-ya-straight_to_pcba": 15.561429060505805,
-    "va-ya-straight_to_funnel-drain-cradle": 2.525502542608463
+    "va-ya-straight_to_pcba": 31.169694117396432,
+    "va-ya-straight_to_funnel-drain-cradle": 4.43396842340638,
+    "digiten-flow_to_pump": 4.569341748393542,
+    "digiten-flow_to_asse": 9.979172975221447,
+    "digiten-flow_to_psu": 48.949463640495,
+    "digiten-flow_to_ceiling": 1.0000003814697038
   },
   "vb_bounds_mm": [
     [
@@ -149,10 +155,10 @@
   ],
   "vb_body_to_plain_core_mm": 10.259999221419747,
   "funnel_route_minimum_radii_mm": {
-    "va": 53.91318706446771,
-    "vb": 20.912130282788134
+    "va": 27.15553541413927,
+    "vb": 21.16580048412382
   },
-  "vb_exposed_tube_length_mm": 208.80224260213737,
+  "vb_exposed_tube_length_mm": 210.46553234138034,
   "pcb_bounds_mm": [
     [
       -83.0,
@@ -165,6 +171,30 @@
       276.1000061035156
     ]
   ],
+  "flow_meter_bounds_mm": [
+    [
+      -9.149999618530273,
+      381.5,
+      316.70000038146975
+    ],
+    [
+      26.5,
+      442.5,
+      344.9999996185303
+    ]
+  ],
+  "flow_meter_ports_mm": {
+    "inlet": [
+      0.0,
+      381.5,
+      326.1
+    ],
+    "outlet": [
+      0.0,
+      442.5,
+      326.1
+    ]
+  },
   "pcb_jst_service": {
     "scope": "Nominal 6 mm axial JST withdrawal and 30 mm vertical columns above housing outlines, with roof removed. Does not model fingers or complete harness manipulation.",
     "service_order": "JST withdrawal is evaluated with the funnel/frame installed; only the roof is removed for vertical headroom",

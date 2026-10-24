@@ -63,7 +63,7 @@ def main():
                            compresslevel=9, mtime=0)
     text = (HERE / 'viewer.html').read_text().replace('<!-- ARRANGEMENT_DATA -->',
         '<script id="qa-data" type="application/octet-stream">' +
-        base64.b64encode(packed).decode() + '</script>')
+        base64.b85encode(packed).decode() + '</script>')
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(text)
     print(json.dumps({'output': str(args.output), 'bytes': len(text.encode()),

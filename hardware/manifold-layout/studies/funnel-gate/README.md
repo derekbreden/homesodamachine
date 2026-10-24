@@ -12,18 +12,19 @@ V-B lies square on its side, head east and flow aft. Its native origin is
 `(38,241.92153,280.41)` mm. Its body occupies X38..95.30,
 Y212.172..271.672 and Z263.66..297.16 mm. The funnel drain turns east, then
 aft directly into V-B. Two nested stem elbows reverse its outlet toward the
-front, west of its mounting wall. Their fold plane rises 20 degrees; the
+front, west of its mounting wall. Their fold plane rises 25 degrees; the
 valve stays aligned with the enclosure axes. The return follows one straight
 fore run and a formed U into Y-B. Five added elbows connect the B chain;
-exposed tubing totals 208.80 mm. The U has a minimum modeled centerline
-radius of 20.91 mm. No route crosses above the west PCB.
+exposed tubing totals 210.47 mm. The U has a minimum modeled centerline
+radius of 21.17 mm. The two feed fittings clock their transverse arms upward
+10 degrees; the short joining tube rises between their mouths. No route crosses above the west PCB.
 
-V-A's fore tube runs directly from the under-head elbow to Y-A's compact
-return. Y-A has a stem elbow, a union on a concealed tube and a returning stem
-elbow. The union-to-stem fold drops 30 degrees. The two Y-tee stem outlets face
-fore, clocked 7.5 degrees outward to clear the retained drain cradle by 0.66 mm.
-The V-A fore tube has a minimum modeled centerline radius of 53.91 mm and
-15.56 mm to the board.
+V-A has one continuous low tube and one stem elbow at Y-A. The elbow faces
+aft, clocked 7.5 degrees east. The tube stays low and west of V-B's mounting
+wall before rising into Y-A; its two tangent spans have a minimum modeled
+centerline radius of 27.16 mm. Y-B's stem faces fore, clocked 7.5 degrees west.
+Both stems clear the retained drain cradle by 0.66 mm. V-A's tube clears the
+board by 31.17 mm. The high B return passes above the low A feed.
 
 [route.json](route.json) records every fitting pose, tube centerline and
 insertion assumption. The drain stem is 19.006 mm long, with 3.306 mm exposed
@@ -57,18 +58,33 @@ housings. The north/south gaps to V-A's support and the core's fore edge are
 4.087 mm each. Normal local lead estimates travel with the board.
 
 The [manual fit report](fit-report.json) has no unrelated solid-body or local
-lead intersections. V-B clears the funnel frame by 10.39 mm. The nested outlet
-clears the pump by 1.27 mm and its mounting wall by 1.38 mm. The return tube
-passes Y-A's union by 0.83 mm; the outlet elbow clears the native right wall
-by 0.91 mm. The shortened drain stem clears the cradle by 0.76 mm. These are
-nominal mesh gaps, with purchased-part dimensions and socket depths partly
-estimated.
+lead intersections. V-B clears the funnel frame by 10.39 mm. Its nested outlet
+clears the pump by 1.27 mm and its wall by 0.54 mm. The low A tube clears the
+B inlet union by 0.73 mm; the A and B feed elbows clear by 1.17 mm. The raised
+B feed tube passes its high return by 0.39 mm. These are nominal mesh gaps,
+with purchased-part dimensions and socket depths partly estimated.
 
 All ten 6 mm JST housing withdrawal sweeps and all ten 30 mm vertical columns
 above the housing outlines clear with the funnel/frame installed and the roof
 removed. These are nominal housing/access envelopes; finger reach and complete
 harness manipulation are not modeled. Local leads are suppressed in the viewer;
 installed mating housings remain visible.
+
+## Flow-meter placement candidate
+
+The [measured DIGITEN reference](../../../reference/digiten-flow-sensor/README.md)
+sits above the pump, aft of the ASSE, with its label up and port axis fore–aft.
+Its native origin is `(0,412,326.1)` mm. The exterior occupies
+X−9.15..26.50, Y381.50..442.50 and Z316.70..345.00 mm. Its nominal inlet is
+at `(0,381.5,326.1)` and outlet at `(0,442.5,326.1)` mm, using the reference's
+port convention. This candidate clears the pump by 4.57 mm, ASSE by 9.98 mm
+and the ordinary ceiling underside by 1 mm. It requires no roof relief at
+this pose.
+
+[The frozen mesh source record](parts/digiten-flow.source.json) identifies its
+reference and source hashes. Placement is open for review. A back-bottom
+carrier from the cold-core roof is proposed; retaining details and complete
+carbonated-water connections are pending. The flexible pigtail is omitted.
 
 ## Arrangement highlighting
 
@@ -80,7 +96,8 @@ the roof is hidden for interior inspection.
 [assembly-ownership.json](assembly-ownership.json) follows mounting parents.
 The funnel/frame, drain and Y-A/Y-B fittings belong to front-top. Walls,
 V-A/V-K, relays and rear fittings belong to back-top. Cold-core equipment,
-V-B and its wall, the PCB, pump and Mean Well belong to back-bottom. No
+V-B and its wall, the PCB, pump and Mean Well belong to back-bottom. The
+flow-meter carrier is proposed as back-bottom. No
 front-bottom equipment is represented in this above-core scene. Part details
 identify attachment bases and unfinished production integration.
 

@@ -7,7 +7,10 @@ on the core roof east of the PCB, against an upright socket wall carried by
 back-bottom. The funnel drain feeds it through an east/aft turn; nested stem
 elbows return its outlet fore into a formed U to Y-B. V-A routes under the
 pump head, through the flat union elbow
-between the pump and V-K, then directly fore to Y-A's compact return.
+between the pump and V-K, then low and fore into Y-A's single stem elbow.
+The B feed fittings clock up 10 degrees, with their return passing high.
+The measured DIGITEN flow-meter candidate sits aft of the ASSE above the pump,
+label up and ports fore–aft.
 The PCB lies west, long dimension fore–aft, with open space above its JSTs.
 The purchased YZMSZ native push-connect regulator estimate is the working choice.
 Its [native sidewalls](wall-supported/README.md) include
