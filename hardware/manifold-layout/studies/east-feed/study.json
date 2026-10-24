@@ -1,0 +1,4695 @@
+{
+  "id": "east-feed",
+  "instances": [
+    {
+      "name": "asse",
+      "geometry": "asse",
+      "translation": [
+        74.14625626622687,
+        280.0349605281867,
+        235.8136578805363
+      ],
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "label": "ASSE 1022 \u00b7 directly over pump \u00b7 orientation preserved",
+      "role": "neutral",
+      "kind": "component"
+    },
+    {
+      "name": "asse-inlet-tpu",
+      "geometry": "asse-inlet-tpu",
+      "translation": [
+        74.14625626622687,
+        280.0349605281867,
+        235.8136578805363
+      ],
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "label": "Proposed straight TPU inlet adapter \u00b7 ASSE",
+      "role": "custom",
+      "kind": "adapter"
+    },
+    {
+      "name": "asse-outlet-tpu",
+      "geometry": "asse-outlet-tpu",
+      "translation": [
+        74.14625626622687,
+        280.0349605281867,
+        235.8136578805363
+      ],
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "label": "Proposed straight TPU outlet adapter \u00b7 ASSE",
+      "role": "custom",
+      "kind": "adapter"
+    },
+    {
+      "name": "tee",
+      "geometry": "neofit-branch-trimmed",
+      "translation": [
+        37.2499988712316,
+        296.3397605281867,
+        334.3760478805363
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "label": "NeoFit ATBU444-E branch stem into the ASSE TPU adapter \u00b7 stem trimmed, shoulder flush",
+      "role": "stem",
+      "kind": "component"
+    },
+    {
+      "name": "vk",
+      "geometry": "vk",
+      "translation": [
+        71.48796626622686,
+        296.3397605281867,
+        250.33084788053628
+      ],
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "label": "V-K \u00b7 original aft-facing head",
+      "role": "neutral",
+      "kind": "component"
+    },
+    {
+      "name": "reg",
+      "geometry": "reg",
+      "translation": [
+        60.29215626622687,
+        296.3397605281866,
+        235.8136578805363
+      ],
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "label": "Regulator \u00b7 head down, straight tube from tee",
+      "role": "neutral",
+      "kind": "component"
+    },
+    {
+      "name": "va",
+      "geometry": "vk",
+      "translation": [
+        -81.32023373377311,
+        296.3397605281867,
+        250.33084788053628
+      ],
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "label": "V-A \u00b7 original aft-facing head",
+      "role": "neutral",
+      "kind": "component"
+    },
+    {
+      "name": "pump-sliding-foot",
+      "geometry": "pump-sliding-foot",
+      "translation": [
+        46.392766266226865,
+        359.64701731402886,
+        280.1243083075118
+      ],
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "label": "Discharge-side rear rubber slider \u00b7 reference position on its rail",
+      "role": "neutral",
+      "kind": "component"
+    },
+    {
+      "name": "pump",
+      "geometry": "pump",
+      "translation": [
+        46.392766266226865,
+        329.64701731402886,
+        280.1243083075118
+      ],
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "label": "G Ganen pump \u00b7 discharge \u2212X, motor toward back wall +Y",
+      "role": "neutral",
+      "kind": "component"
+    },
+    {
+      "name": "vent-sleeve",
+      "geometry": "vent-sleeve",
+      "translation": [
+        74.14625626622687,
+        280.0349605281867,
+        235.8136578805363
+      ],
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "label": "Straight ASSE vent adapter",
+      "role": "custom",
+      "kind": "adapter"
+    },
+    {
+      "name": "water-in",
+      "geometry": "fold-water-link",
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "label": "Water bulkhead to ASSE \u00b7 straight inlet tube",
+      "role": "carbonator",
+      "kind": "tube"
+    },
+    {
+      "name": "pump-inlet-tpu",
+      "geometry": "pump-inlet-tpu",
+      "translation": [
+        46.392766266226865,
+        329.64701731402886,
+        280.1243083075118
+      ],
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.4617486132350338,
+          -0.8870108331782218
+        ],
+        [
+          0.0,
+          -0.8870108331782218,
+          -0.4617486132350338
+        ]
+      ],
+      "label": "Existing pump TPU elbow \u00b7 clocked 27.5\u00b0 below horizontal",
+      "role": "custom",
+      "kind": "adapter"
+    },
+    {
+      "name": "pump-inlet-barb-band",
+      "geometry": "pump-inlet-barb-band",
+      "translation": [
+        46.392766266226865,
+        329.64701731402886,
+        280.1243083075118
+      ],
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.4617486132350338,
+          -0.8870108331782218
+        ],
+        [
+          0.0,
+          -0.8870108331782218,
+          -0.4617486132350338
+        ]
+      ],
+      "label": "Pump inlet barb band",
+      "role": "neutral",
+      "kind": "clamp"
+    },
+    {
+      "name": "pump-inlet-tube-band",
+      "geometry": "pump-inlet-tube-band",
+      "translation": [
+        46.392766266226865,
+        329.64701731402886,
+        280.1243083075118
+      ],
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.4617486132350338,
+          -0.8870108331782218
+        ],
+        [
+          0.0,
+          -0.8870108331782218,
+          -0.4617486132350338
+        ]
+      ],
+      "label": "Pump inlet tube band",
+      "role": "neutral",
+      "kind": "clamp"
+    },
+    {
+      "name": "pump-outlet-tpu",
+      "geometry": "pump-outlet-tpu",
+      "translation": [
+        46.392766266226865,
+        329.64701731402886,
+        280.1243083075118
+      ],
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "label": "Existing printed TPU pump outlet elbow \u00b7 direct 90-degree turn",
+      "role": "custom",
+      "kind": "adapter"
+    },
+    {
+      "name": "pump-outlet-barb-band",
+      "geometry": "pump-outlet-barb-band",
+      "translation": [
+        46.392766266226865,
+        329.64701731402886,
+        280.1243083075118
+      ],
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "label": "Pump outlet barb band",
+      "role": "neutral",
+      "kind": "clamp"
+    },
+    {
+      "name": "pump-outlet-tube-band",
+      "geometry": "pump-outlet-tube-band",
+      "translation": [
+        46.392766266226865,
+        329.64701731402886,
+        280.1243083075118
+      ],
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "label": "Pump outlet tube band",
+      "role": "neutral",
+      "kind": "clamp"
+    },
+    {
+      "name": "check",
+      "geometry": "check",
+      "translation": [
+        46.392766266226865,
+        329.64701731402886,
+        280.1243083075118
+      ],
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "label": "Single check \u00b7 axis Y, flow toward \u2212Y",
+      "role": "neutral",
+      "kind": "component"
+    },
+    {
+      "name": "carbonator-fold",
+      "geometry": "stem-elbow-trimmed",
+      "translation": [
+        -32.80179966121266,
+        405.2216823686537,
+        280.16882837176047
+      ],
+      "rotation": [
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          -1,
+          0
+        ]
+      ],
+      "label": "NeoFit stem elbow directly into check outlet \u00b7 stem trimmed, shoulder flush",
+      "role": "stem",
+      "kind": "elbow"
+    },
+    {
+      "name": "check-carbonator",
+      "geometry": "carbonator-to-cap",
+      "translation": [
+        46.392766266226865,
+        315.1298273140289,
+        281.6366983075118
+      ],
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "label": "To carbonator \u00b7 direction stub to cap face",
+      "role": "carbonator",
+      "kind": "tube"
+    },
+    {
+      "name": "tee-fold",
+      "geometry": "stem-elbow-trimmed",
+      "translation": [
+        76.40409887123158,
+        296.3397605281867,
+        334.3760478805363
+      ],
+      "rotation": [
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "label": "NeoFit stem elbow directly into V-K \u00b7 stem trimmed, shoulder flush",
+      "role": "stem",
+      "kind": "elbow"
+    },
+    {
+      "name": "lower-valve-elbow",
+      "geometry": "stem-elbow-trimmed",
+      "translation": [
+        76.40409887123158,
+        296.3397605281867,
+        262.78564788053626
+      ],
+      "rotation": [
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "role": "stem",
+      "kind": "elbow",
+      "label": "Valve-side stem elbow \u00b7 directly into V-K"
+    },
+    {
+      "name": "lower-pump-elbow",
+      "geometry": "stacked-elbow",
+      "translation": [
+        51.30889887123159,
+        296.3397605281866,
+        262.78564788053626
+      ],
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.8870108331782217,
+          0.4617486132350339
+        ],
+        [
+          0.0,
+          0.4617486132350339,
+          -0.8870108331782217
+        ]
+      ],
+      "role": "stem",
+      "kind": "elbow",
+      "label": "Pump-side stem elbow \u00b7 stem plugs into the other elbow"
+    },
+    {
+      "name": "tee-regulator-tube",
+      "geometry": "tee-regulator-tube",
+      "translation": [
+        17.145898871231594,
+        296.3397605281867,
+        334.3760478805363
+      ],
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "role": "flavor",
+      "kind": "tube",
+      "label": "Straight 1/4-inch tube \u00b7 15 mm exposed between tee and regulator"
+    },
+    {
+      "name": "reg-va-elbow",
+      "geometry": "stem-elbow-trimmed",
+      "translation": [
+        -76.40410112876839,
+        296.3397605281867,
+        334.3760478805363
+      ],
+      "rotation": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          0
+        ]
+      ],
+      "role": "stem",
+      "kind": "elbow",
+      "label": "Regulator\u2013V-A \u00b7 one flush stem elbow \u00b7 stem into VA"
+    },
+    {
+      "name": "va-outlet-elbow",
+      "geometry": "stem-elbow-trimmed",
+      "translation": [
+        -76.40410112876839,
+        296.3397605281867,
+        262.7856478805363
+      ],
+      "rotation": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "role": "stem",
+      "kind": "elbow",
+      "label": "V-A outlet \u00b7 stem elbow points east (+X)"
+    },
+    {
+      "name": "va-flavor",
+      "geometry": "va-to-ya",
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "role": "flavor",
+      "kind": "tube",
+      "label": "V-A \u2192 Y-A \u00b7 east around pump, fore beside PCB, down into tee"
+    },
+    {
+      "name": "funnel",
+      "geometry": "funnel",
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "role": "neutral",
+      "kind": "component",
+      "context": true,
+      "label": "Current silicone funnel \u00b7 existing world pose"
+    },
+    {
+      "name": "funnel-frame",
+      "geometry": "funnel-frame",
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "role": "neutral",
+      "kind": "component",
+      "context": true,
+      "label": "Current funnel frame \u00b7 existing world pose"
+    },
+    {
+      "name": "bulkhead-water",
+      "geometry": "bulkhead-water",
+      "translation": [
+        115.31999887123159,
+        0.0,
+        2.1654670429795146
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "center_x_mm": 37.2499988712316,
+      "center_z_mm": 338.3760478805363,
+      "flange_seat_y_mm": 471.3,
+      "role": "wet",
+      "kind": "component",
+      "context": true,
+      "label": "Water in"
+    },
+    {
+      "name": "bulkhead-carb",
+      "geometry": "bulkhead-carb",
+      "translation": [
+        118.21,
+        0.0,
+        -29.834532957020485
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "center_x_mm": 77.5,
+      "center_z_mm": 306.3760478805363,
+      "flange_seat_y_mm": 471.3,
+      "role": "wet",
+      "kind": "component",
+      "context": true,
+      "label": "Soda out"
+    },
+    {
+      "name": "bulkhead-drain",
+      "geometry": "bulkhead-drain",
+      "translation": [
+        115.31999887123159,
+        0.0,
+        3.9737574617578844
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "center_x_mm": 37.2499988712316,
+      "center_z_mm": 306.3760478805363,
+      "flange_seat_y_mm": 471.3,
+      "role": "wet",
+      "kind": "component",
+      "context": true,
+      "label": "Faucet vent / drain"
+    },
+    {
+      "name": "co2-inlet",
+      "geometry": "co2-inlet",
+      "translation": [
+        80.85,
+        0.0,
+        2.4154670429795146
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "center_x_mm": 77.5,
+      "center_z_mm": 338.3760478805363,
+      "flange_seat_y_mm": 471.3,
+      "role": "gas",
+      "kind": "component",
+      "context": true,
+      "label": "CO2 in"
+    },
+    {
+      "name": "bulkhead-flavor-a",
+      "geometry": "bulkhead-flavor-a",
+      "translation": [
+        77.95999887123159,
+        0.0,
+        5.352047880536304
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "center_x_mm": 37.2499988712316,
+      "center_z_mm": 274.3760478805363,
+      "flange_seat_y_mm": 471.3,
+      "role": "wet",
+      "kind": "component",
+      "context": true,
+      "label": "Flavor A"
+    },
+    {
+      "name": "bulkhead-flavor-b",
+      "geometry": "bulkhead-flavor-b",
+      "translation": [
+        155.57,
+        0.0,
+        5.352047880536304
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "center_x_mm": 77.5,
+      "center_z_mm": 274.3760478805363,
+      "flange_seat_y_mm": 471.3,
+      "role": "wet",
+      "kind": "component",
+      "context": true,
+      "label": "Flavor B"
+    },
+    {
+      "name": "psu",
+      "geometry": "psu",
+      "rotation": [
+        [
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        -349.3999938964844,
+        -4.79998779296875,
+        351.65
+      ],
+      "role": "electronics",
+      "kind": "component",
+      "context": true,
+      "label": "Mean Well \u00b7 flat, AC aft"
+    },
+    {
+      "name": "relay-1",
+      "geometry": "relay-1",
+      "rotation": [
+        [
+          -1,
+          0,
+          0
+        ],
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "translation": [
+        1.75,
+        689.8,
+        -34.7
+      ],
+      "role": "electronics",
+      "kind": "component",
+      "context": true,
+      "label": "Compressor relay \u00b7 dry wall \u00b7 terminals aft"
+    },
+    {
+      "name": "relay-2",
+      "geometry": "relay-2",
+      "rotation": [
+        [
+          -1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          0,
+          -1,
+          0
+        ]
+      ],
+      "translation": [
+        1.75,
+        686.4,
+        666.3
+      ],
+      "role": "electronics",
+      "kind": "component",
+      "context": true,
+      "label": "Water-pump relay \u00b7 dry wall \u00b7 terminals aft"
+    },
+    {
+      "name": "c14-inlet",
+      "geometry": "c14-inlet",
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation": [
+        -135.4,
+        10.09,
+        -6.21058083755679
+      ],
+      "role": "electronics",
+      "kind": "component",
+      "context": true,
+      "label": "C14 \u00b7 horizontal \u00b7 balanced upper dry corner"
+    },
+    {
+      "name": "keystone-jack",
+      "geometry": "keystone-jack",
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation": [
+        10.71,
+        3.52,
+        -28.026242538242116
+      ],
+      "role": "electronics",
+      "kind": "component",
+      "context": true,
+      "label": "RJ11 \u00b7 low beside the umbilical \u00b7 flush snap-in receptacle"
+    },
+    {
+      "name": "pcba",
+      "geometry": "pcba",
+      "rotation": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "translation": [
+        -328.9839324951172,
+        508.20001220703125,
+        353.25
+      ],
+      "role": "electronics",
+      "kind": "component",
+      "context": true,
+      "label": "Main PCB \u00b7 west \u00b7 long dimension across X \u00b7 J10 faces east"
+    },
+    {
+      "name": "left-wall",
+      "geometry": "left-wall",
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "role": "structure",
+      "kind": "component",
+      "context": true,
+      "label": "Dry wall \u00b7 integral relay mounts and V-A support"
+    },
+    {
+      "name": "right-wall",
+      "geometry": "right-wall",
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "role": "structure",
+      "kind": "component",
+      "context": true,
+      "label": "Wet wall \u00b7 integral V-K support"
+    },
+    {
+      "name": "back-wall",
+      "geometry": "back-wall",
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "role": "structure",
+      "kind": "component",
+      "context": true,
+      "label": "Rear wall \u00b7 upper horizontal C14 and low RJ11 receptacle"
+    },
+    {
+      "name": "ceiling",
+      "geometry": "ceiling",
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "role": "structure",
+      "kind": "component",
+      "context": true,
+      "label": "Ceiling \u00b7 9 mm stock over electronics \u00b7 3 mm over ASSE / regulator"
+    },
+    {
+      "name": "terminal-J1",
+      "geometry": "connection-J1-plug",
+      "kind": "component",
+      "role": "plug",
+      "label": "J1 \u00b7 XHP-9 mating housing",
+      "rotation": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "translation": [
+        -328.9839324951172,
+        508.20001220703125,
+        353.25
+      ],
+      "context": true,
+      "connection_owner": "pcba"
+    },
+    {
+      "name": "local-lead-J1",
+      "geometry": "connection-J1-wire-edge",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J1 \u00b7 local edgeward wire departure",
+      "rotation": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "translation": [
+        -328.9839324951172,
+        508.20001220703125,
+        353.25
+      ],
+      "context": true,
+      "connection_owner": "pcba",
+      "display_suppressed": true
+    },
+    {
+      "name": "terminal-J11",
+      "geometry": "connection-J11-plug",
+      "kind": "component",
+      "role": "plug",
+      "label": "J11 \u00b7 XHP-4 mating housing",
+      "rotation": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "translation": [
+        -328.9839324951172,
+        508.20001220703125,
+        353.25
+      ],
+      "context": true,
+      "connection_owner": "pcba"
+    },
+    {
+      "name": "local-lead-J11",
+      "geometry": "connection-J11-wire-edge",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J11 \u00b7 local edgeward wire departure",
+      "rotation": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "translation": [
+        -328.9839324951172,
+        508.20001220703125,
+        353.25
+      ],
+      "context": true,
+      "connection_owner": "pcba",
+      "display_suppressed": true
+    },
+    {
+      "name": "terminal-J13",
+      "geometry": "connection-J13-plug",
+      "kind": "component",
+      "role": "plug",
+      "label": "J13 \u00b7 XHP-4 mating housing",
+      "rotation": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "translation": [
+        -328.9839324951172,
+        508.20001220703125,
+        353.25
+      ],
+      "context": true,
+      "connection_owner": "pcba"
+    },
+    {
+      "name": "local-lead-J13",
+      "geometry": "connection-J13-wire-edge",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J13 \u00b7 local edgeward wire departure",
+      "rotation": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "translation": [
+        -328.9839324951172,
+        508.20001220703125,
+        353.25
+      ],
+      "context": true,
+      "connection_owner": "pcba",
+      "display_suppressed": true
+    },
+    {
+      "name": "terminal-J2",
+      "geometry": "connection-J2-plug",
+      "kind": "component",
+      "role": "plug",
+      "label": "J2 \u00b7 XHP-6 mating housing",
+      "rotation": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "translation": [
+        -328.9839324951172,
+        508.20001220703125,
+        353.25
+      ],
+      "context": true,
+      "connection_owner": "pcba"
+    },
+    {
+      "name": "local-lead-J2",
+      "geometry": "connection-J2-wire-edge",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J2 \u00b7 local edgeward wire departure",
+      "rotation": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "translation": [
+        -328.9839324951172,
+        508.20001220703125,
+        353.25
+      ],
+      "context": true,
+      "connection_owner": "pcba",
+      "display_suppressed": true
+    },
+    {
+      "name": "terminal-J3",
+      "geometry": "connection-J3-plug",
+      "kind": "component",
+      "role": "plug",
+      "label": "J3 \u00b7 XHP-4 mating housing",
+      "rotation": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "translation": [
+        -328.9839324951172,
+        508.20001220703125,
+        353.25
+      ],
+      "context": true,
+      "connection_owner": "pcba"
+    },
+    {
+      "name": "local-lead-J3",
+      "geometry": "connection-J3-wire-edge",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J3 \u00b7 local edgeward wire departure",
+      "rotation": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "translation": [
+        -328.9839324951172,
+        508.20001220703125,
+        353.25
+      ],
+      "context": true,
+      "connection_owner": "pcba",
+      "display_suppressed": true
+    },
+    {
+      "name": "terminal-J4",
+      "geometry": "connection-J4-plug",
+      "kind": "component",
+      "role": "plug",
+      "label": "J4 \u00b7 XHP-7 mating housing",
+      "rotation": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "translation": [
+        -328.9839324951172,
+        508.20001220703125,
+        353.25
+      ],
+      "context": true,
+      "connection_owner": "pcba"
+    },
+    {
+      "name": "local-lead-J4",
+      "geometry": "connection-J4-wire-edge",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J4 \u00b7 local edgeward wire departure",
+      "rotation": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "translation": [
+        -328.9839324951172,
+        508.20001220703125,
+        353.25
+      ],
+      "context": true,
+      "connection_owner": "pcba",
+      "display_suppressed": true
+    },
+    {
+      "name": "terminal-J5",
+      "geometry": "connection-J5-plug",
+      "kind": "component",
+      "role": "plug",
+      "label": "J5 \u00b7 XHP-4 mating housing",
+      "rotation": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "translation": [
+        -328.9839324951172,
+        508.20001220703125,
+        353.25
+      ],
+      "context": true,
+      "connection_owner": "pcba"
+    },
+    {
+      "name": "local-lead-J5",
+      "geometry": "connection-J5-wire-edge",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J5 \u00b7 local edgeward wire departure",
+      "rotation": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "translation": [
+        -328.9839324951172,
+        508.20001220703125,
+        353.25
+      ],
+      "context": true,
+      "connection_owner": "pcba",
+      "display_suppressed": true
+    },
+    {
+      "name": "terminal-J6",
+      "geometry": "connection-J6-plug",
+      "kind": "component",
+      "role": "plug",
+      "label": "J6 \u00b7 XHP-5 mating housing",
+      "rotation": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "translation": [
+        -328.9839324951172,
+        508.20001220703125,
+        353.25
+      ],
+      "context": true,
+      "connection_owner": "pcba"
+    },
+    {
+      "name": "local-lead-J6",
+      "geometry": "connection-J6-wire-edge",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J6 \u00b7 local edgeward wire departure",
+      "rotation": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "translation": [
+        -328.9839324951172,
+        508.20001220703125,
+        353.25
+      ],
+      "context": true,
+      "connection_owner": "pcba",
+      "display_suppressed": true
+    },
+    {
+      "name": "terminal-J7",
+      "geometry": "connection-J7-plug",
+      "kind": "component",
+      "role": "plug",
+      "label": "J7 \u00b7 XHP-7 mating housing",
+      "rotation": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "translation": [
+        -328.9839324951172,
+        508.20001220703125,
+        353.25
+      ],
+      "context": true,
+      "connection_owner": "pcba"
+    },
+    {
+      "name": "local-lead-J7",
+      "geometry": "connection-J7-wire-edge",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J7 \u00b7 local edgeward wire departure",
+      "rotation": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "translation": [
+        -328.9839324951172,
+        508.20001220703125,
+        353.25
+      ],
+      "context": true,
+      "connection_owner": "pcba",
+      "display_suppressed": true
+    },
+    {
+      "name": "terminal-J9",
+      "geometry": "connection-J9-plug",
+      "kind": "component",
+      "role": "plug",
+      "label": "J9 \u00b7 XHP-4 mating housing",
+      "rotation": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "translation": [
+        -328.9839324951172,
+        508.20001220703125,
+        353.25
+      ],
+      "context": true,
+      "connection_owner": "pcba"
+    },
+    {
+      "name": "local-lead-J9",
+      "geometry": "connection-J9-wire-edge",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J9 \u00b7 local edgeward wire departure",
+      "rotation": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "translation": [
+        -328.9839324951172,
+        508.20001220703125,
+        353.25
+      ],
+      "context": true,
+      "connection_owner": "pcba",
+      "display_suppressed": true
+    },
+    {
+      "name": "local-lead-J10.GND",
+      "geometry": "connection-J10.GND-wire-straight",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J10.GND \u00b7 12 mm side-entry wire departure",
+      "rotation": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "translation": [
+        -328.9839324951172,
+        508.20001220703125,
+        353.25
+      ],
+      "context": true,
+      "connection_owner": "pcba",
+      "display_suppressed": true
+    },
+    {
+      "name": "local-lead-J10.V12",
+      "geometry": "connection-J10.V12-wire-straight",
+      "kind": "tube",
+      "role": "wire",
+      "label": "J10.V12 \u00b7 12 mm side-entry wire departure",
+      "rotation": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "translation": [
+        -328.9839324951172,
+        508.20001220703125,
+        353.25
+      ],
+      "context": true,
+      "connection_owner": "pcba",
+      "display_suppressed": true
+    },
+    {
+      "name": "local-lead-psu-AC-N",
+      "geometry": "connection-psu-AC-N-wire-bent",
+      "kind": "tube",
+      "role": "wire",
+      "label": "psu AC-N \u00b7 local terminal wire departure",
+      "rotation": [
+        [
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        -349.3999938964844,
+        -4.79998779296875,
+        351.65
+      ],
+      "context": true,
+      "connection_owner": "psu",
+      "display_suppressed": true
+    },
+    {
+      "name": "local-lead-psu-AC-L",
+      "geometry": "connection-psu-AC-L-wire-bent",
+      "kind": "tube",
+      "role": "wire",
+      "label": "psu AC-L \u00b7 local terminal wire departure",
+      "rotation": [
+        [
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        -349.3999938964844,
+        -4.79998779296875,
+        351.65
+      ],
+      "context": true,
+      "connection_owner": "psu",
+      "display_suppressed": true
+    },
+    {
+      "name": "local-lead-psu-DC-minus-2",
+      "geometry": "connection-psu-DC-minus-2-wire",
+      "kind": "tube",
+      "role": "wire",
+      "label": "psu DC-minus-2 \u00b7 local terminal wire departure",
+      "rotation": [
+        [
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        -349.3999938964844,
+        -4.79998779296875,
+        351.65
+      ],
+      "context": true,
+      "connection_owner": "psu",
+      "display_suppressed": true
+    },
+    {
+      "name": "local-lead-psu-DC-plus-1",
+      "geometry": "connection-psu-DC-plus-1-wire",
+      "kind": "tube",
+      "role": "wire",
+      "label": "psu DC-plus-1 \u00b7 local terminal wire departure",
+      "rotation": [
+        [
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        -349.3999938964844,
+        -4.79998779296875,
+        351.65
+      ],
+      "context": true,
+      "connection_owner": "psu",
+      "display_suppressed": true
+    },
+    {
+      "name": "bulkhead-water-nut",
+      "geometry": "bulkhead-water-nut",
+      "translation": [
+        0.0,
+        0.0,
+        4.0
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "role": "wet",
+      "kind": "component",
+      "context": true,
+      "label": "Water in \u00b7 bare retention nut"
+    },
+    {
+      "name": "co2-inlet-nut",
+      "geometry": "co2-inlet-nut",
+      "translation": [
+        0.0,
+        0.0,
+        4.0
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "role": "gas",
+      "kind": "component",
+      "context": true,
+      "label": "CO2 in \u00b7 bare retention nut"
+    },
+    {
+      "name": "bulkhead-drain-nut",
+      "geometry": "bulkhead-drain-nut",
+      "translation": [
+        0.0,
+        0.0,
+        4.0
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "role": "wet",
+      "kind": "component",
+      "context": true,
+      "label": "Faucet vent / drain \u00b7 bare retention nut"
+    },
+    {
+      "name": "bulkhead-drain-departure",
+      "geometry": "fold-drain-departure",
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "role": "wet",
+      "kind": "tube",
+      "context": true,
+      "label": "Vent/drain \u00b7 straight local departure; full route deferred"
+    },
+    {
+      "name": "bulkhead-carb-nut",
+      "geometry": "bulkhead-carb-nut",
+      "translation": [
+        0.0,
+        0.0,
+        4.0
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "role": "wet",
+      "kind": "component",
+      "context": true,
+      "label": "Soda out \u00b7 bare retention nut"
+    },
+    {
+      "name": "bulkhead-carb-departure",
+      "geometry": "fold-soda-departure",
+      "translation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "role": "wet",
+      "kind": "tube",
+      "context": true,
+      "label": "Soda \u00b7 local west departure from stem elbow"
+    },
+    {
+      "name": "bulkhead-flavor-a-nut",
+      "geometry": "bulkhead-flavor-a-nut",
+      "translation": [
+        0.0,
+        0.0,
+        4.0
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "role": "wet",
+      "kind": "component",
+      "context": true,
+      "label": "Flavor A \u00b7 bare retention nut"
+    },
+    {
+      "name": "bulkhead-flavor-a-departure",
+      "geometry": "bulkhead-flavor-a-departure",
+      "translation": [
+        0.0,
+        0.0,
+        4.0
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "role": "wet",
+      "kind": "tube",
+      "context": true,
+      "label": "Flavor A \u00b7 local departure only"
+    },
+    {
+      "name": "bulkhead-flavor-b-nut",
+      "geometry": "bulkhead-flavor-b-nut",
+      "translation": [
+        0.0,
+        0.0,
+        4.0
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "role": "wet",
+      "kind": "component",
+      "context": true,
+      "label": "Flavor B \u00b7 bare retention nut"
+    },
+    {
+      "name": "bulkhead-flavor-b-departure",
+      "geometry": "bulkhead-flavor-b-departure",
+      "translation": [
+        0.0,
+        0.0,
+        4.0
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "role": "wet",
+      "kind": "tube",
+      "context": true,
+      "label": "Flavor B \u00b7 local departure only"
+    },
+    {
+      "name": "soda-stem-elbow",
+      "geometry": "elbow-bulkhead",
+      "translation": [
+        77.5,
+        440.46479999999997,
+        306.3760478805363
+      ],
+      "rotation": [
+        [
+          0.0,
+          -1.0,
+          -0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          -0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      ],
+      "kind": "component",
+      "context": true,
+      "role": "wet",
+      "label": "Soda outlet \u00b7 trimmed stem elbow points west"
+    },
+    {
+      "name": "gas-inlet-elbow",
+      "geometry": "elbow-regulator",
+      "translation": [
+        77.5,
+        418.95259999999996,
+        338.3760478805363
+      ],
+      "rotation": [
+        [
+          0.0,
+          -0.0,
+          -1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          1.0,
+          -0.0,
+          0.0
+        ]
+      ],
+      "kind": "component",
+      "role": "stem",
+      "context": true,
+      "gas_fold": true,
+      "label": "Trimmed stem elbow \u00b7 inlet-elbow"
+    },
+    {
+      "name": "gas-lower-a",
+      "geometry": "elbow-regulator",
+      "translation": [
+        77.5,
+        418.95259999999996,
+        263.8856478805363
+      ],
+      "rotation": [
+        [
+          -0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          -0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "kind": "component",
+      "role": "stem",
+      "context": true,
+      "gas_fold": true,
+      "label": "Trimmed stem elbow \u00b7 lower-a"
+    },
+    {
+      "name": "gas-lower-b",
+      "geometry": "elbow-elbow",
+      "translation": [
+        77.5,
+        393.8574,
+        263.8856478805363
+      ],
+      "rotation": [
+        [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "kind": "component",
+      "role": "stem",
+      "context": true,
+      "gas_fold": true,
+      "label": "Trimmed stem elbow \u00b7 lower-b"
+    },
+    {
+      "name": "gas-upper-a",
+      "geometry": "elbow-check",
+      "translation": [
+        77.5,
+        393.8574,
+        334.4808478805363
+      ],
+      "rotation": [
+        [
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          -0.0
+        ]
+      ],
+      "kind": "component",
+      "role": "stem",
+      "context": true,
+      "gas_fold": true,
+      "label": "Trimmed stem elbow \u00b7 upper-a"
+    },
+    {
+      "name": "gas-upper-b",
+      "geometry": "elbow-elbow",
+      "translation": [
+        77.5,
+        368.7622,
+        334.4808478805363
+      ],
+      "rotation": [
+        [
+          0.0,
+          -0.0,
+          1.0
+        ],
+        [
+          -1.0,
+          -0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          -0.0
+        ]
+      ],
+      "kind": "component",
+      "role": "stem",
+      "context": true,
+      "gas_fold": true,
+      "label": "Trimmed stem elbow \u00b7 upper-b"
+    },
+    {
+      "name": "gas-regulator",
+      "geometry": "candidate-regulator",
+      "translation": [
+        77.5,
+        418.95259999999996,
+        332.3308478805363
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ]
+      ],
+      "kind": "component",
+      "role": "gas-regulator",
+      "context": true,
+      "gas_fold": true,
+      "label": "PISCO RVFUP1/4-1/4-0.3 \u00b7 regulator \u00b7 flow down"
+    },
+    {
+      "name": "gas-check",
+      "geometry": "candidate-check",
+      "translation": [
+        77.5,
+        393.8574,
+        282.9356478805363
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "kind": "component",
+      "role": "gas-check",
+      "context": true,
+      "gas_fold": true,
+      "label": "Fluidfit HCVU1/4-1/4G \u00b7 check valve \u00b7 flow up"
+    },
+    {
+      "name": "gas-inlet-tube",
+      "geometry": "gas-inlet-tube",
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "role": "gas",
+      "kind": "tube",
+      "context": true,
+      "gas_fold": true,
+      "label": "CO\u2082 inlet \u00b7 16 mm exposed at external handoff"
+    },
+    {
+      "name": "gas-check-link",
+      "geometry": "gas-check-link",
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "role": "gas",
+      "kind": "tube",
+      "context": true,
+      "gas_fold": true,
+      "label": "Concealed tube \u00b7 elbow to check inlet"
+    },
+    {
+      "name": "gas-core-drop",
+      "geometry": "gas-core-drop",
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "role": "gas",
+      "kind": "tube",
+      "context": true,
+      "gas_fold": true,
+      "label": "Continuous CO\u2082 tube \u00b7 proposed cap-guide position"
+    },
+    {
+      "name": "local-lead-relay-1-COM",
+      "geometry": "connection-relay-1-COM-wire",
+      "kind": "tube",
+      "role": "wire",
+      "label": "relay-1 COM \u00b7 local terminal wire departure",
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation": [
+        1.75,
+        689.8,
+        -34.7
+      ],
+      "context": true,
+      "connection_owner": "relay-1",
+      "display_suppressed": true
+    },
+    {
+      "name": "local-lead-relay-1-NO",
+      "geometry": "connection-relay-1-NO-wire",
+      "kind": "tube",
+      "role": "wire",
+      "label": "relay-1 NO \u00b7 local terminal wire departure",
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation": [
+        1.75,
+        689.8,
+        -34.7
+      ],
+      "context": true,
+      "connection_owner": "relay-1",
+      "display_suppressed": true
+    },
+    {
+      "name": "local-lead-relay-2-COM",
+      "geometry": "connection-relay-2-COM-wire",
+      "kind": "tube",
+      "role": "wire",
+      "label": "relay-2 COM \u00b7 local terminal wire departure",
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        1.75,
+        686.4,
+        666.3
+      ],
+      "context": true,
+      "connection_owner": "relay-2",
+      "display_suppressed": true
+    },
+    {
+      "name": "local-lead-relay-2-NO",
+      "geometry": "connection-relay-2-NO-wire",
+      "kind": "tube",
+      "role": "wire",
+      "label": "relay-2 NO \u00b7 local terminal wire departure",
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ]
+      ],
+      "translation": [
+        1.75,
+        686.4,
+        666.3
+      ],
+      "context": true,
+      "connection_owner": "relay-2",
+      "display_suppressed": true
+    },
+    {
+      "name": "relay-mount-highlight",
+      "geometry": "relay-mount-highlight",
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "role": "support",
+      "kind": "display",
+      "context": true,
+      "render_only": true,
+      "label": "Integral relay mounting bosses"
+    },
+    {
+      "name": "vk-support-highlight",
+      "geometry": "vk-support-highlight",
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "role": "support",
+      "kind": "display",
+      "context": true,
+      "render_only": true,
+      "label": "V-K \u00b7 four sockets on integral raised wall seat"
+    },
+    {
+      "name": "va-support-highlight",
+      "geometry": "va-support-highlight",
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "role": "support",
+      "kind": "display",
+      "context": true,
+      "render_only": true,
+      "label": "V-A \u00b7 four sockets on integral raised wall seat"
+    },
+    {
+      "name": "tee-ya-target",
+      "geometry": "tee-ya-target",
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "kind": "component",
+      "role": "wet",
+      "context": true,
+      "label": "Y-A \u00b7 shared-source tee for flavor manifold \u00b7 V-A lands in upper port1"
+    }
+  ],
+  "pins": [],
+  "arrows": [
+    {
+      "at": [
+        37.2499988712316,
+        407.38496052818664,
+        334.3760478805363
+      ],
+      "dir": [
+        0,
+        1,
+        0
+      ],
+      "role": "carbonator",
+      "length": 28
+    },
+    {
+      "at": [
+        -76.40410112876839,
+        257.28976052818666,
+        262.7856478805363
+      ],
+      "dir": [
+        0,
+        -1,
+        0
+      ],
+      "role": "flavor",
+      "length": 10
+    }
+  ],
+  "mates": [
+    {
+      "a": "asse-outlet-tpu",
+      "b": "tee",
+      "point": [
+        37.2499988712316,
+        302.38496052818664,
+        334.3760478805363
+      ],
+      "exposed_tube_mm": 0.0,
+      "connection": "male stem into TPU socket",
+      "insertion_mm": 15,
+      "shoulder_gap_mm": 0,
+      "stem_trim_mm": 6.005800000000001
+    },
+    {
+      "a": "pump-outlet-tpu",
+      "b": "check",
+      "point": [
+        -32.80179966121266,
+        348.1764823686537,
+        280.16882837176047
+      ],
+      "exposed_tube_mm": 0.0,
+      "connection": "female faces meet; concealed tube connects sockets"
+    },
+    {
+      "a": "check",
+      "b": "carbonator-fold",
+      "point": [
+        -32.80179966121266,
+        399.1764823686537,
+        280.16882837176047
+      ],
+      "exposed_tube_mm": 0.0,
+      "connection": "male stem into female socket",
+      "insertion_mm": 12.7,
+      "shoulder_gap_mm": 0,
+      "stem_trim_mm": 8.305800000000001
+    },
+    {
+      "a": "vk",
+      "b": "tee-fold",
+      "point": [
+        76.40409887123158,
+        296.3397605281867,
+        328.3308478805363
+      ],
+      "exposed_tube_mm": 0.0,
+      "connection": "male stem into female socket",
+      "insertion_mm": 12.7,
+      "shoulder_gap_mm": 0,
+      "stem_trim_mm": 8.305800000000001
+    },
+    {
+      "a": "tee-fold",
+      "b": "tee",
+      "point": [
+        57.3540988712316,
+        296.3397605281867,
+        334.3760478805363
+      ],
+      "exposed_tube_mm": 0.0,
+      "connection": "female sockets joined by concealed tube",
+      "concealed_tube_length_mm": 33.782
+    },
+    {
+      "a": "pump-inlet-tpu",
+      "b": "lower-pump-elbow",
+      "point": [
+        51.30889887123159,
+        313.2373169002318,
+        271.5819589626637
+      ],
+      "connection": "female mouths connected by concealed tube",
+      "concealed_tube_length_mm": 31.891,
+      "exposed_tube_mm": 0
+    },
+    {
+      "a": "lower-pump-elbow",
+      "b": "lower-valve-elbow",
+      "point": [
+        57.3540988712316,
+        296.3397605281867,
+        262.78564788053626
+      ],
+      "connection": "male stem into NeoFit socket",
+      "insertion_mm": 16.891,
+      "shoulder_gap_mm": 0,
+      "exposed_tube_mm": 0
+    },
+    {
+      "a": "lower-valve-elbow",
+      "b": "vk",
+      "point": [
+        76.40409887123158,
+        296.3397605281867,
+        268.8308478805363
+      ],
+      "connection": "male stem into valve socket",
+      "insertion_mm": 12.7,
+      "shoulder_gap_mm": 0,
+      "exposed_tube_mm": 0
+    },
+    {
+      "a": "tee",
+      "b": "tee-regulator-tube",
+      "point": [
+        17.145898871231594,
+        296.3397605281867,
+        334.3760478805363
+      ],
+      "insertion_mm": 16.891,
+      "connection": "tube in NeoFit tee"
+    },
+    {
+      "a": "tee-regulator-tube",
+      "b": "reg",
+      "point": [
+        2.1458988712315943,
+        296.3397605281867,
+        334.3760478805363
+      ],
+      "insertion_mm": 12.7,
+      "insertion_basis": "layout estimate",
+      "connection": "tube in regulator"
+    },
+    {
+      "a": "va",
+      "b": "reg-va-elbow",
+      "point": [
+        -76.40410112876839,
+        296.3397605281867,
+        328.3308478805363
+      ],
+      "exposed_tube_mm": 0,
+      "connection": "trimmed male stem into socket",
+      "insertion_mm": 12.7,
+      "shoulder_gap_mm": 0,
+      "host_insertion_basis": "12.7 mm layout estimate; flush shoulders fix exterior pose"
+    },
+    {
+      "a": "reg",
+      "b": "reg-va-elbow",
+      "point": [
+        -57.3541011287684,
+        296.3397605281867,
+        334.3760478805363
+      ],
+      "exposed_tube_mm": 0,
+      "connection": "female mouths meet on concealed tube",
+      "concealed_tube_length_mm": 29.591,
+      "host_insertion_basis": "12.7 mm layout estimate; flush shoulders fix exterior pose"
+    },
+    {
+      "a": "va",
+      "b": "va-outlet-elbow",
+      "point": [
+        -76.40410112876839,
+        296.3397605281867,
+        268.8308478805363
+      ],
+      "connection": "trimmed male stem into valve outlet",
+      "insertion_mm": 12.7,
+      "shoulder_gap_mm": 0,
+      "exposed_tube_mm": 0
+    },
+    {
+      "a": "va-outlet-elbow",
+      "b": "va-flavor",
+      "point": [
+        -57.35410112876839,
+        296.3397605281867,
+        262.7856478805363
+      ],
+      "connection": "tube in NeoFit socket",
+      "insertion_mm": 16.891
+    },
+    {
+      "a": "funnel",
+      "b": "funnel-frame",
+      "connection": "Existing silicone/frame seating interface"
+    },
+    {
+      "a": "terminal-J1",
+      "b": "pcba",
+      "connection": "Mated XH housing in its PCB header"
+    },
+    {
+      "a": "local-lead-J1",
+      "b": "terminal-J1",
+      "connection": "Populated conductors leave their crimp housing"
+    },
+    {
+      "a": "terminal-J11",
+      "b": "pcba",
+      "connection": "Mated XH housing in its PCB header"
+    },
+    {
+      "a": "local-lead-J11",
+      "b": "terminal-J11",
+      "connection": "Populated conductors leave their crimp housing"
+    },
+    {
+      "a": "terminal-J13",
+      "b": "pcba",
+      "connection": "Mated XH housing in its PCB header"
+    },
+    {
+      "a": "local-lead-J13",
+      "b": "terminal-J13",
+      "connection": "Populated conductors leave their crimp housing"
+    },
+    {
+      "a": "terminal-J2",
+      "b": "pcba",
+      "connection": "Mated XH housing in its PCB header"
+    },
+    {
+      "a": "local-lead-J2",
+      "b": "terminal-J2",
+      "connection": "Populated conductors leave their crimp housing"
+    },
+    {
+      "a": "terminal-J3",
+      "b": "pcba",
+      "connection": "Mated XH housing in its PCB header"
+    },
+    {
+      "a": "local-lead-J3",
+      "b": "terminal-J3",
+      "connection": "Populated conductors leave their crimp housing"
+    },
+    {
+      "a": "terminal-J4",
+      "b": "pcba",
+      "connection": "Mated XH housing in its PCB header"
+    },
+    {
+      "a": "local-lead-J4",
+      "b": "terminal-J4",
+      "connection": "Populated conductors leave their crimp housing"
+    },
+    {
+      "a": "terminal-J5",
+      "b": "pcba",
+      "connection": "Mated XH housing in its PCB header"
+    },
+    {
+      "a": "local-lead-J5",
+      "b": "terminal-J5",
+      "connection": "Populated conductors leave their crimp housing"
+    },
+    {
+      "a": "terminal-J6",
+      "b": "pcba",
+      "connection": "Mated XH housing in its PCB header"
+    },
+    {
+      "a": "local-lead-J6",
+      "b": "terminal-J6",
+      "connection": "Populated conductors leave their crimp housing"
+    },
+    {
+      "a": "terminal-J7",
+      "b": "pcba",
+      "connection": "Mated XH housing in its PCB header"
+    },
+    {
+      "a": "local-lead-J7",
+      "b": "terminal-J7",
+      "connection": "Populated conductors leave their crimp housing"
+    },
+    {
+      "a": "terminal-J9",
+      "b": "pcba",
+      "connection": "Mated XH housing in its PCB header"
+    },
+    {
+      "a": "local-lead-J9",
+      "b": "terminal-J9",
+      "connection": "Populated conductors leave their crimp housing"
+    },
+    {
+      "a": "local-lead-J10.GND",
+      "b": "pcba",
+      "connection": "Side-entry conductor at its terminal mouth"
+    },
+    {
+      "a": "local-lead-J10.V12",
+      "b": "pcba",
+      "connection": "Side-entry conductor at its terminal mouth"
+    },
+    {
+      "a": "local-lead-psu-AC-N",
+      "b": "psu",
+      "connection": "Side-entry conductor at its terminal mouth"
+    },
+    {
+      "a": "local-lead-psu-AC-L",
+      "b": "psu",
+      "connection": "Side-entry conductor at its terminal mouth"
+    },
+    {
+      "a": "local-lead-psu-DC-minus-2",
+      "b": "psu",
+      "connection": "Side-entry conductor at its terminal mouth"
+    },
+    {
+      "a": "local-lead-psu-DC-plus-1",
+      "b": "psu",
+      "connection": "Side-entry conductor at its terminal mouth"
+    },
+    {
+      "a": "local-lead-relay-1-COM",
+      "b": "relay-1",
+      "connection": "Side-entry conductor at its terminal mouth"
+    },
+    {
+      "a": "local-lead-relay-1-NO",
+      "b": "relay-1",
+      "connection": "Side-entry conductor at its terminal mouth"
+    },
+    {
+      "a": "local-lead-relay-2-COM",
+      "b": "relay-2",
+      "connection": "Side-entry conductor at its terminal mouth"
+    },
+    {
+      "a": "local-lead-relay-2-NO",
+      "b": "relay-2",
+      "connection": "Side-entry conductor at its terminal mouth"
+    },
+    {
+      "a": "left-wall",
+      "b": "back-wall"
+    },
+    {
+      "a": "right-wall",
+      "b": "back-wall"
+    },
+    {
+      "a": "bulkhead-water",
+      "b": "back-wall",
+      "connection": "Barrel through bore in common 6 mm panel area"
+    },
+    {
+      "a": "bulkhead-carb",
+      "b": "back-wall",
+      "connection": "Barrel through bore in common 6 mm panel area"
+    },
+    {
+      "a": "bulkhead-drain",
+      "b": "back-wall",
+      "connection": "Barrel through bore in common 6 mm panel area"
+    },
+    {
+      "a": "co2-inlet",
+      "b": "back-wall",
+      "connection": "Barrel through bore in common 6 mm panel area"
+    },
+    {
+      "a": "bulkhead-flavor-a",
+      "b": "back-wall",
+      "connection": "Barrel through bore in common 6 mm panel area"
+    },
+    {
+      "a": "bulkhead-flavor-b",
+      "b": "back-wall",
+      "connection": "Barrel through bore in common 6 mm panel area"
+    },
+    {
+      "a": "c14-inlet",
+      "b": "back-wall",
+      "connection": "Panel envelope; final mounting/retention detail is outside the study"
+    },
+    {
+      "a": "keystone-jack",
+      "b": "back-wall",
+      "connection": "Panel envelope; final mounting/retention detail is outside the study"
+    },
+    {
+      "a": "bulkhead-carb-departure",
+      "b": "bulkhead-carb",
+      "connection": "Initial tube departure; 10 mm illustrative insertion"
+    },
+    {
+      "a": "bulkhead-drain-departure",
+      "b": "bulkhead-drain",
+      "connection": "Initial tube departure; 10 mm illustrative insertion"
+    },
+    {
+      "a": "bulkhead-flavor-a-departure",
+      "b": "bulkhead-flavor-a",
+      "connection": "Initial tube departure; 10 mm illustrative insertion"
+    },
+    {
+      "a": "bulkhead-flavor-b-departure",
+      "b": "bulkhead-flavor-b",
+      "connection": "Initial tube departure; 10 mm illustrative insertion"
+    },
+    {
+      "a": "water-in",
+      "b": "asse-inlet-tpu",
+      "point": [
+        37.2499988712316,
+        407.38496052818664,
+        334.3760478805363
+      ],
+      "insertion_mm": 15.0
+    },
+    {
+      "a": "bulkhead-water",
+      "b": "bulkhead-water-nut",
+      "connection": "Retention nut on fitting barrel"
+    },
+    {
+      "a": "bulkhead-water-nut",
+      "b": "back-wall",
+      "connection": "Nut seats at Y465.3"
+    },
+    {
+      "a": "co2-inlet",
+      "b": "co2-inlet-nut",
+      "connection": "Retention nut on fitting barrel"
+    },
+    {
+      "a": "co2-inlet-nut",
+      "b": "back-wall",
+      "connection": "Nut seats at Y465.3"
+    },
+    {
+      "a": "bulkhead-drain",
+      "b": "bulkhead-drain-nut",
+      "connection": "Retention nut on fitting barrel"
+    },
+    {
+      "a": "bulkhead-drain-nut",
+      "b": "back-wall",
+      "connection": "Nut seats at Y465.3"
+    },
+    {
+      "a": "bulkhead-drain-departure",
+      "b": "bulkhead-drain",
+      "connection": "Tube inserted in socket"
+    },
+    {
+      "a": "bulkhead-carb",
+      "b": "bulkhead-carb-nut",
+      "connection": "Retention nut on fitting barrel"
+    },
+    {
+      "a": "bulkhead-carb-nut",
+      "b": "back-wall",
+      "connection": "Nut seats at Y465.3"
+    },
+    {
+      "a": "bulkhead-carb-departure",
+      "b": "bulkhead-carb",
+      "connection": "Tube inserted in socket"
+    },
+    {
+      "a": "bulkhead-flavor-a",
+      "b": "bulkhead-flavor-a-nut",
+      "connection": "Retention nut on fitting barrel"
+    },
+    {
+      "a": "bulkhead-flavor-a-nut",
+      "b": "back-wall",
+      "connection": "Nut seats at Y465.3"
+    },
+    {
+      "a": "bulkhead-flavor-a-departure",
+      "b": "bulkhead-flavor-a",
+      "connection": "Tube inserted in socket"
+    },
+    {
+      "a": "bulkhead-flavor-b",
+      "b": "bulkhead-flavor-b-nut",
+      "connection": "Retention nut on fitting barrel"
+    },
+    {
+      "a": "bulkhead-flavor-b-nut",
+      "b": "back-wall",
+      "connection": "Nut seats at Y465.3"
+    },
+    {
+      "a": "bulkhead-flavor-b-departure",
+      "b": "bulkhead-flavor-b",
+      "connection": "Tube inserted in socket"
+    },
+    {
+      "a": "asse",
+      "b": "asse-inlet-tpu",
+      "connection": "TPU joint on ASSE inlet"
+    },
+    {
+      "a": "asse",
+      "b": "asse-outlet-tpu",
+      "connection": "TPU joint on ASSE outlet"
+    },
+    {
+      "a": "asse",
+      "b": "vent-sleeve",
+      "connection": "Sleeve on ASSE atmospheric port"
+    },
+    {
+      "a": "pump",
+      "b": "pump-sliding-foot",
+      "connection": "Rubber slider on pump rail"
+    },
+    {
+      "a": "pump",
+      "b": "pump-inlet-tpu",
+      "connection": "TPU elbow on pump barb"
+    },
+    {
+      "a": "pump",
+      "b": "pump-outlet-tpu",
+      "connection": "TPU elbow on pump barb"
+    },
+    {
+      "a": "water-in",
+      "b": "bulkhead-water",
+      "point": [
+        37.2499988712316,
+        446.51,
+        334.3760478805363
+      ],
+      "insertion_mm": 12.7
+    },
+    {
+      "a": "co2-inlet",
+      "b": "gas-inlet-tube",
+      "connection": "Intended fully seated socket or concealed tube"
+    },
+    {
+      "a": "gas-inlet-tube",
+      "b": "gas-inlet-elbow",
+      "connection": "Intended fully seated socket or concealed tube"
+    },
+    {
+      "a": "gas-inlet-elbow",
+      "b": "gas-regulator",
+      "connection": "Intended fully seated socket or concealed tube"
+    },
+    {
+      "a": "gas-regulator",
+      "b": "gas-lower-a",
+      "connection": "Intended fully seated socket or concealed tube"
+    },
+    {
+      "a": "gas-lower-a",
+      "b": "gas-lower-b",
+      "connection": "Intended fully seated socket or concealed tube"
+    },
+    {
+      "a": "gas-lower-b",
+      "b": "gas-check-link",
+      "connection": "Intended fully seated socket or concealed tube"
+    },
+    {
+      "a": "gas-check-link",
+      "b": "gas-check",
+      "connection": "Intended fully seated socket or concealed tube"
+    },
+    {
+      "a": "gas-check",
+      "b": "gas-upper-a",
+      "connection": "Intended fully seated socket or concealed tube"
+    },
+    {
+      "a": "gas-upper-a",
+      "b": "gas-upper-b",
+      "connection": "Intended fully seated socket or concealed tube"
+    },
+    {
+      "a": "gas-upper-b",
+      "b": "gas-core-drop",
+      "connection": "Intended fully seated socket or concealed tube"
+    },
+    {
+      "a": "bulkhead-carb",
+      "b": "soda-stem-elbow",
+      "connection": "Intended fully seated socket or concealed tube"
+    },
+    {
+      "a": "soda-stem-elbow",
+      "b": "bulkhead-carb-departure",
+      "connection": "Intended fully seated socket or concealed tube"
+    },
+    {
+      "a": "relay-1",
+      "b": "left-wall",
+      "connection": "Four M3 mounting holes seat on integral wall bosses"
+    },
+    {
+      "a": "relay-2",
+      "b": "left-wall",
+      "connection": "Four M3 mounting holes seat on integral wall bosses"
+    },
+    {
+      "a": "vk",
+      "b": "right-wall",
+      "connection": "Printed mounting structure at the valve's existing feet"
+    },
+    {
+      "a": "va",
+      "b": "left-wall",
+      "connection": "Printed mounting structure at the valve's existing feet"
+    },
+    {
+      "a": "va-flavor",
+      "b": "tee-ya-target",
+      "connection": "Fluid3 V-A-O to Y-A1; upper socket, nominal15.7mm insertion"
+    }
+  ],
+  "unknown_host_insertion_mm": 12.7,
+  "trimmed_stems": true,
+  "title": "East-facing V-A outlet and west-packed PCB",
+  "layout": {
+    "parent_local_layout": {
+      "pump_tpu_clock_degrees_below_plus_y": 25,
+      "upper_group_clock_degrees": 0,
+      "vk_translation_mm": [
+        -25.0952,
+        34.0318574032262,
+        -28.324115728363257
+      ],
+      "vk_head_direction": [
+        0,
+        -1,
+        0
+      ],
+      "vk_ports_axis": [
+        0,
+        0,
+        1
+      ],
+      "vk_bottom_mouth_mm": [
+        -30.011332605004725,
+        34.0318574032262,
+        -9.824115728363257
+      ],
+      "pump_mouth_mm": [
+        -4.916132605004726,
+        16.766694060178025,
+        -7.81843784220294
+      ],
+      "pump_elbow_junction_mm": [
+        -4.916132605004726,
+        34.0318574032262,
+        -15.869315728363262
+      ],
+      "valve_elbow_junction_mm": [
+        -30.011332605004725,
+        34.0318574032262,
+        -15.869315728363262
+      ],
+      "tee_regulator_exposed_tube_mm": 15,
+      "regulator_head_direction": [
+        0,
+        0,
+        -1
+      ],
+      "va_head_direction": [
+        0,
+        1,
+        0
+      ],
+      "tee_regulator_total_tube_mm": 44.591
+    },
+    "va_head_direction": [
+      0,
+      1,
+      0
+    ],
+    "vk_head_direction": [
+      0,
+      1,
+      0
+    ],
+    "va_ports_axis": [
+      0,
+      0,
+      1
+    ],
+    "va_inlet_local_mm": [
+      122.79686739499526,
+      34.0318574032262,
+      49.67588427163675
+    ],
+    "va_outlet_local_mm": [
+      122.79686739499526,
+      34.0318574032262,
+      -9.824115728363253
+    ],
+    "reg_outlet_local_mm": [
+      103.74686739499526,
+      34.0318574032262,
+      55.721084271636755
+    ],
+    "reg_va_elbow_male_host": "va",
+    "reg_va_exposed_tube_mm": 0,
+    "va_inlet_world_mm": [
+      -76.40410112876839,
+      296.3397605281867,
+      328.3308478805363
+    ],
+    "va_outlet_world_mm": [
+      -76.40410112876839,
+      296.3397605281867,
+      268.8308478805363
+    ],
+    "flavor_mouth_world_mm": [
+      -57.35410112876839,
+      296.3397605281867,
+      262.7856478805363
+    ],
+    "flavor_handoff_direction_world": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "asse_inlet_direction_world": [
+      0,
+      1,
+      0
+    ],
+    "sliding_foot_translation_from_benchmark_mm": [
+      0,
+      -30,
+      0
+    ],
+    "comparison_y_placement": "Rear fittings seated in the common 6mm panel, water inlet straight to ASSE, gas drop registered to the fixed core guide",
+    "asse_inlet_mouth_world_mm": [
+      37.2499988712316,
+      407.38496052818664,
+      334.3760478805363
+    ],
+    "pump_joint_angle_degrees": 27.5,
+    "rigid_header_translation_mm": [
+      0.0,
+      0.7246006173839797,
+      -1.4693446986122591
+    ],
+    "rigid_header_lowering_mm": 1.4693446986122591,
+    "rigid_header_rotations_unchanged": true,
+    "electronics_wall": "-X",
+    "rear_wet_connections_half": "+X",
+    "pcb_orientation": "Flat, components up; long dimension across X and J10 entry facing east",
+    "relay_service": "Roof removed; terminal tool approaches face +X",
+    "water_header_poses": "Rigid group7mm fore; original valve head rotations and all fitting axes retained",
+    "planned_funnel_minus_y_expansion": "Future funnel shape to be considered with the PCB below its current bowl",
+    "psu_orientation": "Flat on its back, AC aft and DC fore, screws upward",
+    "psu_mount_service": "Supply remains flat on the core; its independent fasteners and insulation detail remain to design",
+    "connection_scope": "Ten active JST plugs and their local wire bends, J10 power leads and selected PSU/relay local conductors; separate unplugging and screwdriver probes",
+    "pcb_underside_z_mm": 257,
+    "pcb_footprint_mm": {
+      "xmin": -93.0,
+      "xmax": -2.1839447021484375,
+      "ymin": 182.0,
+      "ymax": 254.80001831054688
+    },
+    "context_scope": "Selected arrangement and explicit wall-mounted supports; not a production-pack migration",
+    "deferred_wagos": [
+      "wago-g",
+      "wago-gnd",
+      "wago-h",
+      "wago-mana",
+      "wago-manb",
+      "wago-n",
+      "wago-reeds-b",
+      "wago-sensors",
+      "wago-v12"
+    ],
+    "wago_placement": "Place junctions last, after primary components and wire routes, where connections are needed",
+    "water_header_translation_from_pcb_low_fore_mm": [
+      0.0,
+      -7.0,
+      0.0
+    ],
+    "valve_clocking": "Original aft-facing heads",
+    "bulkhead_grid": {
+      "columns_x_mm": [
+        37.2499988712316,
+        77.5
+      ],
+      "rows_z_mm": [
+        338.3760478805363,
+        306.3760478805363,
+        274.3760478805363
+      ],
+      "column_pitch_mm": 40.2500011287684,
+      "row_pitch_mm": 32.0,
+      "assignment": [
+        [
+          "bulkhead-water",
+          "co2-inlet"
+        ],
+        [
+          "bulkhead-drain",
+          "bulkhead-carb"
+        ],
+        [
+          "bulkhead-flavor-a",
+          "bulkhead-flavor-b"
+        ]
+      ]
+    },
+    "rear_panel": {
+      "outer_face_y_mm": 471.3,
+      "inner_pocket_floor_y_mm": 465.3,
+      "mounting_stock_mm": 6.0,
+      "relief_side": "interior"
+    },
+    "co2_flow": "Bulkhead \u2192 90\u00b0 down \u2192 PISCO regulator \u2192 180\u00b0 up \u2192 Fluidfit check \u2192 180\u00b0 down \u2192 proposed core guide",
+    "co2_datums": {
+      "inlet": [
+        77.5,
+        454.0026,
+        338.3760478805363
+      ],
+      "c0": [
+        77.5,
+        418.95259999999996,
+        338.3760478805363
+      ],
+      "reg_in": [
+        77.5,
+        418.95259999999996,
+        332.3308478805363
+      ],
+      "reg_out": [
+        77.5,
+        418.95259999999996,
+        269.9308478805363
+      ],
+      "c1": [
+        77.5,
+        418.95259999999996,
+        263.8856478805363
+      ],
+      "c2": [
+        77.5,
+        393.8574,
+        263.8856478805363
+      ],
+      "check_in": [
+        77.5,
+        393.8574,
+        282.9356478805363
+      ],
+      "check_out": [
+        77.5,
+        393.8574,
+        328.4356478805363
+      ],
+      "c3": [
+        77.5,
+        393.8574,
+        334.4808478805363
+      ],
+      "c4": [
+        77.5,
+        368.7622,
+        334.4808478805363
+      ],
+      "drop": [
+        77.5,
+        368.7622,
+        315.4308478805363
+      ],
+      "guide": [
+        77.5,
+        368.7622,
+        253.4
+      ]
+    },
+    "deferred_connections": "Soda, vent and flavor ports show local departures; full onward routes are not placed",
+    "pcb_inboard_translation_mm": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "pcb_lead_dressing": "Carried local connector and wire envelopes checked quietly; harness drawings omitted",
+    "co2_route_status": "Layout candidate: proposed new cap guide remains unimplemented below the crown",
+    "wet_grid_translation_from_co2_tpu_mm": [
+      0.0,
+      0.0,
+      4.0
+    ],
+    "inlet_exposed_tube_mm": 16.0,
+    "new_cap_guide_world_mm": [
+      77.5,
+      368.7622,
+      253.4
+    ],
+    "existing_cap_guide_world_mm": [
+      77.50000001564078,
+      322.2999999,
+      253.4
+    ],
+    "device_selection": "PISCO regulator ordered (8638); separate check valve sourcing remains open",
+    "ground_placement": "Deferred until primary components and complete wire routes are placed",
+    "relay_mount": "Both PCB backs face the -X wall; components and screw heads face inward (+X)",
+    "c14_flange_center_mm": [
+      -68.5,
+      471.3,
+      330.0
+    ],
+    "rj11_face_center_mm": [
+      -30.0,
+      471.3,
+      274.3760478805363
+    ],
+    "va_destination": "Y-A port1, the flavor manifold shared-source tee; clean-water supply",
+    "va_route": {
+      "elbow_corner_mm": [
+        -76.40410112876839,
+        296.3397605281867,
+        262.7856478805363
+      ],
+      "elbow_socket_mm": [
+        -57.35410112876839,
+        296.3397605281867,
+        262.7856478805363
+      ],
+      "east_to_fore_radius_mm": 79.7041011287684,
+      "minimum_centerline_radius_mm": 14.0,
+      "incline_degrees": 39.81924151314721,
+      "inclined_straight_length_mm": 24.041298647085725,
+      "fore_tangent_mm": [
+        22.35000000000001,
+        216.63565939941827,
+        262.7856478805363
+      ],
+      "incline_start_mm": [
+        22.35000000000001,
+        207.6705119589793,
+        266.03268868916996
+      ],
+      "final_turn_start_mm": [
+        22.35,
+        189.205147440439,
+        281.42795919136637
+      ],
+      "destination_mm": [
+        22.35,
+        166.24,
+        270.675
+      ],
+      "destination_outward_axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "peak_z_mm": 284.675,
+      "source_insertion_mm": 16.891,
+      "destination_insertion_nominal_mm": 15.7,
+      "centerline_mm": [
+        [
+          -74.2451011287684,
+          296.3397605281867,
+          262.7856478805363
+        ],
+        [
+          -57.35410112876839,
+          296.3397605281867,
+          262.7856478805363
+        ],
+        [
+          -54.746256042701,
+          296.29708595425734,
+          262.7856478805363
+        ],
+        [
+          -52.14120350247116,
+          296.16910792947186,
+          262.7856478805363
+        ],
+        [
+          -49.54173306358841,
+          295.95596349590477,
+          262.7856478805363
+        ],
+        [
+          -46.950628304108335,
+          295.6578808939542,
+          262.7856478805363
+        ],
+        [
+          -44.370663843907494,
+          295.2751793179365,
+          262.7856478805363
+        ],
+        [
+          -41.804602373550914,
+          294.8082685742848,
+          262.7856478805363
+        ],
+        [
+          -39.255191695933895,
+          294.2576486427184,
+          262.7856478805363
+        ],
+        [
+          -36.72516178386581,
+          293.62390914085137,
+          262.7856478805363
+        ],
+        [
+          -34.21722185674683,
+          292.90772869281585,
+          262.7856478805363
+        ],
+        [
+          -31.734057479467964,
+          292.1098742025739,
+          262.7856478805363
+        ],
+        [
+          -29.278327686640882,
+          291.23120003269787,
+          262.7856478805363
+        ],
+        [
+          -26.852662135237072,
+          290.2726470894971,
+          262.7856478805363
+        ],
+        [
+          -24.459658288685283,
+          289.2352418154725,
+          262.7856478805363
+        ],
+        [
+          -22.101878635442596,
+          288.1200950901754,
+          262.7856478805363
+        ],
+        [
+          -19.78184794501766,
+          286.92840104065084,
+          262.7856478805363
+        ],
+        [
+          -17.5020505643842,
+          285.66143576273566,
+          262.7856478805363
+        ],
+        [
+          -15.264927757680105,
+          284.3205559545835,
+          262.7856478805363
+        ],
+        [
+          -13.072875092040597,
+          282.9071974638782,
+          262.7856478805363
+        ],
+        [
+          -10.928239872364983,
+          281.42287375029247,
+          262.7856478805363
+        ],
+        [
+          -8.833318627763767,
+          279.8691742648371,
+          262.7856478805363
+        ],
+        [
+          -6.79035465237768,
+          278.247762747837,
+          262.7856478805363
+        ],
+        [
+          -4.801535603202275,
+          276.5603754473565,
+          262.7856478805363
+        ],
+        [
+          -2.868991157489873,
+          274.80881925998136,
+          262.7856478805363
+        ],
+        [
+          -0.9947907322379024,
+          272.99496979594875,
+          262.7856478805363
+        ],
+        [
+          0.8190587317946694,
+          271.1207693706968,
+          262.7856478805363
+        ],
+        [
+          2.5706149191697847,
+          269.1882249249844,
+          262.7856478805363
+        ],
+        [
+          4.258002219650301,
+          267.199405875809,
+          262.7856478805363
+        ],
+        [
+          5.879413736650427,
+          265.1564419004229,
+          262.7856478805363
+        ],
+        [
+          7.433113222105817,
+          263.0615206558217,
+          262.7856478805363
+        ],
+        [
+          8.917436935691526,
+          260.9168854361461,
+          262.7856478805363
+        ],
+        [
+          10.33079542639679,
+          258.72483277050657,
+          262.7856478805363
+        ],
+        [
+          11.671675234548985,
+          256.4877099638025,
+          262.7856478805363
+        ],
+        [
+          12.938640512464175,
+          254.20791258316902,
+          262.7856478805363
+        ],
+        [
+          14.13033456198876,
+          251.88788189274408,
+          262.7856478805363
+        ],
+        [
+          15.245481287285784,
+          249.5301022395014,
+          262.7856478805363
+        ],
+        [
+          16.282886561310477,
+          247.1370983929496,
+          262.7856478805363
+        ],
+        [
+          17.241439504511206,
+          244.7114328415458,
+          262.7856478805363
+        ],
+        [
+          18.120113674387255,
+          242.25570304871871,
+          262.7856478805363
+        ],
+        [
+          18.917968164629173,
+          239.77253867143986,
+          262.7856478805363
+        ],
+        [
+          19.634148612664674,
+          237.26459874432086,
+          262.7856478805363
+        ],
+        [
+          20.2678881145317,
+          234.7345688322528,
+          262.7856478805363
+        ],
+        [
+          20.81850804609816,
+          232.18515815463576,
+          262.7856478805363
+        ],
+        [
+          21.285418789749826,
+          229.61909668427919,
+          262.7856478805363
+        ],
+        [
+          21.668120365767564,
+          227.03913222407834,
+          262.7856478805363
+        ],
+        [
+          21.966202967718118,
+          224.44802746459828,
+          262.7856478805363
+        ],
+        [
+          22.1793474012852,
+          221.84855702571554,
+          262.7856478805363
+        ],
+        [
+          22.307325426070648,
+          219.2435044854857,
+          262.7856478805363
+        ],
+        [
+          22.35000000000001,
+          216.63565939941827,
+          262.7856478805363
+        ],
+        [
+          22.35000000000001,
+          216.0277458376976,
+          262.79885263997187
+        ],
+        [
+          22.35000000000001,
+          215.420979040597,
+          262.8384420088969
+        ],
+        [
+          22.35000000000001,
+          214.81650360948626,
+          262.9043413061552
+        ],
+        [
+          22.35000000000001,
+          214.21545982331577,
+          262.99642621969434
+        ],
+        [
+          22.35000000000001,
+          213.61898148760082,
+          263.11452304106706
+        ],
+        [
+          22.35000000000001,
+          213.02819379561728,
+          263.2584089931139
+        ],
+        [
+          22.35000000000001,
+          212.4442112058438,
+          263.4278126502087
+        ],
+        [
+          22.35000000000001,
+          211.86813533965355,
+          263.6224144502744
+        ],
+        [
+          22.35000000000001,
+          211.30105290322223,
+          263.84184729760307
+        ],
+        [
+          22.35000000000001,
+          210.7440336375717,
+          264.08569725534306
+        ],
+        [
+          22.35000000000001,
+          210.19812830061684,
+          264.35350432634726
+        ],
+        [
+          22.35000000000001,
+          209.66436668502178,
+          264.6447633209088
+        ],
+        [
+          22.35000000000001,
+          209.14375567560506,
+          264.9589248097481
+        ],
+        [
+          22.35000000000001,
+          208.63727734995797,
+          265.29539616045327
+        ],
+        [
+          22.35000000000001,
+          208.145887125859,
+          265.6535426554181
+        ],
+        [
+          22.35000000000001,
+          207.6705119589793,
+          266.03268868916996
+        ],
+        [
+          22.35,
+          189.205147440439,
+          281.42795919136637
+        ],
+        [
+          22.35,
+          188.5820000897305,
+          281.9182661848298
+        ],
+        [
+          22.35,
+          187.932093919404,
+          282.37250790275726
+        ],
+        [
+          22.35,
+          187.25751364796747,
+          282.7892272638658
+        ],
+        [
+          22.35,
+          186.56042314159293,
+          283.1670875481729
+        ],
+        [
+          22.35,
+          185.84305847303474,
+          283.5048766848226
+        ],
+        [
+          22.35,
+          185.10772074892915,
+          283.8015111400724
+        ],
+        [
+          22.35,
+          184.35676872848333,
+          284.0560393929688
+        ],
+        [
+          22.35,
+          183.5926112572308,
+          284.2676449875618
+        ],
+        [
+          22.35,
+          182.81769954012398,
+          284.4356491518694
+        ],
+        [
+          22.35,
+          182.0345192787494,
+          284.5595129751892
+        ],
+        [
+          22.35,
+          181.24558269788733,
+          284.6388391367743
+        ],
+        [
+          22.35,
+          180.4534204869924,
+          284.6733731803282
+        ],
+        [
+          22.35,
+          179.66057368244452,
+          284.6630043302297
+        ],
+        [
+          22.35,
+          178.86958551661,
+          284.6077658468703
+        ],
+        [
+          22.35,
+          178.0829932598582,
+          284.5078349199643
+        ],
+        [
+          22.35,
+          177.3033200817031,
+          284.3635321001732
+        ],
+        [
+          22.35,
+          176.53306695717592,
+          284.1753202708684
+        ],
+        [
+          22.35,
+          175.77470464439196,
+          283.9438031633296
+        ],
+        [
+          22.35,
+          175.03066575904467,
+          283.66972342014293
+        ],
+        [
+          22.35,
+          174.30333697125002,
+          283.3539602130093
+        ],
+        [
+          22.35,
+          173.59505134977164,
+          282.9975264226062
+        ],
+        [
+          22.35,
+          172.9080808781841,
+          282.60156538954743
+        ],
+        [
+          22.35,
+          172.2446291669807,
+          282.1673472468641
+        ],
+        [
+          22.35,
+          171.60682438500268,
+          281.6962648457705
+        ],
+        [
+          22.35,
+          170.9967124328649,
+          281.1898292877843
+        ],
+        [
+          22.35,
+          170.4162503802747,
+          280.6496650775325
+        ],
+        [
+          22.35,
+          169.86730018829573,
+          280.07750491179183
+        ],
+        [
+          22.35,
+          169.35162273669403,
+          279.4751841214785
+        ],
+        [
+          22.35,
+          168.8708721755248,
+          278.84463478441626
+        ],
+        [
+          22.35,
+          168.42659061907827,
+          278.1878795277676
+        ],
+        [
+          22.35,
+          168.02020319920535,
+          277.5070250400075
+        ],
+        [
+          22.35,
+          167.65301349389057,
+          276.80425531325125
+        ],
+        [
+          22.35,
+          167.3261993457357,
+          276.0818246376152
+        ],
+        [
+          22.35,
+          167.04080908376798,
+          275.3420503700794
+        ],
+        [
+          22.35,
+          166.79775816069164,
+          274.5873055010502
+        ],
+        [
+          22.35,
+          166.59782621636984,
+          273.82001104246615
+        ],
+        [
+          22.35,
+          166.44165457695655,
+          273.04262826186374
+        ],
+        [
+          22.35,
+          166.32974419770036,
+          272.257650787315
+        ],
+        [
+          22.35,
+          166.2624540560191,
+          271.46759660856105
+        ],
+        [
+          22.35,
+          166.24,
+          270.675
+        ],
+        [
+          22.35,
+          166.24,
+          254.97500000000002
+        ]
+      ],
+      "tube_od_mm": 6.35,
+      "tube_id_mm": 4.24
+    },
+    "route_context": "V-B and reservoir routes remain deferred; Y-A alone supplies the actual destination datum",
+    "regulator_selection": "Selected Yetaha arrangement retained; EcoReg is a separate research size comparison"
+  },
+  "metrics": {
+    "scope": "Changed elbow, complete V-A tube, moved PCB and carried local connections against the selected arrangement and Y-A target",
+    "unrelated_interferences": [],
+    "fold_hardware_bounds_mm": [
+      [
+        66.75469970703125,
+        361.01519978256226,
+        256.13864766309854
+      ],
+      [
+        88.25,
+        438.0025992370605,
+        346.12304809797405
+      ]
+    ],
+    "fold_hardware_size_mm": [
+      21.49530029296875,
+      76.98739945449825,
+      89.98440043487551
+    ],
+    "fold_hardware_floor_gap_mm": 2.738647663098533,
+    "fold_hardware_to_plain_ceiling_mm": -0.12304809797404914,
+    "minimum_pocket_roof_stock_mm": 3.0,
+    "changed_component_bounds_mm": {
+      "c14-inlet": [
+        [
+          -93.35231246948243,
+          446.2999914550781,
+          318.93498801009946
+        ],
+        [
+          -43.64768829345704,
+          473.1399877929687,
+          341.06499289291196
+        ]
+      ],
+      "keystone-jack": [
+        [
+          -37.32499984741211,
+          441.29999877929686,
+          263.97104139730476
+        ],
+        [
+          -22.674998321533202,
+          471.29999877929686,
+          288.12103529378913
+        ]
+      ],
+      "relay-1": [
+        [
+          -96.5,
+          363.0000122070312,
+          294.50001220703126
+        ],
+        [
+          -77.5,
+          433.0000122070312,
+          311.50001220703126
+        ]
+      ],
+      "relay-2": [
+        [
+          -96.5,
+          363.0000061035156,
+          319.5000122070312
+        ],
+        [
+          -77.5,
+          433.0000061035156,
+          336.5000122070312
+        ]
+      ]
+    },
+    "c14_surround_mm": {
+      "to_left_inner_wall": 5.147687530517572,
+      "to_plain_roof": 4.93500710708804
+    },
+    "scope_limit": "Native placement/fit query only. Complete harnesses, final equipment retention and production shell migration remain to design.",
+    "connected_pcb_bounds_mm": [
+      [
+        -93.18406677246094,
+        175.9998779296875,
+        255.0
+      ],
+      [
+        8.766128540039062,
+        261.3001403808594,
+        276.25
+      ]
+    ],
+    "connected_pcb_to_ideal_west_wall_mm": 5.3159332275390625,
+    "tube_gaps_mm": {
+      "pump": 12.01869054792017,
+      "pcba": 10.118548990492451,
+      "funnel-frame": 12.051989655617433
+    }
+  }
+}

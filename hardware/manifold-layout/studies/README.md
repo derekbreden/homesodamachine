@@ -1,8 +1,10 @@
 # Above-core arrangement
 
-The selected [wall-supported layout](wall-supported/README.md) places the water
+The selected [east-feed layout](east-feed/README.md) places the water
 group, folded CO₂ path, low forward PCB, flat Mean Well, dry-wall relays and
-rear connections above the existing cold core. Its native sidewalls include
+rear connections above the existing cold core. V-A routes east then fore to
+the flavor manifold's Y-A inlet, beside a PCB packed across the dry side.
+Its [native sidewalls](wall-supported/README.md) include
 the valve seats and relay bosses; its rear wall carries the C14 and RJ11.
 Ground and WAGO placement follow the primary components and full wire routes.
 
