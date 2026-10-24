@@ -1,0 +1,4 @@
+interface:
+  display_name: "Mobile-safe inline visuals"
+  short_description: "Readable inline visuals on mobile and desktop"
+  default_prompt: "Use $inline-mobile to create a mobile-safe inline visualization."
