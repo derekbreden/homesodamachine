@@ -18,6 +18,10 @@ VB_ORIGIN = np.array([38., 244.90434, 280.41])
 VB_ROTATION = np.array([[0., 0., 1.], [0., 1., 0.], [-1., 0., 0.]])
 DRAIN_CORNER = np.array([0., 179.19575, 280.41])
 YB_MOUTH = np.array([-22.35, 166.24, 270.675])
+RETURN_TURN_X_MM = -50.
+RETURN_FIRST_HANDLE_MM = 30.
+RETURN_END_HANDLE_MM = 26.
+RETURN_CROWN_MM = 3.
 
 
 def stem_rotation(host, outlet):
@@ -74,16 +78,16 @@ def route(vb_origin=None, drain_exposure=3.3058):
     rise = np.radians(8.)
     cross_axis = -np.cos(rise)*E + np.sin(rise)*U
     valve_outlet = outlet + H*N
-    turn = np.array([yb_face[0], valve_outlet[1],
-                     valve_outlet[2] + (valve_outlet[0]-yb_face[0])*np.tan(rise)])
+    turn = np.array([RETURN_TURN_X_MM, valve_outlet[1],
+                     valve_outlet[2] + (valve_outlet[0]-RETURN_TURN_X_MM)*np.tan(rise)])
     cross_start = valve_outlet + S*cross_axis
     cross_end = turn-L*cross_axis
     cross_points = np.array([cross_start-NEOFIT_DEPTH*cross_axis,
                              cross_start, cross_end, cross_end+JG_DEPTH*cross_axis])
     return_face = turn-L*N
-    return_control = np.array([return_face, return_face-20*N,
-                               yb_face+20*yb_out, yb_face])
-    return_curve, return_radius = bezier(return_control, crown_mm=2.)
+    return_control = np.array([return_face, return_face-RETURN_FIRST_HANDLE_MM*N,
+                               yb_face+RETURN_END_HANDLE_MM*yb_out, yb_face])
+    return_curve, return_radius = bezier(return_control, crown_mm=RETURN_CROWN_MM)
     return_points = np.vstack([return_face+JG_DEPTH*N, return_curve,
                                yb_face-NEOFIT_DEPTH*yb_out])
 
@@ -122,7 +126,10 @@ def route(vb_origin=None, drain_exposure=3.3058):
             'cross_rise_degrees': 8.,
             'cross_exposed_length_mm': float(np.linalg.norm(cross_end-cross_start)),
             'return_control_mm': return_control.tolist(),
-            'return_crown_mm': 2.,
+            'return_crown_mm': RETURN_CROWN_MM,
+            'return_turn_x_mm': RETURN_TURN_X_MM,
+            'return_first_handle_mm': RETURN_FIRST_HANDLE_MM,
+            'return_end_handle_mm': RETURN_END_HANDLE_MM,
             'return_minimum_radius_mm': return_radius,
             'return_exposed_length_mm': float(np.linalg.norm(np.diff(return_curve, axis=0), axis=1).sum()),
             'yb_clock_west_of_aft_degrees': 7.5,
