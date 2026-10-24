@@ -8,6 +8,14 @@
       "report": "the foam is quite compressible",
       "reported_by": "Derek",
       "scope": "Qualitative observation of the purchased foam. No numerical compression or force is reported."
+    },
+    {
+      "property": "printed_elbow_fit",
+      "reported_date": "2026-10-24",
+      "report": "You should see that we've got a printed elbow option, and that printed elbow option can fit inside of this insulation. And it appears that the insulation doesn't expand too much. The compression is mostly happening on the inside.",
+      "reported_by": "Derek",
+      "record": "elbow-fit-2026-10-24/physical-observation.json",
+      "scope": "The pictured printed elbow fits inside the foam with little visible outer expansion; qualitative local-compression evidence."
     }
   ],
   "design_intent": "The umbilical boot can deliberately compress the purchased insulating foam.",
