@@ -344,8 +344,9 @@ The main board runs `b79be4d54` or later. Nothing is configured for this build.
   line the two flavors share ([concerns](/hardware/concerns.md), "One flavor carried into the
   other").
 - **Dry**, Settings → Pump service: the dip tube out of the bottle, in air.
-- **Clean** is not for this build. With V-A's port plugged no water comes in, and its flush step
-  pumps the reservoir out through the faucet.
+- **Clean** is not for this build. Its first step pumps whatever the dip tube stands in out
+  through the faucet. With V-A's port plugged no water comes in, and its flush step pumps the
+  reservoir out through the faucet.
 - With no probes the cold loop reports a fault and asks for nothing. With no gas sensor the alarm
   input reads clear. Neither stops a pour.
 

@@ -3739,10 +3739,11 @@ static void fillService() {
 
 // ── The clean cycle, on the lock ──────────────────────────────────────────
 // The same lock the fill runs on: the channel's face, a bar that fills across
-// the whole cycle, a note saying which round and which way the water is going,
-// and STOP. The kicker carries how long is left. When the cycle ends the same
-// modal says how — clean, stopped, or a fault — for CLEAN_CARD_MS, and the
-// pane returns to the clean page it was started from.
+// the whole cycle, a note saying the funnel is going to the faucet or which
+// round it is and which way the water is going, and STOP. The kicker carries
+// how long is left. When the cycle ends the same modal says how — clean,
+// stopped, or a fault — for CLEAN_CARD_MS, and the pane returns to the clean
+// page it was started from.
 
 // The step's elapsed and the cycle's remaining time, smoothed between answers.
 static uint32_t cleanDisplayedStepElapsed() {
@@ -3766,9 +3767,10 @@ static void cleanLockProgress() {
   uint16_t &shownStep = lockShownStep;
   uint32_t &shownMinutes = lockShownMinutes;
   if (!cleanLockShown || cleanCardUntilMs) return;
-  const uint32_t steps = cleanState.rounds ? (uint32_t)cleanState.rounds * 2 : 1;
-  const uint32_t stepIndex = (uint32_t)(cleanState.round ? cleanState.round - 1 : 0) * 2 +
-                             (cleanState.step == CLEAN_STEP_FLUSH ? 1 : 0);
+  const uint32_t steps = (uint32_t)cleanState.rounds * 2 + 1;
+  const uint32_t stepIndex = cleanState.step == CLEAN_STEP_FUNNEL ? 0
+      : 1 + (uint32_t)(cleanState.round ? cleanState.round - 1 : 0) * 2 +
+            (cleanState.step == CLEAN_STEP_FLUSH ? 1 : 0);
   const uint32_t planned = cleanState.stepPlannedMs ? cleanState.stepPlannedMs : 1;
   const uint32_t stepPermille = (uint32_t)((uint64_t)cleanDisplayedStepElapsed() * 1000 / planned);
   int32_t permille = (int32_t)((stepIndex * 1000 + stepPermille) / steps);
@@ -3782,6 +3784,8 @@ static void cleanLockProgress() {
     shownStep = stepKey;
     if (cleanStopSent) {
       lv_label_set_text(lockNote, "stopping");
+    } else if (cleanState.step == CLEAN_STEP_FUNNEL) {
+      lv_label_set_text(lockNote, "funnel to faucet");
     } else {
       lv_label_set_text_fmt(lockNote, "%u of %u \xE2\x80\xA2 water %s",
                             (unsigned)cleanState.round, (unsigned)cleanState.rounds,

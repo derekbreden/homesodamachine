@@ -36,6 +36,9 @@ The Fill pages show the Big Blue screen inside the machine display's frame, with
 **Start filling** control. The same screen appears on the machine in the bottle illustration.
 The owner lifts the funnel cover by its front edge before the bottle goes in and presses it
 back down after **Filled**. Page 30 has the funnel and both faces of its cover washed by hand.
+Its Change a flavor has the owner fill the funnel with water before starting Clean on the old
+flavor; the clean cycle's first step draws the funnel through the line below it and out of the
+faucet. Nothing else in the booklet asks for water in the funnel.
 The cabinet dimensions include the seated 3 mm funnel-cover plate.
 
 The mounting illustrations use a nominal 30 mm countertop and approximate retained

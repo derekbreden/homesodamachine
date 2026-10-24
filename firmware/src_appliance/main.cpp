@@ -55,9 +55,10 @@
 // prime session or bounded from the console. The funnel fill opens a channel's
 // three funnel-path valves and draws with that pump for a planned 80 s, or
 // until the reservoir's full reed closes, from the enclosure or the console.
-// The clean cycle puts tap water through a channel three rounds over — a fill
-// through the idle pump until the full reed closes, then a pumped flush out
-// the faucet until the empty reed opens — from the enclosure or the console.
+// The clean cycle draws the funnel through a channel and out the faucet, then
+// puts tap water through it three rounds over — a fill through the idle pump
+// until the full reed closes, then a pumped flush out the faucet until the
+// empty reed opens — from the enclosure or the console.
 // The air cycles sweep the flavor path dry before a pump replacement, or air a
 // rinsed reservoir out the faucet. The pour opens the selected channel's
 // dispense path on the flow meter and bursts its pump against the reading. The
@@ -220,9 +221,10 @@ static void help() {
     Serial.println("\n  pump <a|b> [ms]   run one flavor pump, bounded (default 2000, ceiling 60000)");
     Serial.println("  fill <a|b> [s]    the funnel fill: that channel's funnel path open and its pump drawing,");
     Serial.println("                    for s seconds (default 80) or until the reservoir's full reed closes");
-    Serial.println("  clean <a|b> [rounds] [s]   the clean cycle: tap water in through the idle pump until the");
-    Serial.println("                    full reed closes, then pumped out the faucet until the empty reed opens,");
-    Serial.println("                    rounds times (default 3); s caps every step (default 90 in, 150 out)");
+    Serial.println("  clean <a|b> [rounds] [s]   the clean cycle: the funnel pumped through to the faucet, then");
+    Serial.println("                    tap water in through the idle pump until the full reed closes and pumped");
+    Serial.println("                    out the faucet until the empty reed opens, rounds times (default 3);");
+    Serial.println("                    s caps every step (default 114 funnel, 90 in, 150 out)");
     Serial.println("  dry [s]           before a pump replacement: air in then through to the faucet, on each");
     Serial.println("                    channel in turn, the funnel dry and open; s caps every step");
     Serial.println("  purge <a|b> [s]   air into that reservoir, then the reservoir out the faucet until");
@@ -304,7 +306,8 @@ static void status() {
         Serial.printf(" — clean %s, round %u of %u, %s %lu of %lu ms, about %lu s left, "
                       "reservoir reeds %02X",
                       machinePumpName(clean.channel), (unsigned)clean.round, (unsigned)clean.rounds,
-                      clean.step == CLEAN_STEP_FLUSH ? "flush" : "water fill",
+                      clean.step == CLEAN_STEP_FUNNEL ? "funnel"
+                      : clean.step == CLEAN_STEP_FLUSH ? "flush" : "water fill",
                       (unsigned long)clean.stepElapsedMs, (unsigned long)clean.stepPlannedMs,
                       (unsigned long)(clean.cycleLeftMs / 1000), clean.reeds);
     }

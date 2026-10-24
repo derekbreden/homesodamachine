@@ -615,18 +615,20 @@ void machineReadFillState(MachineFillState &st) {
 uint16_t machineValvesOpen() { return pcba::expanders().currentOutputs().valves; }
 
 // ── The clean cycle ───────────────────────────────────────────────────────
-// One topology state at a time, kCleanRounds times over: the channel's
-// tap-water fill — V-A, its select and its return open, pump off — until the
-// full reed closes, then its flush — its draw and its flavor tube open, pump
-// on — until the empty reed has opened and the tail has drawn the line clear.
-// Every step ends at its planned time as well (machine_policy::clean*ShouldEnd).
-// Between steps the pump stops, every valve closes, and nothing is energised
-// for kCleanSettleMs.
+// One topology state at a time. First the funnel — V-B, the channel's select
+// and its flavor tube open, pump on — for its planned time; then, kCleanRounds
+// times over, the channel's tap-water fill — V-A, its select and its return
+// open, pump off — until the full reed closes, then its flush — its draw and
+// its flavor tube open, pump on — until the empty reed has opened and the tail
+// has drawn the line clear. Every step ends at its planned time as well
+// (machine_policy::clean*ShouldEnd). Between steps the pump stops, every valve
+// closes, and nothing is energised for kCleanSettleMs.
 static uint8_t  cleanChannel        = 0;
 static uint8_t  cleanOutcome        = CLEAN_OUTCOME_NONE;
 static uint8_t  cleanRounds         = machine_policy::kCleanRounds;
-static uint8_t  cleanStepIndex      = 0;      // 0..2*rounds-1: even a water fill, odd a flush
+static uint8_t  cleanStepIndex      = 0;      // machine_policy::cleanStepAt's count: 0 the funnel
 static uint8_t  cleanReeds          = 0xFF;
+static uint32_t cleanFunnelPlannedMs = machine_policy::kCleanFunnelPlannedMs;
 static uint32_t cleanWaterPlannedMs = machine_policy::kCleanWaterFillPlannedMs;
 static uint32_t cleanFlushPlannedMs = machine_policy::kCleanFlushPlannedMs;
 static uint32_t cleanStepStartMs    = 0;
@@ -640,7 +642,7 @@ static bool     cleanPumpOn         = false;
 static uint32_t cleanEmptyClosedAtMs = UINT32_MAX;   // elapsed when the empty reed was first seen closed
 
 static machine_policy::CleanStep cleanStepOf(uint8_t index) {
-    return (index & 1) ? machine_policy::CleanStep::Flush : machine_policy::CleanStep::WaterFill;
+    return machine_policy::cleanStepAt(index);
 }
 
 static uint32_t cleanStepElapsedNow(uint32_t now) {
@@ -653,7 +655,7 @@ static void cleanFill(MachineCleanState &st, uint32_t now) {
     st.channel       = cleanChannel;
     st.outcome       = running ? CLEAN_OUTCOME_NONE : cleanOutcome;
     st.step          = static_cast<uint8_t>(cleanStepOf(cleanStepIndex));
-    st.round         = (uint8_t)(cleanStepIndex / 2 + 1);
+    st.round         = machine_policy::cleanRoundAt(cleanStepIndex);
     st.rounds        = cleanRounds;
     st.stepElapsedMs = cleanStepElapsedNow(now);
     st.stepPlannedMs = cleanStepPlannedMs;
@@ -684,7 +686,19 @@ static const char *cleanOutcomeName(uint8_t outcome) {
 }
 
 static const char *cleanStepName(uint8_t index) {
-    return (index & 1) ? "flush" : "water fill";
+    switch (cleanStepOf(index)) {
+        case machine_policy::CleanStep::Funnel: return "funnel";
+        case machine_policy::CleanStep::Flush:  return "flush";
+        default:                                return "water fill";
+    }
+}
+
+// "the funnel", or "round 2 of 3, flush".
+static const char *cleanStepWhere(uint8_t index, char *buf, size_t len) {
+    if (cleanStepOf(index) == machine_policy::CleanStep::Funnel) return "the funnel";
+    snprintf(buf, len, "round %u of %u, %s", (unsigned)machine_policy::cleanRoundAt(index),
+             (unsigned)cleanRounds, cleanStepName(index));
+    return buf;
 }
 
 static bool cleanReadReeds() {
@@ -718,10 +732,10 @@ static void cleanParked(uint8_t outcome) {
     cleanOutcome    = outcome;
     led(PIN_LED_ACT, false);
     state = ST_IDLE;
-    Serial.printf("\n[machine] clean %s: %s in round %u of %u, %s — valves closed\n",
+    char where[32];
+    Serial.printf("\n[machine] clean %s: %s in %s — valves closed\n",
                   kPump[cleanChannel & 1].who, cleanOutcomeName(outcome),
-                  (unsigned)(cleanStepIndex / 2 + 1), (unsigned)cleanRounds,
-                  cleanStepName(cleanStepIndex));
+                  cleanStepWhere(cleanStepIndex, where, sizeof(where)));
     switch (outcome) {
         case CLEAN_OUTCOME_DONE:    soundPlay(SND_CHIME); break;
         case CLEAN_OUTCOME_STOPPED: soundPlay(SND_ACK);   break;
@@ -730,8 +744,8 @@ static void cleanParked(uint8_t outcome) {
     cleanAnnounce(millis());
 }
 
-// The next step's valves open and, for a flush, its pump starts. False parks
-// everything and ends the cycle as a fault.
+// The next step's valves open and, for the funnel or a flush, its pump starts.
+// False parks everything and ends the cycle as a fault.
 static bool cleanStepBegin(uint32_t now) {
     const machine_policy::CleanStep step = cleanStepOf(cleanStepIndex);
     const machine_policy::ActuatorPlan plan =
@@ -750,7 +764,8 @@ static bool cleanStepBegin(uint32_t now) {
         return false;
     }
     cleanPumpOn          = plan.flavor_pumps != 0;
-    cleanStepPlannedMs   = step == machine_policy::CleanStep::Flush ? cleanFlushPlannedMs
+    cleanStepPlannedMs   = step == machine_policy::CleanStep::Funnel ? cleanFunnelPlannedMs
+                         : step == machine_policy::CleanStep::Flush  ? cleanFlushPlannedMs
                                                                      : cleanWaterPlannedMs;
     cleanStepStartMs     = now;
     cleanStepElapsedMs   = 0;
@@ -758,11 +773,10 @@ static bool cleanStepBegin(uint32_t now) {
     cleanStepRunning     = true;
     cleanEmptyClosedAtMs = (cleanReeds != 0xFF) && (cleanReeds & machine_policy::kReservoirReedEmpty)
                                ? 0 : UINT32_MAX;
-    char names[24];
-    Serial.printf("\n[machine] clean %s: round %u of %u, %s — valves %s open, pump %s, "
+    char names[24], where[32];
+    Serial.printf("\n[machine] clean %s: %s — valves %s open, pump %s, "
                   "for %lu ms, reeds %02X\n",
-                  kPump[cleanChannel].who, (unsigned)(cleanStepIndex / 2 + 1),
-                  (unsigned)cleanRounds, cleanStepName(cleanStepIndex),
+                  kPump[cleanChannel].who, cleanStepWhere(cleanStepIndex, where, sizeof(where)),
                   valveNames(plan.valves, names, sizeof(names)),
                   cleanPumpOn ? "on" : "off", (unsigned long)cleanStepPlannedMs, cleanReeds);
     cleanAnnounce(now);
@@ -782,7 +796,10 @@ static void cleanSettled(uint32_t now) {
     Serial.printf("\n[machine] clean %s: %s ended after %lu ms — valves closed\n",
                   kPump[cleanChannel].who, cleanStepName(cleanStepIndex),
                   (unsigned long)cleanStepElapsedMs);
-    if (cleanStepIndex + 1 >= cleanRounds * 2) { cleanParked(CLEAN_OUTCOME_DONE); return; }
+    if (cleanStepIndex + 1 >= machine_policy::cleanSteps(cleanRounds)) {
+        cleanParked(CLEAN_OUTCOME_DONE);
+        return;
+    }
     cleanStepIndex++;
     cleanStepBegin(now);
 }
@@ -803,10 +820,13 @@ static void cleanService(uint32_t now) {
             cleanEmptyClosedAtMs = elapsed;
     }
     machine_policy::CleanEnd end = machine_policy::CleanEnd::None;
-    if (cleanStepOf(cleanStepIndex) == machine_policy::CleanStep::Flush) {
+    const machine_policy::CleanStep step = cleanStepOf(cleanStepIndex);
+    if (step == machine_policy::CleanStep::Flush) {
         end = machine_policy::cleanFlushShouldEnd(elapsed, cleanStepPlannedMs, cleanEmptyClosedAtMs);
-    } else {
+    } else if (step == machine_policy::CleanStep::WaterFill) {
         end = machine_policy::cleanWaterFillShouldEnd(elapsed, cleanStepPlannedMs, cleanReeds);
+    } else if (elapsed >= cleanStepPlannedMs) {
+        end = machine_policy::CleanEnd::Planned;
     }
     if (end != machine_policy::CleanEnd::None) {
         Serial.printf("\n[machine] clean %s: %s %s\n", kPump[cleanChannel].who,
@@ -828,10 +848,11 @@ bool machineCleanBegin(uint8_t channel, uint8_t rounds, uint32_t stepPlannedMs) 
     else if (!pcba::expanders().initialized()) refusal = CLEAN_OUTCOME_NO_IO;
     cleanChannel        = channel & 1;
     cleanRounds         = rounds ? rounds : machine_policy::kCleanRounds;
+    cleanFunnelPlannedMs = stepPlannedMs ? stepPlannedMs : machine_policy::kCleanFunnelPlannedMs;
     cleanWaterPlannedMs = stepPlannedMs ? stepPlannedMs : machine_policy::kCleanWaterFillPlannedMs;
     cleanFlushPlannedMs = stepPlannedMs ? stepPlannedMs : machine_policy::kCleanFlushPlannedMs;
     cleanStepIndex      = 0;
-    cleanStepPlannedMs  = cleanWaterPlannedMs;
+    cleanStepPlannedMs  = cleanFunnelPlannedMs;
     cleanStepElapsedMs  = 0;
     cleanReeds          = 0xFF;
     cleanStepRunning    = false;
@@ -850,8 +871,10 @@ bool machineCleanBegin(uint8_t channel, uint8_t rounds, uint32_t stepPlannedMs) 
     state = ST_CLEANING;
     led(PIN_LED_ACT, true);
     cleanOutcome = CLEAN_OUTCOME_NONE;
-    Serial.printf("\n[machine] clean %s: %u round%s, water fill %lu ms and flush %lu ms each\n",
-                  kPump[cleanChannel].who, (unsigned)cleanRounds, cleanRounds == 1 ? "" : "s",
+    Serial.printf("\n[machine] clean %s: the funnel for %lu ms, then %u round%s, water fill %lu ms "
+                  "and flush %lu ms each\n",
+                  kPump[cleanChannel].who, (unsigned long)cleanFunnelPlannedMs,
+                  (unsigned)cleanRounds, cleanRounds == 1 ? "" : "s",
                   (unsigned long)cleanWaterPlannedMs, (unsigned long)cleanFlushPlannedMs);
     if (!cleanStepBegin(now)) return false;
     soundPlay(SND_ACK);
@@ -1460,8 +1483,11 @@ static machine_policy::LevelMotion levelMotionFor(uint8_t channel) {
             return fillChannel == channel ? LevelMotion::Rising : LevelMotion::Still;
         case ST_CLEANING:
             if (cleanChannel != channel || !cleanStepRunning) return LevelMotion::Still;
-            return cleanStepOf(cleanStepIndex) == machine_policy::CleanStep::Flush
-                       ? LevelMotion::Falling : LevelMotion::Rising;
+            switch (cleanStepOf(cleanStepIndex)) {
+                case machine_policy::CleanStep::Flush:     return LevelMotion::Falling;
+                case machine_policy::CleanStep::WaterFill: return LevelMotion::Rising;
+                default:                                   return LevelMotion::Still;
+            }
         case ST_AIRING:
             if (!airStepRunning || airStepChannelNow() != channel) return LevelMotion::Still;
             return machine_policy::airStepDrawsReservoir(airModeOf(airMode), airStepIndex)

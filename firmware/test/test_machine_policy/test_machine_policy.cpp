@@ -975,6 +975,38 @@ void test_clean_steps_are_the_channels_own_water_fill_and_flush() {
                              canonicalPlan(Operation::CleanFlushB).valves);
 }
 
+void test_clean_cycle_opens_on_the_funnel_drawn_through_to_the_faucet() {
+    TEST_ASSERT_EQUAL_UINT8(7, cleanSteps(3));
+    TEST_ASSERT_EQUAL_UINT8(3, cleanSteps(1));
+    TEST_ASSERT_EQUAL(CleanStep::Funnel, cleanStepAt(0));
+    TEST_ASSERT_EQUAL_UINT8(0, cleanRoundAt(0));
+    // Then each round's water fill and flush, in order.
+    for (uint8_t round = 1; round <= 3; round++) {
+        TEST_ASSERT_EQUAL(CleanStep::WaterFill, cleanStepAt(round * 2 - 1));
+        TEST_ASSERT_EQUAL(CleanStep::Flush,     cleanStepAt(round * 2));
+        TEST_ASSERT_EQUAL_UINT8(round, cleanRoundAt(round * 2 - 1));
+        TEST_ASSERT_EQUAL_UINT8(round, cleanRoundAt(round * 2));
+    }
+    // The funnel is the dry cycle's Through state: the funnel, the select and
+    // the flavor tube, pump on, and neither of the reservoir's mouths.
+    TEST_ASSERT_EQUAL(Operation::AirPurgeThroughA, cleanOperation(0, CleanStep::Funnel));
+    TEST_ASSERT_EQUAL(Operation::AirPurgeThroughB, cleanOperation(1, CleanStep::Funnel));
+    for (uint8_t ch = 0; ch < 2; ch++) {
+        const ActuatorPlan p = canonicalPlan(cleanOperation(ch, CleanStep::Funnel));
+        TEST_ASSERT_TRUE(p.valves & bit(Valve::B));
+        TEST_ASSERT_FALSE(p.valves & bit(Valve::A));
+        TEST_ASSERT_FALSE(p.valves & (bit(Valve::E) | bit(Valve::F) | bit(Valve::H) | bit(Valve::I)));
+        TEST_ASSERT_EQUAL_UINT8(ch == 0 ? kPumpA : kPumpB, p.flavor_pumps);
+        TEST_ASSERT_FALSE(p.refill_pump);
+    }
+}
+
+void test_clean_funnel_empties_a_full_funnel_then_draws_the_line_clear() {
+    const uint32_t funnel_ms = kCleanFunnelMl * 60000u / kFillSlowestMlMin;
+    TEST_ASSERT_TRUE(funnel_ms < kCleanFunnelPlannedMs);
+    TEST_ASSERT_TRUE(kCleanFunnelPlannedMs - funnel_ms >= kAirThroughPlannedMs);
+}
+
 void test_clean_water_fill_ends_on_the_full_reed_before_the_clock() {
     TEST_ASSERT_EQUAL(CleanEnd::None, cleanWaterFillShouldEnd(0, kCleanWaterFillPlannedMs, 0x00));
     TEST_ASSERT_EQUAL(CleanEnd::None,
@@ -1069,20 +1101,22 @@ void test_reservoir_level_takes_the_highest_of_two_adjacent_reeds() {
 }
 
 void test_clean_cycle_left_sums_the_steps_still_to_come() {
-    const uint32_t w = kCleanWaterFillPlannedMs, f = kCleanFlushPlannedMs;
-    // At the start of the first water fill: the whole cycle.
-    TEST_ASSERT_EQUAL_UINT32(3 * (w + f), cleanCycleLeftMs(0, 3, 0, w, w, f));
+    const uint32_t u = kCleanFunnelPlannedMs, w = kCleanWaterFillPlannedMs, f = kCleanFlushPlannedMs;
+    // At the start of the funnel: the whole cycle.
+    TEST_ASSERT_EQUAL_UINT32(u + 3 * (w + f), cleanCycleLeftMs(0, 3, 0, u, w, f));
+    // At the start of the first water fill.
+    TEST_ASSERT_EQUAL_UINT32(3 * (w + f), cleanCycleLeftMs(1, 3, 0, w, w, f));
     // Halfway through the first water fill.
-    TEST_ASSERT_EQUAL_UINT32(3 * (w + f) - w / 2, cleanCycleLeftMs(0, 3, w / 2, w, w, f));
+    TEST_ASSERT_EQUAL_UINT32(3 * (w + f) - w / 2, cleanCycleLeftMs(1, 3, w / 2, w, w, f));
     // A water fill that ended early on its reed was given a shorter planned time by the caller.
-    TEST_ASSERT_EQUAL_UINT32(f + 2 * (w + f), cleanCycleLeftMs(0, 3, 20000, 20000, w, f));
+    TEST_ASSERT_EQUAL_UINT32(f + 2 * (w + f), cleanCycleLeftMs(1, 3, 20000, 20000, w, f));
     // The last flush, 10 s from its planned end.
-    TEST_ASSERT_EQUAL_UINT32(10000, cleanCycleLeftMs(5, 3, f - 10000, f, w, f));
+    TEST_ASSERT_EQUAL_UINT32(10000, cleanCycleLeftMs(6, 3, f - 10000, f, w, f));
     // Past planned, and past the end.
-    TEST_ASSERT_EQUAL_UINT32(0, cleanCycleLeftMs(5, 3, f + 1, f, w, f));
-    TEST_ASSERT_EQUAL_UINT32(0, cleanCycleLeftMs(6, 3, 0, f, w, f));
+    TEST_ASSERT_EQUAL_UINT32(0, cleanCycleLeftMs(6, 3, f + 1, f, w, f));
+    TEST_ASSERT_EQUAL_UINT32(0, cleanCycleLeftMs(7, 3, 0, f, w, f));
     // One round.
-    TEST_ASSERT_EQUAL_UINT32(w + f, cleanCycleLeftMs(0, 1, 0, w, w, f));
+    TEST_ASSERT_EQUAL_UINT32(u + w + f, cleanCycleLeftMs(0, 1, 0, u, w, f));
 }
 
 void test_clean_timing_is_ordered_and_reads_the_reservoir_as_the_fill_does() {
@@ -1162,6 +1196,7 @@ void test_clean_wire_contract_has_dedicated_ids_and_exact_layout() {
     TEST_ASSERT_EQUAL_UINT8(CLEAN_PHASE_RUNNING, 1);
     TEST_ASSERT_EQUAL_UINT8(CLEAN_STEP_WATER_FILL, static_cast<uint8_t>(CleanStep::WaterFill));
     TEST_ASSERT_EQUAL_UINT8(CLEAN_STEP_FLUSH, static_cast<uint8_t>(CleanStep::Flush));
+    TEST_ASSERT_EQUAL_UINT8(CLEAN_STEP_FUNNEL, static_cast<uint8_t>(CleanStep::Funnel));
     TEST_ASSERT_TRUE(STATUS_F_CLEANING != STATUS_F_FILLING && STATUS_F_CLEANING != STATUS_F_PRIMING &&
                      STATUS_F_CLEANING != STATUS_F_GAS_TRIP);
 }
@@ -1169,6 +1204,8 @@ void test_clean_wire_contract_has_dedicated_ids_and_exact_layout() {
 int main(int, char **) {
     UNITY_BEGIN();
     RUN_TEST(test_clean_steps_are_the_channels_own_water_fill_and_flush);
+    RUN_TEST(test_clean_cycle_opens_on_the_funnel_drawn_through_to_the_faucet);
+    RUN_TEST(test_clean_funnel_empties_a_full_funnel_then_draws_the_line_clear);
     RUN_TEST(test_clean_water_fill_ends_on_the_full_reed_before_the_clock);
     RUN_TEST(test_clean_flush_ends_a_tail_after_the_empty_reed_closes);
     RUN_TEST(test_reservoir_level_is_unknown_until_a_reed_is_seen);

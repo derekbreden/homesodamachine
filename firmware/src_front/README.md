@@ -445,17 +445,20 @@ readable for six seconds while navigation is restored. Refusals appear on the Fi
 ### Clean
 
 **Clean → Start cleaning** sends `MSG_CLEAN_START { channel }`, and the main
-board puts tap water through that channel three rounds over: in through the idle pump to
-the reservoir until its full reed closes, then out through the faucet on the dispense path
-until its empty reed opens. The confirm page says to set a pitcher under the faucet first.
+board draws the funnel through that channel and out through the faucet, then puts tap water
+through it three rounds over: in through the idle pump to the reservoir until its full reed
+closes, then out through the faucet on the dispense path until its empty reed opens. The
+confirm page says to set a pitcher under the faucet first and asks for nothing in the funnel.
+Water there matters only when the flavor changes, so the install guide's Change a flavor is
+what asks for it.
 The main board owns the cycle and answers START, `MSG_CLEAN_QUERY` and `MSG_CLEAN_STOP`
 with a complete `CleanStatePayload`; it queues every step it moves to and every ending for
 this display's next turn.
 
-The Stop-only task shows Flushing, progress across the complete cycle, the round and
-flow direction, and the main board's estimated time left. Queries repeat every 500 ms.
-Clean, Stopped and fault outcomes remain readable for six seconds while navigation is
-restored. Refusals appear on the Clean page.
+The Stop-only task shows Flushing, progress across the complete cycle, "funnel to faucet" or
+the round and flow direction, and the main board's estimated time left. Queries repeat every
+500 ms. Clean, Stopped and fault outcomes remain readable for six seconds while navigation
+is restored. Refusals appear on the Clean page.
 
 ### Dry, before a pump replacement
 

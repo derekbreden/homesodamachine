@@ -131,14 +131,22 @@ FillEnd fillShouldEnd(uint32_t elapsed_ms, uint32_t planned_ms, uint8_t reservoi
 Operation fillOperation(uint8_t channel);
 
 // ── The clean cycle ───────────────────────────────────────────────────────
-// Tap water goes through the channel the way concentrate does, kCleanRounds
-// times over. A round fills the reservoir with tap water through the idle
-// pump — V-A, the channel's select and its return, tap pressure across a
-// parked head — until the full reed closes, then draws it out through the
-// faucet on the dispense path — the channel's draw and its flavor tube, pump
-// on — until the empty reed opens and kCleanFlushTailMs more has drawn the
-// flavor tube clear. Each step also ends at its planned time.
+// The cycle opens on the funnel. The channel's Air Purge Through state — V-B,
+// its select and its flavor tube, pump on — draws whatever the funnel holds
+// down the channel and out through the faucet: air when it is dry, and water
+// poured in first rinses the funnel's path, which the tap water never reaches.
+// The slowest rated head empties a full funnel, 531 mL to its mouth rim, in
+// 84 s, and the 30 s the dry cycle gives this same path draws the line behind
+// it clear. Then tap water goes through the channel the way concentrate does,
+// kCleanRounds times over. A round fills the reservoir with tap water through
+// the idle pump — V-A, the channel's select and its return, tap pressure
+// across a parked head — until the full reed closes, then draws it out through
+// the faucet on the dispense path — the channel's draw and its flavor tube,
+// pump on — until the empty reed opens and kCleanFlushTailMs more has drawn
+// the flavor tube clear. Each step also ends at its planned time.
 constexpr uint8_t  kCleanRounds            = 3;
+constexpr uint32_t kCleanFunnelMl          = 531;
+constexpr uint32_t kCleanFunnelPlannedMs   = 114000;
 constexpr uint32_t kCleanWaterFillPlannedMs = 90000;
 constexpr uint32_t kCleanFlushPlannedMs     = 150000;
 constexpr uint32_t kCleanFlushTailMs        = 8000;
@@ -150,6 +158,7 @@ constexpr uint8_t  kReservoirReedEmpty      = 1u << 0;   // bit 0 of a reservoir
 enum class CleanStep : uint8_t {
     WaterFill = 0,   // tap water in, pump off
     Flush,           // pump on, out through the faucet
+    Funnel,          // pump on, the funnel through to the faucet
 };
 
 enum class CleanEnd : uint8_t {
@@ -157,6 +166,13 @@ enum class CleanEnd : uint8_t {
     Reed,     // the step's own reed said so
     Planned,  // the step's planned time elapsed
 };
+
+// A cycle of `rounds` rounds is 2 × rounds + 1 steps, counted from 0: the
+// funnel, then each round's water fill and flush. The funnel stands before
+// round 1, in round 0.
+uint8_t   cleanSteps(uint8_t rounds);
+CleanStep cleanStepAt(uint8_t step_index);
+uint8_t   cleanRoundAt(uint8_t step_index);
 
 // The topology state a step of the channel's clean cycle runs.
 Operation cleanOperation(uint8_t channel, CleanStep step);
@@ -173,8 +189,9 @@ CleanEnd cleanFlushShouldEnd(uint32_t elapsed_ms, uint32_t planned_ms,
                              uint32_t empty_closed_at_ms);
 
 // How much of the cycle is left, as a time: what remains of the step running
-// now plus every step still to come, each at its planned length. Steps 0..2R-1
-// alternate water fill and flush; `step_index` is the one running.
+// now plus every step still to come, each at its planned length. `step_index`
+// is the one running, in cleanStepAt's count; the funnel only ever runs first,
+// so it is never still to come.
 uint32_t cleanCycleLeftMs(uint8_t step_index, uint8_t rounds,
                           uint32_t step_elapsed_ms, uint32_t step_planned_ms,
                           uint32_t water_fill_planned_ms, uint32_t flush_planned_ms);
