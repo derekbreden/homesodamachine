@@ -176,14 +176,12 @@
     {
       "quadrant": "back-bottom",
       "status": "proposed",
-      "basis": "Edge-on meter between pump and CO2 path, inlet plumbing from the retained core soda port and outlet tube; core-roof retention is proposed while its detail is designed.",
+      "basis": "Aft edge-on meter between pump and CO2 path, direct-down inlet to a proposed aft core guide and concealed outlet join; core-roof retention is proposed.",
       "names": [
         "digiten-flow",
         "soda-meter-bulkhead",
         "soda-core-rise",
-        "soda-core-elbow",
-        "soda-core-stem",
-        "soda-core-meter"
+        "soda-inlet-stem"
       ]
     }
   ],
@@ -216,7 +214,7 @@
     {
       "carried_part": "soda-meter-bulkhead",
       "other_part": "soda-outlet-return-stem",
-      "note": "Back-bottom meter outlet tube connects to the fore-facing stem nested in the back-top soda bulkhead elbow"
+      "note": "Back-bottom meter outlet meets the back-top rear stem collet; their short tube is entirely seated inside the two sockets"
     }
   ],
   "connection_owner_rule": "Mating housings and local conductors inherit their component's assembly owner. This does not claim a complete end-to-end harness route."

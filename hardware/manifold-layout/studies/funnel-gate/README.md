@@ -60,28 +60,32 @@ Dimensions and cut lengths are layout estimates.
 ## Soda line
 
 The [measured DIGITEN reference](../../../reference/digiten-flow-sensor/README.md)
-stands on edge between the pump and CO₂ path, with ports fore–aft, label east
-and lead root down. Its native origin is `(52.4048,372,306.37605)` mm. The
-collet faces are at Y341.5 and Y402.5. Main component axes remain square.
+stands on edge aft between the pump and CO₂ path, with ports fore–aft, label
+east and lead root down. Its native origin is `(50,390.9148,306.37605)` mm.
+The collet faces are at Y360.4148 and Y421.4148. Main component axes remain
+square; the bulkhead grid is fixed.
 
-The core soda port stays `(77.5,271.6,253.4)` mm. Its straight riser enters a
-union elbow, which receives an aft-facing stem elbow directly. That fold
-places the feed west of V-K. The 51.09 mm exposed feed enters the meter
-axially, with a gentle 4.512 mm lateral offset and minimum centerline radius
-95.50 mm. The core-fold stem retains 3 mm of exposed stem to clear the
-existing valve-wall root; its estimated insertion remains 15.7 mm.
+The outlet collet meets the rear elbow's fore-facing collet. No tube is
+exposed between them; their nominal 32.591 mm tube is entirely seated inside
+the two sockets. The rear nested stem retains 2.4048 mm exposed stem to place
+the meter clear of the CO₂ check; it remains shorter than the full factory
+stem. The bulkhead's own stem seats shoulder-flush.
 
-The meter outlet has a straight 18.915 mm exposed tube into a fore-facing
-stem elbow nested directly in the bulkhead's west-facing elbow. The bulkhead
-grid is fixed. Four elbows total make the route's turns: one union and three
-stems, with no tube between either nested pair. The riser extends 12 mm below
-the core handoff plane. Socket depths remain layout estimates.
+One directly seated inlet stem turns down at `(50,354.3696,306.37605)` mm.
+Its straight tube enters a proposed core guide at `(50,354.3696,253.4)` mm,
+aft of the pump inlet elbow, with 33.926 mm exposed above the roof. The tube
+extends 12 mm below that handoff. The carbonator bottom outlet retains its
+own fixed port; the guide and the internal tube route above the endcap need
+production integration. The study does not model a vertical continuation
+through the pressure vessel.
 
-[soda_route.py](soda_route.py) records both routes, insertion assumptions and
-all fitting poses. [fit-report.json](fit-report.json) records the combined
-exterior clearance: meter to pump 1.46 mm, meter to CO₂ check 1.40 mm, core-fold
-stem to valve-wall root 1.17 mm and meter to ceiling 30.47 mm. The meter pigtail
-and retention detail remain pending; a core-roof carrier is proposed.
+Three stem elbows and two tube pieces form this above-core line. Socket
+depths remain family-based layout estimates. [soda_route.py](soda_route.py)
+records the poses and seated interfaces; [fit-report.json](fit-report.json)
+records the combined exterior clearance. The measured exterior clears the
+pump by 6.83 mm and CO₂ check by 1.05 mm. The inlet elbow clears the pump by
+1.85 mm; the new drop clears its inlet TPU elbow by 13.84 mm. Meter pigtail
+and core-roof retention detail remain pending.
 
 ## PCB access and fit
 
