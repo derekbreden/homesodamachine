@@ -1,5 +1,12 @@
 # Printing the reservoir in PETG
 
+Mark1's active [temperature-only trial](prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/README.md),
+task **1371867808**, uses **255/260 °C** first/subsequent nozzle temperatures and
+retains every other executable command from the water-holding article. It
+starts on A1 with automatic refill among four matching loaded spools. Its
+appearance and sealing are unassessed. The project and table below retain the
+**265/270 °C water-holding baseline**.
+
 [reservoir.3mf](reservoir.3mf) uses the **five-wall May Water adaptation**
 through Mark1's right 0.8 mm Standard nozzle: **flow 1.05, 30% Infill/Wall overlap,
 265/270 °C, no brim, zero added user Z trim and ironing Off**. Arachne uses its
@@ -16,7 +23,7 @@ identifies the current geometry and project. The baseline water-hold acceptance 
 `may-30-clear-06` in [water-hold-acceptance.json](water-hold-acceptance.json).
 Its water hold belongs to the historical May article. The most recent 59° article [still leaks at the bottom and has a new vertical-edge defect](prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/physical-result.json). The preceding walls-only article has [reported seam leakage](prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json); corner-flatness and adhesion are not separately reported for that article.
 
-## Current recipe
+## Water-holding recipe baseline
 
 | Parameter | Value |
 | --- | --- |

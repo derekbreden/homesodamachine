@@ -503,3 +503,37 @@ flatness or lift-onset observation is supplied. The result applies to the
 printed article and reported one-hour hold.
 [Physical result](prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json) ·
 [Status visibility limit](prints/2026-10-22-mark1-flow105-overlap30-right08-z000/terminal-observation.json).
+
+
+## Left reservoir and cap, temperature-only 255/260 °C trial (2026-10-24, Mark1 task 1371867808)
+
+Derek selected the next trial:
+
+> Please record I have some aesthetic concerns with the print, and I'd like to consider trying all of those same settings, but back to our previous temperatures. The printer is busy elsewise now, and I don't have filament loaded, but just make a note of what I intend to try next.
+
+He authorized starting it:
+
+> Mark One is available now and loaded up with an AMS 2 Pro with four spools of Translucent PETG connected to that right hot end for the 0.8 millimeter there. So please go ahead and start our next print on Mark One. Thanks.
+
+Mark1 acknowledged one Studio Send with SUCCESS at **16:59:19 CDT / 21:59:19 UTC**.
+A fresh reading confirms **RUNNING, layer 0/833, print error 0 and no HMS**.
+The right **0.8 mm Standard** hotend is mounted, **A1 PETG R** is selected and
+AMS filament backup is **On**, with matching translucent clear PETG in A1–A4.
+All four report 100%; A1 is the tie-break start. Send options are Timelapse On,
+Bed Leveling On, Flow Dynamics Auto and Nozzle Offset Calibration Auto.
+
+The trial retains **flow 1.05, five Arachne walls at 10°, 30% overlap, solid
+floor fill, 0.30/0.24 mm layers, 70 °C bed, May motion/cooling, no brim, zero
+added user trim and ironing Off**. The two deposition temperatures are
+**255/260 °C**. Against the one-hour water-hold article's native G-code,
+**12 temperature-related commands differ and every other executable command
+is identical**. The baseline's positive water hold and aesthetic concerns
+remain recorded against that article.
+
+The native estimate is **5 h 42 min / 444.28 g / 833 layers**, with no plate
+warning and at least **70.519 mm** full-bead bed-edge inset. A fresh same-task
+Mark2 read provides at least **475 seconds** of startup spacing.
+The reported name is `Flavor_reservoirs_-_PETG_0.24_mm`; archive hash, SUCCESS
+reply and new task ID identify this submission. Appearance, adhesion and water
+holding on this trial are unassessed. No scheduled monitor was created or
+reactivated. [Complete trial and source records](prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/README.md).

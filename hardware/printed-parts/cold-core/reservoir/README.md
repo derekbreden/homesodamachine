@@ -12,7 +12,15 @@ carries both mouths: the fill, and the dip tube the draw line becomes.
 [Level sensing](level-sensing.md) · [Floor and dip tube](floor-and-dip-tube.md) ·
 [Vent](vent.md)
 
-## Current print recipe
+## Active temperature trial
+
+Mark1 task **1371867808** is printing the [left body and cap at
+255/260 °C](prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/README.md),
+starting on **A1** with **automatic refill** to matching loaded spools. Every
+other executable command matches the one-hour water-hold article. This trial
+addresses Derek's aesthetic concerns; its appearance and sealing are unassessed.
+
+## Water-holding recipe baseline
 
 [reservoir.3mf](reservoir.3mf) contains the current left and right
 body/cap pairs through **Mark1's right 0.8 mm Standard nozzle**. The recipe uses
@@ -24,12 +32,10 @@ October 23, 2026. Derek intentionally stopped the print early.
 [Launch and startup](prints/2026-10-22-mark1-flow105-overlap30-right08-z000/README.md).
 [Settings, wall-count comparison and installed presets](recipe-reviews/2026-10-22-flow105-overlap30/README.md).
 
-Derek reports aesthetic concerns with this article. His [next intended
-trial](corner-lifting/next-trial-options.json) retains all of its settings except
-nozzle temperatures: **255 °C first layer / 260 °C subsequent layers**. This is
-an intention recorded for later; the printer is occupied and filament is not
-loaded, as reported October 23. The current project retains the tested
-265/270 °C recipe.
+Derek reports aesthetic concerns with this article. The active trial uses
+**255 °C first layer / 260 °C subsequent layers**, with all other settings
+retained. [Trial settings and native comparison](prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/README.md).
+The baseline project retains its tested 265/270 °C settings.
 
 The ordinary body walls and their thick curved corners contain only native
 wall paths. Five is the lowest tested requested count that achieves this on

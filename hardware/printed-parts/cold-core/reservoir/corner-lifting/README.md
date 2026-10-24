@@ -1,5 +1,10 @@
 # Reservoir adhesion observations
 
+Mark1 task **1371867808** is the active [255/260 °C temperature-only trial](../prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/README.md),
+with the baseline's flow 1.05, five walls and 30% overlap. It starts from A1 with
+AMS backup On and matching stock in A1–A4. Startup is at layer 0; model adhesion,
+appearance and sealing are unassessed. The old task-bound monitor remains paused.
+
 Mark1 task **1365626370** has a **reported one-hour water hold** on the printed portion, reported October 23, 2026. Derek intentionally stopped it early. Retain the current [five-wall / solid-floor recipe](../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/README.md): flow 1.05, 30% overlap and 265/270 °C. [Physical result](../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json). Exact cut height, fill height, corner flatness and lift onset are unspecified. The old task-bound monitor remains paused.
 
 Mark1 task **1364550539** is the most recent completed

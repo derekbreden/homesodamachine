@@ -1,0 +1,110 @@
+{
+  "printer": "Mark1",
+  "job_id": "1371867808",
+  "accepted_at_utc": "2026-10-24T21:59:19.315843+00:00",
+  "accepted_at_central": "2026-10-24T16:59:19.315843-05:00",
+  "acceptance_timestamp_scope": "project_file reply observation when present; otherwise first observation of the matching new running task.",
+  "first_new_task_observed_at_utc": "2026-10-24T21:59:20.867003+00:00",
+  "job": {
+    "job_id": "1371867808",
+    "subtask_name": "Flavor_reservoirs_-_PETG_0.24_mm",
+    "gcode_state": "PREPARE",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 51,
+    "total_layer_num": 51,
+    "mc_percent": 0,
+    "mc_remaining_time": 0,
+    "nozzle_temper": 26.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 25.0,
+    "bed_target_temper": 0.0
+  },
+  "previous_job_id": "1366458433",
+  "archive": ".cache/reservoir-flow105-overlap30-temp260/2026-10-24-reservoir-left-cap-flow105-overlap30-temp260-right08-z000-a1-mark1.gcode.3mf",
+  "archive_sha256": "c839e75d4f287d3364fed95499b31ade4bf92f12627b5677c6001e4797c01e0a",
+  "gcode_sha256": "a4388a218fa814c1db1c2cf3afcd59f073ac3e8ecda98cc7d50c1704c5aef078",
+  "post_import_staged_archive_sha256": "c839e75d4f287d3364fed95499b31ade4bf92f12627b5677c6001e4797c01e0a",
+  "start_slot": "A1",
+  "available_refill_spools_at_preflight": [
+    "A2",
+    "A3",
+    "A4"
+  ],
+  "auto_refill_enabled": true,
+  "spool_order": "Use the most depleted suitable spool first. All four loaded matching spools report 100%; A1 selected as a tie-break.",
+  "nozzle": "right 0.8 mm Standard",
+  "nozzle_c_first_subsequent": [
+    255,
+    260
+  ],
+  "user_z_trim_mm": 0,
+  "stock_textured_pei_compensation_mm": -0.02,
+  "options": {
+    "Timelapse": "On",
+    "Auto Bed Leveling": "On",
+    "Flow Dynamics Calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "submission": "cua_repl Bambu Studio Send print job, single Send click",
+  "command_acknowledgment": {
+    "command": "project_file",
+    "result": "SUCCESS",
+    "reason": "SUCCESS",
+    "err_code": 0
+  },
+  "shared_circuit": {
+    "other_printer": "Mark2",
+    "observed_running_at_utc": "2026-10-24T21:50:46.947635+00:00",
+    "job_id": "1370902777",
+    "minimum_spacing_seconds": 180,
+    "verification": "Re-read the same running Mark2 job at final pre-send; elapsed since initial observation supplies a lower bound on start spacing.",
+    "minimum_start_spacing_seconds_at_final_preflight": 475.238914
+  },
+  "events": [
+    {
+      "observed_at_utc": "2026-10-24T21:58:44.623034+00:00",
+      "job_id": "1366458433",
+      "subtask_name": "2026-10-23-tube-bend-holders-w2-legs123-petgf-left04-z018-mark1.gcode.3mf",
+      "gcode_state": "FINISH",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 51
+    },
+    {
+      "observed_at_utc": "2026-10-24T21:59:19.315843+00:00",
+      "command": "project_file",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "err_code": 0
+    },
+    {
+      "observed_at_utc": "2026-10-24T21:59:19.315843+00:00",
+      "job_id": 1371867808,
+      "subtask_name": "Flavor_reservoirs_-_PETG_0.24_mm",
+      "gcode_state": "FINISH",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 51
+    },
+    {
+      "observed_at_utc": "2026-10-24T21:59:19.407843+00:00",
+      "job_id": "1366458433",
+      "subtask_name": "2026-10-23-tube-bend-holders-w2-legs123-petgf-left04-z018-mark1.gcode.3mf",
+      "gcode_state": "FINISH",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 51
+    },
+    {
+      "observed_at_utc": "2026-10-24T21:59:20.867003+00:00",
+      "job_id": "1371867808",
+      "subtask_name": "Flavor_reservoirs_-_PETG_0.24_mm",
+      "gcode_state": "PREPARE",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 51
+    }
+  ],
+  "founder_authorization": "Mark One is available now and loaded up with an AMS 2 Pro with four spools of Translucent PETG connected to that right hot end for the 0.8 millimeter there. So please go ahead and start our next print on Mark One. Thanks."
+}
