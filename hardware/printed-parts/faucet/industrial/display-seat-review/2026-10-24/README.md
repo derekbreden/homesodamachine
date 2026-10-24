@@ -5,10 +5,11 @@ The crown stands 1.82249 mm above the reference 27 mm round neck crown;
 the printed reference stands 6.32249 mm above it. The cover's snap-bearing
 locations and 1.30 mm bezel thickness are fixed.
 
-This is a review candidate with its own tip and cover exports. Its modeled
-component interference is unresolved. The
+This geometry has its own tip and cover exports. The
 [complete fit print on Mark2](../../prints/2026-10-24-lowered-display-complete-mark2/README.md)
-is task **1369497043**. The production files and earlier saved print projects
+is task **1369497043**. Its
+[physical result](../../prints/2026-10-24-lowered-display-complete-mark2/physical-result/physical-result.json)
+records tight but working fit. The production files and earlier saved print projects
 remain the input reference. The native geometry reading records the candidate
 at review time, before submission.
 
@@ -72,7 +73,9 @@ retain their reference dimensions.
 The [physical observation and eight photographs](../../prints/2026-10-23-black-complete-mark2/physical-result/physical-result.json)
 record the reported cover gap, raised supports and apparent tube clearance.
 The earlier physical acceptance records retain their identified scope. This
-candidate has no physical fit or retention result.
+lowered Industrial head has reported tight but working fit. Quantified seating
+force, clearance, retention force and endurance are unmeasured. The requested
+lowered Sculpted cover has its own print record.
 
 `prepare.py` is a manual study generator. It writes `candidate-tip.step/.stl`,
 `candidate-cover.step/.stl`, `geometry-review.json` and the self-contained viewer

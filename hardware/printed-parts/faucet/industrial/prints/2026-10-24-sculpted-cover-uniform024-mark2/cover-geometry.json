@@ -1,0 +1,23 @@
+{
+  "recorded_at_utc": "2026-10-24T16:06:27.497092+00:00",
+  "cover_style": "Sculpted",
+  "display_drop_mm": 4.5,
+  "display_foot_bearing_n_mm": 7.1,
+  "cover_top_n_mm": 18.85,
+  "bezel_bottom_n_mm": 17.55,
+  "bezel_thickness_mm": 1.3000000000000007,
+  "glass_to_bezel_gap_mm": 0.10000000000000142,
+  "snap_bottom_top_n_mm": [
+    3.3,
+    6.3
+  ],
+  "seated_cover_to_accepted_tip_intersection_mm3": 0.0,
+  "native_valid_single_solid": true,
+  "source_sha256": {
+    "hardware/printed-parts/faucet/faucet-display-cover/faucet_display_cover.py": "4aa99d274d885f9cf5e7f4e074feb2f0b2c94e16b861d67b5b0b99a4e5dce1d3",
+    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "7f3dd1f885342701c3c667d48880fedb3f03f069338dc7091687988f7c613e71",
+    "hardware/printed-parts/faucet/industrial/display-seat-review/2026-10-24/candidate-tip.stl": "bb6d6c9a916235480b35ee4b56e692bba9478c8ae80556cd02b5697c46dda670"
+  },
+  "physical_fit_scope": "The lowered Industrial head has reported tight but working fit. This Sculpted cover retains its own broad-wing design and fixed snap datums; its lowered geometry requires this requested print.",
+  "print_stl_sha256": "95f8c4708d6527fb84f12aed8d4e4b776d39fe78137d51c1c4ced83b0d995af2"
+}

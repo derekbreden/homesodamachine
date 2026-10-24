@@ -35,7 +35,8 @@ def vertices(raw):
     return np.array([[float(v.get(k)) for k in 'xyz'] for v in ET.fromstring(raw).findall('.//' + writer.qn('vertex'))])
 
 
-def material_review(gcode, report, early_max_z=16.8, *, localized_cooling=False):
+def material_review(gcode, report, early_max_z=16.8, *, localized_cooling=False,
+                    first_three_max_z=.68):
     names = {p['identify_id']: p['name'] for p in report['parts']}
     readings = {label:dict(part=name, extruding_commands=0, first_three_fans=set(), later_fans=set(),
         bridge_speeds=set(), overhang_speeds=set(), features=set(), fan_by_feature={}) for label,name in names.items()}
@@ -90,8 +91,9 @@ def material_review(gcode, report, early_max_z=16.8, *, localized_cooling=False)
                     item['extruding_commands'] += 1
                     item['features'].add(feature)
                     item['fan_by_feature'].setdefault(feature, set()).add(fan/2.55)
-                    item['first_three_fans' if z <= .68001 else 'later_fans'].add(fan/2.55)
-                    allowed = (0., 178.5) if localized_cooling and z > .68001 else (0 if z <= .68001 else 178.5,)
+                    first_three = z <= first_three_max_z + .00001
+                    item['first_three_fans' if first_three else 'later_fans'].add(fan/2.55)
+                    allowed = (0., 178.5) if localized_cooling and not first_three else (0 if first_three else 178.5,)
                     if min(abs(fan-value) for value in allowed) > .001:
                         violations.append(dict(line=number, part=names[obj], feature=feature, z=z, fan=fan))
                     if feature == 'Bridge':

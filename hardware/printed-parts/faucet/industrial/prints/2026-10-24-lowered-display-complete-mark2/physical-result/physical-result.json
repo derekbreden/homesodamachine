@@ -1,0 +1,68 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-24T16:04:27.815003+00:00",
+  "reported_by": "Derek",
+  "reported_date": "2026-10-24",
+  "printer_task_id": "1369497043",
+  "archive_sha256": "cb48a514c567ac600d04abd94ba73c37044be0ed76b993487ac357665c13351d",
+  "gcode_sha256": "d2fa27720624f5d44c3b35b4dd307a3fc77c913d3b8da2f9c617d1275a411cdd",
+  "status": "reported_working_fit_with_tight_seating",
+  "user_quote": "It is a bit tight, but it works.",
+  "geometry": "4.5 mm lower display with four diameter-4 mm foot recesses, 1 mm below the former support bases; matching lowered Industrial cover.",
+  "observations": {
+    "reported_working_fit": true,
+    "reported_tight_fit": true,
+    "photos_show": "Display and Industrial cover assembled on the faucet tip with all three tubes present.",
+    "software_completion": "Mark2 reports FINISH, 1245/1245 layers, 100 percent, print_error 0 at 2026-10-24T16:02:37Z.",
+    "software_hms_at_finish": [
+      {
+        "attr": 201326848,
+        "code": 131095
+      }
+    ]
+  },
+  "scope": "Acceptance belongs to the identified lowered Industrial head and reported fit. Seating force, numerical tube clearance, hydraulic function, retention force and endurance are unmeasured. The Sculpted cover at the lowered position is a separate requested print.",
+  "photos": [
+    {
+      "file": "photo-1.jpg",
+      "original_sha256": "2b40af5237191c9371ce4daa27b6e5e41952e87f95fa4d7847727b6ef3abaf8d",
+      "saved_sha256": "319813348c73d418a8c8f25eb966f3dd1b3c11b84ab4666f570a47fbb6468c8e"
+    },
+    {
+      "file": "photo-2.jpg",
+      "original_sha256": "5e0880b1f6a9f66c8d6e0d35108d7d08e2eb3b35a05b95fb8fb9eedc4a1e6db5",
+      "saved_sha256": "19b2b69caf1948804742d3dc510db9a57e70f2124711411bc14efdcaf185f7cc"
+    },
+    {
+      "file": "photo-3.jpg",
+      "original_sha256": "77ac66a39ee5cae70a78de134bc0fb868827c0b3b38db0ddbea45600908402e0",
+      "saved_sha256": "f670363a0f92a0a6629827aa097b27411ad02dfdb21444faf5146a5fe10bdccc"
+    },
+    {
+      "file": "photo-4.jpg",
+      "original_sha256": "e11c244a647ae155bd24e120bb1e1deacc58d5661c303e469701da396de16783",
+      "saved_sha256": "79b3e69ec41ad51b7ccf32b9d63417835e69db6783e3f1d4db86e64f0e6f3ab4"
+    },
+    {
+      "file": "photo-5.jpg",
+      "original_sha256": "45ec6672bdb95427bfecef9caf47f5c74b7a6bbdd2a547708439a43ab3c93363",
+      "saved_sha256": "fe4f9cfe0b5a0021b752be0c06ddb3b3b6498795b343099c805746e91377377c"
+    },
+    {
+      "file": "photo-6.jpg",
+      "original_sha256": "a6de3c4d2a91854f57ed943edee42677b74ffc08fb0dc99f02af5d2635486713",
+      "saved_sha256": "4b68efa85349c73a44c9069d66286520635232658a60d61a4da310bba75fc6ae"
+    },
+    {
+      "file": "photo-7.jpg",
+      "original_sha256": "9f42a9d1af194737330d7f86fa2d3569081f55515a6340741c932a2b30b2c98e",
+      "saved_sha256": "d56aeb72953978b04dee8c1b21e36a099b44eb65b3e8431bf43b7aa568c8a1dc"
+    },
+    {
+      "file": "photo-8.jpg",
+      "original_sha256": "b0218efa53528cd0451705d1ba268dc3a30797049ce0de8370fe5f5523b8def1",
+      "saved_sha256": "16c36aa5b30894832b26c85657ea95518dc759b1765ebf2d8aff77c04cd11f91"
+    }
+  ],
+  "image_processing": "EXIF orientation applied; resized to at most 1600 px; metadata omitted."
+}

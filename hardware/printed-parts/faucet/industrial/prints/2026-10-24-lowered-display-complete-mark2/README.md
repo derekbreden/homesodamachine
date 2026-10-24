@@ -8,9 +8,11 @@ original support height and 1.0 mm foot recess depth. Four diameter-4 mm foot
 pockets occupy the original locations. The other three parts use the production
 source STLs.
 
-This is the first complete fit print of that reviewed head. The conservative
-component/tube and component/tip overlaps remain recorded in the geometry review;
-physical display fit, retention and tube clearance are unmeasured.
+The [physical result and eight photographs](physical-result/physical-result.json)
+record Derek's report: “It is a bit tight, but it works.” This acceptance belongs
+to the identified lowered Industrial head. Numerical tube clearance, seating
+force and endurance are unmeasured. The conservative component/tube and
+component/tip overlaps remain model readings with that separate scope.
 
 The project is prepared for Mark2's left fixed hardened steel 0.4 mm Standard-flow
 nozzle, black Polymaker PET-GF on external spool 254, reported as PET-CF
@@ -71,4 +73,5 @@ the saved 1.29 g/cm³ filament density. The native archive binds all five review
 meshes and their selected support components. The
 [support audit](2026-10-24-industrial-complete-display-low45-petgf-left04-z004-mark2.support-audit.json)
 records 41.8756 mm minimum full-bead clearance inside the shared usable bed.
-Physical completion and assembly acceptance are separate observations.
+Mark2 reports FINISH at 1245/1245 layers. The linked physical record supplies
+the reported head fit; complete hydraulic operation is unmeasured.

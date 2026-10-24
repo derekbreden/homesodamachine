@@ -1,0 +1,168 @@
+{
+  "printers": [
+    {
+      "printer": "Mark2",
+      "observed_at": "2026-10-24T16:10:24.496775+00:00",
+      "gcode_state": "FINISH",
+      "subtask_name": "2026-10-24-industrial-complete-display-low45-petgf-left04-z004-mark2.gcode.3mf",
+      "mc_percent": 100,
+      "layer_num": 1245,
+      "total_layer_num": 1245,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [
+        {
+          "attr": 201326848,
+          "code": 131095
+        }
+      ],
+      "nozzle_temper": 28.0,
+      "nozzle_target_temper": 0.0,
+      "bed_temper": 25.0,
+      "bed_target_temper": 0.0,
+      "lights_report": [
+        {
+          "mode": "on",
+          "node": "chamber_light"
+        },
+        {
+          "mode": "flashing",
+          "node": "work_light"
+        },
+        {
+          "mode": "on",
+          "node": "chamber_light2"
+        }
+      ],
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "161616FF"
+        },
+        "255": {
+          "type": "TPU",
+          "colour": "161616FF"
+        }
+      },
+      "nozzle_type": "HS01-0.4",
+      "nozzles": [
+        {
+          "id": 17,
+          "type": "HS01",
+          "diameter": 0.4,
+          "sn": "20D06A611036799"
+        },
+        {
+          "id": 1,
+          "type": "HS01",
+          "diameter": 0.4,
+          "sn": "N/A"
+        },
+        {
+          "id": 0,
+          "type": "HS01",
+          "diameter": 0.6,
+          "sn": "20D06A5C1014313"
+        },
+        {
+          "id": 18,
+          "type": "HS00",
+          "diameter": 0.2,
+          "sn": "20D06A611037433"
+        },
+        {
+          "id": 20,
+          "type": "HH01",
+          "diameter": 0.8,
+          "sn": "20D06A5C3110240"
+        }
+      ]
+    },
+    {
+      "printer": "H2C",
+      "observed_at": "2026-10-24T16:10:25.440157+00:00",
+      "gcode_state": "FINISH",
+      "subtask_name": "2026-10-23-tube-bend-holders-w2-legs123-petgf-left04-z018-mark1.gcode.3mf",
+      "mc_percent": 100,
+      "layer_num": 51,
+      "total_layer_num": 51,
+      "mc_remaining_time": 0,
+      "print_error": 0,
+      "hms": [],
+      "nozzle_temper": 27.0,
+      "nozzle_target_temper": 0.0,
+      "bed_temper": 27.0,
+      "bed_target_temper": 0.0,
+      "lights_report": [
+        {
+          "mode": "on",
+          "node": "chamber_light"
+        },
+        {
+          "mode": "flashing",
+          "node": "work_light"
+        },
+        {
+          "mode": "on",
+          "node": "chamber_light2"
+        }
+      ],
+      "external_spools": {
+        "254": {
+          "type": "PET-CF",
+          "colour": "000000FF"
+        },
+        "255": {
+          "type": "TPU",
+          "colour": "FFFFFFFF"
+        }
+      },
+      "nozzle_type": "HS01-0.4",
+      "nozzles": [
+        {
+          "id": 18,
+          "type": "HS01",
+          "diameter": 0.4,
+          "sn": "20D06A611000397"
+        },
+        {
+          "id": 1,
+          "type": "HS01",
+          "diameter": 0.4,
+          "sn": "N/A"
+        },
+        {
+          "id": 17,
+          "type": "HS00",
+          "diameter": 0.2,
+          "sn": "20D06A5C1907799"
+        },
+        {
+          "id": 20,
+          "type": "HS00",
+          "diameter": 0.2,
+          "sn": "20D06A5C1907737"
+        },
+        {
+          "id": 19,
+          "type": "HS01",
+          "diameter": 0.8,
+          "sn": "20D06A610807096"
+        }
+      ]
+    }
+  ],
+  "physical_readiness": "Mark II, which is clear and ready for you",
+  "selected_plate": "Textured PEI Plate",
+  "readiness_scope": "Derek confirms the requested Mark2 print is ready; this conversation establishes Textured PEI for ready Industrial PET-GF jobs.",
+  "existing_mark2_hms": {
+    "attr": 201326848,
+    "code": 131095,
+    "visible_message": "Nozzle camera lens is dirty, which may affect the AI monitoring functionality. Please clean the surface of the nozzle camera lens as soon as possible.",
+    "launch_blocking": false
+  },
+  "shared_circuit_spacing": {
+    "minimum_seconds": 180,
+    "peer_same_finished_job_observed_utc": "2026-10-24T16:02:37.714091+00:00"
+  }
+}
