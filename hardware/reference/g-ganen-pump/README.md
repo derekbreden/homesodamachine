@@ -98,17 +98,18 @@ washer coverage, screw length and rubber compression are integration checks.
 `mount_seat_z()`. There is no invented common `HOLE_D`, fixed rectangle or single
 port diameter/length.
 
-The detailed STEP contains **26 valid solids and 26,490 faces**. Its source,
+The detailed STEP contains **26 valid solids and 26,533 faces**. Its source,
 reports, STEP and matching viewer payload are bound by
 [artifact-manifest.json](artifact-manifest.json).
 
 [native-validation.json](native-validation.json) checks native solid validity,
 port-root continuity, flow mapping, unit-scale inputs and disjoint native scan
 observations. Its residuals distinguish observations outside the envelope from
-surfaces inside filled openings. The casing, barbs and crown have separate
+surfaces inside filled openings. The motor, cradle, barbs and crown have separate
 readings. The visible foot model does not qualify an unseen minimum slot throat or
-compressed rubber stack. [native-validation.png](native-validation.png) shows the retained
-comparison regions.
+compressed rubber stack. The [scan comparison image](native-validation.png)
+belongs to the [retained source report](under-head-clearance/prior-native-validation.json).
+The current switch passage is assessed by its [rigid underside measurements](under-head-clearance.json).
 
 In the feet-down view, outside-distance p95 is 0.071 mm on the selected motor
 surface, 0.191 mm on the lower cradle and 0.432 mm on the rear cap. The two barb
@@ -121,6 +122,14 @@ show a tube passing through the head-side space on the received sample. They
 support the [V-A route study](../../manifold-layout/studies/east-feed/README.md);
 they do not establish installed enclosure clearances.
 
+The [flat-elbow observation](under-head-tube/flat-elbow-observation.json)
+demonstrates a union elbow resting flat beneath that head on the received pump.
+The [rigid underside measurements](under-head-clearance.json) retain that open
+space below the switch casing. The native model excludes the flexible lead
+loops from rigid occupancy there; the switch's lower front block and the head
+shoulder remain. The [scoped native update](under-head-clearance/update_reference.py)
+exports the detailed reference and the isolated study's matching rigid mesh.
+
 The two observed lead/casing transition regions are retained separately. These
 surface scans do not cleanly separate a protruding rigid strain relief from the
 flexible leads there; no rigid lump or fixed loose-wire route is invented. Their
@@ -130,6 +139,10 @@ rubber behavior, pump internals and hydraulic performance remain unmeasured.
 
 Production placement, cap mounts and tube routes consume the separate installed
 G Ganen module; they retain their own current assembly checks.
+For under-head routing, use this detailed reference or the
+[selected study mesh](../../manifold-layout/studies/east-feed/parts/pump-under-head-source.json).
+The frozen production integration envelope includes additional occupied space
+in that passage.
 The bounded integration sequence and placement traps are in
 [integration-handoff.md](integration-handoff.md). Native query cost is recorded
 separately in [native-query-cost.json](native-query-cost.json).

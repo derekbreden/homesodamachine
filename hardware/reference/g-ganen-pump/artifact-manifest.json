@@ -8,8 +8,8 @@
   "envelope_only_not_material_mass_or_strength": true,
   "files": {
     "README.md": {
-      "sha256": "0a2891f13c1b989e4c5f05263e7d6a569e190f94274a434bdab410558825d500",
-      "bytes": 9525
+      "sha256": "a83caaa89d15b41ddddec7251696705565a6a0e4ef7e9624eca2caf158f1b766",
+      "bytes": 10788
     },
     "analyze_registered.py": {
       "sha256": "1a397ea07e300cb7c32440f16b96ecff5bb839138cb1916566f2010c798a7c38",
@@ -168,28 +168,28 @@
       "bytes": 7887
     },
     "freeze_reference.py": {
-      "sha256": "587763463df7e9f62ef02d187aef5376f3305defbf79d98ba9975b10f8d4e8eb",
-      "bytes": 8055
+      "sha256": "aa9a04480ed16378d4aed5216a00203e785c468dbaf80a52e4c8b65e9e75fbf3",
+      "bytes": 8148
     },
     "g-ganen-pump.step": {
-      "sha256": "905710b0b79a803e9969bf9b8677e3cbd5cfe2b4c0fdcf15a7d62842a77f4388",
-      "bytes": 69219849
+      "sha256": "7a379399417b9d4d4cd286758746f437e609bbb7ad59007a34eda0f7ccf7d1a9",
+      "bytes": 72288343
     },
     "g-ganen-pump.step.mesh": {
-      "sha256": "0b02fb2bc7e11bc2ab282cde54cf00fd4249b78f4bf743517ca644603ed6f754",
-      "bytes": 3013676
+      "sha256": "f68811db4823947e4568694e473a4dbbd5898a38dd1b6383602511165be109dd",
+      "bytes": 3011336
     },
     "g_ganen_pump.py": {
-      "sha256": "5a071188f84296c38c84e7d6eebfa961d8ba0917070ca0b5cddcdce841dc68fd",
-      "bytes": 4943
+      "sha256": "290af327626df332777ee91a659455ae0b4e5c54ae58b4e9fd6400fcf5e7a048",
+      "bytes": 5835
     },
     "inspect_scan.py": {
       "sha256": "59bd0fe615343d6499d830d1af274526669544f091728b5a8d98f4e66c9ad4dc",
       "bytes": 2071
     },
     "integration-handoff.md": {
-      "sha256": "15a7624469f02756e9209625eeb127db1028ffcb45f39a430df00cbce9e97c38",
-      "bytes": 4361
+      "sha256": "7358019dc395a5e11dc4ef7e32974969fa49ce9cc5517647e6f2dd39fda8b708",
+      "bytes": 4491
     },
     "interface-measurements.json": {
       "sha256": "22139a54480b47ef92b386fb442d1e880cb0ada780ab762f368dc688559f14b2",
@@ -204,8 +204,8 @@
       "bytes": 1224
     },
     "native-validation.json": {
-      "sha256": "49ea2543ec01646c8b979c087b37c48ad11d1cfb811d27261325d2119d0ce04f",
-      "bytes": 52224
+      "sha256": "50601d5507a5a6729d02f7fe350b2317d110b0d397bb09d5dcce9ca4601705d7",
+      "bytes": 49123
     },
     "native-validation.png": {
       "sha256": "945b78f74c0a5f837b793c49f19f8eee72f64f4145f765686b6db26b046cccf8",
@@ -268,7 +268,7 @@
       "bytes": 28517
     },
     "reference-parameters.json": {
-      "sha256": "b9058e123ab517284fe9506ddae86bc7ec4f88fe1e43c75faa5c80e946772a40",
+      "sha256": "ee16286e66e74d346a8da5a996fc15fac3240586d5782df5a8b4767e6c725b42",
       "bytes": 4151318
     },
     "register_scan.py": {
@@ -295,12 +295,28 @@
       "sha256": "f4efc3080839dc710dbce422ef7e772fe5c7aae8fc235fbcafffff7cca9cbb2b",
       "bytes": 1789
     },
+    "under-head-clearance/measure.py": {
+      "sha256": "b93a6521c29ddf881950334ed531a1bc2af2154736686f5183803fae18468485",
+      "bytes": 3586
+    },
+    "under-head-clearance/prior-native-validation.json": {
+      "sha256": "49ea2543ec01646c8b979c087b37c48ad11d1cfb811d27261325d2119d0ce04f",
+      "bytes": 52224
+    },
+    "under-head-clearance/update_reference.py": {
+      "sha256": "dd05b5134df08d47c800f317bc546335cbfe8941439ff75743fbef05c690e6d3",
+      "bytes": 8726
+    },
+    "under-head-clearance.json": {
+      "sha256": "f8d572d1176e6056de716842b058861d121fdf636c6e608f2e7492f1ce3d05e5",
+      "bytes": 6424
+    },
     "validate_reference.py": {
       "sha256": "b0ae1ed0803bba0f2278ed4c4b786649f6db7de015cc051027aa9c9be8106bbc",
       "bytes": 14048
     }
   },
-  "report_dependency_hashes_verified": 47,
+  "report_dependency_hashes_verified": 49,
   "native_reimport": {
     "valid_solids": 26,
     "bounds_mm": [

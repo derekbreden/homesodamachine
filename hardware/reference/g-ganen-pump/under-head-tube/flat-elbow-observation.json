@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-24",
+  "reporter": "Derek",
+  "part": "Received G Ganen pump and purchased 1/4-inch push-connect union elbow",
+  "observation": "The three supplied photographs show the union elbow lying flat on the supporting surface beneath the pump head, with both socket axes horizontal. The elbow occupies the space beneath the rigid pressure-switch housing, beside the flexible leads.",
+  "requested_arrangement": "The elbow fits under the pump head, please. You don't need to do that weird angled thing. You can actually get this all in a nice clean arrangement for me, please? Thanks.",
+  "scope": "Physical flat-elbow fit on the received pump. The photos establish the arrangement; they do not supply installed enclosure dimensions or a measured clearance allowance.",
+  "photos": [
+    {
+      "file": "flat-elbow-1.jpg",
+      "original_attachment_sha256": "f9fb96999b344a384b1b0beb29c5856a69e6b081a07995e993ae051bd42bcd59",
+      "sha256": "4a7a21288821510d97b154d533e13b7f89bf51b400f68a8c1fc693524f206a9a",
+      "public_copy": "Original JPEG image stream; identifying metadata removed; orientation retained"
+    },
+    {
+      "file": "flat-elbow-2.jpg",
+      "original_attachment_sha256": "f7685fb4f8cd02462fd48988cf0dacd8064cb66e48ed21fd809f6dee84abbfdb",
+      "sha256": "cd6a0093df49ea9d2ef372b5fffd64f74a8f007b27379e8e9e9be5b9a61a255b",
+      "public_copy": "Original JPEG image stream; identifying metadata removed; orientation retained"
+    },
+    {
+      "file": "flat-elbow-3.jpg",
+      "original_attachment_sha256": "ead4e8e4620fe799b87f5d70137ef3978e543080d54d9c487e3e7c4c3840117b",
+      "sha256": "b030ae963442a4b1f66221443bb29e36ca4d716619905d1a24b57572d43783ac",
+      "public_copy": "Original JPEG image stream; identifying metadata removed; orientation retained"
+    }
+  ],
+  "tube_passage_observation": "physical-observations.json",
+  "layout": "../../../manifold-layout/studies/east-feed/README.md"
+}

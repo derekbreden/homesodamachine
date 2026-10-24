@@ -22,7 +22,8 @@ def digest(path):
 
 
 def current_files():
-    paths = list(HERE.iterdir()) + list((HERE/'common-foot').rglob('*'))
+    paths = (list(HERE.iterdir()) + list((HERE/'common-foot').rglob('*'))
+             + list((HERE/'under-head-clearance').rglob('*')))
     return {str(path.relative_to(HERE)): {'sha256': digest(path), 'bytes': path.stat().st_size}
             for path in sorted(set(paths)) if path.is_file() and path != MANIFEST
             and path.suffix in ('.py', '.md', '.json', '.png', '.step', '.mesh', '.txt')}
@@ -45,7 +46,7 @@ def report_dependencies():
     checked = 0
     for name in ('scan-measurements.json', 'pass-02-registration.json', 'pass-03-registration.json',
                  'registered-measurements.json', 'casing-sections.json', 'interface-measurements.json',
-                 'reference-parameters.json', 'native-validation.json'):
+                 'reference-parameters.json', 'under-head-clearance.json', 'native-validation.json'):
         report = json.loads((HERE/name).read_text())
         for group in ('input_sha256', 'tool_sha256', 'diagnostic_sha256', 'verified_parameter_input_digests'):
             for filename, expected in report.get(group, {}).items():

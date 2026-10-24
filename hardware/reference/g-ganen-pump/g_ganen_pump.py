@@ -88,6 +88,22 @@ def _hull(row):
     return cq.Solid.makeSolid(cq.Shell.makeShell(faces)).clean()
 
 
+def _under_head_air():
+    """Observed open space below the rigid switch, excluding its loose leads."""
+    row = json.loads((HERE/'under-head-clearance.json').read_text())['open_air']
+    lo, hi = row['x_interval_mm']
+    ya, yb = row['y_interval_mm']
+    center = row['roof_plane']['point_mm']
+    normal = row['roof_plane']['normal']
+    def roof(x, y):
+        return (center[2] - (normal[0]*(x-center[0])+normal[1]*(y-center[1]))/normal[2]
+                - row['roof_plane']['inward_allowance_mm'])
+    xy = [(lo, ya), (hi, ya), (hi, yb), (lo, yb)]
+    bottom = _wire([(x, y, row['bottom_z_mm']) for x, y in xy])
+    top = _wire([(x, y, roof(x, y)) for x, y in xy])
+    return cq.Solid.makeLoft([bottom, top], ruled=True)
+
+
 def build_parts():
     data = parameters()
     parts = {'rigid_casing_envelope': _casing(data)}
@@ -107,6 +123,9 @@ def build_parts():
         parts[name+'_root_envelope'] = _hull(row['root_envelope'])
     for row in data['mounting_feet']:
         parts[row['id']+'_observed_rubber_slider_envelope'] = _foot(row)
+    air = _under_head_air()
+    for name in ('rigid_casing_envelope', 'switch_outer_shell_external_envelope'):
+        parts[name] = parts[name].cut(air).clean()
     return parts
 
 
