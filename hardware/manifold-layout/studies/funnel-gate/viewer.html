@@ -14,13 +14,15 @@
   </div>
   <div id="qa-legend" class="viz-row text-small" aria-label="Assembly ownership legend"></div>
   <div id="qa-detail" class="text-small" aria-live="polite">Drag to rotate · scroll to zoom · select a part for its attachment</div>
-  <span id="qa-swatch" hidden></span>
+  <span id="qa-swatch" aria-hidden="true"></span>
 </div>
 <style>
+#quadrant-arrangement{color:var(--foreground,CanvasText)}
+#quadrant-arrangement #qa-swatch{position:absolute;width:0;height:0;overflow:hidden;pointer-events:none}
 #quadrant-arrangement #qa-stage{position:relative;width:100%;height:clamp(360px,77vw,560px);touch-action:none;overflow:hidden}
 #quadrant-arrangement canvas{display:block;width:100%;height:100%}
 #quadrant-arrangement #qa-labels{position:absolute;inset:0;pointer-events:none}
-#quadrant-arrangement .qa-label{position:absolute;color:var(--foreground);white-space:nowrap;background:var(--background);padding:2px 4px}
+#quadrant-arrangement .qa-label{position:absolute;color:var(--foreground,CanvasText);white-space:nowrap;background:var(--background,Canvas);padding:2px 4px}
 #quadrant-arrangement #qa-legend span{display:inline-flex;align-items:center;gap:6px}
 #quadrant-arrangement #qa-legend i{display:inline-block;width:12px;height:12px}
 </style>
@@ -43,7 +45,8 @@ const ambient=new THREE.AmbientLight(),sun=new THREE.DirectionalLight();ambient.
 const geometries={},bodies=[],neutral=[],pins=[],group=new THREE.Group();scene.add(group);
 const swatch=root.querySelector('#qa-swatch'),palette=document.createElement('canvas');palette.width=palette.height=1;
 const cx=palette.getContext('2d',{willReadFrequently:true});let selected=null,ready=false;
-function color(token){swatch.style.color=`var(--${token})`;cx.clearRect(0,0,1,1);cx.fillStyle=getComputedStyle(swatch).color;cx.fillRect(0,0,1,1);const p=cx.getImageData(0,0,1,1).data;return new THREE.Color(p[0]/255,p[1]/255,p[2]/255).convertSRGBToLinear();}
+function cssColor(token){const fallback=token==='foreground'?'CanvasText':token==='background'?'Canvas':'var(--blue,Highlight)';swatch.style.color=`var(--${token},${fallback})`;return getComputedStyle(swatch).color;}
+function color(token){cx.clearRect(0,0,1,1);cx.fillStyle='CanvasText';cx.fillStyle=cssColor(token);cx.fillRect(0,0,1,1);const p=cx.getImageData(0,0,1,1).data;return new THREE.Color(p[0]/255,p[1]/255,p[2]/255).convertSRGBToLinear();}
 function roleColor(role){const series={custom:1,stem:1,flavor:1,carbonator:1,wet:1,gas:6,tpu:6,'gas-regulator':6,'gas-check':2,electronics:5,wire:5,plug:5,support:3,structure:3}[role];return series?color(`viz-series-${series}`):color('foreground').lerp(color('background'),.44);}
 function meshColor(part){
   if(highlight.value==='quadrant')return part.assembly?.quadrant?color(`viz-series-${ownerById[part.assembly.quadrant].series}`):color('foreground').lerp(color('background'),.5);
@@ -61,11 +64,12 @@ function makeLegend(){
     highlight.value==='changes'?[{label:'Changed or added',token:'viz-series-1'},{label:'Unchanged',token:'muted-foreground'}]:
     [{label:'Printed structure',token:'viz-series-3'},{label:'Water',token:'viz-series-1'},{label:'Electronics',token:'viz-series-5'}];
   if(highlight.value==='quadrant'&&bodies.some(b=>!b.userData.assembly?.quadrant))items.push({label:'Mount undecided',token:'muted-foreground'});
-  for(const item of items){const span=document.createElement('span'),mark=document.createElement('i');mark.style.background=`var(--${item.token})`;mark.setAttribute('aria-hidden','true');span.append(mark,document.createTextNode(item.label));legend.append(span);}
+  for(const item of items){const span=document.createElement('span'),mark=document.createElement('i');mark.style.background=cssColor(item.token);mark.setAttribute('aria-hidden','true');span.append(mark,document.createTextNode(item.label));legend.append(span);}
   const roof=document.createElement('span');roof.textContent='Roof hidden';legend.append(roof);
 }
 function theme(){
-  const fg=color('foreground'),bg=color('background'),light=fg.r+fg.g+fg.b>bg.r+bg.g+bg.b?fg:bg;ambient.color.copy(light);sun.color.copy(light);
+  makeLegend();
+  const fg=color('foreground');
   for(const mesh of bodies)mesh.material.color.copy(meshColor(mesh.userData));for(const line of neutral)line.material.color.copy(fg);
   renderer.render(scene,camera);
 }
@@ -80,7 +84,7 @@ function build(){
   pin('BACK · +Y',[0,480,354]);pin('Soda out',[77.5,471.3,306.376]);pin('Cold-core top',[72,414,253.4]);
   const lineGeometry=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-98.5,462.3,253.4),new THREE.Vector3(98.5,462.3,253.4)]),backEdge=new THREE.Line(lineGeometry,new THREE.LineBasicMaterial({transparent:true,opacity:.2}));scene.add(backEdge);neutral.push(backEdge);
   window.__assemblyParts=bodies.map(b=>({name:b.userData.name,owner:b.userData.assembly?.quadrant,changed:!!b.userData.latest_change,visible:b.visible}));
-  makeLegend();theme();
+  theme();
 }
 const bounds=new THREE.Box3(new THREE.Vector3(-115,83,227),new THREE.Vector3(115,491,359));
 function projection(){
@@ -90,7 +94,7 @@ function projection(){
 }
 function initialCamera(){const center=bounds.getCenter(new THREE.Vector3());controls.target.copy(center);camera.position.copy(center).add(new THREE.Vector3(1.1,-1.3,1.25).normalize().multiplyScalar(650));camera.lookAt(center);projection();controls.update();}
 function save(){window.openai?.setWidgetState?.({modelContent:{study:'quadrant-arrangement-v1',highlight:highlight.value,selected_part:selected?.name||null},privateContent:{camera:camera.position.toArray(),target:controls.target.toArray(),zoom:camera.zoom}})?.catch(()=>{});}
-function applyMode(){window.__selectedHighlight=highlight.value;makeLegend();theme();refreshDetail();}
+function applyMode(){window.__selectedHighlight=highlight.value;theme();refreshDetail();}
 function restore(state){if(state?.modelContent?.study!=='quadrant-arrangement-v1')return;const p=state.privateContent||{};if(['quadrant','changes','normal'].includes(state.modelContent.highlight))highlight.value=state.modelContent.highlight;selected=bodies.find(b=>b.userData.name===state.modelContent.selected_part)?.userData||null;for(const[n,v]of[['camera',camera.position],['target',controls.target]])if(Array.isArray(p[n])&&p[n].length===3&&p[n].every(Number.isFinite))v.fromArray(p[n]);if(Number.isFinite(p.zoom)&&p.zoom>=.4&&p.zoom<=8)camera.zoom=p.zoom;camera.lookAt(controls.target);projection();controls.update();applyMode();}
 highlight.addEventListener('change',()=>{applyMode();save();});controls.addEventListener('end',save);
 window.addEventListener('openai:set_globals',e=>{if(ready&&e.detail?.globals?.widgetState)restore(e.detail.globals.widgetState);});
@@ -98,7 +102,8 @@ const ray=new THREE.Raycaster(),cursor=new THREE.Vector2();let down=[0,0];
 renderer.domElement.addEventListener('pointerdown',e=>{down=[e.clientX,e.clientY];});
 renderer.domElement.addEventListener('pointerup',e=>{if(Math.hypot(e.clientX-down[0],e.clientY-down[1])>5)return;const box=renderer.domElement.getBoundingClientRect();cursor.set((e.clientX-box.left)/box.width*2-1,-(e.clientY-box.top)/box.height*2+1);ray.setFromCamera(cursor,camera);const hit=ray.intersectObjects(bodies.filter(b=>b.visible&&b.material.opacity>.5))[0];if(hit){selected=hit.object.userData;refreshDetail();save();}});
 new ResizeObserver(()=>{renderer.setSize(stage.clientWidth,stage.clientHeight);if(ready)projection();}).observe(stage);
-new MutationObserver(theme).observe(document.documentElement,{attributes:true,attributeFilter:['class','style','data-theme']});matchMedia('(prefers-color-scheme:dark)').addEventListener('change',theme);
+const themeObserver=new MutationObserver(theme);for(let el=root.parentElement;el;el=el.parentElement)themeObserver.observe(el,{attributes:true,attributeFilter:['class','style','data-theme']});
+new MutationObserver(theme).observe(document.head,{childList:true,subtree:true,characterData:true});matchMedia('(prefers-color-scheme:dark)').addEventListener('change',theme);
 try{
   await Promise.all(Object.entries(data.geometries).filter(([,m])=>!m.alias).map(([name,m])=>decode(name,m)));
   function resolve(name){return geometries[name]||(geometries[name]=resolve(data.geometries[name].alias));}
