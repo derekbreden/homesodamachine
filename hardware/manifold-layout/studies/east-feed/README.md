@@ -7,17 +7,22 @@ upward. A trimmed NeoFit stem elbow seats in that mouth, with its female
 socket facing the arriving straight tube.
 
 The V-A outlet stem elbow points east. The 1/4-inch tube passes beneath the
-pump head, rises beyond the head and enters the purchased, scanned JG
-PP0308E union elbow. One straight, level tube connects that elbow to the
-Y-A stem elbow. Both ends enter their sockets squarely. The route follows
+pump head and enters the purchased, scanned JG PP0308E union elbow between
+the pump and V-K. The union elbow's axis intersection is
+`(44.5,296.3398,276.7202)` mm, aligned in Y with the two valves. Its inlet is
+clocked 45° downward toward the under-head tube; its outlet
+starts one straight, level tube to the Y-A stem elbow. Both ends enter their
+sockets squarely. The route follows
 the [physical head-side passage photographs](../../../reference/g-ganen-pump/under-head-tube/physical-observations.json).
 The G Ganen reference and water-group positions are retained.
 
 The [route](route.json) records the two smooth centerline spans, fitting poses,
 actual Y-A datum and nominal socket engagements. Its minimum sampled bend
-radius is 15.64 mm. The selected exterior-mesh query finds 2.09 mm to the
-pump and a nominal 1.425 mm from the tube underside to the plain cold-core
-crown. The straight downstream tube clears the PCB by 31.76 mm and the
+radius is 14.12 mm. The selected exterior-mesh query finds 2.83 mm to the
+pump and a nominal 1.01 mm from the tube underside to the plain cold-core
+crown. The union elbow clears the pump by 1.24 mm, V-K by 12.85 mm and the
+existing pump-side elbow by 0.75 mm.
+The straight downstream tube clears the PCB by 24.89 mm and the
 funnel frame by 20.00 mm. These are geometry results, not received-part
 measurement accuracy or physical installation acceptance. The JG scan does
 not establish insertion depth; the 15.7 mm engagement is a family-based
