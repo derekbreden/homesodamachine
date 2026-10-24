@@ -1,0 +1,46 @@
+{
+  "observed_at_utc": "2026-10-24T06:16:19.396709+00:00",
+  "requested_printer": "Mark2",
+  "selected_plate": "Textured PEI Plate",
+  "physical_readiness_quote": "I told you it was ready, and that means textured.",
+  "left_material_confirmation": "PET-GF, black, left 0.4 mm hotend confirmed in this conversation; live external spool 254 reports PET-CF 161616FF.",
+  "printers": [
+    {
+      "printer": "Mark2",
+      "observed_at_utc": "2026-10-24T06:16:18.997814+00:00",
+      "gcode_state": "FINISH",
+      "subtask_name": "2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf",
+      "print_error": 0,
+      "hms": [],
+      "nozzle_target_temper": 0,
+      "bed_target_temper": 0,
+      "nozzle_temper": 31,
+      "bed_temper": 24,
+      "left_external_spool": {
+        "slot": 254,
+        "type": "PET-CF",
+        "colour": "161616FF"
+      },
+      "nozzle_type": "HS01-0.4"
+    },
+    {
+      "printer": "Mark1",
+      "connection_key": "H2C",
+      "observed_at_utc": "2026-10-24T06:16:19.396709+00:00",
+      "gcode_state": "FINISH",
+      "subtask_name": "2026-10-23-tube-bend-holders-w2-legs123-petgf-left04-z018-mark1.gcode.3mf",
+      "print_error": 0,
+      "hms": [],
+      "nozzle_target_temper": 0,
+      "bed_target_temper": 0,
+      "nozzle_temper": 25,
+      "bed_temper": 25
+    }
+  ],
+  "shared_circuit_startup_spacing": {
+    "minimum_seconds": 180,
+    "peer_same_finished_job_observed_before_utc": "2026-10-24T06:04:52+00:00",
+    "elapsed_seconds_at_latest_preflight": 687,
+    "peer_startup_or_resume_observed": false
+  }
+}

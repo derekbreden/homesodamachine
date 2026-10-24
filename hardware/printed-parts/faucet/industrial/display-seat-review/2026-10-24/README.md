@@ -6,8 +6,11 @@ the printed reference stands 6.32249 mm above it. The cover's snap-bearing
 locations and 1.30 mm bezel thickness are fixed.
 
 This is a review candidate with its own tip and cover exports. Its modeled
-component interference is unresolved. No print is submitted, and the production
-files and saved print projects remain the input reference.
+component interference is unresolved. The
+[complete fit print on Mark2](../../prints/2026-10-24-lowered-display-complete-mark2/README.md)
+is task **1369497043**. The production files and earlier saved print projects
+remain the input reference. The native geometry reading records the candidate
+at review time, before submission.
 
 | Contribution | Inward movement | Resulting foot-bearing N |
 | --- | ---: | ---: |
