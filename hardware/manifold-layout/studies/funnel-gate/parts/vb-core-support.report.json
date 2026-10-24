@@ -1,0 +1,23 @@
+{
+  "valid": true,
+  "solid_count": 1,
+  "bounds_mm": [
+    [
+      34.0,
+      222.8965301513672,
+      253.39999389648438
+    ],
+    [
+      43.20000076293945,
+      260.946533203125,
+      299.2099914550781
+    ]
+  ],
+  "vertices": 1824,
+  "triangles": 1800,
+  "assembly_owner": "back-bottom",
+  "attachment": "Integral upright seat wall on the east side of the cold-core roof",
+  "socket_diameter_mm": 6.9,
+  "socket_floor_stock_mm": 3.0,
+  "scope": "Native arrangement-study support. Fusion into the production cold-core lid and installed retention are outside this candidate."
+}

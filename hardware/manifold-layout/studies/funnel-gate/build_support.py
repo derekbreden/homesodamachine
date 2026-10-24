@@ -1,4 +1,4 @@
-"""Build the frame-carried V-B seat wall through the shared native CAD queue."""
+"""Build the cold-core roof V-B seat wall through the shared native CAD queue."""
 from pathlib import Path
 import importlib.util
 import json
@@ -30,15 +30,14 @@ def main():
     placement = cq.Location(cq.Plane(origin=tuple(origin),
         xDir=tuple(rotation[i][0] for i in range(3)),
         normal=tuple(rotation[i][2] for i in range(3))))
-    support = block(plan['seat_wall_bounds_mm']).fuse(block(plan['frame_bridge_bounds_mm']))
+    support = block(plan['seat_wall_bounds_mm'])
     support = support.cut(seat.build_sockets().val().moved(placement))
     support = support.cut(seat.build_port_channel(2*seat.seat_half_y+2).val().moved(placement)).clean()
-    report = exporter.export('vb-frame-support', [('integral-frame-extension', support)])
+    report = exporter.export('vb-core-support', [('integral-cold-core-wall', support)])
     report.update(assembly_owner=plan['assembly_owner'], attachment=plan['attachment'],
                   socket_diameter_mm=seat.socket_diameter,
-                  socket_floor_stock_mm=plan['socket_floor_stock_mm'],
-                  bridge_thickness_mm=plan['bridge_thickness_mm'], scope=plan['scope'])
-    (HERE / 'parts/vb-frame-support.report.json').write_text(json.dumps(report, indent=2)+'\n')
+                  socket_floor_stock_mm=plan['socket_floor_stock_mm'], scope=plan['scope'])
+    (HERE / 'parts/vb-core-support.report.json').write_text(json.dumps(report, indent=2)+'\n')
     print(json.dumps(report, indent=2))
 
 

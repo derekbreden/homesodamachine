@@ -39,23 +39,22 @@
         "yb-stem-elbow",
         "ya-fold-inner",
         "ya-fold-return",
-        "ya-concealed-link"
+        "ya-concealed-link",
+        "drain-outlet-stem"
       ]
     },
     {
-      "quadrant": "front-top",
+      "quadrant": "back-bottom",
       "status": "modelled",
-      "basis": "V-B seats in the visible wall; its overhead bridge joins the east funnel-frame edge. Production fusion and installed retention remain pending.",
+      "basis": "V-B seats in a visible upright wall rooted in the cold-core roof. Production fusion and installed retention remain pending.",
       "names": [
         "vb",
-        "vb-frame-support",
-        "drain-outlet-stem",
+        "vb-core-support",
         "drain-vb-east-link",
         "vb-inlet-turn",
         "drain-vb-inlet-link",
         "vb-outlet-stem",
-        "vb-front-turn",
-        "vb-front-cross",
+        "vb-outlet-return",
         "vb-yb-link"
       ]
     },
@@ -182,7 +181,17 @@
     {
       "carried_part": "va-ya-straight",
       "other_part": "ya-fold-return",
-      "note": "Back-top V-A feed connects to the front-top Y-A fold; V-B and both of its tube ends travel with front-top"
+      "note": "Back-top V-A feed connects to the front-top Y-A fold"
+    },
+    {
+      "carried_part": "drain-vb-east-link",
+      "other_part": "drain-outlet-stem",
+      "note": "Back-bottom V-B inlet tube connects to the front-top funnel drain outlet"
+    },
+    {
+      "carried_part": "vb-yb-link",
+      "other_part": "yb-stem-elbow",
+      "note": "Back-bottom V-B return tube connects to the front-top Y-B elbow"
     },
     {
       "carried_part": "lower-pump-elbow",
