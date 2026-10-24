@@ -1,0 +1,116 @@
+{
+  "scope": "Roof removed; 3.5 mm diameter, 40 mm working shafts, without hand or handle envelopes",
+  "tool_probe_count": 20,
+  "raw_interferences": [
+    [
+      "probe-psu-AC-N-driver",
+      "psu"
+    ],
+    [
+      "probe-psu-AC-L-driver",
+      "psu"
+    ],
+    [
+      "probe-psu-DC-minus-1-driver",
+      "psu"
+    ],
+    [
+      "probe-psu-DC-minus-2-driver",
+      "psu"
+    ],
+    [
+      "probe-psu-DC-plus-1-driver",
+      "psu"
+    ],
+    [
+      "probe-psu-DC-plus-2-driver",
+      "psu"
+    ],
+    [
+      "probe-relay-1-COM-driver",
+      "relay-1"
+    ],
+    [
+      "probe-relay-1-NO-driver",
+      "relay-1"
+    ],
+    [
+      "probe-relay-1-NC-driver",
+      "relay-1"
+    ],
+    [
+      "probe-relay-2-COM-driver",
+      "relay-2"
+    ],
+    [
+      "probe-relay-2-NO-driver",
+      "relay-2"
+    ],
+    [
+      "probe-relay-2-NC-driver",
+      "relay-2"
+    ],
+    [
+      "mount-driver-relay-1-431-296.5",
+      "local-lead-relay-1-COM"
+    ],
+    [
+      "mount-driver-relay-2-431-321.5",
+      "local-lead-relay-2-COM"
+    ]
+  ],
+  "intended_terminal_entries": [
+    [
+      "probe-psu-AC-N-driver",
+      "psu"
+    ],
+    [
+      "probe-psu-AC-L-driver",
+      "psu"
+    ],
+    [
+      "probe-psu-DC-minus-1-driver",
+      "psu"
+    ],
+    [
+      "probe-psu-DC-minus-2-driver",
+      "psu"
+    ],
+    [
+      "probe-psu-DC-plus-1-driver",
+      "psu"
+    ],
+    [
+      "probe-psu-DC-plus-2-driver",
+      "psu"
+    ],
+    [
+      "probe-relay-1-COM-driver",
+      "relay-1"
+    ],
+    [
+      "probe-relay-1-NO-driver",
+      "relay-1"
+    ],
+    [
+      "probe-relay-1-NC-driver",
+      "relay-1"
+    ],
+    [
+      "probe-relay-2-COM-driver",
+      "relay-2"
+    ],
+    [
+      "probe-relay-2-NO-driver",
+      "relay-2"
+    ],
+    [
+      "probe-relay-2-NC-driver",
+      "relay-2"
+    ]
+  ],
+  "terminal_entry_basis": "The driver starts at its own terminal's modeled screw location; reference terminal blocks have no internal screw wells",
+  "unrelated_fixed_body_interferences": [],
+  "assembly_order": "Install relay mounting screws before landing COM; disconnect COM for module removal",
+  "service": "Use a compact/right-angle driver at the wall-facing relay terminals or wire before final mounting; long straight driver and handle access are not established"
+}
