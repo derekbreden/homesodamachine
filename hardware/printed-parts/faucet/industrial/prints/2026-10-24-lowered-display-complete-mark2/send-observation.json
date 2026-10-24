@@ -1,0 +1,29 @@
+{
+  "printer": "Mark2",
+  "observed_at": "2026-10-24T06:19:41.706339+00:00",
+  "gcode_state": "FINISH",
+  "subtask_name": "2026-10-23-industrial-mounting-gasket-tpu85a-right06-z000-mark2-continuous-layers.gcode.3mf",
+  "job_id": "1368637649",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 10,
+  "total_layer_num": 10,
+  "mc_remaining_time": 0,
+  "nozzle_temper": 31.0,
+  "nozzle_target_temper": 0.0,
+  "bed_temper": 24.0,
+  "bed_target_temper": 0.0,
+  "upload": {
+    "file_size": 0,
+    "finish_size": 0,
+    "message": "Good",
+    "oss_url": "",
+    "progress": 0,
+    "sequence_id": "0903",
+    "speed": 0,
+    "status": "idle",
+    "task_id": "",
+    "time_remaining": 0,
+    "trouble_id": ""
+  }
+}

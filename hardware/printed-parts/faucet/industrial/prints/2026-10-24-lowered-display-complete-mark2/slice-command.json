@@ -1,0 +1,24 @@
+{
+  "command": [
+    "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+    "--slice",
+    "0",
+    "--arrange",
+    "0",
+    "--orient",
+    "0",
+    "--export-3mf",
+    "2026-10-24-industrial-complete-display-low45-petgf-left04-z004-mark2.gcode.3mf",
+    "--outputdir",
+    "/Users/derekbredensteiner/Developer/homesodamachine/.cache/printer-control/2026-10-24-industrial-low-display-mark2/native",
+    "/Users/derekbredensteiner/Developer/homesodamachine/hardware/printed-parts/faucet/industrial/prints/2026-10-24-lowered-display-complete-mark2/2026-10-24-industrial-complete-display-low45-petgf-left04-z004-mark2.3mf"
+  ],
+  "cwd": "/Users/derekbredensteiner/Developer/homesodamachine/.cache/printer-control/2026-10-24-industrial-low-display-mark2/native",
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "started_at_utc": "2026-10-24T06:10:51.745879+00:00",
+  "return_code": 0,
+  "finished_at_utc": "2026-10-24T06:11:13.923141+00:00"
+}
