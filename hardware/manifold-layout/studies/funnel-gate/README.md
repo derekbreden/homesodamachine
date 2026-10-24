@@ -1,75 +1,91 @@
-# Funnel gate beside the PCB
+# East water paths and west PCB
 
-This isolated study adds V-B and its complete funnel-to-Y-B connection to the
-[selected above-core arrangement](../east-feed/README.md). Production enclosure
-geometry and the approved parent studies are separate.
+This isolated above-core arrangement has the forward water paths on the east
+and the PCB on the west. V-A, its mounting seat, the upstream water group and
+the photographed flat elbow under the pump head retain their established poses.
+The drain elbow, stub, cradle, Y-A and Y-B retain their production datums.
+WAGOs and ground placement remain deferred.
 
-V-B lies on its side west of the PCB, with its head pointing west and its flow
-axis fore–aft. Its body remains square to the enclosure axes. The PCB and its
-mating housings move east together. WAGOs and the ground stack remain deferred.
+## Forward plumbing
 
-The funnel drain elbow, drain stub, retained cradle, and Y-B keep their production
-positions. Two stem elbows make the compact 180-degree fold at V-B's outlet.
-Their fold plane is clocked 45 degrees east/down; the outlet still points
-straight fore. One formed tube drops below V-B and rises into Y-B's west-facing
-stem elbow. Its minimum modeled centerline radius is 16.41 mm. The return
-clears V-B by 2.46 mm and the PCB by 2.74 mm. V-B clears the PCB by 12.68 mm.
-Stem reach, tube centerlines and all endpoint coordinates are recorded in
-[route.json](route.json). The two stock stems at the funnel drain and the flat
-pump-head elbow retain 5.31 mm exposed stem to clear neighboring hardware; each
-uses the nominal 15.7 mm receiving depth. Other stem shoulders sit flush.
+V-B lies square on its side in the fore/east area, head east and flow fore.
+Its native origin is `(40,143.29675,280.41)` mm. Its body occupies
+X40..97.30, Y113.547..173.047 and Z263.66..297.16 mm. The drain turns east,
+then fore directly into V-B. Its outlet turns west across the front and aft
+into Y-B. Five added elbows connect the B chain; exposed tubing totals
+70.86 mm. The short final tube has a minimum modeled centerline radius of
+14.62 mm. No route crosses above the west PCB.
 
-The photographed flat elbow below the pump head and its incoming V-A tube stay
-fixed. The V-A feed turns east, runs fore along the east edge of the PCB, and
-connects to Y-A through its stem elbow. Y-A and Y-B retain their actual manifold
-port positions.
+V-A's fore tube runs directly from the under-head elbow to Y-A's compact
+return. Y-A has a stem elbow, a union on a concealed tube and a returning stem
+elbow. The union-to-stem fold drops 30 degrees. The two Y-tee stem outlets face
+fore, clocked 7.5 degrees outward to clear the retained drain cradle by 0.66 mm.
+The V-A fore tube has a minimum modeled centerline radius of 53.91 mm and
+15.56 mm to the board.
 
-[study.json](study.json) records the complete selected scene.
-[fit-report.json](fit-report.json) records the manual exterior fit query,
-remaining intersections, close gaps and nominal JST removal sweeps. Flexible
-local lead estimates are reported separately from physical bodies. These early
-lead sketches remain suppressed in the viewer; they do not establish complete
-harness routing. The JST sweep is the existing 6 mm axial housing withdrawal,
-not a finger-access envelope. Main PCB service removes the front-top funnel
-assembly first.
+[route.json](route.json) records every fitting pose, tube centerline and
+insertion assumption. The drain's stock stem retains 5.31 mm exposed stem to
+clear the cradle, with nominal 15.7 mm receiving depth. Other stem shoulders
+sit flush. Socket engagements are family-based layout estimates.
 
-V-B and its drain/Y-B route are intended to travel with the funnel-frame
-assembly. The frame bracket and shifted PCB retention remain to design. The
-existing cradle continues to carry the drain elbow and stub. The study does not
-substitute a cold-core mounting wall for that assembly.
+## V-B wall and mounting parent
+
+The native [V-B support](parts/vb-frame-support.step) is one valid solid:
+a 9.2 mm seat wall with four shared V69 blind sockets and the valve's port
+channel, joined to a 4 mm overhead bridge at the east funnel-frame edge.
+Each blind socket retains 3 mm of stock behind its floor. The entire extension
+is carried by **front-top**; [mount-plan.json](mount-plan.json) fixes its
+attachment and world coordinates. The geometry uses the existing
+[valve-seat](../../../printed-parts/valve-seat/README.md) dimensions and retains
+the scope of that part's physical fit evidence.
+
+The wall carries V-B with the drain and Y-B as one front-top subassembly.
+Its lower edge hangs above the cold core; it has no core-mounted foot.
+The bridge clears the silicone funnel by 13.43 mm and V-B clears the frame
+by 2.74 mm. Fusion into the production frame, installed post retention and
+loads remain outside this arrangement study. PCB fasteners remain to design.
+
+## PCB and connections
+
+The flat board's long dimension runs fore–aft. Its footprint is
+X−83..−10.200 and Y186.387..277.203 mm; underside Z257 and pin tails Z255.
+It has 15.5 mm to the ideal west wall and 17.65 mm beside the west J5/J6
+housings. The north/south gaps to V-A's support and the core's fore edge are
+4.087 mm each. Normal local lead estimates travel with the board.
+
+The [manual fit report](fit-report.json) has no unrelated solid-body or local
+lead intersections. All ten 6 mm JST housing withdrawal sweeps and all ten
+30 mm vertical columns above the housing outlines clear with the funnel/frame
+installed and the roof removed. These are nominal housing/access envelopes;
+finger reach and complete harness manipulation are not modeled. Local leads
+are suppressed in the viewer; installed mating housings remain visible.
 
 ## Arrangement highlighting
 
-The viewer keeps one whole-arrangement camera and orbit. Its Highlight menu
-offers Assembly quadrant, Latest changes and Normal; changing highlight does
-not reset the camera. Native walls and the integral valve-seat and relay-boss
-overlays remain displayed. The roof is hidden for interior inspection.
+One whole-arrangement camera supports Assembly quadrant, Latest changes and
+Normal highlights. Changing highlight preserves the camera. Native walls,
+V-B's support and the integral V-A/V-K/relay support overlays remain visible;
+the roof is hidden for interior inspection.
 
-[assembly-ownership.json](assembly-ownership.json) assigns ownership by the
-mounting parent. Selecting a part shows that attachment basis and identifies
-proposed groups whose retaining details are unfinished.
+[assembly-ownership.json](assembly-ownership.json) follows mounting parents.
+The funnel/frame, V-B wall and complete B chain belong to front-top. Walls,
+V-A/V-K, relays and rear fittings belong to back-top. Cold-core equipment,
+the PCB, pump and Mean Well belong to back-bottom. No front-bottom equipment
+is represented in this above-core scene. Part details identify attachment
+bases and unfinished production integration.
 
-| Quadrant | Carried equipment in this view |
-| --- | --- |
-| Front-top | Funnel, frame, drain elbow/cradle, Y-A/Y-B and proposed frame-carried V-B group |
-| Front-bottom | No represented equipment in this above-core arrangement |
-| Back-top | Study walls, V-A/V-K seats, relays, rear fittings and proposed carried water/CO2 groups |
-| Back-bottom | Cold core, pump, PCB, Mean Well and their carried connections |
+Latest changes compares the selected geometry and poses against the explicit
+[highlight baseline](highlight-baseline.json). Mesh signatures use decompressed
+geometry and normalized poses, independently of compressed archive timestamps.
 
-Local mating housings and conductors inherit their component's owner. Boundary
-handoffs identify connections between carried groups. Colour assignment does
-not establish a completed mount or a disconnection procedure. The two remaining
-flexible lead-sketch conflicts are listed separately in the fit report; actual
-installed plug housings clear. Complete harness routing remains outside this
-arrangement.
-
-Run the selected query manually from the repository root:
+Rebuild the support through the shared native CAD queue, then query and package
+the selected scene manually:
 
 ```sh
+PYTHONPATH=. tmp/takeover/cadq "Fore east V-B frame support" -- tools/cad-venv/bin/python hardware/manifold-layout/studies/funnel-gate/build_support.py
 tools/cad-venv/bin/python hardware/manifold-layout/studies/funnel-gate/study.py --check
 python3 hardware/manifold-layout/studies/funnel-gate/viewer.py hardware/manifold-layout/studies/funnel-gate/out/whole-arrangement.html
 ```
 
-This query is not on the build or commit path. Geometry uses the purchased-part
-references and frozen layout assets; no new native CAD is generated by this
-study.
+No command is added to the build or commit path. Production enclosure geometry
+and complete harness routes retain their separate scope.
