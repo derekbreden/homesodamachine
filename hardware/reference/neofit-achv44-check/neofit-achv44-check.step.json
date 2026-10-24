@@ -1,5 +1,5 @@
 {
   "material": "neoFit black acetal copolymer; EPDM seals",
   "process": "purchased-reference",
-  "notes": "ACHV44-E:10PK, purchase WEBFWS100715131. Native analytic exterior from the exact supplier product3Dmedia, scaled by the nominal6.35mm tube corridor. Body dimensions, collet pose, flow orientation and12.7mm insertions are unmeasured layout estimates; see model-dimensions.json. One shared reference serves water and CO2 positions; no sealing, pressure or retention qualification."
+  "notes": "ACHV44-E:10PK, purchase WEBFWS100715131. Native analytic exterior from the exact supplier product3Dmedia. Exterior socket collar scale15.494mm and16.891mm engagement are inferred from published sibling neoFit ATEU44/ATRU444 dimensions; ACHV44 body dimensions, collet pose and flow orientation remain unmeasured. One shared reference serves water and CO2; see model-dimensions.json for limits."
 }
