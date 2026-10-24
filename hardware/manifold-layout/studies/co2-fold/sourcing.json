@@ -1,6 +1,6 @@
 {
   "checked_date": "2026-10-23",
-  "scope": "Geometry candidates for the folded CO2 study; purchase selection remains open",
+  "scope": "Folded CO2 study: PISCO regulator ordered; check valve sourcing remains open",
   "regulator": {
     "manufacturer": "PISCO",
     "part": "RVFUP1/4-1/4-0.3",
@@ -17,7 +17,16 @@
     "CO2_suitability": "No model-specific approval or incompatibility established",
     "pressure_tolerance_scope": "Published +/-0.025MPa applies with inlet at preset+0.3MPa; that does not establish the same accuracy at the normal75psi feed",
     "prime_offer_verified": false,
-    "prime_search": "Signed-in Prime-filtered exact-family search returned only unrelated sponsored results"
+    "prime_search": "Signed-in Prime-filtered exact-family search returned only unrelated sponsored results",
+    "order": {
+      "vendor": "PISCO",
+      "reference": "8638",
+      "ordered_date": "2026-10-23",
+      "quantity": 2,
+      "total_USD": "111.53",
+      "status": "ON-ORDER; merchant confirmation says on hold pending payment confirmation",
+      "ledger_purchase_id": "pur-1ead43e8eead4989adf3de560d23febe"
+    }
   },
   "check": {
     "manufacturer": "Fluidfit",
@@ -30,5 +39,5 @@
     "stock": "No immediate-dispatch purchase established"
   },
   "stems": "NeoFit ATEU44 layout reference; square cuts retain each host socket full insertion",
-  "purchase_status": "No order or production replacement selected"
+  "purchase_status": "Two PISCO regulators ordered; separate check valve order and production replacement remain unselected"
 }

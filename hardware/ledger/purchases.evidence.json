@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-17",
+  "as_of": "2026-10-23",
   "reporting_period": {
     "start": "2026-01-01",
     "end": "2026-12-31"
@@ -8315,6 +8315,18 @@
         "src-d814ffbbc33146fb887f9e1bdc6944a4",
         "src-0649cb496f6e45c3a07e83026856a9f2"
       ]
+    },
+    "pur-1ead43e8eead4989adf3de560d23febe": {
+      "vendor": "PISCO",
+      "purpose": "components",
+      "amount_evidence": "final_vendor_amount",
+      "order_ids": [
+        "pisco:8638"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-e90526d88b0b4e5c9b441af32b25ac68"
+      ]
     }
   },
   "orders": {
@@ -14088,6 +14100,18 @@
       "source_ids": [
         "src-d814ffbbc33146fb887f9e1bdc6944a4"
       ]
+    },
+    "pisco:8638": {
+      "vendor": "PISCO",
+      "reference": "8638",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-23"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-e90526d88b0b4e5c9b441af32b25ac68"
+      ]
     }
   },
   "events": [
@@ -17575,6 +17599,23 @@
       "order_ids": [
         "amazon:114-8768578-0217027"
       ]
+    },
+    {
+      "event_id": "evt-a3c8a2e1a259405e85d14c27817deb58",
+      "vendor": "PISCO",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": null,
+      "amount_minor": 11153,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-e90526d88b0b4e5c9b441af32b25ac68"
+      ],
+      "verified_at": "2026-10-23",
+      "order_ids": [
+        "pisco:8638"
+      ]
     }
   ],
   "allocations": [
@@ -18928,6 +18969,14 @@
       "purchase_id": null,
       "order_id": "amazon:114-8768578-0217027",
       "amount_minor": 6517,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-2226cb82f09d49439dcbc98e5e689ba0",
+      "event_id": "evt-a3c8a2e1a259405e85d14c27817deb58",
+      "purchase_id": "pur-1ead43e8eead4989adf3de560d23febe",
+      "order_id": "pisco:8638",
+      "amount_minor": 11153,
       "currency": "USD"
     }
   ],
@@ -27581,7 +27630,7 @@
         "order_date"
       ],
       "verified_at": "2026-10-09",
-      "note": "Gmail order confirmation from Liliumfaucet, received 2026-02-01 19:11 America/Chicago: one under-sink carbonated soda maker with the black 3-way faucet, 110\u2013120 V AC (SKU 102), USD 1,129.00 subtotal, free shipping, USD 1,129.00 total. A shipment-status update followed on 2026-02-06. No delivery date or completed merchant charge is stated."
+      "note": "Gmail order confirmation from Liliumfaucet, received 2026-02-01 19:11 America/Chicago: one under-sink carbonated soda maker with the black 3-way faucet, 110–120 V AC (SKU 102), USD 1,129.00 subtotal, free shipping, USD 1,129.00 total. A shipment-status update followed on 2026-02-06. No delivery date or completed merchant charge is stated."
     },
     "src-d6f9512dde3e40729b20f6af320816bd": {
       "vendor": "Howdy Brewer",
@@ -27807,7 +27856,7 @@
         "price"
       ],
       "verified_at": "2026-10-05",
-      "note": "Signed-in Amazon order history and individual order details: one pack, $8.99 item subtotal, $0.00 shipping, $0.65 estimated tax and $9.64 grand total; ordered 2026-10-05, estimated delivery 2026-10-06. M4 socket-head screw kit; the selected SS M4 516PCS Socket Cap listing was Prime-verified on 2026-10-05. Contains twelve M4 \u00d7 20 screws, 129 hex nuts, 129 flat washers and a hex key. Delivery is pending; the order summary does not establish a completed merchant charge or its date."
+      "note": "Signed-in Amazon order history and individual order details: one pack, $8.99 item subtotal, $0.00 shipping, $0.65 estimated tax and $9.64 grand total; ordered 2026-10-05, estimated delivery 2026-10-06. M4 socket-head screw kit; the selected SS M4 516PCS Socket Cap listing was Prime-verified on 2026-10-05. Contains twelve M4 × 20 screws, 129 hex nuts, 129 flat washers and a hex key. Delivery is pending; the order summary does not establish a completed merchant charge or its date."
     },
     "src-aa79e0fc10164b8086dd556b9cdec6fb": {
       "vendor": "Amazon",
@@ -27822,7 +27871,7 @@
         "price"
       ],
       "verified_at": "2026-10-05",
-      "note": "Signed-in Amazon order history and individual order details: one pack, $8.99 item subtotal, $0.00 shipping, $0.65 estimated tax and $9.64 grand total; ordered 2026-10-05, estimated delivery 2026-10-07. uxcell 25-piece 6 \u00d7 25 mm 304 stainless dowel-pin pack; the selected 6mm X 25mm listing was Prime-verified on 2026-10-05. Delivery is pending; the order summary does not establish a completed merchant charge or its date."
+      "note": "Signed-in Amazon order history and individual order details: one pack, $8.99 item subtotal, $0.00 shipping, $0.65 estimated tax and $9.64 grand total; ordered 2026-10-05, estimated delivery 2026-10-07. uxcell 25-piece 6 × 25 mm 304 stainless dowel-pin pack; the selected 6mm X 25mm listing was Prime-verified on 2026-10-05. Delivery is pending; the order summary does not establish a completed merchant charge or its date."
     },
     "src-5b11f53981d74149bcc6a2119c6eddc8": {
       "vendor": "Bambu Lab",
@@ -27852,7 +27901,7 @@
         "order_date"
       ],
       "verified_at": "2026-10-07",
-      "note": "Gmail order confirmation received 2026-10-07 00:46 America/Chicago: neoFit ABU44M-E bag of 10 at USD 27.58, neoFit ARD4M4-E bag of 10 at USD 11.89, white 4 mm OD LLDPE tubing 4 \u00d7 25 ft at USD 18.00; USD 57.47 subtotal, USD 45.07 shipping, USD 7.44 tax, USD 109.98 total; ground, 4\u20135 business days in transit. No shipment, delivery or completed merchant charge is stated."
+      "note": "Gmail order confirmation received 2026-10-07 00:46 America/Chicago: neoFit ABU44M-E bag of 10 at USD 27.58, neoFit ARD4M4-E bag of 10 at USD 11.89, white 4 mm OD LLDPE tubing 4 × 25 ft at USD 18.00; USD 57.47 subtotal, USD 45.07 shipping, USD 7.44 tax, USD 109.98 total; ground, 4–5 business days in transit. No shipment, delivery or completed merchant charge is stated."
     },
     "src-68c3c555ba354b03a40e08e8375f0c42": {
       "vendor": "Fresh Water Systems",
@@ -27974,7 +28023,7 @@
         "order_date"
       ],
       "verified_at": "2026-10-11",
-      "note": "Gmail order confirmation received 2026-10-11 21:21 America/Chicago, sent through KB-3D for CNCKitchen USA: Installation Tips SET+ Adapter compatible with 900M & T18 at USD 19.90 and 90\u00b0 Installation Tip for Tricky Places, Full Set M2 to M8, at USD 23.90; USD 43.80 subtotal, USD 11.99 shipping, USD 0.00 taxes, USD 55.79 total; estimated delivery 2026-10-15. No shipment, delivery or completed merchant charge is stated."
+      "note": "Gmail order confirmation received 2026-10-11 21:21 America/Chicago, sent through KB-3D for CNCKitchen USA: Installation Tips SET+ Adapter compatible with 900M & T18 at USD 19.90 and 90° Installation Tip for Tricky Places, Full Set M2 to M8, at USD 23.90; USD 43.80 subtotal, USD 11.99 shipping, USD 0.00 taxes, USD 55.79 total; estimated delivery 2026-10-15. No shipment, delivery or completed merchant charge is stated."
     },
     "src-69cd4bc147fd4e9eb7b6db4f753f08e1": {
       "vendor": "Bambu Lab",
@@ -29171,7 +29220,7 @@
         "price"
       ],
       "verified_at": "2026-10-15",
-      "note": "Gmail order confirmation received 2026-10-15 00:46 America/Chicago: two PureSec 1/4\" RO push-to-connect 90\u00b0 elbow bulkhead 5-packs (B0968K4JRN) at USD 10.99 each and one uxcell 24 mm OD \u00d7 16 mm ID \u00d7 3 mm silicone flat washer 10-pack (B07D23JJMR) at USD 6.15; grand total USD 30.18. It does not establish a completed charge."
+      "note": "Gmail order confirmation received 2026-10-15 00:46 America/Chicago: two PureSec 1/4\" RO push-to-connect 90° elbow bulkhead 5-packs (B0968K4JRN) at USD 10.99 each and one uxcell 24 mm OD × 16 mm ID × 3 mm silicone flat washer 10-pack (B07D23JJMR) at USD 6.15; grand total USD 30.18. It does not establish a completed charge."
     },
     "src-f3504a07b3da4440a42381a5c35446a4": {
       "vendor": "Amazon",
@@ -29201,7 +29250,7 @@
         "price"
       ],
       "verified_at": "2026-10-17",
-      "note": "Signed-in Amazon order history and order details: ordered 2026-10-17; MECCANIXITY UL1007 16 AWG solid core wire 25 ft in white (B0FK5G1Q1J) and black (B0FK5HH8H1), sold by MECCANIXITY at USD 11.99 each, white arriving 2026-10-18 and black 2026-10-19. The order's other project lines are a BNUOK M3 \u00d7 6 SHCS 120-pack (USD 7.12), an iexcell M5 \u00d7 150 304 stainless SHCS 10-pack (USD 8.86), a SVLING M5 \u00d7 60 SHCS 40-pack (USD 7.50), a Small Parts DIN 125 M5 black-oxide washer 100-pack (USD 7.16) and a Mean Well IRM-90-12ST (USD 30.13); USD 84.75 item subtotal, USD 0.00 shipping, USD 6.14 estimated tax and USD 90.89 grand total. The tax is not itemized; it is allocated in proportion to item price, USD 0.87 per spool."
+      "note": "Signed-in Amazon order history and order details: ordered 2026-10-17; MECCANIXITY UL1007 16 AWG solid core wire 25 ft in white (B0FK5G1Q1J) and black (B0FK5HH8H1), sold by MECCANIXITY at USD 11.99 each, white arriving 2026-10-18 and black 2026-10-19. The order's other project lines are a BNUOK M3 × 6 SHCS 120-pack (USD 7.12), an iexcell M5 × 150 304 stainless SHCS 10-pack (USD 8.86), a SVLING M5 × 60 SHCS 40-pack (USD 7.50), a Small Parts DIN 125 M5 black-oxide washer 100-pack (USD 7.16) and a Mean Well IRM-90-12ST (USD 30.13); USD 84.75 item subtotal, USD 0.00 shipping, USD 6.14 estimated tax and USD 90.89 grand total. The tax is not itemized; it is allocated in proportion to item price, USD 0.87 per spool."
     },
     "src-0649cb496f6e45c3a07e83026856a9f2": {
       "vendor": "Amazon",
@@ -29214,6 +29263,21 @@
       "proves": [],
       "verified_at": "2026-10-17",
       "note": "Order-scoped Transactions lists the USD 90.89 debit In Progress (Pending) on 2026-10-17; this is an expected charge, without completed-charge or authorization proof. Delivery is pending."
+    },
+    "src-e90526d88b0b4e5c9b441af32b25ac68": {
+      "vendor": "PISCO",
+      "document_type": "email_order_confirmation",
+      "reference": "8638",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-23"
+      },
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "verified_at": "2026-10-23",
+      "note": "Order received confirmation: two RVFUP1/4-1/4-0.3 regulators, USD 81.32 subtotal, USD 30.21 UPS Ground shipping, USD 0.00 tax and USD 111.53 total. The order is on hold pending payment confirmation. No completed charge, dispatch or delivery is established."
     }
   },
   "coverage": [
@@ -30629,6 +30693,26 @@
         "bambu:us784775952755326977"
       ],
       "note": "Signed-in Bambu US store: order records for all 23 ledger Bambu orders, 2026-03-22 to 2026-10-08, and an empty Unpaid tab. Two orders (us712460111015776257, us726560430730719233) open by order number but are not in the account's list view, so the list is not a complete account record."
+    },
+    {
+      "coverage_id": "coverage-fee7edc5545c4ce58fba854587790eb4",
+      "vendor": "PISCO",
+      "stream": "regulator order 8638",
+      "evidence_type": "order_confirmation",
+      "checked_at": "2026-10-23",
+      "examined_period": {
+        "start": "2026-10-23",
+        "end": "2026-10-23"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-e90526d88b0b4e5c9b441af32b25ac68"
+      ],
+      "order_ids": [
+        "pisco:8638"
+      ],
+      "note": "Scoped Gmail search for PISCO and RVFUP and review of the named order confirmation; no claim of complete merchant account coverage."
     }
   ],
   "gaps": [
@@ -30920,10 +31004,30 @@
         "src-d814ffbbc33146fb887f9e1bdc6944a4",
         "src-0649cb496f6e45c3a07e83026856a9f2"
       ],
-      "missing_fact": "USD 65.17 of the order's expected USD 90.89 charge is allocated to the order only: its five other project lines (M3 \u00d7 6, M5 \u00d7 150 and M5 \u00d7 60 screws, M5 washers and a Mean Well IRM-90-12ST) are not yet itemized purchases, and the charge is not yet completed.",
+      "missing_fact": "USD 65.17 of the order's expected USD 90.89 charge is allocated to the order only: its five other project lines (M3 × 6, M5 × 150 and M5 × 60 screws, M5 washers and a Mean Well IRM-90-12ST) are not yet itemized purchases, and the charge is not yet completed.",
       "sources_checked": [
         "Amazon order details 114-8768578-0217027",
         "Amazon order-scoped Transactions 114-8768578-0217027"
+      ]
+    },
+    {
+      "gap_id": "gap-7dc719f6e334459abab4ecaec07873e1",
+      "vendor": "PISCO",
+      "purchase_ids": [
+        "pur-1ead43e8eead4989adf3de560d23febe"
+      ],
+      "order_ids": [
+        "pisco:8638"
+      ],
+      "event_ids": [
+        "evt-a3c8a2e1a259405e85d14c27817deb58"
+      ],
+      "source_ids": [
+        "src-e90526d88b0b4e5c9b441af32b25ac68"
+      ],
+      "missing_fact": "The order confirmation states on hold pending payment confirmation; completed merchant charge, dispatch and delivery are not established.",
+      "sources_checked": [
+        "PISCO order received confirmation 8638"
       ]
     }
   ],
@@ -31079,7 +31183,7 @@
     "pur-95fc0f0d3a9e416681c286ceeb960800": [
       {
         "purchase_id": "pur-0de724fb2be44bf9b3730bcdec8c7d10",
-        "description": "Jun 28\u2013Jul 28, 2026 Max plan - 20x",
+        "description": "Jun 28–Jul 28, 2026 Max plan - 20x",
         "amount_minor": 20000,
         "currency": "USD",
         "quantity": 1,
@@ -31107,7 +31211,7 @@
       },
       {
         "purchase_id": "pur-51cad0064ff44d83871965e7765a65c9",
-        "description": "Jul 28\u2013Aug 28, 2026 Max plan - 20x",
+        "description": "Jul 28–Aug 28, 2026 Max plan - 20x",
         "amount_minor": 20000,
         "currency": "USD",
         "quantity": 1,
