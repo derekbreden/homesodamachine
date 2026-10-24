@@ -1,0 +1,128 @@
+{
+  "scope": "Native study rear and side walls with integral relay and valve seats; 9 mm ideal shell",
+  "units": "mm",
+  "rear_wall": {
+    "xmin": -98.5,
+    "xmax": 98.5,
+    "ymin": 462.3,
+    "ymax": 471.3,
+    "zmin": 253.4,
+    "zmax": 346.0
+  },
+  "interior_panel_relief": {
+    "xmin": 24.0,
+    "xmax": 91.0,
+    "ymin": 462.29,
+    "ymax": 465.3,
+    "zmin": 258.0,
+    "zmax": 348.0,
+    "retained_panel_mm": 6.0,
+    "flange_seat_y_mm": 471.3,
+    "nut_seat_y_mm": 465.3
+  },
+  "grid": {
+    "columns_x_mm": [
+      37.2499988712316,
+      77.5
+    ],
+    "rows_z_mm": [
+      338.3760478805363,
+      306.3760478805363,
+      274.3760478805363
+    ],
+    "row_pitch_mm": 32.0,
+    "column_pitch_mm": 40.2500011287684
+  },
+  "wet_ports": [
+    {
+      "name": "bulkhead-water",
+      "label": "Water in",
+      "center_x_mm": 37.2499988712316,
+      "center_z_mm": 338.3760478805363,
+      "bore_diameter_mm": 17.44
+    },
+    {
+      "name": "co2-inlet",
+      "label": "CO2 in",
+      "center_x_mm": 77.5,
+      "center_z_mm": 338.3760478805363,
+      "bore_diameter_mm": 17.3
+    },
+    {
+      "name": "bulkhead-drain",
+      "label": "Faucet vent / drain",
+      "center_x_mm": 37.2499988712316,
+      "center_z_mm": 306.3760478805363,
+      "bore_diameter_mm": 15.3
+    },
+    {
+      "name": "bulkhead-carb",
+      "label": "Soda out",
+      "center_x_mm": 77.5,
+      "center_z_mm": 306.3760478805363,
+      "bore_diameter_mm": 17.44
+    },
+    {
+      "name": "bulkhead-flavor-a",
+      "label": "Flavor A",
+      "center_x_mm": 37.2499988712316,
+      "center_z_mm": 274.3760478805363,
+      "bore_diameter_mm": 15.3
+    },
+    {
+      "name": "bulkhead-flavor-b",
+      "label": "Flavor B",
+      "center_x_mm": 77.5,
+      "center_z_mm": 274.3760478805363,
+      "bore_diameter_mm": 15.3
+    }
+  ],
+  "dry_openings": {
+    "c14": {
+      "flange_center_mm": [
+        -68.5,
+        471.3,
+        330
+      ],
+      "rotation": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "flange_pocket_half_xz_mm": [
+        25.135,
+        11.2
+      ],
+      "flange_pocket_ymin_mm": 468.05,
+      "body_opening_half_xz_mm": [
+        15.725,
+        11.325
+      ],
+      "body_opening_ymin_mm": 462.29,
+      "mount_pitch_mm": 40.21,
+      "mount_hole_radius_mm": 1.7
+    },
+    "keystone": {
+      "face_center_mm": [
+        -30,
+        471.3,
+        274.3760478805363
+      ],
+      "receptacle": "Existing RiteAV lip, pocket, insertion ease and snap catches; no decorative trim"
+    }
+  },
+  "side_walls": "Integral relay bosses and sidewall-supported valve seats; see support-plan.json",
+  "roof_plan": "ceiling-plan.json"
+}

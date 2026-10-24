@@ -1,0 +1,35 @@
+{
+  "scope": "Integral raised sidewall seats; full four-post support with a broad flat back and 3 mm socket-floor stock. Load capacity and new print-orientation fit are unqualified.",
+  "valves": [
+    {
+      "name": "vk",
+      "side": "right",
+      "post_origin_mm": [
+        76.404099,
+        285.2897605281867,
+        298.5808478805363
+      ]
+    },
+    {
+      "name": "va",
+      "side": "left",
+      "post_origin_mm": [
+        -76.404099,
+        285.2897605281867,
+        298.5808478805363
+      ]
+    }
+  ],
+  "socket_diameter_mm": 6.9,
+  "post_pitch_mm": [
+    24.4,
+    24.85
+  ],
+  "bearing_height_mm": 5.2,
+  "socket_floor_mm": -1,
+  "back_plane_mm": -4,
+  "socket_floor_stock_mm": 3,
+  "port_channel_radius_mm": 8.1,
+  "mount_basis": "hardware/printed-parts/valve-seat; V69 local hand-fit selection retained with its original physical scope",
+  "attachment": "Each seat is fused directly to its nearest 9 mm shell sidewall; the space below the raised seat remains open"
+}

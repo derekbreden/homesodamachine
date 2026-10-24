@@ -1,0 +1,174 @@
+{
+  "units": "mm",
+  "scope": "Native isolated study walls; no production shell replacement",
+  "parts": {
+    "left-wall": {
+      "valid": true,
+      "solid_count": 1,
+      "bounds_mm": [
+        [
+          -107.5,
+          244.0,
+          253.39999389648438
+        ],
+        [
+          -57.60409927368164,
+          471.29998779296875,
+          346.0
+        ]
+      ],
+      "vertices": 8600,
+      "triangles": 8536
+    },
+    "right-wall": {
+      "valid": true,
+      "solid_count": 1,
+      "bounds_mm": [
+        [
+          57.60409927368164,
+          244.0,
+          253.39999389648438
+        ],
+        [
+          107.5,
+          471.29998779296875,
+          346.0
+        ]
+      ],
+      "vertices": 1848,
+      "triangles": 1816
+    },
+    "back-wall": {
+      "valid": true,
+      "solid_count": 1,
+      "bounds_mm": [
+        [
+          -98.5,
+          461.6000061035156,
+          253.39999389648438
+        ],
+        [
+          98.5,
+          471.29998779296875,
+          346.0
+        ]
+      ],
+      "vertices": 3472,
+      "triangles": 3408
+    },
+    "ceiling": {
+      "valid": true,
+      "solid_count": 1,
+      "bounds_mm": [
+        [
+          -107.5,
+          244.0,
+          346.0
+        ],
+        [
+          107.5,
+          471.29998779296875,
+          355.0
+        ]
+      ],
+      "vertices": 96,
+      "triangles": 60
+    }
+  },
+  "relay_mounts": {
+    "boss_diameter_mm": 8.0,
+    "projection_mm": 4.0,
+    "pilot_diameter_mm": 4.0,
+    "pilot_depth_mm": 7.5,
+    "outer_cap_mm": 5.5,
+    "insert": "ruthex RX-M3x5.7",
+    "board_underside_mm": [
+      [
+        -94.5,
+        365.0,
+        296.5
+      ],
+      [
+        -94.5,
+        365.0,
+        309.5
+      ],
+      [
+        -94.5,
+        431.0,
+        296.5
+      ],
+      [
+        -94.5,
+        431.0,
+        309.5
+      ],
+      [
+        -94.5,
+        365.0,
+        321.5
+      ],
+      [
+        -94.5,
+        365.0,
+        334.5
+      ],
+      [
+        -94.5,
+        431.0,
+        321.5
+      ],
+      [
+        -94.5,
+        431.0,
+        334.5
+      ]
+    ],
+    "behind_pin_air_mm": 2.0
+  },
+  "valve_supports": {
+    "scope": "Integral raised sidewall seats; full four-post support with a broad flat back and 3 mm socket-floor stock. Load capacity and new print-orientation fit are unqualified.",
+    "valves": [
+      {
+        "name": "vk",
+        "side": "right",
+        "post_origin_mm": [
+          76.404099,
+          285.2897605281867,
+          298.5808478805363
+        ]
+      },
+      {
+        "name": "va",
+        "side": "left",
+        "post_origin_mm": [
+          -76.404099,
+          285.2897605281867,
+          298.5808478805363
+        ]
+      }
+    ],
+    "socket_diameter_mm": 6.9,
+    "post_pitch_mm": [
+      24.4,
+      24.85
+    ],
+    "bearing_height_mm": 5.2,
+    "socket_floor_mm": -1,
+    "back_plane_mm": -4,
+    "socket_floor_stock_mm": 3,
+    "port_channel_radius_mm": 8.1,
+    "mount_basis": "hardware/printed-parts/valve-seat; V69 local hand-fit selection retained with its original physical scope",
+    "attachment": "Each seat is fused directly to its nearest 9 mm shell sidewall; the space below the raised seat remains open"
+  },
+  "rj11": {
+    "face_mm": [
+      -30,
+      471.3,
+      274.3760478805363
+    ],
+    "lip_mm": 3.0,
+    "capture_depth_mm": 9.7,
+    "additional_inboard_reach_mm": 0.6999999999999993
+  }
+}
