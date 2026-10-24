@@ -21,6 +21,7 @@ def module(name,path):
 
 b_plumbing=module('funnel_gate_b_plumbing',HERE/'b_plumbing.py')
 soda_route=module('funnel_gate_soda_route',HERE/'soda_route.py')
+purchased_checks=module('funnel_gate_purchased_checks',HERE/'purchased_checks.py')
 I=np.eye(3);E=np.array([1.,0.,0.]);N=np.array([0.,1.,0.]);U=np.array([0.,0.,1.])
 L=20.56239;S=19.05;H=6.0452;JG_DEPTH=15.7;NEOFIT_DEPTH=16.891
 PCB_R=np.array([[0.,0.,1.],[0.,1.,0.],[-1.,0.,0.]])
@@ -100,6 +101,7 @@ def library():
     for suffix in ('','-frame','-cover','-ceiling','-left-wall','-right-wall'):
         key='expanded-funnel'+suffix
         with np.load(HERE/'parts'/(key+'.npz')) as mesh:g[key]=mesh['v'],mesh['f']
+    purchased_checks.add_library(g,tube)
     return g
 
 
@@ -166,7 +168,7 @@ def pose(g):
         route_context='V-A, upstream group and Y-A/Y-B fixed; centered funnel outlet at Y179.19575; V-B on the core roof east of the PCB',
         pending_structure='Native V-B wall roots in the cold-core roof; production fusion and installed retention remain to qualify. PCB retention is to design.',
         pcb_local_lead_dressing='J11 dresses aft with a 1 mm straight exit and R4 bend; other local estimates carry with the PCB')
-    return scene
+    return purchased_checks.apply(scene)
 
 def check(scene,g):
     result=parent.check(scene,g);meshes=base.world_meshes(scene,g)
