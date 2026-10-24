@@ -57,8 +57,8 @@ def pose(geometry):
                 assembly=assembly('back-top','Heatset remains in the fixed corner boss')),
             base.instance(f'access-boss-highlight-{index}',f'panel-boss-{index}',
                 role='support',kind='display',render_only=True,latest_change=True,
-                label='Integral boss · 9 mm front/rear root · 3 mm blind pilot floor',
-                assembly=assembly('back-top','Opaque view of the complete integral boss; −X pair join the wall, +X pair use front/rear roots'))])
+                label='Integral boss · two-sided attachment · 3 mm blind pilot floor',
+                assembly=assembly('back-top','Front/rear 9 mm roof root plus the −X wall or a full-depth 9 mm +X roof root'))])
         scene['mates'].extend([
             {'a':screw_name,'b':insert_name,'connection':'M3 thread engagement'},
             {'a':screw_name,'b':'electronics-access-panel','connection':'Counterbore bearing face'},
