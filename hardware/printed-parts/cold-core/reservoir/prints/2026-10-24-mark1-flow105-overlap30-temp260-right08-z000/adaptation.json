@@ -1,0 +1,54 @@
+{
+  "baseline_task_id": "1365626370",
+  "baseline_project_sha256": "4d7a276ab3e3dd7ec1b93206dd56559ce5bd8d5daf5e394c9a3715571a71b387",
+  "baseline_settings_file_sha256": "a1d008a858e4ad444e9ff6526e31afc1234231f4b92222bd0cc847bddcabf48e",
+  "candidate_project_sha256": "0a6724b3fc303a7d9c9af62e5ac04fb9bb116ede9dfbb0d3cda19f9e315cf0d1",
+  "setting_changes": {
+    "filament_settings_id": {
+      "from": [
+        "Reservoir May Water Clear 270C Flow1.05"
+      ],
+      "to": [
+        "Reservoir May Water Clear 260C Flow1.05"
+      ]
+    },
+    "nozzle_temperature": {
+      "from": [
+        "270",
+        "270"
+      ],
+      "to": [
+        "260",
+        "260"
+      ]
+    },
+    "nozzle_temperature_initial_layer": {
+      "from": [
+        "265",
+        "265"
+      ],
+      "to": [
+        "255",
+        "255"
+      ]
+    }
+  },
+  "geometry_and_placement_container_entries_byte_identical": true,
+  "status": "Launched on Mark1 as task 1371867808",
+  "recorded_on": "2026-10-24",
+  "baseline_result": "../2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json",
+  "settings": "settings.json",
+  "settings_file_sha256": "0e241f0882603af4873f0cf73a8196d43a9d540617646787fc5ec2093df12c6f",
+  "nozzle_c_first_subsequent": [
+    255,
+    260
+  ],
+  "all_other_executable_commands_identical_to_baseline": true,
+  "native_review": "native-review.json",
+  "launch": "launch.json",
+  "founder_quotes": [
+    "Please record I have some aesthetic concerns with the print, and I'd like to consider trying all of those same settings, but back to our previous temperatures. The printer is busy elsewise now, and I don't have filament loaded, but just make a note of what I intend to try next.",
+    "Mark One is available now and loaded up with an AMS 2 Pro with four spools of Translucent PETG connected to that right hot end for the 0.8 millimeter there. So please go ahead and start our next print on Mark One. Thanks."
+  ],
+  "scope": "Temperature-only comparison for appearance and water holding; no physical outcome yet."
+}
