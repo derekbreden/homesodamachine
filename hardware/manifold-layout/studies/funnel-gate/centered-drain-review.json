@@ -23,9 +23,11 @@
     "elbow_count": 6,
     "inlet_exposed_length": 10.949999999999996,
     "inlet_stem_outlet_lift_degrees": 0.0,
-    "return_crown": 2.0,
-    "return_minimum_radius": 27.439694078421073,
-    "return_exposed_length": 76.67429596439487
+    "return_crown": 3.0,
+    "return_minimum_radius": 30.313449109461967,
+    "return_exposed_length": 82.38356834835905,
+    "cross_exposed_length": 60.41103105796912,
+    "return_turn_x_mm": -50.0
   },
   "native_valid_single_solids": {
     "expanded-funnel": true,
@@ -50,12 +52,216 @@
     "probe-J7-pull": [],
     "probe-J9-pull": []
   },
-  "j11_pull_to_return_gap": 0.30483913182563976,
   "production_wiring_review": "hardware/wiring/installed/above-core-review",
   "sources": {
-    "b_plumbing.py": "30a5f44ba5ce9b50ceb2cb307906a0355fbabc41b4fee4d33bd106da8083856d",
+    "b_plumbing.py": "0fb066cde4e8234626a8493e206e0fe3ae3dcf2b55062bdea97045cb84f078e5",
     "mount-plan.json": "f0694df415600e95d50d5f8a264b7a97e7e9a0445c5d9d7e452f0bc32cf77b50",
     "funnel-expansion-plan.json": "9ea7f7025877baea363064899f6aedef28d3e7b4d6021850e640872a982d2c50",
     "parts/pcb-j3-dressed-lead-source.json": "9f4e4d5cf338873f1da36fe4281e05f94850defd6a60224aa87d3d2871a3fddd"
+  },
+  "j11_bounded_housing_service": {
+    "scope": "Continuous conservative bounding-box sweeps against frozen study exterior meshes and actual PCB housings. Initial PCBA mating contact excluded only during unmate. Hand and flexible lead excluded.",
+    "source_housing_sha256": "a54da32e4c38020340be8e35e5d094bb927943b93ffde376fef11d01b08e3bb0",
+    "removed_parts": [
+      "drain-outlet-stem",
+      "drain-vb-east-link",
+      "funnel",
+      "funnel-drain-cradle",
+      "funnel-drain-stub",
+      "funnel-drain-union",
+      "funnel-frame",
+      "local-lead-J11",
+      "terminal-J11"
+    ],
+    "phases": [
+      {
+        "name": "unmate-6up",
+        "start_offset_mm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "end_offset_mm": [
+          0.0,
+          0.0,
+          6.0
+        ],
+        "bounds_mm": [
+          [
+            -28.800090789794922,
+            195.3527069091797,
+            260.8999938964844
+          ],
+          [
+            -16.499897003173828,
+            201.05313110351562,
+            274.3999938964844
+          ]
+        ],
+        "hits": [],
+        "minimum_gap_mm": 0.4386089330438076,
+        "nearest_parts_mm": [
+          [
+            "vb-yb-link",
+            0.4386089330438076
+          ],
+          [
+            "terminal-J3",
+            0.7497960039008494
+          ],
+          [
+            "local-lead-J3",
+            2.3140727239810643
+          ],
+          [
+            "yb-stem-elbow",
+            9.561176136544344
+          ],
+          [
+            "terminal-J4",
+            14.249786376953125
+          ],
+          [
+            "local-lead-J4",
+            15.802647396548515
+          ],
+          [
+            "tee-yb-target",
+            20.862701416015625
+          ],
+          [
+            "tee-ya-target",
+            30.004163683269578
+          ]
+        ]
+      },
+      {
+        "name": "shift-6east",
+        "start_offset_mm": [
+          0.0,
+          0.0,
+          6.0
+        ],
+        "end_offset_mm": [
+          6.0,
+          0.0,
+          6.0
+        ],
+        "bounds_mm": [
+          [
+            -28.800090789794922,
+            195.3527069091797,
+            266.8999938964844
+          ],
+          [
+            -10.499897003173828,
+            201.05313110351562,
+            274.3999938964844
+          ]
+        ],
+        "hits": [],
+        "minimum_gap_mm": 0.4386089330438076,
+        "nearest_parts_mm": [
+          [
+            "vb-yb-link",
+            0.4386089330438076
+          ],
+          [
+            "terminal-J3",
+            0.74969482421875
+          ],
+          [
+            "pcba",
+            1.29998779296875
+          ],
+          [
+            "local-lead-J3",
+            2.2998774175113113
+          ],
+          [
+            "yb-stem-elbow",
+            9.561176136544344
+          ],
+          [
+            "terminal-J4",
+            14.249786376953125
+          ],
+          [
+            "local-lead-J4",
+            15.799801123565999
+          ],
+          [
+            "tee-yb-target",
+            20.93389491783568
+          ]
+        ]
+      },
+      {
+        "name": "lift-20up",
+        "start_offset_mm": [
+          6.0,
+          0.0,
+          6.0
+        ],
+        "end_offset_mm": [
+          6.0,
+          0.0,
+          26.0
+        ],
+        "bounds_mm": [
+          [
+            -22.800090789794922,
+            195.3527069091797,
+            266.8999938964844
+          ],
+          [
+            -10.499897003173828,
+            201.05313110351562,
+            294.3999938964844
+          ]
+        ],
+        "hits": [],
+        "minimum_gap_mm": 0.74969482421875,
+        "nearest_parts_mm": [
+          [
+            "terminal-J3",
+            0.74969482421875
+          ],
+          [
+            "vb-yb-link",
+            0.9932235117764757
+          ],
+          [
+            "pcba",
+            1.29998779296875
+          ],
+          [
+            "local-lead-J3",
+            2.2998774175113113
+          ],
+          [
+            "yb-stem-elbow",
+            9.507869350713207
+          ],
+          [
+            "terminal-J4",
+            14.249786376953125
+          ],
+          [
+            "local-lead-J4",
+            15.799801123565999
+          ],
+          [
+            "tee-yb-target",
+            20.93389491783568
+          ]
+        ]
+      }
+    ],
+    "passed": true
+  },
+  "pcb_power_driver_gaps_mm": {
+    "access/J10-GND": 3.321811728515627,
+    "access/J10-V12": 2.179088283124774
   }
 }
