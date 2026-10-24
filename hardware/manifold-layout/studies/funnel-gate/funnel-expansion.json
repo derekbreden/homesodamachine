@@ -1,0 +1,355 @@
+{
+  "scope": "Isolated native silicone funnel, drop-in frame and matching gravity cover; production generators and enclosure geometry remain separate",
+  "units": "mm",
+  "source_sha256": {
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "50a03ba1acee43951b86df0a8f3979a7809a91fa349d4a3cdb7c449231868f3b",
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "42baddb2e69d5ad5cfdabead7e041d0d092cb3f1a1c4ba09d6c4904bafd9a8c9",
+    "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": "27ab3ca34c264355eaba4b61d082baa2230356b10a44b721c19e9dca978c7e92",
+    "hardware/printed-parts/zone-c/funnel-cover/funnel_cover.py": "58e219cf45026eac70fae61ccc76eb7df6261bc27b74b92ed979b929feaf8b63",
+    "hardware/manifold-layout/studies/east-feed/parts/east-feed-ceiling.step": "e95046f067ee746da9528bfea02b503cede9a75098f6b1b513dab1bbaa2f058c",
+    "hardware/manifold-layout/studies/wall-supported/parts/left-wall.step": "d4525cd07c7aae4404c52829232388609cb527596e9bc267b392a9989d2e6d7b",
+    "hardware/manifold-layout/studies/wall-supported/parts/right-wall.step": "4fa37d08a2c66d14e1cba2d81cd4c04f3ead3cbcbfec25f4d0c594db77c9664a"
+  },
+  "aft_extension_mm": 35.0,
+  "original_collar_depth_mm": 123.39151584656256,
+  "collar_depth_mm": 158.39151584656256,
+  "collar_center_world_mm": [
+    0.0,
+    179.19575,
+    349.0
+  ],
+  "outlet_bore_exit_world_mm": [
+    0.0,
+    161.69575,
+    306.05
+  ],
+  "retained_drain_union_corner_world_mm": [
+    0.0,
+    161.69575,
+    280.41
+  ],
+  "capacity_to_mouth_ml": 698.2103525072449,
+  "original_capacity_to_mouth_ml": 530.5403569272468,
+  "capacity_method": "Complete native wet cavity closed at mouth and outlet planes; no cover displacement",
+  "silicone_normal_wall_mm": 6.0,
+  "apron_thickness_mm": 3.0,
+  "frame_fasteners": [
+    {
+      "name": "front-west",
+      "col": "front",
+      "side": -1,
+      "x": -93.0,
+      "y": 124.99999207671873,
+      "ledge_z": 346.0,
+      "head_seat_z": 351.8,
+      "head_top_z": 354.8,
+      "insert_top_z": 346.0,
+      "insert_bottom_z": 340.3,
+      "bore_bottom_z": 338.8,
+      "host_bottom_z": 335.8,
+      "screw_length": 12.0,
+      "screw_length_allowance": 0.4,
+      "tip_z": 339.8
+    },
+    {
+      "name": "front-east",
+      "col": "front",
+      "side": 1,
+      "x": 93.0,
+      "y": 124.99999207671873,
+      "ledge_z": 346.0,
+      "head_seat_z": 351.8,
+      "head_top_z": 354.8,
+      "insert_top_z": 346.0,
+      "insert_bottom_z": 340.3,
+      "bore_bottom_z": 338.8,
+      "host_bottom_z": 335.8,
+      "screw_length": 12.0,
+      "screw_length_allowance": 0.4,
+      "tip_z": 339.8
+    },
+    {
+      "name": "back-west",
+      "col": "back",
+      "side": -1,
+      "x": -85.0,
+      "y": 259.4915079232813,
+      "ledge_z": 346.0,
+      "head_seat_z": 351.8,
+      "head_top_z": 354.8,
+      "insert_top_z": 346.0,
+      "insert_bottom_z": 340.3,
+      "bore_bottom_z": 338.8,
+      "host_bottom_z": 335.8,
+      "screw_length": 12.0,
+      "screw_length_allowance": 0.4,
+      "tip_z": 339.8
+    },
+    {
+      "name": "back-east",
+      "col": "back",
+      "side": 1,
+      "x": 85.0,
+      "y": 259.4915079232813,
+      "ledge_z": 346.0,
+      "head_seat_z": 351.8,
+      "head_top_z": 354.8,
+      "insert_top_z": 346.0,
+      "insert_bottom_z": 340.3,
+      "bore_bottom_z": 338.8,
+      "host_bottom_z": 335.8,
+      "screw_length": 12.0,
+      "screw_length_allowance": 0.4,
+      "tip_z": 339.8
+    }
+  ],
+  "shell_opening_cut_mm": {
+    "xmin": -120.0,
+    "xmax": 120.0,
+    "ymin": 244.0,
+    "ymax": 279.0,
+    "zmin": 299.9,
+    "zmax": 365.0
+  },
+  "shell_upper_fore_edge_y_mm": 279.0,
+  "shell_cut_to_valve_support_fore_face_mm": 2.2897605281867186,
+  "fixed_drain_bridge": {
+    "x": 0.0,
+    "y": 161.69575,
+    "floor_z": 299.9,
+    "socket_floor_z": 302.9,
+    "top_z": 311.9,
+    "width": 44.6,
+    "depth": 49.62478
+  },
+  "parts": {
+    "expanded-funnel": {
+      "valid": true,
+      "solid_count": 1,
+      "bounds_mm": [
+        [
+          -107.5,
+          86.99999237060547,
+          306.04998779296875
+        ],
+        [
+          107.5,
+          277.3915100097656,
+          358.0
+        ]
+      ],
+      "material_volume_mm3": 331204.13599473867,
+      "vertices": 5683,
+      "triangles": 8376
+    },
+    "expanded-funnel-frame": {
+      "valid": true,
+      "solid_count": 1,
+      "bounds_mm": [
+        [
+          -98.25,
+          92.99999237060547,
+          299.8999938964844
+        ],
+        [
+          98.25,
+          270.6914978027344,
+          355.0
+        ]
+      ],
+      "material_volume_mm3": 561297.3245048543,
+      "vertices": 7349,
+      "triangles": 9726
+    },
+    "expanded-funnel-cover": {
+      "valid": true,
+      "solid_count": 1,
+      "bounds_mm": [
+        [
+          -91.0,
+          87.49999237060547,
+          352.0
+        ],
+        [
+          91.0,
+          266.8915100097656,
+          361.0
+        ]
+      ],
+      "material_volume_mm3": 105786.50426323307,
+      "vertices": 1424,
+      "triangles": 1356
+    },
+    "expanded-funnel-ceiling": {
+      "valid": true,
+      "solid_count": 1,
+      "bounds_mm": [
+        [
+          -107.5,
+          279.0,
+          346.0
+        ],
+        [
+          107.5,
+          471.29998779296875,
+          355.0
+        ]
+      ],
+      "material_volume_mm3": 316490.67,
+      "vertices": 96,
+      "triangles": 60
+    },
+    "expanded-funnel-left-wall": {
+      "valid": true,
+      "solid_count": 1,
+      "bounds_mm": [
+        [
+          -107.5,
+          244.0,
+          253.39999389648438
+        ],
+        [
+          -57.60409927368164,
+          471.29998779296875,
+          346.0
+        ]
+      ],
+      "material_volume_mm3": 188493.8123087911,
+      "vertices": 8612,
+      "triangles": 8544
+    },
+    "expanded-funnel-right-wall": {
+      "valid": true,
+      "solid_count": 1,
+      "bounds_mm": [
+        [
+          57.60409927368164,
+          244.0,
+          253.39999389648438
+        ],
+        [
+          107.5,
+          471.29998779296875,
+          346.0
+        ]
+      ],
+      "material_volume_mm3": 187639.29910701528,
+      "vertices": 1860,
+      "triangles": 1824
+    }
+  },
+  "qualification_scope": "Native isolated arrangement geometry. Casting, print fit, support removal and capacity in use remain outside this geometric result.",
+  "capacity_gain_ml": 167.66999557999816,
+  "capacity_gain_percent": 31.603627017386504,
+  "apron_plan_to_valve_support_fore_face_mm": 3.8982505184210936,
+  "targeted_exterior_fit": {
+    "expanded-funnel_to_va": {
+      "gap_mm": 30.151029447314478,
+      "mesh_collision": false
+    },
+    "expanded-funnel_to_vk": {
+      "gap_mm": 30.151029447314478,
+      "mesh_collision": false
+    },
+    "expanded-funnel_to_va-support-highlight": {
+      "gap_mm": 26.07103540440238,
+      "mesh_collision": false
+    },
+    "expanded-funnel_to_vk-support-highlight": {
+      "gap_mm": 26.07108803806006,
+      "mesh_collision": false
+    },
+    "expanded-funnel_to_pcba": {
+      "gap_mm": 42.344687733022035,
+      "mesh_collision": false
+    },
+    "expanded-funnel_to_funnel-drain-cradle": {
+      "gap_mm": 0.0,
+      "mesh_collision": true
+    },
+    "expanded-funnel_to_expanded-funnel-ceiling": {
+      "gap_mm": 1.608489990234375,
+      "mesh_collision": false
+    },
+    "expanded-funnel_to_expanded-funnel-left-wall": {
+      "gap_mm": 9.142605758135051,
+      "mesh_collision": false
+    },
+    "expanded-funnel_to_expanded-funnel-right-wall": {
+      "gap_mm": 9.142605758135051,
+      "mesh_collision": false
+    },
+    "expanded-funnel-frame_to_va": {
+      "gap_mm": 25.175584106385216,
+      "mesh_collision": false
+    },
+    "expanded-funnel-frame_to_vk": {
+      "gap_mm": 25.175584106385216,
+      "mesh_collision": false
+    },
+    "expanded-funnel-frame_to_va-support-highlight": {
+      "gap_mm": 22.57494599656586,
+      "mesh_collision": false
+    },
+    "expanded-funnel-frame_to_vk-support-highlight": {
+      "gap_mm": 22.57494599656586,
+      "mesh_collision": false
+    },
+    "expanded-funnel-frame_to_pcba": {
+      "gap_mm": 23.79998779296875,
+      "mesh_collision": false
+    },
+    "expanded-funnel-frame_to_funnel-drain-cradle": {
+      "gap_mm": 4.5,
+      "mesh_collision": false
+    },
+    "expanded-funnel-frame_to_expanded-funnel-ceiling": {
+      "gap_mm": 8.308502197265625,
+      "mesh_collision": false
+    },
+    "expanded-funnel-frame_to_expanded-funnel-left-wall": {
+      "gap_mm": 10.25,
+      "mesh_collision": false
+    },
+    "expanded-funnel-frame_to_expanded-funnel-right-wall": {
+      "gap_mm": 10.25,
+      "mesh_collision": false
+    },
+    "expanded-funnel-cover_to_va": {
+      "gap_mm": 39.57342579419149,
+      "mesh_collision": false
+    },
+    "expanded-funnel-cover_to_vk": {
+      "gap_mm": 39.566194075610106,
+      "mesh_collision": false
+    },
+    "expanded-funnel-cover_to_va-support-highlight": {
+      "gap_mm": 42.88354344982067,
+      "mesh_collision": false
+    },
+    "expanded-funnel-cover_to_vk-support-highlight": {
+      "gap_mm": 42.88354344982067,
+      "mesh_collision": false
+    },
+    "expanded-funnel-cover_to_pcba": {
+      "gap_mm": 77.29780532417941,
+      "mesh_collision": false
+    },
+    "expanded-funnel-cover_to_funnel-drain-cradle": {
+      "gap_mm": 51.95001220703125,
+      "mesh_collision": false
+    },
+    "expanded-funnel-cover_to_expanded-funnel-ceiling": {
+      "gap_mm": 12.474595377951385,
+      "mesh_collision": false
+    },
+    "expanded-funnel-cover_to_expanded-funnel-left-wall": {
+      "gap_mm": 28.436284457081207,
+      "mesh_collision": false
+    },
+    "expanded-funnel-cover_to_expanded-funnel-right-wall": {
+      "gap_mm": 28.436284457081207,
+      "mesh_collision": false
+    }
+  }
+}

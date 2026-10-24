@@ -1,0 +1,24 @@
+{
+  "scope": "Isolated native silicone funnel, drop-in frame and matching gravity cover; production generators and enclosure geometry remain separate",
+  "units": "mm",
+  "aft_extension_mm": 35.0,
+  "original_collar_center_world_mm": [0.0, 161.69575, 349.0],
+  "original_apron_bounds_y_mm": [87.0, 242.3915079232813],
+  "valve_support_fore_face_y_mm": 281.2897605281867,
+  "shell_opening_cut_mm": {
+    "xmin": -120.0,
+    "xmax": 120.0,
+    "ymin": 244.0,
+    "ymax": 279.0,
+    "zmin": 299.9,
+    "zmax": 365.0
+  },
+  "preserve": [
+    "Fore plan boundary, X width and all Z elevations",
+    "Outlet bore, plug, drain stub, union elbow and fixed drain bridge stations",
+    "6 mm silicone normal walls, 3 mm flat overflow apron and smooth gravity cover skirt",
+    "Four upward-access M3 drop-in frame fastener seats; rear stations follow the aft boundary"
+  ],
+  "construction": "Increase collar, brim, apron, frame and cover depth by the aft extension; translate their plan centres by half that extension; offset the outlet by the negative half extension in the new collar frame",
+  "frame_context": "Current production drop-in frame DEFAULT_INNER and seam-clearance construction; broad flat upper-shell opening extends aft35mm; frame receivers remain separate"
+}
