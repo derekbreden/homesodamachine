@@ -100,27 +100,39 @@ def main():
     panel=rectangle(bounds,radius)
     opening={key:value+(gap if key.endswith('max') else -gap) for key,value in bounds.items()}
     opening.update(zmin=p['zmin']-20,zmax=p['zmax']+1)
-    fixed=original.cut(rectangle(opening,radius+gap))
-    # These four pads are the complete bearing support. No edge ledge joins them.
-    half=f['boss_width_mm']/2;depth=f['boss_depth_mm']/2
-    boss=box(-half,half,-depth,depth,f['boss_bottom_z_mm'],f['bearing_z_mm'])
-    boss=boss.cut(cylinder(f['pilot_diameter_mm']/2,0,0,
-        f['bearing_z_mm']-f['pilot_depth_mm'],f['bearing_z_mm']+.1)).clean()
-    for x,y in f['centres_xy_mm']:
-        fixed=fixed.fuse(boss.translate((x,y,0)))
+    bare_roof=original.cut(rectangle(opening,radius+gap));fixed=bare_roof
+    # Each full-height corner root overlaps the fixed roof in volume. Its
+    # portion inside the aperture stops at the bearing plane, below the lid.
+    # The rear roots extend through the entire 9 mm back-wall thickness.
+    upper_opening=dict(opening,zmin=f['bearing_z_mm'])
+    panel_void=rectangle(upper_opening,radius+gap)
+    half=f['boss_width_mm']/2;reach=f['boss_inner_reach_mm'];root=f['roof_root_depth_mm']
+    wall=back_wall(plan);boss_shapes=[];attachments=[]
+    for index,(x,y) in enumerate(f['centres_xy_mm']):
+        front=y<(p['ymin']+p['ymax'])/2
+        y0=opening['ymin']-root if front else y-reach
+        y1=y+reach if front else opening['ymax']+root
+        boss=box(x-half,x+half,y0,y1,f['boss_bottom_z_mm'],p['zmax']).cut(panel_void)
+        boss=boss.cut(cylinder(f['pilot_diameter_mm']/2,x,y,
+            f['bearing_z_mm']-f['pilot_depth_mm'],f['bearing_z_mm']+.1)).clean()
+        attachments.append({'boss':index,'root_edge':'front' if front else 'rear',
+            'roof_root_depth_mm':root,
+            'fixed_roof_volume_overlap_mm3':max(0.,boss.intersect(bare_roof).Volume()),
+            'rear_wall_volume_overlap_mm3':max(0.,boss.intersect(wall).Volume())})
+        boss_shapes.append(boss);fixed=fixed.fuse(boss)
         panel=panel.cut(cylinder(f['clearance_hole_diameter_mm']/2,x,y,p['zmin']-.1,p['zmax']+.1),
             cylinder(f['counterbore_diameter_mm']/2,x,y,f['counterbore_floor_z_mm'],p['zmax']+.1))
     notch=plan['pry_notch'];cx=notch['centre_x_mm'];w=notch['width_mm']/2
     panel=panel.cut(box(cx-w,cx+w,p['ymin']-.1,p['ymin']+notch['depth_mm'],p['zmin']-.1,p['zmax']+.1)).clean()
     fixed=fixed.clean();bolt=screw(f);heatset=insert(f)
     parts={'access-fixed-ceiling':fixed,'electronics-access-panel':panel,
-           'access-back-wall':back_wall(plan),'panel-screw-m3x12':bolt,
+           'access-back-wall':wall,'panel-screw-m3x12':bolt,
            'panel-insert-rx-m3x5p7':heatset}
     for name,shape in parts.items():export(name,shape)
-    export('panel-boss',boss,native=False)
+    for index,boss in enumerate(boss_shapes):export(f'panel-boss-{index}',boss,native=False)
     # True native half sections through one fastener axis show every bearing floor.
     x,y=f['centres_xy_mm'][f['detail_corner_index']]
-    window=box(x-12,x+12,y,y+12,f['boss_bottom_z_mm']-1,p['zmax']+1)
+    window=box(x-12,x+12,y,opening['ymax']+root,f['boss_bottom_z_mm']-1,p['zmax']+1)
     section={'section-frame':fixed,'section-panel':panel,
              'section-screw':bolt.translate((x,y,f['counterbore_floor_z_mm'])),
              'section-insert':heatset.translate((x,y,f['bearing_z_mm']))}
@@ -131,8 +143,9 @@ def main():
         'scope':plan['scope'],'source_plan_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),
         'valid_single_solids':{name:shape.isValid() and len(shape.Solids())==1 for name,shape in parts.items()},
         'panel_size_mm':[p['xmax']-p['xmin'],p['ymax']-p['ymin'],p['zmax']-p['zmin']],
-        'panel_bearing':'Four discrete 18 × 12 mm heatset bosses; no perimeter rim',
+        'panel_bearing':'Four discrete heatset bosses, each 18 mm wide with a 9 mm root into the fixed roof; no perimeter rim',
         'boss_centres_xy_mm':f['centres_xy_mm'],
+        'boss_attachments':attachments,
         'fastener_stack_mm':{'head_bearing_z':f['counterbore_floor_z_mm'],
             'head_top_z':f['counterbore_floor_z_mm']+f['screw_head_height_mm'],
             'head_recess_below_show_face':p['zmax']-f['counterbore_floor_z_mm']-f['screw_head_height_mm'],
@@ -140,7 +153,7 @@ def main():
             'insert_top_z':f['bearing_z_mm'],'insert_bottom_z':f['bearing_z_mm']-f['insert_length_mm'],
             'screw_tip_z':tip,'pilot_bottom_z':bottom,'tip_reserve':tip-bottom,
             'insert_engagement':f['insert_length_mm'],'blind_floor_stock':bottom-f['boss_bottom_z_mm'],
-            'minimum_boss_stock_from_pilot':min(half,depth)-f['pilot_diameter_mm']/2,
+            'minimum_boss_stock_from_pilot':min(half,reach)-f['pilot_diameter_mm']/2,
             'counterbore_to_panel_edge':f['edge_offset_mm']-f['counterbore_diameter_mm']/2},
         'closed_panel_fixed_ceiling_intersection_mm3':max(0.,panel.intersect(fixed).Volume()),
         'lift_samples':[{'lift_mm':lift,'fixed_ceiling_intersection_mm3':max(0.,panel.translate((0,0,lift)).intersect(fixed).Volume())}

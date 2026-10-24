@@ -8,8 +8,10 @@ Their final connection is made through this opening before the empty panel is
 installed. The remaining ceiling, wet group, funnel and frame stay assembled.
 
 The panel is 100 × 126.55 × 9 mm, with R3 corners and 0.25 mm clearance around
-its edge. Its only bearing surfaces are four integral 18 × 12 mm bosses on the
-fixed roof. There is no perimeter rim. The bosses form a symmetric screw
+its edge. Its only bearing surfaces are four integral 18 mm wide bosses on the
+fixed roof. Each has a full-height root extending 9 mm into the adjacent front
+or rear fixed roof. The rear roots also fill the 9 mm rear-wall thickness.
+There is no perimeter rim. The bosses form a symmetric screw
 pattern, 6.75 mm from each panel edge. A 6 × 2 mm notch through the panel's
 front edge admits a flat screwdriver for lifting the panel.
 
@@ -22,14 +24,16 @@ insert length engages the screw. Pilot size and radial stock follow the
 Native screw and insert models show the socket, exterior and thread-root
 envelopes; the heatset's knurl bands are illustrative.
 
-The C14 flange centre is X−65.75, Y471.3, Z327, with its rear-wall pocket and
+The C14 flange centre is X−61.75, Y471.3, Z323, with its rear-wall pocket and
 mounting holes at the same pose. Its scanned flange has approximately equal
-7.9 mm gaps to the inner sidewall and ordinary ceiling underside. All other
-equipment retains the parent layout and mounting ownership.
+11.9 mm gaps to the inner sidewall and ordinary ceiling underside. All other
+equipment retains the parent layout and mounting ownership. The inlet's full
+rectangular mounting opening lies below the rear boss roots.
 
 [panel-plan.json](panel-plan.json) defines the geometry and empty equipment
 attachment list. [geometry-report.json](geometry-report.json) records the five
-valid native solids, screw stack and zero panel/fixed-roof volume overlap.
+valid native solids, screw stack, each boss's volume overlap with the fixed
+roof and rear wall, and zero panel/fixed-roof volume overlap.
 [arrangement-review.json](arrangement-review.json) records the targeted
 equipment fit and sampled vertical lid removal. These are geometric fit
 queries; this study contains no physical strength or lifetime qualification.
@@ -54,6 +58,6 @@ tools/cad-venv/bin/python hardware/manifold-layout/studies/electronics-access/vi
 
 Native STEP and frozen NPZ meshes are in [parts/](parts/). The four section
 meshes are actual native solid intersections through a screw axis. Boss
-overlays in the whole view identify the stock already fused into the fixed
-roof; they are not separate printed parts. Production enclosure geometry is
-outside this isolated study.
+overlays in the whole view show the complete bosses and their roof roots
+opaquely; the same stock is fused into the fixed roof. Production enclosure
+geometry is outside this isolated study.

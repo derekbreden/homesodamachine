@@ -13,7 +13,7 @@
     126.55000000000001,
     9.0
   ],
-  "panel_bearing": "Four discrete 18 \u00d7 12 mm heatset bosses; no perimeter rim",
+  "panel_bearing": "Four discrete heatset bosses, each 18 mm wide with a 9 mm root into the fixed roof; no perimeter rim",
   "boss_centres_xy_mm": [
     [
       -91.5,
@@ -31,6 +31,36 @@
       -5.0,
       455.3
     ]
+  ],
+  "boss_attachments": [
+    {
+      "boss": 0,
+      "root_edge": "front",
+      "roof_root_depth_mm": 9.0,
+      "fixed_roof_volume_overlap_mm3": 1712.4005870920303,
+      "rear_wall_volume_overlap_mm3": 0.0
+    },
+    {
+      "boss": 1,
+      "root_edge": "front",
+      "roof_root_depth_mm": 9.0,
+      "fixed_roof_volume_overlap_mm3": 1712.4005870920298,
+      "rear_wall_volume_overlap_mm3": 0.0
+    },
+    {
+      "boss": 2,
+      "root_edge": "rear",
+      "roof_root_depth_mm": 9.0,
+      "fixed_roof_volume_overlap_mm3": 1712.4005870920303,
+      "rear_wall_volume_overlap_mm3": 1512.0
+    },
+    {
+      "boss": 3,
+      "root_edge": "rear",
+      "roof_root_depth_mm": 9.0,
+      "fixed_roof_volume_overlap_mm3": 1712.4005870920298,
+      "rear_wall_volume_overlap_mm3": 1701.0
+    }
   ],
   "fastener_stack_mm": {
     "head_bearing_z": 351.8,
@@ -83,5 +113,5 @@
     "depth_mm": 2.0,
     "through_panel_thickness": true
   },
-  "retention_detail": "Four discrete integral corner bosses are the panel's only bearing surfaces. Four recessed M3x12 screws engage RX-M3x5.7 heatsets. No perimeter rim."
+  "retention_detail": "Four discrete integral corner bosses are the panel's only bearing surfaces. Each boss has a 9 mm root into its adjacent fixed roof edge; the rear roots fill the rear-wall thickness. Four recessed M3x12 screws engage RX-M3x5.7 heatsets. No perimeter rim."
 }

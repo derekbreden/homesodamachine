@@ -82,7 +82,7 @@ def detail_payload():
                     'status':'modelled','basis':label}}
         for name,(role,label) in roles.items()]
     return {'detail':True,'scene':{'instances':instances},'access_panel':plan,
-        'detail_bounds':[[x-12,y,334.5],[x+12,y+12,356]],
+        'detail_bounds':[[x-12,y,334.5],[x+12,plan['panel']['ymax']+plan['panel']['edge_clearance_mm']+plan['fasteners']['roof_root_depth_mm'],356]],
         'quadrants':[{'id':'back-top','label':'Boss','series':3},{'id':'electronics-access','label':'Panel','series':5}],
         'geometries':{name:packed_mesh(HERE/'parts'/(name+'.npz')) for name in roles}}
 

@@ -36,7 +36,7 @@ const packedData=Uint8Array.from(atob(document.getElementById('qa-data').textCon
 const decodedData=await new Response(new Blob([packedData]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();
 const data=JSON.parse(new TextDecoder().decode(decodedData)),ownerById=Object.fromEntries(data.quadrants.map(q=>[q.id,q]));
 const stateId=data.detail?'electronics-access-detail-v1':'electronics-access-v1';
-if(data.detail){root.querySelector('h3').textContent='Corner fastener · native half section';root.querySelector('.viz-controls').remove();highlight.value='normal';liftControl.checked=false;stage.style.height='clamp(300px,60vw,420px)';stage.setAttribute('aria-label','Rotatable native half section through an M3 screw, recessed head, removable panel, heatset and integral blind boss.');}
+if(data.detail){root.querySelector('h3').textContent='Boss attachment · section';root.querySelector('.viz-controls').remove();highlight.value='normal';liftControl.checked=false;stage.style.height='clamp(300px,60vw,420px)';stage.setAttribute('aria-label','Rotatable native half section through an M3 screw, recessed head, removable panel, heatset and integral blind boss with its complete root into the fixed roof and rear wall.');}
 const scene=new THREE.Scene(),camera=new THREE.OrthographicCamera(-150,150,110,-110,.1,2500);camera.up.set(0,0,1);
 const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});renderer.setClearAlpha(0);renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.toneMapping=THREE.ACESFilmicToneMapping;stage.prepend(renderer.domElement);
 const controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.minZoom=.4;controls.maxZoom=8;
@@ -75,7 +75,7 @@ function pin(text,at,followPanel=false){const el=document.createElement('span');
 function addPart(part,geometry){const mesh=new THREE.Mesh(geometry,new THREE.MeshStandardMaterial({roughness:.68,metalness:.08,side:THREE.DoubleSide})),r=part.rotation;mesh.quaternion.setFromRotationMatrix(new THREE.Matrix4().set(...r[0],0,...r[1],0,...r[2],0,0,0,0,1));mesh.position.set(...part.translation);mesh.userData=part;const n=part.name,opacity=data.detail?1:n==='cold-core-top'?.12:n==='ceiling'?.24:n==='electronics-access-panel'?.98:n.endsWith('-wall')?.22:n==='funnel'?.08:n==='funnel-frame'?.2:1;mesh.material.opacity=opacity;mesh.material.transparent=opacity<1;mesh.material.depthWrite=opacity===1;group.add(mesh);bodies.push(mesh);if(part.moves_with_panel)movingParts.push(mesh);return mesh;}
 function build(){
   for(const part of data.scene.instances)addPart(part,geometries[part.geometry]);
-  if(data.detail){const [x,y]=data.access_panel.fasteners.centres_xy_mm[2];pin('M3 × 12 screw',[x,y,354.8]);pin('RX-M3×5.7',[x,y,343]);pin('Blind floor',[x+5,y,337]);makeLegend();theme();return;}
+  if(data.detail){const [x,y]=data.access_panel.fasteners.centres_xy_mm[2];pin('9 mm roof root',[x,y+11.5,355]);pin('M3 × 12 screw',[x,y,354.8]);pin('RX-M3×5.7',[x,y,343]);pin('Blind floor',[x+5,y,337]);makeLegend();theme();return;}
   addPart({name:'cold-core-top',label:'Cold-core top · context',role:'structure',rotation:[[1,0,0],[0,1,0],[0,0,1]],translation:[0,321.3,245.4],assembly:{quadrant:'back-bottom',status:'located',basis:'Cold core carried by back-bottom'}},new THREE.BoxGeometry(181,278,16));
   panelMesh=bodies.find(mesh=>mesh.userData.name==='electronics-access-panel');
   pin('Empty panel · goes on last',[-48.25,398.775,355],true);
