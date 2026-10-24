@@ -225,6 +225,14 @@
       "purchase_id": "pur-9b24ddfcac444a6398f62c24c98b000d"
     },
     {
+      "allocation_id": "alloc-2226cb82f09d49439dcbc98e5e689ba0",
+      "amount_minor": 11153,
+      "currency": "USD",
+      "event_id": "evt-a3c8a2e1a259405e85d14c27817deb58",
+      "order_id": "pisco:8638",
+      "purchase_id": "pur-1ead43e8eead4989adf3de560d23febe"
+    },
+    {
       "allocation_id": "alloc-2323ffeba8f64263886b4a93660f45ac",
       "amount_minor": 5105,
       "currency": "USD",
@@ -1353,7 +1361,7 @@
       "purchase_id": "pur-e09e5d28db894792aef087da03caea51"
     }
   ],
-  "as_of": "2026-10-17",
+  "as_of": "2026-10-23",
   "coverage": [
     {
       "checked_at": "2026-10-04",
@@ -2732,6 +2740,26 @@
       "source_ids": [],
       "stream": "project merchant charges and refunds",
       "vendor": "BrewHardware"
+    },
+    {
+      "checked_at": "2026-10-23",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-fee7edc5545c4ce58fba854587790eb4",
+      "evidence_type": "order_confirmation",
+      "examined_period": {
+        "end": "2026-10-23",
+        "start": "2026-10-23"
+      },
+      "note": "Scoped Gmail search for PISCO and RVFUP and review of the named order confirmation; no claim of complete merchant account coverage.",
+      "order_ids": [
+        "pisco:8638"
+      ],
+      "source_ids": [
+        "src-e90526d88b0b4e5c9b441af32b25ac68"
+      ],
+      "stream": "regulator order 8638",
+      "vendor": "PISCO"
     }
   ],
   "currency_scales": {
@@ -5572,6 +5600,30 @@
     },
     {
       "allocation_ids": [
+        "alloc-2226cb82f09d49439dcbc98e5e689ba0"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 11153,
+      "confirmation": "expected",
+      "currency": "USD",
+      "event_date": null,
+      "event_id": "evt-a3c8a2e1a259405e85d14c27817deb58",
+      "event_type": "charge",
+      "order_ids": [
+        "pisco:8638"
+      ],
+      "purchase_ids": [
+        "pur-1ead43e8eead4989adf3de560d23febe"
+      ],
+      "source_ids": [
+        "src-e90526d88b0b4e5c9b441af32b25ac68"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "PISCO",
+      "verified_at": "2026-10-23"
+    },
+    {
+      "allocation_ids": [
         "alloc-b62afdd0f175435d9ca73fed20e7affd"
       ],
       "allocation_status": "all_project",
@@ -7396,6 +7448,25 @@
       ]
     },
     {
+      "event_ids": [
+        "evt-a3c8a2e1a259405e85d14c27817deb58"
+      ],
+      "gap_id": "gap-7dc719f6e334459abab4ecaec07873e1",
+      "missing_fact": "The order confirmation states on hold pending payment confirmation; completed merchant charge, dispatch and delivery are not established.",
+      "order_ids": [
+        "pisco:8638"
+      ],
+      "purchase_ids": [
+        "pur-1ead43e8eead4989adf3de560d23febe"
+      ],
+      "source_ids": [
+        "src-e90526d88b0b4e5c9b441af32b25ac68"
+      ],
+      "sources_checked": [
+        "PISCO order received confirmation 8638"
+      ]
+    },
+    {
       "gap_id": "gap-8703c8fb55124412b9d51de641020ca7",
       "missing_fact": "exact placed dates; final invoice/payment evidence. Only notification timestamps supplied; account page not signed in and Chrome unavailable. Recorded accepted facts preserved.",
       "order_ids": [
@@ -7580,7 +7651,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:f24e656893c35224be4842827aa07d58b5ce0f944309a2f48675d15152f73d17",
+  "input_fingerprint": "sha256:754755a1546cf1dda22d16d6f1dcae186883953dc0a61f52f2b73e905c2b7b6f",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -16080,6 +16151,25 @@
     {
       "allocation_status": "all_project",
       "event_ids": [
+        "evt-a3c8a2e1a259405e85d14c27817deb58"
+      ],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-23"
+      },
+      "order_id": "pisco:8638",
+      "purchase_ids": [
+        "pur-1ead43e8eead4989adf3de560d23febe"
+      ],
+      "reference": "8638",
+      "source_ids": [
+        "src-e90526d88b0b4e5c9b441af32b25ac68"
+      ],
+      "vendor": "PISCO"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [
         "evt-a04249bd03ff48678ad222c1bda35752"
       ],
       "order_date": null,
@@ -19977,6 +20067,52 @@
       "stream": "automatic_top_up",
       "unit_amount_minor": null,
       "vendor": "Anthropic"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "final_vendor_amount",
+      "amount_minor": 11153,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "PISCO RVFUP1/4-1/4-0.3 preset regulator, 1/4\" push-connect, 0.3 MPa — 2 pcs, $81.32 + $30.21 UPS Ground + $0.00 tax; order on hold pending payment confirmation",
+      "event_ids": [
+        "evt-a3c8a2e1a259405e85d14c27817deb58"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-1ead43e8eead4989adf3de560d23febe",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-23"
+      },
+      "order_ids": [
+        "pisco:8638"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-1ead43e8eead4989adf3de560d23febe",
+      "purpose": "components",
+      "quantity": 2,
+      "quantity_text": "2",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-23"
+      },
+      "row_date_basis": "order_date",
+      "section": "2. CO2 subsystem",
+      "service_period": null,
+      "source_ids": [
+        "src-e90526d88b0b4e5c9b441af32b25ac68"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "PISCO"
     },
     {
       "allocation_status": "all_project",
@@ -59155,6 +59291,22 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-10-23"
+      },
+      "document_type": "email_order_confirmation",
+      "note": "Order received confirmation: two RVFUP1/4-1/4-0.3 regulators, USD 81.32 subtotal, USD 30.21 UPS Ground shipping, USD 0.00 tax and USD 111.53 total. The order is on hold pending payment confirmation. No completed charge, dispatch or delivery is established.",
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "reference": "8638",
+      "source_id": "src-e90526d88b0b4e5c9b441af32b25ac68",
+      "vendor": "PISCO",
+      "verified_at": "2026-10-23"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-10-09"
       },
       "document_type": "delivery_confirmation",
@@ -60340,10 +60492,11 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 72697,
+          "amount_minor": 83850,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
+            "pur-1ead43e8eead4989adf3de560d23febe",
             "pur-250afee3f9d341c9a9d18d4e33c0fd0e",
             "pur-25f35741f88e40729bec555987f79640",
             "pur-3ce173932d6c45f184bcd60237a2c790",
@@ -60373,6 +60526,7 @@
       "cancelled_with_evidenced_charge_purchase_ids": [],
       "expected_refund_event_ids": [],
       "outstanding_purchase_ids": [
+        "pur-1ead43e8eead4989adf3de560d23febe",
         "pur-250afee3f9d341c9a9d18d4e33c0fd0e",
         "pur-25f35741f88e40729bec555987f79640",
         "pur-3ce173932d6c45f184bcd60237a2c790",
@@ -60399,6 +60553,7 @@
         "evt-5fddb80e882c4533bf9042d5a74088cc",
         "evt-7f73633b6a97457eaa442c0429f18359",
         "evt-9fd2d4a65f7d45a594a7ac3a6837d416",
+        "evt-a3c8a2e1a259405e85d14c27817deb58",
         "evt-c0203246ff88423a9af71d1977ede6c4",
         "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9",
         "evt-e5f1a5d1860941fe82124df7e77e67fe"
@@ -60732,6 +60887,7 @@
             "evt-69d186cf3c4c436788b6706105b50532",
             "evt-903eedfb26fd4f999dda301c34468ee4",
             "evt-9fd2d4a65f7d45a594a7ac3a6837d416",
+            "evt-a3c8a2e1a259405e85d14c27817deb58",
             "evt-a44b7291eb25461f97cd8d045faebd4e",
             "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9"
           ],
@@ -61394,13 +61550,14 @@
           "currency": "USD",
           "estimate_minor": 66815,
           "evidence_scope": "retrieved_records_only",
-          "final_vendor_amount_minor": 93684,
+          "final_vendor_amount_minor": 104837,
           "legacy_unverified_minor": 30634,
           "month": "2026-10",
           "purchase_ids": [
             "pur-03fa2eeee1cd4eae8e6991441f9f90ed",
             "pur-0d4eaf3ef27646a8b8f77ea46d4f2d44",
             "pur-1394610e499a45c08ba665ed1200053c",
+            "pur-1ead43e8eead4989adf3de560d23febe",
             "pur-250afee3f9d341c9a9d18d4e33c0fd0e",
             "pur-25f35741f88e40729bec555987f79640",
             "pur-27bb6c07598243e390e2ca407e908695",
@@ -61434,7 +61591,7 @@
             "pur-f7d7511ce9394cae80352c28342d27fd",
             "pur-f98feadd5dec4c1cba460dd7c74baa09"
           ],
-          "total_minor": 191133,
+          "total_minor": 202286,
           "unknown_amount_ids": []
         },
         {
@@ -61462,7 +61619,7 @@
       ],
       "purpose_totals": [
         {
-          "amount_minor": 1099535,
+          "amount_minor": 1110688,
           "currency": "USD",
           "purpose": "components"
         },
@@ -61501,9 +61658,9 @@
         {
           "currency": "USD",
           "estimate_minor": 230868,
-          "final_vendor_amount_minor": 2048905,
+          "final_vendor_amount_minor": 2060058,
           "legacy_unverified_minor": 2398968,
-          "total_minor": 4678741
+          "total_minor": 4689894
         }
       ],
       "undated_unallocated": [
@@ -61642,6 +61799,7 @@
         "gap-2e0c753bea0943db858dcaadb275439f",
         "gap-38ca1f93f2114c089bad2a7e9cfa41f4",
         "gap-404bcade77c84fc880a7330c6f6ebfc9",
+        "gap-7dc719f6e334459abab4ecaec07873e1",
         "gap-8703c8fb55124412b9d51de641020ca7",
         "gap-9738d616dea64eaabb2b35df6ba49073",
         "gap-b377c38272c84c2d9d0b972f58b6c35c",
@@ -61659,7 +61817,7 @@
           "legacy_unverified_purchase_minor": 2398968,
           "order_only_charge_allocation_minor": 6561,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 2919609,
+          "purchases_without_merchant_charge_minor": 2930762,
           "undated_charge_minor": 57998,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 922346,
@@ -61767,7 +61925,8 @@
         "coverage-f40e66eb69164069b4f0418f0859ba19",
         "coverage-f622e58e83ff4673a617ac4d519ec225",
         "coverage-f793ca689f7448fbb52cc6a48e492007",
-        "coverage-f9613b999fd5422a8f49b9032ec3f7d7"
+        "coverage-f9613b999fd5422a8f49b9032ec3f7d7",
+        "coverage-fee7edc5545c4ce58fba854587790eb4"
       ],
       "legacy_unverified_purchase_ids": [
         "pur-00029069de0d454d9ad2c2c2eb5f845d",
@@ -62325,6 +62484,7 @@
         "pur-1d1f4567c6c34e248390df7f295564d0",
         "pur-1d21f7af3118468480fd8e4e4b97786c",
         "pur-1d3e871716714b8db189738917aad1b9",
+        "pur-1ead43e8eead4989adf3de560d23febe",
         "pur-21504543cd394d8983d88483344af1ac",
         "pur-2194a215bd63436688709f9d34dbab32",
         "pur-221ddf9f8004473dbd36b14440a9a4d5",
@@ -62799,6 +62959,7 @@
         "evt-69d186cf3c4c436788b6706105b50532",
         "evt-903eedfb26fd4f999dda301c34468ee4",
         "evt-9fd2d4a65f7d45a594a7ac3a6837d416",
+        "evt-a3c8a2e1a259405e85d14c27817deb58",
         "evt-a44b7291eb25461f97cd8d045faebd4e",
         "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9"
       ],
@@ -62928,7 +63089,7 @@
   "validation": {
     "errors": [],
     "warnings": [
-      "14 authored evidence gap(s) remain",
+      "15 authored evidence gap(s) remain",
       "coverage-008d521abab24498bf9db4a8c5993e38: evidence coverage is unknown",
       "coverage-013f6586dbf840c8836ae7289d9827b3: evidence coverage is partial",
       "coverage-17d84ca75543489fb09003261546862a: evidence coverage is unknown",
@@ -62997,6 +63158,7 @@
       "coverage-f622e58e83ff4673a617ac4d519ec225: evidence coverage is unknown",
       "coverage-f793ca689f7448fbb52cc6a48e492007: evidence coverage is partial",
       "coverage-f9613b999fd5422a8f49b9032ec3f7d7: evidence coverage is unknown",
+      "coverage-fee7edc5545c4ce58fba854587790eb4: evidence coverage is partial",
       "Legacy order 112-0019658-3684217: row valuation USD 139.80, preserved project invoice USD 139.81; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
       "Legacy order 112-0066205-0960237: row valuation USD 423.94, preserved project invoice USD 423.95; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
       "2 legacy named order(s) lack an exact invoice allocation check",

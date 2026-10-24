@@ -36,9 +36,12 @@ undimensioned molded details still estimated.
 
 PISCO specifies air service and free reverse flow. The downstream check
 provides the separate one-way function. PISCO's exact CO₂ suitability and
-immediate dispatch are unconfirmed; these are layout candidates. See
-[sourcing](sourcing.json) for current specifications and availability limits.
-No purchase or production component replacement is recorded by this study.
+immediate dispatch are unconfirmed. Two regulators are ordered under PISCO
+order 8638; its confirmation states on hold pending payment confirmation.
+The separate check valve remains a sourcing candidate. See
+[sourcing](sourcing.json) and the [purchase ledger](../../../ledger/purchases.md)
+for specifications, order evidence and fulfillment. Production component
+replacement remains outside this study.
 
 Native STEP and mesh files for the host-specific stems and selected wall/roof
 context are in `parts/`. Rebuild them through the shared CAD queue:

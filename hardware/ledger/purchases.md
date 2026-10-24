@@ -119,6 +119,7 @@ Cylinders, regulator, CO2 line, push-to-connect adapters for the CO2 side.
 | <!--purchase:pur-af0cc437c2894196aef6229762c9ad97--> Control Devices SV-100 safety valve, 1/4" NPT, 100 psi (spare PRV; superseded by SV-125) | [B0D361X97X](https://www.amazon.com/dp/B0D361X97X) | 2 | $8.03 ea | 112-7814251-3174665 | 2026-04-12 | — | ACQUIRED |
 | <!--purchase:pur-189a85fc0d3a44699a8cb6673f968b26--> Interstate Pneumatics WR1110 1/4" NPT in-Line 90 PSI fixed pre-set pressure regulator, 230 PSI max inlet, aluminum body | [B07J2L8LF3](https://www.amazon.com/dp/B07J2L8LF3) | 1 | $25.66 | 112-6323725-5423434 | 2026-05-13 | 2026-05-17 | ACQUIRED |
 | <!--purchase:pur-f98feadd5dec4c1cba460dd7c74baa09--> Interstate Pneumatics WR1105 1/4" NPT in-line fixed pre-set pressure regulator, listed 50 PSI, barrel etched 3 bar, 230 PSI max inlet, aluminum body — the appliance's secondary CO2 regulator, one per build. Sole item on its invoice, 3 @ $28.46 + $6.18 NE tax, shipping $0.00 | [B0CGFCJNMG](https://www.amazon.com/dp/B0CGFCJNMG) | 3 | $30.52 ea | 112-6207769-5063458 | 2026-10-03 | 2026-10-07 | ACQUIRED |
+| <!--purchase:pur-1ead43e8eead4989adf3de560d23febe--> PISCO RVFUP1/4-1/4-0.3 preset regulator, 1/4" push-connect, 0.3 MPa — 2 pcs, $81.32 + $30.21 UPS Ground + $0.00 tax; order on hold pending payment confirmation | [PISCO](https://shop.pisco.com/product/rvfup1-4-1-4-0-3/) | 2 | $111.53 | 8638 | 2026-10-23 | — | ON-ORDER |
 | <!--purchase:pur-2ea84071bce44b5fbac595a3c4e6cd90--> Control Devices SV-125 safety valve, 1/4" NPT, 125 psi set pressure, 49 SCFM relief, brass | [B01G2F6EMY](https://www.amazon.com/dp/B01G2F6EMY) | 1 | $8.03 | 112-6323725-5423434 | 2026-05-13 | 2026-05-17 | ACQUIRED |
 | <!--purchase:pur-ce1b4970208b4c6a9adec93c9a7f950e--> Fresh Water Systems order WEBFWS100675224 — JG 1/4" NPTF male connector (×10) + 1/4" union elbow PP0308E (×10) | [freshwatersystems.com](https://www.freshwatersystems.com/) | 1 order (2 × bag of 10) | $44.11 | — | — | 2026-05-19 | ACQUIRED |
 | <!--purchase:pur-99a0644333ed4c5a8e5d5514098319fa--> Fresh Water Systems order WEBFWS100708594 — JG **PI450822S** gray acetal female adapter, 1/4" tube × 1/4" NPTF (3 × bag of 10) | [FWS](https://www.freshwatersystems.com/products/john-guest-female-adapter-nptf-1-4-x-1-4-nptf), [Gmail confirmation](https://mail.google.com/mail/u/0/#search/WEBFWS100708594) | 3 bags (30) | $94.54 | WEBFWS100708594 | 2026-09-23 | 2026-10-05 | ACQUIRED |
@@ -804,16 +805,16 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | Acquired hardware valuation — includes replaced/returned originals | [$39,487.86](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,519.51](LEDGER_LABOR) |
 | Acquired procurement valuation (combined) | [$46,007.37](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$726.97](LEDGER_ON_ORDER) |
+| ON-ORDER | [$838.50](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Recorded procurement valuation — includes commitments** | [$46,787.41](LEDGER_GRAND_TOTAL) |
+| **Recorded procurement valuation — includes commitments** | [$46,898.94](LEDGER_GRAND_TOTAL) |
 
 Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
-| Final vendor amounts | [$20,489.05](LEDGER_FINAL_VENDOR) |
+| Final vendor amounts | [$20,600.58](LEDGER_FINAL_VENDOR) |
 | Estimated amounts | [$2,308.68](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$23,989.68](LEDGER_LEGACY_UNVERIFIED) |
 
