@@ -3,7 +3,8 @@
 The selected [east-feed layout](east-feed/README.md) places the water
 group, folded CO₂ path, low forward PCB, flat Mean Well, dry-wall relays and
 rear connections above the existing cold core. V-A routes under the pump
-head, through a union elbow and straight to a stem elbow on Y-A. The PCB is
+head, through a union elbow between the pump and V-K, and straight to a stem
+elbow on Y-A. The PCB is
 centered between its valve support and the core's front edge, with its long
 dimension across the dry side. Two ordered native push-connect water regulators
 fit the same inline gap; the YZMSZ estimate is the working choice.

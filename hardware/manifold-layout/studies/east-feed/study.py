@@ -48,31 +48,35 @@ def route():
     source_corner=np.array([-76.40410112876839,296.3397605281867,262.7856478805363])
     mouth=source_corner+[19.05,0.,0.]
     ya_corner=DEST+[0.,0.,6.0452]
-    corner=np.array([66.,262.,ya_corner[2]])
+    corner=np.array([44.5,source_corner[1],ya_corner[2]])
     onward=ya_corner-corner;onward/=np.linalg.norm(onward)
-    west=np.array([onward[1],-onward[0],0.])
+    clock=math.pi/4
+    west=np.array([onward[1],-onward[0],0.])*math.cos(clock)-[0.,0.,math.sin(clock)]
     pickup=corner+20.56239*west;departure=corner+20.56239*onward
     ya_socket=ya_corner-19.05*onward
     turn_r=np.column_stack([np.cross(west,onward),west,onward])
     ya_r=np.column_stack([[0.,0.,1.],-onward,np.cross([0.,0.,1.],-onward)])
-    waypoint=np.array([20.,302.,258.])
-    tangent=np.array([math.cos(math.pi/6),-math.sin(math.pi/6),0.])
+    waypoint=np.array([5.,302.,258.3])
+    tangent=np.array([1.,0.,0.])
     controls=[[mouth,mouth+[24.,0.,0.],waypoint-24*tangent,waypoint],
-              [waypoint,waypoint+23*tangent,pickup+23*west,pickup]]
+              [waypoint,waypoint+10*tangent,pickup+10*west,pickup]]
     curves=[bezier(p) for p in controls]
     under=np.vstack([mouth-[16.891,0.,0.],curves[0][0],curves[1][0][1:],pickup-15.7*west])
     straight=np.vstack([departure-15.7*onward,ya_socket+16.891*onward])
+    tube_low=float(grid_model.tube(under,3.175,2.12)[0][:,2].min())
     return {'source_elbow_corner_mm':source_corner.tolist(),'elbow_socket_mm':mouth.tolist(),
         'under_head_waypoint_mm':waypoint.tolist(),'bezier_control_points_mm':np.array(controls).tolist(),
         'minimum_centerline_radius_mm':min(c[1] for c in curves),
         'under_head_centerline_mm':under.tolist(),'straight_centerline_mm':straight.tolist(),
         'turn_corner_mm':corner.tolist(),'turn_inlet_mm':pickup.tolist(),'turn_outlet_mm':departure.tolist(),
         'turn_rotation':turn_r.tolist(),'ya_elbow_corner_mm':ya_corner.tolist(),
+        'turn_location':'Between V-K and pump; inlet clocked down toward under-head tube',
+        'turn_inlet_clock_degrees':math.degrees(clock),
         'ya_socket_mm':ya_socket.tolist(),'ya_elbow_rotation':ya_r.tolist(),
         'straight_exposed_length_mm':float(np.linalg.norm(ya_socket-departure)),
         'destination_mm':DEST.tolist(),'destination_outward_axis':[0.,0.,1.],
-        'tube_od_mm':6.35,'tube_id_mm':4.24,'tube_lowest_z_mm':258.-3.175,
-        'cold_core_top_z_mm':253.4,'nominal_core_gap_mm':258.-3.175-253.4,
+        'tube_od_mm':6.35,'tube_id_mm':4.24,'tube_lowest_z_mm':tube_low,
+        'cold_core_top_z_mm':253.4,'nominal_core_gap_mm':tube_low-253.4,
         'nominal_insertions_mm':{'source_socket':16.891,'JG_turn':15.7,'YA_elbow_socket':16.891,'YA_stem':15.7},
         'insertion_scope':'JG turn insertion is a family-based layout estimate; its scan does not establish an internal stop'}
 
@@ -96,7 +100,7 @@ def pose(g,regulator='yzmsz'):
     scene=parent.pose(g);d=route();selected=REGULATORS[regulator]
     for m in scene['instances']:
         if m['name']=='va-outlet-elbow':m.update(rotation=PCB_R.tolist(),label='V-A outlet · stem elbow points east (+X)')
-        if m['name']=='va-flavor':m.update(geometry='va-under-head',rotation=I.tolist(),translation=[0.,0.,0.],label='V-A water tube · under pump head · short rise beyond head')
+        if m['name']=='va-flavor':m.update(geometry='va-under-head',rotation=I.tolist(),translation=[0.,0.,0.],label='V-A water tube · under pump head · into elbow between pump and V-K')
         if m['name']=='pcba' or m.get('connection_owner')=='pcba':
             m.update(rotation=PCB_R.tolist(),translation=PCB_T)
             if m['name']=='pcba':m['label']='Main PCB · centered between V-A support and core front · long dimension across X'
@@ -105,7 +109,7 @@ def pose(g,regulator='yzmsz'):
         if m['name']=='ceiling':m['label']='Study ceiling · 9 mm ordinary stock · 6 mm over inline water regulator'
         if m['role']=='wire':m['display_suppressed']=True
     scene['instances'].extend([
-        base.instance('va-east-turn','jg-turn-elbow',d['turn_corner_mm'],d['turn_rotation'],role='wet',kind='elbow',label='Purchased scanned JG PP0308E · turn toward Y-A beyond pump head'),
+        base.instance('va-east-turn','jg-turn-elbow',d['turn_corner_mm'],d['turn_rotation'],role='wet',kind='elbow',label='Purchased scanned JG PP0308E · between pump and V-K · inlet clocked down 45°'),
         base.instance('va-ya-straight','va-to-ya',role='flavor',kind='tube',label='Straight 1/4-inch tube · east turn to Y-A stem elbow'),
         base.instance('ya-stem-elbow','ya-stem-elbow',d['ya_elbow_corner_mm'],d['ya_elbow_rotation'],role='stem',kind='elbow',label='Y-A · trimmed NeoFit stem elbow · square socket entry from straight tube'),
         base.instance('tee-ya-target','tee-ya-target',kind='component',role='wet',context=True,label='Y-A · shared-source tee for flavor manifold · upper port1')])
@@ -146,9 +150,10 @@ def check(scene,g):
     import fcl
     def obj(mesh):
         v,f=mesh;b=fcl.BVHModel();b.beginModel(len(v),len(f));b.addSubModel(v,f.astype(np.int32));b.endModel();return fcl.CollisionObject(b)
-    objects={n:obj(meshes[n]) for n in ('va-flavor','va-ya-straight','pump','pcba','funnel-frame','reg','ceiling')}
+    objects={n:obj(meshes[n]) for n in ('va-flavor','va-ya-straight','va-east-turn','lower-pump-elbow','pump','vk','pcba','funnel-frame','reg','ceiling')}
     result['tube_gaps_mm']={a+'_to_'+b:float(fcl.distance(objects[a],objects[b],fcl.DistanceRequest(),fcl.DistanceResult())) for a,b in (
-        ('va-flavor','pump'),('va-flavor','pcba'),('va-ya-straight','pcba'),('va-ya-straight','funnel-frame'),('reg','ceiling'))}
+        ('va-flavor','pump'),('va-flavor','pcba'),('va-east-turn','pump'),('va-east-turn','vk'),('va-east-turn','lower-pump-elbow'),('va-ya-straight','pcba'),('va-ya-straight','funnel-frame'),('reg','ceiling'))}
+    result['under_head_tube_to_plain_core_mm']=float(meshes['va-flavor'][0][:,2].min()-253.4)
     result['scope']='Under-head tube, straight Y-A run, added elbows, centered PCB/local connections and native push-connect regulator against the selected arrangement'
     return result
 
