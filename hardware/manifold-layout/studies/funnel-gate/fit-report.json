@@ -79,7 +79,7 @@
   "connected_pcb_bounds_mm": [
     [
       -89.5001220703125,
-      186.20278574270662,
+      186.38685251516756,
       255.0
     ],
     [
@@ -96,69 +96,72 @@
     "va-east-turn_to_vk": 27.783258030536665,
     "va-east-turn_to_lower-pump-elbow": 4.044513686752829,
     "va-ya-straight_to_pcba": 31.169694117396432,
-    "va-ya-straight_to_funnel-frame": 20.00479389648433,
+    "va-ya-straight_to_funnel-frame": 20.031163042014196,
     "reg_to_ceiling": 1.123952119463695
   },
   "under_head_tube_to_plain_core_mm": 5.025000000000006,
   "funnel_gate_gaps_mm": {
     "vb_to_pcba": 48.64878279273824,
-    "vb_to_funnel-frame": 10.386518797034448,
-    "vb_to_funnel": 30.229740738055234,
-    "vb-core-support_to_funnel": 26.624941233478918,
+    "vb_to_funnel-frame": 2.7399908603673566,
+    "vb_to_funnel": 23.23448962108115,
+    "vb-core-support_to_funnel": 19.097212883101754,
     "vb-core-support_to_pcba": 44.199981689453125,
-    "vb-core-support_to_funnel-frame": 11.51372321086147,
-    "vb-outlet-return_to_pump": 1.2738387763912773,
-    "vb-outlet-return_to_vb-core-support": 0.5445307774918007,
-    "vb-outlet-stem_to_right-wall": 0.645232551335063,
+    "vb-core-support_to_funnel-frame": 0.69000244140625,
+    "vb-outlet-return_to_pump": 18.391402049333127,
+    "vb-outlet-return_to_vb-core-support": 40.17879432054357,
+    "vb-outlet-stem_to_right-wall": 12.583653017078946,
     "drain-outlet-stem_to_funnel-drain-cradle": 0.7642188879394496,
-    "drain-vb-east-link_to_vb-yb-link": 0.3941814181521625,
+    "drain-vb-east-link_to_vb-yb-link": 24.30811631384999,
     "drain-outlet-stem_to_ya-stem-elbow": 1.166750694159055,
-    "va-ya-straight_to_vb-inlet-turn": 0.7281969908646024,
-    "va-ya-straight_to_drain-vb-east-link": 1.8014265344067397,
-    "vb-yb-link_to_ya-stem-elbow": 3.549200147800091,
+    "va-ya-straight_to_vb-inlet-turn": 1.3168946256921188,
+    "va-ya-straight_to_drain-vb-east-link": 1.70804843613782,
+    "vb-yb-link_to_ya-stem-elbow": 35.731135297465165,
     "vb-yb-link_to_funnel-drain-cradle": 4.43396842340638,
-    "vb-yb-link_to_funnel-frame": 5.709304100531085,
-    "vb-yb-link_to_va-ya-straight": 8.067516595704488,
-    "vb-yb-link_to_pcba": 28.403492991520007,
+    "vb-yb-link_to_funnel-frame": 5.930920652614251,
+    "vb-yb-link_to_va-ya-straight": 38.96793722828249,
+    "vb-yb-link_to_pcba": 8.172680491770487,
     "ya-stem-elbow_to_funnel-drain-cradle": 0.6643452639749938,
     "yb-stem-elbow_to_funnel-drain-cradle": 0.6643452639749938,
     "va-ya-straight_to_pcba": 31.169694117396432,
     "va-ya-straight_to_funnel-drain-cradle": 4.43396842340638,
-    "digiten-flow_to_pump": 4.569341748393542,
-    "digiten-flow_to_asse": 9.979172975221447,
-    "digiten-flow_to_psu": 48.949463640495,
-    "digiten-flow_to_ceiling": 1.0000003814697038
+    "digiten-flow_to_pump": 4.707585552000689,
+    "digiten-flow_to_asse": 32.316751035887776,
+    "digiten-flow_to_psu": 33.24078321739085,
+    "digiten-flow_to_ceiling": 1.0000003814697038,
+    "soda-meter-bulkhead_to_pump": 11.170928273336203,
+    "vb-yb-cross_to_pcba": 18.888813035543702,
+    "vb-yb-cross_to_funnel-frame": 17.48530610951861
   },
   "vb_bounds_mm": [
     [
       37.99998779296874,
-      212.17153112070312,
+      197.65434112070312,
       263.65999922141975
     ],
     [
       95.30000610351561,
-      271.6715311207031,
+      257.1543411207031,
       297.160003036117
     ]
   ],
   "vb_wall_bounds_mm": [
     [
       34.0,
-      222.8965301513672,
+      208.37933349609375,
       253.39999389648438
     ],
     [
       43.20000076293945,
-      260.946533203125,
+      246.42933654785156,
       299.2099914550781
     ]
   ],
   "vb_body_to_plain_core_mm": 10.259999221419747,
   "funnel_route_minimum_radii_mm": {
     "va": 27.15553541413927,
-    "vb": 21.16580048412382
+    "vb": 40.265258503521615
   },
-  "vb_exposed_tube_length_mm": 210.46553234138034,
+  "vb_exposed_tube_length_mm": 106.20316047829566,
   "pcb_bounds_mm": [
     [
       -83.0,
@@ -173,90 +176,202 @@
   ],
   "flow_meter_bounds_mm": [
     [
-      -9.149999618530273,
-      381.5,
+      -33.5,
+      413.9648,
       316.70000038146975
     ],
     [
-      26.5,
-      442.5,
+      27.5,
+      449.6147996185303,
       344.9999996185303
     ]
   ],
   "flow_meter_ports_mm": {
     "inlet": [
-      0.0,
-      381.5,
+      -33.5,
+      440.4648,
       326.1
     ],
     "outlet": [
-      0.0,
-      442.5,
+      27.5,
+      440.4648,
       326.1
     ]
   },
+  "b_plumbing": {
+    "inlet_control_mm": [
+      [
+        18.760587694882563,
+        191.60914,
+        283.71799778455505
+      ],
+      [
+        22.545146314641645,
+        191.60914,
+        284.3853175792914
+      ],
+      [
+        26.504853685358352,
+        191.60914,
+        284.3853175792914
+      ],
+      [
+        30.289412305117434,
+        191.60914,
+        283.71799778455505
+      ]
+    ],
+    "inlet_minimum_radius_mm": 32.2170293026228,
+    "inlet_exposed_length_mm": 11.58683990184656,
+    "inlet_arm_lift_degrees": 10.0,
+    "cross_rise_degrees": 8.0,
+    "cross_exposed_length_mm": 35.000259134175096,
+    "return_control_mm": [
+      [
+        -24.836523961791983,
+        242.63715000000002,
+        290.7940737508485
+      ],
+      [
+        -24.836523961791983,
+        222.63715000000002,
+        290.7940737508485
+      ],
+      [
+        -27.447047806193012,
+        204.9559218366473,
+        276.72020000000003
+      ],
+      [
+        -24.836523961791983,
+        185.1270246091711,
+        276.72020000000003
+      ]
+    ],
+    "return_minimum_radius_mm": 40.265258503521615,
+    "return_exposed_length_mm": 59.616061442274,
+    "yb_clock_west_of_aft_degrees": 7.5,
+    "return_minimum_y_mm": 185.1270246091711,
+    "insertions_mm": {
+      "JG": 15.7,
+      "NeoFit": 16.891,
+      "Beduan": 12.7,
+      "YB_tee": 15.7
+    },
+    "drain_stem_exposure_mm": 3.3058
+  },
+  "soda_outlet_route": {
+    "tube_od_mm": 6.35,
+    "tube_id_mm": 4.24,
+    "minimum_centerline_radius_mm": 14.0,
+    "each_bend_angle_degrees": 45.9536235606823,
+    "diagonal_length_mm": 15.569054837109714,
+    "exposed_tube_centerline_length_mm": 38.026231799076214,
+    "tube_cut_length_estimate_mm": 70.61723179907622,
+    "drop_mm": 19.723952119463718,
+    "additional_elbows": 0,
+    "insertions_mm": {
+      "meter_estimate": 15.7,
+      "NeoFit_socket": 16.891,
+      "bulkhead_stem_estimate": 12.7
+    }
+  },
   "pcb_jst_service": {
     "scope": "Nominal 6 mm axial JST withdrawal and 30 mm vertical columns above housing outlines, with roof removed. Does not model fingers or complete harness manipulation.",
-    "service_order": "JST withdrawal is evaluated with the funnel/frame installed; only the roof is removed for vertical headroom",
+    "service_order": "Complete electrical connections before the funnel/frame drops in. Report both installed and removed states; plumbing may remain above the PCB.",
     "headers": [
       {
         "probe": "probe-J1-pull",
         "blocked_with_funnel_assembly_installed": [],
         "vertical_headroom_30mm_obstructions": [],
+        "blocked_after_funnel_frame_removed": [],
+        "vertical_headroom_30mm_after_funnel_frame_removed": [],
         "blocked_after_front_top_removed": []
       },
       {
         "probe": "probe-J11-pull",
         "blocked_with_funnel_assembly_installed": [],
-        "vertical_headroom_30mm_obstructions": [],
+        "vertical_headroom_30mm_obstructions": [
+          "vb-yb-link"
+        ],
+        "blocked_after_funnel_frame_removed": [],
+        "vertical_headroom_30mm_after_funnel_frame_removed": [
+          "vb-yb-link"
+        ],
         "blocked_after_front_top_removed": []
       },
       {
         "probe": "probe-J13-pull",
         "blocked_with_funnel_assembly_installed": [],
         "vertical_headroom_30mm_obstructions": [],
+        "blocked_after_funnel_frame_removed": [],
+        "vertical_headroom_30mm_after_funnel_frame_removed": [],
         "blocked_after_front_top_removed": []
       },
       {
         "probe": "probe-J2-pull",
         "blocked_with_funnel_assembly_installed": [],
         "vertical_headroom_30mm_obstructions": [],
+        "blocked_after_funnel_frame_removed": [],
+        "vertical_headroom_30mm_after_funnel_frame_removed": [],
         "blocked_after_front_top_removed": []
       },
       {
         "probe": "probe-J3-pull",
         "blocked_with_funnel_assembly_installed": [],
         "vertical_headroom_30mm_obstructions": [],
+        "blocked_after_funnel_frame_removed": [],
+        "vertical_headroom_30mm_after_funnel_frame_removed": [],
         "blocked_after_front_top_removed": []
       },
       {
         "probe": "probe-J4-pull",
         "blocked_with_funnel_assembly_installed": [],
         "vertical_headroom_30mm_obstructions": [],
+        "blocked_after_funnel_frame_removed": [],
+        "vertical_headroom_30mm_after_funnel_frame_removed": [],
         "blocked_after_front_top_removed": []
       },
       {
         "probe": "probe-J5-pull",
         "blocked_with_funnel_assembly_installed": [],
         "vertical_headroom_30mm_obstructions": [],
+        "blocked_after_funnel_frame_removed": [],
+        "vertical_headroom_30mm_after_funnel_frame_removed": [],
         "blocked_after_front_top_removed": []
       },
       {
         "probe": "probe-J6-pull",
         "blocked_with_funnel_assembly_installed": [],
         "vertical_headroom_30mm_obstructions": [],
+        "blocked_after_funnel_frame_removed": [],
+        "vertical_headroom_30mm_after_funnel_frame_removed": [],
         "blocked_after_front_top_removed": []
       },
       {
         "probe": "probe-J7-pull",
         "blocked_with_funnel_assembly_installed": [],
-        "vertical_headroom_30mm_obstructions": [],
+        "vertical_headroom_30mm_obstructions": [
+          "vb-outlet-return",
+          "vb-yb-cross"
+        ],
+        "blocked_after_funnel_frame_removed": [],
+        "vertical_headroom_30mm_after_funnel_frame_removed": [
+          "vb-outlet-return",
+          "vb-yb-cross"
+        ],
         "blocked_after_front_top_removed": []
       },
       {
         "probe": "probe-J9-pull",
         "blocked_with_funnel_assembly_installed": [],
-        "vertical_headroom_30mm_obstructions": [],
+        "vertical_headroom_30mm_obstructions": [
+          "vb-outlet-return"
+        ],
+        "blocked_after_funnel_frame_removed": [],
+        "vertical_headroom_30mm_after_funnel_frame_removed": [
+          "vb-outlet-return"
+        ],
         "blocked_after_front_top_removed": []
       }
     ]
