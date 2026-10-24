@@ -2,41 +2,58 @@
 
 This separate assembly study adds one removable roof panel above the dry
 electronics bay to the complete [quadrant arrangement](../funnel-gate/README.md).
-The panel carries no equipment, wires, tubes or fittings. All existing
-equipment keeps its pose and its mounting-parent assignment.
+The panel carries no equipment, wires, tubes or fittings. The C14 inlet belongs
+to back-top's rear wall; the Mean Well belongs to the cold core and back-bottom.
+Their final connection is made through this opening before the empty panel is
+installed. The remaining ceiling, wet group, funnel and frame stay assembled.
 
-The C14 inlet remains on back-top's rear wall. The Mean Well remains on the
-cold core, carried by back-bottom. Their final connection is made through this
-opening before the empty panel is installed. The remaining ceiling, wet group,
-funnel and frame stay assembled during that operation.
+The panel is 100 × 126.55 × 9 mm, with R3 corners and 0.25 mm clearance around
+its edge. Its only bearing surfaces are four integral 18 × 12 mm bosses on the
+fixed roof. There is no perimeter rim. The bosses form a symmetric screw
+pattern, 6.75 mm from each panel edge. A 6 × 2 mm notch through the panel's
+front edge admits a flat screwdriver for lifting the panel.
 
-The plain panel is 100 × 126.55 × 9 mm, with R3 corners and 0.25 mm clearance
-around its edge. A 6 mm bearing ledge belongs to the fixed ceiling and sits
-below its ordinary underside. The closed panel is flush at Z355. Its illustrated
-70 mm vertical lift moves only the panel. Retention hardware is outside this
-access study; no fastener or equipment mount is implied on the panel.
+Each corner uses an M3×12 socket screw and an RX-M3×5.7 heatset. The panel has
+an Ø3.4 mm clearance hole and an Ø6.2 × 3.2 mm head counterbore. The head is
+0.2 mm below the flush Z355 show face. The blind Ø4 × 7.5 mm pilot leaves
+3 mm of stock beneath it; screw-tip reserve is 1.3 mm. The complete nominal
+insert length engages the screw. Pilot size and radial stock follow the
+[enclosure heatset reference](../../../printed-parts/enclosure/enclosure/heat-set-review/README.md).
+Native screw and insert models show the socket, exterior and thread-root
+envelopes; the heatset's knurl bands are illustrative.
 
-[panel-plan.json](panel-plan.json) records the geometry and the empty attachment
-list. [geometry-report.json](geometry-report.json) records two valid native
-solids, zero closed overlap and clear sampled vertical removal against the
-fixed ceiling. [arrangement-review.json](arrangement-review.json) records the
-new parts and sampled lid lift against the complete stationary equipment.
-Neither the panel nor its fixed perimeter seat intersects equipment. The seat
-has 1.94 mm nominal vertical clearance above the C14 body's crown.
+The C14 flange centre is X−65.75, Y471.3, Z327, with its rear-wall pocket and
+mounting holes at the same pose. Its scanned flange has approximately equal
+7.9 mm gaps to the inner sidewall and ordinary ceiling underside. All other
+equipment retains the parent layout and mounting ownership.
+
+[panel-plan.json](panel-plan.json) defines the geometry and empty equipment
+attachment list. [geometry-report.json](geometry-report.json) records the five
+valid native solids, screw stack and zero panel/fixed-roof volume overlap.
+[arrangement-review.json](arrangement-review.json) records the targeted
+equipment fit and sampled vertical lid removal. These are geometric fit
+queries; this study contains no physical strength or lifetime qualification.
 
 The whole-arrangement viewer retains the four quadrant colours and adds an
-independent colour for the empty panel. The Lift access panel checkbox moves
-only that panel. Highlight changes and panel movement preserve the camera.
-Latest changes identifies the roof opening and its lid. The fixed roof and
-walls are translucent so the retained equipment is visible.
+independent colour for the empty panel. Lift access panel illustrates the lid
+and its four removed screws; the inserts and bosses remain fixed. Remove the
+screws before lifting the lid. Highlight and lift changes preserve the camera.
+The native half-section view shows one complete screw/insert/boss stack.
+Mesh packing retains every vertex and triangle at the viewer's 0.02 mm
+coordinate resolution.
 
-Build the two study parts through the shared CAD queue, then generate the
-inline viewer fragment without rebuilding or writing the parent scene:
+Build the native parts through the shared CAD queue. The manual arrangement
+query and two viewer commands read the selected scene without writing it:
 
 ```sh
-PYTHONPATH=. tmp/takeover/cadq "Empty electronics access panel" -- tools/cad-venv/bin/python hardware/manifold-layout/studies/electronics-access/build.py
+PYTHONPATH=. tmp/takeover/cadq "Electronics access panel fasteners" -- tools/cad-venv/bin/python hardware/manifold-layout/studies/electronics-access/build.py
+tools/cad-venv/bin/python hardware/manifold-layout/studies/electronics-access/review.py
 tools/cad-venv/bin/python hardware/manifold-layout/studies/electronics-access/viewer.py hardware/manifold-layout/studies/electronics-access/out/electronics-access.html
+tools/cad-venv/bin/python hardware/manifold-layout/studies/electronics-access/viewer.py --detail hardware/manifold-layout/studies/electronics-access/out/fastener-section.html
 ```
 
-Native STEP and frozen NPZ meshes are in [parts/](parts/). This is an isolated
-access concept; the production enclosure geometry is not changed by the study.
+Native STEP and frozen NPZ meshes are in [parts/](parts/). The four section
+meshes are actual native solid intersections through a screw axis. Boss
+overlays in the whole view identify the stock already fused into the fixed
+roof; they are not separate printed parts. Production enclosure geometry is
+outside this isolated study.
