@@ -39,7 +39,7 @@ def pose(geometry):
         if part['name']=='c14-inlet' or part.get('connection_owner')=='c14-inlet':
             part['translation']=(np.array(part['translation'])+shift).tolist()
             part['latest_change']=True
-            if part['name']=='c14-inlet':part['label']='C14 inlet · balanced corner gaps · 2.75 mm inward and 3 mm lower'
+            if part['name']=='c14-inlet':part['label']='C14 inlet · balanced corner gaps · clears rear boss root'
     scene['instances'].append(base.instance('electronics-access-panel','electronics-access-panel',
         role='closure',kind='component',latest_change=True,moves_with_panel=True,
         label='Empty access panel · four recessed screws and a 6 × 2 mm pry notch',
@@ -55,10 +55,10 @@ def pose(geometry):
                 role='hardware-insert',kind='hardware',latest_change=True,
                 label='RX-M3×5.7 heatset · full nominal engagement · blind Ø4 × 7.5 mm pilot',
                 assembly=assembly('back-top','Heatset remains in the fixed corner boss')),
-            base.instance(f'access-boss-highlight-{index}','panel-boss',[x,y,0],
+            base.instance(f'access-boss-highlight-{index}',f'panel-boss-{index}',
                 role='support',kind='display',render_only=True,latest_change=True,
-                label='Integral 18 × 12 mm boss · 3 mm stock below the blind pilot',
-                assembly=assembly('back-top','Display overlay of the integral boss; not a separate printed part'))])
+                label='Integral 18 mm wide boss · 9 mm roof root · 3 mm blind pilot floor',
+                assembly=assembly('back-top','Opaque view of the complete integral boss and its roof root; rear roots fill the rear wall'))])
         scene['mates'].extend([
             {'a':screw_name,'b':insert_name,'connection':'M3 thread engagement'},
             {'a':screw_name,'b':'electronics-access-panel','connection':'Counterbore bearing face'},
