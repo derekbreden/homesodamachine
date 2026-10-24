@@ -18,7 +18,7 @@
 </div>
 <style>
 #quadrant-arrangement{color:var(--foreground,CanvasText)}
-#quadrant-arrangement,#quadrant-arrangement :is(h3,label,select,option,span){-webkit-text-fill-color:currentColor}
+#quadrant-arrangement,#quadrant-arrangement *{-webkit-text-fill-color:currentColor}
 #quadrant-arrangement #qa-swatch{position:absolute;width:0;height:0;overflow:hidden;pointer-events:none}
 #quadrant-arrangement #qa-stage{position:relative;width:100%;height:clamp(360px,77vw,560px);touch-action:none;overflow:hidden}
 #quadrant-arrangement canvas{display:block;width:100%;height:100%}
@@ -67,14 +67,16 @@ function normalizeTheme(){
     }
     return sampleColor(fallback);
   }
-  const bg=pick(['background','color-background-primary'],'Canvas');
+  let bg;
+  for(let el=root.parentElement;el;el=el.parentElement){const c=sampleColor(getComputedStyle(el).backgroundColor);if(c?.p[3]>=250){bg=c;break;}}
+  bg ||= sampleColor('Canvas');
   let fg=pick(['foreground','color-text-primary'],'CanvasText');
   function luminance(c){return c.p.slice(0,3).map(v=>{v/=255;return v<=.04045?v/12.92:((v+.055)/1.055)**2.4;}).reduce((sum,v,i)=>sum+v*[.2126,.7152,.0722][i],0);}
   function contrast(a,b){const x=luminance(a),y=luminance(b);return(Math.max(x,y)+.05)/(Math.min(x,y)+.05);}
   if(contrast(fg,bg)<4.5)fg=[sampleColor('CanvasText'),sampleColor('Canvas')].sort((a,b)=>contrast(b,bg)-contrast(a,bg))[0];
   themeColors={foreground:fg.css,background:bg.css,'muted-foreground':pick(['muted-foreground','color-text-secondary'],'CanvasText',false,false).css};
   const names=['blue','orange','green','purple','purple','green'];
-  for(let i=1;i<=6;i++)themeColors[`viz-series-${i}`]=pick([`viz-series-${i}`,names[i-1]],'Highlight',true).css;
+  for(let i=1;i<=6;i++)themeColors[`viz-series-${i}`]=pick([`viz-series-${i}`,names[i-1]],'LinkText',true).css;
   themeColors.primary=themeColors['viz-series-1'];
   for(const [name,value]of Object.entries(themeColors))root.style.setProperty(`--${name}`,value);
 }
