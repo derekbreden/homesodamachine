@@ -8,9 +8,22 @@ import argparse
 import base64
 import copy
 import gzip
+import hashlib
 import json
 
 HERE = Path(__file__).resolve().parent
+
+
+def geometry_signature(part, geometries):
+    mesh = geometries[part['geometry']]
+    while 'alias' in mesh:
+        mesh = geometries[mesh['alias']]
+    pose = [[round(float(value), 7) for value in row] for row in part['rotation']]
+    translation = [round(float(value), 7) for value in part['translation']]
+    digest = hashlib.sha256(gzip.decompress(base64.b64decode(mesh['data'])))
+    digest.update(json.dumps([mesh['vc'], mesh['ic'], pose, translation],
+        separators=(',', ':')).encode())
+    return digest.hexdigest()
 
 
 def payload():
@@ -23,16 +36,13 @@ def payload():
     for link in ownership['boundary_handoffs']:
         for name in (link['carried_part'], link['other_part']):
             handoffs.setdefault(name, []).append(link['note'])
-    previous = json.loads((HERE.parent / 'east-feed/study.json').read_text())
-    old = {part['name']: part for part in previous['instances']}
+    old = json.loads((HERE / 'highlight-baseline.json').read_text())['parts']
     for part in scene['instances']:
         part['assembly'] = copy.deepcopy(assignment.get(part.get('connection_owner', part['name']),
             {'quadrant': None, 'status': 'undecided', 'basis': 'Attachment is not assigned'}))
         if part['name'] in handoffs:
             part['assembly']['handoffs'] = handoffs[part['name']]
-        former = old.get(part['name'])
-        part['latest_change'] = former is None or any(
-            part.get(key) != former.get(key) for key in ('geometry', 'rotation', 'translation'))
+        part['latest_change'] = old.get(part['name']) != geometry_signature(part, source['geometries'])
     used = {part['geometry'] for part in scene['instances']}
     geometries = source['geometries']
     for name in list(used):

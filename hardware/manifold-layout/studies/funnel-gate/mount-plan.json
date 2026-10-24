@@ -1,0 +1,12 @@
+{
+  "assembly_owner": "front-top",
+  "attachment": "Integral extension under the east side of the funnel frame",
+  "vb_native_origin_mm": [40.0, 143.29675, 280.41],
+  "vb_native_rotation": [[0, 0, 1], [0, -1, 0], [1, 0, 0]],
+  "seat_wall_bounds_mm": [[36.0, 124.27175, 261.61], [45.2, 162.32175, 303.9]],
+  "frame_bridge_bounds_mm": [[36.0, 124.27175, 299.9], [100.0, 162.32175, 303.9]],
+  "socket_diameter_mm": 6.9,
+  "socket_floor_stock_mm": 3.0,
+  "bridge_thickness_mm": 4.0,
+  "scope": "Native arrangement-study support. Fusion into the production frame and installed retention are outside this candidate."
+}
