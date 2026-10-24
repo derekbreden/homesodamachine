@@ -1,0 +1,283 @@
+{
+  "units": "mm",
+  "candidate": "Protect-Air EcoReg239KS1245 fixed45psi liquid regulator",
+  "status": "Research/layout candidate; not selected, purchased or installed",
+  "canonical_frame": "Native+Xflow from long inlet neckX0 to short outlet neckX52; radial axesY/Z",
+  "published_body": {
+    "overall_length_mm": 52.0,
+    "maximum_diameter_mm": 34.0,
+    "long_inlet_neck_diameter_mm": 19.0,
+    "short_outlet_neck_diameter_mm": 20.0,
+    "wrench_across_flats_mm": 17.0,
+    "inlet_thread": "1/4NPT female",
+    "outlet_thread": "1/4NPT female",
+    "preset_psi": 45.0,
+    "maximum_water_inlet_psi": 145.0,
+    "water_temperature_C": [
+      4.0,
+      60.0
+    ],
+    "housing_material": "GrivoryGV-5FWA"
+  },
+  "body_estimates": {
+    "profile_x_radius_mm": [
+      [
+        0.0,
+        9.5
+      ],
+      [
+        18.8,
+        9.5
+      ],
+      [
+        22.0,
+        12.1
+      ],
+      [
+        27.2,
+        15.2
+      ],
+      [
+        29.4,
+        17.0
+      ],
+      [
+        39.3,
+        17.0
+      ],
+      [
+        40.5,
+        16.5
+      ],
+      [
+        43.8,
+        10.0
+      ],
+      [
+        52.0,
+        10.0
+      ]
+    ],
+    "wrench_geometry": "Two opposed17mm flats on each neck; exact count/clock of flats not established",
+    "socket_occupancy_diameter_mm": 13.7,
+    "socket_occupancy_depth_mm": 11.0,
+    "scope": "Undimensioned axial transitions and plain socket bores are layout estimates. No regulator mechanism, NPT helix or sealing geometry is modeled."
+  },
+  "named_faces": {
+    "inlet_1_4NPT_face": {
+      "point_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "outward_normal": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "native_face_area_mm2": 124.6789189862053
+    },
+    "outlet_1_4NPT_face": {
+      "point_mm": [
+        52.0,
+        0.0,
+        0.0
+      ],
+      "outward_normal": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "native_face_area_mm2": 145.3387343741463
+    }
+  },
+  "body_ports": {
+    "inlet": {
+      "point_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "outward_axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "kind": "female1/4NPT"
+    },
+    "outlet": {
+      "point_mm": [
+        52.0,
+        0.0,
+        0.0
+      ],
+      "outward_axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "kind": "female1/4NPT"
+    }
+  },
+  "nominal_adapters": {
+    "part": "JohnGuest PP010822E water-path male connector",
+    "reference_source": "hardware/reference/jg-pp010822e/jg_pp010822e.py",
+    "reference_source_sha256": "72a71557dc61a11a45e61c431f2fa15cf3605b0b55af51c695a65dd4dc616b55",
+    "source_sections_mm": {
+      "collet_diameter": 14.0,
+      "collet_length": 13.5,
+      "hex_corner_diameter": 16.5,
+      "hex_length": 5.0,
+      "thread_envelope_diameter": 13.7,
+      "thread_length": 11.0
+    },
+    "exposed_reach_each_mm": 18.5,
+    "nominal_thread_engagement_each_mm": 11.0,
+    "tube_bore_diameter_mm": 6.35,
+    "tube_insertion_estimate_mm": 12.7,
+    "scope": "Nominal existing reference reused with a6.35mm open display bore. Adapter exterior, actual NPTmake-up and exact tube insertion are not measured;89mm is a layout estimate, not a measured made-up stack."
+  },
+  "tube_ports": {
+    "inlet": {
+      "point_mm": [
+        -18.5,
+        0.0,
+        0.0
+      ],
+      "outward_axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "kind": "1/4tube_socket"
+    },
+    "outlet": {
+      "point_mm": [
+        70.5,
+        0.0,
+        0.0
+      ],
+      "outward_axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "kind": "1/4tube_socket"
+    }
+  },
+  "nominal_tube_mouth_span_mm": 89.0,
+  "assembly_bounds_mm": [
+    [
+      -18.5,
+      -16.998098373413086,
+      -17.0
+    ],
+    [
+      70.5,
+      16.998098373413086,
+      16.99239158630371
+    ]
+  ],
+  "assembly_mesh": "geometry/ecoreg-with-adapters.npz",
+  "assembly_mesh_sha256": "744b4570aabc74883e508664ef5faf7ca8016b2f4b2174898418ff69ff4081dd",
+  "assembly_step": "geometry/ecoreg-with-adapters.step",
+  "assembly_step_sha256": "7c2474c34d91a63c9cbed5a38670447767464109ccd8ecb1e848600600512b7a",
+  "named_body_step": "geometry/ecoreg-regulator.step",
+  "named_body_step_sha256": "8ff7a155e8f7cdfbcbbf7ef1127ba6618fd0ac3941f3e6489b5a51720f0d5255",
+  "geometry": {
+    "ecoreg-body": {
+      "mesh": "geometry/ecoreg-body.npz",
+      "mesh_sha256": "6a500a9330dda271dde5705c81c93eb97c26455aae80a777b3907320cdf007c2",
+      "step": "geometry/ecoreg-body.step",
+      "step_sha256": "1e0a8807929ed6c7fcab63eb9ec25c15ad4e176514cac0c8b431c94f58c1bd7c",
+      "bounds_mm": [
+        [
+          -1.0542391231302124e-15,
+          -16.998098373413086,
+          -17.0
+        ],
+        [
+          52.0,
+          16.998098373413086,
+          16.99239158630371
+        ]
+      ],
+      "valid_native_solid": true,
+      "native_solid_count": 1,
+      "volume_mm3": 22204.138850774492,
+      "triangles": 3346
+    },
+    "ecoreg-inlet-adapter": {
+      "mesh": "geometry/ecoreg-inlet-adapter.npz",
+      "mesh_sha256": "1c67a25746ee94fab046d3cab2513ff733dd2ee192cbcc6df2f7a3f8e79ffabb",
+      "step": "geometry/ecoreg-inlet-adapter.step",
+      "step_sha256": "328cbd81018c3e60bde188322b88ae53d6c2b2acba1b90f416b5ef12fd11e775",
+      "bounds_mm": [
+        [
+          -18.5,
+          -7.144709587097168,
+          -8.25
+        ],
+        [
+          11.0,
+          7.144709587097168,
+          8.25
+        ]
+      ],
+      "valid_native_solid": true,
+      "native_solid_count": 1,
+      "volume_mm3": 3649.60463060855,
+      "triangles": 1284
+    },
+    "ecoreg-outlet-adapter": {
+      "mesh": "geometry/ecoreg-outlet-adapter.npz",
+      "mesh_sha256": "dd6517b8056548727341f67a2d4e83cef7514987829bf463c119c3b600ef51d1",
+      "step": "geometry/ecoreg-outlet-adapter.step",
+      "step_sha256": "06fba1e54d3d43c30950caac57f81dc317ced65cdb2371685b7b341412c3b92c",
+      "bounds_mm": [
+        [
+          41.0,
+          -7.144709587097168,
+          -8.25
+        ],
+        [
+          70.5,
+          7.144709587097168,
+          8.25
+        ]
+      ],
+      "valid_native_solid": true,
+      "native_solid_count": 1,
+      "volume_mm3": 3649.604630608549,
+      "triangles": 1284
+    }
+  },
+  "sources": [
+    {
+      "title": "EPSGroup239KS1245 product listing",
+      "url": "https://store.epsgroupllc.com/ecoreg-45-psi-inline-liquid-pressure-regulator-239ks1245/",
+      "verified_date": "2026-10-23",
+      "snapshot": {
+        "price_USD": 48.0,
+        "quantity_in_stock": 6,
+        "stated_shipping": "Usually ships within24hours"
+      }
+    },
+    {
+      "title": "Protect-Air EcoReg technical data",
+      "url": "https://store.epsgroupllc.com/content/pdf/Technical-Data-EcoReg.pdf",
+      "local": "sources/technical-data.pdf",
+      "sha256": "c3185c6324fae1c2b56af76bae2581cade8d1813565086f5d66e74b77342b8d0",
+      "page": 1,
+      "supports": "52mm full-body length,34mm maximum diameter,19/20mm necks,17AF,239KS1245 NPT45psi row and water-service data"
+    },
+    {
+      "title": "Protect-Air series239 installation instructions",
+      "url": "https://store.epsgroupllc.com/content/pdf/EcoReg-Instructions.pdf",
+      "local": "sources/instructions.pdf",
+      "sha256": "3a99fb7d28e7d98f3e735e1813490dc518a2d4fe1375665b65e41e6c4afa62a3",
+      "page": 1,
+      "supports": "Any mounting orientation; follow body flow arrow; fixed preset; drinking/mains water application"
+    }
+  ]
+}
