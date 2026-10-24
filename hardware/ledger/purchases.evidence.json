@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-23",
+  "as_of": "2026-10-24",
   "reporting_period": {
     "start": "2026-01-01",
     "end": "2026-12-31"
@@ -8327,6 +8327,18 @@
       "source_ids": [
         "src-e90526d88b0b4e5c9b441af32b25ac68"
       ]
+    },
+    "pur-43767918757a4173a8b69a9b725d64fd": {
+      "vendor": "Fresh Water Systems",
+      "purpose": "components",
+      "amount_evidence": "final_vendor_amount",
+      "order_ids": [
+        "fws:WEBFWS100715131"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-1de8a5e4ff1344b081aa6d8332b15203"
+      ]
     }
   },
   "orders": {
@@ -14112,6 +14124,18 @@
       "source_ids": [
         "src-e90526d88b0b4e5c9b441af32b25ac68"
       ]
+    },
+    "fws:WEBFWS100715131": {
+      "vendor": "Fresh Water Systems",
+      "reference": "WEBFWS100715131",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-24"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-1de8a5e4ff1344b081aa6d8332b15203"
+      ]
     }
   },
   "events": [
@@ -17616,6 +17640,23 @@
       "order_ids": [
         "pisco:8638"
       ]
+    },
+    {
+      "event_id": "evt-e479c6487dd243a088862f30dcf951f6",
+      "vendor": "Fresh Water Systems",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": null,
+      "amount_minor": 17354,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-1de8a5e4ff1344b081aa6d8332b15203"
+      ],
+      "verified_at": "2026-10-24",
+      "order_ids": [
+        "fws:WEBFWS100715131"
+      ]
     }
   ],
   "allocations": [
@@ -18977,6 +19018,14 @@
       "purchase_id": "pur-1ead43e8eead4989adf3de560d23febe",
       "order_id": "pisco:8638",
       "amount_minor": 11153,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-75d6773169fe4e19877be6ca341d638a",
+      "event_id": "evt-e479c6487dd243a088862f30dcf951f6",
+      "purchase_id": "pur-43767918757a4173a8b69a9b725d64fd",
+      "order_id": "fws:WEBFWS100715131",
+      "amount_minor": 17354,
       "currency": "USD"
     }
   ],
@@ -29278,6 +29327,21 @@
       ],
       "verified_at": "2026-10-23",
       "note": "Order received confirmation: two RVFUP1/4-1/4-0.3 regulators, USD 81.32 subtotal, USD 30.21 UPS Ground shipping, USD 0.00 tax and USD 111.53 total. The order is on hold pending payment confirmation. No completed charge, dispatch or delivery is established."
+    },
+    "src-1de8a5e4ff1344b081aa6d8332b15203": {
+      "vendor": "Fresh Water Systems",
+      "document_type": "email_order_confirmation",
+      "reference": "WEBFWS100715131",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-24"
+      },
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "verified_at": "2026-10-24",
+      "note": "Gmail order confirmation received 2026-10-24 02:41 America/Chicago: neoFit ACHV44-E bag of 10 at USD 80.40, neoFit ATEU44W 3 × bag of 10 at USD 36.18, neoFit ATBU444-E bag of 10 at USD 17.64, black 4 mm OD LLDPE tubing 100 ft at USD 13.00; USD 147.22 subtotal, USD 14.58 shipping, USD 11.74 tax, USD 173.54 total; ground, 4–5 business days in transit. No shipment, delivery or completed merchant charge is stated."
     }
   },
   "coverage": [
@@ -30713,6 +30777,26 @@
         "pisco:8638"
       ],
       "note": "Scoped Gmail search for PISCO and RVFUP and review of the named order confirmation; no claim of complete merchant account coverage."
+    },
+    {
+      "coverage_id": "coverage-1878a530d362418e8ecdb144070b9ac9",
+      "vendor": "Fresh Water Systems",
+      "stream": "check valve, stem fitting and 4 mm tubing order",
+      "evidence_type": "order_confirmation",
+      "checked_at": "2026-10-24",
+      "examined_period": {
+        "start": "2026-10-22",
+        "end": "2026-10-24"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-1de8a5e4ff1344b081aa6d8332b15203"
+      ],
+      "order_ids": [
+        "fws:WEBFWS100715131"
+      ],
+      "note": "Scoped Gmail search for Fresh Water Systems mail from the last two days and review of the named order confirmation; no claim of complete Fresh Water Systems account coverage or completed payment/fulfillment evidence."
     }
   ],
   "gaps": [
@@ -31028,6 +31112,26 @@
       "missing_fact": "The order confirmation states on hold pending payment confirmation; completed merchant charge, dispatch and delivery are not established.",
       "sources_checked": [
         "PISCO order received confirmation 8638"
+      ]
+    },
+    {
+      "gap_id": "gap-8aacdacb6ac44b68a95178ea80fbe89a",
+      "vendor": "Fresh Water Systems",
+      "purchase_ids": [
+        "pur-43767918757a4173a8b69a9b725d64fd"
+      ],
+      "order_ids": [
+        "fws:WEBFWS100715131"
+      ],
+      "event_ids": [
+        "evt-e479c6487dd243a088862f30dcf951f6"
+      ],
+      "source_ids": [
+        "src-1de8a5e4ff1344b081aa6d8332b15203"
+      ],
+      "missing_fact": "A completed merchant charge and its event date are not established by the order confirmation; the USD 173.54 charge remains expected.",
+      "sources_checked": [
+        "Fresh Water Systems order confirmation WEBFWS100715131"
       ]
     }
   ],
