@@ -3145,8 +3145,8 @@
       "name": "digiten-flow",
       "geometry": "digiten-flow",
       "translation": [
-        52.4048,
-        372.0,
+        50.0,
+        390.91479999999996,
         306.3760478805363
       ],
       "rotation": [
@@ -3168,7 +3168,7 @@
       ],
       "role": "wet",
       "kind": "component",
-      "label": "DIGITEN flow meter \u00b7 edge-on between pump and CO2 \u00b7 ports fore\u2013aft \u00b7 label east"
+      "label": "DIGITEN flow meter \u00b7 aft between pump and CO2 \u00b7 ports fore\u2013aft \u00b7 outlet collets meet"
     },
     {
       "name": "vb-core-support",
@@ -3464,68 +3464,39 @@
       "label": "Y-B \u00b7 aft-facing stem elbow \u00b7 clocked 7.5 degrees west"
     },
     {
-      "name": "soda-core-elbow",
-      "geometry": "jg-turn-elbow",
+      "name": "soda-inlet-stem",
+      "geometry": "gas-stem-elbow",
       "translation": [
-        77.50000001564078,
-        271.5999999,
+        50.0,
+        354.36959999999993,
         306.3760478805363
       ],
       "rotation": [
         [
-          0.0,
           -0.0,
-          -1.0
+          -0.0,
+          1.0
         ],
         [
-          1.0,
+          -1.0,
           -0.0,
-          -0.0
-        ],
-        [
-          0.0,
-          -1.0,
-          -0.0
-        ]
-      ],
-      "role": "wet",
-      "kind": "elbow",
-      "label": "Core soda \u00b7 union elbow turns the retained riser west"
-    },
-    {
-      "name": "soda-core-stem",
-      "geometry": "soda-core-stem-elbow",
-      "translation": [
-        47.89241001564078,
-        271.5999999,
-        306.3760478805363
-      ],
-      "rotation": [
-        [
-          -1.0,
-          0.0,
           0.0
         ],
         [
           -0.0,
-          1.0,
+          -1.0,
           0.0
-        ],
-        [
-          -0.0,
-          0.0,
-          -1.0
         ]
       ],
       "role": "stem",
       "kind": "elbow",
-      "label": "Core soda \u00b7 nested aft-facing stem \u00b7 3 mm exposed for valve-wall root clearance"
+      "label": "Core soda \u00b7 inlet stem turns directly down aft of the pump elbow"
     },
     {
       "name": "soda-outlet-return-stem",
-      "geometry": "elbow-elbow",
+      "geometry": "soda-rear-stem-elbow",
       "translation": [
-        52.404799999999994,
+        50.0,
         440.46479999999997,
         306.3760478805363
       ],
@@ -3548,7 +3519,7 @@
       ],
       "role": "stem",
       "kind": "elbow",
-      "label": "Soda outlet \u00b7 fore-facing stem nested directly in the bulkhead elbow"
+      "label": "Soda outlet \u00b7 fore-facing stem \u00b7 2.4048 mm exposed for CO2 clearance \u00b7 collet meets meter"
     },
     {
       "name": "drain-vb-east-link",
@@ -3665,35 +3636,6 @@
       "role": "carbonator",
       "kind": "tube",
       "label": "soda core rise"
-    },
-    {
-      "name": "soda-core-meter",
-      "geometry": "soda-core-meter",
-      "translation": [
-        0,
-        0,
-        0
-      ],
-      "rotation": [
-        [
-          1.0,
-          0.0,
-          0.0
-        ],
-        [
-          0.0,
-          1.0,
-          0.0
-        ],
-        [
-          0.0,
-          0.0,
-          1.0
-        ]
-      ],
-      "role": "carbonator",
-      "kind": "tube",
-      "label": "soda core meter"
     },
     {
       "name": "soda-meter-bulkhead",
@@ -4449,21 +4391,11 @@
     },
     {
       "a": "soda-core-rise",
-      "b": "soda-core-elbow",
+      "b": "soda-inlet-stem",
       "connection": "Intended seated fitting, tube insertion or existing drain support"
     },
     {
-      "a": "soda-core-elbow",
-      "b": "soda-core-stem",
-      "connection": "Intended seated fitting, tube insertion or existing drain support"
-    },
-    {
-      "a": "soda-core-stem",
-      "b": "soda-core-meter",
-      "connection": "Intended seated fitting, tube insertion or existing drain support"
-    },
-    {
-      "a": "soda-core-meter",
+      "a": "soda-inlet-stem",
       "b": "digiten-flow",
       "connection": "Intended seated fitting, tube insertion or existing drain support"
     },
@@ -4474,6 +4406,11 @@
     },
     {
       "a": "soda-meter-bulkhead",
+      "b": "soda-outlet-return-stem",
+      "connection": "Intended seated fitting, tube insertion or existing drain support"
+    },
+    {
+      "a": "digiten-flow",
       "b": "soda-outlet-return-stem",
       "connection": "Intended seated fitting, tube insertion or existing drain support"
     },
@@ -6988,381 +6925,34 @@
         ],
         "soda-core-rise": [
           [
-            77.50000001564078,
-            271.5999999,
+            50.0,
+            354.36959999999993,
             241.4
           ],
           [
-            77.50000001564078,
-            271.5999999,
+            50.0,
+            354.36959999999993,
             253.4
           ],
           [
-            77.50000001564078,
-            271.5999999,
-            285.8136578805363
+            50.0,
+            354.36959999999993,
+            287.3260478805363
           ],
           [
-            77.50000001564078,
-            271.5999999,
-            301.5136578805363
-          ]
-        ],
-        "soda-core-meter": [
-          [
-            47.89241001564078,
-            273.7589999,
-            306.3760478805363
-          ],
-          [
-            47.89241001564078,
-            290.6499999,
-            306.3760478805363
-          ],
-          [
-            47.89568056197038,
-            291.4445311515625,
-            306.3760478805363
-          ],
-          [
-            47.90535449374532,
-            292.239062403125,
-            306.3760478805363
-          ],
-          [
-            47.92122525014478,
-            293.03359365468754,
-            306.3760478805363
-          ],
-          [
-            47.94308627034793,
-            293.82812490625,
-            306.3760478805363
-          ],
-          [
-            47.97073099353398,
-            294.6226561578125,
-            306.3760478805363
-          ],
-          [
-            48.00395285888208,
-            295.417187409375,
-            306.3760478805363
-          ],
-          [
-            48.04254530557143,
-            296.2117186609375,
-            306.3760478805363
-          ],
-          [
-            48.08630177278121,
-            297.00624991250004,
-            306.3760478805363
-          ],
-          [
-            48.135015699690605,
-            297.8007811640625,
-            306.3760478805363
-          ],
-          [
-            48.1884805254788,
-            298.595312415625,
-            306.3760478805363
-          ],
-          [
-            48.246489689324974,
-            299.3898436671875,
-            306.3760478805363
-          ],
-          [
-            48.3088366304083,
-            300.18437491875,
-            306.3760478805363
-          ],
-          [
-            48.37531478790798,
-            300.9789061703125,
-            306.3760478805363
-          ],
-          [
-            48.44571760100318,
-            301.77343742187503,
-            306.3760478805363
-          ],
-          [
-            48.5198385088731,
-            302.5679686734375,
-            306.3760478805363
-          ],
-          [
-            48.59747095069691,
-            303.362499925,
-            306.3760478805363
-          ],
-          [
-            48.67840836565379,
-            304.1570311765625,
-            306.3760478805363
-          ],
-          [
-            48.76244419292293,
-            304.951562428125,
-            306.3760478805363
-          ],
-          [
-            48.84937187168351,
-            305.74609367968753,
-            306.3760478805363
-          ],
-          [
-            48.93898484111472,
-            306.54062493125,
-            306.3760478805363
-          ],
-          [
-            49.03107654039573,
-            307.3351561828125,
-            306.3760478805363
-          ],
-          [
-            49.125440408705735,
-            308.129687434375,
-            306.3760478805363
-          ],
-          [
-            49.22186988522391,
-            308.9242186859375,
-            306.3760478805363
-          ],
-          [
-            49.32015840912944,
-            309.7187499375,
-            306.3760478805363
-          ],
-          [
-            49.420099419601506,
-            310.5132811890625,
-            306.3760478805363
-          ],
-          [
-            49.52148635581929,
-            311.307812440625,
-            306.3760478805363
-          ],
-          [
-            49.624112656961984,
-            312.1023436921875,
-            306.3760478805363
-          ],
-          [
-            49.72777176220876,
-            312.89687494375,
-            306.3760478805363
-          ],
-          [
-            49.83225711073881,
-            313.6914061953125,
-            306.3760478805363
-          ],
-          [
-            49.937362141731306,
-            314.485937446875,
-            306.3760478805363
-          ],
-          [
-            50.04288029436544,
-            315.2804686984375,
-            306.3760478805363
-          ],
-          [
-            50.14860500782039,
-            316.07499995,
-            306.3760478805363
-          ],
-          [
-            50.25432972127534,
-            316.8695312015625,
-            306.3760478805363
-          ],
-          [
-            50.35984787390947,
-            317.664062453125,
-            306.3760478805363
-          ],
-          [
-            50.46495290490197,
-            318.45859370468753,
-            306.3760478805363
-          ],
-          [
-            50.56943825343202,
-            319.25312495625,
-            306.3760478805363
-          ],
-          [
-            50.673097358678795,
-            320.0476562078125,
-            306.3760478805363
-          ],
-          [
-            50.77572365982149,
-            320.842187459375,
-            306.3760478805363
-          ],
-          [
-            50.87711059603927,
-            321.6367187109375,
-            306.3760478805363
-          ],
-          [
-            50.97705160651134,
-            322.43124996250003,
-            306.3760478805363
-          ],
-          [
-            51.07534013041687,
-            323.2257812140625,
-            306.3760478805363
-          ],
-          [
-            51.171769606935044,
-            324.020312465625,
-            306.3760478805363
-          ],
-          [
-            51.26613347524505,
-            324.8148437171875,
-            306.3760478805363
-          ],
-          [
-            51.35822517452606,
-            325.60937496875,
-            306.3760478805363
-          ],
-          [
-            51.44783814395727,
-            326.4039062203125,
-            306.3760478805363
-          ],
-          [
-            51.53476582271785,
-            327.198437471875,
-            306.3760478805363
-          ],
-          [
-            51.61880164998699,
-            327.9929687234375,
-            306.3760478805363
-          ],
-          [
-            51.69973906494387,
-            328.787499975,
-            306.3760478805363
-          ],
-          [
-            51.77737150676768,
-            329.5820312265625,
-            306.3760478805363
-          ],
-          [
-            51.8514924146376,
-            330.376562478125,
-            306.3760478805363
-          ],
-          [
-            51.9218952277328,
-            331.1710937296875,
-            306.3760478805363
-          ],
-          [
-            51.98837338523248,
-            331.96562498125,
-            306.3760478805363
-          ],
-          [
-            52.05072032631581,
-            332.7601562328125,
-            306.3760478805363
-          ],
-          [
-            52.10872949016198,
-            333.554687484375,
-            306.3760478805363
-          ],
-          [
-            52.162194315950174,
-            334.3492187359375,
-            306.3760478805363
-          ],
-          [
-            52.21090824285957,
-            335.1437499875,
-            306.3760478805363
-          ],
-          [
-            52.25466471006935,
-            335.9382812390625,
-            306.3760478805363
-          ],
-          [
-            52.2932571567587,
-            336.732812490625,
-            306.3760478805363
-          ],
-          [
-            52.3264790221068,
-            337.5273437421875,
-            306.3760478805363
-          ],
-          [
-            52.35412374529284,
-            338.32187499375,
-            306.3760478805363
-          ],
-          [
-            52.375984765496,
-            339.11640624531253,
-            306.3760478805363
-          ],
-          [
-            52.39185552189546,
-            339.910937496875,
-            306.3760478805363
-          ],
-          [
-            52.40152945367039,
-            340.7054687484375,
-            306.3760478805363
-          ],
-          [
-            52.4048,
-            341.5,
-            306.3760478805363
-          ],
-          [
-            52.4048,
-            357.2,
-            306.3760478805363
+            50.0,
+            354.36959999999993,
+            304.2170478805363
           ]
         ],
         "soda-meter-bulkhead": [
           [
-            52.4048,
-            386.8,
+            50.0,
+            405.71479999999997,
             306.3760478805363
           ],
           [
-            52.4048,
-            402.5,
-            306.3760478805363
-          ],
-          [
-            52.404799999999994,
-            421.41479999999996,
-            306.3760478805363
-          ],
-          [
-            52.404799999999994,
+            50.0,
             438.3058,
             306.3760478805363
           ]
@@ -7519,53 +7109,28 @@
             ]
           ]
         },
-        "soda-core-elbow": {
-          "geometry": "jg-turn-elbow",
+        "soda-inlet-stem": {
+          "geometry": "gas-stem-elbow",
           "corner": [
-            77.50000001564078,
-            271.5999999,
+            50.0,
+            354.36959999999993,
             306.3760478805363
           ],
           "rotation": [
             [
-              0.0,
               -0.0,
-              -1.0
+              -0.0,
+              1.0
             ],
             [
-              1.0,
+              -1.0,
               -0.0,
-              -0.0
-            ],
-            [
-              0.0,
-              -1.0,
-              -0.0
-            ]
-          ]
-        },
-        "soda-core-stem": {
-          "geometry": "soda-core-stem-elbow",
-          "corner": [
-            47.89241001564078,
-            271.5999999,
-            306.3760478805363
-          ],
-          "rotation": [
-            [
-              -1.0,
-              0.0,
               0.0
             ],
             [
               -0.0,
-              1.0,
+              -1.0,
               0.0
-            ],
-            [
-              -0.0,
-              0.0,
-              -1.0
             ]
           ]
         },
@@ -7595,9 +7160,9 @@
           ]
         },
         "soda-outlet-return-stem": {
-          "geometry": "elbow-elbow",
+          "geometry": "soda-rear-stem-elbow",
           "corner": [
-            52.404799999999994,
+            50.0,
             440.46479999999997,
             306.3760478805363
           ],
@@ -7663,18 +7228,10 @@
         ],
         [
           "soda-core-rise",
-          "soda-core-elbow"
+          "soda-inlet-stem"
         ],
         [
-          "soda-core-elbow",
-          "soda-core-stem"
-        ],
-        [
-          "soda-core-stem",
-          "soda-core-meter"
-        ],
-        [
-          "soda-core-meter",
+          "soda-inlet-stem",
           "digiten-flow"
         ],
         [
@@ -7683,6 +7240,10 @@
         ],
         [
           "soda-meter-bulkhead",
+          "soda-outlet-return-stem"
+        ],
+        [
+          "digiten-flow",
           "soda-outlet-return-stem"
         ],
         [
@@ -7854,8 +7415,8 @@
       },
       "soda_route": {
         "meter_native_translation_mm": [
-          52.4048,
-          372.0,
+          50.0,
+          390.91479999999996,
           306.3760478805363
         ],
         "meter_native_rotation": [
@@ -7876,13 +7437,13 @@
           ]
         ],
         "meter_inlet_mm": [
-          52.4048,
-          341.5,
+          50.0,
+          360.41479999999996,
           306.3760478805363
         ],
         "meter_outlet_mm": [
-          52.4048,
-          402.5,
+          50.0,
+          421.41479999999996,
           306.3760478805363
         ],
         "meter_flow_axis": [
@@ -7901,58 +7462,33 @@
           306.3760478805363
         ],
         "bulkhead_elbow_socket_mm": [
-          52.404799999999994,
+          50.0,
           421.41479999999996,
           306.3760478805363
         ],
         "joints": {
-          "soda-core-elbow": {
-            "geometry": "jg-turn-elbow",
+          "soda-inlet-stem": {
+            "geometry": "gas-stem-elbow",
             "corner": [
-              77.50000001564078,
-              271.5999999,
+              50.0,
+              354.36959999999993,
               306.3760478805363
             ],
             "rotation": [
               [
-                0.0,
                 -0.0,
-                -1.0
+                -0.0,
+                1.0
               ],
               [
-                1.0,
+                -1.0,
                 -0.0,
-                -0.0
-              ],
-              [
-                0.0,
-                -1.0,
-                -0.0
-              ]
-            ]
-          },
-          "soda-core-stem": {
-            "geometry": "soda-core-stem-elbow",
-            "corner": [
-              47.89241001564078,
-              271.5999999,
-              306.3760478805363
-            ],
-            "rotation": [
-              [
-                -1.0,
-                0.0,
                 0.0
               ],
               [
                 -0.0,
-                1.0,
+                -1.0,
                 0.0
-              ],
-              [
-                -0.0,
-                0.0,
-                -1.0
               ]
             ]
           },
@@ -7982,9 +7518,9 @@
             ]
           },
           "soda-outlet-return-stem": {
-            "geometry": "elbow-elbow",
+            "geometry": "soda-rear-stem-elbow",
             "corner": [
-              52.404799999999994,
+              50.0,
               440.46479999999997,
               306.3760478805363
             ],
@@ -8010,381 +7546,34 @@
         "tubes": {
           "soda-core-rise": [
             [
-              77.50000001564078,
-              271.5999999,
+              50.0,
+              354.36959999999993,
               241.4
             ],
             [
-              77.50000001564078,
-              271.5999999,
+              50.0,
+              354.36959999999993,
               253.4
             ],
             [
-              77.50000001564078,
-              271.5999999,
-              285.8136578805363
+              50.0,
+              354.36959999999993,
+              287.3260478805363
             ],
             [
-              77.50000001564078,
-              271.5999999,
-              301.5136578805363
-            ]
-          ],
-          "soda-core-meter": [
-            [
-              47.89241001564078,
-              273.7589999,
-              306.3760478805363
-            ],
-            [
-              47.89241001564078,
-              290.6499999,
-              306.3760478805363
-            ],
-            [
-              47.89568056197038,
-              291.4445311515625,
-              306.3760478805363
-            ],
-            [
-              47.90535449374532,
-              292.239062403125,
-              306.3760478805363
-            ],
-            [
-              47.92122525014478,
-              293.03359365468754,
-              306.3760478805363
-            ],
-            [
-              47.94308627034793,
-              293.82812490625,
-              306.3760478805363
-            ],
-            [
-              47.97073099353398,
-              294.6226561578125,
-              306.3760478805363
-            ],
-            [
-              48.00395285888208,
-              295.417187409375,
-              306.3760478805363
-            ],
-            [
-              48.04254530557143,
-              296.2117186609375,
-              306.3760478805363
-            ],
-            [
-              48.08630177278121,
-              297.00624991250004,
-              306.3760478805363
-            ],
-            [
-              48.135015699690605,
-              297.8007811640625,
-              306.3760478805363
-            ],
-            [
-              48.1884805254788,
-              298.595312415625,
-              306.3760478805363
-            ],
-            [
-              48.246489689324974,
-              299.3898436671875,
-              306.3760478805363
-            ],
-            [
-              48.3088366304083,
-              300.18437491875,
-              306.3760478805363
-            ],
-            [
-              48.37531478790798,
-              300.9789061703125,
-              306.3760478805363
-            ],
-            [
-              48.44571760100318,
-              301.77343742187503,
-              306.3760478805363
-            ],
-            [
-              48.5198385088731,
-              302.5679686734375,
-              306.3760478805363
-            ],
-            [
-              48.59747095069691,
-              303.362499925,
-              306.3760478805363
-            ],
-            [
-              48.67840836565379,
-              304.1570311765625,
-              306.3760478805363
-            ],
-            [
-              48.76244419292293,
-              304.951562428125,
-              306.3760478805363
-            ],
-            [
-              48.84937187168351,
-              305.74609367968753,
-              306.3760478805363
-            ],
-            [
-              48.93898484111472,
-              306.54062493125,
-              306.3760478805363
-            ],
-            [
-              49.03107654039573,
-              307.3351561828125,
-              306.3760478805363
-            ],
-            [
-              49.125440408705735,
-              308.129687434375,
-              306.3760478805363
-            ],
-            [
-              49.22186988522391,
-              308.9242186859375,
-              306.3760478805363
-            ],
-            [
-              49.32015840912944,
-              309.7187499375,
-              306.3760478805363
-            ],
-            [
-              49.420099419601506,
-              310.5132811890625,
-              306.3760478805363
-            ],
-            [
-              49.52148635581929,
-              311.307812440625,
-              306.3760478805363
-            ],
-            [
-              49.624112656961984,
-              312.1023436921875,
-              306.3760478805363
-            ],
-            [
-              49.72777176220876,
-              312.89687494375,
-              306.3760478805363
-            ],
-            [
-              49.83225711073881,
-              313.6914061953125,
-              306.3760478805363
-            ],
-            [
-              49.937362141731306,
-              314.485937446875,
-              306.3760478805363
-            ],
-            [
-              50.04288029436544,
-              315.2804686984375,
-              306.3760478805363
-            ],
-            [
-              50.14860500782039,
-              316.07499995,
-              306.3760478805363
-            ],
-            [
-              50.25432972127534,
-              316.8695312015625,
-              306.3760478805363
-            ],
-            [
-              50.35984787390947,
-              317.664062453125,
-              306.3760478805363
-            ],
-            [
-              50.46495290490197,
-              318.45859370468753,
-              306.3760478805363
-            ],
-            [
-              50.56943825343202,
-              319.25312495625,
-              306.3760478805363
-            ],
-            [
-              50.673097358678795,
-              320.0476562078125,
-              306.3760478805363
-            ],
-            [
-              50.77572365982149,
-              320.842187459375,
-              306.3760478805363
-            ],
-            [
-              50.87711059603927,
-              321.6367187109375,
-              306.3760478805363
-            ],
-            [
-              50.97705160651134,
-              322.43124996250003,
-              306.3760478805363
-            ],
-            [
-              51.07534013041687,
-              323.2257812140625,
-              306.3760478805363
-            ],
-            [
-              51.171769606935044,
-              324.020312465625,
-              306.3760478805363
-            ],
-            [
-              51.26613347524505,
-              324.8148437171875,
-              306.3760478805363
-            ],
-            [
-              51.35822517452606,
-              325.60937496875,
-              306.3760478805363
-            ],
-            [
-              51.44783814395727,
-              326.4039062203125,
-              306.3760478805363
-            ],
-            [
-              51.53476582271785,
-              327.198437471875,
-              306.3760478805363
-            ],
-            [
-              51.61880164998699,
-              327.9929687234375,
-              306.3760478805363
-            ],
-            [
-              51.69973906494387,
-              328.787499975,
-              306.3760478805363
-            ],
-            [
-              51.77737150676768,
-              329.5820312265625,
-              306.3760478805363
-            ],
-            [
-              51.8514924146376,
-              330.376562478125,
-              306.3760478805363
-            ],
-            [
-              51.9218952277328,
-              331.1710937296875,
-              306.3760478805363
-            ],
-            [
-              51.98837338523248,
-              331.96562498125,
-              306.3760478805363
-            ],
-            [
-              52.05072032631581,
-              332.7601562328125,
-              306.3760478805363
-            ],
-            [
-              52.10872949016198,
-              333.554687484375,
-              306.3760478805363
-            ],
-            [
-              52.162194315950174,
-              334.3492187359375,
-              306.3760478805363
-            ],
-            [
-              52.21090824285957,
-              335.1437499875,
-              306.3760478805363
-            ],
-            [
-              52.25466471006935,
-              335.9382812390625,
-              306.3760478805363
-            ],
-            [
-              52.2932571567587,
-              336.732812490625,
-              306.3760478805363
-            ],
-            [
-              52.3264790221068,
-              337.5273437421875,
-              306.3760478805363
-            ],
-            [
-              52.35412374529284,
-              338.32187499375,
-              306.3760478805363
-            ],
-            [
-              52.375984765496,
-              339.11640624531253,
-              306.3760478805363
-            ],
-            [
-              52.39185552189546,
-              339.910937496875,
-              306.3760478805363
-            ],
-            [
-              52.40152945367039,
-              340.7054687484375,
-              306.3760478805363
-            ],
-            [
-              52.4048,
-              341.5,
-              306.3760478805363
-            ],
-            [
-              52.4048,
-              357.2,
-              306.3760478805363
+              50.0,
+              354.36959999999993,
+              304.2170478805363
             ]
           ],
           "soda-meter-bulkhead": [
             [
-              52.4048,
-              386.8,
+              50.0,
+              405.71479999999997,
               306.3760478805363
             ],
             [
-              52.4048,
-              402.5,
-              306.3760478805363
-            ],
-            [
-              52.404799999999994,
-              421.41479999999996,
-              306.3760478805363
-            ],
-            [
-              52.404799999999994,
+              50.0,
               438.3058,
               306.3760478805363
             ]
@@ -8393,18 +7582,10 @@
         "mates": [
           [
             "soda-core-rise",
-            "soda-core-elbow"
+            "soda-inlet-stem"
           ],
           [
-            "soda-core-elbow",
-            "soda-core-stem"
-          ],
-          [
-            "soda-core-stem",
-            "soda-core-meter"
-          ],
-          [
-            "soda-core-meter",
+            "soda-inlet-stem",
             "digiten-flow"
           ],
           [
@@ -8413,6 +7594,10 @@
           ],
           [
             "soda-meter-bulkhead",
+            "soda-outlet-return-stem"
+          ],
+          [
+            "digiten-flow",
             "soda-outlet-return-stem"
           ],
           [
@@ -8427,28 +7612,25 @@
         "metrics": {
           "tube_od_mm": 6.35,
           "tube_id_mm": 4.24,
-          "tube_centerlines": "Straight riser and outlet; a gentle lateral offset in the long fore-aft feed has axial socket entries",
-          "feed_lateral_offset_mm": 4.512389984359224,
-          "feed_minimum_centerline_radius_mm": 95.50454486176172,
-          "core_stem_exposure_mm": 3.0,
-          "exposed_core_rise_mm": 32.413657880536306,
-          "exposed_core_meter_mm": 51.089402280670186,
-          "exposed_meter_bulkhead_mm": 18.914799999999957,
-          "total_exposed_tube_length_mm": 102.41786016120645,
-          "elbows_total": 4,
+          "tube_centerlines": "Straight vertical core inlet and concealed axial outlet join",
+          "exposed_core_rise_mm": 33.92604788053629,
+          "exposed_meter_bulkhead_mm": 0.0,
+          "outlet_concealed_tube_length_mm": 32.590999999999994,
+          "total_exposed_tube_length_mm": 33.92604788053629,
+          "rear_stem_exposure_mm": 2.4048000000000016,
+          "elbows_total": 3,
           "stem_elbows": 3,
           "insertions_mm": {
             "meter_estimate": 15.7,
-            "JG": 15.7,
             "NeoFit": 16.891,
             "core_handoff_overlap": 12.0
           }
         },
-        "flow": "Cold-core soda outlet \u2192 straight rise \u2192 nested west/aft elbows \u2192 feed beside V-K \u2192 meter \u2192 straight aft run \u2192 nested bulkhead stems \u2192 soda bulkhead",
+        "flow": "Proposed aft core soda guide \u2192 vertical tube \u2192 directly seated inlet stem \u2192 meter \u2192 concealed tube join \u2192 nested rear stems \u2192 soda bulkhead",
         "upstream_handoff": {
           "core_carb_water_out_mm": [
-            77.50000001564078,
-            271.5999999,
+            50.0,
+            354.36959999999993,
             253.4
           ],
           "core_outward_axis": [
@@ -8456,10 +7638,10 @@
             0.0,
             1.0
           ],
-          "source": "hardware/manifold-layout/enclosure-assembly.facts.json card_ports.foam-assembly.carb-water-out",
-          "scope": "The soda riser follows the retained core port and extends 12 mm below the handoff plane"
+          "source": "Proposed soda guide in the current cold-core roof, aft of the pump inlet elbow",
+          "scope": "The drawn tube extends 12 mm below the proposed handoff plane; the guide and internal core route require production integration"
         },
-        "scope": "Measured exterior meter on edge, with square component axes and directly nested stem elbows. Socket engagements remain family-based estimates. Both water routes are drawn; the flexible pigtail and retention detail are separate."
+        "scope": "Measured exterior meter on edge with square component axes. Outlet collet faces meet with no exposed tube. The rear nested stem retains 2.4048 mm exposure for CO2 clearance. Socket engagement remains estimated; core-guide integration, pigtail and retention are separate."
       },
       "pcb_native_rotation": [
         [
@@ -8483,7 +7665,7 @@
         -49.597079979949626,
         353.25
       ],
-      "hardware_scope": "V-A stays low; V-B feeds Y-B through an aft-side stair over the PCB. The valve inlet uses a directly seated stem elbow. The edge-on meter between the pump and CO2 path connects to both the core soda outlet and rear bulkhead.",
+      "hardware_scope": "V-A stays low; V-B feeds Y-B through an aft-side stair over the PCB. The valve inlet uses a directly seated stem elbow. The aft edge-on meter has no exposed outlet tube and a direct-down inlet to a proposed aft core guide.",
       "insertions_mm": {
         "JG_socket": 15.7,
         "NeoFit_socket": 16.891,
@@ -8496,8 +7678,8 @@
     },
     "flow_meter": {
       "native_origin_mm": [
-        52.4048,
-        372.0,
+        50.0,
+        390.91479999999996,
         306.3760478805363
       ],
       "native_rotation": [
@@ -8517,8 +7699,8 @@
           -1.0
         ]
       ],
-      "attachment": "Proposed core-mounted support between the pump and CO2 path; retention detail is to design",
-      "scope": "Both core inlet and bulkhead outlet routes shown; pigtail and retention detail remain separate"
+      "attachment": "Proposed core-mounted support aft between the pump and CO2 path; retention detail is to design",
+      "scope": "Direct-down inlet to proposed aft core guide and concealed outlet join shown; internal core integration, pigtail and retention remain separate"
     },
     "funnel_expansion": {
       "aft_extension_mm": 35.0,
@@ -8656,26 +7838,26 @@
       "yb-stem-elbow_to_funnel-drain-cradle": 0.6643452639749938,
       "va-ya-straight_to_pcba": 31.169694117396432,
       "va-ya-straight_to_funnel-drain-cradle": 4.43396842340638,
-      "digiten-flow_to_pump": 1.4642661775702166,
-      "digiten-flow_to_asse": 8.117338269024795,
-      "digiten-flow_to_psu": 87.00480038146972,
+      "digiten-flow_to_pump": 6.833225151614847,
+      "digiten-flow_to_asse": 7.184862976116747,
+      "digiten-flow_to_psu": 84.60000038146973,
       "digiten-flow_to_ceiling": 30.47395250093342,
-      "soda-meter-bulkhead_to_pump": 19.47804886882375,
+      "soda-meter-bulkhead_to_pump": 17.273582155096758,
       "vb-yb-cross_to_pcba": 18.888813035543702,
       "vb-yb-cross_to_funnel-frame": 17.48530610951861,
-      "digiten-flow_to_gas-check": 1.3977954218887993,
-      "digiten-flow_to_gas-regulator": 14.953023707287356,
-      "digiten-flow_to_gas-core-drop": 3.220199237060555,
-      "soda-core-elbow_to_vk": 5.738727466533577,
-      "soda-core-elbow_to_right-wall": 1.526864533288574,
-      "soda-core-stem_to_vk": 5.126855201529726,
-      "soda-core-stem_to_right-wall": 1.1657946352381288,
-      "soda-core-stem_to_pump": 16.52047107054341,
-      "soda-core-meter_to_vk": 4.798084320728625,
-      "soda-core-meter_to_pump": 16.070013412053353,
-      "soda-core-meter_to_right-wall": 6.53668928224652,
-      "soda-outlet-return-stem_to_gas-regulator": 7.701538255125545,
-      "soda-outlet-return-stem_to_pump": 14.952637366086012
+      "digiten-flow_to_gas-check": 1.0534677505493164,
+      "digiten-flow_to_gas-regulator": 4.1890761443314934,
+      "digiten-flow_to_gas-core-drop": 7.94967675771313,
+      "soda-inlet-stem_to_vk": 9.031917950576917,
+      "soda-inlet-stem_to_right-wall": 40.75386667251587,
+      "soda-inlet-stem_to_pump": 1.8502321440175415,
+      "soda-core-rise_to_vk": 14.18852431766029,
+      "soda-core-rise_to_pump": 5.396432414899676,
+      "soda-core-rise_to_right-wall": 45.325,
+      "soda-core-rise_to_pump-inlet-tpu": 13.844435178616918,
+      "soda-core-rise_to_lower-pump-elbow": 35.436144753607046,
+      "soda-outlet-return-stem_to_gas-regulator": 7.717395533392231,
+      "soda-outlet-return-stem_to_pump": 12.698954273602519
     },
     "vb_bounds_mm": [
       [
@@ -8721,25 +7903,25 @@
     ],
     "flow_meter_bounds_mm": [
       [
-        43.00480038146973,
-        341.5,
+        40.60000038146973,
+        360.41479999999996,
         279.8760478805363
       ],
       [
-        71.30479961853027,
-        402.5,
+        68.89999961853027,
+        421.41479999999996,
         315.5260474990666
       ]
     ],
     "flow_meter_ports_mm": {
       "inlet": [
-        52.4048,
-        341.5,
+        50.0,
+        360.41479999999996,
         306.3760478805363
       ],
       "outlet": [
-        52.4048,
-        402.5,
+        50.0,
+        421.41479999999996,
         306.3760478805363
       ]
     },
@@ -8808,19 +7990,16 @@
     "soda_outlet_route": {
       "tube_od_mm": 6.35,
       "tube_id_mm": 4.24,
-      "tube_centerlines": "Straight riser and outlet; a gentle lateral offset in the long fore-aft feed has axial socket entries",
-      "feed_lateral_offset_mm": 4.512389984359224,
-      "feed_minimum_centerline_radius_mm": 95.50454486176172,
-      "core_stem_exposure_mm": 3.0,
-      "exposed_core_rise_mm": 32.413657880536306,
-      "exposed_core_meter_mm": 51.089402280670186,
-      "exposed_meter_bulkhead_mm": 18.914799999999957,
-      "total_exposed_tube_length_mm": 102.41786016120645,
-      "elbows_total": 4,
+      "tube_centerlines": "Straight vertical core inlet and concealed axial outlet join",
+      "exposed_core_rise_mm": 33.92604788053629,
+      "exposed_meter_bulkhead_mm": 0.0,
+      "outlet_concealed_tube_length_mm": 32.590999999999994,
+      "total_exposed_tube_length_mm": 33.92604788053629,
+      "rear_stem_exposure_mm": 2.4048000000000016,
+      "elbows_total": 3,
       "stem_elbows": 3,
       "insertions_mm": {
         "meter_estimate": 15.7,
-        "JG": 15.7,
         "NeoFit": 16.891,
         "core_handoff_overlap": 12.0
       }

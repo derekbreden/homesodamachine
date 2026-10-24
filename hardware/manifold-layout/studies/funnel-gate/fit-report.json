@@ -124,26 +124,26 @@
     "yb-stem-elbow_to_funnel-drain-cradle": 0.6643452639749938,
     "va-ya-straight_to_pcba": 31.169694117396432,
     "va-ya-straight_to_funnel-drain-cradle": 4.43396842340638,
-    "digiten-flow_to_pump": 1.4642661775702166,
-    "digiten-flow_to_asse": 8.117338269024795,
-    "digiten-flow_to_psu": 87.00480038146972,
+    "digiten-flow_to_pump": 6.833225151614847,
+    "digiten-flow_to_asse": 7.184862976116747,
+    "digiten-flow_to_psu": 84.60000038146973,
     "digiten-flow_to_ceiling": 30.47395250093342,
-    "soda-meter-bulkhead_to_pump": 19.47804886882375,
+    "soda-meter-bulkhead_to_pump": 17.273582155096758,
     "vb-yb-cross_to_pcba": 18.888813035543702,
     "vb-yb-cross_to_funnel-frame": 17.48530610951861,
-    "digiten-flow_to_gas-check": 1.3977954218887993,
-    "digiten-flow_to_gas-regulator": 14.953023707287356,
-    "digiten-flow_to_gas-core-drop": 3.220199237060555,
-    "soda-core-elbow_to_vk": 5.738727466533577,
-    "soda-core-elbow_to_right-wall": 1.526864533288574,
-    "soda-core-stem_to_vk": 5.126855201529726,
-    "soda-core-stem_to_right-wall": 1.1657946352381288,
-    "soda-core-stem_to_pump": 16.52047107054341,
-    "soda-core-meter_to_vk": 4.798084320728625,
-    "soda-core-meter_to_pump": 16.070013412053353,
-    "soda-core-meter_to_right-wall": 6.53668928224652,
-    "soda-outlet-return-stem_to_gas-regulator": 7.701538255125545,
-    "soda-outlet-return-stem_to_pump": 14.952637366086012
+    "digiten-flow_to_gas-check": 1.0534677505493164,
+    "digiten-flow_to_gas-regulator": 4.1890761443314934,
+    "digiten-flow_to_gas-core-drop": 7.94967675771313,
+    "soda-inlet-stem_to_vk": 9.031917950576917,
+    "soda-inlet-stem_to_right-wall": 40.75386667251587,
+    "soda-inlet-stem_to_pump": 1.8502321440175415,
+    "soda-core-rise_to_vk": 14.18852431766029,
+    "soda-core-rise_to_pump": 5.396432414899676,
+    "soda-core-rise_to_right-wall": 45.325,
+    "soda-core-rise_to_pump-inlet-tpu": 13.844435178616918,
+    "soda-core-rise_to_lower-pump-elbow": 35.436144753607046,
+    "soda-outlet-return-stem_to_gas-regulator": 7.717395533392231,
+    "soda-outlet-return-stem_to_pump": 12.698954273602519
   },
   "vb_bounds_mm": [
     [
@@ -189,25 +189,25 @@
   ],
   "flow_meter_bounds_mm": [
     [
-      43.00480038146973,
-      341.5,
+      40.60000038146973,
+      360.41479999999996,
       279.8760478805363
     ],
     [
-      71.30479961853027,
-      402.5,
+      68.89999961853027,
+      421.41479999999996,
       315.5260474990666
     ]
   ],
   "flow_meter_ports_mm": {
     "inlet": [
-      52.4048,
-      341.5,
+      50.0,
+      360.41479999999996,
       306.3760478805363
     ],
     "outlet": [
-      52.4048,
-      402.5,
+      50.0,
+      421.41479999999996,
       306.3760478805363
     ]
   },
@@ -276,19 +276,16 @@
   "soda_outlet_route": {
     "tube_od_mm": 6.35,
     "tube_id_mm": 4.24,
-    "tube_centerlines": "Straight riser and outlet; a gentle lateral offset in the long fore-aft feed has axial socket entries",
-    "feed_lateral_offset_mm": 4.512389984359224,
-    "feed_minimum_centerline_radius_mm": 95.50454486176172,
-    "core_stem_exposure_mm": 3.0,
-    "exposed_core_rise_mm": 32.413657880536306,
-    "exposed_core_meter_mm": 51.089402280670186,
-    "exposed_meter_bulkhead_mm": 18.914799999999957,
-    "total_exposed_tube_length_mm": 102.41786016120645,
-    "elbows_total": 4,
+    "tube_centerlines": "Straight vertical core inlet and concealed axial outlet join",
+    "exposed_core_rise_mm": 33.92604788053629,
+    "exposed_meter_bulkhead_mm": 0.0,
+    "outlet_concealed_tube_length_mm": 32.590999999999994,
+    "total_exposed_tube_length_mm": 33.92604788053629,
+    "rear_stem_exposure_mm": 2.4048000000000016,
+    "elbows_total": 3,
     "stem_elbows": 3,
     "insertions_mm": {
       "meter_estimate": 15.7,
-      "JG": 15.7,
       "NeoFit": 16.891,
       "core_handoff_overlap": 12.0
     }
