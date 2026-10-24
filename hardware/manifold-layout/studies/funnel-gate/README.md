@@ -38,14 +38,14 @@ V-B lies square on its side, head east and flow aft, at native origin
 opposed drain and valve stems point level east/west, with a straight 10.95 mm
 exposed tube between them.
 
-The outlet stem points west, rising 8 degrees. A straight 35.00 mm exposed
+The outlet stem points west, rising 8 degrees. A straight 60.41 mm exposed
 cross run goes above the PCB into a two-socket elbow. That elbow turns the
 return fore, descending into Y-B's aft-facing stem. The descending tube has
-76.67 mm exposed length and a 27.44 mm minimum modeled radius; its minimum
-Y is 185.127. Its flexible span has a shallow 2 mm crown, with both socket
-positions and tangents fixed, to clear J11's nominal withdrawal. The plumbing
-remains on the aft side of Y-B. The highest fitting
-surface is Z298.884, below the frame's Z299.9 underside.
+82.38 mm exposed length and a 30.31 mm minimum modeled radius; its minimum
+Y is 185.127. Its flexible span has a shallow 3 mm crown. The return turn is
+at `(−50,280.69954,294.33057)` mm, aft of the frame's Y270.692 edge. The
+plumbing remains on the aft side of Y-B. Both PCB power-terminal driver
+axes are clear.
 
 [b_plumbing.py](b_plumbing.py) describes those fitting poses, seated interfaces,
 centerlines and dimensions. V-A uses one continuous low tube into Y-A's single
@@ -127,6 +127,12 @@ J3 uses cropped native conductor departures from the current installed wiring
 cache, recorded in [pcb-j3-dressed-lead-source.json](parts/pcb-j3-dressed-lead-source.json).
 PCB and mating housing datums are fixed. Other local connection estimates
 travel with their owners. Full harness routing is separate.
+
+With the funnel/frame and disconnected drain assembly removed, the actual J11
+housing has a bounded service path: 6 mm up, 6 mm east, then another 20 mm up.
+Conservative continuous housing sweeps clear the return by at least 0.439 mm.
+This is a housing-envelope check, excluding fingers and flexible lead motion;
+[centered-drain-review.json](centered-drain-review.json) records its scope.
 
 [fit-report.json](fit-report.json) records the combined exterior fit, intended
 seats, local lead checks, nominal 6 mm JST withdrawal sweeps and 30 mm vertical
