@@ -1,15 +1,52 @@
 {
-  "scope": "Separate electronics-bay access study using the complete funnel-gate arrangement; production enclosure and component poses are unchanged.",
+  "scope": "Separate electronics-bay access study with discrete heatset bosses and a balanced C14 corner position; production enclosure is unchanged.",
   "source_plan_sha256": "373bec81284edc9c3eebee602974f578edb7fb67609418629c49cb0373558cb0",
   "valid_single_solids": {
     "access-fixed-ceiling": true,
-    "electronics-access-panel": true
+    "electronics-access-panel": true,
+    "access-back-wall": true,
+    "panel-screw-m3x12": true,
+    "panel-insert-rx-m3x5p7": true
   },
   "panel_size_mm": [
     100.0,
     126.55000000000001,
     9.0
   ],
+  "panel_bearing": "Four discrete 18 \u00d7 12 mm heatset bosses; no perimeter rim",
+  "boss_centres_xy_mm": [
+    [
+      -91.5,
+      342.25
+    ],
+    [
+      -5.0,
+      342.25
+    ],
+    [
+      -91.5,
+      455.3
+    ],
+    [
+      -5.0,
+      455.3
+    ]
+  ],
+  "fastener_stack_mm": {
+    "head_bearing_z": 351.8,
+    "head_top_z": 354.8,
+    "head_recess_below_show_face": 0.19999999999998863,
+    "panel_under_head": 5.800000000000011,
+    "insert_top_z": 346.0,
+    "insert_bottom_z": 340.3,
+    "screw_tip_z": 339.8,
+    "pilot_bottom_z": 338.5,
+    "tip_reserve": 1.3000000000000114,
+    "insert_engagement": 5.7,
+    "blind_floor_stock": 3.0,
+    "minimum_boss_stock_from_pilot": 4.0,
+    "counterbore_to_panel_edge": 3.65
+  },
   "closed_panel_fixed_ceiling_intersection_mm3": 0.0,
   "lift_samples": [
     {
@@ -38,5 +75,13 @@
     }
   ],
   "equipment_carried_by_panel": [],
-  "retention_detail": "Perimeter bearing seat only; fastener retention is not specified in this access study."
+  "hardware_scope": "Nominal exterior and thread-root/knurl bands; mating thread and heatset press envelopes intentionally overlap",
+  "pry_notch": {
+    "edge": "front",
+    "centre_x_mm": -48.25,
+    "width_mm": 6.0,
+    "depth_mm": 2.0,
+    "through_panel_thickness": true
+  },
+  "retention_detail": "Four discrete integral corner bosses are the panel's only bearing surfaces. Four recessed M3x12 screws engage RX-M3x5.7 heatsets. No perimeter rim."
 }

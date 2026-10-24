@@ -1,15 +1,8 @@
 {
-  "scope": "Manual query of only the new fixed ceiling/seat and empty lid against the unchanged complete arrangement. Sidewall/rear-wall stock joins are integral back-top interfaces. This does not establish finger reach or a complete installed harness.",
-  "part_fit": [
-    {
-      "part": "access-fixed-ceiling",
-      "equipment_intersections": []
-    },
-    {
-      "part": "electronics-access-panel",
-      "equipment_intersections": []
-    }
-  ],
+  "scope": "Only changed panel, integral bosses, rear-wall opening, C14 and fasteners against the complete stationary selected arrangement. Threads/press fits and integral wall joins are intended mates.",
+  "hard_interferences": [],
+  "flexible_lead_estimate_interferences": [],
+  "panel_removal_order": "Remove the four M3 screws, then lift the empty panel",
   "panel_lift": [
     {
       "lift_mm": 0.0,
@@ -41,17 +34,33 @@
     }
   ],
   "equipment_assigned_to_panel": [],
-  "minimum_vertical_seat_to_c14_body_gap_mm": 1.9350071070880404,
-  "input_scene_sha256": "971312b71431259abe3ea2de21f34a44eaf0bea17419a010c23d010839b02cc0",
-  "study_meshes_sha256": {
-    "parts/access-fixed-ceiling.npz": "36a24c17b1cb16f2c77411f62b4fd9fe345ae257173ffe3e19b166275905cfec",
-    "parts/electronics-access-panel.npz": "8847fd9709605aa9c575d32dfc64a731ccc25d5ccac30de7e6427ebcd3e229fe"
+  "front_right_boss_to_vent_adapter_mm": 1.3562585588135505,
+  "c14": {
+    "flange_centre_mm": [
+      -65.75,
+      471.3,
+      327.0
+    ],
+    "translation_from_parent_mm": [
+      2.75,
+      0.0,
+      -3.0
+    ],
+    "left_wall_gap_mm": 7.897687530517572,
+    "ordinary_ceiling_gap_mm": 7.93500710708804,
+    "rear_left_boss_gap_mm": 3.7327171231794076
   },
-  "parent_visual_comparison": {
-    "retained_equipment_and_support_records": 100,
-    "missing_or_changed_non_roof_parts": [],
-    "new_parts": [
-      "electronics-access-panel"
-    ]
-  }
+  "study_meshes_sha256": {
+    "parts/access-back-wall.npz": "73d22cb3a123b1eb7fd9b88e07bbcab281da44908e116d3d50e5d82bd76c80c1",
+    "parts/access-fixed-ceiling.npz": "8f411e01b443cc240769b6001e77d8bc2589bd085f9cd04c95479b10b395e85a",
+    "parts/electronics-access-panel.npz": "2715a2c9629e2d6e26d78628a416d02cd4e43f0755a1117d14588d1f4ea1b181",
+    "parts/panel-boss.npz": "e903fb758a60c8f6cde5db7b961c3c3ad56fa5ed9674ea9e5c16160644e5e4fa",
+    "parts/panel-insert-rx-m3x5p7.npz": "24a9e87681e2bc801573fa9d715dd46ab79ed2bb905ea8d9a9d5f88b50f85ffd",
+    "parts/panel-screw-m3x12.npz": "07d099c4d2a4db6d8b78d6f6dbf2e14450ecd4aa2248b7e7872b01a7fb68a909",
+    "parts/section-frame.npz": "7116c80b3dfd085ba9be5586e5818fce00bc577d7627eb35d542f69a63fee2d6",
+    "parts/section-insert.npz": "312e8fa6d6b27c4e44e096cf8dd561c190a347af67c8a1bb8ba57bfe7f4a29bd",
+    "parts/section-panel.npz": "54fa44c68ed95dd2f832d5193c55ab6d6bdcd947e6a4bd37d74b0a63be1dab19",
+    "parts/section-screw.npz": "29155e892c6338f7e06ba200b5fde6da7571bd379363f42d5149bdb6640fc906"
+  },
+  "input_scene_sha256": "2c59b2418e63c1a29320912fef4bc73537f3174377884bf2bacc9352200da1b1"
 }

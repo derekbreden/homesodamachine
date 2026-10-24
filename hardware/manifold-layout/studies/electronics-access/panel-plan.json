@@ -1,5 +1,5 @@
 {
-  "scope": "Separate electronics-bay access study using the complete funnel-gate arrangement; production enclosure and component poses are unchanged.",
+  "scope": "Separate electronics-bay access study with discrete heatset bosses and a balanced C14 corner position; production enclosure is unchanged.",
   "parent_commit": "4d74164a1db721e44c6ed1c2c20b9c4eac87b664",
   "ceiling_plan": "../east-feed/ceiling-plan.json",
   "panel": {
@@ -12,13 +12,43 @@
     "corner_radius_mm": 3.0,
     "edge_clearance_mm": 0.25
   },
-  "fixed_perimeter_seat": {
-    "bearing_width_mm": 6.0,
-    "thickness_mm": 3.0,
-    "root_overlap_mm": 2.0
+  "fasteners": {
+    "centres_xy_mm": [[-91.5,342.25],[-5.0,342.25],[-91.5,455.3],[-5.0,455.3]],
+    "edge_offset_mm": 6.75,
+    "boss_width_mm": 18.0,
+    "boss_depth_mm": 12.0,
+    "boss_bottom_z_mm": 335.5,
+    "bearing_z_mm": 346.0,
+    "insert": "ruthex RX-M3x5.7",
+    "insert_outer_diameter_mm": 4.6,
+    "insert_length_mm": 5.7,
+    "insert_thread_root_diameter_mm": 2.5,
+    "pilot_diameter_mm": 4.0,
+    "pilot_depth_mm": 7.5,
+    "screw": "M3 x 12 socket head",
+    "screw_diameter_mm": 3.0,
+    "screw_length_mm": 12.0,
+    "screw_head_diameter_mm": 5.5,
+    "screw_head_height_mm": 3.0,
+    "clearance_hole_diameter_mm": 3.4,
+    "counterbore_diameter_mm": 6.2,
+    "counterbore_floor_z_mm": 351.8,
+    "detail_corner_index": 2
+  },
+  "pry_notch": {
+    "edge": "front",
+    "centre_x_mm": -48.25,
+    "width_mm": 6.0,
+    "depth_mm": 2.0,
+    "through_panel_thickness": true
+  },
+  "c14": {
+    "flange_centre_mm": [-65.75,471.3,327.0],
+    "translation_from_parent_mm": [2.75,0.0,-3.0],
+    "balance_basis": "Approximately equal scanned-flange clearance to the ideal left inner wall and ordinary ceiling underside"
   },
   "illustrated_lift_mm": 70.0,
   "equipment_carried_by_panel": [],
-  "retention_detail": "Perimeter bearing seat only; fastener retention is not specified in this access study.",
+  "retention_detail": "Four discrete integral corner bosses are the panel's only bearing surfaces. Four recessed M3x12 screws engage RX-M3x5.7 heatsets. No perimeter rim.",
   "assembly_purpose": "Connect the rear-wall C14 inlet to the cold-core-mounted Mean Well through the open electronics bay, then install the empty panel last."
 }
