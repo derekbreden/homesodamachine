@@ -107,9 +107,6 @@ def main():
     out.mkdir(exist_ok=True)
     shapes = {"expanded-funnel": silicone, "expanded-funnel-frame": rigid,
               "expanded-funnel-cover": lid}
-    shapes["expanded-funnel-drain-bridge"] = frame.drain_support(
-        frame.DEFAULT_INNER, (-107.5, 107.5, 0., 491., 0., 355.),
-        plan["quadrant_seam_y_mm"], tuple(center[:2]), float(center[2]), "front")
     cut = plan["shell_opening_cut_mm"]
     opening = cq.Solid.makeBox(cut["xmax"] - cut["xmin"],
         cut["ymax"] - cut["ymin"], cut["zmax"] - cut["zmin"],
@@ -132,13 +129,9 @@ def main():
         "shell_opening_cut_mm": cut,
         "shell_upper_fore_edge_y_mm": cut["ymax"],
         "shell_cut_to_valve_support_fore_face_mm": plan["valve_support_fore_face_y_mm"] - cut["ymax"],
-        "fixed_drain_bridge": frame.drain_support_datums(centre=(float(center[0]), float(center[1])),
-                                                       seat=float(center[2])),
+        "drain_attachment": "Elbow cradle snaps into the removable funnel frame's 3 mm bottom web",
         "parts": {name: export(name, shape, out) for name, shape in shapes.items()},
         "qualification_scope": "Native isolated arrangement geometry. Casting, print fit, support removal and capacity in use remain outside this geometric result."}
-    bridge = report["fixed_drain_bridge"]
-    report["bridge_aft_edge_y_mm"] = bridge["y"] + bridge["depth"] / 2
-    report["bridge_to_quadrant_seam_mm"] = plan["quadrant_seam_y_mm"] - report["bridge_aft_edge_y_mm"]
     report["apron_plan_to_valve_support_fore_face_mm"] = (
         plan["valve_support_fore_face_y_mm"] - report["parts"]["expanded-funnel"]["bounds_mm"][1][1])
     (HERE / "funnel-expansion.json").write_text(json.dumps(report, indent=2) + "\n")
