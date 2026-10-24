@@ -1,0 +1,18 @@
+{
+  "destination": "Y-A port1",
+  "world_mouth_mm": [
+    22.35,
+    166.24,
+    270.675
+  ],
+  "world_outward_axis": [
+    0,
+    0,
+    1
+  ],
+  "topology": "hardware/topology/fluid-topology.md segment3 V-A-O to Y-A1",
+  "datum_source": "manifold_layout.port('Y-A','front') carried by enclosure transform(-x,z+14.48,y+191.425)",
+  "visible_geometry_source": "Frozen hardware/manifold-layout/studies/wet-dry/forward-context/parts/tee-y-b.npz, mirrored acrossX0 with reversed triangle winding",
+  "tube_insertion_source": "hardware/reference/jg-pp0208e-tee/jg_pp0208e_tee.py INSERTION15.7mm nominal",
+  "scope": "Y-A is retained destination context; V-B and reservoir tube poses are deferred"
+}
