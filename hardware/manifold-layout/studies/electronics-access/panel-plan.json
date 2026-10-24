@@ -1,0 +1,24 @@
+{
+  "scope": "Separate electronics-bay access study using the complete funnel-gate arrangement; production enclosure and component poses are unchanged.",
+  "parent_commit": "4d74164a1db721e44c6ed1c2c20b9c4eac87b664",
+  "ceiling_plan": "../east-feed/ceiling-plan.json",
+  "panel": {
+    "xmin": -98.25,
+    "xmax": 1.75,
+    "ymin": 335.5,
+    "ymax": 462.05,
+    "zmin": 346.0,
+    "zmax": 355.0,
+    "corner_radius_mm": 3.0,
+    "edge_clearance_mm": 0.25
+  },
+  "fixed_perimeter_seat": {
+    "bearing_width_mm": 6.0,
+    "thickness_mm": 3.0,
+    "root_overlap_mm": 2.0
+  },
+  "illustrated_lift_mm": 70.0,
+  "equipment_carried_by_panel": [],
+  "retention_detail": "Perimeter bearing seat only; fastener retention is not specified in this access study.",
+  "assembly_purpose": "Connect the rear-wall C14 inlet to the cold-core-mounted Mean Well through the open electronics bay, then install the empty panel last."
+}

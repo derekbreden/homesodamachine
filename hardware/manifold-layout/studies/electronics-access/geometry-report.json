@@ -1,0 +1,42 @@
+{
+  "scope": "Separate electronics-bay access study using the complete funnel-gate arrangement; production enclosure and component poses are unchanged.",
+  "source_plan_sha256": "373bec81284edc9c3eebee602974f578edb7fb67609418629c49cb0373558cb0",
+  "valid_single_solids": {
+    "access-fixed-ceiling": true,
+    "electronics-access-panel": true
+  },
+  "panel_size_mm": [
+    100.0,
+    126.55000000000001,
+    9.0
+  ],
+  "closed_panel_fixed_ceiling_intersection_mm3": 0.0,
+  "lift_samples": [
+    {
+      "lift_mm": 0.1,
+      "fixed_ceiling_intersection_mm3": 0.0
+    },
+    {
+      "lift_mm": 1.0,
+      "fixed_ceiling_intersection_mm3": 0.0
+    },
+    {
+      "lift_mm": 3.0,
+      "fixed_ceiling_intersection_mm3": 0.0
+    },
+    {
+      "lift_mm": 9.0,
+      "fixed_ceiling_intersection_mm3": 0.0
+    },
+    {
+      "lift_mm": 30.0,
+      "fixed_ceiling_intersection_mm3": 0.0
+    },
+    {
+      "lift_mm": 70.0,
+      "fixed_ceiling_intersection_mm3": 0.0
+    }
+  ],
+  "equipment_carried_by_panel": [],
+  "retention_detail": "Perimeter bearing seat only; fastener retention is not specified in this access study."
+}

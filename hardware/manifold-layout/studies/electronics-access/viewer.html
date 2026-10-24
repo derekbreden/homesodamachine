@@ -1,0 +1,116 @@
+<div id="electronics-access-arrangement">
+  <h3>Electronics access · empty last-on panel</h3>
+  <div class="viz-controls">
+    <label class="form-label">Highlight
+      <select id="qa-highlight" class="form-select">
+        <option value="quadrant" selected>Assembly zones</option>
+        <option value="changes">Latest changes</option>
+        <option value="normal">Normal</option>
+      </select>
+    </label>
+    <label class="form-check"><input id="qa-lift" class="form-check-input" type="checkbox" checked><span class="form-check-label">Lift access panel</span></label>
+  </div>
+  <div id="qa-stage" role="img" aria-label="Rotatable complete above-core arrangement with an independent empty roof panel above the Mean Well and C14 inlet. Lift the panel to expose the wiring access opening. The panel carries no equipment or connections; all other parts stay with their original assembly quadrants.">
+    <div id="qa-labels"></div>
+  </div>
+  <div id="qa-legend" class="viz-row text-small" aria-label="Assembly ownership legend"></div>
+  <div id="qa-detail" class="text-small" aria-live="polite">Drag to rotate · scroll to zoom · select a part for its attachment</div>
+  <span id="qa-swatch" hidden></span>
+</div>
+<style>
+#electronics-access-arrangement #qa-stage{position:relative;width:100%;height:clamp(360px,77vw,560px);touch-action:none;overflow:hidden}
+#electronics-access-arrangement canvas{display:block;width:100%;height:100%}
+#electronics-access-arrangement #qa-labels{position:absolute;inset:0;pointer-events:none}
+#electronics-access-arrangement .qa-label{position:absolute;color:var(--foreground);white-space:nowrap;background:var(--background);padding:2px 4px}
+#electronics-access-arrangement #qa-legend span{display:inline-flex;align-items:center;gap:6px}
+#electronics-access-arrangement #qa-legend i{display:inline-block;width:12px;height:12px}
+</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"}}</script>
+<!-- ARRANGEMENT_DATA -->
+<script type="module">
+import * as THREE from 'three';
+import {OrbitControls} from 'https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/controls/OrbitControls.js';
+const root=document.getElementById('electronics-access-arrangement');
+const stage=root.querySelector('#qa-stage'),highlight=root.querySelector('#qa-highlight'),liftControl=root.querySelector('#qa-lift'),labels=root.querySelector('#qa-labels'),detail=root.querySelector('#qa-detail'),legend=root.querySelector('#qa-legend');
+const packedData=Uint8Array.from(atob(document.getElementById('qa-data').textContent),c=>c.charCodeAt(0));
+const decodedData=await new Response(new Blob([packedData]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();
+const data=JSON.parse(new TextDecoder().decode(decodedData)),ownerById=Object.fromEntries(data.quadrants.map(q=>[q.id,q]));
+const scene=new THREE.Scene(),camera=new THREE.OrthographicCamera(-150,150,110,-110,.1,2500);camera.up.set(0,0,1);
+const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});renderer.setClearAlpha(0);renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.toneMapping=THREE.ACESFilmicToneMapping;stage.prepend(renderer.domElement);
+const controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.minZoom=.4;controls.maxZoom=8;
+const ambient=new THREE.AmbientLight(),sun=new THREE.DirectionalLight();ambient.intensity=1.45;sun.intensity=2;sun.position.set(-150,-200,700);scene.add(ambient,sun);
+const geometries={},bodies=[],neutral=[],pins=[],group=new THREE.Group();scene.add(group);
+const swatch=root.querySelector('#qa-swatch'),palette=document.createElement('canvas');palette.width=palette.height=1;
+const cx=palette.getContext('2d',{willReadFrequently:true});let selected=null,ready=false,panelMesh=null,panelLift=0,liftFrame=0;
+function color(token){swatch.style.color=`var(--${token})`;cx.clearRect(0,0,1,1);cx.fillStyle=getComputedStyle(swatch).color;cx.fillRect(0,0,1,1);const p=cx.getImageData(0,0,1,1).data;return new THREE.Color(p[0]/255,p[1]/255,p[2]/255).convertSRGBToLinear();}
+function roleColor(role){const series={custom:1,stem:1,flavor:1,carbonator:1,wet:1,gas:6,tpu:6,'gas-regulator':6,'gas-check':2,electronics:5,wire:5,plug:5,support:3,structure:3,closure:5}[role];return series?color(`viz-series-${series}`):color('foreground').lerp(color('background'),.44);}
+function meshColor(part){
+  if(highlight.value==='quadrant')return part.assembly?.quadrant?color(`viz-series-${ownerById[part.assembly.quadrant].series}`):color('foreground').lerp(color('background'),.5);
+  if(highlight.value==='changes')return part.latest_change?color('viz-series-1'):color('foreground').lerp(color('background'),.64);
+  return roleColor(part.role);
+}
+function refreshDetail(){
+  if(!selected){detail.textContent='Drag to rotate · scroll to zoom · select a part for its attachment';return;}
+  const a=selected.assembly,owner=ownerById[a?.quadrant]?.label||'Mount undecided';
+  detail.textContent=`${selected.label||selected.name} · ${owner} · ${a?.status==='proposed'?'Proposed: ':''}${a?.basis||''}${a?.handoffs?.length?' · '+a.handoffs.join(' · '):''}`;
+}
+function makeLegend(){
+  legend.replaceChildren();
+  const items=highlight.value==='quadrant'?data.quadrants.map(q=>({label:q.label,token:`viz-series-${q.series}`})):
+    highlight.value==='changes'?[{label:'Changed or added',token:'viz-series-1'},{label:'Unchanged',token:'muted-foreground'}]:
+    [{label:'Printed structure',token:'viz-series-3'},{label:'Water',token:'viz-series-1'},{label:'Electronics',token:'viz-series-5'}];
+  if(highlight.value==='quadrant'&&bodies.some(b=>!b.userData.assembly?.quadrant))items.push({label:'Mount undecided',token:'muted-foreground'});
+  for(const item of items){const span=document.createElement('span'),mark=document.createElement('i');mark.style.background=`var(--${item.token})`;mark.setAttribute('aria-hidden','true');span.append(mark,document.createTextNode(item.label));legend.append(span);}
+  const roof=document.createElement('span');roof.textContent=liftControl.checked?'Panel lifted · no attached equipment':'Panel closed';legend.append(roof);
+}
+function theme(){
+  const fg=color('foreground'),bg=color('background'),light=fg.r+fg.g+fg.b>bg.r+bg.g+bg.b?fg:bg;ambient.color.copy(light);sun.color.copy(light);
+  for(const mesh of bodies)mesh.material.color.copy(meshColor(mesh.userData));for(const line of neutral)line.material.color.copy(fg);
+  renderer.render(scene,camera);
+}
+async function decode(name,m){const raw=Uint8Array.from(atob(m.data),c=>c.charCodeAt(0)),bytes=await new Response(new Blob([raw]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer(),packed=new Int16Array(bytes,0,m.vc*3),positions=new Float32Array(packed.length);for(let i=0;i<packed.length;i++)positions[i]=packed[i]/50;const dv=new DataView(bytes),indices=new Uint32Array(m.ic);for(let i=0;i<m.ic;i++)indices[i]=dv.getUint32(m.vc*6+i*4,true);const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(positions,3));g.setIndex(new THREE.BufferAttribute(indices,1));g.computeVertexNormals();g.computeBoundingBox();geometries[name]=g;}
+function pin(text,at,followPanel=false){const el=document.createElement('span');el.className='qa-label text-small';el.textContent=text;labels.append(el);pins.push({el,at:new THREE.Vector3(...at),followPanel});}
+function addPart(part,geometry){const mesh=new THREE.Mesh(geometry,new THREE.MeshStandardMaterial({roughness:.68,metalness:.08,side:THREE.DoubleSide})),r=part.rotation;mesh.quaternion.setFromRotationMatrix(new THREE.Matrix4().set(...r[0],0,...r[1],0,...r[2],0,0,0,0,1));mesh.position.set(...part.translation);mesh.userData=part;const n=part.name,opacity=n==='cold-core-top'?.12:n==='ceiling'?.24:n==='electronics-access-panel'?.98:n.endsWith('-wall')?.22:n==='funnel'?.08:n==='funnel-frame'?.2:1;mesh.material.opacity=opacity;mesh.material.transparent=opacity<1;mesh.material.depthWrite=opacity===1;group.add(mesh);bodies.push(mesh);return mesh;}
+function build(){
+  for(const part of data.scene.instances)addPart(part,geometries[part.geometry]);
+  addPart({name:'cold-core-top',label:'Cold-core top · context',role:'structure',rotation:[[1,0,0],[0,1,0],[0,0,1]],translation:[0,321.3,245.4],assembly:{quadrant:'back-bottom',status:'located',basis:'Cold core carried by back-bottom'}},new THREE.BoxGeometry(181,278,16));
+  panelMesh=bodies.find(mesh=>mesh.userData.name==='electronics-access-panel');
+  pin('Empty panel · goes on last',[-48.25,398.775,355],true);
+  pin('C14 inlet',[-68.5,447,335]);pin('Mean Well · AC terminals',[-70,454,270]);
+  pin('Fixed ceiling',[52,377,355]);pin('BACK · +Y',[0,480,355]);
+  const lineGeometry=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-98.5,462.3,253.4),new THREE.Vector3(98.5,462.3,253.4)]),backEdge=new THREE.Line(lineGeometry,new THREE.LineBasicMaterial({transparent:true,opacity:.2}));scene.add(backEdge);neutral.push(backEdge);
+  window.__assemblyParts=bodies.map(b=>({name:b.userData.name,owner:b.userData.assembly?.quadrant,changed:!!b.userData.latest_change,visible:b.visible}));
+  makeLegend();theme();
+}
+const bounds=new THREE.Box3(new THREE.Vector3(-115,83,227),new THREE.Vector3(115,491,435));
+function projection(){
+  camera.updateMatrixWorld();const aspect=stage.clientWidth/stage.clientHeight,points=[];
+  for(let i=0;i<8;i++)points.push(new THREE.Vector3(i&1?bounds.max.x:bounds.min.x,i&2?bounds.max.y:bounds.min.y,i&4?bounds.max.z:bounds.min.z).applyMatrix4(camera.matrixWorldInverse));
+  const span=new THREE.Box3().setFromPoints(points).getSize(new THREE.Vector3()),half=Math.max(span.y*.55,span.x/aspect*.55);camera.left=-half*aspect;camera.right=half*aspect;camera.top=half;camera.bottom=-half;camera.updateProjectionMatrix();
+}
+function initialCamera(){const center=bounds.getCenter(new THREE.Vector3());controls.target.copy(center);camera.position.copy(center).add(new THREE.Vector3(1.1,-1.3,1.6).normalize().multiplyScalar(650));camera.lookAt(center);projection();controls.update();}
+function save(){window.openai?.setWidgetState?.({modelContent:{study:'electronics-access-v1',highlight:highlight.value,panel_lifted:liftControl.checked,selected_part:selected?.name||null},privateContent:{camera:camera.position.toArray(),target:controls.target.toArray(),zoom:camera.zoom}})?.catch(()=>{});}
+function applyMode(){window.__selectedHighlight=highlight.value;makeLegend();theme();refreshDetail();}
+function setPanelLift(lift){panelLift=lift;if(panelMesh)panelMesh.position.z=lift;window.__accessPanelState={lift_mm:lift,camera:camera.position.toArray(),target:controls.target.toArray(),equipment_carried:[]};}
+function movePanel(animate=false){cancelAnimationFrame(liftFrame);const target=liftControl.checked?data.access_panel.illustrated_lift_mm:0,start=panelLift,began=performance.now();if(!animate||matchMedia('(prefers-reduced-motion:reduce)').matches){setPanelLift(target);return;}function step(now){const t=Math.min(1,(now-began)/350);setPanelLift(start+(target-start)*(1-(1-t)**3));if(t<1)liftFrame=requestAnimationFrame(step);}liftFrame=requestAnimationFrame(step);}
+function restore(state){if(state?.modelContent?.study!=='electronics-access-v1')return;const p=state.privateContent||{};if(['quadrant','changes','normal'].includes(state.modelContent.highlight))highlight.value=state.modelContent.highlight;if(typeof state.modelContent.panel_lifted==='boolean')liftControl.checked=state.modelContent.panel_lifted;movePanel();selected=bodies.find(b=>b.userData.name===state.modelContent.selected_part)?.userData||null;for(const[n,v]of[['camera',camera.position],['target',controls.target]])if(Array.isArray(p[n])&&p[n].length===3&&p[n].every(Number.isFinite))v.fromArray(p[n]);if(Number.isFinite(p.zoom)&&p.zoom>=.4&&p.zoom<=8)camera.zoom=p.zoom;camera.lookAt(controls.target);projection();controls.update();applyMode();}
+highlight.addEventListener('change',()=>{applyMode();save();});controls.addEventListener('end',save);
+liftControl.addEventListener('change',()=>{movePanel(true);makeLegend();save();});
+window.addEventListener('openai:set_globals',e=>{if(ready&&e.detail?.globals?.widgetState)restore(e.detail.globals.widgetState);});
+const ray=new THREE.Raycaster(),cursor=new THREE.Vector2();let down=[0,0];
+renderer.domElement.addEventListener('pointerdown',e=>{down=[e.clientX,e.clientY];});
+renderer.domElement.addEventListener('pointerup',e=>{if(Math.hypot(e.clientX-down[0],e.clientY-down[1])>5)return;const box=renderer.domElement.getBoundingClientRect();cursor.set((e.clientX-box.left)/box.width*2-1,-(e.clientY-box.top)/box.height*2+1);ray.setFromCamera(cursor,camera);const hit=ray.intersectObjects(bodies.filter(b=>b.visible&&b.material.opacity>.5))[0];if(hit){selected=hit.object.userData;refreshDetail();save();}});
+new ResizeObserver(()=>{renderer.setSize(stage.clientWidth,stage.clientHeight);if(ready)projection();}).observe(stage);
+new MutationObserver(theme).observe(document.documentElement,{attributes:true,attributeFilter:['class','style','data-theme']});matchMedia('(prefers-color-scheme:dark)').addEventListener('change',theme);
+try{
+  await Promise.all(Object.entries(data.geometries).filter(([,m])=>!m.alias).map(([name,m])=>decode(name,m)));
+  function resolve(name){return geometries[name]||(geometries[name]=resolve(data.geometries[name].alias));}
+  for(const name of Object.keys(data.geometries))resolve(name);
+  build();initialCamera();ready=true;movePanel();applyMode();restore(window.openai?.widgetState);let frames=0;
+  function draw(){requestAnimationFrame(draw);controls.update();renderer.render(scene,camera);const taken=[];
+    for(const pin of pins){const el=pin.el;el.style.visibility='hidden';const point=pin.at.clone();if(pin.followPanel)point.z+=panelLift;const q=point.project(camera),x=(q.x+1)*stage.clientWidth/2,y=(1-q.y)*stage.clientHeight/2,w=el.offsetWidth,h=el.offsetHeight;if(q.z<-1||q.z>1)continue;
+      for(const[dx,dy]of[[8,-h-3],[-w-8,-h-3],[8,8],[-w-8,8]]){const l=x+dx,t=y+dy,r=[l,t,l+w,t+h];if(l<0||t<0||l+w>stage.clientWidth||t+h>stage.clientHeight||taken.some(a=>r[0]<a[2]+3&&r[2]+3>a[0]&&r[1]<a[3]+3&&r[3]+3>a[1]))continue;el.style.left=l+'px';el.style.top=t+'px';el.style.visibility='visible';taken.push(r);break;}}
+    if(++frames===4)window.__vizReady=true;
+  }draw();
+}catch(e){detail.textContent='3D view could not load: '+e.message;console.error(e);}
+</script>
