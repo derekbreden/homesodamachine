@@ -1,0 +1,20 @@
+{
+  "reference": "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step",
+  "reference_step_sha256": "181e81dc1e2e9757c671df7163998127dea32e24cbbeffcd885e84c2801a9975",
+  "mesh_source_sha256": "181e81dc1e2e9757c671df7163998127dea32e24cbbeffcd885e84c2801a9975",
+  "native_bounds_mm": [
+    [
+      -30.5,
+      -9.399999618530273,
+      -9.149999618530273
+    ],
+    [
+      30.5,
+      18.899999618530273,
+      26.5
+    ]
+  ],
+  "vertices": 5997,
+  "triangles": 6168,
+  "scope": "Frozen measured external reference for arrangement placement; internal rotor, insertion stop and flexible lead not modelled."
+}
