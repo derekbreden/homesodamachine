@@ -116,6 +116,11 @@ surface absolute p95 residuals are 0.072 and 0.092 mm in that view. Earlier view
 have larger disagreements, retained in the report; these numbers are not a
 uniform fit tolerance or proof of a completed physical mount.
 
+The [under-head tube photographs](under-head-tube/physical-observations.json)
+show a tube passing through the head-side space on the received sample. They
+support the [V-A route study](../../manifold-layout/studies/east-feed/README.md);
+they do not establish installed enclosure clearances.
+
 The two observed lead/casing transition regions are retained separately. These
 surface scans do not cleanly separate a protruding rigid strain relief from the
 flexible leads there; no rigid lump or fixed loose-wire route is invented. Their
