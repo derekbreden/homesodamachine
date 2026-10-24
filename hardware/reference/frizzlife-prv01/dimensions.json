@@ -1,0 +1,343 @@
+{
+  "units": "mm",
+  "part": "Frizzlife PRV01",
+  "asin": "B08NDQCZN2",
+  "status": "Purchased by Derek; manufacturer-dimensioned outside-envelope layout reference",
+  "canonical_frame": "+X flow from broad-cuff inlet X0 to narrow-neck outlet X66.802; Y/Z radial",
+  "published_body": {
+    "overall_length_mm": 66.80199999999999,
+    "main_housing_length_mm": 38.354,
+    "upper_housing_diameter_mm": 24.892,
+    "maximum_cuff_diameter_mm": 26.669999999999998,
+    "outlet_collar_projected_width_mm": 20.066,
+    "tube_od_mm": 6.35,
+    "advertised_preset_psi": 60.0,
+    "stated_regulated_range_psi": [
+      50.0,
+      60.0
+    ],
+    "maximum_inlet_psi": 300.0,
+    "maximum_temperature_C": 40.0
+  },
+  "geometry_estimates": {
+    "main_housing_start_x_mm": 10.0,
+    "main_housing_end_x_mm": 48.354,
+    "profile_x_radius_mm": [
+      [
+        2.4,
+        4.7
+      ],
+      [
+        3.5,
+        4.7
+      ],
+      [
+        3.5,
+        7.6
+      ],
+      [
+        5.4,
+        7.9
+      ],
+      [
+        5.4,
+        9.9
+      ],
+      [
+        9.8,
+        9.9
+      ],
+      [
+        10.0,
+        13.034999999999998
+      ],
+      [
+        10.3,
+        13.334999999999999
+      ],
+      [
+        23.0,
+        13.334999999999999
+      ],
+      [
+        25.0,
+        12.446
+      ],
+      [
+        47.854,
+        12.446
+      ],
+      [
+        48.354,
+        12.145999999999999
+      ],
+      [
+        48.354,
+        7.5
+      ],
+      [
+        50.6,
+        7.5
+      ],
+      [
+        50.6,
+        8.5
+      ],
+      [
+        55.5,
+        8.5
+      ],
+      [
+        55.5,
+        9.8
+      ],
+      [
+        62.2,
+        9.8
+      ],
+      [
+        62.2,
+        7.1
+      ],
+      [
+        63.2,
+        7.1
+      ],
+      [
+        63.2,
+        4.7
+      ],
+      [
+        64.40199999999999,
+        4.7
+      ]
+    ],
+    "collet_outer_diameter_mm": 11.0,
+    "clip_outer_diameter_mm": 12.4,
+    "outlet_collar": "Six-sided,20.066mm across corners; published photo width controls maximum envelope",
+    "tube_insertion_estimate_mm": 15.7,
+    "scope": "Axial split between two socket necks, shoulders, collet/clip detail, exact collar facet clock and socket engagement are estimated from the official photo and familiar1/4OD fittings. Published overall length is used as nominal tube-mouth span. No internal regulator mechanism is drawn; plain blind sockets display the tube insertion volumes."
+  },
+  "tube_ports": {
+    "inlet": {
+      "point_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "outward_axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "kind": "1/4tube_socket",
+      "tube_od_mm": 6.35,
+      "insertion_estimate_mm": 15.7
+    },
+    "outlet": {
+      "point_mm": [
+        66.80199999999999,
+        0.0,
+        0.0
+      ],
+      "outward_axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "kind": "1/4tube_socket",
+      "tube_od_mm": 6.35,
+      "insertion_estimate_mm": 15.7
+    }
+  },
+  "named_faces": {
+    "inlet_1_4OD_tube_mouth": {
+      "point_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "outward_axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "kind": "1/4tube_socket",
+      "tube_od_mm": 6.35,
+      "insertion_estimate_mm": 15.7,
+      "native_face_area_mm2": 63.36396032749764
+    },
+    "outlet_1_4OD_tube_mouth": {
+      "point_mm": [
+        66.80199999999999,
+        0.0,
+        0.0
+      ],
+      "outward_axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "kind": "1/4tube_socket",
+      "tube_od_mm": 6.35,
+      "insertion_estimate_mm": 15.7,
+      "native_face_area_mm2": 63.36396032749764
+    }
+  },
+  "nominal_tube_mouth_span_mm": 66.80199999999999,
+  "assembly_bounds_mm": [
+    [
+      0.0,
+      -13.333507537841797,
+      -13.335000038146973
+    ],
+    [
+      66.802001953125,
+      13.333507537841797,
+      13.329031944274902
+    ]
+  ],
+  "assembly_mesh": "geometry/frizzlife-prv01.npz",
+  "assembly_mesh_sha256": "e6f0bf07bd6e2555eb2a7e1c0fbcfccc95fe768cfefbbbe2fc72da045eed6903",
+  "assembly_step": "geometry/frizzlife-prv01.step",
+  "assembly_step_sha256": "4636b8275e494a8942610526972d641d5ae83a4c67edf89029cfcba99f024559",
+  "geometry": {
+    "frizzlife-body": {
+      "mesh": "geometry/frizzlife-body.npz",
+      "mesh_sha256": "dc336f41dbacd261362522a4aa795e92e4a8e2e90b3e1f1e35016a130585e7b5",
+      "step": "geometry/frizzlife-body.step",
+      "step_sha256": "c5fab0509b698cfdea4dfe4b366e64f0c7cd7fa3f005ff208c2b38cf796c47c7",
+      "bounds_mm": [
+        [
+          2.4000000953674316,
+          -13.333507537841797,
+          -13.335000038146973
+        ],
+        [
+          64.4020004272461,
+          13.333507537841797,
+          13.329031944274902
+        ]
+      ],
+      "valid_native_solid": true,
+      "native_solid_count": 1,
+      "volume_mm3": 24195.853533551443,
+      "triangles": 5590
+    },
+    "frizzlife-inlet-collet": {
+      "mesh": "geometry/frizzlife-inlet-collet.npz",
+      "mesh_sha256": "c1888702a3254f72e2243e9e80dbb117782468965671d1d393391ffd50651d93",
+      "step": "geometry/frizzlife-inlet-collet.step",
+      "step_sha256": "67baf04aae3dbcad1f600509598c9ab66e95ece67e1f78f09eb6ac421af91474",
+      "bounds_mm": [
+        [
+          0.0,
+          -5.49938440322876,
+          -5.4975385665893555
+        ],
+        [
+          2.4000000953674316,
+          5.49938440322876,
+          5.5
+        ]
+      ],
+      "valid_native_solid": true,
+      "native_solid_count": 1,
+      "volume_mm3": 129.00164833803095,
+      "triangles": 1260
+    },
+    "frizzlife-outlet-collet": {
+      "mesh": "geometry/frizzlife-outlet-collet.npz",
+      "mesh_sha256": "d62b29c6d6d181da49d2db955c84cbf248c36890fa41a2bc2761e7b7deb6483c",
+      "step": "geometry/frizzlife-outlet-collet.step",
+      "step_sha256": "bf237df514eae1ab7614f7f2af57c767be6907537b73d10a1bdff8b77ffc4e9c",
+      "bounds_mm": [
+        [
+          64.4020004272461,
+          -5.49938440322876,
+          -5.5
+        ],
+        [
+          66.802001953125,
+          5.49938440322876,
+          5.4975385665893555
+        ]
+      ],
+      "valid_native_solid": true,
+      "native_solid_count": 1,
+      "volume_mm3": 129.00164833803098,
+      "triangles": 1260
+    },
+    "frizzlife-inlet-clip": {
+      "mesh": "geometry/frizzlife-inlet-clip.npz",
+      "mesh_sha256": "63ab91449a00aaaec3c2c825abc38536424a468d42513a333f55908de0dd32a3",
+      "step": "geometry/frizzlife-inlet-clip.step",
+      "step_sha256": "5e7a15428e035e234e3b059c7f40a3a422b633f9e6cc82724dab33433e73cad4",
+      "bounds_mm": [
+        [
+          1.5,
+          -6.199339866638184,
+          -6.199999809265137
+        ],
+        [
+          2.4000000953674316,
+          6.199339866638184,
+          5.868560314178467
+        ]
+      ],
+      "valid_native_solid": true,
+      "native_solid_count": 1,
+      "volume_mm3": 36.010410040427644,
+      "triangles": 744
+    },
+    "frizzlife-outlet-clip": {
+      "mesh": "geometry/frizzlife-outlet-clip.npz",
+      "mesh_sha256": "5ebea30022c07a3ad3229b1ad0a34297766748c9cbe365b1b9b94b182b11b81d",
+      "step": "geometry/frizzlife-outlet-clip.step",
+      "step_sha256": "4de19537b6ceb75d20e2e7c44725a3f426ff7e29e096fdfda2ffef1472713ee8",
+      "bounds_mm": [
+        [
+          64.4020004272461,
+          -6.199339866638184,
+          -5.868560314178467
+        ],
+        [
+          65.302001953125,
+          6.199339866638184,
+          6.199999809265137
+        ]
+      ],
+      "valid_native_solid": true,
+      "native_solid_count": 1,
+      "volume_mm3": 36.01041004042773,
+      "triangles": 744
+    }
+  },
+  "sources": [
+    {
+      "title": "Frizzlife official PRV01 product page",
+      "url": "https://www.frizzlife.com/collections/pressure-regulators/products/frizzlife-water-filter-pressure-regulator-protection-valve-for-reverse-osmosis-water-filter-system-60psi-1-4-quick-connect-push-fit-prv01",
+      "verified_date": "2026-10-23",
+      "supports": "PRV01 identity,native1/4push-in,50\u201360psi,maximum300psi inlet and40Cwater"
+    },
+    {
+      "title": "Frizzlife official dimensional photograph",
+      "url": "https://cdn.shopify.com/s/files/1/0159/8429/5990/files/PRV013_77f49cde-2932-4349-856b-636ef15aa6ae_1.jpg?v=1758007365",
+      "local": "sources/dimensions.jpg",
+      "sha256": "a7c2e74eccfc9dfae580484f8a18dd8074ba2866b192c25a70789665ec93ce97",
+      "supports": "2.63in overall,1.51in housing,0.98in upper-body,0.79in collar and1.05in lower-cuff widths"
+    },
+    {
+      "title": "Frizzlife official product photograph",
+      "url": "https://cdn.shopify.com/s/files/1/0159/8429/5990/files/PRV01.png?v=1758007365",
+      "local": "sources/product.png",
+      "sha256": "ef8bd68fabedc2d66da74c691215da84697bf7182017731d16508822d70c56b4",
+      "supports": "Outside shoulders,release collets,blue clips and flow arrow"
+    },
+    {
+      "title": "Purchased item listing",
+      "url": "https://www.amazon.com/dp/B08NDQCZN2",
+      "supports": "User-provided purchased item identity; signed-inPrimeoffer verified by integrating agent"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-23",
+  "reporter": "Derek",
+  "part": "Received G Ganen pump",
+  "observation": "The supplied photos show a white tube passing through the space below the pump head alongside its pressure-switch leads.",
+  "requested_route": "For that tube we just ran, I would like to see it running under the pump head, and then an elbow on that other side of the pump head, and then a straight line to Y-A, and then a stem elbow on Y-A.",
+  "tube_size_scope": "The arrangement uses 6.35mm OD tubing. No independent tube-diameter measurement is supplied in these photographs.",
+  "scope": "Physical demonstration of the head-side passage on the received sample. Not acceptance of the installed enclosure route or its nominal measured gaps.",
+  "photos": [
+    {
+      "file": "IMG_8159.jpeg",
+      "original_attachment_sha256": "42c4d59856e5e435634de9e39eb4a5acbae359abd0d493ea2d43836844c0e6c1",
+      "sha256": "18a8b6ef950efc38c57381fe3af59a0547d9a4366cb385d0f25f62e59c7f5ad9",
+      "public_copy": "Original JPEG image stream; identifying metadata removed; orientation retained"
+    },
+    {
+      "file": "IMG_8160.jpeg",
+      "original_attachment_sha256": "2f5b85304b24fcd760bd930e1a5c3395449995e385edb19cb034e012e615da16",
+      "sha256": "74b1167b3de007b9dbbc2bee67d4030fa014503291af5668a6b439dfc6eec4da",
+      "public_copy": "Original JPEG image stream; identifying metadata removed; orientation retained"
+    },
+    {
+      "file": "IMG_8161.jpeg",
+      "original_attachment_sha256": "e90626888a2dbe05d10c066898a948f210a3cd23900832f535961f4089e04c31",
+      "sha256": "d5fd42ac4b8bdb6f34896d8ac9c143f6c7e2611014f842825798e5ee1713d22d",
+      "public_copy": "Original JPEG image stream; identifying metadata removed; orientation retained"
+    }
+  ],
+  "layout": "../../../manifold-layout/studies/east-feed/README.md"
+}

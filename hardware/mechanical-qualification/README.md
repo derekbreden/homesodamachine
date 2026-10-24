@@ -674,6 +674,11 @@ baseline remains two walls and 15% gyroid unless Derek explicitly asks for a cha
 | Transit packaging | Carton, foam end-caps and exact shipping mass are open in [finish and shipping](../assembly/finish-pack-ship.md). | An intact, functional appliance on arrival. Design packaging support for the complete mass, vulnerable surfaces and shipping exposures; a larger fastener alone does not settle this system problem. |
 | Lifetime and acceptance duration | [Acceptance and burn-in](../assembly/acceptance-and-burn-in.md) explicitly marks its eight-hour duration and compressor-duty limits as proposed defaults. | Durable operation and useful production screening. Derive exposures and acceptance limits from product life and use conditions. A production screen and design endurance answer different questions; eight hours alone establishes neither. |
 
+The received G Ganen pump's [head-side tube photographs](../reference/g-ganen-pump/under-head-tube/physical-observations.json)
+show the passage used by the above-core V-A routing study. This is physical
+passage evidence on that sample; installed clearance and retention remain
+outside the observation's scope.
+
 ## Maintaining the evidence
 
 For a physical issue or optimization, identify the affected interface and customer outcome,

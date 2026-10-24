@@ -1,0 +1,219 @@
+{
+  "units": "mm",
+  "part": "YZMSZ fixed 0.3 MPa water pressure regulator, ASIN B0CGS34P93",
+  "selected_variant": "1/4 inch O.D. 0.3 MPa Pressure",
+  "status": "Purchased reference; exterior layout estimate",
+  "canonical_frame": "Native +X flow; broad/windowed inlet mouth X0 to narrow-neck outlet mouth X67",
+  "published": {
+    "tube_od_mm": 6.35,
+    "connection_type": "Native push-connect at both ends",
+    "fixed_outlet_pressure_MPa": 0.3,
+    "fixed_outlet_pressure_psi": 43.5113,
+    "application": "Reverse osmosis and household water filtration",
+    "housing_material": "Engineering plastic, exact polymer unspecified"
+  },
+  "estimated_envelope": {
+    "tube_mouth_span_mm": 67.0,
+    "maximum_diameter_mm": 27.0,
+    "length_range_mm": [
+      60.0,
+      74.0
+    ],
+    "diameter_range_mm": [
+      24.0,
+      30.0
+    ],
+    "profile_x_radius_mm": [
+      [
+        0.0,
+        5.8
+      ],
+      [
+        1.8,
+        5.8
+      ],
+      [
+        1.8,
+        8.0
+      ],
+      [
+        4.0,
+        8.0
+      ],
+      [
+        4.0,
+        10.5
+      ],
+      [
+        7.0,
+        10.5
+      ],
+      [
+        7.0,
+        12.6
+      ],
+      [
+        9.0,
+        12.6
+      ],
+      [
+        9.0,
+        13.5
+      ],
+      [
+        23.5,
+        13.5
+      ],
+      [
+        27.0,
+        12.0
+      ],
+      [
+        50.0,
+        12.0
+      ],
+      [
+        52.5,
+        11.0
+      ],
+      [
+        52.5,
+        7.0
+      ],
+      [
+        56.0,
+        7.0
+      ],
+      [
+        57.0,
+        9.6
+      ],
+      [
+        63.0,
+        9.6
+      ],
+      [
+        64.5,
+        7.5
+      ],
+      [
+        65.0,
+        5.8
+      ],
+      [
+        67.0,
+        5.8
+      ]
+    ],
+    "basis": "Seller photo proportions and dimensioned Frizzlife PRV01 66.802 x 26.67 mm housing as a size proxy; common manufacture is not established",
+    "scope": "Exterior layout estimate, not a measured or manufacturer-dimensioned envelope. End shoulder positions, collet sizes, window recesses, open display bore and 15 mm tube insertion are estimates."
+  },
+  "tube_ports": {
+    "inlet": {
+      "point_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "outward_axis": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "kind": "1/4tube_socket",
+      "tube_od_mm": 6.35,
+      "insertion_estimate_mm": 15.0
+    },
+    "outlet": {
+      "point_mm": [
+        67.0,
+        0.0,
+        0.0
+      ],
+      "outward_axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "kind": "1/4tube_socket",
+      "tube_od_mm": 6.35,
+      "insertion_estimate_mm": 15.0
+    }
+  },
+  "named_faces": {
+    "inlet_push_connect_mouth": {
+      "point_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "outward_normal": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "native_face_area_mm2": 74.01395942316704
+    },
+    "outlet_push_connect_mouth": {
+      "point_mm": [
+        67.0,
+        0.0,
+        0.0
+      ],
+      "outward_normal": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "native_face_area_mm2": 74.01395942316704
+    }
+  },
+  "geometry": {
+    "yzmsz-water-regulator": {
+      "mesh": "geometry/yzmsz-water-regulator.npz",
+      "mesh_sha256": "16a6f10174b160630ca6e0db4b2d39616337712ec002f533a79069f28558a1c6",
+      "step": "geometry/yzmsz-water-regulator.step",
+      "step_sha256": "ea55169a72b0fb7a257a22143247293c67ea1fbebd0306eae53ae07c452de1ea",
+      "bounds_mm": [
+        [
+          -6.436411724981112e-16,
+          -13.498489379882812,
+          -13.5
+        ],
+        [
+          67.0,
+          13.498489379882812,
+          13.49395751953125
+        ]
+      ],
+      "valid_native_solid": true,
+      "native_solid_count": 1,
+      "volume_mm3": 25192.154682340384,
+      "triangles": 5516
+    }
+  },
+  "sources": [
+    {
+      "title": "YZMSZ selected fixed 0.3 MPa, 1/4 inch OD water regulator listing",
+      "url": "https://www.amazon.com/dp/B0CGS34P93",
+      "verified_date": "2026-10-23",
+      "supports": "Brand, ASIN, selected 1/4 inch OD fixed 0.3 MPa variant, native push-connect connections, engineering-plastic housing and water/RO application"
+    },
+    {
+      "title": "Selected fixed-regulator seller photograph",
+      "url": "https://m.media-amazon.com/images/I/31M3PQOoBYL._AC_.jpg",
+      "supports": "Stepped cylindrical housing, two visible cap windows, axial collets, and embossed flow arrow from broad cap end toward narrow-neck connector end; not a dimensioned drawing"
+    },
+    {
+      "title": "Frizzlife PRV01 manufacturer dimension drawing, used only as a scale proxy",
+      "url": "https://www.frizzlife.com/cdn/shop/files/PRV013_77f49cde-2932-4349-856b-636ef15aa6ae_1.jpg?v=1758007365&width=2000",
+      "supports": "A photographed housing of similar proportions has 2.63 inch overall length and 1.05 inch maximum diameter; this does not establish YZMSZ dimensions or common manufacture"
+    }
+  ],
+  "unpublished": [
+    "Exact physical dimensions",
+    "Outlet pressure tolerance and flow curve",
+    "Maximum inlet pressure and service temperature",
+    "Exact housing polymer"
+  ]
+}
