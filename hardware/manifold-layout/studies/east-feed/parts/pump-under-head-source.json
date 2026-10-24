@@ -1,0 +1,256 @@
+{
+  "schema": 1,
+  "geometry": "Pump detailed rigid envelope with measured switch passage",
+  "coordinate_frame": "Native pump reference, millimetres",
+  "native_to_world": {
+    "rotation": [
+      [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "translation_mm": [
+      9.131730523637714,
+      362.93545217260646,
+      253.4000061035156
+    ],
+    "derivation": "Exact selected-study pump suction datum minus rotated canonical suction tip. The frozen source preserves the yaw-only native axes.",
+    "native_suction_tip_mm": [
+      -33.288434858577574,
+      -37.26103574258915,
+      26.724302203996178
+    ],
+    "world_suction_tip_mm": [
+      46.392766266226865,
+      329.64701731402886,
+      280.1243083075118
+    ]
+  },
+  "parts": [
+    {
+      "name": "rigid_casing_envelope",
+      "source": "Corrected native detailed reference",
+      "vertices": [
+        0,
+        30777
+      ]
+    },
+    {
+      "name": "head_outer_shell_external_envelope",
+      "source": "Corrected native detailed reference",
+      "vertices": [
+        30777,
+        36727
+      ]
+    },
+    {
+      "name": "switch_outer_shell_external_envelope",
+      "source": "Corrected native detailed reference",
+      "vertices": [
+        36727,
+        44433
+      ]
+    },
+    {
+      "name": "head_side_yminus_external_envelope",
+      "source": "Corrected native detailed reference",
+      "vertices": [
+        44433,
+        47067
+      ]
+    },
+    {
+      "name": "head_side_yplus_external_envelope",
+      "source": "Corrected native detailed reference",
+      "vertices": [
+        47067,
+        49641
+      ]
+    },
+    {
+      "name": "lower_cradle_occupied_external_envelope",
+      "source": "Corrected native detailed reference",
+      "vertices": [
+        49641,
+        49929
+      ]
+    },
+    {
+      "name": "motor_surface_yminus_external_envelope",
+      "source": "Corrected native detailed reference",
+      "vertices": [
+        49929,
+        50319
+      ]
+    },
+    {
+      "name": "motor_surface_yplus_external_envelope",
+      "source": "Corrected native detailed reference",
+      "vertices": [
+        50319,
+        50763
+      ]
+    },
+    {
+      "name": "motor_can_vent_filled_envelope",
+      "source": "Corrected native detailed reference",
+      "vertices": [
+        50763,
+        51101
+      ]
+    },
+    {
+      "name": "crown_round_head_01_external_envelope",
+      "source": "Corrected native detailed reference",
+      "vertices": [
+        51101,
+        54281
+      ]
+    },
+    {
+      "name": "crown_round_head_02_external_envelope",
+      "source": "Corrected native detailed reference",
+      "vertices": [
+        54281,
+        59147
+      ]
+    },
+    {
+      "name": "crown_round_head_03_external_envelope",
+      "source": "Corrected native detailed reference",
+      "vertices": [
+        59147,
+        61617
+      ]
+    },
+    {
+      "name": "crown_round_head_04_external_envelope",
+      "source": "Corrected native detailed reference",
+      "vertices": [
+        61617,
+        64653
+      ]
+    },
+    {
+      "name": "crown_round_head_05_external_envelope",
+      "source": "Corrected native detailed reference",
+      "vertices": [
+        64653,
+        67839
+      ]
+    },
+    {
+      "name": "crown_round_head_06_external_envelope",
+      "source": "Corrected native detailed reference",
+      "vertices": [
+        67839,
+        71055
+      ]
+    },
+    {
+      "name": "crown_round_head_07_external_envelope",
+      "source": "Corrected native detailed reference",
+      "vertices": [
+        71055,
+        74537
+      ]
+    },
+    {
+      "name": "crown_round_molded_boss_external_envelope",
+      "source": "Corrected native detailed reference",
+      "vertices": [
+        74537,
+        88043
+      ]
+    },
+    {
+      "name": "crown_long_molded_boss_external_envelope",
+      "source": "Corrected native detailed reference",
+      "vertices": [
+        88043,
+        94697
+      ]
+    },
+    {
+      "name": "port_yminus_barb_envelope",
+      "source": "Corrected native detailed reference",
+      "vertices": [
+        94697,
+        104045
+      ]
+    },
+    {
+      "name": "port_yminus_root_envelope",
+      "source": "Corrected native detailed reference",
+      "vertices": [
+        104045,
+        105479
+      ]
+    },
+    {
+      "name": "port_yplus_barb_envelope",
+      "source": "Corrected native detailed reference",
+      "vertices": [
+        105479,
+        114360
+      ]
+    },
+    {
+      "name": "port_yplus_root_envelope",
+      "source": "Corrected native detailed reference",
+      "vertices": [
+        114360,
+        116304
+      ]
+    },
+    {
+      "name": "rear_yminus_installed_rubber_slider",
+      "source": "Frozen installed study foot, pose and geometry unchanged",
+      "vertices": [
+        116304,
+        116460
+      ]
+    },
+    {
+      "name": "head_yminus_installed_rubber_slider",
+      "source": "Frozen installed study foot, pose and geometry unchanged",
+      "vertices": [
+        116460,
+        116616
+      ]
+    },
+    {
+      "name": "head_yplus_installed_rubber_slider",
+      "source": "Frozen installed study foot, pose and geometry unchanged",
+      "vertices": [
+        116616,
+        116772
+      ]
+    }
+  ],
+  "independent_foot": "rear_yplus_observed_rubber_slider_envelope is omitted; the study retains its separately translated pump-sliding-foot instance",
+  "scope": "Twenty-two corrected detailed rigid parts and the frozen study three installed feet. Observed free-foot poses are not substituted for installed feet.",
+  "input_sha256": {
+    "hardware/manifold-layout/studies/stem-fittings/socket-layout.json": "ffdaee40433c2b87e5d5b0ee06527698f922c9d0778f7241f421cd836aeaaf20",
+    "hardware/manifold-layout/studies/stem-fittings/socket-layout.npz": "2e033341e1f10b230576ceaf38849f58a97e3d7074ddaea85c8bc95d3e53bd91",
+    "hardware/reference/g-ganen-pump/g_ganen_pump.py": "290af327626df332777ee91a659455ae0b4e5c54ae58b4e9fd6400fcf5e7a048",
+    "hardware/reference/g-ganen-pump/under-head-clearance.json": "f8d572d1176e6056de716842b058861d121fdf636c6e608f2e7492f1ce3d05e5",
+    "hardware/manifold-layout/studies/wall-supported/study.json": "fbecd317cac46cd7f2f72ea1fd879aee9eec00e1610697c2016c31676f0287af"
+  },
+  "mesh_sha256": "de462705b12c1b9182c15d9bab2c4d651c9b667e487fc863a8737bf751c646a3",
+  "tessellation": {
+    "linear_deflection_mm": 0.08,
+    "angular_tolerance_rad": 0.15
+  }
+}

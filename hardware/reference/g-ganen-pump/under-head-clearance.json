@@ -1,0 +1,222 @@
+{
+  "schema": 1,
+  "part": "G Ganen pump rigid switch underside",
+  "status": "Observed external open air; loose flexible leads excluded from rigid envelope",
+  "frame": "Native reference: X positive toward motor rear, foot-bearing datum Z0",
+  "physical_observation": "under-head-tube/flat-elbow-observation.json",
+  "surface_selection": {
+    "x_interval_mm": [
+      -64,
+      -46
+    ],
+    "abs_y_max_mm": 12,
+    "z_interval_mm": [
+      15.7,
+      17.8
+    ],
+    "abs_normal_z_min": 0.97,
+    "scope": "Broad near-planar switch underside visible in the feet-up and on-back scans. The lead loops below this surface are flexible and separately visible in the photographs."
+  },
+  "readings": [
+    {
+      "pass": "pass-01-feet-up",
+      "source": {
+        "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-g-ganen-pump/pass-01-feet-up/Fused 0920_1 (0.10mm).ply",
+        "sha256": "9b400d7a738aa8b69f5d8023f6a2ad4bb2fae7f542e7db0f85ef66cdcd64c05b",
+        "points": 3235134,
+        "coordinate_scale_factor": 1.0
+      },
+      "native_to_reference": [
+        [
+          -0.9914073344922844,
+          -0.08766563564487335,
+          0.09708879153580989,
+          27.942973698886004
+        ],
+        [
+          0.03758851882101817,
+          0.5199861662915134,
+          0.8533472271697475,
+          -216.24566869300796
+        ],
+        [
+          -0.1252940555962078,
+          0.8496641237526952,
+          -0.5122228777005372,
+          171.6151237789361
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "selected_points": 42497,
+      "point_mm": [
+        -54.59311310016922,
+        1.882879002150007,
+        16.60627824985198
+      ],
+      "normal": [
+        -0.028892511251531878,
+        -0.007071164256937143,
+        -0.9995575128173624
+      ],
+      "residual_mm": {
+        "mean": 7.984723366110395e-15,
+        "median": -0.006963661134662763,
+        "rms": 0.0796588456306083,
+        "p05": -0.1101863624853562,
+        "p95": 0.13874868869245285,
+        "abs_p95": 0.15271427179281946,
+        "min": -0.3825503593869281,
+        "max": 0.3918766172900747,
+        "n": 42497
+      }
+    },
+    {
+      "pass": "pass-02-on-back",
+      "source": {
+        "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-g-ganen-pump/pass-02-on-back/Fused 0920_1 (0.10mm).ply",
+        "sha256": "887120599830402931c93b1f38954bbcfbe107e83a0dd5a23b53245af11ba949",
+        "points": 3478141,
+        "coordinate_scale_factor": 1.0
+      },
+      "native_to_reference": [
+        [
+          -0.7821699511776367,
+          0.31977314943034457,
+          -0.5347478848748929,
+          192.79531214346162
+        ],
+        [
+          -0.619661606426592,
+          -0.4888219477321711,
+          0.6140623721871763,
+          -125.88794462170098
+        ],
+        [
+          -0.06503584392924217,
+          0.8116638690484659,
+          0.5804929824603273,
+          -112.98633144275408
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "selected_points": 32077,
+      "point_mm": [
+        -54.53548978187938,
+        0.5739097033250826,
+        16.76740759052278
+      ],
+      "normal": [
+        -0.028085814380975342,
+        -0.0013373866994462749,
+        -0.9996046210514303
+      ],
+      "residual_mm": {
+        "mean": 9.789660535078242e-14,
+        "median": 0.012734372611496028,
+        "rms": 0.07837499096921877,
+        "p05": -0.1324363760231112,
+        "p95": 0.09051652790056987,
+        "abs_p95": 0.14707557026744247,
+        "min": -0.6366093662887202,
+        "max": 0.40145918244009604,
+        "n": 32077
+      }
+    },
+    {
+      "pass": "pass-03-feet-down",
+      "source": {
+        "path": "/Users/derekbredensteiner/Documents/3D Scans/2026-09-20-g-ganen-pump/pass-03-feet-down/Fused 0920_1 (0.10mm).ply",
+        "sha256": "2b58def4150ca4146fb1bf1e288d532d5d0e8aa65bcb69615710cd6e0c9fb4c5",
+        "points": 2989594,
+        "coordinate_scale_factor": 1.0
+      },
+      "native_to_reference": [
+        [
+          -0.36515807688884755,
+          0.4051122232579994,
+          -0.8381787789307236,
+          245.0243685665154
+        ],
+        [
+          0.9300573783260869,
+          0.19807059958193046,
+          -0.309453244614529,
+          21.72304904055836
+        ],
+        [
+          0.040655281379465426,
+          -0.8925537093913255,
+          -0.4491046915227463,
+          139.87009782445264
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "selected_points": 0,
+      "status": "Rigid underside occluded in this view"
+    }
+  ],
+  "open_air": {
+    "x_interval_mm": [
+      -62.0,
+      -45.55
+    ],
+    "y_interval_mm": [
+      -20.0,
+      20.0
+    ],
+    "bottom_z_mm": -2.0,
+    "roof_plane": {
+      "point_mm": [
+        -54.59311310016922,
+        1.882879002150007,
+        16.60627824985198
+      ],
+      "normal": [
+        -0.028892511251531878,
+        -0.007071164256937143,
+        -0.9995575128173624
+      ],
+      "inward_allowance_mm": 0.1
+    },
+    "boundary_scope": "The narrow axial interval retains the lower front switch block and the head shoulder. The transverse interval is below the observed rigid underside and its rising side edges. The lower-scanned underside and a 0.10mm inward air allowance retain conservative rigid stock. This open region is independent of mating fitting geometry."
+  },
+  "affected_components": [
+    "rigid_casing_envelope",
+    "switch_outer_shell_external_envelope"
+  ],
+  "excluded_from_correction": [
+    "head outer shell",
+    "lower cradle",
+    "all four rubber feet",
+    "motor",
+    "barbs",
+    "crown features"
+  ],
+  "limits": [
+    "The rigid surface fits do not establish absolute optical-scanner accuracy.",
+    "Loose leads can occupy this space and are dressed during assembly; they are not rigid pump material.",
+    "The observed open region does not qualify any installed enclosure route or mounting load."
+  ],
+  "input_sha256": {
+    "registered-measurements.json": "616062682f316b5a0567bc067b6341b8674f0b361ed5f2bc9983868e700786bc"
+  },
+  "tool_sha256": {
+    "under-head-clearance/measure.py": "b93a6521c29ddf881950334ed531a1bc2af2154736686f5183803fae18468485",
+    "scan_tools.py": "9a059f951cd7500be6d868d14eabab0b2628a75c34e2ba64820f9c233e1c04c8"
+  }
+}

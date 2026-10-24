@@ -675,9 +675,11 @@ baseline remains two walls and 15% gyroid unless Derek explicitly asks for a cha
 | Lifetime and acceptance duration | [Acceptance and burn-in](../assembly/acceptance-and-burn-in.md) explicitly marks its eight-hour duration and compressor-duty limits as proposed defaults. | Durable operation and useful production screening. Derive exposures and acceptance limits from product life and use conditions. A production screen and design endurance answer different questions; eight hours alone establishes neither. |
 
 The received G Ganen pump's [head-side tube photographs](../reference/g-ganen-pump/under-head-tube/physical-observations.json)
-show the passage used by the above-core V-A routing study. This is physical
-passage evidence on that sample; installed clearance and retention remain
-outside the observation's scope.
+show the passage used by the above-core V-A routing study. The
+[flat-elbow photographs](../reference/g-ganen-pump/under-head-tube/flat-elbow-observation.json)
+demonstrate the purchased union elbow lying beneath the pump head with both
+socket axes horizontal. These are physical fit observations on that sample;
+installed enclosure clearance and retention remain outside their scope.
 
 ## Maintaining the evidence
 
