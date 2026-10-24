@@ -2,7 +2,7 @@
 
 The production definitions are loaded without calling their file writers. Only
 the in-memory parameters change. Output meshes and native STEPs use the selected
-study's world frame, with the drain at its retained station.
+study's world frame, with absolute mouth and drain stations from the plan.
 """
 from pathlib import Path
 import hashlib
@@ -80,19 +80,18 @@ def main():
     # Its ordinary wall/seam/fastener dimensions are frame dependencies only.
     import enclosure
 
-    original_capacity = capacity(funnel)
     extension = plan["aft_extension_mm"]
-    half = extension / 2
-    original_center = np.array(plan["original_collar_center_world_mm"], float)
-    center = original_center + [0., half, 0.]
-    original_collar = funnel.collar_d
-    funnel.collar_d += extension
-    funnel.apron_depth += extension
-    funnel.neck_dy -= half
+    center = np.array(plan["collar_center_world_mm"], float)
+    outlet = np.array(plan["outlet_bore_exit_world_mm"], float)
+    funnel.collar_d = plan["collar_depth_mm"]
+    funnel.apron_depth = plan["apron_depth_mm"]
+    funnel.neck_dx = float(outlet[0] - center[0])
+    funnel.neck_dy = float(outlet[1] - center[1])
     funnel.drain_local = (funnel.neck_dx, funnel.neck_dy,
                          -funnel.drop + funnel.plug_lift)
-    frame.depth += extension
-    frame.corbel_foot_half_depth += half
+    frame.depth = plan["frame_depth_mm"]
+    frame.corbel_foot_half_depth = plan["frame_corbel_foot_half_depth_mm"]
+    frame.body_width = plan["frame_body_width_mm"]
     frame.center_y = float(center[1])
     frame.forming_clearance.cache_clear()
     frame.build.cache_clear()
@@ -108,6 +107,9 @@ def main():
     out.mkdir(exist_ok=True)
     shapes = {"expanded-funnel": silicone, "expanded-funnel-frame": rigid,
               "expanded-funnel-cover": lid}
+    shapes["expanded-funnel-drain-bridge"] = frame.drain_support(
+        frame.DEFAULT_INNER, (-107.5, 107.5, 0., 491., 0., 355.),
+        plan["quadrant_seam_y_mm"], tuple(center[:2]), float(center[2]), "front")
     cut = plan["shell_opening_cut_mm"]
     opening = cq.Solid.makeBox(cut["xmax"] - cut["xmin"],
         cut["ymax"] - cut["ymin"], cut["zmax"] - cut["zmin"],
@@ -116,11 +118,12 @@ def main():
         native = cq.importers.importStep(str(source)).val()
         shapes[name] = native.cut(opening).clean()
     report = {"scope": plan["scope"], "units": "mm", "source_sha256": source_hashes,
-        "aft_extension_mm": extension, "original_collar_depth_mm": original_collar,
+        "aft_extension_mm": extension,
         "collar_depth_mm": funnel.collar_d, "collar_center_world_mm": center.tolist(),
         "outlet_bore_exit_world_mm": (center + funnel.drain_local).tolist(),
-        "retained_drain_union_corner_world_mm": [0., 161.69575, 280.41],
-        "capacity_to_mouth_ml": capacity(funnel), "original_capacity_to_mouth_ml": original_capacity,
+        "drain_union_corner_world_mm": plan["drain_union_corner_world_mm"],
+        "outlet_fore_of_mouth_center_mm": float(center[1] - outlet[1]),
+        "capacity_to_mouth_ml": capacity(funnel),
         "capacity_method": "Complete native wet cavity closed at mouth and outlet planes; no cover displacement",
         "silicone_normal_wall_mm": funnel.collar_wall,
         "apron_thickness_mm": funnel.apron_rise,
@@ -133,8 +136,9 @@ def main():
                                                        seat=float(center[2])),
         "parts": {name: export(name, shape, out) for name, shape in shapes.items()},
         "qualification_scope": "Native isolated arrangement geometry. Casting, print fit, support removal and capacity in use remain outside this geometric result."}
-    report["capacity_gain_ml"] = report["capacity_to_mouth_ml"] - original_capacity
-    report["capacity_gain_percent"] = report["capacity_gain_ml"] / original_capacity * 100
+    bridge = report["fixed_drain_bridge"]
+    report["bridge_aft_edge_y_mm"] = bridge["y"] + bridge["depth"] / 2
+    report["bridge_to_quadrant_seam_mm"] = plan["quadrant_seam_y_mm"] - report["bridge_aft_edge_y_mm"]
     report["apron_plan_to_valve_support_fore_face_mm"] = (
         plan["valve_support_fore_face_y_mm"] - report["parts"]["expanded-funnel"]["bounds_mm"][1][1])
     (HERE / "funnel-expansion.json").write_text(json.dumps(report, indent=2) + "\n")

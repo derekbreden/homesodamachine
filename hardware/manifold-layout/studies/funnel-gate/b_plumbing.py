@@ -14,9 +14,9 @@ S = 19.05
 H = 6.0452
 JG_DEPTH = 15.7
 NEOFIT_DEPTH = 16.891
-VB_ORIGIN = np.array([38., 227.40434, 280.41])
+VB_ORIGIN = np.array([38., 239.90434, 280.41])
 VB_ROTATION = np.array([[0., 0., 1.], [0., 1., 0.], [-1., 0., 0.]])
-DRAIN_CORNER = np.array([0., 161.69575, 280.41])
+DRAIN_CORNER = np.array([0., 174.19575, 280.41])
 YB_MOUTH = np.array([-22.35, 166.24, 270.675])
 
 
@@ -28,7 +28,7 @@ def union_rotation(inlet, outlet):
     return np.column_stack([np.cross(inlet, outlet), inlet, outlet])
 
 
-def bezier(control):
+def bezier(control, crown_mm=0.):
     p = np.array(control, float)
     t = np.linspace(0., 1., 65)[:, None]
     points = ((1-t)**3*p[0] + 3*(1-t)**2*t*p[1]
@@ -37,9 +37,14 @@ def bezier(control):
            + t*t*(p[3]-p[2]))
     dd = 6*((1-t)*(p[2]-2*p[1]+p[0])
             + t*(p[3]-2*p[2]+p[1]))
+    # The flexible return clears the connector below with a shallow rise;
+    # both socket positions and their tangent directions remain fixed.
+    points[:, 2] += crown_mm*np.sin(np.pi*t[:, 0])**2
+    d[:, 2] += crown_mm*np.pi*np.sin(2*np.pi*t[:, 0])
+    dd[:, 2] += 2*crown_mm*np.pi**2*np.cos(2*np.pi*t[:, 0])
     curvature = np.linalg.norm(np.cross(d, dd), axis=1)/np.linalg.norm(d, axis=1)**3
     maximum = float(curvature.max())
-    return points, (1/maximum if maximum else float('inf'))
+    return points, (1/maximum if maximum > 1e-12 else None)
 
 
 def route(vb_origin=None, drain_exposure=3.3058):
@@ -49,7 +54,7 @@ def route(vb_origin=None, drain_exposure=3.3058):
     drain = DRAIN_CORNER + (L+H+drain_exposure)*N
     valve_inlet = inlet-H*N
 
-    lift = np.radians(10.)
+    lift = 0.
     drain_out = np.cos(lift)*E + np.sin(lift)*U
     inlet_out = -np.cos(lift)*E + np.sin(lift)*U
     drain_face = drain + S*drain_out
@@ -78,7 +83,7 @@ def route(vb_origin=None, drain_exposure=3.3058):
     return_face = turn-L*N
     return_control = np.array([return_face, return_face-20*N,
                                yb_face+20*yb_out, yb_face])
-    return_curve, return_radius = bezier(return_control)
+    return_curve, return_radius = bezier(return_control, crown_mm=2.)
     return_points = np.vstack([return_face+JG_DEPTH*N, return_curve,
                                yb_face-NEOFIT_DEPTH*yb_out])
 
@@ -113,10 +118,11 @@ def route(vb_origin=None, drain_exposure=3.3058):
             'inlet_control_mm': inlet_control.tolist(),
             'inlet_minimum_radius_mm': inlet_radius,
             'inlet_exposed_length_mm': float(np.linalg.norm(np.diff(inlet_curve, axis=0), axis=1).sum()),
-            'inlet_arm_lift_degrees': 10.,
+            'inlet_arm_lift_degrees': 0.,
             'cross_rise_degrees': 8.,
             'cross_exposed_length_mm': float(np.linalg.norm(cross_end-cross_start)),
             'return_control_mm': return_control.tolist(),
+            'return_crown_mm': 2.,
             'return_minimum_radius_mm': return_radius,
             'return_exposed_length_mm': float(np.linalg.norm(np.diff(return_curve, axis=0), axis=1).sum()),
             'yb_clock_west_of_aft_degrees': 7.5,
