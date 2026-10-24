@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "selected_date": "2026-10-14",
-  "selection_basis": "Current planned production faucet approved by Derek with complete-base and exposed curved-tip rear seam enforcement; A2/Back/150% on base, tip and mounting plate; default corner seams on cover and lever; E eight coarse lip layers.",
+  "selected_date": "2026-10-24",
+  "selection_basis": "Derek requests uniform 0.24 mm layers throughout the complete faucet, including the first bed layer. Selected seams, localized cooling and edge supports are retained.",
   "seam_specimen": "A2",
   "seam_parts": [
     "industrial-shell-base",
@@ -58,31 +58,12 @@
     "cooling_policy": "hardware/printed-parts/cooling/README.md"
   },
   "wall_generators": "Retain base Arachne for the continuous reinforced foot; other rigid parts retain Classic.",
-  "lift_specimen": "E",
-  "additional_coarse_model_layers": 8,
-  "coarse_layer_height_mm": 0.24,
-  "last_starting_lip_first_coarse_nozzle_z_mm": 15.32,
-  "first_fine_nozzle_z_mm": 17.12,
-  "base_fine_bands_print_z_mm": [
-    [
-      17.0,
-      29.0
-    ],
-    [
-      55.16,
-      68.12
-    ]
-  ],
-  "fine_layer_height_mm": 0.12,
-  "first_bed_layer_height_mm": 0.2,
-  "scope": "Current planned production recipe accepted by direct user inspection of the seam-fixed base and tip, with the other three rigid parts retained from the accepted complete faucet.",
+  "base_fine_bands_print_z_mm": [],
+  "first_bed_layer_height_mm": 0.24,
+  "scope": "Selected complete Industrial print recipe with uniform 0.24 mm layers requested by Derek. Prior physical results retain their identified geometry, layer-height and material scope.",
   "seam_selection_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/launch.json",
   "default_printer": "Mark1",
   "default_filament_colour": "#000000",
-  "lift_coupon_preparation": "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/combined/preparation.json",
-  "lift_coupon_preparation_sha256": "8c88a822e4f5dede5c12efc785eb07936381c2cbf8b557a993dfebf76a90a746",
-  "lift_coupon_task_id": "1328441515",
-  "lift_physical_result": "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/combined/physical-result.json",
   "seam_coupon_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-12-a2-aligned-gap150-mark2/launch.json",
   "rear_seam_enforcement": {
     "part": "industrial-shell-base",
@@ -154,5 +135,9 @@
     "root_contact_scope": "Hidden male insertion terminal end only. The directly bonded disc leaves a scuff; do not transfer this bonded contact to visible surfaces.",
     "tree_support_scope": "Tree(auto)/Default elsewhere. Retain the accepted joint-plane block paint except the seam-side low lip support enforcers.",
     "selection_quote": "That worked. That disc works in this case, and is removable, but it leaves a bit of a scuff that would be a problem on a visible surface, but since its on the male insertion portion that is hidden, we are golden here."
-  }
+  },
+  "normal_layer_height_mm": 0.24,
+  "uniform_layer_height": true,
+  "independent_support_layer_height": false,
+  "layer_selection_quote": "So it's the same layer height throughout the print."
 }

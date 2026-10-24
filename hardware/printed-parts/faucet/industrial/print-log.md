@@ -1,14 +1,44 @@
 # Industrial faucet print log
 
+## Complete Industrial faucet with Sculpted cover — 2026-10-24, Mark2
+
+Mark2 accepted the [complete five-part black PET-GF set](prints/2026-10-24-sculpted-cover-uniform024-mark2/README.md)
+as task **1370902777** at **11:11:59 CDT**. It contains the Industrial base,
+the accepted 4.5 mm lower shared tip with four 1 mm foot recesses, a matching
+lowered Sculpted display cover, rigid Industrial counter plate and side-down
+lever. The Sculpted cover retains its broad-wing geometry and fixed snap
+datums. Its native seated solid has zero intersection volume with the accepted
+tip; physical fit and retention of this cover are pending.
+
+All **1,022** native layer planes advance by **0.24 mm**, including the first
+bed layer. Fine-layer ranges are empty and independent support layer height is
+Off. Selected rear seams, A2 scarf, base rim arcs, tip fins, hidden-root disc,
+Tree(auto)/Default supports and localized cooling are retained. Bridges and
+qualifying overhangs use 70% fan after three fan-off layers; bridge speed is
+15 mm/s and overhang limits are 10–15 mm/s.
+
+The print uses Mark2's fixed left hardened 0.4 mm Standard-flow nozzle, black
+PET-GF external spool 254, Textured PEI, 80°C bed, 265/280°C nozzle and
++0.04/+0.02 mm requested/emitted trim. Timelapse and bed leveling are On;
+flow and nozzle-offset calibration are Auto. The
+[full settings export](prints/2026-10-24-sculpted-cover-uniform024-mark2/all-settings.json)
+retains every prepared/native setting, object/component override, filament
+preset and layer range. The warning-free native slice estimates **6 h 24 min
+36 s / 160.17 g** at saved density and retains **42.1479 mm** minimum full-bead
+bed margin. At **11:13:08 CDT**, this exact task is RUNNING at **0/1022**,
+with 384 minutes remaining, no print error and no HMS.
+
 ## Complete faucet with 4.5 mm lower display — 2026-10-24, Mark2
 
 Mark2 accepted the [complete five-part black PET-GF set](prints/2026-10-24-lowered-display-complete-mark2/README.md)
 as task **1369497043** at **01:20:19 CDT**. It includes the exact reviewed tip
 and Industrial cover, with the display and cover 4.5 mm lower and four 1 mm
 foot recesses. The base, rigid counter plate and side-down lever retain their
-production source geometry. Physical display fit and tube clearance are
-unmeasured; the review's conservative component-envelope overlaps retain
-their identified scope.
+production source geometry. The
+[physical result and eight photographs](prints/2026-10-24-lowered-display-complete-mark2/physical-result/physical-result.json)
+record tight but working fit of this lowered Industrial head. Numerical tube
+clearance and seating force are unmeasured; the review's conservative
+component-envelope overlaps retain their identified scope.
 
 The job uses Mark2's left fixed hardened 0.4 mm Standard-flow nozzle, black
 PET-GF external spool 254, Textured PEI, 80°C bed, 265/280°C nozzle and
@@ -23,8 +53,9 @@ records every prepared/native project setting, object/component override,
 filament preset and layer range. The native slice has no warnings, 1245 layers,
 41.8756 mm minimum full-bead bed margin and an estimate of **6 h 47 min 40 s /
 161.33 g** at saved density. At **01:20:54 CDT**, the exact task is RUNNING at
-0/1245 with 407 minutes remaining, no print error and no HMS. Physical
-completion and assembly acceptance are unreported.
+0/1245 with 407 minutes remaining, no print error and no HMS. Completion
+telemetry reports FINISH at 1245/1245; the linked physical result establishes
+the reported head fit.
 
 ## Display seating feedback — 2026-10-24
 
@@ -37,8 +68,7 @@ recesses at the same locations. The
 contains the requested geometry and before/after views. Its conservative
 component model intersects the tube routes and tip. The
 [complete fit print](prints/2026-10-24-lowered-display-complete-mark2/README.md)
-is submitted; it has no physical fit result. Production geometry remains the
-reference.
+has reported tight but working fit. Production geometry remains the reference.
 
 ## Above-counter mounting gasket — 2026-10-23, Mark2
 

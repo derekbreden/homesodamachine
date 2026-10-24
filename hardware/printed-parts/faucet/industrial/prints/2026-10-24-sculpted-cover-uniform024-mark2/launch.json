@@ -1,0 +1,46 @@
+{
+  "printer": "Mark2",
+  "observed_at": "2026-10-24T16:11:59.468999+00:00",
+  "archive": {
+    "name": "2026-10-24-industrial-sculpted-cover-low45-uniform024-black-left04-z004-mark2.gcode.3mf",
+    "sha256": "f1e129c9243a529a76a189ff7436e61c6307c5e4d865c063b47af2a4f83e3e98",
+    "gcode_sha256": "d7feed58fa3b0770b74913cf99b376322cbd46873a3db1e30e3119261101cd65",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "161616"
+      }
+    },
+    "objects": [
+      "industrial-shell-base",
+      "faucet-shell-tip",
+      "sculpted-display-cover",
+      "industrial-above-counter-plate",
+      "lever-replica"
+    ]
+  },
+  "printer_task_id": "1370902777",
+  "gcode_state": "PREPARE",
+  "subtask_name": "2026-10-24-industrial-sculpted-cover-low45-uniform024-black-left04-z004-mark2.gcode.3mf",
+  "job_id": "1370902777",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 1245,
+  "total_layer_num": 1245,
+  "mc_remaining_time": 0,
+  "send_method": "Bambu Connect foreground CUA input",
+  "send_click_count": 1,
+  "launch_options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "external_spool_mapping": {
+    "left": 254,
+    "type": "PET-CF",
+    "colour": "161616FF"
+  },
+  "selected_plate": "Textured PEI Plate",
+  "existing_hms_scope": "Nozzle camera lens dirty warning was present before submission; its AI monitoring scope is recorded in preflight.json."
+}

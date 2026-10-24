@@ -303,6 +303,15 @@ def refresh(settings_from: Path = PROFILE, output: Path = PROJECT,
         settings["filament_colour"] = [filament_colour]
         for key, value in finish["filament_overrides"].items():
             settings[key][0] = value
+        layer_changes = {}
+        for key, value in {
+            "layer_height": str(finish["normal_layer_height_mm"]),
+            "initial_layer_print_height": str(finish["first_bed_layer_height_mm"]),
+            "independent_support_layer_height": "0",
+        }.items():
+            if settings[key] != value:
+                layer_changes[key] = {"from": settings[key], "to": value}
+                settings[key] = value
         overhang_changes = apply_overhang_recipe(settings, finish["overhang_recipe"])
         members[writer.SETTINGS_MEMBER] = (json.dumps(settings, indent=2) + "\n").encode()
         for obj in config.findall("object"):
@@ -315,11 +324,7 @@ def refresh(settings_from: Path = PROFILE, output: Path = PROJECT,
                          else finish["corner_seam_object_overrides"])
             for key, value in overrides.items():
                 writer.metadata(obj, key, value)
-        ranges = ET.fromstring(members["Metadata/layer_config_ranges.xml"])
-        for entry, band in zip(ranges.find("object").findall("range"),
-                               finish["base_fine_bands_print_z_mm"], strict=True):
-            entry.set("min_z", f"{band[0]:.4f}")
-            entry.set("max_z", f"{band[1]:.4f}")
+        ranges = ET.Element("objects")
         members["Metadata/model_settings.config"] = writer.xml(config)
         members["Metadata/layer_config_ranges.xml"] = writer.xml(ranges)
     if finish.get("rear_seam_enforcement"):
@@ -342,6 +347,7 @@ def refresh(settings_from: Path = PROFILE, output: Path = PROJECT,
                         if before_settings.get(k) != after_settings.get(k)}
     if changed_settings - {"machine_start_gcode", "printer_settings_id", "filament_colour",
                            *finish["filament_overrides"], *overhang_changes,
+                           *layer_changes,
                            *writer.petgf_cooling.VALUES}:
         raise ValueError("Unexpected change to the complete PET-GF profile")
     normalized_profile = dict(preserved)
@@ -372,6 +378,8 @@ def refresh(settings_from: Path = PROFILE, output: Path = PROJECT,
         "active_nozzle": 0,
         "printer": printer,
         "requested_z_trim_mm": trim,
+        "layer_height_mm": float(after_settings["layer_height"]),
+        "first_bed_layer_height_mm": float(after_settings["initial_layer_print_height"]),
         "selected_faces": shoulder_readings(report, recipe_report),
         "insert_review_regions": recipe_report["insert_review_regions"],
         "review_host_regions": recipe_report["review_host_regions"],
@@ -382,16 +390,18 @@ def refresh(settings_from: Path = PROFILE, output: Path = PROJECT,
         "finish_choices_pending": [],
         "finish_selection": relative(FINISH),
         "selected_finish": finish,
-        "selected_finish_scope": "A2 with Back on base, tip and mounting plate; complete build-pose rear seam enforcement on the base and matching exposed curved tip meridian; default corner seams on cover and lever; E eight coarse lip layers before 0.12 mm; native125% bridge flow; ordinary part cooling off, 70% on bridges and walls with at least 50% unsupported bead width after three off bed layers; Bridge15mm/s and overhang limits<=15 preserving existing10mm/s; accepted segmented base-rim arcs, tip eight fins and local lip trees, and the removable hidden-root disc. Tree(auto)/Default elsewhere.",
+        "selected_finish_scope": "A2 with Back on base, tip and mounting plate; complete build-pose rear seam enforcement on the base and matching exposed curved tip meridian; default corner seams on cover and lever; uniform 0.24 mm model and support layers including the first bed layer; native125% bridge flow; ordinary part cooling off, 70% on bridges and walls with at least 50% unsupported bead width after three off bed layers; Bridge15mm/s and overhang limits<=15 preserving existing10mm/s; accepted segmented base-rim arcs, tip eight fins and local lip trees, and the removable hidden-root disc. Tree(auto)/Default elsewhere.",
     })
     for key in finish["filament_overrides"]:
         if before_settings.get(key) != after_settings.get(key):
             report["settings_changes"][key] = {"from": before_settings.get(key), "to": after_settings.get(key)}
     report["settings_changes"].update(overhang_changes)
+    report["settings_changes"].update(layer_changes)
     if original_colour != [filament_colour]:
         report["settings_changes"]["filament_colour"] = {"from": original_colour, "to": [filament_colour]}
-    for face, band in zip(report["selected_faces"], finish["base_fine_bands_print_z_mm"], strict=True):
-        face["fine_band_print_z_mm"] = band
+    for face in report["selected_faces"]:
+        face.pop("fine_band_print_z_mm", None)
+        face["model_layer_height_mm"] = float(after_settings["layer_height"])
     from prepare_vent_prints import source_hashes
     report["source_sha256"] = source_hashes(parts)
     for path in (Path(__file__), RECIPE, ACCEPTANCE, FINISH):
