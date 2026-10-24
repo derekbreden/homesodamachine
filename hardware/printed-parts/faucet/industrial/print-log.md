@@ -1,5 +1,31 @@
 # Industrial faucet print log
 
+## Complete faucet with 4.5 mm lower display — 2026-10-24, Mark2
+
+Mark2 accepted the [complete five-part black PET-GF set](prints/2026-10-24-lowered-display-complete-mark2/README.md)
+as task **1369497043** at **01:20:19 CDT**. It includes the exact reviewed tip
+and Industrial cover, with the display and cover 4.5 mm lower and four 1 mm
+foot recesses. The base, rigid counter plate and side-down lever retain their
+production source geometry. Physical display fit and tube clearance are
+unmeasured; the review's conservative component-envelope overlaps retain
+their identified scope.
+
+The job uses Mark2's left fixed hardened 0.4 mm Standard-flow nozzle, black
+PET-GF external spool 254, Textured PEI, 80°C bed, 265/280°C nozzle and
++0.04/+0.02 mm requested/emitted trim. Ordinary and auxiliary fans are off;
+bridges and qualifying overhangs use 70% after three fan-off layers, with
+15 mm/s bridges and 10–15 mm/s overhangs. Selected rear seams, base fine bands,
+seven rim arcs, eight tip fins and hidden-root disc are retained. Timelapse
+and bed leveling are On; flow and nozzle-offset calibration are Auto.
+
+The [complete settings export](prints/2026-10-24-lowered-display-complete-mark2/all-settings.json)
+records every prepared/native project setting, object/component override,
+filament preset and layer range. The native slice has no warnings, 1245 layers,
+41.8756 mm minimum full-bead bed margin and an estimate of **6 h 47 min 40 s /
+161.33 g** at saved density. At **01:20:54 CDT**, the exact task is RUNNING at
+0/1245 with 407 minutes remaining, no print error and no HMS. Physical
+completion and assembly acceptance are unreported.
+
 ## Display seating feedback — 2026-10-24
 
 The [eight photographs and physical observation](prints/2026-10-23-black-complete-mark2/physical-result/physical-result.json)
@@ -9,8 +35,10 @@ additional 1.5 mm of clearance, the original supports, and adding 1 mm foot
 recesses at the same locations. The
 [4.5 mm lower review candidate](display-seat-review/2026-10-24/README.md)
 contains the requested geometry and before/after views. Its conservative
-component model intersects the tube routes and tip. It has no physical fit
-result or submitted print; production geometry remains the reference.
+component model intersects the tube routes and tip. The
+[complete fit print](prints/2026-10-24-lowered-display-complete-mark2/README.md)
+is submitted; it has no physical fit result. Production geometry remains the
+reference.
 
 ## Above-counter mounting gasket — 2026-10-23, Mark2
 
