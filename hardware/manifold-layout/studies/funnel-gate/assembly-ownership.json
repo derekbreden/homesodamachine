@@ -1,0 +1,71 @@
+{
+  "scope": "Carried subassemblies for the selected above-core arrangement. Ownership follows the mounting parent, never a coordinate quadrant. Proposed groups identify an assembly choice whose retaining detail is still to design.",
+  "quadrants": [
+    {"id": "front-top", "label": "Front-top", "series": 1},
+    {"id": "front-bottom", "label": "Front-bottom", "series": 2},
+    {"id": "back-top", "label": "Back-top", "series": 3},
+    {"id": "back-bottom", "label": "Back-bottom", "series": 4}
+  ],
+  "groups": [
+    {
+      "quadrant": "front-top",
+      "status": "located",
+      "basis": "Funnel frame and retained front manifold carried by front-top",
+      "names": ["funnel", "funnel-frame", "funnel-drain-union", "funnel-drain-stub", "funnel-drain-cradle", "tee-ya-target", "tee-yb-target", "ya-stem-elbow", "yb-stem-elbow"]
+    },
+    {
+      "quadrant": "front-top",
+      "status": "proposed",
+      "basis": "Funnel gate carried with the frame and Y-B; frame bracket is to design",
+      "names": ["vb", "drain-outlet-stem", "drain-vb-west-link", "vb-inlet-turn", "drain-vb-inlet-link", "vb-outlet-stem", "vb-return-stem", "vb-south-return"]
+    },
+    {
+      "quadrant": "back-top",
+      "status": "located",
+      "basis": "Integral back-top wall or rear-panel attachment",
+      "names": ["left-wall", "right-wall", "back-wall", "ceiling", "relay-mount-highlight", "vk-support-highlight", "va-support-highlight", "va", "vk", "relay-1", "relay-2", "c14-inlet", "keystone-jack", "bulkhead-water", "bulkhead-water-nut", "bulkhead-carb", "bulkhead-carb-nut", "bulkhead-drain", "bulkhead-drain-nut", "bulkhead-flavor-a", "bulkhead-flavor-a-nut", "bulkhead-flavor-b", "bulkhead-flavor-b-nut", "co2-inlet", "co2-inlet-nut"]
+    },
+    {
+      "quadrant": "back-top",
+      "status": "carried",
+      "basis": "Attached to a back-top valve or rear fitting; travels with that subassembly",
+      "names": ["reg-va-elbow", "va-outlet-elbow", "tee-fold", "lower-valve-elbow", "lower-pump-elbow", "soda-stem-elbow", "bulkhead-carb-departure", "bulkhead-drain-departure", "bulkhead-flavor-a-departure", "bulkhead-flavor-b-departure"]
+    },
+    {
+      "quadrant": "back-top",
+      "status": "proposed",
+      "basis": "Water inlet group carried with back-top's valve seats and inlet; independent retention is to design",
+      "names": ["asse", "asse-inlet-tpu", "asse-outlet-tpu", "vent-sleeve", "water-in", "tee", "reg", "tee-regulator-tube"]
+    },
+    {
+      "quadrant": "back-top",
+      "status": "proposed",
+      "basis": "V-A feed carried with its valve, with the final connection made at front-top's Y-A",
+      "names": ["va-flavor", "va-east-turn", "va-after-head-stem", "va-east-jumper", "va-east-perimeter-turn", "va-ya-straight", "va-front-perimeter-turn", "va-ya-west-link"]
+    },
+    {
+      "quadrant": "back-top",
+      "status": "proposed",
+      "basis": "CO2 inlet fold carried with the rear-panel connection; independent retention is to design",
+      "names": ["gas-inlet-elbow", "gas-lower-a", "gas-lower-b", "gas-upper-a", "gas-upper-b", "gas-regulator", "gas-check", "gas-inlet-tube", "gas-check-link", "gas-core-drop"]
+    },
+    {
+      "quadrant": "back-bottom",
+      "status": "proposed",
+      "basis": "Mounted on the cold-core top; core is carried by back-bottom; local fasteners are to design",
+      "names": ["pump", "psu", "pcba"]
+    },
+    {
+      "quadrant": "back-bottom",
+      "status": "carried",
+      "basis": "Attached to the core-mounted pump and carried with back-bottom",
+      "names": ["pump-sliding-foot", "pump-inlet-tpu", "pump-inlet-barb-band", "pump-inlet-tube-band", "pump-outlet-tpu", "pump-outlet-barb-band", "pump-outlet-tube-band", "check", "carbonator-fold", "check-carbonator"]
+    }
+  ],
+  "boundary_handoffs": [
+    {"carried_part": "va-ya-west-link", "other_part": "ya-stem-elbow", "note": "Back-top water feed connects to front-top's Y-A"},
+    {"carried_part": "lower-pump-elbow", "other_part": "pump-inlet-tpu", "note": "Back-top's V-K inlet chain connects to the back-bottom pump"},
+    {"carried_part": "gas-core-drop", "other_part": "cold-core-top", "note": "Rear-panel CO2 fold connects to the back-bottom cold core"}
+  ],
+  "connection_owner_rule": "Mating housings and local conductors inherit their component's assembly owner. This does not claim a complete end-to-end harness route."
+}

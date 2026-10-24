@@ -1,0 +1,208 @@
+{
+  "scope": "Manual exterior fit query: entire selected arrangement, current local PCB connections, added funnel gate and actual drain/Y-B context; intended seats excluded",
+  "unrelated_interferences": [
+    [
+      "pcba",
+      "local-lead-J4"
+    ],
+    [
+      "local-lead-J11",
+      "local-lead-J3"
+    ]
+  ],
+  "fold_hardware_bounds_mm": [
+    [
+      66.75469970703125,
+      361.01519978256226,
+      256.13864766309854
+    ],
+    [
+      88.25,
+      438.0025992370605,
+      346.12304809797405
+    ]
+  ],
+  "fold_hardware_size_mm": [
+    21.49530029296875,
+    76.98739945449825,
+    89.98440043487551
+  ],
+  "fold_hardware_floor_gap_mm": 2.738647663098533,
+  "fold_hardware_to_plain_ceiling_mm": -0.12304809797404914,
+  "minimum_pocket_roof_stock_mm": 3.0,
+  "changed_component_bounds_mm": {
+    "c14-inlet": [
+      [
+        -93.35231246948243,
+        446.2999914550781,
+        318.93498801009946
+      ],
+      [
+        -43.64768829345704,
+        473.1399877929687,
+        341.06499289291196
+      ]
+    ],
+    "keystone-jack": [
+      [
+        -37.32499984741211,
+        441.29999877929686,
+        263.97104139730476
+      ],
+      [
+        -22.674998321533202,
+        471.29999877929686,
+        288.12103529378913
+      ]
+    ],
+    "relay-1": [
+      [
+        -96.5,
+        363.0000122070312,
+        294.50001220703126
+      ],
+      [
+        -77.5,
+        433.0000122070312,
+        311.50001220703126
+      ]
+    ],
+    "relay-2": [
+      [
+        -96.5,
+        363.0000061035156,
+        319.5000122070312
+      ],
+      [
+        -77.5,
+        433.0000061035156,
+        336.5000122070312
+      ]
+    ]
+  },
+  "c14_surround_mm": {
+    "to_left_inner_wall": 5.147687530517572,
+    "to_plain_roof": 4.93500710708804
+  },
+  "scope_limit": "Native placement/fit query only. Complete harnesses, final equipment retention and production shell migration remain to design.",
+  "connected_pcb_bounds_mm": [
+    [
+      -25.5,
+      189.39474894378088,
+      255.0
+    ],
+    [
+      76.26612854003906,
+      274.69501139495276,
+      276.25
+    ]
+  ],
+  "connected_pcb_to_ideal_west_wall_mm": 73.0,
+  "tube_gaps_mm": {
+    "va-flavor_to_pump": 4.927626302964756,
+    "va-flavor_to_pcba": 31.091736435575125,
+    "va-east-turn_to_pump": 0.19220997032116588,
+    "va-east-turn_to_vk": 27.783258030536665,
+    "va-east-turn_to_lower-pump-elbow": 4.044513686752829,
+    "va-ya-straight_to_pcba": 14.778540972094717,
+    "va-ya-straight_to_funnel-frame": 20.00479389648433,
+    "reg_to_ceiling": 1.123952119463695
+  },
+  "under_head_tube_to_plain_core_mm": 5.025000000000006,
+  "funnel_gate_gaps_mm": {
+    "vb_to_pcba": 12.678159244785983,
+    "vb_to_funnel-frame": 11.507973823634387,
+    "vb_to_left-wall": 4.3999877929687585,
+    "vb-inlet-turn_to_pcba": 16.241577746784802,
+    "vb-south-return_to_vb": 2.4632890797480287,
+    "vb-south-return_to_pcba": 2.7443667349588106,
+    "va-east-perimeter-turn_to_vk": 7.441276709340342,
+    "va-east-perimeter-turn_to_lower-valve-elbow": 3.248030306010592,
+    "funnel-drain-cradle_to_pcba": 16.052390061695448
+  },
+  "vb_bounds_mm": [
+    [
+      -95.00000610351562,
+      214.17153112070315,
+      263.65999696388303
+    ],
+    [
+      -37.69998779296874,
+      273.67153112070315,
+      297.1600007785803
+    ]
+  ],
+  "funnel_route_minimum_radii_mm": {
+    "va": 53.79168876435601,
+    "vb": 16.4141745853876
+  },
+  "pcb_jst_service": {
+    "scope": "Nominal 6 mm axial JST housing withdrawal only. Does not model finger reach or complete harness manipulation.",
+    "service_order": "Remove the front-top funnel assembly before unplugging the main PCB",
+    "headers": [
+      {
+        "probe": "probe-J1-pull",
+        "blocked_with_funnel_assembly_installed": [],
+        "blocked_after_front_top_removed": []
+      },
+      {
+        "probe": "probe-J11-pull",
+        "blocked_with_funnel_assembly_installed": [],
+        "blocked_after_front_top_removed": []
+      },
+      {
+        "probe": "probe-J13-pull",
+        "blocked_with_funnel_assembly_installed": [],
+        "blocked_after_front_top_removed": []
+      },
+      {
+        "probe": "probe-J2-pull",
+        "blocked_with_funnel_assembly_installed": [],
+        "blocked_after_front_top_removed": []
+      },
+      {
+        "probe": "probe-J3-pull",
+        "blocked_with_funnel_assembly_installed": [
+          "drain-outlet-stem"
+        ],
+        "blocked_after_front_top_removed": []
+      },
+      {
+        "probe": "probe-J4-pull",
+        "blocked_with_funnel_assembly_installed": [],
+        "blocked_after_front_top_removed": []
+      },
+      {
+        "probe": "probe-J5-pull",
+        "blocked_with_funnel_assembly_installed": [],
+        "blocked_after_front_top_removed": []
+      },
+      {
+        "probe": "probe-J6-pull",
+        "blocked_with_funnel_assembly_installed": [],
+        "blocked_after_front_top_removed": []
+      },
+      {
+        "probe": "probe-J7-pull",
+        "blocked_with_funnel_assembly_installed": [],
+        "blocked_after_front_top_removed": []
+      },
+      {
+        "probe": "probe-J9-pull",
+        "blocked_with_funnel_assembly_installed": [],
+        "blocked_after_front_top_removed": []
+      }
+    ]
+  },
+  "flexible_lead_conflicts": [
+    [
+      "pcba",
+      "local-lead-J4"
+    ],
+    [
+      "local-lead-J11",
+      "local-lead-J3"
+    ]
+  ],
+  "hard_interferences": []
+}
