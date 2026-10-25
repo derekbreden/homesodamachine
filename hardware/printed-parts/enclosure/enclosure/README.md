@@ -850,11 +850,11 @@ turn in its build item. `enclosure-front-bottom-petgf.3mf` and `enclosure-back-b
 exterior settings of `enclosure-front-top-petgf.3mf` around their own mesh — the same clones
 `enclosure-pump-cap-petgf.3mf` and `enclosure-pump-cartridge-petgf.3mf` are; the pump cap's
 build item carries a half turn about X, the crown on the bed.
-`enclosure-back-top-petgf.3mf` is the one piece on its own 0.24 mm process, and the other whose build item carries a half turn about X. Each retained slice records its model and profile digests. The recorded support counts are:
+`enclosure-back-top-petgf.3mf` is the one piece on its own 0.24 mm process, and the other whose build item carries a half turn about X. Each retained slice records its model and profile digests. The pump cap's reading is the 2026-10-25 Mark1 slice of the current clamp (STL `fa10132c600a`, recipe `45c16e8c8517`). The recorded support counts are:
 
 | piece | bodies | interface islands | root | shortest build-up |
 |---|---|---|---|---|
-| `enclosure-pump-cap` | 2 | 2 | bed | 8.80 mm |
+| `enclosure-pump-cap` | 2 | 2 | bed | 14.16 mm |
 | `enclosure-back-bottom` | 4 | 5 | 3 bed, 1 model | 8.60 mm |
 | `enclosure-front-bottom` | 4 | 4 | 2 bed, 2 model | 8.00 mm |
 | `enclosure-back-top` | 13 | 35 | 2 bed, 11 model | 1.44 mm |
@@ -862,10 +862,9 @@ build item carries a half turn about X, the crown on the bed.
 
 None of these columns orders the pieces by what their supports cost to remove.
 
-The pump cradle's retained reading identifies an earlier mesh by digest; it does not describe
-the current cradle's supports.
+The current pump cradle slices with no support, on the same Mark1 plate as the clamp.
 `enclosure-pump-cap` prints on its crown and has two bed-rooted bodies, one standing in each
-clamp-screw counterbore under its head seat after 8.80 mm; each leaves through the
+clamp-screw counterbore under its head seat after 14.16 mm; each leaves through the
 counterbore's mouth on the bed face. On front-top all three bodies root on the print bed. One reaches the pump-bay lintel and
 cradle-facing recesses after 123 mm. The other two branch to the west and east flanks and
 the funnel seat. Their shortest build-up is
