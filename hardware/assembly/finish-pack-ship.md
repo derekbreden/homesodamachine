@@ -23,11 +23,11 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §3 a
 | The customer's plumbing | [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §3, §4 | Made up at step 6: **one tee subassembly** — the John Guest PP0208E tee, the short jumper in its run port, and the white tap-water run with the Waterdrop 15UC-UF filter inline in its branch, `tube-collar-water` on that run's `TAP` end; the John Guest ASVPP1LF angle stop adapter valve loose in its own bag for the scenario-B kitchen; the ~12 in red tether, its regulator end in the primary regulator's outlet since [acceptance](/hardware/assembly/acceptance-and-burn-in.md) step 1, with `tube-collar-co2` on its `CO2` end. The ends at the machine are bare, square-cut push-fit tails. |
 | Collet press | [`/hardware/printed-parts/collet-press/`](/hardware/printed-parts/collet-press/README.md); [`bom.md`](/hardware/ledger/bom.md) §7 | One PET-GF 1/4-inch release tool. It stays with the customer for the installation and for later disconnection or reconnection of any accessible 1/4-inch push fitting. |
 | CGA-320 primary regulator | [`bom.md`](/hardware/ledger/bom.md) §4 | The Taprite 3741 ships with the machine and mounts on the customer's own 5 lb cylinder — the tank is the one thing on the water-and-gas path the customer brings. It arrives here set to 75 PSI, its jam nut locked and paint-marked, with the red tether in its outlet ([`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) step 1). The customer sets nothing. Packed in the install kit at step 6. |
-| Cold kit | Its own bag, with its own guide | The Mudder PTFE tubing cutter (B08VW15TK8, 1 of 3 pk, [`bom.md`](/hardware/ledger/bom.md) §14) and loose 1-ft CARGEN nitrile foam segments (B0D2XFK337, [`bom.md`](/hardware/ledger/bom.md) §9) **on top of the 84"/build §9 allocates** — 60" to the umbilical's five segments and ~24" to the cabinet-internal riser. The umbilical ships at its built length and installs uncut; the kit is for the buyer who trims it to the cabinet's own length and foams the whole run. The segment count per machine is open until the first real install. |
+| Cold kit | Its own bag, with its own guide | The Mudder PTFE tubing cutter (B08VW15TK8, 1 of 3 pk, [`bom.md`](/hardware/ledger/bom.md) §14) and loose 1-ft CARGEN nitrile foam segments (B0D2XFK337, [`bom.md`](/hardware/ledger/bom.md) §9) **on top of the ~62.5"/build §9 allocates** — 60" to the umbilical's five segments and one 63 mm piece over the soda inlet. The umbilical ships at its built length and installs uncut; the kit is for the buyer who trims it to the cabinet's own length and foams the whole run. The segment count per machine is open until the first real install. |
 | Monoprice NEMA 5-15P → IEC C13 line cord, 18 AWG, 6 ft, UL-listed | B08VS8D4WC, 1 of 6 pk per machine | [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §5. Standard US wall outlet to C14 inlet. |
 | Customer documentation packet | Install guide printed by Lulu, per [`install-guide/press/ORDER.md`](/hardware/install-guide/press/ORDER.md); [`bom.md`](/hardware/ledger/bom.md) §15 | (a) The bound install guide ([`/hardware/install-guide/`](/hardware/install-guide/README.md)), with the actual refrigerant, finished-unit charge and applicable installation/service/disposal instructions; (b) Founder Edition welcome letter, personally signed — no letterhead is drawn yet. The [refrigerant marking specification](/hardware/markings/README.md) specifies the integral exterior disposal warning, compressor-area service panel, and remaining rating fields. |
-| Transit inlet caps | TBD | Two caps for transit — one over the water-inlet PP1208E collet, one over the CO2 inlet PTC. Both inlets are on the +Y wall. Keeps debris out of the wetted path and signals to the installer "remove these before connecting." |
-| Soda machine carton + molded foam end-caps | TBD | Outer carton sized for the machine + install kit + faucet-and-umbilical bag, with foam end-caps cradling the enclosure to absorb drop loads at corners. |
+| Transit inlet caps | Not yet specified; no BOM row | Two caps for transit — one over the water-inlet PP1208E collet, one over the CO2 inlet PTC. Both inlets are on the +Y wall. Keeps debris out of the wetted path and signals to the installer "remove these before connecting." |
+| Soda machine carton + molded foam end-caps | Not yet specified; no BOM row | Outer carton sized for the machine + install kit + faucet-and-umbilical bag, with foam end-caps cradling the enclosure to absorb drop loads at corners. |
 | Outer shipping label + tracking | Carrier's label format | Generated at carrier-handoff step 9. |
 
 Tooling (amortized per machine only — single-asset tools live in [`/hardware/ledger/purchases.md`](/hardware/ledger/purchases.md), not here): microfiber wipe-down rag, isopropyl + lint-free wipes for fingerprint removal on stainless and printed surfaces, foam-tip swab for the funnel's interior, kitchen scale or platform scale for the shipping-weight measurement.
@@ -49,12 +49,10 @@ Inspect every exposed surface against the following pass criteria:
 - No scuffs, scratches, or print-bed adhesion marks that telegraph through the Founder Edition framing.
 - No exposed wiring at any wall cutout. Every cutout on the wall is a fitting's own
   flange or housing — the machine carries no cable gland.
-- The compressor sitting square on its four floor posts, every washer home on its post's crown with the grommet under it visibly taken up and not squashed flat; the green ring on the can's own earth screw, and the AC lead's jacket unbroken back to the electronics bay.
-- The foam-shell pour ports (see [`cold-core.md`](/hardware/assembly/cold-core.md)) trimmed flush with no overspray bloom protruding past the shell's outer surface.
 - The C14 inlet recessed cleanly into the +Y wall's printed shroud per [`/hardware/printed-parts/enclosure/y-wall-of-back-top/README.md`](/hardware/printed-parts/enclosure/y-wall-of-back-top/README.md); the bore's edge against the wall's outer face shows no gap, and the receptacle's rim stands square at the bottom of the cutout.
-- The +Y connection field has three rows. The TAP, SODA and two FLAVOR PP1208E
-  bulkheads and the black 4 mm OVER bulkhead sit square in their labelled chips,
-  with no rotation play. OVER carries its white 4 mm return; TAP carries its
+- The +Y connection field has three rows of two. The TAP and SODA PP1208E
+  bulkheads, the CO2 ABU44-E bulkhead and the OVER and two FLAVOR ABU44M-E 4 mm
+  bulkheads sit square in their labelled chips, with no rotation play. OVER carries its white 4 mm return; TAP carries its
   larger white supply. The faucet's separate bottom vent opening remains exposed
   and unobstructed over the bowl, as specified in [drain assembly](asse-drain.md).
 - Condenser intake + exhaust grilles clear of any print-process debris that could shed into the airflow path on first run.
@@ -89,7 +87,7 @@ disposal warning in raised lettering on the smooth area low on enclosure back-bo
 exterior +Y wall. The combined service/tubing panel belongs near the compressor
 compartment, with W021 flame and R-600a visible at compressor access. Use a permanent
 service-panel carrier, retaining the specified warning-letter height and service-opening
-red color. The brand/QR plate remains separate.
+red color; that carrier is not yet modeled or billed. The brand/QR plate remains separate.
 
 Complete the appliance rating information with manufacturer/model, voltage/frequency,
 established rated current, manufacturing date/date code, R-600a, the actual weighed
@@ -108,11 +106,11 @@ Cap the two fluid inlets — the water inlet and the CO2 inlet PTC, both on the 
 Inlet-by-inlet:
 
 - **Water inlet** — caps the PP1208E's outboard 1/4" push-to-connect collet, the one upstream of the backflow preventer that the customer's filtered tap supply lands on. Once installed at the customer site, the cap comes off and the installer pushes the supply line home; the cap never goes back on.
-- **CO2 inlet collet** — caps the ABU44 bulkhead's outboard 1/4" collet that the customer's CO2 regulator tether plugs into, on the umbilical row's own storey one column east of the blue-ringed union. Cap is a press-on rubber plug sized to the collet's outer collar.
+- **CO2 inlet collet** — caps the ABU44 bulkhead's outboard 1/4" collet that the customer's CO2 regulator tether plugs into, in the east column's top station, directly above the blue-ringed SODA union. Cap is a press-on rubber plug sized to the collet's outer collar.
 
-The umbilical-port PP1208E bulkhead row on the +Y wall is *not* capped — those bulkheads land on the customer-supplied umbilical tubes from the bagged faucet sub-assembly, and a cap there would be removed and discarded by the installer in any case. The PP1208E's grab-ring collet keeps debris out of the bulkhead's bore well enough for the transit-only window.
+The umbilical's four bulkheads on the +Y wall — SODA, OVER and both FLAVOR ports — are *not* capped. They take the umbilical tubes from the bagged faucet sub-assembly, and a cap there would be removed and discarded by the installer in any case. Their collets keep debris out of the bores well enough for the transit-only window.
 
-Cap specifications and source are TBD; working assumption is a press-on rubber cap sized to each inlet OD, sourced as a small assortment kit from McMaster.
+No cap is specified or billed yet; each is a press-on rubber cap sized to its inlet's outer collar.
 
 ### 5. Photograph the finished unit + archive to the per-serial log
 
