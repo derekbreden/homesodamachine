@@ -1,0 +1,540 @@
+{
+  "recorded_at_utc": "2026-10-25T20:44:33.617369+00:00",
+  "project_sha256": "138381e13b3089fa3130bc7f0fe7752dd2b65b804a0eedcafb277819f2878fa0",
+  "archive": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.gcode.3mf",
+  "archive_sha256": "7a3e848c5202c0247b549cba9de20cb517c3f6640eada07e0c85ef0fdd70b9f4",
+  "gcode_sha256": "231ed05c153ecb348f88a60822873e0d4b1140fc78cd943b2b79e023abcd42fb",
+  "embedded_checksum_matches": true,
+  "approved_geometry_sources_match": true,
+  "project_settings_match_accepted_print_byte_for_byte": true,
+  "object_process_overrides_match_accepted_complete_print": true,
+  "variable_layer_ranges": [],
+  "first_and_later_layer_height_mm": 0.24,
+  "total_layer_planes": 1022,
+  "layer_increments_mm": {
+    "0.24": 1022
+  },
+  "declared_feature_bead_heights_mm": {
+    "0.24": 1195,
+    "0.3": 1077,
+    "0.447214": 11,
+    "0.240001": 8,
+    "0.240002": 83,
+    "0.239998": 250,
+    "0.240005": 387,
+    "0.23999": 176
+  },
+  "bead_height_scope": "Per-feature extrusion cross-sections include support and thick-bridge bead heights and floating-point quantization. Build-plane and per-part model increments are separately verified at 0.24 mm.",
+  "part_layer_planes": {
+    "industrial-shell-base": {
+      "first_z_mm": 0.24,
+      "last_z_mm": 245.28,
+      "model_layer_count": 1022,
+      "z_increment_counts_mm": {
+        "0.24": 1022
+      }
+    },
+    "sculpted-display-cover": {
+      "first_z_mm": 0.24,
+      "last_z_mm": 16.08,
+      "model_layer_count": 67,
+      "z_increment_counts_mm": {
+        "0.24": 67
+      }
+    },
+    "faucet-shell-tip": {
+      "first_z_mm": 0.24,
+      "last_z_mm": 137.76,
+      "model_layer_count": 574,
+      "z_increment_counts_mm": {
+        "0.24": 574
+      }
+    },
+    "industrial-above-counter-plate": {
+      "first_z_mm": 0.24,
+      "last_z_mm": 6.24,
+      "model_layer_count": 26,
+      "z_increment_counts_mm": {
+        "0.24": 26
+      }
+    },
+    "lever-replica": {
+      "first_z_mm": 0.24,
+      "last_z_mm": 12.48,
+      "model_layer_count": 52,
+      "z_increment_counts_mm": {
+        "0.24": 52
+      }
+    }
+  },
+  "emitted_trim_values_mm": [
+    0.0,
+    0.02
+  ],
+  "material_commands": [
+    {
+      "part": "industrial-shell-base",
+      "extruding_commands": 871858,
+      "first_three_fans": [
+        0.0
+      ],
+      "later_fans": [
+        0.0,
+        70.0
+      ],
+      "bridge_speeds": [
+        15.0
+      ],
+      "overhang_speeds": [
+        10.0,
+        15.0
+      ],
+      "features": [
+        "Bridge",
+        "Brim",
+        "Floating vertical shell",
+        "Gap infill",
+        "Inner wall",
+        "Internal solid infill",
+        "Outer wall",
+        "Overhang wall",
+        "Sparse infill",
+        "Support",
+        "Support interface",
+        "Top surface"
+      ],
+      "fan_by_feature": {
+        "Support interface": [
+          0.0,
+          70.0
+        ],
+        "Support": [
+          0.0,
+          70.0
+        ],
+        "Brim": [
+          0.0
+        ],
+        "Outer wall": [
+          0.0,
+          70.0
+        ],
+        "Overhang wall": [
+          0.0,
+          70.0
+        ],
+        "Inner wall": [
+          0.0,
+          70.0
+        ],
+        "Bridge": [
+          0.0,
+          70.0
+        ],
+        "Internal solid infill": [
+          0.0
+        ],
+        "Sparse infill": [
+          0.0
+        ],
+        "Floating vertical shell": [
+          0.0
+        ],
+        "Top surface": [
+          0.0
+        ],
+        "Gap infill": [
+          0.0
+        ]
+      }
+    },
+    {
+      "part": "faucet-shell-tip",
+      "extruding_commands": 440650,
+      "first_three_fans": [
+        0.0
+      ],
+      "later_fans": [
+        0.0,
+        70.0
+      ],
+      "bridge_speeds": [
+        15.0
+      ],
+      "overhang_speeds": [
+        10.0,
+        15.0
+      ],
+      "features": [
+        "Bottom surface",
+        "Bridge",
+        "Brim",
+        "Floating vertical shell",
+        "Gap infill",
+        "Inner wall",
+        "Internal solid infill",
+        "Outer wall",
+        "Overhang wall",
+        "Sparse infill",
+        "Support",
+        "Support interface",
+        "Top surface"
+      ],
+      "fan_by_feature": {
+        "Support": [
+          0.0,
+          70.0
+        ],
+        "Brim": [
+          0.0
+        ],
+        "Inner wall": [
+          0.0,
+          70.0
+        ],
+        "Outer wall": [
+          0.0,
+          70.0
+        ],
+        "Bottom surface": [
+          0.0
+        ],
+        "Top surface": [
+          0.0
+        ],
+        "Gap infill": [
+          0.0
+        ],
+        "Internal solid infill": [
+          0.0
+        ],
+        "Sparse infill": [
+          0.0
+        ],
+        "Floating vertical shell": [
+          0.0
+        ],
+        "Support interface": [
+          0.0,
+          70.0
+        ],
+        "Overhang wall": [
+          70.0
+        ],
+        "Bridge": [
+          70.0
+        ]
+      }
+    },
+    {
+      "part": "sculpted-display-cover",
+      "extruding_commands": 55349,
+      "first_three_fans": [
+        0.0
+      ],
+      "later_fans": [
+        0.0,
+        70.0
+      ],
+      "bridge_speeds": [
+        15.0
+      ],
+      "overhang_speeds": [
+        10.0,
+        15.0
+      ],
+      "features": [
+        "Bridge",
+        "Floating vertical shell",
+        "Gap infill",
+        "Inner wall",
+        "Internal solid infill",
+        "Outer wall",
+        "Overhang wall",
+        "Sparse infill",
+        "Support",
+        "Support interface",
+        "Top surface"
+      ],
+      "fan_by_feature": {
+        "Support": [
+          0.0,
+          70.0
+        ],
+        "Inner wall": [
+          0.0,
+          70.0
+        ],
+        "Outer wall": [
+          0.0,
+          70.0
+        ],
+        "Gap infill": [
+          0.0
+        ],
+        "Internal solid infill": [
+          0.0
+        ],
+        "Sparse infill": [
+          0.0
+        ],
+        "Floating vertical shell": [
+          0.0
+        ],
+        "Top surface": [
+          0.0
+        ],
+        "Overhang wall": [
+          70.0
+        ],
+        "Bridge": [
+          70.0
+        ],
+        "Support interface": [
+          0.0,
+          70.0
+        ]
+      }
+    },
+    {
+      "part": "industrial-above-counter-plate",
+      "extruding_commands": 33412,
+      "first_three_fans": [
+        0.0
+      ],
+      "later_fans": [
+        0.0,
+        70.0
+      ],
+      "bridge_speeds": [
+        15.0
+      ],
+      "overhang_speeds": [
+        10.0
+      ],
+      "features": [
+        "Bottom surface",
+        "Bridge",
+        "Floating vertical shell",
+        "Gap infill",
+        "Inner wall",
+        "Internal solid infill",
+        "Outer wall",
+        "Overhang wall",
+        "Sparse infill",
+        "Support",
+        "Top surface"
+      ],
+      "fan_by_feature": {
+        "Support": [
+          0.0,
+          70.0
+        ],
+        "Inner wall": [
+          0.0
+        ],
+        "Outer wall": [
+          0.0
+        ],
+        "Bottom surface": [
+          0.0
+        ],
+        "Internal solid infill": [
+          0.0
+        ],
+        "Sparse infill": [
+          0.0
+        ],
+        "Floating vertical shell": [
+          0.0
+        ],
+        "Bridge": [
+          70.0
+        ],
+        "Overhang wall": [
+          70.0
+        ],
+        "Top surface": [
+          0.0
+        ],
+        "Gap infill": [
+          0.0
+        ]
+      }
+    },
+    {
+      "part": "lever-replica",
+      "extruding_commands": 31848,
+      "first_three_fans": [
+        0.0
+      ],
+      "later_fans": [
+        0.0,
+        70.0
+      ],
+      "bridge_speeds": [
+        15.0
+      ],
+      "overhang_speeds": [
+        10.0,
+        15.0
+      ],
+      "features": [
+        "Bottom surface",
+        "Bridge",
+        "Floating vertical shell",
+        "Gap infill",
+        "Inner wall",
+        "Internal solid infill",
+        "Outer wall",
+        "Overhang wall",
+        "Sparse infill",
+        "Support",
+        "Support interface",
+        "Top surface"
+      ],
+      "fan_by_feature": {
+        "Support": [
+          0.0,
+          70.0
+        ],
+        "Inner wall": [
+          0.0,
+          70.0
+        ],
+        "Outer wall": [
+          0.0,
+          70.0
+        ],
+        "Bottom surface": [
+          0.0
+        ],
+        "Internal solid infill": [
+          0.0
+        ],
+        "Top surface": [
+          0.0
+        ],
+        "Gap infill": [
+          0.0
+        ],
+        "Sparse infill": [
+          0.0
+        ],
+        "Floating vertical shell": [
+          0.0
+        ],
+        "Support interface": [
+          0.0,
+          70.0
+        ],
+        "Overhang wall": [
+          70.0
+        ],
+        "Bridge": [
+          70.0
+        ]
+      }
+    }
+  ],
+  "plates": [
+    {
+      "plate": 1,
+      "estimated_total_seconds": 23109.435546875,
+      "saved_profile_filament_estimate_g": 160.14527893066406,
+      "slicer_warning": ""
+    }
+  ],
+  "fit": {
+    "minimum_shared_bed_margin_mm": 42.1483735,
+    "complete_layer_bead_bounds": {
+      "extrusion_bounds_xy_mm": [
+        [
+          42.136466,
+          71.23046599999999
+        ],
+        [
+          265.99453400000004,
+          274.651534
+        ]
+      ],
+      "maximum_line_width_mm": 0.767068,
+      "bounds_padding_mm": 0.483534
+    },
+    "complete_layer_bead_minimum_bed_margin_mm": 42.136466,
+    "minimum_toolpath_separation_mm": 1.081870500000008,
+    "pairwise_toolpath_separations": [
+      {
+        "parts": [
+          "industrial-shell-base",
+          "faucet-shell-tip"
+        ],
+        "separation_mm": 28.552839500000005
+      },
+      {
+        "parts": [
+          "industrial-shell-base",
+          "sculpted-display-cover"
+        ],
+        "separation_mm": 108.50232190230332
+      },
+      {
+        "parts": [
+          "faucet-shell-tip",
+          "sculpted-display-cover"
+        ],
+        "separation_mm": 29.91787450000001
+      },
+      {
+        "parts": [
+          "industrial-shell-base",
+          "industrial-above-counter-plate"
+        ],
+        "separation_mm": 46.95537350000001
+      },
+      {
+        "parts": [
+          "faucet-shell-tip",
+          "industrial-above-counter-plate"
+        ],
+        "separation_mm": 24.133466000000027
+      },
+      {
+        "parts": [
+          "sculpted-display-cover",
+          "industrial-above-counter-plate"
+        ],
+        "separation_mm": 79.33734196505293
+      },
+      {
+        "parts": [
+          "industrial-shell-base",
+          "lever-replica"
+        ],
+        "separation_mm": 1.081870500000008
+      },
+      {
+        "parts": [
+          "faucet-shell-tip",
+          "lever-replica"
+        ],
+        "separation_mm": 27.501963000000018
+      },
+      {
+        "parts": [
+          "sculpted-display-cover",
+          "lever-replica"
+        ],
+        "separation_mm": 114.35880668913902
+      },
+      {
+        "parts": [
+          "industrial-above-counter-plate",
+          "lever-replica"
+        ],
+        "separation_mm": 17.778497000000016
+      }
+    ]
+  },
+  "scope": "Offline complete production slice of the exact approved source meshes and selected uniform layer recipe. No printer submission. The accepted remaining corner gap is retained."
+}

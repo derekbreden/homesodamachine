@@ -28,6 +28,11 @@ physical fit is separate from the earlier accepted covers above.
 The corrected black head's [October 25 physical record](../industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/physical-result/physical-result.json)
 reports very good fit with the display, tubes and wiring. Its visible front-corner
 opening is the subject of the [skirt-overlap print trial](corner-overlap-review/2026-10-25/README.md).
+The extended-skirt cover's [physical approval](prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json)
+accepts its working fit and appearance, including the remaining visible gap.
+No further iteration on that gap is requested. The
+[production source set](../industrial/production-selection.json) identifies the
+exact approved cover and matching lowered tip for subsequent Industrial prints.
 
 ## Geometry
 
@@ -99,6 +104,19 @@ neck, so the parting line stays below the display face.
 Customer installation uses the assembled faucet.
 
 ## Printing and checks
+
+The approved production cover uses black PET-GF and **0.24 mm for the first and
+every later layer**. Its [cover-only project](faucet-display-cover-petgf.3mf)
+retains the accepted −50° pose, localized cooling, supports and Mark2 trim.
+Prepare it with:
+
+```sh
+tools/cad-venv/bin/python hardware/printed-parts/faucet/faucet-display-cover/prepare_print_project.py
+```
+
+The preparer uses the exact approved STL in the production source set. It does
+not submit a print. The identified historical white covers below retain their
+own geometry and print scope.
 
 The white PET-GF cover prints bezel up at −50° about the CAD X axis, using
 0.24 mm layers. Its lower skirt and lip seating lands face the bed; the flat

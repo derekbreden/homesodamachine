@@ -27,12 +27,23 @@
   "scope": "Derek confirms the existing faucet cover. A newly proportioned keeper or spring capture must establish its own physical fit and retention; force and cycle-life values have not been measured.",
   "user_design_feedback": "Please don\u2019t consider that \u201cit fit well\u201d reason to use that design or any part of it. Please consider I prefer simplicity and the previous design and the remaining half still seem overly complicated to me. Please consider I don\u2019t love the nameplate for its complexity, and the faucet display cover is the only one that has been simple enough, with thick enough and broad enough components for the snap.",
   "current_geometry_result": {
-    "status": "Accepted with part cooling off for normal assembly",
-    "reported_date": "2026-10-17",
-    "stl_sha256": "1322c78dff3c0797ba04dd2c90b1a3b1fb92be601d022c2cebb0724bb1ce01a5",
-    "record": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/physical-result.json",
-    "task_id": "1348440331",
-    "prior_failed_covers": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/reported-failure.json",
-    "scope": "Acceptance belongs to the identified pre-clearance-change STL. The display-clearance revision requires its own physical result."
-  }
+    "status": "Approved normal assembly and appearance with accepted remaining front-corner gap",
+    "reported_date": "2026-10-25",
+    "stl_sha256": "3d4d2e05edde5a0e45aad36e9de072a57103c3b0f8da2bbd875cbfbedbe68133",
+    "record": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json",
+    "task_id": "1374330388",
+    "production_selection": "hardware/printed-parts/faucet/industrial/production-selection.json",
+    "scope": "The identified black cover on the lowered tip with switch pockets is approved. The remaining visible corner gap is accepted as good enough; no further iteration is requested. Numerical force and lifetime are unmeasured."
+  },
+  "prior_geometry_results": [
+    {
+      "status": "Accepted with part cooling off for normal assembly",
+      "reported_date": "2026-10-17",
+      "stl_sha256": "1322c78dff3c0797ba04dd2c90b1a3b1fb92be601d022c2cebb0724bb1ce01a5",
+      "record": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/physical-result.json",
+      "task_id": "1348440331",
+      "prior_failed_covers": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/reported-failure.json",
+      "scope": "Acceptance belongs to the identified pre-clearance-change STL. The display-clearance revision requires its own physical result."
+    }
+  ]
 }

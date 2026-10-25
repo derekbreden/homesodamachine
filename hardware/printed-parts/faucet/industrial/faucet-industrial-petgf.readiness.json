@@ -1,22 +1,22 @@
 {
   "project_title": "Industrial faucet PET-GF",
-  "status": "complete current project prepared with selected finish; native review pending",
+  "status": "approved production geometry and uniform-layer native slice reviewed",
   "preparation_only": true,
   "launch_authorized": false,
   "finish_choices_pending": [],
   "finish_selection": "hardware/printed-parts/faucet/industrial/finish-selection.json",
   "project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-  "project_sha256": "a1171fe55e0e10ef7d06ab1ca2d3955793e129b48f0cec41166a824a4ec8980a",
-  "settings_sha256": "73ddca1a51a6de2ada2dac8f59afb37b29b45f96b4b8d4e7e8fd7dda006f33cc",
-  "print_report_sha256": "e89db1c773487e8ec8c432c922d154e156b232368cba7680bb8d06e00a10b99c",
-  "profile_source": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.3mf",
-  "all_profile_members_preserved_byte_for_byte": false,
+  "project_sha256": "138381e13b3089fa3130bc7f0fe7752dd2b65b804a0eedcafb277819f2878fa0",
+  "settings_sha256": "987a5e177a7ff369594322a0107c23f4dddfdb094bbbfe9fd22f7628e0961d99",
+  "print_report_sha256": "2346aaa558d50e3764474581c0d855852027e1b2ebed2abcaa5c5fa729fb74d5",
+  "profile_source": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/2026-10-25-sculpted-cover-front-overlap-black-left04-z004-mark2.3mf",
+  "all_profile_members_preserved_byte_for_byte": true,
   "source_stls": {
-    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "dc855eb7d8eae75886222d8b4aee8b9e02fe1d55ae4740c1ae5b4b64cf6ba742",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "ced30018682bec2b3099ebc6db8da75198fda923cc9a86d1189f2f03ebfdabe8",
-    "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "4a09250f4900d864ac1dbe8cc7d040a307f2a62c5bb84bfabcf01576ee716a1f",
-    "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "5dcf7c25eddfd45f5a9db12b687b751ba24c3c3f9bb87d042b6d97ca4d134bee",
-    "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb"
+    "hardware/printed-parts/faucet/industrial/production/2026-10-25/industrial-shell-base.stl": "dc855eb7d8eae75886222d8b4aee8b9e02fe1d55ae4740c1ae5b4b64cf6ba742",
+    "hardware/printed-parts/faucet/industrial/production/2026-10-25/faucet-shell-tip.stl": "35ec9f0b99c5e90f038836549e6f5e8f112b2af03e1849b08b2d759050d260e6",
+    "hardware/printed-parts/faucet/industrial/production/2026-10-25/sculpted-display-cover.stl": "3d4d2e05edde5a0e45aad36e9de072a57103c3b0f8da2bbd875cbfbedbe68133",
+    "hardware/printed-parts/faucet/industrial/production/2026-10-25/industrial-above-counter-plate.stl": "5dcf7c25eddfd45f5a9db12b687b751ba24c3c3f9bb87d042b6d97ca4d134bee",
+    "hardware/printed-parts/faucet/industrial/production/2026-10-25/lever-replica.stl": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb"
   },
   "mesh_and_placement": {
     "closed_oriented_single_body_meshes": true,
@@ -26,19 +26,138 @@
     "minimum_required_model_bed_margin_mm": 40.0
   },
   "offline_slice": {
-    "completed": false
+    "completed": true,
+    "directory": ".cache/faucet-production-uniform024-20261025/native",
+    "slicer": "BambuStudio 02.08.02.61",
+    "support_audit_sha256": "54bedb8fc07ac2dc18809618f044e362fb5cab47e10b3deac76fe2b51ac9b40b",
+    "plates": [
+      {
+        "plate": 1,
+        "estimated_total_seconds": 23109.435546875,
+        "saved_profile_filament_estimate_g": 160.14527893066406,
+        "slicer_warning": ""
+      }
+    ],
+    "fit": {
+      "minimum_shared_bed_margin_mm": 42.1483735,
+      "complete_layer_bead_bounds": {
+        "extrusion_bounds_xy_mm": [
+          [
+            42.136466,
+            71.23046599999999
+          ],
+          [
+            265.99453400000004,
+            274.651534
+          ]
+        ],
+        "maximum_line_width_mm": 0.767068,
+        "bounds_padding_mm": 0.483534
+      },
+      "complete_layer_bead_minimum_bed_margin_mm": 42.136466,
+      "minimum_toolpath_separation_mm": 1.081870500000008,
+      "pairwise_toolpath_separations": [
+        {
+          "parts": [
+            "industrial-shell-base",
+            "faucet-shell-tip"
+          ],
+          "separation_mm": 28.552839500000005
+        },
+        {
+          "parts": [
+            "industrial-shell-base",
+            "sculpted-display-cover"
+          ],
+          "separation_mm": 108.50232190230332
+        },
+        {
+          "parts": [
+            "faucet-shell-tip",
+            "sculpted-display-cover"
+          ],
+          "separation_mm": 29.91787450000001
+        },
+        {
+          "parts": [
+            "industrial-shell-base",
+            "industrial-above-counter-plate"
+          ],
+          "separation_mm": 46.95537350000001
+        },
+        {
+          "parts": [
+            "faucet-shell-tip",
+            "industrial-above-counter-plate"
+          ],
+          "separation_mm": 24.133466000000027
+        },
+        {
+          "parts": [
+            "sculpted-display-cover",
+            "industrial-above-counter-plate"
+          ],
+          "separation_mm": 79.33734196505293
+        },
+        {
+          "parts": [
+            "industrial-shell-base",
+            "lever-replica"
+          ],
+          "separation_mm": 1.081870500000008
+        },
+        {
+          "parts": [
+            "faucet-shell-tip",
+            "lever-replica"
+          ],
+          "separation_mm": 27.501963000000018
+        },
+        {
+          "parts": [
+            "sculpted-display-cover",
+            "lever-replica"
+          ],
+          "separation_mm": 114.35880668913902
+        },
+        {
+          "parts": [
+            "industrial-above-counter-plate",
+            "lever-replica"
+          ],
+          "separation_mm": 17.778497000000016
+        }
+      ]
+    },
+    "physical_support_removal_validated": false
   },
   "printer_submission": {
     "performed_by_this_tool": false
   },
   "physical_print": {
-    "evaluated": false,
-    "remaining": "Support removal, contact finish, display fit and retention are physical print readings."
+    "approved_geometry_record": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json",
+    "approved_geometry_selection": "hardware/printed-parts/faucet/industrial/production-selection.json",
+    "selected_uniform_layer_height_mm": 0.24,
+    "accepted_remaining_corner_gap": true,
+    "this_archive_printed": false
   },
   "gasket": {
     "source": "hardware/printed-parts/faucet/industrial/industrial-above-counter-gasket.stl",
     "material": "TPU",
     "included_in_petgf_project": false
   },
-  "color": "The same meshes and project geometry serve black and white PET-GF."
+  "color": "The same meshes and project geometry serve black and white PET-GF.",
+  "sculpted_artifacts_unchanged": {
+    "hardware/printed-parts/faucet/faucet-petgf.3mf": "523aca51a52146930133187ae873afeb1677849ffc4d15bf4cf56a7d2f15e055",
+    "hardware/printed-parts/faucet/faucet-petgf.print.json": "5c340eda872ef27accb10f0e2ba8692b00cb55be466258efae13102d03fc79d3",
+    "hardware/printed-parts/faucet/faucet-petgf.support-audit.json": "383212521536bbe4a6661bf127e59203eeacfe3206bf80d4eaea8ea775823b97",
+    "hardware/printed-parts/faucet/faucet-petgf.readiness.json": "520bfcfe182db137271f9cfce89b05fc268c625a2ae37593eddf8d0cd42133cb"
+  },
+  "native_archive": {
+    "path": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.gcode.3mf",
+    "sha256": "7a3e848c5202c0247b549cba9de20cb517c3f6640eada07e0c85ef0fdd70b9f4",
+    "gcode_sha256": "231ed05c153ecb348f88a60822873e0d4b1140fc78cd943b2b79e023abcd42fb"
+  },
+  "native_command_review": "hardware/printed-parts/faucet/industrial/production/2026-10-25/native-review.json",
+  "physical_production_approval": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json"
 }

@@ -1,7 +1,7 @@
 """Prepare the complete Industrial faucet with the accepted PET-GF recipe.
 
-The project contains the Industrial base, relaxed cover and mounting plate,
-plus the shared faucet tip and side-down lever. The TPU gasket is a separate print. Optional
+The project contains the approved Industrial base and mounting plate,
+lowered shared tip, Sculpted cover and side-down lever. The TPU gasket is a separate print. Optional
 slicing runs Bambu Studio locally and never connects to a printer.
 """
 from __future__ import annotations
@@ -28,7 +28,9 @@ PROJECT = HERE / "faucet-industrial-petgf.3mf"
 ACCEPTANCE = HERE / "physical-acceptance.json"
 ACCEPTED = json.loads(ACCEPTANCE.read_text())
 RECIPE = writer.ROOT / ACCEPTED["prepared_project"]
-PROFILE = RECIPE
+PRODUCTION_PATH = HERE / "production-selection.json"
+PRODUCTION = json.loads(PRODUCTION_PATH.read_text())
+PROFILE = writer.ROOT / PRODUCTION["settings_source"]
 FINISH = HERE / "finish-selection.json"
 GASKET = HERE / "industrial-above-counter-gasket.stl"
 # Separate spaces for each part's brim and automatically generated supports.
@@ -58,18 +60,9 @@ def protected_hashes() -> dict[str, str]:
 
 
 def industrial_parts() -> tuple:
-    # Assembly-frame STLs use the shared production print rotations.
-    rotations = {name: rotation for name, _, rotation in writer.PARTS}
-    parts = (
-        ("industrial-shell-base", HERE / "industrial-shell-base.stl",
-         rotations["faucet-shell-base"]),
-        ("faucet-shell-tip", FAUCET / "faucet-shell/faucet-shell-tip.stl",
-         rotations["faucet-shell-tip"]),
-        ("industrial-display-cover", HERE / "industrial-display-cover.stl",
-         rotations["faucet-display-cover"]),
-        ("industrial-above-counter-plate", HERE / "industrial-above-counter-plate.stl", 0.0),
-        ("lever-replica", FAUCET / "lever-replica/lever-replica-side-down.stl", 0.0),
-    )
+    # These assembly-frame meshes are the exact physically approved print inputs.
+    parts = tuple((row["name"], writer.ROOT / row["source"], row["rotation_x_degrees"])
+                  for row in PRODUCTION["parts"])
     missing = [relative(path) for _, path, _ in parts if not path.is_file()]
     if missing:
         raise FileNotFoundError("Generate the Industrial STLs before preparing the project: "
@@ -184,8 +177,8 @@ def write_readiness(project: Path, report: dict, reading: dict | None = None,
     """Record what this offline preparation actually checked."""
     result = {
         "project_title": TITLE,
-        "status": ("selected finish offline slice and support audit passed"
-                   if reading is not None else "complete current project prepared with selected finish; native review pending"),
+        "status": ("approved production geometry and uniform-layer native slice reviewed"
+                   if reading is not None else "approved production geometry prepared; native review pending"),
         "preparation_only": True,
         "launch_authorized": False,
         "finish_choices_pending": [],
@@ -207,8 +200,11 @@ def write_readiness(project: Path, report: dict, reading: dict | None = None,
         "offline_slice": {"completed": reading is not None},
         "printer_submission": {"performed_by_this_tool": False},
         "physical_print": {
-            "evaluated": False,
-            "remaining": "Support removal, contact finish, display fit and retention are physical print readings.",
+            "approved_geometry_record": PRODUCTION["physical_result"],
+            "approved_geometry_selection": relative(PRODUCTION_PATH),
+            "selected_uniform_layer_height_mm": .24,
+            "accepted_remaining_corner_gap": True,
+            "this_archive_printed": False,
         },
         "gasket": {"source": relative(GASKET), "material": "TPU", "included_in_petgf_project": False},
         "color": "The same meshes and project geometry serve black and white PET-GF.",
@@ -292,12 +288,12 @@ def refresh(settings_from: Path = PROFILE, output: Path = PROJECT,
                           for obj in source_config.findall("object")}
         for obj in config.findall("object"):
             name = obj.find("metadata[@key='name']").get("value")
-            for setting in source_objects[name].findall("metadata"):
+            recipe_name = "industrial-display-cover" if name == "sculpted-display-cover" else name
+            for setting in source_objects[recipe_name].findall("metadata"):
                 key = setting.get("key")
                 if key and key not in ("name", "extruder"):
                     writer.metadata(obj, key, setting.get("value"))
         members["Metadata/model_settings.config"] = writer.xml(config)
-        members["Metadata/layer_config_ranges.xml"] = recipe.read("Metadata/layer_config_ranges.xml")
         settings = json.loads(members[writer.SETTINGS_MEMBER])
         original_colour = settings["filament_colour"]
         settings["filament_colour"] = [filament_colour]
@@ -383,7 +379,8 @@ def refresh(settings_from: Path = PROFILE, output: Path = PROJECT,
         "color_independent_geometry": True,
         "accepted_recipe": relative(RECIPE),
         "accepted_recipe_sha256": ACCEPTED["prepared_project_sha256"],
-        "accepted_geometry_tag": ACCEPTED["tag"],
+        "approved_geometry_selection": relative(PRODUCTION_PATH),
+        "physical_production_approval": PRODUCTION["physical_result"],
         "active_nozzle": 0,
         "printer": printer,
         "requested_z_trim_mm": trim,
@@ -399,7 +396,7 @@ def refresh(settings_from: Path = PROFILE, output: Path = PROJECT,
         "finish_choices_pending": [],
         "finish_selection": relative(FINISH),
         "selected_finish": finish,
-        "selected_finish_scope": "A2 with Back on base, tip and mounting plate; complete build-pose rear seam enforcement on the base and matching exposed curved tip meridian; default corner seams on cover and lever; selected base layer bands with ordinary layers elsewhere and independent support heights off; native125% bridge flow; ordinary part cooling off, 70% on bridges and walls with at least 50% unsupported bead width after three off bed layers; Bridge15mm/s and overhang limits<=15 preserving existing10mm/s; accepted segmented base-rim arcs, tip eight fins and local lip trees, and the removable hidden-root disc. Tree(auto)/Default elsewhere.",
+        "selected_finish_scope": "Approved Industrial faucet with lowered tip and extended Sculpted cover; uniform 0.24 mm first and later layers, no variable bands and independent support heights off. A2 with Back on base, tip and mounting plate, full rear seam enforcement, and Aligned/15%/scarf-off on cover and lever. Retain 125% bridge flow, 15 mm/s bridges, 10-15 mm/s overhangs, ordinary and auxiliary fan off, localized 70% bridge/overhang fan after three off layers, accepted base rim arcs, tip fins, local lip trees and hidden-root disc. Tree(auto)/Default elsewhere.",
         "base_layer_bands": [{"print_z_mm": band, "layer_height_mm": finish["fine_layer_height_mm"]}
                              for band in bands],
     })
@@ -415,7 +412,7 @@ def refresh(settings_from: Path = PROFILE, output: Path = PROJECT,
         face["model_layer_height_mm"] = float(after_settings["layer_height"])
     from prepare_vent_prints import source_hashes
     report["source_sha256"] = source_hashes(parts)
-    for path in (Path(__file__), RECIPE, ACCEPTANCE, FINISH):
+    for path in (Path(__file__), RECIPE, ACCEPTANCE, FINISH, PRODUCTION_PATH):
         report["source_sha256"][relative(path)] = writer.digest(path.read_bytes())
     if report.get("base_rim_supports"):
         for path in (HERE / 'rim_supports.py', writer.ROOT / finish['base_rim_supports']['source_project']):
@@ -453,7 +450,7 @@ def main() -> None:
     before = protected_hashes()
     directory.mkdir(parents=True, exist_ok=True)
     command = [str(args.slicer.resolve()), "--slice", "0", "--arrange", "0", "--orient", "0",
-               "--outputdir", str(directory), str(project)]
+               "--outputdir", str(directory), "--export-3mf", project.stem + ".gcode.3mf", str(project)]
     log = directory / "bambu-cli.log"
     with log.open("w") as stream:
         result = subprocess.run(command, cwd=directory, stdout=stream, stderr=subprocess.STDOUT)

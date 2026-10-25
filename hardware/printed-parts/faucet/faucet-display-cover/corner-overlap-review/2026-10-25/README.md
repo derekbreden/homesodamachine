@@ -5,7 +5,10 @@ The [eight photographs and physical record](../../../industrial/prints/2026-10-2
 establish reported good fit of the cover, display, tubes and wiring. Photo 8
 identifies the remaining visible opening below the front corner of the skirt.
 The [single-cover print](../../prints/2026-10-25-front-overlap-black-mark2/README.md)
-is Mark2 task **1374330388**, accepted on October 25. Its physical result is pending.
+is Mark2 task **1374330388**, accepted on October 25. Its
+[physical result](../../prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json)
+reports that it worked and is approved. The photographs still show a corner gap;
+that gap is accepted as good enough, with no further iteration requested.
 
 The proposed cover extends both sloping front skirt edges across that opening.
 Its lower trim follows **N = 10.5 − 1.8 S**. At the front of the tip pocket,

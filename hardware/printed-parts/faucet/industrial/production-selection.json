@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "reported_date": "2026-10-25",
+  "status": "approved_production_print_geometry_and_uniform_layer_recipe",
+  "user_quote": "That worked. There's still a gap, so make a note of it, but I don't want to iterate any further on this right now. It's fine. It's good enough. Regarding the thinner layers that we tried on the previous FASA print there, that didn't turn out so good, so I'd like to go back to the same layer height everywhere as our final production print settings. And other than that, make sure that our next prints match what we did here, because all of this is looking good and is approved.",
+  "physical_result": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json",
+  "complete_head_fit_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/physical-result/physical-result.json",
+  "settings_source": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/2026-10-25-sculpted-cover-front-overlap-black-left04-z004-mark2.3mf",
+  "parts": [
+    {
+      "name": "industrial-shell-base",
+      "source": "hardware/printed-parts/faucet/industrial/production/2026-10-25/industrial-shell-base.stl",
+      "stl_sha256": "dc855eb7d8eae75886222d8b4aee8b9e02fe1d55ae4740c1ae5b4b64cf6ba742",
+      "rotation_x_degrees": -14.999999999999998,
+      "printed_source": "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl",
+      "printed_source_task_id": "1372253517"
+    },
+    {
+      "name": "faucet-shell-tip",
+      "source": "hardware/printed-parts/faucet/industrial/production/2026-10-25/faucet-shell-tip.stl",
+      "stl_sha256": "35ec9f0b99c5e90f038836549e6f5e8f112b2af03e1849b08b2d759050d260e6",
+      "rotation_x_degrees": -105.0,
+      "printed_source": "hardware/printed-parts/faucet/faucet-display-cover/fit-review/2026-10-24/corrected-tip.stl",
+      "printed_source_task_id": "1372253517"
+    },
+    {
+      "name": "sculpted-display-cover",
+      "source": "hardware/printed-parts/faucet/industrial/production/2026-10-25/sculpted-display-cover.stl",
+      "stl_sha256": "3d4d2e05edde5a0e45aad36e9de072a57103c3b0f8da2bbd875cbfbedbe68133",
+      "rotation_x_degrees": -50.0,
+      "printed_source": "hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/proposed-cover.stl",
+      "printed_source_task_id": "1374330388"
+    },
+    {
+      "name": "industrial-above-counter-plate",
+      "source": "hardware/printed-parts/faucet/industrial/production/2026-10-25/industrial-above-counter-plate.stl",
+      "stl_sha256": "5dcf7c25eddfd45f5a9db12b687b751ba24c3c3f9bb87d042b6d97ca4d134bee",
+      "rotation_x_degrees": 0.0,
+      "printed_source": "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl",
+      "printed_source_task_id": "1372253517"
+    },
+    {
+      "name": "lever-replica",
+      "source": "hardware/printed-parts/faucet/industrial/production/2026-10-25/lever-replica.stl",
+      "stl_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
+      "rotation_x_degrees": 0.0,
+      "printed_source": "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
+      "printed_source_task_id": "1372253517"
+    }
+  ],
+  "recipe": {
+    "first_bed_layer_height_mm": 0.24,
+    "layer_height_mm": 0.24,
+    "variable_layer_ranges": [],
+    "independent_support_layer_height": false,
+    "material": "Black Polymaker PET-GF",
+    "printer": "Mark2",
+    "fixed_nozzle": "left hardened 0.4 mm Standard flow",
+    "external_spool": 254,
+    "filament_colour": "#161616",
+    "plate": "Textured PEI Plate",
+    "requested_z_trim_mm": 0.04,
+    "emitted_z_trim_mm": 0.02,
+    "retain_other_settings_from_accepted_print": true
+  },
+  "accepted_cosmetic_condition": {
+    "remaining_front_corner_gap": true,
+    "iteration_requested": false,
+    "record": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json"
+  },
+  "historical_shipping_acceptance": "hardware/printed-parts/faucet/industrial/physical-acceptance.json",
+  "scope": "Approval and selected settings apply to this Industrial faucet with Sculpted display cover. Frozen source meshes preserve the printed geometry. Other faucet styles and historical physical records retain their own scope.",
+  "production_tag": "faucet-industrial-production-2026-10-25"
+}
