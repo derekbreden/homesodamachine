@@ -150,6 +150,33 @@ fitting. A fitting's insulation envelope need not add a full nominal foam
 wall outside its body. This is qualitative fit evidence for that article;
 the selected scene's straight sleeve retains its stated dimensions.
 
+### Continuous inlet bend candidate
+
+[continuous_soda_bend.py](continuous_soda_bend.py) models a continuous 1/4-inch
+LLDPE tube through the accepted R14 PET-GF bend holder, with its 2 mm wall and
+3 mm legs, into the meter's inlet socket. The holder carries no fluid joint.
+One approximately 63 mm square-cut piece of the owned foam slides over the
+tube and holder before the meter connects. The holder displaces foam inside
+the sleeve; the nominal outside diameter is 25.4 mm.
+
+The meter and every main component keep their poses. The passive core entry
+is `(50,342.4148,253.4)` mm, 11.9548 mm fore of the selected straight inlet.
+The tube continues below that handoff; it is not cut or joined at the guide.
+The inlet push-fit elbow and its extra connection are absent in this candidate.
+
+[continuous-soda-bend-review.json](continuous-soda-bend-review.json) records no
+unrelated rigid contacts. The holder clears the meter by 1 mm and the pump
+inlet TPU by 4.124 mm; the tube clears that TPU by 1.891 mm. The stock foam
+compresses locally against the pump, V-K and pump inlet hardware. The tightest
+sampled radial space leaves approximately 1.89 mm between tube and TPU.
+The translucent occupied-space foam mesh illustrates this compression; it is
+not a shaped cutting pattern or a prediction of strain or thermal performance.
+
+[continuous-soda-bend.json](continuous-soda-bend.json) supplies the source,
+acceptance, datums and native geometry. Current printed supports, the under-lid
+continuation and the complete installed harness require integration review
+before this candidate replaces the production inlet.
+
 ## PCB access and fit
 
 The board footprint is X−83..−10.200 and Y186.387..277.203 mm, with underside
