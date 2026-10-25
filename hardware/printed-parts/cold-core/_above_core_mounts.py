@@ -72,15 +72,12 @@ def _standoff(name):
 def deck_mounts():
     """Cup-rooted columns compatible with the cap's deck-mount construction.
 
-    The PCB's columns pass through the lid to its underside. The PSU and pump
-    bear on the lid above flush columns. All use RX-M3x5.7 inserts. The PCB's
-    M3x8 screws cross its 1.6 mm board; the flat PSU's M3x20 screws cross its
-    6.7 ± 1 mm ledges and the lid. The minimum ear thickness sizes the blind
-    pilot; the maximum still engages the complete insert. The pump retains
-    its measured pad/washer stack.
+    The PCB's columns pass through the lid to its underside; the pump bears
+    on the lid above flush columns. Both use RX-M3x5.7 inserts. The PCB's
+    M3x8 screws cross its 1.6 mm board. The pump retains its measured
+    pad/washer stack. The dry-sidewall PSU has separate enclosure hosts.
     """
     pcb = importlib.import_module('pcba_tray')
-    psu = importlib.import_module('meanwell_irm90')
     pump = importlib.import_module('g_ganen_installation')
     return {
         'g-ganen-pump': DeckMount(
@@ -92,9 +89,6 @@ def deck_mounts():
         'pcba': DeckMount(
             mounting_points('pcba', pcb.board.holes), _standoff('pcba'),
             pcb._thickness, 8.0, pcb._thickness),
-        'psu': DeckMount(
-            mounting_points('psu', psu.holes), _standoff('psu'),
-            psu.ledge_h, 20.0, psu.ledge_h - 1.0),
     }
 
 
@@ -175,7 +169,7 @@ def check_anchor():
 
 
 def check_support_datums():
-    """East quarter bearing and aft root, leaving the west PSU face clear."""
+    """East quarter bearing and aft root, open toward the pump driver lane."""
     import fits
     core = importlib.import_module('_cold_core_interface')
     pump = importlib.import_module('g_ganen_installation')
@@ -203,6 +197,7 @@ def check_support_datums():
             # shoulder while retaining the foot's independent driver lane.
             'root_aft_y_mm': min(foot_aft+6.,outlet[1]-fits.slip),
             'bearing_fore_y_mm': centre[1]-core.cap_anchor_len/2.,
+            'seat_radius_mm': radius,
             'half_width_mm': radius+3.,
             'stock_x_limits_world_mm': (centre[0],centre[0]+radius+3.),
             'bridge_bottom_world_z_mm': centre[2]-radius-3.,
@@ -217,9 +212,6 @@ def check_support_datums():
 def check_support():
     """Lid-rooted east quarter bearing with a west-open pump-tool notch."""
     import cadquery as cq
-    import fits
-
-    check = importlib.import_module('neofit_achv44_check')
     data = check_support_datums()
     x,y,z = data['centre_world_mm']
     low_x,high_x = data['stock_x_limits_world_mm']
@@ -237,88 +229,29 @@ def check_support():
                              z-data['bridge_bottom_world_z_mm']+2.,
                              cq.Vector(low_x-1.,y0,data['bridge_bottom_world_z_mm']-1.))
     support = support.cut(notch)
-    frame = above_core.frame_location(above_core.pose('discharge-chain'))
-    inlet, outward = check.inlet()
-    direction = tuple(-a for a in outward)
-    for _name,radius,start,end in check.sections():
-        origin = tuple(p + start*a for p,a in zip(inlet,direction))
-        bore = cq.Solid.makeCylinder(radius+fits.slip,end-start,
-                                     cq.Vector(*origin),cq.Vector(*direction)).moved(frame)
-        support = support.cut(bore)
-    return world_shape_in_cap(support.clean())
+    # The fixed barrel owns one plain cylindrical seat. The same opening
+    # continues through the aft root, keeping the neck and collet free.
+    bore = cq.Solid.makeCylinder(data['seat_radius_mm'],
+        data['root_aft_y_mm']-data['bearing_fore_y_mm']+.2,
+        cq.Vector(x,data['bearing_fore_y_mm']-.1,z),cq.Vector(0.,1.,0.))
+    return world_shape_in_cap(support.cut(bore).clean())
+
+
+def _back_top_meter():
+    """Shared world-frame meter carriers, integral with the enclosure back-top."""
+    directory = HW / 'printed-parts/enclosure/enclosure'
+    if str(directory) not in sys.path:
+        sys.path.insert(0, str(directory))
+    return importlib.import_module('_back_top_meter')
 
 
 def meter_support_datums():
-    """Fixed-collar quarter bearings, open upward and west for drop-in assembly."""
-    import fits
-    meter = importlib.import_module('digiten_flow_sensor')
-    frame = above_core.pose('digiten-flow')
-    _start, end, r0, r1 = meter.mounting_profile(1)[-1]
-    axial = (_start+end)/2.
-    radius, wall = max(r0,r1)+fits.slip, 3.
-    rows = []
-    for side in (-1,1):
-        # The aft bearing uses the fore portion of its 7.2 mm fixed collar.
-        # Its full 6 mm width leaves 0.1 mm before the collar's fore edge.
-        station = side*axial - (.5 if side == 1 else 0.)
-        x,y,z = above_core.point(frame,(station,0.,0.))
-        rows.append({'centre_world_mm': (x,y,z), 'width_mm': 6.,
-                     'seat_radius_mm': radius, 'wall_mm': wall,
-                     'native_bearing_band_mm': (station-3.,station+3.),
-                     'root_bottom_world_z_mm': above_core.specification()['cap_face_z_mm'],
-                     'stock_top_world_z_mm': z,
-                     'tie_window_world_mm': (x+wall+.1,x+wall+.1+2.8,
-                                              z-radius-8.,z-radius-6.)})
-        if side == -1:
-            # One flat step clears the fore pump foot and head approach.
-            # The east root remains 4.6 mm thick across the full bearing width.
-            rows[-1]['lower_root_min_x_mm'] = x+7.7
-            rows[-1]['lower_root_top_z_mm'] = 267.3
-        else:
-            # A straight central wall passes between the two fixed reservoir
-            # tubes. The broad lower base carries the complete closed tie slot.
-            rows[-1]['central_root_min_x_mm'] = x+4.1
-            rows[-1]['central_root_width_mm'] = 3.
-            rows[-1]['base_top_z_mm'] = 271.
-            rows[-1]['tie_window_world_mm'] = (x+3.1,x+5.9,266.,268.)
-    return tuple(rows)
+    return _back_top_meter().meter_support_datums()
 
 
 def meter_supports():
-    """Native-lid solids for the fixed flow-meter collars and their ties."""
-    import cadquery as cq
-    rows = []
-    for data in meter_support_datums():
-        x,y,z = data['centre_world_mm']
-        r,w,half = data['seat_radius_mm'],data['wall_mm'],data['width_mm']/2.
-        stock = cq.Solid.makeBox(r+w,2.*half,
-                                 data['stock_top_world_z_mm']-data['root_bottom_world_z_mm'],
-                                 cq.Vector(x,y-half,data['root_bottom_world_z_mm']))
-        if 'central_root_min_x_mm' in data:
-            outer = cq.Solid.makeCylinder(
-                r+w,2.*half,cq.Vector(x,y-half,z),cq.Vector(0,1,0))
-            quarter = outer.intersect(stock)
-            root = cq.Solid.makeBox(
-                data['central_root_width_mm'],2.*half,
-                z-data['root_bottom_world_z_mm'],
-                cq.Vector(data['central_root_min_x_mm'],y-half,
-                          data['root_bottom_world_z_mm']))
-            base = cq.Solid.makeBox(
-                r+w,2.*half,
-                data['base_top_z_mm']-data['root_bottom_world_z_mm'],
-                cq.Vector(x,y-half,data['root_bottom_world_z_mm']))
-            stock = quarter.fuse(root,base)
-        if 'lower_root_min_x_mm' in data:
-            step = cq.Solid.makeBox(
-                data['lower_root_min_x_mm']-x+.1,2.*half+.2,
-                data['lower_root_top_z_mm']-data['root_bottom_world_z_mm']+.1,
-                cq.Vector(x-.1,y-half-.1,data['root_bottom_world_z_mm']-.1))
-            stock = stock.cut(step)
-        bore = cq.Solid.makeCylinder(r,2.*half+.2,cq.Vector(x,y-half-.1,z),cq.Vector(0,1,0))
-        x0,x1,z0,z1 = data['tie_window_world_mm']
-        window = cq.Solid.makeBox(x1-x0,2.*half+.2,z1-z0,cq.Vector(x0,y-half-.1,z0))
-        rows.append(world_shape_in_cap(stock.cut(bore,window).clean()))
-    return tuple(rows)
+    """World-frame wall bearings; these are not native cold-core lid stock."""
+    return _back_top_meter().meter_supports()
 
 
 def _jg_band_radius(leg, first, last):
@@ -376,7 +309,8 @@ def union_support_datums():
           'bore_length_mm':13.,'seat_radius_mm':radius,
           'native_leg':'y','native_band_mm':(13.,16.),
           'tie_window_min_world_mm':(root_x+3.1,root_fore-.1,window_top-2.8),
-          'tie_window_max_world_mm':(root_x+5.9,root_aft+.1,window_top),
+          'tie_window_max_world_mm':(root_x+5.9,root_aft+.1,bottom),
+          'tie_route_z_mm':window_top-1.4,
           'wall_mm':3.,'parent':'foam-assembly','support_implemented':True}
     return {'va-east-turn': va, 'vb-outlet-return': vb}
 
@@ -529,7 +463,7 @@ def _vb_union_tie(data):
     upper = _tie_arc_point(centre, u, v, radius, 20.)
     lower = _tie_arc_point(centre, u, v, radius, 260.)
     first, last = data['tie_window_min_world_mm'], data['tie_window_max_world_mm']
-    wx, wz = (first[0]+last[0])/2., (first[2]+last[2])/2.
+    wx, wz = (first[0]+last[0])/2., data['tie_route_z_mm']
     fore_y, aft_y = first[1]-.5, last[1]+1.3
     west_x = data['stock_min_world_mm'][0]-1.4
     east_x = data['root_max_world_mm'][0]+1.4
@@ -582,77 +516,7 @@ def union_tie_routes():
 
 
 def meter_tie_routes():
-    """Closed nominal retaining-strip paths through the two meter windows.
-
-    The 2.5 × 0.8 mm section is a layout allowance. Purchased strap/head
-    dimensions, bend/twist transitions, threading and retention are unqualified.
-    The aft path uses the neck plane beside the offset round housing.
-    """
-    result = {}
-    for number, data in enumerate(meter_support_datums()):
-        x, y, z = data['centre_world_mm']
-        x0, x1, z0, z1 = data['tie_window_world_mm']
-        wx, wz = (x0+x1)/2., (z0+z1)/2.
-        radius = data['seat_radius_mm']+.6
-        phi = math.atan2(wz-z, wx-x)
-        alpha = math.acos(radius/math.hypot(wx-x, wz-z))
-        west_angle = math.degrees(phi-alpha) % 360.
-        east_angle = math.degrees(phi+alpha)
-        centre = (x, y+(.6 if number == 0 else 0.), z)
-        u, v = (1., 0., 0.), (0., 0., 1.)
-        window_fore, window_aft = (wx, y-3.8, wz), (wx, y+3.8, wz)
-        west_plane = y-4.7148 if number == 0 else y-8.6
-        east_plane = y+4.6
-        east_centre = (x, east_plane, z)
-        east_low = (wx, east_plane, wz)
-        east_tangent = _tie_arc_point(east_centre, u, v, radius, east_angle)
-        high_east = _tie_arc_point(east_centre, u, v, radius, 15.)
-        high = _tie_arc_point(centre, u, v, radius, 15.)
-        west = _tie_arc_point(centre, u, v, radius, west_angle)
-        west_fore = (west[0], west_plane, west[2])
-        split = tuple(west_fore[i]+.2*(window_fore[i]-west_fore[i])
-                      for i in range(3))
-        west_wide = (-math.sin(math.radians(west_angle)), 0.,
-                     math.cos(math.radians(west_angle)))
-        east_wide = (-math.sin(math.radians(15.)), 0.,
-                     math.cos(math.radians(15.)))
-        segments = [
-            _tie_line(window_fore, window_aft, (1., 0., 0.)),
-            _tie_line(window_aft, east_low, (1., 0., 0.)),
-            _tie_line(east_low, east_tangent, (1., 0., 0.)),
-            _tie_arc(east_centre, u, v, radius, east_angle, 15.),
-            _tie_line(high_east, high, east_wide),
-            _tie_arc(centre, u, v, radius, 15., west_angle),
-            _tie_line(west, west_fore, west_wide),
-            _tie_line(west_fore, split, (0., 1., 0.)),
-            _tie_line(split, window_fore, (1., 0., 0.)),
-        ]
-        if number == 1:
-            west_angle = 240.
-            west = _tie_arc_point(centre, u, v, radius, west_angle)
-            neck_y = y-3.6148
-            neck_z = data['root_bottom_world_z_mm']+43.4
-            neck = (west[0], neck_y, neck_z)
-            corner, low = (wx, neck_y, neck_z), (wx, neck_y, wz)
-            west_wide = (-math.sin(math.radians(west_angle)), 0.,
-                         math.cos(math.radians(west_angle)))
-            segments = segments[:5]+[
-                _tie_arc(centre, u, v, radius, 15., west_angle),
-                _tie_line(west, neck, west_wide),
-                _tie_line(neck, corner, (0., 0., 1.)),
-                _tie_line(corner, low, (1., 0., 0.)),
-                _tie_line(low, window_fore, (1., 0., 0.)),
-            ]
-        result['meter-'+('fore' if number == 0 else 'aft')] = {
-            'segments': segments,
-            'length_mm': _tie_length(segments),
-            'stock_length_mm': 152.4,
-            'width_mm': 2.5,
-            'thickness_mm': .8,
-            'collar_plane_world_y_mm': centre[1],
-            'strip_basis': 'Nominal layout section; purchased strap/head dimensions unmeasured',
-        }
-    return result
+    return _back_top_meter().meter_tie_routes()
 
 
 def nominal_tie_strips():
@@ -774,8 +638,8 @@ def water_in_guide_points():
     """World-frame R14 inlet path from the retained metal-elbow departure.
 
     The first point lies on the fixed top-port clocking line. A short S
-    passes east of the sensor passage, and the aft traverse clears the PSU
-    insert column before rising into the plain guide beneath the check elbow.
+    passes east of the sensor passage before the aft traverse rises into the
+    plain guide beneath the check elbow.
     """
     core = importlib.import_module('_cold_core_interface')
     frame = above_core.cap_lid_pose()

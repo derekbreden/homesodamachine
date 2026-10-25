@@ -1,4 +1,4 @@
-"""Integral above-core shell mounts and the empty electronics roof closure."""
+"""Integral above-core shell mounts beneath the continuous ceiling."""
 
 import functools
 import sys
@@ -35,70 +35,103 @@ def ycylinder(radius, x, z, y0, y1):
     return cq.Solid.makeCylinder(radius, y1-y0, cq.Vector(x, y0, z), cq.Vector(0, 1, 0))
 
 
-def access_plan():
-    return layout.specification()['electronics_access']
+def psu_fastener_plan():
+    """Four short inserts support the drawing's 6.7 ± 1 mm mounting ears."""
+    reach = (12.-7.7, 12.-5.7)
+    pilot = reach[1]+1.
+    return {'count':4, 'screw':'M3x12 SHCS', 'screw_length_mm':12.,
+            'insert':'RX-M3Sx4', 'insert_length_mm':4.,
+            'ear_thickness_range_mm':(5.7,7.7), 'receiving_range_mm':reach,
+            'pilot_depth_mm':pilot, 'minimum_tip_air_mm':1.,
+            'minimum_blind_backing_mm':layout.pose('psu')['translation_mm'][0]-pilot+107.5,
+            'boss_radius_mm':5., 'pilot_radius_mm':2.,
+            'parent':'enclosure-back-top', 'load_retention_qualified':False}
 
 
-def access_opening():
-    p = access_plan()['panel']
-    gap = p['edge_clearance_mm']
-    bounds = {key: p[key] + (gap if key.endswith('max') else -gap)
-              for key in ('xmin', 'xmax', 'ymin', 'ymax')}
-    bounds.update(zmin=p['zmin']-.01, zmax=p['zmax']+1)
-    return rectangle(bounds, p['corner_radius_mm']+gap)
+def relay_fastener_plan():
+    """Two diagonal screws and four bearing pads support each relay PCB."""
+    tip=2.15
+    reach=10.-1.5-tip
+    pilot=reach+1.
+    return {'count':2, 'active_hole_indices':(0,3),
+            'screw':'M3x10 SHCS', 'screw_length_mm':10.,
+            'insert':'RX-M3x5.7', 'insert_length_mm':5.7,
+            'pcb_thickness_mm':1.5, 'receiving_range_mm':(reach,reach),
+            'pilot_depth_mm':pilot, 'minimum_tip_air_mm':1.,
+            'minimum_blind_backing_mm':min(layout.pose(n)['translation_mm'][0]
+                for n in ('relay-1','relay-2'))-tip-pilot+107.5,
+            'boss_radius_mm':5., 'pilot_radius_mm':2.,
+            'bearing_tip_height_mm':tip, 'bearing_tip_radius_mm':2.85,
+            'screw_clearance_radius_mm':1.7,
+            'bearing_tip_basis':'The short bearing tip clears the reference pin envelope and the PSU. Its passage is unthreaded; the full 3 mm insert wall begins behind the pins. Actual pin fit, load and retention are unqualified.',
+            'parent':'enclosure-back-top', 'load_retention_qualified':False}
 
 
-@functools.cache
-def access_panel():
-    p, f = access_plan()['panel'], access_plan()['fasteners']
-    panel = rectangle(p, p['corner_radius_mm'])
-    for x, y in f['centres_xy_mm']:
-        panel = panel.cut(zcylinder(f['clearance_hole_diameter_mm']/2, x, y,
-                                    p['zmin']-.1, p['zmax']+.1),
-                          zcylinder(f['counterbore_diameter_mm']/2, x, y,
-                                    f['counterbore_floor_z_mm'], p['zmax']+.1))
-    notch = access_plan()['pry_notch']
-    cx, half = notch['centre_x_mm'], notch['width_mm']/2
-    return panel.cut(box(cx-half, cx+half, p['ymin']-.1,
-                         p['ymin']+notch['depth_mm'], p['zmin']-.1,
-                         p['zmax']+.1)).clean()
+def wall_mount_datums():
+    """Native-reference mounting planes and the selected west-wall hosts.
+
+    All four corners bear on pads. Relay screws occupy opposite diagonal
+    corners, keeping a complete 3 mm pilot wall between the stacked boards.
+    These are nominal mechanical interfaces, without load or retention data.
+    """
+    sys.path[:0] = [str(HERE.parents[2] / 'reference' / name)
+                   for name in ('meanwell-irm90','teyleten-relay')]
+    import meanwell_irm90, teyleten_relay
+    result={}
+    for name,source,plan in (('psu',meanwell_irm90,psu_fastener_plan()),
+            ('relay-1',teyleten_relay,relay_fastener_plan()),
+            ('relay-2',teyleten_relay,relay_fastener_plan())):
+        stations=[]
+        for index,(hx,hy) in enumerate(source.holes):
+            point=layout.point(layout.pose(name),(hx,hy,0.))
+            face=(point[0]-plan.get('bearing_tip_height_mm',0.),point[1],point[2])
+            stations.append({'native_hole_index':index,'position_world_mm':point,
+                'insert_face_world_mm':face,
+                'axis_world':layout.vector(layout.pose(name)['rotation'],(0.,0.,1.)),
+                'threaded':name=='psu' or index in plan['active_hole_indices'],
+                'stock_root_world_x_mm':-98.52,
+                'standoff_mm':point[0]+98.5})
+        result[name]={**plan,'stations':tuple(stations)}
+    return result
 
 
-@functools.cache
-def access_bosses():
-    p, f = access_plan()['panel'], access_plan()['fasteners']
-    gap = p['edge_clearance_mm']
-    ox, oy0, oy1 = p['xmax']+gap, p['ymin']-gap, p['ymax']+gap
-    void = access_opening().intersect(box(-200, 200, 0, 600,
-                                         f['bearing_z_mm'], p['zmax']+1))
-    result = []
-    for x, y in f['centres_xy_mm']:
-        front = y < (p['ymin']+p['ymax'])/2
-        east = x > (p['xmin']+p['xmax'])/2
-        half, reach, root = f['boss_width_mm']/2, f['boss_inner_reach_mm'], f['roof_root_depth_mm']
-        inner = f['east_boss_inner_reach_mm'] if east else reach
-        x0, x1 = x-half, ox+root if east else x+half
-        y0 = oy0-root if front else y-inner
-        y1 = y+inner if front else oy1+root
-        boss = box(x0, x1, y0, y1, f['boss_bottom_z_mm'], p['zmax']).cut(void)
-        boss = boss.cut(zcylinder(f['pilot_diameter_mm']/2, x, y,
-                                  f['bearing_z_mm']-f['pilot_depth_mm'],
-                                  f['bearing_z_mm']+.1)).clean()
-        result.append(boss)
-    return tuple(result)
+def _wall_hosts(names):
+    bosses,holes=[],[]
+    for name,plan in wall_mount_datums().items():
+        if name not in names:
+            continue
+        for station in plan['stations']:
+            x,y,z=station['position_world_mm'];root=station['stock_root_world_x_mm']
+            insert_x=station['insert_face_world_mm'][0]
+            boss=cq.Solid.makeCylinder(plan['boss_radius_mm'],insert_x-root,
+                cq.Vector(root,y,z),cq.Vector(1.,0.,0.))
+            if plan.get('bearing_tip_height_mm',0.):
+                tip=cq.Solid.makeCylinder(plan['bearing_tip_radius_mm'],x-insert_x,
+                    cq.Vector(insert_x,y,z),cq.Vector(1.,0.,0.))
+                boss=boss.fuse(tip).clean()
+            bosses.append(boss)
+            if station['threaded']:
+                holes.append(cq.Solid.makeCylinder(plan['pilot_radius_mm'],
+                    plan['pilot_depth_mm']+.01,cq.Vector(insert_x+.01,y,z),cq.Vector(-1.,0.,0.)))
+                if plan.get('bearing_tip_height_mm',0.):
+                    holes.append(cq.Solid.makeCylinder(plan['screw_clearance_radius_mm'],
+                        x-insert_x+.02,cq.Vector(x+.01,y,z),cq.Vector(-1.,0.,0.)))
+    return tuple(bosses),tuple(holes)
 
 
 @functools.cache
 def relay_bosses():
-    sys.path.insert(0, str(HERE.parents[2] / 'reference/teyleten-relay'))
-    import teyleten_relay
-    bosses, holes = [], []
-    for name in ('relay-1', 'relay-2'):
-        for hx, hy in teyleten_relay.holes:
-            x, y, z = layout.point(layout.pose(name), (hx, hy, 0))
-            bosses.append(cq.Solid.makeCylinder(4., 4.02, cq.Vector(-98.52, y, z), cq.Vector(1, 0, 0)))
-            holes.append(cq.Solid.makeCylinder(2., 7.51, cq.Vector(-94.49, y, z), cq.Vector(-1, 0, 0)))
-    return tuple(bosses), tuple(holes)
+    return _wall_hosts(('relay-1','relay-2'))
+
+
+@functools.cache
+def psu_bosses():
+    return _wall_hosts(('psu',))
+
+
+def wall_bosses():
+    first,second=relay_bosses(),psu_bosses()
+    return first[0]+second[0],first[1]+second[1]
 
 
 def c14_fastener_plan():
@@ -342,7 +375,7 @@ def apply(piece, box_spec, y_side, z_side):
         return piece
     piece = rear_geometry(piece)
     piece = rear_identification().apply(piece)
-    bosses, holes = relay_bosses()
+    bosses, holes = wall_bosses()
     for feature in bosses:
         piece = piece.fuse(feature)
     for hole in holes:
@@ -351,9 +384,8 @@ def apply(piece, box_spec, y_side, z_side):
         piece = piece.fuse(feature)
     for feature in fluid_supports().values():
         piece = piece.fuse(feature)
-    piece = piece.cut(access_opening())
-    for boss in access_bosses():
-        piece = piece.fuse(boss)
-    # The rear closure hosts share the inlet's flange plane. Keep the measured
-    # installation opening clear after those hosts join the fixed roof.
+    import _back_top_meter
+    for support in _back_top_meter.meter_supports():
+        piece = piece.fuse(support)
+    # Keep the measured inlet opening clear after all integral mounts join.
     return piece.cut(*c14_rear_cutters())
