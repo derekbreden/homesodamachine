@@ -6771,16 +6771,10 @@
             1
           ]
         ],
-        "flange_pocket_half_xz_mm": [
-          25.135,
-          11.2
-        ],
+        "profile_clearance_mm": 0.25,
         "flange_pocket_ymin_mm": 468.05,
-        "body_opening_half_xz_mm": [
-          15.725,
-          11.325
-        ],
         "body_opening_ymin_mm": 462.29,
+        "body_opening_basis": "Measured IEC C14 wiring-side body profile with 0.25 mm clearance; distinct from the outboard flange recess and generic panel-cutout recommendation.",
         "mount_pitch_mm": 40.21,
         "mount_hole_radius_mm": 1.7
       },

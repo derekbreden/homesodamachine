@@ -109,6 +109,59 @@ def c14_fastener_plan():
             'boss_depth_mm': 10.25, 'tip_air_mm': 1., 'backing_mm': 3.}
 
 
+def c14_rear_cutters():
+    """Separate the measured inboard body fit from the outboard flange recess.
+
+    The reference's measured 26.10 by 18.00 mm wiring body, including its
+    chamfers and upper rounds, sets the inboard aperture. The larger generic
+    panel-cutout recommendation would cut the neighboring WAGO wall and the
+    insert hosts. Actual body seating remains a physical fit question.
+    """
+    sys.path.insert(0, str(HERE.parents[2] / 'reference/iec-c14-inlet'))
+    import iec_c14_inlet as inlet
+
+    plan = layout.specification()['rear_wall']['dry_openings']['c14']
+    x, y, z = layout.pose('c14-inlet')['translation_mm']
+    clearance = plan['profile_clearance_mm']
+    flange = inlet.flange_prism(
+        clearance, plan['flange_pocket_ymin_mm'], y + 1.).val()
+    profile = inlet._body_profile()._faces.Faces()[0].outerWire()
+    outline = profile.offset2D(clearance)[0]
+    body = (cq.Workplane(inlet.xz_plane_y_up)
+            .workplane(offset=plan['body_opening_ymin_mm'])
+            .placeSketch(cq.Sketch().face(outline).reset())
+            .extrude(plan['flange_pocket_ymin_mm']
+                     - plan['body_opening_ymin_mm'] + .01).val())
+    return flange.translate((x, 0., z)), body.translate((x, 0., z))
+
+
+def keystone_rear_geometry():
+    """The enclosure's fitted shoulder, catches and broad corbel at the jack."""
+    import enclosure
+
+    jack = enclosure._keystone
+    x, y, z = layout.specification()['rear_wall']['dry_openings']['keystone'][
+        'face_center_mm']
+    root = layout.specification()['rear_wall']['rear_wall']['ymin']
+    growth = max(0., enclosure.fits.slip - jack.FIT_SLIP / 2.)
+    half_x = jack.POCKET_W / 2. + growth + jack.RECEPTACLE_WALL
+    half_z = jack.POCKET_H / 2. + growth + jack.RECEPTACLE_WALL
+    fore = y - jack.DEPTH
+    centre_z = z + jack.POCKET_RISE
+    block = box(x-half_x, x+half_x, fore, root+.01,
+                centre_z-half_z, centre_z+half_z)
+    stock = enclosure._supported_cut(block, enclosure.BACK_TOP_UP)
+    top = centre_z + half_z
+    stock = stock.fuse(enclosure._yz_prism(
+        x-half_x, x+half_x,
+        ((root, top), (fore, top), (root, top+root-fore))))
+    cutter, _ = enclosure._keystone_pocket_cut(x, z, y)
+    _, catches = jack.receptacle_boss(x, z, y, root)
+    return (stock.clean(),
+            enclosure._supported_cut(cutter, enclosure.BACK_TOP_UP),
+            enclosure._keystone_catches(catches, enclosure.BACK_TOP_UP))
+
+
 def rear_geometry(piece):
     plan = layout.specification()['rear_wall']
     relief = plan['interior_panel_relief']
@@ -119,10 +172,7 @@ def rear_geometry(piece):
                                     458., 472.3))
     c14 = plan['dry_openings']['c14']
     x, y, z = layout.pose('c14-inlet')['translation_mm']
-    for size, start in (('flange_pocket_half_xz_mm', 'flange_pocket_ymin_mm'),
-                         ('body_opening_half_xz_mm', 'body_opening_ymin_mm')):
-        hx, hz = c14[size]
-        piece = piece.cut(box(x-hx, x+hx, c14[start], 472.3, z-hz, z+hz))
+    piece = piece.cut(*c14_rear_cutters())
     # Two washer-backed M3 x 10 screws carry the flange on short inserts.
     # Their blind pilots retain 3 mm stock behind the screw-tip relief.
     seat_y = y-3.25
@@ -132,16 +182,8 @@ def rear_geometry(piece):
                                     seat_y-fasteners['boss_depth_mm'], seat_y))
         piece = piece.cut(ycylinder(2., x+dx, z,
                                     seat_y-fasteners['pilot_depth_mm'], seat_y+.01))
-    sys.path.insert(0, str(HERE.parents[2] / 'reference/riteav-keystone'))
-    import riteav_keystone as jack
-    jx, jy, jz = plan['dry_openings']['keystone']['face_center_mm']
-    patch, catches = jack.receptacle_boss(jx, jz, jy, 462.3)
-    cutter, _ = jack.receptacle_cut(jx, jz, jy)
-    if patch is not None:
-        piece = piece.fuse(patch)
-    piece = piece.cut(cutter)
-    if catches is not None:
-        piece = piece.fuse(catches)
+    stock, cutter, catches = keystone_rear_geometry()
+    piece = piece.fuse(stock).cut(cutter).fuse(catches)
     return piece
 
 

@@ -47,7 +47,7 @@ Thread the tube through the holder and slide the foam over both before
 connecting the meter. The holder has a 2 mm wall and 3 mm legs; local foam
 compression remains an estimate informed by the recorded physical fit.
 The fore bearing has one flat step above the pump foot,
-leaving a 4.6 mm-thick east root below Z280. The aft bearing occupies the fore 6 mm of its fixed
+leaving a 4.6 mm-thick east root below Z267.3. The aft bearing occupies the fore 6 mm of its fixed
 collar band, leaving 0.1 mm at the band's fore edge.
 
 Two JG union elbows have integral lid restraints. V-A's east turn sits on
@@ -157,7 +157,7 @@ The upper passages follow the installed equipment:
   the carbonator fitting and support-ring approach retain their own stations.
 - The soda outlet retains its lower riser beside the coil, then turns through
   a curved 7.5 mm passage above the tank to world (50, 342.4148, 253.4) mm.
-  Its R14 upper bends occupy a 2 mm-wall sleeve within the cup. The horizontal
+  Its R14 upper bends have 3 mm side and roof stock within the cup. The horizontal
   span retains 2.10 mm of floor beneath the passage; the curved entry crosses
   the cup floor beside the lower riser. The plain upper guide is a boundary
   in one uncut tube that follows the accepted R14 holder directly into the

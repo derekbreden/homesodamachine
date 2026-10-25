@@ -140,9 +140,16 @@ collets free. Actual fitting make-up and insertion witnesses determine physical
 assembly; the reference envelopes do not establish those dimensions.
 
 Fit C14 at X−61.75/Z323, flange in its shallow rear pocket and solder tabs inboard.
+The inboard aperture follows the measured chamfered wiring-body profile with
+0.25 mm clearance; the separate outboard recess follows the flange's rounded,
+tapered outline. This fit basis retains the neighboring WAGO wall and full
+3 mm pilot surrounds. Confirm actual seating before tightening; the native
+reference does not qualify the physical fit.
 Two M3 × 10 screws and Ø7 × 0.5 mm washers engage the short inserts in the wall's integral bosses; the washers bridge the flange countersinks. Fit
 RJ11 at X−30/Z274.376 from inside, tang first, and seat its snap latch on the printed
-catch. Complete solder/IDC preparation while the piece is accessible and unpowered.
+catch. Its receptacle retains the fitted 1 mm shoulder above the swing ease,
+3 mm pocket surround and broad wall-rooted corbel. Complete solder/IDC
+preparation while the piece is accessible and unpowered.
 
 ### 3. Stand the compressor bay on the floor
 

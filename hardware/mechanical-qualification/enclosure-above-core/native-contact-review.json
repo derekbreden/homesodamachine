@@ -580,26 +580,6 @@
       {
         "parts": [
           "digiten-flow",
-          "soda-inlet-stem"
-        ],
-        "basis": "NeoFit \u00d86.35 stem, selected 15.7 mm socket engagement",
-        "common_mm3": 166.32862310060486,
-        "outside_mate_region_mm3": 0.0007335170690109514,
-        "pass": true
-      },
-      {
-        "parts": [
-          "soda-inlet-stem",
-          "tube-soda-core-rise"
-        ],
-        "basis": "soda-inlet-stem.socket: \u00d86.35 \u00d7 16.891 mm nominal insertion",
-        "common_mm3": 0.0,
-        "outside_mate_region_mm3": 0.0,
-        "pass": true
-      },
-      {
-        "parts": [
-          "digiten-flow",
           "soda-outlet-return-stem"
         ],
         "basis": "Coincident nominal release-collet faces; the 32.591 mm tube is wholly inside the two sockets. No device-wide contact exemption.",
@@ -608,12 +588,39 @@
         "outside_mate_region_mm3": 0.0,
         "pass": true,
         "supporting_record": "rear-plumbing-assembly.json"
+      },
+      {
+        "parts": [
+          "digiten-flow",
+          "tube-soda-core-rise"
+        ],
+        "basis": "digiten-flow.inlet: diameter6.35 x15.7mm nominal receiving estimate",
+        "common_mm3": 0.21317001315936707,
+        "outside_mate_region_mm3": 0.0,
+        "distance_mm": 0.0,
+        "pass": true,
+        "mask_diameter_mm": 6.35,
+        "mask_depth_mm": 15.7,
+        "host_mouth_world_mm": [
+          50.0,
+          360.41479999999996,
+          306.3760478805363
+        ],
+        "host_outward_axis": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "contact_scope": "The continuous tube seats directly in the meter. Only the finite receiving cylinder is a mate region; estimated depth, physical fit, pressure and retention remain unqualified. The plain core guide adds no joint, receiving allowance or cut.",
+        "supporting_record": "soda-inlet-review.json",
+        "supporting_feature": "rigid_contacts",
+        "finite_receipt_sha256": "d82c43b7eba86b12421c004218d55e2697deb7feb618aef94e61f72bd0fd2f26"
       }
     ],
     "scope": "Finite nominal mating regions only; physical insertion, sealing and retention remain unqualified.",
     "summary": {
-      "pair_count": 34,
-      "passing_pairs": 34,
+      "pair_count": 33,
+      "passing_pairs": 33,
       "maximum_outside_mate_region_mm3": 0.7434808779895414,
       "existing_reporting_volume_floor_mm3": 1.0
     },
@@ -633,7 +640,12 @@
     },
     "achv_query_scope": "Only the two water-check rows are replaced by source-native finite \u00d86.35\u00d716.891 mm host-mouth probes. Unrelated valve, rear fitting, tube and closure rows retain their recorded geometry and accepted nominal-form limits; they were not run again. The source-function stamp uses the current host-mouth mask implementation; its remaining branches are unchanged.",
     "achv_reference_sha256": "6cba8b0db77eb05d3488c114d184e9bb8a691db49b681dcacbcfe833f7da2c82",
-    "valve_clock_query_scope": "The four V-A/V-K stem rows use the downward-flow native body clocks, actual host inlet/outlet mouths and the existing finite \u00d86.35 \u00d7 12.7 mm shaft regions. V-A uses its original upstream release collet at \u221215\u00b0 about native +Y; the fixed body and other ten native solids are unchanged. All four outside-region volumes are zero. Unrelated fitting, tube, thread and heat-set readings retain their own recorded geometry and scope."
+    "valve_clock_query_scope": "The four V-A/V-K stem rows use the downward-flow native body clocks, actual host inlet/outlet mouths and the existing finite \u00d86.35 \u00d7 12.7 mm shaft regions. V-A uses its original upstream release collet at \u221215\u00b0 about native +Y; the fixed body and other ten native solids are unchanged. All four outside-region volumes are zero. Unrelated fitting, tube, thread and heat-set readings retain their own recorded geometry and scope.",
+    "continuous_inlet_query_scope": "Direct continuous tube-to-meter row is from the selected inlet native receipt. Other pair readings retain their explicitly recorded geometry and query scopes; this merge does not rerun them.",
+    "continuous_inlet_query_sha256": {
+      "soda-inlet-review.json": "d82c43b7eba86b12421c004218d55e2697deb7feb618aef94e61f72bd0fd2f26",
+      "soda_inlet.py": "4f1da5341b864fff66051ce99773517cc9bad9589ae21cfd5074f4de753c972d"
+    }
   },
   "negative_controls": [
     {
