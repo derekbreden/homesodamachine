@@ -53,7 +53,7 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "condenser-block",
            _hw / "reference" / "g-ganen-pump" / "installation",
            _hw / "printed-parts" / "diaphragm-pump-sleeve",
-           _hw / "reference" / "hlghlg-check-valve",
+           _hw / "reference" / "neofit-achv44-check",
            _hw / "reference" / "asse1022-assembly",
            _hw / "reference" / "water-split",
            _hw / "reference" / "shok-blok-regulator",
@@ -74,7 +74,7 @@ import asse1022_assembly as _asse                      # noqa: E402
 import funnel as _funnel                        # noqa: E402
 import g_ganen_installation as _pump                         # noqa: E402
 import diaphragm_pump_sleeve as _pump_elbow            # noqa: E402
-import hlghlg_check_valve as _dis                  # noqa: E402
+import neofit_achv44_check as _dis                     # noqa: E402
 import beduan_solenoid as _beduan                      # noqa: E402
 import jg_bulkhead_union as _jg                        # noqa: E402
 import elbow as _elbow                                 # noqa: E402
@@ -159,8 +159,9 @@ STATIONS = {
                     "discharge": (_pump.discharge, ELBOW_CUFF_D)},
     "pump-elbow-suction": {"tube": (_pump_elbow.tube_port, _pump_elbow.TUBE_D)},
     "pump-elbow-discharge": {"tube": (_pump_elbow.tube_port, _pump_elbow.TUBE_D)},
-    "discharge-chain": {"inlet": (_dis.inlet, _dis.TUBE_D),
-                        "tube-port": (_dis.tube_port, _dis.TUBE_D)},
+    "discharge-chain": {"inlet": (_dis.inlet, _dis.TUBE_OD),
+                        "outlet": (_dis.outlet, _dis.TUBE_OD),
+                        "tube-port": (_dis.outlet, _dis.TUBE_OD)},
     "asse1022-assembly": {"tube-in": (lambda: _asse.port("tube-in"), _split.TUBE_D),
                           "tube-out": (lambda: _asse.port("tube-out"), _split.TUBE_D),
                           "vent-tip": (lambda: _asse.port("vent-tip"), _asse.bfp.VENT_D)},
@@ -256,10 +257,20 @@ def frames(placed, carries):
     `"g-ganen-pump.suction"`. `placed` is the pack's solids by name; `carries` is the carry each
     was placed by."""
     out = {}
-    for name, ports in STATIONS.items():
+    import above_core_parts
+    for name in dict.fromkeys((*STATIONS, *placed)):
         if name not in placed or name not in carries:
             continue
         carry = carries[name]
+        native = above_core_parts.port_stations(name)
+        if native is not None:
+            table = {port: (*carry((p, axis)), diameter)
+                     for port, (p, axis, diameter) in native.items()}
+            out[name] = R.frame(name, placed[name], table)
+            continue
+        ports = STATIONS.get(name)
+        if ports is None:
+            continue
         table = {}
         for port, (station, diam) in ports.items():
             pos, axis = carry(station())

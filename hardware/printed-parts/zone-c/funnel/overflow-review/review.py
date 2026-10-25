@@ -4,6 +4,7 @@ Run when reviewing this design, not from the generator or build. The existing
 XCAF refresh utility preserves every unrelated assembly member and placement.
 """
 from pathlib import Path
+import argparse
 import hashlib
 import importlib.util
 import json
@@ -53,6 +54,10 @@ def local_surface(directory, name):
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--geometry-only', action='store_true',
+                        help='Review individual exports without refreshing the appliance assembly')
+    args = parser.parse_args()
     box, _ = _box_spec.read(enc.Box, enc.Bound, (enc.Pack, enc.PortField, enc.Nameplate))
     cx, cy = box.pack.funnel
     seat = enc.funnel_seat_z(box.outer)
@@ -88,7 +93,7 @@ def main():
     bounds = installed.BoundingBox()
     review = {
         'schema': 1,
-        'scope': 'Native geometry, mold closure/release and sampled vertical removal. No measured spill exclusion, seal force, cleanability or lifetime result.',
+        'scope': 'Individual native funnel, frame, cover and both upper-shell exports: seated contact and sampled silicone vertical removal. Mold closure/release is recorded separately in the mold design receipt. No measured spill exclusion, seal force, cleanability or lifetime result.',
         'source_sha256': {str(p.relative_to(ROOT)): sha(p) for p in (
             Path(__file__), HERE / 'step_patch.py', FUNNEL / 'funnel.py', COVER / 'funnel_cover.py',
             ROOT / 'hardware/printed-parts/zone-c/funnel-mold/funnel_mold.py',
@@ -98,7 +103,8 @@ def main():
             FUNNEL / 'funnel.step', FUNNEL / 'funnel-frame.step',
             COVER / 'funnel-cover.step',
             ROOT / 'hardware/printed-parts/zone-c/funnel-mold/cavity.step',
-            ROOT / 'hardware/printed-parts/zone-c/funnel-mold/core.step')},
+            ROOT / 'hardware/printed-parts/zone-c/funnel-mold/core.step',
+            ENC / 'enclosure-front-top.step', ENC / 'enclosure-back-top.step')},
         'finished_funnel_native_difference_mm3': difference,
         'capacity_to_mouth_ml': capacity,
         'native_silicone_volume_ml': local.Volume() / 1000,
@@ -116,6 +122,10 @@ def main():
         'sampled_vertical_removal': removal,
     }
     print('Funnel geometry, named contact and removal checks passed.', flush=True)
+    if args.geometry_only:
+        review['aggregate_refresh_run'] = False
+        (HERE / 'native-review.json').write_text(json.dumps(review, indent=2) + '\n')
+        return
     changes = {'funnel': installed, 'funnel-cover': cover}
     selected = {
         'funnel': translated_surface(local_surface(FUNNEL, 'funnel'), position),

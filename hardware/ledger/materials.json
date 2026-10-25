@@ -3083,16 +3083,19 @@
     },
     {
       "id": "HSM-000058",
-      "description": "Water-pump discharge check valve \u00b7 1/4 inch push-connect",
+      "description": "neoFit ACHV44-E single check valve \u00b7 1/4 inch push-connect \u00b7 0.3 psi crack",
       "kind": "purchased",
       "models": [
         {
-          "file": "reference/hlghlg-check-valve/hlghlg-check-valve.step"
+          "file": "reference/neofit-achv44-check/neofit-achv44-check.step"
         }
       ],
       "aliases": [
         "Water-pump discharge check",
-        "HLGHLG B0FSSZS6HH"
+        "CO2 downstream check",
+        "discharge-chain",
+        "gas-check",
+        "ACHV44-E"
       ],
       "documents": [
         {
@@ -3105,10 +3108,10 @@
         },
         {
           "title": "Check-valve specification and qualification scope",
-          "path": "reference/hlghlg-check-valve/README.md"
+          "path": "reference/neofit-achv44-check/README.md"
         }
       ],
-      "manufacturer_number": "B0FSSZS6HH"
+      "manufacturer_number": "ACHV44-E"
     },
     {
       "id": "HSM-000059",
@@ -3990,12 +3993,22 @@
     },
     {
       "id": "HSM-000109",
-      "description": "Faucet cold-line insulation",
+      "description": "CARGEN cold-line foam insulation",
       "kind": "purchased",
       "contexts": [
         {
           "material": "HSM-000002"
         }
+      ],
+      "models": [
+        {
+          "file": "reference/soda-rise-insulation/soda-rise-insulation.step"
+        }
+      ],
+      "aliases": [
+        "CARGEN Pipe Insulation Foam Tube",
+        "soda-rise-insulation",
+        "B0D2XFK337"
       ]
     },
     {

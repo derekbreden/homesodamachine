@@ -20,8 +20,6 @@ sys.path.insert(0, str(_hw / "printed-parts" / "cold-core"))
 
 from _cold_core_interface import (  # noqa: E402
     attachment_xy_positions,
-    cap_cradles,
-    cap_cradle_circle_gap,
     deck_mounts,
     deck_mount_xy,
     co2_inlet_y,
@@ -57,22 +55,14 @@ from docgen import load_module, substitute_md, substitute_py_comments  # noqa: E
 
 # Every ruthex insert this procedure presses, off the patterns that hold them.
 # The shell clamps a cap on each face; the top cap's deck-mount columns take one
-# each; each reservoir cap takes its own wall-top ring. Nothing else on this bench
-# is threaded — the electronics bay's inserts are the enclosure's `east_bosses`, and
-# `enclosure-mechanical.md` §1 presses those.
+# each for the pump, PCB and PSU; each reservoir cap takes its own wall-top ring.
+# The electrical ground boss and enclosure-wall equipment retain their own
+# installation steps and insert families.
 CAP_CLAMP_INSERTS = len(attachment_xy_positions) * 2
 # And what ONE face takes, which is how the bench works it — a face at a time.
 CAP_FACE_SCREWS = len(attachment_xy_positions)
 CAP_DECK_INSERTS = sum(len(deck_mount_xy(n)) for n in deck_mounts)
 RESERVOIR_INSERTS = len(insert_positions_for_side_plus_1) * 2
-
-# The land between the pour opening and the nearest complete plinth outline.
-_POUR_XY = foam_cap_lid_pour_xy()
-POUR_CRADLE_GAP = min(
-    cap_cradle_circle_gap(name, *_POUR_XY, foam_cap_lid_pour_radius)
-    for name in cap_cradles
-)
-
 
 _coil_mandrel_gen = load_module(
     "cold_core_coil_mandrel_gen",
@@ -127,10 +117,6 @@ def main():
         "FOAM_CAP_LID_H": f"{foam_cap_lid_height:.4g} mm",
         "POUR_D": f"{foam_cap_lid_pour_radius * 2:.4g} mm",
         "LID_VENT_D": f"{foam_cap_lid_vent_radius * 2:.4g} mm",
-        # The valve cradles on the top lid's outer face, and the land the pour hole
-        # leaves beside the nearest of them.
-        "CAP_CRADLES": f"{len(cap_cradles)}",
-        "POUR_CRADLE_GAP": f"{POUR_CRADLE_GAP:.4g} mm",
         # ─── Inserts (step 2) ─────────────────────────────────────────
         # insert_pocket_depth is the FULL printed-pocket depth: the insert's own
         # body, then the relief a screw that outruns it needs. The two are not

@@ -22,12 +22,17 @@ BOUNDARIES = {
 
 
 def owner(part):
-    if part.startswith('cold-core/') or part in ('g-ganen-pump','vk-solenoid','valve-v-a','valve-v-b','coil-v-a','coil-v-b'):
+    if part.startswith('cold-core/') or part in (
+            'pcba','psu','g-ganen-pump','valve-v-a','coil-v-a','valve-v-b','coil-v-b',
+            'vk-solenoid','ground-stack','digiten-flow',
+            'wago-v12','wago-gnd','wago-sensors','wago-reeds-b'):
         return 'cold-core'
     if part in ('pump-contact-female','pump-a-motor','pump-b-motor'):
         return 'pump-cartridge'
     if part in ('compressor','condenser+fan','thermal-fuse','mq6-sensor'):
-        return 'base'
+        return 'front-bottom'
+    if part in ('relay-1','relay-2'):
+        return 'back-top'
     if part.startswith('coil-v-') or part in ('display','pump-contact-male','wago-mana','wago-manb'):
         return 'front-top'
     return 'back-top'

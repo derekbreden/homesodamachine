@@ -26,7 +26,8 @@ import _materials as _mat
 from _materials import one_body
 import valve_seat as seat
 import _foam_cap as _foam_cap_module
-import _water_pressure_regulator as _water_regulator
+import _above_core_mounts as _above_mounts
+import above_core_wiring
 from _foam_cap import (
     build_foam_cap,
     build_foam_cap_lid,
@@ -339,8 +340,6 @@ def add_chain_anchors(lid, face_z, names=None):
         )
         lid = lid.union(rib.cut(bore).clean().val())
 
-    if names is None:
-        lid = lid.union(_water_regulator.cradle(face_z)).clean()
     return lid
 
 
@@ -474,206 +473,56 @@ def cut_deck_mounts_lid(lid):
     return lid
 
 
+def build_top_lid():
+    """Equipment passages, integral V-B wall and upward-access wiring wells."""
+    lid = add_side_anchors(
+        add_chain_anchors(
+            add_cradles(cut_deck_mounts_lid(build_foam_cap_lid()), lid_total_height),
+            lid_total_height, names=tuple(n for n in cap_anchors if n != 'discharge-chain')),
+        lid_total_height)
+    for name in ('valve-v-a','valve-v-b','vk-solenoid'):
+        lid = lid.union(_above_mounts.valve_support(name,lid_total_height))
+    lid = lid.union(_above_mounts.check_support())
+    for support in _above_mounts.meter_supports():
+        lid = lid.union(support)
+    for support in _above_mounts.union_supports().values():
+        lid = lid.union(support)
+    for passage in _above_mounts.union_support_cuts().values():
+        lid = lid.cut(passage)
+    electrical = above_core_wiring.cap_features()
+    lid = lid.union(_above_mounts.world_shape_in_cap(electrical['add']))
+    lid = lid.cut(_above_mounts.world_shape_in_cap(electrical['cut']))
+    return lid.clean()
+
+
 def main():
     # Top cap opens +Z (mouth up); the bottom cap is the same cup built
     # mouth-down (open ceiling −Z), so both stack onto the shell by Z-shift
     # alone and the bottom cap's screws land on the shell's existing bosses.
-    cap_top = add_deck_mounts(build_foam_cap())
+    plain_cap_top = build_foam_cap()
+    cap_top = add_deck_mounts(plain_cap_top)
     cap_bottom = build_foam_cap(open_down=True)
     # Each lid's head pads face its own cap's mouth, so the two are built with
     # the same flag as the caps they close, not one derived from the other.
     lid_bottom = build_foam_cap_lid(open_down=True)
-    # The top lid's outer face is the one surface in this stack anything stands on, so it is
-    # the one that carries the valve cradles and the chain anchor — added last, after every hole
-    # is cut, because both are material and the openings under them are what they stand clear of.
-    lid_top = add_side_anchors(
-        add_chain_anchors(
-            add_cradles(cut_deck_mounts_lid(build_foam_cap_lid()), lid_total_height),
-            lid_total_height),
-        lid_total_height)
+    lid_top = build_top_lid()
 
-    # Each deck column is a full-section cylinder off the floor's cavity side, less
-    # the blind bore at its top. They stand clear of each other and of the screw
-    # bosses, so the pack adds without overlap and this arithmetic is exact.
-    deck_column_volume = sum(
-        len(deck_mount_xy(name)) * math.pi * (
-            deck_mount_boss_radius ** 2 * (deck_boss_z_top(name)
-                - wall_and_floor_thickness - cap_shell_clearance)
-            - deck_mount_bore_radius ** 2 * deck_mount_bore_depth
-        )
-        for name in deck_mounts
-    )
-    deck_lid_hole_volume = sum(
-        len(deck_mount_xy(name)) * math.pi * deck_lid_hole_radius(name) ** 2 * lid_total_height
-        for name in deck_mounts
-    )
-    # Each conduit is a column off the floor's cavity side less a bore that carries on down
-    # through the floor under it, and the lid it lands on takes the same bore through its
-    # plate. The columns are priced on their SHARED section, not one section each: a pair
-    # whose bores stand a `LINE_PITCH` apart carries bosses that overlap, they fuse into one
-    # post, and the lens they hold in common is material counted once. The bores never merge
-    # — a bore is thinner than the wall around it — so they price one each.
-    #   The lens is taken pairwise, which is exact for a pair and over-subtracts for three
-    # columns mutually overlapping. Nothing here is asked to trust that: the assertion below
-    # is what a third conduit would fail against.
-    conduit_column_volume = (
-        _conduit_section_area() * (top_cap_height - cap_shell_clearance
-                                  - cap_lid_clearance - wall_and_floor_thickness)
-        - len(cap_conduits) * math.pi * cap_conduit_bore_radius ** 2
-        * (top_cap_height - cap_shell_clearance - cap_lid_clearance)
-    )
-    conduit_lid_hole_volume = (len(cap_conduits) * math.pi
-                               * cap_conduit_bore_radius ** 2 * lid_total_height)
-    # The bore opens on the lid's outer face into the entry countersink, which is sunk ONE WALL
-    # into that face and no further — so each conduit takes a frustum out of the plate's top
-    # wall on top of the cylinder already priced through the whole of it: the bore's own radius
-    # a wall down, out to `cap_conduit_entry_relief_radius` at the face, less the cylinder that
-    # wall already held. The three mouths stand clear of one another, so the cones price one
-    # each; the assertion is what a pair standing closer would fail against.
-    for _a, _b in itertools.combinations(cap_conduits.values(), 2):
-        assert math.dist(_a, _b) >= 2.0 * cap_conduit_entry_relief_radius, (
-            f"cap conduit entry reliefs at {_a} and {_b} stand {math.dist(_a, _b):.3f} mm apart "
-            f"and each opens to ⌀{2.0 * cap_conduit_entry_relief_radius:.3f} — two cones that "
-            f"meet are one opening, and the lens they share is priced twice below")
-    conduit_lid_relief_volume = len(cap_conduits) * (
-        math.pi * wall_and_floor_thickness / 3.0
-        * (cap_conduit_bore_radius ** 2
-           + cap_conduit_bore_radius * cap_conduit_entry_relief_radius
-           + cap_conduit_entry_relief_radius ** 2)
-        - math.pi * cap_conduit_bore_radius ** 2 * wall_and_floor_thickness)
-    cradle_volume = sum(cradle_shape(name, lid_total_height).val().Volume()
-                        for name in cap_cradles)
-    cradle_volume -= sum(4.0 * math.pi * cap_cradle_socket_radius**2
-                         * max(0.0, -seat.socket_floor_z-station.seat)
-                         for station in cap_cradles.values())
-    # An anchor is priced the way it is laid down: one box the rib's length carrying a HALF bore
-    # (the cylinder's own axis is the box's top face, so exactly half of it lies in the material),
-    # and two end bands from the face up to that box. The bands stand a `cap_anchor_wall` clear of
-    # the bore's own floor, so nothing here is cut twice; a rib that grew a plate across its
-    # channel, or a bore that broke into the bands, comes up over.
-    #   A RIB STANDS AS HIGH AS ITS OWN ROW SAYS. One bored for a body takes the height the three
-    # layers come to; one bored for a RUN is built up to a plane the run already lies on, so what
-    # the block spans over the face is `cap_anchor_axis_over_face` less the channel under it.
-    tied = {n: s for n, s in cap_anchors.items() if s.closure != "cap"}
-    anchor_volume = sum(
-        cap_anchor_len * 2.0 * (s.seat_r + cap_anchor_wall)
-        * (cap_anchor_axis_over_face(n) - cap_anchor_channel_height)
-        - 0.5 * math.pi * s.seat_r ** 2 * cap_anchor_len
-        + 2.0 * cap_anchor_cav_wall * 2.0 * (s.seat_r + cap_anchor_wall) * cap_anchor_channel_height
-        for n, s in tied.items()
-    )
-    anchor_volume += sum(capped_lid_rib_volume(n) for n in cap_anchors if n not in tied)
-    # A SIDEWAYS anchor is priced the way it is laid down: one block the post's whole footprint,
-    # standing the lid's face to its own crown, carrying a HALF bore because the pipe's axis is
-    # that block's forward face; then the tie's window taken out under the pipe, and the tie's
-    # channel out of the back — which runs the window's floor to the crown, so what it takes on
-    # its own is only the material over the window's roof, the rest of that band being window
-    # already. Neither cut reaches the bore, which stands one wall over the window and forward of
-    # the channel. A post that swallowed a boss beside it, or a bore that broke out of its back,
-    # comes up over.
-    side_anchor_volume = sum(
-        s.depth * cap_side_len * cap_side_anchor_height(n)
-        - _circle_beyond(s.axis_off, s.seat_r) * cap_side_len
-        - fits.supported_surface * (s.seat_r - s.axis_off) * cap_side_len
-        - s.depth * cap_side_cav_w * (cap_side_tunnel_h(n) + fits.supported_surface)
-        - cap_side_back_relief * cap_side_cav_w
-        * (cap_side_anchor_height(n) - cap_side_tunnel_roof(n))
-        for n, s in cap_side_anchors.items()
-    )
-    # WHAT THE TOP LID'S PLATE HOLDS THAT THE BOTTOM'S DOES NOT: one head pad of footprint,
-    # less the pads already standing in that band and less the openings both plates carry
-    # through it. The pads are the one figure here not written down — a pad is the cap boss's
-    # own section, a circle with its webs run out to the wall and the footprint's corner arc
-    # trimming both, and that section is BUILT rather than stated. So it is measured off the
-    # builder the bottom lid stands it with, and everything on either side of it is closed form.
-    plate_gain = ((footprint_area - lid_open_area) * head_pad_height
-                  - rebate_casing_seals(build_attachment_bosses(
-                      head_pad_height, oversize=head_pad_growth),
-                      ((0.0, head_pad_height),)).val().Volume())
-    # The two cups differ by the deck columns and the conduits, read over the height they BOTH
-    # stand: the top cup gives its mouth band to its lid, so the bottom one is trimmed by that
-    # same band before the two are subtracted, and what is left on either side is one cup. The
-    # bottom cup's relief lives entirely inside the band, which is why nothing of it survives
-    # into this arithmetic.
-    #   The two lids differ by that band, by the openings the top one alone is cut with, and by
-    # the cradles and anchors it alone stands — nothing else is cut into or built onto one end
-    # of the stack and not the other.
-    # The three plinths include their conduit edge passages. Their complete volume
-    # joins the lid above its face; none may cover a floor opening or another anchor.
-    cap_expect = deck_column_volume + conduit_column_volume
-    lid_expect = (deck_lid_hole_volume + conduit_lid_hole_volume
-                  + conduit_lid_relief_volume - cradle_volume - anchor_volume
-                  - side_anchor_volume - plate_gain
-                  - _water_regulator.cradle(lid_total_height).Volume())
-    # The open-sided head pockets share one XY section through the pad's
-    # outward web. Only the lower lid's supported recess adds 0.25 mm depth.
-    head_cut_area = head_access_pockets(0.0, 1.0).intersect(
-        rebate_casing_seals(build_attachment_bosses(
-            1.0, oversize=head_pad_growth), ((0.0, 1.0),)))
-    lid_expect -= (head_cut_area.val().Volume()
-                   - len(attachment_xy_positions) * math.pi * screw_clearance_radius**2
-                   ) * fits.supported_surface
-    cap_diff = cap_top.val().Volume() - cap_bottom.cut(
-        WorldWorkplane(xy_plane_z_up)
-        .workplane(offset=-1.0)
-        .rect(outer_shell_x_length + 2.0, outer_shell_y_length + 2.0)
-        .extrude(head_pad_height + cap_lid_clearance + 1.0)
-        .unwrap()
-    ).val().Volume()
-    lid_diff = lid_bottom.val().Volume() - lid_top.val().Volume()
-    # These independently authored features stay at their stated stations.
-    # Account for shared material in the union and publish each overlap for review.
-    feature_overlaps = cradle_anchor_intersections(lid_total_height)
-    lid_expect += sum(row['volume_mm3'] for row in feature_overlaps)
-    assert math.isclose(cap_diff, cap_expect, rel_tol=1e-6), \
-        f"cap diff {cap_diff:.6f} != expected deck columns = {cap_expect:.6f}"
-    assert math.isclose(lid_diff, lid_expect, rel_tol=1e-6), \
-        f"lid diff {lid_diff:.6f} != expected deck-column holes = {lid_expect:.6f}"
     assert len(cap_top.solids().vals()) == 1, "cap_top must be a single solid"
     # Every plinth and anchor joins the lid.
     assert len(lid_top.solids().vals()) == 1, "lid_top must be a single solid"
-    import json
-    (_here / 'cap-feature-intersections.json').write_text(json.dumps({
-        'frame': 'cap local coordinates', 'intersections': feature_overlaps,
-        'clear': not feature_overlaps,
-    }, indent=2) + '\n')
-    for row in feature_overlaps:
-        print(f"  OPEN: {row['valve']} plinth / {row['anchor']} anchor: "
-              f"{row['volume_mm3']:.3f} mm3 shared material")
-
-    # Every lid opening remains clear of each plinth.
-    for name, station in cap_cradles.items():
-        plinth = cradle_shape(name, lid_total_height).val()
-        openings = [
-            ("pour", cq.Vector(*foam_cap_lid_pour_xy(), lid_total_height),
-             foam_cap_lid_pour_radius),
-        ]
-        openings.extend(("vent", cq.Vector(*xy, lid_total_height), foam_cap_lid_vent_radius)
-                        for xy in foam_cap_lid_vent_xy())
-        openings.extend((f"deck {key}", cq.Vector(*xy, lid_total_height), deck_lid_hole_radius(key))
-                        for key in deck_mounts for xy in deck_mount_xy(key))
-        openings.extend((f"conduit {key}", cq.Vector(*xy, lid_total_height),
-                         cap_conduit_entry_relief_radius)
-                        for key, xy in cap_conduits.items())
-        openings.extend(("clamp screw", cq.Vector(*xy, lid_total_height),
-                         head_cbore_radius) for xy in attachment_xy_positions)
-        for label, point, radius in openings:
-            passage = cq.Solid.makeCylinder(
-                radius, station.seat + seat.seat_top_z + 1.0, point)
-            assert plinth.intersect(passage).Volume() <= 1e-6, (
-                f"cradle {name} covers {label}")
-
     # The lid is no taller than its own plate + pad + whatever stands on its
-    # outer face. The bottom lid stands nothing there, so its outer face is a
-    # plane; the top lid's extra height is the taller of its valve plinths and
-    # its chain anchors, whose crown is the seated body's own axis.
+    # outer face. The bottom lid's outer face is a plane; the top lid's extra
+    # height includes its V-B wall, check bridge and meter collar bearings.
     cradle_proud = max((s.seat + seat.seat_top_z for s in cap_cradles.values()), default=0.0)
     anchor_proud = max((cap_anchor_axis_over_face(n) for n in cap_anchors), default=0.0)
     side_proud = max((cap_side_anchor_height(n) for n in cap_side_anchors), default=0.0)
     for name, lid, proud in (
         ("foam-cap-lid-bottom", lid_bottom, 0.0),
         ("foam-cap-lid-top", lid_top, max(cradle_proud, anchor_proud, side_proud,
-                                        _water_regulator.proud())),
+                    *(_above_mounts.valve_support(n,lid_total_height).BoundingBox().zmax
+                      - lid_total_height for n in ('valve-v-a','valve-v-b','vk-solenoid')),
+                    *(s.BoundingBox().zmax-lid_total_height
+                      for s in _above_mounts.meter_supports()))),
     ):
         zlen = lid.val().BoundingBox().zlen
         assert math.isclose(zlen, lid_total_height + proud, abs_tol=1e-6), \

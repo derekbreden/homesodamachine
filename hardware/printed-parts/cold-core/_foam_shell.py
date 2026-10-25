@@ -37,7 +37,7 @@ def build_full_shell():
         cut_reed_channel_openings,
     ):
         foam_shell = cut(foam_shell)
-    return rebate_casing_seals(foam_shell, (
+    foam_shell = rebate_casing_seals(foam_shell, (
         (0.0, casing_seal_shell_band),
         (foam_shell_outer_height - casing_seal_shell_band, foam_shell_outer_height)),
         transitions=(
@@ -46,3 +46,4 @@ def build_full_shell():
             (foam_shell_outer_height - casing_seal_shell_band - 0.6,
              foam_shell_outer_height - casing_seal_shell_band,
              0.0, casing_seal_rebate)))
+    return foam_shell

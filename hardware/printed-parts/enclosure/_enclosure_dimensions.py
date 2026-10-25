@@ -1,213 +1,64 @@
-"""Doc-sync driver for hardware/printed-parts/enclosure/README.md and
-the source of truth for the enclosure outer dimensions imported by the
-isometric drawings.
-
-The numbers are READ OFF THE MACHINE — `enclosure_assembly.machine()` places every body and
-`enclosure.stated_box` hands back the box they stand in — rather than restated here. Its size
-is `enclosure`'s own `appliance_width`, `rear_plane_y` and `appliance_height`, and a second
-copy of those three numbers is a second machine's dimensions in the drawings.
-
-Run: tools/cad-venv/bin/python hardware/printed-parts/enclosure/_enclosure_dimensions.py
-"""
+"""Read the enclosure README's dimensions from canonical appliance facts."""
 
 import sys
 from pathlib import Path
 
-_here = Path(__file__).resolve().parent
-_hw = next(p for p in _here.parents if p.name == "hardware")
-sys.path.insert(0, str(_hw / "scripts"))
-sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
-sys.path.insert(0, str(_hw / "printed-parts" / "cold-core"))
-sys.path.insert(0, str(_hw / "manifold-layout"))
-sys.path.insert(0, str(_here / "enclosure"))
-sys.path.insert(0, str(_hw / "reference" / "condenser-block"))
-sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
+HERE = Path(__file__).resolve().parent
+ROOT = next(p for p in HERE.parents if (p / 'hardware' / 'scripts').is_dir())
+HW = ROOT / 'hardware'
+for path in (ROOT / 'tools', HW / 'scripts', HW / 'manifold-layout',
+             HW / 'printed-parts' / 'cadlib', HW / 'printed-parts' / 'cold-core',
+             HERE / 'enclosure', HW / 'reference' / 'condenser-block'):
+    sys.path.insert(0, str(path))
 
-from _cold_core_interface import (  # noqa: E402
-    foam_shell_outer_height,
-    outer_shell_x_length,
-    outer_shell_y_length,
-)
-import _boxes  # noqa: E402
-import condenser_block as _cond  # noqa: E402
-import enclosure  # noqa: E402
-import _facts  # noqa: E402  — the machine as the last build wrote it down
-import enclosure_assembly as _ea  # noqa: E402,F401  — holds the closure this doc watches
-import manifold_layout as _ml  # noqa: E402
-import _scorecard  # noqa: E402
-from docgen import substitute_md  # noqa: E402
+import _facts
+import condenser_block as condenser
+import enclosure
+import enclosure_assembly as assembly  # Declares the placement source this reader follows.
+from _cold_core_interface import foam_shell_outer_height, outer_shell_x_length, outer_shell_y_length
+from docgen import substitute_md
 
 
-# The machine, once — as the last build wrote it down. Every figure below is read off that one
-# reading, so no two of them can describe two machines, and this file stands none.
-_F = _facts.read()
-_BOX = _F.box
-_SOLIDS = _F.bodies
-_OUTER, _INNER = _BOX["outer"], _BOX["inner"]
-_MANIFOLD_NAMES = set(_F.manifold_bodies)
-
-
-def _bb(name: str):
-    """One placed body's box, by the name it goes into the assembly under."""
-    return _F.bb(name)
-
-
-def _group(pick):
-    """The box holding every placed body `pick` accepts."""
-    return _F.group(pick)
-
-
-# --- the silhouette --------------------------------------------------------
-# WIDTH and HEIGHT are STATED bounds — `enclosure.appliance_width` struck symmetric about
-# x = 0, `enclosure.appliance_height` off the floor slab's underside — and so is the BACK
-# wall (`enclosure.rear_plane_y`). No body sets any of them: `_dims` measures the pack
-# against each, enters the reading in `BOUNDS`, and hands back the box those numbers
-# describe either way, so a pack that overran one gets a wall drawn through it and a red
-# row saying by how much. Only the FRONT wall follows the pack, standing one seam clearance
-# ahead of the frontmost body.
-#
-# `side_band_inset` is what that width check REQUIRES of a body standing on the floor, not
-# what sets the wall — the band the seam's corner stacks need where they stand, which is a
-# station and a height together, so a body clears a stack by standing over or under it as
-# readily as beside it.
-APPLIANCE_W = _OUTER[1] - _OUTER[0]
-APPLIANCE_D = _OUTER[3] - _OUTER[2]
-APPLIANCE_H = _OUTER[5] - _OUTER[4]
-WALL_STANDOFF = enclosure.side_band_inset
-
-# --- the compressor bay, on the floor at the front -------------------
-_COMP, _COND = _bb("compressor"), _bb("condenser+fan")
-COMPRESSOR_ROOF = _COMP.zmax
-COMP_BAY_TOP = max(_COMP.zmax, _COND.zmax)     # the crown the manifold sets down on
-COMP_BAY_STEP = abs(_COMP.zmax - _COND.zmax)   # how far the pair's two crowns differ
-COMP_BAY_W = _COND.xmax - _COMP.xmin           # the two mated, across the machine
-# THE COMPRESSOR BAY IS THE PAIR, front to back as well as across. The condenser stands aft of the
-# compressor and reaches the core's front face; the compressor's plate reaches further forward,
-# so the depth the front wall follows is the pair's box and not either body's.
-COMP_BAY_D = _COMP.add(_COND).ylen
-CONDENSER_ACROSS = _cond.AIRFLOW                # the fan's own axis, the short one
-CONDENSER_LONG = _cond.FACE_A
-CONDENSER_STANDING = _cond.FACE_B
-CONDENSER_LIFT = _COND.zmin                     # how far its mount stands it off the slab
-MATE_X = _COMP.xmax                           # the plane the two bodies meet on
-
-# --- the cold core, on the floor behind it ---------------------------------
-_FOAM = _bb("foam-assembly")
-CORE_FRONT_Y = _FOAM.ymin                       # its front face — the compressor bay's aft plane
-# The lid's OUTER FACE, which is the plane every body standing on the core is placed off.
-# The cap prints a valve cradle at each of its stations off that face, and the rails of those
-# cradles are what the solid's own `zmax` reaches — so the lid's height is read where
-# `enclosure_assembly` states it, and not off the box.
-CORE_CROWN = _F.faces["foam-assembly.cap"]
-
-# --- the flavour manifold, on the compressor bay's crown --------------------------
-# `enclosure_assembly._manifold` is what names a body as the pack's rather than a standalone, so
-# the pack measures here exactly as it measures in the assembly's own report.
-_MANIFOLD = _group(lambda n: n in _MANIFOLD_NAMES)
-MANIFOLD_W = _MANIFOLD.xmax - _MANIFOLD.xmin
-MANIFOLD_D = _MANIFOLD.ymax - _MANIFOLD.ymin
-MANIFOLD_H = _MANIFOLD.zmax - _MANIFOLD.zmin
-MANIFOLD_TOP = _MANIFOLD.zmax
-# Pump-head clearance is read from the placed heads above the compressor bay.
-# The pump tees stand in their anchors under their caps; the valves stand on their trays.
-PUMP_FACE_CLEAR = min(_bb(n).zmin for n in _SOLIDS if n.endswith("-head")) - COMP_BAY_TOP
-DECK_SEP = _ml.DECK_SEP                         # the two valve decks, deck to deck
-# The pack overhangs the core's front face, and what it clears there is the core's own crown.
-_OVER = [n for n in _SOLIDS if n in _MANIFOLD_NAMES and _bb(n).ymax > CORE_FRONT_Y + 1e-6]
-CORE_OVERHANG = max(_bb(n).ymax for n in _OVER) - CORE_FRONT_Y
-CORE_OVERHANG_CLEAR = min(_bb(n).zmin for n in _OVER) - CORE_CROWN
-OVERHANG_N = len(_OVER)
-
-# --- the service bay, on the core's cap ------------------------------------
-DECK_TOP = CORE_CROWN
-DECK_HEIGHT = _INNER[5] - DECK_TOP
-PUMP_CROWN = _bb("g-ganen-pump").zmax
-# The back column's own Z seam, the piece it leaves under it, and what the bed carries.
-BACK_Z_SEAM = _BOX["splits"][1]
-BACK_BOTTOM_H = _F.pieces["back-bottom"]["box"][5] - _F.pieces["back-bottom"]["box"][2]
-BED_Z = enclosure.H2C_Z
-
-# --- what crosses the +Y wall of back-top ----------------------------------
-# Each read off the union's own inboard collet, which is the station `enclosure_assembly`'s
-# `y_wall_ports` strikes its bore on.
-PORT_ROW_Z = _bb("bulkhead-carb").zmin + (_bb("bulkhead-carb").zlen / 2.0)
-WATER_PORT_Z = _bb("bulkhead-water").zmin + (_bb("bulkhead-water").zlen / 2.0)
-# THE ROW STANDS ON COLUMNS AND TWO OF ITS UNIONS SHARE ONE, so the pitch is the gap between
-# adjacent COLUMNS — the same reading `_enclosure_mechanical_sync` takes of the same stations.
-_PANEL_COLUMNS = sorted({round(x, 6) for x in _F.constants["PANEL_X"].values()})
-PANEL_PITCH = ((_PANEL_COLUMNS[-1] - _PANEL_COLUMNS[0]) / (len(_PANEL_COLUMNS) - 1)
-               if len(_PANEL_COLUMNS) > 1 else 0.0)
-
-# --- the lines the cold core is reached on ---------------------------------
-# NO RUN LENGTH IS WRITTEN FROM HERE. The README names the runs the cap is reached on by id
-# and draws no figure against any of them: a length read off the built assembly is correct
-# in the sandbox that read it and stale in the tree the moment a lane moves, and a page of
-# architectural orientation is not where anybody cuts tube.
-# `topology/_fluid_topology_sync.py` measures each run and prints the cut list, and the
-# IP-01/IP-02 build cards carry the figures a bench works to.
-
-# The routed axis, read off the same scorecard the assembly prints rather than kept by hand.
-# BOTH COUNTS AND NO PERCENTAGE: a percentage in prose is read back as a count anyway, and a
-# ratio of two figures printed beside it is a third thing that can be wrong on its own.
-_CONNS = _scorecard.load_connections(_F.runs)
-ROUTED_N = sum(1 for c in _CONNS if c.routed)
-CONNECTIONS_N = len(_CONNS)
+facts = _facts.read()
+box = facts.box
+outer = box['outer']
+compressor, block = facts.bb('compressor'), facts.bb('condenser+fan')
+APPLIANCE_W = outer[1] - outer[0]
+APPLIANCE_D = outer[3] - outer[2]
+APPLIANCE_H = outer[5] - outer[4]
 
 
 def main():
+    # The front corner stations identify the floor footprint independently of
+    # cap passages and equipment standing proud above it.
+    core_front = min(y - radius for _x, y, radius in box['core_stops'])
     variables = {
-        "FOAM_SHELL_X": f"{outer_shell_x_length:.4g}",
-        "FOAM_SHELL_Y": f"{outer_shell_y_length:.4g}",
-        "FOAM_SHELL_Z": f"{foam_shell_outer_height:.4g}",
-        "APPLIANCE_WIDTH": f"{APPLIANCE_W:.4g} mm",
-        "APPLIANCE_DEPTH": f"{APPLIANCE_D:.4g} mm",
-        "APPLIANCE_HEIGHT": f"{APPLIANCE_H:.4g} mm",
-        "WALL_STANDOFF": f"{WALL_STANDOFF:.4g}",
-        # The compressor bay.
-        "COMP_BAY_W": f"{COMP_BAY_W:.4g}",
-        "COMP_BAY_D": f"{COMP_BAY_D:.4g}",
-        "COMP_BAY_TOP": f"{COMP_BAY_TOP:.4g}",
-        "COMP_BAY_STEP": f"{COMP_BAY_STEP:.4g}",
-        "COMPRESSOR_ROOF": f"{COMPRESSOR_ROOF:.4g}",
-        "MATE_X": f"{MATE_X:.4g}",
-        "CONDENSER_ACROSS": f"{CONDENSER_ACROSS:.4g}",
-        "CONDENSER_LONG": f"{CONDENSER_LONG:.4g}",
-        "CONDENSER_STANDING": f"{CONDENSER_STANDING:.4g}",
-        "CONDENSER_LIFT": f"{CONDENSER_LIFT:.4g}",
-        # The cold core.
-        "CORE_FRONT_Y": f"{CORE_FRONT_Y:.4g}",
-        "CORE_CROWN": f"{CORE_CROWN:.4g}",
-        # The manifold on the crown.
-        "MANIFOLD_W": f"{MANIFOLD_W:.4g}",
-        "MANIFOLD_D": f"{MANIFOLD_D:.4g}",
-        "MANIFOLD_H": f"{MANIFOLD_H:.4g}",
-        "MANIFOLD_TOP": f"{MANIFOLD_TOP:.4g}",
-        "PUMP_FACE_CLEAR": f"{PUMP_FACE_CLEAR:.4g}",
-        "DECK_SEP": f"{DECK_SEP:.4g}",
-        "OVERHANG_N": f"{OVERHANG_N:d}",
-        "CORE_OVERHANG": f"{CORE_OVERHANG:.4g}",
-        "CORE_OVERHANG_CLEAR": f"{CORE_OVERHANG_CLEAR:.4g}",
-        # The service bay and the seam under it.
-        "DECK_TOP": f"{DECK_TOP:.4g}",
-        "DECK_HEIGHT": f"{DECK_HEIGHT:.4g}",
-        "PUMP_CROWN": f"{PUMP_CROWN:.4g}",
-        "BACK_Z_SEAM": f"{BACK_Z_SEAM:.4g}",
-        "BACK_BOTTOM_H": f"{BACK_BOTTOM_H:.4g}",
-        "BED_Z": f"{BED_Z:.4g}",
-        # The +Y wall of back-top's own row.
-        "PORT_ROW_Z": f"{PORT_ROW_Z:.4g}",
-        "WATER_PORT_Z": f"{WATER_PORT_Z:.4g}",
-        "PANEL_PITCH": f"{PANEL_PITCH:.4g} mm",
-        "ROUTED_N": f"{ROUTED_N:d}",
-        "CONNECTIONS_N": f"{CONNECTIONS_N:d}",
+        'FOAM_SHELL_X': f'{outer_shell_x_length:.4g}',
+        'FOAM_SHELL_Y': f'{outer_shell_y_length:.4g}',
+        'FOAM_SHELL_Z': f'{foam_shell_outer_height:.4g}',
+        'APPLIANCE_WIDTH': f'{APPLIANCE_W:.4g} mm',
+        'APPLIANCE_DEPTH': f'{APPLIANCE_D:.4g} mm',
+        'APPLIANCE_HEIGHT': f'{APPLIANCE_H:.4g} mm',
+        'WALL_STANDOFF': f'{enclosure.side_band_inset:.4g}',
+        'COMP_BAY_W': f'{max(compressor.xmax, block.xmax) - min(compressor.xmin, block.xmin):.4g}',
+        'COMP_BAY_D': f'{max(compressor.ymax, block.ymax) - min(compressor.ymin, block.ymin):.4g}',
+        'COMP_BAY_TOP': f'{max(compressor.zmax, block.zmax):.4g}',
+        'COMP_BAY_STEP': f'{abs(compressor.zmax - block.zmax):.4g}',
+        'COMPRESSOR_ROOF': f'{compressor.zmax:.4g}',
+        'MATE_X': f'{compressor.xmax:.4g}',
+        'CONDENSER_ACROSS': f'{condenser.AIRFLOW:.4g}',
+        'CONDENSER_LONG': f'{condenser.FACE_A:.4g}',
+        'CONDENSER_STANDING': f'{condenser.FACE_B:.4g}',
+        'CONDENSER_LIFT': f'{block.zmin:.4g}',
+        'CORE_FRONT_Y': f'{core_front:.4g}',
+        'CORE_CROWN': f'{facts.faces["foam-assembly.cap"]:.4g}',
+        'BACK_Z_SEAM': f'{box["splits"][1]:.4g}',
+        'BACK_BOTTOM_H': f'{facts.pieces["back-bottom"]["box"][5] - facts.pieces["back-bottom"]["box"][2]:.4g}',
+        'BED_Z': f'{enclosure.H2C_Z:.4g}',
     }
-
-    substitute_md(
-        _here / "README.md",
-        variables=variables,
-    )
-    print("-> README.md")
+    substitute_md(HERE / 'README.md', variables=variables)
+    print('-> README.md')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

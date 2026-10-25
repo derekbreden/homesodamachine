@@ -158,18 +158,18 @@ SCENES = (
         # It is the longest run in the appliance and its far end is a valve on the front top,
         # which is why it is made up here rather than reached for down a closed box.
         also=("tube-fluid-18",),
-        later=(),
+        later=("bulkhead-carb", "bulkhead-drain"),
         cam=(0.6, -1.0, 0.5), up=(0, 0, 1), zoom=2.7, look="centre",
         note="Turned over, which is how it is worked: its ceiling is the bench, the Z seam "
              "looks up and the Y-seam mouth faces the room — the +X wall is seen from where a "
-             "hand reaches it. Every body is on it before it goes back the other way, and the "
-             "tray's sleeve stands empty.",
+             "hand reaches it. The soda and drain bulkheads, their nuts and the nested soda "
+             "return elbows install after the back column closes. The tray's sleeve stands empty.",
     ),
     Scene(
         "front-top", "Enclosure front top",
         roots=("enclosure-front-top",), inner=(), flip=((1, 0, 0), 180.0), also=(),
-        # The frame enters front-top before closure; the silicone is fitted afterwards.
-        later=("funnel",),
+        # Both removable funnel pieces enter after the quadrants are connected.
+        later=("funnel-frame", "funnel"),
         # `zoom` is a multiple of the SCENE's own bounding radius, and nothing here leaves the
         # piece: the radius is the piece's. The elevation is what opens the two valve rows —
         # they stand one behind the other on two Y planes, and a camera down the valves' own
@@ -182,8 +182,8 @@ SCENES = (
         cam=(0.8, -1.0, 0.9), up=(0, 0, 1), zoom=4.4, look="centre",
         note="The same pose as the back top and the other half of the same box: on its ceiling, "
              "the mouth to the room. Every seat under this manifold is the piece's own "
-             "material, including the collet plate and the tee wall's four bores. The sliding funnel frame is installed; "
-             "the silicone funnel and pump cartridge enter with the box standing.",
+             "material, including the collet plate and the tee wall's four bores. The drop-in "
+             "frame carries its snapped-in drain cradle and enters after final connections.",
     ),
     # THE UNIT THAT FILLS THAT BAY, rooted on its two printed pieces: the full-height lower
     # cradle and the small top clamp. It is worked upright, the same way it stands in the bay,
@@ -217,17 +217,14 @@ SCENES = (
     ),
     Scene(
         "cap-lid", "Foam shell top cap lid assembly",
-        roots=("foam-assembly",), inner=("foam-cap-top", "foam-cap-lid-top"),
+        roots=("foam-assembly",),
+        inner=("foam-cap-top", "foam-cap-lid-top", "reservoir-b-fill-lower",
+               "reservoir-b-fill-upper", "line-reservoir-b-fill"),
         flip=None, also=(),
-        # THE RIB IS PRINTED HERE AND CLOSED SOMEWHERE ELSE. `fluid-14` runs from V-F on the
-        # front top down onto this lid's reservoir-A fill bore, and this plate is on a bench
-        # with no manifold in the world yet — the run is made up when the core is plumbed, and
-        # what leaves here is an empty channel. The anchor table cannot say that: it knows the
-        # rib is the cap's and stops there.
-        later=("tube-fluid-14",),
+        later=(),
         cam=(0.35, -0.2, 1.0), up=(-1.7, 1.0, 0), zoom=2.9, look="crown",
         note="The same cap and lid with everything that face carries: the pump bolted through, "
-             "three valves pressed into their cradles, both chains zip-tied into printed ribs. "
+             "three valves seated in upright walls, flat PCB and PSU, check and meter in tied bearings. "
              "It meets the rest of the core after all of it is on.",
     ),
     Scene(
@@ -261,24 +258,23 @@ SCENES = (
         later=(),
         cam=(0.55, -0.85, 0.9), up=(0, 0, 1), zoom=4.0, look="crown",
         note="The inverted frame shows its flat underside and full-width end corbels, with the "
-             "elbow cradle snapped into the 3 mm web round the drain hole, the PP0308E elbow "
+             "drain cradle snapped into its bottom web, the PP0308E elbow "
              "standing in it and the drain stub up its collet. The silicone plug bears on the "
              "web above.",
     ),
     Scene(
         "back-half", "Enclosure back half",
         roots=("enclosure-back-bottom", "enclosure-back-top"), inner=INNER_FOAM, flip=None,
-        # The four that cross the Y seam: the flavour-A riser off the +Y wall's own union,
-        # and the three reservoir lines standing in the core's cap. All four are made up on
-        # this half and all four leave it hanging, for the front half's valves to take.
-        also=("tube-fluid-16", "tube-fluid-18", "tube-fluid-24", "tube-fluid-26"),
+        # The flavour-A riser and four reservoir lines are made up while this
+        # half is open. Their loose front ends connect through the funnel opening.
+        also=("tube-fluid-14", "tube-fluid-16", "tube-fluid-18", "tube-fluid-24", "tube-fluid-26"),
         later=(),
         # High enough over the box to see down into the mouth AND across the top wall, which is
         # how the half is looked at with the front one still off the bench: the seam faces the
         # room and everything the front half must reach is under the eye at once.
         cam=(0.95, -1.1, 1.4), up=(0, 0, 1), zoom=3.2, look="centre",
         note="The two back quadrants mated, seen through the Y-seam mouth they present to the "
-             "front half — the last moment anything inside is reachable. Four runs hang out of "
+             "front half — the last moment anything inside is reachable. Five runs hang out of "
              "that mouth for the front half to take. The tray is not in yet: it goes east into "
              "its sleeve through the −X wall, with the box standing.",
     ),
@@ -301,8 +297,8 @@ SCENES = (
         inner=(), flip=None, also=(), later=(),
         # Square on to the +X flank the column stands down, from inside the box.
         cam=(-1.0, -0.25, 0.35), up=(0, 0, 1), zoom=2.8, look="centre",
-        note="Down the +X flank — the PSU aft, the main board forward of it, both relays "
-             "and the ground stack, every mounting plane on the one seat.",
+        note="The flat PSU aft and PCB forward on the cold-core lid, both fixed west-wall relays "
+             "and the lid-mounted ground stack, with the roof panel removed.",
     ),
 )
 
@@ -336,12 +332,26 @@ BEARS_ON = {
     "co2-inlet": "enclosure-back-top",
     "display": "enclosure-front-top",               # let into that piece's own facet
     "display-gasket": "enclosure-front-top",         # in the same inset, under the plate's lap
-    "funnel-frame": "enclosure-front-top",           # slid into its front receivers before closure
+    "funnel-frame": "enclosure-front-top",           # shared roof bearing; fitted after closure
     "funnel": "funnel-frame",                       # removable silicone in the frame's socket
     "funnel-drain-stub": "funnel-drain-union",      # standing in the drain elbow's upper collet
+    "drain-outlet-stem": "funnel-drain-union",
     # Hanging off the line they splice, on the wall that line is cradled against.
     "water-split": "enclosure-back-top",
     "flow-regulator": "enclosure-back-top",
+    "va-east-turn": "valve-v-a",
+    "ya-stem-elbow": "tee-y-a",
+    "yb-stem-elbow": "tee-y-b",
+    "gas-inlet-elbow": "gas-regulator",
+    "gas-lower-a": "gas-regulator",
+    "gas-lower-b": "gas-regulator",
+    "gas-upper-a": "gas-check",
+    "gas-upper-b": "gas-check",
+    "soda-stem-elbow": "bulkhead-carb",
+    "soda-outlet-return-stem": "soda-stem-elbow",
+    **{f"{name}-nut": name for name in
+       ("bulkhead-water", "bulkhead-carb", "bulkhead-drain", "bulkhead-flavor-a",
+        "bulkhead-flavor-b", "co2-inlet")},
     # Each pump tee's branch stands in its bore through front-top's tee wall.
     **{f"tee-{tee}": "enclosure-front-top" for tee in ("y-c", "y-d", "y-f", "y-g")},
     # Riding another body rather than a piece.
@@ -349,43 +359,77 @@ BEARS_ON = {
 }
 
 
-def holders():
+def placed_names(assembly):
+    """Physical leaf names and the core aliases used by routing metadata."""
+    import manifold_layout as ml
+
+    names = {name for name, _shape, _colour in ml.placed_leaves(assembly)}
+    aliases = getattr(assembly, 'core_external_components', ())
+    names |= {name.rsplit('/', 1)[-1] for name in names
+              if name.rsplit('/', 1)[-1] in aliases}
+    if getattr(assembly, 'core_envelope', None) is not None:
+        names.add(INNER_ROOT)
+    return names
+
+
+def holders(assembly=None):
     """`name -> the part that holds it`, off the machine's own tables.
 
-    Five sources, in the order a later one may correct an earlier: the fastening table, the two
-    box anchor tables, the cap's, and the pack's own barb runs. A body named twice is named with
-    the same parent by each — the regulator lies in a rib off the wall that also carries its row
-    — so the merge is a reading and not a choice."""
+    The fastening table supplies body seats. Named tube anchors come from the
+    supplied assembly; the current production pack has none without an assembly.
+    The manifold's own barb and return runs retain their fitted body ownership."""
     import _scorecard as _sc
     import enclosure_assembly as _ea
     import _cold_core_interface as _cci
     import manifold_layout as _ml
 
-    rows = _sc.mounts()
+    tube_sites = tuple(getattr(assembly, 'tube_anchor_sites', ())) if assembly is not None else ()
+    cap_names = {f"anchor-cap-{name}" for name, row in _cci.cap_anchors.items()
+                 if row.closure == "cap"}
+    cap_names |= {f"anchor-cap-{rid}" for rid, station in tube_sites
+                  if station[5:6] == ("cap",)}
+    rows = tuple(row for row in _sc.mounts(assembly)
+                 if not row[0].startswith("anchor-cap-") or row[0] in cap_names)
+    present = placed_names(assembly) if assembly is not None else None
+
+    def active(name):
+        return present is None or name in present
+
     out = {}
     for name, by, joint in rows:
         # TWO PIECES CLOSING ON ONE BODY PUT IT IN NEITHER'S UNIT. `_scorecard.MOUNTS` gives such
         # a body a tuple, and where it stands is `BEARS_ON` — the cold core is fastened by the
         # front-bottom's blocks and the back-top's brackets and sits on the back-bottom's slab.
         out[name] = (by if isinstance(by, str) else None) or BEARS_ON.get(name)
-    for rid, _leg, _root, piece in _ea.TUBE_ANCHOR_SITES:
-        out[f"tube-{rid}"] = piece
-    for name, _section, _root, piece in _ea.BODY_ANCHOR_SITES:
-        out[name] = piece
-    for name in _cci.cap_anchors:
-        # A mounted body keeps its name; a run's rib holds its tube. Both may state an
-        # explicit seat height, so that geometric value does not identify the occupant.
-        out[name if name in out else f"tube-{name}"] = "foam-assembly"
+    tube_pieces = {rid: piece for rid, _leg, _root, piece in _ea.TUBE_ANCHOR_SITES}
+    for rid, _station in tube_sites:
+        if active(f"tube-{rid}"):
+            out[f"tube-{rid}"] = tube_pieces[rid]
+    # Body and cap seats already have fastening rows. Their geometric helper
+    # tables do not create additional body or tube occupants in a scene.
     # Prepared pump tubes ride the cartridge; the upper tubes and lower returns stay on
     # front-top with the pump tees.
     pump_at = {x: name for name, x in _ml.PUMPS.items()}
     for cid, _frm, _to, how in _ml.SEGMENTS:
+        if not active(f"tube-fluid-{cid}"):
+            continue
         if how in _ml.BARB_OF:
             out[f"tube-fluid-{cid}"] = f"{pump_at[_ml.BARB_OF[how][0]]}-head"
         elif how in _ml.FORE_STUBS:
             out[f"tube-fluid-{cid}"] = "enclosure-front-top"
     for cid in _ml.lower_links():
-        out[f"tube-fluid-{cid}"] = "enclosure-front-top"
+        if active(f"tube-fluid-{cid}"):
+            out[f"tube-fluid-{cid}"] = "enclosure-front-top"
+    import above_core
+    for name in above_core.core_equipment_names():
+        if name in out:
+            out[name] = "foam-assembly"
+    for name in ('soda-inlet-stem',):
+        if name in out:
+            out[name] = "foam-assembly"
+    for name in ('tube-soda-core-rise',):
+        if active(name):
+            out[name] = "foam-assembly"
     # A RIDER GOES WHERE ITS HOST GOES — `_scorecard.RIDES`, the coils on their valves and the
     # Kamoers' rear bosses and motor cans on their heads. One purchased thing apiece, drawn as
     # several so each takes its own colour.
@@ -432,12 +476,12 @@ def runs_for(bodies, runs, holder_map):
     return out
 
 
-def named(scene, runs):
+def named(scene, runs, assembly=None):
     """Every name this scene shows, bodies and tube both, off the tables and the drawn runs.
 
     A doc driver has the runs and the tables and no machine; a render has all three. This is the
     half both can ask for — see `members`."""
-    holder_map = holders()
+    holder_map = holders(assembly)
     bodies = set()
     for root in scene.roots:
         bodies |= held_by(root, holder_map, scene.later)
@@ -473,37 +517,43 @@ def named(scene, runs):
     if inner:
         derived.discard(INNER_ROOT)
         derived |= inner - set(scene.later)
+    import above_core
+    promoted = above_core.core_equipment_names() | {
+        'digiten-flow', 'soda-inlet-stem', 'tube-soda-core-rise'}
+    if assembly is not None:
+        promoted |= set(getattr(assembly, 'core_external_components', ()))
+    derived -= {INNER_ROOT_HELD+n for n in promoted if n in derived}
+    derived |= set(scene.also)
+    # Resolve each complete tube before taking another unit out. The populated
+    # cap carries the B-fill link and its loose external continuation together.
+    derived |= {half for line, half in crossings(runs).items() if line in derived}
+    derived -= set(scene.later)
+    derived -= {INNER_ROOT_HELD+n for n in promoted if n in derived}
     if scene.without:
         other = SCENE_BY_ID[scene.without]
         if other.without:
             raise ValueError(
                 f"scene {scene.id!r} is {scene.without!r} less its own {other.without!r}. "
                 f"State this scene against a unit that is drawn whole.")
-        gone = set(named(other, runs)) - set(scene.roots)
+        gone = set(named(other, runs, assembly)) - set(scene.roots)
         surplus = sorted(gone - derived)
         if surplus:
             raise ValueError(
                 f"scene {scene.id!r} takes {scene.without!r} out of itself and does not carry "
                 f"{', '.join(surplus)} to take. The two are no longer built on the same thing.")
         derived -= gone
-    names = derived | set(scene.also)
-    # ONE LENGTH OF TUBE IS ONE LENGTH OF TUBE. A unit drawing the half inside the core draws the
-    # half outside it too, wherever the fastening tables put that half: the cut, the bends and the
-    # length are the bench's, and the conduit is a hole the one tube passes through.
-    names |= {half for line, half in crossings(runs).items() if line in names}
-    return sorted(names)
+    return sorted(derived)
 
 
 def members(scene, assembly):
     """`named`, held against the machine that has to place every one of them."""
-    names = named(scene, assembly.runs)
+    names = named(scene, assembly.runs, assembly)
     # ONE MODEL PLACES EVERY ONE OF THEM. The machine stands the core's own bodies, so a name
     # this cannot find is a name nothing draws — including a body the core's card claims and
     # the machine does not stand, which is the divergence worth hearing about.
     # THE MACHINE HOLDS AN ASSEMBLY, so what it places is its leaves and not its children —
     # a pass one level deep would find the `cold-core` node and nothing inside it.
-    import manifold_layout as _ml
-    present = {name for name, _shape, _colour in _ml.placed_leaves(assembly)}
+    present = placed_names(assembly)
     missing = sorted(n for n in names if n not in present)
     if missing:
         raise ValueError(
