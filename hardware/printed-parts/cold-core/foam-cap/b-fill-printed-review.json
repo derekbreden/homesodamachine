@@ -872,7 +872,7 @@
   },
   "functional_receipt": {
     "path": "hardware/printed-parts/cold-core/foam-cap/b-fill-pair-review.json",
-    "scope": "The local source-native layout, cover/floor/capture and handling readings retain the separately owned receipt scope. The complete-cup four-subject and five-subsolid deltas are recorded here. The original 227-neighbor query is not replayed or upgraded; the nominal-strip contact is explicit above."
+    "scope": "The local source-native layout, cover/floor/capture and handling readings retain the separately owned receipt scope. The complete-cup four-subject and five-subsolid deltas are recorded here. The original 227-neighbor query is not replayed or upgraded; the separate old west-strip pair is explicitly stale-cache scope."
   },
   "source_sha256": {
     "hardware/printed-parts/cold-core/_above_core_mounts.py": "a2c6c6651851d23794aa5a2322add08e620a56ff0e147fcc1cdb553192383d48",
@@ -883,11 +883,11 @@
   "qualification_limits": [
     "The printed STL and served mesh bindings identify emitted geometry; they establish no print quality, tie cleanup, load, stiffness, pressure seal or lifetime acceptance.",
     "The retained 2 mm cup floor and 3.05 mm lower roof keep their original separate scopes. The 2.4 mm exception applies only to the named dry retaining cover.",
-    "The upper JG main-body native distance operation fails; its native contact Boolean is zero in both orders, as are all five fitting subsolid/cup pairs. No numerical air value is claimed for that main body. The nominal V-B retaining-strip contact is a separate open result."
+    "The upper JG main-body native distance operation fails; its native contact Boolean is zero in both orders, as are all five fitting subsolid/cup pairs. No numerical air value is claimed for that main body. Historical cached west-strip contacts do not establish a production-strip conflict."
   ],
   "passed": true,
   "native_purchased_subsolid_and_nominal_strip_delta": {
-    "scope": "Only five purchased fitting subsolids versus the complete canonical cup, and the saved nominal VB strip versus the old/new fluid24 tail. No source changes or neighbor replay.",
+    "scope": "Only five purchased fitting subsolids versus the complete canonical cup, plus an OLD cached nominal west V-B strip versus old/new fluid24 tails. That cached strip is not the current production dressing; its contacts are historical-fixture evidence only.",
     "cup_sha256": "c4ce8e5d5435376892c641b2c54a369a7dac2643c421e33ec4275b5902fe2e39",
     "fitting_subsolids": [
       {
@@ -999,7 +999,8 @@
     "strip_source": {
       "path": "tmp/dry-sidewall-wiring/targets/nominal-strip-vb-outlet-return.brep",
       "sha256": "81be9ef3a261588faa5d6b65165fa80b3153d5cc50f41db1e84d481fd1cbe812",
-      "solids": 9
+      "solids": 9,
+      "current_applicability": false
     },
     "strip_vs_tails": {
       "old": {
@@ -1197,9 +1198,9 @@
       }
     }
   },
-  "complete_nominal_strip_clearance_passed": false,
-  "open_nominal_strip_contact": {
-    "scope": "The cached complete nominal V-B return strip versus the selected B-fill external tail, not printed cup or lid stock. No strip-path correction is adopted in this record.",
+  "printed_delta_passed": true,
+  "historical_cached_strip_contact": {
+    "scope": "Historical cached WEST V-B strip witness versus the selected B-fill tail. This is not the current production strip and establishes no current production conflict.",
     "affected_strip_solids": [
       0,
       1,
@@ -1222,7 +1223,20 @@
         280.5500001
       ]
     ],
-    "basis": "Each isolated strip/tube pair gives the same positive volume in both Boolean orders. Whole-compound results are asymmetric and cannot establish clearance. The prior tube tail clears the same strip by5.775mm. A revised strip dressing through the existing window remains a separate fit question."
+    "basis": "The three positive readings are real only for the named cached strip hash. Its dressing differs from the current pure production route. No strap geometry change is supported by this stale-cache pair."
   },
-  "printed_delta_passed": true
+  "current_nominal_strip_scope": {
+    "requeried_here": false,
+    "current_window_world_x_mm": [
+      -7.2,
+      -4.4
+    ],
+    "current_straight_tie_centres_world_x_mm": [
+      -12.7,
+      0.1
+    ],
+    "current_band_centre_world_x_mm": -10.48,
+    "B_fill_tail_max_world_x_mm": -29.82499989999999,
+    "basis": "The production geometry owner identified that the saved west-strip witness differs from the current east dressing through the selected window. These current pure datums distinguish the scope; the historical native pair is not transferred to the production strip."
+  }
 }
