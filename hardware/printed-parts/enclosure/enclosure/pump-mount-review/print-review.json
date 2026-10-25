@@ -1,21 +1,21 @@
 {
   "schema": 1,
-  "recorded_utc": "2026-10-25T22:43:12+00:00",
+  "recorded_utc": "2026-10-25T23:49:29+00:00",
   "scope": "Offline native slices of the current integral front-top pump mount and plain underside retainer. This record identifies emitted paths, recipe settings, selected density samples and support-body access. It does not establish physical cleanup, surface finish, fit, axial take-up, load capacity or lifetime.",
   "method": "Existing trial-preparation/prepare.py --slice --review; supplemental reading of all upper support paths against source coordinates. No new automatic build or commit check.",
   "current_print_regions": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
-  "current_print_regions_sha256": "124c27efad68cacda5310131dc617ebceedee81ae482c3c8ce8241754bbad7f0",
+  "current_print_regions_sha256": "3fe998735efe82c233d48ac087092423b0ebc5ac94a3e887337490d7b44efd4b",
   "printer_job_submitted": false,
   "printer_preflight_performed": false,
-  "physical_evidence_scope": "The accepted former cradle/cap article remains identified in hardware/reference/kamoer-kphm400/physical-fit.json. Its reported firm retention and no vertical play do not qualify these two current prints.",
+  "physical_evidence_scope": "The accepted former cradle/cap article remains identified in hardware/reference/kamoer-kphm400/physical-fit.json. Its reported firm retention and no vertical play do not qualify these two current prints. The current wire-envelope checks do not qualify the unlocated Faston housing envelope or physical receptacle clearance.",
   "pieces": [
     {
       "piece": "enclosure-front-top",
       "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-      "stl_sha256": "a8a9d29f312c08500f173a683e2898c20e066cd58045320e8b0393d56be4dfad",
-      "step_sha256": "455cd05a225b6f47b252577cb25a45cf3e4fb81b63eb2dc0b39fa39a28d12dc0",
+      "stl_sha256": "ffb9e0422a8b18adc74413d642e58be5ddcc97d298ca6e99dda7001b555a1383",
+      "step_sha256": "389304966e148d1b2a63bd4ee4f0798066ff57bb13d86d694b30fd53728e414e",
       "mesh": {
-        "edges": 742770,
+        "edges": 739656,
         "boundary_edges": 0,
         "nonmanifold_edges": 0,
         "inconsistent_edges": 0,
@@ -23,19 +23,19 @@
         "closed_oriented_single_body": true
       },
       "source_print_up": "+Z",
-      "preparation": ".cache/prints/fixed-pump-mount-2026-10-25/2026-10-25-front-top-mark1-9da77fde/preparation.json",
-      "project": ".cache/prints/fixed-pump-mount-2026-10-25/2026-10-25-front-top-mark1-9da77fde/2026-10-25-front-top-mark1-9da77fde.3mf",
-      "project_sha256": "9a669c76d3c62b83eb97c94b1d20d13c570ae39a4f11a479c7753994064878d6",
-      "archive": ".cache/prints/fixed-pump-mount-2026-10-25/2026-10-25-front-top-mark1-9da77fde/2026-10-25-front-top-mark1-9da77fde.gcode.3mf",
-      "archive_sha256": "61ec507b1df4b7fe84b4fac7032bd736a901042351ccf5170c6fde6fd0a3418c",
-      "gcode_sha256": "179163fa2fe52b4f4e80b041a929ba90b9b593139c8bed17309c3c080cd215a7",
+      "preparation": ".cache/prints/fixed-pump-mount-2026-10-25/2026-10-25-front-top-mark1-c42b452c/preparation.json",
+      "project": ".cache/prints/fixed-pump-mount-2026-10-25/2026-10-25-front-top-mark1-c42b452c/2026-10-25-front-top-mark1-c42b452c.3mf",
+      "project_sha256": "62a65f9f839abf2eab444b0b128c08371260dfc813aa39e9956ee9f722cdc313",
+      "archive": ".cache/prints/fixed-pump-mount-2026-10-25/2026-10-25-front-top-mark1-c42b452c/2026-10-25-front-top-mark1-c42b452c.gcode.3mf",
+      "archive_sha256": "87597fc696d53eb19b7ed153c635e6ac88166a9a0bb58863c9e7042dfb0d2f92",
+      "gcode_sha256": "61c332a16685314572294686142b8eaa103760bc0f8031891b1939fec8486877",
       "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
-      "native_review": ".cache/prints/fixed-pump-mount-2026-10-25/2026-10-25-front-top-mark1-9da77fde/review.json",
-      "native_review_sha256": "dae8f24a87c2026bd1749922b1151338f1d29ff0a0033ac4d76e8d9be3027cc3",
-      "support_audit": ".cache/prints/fixed-pump-mount-2026-10-25/2026-10-25-front-top-mark1-9da77fde/support-audit-1901.json",
-      "support_audit_sha256": "c0d14eaf1d98881db397e95c556a03648feb6625e7c0b8c20a0784ba9d7f3267",
+      "native_review": ".cache/prints/fixed-pump-mount-2026-10-25/2026-10-25-front-top-mark1-c42b452c/review.json",
+      "native_review_sha256": "d97ddefd885c81f9ba082eaebf3d9b1247e15dd5a34ad1b6f13bbd58f9ee079d",
+      "support_audit": ".cache/prints/fixed-pump-mount-2026-10-25/2026-10-25-front-top-mark1-c42b452c/support-audit-1901.json",
+      "support_audit_sha256": "c617acdfd9c79ad6f1985b3f375c2dd2a136ebf724536a78eea2a78b69a4f397",
       "slicer": "BambuStudio 02.08.02.61",
-      "prepared_utc": "2026-10-25T22:18:58+00:00",
+      "prepared_utc": "2026-10-25T23:30:58+00:00",
       "printer_recipe": {
         "printer": "Mark1",
         "nozzle_side": "left",
@@ -77,7 +77,7 @@
       "modifier_density": "100%",
       "modifier_pattern": "zig-zag",
       "modifier_scope": "Infill-only boxes within existing stock; ordinary wall settings are inherited.",
-      "region_record_sha256_at_preparation": "124c27efad68cacda5310131dc617ebceedee81ae482c3c8ce8241754bbad7f0",
+      "region_record_sha256_at_preparation": "3fe998735efe82c233d48ac087092423b0ebc5ac94a3e887337490d7b44efd4b",
       "current_per_piece_modifier_regions_match_preparation": true,
       "existing_review_checks": {
         "archive": true,
@@ -92,105 +92,651 @@
       "existing_review_pass": true,
       "first_second_layer_stack": {
         "1901": {
-          "second_layer_model_bead_area_mm2": 9436.428490687886,
-          "fraction_over_first_layer": 0.9650777020339983,
-          "second_layer_centerline_outside_first_mm": 86.48942445262443
+          "second_layer_model_bead_area_mm2": 9436.428669709017,
+          "fraction_over_first_layer": 0.96507770269745,
+          "second_layer_centerline_outside_first_mm": 86.48193463522604
         }
       },
       "minimum_sampled_dense_host_coverage": 0.9784099518235774,
-      "minimum_full_bead_bed_margin_mm": 53.450159499999984,
+      "minimum_full_bead_bed_margin_mm": 53.44142049999999,
       "support_summary": {
-        "support_bodies": 2,
-        "interface_islands": 5,
-        "bed_rooted_bodies": 2,
-        "model_rooted_bodies": 0,
-        "shortest_build_up_mm": 53.71,
-        "bodies_without_interface_labels": 0,
-        "explicit_interface_islands": 5,
-        "shortest_labelled_build_up_mm": 53.71
+        "support_bodies": 22,
+        "interface_islands": null,
+        "bed_rooted_bodies": 13,
+        "model_rooted_bodies": 9,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 20,
+        "explicit_interface_islands": 8,
+        "shortest_labelled_build_up_mm": 53.79
       },
       "support_bodies": [
         {
           "id": "tree-1",
           "root": "bed",
           "base_z_mm": 0.2,
-          "first_interface_z_mm": 53.91,
-          "shortest_build_up_mm": 53.71,
-          "top_z_mm": 185.48,
+          "first_interface_z_mm": null,
+          "shortest_build_up_mm": null,
+          "top_z_mm": 19.632,
           "bbox_xy_mm": [
-            64.8,
-            63.2,
-            260.4,
-            130.4
+            60.0,
+            244.0,
+            70.0,
+            254.0
           ],
-          "interfaces": [
-            "interface-1",
-            "interface-2",
-            "interface-3"
-          ],
-          "interface_reading": "explicit_feature",
+          "interfaces": [],
+          "interface_reading": "unlabelled",
           "bbox_cad_xyz_mm": [
-            -97.7,
-            14.6,
+            -102.5,
+            195.4,
             160.45,
-            97.9,
-            81.8,
-            345.73
+            -92.5,
+            205.4,
+            179.882
           ]
         },
         {
           "id": "tree-2",
           "root": "bed",
           "base_z_mm": 0.2,
+          "first_interface_z_mm": 53.99,
+          "shortest_build_up_mm": 53.79,
+          "top_z_mm": 185.48,
+          "bbox_xy_mm": [
+            64.8,
+            63.2,
+            260.4,
+            134.0
+          ],
+          "interfaces": [
+            "interface-1",
+            "interface-2",
+            "interface-3",
+            "interface-4",
+            "interface-5",
+            "interface-6"
+          ],
+          "interface_reading": "explicit_feature",
+          "bbox_cad_xyz_mm": [
+            -97.7,
+            14.6,
+            160.45,
+            97.9,
+            85.4,
+            345.73
+          ]
+        },
+        {
+          "id": "tree-3",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "first_interface_z_mm": null,
+          "shortest_build_up_mm": null,
+          "top_z_mm": 107.96,
+          "bbox_xy_mm": [
+            66.8,
+            135.2,
+            95.2,
+            171.6
+          ],
+          "interfaces": [],
+          "interface_reading": "unlabelled",
+          "bbox_cad_xyz_mm": [
+            -95.7,
+            86.6,
+            160.45,
+            -67.3,
+            123.0,
+            268.21
+          ]
+        },
+        {
+          "id": "tree-4",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "first_interface_z_mm": null,
+          "shortest_build_up_mm": null,
+          "top_z_mm": 53.713,
+          "bbox_xy_mm": [
+            70.8,
+            205.2,
+            88.4,
+            226.0
+          ],
+          "interfaces": [],
+          "interface_reading": "unlabelled",
+          "bbox_cad_xyz_mm": [
+            -91.7,
+            156.6,
+            160.45,
+            -74.1,
+            177.4,
+            213.963
+          ]
+        },
+        {
+          "id": "tree-5",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "first_interface_z_mm": null,
+          "shortest_build_up_mm": null,
+          "top_z_mm": 53.713,
+          "bbox_xy_mm": [
+            90.8,
+            204.8,
+            108.0,
+            226.0
+          ],
+          "interfaces": [],
+          "interface_reading": "unlabelled",
+          "bbox_cad_xyz_mm": [
+            -71.7,
+            156.2,
+            160.45,
+            -54.5,
+            177.4,
+            213.963
+          ]
+        },
+        {
+          "id": "tree-6",
+          "root": "model",
+          "base_z_mm": 124.28,
+          "first_interface_z_mm": null,
+          "shortest_build_up_mm": null,
+          "top_z_mm": 124.28,
+          "bbox_xy_mm": [
+            101.2,
+            80.4,
+            101.6,
+            80.8
+          ],
+          "interfaces": [],
+          "interface_reading": "unlabelled",
+          "bbox_cad_xyz_mm": [
+            -61.3,
+            31.8,
+            284.53,
+            -60.9,
+            32.2,
+            284.53
+          ]
+        },
+        {
+          "id": "tree-7",
+          "root": "model",
+          "base_z_mm": 118.75,
+          "first_interface_z_mm": null,
+          "shortest_build_up_mm": null,
+          "top_z_mm": 119.03,
+          "bbox_xy_mm": [
+            114.0,
+            115.6,
+            114.4,
+            115.6
+          ],
+          "interfaces": [],
+          "interface_reading": "unlabelled",
+          "bbox_cad_xyz_mm": [
+            -48.5,
+            67.0,
+            279.0,
+            -48.1,
+            67.0,
+            279.28
+          ]
+        },
+        {
+          "id": "tree-8",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "first_interface_z_mm": null,
+          "shortest_build_up_mm": null,
+          "top_z_mm": 53.713,
+          "bbox_xy_mm": [
+            120.4,
+            205.2,
+            138.0,
+            226.0
+          ],
+          "interfaces": [],
+          "interface_reading": "unlabelled",
+          "bbox_cad_xyz_mm": [
+            -42.1,
+            156.6,
+            160.45,
+            -24.5,
+            177.4,
+            213.963
+          ]
+        },
+        {
+          "id": "tree-9",
+          "root": "model",
+          "base_z_mm": 117.072,
+          "first_interface_z_mm": null,
+          "shortest_build_up_mm": null,
+          "top_z_mm": 119.96,
+          "bbox_xy_mm": [
+            125.6,
+            78.0,
+            127.6,
+            80.4
+          ],
+          "interfaces": [],
+          "interface_reading": "unlabelled",
+          "bbox_cad_xyz_mm": [
+            -36.9,
+            29.4,
+            277.322,
+            -34.9,
+            31.8,
+            280.21
+          ]
+        },
+        {
+          "id": "tree-10",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "first_interface_z_mm": null,
+          "shortest_build_up_mm": null,
+          "top_z_mm": 107.96,
+          "bbox_xy_mm": [
+            125.6,
+            135.6,
+            199.6,
+            171.2
+          ],
+          "interfaces": [],
+          "interface_reading": "unlabelled",
+          "bbox_cad_xyz_mm": [
+            -36.9,
+            87.0,
+            160.45,
+            37.1,
+            122.6,
+            268.21
+          ]
+        },
+        {
+          "id": "tree-11",
+          "root": "model",
+          "base_z_mm": 118.191,
+          "first_interface_z_mm": null,
+          "shortest_build_up_mm": null,
+          "top_z_mm": 119.03,
+          "bbox_xy_mm": [
+            132.0,
+            90.4,
+            132.8,
+            91.2
+          ],
+          "interfaces": [],
+          "interface_reading": "unlabelled",
+          "bbox_cad_xyz_mm": [
+            -30.5,
+            41.8,
+            278.441,
+            -29.7,
+            42.6,
+            279.28
+          ]
+        },
+        {
+          "id": "tree-12",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "first_interface_z_mm": null,
+          "shortest_build_up_mm": null,
+          "top_z_mm": 53.713,
+          "bbox_xy_mm": [
+            149.6,
+            205.2,
+            176.4,
+            226.0
+          ],
+          "interfaces": [],
+          "interface_reading": "unlabelled",
+          "bbox_cad_xyz_mm": [
+            -12.9,
+            156.6,
+            160.45,
+            13.9,
+            177.4,
+            213.963
+          ]
+        },
+        {
+          "id": "tree-13",
+          "root": "model",
+          "base_z_mm": 22.827,
+          "first_interface_z_mm": null,
+          "shortest_build_up_mm": null,
+          "top_z_mm": 28.31,
+          "bbox_xy_mm": [
+            150.8,
+            222.0,
+            154.0,
+            226.0
+          ],
+          "interfaces": [],
+          "interface_reading": "unlabelled",
+          "bbox_cad_xyz_mm": [
+            -11.7,
+            173.4,
+            183.077,
+            -8.5,
+            177.4,
+            188.56
+          ]
+        },
+        {
+          "id": "tree-14",
+          "root": "model",
+          "base_z_mm": 136.04,
+          "first_interface_z_mm": null,
+          "shortest_build_up_mm": null,
+          "top_z_mm": 150.2,
+          "bbox_xy_mm": [
+            155.2,
+            111.6,
+            171.2,
+            114.8
+          ],
+          "interfaces": [],
+          "interface_reading": "unlabelled",
+          "bbox_cad_xyz_mm": [
+            -7.3,
+            63.0,
+            296.29,
+            8.7,
+            66.2,
+            310.45
+          ]
+        },
+        {
+          "id": "tree-15",
+          "root": "model",
+          "base_z_mm": 109.799,
+          "first_interface_z_mm": null,
+          "shortest_build_up_mm": null,
+          "top_z_mm": 128.84,
+          "bbox_xy_mm": [
+            156.4,
+            93.6,
+            168.8,
+            99.6
+          ],
+          "interfaces": [],
+          "interface_reading": "unlabelled",
+          "bbox_cad_xyz_mm": [
+            -6.1,
+            45.0,
+            270.049,
+            6.3,
+            51.0,
+            289.09
+          ]
+        },
+        {
+          "id": "tree-16",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "first_interface_z_mm": null,
+          "shortest_build_up_mm": null,
+          "top_z_mm": 53.713,
+          "bbox_xy_mm": [
+            185.2,
+            205.2,
+            202.4,
+            226.0
+          ],
+          "interfaces": [],
+          "interface_reading": "unlabelled",
+          "bbox_cad_xyz_mm": [
+            22.7,
+            156.6,
+            160.45,
+            39.9,
+            177.4,
+            213.963
+          ]
+        },
+        {
+          "id": "tree-17",
+          "root": "model",
+          "base_z_mm": 124.76,
+          "first_interface_z_mm": null,
+          "shortest_build_up_mm": null,
+          "top_z_mm": 124.76,
+          "bbox_xy_mm": [
+            207.2,
+            80.0,
+            207.6,
+            80.4
+          ],
+          "interfaces": [],
+          "interface_reading": "unlabelled",
+          "bbox_cad_xyz_mm": [
+            44.7,
+            31.4,
+            285.01,
+            45.1,
+            31.8,
+            285.01
+          ]
+        },
+        {
+          "id": "tree-18",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "first_interface_z_mm": null,
+          "shortest_build_up_mm": null,
+          "top_z_mm": 28.31,
+          "bbox_xy_mm": [
+            218.0,
+            210.0,
+            230.4,
+            226.0
+          ],
+          "interfaces": [],
+          "interface_reading": "unlabelled",
+          "bbox_cad_xyz_mm": [
+            55.5,
+            161.4,
+            160.45,
+            67.9,
+            177.4,
+            188.56
+          ]
+        },
+        {
+          "id": "tree-19",
+          "root": "model",
+          "base_z_mm": 47.61,
+          "first_interface_z_mm": null,
+          "shortest_build_up_mm": null,
+          "top_z_mm": 53.713,
+          "bbox_xy_mm": [
+            222.8,
+            220.0,
+            225.2,
+            226.0
+          ],
+          "interfaces": [],
+          "interface_reading": "unlabelled",
+          "bbox_cad_xyz_mm": [
+            60.3,
+            171.4,
+            207.86,
+            62.7,
+            177.4,
+            213.963
+          ]
+        },
+        {
+          "id": "tree-20",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "first_interface_z_mm": null,
+          "shortest_build_up_mm": null,
+          "top_z_mm": 107.96,
+          "bbox_xy_mm": [
+            229.6,
+            135.2,
+            258.4,
+            171.2
+          ],
+          "interfaces": [],
+          "interface_reading": "unlabelled",
+          "bbox_cad_xyz_mm": [
+            67.1,
+            86.6,
+            160.45,
+            95.9,
+            122.6,
+            268.21
+          ]
+        },
+        {
+          "id": "tree-21",
+          "root": "bed",
+          "base_z_mm": 0.2,
           "first_interface_z_mm": 97.153,
           "shortest_build_up_mm": 96.953,
-          "top_z_mm": 131.27,
+          "top_z_mm": 131.24,
           "bbox_xy_mm": [
-            236.0,
-            195.2,
+            234.8,
+            195.6,
             266.4,
             233.2
           ],
           "interfaces": [
-            "interface-4",
-            "interface-5"
+            "interface-7",
+            "interface-8"
           ],
           "interface_reading": "explicit_feature",
           "bbox_cad_xyz_mm": [
-            73.5,
-            146.6,
+            72.3,
+            147.0,
             160.45,
             103.9,
             184.6,
-            291.52
+            291.49
+          ]
+        },
+        {
+          "id": "tree-22",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "first_interface_z_mm": null,
+          "shortest_build_up_mm": null,
+          "top_z_mm": 19.632,
+          "bbox_xy_mm": [
+            255.2,
+            244.0,
+            265.2,
+            254.0
+          ],
+          "interfaces": [],
+          "interface_reading": "unlabelled",
+          "bbox_cad_xyz_mm": [
+            92.7,
+            195.4,
+            160.45,
+            102.7,
+            205.4,
+            179.882
           ]
         }
       ],
       "labelled_support_interfaces": [
         {
           "id": "interface-1",
-          "first_z_mm": 53.91,
-          "last_z_mm": 54.47,
+          "first_z_mm": 53.99,
+          "last_z_mm": 54.44,
           "bbox_xy_mm": [
             64.8,
             63.2,
             260.4,
             130.4
           ],
-          "tree": "tree-1",
-          "build_up_mm": 53.71,
+          "tree": "tree-2",
+          "build_up_mm": 53.79,
           "bbox_cad_xyz_mm": [
             -97.7,
             14.6,
-            214.161,
+            214.24,
             97.9,
             81.8,
-            214.72
+            214.69
           ]
         },
         {
           "id": "interface-2",
-          "first_z_mm": 74.79,
+          "first_z_mm": 68.12,
+          "last_z_mm": 68.39,
+          "bbox_xy_mm": [
+            69.6,
+            93.6,
+            71.2,
+            95.2
+          ],
+          "tree": "tree-2",
+          "build_up_mm": 67.92,
+          "bbox_cad_xyz_mm": [
+            -92.9,
+            45.0,
+            228.37,
+            -91.3,
+            46.6,
+            228.64
+          ]
+        },
+        {
+          "id": "interface-3",
+          "first_z_mm": 68.12,
+          "last_z_mm": 68.39,
+          "bbox_xy_mm": [
+            161.6,
+            93.6,
+            163.2,
+            95.2
+          ],
+          "tree": "tree-2",
+          "build_up_mm": 67.92,
+          "bbox_cad_xyz_mm": [
+            -0.9,
+            45.0,
+            228.37,
+            0.7,
+            46.6,
+            228.64
+          ]
+        },
+        {
+          "id": "interface-4",
+          "first_z_mm": 68.12,
+          "last_z_mm": 68.39,
+          "bbox_xy_mm": [
+            253.6,
+            93.6,
+            255.2,
+            95.2
+          ],
+          "tree": "tree-2",
+          "build_up_mm": 67.92,
+          "bbox_cad_xyz_mm": [
+            91.1,
+            45.0,
+            228.37,
+            92.7,
+            46.6,
+            228.64
+          ]
+        },
+        {
+          "id": "interface-5",
+          "first_z_mm": 74.808,
           "last_z_mm": 75.35,
           "bbox_xy_mm": [
             84.4,
@@ -198,20 +744,20 @@
             136.4,
             119.6
           ],
-          "tree": "tree-1",
-          "build_up_mm": 74.59,
+          "tree": "tree-2",
+          "build_up_mm": 74.608,
           "bbox_cad_xyz_mm": [
             -78.1,
             19.0,
-            235.04,
+            235.058,
             -26.1,
             71.0,
             235.6
           ]
         },
         {
-          "id": "interface-3",
-          "first_z_mm": 74.79,
+          "id": "interface-6",
+          "first_z_mm": 74.808,
           "last_z_mm": 75.35,
           "bbox_xy_mm": [
             188.8,
@@ -219,19 +765,19 @@
             240.8,
             119.6
           ],
-          "tree": "tree-1",
-          "build_up_mm": 74.59,
+          "tree": "tree-2",
+          "build_up_mm": 74.608,
           "bbox_cad_xyz_mm": [
             26.3,
             19.0,
-            235.04,
+            235.058,
             78.3,
             71.0,
             235.6
           ]
         },
         {
-          "id": "interface-4",
+          "id": "interface-7",
           "first_z_mm": 97.153,
           "last_z_mm": 97.43,
           "bbox_xy_mm": [
@@ -240,7 +786,7 @@
             266.4,
             225.6
           ],
-          "tree": "tree-2",
+          "tree": "tree-21",
           "build_up_mm": 96.953,
           "bbox_cad_xyz_mm": [
             94.7,
@@ -252,24 +798,24 @@
           ]
         },
         {
-          "id": "interface-5",
-          "first_z_mm": 130.992,
-          "last_z_mm": 131.27,
+          "id": "interface-8",
+          "first_z_mm": 131.0,
+          "last_z_mm": 131.24,
           "bbox_xy_mm": [
             257.2,
             218.4,
             266.4,
             233.2
           ],
-          "tree": "tree-2",
-          "build_up_mm": 130.792,
+          "tree": "tree-21",
+          "build_up_mm": 130.8,
           "bbox_cad_xyz_mm": [
             94.7,
             169.8,
-            291.242,
+            291.25,
             103.9,
             184.6,
-            291.52
+            291.49
           ]
         }
       ],
@@ -279,12 +825,12 @@
         "measured_minimum_clearance_mm": null,
         "scope": "The generic show-face check has no selected protected faces in this recipe; its true value does not establish support-free exterior surfaces."
       },
-      "estimated_seconds": 128302.0546875,
+      "estimated_seconds": 138224.359375,
       "slicer_warnings": [],
       "submitted": false,
       "upper_functional_void_support_reading": {
         "source_z_mm": [
-          295.03,
+          295.09000000000003,
           345.73
         ],
         "source_xy_centerline_bounds_mm": [
@@ -293,23 +839,287 @@
           66.09,
           79.83300152599999
         ],
-        "segments": 66439,
+        "segments": 69324,
         "scope": "All emitted support features above CAD Z295 were read, including branches beyond the last labelled interface. They follow the sloping display/wing functional lanes. Labelled island count is not the total contact count."
       },
       "support_removal_access_reading": [
-        "The broad pump-mount underside and motor/boss shoulders open downward through the unloaded pump region before the retainer is installed.",
-        "Upper display/wing support branches are accessed through the empty display seat and open underside before fitting the display or pumps.",
-        "East-side WAGO pocket supports are accessed through the open inboard pocket faces before fitting wiring blocks.",
-        "These are native path/geometry access readings, not a physical support-removal result or a swept extraction proof."
+        "Clean the loose front-top before inserting pumps, heat-set inserts, wiring, display, WAGO blocks, valves or tubes. Detach the branches in each functional room before withdrawing the remaining bed-rooted trunk.",
+        "The native support paths occupy open functional rooms. No closed or geometrically trapped room was identified in this access reading. Body count, model rooting and absence of explicit interface labels do not establish a removal defect.",
+        "Branches may be broken into fragments in the open rooms; no claim is made that an entire connected tree or its bounding box can pass intact through one opening.",
+        "This is an access reading against the native path bounds and source openings, not a swept extraction proof or a physical removal result. Break-off force, residue, bearing finish and tool reach under actual handling remain unmeasured."
+      ],
+      "support_access_groups": [
+        {
+          "body_ids": [
+            "tree-1",
+            "tree-22"
+          ],
+          "functional_room": "Rear seam joinery",
+          "source_centerline_bounds_mm": {
+            "tree-1": [
+              -102.5,
+              195.4,
+              160.45,
+              -92.5,
+              205.4,
+              179.882
+            ],
+            "tree-22": [
+              92.7,
+              195.4,
+              160.45,
+              102.7,
+              205.4,
+              179.882
+            ]
+          },
+          "removal_access": "Open rear seam and sliding grooves are available before enclosure closure."
+        },
+        {
+          "body_ids": [
+            "tree-2"
+          ],
+          "functional_room": "Pump underside, motor shoulders, pilot tips and display lanes",
+          "source_centerline_bounds_mm": {
+            "tree-2": [
+              -97.7,
+              14.6,
+              160.45,
+              97.9,
+              85.4,
+              345.73
+            ]
+          },
+          "removal_access": "Detach the pump-region branches through the open loading mouths and two 37 mm motor bores. The three small pilot-tip branches are reached through the open 4 mm insert pilots before installing inserts. Upper branches are reached through the empty display/wing seat. Withdraw or fragment the remaining bed trunk through the open underside."
+        },
+        {
+          "body_ids": [
+            "tree-3",
+            "tree-10",
+            "tree-20"
+          ],
+          "functional_room": "Fore valve tray and port channels",
+          "source_centerline_bounds_mm": {
+            "tree-3": [
+              -95.7,
+              86.6,
+              160.45,
+              -67.3,
+              123.0,
+              268.21
+            ],
+            "tree-10": [
+              -36.9,
+              87.0,
+              160.45,
+              37.1,
+              122.6,
+              268.21
+            ],
+            "tree-20": [
+              67.1,
+              86.6,
+              160.45,
+              95.9,
+              122.6,
+              268.21
+            ]
+          },
+          "removal_access": "Open aft/interior faces and underside remain available before fitting fore tees, valves and tubes."
+        },
+        {
+          "body_ids": [
+            "tree-4",
+            "tree-5",
+            "tree-8",
+            "tree-12",
+            "tree-13",
+            "tree-16",
+            "tree-18",
+            "tree-19"
+          ],
+          "functional_room": "Rear valve tray and port channels",
+          "source_centerline_bounds_mm": {
+            "tree-4": [
+              -91.7,
+              156.6,
+              160.45,
+              -74.1,
+              177.4,
+              213.963
+            ],
+            "tree-5": [
+              -71.7,
+              156.2,
+              160.45,
+              -54.5,
+              177.4,
+              213.963
+            ],
+            "tree-8": [
+              -42.1,
+              156.6,
+              160.45,
+              -24.5,
+              177.4,
+              213.963
+            ],
+            "tree-12": [
+              -12.9,
+              156.6,
+              160.45,
+              13.9,
+              177.4,
+              213.963
+            ],
+            "tree-13": [
+              -11.7,
+              173.4,
+              183.077,
+              -8.5,
+              177.4,
+              188.56
+            ],
+            "tree-16": [
+              22.7,
+              156.6,
+              160.45,
+              39.9,
+              177.4,
+              213.963
+            ],
+            "tree-18": [
+              55.5,
+              161.4,
+              160.45,
+              67.9,
+              177.4,
+              188.56
+            ],
+            "tree-19": [
+              60.3,
+              171.4,
+              207.86,
+              62.7,
+              177.4,
+              213.963
+            ]
+          },
+          "removal_access": "Open under-tray and inboard port channels remain available before fitting rear valves and returns."
+        },
+        {
+          "body_ids": [
+            "tree-6",
+            "tree-7",
+            "tree-9",
+            "tree-11",
+            "tree-17"
+          ],
+          "functional_room": "Pump terminal rooms",
+          "source_centerline_bounds_mm": {
+            "tree-6": [
+              -61.3,
+              31.8,
+              284.53,
+              -60.9,
+              32.2,
+              284.53
+            ],
+            "tree-7": [
+              -48.5,
+              67.0,
+              279.0,
+              -48.1,
+              67.0,
+              279.28
+            ],
+            "tree-9": [
+              -36.9,
+              29.4,
+              277.322,
+              -34.9,
+              31.8,
+              280.21
+            ],
+            "tree-11": [
+              -30.5,
+              41.8,
+              278.441,
+              -29.7,
+              42.6,
+              279.28
+            ],
+            "tree-17": [
+              44.7,
+              31.4,
+              285.01,
+              45.1,
+              31.8,
+              285.01
+            ]
+          },
+          "removal_access": "These five small model-rooted path bodies lie at CAD Z277.322..285.010. Shift fragments inward in the empty terminal rooms, then downward through the 37 mm motor bores; the small off-axis branches can move radially inward before descent."
+        },
+        {
+          "body_ids": [
+            "tree-14"
+          ],
+          "functional_room": "Display entry connection",
+          "source_centerline_bounds_mm": {
+            "tree-14": [
+              -7.3,
+              63.0,
+              296.29,
+              8.7,
+              66.2,
+              310.45
+            ]
+          },
+          "removal_access": "Reach through the empty 106.3 by 69.3 mm display PCB opening and the connected 20 by 11 mm local entry box. The support span is approximately 16 mm across and 9.85 mm along the sloped opening; fragment extraction is available before display installation."
+        },
+        {
+          "body_ids": [
+            "tree-15"
+          ],
+          "functional_room": "Common pump/display wire passage",
+          "source_centerline_bounds_mm": {
+            "tree-15": [
+              -6.1,
+              45.0,
+              270.049,
+              6.3,
+              51.0,
+              289.09
+            ]
+          },
+          "removal_access": "The cross passage connects to the one 22 mm rear common mouth and open upper U. Break this 19.041 mm-high path body into fragments inside the open terminal/wire room, then clear fragments aft through the approximately 54.14 mm shared passage before threading wires. Intact passage of its complete bounding box is not claimed."
+        },
+        {
+          "body_ids": [
+            "tree-21"
+          ],
+          "functional_room": "East WAGO pockets",
+          "source_centerline_bounds_mm": {
+            "tree-21": [
+              72.3,
+              147.0,
+              160.45,
+              103.9,
+              184.6,
+              291.49
+            ]
+          },
+          "removal_access": "Both pockets open through their inboard faces before fitting the connectors. The two labelled islands are at the pocket bearing levels, not evidence of a closed support chamber."
+        }
       ]
     },
     {
       "piece": "enclosure-pump-retainer",
       "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl",
-      "stl_sha256": "c3e53daffc048a5b4a058e42edc2144d5aafb13ab29d47456a1f9973ec19573e",
-      "step_sha256": "ea79019f2cc2cfd7ac84decff522190f252ce17e70b2a4a075708bf8b23b7192",
+      "stl_sha256": "7acaafc7ca5af606f95abd77cab96267b509e82d3e006df01102ff21d5482c34",
+      "step_sha256": "bd394956fa09afd0985161b9e8ffb699a7083fe7066ff0fed76446c837fb089f",
       "mesh": {
-        "edges": 14982,
+        "edges": 14862,
         "boundary_edges": 0,
         "nonmanifold_edges": 0,
         "inconsistent_edges": 0,
@@ -317,19 +1127,19 @@
         "closed_oriented_single_body": true
       },
       "source_print_up": "+Z",
-      "preparation": ".cache/prints/fixed-pump-mount-2026-10-25/2026-10-25-pump-retainer-mark1-445ba93f/preparation.json",
-      "project": ".cache/prints/fixed-pump-mount-2026-10-25/2026-10-25-pump-retainer-mark1-445ba93f/2026-10-25-pump-retainer-mark1-445ba93f.3mf",
-      "project_sha256": "f7b3a66ab5d9069977c022016a8b95db9dab90fc278bd942b25670fc1afdf078",
-      "archive": ".cache/prints/fixed-pump-mount-2026-10-25/2026-10-25-pump-retainer-mark1-445ba93f/2026-10-25-pump-retainer-mark1-445ba93f.gcode.3mf",
-      "archive_sha256": "769b6fd644b857d718b0d200d919a75a6b850ed1faac778da882b485302fa36a",
-      "gcode_sha256": "05c2b383e4d92474b613cc814e827270a72efe7e5a8f50f7b13a0c25c7c67075",
+      "preparation": ".cache/prints/fixed-pump-mount-2026-10-25/2026-10-25-pump-retainer-mark1-36925d95/preparation.json",
+      "project": ".cache/prints/fixed-pump-mount-2026-10-25/2026-10-25-pump-retainer-mark1-36925d95/2026-10-25-pump-retainer-mark1-36925d95.3mf",
+      "project_sha256": "5b2424ff8139491fce43858b2a7ee528effeeac672a8bd7392a7fef7d02e8167",
+      "archive": ".cache/prints/fixed-pump-mount-2026-10-25/2026-10-25-pump-retainer-mark1-36925d95/2026-10-25-pump-retainer-mark1-36925d95.gcode.3mf",
+      "archive_sha256": "2cbf4c66e321bed2058cdea7b0dbbd8b33c677ea6c6e79e5eb0b7fedf39f8475",
+      "gcode_sha256": "eda085f8eb95681c4a8da9071b6258e5e5e1017a4bb2d2932ebcfdf7ac492cdf",
       "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
-      "native_review": ".cache/prints/fixed-pump-mount-2026-10-25/2026-10-25-pump-retainer-mark1-445ba93f/review.json",
-      "native_review_sha256": "f7469d7af81b57f6b282832c97ee6994df6b903174a1c932adfb2823146b0d7b",
-      "support_audit": ".cache/prints/fixed-pump-mount-2026-10-25/2026-10-25-pump-retainer-mark1-445ba93f/support-audit-1901.json",
-      "support_audit_sha256": "13375104b29beefa7f52c2c80636436964cd2e21de9f17a53a78d7b33abbf759",
+      "native_review": ".cache/prints/fixed-pump-mount-2026-10-25/2026-10-25-pump-retainer-mark1-36925d95/review.json",
+      "native_review_sha256": "c6cd649e495b9af562737caa8a997e663fa74e6f62b5d89b6f76454f36930e8b",
+      "support_audit": ".cache/prints/fixed-pump-mount-2026-10-25/2026-10-25-pump-retainer-mark1-36925d95/support-audit-1901.json",
+      "support_audit_sha256": "ec48a2f065c8fbfe21779db2a7d3d882363a466766dc3a7fb905954ef0608eb8",
       "slicer": "BambuStudio 02.08.02.61",
-      "prepared_utc": "2026-10-25T21:53:04+00:00",
+      "prepared_utc": "2026-10-25T23:16:00+00:00",
       "printer_recipe": {
         "printer": "Mark1",
         "nozzle_side": "left",
@@ -362,7 +1172,7 @@
       "modifier_density": "100%",
       "modifier_pattern": "zig-zag",
       "modifier_scope": "Infill-only boxes within existing stock; ordinary wall settings are inherited.",
-      "region_record_sha256_at_preparation": "ab77aff987c46d82d216d77000f6a0dad5bf943a5131b67d435d3da7a0c3f1b7",
+      "region_record_sha256_at_preparation": "051e1a27bee3915f15f6dcb4202d6e7e5067b687a9111ce397716beb66696cbe",
       "current_per_piece_modifier_regions_match_preparation": true,
       "existing_review_checks": {
         "archive": true,
@@ -377,9 +1187,9 @@
       "existing_review_pass": true,
       "first_second_layer_stack": {
         "1901": {
-          "second_layer_model_bead_area_mm2": 7086.61432291838,
-          "fraction_over_first_layer": 0.9760370253648163,
-          "second_layer_centerline_outside_first_mm": 42.078044794621036
+          "second_layer_model_bead_area_mm2": 7086.61413378743,
+          "fraction_over_first_layer": 0.9760370960064879,
+          "second_layer_centerline_outside_first_mm": 42.07804479455696
         }
       },
       "minimum_sampled_dense_host_coverage": 0.9778931219872526,
@@ -545,7 +1355,7 @@
         "measured_minimum_clearance_mm": null,
         "scope": "The generic show-face check has no selected protected faces in this recipe; its true value does not establish support-free exterior surfaces."
       },
-      "estimated_seconds": 13571.91015625,
+      "estimated_seconds": 13563.3701171875,
       "slicer_warnings": [],
       "submitted": false,
       "support_removal_access_reading": [

@@ -2118,5 +2118,172 @@
     "Existing unqualified conductor contacts outside the moved local fan-outs remain visible in the pair classifications; this receipt does not claim a contact-free entire harness.",
     "Native routes do not establish physical dressing, terminal insertion, vibration resistance, pull-load capacity or lifetime.",
     "The retained fixture proves the purchased hardware/tube geometry queried here; superseded enclosure/pump pieces and printed cold-core casing are excluded."
-  ]
+  ],
+  "manufacturing_cleanup_separation": {
+    "printed_stock_sha256": {
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "389304966e148d1b2a63bd4ee4f0798066ff57bb13d86d694b30fd53728e414e",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step": "bd394956fa09afd0985161b9e8ffb699a7083fe7066ff0fed76446c837fb089f"
+    },
+    "source_sha256": {
+      "hardware/wiring/installed/routes.py": "25a614a784977ba733ffb64962bedec8b4e81b1bf8ce7ff1e3d9873d3b7b7ec3",
+      "hardware/wiring/installed/route-overrides.json": "36538dc365902ce2ea3c91e5d2d1f27aa1da745e66b8b55a45417b6990780447",
+      "hardware/wiring/installed/terminals.py": "485ef865f493e321958309bdbf3527ae57adb91ae864d5b924ddaed5d56edf99",
+      "hardware/wiring/installed/connections.py": "11528d05f94efb932dd4b9eee07f01578a401fc8bf37ff9d9cab50b3bd058000",
+      "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "cd2e436bc08ca5cadba0bef11fa1b350c658ed86bd55c865c93cc37bc716c84f",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.py": "20d60ba991f5ea24f8ec18d8db7474a7a7c00a4b312778fe1dfdfcc8bf54f351"
+    },
+    "manifest_sha256": "598fe2cd8c1784359ab6c9a613e895f9e7e44e9f6668d8e892f6b45927051324",
+    "native_stock_refinement": {
+      "path": "hardware/printed-parts/enclosure/enclosure/pump-mount-review/native-review.json",
+      "sha256": "db29aab22a6d2704b06adb642c11eb51ce842fbfbc4b6f4e124d88af0319eeaf",
+      "role": "rear_breakout_removal_successor",
+      "predecessor_top_sha256": "d65c9d61ea8964f85e8d120bb1ca5c4b22166474a23a2742758a93e0bba76340",
+      "current_top_sha256": "389304966e148d1b2a63bd4ee4f0798066ff57bb13d86d694b30fd53728e414e",
+      "material_added_mm3": 0.0,
+      "material_removed_mm3": 3035.7781773145985
+    },
+    "physical_acceptance_claimed": false,
+    "scope": "The fourteen WAGO curves are identical to their original full-wire stock query. Added stock in the d65 successor is separated from every rounded conductor guide hull plus insulation radius; the final rear-breakout successor only removes stock from d65.",
+    "method": "Tangent circular corner fillets stay within the convex hull of their source guide polyline. Expanding that hull by the conductor insulation radius bounds the complete native sweep. A positive Y or Z interval gap proves separation from the entire added-stock bounding box.",
+    "d65_added_stock_bounds_mm": [
+      -75.974,
+      75.97400000000002,
+      21.110000000000003,
+      99.0000001,
+      265.9999999,
+      312.998
+    ],
+    "d65_native_refinement_role": "direct_added_stock_successor",
+    "all_fourteen_source_curves_identical_to_original_native_query": true,
+    "all_fourteen_separated_from_added_stock": true,
+    "minimum_axis_gap_lower_bound_mm": 16.149999899999983,
+    "wire_bounds": [
+      {
+        "wire": "J1-COM",
+        "segments_sha256": "5629a535689385e98186b36b7522420e8ba4b3c949a6909f5be280433fa48464",
+        "insulation_radius_mm": 0.85,
+        "rounded_guide_hull_minimum_y_mm": 176.10000002005037,
+        "rounded_guide_hull_maximum_z_mm": 277.93,
+        "separating_axis": "Y",
+        "axis_gap_lower_bound_mm": 77.09999992005038
+      },
+      {
+        "wire": "J1-positive-A",
+        "segments_sha256": "2c441e439646d1d8e85da71b5c6875ba14a413bf24ea27a53ea3f5d27bd25d5a",
+        "insulation_radius_mm": 0.85,
+        "rounded_guide_hull_minimum_y_mm": 179.40795200000002,
+        "rounded_guide_hull_maximum_z_mm": 320.53085000000004,
+        "separating_axis": "Y",
+        "axis_gap_lower_bound_mm": 80.40795190000003
+      },
+      {
+        "wire": "J1-positive-B",
+        "segments_sha256": "673f79e321f4ed8dcc27bf0fc9be66838b0d574d1528c9ae615b2df7a8baddd2",
+        "insulation_radius_mm": 0.85,
+        "rounded_guide_hull_minimum_y_mm": 180.25000000000003,
+        "rounded_guide_hull_maximum_z_mm": 300.71000000000004,
+        "separating_axis": "Y",
+        "axis_gap_lower_bound_mm": 81.24999990000003
+      },
+      {
+        "wire": "J1-positive-C",
+        "segments_sha256": "fc0288204493cab52e8575a74320615a6cc003fea7781f44e057cbabb5ecd965",
+        "insulation_radius_mm": 0.85,
+        "rounded_guide_hull_minimum_y_mm": 124.24000000000002,
+        "rounded_guide_hull_maximum_z_mm": 283.81,
+        "separating_axis": "Y",
+        "axis_gap_lower_bound_mm": 25.23999990000003
+      },
+      {
+        "wire": "J1-positive-D",
+        "segments_sha256": "7afbafde87a0bf399a5c2016af7e6ed836c3a2a71ce0760b5245500388aba97a",
+        "insulation_radius_mm": 0.85,
+        "rounded_guide_hull_minimum_y_mm": 124.24000000000002,
+        "rounded_guide_hull_maximum_z_mm": 289.77000000000004,
+        "separating_axis": "Y",
+        "axis_gap_lower_bound_mm": 25.23999990000003
+      },
+      {
+        "wire": "J1-positive-E",
+        "segments_sha256": "091068332006bf66f63928acc5afe939a6f8d183dda62431dbb758adb45bd950",
+        "insulation_radius_mm": 0.85,
+        "rounded_guide_hull_minimum_y_mm": 148.34,
+        "rounded_guide_hull_maximum_z_mm": 265.93,
+        "separating_axis": "Y",
+        "axis_gap_lower_bound_mm": 49.33999990000001
+      },
+      {
+        "wire": "J1-positive-F",
+        "segments_sha256": "4e00b9f9540b3e6d4c3ea3e5d7c4701dca36d8768dae08160f79e942b3b6f5d9",
+        "insulation_radius_mm": 0.85,
+        "rounded_guide_hull_minimum_y_mm": 148.34,
+        "rounded_guide_hull_maximum_z_mm": 286.37500000000006,
+        "separating_axis": "Y",
+        "axis_gap_lower_bound_mm": 49.33999990000001
+      },
+      {
+        "wire": "J1-positive-G",
+        "segments_sha256": "f5b9327cc36f897d2b1b9eb603614d41b65031bbd704ac9d1e4d0a2c441fbfec",
+        "insulation_radius_mm": 0.85,
+        "rounded_guide_hull_minimum_y_mm": 124.24,
+        "rounded_guide_hull_maximum_z_mm": 277.85,
+        "separating_axis": "Y",
+        "axis_gap_lower_bound_mm": 25.2399999
+      },
+      {
+        "wire": "J1-positive-H",
+        "segments_sha256": "a7fb4e3e7bcc6cbe83ff1c3ca64775ed81323e89c4d73f5234082aad4b9fd166",
+        "insulation_radius_mm": 0.85,
+        "rounded_guide_hull_minimum_y_mm": 148.34,
+        "rounded_guide_hull_maximum_z_mm": 283.81,
+        "separating_axis": "Y",
+        "axis_gap_lower_bound_mm": 49.33999990000001
+      },
+      {
+        "wire": "J2-COM",
+        "segments_sha256": "7aaa27b8ab674366efebf2c947fad4dfe6a2ff144d22a53a01b56d5db45d31e3",
+        "insulation_radius_mm": 0.85,
+        "rounded_guide_hull_minimum_y_mm": 172.1500000201,
+        "rounded_guide_hull_maximum_z_mm": 275.25,
+        "separating_axis": "Y",
+        "axis_gap_lower_bound_mm": 73.14999992010002
+      },
+      {
+        "wire": "J2-positive-I",
+        "segments_sha256": "8ee2e61f4353e6acc91a3bb8e495f7c57f8d7b6623081418a655a9cab8dca18d",
+        "insulation_radius_mm": 0.85,
+        "rounded_guide_hull_minimum_y_mm": 148.34,
+        "rounded_guide_hull_maximum_z_mm": 283.37500000000006,
+        "separating_axis": "Y",
+        "axis_gap_lower_bound_mm": 49.33999990000001
+      },
+      {
+        "wire": "J2-positive-J",
+        "segments_sha256": "76f540c22115563702a625d9204bfb724054102c020950542e739cda5108f019",
+        "insulation_radius_mm": 0.85,
+        "rounded_guide_hull_minimum_y_mm": 124.24,
+        "rounded_guide_hull_maximum_z_mm": 243.85,
+        "separating_axis": "Y",
+        "axis_gap_lower_bound_mm": 25.2399999
+      },
+      {
+        "wire": "J2-positive-K",
+        "segments_sha256": "0c9d33d919def0bff55eb1c8f369e65c8a80312c1a9e8eb49003c165f41b4287",
+        "insulation_radius_mm": 0.85,
+        "rounded_guide_hull_minimum_y_mm": 172.60000000000002,
+        "rounded_guide_hull_maximum_z_mm": 320.85,
+        "separating_axis": "Y",
+        "axis_gap_lower_bound_mm": 73.59999990000003
+      },
+      {
+        "wire": "J2-positive-fan",
+        "segments_sha256": "93d6781929eec4ba688384e05378d317ca8996226ade26115b3261dfa8f6a8c9",
+        "insulation_radius_mm": 0.85,
+        "rounded_guide_hull_minimum_y_mm": 43.15,
+        "rounded_guide_hull_maximum_z_mm": 249.85,
+        "separating_axis": "Z",
+        "axis_gap_lower_bound_mm": 16.149999899999983
+      }
+    ]
+  }
 }
