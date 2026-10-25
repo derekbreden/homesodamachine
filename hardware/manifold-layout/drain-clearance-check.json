@@ -472,7 +472,7 @@
         },
         {
           "name": "tube-fluid-14",
-          "gap_mm": 10.645,
+          "gap_mm": 1.6877807,
           "overlap_mm3": 0
         },
         {
@@ -687,12 +687,12 @@
         },
         {
           "name": "cold-core/reservoir-b-fill-lower",
-          "gap_mm": 53.6730837,
+          "gap_mm": 52.9440307,
           "overlap_mm3": 0
         },
         {
           "name": "cold-core/reservoir-b-fill-upper",
-          "gap_mm": 63.8339904,
+          "gap_mm": 71.5876035,
           "overlap_mm3": 0
         },
         {
@@ -722,7 +722,7 @@
         },
         {
           "name": "cold-core/line-reservoir-b-fill",
-          "gap_mm": 61.939158,
+          "gap_mm": 65.9578653,
           "overlap_mm3": 0
         },
         {
@@ -1245,7 +1245,7 @@
         },
         {
           "name": "enclosure-back-top",
-          "gap_mm": 0.2538998,
+          "gap_mm": 0.3534779,
           "overlap_mm3": 0
         },
         {
@@ -1290,12 +1290,12 @@
         },
         {
           "name": "cold-core/reservoir-b-fill-lower",
-          "gap_mm": 49.7356013,
+          "gap_mm": 49.3912596,
           "overlap_mm3": 0
         },
         {
           "name": "cold-core/reservoir-b-fill-upper",
-          "gap_mm": 52.609306,
+          "gap_mm": 62.7162256,
           "overlap_mm3": 0
         },
         {
@@ -1325,7 +1325,7 @@
         },
         {
           "name": "cold-core/line-reservoir-b-fill",
-          "gap_mm": 55.0199446,
+          "gap_mm": 59.419672,
           "overlap_mm3": 0
         },
         {
@@ -1362,7 +1362,7 @@
   "source_sha256": {
     "hardware/scripts/check_asse_drain.py": "91f5b3bab308ee253339de62919f18cc32d70098476a52bfa61e89cb5d97c418",
     "hardware/manifold-layout/_drain.py": "d4f6db44b344125cf6f9b1bc6be341002dae887d78966ada3029e1e452b94c2a",
-    "hardware/manifold-layout/enclosure_assembly.py": "58718773eb60642bcd081858468887055f14b33d92b7d3a71b7fc2858db513f2",
+    "hardware/manifold-layout/enclosure_assembly.py": "3afeeba17b047ed73c6553e54b30163f7720b8ee79ca7d7a789fcf33f5ad06fd",
     "hardware/manifold-layout/_lines.py": "eb226d118dc2ff57192f556913bb3f733a49b6a8cb5bcc7e27a2abbaaa469d56",
     "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "a1e869c93ed2dba3873036fe10506b99ace883bc46a033833354be4e49bcc096",
     "hardware/reference/asse1022-assembly/asse1022_assembly.py": "4481085380d131f5d85696f5c366058382b07577c6881a274495e5d67ec2b3eb",
