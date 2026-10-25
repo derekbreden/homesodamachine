@@ -1378,7 +1378,7 @@
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Native-terminal route around the lid-mounted valve and pump, leaving the downward coil tabs clear of the lid; physical dressing and disconnect fit remain unqualified."
+    "note": "Native-terminal route around the back-top valve and core-mounted pump, leaving the downward coil tabs clear of the lid; physical dressing and disconnect fit remain unqualified."
   },
   "J1-OUT2": {
     "stations": [
@@ -1482,7 +1482,7 @@
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Native-terminal route around the lid-mounted valve and pump, with the separate PCB housing service columns clear. Physical lead dressing, attached-plug motion and disconnect fit remain unqualified."
+    "note": "Native-terminal route around the back-top valve and core-mounted pump, with the separate PCB housing service columns clear. Physical lead dressing, attached-plug motion and disconnect fit remain unqualified."
   },
   "J1-positive-B": {
     "stations": [
@@ -1873,40 +1873,32 @@
       {
         "terminal": "J2.OUT3",
         "offset": [
-          17.83403,
-          6.28684,
-          15.28085
+          6.97992789648,
+          4.9970799799500005,
+          6.0
         ]
       },
       {
         "terminal": "J2.OUT3",
         "offset": [
-          21.83403,
-          10.28684,
-          15.28085
+          46.97992789648,
+          4.9970799799500005,
+          6.0
         ]
       },
       {
         "terminal": "J2.OUT3",
         "offset": [
-          25.83403,
-          14.28684,
-          19.28085
+          46.97992789648,
+          20.79707997995,
+          6.0
         ]
       },
       {
         "terminal": "J2.OUT3",
         "offset": [
-          41.83403,
-          14.28684,
-          35.28085
-        ]
-      },
-      {
-        "terminal": "J2.OUT3",
-        "offset": [
-          41.83403,
-          20.79707998,
+          46.97992789648,
+          20.79707997995,
           39.6
         ]
       },
@@ -1958,7 +1950,7 @@
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Native-terminal route around the lid-mounted valve and pump, leaving the downward coil tabs clear of the lid; physical dressing and disconnect fit remain unqualified."
+    "note": "Selected back-top coil lead dressed below the fixed V-B return union and outside its core bearing; flexible plug motion remains unqualified."
   },
   "J2-positive-K": {
     "stations": [
@@ -2010,7 +2002,7 @@
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Native-terminal route around the lid-mounted valve and pump, leaving the downward coil tabs clear of the lid; physical dressing and disconnect fit remain unqualified."
+    "note": "Native-terminal route around the back-top valve and core-mounted pump, leaving the downward coil tabs clear of the lid; physical dressing and disconnect fit remain unqualified."
   },
   "J3-GND": {
     "stations": [
@@ -2322,7 +2314,7 @@
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Native-terminal route around the lid-mounted valve and pump, with the separate PCB housing service columns clear. Physical lead dressing, attached-plug motion and disconnect fit remain unqualified."
+    "note": "Native-terminal route around the back-top valve and core-mounted pump, with the separate PCB housing service columns clear. Physical lead dressing, attached-plug motion and disconnect fit remain unqualified."
   },
   "J5-IO2": {
     "stations": [
@@ -2410,7 +2402,7 @@
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Native-terminal route around the lid-mounted valve and pump, with the separate PCB housing service columns clear. Physical lead dressing, attached-plug motion and disconnect fit remain unqualified."
+    "note": "Native-terminal route around the back-top valve and core-mounted pump, with the separate PCB housing service columns clear. Physical lead dressing, attached-plug motion and disconnect fit remain unqualified."
   },
   "J7-GND": {
     "stations": [
