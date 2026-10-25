@@ -1,37 +1,39 @@
 {
   "id": "J13",
-  "name": "Pumps \u00b7 fixed half",
-  "scope": "One complete 350 mm board-to-male-pogo harness, finished with front-top loose on the bench",
-  "mapStatus": "Circuit and solder-tail order follow the assembly schedule. The white-striped edge is assigned to AM2 as a bench convention; it is not a record of an assembled sample.",
+  "name": "Pumps",
+  "scope": "One complete 500 mm board-to-motor-tab harness, its Faston end finished through front-top's lead bore with the box closed and the funnel frame out",
+  "mapStatus": "Circuit and pair order follow the assembly schedule. The white-striped edge is assigned to AM2 as a bench convention; it is not a record of an assembled sample.",
   "housing": "XHP-4",
   "contact": "SXH-001T-P0.6",
   "pitchMm": 2.5,
-  "overview": "Four separate motor conductors run from the J13 JST plug to four solder tails on the fixed male pogo half. Each solder joint has its own heat-shrink sleeve.",
+  "overview": "Four separate motor conductors run from the J13 JST plug to four insulated female Faston receptacles on the two pumps' motor tabs. The +X pair serves pump A and the −X pair pump B.",
   "overviewFacts": [
     [
       "Board end",
-      "XHP-4 \u00b7 4 SXH-001T-P0.6 contacts"
+      "XHP-4 · 4 SXH-001T-P0.6 contacts"
     ],
     [
       "Cable",
-      "350 mm \u00b7 22 AWG black 4P ribbon"
+      "500 mm · 22 AWG black 4P ribbon"
     ],
     [
       "Other end",
-      "4 solder joints \u00b7 male pogo half"
+      "4 insulated female Fastons · two per pump"
     ],
     [
-      "Slip on first",
-      "4 individual heat-shrink sleeves"
+      "Dressing",
+      "None · the ribbon stays bare"
     ]
   ],
   "ribbons": [
     {
       "id": "A",
       "poles": 4,
-      "cutMm": 350,
+      "cutMm": 500,
+      "peelMm": 70,
+      "partMm": 20,
       "stripeNet": "AM2",
-      "description": "A1 is the white-striped edge and lands on AM2. Count away from it: A2 AM1, A3 BM2, A4 BM1. Split the pogo end back 20 mm."
+      "description": "A1 is the white-striped edge and lands on AM2. Count away from it: A2 AM1, A3 BM2, A4 BM1. Peel the pump end into its two pairs back 70 mm, A1/A2 for pump A and A3/A4 for pump B, and part each pair's last 20 mm."
     }
   ],
   "pins": [
@@ -41,10 +43,10 @@
       "ribbon": "A",
       "conductor": 1,
       "stripe": true,
-      "cutMm": 350,
-      "destination": "Male pogo tail 1 \u00b7 machine +X end \u00b7 pump A",
-      "termination": "Solder joint with individual heat-shrink",
-      "detail": "Striped A1 joins J13 cavity 1 / AM2 to the male pogo tail at machine X +3.81 mm. This is one H-bridge motor lead, not a shared supply."
+      "cutMm": 500,
+      "destination": "Pump A motor tab 2 · +X pair",
+      "termination": "Insulated female Faston receptacle",
+      "detail": "Striped A1 joins J13 cavity 1 / AM2 to pump A's motor tab 2. This is one H-bridge motor lead, not a shared supply."
     },
     {
       "pin": 2,
@@ -52,10 +54,10 @@
       "ribbon": "A",
       "conductor": 2,
       "stripe": false,
-      "cutMm": 350,
-      "destination": "Male pogo tail 2 \u00b7 machine X +1.27 mm \u00b7 pump A",
-      "termination": "Solder joint with individual heat-shrink",
-      "detail": "A2 joins J13 cavity 2 / AM1 to the male pogo tail at machine X +1.27 mm. Keep it separate from AM2 and both pump-B conductors."
+      "cutMm": 500,
+      "destination": "Pump A motor tab 1 · +X pair",
+      "termination": "Insulated female Faston receptacle",
+      "detail": "A2 joins J13 cavity 2 / AM1 to pump A's motor tab 1. Keep it separate from AM2 and both pump-B conductors."
     },
     {
       "pin": 3,
@@ -63,10 +65,10 @@
       "ribbon": "A",
       "conductor": 3,
       "stripe": false,
-      "cutMm": 350,
-      "destination": "Male pogo tail 3 \u00b7 machine X \u22121.27 mm \u00b7 pump B",
-      "termination": "Solder joint with individual heat-shrink",
-      "detail": "A3 joins J13 cavity 3 / BM2 to the male pogo tail at machine X \u22121.27 mm. It carries one pump-B motor lead directly through the pogo contact."
+      "cutMm": 500,
+      "destination": "Pump B motor tab 2 · −X pair",
+      "termination": "Insulated female Faston receptacle",
+      "detail": "A3 joins J13 cavity 3 / BM2 to pump B's motor tab 2. It carries one pump-B motor lead straight to its tab."
     },
     {
       "pin": 4,
@@ -74,109 +76,105 @@
       "ribbon": "A",
       "conductor": 4,
       "stripe": false,
-      "cutMm": 350,
-      "destination": "Male pogo tail 4 \u00b7 marked machine \u2212X end \u00b7 pump B",
-      "termination": "Solder joint with individual heat-shrink",
-      "detail": "A4 joins J13 cavity 4 / BM1 to the male pogo tail at machine X \u22123.81 mm. The marked end of the magnetically aligned half stands at machine \u2212X."
+      "cutMm": 500,
+      "destination": "Pump B motor tab 1 · −X pair",
+      "termination": "Insulated female Faston receptacle",
+      "detail": "A4 joins J13 cavity 4 / BM1 to pump B's motor tab 1. It is the ribbon's −X edge in the lead bore and the lead slot."
     }
   ],
   "conductors": [
     {
       "id": "AM2",
       "net": "AM2",
-      "title": "J13 AM2 \u2192 male pogo tail 1",
-      "from": "PCB J13 \u00b7 AM2 \u00b7 cavity 1",
-      "to": "Male pogo tail 1 \u00b7 +X end \u00b7 pump A",
+      "title": "J13 AM2 → pump A motor tab 2",
+      "from": "PCB J13 · AM2 · cavity 1",
+      "to": "Pump A motor tab 2 · +X pair",
       "pin": 1,
       "ribbon": "A1",
       "stripe": true,
-      "cutMm": 350,
+      "cutMm": 500,
       "left": "jst",
-      "right": "solder",
+      "right": "disconnect",
       "sharedDress": false,
-      "fromPart": "SXH-001T-P0.6 contact \u00b7 XHP-4 cavity 1",
-      "toPart": "Soldered male pogo tail \u00b7 individual heat-shrink",
-      "note": "White-striped A1. Tail order is read in machine X: this is the +3.81 mm station. Slip the sleeve on before soldering; cover this joint alone."
+      "fromPart": "SXH-001T-P0.6 contact · XHP-4 cavity 1",
+      "toPart": "Insulated female Faston receptacle · matched to the motor tab",
+      "note": "White-striped A1, the ribbon's +X edge in the lead bore and the lead slot. It turns +X with A2 along pump A's crown groove."
     },
     {
       "id": "AM1",
       "net": "AM1",
-      "title": "J13 AM1 \u2192 male pogo tail 2",
-      "from": "PCB J13 \u00b7 AM1 \u00b7 cavity 2",
-      "to": "Male pogo tail 2 \u00b7 X +1.27 mm \u00b7 pump A",
+      "title": "J13 AM1 → pump A motor tab 1",
+      "from": "PCB J13 · AM1 · cavity 2",
+      "to": "Pump A motor tab 1 · +X pair",
       "pin": 2,
       "ribbon": "A2",
       "stripe": false,
-      "cutMm": 350,
+      "cutMm": 500,
       "left": "jst",
-      "right": "solder",
+      "right": "disconnect",
       "sharedDress": false,
-      "fromPart": "SXH-001T-P0.6 contact \u00b7 XHP-4 cavity 2",
-      "toPart": "Soldered male pogo tail \u00b7 individual heat-shrink",
-      "note": "Second conductor counted from the white stripe. Tail order is read in machine X. Slip the sleeve on before soldering; cover this joint alone."
+      "fromPart": "SXH-001T-P0.6 contact · XHP-4 cavity 2",
+      "toPart": "Insulated female Faston receptacle · matched to the motor tab",
+      "note": "Second conductor counted from the white stripe. It turns +X with A1 along pump A's crown groove."
     },
     {
       "id": "BM2",
       "net": "BM2",
-      "title": "J13 BM2 \u2192 male pogo tail 3",
-      "from": "PCB J13 \u00b7 BM2 \u00b7 cavity 3",
-      "to": "Male pogo tail 3 \u00b7 X \u22121.27 mm \u00b7 pump B",
+      "title": "J13 BM2 → pump B motor tab 2",
+      "from": "PCB J13 · BM2 · cavity 3",
+      "to": "Pump B motor tab 2 · −X pair",
       "pin": 3,
       "ribbon": "A3",
       "stripe": false,
-      "cutMm": 350,
+      "cutMm": 500,
       "left": "jst",
-      "right": "solder",
+      "right": "disconnect",
       "sharedDress": false,
-      "fromPart": "SXH-001T-P0.6 contact \u00b7 XHP-4 cavity 3",
-      "toPart": "Soldered male pogo tail \u00b7 individual heat-shrink",
-      "note": "Third conductor counted from the white stripe. Tail order is read in machine X. Slip the sleeve on before soldering; cover this joint alone."
+      "fromPart": "SXH-001T-P0.6 contact · XHP-4 cavity 3",
+      "toPart": "Insulated female Faston receptacle · matched to the motor tab",
+      "note": "Third conductor counted from the white stripe. It turns −X with A4 along pump B's crown groove."
     },
     {
       "id": "BM1",
       "net": "BM1",
-      "title": "J13 BM1 \u2192 male pogo tail 4",
-      "from": "PCB J13 \u00b7 BM1 \u00b7 cavity 4",
-      "to": "Male pogo tail 4 \u00b7 marked \u2212X end \u00b7 pump B",
+      "title": "J13 BM1 → pump B motor tab 1",
+      "from": "PCB J13 · BM1 · cavity 4",
+      "to": "Pump B motor tab 1 · −X pair",
       "pin": 4,
       "ribbon": "A4",
       "stripe": false,
-      "cutMm": 350,
+      "cutMm": 500,
       "left": "jst",
-      "right": "solder",
+      "right": "disconnect",
       "sharedDress": false,
-      "fromPart": "SXH-001T-P0.6 contact \u00b7 XHP-4 cavity 4",
-      "toPart": "Soldered male pogo tail \u00b7 individual heat-shrink",
-      "note": "Fourth conductor counted from the white stripe. Mark this half's machine \u2212X end while the magnetic pair is mated in its attracting orientation. Cover this solder joint alone."
+      "fromPart": "SXH-001T-P0.6 contact · XHP-4 cavity 4",
+      "toPart": "Insulated female Faston receptacle · matched to the motor tab",
+      "note": "Fourth conductor counted from the white stripe, the ribbon's −X edge. It turns −X with A3 along pump B's crown groove."
     }
   ],
   "dress": {
-    "sleeve": "4 individual heat-shrink sleeves over the solder joints",
+    "sleeve": "None",
     "collars": 0,
     "ties": 0,
-    "description": "Split the pogo end back 20 mm and slip one heat-shrink sleeve onto each conductor before soldering. Shrink each sleeve over its own joint. Keep the 4P ribbon bare through the bulkhead passage and ridge-wall clip.",
-    "qualification": "The contact half is shown outside the enclosure so all four tails can be seen. Bulkhead mounting and installed routing are separate assembly jobs."
+    "description": "No sleeves, collars or ties. The 4P ribbon stays bare along the bulkhead crown, through the lead bore and up the clamp's lead slot; each pair lies bare in its crown groove.",
+    "qualification": "Feeding the free end through the lead bore precedes the Faston crimps. Landing the Fastons, dressing the leads, seating the pump cradle and installed routing are separate assembly jobs."
   },
   "materials": [
     {
       "label": "JST end",
-      "detail": "1 XHP-4 housing \u00b7 4 SXH-001T-P0.6 contacts"
+      "detail": "1 XHP-4 housing · 4 SXH-001T-P0.6 contacts"
     },
     {
       "label": "Cable",
-      "detail": "350 mm BNTECHGO 22 AWG black 4P silicone ribbon"
+      "detail": "500 mm BNTECHGO 22 AWG black 4P silicone ribbon"
     },
     {
       "label": "Other end",
-      "detail": "1 YYFKGCP 4-pin male pogo half \u00b7 solder on 4 tails"
-    },
-    {
-      "label": "Slip-on pieces",
-      "detail": "4 separate heat-shrink sleeves, one for each joint"
+      "detail": "4 insulated female Faston receptacles from the §11 kit, matched to the motor tabs"
     },
     {
       "label": "Tools",
-      "detail": "Stripper \u00b7 SN-2549 JST crimper \u00b7 soldering iron \u00b7 heat gun \u00b7 flush cutters \u00b7 multimeter"
+      "detail": "Stripper · SN-2549 JST crimper · Haisstronica insulated-terminal crimper · flush cutters · multimeter"
     }
   ],
   "steps": [
@@ -184,59 +182,55 @@
       "id": "cut",
       "title": "Cut & identify",
       "minutes": 0.5,
-      "instruction": "Cut one 350 mm 4P ribbon. Call the white-striped edge A1 / AM2, then count A2 / AM1, A3 / BM2 and A4 / BM1. Split the pogo end back 20 mm. With the magnetic pair mated in its attracting orientation, mark the corresponding machine \u2212X end of each half.",
+      "instruction": "Cut one 500 mm 4P ribbon. Call the white-striped edge A1 / AM2, then count A2 / AM1, A3 / BM2 and A4 / BM1. Peel the pump end into its two pairs back 70 mm, A1/A2 for pump A and A3/A4 for pump B, and part each pair's last 20 mm.",
       "focus": "ribbons"
     },
     {
       "id": "jst",
       "title": "Crimp the JST end",
       "minutes": 1.5,
-      "instruction": "Splay and strip the four JST ends. Crimp four SXH-001T-P0.6 contacts, inspect the conductor and insulation barrels, then seat A1\u2013A4 in XHP-4 cavities 1\u20134. Match cavity 1 to the native PCB AM2 label and the housing circuit-1 mark.",
+      "instruction": "Splay and strip the four JST ends. Crimp four SXH-001T-P0.6 contacts, inspect the conductor and insulation barrels, then seat A1–A4 in XHP-4 cavities 1–4. Match cavity 1 to the native PCB AM2 label and the housing circuit-1 mark.",
       "focus": "connector"
     },
     {
       "id": "ends",
-      "title": "Sleeve & solder the tails",
+      "title": "Crimp the Fastons",
       "minutes": 2,
-      "instruction": "Slip one heat-shrink sleeve onto each conductor. At the loose front-top bench stage, feed the free pogo end through the empty bulkhead lead bore before soldering. Tin and solder A1/AM2, A2/AM1, A3/BM2 and A4/BM1 to male tails 1\u20134, read from machine +X toward the marked \u2212X end. Shrink each sleeve over its own joint.",
-      "focus": "pogo"
+      "instruction": "With the box closed and the funnel frame out, feed the free pump end forward through front-top's lead bore and out of the empty bay. Strip the four ends and crimp four insulated female Faston receptacles, matched to the motor tabs' width. Inspect and tug each crimp.",
+      "focus": "terminals"
     },
     {
       "id": "test",
       "title": "Ring out & label",
       "minutes": 1,
-      "instruction": "With the harness disconnected, ring out each XHP-4 cavity to its matching male pogo pin and check all six pairs for isolation. Check contact retention and the four insulated joints. Label the housing J13 \u00b7 PUMPS and stage the fixed half for bulkhead installation.",
+      "instruction": "With the XHP-4 unplugged and the Fastons not yet landed, ring out each XHP-4 cavity to its Faston and check all six pairs for isolation. Check contact retention. Label the housing J13 · PUMPS and stage the piece for the pump cradle's installation.",
       "focus": "all"
     }
   ],
   "estimateUnit": 25,
   "estimateUnit25": 5,
   "estimateUpperMinutes": 10,
-  "estimateBasis": "5 attended minutes per finished fixed J13 half at unit 25: 0.5 minute to cut and identify, 1.5 minutes for four JST crimps and housing insertion, 2 minutes for four solder joints and individual heat-shrink sleeves, and 1 minute to ring out and label. One practiced person completes the piece start to finish with the map, materials, hand tools and loose front-top ready; shared setup is amortized. Ten minutes is the upper planning allowance. This is a theoretical, unmeasured estimate. It excludes development and lookup, bulkhead mounting and cabinet routing, and the separately estimated cartridge-side cable.",
+  "estimateBasis": "5 attended minutes per finished J13 at unit 25: 0.5 minute to cut, identify and split the pump end, 1.5 minutes for four JST crimps and housing insertion, 2 minutes to feed the free end through the lead bore and crimp four insulated Fastons, and 1 minute to ring out and label. One practiced person completes the piece start to finish with the map, materials and hand tools ready, the box closed and the funnel frame out; shared setup is amortized. Ten minutes is the upper planning allowance. This is a theoretical, unmeasured estimate. It excludes development and lookup, landing the Fastons, seating the pump cradle and cabinet routing.",
   "sources": [
     {
       "label": "Board pin order",
       "path": "hardware/pcb/pcba/pcba.tsx"
     },
     {
-      "label": "Cable and solder-tail schedule",
+      "label": "Cable and pair schedule",
       "path": "hardware/assembly/cable-assemblies.md"
     },
     {
-      "label": "Fixed-half installation",
-      "path": "hardware/assembly/enclosure-mechanical.md"
+      "label": "Pump cradle installation",
+      "path": "hardware/assembly/internal-plumbing.md"
     },
     {
       "label": "DC-5 run and conductor order",
       "path": "hardware/wiring/ac-wiring-schedule.md"
     },
     {
-      "label": "Native pogo dimensions",
-      "path": "hardware/reference/yyfkgcp-pogo-4p/yyfkgcp_pogo_4p.py"
-    },
-    {
-      "label": "Contact orientation and mounting",
-      "path": "hardware/reference/yyfkgcp-pogo-4p/mounting-audit.md"
+      "label": "Lead bore, lead slot and crown grooves",
+      "path": "hardware/printed-parts/enclosure/enclosure/README.md"
     },
     {
       "label": "JST housing and contact drawing",

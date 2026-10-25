@@ -8,9 +8,9 @@ AC3-L,Compressor,L,wago-h.3,relay-1.COM,16,60.296,proposed,nominal,nominal,fixed
 AC4-H,Compressor,H_switched,relay-1.NO,fuse.in,18,606.306,proposed,nominal,nominal,fixed
 AC4-fuse,Compressor,H_switched,fuse.out,compressor.H,18,36.777,proposed,nominal,unlocated,fixed
 AC5-N,Compressor,N,wago-n.3,compressor.N,18,585.849,proposed,nominal,unlocated,fixed
-AC6-PE,Compressor,PE,ground.compressor,compressor.PE,18,330.654,proposed,modeled,unlocated,fixed
-PE-bus,Earth bonds,PE,wago-g.2,ground.inlet,16,344.885,proposed,nominal,modeled,fixed
-PE-carbonator,Earth bonds,PE,ground.carbonator,carbonator.PE,16,430.161,proposed,modeled,unlocated,fixed
+AC6-PE,Compressor,PE,ground.compressor,compressor.PE,18,333.691,proposed,modeled,unlocated,fixed
+PE-bus,Earth bonds,PE,wago-g.2,ground.inlet,16,352.885,proposed,nominal,modeled,fixed
+PE-carbonator,Earth bonds,PE,ground.carbonator,carbonator.PE,16,421.229,proposed,modeled,unlocated,fixed
 DC1-V12,12V power,V12,psu.V12,wago-v12.1,16,283.293,proposed,nominal,nominal,fixed
 DC4-V12,12V power,V12,wago-v12.3,J10.V12,16,80.927,proposed,nominal,nominal,fixed
 DC1-GND,12V power,GND,psu.GND,wago-gnd.1,16,280.915,proposed,nominal,nominal,fixed
@@ -35,12 +35,12 @@ J1-OUT7,J1,J1.OUT7,J1.OUT7,V-G.negative,22,222.615,proposed,nominal,nominal,fixe
 J1-positive-G,J1,V12,wago-mana.8,V-G.positive,22,82.06,proposed,nominal,nominal,fixed
 J1-OUT8,J1,J1.OUT8,J1.OUT8,V-H.negative,22,154.848,proposed,nominal,modeled,fixed
 J1-positive-H,J1,V12,wago-mana.9,V-H.positive,22,131.865,proposed,nominal,modeled,fixed
-J2-COM,J2,V12,J2.COM,wago-manb.1,22,187.377,proposed,nominal,nominal,fixed
+J2-COM,J2,V12,J2.COM,wago-manb.1,22,189.984,proposed,nominal,nominal,fixed
 J2-OUT1,J2,J2.OUT1,J2.OUT1,V-I.negative,22,140.967,proposed,nominal,modeled,fixed
 J2-positive-I,J2,V12,wago-manb.2,V-I.positive,22,179.383,proposed,nominal,modeled,fixed
 J2-OUT2,J2,J2.OUT2,J2.OUT2,V-J.negative,22,172.975,proposed,nominal,nominal,fixed
 J2-positive-J,J2,V12,wago-manb.3,V-J.positive,22,173.108,proposed,nominal,nominal,fixed
-J2-FAN,J2,J2.FAN,J2.FAN,fan.negative,22,323.104,proposed,nominal,unlocated,fixed
+J2-FAN,J2,J2.FAN,J2.FAN,fan.negative,22,329.6,proposed,nominal,unlocated,fixed
 J2-positive-fan,J2,V12,wago-manb.4,fan.positive,22,185.15,proposed,nominal,unlocated,fixed
 J2-OUT3,J2,J2.OUT3,J2.OUT3,V-K.negative,22,267.649,proposed,nominal,modeled,fixed
 J2-positive-K,J2,V12,wago-manb.5,V-K.positive,22,260.295,proposed,nominal,modeled,fixed
