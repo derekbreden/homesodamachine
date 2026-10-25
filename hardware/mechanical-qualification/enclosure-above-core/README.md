@@ -88,6 +88,10 @@ Local compression against V-K, the pump, its inlet TPU elbow and barb band is
 a layout estimate informed by qualitative physical fit evidence. Subtracting
 those bodies in the occupied CAD display is not a physical clearance result,
 shaped cutting pattern, measured strain or thermal-performance qualification.
+The installed inlet crosses pump-driver witness 2. Tighten all pump screws
+before threading the tube, holder and foam and connecting the meter; remove
+the inlet for that screw's service. This is a staged tool-access limit,
+not a clear installed driver column.
 
 The [rear plumbing assembly record](rear-plumbing-assembly.json) and its
 [manual reproduction script](rear_plumbing_assembly.py) cover the finite
