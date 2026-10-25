@@ -49,8 +49,8 @@ psu_max_dc_a = 6.7      # rated output current
 diaphragm_peak_a = 5
 
 # Kamoer KPHM600-SW3B17 published current per pump (two pumps on the main
-# board's DRV8870 H-bridges, PUMPS J13 / run DC-5). This is the contact load
-# for each of the contact pair's four contacts: one motor conductor per contact.
+# board's DRV8870 H-bridges, PUMPS J13 / run DC-5), carried by each of its two
+# motor conductors.
 pump_peak_a = 0.8
 
 # Condenser fan motor (harvested from donor ice maker — 12 V DC
@@ -139,8 +139,7 @@ len_carb_reeds_mm = 500  # Carbonator reeds: 406 mm maximum modeled path plus re
 len_man_b_mm = 550       # DC-7 OUT1/OUT2 → V-I/V-J; checked I free-wire path 480.455 mm
 len_man_a_fanout_mm = 450  # 221-420 → eight coil positives; V-A's 328 mm path plus termination/dressing reserve
 len_man_b_fanout_mm = 450  # +X Y169 221-415 → I, J, V-K and the condenser-crown lead approach
-len_pump_fixed_mm = 350  # DC-5, J13 → the fixed contact half along +X and the bulkhead crown (319)
-len_cartridge_mm = 100   # DC-5, the contact pair's female half → each pump's tabs, in the clamp (95)
+len_pump_fixed_mm = 500  # DC-5, J13 → the motor tabs through the lead bore and clamp grooves (282), with reach to land the Fastons with the cradle out of the bay
 len_front_face_mm = 400  # SIG-7 → the 4.3B in the front-top facet, which never leaves the box (369)
 len_faucet_inboard_mm = 400  # J3 → rear-wall SIG-6 keystone, with termination/dressing reserve.
 len_reeds_b_mm = 500     # Reservoir B: 401 mm continuous common plus fitting reserve.
@@ -218,7 +217,6 @@ def main():
         "LEN_CARB_REEDS": f"~{len_carb_reeds_mm:.4g} mm",
         "LEN_MAN_B": f"~{len_man_b_mm:.4g} mm",
         "LEN_PUMP_FIXED": f"~{len_pump_fixed_mm:.4g} mm",
-        "LEN_CARTRIDGE": f"~{len_cartridge_mm:.4g} mm",
         "LEN_FRONT_FACE": f"~{len_front_face_mm:.4g} mm",
         "LEN_FAUCET_INBOARD": f"~{len_faucet_inboard_mm:.4g} mm",
         "LEN_REEDS_B": f"~{len_reeds_b_mm:.4g} mm",

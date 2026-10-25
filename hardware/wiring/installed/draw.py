@@ -22,14 +22,14 @@ def main():
     palette={'valves':'#bf841d','pumps':'#8650c7','displays':'#257cb2','sensors':'#25856b','power':'#47566b'}
     def kind(h):
         if h in ('J1','J2'):return 'valves'
-        if h in ('J13','Cartridge'):return 'pumps'
+        if h=='J13':return 'pumps'
         if h in ('J3','J9'):return 'displays'
         if h in ('J4','J6','J7','J11'):return 'sensors'
         return 'power'
     for ax,limits in zip(axes,(((-108,108),(0,480),(0,355)),((-105,105),(0,240),(145,355)))):
         ax.set_facecolor('#f6f7f9')
         for n,(v,f) in meshes.items():
-            if n.startswith(('wire-','terminal-pogo')):continue
+            if n.startswith('wire-'):continue
             if n.startswith('cold-core/') and not any(s in n for s in ('carbonator-tube','reed-','probe-')):continue
             if n.startswith(('tube-','enclosure-','anchor-','magnet-','turn-','step-','stub-')):continue
             tri=v[f]
@@ -63,7 +63,7 @@ def main():
         for pane in (ax.xaxis.pane,ax.yaxis.pane,ax.zaxis.pane):pane.fill=False
         ax.grid(False)
     axes[0].set_title('Complete enclosure wiring',fontsize=13,pad=12)
-    axes[1].set_title('Front assembly and cartridge',fontsize=13,pad=12)
+    axes[1].set_title('Front assembly and pump bay',fontsize=13,pad=12)
     handles=[Line2D([0],[0],color=c,lw=2,label=k.capitalize()) for k,c in palette.items()]
     handles.append(Line2D([0],[0],color='#c7463e',lw=2,ls='--',label='Unresolved route'))
     fig.legend(handles=handles,loc='lower center',ncol=6,frameon=False,fontsize=9,bbox_to_anchor=(.5,.045))

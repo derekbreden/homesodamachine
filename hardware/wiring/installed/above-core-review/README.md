@@ -1,6 +1,6 @@
 # Native electrical arrangement review
 
-The installed graph has 102 conductors. Its terminal frames read the selected
+The installed graph has 98 conductors. Its terminal frames read the selected
 native component poses. These explicitly invoked reviews cover CAD geometry;
 they do not qualify physical harness dressing, wire packing, connector fit,
 wire bend limits, donor terminals, grounding, mains isolation or energization.

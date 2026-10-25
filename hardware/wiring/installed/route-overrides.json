@@ -1,60 +1,4 @@
 {
-  "cartridge-AM1": {
-    "stations": [
-      {
-        "terminal": "pogo-female.2",
-        "offset": [
-          1.74175,
-          -2.28564,
-          6.7
-        ]
-      },
-      {
-        "terminal": "pogo-female.2",
-        "offset": [
-          36.82375,
-          -24.08796,
-          6.7
-        ]
-      }
-    ],
-    "end_lands_mm": [
-      6.0,
-      3.0
-    ],
-    "bend_radius_mm": 2.0,
-    "preserve_stations": true,
-    "route_status": "proposed",
-    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
-  },
-  "cartridge-BM1": {
-    "stations": [
-      {
-        "terminal": "pogo-female.4",
-        "offset": [
-          -0.17825,
-          -0.71436,
-          6.7
-        ]
-      },
-      {
-        "terminal": "pogo-female.4",
-        "offset": [
-          -48.90325,
-          -30.99536,
-          6.7
-        ]
-      }
-    ],
-    "end_lands_mm": [
-      5.0,
-      3.0
-    ],
-    "bend_radius_mm": 2.0,
-    "preserve_stations": true,
-    "route_status": "proposed",
-    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
-  },
   "AC4-fuse": {
     "stations": [
       {
@@ -489,62 +433,6 @@
     "preserve_stations": true,
     "route_status": "proposed",
     "note": "Continuous common spine between nominal insulated reed taps; local bare lead dressing remains within the reed column."
-  },
-  "cartridge-AM2": {
-    "stations": [
-      {
-        "terminal": "pogo-female.1",
-        "offset": [
-          0.17825,
-          -0.71436,
-          6.7
-        ]
-      },
-      {
-        "terminal": "pogo-female.1",
-        "offset": [
-          48.90325,
-          -30.99536,
-          6.7
-        ]
-      }
-    ],
-    "end_lands_mm": [
-      5.0,
-      3.0
-    ],
-    "bend_radius_mm": 2.0,
-    "preserve_stations": true,
-    "route_status": "proposed",
-    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
-  },
-  "cartridge-BM2": {
-    "stations": [
-      {
-        "terminal": "pogo-female.3",
-        "offset": [
-          -1.74175,
-          -2.28564,
-          6.7
-        ]
-      },
-      {
-        "terminal": "pogo-female.3",
-        "offset": [
-          -36.82375,
-          -24.08796,
-          6.7
-        ]
-      }
-    ],
-    "end_lands_mm": [
-      6.0,
-      3.0
-    ],
-    "bend_radius_mm": 2.0,
-    "preserve_stations": true,
-    "route_status": "proposed",
-    "note": "Dressed route through existing assembly space; short connector exits and individual conductor packing are included."
   },
   "J7-carb-earth-1": {
     "stations": [],
@@ -1786,112 +1674,304 @@
       {
         "terminal": "J13.AM1",
         "offset": [
-          76.76987,
-          -150.56292,
-          5.124
+          0.0,
+          0.0,
+          10.8
         ]
       },
       {
         "terminal": "J13.AM1",
         "offset": [
-          76.76987,
-          -152.56292,
-          5.124
+          41.49987,
+          -89.70292,
+          10.8
         ]
       },
       {
-        "terminal": "J13.AM1",
+        "terminal": "pump-a.1",
         "offset": [
-          78.76987,
-          -156.56292,
-          5.124
+          -47.3,
+          68.641,
+          1.976
+        ]
+      },
+      {
+        "terminal": "pump-a.1",
+        "offset": [
+          -47.3,
+          59.641,
+          -2.598
+        ]
+      },
+      {
+        "terminal": "pump-a.1",
+        "offset": [
+          -47.3,
+          33.656,
+          -2.598
+        ]
+      },
+      {
+        "terminal": "pump-a.1",
+        "offset": [
+          -47.3,
+          31.01096,
+          0.04704
+        ]
+      },
+      {
+        "terminal": "pump-a.1",
+        "offset": [
+          -47.3,
+          31.01096,
+          5.176
+        ]
+      },
+      {
+        "terminal": "pump-a.1",
+        "offset": [
+          -12.99315,
+          9.60236,
+          5.176
         ]
       }
     ],
     "end_lands_mm": [
       6.0,
-      2.0
+      3.0
     ],
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Native-terminal route through selected equipment and fluid corridors; physical dressing and wire packing remain open."
+    "note": "Board header over the J6 leads and past the Y-B stem elbow, through the lead bore and up the clamp's lead slot, along the pump's crown groove into its terminal well; physical dressing remains open."
   },
   "J13-AM2": {
     "stations": [
       {
         "terminal": "J13.AM2",
         "offset": [
-          81.31012,
-          -150.06292,
-          3.124
+          0.0,
+          0.0,
+          8.9
+        ]
+      },
+      {
+        "terminal": "J13.AM2",
+        "offset": [
+          41.50012,
+          -87.20292,
+          8.9
+        ]
+      },
+      {
+        "terminal": "pump-a.2",
+        "offset": [
+          -53.45,
+          68.641,
+          0.076
+        ]
+      },
+      {
+        "terminal": "pump-a.2",
+        "offset": [
+          -53.45,
+          59.641,
+          -2.598
+        ]
+      },
+      {
+        "terminal": "pump-a.2",
+        "offset": [
+          -53.45,
+          33.656,
+          -2.598
+        ]
+      },
+      {
+        "terminal": "pump-a.2",
+        "offset": [
+          -53.45,
+          31.86035,
+          -0.80235
+        ]
+      },
+      {
+        "terminal": "pump-a.2",
+        "offset": [
+          -53.45,
+          31.86035,
+          5.176
+        ]
+      },
+      {
+        "terminal": "pump-a.2",
+        "offset": [
+          -20.09316,
+          11.04458,
+          5.176
         ]
       }
     ],
     "end_lands_mm": [
       6.0,
-      6.0
+      3.0
     ],
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Native-terminal route through selected equipment and fluid corridors; physical dressing and wire packing remain open."
+    "note": "Board header over the J6 leads and past the Y-B stem elbow, through the lead bore and up the clamp's lead slot, along the pump's crown groove into its terminal well; physical dressing remains open."
   },
   "J13-BM1": {
     "stations": [
       {
         "terminal": "J13.BM1",
         "offset": [
-          73.68987,
-          -149.56292,
-          7.124
+          0.0,
+          0.0,
+          14.6
         ]
       },
       {
         "terminal": "J13.BM1",
         "offset": [
-          77.68987,
-          -157.56292,
-          3.124
+          41.49987,
+          -94.70292,
+          14.6
+        ]
+      },
+      {
+        "terminal": "pump-b.1",
+        "offset": [
+          53.45,
+          68.641,
+          5.776
+        ]
+      },
+      {
+        "terminal": "pump-b.1",
+        "offset": [
+          53.45,
+          59.641,
+          -2.598
+        ]
+      },
+      {
+        "terminal": "pump-b.1",
+        "offset": [
+          53.45,
+          33.656,
+          -2.598
+        ]
+      },
+      {
+        "terminal": "pump-b.1",
+        "offset": [
+          53.45,
+          31.86035,
+          -0.80235
+        ]
+      },
+      {
+        "terminal": "pump-b.1",
+        "offset": [
+          53.45,
+          31.86035,
+          5.176
+        ]
+      },
+      {
+        "terminal": "pump-b.1",
+        "offset": [
+          20.09316,
+          11.04458,
+          5.176
         ]
       }
     ],
     "end_lands_mm": [
       6.0,
-      6.0
+      3.0
     ],
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Native-terminal route through selected equipment and fluid corridors; physical dressing and wire packing remain open."
+    "note": "Board header over the J6 leads and past the Y-B stem elbow, through the lead bore and up the clamp's lead slot, along the pump's crown groove into its terminal well; physical dressing remains open."
   },
   "J13-BM2": {
     "stations": [
       {
         "terminal": "J13.BM2",
         "offset": [
-          76.22987,
-          -155.06292,
-          9.124
+          0.0,
+          0.0,
+          12.7
         ]
       },
       {
         "terminal": "J13.BM2",
         "offset": [
-          76.22987,
-          -159.06292,
-          9.124
+          41.49987,
+          -92.20292,
+          12.7
+        ]
+      },
+      {
+        "terminal": "pump-b.2",
+        "offset": [
+          47.3,
+          68.641,
+          3.876
+        ]
+      },
+      {
+        "terminal": "pump-b.2",
+        "offset": [
+          47.3,
+          59.641,
+          -2.598
+        ]
+      },
+      {
+        "terminal": "pump-b.2",
+        "offset": [
+          47.3,
+          33.656,
+          -2.598
+        ]
+      },
+      {
+        "terminal": "pump-b.2",
+        "offset": [
+          47.3,
+          31.01096,
+          0.04704
+        ]
+      },
+      {
+        "terminal": "pump-b.2",
+        "offset": [
+          47.3,
+          31.01096,
+          5.176
+        ]
+      },
+      {
+        "terminal": "pump-b.2",
+        "offset": [
+          12.99315,
+          9.60236,
+          5.176
         ]
       }
     ],
     "end_lands_mm": [
       6.0,
-      2.0
+      3.0
     ],
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Native-terminal route through selected equipment and fluid corridors; physical dressing and wire packing remain open."
+    "note": "Board header over the J6 leads and past the Y-B stem elbow, through the lead bore and up the clamp's lead slot, along the pump's crown groove into its terminal well; physical dressing remains open."
   },
   "J2-COM": {
     "stations": [
