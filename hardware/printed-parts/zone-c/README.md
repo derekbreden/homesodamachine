@@ -8,30 +8,32 @@ rest of the pack stands, and what each face of the box carries:
 ## The opening
 
 The opening behind the display receives the full-width PET-GF funnel frame.
-The frame enters front-top's sliding receivers and is captured by back-top as
-the enclosure closes. Its rails use the same section and fit allowances as the
-enclosure's sliding joints. The silicone lifts out through the top.
+The frame drops in vertically onto four ledges after the final connections beneath
+it and takes four M3 screws from above; it has no rails. The silicone lifts out
+through the top.
 
 The flavor pumps stand forward of this opening in the pump cradle, which forms the
-front wall across the pump bay. V-A and V-B stand aft of the funnel on the cold-core
-lid; their printed seats follow their individual mounting stations.
+front wall across the pump bay. V-B lies on its side aft of the funnel,
+on its upright wall on the cold-core lid; V-A sits on back-top's west sidewall seat.
 
 ## The funnel
 
-The removable silicone funnel holds nominally [480 mL](funnel/README.md). Its 6 mm brim, collar and
+The removable silicone funnel holds nominally [698 mL](funnel/README.md). Its 6 mm brim, collar and
 normal ramp wall lead to a plug seated in the frame's socket. The plug's straight 6 mm
 bore grips a raw 1/4-inch LLDPE drain stub standing in a PP0308E elbow, which a printed cradle
-holds under the frame's drain hole; `fluid-4` runs from the elbow to V-B. Lifting the
-silicone releases it from the stub, leaving the frame, cradle, elbow and tube in the machine.
+snaps into the frame's bottom web under its drain hole; `fluid-4` runs from the elbow to V-B.
+Lifting the silicone releases it from the stub, leaving the frame, cradle, elbow and tube in
+the machine. The stub, elbow and cradle travel with the frame when it is removed; disconnect
+the V-B feed first.
 The [two mold shells and straight steel rod](funnel-mold/README.md) form the complete plug;
 the complete funnel has a uniform cylindrical outlet.
 Detail: [`funnel/`](/hardware/printed-parts/zone-c/funnel/).
 
-The [funnel cover](funnel-cover/README.md) rests on the brim between fills.
-Its locating skirt and silicone-contacting pads oppose accidental sideways
-displacement. Lift it off before filling or removing the funnel for cleaning.
+The [funnel cover](funnel-cover/README.md) rests on the brim between fills,
+held by gravity. Its smooth locating skirt enters the mouth and locates it
+sideways. Lift it off before filling or removing the funnel for cleaning.
 
-V-B, the funnel gate, stands in its cap cradle on the cold-core lid; the valve
+V-B, the funnel gate, lies on its side on its upright wall on the cold-core lid; the valve
 manifold, not the funnel, picks the channel, so one funnel serves both
 flavors. Valve states:
 [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md).
@@ -40,5 +42,5 @@ flavors. Valve states:
 
 - Both flavor pumps — their molded skirts bearing in the pump cradle in the front-wall bay, located and held down by the small top clamp ([`../enclosure/pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/README.md)).
 - Flavor reservoirs and level sensing — Zone A, nested in the foam shell ([`/hardware/printed-parts/cold-core/reservoir/`](/hardware/printed-parts/cold-core/reservoir/)).
-- Valve seats — the boss sets on the foam-cap top ([`/hardware/printed-parts/valve-seat/`](/hardware/printed-parts/valve-seat/)).
-- Enclosure display — let into the 45° facet chamfered across `enclosure-front-top`'s top-front arris ([`/hardware/printed-parts/enclosure/enclosure/README.md`](/hardware/printed-parts/enclosure/enclosure/README.md)).
+- Valve seats — the blind V69 sockets in V-B's wall on the cold-core lid, back-top's V-A/V-K sidewall seats and front-top's valve trays ([`/hardware/printed-parts/valve-seat/`](/hardware/printed-parts/valve-seat/)).
+- Enclosure display — let into the 30° plane of `enclosure-front-top`'s rounded top-front arris ([`/hardware/printed-parts/enclosure/enclosure/README.md`](/hardware/printed-parts/enclosure/enclosure/README.md)).
