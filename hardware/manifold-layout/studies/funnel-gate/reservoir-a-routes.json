@@ -808,5 +808,12 @@
   "tube_od_mm": 6.35,
   "assembly_owner": "back-bottom",
   "front_connection_owner": "front-top",
-  "scope": "Reservoir A arrangement-study centerlines. A single continuous tube connects each front valve to its existing reservoir port through the passive core guide. The two paired anchor stations are in reservoir-a-anchors.json."
+  "approval_scope": {
+    "fixed_interfaces": ["VF_out", "VE_in", "A_fill", "A_draw"],
+    "fixed_anchors": "reservoir-a-anchors.json:stations[].tube_centers_world_mm",
+    "centerline_status": "illustrative",
+    "lengths_status": "Displayed model lengths, not tube-cut specifications.",
+    "implementation_rule": "Preserve the selected anchor and anchored connection locations. Intermediate bends, radii and free-span lengths can follow practical tube dressing without reproducing the displayed curves. This scope applies to a-fill and a-draw."
+  },
+  "scope": "Reservoir A approved anchor and terminal locations with illustrative free tube spans. A single continuous tube connects each front valve to its existing reservoir port through the passive core guide. The detailed segment coordinates depict one routing shape and do not constrain the installed bends."
 }

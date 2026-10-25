@@ -94,16 +94,19 @@ Dimensions and cut lengths are layout estimates.
 ## Reservoir A tubes and paired anchors
 
 [reservoir-a-routes.json](reservoir-a-routes.json) records the two continuous
-6.35 mm tubes between V-F/V-E and the existing reservoir guides. Their modeled
-lengths are 425.84 mm for fill and 418.39 mm for draw. The low paired runs lie
-at Z259.5, beneath V-B and along the east edge of the core.
+6.35 mm tubes between V-F/V-E and the existing reservoir guides. Approval fixes
+the anchored valve connections, cold-core entries and the two paired anchor
+stations. The intervening curves are illustrative: their exact bends, radii,
+straight lengths and elevations are free to follow practical tube dressing.
+The displayed 425.84 mm fill and 418.39 mm draw lengths are model measurements,
+not tube-cut specifications.
 
 [reservoir-a-anchors.json](reservoir-a-anchors.json) locates two identical paired
 seats at Y205 and Y304. Each uses one common narrow zip tie around both tubes,
 with a transverse passage and open threading mouths. The aft seat projects
 7.2 mm beyond the core lid's east edge to support the outboard tube. Both seats
-are integral with that lid and travel with back-bottom. Tube paths and main
-component placements are fixed by this arrangement.
+are integral with that lid and travel with back-bottom. The anchor and anchored
+connection locations are fixed; the free tube spans are not.
 
 [reservoir_a_anchors.py](reservoir_a_anchors.py) supplies the native world-frame
 stock, lid cuts and nominal tie witnesses. Add the seats to the lid, then apply
