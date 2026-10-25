@@ -8945,13 +8945,16 @@ def _seam_fit_reliefs(piece, box, y_side, z_side):
     if core_pocket is not None:
         piece = piece.cut(core_pocket)
     x0, x1, y0, y1, z0, z1 = box.outer
-    if y_side == "back":
-        piece = piece.intersect(_ybox(x0 - 1.0, x1 + 1.0,
-            box.y_joint + fits.slip, y1 + 1.0, z0 - 1.0, z1 + 1.0))
-    if z_side == "top":
-        zj = box.splits[0 if y_side == "front" else 1]
-        piece = piece.intersect(_ybox(x0 - 1.0, x1 + 1.0, y0 - 1.0, y1 + 1.0,
-            zj + fits.running, z1 + 1.0))
+    if y_side == "back" or z_side == "top":
+        fore = box.y_joint + fits.slip if y_side == "back" else y0 - 1.0
+        bottom = (box.splits[0 if y_side == "front" else 1] + fits.running
+                  if z_side == "top" else z0 - 1.0)
+        band = _ybox(x0 - 1.0, x1 + 1.0, fore, y1 + 1.0, bottom, z1 + 1.0)
+        if y_side == "back" and z_side == "top":
+            # The raised nameplate field carries its complete accepted lips
+            # beyond the ordinary rear face; seam trimming retains that field.
+            band = band.fuse(_above_core_shell.rear_identification().receiver_field())
+        piece = piece.intersect(band)
     return piece
 
 
