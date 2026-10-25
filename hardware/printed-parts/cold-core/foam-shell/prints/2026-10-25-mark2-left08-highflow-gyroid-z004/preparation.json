@@ -1,0 +1,121 @@
+{
+  "status": "prepared_not_submitted",
+  "printer": "Mark2",
+  "source_commit": "362e074f241780ba60239198a9f6aa8ae6460e49",
+  "nozzle_confirmation": "Pending: last accepted Mark2 job and current telemetry identify the fixed left 0.4 mm hotend; this candidate requires left 0.8 mm High Flow.",
+  "preparation_directory": ".cache/prints/2026-10-25-cold-core-shell-settings/high-flow08-gyroid/2026-10-25-foam-shell-mark2-d6cdf55a",
+  "prepared_utc": "2026-10-25T18:32:50+00:00",
+  "archive": ".cache/prints/2026-10-25-cold-core-shell-settings/high-flow08-gyroid/2026-10-25-foam-shell-mark2-d6cdf55a/2026-10-25-foam-shell-mark2-d6cdf55a.gcode.3mf",
+  "archive_sha256": "f26df8c0733f736cccbcd8de20fcf69ac5ce71066b4497e64b4e259798a03573",
+  "gcode_sha256": "f64e3b89677977a1e4f51f643282c181aa25f83fb6475b92e2d53df36fc8b8ae",
+  "project": ".cache/prints/2026-10-25-cold-core-shell-settings/high-flow08-gyroid/2026-10-25-foam-shell-mark2-d6cdf55a/2026-10-25-foam-shell-mark2-d6cdf55a.3mf",
+  "project_sha256": "d0ea2f6e5e34d44816b03729f061e09843d9a40b962dd873ebdcc0a2e2c22e1b",
+  "geometry": {
+    "name": "foam-shell",
+    "identify_id": 1901,
+    "object_id": 2,
+    "stl": "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
+    "stl_sha256": "7d01002e13fcd3415ec89a60073545eed7a2b48703c7ad40f676efcdbd794b3d",
+    "step_sha256": "bcc58b8837501a5f7d326767912a077882846347be00329a87d65a05aef6d1b2",
+    "facets": 494748,
+    "closed": {
+      "edges": 742122,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "inconsistent_edges": 0,
+      "bodies": 1,
+      "closed_oriented_single_body": true
+    },
+    "pose": null,
+    "pose_rotation": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "yaw_degrees": 0,
+    "source_center_mm": [
+      0.0,
+      0.0,
+      106.69999694824219
+    ],
+    "build_rotation": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "translation_mm": [
+      162.5,
+      160.0,
+      106.69999694824219
+    ],
+    "plate_bounds_mm": [
+      [
+        21.0,
+        69.5,
+        0.0
+      ],
+      [
+        304.0,
+        250.5,
+        213.39999389648438
+      ]
+    ],
+    "model_bed_margin_mm": 21.0,
+    "object_settings": {},
+    "features": [],
+    "ranges": [],
+    "verify_spans": [],
+    "ribbons": [],
+    "tie_windows": [],
+    "modifiers": [],
+    "fins": []
+  },
+  "requested_z_trim_mm": 0.04,
+  "emitted_textured_trim_mm": 0.02,
+  "profile": "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf",
+  "profile_sha256": "36ed454621dc0966bace934d42e9688d39d4c28986f264d21a34d6da93eba0f4",
+  "shared_filament_profile": "hardware/printed-parts/petgf.3mf",
+  "shared_filament_profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+  "estimated_seconds": 118212.671875,
+  "slicer_reported_grams": 1251.802001953125,
+  "saved_density_g_cm3": 1.29,
+  "slicer_warnings": [],
+  "support_roads": 0,
+  "brim_roads": 0,
+  "minimum_bead_margin_mm": 20.868694583792262,
+  "reproduce": [
+    "tools/cad-venv/bin/python",
+    "hardware/printed-parts/enclosure/trial-preparation/prepare.py",
+    "foam-shell",
+    "--printer",
+    "Mark2",
+    "--slice",
+    "--review",
+    "--output",
+    ".cache/prints/foam-shell-reproduce"
+  ]
+}
