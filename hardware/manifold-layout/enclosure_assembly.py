@@ -2048,8 +2048,9 @@ _port_stack = _stated.bound(
     f"{PORT_BOSS_PROUD:g} mm of boss")
 for _n, (_fit, _r, _w, _f) in Y_WALL_FITTINGS.items():
     _bare = getattr(_fit, "PANEL_THREAD", None) or _fit.THREAD_LEN
-    _relieved = {_r[0] for _r in _enc.back_top_wall_reliefs}
-    _t = _enc.wall if _n in _relieved else _enc.back_top_wall_t
+    _port = next(row for row in _above.specification()['rear_wall']['wet_ports']
+                 if row['name'] == _n)
+    _t = _enc.back_wall_t_at(_port['center_x_mm'], _port['center_z_mm'])
     _stack = port_clamp_stack(_t)
     _port_stack(_stack <= _bare + 1e-9,
                 f"{_n} offers {_bare:.2f} mm of bare barrel and the joint it makes up through "
@@ -2542,6 +2543,47 @@ def lid_cap_stations(foam_carry, runs) -> tuple:
     return tuple(out)
 
 
+def reservoir_a_anchor_sites(runs) -> tuple:
+    """Actual paired-lid seat stations, one per held tube at each shared tie.
+
+    These are nominal restraint locations. They do not establish tie gripping
+    force, tube side loads or physical retention.
+    """
+    import _reservoir_a_anchors
+    by_id = {run.id: run for run in runs}
+    spec = _reservoir_a_anchors.specification()
+    return tuple(
+        (identifier, (tuple(point), tuple(spec['tube_axis_world']),
+                      (0., 0., -1.), spec['seat_radius_mm']))
+        for row in _reservoir_a_anchors.datums().values()
+        for identifier, point in zip(row['routes_west_to_east'],
+                                     row['tube_centers_world_mm'])
+        if identifier in by_id)
+
+
+def reservoir_a_developed_stations(run, points):
+    """Exact native line/arc lengths at the A seats, for the current route only."""
+    if run.id not in ('fluid-14', 'fluid-16'):
+        return None
+    import above_core_routes
+    spec = above_core_routes.reservoir_a_route_specs()[run.id]
+    if len(run.pts) != len(spec['points_mm']) or any(
+            math.dist(a, b) > 1.e-6 for a, b in zip(run.pts, spec['points_mm'])):
+        return None
+    cuts = [0.]
+    distance = 0.
+    for segment in spec['segments']:
+        if segment['kind'] == 'line':
+            p, q = segment['points_mm']
+            cuts.extend(distance + math.dist(p, point) for point in points
+                        if _on_leg(point, p, q, 1.e-6))
+            distance += math.dist(p, q)
+        else:
+            distance += segment['radius_mm'] * abs(segment['angle_rad'])
+    cuts.append(distance)
+    return tuple(sorted(set(cuts)))
+
+
 def unsupported_spans(runs, stations) -> dict:
     """The longest stretch of each run that nothing holds — the reading `tube-anchored` grades.
 
@@ -2550,6 +2592,10 @@ def unsupported_spans(runs, stations) -> dict:
     length from one held point to the next."""
     out = {}
     for r in runs:
+        native = reservoir_a_developed_stations(r, [row[0] for row in stations])
+        if native is not None:
+            out[r.id] = max(b-a for a, b in zip(native, native[1:]))
+            continue
         # Each corner's own shortening, taken at the waypoint it turns about, so the stations walk
         # the DEVELOPED length `Run.length` reports and this goal cannot disagree with the card
         # about how long a run is.
@@ -4372,7 +4418,8 @@ def build_pack() -> cq.Assembly:
     a.side_wells = ()
     a.asse_cradle = ()
     a.digiten_anchors = ()
-    a.tube_anchor_sites, a.tube_anchors, a.cap_tube_anchors, a.body_anchors = (), (), (), ()
+    a.tube_anchor_sites, a.tube_anchors, a.body_anchors = (), (), ()
+    a.cap_tube_anchors = tuple(station for _rid, station in reservoir_a_anchor_sites(a.runs))
     a.cradles, a.pump_mount, a.anchors = [], [], []
     a.refrigerant_at = refrigerant_stations(carries)
     a.refrigerant = refrigerant_joints(carries, a.runs)
