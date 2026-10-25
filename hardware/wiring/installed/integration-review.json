@@ -1,12 +1,42 @@
 {
   "schema": 1,
   "scope": "Wiring-only integration; existing physical parts retained",
-  "physical_step_sha256": "b09d4605d6eba68c54df90764efa3816ce343be0ab36653d7681248e4baa8e91",
-  "installed_step_sha256": "b6ed81c2f72a78df8d7217f5a11d388355302a4979caadbd1591b6b2078c596c",
-  "physical_records_retained": 2504397,
-  "physical_meshes_retained": 427,
+  "physical_step_sha256": "b983c029e9bc16b8c564469f81a48293a30cc39d435c697a0d50569a41f035cc",
+  "installed_step_sha256": "87272fce061fefa5fc5d84446102d9a1f7f5f55809919e3a6b1f89cc1baf9979",
+  "physical_records_retained": 2507621,
+  "physical_meshes_retained": 432,
   "wiring_meshes": 113,
   "all_retained_viewer_arrays_identical": true,
-  "wiring_step_sha256": "bcf67ec7819741425dc57b6518afc331cb31336c94afaafac8f3b58fe310409a",
-  "connection_count": 98
+  "wiring_step_sha256": "502344aab6cc29aa6e68a68b42bd40e82f675ac246536130fe61c908afa3b01f",
+  "connection_count": 98,
+  "replaced_route_ids": [
+    "J1-COM",
+    "J1-positive-A",
+    "J1-positive-B",
+    "J1-positive-C",
+    "J1-positive-D",
+    "J1-positive-E",
+    "J1-positive-F",
+    "J1-positive-G",
+    "J1-positive-H",
+    "J2-COM",
+    "J2-positive-I",
+    "J2-positive-J",
+    "J2-positive-K",
+    "J2-positive-fan"
+  ],
+  "changed_source_paths": [
+    "hardware/wiring/installed/route-overrides.json"
+  ],
+  "patch_step_sha256": "e1b12793b6ad7e52f78f8b39af6fce145e593e43d9fae5ccfa021c990139a510",
+  "patch_records_sha256": "5a1e89c30ce16f3da3cb3f32bf961aa2b6557cf2d9162f7a6f26630841122434",
+  "mechanical_fact_rebinding": {
+    "basis": "The 14 wire solids are excluded from enclosure_assembly._solids and mechanical measurements. Every physical native record and viewer array is retained unchanged by wiring-only integration.",
+    "original_step_digest": "8d5aa8b99d79055b4bbf2b796ffdce10",
+    "installed_step_digest": "12e3ec376b7cb26097bee1ca82f72fe7",
+    "original_sources_digest": "f66131c1ffa80bf496489c7641131dd0",
+    "installed_sources_digest": "ec15cd9da6e7cbf462320a4cc7083e7e",
+    "all_measurements_and_card_binding_unchanged": true,
+    "unchanged_measurements_sha256": "ab261c61e99d39c2c3f593effa33ca34c0440aab13a6f2d52e6ec72cb473a33e"
+  }
 }

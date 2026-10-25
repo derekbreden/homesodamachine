@@ -10,7 +10,8 @@ The [fluid topology](/hardware/topology/fluid-topology.md) defines the valve
 functions and logical connections. A logical connection can contain several
 short tubes and directly inserted stem fittings.
 
-Assemble the fixed front manifold while front-top is loose. Fit below-lid core
+Load and screw-retain the pumps from below, then assemble the fixed front manifold while
+front-top is loose. Fit below-lid core
 plumbing before the PCB, then the pump, V-B and other core equipment.
 Prepare V-A, V-K, their fitted plumbing, the complete inlet header, ASSE and
 gas group on back-top, together with the sidewall PSU, relays, meter and its
@@ -179,14 +180,19 @@ made-up performance follow the
 
 Build to [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md) segment-for-segment. The truth table there names every valve, every Y-junction, and every tube segment by number; this step describes the build cadence around that truth table, not its content.
 
-**This step begins on the bench with `enclosure-front-top` open and both valve rows absent.**
-Front-top carries the two valve trays and the tee wall: four teardropped collet holes through
-its fore band and, behind each, a collar-clear bore through the rest of the wall. One purchased PP0208E pump tee stands on each pump port, Y-C and Y-D on
-pump A and Y-F and Y-G on pump B, its branch facing the pump on the tube row and its run
-upright. Its branch stands in its bore, which holds the tee in X and Z, and its branch
-collet stands extended in the hole ahead of the bore. The four pump tube tips enter those
-holes and the tees' branch collets, which grip them, and seal on their O-rings. The
-[pump dock](/hardware/printed-parts/enclosure/pump-dock/README.md) describes the dock.
+**This step begins on the bench with `enclosure-front-top` loose and both valve rows,
+pump tees, display and funnel frame absent.** Its upper fitted pump inverses are integral
+with the broad stock continuing into the display housing and roof. The plain rectangular
+`enclosure-pump-retainer` holds the fitted lower wells; three upward M3 × 60 screws into
+front-top capture the molded pump skirts between the two halves.
+
+Front-top also carries the valve trays and tee wall. Four bottom-open tube-loading gates
+lead into its collet openings and branch bores. The prepared pump tubes rise through these
+gates while the tees are absent. After the retainer is secured, each purchased PP0208E
+tee approaches from aft and pushes onto its fixed pump tube, with its branch in the wall
+bore and its run upright. Y-C and Y-D serve pump A; Y-F and Y-G serve pump B. The extended
+branch collet grips the tube and its O-ring seals it. The [pump mount and tee wall](/hardware/printed-parts/enclosure/pump-dock/README.md)
+describe the fitted mounting surfaces and assembly clearances.
 
 **V-A and V-K mount on back-top; V-B mounts in the cold-core lid's upright socket wall.** Their forward runs reach Y-A and Y-B beneath the open funnel aperture. Complete these connections before fitting the drop-in frame.
 
@@ -194,11 +200,36 @@ While front-top is open, land the J1 and J2 trunks on the front coils V-C throug
 
 Lay out the ten Beduan valves and the [6](MANIFOLD_TEES) PP0208E tees. Cut stationary links from the [current manifold geometry](/hardware/manifold-layout/README.md), including engagement at both actual fittings. Exposed path length is not a tube-blank cut length. Use black LLDPE except for `fluid-3`, which uses white. Square-cut, deburr without scoring the sealing surface, and tag each segment.
 
-1. **Seat the rear valves.** Press V-C, V-D, V-G and V-J onto their tray posts with the
-   topology's coil clocks. Each bottom collet opens down into front-top's port channel,
-   which runs from the seam up into its tray and keeps room for the collet and its stem elbow.
+1. **Prepare the pumps and set the tubes in the loose retainer.** Pull Kamoer's barbed
+   connectors out of both pumps' tube ends. Cut four [33.2 mm](DOCK_PUMP_TUBE_CUT) tubes of
+   black 1/4" LLDPE, square and burr-free with eased outer edges, and push one into each
+   BPT end under the loosened pump-head housing. Seat both pumps in the loose retainer's
+   fitted wells with the tubes facing +Y. Set the tube setting jig on its flat rear face
+   and slide each tube until its tip meets the jig's stop at the seated tee datum. Tighten
+   each pump-head housing to clamp the BPT tube around its LLDPE stub. Keep the stubs
+   straight; check their four tip positions, firm hand retention and pump-end sealing.
+   Take the jig off before approaching front-top: its broad body occupies the tee wall's
+   space and cannot be fitted after the pumps are installed.
 
-2. **Fit each tee with its upper tube and fore valve.** The upper tubes are `fluid-10`
+2. **Land the pump leads with the motors accessible.** With power disconnected, feed
+   the bare pump end of [DC-5](harnesses/j13.md) forward through the shared rear wire mouth
+   and out of front-top's open underside. Crimp its four Faston receptacles, ring out the
+   [J13 map](harnesses/j13.md#end-to-end-conductor-map), then land the +X pair on pump A
+   and the −X pair on pump B. Keep the board end free and support its slack.
+
+3. **Load and secure the pumps from underneath.** Raise the prepared pumps and retainer
+   motor-first into front-top's fitted upper half. Guide each straight stub up its own
+   bottom-open tee-wall gate while drawing the lead slack aft through the common wire
+   passage. The lower fitted lands support the molded skirts and the integral upper
+   faces capture them from above. Drive the three M3 × 60 screws upward from the
+   retainer's underside into front-top's full-length M3 inserts, at X−92, X0 and X+92 on
+   the common head-centre Y station. Draw them down evenly and confirm both pumps are
+   firmly held without vertical play. The [accepted holder record](/hardware/reference/kamoer-kphm400/physical-fit.json)
+   applies to its identified cradle and cap; physical fit and retention of this two-face
+   skirt capture remain unqualified. Complete all three screws while front-top is loose.
+
+4. **Fit all four tees with their upper tubes and fore valves.** Keep the rear valve row
+   absent for this straight approach from aft. The upper tubes are `fluid-10`
    (Y-C to V-E), `fluid-13` (Y-D to V-F), `fluid-20` (Y-F to V-H) and `fluid-23` (Y-G to
    V-I). Each nominal blank is [38.901 mm](DOCK_UPPER_TAIL): [15.251 mm](DOCK_FORE_LINK)
    exposed, [11.65 mm](DOCK_TEE_INSERTION) bottomed in the tee's extended upper collet and
@@ -206,11 +237,19 @@ Lay out the ten Beduan valves and the [6](MANIFOLD_TEES) PP0208E tees. Cut stati
    actual fore valve's bottom collet, mark the tube at the collet face, and cut it the
    exposed length plus the tee's insertion beyond that mark. Push the tube fully into the
    tee's upper collet and the fore valve's bottom collet. Bring the tee, tube and valve in
-   together, the branch into its bore from the tee wall's aft face with its collet in the
-   hole ahead of the bore, and press the fore valve onto its tray posts. The fore valve's
+   together from aft, keeping the tee branch coaxial with its fixed pump tube. Push the
+   branch onto the tube and into its bore with its collet in the opening ahead of the bore,
+   and press the fore valve onto its tray posts. Verify the pump tube reaches its seated
+   mark at the extended branch collet; the pump mount stays fixed while the tee moves.
+   The fore valve's
    axis stands over the tee's run axis, so the upper tube stands straight.
 
-3. **Cut the stem elbows.** Each lower return takes two NeoFit ATEU44W stem elbows. Cut each
+5. **Seat the rear valves.** After all four fore groups are seated, press V-C, V-D, V-G
+   and V-J onto their tray posts with the topology's coil clocks. Each bottom collet
+   opens down into front-top's port channel, which runs from the seam up into its tray
+   and keeps room for the collet and its stem elbow.
+
+6. **Cut the stem elbows.** Each lower return takes two NeoFit ATEU44W stem elbows. Cut each
    tee elbow's stem square [11.65 mm](DOCK_TEE_ELBOW_STEM) past its shoulder, the run
    collet's seat, and each valve elbow's [15.75 mm](DOCK_VALVE_ELBOW_STEM) past its shoulder:
    an estimated [12 mm](DOCK_VALVE_INSERTION) seat in the valve and the
@@ -218,7 +257,7 @@ Lay out the ten Beduan valves and the [6](MANIFOLD_TEES) PP0208E tees. Cut stati
    seat from the actual received valve's fully seated mark. Chamfer each cut edge so it
    passes the O-ring without scoring it.
 
-4. **Fit the lower returns.** From front-top's underside, push each tee elbow up into its
+7. **Fit the lower returns.** From front-top's underside, push each tee elbow up into its
    tee's lower collet until its shoulder stands on the collet face, and each valve elbow up
    into its rear valve's bottom collet until its stem bottoms. Turn each pair's sockets to
    face each other. `fluid-9` runs from Y-C to V-C and `fluid-19` from Y-F to V-D; `fluid-17`
@@ -229,37 +268,15 @@ Lay out the ten Beduan valves and the [6](MANIFOLD_TEES) PP0208E tees. Cut stati
    insertion marks and tug-check every push-fit joint. Complete this work while front-top is
    loose, before it closes over the condenser/compressor half.
 
-5. **Prepare the pumps.** Pull Kamoer's barbed connectors out of both pumps' tube ends.
-   Cut four [33.2 mm](DOCK_PUMP_TUBE_CUT) tubes of black 1/4" LLDPE, square and burr-free
-   with eased outer edges, and push one into each BPT end under the loosened pump-head
-   housing. Lower both complete pumps into their fitted wells with the tubes facing +Y
-   through the cradle's open tube passages.
-
-6. **Fit the clamp, then set the tube tips.** Lower the broad clamp over both pump bosses
-   and draw its [2](CAP_SCREWS) M3×[60](CAP_SCREW_LEN) screws evenly into the cradle's
-   center inserts. Verify firm pump retention without vertical play within the
-   [accepted holder scope](/hardware/reference/kamoer-kphm400/physical-fit.json). With the
-   clamp closed, set the printed tube setting jig on the cradle's flat rear face and slide
-   each tube until its tip meets its jig stop at the seated datum, where it bottoms in its
-   tee. Tighten each housing so it clamps the BPT tube around its LLDPE tube. Keep the
-   exposed tubes straight and verify all four tip positions, a firm hand pull on each tube
-   and pump-end sealing, then take the jig off.
-
-7. **Install the cradle after chassis assembly.** Close the box with the funnel frame out
-   and power disconnected, and stand the cradle in front of its bay, flat back toward the
-   tee wall. Feed the free end of the [J13 ribbon](harnesses/j13.md) forward through
-   front-top's lead bore and out of the empty bay, crimp its four Faston receptacles and
-   ring it out. Land each pair on its pump's motor tabs per the
-   [J13 map](harnesses/j13.md#end-to-end-conductor-map), the +X pair on pump A and the −X
-   pair on pump B. Lay each pair in its crown groove and the joined ribbon in the clamp's
-   lead slot, all four leads below the crown. Set the cradle on its bay floor and present
-   all four tube tips squarely to the tee wall's collet holes. Push the cradle straight
-   home while drawing the ribbon's slack back from behind through the funnel-frame
-   opening: the tips enter the tees' extended branch collets and bottom at the tees' stops,
-   leaving [0.25 mm](DOCK_BODY_GAP) of air between the cradle's flat back and the bay face.
-   Confirm that every tube enters straight and the cradle's face finishes flush with the
-   front face. Plug the XHP-4 into J13. The collets grip the tubes and hold the cradle
-   home; they cannot be released from the bay, so the cradle stays in it.
+8. **Complete the front-top subassembly.** Finish the remaining front manifold links
+   and valve wiring while the interior and underside are accessible. Thread SIG-7's
+   free display end through the same rear wire passage and leave it accessible at the
+   open facet. Join the populated front-top to the lower enclosure. Pumps, retainer and
+   plumbing travel with front-top during its aft slide. Fit and wire the display, gasket
+   and cover per [mechanical assembly §8](enclosure-mechanical.md#8-let-the-display-into-the-facet-and-clear-the-funnel-opening).
+   Dress DC-5 and SIG-7 clear of the rails, tubing and funnel-frame seats; complete the
+   central connections and plug the XHP-4 into J13 through the open funnel aperture before
+   fitting the frame. Disconnect J13 by its housing before separating enclosure pieces.
 
 Y-A and Y-B remain on the inner limbs with their branches facing one another across the
 mirror plane. V-A's inlet takes the water split through the flow regulator. V-B's inlet

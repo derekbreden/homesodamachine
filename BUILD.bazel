@@ -441,6 +441,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_grip_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py",
@@ -908,6 +909,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_grip_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py",
@@ -2493,6 +2495,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_grip_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py",
@@ -2509,12 +2512,9 @@ genrule(
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl",
@@ -2686,7 +2686,7 @@ genrule(
         "out/enclosure-assembly/hardware/assembly/scenes/glb/en07-electronics-bay.glb",
         "out/enclosure-assembly/hardware/assembly/scenes/glb/front-top.glb",
         "out/enclosure-assembly/hardware/assembly/scenes/glb/funnel-drain.glb",
-        "out/enclosure-assembly/hardware/assembly/scenes/glb/pump-cartridge.glb",
+        "out/enclosure-assembly/hardware/assembly/scenes/glb/pump-mount.glb",
         "out/enclosure-assembly/hardware/manifold-layout/drain-clearance-check.json",
         "out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json",
         "out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scorecard.json",
@@ -2710,7 +2710,7 @@ O6=$$PWD/$(location out/enclosure-assembly/hardware/assembly/scenes/glb/en04-com
 O7=$$PWD/$(location out/enclosure-assembly/hardware/assembly/scenes/glb/en07-electronics-bay.glb)
 O8=$$PWD/$(location out/enclosure-assembly/hardware/assembly/scenes/glb/front-top.glb)
 O9=$$PWD/$(location out/enclosure-assembly/hardware/assembly/scenes/glb/funnel-drain.glb)
-O10=$$PWD/$(location out/enclosure-assembly/hardware/assembly/scenes/glb/pump-cartridge.glb)
+O10=$$PWD/$(location out/enclosure-assembly/hardware/assembly/scenes/glb/pump-mount.glb)
 O11=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/drain-clearance-check.json)
 O12=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json)
 O13=$$PWD/$(location out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scorecard.json)
@@ -2748,7 +2748,7 @@ cp hardware/assembly/scenes/glb/en04-compressor-bay.glb $$O6
 cp hardware/assembly/scenes/glb/en07-electronics-bay.glb $$O7
 cp hardware/assembly/scenes/glb/front-top.glb $$O8
 cp hardware/assembly/scenes/glb/funnel-drain.glb $$O9
-cp hardware/assembly/scenes/glb/pump-cartridge.glb $$O10
+cp hardware/assembly/scenes/glb/pump-mount.glb $$O10
 cp hardware/manifold-layout/drain-clearance-check.json $$O11
 cp hardware/manifold-layout/enclosure-assembly.facts.json $$O12
 cp hardware/manifold-layout/enclosure-assembly.scorecard.json $$O13
@@ -2845,6 +2845,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_grip_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py",
@@ -4282,6 +4283,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_grip_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py",
@@ -5025,6 +5027,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_grip_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py",
@@ -5033,8 +5036,7 @@ genrule(
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl",
         "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
         ":out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-001.step",
@@ -5234,6 +5236,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_grip_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py",
@@ -5338,12 +5341,9 @@ genrule(
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh",
-        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh",
+        "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh",
         "out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl",
@@ -5369,22 +5369,19 @@ O8=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enc
 O9=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step)
 O10=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh)
 O11=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl)
-O12=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step)
-O13=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh)
-O14=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl)
-O15=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step)
-O16=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh)
-O17=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl)
-O18=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step)
-O19=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh)
-O20=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl)
-O21=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step)
-O22=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh)
-O23=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.figures.json)
-O24=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.md)
-O25=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.py)
-O26=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/pump-dock/README.figures.json)
-O27=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/pump-dock/README.md)
+O12=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step)
+O13=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh)
+O14=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl)
+O15=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step)
+O16=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh)
+O17=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl)
+O18=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step)
+O19=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh)
+O20=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.figures.json)
+O21=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/README.md)
+O22=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure.py)
+O23=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/pump-dock/README.figures.json)
+O24=$$PWD/$(location out/enclosure/hardware/printed-parts/enclosure/pump-dock/README.md)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -5415,22 +5412,19 @@ cp hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl $$O8
 cp hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step $$O9
 cp hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh $$O10
 cp hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl $$O11
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step $$O12
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh $$O13
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl $$O14
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step $$O15
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh $$O16
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl $$O17
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step $$O18
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh $$O19
-cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl $$O20
-cp hardware/printed-parts/enclosure/enclosure/enclosure.step $$O21
-cp hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh $$O22
-cp hardware/printed-parts/enclosure/enclosure/README.figures.json $$O23
-cp hardware/printed-parts/enclosure/enclosure/README.md $$O24
-cp hardware/printed-parts/enclosure/enclosure/enclosure.py $$O25
-cp hardware/printed-parts/enclosure/pump-dock/README.figures.json $$O26
-cp hardware/printed-parts/enclosure/pump-dock/README.md $$O27
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step $$O12
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh $$O13
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl $$O14
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step $$O15
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh $$O16
+cp hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl $$O17
+cp hardware/printed-parts/enclosure/enclosure/enclosure.step $$O18
+cp hardware/printed-parts/enclosure/enclosure/enclosure.step.mesh $$O19
+cp hardware/printed-parts/enclosure/enclosure/README.figures.json $$O20
+cp hardware/printed-parts/enclosure/enclosure/README.md $$O21
+cp hardware/printed-parts/enclosure/enclosure/enclosure.py $$O22
+cp hardware/printed-parts/enclosure/pump-dock/README.figures.json $$O23
+cp hardware/printed-parts/enclosure/pump-dock/README.md $$O24
 """,
 )
 
@@ -5608,6 +5602,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_grip_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py",
@@ -5892,6 +5887,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_grip_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py",
@@ -6962,6 +6958,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_grip_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py",
@@ -7719,6 +7716,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_grip_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py",
@@ -7826,6 +7824,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_grip_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py",
@@ -9793,6 +9792,7 @@ genrule(
         "pysrc/hardware/manifold-layout/above_core_wiring.py",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scorecard.json",
+        ":out/enclosure-box/hardware/manifold-layout/enclosure-box.json",
         "pysrc/hardware/manifold-layout/enclosure_assembly.py",
         "pysrc/hardware/manifold-layout/manifold_layout.py",
         "pysrc/hardware/manifold-layout/soda_inlet.py",
@@ -9851,6 +9851,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_grip_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py",
@@ -9859,8 +9860,7 @@ genrule(
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step",
         "pysrc/hardware/printed-parts/enclosure/enclosure/enclosure.py",
         "pysrc/hardware/printed-parts/enclosure/nameplate/_nameplate_dimensions.py",
         ":out/nameplate-dimensions/hardware/printed-parts/enclosure/nameplate/nameplate-001.step",
@@ -9959,6 +9959,7 @@ genrule(
         "pysrc/hardware/scripts/_bom_masses.py",
         "pysrc/hardware/scripts/_bom_sync.py",
         "pysrc/hardware/scripts/_bom_totals.py",
+        "pysrc/hardware/scripts/_box_spec.py",
         "pysrc/hardware/scripts/_boxes.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_card.py",
@@ -9979,6 +9980,7 @@ genrule(
         "pysrc/hardware/scripts/_seating.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
         "pysrc/hardware/scripts/flute_payload.py",
+        "pysrc/hardware/scripts/materialize_pump_cartridge.py",
         "pysrc/hardware/scripts/pick_text.py",
         "pysrc/hardware/wiring/_ac_wiring_schedule_sync.py",
         "pysrc/tools/docgen/__init__.py",
@@ -10439,6 +10441,7 @@ genrule(
         "hardware/printed-parts/enclosure/enclosure/_display_retention.py",
         "hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
         "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py",
         "hardware/printed-parts/enclosure/enclosure/_grip_interface.py",
         "hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
         "hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py",
@@ -10455,12 +10458,9 @@ genrule(
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step.mesh",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step.mesh",
-        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh",
+        ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.step.mesh",
         ":out/enclosure/hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl",
@@ -10702,6 +10702,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_grip_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_nameplate_wing_interface.py",
@@ -12153,6 +12154,14 @@ genrule(
     name = "pysrc-0714e03fdaae",
     srcs = ["hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py"],
     outs = ["pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-a5f55f25616b",
+    srcs = ["hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py"],
+    outs = ["pysrc/hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )

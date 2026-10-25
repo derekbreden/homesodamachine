@@ -59,9 +59,9 @@ def placements():
                             ('wago-reeds-b', 265., 'PCB J7 / reservoir B / carbonator reed common')):
         put(name, '413', 'cold-core', PORTS_WEST, (7.5, y, 256.4), purpose)
     # These branch points travel with the complete front valve manifold.
-    put('wago-mana', '420', 'front-top', EAST_FLANK, (95.20, 176.9, 277.),
+    put('wago-mana', '420', 'front-top', EAST_FLANK, (95.20, 185.05, 277.),
         'J1 valve common and eight A-H coil branches')
-    put('wago-manb', '415', 'front-top', EAST_FLANK, (95.05, 173.2, 243.),
+    put('wago-manb', '415', 'front-top', EAST_FLANK, (95.05, 177.65, 243.),
         'J2 valve common, I/J/K coils and condenser fan')
     put('ground-stack', 'ground-stack', 'cold-core', IDENTITY, (37., 195., 259.4),
         'C14 earth feed and exposed-metal bond branches')

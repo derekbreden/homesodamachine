@@ -85,7 +85,7 @@ for fixed-width brim types.
 | `front-bottom` | Mark1, left 0.4 | PET-GF black | Six-wall band through the handhold lifting-edge transition and its corner returns; 0.8 mm boundary strip of the flat lifting ceiling; removable arc fins along the lifting edges | — |
 | `back-top` | Mark2, left 0.4 | PET-GF black | Six-wall band through the roof side edges on the bed; one ribbon per sliding groove | 50 mm bridge limit; 3 mm tree branches, 0.5° growth; plate offset X −5.4 mm |
 | `back-bottom` | Mark2, left 0.4 | PET-GF black | Six-wall band through the handhold lifting-edge transition and its corner returns; 0.8 mm boundary strip of the flat lifting ceiling; removable arc fins on feet along the lifting edges | Plate offset Y +18.8 mm |
-| `pump-cradle-clamp` | Mark1, left 0.4 | PET-GF black | Pump cradle as exported; clamp crown-down | — |
+| `pump-retainer` | Mark1, left 0.4 | PET-GF black | Broad lower retainer, underside on the bed; build axis +Z | — |
 | `funnel-frame` | Mark2, left 0.4 | PET-GF black | On its lower feet, as exported | No brim or elephant-foot compensation; support XY 0.50 mm |
 | `factory-tools` | Mark2, left 0.4 | PET-GF black | Tube tip setting jig as exported | — |
 | `display-cover` | Mark1, left 0.4 | PET-GF black | Face up, back and wings on the bed, as exported | — |

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Materialize selected enclosure pieces: STEP, printed STL and viewer payload each.
 
-The ordinary enclosure producer deliberately draws all six pieces and its aggregate before the
+The ordinary enclosure producer deliberately draws all five pieces and its aggregate before the
 assembly runs.  That is the right reconciliation path and the wrong visual-iteration path for a
 change confined to one piece. This entry reads the already-declared Box,
 calls each selected piece's builder directly, and uses the same tessellation,
@@ -9,8 +9,8 @@ flute rails and payload cutter as the ordinary producer without drawing another 
 or an assembly.
 
     tools/cad-venv/bin/python hardware/scripts/materialize_pump_cartridge.py
-    tools/cad-venv/bin/python hardware/scripts/materialize_pump_cartridge.py --pieces pump-cap
-    tools/cad-venv/bin/python hardware/scripts/materialize_pump_cartridge.py --pieces pump-cartridge front-top
+    tools/cad-venv/bin/python hardware/scripts/materialize_pump_cartridge.py --pieces pump-retainer
+    tools/cad-venv/bin/python hardware/scripts/materialize_pump_cartridge.py --pieces pump-retainer front-top
     tools/cad-venv/bin/python hardware/scripts/materialize_pump_cartridge.py --pieces back-top
 
 All three siblings are completed in a temporary directory and seated only after the printed STL
@@ -76,19 +76,14 @@ def _declared_box(box_spec, enc):
                      + "\n  ".join(refused))
 
 
-# The two pieces this path can stand, each with the flute rails the ordinary producer gives it:
-# the cradle owns the show face and both flanks, the clamp carries no show field and takes none.
-DEFAULT_PIECES = ("pump-cartridge", "pump-cap")
-PIECES = (*DEFAULT_PIECES, "front-top", "back-top")
+# The retainer has smooth functional faces; quadrant show faces take the outer flutes.
+DEFAULT_PIECES = ("pump-retainer", "front-top")
+PIECES = (*DEFAULT_PIECES, "back-top")
 
 
 def _builder(enc, name):
-    if name == "pump-cartridge":
-        return enc.build_pump_cartridge, lambda box: [
-            enc._pump_cartridge_side_flute_rail(box.outer),
-            enc._pump_cartridge_front_flute_rail(box.outer)]
-    if name == "pump-cap":
-        return enc.build_pump_cap, lambda box: []
+    if name == "pump-retainer":
+        return enc.build_pump_retainer, lambda box: []
     if name in ("front-top", "back-top"):
         def rails(box):
             # The ordinary producer's shadow bodies, read from retained STEP
@@ -213,7 +208,7 @@ def main(argv: list[str]) -> int:
         help="destination for the three siblings (default: the enclosure artifact directory)")
     parser.add_argument(
         "--pieces", nargs="+", choices=PIECES, default=list(DEFAULT_PIECES),
-        help="which pump-bay pieces to stand (default: cartridge and cap)")
+        help="which pump-bay pieces to stand (default: retainer and front-top)")
     args = parser.parse_args(argv)
     materialize(args.output_dir, tuple(args.pieces))
     return 0

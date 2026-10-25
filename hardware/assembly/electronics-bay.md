@@ -4,7 +4,7 @@ The PCB lies flat on the west side of the cold-core roof, with its long axis
 fore–aft. The diaphragm pump and V-B belong to that core. Back-top carries
 V-A/V-K, their fitted plumbing, the water header, the PSU and both relays.
 The PSU mounts to the dry west sidewall, with the relays above it. The display,
-the pump cradle in its bay and the front valve coils belong to `enclosure-front-top`.
+the two pumps with their underside retainer and the front valve coils belong to `enclosure-front-top`.
 
 The fore–aft flow meter travels with back-top between the CO₂ group and pump.
 Its two fixed collars sit in integral east-wall carriers; the moving collets
@@ -152,13 +152,14 @@ records the current rigid-slide and final-connection limits.
    - Seat J3 and J5. Seat J11 before the V-B return union and its flexible
      return tube go in ([internal plumbing](internal-plumbing.md)); the
      return lies over J11 and the J10 clamps.
-   - Feed the J9 display end from inside through the existing ridge loom bore
-     near X32/Z308 and out the open facet, land it on the display's terminals,
+   - Feed the J9 display end from inside through the shared pump/display passage,
+     whose rear diamond mouth is centred at X0/Z280, and out the open facet. Land it on the display's terminals,
      seat the display ([enclosure-mechanical.md](enclosure-mechanical.md) §8),
      then seat J9.
-   - Connect the J13 pump ribbon at the pump cradle's installation
+   - Seat the J13 pump ribbon's XHP-4. Its Fastons are already landed and the pumps
+     retained from the loose front-top bench assembly
      ([internal plumbing §3](internal-plumbing.md#3-flavor-manifold-v-a-through-v-j--y-a-y-b-y-c-y-d-y-f-y-g--pumps)).
-   Keep the leads with their mounting parents and dress each crossing below
+   Keep both shared-passage looms clear of the funnel-frame seats. Keep the leads with their mounting parents and dress each crossing below
    the closing surfaces. Clear the V-B return bearing and its
    cable-tie path while dressing the leads. Keep the coil leads outside the
    continuous soda inlet's holder and foam sleeve.

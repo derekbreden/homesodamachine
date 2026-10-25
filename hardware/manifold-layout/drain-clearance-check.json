@@ -1,7 +1,7 @@
 {
   "scope": "Nominal exact B-rep clearance of the direct TPU ASSE sleeve and dedicated drain against the complete installed assembly population, including cold-core bodies and retained flavor returns. Connected interfaces are excluded. The white 4 mm return requires at least 1 mm to every unconnected body. Pump occupied envelopes are read per component. The sleeve's expanded shape is an occupancy approximation. Hardware tolerances, zip-tie heads, actual bending, seals and vent performance are unmeasured.",
   "conservative_cold_core_envelope_included": true,
-  "installed_body_count": 250,
+  "installed_body_count": 255,
   "checked_members": [
     "asse-drain-adapter",
     "tube-drain-vent",
@@ -612,12 +612,12 @@
         },
         {
           "name": "funnel-frame-back-west-screw",
-          "gap_mm": 8.9134348,
+          "gap_mm": 8.9134347,
           "overlap_mm3": 0
         },
         {
           "name": "funnel-frame-back-west-insert",
-          "gap_mm": 8.9538747,
+          "gap_mm": 8.9538746,
           "overlap_mm3": 0
         },
         {
@@ -647,22 +647,22 @@
         },
         {
           "name": "foam-assembly",
-          "gap_mm": 14.3599999,
+          "gap_mm": 14.3599998,
           "overlap_mm3": 0
         },
         {
           "name": "cold-core/foam-shell",
-          "gap_mm": 14.3677615,
+          "gap_mm": 14.3677614,
           "overlap_mm3": 0
         },
         {
           "name": "cold-core/foam-cap-top",
-          "gap_mm": 14.3599999,
+          "gap_mm": 14.3599998,
           "overlap_mm3": 0
         },
         {
           "name": "cold-core/foam-cap-lid-top",
-          "gap_mm": 14.3599999,
+          "gap_mm": 14.3599998,
           "overlap_mm3": 0
         },
         {
@@ -672,7 +672,7 @@
         },
         {
           "name": "cold-core/reservoir-b-cap",
-          "gap_mm": 27.6291119,
+          "gap_mm": 27.6291118,
           "overlap_mm3": 0
         },
         {
@@ -682,7 +682,7 @@
         },
         {
           "name": "cold-core/copper-plug-port",
-          "gap_mm": 12.5688731,
+          "gap_mm": 12.568873,
           "overlap_mm3": 0
         },
         {
@@ -697,27 +697,27 @@
         },
         {
           "name": "cold-core/line-carb-water-out",
-          "gap_mm": 91.2326537,
+          "gap_mm": 91.2326538,
           "overlap_mm3": 0
         },
         {
           "name": "cold-core/line-co2-in",
-          "gap_mm": 77.1659923,
+          "gap_mm": 77.1659924,
           "overlap_mm3": 0
         },
         {
           "name": "cold-core/line-reservoir-a",
-          "gap_mm": 36.2652372,
+          "gap_mm": 36.2652373,
           "overlap_mm3": 0
         },
         {
           "name": "cold-core/line-reservoir-a-fill",
-          "gap_mm": 32.7404337,
+          "gap_mm": 32.7404338,
           "overlap_mm3": 0
         },
         {
           "name": "cold-core/line-reservoir-b",
-          "gap_mm": 87.6216085,
+          "gap_mm": 87.6216084,
           "overlap_mm3": 0
         },
         {
@@ -1200,12 +1200,12 @@
         },
         {
           "name": "tube-water-5",
-          "gap_mm": 63.3726673,
+          "gap_mm": 63.3726674,
           "overlap_mm3": 0
         },
         {
           "name": "funnel",
-          "gap_mm": 23.3132079,
+          "gap_mm": 23.3132078,
           "overlap_mm3": 0
         },
         {
@@ -1215,17 +1215,17 @@
         },
         {
           "name": "funnel-frame-back-west-screw",
-          "gap_mm": 19.4621194,
+          "gap_mm": 19.4621193,
           "overlap_mm3": 0
         },
         {
           "name": "funnel-frame-back-west-insert",
-          "gap_mm": 19.4238452,
+          "gap_mm": 19.4238451,
           "overlap_mm3": 0
         },
         {
           "name": "elbow-cradle",
-          "gap_mm": 57.7275773,
+          "gap_mm": 57.7275772,
           "overlap_mm3": 0
         },
         {
@@ -1250,22 +1250,22 @@
         },
         {
           "name": "foam-assembly",
-          "gap_mm": 14.3599999,
+          "gap_mm": 14.3599998,
           "overlap_mm3": 0
         },
         {
           "name": "cold-core/foam-shell",
-          "gap_mm": 14.3677615,
+          "gap_mm": 14.3677614,
           "overlap_mm3": 0
         },
         {
           "name": "cold-core/foam-cap-top",
-          "gap_mm": 14.3599999,
+          "gap_mm": 14.3599998,
           "overlap_mm3": 0
         },
         {
           "name": "cold-core/foam-cap-lid-top",
-          "gap_mm": 14.3599999,
+          "gap_mm": 14.3599998,
           "overlap_mm3": 0
         },
         {
@@ -1275,12 +1275,12 @@
         },
         {
           "name": "cold-core/reservoir-b-cap",
-          "gap_mm": 27.6291119,
+          "gap_mm": 27.6291118,
           "overlap_mm3": 0
         },
         {
           "name": "cold-core/copper-plug-west",
-          "gap_mm": 12.5688731,
+          "gap_mm": 12.568873,
           "overlap_mm3": 0
         },
         {
@@ -1300,12 +1300,12 @@
         },
         {
           "name": "cold-core/line-carb-water-out",
-          "gap_mm": 83.9129577,
+          "gap_mm": 83.9129578,
           "overlap_mm3": 0
         },
         {
           "name": "cold-core/line-co2-in",
-          "gap_mm": 60.1965129,
+          "gap_mm": 60.196513,
           "overlap_mm3": 0
         },
         {
@@ -1315,12 +1315,12 @@
         },
         {
           "name": "cold-core/line-reservoir-a-fill",
-          "gap_mm": 23.4003371,
+          "gap_mm": 23.4003372,
           "overlap_mm3": 0
         },
         {
           "name": "cold-core/line-reservoir-b",
-          "gap_mm": 85.0407968,
+          "gap_mm": 85.0407967,
           "overlap_mm3": 0
         },
         {
@@ -1330,7 +1330,7 @@
         },
         {
           "name": "cold-core/line-water-in",
-          "gap_mm": 75.5432444,
+          "gap_mm": 75.5432443,
           "overlap_mm3": 0
         }
       ],
@@ -1344,14 +1344,14 @@
       ],
       "passed": true
     },
-    "tube-fluid-18": {
+    "tube-fluid-28": {
       "centerline_radii_mm": [
         25.0
       ],
       "stock_minimum_mm": 25.0,
       "passed": true
     },
-    "tube-fluid-28": {
+    "tube-fluid-18": {
       "centerline_radii_mm": [
         25.0
       ],
@@ -1362,7 +1362,7 @@
   "source_sha256": {
     "hardware/scripts/check_asse_drain.py": "91f5b3bab308ee253339de62919f18cc32d70098476a52bfa61e89cb5d97c418",
     "hardware/manifold-layout/_drain.py": "d4f6db44b344125cf6f9b1bc6be341002dae887d78966ada3029e1e452b94c2a",
-    "hardware/manifold-layout/enclosure_assembly.py": "c2cd7b0760460afc8d2d2519cff21f343393010995b19193dd19e2f6dc4fcff2",
+    "hardware/manifold-layout/enclosure_assembly.py": "7651dd8e0904253377178491a28eec8f38f16cbda493ca697cebe4934e20f070",
     "hardware/manifold-layout/_lines.py": "eb226d118dc2ff57192f556913bb3f733a49b6a8cb5bcc7e27a2abbaaa469d56",
     "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "a1e869c93ed2dba3873036fe10506b99ace883bc46a033833354be4e49bcc096",
     "hardware/reference/asse1022-assembly/asse1022_assembly.py": "4481085380d131f5d85696f5c366058382b07577c6881a274495e5d67ec2b3eb",

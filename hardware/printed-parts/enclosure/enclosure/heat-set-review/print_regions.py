@@ -16,6 +16,7 @@ ENC = ROOT / 'hardware/printed-parts/enclosure/enclosure'
 sys.path[:0] = [str(ROOT / 'hardware/scripts'), str(ENC)]
 import enclosure as e
 import _box_spec
+import _fixed_pump_mount as fixed_mount
 from materialize_pump_cartridge import _declared_box
 
 
@@ -34,8 +35,7 @@ def transformed_bounds(bounds, transform):
 
 def print_pose(piece, mesh_bounds):
     """Source-coordinate orientation and bed datum; plate X/Y nesting is separate."""
-    sign = -1.0 if piece == 'pump-cap' else (
-        1.0 if piece == 'pump-cartridge' else e.print_up(*piece.split('-')))
+    sign = e.PIECE_PRINT_UP[piece]
     offset = -float(mesh_bounds[0][2]) if sign > 0 else float(mesh_bounds[1][2])
     return dict(up_axis_in_source=[0, 0, sign],
                 bed_face='Z minus' if sign > 0 else 'Z plus',
@@ -80,6 +80,10 @@ def above_core_regions(box, region):
 def main():
     box, _bounds, box_path = _declared_box(_box_spec, e)
     pieces = {name: [] for name in e.PIECE_COLORS}
+    mesh_bounds = {
+        name: trimesh.load_mesh(ENC/f'enclosure-{name}.stl', process=False).bounds
+        for name in pieces
+    }
     def region(piece, name, bounds, **evidence):
         pieces[piece].append(dict(name=name, machine_bounds_mm=bounds,
                                  sparse_infill_density='100%', sparse_infill_pattern='zig-zag',
@@ -116,24 +120,32 @@ def main():
     for x,y,tip in box.pack.cond_mount[-1]:
         region('front-bottom',f'Condenser host and supporting finger {x:g}/{y:g}',
                [x-5,x+5,y-5,y+5,box.outer[4],tip])
-    split=e.cap_split_z(box.pack.pump_trays)
-    lane = min(abs(cx) for cx, _cy, _cz in box.pack.pump_trays) - e._tray.boss_half - e.cap_boss_air
-    for y in e.cap_screw_ys(box.inner,box.pack.collet_plate):
-        region('pump-cartridge',f'Clamp insert and complete spine root {y:g}',
-               [-lane,lane,y-5,y+5,e.bay_floor_z(box.pack.pump_trays)[1],split])
+    retainer_low, retainer_high = mesh_bounds['pump-retainer']
+    for fastener in fixed_mount.fasteners(e, box):
+        x, y = fastener['x'], fastener['y']
+        # Complete Ø4 insert hosts, screw-tip relief and three millimetres of
+        # closed backing belong to front-top's broad integral stock.
+        region('front-top', f'Pump-retainer insert, blind cap and upper mount root {x:g}/{y:g}',
+               [x-4, x+4, y-4, y+4, fastener['insert_mouth_z'],
+                fastener['pilot_end_z']+e.wall])
+        # The underside screw head transmits clamp load through the whole
+        # retainer thickness; reinforcement stays inside the existing solid.
+        region('pump-retainer', f'Pump-retainer screw head and full lower load path {x:g}/{y:g}',
+               [x-5, x+5, y-5, y+5, float(retainer_low[2]), float(retainer_high[2])])
     above_core_regions(box, region)
     poses = {}
     for name, rows in pieces.items():
-        mesh = trimesh.load_mesh(ENC/f'enclosure-{name}.stl', process=False)
-        poses[name] = print_pose(name, mesh.bounds)
+        bounds = mesh_bounds[name]
+        poses[name] = print_pose(name, bounds)
         for row in rows:
             clipped = [value for axis in range(3) for value in (
-                max(row['machine_bounds_mm'][2*axis], float(mesh.bounds[0][axis])),
-                min(row['machine_bounds_mm'][2*axis+1], float(mesh.bounds[1][axis])))]
+                max(row['machine_bounds_mm'][2*axis], float(bounds[0][axis])),
+                min(row['machine_bounds_mm'][2*axis+1], float(bounds[1][axis])))]
             row['applied_source_bounds_mm'] = clipped
             row['print_bounds_mm'] = transformed_bounds(
                 clipped, poses[name]['source_to_print_mm'])
-    paths=[Path(__file__),ENC/'enclosure.py',ENC/'_enclosure_interface.py',box_path,
+    paths=[Path(__file__),ENC/'enclosure.py',ENC/'_enclosure_interface.py',
+           Path(fixed_mount.__file__),box_path,
            Path(e._above_core_shell.__file__),
            Path(e._above_core_shell.layout.__file__),
            ROOT/'hardware/manifold-layout/above-core.json',

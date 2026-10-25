@@ -1,0 +1,2122 @@
+{
+  "schema": 1,
+  "units": "mm",
+  "frame": "enclosure-world XYZ",
+  "customer_outcome": "The fore manifold valve groups can install in front of the broad aligned WAGO holders, and their connected leads retain free routes to the populated enclosure.",
+  "scope": "Targeted native verification of the two manifold WAGOs and their 14 connected conductors. The pump/display shared passage is recorded separately in integral-pump-mount-review.json.",
+  "placements_mm": {
+    "wago-mana": [
+      95.2,
+      185.05,
+      277.0
+    ],
+    "wago-manb": [
+      95.05,
+      177.65,
+      243.0
+    ]
+  },
+  "source_sha256": {
+    "hardware/manifold-layout/above_core_wiring.py": "ee4bef33f1ec046b0cf6a4aeb1483edb173cb51f618382698f7073ce68990b46",
+    "hardware/wiring/installed/route-overrides.json": "36538dc365902ce2ea3c91e5d2d1f27aa1da745e66b8b55a45417b6990780447",
+    "hardware/wiring/installed/routes.py": "25a614a784977ba733ffb64962bedec8b4e81b1bf8ce7ff1e3d9873d3b7b7ec3",
+    "hardware/wiring/installed/terminals.py": "485ef865f493e321958309bdbf3527ae57adb91ae864d5b924ddaed5d56edf99"
+  },
+  "front_top_step_sha256": "455cd05a225b6f47b252577cb25a45cf3e4fb81b63eb2dc0b39fa39a28d12dc0",
+  "electrical_topology_changed": false,
+  "local_guide_changes": [
+    "J1-positive-A: joins the retained downstream tangent before its original first guide.",
+    "J1-positive-F: leaves below the crossed OUT6 route before rising to the fore valve spade.",
+    "J1-positive-G: joins the retained downstream tangent before its original first guide.",
+    "J2-COM: passes aft of the lower flavor reducer and positive fan-out.",
+    "J2-positive-I: leaves below the J branch and rises aft before joining the fixed downstream route."
+  ],
+  "native_wire_stock_queries": [
+    {
+      "wire": "J1-COM",
+      "valid": true,
+      "solid_count": 1,
+      "minimum_distance_mm": 9.28430934426465,
+      "common_mm3": 0.0
+    },
+    {
+      "wire": "J1-positive-A",
+      "valid": true,
+      "solid_count": 1,
+      "minimum_distance_mm": 9.568829604502309,
+      "common_mm3": 0.0
+    },
+    {
+      "wire": "J1-positive-B",
+      "valid": true,
+      "solid_count": 1,
+      "minimum_distance_mm": 3.849412330313161,
+      "common_mm3": 0.0
+    },
+    {
+      "wire": "J1-positive-C",
+      "valid": true,
+      "solid_count": 1,
+      "minimum_distance_mm": 9.568829604502309,
+      "common_mm3": 0.0
+    },
+    {
+      "wire": "J1-positive-D",
+      "valid": true,
+      "solid_count": 1,
+      "minimum_distance_mm": 9.28430934426465,
+      "common_mm3": 0.0
+    },
+    {
+      "wire": "J1-positive-E",
+      "valid": true,
+      "solid_count": 1,
+      "minimum_distance_mm": 9.28430934426465,
+      "common_mm3": 0.0
+    },
+    {
+      "wire": "J1-positive-F",
+      "valid": true,
+      "solid_count": 1,
+      "minimum_distance_mm": 9.568829604502328,
+      "common_mm3": 0.0
+    },
+    {
+      "wire": "J1-positive-G",
+      "valid": true,
+      "solid_count": 1,
+      "minimum_distance_mm": 9.568829604502328,
+      "common_mm3": 0.0
+    },
+    {
+      "wire": "J1-positive-H",
+      "valid": true,
+      "solid_count": 1,
+      "minimum_distance_mm": 9.568829604502328,
+      "common_mm3": 0.0
+    },
+    {
+      "wire": "J2-COM",
+      "valid": true,
+      "solid_count": 1,
+      "minimum_distance_mm": 9.58018788959799,
+      "common_mm3": 0.0
+    },
+    {
+      "wire": "J2-positive-I",
+      "valid": true,
+      "solid_count": 1,
+      "minimum_distance_mm": 9.93680028983173,
+      "common_mm3": 0.0
+    },
+    {
+      "wire": "J2-positive-J",
+      "valid": true,
+      "solid_count": 1,
+      "minimum_distance_mm": 9.93680028983173,
+      "common_mm3": 0.0
+    },
+    {
+      "wire": "J2-positive-fan",
+      "valid": true,
+      "solid_count": 1,
+      "minimum_distance_mm": 2.187174176005783,
+      "common_mm3": 0.0
+    },
+    {
+      "wire": "J2-positive-K",
+      "valid": true,
+      "solid_count": 1,
+      "minimum_distance_mm": 5.406830900399197,
+      "common_mm3": 0.0
+    }
+  ],
+  "all_fourteen_valid_single_solids": true,
+  "all_fourteen_front_top_intersections_empty": true,
+  "native_hardware_delta_query": {
+    "method": "Native swept changed curve sections, selected by unchanged segment records at 1e-7 mm precision, against current front-top/current WAGOs and retained native purchased-hardware/tube fixtures. Bounds are conservative BRepBndLib Add boxes; contacts use exact native intersections.",
+    "fixture": {
+      "index": "tmp/actual-electrical-delta-fixture/index.json",
+      "aggregate_sha256": "d42c48b127f64211bf3aee0fd72725eb298acf9a02643194a78c6583fbc4e3e6",
+      "manifest_sha256": "e127f1f406976abaaf91f3bc12625ecfaa3f3aa10d169b4169a0171e62dff5cb",
+      "retained_hardware_scope": "Purchased hardware and tube poses retained; old printed casing, pump cartridge/cap and original WAGOs excluded. Final WAGOs and front-top read separately.",
+      "queried_bodies": {
+        "tube-above-core-va-fore-feed": {
+          "brep_sha256": "8c8ca982243699ad2034ad3ae952260d21f01f256e8adcaa60f44718517569f0",
+          "retained_fixture_geometry_sha256": "8c8ca982243699ad2034ad3ae952260d21f01f256e8adcaa60f44718517569f0",
+          "bounds_mm": [
+            17.967143083194998,
+            167.96610869540143,
+            258.4187187431,
+            39.164556916805005,
+            304.2731101,
+            285.44250731161003
+          ]
+        },
+        "tube-fluid-14": {
+          "brep_sha256": "2e1775501a22af849fd156789b8724d82ab2cdfd855a5240f6a5e60108a76273",
+          "retained_fixture_geometry_sha256": "2e1775501a22af849fd156789b8724d82ab2cdfd855a5240f6a5e60108a76273",
+          "bounds_mm": [
+            25.159913859978133,
+            103.44991385997815,
+            253.399999899998,
+            97.09008614002187,
+            430.8900860400219,
+            346.3900861400219
+          ]
+        },
+        "tube-fluid-16": {
+          "brep_sha256": "481dbe68c6b8d9bea0ad26702765cdef62b327407ecbde508d001b048608f8ec",
+          "retained_fixture_geometry_sha256": "481dbe68c6b8d9bea0ad26702765cdef62b327407ecbde508d001b048608f8ec",
+          "bounds_mm": [
+            -22.590086140021867,
+            103.44991385997815,
+            253.3999998043121,
+            65.59008614002187,
+            459.59008614002187,
+            326.09008614002187
+          ]
+        },
+        "tube-fluid-18": {
+          "brep_sha256": "74551d78baa923072a5b5955078fe6bbfdaef53effefff89a657e5d437e536c4",
+          "retained_fixture_geometry_sha256": "74551d78baa923072a5b5955078fe6bbfdaef53effefff89a657e5d437e536c4",
+          "bounds_mm": [
+            -98.22458950789463,
+            130.79475616434854,
+            233.8721999,
+            77.11122681032037,
+            463.60000010000005,
+            341.9745895078947
+          ]
+        },
+        "tube-fluid-28": {
+          "brep_sha256": "90410734cc1378e5eff9f204b280158a394b5cb970cb4bef83b165ea5b8a93a4",
+          "retained_fixture_geometry_sha256": "90410734cc1378e5eff9f204b280158a394b5cb970cb4bef83b165ea5b8a93a4",
+          "bounds_mm": [
+            -97.99128386610242,
+            162.40368000472125,
+            233.8721999,
+            81.72458950789463,
+            463.60000010000005,
+            347.2245895078947
+          ]
+        },
+        "asse1022-assembly": {
+          "brep_sha256": "f4b4214cf287fd7cb2ed89b68e6426850bd156f0ef444f24a1c56f4b54a82b75",
+          "retained_fixture_geometry_sha256": "f4b4214cf287fd7cb2ed89b68e6426850bd156f0ef444f24a1c56f4b54a82b75",
+          "bounds_mm": [
+            10.2499999,
+            322.38496042817997,
+            317.87604778052696,
+            51.539419262443,
+            387.38496062818,
+            350.87604798053303
+          ]
+        },
+        "cold-core/g-ganen-pump": {
+          "brep_sha256": "e5b7a03ed1ce8ba11cfd893faf07b6fec62430d0e0b61706784a2bbce7be4670",
+          "retained_fixture_geometry_sha256": "e5b7a03ed1ce8ba11cfd893faf07b6fec62430d0e0b61706784a2bbce7be4670",
+          "bounds_mm": [
+            -38.368269747297674,
+            285.0354785840919,
+            251.40000583257233,
+            56.631730794575674,
+            445.2999940674177,
+            313.9339232766542
+          ]
+        },
+        "cold-core/lower-pump-elbow": {
+          "brep_sha256": "4fe921e718517ba85aedcb0c3621477afc9ef5a178ec601d33939cf495c0de74",
+          "retained_fixture_geometry_sha256": "4fe921e718517ba85aedcb0c3621477afc9ef5a178ec601d33939cf495c0de74",
+          "bounds_mm": [
+            43.56189877122992,
+            288.32254801334796,
+            254.89397277303001,
+            74.245098971232,
+            315.7769343730243,
+            277.09293901606407
+          ]
+        },
+        "cold-core/lower-valve-elbow": {
+          "brep_sha256": "e6b69157998fce48f848013ad42d01f8431962dfb99f000fcbd3d2def09b63a7",
+          "retained_fixture_geometry_sha256": "e6b69157998fce48f848013ad42d01f8431962dfb99f000fcbd3d2def09b63a7",
+          "bounds_mm": [
+            57.354098771231996,
+            288.59276042818,
+            255.03864778053,
+            82.449298971232,
+            304.08676062818006,
+            281.53084798053004
+          ]
+        },
+        "cold-core/pcba": {
+          "brep_sha256": "7f3bbac0e09f738442427c53d4f162ae5ee85c41a32856d8438d6a56565cbbbf",
+          "retained_fixture_geometry_sha256": "7f3bbac0e09f738442427c53d4f162ae5ee85c41a32856d8438d6a56565cbbbf",
+          "bounds_mm": [
+            -82.99999399648,
+            186.38685617005,
+            254.9999999,
+            -10.199993796480001,
+            277.20292012005,
+            276.1000073000001
+          ]
+        },
+        "cold-core/pump-inlet-barb-band": {
+          "brep_sha256": "b177d2ce64fceb1d7c1a610ade13b2ac39e745c580786b5dcdc59e365e55668e",
+          "retained_fixture_geometry_sha256": "b177d2ce64fceb1d7c1a610ade13b2ac39e745c580786b5dcdc59e365e55668e",
+          "bounds_mm": [
+            35.392766166227,
+            321.34364375347997,
+            271.82093474696995,
+            44.392766366227,
+            337.95039087456,
+            288.42768186805
+          ]
+        },
+        "cold-core/pump-inlet-tube-band": {
+          "brep_sha256": "4216da72c50ba716897d58b4c8581a228cb99d78534fd9aeaf37e985e2e46ab0",
+          "retained_fixture_geometry_sha256": "4216da72c50ba716897d58b4c8581a228cb99d78534fd9aeaf37e985e2e46ab0",
+          "bounds_mm": [
+            44.792766166227004,
+            310.22850160620254,
+            265.8020786515856,
+            57.825031576237,
+            324.22922969284707,
+            281.5175767928351
+          ]
+        },
+        "cold-core/pump-outlet-barb-band": {
+          "brep_sha256": "d5c896a0f4a690aa0ca4cc82a77e328599b5cf289fccacea73df04f7b033be19",
+          "retained_fixture_geometry_sha256": "d5c896a0f4a690aa0ca4cc82a77e328599b5cf289fccacea73df04f7b033be19",
+          "bounds_mm": [
+            -25.8856671562,
+            321.37310880811,
+            271.86545481122,
+            -16.885666956199998,
+            337.97985592919,
+            288.47220193230004
+          ]
+        },
+        "cold-core/reg-va-elbow": {
+          "brep_sha256": "a75264cbc5330f2dbd8972c7f69890df500198a15692400fb7557a0f656df87f",
+          "retained_fixture_geometry_sha256": "a75264cbc5330f2dbd8972c7f69890df500198a15692400fb7557a0f656df87f",
+          "bounds_mm": [
+            -82.44930122875999,
+            288.59276042818,
+            315.63084778052996,
+            -57.35410102876,
+            304.08676062818006,
+            342.12304798053003
+          ]
+        },
+        "cold-core/reservoir-b-fill-upper": {
+          "brep_sha256": "8187d2747517f0f45f4fdbb7c94fe5b41db19986801472a54cb89236e62d04ed",
+          "retained_fixture_geometry_sha256": "8187d2747517f0f45f4fdbb7c94fe5b41db19986801472a54cb89236e62d04ed",
+          "bounds_mm": [
+            -56.08999899006471,
+            266.61675111876394,
+            235.83709988116522,
+            -38.55797288225719,
+            295.59000001883464,
+            264.5623901188347
+          ]
+        },
+        "cold-core/tube-above-core-pump-check-link": {
+          "brep_sha256": "0b1886bf7d8046b0b7367083d4e08d64ecfd6ab666e928116aaf73054b5e3024",
+          "retained_fixture_geometry_sha256": "0b1886bf7d8046b0b7367083d4e08d64ecfd6ab666e928116aaf73054b5e3024",
+          "bounds_mm": [
+            -35.976799761209996,
+            333.17648226865,
+            276.99382827176,
+            -29.626799561209996,
+            365.06748246865004,
+            283.34382847176005
+          ]
+        },
+        "cold-core/tube-above-core-pump-inlet-link": {
+          "brep_sha256": "a26bbf5901ad838c6a69cc665d63816b52efd0dac9231866d3dde5233400aba0",
+          "retained_fixture_geometry_sha256": "a26bbf5901ad838c6a69cc665d63816b52efd0dac9231866d3dde5233400aba0",
+          "bounds_mm": [
+            48.133898771232005,
+            296.7887649699885,
+            260.96630364116925,
+            54.483898971232,
+            328.0085313449215,
+            281.32444765653304
+          ]
+        },
+        "cold-core/tube-above-core-va-under-head": {
+          "brep_sha256": "547d5eaaddba97f7d081f7a1080d415162f6b910f7ff5e8ea74f501b6bdf8530",
+          "retained_fixture_geometry_sha256": "547d5eaaddba97f7d081f7a1080d415162f6b910f7ff5e8ea74f501b6bdf8530",
+          "bounds_mm": [
+            -74.53003635880371,
+            289.3048454764,
+            255.5719065932,
+            28.269310100000002,
+            312.3354296136,
+            268.81850479734004
+          ]
+        },
+        "cold-core/tube-above-core-vb-yb-cross": {
+          "brep_sha256": "ee8e900cc113fab59e59f84f93b3cf8ff8746e593f9efdead410ec1beea1a1b4",
+          "retained_fixture_geometry_sha256": "ee8e900cc113fab59e59f84f93b3cf8ff8746e593f9efdead410ec1beea1a1b4",
+          "bounds_mm": [
+            -45.626805140782515,
+            277.5245399,
+            277.5663735067155,
+            47.35388593513482,
+            283.87454010000005,
+            296.79795700114454
+          ]
+        },
+        "cold-core/va-east-turn": {
+          "brep_sha256": "418791cd883b0a434125bb94eed70ae83df1a5dbb66e40826bbde6141aab0e9e",
+          "retained_fixture_geometry_sha256": "418791cd883b0a434125bb94eed70ae83df1a5dbb66e40826bbde6141aab0e9e",
+          "bounds_mm": [
+            12.569309881170174,
+            288.5731098811702,
+            253.43709988117018,
+            41.22170011882982,
+            317.29840011882976,
+            269.7629001188298
+          ]
+        },
+        "cold-core/va-outlet-elbow": {
+          "brep_sha256": "3d45f53c4d717dd28658af89326954b393545962e01bc768412920af6bd1c434",
+          "retained_fixture_geometry_sha256": "3d45f53c4d717dd28658af89326954b393545962e01bc768412920af6bd1c434",
+          "bounds_mm": [
+            -82.92744293847184,
+            289.31948604404323,
+            255.03864778052932,
+            -56.94723544500672,
+            305.32103922413677,
+            281.53084798053004
+          ]
+        },
+        "cold-core/valve-v-a": {
+          "brep_sha256": "dcd06f06a93914b31579e00cfd5b202ef04baec6eb834069650a1c6fa0eb90cf",
+          "retained_fixture_geometry_sha256": "dcd06f06a93914b31579e00cfd5b202ef04baec6eb834069650a1c6fa0eb90cf",
+          "bounds_mm": [
+            -93.52486613007576,
+            285.28976042818,
+            268.83084778052995,
+            -59.28333612744423,
+            342.58976062818004,
+            328.33084798053
+          ]
+        },
+        "cold-core/valve-v-b": {
+          "brep_sha256": "2c0449209c9806f54ee7f3013c4691a4a48b71a2279efd17414c684848ce4576",
+          "retained_fixture_geometry_sha256": "2c0449209c9806f54ee7f3013c4691a4a48b71a2279efd17414c684848ce4576",
+          "bounds_mm": [
+            37.9999999,
+            215.1543399,
+            263.2892349986842,
+            95.30000009999999,
+            274.6543401,
+            297.53076500131584
+          ]
+        },
+        "cold-core/vb-inlet-turn": {
+          "brep_sha256": "2b5b3005e147cf04ebb7d4226aee7ce30fc1c8138ec058ee5fb39ac72d9175d5",
+          "retained_fixture_geometry_sha256": "2b5b3005e147cf04ebb7d4226aee7ce30fc1c8138ec058ee5fb39ac72d9175d5",
+          "bounds_mm": [
+            29.9999999,
+            201.36213990000002,
+            272.6629999,
+            55.09520010000001,
+            227.8543401,
+            288.15700010000006
+          ]
+        },
+        "cold-core/vb-outlet-return": {
+          "brep_sha256": "17e70f12188ebec32aff451b70f045e12ab091229ae7e66b8849d622fb377ae2",
+          "retained_fixture_geometry_sha256": "17e70f12188ebec32aff451b70f045e12ab091229ae7e66b8849d622fb377ae2",
+          "bounds_mm": [
+            -58.090000118833515,
+            260.1371498811665,
+            284.03697722830054,
+            -28.97943287960596,
+            288.8624401188335,
+            302.42056979610345
+          ]
+        },
+        "cold-core/vb-outlet-stem": {
+          "brep_sha256": "54b3d5a943dcdef77a3a6084be0857b2f691c06783d13c76455c486bec6a41f5",
+          "retained_fixture_geometry_sha256": "54b3d5a943dcdef77a3a6084be0857b2f691c06783d13c76455c486bec6a41f5",
+          "bounds_mm": [
+            29.41994113519332,
+            261.9543399,
+            273.8517779791367,
+            55.836613959677,
+            288.4465401000002,
+            290.09961679246106
+          ]
+        },
+        "cold-core/wago-gnd": {
+          "brep_sha256": "4aeec70ee171b9569e6814cf4d8a5cd42a3c12cc89727b836c4fdfb9e298a640",
+          "retained_fixture_geometry_sha256": "4aeec70ee171b9569e6814cf4d8a5cd42a3c12cc89727b836c4fdfb9e298a640",
+          "bounds_mm": [
+            -1.8000001000000008,
+            232.5999999,
+            256.39999989999995,
+            16.800000100000002,
+            251.4000001,
+            264.80000010000003
+          ]
+        },
+        "cold-core/wago-reeds-b": {
+          "brep_sha256": "250464590b7e4660e595cc6750e4dad9a47c8eeb946e3ac18c630176e9eb66ba",
+          "retained_fixture_geometry_sha256": "250464590b7e4660e595cc6750e4dad9a47c8eeb946e3ac18c630176e9eb66ba",
+          "bounds_mm": [
+            -1.8000001000000008,
+            255.5999999,
+            256.39999989999995,
+            16.800000100000002,
+            274.4000001,
+            264.80000010000003
+          ]
+        },
+        "cold-core/wago-sensors": {
+          "brep_sha256": "cbd76397aae72ba41101c07b8dd969f5a5f7108bddd0e566d150c741a678b7d9",
+          "retained_fixture_geometry_sha256": "cbd76397aae72ba41101c07b8dd969f5a5f7108bddd0e566d150c741a678b7d9",
+          "bounds_mm": [
+            -1.8000001000000008,
+            185.5999999,
+            256.39999989999995,
+            16.800000100000002,
+            204.4000001,
+            264.80000010000003
+          ]
+        },
+        "cold-core/wago-v12": {
+          "brep_sha256": "2b1b3a0dc969231da8920b97f3857c1dbd960817d9da228a45e7eec42a14821c",
+          "retained_fixture_geometry_sha256": "2b1b3a0dc969231da8920b97f3857c1dbd960817d9da228a45e7eec42a14821c",
+          "bounds_mm": [
+            -1.8000001000000008,
+            208.5999999,
+            256.39999989999995,
+            16.800000100000002,
+            227.4000001,
+            264.80000010000003
+          ]
+        },
+        "drain-outlet-stem": {
+          "brep_sha256": "e78d4c237817a427bfbf3a8eaf6efc702b4c944ca73cf5a9c579fff2205187d5",
+          "retained_fixture_geometry_sha256": "e78d4c237817a427bfbf3a8eaf6efc702b4c944ca73cf5a9c579fff2205187d5",
+          "bounds_mm": [
+            -6.045200100000001,
+            184.05813990000001,
+            272.6629999,
+            19.050000100000002,
+            216.85614009999998,
+            288.15700010000006
+          ]
+        },
+        "elbow-cradle": {
+          "brep_sha256": "0f013c4fb7a662cdcd1c8d5c71bdbc6d7aac2851e506deea34f62732d77b2ceb",
+          "retained_fixture_geometry_sha256": "0f013c4fb7a662cdcd1c8d5c71bdbc6d7aac2851e506deea34f62732d77b2ceb",
+          "bounds_mm": [
+            -18.150000122015026,
+            167.95574987798497,
+            269.097099877985,
+            18.150000122015026,
+            199.75814012201505,
+            306.05000012201504
+          ]
+        },
+        "funnel-drain-stub": {
+          "brep_sha256": "c16b61b757eb1263c1cac1c1337b827cf88556b144c18b928150169120aa6413",
+          "retained_fixture_geometry_sha256": "c16b61b757eb1263c1cac1c1337b827cf88556b144c18b928150169120aa6413",
+          "bounds_mm": [
+            -3.1750000999999997,
+            176.0207499,
+            285.27238989999995,
+            3.1750000999999997,
+            182.3707501,
+            311.06482074528003
+          ]
+        },
+        "funnel-drain-union": {
+          "brep_sha256": "5e5ae978080e62daffe6da0aba9eb7d471c9b656819abe151f8a10337cbacc55",
+          "retained_fixture_geometry_sha256": "5e5ae978080e62daffe6da0aba9eb7d471c9b656819abe151f8a10337cbacc55",
+          "bounds_mm": [
+            -8.162900118829816,
+            171.1057498811702,
+            272.24709988117024,
+            8.162900118829816,
+            199.7581401188298,
+            300.9723901188298
+          ]
+        },
+        "funnel-frame": {
+          "brep_sha256": "8a96ebba3ca5c6f67ce4c6c3d08db7996e10bb81e995533d7f968ab1779379c9",
+          "retained_fixture_geometry_sha256": "8a96ebba3ca5c6f67ce4c6c3d08db7996e10bb81e995533d7f968ab1779379c9",
+          "bounds_mm": [
+            -104.55,
+            86.699992076719,
+            293.59999999999997,
+            104.55,
+            281.99150792328004,
+            361.3
+          ]
+        },
+        "tube-above-core-drain-vb-east-link": {
+          "brep_sha256": "e36cb192e4853300f1a6ee1c322897ae5d57bcb7242461fe1a817ae506221292",
+          "retained_fixture_geometry_sha256": "e36cb192e4853300f1a6ee1c322897ae5d57bcb7242461fe1a817ae506221292",
+          "bounds_mm": [
+            2.1589999,
+            205.9341399,
+            277.2349999,
+            46.8910001,
+            212.2841401,
+            283.58500010000006
+          ]
+        },
+        "tube-above-core-vb-yb-link": {
+          "brep_sha256": "487a50edaa41e493bbded0f8fdabee7312b714f685e4a0715ac08755cd5f9dc8",
+          "retained_fixture_geometry_sha256": "487a50edaa41e493bbded0f8fdabee7312b714f685e4a0715ac08755cd5f9dc8",
+          "bounds_mm": [
+            -56.0328569168,
+            167.9661086954016,
+            273.40473958823,
+            -18.768329583449997,
+            275.83715010000003,
+            303.05901600147
+          ]
+        },
+        "tube-fluid-24": {
+          "brep_sha256": "0b1941f4adefa32d01607e843a2dd558ef7dbade10fe58d13f69fdc06c4b3f2c",
+          "retained_fixture_geometry_sha256": "0b1941f4adefa32d01607e843a2dd558ef7dbade10fe58d13f69fdc06c4b3f2c",
+          "bounds_mm": [
+            -86.69008614002186,
+            103.44991385997815,
+            264.56238989999997,
+            -44.8249999,
+            291.0801422389342,
+            300.7650861400219
+          ]
+        },
+        "tube-fluid-26": {
+          "brep_sha256": "f769e7a6aa29c6f91ef0a9826c39be36674614d19fe776048627646b0728d363",
+          "retained_fixture_geometry_sha256": "f769e7a6aa29c6f91ef0a9826c39be36674614d19fe776048627646b0728d363",
+          "bounds_mm": [
+            -26.94008614002187,
+            103.44991385997815,
+            253.3999999,
+            15.890086140021866,
+            234.06613239398962,
+            300.7650861400219
+          ]
+        },
+        "ya-stem-elbow": {
+          "brep_sha256": "a2affc21e7a2ba7ea4f700a04653454f668f2eb9cc2838d369f8dded7e50105a",
+          "retained_fixture_geometry_sha256": "a2affc21e7a2ba7ea4f700a04653454f668f2eb9cc2838d369f8dded7e50105a",
+          "bounds_mm": [
+            15.713486096694309,
+            159.49599181875,
+            254.9749999,
+            31.923353228253987,
+            185.84491876637986,
+            284.46720010000297
+          ]
+        },
+        "yb-stem-elbow": {
+          "brep_sha256": "dd16058ce2f9815f9fc80639ba4d1b898f27be4dcad92ee373daf1a88b43e11e",
+          "retained_fixture_geometry_sha256": "dd16058ce2f9815f9fc80639ba4d1b898f27be4dcad92ee373daf1a88b43e11e",
+          "bounds_mm": [
+            -31.92335322825299,
+            159.49599181875,
+            254.9749999,
+            -15.713486096690115,
+            185.84491876637986,
+            284.4672001000032
+          ]
+        },
+        "coil-v-f": {
+          "brep_sha256": "34e8344465053d38a4248bcf611d1cb414d161c7146e398d142d7483e1467868",
+          "retained_fixture_geometry_sha256": "34e8344465053d38a4248bcf611d1cb414d161c7146e398d142d7483e1467868",
+          "bounds_mm": [
+            65.3499999,
+            122.9899999,
+            235.5249999,
+            98.85000009999999,
+            154.2900001,
+            279.5250001
+          ]
+        },
+        "coil-v-g": {
+          "brep_sha256": "096b383d89f6d1b76f04329b08a1ca570f866961c8094d5e42095ffaa8137924",
+          "retained_fixture_geometry_sha256": "096b383d89f6d1b76f04329b08a1ca570f866961c8094d5e42095ffaa8137924",
+          "bounds_mm": [
+            57.0699999,
+            119.9899999,
+            181.5249999,
+            90.57000009999999,
+            151.2900001,
+            225.5250001
+          ]
+        },
+        "flavor-reducer-v-g": {
+          "brep_sha256": "ec481af84689352a11c0fc73dcbea03b40300f1c0c7407f80d516fd3e0070d87",
+          "retained_fixture_geometry_sha256": "ec481af84689352a11c0fc73dcbea03b40300f1c0c7407f80d516fd3e0070d87",
+          "bounds_mm": [
+            67.2159999,
+            159.6359999,
+            207.1691999,
+            80.42400009999999,
+            172.84400010000002,
+            243.87220010000001
+          ]
+        },
+        "valve-v-g": {
+          "brep_sha256": "b37642dc3cd45523ffbceabf5b8f6499f165efe1c2a6da2188d98091cb777f5c",
+          "retained_fixture_geometry_sha256": "b37642dc3cd45523ffbceabf5b8f6499f165efe1c2a6da2188d98091cb777f5c",
+          "bounds_mm": [
+            56.699234998684226,
+            151.2899999,
+            168.67499990000002,
+            90.94076500131575,
+            177.2900001,
+            228.1750001
+          ]
+        },
+        "valve-v-c": {
+          "brep_sha256": "5ba1211c997c2f847ed43988b258af3b84b1b752bd8efa9197aca8a8cd16df91",
+          "retained_fixture_geometry_sha256": "5ba1211c997c2f847ed43988b258af3b84b1b752bd8efa9197aca8a8cd16df91",
+          "bounds_mm": [
+            5.229234998684227,
+            151.2899999,
+            168.67499990000002,
+            39.470765001315776,
+            177.2900001,
+            228.1750001
+          ]
+        },
+        "tee-y-a": {
+          "brep_sha256": "b3e57ee52702ab8ac9fba35e0f9c1f3c6ec799d937ecb9db48ea6d8048db2381",
+          "retained_fixture_geometry_sha256": "b3e57ee52702ab8ac9fba35e0f9c1f3c6ec799d937ecb9db48ea6d8048db2381",
+          "bounds_mm": [
+            -1.0000000069988564e-07,
+            157.98999990000002,
+            228.17499990000002,
+            30.600000100000003,
+            174.4900001,
+            270.67500010000003
+          ]
+        },
+        "tee-y-d": {
+          "brep_sha256": "b5c71ab5f9573b4f93bf207bf89cb8e89907ef1b72107515d7c3ee169fa3c224",
+          "retained_fixture_geometry_sha256": "b5c71ab5f9573b4f93bf207bf89cb8e89907ef1b72107515d7c3ee169fa3c224",
+          "bounds_mm": [
+            73.8499999,
+            87.1899999,
+            164.9239999,
+            90.35000009999999,
+            116.2900001,
+            207.4240001
+          ]
+        },
+        "valve-v-f": {
+          "brep_sha256": "6ca618035093b5cf2d8c2b8ac2b3d8eb54e1973d13b92d7d2985ac9f46276212",
+          "retained_fixture_geometry_sha256": "6ca618035093b5cf2d8c2b8ac2b3d8eb54e1973d13b92d7d2985ac9f46276212",
+          "bounds_mm": [
+            64.97923499868423,
+            96.9899999,
+            222.67499990000002,
+            99.22076500131575,
+            122.99000009999999,
+            282.17500010000003
+          ]
+        }
+      },
+      "final_anchor_subset_sha256": "c0dabadd78b64eaa6e4dd56a46cfdf326a67799a9c2beeac83bcd9a4e4fae80c",
+      "anchors": {
+        "valve-v-f": {
+          "fixture_bounds_mm": [
+            64.97923499868423,
+            96.9899999,
+            222.67499990000002,
+            99.22076500131575,
+            122.99000009999999,
+            282.17500010000003
+          ],
+          "final_subset_bounds_mm": [
+            64.97923499868423,
+            96.9899999,
+            222.67499990000002,
+            99.22076500131575,
+            122.99000009999999,
+            282.17500010000003
+          ],
+          "maximum_bound_delta_mm": 0.0,
+          "volume_delta_mm3": -1.8189894035458565e-11
+        },
+        "coil-v-f": {
+          "fixture_bounds_mm": [
+            65.3499999,
+            122.9899999,
+            235.5249999,
+            98.85000009999999,
+            154.2900001,
+            279.5250001
+          ],
+          "final_subset_bounds_mm": [
+            65.3499999,
+            122.9899999,
+            235.5249999,
+            98.85000009999999,
+            154.2900001,
+            279.5250001
+          ],
+          "maximum_bound_delta_mm": 0.0,
+          "volume_delta_mm3": -1.0913936421275139e-11
+        },
+        "valve-v-i": {
+          "fixture_bounds_mm": [
+            -99.22076500131575,
+            96.9899999,
+            222.67499990000002,
+            -64.97923499868423,
+            122.99000009999999,
+            282.17500010000003
+          ],
+          "final_subset_bounds_mm": [
+            -99.22076500131575,
+            96.9899999,
+            222.67499990000002,
+            -64.97923499868423,
+            122.99000009999999,
+            282.17500010000003
+          ],
+          "maximum_bound_delta_mm": 0.0,
+          "volume_delta_mm3": -7.275957614183426e-12
+        },
+        "coil-v-i": {
+          "fixture_bounds_mm": [
+            -98.85000009999999,
+            122.9899999,
+            235.5249999,
+            -65.3499999,
+            154.2900001,
+            279.5250001
+          ],
+          "final_subset_bounds_mm": [
+            -98.85000009999999,
+            122.9899999,
+            235.5249999,
+            -65.3499999,
+            154.2900001,
+            279.5250001
+          ],
+          "maximum_bound_delta_mm": 0.0,
+          "volume_delta_mm3": -1.0913936421275139e-11
+        }
+      }
+    },
+    "query_count": 140,
+    "queries": [
+      {
+        "wire": "J1-COM",
+        "part": "tube-above-core-va-fore-feed",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-COM",
+        "part": "tube-fluid-14",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-COM",
+        "part": "tube-fluid-16",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-COM",
+        "part": "tube-fluid-18",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-COM",
+        "part": "tube-fluid-28",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-COM",
+        "part": "wago-mana",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-COM",
+        "part": "current-front-top",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "asse1022-assembly",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "cold-core/g-ganen-pump",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "cold-core/lower-pump-elbow",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "cold-core/lower-valve-elbow",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "cold-core/pcba",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "cold-core/pump-inlet-barb-band",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "cold-core/pump-inlet-tube-band",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "cold-core/pump-outlet-barb-band",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "cold-core/reg-va-elbow",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "cold-core/reservoir-b-fill-upper",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "cold-core/tube-above-core-pump-check-link",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "cold-core/tube-above-core-pump-inlet-link",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "cold-core/tube-above-core-va-under-head",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "cold-core/tube-above-core-vb-yb-cross",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "cold-core/va-east-turn",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "cold-core/va-outlet-elbow",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "cold-core/valve-v-a",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "cold-core/valve-v-b",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "cold-core/vb-inlet-turn",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "cold-core/vb-outlet-return",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "cold-core/vb-outlet-stem",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "cold-core/wago-gnd",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "cold-core/wago-reeds-b",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "cold-core/wago-sensors",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "cold-core/wago-v12",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "drain-outlet-stem",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "elbow-cradle",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "funnel-drain-stub",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "funnel-drain-union",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "funnel-frame",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "tube-above-core-drain-vb-east-link",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "tube-above-core-va-fore-feed",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "tube-above-core-vb-yb-link",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "tube-fluid-14",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "tube-fluid-16",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "tube-fluid-18",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "tube-fluid-24",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "tube-fluid-26",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "tube-fluid-28",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "ya-stem-elbow",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "yb-stem-elbow",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "wago-mana",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-A",
+        "part": "current-front-top",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-B",
+        "part": "cold-core/valve-v-b",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-B",
+        "part": "funnel-frame",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-B",
+        "part": "tube-fluid-14",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-B",
+        "part": "tube-fluid-28",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-B",
+        "part": "wago-mana",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-B",
+        "part": "current-front-top",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-C",
+        "part": "coil-v-f",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-C",
+        "part": "coil-v-g",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-C",
+        "part": "flavor-reducer-v-g",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-C",
+        "part": "tube-fluid-14",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-C",
+        "part": "tube-fluid-16",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-C",
+        "part": "tube-fluid-18",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-C",
+        "part": "tube-fluid-28",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-C",
+        "part": "valve-v-g",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-C",
+        "part": "wago-mana",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-C",
+        "part": "wago-manb",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-C",
+        "part": "current-front-top",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-D",
+        "part": "coil-v-f",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-D",
+        "part": "tube-fluid-14",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-D",
+        "part": "tube-fluid-16",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-D",
+        "part": "tube-fluid-18",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-D",
+        "part": "tube-fluid-28",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-D",
+        "part": "wago-mana",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-D",
+        "part": "wago-manb",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-D",
+        "part": "current-front-top",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-E",
+        "part": "flavor-reducer-v-g",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-E",
+        "part": "tube-above-core-va-fore-feed",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-E",
+        "part": "tube-fluid-14",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-E",
+        "part": "tube-fluid-16",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-E",
+        "part": "tube-fluid-18",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-E",
+        "part": "tube-fluid-28",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-E",
+        "part": "valve-v-c",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-E",
+        "part": "valve-v-g",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-E",
+        "part": "wago-mana",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-E",
+        "part": "wago-manb",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-E",
+        "part": "current-front-top",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-F",
+        "part": "coil-v-f",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-F",
+        "part": "tube-fluid-14",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-F",
+        "part": "tube-fluid-18",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-F",
+        "part": "tube-fluid-28",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-F",
+        "part": "wago-mana",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-F",
+        "part": "current-front-top",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-G",
+        "part": "tube-fluid-14",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-G",
+        "part": "tube-fluid-18",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-G",
+        "part": "tube-fluid-28",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-G",
+        "part": "wago-mana",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-G",
+        "part": "current-front-top",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-H",
+        "part": "flavor-reducer-v-g",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-H",
+        "part": "tube-above-core-va-fore-feed",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-H",
+        "part": "tube-fluid-14",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-H",
+        "part": "tube-fluid-16",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-H",
+        "part": "tube-fluid-18",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-H",
+        "part": "tube-fluid-28",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-H",
+        "part": "wago-mana",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-H",
+        "part": "wago-manb",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J1-positive-H",
+        "part": "current-front-top",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J2-COM",
+        "part": "flavor-reducer-v-g",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J2-COM",
+        "part": "tube-fluid-14",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J2-COM",
+        "part": "tube-fluid-16",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J2-COM",
+        "part": "tube-fluid-18",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J2-COM",
+        "part": "tube-fluid-28",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J2-COM",
+        "part": "wago-manb",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J2-COM",
+        "part": "current-front-top",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J2-positive-I",
+        "part": "flavor-reducer-v-g",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J2-positive-I",
+        "part": "tee-y-a",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J2-positive-I",
+        "part": "tube-fluid-14",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J2-positive-I",
+        "part": "tube-fluid-16",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J2-positive-I",
+        "part": "tube-fluid-18",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J2-positive-I",
+        "part": "tube-fluid-28",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J2-positive-I",
+        "part": "wago-manb",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J2-positive-I",
+        "part": "current-front-top",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J2-positive-J",
+        "part": "flavor-reducer-v-g",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J2-positive-J",
+        "part": "tube-fluid-28",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J2-positive-J",
+        "part": "wago-manb",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J2-positive-J",
+        "part": "current-front-top",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J2-positive-fan",
+        "part": "coil-v-f",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J2-positive-fan",
+        "part": "coil-v-g",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J2-positive-fan",
+        "part": "tee-y-d",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J2-positive-fan",
+        "part": "tube-fluid-28",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J2-positive-fan",
+        "part": "valve-v-f",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J2-positive-fan",
+        "part": "valve-v-g",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J2-positive-fan",
+        "part": "wago-manb",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J2-positive-fan",
+        "part": "current-front-top",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J2-positive-K",
+        "part": "cold-core/valve-v-b",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J2-positive-K",
+        "part": "funnel-frame",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J2-positive-K",
+        "part": "tube-fluid-14",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J2-positive-K",
+        "part": "tube-fluid-28",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J2-positive-K",
+        "part": "wago-mana",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J2-positive-K",
+        "part": "wago-manb",
+        "changed_section_common_mm3": 0.0
+      },
+      {
+        "wire": "J2-positive-K",
+        "part": "current-front-top",
+        "changed_section_common_mm3": 0.0
+      }
+    ],
+    "introduced_contacts": [],
+    "all_changed_section_hardware_intersections_empty": true,
+    "verified_candidate_to_final_source_curve_comparison": {
+      "J1-COM": {
+        "segment_count_equal": true,
+        "maximum_endpoint_delta_mm": 0.0
+      },
+      "J1-positive-A": {
+        "segment_count_equal": true,
+        "maximum_endpoint_delta_mm": 0.0
+      },
+      "J1-positive-B": {
+        "segment_count_equal": true,
+        "maximum_endpoint_delta_mm": 0.0
+      },
+      "J1-positive-C": {
+        "segment_count_equal": true,
+        "maximum_endpoint_delta_mm": 0.0
+      },
+      "J1-positive-D": {
+        "segment_count_equal": true,
+        "maximum_endpoint_delta_mm": 0.0
+      },
+      "J1-positive-E": {
+        "segment_count_equal": true,
+        "maximum_endpoint_delta_mm": 0.0
+      },
+      "J1-positive-F": {
+        "segment_count_equal": true,
+        "maximum_endpoint_delta_mm": 2.842170943040401e-14
+      },
+      "J1-positive-G": {
+        "segment_count_equal": true,
+        "maximum_endpoint_delta_mm": 2.842170943040401e-14
+      },
+      "J1-positive-H": {
+        "segment_count_equal": true,
+        "maximum_endpoint_delta_mm": 0.0
+      },
+      "J2-COM": {
+        "segment_count_equal": true,
+        "maximum_endpoint_delta_mm": 4.96243046654854e-11
+      },
+      "J2-positive-I": {
+        "segment_count_equal": true,
+        "maximum_endpoint_delta_mm": 2.842170943040401e-14
+      },
+      "J2-positive-J": {
+        "segment_count_equal": true,
+        "maximum_endpoint_delta_mm": 0.0
+      },
+      "J2-positive-fan": {
+        "segment_count_equal": true,
+        "maximum_endpoint_delta_mm": 0.0
+      },
+      "J2-positive-K": {
+        "segment_count_equal": true,
+        "maximum_endpoint_delta_mm": 0.0
+      }
+    }
+  },
+  "native_wire_delta_query": {
+    "method": "Changed native curve sections against source-native installed conductors; intersecting pairs are compared with their original native routes. The original-route comparison increases the 1.7 mm conductor diameter by 0.00002 mm to suppress coincident-face Boolean noise; this 0.00001 mm radial allowance is numerical classification tolerance.",
+    "native_neighbor_wire_count": 75,
+    "current_changed_section_contacts": [
+      {
+        "a": "J1-COM",
+        "b": "J2-COM",
+        "common_mm3": 3.763675530904023,
+        "bounds_mm": [
+          35.70692085371093,
+          201.18561746169104,
+          268.22126472863033,
+          40.92553261646425,
+          205.39685122147174,
+          269.5148723687151
+        ]
+      },
+      {
+        "a": "J1-positive-A",
+        "b": "J6-RA1",
+        "common_mm3": 2.140550690976631,
+        "bounds_mm": [
+          -52.306520513243385,
+          314.1004730527982,
+          277.1480529350594,
+          -51.101489439945794,
+          315.8647040032717,
+          278.8520052418868
+        ]
+      },
+      {
+        "a": "J1-positive-C",
+        "b": "J1-positive-E",
+        "common_mm3": 3.044122075089853,
+        "bounds_mm": [
+          57.85157642671063,
+          158.84198019502142,
+          244.77795165424976,
+          62.9043300047581,
+          161.5670944618389,
+          250.13372001080003
+        ]
+      },
+      {
+        "a": "J1-positive-C",
+        "b": "J1-OUT7",
+        "common_mm3": 2.9346951146148017,
+        "bounds_mm": [
+          56.45092455903087,
+          156.5892344475749,
+          238.91238947859125,
+          58.96045815940081,
+          159.29301278772166,
+          241.8819381779099
+        ]
+      },
+      {
+        "a": "J1-positive-C",
+        "b": "J2-FAN",
+        "common_mm3": 1.0116771285138044,
+        "bounds_mm": [
+          51.83209906346234,
+          152.62930124285558,
+          227.74454964013773,
+          54.16945186706064,
+          155.19619694995183,
+          230.91083488585826
+        ]
+      },
+      {
+        "a": "J1-positive-E",
+        "b": "J1-positive-C",
+        "common_mm3": 3.0441220774560724,
+        "bounds_mm": [
+          57.85157642671063,
+          158.84198019492393,
+          244.77795165395727,
+          62.904330005151245,
+          161.56709446197027,
+          250.1337200111941
+        ]
+      },
+      {
+        "a": "J1-positive-E",
+        "b": "J1-OUT7",
+        "common_mm3": 0.07001003279094481,
+        "bounds_mm": [
+          54.32902478713051,
+          159.31689241863182,
+          242.12370630783371,
+          55.70631585884583,
+          160.2130692149406,
+          243.3968542944248
+        ]
+      }
+    ],
+    "retained_pair_classification": [
+      {
+        "a": "J1-COM",
+        "b": "J2-COM",
+        "current_common_mm3": 4.393830608301099,
+        "introduced_mm3": 0.0,
+        "original_comparison_common_mm3": 4.394020282035549
+      },
+      {
+        "a": "J1-OUT7",
+        "b": "J1-positive-C",
+        "current_common_mm3": 2.934695114610403,
+        "introduced_mm3": 0.0,
+        "original_comparison_common_mm3": 2.934822137513441
+      },
+      {
+        "a": "J1-OUT7",
+        "b": "J1-positive-E",
+        "current_common_mm3": 0.07001003279094546,
+        "introduced_mm3": 0.0,
+        "original_comparison_common_mm3": 0.07002729821297424
+      },
+      {
+        "a": "J1-positive-A",
+        "b": "J6-RA1",
+        "current_common_mm3": 2.140550690976631,
+        "introduced_mm3": 0.0,
+        "original_comparison_common_mm3": 2.140645433565528
+      },
+      {
+        "a": "J1-positive-C",
+        "b": "J1-positive-E",
+        "current_common_mm3": 3.044122075089853,
+        "introduced_mm3": 0.0,
+        "original_comparison_common_mm3": 3.0444752326619193
+      },
+      {
+        "a": "J1-positive-C",
+        "b": "J2-FAN",
+        "current_common_mm3": 1.0116771285138044,
+        "introduced_mm3": 0.0,
+        "original_comparison_common_mm3": 1.0117688834986869
+      }
+    ],
+    "introduced_contacts": [],
+    "all_pair_intersections_retained_from_original_routes": true
+  },
+  "source_curves": {
+    "J1-COM": {
+      "start": "J1.COM",
+      "end": "wago-mana.1",
+      "net": "V12",
+      "length_mm": 200.807,
+      "segments_sha256": "5629a535689385e98186b36b7522420e8ba4b3c949a6909f5be280433fa48464",
+      "route_status": "proposed"
+    },
+    "J1-positive-A": {
+      "start": "wago-mana.2",
+      "end": "V-A.positive",
+      "net": "V12",
+      "length_mm": 327.561,
+      "segments_sha256": "2c441e439646d1d8e85da71b5c6875ba14a413bf24ea27a53ea3f5d27bd25d5a",
+      "route_status": "proposed"
+    },
+    "J1-positive-B": {
+      "start": "wago-mana.3",
+      "end": "V-B.positive",
+      "net": "V12",
+      "length_mm": 111.586,
+      "segments_sha256": "673f79e321f4ed8dcc27bf0fc9be66838b0d574d1528c9ae615b2df7a8baddd2",
+      "route_status": "proposed"
+    },
+    "J1-positive-C": {
+      "start": "wago-mana.4",
+      "end": "V-C.positive",
+      "net": "V12",
+      "length_mm": 159.489,
+      "segments_sha256": "fc0288204493cab52e8575a74320615a6cc003fea7781f44e057cbabb5ecd965",
+      "route_status": "proposed"
+    },
+    "J1-positive-D": {
+      "start": "wago-mana.5",
+      "end": "V-D.positive",
+      "net": "V12",
+      "length_mm": 180.227,
+      "segments_sha256": "7afbafde87a0bf399a5c2016af7e6ed836c3a2a71ce0760b5245500388aba97a",
+      "route_status": "proposed"
+    },
+    "J1-positive-E": {
+      "start": "wago-mana.6",
+      "end": "V-E.positive",
+      "net": "V12",
+      "length_mm": 97.378,
+      "segments_sha256": "091068332006bf66f63928acc5afe939a6f8d183dda62431dbb758adb45bd950",
+      "route_status": "proposed"
+    },
+    "J1-positive-F": {
+      "start": "wago-mana.7",
+      "end": "V-F.positive",
+      "net": "V12",
+      "length_mm": 39.149,
+      "segments_sha256": "4e00b9f9540b3e6d4c3ea3e5d7c4701dca36d8768dae08160f79e942b3b6f5d9",
+      "route_status": "proposed"
+    },
+    "J1-positive-G": {
+      "start": "wago-mana.8",
+      "end": "V-G.positive",
+      "net": "V12",
+      "length_mm": 87.77,
+      "segments_sha256": "f5b9327cc36f897d2b1b9eb603614d41b65031bbd704ac9d1e4d0a2c441fbfec",
+      "route_status": "proposed"
+    },
+    "J1-positive-H": {
+      "start": "wago-mana.9",
+      "end": "V-H.positive",
+      "net": "V12",
+      "length_mm": 136.073,
+      "segments_sha256": "a7fb4e3e7bcc6cbe83ff1c3ca64775ed81323e89c4d73f5234082aad4b9fd166",
+      "route_status": "proposed"
+    },
+    "J2-COM": {
+      "start": "J2.COM",
+      "end": "wago-manb.1",
+      "net": "V12",
+      "length_mm": 210.379,
+      "segments_sha256": "7aaa27b8ab674366efebf2c947fad4dfe6a2ff144d22a53a01b56d5db45d31e3",
+      "route_status": "proposed"
+    },
+    "J2-positive-I": {
+      "start": "wago-manb.2",
+      "end": "V-I.positive",
+      "net": "V12",
+      "length_mm": 192.389,
+      "segments_sha256": "8ee2e61f4353e6acc91a3bb8e495f7c57f8d7b6623081418a655a9cab8dca18d",
+      "route_status": "proposed"
+    },
+    "J2-positive-J": {
+      "start": "wago-manb.3",
+      "end": "V-J.positive",
+      "net": "V12",
+      "length_mm": 172.371,
+      "segments_sha256": "76f540c22115563702a625d9204bfb724054102c020950542e739cda5108f019",
+      "route_status": "proposed"
+    },
+    "J2-positive-fan": {
+      "start": "wago-manb.4",
+      "end": "fan.positive",
+      "net": "V12",
+      "length_mm": 188.68,
+      "segments_sha256": "93d6781929eec4ba688384e05378d317ca8996226ade26115b3261dfa8f6a8c9",
+      "route_status": "proposed"
+    },
+    "J2-positive-K": {
+      "start": "wago-manb.5",
+      "end": "V-K.positive",
+      "net": "V12",
+      "length_mm": 256.495,
+      "segments_sha256": "0c9d33d919def0bff55eb1c8f369e65c8a80312c1a9e8eb49003c165f41b4287",
+      "route_status": "proposed"
+    }
+  },
+  "terminal_interfaces": {
+    "wago-mana.1": {
+      "id": "wago-mana.1",
+      "part": "wago-mana",
+      "point": [
+        86.05,
+        181.10000000000002,
+        265.08
+      ],
+      "outward": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "kind": "WAGO-port",
+      "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+      "status": "nominal",
+      "pin": "1"
+    },
+    "wago-mana.2": {
+      "id": "wago-mana.2",
+      "part": "wago-mana",
+      "point": [
+        86.05,
+        181.10000000000002,
+        271.04
+      ],
+      "outward": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "kind": "WAGO-port",
+      "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+      "status": "nominal",
+      "pin": "2"
+    },
+    "wago-mana.3": {
+      "id": "wago-mana.3",
+      "part": "wago-mana",
+      "point": [
+        86.05,
+        181.10000000000002,
+        277.0
+      ],
+      "outward": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "kind": "WAGO-port",
+      "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+      "status": "nominal",
+      "pin": "3"
+    },
+    "wago-mana.4": {
+      "id": "wago-mana.4",
+      "part": "wago-mana",
+      "point": [
+        86.05,
+        181.10000000000002,
+        282.96
+      ],
+      "outward": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "kind": "WAGO-port",
+      "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+      "status": "nominal",
+      "pin": "4"
+    },
+    "wago-mana.5": {
+      "id": "wago-mana.5",
+      "part": "wago-mana",
+      "point": [
+        86.05,
+        181.10000000000002,
+        288.92
+      ],
+      "outward": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "kind": "WAGO-port",
+      "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+      "status": "nominal",
+      "pin": "5"
+    },
+    "wago-mana.6": {
+      "id": "wago-mana.6",
+      "part": "wago-mana",
+      "point": [
+        86.05,
+        173.20000000000002,
+        265.08
+      ],
+      "outward": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "kind": "WAGO-port",
+      "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+      "status": "nominal",
+      "pin": "6"
+    },
+    "wago-mana.7": {
+      "id": "wago-mana.7",
+      "part": "wago-mana",
+      "point": [
+        86.05,
+        173.20000000000002,
+        271.04
+      ],
+      "outward": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "kind": "WAGO-port",
+      "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+      "status": "nominal",
+      "pin": "7"
+    },
+    "wago-mana.8": {
+      "id": "wago-mana.8",
+      "part": "wago-mana",
+      "point": [
+        86.05,
+        173.20000000000002,
+        277.0
+      ],
+      "outward": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "kind": "WAGO-port",
+      "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+      "status": "nominal",
+      "pin": "8"
+    },
+    "wago-mana.9": {
+      "id": "wago-mana.9",
+      "part": "wago-mana",
+      "point": [
+        86.05,
+        173.20000000000002,
+        282.96
+      ],
+      "outward": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "kind": "WAGO-port",
+      "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+      "status": "nominal",
+      "pin": "9"
+    },
+    "wago-manb.1": {
+      "id": "wago-manb.1",
+      "part": "wago-manb",
+      "point": [
+        85.75,
+        173.45000000000002,
+        231.0
+      ],
+      "outward": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "kind": "WAGO-port",
+      "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+      "status": "nominal",
+      "pin": "1"
+    },
+    "wago-manb.2": {
+      "id": "wago-manb.2",
+      "part": "wago-manb",
+      "point": [
+        85.75,
+        173.45000000000002,
+        237.0
+      ],
+      "outward": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "kind": "WAGO-port",
+      "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+      "status": "nominal",
+      "pin": "2"
+    },
+    "wago-manb.3": {
+      "id": "wago-manb.3",
+      "part": "wago-manb",
+      "point": [
+        85.75,
+        173.45000000000002,
+        243.0
+      ],
+      "outward": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "kind": "WAGO-port",
+      "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+      "status": "nominal",
+      "pin": "3"
+    },
+    "wago-manb.4": {
+      "id": "wago-manb.4",
+      "part": "wago-manb",
+      "point": [
+        85.75,
+        173.45000000000002,
+        249.0
+      ],
+      "outward": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "kind": "WAGO-port",
+      "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+      "status": "nominal",
+      "pin": "4"
+    },
+    "wago-manb.5": {
+      "id": "wago-manb.5",
+      "part": "wago-manb",
+      "point": [
+        85.75,
+        173.45000000000002,
+        255.0
+      ],
+      "outward": [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      "kind": "WAGO-port",
+      "basis": "Distinct nominal port centres within native WAGO envelope; bores unmodelled",
+      "status": "nominal",
+      "pin": "5"
+    }
+  },
+  "integration_handoff": {
+    "step_path": "/tmp/integral-pump-mount-final-wago-wires.step",
+    "step_sha256": "e1b12793b6ad7e52f78f8b39af6fce145e593e43d9fae5ccfa021c990139a510",
+    "route_record_json_path": "/tmp/integral-pump-mount-final-wago-wires.json",
+    "route_record_json_sha256": "5a1e89c30ce16f3da3cb3f32bf961aa2b6557cf2d9162f7a6f26630841122434",
+    "replacement_body_names": [
+      "wire-J1-COM",
+      "wire-J1-positive-A",
+      "wire-J1-positive-B",
+      "wire-J1-positive-C",
+      "wire-J1-positive-D",
+      "wire-J1-positive-E",
+      "wire-J1-positive-F",
+      "wire-J1-positive-G",
+      "wire-J1-positive-H",
+      "wire-J2-COM",
+      "wire-J2-positive-I",
+      "wire-J2-positive-J",
+      "wire-J2-positive-fan",
+      "wire-J2-positive-K"
+    ],
+    "durable_route_record": "hardware/wiring/enclosure-wiring.json",
+    "scope": "Only the 14 named wiring bodies and their route rows are replaced. The physical assembly and other wiring bodies are retained by the integrator."
+  },
+  "physical_acceptance_claimed": false,
+  "evidence_limits": [
+    "Existing unqualified conductor contacts outside the moved local fan-outs remain visible in the pair classifications; this receipt does not claim a contact-free entire harness.",
+    "Native routes do not establish physical dressing, terminal insertion, vibration resistance, pull-load capacity or lifetime.",
+    "The retained fixture proves the purchased hardware/tube geometry queried here; superseded enclosure/pump pieces and printed cold-core casing are excluded."
+  ]
+}

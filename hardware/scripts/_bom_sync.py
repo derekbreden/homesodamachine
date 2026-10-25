@@ -38,6 +38,9 @@ import _facts
 import enclosure_assembly as _ea  # noqa: F401  — holds the closure these docs watch
 import ground_ring_stack as _gnd  # on the path once `enclosure_assembly` is imported
 import enclosure as _enc  # likewise
+import _box_spec
+import _fixed_pump_mount
+from materialize_pump_cartridge import _declared_box
 import digiten_flow_sensor as _digiten  # likewise — the arm the meter's anchors bore for
 import iec_c14_inlet as _c14  # likewise — the inlet whose flange the +Y wall's tunnel bores for
 import meanwell_irm90 as _psu  # the west-wall supply and its mounting ears
@@ -278,15 +281,12 @@ display_cover_inserts_per_build = 0
 display_cover_screws_per_build = 0
 display_cover_wings_per_build = len(_enc._display_wings.support_exits(1.0))
 
-# The pump clamp's two, read off its centre lane. ONE TOP CLAMP CLOSES ON BOTH STAMPED
-# BRACKETS (`enclosure.build_pump_cap`) and `cap_screw_ys` strikes a pair either side of the
-# lane's mid-depth, so it is two screws and two inserts however many pumps the cradle carries.
-# They are the box's only M3 x 60 — `enclosure.cap_screw_len` is the under-head length, the
-# clamp's whole filled field from a counterbore in its crown to a long insert in the cradle
-# spine. The lower cradle carries pump weight; these screws keep the clamp pressed onto the
-# brackets.
-pump_cap_inserts_per_build = len(_enc.cap_screw_ys(_f.box["inner"], _f.box["collet_plate"]))
-pump_cap_screws_per_build = pump_cap_inserts_per_build
+# Three underside M3 x 60 screws close the broad lower retainer against the two
+# pump skirts. Their full-length M3 inserts belong to front-top's integral upper mount.
+# Read the declared placement and the mount's own fastener plan without drawing solids.
+_pump_mount_box, _pump_mount_bounds, _pump_mount_box_path = _declared_box(_box_spec, _enc)
+pump_retainer_inserts_per_build = len(_fixed_pump_mount.fasteners(_enc, _pump_mount_box))
+pump_retainer_screws_per_build = pump_retainer_inserts_per_build
 
 # Each pump tee stands in its bore through front-top's tee wall and takes no fastener.
 dock_tees_per_build = len(_f.box["collet_plate"]["holes"])
@@ -353,9 +353,8 @@ pcba_screw_reach = deck_mount_reach('pcba')
 relay_screw_reach = min(relay_fasteners['receiving_range_mm'])
 c14_screw_reach = c14_screw_len - _c14.FLANGE_T - c14_washer_thickness
 
-# And every M3 x 60: the pump clamp's two, the one station whose screw is as long as the field
-# it crosses.
-m3x60_per_build = pump_cap_screws_per_build
+# Every M3 x 60 belongs to the pump retainer's underside screw row.
+m3x60_per_build = pump_retainer_screws_per_build
 
 # M3 × 12 retains the funnel frame and the PSU's four wall ears.
 m3x12_per_build = (dock_fixture_locks_per_build + roof_closure_screws_per_build
@@ -376,7 +375,7 @@ m3_long_inserts_per_build = (
     + cond_inserts_per_build
     + nameplate_inserts_per_build
     + display_cover_inserts_per_build
-    + pump_cap_inserts_per_build
+    + pump_retainer_inserts_per_build
     + roof_closure_inserts_per_build
 )
 m3_short_inserts_per_build = (
@@ -403,7 +402,7 @@ total_m3_screws_per_build = (
     + nameplate_screws_per_build
     + display_cover_screws_per_build
     + faucet_display_cover_screws_per_build
-    + pump_cap_screws_per_build
+    + pump_retainer_screws_per_build
     + c14_screws_per_build
     + dock_fixture_locks_per_build
     + roof_closure_screws_per_build
@@ -538,6 +537,7 @@ def main(*, only_bom=False):
         "ROOF_CLOSURE_INSERTS": f"{roof_closure_inserts_per_build:.4g}",
         "ROOF_CLOSURE_SCREWS": f"{roof_closure_screws_per_build:.4g}",
         "M3X60_TOTAL": f"{m3x60_per_build:.4g}",
+        "M3X60_COST": pack_line_cost(m3x60_per_build, "10.18", 60),
         "M3X12_TOTAL": f"{m3x12_per_build:.4g}",
         "M3X12_COST": pack_line_cost(m3x12_per_build, "8.57", 120),
         "SEAM_RODS": f"{enclosure_seam_rods_per_build:.4g}",
@@ -560,8 +560,8 @@ def main(*, only_bom=False):
         "PP0308E_COST": pack_line_cost(pp0308e_per_build, "68.49", 30),
         "DOCK_TEES": f"{dock_tees_per_build:.4g}",
         "DOCK_FIXTURE_LOCKS": f"{dock_fixture_locks_per_build:.4g}",
-        "PUMP_CAP_INSERTS": f"{pump_cap_inserts_per_build:.4g}",
-        "PUMP_CAP_SCREWS": f"{pump_cap_screws_per_build:.4g}",
+        "PUMP_RETAINER_INSERTS": f"{pump_retainer_inserts_per_build:.4g}",
+        "PUMP_RETAINER_SCREWS": f"{pump_retainer_screws_per_build:.4g}",
         "FLOOR_INSERTS": f"{floor_inserts_per_build:.4g}",
         "FLOOR_SCREWS": f"{floor_screws_per_build:.4g}",
         "FLOOR_WASHERS": f"{floor_washers_per_build:.4g}",
@@ -649,7 +649,7 @@ def main(*, only_bom=False):
             "SHELF_SCREWS": f"{shelf_screws_per_build:.4g}",
             "COND_SCREWS": f"{cond_screws_per_build:.4g}",
             "DISPLAY_COVER_SCREWS": f"{display_cover_screws_per_build:.4g}",
-            "PUMP_CAP_SCREWS": f"{pump_cap_screws_per_build:.4g}",
+            "PUMP_RETAINER_SCREWS": f"{pump_retainer_screws_per_build:.4g}",
             "DOCK_LOCKS": f"{dock_fixture_locks_per_build:.4g}",
             "C14_SCREWS": f"{c14_screws_per_build:.4g}",
             "ROOF_CLOSURE_SCREWS": f"{roof_closure_screws_per_build:.4g}",
