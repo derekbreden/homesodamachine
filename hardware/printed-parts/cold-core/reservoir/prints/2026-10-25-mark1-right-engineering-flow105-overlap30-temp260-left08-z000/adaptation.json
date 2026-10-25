@@ -40,9 +40,13 @@
   "plate_preparation": "Derek reports Engineering Plate cleaned and glued again; transparent PETG AMS connected to left hotend.",
   "added_user_z_trim_mm": 0,
   "expected_effective_z_trim_mm": 0,
-  "status": "Native review complete; awaiting printer nozzle configuration and Studio Send.",
+  "status": "Launched on Mark1 as job 1374963298; fixed left 0.8 mm identified and A1 selected with Auto Refill.",
   "native_review": "native-review.json",
   "packaging": "packaging.json",
   "emitted_z_trim_mm": 0,
-  "founder_quote": "I'm not sure exactly what went wrong there, but the nozzle clearly got pretty gunked up, wiped onto itself. We really hadn't been using the right hot end for PETG 0.8 very much, so I wonder if it just maybe doesn't work very well. So I've switched Mark 1 over to 0.8 left hot end. The AMS 2 with all the transparent filament is connected to that left hot end on Mark 1 now. I've still got the engineering plate there, and I've cleaned it and glued it up again. So I'd like you to try again on the left hot end on Mark 1 now. Thanks."
+  "founder_quote": "I'm not sure exactly what went wrong there, but the nozzle clearly got pretty gunked up, wiped onto itself. We really hadn't been using the right hot end for PETG 0.8 very much, so I wonder if it just maybe doesn't work very well. So I've switched Mark 1 over to 0.8 left hot end. The AMS 2 with all the transparent filament is connected to that left hot end on Mark 1 now. I've still got the engineering plate there, and I've cleaned it and glued it up again. So I'd like you to try again on the left hot end on Mark 1 now. Thanks.",
+  "job_id": "1374963298",
+  "launch": "launch.json",
+  "startup": "startup.json",
+  "followup_authorization": "Try now."
 }

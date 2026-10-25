@@ -1,20 +1,22 @@
 # Mark1 right reservoir and cap: left 0.8 mm Engineering Plate retry
 
-The **right reservoir and matching cap** are **prepared, not sent**, for
-Mark1's **left 0.8 mm Standard** hotend on the cleaned, glued **Engineering
-Plate**. Studio Preview verifies the right model pair, Engineering Plate and
-PETG assigned only to the left nozzle. Send verifies **A1 PETG L** and green
-Auto Refill, but is disabled: the printer still reports **left 0.4 mm**.
-Studio's Printer Parts controls are read-only and do not expose a left
-refresh button. The **Read All** rack read completes without updating the
-fixed left nozzle. A separate native **`refresh_nozzle`** request is rejected
-with **“mqtt message verify failed”**; Studio reports a command-verification
-warning. No software diameter override is sent, and no print is started.
+The **right reservoir and matching cap** are running as Mark1 **task
+1374963298**, accepted by one Studio Send at **15:18:16 CDT / 20:18:16 UTC
+on October 25**. The fixed **left 0.8 mm Standard** hotend is identified by
+fresh printer status. The cleaned, glued **Engineering Plate** uses **0.00 mm
+Z compensation**. [Launch receipt](launch.json) · [Preflight](preflight.json) ·
+[UI review](ui-review.json).
 
-The remaining read is on Mark1's touchscreen: **Settings → Nozzle & Extruder
-→ Read Left Nozzle Info**. This automatically identifies the left hotend;
-manual entry of 0.8 mm is not required. [Read result and manufacturer procedure](nozzle-read.json) ·
-[UI review](ui-review.json) · [Preflight](preflight.json).
+Fresh startup reports **RUNNING, layer 0/833, print error 0 and no HMS**.
+At **15:22:29 CDT / 20:22:29 UTC**, AMS unit 0 tray 0 (**A1**) is loaded into
+the mounted left 0.8 mm nozzle, at 255/255 °C; the right nozzle is cold.
+Two changing live camera frames confirm the cleared Engineering Plate during
+preparation. Model deposition, body/cap attachment and water holding are
+unassessed. Timelapse is selected On; runtime remains disabled in preparation,
+so activation at deposition is unobserved. [Startup observations](startup.json).
+
+The [nozzle-identification record](nozzle-read.json) preserves the earlier
+rejected remote read separately from the subsequent verified identification.
 
 The preceding right-hotend **task 1374272357** has [reported polymer buildup and a motion-step-loss warning](../2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json).
 Four photographs show the warning **0300-800c 015526**, partial body/cap
@@ -52,10 +54,17 @@ is at least **65.519 mm** inside the left nozzle's usable boundary.
 most-depleted-first preference. All are Bambu PETG Translucent Clear, GFG01,
 transparent 00000000. AMS unit 0 trays 0–3 address A1–A4.
 **AMS filament backup is On**. Automatic backup priority order is unverified.
-Final calibration selections, shared-circuit spacing, Send and startup remain
-pending. No scheduled monitor is created or reactivated. Adhesion, nozzle
-performance and water holding are untested for this left-hotend trial.
+Send verifies **A1 PETG L**, Auto Refill, **Timelapse On, Bed Leveling On,
+Flow Dynamics Auto and Nozzle Offset Calibration Auto**. The same finished
+Mark2 task was freshly re-read before Send, establishing over **6,536 seconds**
+of start spacing. Archive and native G-code hashes remain unchanged after
+Studio import. No scheduled monitor is created or reactivated. Adhesion,
+nozzle performance during deposition and water holding are untested for this trial.
 
 Derek authorized:
 
 > I'm not sure exactly what went wrong there, but the nozzle clearly got pretty gunked up, wiped onto itself. We really hadn't been using the right hot end for PETG 0.8 very much, so I wonder if it just maybe doesn't work very well. So I've switched Mark 1 over to 0.8 left hot end. The AMS 2 with all the transparent filament is connected to that left hot end on Mark 1 now. I've still got the engineering plate there, and I've cleaned it and glued it up again. So I'd like you to try again on the left hot end on Mark 1 now. Thanks.
+
+Derek followed up:
+
+> Try now.

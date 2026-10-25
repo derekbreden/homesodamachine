@@ -1,6 +1,6 @@
 {
   "recorded_on": "2026-10-25",
-  "status": "Right-pair left 0.8 mm Engineering Plate retry prepared, not sent. Studio Send disabled because Mark1 registers fixed left nozzle as 0.4 mm; touchscreen update requested. Prior task 1374272357 FAILED with reported polymer buildup and motion-step-loss warning.",
+  "status": "Right-pair left 0.8 mm Engineering Plate retry running as Mark1 task 1374963298, accepted 15:18:16 CDT / 20:18:16 UTC October 25. Startup layer 0/833, no error/HMS; A1 loaded on left. Model adhesion and water holding unassessed.",
   "customer_outcome": "A flat, leak-free vented reservoir with acceptable appearance and less production time.",
   "trigger": "../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json",
   "priority": [
@@ -9,7 +9,7 @@
       "purpose": "Evaluate the user-selected left hotend after right-hotend polymer buildup and motion-step-loss report.",
       "evidence": "../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json",
       "retained": "Flow 1.05, five Arachne walls at 10 degrees, overlap 30%, nozzle 255/260 C, bed 70 C, 0.30/0.24 mm layers, solid floor/cap fill, May motion/cooling, no brim, zero added/effective Engineering Z trim, ironing Off.",
-      "status": "Prepared; awaiting printer fixed-left-nozzle registration as 0.8 mm Standard.",
+      "status": "Launched as task 1374963298 after fixed left 0.8 mm identification; startup A1 loaded, layer 0/833, no error/HMS.",
       "prepared_record": "../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/README.md",
       "limits": "Photographs do not prove a general right-hotend defect or the order of buildup, nozzle contact, motion loss or adhesion changes."
     },
@@ -84,7 +84,7 @@
     "source": "historical-recipe-review.json"
   },
   "cooling_option": {
-    "status": "Prepared recipe retains May cooling; separate cooling changes remain unselected hypotheses.",
+    "status": "Selected recipe retains May cooling; separate cooling changes remain unselected hypotheses.",
     "evidence": "Current body/floor receives 90% commands; successful May profile also saves a 90% overhang override. No observed onset link isolates cooling as the cause.",
     "candidate": "Review supported-path fan inheritance if investigating curl; preserve the demonstrated May cooling as the baseline."
   },
@@ -98,13 +98,13 @@
     "physical_result": "../prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json"
   },
   "current_trial": {
-    "job_id": null,
+    "job_id": "1374963298",
     "printer": "Mark1",
     "side": "right model pair",
     "hotend": "left 0.8 mm Standard",
     "record": "../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/README.md",
     "start_slot": "A1",
-    "status": "Prepared and imported; Send disabled for registered left 0.4 mm mismatch. No job accepted.",
+    "status": "RUNNING at startup layer 0/833, error 0, HMS empty; A1 loaded on left. Adhesion and sealing unassessed.",
     "plate": "Engineering Plate, cleaned and glued",
     "nozzle_c_first_subsequent": [
       255,
@@ -116,7 +116,11 @@
     ],
     "added_user_z_trim_mm": 0,
     "emitted_plate_z_trim_mm": 0,
-    "saved_setting_changes": "Filament assignment to left nozzle only, including per-plate mapping."
+    "saved_setting_changes": "Filament assignment to left nozzle only, including per-plate mapping.",
+    "accepted_at_utc": "2026-10-25T20:18:16.702789+00:00",
+    "accepted_at_central": "2026-10-25T15:18:16.702789-05:00",
+    "launch": "../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/launch.json",
+    "startup": "../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/startup.json"
   },
   "reported_water_hold": {
     "result": "../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json",

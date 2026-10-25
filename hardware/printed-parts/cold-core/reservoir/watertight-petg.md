@@ -1,11 +1,12 @@
 # Printing the reservoir in PETG
 
 The [right reservoir and matching cap](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/README.md)
-are prepared for Mark1's **left 0.8 mm Standard** hotend on the cleaned,
-glued **Engineering Plate**, with **0.00 mm Z compensation**. No Send is
-clicked. Studio shows **A1 PETG L** and automatic refill On, but Send is
-disabled because the printer still registers the fixed left nozzle as
-0.4 mm. The nozzle setting must be updated on Mark1's touchscreen.
+are running as **Mark1 task 1374963298**, accepted **15:18:16 CDT / 20:18:16 UTC
+on October 25** through the identified **left 0.8 mm Standard** hotend on the
+cleaned, glued **Engineering Plate**, with **0.00 mm Z compensation**.
+Startup confirms A1 loaded on the left, RUNNING at layer 0/833 with no
+print error/HMS. Live frames show the cleared plate during preparation;
+model adhesion and water holding are unassessed.
 
 The [preceding right-hotend Engineering Plate article](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json)
 has reported polymer buildup and a photographed motion-step-loss warning.
@@ -15,8 +16,9 @@ cause and actual stop layer are unestablished.
 The retry's [complete settings](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/settings.json)
 retain **255/260 °C**, flow 1.05, five walls, 30% overlap and **70 °C** bed.
 Only the nozzle assignment changes. **A1 (42%)** is selected before matching
-A2–A4 (100%). Timelapse On, bed leveling On, flow dynamics Auto and nozzle
-offset calibration Auto require final verification before Send.
+A2–A4 (100%). Send verifies Timelapse On, bed leveling On, flow dynamics Auto
+and nozzle offset calibration Auto. Runtime timelapse activation at deposition
+is unobserved during layer 0 preparation.
 
 The completed [255/260 °C left article](prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json)
 and older 265/270 °C article are reported holding water on October 25. Both

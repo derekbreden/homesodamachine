@@ -221,5 +221,15 @@
     "source": "https://csm.bblcdn.com/hub/eff78da43720461787dc8bbe5fa0372d.pdf#page=106",
     "source_scope": "Bambu Lab H2C manual pp104-107 distinguishes Read Left Nozzle Info from right-rack Read All."
   },
-  "submission_status": "No Send; prepared reservoir retry remains unstarted."
+  "submission_status": "Subsequent fixed-left 0.8 mm identification verified; one Send accepted as task 1374963298.",
+  "followup_resolution": {
+    "founder_quote": "Try now.",
+    "observed_at_utc": "2026-10-25T20:14:59.209446+00:00",
+    "fixed_left_nozzle_mm": 0.8,
+    "source": "Fresh read-only tools/bambu_printer.py status",
+    "method_of_identification_update": "Not reported; this does not change the rejected remote-read result.",
+    "job_id": "1374963298",
+    "launch": "launch.json",
+    "startup": "startup.json"
+  }
 }

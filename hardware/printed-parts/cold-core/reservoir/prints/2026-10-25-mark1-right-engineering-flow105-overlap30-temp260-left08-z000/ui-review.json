@@ -21,6 +21,29 @@
   },
   "configuration_limit": "Studio Printer Parts shows left Hardened Steel / 0.4 / Standard and says 'Please change the nozzle settings on the printer.' Controls are disabled.",
   "user_action_requested": "On Mark1 touchscreen, Settings > Nozzle & Extruder > Read Left Nozzle Info. Native Studio rack read does not update fixed left; direct refresh request rejected by printer authentication.",
-  "submission_status": "No Send clicked; left remains registered as 0.4 mm.",
-  "nozzle_read": "nozzle-read.json"
+  "submission_status": "One Send accepted, job 1374963298; startup RUNNING, error 0, HMS empty.",
+  "nozzle_read": "nozzle-read.json",
+  "followup_resolution": {
+    "observed_at_utc": "2026-10-25T20:14:59.209446+00:00",
+    "fixed_left_nozzle_mm": 0.8,
+    "send_dialog": {
+      "source": "cua_repl Bambu Studio Send print job screenshot",
+      "printer": "Mark1",
+      "left_tile": "A1 PETG L",
+      "Timelapse": "On",
+      "Auto Bed Leveling": "On",
+      "Flow Dynamics Calibration": "Auto",
+      "Nozzle Offset Calibration": "Auto",
+      "Send_enabled": true,
+      "visible_job_title": "2026-10-25-reservoir-right-cap-engineering-flow105-overlap30-temp260-left08-z000-a1-mark1.gcode_Right body and cap",
+      "plate": "Engineering",
+      "route": "Reviewed Engineering Plate print-only archive opened from staging; no reslice."
+    },
+    "auto_refill": "Green enabled indicator",
+    "single_send_accepted_at_utc": "2026-10-25T20:18:16.702789+00:00",
+    "job_id": "1374963298",
+    "launch": "launch.json",
+    "startup": "startup.json",
+    "scope": "Initial disabled-Send observation above is historical; current retry is accepted and running."
+  }
 }

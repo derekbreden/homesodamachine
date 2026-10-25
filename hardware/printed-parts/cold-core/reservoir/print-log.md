@@ -693,3 +693,35 @@ still reports 0.4 mm. The prepared recipe and archive are unchanged.
 Derek:
 
 > Oh, can you not trigger a read?
+
+## 2026-10-25 — left-hotend Engineering Plate launch, task 1374963298
+
+Derek followed up:
+
+> Try now.
+
+Fresh status at **15:14:59 CDT / 20:14:59 UTC** identifies fixed left nozzle
+ID1 as **0.8 mm Standard**. The method of that identification update is
+unreported; the earlier rejected remote-read result is preserved. Studio
+Send verifies Mark1, Engineering Plate, **A1 PETG L**, green Auto Refill,
+**Timelapse On, Bed Leveling On, Flow Dynamics Auto and Nozzle Offset
+Calibration Auto**. A1 reports 42%; matching A2–A4 report 100%. The same
+finished Mark2 task is freshly re-read, establishing at least 6,536 seconds
+of startup spacing.
+
+One Studio Send receives **project_file SUCCESS** at **15:18:16 CDT /
+20:18:16 UTC**, creating **task 1374963298**. The native right body/cap archive
+and G-code hashes remain unchanged after import. Retained recipe: flow 1.05,
+five Arachne walls at 10°, 30% overlap, 255/260 °C nozzle, 70/70 °C Engineering
+Plate bed, 0.30/0.24 mm layers, solid floor/cap fill, May motion/cooling,
+no brim, zero added/effective Z trim and ironing Off. Native estimate:
+5 h 42 min 27 s, 444.21 g, 833 layers.
+
+Fresh **15:22:29 CDT / 20:22:29 UTC** startup is **RUNNING, layer 0/833,
+print error 0, HMS empty**, A1 (unit 0 tray 0) loaded into the left 0.8 mm
+nozzle at 255/255 °C; right is 36/0 °C. Two changing live camera frames
+show the cleared glued Engineering Plate and toolhead movement during
+preparation. Model deposition, body/cap adhesion, surface finish and water
+holding remain unassessed. Runtime timelapse is disabled in preparation;
+activation at model deposition is unobserved. No monitor created/reactivated.
+[Launch and startup](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/README.md).
