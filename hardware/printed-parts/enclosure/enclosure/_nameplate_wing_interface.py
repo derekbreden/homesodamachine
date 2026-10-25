@@ -63,7 +63,7 @@ def blank(*, width=WIDTH, height=HEIGHT, thick=THICK):
 
 def apply(solid, station, y_outer, *, supported=SUPPORTED_END_AIR, up=-1,
           width=WIDTH, height=HEIGHT, wing_span=WING_SPAN, wall_face=None, access=True,
-          runout_lead=0.0):
+          runout_lead=0.0, end_margin=2.0, crown_face=None):
     """Flush plate pocket and two sideways slots; no cantilevers behind the face.
 
     Body X has 0.15 mm per side; Z uses the shared static allowance.
@@ -73,20 +73,24 @@ def apply(solid, station, y_outer, *, supported=SUPPORTED_END_AIR, up=-1,
     0.45 mm of local relief above the nominal wing. Its walls print vertically,
     so only the print-down mouth and slot ends receive the extra
     supported-surface allowance. This hand-inserted plate has no low-force fit.
+
+    `end_margin` is the pad's stock past the mouth's print-up end. Given the host's show face
+    `crown_face`, the pad's print-down end, where it stands proud of that face, runs out to it
+    at 45 degrees, so the pad's first layers grow off the wall rather than hang off it.
     """
     floor = y_outer-THICK
     shift = (station.x,floor,station.z)
     pw, ph = width+2*FACE_SLIP, height+2*FACE_SLIP
     # Keep the full floor section behind the body, and `runout_lead` past its print-down
-    # edge, before the run-out. The opposite end retains its two-millimetre margin.
+    # edge, before the run-out. The opposite end retains `end_margin`.
     runout_margin = max(2.0, FLOOR_STOCK + runout_lead)
     # On a base wall the east end runs square into its hidden relief
     # (`production_backing`); a corner round there leaves only a sliver.
     rounds = '|Z' if wall_face is None else '|Z and <X'
-    pad = (cq.Workplane('XY').rect(pw+2*(PROJECTION+2),ph+2+runout_margin)
+    pad = (cq.Workplane('XY').rect(pw+2*(PROJECTION+2),ph+end_margin+runout_margin)
            .extrude(FLOOR_STOCK+BACK_AIR+THICK).edges(rounds).fillet(dimensions.CORNER_R+2).val()
            .rotate((0,0,0),(1,0,0),-90)
-           .translate((0,-FLOOR_STOCK-BACK_AIR,-up*(runout_margin-2)/2)))
+           .translate((0,-FLOOR_STOCK-BACK_AIR,-up*(runout_margin-end_margin)/2)))
     # A 45-degree inboard run-out carries the added pocket floor in the wall pose.
     zedge = -up*(ph/2+runout_margin)
     ramp = (cq.Workplane('YZ',origin=(-pw,0,0))
@@ -100,11 +104,18 @@ def apply(solid, station, y_outer, *, supported=SUPPORTED_END_AIR, up=-1,
         rear, wall_y = -FLOOR_STOCK-BACK_AIR, wall_face-floor
         run = wall_y-rear
         if run > 0:
-            end = up*(ph/2+2.0)
+            end = up*(ph/2+end_margin)
             finish = (cq.Workplane('YZ',origin=(-pw,0,0))
                       .polyline([(rear,end),(wall_y,end),(rear,end-up*run)])
                       .close().extrude(2*pw).val())
             pad = pad.cut(finish)
+    if crown_face is not None and y_outer > crown_face:
+        proud = y_outer-crown_face
+        crown = (cq.Workplane('YZ',origin=(-pw,0,0))
+                 .polyline([(THICK-proud,zedge-up*.01),(THICK+.01,zedge-up*.01),
+                            (THICK+.01,zedge+up*(proud+.01))])
+                 .close().extrude(2*pw).val())
+        pad = pad.cut(crown)
     solid = solid.fuse(pad.translate(shift))
     mouth = (cq.Workplane('XY').rect(width+2*FACE_X_AIR,ph).extrude(THICK+1+BACK_AIR)
              .edges('|Z').fillet(dimensions.CORNER_R+FACE_SLIP).val()

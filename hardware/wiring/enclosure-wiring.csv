@@ -8,14 +8,14 @@ AC3-L,Compressor,L,wago-h.3,relay-1.COM,16,60.296,proposed,nominal,nominal,fixed
 AC4-H,Compressor,H_switched,relay-1.NO,fuse.in,18,606.306,proposed,nominal,nominal,fixed
 AC4-fuse,Compressor,H_switched,fuse.out,compressor.H,18,36.777,proposed,nominal,unlocated,fixed
 AC5-N,Compressor,N,wago-n.3,compressor.N,18,585.849,proposed,nominal,unlocated,fixed
-AC6-PE,Compressor,PE,ground.compressor,compressor.PE,18,333.691,proposed,modeled,unlocated,fixed
+AC6-PE,Compressor,PE,ground.compressor,compressor.PE,18,333.114,proposed,modeled,unlocated,fixed
 PE-bus,Earth bonds,PE,wago-g.2,ground.inlet,16,295.531,proposed,nominal,modeled,fixed
-PE-carbonator,Earth bonds,PE,ground.carbonator,carbonator.PE,16,422.415,proposed,modeled,unlocated,fixed
+PE-carbonator,Earth bonds,PE,ground.carbonator,carbonator.PE,16,423.501,proposed,modeled,unlocated,fixed
 DC1-V12,12V power,V12,psu.V12,wago-v12.1,16,283.293,proposed,nominal,nominal,fixed
 DC4-V12,12V power,V12,wago-v12.3,J10.V12,16,80.927,proposed,nominal,nominal,fixed
 DC1-GND,12V power,GND,psu.GND,wago-gnd.1,16,280.915,proposed,nominal,nominal,fixed
 DC4-GND,12V power,GND,wago-gnd.3,J10.GND,16,51.318,proposed,nominal,nominal,fixed
-DC2-V12,Diaphragm pump,V12,wago-v12.2,relay-2.COM,16,248.454,proposed,nominal,nominal,fixed
+DC2-V12,Diaphragm pump,V12,wago-v12.2,relay-2.COM,16,248.483,proposed,nominal,nominal,fixed
 DC3-positive,Diaphragm pump,pump-switched,relay-2.NO,diaphragm.positive,16,136.047,proposed,nominal,unlocated,fixed
 DC3-negative,Diaphragm pump,GND,wago-gnd.2,diaphragm.negative,16,253.272,proposed,nominal,unlocated,fixed
 J1-COM,J1,V12,J1.COM,wago-mana.1,22,200.984,proposed,nominal,nominal,fixed

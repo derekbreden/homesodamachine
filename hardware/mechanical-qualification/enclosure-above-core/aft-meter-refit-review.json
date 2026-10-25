@@ -1,6 +1,32 @@
 {
-  "scope": "Changed aft meter carrier and nominal tie against the named actual native appliance fixtures. The owning back-top is excluded. A14/A16 frozen source solids were substituted in the query; the complete new carrier and tie lie aft of those curves. No strength, threading, holding-force or physical assembly qualification.",
+  "scope": "Manually read the changed aft meter carrier against named native fixtures.\n\nThe target index records the appliance snapshot and maps names to native BREP\nfiles. The owning back-top is excluded. This local reader is called by no build,\nhook or publisher. It establishes nominal stock and clearance, not printed\nstrength, tie threading, retention or lifetime. Run through the CAD queue.",
   "assembly_sha256": "b6ed81c2f72a78df8d7217f5a11d388355302a4979caadbd1591b6b2078c596c",
+  "target_scope": "Actual native appliance b6ed81c2 snapshot, filtered by X35..105/Y390..450/Z280..320 bounds, excluding the owning back-top. Fixed hardware and aft wire paths are unchanged. A14/A16 are replaced below with their frozen current source solids; changed fore wire and anchor details lie outside the carrier corridor.",
+  "target_index_sha256": "d46af308efff419f228f55449f02ebed3aa9782e8d55172216ee73f1cfca8ef2",
+  "target_sha256": {
+    "digiten-flow": "ab6a76f7adfed1c32569c070bf2fdc1f1c8bbf9c45566d920236bb93aac5436f",
+    "gas-regulator": "882da8f83b6cee0c0f10e9ef7daab7cfb57e12e7129f6d6baede1087a4756552",
+    "gas-check": "0787d757a7b23891d8c7cd5d9ab7e962d4a43d58b876e35344a91b7a3e47c243",
+    "gas-inlet-elbow": "77a1159d618e1a629f644009ee53bb0b9fde2913537eaf2f9e25d009c2d3a607",
+    "gas-lower-a": "788b17d2d5193227bbf1bc70e9c36d9c9590166cc277bf9d07fbedfbce60690b",
+    "gas-lower-b": "b6e6312b3bc36db4120682aa207291c6579ee84777f24652e51b6fc6d4528554",
+    "gas-upper-a": "8f961675cb0cdbd9c8d48dfaed49c5d99f798d303edb5d1ffd85cf7aa6d2b976",
+    "soda-stem-elbow": "29035a4837b3165a99022dbc7474a64909c44909b34f113e0fd60546b817a4ba",
+    "soda-outlet-return-stem": "fe94340dd054324d1a40a8d99dc72663a5bfafa3a67f73148c637678d5197a2a",
+    "bulkhead-carb": "d0ad2aa3c2598e0b1714b2fd3f5e785b808573e63107f9d9c26569d802ccf847",
+    "tube-above-core-gas-check-link": "f5fe17cbd3f7c4882b6f399ba5d5dd104ede39b288bbf3e4722913d9e930cf78",
+    "tube-soda-meter-bulkhead": "680ad9fc98558c99ba5840a1e9bdbb070c27fd508fb1763e5fc2cdd1f15864d1",
+    "tube-fluid-18": "74551d78baa923072a5b5955078fe6bbfdaef53effefff89a657e5d437e536c4",
+    "tube-fluid-28": "90410734cc1378e5eff9f204b280158a394b5cb970cb4bef83b165ea5b8a93a4",
+    "tube-drain-vent": "be2db33fd4c6b7f0e261c845ae5d1abc23171f9015b225d97efddffcaba0672e",
+    "tube-fluid-14": "53edb3e0e7b32f1590581b59e2ee19c6f2940d3e0a4e90a63ea14f29b12af80f",
+    "tube-fluid-16": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae",
+    "cold-core/foam-cap-lid-top": "a8a3ce0be01833037e88d8d6def5f3958c7abfa870d72ec70280de91460bb867",
+    "cold-core/g-ganen-pump": "e5b7a03ed1ce8ba11cfd893faf07b6fec62430d0e0b61706784a2bbce7be4670",
+    "wire-AC4-H": "9c529d9fd9792995a85d13a2fa59ff29cf81d21b41175af099cbd649a37246de",
+    "wire-AC5-N": "bf62e264882b6ec3cbe8b07c88ab464fbc698f4df1c21d0df5228eaad815944f",
+    "wire-PE-bus": "6c4d8d6b4b733e9ef39b52da2159a55ca0bc228db3ac96b8694b43f2f85becbe"
+  },
   "datums": {
     "parent": "enclosure-back-top",
     "centre_world_mm": [
@@ -21,6 +47,18 @@
     "beam_bottom_world_z_mm": 293.5760478805363,
     "beam_plan_world_xy_mm": null,
     "beam_boxes_world_mm": [
+      [
+        [
+          50.0,
+          410.61479999999995,
+          293.5760478805363
+        ],
+        [
+          53.0,
+          416.61479999999995,
+          296.5760478805363
+        ]
+      ],
       [
         [
           53.0,
@@ -58,6 +96,7 @@
         ]
       ]
     ],
+    "lane_corbel_world_xy_mm": null,
     "wall_lane_world_y_mm": 436.0,
     "wall_landing_width_mm": 3.0,
     "wall_landing_height_mm": 6.0,
@@ -77,6 +116,18 @@
   },
   "support_valid": true,
   "support_solids": 1,
+  "support_bounds_mm": [
+    [
+      50.0,
+      408.61479999999995,
+      290.5760478805363
+    ],
+    [
+      98.51,
+      437.5,
+      306.3760478805363
+    ]
+  ],
   "support": {
     "candidate_count": 13,
     "contacts": []
@@ -86,7 +137,8 @@
     "contacts": []
   },
   "strip_own_support_mm3": 0.0,
-  "strip_support_bounds": null,
+  "regulator_air_mm": 0.5296147469672103,
+  "check_air_mm": 10.41492096672512,
   "tie": {
     "parent": "enclosure-back-top",
     "segments": [
@@ -206,48 +258,20 @@
     "collar_plane_world_y_mm": 413.11479999999995,
     "strip_basis": "Nominal layout section; purchased strap/head dimensions unmeasured"
   },
+  "tie_remainder_mm": 74.39642812108578,
   "stock": {
     "full_3mm_quarter_missing_mm3": 0.0,
     "full_3mm_slot_surround_missing_mm3": 0.0,
     "wall_landing_missing_mm3": 0.0
   },
-  "regulator_air_mm": 0.5296147469672103,
-  "check_air_mm": 10.41492096672512,
-  "target_scope": "Actual native appliance b6ed81c2 snapshot, filtered by X35..105/Y390..450/Z280..320 bounds, excluding the owning back-top. Fixed hardware and aft wire paths are unchanged. A14/A16 are replaced below with their frozen current source solids; changed fore wire and anchor details lie outside the carrier corridor.",
-  "target_index_sha256": "d46af308efff419f228f55449f02ebed3aa9782e8d55172216ee73f1cfca8ef2",
-  "target_sha256": {
-    "digiten-flow": "ab6a76f7adfed1c32569c070bf2fdc1f1c8bbf9c45566d920236bb93aac5436f",
-    "gas-regulator": "882da8f83b6cee0c0f10e9ef7daab7cfb57e12e7129f6d6baede1087a4756552",
-    "gas-check": "0787d757a7b23891d8c7cd5d9ab7e962d4a43d58b876e35344a91b7a3e47c243",
-    "gas-inlet-elbow": "77a1159d618e1a629f644009ee53bb0b9fde2913537eaf2f9e25d009c2d3a607",
-    "gas-lower-a": "788b17d2d5193227bbf1bc70e9c36d9c9590166cc277bf9d07fbedfbce60690b",
-    "gas-lower-b": "b6e6312b3bc36db4120682aa207291c6579ee84777f24652e51b6fc6d4528554",
-    "gas-upper-a": "8f961675cb0cdbd9c8d48dfaed49c5d99f798d303edb5d1ffd85cf7aa6d2b976",
-    "soda-stem-elbow": "29035a4837b3165a99022dbc7474a64909c44909b34f113e0fd60546b817a4ba",
-    "soda-outlet-return-stem": "fe94340dd054324d1a40a8d99dc72663a5bfafa3a67f73148c637678d5197a2a",
-    "bulkhead-carb": "d0ad2aa3c2598e0b1714b2fd3f5e785b808573e63107f9d9c26569d802ccf847",
-    "tube-above-core-gas-check-link": "f5fe17cbd3f7c4882b6f399ba5d5dd104ede39b288bbf3e4722913d9e930cf78",
-    "tube-soda-meter-bulkhead": "680ad9fc98558c99ba5840a1e9bdbb070c27fd508fb1763e5fc2cdd1f15864d1",
-    "tube-fluid-18": "74551d78baa923072a5b5955078fe6bbfdaef53effefff89a657e5d437e536c4",
-    "tube-fluid-28": "90410734cc1378e5eff9f204b280158a394b5cb970cb4bef83b165ea5b8a93a4",
-    "tube-drain-vent": "be2db33fd4c6b7f0e261c845ae5d1abc23171f9015b225d97efddffcaba0672e",
-    "tube-fluid-14": "53edb3e0e7b32f1590581b59e2ee19c6f2940d3e0a4e90a63ea14f29b12af80f",
-    "tube-fluid-16": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae",
-    "cold-core/foam-cap-lid-top": "a8a3ce0be01833037e88d8d6def5f3958c7abfa870d72ec70280de91460bb867",
-    "cold-core/g-ganen-pump": "e5b7a03ed1ce8ba11cfd893faf07b6fec62430d0e0b61706784a2bbce7be4670",
-    "wire-AC4-H": "9c529d9fd9792995a85d13a2fa59ff29cf81d21b41175af099cbd649a37246de",
-    "wire-AC5-N": "bf62e264882b6ec3cbe8b07c88ab464fbc698f4df1c21d0df5228eaad815944f",
-    "wire-PE-bus": "6c4d8d6b4b733e9ef39b52da2159a55ca0bc228db3ac96b8694b43f2f85becbe"
-  },
-  "tie_remainder_mm": 74.39642812108578,
   "source_sha256": {
     "hardware/mechanical-qualification/enclosure-above-core/aft_meter_refit.py": "e9088b2454920116b0b4168327fc23c399f0dd7cc50dca065f416b5b37daef2a",
     "hardware/mechanical-qualification/enclosure-above-core/wall_meter.py": "a034e8a5d2205cdeba42fd29b5b594e92438fb6b3559ceb78df1d3cfd264dda9",
-    "hardware/printed-parts/enclosure/enclosure/_back_top_meter.py": "40ac80859cf955b0ba4151b8db5f85da00c057972941e3e5862e11dfc26075cd"
+    "hardware/printed-parts/enclosure/enclosure/_back_top_meter.py": "91f7684cc912ec134282a64792aebc3d50048a598b4842154078b347bf35237e"
   },
   "actual_back_top_binding": {
     "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
-    "sha256": "890a99c81edff9c95252de1f6eeec617f68165e445f4c718fafef90683c73d9a",
+    "sha256": "3345fddfd46a9ad8c24ec1b220c58b973fd5d2920ea9688652eacfcac7392bf4",
     "valid": true,
     "solids": 1,
     "source_support_missing_mm3": 0.0,
@@ -256,21 +280,5 @@
     "full_3mm_quarter_missing_mm3": 0.0,
     "full_3mm_slot_surround_missing_mm3": 0.0,
     "wall_landing_missing_mm3": 0.0
-  },
-  "post_live_printed_review": {
-    "stl_sha256": "bc5b81975c990558ab27c51892687527119c5d8df8d098ecf972720ccac173f1",
-    "viewer_sha256": "ea7162ea189b1e3c38efd29ff8b4471217c70be70252429ae55582c3200ffa41",
-    "live_viewer": "HTTP200, exact hash via the object named by the live /api/objects map, with the normal viewer Origin.",
-    "lint_total_findings": 79,
-    "lint_preexisting_answered": 7,
-    "changed_carrier": "No thin, sliver or step finding in the changed carrier. Its flat print-down profile is retained for the fixed bearing/tie pad and fitted outlet clearance, with Tree(auto)/Default support. The6x3mm quarter-end ledge is identical to the prior carrier and retains that prior scope.",
-    "roofward_corbel_alternative": {
-      "construction": "Right triangular prism above the existing beam plane: XZ vertices(57.5,293.5760478805363),(98.51,293.5760478805363),(98.51,334.5860478805363); Y434.5..437.5. It represents additional45degree corbel stock only.",
-      "native_common_mm3": {
-        "soda-stem-elbow": 444.22268455889656,
-        "soda-outlet-return-stem": 1.615960969717473
-      }
-    },
-    "limits": "This local printed-stock classification does not accept unrelated findings or establish support cleanup, printed strength, purchased fit or lifetime."
   }
 }

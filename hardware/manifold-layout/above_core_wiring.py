@@ -134,15 +134,15 @@ def _union(shapes):
 
 
 def ground_fastener_datums():
-    """Actual five-ring clamp stack, independently of the bolt display envelope."""
+    """Actual three-ring clamp stack, independently of the bolt display envelope."""
     landing=placements()['ground-stack']['translation_mm'][2]
     # cap_lid_pose maps native lid Z0, its underside; cap_face_z_mm is the top.
-    return {'screw':'M3x10 SHCS', 'screw_length_mm':10.,
-            'ring_count':5, 'tongue_thickness_mm':.8, 'washer_thickness_mm':.8,
-            'clamped_thickness_mm':4.8, 'screw_projection_mm':5.2,
+    return {'screw':'M3x8 SHCS', 'screw_length_mm':8.,
+            'ring_count':3, 'tongue_thickness_mm':.8, 'washer_thickness_mm':.8,
+            'clamped_thickness_mm':3.2, 'screw_projection_mm':4.8,
             'insert':'RX-M3Sx4', 'insert_length_mm':4.,
             'landing_z_mm':landing, 'pilot_diameter_mm':4., 'pilot_depth_mm':7.,
-            'pilot_bottom_z_mm':landing-7., 'tip_air_mm':1.8,
+            'pilot_bottom_z_mm':landing-7., 'tip_air_mm':2.2,
             'blind_backing_mm':landing-7.-layout.cap_lid_pose()['translation_mm'][2],
             'boss_diameter_mm':10., 'radial_stock_mm':3.}
 

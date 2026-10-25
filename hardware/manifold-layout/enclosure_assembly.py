@@ -1271,9 +1271,11 @@ _COND_UNPRINTED = "NOT PRINTED — no piece owns this station"
 # bracket off the +Y wall of back-top over the aft edge of its cap. The stations below are the planes
 # those two are struck on, read off the placed core.
 #
-# The west bracket stands between the PSU and rear jack. The east bracket stands
-# beside the pump. Both turn over the same plain aft cap crown.
-CORE_HOLD_LANES = ((-43.6, -37.6), (56.6, 65.6))
+# The west bracket stands between the PSU and rear jack, its east face on the plane of the jack
+# pocket's west wall, so the jack's body passes it at the pocket's own fit. The east bracket
+# stands beside the pump. Both turn over the same plain aft cap crown.
+KEYSTONE_FACE = _above.specification()['rear_wall']['dry_openings']['keystone']['face_center_mm']
+CORE_HOLD_LANES = ((-43.6, KEYSTONE_FACE[0] - _enc.keystone_pocket_width() / 2.0), (56.6, 65.6))
 
 
 def core_stops(foam) -> tuple:
@@ -4409,7 +4411,7 @@ def build_pack() -> cq.Assembly:
                        ('bulkhead-carb', 'bulkhead-flavor-a', 'bulkhead-flavor-b')}
     a.wall_stations = {row['name']: (row['center_x_mm'], row['center_z_mm'])
                        for row in _above.specification()['rear_wall']['wet_ports']}
-    a.keystone_station = (-30., 274.3760478805363)
+    a.keystone_station = (KEYSTONE_FACE[0], KEYSTONE_FACE[2])
     a.keystone_clearances = ()
     a.deck_z = max(z for x, z in a.wall_stations.values())
     a.gate_z = 270.675

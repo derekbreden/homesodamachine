@@ -2,7 +2,7 @@
 
 The purchased body and tube ports keep their selected world poses. Each
 six-millimetre bearing meets the wall through a plain dogleg with at least
-three millimetres of stock.
+three millimetres of stock, starting on the seat's own west plane.
 The vertical tie opening retains three millimetres of stock on both sides.
 Strap sections are nominal clearance allowances, not retention qualification.
 """
@@ -41,23 +41,28 @@ def meter_support_datums():
             # Its six-millimetre neck shares the collar's two end planes;
             # one plain flare reaches full slot stock before X63.
             wall_y = 358.
-            beam_plan = ((x+3., y-3.), (59., y-3.),
+            beam_plan = ((x, y-3.), (59., y-3.),
                          (63., beam_y-beam_width/2.),
                          (73., beam_y-beam_width/2.),
                          (73., beam_y+beam_width/2.),
                          (63., beam_y+beam_width/2.),
-                         (59., y+3.), (x+3., y+3.))
+                         (59., y+3.), (x, y+3.))
             beam_boxes = (
                 ((64., wall_y-beam_width/2., bottom),
                  (73., beam_y+beam_width/2., bottom+wall)),
                 ((64., wall_y-beam_width/2., bottom),
                  (98.51, wall_y+beam_width/2., bottom+wall)),
             )
+            # The wall lane rises off the wall on a 45-degree corbel: back-top prints
+            # ceiling-down, and nothing stands over this lane below the gas union.
+            lane_corbel = ((64., 98.51), (wall_y-beam_width/2., wall_y+beam_width/2.))
         else:
             # A flat dogleg reaches the wall aft of the fixed regulator.
             # The local pad carries the short tie beside the fixed collar.
             wall_y = 436.
+            lane_corbel = None
             beam_boxes = (
+                ((x, y-3., bottom), (x+3., y+3., bottom+wall)),
                 ((x+3., y-3., bottom), (60., 437.5, bottom+wall)),
                 ((59., tie_y-4.5, bottom), (67., tie_y+4.5, bottom+wall)),
                 ((57.5, wall_y-wall/2., bottom-wall),
@@ -73,6 +78,7 @@ def meter_support_datums():
             'beam_bottom_world_z_mm': bottom,
             'beam_plan_world_xy_mm': beam_plan,
             'beam_boxes_world_mm': beam_boxes,
+            'lane_corbel_world_xy_mm': lane_corbel,
             'wall_lane_world_y_mm': wall_y,
             'wall_landing_width_mm': beam_width if side == -1 else wall,
             'wall_landing_height_mm': wall if side == -1 else 2.*wall,
@@ -103,6 +109,12 @@ def meter_supports():
             cq.Vector(x, y - half, low)))
         beams = [cq.Solid.makeBox(*(b[i]-a[i] for i in range(3)), cq.Vector(*a))
                  for a, b in data['beam_boxes_world_mm']]
+        if data['lane_corbel_world_xy_mm']:
+            (x0, x1), (y0, y1) = data['lane_corbel_world_xy_mm']
+            top = data['beam_bottom_world_z_mm'] + wall
+            beams.append(cq.Workplane('XZ')
+                         .polyline(((x0, top), (x1, top), (x1, top + x1 - x0))).close()
+                         .extrude(-(y1 - y0)).val().translate((0., y0, 0.)))
         if data['beam_plan_world_xy_mm']:
             beams.append(cq.Workplane('XY').polyline(data['beam_plan_world_xy_mm'])
                          .close().extrude(wall).val().translate(

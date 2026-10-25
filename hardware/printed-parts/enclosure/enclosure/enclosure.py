@@ -2879,6 +2879,7 @@ def flute_rails(box, berthed=()):
                               length=plan_perimeter(outer),
                               plain=((disposal_field(outer),) +
                                      _above_core_shell.rear_identification().plain_lands() +
+                                     (_above_core_shell.keystone_land(),) +
                                      (_nameplate_fit.plain_lips(box.pack.nameplate,outer[3])
                                       if box.pack.nameplate else ()) +
                                      (_data_fit.plain_lips(box.pack.keystone,outer[3])
@@ -7383,7 +7384,14 @@ def _core_holds(solid, inner, stations, y0, y1, z0, z1, face=None):
     AND ITS TIP CARRIES A LEAD. The core rides IN under these feet — through the open
     Y-seam mouth, aft to its seat, the crown sliding under the bearing face at the same
     running allowance — so the foot's fore arris is eased 45° up toward the tip.
-    The clearance continues under the full flat foot after the lead."""
+    The clearance continues under the full flat foot after the lead.
+
+    ON BACK-TOP A BRACKET IN THE WET FIELD IS A FOOT ALONE. The rear wall's relief opens the
+    fluid grid's nut room from the field's floor up (`_above_core_shell.rear_geometry`), which
+    takes the leg and the gusset aft of the relief's face; across the field's span the bracket
+    stops at that floor, so no wedge of gusset is left standing fore of it."""
+    field = (None if face is None else
+             _above_core_shell.layout.specification()['rear_wall']['interior_panel_relief'])
     face = inner[3] if face is None else face
     lead = 1.0
     for sx0, sx1, aft, crown in stations:
@@ -7391,9 +7399,13 @@ def _core_holds(solid, inner, stations, y0, y1, z0, z1, face=None):
             continue
         tip, back = aft - core_hold_reach, face
         crown += fits.running
-        solid = solid.fuse(_yz_prism(sx0, sx1, (
+        bracket = _yz_prism(sx0, sx1, (
             (tip + lead, crown), (back, crown), (back, crown + core_hold_rise),
-            (tip, crown + core_hold_land), (tip, crown + lead))))
+            (tip, crown + core_hold_land), (tip, crown + lead)))
+        if field is not None:
+            bracket = bracket.cut(_ybox(field['xmin'], field['xmax'], tip - 1.0, back + 1.0,
+                                        field['zmin'], crown + core_hold_rise + 1.0))
+        solid = solid.fuse(bracket)
     return solid
 
 
@@ -8565,21 +8577,29 @@ keystone_nut_clear = 1.0
 keystone_ease_shoulder = 1.0
 
 
-def _keystone_pocket_cut(x, z, y_face):
+def keystone_pocket_width():
+    """The pocket the jack's body swings into: the module standard's, less the jack's own
+    slip in it, with the shared base fit at each wall."""
+    return _keystone.POCKET_W - _keystone.FIT_SLIP + 2.0 * fits.slip
+
+
+def _keystone_pocket_cut(x, z, y_face, back=None):
     """The unchanged jack's face and body with the enclosure's static mating clearance.
 
     The purchased reference supplies the body envelope, lip depth, catch stations and swing
-    ease. Its illustrative receptacle dimensions do not set this printed part's fit.
+    ease. Its illustrative receptacle dimensions do not set this printed part's fit. The pocket
+    runs from the lip to the jack's inner end, or on to `back` where the boss carrying it stands
+    deeper than the jack.
     """
     aperture_w = _keystone.FACE_W + 2.0 * fits.slip
     aperture_h = _keystone.FACE_H + 2.0 * fits.slip
-    pocket_w = _keystone.POCKET_W - _keystone.FIT_SLIP + 2.0 * fits.slip
+    pocket_w = keystone_pocket_width()
     pocket_h = _keystone.POCKET_H - _keystone.FIT_SLIP + 2.0 * fits.slip
     y_lip, y_back = y_face - _keystone.LIP_D, y_face - _keystone.DEPTH
     aperture = _rect_cut_y(x, z, aperture_w, aperture_h, 0.0,
                            y_lip - 0.01, y_face + 0.01)
     pocket = _rect_cut_y(x, z + _keystone.POCKET_RISE, pocket_w, pocket_h, 0.0,
-                        y_back - 0.01, y_lip + 0.01)
+                        (y_back if back is None else back) - 0.01, y_lip + 0.01)
     top = z + aperture_h / 2.0
     # The ease spans the lip as these two cut it, from the aperture's open end to the
     # pocket's front, and leaves the face `keystone_ease_shoulder` over the aperture's top edge.
@@ -8640,7 +8660,7 @@ def _keystone_receptacle_geometry(inner, outer, station, z0, z1, up=1.0):
         # Preserve the receptacle's three-millimetre surrounding section after applying
         # the shared base fit to the purchased body's nominal dimensions.
         bb = block.BoundingBox()
-        pw = _keystone.POCKET_W - _keystone.FIT_SLIP + 2.0 * fits.slip
+        pw = keystone_pocket_width()
         ph = _keystone.POCKET_H - _keystone.FIT_SLIP + 2.0 * fits.slip
         hz = ph / 2.0 + _keystone.RECEPTACLE_WALL
         # The cheeks carry the run-out up to the wall face, where the clamp nut over this column

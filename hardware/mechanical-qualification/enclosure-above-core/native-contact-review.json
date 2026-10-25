@@ -9,8 +9,8 @@
   "source_function_sha256": {
     "hardware/manifold-layout/_scorecard.py:selected_mate_contacts": "020105825e8de053590f830223f74bf9c438027c8dc3ac8da7bcc981151fd038",
     "hardware/manifold-layout/_scorecard.py:selected_clearance_joints": "545d7541748c08bf5593da306b5d332755598e64dd159b83f6526353369a3247",
-    "hardware/manifold-layout/enclosure_assembly.py:core_holds": "4cb1dbdaf9fd51c43445070b74aa5adc05718217fa22159a17789e3f9b44a452",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py:_core_holds": "27a03a9fd86280b935ca6a16c34e0ccc9f6fbcfa3e82602a7c1af1cb5663a800"
+    "hardware/manifold-layout/enclosure_assembly.py:core_holds": "4dcfee1e81118ba950e9f81bc08581d5ca7d122f68851deea527fdd95b537c4c",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py:_core_holds": "84b656875e6657d2fcdcc699d5251bcd38fdf9ac5afc4e9a89d9aabeef113b36"
   },
   "artifact_sha256": {
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "038e8cceceb3630d93757fed3867d6ddfbab033c0f24ab25cd2a94468c20764c",
@@ -82,8 +82,8 @@
       "aabb_candidates": 1,
       "overlap_mm3": {}
     },
-    "psu_distance_mm": 0.3999938964843963,
-    "keystone_distance_mm": 0.27499999999998437,
+    "psu_distance_mm": 22.020438781306584,
+    "keystone_distance_mm": 0.14999999999999858,
     "cap_nominal_gap_mm": 0.25,
     "bearing_land_mm": 8.0,
     "unchanged_section": [
@@ -118,25 +118,30 @@
     "final_closest_body_review": {
       "station": [
         -43.6,
-        -37.6,
+        -37.475,
         465.3,
         253.4
       ],
       "valid": true,
       "solids": 1,
       "closest_body_distance_mm": {
-        "psu": 0.3999938964843963,
-        "keystone-jack": 0.27499999999998437
+        "psu": 22.020438781306584,
+        "keystone-jack": 0.14999999999999858
       },
       "overlap_mm3": {
         "psu": 0.0,
         "keystone-jack": 0.0
       },
-      "approach_witness": "The prior 300 mm exact continuous ride/native225-part/125-wire/25-tube proof is retained with the west bracket shifted 0.1 mm west to preserve at least 0.25 mm rear-jack running room."
+      "read_on": {
+        "back_top_step_sha256": "3345fddfd46a9ad8c24ec1b220c58b973fd5d2920ea9688652eacfcac7392bf4",
+        "assembly_step_sha256": "0b50e32cb6555e2c971ce92f2568f7f7013953ba660de6ed9d7ce6d14634037f",
+        "script": "tmp/print-ready/integrator/rear_reread.py"
+      },
+      "approach_witness": "The bracket's east face stands on the jack pocket's west wall plane, X-37.475, so the jack's body passes it at the pocket's own 0.15 mm fit. A box over every station of the bracket's last 300 mm of slide meets no static body; it reaches only wago-h, which rides on back-top (tmp/print-ready/integrator/west_hold_ride.py)."
     },
     "station": [
       -43.6,
-      -37.6,
+      -37.475,
       465.3,
       253.4
     ]
@@ -5200,7 +5205,7 @@
       ]
     },
     "keystone": {
-      "basis": "Existing fitted enclosure shoulder and catches at the selected station, with a 1.0 mm shoulder and broad 0.7 mm-reach 45\u00b0 corbel. Ordinary pocket surround is 3 mm; the 1.4/1.3 mm catch projections retain their separate accepted scope.",
+      "basis": "The fitted shoulder and catches at the selected station, on a boss one wall proud of the rear wall's inner face: the pocket runs on through the boss behind the catches and across the west core hold's lane, and the jack's lip keeps a flat land on the rear face. The 1.4/1.3 mm catch projections retain their separate accepted scope.",
       "stock_valid": true
     },
     "wells": [
@@ -5229,29 +5234,23 @@
     "purchased_contacts": [
       {
         "name": "c14-inlet",
-        "common_mm3": 0
+        "common_mm3": 0.0
       },
       {
         "name": "keystone",
-        "common_mm3": 0
+        "common_mm3": 0.0
       },
       {
         "name": "wago-h",
-        "common_mm3": 0
+        "common_mm3": 0.0
       },
       {
         "name": "wago-n",
-        "common_mm3": 0
+        "common_mm3": 0.0
       },
       {
         "name": "wago-g",
-        "common_mm3": 0
-      }
-    ],
-    "added_stock_contacts": [
-      {
-        "name": "wire-AC2-N",
-        "common_mm3": 0
+        "common_mm3": 0.0
       }
     ],
     "added_stock_mm3": 2202.871100811219,
@@ -5289,7 +5288,7 @@
       "local_wall_bounds_mm": {
         "xmin": -96.0,
         "xmax": -15.0,
-        "ymin": 462.3,
+        "ymin": 455.0,
         "ymax": 471.3,
         "zmin": 253.4,
         "zmax": 346.0
@@ -5308,10 +5307,11 @@
     "source_function_sha256": {
       "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py:c14_fastener_plan": "6cf7adc20d894e89010c3d365d634873fb4d56c59044f0c2b9d68da311c03baa",
       "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py:c14_rear_cutters": "27efdeb708246b3dc9275613f687fc45ea84922f478654ee1e05ab6a447a34e4",
-      "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py:keystone_rear_geometry": "cd54fd9a344eb9b69dd5091b3b10d4d5a54430a1f9b270f232b8d7cb12144dff",
-      "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py:rear_geometry": "245b14a61e1b1e982b5de04eed38e4d886c93948d221d551443361e3734ba686",
-      "hardware/printed-parts/enclosure/enclosure/enclosure.py:_keystone_pocket_cut": "45d3a061787442a25230124a98524224dd0092378ad2d3391b9259b7b4da10a5",
-      "hardware/printed-parts/enclosure/enclosure/enclosure.py:_keystone_catches": "5831b0de0e0e4b8fbfec813efb067859033f3cab783e2eddea3cb496acd1c491"
+      "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py:keystone_rear_geometry": "f97e48ae2303c02b7a46d255c72f926e7af3994ef38e292752556db73b20ed7d",
+      "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py:rear_geometry": "e69bd57965acc7fdbac500a3209f4237d9948bc7a801a49127d1a48247d1c2a7",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.py:_keystone_pocket_cut": "e537112df9fc4e92da91e1f9cbc932721a8ec1e790f980a728f264fa47c2df6c",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.py:_keystone_catches": "5831b0de0e0e4b8fbfec813efb067859033f3cab783e2eddea3cb496acd1c491",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.py:keystone_pocket_width": "89d748610ac5f9e4f613a3fa358ec348d9ac1fc65a21dc2c820e1ac8da82320e"
     },
     "manual_receipt_sha256": "1320865d04fe89a903d09235fdf85a32ba4848eb96ec7faf8e0518071f189b67",
     "metadata_binding": {
@@ -5321,6 +5321,43 @@
         "electronics_access.c14.balance_basis -> datum_basis"
       ],
       "scope": "The descriptive electronics-access C14 datum matches the approved active pose. This metadata edit changes neither the queried c14-inlet pose nor rear-wall cutters, fastener datums or local stock; no native query or export is repeated."
+    },
+    "local_stock_wire_contacts": [
+      {
+        "name": "wire-AC2-L",
+        "common_mm3": 0.0
+      },
+      {
+        "name": "wire-AC2-N",
+        "common_mm3": 0.0
+      },
+      {
+        "name": "wire-J6-GND",
+        "common_mm3": 0.0
+      },
+      {
+        "name": "wire-J6-RA1",
+        "common_mm3": 0.0
+      },
+      {
+        "name": "wire-J6-RA2",
+        "common_mm3": 0.0
+      },
+      {
+        "name": "wire-J6-RA3",
+        "common_mm3": 0.0
+      },
+      {
+        "name": "wire-J6-RA4",
+        "common_mm3": 0.0
+      }
+    ],
+    "reread": {
+      "date": "2026-10-25",
+      "back_top_step_sha256": "3345fddfd46a9ad8c24ec1b220c58b973fd5d2920ea9688652eacfcac7392bf4",
+      "assembly_step_sha256": "0b50e32cb6555e2c971ce92f2568f7f7013953ba660de6ed9d7ce6d14634037f",
+      "script": "tmp/print-ready/integrator/rear_reread.py",
+      "scope": "Purchased-body and wire contacts with the exported back-top's local rear-wall stock, now reaching inboard to Y455 over the keystone boss. The C14 pilot probes, washer approaches and added/removed stock volumes are the earlier reading's; the C14 cutters and fastener plan are unchanged."
     }
   },
   "selected_legacy_continuations": {

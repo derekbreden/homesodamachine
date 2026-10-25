@@ -476,7 +476,7 @@ Four features bearing on the core's own faces:
   face on the wall: a corner bracket in one piece with both faces it stands on, the card slot's
   own form.
 - **Aft brackets** (`_core_holds`, on `enclosure-back-top`). A right trapezoid in section,
-  [6 mm](CORE_HOLD_WIDE) wide on the west and 9 mm on the east: the bearing face along the cap from [12 mm](CORE_HOLD_REACH)
+  [6.125 mm](CORE_HOLD_WIDE) wide on the west and 9 mm on the east: the bearing face along the cap from [12 mm](CORE_HOLD_REACH)
   forward of the core's aft face back to the wall, a leg [40 mm](CORE_HOLD_RISE) up that wall in
   the `rear_seam_clear` band, and one straight from the head of the leg down to the foot's tip,
   [8 mm](CORE_HOLD_LAND) over the bracket's foot plane. The whole bracket profile stands
