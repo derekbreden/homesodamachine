@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "scope": "Exact native correspondence to the2mm wall/3mm leg R14 candidate identified in the qualitative physical report; no extension to force, flow, pressure or lifetime.",
+  "physical_result": "future/tube-bend-holder-exploration/prints/2026-10-23-legs-123-w2-petgf-left04-z018-mark1/physical-result.json",
+  "source_sha256": {
+    "hardware/manifold-layout/soda_inlet.py": "4f1da5341b864fff66051ce99773517cc9bad9589ae21cfd5074f4de753c972d",
+    "future/tube-bend-holder-exploration/tube_bend_holder.py": "ef5b55d1bfeae7a2b8bc8c7be8dba6694fd4e8faafffbc03a41787a64849b8b4"
+  },
+  "accepted_builder": {
+    "valid": true,
+    "solids": 1,
+    "faces": 27,
+    "volume_mm3": 2248.3304902424056,
+    "bounds_mm": [
+      -3.000000099999998,
+      -3.0000001000000003,
+      -1e-07,
+      19.4000001,
+      19.4000001,
+      12.208326212068522
+    ]
+  },
+  "production_builder": {
+    "valid": true,
+    "solids": 1,
+    "faces": 27,
+    "volume_mm3": 2248.3304902424056,
+    "bounds_mm": [
+      -3.000000099999998,
+      -3.0000001000000003,
+      -1e-07,
+      19.4000001,
+      19.4000001,
+      12.208326212068522
+    ]
+  },
+  "production_export": {
+    "valid": true,
+    "solids": 1,
+    "faces": 27,
+    "volume_mm3": 2248.3304902426544,
+    "bounds_mm": [
+      -3.0000001000005407,
+      -3.0000001000005407,
+      -1e-07,
+      19.4000001,
+      19.4000001,
+      12.208326212069
+    ]
+  },
+  "accepted_minus_production_mm3": 0.0,
+  "production_minus_accepted_mm3": 0.0,
+  "export_volume_delta_mm3": 2.4874680093489587e-10,
+  "passed": true
+}

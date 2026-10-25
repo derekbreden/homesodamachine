@@ -1,13 +1,4 @@
-[ceiling] These two front rail bearings retain the frame against vertical lift in front-top's sliding receivers. Each square bearing continues the production hooked profile and opens toward the outer flank and rear Y entrance for support removal before assembly. Tree(auto)/Default supports remain the starting treatment for these functional flats; current slice placement, release effort and finished fit require their own scoped review. The native front-rail insertion and installed clearances are recorded in integration-review/rail-motion-check.json.
-alternatives: A sloping bearing would cam the frame upward under lift instead of retaining it on a square face. Thickening the rail into its mating channel would consume the defined running clearance. A rear rail pair would occupy back-top's upper screw blocks; the frame uses its front pair and retains the full rear web beside those blocks.
+[ceiling] Functional flat shell-bearing flange: this print-down Z46.1 face is the underside of the drop-in roof surround. Its horizontal surface seats on the four shell-rooted ledges while the upward screws clamp the frame. The frame prints on its lower feet; this flange therefore uses accessible Tree(auto)/Default supports under the documented enclosure support-removal strategy. Current support placement, release effort and finished fit remain scoped to a fresh slice/print.
+alternatives: Sloping the seating face removes the shared horizontal shell bearing or changes its mating ledges. Filling down to the bed closes the required under-funnel connection space. Retain the named bearing plane and its supported manufacturing treatment.
 file: hardware/printed-parts/zone-c/funnel/funnel-frame.step
-click: x=100.875 y=-10.696 z=16.200
-click: x=-100.875 y=-10.696 z=16.200
-
-[thin] Nearest-corner classification: these picks join the rear body's outer face to the forward surround's inner end corner across the Y199.75 boundary. They do not measure opposing faces of a finite 1.54 mm wall. Current native sections show the rear section X82.8..91.25 below Z349 and the forward surround X89.75..98.25 above Z349; the rear upper region is open. The corner is where the full silicone-brim bearing ends beside the back-top screw-block passage. Current native face/section coordinates are recorded in the enclosure polish review; the reading does not qualify load capacity or print finish. A ray along each pick's inward normal crosses 8.5 mm or more of material.
-alternatives: Treat this as a nearest-corner ranking rather than a wall-thickness measurement. Widening the rear boundary enters the block's 0.25 mm running allowance; trimming below the corner removes part of the required brim bearing. Blending above Z349 behind the seam changes an already empty region.
-file: hardware/printed-parts/zone-c/funnel/funnel-frame.step
-click: x=-91.250 y=35.236 z=48.752
-click: x=-89.750 y=35.200 z=49.100
-click: x=91.250 y=35.236 z=48.752
-click: x=89.750 y=35.200 z=49.100
+click: x=95.000 y=0.000 z=46.100

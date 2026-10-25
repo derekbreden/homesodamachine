@@ -61,14 +61,15 @@ complete block and cylindrical outlet.
 The complete rigid flange is [196.5 mm](FRAME_WIDTH) wide ahead of Y199.75 and
 [182.5 mm](FRAME_REAR_WIDTH) wide aft of that shoulder, beside the upper M5 seam
 blocks. Its full Y envelope is 182.692 mm. The flange's flat underside bears at
-Z346; its top finishes flush with the enclosure roof at Z355. The silicone brim
+Z346. The front surround finishes at Z355. The rear surround is a flat Z349
+brim bearing, with two finite screw-head pads at Z351.8. The silicone brim
 retains its complete 3 mm bearing below Z349. Its front stands at Y93.0,
 0.25 mm behind the display backing. The rear flange reaches Y275.692, with
 R6 aft corners. Its 5 mm aft access extension opens the J10 screw-tool passages
 when the frame and drain are removed. Both upper shells have the matching
 stepped roof pocket.
 
-The [176.5 mm](FRAME_BODY_WIDTH) lower body passes between the shell ledges.
+The [175.5 mm](FRAME_BODY_WIDTH) lower body passes between the shell ledges.
 Its lower front and rear feet reach Z299.9 and keep their 30° end corbels.
 Plain open-bottom notches pass all four ledges. The lower body carries
 the drain socket and its 3 mm snap web. The empty frame’s vertical passage is
@@ -83,9 +84,10 @@ surround in its 10 mm host. The rear ledges' inner planes are X±82.7, leaving
 0.251 mm nominal air beside the preinstalled upper valve elbows during the
 back-column ride. The conservative remaining rear flange bearing is 5.55 mm.
 The screw-head bearing planes are Z351.8, and the head tops are Z354.8, below
-the flat silicone apron. All four head wells open to the frame's sides above
-their complete bearing floors. The rear wells stand outside the brim's rounded
-corners. Fasten the frame with the silicone funnel absent, then lay the funnel
+the flat silicone apron. The front head wells open fully to the sides above their complete bearing
+floors. The rear pads stand outside the brim's rounded corners. All four
+Ø5.5 mm head-bearing annuli retain the complete 5.8 mm grip, as recorded in
+[the native stock reading](drop-in-review/plain-stock-review.json). Fasten the frame with the silicone funnel absent, then lay the funnel
 and its apron over the heads.
 
 Each insert opens upward at Z346. Its Ø4.0 mm pilot ends at Z338.8 with
