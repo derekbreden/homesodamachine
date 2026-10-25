@@ -6682,10 +6682,10 @@
     "interior_panel_relief": {
       "xmin": 24.0,
       "xmax": 91.0,
-      "ymin": 462.29,
+      "ymin": 455.0,
       "ymax": 465.3,
       "zmin": 258.0,
-      "zmax": 351.5,
+      "zmax": 352.0,
       "retained_panel_mm": 6.0,
       "flange_seat_y_mm": 471.3,
       "nut_seat_y_mm": 465.3
