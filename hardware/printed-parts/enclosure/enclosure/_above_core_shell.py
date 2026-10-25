@@ -354,4 +354,6 @@ def apply(piece, box_spec, y_side, z_side):
     piece = piece.cut(access_opening())
     for boss in access_bosses():
         piece = piece.fuse(boss)
-    return piece
+    # The rear closure hosts share the inlet's flange plane. Keep the measured
+    # installation opening clear after those hosts join the fixed roof.
+    return piece.cut(*c14_rear_cutters())
