@@ -4391,76 +4391,6 @@ cp hardware/printed-parts/enclosure/README.md $$O1
 )
 
 genrule(
-    name = "anchor-cap",
-    srcs = [
-        "pysrc/hardware/printed-parts/cadlib/fits.py",
-        "hardware/printed-parts/enclosure/anchor-cap/README.md",
-        "pysrc/hardware/printed-parts/enclosure/anchor-cap/anchor_cap.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
-        "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
-        "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-        "pysrc/hardware/scripts/_cadq_export.py",
-        "pysrc/hardware/scripts/_material_base.py",
-        "pysrc/hardware/scripts/_materials.py",
-        "pysrc/hardware/scripts/_mesh_payload.py",
-        "pysrc/hardware/scripts/_realized.py",
-        "pysrc/hardware/scripts/_run_lock.py",
-        "pysrc/hardware/scripts/flute_payload.py",
-        "pysrc/tools/docgen/__init__.py",
-    ] + glob(
-        [
-            "hardware/printed-parts/enclosure/anchor-cap/README.figures.json",
-        ],
-        allow_empty = True,
-    ),
-    outs = [
-        "out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/anchor-cap-4mm.step",
-        "out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/anchor-cap-4mm.step.mesh",
-        "out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/anchor-cap-4mm.stl",
-        "out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/anchor-cap.step",
-        "out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/anchor-cap.step.mesh",
-        "out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/anchor-cap.stl",
-        "out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/README.figures.json",
-        "out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/README.md",
-    ],
-    cmd = """
-set -e
-O0=$$PWD/$(location out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/anchor-cap-4mm.step)
-O1=$$PWD/$(location out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/anchor-cap-4mm.step.mesh)
-O2=$$PWD/$(location out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/anchor-cap-4mm.stl)
-O3=$$PWD/$(location out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/anchor-cap.step)
-O4=$$PWD/$(location out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/anchor-cap.step.mesh)
-O5=$$PWD/$(location out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/anchor-cap.stl)
-O6=$$PWD/$(location out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/README.figures.json)
-O7=$$PWD/$(location out/anchor-cap/hardware/printed-parts/enclosure/anchor-cap/README.md)
-for f in $(SRCS); do
-  case $$f in
-    */node_modules/*) continue;;
-    */bin/out/*/*) t=$${f#*/bin/out/}; t=$${t#*/};;
-    */pysrc/*) t=$${f##*/pysrc/};;
-    *) t=$$f;;
-  esac
-  mkdir -p work/$$(dirname $$t); cp -L $$f work/$$t
-done
-for d in tools/render/node_modules web/node_modules hardware/pcb/pcba/node_modules; do
-  if [ -d $$d ]; then mkdir -p work/$$(dirname $$d); ln -sfn $$PWD/$$d work/$$d; fi
-done
-cd work
-ln -sfn $$HSM_WORKSPACE/.cache .cache
-D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/enclosure/anchor-cap/anchor_cap.py > /dev/null
-cp hardware/printed-parts/enclosure/anchor-cap/anchor-cap-4mm.step $$O0
-cp hardware/printed-parts/enclosure/anchor-cap/anchor-cap-4mm.step.mesh $$O1
-cp hardware/printed-parts/enclosure/anchor-cap/anchor-cap-4mm.stl $$O2
-cp hardware/printed-parts/enclosure/anchor-cap/anchor-cap.step $$O3
-cp hardware/printed-parts/enclosure/anchor-cap/anchor-cap.step.mesh $$O4
-cp hardware/printed-parts/enclosure/anchor-cap/anchor-cap.stl $$O5
-cp hardware/printed-parts/enclosure/anchor-cap/README.figures.json $$O6
-cp hardware/printed-parts/enclosure/anchor-cap/README.md $$O7
-""",
-)
-
-genrule(
     name = "asse-drip-pan",
     srcs = [
         "pysrc/hardware/printed-parts/cadlib/fits.py",
@@ -12060,14 +11990,6 @@ genrule(
 )
 
 genrule(
-    name = "pysrc-90a9ee5e6872",
-    srcs = ["hardware/printed-parts/enclosure/anchor-cap/anchor_cap.py"],
-    outs = ["pysrc/hardware/printed-parts/enclosure/anchor-cap/anchor_cap.py"],
-    tools = ["tools/bazel/pysrc.py"],
-    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
-)
-
-genrule(
     name = "pysrc-cdd0eefe2907",
     srcs = ["hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py"],
     outs = ["pysrc/hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py"],
@@ -13625,7 +13547,6 @@ filegroup(
         ":pcba-assembly",
         ":pcba-tray",
         ":enclosure-dimensions",
-        ":anchor-cap",
         ":asse-drip-pan",
         ":bulkhead-ring",
         ":data-ring",

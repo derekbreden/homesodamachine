@@ -3176,42 +3176,6 @@
       "hardware/printed-parts/enclosure/README.md"
     ]
   },
-  "hardware/printed-parts/enclosure/anchor-cap/anchor_cap.py": {
-    "reads": [
-      "hardware/printed-parts/cadlib/fits.py",
-      "hardware/printed-parts/enclosure/anchor-cap/README.figures.json",
-      "hardware/printed-parts/enclosure/anchor-cap/README.md",
-      "hardware/printed-parts/enclosure/anchor-cap/anchor-cap-4mm.step",
-      "hardware/printed-parts/enclosure/anchor-cap/anchor-cap-4mm.stl",
-      "hardware/printed-parts/enclosure/anchor-cap/anchor-cap.step",
-      "hardware/printed-parts/enclosure/anchor-cap/anchor-cap.stl",
-      "hardware/printed-parts/enclosure/anchor-cap/anchor_cap.py",
-      "hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
-      "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
-      "hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
-      "hardware/scripts/_cadq_export.py",
-      "hardware/scripts/_material_base.py",
-      "hardware/scripts/_materials.py",
-      "hardware/scripts/_mesh_payload.py",
-      "hardware/scripts/_realized.py",
-      "hardware/scripts/_run_lock.py",
-      "hardware/scripts/flute_payload.py",
-      "tools/docgen/__init__.py"
-    ],
-    "rewritten": [
-      "hardware/printed-parts/enclosure/anchor-cap/README.figures.json",
-      "hardware/printed-parts/enclosure/anchor-cap/README.md"
-    ],
-    "writes": [
-      "hardware/printed-parts/enclosure/anchor-cap/README.figures.json",
-      "hardware/printed-parts/enclosure/anchor-cap/README.md",
-      "hardware/printed-parts/enclosure/anchor-cap/anchor-cap-4mm.step",
-      "hardware/printed-parts/enclosure/anchor-cap/anchor-cap-4mm.step.mesh",
-      "hardware/printed-parts/enclosure/anchor-cap/anchor-cap-4mm.stl",
-      "hardware/printed-parts/enclosure/anchor-cap/anchor-cap.step",
-      "hardware/printed-parts/enclosure/anchor-cap/anchor-cap.step.mesh"
-    ]
-  },
   "hardware/printed-parts/enclosure/asse-drip-pan/asse_drip_pan.py": {
     "reads": [
       "hardware/printed-parts/cadlib/fits.py",
