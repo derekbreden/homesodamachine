@@ -1076,5 +1076,399 @@
       }
     ],
     "passed": true
+  },
+  "threading_mouth_cleanup": {
+    "scope": "Only the paired-anchor threading mouths. The vertical mouth planes coincide with the outer tube axes in the 3.2 mm tie band. No tube, station, seat radius, slot ceiling/floor or nominal tie is moved.",
+    "reader_sha256": "dbbaa517cc2e11ae7a5e47c6aa8c63cbe3529fdcb74445c01621b61a57157d04",
+    "original_anchor_source_sha256": "273c4330e3672675d4f45a8fb3e45d65619cedced02bfa6589f540efe3ec0aff",
+    "actual_lid": {
+      "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+      "sha256": "1dff785a916064915ceee07ef1769a1e05126a50f20635880442d0771d23e182",
+      "signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 216,
+        "volume_mm3": 295592.9407597202,
+        "center_mm": [
+          2.9693084908073706,
+          317.7202768212887,
+          252.6058491575069
+        ],
+        "bounds_mm": [
+          -90.2000001,
+          182.45000000000002,
+          247.9999998999971,
+          97.7,
+          465.0000001,
+          299.21000000000004
+        ]
+      }
+    },
+    "old_specification": {
+      "units": "mm",
+      "assembly_owner": "back-bottom",
+      "mounting_parent": "cold-core top lid",
+      "tube_od_mm": 6.35,
+      "tube_axis_world": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "lid_face_z_mm": 253.4,
+      "root_z_mm": 248.6,
+      "seat_top_z_mm": 258.0,
+      "seat_radius_mm": 3.325,
+      "seat_floor_stock_mm": 3.0,
+      "station_length_mm": 10.0,
+      "stock_west_of_first_tube_mm": 3.7,
+      "stock_east_of_last_tube_mm": 3.7,
+      "tie_slot_width_y_mm": 3.2,
+      "tie_slot_bottom_z_mm": 251.6,
+      "tie_slot_floor_stock_mm": 3.0,
+      "tie_access_outer_offset_mm": 6.0,
+      "tie_access_inner_offset_mm": 2.75,
+      "tie_witness_width_mm": 2.5,
+      "tie_witness_thickness_mm": 0.8,
+      "tie_witness_outer_bend_radius_mm": 3.75,
+      "tie_witness_bottom_center_z_mm": 252.4,
+      "stations": [
+        {
+          "id": "a-pair-fore-anchor",
+          "label": "Reservoir A fore paired anchor",
+          "tube_centers_world_mm": [
+            [
+              50.5,
+              205.0,
+              259.5
+            ],
+            [
+              58.0,
+              205.0,
+              259.5
+            ]
+          ],
+          "routes_west_to_east": [
+            "fluid-16",
+            "fluid-14"
+          ]
+        },
+        {
+          "id": "a-pair-aft-anchor",
+          "label": "Reservoir A aft paired anchor",
+          "tube_centers_world_mm": [
+            [
+              86.5,
+              304.0,
+              259.5
+            ],
+            [
+              94.0,
+              304.0,
+              259.5
+            ]
+          ],
+          "routes_west_to_east": [
+            "fluid-16",
+            "fluid-14"
+          ]
+        }
+      ],
+      "tie_slot_top_z_mm": 253.175
+    },
+    "candidate_specification": {
+      "units": "mm",
+      "assembly_owner": "back-bottom",
+      "mounting_parent": "cold-core top lid",
+      "tube_od_mm": 6.35,
+      "tube_axis_world": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "lid_face_z_mm": 253.4,
+      "root_z_mm": 248.6,
+      "seat_top_z_mm": 258.0,
+      "seat_radius_mm": 3.325,
+      "seat_floor_stock_mm": 3.0,
+      "station_length_mm": 10.0,
+      "stock_west_of_first_tube_mm": 3.7,
+      "stock_east_of_last_tube_mm": 3.7,
+      "tie_slot_width_y_mm": 3.2,
+      "tie_slot_bottom_z_mm": 251.6,
+      "tie_slot_floor_stock_mm": 3.0,
+      "tie_access_outer_offset_mm": 6.0,
+      "tie_access_inner_offset_mm": 0.0,
+      "tie_witness_width_mm": 2.5,
+      "tie_witness_thickness_mm": 0.8,
+      "tie_witness_outer_bend_radius_mm": 3.75,
+      "tie_witness_bottom_center_z_mm": 252.4,
+      "stations": [
+        {
+          "id": "a-pair-fore-anchor",
+          "label": "Reservoir A fore paired anchor",
+          "tube_centers_world_mm": [
+            [
+              50.5,
+              205.0,
+              259.5
+            ],
+            [
+              58.0,
+              205.0,
+              259.5
+            ]
+          ],
+          "routes_west_to_east": [
+            "fluid-16",
+            "fluid-14"
+          ]
+        },
+        {
+          "id": "a-pair-aft-anchor",
+          "label": "Reservoir A aft paired anchor",
+          "tube_centers_world_mm": [
+            [
+              86.5,
+              304.0,
+              259.5
+            ],
+            [
+              94.0,
+              304.0,
+              259.5
+            ]
+          ],
+          "routes_west_to_east": [
+            "fluid-16",
+            "fluid-14"
+          ]
+        }
+      ],
+      "tie_slot_top_z_mm": 253.175
+    },
+    "candidate_lid_signature": {
+      "valid": true,
+      "solids": 1,
+      "faces": 216,
+      "volume_mm3": 295472.1021891441,
+      "center_mm": [
+        2.940974920095711,
+        317.74613187734644,
+        252.60490425387746
+      ],
+      "bounds_mm": [
+        -90.2000001,
+        182.45000000000002,
+        247.9999998999971,
+        97.7,
+        465.0000001,
+        299.21000000000004
+      ]
+    },
+    "volume_tolerance_mm3": 0.001,
+    "checks": [
+      {
+        "feature": "actual lid gains no stock",
+        "added_mm3": 0.0,
+        "passed": true
+      },
+      {
+        "feature": "one valid candidate lid",
+        "passed": true
+      }
+    ],
+    "stations": {
+      "a-pair-fore-anchor": {
+        "old_signature": {
+          "valid": true,
+          "solids": 1,
+          "faces": 18,
+          "volume_mm3": 1141.6244519895283,
+          "center_mm": [
+            54.25,
+            205.00000000000003,
+            252.76673510392274
+          ],
+          "bounds_mm": [
+            46.8,
+            200.0,
+            248.6,
+            61.7,
+            210.0,
+            258.0
+          ]
+        },
+        "new_signature": {
+          "valid": true,
+          "solids": 1,
+          "faces": 18,
+          "volume_mm3": 1081.2051671124932,
+          "center_mm": [
+            54.24999999999999,
+            204.99999999999994,
+            252.64661385355706
+          ],
+          "bounds_mm": [
+            46.8,
+            200.0,
+            248.6,
+            61.7,
+            210.0,
+            258.0
+          ]
+        },
+        "checks": [
+          {
+            "feature": "closed 3 mm seat web between tube axes",
+            "missing_mm3": 0.0,
+            "passed": true
+          },
+          {
+            "feature": "complete 3 mm slot floor",
+            "missing_mm3": 0.0,
+            "passed": true
+          },
+          {
+            "feature": "fore 3.4 mm-long complete bearing band",
+            "removed_mm3": 0.0,
+            "passed": true
+          },
+          {
+            "feature": "fore full lid root",
+            "missing_mm3": 0.0,
+            "passed": true
+          },
+          {
+            "feature": "aft 3.4 mm-long complete bearing band",
+            "removed_mm3": 0.0,
+            "passed": true
+          },
+          {
+            "feature": "aft full lid root",
+            "missing_mm3": 0.0,
+            "passed": true
+          },
+          {
+            "feature": "no added seat stock",
+            "added_mm3": 0.0,
+            "passed": true
+          },
+          {
+            "feature": "unchanged nominal tie versus candidate lid",
+            "overlap_mm3": 0.0,
+            "passed": true
+          }
+        ],
+        "mouth_plane_world_x_mm": [
+          50.5,
+          58.0
+        ],
+        "recess_to_outer_stock_world_x_mm": [
+          3.700000000000003,
+          3.700000000000003
+        ]
+      },
+      "a-pair-aft-anchor": {
+        "old_signature": {
+          "valid": true,
+          "solids": 1,
+          "faces": 18,
+          "volume_mm3": 1141.6244519890884,
+          "center_mm": [
+            90.24999999999999,
+            303.99999999999994,
+            252.76673510392231
+          ],
+          "bounds_mm": [
+            82.8,
+            299.0,
+            248.6,
+            97.7,
+            309.0,
+            258.0000000000004
+          ]
+        },
+        "new_signature": {
+          "valid": true,
+          "solids": 1,
+          "faces": 18,
+          "volume_mm3": 1081.205167112052,
+          "center_mm": [
+            90.24999999999999,
+            304.00000000000006,
+            252.64661385355666
+          ],
+          "bounds_mm": [
+            82.8,
+            299.0,
+            248.6,
+            97.7,
+            309.0,
+            258.0000000000004
+          ]
+        },
+        "checks": [
+          {
+            "feature": "closed 3 mm seat web between tube axes",
+            "missing_mm3": 0.0,
+            "passed": true
+          },
+          {
+            "feature": "complete 3 mm slot floor",
+            "missing_mm3": 0.0,
+            "passed": true
+          },
+          {
+            "feature": "fore 3.4 mm-long complete bearing band",
+            "removed_mm3": 0.0,
+            "passed": true
+          },
+          {
+            "feature": "fore full lid root",
+            "missing_mm3": 0.0,
+            "passed": true
+          },
+          {
+            "feature": "aft 3.4 mm-long complete bearing band",
+            "removed_mm3": 0.0,
+            "passed": true
+          },
+          {
+            "feature": "aft full lid root",
+            "missing_mm3": 0.0,
+            "passed": true
+          },
+          {
+            "feature": "no added seat stock",
+            "added_mm3": 0.0,
+            "passed": true
+          },
+          {
+            "feature": "unchanged nominal tie versus candidate lid",
+            "overlap_mm3": 0.0,
+            "passed": true
+          }
+        ],
+        "mouth_plane_world_x_mm": [
+          86.5,
+          94.0
+        ],
+        "recess_to_outer_stock_world_x_mm": [
+          3.700000000000003,
+          3.700000000000003
+        ]
+      }
+    },
+    "claim_limits": "Native geometry only. Purchased tie threading, retention and load capacity remain unqualified. Prior contact readings retain their own input receipts; the new seats are subsets and the nominal ties are identical.",
+    "removed_lid_mm3": 120.83857057610294,
+    "passed": true,
+    "selected_source_sha256": {
+      "hardware/printed-parts/cold-core/_reservoir_a_anchors.py": "1232e98c3e1f9b849d28a53c8414879428c46d486ebe5bf5902e528f6208512f",
+      "hardware/printed-parts/cold-core/foam-cap/reservoir_a_anchor_review.py": "a72d86e04c69890b542cf7246d58422ae8324f88c9666741380cf3808cf12450"
+    },
+    "actual_export_binding": {
+      "state": "source-native subtractive candidate; canonical export pending",
+      "basis": "The finite stock and unchanged end-bearing checks read the actual input lid plus only the selected two mouth cuts. Prior full contact/native/STL readings retain their original source and artifact bindings. The new seats are subsets; nominal ties and tube stations are identical."
+    }
   }
 }
