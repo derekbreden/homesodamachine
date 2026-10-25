@@ -84,7 +84,7 @@
    "label": "Pairs outside named pack-floor exclusions stand a millimetre apart",
    "kind": "gate",
    "status": "fail",
-   "value": "33 under, tightest 0.000 mm",
+   "value": "34 under, tightest 0.000 mm",
    "target": "\u2265 1 mm",
    "detail": [
     "every body pair, and every drawn run against what its own line does not join it to \u2014 the exact solid distance, with boxes only as a prefilter",
@@ -109,7 +109,6 @@
     "funnel \u2014 funnel-frame-front-east-screw: 0.200 mm \u2014 \u2717 under the global pack floor",
     "funnel \u2014 funnel-frame-back-west-screw: 0.200 mm \u2014 \u2717 under the global pack floor",
     "funnel \u2014 funnel-frame-back-east-screw: 0.200 mm \u2014 \u2717 under the global pack floor",
-    "fluid-28 \u2014 enclosure-back-top: 0.357 mm \u2014 \u2717 under the global pack floor",
     "lower-pump-elbow \u2014 pump-inlet-tube-band: 0.393 mm \u2014 \u2717 under the global pack floor",
     "fluid-16 \u2014 funnel-frame: 0.550 mm \u2014 \u2717 under the global pack floor",
     "fluid-14 \u2014 funnel-frame: 0.551 mm \u2014 \u2717 under the global pack floor",
@@ -117,6 +116,8 @@
     "ya-stem-elbow \u2014 elbow-cradle: 0.666 mm \u2014 \u2717 under the global pack floor",
     "yb-stem-elbow \u2014 elbow-cradle: 0.666 mm \u2014 \u2717 under the global pack floor",
     "funnel-frame \u2014 foam-assembly: 0.690 mm \u2014 \u2717 under the global pack floor",
+    "fluid-28 \u2014 gas-regulator: 0.800 mm \u2014 \u2717 under the global pack floor",
+    "fluid-28 \u2014 enclosure-back-top: 0.806 mm \u2014 \u2717 under the global pack floor",
     "above-core-va-fore-feed \u2014 foam-assembly: 0.875 mm \u2014 \u2717 under the global pack floor",
     "fluid-16 \u2014 lower-valve-elbow: 0.876 mm \u2014 \u2717 under the global pack floor",
     "bulkhead-carb \u2014 bulkhead-ring-carb-word: 0.941 mm \u2014 \u2717 under the global pack floor",
@@ -197,8 +198,8 @@
     "display-cover \u2014 display-gasket: 0.000 mm \u2014 excluded from the global pack floor",
     "soda-core-rise \u2014 soda-continuous-insulation: 0.000 mm \u2014 excluded from the global pack floor",
     "g-ganen-pump \u2014 foam-assembly: 0.000 mm \u2014 excluded from the global pack floor",
+    "vb-outlet-return \u2014 foam-assembly: 0.147 mm \u2014 excluded from the global pack floor",
     "discharge-chain \u2014 foam-assembly: 0.147 mm \u2014 excluded from the global pack floor",
-    "vb-outlet-return \u2014 foam-assembly: 0.148 mm \u2014 excluded from the global pack floor",
     "funnel-frame \u2014 elbow-cradle: 0.150 mm \u2014 excluded from the global pack floor",
     "wago-sensors \u2014 foam-assembly: 0.150 mm \u2014 excluded from the global pack floor",
     "wago-v12 \u2014 foam-assembly: 0.150 mm \u2014 excluded from the global pack floor",
@@ -245,13 +246,12 @@
     "fluid-18 \u2014 fluid-14: 1.688 mm",
     "above-core-pump-inlet-link \u2014 g-ganen-pump: 1.721 mm",
     "fluid-16 \u2014 valve-v-b: 1.735 mm",
-    "fluid-28 \u2014 gas-regulator: 1.742 mm",
     "above-core-pump-check-link \u2014 g-ganen-pump: 1.750 mm",
-    "fluid-28 \u2014 drain-vent: 1.760 mm",
     "g-ganen-pump \u2014 pump-inlet-barb-band: 1.761 mm",
     "fluid-14 \u2014 g-ganen-pump: 1.821 mm",
     "above-core-gas-core-drop \u2014 fluid-14: 1.889 mm",
-    "soda-core-rise \u2014 pump-inlet-tpu: 1.891 mm"
+    "soda-core-rise \u2014 pump-inlet-tpu: 1.891 mm",
+    "fluid-28 \u2014 drain-vent: 1.975 mm"
    ],
    "active": true
   },
@@ -670,8 +670,8 @@
    "value": "two 80 \u00d7 35 mm bottom openings at Y 214",
    "target": "clear upward entry, 3 mm inner walls, 12 mm roofs and complete end posts",
    "detail": [
-    "west: blocked entry 0.0000 mm\u00b3; missing inner wall 0.0022 mm\u00b3; missing roof 0.0000 mm\u00b3; missing end posts 0.0002 mm\u00b3",
-    "east: blocked entry 0.0000 mm\u00b3; missing inner wall 0.0022 mm\u00b3; missing roof 0.0000 mm\u00b3; missing end posts 0.0000 mm\u00b3"
+    "west: blocked entry 0.0000 mm\u00b3; missing inner wall 0.0000 mm\u00b3; missing roof 0.0000 mm\u00b3; missing end posts 0.0000 mm\u00b3",
+    "east: blocked entry 0.0000 mm\u00b3; missing inner wall 0.0000 mm\u00b3; missing roof 0.0000 mm\u00b3; missing end posts 0.0000 mm\u00b3"
    ],
    "active": true
   },
@@ -797,7 +797,7 @@
    "target": "200 mm between held points",
    "detail": [
     "fluid-18: 688.0 mm unheld, 488.0 over",
-    "fluid-28: 544.1 mm unheld, 344.1 over",
+    "fluid-28: 544.9 mm unheld, 344.9 over",
     "fluid-24: 247.4 mm unheld, 47.4 over",
     "fluid-26: 234.1 mm unheld, 34.1 over",
     "fluid-14: 192.7 mm, held at two paired lid seats (nominal restraint geometry)",
