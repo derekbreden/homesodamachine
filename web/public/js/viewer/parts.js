@@ -41,7 +41,7 @@ function renderAssembly({ description, note, file, id }) {
   const model = document.createElement('a'); model.className = 'assembly-model-link';
   model.href = '/3d#' + (id ? materialHash(id) : 'step:' + encodeURIComponent(file));
   const image = document.createElement('img'); image.alt = '';
-  const label = document.createElement('div'); label.className = 'label';
+  const label = document.createElement('div'); label.className = 'label card-caption';
   const name = document.createElement('span'); name.className = 'name'; name.textContent = description;
   const detail = document.createElement('span'); detail.className = 'assembly-note'; detail.textContent = note;
   label.append(name, detail); model.append(image, label); card.append(model);
@@ -83,7 +83,7 @@ export function buildPartsSection(gridEl, { steps, dxfs, glbs }) {
   const roots = state.materialCatalog.roots.map((id) => index.get(id)).filter(Boolean);
   for (const [kind, heading] of [['assembly', 'The machine'], ['tooling', 'Build tools']]) {
     const title = document.createElement('h2'); title.className = 'material-section-title'; title.textContent = heading;
-    const row = document.createElement('div'); row.className = 'assembly-row';
+    const row = document.createElement('div'); row.className = 'assembly-row' + (kind === 'tooling' ? ' assembly-row-tools' : '');
     for (const m of roots.filter((m) => m.kind === kind)) {
       const file = m.models?.[0]?.file; if (!file || !steps.includes(file)) continue;
       row.append(renderAssembly({ description: m.description, note: m.id, file, id: m.id }));

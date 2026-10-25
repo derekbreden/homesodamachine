@@ -50,7 +50,7 @@ export function paintStepThumb(card, { bust = false } = {}) {
   card._drawingSeq = drawing;
   if (bust) forgetThumbnail(file);
   card.dataset.drawing = "1";
-  renderThumbnail(file, thumbSize(card), finish).then((url) => {
+  renderThumbnail(file, thumbSize(card), finish, "shelf").then((url) => {
     if (card._drawingSeq !== drawing || card.dataset.file !== file) return;
     if (url) img.src = url;
     delete card.dataset.drawing;
@@ -127,7 +127,7 @@ function renderGroupedCards({ files, ext, type, thumbnailHtml, onClick }) {
       card.dataset.file = file;
       card.dataset.type = type;
       const dir = partPath ? `<span class="dir">${partPath}</span>` : "";
-      card.innerHTML = `${thumbnailHtml(file)}<div class="label">${dir}<span class="name-row"><span class="name">${name}</span></span></div>`;
+      card.innerHTML = `${thumbnailHtml(file)}<div class="label card-caption">${dir}<span class="name-row"><span class="name">${name}</span></span></div>`;
       card.addEventListener("click", () => onClick(file));
       state.gridEl.appendChild(card);
     }
@@ -178,7 +178,7 @@ function buildDocumentsSection() {
       : `<div class="doc-cover placeholder">no cover</div>`;
     const scale = doc.pages ? `${doc.pages} ${doc.pages === 1 ? "page" : "pages"} · ${readableBytes(doc.bytes)}` : readableBytes(doc.bytes);
     el.innerHTML = cover +
-      `<div class="label"><span class="name-row"><span class="name">${doc.title}</span></span>` +
+      `<div class="label card-caption"><span class="name-row"><span class="name">${doc.title}</span></span>` +
       `<span class="dir">${doc.subtitle || ""}</span><span class="doc-scale">${scale}</span></div>`;
     shelf.appendChild(el);
   }
@@ -259,7 +259,7 @@ export function buildGrid() {
         card.dataset.type = "pcb";
         // A board whose directory is its own name says it once.
         const dir = dirLabel && dirLabel !== board.name ? `<span class="dir">${dirLabel}</span>` : "";
-        card.innerHTML = `${pcbThumb(board.source)}<div class="label">${dir}<span class="name-row"><span class="name">${board.name}</span></span></div>`;
+        card.innerHTML = `${pcbThumb(board.source)}<div class="label card-caption">${dir}<span class="name-row"><span class="name">${board.name}</span></span></div>`;
         card.addEventListener("click", () => openPcbDetail(board.source));
         state.gridEl.appendChild(card);
       }

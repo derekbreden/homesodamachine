@@ -99,7 +99,7 @@ html, body { margin: 0; padding: 0; }
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--font-sans, "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
   font-size: 16px;
   line-height: 1.5;
   /* 100vh on iOS Safari is the *large* viewport (URL bar retracted), so when
@@ -412,6 +412,7 @@ const HEAD_TAGS = `<script>(function(){try{if(localStorage.getItem("hsmFcmToken"
 
 export function renderHead({
   title, pageStyles = "", pageHead = "", importMap = null,
+  pageClass = "",
   fontStylesheet = "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap",
   themeColor = "#10319c",
 }) {
@@ -427,8 +428,9 @@ ${moduleMap}${HEAD_TAGS}
 <title>${escape(title)}</title>
 <style>${BASE_CSS}${pageStyles ? "\n" + pageStyles : ""}</style>
 ${pageHead}
+<link rel="stylesheet" href="/css/site.css">
 </head>
-<body>
+<body${pageClass ? ` class="${escape(pageClass)}"` : ""}>
 `;
 }
 
@@ -520,8 +522,27 @@ ${iconItems}
 `;
 }
 
-export function renderFooter() {
-  return `</body>
+export function renderPageHeader({ eyebrow, title, description = "" }) {
+  return `<header class="site-page-header">
+  <div class="site-masthead site-inner">
+    <a class="site-brand" href="/" aria-label="Home Soda Machine home"><img src="/brand/wordmark-reverse.svg" width="1680" height="640" alt="Home Soda Machine"></a>
+    <a class="site-project-link" href="/latest">Design &amp; development <span aria-hidden="true">↗</span></a>
+  </div>
+  <div class="site-page-intro site-inner">
+    <p class="site-eyebrow">${escape(eyebrow)}</p>
+    <h1>${escape(title)}</h1>
+    ${description ? `<p class="site-lede">${escape(description)}</p>` : ""}
+  </div>
+</header>`;
+}
+
+export function renderFooter({ siteFooter = false } = {}) {
+  return `${siteFooter ? `<footer class="site-footer">
+  <div class="site-inner site-footer-inner">
+    <a href="/" class="site-footer-brand"><img src="/brand/mark-blue.svg" width="36" height="36" alt=""><span>Home Soda Machine<small>A kitchen appliance in development.</small></span></a>
+    <nav aria-label="Project"><a href="/latest">Follow the build</a><a href="/3d">Explore the design</a><a href="/cost">Parts &amp; costs</a></nav>
+  </div>
+</footer>` : ""}</body>
 </html>
 `;
 }

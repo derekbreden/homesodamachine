@@ -1,0 +1,239 @@
+/* Shared proportions and surfaces, drawn from the appliance home page. */
+:root {
+  --font-sans: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --site-width: 84rem;
+  --site-gutter: clamp(1.25rem, 4vw, 3rem);
+  --site-paper: #f2f5fa;
+  --site-image: #e6ecf5;
+}
+.site-inner {
+  width: 100%;
+  max-width: var(--site-width);
+  margin-inline: auto;
+  padding-inline: calc(env(safe-area-inset-left, 0px) + var(--site-gutter)) calc(env(safe-area-inset-right, 0px) + var(--site-gutter));
+}
+@media (min-width: 601px) {
+  .site-nav {
+    padding-inline: calc(env(safe-area-inset-left, 0px) + max(var(--site-gutter), (100vw - 78rem) / 2)) calc(env(safe-area-inset-right, 0px) + max(var(--site-gutter), (100vw - 78rem) / 2));
+  }
+}
+.site-nav { border-bottom-color: #ffffff30; }
+.site-nav a.active::before {
+  content: ""; position: absolute; height: 3px; left: .375rem; right: .375rem; bottom: 0;
+  border-radius: 3px; background: var(--brand-orange);
+}
+.site-nav a[aria-label] { min-height: 44px; }
+button, input, select, textarea { font-family: inherit; }
+body.site-interior { background: var(--site-paper); }
+.site-page-header { background: var(--brand-blue); color: #fff; }
+.site-masthead { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding-block: 1rem; }
+.site-brand { display: block; flex: 0 0 auto; width: 12rem; }
+.site-brand img { display: block; width: 100%; height: auto; }
+.site-project-link { color: var(--brand-ice); font-size: .75rem; text-decoration: none; display: inline-flex; align-items: center; gap: .75rem; min-height: 44px; }
+.site-project-link span { color: var(--brand-orange); font-size: 1rem; }
+.site-project-link:hover { color: #fff; text-decoration: underline; text-underline-offset: 4px; }
+.site-page-intro { padding-block: clamp(1.5rem, 3vw, 3rem) clamp(2.5rem, 4vw, 4rem); }
+.site-eyebrow { margin: 0 0 1rem; color: var(--brand-ice); font-size: .75rem; font-weight: 500; letter-spacing: .09em; text-transform: uppercase; }
+.site-page-intro h1 { margin: 0; max-width: 24ch; font-size: clamp(2.25rem, 4.4vw, 4.25rem); line-height: 1.08; font-weight: 600; letter-spacing: -.045em; text-wrap: balance; }
+.site-lede { max-width: 44rem; margin: 1.25rem 0 0; color: var(--brand-ice); font-size: 1.0625rem; line-height: 1.7; text-wrap: pretty; }
+.site-page-header a:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; border-radius: 3px; }
+
+/* Content has a light palette; immersive viewers inherit the dark shell. */
+.site-content, .site-footer, .site-light {
+  color-scheme: light;
+  --bg: var(--site-paper);
+  --surface: #fff;
+  --surface-2: #e7edf7;
+  --border: #c7d3e8;
+  --text: var(--brand-navy);
+  --text-2: #3f557e;
+  --text-3: #526790;
+  --accent: var(--brand-blue);
+  --ok: #24693a;
+  --err: #ab3030;
+  --warn: #8b4a11;
+  --chart-two: var(--brand-blue);
+  --chart-three: #6585c9;
+  color: var(--text);
+}
+.site-content {
+  width: 100%; max-width: var(--site-width); min-width: 0; flex: 1;
+  margin: 0 auto; padding: clamp(2rem, 4vw, 3.5rem) calc(env(safe-area-inset-right, 0px) + var(--site-gutter)) calc(env(safe-area-inset-bottom, 0px) + 5rem) calc(env(safe-area-inset-left, 0px) + var(--site-gutter));
+}
+.site-content :is(h2, h3) { font-weight: 500; letter-spacing: -.025em; }
+.site-content :is(a, button, input, select, summary):focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.site-content input::placeholder { color: var(--text-3); font-weight: 400; opacity: 1; }
+.site-footer { margin-top: auto; background: var(--site-paper); border-top: 1px solid var(--border); }
+.site-footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 2rem; padding-block: 2rem; }
+.site-footer-brand { display: flex; gap: .75rem; align-items: center; font-size: .8125rem; font-weight: 500; color: var(--text); text-decoration: none; }
+.site-footer-brand small { display: block; margin-top: .25rem; font-size: .6875rem; color: var(--text-2); font-weight: 400; }
+.site-footer nav { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; }
+.site-footer nav a { display: inline-flex; align-items: center; min-height: 44px; color: var(--text-2); text-decoration: none; font-size: .75rem; }
+.site-footer a:hover { color: var(--accent); }
+.site-footer a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+/* A shelf of models, with breathing room around each object. */
+#grid.site-content {
+  padding: clamp(2rem, 4vw, 3.5rem) calc(env(safe-area-inset-right, 0px) + var(--site-gutter)) calc(env(safe-area-inset-bottom, 0px) + 5rem) calc(env(safe-area-inset-left, 0px) + var(--site-gutter));
+  grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr)); gap: 1.75rem;
+}
+.site-viewer-charts #grid.site-content { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.site-content .material-search { max-width: 46rem; margin-bottom: .5rem; }
+.site-content .material-search label { font-size: .8125rem; font-weight: 500; gap: .75rem; }
+.site-content .material-search input { border-radius: 5px; padding: 1rem; font-size: 1rem; font-weight: 400; }
+.site-content .material-search-results { margin-top: .75rem; }
+.site-content .material-search-results strong { font-size: .875rem; }
+.site-content .material-section-title { margin: 1.5rem 0 -.5rem; font-size: clamp(1.5rem, 2.5vw, 2rem); line-height: 1.2; }
+.site-content .assembly-row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.5rem; }
+.site-content .assembly-row-tools { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.site-content .card { background: transparent; border-radius: 5px; outline: none; transition: transform .18s; }
+.site-content .card:hover { transform: translateY(-3px); }
+.site-content .card:focus-within { outline: 2px solid var(--accent); outline-offset: 5px; }
+.site-content .card img, .site-content .card .placeholder { background: var(--site-image); border-radius: 5px; }
+.site-content .card-assembly img { aspect-ratio: 4 / 3; object-fit: cover; }
+.site-content .card .card-caption { padding: 1rem 0 .5rem; white-space: normal; font-size: .9375rem; }
+.site-content .card .card-caption .dir { font-size: .75rem; margin-bottom: .35rem; }
+.site-content .card .card-caption .name { white-space: normal; overflow-wrap: anywhere; }
+.site-content .card-assembly .label .name { font-size: 1.25rem; font-weight: 500; letter-spacing: -.025em; }
+.site-content .assembly-row-tools .label .name { font-size: 1.0625rem; }
+.site-content .card-assembly .assembly-note { font: .6875rem/1.6 ui-monospace, monospace; color: var(--text-3); }
+.site-content .assembly-bom-link { margin: 0; min-height: 44px; padding: .6rem 0; font-size: .75rem; }
+.site-content .faucet-card-options { color: var(--text-2); font-size: .75rem; }
+.site-content .subsection-header, .site-content .section-header { font-size: .75rem; font-weight: 500; letter-spacing: .075em; opacity: 1; margin-top: 1rem; padding-block: .75rem; }
+.site-content .card .mmd-thumb { background: var(--brand-navy); border-radius: 5px; padding: 1rem; }
+.site-content .card .pcb-thumb { border-radius: 5px; }
+.site-content .doc-shelf { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.5rem; }
+.site-content .card.card-doc { padding: 0; }
+.site-content .card.card-doc .doc-cover { box-shadow: 0 2px 4px #10319c0d, 0 10px 24px #10319c12; }
+.site-content .card.card-doc .label { padding-top: 1.25rem; }
+.site-content .card.card-doc .label .name { font-size: 1.0625rem; font-weight: 500; }
+
+/* The build journal: pictures lead, with a quieter reading hierarchy. */
+.lt-wrap.site-content .lt-sec { margin-bottom: 4rem; }
+.site-content .lt-head { padding-top: 1.25rem; }
+.site-content .lt-h2 { font-size: 1.75rem; }
+.site-content .lt-desc { font-size: .9375rem; margin: .75rem 0 1.75rem; max-width: 42rem; line-height: 1.7; }
+.site-content .lt-grid { gap: 2rem; }
+.site-content .lt-shot { border: 0; border-radius: 5px; background: var(--site-image); }
+.site-content .lt-card { gap: .75rem; }
+.site-content .lt-title, .site-content .lt-grid-changes > :first-child .lt-title { font-size: 1.0625rem; line-height: 1.5; font-weight: 500; letter-spacing: -.02em; }
+.site-content .lt-tag, .site-content .ch-tag { color: var(--brand-ice); }
+.site-content .lt-shot-words { background: #e6ecf5; }
+.site-content .up-item > a { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); align-items: center; gap: 3rem; padding: 2.5rem 0; margin: 0; }
+.site-content .up-item > a:not(:has(.up-shot)) { grid-template-columns: 1fr; }
+.site-content .up-item > a:hover { background: transparent; }
+.site-content .up-shot { border: 0; border-radius: 5px; background: var(--site-image); }
+.site-content .up-text { gap: .875rem; }
+.site-content .up-title { font-size: clamp(1.25rem, 2vw, 1.75rem); font-weight: 500; letter-spacing: -.03em; line-height: 1.25; }
+.site-content .up-lede { font-size: .9375rem; line-height: 1.75; }
+.site-content.up-post { max-width: 56rem; }
+.site-content .up-body, .site-content .ch-body { font-size: 1rem; line-height: 1.8; }
+.site-content .up-body h2, .site-content .ch-body h2 { font-size: 1.5rem; margin-top: 2.5rem; line-height: 1.25; }
+.site-content .up-body p, .site-content .ch-body p { margin-bottom: 1.25rem; }
+.site-content .up-post .up-meta { margin-bottom: 1.5rem; }
+.site-content .ch-card { padding: 2rem 0; margin: 0; gap: 1.25rem; }
+.site-content .ch-card:hover { background: transparent; }
+.site-content .ch-title { font-size: 1.25rem; font-weight: 500; letter-spacing: -.025em; }
+.site-content .ch-lede { font-size: .9375rem; line-height: 1.7; }
+.site-content .ch-shot, .site-content .ch-frame { border: 0; border-radius: 5px; background: var(--site-image); }
+.site-content .ch-pair { gap: 1rem; }
+.site-content .ch-dtitle { font-size: clamp(1.75rem, 3vw, 2.75rem); font-weight: 500; letter-spacing: -.035em; line-height: 1.15; margin-bottom: 2rem; }
+.site-content .ch-mark-label { color: #fff; }
+.site-content .ch-r-before:checked ~ .ch-switch .ch-l-before,
+.site-content .ch-r-after:checked ~ .ch-switch .ch-l-after { color: #fff; background: var(--brand-blue); }
+
+/* Financial details stay compact within the shared page proportions. */
+.cost-wrap.site-content { max-width: var(--site-width); }
+.site-content .cost-title { font-weight: 500; letter-spacing: -.03em; }
+.site-content .cost-top { border-radius: 5px; }
+.site-content .cost-price { background: var(--brand-blue); border: 0; padding: clamp(1.5rem, 4vw, 3rem); color: #fff; --text: #fff; --text-2: var(--brand-ice); --accent: var(--brand-ice); --chart-two: var(--brand-ice); --chart-three: var(--brand-orange); }
+.site-content .cost-price .cost-top-cap { color: var(--brand-ice); }
+.site-content .cost-price .cost-top-big { font-weight: 500; letter-spacing: -.045em; }
+.site-content .cost-contents { margin-block: 2.5rem; }
+.site-content .cost-panel { border-radius: 5px; margin-block: 1rem; }
+.site-content .cost-panel > summary { border-radius: 5px; padding: 1.5rem; }
+.site-content .cost-panel-heading { font-size: 1.125rem; font-weight: 500; letter-spacing: -.02em; }
+.site-content .cost-panel-content { border-radius: 0 0 5px 5px; background: #fff; padding: 1.5rem; }
+.site-content .cost-panel-value strong { font-weight: 500; letter-spacing: -.025em; }
+.site-content .recovery-panel, .site-content .cost-hero { border-radius: 5px; box-shadow: none; }
+.site-content .recovery-panel, .site-content .harness-guide { --action: var(--brand-blue); }
+.site-content .recovery-headline b { font-weight: 500; }
+
+/* Utility pages use the same surface and scale. */
+.settings-wrap.site-content { max-width: var(--site-width); }
+.site-content h2.section { font-size: 1.5rem; margin: 2.5rem 0 1.25rem; color: var(--text); }
+.site-content .settings-card { max-width: 56rem; border-radius: 5px; }
+.site-content .setting-row { padding: 1.25rem 1.5rem; }
+.notifs-page.site-content { max-width: var(--site-width); }
+.site-content .notifs-mark-all { min-height: 44px; font: inherit; font-size: .8125rem; }
+.site-content.guide { max-width: var(--site-width); }
+.site-content.guide > header { max-width: 70ch; }
+.site-content.guide .guide-section > h2 { font-size: 2rem; }
+.site-content .guide-preview { border-radius: 5px; padding: 1.5rem; background: #fff; }
+.site-content .guide-usage { line-height: 1.75; color: var(--text-2); }
+.site-content .guide-example { padding-block: 2rem; }
+
+.pdf-reader { color: var(--text); background: var(--bg); }
+.pdf-reader .pdf-heading { width: 100%; max-width: var(--site-width); margin-inline: auto; padding: 1.25rem var(--site-gutter); }
+.pdf-heading h1 { font-weight: 500; letter-spacing: -.025em; }
+.pdf-reader .pdf-viewport { background: var(--site-image); }
+.unit-page .unit-header { background: var(--brand-blue); --unit-ink: #fff; --unit-blue: var(--brand-ice); --unit-muted: var(--brand-ice); --unit-line: #ffffff30; padding-inline: var(--site-gutter); }
+.unit-page .unit-nav a[aria-current="page"] { color: var(--brand-navy); background: var(--brand-ice); }
+.unit-page .unit-main { padding: clamp(1.25rem, 4vw, 3rem) var(--site-gutter) 4rem; }
+.unit-page .unit-hero { background: var(--brand-blue); --unit-ink: #fff; --unit-muted: var(--brand-ice); --unit-blue: var(--brand-ice); --unit-ice: #dce6ff; color: #fff; border-radius: 5px; overflow: hidden; }
+.unit-page .unit-copy { padding: 2.5rem 0 2.5rem 2.5rem; }
+.unit-page .unit-copy h1 { max-width: 12ch; }
+.unit-page .unit-copy p { max-width: 30rem; }
+.unit-page .unit-hero-art { background: var(--site-image); height: 100%; min-height: 350px; }
+.unit-page .unit-caption { color: #3f557e; }
+.unit-page .unit-footer { padding-inline: var(--site-gutter); }
+.unit-page .unit-page-heading { padding-block: 1rem 2rem; }
+#positioner, #weld-position { max-width: var(--site-width); padding: 2.5rem var(--site-gutter); }
+#positioner h1, #weld-position h1 { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 500; letter-spacing: -.035em; line-height: 1.15; }
+
+@media (min-width: 1600px) { .site-masthead { padding-top: 1.75rem; } }
+@media (max-width: 900px) {
+  .site-content .doc-shelf { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem; }
+  .site-content .assembly-row { gap: 1.5rem; }
+  .site-content .assembly-row-tools { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .site-content .up-item > a { gap: 2rem; }
+}
+@media (max-width: 600px) {
+  .site-masthead { gap: .75rem; padding-block: .75rem; }
+  .site-brand { width: 10.25rem; }
+  .site-project-link { font-size: .625rem; gap: .4rem; }
+  .site-page-intro { padding-top: 1.5rem; padding-bottom: 2.5rem; }
+  .site-page-intro h1 { font-size: clamp(2rem, 8.15vw, 2.75rem); }
+  .site-eyebrow { font-size: .6875rem; margin-bottom: .875rem; }
+  .site-lede { font-size: .9375rem; margin-top: 1rem; }
+  #grid.site-content { gap: 1.25rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .site-viewer-charts #grid.site-content { grid-template-columns: minmax(0, 1fr); }
+  .site-content .assembly-row, .site-content .doc-shelf { grid-template-columns: 1fr; gap: 2rem; }
+  .site-content .card-assembly .label .name { font-size: 1.25rem; }
+  .site-content .card .card-caption { font-size: .8125rem; }
+  .site-content .material-section-title { margin-top: 1rem; }
+  .site-content .lt-grid { gap: 1.5rem 1rem; }
+  .site-content .lt-head { align-items: center; gap: .75rem; }
+  .site-content .lt-h2 { font-size: 1.5rem; }
+  .site-content .lt-all { font-size: .75rem; }
+  .site-content .lt-title { font-size: .875rem; }
+  .site-content .lt-grid-changes > :first-child .lt-title { font-size: 1.0625rem; }
+  .site-content .up-item > a { grid-template-columns: 1fr; gap: 1.25rem; padding-block: 2rem; }
+  .site-content .ch-pair { gap: .5rem; }
+  .site-content .ch-title { font-size: 1.125rem; }
+  .site-content .cost-panel > summary { padding: 1.25rem 1rem; }
+  .site-content .cost-panel-content { padding: 1.25rem .75rem; }
+  .site-content .cost-panel-heading { font-size: 1rem; }
+  .site-content .setting-row { padding: 1rem; }
+  .site-footer-inner { align-items: flex-start; flex-direction: column; gap: 1rem; padding-block: 1.5rem; }
+  .site-footer nav { gap: .25rem 1.25rem; }
+  .unit-page .unit-copy { padding: 2rem 1.5rem; }
+  .unit-page .unit-hero-art { min-height: 280px; }
+  #positioner, #weld-position { padding-block: 1.5rem; }
+}
+@media (max-width: 380px) {
+  .site-nav, .site-nav .nav-right { gap: .25rem; }
+  .site-nav a.nav-icon { padding-inline: .25rem; }
+  .site-project-link { max-width: 7rem; line-height: 1.5; text-align: right; }
+}
+@media (prefers-reduced-motion: reduce) { .site-content .card { transition: none; } }

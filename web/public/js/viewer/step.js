@@ -501,17 +501,21 @@ addStudioLighting(thumbScene, thumbRenderer);
 
 // Frame a group front-iso in the offscreen scene, snap it, and tear it down.
 // Shared with glb.js so every 3D thumbnail is composed the same way.
-function snapThumbnail(group, px = THUMB_SIZE) {
+function snapThumbnail(group, px = THUMB_SIZE, presentation = "viewer") {
   // The drawing buffer only, so the canvas keeps no style of its own — nothing
   // puts this element on a page.
   if (thumbRenderer.domElement.width !== px) thumbRenderer.setSize(px, px, false);
+  const shelf = presentation === "shelf";
+  const background = shelf ? 0xe6ecf5 : BG_COLOR;
+  thumbRenderer.setClearColor(background);
+  thumbScene.fog.color.set(background);
   thumbScene.add(group);
 
   const box = new THREE.Box3().setFromObject(group);
   const center = box.getCenter(new THREE.Vector3());
   const size = box.getSize(new THREE.Vector3());
   const maxDim = Math.max(size.x, size.y, size.z);
-  const dist = maxDim * 2.5;
+  const dist = maxDim * (shelf ? 2.25 : 2.5);
   // +Z-up CAD-standard front-iso — matches resetCamera in scene.js so
   // the thumbnail shows the same orientation as the detail view's
   // default. Camera at +X, -Y, +Z (front-right-above).
@@ -538,10 +542,10 @@ function snapThumbnail(group, px = THUMB_SIZE) {
 
 // Build + shade + snap an occt-shaped result. Both thumbnail sources end here,
 // so where the meshes came from can't change how the part looks.
-export function renderMeshes(result, px, file = null, finishId = state.faucetFinish) {
+export function renderMeshes(result, px, file = null, finishId = state.faucetFinish, presentation = "viewer") {
   const group = buildMesh(result, file, finishId);
   applyXray(group);
-  return snapThumbnail(group, px);
+  return snapThumbnail(group, px, presentation);
 }
 
 // THE THUMBNAIL DRAWS WHAT THE DETAIL VIEW DRAWS. `loadStepFile` answers off the payload beside
@@ -558,25 +562,25 @@ export function forgetThumbnail(file) {
   }
 }
 
-export async function renderThumbnail(file, px = THUMB_SIZE, finishId = state.faucetFinish) {
+export async function renderThumbnail(file, px = THUMB_SIZE, finishId = state.faucetFinish, presentation = "viewer") {
   // THE SIZE IS PART OF WHAT IS CACHED. A card asks at its own width, and the
   // same model shown at two widths is two pictures; keying on the file alone
   // would hand the second one the first one's pixels.
-  const key = `${file}@${px}${hasFaucetFinish(file) ? `@${finishId}` : ""}`;
+  const key = `${file}@${px}@${presentation}${hasFaucetFinish(file) ? `@${finishId}` : ""}`;
   if (state.thumbnailCache.has(key)) return state.thumbnailCache.get(key);
   await loadFinishes();
 
   try {
     const meshed = await fetchMeshes(file, {});
     if (meshed && meshed.result) {
-      const fromPayload = renderMeshes(meshed.result, px, file, finishId);
+      const fromPayload = renderMeshes(meshed.result, px, file, finishId, presentation);
       state.thumbnailCache.set(key, fromPayload);
       return fromPayload;
     }
     const resp = await fetch(`/steps/${file}`);
     if (!resp.ok) return null;
     const buf = new Uint8Array(await resp.arrayBuffer());
-    const dataURL = renderMeshes(await parseStep(buf), px, file, finishId);
+    const dataURL = renderMeshes(await parseStep(buf), px, file, finishId, presentation);
     state.thumbnailCache.set(key, dataURL);
     return dataURL;
   } catch {
