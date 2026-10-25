@@ -1,6 +1,10 @@
 # Cold-core cap and equipment mounts
 
-The top cap is a foam-pour cup closed by a 5.4 mm lid. The PCB lies flat on
+The top cap is a foam-pour cup closed by a 5.4 mm lid. Its plain vertical
+casing wall is 2.38 mm and its floor is 2 mm. The 282.4 × 180.4 mm casing
+leaves 0.30 mm per face for the exterior foil bands. The
+[casing integration receipt](../casing-integration-review.json) records its
+independent mounting, passage and stack-height datums. The PCB lies flat on
 its west half; the diaphragm pump stands aft. V-B seats in
 an integral upright socket wall east of the PCB. The water check rests on
 a fore–aft quarter bearing on an aft-rooted bridge. It opens upward and west,
@@ -99,8 +103,7 @@ threading, installed retention and load capacity remain unqualified.
 native seat, passage and witness builders. The tubes remain continuous.
 The manually invoked [anchor reader](reservoir_a_anchor_review.py) records
 finite native stock witnesses and vertical measurements through the actual
-printed STL in its [scoped receipt](reservoir-a-anchor-review.json). The lid's
-plain tessellation is distinct from the cup's fluted show surface. Nearby
+printed STL in its [scoped receipt](reservoir-a-anchor-review.json). The lid and cup use the same smooth print-mesh export. Nearby
 electrical and nominal-tie contacts retain their explicit fixture status.
 
 The [neoFit ACHV44-E water check](../../../reference/neofit-achv44-check/README.md)
