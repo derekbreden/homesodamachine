@@ -1,5 +1,5 @@
 """Reference solid for the Teyleten 3.3 V opto-isolated 1-channel relay module
-(Amazon B07XGZSYJV), used 2x on the power/controller trays — relay #1 switches
+(Amazon B07XGZSYJV), used twice on back-top's dry west wall — relay #1 switches
 the compressor's 120 VAC hot leg, relay #2 gates 12 V to the diaphragm pump.
 
 A generic reseller board with no controlled drawing; geometry is calipered:

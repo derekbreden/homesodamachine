@@ -523,11 +523,6 @@ def _selected_mounts() -> tuple:
         base = f'funnel-frame-{datum["name"]}'
         rows.extend(((base+'-screw', host, 'thread'),
                      (base+'-insert', host, 'heat-set')))
-    centres = enc._above_core_shell.access_plan()['fasteners']['centres_xy_mm']
-    for number, _centre in enumerate(centres, start=1):
-        base = f'electronics-panel-{number}'
-        rows.extend(((base+'-screw', 'enclosure-back-top', 'thread'),
-                     (base+'-insert', 'enclosure-back-top', 'heat-set')))
     return tuple(rows)
 
 
@@ -1225,12 +1220,8 @@ def selected_mate_contacts(a, placed, clashes) -> dict:
         ('tube-above-core-pump-check-link', 'discharge-chain', 'inlet',
          selected_parts.check_reference().socket_depth('inlet')),
     )
-    closure_hosts = {
-        **{f'funnel-frame-{column}-{side}': f'enclosure-{column}-top'
-           for column in ('front', 'back') for side in ('west', 'east')},
-        **{f'electronics-panel-{number}': 'enclosure-back-top'
-           for number in range(1, 5)},
-    }
+    closure_hosts = {f'funnel-frame-{column}-{side}': f'enclosure-{column}-top'
+                     for column in ('front', 'back') for side in ('west', 'east')}
     pending = {frozenset((hit.a, hit.b)): hit for hit in clashes}
     regions = {}
 
@@ -1277,9 +1268,6 @@ def selected_mate_contacts(a, placed, clashes) -> dict:
             for row in enc._funnel_frame_part.fastener_datums(
                 box.inner, box.y_joint, centre, enc.funnel_seat_z(box.outer))
         }
-        panel = enc._above_core_shell.access_plan()['fasteners']
-        datums.update({f'electronics-panel-{number}': (x, y, panel['bearing_z_mm'])
-                       for number, (x, y) in enumerate(panel['centres_xy_mm'], 1)})
         for base, host in closure_hosts.items():
             x, y, top = datums[base]
             start = (x, y, top - 5.7)
@@ -1506,9 +1494,8 @@ def selected_clearance_joints(a) -> set:
     pairs |= {frozenset((f'asse-{side}-tpu', 'asse1022-assembly'))
               for side in ('inlet', 'outlet')}
     pairs.add(frozenset(('water-split', 'asse-outlet-tpu')))
-    for base in (*(f'funnel-frame-{column}-{side}'
-                   for column in ('front', 'back') for side in ('west', 'east')),
-                 *(f'electronics-panel-{number}' for number in range(1, 5))):
+    for base in (f'funnel-frame-{column}-{side}'
+                 for column in ('front', 'back') for side in ('west', 'east')):
         pairs.add(frozenset((base + '-screw', base + '-insert')))
     bodies, tubes, pieces = _split_placed(a)
     present = set(bodies) | set(tubes) | set(pieces)
