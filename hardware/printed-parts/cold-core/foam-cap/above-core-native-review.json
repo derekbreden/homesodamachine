@@ -189,7 +189,7 @@
       "current_applicability": true,
       "receipt": "b-fill-pair-review.json",
       "manual_reader": "b_fill_pair_review.py",
-      "geometry_basis": "Source-built selected cup/lid and explicit saved local native targets; canonical artifact binding is pending the selected cap/core export.",
+      "geometry_basis": "Selected source-native neighbors plus actual canonical cup/lid metrics and finite B-fill stock, with the separately scoped complete-cup four-fluid refinement.",
       "link": {
         "parts": {
           "reservoir-b-fill-lower": {
@@ -347,7 +347,115 @@
         }
       ],
       "assembly_scope": "Assemble both fittings and the short link in the open cup before closing the lid. Terminate J10 on the loose PCB before fastening it to the core; land the free ends at the WAGOs. Installed wire insertion/withdrawal service and flexible handling are unqualified.",
-      "floor_scope": "The original2mm cup floor and fixed lower reservoir stem tip/axis are retained; full roof probes have zero missing stock. The2.4mm upper retaining cover is a local functional section, not a pressure wall or qualified load path."
+      "floor_scope": "The original2mm cup floor and fixed lower reservoir stem tip/axis are retained; full roof probes have zero missing stock. The2.4mm upper retaining cover is a local functional section, not a pressure wall or qualified load path.",
+      "actual_export_binding": {
+        "scope": "Actual canonical cup/lid source-body metrics and finite cover, carrier-boundary and floor stock only. The227 local source-native neighbor readings retain their original fixture scope and are not replayed.",
+        "artifacts": {
+          "cup": {
+            "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+            "sha256": "c4ce8e5d5435376892c641b2c54a369a7dac2643c421e33ec4275b5902fe2e39",
+            "signature": {
+              "valid": true,
+              "solids": 1,
+              "faces": 211,
+              "volume_mm3": 204915.65937238224,
+              "bounds_mm": [
+                -90.2000001,
+                182.59999990000003,
+                233.54999989999766,
+                90.2000001,
+                465.0000001,
+                257.0
+              ]
+            },
+            "source_cached_signature": {
+              "valid": true,
+              "solids": 1,
+              "faces": 211,
+              "volume_mm3": 204915.6593723814,
+              "bounds_mm": [
+                -90.2000001,
+                182.59999990000003,
+                233.54999989999766,
+                90.2000001,
+                465.0000001,
+                257.0
+              ]
+            },
+            "metrics": {
+              "same_face_count": true,
+              "same_solid_count": true,
+              "volume_difference_mm3": 8.440110832452774e-10,
+              "maximum_bound_difference_mm": 0.0,
+              "passed": true
+            },
+            "tolerances": {
+              "volume_mm3": 0.020491565937238138,
+              "coordinates_mm": 1e-05
+            }
+          },
+          "lid": {
+            "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+            "sha256": "ce3e222641f1777abf746b4169d68dee230cc48f17a79fa9181cb8078f429cfc",
+            "signature": {
+              "valid": true,
+              "solids": 1,
+              "faces": 221,
+              "volume_mm3": 296963.1333016661,
+              "bounds_mm": [
+                -90.2000001,
+                182.45000000000002,
+                247.9999998999971,
+                97.7000001,
+                465.0000001,
+                299.21000000000004
+              ]
+            },
+            "source_cached_signature": {
+              "valid": true,
+              "solids": 1,
+              "faces": 221,
+              "volume_mm3": 296963.1333016542,
+              "bounds_mm": [
+                -90.2000001,
+                182.45,
+                247.9999999,
+                97.7000001,
+                465.0000001,
+                299.21000000000004
+              ]
+            },
+            "metrics": {
+              "same_face_count": true,
+              "same_solid_count": true,
+              "volume_difference_mm3": 1.1932570487260818e-08,
+              "maximum_bound_difference_mm": 2.8990143619012088e-12,
+              "passed": true
+            },
+            "tolerances": {
+              "volume_mm3": 0.029696313330165418,
+              "coordinates_mm": 1e-05
+            }
+          }
+        },
+        "finite_stock_missing_mm3": {
+          "upper2.4mm_cover": 0.0,
+          "lower3.05mm_cover": 0.0,
+          "cup3mm_boundary": 0.0,
+          "original2mm_floor_outside_named_entries": 0.0
+        },
+        "floor_entry_scope": {
+          "unexcluded_water_entry_mm3": 0.4188586803165021,
+          "excluded_geometry": "Unchanged water_in_features()[cut] plus the fixed lower B-fill stem bore",
+          "basis": "The curved water entry crosses this rectangular witness at its far corner. Only the two named passages are excluded; the original2mm floor elsewhere is read directly."
+        },
+        "passed": true,
+        "reader_sha256": "dd5f314deb114a273091015e781483d8c7d295c72a6ff9fb9415b941ebb1d435"
+      },
+      "link_access_cleanup": {
+        "receipt": "b-fill-pair-review.json#/link_access_cleanup",
+        "scope": "A single rectangular link access has4.2mm local bottom backing, preserves the original floor/full3mm boundary and removes both confirmed cutter-junction wedges. Poses and lid are unchanged."
+      }
     },
     "check_bridge": {
       "scope": "Source-native east quarter bearing, complete 3 mm lid backing, four nominal pump-driver columns and complete water-check retaining-strip path, bound to the exported cap lid. Separate actual-appliance records cover equipment and wiring. No physical fit, threading, retention, pressure or life qualification.",

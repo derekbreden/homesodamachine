@@ -103,26 +103,26 @@
   "cup": {
     "valid": true,
     "solids": 1,
-    "faces": 182,
-    "volume_mm3": 195837.4789675668,
+    "faces": 211,
+    "volume_mm3": 204915.65937238224,
     "bounds_mm": [
       -90.2000001,
       182.59999990000003,
-      233.019997479799,
+      233.54999989999766,
       90.2000001,
       465.0000001,
-      247.85000010000005
+      257.0
     ]
   },
   "lid": {
     "valid": true,
     "solids": 1,
     "faces": 221,
-    "volume_mm3": 296963.1333016542,
+    "volume_mm3": 296963.1333016661,
     "bounds_mm": [
       -90.2000001,
-      182.45,
-      247.9999999,
+      182.45000000000002,
+      247.9999998999971,
       97.7000001,
       465.0000001,
       299.21000000000004
@@ -1205,7 +1205,7 @@
     "reservoir-b-fill-lower": {
       "cup": {
         "overlap_mm3": 0.0,
-        "air_mm": 0.14999999999992283
+        "air_mm": 0.14999999999734623
       },
       "lid": {
         "overlap_mm3": 0.0,
@@ -1215,7 +1215,7 @@
     "reservoir-b-fill-upper": {
       "cup": {
         "overlap_mm3": 0.0,
-        "air_mm": 0.1870999999999909
+        "distance_error": "Standard_Failure: "
       },
       "lid": {
         "overlap_mm3": 0.0,
@@ -1225,7 +1225,7 @@
     "reservoir-b-fill-link": {
       "cup": {
         "overlap_mm3": 0.0,
-        "air_mm": 0.5269116837640686
+        "air_mm": 0.5751318540358747
       },
       "lid": {
         "overlap_mm3": 0.0,
@@ -1235,7 +1235,7 @@
     "tube-fluid-24-tail": {
       "cup": {
         "overlap_mm3": 0.0,
-        "air_mm": 17.495273776426018
+        "air_mm": 17.49527377642579
       },
       "lid": {
         "overlap_mm3": 0.0,
@@ -3056,7 +3056,7 @@
   ],
   "physical_intersections": [],
   "physical_layout_native_passed": true,
-  "result_scope": "Physical source-native layout is clear; the four separately named approach/handling witnesses are not an access pass. Canonical cap/core artifact binding remains pending the selected export.",
+  "result_scope": "Physical source-native layout is clear with the named complete-cup and actual canonical cap refinements. The four approach/handling witnesses remain diagnostics, not an installed-service qualification. The unrelated227 fixture readings retain their exact source scope.",
   "J10_entry_diagnostic": {
     "scope": "An OD3mm by8mm straight+Y layout witness, not manufacturer-qualified handling or insertion clearance. The upper B-fill fitting is captured before PCB installation; the separately staged V-B return is not a solution to this diagnostic.",
     "mouth_world_mm": [
@@ -3198,5 +3198,1020 @@
     "assembly_order": "Terminate both J10 power leads on the loose PCB, then fasten the PCB to the core and land the free ends at the core WAGOs. The captured B-fill upper fitting is already inside the closed cap. This does not qualify installed wire insertion/withdrawal service; field retermination may require unbolting/staging the PCB and flexible leads.",
     "connector_service": "Disconnect and stage the flexible B-fill tube for the recorded vertical J5/J6/J13 service approaches. No handling path or force is established by the witness intersection alone.",
     "reader_sha256": "de1924810582e4700d7f88de694826abe32d34341c2d2b2a9252faa27cc25859"
-  }
+  },
+  "subsequent_J2_OUT3": {
+    "record": {
+      "path": "hardware/wiring/installed/above-core-review/routing-witness-native-review.json",
+      "json_pointer": "/J2_OUT3_pump_correction",
+      "canonical_json_sha256": "33b8dd5e2e60e2360c318874d43cb5c0e2fba47d8ac7edd72f1d258b37ff9e04"
+    },
+    "source_commit": "1f0715378",
+    "brep_sha256": "55dea3368a238575329e36df1092ae21ba5291a1d548a6611f2f5fbfd1c266a6",
+    "scope": "The corrected guide portion is at positiveX5..40/Y274..305/Z274..308. All B-fill changed subjects lie at negativeX<=-15, and this lead retains its PCB aft crossing at negativeX. The prior local B-fill reading applies to the unchanged portion; the changed portion is outside the named delta bounds. No additional native neighbor replay.",
+    "actual_wire_binding_scope": "The public wire receipt binds98 curves/113 bodies to the718e42 appliance and corresponding standalone wire export. This local link preserves that artifact scope; subsequent subtractive cup cleanup does not constitute a whole-scene replay."
+  },
+  "actual_export_binding": {
+    "scope": "Actual canonical cup/lid source-body metrics and finite cover, carrier-boundary and floor stock only. The227 local source-native neighbor readings retain their original fixture scope and are not replayed.",
+    "artifacts": {
+      "cup": {
+        "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+        "sha256": "c4ce8e5d5435376892c641b2c54a369a7dac2643c421e33ec4275b5902fe2e39",
+        "signature": {
+          "valid": true,
+          "solids": 1,
+          "faces": 211,
+          "volume_mm3": 204915.65937238224,
+          "bounds_mm": [
+            -90.2000001,
+            182.59999990000003,
+            233.54999989999766,
+            90.2000001,
+            465.0000001,
+            257.0
+          ]
+        },
+        "source_cached_signature": {
+          "valid": true,
+          "solids": 1,
+          "faces": 211,
+          "volume_mm3": 204915.6593723814,
+          "bounds_mm": [
+            -90.2000001,
+            182.59999990000003,
+            233.54999989999766,
+            90.2000001,
+            465.0000001,
+            257.0
+          ]
+        },
+        "metrics": {
+          "same_face_count": true,
+          "same_solid_count": true,
+          "volume_difference_mm3": 8.440110832452774e-10,
+          "maximum_bound_difference_mm": 0.0,
+          "passed": true
+        },
+        "tolerances": {
+          "volume_mm3": 0.020491565937238138,
+          "coordinates_mm": 1e-05
+        }
+      },
+      "lid": {
+        "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+        "sha256": "ce3e222641f1777abf746b4169d68dee230cc48f17a79fa9181cb8078f429cfc",
+        "signature": {
+          "valid": true,
+          "solids": 1,
+          "faces": 221,
+          "volume_mm3": 296963.1333016661,
+          "bounds_mm": [
+            -90.2000001,
+            182.45000000000002,
+            247.9999998999971,
+            97.7000001,
+            465.0000001,
+            299.21000000000004
+          ]
+        },
+        "source_cached_signature": {
+          "valid": true,
+          "solids": 1,
+          "faces": 221,
+          "volume_mm3": 296963.1333016542,
+          "bounds_mm": [
+            -90.2000001,
+            182.45,
+            247.9999999,
+            97.7000001,
+            465.0000001,
+            299.21000000000004
+          ]
+        },
+        "metrics": {
+          "same_face_count": true,
+          "same_solid_count": true,
+          "volume_difference_mm3": 1.1932570487260818e-08,
+          "maximum_bound_difference_mm": 2.8990143619012088e-12,
+          "passed": true
+        },
+        "tolerances": {
+          "volume_mm3": 0.029696313330165418,
+          "coordinates_mm": 1e-05
+        }
+      }
+    },
+    "finite_stock_missing_mm3": {
+      "upper2.4mm_cover": 0.0,
+      "lower3.05mm_cover": 0.0,
+      "cup3mm_boundary": 0.0,
+      "original2mm_floor_outside_named_entries": 0.0
+    },
+    "floor_entry_scope": {
+      "unexcluded_water_entry_mm3": 0.4188586803165021,
+      "excluded_geometry": "Unchanged water_in_features()[cut] plus the fixed lower B-fill stem bore",
+      "basis": "The curved water entry crosses this rectangular witness at its far corner. Only the two named passages are excluded; the original2mm floor elsewhere is read directly."
+    },
+    "passed": true,
+    "reader_sha256": "dd5f314deb114a273091015e781483d8c7d295c72a6ff9fb9415b941ebb1d435"
+  },
+  "initial_plain_cup_fixture_scope": {
+    "signature": {
+      "valid": true,
+      "solids": 1,
+      "faces": 182,
+      "volume_mm3": 195837.4789675668,
+      "bounds_mm": [
+        -90.2000001,
+        182.59999990000003,
+        233.019997479799,
+        90.2000001,
+        465.0000001,
+        247.85000010000005
+      ]
+    },
+    "scope": "The first local reader used the plain cup builder without the eight existing deck columns. All four fluid subjects are separately read against the complete canonical cup in link_access_cleanup; the other227 fixture rows retain their named original scope."
+  },
+  "link_access_cleanup": {
+    "receipt_path": "tmp/b-fill-junction-cleanup/review.json",
+    "receipt_sha256": "ef5c78c60e6cb6bddb0a8fc15316d11595a4070b863f0a9c80e0b45a75416c50",
+    "candidate_path": "tmp/b-fill-junction-cleanup/candidate-cup-world.brep",
+    "candidate_sha256": "bd287981b40162bdc2f2ef3a2787fc43de12fbb58f32c4b41a9c6aac809e7b5a",
+    "scope": "Only the confirmed two link-pocket wedges and one derived rectangular corridor. Main/fitting/port/tube poses, lid and carrier boundary remain unchanged. The complete-cup4fluid reading closes only the plain-cup fixture omission; no neighbor replay.",
+    "native_readings": {
+      "scope": "Only a rectangular B-fill link-access subtraction on the complete canonical cup, retained3mm boundary/4.2mm local backing, exact two wedge samples and four saved fluid subjects. No227-neighbor replay.",
+      "input_cup_sha256": "fc6ce28ca82bfba0d2e2e1a6b501fff8c8ab0dac30deb61946c9bc477f2cbcb2",
+      "input_signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 215,
+        "volume_mm3": 205252.37062481284,
+        "center_mm": [
+          -6.4036565413254225,
+          314.34390314833263,
+          238.2337720383078
+        ],
+        "bounds_mm": [
+          [
+            -90.2000001,
+            182.59999990000003,
+            233.54999989999766
+          ],
+          [
+            90.2000001,
+            465.0000001,
+            257.0
+          ]
+        ]
+      },
+      "source_sha256": "a2c6c6651851d23794aa5a2322add08e620a56ff0e147fcc1cdb553192383d48",
+      "candidate_signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 211,
+        "volume_mm3": 204915.65937238157,
+        "center_mm": [
+          -6.351169380652385,
+          314.4334671907409,
+          238.2283043164146
+        ],
+        "bounds_mm": [
+          [
+            -90.2000001,
+            182.59999990000003,
+            233.54999989999766
+          ],
+          [
+            90.2000001,
+            465.0000001,
+            257.0
+          ]
+        ]
+      },
+      "link_access_bounds_mm": [
+        [
+          -43.62686401406655,
+          250.00228289881838,
+          239.75
+        ],
+        [
+          -33.16077874886079,
+          269.31293255349954,
+          247.85999999999999
+        ]
+      ],
+      "removed_mm3": 336.71196727443737,
+      "added_mm3": 0.0,
+      "full3mm_boundary_missing_mm3": 0.0,
+      "local_bottom_backing_mm": 4.199999999999989,
+      "local_bottom_backing_missing_mm3": 0.0,
+      "original_floor_removed_mm3": 0.0,
+      "ideal_floor_probe_missing_mm3": 0.4188586803165021,
+      "ideal_floor_probe_missing_solids": [
+        {
+          "valid": true,
+          "solids": 1,
+          "faces": 4,
+          "volume_mm3": 0.4188586803165021,
+          "center_mm": [
+            -54.827327522812354,
+            298.57780324316855,
+            233.79161250778716
+          ],
+          "bounds_mm": [
+            [
+              -55.43498572249095,
+              297.88710111189494,
+              233.54999999999654
+            ],
+            [
+              -53.48654428457467,
+              298.85,
+              234.41324028358216
+            ]
+          ]
+        }
+      ],
+      "nearby_floor_cylindrical_faces": [
+        {
+          "radius_mm": 3.75,
+          "axis_origin_mm": [
+            -43.5,
+            233.3,
+            231.4
+          ],
+          "axis_direction": [
+            -0.0,
+            0.0,
+            -1.0
+          ],
+          "face_bounds_mm": [
+            [
+              -47.25,
+              229.55,
+              233.55
+            ],
+            [
+              -39.75,
+              237.05,
+              235.6
+            ]
+          ]
+        }
+      ],
+      "wedge_samples": [
+        {
+          "source_picks_native_mm": [
+            [
+              55.764,
+              -41.709,
+              14.089
+            ],
+            [
+              55.749,
+              -41.706,
+              14.089
+            ]
+          ],
+          "world_samples_mm": [
+            [
+              -41.70870376076213,
+              268.0373364466256,
+              247.489
+            ],
+            [
+              -41.70811128228637,
+              268.04032965237684,
+              247.489
+            ],
+            [
+              -41.707518803810615,
+              268.0433228581281,
+              247.489
+            ],
+            [
+              -41.70692632533486,
+              268.0463160638793,
+              247.489
+            ],
+            [
+              -41.70633384685911,
+              268.0493092696305,
+              247.489
+            ]
+          ],
+          "old_inside": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "candidate_inside": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        {
+          "source_picks_native_mm": [
+            [
+              72.521,
+              -35.268,
+              10.97
+            ],
+            [
+              72.537,
+              -35.271,
+              10.97
+            ]
+          ],
+          "world_samples_mm": [
+            [
+              -35.268303853322266,
+              251.2777200814641,
+              244.37000000000003
+            ],
+            [
+              -35.26891155996679,
+              251.27440475122825,
+              244.37000000000003
+            ],
+            [
+              -35.26951926661131,
+              251.27108942099235,
+              244.37000000000003
+            ],
+            [
+              -35.27012697325584,
+              251.26777409075646,
+              244.37000000000003
+            ],
+            [
+              -35.270734679900364,
+              251.2644587605206,
+              244.37000000000003
+            ]
+          ],
+          "old_inside": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "candidate_inside": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ]
+        }
+      ],
+      "actual_complete_cup_fluid_contacts": {
+        "reservoir-b-fill-lower": {
+          "overlap_mm3": 0.0,
+          "air_mm": 0.14999999999734623
+        },
+        "reservoir-b-fill-upper": {
+          "overlap_mm3": 0.0,
+          "distance_error": "Standard_Failure: "
+        },
+        "reservoir-b-fill-link": {
+          "overlap_mm3": 0.0,
+          "air_mm": 0.5751318540358747
+        },
+        "tube-fluid-24-tail": {
+          "overlap_mm3": 0.0,
+          "air_mm": 17.49527377642579
+        }
+      },
+      "passed": true,
+      "local_bottom_backing_scope": "The corridor bottom lies4.2mm above the established cup-floor inside plane. The finite4.2mm stock witness excludes the two existing fitting pockets overlapped by the corridor ends; those pockets retain their separate floor scope.",
+      "ideal_floor_probe_missing_faces": [
+        {
+          "type": "PLANE",
+          "area_mm2": 0.41566033422561544,
+          "center_mm": [
+            -55.43498572249095,
+            298.5290129408929,
+            233.83776538110385
+          ],
+          "origin_mm": [
+            -55.43498572249095,
+            222.710659933777,
+            233.55
+          ],
+          "normal": [
+            1.0,
+            0.0,
+            -0.0
+          ]
+        },
+        {
+          "type": "CYLINDER",
+          "area_mm2": 1.7242431241191258,
+          "center_mm": [
+            -54.685168993114566,
+            298.4730927408683,
+            233.88416152631478
+          ],
+          "origin_mm": [
+            -55.0,
+            287.752874158467,
+            219.4
+          ],
+          "axis": [
+            -0.03340887438303151,
+            0.7432514326232559,
+            0.66817748766023
+          ],
+          "radius_mm": 3.75
+        },
+        {
+          "type": "PLANE",
+          "area_mm2": 1.0976467134188002,
+          "center_mm": [
+            -54.70579291418877,
+            298.85,
+            233.88815457987133
+          ],
+          "origin_mm": [
+            -55.43498572249095,
+            298.85,
+            233.55
+          ],
+          "normal": [
+            -0.0,
+            1.0,
+            0.0
+          ]
+        },
+        {
+          "type": "PLANE",
+          "area_mm2": 1.2417572448742042,
+          "center_mm": [
+            -54.70113169179562,
+            298.4694174447709,
+            233.55
+          ],
+          "origin_mm": [
+            -55.43498572249095,
+            222.710659933777,
+            233.55
+          ],
+          "normal": [
+            0.0,
+            0.0,
+            1.0
+          ]
+        }
+      ]
+    }
+  },
+  "printed_contact_fixture_scope": "The source-built lid and original local neighbor fixture retain their recorded measurements. The cup fields/readings are refined by the separately stored complete-cup four-fluid query and final actual-export binding; the initial plain-cup factory omission is recorded explicitly.",
+  "current_geometry_source_sha256": {
+    "hardware/manifold-layout/above-core.json": "e7e69fe4c5505fcccb1be3be983d2357c25bd7f85bbc40b55fbeb1ab51adb460",
+    "hardware/printed-parts/cold-core/_above_core_mounts.py": "a2c6c6651851d23794aa5a2322add08e620a56ff0e147fcc1cdb553192383d48"
+  },
+  "fitting_subsolid_cup_refinement": {
+    "receipt_path": "tmp/b-fill-junction-cleanup/subsolids-review.json",
+    "receipt_sha256": "5fb7f359d52402d5baeab91e6aba285623690ad0eb3501e51f84802a1601d1b4",
+    "scope": "Five individual purchased fitting solids against the complete cup, both Boolean orders. Their separate distance failure is retained; no compound-zero inference. The cached VB-strip contact in this receipt belongs only to its old cache station, as clarified below.",
+    "native_readings": {
+      "scope": "Only five purchased fitting subsolids versus the complete canonical cup, and the saved nominal VB strip versus the old/new fluid24 tail. No source changes or neighbor replay.",
+      "cup_sha256": "c4ce8e5d5435376892c641b2c54a369a7dac2643c421e33ec4275b5902fe2e39",
+      "fitting_subsolids": [
+        {
+          "fitting": "reservoir-b-fill-lower",
+          "index": 0,
+          "source_sha256": "a0377de32c169c0a9180805bf86bce57c438ad37ac4ab745795c56cd8d35b0cb",
+          "valid": true,
+          "bounds_mm": [
+            [
+              -50.2947878388646,
+              226.27154475070583,
+              221.14999999999998
+            ],
+            [
+              -33.13663740613223,
+              251.92267443658528,
+              251.247
+            ]
+          ],
+          "forward_mm3": 0.0,
+          "reverse_mm3": 0.0,
+          "air_mm": 0.15299999999456962
+        },
+        {
+          "fitting": "reservoir-b-fill-lower",
+          "index": 1,
+          "source_sha256": "a0377de32c169c0a9180805bf86bce57c438ad37ac4ab745795c56cd8d35b0cb",
+          "valid": true,
+          "bounds_mm": [
+            [
+              -45.67098344503963,
+              249.65143323535446,
+              237.85
+            ],
+            [
+              -34.41557859754929,
+              253.0483326585367,
+              249.15
+            ]
+          ],
+          "forward_mm3": 0.0,
+          "reverse_mm3": 0.0,
+          "air_mm": 0.15000000000108085
+        },
+        {
+          "fitting": "reservoir-b-fill-upper",
+          "index": 0,
+          "source_sha256": "634383e42fb31742ae78c4e3a1ea634b1087791fa0d3656f3a3550eb94f54b2e",
+          "valid": true,
+          "bounds_mm": [
+            [
+              -44.04046417307085,
+              267.85427259633605,
+              235.8371
+            ],
+            [
+              -24.909999999999997,
+              295.59,
+              262.8370000000001
+            ]
+          ],
+          "forward_mm3": 0.0,
+          "reverse_mm3": 0.0,
+          "distance_error": "Standard_Failure: "
+        },
+        {
+          "fitting": "reservoir-b-fill-upper",
+          "index": 1,
+          "source_sha256": "634383e42fb31742ae78c4e3a1ea634b1087791fa0d3656f3a3550eb94f54b2e",
+          "valid": true,
+          "bounds_mm": [
+            [
+              -41.91871987514503,
+              266.4133297601418,
+              238.68
+            ],
+            [
+              -31.37936552248247,
+              270.0148408273179,
+              249.32
+            ]
+          ],
+          "forward_mm3": 0.0,
+          "reverse_mm3": 0.0,
+          "air_mm": 0.1876099999990143
+        },
+        {
+          "fitting": "reservoir-b-fill-upper",
+          "index": 2,
+          "source_sha256": "634383e42fb31742ae78c4e3a1ea634b1087791fa0d3656f3a3550eb94f54b2e",
+          "valid": true,
+          "bounds_mm": [
+            [
+              -38.32,
+              282.18,
+              262.837
+            ],
+            [
+              -27.68,
+              292.82,
+              264.56239
+            ]
+          ],
+          "forward_mm3": 0.0,
+          "reverse_mm3": 0.0,
+          "air_mm": 15.014036554067243
+        }
+      ],
+      "strip_source": {
+        "path": "tmp/dry-sidewall-wiring/targets/nominal-strip-vb-outlet-return.brep",
+        "sha256": "81be9ef3a261588faa5d6b65165fa80b3153d5cc50f41db1e84d481fd1cbe812",
+        "solids": 9
+      },
+      "strip_vs_tails": {
+        "old": {
+          "source_sha256": "a608eace97635b00c17ed046c062378efd626375f4e7f76914364d047a3952c2",
+          "whole_pair": {
+            "forward_mm3": 0.0,
+            "reverse_mm3": 0.0,
+            "air_mm": 5.774999999999999
+          },
+          "subsolid_candidates": []
+        },
+        "new": {
+          "source_sha256": "d15f93884ffc62c5b7b81c75f01e246fea53c4ded0251b90f0708494628c12c3",
+          "whole_pair": {
+            "forward_mm3": 5.860792925141946,
+            "reverse_mm3": 0.0,
+            "air_mm": 0.0,
+            "bounds_mm": [
+              [
+                -34.03953124431442,
+                284.32499989999997,
+                278.04999989999993
+              ],
+              [
+                -29.82499989999999,
+                289.5000001,
+                280.5500001
+              ]
+            ]
+          },
+          "subsolid_candidates": [
+            {
+              "strip_solid": 0,
+              "strip_bounds_mm": [
+                [
+                  -32.1500001,
+                  284.09999989999994,
+                  278.89999989999995
+                ],
+                [
+                  -29.649999899999997,
+                  289.10000010000005,
+                  279.70000009999995
+                ]
+              ],
+              "forward_mm3": 4.2361320572198435,
+              "reverse_mm3": 4.2361320572198435,
+              "air_mm": 0.0,
+              "bounds_mm": [
+                [
+                  -32.15000010000001,
+                  284.4408946386531,
+                  278.89999989999995
+                ],
+                [
+                  -29.82499989999999,
+                  289.10000010000095,
+                  279.70000009999995
+                ]
+              ]
+            },
+            {
+              "strip_solid": 1,
+              "strip_bounds_mm": [
+                [
+                  -37.8000001,
+                  283.69999989999997,
+                  278.04999989999993
+                ],
+                [
+                  -30.899999899999997,
+                  284.50000009999997,
+                  280.5500001
+                ]
+              ],
+              "forward_mm3": 0.6098164284273588,
+              "reverse_mm3": 0.6098164284273588,
+              "air_mm": 0.0,
+              "bounds_mm": [
+                [
+                  -34.03953124431442,
+                  284.32499989999997,
+                  278.04999989999993
+                ],
+                [
+                  -31.960468755685564,
+                  284.50000009999997,
+                  280.5500001
+                ]
+              ]
+            },
+            {
+              "strip_solid": 2,
+              "strip_bounds_mm": [
+                [
+                  -39.0500001,
+                  284.09999989999994,
+                  278.89999989999995
+                ],
+                [
+                  -36.549999899999996,
+                  294.21244010000004,
+                  279.70000009999995
+                ]
+              ],
+              "forward_mm3": 0.0,
+              "reverse_mm3": 0.0,
+              "air_mm": 0.3750000000000071
+            },
+            {
+              "strip_solid": 4,
+              "strip_bounds_mm": [
+                [
+                  -38.961265591351086,
+                  288.43973973733773,
+                  294.381603136492
+                ],
+                [
+                  -34.057973336999005,
+                  294.8006419914257,
+                  295.93274659604083
+                ]
+              ],
+              "forward_mm3": 0.0,
+              "reverse_mm3": 0.0,
+              "air_mm": 1.5492343597310165
+            },
+            {
+              "strip_solid": 5,
+              "strip_bounds_mm": [
+                [
+                  -38.148509573769275,
+                  271.43663999999984,
+                  283.1051939889579
+                ],
+                [
+                  -33.1141314004373,
+                  289.40381877707796,
+                  301.6592801834975
+                ]
+              ],
+              "forward_mm3": 0.0,
+              "reverse_mm3": 0.0,
+              "air_mm": 1.8109456400826962
+            },
+            {
+              "strip_solid": 6,
+              "strip_bounds_mm": [
+                [
+                  -37.091952850328774,
+                  277.91051346615575,
+                  274.67711298795393
+                ],
+                [
+                  -24.76389813797902,
+                  280.4105136661558,
+                  283.99213684586704
+                ]
+              ],
+              "forward_mm3": 0.0,
+              "reverse_mm3": 0.0,
+              "air_mm": 3.9144864338442176
+            },
+            {
+              "strip_solid": 8,
+              "strip_bounds_mm": [
+                [
+                  -30.9000001,
+                  288.6999999,
+                  278.04999989999993
+                ],
+                [
+                  -24.9999999,
+                  289.5000001,
+                  280.5500001
+                ]
+              ],
+              "forward_mm3": 1.2584536090775496,
+              "reverse_mm3": 1.2584536090775496,
+              "air_mm": 3.552713678800501e-15,
+              "bounds_mm": [
+                [
+                  -30.9000001,
+                  288.6999999,
+                  278.04999989999993
+                ],
+                [
+                  -30.060505895923793,
+                  289.5000001,
+                  280.5500001
+                ]
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "current_VB_strip_scope": {
+    "scope": "Current source-derived nominal strip versus the selected fluid24 tail, using a conservative whole-circle/line X bound. The earlier cached strip is at the former west station and is not the current production restraint. No strap/head/slot geometry change is adopted. Physical strip dimensions and handling remain unqualified.",
+    "source_sha256": {
+      "hardware/printed-parts/cold-core/_above_core_mounts.py": "a2c6c6651851d23794aa5a2322add08e620a56ff0e147fcc1cdb553192383d48",
+      "hardware/manifold-layout/above-core.json": "e7e69fe4c5505fcccb1be3be983d2357c25bd7f85bbc40b55fbeb1ab51adb460"
+    },
+    "current_window_world_mm": [
+      [
+        -7.200000000000001,
+        284.59999999999997,
+        274.4
+      ],
+      [
+        -4.4,
+        287.8,
+        277.4631637869275
+      ]
+    ],
+    "current_conservative_strip_x_mm": [
+      -20.99053696503921,
+      1.7499999999999991
+    ],
+    "fluid24_tail_xmax_mm": -29.824999900000016,
+    "guaranteed_axis_separation_mm": 8.834462934960804,
+    "section_bound_basis": "Each line endpoint and the entire arc circle are expanded by(width+thickness)/2=1.65mm in X. This contains every nominal swept flat-section point regardless of twist.",
+    "current_length_mm": 111.55317893806699,
+    "stock_length_mm": 152.4,
+    "current_segments": [
+      {
+        "kind": "line",
+        "points_mm": [
+          [
+            -5.800000000000001,
+            289.1,
+            275.8
+          ],
+          [
+            -5.800000000000001,
+            284.09999999999997,
+            275.8
+          ]
+        ],
+        "wide_axis": [
+          1.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "kind": "line",
+        "points_mm": [
+          [
+            -5.800000000000001,
+            284.09999999999997,
+            275.8
+          ],
+          [
+            -12.700000000000001,
+            284.09999999999997,
+            275.8
+          ]
+        ],
+        "wide_axis": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      {
+        "kind": "line",
+        "points_mm": [
+          [
+            -12.700000000000001,
+            284.09999999999997,
+            275.8
+          ],
+          [
+            -12.700000000000001,
+            294.21244,
+            275.8
+          ]
+        ],
+        "wide_axis": [
+          1.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "kind": "line",
+        "points_mm": [
+          [
+            -12.700000000000001,
+            294.21244,
+            275.8
+          ],
+          [
+            -12.700000000000001,
+            294.21244,
+            291
+          ]
+        ],
+        "wide_axis": [
+          1.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "kind": "line",
+        "points_mm": [
+          [
+            -12.700000000000001,
+            294.21244,
+            291
+          ],
+          [
+            -10.05576289014208,
+            289.02794172876344,
+            291.7778538061094
+          ]
+        ],
+        "wide_axis": [
+          0.9902680687415704,
+          0.0,
+          -0.13917310096006544
+        ]
+      },
+      {
+        "kind": "arc",
+        "points_mm": [
+          [
+            -10.05576289014208,
+            289.02794172876344,
+            291.7778538061094
+          ],
+          [
+            -9.68477305487578,
+            273.91016470508083,
+            294.41758364727553
+          ],
+          [
+            -11.692374950099774,
+            279.16051356615577,
+            280.1327539073976
+          ]
+        ],
+        "radius_mm": 8.862900000000002,
+        "sweep_degrees": 240.0,
+        "wide_axis": [
+          0.9902680687415704,
+          0.0,
+          -0.13917310096006544
+        ]
+      },
+      {
+        "kind": "line",
+        "points_mm": [
+          [
+            -11.692374950099774,
+            279.16051356615577,
+            280.1327539073976
+          ],
+          [
+            0.0999999999999992,
+            279.16051356615577,
+            271.5
+          ]
+        ],
+        "wide_axis": [
+          0.0,
+          1.0,
+          0.0
+        ]
+      },
+      {
+        "kind": "line",
+        "points_mm": [
+          [
+            0.0999999999999992,
+            279.16051356615577,
+            271.5
+          ],
+          [
+            0.0999999999999992,
+            289.1,
+            275.8
+          ]
+        ],
+        "wide_axis": [
+          1.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "kind": "line",
+        "points_mm": [
+          [
+            0.0999999999999992,
+            289.1,
+            275.8
+          ],
+          [
+            -5.800000000000001,
+            289.1,
+            275.8
+          ]
+        ],
+        "wide_axis": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    ]
+  },
+  "superseded_cached_strip_reading": {
+    "target": "nominal-strip-vb-outlet-return",
+    "scope": "The one saved227-neighbor row for this target belongs to a former west-union strip. Its compound Boolean was unreliable; per-solid positive contacts in the attached refinement are retained only at that old cache station. Current production is covered by current_VB_strip_scope, with8.834463mm conservative X separation and no strap geometry change."
+  },
+  "metadata_reader_source_sha256": "3dc3f0935c9ce9f3a28e8ccb017a957d9d4a008b24419f51106693813f8985f6"
 }
