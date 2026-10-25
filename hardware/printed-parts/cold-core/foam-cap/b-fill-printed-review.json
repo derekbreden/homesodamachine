@@ -1,0 +1,1228 @@
+{
+  "schema": 1,
+  "units": "mm",
+  "scope": "Post-live B-fill cup/lid printed-delta lint and the two finite dry-link junction corrections only. No other cap, anchor, ground, bridge, device or whole-appliance qualification is repeated.",
+  "selected_interface": {
+    "upper_plain_guide_world_mm": [
+      -33.0,
+      287.5,
+      253.4
+    ],
+    "upper_cover_nominal_mm": 2.4,
+    "upper_cover_top_world_z_mm": 254.75,
+    "PCB_tail_nominal_air_mm": 0.25,
+    "upward_capture_translation_mm": 0.2,
+    "lower_cover_mm": 3.05,
+    "original_cup_floor_specification_mm": 2.0,
+    "ordinary_pocket_boundary_mm": 3.0,
+    "basis": "The specific dry retaining cover preserves the upward stop beneath the fixed PCB. A full 3 mm roof at Z255.35 has 24.2728 mm3 PCB-tail interference; an open pocket loses the upward stop. This is a cover-specific thinner-section exception, not a general wall specification or force qualification."
+  },
+  "current_artifacts_sha256": {
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "c4ce8e5d5435376892c641b2c54a369a7dac2643c421e33ec4275b5902fe2e39",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl": "ca1ad9461fd69c7af438df389c67027d81206428a6dfa7bf992fe000cdcc78c7",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh": "101fccf5beafb9a8c466db9bc71e55b472cd55a749b29d09bd218552e0cb9a73",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "ce3e222641f1777abf746b4169d68dee230cc48f17a79fa9181cb8078f429cfc",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "6e126c952d232629c7c357e4766d18bc249c4b220a963869f522831439c94617",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "03b8cf4e59f0a6e03a570d2c99a088ca69faefbd59cf3203e90f37e6aa5118fb"
+  },
+  "live_current_cup_payload": {
+    "url": "https://homesodamachine.com/meshes/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
+    "status": 200,
+    "expected_sha256": "101fccf5beafb9a8c466db9bc71e55b472cd55a749b29d09bd218552e0cb9a73",
+    "observed_sha256": "101fccf5beafb9a8c466db9bc71e55b472cd55a749b29d09bd218552e0cb9a73",
+    "matches": true,
+    "stl_sha256": "ca1ad9461fd69c7af438df389c67027d81206428a6dfa7bf992fe000cdcc78c7"
+  },
+  "live_selected_cap_payloads": [
+    {
+      "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh",
+      "expected": "0e5c159a0396b3da60cc4bad760c1ed8214e3372d07dff5f4507d4de36386ee0",
+      "api_url": "https://objects.homesodamachine.com/s-0e5c159a0396b3da60cc4bad760c1ed8214e3372d07dff5f4507d4de36386ee0.gz",
+      "map_matches": true,
+      "status": 200,
+      "actual": "0e5c159a0396b3da60cc4bad760c1ed8214e3372d07dff5f4507d4de36386ee0",
+      "match": true
+    },
+    {
+      "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
+      "expected": "03b8cf4e59f0a6e03a570d2c99a088ca69faefbd59cf3203e90f37e6aa5118fb",
+      "api_url": "https://objects.homesodamachine.com/s-03b8cf4e59f0a6e03a570d2c99a088ca69faefbd59cf3203e90f37e6aa5118fb.gz",
+      "map_matches": true,
+      "status": 200,
+      "actual": "03b8cf4e59f0a6e03a570d2c99a088ca69faefbd59cf3203e90f37e6aa5118fb",
+      "match": true
+    }
+  ],
+  "lint_runs": {
+    "input_cup": {
+      "log_path": "tmp/above-core-implementation/b-fill-cup-post-live-lint.log",
+      "log_sha256": "46af7f78296f65d7afddb6d2864048b92b648d15308cc4602f3e0ecd8b568075",
+      "command": "tools/cad-venv/bin/python hardware/scripts/geometry_lint.py hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl --all",
+      "findings_total": 17
+    },
+    "retained_lid": {
+      "log_path": "tmp/above-core-implementation/b-fill-lid-post-live-lint.log",
+      "log_sha256": "1a5dc5bdde9b13676ee6975a20daa0c784ad343b618abc95d8bc2d8169bb30b1",
+      "command": "tools/cad-venv/bin/python hardware/scripts/geometry_lint.py hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl --all",
+      "findings_total": 33
+    },
+    "current_cup": {
+      "log_path": "tmp/above-core-implementation/b-fill-flat-link-post-live-lint.log",
+      "log_sha256": "ad1a11cad26e087971d565c12b8e61ac1637d3585e1684b820ce110c8d323c98",
+      "command": "tools/cad-venv/bin/python hardware/scripts/geometry_lint.py hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl --all",
+      "findings_total": 15
+    }
+  },
+  "input_cup_delta_findings": [
+    {
+      "class": "thin",
+      "finding": "[thin] 0.015 mm of material at its thinnest \u00b7 4.5 mm\u00b2 of surface under 0.1 mm \u00b7 spans 0.0 \u00d7 0.4 \u00d7 3.3 mm",
+      "native_picks_mm": [
+        [
+          55.764,
+          -41.709,
+          14.089
+        ],
+        [
+          55.749,
+          -41.706,
+          14.089
+        ]
+      ],
+      "world_picks_mm": [
+        [
+          -41.709,
+          268.036,
+          247.489
+        ],
+        [
+          -41.706,
+          268.051,
+          247.489
+        ]
+      ]
+    },
+    {
+      "class": "thin",
+      "finding": "[thin] 0.017 mm of material at its thinnest \u00b7 4.7 mm\u00b2 of surface under 0.1 mm \u00b7 spans 0.1 \u00d7 0.4 \u00d7 3.5 mm",
+      "native_picks_mm": [
+        [
+          72.521,
+          -35.268,
+          10.97
+        ],
+        [
+          72.537,
+          -35.271,
+          10.97
+        ]
+      ],
+      "world_picks_mm": [
+        [
+          -35.268,
+          251.279,
+          244.37
+        ],
+        [
+          -35.271,
+          251.263,
+          244.37
+        ]
+      ]
+    },
+    {
+      "class": "thin",
+      "finding": "[thin] 2.050 mm of material at its thinnest \u00b7 644.4 mm\u00b2 of surface under 2.5 mm \u00b7 spans 27.6 \u00d7 20.1 \u00d7 2.1 mm \u00b7 in 4 pieces",
+      "native_picks_mm": [
+        [
+          86.951,
+          -46.731,
+          0.15
+        ],
+        [
+          86.951,
+          -46.731,
+          2.2
+        ]
+      ],
+      "world_picks_mm": [
+        [
+          -46.731,
+          236.84900000000002,
+          233.55
+        ],
+        [
+          -46.731,
+          236.84900000000002,
+          235.6
+        ]
+      ]
+    },
+    {
+      "class": "thin",
+      "finding": "[thin] 2.100 mm of material at its thinnest \u00b7 251.7 mm\u00b2 of surface under 2.5 mm \u00b7 spans 23.1 \u00d7 9.3 \u00d7 2.5 mm \u00b7 in 14 pieces",
+      "native_picks_mm": [
+        [
+          37.084,
+          -33.152,
+          2.25
+        ],
+        [
+          37.084,
+          -33.152,
+          0.15
+        ]
+      ],
+      "world_picks_mm": [
+        [
+          -33.152,
+          286.716,
+          235.65
+        ],
+        [
+          -33.152,
+          286.716,
+          233.55
+        ]
+      ]
+    }
+  ],
+  "current_cup_delta_findings": [
+    {
+      "class": "thin",
+      "finding": "[thin] 2.050 mm of material at its thinnest \u00b7 644.4 mm\u00b2 of surface under 2.5 mm \u00b7 spans 27.6 \u00d7 20.1 \u00d7 2.1 mm \u00b7 in 4 pieces",
+      "native_picks_mm": [
+        [
+          86.951,
+          -46.731,
+          0.15
+        ],
+        [
+          86.951,
+          -46.731,
+          2.2
+        ]
+      ],
+      "world_picks_mm": [
+        [
+          -46.731,
+          236.84900000000002,
+          233.55
+        ],
+        [
+          -46.731,
+          236.84900000000002,
+          235.6
+        ]
+      ]
+    },
+    {
+      "class": "thin",
+      "finding": "[thin] 2.100 mm of material at its thinnest \u00b7 251.7 mm\u00b2 of surface under 2.5 mm \u00b7 spans 23.1 \u00d7 9.3 \u00d7 2.5 mm \u00b7 in 14 pieces",
+      "native_picks_mm": [
+        [
+          37.084,
+          -33.152,
+          2.25
+        ],
+        [
+          37.084,
+          -33.152,
+          0.15
+        ]
+      ],
+      "world_picks_mm": [
+        [
+          -33.152,
+          286.716,
+          235.65
+        ],
+        [
+          -33.152,
+          286.716,
+          233.55
+        ]
+      ]
+    }
+  ],
+  "retained_lid_delta_findings": [
+    {
+      "class": "ceiling",
+      "finding": "[ceiling] 401 mm\u00b2 flat print-down face at z=3.400 \u00b7 27.9 \u00d7 20.3 mm \u00b7 open to the bed (3.4 mm up)",
+      "native_picks_mm": [
+        [
+          84.119,
+          -42.264,
+          3.4
+        ]
+      ],
+      "world_picks_mm": [
+        [
+          -42.264,
+          239.681,
+          251.4
+        ]
+      ]
+    },
+    {
+      "class": "thin",
+      "finding": "[thin] 2.401 mm of material at its thinnest \u00b7 59.7 mm\u00b2 of surface under 2.5 mm \u00b7 spans 10.3 \u00d7 4.2 \u00d7 2.5 mm \u00b7 in 3 pieces",
+      "native_picks_mm": [
+        [
+          46.782,
+          -35.031,
+          4.349
+        ],
+        [
+          46.782,
+          -35.031,
+          6.75
+        ]
+      ],
+      "world_picks_mm": [
+        [
+          -35.031,
+          277.01800000000003,
+          252.349
+        ],
+        [
+          -35.031,
+          277.01800000000003,
+          254.75
+        ]
+      ]
+    }
+  ],
+  "classification": {
+    "cup": "Both 0.015/0.017 mm junction wedges are absent after the one rectangular dry-link corridor. The remaining two local 2.05/2.10 mm readings lie through the retained original cup floor; the cleanup removes zero of that actual floor. No new thin wall, step, sliver or ledge remains in the B-fill cup delta.",
+    "lid": "The four 1.05 mm raised-roof wafer slivers are absent. Only the approved 2.4 mm upper retaining-cover thickness and the functional lower-fitting pocket ceiling remain in this region. The lid is unchanged by the cup-only junction correction.",
+    "other_findings": "Other cap findings retain their existing fixture and qualification scopes. No blanket answer or old-feature cleanup is applied."
+  },
+  "junction_material_diagnosis": {
+    "scope": "Only the two post-live B-fill cup thickness pairs; native/STL location and material-state diagnosis, no layout or stock replay.",
+    "step_sha256": "fc6ce28ca82bfba0d2e2e1a6b501fff8c8ab0dac30deb61946c9bc477f2cbcb2",
+    "stl_sha256": "5c745d83454108b57904c39d56a3aa44cb8a2db419ba9992c7fb4845836d2ae4",
+    "pairs": [
+      {
+        "rounded_picks_mm": [
+          [
+            55.764,
+            -41.709,
+            14.089
+          ],
+          [
+            55.749,
+            -41.706,
+            14.089
+          ]
+        ],
+        "native_projections": [
+          [
+            [
+              55.764160532472,
+              -41.709,
+              14.089
+            ],
+            0.0001605324719946566
+          ],
+          [
+            [
+              55.749194700675886,
+              -41.70603771876563,
+              14.089
+            ],
+            0.00019832059517357951
+          ]
+        ],
+        "stl_projections_mm": [
+          [
+            55.76416015625,
+            -41.709,
+            14.089
+          ],
+          [
+            55.749194127493894,
+            -41.70603760762123,
+            14.089
+          ]
+        ],
+        "stl_projection_distance_mm": [
+          0.00016015624999710099,
+          0.00019773673674526487
+        ],
+        "stl_face_normals": [
+          [
+            1.0,
+            -0.0,
+            0.0
+          ],
+          [
+            -0.9817472316314386,
+            0.1901903603866574,
+            0.0
+          ]
+        ],
+        "stl_projected_segment_length_mm": 0.015256401454289015,
+        "interior_samples_mm": [
+          [
+            55.76266355337439,
+            -41.70870376076213,
+            14.089000000000002
+          ],
+          [
+            55.75967034762317,
+            -41.70811128228637,
+            14.088999999999999
+          ],
+          [
+            55.75667714187195,
+            -41.707518803810615,
+            14.089
+          ],
+          [
+            55.75368393612072,
+            -41.70692632533486,
+            14.089
+          ],
+          [
+            55.750690730369506,
+            -41.70633384685911,
+            14.089
+          ]
+        ],
+        "native_states_at_stl_segment": [
+          "IN",
+          "IN",
+          "IN",
+          "IN",
+          "IN"
+        ],
+        "native_boundary_distances_mm": [
+          0.0014969790976095965,
+          0.004490184848826573,
+          0.0074833906000506545,
+          0.004576298883315667,
+          0.0015250437221606143
+        ],
+        "stl_contains_at_segment": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      {
+        "rounded_picks_mm": [
+          [
+            72.521,
+            -35.268,
+            10.97
+          ],
+          [
+            72.537,
+            -35.271,
+            10.97
+          ]
+        ],
+        "native_projections": [
+          [
+            [
+              72.52062401521,
+              -35.268,
+              10.97
+            ],
+            0.00037598478999711915
+          ],
+          [
+            [
+              72.53720066497722,
+              -35.271038874211456,
+              10.97
+            ],
+            0.00020439578615182757
+          ]
+        ],
+        "stl_projections_mm": [
+          [
+            72.52062225341797,
+            -35.268,
+            10.97
+          ],
+          [
+            72.53719890459735,
+            -35.27103853322263,
+            10.97
+          ]
+        ],
+        "stl_projection_distance_mm": [
+          0.0003777465820320458,
+          0.00020260268529625943
+        ],
+        "stl_face_normals": [
+          [
+            -1.0,
+            -0.0,
+            0.0
+          ],
+          [
+            0.9817470930837755,
+            -0.19019107555707362,
+            0.0
+          ]
+        ],
+        "stl_projected_segment_length_mm": 0.016852835027608332,
+        "interior_samples_mm": [
+          [
+            72.52227991853592,
+            -35.268303853322266,
+            10.97
+          ],
+          [
+            72.52559524877178,
+            -35.26891155996679,
+            10.97
+          ],
+          [
+            72.52891057900766,
+            -35.26951926661131,
+            10.97
+          ],
+          [
+            72.53222590924354,
+            -35.27012697325584,
+            10.97
+          ],
+          [
+            72.53554123947941,
+            -35.270734679900364,
+            10.97
+          ]
+        ],
+        "native_states_at_stl_segment": [
+          "IN",
+          "IN",
+          "IN",
+          "IN",
+          "IN"
+        ],
+        "native_boundary_distances_mm": [
+          0.0016559033259113676,
+          0.004971233561775534,
+          0.008286563797653912,
+          0.0050573874147972694,
+          0.0016869912054972794
+        ],
+        "stl_contains_at_segment": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    ]
+  },
+  "native_corridor_cleanup": {
+    "scope": "Only a rectangular B-fill link-access subtraction on the complete canonical cup, retained 3 mm boundary and 4.2 mm free-link backing, exact two wedge samples and four saved fluid subjects. No 227-neighbor replay.",
+    "input_cup_sha256": "fc6ce28ca82bfba0d2e2e1a6b501fff8c8ab0dac30deb61946c9bc477f2cbcb2",
+    "input_signature": {
+      "valid": true,
+      "solids": 1,
+      "faces": 215,
+      "volume_mm3": 205252.37062481284,
+      "center_mm": [
+        -6.4036565413254225,
+        314.34390314833263,
+        238.2337720383078
+      ],
+      "bounds_mm": [
+        [
+          -90.2000001,
+          182.59999990000003,
+          233.54999989999766
+        ],
+        [
+          90.2000001,
+          465.0000001,
+          257.0
+        ]
+      ]
+    },
+    "source_sha256": "a2c6c6651851d23794aa5a2322add08e620a56ff0e147fcc1cdb553192383d48",
+    "candidate_signature": {
+      "valid": true,
+      "solids": 1,
+      "faces": 211,
+      "volume_mm3": 204915.65937238157,
+      "center_mm": [
+        -6.351169380652385,
+        314.4334671907409,
+        238.2283043164146
+      ],
+      "bounds_mm": [
+        [
+          -90.2000001,
+          182.59999990000003,
+          233.54999989999766
+        ],
+        [
+          90.2000001,
+          465.0000001,
+          257.0
+        ]
+      ]
+    },
+    "link_access_bounds_mm": [
+      [
+        -43.62686401406655,
+        250.00228289881838,
+        239.75
+      ],
+      [
+        -33.16077874886079,
+        269.31293255349954,
+        247.85999999999999
+      ]
+    ],
+    "removed_mm3": 336.71196727443737,
+    "added_mm3": 0.0,
+    "full3mm_boundary_missing_mm3": 0.0,
+    "local_bottom_backing_mm": 4.199999999999989,
+    "local_bottom_backing_missing_mm3": 0.0,
+    "original_floor_removed_mm3": 0.0,
+    "ideal_floor_probe_missing_mm3": 0.4188586803165021,
+    "ideal_floor_probe_missing_solids": [
+      {
+        "valid": true,
+        "solids": 1,
+        "faces": 4,
+        "volume_mm3": 0.4188586803165021,
+        "center_mm": [
+          -54.827327522812354,
+          298.57780324316855,
+          233.79161250778716
+        ],
+        "bounds_mm": [
+          [
+            -55.43498572249095,
+            297.88710111189494,
+            233.54999999999654
+          ],
+          [
+            -53.48654428457467,
+            298.85,
+            234.41324028358216
+          ]
+        ]
+      }
+    ],
+    "nearby_floor_cylindrical_faces": [
+      {
+        "radius_mm": 3.75,
+        "axis_origin_mm": [
+          -43.5,
+          233.3,
+          231.4
+        ],
+        "axis_direction": [
+          -0.0,
+          0.0,
+          -1.0
+        ],
+        "face_bounds_mm": [
+          [
+            -47.25,
+            229.55,
+            233.55
+          ],
+          [
+            -39.75,
+            237.05,
+            235.6
+          ]
+        ]
+      }
+    ],
+    "wedge_samples": [
+      {
+        "source_picks_native_mm": [
+          [
+            55.764,
+            -41.709,
+            14.089
+          ],
+          [
+            55.749,
+            -41.706,
+            14.089
+          ]
+        ],
+        "world_samples_mm": [
+          [
+            -41.70870376076213,
+            268.0373364466256,
+            247.489
+          ],
+          [
+            -41.70811128228637,
+            268.04032965237684,
+            247.489
+          ],
+          [
+            -41.707518803810615,
+            268.0433228581281,
+            247.489
+          ],
+          [
+            -41.70692632533486,
+            268.0463160638793,
+            247.489
+          ],
+          [
+            -41.70633384685911,
+            268.0493092696305,
+            247.489
+          ]
+        ],
+        "old_inside": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "candidate_inside": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      {
+        "source_picks_native_mm": [
+          [
+            72.521,
+            -35.268,
+            10.97
+          ],
+          [
+            72.537,
+            -35.271,
+            10.97
+          ]
+        ],
+        "world_samples_mm": [
+          [
+            -35.268303853322266,
+            251.2777200814641,
+            244.37000000000003
+          ],
+          [
+            -35.26891155996679,
+            251.27440475122825,
+            244.37000000000003
+          ],
+          [
+            -35.26951926661131,
+            251.27108942099235,
+            244.37000000000003
+          ],
+          [
+            -35.27012697325584,
+            251.26777409075646,
+            244.37000000000003
+          ],
+          [
+            -35.270734679900364,
+            251.2644587605206,
+            244.37000000000003
+          ]
+        ],
+        "old_inside": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "candidate_inside": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      }
+    ],
+    "actual_complete_cup_fluid_contacts": {
+      "reservoir-b-fill-lower": {
+        "overlap_mm3": 0.0,
+        "air_mm": 0.14999999999734623
+      },
+      "reservoir-b-fill-upper": {
+        "overlap_mm3": 0.0,
+        "distance_error": "Standard_Failure: "
+      },
+      "reservoir-b-fill-link": {
+        "overlap_mm3": 0.0,
+        "air_mm": 0.5751318540358747
+      },
+      "tube-fluid-24-tail": {
+        "overlap_mm3": 0.0,
+        "air_mm": 17.49527377642579
+      }
+    },
+    "passed": true,
+    "local_bottom_backing_scope": "The corridor bottom lies 4.2 mm above the established cup-floor inside plane. The finite 4.2 mm stock witness excludes the two existing fitting pockets overlapped by the corridor ends; those pockets retain their separate floor scope.",
+    "ideal_floor_probe_missing_faces": [
+      {
+        "type": "PLANE",
+        "area_mm2": 0.41566033422561544,
+        "center_mm": [
+          -55.43498572249095,
+          298.5290129408929,
+          233.83776538110385
+        ],
+        "origin_mm": [
+          -55.43498572249095,
+          222.710659933777,
+          233.55
+        ],
+        "normal": [
+          1.0,
+          0.0,
+          -0.0
+        ]
+      },
+      {
+        "type": "CYLINDER",
+        "area_mm2": 1.7242431241191258,
+        "center_mm": [
+          -54.685168993114566,
+          298.4730927408683,
+          233.88416152631478
+        ],
+        "origin_mm": [
+          -55.0,
+          287.752874158467,
+          219.4
+        ],
+        "axis": [
+          -0.03340887438303151,
+          0.7432514326232559,
+          0.66817748766023
+        ],
+        "radius_mm": 3.75
+      },
+      {
+        "type": "PLANE",
+        "area_mm2": 1.0976467134188002,
+        "center_mm": [
+          -54.70579291418877,
+          298.85,
+          233.88815457987133
+        ],
+        "origin_mm": [
+          -55.43498572249095,
+          298.85,
+          233.55
+        ],
+        "normal": [
+          -0.0,
+          1.0,
+          0.0
+        ]
+      },
+      {
+        "type": "PLANE",
+        "area_mm2": 1.2417572448742042,
+        "center_mm": [
+          -54.70113169179562,
+          298.4694174447709,
+          233.55
+        ],
+        "origin_mm": [
+          -55.43498572249095,
+          222.710659933777,
+          233.55
+        ],
+        "normal": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    ],
+    "ideal_floor_probe_scope": {
+      "diagnosis": "The 0.4188586803 mm3 ideal-rectangle deficit is the established curved water-in passage at the far carrier corner, outside the link-access subtraction. Its R3.75 cylindrical face matches the first retained water_in_guide_points() segment. Actual original-floor removal is zero. No additional floor geometry is introduced.",
+      "source_function": "_above_core_mounts.water_in_guide_points",
+      "retained_passage_axis_origin_world_mm": [
+        -55.0,
+        287.752874158467,
+        219.4
+      ],
+      "retained_passage_axis_direction": [
+        -0.03340887438303151,
+        0.7432514326232559,
+        0.66817748766023
+      ]
+    }
+  },
+  "functional_receipt": {
+    "path": "hardware/printed-parts/cold-core/foam-cap/b-fill-pair-review.json",
+    "scope": "The local source-native layout, cover/floor/capture and handling readings retain the separately owned receipt scope. The complete-cup four-subject and five-subsolid deltas are recorded here. The original 227-neighbor query is not replayed or upgraded; the nominal-strip contact is explicit above."
+  },
+  "source_sha256": {
+    "hardware/printed-parts/cold-core/_above_core_mounts.py": "a2c6c6651851d23794aa5a2322add08e620a56ff0e147fcc1cdb553192383d48",
+    "hardware/manifold-layout/above-core.json": "e7e69fe4c5505fcccb1be3be983d2357c25bd7f85bbc40b55fbeb1ab51adb460",
+    "hardware/scripts/geometry_lint.py": "3c132b642f38cf2c4db9818002c06b51800e99fb4a7c77cd98851aaca2f8353e",
+    "hardware/printed-parts/lint-answers/cold-core/foam-cap/foam-cap-lid-top.lint-answers": "9287600728f83a7f21da3e17b96e455fae232eafd34d41d4c29b2b0e4cfef191"
+  },
+  "qualification_limits": [
+    "The printed STL and served mesh bindings identify emitted geometry; they establish no print quality, tie cleanup, load, stiffness, pressure seal or lifetime acceptance.",
+    "The retained 2 mm cup floor and 3.05 mm lower roof keep their original separate scopes. The 2.4 mm exception applies only to the named dry retaining cover.",
+    "The upper JG main-body native distance operation fails; its native contact Boolean is zero in both orders, as are all five fitting subsolid/cup pairs. No numerical air value is claimed for that main body. The nominal V-B retaining-strip contact is a separate open result."
+  ],
+  "passed": true,
+  "native_purchased_subsolid_and_nominal_strip_delta": {
+    "scope": "Only five purchased fitting subsolids versus the complete canonical cup, and the saved nominal VB strip versus the old/new fluid24 tail. No source changes or neighbor replay.",
+    "cup_sha256": "c4ce8e5d5435376892c641b2c54a369a7dac2643c421e33ec4275b5902fe2e39",
+    "fitting_subsolids": [
+      {
+        "fitting": "reservoir-b-fill-lower",
+        "index": 0,
+        "source_sha256": "a0377de32c169c0a9180805bf86bce57c438ad37ac4ab745795c56cd8d35b0cb",
+        "valid": true,
+        "bounds_mm": [
+          [
+            -50.2947878388646,
+            226.27154475070583,
+            221.14999999999998
+          ],
+          [
+            -33.13663740613223,
+            251.92267443658528,
+            251.247
+          ]
+        ],
+        "forward_mm3": 0.0,
+        "reverse_mm3": 0.0,
+        "air_mm": 0.15299999999456962
+      },
+      {
+        "fitting": "reservoir-b-fill-lower",
+        "index": 1,
+        "source_sha256": "a0377de32c169c0a9180805bf86bce57c438ad37ac4ab745795c56cd8d35b0cb",
+        "valid": true,
+        "bounds_mm": [
+          [
+            -45.67098344503963,
+            249.65143323535446,
+            237.85
+          ],
+          [
+            -34.41557859754929,
+            253.0483326585367,
+            249.15
+          ]
+        ],
+        "forward_mm3": 0.0,
+        "reverse_mm3": 0.0,
+        "air_mm": 0.15000000000108085
+      },
+      {
+        "fitting": "reservoir-b-fill-upper",
+        "index": 0,
+        "source_sha256": "634383e42fb31742ae78c4e3a1ea634b1087791fa0d3656f3a3550eb94f54b2e",
+        "valid": true,
+        "bounds_mm": [
+          [
+            -44.04046417307085,
+            267.85427259633605,
+            235.8371
+          ],
+          [
+            -24.909999999999997,
+            295.59,
+            262.8370000000001
+          ]
+        ],
+        "forward_mm3": 0.0,
+        "reverse_mm3": 0.0,
+        "distance_error": "Standard_Failure: "
+      },
+      {
+        "fitting": "reservoir-b-fill-upper",
+        "index": 1,
+        "source_sha256": "634383e42fb31742ae78c4e3a1ea634b1087791fa0d3656f3a3550eb94f54b2e",
+        "valid": true,
+        "bounds_mm": [
+          [
+            -41.91871987514503,
+            266.4133297601418,
+            238.68
+          ],
+          [
+            -31.37936552248247,
+            270.0148408273179,
+            249.32
+          ]
+        ],
+        "forward_mm3": 0.0,
+        "reverse_mm3": 0.0,
+        "air_mm": 0.1876099999990143
+      },
+      {
+        "fitting": "reservoir-b-fill-upper",
+        "index": 2,
+        "source_sha256": "634383e42fb31742ae78c4e3a1ea634b1087791fa0d3656f3a3550eb94f54b2e",
+        "valid": true,
+        "bounds_mm": [
+          [
+            -38.32,
+            282.18,
+            262.837
+          ],
+          [
+            -27.68,
+            292.82,
+            264.56239
+          ]
+        ],
+        "forward_mm3": 0.0,
+        "reverse_mm3": 0.0,
+        "air_mm": 15.014036554067243
+      }
+    ],
+    "strip_source": {
+      "path": "tmp/dry-sidewall-wiring/targets/nominal-strip-vb-outlet-return.brep",
+      "sha256": "81be9ef3a261588faa5d6b65165fa80b3153d5cc50f41db1e84d481fd1cbe812",
+      "solids": 9
+    },
+    "strip_vs_tails": {
+      "old": {
+        "source_sha256": "a608eace97635b00c17ed046c062378efd626375f4e7f76914364d047a3952c2",
+        "whole_pair": {
+          "forward_mm3": 0.0,
+          "reverse_mm3": 0.0,
+          "air_mm": 5.774999999999999
+        },
+        "subsolid_candidates": []
+      },
+      "new": {
+        "source_sha256": "d15f93884ffc62c5b7b81c75f01e246fea53c4ded0251b90f0708494628c12c3",
+        "whole_pair": {
+          "forward_mm3": 5.860792925141946,
+          "reverse_mm3": 0.0,
+          "air_mm": 0.0,
+          "bounds_mm": [
+            [
+              -34.03953124431442,
+              284.32499989999997,
+              278.04999989999993
+            ],
+            [
+              -29.82499989999999,
+              289.5000001,
+              280.5500001
+            ]
+          ]
+        },
+        "subsolid_candidates": [
+          {
+            "strip_solid": 0,
+            "strip_bounds_mm": [
+              [
+                -32.1500001,
+                284.09999989999994,
+                278.89999989999995
+              ],
+              [
+                -29.649999899999997,
+                289.10000010000005,
+                279.70000009999995
+              ]
+            ],
+            "forward_mm3": 4.2361320572198435,
+            "reverse_mm3": 4.2361320572198435,
+            "air_mm": 0.0,
+            "bounds_mm": [
+              [
+                -32.15000010000001,
+                284.4408946386531,
+                278.89999989999995
+              ],
+              [
+                -29.82499989999999,
+                289.10000010000095,
+                279.70000009999995
+              ]
+            ]
+          },
+          {
+            "strip_solid": 1,
+            "strip_bounds_mm": [
+              [
+                -37.8000001,
+                283.69999989999997,
+                278.04999989999993
+              ],
+              [
+                -30.899999899999997,
+                284.50000009999997,
+                280.5500001
+              ]
+            ],
+            "forward_mm3": 0.6098164284273588,
+            "reverse_mm3": 0.6098164284273588,
+            "air_mm": 0.0,
+            "bounds_mm": [
+              [
+                -34.03953124431442,
+                284.32499989999997,
+                278.04999989999993
+              ],
+              [
+                -31.960468755685564,
+                284.50000009999997,
+                280.5500001
+              ]
+            ]
+          },
+          {
+            "strip_solid": 2,
+            "strip_bounds_mm": [
+              [
+                -39.0500001,
+                284.09999989999994,
+                278.89999989999995
+              ],
+              [
+                -36.549999899999996,
+                294.21244010000004,
+                279.70000009999995
+              ]
+            ],
+            "forward_mm3": 0.0,
+            "reverse_mm3": 0.0,
+            "air_mm": 0.3750000000000071
+          },
+          {
+            "strip_solid": 4,
+            "strip_bounds_mm": [
+              [
+                -38.961265591351086,
+                288.43973973733773,
+                294.381603136492
+              ],
+              [
+                -34.057973336999005,
+                294.8006419914257,
+                295.93274659604083
+              ]
+            ],
+            "forward_mm3": 0.0,
+            "reverse_mm3": 0.0,
+            "air_mm": 1.5492343597310165
+          },
+          {
+            "strip_solid": 5,
+            "strip_bounds_mm": [
+              [
+                -38.148509573769275,
+                271.43663999999984,
+                283.1051939889579
+              ],
+              [
+                -33.1141314004373,
+                289.40381877707796,
+                301.6592801834975
+              ]
+            ],
+            "forward_mm3": 0.0,
+            "reverse_mm3": 0.0,
+            "air_mm": 1.8109456400826962
+          },
+          {
+            "strip_solid": 6,
+            "strip_bounds_mm": [
+              [
+                -37.091952850328774,
+                277.91051346615575,
+                274.67711298795393
+              ],
+              [
+                -24.76389813797902,
+                280.4105136661558,
+                283.99213684586704
+              ]
+            ],
+            "forward_mm3": 0.0,
+            "reverse_mm3": 0.0,
+            "air_mm": 3.9144864338442176
+          },
+          {
+            "strip_solid": 8,
+            "strip_bounds_mm": [
+              [
+                -30.9000001,
+                288.6999999,
+                278.04999989999993
+              ],
+              [
+                -24.9999999,
+                289.5000001,
+                280.5500001
+              ]
+            ],
+            "forward_mm3": 1.2584536090775496,
+            "reverse_mm3": 1.2584536090775496,
+            "air_mm": 3.552713678800501e-15,
+            "bounds_mm": [
+              [
+                -30.9000001,
+                288.6999999,
+                278.04999989999993
+              ],
+              [
+                -30.060505895923793,
+                289.5000001,
+                280.5500001
+              ]
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "complete_nominal_strip_clearance_passed": false,
+  "open_nominal_strip_contact": {
+    "scope": "The cached complete nominal V-B return strip versus the selected B-fill external tail, not printed cup or lid stock. No strip-path correction is adopted in this record.",
+    "affected_strip_solids": [
+      0,
+      1,
+      8
+    ],
+    "individual_overlap_mm3": [
+      4.2361320572198435,
+      0.6098164284273588,
+      1.2584536090775496
+    ],
+    "bounds_world_mm": [
+      [
+        -34.03953124431442,
+        284.32499989999997,
+        278.04999989999993
+      ],
+      [
+        -29.82499989999999,
+        289.5000001,
+        280.5500001
+      ]
+    ],
+    "basis": "Each isolated strip/tube pair gives the same positive volume in both Boolean orders. Whole-compound results are asymmetric and cannot establish clearance. The prior tube tail clears the same strip by5.775mm. A revised strip dressing through the existing window remains a separate fit question."
+  },
+  "printed_delta_passed": true
+}

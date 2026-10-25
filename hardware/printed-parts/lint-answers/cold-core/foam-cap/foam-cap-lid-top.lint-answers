@@ -188,3 +188,14 @@ file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
 click: x=59.083 y=-75.242 z=12.478
 click: x=37.183 y=39.492 z=14.372
 click: x=37.183 y=50.008 z=14.372
+
+[thin] Specific B-fill retaining-cover section: this printed pair spans 2.401 mm through the nominal 2.4 mm dry cover above the upper fitting at world X-33/Y287.5. Its top is Z254.75, leaving 0.25 mm nominal air to the fixed PCB tails. The upper fitting reaches its upward stop after 0.2 mm translation. This cover-specific section is accepted under the printed-parts thinner-cover exception; pull strength, printed fit and lifetime remain unqualified. The local native and printed scopes are recorded in foam-cap/b-fill-pair-review.json and b-fill-printed-review.json.
+alternatives: A 3 mm cover raises the same flat roof to Z255.35 and intersects the fixed PCB tails by 24.2728 mm3. An open pocket removes the upward stop. Either changes the selected fit or retention interface; the simple 2.4 mm cover preserves both.
+file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+click: x=46.782 y=-35.031 z=4.349
+click: x=46.782 y=-35.031 z=6.750
+
+[ceiling] Functional lower B-fill fitting pocket: the flat underside at world Z251.4 clears the fixed lower elbow and retains its 3.05 mm roof to Z254.45. This open-bottom dry pocket receives the fitting before the lid closes. Retain Tree(auto)/Default support decisions; actual support release, retention force and print quality are unqualified.
+alternatives: Filling the pocket obstructs the elbow. Changing its ceiling or fitting station requires reconciling the fixed reservoir stem and direct link; the flat pocket preserves those selected interfaces.
+file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+click: x=84.119 y=-42.264 z=3.400
