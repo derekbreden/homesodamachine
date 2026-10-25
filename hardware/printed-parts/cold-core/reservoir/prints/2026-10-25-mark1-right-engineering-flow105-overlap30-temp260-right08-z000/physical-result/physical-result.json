@@ -1,0 +1,59 @@
+{
+  "recorded_at_utc": "2026-10-25T18:33:01.046873+00:00",
+  "recorded_at_central": "2026-10-25T13:33:01.046873-05:00",
+  "reported_by": "Derek",
+  "printer": "Mark1",
+  "job_id": "1374272357",
+  "side": "right",
+  "printing_hotend": "right 0.8 mm Standard",
+  "plate": "Engineering Plate",
+  "status": "reported_polymer_buildup_and_motion_step_loss",
+  "founder_quote": "I'm not sure exactly what went wrong there, but the nozzle clearly got pretty gunked up, wiped onto itself. We really hadn't been using the right hot end for PETG 0.8 very much, so I wonder if it just maybe doesn't work very well. So I've switched Mark 1 over to 0.8 left hot end. The AMS 2 with all the transparent filament is connected to that left hot end on Mark 1 now. I've still got the engineering plate there, and I've cleaned it and glued it up again. So I'd like you to try again on the left hot end on Mark 1 now. Thanks.",
+  "photos": [
+    {
+      "file": "photo-1.jpg",
+      "sha256": "bab0f489fd1cd68107d9dc963eac1084c5c23c5befa6f1799726e4c966f1a412",
+      "source": "Derek photograph attached in this chat",
+      "view": "Mark1 touchscreen warning: multiple motion step loss detected, code [0300-800c 015526]."
+    },
+    {
+      "file": "photo-2.jpg",
+      "sha256": "7246a8ff9bb960bf9f63810c8e5f9ceadfde30e6948f39033e80743d6e09dd46",
+      "source": "Derek photograph attached in this chat",
+      "view": "Wide overview: two partial low-height footprints on Engineering Plate."
+    },
+    {
+      "file": "photo-3.jpg",
+      "sha256": "8222a984dbaaa014e7bd94c6f02b9dc0154cb8efc4e25e4886e105da1b360666",
+      "source": "Derek photograph attached in this chat",
+      "view": "Closer body/cap partial footprints with strings and localized loose material."
+    },
+    {
+      "file": "photo-4.jpg",
+      "sha256": "9b1d197444c9e86d676a34b375b44806678fce404b38eadda511442e1cc15adb",
+      "source": "Derek photograph attached in this chat",
+      "view": "Close view of polymer buildup around the right nozzle/hotend region."
+    }
+  ],
+  "observed_touchscreen_warning": {
+    "text": "Multiple motion step loss detected. Please first check if the toolhead is blocked by foreign objects or making abnormal noise. You may continue printing and observe the print quality. If obvious layer shifting occurs on the print, refer to the Wiki for maintenance.",
+    "code": "0300-800c 015526",
+    "source": "photo-1.jpg"
+  },
+  "image_assessment": "Partial reservoir/cap footprints and loose strands are visible on the Engineering Plate. Close photograph shows substantial polymer on the right nozzle/hotend region. Photographs do not establish the order of buildup, contact, step loss or adhesion changes.",
+  "cause_assessment": "Derek suspects right 0.8 mm hotend performance. This is a hypothesis; no general defect or causal explanation is established by these photographs.",
+  "stop_layer": null,
+  "fault_layer": null,
+  "lift_onset_layer": null,
+  "water_hold_result": null,
+  "terminal_observation": "../terminal-observation.json",
+  "next_trial": {
+    "record": "../../2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/README.md",
+    "selected_pair": "same right reservoir and matching cap",
+    "printing_hotend": "left 0.8 mm Standard",
+    "material": "transparent PETG AMS moved to left hotend per Derek",
+    "plate": "Engineering Plate, cleaned and glued again per Derek",
+    "recipe": "retained; zero added and effective Engineering Plate Z trim"
+  },
+  "scope": "Failure evidence for this right-hotend article; no water test or lift-onset bracket. Earlier left-article positive water holds remain scoped to those articles."
+}

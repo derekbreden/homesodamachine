@@ -1,0 +1,395 @@
+{
+  "Mark1": {
+    "job_id": "1374272357",
+    "subtask_name": "Flavor_reservoirs_-_PETG_0.24_mm",
+    "gcode_state": "FAILED",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 0,
+    "total_layer_num": 833,
+    "mc_percent": 0,
+    "mc_remaining_time": 0,
+    "bed_temper": 40.0,
+    "bed_target_temper": 0.0,
+    "nozzle_temper": 43.0,
+    "nozzle_target_temper": 0.0,
+    "stg_cur": -1,
+    "cooling_fan_speed": "0",
+    "big_fan1_speed": "0",
+    "big_fan2_speed": "0",
+    "heatbreak_fan_speed": "0",
+    "observed_at_utc": "2026-10-25T18:28:23.365826+00:00",
+    "printer": "Mark1",
+    "timelapse": "disable",
+    "ams": {
+      "tray_now": "255",
+      "tray_tar": "255",
+      "ams_exist_bits": "1",
+      "tray_exist_bits": "f"
+    },
+    "ams_units": [
+      {
+        "unit": "0",
+        "trays": [
+          {
+            "id": "0",
+            "tray_type": "PETG",
+            "tray_color": "00000000",
+            "tray_info_idx": "GFG01",
+            "remain": 42,
+            "state": 11
+          },
+          {
+            "id": "1",
+            "tray_type": "PETG",
+            "tray_color": "00000000",
+            "tray_info_idx": "GFG01",
+            "remain": 100,
+            "state": 11
+          },
+          {
+            "id": "2",
+            "tray_type": "PETG",
+            "tray_color": "00000000",
+            "tray_info_idx": "GFG01",
+            "remain": 100,
+            "state": 11
+          },
+          {
+            "id": "3",
+            "tray_type": "PETG",
+            "tray_color": "00000000",
+            "tray_info_idx": "GFG01",
+            "remain": 100,
+            "state": 11
+          }
+        ]
+      }
+    ],
+    "extruders": [
+      {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65535,
+        "temp": 43,
+        "stat": 0
+      },
+      {
+        "id": 1,
+        "hnow": 1,
+        "snow": 65279,
+        "temp": 36,
+        "stat": 0
+      }
+    ],
+    "nozzles": [
+      {
+        "id": 18,
+        "diameter": 0.4,
+        "type": "HS01"
+      },
+      {
+        "id": 1,
+        "diameter": 0.4,
+        "type": "HS01"
+      },
+      {
+        "id": 17,
+        "diameter": 0.2,
+        "type": "HS00"
+      },
+      {
+        "id": 0,
+        "diameter": 0.2,
+        "type": "HS00"
+      },
+      {
+        "id": 19,
+        "diameter": 0.8,
+        "type": "HS01"
+      }
+    ]
+  },
+  "Mark2": {
+    "job_id": "1374330388",
+    "subtask_name": "2026-10-25-sculpted-cover-front-overlap-black-left04-z004-mark2.gcode.3mf",
+    "gcode_state": "FINISH",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 67,
+    "total_layer_num": 67,
+    "mc_percent": 100,
+    "mc_remaining_time": 0,
+    "bed_temper": 33.0,
+    "bed_target_temper": 0.0,
+    "nozzle_temper": 34.0,
+    "nozzle_target_temper": 0.0,
+    "stg_cur": -1,
+    "cooling_fan_speed": "0",
+    "big_fan1_speed": "0",
+    "big_fan2_speed": "0",
+    "heatbreak_fan_speed": "0",
+    "observed_at_utc": "2026-10-25T18:28:24.019038+00:00",
+    "printer": "Mark2",
+    "timelapse": "disable",
+    "ams": {
+      "tray_now": "0",
+      "tray_tar": "255",
+      "ams_exist_bits": "0",
+      "tray_exist_bits": "0"
+    },
+    "ams_units": [],
+    "extruders": [
+      {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65535,
+        "temp": 38,
+        "stat": 0
+      },
+      {
+        "id": 1,
+        "hnow": 1,
+        "snow": 65024,
+        "temp": 34,
+        "stat": 393216
+      }
+    ],
+    "nozzles": [
+      {
+        "id": 17,
+        "diameter": 0.4,
+        "type": "HS01"
+      },
+      {
+        "id": 1,
+        "diameter": 0.4,
+        "type": "HS01"
+      },
+      {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      {
+        "id": 18,
+        "diameter": 0.2,
+        "type": "HS00"
+      },
+      {
+        "id": 20,
+        "diameter": 0.8,
+        "type": "HH01"
+      }
+    ]
+  },
+  "start_slot": "A1",
+  "spool_order": "Use the most depleted matching spool first. A1 reports 42%; A2-A4 each report 100%.",
+  "bed_clear_source": "Derek reports Engineering Plate cleaned, glued and ready on Mark1.",
+  "shared_circuit": {
+    "other_printer": "Mark2",
+    "observed_at_utc": "2026-10-25T18:28:24.019038+00:00",
+    "job_id": "1374330388",
+    "minimum_spacing_seconds": 180,
+    "verification": "Re-read the same finished task before Send; elapsed since initial observation is a lower bound on start spacing. Re-evaluate if task changes."
+  },
+  "submission_status": "Prepared and imported, not sent. Studio Send disabled: printer left nozzle remains registered as 0.4 mm. Touchscreen update requested.",
+  "latest_observation": {
+    "Mark1": {
+      "job_id": "1374272357",
+      "subtask_name": "Flavor_reservoirs_-_PETG_0.24_mm",
+      "gcode_state": "FAILED",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 833,
+      "mc_percent": 0,
+      "mc_remaining_time": 0,
+      "bed_temper": 38.0,
+      "bed_target_temper": 0.0,
+      "nozzle_temper": 40.0,
+      "nozzle_target_temper": 0.0,
+      "stg_cur": -1,
+      "cooling_fan_speed": "0",
+      "big_fan1_speed": "0",
+      "big_fan2_speed": "0",
+      "heatbreak_fan_speed": "0",
+      "observed_at_utc": "2026-10-25T18:34:37.139494+00:00",
+      "printer": "Mark1",
+      "timelapse": "disable",
+      "ams": {
+        "tray_now": "255",
+        "tray_tar": "255",
+        "ams_exist_bits": "1",
+        "tray_exist_bits": "f"
+      },
+      "ams_units": [
+        {
+          "unit": "0",
+          "trays": [
+            {
+              "id": "0",
+              "tray_type": "PETG",
+              "tray_color": "00000000",
+              "tray_info_idx": "GFG01",
+              "remain": 42,
+              "state": 11
+            },
+            {
+              "id": "1",
+              "tray_type": "PETG",
+              "tray_color": "00000000",
+              "tray_info_idx": "GFG01",
+              "remain": 100,
+              "state": 11
+            },
+            {
+              "id": "2",
+              "tray_type": "PETG",
+              "tray_color": "00000000",
+              "tray_info_idx": "GFG01",
+              "remain": 100,
+              "state": 11
+            },
+            {
+              "id": "3",
+              "tray_type": "PETG",
+              "tray_color": "00000000",
+              "tray_info_idx": "GFG01",
+              "remain": 100,
+              "state": 11
+            }
+          ]
+        }
+      ],
+      "extruders": [
+        {
+          "id": 0,
+          "hnow": 0,
+          "snow": 65535,
+          "temp": 40,
+          "stat": 0
+        },
+        {
+          "id": 1,
+          "hnow": 1,
+          "snow": 65279,
+          "temp": 36,
+          "stat": 0
+        }
+      ],
+      "nozzles": [
+        {
+          "id": 18,
+          "diameter": 0.4,
+          "type": "HS01"
+        },
+        {
+          "id": 1,
+          "diameter": 0.4,
+          "type": "HS01"
+        },
+        {
+          "id": 17,
+          "diameter": 0.2,
+          "type": "HS00"
+        },
+        {
+          "id": 0,
+          "diameter": 0.2,
+          "type": "HS00"
+        },
+        {
+          "id": 19,
+          "diameter": 0.8,
+          "type": "HS01"
+        }
+      ]
+    },
+    "Mark2": {
+      "job_id": "1374330388",
+      "subtask_name": "2026-10-25-sculpted-cover-front-overlap-black-left04-z004-mark2.gcode.3mf",
+      "gcode_state": "FINISH",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 67,
+      "total_layer_num": 67,
+      "mc_percent": 100,
+      "mc_remaining_time": 0,
+      "bed_temper": 32.0,
+      "bed_target_temper": 0.0,
+      "nozzle_temper": 34.0,
+      "nozzle_target_temper": 0.0,
+      "stg_cur": -1,
+      "cooling_fan_speed": "0",
+      "big_fan1_speed": "0",
+      "big_fan2_speed": "0",
+      "heatbreak_fan_speed": "0",
+      "observed_at_utc": "2026-10-25T18:34:36.421809+00:00",
+      "printer": "Mark2",
+      "timelapse": "disable",
+      "ams": {
+        "tray_now": "0",
+        "tray_tar": "255",
+        "ams_exist_bits": "0",
+        "tray_exist_bits": "0"
+      },
+      "ams_units": [],
+      "extruders": [
+        {
+          "id": 0,
+          "hnow": 0,
+          "snow": 65535,
+          "temp": 38,
+          "stat": 0
+        },
+        {
+          "id": 1,
+          "hnow": 1,
+          "snow": 65024,
+          "temp": 34,
+          "stat": 393216
+        }
+      ],
+      "nozzles": [
+        {
+          "id": 17,
+          "diameter": 0.4,
+          "type": "HS01"
+        },
+        {
+          "id": 1,
+          "diameter": 0.4,
+          "type": "HS01"
+        },
+        {
+          "id": 0,
+          "diameter": 0.6,
+          "type": "HS01"
+        },
+        {
+          "id": 18,
+          "diameter": 0.2,
+          "type": "HS00"
+        },
+        {
+          "id": 20,
+          "diameter": 0.8,
+          "type": "HH01"
+        }
+      ]
+    }
+  },
+  "ui_review": "ui-review.json",
+  "ams_backup": "On, freshly verified in Studio AMS Settings",
+  "left_ams_mapping": "Send dialog shows A1 PETG L",
+  "final_nozzle_check": {
+    "observed_at_utc": "2026-10-25T18:38:49.830386+00:00",
+    "registered_fixed_left_nozzle_mm": 0.4,
+    "job_id": "1374272357",
+    "state": "FAILED",
+    "print_error": 0,
+    "hms": [],
+    "submission": "No Send; awaiting touchscreen nozzle configuration."
+  }
+}

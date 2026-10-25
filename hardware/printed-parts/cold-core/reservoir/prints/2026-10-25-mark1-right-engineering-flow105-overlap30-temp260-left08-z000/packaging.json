@@ -1,0 +1,52 @@
+{
+  "source_archive": ".cache/reservoir-left08-engineering-20261025/reservoir-right-engineering-left08-native.gcode.3mf",
+  "source_archive_sha256": "96439a5506f3ce1a2f38893d880c5449471c365cff9cb6841d9a840ad32abe10",
+  "print_only_archive": ".cache/reservoir-left08-engineering-20261025/2026-10-25-reservoir-right-cap-engineering-flow105-overlap30-temp260-left08-z000-a1-mark1.gcode.3mf",
+  "print_only_archive_sha256": "f28aa56d5fc36ea6e4a37df3d596e335fae64f038dc948bf5fa18fc6cde632e5",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "e4ea8328d8d9c2d8154237d858fc611518bd9a4f110d82955a533f81322bf5ef"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model",
+    "3D/Objects/object_3.model",
+    "3D/Objects/object_4.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ],
+  "native_two_plate_archive": ".cache/reservoir-left08-engineering-20261025/reservoir-left08-review.3mf",
+  "native_two_plate_archive_sha256": "0c4b1ecf235a85b547f7b998ab3e0133615cfda558f6d2290f98cfe441171916",
+  "source_plate": 2,
+  "submitted_plate": 1,
+  "selected_parts": [
+    "reservoir-right",
+    "reservoir-cap-right"
+  ],
+  "source_plate_gcode_byte_identical": true,
+  "source_project_settings_byte_identical": true,
+  "omitted_left_plate_entries": [
+    "Metadata/plate_1.png",
+    "Metadata/plate_1_small.png",
+    "Metadata/plate_no_light_1.png",
+    "Metadata/top_1.png",
+    "Metadata/pick_1.png",
+    "Metadata/plate_1.json",
+    "Metadata/plate_1.gcode.md5",
+    "Metadata/plate_1.gcode"
+  ],
+  "renamed_plate_entries": {
+    "Metadata/plate_2.png": "Metadata/plate_1.png",
+    "Metadata/plate_2_small.png": "Metadata/plate_1_small.png",
+    "Metadata/plate_no_light_2.png": "Metadata/plate_no_light_1.png",
+    "Metadata/top_2.png": "Metadata/top_1.png",
+    "Metadata/pick_2.png": "Metadata/pick_1.png",
+    "Metadata/plate_2.json": "Metadata/plate_1.json",
+    "Metadata/plate_2.gcode.md5": "Metadata/plate_1.gcode.md5",
+    "Metadata/plate_2.gcode": "Metadata/plate_1.gcode"
+  }
+}
