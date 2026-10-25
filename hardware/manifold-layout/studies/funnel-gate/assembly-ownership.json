@@ -91,6 +91,15 @@
     },
     {
       "quadrant": "back-top",
+      "status": "located",
+      "basis": "Mean Well base faces the west dry sidewall below the raised relays; its wall mounts and supply travel with back-top.",
+      "names": [
+        "psu",
+        "psu-sidewall-mounts"
+      ]
+    },
+    {
+      "quadrant": "back-top",
       "status": "carried",
       "basis": "Attached to a back-top valve or rear fitting; travels with that subassembly",
       "names": [
@@ -154,7 +163,6 @@
       "basis": "Mounted on the cold-core top; core is carried by back-bottom; local fasteners are to design",
       "names": [
         "pump",
-        "psu",
         "pcba"
       ]
     },
@@ -177,15 +185,15 @@
       ]
     },
     {
-      "quadrant": "back-bottom",
-      "status": "proposed",
-      "basis": "Aft edge-on meter between pump and CO2 path, direct-down inlet to a proposed aft core guide and concealed outlet join; core-roof retention is proposed.",
+      "quadrant": "back-top",
+      "status": "located",
+      "basis": "Flow meter, continuous insulated inlet and concealed rear outlet join carried with back-top; inlet tube crosses the plain cold-core guide at final connection.",
       "names": [
         "digiten-flow",
         "soda-meter-bulkhead",
-        "soda-core-rise",
-        "soda-rise-insulation",
-        "soda-inlet-stem"
+        "soda-continuous-inlet",
+        "soda-bend-holder",
+        "soda-continuous-insulation"
       ]
     }
   ],
@@ -216,10 +224,15 @@
       "note": "Rear-panel CO2 fold connects to the back-bottom cold core"
     },
     {
-      "carried_part": "soda-meter-bulkhead",
-      "other_part": "soda-outlet-return-stem",
-      "note": "Back-bottom meter outlet meets the back-top rear stem collet; their short tube is entirely seated inside the two sockets"
+      "carried_part": "soda-continuous-inlet",
+      "other_part": "cold-core-top",
+      "note": "Back-top meter inlet enters the back-bottom cold core through a plain guide. This is one continuous tube, not a socket, joint or cut; flexible handling and final insertion belong to assembly staging."
     }
   ],
-  "connection_owner_rule": "Mating housings and local conductors inherit their component's assembly owner. This does not claim a complete end-to-end harness route."
+  "connection_owner_rule": "Mating housings and local conductors inherit their component's assembly owner. This does not claim a complete end-to-end harness route.",
+  "structure": {
+    "ceiling_owner": "back-top",
+    "continuous_ceiling": true,
+    "ceiling_access_panel": false
+  }
 }

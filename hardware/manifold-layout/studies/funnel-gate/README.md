@@ -11,17 +11,21 @@ Ground and WAGO placement remain deferred.
 component frames and display bounds.
 [assembly-ownership.json](assembly-ownership.json) records the carrying pieces
 and connections between them. V-A and V-K mount to back-top; their fitted low
-feed plumbing travels with them. V-B mounts to the cold-core lid, carried by
-back-bottom. Component position and attachment are both part of the implementation target. Retaining
+feed plumbing travels with them. The Mean Well mounts upright on back-top's
+west sidewall beneath the two raised Teyleten relays. The flow meter, continuous
+insulated inlet and concealed rear outlet join are also carried by back-top.
+The ceiling is continuous, with component recesses and no access panel.
+V-B, pump and PCB mount to the cold core, carried by back-bottom.
+Component position and attachment are both part of the implementation target. Retaining
 details follow those assignments. A necessary layout or attachment compromise
 requires discussion with Derek before adoption.
 
 [implementation-review.json](implementation-review.json) records the manual
-production readback and unresolved assembly sequence. The selected component
-positions and carrying pieces are restored in the exported appliance. A fully
-populated rigid closing slide crosses V-A with the PSU and V-K with the meter;
-the final closing order and flexible handoffs require resolution within the
-selected arrangement, or discussion before an arrangement change.
+production readback and remaining connection-staging work. The exported
+appliance follows the approved component positions and carrying pieces.
+The layout approval is settled; final flexible handoffs and shell closure have
+their separate assembly review. A necessary arrangement change requires
+discussion before adoption.
 
 ## Funnel and opening
 
@@ -165,7 +169,8 @@ the sleeve; the nominal outside diameter is 25.4 mm.
 
 The meter and every main component keep their poses. The passive core entry
 is `(50,342.4148,253.4)` mm.
-The external CAD span starts at that handoff. The production tube continues
+The meter, continuous inlet, holder, foam and concealed rear join travel with
+back-top. The external CAD span starts at the cold-core handoff. The production tube continues
 below it; it is not cut or joined at the guide.
 The inlet has no push-fit elbow or additional tube joint. The carbonator's
 bottom outlet retains its own fixed port. Two nested stem elbows form the
@@ -188,17 +193,17 @@ The uncompressed stock envelope and occupied-space estimate both come from the
 production native API. Its occupied estimate uses the four named native neighbors.
 
 [continuous-soda-bend.json](continuous-soda-bend.json) supplies the source,
-selection, holder acceptance, datums and native geometry. Production integration
-of the printed supports, under-lid continuation and complete installed harness
-is pending. The selected layout fixes the main component poses; any integration
+selection, holder acceptance, datums and native geometry. Production retaining
+stock, under-lid continuation and the installed harness have their separate
+integration records. The selected layout fixes the main component poses; any integration
 change to them requires an explicit arrangement review.
 
 ## PCB access and fit
 
 The board footprint is X−83..−10.200 and Y186.387..277.203 mm, with underside
 Z257 and pin tails Z255. Plumbing may pass above the PCB. Electrical
-connections are completed before the funnel/frame drops in; the roof also
-remains open for connection access.
+connections are completed before closing the shell and dropping in the
+funnel/frame. The ceiling has no access panel.
 
 The J11 local lead estimate dresses aft with a 1 mm straight exit and R4 bend.
 Its four conductor paths and source records are in
@@ -233,8 +238,8 @@ remain visible.
 
 [assembly-ownership.json](assembly-ownership.json) follows mounting parents.
 Funnel/frame and front manifold fittings are front-top; walls, V-A/V-K and
-rear fittings are back-top; core-mounted equipment, PCB and V-B are back-bottom.
-The meter carrier is proposed as back-bottom. Part details identify proposed
+rear fittings, sidewall Mean Well, raised relays and meter group are back-top;
+the core-mounted pump, PCB and V-B are back-bottom. Part details identify proposed
 attachments and the final tube connections between quadrants.
 
 Latest changes compares against [highlight-baseline.json](highlight-baseline.json).
