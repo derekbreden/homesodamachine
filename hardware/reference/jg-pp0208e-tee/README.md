@@ -122,7 +122,7 @@ tools/cad-venv/bin/python hardware/reference/jg-pp0208e-tee/analyze_collet_passe
 
 [`consumer-corrections.json`](consumer-corrections.json) lists the source locations and
 dimensions affected by this reference. They include the manifold, the water split, the
-enclosure's branch journals/release face and the tee–valve bow fixture. Their
+enclosure's branch journals and fore-band holes and the tee–valve bow fixture. Their
 placed solids, tube projections and motion checks require one coherent change. No consumer
 is qualified merely by enlarging its bore.
 
