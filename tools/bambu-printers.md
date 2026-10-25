@@ -93,10 +93,10 @@ spools. Remaining quantity is not a launch condition; no weighing is required.
 
 Mark1's AMS 2 Pro A carries Bambu PETG Translucent Clear (`GFG01`, transparent
 `00000000`) in **A1–A4**, feeding the right **0.8 mm Standard-flow** hotend.
-All four report **100%** at the October 24 preflight. The
-[255/260 °C reservoir trial](../hardware/printed-parts/cold-core/reservoir/prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/README.md),
-task **1371867808**, starts from **A1** as a tie-break. Use each spool fully and
-refresh actual depletion before a later launch.
+At the October 25 preflight, **A1 reports 65%** and **A2–A4 report 100%**.
+The [right reservoir and cap](../hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/README.md),
+task **1372664582**, starts from **A1**, the most depleted matching spool.
+Use each spool fully and refresh actual depletion before a later launch.
 
 AMS unit `0` addresses A1–A4 as trays `0`–`3`. **AMS filament backup is On**,
 visibly checked in Mark1's AMS Settings. The right-side Auto Refill group

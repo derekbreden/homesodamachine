@@ -1,0 +1,45 @@
+{
+  "id": "october-24-flow105-overlap30-temp260-left",
+  "recorded_at_utc": "2026-10-25T05:34:12.843180+00:00",
+  "recorded_at_central": "2026-10-25T00:34:12.843180-05:00",
+  "reported_date": "2026-10-25",
+  "reported_by": "Derek",
+  "printer": "Mark1",
+  "job_id": "1371867808",
+  "side": "left",
+  "founder_quote": "That turned out well so far. It is holding water along with its older sibling that is still holding water. Please print me the other side (left or right) from what you just printed, same settings, mark1 bed is clear.",
+  "status": "held_water",
+  "observation": "Derek reports that this print turned out well so far and is holding water alongside the older reservoir, which is still holding water.",
+  "ongoing_at_report": true,
+  "hold_duration_reported_hours": null,
+  "fill_height_mm": null,
+  "water_temperature_c": null,
+  "article_completion": "FINISH 833/833, freshly read before the next launch.",
+  "recipe": {
+    "complete_settings": "../settings.json",
+    "settings_file_sha256": "0e241f0882603af4873f0cf73a8196d43a9d540617646787fc5ec2093df12c6f",
+    "nozzle_c_first_subsequent": [
+      255,
+      260
+    ],
+    "flow_ratio": 1.05,
+    "wall_loops": 5,
+    "infill_wall_overlap_percent": 30,
+    "nozzle_mm": 0.8,
+    "nozzle_side": "right",
+    "layer_mm_first_subsequent": [
+      0.3,
+      0.24
+    ],
+    "bed_c": 70,
+    "added_user_z_trim_mm": 0,
+    "brim": "none",
+    "ironing": "Off"
+  },
+  "archive_sha256": "c839e75d4f287d3364fed95499b31ade4bf92f12627b5677c6001e4797c01e0a",
+  "gcode_sha256": "a4388a218fa814c1db1c2cf3afcd59f073ac3e8ecda98cc7d50c1704c5aef078",
+  "source_media": "Text report in this chat; no new photograph supplied.",
+  "terminal_observation": "../terminal-observation.json",
+  "scope": "Reported water hold of the identified completed left reservoir. Duration and water head are unspecified; cap/gasket assembly sealing and particular surface concerns are not separately assessed.",
+  "selection": "Derek requests the other side with these same settings."
+}

@@ -12,30 +12,33 @@ carries both mouths: the fill, and the dip tube the draw line becomes.
 [Level sensing](level-sensing.md) · [Floor and dip tube](floor-and-dip-tube.md) ·
 [Vent](vent.md)
 
-## Active temperature trial
+## Active right pair and selected recipe
 
-Mark1 task **1371867808** is printing the [left body and cap at
-255/260 °C](prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/README.md),
-starting on **A1** with **automatic refill** to matching loaded spools. Every
-other executable command matches the one-hour water-hold article. This trial
-addresses Derek's aesthetic concerns; its appearance and sealing are unassessed.
+Mark1 task **1372664582** is printing the [right body and matching cap](prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/README.md)
+with the exact **255/260 °C** settings of the completed left pair. It starts on
+**A1 (65%)**, the most depleted matching spool, with **automatic refill** to
+A2–A4 (100% each at preflight).
 
-## Water-holding recipe baseline
+The completed [left article, task 1371867808](prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json)
+is **holding water**, as reported by Derek on October 25. He reports it turned
+out well so far and requests the other side with the same settings. The older
+265/270 °C article is also still holding water. Total hold durations and water
+heads are unspecified. [Acceptance records](water-hold-acceptance.json).
 
-[reservoir.3mf](reservoir.3mf) contains the current left and right
-body/cap pairs through **Mark1's right 0.8 mm Standard nozzle**. The recipe uses
-**1.05 flow, five requested Arachne wall loops, 30% Infill/Wall overlap and
-265/270 °C** first/subsequent nozzle temperatures. The partially printed left
-article, Mark1 task **1365626370**, has a **reported one-hour water hold** on
-October 23, 2026. Derek intentionally stopped the print early.
+The selected repeat recipe uses **1.05 flow, five requested Arachne wall loops,
+30% Infill/Wall overlap and 255/260 °C** first/subsequent nozzle temperatures.
+Use its [complete frozen settings](prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/settings.json)
+and [native two-plate source](prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/packaging.json)
+for repeats through Mark1's right **0.8 mm Standard** nozzle.
+
+[reservoir.3mf](reservoir.3mf) and [print-settings.json](print-settings.json)
+retain the **265/270 °C reference recipe** on the current left/right body/cap
+geometry. Its intentionally shortened task **1365626370** has a reported
+one-hour hold on October 23 and remains holding water on October 25.
 [Physical result](prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json) ·
-[Launch and startup](prints/2026-10-22-mark1-flow105-overlap30-right08-z000/README.md).
-[Settings, wall-count comparison and installed presets](recipe-reviews/2026-10-22-flow105-overlap30/README.md).
-
-Derek reports aesthetic concerns with this article. The active trial uses
-**255 °C first layer / 260 °C subsequent layers**, with all other settings
-retained. [Trial settings and native comparison](prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/README.md).
-The baseline project retains its tested 265/270 °C settings.
+[Wall-count comparison and installed presets](recipe-reviews/2026-10-22-flow105-overlap30/README.md).
+The [255/260 °C comparison](prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/native-review.json)
+changes only temperature-related executable commands from that reference.
 
 The ordinary body walls and their thick curved corners contain only native
 wall paths. Five is the lowest tested requested count that achieves this on
@@ -94,7 +97,8 @@ Past settings, reported outcomes and source commits are in the
 [print log](print-log.md) and [September inspection record](history/seal-trial.md).
 Historical 3MFs are retained in Git.
 
-Reservoir leak results belong to the articles and process tested. The current
-five-wall recipe has a reported one-hour water hold on the printed portion;
-the exact print height and water head are unspecified.
+Reservoir leak results belong to the articles and process tested. Both October
+five-wall recipes have reported water holds: the completed
+255/260 °C left article and the shortened 265/270 °C article. Total ongoing hold
+durations and water heads are unspecified.
 CAD clearance does not establish a print's sealing or finished float sliding.
