@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "scope": "Current frozen source checkpoint for all fifteen affected paths in the selected back-top PSU and relay arrangement. Thirteen paths passed the bounded exact native equipment, shell, tube and nominal-strip contact review. The two final PSU-secondary guide corrections are checkpointed and their focused native review is queued. The later actual-export binding is separate. Physical wire-bend, terminal-entry, lead packing and assembly force remain unqualified.",
-  "source_state": "all_fifteen_paths_frozen_two_tail_native_review_pending",
+  "scope": "Frozen source for all fifteen affected paths in the selected back-top PSU and relay arrangement. Their native equipment, shell, tube and nominal-strip contacts clear. A positive-volume crossing between the two PSU secondary cores required one further3mm aft shift of the GND rise. Only that changed region, the two-core pair and thirteen cached paths against the refreshed front-top await the focused native review. Actual-export binding is separate. Physical wire-bend, terminal-entry, lead packing and assembly force remain unqualified.",
+  "source_state": "frozen_gnd_local_correction_native_review_pending",
   "requested_changed_conductors": [
     "AC2-L",
     "AC2-N",
@@ -117,7 +117,7 @@
   },
   "clearance_basis": "Bounded exact native first pass cleared thirteen unchanged paths against current equipment, shells, exact tube sweeps and nominal strips. Only the two named local corrections await the focused repeat.",
   "source_sha256": {
-    "hardware/wiring/installed/route-overrides.json": "c2204d083056891db1447c289c726b8be6fe253916ae1d19cc4d480418aee5b9",
+    "hardware/wiring/installed/route-overrides.json": "4338f319a34db12dc0a6aa12292be450fdb98d29cbbbe36a1b3c29c062778caa",
     "hardware/wiring/installed/bundle-routes.json": "11d7866e6cb32d78334588be4c55919b1bcbc40f7773e6a11d4932116bb828a4",
     "hardware/wiring/installed/model.py": "66f6a6ea2228d7a75bb9175f803c9b1c2b02ea05ac074b5da160e66a6722cfac",
     "hardware/wiring/installed/routes.py": "91543624259155561d2840bd8e2bccaeccf553de4d5eb14a7f606b901f291624",
@@ -144,7 +144,6 @@
   },
   "PSU_mounting_sequence": "Fasten PSU before seating WAGO-H, whose occupied region crosses the aft+X mounting-driver approach. Installed lead contacts and staged tool occupancy are separate.",
   "native_review_pending_conductors": [
-    "DC1-V12",
     "DC1-GND"
   ],
   "required_preparation_update": {
@@ -156,5 +155,17 @@
   "final_local_corrections": {
     "DC1-V12": "The low crossing is raised1.1mm to separate the two secondary cores. Terminal frames, R3 departure and endpoint tangent are unchanged.",
     "DC1-GND": "The crossbar is3mm fore of its earlier position to clear the actual V-B nominal retaining strip. Terminal frames and other guides are unchanged."
+  },
+  "positive_secondary_overlap_before_correction": {
+    "common_mm3": 15.4786967585863,
+    "bounds_mm": [
+      -25.214213668389856,
+      312.49999988798555,
+      259.38326854086506,
+      -22.681965911250074,
+      313.50000010776733,
+      271.328427224704
+    ],
+    "correction": "Move only the GND floor crossing and vertical rise fromY314 toY317; retain its endpoints and remaining guides."
   }
 }
