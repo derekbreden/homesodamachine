@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "source_file": "ESP32-S3-Touch-LCD-1_47_20250411.stp",
+  "source_url": "https://files.waveshare.com/wiki/ESP32-S3-Touch-LCD-1.47/ESP32-S3-Touch-LCD-1.47-2D3D.zip",
+  "source_sha256": "15fddd5d2b699d0b7c5160f2e11f176a672e7b305604f43a6dbaa30b8cc0059e",
+  "frame": "Native display X width, Y length, Z from metal feet toward glass",
+  "translation_from_vendor_mm": [
+    0,
+    0,
+    7.25
+  ],
+  "placement": "Vendor foot datum +7.35 mm; switch follows measured PCB underside correction -0.10 mm",
+  "buttons": [
+    {
+      "name": "right side switch",
+      "vendor_solid_index": 211,
+      "file": "button-right.step",
+      "sha256": "b515134b75baa15f5bd048f48835b65631c5b7a9c423f3cc3343cb7dcef9bdca"
+    },
+    {
+      "name": "left side switch",
+      "vendor_solid_index": 212,
+      "file": "button-left.step",
+      "sha256": "d802e4c740ed808daa07d19f8eba0db25d59b76c3b61c03e90ad0945694c2fdc"
+    }
+  ],
+  "scope": "Complete vendor switch housings, metalwork and actuators; dimensions of the physical sample remain unmeasured."
+}

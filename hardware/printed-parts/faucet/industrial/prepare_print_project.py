@@ -325,6 +325,15 @@ def refresh(settings_from: Path = PROFILE, output: Path = PROJECT,
             for key, value in overrides.items():
                 writer.metadata(obj, key, value)
         ranges = ET.Element("objects")
+        bands = finish.get("base_fine_bands_print_z_mm", [])
+        if bands:
+            # Bambu layer ranges use one-based object order, not 3MF resource IDs.
+            base_index = next(i for i, p in enumerate(report["parts"], 1)
+                              if p["name"] == "industrial-shell-base")
+            band_object = ET.SubElement(ranges, "object", id=str(base_index))
+            for low, high in bands:
+                band = ET.SubElement(band_object, "range", min_z=f"{low:.4f}", max_z=f"{high:.4f}")
+                ET.SubElement(band, "option", opt_key="layer_height").text = str(finish["fine_layer_height_mm"])
         members["Metadata/model_settings.config"] = writer.xml(config)
         members["Metadata/layer_config_ranges.xml"] = writer.xml(ranges)
     if finish.get("rear_seam_enforcement"):
@@ -390,7 +399,9 @@ def refresh(settings_from: Path = PROFILE, output: Path = PROJECT,
         "finish_choices_pending": [],
         "finish_selection": relative(FINISH),
         "selected_finish": finish,
-        "selected_finish_scope": "A2 with Back on base, tip and mounting plate; complete build-pose rear seam enforcement on the base and matching exposed curved tip meridian; default corner seams on cover and lever; uniform 0.24 mm model and support layers including the first bed layer; native125% bridge flow; ordinary part cooling off, 70% on bridges and walls with at least 50% unsupported bead width after three off bed layers; Bridge15mm/s and overhang limits<=15 preserving existing10mm/s; accepted segmented base-rim arcs, tip eight fins and local lip trees, and the removable hidden-root disc. Tree(auto)/Default elsewhere.",
+        "selected_finish_scope": "A2 with Back on base, tip and mounting plate; complete build-pose rear seam enforcement on the base and matching exposed curved tip meridian; default corner seams on cover and lever; selected base layer bands with ordinary layers elsewhere and independent support heights off; native125% bridge flow; ordinary part cooling off, 70% on bridges and walls with at least 50% unsupported bead width after three off bed layers; Bridge15mm/s and overhang limits<=15 preserving existing10mm/s; accepted segmented base-rim arcs, tip eight fins and local lip trees, and the removable hidden-root disc. Tree(auto)/Default elsewhere.",
+        "base_layer_bands": [{"print_z_mm": band, "layer_height_mm": finish["fine_layer_height_mm"]}
+                             for band in bands],
     })
     for key in finish["filament_overrides"]:
         if before_settings.get(key) != after_settings.get(key):

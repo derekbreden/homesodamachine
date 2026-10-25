@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-25T01:03:07.034842+00:00",
+  "reported_by": "Derek",
+  "printer_task_id": "1370902777",
+  "archive_sha256": "f1e129c9243a529a76a189ff7436e61c6307c5e4d865c063b47af2a4f83e3e98",
+  "gcode_sha256": "d7feed58fa3b0770b74913cf99b376322cbd46873a3db1e30e3119261101cd65",
+  "status": "reported_sculpted_cover_installation_failure_with_working_industrial_control",
+  "quotes": [
+    "I've tried several times to get the sculpted display cover to fit here, and it just won't quite get on.",
+    "I swapped back and forth with the previous square industrial display cover here, and that worked on the latest print.",
+    "How the button is what prevents the display from going all the way down in front of there?",
+    "But, like, even if you fix this room for the buttons thing, there's probably still a clearance problem beyond that, is all I'm saying."
+  ],
+  "observations": {
+    "sculpted_cover": "Repeated attempts do not seat the cover. Photos show a front arch gap and brass hardware exposed.",
+    "industrial_control": "Older square Industrial cover repeatedly fits the same latest printed tip, tightly.",
+    "buttons": "Close photos show the side switch housing at the unrelieved tip ledge beside a recessed mounting post. Derek identifies the switch as preventing full display seating.",
+    "reported_cover_shortfall": "Approximately one millimeter, visual estimate; not a calibrated measurement."
+  },
+  "scope": "The Industrial control establishes reported usable assembly, not full seating at the modeled foot datum or absence of compressed hardware. Sculpted cover failure and button bearing are separate reported constraints. Force, actual clearances and durability are unmeasured.",
+  "resolution_candidate": "../../../../faucet-display-cover/fit-review/2026-10-24/README.md",
+  "photos": [
+    {
+      "file": "cover-fit-1.jpg",
+      "original_sha256": "3e7148bac4b1f0d91158ed0f96d2dad8697efe43b43855a30c4d3477ca6accea",
+      "saved_sha256": "cafcfe57afe233e74e4e06d3a08c7251ab9e9e7f91aca8bc3e40b641c56795b2"
+    },
+    {
+      "file": "cover-fit-2.jpg",
+      "original_sha256": "da9575b79bf5f8813eeac5e27a111a7a1fadcdcd97971f84667a22404aeb001a",
+      "saved_sha256": "a3a362162b0bf510adc3add71c7d55c8d61c3355dd277072ab66d08224346cd1"
+    },
+    {
+      "file": "cover-fit-3.jpg",
+      "original_sha256": "7f36ea511b28150ff79118785c9e98d8b96d816887d398acc3a801fbc001ab4c",
+      "saved_sha256": "468b393fe60988ff481a48704be08b3844fe88f185f66f50a3511fb4a14ebad7"
+    },
+    {
+      "file": "cover-fit-4.jpg",
+      "original_sha256": "37d0bc1fc0a90b88768cfce9ac529880b3eebfbbaea50ee7f86ff4165514ba7a",
+      "saved_sha256": "0e9a9d48b2355248eafc2792428ae8dc1ef0e5abc0034e011ff4203612a9f344"
+    },
+    {
+      "file": "cover-fit-5.jpg",
+      "original_sha256": "088abc4782401baae3f20296768ffe4fc274cc3dd973f9479ae180dd360852b2",
+      "saved_sha256": "1134678fb897361a994b0f6814fcd39316a98249f9319bcc3deb8eddcbee1431"
+    },
+    {
+      "file": "cover-fit-6.jpg",
+      "original_sha256": "71c84b52d16da8df883f7e1e6d722997e8bf152ab6af9110afb58db1d2a7babb",
+      "saved_sha256": "07d3e0d273a9b157960257db7ac9048def846065717feb52f8949785a4b06458"
+    },
+    {
+      "file": "button-fit-1.jpg",
+      "original_sha256": "577f29d201c21b089bc6c0d35dc864dacd2b2526638c264e002219e60cde6fda",
+      "saved_sha256": "5302983424aea946d21e38e231adc321c5e555b28695b6416dd7828f6c10ee3e"
+    },
+    {
+      "file": "button-fit-2.jpg",
+      "original_sha256": "34b0c27f96a9489084415d642723a9fd5681be1a0dd9fc2bb0d8181a042812b8",
+      "saved_sha256": "48405c74223cc41ca972c218e977cfa4e5d0169acf0dde5281dd01983a76d901"
+    },
+    {
+      "file": "button-fit-3.jpg",
+      "original_sha256": "c938cca598420d7585e983f0c99cf405632d99c81ec182a437dae467ef34f167",
+      "saved_sha256": "0c198c5ea812ebc7187d23f39e5ec43825d6de9dffc2a13bd74c837f7372aeb7"
+    }
+  ],
+  "image_processing": "EXIF orientation applied, converted to RGB, limited to 1600 px, metadata omitted."
+}
