@@ -120,7 +120,8 @@ def bind_back_top(path, output):
             'source_support_missing_mm3': support.cut(stock).Volume(),
             'actual_tie_slot_stock_mm3': slot.intersect(stock).Volume(),
             'actual_seat_bore_stock_mm3': bore.intersect(stock).Volume(),
-            'neck_relief_stock_mm3': neck_clearance(data).intersect(stock).Volume(),
+            'neck_relief_stock_mm3': (neck_clearance(data).intersect(stock).Volume()
+                                     if data['beam_plan_world_xy_mm'] else 0.),
             **{key: probe.cut(stock).Volume()
                for key, probe in stock_probes(data).items()}}
     binding = {
