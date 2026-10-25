@@ -1,0 +1,753 @@
+{
+  "schema": 1,
+  "reviewed_date": "2026-10-24",
+  "scope": "Manual open-bench seating of the back-top's two socket-mounted valves.\n\nThe back-top rests roof-down. Bare V-A enters through its open front at world\nX=-40 and 12 mm below its selected height, moves aft to a 6.2 mm +Y post\ndisengagement, moves laterally to its plate, rises 12 mm, then seats along -Y.\nV-K enters through the open underside directly below its plate and seats along\n-Y. Native per-solid bounding prisms enclose each straight handling motion,\nfollowed by 13 native axial positions. This is a geometric reading, not hand\naccess, insertion force or retention qualification.",
+  "reproduce": "tools/cad-venv/bin/python hardware/mechanical-qualification/enclosure-above-core/valve_wall_mounts.py",
+  "approved_mount_basis": "hardware/manifold-layout/studies/wall-supported/support-plan.json",
+  "assembly_prerequisites": [
+    "Back-top is separate from the core and rests on its roof with its front and underside open.",
+    "Bring bare V-A through the open front at worldX=-40 and 12 mm below its selected height; move aft to +Y6.2, move laterally to selectedX, raise12, then seat along -Y. Seat bare V-K second through the underside directly below its plate.",
+    "The water header, fitted elbows, relays, ASSE, gas group, core equipment and lead dress are not present in this bare-valve stage.",
+    "Complete the approved back-top plumbing subassembly before the separate column-closing motion."
+  ],
+  "valve_pose_world": {
+    "valve-v-a": {
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ]
+      ],
+      "translation_mm": [
+        -76.40410112876839,
+        285.28976052818666,
+        298.5808478805363
+      ],
+      "reference": "hardware/reference/beduan-solenoid/beduan-solenoid.step",
+      "collet_clock_degrees": {
+        "inlet": -15.0
+      },
+      "collet_clock_basis": "Movable inlet release collet rotated about native +Y through the port-centre axis. The shared measured reference supplies the complete collet; the fixed body, posts, ports and nominal stem engagement retain their selected datums."
+    },
+    "vk-solenoid": {
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ]
+      ],
+      "translation_mm": [
+        76.40409887123158,
+        285.28976052818666,
+        298.5808478805363
+      ],
+      "reference": "hardware/reference/beduan-solenoid/beduan-solenoid.step"
+    }
+  },
+  "mounts": {
+    "valve-v-a": {
+      "parent": "enclosure-back-top",
+      "stock_min_world_mm": [
+        -98.51,
+        281.28976052818666,
+        279.5558478805363
+      ],
+      "stock_max_world_mm": [
+        -57.60410112876839,
+        290.48976052818665,
+        317.60584788053626
+      ],
+      "socket_diameter_mm": 6.9,
+      "socket_floor_backing_mm": 3.0,
+      "frame": {
+        "rotation": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ],
+          [
+            0.0,
+            -1.0,
+            0.0
+          ]
+        ],
+        "translation_mm": [
+          -76.40410112876839,
+          285.28976052818666,
+          298.5808478805363
+        ],
+        "reference": "hardware/reference/beduan-solenoid/beduan-solenoid.step",
+        "collet_clock_degrees": {
+          "inlet": -15.0
+        },
+        "collet_clock_basis": "Movable inlet release collet rotated about native +Y through the port-centre axis. The shared measured reference supplies the complete collet; the fixed body, posts, ports and nominal stem engagement retain their selected datums."
+      },
+      "interface": "Shared valve_seat V69 four blind sockets and open port channel"
+    },
+    "vk-solenoid": {
+      "parent": "enclosure-back-top",
+      "stock_min_world_mm": [
+        57.604098871231585,
+        281.28976052818666,
+        279.5558478805363
+      ],
+      "stock_max_world_mm": [
+        98.51,
+        290.48976052818665,
+        317.60584788053626
+      ],
+      "socket_diameter_mm": 6.9,
+      "socket_floor_backing_mm": 3.0,
+      "frame": {
+        "rotation": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ],
+          [
+            0.0,
+            -1.0,
+            0.0
+          ]
+        ],
+        "translation_mm": [
+          76.40409887123158,
+          285.28976052818666,
+          298.5808478805363
+        ],
+        "reference": "hardware/reference/beduan-solenoid/beduan-solenoid.step"
+      },
+      "interface": "Shared valve_seat V69 four blind sockets and open port channel"
+    }
+  },
+  "stock": {
+    "valid": true,
+    "solids": 1,
+    "faces": 444,
+    "volume_mm3": 1374412.8525147976,
+    "bounds_mm": [
+      -107.5000001,
+      200.1499999,
+      160.2499999,
+      107.5000001,
+      473.5,
+      355.00000010002543
+    ]
+  },
+  "checks": [
+    {
+      "valve": "valve-v-a",
+      "passed": true,
+      "disengaged_translation_y_mm": 6.2,
+      "axial_translation_y_mm": [
+        6.2,
+        0.0
+      ],
+      "stage_present_bodies": [
+        "enclosure-back-top"
+      ],
+      "handling": [
+        {
+          "phase": "Fore entry",
+          "start_translation_mm": [
+            36.40410112876839,
+            -143.43976072818668,
+            -12.0
+          ],
+          "end_translation_mm": [
+            36.40410112876839,
+            6.2,
+            -12.0
+          ],
+          "continuous_native_solid_bounds": [
+            {
+              "solid": 0,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 1,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 2,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 3,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 4,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 5,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 6,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 7,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 8,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 9,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 10,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            }
+          ],
+          "passed": true
+        },
+        {
+          "phase": "Lateral handling",
+          "start_translation_mm": [
+            36.40410112876839,
+            6.2,
+            -12.0
+          ],
+          "end_translation_mm": [
+            0.0,
+            6.2,
+            -12.0
+          ],
+          "continuous_native_solid_bounds": [
+            {
+              "solid": 0,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 1,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 2,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 3,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 4,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 5,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 6,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 7,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 8,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 9,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 10,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            }
+          ],
+          "passed": true
+        },
+        {
+          "phase": "Raise to plate",
+          "start_translation_mm": [
+            0.0,
+            6.2,
+            -12.0
+          ],
+          "end_translation_mm": [
+            0.0,
+            6.2,
+            0.0
+          ],
+          "continuous_native_solid_bounds": [
+            {
+              "solid": 0,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 1,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 2,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 3,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 4,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 5,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 6,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 7,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 8,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 9,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 10,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            }
+          ],
+          "passed": true
+        }
+      ],
+      "native_axial_positions": [
+        {
+          "offset_y_mm": 6.2,
+          "obstacle": "enclosure-back-top",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 5.683333333333334,
+          "obstacle": "enclosure-back-top",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 5.166666666666667,
+          "obstacle": "enclosure-back-top",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 4.65,
+          "obstacle": "enclosure-back-top",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 4.133333333333334,
+          "obstacle": "enclosure-back-top",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 3.6166666666666667,
+          "obstacle": "enclosure-back-top",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 3.1,
+          "obstacle": "enclosure-back-top",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 2.5833333333333335,
+          "obstacle": "enclosure-back-top",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 2.066666666666667,
+          "obstacle": "enclosure-back-top",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 1.55,
+          "obstacle": "enclosure-back-top",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 1.0333333333333334,
+          "obstacle": "enclosure-back-top",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 0.5166666666666667,
+          "obstacle": "enclosure-back-top",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 0.0,
+          "obstacle": "enclosure-back-top",
+          "common_mm3": 0.0
+        }
+      ]
+    },
+    {
+      "valve": "vk-solenoid",
+      "passed": true,
+      "disengaged_translation_y_mm": 6.2,
+      "axial_translation_y_mm": [
+        6.2,
+        0.0
+      ],
+      "stage_present_bodies": [
+        "enclosure-back-top",
+        "valve-v-a"
+      ],
+      "handling": [
+        {
+          "phase": "Underside entry",
+          "start_translation_mm": [
+            0.0,
+            6.2,
+            -169.0808480805363
+          ],
+          "end_translation_mm": [
+            0.0,
+            6.2,
+            0.0
+          ],
+          "continuous_native_solid_bounds": [
+            {
+              "solid": 0,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 0,
+              "obstacle": "valve-v-a",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 1,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 1,
+              "obstacle": "valve-v-a",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 2,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 2,
+              "obstacle": "valve-v-a",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 3,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 3,
+              "obstacle": "valve-v-a",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 4,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 4,
+              "obstacle": "valve-v-a",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 5,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 5,
+              "obstacle": "valve-v-a",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 6,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 6,
+              "obstacle": "valve-v-a",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 7,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 7,
+              "obstacle": "valve-v-a",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 8,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 8,
+              "obstacle": "valve-v-a",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 9,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 9,
+              "obstacle": "valve-v-a",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 10,
+              "obstacle": "enclosure-back-top",
+              "common_mm3": 0.0
+            },
+            {
+              "solid": 10,
+              "obstacle": "valve-v-a",
+              "common_mm3": 0.0
+            }
+          ],
+          "passed": true
+        }
+      ],
+      "native_axial_positions": [
+        {
+          "offset_y_mm": 6.2,
+          "obstacle": "enclosure-back-top",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 6.2,
+          "obstacle": "valve-v-a",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 5.683333333333334,
+          "obstacle": "enclosure-back-top",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 5.683333333333334,
+          "obstacle": "valve-v-a",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 5.166666666666667,
+          "obstacle": "enclosure-back-top",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 5.166666666666667,
+          "obstacle": "valve-v-a",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 4.65,
+          "obstacle": "enclosure-back-top",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 4.65,
+          "obstacle": "valve-v-a",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 4.133333333333334,
+          "obstacle": "enclosure-back-top",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 4.133333333333334,
+          "obstacle": "valve-v-a",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 3.6166666666666667,
+          "obstacle": "enclosure-back-top",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 3.6166666666666667,
+          "obstacle": "valve-v-a",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 3.1,
+          "obstacle": "enclosure-back-top",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 3.1,
+          "obstacle": "valve-v-a",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 2.5833333333333335,
+          "obstacle": "enclosure-back-top",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 2.5833333333333335,
+          "obstacle": "valve-v-a",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 2.066666666666667,
+          "obstacle": "enclosure-back-top",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 2.066666666666667,
+          "obstacle": "valve-v-a",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 1.55,
+          "obstacle": "enclosure-back-top",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 1.55,
+          "obstacle": "valve-v-a",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 1.0333333333333334,
+          "obstacle": "enclosure-back-top",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 1.0333333333333334,
+          "obstacle": "valve-v-a",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 0.5166666666666667,
+          "obstacle": "enclosure-back-top",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 0.5166666666666667,
+          "obstacle": "valve-v-a",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 0.0,
+          "obstacle": "enclosure-back-top",
+          "common_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 0.0,
+          "obstacle": "valve-v-a",
+          "common_mm3": 0.0
+        }
+      ]
+    }
+  ],
+  "passed": true,
+  "fixture": {
+    "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+    "sha256": "93c4e463c1e9e36f1867616b9b0b3e5df5a59410a5daa3b434ff1e59434ed22c",
+    "production_seats_fused": false
+  },
+  "source_sha256": {
+    "hardware/manifold-layout/above-core.json": "12fe326b7b7cfa8c67c8efbcea57eb83fe646ceca2a8f3d1809db636d749583f",
+    "hardware/manifold-layout/above_core_parts.py": "9dd5b0576f8fdc87f9a8b79bf57d4677a228cedad549e32c3fc1a67cc1e6752c",
+    "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "504ed4d3d70d0155ce6e23f119d089f671d120ad9ba3b8a103ae0a4f1fef0af9",
+    "hardware/printed-parts/valve-seat/valve_seat.py": "8514bbd43f9a29e920e3a75a8b15810e0f802eeee50af8bf0b3b944bd221b435"
+  },
+  "limits": "Sampled native axial motion plus conservative continuous straight handling bounds. No purchased female-disconnect envelope, flexible-lead motion, hand reach, insertion force, new print-orientation fit, retention or load-capacity qualification. This empty-back-top procedure does not establish late valve installation into a populated appliance or the separate carried-group closing motion."
+}
