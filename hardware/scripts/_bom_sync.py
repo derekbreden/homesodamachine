@@ -62,10 +62,12 @@ _cond_bosses = _f.box["cond_mount"][3] if _f.box["cond_mount"] else ()
 # DC-1 two, DC-2 one and DC-4 two. Allocate in 0.1 m increments.
 _wire_schedule = load_module(
     "bom_wire_schedule", _here.parent / "wiring" / "_ac_wiring_schedule_sync.py")
+# AC-1's three conductors and DC-4's two, AC-2's pair, AC-3, DC-1's pair, DC-2, and the
+# relay 1 NO and N-block pigtails to AC-4/AC-5's joins under the funnel opening.
 solid16_cut_m = Decimal(str(
     5 * _wire_schedule.len_mid_mm + 2 * _wire_schedule.len_short_2_mm
     + _wire_schedule.len_short_mm + 2 * _wire_schedule.len_dc1_mm
-    + _wire_schedule.len_dc2_mm)) / 1000
+    + _wire_schedule.len_dc2_mm + 2 * _wire_schedule.len_opening_join_mm)) / 1000
 solid16_allocation_m = (solid16_cut_m * 10).to_integral_value(
     rounding=ROUND_CEILING) / 10
 
