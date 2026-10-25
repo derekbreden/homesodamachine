@@ -11,7 +11,7 @@
 // share one file (four bulkheads off one union, ten lever nuts off three
 // WAGOs), and a component that is one solid of a larger purchased part maps to
 // that part (`pump-a-motor` is one of three solids in the Kamoer's STEP;
-// `coil-v-a` is the coil half of the Beduan solenoid).
+// `coil-v-c` is the coil half of the Beduan solenoid).
 //
 // THE COLD CORE IS NOT REACHED THROUGH A NAME HERE. The enclosure carries the core's
 // own bodies — the shell and its caps, the carbonator, the coil, both reservoirs,
@@ -41,8 +41,6 @@ export const ALIASES = {
   "c14-inlet": "reference/iec-c14-inlet/iec-c14-inlet.step",
   "carbonator-tube": "cut-parts/carbonation/carbonator-tube/carbonator-tube.step",
   "co2-inlet": "reference/neofit-bulkhead/neofit-bulkhead.step",
-  "coil-v-a": "reference/beduan-solenoid/beduan-solenoid.step",
-  "coil-v-b": "reference/beduan-solenoid/beduan-solenoid.step",
   "coil-v-c": "reference/beduan-solenoid/beduan-solenoid.step",
   "coil-v-d": "reference/beduan-solenoid/beduan-solenoid.step",
   "coil-v-e": "reference/beduan-solenoid/beduan-solenoid.step",
@@ -63,16 +61,15 @@ export const ALIASES = {
   "collet-co2-in": "reference/jg-pp010822e/jg-pp010822e.step",
   "collet-water-in": "reference/jg-pp010822e/jg-pp010822e.step",
   "digiten-flow": "reference/digiten-flow-sensor/digiten-flow-sensor.step",
-  "discharge-chain": "reference/seaflo-discharge-chain/seaflo-discharge-chain.step",
+  "discharge-chain": "reference/neofit-achv44-check/neofit-achv44-check.step",
   "display": "reference/waveshare-43b-display/waveshare-43b-display.step",
   "endcap-bottom": "cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step",
   "endcap-top": "cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step",
   "faucet_display": "reference/waveshare-43b-display/waveshare-43b-display.step",
   "faucet_display_screen": "reference/waveshare-43b-display/waveshare-43b-display.step",
-  "flavor_union_neg_x": "reference/jg-pp0408w/jg-pp0408w.step",
-  "flavor_union_pos_x": "reference/jg-pp0408w/jg-pp0408w.step",
-  "flow-regulator": "reference/neofit-flow-control/neofit-flow-control.step",
-  "gasher-co2": "reference/gasher-check-valve/gasher-check-valve.step",
+  "flow-regulator": "reference/yzmsz-water-regulator/geometry/yzmsz-water-regulator.step",
+  "gas-check": "reference/neofit-achv44-check/neofit-achv44-check.step",
+  "gas-regulator": "reference/compact-inline-candidates/geometry/candidate-regulator.step",
   "ground-stack": "reference/ground-ring-stack/ground-ring-stack.step",
   // Two files carry the `funnel` stem — the part, and the mould's casting of it.
   "funnel": "printed-parts/zone-c/funnel/funnel.step",
@@ -97,8 +94,8 @@ export const ALIASES = {
   "bulkhead-ring-water-word": "printed-parts/enclosure/bulkhead-ring/bulkhead-ring-water.step",
   "psu": "reference/meanwell-irm90/meanwell-irm90.step",
   // Both elbows on the G Ganen's barbs are the one printed part.
-  "pump-elbow-discharge": "printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step",
-  "pump-elbow-suction": "printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step",
+  "pump-inlet-tpu": "printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step",
+  "pump-outlet-tpu": "printed-parts/diaphragm-pump-sleeve/diaphragm-pump-sleeve.step",
   "pump-a-boss": "reference/kamoer-kphm400/kamoer-kphm400.step",
   "pump-a-head": "reference/kamoer-kphm400/kamoer-kphm400.step",
   "pump-a-motor": "reference/kamoer-kphm400/kamoer-kphm400.step",
@@ -122,8 +119,6 @@ export const ALIASES = {
   "thermal-fuse": "reference/sf76e-thermal-fuse/sf76e-thermal-fuse.step",
   "tpu_o_ring": "printed-parts/faucet/tpu-o-ring/tpu-o-ring.step",
   "umbilical-organizer": "printed-parts/faucet/umbilical-organizer/umbilical-organizer.step",
-  "tube-collar-co2-word": "printed-parts/faucet/tube-collar/tube-collar-co2.step",
-  "tube-collar-water-word": "printed-parts/faucet/tube-collar/tube-collar-water.step",
   "valve-v-a": "reference/beduan-solenoid/beduan-solenoid.step",
   "valve-v-b": "reference/beduan-solenoid/beduan-solenoid.step",
   "valve-v-c": "reference/beduan-solenoid/beduan-solenoid.step",
@@ -142,11 +137,9 @@ export const ALIASES = {
   "wago-mana": "reference/wago-221/wago-221-420.step",
   "wago-manb": "reference/wago-221/wago-221-415.step",
   "wago-n": "reference/wago-221/wago-221-413.step",
-  "wago-reeds-a": "reference/wago-221/wago-221-415.step",
-  "wago-reeds-b": "reference/wago-221/wago-221-420.step",
-  "wago-sensors": "reference/wago-221/wago-221-415.step",
+  "wago-reeds-b": "reference/wago-221/wago-221-413.step",
+  "wago-sensors": "reference/wago-221/wago-221-413.step",
   "wago-v12": "reference/wago-221/wago-221-413.step",
-  "wr1110": "reference/wr1110-regulator/wr1110-regulator.step",
 };
 
 function stem(path) {

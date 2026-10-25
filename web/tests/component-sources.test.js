@@ -13,6 +13,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { ALIASES, sourceFileFor } from "../contracts/component-sources.js";
+import { leafOf } from "../contracts/body-path.js";
 import { walkAssemblies } from "../contracts/parts-tree.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -43,8 +44,10 @@ test("every alias names a component an assembly carries", (t) => {
     .map((rel) => path.join(HW, rel))
     .filter((p) => fs.existsSync(p));
   if (!present.length) return t.skip("assemblies not built");
+  // sourceFileFor asks for a name whole and then by its leaf, so a body the appliance
+  // stands under `cold-core/<name>` is carried under its leaf too.
   const carried = new Set();
-  for (const p of present) for (const n of productNames(p)) carried.add(n);
+  for (const p of present) for (const n of productNames(p)) { carried.add(n); carried.add(leafOf(n)); }
   const orphans = Object.keys(ALIASES).filter((n) => !carried.has(n));
   assert.deepEqual(orphans, [], "aliases for components no assembly carries");
 });
@@ -59,7 +62,7 @@ test("a name with no alias resolves against its own stem", () => {
 });
 
 test("an alias beats the stem search, and a body the assembly builds has nowhere to go", () => {
-  const files = ["reference/seaflo-discharge-chain/seaflo-discharge-chain.step"];
+  const files = ["reference/neofit-achv44-check/neofit-achv44-check.step"];
   assert.equal(sourceFileFor("discharge-chain", files), files[0]);
   assert.equal(sourceFileFor("tube-fluid-17", files), null);
 });
