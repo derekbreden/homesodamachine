@@ -1,10 +1,12 @@
 # Reservoir adhesion observations
 
-The [right-pair Engineering Plate retry](../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md)
-is **prepared, not sent**, with the same recipe and **0.00 mm Z compensation**.
-Derek reports the flat Engineering Plate installed, glued and ready on Mark1.
-The Mac is locked; final Studio verification and Send await manual unlock.
-A1 reports 55%, matching A2–A4 100%; use the most depleted matching spool first.
+Mark1 task **1374272357** is the active [right-pair Engineering Plate retry](../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md),
+with the same recipe and **0.00 mm Z compensation**. The printer acknowledged
+SUCCESS at **11:39:30 CDT / 16:39:30 UTC October 25**. Fresh startup reports
+RUNNING, layer 0/833, print error 0 and no HMS. Changing live camera frames show
+the flat plate during preparation; model contact and lifting are unassessed.
+**A1 (55%)** starts before matching A2–A4 (100%) with automatic refill On.
+No scheduled monitor is created or reactivated.
 
 The preceding **right task 1372664582** has [reported persistent lifting](../prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json)
 and two photographs. Derek says it seemed worse. Raised/ragged facing edges

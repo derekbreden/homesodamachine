@@ -14,11 +14,12 @@ carries both mouths: the fill, and the dip tube the draw line becomes.
 
 ## Engineering Plate retry
 
-The [right reservoir and matching cap](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md)
-are **prepared, not sent**, for Mark1's glued **Engineering Plate**, with
-**0.00 mm Z compensation**. All other settings match the preceding right print.
-The Mac is locked; final Studio selections and Send await manual unlock.
-A1 reports **55%**, before matching A2–A4 at 100%, with automatic refill intended.
+Mark1 task **1374272357** is printing the [right reservoir and matching cap](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md)
+on the glued **Engineering Plate**, with **0.00 mm Z compensation**. All other
+settings match the preceding right print. The printer acknowledged **SUCCESS**
+at **11:39:30 CDT / 16:39:30 UTC October 25**; startup is RUNNING at layer 0/833
+with no print error/HMS. **A1 (55%)** starts before matching A2–A4 (100% each),
+with automatic refill On.
 
 The preceding **task 1372664582** has [reported persistent lifting](prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json)
 on Textured PEI, documented in two photographs. It reports FAILED with no

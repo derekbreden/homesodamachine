@@ -1,10 +1,12 @@
 # Mark1 right reservoir and cap: glued Engineering Plate
 
-The **right reservoir and matching cap** are **prepared, not sent** for Mark1's
-**right 0.8 mm Standard** nozzle. Derek reports the flat **Engineering Plate**
-is installed, glued, clear and ready. Bambu Studio access is blocked by the
-locked Mac; manual unlock is requested. Final Send selections and startup
-verification remain pending. [UI access](ui-access.json) · [Preflight](preflight.json).
+Mark1 task **1374272357** is printing the **right reservoir and matching cap**
+through the **right 0.8 mm Standard** nozzle on the glued **Engineering Plate**.
+One Studio Send was acknowledged **SUCCESS** at **11:39:30 CDT / 16:39:30 UTC,
+October 25, 2026**. Fresh startup status confirms **RUNNING, layer 0/833**,
+print error 0 and no HMS. Changing live frames show the flat plate during
+startup; model adhesion and water holding are unassessed.
+[Launch receipt](launch.json) · [Startup](startup.json) · [Preflight](preflight.json).
 
 The preceding **Textured PEI task 1372664582** has [reported persistent lifting](../2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json).
 Derek supplied two photographs and says the lifting seemed worse. Fresh
@@ -50,14 +52,24 @@ checksum and project setting. The native estimate is **5 h 42 min 27 s,
 full-bead bed-edge inset. [Native review](native-review.json) ·
 [Packaging and archive hashes](packaging.json).
 
-**A1 (55%)** is the intended first spool before matching **A2–A4 (100%)**,
-following Derek's depletion preference. All four are Bambu PETG Translucent
-Clear (`GFG01`, transparent `00000000`). Automatic refill and the standing
-Timelapse On, Bed Leveling On, Flow Dynamics Auto and Nozzle Offset Calibration
-Auto selections require final Studio verification. Mark2's same idle finished
-job is to be re-read before Send for the required 180-second startup spacing.
-No scheduled monitor is created or reactivated. Adhesion and water holding
-on Engineering Plate are unassessed.
+**A1 PETG R (55%)** is selected before matching **A2–A4 (100%)**, following
+Derek's most-depleted-first preference. All four are Bambu PETG Translucent
+Clear (`GFG01`, transparent `00000000`). **AMS filament backup On** was freshly
+verified in Studio; the Send dialog shows **Engineering** and green Auto Refill.
+Startup reports **unit 0 tray 0 (A1)** and the mounted right 0.8 mm nozzle.
+A specific backup priority sequence is unverified.
+
+**Timelapse On, Bed Leveling On, Flow Dynamics Auto and Nozzle Offset Calibration
+Auto** were visibly verified before the single Send. Runtime timelapse is
+disabled during layer-0 preparation; deposition activation is unobserved.
+The same idle finished Mark2 task was freshly re-read at final preflight,
+establishing at least **222 seconds** of startup spacing, above the required
+180 seconds. The Mac restart restored Studio access. [Access record](ui-access.json).
+No scheduled monitor was created or reactivated.
+
+Derek followed up:
+
+> The mac restarted. Try now.
 
 Derek authorized:
 
