@@ -2144,7 +2144,525 @@
       "scope": "Only anchor/ground delta findings are classified; all other findings retain their prior scope. No answer waives the narrow ridge or cheeks."
     },
     "actual_export_binding": {
-      "state": "selected source-native stock candidate; canonical export pending"
+      "state": "canonical native artifact matched to the finite subtractive candidate",
+      "reader_sha256": "9de3769b0fd951a0a17e263c7de5e06e22c94ea910b37dacacdaf58ff3eb6fe1",
+      "exported_artifacts": {
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "0b69daf92e2122ffbf3c6a414332a14d42757709b03a6d8c62f023afc30e747a",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "dbb5b2a3f9ff7b91859860dedd25692111ab153b77de51a273cef0c1006efd49",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "5eeca8900a322957f4a23f1238af9ba9c0a05b55d029176f5dfa5070209d8061",
+        "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "d8f00d98864888bb0322bb6cc63af0d87c9fcb5ea018120af72f01202509cc7b",
+        "hardware/cold-core-layout/cold-core-assembly.step": "3843650ae19d5c56b25ada4856b76cac431640086be7b8b4e40306f68c659342"
+      },
+      "world_lid": {
+        "path": "tmp/reservoir-a-anchor-native/mouth-canonical-lid-world.brep",
+        "sha256": "cbdef4972f1eb1535280c8279f9c5eb56e37b4a0a28d1eb6b29b2d192feae6bd"
+      },
+      "actual_signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 210,
+        "volume_mm3": 295556.0199002456,
+        "center_mm": [
+          2.9508534490445832,
+          317.7098079137444,
+          252.60410894755142
+        ],
+        "bounds_mm": [
+          -90.2000001,
+          182.45000000000002,
+          247.9999998999971,
+          97.7000001,
+          465.0000001,
+          299.21000000000004
+        ]
+      },
+      "metrics": {
+        "valid": true,
+        "same_solid_count": true,
+        "same_face_count": true,
+        "volume_difference_mm3": 5.238689482212067e-10,
+        "maximum_center_difference_mm": 3.694822225952521e-13,
+        "maximum_bound_difference_mm": 0.0,
+        "passed": true
+      },
+      "tolerances": {
+        "volume_mm3": 0.029555601990024504,
+        "coordinates_mm": 1e-05,
+        "face_and_solid_counts": "exact"
+      },
+      "basis": "Only the named paired-seat stock, root and outboard quarter changed. The native canonical lid matches the finite candidate metrics; no equipment, wire, column, bridge or whole-lid stock reading is repeated."
+    },
+    "printed_stock_after_export": {
+      "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
+      "sha256": "dbb5b2a3f9ff7b91859860dedd25692111ab153b77de51a273cef0c1006efd49",
+      "surface_basis": "foam_cap.main writes both lids through _show_skin.piece_mesh(), the plain source tessellation; only the cup branch calls write_bed_file()/fluted(). These finite anchor webs/floors do not meet a fluted field.",
+      "source_sha256": {
+        "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "f2e5eaba779c18f9890ebde949e8b4deceb3114ed75728609e9ec5f2183aabc9",
+        "hardware/printed-parts/cold-core/_show_skin.py": "1764afdc035372168caf8de4eac7cfc6128e8f606a1bf0d0ffc861af039d248f"
+      },
+      "coordinate_tolerance_mm": 1e-05,
+      "readings": [
+        {
+          "station": "a-pair-fore-anchor",
+          "feature": "seat web",
+          "axes_world_mm": [
+            [
+              50.6,
+              203.8,
+              254.67499999999998
+            ],
+            [
+              50.6,
+              205.0,
+              254.67499999999998
+            ],
+            [
+              50.6,
+              206.2,
+              254.67499999999998
+            ],
+            [
+              57.9,
+              203.8,
+              254.67499999999998
+            ],
+            [
+              57.9,
+              205.0,
+              254.67499999999998
+            ],
+            [
+              57.9,
+              206.2,
+              254.67499999999998
+            ]
+          ],
+          "thicknesses_mm": [
+            3.0036008804810876,
+            3.0036008804810876,
+            3.0036008804810876,
+            3.0036008804810876,
+            3.0036008804810876,
+            3.0036008804810876
+          ],
+          "minimum_required_mm": 3.0,
+          "passed": true
+        },
+        {
+          "station": "a-pair-fore-anchor",
+          "feature": "slot floor",
+          "axes_world_mm": [
+            [
+              50.5,
+              203.8,
+              249.8
+            ],
+            [
+              50.5,
+              205.0,
+              249.8
+            ],
+            [
+              50.5,
+              206.2,
+              249.8
+            ],
+            [
+              58.0,
+              203.8,
+              249.8
+            ],
+            [
+              58.0,
+              205.0,
+              249.8
+            ],
+            [
+              58.0,
+              206.2,
+              249.8
+            ]
+          ],
+          "thicknesses_mm": [
+            3.5999999046325684,
+            3.5999999046325684,
+            3.5999999046325684,
+            3.5999999046325684,
+            3.5999999046325684,
+            3.5999999046325684
+          ],
+          "minimum_required_mm": 3.0,
+          "passed": true
+        },
+        {
+          "station": "a-pair-aft-anchor",
+          "feature": "seat web",
+          "axes_world_mm": [
+            [
+              86.6,
+              302.8,
+              254.67499999999998
+            ],
+            [
+              86.6,
+              304.0,
+              254.67499999999998
+            ],
+            [
+              86.6,
+              305.2,
+              254.67499999999998
+            ],
+            [
+              93.9,
+              302.8,
+              254.67499999999998
+            ],
+            [
+              93.9,
+              304.0,
+              254.67499999999998
+            ],
+            [
+              93.9,
+              305.2,
+              254.67499999999998
+            ]
+          ],
+          "thicknesses_mm": [
+            3.0036008230452467,
+            3.0036008230452467,
+            3.0036008230452467,
+            3.0036008230452467,
+            3.0036008230452467,
+            3.0036008230452467
+          ],
+          "minimum_required_mm": 3.0,
+          "passed": true
+        },
+        {
+          "station": "a-pair-aft-anchor",
+          "feature": "slot floor",
+          "axes_world_mm": [
+            [
+              86.5,
+              302.8,
+              249.8
+            ],
+            [
+              86.5,
+              304.0,
+              249.8
+            ],
+            [
+              86.5,
+              305.2,
+              249.8
+            ],
+            [
+              94.0,
+              302.8,
+              249.8
+            ],
+            [
+              94.0,
+              304.0,
+              249.8
+            ],
+            [
+              94.0,
+              305.2,
+              249.8
+            ]
+          ],
+          "thicknesses_mm": [
+            3.5999999046325684,
+            3.5999999046325684,
+            3.5999999046325684,
+            3.5999999046325684,
+            3.5999999046325684,
+            3.5999999046325684
+          ],
+          "minimum_required_mm": 3.0,
+          "passed": true
+        }
+      ],
+      "passed": true
+    }
+  },
+  "ordinary_stock_exit_cleanup": {
+    "scope": "Finite outer-mouth fin subtraction only, from the current canonical lid.",
+    "actual_input_lid": {
+      "sha256": "0b69daf92e2122ffbf3c6a414332a14d42757709b03a6d8c62f023afc30e747a",
+      "signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 210,
+        "volume_mm3": 295556.0199002456,
+        "center_mm": [
+          2.9508534490445832,
+          317.7098079137444,
+          252.60410894755142
+        ],
+        "bounds_mm": [
+          -90.2000001,
+          182.45000000000002,
+          247.9999998999971,
+          97.7000001,
+          465.0000001,
+          299.21000000000004
+        ]
+      }
+    },
+    "reader_sha256": "934e3dfceb624159945531d562b9a341eeebd86d27e7582b950f3082a0b1dfd2",
+    "selected_source_sha256": "ad10733b62103df07ecf066d80364f365f0711f2a5c2fa74a4a592648736e88a",
+    "candidate_lid_signature": {
+      "valid": true,
+      "solids": 1,
+      "faces": 216,
+      "volume_mm3": 295544.3559013251,
+      "center_mm": [
+        2.9484863356489726,
+        317.71295375303237,
+        252.60404201720146
+      ],
+      "bounds_mm": [
+        -90.2000001,
+        182.45000000000002,
+        247.9999998999971,
+        97.7000001,
+        465.0000001,
+        299.21000000000004
+      ]
+    },
+    "removed_mm3": 11.663998920470476,
+    "checks": [
+      {
+        "feature": "a-pair-fore-anchor/fore retained bearing band",
+        "removed_mm3": 0.0,
+        "passed": true
+      },
+      {
+        "feature": "a-pair-fore-anchor/aft retained bearing band",
+        "removed_mm3": 0.0,
+        "passed": true
+      },
+      {
+        "feature": "a-pair-fore-anchor/full3mm roof",
+        "missing_mm3": 0.0,
+        "passed": true
+      },
+      {
+        "feature": "a-pair-fore-anchor/full3.6mm floor",
+        "missing_mm3": 0.0,
+        "passed": true
+      },
+      {
+        "feature": "a-pair-fore-anchor/no added seat stock",
+        "added_mm3": 0.0,
+        "passed": true
+      },
+      {
+        "feature": "a-pair-aft-anchor/fore retained bearing band",
+        "removed_mm3": 0.0,
+        "passed": true
+      },
+      {
+        "feature": "a-pair-aft-anchor/aft retained bearing band",
+        "removed_mm3": 0.0,
+        "passed": true
+      },
+      {
+        "feature": "a-pair-aft-anchor/full3mm roof",
+        "missing_mm3": 0.0,
+        "passed": true
+      },
+      {
+        "feature": "a-pair-aft-anchor/full3.6mm floor",
+        "missing_mm3": 0.0,
+        "passed": true
+      },
+      {
+        "feature": "a-pair-aft-anchor/no added seat stock",
+        "added_mm3": 0.0,
+        "passed": true
+      },
+      {
+        "feature": "no added lid stock",
+        "added_mm3": 0.0,
+        "passed": true
+      }
+    ],
+    "passed": true,
+    "retained_proofs": "The two seats are subsets of the preceding stock candidate; tube, wire and shell noncontacts remain conservative. The closed tie geometry, stations, full bearing bands, roof and floor are unchanged. Prior printed-stock rays lie outside the three removed outer-mouth strips.",
+    "datums": {
+      "a-pair-fore-anchor": {
+        "id": "a-pair-fore-anchor",
+        "label": "Reservoir A fore paired anchor",
+        "tube_centers_world_mm": [
+          [
+            50.5,
+            205.0,
+            259.5
+          ],
+          [
+            58.0,
+            205.0,
+            259.5
+          ]
+        ],
+        "tie_head_side": "east",
+        "routes_west_to_east": [
+          "fluid-16",
+          "fluid-14"
+        ],
+        "stock_bounds_mm": [
+          [
+            44.175,
+            200.0,
+            248.0
+          ],
+          [
+            64.325,
+            210.0,
+            257.0
+          ]
+        ],
+        "tie_slot_bounds_mm": [
+          [
+            44.175,
+            203.4,
+            251.6
+          ],
+          [
+            64.325,
+            206.6,
+            253.175
+          ]
+        ],
+        "access_bounds_mm": [
+          [
+            [
+              44.175,
+              203.4,
+              251.6
+            ],
+            [
+              50.5,
+              206.6,
+              257.1
+            ]
+          ],
+          [
+            [
+              58.0,
+              203.4,
+              251.6
+            ],
+            [
+              64.325,
+              206.6,
+              257.1
+            ]
+          ]
+        ]
+      },
+      "a-pair-aft-anchor": {
+        "id": "a-pair-aft-anchor",
+        "label": "Reservoir A aft paired anchor",
+        "tube_centers_world_mm": [
+          [
+            86.5,
+            304.0,
+            259.5
+          ],
+          [
+            94.0,
+            304.0,
+            259.5
+          ]
+        ],
+        "open_quarter_side": "east",
+        "base_east_of_last_tube_mm": 3.7,
+        "routes_west_to_east": [
+          "fluid-16",
+          "fluid-14"
+        ],
+        "stock_bounds_mm": [
+          [
+            80.175,
+            299.0,
+            248.0
+          ],
+          [
+            97.7,
+            309.0,
+            257.0
+          ]
+        ],
+        "tie_slot_bounds_mm": [
+          [
+            80.175,
+            302.4,
+            251.6
+          ],
+          [
+            97.7,
+            305.6,
+            253.175
+          ]
+        ],
+        "access_bounds_mm": [
+          [
+            [
+              80.175,
+              302.4,
+              251.6
+            ],
+            [
+              86.5,
+              305.6,
+              257.1
+            ]
+          ],
+          [
+            [
+              94.0,
+              302.4,
+              251.6
+            ],
+            [
+              97.7,
+              305.6,
+              257.1
+            ]
+          ]
+        ],
+        "open_quarter_bounds_mm": [
+          [
+            94.0,
+            299.0,
+            253.175
+          ],
+          [
+            97.8,
+            309.0,
+            257.1
+          ]
+        ]
+      }
+    },
+    "actual_export_binding": {
+      "state": "canonical export pending"
+    },
+    "post_live_lint_basis": {
+      "log": "tmp/above-core-implementation/a-quarter-post-live-lint.log",
+      "classification": "Three 0.225 mm outer threading-mouth fins lie between the former fixed mouth end and the derived seat boundary. The new cuts terminate at the actual stock edges; tube axes, full bearing bands, closed tie profiles and stations stay fixed.",
+      "unchanged_findings": "Other cap findings retain their prior scopes. The two functional tie-slot ceilings have full 3 mm seat web and 3.6 mm slot floor."
+    },
+    "printed_stock_reuse": {
+      "source_feature": "ordinary_stock_correction.printed_stock_after_export",
+      "basis": "The 24 finite printed web and floor rays are inside the retained stock, disjoint from the three removed outer-mouth strips. Only subtraction is performed; the retained roof, floor and bearing witnesses have zero missing native stock."
     }
   }
 }
