@@ -1349,17 +1349,25 @@
       {
         "terminal": "J1.OUT1",
         "offset": [
-          14.62575,
-          34.28684,
-          43.28085
+          14.6257519,
+          34.28707998,
+          23.28
         ]
       },
       {
         "terminal": "J1.OUT1",
         "offset": [
-          -1.37425,
-          50.28684,
-          59.28085
+          14.6257519,
+          41.79707998,
+          -9.4
+        ]
+      },
+      {
+        "terminal": "J1.OUT1",
+        "offset": [
+          -13.37424923,
+          66.28684051,
+          -9.4
         ]
       }
     ],
@@ -1367,10 +1375,10 @@
       6.0,
       6.0
     ],
-    "bend_radius_mm": 2.0,
+    "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Native-terminal route through selected equipment and fluid corridors; physical dressing and wire packing remain open."
+    "note": "Native-terminal route around the lid-mounted valve and pump, leaving the downward coil tabs clear of the lid; physical dressing and disconnect fit remain unqualified."
   },
   "J1-OUT2": {
     "stations": [
@@ -1421,9 +1429,49 @@
       {
         "terminal": "wago-mana.2",
         "offset": [
-          -135.0041,
-          132.53976,
+          -86.05,
+          80.05,
+          28.96
+        ]
+      },
+      {
+        "terminal": "wago-mana.2",
+        "offset": [
+          -86.05,
+          112.05,
+          37.96
+        ]
+      },
+      {
+        "terminal": "wago-mana.2",
+        "offset": [
+          -138.05,
+          122.05,
+          39.96
+        ]
+      },
+      {
+        "terminal": "wago-mana.2",
+        "offset": [
+          -138.05,
+          142.05,
           48.64085
+        ]
+      },
+      {
+        "terminal": "wago-mana.2",
+        "offset": [
+          -138.05,
+          142.05,
+          -12.04
+        ]
+      },
+      {
+        "terminal": "wago-mana.2",
+        "offset": [
+          -155.00410113,
+          164.53976053,
+          -12.04
         ]
       }
     ],
@@ -1431,10 +1479,10 @@
       6.0,
       6.0
     ],
-    "bend_radius_mm": 2.0,
+    "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Native-terminal route around the centred frame-mounted drain and V-B group, preserving the J10 driver and wire-entry approaches; physical dressing and wire packing remain open."
+    "note": "Native-terminal route around the lid-mounted valve and pump, with the separate PCB housing service columns clear. Physical lead dressing, attached-plug motion and disconnect fit remain unqualified."
   },
   "J1-positive-B": {
     "stations": [
@@ -1853,16 +1901,64 @@
           14.28684,
           35.28085
         ]
+      },
+      {
+        "terminal": "J2.OUT3",
+        "offset": [
+          41.83403,
+          20.79707998,
+          39.6
+        ]
+      },
+      {
+        "terminal": "J2.OUT3",
+        "offset": [
+          81.9799279,
+          33.79707998,
+          39.6
+        ]
+      },
+      {
+        "terminal": "J2.OUT3",
+        "offset": [
+          81.9799279,
+          33.79707998,
+          -9.4
+        ]
+      },
+      {
+        "terminal": "J2.OUT3",
+        "offset": [
+          81.9799279,
+          48.79707998,
+          -9.4
+        ]
+      },
+      {
+        "terminal": "J2.OUT3",
+        "offset": [
+          125.83402677,
+          48.79707998,
+          -9.4
+        ]
+      },
+      {
+        "terminal": "J2.OUT3",
+        "offset": [
+          125.83402677,
+          66.28684051,
+          -9.4
+        ]
       }
     ],
     "end_lands_mm": [
       6.0,
       6.0
     ],
-    "bend_radius_mm": 2.0,
+    "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Native-terminal route through selected equipment and fluid corridors; physical dressing and wire packing remain open."
+    "note": "Native-terminal route around the lid-mounted valve and pump, leaving the downward coil tabs clear of the lid; physical dressing and disconnect fit remain unqualified."
   },
   "J2-positive-K": {
     "stations": [
@@ -1877,17 +1973,33 @@
       {
         "terminal": "wago-manb.5",
         "offset": [
-          -0.7959,
-          128.48976,
-          72.68085
+          10.25,
+          106.0,
+          65.0
         ]
       },
       {
         "terminal": "wago-manb.5",
         "offset": [
-          -12.7959,
-          160.48976,
-          72.68085
+          10.25,
+          131.0,
+          65.0
+        ]
+      },
+      {
+        "terminal": "wago-manb.5",
+        "offset": [
+          10.25,
+          148.0,
+          4.0
+        ]
+      },
+      {
+        "terminal": "wago-manb.5",
+        "offset": [
+          -16.79590113,
+          168.48976053,
+          4.0
         ]
       }
     ],
@@ -1895,10 +2007,10 @@
       6.0,
       6.0
     ],
-    "bend_radius_mm": 2.0,
+    "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Native-terminal route around the centred frame-mounted drain and V-B group, preserving the J10 driver and wire-entry approaches; physical dressing and wire packing remain open."
+    "note": "Native-terminal route around the lid-mounted valve and pump, leaving the downward coil tabs clear of the lid; physical dressing and disconnect fit remain unqualified."
   },
   "J3-GND": {
     "stations": [
@@ -2157,6 +2269,14 @@
       {
         "terminal": "J5.IO19",
         "offset": [
+          -11.5001331,
+          0.0,
+          9.14
+        ]
+      },
+      {
+        "terminal": "J5.IO19",
+        "offset": [
           -15.50013,
           61.99708,
           9.14
@@ -2173,8 +2293,8 @@
       {
         "terminal": "J5.IO19",
         "offset": [
-          -11.50013,
-          117.99708,
+          -17.5001331,
+          127.99707998,
           17.14
         ]
       }
@@ -2183,10 +2303,10 @@
       6.0,
       6.0
     ],
-    "bend_radius_mm": 2.0,
+    "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Native-terminal route through selected equipment and fluid corridors; physical dressing and wire packing remain open."
+    "note": "Native-terminal route around the lid-mounted valve and pump, with the separate PCB housing service columns clear. Physical lead dressing, attached-plug motion and disconnect fit remain unqualified."
   },
   "J5-IO2": {
     "stations": [
@@ -2237,6 +2357,14 @@
       {
         "terminal": "J5.V5",
         "offset": [
+          -11.5001331,
+          0.0,
+          8.06
+        ]
+      },
+      {
+        "terminal": "J5.V5",
+        "offset": [
           -15.50013,
           66.99708,
           8.06
@@ -2253,8 +2381,8 @@
       {
         "terminal": "J5.V5",
         "offset": [
-          -7.50013,
-          126.99708,
+          -17.5001331,
+          132.99707998,
           20.06
         ]
       }
@@ -2263,10 +2391,10 @@
       6.0,
       6.0
     ],
-    "bend_radius_mm": 2.0,
+    "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Native-terminal route through selected equipment and fluid corridors; physical dressing and wire packing remain open."
+    "note": "Native-terminal route around the lid-mounted valve and pump, with the separate PCB housing service columns clear. Physical lead dressing, attached-plug motion and disconnect fit remain unqualified."
   },
   "J7-GND": {
     "stations": [
