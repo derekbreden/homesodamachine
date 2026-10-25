@@ -239,6 +239,23 @@ it is now on the abrasive path, so **the left hotend is the bottleneck hotend**
 |---|---|---|---:|
 | **SanDisk Ultra Fit USB 3.1 256 GB** | [B07857Y17V](https://www.amazon.com/dp/B07857Y17V), [purchases.md §19](/hardware/ledger/purchases.md) | Plugs into H2C front USB for on-device per-print timelapse capture. 256 GB holds dozens of full-print MP4s. | [$45.41](T_SANDISK) |
 
+## Named by the procedures, not on the ledger
+
+The build procedures name these tools. Neither this file nor
+[purchases.md](/hardware/ledger/purchases.md) records them, so whether each is on
+the bench is Derek's to confirm. They carry no cost in the total below.
+
+| Tool | Named at | Use |
+|---|---|---|
+| ESD mat | [electronics bay](/hardware/assembly/electronics-bay.md) | Handling the main board and displays |
+| Insulated screwdriver | [electronics bay](/hardware/assembly/electronics-bay.md) | Mains screw terminals at the relays and PSU |
+| Small flat or Phillips screwdriver | [wiring](/hardware/assembly/wiring.md) | WAGO 221 levers and relay screw terminals |
+| Hot-glue gun | [wiring](/hardware/assembly/wiring.md) | Strain relief where a run crosses a printed edge |
+| Long ball-end 2.5 mm hex key | [enclosure mechanical](/hardware/assembly/enclosure-mechanical.md) §3 | The condenser's lower M3 × 8, reached from behind |
+| PSU-controlled outlet | [firmware and commissioning](/hardware/assembly/firmware-and-commissioning.md) | First power-on at the C14 inlet |
+| Inline DC current meter | [firmware and commissioning](/hardware/assembly/firmware-and-commissioning.md) | 12 V rail current at the PSU output |
+| Bench fixture that holds the pieces square | [enclosure mechanical](/hardware/assembly/enclosure-mechanical.md) | Unspecified |
+
 ## Tools total
 
 Total tooling, acquired and on order: **[$18,099.25](TOOLS_TOTAL)**

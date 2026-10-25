@@ -45,9 +45,6 @@ PARTS = (
     ("gas PTC collet", "PI010822S", ("collet-co2-in",)),
     ("reservoir B fill stem elbow", "NeoFit ATEU44W", ("reservoir-b-fill-lower",)),
     ("reservoir B fill union elbow", "John Guest PP0308E", ("reservoir-b-fill-upper",)),
-    ("meter inlet stem elbow", "NeoFit ATEU44W", ("soda-inlet-stem",)),
-    ("carbonated-water flow sensor", "DIGITEN G1/4", ("digiten-flow",)),
-    ("soda riser insulation", "CARGEN Pipe Insulation Foam Tube", ("soda-rise-insulation",)),
 
     # §5 — refrigeration
     ("evaporator coil", "GOORY 1/4\" OD × 50 ft ACR copper coil",
@@ -89,9 +86,9 @@ PARTS = (
       "reed-b-1", "reed-b-2", "reed-b-3", "reed-b-4")),
 
     # §13 — attach hardware and the cap vents
-    ("heat-set inserts", "ruthex M3 Threaded Inserts", ()),
+    ("heat-set inserts", "ruthex RX-M3 × 5.7 full-length heat-set inserts", ()),
     ("cap clamp screws", "BNUOK M3 × 25 mm DIN 912", ()),
-    ("reservoir cap screws", "BNUOK M3 × 12 mm DIN 912 socket head cap, 304 stainless", ()),
+    ("reservoir cap screws", "BNUOK M3 × 12 mm socket head cap, 304 stainless", ()),
     ("vent membranes", "LVDALAB PTFE Membrane Filter",
      ("vent-membrane-a", "vent-membrane-b")),
 )
