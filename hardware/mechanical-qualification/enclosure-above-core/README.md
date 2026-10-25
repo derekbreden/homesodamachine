@@ -55,6 +55,10 @@ remain unqualified for physical threading, head engagement and holding force.
 The [paired Reservoir A anchor reading](../../printed-parts/cold-core/foam-cap/reservoir-a-anchor-review.json)
 records the two fixed stations, finite 3 mm stock witnesses and printed lid
 measurements. The free tube bends can be dressed between the fixed stations.
+The [A tube route record](reservoir-a-route-review.json) binds the fixed
+port/seat points and exact native free-curve solids. Intermediate bends and
+lengths illustrate routing. Local wire contacts and approach prerequisites
+retain their own scope alongside the printed-stock reading.
 The [ground landing reading](../../printed-parts/cold-core/foam-cap/ground-relocation-review.json)
 binds the stack at X37/Y195, its full 3 mm insert surround and 4.4 mm blind
 backing in the exported lid. Its nearby lead and nominal driver contacts
