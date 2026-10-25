@@ -236,6 +236,11 @@ shelf_relay_screws_per_build = (sum(1 for name in _placed if name.startswith("re
 shelf_inserts_per_build = shelf_psu_screws_per_build + shelf_ground_screws_per_build
 shelf_screws_per_build = (shelf_ground_screws_per_build + shelf_pcba_screws_per_build
                           + shelf_psu_screws_per_build + shelf_relay_screws_per_build)
+# The uxcell Ø9 × 0.8 flat washer seats under each pump-foot screw and once on each cap
+# ground stack, above its ring tongues: the stack's 0.8 mm washer layer is this washer.
+ground_stack_washers_per_build = (shelf_ground_screws_per_build
+                                  if ground_fasteners['washer_thickness_mm'] else 0)
+flat_washers_9_per_build = pump_mount_screws_per_build + ground_stack_washers_per_build
 
 # Floor-slab hardware (assembly/enclosure-mechanical.md §5). The compressor is the one body in
 # the box bolted DOWN to it: `enclosure_assembly.floor_mounts` stands ONE POST PER HOLE in the
@@ -566,6 +571,9 @@ def main(*, only_bom=False):
         "GROMMET_SQUEEZE": f"{_ea.FLOOR_GROMMET_SQUEEZE:.4g}",
         "DECK_INSERTS": f"{foam_cap_deck_inserts_per_build:.4g}",
         "PUMP_MOUNT_SCREWS": f"{pump_mount_screws_per_build:.4g}",
+        "FLAT_WASHERS_9": f"{flat_washers_9_per_build:.4g}",
+        "FLAT_WASHERS_9_COST": pack_line_cost(flat_washers_9_per_build, "9.00", 200),
+        "RES_SCREWS_COST": pack_line_cost(reservoir_cap_screws_per_build, "8.66", 120),
         "CAP_CRADLES": f"{len(cap_cradles):.4g}",
         "TOTAL_M3_INSERTS": f"{total_m3_inserts_per_build:.4g}",
         "M3_LONG_INSERTS": f"{m3_long_inserts_per_build:.4g}",
