@@ -1281,8 +1281,9 @@ CORE_HOLD_LANES = ((-43.6, KEYSTONE_FACE[0] - _enc.keystone_pocket_width() / 2.0
 def core_stops(foam) -> tuple:
     """The core's two FRONT corners as `enclosure.Pack.core_stops` — `(cx, cy, r)` each.
 
-    `cx, cy` is the centre the core's own corner round is struck on and `r` that round's radius,
-    read off `_cold_core_interface` through the placement, so a block is pocketed about the same
+    `cx, cy` is the centre the core's own corner round is struck on and `r` that round's radius
+    on the foil envelope, the casing's round plus `casing_foil_allowance`, read off
+    `_cold_core_interface` through the placement, so a block is pocketed about the same
     axis the corner is. Those three are the whole of what the wall is handed: how far the block
     laps, stands and webs is the box's own figure.
 
@@ -1297,15 +1298,18 @@ def core_stops(foam) -> tuple:
     course = foam.intersect(_boxed(b.xmin - 1.0, b.xmax + 1.0, b.ymin - 1.0, b.ymax + 1.0,
                                    b.zmin, b.zmin + _enc.core_stop_rise))
     foot = box(course)
-    return tuple((sign * (foot.xmax - r), foot.ymin + r, r) for sign in (-1.0, 1.0))
+    # The block bounds the foil envelope: the same axis, the round grown by the allowance.
+    return tuple((sign * (foot.xmax - r), foot.ymin + r, r + _cci.casing_foil_allowance)
+                 for sign in (-1.0, 1.0))
 
 
 def vent_chase(foam, foam_carry) -> tuple:
     """Where the cold core's PRV relief line arrives at the west wall, as
     `enclosure.Pack.vent_chase` — one `(x, y, z)` in the machine's own frame.
 
-    The X is the core's own WEST FLANK, which is the plane the chase's lip lands on and the
-    plane the tube is cut off at; the Y and Z are that tube's own axis where it comes through.
+    The X is the west face of the core's foil envelope, `casing_foil_allowance` off its flank,
+    which is the plane the chase's lip lands on and the plane the tube is cut off at; the Y and
+    Z are that tube's own axis where it comes through.
 
     THE CORE STATES BOTH, NOT THE BOX. `_internal_routes` draws the line out through the shell's
     +Y flank, and the placed body carries the flank the line leaves by. So they come from the
@@ -1318,17 +1322,17 @@ def vent_chase(foam, foam_carry) -> tuple:
     hazard a walk taken in a cold process runs into. `_foam` already holds it."""
     tip = _foam.routes.routes["prv-vent"][-1]
     at, _axis = foam_carry((tip, (0.0, 1.0, 0.0)))
-    return ((box(foam).xmin, at[1], at[2]),)
+    return ((box(foam).xmin - _cci.casing_foil_allowance, at[1], at[2]),)
 
 
 def core_holds(foam) -> tuple:
     """The core's aft crown as `enclosure.Pack.core_holds` — `(x0, x1, aft, crown)` each.
 
-    The two lanes are `CORE_HOLD_LANES`; `aft` is the core's own aft face, which
-    is the plane `rear_seam_clear` is measured to, and `crown` is `cap_face` —
+    The two lanes are `CORE_HOLD_LANES`; `aft` is the aft face of the core's foil envelope,
+    which is the plane `rear_seam_clear` is measured to, and `crown` is `cap_face` —
     the lid's outer face beneath its equipment mounts."""
     b, crown = box(foam), cap_face(foam)
-    return tuple((x0, x1, b.ymax, crown) for x0, x1 in CORE_HOLD_LANES)
+    return tuple((x0, x1, b.ymax + _cci.casing_foil_allowance, crown) for x0, x1 in CORE_HOLD_LANES)
 
 
 # How far off contact a face of the core may read from the grip that takes it — the same figure
@@ -4285,13 +4289,17 @@ def build_pack() -> cq.Assembly:
     a.collet_plate = collet_plate_spec(mcarry, a.pump_trays, a.valve_trays)
     # THE CORE IS PACKED AGAINST THE BACK. It is the body `rear_seam_clear` is written about —
     # the rearmost content, seated flush on the inner face of the rear Z-seam lip that hangs off
-    # the +Y wall of back-top — so its aft face stands that one number inside `rear_plane_y`, which is the
-    # same standoff `enclosure._dims` measures the depth bound against. The gap left in FRONT of
-    # it is what the refrigerant loop's two drawn legs cross.
+    # the +Y wall of back-top — so its foil envelope's aft face stands that one number inside
+    # `rear_plane_y`, which is the same standoff `enclosure._dims` measures the depth bound
+    # against. The envelope is the casing with `casing_foil_allowance` on every vertical face, the
+    # room the dry-seam foil band takes on the plain casing; its front face is the copper frame
+    # `build_foam` seats on. The gap left in FRONT of it is what the refrigerant loop's two drawn
+    # legs cross.
     top = cap_face(build_foam(0.0)[0])
     core = box(build_foam(0.0)[0])
     foam, foam_carry = build_foam(
-        _enc.rear_plane_y - _enc.rear_seam_clear - (core.ymax - core.ymin))
+        _enc.rear_plane_y - _enc.rear_seam_clear
+        - (core.ymax - core.ymin + 2.0 * _cci.casing_foil_allowance))
     # THE CORE STANDS IN THE MACHINE AS ONE NODE, and its own bodies stand inside that node.
     # Opening the appliance reaches the carbonator, the coil, both reservoirs, every fitting and
     # the lines among them; each is picked where it is, and the core is taken in one where a
