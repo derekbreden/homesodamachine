@@ -1,7 +1,7 @@
 {
-  "schema": 1,
-  "scope": "Frozen local source dressing for two J2 leads and three protective-earth branches at the selected ground-stack landing. The fifteen selected PSU/relay/display paths remain unchanged. The initial five native solids are valid and their300 bounded equipment checks have zero residual contact. Two guide portions separate the measured COM/carbonator-PE crossing; their focused native recheck is pending. Physical wire bends, crimp entry, packing, flexible service motion and assembly force remain unqualified.",
-  "source_state": "frozen_native_recheck_pending",
+  "schema": 2,
+  "scope": "Manual source-native review of five locally dressed conductors at the selected ground-stack landing and fixed fore paired tube seat. Three unchanged source solids retain their bounded equipment proof; two corrected source solids have a focused equipment and five-lead pair recheck. The fifteen selected wall-harness paths remain fixed. Only each named endpoint or own termination within an8.5mm cell is removed from installed contact results. The free A14/A16 tube paths are deferred to their owner. Physical bends, crimp entry, wire packing, flexible service motion and assembly force remain unqualified.",
+  "source_state": "frozen",
   "wire_ids": [
     "AC6-PE",
     "PE-bus",
@@ -37,7 +37,7 @@
     "J2-COM": 190.88296824976572,
     "J2-FAN": 329.6
   },
-  "native_review_complete": false,
+  "native_review_complete": true,
   "ground_install_order": "Fasten the ground stack before dressing the compressor hot and neutral leads through the fore connection area. Stage those flexible leads clear of the vertical driver for service. No flexible handling force or simultaneous installed-harness driver clearance is qualified.",
   "actual_export_binding_pending": true,
   "source_sha256": {
@@ -57,5 +57,225 @@
       219.21022589633364,
       270.631075107011
     ]
-  }
+  },
+  "source_native_valid": true,
+  "native_body_count": 5,
+  "equipment_contact_mm3": 0.0,
+  "native_errors": [],
+  "source_native_bodies": {
+    "AC6-PE": {
+      "brep_sha256": "902b525b0dd03c5b1d8941dc5b4f030bf7ef2fac6ebbc4fab259fc551d84d85f",
+      "signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 20,
+        "volume_mm3": 1771.6631838360368,
+        "bounds_mm": [
+          1.3999991829087424,
+          26.137454354613222,
+          66.6999999,
+          48.50000010000001,
+          187.85577136594006,
+          296.8761785493245
+        ],
+        "center_mm": [
+          37.32691862091554,
+          115.66845106326763,
+          185.0305229933381
+        ]
+      },
+      "developed_length_mm": 333.6910843732568,
+      "curve_sha256": "0bc69d03541af60467188b847d4ee648de48c951ccfe1f20fff59d0ea9f6a373"
+    },
+    "PE-bus": {
+      "brep_sha256": "b2e08aa21707837cf9c9d0bd9828902d62dd2caf7a523035867826414f67a0b4",
+      "signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 25,
+        "volume_mm3": 2494.3978590957868,
+        "bounds_mm": [
+          -35.5000001,
+          193.4999999,
+          259.9999999,
+          65.5000001,
+          445.2,
+          337.2000001
+        ],
+        "center_mm": [
+          8.559815906094203,
+          293.58867147065615,
+          305.1515141545103
+        ]
+      },
+      "developed_length_mm": 352.8851105003875,
+      "curve_sha256": "803c1e759527495c8dd28bfe8ec46266a0051503761b310cc108535e61c1423c"
+    },
+    "PE-carbonator": {
+      "brep_sha256": "8d8b69aa8dcf3bb6d5a9916439b729d1f80e694b6d4c851f8336ac2a529becfc",
+      "signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 30,
+        "volume_mm3": 2985.874687035844,
+        "bounds_mm": [
+          -75.50000010000002,
+          202.04422863405995,
+          192.89999990000004,
+          69.00000011564086,
+          361.30000010000003,
+          279.1936006570569
+        ],
+        "center_mm": [
+          -11.770643458289543,
+          312.8467074364941,
+          245.3889162479481
+        ]
+      },
+      "developed_length_mm": 422.41485895620053,
+      "curve_sha256": "9e20a5a855e1d615edb66adea90fef30cc565487b99895dd9f3396b011cd725e"
+    },
+    "J2-COM": {
+      "brep_sha256": "b466ef48d413af6b5caefd373e96c37839635d6ee1883cf52493a1711b8ba5db",
+      "signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 21,
+        "volume_mm3": 433.2662934660606,
+        "bounds_mm": [
+          -35.330069996484376,
+          168.14999989999987,
+          230.14999990000007,
+          85.75,
+          272.0529201200504,
+          275.14255452834067
+        ],
+        "center_mm": [
+          29.26633712317957,
+          216.4672735949102,
+          264.14186790203775
+        ]
+      },
+      "developed_length_mm": 190.88296824976572,
+      "curve_sha256": "f70e42fbdf313e0d5cb3d077fae6560e8b606a64560d41a965ffba5e591333aa"
+    },
+    "J2-FAN": {
+      "brep_sha256": "faf4fc230c87953dfa9493dc1d96c001dd56690befee8c25785b629dbc51ed85",
+      "signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 21,
+        "volume_mm3": 748.1265688689363,
+        "bounds_mm": [
+          -37.829937996484354,
+          44.0,
+          149.1499999,
+          90.35000009999999,
+          272.05292012005043,
+          275.13550085007154
+        ],
+        "center_mm": [
+          39.4435492642001,
+          161.0459340273285,
+          224.21292563089546
+        ]
+      },
+      "developed_length_mm": 329.6001148619293,
+      "curve_sha256": "2f7257b8f3bbfd2e1f908f3f10f38da516ec073e3bc71d90c8903d38bfcd917d"
+    }
+  },
+  "native_queries": {
+    "initial_five": {
+      "receipt_sha256": "8281f72fa9e003a237cd64ed8a5ec0acbbb5d2ca6b48f87e536ee75576111050",
+      "boolean_count": 300,
+      "equipment_intersections": [],
+      "errors": []
+    },
+    "corrected_COM_and_PE": {
+      "receipt_sha256": "51513ca03ff4c85ef5c5771f3c7588d45cf5e8e86a29031c219954990ac885eb",
+      "boolean_count": 102,
+      "equipment_intersections": [],
+      "wire_pair_intersections": [],
+      "minimum_air_mm": {
+        "J2-COM--PE-carbonator": 1.3714324515611669,
+        "J2-COM--PE-bus": 0.21039671593786446,
+        "J2-COM--J2-FAN": 0.2300306877551595,
+        "AC6-PE--J2-COM": 16.739584621055513,
+        "PE-bus--PE-carbonator": 14.15216406593505,
+        "J2-FAN--PE-carbonator": 9.218249113307712
+      },
+      "errors": []
+    }
+  },
+  "fixture_sha256": {
+    "ground-stack": {
+      "path": "tmp/reservoir-a-ground-native/ground-stack.brep",
+      "sha256": "29f11f406e04c53712586f8408b97ac6128e146e8ffd2e914678f33f0136323e"
+    },
+    "ground-boss": {
+      "path": "tmp/reservoir-a-ground-native/ground-boss.brep",
+      "sha256": "aa2063ffd73fe0101a0b43142db74494a850d6d990cb555955a25a3f290aa93a"
+    },
+    "foam-cap-lid-top": {
+      "path": "tmp/reservoir-a-ground-native/lid-world.brep",
+      "sha256": "75ab46b0ea9996c618a3a2aeed9919a2effca015f3f75130c0474cbd5aca4c4f"
+    },
+    "a-pair-fore-anchor": {
+      "path": "tmp/reservoir-a-anchor-native/a-pair-fore-anchor.brep",
+      "sha256": "0ad7c3b7358c651e4dcd2e517942d44bc8acd7235c0168dcfddb0e7d59c3b9fe"
+    },
+    "a-pair-aft-anchor": {
+      "path": "tmp/reservoir-a-anchor-native/a-pair-aft-anchor.brep",
+      "sha256": "fd6077e099a1f3e405101d6a0807e4ef270b13a5491b5f314a3952eec7318dd4"
+    },
+    "a-pair-fore-anchor-tie": {
+      "path": "tmp/reservoir-a-anchor-native/a-pair-fore-anchor-tie.brep",
+      "sha256": "c0453bdc01809cf3a33f0adb99ceddbd8c36db0fa0b04d7b3213171f04703e58"
+    },
+    "a-pair-aft-anchor-tie": {
+      "path": "tmp/reservoir-a-anchor-native/a-pair-aft-anchor-tie.brep",
+      "sha256": "920706efb8b6d1b9c218ed8a8d99473cd8b58ee3e9da956a1f29126756f2aa7e"
+    },
+    "enclosure-front-top": {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+      "sha256": "2f696dd4497e3c8c19a9d8d4a184e4c12c830a033f6b7ac25c88e95cd9548b42"
+    },
+    "enclosure-back-top": {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+      "sha256": "10a6008999aa3096a3c3b85a7222bc8d0ca39167f09b29966aa8d33e8b2c3bc9"
+    }
+  },
+  "unchanged_target_cache_sha256": "fe19c7602a3a730d3113e43ce9260ad1bbba46c9da18164e1ee964ce39a030ae",
+  "deferred_free_tube_routes": [
+    "fluid-14",
+    "fluid-16"
+  ],
+  "preparation_lengths": {
+    "J2-COM": {
+      "developed_mm": 190.88296824976572,
+      "prepared_mm": 300,
+      "reserve_mm": 109.11703175023428
+    },
+    "J2-FAN": {
+      "developed_mm": 329.6001148619293,
+      "prepared_mm": 650,
+      "reserve_mm": 320.3998851380707
+    },
+    "AC6-PE": {
+      "developed_mm": 333.6910843732568,
+      "common_three_core_stock_mm": 700,
+      "scope": "The hot conductor and fuse continuation determine the common cord preparation reserve."
+    },
+    "PE-bus": {
+      "developed_mm": 352.8851105003875,
+      "recommended_preparation_mm": 400,
+      "reserve_mm": 47.1148894996125
+    },
+    "PE-carbonator": {
+      "developed_mm": 422.41485895620053,
+      "recommended_preparation_mm": 500,
+      "reserve_mm": 77.58514104379947
+    }
+  },
+  "actual_export_binding_record": "installed-wiring-binding.json"
 }

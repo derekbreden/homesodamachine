@@ -38,38 +38,61 @@ else:
     print('Source-only wiring composition',flush=True)
     source,expected=build.compose(import_assembly(EA),ea)
     native_signatures={n:sig(s) for n,s,_c in ea.ml.placed_leaves(source)}
-record={'schema':2,'units':'mm','scope':'Manual actual installed-wiring STEP/manifest binding to source-native102 conductors and23 termination bodies. No equipment/contact sweep or mechanical regeneration. Unchanged accepted contact receipts remain separately scoped.','actual_step_sha256':sha(STEP),'actual_manifest_sha256':sha(MANIFEST),'physical_EA_sha256':sha(EA),'source_sha256':{str(p.relative_to(ROOT)):sha(p)for p in(Path(build.__file__),ROOT/'hardware/wiring/installed/route-overrides.json',ROOT/'hardware/manifold-layout/above-core.json')},'source_body_count':len(native_signatures),'actual_body_count':len(actual),'missing':sorted(set(native_signatures)-set(actual)),'extra':sorted(set(actual)-set(native_signatures)),'bodies':{}}
+record={'schema':2,'units':'mm','scope':'Manual actual installed-wiring STEP/manifest binding to the current source electrical graph and native wiring bodies. No equipment/contact sweep or mechanical regeneration. Unchanged accepted contact receipts remain separately scoped.','actual_step_sha256':sha(STEP),'actual_manifest_sha256':sha(MANIFEST),'physical_EA_sha256':sha(EA),'source_sha256':{str(p.relative_to(ROOT)):sha(p)for p in(Path(build.__file__),ROOT/'hardware/wiring/installed/route-overrides.json',ROOT/'hardware/manifold-layout/above-core.json')},'source_body_count':len(native_signatures),'actual_body_count':len(actual),'missing':sorted(set(native_signatures)-set(actual)),'extra':sorted(set(actual)-set(native_signatures)),'bodies':{}}
 def numbers(x):
  if isinstance(x,dict):return sum((numbers(v)for v in x.values()),[])
  if isinstance(x,(tuple,list)):return sum((numbers(v)for v in x),[])
  return [x]if isinstance(x,(int,float))else[]
+def metadata_delta(a,b):
+ if isinstance(a,dict) and isinstance(b,dict) and set(a)==set(b):
+  values=[metadata_delta(a[k],b[k])for k in a]
+ elif isinstance(a,(list,tuple)) and isinstance(b,(list,tuple)) and len(a)==len(b):
+  values=[metadata_delta(x,y)for x,y in zip(a,b)]
+ elif isinstance(a,(int,float)) and isinstance(b,(int,float)):
+  return abs(a-b)
+ else:return 0. if a==b else None
+ return None if any(v is None for v in values)else max(values,default=0.)
 expected_routes={r['id']:r for r in expected['routes']};actual_routes={r['id']:r for r in manifest['routes']}
+record['source_route_count']=len(expected_routes)
+record['actual_route_count']=len(actual_routes)
+record['manifest_connection_count']=manifest['connection_count']
+record['graph_body_count']=len(expected_routes)+len(manifest['terminations'])+sum('geometry_name'in b for b in manifest['bundles'].values())
+record['missing_routes']=sorted(set(expected_routes)-set(actual_routes))
+record['extra_routes']=sorted(set(actual_routes)-set(expected_routes))
 if args.source_cache:
     comparisons={}
+    if set(cache['routes'])!=set(expected_routes):
+        cache_errors.append('Native cache route IDs differ from the current graph')
     for n,r in expected_routes.items():
+        if n not in cache['routes']:continue
         a=numbers(r['segments']);b=numbers(cache['routes'][n]['segments'])
         comparisons[n]={'numeric_count_equal':len(a)==len(b),'maximum_numeric_delta_mm':max((abs(x-y)for x,y in zip(a,b)),default=0.)}
         if len(a)!=len(b) or comparisons[n]['maximum_numeric_delta_mm']>1e-7:
             cache_errors.append('Source curve differs from native cache: '+n)
-    if manifest['terminations']!=cache['terminations']:
+    termination_delta=metadata_delta(manifest['terminations'],cache['terminations'])
+    if termination_delta is None or termination_delta>1e-7:
         cache_errors.append('Termination metadata differs from bound cache')
+    jacket_comparisons={}
     for n,row in cache['jackets'].items():
         actual_jacket={k:manifest['bundles'][n][k] for k in row}
-        if actual_jacket!=row:cache_errors.append('Jacket geometry differs from bound cache: '+n)
-    record['native_source_cache']={'path':str(args.source_cache),'sha256':sha(args.source_cache),'proofs':cache['proofs'],'source_curve_comparisons':comparisons,'errors':cache_errors,'scope':'Reuse unchanged native source solids only after matching current source curves, termination records and jacket geometry. All actual125 STEP bodies are read back in this command.'}
+        jacket_comparisons[n]=metadata_delta(actual_jacket,row)
+        if jacket_comparisons[n]is None or jacket_comparisons[n]>1e-7:cache_errors.append('Jacket geometry differs from bound cache: '+n)
+    record['native_source_cache']={'path':str(args.source_cache),'sha256':sha(args.source_cache),'proofs':cache['proofs'],'source_curve_comparisons':comparisons,'termination_metadata_maximum_delta_mm':termination_delta,'jacket_geometry_maximum_delta_mm':jacket_comparisons,'errors':cache_errors,'scope':'Reuse unchanged native source solids only after matching current source curves, termination records and jacket geometry. All actual STEP wiring bodies are read back in this command.'}
 record['source_curve_comparisons']={}
 for n,r in expected_routes.items():
+ if n not in actual_routes:continue
  a=numbers(r['segments']);b=numbers(actual_routes[n]['segments'])
  record['source_curve_comparisons'][n]={'numeric_count_equal':len(a)==len(b),'maximum_numeric_delta_mm':max((abs(x-y)for x,y in zip(a,b)),default=0.),'source_curve_sha256':hashlib.sha256(json.dumps(r['segments'],sort_keys=True,separators=(',',':')).encode()).hexdigest(),'manifest_curve_sha256':hashlib.sha256(json.dumps(actual_routes[n]['segments'],sort_keys=True,separators=(',',':')).encode()).hexdigest()}
 for n,a in native_signatures.items():
+    if n not in actual:continue
     b=sig(actual[n])
     record['bodies'][n]={'source':a,'actual_readback':b,'absolute_deltas':{'volume_mm3':abs(a['volume_mm3']-b['volume_mm3']),'center_mm':max(abs(x-y)for x,y in zip(a['center_mm'],b['center_mm'])),'bounds_mm':max(abs(x-y)for x,y in zip(a['bounds_mm'],b['bounds_mm']))}}
 record['source_invalid_bodies']=[n for n,r in record['bodies'].items()if not r['source']['valid']]
 record['actual_readback_invalid_bodies']=[n for n,r in record['bodies'].items()if not r['actual_readback']['valid']]
 record['maximum_volume_delta_mm3']=max(r['absolute_deltas']['volume_mm3']for r in record['bodies'].values())
 record['maximum_bounds_delta_mm']=max(r['absolute_deltas']['bounds_mm']for r in record['bodies'].values())
-record['all_102_source_curves_match']=len(record['source_curve_comparisons'])==102 and all(r['numeric_count_equal']and r['maximum_numeric_delta_mm']<1e-9 for r in record['source_curve_comparisons'].values())
-record['all_125_native_shapes_bound']=len(native_signatures)==len(actual)==125 and not cache_errors and not record['missing']and not record['extra']and not record['source_invalid_bodies']and all(r['absolute_deltas']['bounds_mm']<1e-5 and r['absolute_deltas']['center_mm']<1e-5 and r['absolute_deltas']['volume_mm3']<.001 for r in record['bodies'].values())
+record['all_source_curves_match']=not record['missing_routes'] and not record['extra_routes'] and len(record['source_curve_comparisons'])==len(expected_routes)==manifest['connection_count'] and all(r['numeric_count_equal']and r['maximum_numeric_delta_mm']<1e-9 for r in record['source_curve_comparisons'].values())
+record['all_native_shapes_bound']=bool(native_signatures) and len(native_signatures)==len(actual)==record['graph_body_count'] and not cache_errors and not record['missing']and not record['extra']and not record['source_invalid_bodies']and all(r['absolute_deltas']['bounds_mm']<1e-5 and r['absolute_deltas']['center_mm']<1e-5 and r['absolute_deltas']['volume_mm3']<.001 for r in record['bodies'].values())
 record['exchange_scope']='Native source solids and geometric agreement are distinct from STEP reader orientation validity. Any listed readback-invalid bodies retain their explicit exchange limitation; no per-wire geometry is altered to silence it.'
 OUT.write_text(json.dumps(record,indent=2)+'\n')
-print(json.dumps({k:record[k]for k in('source_body_count','actual_body_count','source_invalid_bodies','actual_readback_invalid_bodies','maximum_volume_delta_mm3','maximum_bounds_delta_mm','all_102_source_curves_match','all_125_native_shapes_bound')},indent=2),flush=True)
+print(json.dumps({k:record[k]for k in('source_body_count','actual_body_count','source_invalid_bodies','actual_readback_invalid_bodies','maximum_volume_delta_mm3','maximum_bounds_delta_mm','all_source_curves_match','all_native_shapes_bound')},indent=2),flush=True)
