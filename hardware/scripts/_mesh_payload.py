@@ -43,7 +43,6 @@ from OCP.TopAbs import TopAbs_FACE, TopAbs_REVERSED
 from OCP.TopExp import TopExp_Explorer
 from OCP.TopLoc import TopLoc_Location
 from OCP.TopoDS import TopoDS, TopoDS_Compound
-from _cadq_export import _per_solid_color, import_step
 
 # What the viewer gets by calling ReadStepFile(buffer, null): a linear
 # deflection stated as a ratio of the model's size, and an angular deflection
@@ -318,6 +317,9 @@ def selftest():
     import subprocess
     import tempfile
     import cadquery as cq
+    # Pure payload readers must not acquire the native CAD build lock. Only
+    # these round-trip checks need the STEP import/export helpers.
+    from _cadq_export import _per_solid_color, import_step
 
     # The reference solid the cross-checks below read, the vendored occt-import-js they read
     # it a second time with, and the script that does the reading. All three are this
