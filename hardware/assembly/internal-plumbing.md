@@ -143,16 +143,13 @@ made-up performance follow the
 Build to [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md) segment-for-segment. The truth table there names every valve, every Y-junction, and every tube segment by number; this step describes the build cadence around that truth table, not its content.
 
 **This step begins on the bench with `enclosure-front-top` open and both valve rows absent.**
-Front-top carries the two valve trays and the tee wall: the collet plate and, behind each of
-the plate's four holes, a collar-clear bore through the rest of the wall. One purchased PP0208E pump tee stands on each pump port, Y-C and Y-D on
+Front-top carries the two valve trays and the tee wall: four teardropped collet holes through
+its fore band and, behind each, a collar-clear bore through the rest of the wall. One purchased PP0208E pump tee stands on each pump port, Y-C and Y-D on
 pump A and Y-F and Y-G on pump B, its branch facing the pump on the tube row and its run
-upright. Its branch stands in its bore, which holds the tee in X and Z, and the collet
-plate holds its branch collet pressed home its whole [1.5 mm](DOCK_TEE_STROKE) stroke, so the
-collet never grips. The four cartridge tube tips pass the plate's holes into the tees' branch
-collets and seal on their O-rings. The
-[pump dock](/hardware/printed-parts/enclosure/pump-dock/README.md) describes the dock; the
-[pump service procedure](/hardware/service/pump-replacement.md) describes the separating
-joints and the complete prepared pumps supplied for a customer swap.
+upright. Its branch stands in its bore, which holds the tee in X and Z, and its branch
+collet stands extended in the hole ahead of the bore. The four pump tube tips enter those
+holes and the tees' branch collets, which grip them, and seal on their O-rings. The
+[pump dock](/hardware/printed-parts/enclosure/pump-dock/README.md) describes the dock.
 
 **V-A and V-K mount on back-top; V-B mounts in the cold-core lid's upright socket wall.** Their forward runs reach Y-A and Y-B beneath the open funnel aperture. Complete these connections before fitting the drop-in frame.
 
@@ -170,8 +167,8 @@ Lay out the ten Beduan valves and the [6](MANIFOLD_TEES) PP0208E tees. Cut stati
    actual fore valve's bottom collet, mark the tube at the collet face, and cut it the
    exposed length plus the tee's insertion beyond that mark. Push the tube fully into the
    tee's upper collet and the fore valve's bottom collet. Bring the tee, tube and valve in
-   together, the branch into its bore from the tee wall's aft face until the collet bottoms
-   against the collet plate, and press the fore valve onto its tray posts. The fore valve's
+   together, the branch into its bore from the tee wall's aft face with its collet in the
+   hole ahead of the bore, and press the fore valve onto its tray posts. The fore valve's
    axis stands over the tee's run axis, so the upper tube stands straight.
 
 3. **Cut the stem elbows.** Each lower return takes two NeoFit ATEU44W stem elbows. Cut each
@@ -197,40 +194,33 @@ Lay out the ten Beduan valves and the [6](MANIFOLD_TEES) PP0208E tees. Cut stati
    Cut four [33.2 mm](DOCK_PUMP_TUBE_CUT) tubes of black 1/4" LLDPE, square and burr-free
    with eased outer edges, and push one into each BPT end under the loosened pump-head
    housing. Lower both complete pumps into their fitted wells with the tubes facing +Y
-   through the cradle's open tube passages. The customer's replacement pumps receive this
-   same [factory preparation](/hardware/service/pump-replacement.md#factory-preparation-of-replacement-pumps).
+   through the cradle's open tube passages.
 
-6. **Fit the electrical contact and cap, then set the tube tips.** Install the cap's two M1.4 inserts with
-   their tops [5.125 mm](POGO_INSERT_HOST_DEPTH) inside its aft printed face, [2 mm](POGO_INSERT_SETBACK) behind the recessed ear-bearing datum, using
-   the recessed-seat procedure in
-   [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) §1. Solder four
-   ~100 mm 22 AWG leads to the female contact half and mount it in the cap with its marked
-   end at −X. Seat the two M1.4 × 8 screws with the hand-operated 1.3 mm hex driver,
-   stopping with the ears flat. Lower the broad cap over both pump bosses and draw its
-   [2](CAP_SCREWS) M3×[60](CAP_SCREW_LEN) screws evenly into the cradle's center inserts.
-   Verify firm pump retention without vertical play within the
-   [accepted holder scope](/hardware/reference/kamoer-kphm400/physical-fit.json).
-   Route the +X groove pair to pump A and the −X pair to pump B; the four leads are
-   `AM2`, `AM1`, `BM2`, `BM1` from +X to −X. Crimp their female Faston receptacles and
-   connect them to the marked motor tabs. Keep all leads below the crown. With the cap
-   closed, set the printed tube setting jig on the cartridge's flat rear face and slide each
-   tube until its tip meets its jig stop at the seated datum, where it bottoms in its tee.
-   Tighten each housing so it clamps the BPT tube around its LLDPE tube. Keep the exposed
-   tubes straight and verify all four tip positions, a firm hand pull on each tube and
-   pump-end sealing.
+6. **Fit the clamp, then set the tube tips.** Lower the broad clamp over both pump bosses
+   and draw its [2](CAP_SCREWS) M3×[60](CAP_SCREW_LEN) screws evenly into the cradle's
+   center inserts. Verify firm pump retention without vertical play within the
+   [accepted holder scope](/hardware/reference/kamoer-kphm400/physical-fit.json). With the
+   clamp closed, set the printed tube setting jig on the cradle's flat rear face and slide
+   each tube until its tip meets its jig stop at the seated datum, where it bottoms in its
+   tee. Tighten each housing so it clamps the BPT tube around its LLDPE tube. Keep the
+   exposed tubes straight and verify all four tip positions, a firm hand pull on each tube
+   and pump-end sealing, then take the jig off.
 
-7. **Connect the cartridge after chassis assembly.** Both parts arrive with their
-   SB443-IN blocks loaded at their print pauses: two in each of the two slots in front-top's
-   tee wall behind the bay face, and two in each of the two slots in the cartridge's flat
-   back. Inspect the columns' exposed attracting faces. With power disconnected, slide the
-   cartridge on its floor and present all four tube tips squarely to the collet plate's
-   holes. Push evenly: the tips pass the tees' pressed branch collets and bottom, and the
-   magnets draw the cartridge onto its seat with the front face flush.
-   Confirm that every tube enters straight and the pogo pair reaches its designed
-   compression. The meeting magnet poles establish closure, with
-   [0.25 mm](DOCK_BODY_GAP) of air between the broad aft planes. Withdraw and reinsert
-   straight to confirm that the four tubes draw out together and the tees and tubing stay in
-   the machine. Magnetic attraction alone does not establish sealing.
+7. **Install the cradle after chassis assembly.** Close the box with the funnel frame out
+   and power disconnected, and stand the cradle in front of its bay, flat back toward the
+   tee wall. Feed the free end of the [J13 ribbon](harnesses/j13.md) forward through
+   front-top's lead bore and out of the empty bay, crimp its four Faston receptacles and
+   ring it out. Land each pair on its pump's motor tabs per the
+   [J13 map](harnesses/j13.md#end-to-end-conductor-map), the +X pair on pump A and the −X
+   pair on pump B. Lay each pair in its crown groove and the joined ribbon in the clamp's
+   lead slot, all four leads below the crown. Set the cradle on its bay floor and present
+   all four tube tips squarely to the tee wall's collet holes. Push the cradle straight
+   home while drawing the ribbon's slack back from behind through the funnel-frame
+   opening: the tips enter the tees' extended branch collets and bottom at the tees' stops,
+   leaving [0.25 mm](DOCK_BODY_GAP) of air between the cradle's flat back and the bay face.
+   Confirm that every tube enters straight and the cradle's face finishes flush with the
+   front face. Plug the XHP-4 into J13. The collets grip the tubes and hold the cradle
+   home; they cannot be released from the bay, so the cradle stays in it.
 
 Y-A and Y-B remain on the inner limbs with their branches facing one another across the
 mirror plane. V-A's inlet takes the water split through the flow regulator. V-B's inlet
@@ -250,13 +240,18 @@ Y304 mm. Draw is west of fill: their centreline X stations are 50.5/58 mm
 at the fore seat and 86.5/94 mm at the aft seat, both at Z259.5 mm. Thread
 one four-inch narrow tie through each empty seat's transverse slot before
 laying in the pair; retain both tubes with that shared tie. Keep each tube
-unbroken through its plain core guide. The drawn warm spans are
+unbroken through its plain core guide. Only the connection points and
+straight seated portions are fixed; the bends and displayed lengths between
+them illustrate routing and may change to clear installed hardware and
+wires. The current drawn warm spans are
 [425.843 mm](RESERVOIR_A_FILL_WARM) for `fluid-14` fill and
 [418.391 mm](RESERVOIR_A_DRAW_WARM) for `fluid-16` draw. Each includes a
 12.7 mm estimated front-valve receiving allowance. For the physical blank,
 continue through the guide to the reservoir fill bore or dip-tube tip and
 replace the valve allowance with its actual fully seated insertion mark.
-The guide adds no fitting, insertion or cut. The nominal closed tie path is
+The guide adds no fitting, insertion or cut. Tighten the pump screws before
+threading the draw tube; remove that tube for the affected screw's service.
+The nominal closed tie path is
 47.182 mm before head engagement and tail; threading and retention remain
 unqualified. The [route record](/hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json)
 preserves the selected line/arc definitions and contact scope.
@@ -344,9 +339,9 @@ separate from native geometry and precede fluid commissioning.
 ## Qualification scope
 
 The [mechanical qualification index](/hardware/mechanical-qualification/README.md)
-preserves accepted results at their named parts and artifacts. The pump dock's
-accepted dry connection cycle does not establish wet sealing, pressure
-retention, insertion endurance or food-contact suitability. The pump/ASSE TPU
+preserves accepted results at their named parts and artifacts. The pump dock
+has no physical seal, retention, lifetime or cleaning acceptance, and its
+food-contact suitability is not established. The pump/ASSE TPU
 interfaces, shortened fitting stems and selected gas hardware retain their
 part-specific open qualification items. No unit is declared primed-ready or
 safe to energize solely because the CAD paths connect.

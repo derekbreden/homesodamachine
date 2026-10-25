@@ -11,7 +11,6 @@
       "name": "a-fill",
       "frm": "valve-v-f.outlet",
       "to": "foam-assembly.reservoir-a-fill",
-      "length_mm": 425.8426948197794,
       "segments": [
         {
           "kind": "line",
@@ -399,13 +398,13 @@
           ]
         }
       ],
-      "reverse": false
+      "reverse": false,
+      "illustrative_length_mm": 425.8426948197794
     },
     "fluid-16": {
       "name": "a-draw",
       "frm": "foam-assembly.reservoir-a",
       "to": "valve-v-e.inlet",
-      "length_mm": 418.3908777279054,
       "segments": [
         {
           "kind": "line",
@@ -793,8 +792,37 @@
           ]
         }
       ],
-      "reverse": true
+      "reverse": true,
+      "illustrative_length_mm": 418.3908777279054
     }
   },
-  "scope": "Continuous Reservoir A tubes from the front valves through two paired lid anchors and plain cap guides. The first 12.7 mm at each front valve is an estimated receiving allowance. Each plain guide divides the drawn warm/internal spans without a fitting, insertion or physical tube cut."
+  "scope": "Continuous Reservoir A tubes connect the fixed front valve and plain cap-guide ports through the two fixed paired lid anchor corridors. Intervening bends, radii and displayed lengths are illustrative routing candidates and may change to clear installed equipment and wiring. The first 12.7 mm at each front valve is an estimated receiving allowance. Each plain guide divides warm/internal CAD spans without a fitting, insertion or physical tube cut.",
+  "constraints": {
+    "fixed_guide_and_front_valve_ports": true,
+    "fixed_straight_anchor_corridors": [
+      {
+        "y_range_mm": [
+          200.0,
+          210.0
+        ],
+        "x_centres_mm": [
+          50.5,
+          58.0
+        ],
+        "z_mm": 259.5
+      },
+      {
+        "y_range_mm": [
+          299.0,
+          309.0
+        ],
+        "x_centres_mm": [
+          86.5,
+          94.0
+        ],
+        "z_mm": 259.5
+      }
+    ],
+    "intervening_tube_curves": "Routing candidates; bends/radii and the displayed lengths are illustrative rather than fixed manufacturing constraints."
+  }
 }
