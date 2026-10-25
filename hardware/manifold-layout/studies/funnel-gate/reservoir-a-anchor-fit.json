@@ -10,6 +10,7 @@
   "tube_centerlines_preserved": true,
   "support_owner": "back-bottom",
   "source_sha256": "efa4a1226a2ff17630b4c4fd8c019a4f9d79833692bedb91c76f7663ad82730d",
-  "fragment_bytes": 992841,
-  "scope": "Manual exterior-mesh query against the frozen 108-part arrangement, plus each tie against its seat and the lid context after the threading cuts. Native support and tie-lid checks are in reservoir-a-anchor-review.json."
+  "fragment_bytes": 993410,
+  "scope": "Manual exterior-mesh query against the frozen 108-part arrangement, plus each tie against its seat and the lid context after the threading cuts. Native support and tie-lid checks are in reservoir-a-anchor-review.json.",
+  "span_geometry_scope": "The contact reading applies to the depicted tube shape. Approval fixes the anchor and anchored connection locations; free-span curves and modeled lengths are illustrative."
 }

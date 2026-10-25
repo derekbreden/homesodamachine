@@ -36,6 +36,15 @@
       "routes_west_to_east": ["a-draw", "a-fill"]
     }
   ],
+  "approval_scope": {
+    "status": "approved_anchor_and_connection_locations",
+    "routes": ["a-fill", "a-draw"],
+    "fixed_anchor_locations": "stations[].tube_centers_world_mm",
+    "fixed_terminal_locations": "reservoir-a-routes.json:ports_mm",
+    "carrying_piece": "cold-core top lid, carried by back-bottom",
+    "flexible_spans": "Illustrative. Exact intermediate bend positions, radii, straight lengths and displayed centerline lengths are not approved manufacturing constraints. Dress the actual tubes between the fixed interfaces and anchor stations.",
+    "retaining_detail": "Seat and tie-passage geometry implements the selected anchor locations; those details do not fix the free tube spans."
+  },
   "construction": "Two shallow paired seats integral with the cold-core lid. One common narrow zip tie per station passes through a transverse slot beneath the seat. Open mouths beside the tubes expose the slot for threading. The aft seat extends from the lid edge to support the outboard tube.",
-  "scope": "Arrangement-study retaining geometry. Tube centerlines and component poses are fixed. Native lid fusion and access cuts are supplied by the builder for production integration. Tie strips are nominal occupied-space witnesses, not purchased-part measurements."
+  "scope": "Approved Reservoir A anchor and terminal locations with illustrative flexible spans. Native lid fusion and access cuts are supplied by the builder for production integration. Tie strips are nominal occupied-space witnesses, not purchased-part measurements."
 }
