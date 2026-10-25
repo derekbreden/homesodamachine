@@ -60,6 +60,38 @@ def box(a, b):
     return cq.Solid.makeBox(*(y-x for x, y in zip(a, b)), cq.Vector(*a))
 
 
+def current_vb_strip_scope(tail_xmax):
+    """A conservative current-source bound replaces the old cached strip."""
+    route = mounts.union_tie_routes()['vb-outlet-return']
+    datum = mounts.union_support_datums()['vb-outlet-return']
+    band_mid = sum(datum['native_band_mm'])/2.
+    centre = layout.point(layout.snapshot_pose('vb-outlet-return'), (0., band_mid, 0.))
+    padding = (route['width_mm']+route['thickness_mm'])/2.
+    intervals = []
+    for segment in route['segments']:
+        if segment['kind'] == 'arc':
+            intervals.append((centre[0]-segment['radius_mm']-padding,
+                              centre[0]+segment['radius_mm']+padding))
+        else:
+            xs = [point[0] for point in segment['points_mm']]
+            intervals.append((min(xs)-padding, max(xs)+padding))
+    limits = [min(row[0] for row in intervals), max(row[1] for row in intervals)]
+    return {
+        'scope': 'Current source-derived nominal strip versus the selected fluid24 tail. The cached strip at the former west station is superseded by this conservative line/full-circle X bound; no strap, head or slot move is adopted. Purchased strip dimensions and physical handling remain unqualified.',
+        'source_sha256': {str(path.relative_to(ROOT)): sha(path) for path in (
+            Path(mounts.__file__), ROOT/'hardware/manifold-layout/above-core.json')},
+        'current_window_world_mm': [datum['tie_window_min_world_mm'],
+                                    datum['tie_window_max_world_mm']],
+        'current_conservative_strip_x_mm': limits,
+        'fluid24_tail_xmax_mm': tail_xmax,
+        'guaranteed_axis_separation_mm': limits[0]-tail_xmax,
+        'section_bound_basis': 'Each line endpoint and entire arc circle is expanded by(width+thickness)/2=1.65mm in X, containing the swept nominal flat section regardless of twist.',
+        'current_length_mm': route['length_mm'],
+        'stock_length_mm': route['stock_length_mm'],
+        'current_segments': route['segments'],
+    }
+
+
 def refine_service_scope(record, hardware_index, cache):
     """Compare only the four recorded access contacts, without a layout replay."""
     targets = json.loads(hardware_index.read_text())['parts']
@@ -92,6 +124,83 @@ def refine_service_scope(record, hardware_index, cache):
     }
 
 
+def bind_artifacts(record, cache):
+    """Read only actual cap metrics and finite B-fill stock after publication."""
+    height = core.foam_cap_height-core.head_pad_height
+    frame = layout.frame_location(layout.cap_lid_pose())
+    artifacts = {}
+    actual = {}
+    for name, filename in (('cup', 'foam-cap-top.step'), ('lid', 'foam-cap-lid-top.step')):
+        path = HERE/filename
+        shape = cq.importers.importStep(str(path)).val()
+        if name == 'cup':
+            shape = shape.translate((0., 0., -height))
+        shape = shape.moved(frame)
+        actual[name] = shape
+        cached = cq.Shape.importBrep(str(cache/(name+'-world.brep')))
+        expected, observed = signature(cached), signature(shape)
+        metrics = {
+            'same_face_count': expected['faces'] == observed['faces'],
+            'same_solid_count': expected['solids'] == observed['solids'] == 1,
+            'volume_difference_mm3': abs(expected['volume_mm3']-observed['volume_mm3']),
+            'maximum_bound_difference_mm': max(abs(a-b) for a, b in zip(
+                expected['bounds_mm'], observed['bounds_mm'])),
+        }
+        tolerance = max(.001, expected['volume_mm3']*1.e-7)
+        metrics['passed'] = (observed['valid'] and metrics['same_face_count']
+                             and metrics['same_solid_count']
+                             and metrics['volume_difference_mm3'] <= tolerance
+                             and metrics['maximum_bound_difference_mm'] <= 1.e-5)
+        artifacts[name] = {'path': str(path.relative_to(ROOT)), 'sha256': sha(path),
+                           'signature': observed, 'source_cached_signature': expected,
+                           'metrics': metrics,
+                           'tolerances': {'volume_mm3': tolerance, 'coordinates_mm': 1.e-5}}
+    features = mounts.reservoir_b_fill_features(height)
+    data = mounts.reservoir_b_fill_link()
+    upper = features['upper_horizontal_air'].BoundingBox()
+    lower = features['lower_air'].BoundingBox()
+    upper_frame = data['parts']['reservoir-b-fill-upper']['frame']
+    outlet = cq.Solid.makeCylinder(8.35, 60., cq.Vector(
+        *upper_frame['translation_mm'][:2], 220.))
+    upper_probe = box((upper.xmin, upper.ymin, upper.zmax),
+                      (upper.xmax, upper.ymax, features['upper_cover_top_z_mm'])).cut(outlet)
+    lower_probe = box((lower.xmin, lower.ymin, lower.zmax),
+                      (lower.xmax, lower.ymax, data['roof_top_z_mm']))
+    carrier = features['cup_add'].BoundingBox()
+    floor_bottom = layout.cap_lid_pose()['translation_mm'][2]-height+core.cap_shell_clearance
+    floor_top = floor_bottom+core.wall_and_floor_thickness
+    cup_top = layout.cap_lid_pose()['translation_mm'][2]-core.cap_lid_clearance
+    boundary = box((carrier.xmin, carrier.ymin, floor_top),
+                   (carrier.xmax, carrier.ymax, cup_top)).cut(box(
+        (carrier.xmin+3., carrier.ymin+3., floor_top-.1),
+        (carrier.xmax-3., carrier.ymax-3., cup_top+.1)))
+    floor = box((carrier.xmin, carrier.ymin, floor_bottom),
+                (carrier.xmax, carrier.ymax, floor_top))
+    lower_corner = data['parts']['reservoir-b-fill-lower']['frame']['translation_mm']
+    stem = cq.Solid.makeCylinder(core.cap_conduit_bore_radius, 10.,
+                                cq.Vector(*lower_corner[:2], floor_bottom-1.))
+    floor = floor.cut(stem)
+    ideal_floor_missing = volume(floor.cut(actual['cup']))
+    # The existing continuous water-in passage crosses the far carrier
+    # corner. Its named floor entry is an opening, not lost floor stock.
+    floor = floor.cut(mounts.water_in_features()['cut'])
+    probes = {'upper2.4mm_cover': volume(upper_probe.cut(actual['lid'])),
+              'lower3.05mm_cover': volume(lower_probe.cut(actual['lid'])),
+              'cup3mm_boundary': volume(boundary.cut(actual['cup'])),
+              'original2mm_floor_outside_named_entries': volume(floor.cut(actual['cup']))}
+    record['actual_export_binding'] = {
+        'scope': 'Actual canonical cup/lid source-body metrics and finite cover, carrier-boundary and floor stock only. The227 local source-native neighbor readings retain their original fixture scope and are not replayed.',
+        'artifacts': artifacts, 'finite_stock_missing_mm3': probes,
+        'floor_entry_scope': {
+            'unexcluded_water_entry_mm3': ideal_floor_missing,
+            'excluded_geometry': 'Unchanged water_in_features()[cut] plus the fixed lower B-fill stem bore',
+            'basis': 'The curved water entry crosses this rectangular witness at its far corner. Only the two named passages are excluded; the original2mm floor elsewhere is read directly.'},
+        'passed': (all(row['metrics']['passed'] for row in artifacts.values())
+                   and all(value < .001 for value in probes.values())),
+        'reader_sha256': sha(Path(__file__)),
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--hardware-index', type=Path,
@@ -99,7 +208,7 @@ def main():
     parser.add_argument('--wire-index', type=Path,
                         default=ROOT/'tmp/dry-sidewall-wiring/current-wiring-index.json')
     parser.add_argument('--wire-overlay', type=Path,
-                        default=ROOT/'tmp/ground-j2-wire-delta/final-seven-index.json')
+                        default=ROOT/'tmp/ground-j2-wire-delta/final-local-index.json')
     parser.add_argument('--direct-j13', type=Path,
                         default=ROOT/'tmp/b-fill-selected-native/direct-j13/index.json')
     parser.add_argument('--ports', type=Path, default=ROOT/'tmp/above-core-route-fixture.json')
@@ -108,9 +217,17 @@ def main():
                         help='Read the saved source-built world cup/lid from --cache.')
     parser.add_argument('--access-only', action='store_true',
                         help='Append only the finite prior/selected service comparison.')
+    parser.add_argument('--bind-artifacts-only', action='store_true',
+                        help='Bind actual canonical cap metrics and finite B-fill stock only.')
     parser.add_argument('--output', type=Path, default=HERE/'b-fill-pair-review.json')
     args = parser.parse_args()
     args.cache.mkdir(parents=True, exist_ok=True)
+    if args.bind_artifacts_only:
+        record = json.loads(args.output.read_text())
+        bind_artifacts(record, args.cache)
+        args.output.write_text(json.dumps(record, indent=2)+'\n')
+        print(json.dumps(record['actual_export_binding'], indent=2), flush=True)
+        return
     if args.access_only:
         record = json.loads(args.output.read_text())
         refine_service_scope(record, args.hardware_index, args.cache)
@@ -123,7 +240,8 @@ def main():
         cup = cq.Shape.importBrep(str(args.cache/'cup-world.brep'))
         lid = cq.Shape.importBrep(str(args.cache/'lid-world.brep'))
     else:
-        cup = foam_cap.build_foam_cap().val().translate((0., 0., -height)).moved(frame)
+        cup = foam_cap.add_deck_mounts(foam_cap.build_foam_cap()).val()
+        cup = cup.translate((0., 0., -height)).moved(frame)
         lid = foam_cap.build_top_lid().val().moved(frame)
         cup.exportBrep(str(args.cache/'cup-world.brep'))
         lid.exportBrep(str(args.cache/'lid-world.brep'))
@@ -182,6 +300,7 @@ def main():
             'The lid retains its flat underside-down print frame and saved Tree(auto)/Default support decisions. Geometric access does not qualify support removal or physical print thickness.',
             'Saved native lead bodies and approach witnesses retain their explicitly named source scope. No whole-appliance replay or flexible handling claim is inferred.'],
     }
+    record['current_VB_strip_scope'] = current_vb_strip_scope(bounds(external_tail)[3])
     for name, shape in {**fittings, 'reservoir-b-fill-link': link, 'tube-fluid-24-tail': external_tail}.items():
         record['printed_contacts'][name] = {'cup': contact(shape, cup), 'lid': contact(shape, lid)}
     pcb = layout.place(parts.native_reference('pcba'), 'pcba')
@@ -230,15 +349,16 @@ def main():
     paths['ground-stack'] = ROOT/'tmp/reservoir-a-ground-native/ground-stack.brep'
     obsolete = {'foam-cap-lid-top', 'foam-cap-top', 'reservoir-b-fill-lower',
                 'reservoir-b-fill-upper', 'tube-fluid-24', 'pump-contact-female',
-                'pump-contact-male', 'nominal-strip-va-east-turn'}
+                'pump-contact-male', 'nominal-strip-va-east-turn',
+                'nominal-strip-vb-outlet-return'}
     record['fixture_inputs_sha256'] = {str(path.relative_to(ROOT)): sha(path) for path in (
         args.hardware_index, args.wire_index, args.wire_overlay, args.direct_j13,
         wiring_manifest, args.ports,
         HERE/'foam-cap-top.step', HERE/'foam-cap-lid-top.step')}
-    record['targets_considered'] = len(paths)-len(obsolete.intersection(paths))
+    paths = {name: path for name, path in paths.items()
+             if name not in obsolete and 'pogo' not in name}
+    record['targets_considered'] = len(paths)
     for name, path in paths.items():
-        if name in obsolete or 'pogo' in name:
-            continue
         other = cq.Shape.importBrep(str(path))
         possible = [(subject, shape) for subject, shape in subjects.items() if nearby(shape, other)]
         if not possible:
