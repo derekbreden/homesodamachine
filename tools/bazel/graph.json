@@ -1736,6 +1736,7 @@
       "hardware/manifold-layout/enclosure-box.json",
       "hardware/manifold-layout/enclosure_assembly.py",
       "hardware/manifold-layout/manifold_layout.py",
+      "hardware/manifold-layout/reservoir-a-routes.json",
       "hardware/manifold-layout/soda_inlet.py",
       "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py",
       "hardware/printed-parts/asse-straight-cuffs/asse_straight_cuffs.py",
