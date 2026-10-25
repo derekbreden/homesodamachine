@@ -5,6 +5,11 @@ compares the drawn route with illustrative shapes between its fitting exits and 
 The tool is optional. It covers the 17 exposed LLDPE runs; the copper and reinforced hose
 remain drawn geometry.
 
+The tool reads [`tube-routes.json`](/web/public/tube-routes.json), exported from the
+assembly at `b3707a180`. Its runs, holds and the readings below are that assembly's. The
+exporter does not resolve the compact above-core fittings' ends, so the current layout's
+tubes are not in it.
+
 Choose a run and **Show run**. Cyan dashes mark the CAD centreline, coloured lines mark the
 assumed shapes, white squares mark fitting exits, and green dots mark retained holds.
 **Temporarily omit a hold** removes that restraint from the calculation. It changes no part
