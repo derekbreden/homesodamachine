@@ -402,6 +402,8 @@ The [production arrangement](/hardware/manifold-layout/above-core.md) owns the n
 component frames. `_above_core_shell.py` builds back-top's PSU and relay hosts,
 V-A/V-K sidewall plates, rear ports and fluid supports. `_back_top_meter.py`
 constructs the two fixed-collar meter bearings and their east-wall beams.
+The aft beam reaches the wall at Y436 through a plain dogleg beside the
+regulator; its short tie passes through the local pad at the fixed collar.
 The PCB, pump and V-B belong to the cold-core mounts. Junction wells follow
 their actual branch points on the rear wall, core lid and front manifold.
 
