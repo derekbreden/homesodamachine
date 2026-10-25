@@ -50,6 +50,19 @@ member during closure. The pump, gas and drain-vent handoffs likewise need
 final-connection evidence; a clear rigid-group ride alone does not establish
 flexible handling, collet access or connection force.
 
+The [sliding assembly plan](sliding-assembly-staging.json) separates final
+installed geometry from temporary handling. V-A's bare low tube is fed under
+the pump after the column is home, before fitting its east-turn union and
+forward feed. Reservoir A's ties are finished on the open core; its front
+ends stay free and its unanchored spans are dressed clear of passing
+fittings. Those instructions preserve the selected connections and anchors.
+For CO₂,
+hold the last existing elbow on the core tube and let its aft-pointing stem
+meet the back-top socket along the final slide. The earlier tube handling
+uses the loose tube and turning joints while V-K passes. The record's coaxial
+connection and sampled shell screen apply to the final travel, not a
+simulation of that manual handling.
+
 The [wall electronics reading](wall-mount-review.json) and its
 [manual script](wall_mounts.py) bind the native PSU/relay datums, twelve local
 hosts and eight fastener stacks. Printed pilot-floor readings use the fluted
