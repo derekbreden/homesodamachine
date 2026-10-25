@@ -174,8 +174,7 @@ click: x=42.011 y=471.900 z=49.657
 alternatives: Sloping introduces a camming bearing. Filling blocks the mating foot; removing overlap loses capture.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
 click: x=100.875 y=339.925 z=169.450
-click: x=-100.875 y=393.050 z=169.450
-click: x=-100.875 y=270.675 z=169.450
+click: x=-100.875 y=339.925 z=169.450
 
 [ceiling] Unavoidable lifting interfaces: these Z29.25 flats retain the finger bearings, R6 end returns and 12 mm handhold roofs. Support can leave through the downward/outward openings and empty seam before assembly. Actual cleanup, bare-surface comfort and loaded lifting remain unqualified.
 alternatives: Sloping changes the finger bearing and opening. Filling beneath it blocks upward entry; retain the named lifting profile.
