@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "scope": "Frozen source for all fifteen affected paths in the selected back-top PSU and relay arrangement. Their native equipment, shell, tube and nominal-strip contacts clear. A positive-volume crossing between the two PSU secondary cores required one further3mm aft shift of the GND rise. Only that changed region, the two-core pair and thirteen cached paths against the refreshed front-top await the focused native review. Actual-export binding is separate. Physical wire-bend, terminal-entry, lead packing and assembly force remain unqualified.",
-  "source_state": "frozen_gnd_local_correction_native_review_pending",
+  "scope": "Frozen source for all fifteen affected paths in the selected back-top PSU and relay arrangement. The native installed equipment, shell, tube and nominal-strip contact review passes; the corrected PSU secondary cores have0.3mm native air. Actual exported-wire binding is separate. Physical wire-bend, terminal-entry, lead packing, flexible service motion and assembly force remain unqualified.",
+  "source_state": "frozen_native_installed_contacts_clear",
   "requested_changed_conductors": [
     "AC2-L",
     "AC2-N",
@@ -37,7 +37,7 @@
     "J9-B"
   ],
   "unresolved_conductors": [],
-  "native_changed_wire_contact_review_complete": false,
+  "native_changed_wire_contact_review_complete": true,
   "changed_native_poses": {
     "psu": {
       "rotation": [
@@ -115,7 +115,7 @@
       "reference": "hardware/reference/teyleten-relay/teyleten-relay.step"
     }
   },
-  "clearance_basis": "Bounded exact native first pass cleared thirteen unchanged paths against current equipment, shells, exact tube sweeps and nominal strips. Only the two named local corrections await the focused repeat.",
+  "clearance_basis": "Source-native15-body review with finite8.5mm own named endpoint/termination cells; reuse of unchanged13 equipment readings, their fresh front/back-shell queries, and the final GND changed-region correction. All15 source bodies valid. Nominal full soda-foam geometry remains a clearance target.",
   "source_sha256": {
     "hardware/wiring/installed/route-overrides.json": "4338f319a34db12dc0a6aa12292be450fdb98d29cbbbe36a1b3c29c062778caa",
     "hardware/wiring/installed/bundle-routes.json": "11d7866e6cb32d78334588be4c55919b1bcbc40f7773e6a11d4932116bb828a4",
@@ -143,9 +143,7 @@
     "J9-B": 256.464
   },
   "PSU_mounting_sequence": "Fasten PSU before seating WAGO-H, whose occupied region crosses the aft+X mounting-driver approach. Installed lead contacts and staged tool occupancy are separate.",
-  "native_review_pending_conductors": [
-    "DC1-GND"
-  ],
+  "native_review_pending_conductors": [],
   "required_preparation_update": {
     "len_dc1_mm": 350,
     "maximum_modeled_DC1_mm": 283.292739,
@@ -167,5 +165,8 @@
       271.328427224704
     ],
     "correction": "Move only the GND floor crossing and vertical rise fromY314 toY317; retain its endpoints and remaining guides."
-  }
+  },
+  "native_review": "dry-wall-wiring-native.json",
+  "secondary_pair_final_native_air_mm": 0.2999999999999545,
+  "actual_export_binding_pending": true
 }
