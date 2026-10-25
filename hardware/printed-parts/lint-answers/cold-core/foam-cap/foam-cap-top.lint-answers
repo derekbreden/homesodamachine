@@ -11,6 +11,9 @@ click: x=-80.781 y=-27.280 z=14.450
 click: x=-81.793 y=-28.897 z=13.242
 click: x=-13.036 y=55.417 z=14.450
 click: x=-14.079 y=53.819 z=13.242
+click: x=-13.632 y=52.034 z=14.450
+click: x=-81.309 y=-30.677 z=14.450
+click: x=45.607 y=73.740 z=0.150
 
 [thin] Specified cold-core section: Derek selected smooth 2.38 mm standing casing walls and conduit stock for the whole casing, with three Classic loops from each boundary. This is the cold-core exception to the enclosure's ordinary 3 mm section; printed strength and lifetime are not established by the slice.
 alternatives: A 3 mm section changes the selected six-bead packing and takes additional foam space; the current section is Derek's explicit geometry choice.

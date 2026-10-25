@@ -50,6 +50,12 @@ click: x=139.149 y=0.031 z=1.127
 click: x=141.200 y=0.031 z=1.127
 click: x=-139.149 y=0.031 z=1.127
 click: x=-141.200 y=0.031 z=1.127
+click: x=-132.405 y=-89.833 z=1.131
+click: x=-131.907 y=-87.849 z=1.131
+click: x=-132.405 y=89.833 z=1.131
+click: x=-131.907 y=87.849 z=1.131
+click: x=132.405 y=89.833 z=1.131
+click: x=131.907 y=87.849 z=1.131
 
 [thin] Unavoidable without a proud head or a thicker lid: under each clamp screw's head the lid keeps 2.25 mm of floor, the 5.4 mm lid less the 3.15 mm pocket that seats the DIN 912 head below the flat outer face. That floor is the clamped layer between the head and the cup's boss.
 alternatives: A 3 mm floor stands the head 0.75 mm proud of the lid's flat face, or thickens the lid and raises the cap face that every part above the core is placed from.

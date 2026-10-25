@@ -17,3 +17,5 @@ alternatives: A 3 mm floor or plate raises the stack by a millimetre at each end
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step
 click: x=-127.030 y=-84.250 z=2.835
 click: x=-128.853 y=-85.066 z=2.835
+click: x=-138.755 y=-80.552 z=0.000
+click: x=-138.755 y=-80.552 z=2.000
