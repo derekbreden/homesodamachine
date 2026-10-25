@@ -1996,7 +1996,7 @@
         "offset": [
           68.23007,
           -66.20292,
-          -10.4
+          0.1
         ]
       },
       {
@@ -2004,7 +2004,7 @@
         "offset": [
           84.23007,
           -70.20292,
-          -10.4
+          0.1
         ]
       },
       {
@@ -2039,7 +2039,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Native-terminal route through selected equipment and fluid corridors; physical dressing and wire packing remain open."
+    "note": "The COM lead passes above the fixed fore paired tube seat; physical dressing and wire packing remain unqualified."
   },
   "J2-FAN": {
     "stations": [
@@ -2057,6 +2057,14 @@
           58.47994,
           -69.20292,
           1.6
+        ]
+      },
+      {
+        "terminal": "J2.FAN",
+        "offset": [
+          73.47993789648436,
+          -89.20292002005039,
+          1.6000000000000227
         ]
       },
       {
@@ -2099,7 +2107,7 @@
     "bend_radius_mm": 2.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Native-terminal route through selected equipment and fluid corridors; physical dressing and wire packing remain open."
+    "note": "The fan return remains above the ground stack before its fore descent; physical dressing and wire packing remain unqualified."
   },
   "J2-OUT3": {
     "stations": [

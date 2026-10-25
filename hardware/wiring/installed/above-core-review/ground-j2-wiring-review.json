@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "scope": "Frozen local source dressing for the two J2 leads and three protective-earth branches after the selected ground-stack translation. The fifteen selected PSU/relay/display paths are unchanged. The initial guide screen passes; source-native checks against the actual moved stack, lid, paired seats and fixed neighbors are pending. Physical wire bends, crimp entry, packing, flexible service motion and assembly force remain unqualified.",
+  "source_state": "frozen_native_review_pending",
+  "wire_ids": [
+    "AC6-PE",
+    "PE-bus",
+    "PE-carbonator",
+    "J2-COM",
+    "J2-FAN"
+  ],
+  "ground_landing_mm": [
+    37,
+    195,
+    259.4
+  ],
+  "carbonator_lug": {
+    "native_index": 2,
+    "physical_model_pin": 3,
+    "angle_degrees": 120,
+    "terminal_mm": [
+      32.5,
+      202.79422863405995,
+      263.1
+    ],
+    "outward": [
+      -0.5,
+      0.8660254037844386,
+      0.0
+    ],
+    "basis": "Lug 3 of the five-lug ring stack and common protective-earth bus."
+  },
+  "developed_lengths_mm": {
+    "AC6-PE": 333.691,
+    "PE-bus": 352.885,
+    "PE-carbonator": 421.229,
+    "J2-COM": 189.984,
+    "J2-FAN": 329.6
+  },
+  "native_review_complete": false,
+  "ground_install_order": "Fasten the ground stack before dressing the compressor hot and neutral leads through the fore connection area. Stage those flexible leads clear of the vertical driver for service. No flexible handling force or simultaneous installed-harness driver clearance is qualified.",
+  "actual_export_binding_pending": true,
+  "source_sha256": {
+    "hardware/wiring/installed/terminals.py": "a33f359b26dc6e742f10f50824e249ef353bbb25439f9afe73f32cdc6c630e99",
+    "hardware/wiring/installed/route-overrides.json": "be306e2f6639f47a7d98a361dad68a884569f7954119ffb04ec8c0f1a76b964a",
+    "hardware/wiring/installed/bundle-routes.json": "11800d125d32a810b42668337f3862db1e103e2d9ba5b4a413ac5e6583214d21"
+  }
+}
