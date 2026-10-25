@@ -1,12 +1,12 @@
 # Cold-core cap and equipment mounts
 
-The top cap is a foam-pour cup closed by a 5.4 mm lid. The PCB and Mean Well
-PSU lie flat on its west half; the diaphragm pump stands aft. V-B seats in
+The top cap is a foam-pour cup closed by a 5.4 mm lid. The PCB lies flat on
+its west half; the diaphragm pump stands aft. V-B seats in
 an integral upright socket wall east of the PCB. The water check rests on
 a fore–aft quarter bearing on an aft-rooted bridge. It opens upward and west,
-leaving the PSU face clear. The four DC/sensor junction wells and the earth
+leaving the west approach open. The four DC/sensor junction wells and the earth
 boss remain accessible from above. Back-top carries V-A, V-K, their fitted
-plumbing, the complete inlet header and both relays.
+plumbing, the complete inlet header, PSU, both relays and flow meter.
 
 V-B uses the shared V69 socket profile. Its wall travels with the populated
 core. V-A and V-K use back-top's sidewall-rooted seats; their open-bench
@@ -14,22 +14,14 @@ preparation belongs to [internal plumbing](../../../assembly/internal-plumbing.m
 Their underside flow arrows point down, with the header at the upper inlets
 and the pump/Y-A feeds at the lower outlets.
 
-The edge-on flow meter sits fore–aft on two fixed-collar bearings rooted in
-the lid. Each six-millimetre-wide east-lower quarter bearing opens upward
-and west, retains 3 mm of outer stock and has a 2.8 × 2 mm closed tie window
-below its seat. One
-six-inch tie retains each collar without crossing a release collet or the
-downward lead root. Tighten the pump screws before dropping the meter into
-its bearings and before threading the continuous inlet, which crosses one
-pump-driver approach. Disconnect and remove that inlet for screw service.
-The meter, continuous inlet tube, accepted R14 holder and
-single 63 mm square-ended foam piece belong to the standalone core assembly.
-Thread the tube through the holder and slide the foam over both before
-connecting the meter. The holder has a 2 mm wall and 3 mm legs; local foam
-compression remains an estimate informed by the recorded physical fit.
-The fore bearing has one flat step above the pump foot,
-leaving a 4.6 mm-thick east root below Z267.3. The aft bearing occupies the fore 6 mm of its fixed
-collar band, leaving 0.1 mm at the band's fore edge.
+The edge-on flow meter, both collar bearings, continuous external inlet,
+accepted R14 holder and one 63 mm square-ended foam piece belong to back-top.
+The collar bearings root into its sidewall. Thread the tube through the
+holder and slide the foam over both before connecting the meter. The holder
+has a 2 mm wall and 3 mm legs; local foam compression remains an estimate
+informed by the recorded physical fit. The core guide is a plain boundary in
+one uncut tube. Tighten the pump screws before connecting that inlet, which
+crosses one pump-driver approach; disconnect it for that screw's service.
 
 The V-B return has an integral lid restraint. Its broad ledge and flat root
 sit aft of the PCB, with one six-inch narrow tie on the fixed body band.
@@ -39,8 +31,10 @@ its final connection is at front-top's Y-A. No independent V-A printed bearing
 or retaining strip is included in this cap.
 
 Thread the V-B holder before seating the fitting and dress its tie before
-final upper connections. The native
-review includes the pump, PCB and PSU mounting tools, PSU terminal approaches,
+final upper connections. Complete J10 power termination with the selected
+return released; that return occupies its vertical screwdriver corridors.
+Release the flexible return for the recorded J11 service path. The native
+review includes the source-scoped pump and PCB mounting tools,
 seven JST housing withdrawal columns, both KF301 screw axes and 8 mm straight
 wire-entry lands. J1, J2 and J11 use the complete housing paths in the
 [connector service record](../../../mechanical-qualification/enclosure-above-core/flavor-and-connector-review.json):
@@ -51,31 +45,28 @@ east, then lifts another 20 mm. Its first lift clears the selected header by
 envelopes; hand access, flexible lead dressing, clone fit and installed
 tightening force remain unqualified. Nominal 2.5 × 0.8 mm
 strip paths and their line/arc lengths belong to `union_tie_routes()`,
-`meter_tie_routes()` and `check_tie_route()` in the mount helper; `nominal_tie_strips()` builds their
+`check_tie_route()` in the mount helper; `meter_tie_routes()` delegates to
+the back-top bearings. `nominal_tie_strips()` builds their
 complete native witness solids. Purchased tie dimensions, bend/twist transitions, threading,
 head engagement and retention remain unqualified.
 
 | Restraint | Nominal strip route | Allocated tie |
 | --- | ---: | --- |
 | V-B outlet return | Selected route under access review | One 152.4 mm narrow tie |
-| Fore meter collar | 88.65 mm | One 152.4 mm narrow tie |
-| Aft meter collar | 137.40 mm | One 152.4 mm narrow tie |
 | Water-check barrel | 69.81 mm | One 152.4 mm narrow tie |
 
 The [production arrangement](../../../manifold-layout/above-core.md) owns the
 installed component frames. [_above_core_mounts.py](../_above_core_mounts.py)
-carries the native PCB, PSU and four identical pump-foot mounting patterns into
-the cap. No equipment or wiring attaches to the removable electronics panel.
+carries the native PCB and four identical pump-foot mounting patterns into
+the cap. The PSU mounts on back-top's dry sidewall; its ceiling is continuous.
 
 | Equipment | Stations | Screw | Insert | Bearing stack and reach |
 | --- | ---: | --- | --- | --- |
 | G Ganen diaphragm pump | 4 | M3 × 20 | RX-M3x5.7 | Nominal 7 mm rubber pad + 0.8 mm washer, 5.4 mm lid and 0.15 mm dry joint; 6.65 mm nominal reach into the column |
 | Main PCB | 4 | M3 × 8 | RX-M3x5.7 | 1.6 mm PCB on 3.6 mm standoffs; 6.4 mm reach |
-| Flat IRM-90-12ST | 4 | M3 × 20 | RX-M3x5.7 | 6.7 ± 1 mm mounting ear, 5.4 mm lid and 0.15 mm dry joint; 6.75–8.75 mm reach |
 
-These twelve cup-rooted columns are Ø8 mm with Ø4 mm blind pilots 9.75 mm
-deep. The PSU's minimum ear thickness leaves 1 mm screw-tip reserve; its
-maximum still engages the full 5.7 mm insert. Flush pilot bottoms retain
+These eight cup-rooted columns are Ø8 mm with Ø4 mm blind pilots 9.75 mm
+deep. Flush pilot bottoms retain
 4.55 mm of stock to the cup's outer floor. The PCB posts pass through clearance
 holes in the lid. The pump retains its purchased rubber sliders and Ø9 × 0.8 mm
 washers; installed rubber compression and isolation remain unqualified.
@@ -143,7 +134,7 @@ The upper passages follow the installed equipment:
   meter inlet. No extra fitting or tube cut occurs at the guide.
 - Reed and sensor looms have separate lower entries and upper exits. Their
   7.5 mm passages make 5.5 mm turns within the cup. Reed B crosses at world
-  Y205 around the PCB columns; the sensor loom passes around the PSU columns.
+  Y205 around the PCB columns; the sensor loom follows its named curved corridor.
   Nominal packed loom diameters are 5.0 mm for each reed bundle and 6.6 mm for
   the sensor/earth bundle.
 
@@ -160,12 +151,12 @@ binds the exported cup, lid and continuous internal tube, including the existing
 
 The [native geometry review](above-core-native-review.json) records the scoped
 passage, insert-stock, fitting-pocket, pump/check-bridge and valve-wall interface
-queries. The twelve pilots retain their complete 9.75 mm depth with the
+queries. The eight pilots retain their complete 9.75 mm depth with the
 supplier's 1.6 mm minimum surrounding wall and at least 1 mm blind backing.
 
 The lid lifts after the equipment connections and its fasteners are released;
 the core-mounted junctions lift with it. Final inter-quadrant connections are
-accessible with the funnel frame and electronics panel removed. Both enclosure
-closures install last. The cap's dry seams require a continuous exterior foil seal. Physical fit and foil
+completed on the open subassemblies and through the available funnel opening
+before its frame is fitted. The electronics ceiling is continuous. The cap's dry seams require a continuous exterior foil seal. Physical fit and foil
 adhesion records retain their identified article scopes; they do not qualify
 this complete cap assembly or the appliance vapor barrier.
