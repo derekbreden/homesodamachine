@@ -56,7 +56,7 @@ expected_routes={r['id']:r for r in expected['routes']};actual_routes={r['id']:r
 record['source_route_count']=len(expected_routes)
 record['actual_route_count']=len(actual_routes)
 record['manifest_connection_count']=manifest['connection_count']
-record['graph_body_count']=len(expected_routes)+len(manifest['terminations'])+sum('geometry_name'in b for b in manifest['bundles'].values())
+record['graph_body_count']=len(expected_routes)+len(manifest['terminations'])+sum(bool(b.get('geometry_name'))for b in manifest['bundles'].values())
 record['missing_routes']=sorted(set(expected_routes)-set(actual_routes))
 record['extra_routes']=sorted(set(actual_routes)-set(expected_routes))
 if args.source_cache:
