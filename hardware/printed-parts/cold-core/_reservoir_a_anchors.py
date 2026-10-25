@@ -27,7 +27,6 @@ _SPECIFICATION = {
     "tie_slot_width_y_mm": 3.2,
     "tie_slot_bottom_z_mm": 251.6,
     "tie_slot_floor_stock_mm": 3.,
-    "tie_access_outer_offset_mm": 6.,
     "tie_access_inner_offset_mm": 0.,
     "tie_witness_width_mm": 2.5,
     "tie_witness_thickness_mm": .8,
@@ -54,6 +53,8 @@ def specification():
         point[2] for row in result["stations"]
         for point in row["tube_centers_world_mm"]
     ) - result["seat_radius_mm"] - result["seat_floor_stock_mm"]
+    result["tie_access_outer_offset_mm"] = max(
+        result["stock_west_of_first_tube_mm"], result["stock_east_of_last_tube_mm"])
     return result
 
 
@@ -67,24 +68,25 @@ def datums():
         y = first[1]
         half = spec["station_length_mm"] / 2
         slot_half = spec["tie_slot_width_y_mm"] / 2
-        outer = spec["tie_access_outer_offset_mm"]
         inner = spec["tie_access_inner_offset_mm"]
         east = station.get("base_east_of_last_tube_mm", spec["stock_east_of_last_tube_mm"])
+        west_edge = x0-spec["stock_west_of_first_tube_mm"]
+        east_edge = x1+east
         result[station["id"]] = {
             **station,
             "stock_bounds_mm": [
-                [x0-spec["stock_west_of_first_tube_mm"], y-half, spec["root_z_mm"]],
-                [x1+east, y+half, spec["seat_top_z_mm"]],
+                [west_edge, y-half, spec["root_z_mm"]],
+                [east_edge, y+half, spec["seat_top_z_mm"]],
             ],
             "tie_slot_bounds_mm": [
-                [x0-outer-.1, y-slot_half, spec["tie_slot_bottom_z_mm"]],
-                [x1+outer+.1, y+slot_half, spec["tie_slot_top_z_mm"]],
+                [west_edge, y-slot_half, spec["tie_slot_bottom_z_mm"]],
+                [east_edge, y+slot_half, spec["tie_slot_top_z_mm"]],
             ],
             "access_bounds_mm": [
-                [[x0-outer-.1, y-slot_half, spec["tie_slot_bottom_z_mm"]],
+                [[west_edge, y-slot_half, spec["tie_slot_bottom_z_mm"]],
                  [x0-inner, y+slot_half, spec["seat_top_z_mm"]+.1]],
                 [[x1+inner, y-slot_half, spec["tie_slot_bottom_z_mm"]],
-                 [x1+outer+.1, y+slot_half, spec["seat_top_z_mm"]+.1]],
+                 [east_edge, y+slot_half, spec["seat_top_z_mm"]+.1]],
             ],
         }
         if station.get("open_quarter_side") == "east":
