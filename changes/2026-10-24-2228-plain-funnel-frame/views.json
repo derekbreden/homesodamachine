@@ -1,0 +1,75 @@
+{
+  "views": [
+    {
+      "name": "rear-bearing",
+      "caption": "The rear surround meets the silicone bearing plane; a finite pad keeps the full M3 head seat.",
+      "before": "rear-bearing-before.webp",
+      "after": "rear-bearing-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 532.7,
+          "y": 484.5,
+          "r": 29.7,
+          "label": "Plain brim bearing",
+          "at": [
+            89,
+            76,
+            52.7
+          ]
+        }
+      ],
+      "model": "printed-parts/zone-c/funnel/funnel-frame.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          163.68635800362037,
+          122.82779934170388,
+          118.3501610465452
+        ],
+        "target": [
+          77.8,
+          77.8,
+          50.6
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 49.91049473852257,
+        "far": 495.0076021775573,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "funnel-frame"
+      ],
+      "ghost": [],
+      "only": [],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/zone-c/funnel/funnel-frame.step.mesh",
+          "from": "snapshot",
+          "sha256": "8974aa8753c014eba902badbe91942f39160aa9cc2f4dfbd65552abf34c07b07",
+          "commit": "362f9c4cf07b171f020ef3a3368bd717cdadd039",
+          "taken": "2026-10-25T03:22:13.512Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/zone-c/funnel/funnel-frame.step.mesh",
+          "from": "tree",
+          "sha256": "8abaa20cb27099b4bba24f371268090e1af8dfcf9174e3b28d3314713f03398c",
+          "commit": "b6b4f15d76b454575742bc8a0ace653389f80f83",
+          "published": false
+        }
+      },
+      "changed": [
+        "funnel-frame"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
