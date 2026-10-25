@@ -1,0 +1,166 @@
+{
+  "printer_model": "Bambu Lab H2C",
+  "printer_settings_id": "Bambu Lab H2C 0.8 Standard +0.04 Z trim",
+  "print_settings_id": "0.40mm Standard @BBL H2C 0.8 nozzle",
+  "nozzle_diameter": [
+    "0.8",
+    "0.8"
+  ],
+  "nozzle_volume_type": [
+    "High Flow",
+    "Standard"
+  ],
+  "filament_map": [
+    "1"
+  ],
+  "filament_nozzle_map": [
+    "0"
+  ],
+  "filament_settings_id": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "filament_type": [
+    "PET-CF"
+  ],
+  "filament_colour": [
+    "#161616"
+  ],
+  "filament_density": [
+    "1.29"
+  ],
+  "curr_bed_type": "Textured PEI Plate",
+  "layer_height": "0.4",
+  "initial_layer_print_height": "0.4",
+  "line_width": "0.82",
+  "outer_wall_line_width": "0.82",
+  "inner_wall_line_width": "0.82",
+  "top_surface_line_width": "0.82",
+  "initial_layer_line_width": "0.82",
+  "wall_loops": "2",
+  "wall_generator": "classic",
+  "top_shell_layers": "4",
+  "top_shell_thickness": "0.8",
+  "bottom_shell_layers": "3",
+  "bottom_shell_thickness": "0",
+  "sparse_infill_density": "15%",
+  "sparse_infill_pattern": "gyroid",
+  "nozzle_temperature_initial_layer": [
+    "265",
+    "265",
+    "270"
+  ],
+  "nozzle_temperature": [
+    "280",
+    "280",
+    "270"
+  ],
+  "textured_plate_temp_initial_layer": [
+    "80"
+  ],
+  "textured_plate_temp": [
+    "80"
+  ],
+  "chamber_temperatures": [
+    "0"
+  ],
+  "filament_flow_ratio": [
+    "0.9555",
+    "0.9555",
+    "1"
+  ],
+  "filament_max_volumetric_speed": [
+    "18",
+    "18",
+    "5"
+  ],
+  "fan_min_speed": [
+    "0"
+  ],
+  "fan_max_speed": [
+    "0"
+  ],
+  "overhang_fan_speed": [
+    "70"
+  ],
+  "overhang_fan_threshold": [
+    "50%"
+  ],
+  "additional_cooling_fan_speed": [
+    "0"
+  ],
+  "close_fan_the_first_x_layers": [
+    "3"
+  ],
+  "reduce_fan_stop_start_freq": [
+    "0"
+  ],
+  "pre_start_fan_time": [
+    "0"
+  ],
+  "enable_support": "0",
+  "support_type": "tree(auto)",
+  "support_style": "default",
+  "brim_type": "auto_brim",
+  "brim_width": "5",
+  "brim_object_gap": "0.1",
+  "elefant_foot_compensation": "0.15",
+  "outer_wall_speed": [
+    "200",
+    "500",
+    "200",
+    "500"
+  ],
+  "inner_wall_speed": [
+    "300",
+    "600",
+    "300",
+    "600"
+  ],
+  "initial_layer_speed": [
+    "50",
+    "50",
+    "50",
+    "50"
+  ],
+  "bridge_speed": [
+    "30",
+    "30",
+    "30",
+    "30"
+  ],
+  "gap_infill_speed": [
+    "50",
+    "50",
+    "50",
+    "50"
+  ],
+  "retraction_length": [
+    "3",
+    "3",
+    "3",
+    "3"
+  ],
+  "retraction_speed": [
+    "30",
+    "30",
+    "30",
+    "30"
+  ],
+  "filament_retraction_length": [
+    "nil",
+    "nil",
+    "nil"
+  ],
+  "z_hop": [
+    "0.4",
+    "0.4",
+    "0.4",
+    "0.4"
+  ],
+  "filament_z_hop": [
+    "nil",
+    "nil",
+    "nil"
+  ],
+  "machine_start_gcode_sha256": "915a8b39a88148a6629caaa0d947cba7b635738f962d2221fad43b449342b56d"
+}

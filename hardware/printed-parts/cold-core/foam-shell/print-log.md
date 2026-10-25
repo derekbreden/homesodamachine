@@ -15,29 +15,27 @@ same spool the enclosure's exterior runs, on the big nozzle instead of the exter
 left, and the left nozzle is also the one whose 325 × 320 × 320 mm envelope holds a part this
 size, so the abrasive path and the big-part path are one path.
 
-The plate keeps its own figures — 0.4 layer, `line_width` 0.82, `wall_loops` 2 classic, 15 %
-grid — and takes the stock's from the slot the exterior is sliced on
-([enclosure/print-log.md](/hardware/printed-parts/enclosure/enclosure/print-log.md) "The
-PET-GF15 exterior"):
+The plate uses 0.4 mm layers, `line_width` 0.82, `wall_loops` 2 classic and 15%
+gyroid. It takes the filament settings from the current shared
+[`petgf.3mf`](../../petgf.3mf):
 
 | | Value |
 |---|---|
 | Filament preset | `Polymaker PET-GF @BBL H2C` |
-| `nozzle_temperature` | 290 °C |
-| `hot_plate_temp` / `textured_plate_temp` | 100 °C |
-| `chamber_temperatures` | 50 °C |
+| `nozzle_temperature` / initial layer | 280 / 265 °C |
+| `hot_plate_temp` / `textured_plate_temp` | 80 °C |
+| `chamber_temperatures` | 0 °C (unheated) |
 | `filament_flow_ratio` | 0.9555 |
 | `filament_max_volumetric_speed` | 18 mm³/s |
-| Fan min / max / overhang | 0 / 0 / 0 % |
+| Fan min / max / bridge-overhang | 0 / 0 / 70%; 50% unsupported-width threshold |
 | `filament_retraction_length` | nil |
 
 Drying is per spool, not per build: 100 °C × 10 h in the SUNLU E2 only if the spool has taken
 on moisture, and a 3 kg spool feeds the print from a PolyDryer Box XL rather than the E2
 ([tools.md](/hardware/ledger/tools.md) "What dries where").
 
-**No PET-GF plate of this part has been sliced.** Both attempts below ran `Bambu PETG Basic`,
-and the hours [machine-time.md](/hardware/ledger/machine-time.md) §1 carries for this group are
-attempt 2's carried across the stock rather than measured on it. Slicing one closes that.
+The historical physical attempts below used `Bambu PETG Basic`. Native PET-GF
+preparations do not establish a physical print result.
 
 ## Print attempt 1 (settings per [`foam-shell-8mm-high-flow.3mf`](foam-shell-8mm-high-flow.3mf))
 
