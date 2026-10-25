@@ -47,7 +47,7 @@ LEGS = {
                    ("GND → 221-420", 1, ["wago-reeds-b"])],
     "J9 DISPLAY": [("all four", 4, ["display"])],
     "J11 GAS": [("all four", 4, ["mq6-sensor"])],
-    "J13 PUMPS": [("fixed AM1/AM2, BM1/BM2", 4, ["pump-contact-male"])],
+    "J13 PUMPS": [("AM1/AM2, BM1/BM2 → tabs", 4, ["pump-a-motor", "pump-b-motor"])],
 }
 
 # J3 is not measured: SIG-6 is the one loom that leaves the box, climbing the umbilical to the
@@ -80,12 +80,6 @@ def measure():
             routed = max(reach(b) for b in bodies) * factor
             rows.append((loom, label, count, routed))
             total += count * routed
-    # DC-5's cartridge half starts at the contact pair's female half, inside the clamp, and ends on
-    # the two motors' tabs: it rides the cartridge and never reaches the board.
-    cartridge = max(math.dist(pos["pump-contact-female"], pos[m])
-                    for m in ("pump-a-motor", "pump-b-motor")) * factor
-    rows.append(("DC-5 CARTRIDGE", "contact pair → motors", 4, cartridge))
-    total += 4 * cartridge
     return rows, total, factor
 
 

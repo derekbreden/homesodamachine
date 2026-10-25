@@ -112,7 +112,7 @@ def mesh_review():
                     'mesh_penetration_mm':round(float(hit.penetration_depth),4)})
     termination_collisions=[]
     for name,info in manifest.get('terminations',{}).items():
-        if not name.startswith(('terminal-fuse-','terminal-pogo-')):continue
+        if not name.startswith('terminal-fuse-'):continue
         for other in physical:
             if name==other or not near(name,other):continue
             bad=[]

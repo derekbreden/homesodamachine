@@ -118,7 +118,7 @@ class Attachments:
         return carry
 
     def resolve(self):
-        self.board(); self.valves(); self.wagos(); self.power(); self.contacts()
+        self.board(); self.valves(); self.wagos(); self.power(); self.pump_motors()
         self.sensors(); self.boundaries()
         self.cable_passages()
         return self.terminals
@@ -269,21 +269,12 @@ class Attachments:
             self.put('ground.'+label,'ground-stack',p,a,'ring-barrel',
                      'Native crimp-barrel free end; compressor uses the downward-facing lug',pin=i+1)
 
-    def contacts(self):
-        for side,part,outward in (('male','pump-contact-male',(0,1,0)),('female','pump-contact-female',(0,-1,0))):
-            lo,hi=bounds(self.part(part)); z=(lo[2]+hi[2])/2
-            for i,x in enumerate((3.81,1.27,-1.27,-3.81),1):
-                self.put(f'pogo-{side}.{i}',part,((lo[0]+hi[0])/2+x,hi[1] if side=='male' else lo[1],z),
-                         (0.,0.,1.) if side=='female' else outward,
-                         'solder-tail',
-                         ('Native back-tail plane; proposed upward wire dressing into the cartridge motor wells' if side=='female' else
-                          'Native back-tail plane; contact order +X to −X'),
-                         'nominal' if side=='female' else 'modeled',pin=i)
+    def pump_motors(self):
         for bank in ('a','b'):
             name=f'pump-{bank}-motor'; lo,hi=bounds(self.part(name)); c=centre(self.part(name))
             for i,dx in ((1,-4.),(2,4.)):
-                self.put(f'pump-{bank}.{i}',name,(c[0]+dx,c[1],hi[2]),(0,0,1),'motor-lead',
-                         'Native motor rear-cap plane at +Z, under the clamp terminal well; actual motor tabs unlocated','unlocated',i)
+                self.put(f'pump-{bank}.{i}',name,(c[0]+dx,c[1],hi[2]),(0,0,1),'female-disconnect',
+                         'Faston receptacle on the motor tab, at the native rear-cap plane under the clamp terminal well; actual motor tabs unlocated','unlocated',i)
 
     def sensors(self):
         ea=self.ea

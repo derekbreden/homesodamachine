@@ -27,13 +27,13 @@ def owner(part):
             'vk-solenoid','ground-stack','digiten-flow',
             'wago-v12','wago-gnd','wago-sensors','wago-reeds-b'):
         return 'cold-core'
-    if part in ('pump-contact-female','pump-a-motor','pump-b-motor'):
+    if part in ('pump-a-motor','pump-b-motor'):
         return 'pump-cartridge'
     if part in ('compressor','condenser+fan','thermal-fuse','mq6-sensor'):
         return 'front-bottom'
     if part in ('relay-1','relay-2'):
         return 'back-top'
-    if part.startswith('coil-v-') or part in ('display','pump-contact-male','wago-mana','wago-manb'):
+    if part.startswith('coil-v-') or part in ('display','wago-mana','wago-manb'):
         return 'front-top'
     return 'back-top'
 
@@ -45,9 +45,6 @@ def interfaces(terminals,graph):
         ports=sorted(t for t in used if terminals[t].part==part)
         buses.append({'id':part,'terminals':ports,'kind':'ring stack' if part=='ground-stack' else 'WAGO busbar'})
     return {'common_junctions':buses,
-            'mating_contacts':[{'id':f'cartridge-contact-{i}','fixed':f'pogo-male.{i}',
-                                'moving':f'pogo-female.{i}','net':label}
-                               for i,label in enumerate(('AM2','AM1','BM2','BM1'),1)],
             'assembly_owners':{t:owner(terminals[t].part) for t in sorted(used)},
             'crossing_wires':[{'wire':c.id,'from':owner(terminals[c.start].part),
                                'to':owner(terminals[c.end].part)} for c in graph
@@ -87,10 +84,9 @@ def connections():
         ("J2-OUT3", "J2.OUT3", "J2.OUT3", "V-K.negative", "DC-9"),
         ("J2-positive-K", "V12", "wago-manb.5", "V-K.positive", "DC-9")):
         wire(id, "J2", net, start, end, schedule=schedule)
-    for label, tail, motor in (("AM2", 1, "pump-a.2"), ("AM1", 2, "pump-a.1"),
-                               ("BM2", 3, "pump-b.2"), ("BM1", 4, "pump-b.1")):
-        wire("J13-"+label, "J13", label, "J13."+label, f"pogo-male.{tail}", schedule="DC-5")
-        wire("cartridge-"+label, "Cartridge", label, f"pogo-female.{tail}", motor, schedule="DC-5", service="moves with pump cartridge")
+    for label, motor in (("AM2", "pump-a.2"), ("AM1", "pump-a.1"),
+                         ("BM2", "pump-b.2"), ("BM1", "pump-b.1")):
+        wire("J13-"+label, "J13", label, "J13."+label, motor, schedule="DC-5")
     for label, pin in (("V5", 2), ("GND", 3), ("IO35", 4), ("IO33", 5)):
         wire("J3-"+label, "J3", label, "J3."+label, f"keystone.{pin}", schedule="SIG-6")
     for label, target in (("3V3", "temp-carbonator.V"), ("IO26", "temp-carbonator.DATA"),

@@ -2,11 +2,11 @@
 
 The enclosure's electrical graph and proposed installed geometry live together in
 this model. Every insulated conductor has a stable ID, two named attachments, a
-stock profile, an assembly owner and a routed centreline. The four separable pump
-contacts and each distribution bus are explicit electrical interfaces.
+stock profile, an assembly owner and a routed centreline. Each distribution bus
+is an explicit electrical interface.
 
 - [Populated enclosure](../manifold-layout/enclosure-assembly.step): hardware,
-  printed pieces, wiring, connector housings and pogo-joint insulation together.
+  printed pieces, wiring, connector housings and fuse-splice insulation together.
 - [Wiring assembly](enclosure-wiring.step): the same installed wiring on its own.
 - [Resolved model](enclosure-wiring.json): terminal positions and directions,
   sources, nominal dimensions, connections, routes, lengths and service boundaries.
@@ -25,11 +25,11 @@ contacts and each distribution bus are explicit electrical interfaces.
   shared cable corridor and fuse fanout.
 
 The model covers the AC inlet, PSU, compressor/fuse lead, earth bonds, 12 V
-distribution, diaphragm pump, all eleven valves, condenser fan, both pump-contact
-halves, both pump motors, rear faucet jack, enclosure display, gas sensor, two
-temperature probes and all ten reeds. The external line cord and the faucet's
-outboard umbilical end at their enclosure interfaces. J2 OUT4, J4 IO23/IO27 and
-the I2C expansion header have no installed cable.
+distribution, diaphragm pump, all eleven valves, condenser fan, both pump motors,
+rear faucet jack, enclosure display, gas sensor, two temperature probes and all
+ten reeds. The external line cord and the faucet's outboard umbilical end at
+their enclosure interfaces. J2 OUT4, J4 IO23/IO27 and the I2C expansion header
+have no installed cable.
 
 ## Attachments and fidelity
 
@@ -41,21 +41,24 @@ route's status.
 
 Valve attachments use the separate native metal spades. G/J's proposed wire exit
 is aft from the tab engagement region; the tabs and disconnects can bend. The
-model imposes no rigid Faston boot box. Board pin identities and physical XY
-positions come from the fabricated `pcba.circuit.json`, carried through the native
-board pose. J10's side wire entries are separate from the screw-head direction.
-The tilted display and vertical pump motors retain their own reference frames.
+model imposes no rigid Faston boot box on a valve or pump-motor tab. Board pin
+identities and physical XY positions come from the fabricated `pcba.circuit.json`,
+carried through the native board pose. J10's side wire entries are separate from
+the screw-head direction. The tilted display and vertical pump motors retain
+their own reference frames.
 
 The ten XH housings use nominal dimensions from the
 [JST XH drawing](https://www.jst-mfg.com/product/pdf/eng/eXH.pdf): 2.5 mm pitch,
 5.7 mm depth, 7.5 mm housing height and 9.8 mm assembled height above the board.
 Their outer profiles and wire throats are layout envelopes; latch details and the
-on-hand copies' fit are unmeasured. Each pogo solder exit has its own proposed
-heat-shrink sleeve.
+on-hand copies' fit are unmeasured.
 
-The female pogo tails dress upward into the cartridge's motor wells. Each
-pogo-joint sleeve follows the first 4 mm of its wire, including the bend.
-Two conductors per motor follow the cartridge's existing paired-wire grooves.
+The four J13 conductors leave the board stacked 1.9 mm apart, over the J6 leads
+and west of the Y-B stem elbow. They cross the bulkhead side by side through
+front-top's lead bore, `AM2`, `AM1`, `BM2` and `BM1` from +X to −X, climb the
+clamp's lead-slot floor and follow one crown groove per pump into its terminal
+well. Each motor's outboard tab takes its groove's aft lane, and each lead ends
+in a Faston receptacle on its motor tab.
 
 The compressor's three conductors share one jacket corridor below the funnel
 frame, through the gap between the valve banks and into the compressor bay.
@@ -103,14 +106,12 @@ needs attention; geometry remains visible for complete electrical coverage. An
 unsuccessful bounded route search does not prove that the physical route is
 impossible. The manual routing report names actual mesh intersections separately.
 
-The fixed J13 lead belongs to the enclosure. Its cartridge-side counterpart and
-four motor leads leave with the pump cartridge. The manifest lists every wire
-crossing between the base, cold core, front-top, back-top and cartridge. Electrical
-continuity through the magnetic pair is represented by the four mating-contact
-records, rather than by permanent wires across the service joint.
+The manifest lists every wire crossing between the base, cold core, front-top,
+back-top and the pump cradle (`pump-cartridge`). The four J13 conductors run
+from the board on the cold core to the motor tabs on the cradle.
 
 A drawn route does not establish that the dressed harness permits every enclosure
-closing or removal motion. Terminal access, actual ribbon web/branch dressing,
+assembly and closing motion. Terminal access, actual ribbon web/branch dressing,
 sleeve fit and service slack remain assembly details. Centreline lengths exclude
 hidden termination insertion and a final cut allowance; the CSV is not a cut list.
 The mechanical assembly scorecard retains its mechanical scope. Wiring review is
@@ -122,7 +123,7 @@ The editable source is under [`installed/`](installed/):
 
 | Source | Responsibility |
 | --- | --- |
-| `connections.py` | Conductor IDs, nets, logical endpoints, common buses, separable contacts and owners |
+| `connections.py` | Conductor IDs, nets, logical endpoints, common buses and owners |
 | `terminals.py` | Reference geometry, pin map, attachment location/direction and fidelity |
 | `connector-map.json` | Tracked snapshot of fabricated board pins, source hashes and the J10 component envelope |
 | `model.py` | Stock profiles, tangent circular bends, native wire construction and lengths |
@@ -142,7 +143,7 @@ The normal `enclosure_assembly.py` composition includes the same wiring model.
 The wiring-only materializer replaces its own marked STEP subassembly and viewer
 meshes; existing physical component records and meshes are retained. Native and
 viewer outputs use the same `wire-<ID>` and `terminal-<ID>` names. For example,
-`wire-J13-AM2` is the fixed AM2 conductor in both assemblies and in the worksheet.
+`wire-J13-AM2` is the AM2 conductor in both assemblies and in the worksheet.
 
 After a PCB export, refresh `connector-map.json` explicitly with
 `tools/cad-venv/bin/python hardware/wiring/installed/export_connector_map.py`.
@@ -163,18 +164,21 @@ the current physical meshes and earlier wires; `--retry` preserves saved routes
 and searches unresolved ones. Its output needs the same route and assembly review
 as hand-authored stations.
 
-The current model has 102 proposed conductor routes and no unresolved routes.
-Sixteen device-terminal locations remain unlocated. Native readback finds all
-102 wires valid, each a single solid, with identical installed bounds. All
-22 connector and insulation bodies are valid single solids. Shared bundle
-cores have zero native overlap with each other or the compressor jacket.
+The current model has 98 proposed conductor routes and no unresolved routes.
+Sixteen device-terminal locations remain unlocated. Native readback places every
+wire with identical installed bounds. 88 of the 98 wires are valid single solids;
+the other ten are cores of the reed-column and sensor-cable bundles. All 14
+connector and insulation bodies are valid single solids. The compressor jacket
+is a valid single solid with zero native overlap with its cores. Cores overlap
+one another within the compressor cord, both reed columns and the sensor cable.
 
-The full mesh review reports two wire/body contacts at the PCB attachments and
-eight wire/wire contacts at continuous bus or splice nodes. Exact-solid follow-up
-finds zero overlap outside those local electrical endpoints. No jacket or
-pogo/fuse insulation interference appears in the mesh reading. These are
-installed-geometry readings; closing motions and physical harness dressing
-retain the scope described above.
+The full mesh review records 16 wire/body pairs and 339 wire/wire pairs. Eight
+wire/body pairs are the four J13 conductors against `pump-contact-male` and
+`pump-contact-female`, meshes in the reviewed assembly payload that the current
+enclosure source does not build; the J13 conductors meet no other body and no
+other wire. No jacket or fuse insulation interference appears in the mesh
+reading. These are installed-geometry readings; closing motions and physical
+harness dressing retain the scope described above.
 
 The [compressor-cable review](installed/compressor-review.json) records no
 hardware or neighboring-wire intersections for its jacket, three cores and

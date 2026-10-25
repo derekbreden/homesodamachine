@@ -237,9 +237,9 @@ def main():
         for r in manifest['routes']:
             if r['id'] in routed_ids:nav.reserve(r,r['points_mm'],STOCK[r['stock']]['od_mm']/2)
         rows=[r for r in rows if r['id'] not in routed_ids]
-    # Conduit conductors and cartridge wires go first; their passages are the
-    # most constrained. Each later route sees the earlier physical wires.
-    rows.sort(key=lambda r:(0 if r['id'] in portals else 1 if r['harness']=='Cartridge' else 2,
+    # Conduit conductors go first; their passages are the most constrained.
+    # Each later route sees the earlier physical wires.
+    rows.sort(key=lambda r:(0 if r['id'] in portals else 1,
                             -STOCK[r['stock']]['od_mm'],r['harness'],r['id']))
     failed=[];began=time.time()
     for number,row in enumerate(rows,1):
@@ -265,10 +265,9 @@ def main():
             if conduit:
                 path=[tuple(a),tuple(b)] if nav.clear(a,b,radius+.08,ends) else None
             else:
-                domain=([-88.,5.,220.],[88.,82.,283.5]) if row['harness']=='Cartridge' else None
-                path=nav.path(a,b,radius+.6,ends,domain=domain)
+                path=nav.path(a,b,radius+.6,ends)
                 if path is None:path=nav.path(a,b,radius+.12,ends,step=2.,limit=15000,
-                                            domain=domain,grid_origin=b)
+                                            grid_origin=b)
             if path is None:
                 failed.append({'id':row['id'],'reason':'no route in search domain','from':list(a),'to':list(b)})
                 ok=False;break

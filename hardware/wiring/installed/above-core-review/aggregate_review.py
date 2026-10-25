@@ -36,7 +36,7 @@ METER_WIRES=frozenset(('wire-J4-V5','wire-J4-IO25','wire-flow-GND'))
 B_FILL=frozenset(('reservoir-b-fill-lower','reservoir-b-fill-upper'))
 EMPTY_J4_CONTACTS=('J4.IO23','J4.IO27')
 JUNCTION_FIXED=frozenset(('compressor','condenser+fan','mq6-sensor','thermal-fuse',
-    'fuse-clamp','display','display-cover','pump-contact-male','pump-contact-female',
+    'fuse-clamp','display','display-cover',
     'funnel-frame','elbow-cradle','funnel-drain-union','funnel-drain-stub'))
 
 
@@ -79,7 +79,7 @@ def selected_equipment():
 
 def fixed_interface(leaf):
     return (leaf.startswith(('coil-v-','valve-v-','tee-y-','stem-elbow-',
-                             'flavor-reducer-','pump-a-','pump-b-','pump-contact-')) or
+                             'flavor-reducer-','pump-a-','pump-b-')) or
             leaf in ('display','display-cover','elbow-cradle','funnel-drain-union',
                      'funnel-drain-stub','thermal-fuse','fuse-clamp'))
 
@@ -106,10 +106,8 @@ def preparation_lengths(manifest):
         ('DC-4 fixed 16 AWG','len_mid_mm',(('DC4-V12',),('DC4-GND',))),
         ('compressor SJOOW stock','len_compressor_mm',
          (('AC4-H','AC4-fuse'),('AC5-N',),('AC6-PE',))),
-        ('J13 fixed ribbon','len_pump_fixed_mm',
+        ('J13 pump ribbon','len_pump_fixed_mm',
          tuple((name,) for name in routes if name.startswith('J13-'))),
-        ('cartridge pump leads','len_cartridge_mm',
-         tuple((name,) for name in routes if name.startswith('cartridge-'))),
         ('manifold A common','len_man_a_com_mm',(('J1-COM',),)),
         ('manifold A returns','len_man_a_mm',
          tuple((name,) for name in routes if name.startswith('J1-OUT'))),

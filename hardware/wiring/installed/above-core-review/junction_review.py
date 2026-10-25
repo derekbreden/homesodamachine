@@ -27,8 +27,8 @@ components.update({n:s for n,s,_c,_carry in appliance.build_drain_joint(frame_bo
 def bb(s):
  b=s.BoundingBox();return [getattr(b,n) for n in ('xmin','ymin','zmin','xmax','ymax','zmax')]
 def over(a,b):return all(a[i+3]>b[i]+1e-5 and b[i+3]>a[i]+1e-5 for i in range(3))
-# Include the unchanged native front manifold, complete cartridge equipment,
-# display/pogo/drain hardware and retained internal front tubes from the explicit
+# Include the unchanged native front manifold, complete pump-bay equipment,
+# display/drain hardware and retained internal front tubes from the explicit
 # bounded fixture; current selected source poses replace any same-named cache.
 cache_dir=TEMP/'junction-fixed'
 cache_index=cache_dir/'index.json'
@@ -36,7 +36,7 @@ if not cache_index.exists():cache_dir=TEMP;cache_index=TEMP/'index.json'
 cache=json.loads(cache_index.read_text())
 cachefiles=cache['parts']
 retained_files={}
-retained=('compressor','condenser+fan','mq6-sensor','thermal-fuse','fuse-clamp','display','display-cover','pump-contact-male','pump-contact-female','funnel-frame','elbow-cradle','funnel-drain-union','funnel-drain-stub')
+retained=('compressor','condenser+fan','mq6-sensor','thermal-fuse','fuse-clamp','display','display-cover','funnel-frame','elbow-cradle','funnel-drain-union','funnel-drain-stub')
 for qualified_name,file in cachefiles.items():
  name=qualified_name.rsplit('/',1)[-1]
  if (name in retained or name.startswith(('pump-a-','pump-b-','tee-y-','stem-elbow-','flavor-reducer-')) or
