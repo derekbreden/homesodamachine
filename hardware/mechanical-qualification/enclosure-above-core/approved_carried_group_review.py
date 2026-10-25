@@ -45,7 +45,8 @@ def overlap(a, b):
 
 def signature(shape):
     return {'valid': shape.isValid(), 'solids': len(shape.Solids()),
-            'volume_mm3': volume(shape), 'bounds_mm': bounds(shape)}
+            'faces':len(shape.Faces()),'volume_mm3': volume(shape),
+            'center_mm':list(shape.Center().toTuple()),'bounds_mm': bounds(shape)}
 
 
 def reading(a, b, finite=None):
@@ -331,6 +332,19 @@ def electrical_review(args):
     selected = {'tube-'+n:parts.route_shape(specifications[n]) for n in
         ('above-core-va-under-head','above-core-water-in','above-core-vb-yb-cross','above-core-vb-yb-link')}
     selected['vb-outlet-return'] = rows['vb-outlet-return'][0]
+    native_group = {**selected,**{n:rows[n][0] for n in
+        ('valve-v-a','vk-solenoid','psu','pump-inlet-tpu')},'digiten-flow':meter}
+    group_receipt = HERE/'approved-carried-group-review.json'
+    if group_receipt.exists():
+        prior = json.loads(group_receipt.read_text())
+        prior['source_native_signatures'] = {n:signature(s) for n,s in native_group.items()}
+        prior['signature_query_source_sha256'] = sha(Path(__file__))
+        prior['signature_query_arrangement_sha256'] = sha(ROOT/'hardware/manifold-layout/above-core.json')
+        prior['signature_scope'] = 'Source-native bodies in the unchanged selected poses; the optional electrical query adds their signatures without repeating the decisive mechanical point queries.'
+        group_receipt.write_text(json.dumps(prior,indent=2)+'\n')
+    for n,s in native_group.items():
+        if n in ('pump-inlet-tpu','valve-v-a','vk-solenoid'):
+            s.exportBrep(str(args.fixture_dir/(n+'.brep')))
     record = {'schema':1,'units':'mm','scope':'Manual source-native consequence query: selected return/under-head/ASSE tubes versus all102 current source conductors and cached physical housings; restored C14 three conductors versus selected purchased equipment and all current native tube paths. No new build hook or physical wire qualification.',
         'source_sha256':{str(p.relative_to(ROOT)):sha(p) for p in (Path(__file__),
             ROOT/'hardware/manifold-layout/above-core.json',Path(parts.__file__),Path(plumbing.__file__),

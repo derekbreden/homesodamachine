@@ -1005,8 +1005,203 @@
   "status": "requires_sequence_resolution",
   "manual_reader": {
     "path": "hardware/mechanical-qualification/enclosure-above-core/approved_carried_group_review.py",
-    "sha256": "48ef84d707007dbe2477bdd976231a1fd71ece93d06ff9af34b6edcda3f4bceb",
+    "sha256": "71d5a4d2a980a353988cd5986a39c647712b6539c6849945345ec59e628170eb",
     "command": "HSM_NO_BUILD_LOCK=1 tmp/takeover/cadq \"Approved carried-group query\" -- tools/cad-venv/bin/python hardware/mechanical-qualification/enclosure-above-core/approved_carried_group_review.py --lid <source-current-world-lid.brep>",
     "scope": "Manually invoked mechanical query; --electrical-only resolves source-wire consequences independently. The execution source hashes remain in source_sha256."
-  }
+  },
+  "source_native_signatures": {
+    "tube-above-core-va-under-head": {
+      "valid": true,
+      "solids": 1,
+      "faces": 8,
+      "volume_mm3": 1823.5229594140096,
+      "center_mm": [
+        -22.97991704299118,
+        302.66429645968884,
+        262.19961901998613
+      ],
+      "bounds_mm": [
+        -74.2451011287684,
+        293.1647604281867,
+        258.4249999,
+        28.269310100000002,
+        312.31050010000007,
+        265.96064798053675
+      ]
+    },
+    "tube-above-core-water-in": {
+      "valid": true,
+      "solids": 1,
+      "faces": 8,
+      "volume_mm3": 1177.0426293470227,
+      "center_mm": [
+        37.24999945497018,
+        425.80166878465315,
+        336.30746212355075
+      ],
+      "bounds_mm": [
+        34.0749987712316,
+        392.3849605281867,
+        331.2010477805363,
+        40.42500010000001,
+        459.2100001,
+        341.5510479805364
+      ]
+    },
+    "tube-above-core-vb-yb-cross": {
+      "valid": true,
+      "solids": 1,
+      "faces": 4,
+      "volume_mm3": 1186.202496201434,
+      "center_mm": [
+        13.445278416281688,
+        280.69954,
+        285.41391729072245
+      ],
+      "bounds_mm": [
+        -20.46332900257188,
+        277.52454,
+        277.56637360671834,
+        47.353885835135195,
+        283.87454,
+        293.261460974726
+      ]
+    },
+    "tube-above-core-vb-yb-link": {
+      "valid": true,
+      "solids": 1,
+      "faces": 38,
+      "volume_mm3": 1917.574040538062,
+      "center_mm": [
+        -25.150749200375746,
+        221.92174322659272,
+        284.40569619923633
+      ],
+      "bounds_mm": [
+        -29.17175765370465,
+        167.9661086954074,
+        273.5451999,
+        -19.483968514141246,
+        275.83715,
+        293.96907385084853
+      ]
+    },
+    "vb-outlet-return": {
+      "valid": true,
+      "solids": 3,
+      "faces": 201,
+      "volume_mm3": 3935.9042173850407,
+      "center_mm": [
+        -18.730966138586002,
+        274.6330109909907,
+        289.9359935587139
+      ],
+      "bounds_mm": [
+        -32.926523961791986,
+        260.13715,
+        280.50048142071176,
+        -3.8159569602398937,
+        288.86244,
+        298.8840737508485
+      ]
+    },
+    "valve-v-a": {
+      "valid": true,
+      "solids": 11,
+      "faces": 333,
+      "volume_mm3": 40520.51920347724,
+      "center_mm": [
+        -76.34189070033864,
+        312.17234096193124,
+        298.2495746961902
+      ],
+      "bounds_mm": [
+        -93.15410112876839,
+        285.28976052818666,
+        268.8308478805363,
+        -59.65410112876839,
+        342.5897606281867,
+        328.3308478805363
+      ]
+    },
+    "vk-solenoid": {
+      "valid": true,
+      "solids": 11,
+      "faces": 333,
+      "volume_mm3": 40520.51920353566,
+      "center_mm": [
+        76.4666406131742,
+        312.17121798895624,
+        298.24957469590976
+      ],
+      "bounds_mm": [
+        59.65409887123158,
+        285.28976052818666,
+        268.8308478805363,
+        93.15409887123158,
+        342.5897606281867,
+        328.3308479805363
+      ]
+    },
+    "psu": {
+      "valid": true,
+      "solids": 1,
+      "faces": 24,
+      "volume_mm3": 155682.55378295667,
+      "center_mm": [
+        -69.9999938964844,
+        400.3430003941721,
+        269.2959144428155
+      ],
+      "bounds_mm": [
+        -95.9999938964844,
+        346.00001220703126,
+        253.39999999999998,
+        -43.9999938964844,
+        455.00001220703126,
+        286.9
+      ]
+    },
+    "pump-inlet-tpu": {
+      "valid": true,
+      "solids": 1,
+      "faces": 19,
+      "volume_mm3": 3570.942493562713,
+      "center_mm": [
+        48.062358163042575,
+        326.75456791968764,
+        278.6185944824733
+      ],
+      "bounds_mm": [
+        35.39276616622686,
+        310.50555077415623,
+        266.3342851515055,
+        59.003250768104294,
+        337.3503908745685,
+        287.82768186805146
+      ]
+    },
+    "digiten-flow": {
+      "valid": true,
+      "solids": 12,
+      "faces": 134,
+      "volume_mm3": 31751.083740359103,
+      "center_mm": [
+        54.683163459794415,
+        390.9167375379281,
+        299.4098613329529
+      ],
+      "bounds_mm": [
+        40.599999999999994,
+        360.41479999999996,
+        279.8760478805363,
+        68.9,
+        421.41479999999996,
+        315.5260478805363
+      ]
+    }
+  },
+  "signature_query_source_sha256": "71d5a4d2a980a353988cd5986a39c647712b6539c6849945345ec59e628170eb",
+  "signature_query_arrangement_sha256": "12fe326b7b7cfa8c67c8efbcea57eb83fe646ceca2a8f3d1809db636d749583f",
+  "signature_scope": "Source-native bodies in the unchanged selected poses; the optional electrical query adds their signatures without repeating the decisive mechanical point queries."
 }

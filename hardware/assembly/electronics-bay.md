@@ -77,6 +77,11 @@ Tools: ESD mat, suitable wire and contact crimpers, soldering tools for the
 specified soldered joints, helping hands, insulated driver and multimeter.
 Keep the appliance unplugged throughout this assembly.
 
+Follow the carrying parts and closing order in
+[enclosure-mechanical.md](enclosure-mechanical.md). The
+[carried-group review](../mechanical-qualification/enclosure-above-core/approved-carried-group-review.json)
+records the current rigid-slide and final-connection limits.
+
 ## Assembly
 
 1. Prepare the cold-core internal wiring and the lid-mounted equipment while
@@ -99,7 +104,9 @@ Keep the appliance unplugged throughout this assembly.
    programming interface.
 3. Land the fixed AC and DC runs by the schedule: C14 to H/N/G, H/N to the
    PSU primary, H to relay 1 COM, the PSU secondary to V12/GND, V12 to relay 2
-   COM, and V12/GND to PCB J10. Relay 2 NO feeds the pump positive lead;
+   COM, and V12/GND to PCB J10. Keep the V-B return union and its flexible
+   return tube clear while landing J10, then fit them at their selected poses.
+   Relay 2 NO feeds the pump positive lead;
    pump negative returns to GND. Relay 1 NO, neutral and protective earth
    are the continuous three cores of the compressor's single SJOOW lead. Its
    jacket rises through the open front floor lane near X48/Y130 and ends at
@@ -118,6 +125,9 @@ Keep the appliance unplugged throughout this assembly.
    roof openings clear. Use these openings to connect J1/J2 valve commons
    and returns, J13 pump contacts, J9 display, the remaining PCB sensor/data
    headers, the rear relay connections and the core-to-rear power leads.
+   Bounded J11 housing service uses 6 mm up, 6 mm east and 20 mm up after
+   removing the funnel/frame and disconnected cradled drain and releasing the
+   flexible B return from its path. Flexible lead handling remains unqualified.
    Pass the four J9 display conductors through the existing ridge loom bore
    near X32/Z308, then dress them to the display terminals.
    Keep the leads with their mounting parents and dress each crossing below
