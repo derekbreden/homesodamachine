@@ -36,7 +36,8 @@ collar_w = 165.0  # collar footprint in X, inside the top-wall frame
 # Collar and frame reach toward the display, in Y−: the brim's front edge stands one running
 # fit behind the display wall, and that wall 3 mm behind the display's PCB pocket.
 forward_extension = 41.6085
-collar_d = 81.78301584656256 + forward_extension  # collar footprint in Y
+aft_extension = 35.0
+collar_d = 81.78301584656256 + forward_extension + aft_extension  # collar footprint in Y
 mouth_corner_r = 14.0
 collar_corner_r = mouth_corner_r + 6.0
 brim_corner_r = collar_corner_r + 7.0
@@ -49,10 +50,10 @@ apron_depth = collar_d + 32.0
 apron_y = 3.0
 apron_corner_r = 6.0
 collar_wall = 6.0  # vertical collar wall and normal ramp-wall thickness
-capacity_ml = 530.54  # nominal capacity to the mouth rim
+capacity_ml = 698.21  # nominal native cavity to the mouth rim
 chute_h = 23.485946291005064  # brim top to inner ramp start
 neck_dx = 0.0  # the outlet stands on the collar's centre
-neck_dy = 0.0
+neck_dy = 0.0  # outlet on the collar centre
 spout_id = 6.0  # straight outlet, formed by a stock 6 mm steel rod
 spout_wall = 4.5  # minimum radial stock around the throat
 neck_blend_drop = 6.25

@@ -49,6 +49,9 @@ import _bom as _bom_check                                # noqa: E402
 import prv_shroud as _shroud                             # noqa: E402
 import _cold_scorecard as _card                          # noqa: E402
 import _cold_core_style as _style                        # noqa: E402
+import _above_core_mounts as _above_mounts                # noqa: E402
+import above_core_parts as _above_parts                   # noqa: E402
+import above_core_routes as _above_routes                 # noqa: E402
 from _card import Check, grade_of, verdict                # noqa: E402
 from _cold_scorecard import Scorecard                     # noqa: E402
 
@@ -90,6 +93,11 @@ HELD_BY = {
     "evap-tail-inlet": "wall slot",
     "evap-tail-outlet": "wall slot",
     "water-inlet-jet-cap-nominal": "water elbow tip weld (unqualified)",
+    "reservoir-b-fill-lower": "cap pocket and reservoir fill bore",
+    "reservoir-b-fill-upper": "cap pocket",
+    "digiten-flow": "cap-lid collar bearings and ties",
+    "soda-inlet-stem": "meter inlet socket",
+    "tube-soda-core-rise": "core guide and downward stem socket",
 }
 for _n in _V.PORTS:
     HELD_BY[f"carbonator-elbow-{_n}"] = "plate thread"
@@ -127,6 +135,8 @@ def held_for(name: str) -> str:
 JOINED = {frozenset(p) for p in (
     ("evap-coil", "evap-tail-inlet"),
     ("evap-coil", "evap-tail-outlet"),
+    ("soda-inlet-stem", "digiten-flow"),
+    ("tube-soda-core-rise", "soda-inlet-stem"),
 )}
 
 # Bodies the wrap RIDES ON rather than routes around. THE CARBONATOR IS THE ONE IT IS WOUND ON:
@@ -160,6 +170,7 @@ MADE_UP_ON = {
     # The vent starts IN the shroud's own bore, so the cup it leaves is not a body it routes
     # around — it is the fitting this line is made up on.
     "prv-vent": ("prv-shroud",),
+    "reservoir-b-fill": ("reservoir-b-fill-lower", "reservoir-b-fill-upper"),
 }
 
 
@@ -176,6 +187,12 @@ def _plug_into_shell(solid, column: str):
     difference, then the plug slides to its own column's lane."""
     turned = solid.rotate(cq.Vector(0, 0, 0), cq.Vector(0, 0, 1), -90)
     return turned.translate((0, _plugs.columns[column].lane_y, 0))
+
+
+def _world_in_core(shape):
+    return (_above_mounts.world_shape_in_cap(shape)
+            .rotate((0.,0.,0.),(0.,0.,1.),180.)
+            .translate((0.,0.,foam_shell_outer_height+_foam.top_cap_height)))
 
 
 def build_bodies() -> dict:
@@ -210,6 +227,12 @@ def build_bodies() -> dict:
     placed.update(_prv_stack())
     placed["reed-bridge"] = _load(_cold / "reed-bridge" / "reed-bridge.step").translate(
         (0, 0, _V.carbonator_bottom_z))
+    for name,world in _above_mounts.reservoir_b_fill_parts().items():
+        placed[name] = _world_in_core(world)
+    for name,(world,_colour,_carry) in _above_parts.core_components().items():
+        placed[name] = _world_in_core(world)
+    for name,specification in _above_routes.core_route_specs().items():
+        placed['tube-'+name] = _world_in_core(_above_parts.route_shape(specification))
 
     return placed
 
@@ -323,6 +346,7 @@ def build_assembly():
     a.placed = placed
     a.fitted = fitted
     a.points = trimmed_routes()
+    a.core_body_names = frozenset(placed)
     return a
 
 
@@ -373,6 +397,7 @@ def _lines_apart(fitted: dict, placed: dict) -> Check:
     else."""
     runs = {n: t for n, (_b, t) in fitted.items()}
     runs.update({n: placed[n] for n in TAIL_LINES if n in placed})
+    runs.update({n: s for n,s in placed.items() if n.startswith('tube-soda-core-')})
     names = sorted(runs)
     detail = []
     for i, a in enumerate(names):

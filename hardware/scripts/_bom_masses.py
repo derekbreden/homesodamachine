@@ -24,9 +24,8 @@ there, a row in neither list, or a material with no density is an ERROR, not a
 skipped row — a printed part cannot enter the table without the solid that gives
 it a mass and the profile that says how much of it is laid.
 
-The masses are only as current as the STEPs they read. `npm --prefix web run
-build:check` is what proves those match their generators; run it first when the
-numbers matter.
+The masses describe the STEPs they read. Regenerate the changed parts before
+deriving their current rows; the estimate does not establish slice mass.
 
 Run:  tools/cad-venv/bin/python hardware/scripts/_bom_masses.py            # write
       tools/cad-venv/bin/python hardware/scripts/_bom_masses.py --check    # report only, exit 1 on drift
@@ -160,21 +159,16 @@ PARTS = {
     # drops into the 45° facet's inset and laps the glass all round. It is the display's whole
     # fastening, so it ships on every unit the screen does.
     "Display cover plate": ["enclosure/display-cover/display-cover.step"],
-    # ONE FILE PER CAPPED TUBE ANCHOR: the printed other half of a rib's pipe, pressed on over the
-    # tube on each rib a cap closes: back-top's carb-1, co2-2 and fluid-28
-    # (`enclosure_assembly.TUBE_ANCHOR_CLOSURES`) and the cold core lid's fluid-14 and fluid-18
-    # (`_cold_core_interface.cap_anchors`).
-    "Anchor cap — one per capped tube anchor": ["enclosure/anchor-cap/anchor-cap.step"] * 5,
     # ONE ROW, SIX CHIPS AND THE SIX WORDS THEY CARRY — one file per crossing the +Y wall of
     # back-top passes a tube through, and each holds both bodies: the chip, and the word standing in the
     # recess cut into it. Two spools go on the plate and the row prices both.
     "Bulkhead ring — one per +Y-wall crossing": [
-        "enclosure/bulkhead-ring/bulkhead-ring-water.step",
-        "enclosure/bulkhead-ring/bulkhead-ring-carb.step",
-        "enclosure/bulkhead-ring/bulkhead-ring-flavor-a.step",
-        "enclosure/bulkhead-ring/bulkhead-ring-flavor-b.step",
-        "enclosure/bulkhead-ring/bulkhead-ring-co2.step",
-        "enclosure/bulkhead-ring/bulkhead-ring-drain.step",
+        "enclosure/rear-identification/rear-label-water.step",
+        "enclosure/rear-identification/rear-label-carb.step",
+        "enclosure/rear-identification/rear-label-flavor-a.step",
+        "enclosure/rear-identification/rear-label-flavor-b.step",
+        "enclosure/rear-identification/rear-label-co2.step",
+        "enclosure/rear-identification/rear-label-drain.step",
     ],
     # AND ONE COLLAR PER CHIP, on the same six stations and off the same two spools — the tube
     # carrying the word the ring it goes through carries. Four go on at the umbilical bench and
@@ -197,12 +191,8 @@ PARTS = {
         "enclosure/nameplate/nameplate-001.step",
     ],
     "Fuse clamp": ["refrigeration/fuse-clamp/fuse-clamp.step"],
-    # NO VALVE TRAY ROW AND NO PUMP TRAY ROW. Every valve in the machine stands in four bosses
-    # (`valve_seat`), and every set of them is printed into a part already billed: three on the
-    # cold core's cap lid (`_cold_core_interface.cap_cradles`) and eight on the two valve trays
-    # (`enclosure._valve_trays`), which are `enclosure-front-top`'s own material. So a valve's
-    # seat is priced as part of the piece that carries it, and nothing stands under one that
-    # ships on its own.
+    # Valve seats and pump trays are integral features of the cap/enclosure
+    # parents already billed; no separate equipment tray ships.
     "Faucet shell (2-piece: base + tip)": [
         "faucet/faucet-shell/faucet-shell-base.step",
         "faucet/faucet-shell/faucet-shell-tip.step",
@@ -218,7 +208,11 @@ PARTS = {
     # a scan of it and printed in the faucet's finish, is the one that ships.
     "Faucet lever": ["faucet/lever-replica/lever-replica.step"],
     "Umbilical organizer — below faucet mount": ["faucet/umbilical-organizer/umbilical-organizer.step"],
-    # The funnel's sliding frame and the cradle that hangs the drain elbow under its web. The
+    # The empty roof closure uses the exterior base recipe as an unsliced estimate.
+    "Empty electronics access panel": [
+        "enclosure/electronics-access-panel/electronics-access-panel.step",
+    ],
+    # The funnel's drop-in frame and the cradle that hangs the drain elbow under its web. The
     # silicone funnel itself is cast, and §8 bills it as silicone.
     "Funnel frame": ["zone-c/funnel/funnel-frame.step"],
     "Funnel cover": ["zone-c/funnel-cover/funnel-cover.step"],
@@ -236,7 +230,7 @@ GROUP_OF = [
     ("Enclosure — back",            "ext"),
     ("Enclosure — pump cartridge",  "ext"),
     ("Display cover plate",         "ext"),
-    ("Anchor cap",                  "tool"),
+    ("Empty electronics access panel", "ext"),
     ("Flavor reservoir",            "tight"),
     ("Faucet shell",                "petgf"),
     ("Faucet display cover plate",  "petgf"),
@@ -377,7 +371,7 @@ def main():
         if stated != want_mass:
             drift.append(f"  {label}: {stated} -> {want_mass} kg")
         c[3] = want_mass
-        c[4] = re.sub(r"\$[0-9.,]+", want_cost, c[4], count=1)
+        c[4] = re.sub(r"(?:\$[0-9.,]+|—)", want_cost, c[4], count=1)
         out.append("| " + " | ".join(c) + " |")
 
     missing = set(PARTS) - seen

@@ -6,6 +6,7 @@ from _cold_core_interface import (
     foam_shell_outer_height,
     bag_pocket_outermost_x,
     cap_conduits,
+    cap_conduit_floor_xy,
     cap_conduit_shell_xy,
     lldpe_tube_od,
     port_hole_radius,
@@ -79,7 +80,7 @@ _reed_clear = bound(
 for _name in cap_conduits:
     if _name in REED_CABLE_CONDUITS:
         continue
-    _room, _what = reed_channel_plan_room(*cap_conduit_shell_xy(_name))
+    _room, _what = reed_channel_plan_room(*(-v for v in cap_conduit_floor_xy[_name]))
     _reed_clear(
         _room >= reed_line_clearance - 1e-9,
         f"cap conduit {_name}: the line coming down it stands {_room:.3f} mm off "
@@ -105,7 +106,7 @@ for _name, _side in sorted(REED_CABLE_CONDUITS.items()):
             f"`REED_CABLE_CONDUITS` names {_name!r} as the bore reservoir "
             f"{'AB'[_side < 0]}'s cable leaves by, and the cap carries no conduit by that name "
             f"— the exemption above is what is still holding it out of `reed-channel-clear`.")
-    _x, _y = cap_conduit_shell_xy(_name)
+    _x, _y = (-v for v in cap_conduit_floor_xy[_name])
     _cav_x = sorted((_side * bag_pocket_outermost_x,
                      _side * (bag_pocket_outermost_x + reed_x_depth)))
     _cav_y = reed_cavity_y_range

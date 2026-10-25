@@ -40,6 +40,7 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 _repo = _hw.parent
 for _p in (_hw / "scripts", _here.parent,
+           _hw / "printed-parts" / "enclosure" / "enclosure",
            _hw / "printed-parts" / "enclosure" / "pump-dock"):
     if str(_p) not in sys.path:
         sys.path.insert(0, str(_p))
@@ -72,10 +73,9 @@ ROOM_TOL = 1e-6
 # stubs off its free mouths the same way. Everything else the assembly carries is a body.
 TUBE_PREFIXES = ("tube-", "turn-", "step-", "stub-")
 
-# The pump's two printed elbows and the two clamp bands on each, by the names
-# `enclosure_assembly.build_pump_elbows` places them under.
-PUMP_ELBOW_BODIES = tuple(f"pump-elbow-{port}{part}" for port in ("suction", "discharge")
-                          for part in ("", "-clamp-barb", "-clamp-tube"))
+# The native pump sleeves and their two clamp bands, placed by above_core_parts.
+PUMP_ELBOW_BODIES = tuple(f"pump-{port}-{part}" for port in ("inlet", "outlet")
+                          for part in ("tpu", "barb-band", "tube-band"))
 
 
 @cache
@@ -120,9 +120,15 @@ def _split_placed(a) -> tuple:
 
     inside = getattr(a, "core_body_names", frozenset())
     wires = getattr(a, "wiring_body_names", frozenset())
+    external = getattr(a, 'core_external_components', frozenset())
     for name, solid, _colour in ml.placed_leaves(a):
-        if name in inside or name in wires:
+        if name in wires:
             continue
+        if name in inside:
+            leaf = name.rsplit('/', 1)[-1]
+            if leaf not in external:
+                continue
+            name = leaf
         target = (pieces if name.startswith("enclosure-")
                   else tubes if name.startswith(TUBE_PREFIXES) else bodies)
         target[name] = solid
@@ -264,11 +270,9 @@ MOUNTS = (
     ("g-ganen-pump", "foam-assembly", "deck-mount"),
     ("funnel", None, "wall-capture"),
     ("funnel-cover", "funnel", "silicone-grip"),
-    ("funnel-frame", ("enclosure-front-top", "enclosure-back-top"), "wall-capture"),
-    # THE FUNNEL'S DRAIN JOINT HANGS UNDER THE FRAME. The cradle's two wings rise through slots
-    # in the frame's bottom web and hook over it (`zone-c/funnel/elbow_cradle.py`); the elbow
-    # stands in the cradle's pocket with its nose on the web; the stub stands in the elbow's
-    # upper collet.
+    ("funnel-frame", ("enclosure-front-top", "enclosure-back-top"), "bosses"),
+    ("electronics-access-panel", "enclosure-back-top", "bosses"),
+    # The drain cradle snaps into the removable frame's original bottom web.
     ("elbow-cradle", "funnel-frame", "snap-capture"),
     ("funnel-drain-union", "elbow-cradle", "cradle"),
     ("funnel-drain-stub", None, "tube-hung"),
@@ -287,33 +291,31 @@ MOUNTS = (
     ("discharge-chain", "foam-assembly", "cradle"),
     # Each elbow pushes onto one of the pump's moulded barbs and its clamp bands close on its own
     # sockets, so all three ride the pump (`RIDES`) and its deck mounts are their fastening.
-    *((name, None, "sleeve") for name in PUMP_ELBOW_BODIES),
-    ("psu", "enclosure-back-top", "bosses"),
-    ("pcba", "enclosure-back-top", "bosses"),
+    *((name, None, "sleeve" if name.endswith("-tpu") else "tube-clamp")
+      for name in PUMP_ELBOW_BODIES),
+    ("psu", "foam-assembly", "deck-mount"),
+    ("pcba", "foam-assembly", "deck-mount"),
+    ("soda-rise-insulation", "tube-soda-core-rise", "sleeve"),
     ("relay-1", "enclosure-back-top", "bosses"),
     ("relay-2", "enclosure-back-top", "bosses"),
-    ("ground-stack", "enclosure-back-top", "bosses"),
+    ("ground-stack", "foam-assembly", "bosses"),
     # The lever nuts are the one column that no boss holds: a 221-413 is a free splice with
     # no hole in it, so the wall's own printed well IS the mount and there is nothing to bolt.
     ("wago-h", "enclosure-back-top", "well"),
     ("wago-n", "enclosure-back-top", "well"),
     ("wago-g", "enclosure-back-top", "well"),
-    ("wago-v12", "enclosure-back-top", "well"),
-    ("wago-gnd", "enclosure-back-top", "well"),
+    ("wago-v12", "foam-assembly", "well"),
+    ("wago-gnd", "foam-assembly", "well"),
     # The five device-cluster nuts take the same well in whichever wall their own cluster
     # stands against, so the piece that holds each one is the piece that owns its band.
     ("wago-mana", "enclosure-front-top", "well"),
     ("wago-manb", "enclosure-front-top", "well"),
-    ("wago-reeds-b", "enclosure-back-top", "well"),
-    ("wago-sensors", "enclosure-back-top", "well"),
-    # THE TAP-WATER CHAIN LIES IN AN ANCHOR PRINTED ON THE −X WALL. `enclosure._asse_cradle` cuts
-    # a 120° V to each of the chain's own three sections, so the steps between them are faces
-    # square to the axis and the brass barrel is trapped between two of them. What the V beds on
-    # is that barrel's own two flats, which is the one section on the run whose clock the vent is
-    # machined into — so keying it holds the connected vent sleeve upright. Two zip ties through the
-    # anchor's lips shut its mouth; nothing about the chain's weight is theirs to carry.
+    ("wago-reeds-b", "foam-assembly", "well"),
+    ("wago-sensors", "foam-assembly", "well"),
+    # Bare ASSE body in two open east-sector roof seats, retained by two ties.
     ("asse1022-assembly", "enclosure-back-top", "cradle"),
-    ("bulkhead-drain", "enclosure-back-top", "bulkhead"),
+    ("asse-inlet-tpu", "asse1022-assembly", "sleeve"),
+    ("asse-outlet-tpu", "asse1022-assembly", "sleeve"),
     ("asse-drain-adapter", "asse1022-assembly", "sleeve"),
     # The gas sensor drops into two grooved posts printed on the floor of the bay it watches
     # (`enclosure._west_cradle`), and its can stands just off the wall. The sensor
@@ -335,12 +337,9 @@ MOUNTS = (
     # isolate the can, so a clamp on one of those screws would be bolted to the cabinet. This
     # axis counts a PRINTED feature, so the row is open on it and the joint is not.
     ("fuse-clamp", None, "gap-press"),
-    # THE FLAVOUR TAP'S PAIR, one over the other in two ribs off the −X wall
-    # (`enclosure_assembly.BODY_ANCHOR_SITES`, read by `body-seated`). Each seat closes on the run
-    # between that fitting's hub and the collet the tap arrives by — the one round section on
-    # either body that is not a box, a branch or the adjuster a hand has to reach.
-    ("water-split", "enclosure-back-top", "cradle"),
-    ("flow-regulator", "foam-assembly", "cradle"),
+    # Selected water/gas fittings use fixed shell saddles; source valves ride the lid.
+    ("water-split", "asse-outlet-tpu", "sleeve"),
+    ("flow-regulator", "enclosure-back-top", "cradle"),
     ("vk-solenoid", "foam-assembly", "cradle"),
     # EVERY FITTING ON THE +Y WALL OF BACK-TOP IS CLAMPED THROUGH IT. The flange lands on the ring in its
     # pad, the barrel passes a bore struck one `PORT_HOLE_SLIP` over it, and the fitting's own nut
@@ -361,15 +360,10 @@ MOUNTS = (
     ("data-ring", "enclosure-back-top", "snap"),
     ("data-ring-word", "data-ring", "well"),
     ("co2-inlet", "enclosure-back-top", "wall-capture"),
-    # The check's round inlet boss takes its own tied ceiling cradle. Its connecting tubes
-    # bend between the fixed regulator and the cold core and do not locate the valve.
-    ("gasher-co2", "enclosure-back-top", "cradle"),
-    *((name, None, "thread") for name in _gas_chain.ADAPTER_NAMES),
-    # THE REGULATOR LIES IN A RIB OFF THE TOP WALL. `enclosure._tube_anchors` bores it for the
-    # barrel between the two wrench hexes — `enclosure_assembly.BODY_ANCHOR_SITES` — and a zip tie
-    # through the rib's own cavity closes round the barrel and the rib's back together. The seat
-    # opens downward, so the zip tie is the load path and the bore is what it pulls into.
-    ("wr1110", "enclosure-back-top", "cradle"),
+    # The folded gas bodies sit in tied sidewall saddles. Their connecting
+    # stems make up directly in the purchased sockets.
+    ("gas-check", "enclosure-back-top", "cradle"),
+    ("gas-regulator", "enclosure-back-top", "cradle"),
     ("bulkhead-flavor-a", "enclosure-back-top", "wall-capture"),
     ("bulkhead-flavor-b", "enclosure-back-top", "wall-capture"),
     ("bulkhead-carb", "enclosure-back-top", "wall-capture"),
@@ -399,14 +393,11 @@ MOUNTS = (
     # Two plate-owned PET-GF tabs catch the rear wall's rigid shoulders.
     ("nameplate", "enclosure-back-top", "snap"),
     ("nameplate-ink", "nameplate", "well"),
-    # THE METER HANGS IN TWO ANCHORS OFF THE TOP WALL. `enclosure._flow_meter_anchors` puts the
-    # half-round seat over each fixed collar, clear of its shoulder and movable collet. A zip tie
-    # through each anchor's own cavity closes it; the two ties carry the meter's weight.
-    ("digiten-flow", "enclosure-back-top", "anchor"),
-    # THE CAP LID PRINTS A CRADLE UNDER EACH VALVE THAT STANDS ON IT
-    # (`_cold_core_interface.cap_cradles`) — four bosses, and the valve's own corner posts press
-    # into their sockets. The cap is inside `foam-assembly`, which is the placed body the cradle
-    # is a feature of, so that is what fastens them.
+    # Two lid-rooted quarter bearings carry the fixed meter collars. Ties close
+    # their open faces without restraining either release collet.
+    ("digiten-flow", "foam-assembly", "cradle"),
+    # Three upright lid walls carry the shared four-socket valve seats. The
+    # lid is material within foam-assembly, independent of either roof closure.
     ("valve-v-a", "foam-assembly", "cradle"),
     ("valve-v-b", "foam-assembly", "cradle"),
     # AND THE OTHER EIGHT STAND ON TWO VALVE TRAYS — a plate wall to wall on each plane the
@@ -444,9 +435,8 @@ MOUNTS = (
 
 
 # A BODY THAT IS PART OF ANOTHER BODY, as `rider -> host`. What holds a rider is whatever holds
-# its host: the fastening it answers to is one its host's own hardware makes, shipped with the
-# part and closed on the part. The warm gas adapters also ride their threaded host: their
-# threads are the load path, with made-up reach retained as a physical qualification gate.
+# its host: the fastening it answers to is one its host's own hardware makes,
+# shipped with the part and closed on the part.
 #   These are one purchased thing apiece drawn as several. `manifold_layout.flat_bodies` gives a
 # Beduan two placed bodies so the coil takes its own colour, and `build_pump` gives a Kamoer the three
 # its STEP carries — head, rear boss and motor can. `hardware/ledger/bom.md` bills one row for
@@ -460,8 +450,6 @@ RIDES = {
     **{f"bulkhead-ring-{w}-word": f"bulkhead-ring-{w}"
        for w in ("water", "carb", "co2", "flavor-a", "flavor-b", "drain")},
     "nameplate-ink": "nameplate",
-    **{name: "wr1110" for name in _gas_chain.ADAPTER_NAMES[:2]},
-    **{name: "gasher-co2" for name in _gas_chain.ADAPTER_NAMES[2:]},
     **{name: "g-ganen-pump" for name in PUMP_ELBOW_BODIES},
     # Each lower return's two stem elbows ride the collets their stems are bottomed in.
     **{f"stem-elbow-{tee.lower()}": f"tee-{tee.lower()}" for tee in ("Y-C", "Y-D", "Y-F", "Y-G")},
@@ -469,24 +457,82 @@ RIDES = {
 }
 
 
-def rides_hold(rows) -> None:
+def rides_hold(rows, rides=None) -> None:
     """Every rider and every host in `RIDES` is a placed body, and no host is itself a rider."""
     have = {name for name, _by, _joint in rows}
-    for rider, host in sorted(RIDES.items()):
+    rides = RIDES if rides is None else rides
+    for rider, host in sorted(rides.items()):
         for who, what in ((rider, "rider"), (host, "host")):
             if who not in have:
                 raise ValueError(
                     f"`RIDES` names {who!r} as the {what} of {rider!r} → {host!r} and no placed "
                     f"body carries that name — the body has been renamed or has left the "
                     f"machine, and this row is what is still holding a place for it.")
-        if host in RIDES:
+        if host in rides:
             raise ValueError(
                 f"`RIDES` has {rider!r} riding {host!r}, which rides {RIDES[host]!r} — a rider "
                 f"takes its host's row, and a chain of them takes no row at all.")
 
 
+@cache
+def _selected_mounts() -> tuple:
+    """Selected direct joints and fasteners, without building any part solids.
+
+    A female union held only by tubing keeps an open tube-hung row. Explicit
+    stem joints name their actual receiving socket, including nested pairs.
+    """
+    import above_core as layout
+    import above_core_bom as bom
+    import enclosure as enc
+
+    fittings = {
+        "tee-fold": ("vk-solenoid", "collet"),
+        "lower-valve-elbow": ("vk-solenoid", "collet"),
+        "lower-pump-elbow": ("lower-valve-elbow", "collet"),
+        "reg-va-elbow": ("valve-v-a", "collet"),
+        "va-outlet-elbow": ("valve-v-a", "collet"),
+        "carbonator-fold": ("discharge-chain", "collet"),
+        "gas-inlet-elbow": ("gas-regulator", "collet"),
+        "gas-lower-a": ("gas-regulator", "collet"),
+        "gas-lower-b": ("gas-lower-a", "collet"),
+        "gas-upper-a": ("gas-check", "collet"),
+        "gas-upper-b": ("gas-upper-a", "collet"),
+        "soda-stem-elbow": ("bulkhead-carb", "collet"),
+        "soda-outlet-return-stem": ("soda-stem-elbow", "collet"),
+        "ya-stem-elbow": ("tee-y-a", "collet"),
+        "yb-stem-elbow": ("tee-y-b", "collet"),
+        "drain-outlet-stem": ("funnel-drain-union", "collet"),
+        "vb-inlet-turn": ("valve-v-b", "collet"),
+        "vb-outlet-stem": ("valve-v-b", "collet"),
+        "va-east-turn": (None, "tube-hung"),
+        "vb-outlet-return": (None, "tube-hung"),
+        "reservoir-b-fill-lower": ("foam-assembly", "cap-pocket"),
+        "reservoir-b-fill-upper": ("foam-assembly", "cap-pocket"),
+        "soda-inlet-stem": ("digiten-flow", "collet"),
+    }
+    import _above_core_mounts
+    fittings.update({name: (datum['parent'], 'cradle')
+                     for name, datum in _above_core_mounts.union_support_datums().items()})
+    selected = (*bom.stem_elbow_names(), *bom.union_elbow_names(),
+                *bom.core_stem_elbow_names(), *bom.core_union_elbow_names())
+    rows = [(name, *fittings[name]) for name in selected if name in fittings]
+    for names in layout.specification()['fluid_grid']['assignment']:
+        rows.extend((name+'-nut', name, 'thread') for name in names)
+    for datum in enc._funnel_frame_part.fastener_datums():
+        host = f'enclosure-{datum["col"]}-top'
+        base = f'funnel-frame-{datum["name"]}'
+        rows.extend(((base+'-screw', host, 'thread'),
+                     (base+'-insert', host, 'heat-set')))
+    centres = enc._above_core_shell.access_plan()['fasteners']['centres_xy_mm']
+    for number, _centre in enumerate(centres, start=1):
+        base = f'electronics-panel-{number}'
+        rows.extend(((base+'-screw', 'enclosure-back-top', 'thread'),
+                     (base+'-insert', 'enclosure-back-top', 'heat-set')))
+    return tuple(rows)
+
+
 def derived_mounts() -> tuple:
-    """One row for every placed body `MOUNTS` does not name.
+    """Selected native joints and one row for every remaining manifold body.
 
     `manifold_layout` arranges the flavour manifold as one connected pack. Fixed valves have
     printed seats, the pump heads have their cartridge cradle and the permanent TPU
@@ -495,13 +541,20 @@ def derived_mounts() -> tuple:
 
     Read off the placed assembly rather than typed, so a body the machine gains arrives with a
     row instead of waiting for one."""
-    typed = {name for name, _by, _joint in MOUNTS}
-    return tuple((name, None, "pack") for name in sorted(pack_bodies()) if name not in typed)
+    selected = _selected_mounts()
+    typed = {name for name, _by, _joint in (*MOUNTS, *selected)}
+    return selected + tuple((name, None, "pack") for name in sorted(pack_bodies())
+                            if name not in typed)
 
 
-def mounts() -> tuple:
+def mounts(assembly=None) -> tuple:
     """Every placed body's fastening row — the ones this module types, then the rest."""
-    return MOUNTS + derived_mounts()
+    if assembly is None:
+        return MOUNTS + derived_mounts()
+    bodies, _tubes, _pieces = _split_placed(assembly)
+    rows = [row for row in (*MOUNTS, *_selected_mounts()) if row[0] in bodies]
+    named = {row[0] for row in rows}
+    return tuple(rows) + tuple((name, None, "pack") for name in sorted(set(bodies)-named))
 
 
 def fastened_by(name: str):
@@ -517,12 +570,13 @@ def fastened_by(name: str):
 # it null. These rows come out of the axis's denominator, and their text goes out on the card.
 NEVER = {
     "funnel":
-        "The silicone brim rests on the roof ledge and its plug on the cradle's hook tops within the frame's socket, "
-        "its sealing land on the drain stub. The funnel lifts out by hand for the dishwasher, the "
+        "The silicone brim rests in the removable frame's roof surround. Its plug locates on "
+        "the cradle snapped into the frame's web, with its sealing land on the drain stub. "
+        "The funnel lifts out by hand for the dishwasher, the "
         "land sliding off the stub.",
     "funnel-drain-stub":
-        "The elbow's upper collet grips it and the elbow stands in its printed cradle under the "
-        "frame, so the stub is held through that seat. The plug's land closes on its top end and "
+        "The elbow's upper collet grips it and the elbow stands in the cradle snapped into the "
+        "removable frame's web. The plug's land closes on its top end and "
         "slides off it whenever the funnel is lifted out.",
     "fuse-clamp":
         "Both faces of the slot the clamp presses into are the compressor's own — the air its "
@@ -594,11 +648,6 @@ def never_holds(rows) -> None:
 # pair as a seat through `TOUCHING_OK`, and the topology doc draws each as a butt that owes no
 # route id.
 MADE_UP = (
-    # The rear bulkhead's inboard collet and the ASSE chain's inlet collet meet face to face —
-    # `enclosure_assembly.build_asse` seats the chain on `bulkhead_mouth_y`, "the inlet collet
-    # butts the union's inboard collet". The first tube in the machine is a length of stock cut to
-    # the two grips and swallowed whole by them, which is why there is no `water-1`.
-    ("bulkhead-water.inboard", "asse1022-assembly.tube-in"),
     # The drain stub and the elbow's +Z collet. The stub IS the tube in that grip — it runs
     # `funnel_drain_stub.UNION_INSERTION` down inside the fitting — so the collet grips the stub
     # itself.
@@ -654,9 +703,7 @@ TOUCHING_OK = {frozenset(p) for p in (
     # What stands on the core's cap — `build_water_pump` and `build_psu` both take its crown as `z0`.
     ("foam-assembly", "g-ganen-pump"),
     ("foam-assembly", "psu"),
-    # THE THREE VALVES IN THE CAP'S OWN CRADLES. A press fit is a contact by construction: the
-    # bosses' sockets take the valve's four corner posts on `valve_seat.socket_clearance` and
-    # its round boss lands on the boss tops, so the pair reads 0 and it is the joint working.
+    # Three lid uprights carry the selected valves through their V69 sockets.
     ("foam-assembly", "vk-solenoid"),
     ("foam-assembly", "valve-v-a"),
     ("foam-assembly", "valve-v-b"),
@@ -677,10 +724,6 @@ TOUCHING_OK = {frozenset(p) for p in (
     # THE MADE-UP CHAIN IN THE RIB THAT LID STANDS. A bore closed on a section reads its own
     # slip, and that reading IS the seat holding.
     ("foam-assembly", "discharge-chain"),
-    # Fixed socket in the lid's inclined pressure-regulator cradle.
-    ("foam-assembly", "flow-regulator"),
-    ("foam-assembly", "anchor-cap-fluid-14"),
-    ("foam-assembly", "anchor-cap-fluid-18"),
     # THE CUTOFF LIES ON THE COMPRESSOR'S POWER BOX. A one-shot fuse opens on the temperature of
     # its own case, so a millimetre of air between the case and the cover is a millimetre that
     # puts it on cabinet air instead. `enclosure_assembly.build_thermal_fuse` seats it on its own
@@ -801,7 +844,7 @@ class Connection:
         return self.made != UNMADE
 
 
-def load_connections(runs, joints=()) -> list[Connection]:
+def load_connections(runs, joints=(), native_connections=None) -> list[Connection]:
     """Every TUBE connection the machine owes, and how the machine makes it.
 
     The flavour manifold's own segments come out of `fluid-topology.md`'s tables so the
@@ -845,6 +888,17 @@ def load_connections(runs, joints=()) -> list[Connection]:
                   interior.get(c.id, UNMADE))
         c.note = f", {mated[c.id]:.3f} mm apart" if c.made == "mate" else ""
         c.blocked = R.BLOCKED.get(c.id, "")
+    for cid, group in (native_connections or {}).items():
+        c = next((row for row in conns if row.id == cid), None)
+        if c is None:
+            kind = "water" if cid.startswith(("water-", "carb-")) else cid.split("-")[0]
+            c = Connection(cid, kind, group['from'], group['to'])
+            conns.append(c)
+        c.frm, c.to = group['from'], group['to']
+        missing = [rid for rid in group['native_routes'] if rid not in drawn]
+        c.made = UNMADE if missing else group['made']
+        c.blocked = "missing native tubes: " + ", ".join(missing) if missing else ""
+        c.note = ", ".join(group['native_routes']) or "direct fitting joint"
     return conns
 
 
@@ -896,7 +950,7 @@ def need_clause(need: dict) -> str:
 
 # --- the bend grading ------------------------------------------------------
 
-def bend_radii(runs) -> list[dict]:
+def bend_radii(runs, native_specs=None) -> list[dict]:
     """Every authored run graded on the radius it turns at, worst first.
 
     Two grades, because two different things are wrong when a bend is too tight:
@@ -926,6 +980,35 @@ def bend_radii(runs) -> list[dict]:
     rows = []
     for r in runs:
         st = R.stock_of(r.kind, r.diam)
+        spec = (native_specs or {}).get(r.id)
+        if spec is not None:
+            # Native curves are already formed; sampled points are display data,
+            # not polygon corners to fillet a second time.
+            import above_core_parts
+            curved = [segment for segment in spec['segments'] if segment['kind'] != 'line']
+            radius = spec.get('minimum_radius_mm')
+            floor = st.min_bend
+            ratio = radius / floor if radius is not None else None
+            length = float(above_core_parts.route_wire(spec).Length())
+            need = need_of(r)
+            need['path'] = round(length, 2)
+            need['detour'] = None if need['span'] < 1e-9 else round(length / need['span'], 3)
+            corners = []
+            for i, segment in enumerate(curved):
+                bound = segment.get('radius_mm', radius)
+                turn = math.degrees(abs(segment['angle_rad'])) if 'angle_rad' in segment else None
+                corners.append({'at': i, 'turn': turn, 'radius': bound,
+                    'ratio': None if bound is None else round(bound/floor, 4),
+                    'grade': None if bound is None else grade_of(bound/floor), 'legs': []})
+            rows.append({'id':r.id, 'kind':r.kind, 'frm':r.frm, 'to':r.to,
+                'stock':st.name, 'od':r.diam, 'length':round(length, 2),
+                'radius':radius, 'cap':radius, 'minBend':floor, 'ratio':ratio,
+                'grade':grade_of(ratio) if curved and ratio is not None else None,
+                'corners':corners, 'atSpec':sum(c['radius'] is not None and c['radius'] >= floor-1e-9 for c in corners),
+                'bends':len(curved), 'worstTurn':max((c['turn'] for c in corners if c['turn'] is not None), default=None),
+                'seat':None, 'reach':None, 'reachRatio':None, 'reachGrade':None,
+                'binding':None, 'need':need})
+            continue
         caps = R.leg_caps(r)
         inner = [c for c in caps if c[4] == "interior"]
         seat = min((c[0] for c in caps), default=float("inf"))
@@ -1109,6 +1192,125 @@ def elbow_stem_contact(a, bodies) -> dict:
     return {"stems": stems, "pass": all(out <= _clearing.HIT_VOL for _in, out in stems.values())}
 
 
+def selected_mate_contacts(a, placed, clashes) -> dict:
+    """Bound nominal mating contact by its actual shaft or insert station.
+
+    The selected reference bores do not model internal collet teeth or thread
+    profiles. Only common material inside the named, finite engagement region
+    is mating contact. Contact outside that region remains a pack clash. These
+    layout readings do not qualify insertion depth, sealing or retention.
+    """
+    import cadquery as cq
+    import enclosure as enc
+    import above_core_parts as selected_parts
+
+    stem_hosts = {
+        'tee-fold': ('vk-solenoid', 12.7),
+        'reg-va-elbow': ('valve-v-a', 12.7),
+        'va-outlet-elbow': ('valve-v-a', 12.7),
+        'vb-inlet-turn': ('valve-v-b', 12.7),
+        'vb-outlet-stem': ('valve-v-b', 12.7),
+        'lower-valve-elbow': ('vk-solenoid', 12.7),
+        'carbonator-fold': ('discharge-chain', selected_parts.check_reference().socket_depth('outlet')),
+        'soda-stem-elbow': ('bulkhead-carb', 12.7),
+        'soda-inlet-stem': ('digiten-flow', 15.7),
+    }
+    tube_hosts = (
+        ('tube-fluid-16', 'valve-v-e', 'inlet', 12.7),
+        ('tube-fluid-14', 'valve-v-f', 'outlet', 12.7),
+        ('tube-fluid-26', 'valve-v-h', 'inlet', 12.7),
+        ('tube-fluid-24', 'valve-v-i', 'outlet', 12.7),
+        ('tube-above-core-water-in', 'bulkhead-water', 'inboard', 12.7),
+        ('tube-soda-meter-bulkhead', 'digiten-flow', 'outlet', 15.7),
+        ('tube-soda-core-rise', 'soda-inlet-stem', 'socket', 16.891),
+        ('tube-above-core-pump-check-link', 'discharge-chain', 'inlet',
+         selected_parts.check_reference().socket_depth('inlet')),
+    )
+    closure_hosts = {
+        **{f'funnel-frame-{column}-{side}': f'enclosure-{column}-top'
+           for column in ('front', 'back') for side in ('west', 'east')},
+        **{f'electronics-panel-{number}': 'enclosure-back-top'
+           for number in range(1, 5)},
+    }
+    pending = {frozenset((hit.a, hit.b)): hit for hit in clashes}
+    regions = {}
+
+    def cylinder(radius, start, direction, length):
+        # A nanometre of numerical air admits coincident native face tolerances.
+        margin = 1e-6
+        origin = tuple(start[i] - margin * direction[i] for i in range(3))
+        return cq.Solid.makeCylinder(radius + margin, length + 2 * margin,
+                                     cq.Vector(*origin), cq.Vector(*direction))
+
+    for stem, (host, depth) in stem_hosts.items():
+        pair = frozenset((stem, host))
+        if pair not in pending:
+            continue
+        if host == 'discharge-chain':
+            frame = a.frames[host]
+            start = frame.at('outlet')
+            direction = tuple(-v for v in frame.normal('outlet'))
+        else:
+            start, direction = a.carries[stem](((-6.0452 - depth, 0., 0.), (1., 0., 0.)))
+        regions[pair] = (cylinder(3.175, start, direction, depth),
+                         f'NeoFit Ø6.35 stem, selected {depth:g} mm socket engagement')
+
+    for tube, host, port, depth in tube_hosts:
+        pair = frozenset((tube, host))
+        if pair not in pending:
+            continue
+        frame = a.frames[host]
+        mouth, outward = frame.at(port), frame.normal(port)
+        inward = tuple(-value for value in outward)
+        regions[pair] = (cylinder(frame.diam(port) / 2, mouth, inward, depth),
+                         f'{host}.{port}: Ø{frame.diam(port):g} × {depth:g} mm nominal insertion')
+
+    closure_pairs = {
+        frozenset(pair)
+        for base, host in closure_hosts.items()
+        for pair in ((base + '-screw', base + '-insert'), (base + '-insert', host))
+    }
+    if pending.keys() & closure_pairs:
+        box = a.box
+        centre = ((box.inner[0] + box.inner[1]) / 2, enc._funnel_frame_part.center_y)
+        datums = {
+            'funnel-frame-' + row['name']: (row['x'], row['y'], row['insert_top_z'])
+            for row in enc._funnel_frame_part.fastener_datums(
+                box.inner, box.y_joint, centre, enc.funnel_seat_z(box.outer))
+        }
+        panel = enc._above_core_shell.access_plan()['fasteners']
+        datums.update({f'electronics-panel-{number}': (x, y, panel['bearing_z_mm'])
+                       for number, (x, y) in enumerate(panel['centres_xy_mm'], 1)})
+        for base, host in closure_hosts.items():
+            x, y, top = datums[base]
+            start = (x, y, top - 5.7)
+            direction = (0., 0., 1.)
+            thread = cylinder(1.5, start, direction, 5.7).cut(
+                cylinder(1.25 - 2e-6, start, direction, 5.7))
+            heat_set = cylinder(2.3, start, direction, 5.7).cut(
+                cylinder(2. - 2e-6, start, direction, 5.7))
+            for pair, mask, basis in (
+                    ((base + '-screw', base + '-insert'), thread,
+                     'M3 shaft in RX-M3×5.7 nominal threaded annulus'),
+                    ((base + '-insert', host), heat_set,
+                     'Ø4.0..4.6 × 5.7 mm RX heat-set interference annulus')):
+                key = frozenset(pair)
+                if key in pending:
+                    regions[key] = mask, basis
+
+    readings = []
+    for pair, (region, basis) in regions.items():
+        names = sorted(pair)
+        common = placed[names[0]].intersect(placed[names[1]])
+        volume = common.Volume()
+        outside = common.cut(region).Volume() if volume > 0 else 0.
+        readings.append({'parts': names, 'basis': basis, 'common_mm3': volume,
+                         'outside_mate_region_mm3': outside,
+                         'pass': outside <= _clearing.HIT_VOL})
+    return {'pairs': readings,
+            'scope': 'Finite nominal mating regions only; physical insertion, sealing and retention remain unqualified.'}
+
+
 def pack_clashes(a) -> tuple:
     """The one exact pairwise-clash reading for an assembled machine.
 
@@ -1124,6 +1326,14 @@ def pack_clashes(a) -> tuple:
         return hit[1]
     bodies, tubes, pieces = _split_placed(a)
     bad, unanswered = ml.clashes(a, bodies={**bodies, **tubes, **pieces})
+    try:
+        reading = selected_mate_contacts(a, {**bodies, **tubes, **pieces}, bad)
+        a.selected_mate_contact_reading = reading
+        seated = {frozenset(row['parts']) for row in reading['pairs'] if row['pass']}
+        bad = [hit for hit in bad if frozenset((hit.a, hit.b)) not in seated]
+    except Exception as exc:
+        unanswered.append(('selected nominal mates', 'engagement regions',
+                           str(exc).splitlines()[0]))
     bearing_pair = frozenset(("g-ganen-pump", "foam-assembly"))
     if any(frozenset((hit.a, hit.b)) == bearing_pair for hit in bad):
         try:
@@ -1175,6 +1385,15 @@ def _pack_closes(a) -> Check:
     bad, unanswered = pack_clashes(a)
     detail = [f"{c.a} ∩ {c.b}   {c.volume:.1f} mm³, {c.where}" for c in bad]
     detail += [f"{ni} ? {nj}   {why}" for ni, nj, why in unanswered]
+    if mates := getattr(a, 'selected_mate_contact_reading', None):
+        rows = mates['pairs']
+        if rows:
+            outside = max(row['outside_mate_region_mm3'] for row in rows)
+            detail.append(
+                f"Selected nominal mates: {sum(row['pass'] for row in rows)}/{len(rows)} "
+                f"within finite insertion/thread/heat-set regions at the existing "
+                f"{_clearing.HIT_VOL:g} mm³ contact floor; maximum outside {outside:.6f} mm³. "
+                "Physical insertion, sealing and retention remain unqualified.")
     if reading := getattr(a, "pump_cap_contact_reading", None):
         detail.append(
             f"G Ganen cap bearing: {len(reading['feet'])} named free-rubber foot envelopes; "
@@ -1249,10 +1468,49 @@ def run_world(a, runs) -> tuple:
     return tubes, ends, rest
 
 
+def selected_clearance_joints(a) -> set:
+    """Current named fitted joints excluded only from the global air-gap floor.
+
+    These are component-to-host pairs, not device-wide exemptions. Their local
+    seats retain the native fit records, and ``pack_clashes`` independently
+    measures contact outside the finite mating regions.
+    """
+    import above_core_wiring as wiring
+
+    pairs = {frozenset((name, host)) for name, host, _joint in _selected_mounts()
+             if isinstance(host, str)}
+    # PCB columns, fixed meter collars and installed electrical wells are
+    # specific features of the populated core or their named shell quadrant.
+    pairs |= {frozenset((name, 'foam-assembly')) for name in ('pcba', 'digiten-flow')}
+    # These two collet faces meet across the concealed outlet tube. Their
+    # actual body contact remains independently measured by pack_clashes.
+    pairs.add(frozenset(('digiten-flow', 'soda-outlet-return-stem')))
+    pairs |= {frozenset((name, 'foam-assembly' if row['parent'] == 'cold-core'
+                        else 'enclosure-' + row['parent']))
+              for name, row in wiring.placements().items()}
+    for side in ('inlet', 'outlet'):
+        cuff = f'pump-{side}-tpu'
+        pairs.add(frozenset((cuff, 'g-ganen-pump')))
+        pairs.update(frozenset((f'pump-{side}-{band}-band', cuff))
+                     for band in ('barb', 'tube'))
+    pairs |= {frozenset((f'asse-{side}-tpu', 'asse1022-assembly'))
+              for side in ('inlet', 'outlet')}
+    pairs.add(frozenset(('water-split', 'asse-outlet-tpu')))
+    for base in (*(f'funnel-frame-{column}-{side}'
+                   for column in ('front', 'back') for side in ('west', 'east')),
+                 *(f'electronics-panel-{number}' for number in range(1, 5))):
+        pairs.add(frozenset((base + '-screw', base + '-insert')))
+    bodies, tubes, pieces = _split_placed(a)
+    present = set(bodies) | set(tubes) | set(pieces)
+    return {pair for pair in pairs if pair <= present}
+
+
 def part_clearances(a, runs=()) -> list[tuple]:
     """Every pair standing nearer than `REPORT_NEAR`, tightest first, as `(a, b, gap, allowed)`.
-    `allowed` marks a `TOUCHING_OK` exclusion from the global pack floor. A row names a run by
-    its connection id and everything else by the name it goes into the assembly under.
+    `allowed` marks a named fitted joint's exclusion from the global pack floor.
+    Static interfaces use `TOUCHING_OK`; selected native interfaces use their
+    current component-to-host rows. A row names a run by its connection id and
+    everything else by the name it goes into the assembly under.
 
     TWO POPULATIONS, ONE FLOOR — body against body, and every drawn run against what it does not
     join. A run is as much a part of the machine as the fittings it joins, and the lane it
@@ -1275,6 +1533,7 @@ def part_clearances(a, runs=()) -> list[tuple]:
     measured here is how it stands off everything else. A run reaching in from outside is not
     such a pair, and is held to the floor against every body in the pack."""
     bodies, _tubes, _pieces = _split_placed(a)
+    touching = TOUCHING_OK | selected_clearance_joints(a)
     pack = pack_bodies()
     names = list(bodies)
     boxes = {n: _boxes.loose(bodies[n]) for n in names}
@@ -1287,7 +1546,7 @@ def part_clearances(a, runs=()) -> list[tuple]:
                 continue
             g = _clearing.gap(bodies[x], bodies[y], REPORT_NEAR)
             if g < REPORT_NEAR:
-                out.append((x, y, g, frozenset((x, y)) in TOUCHING_OK))
+                out.append((x, y, g, frozenset((x, y)) in touching))
     out += run_clearances(a, runs)
     out.sort(key=lambda r: r[2])
     return out
@@ -1304,7 +1563,10 @@ def run_clearances(a, runs) -> list[tuple]:
     tube at its seat slip — is in `TOUCHING_OK` by the run's own connection id, the same
     declaration a body pair makes, and `anchored_pairs` makes it off the sites that build
     those ribs."""
-    anchored = anchored_pairs()
+    anchored = anchored_pairs(a, runs)
+    touching = TOUCHING_OK | selected_clearance_joints(a)
+    touching = {frozenset(name.removeprefix('tube-') for name in pair)
+                for pair in touching}
     tubes, ends, rest = run_world(a, runs)
     tbb = {i: _boxes.loose(t) for i, t in tubes.items()}
     rbb = {n: _boxes.loose(s) for n, s in rest.items()}
@@ -1324,24 +1586,27 @@ def run_clearances(a, runs) -> list[tuple]:
             g = _clearing.gap(tubes[i], solid, REPORT_NEAR)
             if g < REPORT_NEAR:
                 out.append((i, name, g,
-                            frozenset((i, name)) in TOUCHING_OK
+                            frozenset((i, name)) in touching
                             or frozenset((i, name)) in anchored))
     return out
 
 
-def anchored_pairs() -> set:
+def anchored_pairs(a=None, runs=()) -> set:
     """Every run one of the box's own ribs seats, as the pair `run_clearances` reads.
 
     A rib closes on its tube at `enclosure_assembly.TUBE_ANCHOR_SLIP`, under the floor by
     construction. A rib bored for a BODY never matches here: this set is read in the run pass,
     where the names are runs."""
     import enclosure_assembly as _ea
-    pairs = {frozenset((rid, piece)) for rid, _leg, _root, piece in _ea.TUBE_ANCHOR_SITES}
+    sites = getattr(a, "tube_anchor_sites", None)
+    site_ids = ({row[0] for row in sites} if sites is not None else
+                {rid for rid, _leg, _root, _piece in _ea.TUBE_ANCHOR_SITES})
+    pairs = {frozenset((rid, piece))
+             for rid, _leg, _root, piece in _ea.TUBE_ANCHOR_SITES if rid in site_ids}
     # A capped rib's other half is the anchor cap, closing on the same tube at the same slip.
     pairs |= {frozenset((rid, f"anchor-cap-{rid}"))
-              for rid, closure in _ea.TUBE_ANCHOR_CLOSURES.items() if closure == "cap"}
-    pairs |= {frozenset((name, f"anchor-cap-{name}"))
-              for name, row in _ea._cci.cap_anchors.items() if row.closure == "cap"}
+              for rid, closure in _ea.TUBE_ANCHOR_CLOSURES.items()
+              if rid in site_ids and closure == "cap"}
     # And the cold core's own ribs. A row there may be bored for a RUN rather than a body, and
     # that rib stands on the cap — so the pair is the run against `foam-assembly`. A row bored for
     # a body never matches here: this set is only read in the run pass, where the names are runs.
@@ -1350,8 +1615,17 @@ def anchored_pairs() -> set:
     # What either one does to the run in it is the same contact at the same slip, so a run held
     # by one is as seated as a run held by the other, and reading only the first leaves a run
     # charged for touching the very part that carries it.
-    return pairs | {frozenset((name, "foam-assembly"))
-                    for name in (*_ea._cci.cap_anchors, *_ea._cci.cap_side_anchors)}
+    cap_stations = getattr(a, "cap_tube_anchors", None)
+    if cap_stations is None:
+        cap_ids = {*_ea._cci.cap_anchors, *_ea._cci.cap_side_anchors}
+    else:
+        cap_ids = {r.id for r in runs for station in cap_stations
+                   if any(_ea._on_leg(station[0], p, q, 1e-3)
+                          for p, q in zip(r.pts, r.pts[1:]))}
+    pairs |= {frozenset((name, f"anchor-cap-{name}"))
+              for name, row in _ea._cci.cap_anchors.items()
+              if name in cap_ids and row.closure == "cap"}
+    return pairs | {frozenset((name, "foam-assembly")) for name in cap_ids}
 
 
 def lane_notes(a, runs, rows) -> list[str]:
@@ -1530,7 +1804,7 @@ def _coverage(a) -> Check:
     box: a tube is fastened by the collets it seats in, and a wall is what the rest fastens TO."""
     bodies, _tubes, _pieces = _split_placed(a)
     placed = set(bodies)
-    declared = {name for name, _by, _joint in mounts()}
+    declared = {name for name, _by, _joint in mounts(a)}
     detail = [f"placed, undeclared: {n}" for n in sorted(placed - declared)]
     detail += [f"declared, unplaced: {n}" for n in sorted(declared - placed)]
     return Check("coverage", "Every placed body is declared in the fastening table",
@@ -1538,7 +1812,7 @@ def _coverage(a) -> Check:
                  f"{len(placed & declared)}/{len(placed)} declared", "all declared", detail)
 
 
-def _mounted() -> Check:
+def _mounted(a) -> Check:
     """The one fastening axis: a printed feature of another placed part, or nothing.
 
     The construction each open row stands on today rides in the detail, so the list says what
@@ -1551,11 +1825,14 @@ def _mounted() -> Check:
     They are out of this axis entirely; `coverage` is what holds every one of them declared.
     `NEVER`'s rows are counted apart too: out of the denominator, and last in the detail with
     the reason each carries."""
-    rows = mounts()
+    rows = mounts(a)
+    present = {name for name, _by, _joint in rows}
+    rides = {rider:host for rider,host in RIDES.items()
+             if rider in present and host in present}
     never_holds(rows)
-    rides_hold(rows)
+    rides_hold(rows, rides)
     tees_land_held(rows)
-    own = [(n, by, joint) for n, by, joint in rows if n not in RIDES]
+    own = [(n, by, joint) for n, by, joint in rows if n not in rides]
     open_joints = sorted((n, joint) for n, by, joint in own
                          if by is None and n not in NEVER)
     detail = [f"{n}: {joint}" for n, joint in open_joints]
@@ -1566,7 +1843,7 @@ def _mounted() -> Check:
     return Check("mounted",
                  "A printed feature of another placed part fastens every body", "gate",
                  verdict(not open_joints),
-                 f"{done}/{total} mounted, {len(RIDES)} part of another body, "
+                 f"{done}/{total} mounted, {len(rides)} part of another body, "
                  f"{len(NEVER)} nothing fastens",
                  "a printed joint per body", detail)
 
@@ -1675,14 +1952,7 @@ def _room_holds(a) -> Check:
 # A run over `TUBE_ANCHOR_SPAN` with no rib on it is a run that sags. A name here is one the
 # machine leaves loose because a HAND takes it — the same shape as `NEVER` on the mounted axis:
 # out of the denominator, and its text goes out on the card.
-LOOSE = {
-    "fluid-18":
-        "Flavor A's line to its rear union. A capped lid rib holds the fore crossing "
-        "(`_cold_core_interface.cap_anchors`). The remaining line follows the west "
-        "flank, turns in over the pump's west-rear foot and returns to the rear union. Those "
-        "unretained spans need a support and relaxed-tube review. The authored centreline "
-        "does not establish physical tube shape or its clearance to neighbouring parts.",
-}
+LOOSE = {}
 
 
 def loose_holds(spans) -> None:
@@ -1716,7 +1986,8 @@ def _tube_anchored(a, runs) -> Check:
     loose_holds(spans)
     over = sorted(((s, rid) for rid, s in spans.items() if s > cap and rid not in LOOSE),
                   reverse=True)
-    anchored = {rid for rid, _leg, _root, _piece in _ea.TUBE_ANCHOR_SITES}
+    anchored = {row[0] for row in
+                getattr(a, 'tube_anchor_sites', _ea.TUBE_ANCHOR_SITES)}
     detail = [f"{rid}: {s:.1f} mm unheld, {s - cap:.1f} over"
               + (" — anchored once already" if rid in anchored else "")
               for s, rid in over]
@@ -1815,7 +2086,7 @@ def build(a) -> Scorecard:
 
 def _build(a) -> Scorecard:
     runs = list(getattr(a, "runs", []))
-    bends = bend_radii(runs)
+    bends = bend_radii(runs, getattr(a, "native_route_specs", {}))
     # `enclosure_assembly` measures every leg of the refrigerant loop, and the ones a shared plane
     # SHUT ride each row: the millimetres a closed mating stands apart print beside the segment it
     # makes. A mating standing open, or a leg with no reading at all, counts here only if a line
@@ -1823,26 +2094,24 @@ def _build(a) -> Scorecard:
     # owed column, rather than counting as made because somebody looked at it. Either way it reads
     # red on `refrigerant-joints`, which grades the whole loop — a mating on its two stations, a
     # drawn leg on both its mouths.
-    conns = load_connections(runs, getattr(a, "refrigerant_mates", ()))
+    conns = load_connections(runs, getattr(a, "refrigerant_mates", ()),
+                             getattr(a, "native_connections", {}))
     clearances = part_clearances(a, runs)
     lanes = lane_notes(a, runs, clearances)
     checks = [_coverage(a), _room_holds(a), _pack_closes(a),
               _clearance_floor(clearances, lanes), _bed_fit(a),
               *_bounds(a),
               _runs_drawn(runs), _bend_radius(bends),
-              _mounted(), _placed(a), _routed(conns), _located(a),
+              _mounted(a), _placed(a), _routed(conns), _located(a),
               _tube_anchored(a, runs),
               Check("gas-chain-qualified", "Warm gas fitting dimensions and made-up fit qualified",
-                    "goal", "warn", "WR1110 scanned; made-up fittings pending",
-                    "measure actual adapter reach and check before accepting their fit",
-                    ["PI010822S uses the shared nominal 1/4-inch PTC envelope.",
-                     "PI450822S uses the nominal PP450822E sections the discharge chain "
-                     "draws.",
-                     "The WR1110 exterior and outlet stub follow two native MINI 2 scans. "
-                     "Its adapter's assumed engagement is bounded by the measured stub.",
-                     "The GASHER check and actual made-up adapter reaches remain nominal.",
-                     "Model clearance does not qualify NPT engagement, the check's pressure "
-                     "rating, or the printed cradle's physical fit."])]
+                    "goal", "warn", "Compact gas references; physical fit pending",
+                    "qualify actual compact regulator/check and trimmed insertions",
+                    ["PISCO is the selected 0.3 MPa regulator; its purchased-body fit remains unqualified.",
+                     "Both check positions use the purchased neoFit ACHV44-E reference, "
+                     "with published dimensions and explicitly estimated socket details.",
+                     "Stem insertions retain the receiving-family estimates stated in above-core.json.",
+                     "Geometry establishes neither sealing, pull-off retention nor pressure suitability."])]
     return Scorecard(checks, bends, conns, size_rows(a))
 
 
@@ -1903,9 +2172,11 @@ def report(a) -> Scorecard:
         for d in sc.bends:
             reach = "—" if d["reach"] is None else f"{d['reach']:.1f}"
             grade = f"{d['grade']}/{d['reachGrade']}" if d["grade"] else "straight"
-            per = " ".join(f"{c['grade']}{c['radius']:.1f}" for c in d["corners"]) or "—"
+            per = " ".join(f"{c['grade']}{c['radius']:.1f}" for c in d["corners"]
+                           if c['radius'] is not None) or "—"
             det = d["need"]["detour"]
-            print(f"  {d['id']:12} {grade:7} {d['stock']:18} {d['radius']:9.1f} "
+            radius = "—" if d['radius'] is None else f"{d['radius']:.1f}"
+            print(f"  {d['id']:12} {grade:7} {d['stock']:18} {radius:>9} "
                   f"{d['minBend']:6.1f} {reach:>7} "
                   f"{'    — ' if det is None else f'{det:5.2f}×'} {per}")
     return sc

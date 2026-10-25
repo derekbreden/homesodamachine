@@ -24,9 +24,9 @@ sys.path.insert(
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
 
-from _cold_core_interface import (attachment_xy_positions, cap_anchor_tie_loop, cap_anchors,
-                                  cap_cradles, cap_side_anchor_tie_loop, deck_mounts,
-                                  deck_mount_xy)
+from _cold_core_interface import (attachment_xy_positions, cap_anchors,
+                                  cap_cradles, deck_mounts,
+                                  deck_mount_xy, deck_mount_reach, deck_mount_bore_depth)
 from _reed_channels import reeds_per_reservoir
 from docgen import load_module, substitute_md
 from _funnel_casting import casting_estimate, figures as _casting_figures
@@ -41,15 +41,19 @@ import ground_ring_stack as _gnd  # on the path once `enclosure_assembly` is imp
 import enclosure as _enc  # likewise
 import digiten_flow_sensor as _digiten  # likewise — the arm the meter's anchors bore for
 import iec_c14_inlet as _c14  # likewise — the inlet whose flange the +Y wall's tunnel bores for
-import meanwell_irm90 as _psu  # likewise — the +X wall's bodies, each counting its own screws
+import meanwell_irm90 as _psu  # the flat cap-mounted supply and its mounting ears
 import teyleten_relay as _relay  # likewise
 import pcba_tray as _pcba  # likewise
+import _above_core_shell as _selected_shell
+import _above_core_mounts as _selected_cap
+import above_core as _above_core
+import above_core_wiring as _above_core_wiring
+import above_core_bom as _above_core_bom
 
 # The placed pack, for the counts that are the machine's rather than a part's — off the
 # artifact the last build wrote, so this driver stands no appliance to count bosses.
 _f = _facts.read()
 _placed = set(_f.pack["placed"])
-_east_bosses = _f.box["east_bosses"]
 _floor_bosses = _f.box["floor_bosses"]
 _cond_bosses = _f.box["cond_mount"][3] if _f.box["cond_mount"] else ()
 
@@ -110,10 +114,15 @@ reeds_per_carbonator = 2
 solenoid_count = sum(1 for n in ml.P if n.startswith("V-"))
 tee_count = len(ml.PURCHASED_TEES)
 
-# Cable management (~15), water-3 post, ASSE sleeve pair, water check.
-four_inch_ties_per_build = 19
-# Meter (two), water split, water regulator, WR1105 and CO2 check.
-six_inch_ties_per_build = 6
+# Cable management (~15) and two vent-adapter lands use four-inch stock.
+four_inch_ties_per_build = 15 + 2
+# One six-inch tie at each selected fluid saddle and explicit cap retaining path.
+# This allocates owned stock; installed loop fit/retention remain unqualified.
+_cap_retaining_paths = {**_selected_cap.meter_tie_routes(),
+                        **_selected_cap.union_tie_routes(),
+                        'water-check': _selected_cap.check_tie_route()}
+six_inch_ties_per_build = (len(_selected_shell.fluid_supports())
+                            + len(_cap_retaining_paths))
 
 # PP1208E bulkheads: soda umbilical and tap-water inlet. The flavor pair uses 4 mm ABU44M-E.
 panel_umbilical_bulkheads = 1
@@ -121,7 +130,7 @@ panel_water_inlet_bulkheads = 1
 
 # Per-cap insert counts.
 # Foam caps: `attachment_xy_positions` is the list of (x, y) pairs for one
-# shell face (4 corners + 2 mid-long-side = 6); a cap stack fastens on each
+# shell face (4 corners, 4 mid-wall and 2 end stations); a cap stack fastens on each
 # face (top mouth-up, bottom mouth-down), inserts pressed from each face.
 # Reservoir: `insert_positions_for_side_plus_1` is the list of (x, z)
 # pairs for one reservoir cap (6 per cap).
@@ -142,15 +151,19 @@ total_reeds_per_build = reeds_per_carbonator + reservoir_reeds_total
 # PP1208E per build: soda umbilical (1) + water inlet (1) = 2.
 pp1208e_per_build = panel_umbilical_bulkheads + panel_water_inlet_bulkheads
 
-# The funnel drain uses purchased PP0308E stock.
-pp0308e_per_build = 1
+# Funnel drain and the selected warm/core union turns use PP0308E stock.
+pp0308e_per_build = (1 + len(_above_core_bom.union_elbow_names())
+                     + len(_above_core_bom.core_union_elbow_names()))
+stem_elbows_per_build = (2*len(ml.LOWER_CONNECTIONS)
+                        + len(_above_core_bom.stem_elbow_names())
+                        + len(_above_core_bom.core_stem_elbow_names()))
+stem_elbow_delivered_unit_cost = (
+    Decimal('36.18') / Decimal(30) * Decimal('173.54') / Decimal('147.22'))
 
-# EVERY VALVE IN THIS MACHINE STANDS IN FOUR BOSSES (`valve_seat`) PRINTED INTO A PART §7
-# ALREADY BILLS — three on the cold core's cap lid (`_cold_core_interface.cap_cradles`), eight on
-# the two valve panels, which are `enclosure-front-top`'s own material
-# (`enclosure._valve_trays`) — and both flavour pumps hang in a tray of that same piece's
-# material (`enclosure._pump_trays`). So §7 carries no seat row of its own, and a plate appearing
-# in the machine as a body rather than as a wall is what fails here.
+# Valve sockets belong to the printed parent already billed in §7: V-A/V-B/V-K to
+# the cap lid, and the front manifold
+# valves to enclosure-front-top. Both flavour-pump trays also belong to that
+# front piece. No separate valve panel or equipment tray is allocated.
 _trays = sorted(n for n in _placed if "tray" in n or n.startswith("valve-panel"))
 assert not _trays, (
     f"the machine places {len(_trays)} body(ies) under its valves and pumps ({_trays}) — a seat "
@@ -174,12 +187,8 @@ assert not _cover, (
     f"— add the cut-part row, its cable gland and its bond back with it")
 
 # Foam-cap hardware: one clamp insert + one M3 × 25 screw per station per face, both faces, PLUS
-# the top cap's deck-mount columns — each takes a ruthex short in its top bore, and
-# each is a bolt station, and the water pump is the one module that uses any: the
-# clamp screws are 1:1 with the clamp inserts, and a deck column takes a screw only
-# where a module bolts into it — which today is `g-ganen-pump`'s four and nothing
-# else. The three valves that stand on the top lid press into cradles printed in
-# it, which take neither.
+# the top cap's pump, PCB and flat PSU columns, each with a full-length M3
+# insert. The upright V-B wall takes no separate mount fasteners.
 foam_cap_deck_inserts_per_build = sum(len(deck_mount_xy(n)) for n in deck_mounts)
 pump_mount_screws_per_build = len(deck_mount_xy("g-ganen-pump"))
 foam_cap_clamp_inserts_per_build = inserts_per_foam_cap_face * foam_cap_faces
@@ -200,25 +209,18 @@ faucet_display_cover_stations = ()
 faucet_display_cover_inserts_per_build = len(faucet_display_cover_stations)
 faucet_display_cover_screws_per_build = faucet_display_cover_inserts_per_build
 
-# Electronics-shelf hardware (Zone B, assembly/electronics-bay.md). The electronics bay
-# bolts to `enclosure-back-top`'s +X wall: `enclosure_assembly.wall_mounts` stands ONE BOSS PER
-# HOLE in each body's own mounting pattern, and each boss is bored for a ruthex short.
-# So the count is the pack's, not a number typed here — a body that gains a hole gains a
-# boss, an insert and a screw together. No printed part on the shelf carries a boss of
-# its own and no tray ships, so this is the whole of the shelf's retention.
-shelf_inserts_per_build = len(_east_bosses)
-# One SHCS in through each body from the room, into its boss's insert — 1:1 with the
-# bosses. Every insert is a 4 mm short in a bore of about 6 mm, so each body's length is
-# its own clamp stack and each body's own pattern counts its screws. The PSU's moulded
-# ears are 6.7 mm and the ground stack fans ring terminals under its head: M3 × 10. The
-# main board's 1.6 mm stands over an insert recessed 2.25 mm: M3 × 8. A relay's 1.5 mm
-# board sits on a flush insert: M3 × 6.
-shelf_screws_per_build = shelf_inserts_per_build
-shelf_psu_screws_per_build = len(_psu.holes)
+# Electronics use their native hole patterns. PCB/PSU inserts belong to the
+# cap's full-length count above. The wall relays and cap earth boss use short
+# inserts; the total electronics screw count also includes the PCB and PSU.
+shelf_psu_screws_per_build = len(deck_mount_xy('psu'))
 shelf_ground_screws_per_build = len(_gnd.holes)
-shelf_pcba_screws_per_build = len(_pcba.board.holes)
+ground_fasteners = _above_core_wiring.ground_fastener_datums()
+shelf_pcba_screws_per_build = len(deck_mount_xy('pcba'))
 shelf_relay_screws_per_build = (sum(1 for name in _placed if name.startswith("relay-"))
                                 * len(_relay.holes))
+shelf_inserts_per_build = shelf_relay_screws_per_build + shelf_ground_screws_per_build
+shelf_screws_per_build = (shelf_inserts_per_build + shelf_pcba_screws_per_build
+                          + shelf_psu_screws_per_build)
 
 # Floor-slab hardware (assembly/enclosure-mechanical.md §5). The compressor is the one body in
 # the box bolted DOWN to it: `enclosure_assembly.floor_mounts` stands ONE POST PER HOLE in the
@@ -268,18 +270,16 @@ pump_cap_screws_per_build = pump_cap_inserts_per_build
 dock_tees_per_build = len(_f.box["collet_plate"]["holes"])
 dock_fixture_locks_per_build = 0
 
-# The C14 inlet's two, read off the receptacle's own flange. `enclosure._c14_tunnel_geometry`
-# stands a TUNNEL off the +Y wall's inner face and bores ONE INSERT PER PANEL SCREW the moulding
-# declares, so this count is the donor's the way the shelf's is the pack's — a receptacle with a
-# different flange brings its own stations.
-#
-# THE CORD IS THE ONLY THING A CUSTOMER PLUGS INTO THIS MACHINE, and these two screws are what
-# hold the socket it plugs into. The tunnel is `c14_tunnel_len` — one `heatset_depth` — deep and
-# no deeper, because what stands over the insert's blind end is the wall the cord passes
-# through: a bore run further would open the outside of the appliance at the one station a hand
-# pushes against. So this pair is SHORT-BODY by construction and not by preference.
+# Two C14 flange screws use the acquired Ø7×0.5 washers to span the native
+# moulding's countersinks. Their short inserts seat on the flange-back plane.
 c14_inserts_per_build = len(_c14.panel_screws())
 c14_screws_per_build = c14_inserts_per_build
+c14_washers_per_build = c14_screws_per_build
+c14_fasteners = _selected_shell.c14_fastener_plan()
+c14_washer_thickness = c14_fasteners['washer_thickness_mm']
+c14_bore = c14_fasteners['pilot_depth_mm']
+# The selected fixed-tee dock has no keeper or return-cover locks.
+small_washers_per_build = dock_fixture_locks_per_build + c14_washers_per_build
 
 # THE PLATE AND ITS RING ARE PRINTED PARTS AND §7 BILLS BOTH: the plate a row of its own, the
 # gasket a line in the soft-seal sentence that carries every TPU seal in the machine. A body
@@ -299,52 +299,42 @@ enclosure_seam_long_rods_per_build = 2 * sum(1 for r in _seam_rods if r[0] == "l
 enclosure_seam_short_rods_per_build = 2 * sum(1 for r in _seam_rods if r[0] == "upper")
 enclosure_seam_inserts_per_build = enclosure_seam_rods_per_build
 
-# Every M3 × 8 in the build: the main board's four, the condenser's aft pair, the faucet
-# base and C14 inlet. The inlet's 3.25 mm flange ear stands 1.84 mm off the tunnel's
-# seating face on the receptacle's rim, so an 8 leaves 2.9 mm in the 4 mm insert.
+# The empty electronics panel and drop-in funnel frame each fasten from above.
+funnel_frame_screws_per_build = len(_enc._funnel_frame_part.fastener_datums())
+electronics_panel_screws_per_build = len(
+    _above_core.specification()['electronics_access']['fasteners']['centres_xy_mm'])
+roof_closure_screws_per_build = (funnel_frame_screws_per_build
+                                + electronics_panel_screws_per_build)
+roof_closure_inserts_per_build = roof_closure_screws_per_build
+
+# M3×8 screws retain the PCB, condenser and faucet base.
 m3x8_per_build = (shelf_pcba_screws_per_build + cond_screws_per_build
                   + nameplate_screws_per_build + display_cover_screws_per_build
-                  + faucet_display_cover_screws_per_build + c14_screws_per_build
+                  + faucet_display_cover_screws_per_build
                   + touchflo_screws_per_build)
 
-# And every M3 x 10: the PSU's four and the ground-stack clamp's one.
-m3x10_per_build = shelf_psu_screws_per_build + shelf_ground_screws_per_build
+# Earth and C14 use M3×10. Flat PSU screws cross its ears and the lid.
+m3x10_per_build = shelf_ground_screws_per_build + c14_screws_per_build
+m3x20_per_build = pump_mount_screws_per_build + shelf_psu_screws_per_build
 
 # And every M3 x 6: the relays'.
 m3x6_per_build = shelf_relay_screws_per_build
 
-# THE SHELF'S AND THE INLET'S SCREW STACKS, each read off what stands under the head and the
-# bore the screw lands in. A +X wall insert seats on its boss where the boss stands, on the
-# wall where the wall is the body's mounting face, and behind a recess where the main board's
-# tails need one (`enclosure.east_boss_insert_setback`); its bore runs as far as
-# `enclosure.east_boss_bore_end` lets it. The reach past the insert's mouth fills the 4 mm
-# insert, or nearly, and stops short of the blind end.
-psu_screw_len, pcba_screw_len, relay_screw_len, c14_screw_len = 10.0, 8.0, 6.0, 8.0
-
-
-def _east_seats():
-    """Each +X wall station as `(stands, insert setback, bore depth from the insert's seat)`."""
-    inner, outer = _f.box["inner"], _f.box["outer"]
-    for station in _east_bosses:
-        sy, sz, tip = station[:3]
-        piece = ("front" if sy <= _f.box["y_joint"] else "back",
-                 "top" if sz > _enc.z_seam else "bottom")
-        root = _enc.piece_root_faces(inner, *piece)[1]
-        stands = root - tip >= _enc.east_boss_min_stand - _enc.stated_bound_tol
-        setback = _enc.east_boss_insert_setback(station)
-        seat = (tip if stands else root) + setback
-        yield stands, setback, _enc.east_boss_bore_end(sy, seat, outer) - seat
-
-
-_seats = list(_east_seats())
-pcba_insert_recess = max(setback for _stands, setback, _depth in _seats)
-pcba_bore = min(depth for _stands, setback, depth in _seats if setback)
-psu_bore = min(depth for stands, setback, depth in _seats if not stands and not setback)
-relay_bore = min(depth for stands, setback, depth in _seats if stands and not setback)
-psu_screw_reach = psu_screw_len - _psu.ledge_h
-pcba_screw_reach = pcba_screw_len - _pcba._thickness - pcba_insert_recess
+# The cap owns PCB/PSU stacks. The fixed west-wall relay's blind depth is
+# read from its native pilot, from the module mounting plane to the blind end.
+psu_screw_len = deck_mounts['psu'].screw
+pcba_screw_len = deck_mounts['pcba'].screw
+relay_screw_len = 6.0
+c14_screw_len = c14_fasteners['screw_length_mm']
+pcba_insert_recess = 0.0
+pcba_bore = psu_bore = deck_mount_bore_depth
+_relay_holes = _selected_shell.relay_bosses()[1]
+relay_bore = (_above_core.pose('relay-1')['translation_mm'][0]
+              - min(s.BoundingBox().xmin for s in _relay_holes))
+psu_screw_reach = deck_mount_reach('psu')
+pcba_screw_reach = deck_mount_reach('pcba')
 relay_screw_reach = relay_screw_len - _relay.pcb_t
-c14_screw_reach = c14_screw_len - _c14.FLANGE_T - _c14.RIM_PROUD
+c14_screw_reach = c14_screw_len - _c14.FLANGE_T - c14_washer_thickness
 
 # One screw and insert per ear, on each of the magnetic pair's two halves.
 pogo_fasteners_per_build = 2 * len(_enc._pogo.ear_xs())
@@ -353,8 +343,8 @@ pogo_fasteners_per_build = 2 * len(_enc._pogo.ear_xs())
 # it crosses.
 m3x60_per_build = pump_cap_screws_per_build
 
-# No dock fixture takes a lock screw; the M3 x 12 count follows that.
-m3x12_per_build = dock_fixture_locks_per_build
+# M3 × 12 closes the roof frame/panel; selected dock locks contribute zero.
+m3x12_per_build = dock_fixture_locks_per_build + roof_closure_screws_per_build
 
 # WHICH M3 BODY EACH STATION TAKES. ruthex's short and full-length M3 are the same insert but
 # for the body — same knurl, same recommended hole — so this split is a statement about BORE
@@ -364,7 +354,7 @@ m3x12_per_build = dock_fixture_locks_per_build
 #
 # Short insert families and the stock available behind their seats:
 #   touch-flo base pods  — the blind pilots receive 4 mm inserts above the locating sockets
-#   +X wall bosses       — the bore ends at `flute_backing`; deeper walks the electronics bay in
+#   fixed-wall relays and cap earth boss — their screws use the short family
 m3_long_inserts_per_build = (
     foam_cap_inserts_per_build
     + reservoir_cap_inserts_per_build
@@ -372,6 +362,7 @@ m3_long_inserts_per_build = (
     + nameplate_inserts_per_build
     + display_cover_inserts_per_build
     + pump_cap_inserts_per_build
+    + roof_closure_inserts_per_build
 )
 m3_short_inserts_per_build = (
     touchflo_inserts_per_build
@@ -399,62 +390,16 @@ total_m3_screws_per_build = (
     + pump_cap_screws_per_build
     + c14_screws_per_build
     + dock_fixture_locks_per_build
+    + roof_closure_screws_per_build
 )
 total_m5_screws_per_build = floor_screws_per_build + enclosure_seam_rods_per_build
 
 # Reservoir-cap vent filters per build (2).
 vent_filters_per_build = vent_filters_per_reservoir_cap * reservoirs_per_build
 
-# --- what a zip tie has to close, at every seat printed for one -------------
-#
-# WHAT PICKS THE LENGTH IS THE LOOP AND NOT THE WIDTH. A zip tie turns INSIDE its cavity, so
-# what it reaches round is the body together with the web behind it — the convex perimeter of
-# that pair — and the §11 rows quote it because that figure is what puts a seat on the 4", the
-# 6" or the 8". Every one below is read off the module that draws the seat, so a wall or a slip
-# that moves carries the rows with it.
-#
-# A SEAT IS ALL THE HULL KNOWS. `enclosure.tube_anchor_tie_loop` is the ribs' and the meter's
-# alike — a flow-meter anchor reaches `flow_meter_anchor_wall` off the arm's axis where a rib
-# reaches `wall`, and both are the box's own three millimetres.
-digiten_tie_loop = _enc.tube_anchor_tie_loop(_digiten.port_dia / 2.0 + _ea.DIGITEN_SEAT_SLIP)
-# EVERY RIB HOLDING A RUN IS BORED FOR THE ONE STOCK, which is why the row quotes one figure for
-# all of them rather than reading them apiece: the box's ribs and the cap lid's rows named for a
-# run. A rib an anchor cap closes takes no tie, so it quotes no loop
-# (`enclosure_assembly.TUBE_ANCHOR_CLOSURES`, `_cold_core_interface.cap_anchors`); with every
-# one of them capped the row quotes none.
-_run_loops = {round(_enc.tube_anchor_tie_loop(station[3]), 6) for station in _f.pack["tube_anchors"]
-              if tuple(station[5:6]) != ("cap",)}
-_run_loops |= {round(cap_anchor_tie_loop(name), 6) for name, row in cap_anchors.items()
-               if name in _ea._lines.authored() and getattr(row, "closure", "tie") != "cap"}
-if len(_run_loops) > 1:
-    raise ValueError(
-        f"the tied ribs holding a run close loops of {sorted(_run_loops)} mm and bom.md §11 quotes "
-        f"one for every rib holding a tube. Either they go back on one stock or the row reads "
-        f"them apiece.")
-run_tie_loop = next(iter(_run_loops)) if _run_loops else None
-# THE RIBS BORED FOR A BODY take whatever section that body offers, so each answers on its own.
-# `BODY_ANCHOR_SITES` is the table `check_body_seated` grades the built pieces against, and the
-# radius is the reference module's — read here by name rather than off a row's position.
-_body_seats = {name: section()[1] + _ea.BODY_ANCHOR_SLIP
-               for name, section, _root, _piece in _ea.BODY_ANCHOR_SITES}
-# The seat is the row's own fourth field, the same station `tube_anchors` reads above —
-# named by index from the FRONT because a row may carry more behind it, and a read off
-# its last position turns whatever is appended next into this radius.
-_bored = {round(station[3], 6) for station in _f.pack["body_anchors"]}
-_missing = sorted(n for n, r in _body_seats.items() if round(r, 6) not in _bored)
-if _missing:
-    raise ValueError(
-        f"{_missing} name a section this table quotes a loop for and the last build bored no rib "
-        f"at that radius. The row reads the seat a body offers, so a body whose section moved "
-        f"without its rib is a figure with nothing behind it.")
-body_tie_loops = {n: _enc.tube_anchor_tie_loop(r) for n, r in _body_seats.items()}
-body_tie_loops['flow-regulator'] = _ea._water_regulator.tie_loop()
-# The flavour tap's two barrels are quoted separately: each loop follows its
-# body's own seat radius through SPLIT_LOOP and FLOWREG_LOOP below.
-# AND THE COLD CORE'S CAP CARRIES THE OTHER FAMILY, on its own wall and its own fastener.
-# `_cold_core_interface` owns both hulls; the chain rib is one section, and the two side posts
-# are not — a post's loop clears its own crown, which stands a wall proud of the pipe.
-chain_tie_loop = cap_anchor_tie_loop("discharge-chain")
+# The cap check's complete nominal strip needs the allocated six-inch stock.
+# Its installed threading and retention remain unqualified.
+chain_tie_loop = _cap_retaining_paths['water-check']['length_mm']
 
 
 def pack_line_cost(quantity, pack_price, pack_quantity):
@@ -496,18 +441,7 @@ def main(*, only_bom=False):
         "PP1208E_PANEL": f"{panel_umbilical_bulkheads:.4g}",
         "PP1208E_INLET": f"{panel_water_inlet_bulkheads:.4g}",
         "PP1208E_TOTAL": f"{pp1208e_per_build:.4g}",
-        # The loops the §11 zip tie rows are picked by — one per seat printed for a tie,
-        # each off the module that draws it. `ANCHOR_LOOP` and `WR1110_LOOP` are the same
-        # names `_cold_core_interface` and `_internal_plumbing_sync` write elsewhere, so
-        # `docgen.lint` holds this row against those pages rather than letting the two drift.
-        "DIGITEN_LOOP": f"{digiten_tie_loop:.3g} mm",
-        **({"TUBE_RIB_LOOP": f"{run_tie_loop:.3g} mm"} if run_tie_loop else {}),
-        "WATER_3_POST_LOOP": f"{cap_side_anchor_tie_loop('water-3'):.3g} mm",
-        "SPLIT_LOOP": f"{body_tie_loops['water-split']:.3g} mm",
-        "FLOWREG_LOOP": f"{body_tie_loops['flow-regulator']:.3g} mm",
         "ANCHOR_LOOP": f"{chain_tie_loop:.3g} mm",
-        "WR1110_LOOP": f"{body_tie_loops['wr1110']:.3g} mm",
-        "GAS_CHECK_LOOP": f"{body_tie_loops['gasher-co2']:.3g} mm",
         # Heat-set insert + screw hardware.
         "FOAM_INSERTS": f"{foam_cap_inserts_per_build:.4g}",
         "FOAM_CLAMP_INSERTS": f"{foam_cap_clamp_inserts_per_build:.4g}",
@@ -524,6 +458,11 @@ def main(*, only_bom=False):
         "SHELF_SCREWS": f"{shelf_screws_per_build:.4g}",
         "SHELF_SCREWS_PSU": f"{shelf_psu_screws_per_build:.4g}",
         "SHELF_SCREWS_GROUND": f"{shelf_ground_screws_per_build:.4g}",
+        "GROUND_STACK_T": f"{ground_fasteners['clamped_thickness_mm']:g}",
+        "GROUND_SCREW_REACH": f"{ground_fasteners['screw_projection_mm']:g}",
+        "GROUND_BORE": f"{ground_fasteners['pilot_depth_mm']:g}",
+        "GROUND_TIP_AIR": f"{ground_fasteners['tip_air_mm']:g}",
+        "GROUND_BOSS_D": f"{ground_fasteners['boss_diameter_mm']:g}",
         "SHELF_SCREWS_PCBA": f"{shelf_pcba_screws_per_build:.4g}",
         "SHELF_SCREWS_RELAY": f"{shelf_relay_screws_per_build:.4g}",
         "COND_INSERTS": f"{cond_inserts_per_build:.4g}",
@@ -544,9 +483,14 @@ def main(*, only_bom=False):
         "RELAY_SCREW_TIP": f"{relay_bore - relay_screw_reach:.3g}",
         "C14_FLANGE_T": f"{_c14.FLANGE_T:g}",
         "C14_RIM_PROUD": f"{_c14.RIM_PROUD:g}",
-        "C14_BORE": f"{_enc.heatset_depth:g}",
+        "C14_BORE": f"{c14_bore:g}",
         "C14_SCREW_REACH": f"{c14_screw_reach:.3g}",
-        "C14_SCREW_TIP": f"{_enc.heatset_depth - c14_screw_reach:.3g}",
+        "C14_SCREW_TIP": f"{c14_bore - c14_screw_reach:.3g}",
+        "C14_WASHERS": f"{c14_washers_per_build:g}",
+        "C14_WASHER_T": f"{c14_washer_thickness:g}",
+        "C14_WASHERS_COST": pack_line_cost(c14_washers_per_build, "7.82", 200),
+        "SMALL_WASHERS": f"{small_washers_per_build:g}",
+        "SMALL_WASHERS_COST": pack_line_cost(small_washers_per_build, "7.82", 200),
         "M3X6_TOTAL": f"{m3x6_per_build:.4g}",
         "M3X6_COST": pack_line_cost(m3x6_per_build, "7.12", 120),
         "M3X8_TOTAL": f"{m3x8_per_build:.4g}",
@@ -567,6 +511,12 @@ def main(*, only_bom=False):
             f"{display_cover_inserts_per_build} inserts."),
         "M3X10_TOTAL": f"{m3x10_per_build:.4g}",
         "M3X10_COST": pack_line_cost(m3x10_per_build, "8.57", 120),
+        "M3X20_TOTAL": f"{m3x20_per_build:.4g}",
+        "M3X20_COST": pack_line_cost(m3x20_per_build, "8.14", 60),
+        "FUNNEL_FRAME_SCREWS": f"{funnel_frame_screws_per_build:.4g}",
+        "ELECTRONICS_PANEL_SCREWS": f"{electronics_panel_screws_per_build:.4g}",
+        "ROOF_CLOSURE_INSERTS": f"{roof_closure_inserts_per_build:.4g}",
+        "ROOF_CLOSURE_SCREWS": f"{roof_closure_screws_per_build:.4g}",
         "M3X60_TOTAL": f"{m3x60_per_build:.4g}",
         "M3X12_TOTAL": f"{m3x12_per_build:.4g}",
         "M3X12_COST": pack_line_cost(m3x12_per_build, "8.57", 120),
@@ -574,15 +524,17 @@ def main(*, only_bom=False):
         "SEAM_LONG_RODS": f"{enclosure_seam_long_rods_per_build:.4g}",
         "SEAM_SHORT_RODS": f"{enclosure_seam_short_rods_per_build:.4g}",
         "SEAM_LONG_SCREWS_COST": pack_line_cost(enclosure_seam_long_rods_per_build, "10.74", 10),
-        "SEAM_SHORT_SCREWS_COST": pack_line_cost(enclosure_seam_short_rods_per_build, "7.50", 40),
+        "SEAM_SHORT_SCREWS_COST": pack_line_cost(enclosure_seam_short_rods_per_build, "8.57", 40),
         "SEAM_INSERTS": f"{enclosure_seam_inserts_per_build:.4g}",
         "DOCK_PUMP_TUBES": f"{len(_f.box['collet_plate']['holes'])}",
         "PUMP_TUBE_CUT": f"{ml.PUMP_TUBE_CUT:.3g} mm",
         "DOCK_TEES": f"{len(ml.PUMP_JUNCTIONS)}",
         "DOCK_RETURNS": f"{len(ml.LOWER_CONNECTIONS)}",
-        # Two NeoFit ATEU44W stem elbows on each lower return, off the bag of 10.
+        # The dock subset uses the same delivered receipt allocation as all stems.
         "DOCK_ELBOWS": f"{2 * len(ml.LOWER_CONNECTIONS)}",
-        "DOCK_ELBOWS_COST": pack_line_cost(2 * len(ml.LOWER_CONNECTIONS), "12.06", 10),
+        "DOCK_ELBOWS_COST": f"${(Decimal(2*len(ml.LOWER_CONNECTIONS))*stem_elbow_delivered_unit_cost).quantize(Decimal('.01'),rounding=ROUND_HALF_UP)}",
+        "STEM_ELBOWS": f"{stem_elbows_per_build:.4g}",
+        "STEM_ELBOWS_COST": f"${(Decimal(stem_elbows_per_build)*stem_elbow_delivered_unit_cost).quantize(Decimal('.01'),rounding=ROUND_HALF_UP)}",
 
         "PP0308E_TOTAL": f"{pp0308e_per_build}",
         "PP0308E_COST": pack_line_cost(pp0308e_per_build, "68.49", 30),
@@ -686,6 +638,7 @@ def main(*, only_bom=False):
             # The blocks loaded at the front-top and cartridge print pauses.
             "DOCK_MAGNETS": f"{dock_magnets_per_build:.4g}",
             "C14_SCREWS": f"{c14_screws_per_build:.4g}",
+            "ROOF_CLOSURE_SCREWS": f"{roof_closure_screws_per_build:.4g}",
             "NAMEPLATE_SCREWS": f"{nameplate_screws_per_build:.4g}",
             "FLOOR_SCREWS": f"{floor_screws_per_build:.4g}",
             "SOLENOIDS": f"{solenoid_count:.4g}",

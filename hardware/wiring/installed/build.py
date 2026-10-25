@@ -109,6 +109,11 @@ def write_manifest(manifest,scene_step):
            Path(__file__).with_name('step_merge.py'),
            Path(__file__).with_name('bundles.py'),Path(__file__).with_name('bundle-routes.json'),
            Path(__file__).with_name('connector-map.json'),
+           ROOT/'hardware/manifold-layout/above_core.py',
+           ROOT/'hardware/manifold-layout/above-core.json',
+           ROOT/'hardware/manifold-layout/above_core_wiring.py',
+           ROOT/'hardware/printed-parts/cold-core/_above_core_mounts.py',
+           ROOT/'hardware/printed-parts/cold-core/_cold_core_interface.py',
            ROOT/'hardware/assembly/harnesses/j2.json',ROOT/'hardware/assembly/harnesses/j13.json']
     manifest['source_sha256']={str(p.relative_to(ROOT)):digest(p) for p in paths}
     OUT.with_suffix('.json').write_text(json.dumps(manifest,indent=2)+'\n')

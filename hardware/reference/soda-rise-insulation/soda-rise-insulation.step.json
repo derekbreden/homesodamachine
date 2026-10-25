@@ -1,0 +1,5 @@
+{
+  "material": "CARGEN closed-cell nitrile foam",
+  "process": "cut-stock",
+  "notes": "One 15 mm square-cut sleeve from owned B0D2XFK337 stock, nominal ID6.35/OD25.4 mm. The installed annulus represents uncompressed foam; the longitudinal installation slit and foil-tape closure are not separately modeled. No thermal performance or physical retention result."
+}

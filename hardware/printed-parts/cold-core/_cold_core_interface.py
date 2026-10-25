@@ -30,6 +30,7 @@ import reeding
 import fits
 import valve_seat as _valve_seat
 import g_ganen_installation as _water_pump
+import _above_core_mounts as _above_mounts
 from world_workplane import xy_plane_z_up, xz_plane_y_up, xz_plane_y_down, WorldWorkplane
 from _stated_bounds import bound, state
 from _enclosure_interface import (manifold_rise, inner_limb_drop,
@@ -512,12 +513,9 @@ _boss_wall_x = outer_shell_x_length / 2 - screw_boss_size / 2
 # behind the smooth 0.30 mm exterior foil land.
 _corner_boss_y = _boss_wall_y - 0.25
 _end_boss_x = bag_pocket_outermost_x
-# EVEN THIRDS OF THE RUN WOULD BE 43.83 — the corner bosses stand at ±`_end_boss_x`, so a
-# third of what lies between them is that. The last 3.8 mm of it is bought from the
-# `carb-water-out` conduit, whose column stands at (52.2, 77.5) on the +Y band: at the third
-# it reads 3.04 mm off this boss, against the 4.43 mm the tightest station in the cup reads
-# without one. So the pair stands a little inboard of even, where the worst span on the run is
-# 91.5 mm against the third's 87.7 and nothing already standing in the cup moves at all.
+# The mid bosses stand at ±40 mm on each long wall. The soda lower-riser
+# datum is (52.2, -port_lane_mid_y) in the cap frame; its curved roof passage
+# joins the independently selected upper guide in `cap_fluid_conduits`.
 mid_screw_x_offset = 40.0
 #: Every attachment station as `((x, y), wall)`, `wall` naming the exterior face its cylinder
 #: stands tangent to and its web runs out to — "x", "y", or "corner" for one against both.
@@ -568,12 +566,9 @@ state(
     f"an M3 × {cap_screw_length:g} reaches {cap_screw_beyond_face:g} mm past the shell "
     f"face and bottoms in a {insert_pocket_depth:g} mm pocket before its head is down")
 
-# Deck mounts — the service bay's electronics, carried on columns of the TOP CAP. The cap
-# is already a foam-poured cup with a screw-boss column at every station spanning its full
-# height; a deck
-# mount is that same column at four more stations. Foam pours around the shanks, a ruthex
-# short sits flush in each column's top bore, and the module bolts down into it. Nothing is
-# bonded and no tray floor stands between the module and the cap.
+# Deck mounts — the pump, PCB and flat PSU carried on columns of the TOP CAP.
+# Each column grows from the cup floor and takes a full RX-M3x5.7 heat-set.
+# Foam fills the cup around the columns.
 #   A station with no standoff stops at the cap's mouth rim, under the lid, and its module
 # seats on the lid's outer face. A station with a standoff carries its column on through
 # the lid, and its module seats on the column tops.
@@ -592,37 +587,22 @@ deck_mount_bore_relief = 1.0     # ruthex minimum blind relief; also reserve tra
 # the deck mounts' lid holes and the valve plinths (`foam_cap_lid_pour_xy`).
 deck_mount_cap_gap = 1.5
 
-# Per module: the mount rectangle's centre in the cap's frame, the module's own hole pitch
-# across X and Y, how far proud of the lid's outer face its column tops stand, what the
-# screw head clamps down onto the column, and the screw that does it. A pitch of zero
-# collapses the rectangle onto a line or a point, so a mount is however many DISTINCT
-# columns its pitches leave: the ground stud rides one.
-#   NO ELECTRICAL BODY IS ON THIS CAP but the ground stud. The supply and the main board hang
-# on the +X wall of back-top, one over the other; the relay lies on the lid in the band they
-# left and the Wago row stands on the brick's crown, and neither has a joint yet — a body resting on
-# another is not mounted, so neither carries a row here.
+# Each row carries native-reference holes through the production above-core
+# placement into this cap's frame. It gives the column standoff, head-bearing
+# thickness and screw length. The PCB's columns pass through the lid to its
+# underside; the pump and PSU bear on the lid above flush columns.
 #   THE PATTERN IS THE CAP'S ROTATION KEY. The top cap installs spun a half turn about Z
 # (`foam_assembly._spin`) and its clamp bosses are symmetric under that turn, so the thing
 # that tells a builder which way the cup goes on is what is NOT symmetric — this station and the
 # seven conduit columns beside it. `assembly/cold-core.md` CC-06 and CC-15 both read the cap
 # that way.
-#   A STATION IS THE BODY THAT BOLTS TO IT, so the table is one row long: the water pump. Its
-# four identical rubber sliders stand at the fully engaged fore/aft rail ends.
-# Their screw axes sit 1.5 mm outward within the elongated slots, leaving the
-# Ø9 × 0.8 washer flat on each 7 mm pad. An M3 SHCS passes through the lid into
-# its insert. The nominal pad/washer stack and the blind screw-tip reserve are
-# separate dimensions; actual rubber compression is read during assembly.
-#   Every other body standing on this cap is carried some other way: the electronics bay hangs on
-# the enclosure's own wall bosses (`enclosure_assembly.wall_mounts`), and the three valves press
-# into the cradles below, which take no screw.
+# The pump's four identical rubber sliders stand at their fully engaged
+# fore/aft rail ends. Screw axes sit 1.5 mm outward within the elongated slots,
+# with a Ø9 × 0.8 washer on each 7 mm pad. Actual rubber compression remains
+# an installed observation. V-A, V-B and V-K have integral upright socket walls
+# on the lid; both relay modules are carried by the enclosure wall.
 DeckMount = namedtuple("DeckMount", "points standoff seat screw seat_min")
-deck_mounts = {
-    "g-ganen-pump": DeckMount(
-        _water_pump.CAP_MOUNT_XY, 0.0,
-        _water_pump.observed_pad_upper_z() + _water_pump.WASHER_T,
-        _water_pump.SCREW_LENGTH,
-        _water_pump.observed_pad_lower_z() + _water_pump.WASHER_T),
-}
+deck_mounts = {name: DeckMount(*row) for name, row in _above_mounts.deck_mounts().items()}
 
 
 def deck_mount_xy(name):
@@ -637,7 +617,7 @@ def deck_mount_standoff(name):
 
 def deck_mount_proud():
     """The tallest standoff in the pack — the foam assembly's own top over its lid's face.
-    Every station stands at `standoff = 0.0`, so the columns top out flush with the lid."""
+    PCB columns pass through the lid; the pump and PSU columns stop below it."""
     return max((deck_mount_standoff(name) for name in deck_mounts), default=0.0)
 
 
@@ -651,14 +631,15 @@ def deck_mount_reach(name):
     m = deck_mounts[name]
     over = m.seat
     if m.standoff == 0.0:
-        over += foam_cap_lid_height
+        over += foam_cap_lid_height + cap_lid_clearance
     return m.screw - over
 
 
 # The pump's minimum blind depth leaves screw-tip travel below its nominal stack.
 deck_mount_bore_depth = max(deck_mount_insert_length + deck_mount_bore_relief,
     _water_pump.SCREW_BORE_MIN_DEPTH, max(
-    (m.screw - m.seat_min - (foam_cap_lid_height if m.standoff == 0.0 else 0.0)
+    (m.screw - m.seat_min - (foam_cap_lid_height + cap_lid_clearance
+                           if m.standoff == 0.0 else 0.0)
      for m in deck_mounts.values()), default=0.0) + deck_mount_bore_relief)
 _mount_reach = bound(
     "deck-mount-reach", "Every deck mount's screw reaches the whole of its insert",
@@ -679,26 +660,12 @@ def deck_lid_hole_radius(name):
     return deck_mount_boss_radius + deck_mount_lid_slip
 
 
-# --- Valve cradles on the lid's outer face -----------------------------------
+# --- Horizontal valve cradles -----------------------------------------------
 #
-# A CRADLE IS FOUR BOSSES ON THE TOP LID'S OUTER FACE, with nothing between them: one under each
-# of the Beduan's corner posts, in one broad plinth. The valve's round body lands
-# on the plinth beside its open port channel. The sockets retain the valve without
-# screws or inserts. `valve_seat` builds the plinth; `foam_cap` places it on the lid.
-# Each station gives the centre, port-axis yaw from cap +X, and mounting-plane
-# height relative to the lid. The flavour valves' sockets extend
-# into its plate with 3 mm blind floors; V-K's ports stand level with the water check chain.
+# The lid carries three upright valve walls supplied by `_above_core_mounts`.
+# Horizontal plinth stations use this table; the current cap has none.
 Cradle = namedtuple("Cradle", "centre yaw seat")
-# The cap installs with its +X opposite world +Y. The fixed flavour valves' mounting
-# centres stand on world Y256.710 while the core follows the rear enclosure plane.
-cap_manifold_cradle_x = (rear_plane_y - rear_seam_clear - outer_shell_x_length / 2.0
-                         - 256.710)
-cap_cradles = {
-    #                      centre           yaw    seat
-    "vk-solenoid": Cradle(( 92.270,  65.050), 0.0, 3.6500),
-    "valve-v-a":   Cradle((cap_manifold_cradle_x,  24.270), 0.0, -1.4000),
-    "valve-v-b":   Cradle((cap_manifold_cradle_x, -22.350), 0.0, -1.4000),
-}
+cap_cradles = {}
 
 # Where a boss stands off the valve's centre, and how wide it is: a socket with a wall around it.
 cap_cradle_corner_inset_x = _valve_seat.corner_inset_x
@@ -840,30 +807,12 @@ state(
 # that LEAVES takes its lowest point, so nothing can enter and leave without crossing it. That
 # is what the air-purge and clean-flush service modes run on.
 #
-#   water-in — the carbonator's TOP-PLATE −Y port, above the water line, where filtered tap
-# water is pumped in against the CO2 back-pressure and falls into the headspace. The port
-# carries one of the four TAISHER street elbows every carbonator port takes (`ledger/bom.md`) with
-# a PTC adapter made up on its female end; the line leaves it laterally, crosses the carbonator's
-# own top on one diagonal in the band between that plate and the cap's floor
-# (`top_band_to_cap`), comes about in the +Y band and turns into
-# the FORWARD BAND, where this bore stands. The top band is [14](TOP_BAND) mm against the
-# [25.4 mm](LLDPE_BEND_R) a stock arc wants, so the corner off the elbow is the one that reach
-# buys with, and it is potted where it turns. It shares the forward strip with reservoir B's reed
-# cable, each in its own bore `cap_conduit_pair_neck` apart.
-#   water-in's X in the cap's frame is that strip's own centreline. Its Y is THE DECK ABOVE:
-# the discharge chain lies fore and aft in the lane the water split leaves it, collet forward,
-# and this bore stands on the chain's own column at the far end of the fall. So the run off the
-# collet is one straight and one slant, the slant entering the bore inside its own
-# `cap_conduit_entry_skew`, and the lid's countersink is what lays the lip along it.
-#   The FORWARD BAND is the strip between a pocket's own wall and the shell's, [6.8 mm](FORWARD_BAND)
-# of it (`forward_band_width`). A ⌀[7.5](PORT_HOLE_DIAMETER) bore leaves the tube a `LINE_HUG`
-# of foam either side; what pins water-in's station in Y is that and the reed channel, whose
-# envelope stands in this same strip and which the bore clears (`_reed_channels` measures it).
-#   THE FORWARD STRIP'S COLUMNS ARE MERGED and not standing. The strip is forward of everything
-# in the cup, so a post over it stands inside the pour gap the perimeter wall wants — and a
-# conduit has the same two states against that wall it has against another conduit
-# (`cap_conduit_wall_neck`): the column fuses into the wall and the bore runs up a local
-# thickening of it, carrying a wall's material outboard.
+#   water-in retains the carbonator's TOP-plate elbow and push-connect adapter.
+# Its tube leaves on the fixed lateral clocking line, curves through the cup
+# floor, then crosses east of the sensor loom and around the PSU insert column.
+# It rises into the aft plain guide directly beneath the downward check elbow.
+# The guide has no socket or tube break. The cup passage has 3 mm side/roof
+# stock; the existing 2 mm floor provides 2.10 mm backing on the horizontal reach.
 #   reservoir-a-fill and reservoir-b-fill, the two FILLS, stand over their own reservoirs rather
 # than over a band, and have no run inside the shell at all: each is the column between a valve
 # on the deck and the bore in the cap of the reservoir it fills, and that cap's own outer face is
@@ -913,16 +862,10 @@ state(
 # outboard of the pocket's centreward corner, and the ring's slots are clocked to meet it
 # (`_support_ring.slot_clock`).
 co2_lane_x = 48.0
-# THE RING IS AT THE FLOOR AND THE CONDUIT IS IN THE CAP, so one column does not have to serve
-# both. The line falls the lane, runs along its floor and only then leans in, and it is the LEAN
-# the ring reads — a jog along the lane costs the run nothing it was not already spending, since
-# it turns on that floor either way. Splitting them lets the cap conduit stand where the
-# APPLIANCE has room for it, and that is what picks this column: the conduit is what the
-# enclosure's CO2 chain comes down onto, enclosure y is `319.5 − x` here, and this lands the
-# chain at y 318 — clear of the relay's own terminal block, which is what the +X column puts
-# in this lane at the deck's storey, and far enough off the regulator's outlet plane that the
-# leg between the two still carries a rib.
-co2_cap_x = 1.5
+# The cap guide follows the above-core gas chain. Its descent stays in the
+# existing port lane and reaches the independently fixed support-ring approach
+# below it; the carbonator port and its fitting retain their own stations.
+co2_cap_x = _above_mounts.gas_guide_xy()[0]
 # THE CARBONATED WATER IS SPLIT THE SAME WAY, at the other end of its line. Its CLIMB is
 # pinned: it crosses the carbonator support ring at one of the ring's own four slots, so the column
 # it rises on may not wander without notching a bearing segment, and the slot leaves it under
@@ -957,36 +900,49 @@ def reed_cable_conduit_xy(side):
 
 
 cap_fluid_conduits = {
-    # The one that climbs the forward band stands on its centre (`forward_band_mid_x`), which is
-    # the only station in it that clears both its faces.
-    "water-in": (forward_band_mid_x, -56.0),
+    "water-in": _above_mounts.cap_guide_xy("water-in", (86.2532889963965, 32.80179966121266)),
     "reservoir-a": reservoir_draw_conduit_xy(+1),
-    "reservoir-b": reservoir_draw_conduit_xy(-1),
-    "reservoir-a-fill": reservoir_fill_conduit_xy(+1),
-    "reservoir-b-fill": reservoir_fill_conduit_xy(-1),
-    "carb-water-out": (52.2, -port_lane_mid_y),
-    "co2-in": (co2_cap_x, -port_lane_mid_y),
+    "reservoir-b": _above_mounts.cap_guide_xy("B-draw", reservoir_draw_conduit_xy(-1)),
+    "reservoir-a-fill": _above_mounts.cap_guide_xy("A-fill", reservoir_fill_conduit_xy(+1)),
+    "reservoir-b-fill": _above_mounts.cap_guide_xy("B-fill", reservoir_fill_conduit_xy(-1)),
+    "carb-water-out": _above_mounts.cap_guide_xy("carb-water-out", (52.2, -port_lane_mid_y)),
+    "co2-in": _above_mounts.gas_guide_xy(),
 }
 # Cable passages use the same column and bore construction as fluid conduits.
 # The reservoir passages open over their reed channels; the shared sensor
 # passage opens into the main foam cavity.
-cap_cable_conduits = {
+cap_cable_floor_conduits = {
     "reed-cable-a": reed_cable_conduit_xy(+1),
     "reed-cable-b": reed_cable_conduit_xy(-1),
     # The potted temperature probes, carbonator reeds and earth lead leave
     # the main foam cavity through one shared passage, west of the pump.
     "sensor-cable": (-36.0, -74.0),
 }
+cap_cable_conduits = {name: _above_mounts.cap_guide_xy(name, xy)
+                      for name, xy in cap_cable_floor_conduits.items()}
 cap_conduits = {**cap_fluid_conduits, **cap_cable_conduits}
+# Lower entries follow the reservoir bores and fixed internal risers. They
+# are independent of the upper guides: shallow tube shifts, the B-fill
+# fitting pair and the curved soda passage join the corresponding stations.
+cap_conduit_floor_xy = {
+    **cap_conduits,
+    **cap_cable_floor_conduits,
+    "water-in": _above_mounts.water_in_floor_xy(),
+    "reservoir-b": reservoir_draw_conduit_xy(-1),
+    "reservoir-a-fill": reservoir_fill_conduit_xy(+1),
+    "reservoir-b-fill": reservoir_fill_conduit_xy(-1),
+    "carb-water-out": (52.2, -port_lane_mid_y),
+}
+cap_passive_guides = ("reservoir-b", "reservoir-a-fill")
+cap_cable_guides = tuple(cap_cable_conduits)
 # A full-height web closes a foam gap between two columns too narrow to pour; the bore axes and
 # their 7.5 mm clear passages are independent of that stock. Every pair here stands the pour gap
 # apart, so none is linked.
 cap_conduit_links = ()
 cap_conduit_link_width = 5.0
 
-# Every cut cap has a conduit over its bore, and every fill conduit has a cut cap under it.
-# Naming is what carries the pairing across the two frames, so the name is checked too: the
-# conduit for `side` is `reservoir-<x>-fill`, and it stands exactly on that side's anchor.
+# Names pair the core's fill connections with their reservoir bores. Their
+# upper guides can differ from the lower entries while the cap joins them.
 _fill_conduits = {n for n in cap_conduits if n.endswith("-fill")}
 _fill_wanted = {f"reservoir-{'ab'[s < 0]}-fill" for s in reservoir_fill_sides}
 state(
@@ -996,22 +952,6 @@ state(
     f"reservoir fills: {sorted(_fill_conduits)} stand on the cap, but "
     f"`reservoir_fill_sides` cuts {reservoir_fill_sides} — a conduit with no bore under it "
     f"is a hole into a sealed pocket, and a bore with no conduit over it is a blind one")
-# The station is read only where the pairing above found a conduit to read it off. An unpaired
-# side has already said so on its own row, and a lookup that is not there would take the whole
-# module down with it — the one thing this ledger exists to stop.
-_fill_station = bound(
-    "fill-conduit-station", "Every fill conduit stands on its own side's anchor",
-    "each conduit on the station its anchor strikes")
-for _s in reservoir_fill_sides:
-    _n = f"reservoir-{'ab'[_s < 0]}-fill"
-    _at = cap_conduits.get(_n)
-    if _at is None:
-        continue
-    _fill_station(
-        _at == reservoir_fill_conduit_xy(_s),
-        f"{_n} stands at {_at}, off the side {_s:+d} anchor's own station "
-        f"{reservoir_fill_conduit_xy(_s)}")
-
 # What a line arriving off-axis turns in: the band from a top-plate elbow's own lateral
 # axis up to the cap's floor, against the rise a corner of 1/4" LLDPE takes.
 carbonator_top_plate_z = wall_and_floor_thickness + carbonator_support_ring_height + carbonator_height
@@ -1033,6 +973,8 @@ def cap_conduit_wall_neck(x, y):
     the bore runs up.
     A column that neither clears the wall nor reaches it stands tangent, which closes the
     same knife edge a tangent pair does."""
+    if (x, y) == tuple(cap_conduits['water-in']):
+        return (3.0, "the curved water-inlet sleeve's side and roof stock")
     to_outer = min(outer_shell_x_length / 2.0 - abs(x), outer_shell_y_length / 2.0 - abs(y))
     if to_outer - outer_shell_wall >= cap_conduit_boss_radius:
         return (to_outer - outer_shell_wall - cap_conduit_boss_radius,
@@ -1155,26 +1097,17 @@ CapAnchor = namedtuple("CapAnchor", "centre seat_r over_face along closure")
 CapAnchor.__new__.__defaults__ = (None, "x", "tie")
 cap_anchors = {
     #                             centre         seat_r                  over_face along closure
-    # The check stands far enough forward of the pump that the discharge elbow's tube makes
-    # both of its R14 turns before the inlet collet.
-    "discharge-chain": CapAnchor((71.000, -60.500), 6.3 + fits.slip, 14.700),
-    # Reservoir A's fill runs aft along this straight cap lane, its rib behind V-A's plinth with
-    # the full room required by `cap_anchor_room`.
-    #
-    # Its column and height define the low lane between the actual V-A and V-K bodies.
-    # `_lines._fluid_14` reads both from this row and holds the run level over the whole rib;
-    # `check_run_seated` reads the native tube and seat back together.
-    "fluid-14":        CapAnchor(( 38.900,  44.750), 6.35 / 2.0 + fits.slip, 15.894, "x", "cap"),
-    # Flavor A's straight west-side run, behind the discharge-chain bearing.
-    # The cap's X direction follows the installed fore-aft tube axis.
-    "fluid-18":        CapAnchor((60.800, -80.500), 4.0 / 2.0 + fits.slip, 14.000, "x", "cap"),
+    # The tie sits on the fixed barrel, clear of both operating collets.
+    "discharge-chain": CapAnchor(_above_mounts.check_anchor()[0],
+                                  _above_mounts.check_anchor()[1] + fits.slip,
+                                  _above_mounts.check_anchor()[2]),
 }
 
 # What a zip tie is, wherever one is cut for on this cap. `enclosure.tie_w` is the same
 # fastener stated for the other box; `enclosure_assembly.check_tie_vocabulary` holds the two
 # against each other.
-# `cap_anchor_tie_loop` gives the water check and its rib a 65.3 mm loop,
-# within the approximately 69 mm closed loop of the owned four-inch tie.
+# `cap_anchor_tie_loop` gives the nominal water-check/body loop recorded in
+# foam-cap/above-core-native-review.json.
 # Its 2.5 mm band crosses only the fixed barrel, clear of both moving collets.
 cap_anchor_tie_w = 2.5              # the 18 lb zip tie, across its width — 0.1"
 cap_anchor_cav_buffer = 2.0 * fits.slip
@@ -1226,8 +1159,17 @@ def cap_anchor_tie_loop(name):
     The hull uses the rib's actual height beneath the stated axis, with the bore above it: its floor, its two flanks,
     a tangent from each top corner onto the bore, and the arc between the two tangent points."""
     r = cap_anchors[name].seat_r
-    w = r + cap_anchor_wall                       # the rib's half-width
-    h = cap_anchor_axis_over_face(name) - cap_anchor_channel_height
+    if name == 'discharge-chain':
+        data = _above_mounts.check_support_datums()
+        w = data['half_width_mm']
+        h = data['centre_world_mm'][2]-data['bridge_bottom_world_z_mm']
+        # Convex loop around the circle and the lower-east rectangular
+        # quarter bearing: bottom, east face, two tangents and retained arc.
+        return (w+h+math.sqrt(w*w-r*r)+math.sqrt(h*h-r*r)
+                +r*(1.5*math.pi-math.acos(r/w)-math.acos(r/h)))
+    else:
+        w = r + cap_anchor_wall
+        h = cap_anchor_axis_over_face(name) - cap_anchor_channel_height
     return 2.0 * w + 2.0 * h + 2.0 * math.sqrt(w * w - r * r) + r * (math.pi - 2.0 * math.acos(r / w))
 
 
@@ -1350,25 +1292,7 @@ cap_side_back_relief = 1.2
 # its retention load or endurance.
 cap_side_web = cap_side_wall
 
-cap_side_anchors = {
-    # The tap-water branch to V-K, on the lid's front step. `centre` is the run's own axis where
-    # it crosses this post — the cap's (x, y), with the run along the cap's Y — and `over_face`
-    # is the height that axis stands over the lid's outer face.
-    #   The post stands on the lid's front step inside the core's plan outline, its face two
-    # lanes aft of the core's own front plane — the crossing walks with the funnel drain's
-    # berth (`funnel.neck_dy`), and the post follows it aft so the fall off the union
-    # keeps its metre. The cap's Y is on the mirror line, between the two port stubs the
-    # source pair leaves over this step. `axis_off` stands the pipe forward of the post's
-    # face: the seat is the shallower wrap that leaves, and the tie is what holds.
-    #   THE POST AND `_lines.CROSS_Y` ARE ONE FIGURE IN TWO FILES — the run crosses where this
-    # grips it. `enclosure_assembly.cap_tube_anchors` is what refuses a post no leg passes
-    # through, so the pair cannot drift apart quietly.
-    # The post is one length deep, with the V-B plinth aft of it.
-    #   It keeps its zip tie: the run crosses 7.6 mm over the lid with the funnel's elbow cradle
-    # 8.1 mm over its axis, along 12.7 mm of straight, where an anchor cap reaches 7.98 mm from
-    # the axis on both sides and its rib needs 16.3 mm of straight.
-    "water-3": SideAnchor((138.000, -13.000), 7.600, 6.35 / 2.0 + fits.slip, 1.500, cap_side_len),
-}
+cap_side_anchors = {}
 
 
 def cap_side_axis_y(name) -> float:

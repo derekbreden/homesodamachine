@@ -43,6 +43,11 @@ PARTS = (
     ("water PTC collets", "John Guest PP010822E",
      ("collet-carb-water-out", "collet-water-in")),
     ("gas PTC collet", "PI010822S", ("collet-co2-in",)),
+    ("reservoir B fill stem elbow", "NeoFit ATEU44W", ("reservoir-b-fill-lower",)),
+    ("reservoir B fill union elbow", "John Guest PP0308E", ("reservoir-b-fill-upper",)),
+    ("meter inlet stem elbow", "NeoFit ATEU44W", ("soda-inlet-stem",)),
+    ("carbonated-water flow sensor", "DIGITEN G1/4", ("digiten-flow",)),
+    ("soda riser insulation", "CARGEN Pipe Insulation Foam Tube", ("soda-rise-insulation",)),
 
     # §5 — refrigeration
     ("evaporator coil", "GOORY 1/4\" OD × 50 ft ACR copper coil",
@@ -93,7 +98,7 @@ PARTS = (
 
 # A length of tube is stock cut to fit, billed by the foot in §3 and §11, so a drawn line is
 # not a part any row here claims.
-UNBILLED_PREFIXES = ("line-",)
+UNBILLED_PREFIXES = ("line-", "tube-")
 
 
 def _bill_text() -> str:

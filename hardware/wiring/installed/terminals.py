@@ -51,7 +51,9 @@ class Attachments:
         return t
 
     def station(self,spec):
-        if 'passage' in spec:
+        if 'point_mm' in spec:
+            p=spec['point_mm']
+        elif 'passage' in spec:
             p=self.passages[spec['passage']]['points_mm'][spec.get('end',0)]
         elif 'terminal' in spec:
             p=self.terminals[spec['terminal']].point
@@ -61,10 +63,11 @@ class Attachments:
         return add(p,spec.get('offset',[0,0,0]))
 
     def frame(self, part, reference, turns=()):
-        """The producer's rotation, translated onto the current native body.
+        """Production native poses for the above-core parts and junctions.
 
-        Bounds supply translation only. The measured dimensional residual is
-        retained, so an edited reference or pose cannot silently become a fit claim.
+        Unmoved reference families retain their established native rotation and
+        measured translation. Bounds verify an explicit pose; they never infer
+        the rotation of a relocated board, valve, PSU or relay.
         """
         from _cadq_export import import_step
         import cadquery as cq
@@ -72,6 +75,26 @@ class Attachments:
         if key in self.frames:
             return self.frames[key]
         ref = import_step(str(reference)).val()
+        import above_core as layout
+        import above_core_wiring as junctions
+        explicit = junctions.frame(part)
+        if explicit is None:
+            explicit = layout.specification()['parts'].get(part)
+        if explicit is not None:
+            placed = ref.moved(layout.frame_location(explicit))
+            a, b = bounds(placed); c, d = bounds(self.part(part))
+            self.frame_checks[part] = {
+                'reference': str(Path(reference).relative_to(ROOT)),
+                'basis': 'Explicit production native frame',
+                'rotation': explicit['rotation'],
+                'translation_mm': explicit['translation_mm'],
+                'maximum_extent_residual_mm': max(abs((b[i]-a[i])-(d[i]-c[i])) for i in range(3)),
+                'maximum_bounds_residual_mm': max(abs(x-y) for p,q in ((a,c),(b,d)) for x,y in zip(p,q)),
+            }
+            def carry(p, axis):
+                return layout.point(explicit, p), layout.vector(explicit['rotation'], axis)
+            self.frames[key] = carry
+            return carry
         turned = ref
         basis = [cq.Vector(1, 0, 0), cq.Vector(0, 1, 0), cq.Vector(0, 0, 1)]
         for axis, deg in turns:
@@ -101,17 +124,23 @@ class Attachments:
         return self.terminals
 
     def cable_passages(self):
-        """Cable bore axes carried from the cap's native reference frame."""
-        carry = self.frame('foam-cap-top',
-                          HW/'printed-parts/cold-core/foam-cap/foam-cap-top.step',
-                          (((0,0,1),270),))
-        face = bounds(self.part('foam-cap-lid-top'))[0][2] + self.ea._foam.lid_total_height
+        """Cable guide mouths and exact printed corridor in the world frame."""
+        import above_core as layout
+        import _above_core_mounts
+        face = layout.specification()['cap_face_z_mm']
         self.passages = {}
         for name, xy in self.ea._cci.cap_cable_conduits.items():
-            floor, _ = carry((*xy,0), (0,0,1))
+            corridor = _above_core_mounts.cable_guide_points(name)
+            lower = corridor['points_mm'][0]
+            floor = (lower[0],lower[1],lower[2]+1.)
+            upper = layout.point(layout.cap_lid_pose(), (*xy, self.ea._foam.lid_total_height))
             self.passages[name] = {
-                'points_mm': [(floor[0],floor[1],face+(5.6 if name=='sensor-cable' else 1.6)),
+                'points_mm': [(upper[0],upper[1],face+1.6),
                               (floor[0],floor[1],floor[2]-1.6)],
+                'upper_mouth_mm': upper,
+                'lower_entry_mm': floor,
+                'corridor_points_mm': corridor['points_mm'],
+                'corridor_bend_radius_mm': corridor['bend_radius_mm'],
                 'bore_diameter_mm': 2*self.ea._cci.cap_conduit_bore_radius,
                 'basis': 'Native top-cap cable conduit, carried into the installed frame',
             }
@@ -143,7 +172,9 @@ class Attachments:
 
     def valves(self):
         for letter in 'ABCDEFGHIJK':
-            name = 'vk-solenoid' if letter=='K' else 'coil-v-'+letter.lower()
+            name = ('vk-solenoid' if letter=='K' else
+                    'valve-v-'+letter.lower() if letter in 'AB' else
+                    'coil-v-'+letter.lower())
             body = self.part(name)
             tabs = []
             for s in body.Solids():
@@ -172,20 +203,22 @@ class Attachments:
                              ('Native tab engagement region; proposed aft wire exit with flexible tab/disconnect' if letter in 'GJ' else
                               'Actual native 6.3 × 0.8 mm metal tab, tip on its long axis; inboard tab assigned positive'),
                              'nominal' if letter in 'GJ' else 'modeled')
-            elif letter=='K':
+            elif letter in 'ABK':
                 carry=self.frame(name, self.ea.ml.VALVE_STEP if hasattr(self.ea.ml,'VALVE_STEP') else
                                  HW/'reference/beduan-solenoid/beduan-solenoid.step', ())
                 entries=[carry((sx*7.45,27.1,52.2),(0,1,0)) for sx in (-1,1)]
                 entries.sort(key=lambda e:abs(e[0][0]))
                 for label,(p,a) in zip(('positive','negative'),entries):
-                    self.put('V-K.'+label,name,p,a,'female-disconnect','Native reference tab through V-K pose')
+                    self.put('V-'+letter+'.'+label,name,p,a,'female-disconnect',
+                             'Native reference tab through explicit production valve pose')
             else:
                 raise ValueError(f'{name}: expected two separate metal spades, found {len(tabs)}')
 
     def wagos(self):
         ea=self.ea
-        sizes={**{n:'413' for n in ea.WAGO_POLES},
-               **{n:row[3] for n,row in ea.CLUSTER_WAGOS.items()}}
+        import above_core_wiring as junctions
+        sizes={n:row['size'] for n,row in junctions.placements().items()
+               if n.startswith('wago-')}
         dims={'413':(18.8,18.6,8.4,3,1),'415':(30.,18.6,8.4,5,1),'420':(29.8,18.3,15.8,10,2)}
         for name,size in sizes.items():
             carry=self.frame(name,ea.wago_step(size),ea.WAGO_TURN_WEST if 'reeds-' in name or name=='wago-sensors' else ea.WAGO_TURN)
@@ -261,9 +294,9 @@ class Attachments:
         meter=ea._digiten
         carry=self.frame('digiten-flow',ea.DIGITEN_STEP,ea.DIGITEN_TURN)
         # All three leave the observed wire boss; fanout starts outside that boss.
-        local= meter.wire_exit()[0] if hasattr(meter,'wire_exit') else (0,0,18.)
+        local,outward=meter.wire_exit()
         for i,label in enumerate(('V','PULSE','GND')):
-            p,a=carry((local[0]+(i-1)*1.8,local[1],local[2]),(0,0,1))
+            p,a=carry((local[0]+(i-1)*1.8,local[1],local[2]),outward)
             self.put('flow.'+label,'digiten-flow',p,a,'factory-lead','Observed wire-exit boss; individual lead spacing nominal','nominal')
         for label,name in (('carbonator','probe-carbonator-ds18b20'),('coil','probe-coil-ds18s20')):
             lo,hi=bounds(self.part(name)); c=centre(self.part(name))

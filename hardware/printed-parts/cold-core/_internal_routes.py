@@ -10,17 +10,15 @@ the only way to know a line fits is to draw it and measure it, which is what
 
 WHERE EACH LINE GOES, and what it does at the end of it:
 
-  water-in         down the forward strip, along the +Y band and across the carbonator's own
-                   top on one diagonal to the carbonator's TOP plate — above the water
-                   line, where the pump pushes filtered tap water through the inlet jet
-                   against the CO2 back-pressure and into the headspace.
+  water-in         from the aft plain guide through the cup, east of the sensor loom
+                   and around the PSU insert column, to the fixed TOP-plate elbow.
+                   Filtered tap water enters above the liquid against CO2 back-pressure.
   carb-water-out   the carbonator's BOTTOM plate, under the liquid: the carbonator's own
                    drain. Out flat on its own storey and through a slot in the support
                    ring, up beside the coil, and onto the port lane only once the carbonator's
-                   top plate is under it.
-  co2-in           the one line that runs DOWN. The port lane's own column the shell's
-                   whole height, a leg along its floor, and straight in along the
-                   leaning reach that crosses the support ring at a slot — then the plain
+                   top plate is under it, then across the cap to the upper soda guide.
+  co2-in           down the port lane, a shallow shift onto the lower column,
+                   and straight in along the leaning reach that crosses the support ring at a slot — then the plain
                    bottom gas opening. Gas bubbles through the water to the headspace;
                    the top water-inlet jet mixes during refill.
   reservoir-a      each reservoir's dip tube: the draw line itself, straight down from its
@@ -54,12 +52,9 @@ WHERE A LINE HAS TO REACH AND RISE AT ONCE, IT LEANS: one diagonal in place of t
 corners on a step's own width, which is what the carbonated water does under the carbonator to
 cross the CO2 and again at the top to put itself on its conduit's column.
 
-WHAT IS LEFT SHORT is printed by name at every build. `top_band_to_cap` is the band between
-the carbonator's top plate and the cap's floor, and it is narrower than the step `water-in` takes
-in to its conduit's station — so that step is not taken in it. `top_band_z` is the Carbonator's
-storey and the carbonator is what holds a line on it; past the rim the strip under the forward
-band stands open to the shell's floor, and `water-in` drops onto `water_in_lane_z` to cross
-and spends the height it gains on the lean into the station.
+The water inlet retains the carbonator elbow's clocking line. Its R14 upper
+path crosses the cup floor on a curve, passes east of the sensor loom and rises
+into the aft guide. The plain guide is a boundary in one continuous tube.
 """
 
 import math
@@ -77,6 +72,9 @@ sys.path.insert(0, str(_here.parents[2] / "scripts"))
 
 from _cold_core_interface import (  # noqa: E402
     cap_conduit_shell_xy,
+    cap_conduit_floor_xy,
+    cap_passive_guides,
+    cap_shell_clearance,
     co2_inlet_y,
     foam_shell_outer_height,
     hole_shift_from_edge,
@@ -95,7 +93,8 @@ from _cold_core_interface import (  # noqa: E402
     water_outlet_drift_z,
     west_lane_mid_y,
 )
-from _foam_cap import cap_face_z  # noqa: E402
+from _foam_cap import cap_face_z, top_cap_height  # noqa: E402
+import _above_core_mounts as _above_mounts  # noqa: E402
 from _port_cuts import (  # noqa: E402
     co2_inlet_lane_xyz,
     co2_inlet_xyz,
@@ -131,26 +130,9 @@ top_band_z = carbonator_top_plate_z + hole_shift_from_edge          # both top-p
 shell_top_z = foam_shell_outer_height                         # where a riser enters its conduit
 conduit_mouth_z = cap_face_z                                  # and where it comes back out
 
-# WHERE A RISER JOINS A LANE, and what it holds under the shell's top when it gets there.
-# The last leg of every riser is on its conduit's own axis, because the bore through the cap
-# is, and one stock arc of it is what the corner at the bottom of that leg takes. So a line
-# still stepping sideways at the top has that arc to finish in and no more — the arc is fenced
-# by the SHELL's top and not by the conduit's mouth, because what is over the shell is a ⌀[7.5](PORT_HOLE_DIAMETER)
-# bore and a tube inside it is straight or it is not in it.
+# The shell's lane step finishes one stock radius below its top. Curved
+# D7.5 cap passages then join the fixed risers to their selected upper guides.
 lane_step_top_z = shell_top_z - route_bend_radius
-
-# The strip `water-in` climbs, read off the conduit that stands over it rather than restated.
-forward_band_x = cap_conduit_shell_xy("water-in")[0]
-
-# The storey `water-in` crosses to the forward band on, under the carbonator's own. It drops onto
-# this on the lane leg, once the diagonal off the top plate is past the carbonator's rim — the
-# evaporator's outlet copper is the west lane's occupant under it, at z 169.6 and below.
-water_in_lane_z = 180.0
-
-# How much of its rise `water-in` takes on the step in to its own conduit's station. What is
-# left above the step is the straight the bore is entered on. `report_routes` prints the arc
-# each line comes back at.
-water_in_step_climb = 25.0
 
 # The reservoir cap's outer face — what a fill conduit's tube bottoms on. The reservoir body's
 # own top with its cap on, which is the part's reading and not a figure here: `cap_assembly_lift`
@@ -188,21 +170,6 @@ prv_vent_cross_z = prv_vent_start[2] - (route_bend_radius + prv_vent_fall_margin
 # THE FLANK, and the appliance's chase lands the lip of its mouth on that same plane
 # (`enclosure._vent_chase`).
 prv_vent_reach = route_bend_radius - (prv_vent_flank_y - prv_vent_lane_y) + 1.0
-
-# WHERE THE WATER INLET CROSSES THE CARBONATOR'S OWN TOP. Its port is the top plate's −Y hole and
-# its conduit stands over the +Y band, so the line has to cross the axis somewhere in the band
-# between that plate and the cap's floor — where the carbonator has already ended and the space is
-# open. It crosses on ONE DIAGONAL from the port to the west lane, which is also what clocks
-# the elbow: a line leaving on the diagonal's own axis needs no corner to start it, and the
-# straight it gives the collet is the whole 105 mm reach instead of a leg out of a corner.
-#   The column it lands on is the balance of two bodies. Inboard, the PRV STACK stands on the
-# +Y port — elbow, valve and a ⌀23 cup along the axis — and the water inlet's own collet swings
-# past the PRV's elbow as the diagonal steepens. Outboard, RESERVOIR B's pocket wall closes in.
-# Measured on the placed solids over landing columns 44..49: the collet's gap to the PRV elbow
-# runs 0.46 → 2.07 mm and the diagonal's gap to the shell runs 1.83 → 0.84 mm, and they cross
-# here, at 1.44 and 1.49 mm. Under 37 the diagonal meets the PRV stack; past 48.5 it meets the
-# pocket wall, which gives way to a corridor and would open a hole into the pocket.
-water_in_cross_x = -47.0
 
 # The carbonator + its wrapped coil, as one cylinder: what the carbonated water's riser stands
 # off, and the reason it stands where it does.
@@ -267,7 +234,8 @@ def _routes():
     # in toward the coil by more than 0.12 mm.
     carb_mid_x = (carb_x + carb_upper_x) / 2.0
     co2_x, co2_lane_y = cap_conduit_shell_xy("co2-in")
-    carb_lane_y = cap_conduit_shell_xy("carb-water-out")[1]
+    carb_floor_xy = tuple(-v for v in cap_conduit_floor_xy["carb-water-out"])
+    carb_lane_y = carb_floor_xy[1]
     # The carbonated water's LEAN at the top, and the rise it owes anything under the carbonator.
     #   Under the carbonator the only run it could meet is the CO2's reach in, and that reach stops
     # on the carbonator's axis — the CO2 falls the lane's +X half, so its lean never comes out as
@@ -283,35 +251,19 @@ def _routes():
     # become two shallow ones on a diagonal half again as long. It ends on
     # `lane_step_top_z`, one stock arc under the shell's top.
     carb_lane_step = math.dist((carb_upper_x, carb_upper_y),
-                               cap_conduit_shell_xy("carb-water-out"))
+                               carb_floor_xy)
     # The lower column clears the inlet copper and crosses the support ring's slot.
     # Above that crossing a shallow lean reaches the upper column clear of reservoir B.
     # The final diagonal then takes both X and Y onto the cap conduit, retaining the
-    # stock bend radius at every corner and the conduit's unchanged endpoint.
-    carb_cap_x = cap_conduit_shell_xy("carb-water-out")[0]
-    water_in_y = cap_conduit_shell_xy("water-in")[1]
+    # stock bend radius at every corner. The retained floor entry then joins
+    # the upper guide through the curved roof passage.
+    carb_cap_x = carb_floor_xy[0]
 
     return {
-        # The carbonator's top plate, above the liquid. Out of the elbow on one diagonal that
-        # crosses the carbonator's own top to the +Y band — the carbonator has ended by this height, so
-        # the crossing costs nothing but the room between the PRV stack and reservoir B's
-        # pocket (`water_in_cross_x`) — then forward along that band and in to the strip.
-        #   IT LEAVES THE Carbonator'S OWN STOREY ON THE LANE LEG. `top_band_z` is struck off the top
-        # plate and the carbonator is what holds a line up on it; past the rim the strip is open to
-        # the shell's floor, so the lane leg falls to `water_in_lane_z` as it runs forward.
-        #   THE STEP AT THE END CLIMBS WHILE IT STEPS. It travels outboard of both pockets —
-        # the reservoirs and their caps fill them to within a pour clearance of the cap's floor
-        # — and arrives on its conduit's own station, which stands inboard of that. The step
-        # carries `water_in_step_climb` of the rise with it, so it reaches the station on a Y-Z
-        # diagonal and the corner into the mouth turns about forty degrees. What stands above
-        # it is the straight the bore is entered on.
-        "water-in": [
-            (0.0, -carbonator_port_offset, top_band_z),
-            (water_in_cross_x, west_lane_mid_y, top_band_z),
-            (forward_band_x, west_lane_mid_y, water_in_lane_z),
-            (forward_band_x, water_in_y, water_in_lane_z + water_in_step_climb),
-            (forward_band_x, water_in_y, conduit_mouth_z),
-        ],
+        # One continuous pressure tube from the fixed top-port clocking
+        # line, through the curved cup passage, to the aft plain guide.
+        "water-in": [(0.,-carbonator_port_offset,top_band_z)] + [
+            world_point_in_shell(p) for p in _above_mounts.water_in_guide_points()],
         # Each reservoir's dip tube: the draw line, one straight drop from its mouth on the
         # floor up through the cap's draw bore and the conduit over it. It is the same tube
         # the deck run to the draw gate is, so it is laid from above, after the cap is on.
@@ -319,19 +271,16 @@ def _routes():
             cap_conduit_shell_xy("reservoir-a") + (dip_tube_z,),
             cap_conduit_shell_xy("reservoir-a") + (conduit_mouth_z,),
         ],
-        "reservoir-b": [
-            cap_conduit_shell_xy("reservoir-b") + (dip_tube_z,),
-            cap_conduit_shell_xy("reservoir-b") + (conduit_mouth_z,),
-        ],
-        # The only line that runs down, and the only riser the port lane carries. It falls the
-        # whole shell on the CAP CONDUIT's column, runs the lane's floor to the column the
-        # support ring leaves it, and only there leans in to the collet under the bottom
-        # plate's lane-side port. The fall and the lean stand apart because the ring is at the
-        # floor and the conduit is in the cap: the run turns on that floor either way, so the
-        # floor leg buys the conduit its own column for the price of a turn already spent.
+        "reservoir-b": reservoir_guide_route("reservoir-b", dip_tube_z),
+        # The conduit enters straight through the cap. A shallow shift below
+        # the shell's top reaches the existing lower column before its turn
+        # into the support-ring slot. The two drift corners retain a full
+        # stock arc; the short cap-to-column offset is not a floor hairpin.
         "co2-in": [
             (co2_x, co2_lane_y, conduit_mouth_z),
-        ] + ([(co2_x, co2_lane_y, co2_inlet_lane_xyz[2])]
+        ] + ([(co2_x, co2_lane_y, lane_step_top_z),
+              (co2_inlet_lane_xyz[0], co2_lane_y,
+               lane_step_top_z - 2.0 * route_bend_radius)]
              if abs(co2_x - co2_inlet_lane_xyz[0]) > 1e-9 else []) + [
             co2_inlet_lane_xyz,
             co2_inlet_xyz,
@@ -352,8 +301,8 @@ def _routes():
             (carb_upper_x, carb_upper_y, water_outlet_drift_z[1]),
             (carb_upper_x, carb_upper_y, lane_step_top_z - carb_lane_step),
             (carb_cap_x, carb_lane_y, lane_step_top_z),
-            (carb_cap_x, carb_lane_y, conduit_mouth_z),
-        ],
+        ] + [world_point_in_shell(p) for p in
+             _above_mounts.soda_out_guide_points()[1:]],
         # The PRV's relief: the only line here that starts on a PRINTED part rather than on a
         # fitting, and the only one that leaves by a FLANK instead of by the lid. Out of the
         # shroud's underside pointing down, one corner, and straight out the +Y wall into the
@@ -363,18 +312,25 @@ def _routes():
             (prv_vent_start[0], prv_vent_lane_y, prv_vent_cross_z),
             (prv_vent_start[0], prv_vent_flank_y + prv_vent_reach, prv_vent_cross_z),
         ],
-        # The two fills are the gap between two bores: the cap conduit above and the bore in
-        # the reservoir's own cap below, with the pour clearance over the reservoir between
-        # them and nothing else to cross.
-        "reservoir-a-fill": [
-            cap_conduit_shell_xy("reservoir-a-fill") + (reservoir_cap_top_z,),
-            cap_conduit_shell_xy("reservoir-a-fill") + (conduit_mouth_z,),
-        ],
-        "reservoir-b-fill": [
-            cap_conduit_shell_xy("reservoir-b-fill") + (reservoir_cap_top_z,),
-            cap_conduit_shell_xy("reservoir-b-fill") + (conduit_mouth_z,),
-        ],
+        "reservoir-a-fill": reservoir_guide_route("reservoir-a-fill", reservoir_cap_top_z),
+        "reservoir-b-fill": [world_point_in_shell(p) for p in
+            _above_mounts.reservoir_b_fill_link()['exposed_route_world_mm']],
     }
+
+
+def world_point_in_shell(point):
+    """Enclosure world point carried into the core's native shell frame."""
+    x, y, z = _above_mounts.above_core.world_to_cap(point)
+    return -x, -y, z + foam_shell_outer_height + top_cap_height
+
+
+def reservoir_guide_route(name, start_z):
+    """Keep the native reservoir entry and turn onto the selected cap guide."""
+    lower_xy = tuple(-v for v in cap_conduit_floor_xy[name])
+    return _above_mounts.passive_guide_points(
+        lower_xy, cap_conduit_shell_xy(name), start_z, conduit_mouth_z,
+        foam_shell_outer_height + cap_shell_clearance + wall_and_floor_thickness + .25,
+        route_bend_radius)
 
 
 routes = _routes()

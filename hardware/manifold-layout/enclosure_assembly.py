@@ -96,7 +96,6 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "jg-pp0308e-elbow",
            _hw / "reference" / "funnel-drain-stub",
            _hw / "printed-parts" / "diaphragm-pump-sleeve",
-           _hw / "reference" / "hlghlg-check-valve",
            _hw / "reference" / "waveshare-43b-display",
            _hw / "reference" / "meanwell-irm90",
            _hw / "reference" / "teyleten-relay",
@@ -140,6 +139,8 @@ from _cadq_export import (SOLID_INDEX_SEP, export_assembly,  # noqa: E402
 import _boxes                                         # noqa: E402
 import _clearing                                      # noqa: E402
 import _lines                                         # noqa: E402
+import above_core as _above
+import above_core_parts as _above_parts
 import _meshes                                        # noqa: E402
 import _routing                                       # noqa: E402
 import _overlap                                       # noqa: E402
@@ -165,7 +166,6 @@ import funnel_drain_stub as _stub                     # noqa: E402
 import valve_seat as _vseat                           # noqa: E402
 import manifold_layout as ml                          # noqa: E402
 import diaphragm_pump_sleeve as _pump_elbow           # noqa: E402
-import hlghlg_check_valve as _dis                 # noqa: E402
 import waveshare_43b_display as _disp                 # noqa: E402
 import asse1022_assembly as _asse                     # noqa: E402
 import flare38_14ptc as _oad                          # noqa: E402
@@ -1284,11 +1284,9 @@ _COND_UNPRINTED = "NOT PRINTED — no piece owns this station"
 # bracket off the +Y wall of back-top over the aft edge of its cap. The stations below are the planes
 # those two are struck on, read off the placed core.
 #
-# THE LANE THE HOLD-DOWNS STAND IN, off the machine's own centreline. The aft cap carries the
-# water pump inboard of it, the electronics bay outboard on the +X flank, and the +Y wall of back-top's two
-# flavour unions run through the band on the −X one; this is the strip clear of all four, taken
-# on both flanks so the pair is a mirror.
-CORE_HOLD_LANE = (56.6, 65.6)
+# The west bracket stands between the PSU and rear jack. The east bracket stands
+# beside the pump. Both turn over the same plain aft cap crown.
+CORE_HOLD_LANES = ((-43.6, -37.6), (56.6, 65.6))
 
 
 def core_stops(foam) -> tuple:
@@ -1337,13 +1335,11 @@ def vent_chase(foam, foam_carry) -> tuple:
 def core_holds(foam) -> tuple:
     """The core's aft crown as `enclosure.Pack.core_holds` — `(x0, x1, aft, crown)` each.
 
-    The lane is `CORE_HOLD_LANE` struck on both flanks; `aft` is the core's own aft face, which
-    is the plane `rear_seam_clear` is measured to, and `crown` is `cap_face` — the lid's outer
-    face, not the box's top, which carries the valve cradles."""
+    The two lanes are `CORE_HOLD_LANES`; `aft` is the core's own aft face, which
+    is the plane `rear_seam_clear` is measured to, and `crown` is `cap_face` —
+    the lid's outer face beneath its equipment mounts."""
     b, crown = box(foam), cap_face(foam)
-    lo, hi = CORE_HOLD_LANE
-    return tuple((min(sign * lo, sign * hi), max(sign * lo, sign * hi), b.ymax, crown)
-                 for sign in (-1.0, 1.0))
+    return tuple((x0, x1, b.ymax, crown) for x0, x1 in CORE_HOLD_LANES)
 
 
 # How far off contact a face of the core may read from the grip that takes it — the same figure
@@ -1530,11 +1526,9 @@ def cap_conduit(name: str):
     """One of the cold core's cap conduits as a station in the CORE'S OWN frame:
     `((x, y, z), outward axis)`.
 
-    `foam_assembly` authors the bore in the cap's frame and turns it back through the cap's own
-    half-turn install, so its `(x, y)` is already the assembly's; the mouth's Z is the lid's
-    outer face, which is the top of that same solid. The way out is the cap's +Z."""
-    x, y = _foam.cap_conduit_station(name)
-    return ((x, y, _foam.cap_face_z), _foam.cap_conduit_axis_out())
+    The core owns the actual lid-guide or fitting mouth, including its height
+    and direction. The appliance carries that native station into world space."""
+    return _foam.cap_conduit_mouth(name)
 
 
 def water_pump_west_limit() -> float:
@@ -1650,20 +1644,20 @@ def build_pump_elbows(water_pump_carry):
 
 
 # --- the water discharge check, west of the pump ----------------------------
-# The single push-connect check lies inlet aft and outlet forward. Its fixed
-# barrel rests in a round lid cradle; one tie holds it down clear of both collets.
+# The single push-connect check uses the purchased reference's native frame and
+# the same production pose as the rest of the above-core equipment. Its fixed
+# barrel rests in a round lid cradle, clear of both operating collets.
 # `discharge-chain` is the stable assembly/topology key for this water check.
-DISCH_CHAIN_TURN = (((1.0, 0.0, 0.0), -90.0),)
 CHAIN_SEAT_SLIP = fits.slip
 
 
 def build_discharge_chain(foam_carry):
-    """Seat the fixed barrel midpoint on the printed discharge-check anchor."""
-    section = next(row for row in _dis.sections() if row[0] == "barrel")
-    mid = (section[2] + section[3]) / 2.0
-    return seat_body(_dis.build(), DISCH_CHAIN_TURN, seat="discharge-chain",
-                     station=(((0.0, 0.0, -mid), (0.0, 0.0, 1.0)),
-                              foam_carry(cap_anchor("discharge-chain"))[0]))
+    """Return the canonical purchased check and native production port carry."""
+    solid, _colour, carry = _above_parts.components()['discharge-chain']
+    point = carry(((0., 0., 0.), (0., 1., 0.)))[0]
+    record_seat('discharge-chain', station=point, got=point,
+                members=('discharge-chain',))
+    return solid, carry
 
 
 # --- the tap-water bulkhead, through the +Y wall of back-top -------------------------
@@ -2773,7 +2767,8 @@ def c14_mount_half() -> tuple:
 # ceiling-bedded rectangular tunnel share the X station the fixed enclosure strip states. The
 # Z station stays on the top port row, so the shroud passes through the rear wall without a
 # second relief field below the inlet.
-C14_STATION = (_enc.c14_station_x, deck_storey())
+C14_STATION = (_above.pose('c14-inlet')['translation_mm'][0],
+               _above.pose('c14-inlet')['translation_mm'][2])
 
 
 def c14_seat_y() -> float:
@@ -2842,19 +2837,6 @@ WR1110_STEP = _hw / "reference" / "wr1110-regulator" / "wr1110-regulator.step"
 # that same wall with a body hanging off it. So it stands one pitch EAST of the carb union, on
 # a supported-surface allowance below `deck_storey`, parallel to the meter's own axis.
 CO2_COLUMN = PANEL_X["bulkhead-carb"] + PORT_PITCH
-# THE WALL'S RELIEF FOR THIS STATION IS TYPED in `enclosure.back_top_wall_reliefs` and cannot
-# read this column back — the enclosure is what this module imports. So the bound reads it
-# here: the relief stands on the derived column and the lowered CO2 axis.
-_co2_relief = next((x, z) for who, x, z, _w, _h in _enc.back_top_wall_reliefs
-                   if who == "co2-inlet")
-_stated.state(
-    "co2-relief", "The CO2 station's wall relief stands on the neoFit's own column and storey",
-    f"x {CO2_COLUMN:.2f}, z {deck_storey() - _enc.co2_axis_drop:.2f}",
-    (abs(_co2_relief[0] - CO2_COLUMN) < 1e-6
-     and abs(_co2_relief[1] - (deck_storey() - _enc.co2_axis_drop)) < 1e-3),
-    f"relief at x {_co2_relief[0]:g}, z {_co2_relief[1]:g}; the port is bored at "
-    f"x {CO2_COLUMN:.4f}, z {deck_storey() - _enc.co2_axis_drop:.4f}")
-
 # --- the umbilical's signal station, through the +Y wall of back-top -----------------
 #
 # SIG-6 crosses this wall in a keystone jack, so that the umbilical's ribbon ends at the same
@@ -3924,9 +3906,11 @@ def anchor_rows(foam_carry, bodies: dict) -> list:
         axis = foam_carry(cap_anchor(name))[0]
         tip = carry(mod.inlet())[0]
         half = _cci.cap_anchor_len / 2.0
-        # `s` runs from the inlet mouth down the chain, and the chain is laid inlet aft — so a rib
-        # standing at `axis` covers this stretch of the stack.
-        s0, s1 = (tip[1] - axis[1]) - half, (tip[1] - axis[1]) + half
+        # Sections measure positive flow distance from the inlet mouth.
+        outlet = carry(mod.outlet())[0]
+        direction = cq.Vector(*outlet)-cq.Vector(*tip)
+        distance = (cq.Vector(*axis)-cq.Vector(*tip)).dot(direction.normalized())
+        s0, s1 = distance-half, distance+half
         under = [(lab, r) for lab, r, a, b in mod.sections() if a < s1 - 1e-9 and s0 + 1e-9 < b]
         fills = [(lab, r) for lab, r in under if abs(r + CHAIN_SEAT_SLIP - station.seat_r) <= 1e-3]
         fouls = [lab for lab, r in under if r + CHAIN_SEAT_SLIP > station.seat_r + 1e-3]
@@ -4226,7 +4210,11 @@ def build_pack() -> cq.Assembly:
     # The pack's own stations in world, from the moment it is stood: a run anchors on these, and
     # so does anything the machine stands ON one of them.
     mcarry = manifold_carry(lift)
-    stood = [(n, s.translate(cq.Vector(0.0, PACK_Y, lift)), c) for n, s, c in posed]
+    source_parts = {'valve-v-a', 'coil-v-a', 'valve-v-b', 'coil-v-b',
+                    'step-fluid-3', 'step-fluid-5', 'turn-fluid-3', 'turn-fluid-5',
+                    'stub-fluid-2', 'stub-fluid-4'}
+    stood = [(n, s.translate(cq.Vector(0.0, PACK_Y, lift)), c)
+             for n, s, c in posed if n not in source_parts]
     in_pack = []
     for name, solid, color in stood:
         # A MOUTH THAT HAS A RUN ON IT IS NOT A FREE MOUTH. `manifold_layout` draws one bend
@@ -4289,8 +4277,13 @@ def build_pack() -> cq.Assembly:
     core = cq.Assembly(name=CORE)
     for _name, _solid, _colour in core_bodies(foam_carry):
         core.add(_solid, name=_name, color=_colour)
-    a.add(core, name=CORE)
-    a.core_body_names = frozenset(n for n, _s, _c in core_bodies(foam_carry))
+    selected = _above_parts.components()
+    core_equipment = _above.core_equipment_names() & selected.keys()
+    for name in sorted(core_equipment):
+        solid, colour, _carry = selected[name]
+        core.add(solid, name=f'{CORE}/{name}', color=colour)
+    a.core_body_names = frozenset(n for n, _s, _c in core_bodies(foam_carry)) | frozenset(
+        f'{CORE}/{name}' for name in core_equipment)
     # WHAT THE BOX SHUTS ON IT WITH. The core carries no hole, so its two front corners go into
     # blocks on the front-bottom's slab and its aft crown under brackets off the back-top's rear
     # wall — both struck on the core's own faces here, and grown by `enclosure._core_stops` /
@@ -4298,264 +4291,108 @@ def build_pack() -> cq.Assembly:
     a.core_stops = core_stops(foam)
     a.core_holds = core_holds(foam)
     a.vent_chase = vent_chase(foam, foam_carry)
-    # The gate lane's own cruise, off the placed manifold — the plane the flavour pair climbs to.
-    # Two bodies take it: `build_water_pump` carries it into `flavor_storey` for the band its casting
-    # is measured over, and `a.gate_z` stands the pair itself on what that storey comes out at.
-    gate_cruise = _lines.gate_cruise(mcarry(_lines.station("valve-v-i", "outlet"))[0][2])
-    water_pump, water_pump_carry = build_water_pump(foam, gate_cruise, foam_carry)
-    a.add(water_pump, name="g-ganen-pump", color=M_DONOR_BLACK)
-    elbows = build_pump_elbows(water_pump_carry)
-    for _name, bodies, _carry in elbows.values():
-        for name, solid in bodies.items():
-            a.add(solid, name=name, color=_pump_elbow.COLOR if name == _name else C_SUCT)
-    wall_seat = east_wall_seat()
-    psu, psu_carry = build_psu(foam, wall_seat)
-    a.add(psu, name="psu", color=C_PSU)
-    # The band, fore to aft: board, relay #2 on end, brick. The relay is placed off the brick and
-    # the main board off the relay, so the three close up on one chain and none of them carries a
-    # typed Y of its own.
-    relay2, relay2_carry = build_relay2(psu, foam, wall_seat)
-    a.add(relay2, name="relay-2", color=C_RELAY)
-    pcba, pcba_carry = build_pcba(foam, relay2, wall_seat)
-    a.add(pcba, name="pcba", color=C_PCBA)
-    # The inlet stands before the row that splices it: `build_wago_row` is drawn forward off the
-    # brick's centre by this housing, so the receptacle has to be in world before the lugs are.
-    # It answers to two stated planes and nothing on the floor, so it can be placed here as
-    # readily as anywhere.
-    c14, _c14_carry = build_c14()
-    a.add(c14, name="c14-inlet", color=C_C14)
-    wagos = build_wago_row(psu, wall_seat, c14)
-    for name, solid, _carry in wagos:
-        a.add(solid, name=name, color=C_AC_HUB)
-    stack = build_stack(psu, pcba, wagos, wall_seat)
-    for name, solid, colour, _carry in stack:
-        a.add(solid, name=name, color=colour)
-    stack_carry = {name: carry for name, _s, _c, carry in stack}
-    cluster = build_cluster_wagos()
-    for name, solid, _carry, _size in cluster:
-        a.add(solid, name=name, color=C_AC_HUB)
-    a.side_wells = wago_wells(
-        wagos, cluster, over=box(psu).zmax + WAGO_CORBEL_FLOOR_CLEAR)
-    # The compressor is the one body on the floor that is bolted DOWN to it, so its four
-    # holes are the slab's own boss stations. The plate's crown is where the washer lands and
-    # its Ø14 grommet bore is what the post stands in, so both figures are the donor's.
+    # Above-core equipment and its mounting holes share the production native
+    # poses. The front manifold and refrigeration base keep their own datums.
+    for name, (solid, colour, carry) in selected.items():
+        if name not in core_equipment:
+            a.add(solid, name=name, color=colour)
+        record_seat(name, station=carry(((0., 0., 0.), (0., 0., 1.)))[0],
+                    got=carry(((0., 0., 0.), (0., 0., 1.)))[0], members=(name,))
     a.floor_bosses = floor_mounts(
         (comp_carry, _comp.mount_pattern(), _comp.BASE_Z, _comp.MOUNT_D))
-    # The condenser is the other body on this slab the box holds, and it is held at its own four
-    # flanges: two in a groove off the front wall, two on a boss apiece off the +X one.
     a.cond_cradle = condenser_cradle(cond, cond_carry, box(comp).zmin)
     a.cond_mount = condenser_mount(cond, cond_carry)
-    # And the two flanks the air goes in and out by, which the block states the same way it
-    # states its flanges: the finstack's own footprint, and the box pierces the flutes opposite
-    # it (`enclosure._flank_vents`).
     a.cond_airway = condenser_airway(cond, cond_carry)
-    # The Wago row is absent here on purpose: a lever nut has no hole to stand a boss on. Its
-    # well IS its mount, and that goes on the wall through `side_wells`.
-    power_mounts = (
-        ("psu", psu_carry, _psu.holes),
-        ("pcba", pcba_carry, _pcba.board.holes),
-        ("relay-2", relay2_carry, _relay.holes),
-        ("relay-1", stack_carry["relay-1"], _relay.holes),
-        ("ground-stack", stack_carry["ground-stack"], _gnd.holes),
-    )
-    a.east_bosses, a.east_mount_fills = wall_mounts(
-        *power_mounts,
-        blockers=tuple((name, solid) for name, (solid, _colour) in _solids(a).items()))
-    vk, vk_carry = build_vk(foam_carry)
-    a.add(vk, name="vk-solenoid", color=C_VK)
-    # The cradles, measured the moment the last valve standing on the cap is placed. The other
-    # two came up with the pack, so this is the first point at which all three are in world.
-    on_cap = {**{n: s for n, s, _c in stood}, "vk-solenoid": vk}
-    a.cradles = cradle_rows(foam, foam_carry, on_cap)
-    cap_features = json.loads((_hw / 'printed-parts/cold-core/foam-cap'
-                               / 'cap-feature-intersections.json').read_text())
-    feature_hits = cap_features['intersections']
-    record_bound(Bound(
-        'cap-cradle-anchor-separation', 'Valve plinths clear the existing tube anchors',
-        not feature_hits, f'{len(feature_hits)} shared-material region(s)', '0 intersections',
-        [f"{r['valve']} plinth / {r['anchor']} anchor: {r['volume_mm3']:.3f} mm3"
-         for r in feature_hits], 'goal'))
-    adrift = cradles_land(a.cradles)
-    if adrift:
-        raise ValueError(
-            "the cap prints a cradle where its valve does not stand: "
-            + "; ".join(f"{name} has {has!r} against {wants!r}"
-                         for name, has, wants in adrift)
-            + " — carry the placed stations into _cold_core_interface.cap_cradles")
-    # The pump's own joint, read the same way: the four cap columns against the four bores in
-    # the bracket's pad, both taken back into the frame the cap is authored in.
-    a.pump_mount = pump_mount_rows(foam_carry, water_pump_carry)
-    # THE DECK COMES DOWN ONTO WHAT IS ALREADY STANDING, so its four bodies are struck against
-    # the assembly as it is at this point. THE WEST LANE HANGS OFF IT and is not in the strike:
-    # the tap-water union takes the deck's own storey, the chain butts that union, and the
-    # split takes station off the chain. THE GAS
-    # CHAIN: it takes that same storey rather than standing under it, so it goes up after the
-    # strike and answers to `deck_storey` the way the union row does.
-    a.gate_z = flavor_storey(gate_cruise, water_pump_carry)
-    # The signal jack shares the soda/flavour-A column on the middle row (`middle_row_z`). It
-    # goes down before the deck strike so the soda union's descent reads the real body standing
-    # below it rather than an empty interval the finished machine does not have.
-    a.keystone_station = keystone_station(a.gate_z)
-    keystone, _keystone_carry = build_keystone(a.keystone_station)
-    a.add(keystone, name="keystone-jack", color=C_C14)
-    under_deck = [s for s, _c in _solids(a).values()]
-    a.deck_z, deck_fall = deck_z(under_deck, a.gate_z)
-    co2in, co2in_carry = build_co2_inlet(a.deck_z)
-    a.add(co2in, name="co2-inlet", color=C_CO2_INLET)
-    wr1110, wr1110_carry = build_wr1110(co2in_carry)
-    a.add(wr1110, name="wr1110", color=C_WR1110)
-    gasher, gasher_carry = build_gasher_co2(wr1110_carry)
-    a.add(gasher, name="gasher-co2", color=C_GASHER)
-    gas_adapters = _gas_chain.bodies(wr1110_carry, gasher_carry)
-    # Each fitting's pose is the threaded parent's same transform; include the children in
-    # that placement rule rather than recording an unrelated world-space box.
-    for parent, members in (("wr1110", _gas_chain.ADAPTER_NAMES[:2]),
-                            ("gasher-co2", _gas_chain.ADAPTER_NAMES[2:])):
-        row = SEATS[parent]
-        SEATS[parent] = row._replace(members=row.members + members)
-    for name, solid in gas_adapters.items():
-        a.add(solid, name=name, color=M_JG_GREY_ACETAL)
-    a.co2_inlet_carry = co2in_carry
-    asse, asse_carry = build_asse(a.deck_z)
-    a.add(asse, name="asse1022-assembly", color=C_ASSE)
-    split, split_carry = build_split(asse_carry)
-    a.add(split, name="water-split", color=C_SPLIT)
-    flowreg, flowreg_carry = build_flowreg(foam_carry)
-    a.add(flowreg, name="flow-regulator", color=C_FLOWREG)
-    disch, disch_carry = build_discharge_chain(foam_carry)
-    a.add(disch, name="discharge-chain", color=_dis.M_JG_WHITE_PP)
-    # The rib the cap prints against the sections of the chain it stands under, read back off
-    # the placed body — the same reading the pump's four columns take.
-    a.anchors = anchor_rows(foam_carry, {"discharge-chain": (disch_carry, _dis)})
-    bulkhead, bulkhead_carry = build_bulkhead(asse_carry)
-    a.add(bulkhead, name="bulkhead-water", color=C_BULKHEAD)
-    deck_solids, panel_carries = build_deck(a.deck_z, a.gate_z, seat=True)
-    meter_carry = panel_carries.pop("digiten-flow")
-    for name, solid in deck_solids.items():
-        a.add(solid, name=name, color=C_DIGITEN if name == "digiten-flow" else C_BULKHEAD)
-        # THE BAND IS THE ONE THAT BODY'S OWN STOREY WAS STRUCK ON, and the two storeys here were
-        # struck on two different ones. `deck_z` drops its four and stands them where the least
-        # still has a `DECK_CLEAR` of fall; `flavor_storey` carries the gate lane's pair over the
-        # pump's FEET, which is `PORT_FOOT_CLEAR` — a barrel passing the widest section the
-        # casting has, above which the lane opens by twenty millimetres.
-        note_room(name, "fall onto what stands under it",
-                  PORT_FOOT_CLEAR if name in PANEL_ON_GATE_LANE else DECK_CLEAR,
-                  deck_fall[name] if name in deck_fall
-                  else descent(solid, _would_land_on(box(solid), under_deck)))
-    a.keystone_clearances = _keystone_clearances(
-        a.keystone_station, a.gate_z, deck_solids)
-    if min(clear for pair in a.keystone_clearances for clear in pair) \
-            < KEYSTONE_NEIGHBOUR_CLEAR - 1e-6:
-        raise ValueError(
-            "the keystone aperture or inboard receptacle leaves less than one wall to a "
-            f"neighbouring port: {a.keystone_clearances}, requires "
-            f"{KEYSTONE_NEIGHBOUR_CLEAR:g} mm")
-    trays = {n: s for n, s in deck_solids.items() if n != "digiten-flow"}
-    meter = deck_solids["digiten-flow"]
-    a.panel_carries = panel_carries
-    drain_z = middle_row_z(a.gate_z)
-    drain, drain_carry = seat_body(_drain_bulkhead.build(), (), seat="bulkhead-drain",
-        station=(((0, 0, 0), (0, 1, 0)),
-                 (PANEL_X["bulkhead-flavor-b"], bulkhead_seat_y(), drain_z)))
-    a.add(drain, name="bulkhead-drain", color=C_BULKHEAD)
-    a.drain_carry = drain_carry
-    drain_members = _drain.bodies(asse_carry(_asse.port("vent-tip"))[0],
-                                 drain_carry(_drain_bulkhead.port(-1))[0])
-    for name, solid in drain_members.items():
-        a.add(solid, name=name, color=_routing.color("drain-white")
-              if name.startswith("tube-") else _drain.adapter.M_TPU_BLACK)
-    row = SEATS["asse1022-assembly"]
-    SEATS["asse1022-assembly"] = row._replace(members=row.members + _drain.ADAPTER_NAMES)
-    outlet = drain_carry(_drain_bulkhead.port(1))[0]
-    a.add(cq.Solid.makeCylinder(2.0, 70.0, cq.Vector(*outlet), cq.Vector(0, 1, 0)),
-          name="tube-drain-umbilical", color=_routing.color("drain-white"))
-    # The wall's six crossings, all placed by here. The field, the rings and the bores are all
-    # struck off this one reading.
-    a.wall_stations = wall_stations(bulkhead_carry, panel_carries, co2in_carry, drain_carry)
-    # The rings go down after the fittings that trap them, on the same columns their pockets were
-    # struck on. They lie OUTBOARD of the +Y wall of back-top's outer face, in the field the wall raises.
-    for name, solid, colour in build_bulkhead_rings(a.wall_stations):
+    solids = {n: s for n, s, _c in stood}
+    solids.update({name: row[0] for name, row in selected.items()})
+    solids.update({'foam-assembly': foam, 'compressor': comp, 'condenser+fan': cond,
+                   'thermal-fuse': fuse, 'fuse-clamp': clamp, 'mq6-sensor': mq6})
+    carries = {name: mcarry for name, _s, _c in stood if name in _lines.STATIONS}
+    carries.update({name: row[2] for name, row in selected.items()})
+    carries.update({'foam-assembly': foam_carry, 'compressor': comp_carry,
+                    'condenser+fan': cond_carry, 'thermal-fuse': fuse_carry,
+                    'fuse-clamp': clamp_carry, 'mq6-sensor': mq6_carry})
+    # These bodies are already children of the cold core. Expose their shared
+    # world port frames for routing without adding a second physical copy.
+    core_selected = _above_parts.core_components()
+    a.core_external_components = frozenset(core_selected) | core_equipment
+    solids.update({name: row[0] for name, row in core_selected.items()})
+    carries.update({name: row[2] for name, row in core_selected.items()})
+    # Junction positions follow the complete electrical routes. They carry no
+    # mounting obligation into either removable roof closure.
+    import above_core_wiring
+    junctions = above_core_wiring.components()
+    for name, (solid, colour, carry) in junctions.items():
+        station = carry(((0., 0., 0.), (0., 0., 1.)))[0]
+        record_seat(name, station=station, got=station, members=(name,))
+        if above_core_wiring.owner(name) == 'cold-core':
+            core.add(solid, name=f'{CORE}/{name}', color=colour)
+            a.core_external_components |= {name}
+            a.core_body_names |= {f'{CORE}/{name}'}
+        else:
+            a.add(solid, name=name, color=colour)
+        solids[name], carries[name] = solid, carry
+    import above_core_routes
+    extra, onward = above_core_routes.continuations(solids, carries)
+    core_routes = above_core_routes.core_route_specs()
+    a.core_external_components = a.core_external_components | frozenset(
+        'tube-'+name for name in core_routes)
+    for name, (solid, colour, carry) in extra.items():
         a.add(solid, name=name, color=colour)
-    for name, solid, colour in build_data_ring(a.keystone_station):
-        a.add(solid, name=name, color=colour)
-    # And outboard of two of them, the customer's own tube and the collar that carries the
-    # station's word out along it.
-    for name, solid, colour in build_customer_tubes(bulkhead_carry, panel_carries, co2in_carry):
-        a.add(solid, name=name, color=colour)
-    # And the nameplate, in the field those rings leave east of the flavour pair — the same
-    # pocket floor, one plate's thickness inside the wall's outer face, centred on the chips.
-    a.nameplate_station = nameplate_station(a.wall_stations, foam)
-    for name, solid, colour in build_nameplate(a.nameplate_station):
-        a.add(solid, name=name, color=colour)
-    # Its receiving bar stands behind the wall beside the PSU's AC terminal block, and the
-    # tabs' pitch is what holds the bar's east end off it.
-    _psu_air = _clearing.gap(nameplate_receiver(a.nameplate_station), psu, 5.0)
-    record_bound(Bound(
-        "nameplate-psu-clear", "The nameplate's receiving bar stands clear of the PSU",
-        _psu_air >= NAMEPLATE_PSU_CLEAR - 1e-6, f"{_psu_air:.3f} mm",
-        f"≥ {NAMEPLATE_PSU_CLEAR:g} mm",
-        ["the bar and its corbel against the PSU's AC terminal block; the tabs' pitch "
-         "`_nameplate_interface.TAB_X` sets the bar's ends"]))
-
-    # The runs between placed bodies. Their frames come off the poses above, so a waypoint
-    # measured off a port moves when the body it is on moves.
-    carries = {"foam-assembly": foam_carry, "g-ganen-pump": water_pump_carry,
-               **{name: carry for name, _bodies, carry in elbows.values()},
-               "discharge-chain": disch_carry,
-               "compressor": comp_carry, "condenser+fan": cond_carry,
-               "asse1022-assembly": asse_carry, "water-split": split_carry,
-               "flow-regulator": flowreg_carry, "vk-solenoid": vk_carry,
-               "bulkhead-water": bulkhead_carry, "co2-inlet": co2in_carry,
-               "bulkhead-drain": drain_carry,
-               "gasher-co2": gasher_carry,
-               "wr1110": wr1110_carry, "digiten-flow": meter_carry, **panel_carries}
-    solids = {"foam-assembly": foam, "g-ganen-pump": water_pump,
-              **{name: bodies[name] for name, bodies, _carry in elbows.values()},
-              "discharge-chain": disch,
-              "compressor": comp, "condenser+fan": cond,
-              "asse1022-assembly": asse, "water-split": split,
-              "flow-regulator": flowreg, "vk-solenoid": vk,
-              "bulkhead-water": bulkhead, "co2-inlet": co2in, "bulkhead-drain": drain, "gasher-co2": gasher,
-              "wr1110": wr1110, "digiten-flow": meter, **gas_adapters, **trays}
-    # The pack's own bodies, so a run may anchor on one or measure off one. The stations answer
-    # in `manifold_layout`'s world and ride the pose this module stood them in.
-    for name, solid, _colour in stood:
-        solids[name] = solid
-        if name in _lines.STATIONS:
-            carries[name] = mcarry
-    a.bulkhead_carry = bulkhead_carry
-    a.asse_cradle = asse_cradle(asse_carry)
-    a.digiten_anchors = digiten_anchors(meter_carry)
-    a.runs = []
-    # The bodies and their placements, carried on the assembly: a run whose other mouth is on
-    # something the BOX seats is drawn after the box exists, and it anchors on these same frames.
+        solids[name], carries[name] = solid, carry
     a.pack_solids, a.carries = solids, carries
-    draw_runs(a, _lines.build_runs(solids, carries))
-    # AND THE ANCHORS ON THOSE LINES, struck on the runs themselves so a reroute carries them.
-    a.tube_anchor_sites = tube_anchor_sites(a.runs)
-    a.tube_anchors = tuple(station for _rid, station in a.tube_anchor_sites)
-    # The cold core's own ribs that hold a run are kept apart from those: `a.tube_anchors` is what
-    # the BOX builds from, and a station on the core has no business being handed to a wall. Both
-    # hold a run, so `tube-anchored` counts them together.
-    a.cap_tube_anchors = cap_tube_anchors(carries["foam-assembly"], a.runs)
-    # And the ribs the box stands for a BODY. The wall builds these from the same station shape,
-    # and `tube-anchored` counts none of them: they hold no run.
-    a.body_anchors = body_anchors(carries)
-    # THE SEALED LOOP, READ ONCE THE MACHINE HAS DRAWN WHAT IT DRAWS. Two of its legs cross a
-    # plane their bodies already share and no copper is drawn between them; the third is cut and
-    # brazed like any other run. Which is which is not this module's to declare — `_lines` having
-    # authored a run settles it — so the reading waits for the runs and then grades every leg by
-    # what the machine actually made it with. Nothing else on this pack stands between a station
-    # that moved and a leg nobody notices has come apart.
+    a.runs = []
+    frames = _lines.frames(solids, carries)
+    for constructor in (_lines._refrig_1, _lines._refrig_2, _lines._refrig_3):
+        draw_runs(a, [constructor(frames)])
+    a.native_route_specs = {**_above_parts.route_specs(), **onward}
+    a.native_connections = _above.logical_connections()
+    for name, spec in a.native_route_specs.items():
+        shape = _above_parts.route_shape(spec)
+        _routing.SPOOL_OF[name] = spec['spool']
+        colour = _routing.tube_color(name)
+        owners = spec.get('owners', ('', ''))
+        endpoints = [spec.get('frm', spec.get('from', owners[0])),
+                     spec.get('to', owners[-1])]
+        on_core = all(end.split('.')[0] in a.core_external_components | {'foam-assembly'}
+                      for end in endpoints)
+        if name not in core_routes and on_core:
+            core.add(shape, name=f'{CORE}/tube-{name}', color=colour)
+            a.core_external_components |= {'tube-'+name}
+            a.core_body_names |= {f'{CORE}/tube-{name}'}
+        elif name not in core_routes:
+            a.add(shape, name='tube-'+name, color=colour)
+        solids['tube-'+name] = shape
+        points = spec.get('points_mm', spec.get('centerline_mm'))
+        owners = spec.get('owners', ('', ''))
+        run = _routing.Run(name, 'fluid', spec.get('frm', spec.get('from', owners[0])),
+                           spec.get('to', owners[-1]), points, spec['od_mm'],
+                           spec.get('minimum_radius_mm') or 0., spec.get('basis', ''))
+        a.runs.append(run)
+    a.frames = _lines.frames(solids, carries)
+    a.bulkhead_carry, a.co2_inlet_carry = carries['bulkhead-water'], carries['co2-inlet']
+    a.drain_carry = carries['bulkhead-drain']
+    a.panel_carries = {name: carries[name] for name in
+                       ('bulkhead-carb', 'bulkhead-flavor-a', 'bulkhead-flavor-b')}
+    a.wall_stations = {row['name']: (row['center_x_mm'], row['center_z_mm'])
+                       for row in _above.specification()['rear_wall']['wet_ports']}
+    a.keystone_station = (-30., 274.3760478805363)
+    a.keystone_clearances = ()
+    a.deck_z = max(z for x, z in a.wall_stations.values())
+    a.gate_z = 270.675
+    a.nameplate_station = None
+    a.east_bosses, a.east_mount_fills = (), ()
+    a.side_wells = ()
+    a.asse_cradle = ()
+    a.digiten_anchors = ()
+    a.tube_anchor_sites, a.tube_anchors, a.cap_tube_anchors, a.body_anchors = (), (), (), ()
+    a.cradles, a.pump_mount, a.anchors = [], [], []
     a.refrigerant_at = refrigerant_stations(carries)
-    # The whole loop's reading rides the assembly, and the MATED subset of it rides beside: the
-    # gate accounts for every leg, and the card is handed only the ones a shared plane actually
-    # shut — it counts the drawn one off the run itself, like every other line.
     a.refrigerant = refrigerant_joints(carries, a.runs)
     a.refrigerant_mates = refrigerant_mates(a.refrigerant)
     a.seats = dict(SEATS)
-    carry_stated_bounds()
     a.bounds = list(BOUNDS)
+    a.add(core, name=CORE)
     return a
 
 
@@ -4586,8 +4423,17 @@ def _solids(a: cq.Assembly):
     # Installed electrical routing has its own conductor/terminal manifest and
     # manual interference review. Mechanical packing retains its existing scope.
     wires = getattr(a, "wiring_body_names", frozenset())
-    out = {name: (shape, colour) for name, shape, colour in ml.placed_leaves(a)
-           if name not in inside and name not in wires}
+    external = getattr(a, 'core_external_components', frozenset())
+    out = {}
+    for name, shape, colour in ml.placed_leaves(a):
+        if name in wires:
+            continue
+        if name in inside:
+            leaf = name.rsplit(SOLID_INDEX_SEP, 1)[-1]
+            if leaf in external:
+                out[leaf] = (shape, colour)
+        else:
+            out[name] = (shape, colour)
     if getattr(a, "core_envelope", None) is not None:
         out["foam-assembly"] = (a.core_envelope, C_FOAM)
     return out
@@ -4605,8 +4451,9 @@ def _core_solids(a: cq.Assembly):
     what holds them. The core's card, its payload and the scene tables all speak the plain
     names, and so does this."""
     inside = getattr(a, "core_body_names", frozenset())
+    external = getattr(a, 'core_external_components', frozenset())
     return {name: (shape, colour) for name, shape, colour in ml.placed_leaves(a)
-            if name in inside}
+            if name in inside and name.rsplit(SOLID_INDEX_SEP, 1)[-1] not in external}
 
 
 # Bodies seated THROUGH a wall rather than standing inside it. Each one takes a hole in the skin
@@ -5275,6 +5122,13 @@ def front_flank_reliefs(placed):
     return tuple(pockets)
 
 
+def above_core_ceiling_reliefs():
+    """Plain roof pockets retain the selected three-millimetre outer skin."""
+    pockets = _above.specification()['ceiling_pockets']['pockets']
+    return tuple((p['name'], p['xmin'], p['xmax'], p['ymin'], p['ymax'], p['zmax'])
+                 for p in pockets)
+
+
 def pack(a: cq.Assembly = None) -> "_enc.Pack":
     """What the box is SIZED ON: the bodies that have to fit inside it.
 
@@ -5291,26 +5145,21 @@ def pack(a: cq.Assembly = None) -> "_enc.Pack":
                | {NAMEPLATE, NAMEPLATE_INK})
     return _enc.Pack(placed={n: v for n, v in placed.items() if n not in outside},
                      west_ports=(),
-                     back_ports=(y_wall_ports(a.bulkhead_carry, a.panel_carries)
-                                 + [c14_cutout(), co2_wall_port(a.co2_inlet_carry),
-                                    ("round", a.wall_stations["bulkhead-drain"][0],
-                                     a.wall_stations["bulkhead-drain"][1],
-                                     _drain_bulkhead.panel_hole_d(PORT_HOLE_SLIP)),
-                                    keystone_cutout(a.keystone_station)]),
-                     c14=c14_stations(), east_bosses=a.east_bosses,
+                     back_ports=(), c14=(),
+                     east_bosses=a.east_bosses,
                      east_mount_fills=a.east_mount_fills,
-                     side_wells=stand_wells(a.side_wells), floor_bosses=a.floor_bosses,
+                     side_wells=stand_wells(a.side_wells) if a.side_wells else (),
+                     floor_bosses=a.floor_bosses,
                      west_cradle=a.west_cradle, cond_cradle=a.cond_cradle,
                      cond_mount=a.cond_mount, cond_airway=a.cond_airway,
                      asse_cradle=a.asse_cradle,
                      flow_meter_anchors=a.digiten_anchors,
-                     tube_anchors=stand_anchors(a.tube_anchors + a.body_anchors),
-                     ceiling_reliefs=ceiling_reliefs(placed, a.asse_cradle),
-                     flank_reliefs=flank_reliefs(placed),
+                     tube_anchors=(stand_anchors(a.tube_anchors + a.body_anchors)
+                                   if a.tube_anchors or a.body_anchors else ()),
+                     ceiling_reliefs=above_core_ceiling_reliefs(),
+                     flank_reliefs=(),
                      front_flank_reliefs=front_flank_reliefs(placed),
-                     port_field=y_wall_field(a.wall_stations),
-                     nameplate=nameplate_cut(a.nameplate_station),
-                     keystone=a.keystone_station,
+                     port_field=None, nameplate=None, keystone=None,
                      valve_trays=a.valve_trays, pump_trays=a.pump_trays,
                      core_stops=a.core_stops, core_holds=a.core_holds,
                      vent_chase=a.vent_chase, collet_plate=a.collet_plate)
@@ -5325,7 +5174,7 @@ from _materials import WALL_COLORS                     # noqa: E402
 
 
 def funnel_centre(box):
-    """The collar and drain centre, which is the sliding frame's datum (`funnel_frame.center_y`)
+    """The collar and drain centre, on the drop-in frame's datum (`funnel_frame.center_y`)
     and not the centre of its plan."""
     return ((box.inner[0] + box.inner[1]) / 2, _funnel_frame.center_y)
 
@@ -5346,17 +5195,18 @@ def build_funnel(box):
 
 
 def build_drain_joint(box):
-    """The funnel's drain joint under the frame's hole, read off the hole's own datum.
+    """The frame-carried drain joint, on the centered funnel outlet datum.
 
     Three bodies on one column, each in the frame its own module states:
 
-      * the elbow cradle, snapped into the frame's web round the hole
-        (`elbow_cradle`, origin on the hole's axis in the frame's underside);
+      * the elbow cradle, snapped into the removable frame's 3 mm bottom web
+        (`elbow_cradle`, origin on the outlet axis at that web);
       * the PP0308E elbow standing in it, its nose below the web by the cradle's catch
         clearance, +Z leg up the hole and +Y leg aft;
       * the drain stub in the elbow's upper collet, up through the hole into the plug's land
         (`funnel_drain_stub`, origin on the elbow's release face).
 
+    Disconnect the drain tube or release the cradle before removing the frame.
     Returns `(name, solid, colour, carry)` per body — the elbow's carry is what `fluid-4`
     anchors on."""
     _stub.joint_holds()
@@ -5602,6 +5452,26 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
                                 _enc.funnel_seat_z(box.outer))
     a.add(frame, name="funnel-frame", color=M_PETGF_BLACK)
     a.pack_solids["funnel-frame"] = frame
+    panel = _enc._above_core_shell.access_panel()
+    a.add(panel, name='electronics-access-panel', color=M_PETGF_BLACK)
+    a.pack_solids['electronics-access-panel'] = panel
+    record_seat('electronics-access-panel', planes={'z0':346.}, got=panel.BoundingBox())
+    for name, shape, colour in _enc._above_core_shell.rear_identification().parts():
+        a.add(shape, name=name, color=colour)
+        a.pack_solids[name] = shape
+    from _materials import M_STAINLESS, M_BRASS
+    closure_stations = [
+        (f'funnel-frame-{p["name"]}', p['x'], p['y'], p['head_seat_z'], p['insert_top_z'])
+        for p in _funnel_frame.fastener_datums(box.inner, box.y_joint, funnel_centre(box),
+                                              _enc.funnel_seat_z(box.outer))]
+    access = _enc._above_core_shell.access_plan()['fasteners']
+    closure_stations.extend((f'electronics-panel-{i}', x, y,
+                             access['counterbore_floor_z_mm'], access['bearing_z_mm'])
+                            for i, (x, y) in enumerate(access['centres_xy_mm'], 1))
+    for name, x, y, head, insert_top in closure_stations:
+        screw, insert = _enc._above_core_shell.closure_hardware(x, y, head, insert_top)
+        a.add(screw, name=name+'-screw', color=M_STAINLESS)
+        a.add(insert, name=name+'-insert', color=M_BRASS)
     cx, cy = funnel_centre(box)
     floor = _funnel_frame.datums(_enc.funnel_seat_z(box.outer))[0]
     # The frame is built in place round the collar's centre, and its plan is not centred there:
@@ -5618,10 +5488,9 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
         a.pack_solids[name] = solid
         if carry is not None:
             a.carries[name] = carry
-    draw_runs(a, _lines.build_seated_runs(a.pack_solids, a.carries))
     # THE DROP, AND NOT THE LENGTH. `fluid-4` carries the funnel's head and is its air-purge path,
     # so what it owes is a line that never ends higher than it starts.
-    drain = next((r for r in a.runs if r.id == "fluid-4"), None)
+    drain = next((r for r in a.runs if r.id == "above-core-drain-vb-inlet-link"), None)
     if drain is not None:
         note_room("funnel-drain-union", "the drop off the elbow `fluid-4` reaches V-B on",
                   _elbow.TUBE_OD, drain.pts[0][2] - drain.pts[-1][2])
@@ -5633,7 +5502,7 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     land_top = (_enc.funnel_seat_z(box.outer) + _funnel.spout_land_z)
     joined = (abs(nose - (floor - _cradle.CATCH_GAP)) < 1e-6
               and abs(stub_top - land_top) < 1e-3
-              and drain is not None and "fluid-4" not in _routing.BLOCKED)
+              and drain is not None)
     record_bound(Bound(
         "funnel-drain-attachment", "The removable funnel has a retained drain tube", joined,
         f"PP0308E nose {_cradle.CATCH_GAP:g} mm below the web at Z{nose:.3f}; "

@@ -15,6 +15,9 @@ from _cold_core_interface import (
     corner_round_radius,
     screw_boss_size,
     cap_conduits,
+    cap_conduit_floor_xy,
+    cap_passive_guides,
+    cap_cable_guides,
     cap_conduit_bore_radius,
     cap_conduit_boss_radius,
     cap_conduit_links,
@@ -39,6 +42,7 @@ from _cold_core_interface import (
 )
 from _outer_shell import (build_attachment_bosses, take_skin_off_the_floor,
                           rebate_casing_seals)
+import _above_core_mounts as _above_mounts
 
 # A lid stands one wall of plate over a head pad's own height, and the two ends of the stack
 # reach it differently. The BOTTOM lid is that plate with a pad at each attachment station. The
@@ -62,8 +66,8 @@ top_cap_height = foam_cap_height - head_pad_height
 # appliance stands the whole core on.
 #   THE CAP FACE is the top lid's outer face — the plane every body on the core's crown is placed
 # off, and the plane a cap conduit's bore opens on. It is NOT the stack's highest point and must
-# not be read as one: the valve cradles (`_cold_core_interface.cap_cradles`) stand off that face,
-# so the assembly's box top is a cradle pad, and a body seated on it would stand on a valve seat.
+# not be read as one: V-B's upright wall and the water-check saddle stand off
+# that face, so the assembly's box top is an equipment mount.
 #
 # Both are arithmetic over the lid this module makes and the two heights the interface states, so
 # they live beside the lid. `foam_assembly` re-exports them for the appliance and
@@ -85,7 +89,7 @@ def attachment_clearances_extrude(height):
 
 
 def build_conduit_columns(height):
-    """Every cap conduit's column, extruded +Z by height from z=0.
+    """Cap guide columns and the floor-rooted curved soda sleeve.
 
     ONE EXTRUDE PER CONDUIT, unioned. A bore's wall is thicker than half the `LINE_PITCH`
     its neighbour stands at, so a pair of conduits carries bosses that OVERLAP — and two
@@ -93,14 +97,32 @@ def build_conduit_columns(height):
     not a fused pair. Unioning the columns one at a time is what makes them the single
     peanut-section post the pour and the lid actually meet."""
     columns = None
-    for centre in cap_conduits.values():
-        column = (
-            WorldWorkplane(xy_plane_z_up)
-            .workplane(offset=0)
-            .moveTo(centre)
-            .circle(cap_conduit_boss_radius)
-            .extrude(height)
-        )
+    for name, centre in cap_conduits.items():
+        if name in ('reservoir-b-fill', 'water-in', 'carb-water-out'):
+            continue
+        if name in cap_passive_guides or name in cap_cable_guides:
+            if name in cap_cable_guides:
+                points = _above_mounts.cable_guide_points(name)['points_mm'][1:-1]
+                plan = [ _above_mounts.above_core.world_to_cap(p)[:2] for p in points]
+            else:
+                plan = (cap_conduit_floor_xy[name], centre)
+            column = None
+            for lower, upper in zip(plan, plan[1:]):
+                dx, dy = upper[0]-lower[0], upper[1]-lower[1]
+                segment = (cq.Workplane('XY')
+                    .center((upper[0]+lower[0])/2., (upper[1]+lower[1])/2.)
+                    .slot2D(math.hypot(dx, dy)+2.*cap_conduit_boss_radius,
+                            2.*cap_conduit_boss_radius, math.degrees(math.atan2(dy, dx)))
+                    .extrude(height))
+                column = segment if column is None else column.union(segment)
+        else:
+            column = (
+                WorldWorkplane(xy_plane_z_up)
+                .workplane(offset=0)
+                .moveTo(centre)
+                .circle(cap_conduit_boss_radius)
+                .extrude(height)
+            )
         columns = column if columns is None else columns.union(column)
     # Simple full-height webs connect the two close pairs. The subsequent bore
     # cut keeps the passages open through the entire joined stock.
@@ -113,10 +135,15 @@ def build_conduit_columns(height):
                 .rotate((0, 0, 0), (0, 0, 1), math.degrees(math.atan2(dy, dx)))
                 .translate(((a[0] + b[0]) / 2, (a[1] + b[1]) / 2, 0)))
         columns = columns.union(link)
-    return columns
+    carrier = _above_mounts.reservoir_b_fill_features(height)['cup_add']
+    carrier = _above_mounts.world_shape_in_cap(carrier).translate((0., 0., height))
+    soda = _above_mounts.soda_out_features()['cup_add']
+    soda = _above_mounts.world_shape_in_cap(soda).translate((0., 0., height))
+    return columns.union(carrier).union(soda)
 
 
-def build_conduit_bores(height, radius=cap_conduit_bore_radius, overshoot=0.0):
+def build_conduit_bores(height, radius=cap_conduit_bore_radius, overshoot=0.0,
+                        frame='cup'):
     """Every cap conduit's bore, extruded +Z by height from z=0.
 
     `overshoot` starts the cut that far BELOW the floor and lengthens it to match. A bore
@@ -125,13 +152,50 @@ def build_conduit_bores(height, radius=cap_conduit_bore_radius, overshoot=0.0):
     PERIMETER WALL — three faces meeting on that plane instead of two — the cut lands in
     the cavity and leaves the floor under it standing. Starting off the plane is what makes
     it a through-cut."""
-    return (
+    ordinary = [xy for name, xy in cap_conduits.items()
+                if name not in ('reservoir-b-fill','water-in','carb-water-out') and
+                (frame == 'lid' or name not in (*cap_passive_guides, *cap_cable_guides))]
+    bores = (
         WorldWorkplane(xy_plane_z_up)
         .workplane(offset=-overshoot)
-        .pushPoints(list(cap_conduits.values()))
+        .pushPoints(ordinary)
         .circle(radius)
         .extrude(height + overshoot)
     )
+    band = cq.Solid.makeBox(outer_shell_x_length+40., outer_shell_y_length+40.,
+        height+overshoot+1., cq.Vector(-outer_shell_x_length/2.-20.,
+                                    -outer_shell_y_length/2.-20.,-overshoot))
+    if frame == 'cup':
+        # Lower entries keep the existing reservoir bores. The shallow turns
+        # finish above the cup and meet straight upper bores in the lid.
+        from _internal_routes import routes, build_route, route_bend_radius
+        for name in cap_passive_guides:
+            passage = build_route(routes[name], route_bend_radius, radius)
+            passage = (passage.rotate((0., 0., 0.), (0., 0., 1.), 180.)
+                       .translate((0., 0., -foam_shell_outer_height)))
+            bores = bores.union(passage.intersect(band))
+        for name in cap_cable_guides:
+            route = _above_mounts.cable_guide_points(name)
+            passage = build_route(route['points_mm'], route['bend_radius_mm'], radius)
+            passage = _above_mounts.world_shape_in_cap(passage).translate((0., 0., top_cap_height))
+            bores = bores.union(passage.intersect(band))
+        xy = cap_conduit_floor_xy['reservoir-b-fill']
+        stem = (cq.Workplane('XY').workplane(offset=-overshoot)
+                .center(*xy).circle(radius).extrude(height+overshoot))
+        bores = bores.union(stem)
+    water_air = _above_mounts.world_shape_in_cap(_above_mounts.water_in_features()['cut'])
+    if frame == 'cup':
+        water_air = water_air.translate((0.,0.,top_cap_height))
+    bores = bores.union(water_air.intersect(band))
+    soda_air = _above_mounts.world_shape_in_cap(_above_mounts.soda_out_features()['cut'])
+    if frame == 'cup':
+        soda_air = soda_air.translate((0.,0.,top_cap_height))
+    bores = bores.union(soda_air.intersect(band))
+    fitting_air = _above_mounts.reservoir_b_fill_features(top_cap_height)['cut']
+    fitting_air = _above_mounts.world_shape_in_cap(fitting_air)
+    if frame == 'cup':
+        fitting_air = fitting_air.translate((0., 0., top_cap_height))
+    return bores.union(fitting_air.intersect(band))
 
 
 def build_conduit_entry_reliefs(z_inner):
@@ -142,7 +206,9 @@ def build_conduit_entry_reliefs(z_inner):
     ONE LOFT PER CONDUIT, unioned. `build_conduit_bores` pushes its points through a single
     extrude; a loft runs between two wires and takes one station at a time."""
     cones = None
-    for centre in cap_conduits.values():
+    for name, centre in cap_conduits.items():
+        if name in ('reservoir-b-fill','water-in'):
+            continue
         cone = (
             WorldWorkplane(xy_plane_z_up)
             .workplane(offset=z_inner)
@@ -220,7 +286,13 @@ def build_foam_cap(open_down=False):
                 .rect(outer_shell_x_length + 2.0, outer_shell_y_length + 2.0)
                 .extrude(z1 - z0))
     cap = cap.intersect(envelope)
-    return rebate_casing_seals(cap, ((0.0, height),)).unwrap()
+    cap = rebate_casing_seals(cap, ((0.0, height),)).unwrap()
+    if not open_down:
+        water = _above_mounts.water_in_features()
+        stock = _above_mounts.world_shape_in_cap(water['cup_add']).translate((0.,0.,height))
+        air = _above_mounts.world_shape_in_cap(water['cut']).translate((0.,0.,height))
+        cap = cap.union(stock).cut(air)
+    return cap
 
 
 def head_access_pockets(z0, depth):
@@ -318,6 +390,13 @@ def build_foam_cap_lid(open_down=False):
     # face into the `cap_conduit_entry_skew` countersink the line leaves by, one wall deep. The
     # mouth-down bottom lid closes the stack's other end and takes neither.
     if not open_down:
-        lid = lid.cut(build_conduit_bores(lid_cut_through_depth))
+        roof = _above_mounts.reservoir_b_fill_features(top_cap_height)['lid_add']
+        lid = lid.union(_above_mounts.world_shape_in_cap(roof))
+        lid = lid.cut(build_conduit_bores(lid_cut_through_depth, frame='lid'))
         lid = lid.cut(build_conduit_entry_reliefs(lid_total_height - wall_and_floor_thickness))
-    return rebate_casing_seals(lid, ((0.0, lid_total_height),)).unwrap()
+    lid = rebate_casing_seals(lid, ((0.0, lid_total_height),)).unwrap()
+    if not open_down:
+        water = _above_mounts.water_in_features()
+        lid = lid.union(_above_mounts.world_shape_in_cap(water['lid_add']))
+        lid = lid.cut(_above_mounts.world_shape_in_cap(water['cut']))
+    return lid

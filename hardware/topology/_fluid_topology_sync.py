@@ -3,8 +3,9 @@
 
 The enclosure assembly is the source of truth for the arrangement.
 [`manifold-layout/enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py) places
-the pack, [`_lines.py`](/hardware/manifold-layout/_lines.py) authors every run BETWEEN placed
-bodies and `_routing.Run.length` measures the built centreline, and
+the pack. `above_core_parts.py` and `above_core_routes.py` author exact native
+tube segments; `above_core.logical_connections()` groups them with their physical
+fittings. `_lines.py` supplies the remaining placed-body runs, and
 [`manifold_layout.py`](/hardware/manifold-layout/manifold_layout.py) makes the flavour manifold's
 own interior — including butts, upper tubes and lower returns. This
 driver reads all three and holds the charts to them.
@@ -92,7 +93,7 @@ class Seg:
 
     The kinds:
 
-      `drawn`    — a run `_lines.py` authors between two placed bodies, swept and measured.
+      `drawn`    — exact native tube sections grouped with their fittings, or a placed-body run.
       `straight` — a lane's own straight inside the manifold, drawn and measured the same way.
       `pump-dock`— a prepared pump's LLDPE tube through the collet plate into a pump tee.
       `elbows`   — a stem elbow in the pump tee's lower collet and one in the rear valve's,
@@ -102,9 +103,8 @@ class Seg:
       `turn`     — a quarter out of the deck plane and the step that follows it.
       `not drawn`— a mouth of the manifold study with nothing on the far end of it yet.
 
-    The table's remaining name is `mate`, a joint made up across a plane its two bodies already
-    share. It belongs to the refrigerant loop, whose legs are made that way or on a brazed
-    length of copper, and these charts draw fluid.
+    `mate` is a joint between directly mating bodies with no separate tube, such
+    as the trimmed water-split stem in the ASSE outlet cuff.
     """
 
     id: str
@@ -113,6 +113,8 @@ class Seg:
     length: float = None  # reported LLDPE path; the prepared pump tubes are separate
     corners: int = 0
     developed: float = None  # exposed centreline where it is known but cut length is not
+    status: str = 'complete'
+    missing: tuple = ()
 
     def __post_init__(self):
         if self.made not in _scorecard.MADE_AS:
@@ -129,6 +131,8 @@ class Seg:
         drawn run are the same arrow otherwise, so that word is the one thing about an edge the
         chart cannot draw. The length of stock a segment cuts is this driver's own stdout table,
         not the chart's."""
+        if self.status != 'complete':
+            return f'{self.id}<br/>incomplete'
         return self.id if self.length else f"{self.id}<br/>{self.made}"
 
 
@@ -161,29 +165,22 @@ def _interior(cid: int, how: str) -> tuple:
 
 
 def segments() -> dict:
-    """Every fluid segment the machine owes, keyed by route id, plus the non-flavour runs the
-    enclosure assembly draws through this stand.
+    """Logical fluid connections measured by the enclosure assembly.
 
-    Three sources. `_lines.py` draws the runs between PLACED BODIES and they arrive measured.
-    `manifold_layout.SEGMENTS` is the manifold's interior, where a connection is a butt or a
-    bend. `manifold_layout.MOUTHS` is what leaves that study, and a mouth `_lines.py` has not
-    picked up is a stub drawn one bend radius long and stopped.
-
-    THE WHOLE ASSEMBLY, NOT THE PACK. A run between two bodies the pack places is drawn by
-    `_lines.build_runs`, but a run to a body SEATED IN THE BOX cannot be — the box is sized on the
-    pack, so it does not exist until the pack does. `build_enclosure_assembly` seats the funnel and
-    then draws `_lines.build_seated_runs` off the same frames, and the funnel drain `fluid-4` is
-    the one segment in this table that arrives that way. Read the pack alone and that run falls
-    through to the `MOUTHS` loop and is labelled `not drawn` — a chart claiming an open mouth on a
-    line the machine has already routed, and no gate here catches it, because this driver would be
-    self-consistent against its own partial reading.
-
-    THE RUNS ARE READ, NOT REDRAWN. `_facts` carries what the assembly's own run measured, and
-    an id, two mouths, a length and a corner count is the whole of what a segment is here."""
+    `_facts` carries the exact native tube groups, their physical fittings and
+    missing-member status. These rows take precedence over manifold interiors
+    with the same ID. Unchanged interior segments come from `ml.SEGMENTS`;
+    remaining `ml.MOUTHS` entries retain their explicit undrawn status.
+    """
     segs = {}
     for r in _facts.read().runs:
-        segs[r.id] = Seg(r.id, (r.frm, r.to), "drawn", r.length, r.corners)
+        segs[r.id] = Seg(r.id, (r.frm, r.to), r.get('made', 'drawn'), r.length, r.corners,
+                         status=r.get('status', 'complete'),
+                         missing=tuple(r.get('missing_native_routes', ()))+
+                                 tuple(r.get('missing_fittings', ())))
     for cid, frm, to, how in ml.SEGMENTS:
+        if f'fluid-{cid}' in segs:
+            continue
         made, length, corners, developed = _interior(cid, how)
         segs[f"fluid-{cid}"] = Seg(
             f"fluid-{cid}", (frm, to), made, length, corners, developed)
@@ -223,8 +220,8 @@ NODES = {
     "Split":      _body("water-split", "supply", "to-flavor", "to-vk"),
     "FlowReg":    _body("flow-regulator", "inlet", "outlet"),
     "VK":         _body("vk-solenoid", "inlet", "outlet"),
-    "ElbowS":     _body("pump-elbow-suction", "tube"),
-    "ElbowD":     _body("pump-elbow-discharge", "tube"),
+    "ElbowS":     _body("pump-inlet-tpu", "tube"),
+    "ElbowD":     _body("pump-outlet-tpu", "tube"),
     "ResA":       _body("foam-assembly", "reservoir-a"),
     "ResAFill":   _body("foam-assembly", "reservoir-a-fill"),
     "ResB":       _body("foam-assembly", "reservoir-b"),
@@ -233,12 +230,13 @@ NODES = {
     "BhB":        _body("bulkhead-flavor-b", "tube-in", "tube-out"),
     # The carbonator spine's own bodies.
     "BhW":        _body("bulkhead-water", "inboard", "outboard"),
-    "BFP":        _body("asse1022-assembly", "tube-in", "tube-out", "vent-tip"),
-    "DischChain": _body("discharge-chain", "inlet", "tube-port"),
+    "BFP":        (_body("asse1022-assembly", "tube-in", "tube-out", "vent-tip")
+                   | _body('asse-inlet-tpu', 'tube') | _body('asse-outlet-tpu', 'tube')),
+    "DischChain": _body("discharge-chain", "inlet", "outlet", "tube-port"),
     "PW":         _body("g-ganen-pump", "suction", "discharge"),
     "CO2In":      _body("co2-inlet", "inboard", "outboard"),
-    "GasherCO2":  _body("gasher-co2", "inlet", "outlet"),
-    "WR":         _body("wr1110", "inlet", "outlet"),
+    "GasCheck":   _body("gas-check", "inlet", "outlet"),
+    "GasReg":     _body("gas-regulator", "inlet", "outlet"),
     "FlowMeter":  _body("digiten-flow", "inlet", "outlet"),
     "BhCarb":     _body("bulkhead-carb", "tube-in", "tube-out"),
     "CapWater":   _body("foam-assembly", "water-in"),
@@ -704,8 +702,9 @@ def main() -> int:
     substitute_mmd(LIMBS, limb_vars)
     substitute_md(TOPOLOGY, {**mf_vars, **limb_vars})
 
-    fluid = [s for k, s in sorted(segs.items(), key=lambda kv: _seg_no(kv[0]))
-             if k.startswith("fluid-")]
+    fluid = [s for k, s in sorted(((k, s) for k, s in segs.items()
+                                   if k.startswith("fluid-")),
+                                  key=lambda kv: _seg_no(kv[0]))]
     for s in fluid:
         if s.length is not None:
             length = f"{s.length:7.1f} mm"
@@ -715,6 +714,8 @@ def main() -> int:
             length = "        —"
         print(f"  {s.id:<9} {length}  {s.corners} corners  {s.made:<9} "
               f"{' → '.join(s.ends)}")
+        if s.status != 'complete':
+            print(f'    incomplete: missing {", ".join(s.missing)}')
     print(f"  {'REPORTED':<9} {sum(s.length or 0.0 for s in fluid):7.1f} mm over "
           f"{len(fluid)} segments; add actual fitting insertions to mouth-to-mouth paths; "
           "prepared pump tubes excluded")

@@ -109,10 +109,12 @@ solenoid_count = 10
 
 # ─── Run-length design targets ────────────────────────────────────────
 # All values mm except where noted.
-len_short_mm = 50       # AC-3 (a hop along the +X wall)
-len_short_2_mm = 100    # AC-2 (distribution → PSU), DC-1, DC-2
+len_short_mm = 150      # AC-3: 60 mm modeled centreline plus termination/dressing reserve.
+len_short_2_mm = 200    # AC-2: 85 mm maximum modeled centreline plus fitting reserve.
+len_dc1_mm = 250        # PSU secondary → core DC WAGOs: 163 mm maximum plus reserve.
+len_dc2_mm = 350        # Core V12 WAGO → relay 2: 244 mm plus reserve.
 len_mid_mm = 150        # AC-1 (C14 → distribution block, over the foam-cap top), DC-4
-len_pump_mm = 250       # DC-3 (diaphragm pump), which never leaves the box
+len_pump_mm = 350       # DC-3: 249 mm maximum modeled centreline plus fitting reserve.
 
 # ─── Loom bench cut lengths ───────────────────────────────────────────
 # Manifold cuts use the authored native-clear wire paths in the junction review,
@@ -120,30 +122,32 @@ len_pump_mm = 250       # DC-3 (diaphragm pump), which never leaves the box
 # rounded up to 50 mm. Equal
 # bench cuts are trimmed at their individual landings. FAN reserves extra length
 # beyond the clear condenser-crown approach; its donor lead is not located in CAD.
-# Other fixed looms use _run_lengths.py's centre-based reach estimates and the
-# recorded DC-5 routing factor. Those estimates do not validate a wire corridor.
-len_relays_mm = 100      # LV-1/2/3 → both Teyleten modules, one crown above the board (88)
-len_vk_mm = 150          # DC-9 OUT3 → V-K, 105.311 mm free-wire path + 11.65 mm board span
+# The installed graph supplies continuous-path sums for the revised commons
+# and power leads. Bench cuts include fitting reserve and are trimmed in place;
+# native centreline lengths do not qualify physical harness fit.
+len_relays_mm = 300      # J5 → west-wall relays: 230 mm longest continuous common plus reserve.
+len_vk_mm = 250          # DC-9 OUT3 → V-K: 169 mm modeled path plus termination/dressing reserve.
 len_man_a_com_mm = 300   # J1 COM → +X Y169 221-420; 223.699 mm free-wire path + 11.65 mm board span
 len_man_b_com_mm = 300   # J2 COM → +X Y169 221-415, independently of the valve OUT cuts
 len_flow_mm = 300        # SIG-4 → the DIGITEN in the strip ahead of the cold core (256)
-len_onewire_mm = 300     # SIG-1 → the DS18B20/DS18S20 bus in the core (267)
+len_onewire_mm = 650     # Temperature bus: 580 mm longest continuous common plus reserve.
 len_sensors_gnd_mm = 300 # SIG-1/4/9's shared `GND` → the 221-415 on the −X wall aft (284)
 len_reeds_gnd_mm = 300   # SIG-10/11's `GND` → the 221-415 / 221-420 at the reservoirs (274–278)
 len_man_a_mm = 550       # DC-6 OUT1–OUT8 → eight coils; checked H free-wire path 505.369 mm
 len_moisture_mm = 350    # SIG-9 → the dry LM393 board by the pan's −X-wall cable clip (304)
-len_carb_reeds_mm = 350  # SIG-2/3 → the carbonator's low and high reeds (323)
+len_carb_reeds_mm = 500  # Carbonator reeds: 406 mm maximum modeled path plus reserve.
 len_man_b_mm = 550       # DC-7 OUT1/OUT2 → V-I/V-J; checked I free-wire path 480.455 mm
 len_man_a_fanout_mm = 350  # +X Y169 221-420 → eight coil positives; checked D path 289.685 mm
 len_man_b_fanout_mm = 450  # +X Y169 221-415 → I, J, V-K and the condenser-crown lead approach
 len_pump_fixed_mm = 350  # DC-5, J13 → the fixed contact half along +X and the bulkhead crown (319)
 len_cartridge_mm = 100   # DC-5, the contact pair's female half → each pump's tabs, in the clamp (95)
 len_front_face_mm = 400  # SIG-7 → the 4.3B in the front-top facet, which never leaves the box (369)
-len_reeds_b_mm = 400     # SIG-11 → reservoir B's four level reeds (383)
+len_faucet_inboard_mm = 400  # J3 → rear-wall SIG-6 keystone, with termination/dressing reserve.
+len_reeds_b_mm = 500     # Reservoir B: 401 mm continuous common plus fitting reserve.
 len_fan_mm = 650         # J2 FAN → condenser-crown approach (~543 mm), plus donor-lead reserve
-len_reeds_a_mm = 450     # SIG-10 → reservoir A's four level reeds, the far end of the core (442)
+len_reeds_a_mm = 600     # Reservoir A: 512 mm continuous common plus fitting reserve.
 len_gas_mm = 600         # SIG-12 → the MQ-6 low on the rear cabinet floor, the longest in the box (582)
-len_compressor_mm = 600  # Preparation stock: ~529 mm modeled longest core plus ~70 mm termination/dressing reserve; trim after routing.
+len_compressor_mm = 700  # Preparation stock: 591 mm modeled longest core plus 109 mm termination/dressing reserve; trim after routing.
 len_umbilical_m = 1.0    # SIG-6 ONLY — the faucet display, up the umbilical and OUT of the box,
                          # above this model's ceiling. The one length still estimated.
 
@@ -195,6 +199,8 @@ def main():
         # Run-length design targets.
         "LEN_SHORT": f"~{len_short_mm:.4g} mm",
         "LEN_SHORT_2": f"~{len_short_2_mm:.4g} mm",
+        "LEN_DC1": f"~{len_dc1_mm:.4g} mm",
+        "LEN_DC2": f"~{len_dc2_mm:.4g} mm",
         "LEN_MID": f"~{len_mid_mm:.4g} mm",
         "LEN_PUMP": f"~{len_pump_mm:.4g} mm",
         "LEN_RELAYS": f"~{len_relays_mm:.4g} mm",
@@ -214,6 +220,7 @@ def main():
         "LEN_PUMP_FIXED": f"~{len_pump_fixed_mm:.4g} mm",
         "LEN_CARTRIDGE": f"~{len_cartridge_mm:.4g} mm",
         "LEN_FRONT_FACE": f"~{len_front_face_mm:.4g} mm",
+        "LEN_FAUCET_INBOARD": f"~{len_faucet_inboard_mm:.4g} mm",
         "LEN_REEDS_B": f"~{len_reeds_b_mm:.4g} mm",
         "LEN_FAN": f"~{len_fan_mm:.4g} mm",
         "LEN_REEDS_A": f"~{len_reeds_a_mm:.4g} mm",

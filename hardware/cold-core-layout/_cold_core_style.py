@@ -43,6 +43,18 @@ ROUTE_COLORS = {name: _routing.color(spool) for name, spool in ROUTE_SPOOLS.item
 
 def colour_for(name: str):
     """The material colour for one exact cold-core body or `line-<route>` leaf."""
+    if name == 'reservoir-b-fill-lower':
+        return _mat.M_NEOFIT_WHITE_ACETAL
+    if name == 'reservoir-b-fill-upper':
+        return _mat.M_JG_BLACK_PP
+    if name == 'digiten-flow':
+        return _mat.C_DIGITEN
+    if name == 'soda-inlet-stem':
+        return _mat.M_NEOFIT_WHITE_ACETAL
+    if name == 'soda-rise-insulation':
+        return _mat.M_NITRILE_BLACK
+    if name.startswith('tube-soda-core-'):
+        return _routing.color('blue')
     if name.startswith("line-"):
         route = name.removeprefix("line-")
         try:

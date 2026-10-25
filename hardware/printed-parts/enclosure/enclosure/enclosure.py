@@ -164,6 +164,7 @@ import trimesh
 import flute_skin as _flute_skin
 import funnel as _funnel
 import funnel_frame as _funnel_frame_part
+import _above_core_shell
 import wago_221 as _wago
 import mq6_gas_sensor as _mq6
 import riteav_keystone as _keystone
@@ -486,12 +487,11 @@ y_stack_head_h = 5.0           # ISO 4762 M5
 y_stack_cbore_depth = y_stack_head_recess + y_stack_head_h
 y_stack_tip_clearance = 2.5    # nominal blind air beyond the upper screw's tip
 y_stack_screw_length_tolerance = 0.8  # length allowance used for both selected screws
-y_stack_upper_floor = 272.5    # over the tap-water line's run along the −X flank
 y_stack_upper_chamfer = 5.1    # front-top's −X knuckle gives its inboard-aft edge to the flavour
                                # line (`tube-fluid-1`) that turns past that corner under the frame
 lower_rod_len = 120.0          # ISO 4762 M5 × 120, handhold ceiling to the insert under the Z seam
 lower_rod_thread = 22.0        # ISO 4762 M5 b: its thread at the tip, the rest plain shank
-upper_rod_len = 60.0           # ISO 4762 M5 × 60, roof to front-top's knuckle under the frame
+upper_rod_len = 50.0           # acquired ISO 4762 M5 × 50, roof to the upper front knuckle
 screw_clear_dia = _interface.screw_clear_dia  # M3 shank clearance
 head_cbore_dia = _interface.head_cbore_dia    # M3 SHCS head counterbore
 heatset_dia = _interface.heatset_dia  # ruthex M3, ⌀4.0 recommended hole either length
@@ -786,8 +786,7 @@ cond_vent_transom_h = 4.0    # how tall each one stands — more than an exterio
 # quadrant is screwed to the two beside it, so a feature printed on one piece stands over a body
 # sitting in another.
 #
-# TWO FEATURES, EACH ON THE PIECE WHOSE OWN MATERIAL REACHES THE FACE IT TAKES, and each a
-# mirror pair about x = 0:
+# TWO FEATURES, EACH ON THE PIECE WHOSE OWN MATERIAL REACHES THE FACE IT TAKES:
 #
 #   `_core_stops`  on **enclosure-front-bottom** — a block in each front corner of the slab,
 #                  pocketed to the core's own plan outline: the corner round outboard of the
@@ -1041,48 +1040,15 @@ def piece_root_faces(inner, y_side, z_side):
 # quietly resizing the appliance.
 rear_plane_y = _interface.rear_plane_y
 # --- back-top's own +Y section ------------------------------------------------
-#
-# THE +Y WALL IS ALREADY TWO WALLS THICK WHERE IT IS A BOTTOM PIECE. `_lip_underwall` carries
-# the lip's own skin from the floor slab to the rim on all three of back-bottom's sides, so that
-# wall measures `2 * wall` from the slab up. Above the rim it is back-top's, one `wall`, and this
-# is what makes the two agree: one section for the whole back of the machine.
-#
-# IT IS TAKEN INWARD, off `rear_plane_y`, and 6 is the whole of what there is. The cold core and
-# the water pump follow the rear datum, so the room behind the core is exactly
-# `rear_seam_clear` — the standoff this wall was given in the first place, and which
-# back-bottom already spends. A seventh millimetre is a wall drawn through the core.
-back_top_wall_t = 6.0
-# AND ONE STATION CANNOT AFFORD IT. What clamps a rear-wall fitting is its own bare barrel
-# between flange and nut, and what that barrel spans is the wall's outer face down to whatever the
-# nut lands on (`enclosure_assembly.port_clamp_stack`). The four umbilical unions offer 15.29 mm
-# of barrel and do not care; the CO2 neoFit offers 7.90, and a 6 mm wall spends six of them — an
-# M17 × 1.5 nut left holding 290 psi on 1.90 mm of thread. So the wall gives that one station back
-# to `rear_plane_y` — the plane it is struck off — and the port field stands its whole boss on the
-# section that leaves. The land also includes the ring's static back clearance;
-# `enclosure_assembly.port_clamp_stack` reads the resulting barrel engagement.
-#
-# AND THE C14 IS THE SAME BARGAIN FOR A DIFFERENT REASON. Its receptacle bears on the fore face
-# of a TUNNEL standing off this wall (`c14_tunnel_len`) and not on the wall itself, and the two
-# M3 heat-sets holding it enter that fore face from inside the machine. Each one bottoms on this
-# wall's inner face, so what stands over its blind end is the wall — and `socket_cap` is what an
-# insert on this box is given over a blind end, which `wall` is and `back_top_wall_t` is not.
-#
-# THE RULE UNDER BOTH: what a fastening lands on keeps the plane it lands on. Stated as
-# (station, x, z, across_x, across_z) — whose relief it is, where it stands, and the rectangle it
-# takes. The name is carried because a relief that drifts off the thing it was cut for is a
-# relief for nothing, and `back_wall_t_at` read at the placed station is what says whether it
-# still lands on it (`enclosure_assembly.check_wall_clamped`, `_c14_tunnel`).
-# AND THE COLUMN THE WHOLE C14 CHAIN HANGS ON IS ONE NAME. The receptacle's exact moulded rim
-# stands under back-top's ceiling slab, which gives the rim its room over the receptacle's own
-# plan (`Pack.ceiling_reliefs`); the cutout, tunnel, both screws and the wall relief below all
-# read this one station.
-c14_station_x = 66.9
-back_top_port_row_z = 336.2105808375568
-co2_axis_drop = _interface.co2_axis_drop
-# THE BORE, THE POCKET AND THE SCREW PITCH ARE THE PRINT'S. The inlet's rim (`_c14.RIM_W` ×
-# `_c14.RIM_H`, `_c14.RIM_PROUD` proud of its ears) bears on the pocket floor around this bore;
-# the ears stand that far off the floor and the two screws hold through them. The pocket's
-# outline is what the flange's width and the rim's height both clear with `c14_pocket_slip`.
+# The upper rear wall carries 9 mm stock. _above_core_shell cuts the selected
+# six-port field to its 6 mm clamping land and builds the C14/RJ11 interfaces.
+back_top_wall_t = 9.0
+# Generic port/tunnel dimensions remain available to callers supplying those
+# optional Pack features. The production above-core Pack uses its native rear
+# interface rather than a C14 tunnel.
+c14_station_x = _above_core_shell.layout.pose('c14-inlet')['translation_mm'][0]
+back_top_port_row_z = max(_above_core_shell.layout.specification()['fluid_grid']['rows_z_mm'])
+co2_axis_drop = 0.0
 c14_fit_extra = 0.5                 # per edge in X/Z; seating depth and screw stations are fixed
 c14_cord_extra_x = 3.0              # total extra plug-access width; the inlet pocket is independent
 c14_bore_w = 24.3 + 2 * c14_fit_extra + c14_cord_extra_x
@@ -1099,14 +1065,7 @@ c14_wall_relief_h = c14_bore_h + 2.0 * back_top_wall_t
 # so the block roots on the relieved plane over the inserts and buries into the unrelieved
 # wall beyond them. The aperture and both insert stations lie inside the relieved field and
 # their cutters still run after the tunnel is fused.
-back_top_wall_reliefs = (
-    ("co2-inlet", -3.35, back_top_port_row_z - co2_axis_drop, 30.0, 30.0),  # the neoFit's nut across its
-                                                  # corners, on
-                                                  # enclosure_assembly.CO2_COLUMN (`co2-relief`)
-    ("c14-inlet", c14_station_x, back_top_port_row_z,
-     c14_wall_relief_w, c14_wall_relief_h),        # the bore and one
-                                                  # `back_top_wall_t` over and under it
-)
+back_top_wall_reliefs = ()
 # THE LAND'S SKIRT RUNS TWO MILLIMETRES IN PLAN FOR THE ONE IT FALLS. A relieved port station
 # keeps its whole clamped stack and static ring-back allowance up to the nut land, down a
 # drafted skirt (`_back_top_wall_relief_cut`). Two-to-one is past the lint's ligament bar — a
@@ -1298,26 +1257,10 @@ front_bottom_flank_t = 9.0
 # deeper pocket. The west flank is continuous around the tap-water chain.
 
 # --- back-top's own ceiling ---------------------------------------------------
-#
-# THE REAR CEILING IS ONE SLAB, AND IT IS THE FACE THIS PIECE PRINTS ON. back-top beds on its
-# ceiling's outer face (`print_up`), so the ceiling is the piece's first layers and everything
-# rooted on it stands up from the bed. The box's established interior ceiling lane (`inner[5]`)
-# is where every packed body, port and anchor station under the ceiling was laid out, and it does
-# not move: the slab carries `back_top_ceiling_growth` of section inward from that lane, between
-# the grown flanks and from the Y telescope's end to the +Y wall, and GIVES THAT SECTION BACK over
-# whatever stands in it. Each pocket opens from the slab's interior face up to the lane and no
-# further, so the top wall's own `wall` stands over every one of them:
-#
-#   * every purchased body whose placed solid enters the slab, over its exact plan plus assembly
-#     slip, up to its own crown plus a clearance (`Pack.ceiling_reliefs`, struck by the pack);
-#   * the flow meter's two anchors and every rib rooted on the ceiling, over the tie band
-#     alone and up to the channel's roof (`_ceiling_tie_reliefs`) — the tie's own hole either
-#     side of the rib, and nothing of the slab past it;
-#   * the tap-water chain's shared tie channel, from the flank to the far edge of the chain's
-#     own pocket over the span its two zip ties take (`_ceiling_tie_channel_relief`), so each
-#     loop comes west over the chain's crown in the lane and drops into the anchor's cavity
-#     through an open mouth.
-back_top_ceiling_t = 12.0
+# A 9 mm roof slab is the back-top print bed. The selected broad pockets retain
+# at least 3 mm of roof. Fixed fluid supports and the removable access panel share
+# the native above-core datums in _above_core_shell.
+back_top_ceiling_t = 9.0
 back_top_ceiling_growth = back_top_ceiling_t - ceiling_skin
 
 
@@ -2245,7 +2188,7 @@ def seam_bosses(inner, y_joint, splits):
     out = [(y0, y1, inner[4] - slab_t, low[-1][2]), (y0, y1, high[0][1], inner[5])]
     for col, zj in (("front", splits[0]), ("back", splits[1])):
         for _x_in, _sx, ry0, ry1, _lane in _z_rail_runs(inner, y_joint, col, None):
-            out.append((ry0, ry1, zj, zj + z_rise))
+            out.append((min(ry0, ry1), max(ry0, ry1), zj, zj + z_rise))
     return out
 
 
@@ -2487,17 +2430,31 @@ def _dims(pack):
     # This width bound measures the pack envelope, not its mating fit. The reserved
     # side band includes the running room beside the lower blocks; receiver geometry
     # supplies the applicable PET-GF-to-PET-GF allowances at every printed face.
-    floor = [(n, b) for n, b in zip(placed.keys(), bbs)
-             if b.zmin < wall + 1e-6 and _in_a_boss(b, band_bosses)]
+    floor = []
+    for (name, (shape, _color)), b in zip(placed.items(), bbs):
+        if b.zmin >= wall + 1e-6 or not _in_a_boss(b, band_bosses):
+            continue
+        # Raised lid equipment can extend beyond the floor footprint while
+        # clearing every seam. Reserve the side band beside the material at
+        # the seam's own Y/Z stations, rather than beside its whole-body box.
+        for y0, y1, z0, z1 in band_bosses:
+            if b.ymin >= y1 or b.ymax <= y0 or b.zmin >= z1 or b.zmax <= z0:
+                continue
+            section = shape.intersect(_ybox(b.xmin-1., b.xmax+1., y0, y1, z0, z1))
+            if section.Volume() > stated_bound_tol:
+                floor.append((name, _boxes.boxed(section)))
     wide_need, wide_who = max(
         [(max(b.xmax, -b.xmin), n) for n, b in zip(placed.keys(), bbs)]
         + [(max(b.xmax, -b.xmin) + side_band_inset, n) for n, b in floor])
+    # Boolean section bounds include OCCT's face tolerances. Read this linear
+    # envelope to 0.00001 mm, rather than report a submicron overrun as 0.00.
+    width_ok = wide_need <= ix1 + 1e-5
     record_bound(Bound(
         "box-width", "The pack stands inside the appliance's stated width",
-        wide_need <= ix1 + stated_bound_tol,
+        width_ok,
         f"pack reaches x ±{wide_need:.2f} at {wide_who}, wall at ±{ix1:.2f}",
         f"inside a {appliance_width:g} mm appliance",
-        ([] if wide_need <= ix1 + stated_bound_tol else [
+        ([] if width_ok else [
             f"the pack reaches x ±{wide_need:.2f} but a {appliance_width:g} mm appliance walls "
             f"in at ±{ix1:.2f} — {wide_need - ix1:.2f} mm over. Raise `appliance_width` or "
             f"repack inboard"])))
@@ -2958,6 +2915,7 @@ def flute_rails(box, berthed=()):
     rails = [_flute_skin.Rail(at=lambda s: plan_at(s, outer),
                               length=plan_perimeter(outer),
                               plain=((disposal_field(outer),) +
+                                     _above_core_shell.rear_identification().plain_lands() +
                                      (_nameplate_fit.plain_lips(box.pack.nameplate,outer[3])
                                       if box.pack.nameplate else ()) +
                                      (_data_fit.plain_lips(box.pack.keystone,outer[3])
@@ -3533,8 +3491,8 @@ def with_funnel(box, centre):
 
 
 def _funnel_cut(inner, outer, centre, wells=(), up=1.0):
-    """Rounded inset brim pocket, the filled, slipped funnel envelope below it, and the frame's
-    sliding clearance.
+    """Rounded inset brim pocket, the slipped silicone envelope and the frame's
+    vertical installation clearance.
 
     THE POCKET'S SIDES RUN STRAIGHT ON TO THE CORNER STACKS' HEAD MOUTHS. Each mouth opens into
     the pocket a sliver past where its aft round begins (`_y_stack_bores`), so the sides carry
@@ -3563,7 +3521,8 @@ def _funnel_cut(inner, outer, centre, wells=(), up=1.0):
     clearance = _funnel_frame_part.shell_clearance(centre, seat, inner)
     # The body clearance's plan aft of the funnel's centre: inboard of back-top's roof knuckles
     # (`rear_narrowing`), its aft corners rounded the way the frame's own are.
-    half, back = inner[1] - y_stack_high_depth, cy + _funnel_frame_part.depth / 2.0 + slide_slip
+    half = inner[1] - y_stack_high_depth
+    back = _funnel_frame_part.roof_datums(inner, centre, seat)['back'] + slide_slip
     plumb = (cq.Workplane(obj=_ybox(-half, half, cy, back,
                                     seat - funnel_seat_thickness - 1.0, seat + slide_slip))
              .edges("|Z and >Y").fillet(_funnel_frame_part.corner_radius + slide_slip).val())
@@ -3701,9 +3660,23 @@ def y_stack(inner):
         ("back-bottom", bb0, top, sloped, 0.0),
     )
     roof = inner[5] + wall
-    datum = _funnel_frame_part.datums(roof - _funnel.brim_thickness)[0] - slide_slip
+    frame_floor = _funnel_frame_part.datums(roof - _funnel.brim_thickness)[0]
+    valve_top = max(_above_core_shell.layout.pose(n)['translation_mm'][2]
+                    + _seat.seat_half_y for n in ('valve-v-a', 'vk-solenoid'))
+    # The back column passes above the core-owned socket walls. Keep one
+    # running allowance and one supported-face allowance over their top.
+    back_floor = math.ceil(max(frame_floor,
+        valve_top + fits.running + fits.supported_surface) / .25) * .25
+    datum = back_floor - seated
+    head_seat = roof - y_stack_head_recess - y_stack_head_h
+    pilot_bottom = min(datum - floor_heatset_depth - mount_bore_relief,
+                       head_seat - upper_rod_len - y_stack_tip_clearance)
+    # The 45-degree underside clears the source-valve coil while retaining
+    # three millimetres around the complete blind pilot and beneath its tip.
+    front_floor = (pilot_bottom - y_stack_axis_in - floor_heatset_dia / 2.
+                   - wall - fits.slip)
     upper = (
-        ("front-top", y_stack_upper_floor - wall - fits.running, datum, 0.0, seated),
+        ("front-top", front_floor, datum, 0.0, seated),
         ("back-top", datum + seated, roof, seated, 0.0),
     )
     return lower, upper
@@ -4942,8 +4915,9 @@ def _back_top_wall(inner, outer, box, zj, up=1.0):
     # The wall's own holes, bored in `build_back_half` before this stood here.
     for cutter in _port_cuts(box.pack.back_ports, iy1 - 5.0, outer[3] + 5.0, up):
         band = band.cut(cutter)
-    return band.cut(_back_top_wall_relief_cut(box.pack.port_field, up,
-                                              ceiling=box.inner[5]))
+    relief = _back_top_wall_relief_cut(box.pack.port_field, up,
+                                     ceiling=box.inner[5])
+    return band.cut(relief) if relief is not None else band
 
 
 def _back_top_wall_relief_cut(field, up=1.0, *, ceiling=None):
@@ -7677,9 +7651,9 @@ asse_cradle_lip = 4.0       # block carried past the flanks, so the V cut is nev
 # reaches round is the body together with the web between that body and the cavity — the convex
 # perimeter of the pair, and not of the wall the rib stands on:
 #
-#     fluid-28 tube in its rib    [31.8 mm](LOOP_TUBE_RIB)
-#     DIGITEN arm in its anchor   [81.2 mm](LOOP_DIGITEN)
-#     WR1110 barrel in its rib    [83.2 mm](LOOP_WR1110)
+#     fluid-28 tube in its rib    [no tube rib](LOOP_TUBE_RIB)
+#     DIGITEN arm in its anchor   [independent fixed support](LOOP_DIGITEN)
+#     WR1110 barrel in its rib    [no barrel rib](LOOP_WR1110)
 #     ASSE barrel in its anchor   105.2 mm
 #
 # A 4" tie closes about 69 mm of loop and takes the tube rib; the meter and regulator take the
@@ -9219,6 +9193,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # a relief is: they are air, and air a later step fuses back in is not a vent. What stops
     # each slot is read off the piece as it stands HERE — every rail, fin, pod, pocket and
     # relief on those two flanks already in it.
+    piece = _above_core_shell.apply(piece, box, y_side, z_side)
     piece = _flank_vents(piece, inner, outer, box.pack.cond_airway, ylo, yhi, zlo, zhi)
     if z_side == "top":
         # THE SLIDE'S OWN CARVING, after everything a top piece fuses. The channel is cut
@@ -9274,9 +9249,10 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         if receivers is not None:
             piece = piece.fuse(receivers)
         piece = piece.cut(_funnel_cut(inner, outer, box.pack.funnel, box.pack.side_wells, up))
-        if y_side == 'front':
-            piece = piece.cut(_funnel_frame_part.front_roof_clearance(
-                inner, box.pack.funnel, funnel_seat_z(outer), y_joint))
+        piece = piece.cut(_funnel_frame_part.front_roof_clearance(
+            inner, box.pack.funnel, funnel_seat_z(outer), y_joint))
+        piece = piece.cut(_funnel_frame_part.shell_screw_cuts(
+            inner, box.pack.funnel, funnel_seat_z(outer), y_side, y_joint))
         rail = _funnel_frame_part.datums(funnel_seat_z(outer))[2]
         frame_runs = _funnel_frame_part.rail_runs(inner, y_joint, y_side, box.pack.funnel)
         if frame_runs:
@@ -9290,6 +9266,14 @@ def build_piece(box, y_side, z_side, halves_cache=None):
                 bay_back_y(box.pack.collet_plate) if box.pack.collet_plate else None))
             for cavity in display_storey_cavities(box):
                 piece = piece.cut(cavity)
+            if box.pump_bay and box.pack.collet_plate:
+                # Keep the complete display backing on one plane. The roof
+                # surround must leave the frame's fore running gap open too.
+                face = housing_back_y(outer)
+                root = box.pump_bay[2] + abs(face-box.pack.collet_plate['wall_aft_y'])
+                grown = front_top_flank_t-wall
+                piece = piece.cut(_ybox(inner[0]+grown, inner[1]-grown,
+                    face, brim_front, root, outer[5]+1.))
     if y_side == "front" and z_side == "top" and plate:
         piece = _front_top_flank_pockets(piece, box.pack.front_flank_reliefs)
     if z_side == "bottom":
@@ -9465,7 +9449,7 @@ def y_stack_figures(inner):
         "Y_STACK_AXIS_OUT": f"{wall + y_stack_axis_in:.4g} mm",
         "Y_STACK_LOWER_AXIS_OUT": f"{wall + y_stack_lower_axis_in:.4g} mm",
         "Y_STACK_CEILING": f"{lower[0][1]:.4g}",
-        "Y_STACK_UPPER_FLOOR": f"{y_stack_upper_floor:.4g}",
+        "Y_STACK_UPPER_FLOOR": f"{upper[0][1]:.4g}",
         "Y_STACK_DATUM": f"{upper[-1][1]:.5g}",
         "Y_STACK_GAP": f"{fits.running:.3g} mm",
         "Y_STACK_CLEARANCE": f"Ø{y_stack_clearance_dia:.3g}",
@@ -9754,7 +9738,9 @@ def _handhold_bound(pieces, box):
         post_missing = missing(posts).Volume()
         readings.append(("west" if sx > 0 else "east", blocked, wall_missing,
                          roof_missing, post_missing))
-    ok = len(readings) == 2 and all(max(row[1:]) <= stated_bound_tol for row in readings)
+    # These readings are volumes; the linear stated-bound tolerance does not
+    # apply. Native face tolerances leave about 0.0022 mm³ over a complete wall.
+    ok = len(readings) == 2 and all(max(row[1:]) <= .01 for row in readings)
     return record_bound(Bound(
         "handholds",
         "Both handholds open through the floor and keep their lifting sections and inner walls",
@@ -9769,15 +9755,16 @@ def _handhold_bound(pieces, box):
 def _ceiling_show_cap_bound(back_top, box):
     """Record the complete exterior cap over back-top's whole ceiling field.
 
-    The field is the slab's plan less the funnel's own plan, and what is asked of it is one `wall`
-    of stock from the show face down, everywhere. Testing the finished piece catches any later
-    cutter that turns a pocket into an opening through the face the piece prints on."""
+    The field excludes the funnel and the removable electronics panel. It
+    retains one `wall` of stock from the show face down outside those openings.
+    """
     solid = back_top.val() if hasattr(back_top, "val") else back_top
     fx0, fx1 = back_top_flank_face()
     show = appliance_height - floor_t
     cap = _ybox(fx0, fx1, back_flank_start(box.y_joint), back_top_wall_face(), show - wall, show)
     if box.pack.funnel:
         cap = cap.cut(_funnel_cut(box.inner, box.outer, box.pack.funnel))
+    cap = cap.cut(_above_core_shell.access_opening())
     missing = abs(cap.cut(solid).Volume())
     ok = missing <= stated_bound_tol
     return record_bound(Bound(
@@ -9785,7 +9772,7 @@ def _ceiling_show_cap_bound(back_top, box):
         "The ceiling slab keeps a complete exterior wall over its whole field",
         ok,
         f"{wall:g} mm cap; missing {missing:.4f} mm³",
-        "a complete wall over the field, the funnel's own plan excepted",
+        "a complete wall outside the funnel and electronics-panel openings",
         ([] if ok else [
             "the finished back-top has lost show-face stock over its ceiling; inspect every "
             "cutter applied after `_back_top_ceiling` and keep every pocket under the lane"])))
@@ -9796,8 +9783,9 @@ def _silhouette_bound(pieces, box):
 
     `build_piece` clips each piece to the rounded silhouette before it fuses its furniture, so a
     feature fused after that clip and drawn past a face of the box would stand outside the
-    machine. The integral disposal lettering stands `disposal_raise` off the rear
-    wall; subtracting only those letters leaves the wall subject to the same bound."""
+    machine. The disposal lettering and the backed nameplate receiver stand
+    proud of the rear wall. Only those named exterior features are excepted.
+    """
     ox0, ox1, oy0, oy1, oz0, oz1 = box.outer
     over = []
     for name, piece in pieces.items():
@@ -9806,6 +9794,11 @@ def _silhouette_bound(pieces, box):
         solid = piece.val()
         if name == "back-bottom":
             solid = solid.cut(disposal_letters(box.outer))
+        if name == 'back-top':
+            field = _above_core_shell.rear_identification().receiver_field()
+            exterior = _ybox(ox0-1., ox1+1., oy1,
+                             max(oy1, field.BoundingBox().ymax)+1., oz0-1., oz1+1.)
+            solid = solid.cut(field.intersect(exterior))
         b = solid.BoundingBox()
         for label, got, limit, sign in (("-X", b.xmin, ox0, -1.0), ("+X", b.xmax, ox1, 1.0),
                                         ("-Y", b.ymin, oy0, -1.0), ("+Y", b.ymax, oy1, 1.0),
@@ -9816,10 +9809,10 @@ def _silhouette_bound(pieces, box):
     ok = not over
     return record_bound(Bound(
         "pieces-in-silhouette",
-        "Every quadrant wall lies inside the machine's exterior; only the disposal letters stand proud",
+        "Quadrant walls stay inside the exterior except for disposal letters and the nameplate field",
         ok,
-        f"walls inside `outer`; disposal letters raised {disposal_raise:g} mm" if ok else "; ".join(over),
-        "only the disposal letters extend past the box's exterior",
+        "walls inside `outer`; named rear lettering and receiver excepted" if ok else "; ".join(over),
+        "only the disposal letters and named nameplate field extend past the exterior",
         ([] if ok else [
             "a feature fused after the silhouette clip stands outside the box; bound it to the "
             "interior lane or the wall it roots on"])))
@@ -9851,7 +9844,8 @@ def build_pieces(box):
              if n not in ("pump-cartridge", "pump-cap")
              or (box.pump_bay and box.pack.collet_plate)]
     pieces = {name: _realized.realized(
-                  _realized.key(__name__, box, name),
+                  _realized.key(__name__, box, name,
+                                _above_core_shell.layout.specification()),
                   lambda n=name: _product(n))
               for name in names}
     disconnected = [f"{name}: {len(piece.val().Solids())} solids"
@@ -10082,19 +10076,11 @@ def main():
     # table quotes.
     seats = sorted({round(s[3], 6) for s in (box.pack.tube_anchors or ())
                     if not anchor_capped(s)})
-    if not seats:
-        raise ValueError(
-            "the box bores no tube anchor at all, and the zip tie table quotes a loop for them. "
-            "Either the pack stands a rib again or the table stops reading one.")
     # And the meter's, off the one station its two anchors are struck from. A flow-meter anchor
     # reaches `flow_meter_anchor_wall` off the arm's axis where a rib reaches `wall`, and both are
     # the box's own three millimetres, so the hull is the same figure of the seat and one function
     # reads both families.
     meter = box.pack.flow_meter_anchors
-    if not meter:
-        raise ValueError(
-            "the box hangs no flow-meter anchor, and the zip tie table quotes the loop one closes. "
-            "Either the pack stands them again or the table stops reading one.")
     # The vents as the piece came out, for the page — the same reading `flank-vent-mullions` is
     # graded on, asked of the same solid after it was drawn.
     vent_read = vent_readings(pieces, box)
@@ -10152,7 +10138,7 @@ def main():
         "RAIL_RUN_FRONT": f"{_borne(front_runs[0]):.0f} mm",
         "RAIL_RUN_BACK": f"{back_len[-1]:.0f} mm",
         "RAIL_RUN_BACK_W": f"{back_len[0]:.0f} mm",
-        "LOOP_TUBE_RIB": f"{tube_anchor_tie_loop(seats[0]):.3g} mm",
+        "LOOP_TUBE_RIB": f"{tube_anchor_tie_loop(seats[0]):.3g} mm" if seats else "no tube rib",
         "CAP_RIB_LEN": f"{_anchor_cap.RIB_LEN:.4g} mm",
         "CAP_WINDOW_LEN": f"{_anchor_cap.WINDOW_LEN:.4g} mm",
         "CAP_WINDOW_DEPTH": f"{_anchor_cap.WINDOW_DEPTH:.4g} mm",
@@ -10161,8 +10147,8 @@ def main():
         "CAP_RIB_CHAMFER": f"{_anchor_cap.RIB_CHAMFER:g} mm",
         "CAP_WING_TOP": f"{_anchor_cap.WING_TOP:g} mm",
         "CAP_HEADROOM": f"{_anchor_cap.HEADROOM:g} mm",
-        "LOOP_WR1110": f"{tube_anchor_tie_loop(seats[-1]):.3g} mm",
-        "LOOP_DIGITEN": f"{tube_anchor_tie_loop(meter[2]):.3g} mm",
+        "LOOP_WR1110": f"{tube_anchor_tie_loop(seats[-1]):.3g} mm" if seats else "no barrel rib",
+        "LOOP_DIGITEN": f"{tube_anchor_tie_loop(meter[2]):.3g} mm" if meter else "independent fixed support",
         "ANCHOR_SEATS": ", ".join(f"{2 * r:.4g}" for r in seats),
         "DISPLAY_FACET_X": f"{display_facet_x:.4g} mm",
         "DISPLAY_FACET_SLOPE": f"{display_facet_slope:.4g} mm",

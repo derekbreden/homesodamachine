@@ -1,10 +1,12 @@
 """Line-art reference solid of the neoFit ABU44 acetal bulkhead connector — the 1/4" tube
 through-wall union the rear face's CO2 inlet is clamped in.
 
-Reduced to coaxial cylinders: a collet body and release ring at each end with the M17 barrel
-spanning the middle, the two hexes taken at their across-corners envelope. Figures from
-neoFit's own *Bulkhead Union* dimensional sheet (`ABU44` row); the sheet gives inches and this
-module carries the millimetres.
+Reduced to coaxial cylinders: a collet body and release ring at each end with
+the M17 barrel spanning the panel and separate nut. Figures come from neoFit's
+*Bulkhead Union* dimensional sheet (`ABU44` row). Its B1/B2 dimensions are tube
+stop depths. The external division about the flange is a nominal, unmeasured
+reference; only the overall length and named panel/nut dimensions are drawn
+from the sheet. Confirm received fitting dimensions before accepting this fit.
 
     Pressure          290 psi at 33 °F and 68 °F, 232 psi at 150 °F
     Max torque        1.1 ft lb on the nut
@@ -12,9 +14,9 @@ module carries the millimetres.
                       of it and the panel is clamped between nut and flange
     Bag               10
 
-The barrel is what the wall is bored for, and `enclosure_assembly.co2_wall_port` strikes that
-bore one `PORT_HOLE_SLIP` over `THREAD_D` — the same way the four PP1208E unions' bores are
-struck over theirs, so all five of the +Y wall of back-top's tube crossings are one construction.
+The barrel sets the rear panel's clearance bore. The selected production grid
+retains a 6 mm clamped stack between flange and nut, with the colored label
+recess included in that stack.
 
 Coordinate convention — jg_bulkhead_union's, so the two families seat the same way:
   Y = tube-flow axis. +Y = outward, toward the customer's tube.
@@ -59,11 +61,11 @@ THREAD_PITCH = 1.5
 OVERALL = 1.346 * _IN             # L  — 34.188
 FLANGE_AF = 0.748 * _IN           # H1 — 19.000 across flats
 NUT_AF = 0.827 * _IN              # H2 — 21.006 across flats
-BODY_LEN = 0.665 * _IN            # B1 = B2 — 16.891
+TUBE_STOP_DEPTH = 0.665 * _IN     # B1 = B2; an internal insertion dimension
+NOMINAL_OUTBOARD_REACH = 16.891   # unmeasured flange-to-mouth reference split
 # A — 7.899, the BARE BARREL the sheet dimensions between the flange's face and the nut's. It is
-# what the panel is clamped in, so it is the panel this fitting takes, and
-# `enclosure_assembly.port_clamp_stack` holds inside it the section that panel actually presents —
-# the wall, the bulkhead ring lying flush in it, and the port field's boss behind it.
+# the clear span available to the panel before the separately dimensioned nut.
+# The production wall and flush label share the selected 6 mm clamped stack.
 PANEL_THREAD = 0.311 * _IN
 NUT_LEN = 0.276 * _IN             # E  — 7.010
 MASS_G = 9.4
@@ -77,13 +79,13 @@ NUT_D = _corners(NUT_AF)          # 24.256
 # Seating planes along Y. The flange bears at y = 0 and stands proud outboard; the bare barrel
 # and the inboard body run to y < 0.
 #
-# THE NUT IS NOT DRAWN. It runs down the barrel to wherever the panel leaves it, so it has no Y
-# of its own until a panel is named — `panel_footprint` carries it as the diameter that crowds a
-# neighbour, and `far_body_face_y` is the envelope it turns inside. Same treatment
-# `jg_bulkhead_union` gives its own nut.
-near_ring_face_y = BODY_LEN
-far_ring_face_y = BODY_LEN - OVERALL
-far_body_face_y = -PANEL_THREAD   # where the bare barrel ends and the inboard body starts
+# The separate nut is supplied by the panel assembly. A is the clear flange-to-nut
+# span and E is the nut width: the threaded barrel continues through both. The
+# inboard body begins beyond that complete span, so it does not occupy nut stock.
+# Its radial envelope remains conservative and unmeasured.
+near_ring_face_y = NOMINAL_OUTBOARD_REACH
+far_ring_face_y = NOMINAL_OUTBOARD_REACH - OVERALL
+far_body_face_y = -(PANEL_THREAD + NUT_LEN)
 PROUD_LENGTH = near_ring_face_y   # what stands OUTSIDE the face it bears on
 
 
@@ -113,8 +115,8 @@ def port(side: float) -> tuple:
 def build_neofit_bulkhead():
     """The fitting as a single solid: flange, bare barrel, inboard body, bored through.
 
-    The barrel is bare for its whole `PANEL_THREAD`, which is the room the panel and the nut
-    share — so a wall seated on the flange stands in air and not in the moulding."""
+    The barrel spans the manufacturer's A + E panel-and-nut region. The panel
+    assembly supplies the independent nut at its actual clamp plane."""
     flange = (cq.Workplane(xz_plane_y_up)
               .circle(FLANGE_D / 2.0).extrude(near_ring_face_y))
     barrel = (cq.Workplane(xz_plane_y_up)
@@ -146,7 +148,7 @@ def selftest() -> int:
     if not fails:
         print(f"ok  neofit-bulkhead ABU44  M{THREAD_D:g}×{THREAD_PITCH:g}, "
               f"flange Ø{FLANGE_D:.2f} / nut Ø{NUT_D:.2f}, "
-              f"{PANEL_THREAD:.2f} mm of barrel outboard of the flange, "
+              f"{PANEL_THREAD:.2f} mm panel span plus {NUT_LEN:.2f} mm nut width, "
               f"{PRESSURE_PSI_68F:g} psi at 68 °F")
     return 1 if fails else 0
 
@@ -158,7 +160,7 @@ def main():
     print(f"  barrel M{THREAD_D:g} × {THREAD_PITCH:g} / flange Ø{FLANGE_D:.3f} / "
           f"nut Ø{NUT_D:.3f}")
     print(f"  overall {OVERALL:.3f}, proud {PROUD_LENGTH:.3f}, "
-          f"barrel outboard of the flange {PANEL_THREAD:.3f}")
+          f"nominal external split; panel span {PANEL_THREAD:.3f}, nut width {NUT_LEN:.3f}")
     print(f"  Canonical-frame bounding box: "
           f"X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
           f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  "
