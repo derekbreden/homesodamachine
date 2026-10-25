@@ -850,33 +850,34 @@ turn in its build item. `enclosure-front-bottom-petgf.3mf` and `enclosure-back-b
 exterior settings of `enclosure-front-top-petgf.3mf` around their own mesh — the same clones
 `enclosure-pump-cap-petgf.3mf` and `enclosure-pump-cartridge-petgf.3mf` are; the pump cap's
 build item carries a half turn about X, the crown on the bed.
-`enclosure-back-top-petgf.3mf` is the one piece on its own 0.24 mm process, and the other whose build item carries a half turn about X. Each retained slice records its model and profile digests. The pump cap's reading is the 2026-10-25 Mark1 slice of the current clamp (STL `fa10132c600a`, recipe `45c16e8c8517`). The recorded support counts are:
+`enclosure-back-top-petgf.3mf` is the one piece on its own 0.24 mm process, and the other whose build item carries a half turn about X. Each retained slice records its model and profile digests. The pump cap's, front-top's and front-bottom's readings are 2026-10-25 Mark1 slices of the current pieces (STLs `fa10132c600a`, `317721279647` and `1a1c2762f71e`; recipe `45c16e8c8517`). The recorded support counts are:
 
 | piece | bodies | interface islands | root | shortest build-up |
 |---|---|---|---|---|
 | `enclosure-pump-cap` | 2 | 2 | bed | 14.16 mm |
 | `enclosure-back-bottom` | 4 | 5 | 3 bed, 1 model | 8.60 mm |
-| `enclosure-front-bottom` | 4 | 4 | 2 bed, 2 model | 8.00 mm |
+| `enclosure-front-bottom` | 4 | 4 | 2 bed, 2 model | 7.92 mm |
 | `enclosure-back-top` | 13 | 35 | 2 bed, 11 model | 1.44 mm |
-| `enclosure-front-top` | 3 | 19 | bed | 29.00 mm |
+| `enclosure-front-top` | 2 | 6 | bed | 96.95 mm |
 
 None of these columns orders the pieces by what their supports cost to remove.
 
 The current pump cradle slices with no support, on the same Mark1 plate as the clamp.
 `enclosure-pump-cap` prints on its crown and has two bed-rooted bodies, one standing in each
 clamp-screw counterbore under its head seat after 14.16 mm; each leaves through the
-counterbore's mouth on the bed face. On front-top all three bodies root on the print bed. One reaches the pump-bay lintel and
-cradle-facing recesses after 123 mm. The other two branch to the west and east flanks and
-the funnel seat. Their shortest build-up is
-29 mm. Remove these branches through the empty bay and funnel opening before
-installing the hardware.
-Four bed-rooted bodies carry the handhold ceilings, one per flank on each bottom piece.
-Each has 34.20 mm of build-up and comes out through the open bottom. The other bottom-quadrant supports carry one feature
+counterbore's mouth on the bed face. On front-top both bodies root on the print bed. One
+carries the pump-bay lintel at Z284.7 and the underside of the 30° display facet, across the
+middle and on both flanks; each of its islands has an open lane down to the mouth and toward
++Y. The other feeds the two east WAGO pocket roofs, Z258.15 and Z292.05, and leaves through
+the pockets' open inboard face. The shortest build-up is 96.95 mm. Remove these bodies through
+the empty bay and funnel opening before installing the hardware.
+Four bed-rooted bodies carry the handhold ceilings, one per flank on each bottom piece:
+34.08 mm of build-up on front-bottom and 34.20 mm on back-bottom. Each comes out through the open bottom. The other bottom-quadrant supports carry one feature
 standing on all four flanks: the **Z seam's slide-head catch**, the joint's one down-looking flat and the
 whole of its bearing against lift. Back-bottom's west catch reaches the bed from outside its
 flank through the 12 mm PRV passage that crosses it — the same opening that splits that catch
 into two interface islands. The other three have no lane to the bed and root on the arm's own 45°
-under-flare below the catch they carry: 8.00 mm for front-bottom's pair and 8.60 mm
+under-flare below the catch they carry: 7.92 mm for front-bottom's pair and 8.60 mm
 for back-bottom's east catch. These are the material-rooted bodies on the two bottoms, and the
 reading says nothing about what they cost: the groove under a catch is open air from the arm's
 sliding face out past the exterior plane, so each of the four stands on the outside of its flank
