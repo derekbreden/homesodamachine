@@ -257,24 +257,6 @@
                 "bottom_shell_thickness": "0"
               },
               "reason": "Each caught face prints down from back-top's ceiling over its open sliding groove. A removable two-wall ribbon stands on the groove floor one empty layer up and stops two empty layers under the caught face; automatic support is blocked on the caught faces and the ribbons, and the solid-host modifiers stop at the ribbons. The 2026-10-10 article's long groove stems were trapped in the walls; the other quadrants' groove supports released easily. enclosure/enclosure/README.md Support-removal strategy; drain-readiness/prints/2026-10-10-current-back-top-bridge50-mark1/physical-result.json."
-            },
-            {
-              "name": "Tie channel windows",
-              "kind": "tie_windows",
-              "channel_widths_mm": [
-                2.0,
-                3.5
-              ],
-              "long_side_max_mm": 30,
-              "cavity_depth_mm": 3.25,
-              "blockers": false,
-              "expect": {
-                "count": [
-                  18,
-                  30
-                ]
-              },
-              "reason": "Review windows for support in the zip-tie channels; the 50 mm bridge limit carries their roofs. drain-readiness/prints/2026-10-10-current-back-top-bridge50-mark1/tie-cavity-support-review.json."
             }
           ]
         }

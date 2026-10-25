@@ -123,9 +123,14 @@ def section_segments(triangles: np.ndarray, z: float) -> np.ndarray:
 
 
 def section_polygons(triangles: np.ndarray, z: float):
-    """The solid's cross-section at z as shapely geometry, holes included (even-odd)."""
+    """The solid's cross-section at z as shapely geometry, holes included (even-odd).
+
+    A plane through mesh vertices is read 1e-5 mm above them: there the even-odd count can
+    take a hole's loop for the section (back-top's funnel-frame receiver at print z 14.0)."""
     from shapely.geometry import LineString
     from shapely.ops import polygonize, unary_union
+    if np.any(np.abs(triangles[:, :, 2] - z) < 1e-7):
+        z = z + 1e-5
     segments = np.round(section_segments(triangles, z), 6)
     if not len(segments):
         from shapely.geometry import Polygon
