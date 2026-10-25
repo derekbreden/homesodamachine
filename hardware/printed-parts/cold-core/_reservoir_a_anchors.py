@@ -17,13 +17,13 @@ _SPECIFICATION = {
     "tube_od_mm": 6.35,
     "tube_axis_world": [0., 1., 0.],
     "lid_face_z_mm": 253.4,
-    "root_z_mm": 248.6,
-    "seat_top_z_mm": 258.,
+    "root_z_mm": 248.,
+    "seat_top_z_mm": 257.,
     "seat_radius_mm": 3.325,
     "seat_floor_stock_mm": 3.,
     "station_length_mm": 10.,
-    "stock_west_of_first_tube_mm": 3.7,
-    "stock_east_of_last_tube_mm": 3.7,
+    "stock_west_of_first_tube_mm": 6.325,
+    "stock_east_of_last_tube_mm": 6.325,
     "tie_slot_width_y_mm": 3.2,
     "tie_slot_bottom_z_mm": 251.6,
     "tie_slot_floor_stock_mm": 3.,
@@ -40,6 +40,8 @@ _SPECIFICATION = {
          "routes_west_to_east": ["fluid-16", "fluid-14"]},
         {"id": "a-pair-aft-anchor", "label": "Reservoir A aft paired anchor",
          "tube_centers_world_mm": [[86.5, 304., 259.5], [94., 304., 259.5]],
+         "open_quarter_side": "east",
+         "base_east_of_last_tube_mm": 3.7,
          "routes_west_to_east": ["fluid-16", "fluid-14"]},
     ],
 }
@@ -67,11 +69,12 @@ def datums():
         slot_half = spec["tie_slot_width_y_mm"] / 2
         outer = spec["tie_access_outer_offset_mm"]
         inner = spec["tie_access_inner_offset_mm"]
+        east = station.get("base_east_of_last_tube_mm", spec["stock_east_of_last_tube_mm"])
         result[station["id"]] = {
             **station,
             "stock_bounds_mm": [
                 [x0-spec["stock_west_of_first_tube_mm"], y-half, spec["root_z_mm"]],
-                [x1+spec["stock_east_of_last_tube_mm"], y+half, spec["seat_top_z_mm"]],
+                [x1+east, y+half, spec["seat_top_z_mm"]],
             ],
             "tie_slot_bounds_mm": [
                 [x0-outer-.1, y-slot_half, spec["tie_slot_bottom_z_mm"]],
@@ -84,6 +87,11 @@ def datums():
                  [x1+outer+.1, y+slot_half, spec["seat_top_z_mm"]+.1]],
             ],
         }
+        if station.get("open_quarter_side") == "east":
+            result[station["id"]]["open_quarter_bounds_mm"] = [
+                [x1, y-half, spec["tie_slot_top_z_mm"]],
+                [x1+east+.1, y+half, spec["seat_top_z_mm"]+.1],
+            ]
     return result
 
 
@@ -95,9 +103,13 @@ def _box(bounds):
 
 def cuts():
     """Apply after the seats join the lid, opening the slot through lid stock."""
-    return {name: _box(row["tie_slot_bounds_mm"]).fuse(
-                *(_box(bounds) for bounds in row["access_bounds_mm"])).clean()
-            for name, row in datums().items()}
+    result = {}
+    for name, row in datums().items():
+        openings = [_box(bounds) for bounds in row["access_bounds_mm"]]
+        if "open_quarter_bounds_mm" in row:
+            openings.append(_box(row["open_quarter_bounds_mm"]))
+        result[name] = _box(row["tie_slot_bounds_mm"]).fuse(*openings).clean()
+    return result
 
 
 def supports():
