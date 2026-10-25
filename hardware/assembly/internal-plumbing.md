@@ -123,9 +123,30 @@ pump. Its outlet stem elbow faces downward into the passive aft water-in guide.
 The same uncut tube continues through that plain guide to the carbonator's
 existing water-in adapter. Assemble the internal route before closing the core;
 the lid carries no water joint.
-Fasten the pump before seating this removable check group. Its printed bearing
-clears the driver, but the check body occupies that screw's tool column;
-release and disconnect the check group for pump-screw service.
+Make up the check group on the open core, with the check's six-inch narrow tie
+already threaded beneath its east-quarter bearing ([cold core](cold-core.md) §3):
+
+1. Fasten the pump first. Its west-fore foot screw goes in through the check
+   bridge's tool notch, before the check is in; the check body occupies that
+   screw's tool column once it is seated.
+2. Push the discharge TPU elbow onto the pump's outlet barb (11 mm) and leave
+   its barb clamp band open.
+3. Push the 31.9 mm link fully into the elbow's tube socket (15 mm).
+4. Push the check's inlet onto the link (16.9 mm), holding the chain up.
+5. Push the outlet stem elbow's trimmed stem into the check's outlet to its
+   0.4 mm mark, with its socket clocked straight down.
+6. Turn the TPU elbow on its barb to raise the chain 13–14°. The outlet
+   elbow's socket mouth then stands about 1.7 mm above and 2.2 mm aft of the
+   water-in stub's tip. Set the tip in the mouth and swing the chain down. The
+   socket takes the stub over the last 12° or so of the swing; the 7.7 mm
+   exposed stub flexes about 2 mm and straightens. The check settles straight down into its open east-quarter
+   bearing. The stub enters the socket up to about 12° off its axis, and no
+   physical test has qualified a push-fit made at that angle.
+7. Close the TPU elbow's barb and tube-socket bands, close the check's tie around
+   its fixed barrel, and check each insertion mark.
+
+The J6 reed leads (RA2, RA4) and DC2-V12 pass within 0.05 mm of the swing:
+dress them after the group seats, or hold them clear while it swings.
 
 The reported internal water path is 229.656 mm and its warm span is 24.610 mm,
 a combined 254.266 mm of CAD centreline. The warm span includes the NeoFit
