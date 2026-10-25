@@ -180,6 +180,9 @@ Seat the mains WAGOs in the rear-wall
 wells. Core-side junctions and ground hardware go in their own lid mounts;
 front manifold commons go in front-top. Leave the cross-quadrant conductor ends
 accessible for final connection. Keep PSU terminal screwdriver approaches clear.
+Fasten the ground stack at X37/Y195 before dressing AC4-H and AC5-N through
+the fore area. For ground-stack service, stage those flexible leads clear of
+the vertical driver. Their installed paths do not provide a clear tool column.
 
 ### 6. Close the box
 
