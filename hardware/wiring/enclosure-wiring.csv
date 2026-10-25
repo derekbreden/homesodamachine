@@ -9,7 +9,7 @@ AC4-H,Compressor,H_switched,relay-1.NO,fuse.in,18,606.306,proposed,nominal,nomin
 AC4-fuse,Compressor,H_switched,fuse.out,compressor.H,18,36.777,proposed,nominal,unlocated,fixed
 AC5-N,Compressor,N,wago-n.3,compressor.N,18,585.849,proposed,nominal,unlocated,fixed
 AC6-PE,Compressor,PE,ground.compressor,compressor.PE,18,333.691,proposed,modeled,unlocated,fixed
-PE-bus,Earth bonds,PE,wago-g.2,ground.inlet,16,352.885,proposed,nominal,modeled,fixed
+PE-bus,Earth bonds,PE,wago-g.2,ground.inlet,16,295.531,proposed,nominal,modeled,fixed
 PE-carbonator,Earth bonds,PE,ground.carbonator,carbonator.PE,16,422.415,proposed,modeled,unlocated,fixed
 DC1-V12,12V power,V12,psu.V12,wago-v12.1,16,283.293,proposed,nominal,nominal,fixed
 DC4-V12,12V power,V12,wago-v12.3,J10.V12,16,80.927,proposed,nominal,nominal,fixed
@@ -17,7 +17,7 @@ DC1-GND,12V power,GND,psu.GND,wago-gnd.1,16,280.915,proposed,nominal,nominal,fix
 DC4-GND,12V power,GND,wago-gnd.3,J10.GND,16,51.318,proposed,nominal,nominal,fixed
 DC2-V12,Diaphragm pump,V12,wago-v12.2,relay-2.COM,16,248.454,proposed,nominal,nominal,fixed
 DC3-positive,Diaphragm pump,pump-switched,relay-2.NO,diaphragm.positive,16,136.047,proposed,nominal,unlocated,fixed
-DC3-negative,Diaphragm pump,GND,wago-gnd.2,diaphragm.negative,16,248.605,proposed,nominal,unlocated,fixed
+DC3-negative,Diaphragm pump,GND,wago-gnd.2,diaphragm.negative,16,253.272,proposed,nominal,unlocated,fixed
 J1-COM,J1,V12,J1.COM,wago-mana.1,22,200.984,proposed,nominal,nominal,fixed
 J1-OUT1,J1,J1.OUT1,J1.OUT1,V-A.negative,22,135.487,proposed,nominal,modeled,fixed
 J1-positive-A,J1,V12,wago-mana.2,V-A.positive,22,327.578,proposed,nominal,modeled,fixed
@@ -35,15 +35,15 @@ J1-OUT7,J1,J1.OUT7,J1.OUT7,V-G.negative,22,222.615,proposed,nominal,nominal,fixe
 J1-positive-G,J1,V12,wago-mana.8,V-G.positive,22,82.06,proposed,nominal,nominal,fixed
 J1-OUT8,J1,J1.OUT8,J1.OUT8,V-H.negative,22,154.848,proposed,nominal,modeled,fixed
 J1-positive-H,J1,V12,wago-mana.9,V-H.positive,22,131.865,proposed,nominal,modeled,fixed
-J2-COM,J2,V12,J2.COM,wago-manb.1,22,190.883,proposed,nominal,nominal,fixed
+J2-COM,J2,V12,J2.COM,wago-manb.1,22,195.864,proposed,nominal,nominal,fixed
 J2-OUT1,J2,J2.OUT1,J2.OUT1,V-I.negative,22,140.967,proposed,nominal,modeled,fixed
 J2-positive-I,J2,V12,wago-manb.2,V-I.positive,22,179.383,proposed,nominal,modeled,fixed
 J2-OUT2,J2,J2.OUT2,J2.OUT2,V-J.negative,22,172.975,proposed,nominal,nominal,fixed
 J2-positive-J,J2,V12,wago-manb.3,V-J.positive,22,173.108,proposed,nominal,nominal,fixed
 J2-FAN,J2,J2.FAN,J2.FAN,fan.negative,22,329.6,proposed,nominal,unlocated,fixed
 J2-positive-fan,J2,V12,wago-manb.4,fan.positive,22,185.15,proposed,nominal,unlocated,fixed
-J2-OUT3,J2,J2.OUT3,J2.OUT3,V-K.negative,22,267.649,proposed,nominal,modeled,fixed
-J2-positive-K,J2,V12,wago-manb.5,V-K.positive,22,260.295,proposed,nominal,modeled,fixed
+J2-OUT3,J2,J2.OUT3,J2.OUT3,V-K.negative,22,277.762,proposed,nominal,modeled,fixed
+J2-positive-K,J2,V12,wago-manb.5,V-K.positive,22,260.156,proposed,nominal,modeled,fixed
 J13-AM2,J13,AM2,J13.AM2,pump-a.2,22,270.513,proposed,nominal,unlocated,fixed
 J13-AM1,J13,AM1,J13.AM1,pump-a.1,22,268.906,proposed,nominal,unlocated,fixed
 J13-BM2,J13,BM2,J13.BM2,pump-b.2,22,272.842,proposed,nominal,unlocated,fixed
