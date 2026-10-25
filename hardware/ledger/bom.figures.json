@@ -121,6 +121,9 @@
     "SODA_FAUCET_CUT": "330",
     "SODA_FAUCET_FT": "1.08",
     "SOLENOIDS": "10",
+    "SOLID16_ALLOCATION": "2.4 m",
+    "SOLID16_COST": "$4.05",
+    "SOLID16_CUT_LENGTH": "2.35 m",
     "STEM_ELBOWS": "27",
     "STEM_ELBOWS_COST": "$38.38",
     "STUB_INLET": "335.5 mm",
@@ -134,9 +137,9 @@
     "WASHER_MAX_OD": "29"
   },
   "/hardware/scripts/_bom_totals.py": {
-    "BOM_GRAND": "$1,504.14",
+    "BOM_GRAND": "$1,504.48",
     "BOM_SEC1": "$175.03",
-    "BOM_SEC11": "$39.58",
+    "BOM_SEC11": "$39.92",
     "BOM_SEC12": "$29.78",
     "BOM_SEC13": "$18.66",
     "BOM_SEC14": "$4.29",
