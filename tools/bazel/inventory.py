@@ -203,10 +203,6 @@ IMPLICIT_SOLIDS = {
     "hardware/printed-parts/enclosure/display-cover/display_cover.py": (
         "hardware/printed-parts/enclosure/display-cover/display-cover.stl",
     ),
-    "hardware/printed-parts/enclosure/anchor-cap/anchor_cap.py": (
-        "hardware/printed-parts/enclosure/anchor-cap/anchor-cap.stl",
-        "hardware/printed-parts/enclosure/anchor-cap/anchor-cap.step.mesh",
-    ),
     # And its two viewer payloads, which `_write_mesh_payload` leaves unwritten when the bytes
     # already stand.
     "hardware/printed-parts/enclosure/nameplate/nameplate.py": (
