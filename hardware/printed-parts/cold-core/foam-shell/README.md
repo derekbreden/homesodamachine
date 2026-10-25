@@ -183,8 +183,8 @@ field at the box's own figures (`cadlib/flute_skin.py`). What it buys is not orn
 groove field lays its own highlight and shadow across the surface at a spacing finer, and in
 far higher contrast, than a layer line — so the layer lines fall under it and a flat face
 stops announcing how it was made. That is worth most on exactly the faces hardest to print
-clean: the slot this part prints on runs its fan off and its chamber at 50 °C, which is a
-profile tuned for a standing wall.
+clean: the current PET-GF profile keeps ordinary part cooling off. The chamber is
+unheated; bridges and qualifying overhangs receive localized cooling.
 
 **The flutes are in the STL and not in the STEP.** The solid beside them is a smooth prism.
 The fade that stops the field is a measurement over the whole surface — how far each station
@@ -715,9 +715,10 @@ This drives several dimension choices:
 
 ## Print settings
 
-**The plate's figures are stock Bambu Studio defaults; the stock's are not.**
-PET-GF15 prints off the `Polymaker PET-GF @BBL H2C` slot, whose temperatures,
-flow and fan are its own ([Filament](#filament) below).
+The shell uses the 0.8 mm process with two walls and 15% gyroid, Derek's
+PET-GF production baseline. PET-GF15 takes its filament settings from the
+current shared [`petgf.3mf`](../../petgf.3mf), including the
+[localized cooling policy](../../cooling/README.md).
 
 Plate contents (when slicing): `foam-shell` alone; the two `foam-cap`s + their
 two lids on a second plate. **The two
@@ -730,14 +731,16 @@ drip pan, the PRV shroud, the reed bridge and the fuse clamp
 
 - **Printer:** Bambu Lab H2C, **0.8 mm tungsten carbide nozzle, left hotend** —
   every abrasive stock runs left ([tools.md](/hardware/ledger/tools.md))
+- **Prepared hotend flow:** High Flow; the Mark2 native preparation is
+  [recorded here](prints/2026-10-25-mark2-left08-highflow-gyroid-z004/README.md).
 - **Print profile:** `0.40mm Standard @BBL H2C 0.8 nozzle`
 - **Layer height:** 0.4 mm (initial layer 0.4 mm)
 - **Line width:** 0.82 mm (inner / outer / top all 0.82)
 - **Wall loops:** 2
 - **Top / bottom shells:** 4 / 3
-- **Sparse infill:** 15 % grid
-- **Speeds (mm/s):** outer 200, inner 300, infill 350, top 200,
-  travel 1000, initial layer 50
+- **Sparse infill:** 15 % gyroid
+- **Speeds:** retained 0.8 mm process, initial layer 50 mm/s and 18 mm³/s
+  maximum volumetric flow. The native preparation records the emitted speeds.
 - **Supports:** off (threshold 30°)
 - **Brim:** auto, 5 mm width, 0.1 mm object gap, 0.15 mm elephant-foot
   compensation
@@ -746,20 +749,21 @@ drip pan, the PRV shroud, the reed bridge and the fuse clamp
 ### Filament
 
 - **Material:** Polymaker Fiberon PET-GF15, black — slot `Polymaker PET-GF @BBL H2C`
-- **Nozzle temp:** 290 °C (initial layer 290 °C)
-- **Bed:** Textured PEI Plate at 100 °C
-- **Chamber:** 50 °C (`chamber_temperatures: 50`)
+- **Nozzle temp:** 280 °C (initial layer 265 °C)
+- **Bed:** Textured PEI Plate at 80 °C
+- **Chamber:** unheated (`chamber_temperatures: 0`)
 - **Flow ratio:** 0.9555
 - **Max volumetric speed:** 18 mm³/s
-- **Part-cooling fan:** off — min / max / overhang all 0 %
+- **Part-cooling fan:** ordinary min/max 0%; bridges and overhangs 70% at the
+  50% unsupported-width threshold. Fan off for the first three bed layers;
+  auxiliary cooling off, fan-always-on off and fan pre-start 0 s.
 - **Retraction:** nil
 - **Drying:** 100 °C × 10 h in the SUNLU E2, only if the spool has taken on
   moisture; a 3 kg spool feeds the print from a PolyDryer Box XL
   ([tools.md](/hardware/ledger/tools.md) "What dries where")
 
-The fan and the chamber are what the [show skin](#the-show-skin) is insured
-against: a wall profile top to bottom, which is the right profile for a standing
-wall and the hardest one for a flat top surface.
+The [show skin](#the-show-skin) breaks up visible layer lines on the standing
+walls. Physical surface finish is assessed on the printed shell.
 
 ## Regression baseline
 
