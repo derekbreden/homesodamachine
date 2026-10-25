@@ -24,8 +24,9 @@ through their lower outlet ports, with their underside flow arrows downward.
 The carbonated-water draw uses one continuous tube through the plain core
 guide and an accepted R14 bend holder directly into the meter inlet. The guide
 adds no fitting, insertion or tube cut. A single 63 mm square-ended foam piece
-covers the tube and holder before the meter connects. The meter outlet joins
-the preassembled rear group as back-top closes.
+covers the tube and holder before the meter connects. The meter, external inlet holder and foam, and the concealed outlet join belong
+to back-top. Prepare the meter and rear outlet fittings together on the open
+subassembly; the continuous inlet crosses the plain guide into the core.
 
 > **V-K** — the water-supply fill/shutoff solenoid, an 11th valve of the same Beduan NC type — is **not** part of this manifold. It mounts on back-top east of the G Ganen pump and gates the carbonator fill on the water-split's branch to that pump's suction, downstream of the ASSE 1022 (see [`fluid-topology-carbonator.mmd`](/hardware/topology/fluid-topology-carbonator.mmd) and [`assembly/internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §2), driven off the main board's spare `J2.OUT3` channel.
 

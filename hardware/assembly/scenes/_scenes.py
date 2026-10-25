@@ -73,13 +73,14 @@ BACK_TOP_INLET_HEADER = (
 # These production names map the mounting-parent groups in the accepted
 # funnel-gate assembly-ownership record, with the purchased check references.
 BACK_TOP_CARRIED_COMPONENTS = (
-    "valve-v-a", "vk-solenoid", "relay-1", "relay-2", "c14-inlet",
+    "valve-v-a", "vk-solenoid", "psu", "relay-1", "relay-2", "c14-inlet",
     "keystone-jack", "asse1022-assembly", "asse-inlet-tpu",
     "asse-outlet-tpu", "asse-drain-adapter", "water-split", "flow-regulator",
     "reg-va-elbow", "va-outlet-elbow", "tee-fold", "lower-valve-elbow",
     "lower-pump-elbow", "va-east-turn", "gas-regulator", "gas-check",
     "gas-inlet-elbow", "gas-lower-a", "gas-lower-b", "gas-upper-a",
     "gas-upper-b", "soda-stem-elbow", "soda-outlet-return-stem",
+    "digiten-flow", "soda-bend-holder", "soda-continuous-insulation",
     "wago-h", "wago-n", "wago-g",
     *(name for fitting in ("bulkhead-water", "bulkhead-carb", "bulkhead-drain",
                            "bulkhead-flavor-a", "bulkhead-flavor-b", "co2-inlet")
@@ -94,13 +95,14 @@ BACK_TOP_CARRIED_TUBES = (
     "tube-above-core-va-fore-feed",
     "tube-above-core-gas-inlet",
     "tube-above-core-gas-check-link",
+    "tube-soda-meter-bulkhead",
 )
 # These drawn spans cross mounting parents. They are explicit final handoffs,
 # rather than extra rigid bodies silently assigned to the cold core.
 BACK_TOP_HANDOFF_TUBES = (
     "tube-above-core-pump-inlet-link",
     "tube-above-core-gas-core-drop",
-    "tube-soda-meter-bulkhead",
+    "tube-soda-core-rise",
 )
 
 
@@ -221,7 +223,8 @@ SCENES = (
         note="Turned over, which is how it is worked: its ceiling is the bench, the Z seam "
              "looks up and the Y-seam mouth faces the room — the +X wall is seen from where a "
              "hand reaches it. The soda outlet fittings and both rear bulkheads "
-             "ride with this piece; the concealed tube stays with the meter. "
+             "ride with this piece, together with the meter, its inlet holder and foam, "
+             "the concealed outlet tube and the wall-mounted PSU. "
              "V-A, V-K, the split tee, regulator and "
              "three header links belong to this back-top assembly. The tray's sleeve stands empty.",
     ),
@@ -284,7 +287,7 @@ SCENES = (
         later=(),
         cam=(0.35, -0.2, 1.0), up=(-1.7, 1.0, 0), zoom=2.9, look="crown",
         note="The same cap and lid with everything that face carries: the pump bolted through, "
-             "V-B seated in its upright wall, flat PCB and PSU, check and meter in tied bearings. "
+             "V-B seated in its upright wall, the flat PCB and the tied discharge check. "
              "It meets the rest of the core after all of it is on.",
     ),
     Scene(
@@ -302,7 +305,7 @@ SCENES = (
         "cold-core-open", "Cold core, ready to foam",
         roots=("foam-assembly",), inner=INNER_ALL, flip=None, also=(), later=(),
         # THE PLUMBED CORE LESS ITS OWN CAP ASSEMBLY. What SA-04 stands on that plate — the pump,
-        # V-B, the pump/check/meter and their carried plumbing — and the plate and lid with it.
+        # V-B, the pump/check and their carried plumbing — and the plate and lid with it.
         without="cap-lid",
         # Over the open mouth, which is what there is to see: the cavities the shot has to find,
         # both reservoirs standing in their pockets, and every line standing out of the top.
@@ -358,8 +361,9 @@ SCENES = (
         inner=(), flip=None, also=(), later=(),
         # Square on to the +X flank the column stands down, from inside the box.
         cam=(-1.0, -0.25, 0.35), up=(0, 0, 1), zoom=2.8, look="centre",
-        note="The flat PSU aft and PCB forward on the cold-core lid, both fixed west-wall relays "
-             "and the lid-mounted ground stack, with the roof panel removed.",
+        note="The PSU and both relays mount on back-top's dry sidewall. The PCB and ground "
+             "stack remain on the cold-core lid. Rear connection work uses the open subassembly; "
+             "the electronics ceiling is continuous.",
     ),
 )
 
@@ -481,16 +485,14 @@ def holders(assembly=None):
     for cid in _ml.lower_links():
         if active(f"tube-fluid-{cid}"):
             out[f"tube-fluid-{cid}"] = "enclosure-front-top"
-    for name in BACK_TOP_CARRIED_TUBES:
-        if active(name):
-            out[name] = "enclosure-back-top"
     import above_core
     for name in above_core.core_equipment_names():
         if name in out:
             out[name] = "foam-assembly"
-    for name in ('tube-soda-core-rise', 'tube-soda-meter-bulkhead'):
+    for name in (*BACK_TOP_CARRIED_COMPONENTS, *BACK_TOP_CARRIED_TUBES,
+                 'tube-soda-core-rise'):
         if active(name):
-            out[name] = "foam-assembly"
+            out[name] = "enclosure-back-top"
     # A RIDER GOES WHERE ITS HOST GOES — `_scorecard.RIDES`, the coils on their valves and the
     # Kamoers' rear bosses and motor cans on their heads. One purchased thing apiece, drawn as
     # several so each takes its own colour.
@@ -579,8 +581,7 @@ def named(scene, runs, assembly=None):
         derived.discard(INNER_ROOT)
         derived |= inner - set(scene.later)
     import above_core
-    promoted = above_core.core_equipment_names() | {
-        'digiten-flow', 'tube-soda-core-rise'}
+    promoted = set(above_core.core_equipment_names())
     if assembly is not None:
         promoted |= set(getattr(assembly, 'core_external_components', ()))
     derived -= {INNER_ROOT_HELD+n for n in promoted if n in derived}

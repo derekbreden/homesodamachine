@@ -325,7 +325,7 @@ def linear(color) -> tuple:
 PETGF_BLACK_PARTS = {
     *(f"enclosure-{name}" for name in WALL_COLORS),
     "enclosure-pump-tube-setting-jig",
-    "display-cover", "funnel-frame", "elbow-cradle", "electronics-access-panel",
+    "display-cover", "funnel-frame", "elbow-cradle",
     "foam-shell", "foam-cap-top", "foam-cap-lid-top", "foam-cap-bottom",
     "foam-cap-lid-bottom", "collet-press", "nameplate-receiver",
     "faucet-shell-base", "faucet-shell-tip", "shell-base", "shell-tip",

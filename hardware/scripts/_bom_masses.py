@@ -208,10 +208,6 @@ PARTS = {
     # a scan of it and printed in the faucet's finish, is the one that ships.
     "Faucet lever": ["faucet/lever-replica/lever-replica.step"],
     "Umbilical organizer — below faucet mount": ["faucet/umbilical-organizer/umbilical-organizer.step"],
-    # The empty roof closure uses the exterior base recipe as an unsliced estimate.
-    "Empty electronics access panel": [
-        "enclosure/electronics-access-panel/electronics-access-panel.step",
-    ],
     "Soda inlet bend holder": ["soda-bend-holder/soda-bend-holder.step"],
     # The funnel's drop-in frame and the cradle that hangs the drain elbow under its web. The
     # silicone funnel itself is cast, and §8 bills it as silicone.
@@ -231,7 +227,6 @@ GROUP_OF = [
     ("Enclosure — back",            "ext"),
     ("Enclosure — pump cartridge",  "ext"),
     ("Display cover plate",         "ext"),
-    ("Empty electronics access panel", "ext"),
     ("Soda inlet bend holder",       "small"),
     ("Flavor reservoir",            "tight"),
     ("Faucet shell",                "petgf"),
