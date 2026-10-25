@@ -11,9 +11,10 @@ The connections follow [fluid-topology.md](/hardware/topology/fluid-topology.md)
 Each reservoir has separate fill and draw mouths; segments 14/24 fill them and
 16/26 draw from them. The two source valves connect the water and funnel feeds
 to the front manifold through explicit compact fittings and continuous tubes.
-V-A and V-K mount on the cold-core lid's upright socket walls beside the
-sidewalls. V-B uses the lid's upright wall east of the PCB. All three travel
-with the populated core during enclosure assembly.
+V-A and V-K mount in back-top's upright socket seats beside the sidewalls.
+V-B uses the core lid's upright wall east of the PCB. The PCB and pump also
+remain on the core. Back-top carries the sidewall PSU, both raised relays,
+meter and its continuous inlet, holder and insulation.
 
 ## Fixed front manifold and pump dock
 
@@ -43,8 +44,15 @@ drain cradle snaps into the removable rigid frame's bottom web. Complete the
 front-to-core and rear-quadrant connections through this opening before lowering
 the frame with its drain assembly and fitting its four screws. Disconnect the
 drain tube or release the cradle before removing the frame.
-The independent electronics panel is also empty and installs after its
-connection work.
+The rear ceiling is continuous.
+
+Keep the low V-A tube/union chain and the lower pump-side elbow loose during
+the back column's ride over the core. The elbow's transverse stem connection
+is made through the open funnel area after closure. Support the continuous
+meter inlet at its plain core guide and keep cross-quadrant wire ends free.
+The [manual closing readings](/hardware/mechanical-qualification/enclosure-above-core/README.md)
+identify the retained rigid group, sampled offsets and unresolved final-fit
+limits; they do not establish connected flexible handling.
 
 The production route definitions retain each fitting's own native geometry
 and receiving-socket insertion estimate. Cut lengths are sums of actual tube
