@@ -13,8 +13,8 @@ alternatives: Filling beneath the roof enters the cradle's insertion path. Slopi
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=0.000 y=43.757 z=284.674
 
-[ceiling] The lint is wrong for these two faces: each is the roof of a Wago pocket in the east manifold tower, a bridge across the pocket's own span between the tower's two side walls, 8.7 mm over the 221-415 at Z258.15 and 16.1 mm over the 221-420 at Z292.05, with its back edge on the flank. Every line of either roof lands on stock at both ends; the ceiling class reads only a corbel, a column or support as a carrier, not a bridge between two walls.
-alternatives: A 45-degree gable over each pocket needs about 4.4 mm (415) or 8 mm (420) more tower above it and bears on the connector's end at two edges only. The side wells' two-tab lid with a 45-degree ramp gives up the flat capture across the connector's end. Support inside a 9.45 mm-deep, 8.7 mm-wide pocket is harder to clear than the bridge it would replace.
+[ceiling] Functional retention faces with stated support: each is the roof of a Wago pocket in the east manifold tower, Z258.15 over the 221-415 and Z292.05 over the 221-420, and holds the connector's end in its closed pocket. Under front-top's recipe (`max_bridge_length` 0) Tree(auto) carries each roof on support that enters through the pocket's open inboard face, and that support comes out the same way before the connector goes in. Removal effort remains unqualified.
+alternatives: A roof rising 45 degrees toward the open face, or the side wells' two-tab lid with its 45-degree ramp, needs the tower about 6.5 mm taller over the 221-420 and gives up the flat capture across the connector's end. A gable cannot fit in the 3.8 mm between the two stacked pockets. A longer bridge length in front-top's recipe would print both roofs as bridges, but it changes every other bridge on the piece.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=99.775 y=169.000 z=258.150
 click: x=99.775 y=169.000 z=292.050
@@ -24,6 +24,7 @@ alternatives: A thicker lip needs a deeper inset (cover below flush), thinner wi
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=66.890 y=19.433 z=311.879
 click: x=-66.890 y=19.433 z=311.879
+click: x=-66.517 y=19.269 z=311.784
 
 [thin] Approved by Derek as drawn: each reading is the wall a flute groove leaves on a 3 mm section. The 1.2 mm groove (`flute_depth`) leaves 1.8 mm between its floor and the inner face (enclosure README, Nothing may relieve into the outermost 3 mm of a fluted face), on front-top's flanks, two of them where the east manifold tower's Wago pockets bottom on the flank's 3 mm outer wall. Derek, 2026-10-21: "The flute grooves on 3mm walls is good with me and approved by me."
 alternatives: A 4.2 mm wall keeps 3 mm under every groove and takes 1.2 mm more of the room inside each flank; a shallower groove changes the texture the corner coupon set.

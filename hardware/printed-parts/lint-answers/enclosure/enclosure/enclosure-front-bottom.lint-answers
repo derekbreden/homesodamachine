@@ -2,7 +2,7 @@
 alternatives: A larger host changes the donor-flange and driver-approach envelope. Keep the manufacturer-compatible pilot and host while qualifying actual insert retention and loaded finger performance.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
 click: x=70.504 y=149.000 z=137.366
-click: x=70.493 y=149.000 z=2.089
+click: x=70.493 y=149.000 z=6.561
 
 [ceiling] Unavoidable lifting interfaces: these Z29.25 handhold ceilings retain the flat finger bearings, shared R6 ends and 12 mm roof sections. Support can leave through the open handhold and seam before assembly. Actual cleanup, bare-surface comfort and loaded lifting remain unqualified.
 alternatives: Sloping changes the finger bearing and opening. Filling below the roof blocks upward entry. Retain the specified working profile and assess its support contacts in the production slice.
@@ -24,15 +24,20 @@ click: x=0.000 y=211.432 z=57.948
 [thin] Approved by Derek as drawn: each reading is a vent bar of the condenser vents on front-bottom's two flanks, the mullion between two slots struck down the floors of neighbouring flute grooves (enclosure README, The condenser's vents). Each reads 1.834 mm, the mullion between its two slots at the groove floor. Derek, 2026-10-21: "I am good with and I approve the vent bars."
 alternatives: Wider mullions narrow the 3.1 mm slots and the open area the condenser's fan draws through; fewer slots close it further.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step
-click: x=-106.108 y=54.049 z=35.549
+click: x=-105.921 y=44.181 z=136.423
+click: x=-105.921 y=73.784 z=136.423
+click: x=-99.534 y=86.752 z=135.750
+click: x=-105.920 y=103.387 z=136.423
+click: x=-99.534 y=116.355 z=135.750
+click: x=-99.534 y=131.156 z=135.750
 click: x=-99.527 y=37.414 z=32.802
 click: x=-105.826 y=44.181 z=34.617
 click: x=-99.527 y=52.215 z=32.802
-click: x=-99.529 y=62.083 z=32.802
-click: x=-99.527 y=67.016 z=32.802
 click: x=-99.531 y=37.414 z=78.751
 click: x=-105.919 y=44.181 z=79.423
 click: x=-105.923 y=54.049 z=79.423
+click: x=-99.529 y=62.083 z=32.802
+click: x=-99.527 y=67.016 z=32.802
 click: x=-105.826 y=73.784 z=34.617
 click: x=-99.529 y=76.884 z=32.802
 click: x=-99.527 y=81.818 z=32.802
@@ -171,8 +176,9 @@ click: x=105.925 y=131.156 z=136.423
 click: x=99.532 y=137.924 z=135.751
 click: x=105.906 y=141.024 z=107.923
 click: x=105.907 y=141.024 z=136.423
-click: x=-105.901 y=47.281 z=34.930
-click: x=-105.902 y=57.149 z=34.930
+click: x=-99.534 y=57.149 z=135.750
+click: x=-99.529 y=47.281 z=32.802
+click: x=-99.577 y=57.149 z=32.792
 click: x=-99.533 y=47.281 z=78.750
 click: x=-99.533 y=57.149 z=78.750
 click: x=-99.533 y=47.281 z=107.250
@@ -194,12 +200,3 @@ click: x=105.954 y=126.222 z=36.193
 click: x=105.905 y=126.222 z=79.423
 click: x=105.906 y=126.222 z=107.923
 click: x=105.907 y=126.222 z=136.423
-click: x=-99.437 y=42.347 z=118.633
-click: x=-99.633 y=71.950 z=118.423
-click: x=-99.596 y=86.752 z=118.402
-click: x=-99.560 y=101.553 z=118.382
-click: x=-99.595 y=116.355 z=118.383
-click: x=-99.562 y=131.156 z=118.361
-click: x=-99.417 y=57.149 z=118.605
-click: x=-99.529 y=47.281 z=32.802
-click: x=-99.577 y=57.149 z=32.792
