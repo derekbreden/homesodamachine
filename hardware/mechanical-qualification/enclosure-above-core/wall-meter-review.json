@@ -23,7 +23,7 @@
         "beam_bottom_world_z_mm": 294.0760478805363,
         "beam_plan_world_xy_mm": [
           [
-            53.0,
+            50.0,
             364.71479999999997
           ],
           [
@@ -51,7 +51,7 @@
             370.71479999999997
           ],
           [
-            53.0,
+            50.0,
             370.71479999999997
           ]
         ],
@@ -81,7 +81,20 @@
             ]
           ]
         ],
+        "lane_corbel_world_xy_mm": [
+          [
+            64.0,
+            98.51
+          ],
+          [
+            353.5,
+            362.5
+          ]
+        ],
         "wall_lane_world_y_mm": 358.0,
+        "wall_landing_width_mm": 9.0,
+        "wall_landing_height_mm": 3.0,
+        "wall_landing_bottom_world_z_mm": 294.0760478805363,
         "wall_root_x_mm": 98.51,
         "tie_plane_world_y_mm": 368.41479999999996,
         "tie_slot_min_world_mm": [
@@ -97,10 +110,10 @@
       },
       "support_valid": true,
       "support_solids": 1,
-      "support_faces": 23,
-      "support_volume_mm3": 1677.8867692873255,
+      "support_faces": 22,
+      "support_volume_mm3": 7039.332357499194,
       "support": {
-        "candidate_count": 10,
+        "candidate_count": 13,
         "contacts": []
       },
       "strip": {
@@ -109,13 +122,13 @@
       },
       "strip_own_support_mm3": 0.0,
       "strip_solids_valid": true,
-      "full_3mm_quarter_missing_mm3": 0.0,
-      "full_3mm_slot_surround_missing_mm3": 0.0,
-      "wall_landing_missing_mm3": 0.0,
       "tie_length_mm": 84.2224191298168,
       "tie_stock_mm": 152.4,
       "tie_remainder_mm": 68.1775808701832,
-      "contact_proof_basis": "Original native cached-neighbor/complete-strip result, reused through the bounded pure-subtraction proof below; no new contact pairs were replayed."
+      "full_3mm_quarter_missing_mm3": 0.0,
+      "full_3mm_slot_surround_missing_mm3": 0.0,
+      "wall_landing_missing_mm3": 0.0,
+      "contact_proof_basis": "Replayed against this index on 2026-10-25, with each seat beam run to its seat's own west plane."
     },
     "meter-aft": {
       "datums": {
@@ -140,52 +153,126 @@
         "beam_boxes_world_mm": [
           [
             [
-              53.0,
-              408.71479999999997,
+              50.0,
+              410.61479999999995,
               293.5760478805363
             ],
             [
+              53.0,
+              416.61479999999995,
+              296.5760478805363
+            ]
+          ],
+          [
+            [
+              53.0,
+              410.61479999999995,
+              293.5760478805363
+            ],
+            [
+              60.0,
+              437.5,
+              296.5760478805363
+            ]
+          ],
+          [
+            [
+              59.0,
+              408.61479999999995,
+              293.5760478805363
+            ],
+            [
+              67.0,
+              417.61479999999995,
+              296.5760478805363
+            ]
+          ],
+          [
+            [
+              57.5,
+              434.5,
+              290.5760478805363
+            ],
+            [
               98.51,
-              417.71479999999997,
+              437.5,
               296.5760478805363
             ]
           ]
         ],
-        "wall_lane_world_y_mm": 413.21479999999997,
+        "lane_corbel_world_xy_mm": null,
+        "wall_lane_world_y_mm": 436.0,
+        "wall_landing_width_mm": 3.0,
+        "wall_landing_height_mm": 6.0,
+        "wall_landing_bottom_world_z_mm": 290.5760478805363,
         "wall_root_x_mm": 98.51,
-        "tie_plane_world_y_mm": 411.91479999999996,
+        "tie_plane_world_y_mm": 413.11479999999995,
         "tie_slot_min_world_mm": [
-          66.0,
-          411.71479999999997,
+          62.0,
+          411.61479999999995,
           293.47604788053627
         ],
         "tie_slot_max_world_mm": [
-          68.0,
-          414.71479999999997,
+          64.0,
+          414.61479999999995,
           296.6760478805363
         ]
       },
       "support_valid": true,
       "support_solids": 1,
-      "support_faces": 17,
-      "support_volume_mm3": 1482.9318434286265,
+      "support_faces": 23,
+      "support_volume_mm3": 1740.6461816404985,
       "support": {
-        "candidate_count": 7,
-        "contacts": []
+        "candidate_count": 9,
+        "contacts": [
+          {
+            "name": "tube-fluid-16",
+            "volume_mm3": 48.75512195227682,
+            "bounds_mm": [
+              [
+                49.99999989960901,
+                416.1360569914743,
+                290.5760477435208
+              ],
+              [
+                64.03119310515945,
+                437.5000001,
+                294.17500010000003
+              ]
+            ]
+          }
+        ]
       },
       "strip": {
         "candidate_count": 7,
-        "contacts": []
+        "contacts": [
+          {
+            "name": "tube-fluid-16",
+            "volume_mm3": 0.18374383090512414,
+            "bounds_mm": [
+              [
+                47.85176302764789,
+                413.68750247766764,
+                292.57604773153986
+              ],
+              [
+                50.819391362197564,
+                414.36480010146323,
+                292.9063397984536
+              ]
+            ]
+          }
+        ]
       },
       "strip_own_support_mm3": 0.0,
       "strip_solids_valid": true,
+      "tie_length_mm": 78.00357187891423,
+      "tie_stock_mm": 152.4,
+      "tie_remainder_mm": 74.39642812108578,
       "full_3mm_quarter_missing_mm3": 0.0,
       "full_3mm_slot_surround_missing_mm3": 0.0,
       "wall_landing_missing_mm3": 0.0,
-      "tie_length_mm": 87.75901774462906,
-      "tie_stock_mm": 152.4,
-      "tie_remainder_mm": 64.64098225537094,
-      "contact_proof_basis": "Original native cached-neighbor/complete-strip result, reused through the bounded pure-subtraction proof below; no new contact pairs were replayed."
+      "contact_proof_basis": "Replayed against this index on 2026-10-25. Its support and tie meet this index's cached tube-fluid-16 (118b6cfe8edb), a route that predates the aft carrier refit; aft-meter-refit-review.json reads the same carrier against the current appliance's neighbors, fluid-16 9f597cb0d076, with no contact."
     },
     "between_supports_mm3": 0.0,
     "cross_tie_support_mm3": {
@@ -199,15 +286,14 @@
   "manual_script": "hardware/mechanical-qualification/enclosure-above-core/wall_meter.py",
   "reproduce": "PYTHONPATH=. tmp/takeover/cadq \"manual wall meter\" -- tools/cad-venv/bin/python hardware/mechanical-qualification/enclosure-above-core/wall_meter.py --targets tmp/above-core-implementation/wall-meter-final/targets.json --output /tmp/wall-meter-review.json",
   "native_execution": {
-    "script": "/tmp/hsm-wall-meter-candidate.py",
-    "script_sha256": "e3cc21ebedb1d8b17e2da1024009b039b1a782dabbe3b8e59cdf4f857df96c23",
-    "constructor_source_sha256": "c1862d1f386dc21911c5286f5fbb1ece5073c2f87d5b4bd8e62ecb78d3f9bcbc",
-    "elapsed_s": 27.860738958988804
+    "script": "hardware/mechanical-qualification/enclosure-above-core/wall_meter.py",
+    "script_sha256": "a034e8a5d2205cdeba42fd29b5b594e92438fb6b3559ceb78df1d3cfd264dda9",
+    "constructor_source_sha256": "91f7684cc912ec134282a64792aebc3d50048a598b4842154078b347bf35237e",
+    "reproduce": "PYTHONPATH=. tmp/takeover/cadq \"manual wall meter\" -- tools/cad-venv/bin/python hardware/mechanical-qualification/enclosure-above-core/wall_meter.py --targets tmp/above-core-implementation/wall-meter-final/targets.json --output /tmp/wall-meter-review.json"
   },
   "source_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/_back_top_meter.py": "c1862d1f386dc21911c5286f5fbb1ece5073c2f87d5b4bd8e62ecb78d3f9bcbc",
-    "hardware/manifold-layout/above-core.json": "04887b550cc53b2516832689b40f81a56e83119e4cc04921ad9819ed343c726b",
-    "hardware/mechanical-qualification/enclosure-above-core/wall_meter.py": "45b28ae271bb1000c5c84991dfaf34207c1ed4c593f945380ea69a9c5aa47a17"
+    "hardware/printed-parts/enclosure/enclosure/_back_top_meter.py": "91f7684cc912ec134282a64792aebc3d50048a598b4842154078b347bf35237e",
+    "hardware/mechanical-qualification/enclosure-above-core/wall_meter.py": "a034e8a5d2205cdeba42fd29b5b594e92438fb6b3559ceb78df1d3cfd264dda9"
   },
   "target_scope": "Explicit native cached neighboring purchased bodies, selected exact fluid14/16/26,125 electrical bodies and22 unchanged pump/PCB/connector approach witnesses. The eight horizontal-deck PSU witnesses are superseded and omitted. Cached electrical bodies retain their own index/source scope;14 moved PSU/relay leads, J9-B and final exported-shell/EA bindings are reviewed separately. The foam target is the selected estimated occupied display, not physical compression qualification.",
   "target_count": 172,
@@ -395,12 +481,6 @@
     "unchanged_approach_count": 22,
     "superseded_psu_approach_count": 8
   },
-  "frozen_brep_sha256": {
-    "tmp/above-core-implementation/wall-meter-final/meter-fore-support.brep": "436419ec2249f98a9650192cebd4baec6d1991abe237191e3dad900fc014a460",
-    "tmp/above-core-implementation/wall-meter-final/meter-fore-tie.brep": "7c289a5b3a0c8722d9e23208e455a461ffe2e86a4e2a6eb46276ab7f08e7a7e0",
-    "tmp/above-core-implementation/wall-meter-final/meter-aft-support.brep": "4505fa871dc1774ac985760efaf6d9f4565833dae4336f431ccd3e9438b30583",
-    "tmp/above-core-implementation/wall-meter-final/meter-aft-tie.brep": "b0c41455ec62218193ee13df2c3ae08a61fae65973a2b8238e856eafafcd1958"
-  },
   "limits": [
     "Both source brackets are single valid solids. Full6mm axial quarter bearings retain3mm radial stock. Both2\u00d73mm vertical tie slots retain full3mm surround;9\u00d73mm wall landings reach0.01mm into the wall datum. The final materialized shell must preserve those interfaces.",
     "The nominal complete strip sections do not include a purchased head or locking engagement. Bend/twist transitions, threading, strap dimensions, clamping force, printed strength, side loads and lifetime are unqualified.",
@@ -410,13 +490,13 @@
   "passed_local_stock_and_contacts": true,
   "actual_back_top_binding": {
     "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
-    "sha256": "10a6008999aa3096a3c3b85a7222bc8d0ca39167f09b29966aa8d33e8b2c3bc9",
+    "sha256": "3345fddfd46a9ad8c24ec1b220c58b973fd5d2920ea9688652eacfcac7392bf4",
     "current_applicability": true,
     "stock_valid": true,
     "stock_solids": 1,
     "source_sha256": {
-      "hardware/printed-parts/enclosure/enclosure/_back_top_meter.py": "ef707c1a1410ada782350eb17933f944d4f60b4a43ba3be78f85821aac1dca7b",
-      "hardware/mechanical-qualification/enclosure-above-core/wall_meter.py": "f1a83990b5c4144285d041ca5659111bf25d7ef794673d9c6ec13a917e725e76"
+      "hardware/printed-parts/enclosure/enclosure/_back_top_meter.py": "91f7684cc912ec134282a64792aebc3d50048a598b4842154078b347bf35237e",
+      "hardware/mechanical-qualification/enclosure-above-core/wall_meter.py": "a034e8a5d2205cdeba42fd29b5b594e92438fb6b3559ceb78df1d3cfd264dda9"
     },
     "rows": {
       "meter-fore": {
@@ -442,352 +522,5 @@
     },
     "scope": "Imported back-top versus the two unchanged source bracket solids, complete quarter/slot stock, open slots and bore air. The original 172-target cached-neighbor/strip reading is preserved and is not replayed. No installed-wire, whole-group motion or physical qualification is added.",
     "passed_actual_stock": true
-  },
-  "fore_neck_refinement": {
-    "scope": "Local fore-meter plane reconciliation only: six-millimetre neck matching fixed collar faces, plain plan flare to nine-millimetre tie-slot field. A pure stock subtraction preserves the prior purchased/tube/wire/access and complete-strip noncontacts. No artifact-wide or physical result is added.",
-    "source_sha256": "ef707c1a1410ada782350eb17933f944d4f60b4a43ba3be78f85821aac1dca7b",
-    "rows": {
-      "meter-fore": {
-        "valid": true,
-        "solids": 1,
-        "faces": 23,
-        "added_stock_mm3": 0.0,
-        "removed_stock_mm3": 71.99999999999626,
-        "volume_mm3": 1677.8867692873255,
-        "full_stock": {
-          "full_3mm_quarter_missing_mm3": 0.0,
-          "full_3mm_slot_surround_missing_mm3": 0.0,
-          "wall_landing_missing_mm3": 0.0
-        },
-        "unchanged_tie_datums": true,
-        "datums": {
-          "parent": "enclosure-back-top",
-          "centre_world_mm": [
-            50.0,
-            367.71479999999997,
-            306.3760478805363
-          ],
-          "width_mm": 6.0,
-          "seat_radius_mm": 9.3,
-          "wall_mm": 3.0,
-          "native_bearing_band_mm": [
-            -26.200000000000003,
-            -20.200000000000003
-          ],
-          "seat_bottom_world_z_mm": 294.0760478805363,
-          "beam_width_mm": 9.0,
-          "beam_thickness_mm": 3.0,
-          "beam_bottom_world_z_mm": 294.0760478805363,
-          "beam_plan_world_xy_mm": [
-            [
-              53.0,
-              364.71479999999997
-            ],
-            [
-              59.0,
-              364.71479999999997
-            ],
-            [
-              63.0,
-              363.91479999999996
-            ],
-            [
-              73.0,
-              363.91479999999996
-            ],
-            [
-              73.0,
-              372.91479999999996
-            ],
-            [
-              63.0,
-              372.91479999999996
-            ],
-            [
-              59.0,
-              370.71479999999997
-            ],
-            [
-              53.0,
-              370.71479999999997
-            ]
-          ],
-          "beam_boxes_world_mm": [
-            [
-              [
-                64.0,
-                353.5,
-                294.0760478805363
-              ],
-              [
-                73.0,
-                372.91479999999996,
-                297.0760478805363
-              ]
-            ],
-            [
-              [
-                64.0,
-                353.5,
-                294.0760478805363
-              ],
-              [
-                98.51,
-                362.5,
-                297.0760478805363
-              ]
-            ]
-          ],
-          "wall_lane_world_y_mm": 358.0,
-          "wall_root_x_mm": 98.51,
-          "tie_plane_world_y_mm": 368.41479999999996,
-          "tie_slot_min_world_mm": [
-            66.0,
-            366.91479999999996,
-            293.97604788053627
-          ],
-          "tie_slot_max_world_mm": [
-            68.0,
-            369.91479999999996,
-            297.1760478805363
-          ]
-        }
-      },
-      "meter-aft": {
-        "valid": true,
-        "solids": 1,
-        "faces": 17,
-        "added_stock_mm3": 0.0,
-        "removed_stock_mm3": 0.0,
-        "volume_mm3": 1482.9318434286265,
-        "full_stock": {
-          "full_3mm_quarter_missing_mm3": 0.0,
-          "full_3mm_slot_surround_missing_mm3": 0.0,
-          "wall_landing_missing_mm3": 0.0
-        },
-        "unchanged_tie_datums": true,
-        "datums": {
-          "parent": "enclosure-back-top",
-          "centre_world_mm": [
-            50.0,
-            413.61479999999995,
-            306.3760478805363
-          ],
-          "width_mm": 6.0,
-          "seat_radius_mm": 9.3,
-          "wall_mm": 3.0,
-          "native_bearing_band_mm": [
-            19.700000000000003,
-            25.700000000000003
-          ],
-          "seat_bottom_world_z_mm": 294.0760478805363,
-          "beam_width_mm": 9.0,
-          "beam_thickness_mm": 3.0,
-          "beam_bottom_world_z_mm": 293.5760478805363,
-          "beam_plan_world_xy_mm": null,
-          "beam_boxes_world_mm": [
-            [
-              [
-                53.0,
-                408.71479999999997,
-                293.5760478805363
-              ],
-              [
-                98.51,
-                417.71479999999997,
-                296.5760478805363
-              ]
-            ]
-          ],
-          "wall_lane_world_y_mm": 413.21479999999997,
-          "wall_root_x_mm": 98.51,
-          "tie_plane_world_y_mm": 411.91479999999996,
-          "tie_slot_min_world_mm": [
-            66.0,
-            411.71479999999997,
-            293.47604788053627
-          ],
-          "tie_slot_max_world_mm": [
-            68.0,
-            414.71479999999997,
-            296.6760478805363
-          ]
-        }
-      }
-    },
-    "native_execution": {
-      "script": "/tmp/hsm-meter-neck-delta.py",
-      "script_sha256": "b2e67693199989715aa65df04fc955c30d43784d765c499a57fc579e09bc0339"
-    },
-    "baseline_source_rows": {
-      "meter-fore": {
-        "datums": {
-          "parent": "enclosure-back-top",
-          "centre_world_mm": [
-            50.0,
-            367.71479999999997,
-            306.3760478805363
-          ],
-          "width_mm": 6.0,
-          "seat_radius_mm": 9.3,
-          "wall_mm": 3.0,
-          "native_bearing_band_mm": [
-            -26.200000000000003,
-            -20.200000000000003
-          ],
-          "seat_bottom_world_z_mm": 294.0760478805363,
-          "beam_width_mm": 9.0,
-          "beam_thickness_mm": 3.0,
-          "beam_bottom_world_z_mm": 294.0760478805363,
-          "beam_boxes_world_mm": [
-            [
-              [
-                53.0,
-                363.91479999999996,
-                294.0760478805363
-              ],
-              [
-                73.0,
-                372.91479999999996,
-                297.0760478805363
-              ]
-            ],
-            [
-              [
-                64.0,
-                353.5,
-                294.0760478805363
-              ],
-              [
-                73.0,
-                372.91479999999996,
-                297.0760478805363
-              ]
-            ],
-            [
-              [
-                64.0,
-                353.5,
-                294.0760478805363
-              ],
-              [
-                98.51,
-                362.5,
-                297.0760478805363
-              ]
-            ]
-          ],
-          "wall_lane_world_y_mm": 358.0,
-          "wall_root_x_mm": 98.51,
-          "tie_plane_world_y_mm": 368.41479999999996,
-          "tie_slot_min_world_mm": [
-            66.0,
-            366.91479999999996,
-            293.97604788053627
-          ],
-          "tie_slot_max_world_mm": [
-            68.0,
-            369.91479999999996,
-            297.1760478805363
-          ]
-        },
-        "support_valid": true,
-        "support_solids": 1,
-        "support_faces": 21,
-        "support_volume_mm3": 1749.8867692873232,
-        "support": {
-          "candidate_count": 10,
-          "contacts": []
-        },
-        "strip": {
-          "candidate_count": 7,
-          "contacts": []
-        },
-        "strip_own_support_mm3": 0.0,
-        "strip_solids_valid": true,
-        "full_3mm_quarter_missing_mm3": 0.0,
-        "full_3mm_slot_surround_missing_mm3": 0.0,
-        "wall_landing_missing_mm3": 0.0,
-        "tie_length_mm": 84.2224191298168,
-        "tie_stock_mm": 152.4,
-        "tie_remainder_mm": 68.1775808701832
-      },
-      "meter-aft": {
-        "datums": {
-          "parent": "enclosure-back-top",
-          "centre_world_mm": [
-            50.0,
-            413.61479999999995,
-            306.3760478805363
-          ],
-          "width_mm": 6.0,
-          "seat_radius_mm": 9.3,
-          "wall_mm": 3.0,
-          "native_bearing_band_mm": [
-            19.700000000000003,
-            25.700000000000003
-          ],
-          "seat_bottom_world_z_mm": 294.0760478805363,
-          "beam_width_mm": 9.0,
-          "beam_thickness_mm": 3.0,
-          "beam_bottom_world_z_mm": 293.5760478805363,
-          "beam_boxes_world_mm": [
-            [
-              [
-                53.0,
-                408.71479999999997,
-                293.5760478805363
-              ],
-              [
-                98.51,
-                417.71479999999997,
-                296.5760478805363
-              ]
-            ]
-          ],
-          "wall_lane_world_y_mm": 413.21479999999997,
-          "wall_root_x_mm": 98.51,
-          "tie_plane_world_y_mm": 411.91479999999996,
-          "tie_slot_min_world_mm": [
-            66.0,
-            411.71479999999997,
-            293.47604788053627
-          ],
-          "tie_slot_max_world_mm": [
-            68.0,
-            414.71479999999997,
-            296.6760478805363
-          ]
-        },
-        "support_valid": true,
-        "support_solids": 1,
-        "support_faces": 17,
-        "support_volume_mm3": 1482.9318434286265,
-        "support": {
-          "candidate_count": 7,
-          "contacts": []
-        },
-        "strip": {
-          "candidate_count": 7,
-          "contacts": []
-        },
-        "strip_own_support_mm3": 0.0,
-        "strip_solids_valid": true,
-        "full_3mm_quarter_missing_mm3": 0.0,
-        "full_3mm_slot_surround_missing_mm3": 0.0,
-        "wall_landing_missing_mm3": 0.0,
-        "tie_length_mm": 87.75901774462906,
-        "tie_stock_mm": 152.4,
-        "tie_remainder_mm": 64.64098225537094
-      }
-    },
-    "frozen_brep_sha256": {
-      "tmp/above-core-implementation/wall-meter-final/meter-fore-neck-support.brep": "edd6869b40c7d27410b68c89d54ef379f85d804fa445ff8e4b3c3b315f3d14fb",
-      "tmp/above-core-implementation/wall-meter-final/meter-aft-neck-support.brep": "44f6aba4f052f33c0546d6c688e2e6d8d49ab515259b4f0a4421e87850e3f025"
-    }
-  },
-  "current_source_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/_back_top_meter.py": "ef707c1a1410ada782350eb17933f944d4f60b4a43ba3be78f85821aac1dca7b",
-    "hardware/mechanical-qualification/enclosure-above-core/wall_meter.py": "f1a83990b5c4144285d041ca5659111bf25d7ef794673d9c6ec13a917e725e76"
   }
 }

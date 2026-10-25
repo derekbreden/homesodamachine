@@ -174,8 +174,15 @@ def c14_rear_cutters():
     return flange.translate((x, 0., z)), body.translate((x, 0., z))
 
 
-def keystone_rear_geometry():
-    """The enclosure's fitted shoulder, catches and broad corbel at the jack."""
+def keystone_rear_geometry(holds=(), keep_clear=None):
+    """The enclosure's fitted shoulder, catches and broad corbel at the jack.
+
+    THE BOSS STANDS ONE WALL PROUD OF THE REAR WALL'S FACE. The jack reaches 0.7 mm past the
+    wall to its catches; the boss carries the pocket on through its own depth behind them, so
+    its faces stand a full wall wide rather than 0.7 mm. Where a core hold's lane meets the
+    boss (`holds`, the pack's `(x0, x1, aft, crown)` stations), the boss runs across the whole
+    lane and its side lands on the bracket's own. `keep_clear` is the wiring's room, which the
+    boss and its corbel give back."""
     import enclosure
 
     jack = enclosure._keystone
@@ -183,25 +190,43 @@ def keystone_rear_geometry():
         'face_center_mm']
     root = layout.specification()['rear_wall']['rear_wall']['ymin']
     growth = max(0., enclosure.fits.slip - jack.FIT_SLIP / 2.)
-    half_x = jack.POCKET_W / 2. + growth + jack.RECEPTACLE_WALL
+    half_x = enclosure.keystone_pocket_width() / 2. + jack.RECEPTACLE_WALL
     half_z = jack.POCKET_H / 2. + growth + jack.RECEPTACLE_WALL
-    fore = y - jack.DEPTH
+    fore = root - enclosure.wall
     centre_z = z + jack.POCKET_RISE
-    block = box(x-half_x, x+half_x, fore, root+.01,
-                centre_z-half_z, centre_z+half_z)
+    x0, x1 = x - half_x, x + half_x
+    for lane0, lane1, _aft, _crown in holds:
+        if lane0 < x1 and lane1 > x0:
+            x0, x1 = min(x0, lane0), max(x1, lane1)
+    block = box(x0, x1, fore, root+.01, centre_z-half_z, centre_z+half_z)
     stock = enclosure._supported_cut(block, enclosure.BACK_TOP_UP)
     top = centre_z + half_z
     stock = stock.fuse(enclosure._yz_prism(
-        x-half_x, x+half_x,
-        ((root, top), (fore, top), (root, top+root-fore))))
-    cutter, _ = enclosure._keystone_pocket_cut(x, z, y)
+        x0, x1, ((root, top), (fore, top), (root, top+root-fore))))
+    if keep_clear is not None:
+        stock = stock.cut(keep_clear)
+    cutter, _ = enclosure._keystone_pocket_cut(x, z, y, back=fore)
     _, catches = jack.receptacle_boss(x, z, y, root)
     return (stock.clean(),
             enclosure._supported_cut(cutter, enclosure.BACK_TOP_UP),
             enclosure._keystone_catches(catches, enclosure.BACK_TOP_UP))
 
 
-def rear_geometry(piece):
+def keystone_land():
+    """The flat land round the jack's aperture on the rear face: the flutes stay off its
+    three-millimetre lip and the ease over the aperture, one wall past each edge."""
+    import enclosure
+
+    jack = enclosure._keystone
+    x, y, z = layout.specification()['rear_wall']['dry_openings']['keystone'][
+        'face_center_mm']
+    half_w = jack.FACE_W / 2. + enclosure.fits.slip + enclosure.wall
+    half_h = jack.FACE_H / 2. + enclosure.fits.slip + enclosure.wall
+    return (x - half_w, x + half_w, y - 3., y + 1.,
+            z - half_h, z + half_h + enclosure.keystone_ease_shoulder)
+
+
+def rear_geometry(piece, holds=(), keep_clear=None):
     plan = layout.specification()['rear_wall']
     relief = plan['interior_panel_relief']
     piece = piece.cut(rectangle(relief))
@@ -221,7 +246,7 @@ def rear_geometry(piece):
                                     seat_y-fasteners['boss_depth_mm'], seat_y))
         piece = piece.cut(ycylinder(2., x+dx, z,
                                     seat_y-fasteners['pilot_depth_mm'], seat_y+.01))
-    stock, cutter, catches = keystone_rear_geometry()
+    stock, cutter, catches = keystone_rear_geometry(holds, keep_clear)
     piece = piece.fuse(stock).cut(cutter).fuse(catches)
     return piece
 
@@ -321,6 +346,18 @@ def fluid_supports():
     enter from the west. The 0.25 mm radial fit is nominal layout clearance;
     the restraints do not establish pressure capacity or service life.
     """
+    import enclosure
+
+    def window(axis, lo, hi, a0, a1, z_mid):
+        """A tie window through a saddle along `axis` ('x' or 'y'), `a0`..`a1` across it and
+        4 mm tall, its print-roof — the machine-lower edge on this ceiling-down piece —
+        closed at 45 degrees rather than laid flat across the window."""
+        mid, half = (a0 + a1) / 2., (a1 - a0) / 2.
+        section = [(a0, z_mid+2.), (a1, z_mid+2.), (a1, z_mid-2.), (mid, z_mid-2.-half),
+                   (a0, z_mid-2.)]
+        return (enclosure._xz_prism(lo, hi, section) if axis == 'y'
+                else enclosure._yz_prism(lo, hi, section))
+
     result = {}
     z = layout.pose('asse1022-assembly')['translation_mm'][2]
     # Two six-millimetre bearings beside the ASSE's west-facing vent. Their
@@ -331,8 +368,7 @@ def fluid_supports():
         radius = 16.75
         saddle = box(x+7.25, x+radius+9., y-3., y+3., 315.92604788, 355.)
         saddle = saddle.cut(ycylinder(radius, x, z, y-3.1, y+3.1))
-        saddle = saddle.cut(box(x+radius+3., x+radius+5.5,
-                                  y-3.1, y+3.1, z-2., z+2.))
+        saddle = saddle.cut(window('y', y-3.1, y+3.1, x+radius+3., x+radius+5.5, z))
         result[f'asse-{index}'] = saddle.clean()
     # The regulator's two diameters retain their own bearings. Its narrow
     # socket ends and the transverse outlet tube stay free of the supports.
@@ -341,7 +377,7 @@ def fluid_supports():
                               (2, -29.3541011287684, 12.25)):
         saddle = box(x-3., x+3., y, y+radius+9., z-radius-3., 355.)
         bore = cq.Solid.makeCylinder(radius, 6.2, cq.Vector(x-3.1, y, z), cq.Vector(1, 0, 0))
-        saddle = saddle.cut(bore, box(x-3.1, x+3.1, y+radius+3., y+radius+5.5, z-2., z+2.))
+        saddle = saddle.cut(bore, window('x', x-3.1, x+3.1, y+radius+3., y+radius+5.5, z))
         result[f'water-regulator-{index}'] = saddle.clean()
     # Sidewall roots hold the folded, vertical gas pair without loading their
     # interconnecting stem elbows. A closed tie window retains each body.
@@ -393,6 +429,18 @@ def stacked_well_towers(stock, inner):
     return result.clean()
 
 
+def rear_well_tower(stock, ceiling):
+    """Back-top's stacked rear-wall wells as one tower over the depth they all share, from the
+    lowest well's foot to the ceiling, so no well's top hangs a few millimetres under the next
+    well or under the ceiling of a piece that prints ceiling-down. The pockets are cut after."""
+    boxes = [solid.BoundingBox() for solid in stock.Solids()]
+    x0, x1 = max(b.xmin for b in boxes), min(b.xmax for b in boxes)
+    y0, y1 = max(b.ymin for b in boxes), min(b.ymax for b in boxes)
+    if x1 <= x0 or y1 <= y0:
+        return stock
+    return stock.fuse(box(x0, x1, y0, y1, min(b.zmin for b in boxes), ceiling+.01)).clean()
+
+
 def apply(piece, box_spec, y_side, z_side):
     if z_side != 'top':
         return piece
@@ -401,13 +449,16 @@ def apply(piece, box_spec, y_side, z_side):
     stock = wiring['add']
     if stock is not None and y_side == 'front':
         stock = stacked_well_towers(stock, box_spec.inner)
+    if stock is not None and y_side == 'back':
+        import enclosure
+        stock = rear_well_tower(stock, enclosure.back_top_ceiling_face())
     if stock is not None:
         piece = piece.fuse(stock)
     if wiring['cut'] is not None:
         piece = piece.cut(wiring['cut'])
     if y_side != 'back':
         return piece
-    piece = rear_geometry(piece)
+    piece = rear_geometry(piece, box_spec.pack.core_holds or (), wiring['cut'])
     piece = rear_identification().apply(piece)
     bosses, holes = wall_bosses()
     for feature in bosses:

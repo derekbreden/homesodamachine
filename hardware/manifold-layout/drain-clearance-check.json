@@ -582,7 +582,7 @@
         },
         {
           "name": "ground-stack",
-          "gap_mm": 36.5319089,
+          "gap_mm": 40.7209803,
           "overlap_mm3": 0
         },
         {
@@ -1185,7 +1185,7 @@
         },
         {
           "name": "ground-stack",
-          "gap_mm": 103.4421073,
+          "gap_mm": 104.9788824,
           "overlap_mm3": 0
         },
         {
@@ -1362,7 +1362,7 @@
   "source_sha256": {
     "hardware/scripts/check_asse_drain.py": "91f5b3bab308ee253339de62919f18cc32d70098476a52bfa61e89cb5d97c418",
     "hardware/manifold-layout/_drain.py": "d4f6db44b344125cf6f9b1bc6be341002dae887d78966ada3029e1e452b94c2a",
-    "hardware/manifold-layout/enclosure_assembly.py": "dcd43d578e27e334b92b6105eb23705724c9d9cd64bccea51bc1ed96f52fc5ce",
+    "hardware/manifold-layout/enclosure_assembly.py": "c2cd7b0760460afc8d2d2519cff21f343393010995b19193dd19e2f6dc4fcff2",
     "hardware/manifold-layout/_lines.py": "eb226d118dc2ff57192f556913bb3f733a49b6a8cb5bcc7e27a2abbaaa469d56",
     "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "a1e869c93ed2dba3873036fe10506b99ace883bc46a033833354be4e49bcc096",
     "hardware/reference/asse1022-assembly/asse1022_assembly.py": "4481085380d131f5d85696f5c366058382b07577c6881a274495e5d67ec2b3eb",

@@ -315,11 +315,6 @@ def shell_screw_cuts(inner, centre, seat, col, y_joint=200.0):
     return cq.Compound.makeCompound(cuts) if cuts else None
 
 
-def drain_support(inner, outer, y_joint, centre, seat, col):
-    """Compatibility shell hook: the drain cradle snaps into the removable frame."""
-    return None
-
-
 def shell_clearance(centre, seat, inner=DEFAULT_INNER, y_joint=200.0):
     """Seated body clearance, preserving the ledges' Z346 bearing plane."""
     import enclosure as enc
