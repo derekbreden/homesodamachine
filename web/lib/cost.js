@@ -508,7 +508,7 @@ function renderLaborSection(labor, harness) {
       </tr>`;
     const n = c.ops.length;
     if (c.n === 6) {
-      const bench = c.ops.filter(o => /^(?:J\d+|Pump cartridge) · /.test(o.name));
+      const bench = c.ops.filter(o => /^J\d+ · /.test(o.name));
       const install = c.ops.filter(o => !bench.includes(o));
       const guides = ["J2", "J13"].filter(id => harness?.[id] && bench.some(o => o.name.startsWith(`${id} · `)));
       const remaining = bench.filter(o => !guides.some(id => o.name.startsWith(`${id} · `)));

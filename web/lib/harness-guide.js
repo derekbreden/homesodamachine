@@ -48,7 +48,7 @@ export function renderHarnessGuide(data, rate) {
         <div class="harness-open-banner" hidden><span data-harness-open-title></span><button type="button" data-harness-close>Back to harness</button></div>
       </div>
       <div class="harness-scene-controls" hidden>
-        <label><input type="checkbox" data-harness-wires> See through sleeves</label>
+        ${data.dress.sleeve === 'None' ? '' : '<label><input type="checkbox" data-harness-wires> See through sleeves</label>'}
         <label><input type="checkbox" data-harness-xray> X-ray</label>
         <label title="Millimeter rulers on the native PCB; cable reach is compressed."><input type="checkbox" data-harness-rulers> PCB rulers</label>
         <label><input type="checkbox" data-harness-labels checked> Part labels</label>

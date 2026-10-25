@@ -162,13 +162,17 @@ export async function initHarness(root) {
     ['Tools', 'Stripper · SN-2549 JST crimper · ferrule and terminal crimpers · heat gun · flush cutters · multimeter'],
   ];
   definitionList($('[data-harness-materials]'), data.materials?.map(row => [row.label, row.detail]) || j2Parts);
+  const sleeved = data.dress.sleeve !== 'None';
+  const pumpPart = key => model.anchors.find(anchor => anchor.key === key && anchor.conductors);
 
   function partInfo(key) {
+    const pump = pumpPart(key);
+    if (pump) return [`${pump.name} · Faston receptacles`, data.overview, [...pump.conductors.map(row => [`${row.ribbon} · ${row.net}`, row.to]), ['Each end', pump.conductors[0].toPart]]];
     if (key === 'pcb') return [`Native PCB · ${data.id}`, 'The actual header mesh and original fabrication pixels, cropped from the machine’s PCB. Use PCB labels to read its printed silkscreen.', [['Header', `${data.id} · ${data.name}`], ['Mating direction', 'Vertical top entry · plug shown lifted above it']]];
     if (key === 'connector') return [`${data.housing} JST plug`, data.id === 'J2' ? 'Five contacts occupy cavities 1, 2, 4, 5 and 6. Cavity 3 / OUT4 stays empty. The plug’s circuit-1 mark aligns with COM on the PCB.' : 'Four contacts occupy cavities 1–4. The plug’s circuit-1 mark aligns with AM2 on the PCB.', [['Housing', data.housing], ['Contact', data.contact], ['Pitch', `${data.pitchMm} mm`]]];
     if (key === 'dress') return ['Slip-on pieces', data.dress.description, [['Sleeve', data.dress.sleeve], ...(data.dress.collars ? [['Collars & ties', `${data.dress.collars} heat-shrink collars · ${data.dress.ties} zip ties`]] : [])]];
     if (key === 'wago') return ['One +12 V feed · four branches', 'The COM conductor enters one ferruled Wago port. Four separate ferruled wires leave for V-I, V-J, the fan and V-K. Each switched return runs directly to its own PCB output.', [['Block', 'Wago 221-415'], ['Wire ends', '5 separate bootlace ferrules'], ['Positive stock', '4 × 450 mm blanks · trim at fitting']]];
-    if (key === 'pogo' || key === 'terminals') return data.id === 'J13' ? ['Fixed male pogo half', 'Four conductors terminate on four individual solder tails. Each joint receives its own heat-shrink sleeve. The marked end is the machine −X end.', [['Order from +X', 'AM2 · AM1 · BM2 · BM1'], ['Pitch', '2.54 mm'], ['Ends', '4 soldered joints · 4 separate sleeves']]] : ['Far-end terminations', 'The COM feed and four positives use individual ferrules at the Wago. The three valves each receive positive and switched-return disconnects; both fan ends remain provisional.', [['Ferrules', '5'], ['Valve disconnects', '6'], ['Fan ends', '2 · interface provisional']]];
+    if (key === 'terminals') return ['Far-end terminations', 'The COM feed and four positives use individual ferrules at the Wago. The three valves each receive positive and switched-return disconnects; both fan ends remain provisional.', [['Ferrules', '5'], ['Valve disconnects', '6'], ['Fan ends', '2 · interface provisional']]];
     return ['Ribbon stock', data.ribbons.map(row => row.description).join(' '), data.ribbons.map(row => [`Ribbon ${row.id}`, `${row.poles}P · ${row.cutMm} mm blank · stripe → ${row.stripeNet}`])];
   }
   function inspect() {
@@ -191,11 +195,11 @@ export async function initHarness(root) {
         ['Wire', `${record.ribbon ? `Ribbon ${record.ribbon}` : 'Bulk wire'} · ${record.stripe ? 'white-striped edge' : 'plain black'} · 22 AWG`],
         ['Bench cut', `${record.cutMm} mm${record.port ? ' blank · trim at fitting' : ''}`],
         ['From end', record.fromPart], ['To end', record.toPart],
-        ['Slip on before finishing', record.sharedDress ? 'Shared PET mesh · 2 heat-shrink collars · 2 zip ties around the four-wire trunk' : record.right === 'solder' ? 'One heat-shrink sleeve · covers this solder joint only' : 'No shared mesh on this branch'],
+        ['Slip on before finishing', record.sharedDress ? 'Shared PET mesh · 2 heat-shrink collars · 2 zip ties around the four-wire trunk' : sleeved ? 'No shared mesh on this branch' : data.dress.sleeve],
       ];
     } else {
       [title, detail, rows] = partInfo(key);
-      const related = key === 'wago' ? records.filter(row => row.net === 'COM') : ['connector', 'pcb'].includes(key) ? records.filter(row => row.pin) : key === 'dress' ? records.filter(row => row.sharedDress || row.right === 'solder') : records;
+      const related = pumpPart(key)?.conductors || (key === 'wago' ? records.filter(row => row.net === 'COM') : ['connector', 'pcb'].includes(key) ? records.filter(row => row.pin) : key === 'dress' ? records.filter(row => row.sharedDress) : records);
       related.forEach(row => {
         const button = document.createElement('button'); button.type = 'button';
         button.dataset.harnessRelated = row.id; button.textContent = row.title;
@@ -226,7 +230,7 @@ export async function initHarness(root) {
         if (!bounds.isEmpty()) point = bounds.getCenter(new THREE.Vector3());
       }
       const p = point.project(camera);
-      const hidden = hiddenParts.has(label.key) || !state.labels || !!state.opened || ['pcb', 'connector', 'end'].includes(state.view) || p.z > 1 || p.z < -1 || Math.abs(p.x) > 1.05 || Math.abs(p.y) > 1.05 || (state.step === 'cut' && !['ribbons', 'connector', 'pcb'].includes(label.key)) || (['jst', 'dress'].includes(state.step) && ['wago', 'FAN', 'OUT1', 'OUT2', 'OUT3', 'pogo'].includes(label.key));
+      const hidden = hiddenParts.has(label.key) || !state.labels || !!state.opened || ['pcb', 'connector', 'end'].includes(state.view) || p.z > 1 || p.z < -1 || Math.abs(p.x) > 1.05 || Math.abs(p.y) > 1.05 || (state.step === 'cut' && !['ribbons', 'connector', 'pcb'].includes(label.key)) || (['jst', 'dress'].includes(state.step) && (['wago', 'FAN', 'OUT1', 'OUT2', 'OUT3'].includes(label.key) || !!label.conductors));
       label.button.hidden = hidden; label.line.style.display = hidden ? 'none' : ''; label.dot.style.display = hidden ? 'none' : '';
       if (hidden) continue;
       const x = Math.max(label.button.offsetWidth / 2 + 6, Math.min(width - label.button.offsetWidth / 2 - 6, label.slot[0] * width));
@@ -381,7 +385,7 @@ export async function initHarness(root) {
   $('[data-harness-finished]').addEventListener('click', () => showStep(null));
   $('[data-harness-prev]').addEventListener('click', () => showStep(data.steps[data.steps.findIndex(step => step.id === state.step) - 1]?.id || null));
   $('[data-harness-next]').addEventListener('click', () => showStep(data.steps[data.steps.findIndex(step => step.id === state.step) + 1]?.id || null));
-  $('[data-harness-wires]').addEventListener('change', event => { state.reveal = event.target.checked; update(); });
+  $('[data-harness-wires]')?.addEventListener('change', event => { state.reveal = event.target.checked; update(); });
   $('[data-harness-xray]').addEventListener('change', event => { state.xray = event.target.checked; update(); });
   $('[data-harness-rulers]').addEventListener('change', event => {
     const enabled = event.target.checked;
