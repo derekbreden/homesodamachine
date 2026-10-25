@@ -1,4 +1,20 @@
 [ceiling] Functional flat shell-bearing flange: this print-down Z46.1 face is the underside of the drop-in roof surround. Its horizontal surface seats on the four shell-rooted ledges while the upward screws clamp the frame. The frame prints on its lower feet; this flange therefore uses accessible Tree(auto)/Default supports under the documented enclosure support-removal strategy. Current support placement, release effort and finished fit remain scoped to a fresh slice/print.
 alternatives: Sloping the seating face removes the shared horizontal shell bearing or changes its mating ledges. Filling down to the bed closes the required under-funnel connection space. Retain the named bearing plane and its supported manufacturing treatment.
 file: hardware/printed-parts/zone-c/funnel/funnel-frame.step
-click: x=95.000 y=0.000 z=46.100
+click: x=0.000 y=5.150 z=46.100
+
+[thin] Finite M3 head seats and their through-hole surrounds: the rear raised Ø5.5 mm head-bearing pads have a 1.1 mm radial annulus outside the Ø3.3 mm shank clearance. The four screw seats retain the complete annulus through the full 5.8 mm grip, as measured in drop-in-review/plain-stock-review.json. The front 1.6 mm and rear 1.9 mm picks are the local shank-to-edge sections of these same fastener seats at Z47.1–50.9, rather than a separate enclosure wall. This answer is limited to the four specified M3 seats; clamp force and printed durability remain unqualified.
+alternatives: Filling a shank bore prevents fitting the selected M3 screw. Removing its surrounding seat removes head bearing. Increasing the surround into the silicone pocket changes the selected brim clearance, while shifting screw axes changes the matching full-wall shell insert hosts. Keep the finite, fully measured head-seat annuli and their fixed screw axes.
+file: hardware/printed-parts/zone-c/funnel/funnel-frame.step
+click: x=-88.216 y=77.595 z=50.499
+click: x=-87.999 y=78.673 z=50.499
+click: x=88.216 y=77.595 z=50.501
+click: x=87.999 y=78.673 z=50.501
+click: x=-91.350 y=-54.190 z=50.933
+click: x=-89.750 y=-54.190 z=50.933
+click: x=91.350 y=-54.190 z=50.933
+click: x=89.750 y=-54.190 z=50.933
+click: x=89.350 y=80.301 z=47.067
+click: x=91.250 y=80.301 z=47.067
+click: x=-89.349 y=80.323 z=47.066
+click: x=-91.250 y=80.323 z=47.066

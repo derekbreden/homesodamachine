@@ -215,8 +215,12 @@ def _frame_screw_cuts(inner, y_joint, centre, seat):
         head_cut = cq.Solid.makeCylinder(enc.head_cbore_dia / 2,
             seat + funnel.brim_thickness + 1 - head, cq.Vector(x, y, head))
         # Open each counterbore to the side above its complete bearing floor.
-        inner = x - row['side'] * enc.head_cbore_dia / 2
-        xa, xb = sorted((inner, centre[0] + row['side'] * 150.0))
+        head_inner = abs(x-centre[0]) - enc.head_cbore_dia / 2
+        if row['col'] == 'front':
+            brim_edge = funnel.collar_w/2 + funnel.brim_overhang + enc.funnel_collar_air
+            head_inner = min(head_inner, brim_edge)
+        inner_edge = centre[0] + row['side'] * head_inner
+        xa, xb = sorted((inner_edge, centre[0] + row['side'] * 150.0))
         head_cut = head_cut.fuse(cq.Solid.makeBox(xb - xa, enc.head_cbore_dia,
             seat + funnel.brim_thickness + 1 - head,
             cq.Vector(xa, y - enc.head_cbore_dia / 2, head)))
