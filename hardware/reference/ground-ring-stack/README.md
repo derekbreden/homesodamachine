@@ -41,7 +41,7 @@ earth is a pass-through on such a device, so this bond path is unchanged by it.
 | Layout-model lug capacity | **5**, fanned 60° apart, rising one tongue thickness each; four earth connections are allocated above |
 | Ring-terminal tongue | ⌀**8.0** eye, ⌀**3.2** bore, **0.8** thick |
 | Crimp barrel | ⌀**4.2** × **6.0** stub (no wire past it) |
-| Tooth washer | ⌀**7.0** × **0.8** over the top lug |
+| Washer | ⌀**7.0** × **0.8** stand-in over the top lug; the build's washer is the ⌀9 × 0.8 flat washer [bom.md](/hardware/ledger/bom.md) §13 bills |
 | Screw | M3 SHCS, ⌀5.5 × 3.0 head; ~6 mm thread into the boss insert |
 
 Frame: Z up, screw axis on Z, origin at the **landing surface** (the boss top).
