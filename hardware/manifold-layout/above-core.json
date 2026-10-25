@@ -343,6 +343,56 @@
         306.3760478805363
       ],
       "reference": "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step"
+    },
+    "soda-bend-holder": {
+      "rotation": [
+        [
+          -0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          -0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "translation_mm": [
+        55.4,
+        356.41479999999996,
+        292.3760478805363
+      ],
+      "reference": "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step"
+    },
+    "soda-continuous-insulation": {
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "geometry": "soda_inlet.foam_occupied"
     }
   },
   "snapshots": {
@@ -2528,31 +2578,6 @@
         440.46479999999997,
         306.3760478805363
       ]
-    },
-    "soda-inlet-stem": {
-      "geometry": "gas-stem-elbow",
-      "rotation": [
-        [
-          -0.0,
-          -0.0,
-          1.0
-        ],
-        [
-          -1.0,
-          -0.0,
-          0.0
-        ],
-        [
-          -0.0,
-          -1.0,
-          0.0
-        ]
-      ],
-      "translation_mm": [
-        50.0,
-        354.36959999999993,
-        306.3760478805363
-      ]
     }
   },
   "electronics_access": {
@@ -4622,31 +4647,6 @@
         306.3760478805363
       ],
       "joints": {
-        "soda-inlet-stem": {
-          "geometry": "gas-stem-elbow",
-          "corner": [
-            50.0,
-            354.36959999999993,
-            306.3760478805363
-          ],
-          "rotation": [
-            [
-              -0.0,
-              -0.0,
-              1.0
-            ],
-            [
-              -1.0,
-              -0.0,
-              0.0
-            ],
-            [
-              -0.0,
-              -1.0,
-              0.0
-            ]
-          ]
-        },
         "soda-stem-elbow": {
           "geometry": "elbow-bulkhead",
           "corner": [
@@ -4702,18 +4702,178 @@
         "soda-core-rise": [
           [
             50.0,
-            354.36959999999993,
+            342.4148,
             253.4
           ],
           [
             50.0,
-            354.36959999999993,
-            287.3260478805363
+            342.41479999999996,
+            292.3760478805363
           ],
           [
             50.0,
-            354.36959999999993,
-            304.2170478805363
+            342.43166361312757,
+            293.0629953211202
+          ],
+          [
+            50.0,
+            342.4822138265892,
+            293.7482878451502
+          ],
+          [
+            50.0,
+            342.566328860493,
+            294.43027452291136
+          ],
+          [
+            50.0,
+            342.6838060743547,
+            295.1073123887621
+          ],
+          [
+            50.0,
+            342.83436245527633,
+            295.777770399182
+          ],
+          [
+            50.0,
+            343.01763529974903,
+            296.4400333620988
+          ],
+          [
+            50.0,
+            343.2331830874377,
+            297.0925058280274
+          ],
+          [
+            50.0,
+            343.48048654484194,
+            297.73361593364757
+          ],
+          [
+            50.0,
+            343.75894989627176,
+            298.3618191885603
+          ],
+          [
+            50.0,
+            344.067902299123,
+            298.9756021961003
+          ],
+          [
+            50.0,
+            344.40659945999613,
+            299.5734862992414
+          ],
+          [
+            50.0,
+            344.77422542776435,
+            300.1540311428107
+          ],
+          [
+            50.0,
+            345.1698945592709,
+            300.71583814343035
+          ],
+          [
+            50.0,
+            345.5926536529216,
+            301.25755385882735
+          ],
+          [
+            50.0,
+            346.0414842450305,
+            301.77787324839454
+          ],
+          [
+            50.0,
+            346.51530506338827,
+            302.275542817148
+          ],
+          [
+            50.0,
+            347.0129746321417,
+            302.74936363550574
+          ],
+          [
+            50.0,
+            347.5332940217089,
+            303.19819422761464
+          ],
+          [
+            50.0,
+            348.0750097371059,
+            303.62095332126535
+          ],
+          [
+            50.0,
+            348.63681673772555,
+            304.0166224527719
+          ],
+          [
+            50.0,
+            349.2173615812949,
+            304.38424842054013
+          ],
+          [
+            50.0,
+            349.815245684436,
+            304.7229455814133
+          ],
+          [
+            50.0,
+            350.429028691976,
+            305.0318979842645
+          ],
+          [
+            50.0,
+            351.0572319468887,
+            305.3103613356943
+          ],
+          [
+            50.0,
+            351.69834205250885,
+            305.5576647930986
+          ],
+          [
+            50.0,
+            352.35081451843746,
+            305.77321258078723
+          ],
+          [
+            50.0,
+            353.0130774813543,
+            305.9564854252599
+          ],
+          [
+            50.0,
+            353.68353549177414,
+            306.10704180618154
+          ],
+          [
+            50.0,
+            354.3605733576249,
+            306.22451902004326
+          ],
+          [
+            50.0,
+            355.0425600353861,
+            306.30863405394706
+          ],
+          [
+            50.0,
+            355.7278525594161,
+            306.3591842674087
+          ],
+          [
+            50.0,
+            356.41479999999996,
+            306.3760478805363
+          ],
+          [
+            50.0,
+            376.11479999999995,
+            306.3760478805363
           ]
         ],
         "soda-meter-bulkhead": [
@@ -4732,10 +4892,6 @@
       "mates": [
         [
           "soda-core-rise",
-          "soda-inlet-stem"
-        ],
-        [
-          "soda-inlet-stem",
           "digiten-flow"
         ],
         [
@@ -4762,27 +4918,26 @@
       "metrics": {
         "tube_od_mm": 6.35,
         "tube_id_mm": 4.24,
-        "tube_centerlines": "Straight vertical core inlet and concealed axial outlet join",
-        "exposed_core_rise_mm": 33.92604788053629,
+        "tube_centerlines": "Continuous R14 inlet tube and concealed axial outlet join",
+        "exposed_core_rise_mm": 64.96719645566485,
         "exposed_meter_bulkhead_mm": 0.0,
         "outlet_concealed_tube_length_mm": 32.590999999999994,
-        "total_exposed_tube_length_mm": 33.92604788053629,
+        "total_exposed_tube_length_mm": 64.96719645566485,
         "rear_stem_exposure_mm": 2.4048000000000016,
-        "elbows_total": 3,
-        "stem_elbows": 3,
+        "elbows_total": 2,
+        "stem_elbows": 2,
         "insertions_mm": {
           "meter_estimate": 15.7,
           "NeoFit": 16.891,
           "core_handoff_overlap": 0.0
         },
-        "inlet_stem_nominal_cut_length_mm": 15.7,
         "rear_stem_nominal_cut_length_mm": 19.2958
       },
-      "flow": "Cold-core soda guide \u2192 vertical tube \u2192 directly seated inlet stem \u2192 meter \u2192 concealed tube join \u2192 nested rear stems \u2192 soda bulkhead",
+      "flow": "Cold-core soda guide \u2192 continuous tube through accepted R14 holder \u2192 meter \u2192 concealed tube join \u2192 nested rear stems \u2192 soda bulkhead",
       "upstream_handoff": {
         "core_carb_water_out_mm": [
           50.0,
-          354.36959999999993,
+          342.4148,
           253.4
         ],
         "core_outward_axis": [
@@ -4793,7 +4948,7 @@
         "source": "cap_guides_world_mm.carb-water-out",
         "scope": "The plain guide is an ownership boundary in one continuous tube. It adds no cut, socket or insertion; the core internal span and external rise meet at this plane."
       },
-      "scope": "Native exterior meter on edge with square component axes and no exposed outlet tube. Inlet stem nominal cut is15.7 mm; rear return stem nominal cut is19.2958 mm. Socket engagements and cuts remain family-based layout estimates; physical seating, seals and retention are unqualified."
+      "scope": "Continuous supported insulated inlet with an estimated15.7mm meter insertion. The plain guide adds no joint or cut. The rear concealed join and19.2958mm return stem retain their selected datums. Physical receiving depth, sealing and retention are unqualified."
     },
     "pcb_native_rotation": [
       [
@@ -6678,7 +6833,7 @@
     ],
     "carb-water-out": [
       50.0,
-      354.36959999999993,
+      342.4148,
       253.4
     ]
   },
@@ -6852,9 +7007,7 @@
       "native_routes": [
         "soda-core-rise"
       ],
-      "fittings": [
-        "soda-inlet-stem"
-      ],
+      "fittings": [],
       "made": "drawn"
     },
     "carb-2": {
@@ -6942,5 +7095,33 @@
     "funnel_y_extent": "The funnel extends 35 mm aft with retained fore/X/Z boundaries. Its outlet is centered at Y179.19575. The drain cradle snaps into the removable frame\u2019s 3 mm web; the frame drops vertically into the roof and is secured by four screws.",
     "vb_return": "V-B stands at native [38,244.90434,280.41]. Its level direct-stem inlet has a 10.95 mm exposed tube. The 8-degree raised outlet crosses at Y280.69954 to the return union at X\u221250/Z294.3305696773. A 3 mm crowned return with R30.31345 minimum reaches the retained Y-B pose; J10 screwdriver access and bounded J11 housing service remain open.",
     "va_outlet": "The V-A lower outlet stem is clocked 5 degrees aft about its vertical seated axis. The under-head tube has an 86.18 mm minimum radius and 1.139 mm native clearance to the core B-fill union."
+  },
+  "soda_inlet": {
+    "selection": {
+      "status": "selected",
+      "date": "2026-10-24",
+      "derek": "I am good with this insulation, this is what I want."
+    },
+    "tube_od_mm": 6.35,
+    "tube_id_mm": 4.24,
+    "meter_insertion_estimate_mm": 15.7,
+    "holder_to_meter_mm": 1.0,
+    "holder": {
+      "wall_mm": 2.0,
+      "leg_mm": 3.0,
+      "legs": "both sides of the90-degree turn",
+      "channel_d_mm": 6.8,
+      "centreline_bend_r_mm": 14.0,
+      "turn_degrees": 90.0
+    },
+    "foam": {
+      "stock_id_mm": 6.35,
+      "stock_od_mm": 25.4,
+      "square_cut_mm": 63.0,
+      "start_above_guide_mm": 1.1,
+      "end_before_meter_mm": 1.0,
+      "occupied_model_scope": "One square-cut piece of owned foam compresses around the holder and locally against the four accepted neighboring bodies. Native display subtraction estimates occupied space; it is not a shaped cut pattern, measured strain, fit tolerance or thermal result."
+    },
+    "assembly": "Thread the continuous tube through the accepted holder. Slide one approximately63mm square-cut foam piece over the tube and holder before connecting the meter. The plain cap guide adds no joint, insertion or cut."
   }
 }
