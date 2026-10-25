@@ -120,7 +120,7 @@ geometry shift and should land with a measured rationale.
 | bbox X | [-11.550 to 11.550 mm](PRV_BBOX_X) |
 | bbox Z | [-0.000 to 46.000 mm](PRV_BBOX_Z) |
 | bbox Y | [-11.550 to 11.550 mm](PRV_BBOX_Y) |
-| volume | [6569.173 mm³](PRV_VOLUME) |
+| volume | [6594.415 mm³](PRV_VOLUME) |
 
 ## Sources
 [value](NAME) texts are updated by:

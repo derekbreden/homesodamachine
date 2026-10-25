@@ -117,7 +117,7 @@ pockets pass completely through the bridge.
 `reed-bridge-setting-gauge.step` — a [60°](GAUGE_ARC_DEG) band that hangs
 on the tube's bottom rim by an inward hook. Its top face is at
 [38.18 mm](BRIDGE_Z_BOTTOM), the bridge's bottom edge.
-[6.62 cm³](GAUGE_VOL) of PETG. Shop tooling, printed once and reused across
+[9.54 cm³](GAUGE_VOL) of PETG. Shop tooling, printed once and reused across
 carbonators like the coil mandrel.
 
 ## Bench procedure

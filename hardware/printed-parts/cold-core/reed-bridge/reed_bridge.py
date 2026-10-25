@@ -319,7 +319,8 @@ def build_reed_bridge():
 # ═══════════════════════════════════════════════════════
 
 gauge_arc_degrees = 60.0
-gauge_wall = 2.0
+# The nominal 3 mm printed section; the band stands outward from the bare tube at the bench.
+gauge_wall = 3.0
 gauge_hook_depth = 3.5
 gauge_hook_height = 4.0
 
