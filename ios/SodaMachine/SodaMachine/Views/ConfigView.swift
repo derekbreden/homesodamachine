@@ -634,8 +634,9 @@ private struct PrimeSheet: View {
 
     private func startTickTimer() {
         tickTimer?.invalidate()
+        // A timer scheduled here fires on the main run loop.
         tickTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
-            ble.sendPrimeTick()
+            MainActor.assumeIsolated { ble.sendPrimeTick() }
         }
     }
 

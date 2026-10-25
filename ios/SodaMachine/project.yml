@@ -20,7 +20,9 @@ targets:
         CODE_SIGN_STYLE: Automatic
         MARKETING_VERSION: "1.0.0"
         CURRENT_PROJECT_VERSION: 1
-        SWIFT_VERSION: "5.0"
+        SWIFT_VERSION: "6.0"
+        SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
+        SWIFT_APPROACHABLE_CONCURRENCY: YES
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
     # Written rather than generated from build settings: GENERATE_INFOPLIST_FILE
     # carries only the keys Xcode has an INFOPLIST_KEY_ for, and UIBackgroundModes

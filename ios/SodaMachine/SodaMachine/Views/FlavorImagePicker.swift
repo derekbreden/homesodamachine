@@ -127,7 +127,7 @@ struct FlavorImagePicker: View {
     /// itself lays out to its own aspect and the row stops being a row — which
     /// is why the cell is an empty box of the right shape and the picture is
     /// laid over it, never the other way round.
-    private func cell<Content: View>(@ViewBuilder _ content: () -> Content) -> some View {
+    nonisolated private func cell<Content: View>(@ViewBuilder _ content: () -> Content) -> some View {
         Color.clear
             .aspectRatio(tileAspect, contentMode: .fit)
             .overlay(content())
