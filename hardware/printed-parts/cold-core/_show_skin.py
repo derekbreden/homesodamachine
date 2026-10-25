@@ -83,7 +83,13 @@ def write_bed_file(solid, path):
     bytes rather than of memory: everything before the write is in double precision and what
     goes to the bed is not."""
     path = Path(path)
-    mesh = fluted(solid)
+    mesh = flute_skin.as_written(fluted(solid))
+    # A final engine facet can collapse to a line at the STL's stored
+    # precision. It covers no surface; retain all vertices at exactly their
+    # written positions and omit only faces with repeated vertex indices.
+    a, b, c = mesh.faces.T
+    mesh.update_faces((a != b) & (b != c) & (c != a))
+    mesh.remove_unreferenced_vertices()
     mesh.export(str(path))
     written = trimesh.load_mesh(str(path))
     loose = flute_skin.non_manifold_edges(written)
