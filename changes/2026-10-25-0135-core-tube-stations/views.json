@@ -1,0 +1,417 @@
+{
+  "views": [
+    {
+      "name": "fore-seat",
+      "caption": "A section at the fore station shows the paired bearing and tie web beneath both tube paths.",
+      "before": "fore-seat-before.webp",
+      "after": "fore-seat-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 600,
+          "y": 464,
+          "r": 93.7,
+          "label": "Paired tube seat",
+          "at": [
+            54.25,
+            205,
+            253.175
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          265.2694679522129,
+          -322.5486698805322,
+          517.774334940266
+        ],
+        "target": [
+          54.25,
+          205,
+          254
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 24,
+        "near": 436.4084472732349,
+        "far": 1115.0402294265898,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            54.25,
+            205,
+            254
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "cold-core/foam-cap-lid-top"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-cap-lid-top",
+        "tube-fluid-14",
+        "tube-fluid-16"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "9e3c2742847eae24c68bedda480a98bd2480f9df5fd3e6b8756ec318246a1c14",
+          "commit": "a247b2ccc3f5f272795c741959cc662374d2d5e6",
+          "taken": "2026-10-25T04:36:11.970Z",
+          "published": false
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "c7d7515fc2fc5d64ff6b9b324d56bfa6bd8dfb0e8a6e421c6f98171d87036f23",
+          "commit": "7f0727cfd61096d4ae35ad6a2ddc4cf2b31cd78e",
+          "published": true
+        }
+      },
+      "changed": [
+        "pump-contact-male",
+        "terminal-pogo-male-2",
+        "pump-contact-female",
+        "terminal-pogo-male-3",
+        "wire-cartridge-BM2",
+        "wire-cartridge-AM1",
+        "wire-cartridge-AM2",
+        "wire-cartridge-BM1",
+        "terminal-pogo-female-1",
+        "terminal-pogo-female-2",
+        "terminal-pogo-female-3",
+        "terminal-pogo-female-4",
+        "terminal-pogo-male-1",
+        "terminal-pogo-male-4",
+        "pump-dock-SB443-fixed-1-1",
+        "pump-dock-SB443-fixed-1-2",
+        "pump-dock-SB443-fixed-2-1",
+        "pump-dock-SB443-fixed-2-2",
+        "pump-dock-SB443-moving-1-1",
+        "pump-dock-SB443-moving-1-2",
+        "pump-dock-SB443-moving-2-1",
+        "pump-dock-SB443-moving-2-2",
+        "tube-fluid-16",
+        "tube-fluid-14",
+        "wire-J13-AM2",
+        "wire-J13-BM1",
+        "wire-J13-AM1",
+        "wire-J13-BM2",
+        "wire-PE-bus",
+        "wire-J2-OUT3",
+        "enclosure-back-top",
+        "cold-core/reservoir-b-fill-upper",
+        "tube-fluid-24",
+        "wire-J2-FAN",
+        "wire-J2-COM",
+        "cold-core/foam-cap-top",
+        "wire-PE-carbonator",
+        "cold-core/line-reservoir-b-fill",
+        "cold-core/ground-stack",
+        "wire-AC6-PE",
+        "cold-core/foam-cap-lid-top",
+        "enclosure-pump-cap",
+        "wire-DC3-negative",
+        "cold-core/reservoir-b-fill-lower",
+        "wire-J2-positive-K",
+        "wire-DC1-GND",
+        "enclosure-front-top"
+      ],
+      "withinMeshing": [
+        "tube-above-core-va-under-head",
+        "tube-above-core-va-fore-feed",
+        "cold-core/evap-coil",
+        "tube-above-core-water-in",
+        "tube-above-core-vb-yb-link",
+        "funnel"
+      ]
+    },
+    {
+      "name": "aft-seat",
+      "caption": "A section at the aft station shows the paired bearing and tie web beside the shell.",
+      "before": "aft-seat-before.webp",
+      "after": "aft-seat-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 600,
+          "y": 464.4,
+          "r": 93.7,
+          "label": "Full tie web",
+          "at": [
+            90.25,
+            304,
+            253.175
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -98.56419920151166,
+          -325.38066400503897,
+          505.75226560201554
+        ],
+        "target": [
+          90.25,
+          304,
+          254
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 24,
+        "near": 376.85700641941156,
+        "far": 1139.1650618239903,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            90.25,
+            304,
+            254
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "cold-core/foam-cap-lid-top"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-cap-lid-top",
+        "tube-fluid-14",
+        "tube-fluid-16",
+        "wire-J2-positive-K",
+        "enclosure-back-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "9e3c2742847eae24c68bedda480a98bd2480f9df5fd3e6b8756ec318246a1c14",
+          "commit": "a247b2ccc3f5f272795c741959cc662374d2d5e6",
+          "taken": "2026-10-25T04:36:11.970Z",
+          "published": false
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "c7d7515fc2fc5d64ff6b9b324d56bfa6bd8dfb0e8a6e421c6f98171d87036f23",
+          "commit": "7f0727cfd61096d4ae35ad6a2ddc4cf2b31cd78e",
+          "published": true
+        }
+      },
+      "changed": [
+        "pump-contact-male",
+        "terminal-pogo-male-2",
+        "pump-contact-female",
+        "terminal-pogo-male-3",
+        "wire-cartridge-BM2",
+        "wire-cartridge-AM1",
+        "wire-cartridge-AM2",
+        "wire-cartridge-BM1",
+        "terminal-pogo-female-1",
+        "terminal-pogo-female-2",
+        "terminal-pogo-female-3",
+        "terminal-pogo-female-4",
+        "terminal-pogo-male-1",
+        "terminal-pogo-male-4",
+        "pump-dock-SB443-fixed-1-1",
+        "pump-dock-SB443-fixed-1-2",
+        "pump-dock-SB443-fixed-2-1",
+        "pump-dock-SB443-fixed-2-2",
+        "pump-dock-SB443-moving-1-1",
+        "pump-dock-SB443-moving-1-2",
+        "pump-dock-SB443-moving-2-1",
+        "pump-dock-SB443-moving-2-2",
+        "tube-fluid-16",
+        "tube-fluid-14",
+        "wire-J13-AM2",
+        "wire-J13-BM1",
+        "wire-J13-AM1",
+        "wire-J13-BM2",
+        "wire-PE-bus",
+        "wire-J2-OUT3",
+        "enclosure-back-top",
+        "cold-core/reservoir-b-fill-upper",
+        "tube-fluid-24",
+        "wire-J2-FAN",
+        "wire-J2-COM",
+        "cold-core/foam-cap-top",
+        "wire-PE-carbonator",
+        "cold-core/line-reservoir-b-fill",
+        "cold-core/ground-stack",
+        "wire-AC6-PE",
+        "cold-core/foam-cap-lid-top",
+        "enclosure-pump-cap",
+        "wire-DC3-negative",
+        "cold-core/reservoir-b-fill-lower",
+        "wire-J2-positive-K",
+        "wire-DC1-GND",
+        "enclosure-front-top"
+      ],
+      "withinMeshing": [
+        "tube-above-core-va-under-head",
+        "tube-above-core-va-fore-feed",
+        "cold-core/evap-coil",
+        "tube-above-core-water-in",
+        "tube-above-core-vb-yb-link",
+        "funnel"
+      ]
+    },
+    {
+      "name": "ground",
+      "caption": "The ground stack and dressed supply lead sit beside the fore tube station.",
+      "before": "ground-before.webp",
+      "after": "ground-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 469.8,
+          "y": 354.4,
+          "r": 81.8,
+          "label": "Ground landing",
+          "at": [
+            37,
+            195,
+            259.4
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          329.7883167328353,
+          -88.78831673283531,
+          627.824811752686
+        ],
+        "target": [
+          43,
+          198,
+          255
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 22,
+        "near": 394.20361677834313,
+        "far": 991.0145138908338,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "cold-core/foam-cap-lid-top"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-cap-lid-top",
+        "cold-core/ground-stack",
+        "wire-PE-bus",
+        "wire-J2-COM"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "9e3c2742847eae24c68bedda480a98bd2480f9df5fd3e6b8756ec318246a1c14",
+          "commit": "a247b2ccc3f5f272795c741959cc662374d2d5e6",
+          "taken": "2026-10-25T04:36:11.970Z",
+          "published": false
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "c7d7515fc2fc5d64ff6b9b324d56bfa6bd8dfb0e8a6e421c6f98171d87036f23",
+          "commit": "ca6032e6288a9b0e12245848b881b46d9b3765c5",
+          "published": true
+        }
+      },
+      "changed": [
+        "pump-contact-male",
+        "terminal-pogo-male-2",
+        "pump-contact-female",
+        "terminal-pogo-male-3",
+        "wire-cartridge-BM2",
+        "wire-cartridge-AM1",
+        "wire-cartridge-AM2",
+        "wire-cartridge-BM1",
+        "terminal-pogo-female-1",
+        "terminal-pogo-female-2",
+        "terminal-pogo-female-3",
+        "terminal-pogo-female-4",
+        "terminal-pogo-male-1",
+        "terminal-pogo-male-4",
+        "pump-dock-SB443-fixed-1-1",
+        "pump-dock-SB443-fixed-1-2",
+        "pump-dock-SB443-fixed-2-1",
+        "pump-dock-SB443-fixed-2-2",
+        "pump-dock-SB443-moving-1-1",
+        "pump-dock-SB443-moving-1-2",
+        "pump-dock-SB443-moving-2-1",
+        "pump-dock-SB443-moving-2-2",
+        "tube-fluid-16",
+        "tube-fluid-14",
+        "wire-J13-AM2",
+        "wire-J13-BM1",
+        "wire-J13-AM1",
+        "wire-J13-BM2",
+        "wire-PE-bus",
+        "wire-J2-OUT3",
+        "enclosure-back-top",
+        "cold-core/reservoir-b-fill-upper",
+        "tube-fluid-24",
+        "wire-J2-FAN",
+        "wire-J2-COM",
+        "cold-core/foam-cap-top",
+        "wire-PE-carbonator",
+        "cold-core/line-reservoir-b-fill",
+        "cold-core/ground-stack",
+        "wire-AC6-PE",
+        "cold-core/foam-cap-lid-top",
+        "enclosure-pump-cap",
+        "wire-DC3-negative",
+        "cold-core/reservoir-b-fill-lower",
+        "wire-J2-positive-K",
+        "wire-DC1-GND",
+        "enclosure-front-top"
+      ],
+      "withinMeshing": [
+        "tube-above-core-va-under-head",
+        "tube-above-core-va-fore-feed",
+        "cold-core/evap-coil",
+        "tube-above-core-water-in",
+        "tube-above-core-vb-yb-link",
+        "funnel"
+      ]
+    }
+  ]
+}
