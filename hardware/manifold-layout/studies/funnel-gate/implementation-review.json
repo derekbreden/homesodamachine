@@ -1,0 +1,4304 @@
+{
+  "scope": "Manual comparison of the selected issued scene with the named exported production artifact. This record is not an automatic build or commit check. Reference-shape updates and new retaining details are assessed separately from component moves and attachment changes.",
+  "approved_arrangement": "approved-arrangement.json",
+  "source_revision": "614850e0ef5733ecfe2473a6fa2ba1715882797f",
+  "source_production_mesh_sha256": "8e18e7b1f4a6eeba0ade9b96227deef03588dd7d794274f514afe4168b75c2bd",
+  "source_approved_scene_sha256": "f1730e82070e9d4f1e2f193ddacbdf9d149597cb5ebf27aa86428b24e5c92094",
+  "status": "corrections_in_progress",
+  "findings": [
+    {
+      "id": "valve-carrying-piece",
+      "status": "restoration_in_progress",
+      "components": [
+        "va",
+        "vk",
+        "reg-va-elbow",
+        "va-outlet-elbow",
+        "tee-fold",
+        "lower-valve-elbow",
+        "lower-pump-elbow"
+      ],
+      "selected": "Back-top, with its integral valve mounts.",
+      "implementation": "Cold-core lid, carried by back-bottom.",
+      "required_action": "Restore the selected carrying piece and remove the unwanted core-rooted walls. Preserve the valve port/post stations and correct flow direction."
+    },
+    {
+      "id": "va-low-feed-carrying-piece",
+      "status": "restoration_in_progress",
+      "components": [
+        "va-east-turn",
+        "va-flavor",
+        "va-ya-straight"
+      ],
+      "selected": "Low V-A turn/feed carried with back-top; final connection at front-top Y-A.",
+      "implementation": "The V-A turn and under-head tube are core children; its bearing grows from the core lid.",
+      "required_action": "Restore back-top attachment and the selected connection boundary."
+    },
+    {
+      "id": "c14-position",
+      "status": "restoration_requested",
+      "components": [
+        "c14-inlet"
+      ],
+      "selected_native_flange_center_mm": [
+        -68.5,
+        471.3,
+        330.0
+      ],
+      "implementation_native_flange_center_mm": [
+        -61.75,
+        471.3,
+        323.0
+      ],
+      "implementation_translation_from_selected_mm": [
+        6.75,
+        0.0,
+        -7.0
+      ],
+      "required_action": "Restore the selected position and orientation. If an actual interference prevents it, present that conflict for discussion rather than moving the inlet."
+    },
+    {
+      "id": "va-outlet-clock",
+      "status": "restoration_requested",
+      "components": [
+        "va-outlet-elbow"
+      ],
+      "selected_rotation": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          -1
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "implementation_clock_from_selected_degrees": 5.0,
+      "required_action": "Restore the selected square outlet direction. Any necessary different routing angle requires discussion."
+    },
+    {
+      "id": "water-in-route",
+      "status": "restoration_requested",
+      "components": [
+        "water-in"
+      ],
+      "selected": "Constant-X smooth rise from ASSE inlet to water bulkhead, as fold-water-link in co2-fold/study.py.",
+      "implementation": "Intermediate point is 5 mm east of the inlet and at Z332.5.",
+      "required_action": "Restore the selected path. Supporting stock must accommodate the selected tube where practical."
+    },
+    {
+      "id": "vb-return-route",
+      "status": "unapproved_variant_requires_resolution",
+      "components": [
+        "vb-outlet-return",
+        "vb-yb-cross",
+        "vb-yb-link"
+      ],
+      "selected_turn_mm": [
+        -24.836523961791983,
+        280.69954,
+        290.7940737508485
+      ],
+      "implementation_turn_mm": [
+        -50.0,
+        280.69954,
+        294.3305696772719
+      ],
+      "selected_cross_exposed_mm": 35.000259134175096,
+      "selected_return_crown_mm": 2.0,
+      "implementation_cross_exposed_mm": 60.41103124389922,
+      "implementation_return_crown_mm": 3.0,
+      "recorded_reason": "The implementation variant leaves PCB power-terminal screwdriver paths clear; connector service was assessed against that variant.",
+      "required_action": "Resolve access within the selected route if simple. If a route compromise is needed, present the exact interference and a 3D comparison before adoption."
+    },
+    {
+      "id": "concealed-soda-tube-carrying-piece",
+      "status": "restoring_selected_staging",
+      "components": [
+        "soda-meter-bulkhead"
+      ],
+      "selected": "Concealed tube travels with the back-bottom meter; the rear return stem belongs to back-top.",
+      "implementation": "A proposed back-top rear preassembly carried the tube with the rear elbows to make the demonstrated capture motion.",
+      "required_action": "Retain the selected carrying piece and verify closing with that staging. A passing motion with a different parent does not approve reparenting."
+    }
+  ],
+  "reference_geometry_notes": [
+    {
+      "components": [
+        "pump"
+      ],
+      "classification": "Reference geometry update; no selected pump-frame translation or rotation change.",
+      "basis": "The common purchased rubber foot record preserves all rigid pump components and port records; four feet use the measured common shape.",
+      "reference": "../../../reference/g-ganen-pump/common-foot/README.md"
+    },
+    {
+      "components": [
+        "va",
+        "vk"
+      ],
+      "classification": "Functional valve clock correction with unchanged port/post station sets; distinct from the unapproved attachment change."
+    },
+    {
+      "components": [
+        "check",
+        "gas-check"
+      ],
+      "classification": "Purchased ACHV44-E shared native reference and frozen selected interfaces; legacy snapshot keys do not define these bodies.",
+      "reference": "purchased-checks-native.json"
+    }
+  ],
+  "matched_component_display_bounds": [
+    {
+      "study": "asse",
+      "production": "asse1022-assembly",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "asse1022-assembly"
+      ],
+      "expected_bounds_mm": [
+        [
+          10.246256266226872,
+          322.3949605281867,
+          317.8736578805363
+        ],
+        [
+          51.54625626622687,
+          387.3949605281867,
+          350.8736578805363
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          10.25,
+          322.38494873046875,
+          317.87603759765625
+        ],
+        [
+          51.5394172668457,
+          387.38494873046875,
+          350.87603759765625
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.0037437337731276443,
+          -0.010011797717936588,
+          0.002379717119936231
+        ],
+        [
+          -0.0068389993811663885,
+          -0.010011797717936588,
+          0.002379717119936231
+        ]
+      ],
+      "max_bound_difference_mm": 0.010011797717936588
+    },
+    {
+      "study": "asse-inlet-tpu",
+      "production": "asse-inlet-tpu",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "asse-inlet-tpu"
+      ],
+      "expected_bounds_mm": [
+        [
+          25.86625626622687,
+          374.3949605281867,
+          322.9936578805363
+        ],
+        [
+          48.626256266226875,
+          407.3949605281867,
+          345.7536578805363
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          25.875,
+          374.38494873046875,
+          323.083984375
+        ],
+        [
+          48.625,
+          407.38494873046875,
+          345.6681213378906
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.008743733773130202,
+          -0.010011797717936588,
+          0.09032649446368168
+        ],
+        [
+          -0.0012562662268749136,
+          -0.010011797717936588,
+          -0.08553654264568422
+        ]
+      ],
+      "max_bound_difference_mm": 0.09032649446368168
+    },
+    {
+      "study": "asse-outlet-tpu",
+      "production": "asse-outlet-tpu",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "asse-outlet-tpu"
+      ],
+      "expected_bounds_mm": [
+        [
+          26.50625626622687,
+          302.37496052818665,
+          323.6336578805363
+        ],
+        [
+          47.986256266226874,
+          336.37496052818665,
+          345.1136578805363
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          26.510000228881836,
+          302.38494873046875,
+          323.71435546875
+        ],
+        [
+          47.9900016784668,
+          336.38494873046875,
+          345.0377502441406
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.0037439626549655713,
+          0.009988202282102066,
+          0.08069758821369533
+        ],
+        [
+          0.00374541223992253,
+          0.009988202282102066,
+          -0.07590763639569786
+        ]
+      ],
+      "max_bound_difference_mm": 0.08069758821369533
+    },
+    {
+      "study": "tee",
+      "production": "water-split",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "water-split"
+      ],
+      "expected_bounds_mm": [
+        [
+          17.149998871231595,
+          288.61976052818665,
+          326.5560478805363
+        ],
+        [
+          57.3499988712316,
+          317.3797605281867,
+          342.1960478805363
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          17.145898818969727,
+          288.64923095703125,
+          326.6290588378906
+        ],
+        [
+          57.35409927368164,
+          317.38494873046875,
+          342.123046875
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -0.004100052261868825,
+          0.029470428844604157,
+          0.07301095735431318
+        ],
+        [
+          0.004100402450042395,
+          0.005188202282056409,
+          -0.07300100553629818
+        ]
+      ],
+      "max_bound_difference_mm": 0.07301095735431318
+    },
+    {
+      "study": "vk",
+      "production": "vk-solenoid",
+      "expected_owner": "back-top",
+      "core_assembly_member": true,
+      "production_mesh_names": [
+        "cold-core/vk-solenoid/1",
+        "cold-core/vk-solenoid/2",
+        "cold-core/vk-solenoid/3",
+        "cold-core/vk-solenoid/4",
+        "cold-core/vk-solenoid/5",
+        "cold-core/vk-solenoid/6",
+        "cold-core/vk-solenoid/7",
+        "cold-core/vk-solenoid/8",
+        "cold-core/vk-solenoid/9",
+        "cold-core/vk-solenoid/10",
+        "cold-core/vk-solenoid/11"
+      ],
+      "expected_bounds_mm": [
+        [
+          59.64796626622686,
+          285.27976052818667,
+          268.8308478805363
+        ],
+        [
+          93.14796626622686,
+          342.59976052818666,
+          328.3308478805363
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          59.65409851074219,
+          285.2897644042969,
+          268.8308410644531
+        ],
+        [
+          93.15409851074219,
+          342.5897521972656,
+          328.3308410644531
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.006132244515328011,
+          0.010003876110204146,
+          -6.8160831574459735e-06
+        ],
+        [
+          0.006132244515328011,
+          -0.010008330921039033,
+          -6.8160831574459735e-06
+        ]
+      ],
+      "max_bound_difference_mm": 0.010008330921039033
+    },
+    {
+      "study": "reg",
+      "production": "flow-regulator",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "flow-regulator"
+      ],
+      "expected_bounds_mm": [
+        [
+          -57.35410112876839,
+          282.8397605281867,
+          320.8560478805363
+        ],
+        [
+          9.645898871231608,
+          309.8397605281867,
+          347.8760478805363
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -57.35409927368164,
+          282.9382019042969,
+          320.87603759765625
+        ],
+        [
+          9.645898818969727,
+          309.7413330078125,
+          347.87603759765625
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          1.855086750879309e-06,
+          0.09844137611020187,
+          0.01998971711992681
+        ],
+        [
+          -5.2261881933191034e-08,
+          -0.09842752037417313,
+          -1.0282880055001442e-05
+        ]
+      ],
+      "max_bound_difference_mm": 0.09844137611020187
+    },
+    {
+      "study": "va",
+      "production": "valve-v-a",
+      "expected_owner": "back-top",
+      "core_assembly_member": true,
+      "production_mesh_names": [
+        "cold-core/valve-v-a/1",
+        "cold-core/valve-v-a/2",
+        "cold-core/valve-v-a/3",
+        "cold-core/valve-v-a/4",
+        "cold-core/valve-v-a/5",
+        "cold-core/valve-v-a/6",
+        "cold-core/valve-v-a/7",
+        "cold-core/valve-v-a/8",
+        "cold-core/valve-v-a/9",
+        "cold-core/valve-v-a/10",
+        "cold-core/valve-v-a/11"
+      ],
+      "expected_bounds_mm": [
+        [
+          -93.16023373377311,
+          285.27976052818667,
+          268.8308478805363
+        ],
+        [
+          -59.66023373377311,
+          342.59976052818666,
+          328.3308478805363
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -93.15409851074219,
+          285.2897644042969,
+          268.8308410644531
+        ],
+        [
+          -59.65410232543945,
+          342.5897521972656,
+          328.3308410644531
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.006135223030923953,
+          0.010003876110204146,
+          -6.8160831574459735e-06
+        ],
+        [
+          0.006131408333658328,
+          -0.010008330921039033,
+          -6.8160831574459735e-06
+        ]
+      ],
+      "max_bound_difference_mm": 0.010008330921039033
+    },
+    {
+      "study": "pump",
+      "production": "g-ganen-pump",
+      "expected_owner": "back-bottom",
+      "core_assembly_member": true,
+      "production_mesh_names": [
+        "cold-core/g-ganen-pump/1",
+        "cold-core/g-ganen-pump/2",
+        "cold-core/g-ganen-pump/3",
+        "cold-core/g-ganen-pump/4",
+        "cold-core/g-ganen-pump/5",
+        "cold-core/g-ganen-pump/6",
+        "cold-core/g-ganen-pump/7",
+        "cold-core/g-ganen-pump/8",
+        "cold-core/g-ganen-pump/9",
+        "cold-core/g-ganen-pump/10",
+        "cold-core/g-ganen-pump/11",
+        "cold-core/g-ganen-pump/12",
+        "cold-core/g-ganen-pump/13",
+        "cold-core/g-ganen-pump/14",
+        "cold-core/g-ganen-pump/15",
+        "cold-core/g-ganen-pump/16",
+        "cold-core/g-ganen-pump/17",
+        "cold-core/g-ganen-pump/18",
+        "cold-core/g-ganen-pump/19",
+        "cold-core/g-ganen-pump/20",
+        "cold-core/g-ganen-pump/21",
+        "cold-core/g-ganen-pump/22",
+        "cold-core/g-ganen-pump/23",
+        "cold-core/g-ganen-pump/24",
+        "cold-core/g-ganen-pump/25",
+        "cold-core/g-ganen-pump/26"
+      ],
+      "expected_bounds_mm": [
+        [
+          -24.808269476362284,
+          285.0354521726065,
+          255.36000610351562
+        ],
+        [
+          46.39173052363771,
+          445.2954521726065,
+          313.9400061035156
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -38.302650451660156,
+          285.0354919433594,
+          253.40000915527344
+        ],
+        [
+          56.56610870361328,
+          445.29998779296875,
+          313.9339294433594
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -13.494380975297872,
+          3.97707528918545e-05,
+          -1.9599969482421784
+        ],
+        [
+          10.17437817997557,
+          0.0045356203622759494,
+          -0.006076660156224989
+        ]
+      ],
+      "max_bound_difference_mm": 13.494380975297872
+    },
+    {
+      "study": "vent-sleeve",
+      "production": "asse-drain-adapter",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "asse-drain-adapter"
+      ],
+      "expected_bounds_mm": [
+        [
+          -6.333743733773133,
+          347.97496052818667,
+          326.91365788053633
+        ],
+        [
+          22.46625626622687,
+          362.79496052818666,
+          341.8336578805363
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -6.331277370452881,
+          347.921875,
+          326.9673767089844
+        ],
+        [
+          22.460580825805664,
+          362.8480224609375,
+          341.7846984863281
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.002466363320252185,
+          -0.05308552818667067,
+          0.05371882844804077
+        ],
+        [
+          -0.005675440421207156,
+          0.05306193275083615,
+          -0.048959394208168305
+        ]
+      ],
+      "max_bound_difference_mm": 0.05371882844804077
+    },
+    {
+      "study": "water-in",
+      "production": "tube-above-core-water-in",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "tube-above-core-water-in"
+      ],
+      "expected_bounds_mm": [
+        [
+          34.08,
+          392.38,
+          331.2
+        ],
+        [
+          40.42,
+          459.2,
+          341.56
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          34.07904815673828,
+          392.38494873046875,
+          329.3251953125
+        ],
+        [
+          45.416481018066406,
+          459.2099914550781,
+          341.5510559082031
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -0.0009518432617170447,
+          0.0049487304687545475,
+          -1.8748046874999886
+        ],
+        [
+          4.9964810180664045,
+          0.009991455078136369,
+          -0.008944091796877274
+        ]
+      ],
+      "max_bound_difference_mm": 4.9964810180664045
+    },
+    {
+      "study": "pump-inlet-tpu",
+      "production": "pump-inlet-tpu",
+      "expected_owner": "back-bottom",
+      "core_assembly_member": true,
+      "production_mesh_names": [
+        "cold-core/pump-inlet-tpu"
+      ],
+      "expected_bounds_mm": [
+        [
+          35.392766266226865,
+          310.50376510988036,
+          266.3308548302486
+        ],
+        [
+          58.992766266226866,
+          337.3480317759541,
+          287.83601719743336
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          35.392765045166016,
+          310.50555419921875,
+          266.33428955078125
+        ],
+        [
+          59.00325012207031,
+          337.3304443359375,
+          287.82763671875
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -1.2210608488771868e-06,
+          0.0017890893383878392,
+          0.003434720532652591
+        ],
+        [
+          0.010483855843446577,
+          -0.017587440016598066,
+          -0.00838047868336389
+        ]
+      ],
+      "max_bound_difference_mm": 0.017587440016598066
+    },
+    {
+      "study": "pump-inlet-barb-band",
+      "production": "pump-inlet-barb-band",
+      "expected_owner": "back-bottom",
+      "core_assembly_member": true,
+      "production_mesh_names": [
+        "cold-core/pump-inlet-barb-band"
+      ],
+      "expected_bounds_mm": [
+        [
+          35.392766266226865,
+          321.3447731791488,
+          271.8198749890342
+        ],
+        [
+          44.392766266226865,
+          337.953639816104,
+          288.42436325879436
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          35.392765045166016,
+          321.40087890625,
+          271.82098388671875
+        ],
+        [
+          44.392765045166016,
+          337.8931579589844,
+          288.4276428222656
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -1.2210608488771868e-06,
+          0.056105727101225966,
+          0.0011088976845599063
+        ],
+        [
+          -1.2210608488771868e-06,
+          -0.06048185711961196,
+          0.0032795634712670108
+        ]
+      ],
+      "max_bound_difference_mm": 0.06048185711961196
+    },
+    {
+      "study": "pump-inlet-tube-band",
+      "production": "pump-inlet-tube-band",
+      "expected_owner": "back-bottom",
+      "core_assembly_member": true,
+      "production_mesh_names": [
+        "cold-core/pump-inlet-tube-band"
+      ],
+      "expected_bounds_mm": [
+        [
+          44.79276626622686,
+          310.22671594193935,
+          265.7986483303417
+        ],
+        [
+          57.812766266226866,
+          324.2310153571282,
+          281.521007114101
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          44.840274810791016,
+          310.228515625,
+          265.8020935058594
+        ],
+        [
+          57.777523040771484,
+          324.2292175292969,
+          281.517578125
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.047508544564152544,
+          0.0017996830606534786,
+          0.0034451755176974075
+        ],
+        [
+          -0.03524322545538183,
+          -0.0017978278312966722,
+          -0.003428989100996205
+        ]
+      ],
+      "max_bound_difference_mm": 0.047508544564152544
+    },
+    {
+      "study": "pump-outlet-tpu",
+      "production": "pump-outlet-tpu",
+      "expected_owner": "back-bottom",
+      "core_assembly_member": true,
+      "production_mesh_names": [
+        "cold-core/pump-outlet-tpu"
+      ],
+      "expected_bounds_mm": [
+        [
+          -40.48723373377313,
+          321.96701731402885,
+          272.46430830751177
+        ],
+        [
+          -16.887233733773137,
+          348.16701731402884,
+          287.8643083075118
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -40.496150970458984,
+          321.983154296875,
+          272.4654541015625
+        ],
+        [
+          -16.88566780090332,
+          348.1764831542969,
+          287.8721923828125
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -0.008917236685853425,
+          0.01613698284614884,
+          0.0011457940507284547
+        ],
+        [
+          0.0015659328698163222,
+          0.009465840268035208,
+          0.007884075300694349
+        ]
+      ],
+      "max_bound_difference_mm": 0.01613698284614884
+    },
+    {
+      "study": "pump-outlet-barb-band",
+      "production": "pump-outlet-barb-band",
+      "expected_owner": "back-bottom",
+      "core_assembly_member": true,
+      "production_mesh_names": [
+        "cold-core/pump-outlet-barb-band"
+      ],
+      "expected_bounds_mm": [
+        [
+          -25.887233733773137,
+          321.3670173140289,
+          271.8643083075118
+        ],
+        [
+          -16.887233733773137,
+          337.98701731402883,
+          288.46430830751177
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -25.88566780090332,
+          321.43365478515625,
+          271.8654479980469
+        ],
+        [
+          -16.88566780090332,
+          337.9193115234375,
+          288.4721984863281
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.0015659328698163222,
+          0.06663747112736473,
+          0.0011396905350693487
+        ],
+        [
+          0.0015659328698163222,
+          -0.06770579059133297,
+          0.007890178816353455
+        ]
+      ],
+      "max_bound_difference_mm": 0.06770579059133297
+    },
+    {
+      "study": "pump-outlet-tube-band",
+      "production": "pump-outlet-tube-band",
+      "expected_owner": "back-bottom",
+      "core_assembly_member": true,
+      "production_mesh_names": [
+        "cold-core/pump-outlet-tube-band"
+      ],
+      "expected_bounds_mm": [
+        [
+          -39.30723373377314,
+          339.16701731402884,
+          273.6443083075118
+        ],
+        [
+          -26.287233733773142,
+          348.16701731402884,
+          286.6843083075118
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -39.270423889160156,
+          339.1764831542969,
+          273.6527099609375
+        ],
+        [
+          -26.33317756652832,
+          348.1764831542969,
+          286.6849670410156
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.03680984461298209,
+          0.009465840268035208,
+          0.008401653425721634
+        ],
+        [
+          -0.045943832755177993,
+          0.009465840268035208,
+          0.0006587335038261699
+        ]
+      ],
+      "max_bound_difference_mm": 0.045943832755177993
+    },
+    {
+      "study": "check",
+      "production": "discharge-chain",
+      "expected_owner": "back-bottom",
+      "core_assembly_member": true,
+      "production_mesh_names": [
+        "cold-core/discharge-chain/1",
+        "cold-core/discharge-chain/2",
+        "cold-core/discharge-chain/3"
+      ],
+      "expected_bounds_mm": [
+        [
+          -41.221799661212664,
+          348.17228568252506,
+          271.72882837176047
+        ],
+        [
+          -24.361799661212665,
+          403.6122856825251,
+          289.3888283717605
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -41.2332763671875,
+          348.1764831542969,
+          271.798828125
+        ],
+        [
+          -24.37032127380371,
+          403.60809326171875,
+          288.538818359375
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -0.011476705974835966,
+          0.004197471771817618,
+          0.06999975323952867
+        ],
+        [
+          -0.008521612591046335,
+          -0.004192420806361952,
+          -0.8500100123854963
+        ]
+      ],
+      "max_bound_difference_mm": 0.8500100123854963
+    },
+    {
+      "study": "carbonator-fold",
+      "production": "carbonator-fold",
+      "expected_owner": "back-bottom",
+      "core_assembly_member": true,
+      "production_mesh_names": [
+        "cold-core/carbonator-fold/1",
+        "cold-core/carbonator-fold/2"
+      ],
+      "expected_bounds_mm": [
+        [
+          -40.541799661212664,
+          386.71328899639656,
+          261.12882837176045
+        ],
+        [
+          -25.06179966121266,
+          417.79328899639654,
+          286.2088283717605
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -40.49231719970703,
+          386.71710205078125,
+          261.11883544921875
+        ],
+        [
+          -25.111284255981445,
+          417.80029296875,
+          286.2140197753906
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.04948246150563307,
+          0.0038130543846932596,
+          -0.00999292254169859
+        ],
+        [
+          -0.04948459476878497,
+          0.007003972353459176,
+          0.005191403630135483
+        ]
+      ],
+      "max_bound_difference_mm": 0.04948459476878497
+    },
+    {
+      "study": "tee-fold",
+      "production": "tee-fold",
+      "expected_owner": "back-top",
+      "core_assembly_member": true,
+      "production_mesh_names": [
+        "cold-core/tee-fold/1",
+        "cold-core/tee-fold/2"
+      ],
+      "expected_bounds_mm": [
+        [
+          57.36409887123158,
+          288.59976052818666,
+          315.6360478805363
+        ],
+        [
+          82.44409887123159,
+          304.09976052818666,
+          342.1160478805363
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          57.35409927368164,
+          288.64923095703125,
+          315.630859375
+        ],
+        [
+          82.44930267333984,
+          304.0302734375,
+          342.123046875
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -0.009999597549942507,
+          0.04947042884458597,
+          -0.0051885055362959065
+        ],
+        [
+          0.005203802108255218,
+          -0.06948709068666403,
+          0.006998994463685904
+        ]
+      ],
+      "max_bound_difference_mm": 0.06948709068666403
+    },
+    {
+      "study": "lower-valve-elbow",
+      "production": "lower-valve-elbow",
+      "expected_owner": "back-top",
+      "core_assembly_member": true,
+      "production_mesh_names": [
+        "cold-core/lower-valve-elbow/1",
+        "cold-core/lower-valve-elbow/2"
+      ],
+      "expected_bounds_mm": [
+        [
+          57.36409887123158,
+          288.5797605281867,
+          255.04564788053625
+        ],
+        [
+          82.44409887123159,
+          304.0797605281867,
+          281.52564788053627
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          57.35409927368164,
+          288.64923095703125,
+          255.0386505126953
+        ],
+        [
+          82.44930267333984,
+          304.0302734375,
+          281.5308532714844
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -0.009999597549942507,
+          0.06947042884456778,
+          -0.0069973678409382956
+        ],
+        [
+          0.005203802108255218,
+          -0.04948709068668222,
+          0.0052053909481060145
+        ]
+      ],
+      "max_bound_difference_mm": 0.06947042884456778
+    },
+    {
+      "study": "lower-pump-elbow",
+      "production": "lower-pump-elbow",
+      "expected_owner": "back-top",
+      "core_assembly_member": true,
+      "production_mesh_names": [
+        "cold-core/lower-pump-elbow/1",
+        "cold-core/lower-pump-elbow/2"
+      ],
+      "expected_bounds_mm": [
+        [
+          43.56889887123159,
+          288.32254308355635,
+          254.8875038574901
+        ],
+        [
+          74.24889887123159,
+          315.76806416469265,
+          277.07945132160074
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          43.56189727783203,
+          288.3225402832031,
+          254.8939666748047
+        ],
+        [
+          74.24510192871094,
+          315.7584228515625,
+          277.04669189453125
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -0.007001593399557748,
+          -2.8003532293041644e-06,
+          0.006462817314599079
+        ],
+        [
+          -0.003796942520651214,
+          -0.009641313130146045,
+          -0.032759427069493086
+        ]
+      ],
+      "max_bound_difference_mm": 0.032759427069493086
+    },
+    {
+      "study": "tee-regulator-tube",
+      "production": "tube-above-core-tee-regulator",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "tube-above-core-tee-regulator"
+      ],
+      "expected_bounds_mm": [
+        [
+          -5.36,
+          293.16,
+          331.2
+        ],
+        [
+          34.04,
+          299.52,
+          337.56
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -5.354101181030273,
+          293.1878967285156,
+          331.2010498046875
+        ],
+        [
+          34.03689956665039,
+          299.4916076660156,
+          337.5510559082031
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.005898818969726882,
+          0.02789672851559999,
+          0.0010498046875113687
+        ],
+        [
+          -0.0031004333496085223,
+          -0.02839233398435681,
+          -0.008944091796877274
+        ]
+      ],
+      "max_bound_difference_mm": 0.02839233398435681
+    },
+    {
+      "study": "reg-va-elbow",
+      "production": "reg-va-elbow",
+      "expected_owner": "back-top",
+      "core_assembly_member": true,
+      "production_mesh_names": [
+        "cold-core/reg-va-elbow/1",
+        "cold-core/reg-va-elbow/2"
+      ],
+      "expected_bounds_mm": [
+        [
+          -82.4441011287684,
+          288.5797605281867,
+          315.6360478805363
+        ],
+        [
+          -57.36410112876839,
+          304.0797605281867,
+          342.1160478805363
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -82.44930267333984,
+          288.64923095703125,
+          315.630859375
+        ],
+        [
+          -57.35409927368164,
+          304.0302734375,
+          342.123046875
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -0.005201544571448835,
+          0.06947042884456778,
+          -0.0051885055362959065
+        ],
+        [
+          0.01000185508674889,
+          -0.04948709068668222,
+          0.006998994463685904
+        ]
+      ],
+      "max_bound_difference_mm": 0.06947042884456778
+    },
+    {
+      "study": "va-outlet-elbow",
+      "production": "va-outlet-elbow",
+      "expected_owner": "back-top",
+      "core_assembly_member": true,
+      "production_mesh_names": [
+        "cold-core/va-outlet-elbow/1",
+        "cold-core/va-outlet-elbow/2"
+      ],
+      "expected_bounds_mm": [
+        [
+          -82.4441011287684,
+          288.59976052818666,
+          255.0456478805363
+        ],
+        [
+          -57.36410112876839,
+          304.09976052818666,
+          281.5256478805363
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -82.92744445800781,
+          289.3757629394531,
+          255.0386505126953
+        ],
+        [
+          -56.95072937011719,
+          305.2647705078125,
+          281.5308532714844
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -0.4833433292394176,
+          0.776002411266461,
+          -0.006997367840995139
+        ],
+        [
+          0.413371758651202,
+          1.165009979625836,
+          0.005205390948049171
+        ]
+      ],
+      "max_bound_difference_mm": 1.165009979625836
+    },
+    {
+      "study": "va-flavor",
+      "production": "tube-above-core-va-under-head",
+      "expected_owner": "back-top",
+      "core_assembly_member": true,
+      "production_mesh_names": [
+        "cold-core/tube-above-core-va-under-head"
+      ],
+      "expected_bounds_mm": [
+        [
+          -74.24,
+          293.16,
+          258.42
+        ],
+        [
+          28.26,
+          312.32,
+          265.96
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -74.53003692626953,
+          293.3650207519531,
+          258.4287109375
+        ],
+        [
+          28.269309997558594,
+          312.31048583984375,
+          265.9447021484375
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -0.29003692626953637,
+          0.2050207519531,
+          0.008710937499984084
+        ],
+        [
+          0.009309997558592187,
+          -0.009514160156243179,
+          -0.015297851562479536
+        ]
+      ],
+      "max_bound_difference_mm": 0.29003692626953637
+    },
+    {
+      "study": "funnel",
+      "production": "funnel",
+      "expected_owner": "front-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "funnel"
+      ],
+      "expected_bounds_mm": [
+        [
+          -107.5,
+          87.0,
+          306.04
+        ],
+        [
+          107.5,
+          277.4,
+          358.0
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -107.5,
+          86.99999237060547,
+          306.04998779296875
+        ],
+        [
+          107.5,
+          277.3915100097656,
+          358.0
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.0,
+          -7.62939453125e-06,
+          0.009987792968729536
+        ],
+        [
+          0.0,
+          -0.008489990234352263,
+          0.0
+        ]
+      ],
+      "max_bound_difference_mm": 0.009987792968729536
+    },
+    {
+      "study": "funnel-frame",
+      "production": "funnel-frame",
+      "expected_owner": "front-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "funnel-frame"
+      ],
+      "expected_bounds_mm": [
+        [
+          -98.24,
+          93.0,
+          299.9
+        ],
+        [
+          98.24,
+          270.7,
+          355.0
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -98.25,
+          92.99999237060547,
+          299.8999938964844
+        ],
+        [
+          98.25,
+          275.6914978027344,
+          355.0
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -0.010000000000005116,
+          -7.62939453125e-06,
+          -6.1035156022626325e-06
+        ],
+        [
+          0.010000000000005116,
+          4.991497802734386,
+          0.0
+        ]
+      ],
+      "max_bound_difference_mm": 4.991497802734386
+    },
+    {
+      "study": "bulkhead-water",
+      "production": "bulkhead-water",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "bulkhead-water"
+      ],
+      "expected_bounds_mm": [
+        [
+          25.81999887123159,
+          446.52,
+          327.0254670429795
+        ],
+        [
+          48.67999887123159,
+          480.8,
+          349.7254670429795
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          25.81999969482422,
+          446.510009765625,
+          327.0293884277344
+        ],
+        [
+          48.68000030517578,
+          480.79998779296875,
+          349.72271728515625
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          8.235926287625261e-07,
+          -0.00999023437498181,
+          0.003921384754846713
+        ],
+        [
+          1.4339441918309603e-06,
+          -1.2207031261368684e-05,
+          -0.0027497578232669184
+        ]
+      ],
+      "max_bound_difference_mm": 0.00999023437498181
+    },
+    {
+      "study": "bulkhead-carb",
+      "production": "bulkhead-carb",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "bulkhead-carb"
+      ],
+      "expected_bounds_mm": [
+        [
+          66.07,
+          446.52,
+          295.0254670429795
+        ],
+        [
+          88.92999999999999,
+          480.8,
+          317.7254670429795
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          66.06999969482422,
+          446.510009765625,
+          295.0293884277344
+        ],
+        [
+          88.93000030517578,
+          480.79998779296875,
+          317.72271728515625
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -3.0517577442878974e-07,
+          -0.00999023437498181,
+          0.003921384754846713
+        ],
+        [
+          3.0517578863964445e-07,
+          -1.2207031261368684e-05,
+          -0.0027497578232669184
+        ]
+      ],
+      "max_bound_difference_mm": 0.00999023437498181
+    },
+    {
+      "study": "bulkhead-drain",
+      "production": "bulkhead-drain",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "bulkhead-drain"
+      ],
+      "expected_bounds_mm": [
+        [
+          26.339998871231586,
+          453.6,
+          295.37375746175786
+        ],
+        [
+          48.15999887123159,
+          486.0,
+          317.37375746175786
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          26.330202102661133,
+          453.6000061035156,
+          295.37603759765625
+        ],
+        [
+          48.169795989990234,
+          486.0,
+          317.37603759765625
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -0.009796768570453196,
+          6.1035156022626325e-06,
+          0.00228013589838838
+        ],
+        [
+          0.009797118758640977,
+          0.0,
+          0.00228013589838838
+        ]
+      ],
+      "max_bound_difference_mm": 0.009797118758640977
+    },
+    {
+      "study": "co2-inlet",
+      "production": "co2-inlet",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "co2-inlet"
+      ],
+      "expected_bounds_mm": [
+        [
+          65.36999999999999,
+          454.0,
+          326.33546704297953
+        ],
+        [
+          89.63,
+          488.2,
+          350.4154670429795
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          65.37229919433594,
+          454.0025939941406,
+          326.3367614746094
+        ],
+        [
+          89.62770080566406,
+          488.1910095214844,
+          350.4153137207031
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.0022991943359471634,
+          0.002593994140625,
+          0.0012944316298444392
+        ],
+        [
+          -0.0022991943359329525,
+          -0.008990478515613631,
+          -0.00015332227638964468
+        ]
+      ],
+      "max_bound_difference_mm": 0.008990478515613631
+    },
+    {
+      "study": "bulkhead-flavor-a",
+      "production": "bulkhead-flavor-a",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "bulkhead-flavor-a"
+      ],
+      "expected_bounds_mm": [
+        [
+          26.339998871231593,
+          453.6,
+          263.3720478805363
+        ],
+        [
+          48.15999887123159,
+          486.0,
+          285.3720478805363
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          26.330202102661133,
+          453.6000061035156,
+          263.37603759765625
+        ],
+        [
+          48.169795989990234,
+          486.0,
+          285.37603759765625
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -0.009796768570460301,
+          6.1035156022626325e-06,
+          0.003989717119964098
+        ],
+        [
+          0.009797118758640977,
+          0.0,
+          0.003989717119964098
+        ]
+      ],
+      "max_bound_difference_mm": 0.009797118758640977
+    },
+    {
+      "study": "bulkhead-flavor-b",
+      "production": "bulkhead-flavor-b",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "bulkhead-flavor-b"
+      ],
+      "expected_bounds_mm": [
+        [
+          66.58999999999999,
+          453.6,
+          263.3720478805363
+        ],
+        [
+          88.41,
+          486.0,
+          285.3720478805363
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          66.5802001953125,
+          453.6000061035156,
+          263.37603759765625
+        ],
+        [
+          88.4197998046875,
+          486.0,
+          285.37603759765625
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -0.0097998046874892,
+          6.1035156022626325e-06,
+          0.003989717119964098
+        ],
+        [
+          0.00979980468750341,
+          0.0,
+          0.003989717119964098
+        ]
+      ],
+      "max_bound_difference_mm": 0.00979980468750341
+    },
+    {
+      "study": "psu",
+      "production": "psu",
+      "expected_owner": "back-bottom",
+      "core_assembly_member": true,
+      "production_mesh_names": [
+        "cold-core/psu"
+      ],
+      "expected_bounds_mm": [
+        [
+          -95.99999389648437,
+          346.00001220703126,
+          253.40999999999997
+        ],
+        [
+          -43.9999938964844,
+          455.00001220703126,
+          286.89
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -95.99999237060547,
+          346.0,
+          253.39999389648438
+        ],
+        [
+          -43.99999237060547,
+          455.0,
+          286.8999938964844
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          1.5258789005656581e-06,
+          -1.2207031261368684e-05,
+          -0.010006103515593168
+        ],
+        [
+          1.5258789289873675e-06,
+          -1.2207031261368684e-05,
+          0.009993896484388642
+        ]
+      ],
+      "max_bound_difference_mm": 0.010006103515593168
+    },
+    {
+      "study": "relay-1",
+      "production": "relay-1",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "relay-1"
+      ],
+      "expected_bounds_mm": [
+        [
+          -96.49,
+          362.99999999999994,
+          294.5
+        ],
+        [
+          -77.49,
+          432.99999999999994,
+          311.5
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -96.5,
+          363.0,
+          294.5
+        ],
+        [
+          -77.5,
+          433.0,
+          311.5
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -0.010000000000005116,
+          5.684341886080802e-14,
+          0.0
+        ],
+        [
+          -0.010000000000005116,
+          5.684341886080802e-14,
+          0.0
+        ]
+      ],
+      "max_bound_difference_mm": 0.010000000000005116
+    },
+    {
+      "study": "relay-2",
+      "production": "relay-2",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "relay-2"
+      ],
+      "expected_bounds_mm": [
+        [
+          -96.49,
+          363.0,
+          319.49999999999994
+        ],
+        [
+          -77.49,
+          433.0,
+          336.49999999999994
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -96.5,
+          363.0,
+          319.5
+        ],
+        [
+          -77.5,
+          433.0,
+          336.5
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -0.010000000000005116,
+          0.0,
+          5.684341886080802e-14
+        ],
+        [
+          -0.010000000000005116,
+          0.0,
+          5.684341886080802e-14
+        ]
+      ],
+      "max_bound_difference_mm": 0.010000000000005116
+    },
+    {
+      "study": "c14-inlet",
+      "production": "c14-inlet",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "c14-inlet"
+      ],
+      "expected_bounds_mm": [
+        [
+          -93.36000000000001,
+          446.28999999999996,
+          318.9294191624432
+        ],
+        [
+          -43.64,
+          473.13,
+          341.0694191624432
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -86.60231018066406,
+          446.29998779296875,
+          311.93499755859375
+        ],
+        [
+          -36.89768981933594,
+          473.1400146484375,
+          334.06500244140625
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          6.757689819335951,
+          0.00998779296878638,
+          -6.994421603849446
+        ],
+        [
+          6.742310180664063,
+          0.010014648437504547,
+          -7.004416721036932
+        ]
+      ],
+      "max_bound_difference_mm": 7.004416721036932
+    },
+    {
+      "study": "keystone-jack",
+      "production": "keystone-jack",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "keystone-jack"
+      ],
+      "expected_bounds_mm": [
+        [
+          -37.33,
+          441.29999999999995,
+          263.9737574617579
+        ],
+        [
+          -22.67,
+          471.29999999999995,
+          288.11375746175787
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -37.32500076293945,
+          441.29998779296875,
+          263.9710388183594
+        ],
+        [
+          -22.674999237060547,
+          471.29998779296875,
+          288.12103271484375
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.00499923706054517,
+          -1.2207031204525265e-05,
+          -0.002718643398509357
+        ],
+        [
+          -0.00499923706054517,
+          -1.2207031204525265e-05,
+          0.007275253085879285
+        ]
+      ],
+      "max_bound_difference_mm": 0.007275253085879285
+    },
+    {
+      "study": "pcba",
+      "production": "pcba",
+      "expected_owner": "back-bottom",
+      "core_assembly_member": true,
+      "production_mesh_names": [
+        "cold-core/pcba"
+      ],
+      "expected_bounds_mm": [
+        [
+          -82.99999389648437,
+          186.38292002005036,
+          255.01
+        ],
+        [
+          -10.199993896484386,
+          277.2029200200504,
+          276.11
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -82.99999237060547,
+          186.38685607910156,
+          255.0
+        ],
+        [
+          -10.199994087219238,
+          277.2029113769531,
+          276.1000061035156
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          1.5258789005656581e-06,
+          0.003936059051198981,
+          -0.009999999999990905
+        ],
+        [
+          -1.9073485191256623e-07,
+          -8.643097260119248e-06,
+          -0.009993896484388642
+        ]
+      ],
+      "max_bound_difference_mm": 0.009999999999990905
+    },
+    {
+      "study": "terminal-J1",
+      "production": "terminal-J1",
+      "expected_owner": "back-bottom",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "terminal-J1"
+      ],
+      "expected_bounds_mm": [
+        [
+          -75.3799938964844,
+          268.86292002005035,
+          260.65
+        ],
+        [
+          -50.57999389648438,
+          274.5629200200504,
+          268.40999999999997
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -75.37999725341797,
+          268.3529052734375,
+          260.8999938964844
+        ],
+        [
+          -50.579994201660156,
+          274.05291748046875,
+          268.3999938964844
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -3.356933575560106e-06,
+          -0.5100147466128533,
+          0.24999389648439774
+        ],
+        [
+          -3.0517577442878974e-07,
+          -0.5100025395816488,
+          -0.010006103515593168
+        ]
+      ],
+      "max_bound_difference_mm": 0.5100147466128533
+    },
+    {
+      "study": "terminal-J11",
+      "production": "terminal-J11",
+      "expected_owner": "back-bottom",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "terminal-J11"
+      ],
+      "expected_bounds_mm": [
+        [
+          -28.799993896484352,
+          194.84292002005037,
+          260.65
+        ],
+        [
+          -16.499993896484398,
+          200.56292002005037,
+          268.40999999999997
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -28.800090789794922,
+          195.3527069091797,
+          260.8999938964844
+        ],
+        [
+          -16.499897003173828,
+          201.05313110351562,
+          268.3999938964844
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -9.689331056961237e-05,
+          0.509786889129316,
+          0.24999389648439774
+        ],
+        [
+          9.689331056961237e-05,
+          0.49021108346525466,
+          -0.010006103515593168
+        ]
+      ],
+      "max_bound_difference_mm": 0.509786889129316
+    },
+    {
+      "study": "terminal-J13",
+      "production": "terminal-J13",
+      "expected_owner": "back-bottom",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "terminal-J13"
+      ],
+      "expected_bounds_mm": [
+        [
+          -80.85999389648438,
+          241.80292002005035,
+          260.65
+        ],
+        [
+          -75.13999389648438,
+          254.10292002005036,
+          268.40999999999997
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -80.35020446777344,
+          241.80282592773438,
+          260.8999938964844
+        ],
+        [
+          -74.64978790283203,
+          254.10301208496094,
+          268.3999938964844
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.5097894287109455,
+          -9.40923159760132e-05,
+          0.24999389648439774
+        ],
+        [
+          0.49020599365235284,
+          9.206491057511812e-05,
+          -0.010006103515593168
+        ]
+      ],
+      "max_bound_difference_mm": 0.5097894287109455
+    },
+    {
+      "study": "terminal-J2",
+      "production": "terminal-J2",
+      "expected_owner": "back-bottom",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "terminal-J2"
+      ],
+      "expected_bounds_mm": [
+        [
+          -49.37999389648439,
+          268.86292002005035,
+          260.65
+        ],
+        [
+          -32.07999389648438,
+          274.5629200200504,
+          268.40999999999997
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -49.3799934387207,
+          268.3529052734375,
+          260.8999938964844
+        ],
+        [
+          -32.079994201660156,
+          274.05291748046875,
+          268.3999938964844
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          4.5776369006489404e-07,
+          -0.5100147466128533,
+          0.24999389648439774
+        ],
+        [
+          -3.0517577442878974e-07,
+          -0.5100025395816488,
+          -0.010006103515593168
+        ]
+      ],
+      "max_bound_difference_mm": 0.5100147466128533
+    },
+    {
+      "study": "terminal-J3",
+      "production": "terminal-J3",
+      "expected_owner": "back-bottom",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "terminal-J3"
+      ],
+      "expected_bounds_mm": [
+        [
+          -18.5599938964844,
+          201.80292002005038,
+          260.65
+        ],
+        [
+          -12.839993896484373,
+          214.10292002005036,
+          268.40999999999997
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -19.050201416015625,
+          201.80282592773438,
+          260.8999938964844
+        ],
+        [
+          -13.349785804748535,
+          214.10301208496094,
+          268.3999938964844
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -0.490207519531225,
+          -9.40923160044349e-05,
+          0.24999389648439774
+        ],
+        [
+          -0.5097919082641624,
+          9.206491057511812e-05,
+          -0.010006103515593168
+        ]
+      ],
+      "max_bound_difference_mm": 0.5097919082641624
+    },
+    {
+      "study": "terminal-J4",
+      "production": "terminal-J4",
+      "expected_owner": "back-bottom",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "terminal-J4"
+      ],
+      "expected_bounds_mm": [
+        [
+          -18.5599938964844,
+          215.30292002005035,
+          260.65
+        ],
+        [
+          -12.859993896484355,
+          235.10292002005036,
+          268.40999999999997
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -19.04999351501465,
+          215.30291748046875,
+          260.8999938964844
+        ],
+        [
+          -13.349993705749512,
+          235.10292053222656,
+          268.3999938964844
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -0.4899996185302484,
+          -2.5395816010131966e-06,
+          0.24999389648439774
+        ],
+        [
+          -0.4899998092651572,
+          5.121762001181196e-07,
+          -0.010006103515593168
+        ]
+      ],
+      "max_bound_difference_mm": 0.4899998092651572
+    },
+    {
+      "study": "terminal-J5",
+      "production": "terminal-J5",
+      "expected_owner": "back-bottom",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "terminal-J5"
+      ],
+      "expected_bounds_mm": [
+        [
+          -80.85999389648438,
+          212.10292002005036,
+          260.65
+        ],
+        [
+          -75.13999389648438,
+          224.40292002005037,
+          268.40999999999997
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -80.35020446777344,
+          212.1028289794922,
+          260.8999938964844
+        ],
+        [
+          -74.64978790283203,
+          224.40301513671875,
+          268.3999938964844
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.5097894287109455,
+          -9.104055817488188e-05,
+          0.24999389648439774
+        ],
+        [
+          0.49020599365235284,
+          9.511666837624944e-05,
+          -0.010006103515593168
+        ]
+      ],
+      "max_bound_difference_mm": 0.5097894287109455
+    },
+    {
+      "study": "terminal-J6",
+      "production": "terminal-J6",
+      "expected_owner": "back-bottom",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "terminal-J6"
+      ],
+      "expected_bounds_mm": [
+        [
+          -80.83999389648437,
+          225.70292002005039,
+          260.65
+        ],
+        [
+          -75.15999389648437,
+          240.5029200200504,
+          268.40999999999997
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -80.34999084472656,
+          225.7029266357422,
+          260.8999938964844
+        ],
+        [
+          -74.64999389648438,
+          240.50291442871094,
+          268.3999938964844
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.4900030517578102,
+          6.615691802380752e-06,
+          0.24999389648439774
+        ],
+        [
+          0.5099999999999909,
+          -5.591339458987932e-06,
+          -0.010006103515593168
+        ]
+      ],
+      "max_bound_difference_mm": 0.5099999999999909
+    },
+    {
+      "study": "terminal-J7",
+      "production": "terminal-J7",
+      "expected_owner": "back-bottom",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "terminal-J7"
+      ],
+      "expected_bounds_mm": [
+        [
+          -18.5599938964844,
+          249.80292002005035,
+          260.65
+        ],
+        [
+          -12.859993896484355,
+          269.60292002005036,
+          268.40999999999997
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -19.04999351501465,
+          249.80291748046875,
+          260.8999938964844
+        ],
+        [
+          -13.349993705749512,
+          269.6029052734375,
+          268.3999938964844
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -0.4899996185302484,
+          -2.5395816010131966e-06,
+          0.24999389648439774
+        ],
+        [
+          -0.4899998092651572,
+          -1.474661286238188e-05,
+          -0.010006103515593168
+        ]
+      ],
+      "max_bound_difference_mm": 0.4899998092651572
+    },
+    {
+      "study": "terminal-J9",
+      "production": "terminal-J9",
+      "expected_owner": "back-bottom",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "terminal-J9"
+      ],
+      "expected_bounds_mm": [
+        [
+          -18.5599938964844,
+          236.30292002005035,
+          260.65
+        ],
+        [
+          -12.839993896484373,
+          248.60292002005036,
+          268.40999999999997
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -19.050201416015625,
+          236.30282592773438,
+          260.8999938964844
+        ],
+        [
+          -13.349785804748535,
+          248.60301208496094,
+          268.3999938964844
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -0.490207519531225,
+          -9.40923159760132e-05,
+          0.24999389648439774
+        ],
+        [
+          -0.5097919082641624,
+          9.206491057511812e-05,
+          -0.010006103515593168
+        ]
+      ],
+      "max_bound_difference_mm": 0.5097919082641624
+    },
+    {
+      "study": "bulkhead-water-nut",
+      "production": "bulkhead-water-nut",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "bulkhead-water-nut"
+      ],
+      "expected_bounds_mm": [
+        [
+          27.24,
+          461.3,
+          326.82
+        ],
+        [
+          47.24,
+          465.3,
+          349.92
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          27.249998092651367,
+          461.29998779296875,
+          326.82904052734375
+        ],
+        [
+          47.25,
+          465.29998779296875,
+          349.9230651855469
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.00999809265136875,
+          -1.2207031261368684e-05,
+          0.009040527343756821
+        ],
+        [
+          0.00999999999999801,
+          -1.2207031261368684e-05,
+          0.003065185546859084
+        ]
+      ],
+      "max_bound_difference_mm": 0.00999999999999801
+    },
+    {
+      "study": "co2-inlet-nut",
+      "production": "co2-inlet-nut",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "co2-inlet-nut"
+      ],
+      "expected_bounds_mm": [
+        [
+          67.0,
+          458.28,
+          326.24
+        ],
+        [
+          88.0,
+          465.3,
+          350.5
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          66.99710083007812,
+          458.28961181640625,
+          326.24835205078125
+        ],
+        [
+          88.00289916992188,
+          465.29998779296875,
+          350.5037536621094
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -0.002899169921875,
+          0.009611816406277285,
+          0.008352050781240905
+        ],
+        [
+          0.002899169921875,
+          -1.2207031261368684e-05,
+          0.003753662109375
+        ]
+      ],
+      "max_bound_difference_mm": 0.009611816406277285
+    },
+    {
+      "study": "bulkhead-drain-nut",
+      "production": "bulkhead-drain-nut",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "bulkhead-drain-nut"
+      ],
+      "expected_bounds_mm": [
+        [
+          28.24,
+          458.8,
+          295.98
+        ],
+        [
+          46.24,
+          465.3,
+          316.76
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          28.249998092651367,
+          458.79998779296875,
+          295.9837341308594
+        ],
+        [
+          46.25,
+          465.29998779296875,
+          316.7683410644531
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.00999809265136875,
+          -1.2207031261368684e-05,
+          0.00373413085935681
+        ],
+        [
+          0.00999999999999801,
+          -1.2207031261368684e-05,
+          0.008341064453134095
+        ]
+      ],
+      "max_bound_difference_mm": 0.00999999999999801
+    },
+    {
+      "study": "bulkhead-carb-nut",
+      "production": "bulkhead-carb-nut",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "bulkhead-carb-nut"
+      ],
+      "expected_bounds_mm": [
+        [
+          67.5,
+          461.3,
+          294.82
+        ],
+        [
+          87.5,
+          465.3,
+          317.92
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          67.5,
+          461.29998779296875,
+          294.82904052734375
+        ],
+        [
+          87.5,
+          465.29998779296875,
+          317.9230651855469
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.0,
+          -1.2207031261368684e-05,
+          0.009040527343756821
+        ],
+        [
+          0.0,
+          -1.2207031261368684e-05,
+          0.003065185546859084
+        ]
+      ],
+      "max_bound_difference_mm": 0.009040527343756821
+    },
+    {
+      "study": "bulkhead-flavor-a-nut",
+      "production": "bulkhead-flavor-a-nut",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "bulkhead-flavor-a-nut"
+      ],
+      "expected_bounds_mm": [
+        [
+          28.24,
+          458.8,
+          263.98
+        ],
+        [
+          46.24,
+          465.3,
+          284.76
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          28.249998092651367,
+          458.79998779296875,
+          263.9837341308594
+        ],
+        [
+          46.25,
+          465.29998779296875,
+          284.7683410644531
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.00999809265136875,
+          -1.2207031261368684e-05,
+          0.00373413085935681
+        ],
+        [
+          0.00999999999999801,
+          -1.2207031261368684e-05,
+          0.008341064453134095
+        ]
+      ],
+      "max_bound_difference_mm": 0.00999999999999801
+    },
+    {
+      "study": "bulkhead-flavor-b-nut",
+      "production": "bulkhead-flavor-b-nut",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "bulkhead-flavor-b-nut"
+      ],
+      "expected_bounds_mm": [
+        [
+          68.5,
+          458.8,
+          263.98
+        ],
+        [
+          86.5,
+          465.3,
+          284.76
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          68.5,
+          458.79998779296875,
+          263.9837341308594
+        ],
+        [
+          86.5,
+          465.29998779296875,
+          284.7683410644531
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.0,
+          -1.2207031261368684e-05,
+          0.00373413085935681
+        ],
+        [
+          0.0,
+          -1.2207031261368684e-05,
+          0.008341064453134095
+        ]
+      ],
+      "max_bound_difference_mm": 0.008341064453134095
+    },
+    {
+      "study": "soda-stem-elbow",
+      "production": "soda-stem-elbow",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "soda-stem-elbow/1",
+        "soda-stem-elbow/2"
+      ],
+      "expected_bounds_mm": [
+        [
+          58.46,
+          432.72479999999996,
+          298.6360478805363
+        ],
+        [
+          83.54,
+          459.2048,
+          314.1360478805363
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          58.45000076293945,
+          432.7178039550781,
+          298.685546875
+        ],
+        [
+          83.54519653320312,
+          459.2099914550781,
+          314.0665588378906
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -0.009999237060547728,
+          -0.006996044921834255,
+          0.049498994463704094
+        ],
+        [
+          0.005196533203118747,
+          0.0051914550781475555,
+          -0.0694890426456709
+        ]
+      ],
+      "max_bound_difference_mm": 0.0694890426456709
+    },
+    {
+      "study": "gas-inlet-elbow",
+      "production": "gas-inlet-elbow",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "gas-inlet-elbow/1",
+        "gas-inlet-elbow/2"
+      ],
+      "expected_bounds_mm": [
+        [
+          70.46000000000001,
+          412.91259999999994,
+          314.1360478805363
+        ],
+        [
+          85.94,
+          437.9926,
+          345.3160478805363
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          70.50948333740234,
+          412.90740966796875,
+          314.130859375
+        ],
+        [
+          85.89051818847656,
+          438.0025939941406,
+          345.32305908203125
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.04948333740233579,
+          -0.005190332031190792,
+          -0.0051885055362959065
+        ],
+        [
+          -0.049481811523435226,
+          0.00999399414064328,
+          0.007011201494947272
+        ]
+      ],
+      "max_bound_difference_mm": 0.04948333740233579
+    },
+    {
+      "study": "gas-lower-a",
+      "production": "gas-lower-a",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "gas-lower-a/1",
+        "gas-lower-a/2"
+      ],
+      "expected_bounds_mm": [
+        [
+          70.46000000000001,
+          399.91259999999994,
+          254.5456478805363
+        ],
+        [
+          85.94,
+          424.9926,
+          285.7256478805363
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          70.50948333740234,
+          399.902587890625,
+          254.5386505126953
+        ],
+        [
+          85.89051818847656,
+          424.997802734375,
+          285.7308349609375
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.04948333740233579,
+          -0.010012109374940792,
+          -0.006997367840995139
+        ],
+        [
+          -0.049481811523435226,
+          0.005202734375018281,
+          0.00518708040118554
+        ]
+      ],
+      "max_bound_difference_mm": 0.04948333740233579
+    },
+    {
+      "study": "gas-lower-b",
+      "production": "gas-lower-b",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "gas-lower-b/1",
+        "gas-lower-b/2"
+      ],
+      "expected_bounds_mm": [
+        [
+          70.46000000000001,
+          385.7174,
+          256.2456478805363
+        ],
+        [
+          85.94,
+          416.7974,
+          281.32564788053634
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          70.50948333740234,
+          385.71038818359375,
+          256.2404479980469
+        ],
+        [
+          85.89051818847656,
+          416.7936096191406,
+          281.3356628417969
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.04948333740233579,
+          -0.007011816406247817,
+          -0.00519988248942127
+        ],
+        [
+          -0.049481811523435226,
+          -0.003790380859356901,
+          0.010014961260537802
+        ]
+      ],
+      "max_bound_difference_mm": 0.04948333740233579
+    },
+    {
+      "study": "gas-upper-a",
+      "production": "gas-upper-a",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "gas-upper-a/1",
+        "gas-upper-a/2"
+      ],
+      "expected_bounds_mm": [
+        [
+          70.46000000000001,
+          374.4174,
+          319.8724545082792
+        ],
+        [
+          85.94,
+          399.4974,
+          350.9524545082792
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          70.50948333740234,
+          374.40740966796875,
+          319.8762512207031
+        ],
+        [
+          85.89051818847656,
+          399.5025939941406,
+          350.9594421386719
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.04948333740233579,
+          -0.009990332031236449,
+          0.003796712423934423
+        ],
+        [
+          -0.049481811523435226,
+          0.005193994140597624,
+          0.006987630392700339
+        ]
+      ],
+      "max_bound_difference_mm": 0.04948333740233579
+    },
+    {
+      "study": "gas-upper-b",
+      "production": "gas-upper-b",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "gas-upper-b/1",
+        "gas-upper-b/2"
+      ],
+      "expected_bounds_mm": [
+        [
+          70.46000000000001,
+          360.2222,
+          324.17245450827915
+        ],
+        [
+          85.94,
+          391.30219999999997,
+          349.2524545082792
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          70.50948333740234,
+          360.2152099609375,
+          324.1624450683594
+        ],
+        [
+          85.89051818847656,
+          391.29840087890625,
+          349.2576599121094
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.04948333740233579,
+          -0.00699003906248663,
+          -0.010009439919770102
+        ],
+        [
+          -0.049481811523435226,
+          -0.0037991210937207143,
+          0.0052054038301889705
+        ]
+      ],
+      "max_bound_difference_mm": 0.04948333740233579
+    },
+    {
+      "study": "gas-regulator",
+      "production": "gas-regulator",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "gas-regulator/1",
+        "gas-regulator/2",
+        "gas-regulator/3",
+        "gas-regulator/4"
+      ],
+      "expected_bounds_mm": [
+        [
+          67.46000000000001,
+          408.21259999999995,
+          268.7308478805363
+        ],
+        [
+          88.96000000000001,
+          429.71259999999995,
+          331.1308478805363
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          67.44999694824219,
+          408.2026062011719,
+          268.7308349609375
+        ],
+        [
+          88.94999694824219,
+          429.7026062011719,
+          331.130859375
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -0.010003051757820458,
+          -0.00999379882807716,
+          -1.2919598816552025e-05
+        ],
+        [
+          -0.010003051757820458,
+          -0.00999379882807716,
+          1.1494463706185343e-05
+        ]
+      ],
+      "max_bound_difference_mm": 0.010003051757820458
+    },
+    {
+      "study": "gas-check",
+      "production": "gas-check",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "gas-check/1",
+        "gas-check/2",
+        "gas-check/3"
+      ],
+      "expected_bounds_mm": [
+        [
+          69.78,
+          384.2374,
+          281.3314511944077
+        ],
+        [
+          86.64,
+          401.8974,
+          336.77145119440775
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          69.76852416992188,
+          385.08740234375,
+          281.3356628417969
+        ],
+        [
+          86.63147735595703,
+          401.827392578125,
+          336.7672424316406
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -0.011475830078126137,
+          0.8500023437500204,
+          0.004211647389183781
+        ],
+        [
+          -0.008522644042969318,
+          -0.07000742187500464,
+          -0.004208762767120788
+        ]
+      ],
+      "max_bound_difference_mm": 0.8500023437500204
+    },
+    {
+      "study": "gas-inlet-tube",
+      "production": "tube-above-core-gas-inlet",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "tube-above-core-gas-inlet"
+      ],
+      "expected_bounds_mm": [
+        [
+          74.32,
+          421.12,
+          334.4
+        ],
+        [
+          81.38,
+          466.7,
+          341.56
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          74.34815216064453,
+          421.1116027832031,
+          334.40106201171875
+        ],
+        [
+          81.35185241699219,
+          466.7026062011719,
+          341.5510559082031
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.02815216064453807,
+          -0.008397216796879547,
+          0.0010620117187727374
+        ],
+        [
+          -0.028147583007807953,
+          0.0026062011718863687,
+          -0.008944091796877274
+        ]
+      ],
+      "max_bound_difference_mm": 0.02815216064453807
+    },
+    {
+      "study": "gas-check-link",
+      "production": "tube-above-core-gas-check-link",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "tube-above-core-gas-check-link"
+      ],
+      "expected_bounds_mm": [
+        [
+          75.02,
+          390.28,
+          264.44
+        ],
+        [
+          81.38,
+          396.64,
+          298.22
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          75.0250015258789,
+          390.3055419921875,
+          264.44464111328125
+        ],
+        [
+          81.375,
+          396.6092529296875,
+          298.2266540527344
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.005001525878910229,
+          0.025541992187527285,
+          0.004641113281252274
+        ],
+        [
+          -0.0049999999999954525,
+          -0.030747070312486358,
+          0.006654052734347715
+        ]
+      ],
+      "max_bound_difference_mm": 0.030747070312486358
+    },
+    {
+      "study": "gas-core-drop",
+      "production": "tube-above-core-gas-core-drop",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "tube-above-core-gas-core-drop"
+      ],
+      "expected_bounds_mm": [
+        [
+          74.32,
+          364.78,
+          253.4
+        ],
+        [
+          81.38,
+          371.94,
+          341.06
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          74.32499694824219,
+          364.81036376953125,
+          253.39999389648438
+        ],
+        [
+          81.375,
+          371.9140625,
+          341.053466796875
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.004996948242194321,
+          0.030363769531277285,
+          -6.103515630684342e-06
+        ],
+        [
+          -0.0049999999999954525,
+          -0.025937499999997726,
+          -0.006533203125002274
+        ]
+      ],
+      "max_bound_difference_mm": 0.030363769531277285
+    },
+    {
+      "study": "va-east-turn",
+      "production": "va-east-turn",
+      "expected_owner": "back-top",
+      "core_assembly_member": true,
+      "production_mesh_names": [
+        "cold-core/va-east-turn/1",
+        "cold-core/va-east-turn/2",
+        "cold-core/va-east-turn/3"
+      ],
+      "expected_bounds_mm": [
+        [
+          12.571700000000003,
+          288.5755,
+          252.92000000000002
+        ],
+        [
+          40.291700000000006,
+          316.1155,
+          270.3
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          12.569310188293457,
+          288.5731201171875,
+          253.43710327148438
+        ],
+        [
+          41.162715911865234,
+          317.2388916015625,
+          269.7629089355469
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -0.0023898117065463964,
+          -0.002379882812476808,
+          0.5171032714843591
+        ],
+        [
+          0.8710159118652285,
+          1.1233916015625027,
+          -0.5370910644531364
+        ]
+      ],
+      "max_bound_difference_mm": 1.1233916015625027
+    },
+    {
+      "study": "va-ya-straight",
+      "production": "tube-above-core-va-fore-feed",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "tube-above-core-va-fore-feed"
+      ],
+      "expected_bounds_mm": [
+        [
+          19.48,
+          167.96,
+          258.42
+        ],
+        [
+          36.3,
+          304.28,
+          279.9
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          19.494890213012695,
+          167.96754455566406,
+          258.42498779296875
+        ],
+        [
+          36.28355026245117,
+          304.2731018066406,
+          279.89410400390625
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.014890213012694886,
+          0.007544555664054542,
+          0.004987792968734084
+        ],
+        [
+          -0.016449737548825283,
+          -0.006898193359347715,
+          -0.005895996093727263
+        ]
+      ],
+      "max_bound_difference_mm": 0.016449737548825283
+    },
+    {
+      "study": "ya-stem-elbow",
+      "production": "ya-stem-elbow",
+      "expected_owner": "front-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "ya-stem-elbow/1",
+        "ya-stem-elbow/2"
+      ],
+      "expected_bounds_mm": [
+        [
+          15.72042631072712,
+          159.4998421701147,
+          254.98020000000002
+        ],
+        [
+          31.91641301422404,
+          185.83500421776765,
+          284.46020000000004
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          15.769487380981445,
+          159.49598693847656,
+          254.97500610351562
+        ],
+        [
+          31.867351531982422,
+          185.83969116210938,
+          284.4671936035156
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.049061070254325045,
+          -0.0038552316381412766,
+          -0.005193896484399829
+        ],
+        [
+          -0.0490614822416191,
+          0.004686944341727894,
+          0.006993603515581981
+        ]
+      ],
+      "max_bound_difference_mm": 0.0490614822416191
+    },
+    {
+      "study": "tee-ya-target",
+      "production": "tee-y-a",
+      "expected_owner": "front-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "tee-y-a"
+      ],
+      "expected_bounds_mm": [
+        [
+          0.0,
+          158.0,
+          228.18
+        ],
+        [
+          30.54,
+          174.5,
+          270.68
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          1.7763568394002505e-14,
+          157.99000549316406,
+          228.1750030517578
+        ],
+        [
+          30.53984832763672,
+          174.49000549316406,
+          270.67498779296875
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          1.7763568394002505e-14,
+          -0.0099945068359375,
+          -0.004996948242194321
+        ],
+        [
+          -0.00015167236328039735,
+          -0.0099945068359375,
+          -0.005012207031256821
+        ]
+      ],
+      "max_bound_difference_mm": 0.0099945068359375
+    },
+    {
+      "study": "vb",
+      "production": "valve-v-b",
+      "expected_owner": "back-bottom",
+      "core_assembly_member": true,
+      "production_mesh_names": [
+        "cold-core/valve-v-b/1",
+        "cold-core/valve-v-b/2",
+        "cold-core/valve-v-b/3",
+        "cold-core/valve-v-b/4",
+        "cold-core/valve-v-b/5",
+        "cold-core/valve-v-b/6",
+        "cold-core/valve-v-b/7",
+        "cold-core/valve-v-b/8",
+        "cold-core/valve-v-b/9",
+        "cold-core/valve-v-b/10",
+        "cold-core/valve-v-b/11"
+      ],
+      "expected_bounds_mm": [
+        [
+          37.989999999999995,
+          215.15434,
+          263.6538673949953
+        ],
+        [
+          95.31,
+          274.65434,
+          297.1538673949953
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          38.0,
+          215.1543426513672,
+          263.6600036621094
+        ],
+        [
+          95.30000305175781,
+          274.6543273925781,
+          297.1600036621094
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.010000000000005116,
+          2.6513671969041752e-06,
+          0.00613626711407278
+        ],
+        [
+          -0.009996948242189774,
+          -1.2607421865595825e-05,
+          0.00613626711407278
+        ]
+      ],
+      "max_bound_difference_mm": 0.010000000000005116
+    },
+    {
+      "study": "digiten-flow",
+      "production": "digiten-flow",
+      "expected_owner": "back-bottom",
+      "core_assembly_member": true,
+      "production_mesh_names": [
+        "cold-core/digiten-flow/1",
+        "cold-core/digiten-flow/2",
+        "cold-core/digiten-flow/3",
+        "cold-core/digiten-flow/4",
+        "cold-core/digiten-flow/5",
+        "cold-core/digiten-flow/6",
+        "cold-core/digiten-flow/7",
+        "cold-core/digiten-flow/8",
+        "cold-core/digiten-flow/9",
+        "cold-core/digiten-flow/10",
+        "cold-core/digiten-flow/11",
+        "cold-core/digiten-flow/12"
+      ],
+      "expected_bounds_mm": [
+        [
+          40.6,
+          360.41479999999996,
+          279.8760478805363
+        ],
+        [
+          68.9,
+          421.41479999999996,
+          315.5160478805363
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          40.60000228881836,
+          360.414794921875,
+          279.87603759765625
+        ],
+        [
+          68.9000015258789,
+          421.414794921875,
+          315.52606201171875
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          2.2888183579539145e-06,
+          -5.078124956980901e-06,
+          -1.0282880055001442e-05
+        ],
+        [
+          1.5258789005656581e-06,
+          -5.078124956980901e-06,
+          0.010014131182458641
+        ]
+      ],
+      "max_bound_difference_mm": 0.010014131182458641
+    },
+    {
+      "study": "tee-yb-target",
+      "production": "tee-y-b",
+      "expected_owner": "front-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "tee-y-b"
+      ],
+      "expected_bounds_mm": [
+        [
+          -30.54,
+          158.0,
+          228.18
+        ],
+        [
+          0.0,
+          174.48,
+          270.68
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -30.53984832763672,
+          157.99000549316406,
+          228.1750030517578
+        ],
+        [
+          2.1316282072803006e-14,
+          174.49000549316406,
+          270.67498779296875
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.00015167236328039735,
+          -0.0099945068359375,
+          -0.004996948242194321
+        ],
+        [
+          2.1316282072803006e-14,
+          0.010005493164072732,
+          -0.005012207031256821
+        ]
+      ],
+      "max_bound_difference_mm": 0.010005493164072732
+    },
+    {
+      "study": "funnel-drain-union",
+      "production": "funnel-drain-union",
+      "expected_owner": "front-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "funnel-drain-union/1",
+        "funnel-drain-union/2",
+        "funnel-drain-union/3"
+      ],
+      "expected_bounds_mm": [
+        [
+          -8.68,
+          172.03575,
+          273.43
+        ],
+        [
+          8.7,
+          199.75575,
+          300.97
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -8.1628999710083,
+          171.16473388671875,
+          272.3066101074219
+        ],
+        [
+          8.1628999710083,
+          199.7581329345703,
+          300.9723815917969
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.5171000289916989,
+          -0.8710161132812573,
+          -1.1233898925781318
+        ],
+        [
+          -0.5371000289916985,
+          0.002382934570306361,
+          0.002381591796847715
+        ]
+      ],
+      "max_bound_difference_mm": 1.1233898925781318
+    },
+    {
+      "study": "funnel-drain-stub",
+      "production": "funnel-drain-stub",
+      "expected_owner": "front-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "funnel-drain-stub"
+      ],
+      "expected_bounds_mm": [
+        [
+          -3.18,
+          176.04,
+          285.28
+        ],
+        [
+          3.18,
+          182.34,
+          311.06
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -3.174999952316284,
+          176.0438995361328,
+          285.27239990234375
+        ],
+        [
+          3.174999952316284,
+          182.34759521484375,
+          311.0648193359375
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.00500004768371598,
+          0.003899536132820458,
+          -0.007600097656222715
+        ],
+        [
+          -0.00500004768371598,
+          0.007595214843746589,
+          0.004819335937497726
+        ]
+      ],
+      "max_bound_difference_mm": 0.007600097656222715
+    },
+    {
+      "study": "funnel-drain-cradle",
+      "production": "elbow-cradle",
+      "expected_owner": "front-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "elbow-cradle"
+      ],
+      "expected_bounds_mm": [
+        [
+          -18.16,
+          167.96,
+          269.1
+        ],
+        [
+          18.16,
+          199.76,
+          306.04
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -18.149999618530273,
+          167.95574951171875,
+          269.09710693359375
+        ],
+        [
+          18.149999618530273,
+          199.7581329345703,
+          306.04998779296875
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.010000381469726705,
+          -0.004250488281257958,
+          -0.0028930664062727374
+        ],
+        [
+          -0.010000381469726705,
+          -0.001867065429678405,
+          0.009987792968729536
+        ]
+      ],
+      "max_bound_difference_mm": 0.010000381469726705
+    },
+    {
+      "study": "drain-outlet-stem",
+      "production": "drain-outlet-stem",
+      "expected_owner": "front-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "drain-outlet-stem/1",
+        "drain-outlet-stem/2"
+      ],
+      "expected_bounds_mm": [
+        [
+          -6.04,
+          184.04914,
+          272.67
+        ],
+        [
+          19.04,
+          216.84914,
+          288.17
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -6.045199871063232,
+          184.05813598632812,
+          272.719482421875
+        ],
+        [
+          19.049999237060547,
+          216.85614013671875,
+          288.10052490234375
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -0.005199871063232386,
+          0.008995986328130812,
+          0.049482421874984084
+        ],
+        [
+          0.009999237060547728,
+          0.007000136718744443,
+          -0.06947509765626592
+        ]
+      ],
+      "max_bound_difference_mm": 0.06947509765626592
+    },
+    {
+      "study": "vb-inlet-turn",
+      "production": "vb-inlet-turn",
+      "expected_owner": "back-bottom",
+      "core_assembly_member": true,
+      "production_mesh_names": [
+        "cold-core/vb-inlet-turn/1",
+        "cold-core/vb-inlet-turn/2"
+      ],
+      "expected_bounds_mm": [
+        [
+          30.009999999999998,
+          201.36914,
+          272.67
+        ],
+        [
+          55.089999999999996,
+          227.84914,
+          288.17
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          30.0,
+          201.3621368408203,
+          272.719482421875
+        ],
+        [
+          55.09519958496094,
+          227.85433959960938,
+          288.10052490234375
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -0.00999999999999801,
+          -0.007003159179674867,
+          0.049482421874984084
+        ],
+        [
+          0.005199584960941195,
+          0.005199599609369443,
+          -0.06947509765626592
+        ]
+      ],
+      "max_bound_difference_mm": 0.06947509765626592
+    },
+    {
+      "study": "vb-outlet-stem",
+      "production": "vb-outlet-stem",
+      "expected_owner": "back-bottom",
+      "core_assembly_member": true,
+      "production_mesh_names": [
+        "cold-core/vb-outlet-stem/1",
+        "cold-core/vb-outlet-stem/2"
+      ],
+      "expected_bounds_mm": [
+        [
+          29.427060453860935,
+          261.95954,
+          273.83890459424595
+        ],
+        [
+          55.83285619672906,
+          288.43954,
+          290.0926848159807
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          29.425521850585938,
+          261.954345703125,
+          273.8746337890625
+        ],
+        [
+          55.836612701416016,
+          288.446533203125,
+          290.0436706542969
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -0.001538603274997996,
+          -0.005194296875004056,
+          0.0357291948165539
+        ],
+        [
+          0.0037565046869545426,
+          0.006993203124977754,
+          -0.04901416168382866
+        ]
+      ],
+      "max_bound_difference_mm": 0.04901416168382866
+    },
+    {
+      "study": "vb-outlet-return",
+      "production": "vb-outlet-return",
+      "expected_owner": "back-bottom",
+      "core_assembly_member": true,
+      "production_mesh_names": [
+        "cold-core/vb-outlet-return/1",
+        "cold-core/vb-outlet-return/2",
+        "cold-core/vb-outlet-return/3"
+      ],
+      "expected_bounds_mm": [
+        [
+          -32.692295389261986,
+          260.13954,
+          280.28598737973994
+        ],
+        [
+          -4.023335969720506,
+          287.67954000000003,
+          298.3091927471101
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -58.08856964111328,
+          260.13714599609375,
+          284.0369873046875
+        ],
+        [
+          -28.979433059692383,
+          288.80291748046875,
+          302.37847900390625
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -25.396274251851295,
+          -0.0023940039062608776,
+          3.750999924947564
+        ],
+        [
+          -24.956097089971877,
+          1.1233774804687187,
+          4.069286256796147
+        ]
+      ],
+      "max_bound_difference_mm": 25.396274251851295
+    },
+    {
+      "study": "yb-stem-elbow",
+      "production": "yb-stem-elbow",
+      "expected_owner": "front-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "yb-stem-elbow/1",
+        "yb-stem-elbow/2"
+      ],
+      "expected_bounds_mm": [
+        [
+          -31.91641301422404,
+          159.4998421701147,
+          254.98020000000002
+        ],
+        [
+          -15.700597413499645,
+          185.83761474161204,
+          284.46020000000004
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -31.867351531982422,
+          159.49598693847656,
+          254.97500610351562
+        ],
+        [
+          -15.769487380981445,
+          185.83969116210938,
+          284.4671936035156
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.0490614822416191,
+          -0.0038552316381412766,
+          -0.005193896484399829
+        ],
+        [
+          -0.06888996748179999,
+          0.00207642049733181,
+          0.006993603515581981
+        ]
+      ],
+      "max_bound_difference_mm": 0.06888996748179999
+    },
+    {
+      "study": "soda-outlet-return-stem",
+      "production": "soda-outlet-return-stem",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "soda-outlet-return-stem/1",
+        "soda-outlet-return-stem/2"
+      ],
+      "expected_bounds_mm": [
+        [
+          42.480000000000004,
+          422.7648,
+          298.59604788053633
+        ],
+        [
+          75.34,
+          446.5048,
+          314.7360478805363
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          42.25299835205078,
+          421.414794921875,
+          298.685546875
+        ],
+        [
+          75.34100341796875,
+          446.510009765625,
+          314.0665588378906
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -0.22700164794922273,
+          -1.3500050781249797,
+          0.08949899446366771
+        ],
+        [
+          0.0010034179687465894,
+          0.005209765625011187,
+          -0.6694890426456936
+        ]
+      ],
+      "max_bound_difference_mm": 1.3500050781249797
+    },
+    {
+      "study": "drain-vb-east-link",
+      "production": "tube-above-core-drain-vb-east-link",
+      "expected_owner": "back-bottom",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "tube-above-core-drain-vb-east-link"
+      ],
+      "expected_bounds_mm": [
+        [
+          2.16,
+          205.62,
+          277.24
+        ],
+        [
+          46.9,
+          212.36,
+          283.58
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          2.1589999198913574,
+          205.95729064941406,
+          277.2349853515625
+        ],
+        [
+          46.89099884033203,
+          212.260986328125,
+          283.5849914550781
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -0.0010000801086427202,
+          0.33729064941405795,
+          -0.005014648437509095
+        ],
+        [
+          -0.009001159667967329,
+          -0.09901367187501364,
+          0.004991455078140916
+        ]
+      ],
+      "max_bound_difference_mm": 0.33729064941405795
+    },
+    {
+      "study": "vb-yb-cross",
+      "production": "tube-above-core-vb-yb-cross",
+      "expected_owner": "back-bottom",
+      "core_assembly_member": true,
+      "production_mesh_names": [
+        "cold-core/tube-above-core-vb-yb-cross"
+      ],
+      "expected_bounds_mm": [
+        [
+          -20.46,
+          277.52,
+          277.56
+        ],
+        [
+          47.36,
+          283.88,
+          293.26
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -45.62680435180664,
+          277.5476989746094,
+          277.5663757324219
+        ],
+        [
+          47.353885650634766,
+          283.85137939453125,
+          296.7979431152344
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -25.16680435180664,
+          0.02769897460939319,
+          0.006375732421872726
+        ],
+        [
+          -0.0061143493652338066,
+          -0.028620605468745453,
+          3.537943115234384
+        ]
+      ],
+      "max_bound_difference_mm": 25.16680435180664
+    },
+    {
+      "study": "vb-yb-link",
+      "production": "tube-above-core-vb-yb-link",
+      "expected_owner": "back-bottom",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "tube-above-core-vb-yb-link"
+      ],
+      "expected_bounds_mm": [
+        [
+          -29.18,
+          167.96,
+          273.54
+        ],
+        [
+          -19.48,
+          275.84,
+          293.96
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -53.151851654052734,
+          167.9679412841797,
+          273.5463562011719
+        ],
+        [
+          -19.497861862182617,
+          275.837158203125,
+          297.5055847167969
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -23.971851654052735,
+          0.007941284179679542,
+          0.006356201171854536
+        ],
+        [
+          -0.01786186218261676,
+          -0.002841796874974989,
+          3.5455847167968955
+        ]
+      ],
+      "max_bound_difference_mm": 23.971851654052735
+    },
+    {
+      "study": "soda-meter-bulkhead",
+      "production": "tube-soda-meter-bulkhead",
+      "expected_owner": "back-bottom",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "tube-soda-meter-bulkhead"
+      ],
+      "expected_bounds_mm": [
+        [
+          46.82,
+          405.72,
+          303.2
+        ],
+        [
+          53.18,
+          438.3,
+          309.56
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          46.848148345947266,
+          405.7148132324219,
+          303.2010498046875
+        ],
+        [
+          53.151851654052734,
+          438.3057861328125,
+          309.5510559082031
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.02814834594726534,
+          -0.005186767578152285,
+          0.0010498046875113687
+        ],
+        [
+          -0.02814834594726534,
+          0.005786132812488631,
+          -0.008944091796877274
+        ]
+      ],
+      "max_bound_difference_mm": 0.02814834594726534
+    },
+    {
+      "study": "pump-check-link",
+      "production": "tube-above-core-pump-check-link",
+      "expected_owner": "back-bottom",
+      "core_assembly_member": true,
+      "production_mesh_names": [
+        "cold-core/tube-above-core-pump-check-link"
+      ],
+      "expected_bounds_mm": [
+        [
+          -35.98,
+          333.18,
+          277.0
+        ],
+        [
+          -29.62,
+          365.06,
+          283.34
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          -35.953651428222656,
+          333.1764831542969,
+          276.99383544921875
+        ],
+        [
+          -29.649948120117188,
+          365.0674743652344,
+          283.3438415527344
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.026348571777340624,
+          -0.003516845703131821,
+          -0.00616455078125
+        ],
+        [
+          -0.029948120117186505,
+          0.007474365234372726,
+          0.003841552734400011
+        ]
+      ],
+      "max_bound_difference_mm": 0.029948120117186505
+    },
+    {
+      "study": "soda-continuous-inlet",
+      "production": "tube-soda-core-rise",
+      "expected_owner": "back-bottom",
+      "core_assembly_member": true,
+      "production_mesh_names": [
+        "cold-core/tube-soda-core-rise"
+      ],
+      "expected_bounds_mm": [
+        [
+          46.8,
+          339.24,
+          241.4
+        ],
+        [
+          53.18,
+          376.12,
+          309.56
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          46.82500076293945,
+          351.2177429199219,
+          253.39999389648438
+        ],
+        [
+          53.17499923706055,
+          357.5214538574219,
+          304.217041015625
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.025000762939455967,
+          11.977742919921866,
+          11.99999389648437
+        ],
+        [
+          -0.005000762939452841,
+          -18.59854614257813,
+          -5.342958984375002
+        ]
+      ],
+      "max_bound_difference_mm": 18.59854614257813
+    }
+  ]
+}
