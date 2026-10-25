@@ -1485,8 +1485,8 @@ dressing. The loom bore is teardropped because the piece beds on Z.
 
 ## Funnel opening
 
-The silicone funnel sits in a separate solid PET-GF frame. The drain stays at Y161.69575; the 35 mm aft extension places the collar
-center at Y179.19575.
+The silicone funnel sits in a separate solid PET-GF frame, extended 35 mm aft.
+The drain and collar share the center at Y179.19575.
 Its brim bearing is Z349 and lower body reaches Z299.9. Two full-width end
 corbels stand 30° from vertical. The flange is 196.5 mm wide and lower body
 176.5 mm wide; its aft shoulders clear the upper M5 seam blocks.
