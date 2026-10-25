@@ -418,18 +418,6 @@
             ]
           },
           {
-            "material": "HSM-000323",
-            "quantity": 5,
-            "unit": "ea",
-            "bodies": [
-              "anchor-cap-carb-1",
-              "anchor-cap-co2-2",
-              "anchor-cap-fluid-28",
-              "anchor-cap-fluid-14",
-              "anchor-cap-fluid-18"
-            ]
-          },
-          {
             "material": "HSM-000077",
             "quantity": 1,
             "unit": "ea",
@@ -6006,25 +5994,6 @@
           "title": "Countertop routing and faucet installation",
           "path": "assembly/faucet-and-umbilical.md"
         }
-      ]
-    },
-    {
-      "id": "HSM-000323",
-      "description": "Anchor cap",
-      "kind": "manufactured",
-      "models": [
-        {
-          "file": "printed-parts/enclosure/anchor-cap/anchor-cap.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Part details",
-          "path": "printed-parts/enclosure/anchor-cap/README.md"
-        }
-      ],
-      "aliases": [
-        "Anchor cap"
       ]
     },
     {
