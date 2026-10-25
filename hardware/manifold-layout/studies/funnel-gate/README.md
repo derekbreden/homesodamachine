@@ -5,6 +5,17 @@ cold-core roof east of the PCB, and an edge-on flow meter between the pump and C
 soda bulkhead. V-A, V-K, the pump and PCB retain their established poses.
 Ground and WAGO placement remain deferred.
 
+## Implementation target
+
+[approved-arrangement.json](approved-arrangement.json) records the selected
+component frames and display bounds.
+[assembly-ownership.json](assembly-ownership.json) records the carrying pieces
+and connections between them. V-A, V-K and their low feed plumbing attach to
+back-top. V-B attaches to the cold-core lid, carried by back-bottom. Component
+position and attachment are both part of the implementation target. Retaining
+details follow those assignments. A necessary layout or attachment compromise
+requires discussion with Derek before adoption.
+
 ## Funnel and opening
 
 The silicone funnel extends 35 mm in +Y. Its fore edge remains Y87, its aft
@@ -38,14 +49,18 @@ V-B lies square on its side, head east and flow aft, at native origin
 opposed drain and valve stems point level east/west, with a straight 10.95 mm
 exposed tube between them.
 
-The outlet stem points west, rising 8 degrees. A straight 60.41 mm exposed
+The outlet stem points west, rising 8 degrees. A straight 35.00 mm exposed
 cross run goes above the PCB into a two-socket elbow. That elbow turns the
 return fore, descending into Y-B's aft-facing stem. The descending tube has
-82.38 mm exposed length and a 30.31 mm minimum modeled radius; its minimum
-Y is 185.127. Its flexible span has a shallow 3 mm crown. The return turn is
-at `(−50,280.69954,294.33057)` mm, aft of the frame's Y270.692 edge. The
-plumbing remains on the aft side of Y-B. Both PCB power-terminal driver
-axes are clear.
+76.67 mm exposed length and a 27.44 mm minimum modeled radius; its minimum
+Y is 185.127. Its flexible span has a shallow 2 mm crown. The selected return
+turn is at `(−24.836524,280.69954,290.794074)` mm, aft of the frame's Y270.692
+edge. The plumbing remains on the aft side of Y-B.
+
+The X−50 return in [centered-drain-review.json](centered-drain-review.json)
+is an implementation variant with recorded PCB power-driver and J11 access.
+It requires discussion with Derek before adoption. Its clearance readings do
+not qualify the selected return at X−24.836524.
 
 [b_plumbing.py](b_plumbing.py) describes those fitting poses, seated interfaces,
 centerlines and dimensions. V-A uses one continuous low tube into Y-A's single
@@ -164,11 +179,13 @@ cache, recorded in [pcb-j3-dressed-lead-source.json](parts/pcb-j3-dressed-lead-s
 PCB and mating housing datums are fixed. Other local connection estimates
 travel with their owners. Full harness routing is separate.
 
-With the funnel/frame and disconnected drain assembly removed, the actual J11
-housing has a bounded service path: 6 mm up, 6 mm east, then another 20 mm up.
-Conservative continuous housing sweeps clear the return by at least 0.439 mm.
-This is a housing-envelope check, excluding fingers and flexible lead motion;
-[centered-drain-review.json](centered-drain-review.json) records its scope.
+The bounded J11 housing service path in
+[centered-drain-review.json](centered-drain-review.json) applies to its recorded
+X−50 return variant with the funnel/frame and disconnected drain assembly
+removed. It moves 6 mm up, 6 mm east, then another 20 mm up, with 0.439 mm
+minimum nominal clearance. This is a housing-envelope check, excluding fingers
+and flexible lead motion. Access with the selected return is an open integration
+question in [implementation-review.json](implementation-review.json).
 
 [fit-report.json](fit-report.json) records the combined exterior fit, intended
 seats, local lead checks, nominal 6 mm JST withdrawal sweeps and 30 mm vertical

@@ -1,5 +1,7 @@
 {
-  "scope": "Carried subassemblies for the selected above-core arrangement. Ownership follows the mounting parent, never a coordinate quadrant. Proposed groups identify an assembly choice whose retaining detail is still to design.",
+  "scope": "Selected carrying subassemblies for the approved above-core arrangement. Ownership follows the mounting parent, never a coordinate quadrant. A proposed or modelled retaining detail does not authorize changing the assigned carrying piece.",
+  "implementation_rule": "Preserve the selected component arrangement, carrying pieces and boundary connections. Resolve retaining details within that arrangement. Any necessary change to attachment, main component position or routing that introduces a compromise must be discussed with Derek before adoption.",
+  "approved_arrangement": "approved-arrangement.json",
   "quadrants": [
     {
       "id": "front-top",
