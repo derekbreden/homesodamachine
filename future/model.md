@@ -20,7 +20,7 @@ regulator. Blue 1/4" LLDPE carries it to the enclosure's TAP bulkhead, across th
 DIGITEN meter (FL-S402BZJ, [B07QRXLRTH](https://www.amazon.com/dp/B07QRXLRTH)), out the SODA
 bulkhead and up the umbilical's blue tube into the Westbrass valve inside the white faucet. The
 lever opens its spring poppet, and a 3/8" tube carries the water up the printed gooseneck to the
-tip. Two Kamoer KPHM600-SW3B17 pumps in the pump cartridge draw each flavor from its reservoir
+tip. Two Kamoer KPHM600-SW3B17 pumps in the pump cradle draw each flavor from its reservoir
 in the foam shell and push it up the umbilical's flavor runs to the same tip; the two meet in
 the glass. The main board drives each pump through a DRV8870 bridge from the Mean Well
 IRM-90-12ST, and runs the pour in
@@ -136,7 +136,7 @@ that count of pulses means, so the shape gives 1:20 for a pump that moves
 three things set what it delivers:
 
 - **The pump's speed.** A brushed motor's speed follows its voltage less the armature's own
-  drop. The DRV8870's switches, J13, the contact pair and the leads take
+  drop. The DRV8870's switches, J13 and the leads take
   [0.5–1.0 V](A_DRIVE) at the pump's current, so the motor sees
   [11.3 V (11.0–11.5)](MOTOR_V) and the head turns at [91 % (88–94)](SPEED) of its rated
   speed.
@@ -246,9 +246,8 @@ Stop if a reservoir runs low enough for its pump to draw air.
 **What it decides.** Whether the first glass's warm water and brass, which the appliance shares,
 need a design answer before the appliance can match the can; whether a run of glasses holds its
 carbonation, which sets how much transfer the appliance's jet owes (Plan B's fading and
-successive-glass rows); whether the poppet seat loses enough CO2 to need a gentler path
-([concerns](/hardware/concerns.md), "Carbonated water through the faucet valve"); and what fill
-time the appliance's lower feed will give.
+successive-glass rows); whether the poppet seat loses enough CO2 to need a gentler path;
+and what fill time the appliance's lower feed will give.
 
 **Setup, the evening before.**
 
@@ -316,7 +315,7 @@ procedures that already touch it.
 
 | Concern | What the model would predict | Records and procedures |
 |---|---|---|
-| Pressure safety and burst margin | The welded carbonator's failure pressure and where it fails, predicted and then broken on a sacrificial vessel; the owned BEAMNOVA hydro pump reaches 726 psi | [pressure vessel](/hardware/assembly/pressure-vessel.md) (penetrant, 180 psi × 30 min hydro, SV-125 at 125 psi), [water-inlet jet](/hardware/assembly/water-inlet-jet.md) (root fusion), [concerns](/hardware/concerns.md) "The carbonator's weld, penetrant and hydro criteria"; Lillium's manual gives its own carbonator a 2 MPa test and a 1.1–1.5 MPa valve |
+| Pressure safety and burst margin | The welded carbonator's failure pressure and where it fails, predicted and then broken on a sacrificial vessel; the owned BEAMNOVA hydro pump reaches 726 psi | [pressure vessel](/hardware/assembly/pressure-vessel.md) (penetrant, 180 psi × 30 min hydro, SV-125 at 125 psi), [water-inlet jet](/hardware/assembly/water-inlet-jet.md) (root fusion); Lillium's manual gives its own carbonator a 2 MPa test and a 1.1–1.5 MPa valve |
 | Leaks and creep over a month | Which joints relax: push-fit O-rings under the CO2 feed, printed reservoir caps on TPU gaskets, zip-tied pump tubes | [acceptance and burn-in](/hardware/assembly/acceptance-and-burn-in.md) (eight-hour burn-in over a towel), [mechanical qualification](/hardware/mechanical-qualification/README.md) "Retained clamping force", concerns "Reservoir watertightness", "Joints buried by the foam", "Water on the cabinet floor", "A leak while nobody is home" |
 | Refrigeration pull-down, duty cycle and power | Hours from a warm fill to setpoint, compressor duty at a day's draw, kWh a month | [refrigerant loop](/hardware/assembly/refrigerant-loop.md), acceptance's compressor duty band, the [enclosure](/hardware/printed-parts/enclosure/README.md)'s cabinet heat estimate, [`cold_policy.h`](/firmware/lib/machine_policy/cold_policy.h), the Kill-A-Watt, concerns "Cabinet doors shut" |
 | Condensation | Where cold surfaces cross the cabinet's dew point and where the water goes | concerns "Condensation" and "Moisture into the foam", [internal plumbing](/hardware/assembly/internal-plumbing.md) (riser insulation), [faucet and umbilical](/hardware/assembly/faucet-and-umbilical.md) (foam ends), mechanical qualification "Insulation thickness"; the Lillium collects its own condensate in its drip tray |

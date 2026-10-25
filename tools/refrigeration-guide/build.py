@@ -33,7 +33,6 @@ SOURCES = [
     "firmware/lib/machine_policy/cold_policy.h",
     "hardware/assembly/acceptance-and-burn-in.md",
     "hardware/mechanical-qualification/README.md",
-    "hardware/concerns.md",
     "business/regulatory.md",
     "tools/refrigeration-guide/build.py",
     "tools/assembly-guides/common.py",
@@ -865,7 +864,7 @@ PAGES = [
       ("Lower into the grooves", "Drop the card straight between the two printed posts until it lands on their shoulder. Route its loom without lifting the card or blocking the low floor zone."),
       ("Check installed response later", "A located sensor is not a commissioned interlock. Prove module polarity, clean-air behavior and actual compressor shutdown under the approved test method.")],
      "CHECK", "The gas module is reachable, correctly oriented and retained; its threshold/shutdown evidence remains open.",
-     "enclosure-mechanical.md §3 / concerns.md / refrigerant-loop.md", None),
+     "enclosure-mechanical.md §3 / refrigerant-loop.md", None),
 
     ("Lower the compressor", "Mount the connected refrigeration assembly without transferring its weight into the copper lines.", fig_mount,
      [("Face the power end forward", "Keep the original covered terminal/PTC assembly intact. Support the cold core and condenser while lowering the plate straight onto all four floor posts."),
@@ -886,7 +885,7 @@ PAGES = [
       ("Place the case and clamp", "Seat the fuse along its channel against the cover flank. Slide the clamp's leaves into the cover-to-plate gap so the clamp rides with the compressor."),
       ("Inspect the actual fit", "The fuse must contact the cover without damage or a loose air gap. Nominal CAD diameter does not prove contact across case/print tolerance; preserve required straight lead length.")],
      "HOLD", "Installed retention, contact and insulation need bench evidence before the cutoff is credited as protection.",
-     "refrigeration/fuse-clamp/README.md / sf76e-thermal-fuse / concerns.md", None),
+     "refrigeration/fuse-clamp/README.md / sf76e-thermal-fuse", None),
 
     ("Prove the first start", "Finish electrical commissioning and leak checks before a brief compressor smoke test.", fig_start,
      [("Read real probes", "Use thermal and status on the shipping firmware. Require family 0x28 on the tank and 0x10 on the coil; de-energized ambient checks are within +/-2 C."),

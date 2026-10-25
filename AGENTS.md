@@ -6,7 +6,7 @@ A home soda machine — a kitchen appliance that dispenses flavored carbonated w
 
 The prototype under the counter dispenses from a Lillium-class external carbonator. The integrated soda machine under development consolidates the carbonator into the same enclosure.
 
-See `future/README.md` for where this is going and what done looks like, `hardware/README.md` for the machine as it stands, subsystem by subsystem, and `hardware/concerns.md` for every concern raised about it, answered or open.
+See `future/README.md` for where this is going and what done looks like, `hardware/README.md` for the machine as it stands, subsystem by subsystem, and `hardware/concerns.md` for the concerns already answered.
 
 ## Why This Exists
 
@@ -51,6 +51,10 @@ Read the relevant records before asking the founder to reconstruct reported issu
 For hardware optimizations, identify the customer outcome, supporting evidence and measurement needed to assess the candidate. Saved settings and geometric checks alone do not establish load capacity or lifetime.
 Existing specifications carry no presumption of correctness. Start from product requirements, load paths and applicable manufacturer guidance; justify deviations with evidence relevant to the property being assessed. Prefer a supported, straightforward correction when testing would not change that decision.
 Missing evidence is a limit on a claim, not automatically a task for the founder. Before requesting a measurement or test, explain the decision it changes, why it is worth the effort, the exact procedure, fixtures and tools, and acceptance criteria derived from the application. Use existing tools where possible; any requested purchase needs an Amazon Prime link and a clear purpose.
+
+## Concerns
+
+[`hardware/concerns.md`](hardware/concerns.md) holds concerns that are already answered, so no agent raises them again. Agents are bad at telling a legitimate concern from one that isn't, so an agent never writes its own concern there. Tell Derek the concern. If he convinces you it isn't one, record his answer there. If he doesn't, it is work to do, not a row. If he doesn't respond, you haven't told him yet.
 
 ## Enclosure Changes
 
