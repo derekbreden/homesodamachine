@@ -103,7 +103,7 @@ flank and runs aft one running fit inside the back piece's skin; a back knuckle 
 that skin and on into the thickened flank. Every knuckle stands in the [17.8 mm](LIP_LEN)
 overlap and the [14 mm](SIDE_BAND) side band, its screw mid-overlap in Y.
 
-- **The lower stack** is a three-knuckle hinge inside the bottom pieces: back-bottom's
+- **The lower stack** is three knuckles inside the bottom pieces: back-bottom's
   knuckle over the handhold, front-bottom's, and back-bottom's under the Z seam. An
   [M5 × 120](LOWER_ROD) drives up from the handhold ceiling at Z[29.25](Y_STACK_CEILING),
   its head in the lower back knuckle, through front-bottom's knuckle into a ruthex RX-M5x9.5
