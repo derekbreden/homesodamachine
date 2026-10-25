@@ -120,8 +120,8 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Part | Qty | Material | Mass (kg) | $ |
 |---|---:|---|---:|---:|
 | Cold-core inner shell (foam-shell) | 1 | PET-GF | 1.666 | $41.69 <!--@printed--> |
-| Cold-core foam cap — top | 1 | PET-GF | 0.281 | $7.03 <!--@printed--> |
-| Cold-core foam cap lid — top | 1 | PET-GF | 0.304 | $7.60 <!--@printed--> |
+| Cold-core foam cap — top | 1 | PET-GF | 0.285 | $7.13 <!--@printed--> |
+| Cold-core foam cap lid — top | 1 | PET-GF | 0.306 | $7.66 <!--@printed--> |
 | Cold-core foam cap — bottom | 1 | PET-GF | 0.181 | $4.53 <!--@printed--> |
 | Cold-core foam cap lid — bottom | 1 | PET-GF | 0.134 | $3.36 <!--@printed--> |
 | Cold-core copper-slot covers | 2 | PETG | 0.012 | $0.13 <!--@printed--> |
@@ -131,12 +131,12 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Flavor reservoir cap — left | 1 | PETG (translucent) | 0.059 | $0.66 <!--@printed--> |
 | Flavor reservoir cap — right | 1 | PETG (translucent) | 0.059 | $0.66 <!--@printed--> |
 | Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.263 | $31.60 <!--@printed--> |
-| Enclosure — pump cradle + clamp (one set) | 1 set | PET-GF | 0.491 | $12.28 <!--@printed--> |
+| Enclosure — pump cradle + clamp (one set) | 1 set | PET-GF | 0.502 | $12.57 <!--@printed--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--> |
-| Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.443 | $36.10 <!--@printed--> |
+| Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.444 | $36.13 <!--@printed--> |
 | Display cover plate | 1 | PET-GF | 0.012 | $0.31 <!--@printed--> |
 | Bulkhead ring — one per +Y-wall crossing | 6 | PET-GF (blue, white ×2, red, black ×2) | 0.011 | $0.28 <!--@printed--> |
-| Tube collar — one per +Y-wall crossing | 6 | PET-GF (blue, white ×2, red, black ×2) | 0.023 | $0.58 <!--@printed--> |
+| Tube collar — one per +Y-wall crossing | 6 | PET-GF (blue, white ×2, red, black ×2) | 0.023 | $0.59 <!--@printed--> |
 | Collet press — install-kit customer tool | 1 | PET-GF | 0.017 | $0.44 <!--@printed--> |
 | Nameplate — one per unit, serialized | 1 | PET-GF (black + white) | 0.017 | $0.42 <!--@printed--> |
 | Fuse clamp | 1 | PETG | 0.005 | $0.06 <!--@printed--> |
@@ -149,9 +149,9 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Funnel frame | 1 | PET-GF | 0.259 | $6.49 <!--@printed--> |
 | Funnel cover | 1 | PETG | 0.134 | $1.50 <!--@printed--> |
 | Funnel drain-elbow cradle | 1 | PET-GF | 0.012 | $0.29 <!--@printed--> |
-| **Printed parts total** | | | **~7.29** | **[$167.93](BOM_SEC7)** |
+| **Printed parts total** | | | **~7.31** | **[$168.42](BOM_SEC7)** |
 
-By material: PETG ≈ 1.04 kg / $11.67 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.80 — and PET-GF ≈ 6.25 kg / $156.27.
+By material: PETG ≈ 1.04 kg / $11.67 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.80 — and PET-GF ≈ 6.27 kg / $156.76.
 
 These geometry-based estimates use the shared wall and sparse-infill recipes.
 They exclude the additional material in the enclosure's
@@ -337,16 +337,16 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 | 4. CO2 subsystem | [$147.03](BOM_SEC4) |
 | 5. Refrigeration | [$143.06](BOM_SEC5) |
 | 6. Cold core insulation | [$18.64](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-GF) | [$167.93](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-GF) | [$168.42](BOM_SEC7) |
 | 8. Flavor subsystem | [$268.42](BOM_SEC8) |
 | 9. Dispensing | [$80.42](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
-| 11. Wiring | [$34.35](BOM_SEC11) |
+| 11. Wiring | [$35.36](BOM_SEC11) |
 | 12. Level sensing | [$29.78](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$18.71](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
 | 15. Customer documentation | [$25.14](BOM_SEC15) |
-| **Total** | **[$1,487.91](BOM_GRAND)** |
+| **Total** | **[$1,489.41](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

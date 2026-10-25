@@ -7,8 +7,8 @@
     ],
     "core": [
       247.0,
-      228.39151584656256,
-      45.35380398688696
+      228.39151584656258,
+      45.35380398688713
     ],
     "funnel": [
       215.0000002,
@@ -22,23 +22,23 @@
     ]
   },
   "volume_ml": {
-    "cavity": 1573.4041589135002,
-    "core": 928.474046412117,
-    "funnel": 330.9691711628102,
+    "cavity": 1573.404158946902,
+    "core": 928.474045329771,
+    "funnel": 330.9691711569869,
     "rod": 0.7068583470577037
   },
   "shell_thickness_mm": 5.0,
   "flange_thickness_mm": 5.0,
-  "minimum_cavity_backing_mm": 5.009979086918229,
+  "minimum_cavity_backing_mm": 5.009979086918218,
   "backing_join_allowance_mm": 0.01,
-  "minimum_core_backing_mm": 7.501534763362033,
+  "minimum_core_backing_mm": 7.5015347633620335,
   "liquid_containment": {
     "cavity": {
-      "retained_volume_ml": 1047.0268918290817,
+      "retained_volume_ml": 1047.0268935395736,
       "casting_outside_retained_mm3": 0.0
     },
     "assembled": {
-      "retained_volume_ml": 367.3860739875095,
+      "retained_volume_ml": 367.3860764835168,
       "casting_outside_retained_mm3": 0.0
     }
   },
@@ -87,7 +87,7 @@
     "finishing": "clean and apply release"
   },
   "funnel_to_mould_z_translation_mm": 50.150000000000006,
-  "finished_funnel_step_sha256": "622ff696753e4d1620772193528fceac409ef807856e423216672652bcedaede",
+  "finished_funnel_step_sha256": "533a24988cee5391f01aeaab7c11989fab7bd47638beb524efa950eb718b1a72",
   "locators": {
     "diameter_mm": 8.0,
     "height_mm": 3.0,
@@ -180,7 +180,7 @@
     "cavity_corner_radius_mm": 22.424999999999997,
     "base_thickness_mm": 5.0,
     "corbel_run_per_rise": 0.5,
-    "corbel_angle_from_bed_deg": 63.43494882292202,
+    "corbel_angle_from_bed_deg": 63.43494882292201,
     "corbel_print_z_mm": [
       5.0,
       54.150000000000006
@@ -281,11 +281,11 @@
   "chamber_radial_clearance_mm": 1.0420761594980092,
   "volume_measurement_scope": "Numerical integration of the final native STEP solids; whole-shape equality is established by complete CSG, separately from spline volume integration.",
   "native_shell_sha256": {
-    "cavity.step": "5d9d7c80d71aa7df5894f20526d14456a1b92d8af0cb011d5ad069902e8fbaee",
-    "cavity.stl": "ec9c34441170bdad2bbec4f2db8889e6963cb53a150af890936d65d494fff86c",
-    "cavity.step.mesh": "0f1463ae5b0148dc0b16dcaca5c2b50bfd6d97c438a9c390ad64af2a7db70918",
-    "core.step": "ef28872b87a34df57a27baa386831d9fdf089beb0bc83ee1475156b6a2676208",
-    "core.stl": "8cfd1d7307ff331eb3908b0cd6ebf78e11197728fe933a408bf1a61fb7849be7",
-    "core.step.mesh": "5608a2661e2a497cd22e75bc8b76bf74f47ffed9c1ec75c93e330582df71da32"
+    "cavity.step": "3f25ee1c9ac13a76f61db51d090006b0c3c68d8a39279e64a32b32283930596c",
+    "cavity.stl": "bd31ecd8d3d0c8d42776e1a76404ad45392f2c79d54ad515cab699f97ee07529",
+    "cavity.step.mesh": "bb7fc72c23ab64d8fe3e4d0d4fd127e5fe93799557f83c53411f1476c19bc720",
+    "core.step": "ad80eb236a413db886dc7b80198bb6a17458f3cf94356f90e69d8a408b06e166",
+    "core.stl": "72c5ed209a0d254ce036acde4ebe6e02d53a0bfc5a951bbdaa66f687ec2acd00",
+    "core.step.mesh": "13ee5a48c999e7e1f1cf22b4143b27fea271262a43bb553b45939681e2090349"
   }
 }
