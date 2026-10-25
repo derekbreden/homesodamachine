@@ -382,5 +382,37 @@
     "Local cache proof is bound to the listed input hashes. Fourteen moved PSU/relay leads and the separate J9-B redress have their own electrical proof. No general populated-group closing or service qualification is inferred.",
     "The selected foam occupied body is a compression-display estimate. Its accepted soft contacts and full stock envelope retain the separate continuous-inlet receipt scope."
   ],
-  "passed_local_stock_and_contacts": true
+  "passed_local_stock_and_contacts": true,
+  "actual_back_top_binding": {
+    "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+    "sha256": "1a74a3c9dab42fa7defb8de45d4b04c0c74436a93235a97660b131a5fce0c4a2",
+    "stock_valid": true,
+    "stock_solids": 1,
+    "source_sha256": {
+      "hardware/printed-parts/enclosure/enclosure/_back_top_meter.py": "c1862d1f386dc21911c5286f5fbb1ece5073c2f87d5b4bd8e62ecb78d3f9bcbc",
+      "hardware/mechanical-qualification/enclosure-above-core/wall_meter.py": "c82af12e5c8d34647e8976ec4be612e2a0eb22a5728adc74a4d48ee018ae07f2"
+    },
+    "rows": {
+      "meter-fore": {
+        "same_recorded_datums": true,
+        "source_support_missing_mm3": 0.0,
+        "actual_tie_slot_stock_mm3": 0.0,
+        "actual_seat_bore_stock_mm3": 0.0,
+        "full_3mm_quarter_missing_mm3": 0.0,
+        "full_3mm_slot_surround_missing_mm3": 0.0,
+        "wall_landing_missing_mm3": 0.0
+      },
+      "meter-aft": {
+        "same_recorded_datums": true,
+        "source_support_missing_mm3": 0.0,
+        "actual_tie_slot_stock_mm3": 0.0,
+        "actual_seat_bore_stock_mm3": 0.0,
+        "full_3mm_quarter_missing_mm3": 0.0,
+        "full_3mm_slot_surround_missing_mm3": 0.0,
+        "wall_landing_missing_mm3": 0.0
+      }
+    },
+    "scope": "Imported back-top versus the two unchanged source bracket solids, complete quarter/slot stock, open slots and bore air. The original 172-target cached-neighbor/strip reading is preserved and is not replayed. No installed-wire, whole-group motion or physical qualification is added.",
+    "passed_actual_stock": true
+  }
 }
