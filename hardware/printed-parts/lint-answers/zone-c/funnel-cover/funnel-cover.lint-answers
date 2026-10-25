@@ -1,0 +1,17 @@
+[sliver] Functional full-width lifting recess: the 1.2 mm vertical face sets the under-edge entry above the silicone apron. It ends outside the bearing brim. funnel_cover.py FRONT_RELIEF fixes this access dimension; the remaining local plate section is 1.8 mm.
+alternatives: Filling the entry removes the specified lifting purchase; extending it upward reduces the remaining plate section. A thicker whole plate changes the selected cover height. Retain the named local cover-access section.
+file: hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step
+click: x=0.000 y=-87.196 z=0.600
+
+[thin] Functional local cover-access section: the 1.2 mm underside lifting entry leaves 1.8 mm of the 3 mm plate above it. This is the same full-width lifting recess identified in the separate print export and cover README; it is not a residual wall between unrelated cuts. Physical lifting durability remains unqualified.
+alternatives: Filling the recess removes under-edge purchase. Increasing the whole plate changes its selected height; a separate handle changes the cover. Retain this defined local exception.
+file: hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step
+click: x=89.950 y=-87.209 z=1.200
+click: x=89.950 y=-87.209 z=3.000
+
+[ceiling] Non-print-frame reading: this STEP is the installed assembly orientation. The production funnel-cover-print.step and STL rotate it 180 degrees about X and translate by the 3 mm plate thickness, placing the complete exterior flat at print Z0 with the skirt growing upward. The three listed assembly-frame faces are not unsupported print ceilings in that pose; the print-artifact lint has no ceiling findings.
+alternatives: Assess supports using funnel-cover-print.stl. Printing this installed pose would put the skirt below the plate and require a different support strategy, contrary to the documented production pose.
+file: hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step
+click: x=0.000 y=0.000 z=0.000
+click: x=0.000 y=0.250 z=0.000
+click: x=0.000 y=-89.446 z=1.200

@@ -1,0 +1,9 @@
+[thin] Exact accepted functional holder article: the 2.000 mm channel-wall pick and 2.458/2.460 mm dome/lead-in picks belong to the R14 holder with a 6.8 mm teardrop channel and 3 mm straight legs at both ends. The qualitative physical result is future/tube-bend-holder-exploration/prints/2026-10-23-legs-123-w2-petgf-left04-z018-mark1/physical-result.json. The production functional-geometry-review.json proves native equality to that holder(2,3) candidate: both directional Boolean differences are 0 mm³. This answer applies only to the identified article, not arbitrary thin enclosure walls. Threading force, tube roundness, pressure and lifetime remain unmeasured.
+alternatives: Thickening the complete holder changes the physically reported 2 mm article, its outside section and its fit inside the selected foam. Removing or extending the end legs changes the reported 3 mm variant. Retain the exact accepted wall/leg/channel geometry; other variants have no transferred acceptance.
+file: hardware/printed-parts/soda-bend-holder/soda-bend-holder.step
+click: x=5.074 y=18.719 z=5.402
+click: x=4.541 y=16.792 z=5.372
+click: x=12.209 y=0.327 z=11.904
+click: x=13.913 y=0.369 z=10.133
+click: x=14.105 y=7.071 z=11.904
+click: x=12.552 y=6.288 z=10.165

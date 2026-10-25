@@ -1,7 +1,13 @@
 [sliver] Local functional finishing reserve: these four 0.30 mm faces bound the apron-forming pocket. Its depth allows sanding/sealing of the forming face while the surrounding bare lands establish closure.
 alternatives: Omitting the reserve changes the finished casting after coating. Increasing it to 3 mm changes the specified forming allowance. Retain the 0.30 mm process dimension.
 file: hardware/printed-parts/zone-c/funnel-mold/core.step
-click: x=0.000 y=80.996 z=59.300
-click: x=0.000 y=-74.996 z=59.300
+click: x=0.000 y=98.494 z=59.300
+click: x=0.000 y=-92.494 z=59.300
 click: x=107.800 y=3.000 z=59.300
 click: x=-107.800 y=3.000 z=59.300
+
+
+[step] Functional forming-face finishing allowance: this 0.30 mm pocket beneath the apron-forming face is the finish_allowance in funnel_mold.py and design.json. The surrounding bare lands establish closure while the forming face retains its specified sanding/sealing reserve. The 0.30 mm parallel-plane difference is that intentional process dimension, not a cut remnant.
+alternatives: Making the forming pocket flush with the closure lands removes the finishing allowance and changes the finished casting after coating. Increasing the pocket to the ordinary wall dimension changes the process allowance. Retain the specified 0.30 mm forming reserve.
+file: hardware/printed-parts/zone-c/funnel-mold/core.step
+click: x=-107.034 y=98.079 z=59.150

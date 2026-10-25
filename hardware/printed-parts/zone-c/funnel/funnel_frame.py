@@ -42,6 +42,7 @@ SCREW_LENGTH = 12.0
 SCREW_LENGTH_ALLOWANCE = 0.4
 SCREW_GRIP = 5.8
 SCREW_HEAD_H = 3.0
+SCREW_HEAD_D = 5.5
 SCREW_PAD_HALF_Y = 6.0
 SCREW_PILOT_RELIEF = 1.5
 
@@ -214,12 +215,42 @@ def _frame_screw_cuts(inner, y_joint, centre, seat):
         head_cut = cq.Solid.makeCylinder(enc.head_cbore_dia / 2,
             seat + funnel.brim_thickness + 1 - head, cq.Vector(x, y, head))
         # Open each counterbore to the side above its complete bearing floor.
-        xa, xb = sorted((x, centre[0] + row['side'] * 150.0))
+        inner = x - row['side'] * enc.head_cbore_dia / 2
+        xa, xb = sorted((inner, centre[0] + row['side'] * 150.0))
         head_cut = head_cut.fuse(cq.Solid.makeBox(xb - xa, enc.head_cbore_dia,
             seat + funnel.brim_thickness + 1 - head,
             cq.Vector(xa, y - enc.head_cbore_dia / 2, head)))
         cuts.append(shank.fuse(head_cut).clean())
     return cq.Compound.makeCompound(cuts)
+
+
+def body_side_half_width(inner=DEFAULT_INNER, y_joint=200.0,
+                         centre=(0.0, center_y), seat=349.0):
+    """Plain lower side faces aligned with the front ledge passage."""
+    import enclosure as enc
+    return min(abs(row['x']-centre[0])-row['host_radius_mm']-enc.slide_slip
+               for row in fastener_datums(inner,y_joint,centre,seat)
+               if row['col']=='front')
+
+
+def _plain_frame_surround(body,inner,y_joint,centre,seat):
+    """Flat rear brim bearing and finite screw pads, with plain lower sides."""
+    import enclosure as enc
+    floor = datums(seat)[0]
+    roof = roof_datums(inner,centre,seat,y_joint)
+    half = body_side_half_width(inner,y_joint,centre,seat)
+    cuts = [cq.Solid.makeBox(150.-half,400.,roof['floor']-floor+1.,
+                cq.Vector(centre[0]+half,centre[1]-200.,floor-1.)),
+            cq.Solid.makeBox(150.-half,400.,roof['floor']-floor+1.,
+                cq.Vector(centre[0]-150.,centre[1]-200.,floor-1.))]
+    rear = cq.Solid.makeBox(300.,200.,roof['top']-seat+1.,
+                           cq.Vector(centre[0]-150.,y_joint-enc.slide_slip,seat))
+    pads = [cq.Solid.makeCylinder(SCREW_HEAD_D/2.,roof['top']-seat+2.,
+                cq.Vector(row['x'],row['y'],seat-0.5))
+            for row in fastener_datums(inner,y_joint,centre,seat)
+            if row['col']=='back']
+    cuts.append(rear.cut(*pads))
+    return body.cut(*cuts)
 
 
 @functools.cache
@@ -239,6 +270,7 @@ def build(inner=DEFAULT_INNER, y_joint=200.0, centre=(0.0, center_y), seat=349.0
     for cutter in (socket, clear, brim, *pierce,
                    _frame_screw_cuts(inner, y_joint, centre, seat)):
         body = body.cut(cutter)
+    body = _plain_frame_surround(body,inner,y_joint,centre,seat)
     body = merge_edges(body).clean()
     assert body.isValid() and len(body.Solids()) == 1
     assert abs(body.BoundingBox().zmin - floor) < 0.0001
@@ -319,7 +351,7 @@ def main():
     rear = DEFAULT_INNER[1] - enc.y_stack_high_depth - enc.slide_slip
     substitute_md(here / 'README.md', variables={
         'FRAME_WIDTH': f'{width:g} mm',
-        'FRAME_BODY_WIDTH': f'{body_width:g} mm',
+        'FRAME_BODY_WIDTH': f'{2*body_side_half_width():g} mm',
         'FRAME_REAR_WIDTH': f'{2 * rear:g} mm',
         'FRAME_SCREWS': f'M3 × {SCREW_LENGTH:g} mm',
         'FRAME_HOLE': f'{tube_hole_diameter:g} mm',

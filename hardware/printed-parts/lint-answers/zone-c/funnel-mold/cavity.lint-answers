@@ -7,17 +7,17 @@ click: x=-121.000 y=0.000 z=58.150
 alternatives: Removing these faces removes the opening entries; their height follows the separation-tool clearance.
 file: hardware/printed-parts/zone-c/funnel-mold/cavity.step
 click: x=-118.500 y=0.000 z=58.650
-click: x=0.000 y=-91.696 z=58.650
-click: x=0.000 y=91.696 z=58.650
+click: x=0.000 y=-109.196 z=58.650
+click: x=0.000 y=109.196 z=58.650
 click: x=118.500 y=0.000 z=58.650
-click: x=8.000 y=94.196 z=58.650
-click: x=8.000 y=-94.196 z=58.650
+click: x=8.000 y=111.696 z=58.650
+click: x=8.000 y=-111.696 z=58.650
 click: x=-121.000 y=8.000 z=58.650
 click: x=121.000 y=8.000 z=58.650
 click: x=-121.000 y=-8.000 z=58.650
 click: x=121.000 y=-8.000 z=58.650
-click: x=-8.000 y=94.196 z=58.650
-click: x=-8.000 y=-94.196 z=58.650
+click: x=-8.000 y=111.696 z=58.650
+click: x=-8.000 y=-111.696 z=58.650
 
 [ceiling] Functional flat bearing for the M4 clamp washers and bolt heads at eight stations. The mold recipe assigns support to these faces; the side and downward access remain open. Current support placement and removal need the tooling's fresh production slice.
 alternatives: A sloping bearing tilts the flat washer. Closing the access prevents fitting and holding the bolt head. Keep the required bearing and its accessible supported print face.
@@ -26,7 +26,7 @@ click: x=-118.200 y=50.000 z=54.150
 click: x=-118.200 y=-50.000 z=54.150
 click: x=118.200 y=50.000 z=54.150
 click: x=118.200 y=-50.000 z=54.150
-click: x=-50.000 y=91.396 z=54.150
-click: x=50.000 y=91.396 z=54.150
-click: x=-50.000 y=-91.396 z=54.150
-click: x=50.000 y=-91.396 z=54.150
+click: x=-50.000 y=108.896 z=54.150
+click: x=50.000 y=108.896 z=54.150
+click: x=-50.000 y=-108.896 z=54.150
+click: x=50.000 y=-108.896 z=54.150
