@@ -1,0 +1,9 @@
+{
+  "recorded_at_utc": "2026-10-25T16:20:16.999258+00:00",
+  "recorded_at_central": "2026-10-25T11:20:16.999258-05:00",
+  "source": "cua_repl getApp(com.bambulab.bambu-studio), three attempts in this chat",
+  "result": "The Mac is locked and automatic unlock could not unlock it. Ask the user to unlock the Mac manually before continuing.",
+  "state": "Waiting for manual Mac unlock; no Send attempted.",
+  "user_input": "Unlock requested asynchronously in this chat.",
+  "scope": "Computer-use access block; native file preparation and read-only printer telemetry are available."
+}

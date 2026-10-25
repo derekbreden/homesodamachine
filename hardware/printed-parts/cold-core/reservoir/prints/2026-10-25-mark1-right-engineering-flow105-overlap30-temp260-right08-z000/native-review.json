@@ -1,0 +1,143 @@
+{
+  "native_application": "BambuStudio-02.08.02.61",
+  "return_code": 0,
+  "plate_type": "Engineering Plate",
+  "selected_pair": "Right reservoir and matching cap",
+  "selected_plate": {
+    "feature_type_times": {
+      "Bottom surface": 267.191650390625,
+      "Bridge": 10.309184074401855,
+      "Custom": 298.391357421875,
+      "Flush": 15.0,
+      "Inner wall": 8853.5341796875,
+      "Internal solid infill": 780.9876708984375,
+      "Outer wall": 6772.01513671875,
+      "Overhang wall": 28.575138092041016,
+      "Sparse infill": 1075.725830078125,
+      "Support": 50.475337982177734,
+      "Support interface": 3.3479180335998535,
+      "Top surface": 181.93101501464844,
+      "Travel": 2219.2841796875,
+      "Undefined": 2217.286376953125
+    },
+    "filament_change_times": 0,
+    "filaments": [
+      {
+        "filament_id": "",
+        "id": 1,
+        "main_used_g": 444.21124267578125,
+        "total_used_g": 444.21124267578125
+      }
+    ],
+    "generate_support_material_time": 1599,
+    "id": 2,
+    "infill_time": 595,
+    "layer_filament_change": 0,
+    "main_predication": 20221.5234375,
+    "make_perimeters_time": 5544,
+    "obj_cached_cnt": 0,
+    "objects": [
+      {
+        "bbox": {
+          "depth": 140.5,
+          "height": 199.89999389648438,
+          "width": 76.96180725097656,
+          "x": 578.5191040039062,
+          "y": 89.75,
+          "z": -2.4218138605647255e-10
+        },
+        "id": 13,
+        "name": "reservoir-right",
+        "triangle_count": 9208
+      },
+      {
+        "bbox": {
+          "depth": 140.5,
+          "height": 11.0,
+          "width": 76.96180725097656,
+          "x": 491.51910400390625,
+          "y": 89.75,
+          "z": 0.0
+        },
+        "id": 17,
+        "name": "reservoir-cap-right",
+        "triangle_count": 16270
+      }
+    ],
+    "sliced_time": 13334,
+    "sliced_time_with_cache": 4892,
+    "total_predication": 20547.91796875,
+    "triangle_count": 25478,
+    "warning_message": ""
+  },
+  "layer_count": 833,
+  "z_trim_commands": [
+    "G29.1 Z0 ; clear z-trim value first",
+    "G29.1 Z0"
+  ],
+  "bed_temperature_c_first_subsequent": [
+    70,
+    70
+  ],
+  "nozzle_temperature_c_first_subsequent": [
+    255,
+    260
+  ],
+  "added_user_z_trim_mm": 0,
+  "effective_plate_z_trim_mm": 0,
+  "all_other_nonmotion_commands_identical_to_previous_right_print": true,
+  "changed_native_model_layers": [
+    {
+      "layer_1based": 816,
+      "height_mm": 195.9,
+      "textured_command_count": 2704,
+      "engineering_command_count": 2704
+    }
+  ],
+  "unchanged_native_model_layer_count": 832,
+  "command_comparison": "command-comparison.json",
+  "placement": {
+    "right_nozzle_usable_bed_bounds_mm": [
+      [
+        25.0,
+        0.0
+      ],
+      [
+        330.0,
+        320.0
+      ]
+    ],
+    "model_support_brim_xy_bounds_mm": [
+      [
+        95.525003,
+        89.750003
+      ],
+      [
+        259.480997,
+        230.249997
+      ]
+    ],
+    "edge_margins_left_front_right_back_mm": [
+      70.525003,
+      89.750003,
+      70.519003,
+      89.75000299999999
+    ],
+    "minimum_full_bead_edge_margin_mm": 70.519003,
+    "minimum_body_cap_full_bead_box_gap_mm": 10.042005999999986,
+    "deposited_move_count": 841914,
+    "support_move_count": 5281,
+    "scope": "Native deposited model, support and brim beads, including arc extrema and half-width. Vendor startup purge/calibration paths are excluded. Placement does not establish adhesion."
+  },
+  "wall_cooling_above_cap_pwm_values": [
+    35.7,
+    38.25,
+    40.8,
+    43.35,
+    229.5
+  ],
+  "gcode_sha256": "57e59dfd18ebb1586927f4601751fb0290f13a2419cd2d8fd4c4068804b3d206",
+  "embedded_gcode_md5_verified": true,
+  "source_geometry_and_placement_unchanged": true,
+  "support_basis": "All layers with supports retain identical native model/support commands. Native motion/extrusion variation is limited to layer 816 at Z195.9 mm."
+}
