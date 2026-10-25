@@ -384,7 +384,9 @@ def export(a):
     for r in runs:
         t_run = time.perf_counter()
         wire, pts, ss, kinds, s_total = sample_centreline(r)
-        length = s_total if r.id in native_a_specs else r.length
+        native_stations = (ea.reservoir_a_developed_stations(r, ())
+                           if r.id in native_a_specs else None)
+        length = native_stations[-1] if native_stations is not None else r.length
         ok_len = abs(s_total - length) <= LENGTH_TOL
         if not ok_len:
             length_mismatch.append((r.id, s_total, length))
