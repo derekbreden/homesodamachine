@@ -685,5 +685,401 @@
     "developed_length_mm": 260.15601509394725,
     "prepared_length_mm": 450,
     "reserve_mm": 189.84398490605275
+  },
+  "J2_OUT3_pump_correction": {
+    "scope": "One local source-native J2-OUT3 correction. Preserve both named terminals and all other97 conductor paths. The guide keeps its original PCB crossing and initial corner, turns east fore of the pump head, then rises atX15/Y274 before rejoining the existing east tail. Only local changed-region equipment and conductor neighbors are queried. Each pump solid is measured independently; the compound-zero reading is not a clearance result.",
+    "source_state": "frozen",
+    "source_commit": "1f0715378",
+    "native_receipt_sha256": "8de531453fa2c1ddf932d7591b87e2d3a472c418d72e991d6e6246f0f172b1b4",
+    "candidate_sha256": "677fd599ecbf83a7f191ff5438e310ff70546afca13c0bb8c274c982ed79f606",
+    "input_pump_subsolid_diagnosis": [
+      {
+        "native_solid_index": 1,
+        "pump_solid": {
+          "valid": true,
+          "orientation": "TopAbs_Orientation.TopAbs_FORWARD",
+          "solids": 1,
+          "faces": 3979,
+          "volume_mm3": 294719.9506046835,
+          "center_mm": [
+            9.375311008234656,
+            371.7850702271964,
+            285.66970860184074
+          ],
+          "bounds_mm": [
+            -21.797643843726007,
+            285.23799870185996,
+            255.36097111840002,
+            40.12766566619247,
+            445.29999389648003,
+            313.8220960351408
+          ]
+        },
+        "wire_common": {
+          "valid": true,
+          "orientation": "TopAbs_Orientation.TopAbs_FORWARD",
+          "solids": 1,
+          "faces": 17,
+          "volume_mm3": 74.13420894813258,
+          "center_mm": [
+            5.00637781919316,
+            291.33299834085864,
+            285.95920602207866
+          ],
+          "bounds_mm": [
+            4.149999899996,
+            285.23799870185996,
+            273.5499998963551,
+            5.850000099996,
+            292.85000010000005,
+            302.07423718319296
+          ]
+        },
+        "reverse_common": {
+          "valid": true,
+          "orientation": "TopAbs_Orientation.TopAbs_FORWARD",
+          "solids": 1,
+          "faces": 17,
+          "volume_mm3": 74.13420894813255,
+          "center_mm": [
+            5.006377819193161,
+            291.33299834085875,
+            285.9592060220788
+          ],
+          "bounds_mm": [
+            4.149999899996,
+            285.23799870185996,
+            273.5499998963551,
+            5.850000099996,
+            292.85000010000005,
+            302.07423718319296
+          ]
+        },
+        "distance_mm": 0.0,
+        "common_vertex_classification": {
+          "TopAbs_State.TopAbs_ON": 21,
+          "TopAbs_State.TopAbs_IN": 2
+        }
+      },
+      {
+        "native_solid_index": 3,
+        "pump_solid": {
+          "valid": true,
+          "orientation": "TopAbs_Orientation.TopAbs_FORWARD",
+          "solids": 1,
+          "faces": 2524,
+          "volume_mm3": 37743.69224226953,
+          "center_mm": [
+            10.108464662177804,
+            302.2430692099839,
+            285.90798288738847
+          ],
+          "bounds_mm": [
+            -13.868124727184862,
+            285.03547885502957,
+            267.4001174135186,
+            32.13169607959515,
+            317.0354097616726,
+            303.5818847328904
+          ]
+        },
+        "wire_common": {
+          "valid": true,
+          "orientation": "TopAbs_Orientation.TopAbs_FORWARD",
+          "solids": 1,
+          "faces": 18,
+          "volume_mm3": 75.75472707149993,
+          "center_mm": [
+            5.000423574550893,
+            291.31145088518724,
+            286.1166530654178
+          ],
+          "bounds_mm": [
+            4.149999899996,
+            285.24300849615554,
+            273.54999989999993,
+            5.850000099996,
+            292.85,
+            302.3987499387328
+          ]
+        },
+        "reverse_common": {
+          "valid": true,
+          "orientation": "TopAbs_Orientation.TopAbs_FORWARD",
+          "solids": 1,
+          "faces": 18,
+          "volume_mm3": 75.75472707149994,
+          "center_mm": [
+            5.000423574550894,
+            291.3114508851872,
+            286.1166530654178
+          ],
+          "bounds_mm": [
+            4.149999899996,
+            285.24300849615554,
+            273.54999989999993,
+            5.850000099996,
+            292.85,
+            302.3987499387328
+          ]
+        },
+        "distance_mm": 0.0,
+        "common_vertex_classification": {
+          "TopAbs_State.TopAbs_ON": 28,
+          "TopAbs_State.TopAbs_IN": 2
+        }
+      }
+    ],
+    "source_sha256": {
+      "hardware/wiring/installed/terminals.py": "d8d2c475fb9b01441e1aa1211d2ad7cdd11ca5d66d8402948b2e4a346336dab5",
+      "hardware/wiring/installed/route-overrides.json": "9d92debd2caf660971200702f6d04d6336a30de410ef9ecf29711ae14fca9cb8",
+      "hardware/wiring/installed/bundle-routes.json": "a016b1d3f7e86cfe131eb512cad4181c5b0ad977c93bf9832741e3d7923696b7"
+    },
+    "source_native_valid": true,
+    "geometrically_clear_in_changed_scope": true,
+    "native_boolean_count": 60,
+    "equipment_contacts": [],
+    "added_guide_wire_contacts": [],
+    "native_errors": [],
+    "brep_sha256": "55dea3368a238575329e36df1092ae21ba5291a1d548a6611f2f5fbfd1c266a6",
+    "signature": {
+      "valid": true,
+      "solids": 1,
+      "faces": 27,
+      "volume_mm3": 630.4644676968758,
+      "bounds_mm": [
+        -42.82992799648437,
+        270.35291992005034,
+        258.14999989999995,
+        84.70409897351563,
+        338.33976062960085,
+        308.85000010000005
+      ],
+      "center_mm": [
+        29.107892628428722,
+        297.1058310428113,
+        278.12047058240137
+      ]
+    },
+    "curve_sha256": "50da71060cd699dc922c2e0a54c66ea877ffdc6d0d5f830627994eb0f527c4bf",
+    "developed_length_mm": 277.762038692755,
+    "minimum_geometric_bend_mm": 2.64,
+    "prepared_length_mm": 350,
+    "reserve_mm": 72.23796130724497,
+    "pump_solid_air_mm": {
+      "1": 1.2879988018095787,
+      "3": 1.1007883267250944
+    },
+    "A_route_air_mm": {
+      "fluid-14": 0.8315238561431405,
+      "fluid-16": 1.3290988724082524
+    },
+    "tube_brep_sha256": {
+      "fluid-14": "53edb3e0e7b32f1590581b59e2ee19c6f2940d3e0a4e90a63ea14f29b12af80f",
+      "fluid-16": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae"
+    },
+    "changed_region_mm": [
+      -35.85,
+      270.35,
+      258.15,
+      40.85,
+      308.85,
+      308.85
+    ],
+    "fixture_sha256": {
+      "ground-stack": {
+        "path": "tmp/reservoir-a-ground-native/ground-stack.brep",
+        "sha256": "29f11f406e04c53712586f8408b97ac6128e146e8ffd2e914678f33f0136323e"
+      },
+      "ground-boss": {
+        "path": "tmp/reservoir-a-ground-native/ground-boss.brep",
+        "sha256": "aa2063ffd73fe0101a0b43142db74494a850d6d990cb555955a25a3f290aa93a"
+      },
+      "foam-cap-lid-top": {
+        "path": "tmp/reservoir-a-anchor-native/mouth-canonical-lid-world.brep",
+        "sha256": "e38a9749641813ad1a2464c177103b20be10615e6b82eed54f91f057da07dbe1"
+      },
+      "g-ganen-pump": {
+        "path": "tmp/new-routing-witnesses/g-ganen-pump.brep",
+        "sha256": "e5b7a03ed1ce8ba11cfd893faf07b6fec62430d0e0b61706784a2bbce7be4670"
+      },
+      "tube-fluid-14": {
+        "path": "tmp/reservoir-a-free-final/fluid-14.brep",
+        "sha256": "53edb3e0e7b32f1590581b59e2ee19c6f2940d3e0a4e90a63ea14f29b12af80f"
+      },
+      "tube-fluid-16": {
+        "path": "tmp/reservoir-a-free-final/fluid-16.brep",
+        "sha256": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae"
+      },
+      "a-pair-fore-anchor": {
+        "path": "tmp/reservoir-a-anchor-native/a-pair-fore-anchor.brep",
+        "sha256": "0ad7c3b7358c651e4dcd2e517942d44bc8acd7235c0168dcfddb0e7d59c3b9fe"
+      },
+      "a-pair-aft-anchor": {
+        "path": "tmp/reservoir-a-anchor-native/a-pair-aft-anchor.brep",
+        "sha256": "fd6077e099a1f3e405101d6a0807e4ef270b13a5491b5f314a3952eec7318dd4"
+      },
+      "a-pair-fore-anchor-tie": {
+        "path": "tmp/reservoir-a-anchor-native/a-pair-fore-anchor-tie.brep",
+        "sha256": "c0453bdc01809cf3a33f0adb99ceddbd8c36db0fa0b04d7b3213171f04703e58"
+      },
+      "a-pair-aft-anchor-tie": {
+        "path": "tmp/reservoir-a-anchor-native/a-pair-aft-anchor-tie.brep",
+        "sha256": "920706efb8b6d1b9c218ed8a8d99473cd8b58ee3e9da956a1f29126756f2aa7e"
+      },
+      "enclosure-front-top": {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+        "sha256": "2f696dd4497e3c8c19a9d8d4a184e4c12c830a033f6b7ac25c88e95cd9548b42"
+      },
+      "enclosure-back-top": {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+        "sha256": "890a99c81edff9c95252de1f6eeec617f68165e445f4c718fafef90683c73d9a"
+      },
+      "funnel-frame": {
+        "path": "hardware/printed-parts/zone-c/funnel/funnel-frame.step",
+        "sha256": "da7434235fcae032f9cd10a37c27e28a019910413023c8291c70b5b9a8f9831a"
+      }
+    },
+    "retained_wire_packing_readings": [
+      {
+        "wire": "J2-OUT3",
+        "target": "wire-J4-3V3",
+        "common_mm3": 2.6926485653738528,
+        "added_guide_common_mm3": 0.0,
+        "baseline_common_mm3": 2.6926485653841272,
+        "bounds_mm": [
+          -19.32245195542226,
+          275.34999988188207,
+          273.54999989967365,
+          -17.562671821505628,
+          277.05000010101463,
+          274.87289892888776
+        ]
+      },
+      {
+        "wire": "J2-OUT3",
+        "target": "wire-J4-IO26",
+        "common_mm3": 2.8889084942838674,
+        "added_guide_common_mm3": 0.0,
+        "baseline_common_mm3": 2.8889084944228958,
+        "bounds_mm": [
+          -35.91904856630288,
+          274.95295851723796,
+          273.54999989999993,
+          -33.66694434959241,
+          277.0362616717712,
+          274.93768130457556
+        ]
+      },
+      {
+        "wire": "J2-OUT3",
+        "target": "wire-J4-V5",
+        "common_mm3": 2.894571736113402,
+        "added_guide_common_mm3": 0.0,
+        "baseline_common_mm3": 2.8945855280342014,
+        "bounds_mm": [
+          39.14999989991378,
+          304.14999990257576,
+          273.02604991319396,
+          40.822791350743614,
+          305.8500001165658,
+          274.72605008680597
+        ]
+      },
+      {
+        "wire": "J2-OUT3",
+        "target": "wire-J4-IO25",
+        "common_mm3": 1.4128320920686157,
+        "added_guide_common_mm3": 0.0,
+        "baseline_common_mm3": 1.4128109924213887,
+        "bounds_mm": [
+          39.508609873899836,
+          304.14999990114427,
+          273.0475938445948,
+          40.850000103779074,
+          305.687668783455,
+          274.7487835042903
+        ]
+      },
+      {
+        "wire": "J2-OUT3",
+        "target": "wire-temp-GND",
+        "common_mm3": 1.1606141925561164,
+        "added_guide_common_mm3": 0.0,
+        "baseline_common_mm3": 1.160614192847386,
+        "bounds_mm": [
+          -35.227017276594346,
+          275.36971645423847,
+          273.549999899458,
+          -33.083454521747946,
+          277.03428178176966,
+          274.3272781912933
+        ]
+      },
+      {
+        "wire": "J2-OUT3",
+        "target": "wire-flow-GND",
+        "common_mm3": 1.6490040867477167,
+        "added_guide_common_mm3": 0.0,
+        "baseline_common_mm3": 1.6490061105817408,
+        "bounds_mm": [
+          39.827275431548756,
+          304.14999989687254,
+          265.3048605023444,
+          40.85000010382783,
+          305.8473380598929,
+          267.41783268911206
+        ]
+      },
+      {
+        "wire": "J2-OUT3",
+        "target": "wire-J7-CLO",
+        "common_mm3": 2.8553668600913875,
+        "added_guide_common_mm3": 0.0,
+        "baseline_common_mm3": 2.855366864296814,
+        "bounds_mm": [
+          -19.926007764403792,
+          275.3499998971878,
+          273.5499998982869,
+          -17.887405111655344,
+          277.0500001162283,
+          274.93269287084877
+        ]
+      },
+      {
+        "wire": "J2-OUT3",
+        "target": "wire-J7-CHI",
+        "common_mm3": 3.3204567977797455,
+        "added_guide_common_mm3": 0.0,
+        "baseline_common_mm3": 3.320456797837906,
+        "bounds_mm": [
+          -21.451942128505205,
+          275.3499998907795,
+          273.54999989987135,
+          -19.05784273446007,
+          277.05000009926846,
+          275.0951458760962
+        ]
+      },
+      {
+        "wire": "J2-OUT3",
+        "target": "wire-DC1-GND",
+        "common_mm3": 60.78278282368077,
+        "added_guide_common_mm3": 0.0,
+        "baseline_common_mm3": 60.782784003055895,
+        "bounds_mm": [
+          -25.039039151476437,
+          275.3499998983702,
+          273.5499998889025,
+          4.816887464114192,
+          277.0500001036054,
+          275.2500001019979
+        ]
+      }
+    ],
+    "retained_packing_scope": "Positive wire-packing readings at the unchanged PCB crossing and existing tail remain explicit. The current common minus the original conductor is zero for each listed retained reading. This correction does not qualify those existing overlaps as physical packing.",
+    "selected_B_fill_change_scope": "The shifted B-fill bodies and printed delta remain west ofX\u221215; the changed J2-OUT3 guides lie atX5..40. Its negative-X PCB crossing is unchanged. The routing owner retains its separate bounded B-fill proof.",
+    "physical_scope": "Minimum physical wire bends, entry/crimp fit, flexible handling, service motion, packing and installation force remain unqualified.",
+    "actual_export_binding_pending": true
   }
 }
