@@ -154,6 +154,7 @@ def contract_runs(doc):
         runs.append({
             "id": r["id"], "kind": r["kind"], "material": r["material"],
             "radius_mm": float(r["diam"]) / 2.0,
+            "bore_radius_mm": float(r["bore"]) / 2.0 if r.get("bore") else None,
             "min_bend_radius_mm": stock.get("min_bend"), "min_bend_source": stock.get("source"),
             "bend_cap_mm": r.get("bend_cap"), "tightest_bend_mm": r.get("tightest"),
             "bodies": r["bodies"], "insulation": insulation, "insulation_note": note,
@@ -195,26 +196,62 @@ def verify_displayed_routes(runs, step=STEP, tolerance_mm=0.05):
     import cadquery as cq
     from _cadq_export import import_assembly
     bodies = import_assembly(step)
+    failures = []
     for run in runs:
-        names = run["bodies"]
-        if not names or any(name not in bodies for name in names):
-            raise ValueError(f"{run['id']}: displayed tube body is missing; regenerate the assembly STEP.")
-        shapes = [bodies[name][0] for name in names]
-        solids = [solid for shape in shapes for solid in shape.Solids()]
-        skin = cq.Compound.makeCompound([face for shape in shapes for face in shape.Faces()])
-        worst = 0.0
-        for point, s in zip(run["points"], run["s"]):
-            vector = cq.Vector(*point)
+        try:
+            _verify_displayed_run(run, bodies, tolerance_mm)
+        except ValueError as failure:
+            failures.append(str(failure))
+    if failures:
+        raise ValueError("; ".join(failures))
+
+
+def _verify_displayed_run(run, bodies, tolerance_mm):
+    """One run's centreline against its displayed tube, or a ValueError saying where it leaves."""
+    import cadquery as cq
+    names = run["bodies"]
+    if not names or any(name not in bodies for name in names):
+        raise ValueError(f"{run['id']}: displayed tube body is missing; regenerate the assembly STEP.")
+    shapes = [bodies[name][0] for name in names]
+    solids = [solid for shape in shapes for solid in shape.Solids()]
+    skin = cq.Compound.makeCompound([face for shape in shapes for face in shape.Faces()])
+    worst = 0.0
+    bore = run.get("bore_radius_mm")
+    points = run["points"]
+    for i, (point, s) in enumerate(zip(points, run["s"])):
+        vector = cq.Vector(*point)
+        if bore:
+            # A tube swept with its bore open: the sample stands at the bore's centre, so the
+            # wall surrounds it on every side and the nearest face is the bore itself.
+            ahead, behind = points[min(i + 1, len(points) - 1)], points[max(i - 1, 0)]
+            axis = cq.Vector(*ahead) - cq.Vector(*behind)
+            side = axis.cross(cq.Vector(0, 0, 1) if abs(axis.normalized().z) < 0.9
+                              else cq.Vector(1, 0, 0)).normalized()
+            other = axis.cross(side).normalized()
+            mid_wall = (run["radius_mm"] + bore) / 2.0
+            probes = [vector + d * mid_wall for d in (side, -side, other, -other)]
+            # An end sample stands on the tube's cut, which a guide trims along the lid face
+            # rather than square to the tube, so only its distance to the bore is read there.
+            end = i in (0, len(points) - 1)
+            missed = [] if end else [k for k, q in enumerate(probes)
+                                     if not any(solid.isInside(q, tolerance_mm) for solid in solids)]
+            if missed:
+                raise ValueError(f"{run['id']}: centreline leaves the displayed tube at s={s:.2f} "
+                                 f"of {run['s'][-1]:.2f} mm, {tuple(round(c, 2) for c in point)} "
+                                 f"(wall probes {missed} outside); regenerate the assembly STEP.")
+            expected = bore
+        else:
             if not any(solid.isInside(vector, tolerance_mm) for solid in solids):
-                raise ValueError(f"{run['id']}: centreline leaves the displayed tube; regenerate the assembly STEP.")
+                raise ValueError(f"{run['id']}: centreline leaves the displayed tube at s={s:.2f} "
+                                 f"of {run['s'][-1]:.2f} mm; regenerate the assembly STEP.")
             expected = min(run["radius_mm"], s, run["s"][-1] - s)
-            worst = max(worst, abs(expected - skin.distance(cq.Vertex.makeVertex(*point))))
-        if worst > tolerance_mm:
-            raise ValueError(f"{run['id']}: centreline differs from displayed tube by {worst:.3f} mm; "
-                             "regenerate the assembly STEP.")
-        run["displayed_alignment"] = {"method": "cached STEP solid containment and radial face distance",
-                                      "samples": len(run["points"]), "max_surface_miss_mm": worst,
-                                      "tolerance_mm": tolerance_mm}
+        worst = max(worst, abs(expected - skin.distance(cq.Vertex.makeVertex(*point))))
+    if worst > tolerance_mm:
+        raise ValueError(f"{run['id']}: centreline differs from displayed tube by {worst:.3f} mm; "
+                         "regenerate the assembly STEP.")
+    run["displayed_alignment"] = {"method": "cached STEP solid containment and radial face distance",
+                                  "samples": len(run["points"]), "max_surface_miss_mm": worst,
+                                  "tolerance_mm": tolerance_mm}
 
 
 # --- the reference relaxation -----------------------------------------------------------------
