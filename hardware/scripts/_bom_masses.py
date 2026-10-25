@@ -212,6 +212,7 @@ PARTS = {
     "Empty electronics access panel": [
         "enclosure/electronics-access-panel/electronics-access-panel.step",
     ],
+    "Soda inlet bend holder": ["soda-bend-holder/soda-bend-holder.step"],
     # The funnel's drop-in frame and the cradle that hangs the drain elbow under its web. The
     # silicone funnel itself is cast, and §8 bills it as silicone.
     "Funnel frame": ["zone-c/funnel/funnel-frame.step"],
@@ -231,6 +232,7 @@ GROUP_OF = [
     ("Enclosure — pump cartridge",  "ext"),
     ("Display cover plate",         "ext"),
     ("Empty electronics access panel", "ext"),
+    ("Soda inlet bend holder",       "small"),
     ("Flavor reservoir",            "tight"),
     ("Faucet shell",                "petgf"),
     ("Faucet display cover plate",  "petgf"),

@@ -2,6 +2,8 @@
 
 Run through tmp/takeover/cadq after exporting the back-top and cold core.
 No enclosure/appliance generation, recurring hook or physical qualification runs.
+The default reads the complete rear group carried by back-top. The optional
+late-connection function retains its separate after-closure assembly scope.
 """
 from pathlib import Path
 import hashlib
@@ -97,7 +99,7 @@ def envelope_reading(shape, radius, inboard_length):
                                           - volume(section.intersect(envelope))))
 
 
-def main():
+def optional_late_connection_probe():
     started = time.monotonic()
     warm = parts.components()
     junctions = electrical.components()
@@ -279,6 +281,113 @@ def main():
     output = HERE / 'rear-plumbing-assembly.json'
     output.write_text(json.dumps(report, indent=2)+'\n')
     print('REPORT '+str(output), flush=True)
+
+
+def main():
+    """Read the selected seven-member rear preassembly and finite capture."""
+    started = time.monotonic()
+    sys.path.insert(0, str(ROOT / 'hardware/assembly/scenes'))
+    import _scenes
+
+    appliance = ROOT / 'hardware/manifold-layout/enclosure-assembly.step'
+    placed = {name: row[0] for name, row in import_assembly(appliance).items()}
+    names = {name.rsplit('/', 1)[-1]: name for name in placed}
+    boxes = {name: bounds(shape) for name, shape in placed.items()}
+    stationary = {
+        name: shape for name, shape in placed.items()
+        if ('cold-core/' in name and boxes[name][1, 2] > 253.3)
+        or name.rsplit('/', 1)[-1] in _scenes.CORE_INLET_HEADER_PREASSEMBLY
+    }
+    meter_name = names['digiten-flow']
+    native_mouth, native_outward, diameter = parts.port_stations('digiten-flow')['outlet']
+    frame = layout.pose('digiten-flow')
+    mouth = np.asarray(layout.point(frame, native_mouth))
+    outward = np.asarray(layout.vector(frame['rotation'], native_outward))
+    inward = -outward
+    insertion = 15.7
+    margin = 1e-6
+    mask = cq.Solid.makeCylinder(
+        diameter / 2. + margin, insertion + 2. * margin,
+        cq.Vector(*(mouth - margin * inward)), cq.Vector(*inward))
+    masked = dict(stationary)
+    masked[meter_name] = placed[meter_name].cut(mask)
+    rows = []
+    for tail in _scenes.BACK_COLUMN_REAR_PREASSEMBLY:
+        name = names[tail]
+        low, high = boxes[name]
+        if tail == 'tube-soda-meter-bulkhead':
+            origin = mouth - insertion * outward
+            origin[1] = low[1]
+            swept = cq.Solid.makeCylinder(
+                diameter / 2., high[1] - low[1] + 300.,
+                cq.Vector(*origin), cq.Vector(0., 1., 0.))
+            method = 'Continuous coaxial full outer cylinder'
+        else:
+            swept = cq.Solid.makeBox(
+                *(high - low + np.array((0., 300., 0.))), cq.Vector(*low))
+            method = 'Continuous full component bounding-box prism'
+        readings = []
+        for other_name, other in masked.items():
+            if not nearby(bounds(swept), boxes[other_name]):
+                continue
+            readings.append({
+                'body': other_name,
+                'common_mm3': volume(swept.intersect(other)),
+            })
+        rows.append({
+            'part': tail, 'bounds_world_mm': boxes[name].tolist(),
+            'envelope': method, 'native_candidates': readings,
+            'continuous_envelope_clear': all(row['common_mm3'] < 1e-6
+                                             for row in readings),
+        })
+
+    tube = placed[names['tube-soda-meter-bulkhead']]
+    capture = []
+    for offset in (15.7, 14., 12., 10., 8., 6., 4., 2., 1., .5, .25, 0.):
+        common = tube.translate((0., offset, 0.)).intersect(placed[meter_name])
+        raw = volume(common)
+        outside = volume(common.cut(mask)) if raw > 1e-10 else 0.
+        capture.append({
+            'offset_y_mm': offset, 'raw_common_mm3': raw,
+            'outside_finite_outlet_mm3': outside,
+        })
+    path = HERE / 'rear-plumbing-assembly.json'
+    report = json.loads(path.read_text())
+    prior = report.get('selected_carried_group', {})
+    prior.update({
+        'scope': 'The selected seven-member rear group rides with back-top. '
+                 'Continuous conservative component prisms and a coaxial tube '
+                 'cylinder bound every closing offset from +Y300 mm to zero. '
+                 'Only the fixed meter outlet finite receiving region permits '
+                 'intended tube capture. The connected inlet header and '
+                 'populated core remain stationary. No thread tightening, '
+                 'hand/tool reach, installation force, sealing or retention '
+                 'qualification is inferred.',
+        'base_appliance_sha256': sha(appliance),
+        'moving_components': list(_scenes.BACK_COLUMN_REAR_PREASSEMBLY),
+        'stationary_components': sorted(stationary),
+        'continuous_prism_readings': rows,
+        'finite_outlet_capture': {
+            'mouth_world_mm': mouth.tolist(),
+            'outward_world': outward.tolist(),
+            'radius_mm': diameter / 2., 'insertion_mm': insertion,
+            'readings': capture,
+        },
+        'continuous_carried_group_clear': all(row['continuous_envelope_clear']
+                                              for row in rows),
+        'finite_outlet_capture_clear': all(row['outside_finite_outlet_mm3'] < 1e-6
+                                           for row in capture),
+        'source_sha256': {
+            str(source.relative_to(ROOT)): sha(source)
+            for source in (Path(__file__), Path(_scenes.__file__),
+                           ROOT / 'hardware/manifold-layout/above-core.json',
+                           ROOT / 'hardware/manifold-layout/above_core_parts.py')
+        },
+        'seconds': time.monotonic() - started,
+    })
+    report['selected_carried_group'] = prior
+    path.write_text(json.dumps(report, indent=2) + '\n')
+    print('REPORT ' + str(path), flush=True)
 
 
 if __name__ == '__main__':

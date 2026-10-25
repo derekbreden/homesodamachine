@@ -43,12 +43,11 @@
     "drain-vent"
   ],
   "sequence": [
-    "Preplace the loose soda nut in the back-top rear relief at the recorded parked pose. Hold it or temporarily tape it at the rear wall with the roof panel open; no printed stock retains it. Keep both late bulkheads, the rear elbow pair and the two late flexible spans disconnected.",
-    "Close the back-top over the populated core with the parked nut travelling with the back-top.",
-    "Preassemble the two rear elbows and the concealed 32.591 mm tube, with 16.891 mm seated in the return elbow and 15.7 mm free for the meter.",
-    "Move that assembly fore by 15.7 mm into the fixed meter outlet, maintaining the recorded coaxial pose.",
-    "Slide the loose soda nut diagonally to its final axis. Feed the PP1208E from outside, engaging its inboard port with the fixed stem and threading the nut onto the barrel. The axial samples represent the combined envelope, not free sliding through real threads.",
-    "Feed the adjacent ABU44M drain bulkhead from outside. Bring its nut from the inboard side onto the barrel and tighten. Connect the drain-vent tube and dress flexible conductors through the open roof."
+    "Install the soda and adjacent vent/drain bulkheads and their nuts with back-top open on the bench. Keep the flexible drain-vent line disconnected for final roof access.",
+    "Preassemble both nested soda stem elbows and the nominal 32.591 mm concealed tube with the soda bulkhead. Seat 16.891 mm in the return elbow and leave 15.7 mm free for the fixed meter; use actual receiving marks when preparing the physical blank.",
+    "Secure the rear bulkhead nuts on the accessible bench. Carry both bulkheads/nuts, the two nested soda elbows and the concealed tube with back-top.",
+    "Bring the back column fore over the populated core. Guide the free tube into the fixed meter outlet during the final 15.7 mm of closure while the ASSE cuff and open regulator saddles capture the stationary inlet header.",
+    "Inspect the receiving engagements through the open roof, then connect the white drain-vent line and inter-quadrant wiring before either closure is fitted."
   ],
   "rear_pair_feed_y_offsets_mm": [
     15.7,
@@ -1521,5 +1520,717 @@
       },
       "top_cup_byte_identical": true
     }
-  }
+  },
+  "selected_carried_group": {
+    "scope": "Read-only alternative: soda/drain bulkheads and prethreaded nuts, nested soda rear elbows and the concealed tube ride with back-top. The populated core and connected header stay stationary. Continuous conservative prisms/cylinder bound every closing offset0..300mm. Only the fixed meter outlet finite receiving cylinder permits intended tube insertion. Existing back-top/header and static rear-joint receipts retain their separate scope. Flexible drain-vent tube and inter-quadrant wiring connect through the open roof after closing. No thread-tightening, hand/tool access, insertion force, leak or retention qualification.",
+    "base_appliance_sha256": "a3788ba4e037c8dc943ce550f1d5e7795f0bc7729ef17222d1e2f48c859e4fa6",
+    "moving_components": [
+      "bulkhead-carb",
+      "bulkhead-carb-nut",
+      "bulkhead-drain",
+      "bulkhead-drain-nut",
+      "soda-stem-elbow",
+      "soda-outlet-return-stem",
+      "tube-soda-meter-bulkhead"
+    ],
+    "continuous_prism_readings": [
+      {
+        "part": "bulkhead-carb",
+        "actual_export_shape_sha256": "d0ad2aa3c2598e0b1714b2fd3f5e785b808573e63107f9d9c26569d802ccf847",
+        "bounds_world_mm": [
+          [
+            66.07,
+            446.51,
+            294.94604788053
+          ],
+          [
+            88.93,
+            480.8,
+            317.80604788053
+          ]
+        ],
+        "envelope": "Full component bounding-box prism through+Y300mm",
+        "native_candidates": [
+          {
+            "body": "cold-core/foam-cap-lid-top",
+            "common_mm3": 0.0
+          }
+        ],
+        "continuous_envelope_clear": true
+      },
+      {
+        "part": "bulkhead-carb-nut",
+        "actual_export_shape_sha256": "5ecaeaef9697118c1d209c5b03d94a1d558b735666a56aeecb3c9c84c74f4f8c",
+        "bounds_world_mm": [
+          [
+            67.5,
+            461.3,
+            294.82904249674
+          ],
+          [
+            87.50000000000037,
+            465.3,
+            317.9230532643269
+          ]
+        ],
+        "envelope": "Full component bounding-box prism through+Y300mm",
+        "native_candidates": [
+          {
+            "body": "cold-core/foam-cap-lid-top",
+            "common_mm3": 0.0
+          }
+        ],
+        "continuous_envelope_clear": true
+      },
+      {
+        "part": "bulkhead-drain",
+        "actual_export_shape_sha256": "dfccc0abfc2b2da6258bc98b05403e4babd816c9d37252bf01555802efb27a72",
+        "bounds_world_mm": [
+          [
+            26.249998871232002,
+            453.6,
+            295.37604788053
+          ],
+          [
+            48.249998871232,
+            486.0,
+            317.37604788053
+          ]
+        ],
+        "envelope": "Full component bounding-box prism through+Y300mm",
+        "native_candidates": [
+          {
+            "body": "cold-core/foam-cap-lid-top",
+            "common_mm3": 0.0
+          }
+        ],
+        "continuous_envelope_clear": true
+      },
+      {
+        "part": "bulkhead-drain-nut",
+        "actual_export_shape_sha256": "93e214197e6d13c4632fb9d32da3a1aaecbe4cc573a057c455e473782a20d020",
+        "bounds_world_mm": [
+          [
+            28.24999887123164,
+            458.8,
+            295.98374303512
+          ],
+          [
+            46.24999887123228,
+            465.3,
+            316.76835272595
+          ]
+        ],
+        "envelope": "Full component bounding-box prism through+Y300mm",
+        "native_candidates": [
+          {
+            "body": "cold-core/foam-cap-lid-top",
+            "common_mm3": 0.0
+          }
+        ],
+        "continuous_envelope_clear": true
+      },
+      {
+        "part": "soda-stem-elbow",
+        "actual_export_shape_sha256": "29035a4837b3165a99022dbc7474a64909c44909b34f113e0fd60546b817a4ba",
+        "bounds_world_mm": [
+          [
+            58.44999999999999,
+            432.7178,
+            298.62904788053
+          ],
+          [
+            83.54520000000001,
+            459.21,
+            314.12304788053
+          ]
+        ],
+        "envelope": "Full component bounding-box prism through+Y300mm",
+        "native_candidates": [
+          {
+            "body": "cold-core/foam-cap-lid-top",
+            "common_mm3": 0.0
+          }
+        ],
+        "continuous_envelope_clear": true
+      },
+      {
+        "part": "soda-outlet-return-stem",
+        "actual_export_shape_sha256": "fe94340dd054324d1a40a8d99dc72663a5bfafa3a67f73148c637678d5197a2a",
+        "bounds_world_mm": [
+          [
+            42.253,
+            421.41479999999996,
+            298.62904788053
+          ],
+          [
+            75.341,
+            446.51,
+            314.12304788053
+          ]
+        ],
+        "envelope": "Full component bounding-box prism through+Y300mm",
+        "native_candidates": [
+          {
+            "body": "cold-core/foam-cap-lid-top",
+            "common_mm3": 0.0
+          },
+          {
+            "body": "cold-core/digiten-flow",
+            "common_mm3": 0.0
+          },
+          {
+            "body": "cold-core/g-ganen-pump",
+            "common_mm3": 0.0
+          }
+        ],
+        "continuous_envelope_clear": true
+      },
+      {
+        "part": "tube-soda-meter-bulkhead",
+        "actual_export_shape_sha256": "680ad9fc98558c99ba5840a1e9bdbb070c27fd508fb1763e5fc2cdd1f15864d1",
+        "bounds_world_mm": [
+          [
+            46.825,
+            405.7148,
+            303.20104788053
+          ],
+          [
+            53.175,
+            438.30580000000003,
+            309.55104788053
+          ]
+        ],
+        "envelope": "Coaxial full outer cylinder",
+        "native_candidates": [
+          {
+            "body": "cold-core/foam-cap-lid-top",
+            "common_mm3": 0.0
+          },
+          {
+            "body": "cold-core/digiten-flow",
+            "common_mm3": 0.0
+          },
+          {
+            "body": "cold-core/g-ganen-pump",
+            "common_mm3": 0.0
+          }
+        ],
+        "continuous_envelope_clear": true
+      }
+    ],
+    "finite_outlet_capture": {
+      "mouth_world_mm": [
+        50.0,
+        421.4148,
+        306.3760478805363
+      ],
+      "outward_world": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "insertion_mm": 15.7,
+      "radius_mm": 3.175,
+      "readings": [
+        {
+          "offset_y_mm": 15.7,
+          "raw_common_mm3": 0.0,
+          "outside_finite_outlet_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 14.0,
+          "raw_common_mm3": 0.0,
+          "outside_finite_outlet_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 12.0,
+          "raw_common_mm3": 0.0,
+          "outside_finite_outlet_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 10.0,
+          "raw_common_mm3": 0.0,
+          "outside_finite_outlet_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 8.0,
+          "raw_common_mm3": 29.83439381620857,
+          "outside_finite_outlet_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 6.0,
+          "raw_common_mm3": 64.93368065880715,
+          "outside_finite_outlet_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 4.0,
+          "raw_common_mm3": 100.03296750140568,
+          "outside_finite_outlet_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 2.0,
+          "raw_common_mm3": 135.1322543440042,
+          "outside_finite_outlet_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 1.0,
+          "raw_common_mm3": 152.6818977653035,
+          "outside_finite_outlet_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 0.5,
+          "raw_common_mm3": 0.0011674356485807565,
+          "outside_finite_outlet_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 0.25,
+          "raw_common_mm3": 0.05565246880589625,
+          "outside_finite_outlet_mm3": 0.0
+        },
+        {
+          "offset_y_mm": 0.0,
+          "raw_common_mm3": 0.21316980448644351,
+          "outside_finite_outlet_mm3": 0.0
+        }
+      ],
+      "source_meter_brep_sha256": "774be29fa2f0a54b4efbf7bf3c26772af46c6192d943be8aa681dc8f464e99ee"
+    },
+    "new_inlet_disjoint_scope": {
+      "tube_points_max_world_y_mm": 376.11479999999995,
+      "foam_endpoint_max_world_y_mm": 359.41479999999996,
+      "carried_rear_group_min_world_y_mm": 405.7148,
+      "basis": "Exact selected line/arc inlet lies fore of the rear group. The holder and foam stock have their own native receipt; this separation is not a soft-foam clearance claim."
+    },
+    "simple_late_meter_approaches": {
+      "vertical": [
+        {
+          "offset_mm": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "contacts": []
+        },
+        {
+          "offset_mm": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "contacts": [
+            {
+              "body": "actual-back-top",
+              "common_mm3": 6.820909767130715,
+              "bounds_world_mm": [
+                [
+                  46.7411658512336,
+                  364.11479999999983,
+                  315.92604788
+                ],
+                [
+                  53.25883414876639,
+                  367.0,
+                  316.526047880536
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "offset_mm": [
+            0.0,
+            0.0,
+            3.0
+          ],
+          "contacts": [
+            {
+              "body": "actual-back-top",
+              "common_mm3": 63.457648877551186,
+              "bounds_world_mm": [
+                [
+                  44.49999999999999,
+                  364.11479999999983,
+                  315.92604788
+                ],
+                [
+                  56.38905313853484,
+                  367.00000000000006,
+                  318.526047880536
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "offset_mm": [
+            0.0,
+            0.0,
+            6.0
+          ],
+          "contacts": [
+            {
+              "body": "actual-back-top",
+              "common_mm3": 205.20256127267388,
+              "bounds_world_mm": [
+                [
+                  44.4999999,
+                  361.0,
+                  315.92604788
+                ],
+                [
+                  58.433267457148844,
+                  367.0000001,
+                  321.526047980536
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "offset_mm": [
+            0.0,
+            0.0,
+            10.0
+          ],
+          "contacts": [
+            {
+              "body": "actual-back-top",
+              "common_mm3": 327.8783314295855,
+              "bounds_world_mm": [
+                [
+                  44.4999999,
+                  361.0,
+                  315.92604778
+                ],
+                [
+                  59.1500001,
+                  367.0000001,
+                  325.4178164767228
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "offset_mm": [
+            0.0,
+            0.0,
+            20.0
+          ],
+          "contacts": [
+            {
+              "body": "actual-back-top",
+              "common_mm3": 391.935966642021,
+              "bounds_world_mm": [
+                [
+                  44.4999999,
+                  360.9999999,
+                  317.226047780536
+                ],
+                [
+                  59.1500001,
+                  367.0000001000001,
+                  334.60618442692794
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "offset_mm": [
+            0.0,
+            0.0,
+            30.0
+          ],
+          "contacts": [
+            {
+              "body": "actual-back-top",
+              "common_mm3": 228.31467268610265,
+              "bounds_world_mm": [
+                [
+                  49.75258353698302,
+                  360.9999999,
+                  327.5929506896093
+                ],
+                [
+                  59.15,
+                  367.0000001,
+                  345.526047980536
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "offset_mm": [
+            0.0,
+            0.0,
+            35.0
+          ],
+          "contacts": [
+            {
+              "body": "actual-back-top",
+              "common_mm3": 1892.568856937932,
+              "bounds_world_mm": [
+                [
+                  45.159590571633345,
+                  360.4148,
+                  333.1240695213922
+                ],
+                [
+                  64.0,
+                  421.4148,
+                  350.526047980536
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "offset_mm": [
+            0.0,
+            0.0,
+            40.0
+          ],
+          "contacts": [
+            {
+              "body": "actual-back-top",
+              "common_mm3": 5542.868335815434,
+              "bounds_world_mm": [
+                [
+                  41.275948129419504,
+                  360.4148,
+                  337.9683937873624
+                ],
+                [
+                  68.9,
+                  421.4148,
+                  355.0000001
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "offset_mm": [
+            0.0,
+            0.0,
+            50.0
+          ],
+          "contacts": [
+            {
+              "body": "actual-back-top",
+              "common_mm3": 7109.1547115720905,
+              "bounds_world_mm": [
+                [
+                  40.599999999999994,
+                  360.4148,
+                  345.9999999
+                ],
+                [
+                  68.70000000000125,
+                  421.4148,
+                  355.00000010254297
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "axial_from_fore": [
+        {
+          "offset_mm": [
+            0.0,
+            -15.7,
+            0.0
+          ],
+          "contacts": [
+            {
+              "body": "actual-cap-lid",
+              "common_mm3": 1319.167837386837,
+              "bounds_world_mm": [
+                [
+                  49.999999899999885,
+                  364.71479989999995,
+                  280.56451335524827
+                ],
+                [
+                  62.3,
+                  370.71480010000005,
+                  306.376047880536
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "offset_mm": [
+            0.0,
+            -12.0,
+            0.0
+          ],
+          "contacts": [
+            {
+              "body": "actual-cap-lid",
+              "common_mm3": 1383.323670955235,
+              "bounds_world_mm": [
+                [
+                  49.999999899999885,
+                  364.7147999,
+                  280.026047780536
+                ],
+                [
+                  62.3,
+                  370.71480010000005,
+                  306.376047880536
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "offset_mm": [
+            0.0,
+            -8.0,
+            0.0
+          ],
+          "contacts": [
+            {
+              "body": "actual-cap-lid",
+              "common_mm3": 800.3740741381602,
+              "bounds_world_mm": [
+                [
+                  49.999999899998066,
+                  365.4147999,
+                  280.026047880536
+                ],
+                [
+                  62.3,
+                  370.71480010000005,
+                  306.37604798053604
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "offset_mm": [
+            0.0,
+            -4.0,
+            0.0
+          ],
+          "contacts": [
+            {
+              "body": "actual-cap-lid",
+              "common_mm3": 55.13696802256009,
+              "bounds_world_mm": [
+                [
+                  57.29999989999918,
+                  369.4147999,
+                  290.8571354831868
+                ],
+                [
+                  62.3,
+                  370.71480010000005,
+                  304.09496027788526
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "offset_mm": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "contacts": []
+        }
+      ]
+    },
+    "late_meter_scope": "These test only a straight vertical drop through the fixed rear roof and a straight15.7mm fore approach at final height. A general reoriented path through the empty access-panel opening is not ruled out.",
+    "source_sha256": {
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "9db2793517521782d7720aeaf628329aa5e4f194980ff896ab1bbc0a87b38281",
+      "tmp/meter-shoulder-final-core/lid-world.brep": "4773dd97daffb4d5d5599907b6e1328820c532fbe8b32d42327066791e7255bb",
+      "tmp/above-core-electrical-fixture/meter-native-targets/6.brep": "774be29fa2f0a54b4efbf7bf3c26772af46c6192d943be8aa681dc8f464e99ee",
+      "hardware/manifold-layout/above-core.json": "eac745ea2a78eda77aa04e834f9ce60d38f741f0f9a90a2e7d399cf45b268987",
+      "hardware/manifold-layout/soda_inlet.py": "4f1da5341b864fff66051ce99773517cc9bad9589ae21cfd5074f4de753c972d"
+    },
+    "seconds_subset": 9.028617042000405,
+    "continuous_carried_group_clear": true,
+    "finite_outlet_capture_clear": true,
+    "new_inlet_native_disjoint_binding": {
+      "fixture_sha256": "d3ba20572c5db5a39ebd8ad8f6d1eeac34d4e6c3d3285cd21c751abbf6ac6777",
+      "scope": "Each complete native inlet/holder/nominal-stock/occupied-display bound lies fore of every rear-group moving envelope for all nonnegative closing offsets. This uses separation in Y, without a new Boolean or soft-foam clearance inference.",
+      "carried_min_y_mm": 405.7148,
+      "parts": {
+        "tube-soda-core-rise": {
+          "sha256": "a696b775faca3b1b67549f6681e969faa2b092551ff6a33f8d05beff37d3d5e3",
+          "bounds_world_mm": [
+            [
+              46.81884056117975,
+              339.2346274083272,
+              253.39901305285255
+            ],
+            [
+              53.18115943882025,
+              376.1157869471474,
+              309.55622047220913
+            ]
+          ],
+          "separation_y_mm": 29.599013052852627
+        },
+        "soda-bend-holder": {
+          "sha256": "7a1b30b1dc7aa03317771e4f41388f42acc11c37ee40401164bfa5cbc950b5ec",
+          "bounds_world_mm": [
+            [
+              43.18370312528082,
+              337.00515082015374,
+              289.2510477805363
+            ],
+            [
+              55.40584301729369,
+              359.5398001,
+              311.7856970603825
+            ]
+          ],
+          "separation_y_mm": 46.174999900000046
+        },
+        "soda-foam-stock": {
+          "sha256": "b6403613215e01bb69e72698b5054225a3f72ef5b6b5a440047176402b363f8c",
+          "bounds_world_mm": [
+            [
+              37.2842127994803,
+              329.70296018806994,
+              254.4960525114103
+            ],
+            [
+              62.7157872005197,
+              359.41874748858964,
+              319.0878876924664
+            ]
+          ],
+          "separation_y_mm": 46.29605251141038
+        },
+        "soda-continuous-insulation": {
+          "sha256": "a5096264dd914ee333840fc9bf3f1faad46c8fe5eda60c52eeb81323ff3fb2c8",
+          "bounds_world_mm": [
+            [
+              37.24788410281285,
+              329.6631928071687,
+              254.48638608690854
+            ],
+            [
+              62.75211589718715,
+              359.5398001,
+              319.12421638913384
+            ]
+          ],
+          "separation_y_mm": 46.174999900000046
+        }
+      }
+    }
+  },
+  "optional_late_connection_probe_scope": "The existing late-body feed, loose-nut parking, diagonal transfer and nut-rotation readings below demonstrate a separate after-closure connection option. They are not requirements of the selected preassembled carried-group sequence. Their original input hashes and limited physical scope remain unchanged."
 }

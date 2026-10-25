@@ -201,20 +201,22 @@ accessible for final connection. Keep PSU terminal screwdriver approaches clear.
 
 The box closes in two slides and four M5 screws. The PCB, PSU, pump, all three source valves and meter with its inlet plumbing travel with the core. The split tee, regulator and three connected header links are temporarily supported with that core; back-top's open-fore saddles capture the regulator during closing. The ASSE, gas group and relays travel with back-top. Both roof openings remain uncovered.
 
-Leave the soda and adjacent vent/drain rear bulkheads, their nuts, both rear
-stem elbows and the concealed soda tube out of their installed positions for
-the column ride. The white 4 mm drain-vent line remains unconnected at the rear.
-Hold or temporarily tape the loose soda nut at its recorded rear-wall parking
-pose with the roof panel open; no printed stock retains it. The
+Preassemble both rear bulkheads and their nuts, the nested soda stem elbows
+and the 32.591 mm concealed tube with back-top while it is open on the bench.
+Leave 15.7 mm of tube free to enter the fixed meter outlet during closing.
+Keep the white 4 mm drain-vent line unconnected for final dressing through the
+open roof. The
 [rear assembly record](/hardware/mechanical-qualification/enclosure-above-core/rear-plumbing-assembly.json)
-covers that parked pose and its sampled closing ride.
+bounds this complete group's continuous closing envelope.
 
 1. **Back column.** Slide back-top fore onto the empty back-bottom from its aft entry position, through the 237.5 mm rail travel to the stops. Keep the wiring ends supported inside the column and clear of its seam. The ASSE, gas group and relays ride on back-top. Its regulator saddles and ASSE outlet cuff remain empty. Both roof closures remain separate.
 
 2. **The back assembly rides forward over the core.** Stand the closed back column behind the core's cart, mouth facing the core's aft face, and bring it FORE — the Y-seam mouth swallowing the core, the slab passing under it, the hold-down feet's eased tips riding over the cap's crown — one continuous motion that runs the column's whole depth and ends as the Y seam's own telescope: over the last [17.8 mm](Y_OVERLAP) the front assembly's proud tongue enters the back's mouth, the floor's tongue closes square inside the slab, the corner stacks' knuckles pass one another into place, and the handholds' inner walls close. The rear seam band, front-bottom's corner pockets and cap brackets provide 0.25 mm around the nominal core plan and above its crown. The floor is one plane at Z−0.35: 0.25 mm running plus 0.10 mm cavity-floor transition allowance, over 5.65 mm of slab. The hold-down foot is Z253.65. These are allowances for printed material under the [fit policy](/hardware/printed-parts/enclosure/clearance-audit.md). **Set the core's lid tenants before this ride**: the water pump and everything else that stands on the cap goes on at [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) while the core is still on the open cart, where every face of it is bench work.
 
-   Guide the ASSE outlet cuff over the split tee's male stem during the final
-   15 mm. The regulator enters its open-fore roof saddles at the same time.
+   Guide the free concealed soda tube into the fixed meter outlet during
+   the final 15.7 mm. Guide the ASSE outlet cuff over the split tee's male stem
+   during the final 15 mm. The regulator enters its open-fore roof saddles
+   at the same time.
    Check the actual seating marks and tighten its prepared ties through the
    open roof. Do not use the enclosure screws to force a fluid joint home.
 
@@ -246,14 +248,11 @@ covers that parked pose and its sampled closing ride.
 
 With the quadrants home, complete the tubing and leads between the front
 manifold, core and rear wall through the two open roof apertures.
-Preassemble the rear elbow pair with its nominal 32.591 mm concealed tube and
-feed it 15.7 mm fore into the fixed meter. Transfer the parked nut to axis and
-install the PP1208E soda bulkhead from outside. Install the adjacent vent/drain
-bulkhead and its nut afterward, then connect the drain-vent line last. Follow
-[internal plumbing §4](internal-plumbing.md#4-rear-beverage-connections) for that
-order and the actual insertion marks. The manual rear record retains the
-estimated fitting contact and does not qualify hand/tool access, collet fit,
-threading or temporary nut retention.
+Inspect the captured rear soda tube and connect the drain-vent line last.
+Follow [internal plumbing §4](internal-plumbing.md#4-rear-beverage-connections)
+for the bench preassembly and actual insertion marks. The manual rear record
+retains the nominal fitting contact and does not qualify hand/tool access,
+collet fit, connection force or thread tightening.
 The nearby PCB connections remain accessible until the funnel frame is fitted.
 Check that all tubing and conductors stay clear of the seam screws and closure
 bearings. Keep power disconnected during this work.
