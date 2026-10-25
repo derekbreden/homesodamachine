@@ -12,8 +12,8 @@ The frame enters front-top's sliding receivers and is captured by back-top as
 the enclosure closes. Its rails use the same section and fit allowances as the
 enclosure's sliding joints. The silicone lifts out through the top.
 
-The flavor pumps stand forward of this opening and leave through the front
-wall on the pump cartridge. V-A and V-B stand aft of the funnel on the cold-core
+The flavor pumps stand forward of this opening in the pump cradle, which forms the
+front wall across the pump bay. V-A and V-B stand aft of the funnel on the cold-core
 lid; their printed seats follow their individual mounting stations.
 
 ## The funnel
@@ -38,7 +38,7 @@ flavors. Valve states:
 
 ## Lives in other zones
 
-- Both flavor pumps — their molded skirts bearing in the pump cartridge's large lower cradle, located and held down by the small top clamp, and drawn out of the front-wall bay with both ([`../enclosure/pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/README.md)).
+- Both flavor pumps — their molded skirts bearing in the pump cradle in the front-wall bay, located and held down by the small top clamp ([`../enclosure/pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/README.md)).
 - Flavor reservoirs and level sensing — Zone A, nested in the foam shell ([`/hardware/printed-parts/cold-core/reservoir/`](/hardware/printed-parts/cold-core/reservoir/)).
 - Valve seats — the boss sets on the foam-cap top ([`/hardware/printed-parts/valve-seat/`](/hardware/printed-parts/valve-seat/)).
 - Enclosure display — let into the 45° facet chamfered across `enclosure-front-top`'s top-front arris ([`/hardware/printed-parts/enclosure/enclosure/README.md`](/hardware/printed-parts/enclosure/enclosure/README.md)).

@@ -19,12 +19,11 @@ Not in scope: routing, strain-relief, and landing into the chassis ([`wiring.md`
 
 ## Stock & tooling
 
-Every loom is **BNTECHGO 22 AWG black silicone ribbon** — 3P, 4P and 5P, one or two ribbons per loom (§ Ribbon pairs). Its conductors are hand-crimped into **SXH-001T-P0.6** contacts and seated in the XH housing its wafer takes; [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 carries housings and loose terminals in 4, 5, 6, 7 and 9-way kits. Bulk silicone, 600 V, cut-to-length covers what a loom is not: **22 AWG black** for the fan-out branches downstream of the lever nuts — a valve's COM leg, a reed's GND leg, XH at neither end — **28 AWG 4P black ribbon** for the umbilical, and **16 AWG stranded 5-color** (pump leads and green ground bonds), plus **16 AWG solid black/white/green** for the fixed runs AC-1/2/3 and DC-1/2/4. The other bought multiconductor run is the GEARit 18 AWG SJOOW 3-conductor compressor lead. A ribbon pair lies flat where a cut bundle lies round, so the sleeve sizes to the pair — Open item 3.
+Every loom is **BNTECHGO 22 AWG black silicone ribbon** — 3P, 4P and 5P, one or two ribbons per loom (§ Ribbon pairs). Its conductors are hand-crimped into **SXH-001T-P0.6** contacts and seated in the XH housing its wafer takes; [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 carries housings and loose terminals in 4, 5, 6, 7 and 9-way kits. Bulk silicone, 600 V, cut-to-length covers what a loom is not: **22 AWG black** for the fan-out branches downstream of the lever nuts — a valve's COM leg, a reed's GND leg, XH at neither end — **28 AWG 4P black ribbon** for the umbilical, and **16 AWG stranded 5-color** (pump leads and green ground bonds), plus **16 AWG solid black/white/green** for the fixed runs AC-1/2/3 and DC-1/2/4. The other bought multiconductor run is the GEARit 18 AWG SJOOW 3-conductor compressor lead. A ribbon pair lies flat where a cut bundle lies round, so the sleeve sizes to the pair.
 
-Terminations: stripped solid copper directly into screw cages and WAGO clamps on AC-1/2/3 and DC-1/2/4; insulated bootlace ferrules (Preciva kit) for the retained stranded screw-cage landings; female Faston disconnects (6.3 mm / 4.8 mm) at valves, motors, and fan; solder joints on the contact pair's eight tails, DC-5's fixed half on the male and the cartridge leads on the female; the current Frigidaire donor's factory-external electrical interface is Open item 5 in [`wiring.md`](/hardware/assembly/wiring.md); ring terminals to the ground bus + the compressor's terminal-box earth screw; JST-XH housings at the main board's labeled wafers — every loom XH, J7 (REEDS B) included. J7 and J4 (SENSORS) share the same 7P housing, so **label both looms at the housing** and dress them to their own edges: a swapped pair would put J4's 3V3/5V on J7's MCP reed inputs. Distribution / fan-out: **221-413** for the rear mains H/N/G blocks and the core-lid sensor, reed and DC commons; **221-415** for MANIFOLD B COM; **221-420** for MANIFOLD A COM.
+Terminations: stripped solid copper directly into screw cages and WAGO clamps on AC-1/2/3 and DC-1/2/4; insulated bootlace ferrules (Preciva kit) for the retained stranded screw-cage landings; female Faston disconnects (6.3 mm / 4.8 mm) at valves, motors, and fan; the current Frigidaire donor's factory-external electrical interface is Open item 1 in [`wiring.md`](/hardware/assembly/wiring.md); ring terminals to the ground bus + the compressor's terminal-box earth screw; JST-XH housings at the main board's labeled wafers — every loom XH, J7 (REEDS B) included. J7 and J4 (SENSORS) share the same 7P housing, so **label both looms at the housing** and dress them to their own edges: a swapped pair would put J4's 3V3/5V on J7's MCP reed inputs. Distribution / fan-out: **221-413** for the rear mains H/N/G blocks and the core-lid sensor, reed and DC commons; **221-415** for MANIFOLD B COM; **221-420** for MANIFOLD A COM.
 
-Dress: **black PET braided sleeve** — 1/2" for most bundles, 3/4" for the manifold trunk, 1/4" for thin runs; every cut sleeve end finished with heat-shrink so it can't fray; black UV-nylon zip ties, **flush-cut** (no proud tail). Keep DC-5's local ribbon bare from the contact pair to the +X flank, where it lies below the funnel frame. Tools: ferrule crimper (Preciva 28–5), Faston/insulated-terminal crimper (Haisstronica 22–10), JST-XH crimper (iCrimp SN-2549), impact punchdown tool (Klein VDV427-300) and modular-plug crimper (VCE) for the SIG-6 rear keystone and separate umbilical plug, wire stripper (Klein 11063W), flush cutters, heat gun, multimeter — see [`/hardware/ledger/tools.md`](/hardware/ledger/tools.md).
-
+Dress: **black PET braided sleeve** — 1/2" for most bundles, 3/4" for the manifold trunk, 1/4" for thin runs; every cut sleeve end finished with heat-shrink so it can't fray; black UV-nylon zip ties, **flush-cut** (no proud tail). Keep DC-5's ribbon bare from the +X flank to the motor tabs: below the funnel frame, through the lead bore and in the clamp's lead slot and crown grooves. Tools: ferrule crimper (Preciva 28–5), Faston/insulated-terminal crimper (Haisstronica 22–10), JST-XH crimper (iCrimp SN-2549), impact punchdown tool (Klein VDV427-300) and modular-plug crimper (VCE) for the SIG-6 rear keystone and separate umbilical plug, wire stripper (Klein 11063W), flush cutters, heat gun, multimeter — see [`/hardware/ledger/tools.md`](/hardware/ledger/tools.md).
 
 ### Ribbon pairs
 
@@ -44,7 +43,7 @@ two 3P cover the one six-way wafer and reach four counts besides.
 | J7 REEDS B | [7](J7_PINS) | 5P + 3P | [500 mm](LOOM_J7) | reservoir B's column on the 5P; `CLO`/`CHI` on the 3P, third conductor trimmed |
 | J9 DISPLAY | [4](J9_PINS) | 4P | [400 mm](LOOM_J9) | the 4.3B's RS485 pair and its 12 V |
 | J11 GAS | [4](J11_PINS) | 4P | [600 mm](LOOM_J11) | the MQ-6 |
-| J13 PUMPS | [4](J13_PINS) | 4P | [350 mm](LOOM_J13) | the contact pair's fixed half |
+| J13 PUMPS | [4](J13_PINS) | 4P | [500 mm](LOOM_J13) | both pumps' motor tabs, the pump end split into one pair per pump |
 
 A pair is two ribbons, not a spliced one: they are cut to the same length, laid edge to edge and
 dressed as one until the branch point. **Which ribbon carries which conductor is set by where the
@@ -56,7 +55,7 @@ A loom is cut to its longest leg and the shorter legs are peeled off the web ear
 Both J2 blanks retain the FAN allowance; its shorter valve and common legs are trimmed at fitting.
 The 50 ft spool supplies 15.24 m, so these looms require no length splice. Final connections
 between the quadrants are made through the open funnel aperture before its frame and silicone
-drop in. Optional intermediate loom disconnects are Open item 4.
+drop in.
 
 The [installed wiring model](../wiring/README.md) gives each conductor a stable
 ID in the populated enclosure, including its attachment direction, proposed
@@ -95,7 +94,7 @@ For each cable assembly in the schedule below:
 1. **Cut to length.** For a loom, take the pair and preparation length in § Ribbon pairs; those blanks include termination and dressing reserve. Trim the shorter conductors at their landings. For a fan-out branch or an AC run, use its preparation length from the AC wiring schedule. All-black except the AC mains trio.
 2. **Strip & terminate.** Strip to the termination's barrel length and land each end: bare stripped solid for AC-1/2/3 and DC-1/2/4, or an insulated ferrule for a stranded screw landing (correct barrel length, one conductor per ferrule unless a specified twin ferrule joins two stranded leads); a female Faston at a valve/motor tab; a ring at a ground stud; an XH pin into its housing. No solder splices on any field-serviceable branch.
 3. **Fan-out / distribution.** Where a shared rail feeds many devices, land the feed and all branches in the assembly's Wago lever nut. The manifold COM blocks sit in front-top's east-wall holders. The sensor, reed and DC common blocks sit on the core lid; the three mains blocks sit on the rear wall. Seat each block in its holder with its ports and levers accessible. Reservoir A's continuous common returns directly to J6. The stations are tabled in [`ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) "Loom terminations".
-4. **Sleeve & dress.** Lay a pair edge to edge, web flat, and slip it into black braided sleeve sized to the pair; heat-shrink each cut end; flush-cut every zip tie. A ribbon needs no combing. Keep DC-5's local contact-to-flank run bare.
+4. **Sleeve & dress.** Lay a pair edge to edge, web flat, and slip it into black braided sleeve sized to the pair; heat-shrink each cut end; flush-cut every zip tie. A ribbon needs no combing. Keep DC-5 bare end to end.
 5. **Test.** Continuity end-to-end, pin-to-pin against the schedule; confirm no short between adjacent conductors; on the manifold and reed assemblies verify the Wago commons exactly the intended pins. **Label the assembly by name, not per-conductor.**
 6. **Bag & stage** for [`wiring.md`](/hardware/assembly/wiring.md).
 
@@ -114,8 +113,7 @@ Conductor counts are the main board's connector pin counts (`pcba.tsx` J1–J11 
 | Faucet display | J3 / SIG-6 | [4](J3_PINS) (TX / RX / 5 V / GND) | 22 AWG black 4P ribbon | **Ends at the wall, not at the faucet** — XH on J3, 110 IDC on the back of the keystone jack the umbilical plugs into. The ribbon outboard of that jack is the umbilical's, built at [`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md). **The TTL lines are ESD-clamped on the main board at U1** (D10/D11, 2× low-cap TVS — see the ESD note below); a faucet-end TVS is now optional | 1/2" |
 | Enclosure display | J9 / SIG-7 | [4](J9_PINS) (`B` / `A` / GND / `V12`) | 22 AWG black 4P ribbon | A/B pair to the 4.3B's RS485 terminals; `V12` + GND to its 7–36 V screw input on the same loom | 1/2" |
 | Gas sensor | J11 | [4](J11_PINS) (GND / `V5` / `DOUT` / `AOUT`) | 22 AWG black 4P ribbon | MQ-6 leads | 1/4" |
-| Pumps — fixed half | J13 / DC-5 | [4](J13_PINS) (`AM2` / `AM1` / `BM2` / `BM1`) | 22 AWG black 4P ribbon, [350 mm](LOOM_J13) | XH contacts at J13; soldered to the contact pair's male half | — |
-| Pumps — cartridge leads | contact pair / DC-5 | 4, same order | 22 AWG black, 4 × [100 mm](CARTRIDGE_LEAD) | soldered to the contact pair's female half; female Fastons stay on the pump-motor tabs | — |
+| Pumps | J13 / DC-5 | [4](J13_PINS) (`AM2` / `AM1` / `BM2` / `BM1`) | 22 AWG black 4P ribbon, [500 mm](LOOM_J13) | XH contacts at J13; four insulated female Fastons on the pump-motor tabs, crimped after the free end passes front-top's lead bore | — |
 | 12 V input | J10 / DC-4 | [2](J10_PINS) (`V12` / GND) | 16 AWG solid | bare solid copper in the J10 screw cages; from the electronics bay's 12 V distribution block (lands in the column at [`electronics-bay.md`](/hardware/assembly/electronics-bay.md)) | — |
 | AC mains | AC-1…6 | per run | 16 AWG solid on AC-1/2/3; stranded on earth bonds; 18 AWG SJOOW | bare solid or the specified stranded termination → **221-413**; current-donor external-interface connector TBD at compressor; rings to ground | SJOOW jacket on the compressor lead |
 
@@ -151,36 +149,34 @@ Pages [2](https://homesodamachine.com/read/faucet-assembly-guide/faucet-assembly
 and [15](https://homesodamachine.com/read/faucet-assembly-guide/faucet-assembly-guide.pdf#page=15)
 show the same assignment at the display and wall connector.
 
-### Contact pair — DC-5
+### Pump leads — DC-5
 
-Two cables, both soldered to one half of the
-[contact pair](/hardware/printed-parts/enclosure/enclosure/README.md#cartridge-contacts), a
-4-pin magnetic pogo pair whose halves meet as the cartridge seats. The **fixed half** is [350 mm](LOOM_J13)
-of the BNTECHGO 22 AWG 4P ribbon: J13's XH contacts at one end, and at the other the four
-conductors split back 20 mm, fed forward through the bay bulkhead's lead bore and soldered to the
-male half's four tails. The **cartridge leads** are four [100 mm](CARTRIDGE_LEAD) lengths of the 22 AWG black
-spool, soldered to the female half's tails in the pump clamp and laid in its two crown grooves,
-with the four female Fastons that stay on the motor tabs at their far ends. Sleeve each joint
-with heat-shrink before the half is seated.
+One [500 mm](LOOM_J13) piece of the BNTECHGO 22 AWG 4P ribbon runs from J13 to both pumps'
+motor tabs: J13's XH contacts at one end, and at the other the ribbon peeled into its two pairs
+back 70 mm, each conductor ending in an insulated female Faston receptacle. From the board it
+lies along the bay bulkhead's crown below the funnel frame and turns into front-top's
+[lead bore](/hardware/printed-parts/enclosure/enclosure/README.md#the-pump-lead) through the tee
+wall. Across the frame gap it enters the top clamp's lead slot and rises through the crown, where
+each pair turns along its own crown groove into its pump's terminal well. Feed the free end
+through the bore before crimping the Fastons; the [J13 bench guide](harnesses/j13.md) gives the
+complete piece.
 
-Both halves are read in machine X. Each half's end that stands at −X is marked when the pair is
-first mated by hand, since the magnets admit only the attracting orientation.
+The ribbon passes the bore and the slot in J13 order, read in machine X with its striped edge
+at +X:
 
-| contact, +X to −X | J13 net | Device |
+| conductor, +X to −X | J13 net | Device |
 |---:|---|---|
-| 1, +3.81 mm | `AM2` | pump A, +X |
-| 2, +1.27 mm | `AM1` | pump A, +X |
-| 3, −1.27 mm | `BM2` | pump B, −X |
-| 4, −3.81 mm | `BM1` | pump B, −X |
+| A1, striped | `AM2` | pump A, +X |
+| A2 | `AM1` | pump A, +X |
+| A3 | `BM2` | pump B, −X |
+| A4 | `BM1` | pump B, −X |
 
-Continuity-test J13 to each pump tab with the cartridge seated, verify no adjacent short, and
-verify J13 net-to-tab polarity. Each contact is rated 2 A at 12 V; the pump's stated normal current is ~0.8 A.
-Each DRV8870's ISEN returns through a 0.2 Ω sense resistor, which holds startup and
-jam current at 1.54–1.81 A; batch-1 and batch-2 boards ground ISEN and are bounded
-only by the driver's 3.7–6.4 A overcurrent protection
-([current protection](/hardware/reference/yyfkgcp-pogo-4p/mounting-audit.md#current-protection)).
-The pair is a dead-circuit service joint: remove appliance power before drawing
-or seating the cartridge.
+Ring out each XH cavity to its Faston before the Fastons land, verify no adjacent short, and
+verify J13 net-to-tab polarity. The pump's stated normal current is ~0.8 A. Each DRV8870's ISEN
+returns through a 0.2 Ω sense resistor ([`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx)), which holds
+a starting or stalled pump at 1.65 A nominal, 1.54–1.81 A across tolerances; batch-1 and
+batch-2 boards ground ISEN and are bounded only by the driver's 3.7–6.4 A overcurrent
+protection.
 
 ### MANIFOLD B — the empty contact
 
@@ -216,14 +212,6 @@ belt-and-braces extra. The protection is:
 
 The 5 V and GND ribbon conductors need no clamp (5 V is a rail, GND is the return); only the two TTL
 signals are protected.
-
-## Open items
-
-1. **Shielded reed pairs.** The reed / 1-wire runs pass alongside the switching solenoid trunk; consider shielded twisted pair (foil + drain, single-end grounded) over plain 22 AWG.
-2. **AC mains wire grade.** The fixed AC-1/2/3 stock is marked UL1007, 300 V / 80°C; inspect the delivered spool marking before use. The compressor keeps its 18 AWG SJOOW cord, and earth bonds retain their stranded stock. Keep the fixed PVC wire away from hot refrigeration surfaces. Solid wire selection and run-by-run exceptions are in [the wiring schedule](/hardware/wiring/ac-wiring-schedule.md#conductor-construction).
-3. **Sleeve on a flat pair.** The sleeve sizes in the schedule are provisional for flat ribbon pairs. A 4P + 5P pair lies flat at 15.3 mm across and 1.7 mm thick. Fit a made-up pair in its specified sleeve before calling that size final.
-4. **Whether a loom still parts at the quadrant seam.** No loom breaks for length any more, so the four junctions are now only a disassembly convenience: the cold core, MANIFOLD B, the display and the pumps each sit where a quadrant comes away. If the break is kept it needs `B*B-XH-A` headers back to back on something mountable, nothing is drawn yet, and the clusters' differing circuit counts are the keying — no two junctions in the box should accept the same housing.
-5. **That the web zips.** A loom is cut to its longest leg and the short legs are peeled off the web by hand. BNTECHGO publishes the section (1.7 mm per conductor) and no tear strength, and this build has only ever used the 4P whole. Peel a metre of each of the 3P and 5P off the spool when they land and confirm the web parts cleanly without nicking insulation; if it does not, a loom is cut at the branch instead and the legs land as separate pieces.
 
 ## Sources
 [value](NAME) texts are updated by:

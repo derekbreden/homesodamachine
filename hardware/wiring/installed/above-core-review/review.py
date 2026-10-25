@@ -65,8 +65,6 @@ def main():
                 assembly.add(ea.build_display(box),name='display')
                 cover,_=ea.build_display_cover(box)
                 assembly.add(cover,name='display-cover')
-                for name,entry in zip(('pump-contact-male','pump-contact-female'),ea.build_pump_contacts(box)):
-                    assembly.add(entry[0],name=name)
                 centre=ea.funnel_centre(box);seat=ea._enc.funnel_seat_z(box.outer)
                 assembly.add(ea._funnel_frame.build(box.inner,box.y_joint,centre,seat),name='funnel-frame')
                 for name,solid,_colour,_carry in ea.build_drain_joint(box):

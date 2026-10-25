@@ -1146,8 +1146,9 @@ void test_dry_cycle_sweeps_both_channels_in_then_through_without_a_reservoir() {
         TEST_ASSERT_EQUAL_UINT8(i < 2 ? kPumpA : kPumpB, p.flavor_pumps);
         TEST_ASSERT_FALSE(airStepDrawsReservoir(AirMode::Dry, i));
     }
-    // Every joint the collet plate opens stands between a pump and its tees;
-    // each channel's two steps carry air across both of that pump's barbs.
+    // Each channel's two steps carry air into its pump through its select and
+    // out through both of its outlet valves: In to its reservoir, Through to
+    // its flavor tube.
     TEST_ASSERT_TRUE(canonicalPlan(Operation::AirPurgeInA).valves & bit(Valve::C));
     TEST_ASSERT_TRUE(canonicalPlan(Operation::AirPurgeInA).valves & bit(Valve::F));
     TEST_ASSERT_TRUE(canonicalPlan(Operation::AirPurgeThroughA).valves & bit(Valve::G));

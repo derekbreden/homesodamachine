@@ -3,10 +3,10 @@
 Each pump port feeds a purchased PP0208E tee (`fixed_returns`). Its branch stands in the TEE
 WALL: front-top's bay bulkhead, one flat slab the bay's whole width and height
 (`enclosure._bulkhead`). Each tee has one collar-clear bore through the wall from its bore
-face; ahead of the bore a collet recess lets the branch collet stand extended and grip its
-pump tube, and a smaller tube hole passes that tube through the wall's fore band. The bore
-holds the tee in X and Z. Its fixed branch barrel stops it fore on the bore face, clear of the
-collet, and its lower return, anchored in the rear valve, stops it aft.
+face; ahead of the bore a smaller hole through the wall's fore band passes the pump tube and
+leaves room for the branch collet to stand extended and grip it. The bore holds the tee in X
+and Z. Its fixed branch barrel stops it fore on the bore face, clear of the collet, and its
+lower return, anchored in the rear valve, stops it aft.
 
 Each lower return carries a NeoFit stem elbow in the tee's lower collet and another in the rear
 valve's bottom collet, their stems cut to stand where `fixed_returns.elbow_return` puts them.
@@ -41,12 +41,10 @@ TEES = {'west-outer': 'Y-G', 'west-inner': 'Y-F', 'east-inner': 'Y-C', 'east-out
 BORE_R = tee.COLLAR_ENVELOPE_D / 2.0 + fits.running
 # The wall's aft face stands this far fore of the tee's run barrel.
 BODY_AIR = 1.454
-HOLE_R = 4.25                          # the fore band's tube hole
-# The extended branch collet's room ahead of the bore face: its clearance radius and one running
-# air round it, and deep enough that the collet still stands clear with the tee pushed fore onto
-# its fixed barrel.
-RECESS_R = tee.COLLET_NOSE_R + fits.running
-RECESS_DEPTH = tee.COLLET_PROUD + fits.running
+# The fore band's hole: the extended branch collet's clearance radius and one running air round
+# it, through the whole band, so the collet stands clear with the tee pushed fore onto its fixed
+# barrel and the band keeps its full section round the hole.
+HOLE_R = tee.COLLET_NOSE_R + fits.running
 RETURN_CHANNEL_R = 8.1                 # a rear valve's port channel in its tray (`valve_tray`)
 TEARDROP_DEG = 36.0                    # front-top's printable roof angle over a horizontal bore
 
@@ -101,20 +99,9 @@ def return_clearances(plate):
 
 
 def plate_holes(plate):
-    """One teardropped tube hole through the wall's fore band per tee."""
+    """One teardropped hole through the wall's fore band per tee."""
     y0, y1 = plate['fore_y'] - 1.0, plumbing.plate_aft_y(plate['fore_y']) + 1.0
     return [teardrop_y(HOLE_R, x, z, y0, y1) for x, z in plate['holes']]
-
-
-def collet_recesses(plate):
-    """One teardropped recess per tee, `RECESS_DEPTH` fore of the bore face, where the branch
-    collet stands extended."""
-    face = plumbing.plate_aft_y(plate['fore_y'])
-    if RECESS_DEPTH >= plumbing.PLATE_T:
-        raise ValueError(f"a {RECESS_DEPTH:g} mm collet recess opens through the "
-                         f"{plumbing.PLATE_T:g} mm fore band")
-    return [teardrop_y(RECESS_R, x, z, face - RECESS_DEPTH, face + 0.01)
-            for x, z in plate['holes']]
 
 
 def tee_bores(plate):
@@ -126,7 +113,7 @@ def tee_bores(plate):
 
 def wall_cuts(plate):
     """Everything the dock takes out of the tee wall."""
-    return plate_holes(plate) + collet_recesses(plate) + tee_bores(plate)
+    return plate_holes(plate) + tee_bores(plate)
 
 
 @lru_cache(maxsize=1)

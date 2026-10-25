@@ -24,19 +24,16 @@ straight tube, and its lower run reaches a rear valve through two trimmed
 NeoFit ATEU44W stem elbows and one straight LLDPE tube. The two source tees,
 Y-A and Y-B, meet V-C and V-D through their existing collet butt joints.
 
-The pump cartridge and top clamp retain both prepared pumps. Their housings
-clamp the four tubes and transmit insertion/withdrawal reactions into the
-cartridge. Front-top's collet plate holds the purchased tee collets pressed,
-so the tubes withdraw when the cartridge is pulled. Printed-in SB443-IN magnet
-pairs retain the cartridge in its seated position. The magnetic contact pair
-parts during that same motion.
+The pump cradle and top clamp hold both prepared pumps. Their housings clamp
+the four tubes, which pass front-top's collet plate into the purchased tees;
+each branch collet stands extended in its recess and grips its tube, and those
+four collets hold the cradle home.
 
 See the [pump dock](/hardware/printed-parts/enclosure/pump-dock/README.md) for
-its native interfaces and the [pump service procedure](/hardware/service/pump-replacement.md)
-for replacement. Retain accepted pump-holder, magnet and connector results
-within their recorded material, orientation and artifact scope. Native
-geometry does not establish tube insertion force, pressure retention, sealing,
-cleanability or lifetime.
+its native interfaces. Retain the accepted pump-holder result within its
+recorded material, orientation and artifact scope. Native geometry does not
+establish tube insertion force, pressure retention, sealing, cleanability or
+lifetime.
 
 ## Source paths and final access
 

@@ -9,7 +9,7 @@ beside the page it writes the way every other doc-sync driver stands beside its 
 IT STATES NO SILHOUETTE. The machine's own W x D x H is written where the box is cut —
 `printed-parts/enclosure/enclosure/README.md` and `assembly/enclosure-mechanical.md` — and a
 third copy here is a third thing to be wrong. What this page owes is the room AROUND the box:
-the turn-in behind the +Y wall of back-top and the draw in front of the pump cartridge.
+the turn-in behind the +Y wall of back-top.
 
 EVERY FIGURE IS A PLACED BODY READ OFF A FACE OF THE BOX, and not a part's own datum carried
 here by arithmetic. What a cabinet has to give behind the wall is how far the fittings stand off
@@ -51,11 +51,6 @@ UNIONS = ("bulkhead-carb", "bulkhead-flavor-a", "bulkhead-flavor-b", "bulkhead-w
 BULKHEAD_RINGS = ("bulkhead-ring-carb", "bulkhead-ring-co2", "bulkhead-ring-flavor-a",
                   "bulkhead-ring-flavor-b", "bulkhead-ring-water")
 
-# The piece a hand hauls out of the front bay, both peristaltic pumps and their tubing aboard.
-PUMP_CARTRIDGE = "enclosure-pump-cartridge"
-# The four prepared pump tubes it carries, which stand on past its flat back, through the collet
-# plate and into their tees. NAMED, like the unions: a tube renamed out of the pack raises here.
-PUMP_TUBES = ("tube-fluid-11", "tube-fluid-12", "tube-fluid-21", "tube-fluid-22")
 
 # What two bodies struck to one figure may differ by and still be that figure. The boxes are an
 # optimal-box reading of tessellated solids, so a ring's own 2 mm comes back 2.0000002.
@@ -110,32 +105,13 @@ def behind_the_rear_face():
 
 
 def main():
-    f = _facts.read()
-    front = f.box.outer[2]
     collet, ring = behind_the_rear_face()
-
-    # WHAT THE FRONT OWES: how far the tips of the pump tubes the cartridge carries stand behind
-    # the front face, which is how far forward of that face it has to come to clear the bay. Both
-    # pumps and their tubing ride out on it, and it is the one service access on this machine
-    # that faces the room instead of a wall. The tubes reach on past the cartridge's flat back
-    # into their tees, so the draw is the piece's depth plus that reach. The page measures it
-    # from the cartridge's own face, which is the box's front face while the two are one plane —
-    # held, not assumed.
-    cart = f.bb(PUMP_CARTRIDGE)
-    if abs(cart.ymin - front) > TOL:
-        raise SystemExit(
-            f"  the pump cartridge's face stands {cart.ymin - front:.4f} mm off the box's front "
-            f"face.\n  install-envelope.md measures the draw from the piece's own face, which is "
-            f"only the box's while the two are one plane.")
-    tips = agreed("pump tube tips", {n: f.bb(n).ymax for n in PUMP_TUBES})
 
     variables = {
         "CABINET_CLEAR_H": f"{CABINET_CLEAR_H:.4g} mm",
         "COLLET_PROUD": f"{collet:g} mm",
         "BULKHEAD_RING_THICK": f"{ring:g} mm",
         "TURN_IN": f"{TURN_IN_LEAD_BEND + collet:g} mm",
-        "CART_DRAW": f"{tips - front:.4g} mm",
-        "CART_TUBE_REACH": f"{tips - cart.ymax:g} mm",
     }
     substitute_md(MD, variables=variables)
     print(f"-> {MD.relative_to(_root)}")

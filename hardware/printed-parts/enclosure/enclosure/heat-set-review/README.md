@@ -1,7 +1,7 @@
 # Enclosure insert and seam construction
 
 The customer outcome is an enclosure that keeps its internal components secured,
-seats the pump cartridge precisely and can be handled without its joints opening.
+seats the pump cradle precisely and can be handled without its joints opening.
 The [native audit](geometry-check.json) records 35 insert stations and 10 finished
 knuckles for its exact source and native input hashes. It reads complete installed insert
 envelopes, open pilots, blind relief, closed stock, insertion access and the Y seam's
@@ -37,21 +37,6 @@ frame. The rim at the handhold's R6 lip is in
 | Two pump-clamp stations | M3, 5.7 mm | At least 6.7 mm | M3×60, at least 0.5 mm steel-tip clearance |
 | Two C14 stations | M3 short, 4.0 mm | 5.25 mm | Full tunnel stock and closed rear wall |
 | Four compressor posts | M5, 9.5 mm | 10.5 mm | Manufacturer pilot and minimum surrounding stock |
-| Four pogo anchors | M1.4, 4.0 mm | 5.5 mm | Insert top 7.25 mm behind the recessed connector face, 7.375 mm inside the printed host face; M1.4×8 engagement 2.75 mm, tip 2.75 mm before blind end |
-
-ZWMSSLL publishes Ø2.3 mm knurl, Ø2.0 mm lead and 4 mm body dimensions for its
-M1.4 insert, without a host pilot, wall or pocket-depth recommendation. Ø2.0 mm is
-the starting fit. The [SPIROL FDM guidance](https://www.spirol.com/resources/white-papers/how-to-select-a-threaded-insert-for-your-3d-printed-assembly/)
-supplies the application rule of a solid host diameter at least 1.5 times the
-knurl diameter. The audit reports this separately from supplier compliance.
-The bound insert audit finds solid host at least 3.5 mm out from each round Ø2 pilot, the
-furthest it searches, through the whole insert body in both the pump-cap and front-top. The 2.6 mm wide loading stadium passes the whole knurl
-through the 4.25 mm ear-to-anchor setback. Install and cold-check the depth before fitting the
-connector, following [enclosure assembly](../../../../assembly/enclosure-mechanical.md).
-The [coupon](../contact-pair-coupon/README.md) retains its identified geometry and
-connector-fit acceptance. The [current mounting audit](../../../../reference/yyfkgcp-pogo-4p/mounting-audit.md)
-records the complete recessed seats and tolerance stack; installed insert retention,
-full-frame compression and electrical behavior remain physical qualifications.
 
 ## Native seam load paths
 
@@ -91,8 +76,7 @@ and the native 1 mm lifting engagement are checked by the enclosure producer.
 [Print regions](print-regions.json) require local 100% infill through
 the complete insert hosts, blind caps and supporting roots, every Y-seam knuckle
 and its root, and Z hook/foot/stop roots. The manual specification also covers the
-SB443 column walls, their roofs and roots in front-top and the cartridge, the
-recessed pogo hosts and the whole tee cap. It binds the six main pieces and the tee
+whole tee cap. It binds the six main pieces and the tee
 cap's STEP/STL by hash. The tee cap's manufacturing export already contains its
 print pose; the main pieces retain their prescribed source-to-print
 transforms. Plate X/Y nesting remains part of the native project.
@@ -107,7 +91,7 @@ of each native review. A CAD solid or a few perimeter loops do not make the
 interior solid. Each production job requires these regions bound to its current
 mesh and a fresh emitted-path and support-removal review. The
 [RC62 archives](../magnet-retention/queue.json) retain their identified article
-scope; their print pauses do not qualify the SB443-IN columns' loading pauses.
+scope.
 
 The corner stacks follow manufacturer insert geometry and carry the seam's load
 path on steel screws. They do not establish survival of a 4–6 inch drop.

@@ -27,49 +27,26 @@ Per-unit BOM is the entire BOM of record at this step — by acceptance the unit
 | Thermocouple gun or food thermometer | [0–20 °C](THERMO_RANGE) range, [±0.5 °C](THERMO_ACC) or better | Measures dispensed-water temperature at the gooseneck and inside the target glass. Probe-style is preferred over IR for liquid temperature; IR reads surface only. |
 | Stopwatch | Phone stopwatch is fine | Times the dispense window for the metered-flow steps. |
 | Refractometer (optional) | [0–32 °Brix](BRIX_RANGE) handheld, ATC-equipped | If available, measures sucralose-equivalent °Brix on the dispensed mix to back-check the [1:20](RATIO) ratio. SodaStream concentrate is sucralose-based, not sugar-based, so the Brix reading is a sweetener proxy not a literal sugar concentration — useful as a relative check between channels, not as an absolute. |
-| SodaStream concentrate, Diet Mountain Dew | [0.44 L](BOTTLE_L) bottle | Channel A test syrup. Whether it ships with the unit or is customer-supplied is an Open item below. |
-| SodaStream concentrate, second flavor | [0.44 L](BOTTLE_L) bottle | Channel B test syrup. Same open item. |
+| SodaStream concentrate, Diet Mountain Dew | [0.44 L](BOTTLE_L) bottle | Channel A test syrup. |
+| SodaStream concentrate, second flavor | [0.44 L](BOTTLE_L) bottle | Channel B test syrup. |
 | Temporary pressure and electrical measurement fixture | Rated gauges or transducers at pump inlet, pump discharge and carbonator-side line; DC voltmeter and current measurement | Record instrument locations, range and accuracy. Use existing line connections and leave the dedicated PRV connected and unobstructed. Instrument availability and fixture fit must be established before the hydraulic qualification. |
-| Per-serial test log file | Placeholder `logs/<serial>/acceptance.json` | Every metered value captured at the appliance and saved to a serial-keyed file. Format + final path is an Open item below. |
+| Per-serial test log file | Placeholder `logs/<serial>/acceptance.json` | Every metered value captured at the appliance and saved to a serial-keyed file. |
 
-Tooling (bench, shared across all units — not per-build consumed): the test-rig water + CO2 connections themselves, the [12 oz](GLASS_OZ) glass, the graduated cylinder, the thermocouple, the stopwatch, and the optional refractometer. The pressure fixture above is not yet a built rig: one SENCTRL gauge is owned, and additional gauges or transducers may be needed to capture the three pressure locations together. Its 0–200 PSI scale reads the [43.5 PSI](CO2_CENTERLINE) feed at about a fifth of full scale; choose fixture ranges that resolve the feed and the refill's rise above it. Two SodaStream concentrate bottles are consumed per unit in small dispense volumes ([~50 mL](CONC_ML) of concentrate across the full test sequence, [~11 %](CONC_PCT) of one bottle); whether they ship with the unit or are customer-supplied is an Open item.
+Tooling (bench, shared across all units — not per-build consumed): the test-rig water + CO2 connections themselves, the [12 oz](GLASS_OZ) glass, the graduated cylinder, the thermocouple, the stopwatch, and the optional refractometer. The pressure fixture above is not yet a built rig: one SENCTRL gauge is owned, and additional gauges or transducers may be needed to capture the three pressure locations together. Its 0–200 PSI scale reads the [43.5 PSI](CO2_CENTERLINE) feed at about a fifth of full scale; choose fixture ranges that resolve the feed and the refill's rise above it. Two SodaStream concentrate bottles are consumed per unit in small dispense volumes ([~50 mL](CONC_ML) of concentrate across the full test sequence, [~11 %](CONC_PCT) of one bottle).
 
 ## Procedure
 
 ### 1. Pre-test inspection + connect bench rig
 
-Verify the chassis came out of [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) with all checkboxes signed off. The unit is sitting on the bench, AC cord unplugged, all +Y wall's connections capped or plugged. Visually inspect the exterior — no displaced fittings, no shipping-damage cracks in the printed enclosure, the compressor's four floor screws are home, its ground ring is under its own earth screw, and the donor moulded cover is intact, unmodified, and securely retained over the terminal/PTC assembly with its factory lead exit undamaged; the C14 inlet recess is clean; the umbilical bulkheads on the +Y wall are seated. Both pump brackets bear in the lower cradle behind the cartridge face, the top clamp is screwed down and their DC-5 spade pairs are on the motor tabs, landed at [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3. The contact pair's male half sits in its 0.125 mm recessed bay-bulkhead seat with both screws home; the fixed J13-side 4P ribbon lies along the bulkhead crown below the funnel frame, clear of the closing slides, with a relaxed exit behind the insulated contact joints, and the cartridge's four leads lie in the clamp's crown grooves.
-
-Cycle the pump dock dry before attaching either bench supply. Brace the enclosure and
-withdraw the cartridge straight along its floor. All four prepared LLDPE tubes must
-release and draw out together as the cartridge comes away. Confirm that the electrical
-contact pair parts with the cartridge and that its fixed half and ribbon remain undisturbed. Inspect the four collet
-faces through the plate's holes and the four tube tips for cuts, debris, loose material
-or scoring.
-
-With power removed and the cartridge out, check continuity from J13 to each fixed contact
-and confirm no contact is shorted to its neighbor or to a mounting screw. Reinsert the
-cartridge evenly, guiding the four straight tips through the plate's holes into the tees'
-collets until they bottom, each tee returns to connected, and the magnets draw the
-cartridge onto its meeting poles with the front perimeter flush. The magnets must hold
-that position. A magnetic snap alone is not a seating check. Confirm continuity from each J13 contact to the correct
-pump tab: `AM2`/`AM1` to pump A on +X and `BM2`/`BM1` to pump B. Record the completed insertion/withdrawal cycle
-and repeat it if any part was reseated or corrected. Wet sealing and retention under
-pressure are checked with the completed flavor paths, separately from this dry cycle.
+Verify the chassis came out of [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) with all checkboxes signed off. The unit is sitting on the bench, AC cord unplugged, all +Y wall's connections capped or plugged. Visually inspect the exterior — no displaced fittings, no shipping-damage cracks in the printed enclosure, the compressor's four floor screws are home, its ground ring is under its own earth screw, and the donor moulded cover is intact, unmodified, and securely retained over the terminal/PTC assembly with its factory lead exit undamaged; the C14 inlet recess is clean; the umbilical bulkheads on the +Y wall are seated. The pump cradle stands home in its bay, its face flush with the front face either side; its top clamp holds both pumps and the J13 ribbon's four Fastons are on their motor tabs, landed at [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3.
 
 Connect the test-rig water source to the +Y wall's PP1208E 1/4" JG QC inlet, pushing the 1/4" LLDPE home into the collet. Connect the 4 mm OVER umbilical and position its dedicated faucet outlet over the test sink. Confirm the full vent route is open, seated and clear per [ASSE drain assembly](/hardware/assembly/asse-drain.md). Make up this unit's primary regulator, the Taprite 3741 that ships with it. Unscrew its 1/4" flare outlet fitting with ball check (Taprite 5436A) from the body's 1/4" NPT outlet port and keep it with the bench spares. Thread a gray PI010822S into that port with thread sealant, per the threaded-adapter procedure in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md). Cut the unit's ~12 in red 1/4" LLDPE tether square, push one end fully into the PI010822S and tug-check it: the two stay together from here to the customer. Seat one nylon washer in the CGA-320 nut, start the nut on the test-rig cylinder by hand and nip it with a wrench. Push the tether's free end home into the ABU44 bulkhead — upper-right station of the two-column, three-row rear fluid grid — with the collet fully seated.
 
 **Set the primary to [75 PSI](CO2_PRIMARY_SET). It ships at this setting, and the customer never adjusts it.** Loosen the jam nut on the slotted adjusting screw and back the screw out until it turns freely. Open the cylinder valve. Turn the screw in a quarter turn at a time until the upper 160 PSI gauge settles at [75 PSI](CO2_PRIMARY_SET) [± 5 PSI](CO2_PRIMARY_TOL) with no gas flowing; the secondary then feeds the nominal [43.5 PSI](CO2_CENTERLINE). Come up to 75 from below: if the needle passes it, back the screw out, close the cylinder valve and open the faucet until the gauge falls under 75, then reopen the valve and come up again. Hold the screw and tighten the jam nut against the bonnet. Close the cylinder valve, open the faucet until the gauge falls, reopen the valve and confirm the needle settles back at 75. Draw one paint-pen line across the screw end, the jam nut and the bonnet, so any later turn shows. Record the setting in the unit's log. A trial at another feed uses a bench regulator and is a separate test, not the qualification. Record the initial charging, air removal and conditioning sequence so carbonation comparisons use the same CO2 headspace condition. Do not yet open the water-side test-rig valve. Place the [12 oz](GLASS_OZ) target glass on the bench under the faucet position (the faucet itself is on its under-counter mount; the bench can take the chassis with the faucet temporarily oriented over a catch tray or with a stub line into the same target glass — bench-rig detail at Derek's discretion).
 
-**Pass:** all four tubes release and reenter together, each bottoming in its tee; the
-cartridge closes on its meeting magnet poles; the fixed electrical half and ribbon stay
-undisturbed; all four J13-to-pump connections are
-continuous and correctly mapped; the dedicated faucet OVER outlet is open over the test
-sink; and no bench gas connection leaks. **Fail:** a damaged collet, a tube that will not
-release or will not bottom, a bent, caught or slipped tube,
-incomplete seating, a loose or chipped magnet, a displaced fixed contact or lead, incorrect
-continuity, or a leaking rig connection. Correct the specific fault and repeat the dry
-cycle before continuing.
+**Pass:** the dedicated faucet OVER outlet is open over the test sink, and no bench gas
+connection leaks. **Fail:** a leaking rig connection. Correct the specific fault before
+continuing.
 
 ### 2. Power on + interlock check
 
@@ -115,16 +92,16 @@ Re-fill the carbonator using the refill queued by the falling low-level crossing
 
 Run the metered dispense (target [~250 mL](METERED_WATER) water + [~12.5 mL](METERED_FLAVOR) flavor A concentrate, totalling [~262.5 mL](METERED_TOTAL)). The graduated cylinder receives the mixed product; the carbonator low-reed will likely assert mid-pour and queue a refill which firmware will defer until the dispense window closes.
 
-During flow and the following closed-valve hold, inspect both pump-end joints, the
-cartridge's seat and the bay floor below it. No seepage or cartridge movement off its
-seats is acceptable.
+During flow and the following closed-valve hold, inspect the pump cradle's face, the
+bay jambs either side of it and the bay floor below it. No seepage or cradle movement
+is acceptable.
 Apply the same inspection to channel B in step 7. The dock's separate pressure and
 endurance qualification sets the operating envelope; a clean dispense alone does not
 establish that envelope.
 
 Measure: total volume in the graduated cylinder, and (if refractometer available) °Brix of the mixed dispense. Compute actual ratio against the [1:20](RATIO) target. Tasting is allowed but not the pass criterion; the volume and the refractometer reading are.
 
-**Pass:** total dispense volume within [~5 %](RATIO_TOL) of [~262.5 mL](METERED_TOTAL) (i.e., [~249–276 mL](METERED_RANGE)); refractometer reading consistent with a [1:20](RATIO) dilution of the SodaStream concentrate (no absolute number locked here — see Open items for the ratio-tolerance gap); pump A audibly running during the dispense window, no missed steps, no pump slip. **Fail:** volume far outside the [±5 %](RATIO_TOL_SIGNED) band (suggests pump A under- or over-delivery, indicating a tube-fatigue problem in the peristaltic head); refractometer reading suggests a far-off ratio; any pump audible stall.
+**Pass:** total dispense volume within [~5 %](RATIO_TOL) of [~262.5 mL](METERED_TOTAL) (i.e., [~249–276 mL](METERED_RANGE)); refractometer reading consistent with a [1:20](RATIO) dilution of the SodaStream concentrate (no absolute number locked here); pump A audibly running during the dispense window, no missed steps, no pump slip. **Fail:** volume far outside the [±5 %](RATIO_TOL_SIGNED) band (suggests pump A under- or over-delivery, indicating a tube-fatigue problem in the peristaltic head); refractometer reading suggests a far-off ratio; any pump audible stall.
 
 ### 7. First flavor B dispense + flavor pump metering
 
@@ -161,7 +138,7 @@ Across steps 3 through 9, every level-sensing reed must be observed at its calib
 
 Re-fill both flavor reservoirs to [~50 %](RESERVOIR_FILL_PCT) via the funnel (so there is enough concentrate for the in-burn-in dispenses without a refill). Re-fill the carbonator. Verify both probes read steady state. Set the bench-acceptance UI to "burn-in mode": firmware runs a timer that performs one metered [~6 oz](BURN_IN_DISP) carbonated-water-plus-flavor dispense every [75 minutes](DISP_INTERVAL) for the duration of the burn-in window.
 
-Target burn-in window: **at least [8 hours](BURN_IN_HOURS) sustained**, with at least **[6 metered dispenses](BURN_IN_MIN_DISP)** across that window. (These numbers are the proposed default; production-final values are an Open item below.) The burn-in is the closest acceptance testing gets to a customer-side use profile: dispense, refill, chill, dispense again, hours of compressor cycling. During the burn-in, Derek is not at the bench continuously — firmware is logging — but checks in at the 1-hour, 4-hour, and 8-hour marks (further checks at his discretion) to:
+Target burn-in window: **at least [8 hours](BURN_IN_HOURS) sustained**, with at least **[6 metered dispenses](BURN_IN_MIN_DISP)** across that window. (These numbers are the proposed default.) The burn-in is the closest acceptance testing gets to a customer-side use profile: dispense, refill, chill, dispense again, hours of compressor cycling. During the burn-in, Derek is not at the bench continuously — firmware is logging — but checks in at the 1-hour, 4-hour, and 8-hour marks (further checks at his discretion) to:
 
 - Watch the compressor cycle count and average on-time per cycle. Sustained on-time greater than [~70 %](DUTY_HIGH) duty cycle suggests the loop is undersized or the freeze cutout is misbehaving; sustained on-time below [~10 %](DUTY_LOW) duty cycle (excluding the initial chill-down) suggests the carbonator wall sensor is in the wrong thermal contact (reading colder than the actual water — the probe may have detached or migrated against a cold spot on the coil).
 - Watch for any nuisance freeze-protect trips (evap-coil DS18S20 hits [−8 °C](FREEZE_CUTOUT) and firmware shuts the compressor down). One trip during the initial chill-down can be tolerated as recharge-mass-calibration overhang per [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) Open items §1; recurrent trips in steady state require investigation of the charge or the suction-line bond.
@@ -171,13 +148,13 @@ Target burn-in window: **at least [8 hours](BURN_IN_HOURS) sustained**, with at 
 
 Every metered dispense during the burn-in is logged to the per-serial test file: timestamp, dispense volume, dispense temperature (if the thermocouple is left in place between dispenses — a bench setup at Derek's discretion), refractometer reading if available, compressor cycle count since boot, evap-coil minimum temperature since previous dispense, carbonator wall temperature at dispense start. After the [8-hour](BURN_IN_HOURS_DASH) window closes the burn-in ends and the unit is ready for the per-serial log archival in step 12.
 
-**Pass:** burn-in window completes; ≥ [6 dispenses](BURN_IN_MIN_DISP_SHORT) recorded; no nuisance freeze trips after the initial chill-down; no leaks; no MQ-6 trips; no backflow-vent telltale events; compressor duty cycle in the [10–70 %](DUTY_BAND) band averaged over the burn-in window. **Fail:** any of the watch-items above triggers — see Open items below for failure-handling policy.
+**Pass:** burn-in window completes; ≥ [6 dispenses](BURN_IN_MIN_DISP_SHORT) recorded; no nuisance freeze trips after the initial chill-down; no leaks; no MQ-6 trips; no backflow-vent telltale events; compressor duty cycle in the [10–70 %](DUTY_BAND) band averaged over the burn-in window. **Fail:** any of the watch-items above triggers.
 
 ### 12. Archive per-serial test log
 
 At burn-in end, retrieve the per-serial JSON or CSV file at the bench-acceptance UI's "log download" command. File contains every metered reading from steps 3 through 11. Verify the file is non-empty, the serial number in the file matches the nameplate-pending serial on the chassis, and every step in the procedure has a corresponding log entry.
 
-File is archived to the per-serial path (placeholder `logs/<serial>/acceptance.json` — see Open items for the final committed path). On archive success the unit moves to step 13.
+File is archived to the per-serial path (placeholder `logs/<serial>/acceptance.json`). On archive success the unit moves to step 13.
 
 ### 13. Drain + air-purge for transit
 
@@ -192,7 +169,6 @@ Confirm before releasing the unit: no water audible on a gentle tilt, both reser
 A unit that has passed acceptance and burn-in:
 
 - Carbonator first-water-fill completed without leak
-- Pump dock cycled dry through seated → withdrawn → seated; four LLDPE tubes released and reentered together, each bottoming in its tee, the electrical pair parted and mated without disturbing its fixed half or ribbon, and J13-to-tab continuity was confirmed with the cartridge on its meeting magnet poles
 - Gas-feed and carbonator pressures recorded through refill and hold; downstream check reverse sealing qualified; no external leakage or SV-125 relief event during normal operation
 - Dedicated faucet OVER outlet open over the bowl; no unexplained vent discharge
 - Initial fill, refill and pump restart completed with measured inlet/discharge/carbonator pressure and supply margin
@@ -208,17 +184,8 @@ A unit that has passed acceptance and burn-in:
 
 ## Open items
 
-Procedure-level gaps that need answers before unit 1 ships:
-
-1. **Burn-in duration + cycle-count thresholds.** The [8-hour / 6-dispense](BURN_IN_TARGET) target is a reasonable starting point but the production-ready number isn't yet decided. Compressor duty-cycle bands ([10–70 %](DUTY_BAND)) are also placeholder bracketing. Tighten or loosen against early-unit observed data; commit a final value once units 1–3 have run through.
-2. **Per-serial log path, format, storage location.** Placeholder is `logs/<serial>/acceptance.json` on the bench machine running the acceptance UI. Open: filesystem (local-only) vs cloud (sync to a per-unit folder) vs both; JSON vs CSV vs structured columnar format; retention policy and access path for service callbacks against shipped units.
-3. **Acceptance failure handling.** What is the policy for a unit that fails any test step? Rework on the bench, scrap, send-to-investigation? This mirrors the same gap in [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md) "Open items" §2 at hydro-test — the same decision tree should apply across both gates and ideally lives in one place once committed.
-4. **Test-syrup supply for acceptance.** [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) treats SodaStream concentrate as user-supplied at install. Acceptance consumes [~11 %](CONC_PCT) of one bottle per unit ([~50 mL](CONC_ML) across the test sequence) regardless. Open: do two bottles ship with the unit (used for acceptance, then continued in service by the customer), or does Derek keep a bench stock and the customer buys their own bottles from day one?
-5. **Ratio acceptance threshold.** The [1:20](RATIO) ratio is documented as the design target. The [±5 %](RATIO_TOL_SIGNED) volume band and the [~10 %](CHANNEL_TOL) channel-to-channel agreement band in this doc are starting points; the production-final ratio tolerance (especially the cross-channel agreement) needs a committed number that ties back to the perceived-taste impact of small ratio drifts on the SodaStream concentrate formulation.
-6. **Refractometer use — required or optional?** Currently listed as optional bench tooling. If the volume measurement on its own is not a sufficient ratio proxy (especially in light of item 5), the refractometer becomes required and a specific °Brix target per flavor needs to be locked.
-
-7. **First-unit operating envelope.** Commit the measured pressure setting, refill and restart limits, initial CO2 conditioning, pour cadence, carbonation reference and recovery time from steps 3–5. Instrument fixture and gauge locations belong in that record. Nominal pump flow and gas setpoint are not substitutes.
-8. **Production acceptance controls.** Complete and commission the bench inhibit, carbonator first-fill control, timed burn-in and per-serial log download identified in the firmware prerequisite. Automatic refrigeration and refill are implemented; manual bench evidence must name its actual control method.
+1. **First-unit operating envelope.** Commit the measured pressure setting, refill and restart limits, initial CO2 conditioning, pour cadence, carbonation reference and recovery time from steps 3–5. Instrument fixture and gauge locations belong in that record. Nominal pump flow and gas setpoint are not substitutes.
+2. **Production acceptance controls.** Complete and commission the bench inhibit, carbonator first-fill control, timed burn-in and per-serial log download identified in the firmware prerequisite. Automatic refrigeration and refill are implemented; manual bench evidence must name its actual control method.
 
 ## Sources
 [value](NAME) texts are updated by:

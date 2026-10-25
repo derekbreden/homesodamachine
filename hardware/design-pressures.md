@@ -19,16 +19,10 @@ belongs to the structure.
 
 ## Not optimised
 
-**Field service.** One operation: the pump swap in
-[`service/pump-replacement.md`](/hardware/service/pump-replacement.md), which runs on the bench's
-own front opening. Front-top's collet plate holds the four pump tees' branch collets pressed,
-so pulling the cartridge draws each pump tube straight out of its tee. The tees' bores carry
-the tubes' friction into the enclosure, while each pump head's own housing clamps its tubes. The enclosure can be braced by a hand, foot, cupboard edge or
-its own weight. The tees, the valves and the rear plumbing stay in the machine, and
-`enclosure-front-top` stays on. Every other
-physical fault is answered by shipping a replacement; units are sold over the
-internet to customers in other states, and the returned unit comes back to Derek. Diagnosis
-of a returned unit is a teardown with factory tools — cutting included — not a repair.
+**Field service.** None. Every physical fault, the pumps' included, is answered by shipping a
+replacement unit; units are sold over the internet to customers in other states, and the
+returned unit comes back to Derek. Diagnosis of a returned unit is a teardown with factory
+tools — cutting included — not a repair.
 
 **Disassembly.** Not a goal and not a tiebreaker. A part that can only come out by being
 destroyed is a part that comes out by being destroyed.
@@ -45,14 +39,16 @@ destroyed is a part that comes out by being destroyed.
   interior butt joints: Y-A to V-C, Y-B to V-D and the crossbar between Y-A and Y-B. Each
   pump tee reaches its fore valve on a short straight tube, not a butt
   ([`manifold-layout/`](/hardware/manifold-layout/README.md)).
-- **The pump dock separates at the pump tees' branch collets.** Each tee's branch stands in
-  a bore through front-top's tee wall, which holds it in X and Z, and the collet plate holds
-  its branch collet pressed, so no tee moves: the tubes slide in on the collets' O-rings and
-  draw straight out, and the cartridge's magnets hold them in against pressure. Each upper tube
-  stands straight under its fore valve, and each lower return is two stem elbows and a straight
-  tube ([pump dock](/hardware/printed-parts/enclosure/pump-dock/README.md)). Complete
-  replacement pumps carry factory-fitted LLDPE tubes; the customer replaces no dock
-  component.
+- **The pump dock closes once, at the factory.** The pump cradle pushes the four prepared pump
+  tubes' tips through front-top's tee wall into the four pump tees' branch collets, which stand
+  extended and grip them like any push-fit; those four collets hold the cradle home, and nothing
+  else retains it. Each tee's branch stands in a bore through the tee wall, which holds it in X
+  and Z; its fixed branch barrel lands on the bore face if the tee is pushed fore, and its lower
+  return stops it aft. Each upper tube stands straight under its fore valve, and each lower
+  return is two stem elbows and a straight tube
+  ([pump dock](/hardware/printed-parts/enclosure/pump-dock/README.md)). Once home, the cradle
+  does not come out: the collets cannot be released from the bay, and a pump that fails means a
+  factory teardown.
 - **The enclosure's rigid barbed lips close on sequential motions.** The first motion
   places each lip clear of its roof; the next slides it under the roof. Flat bearing faces
   retain the seam, and the Y seam's vertical screws prevent the reverse motion.
@@ -73,8 +69,8 @@ destroyed is a part that comes out by being destroyed.
   resistance at 7 mm, is held from 8.5 mm and bottoms at 10 mm, all from the sleeve's face with
   the sleeve pressed home. Each run sleeve travels 1.65 mm; the branch sleeve travels
   1.50 mm. A pump tube bottoms 11.50 mm beyond its tee's extended branch face, and a tube
-  in a run collet 11.65 mm beyond the extended run face. The branch collets stay pressed and
-  the run collets operate only during factory assembly.
+  in a run collet 11.65 mm beyond the extended run face. Every collet stands extended and grips
+  its tube.
 - **Exposed path length is not stock cut length.** The four upper tubes are reported
   between their fitting mouths. Each blank also includes the actual insertion at both
   fittings; the valve-side insertion is established while preparing the blank. The four
@@ -83,10 +79,10 @@ destroyed is a part that comes out by being destroyed.
   assembly procedure supply the current paths and cut instructions.
 - **The commercial collet action has its own physical evidence.** The
   [`tee-connector observations`](/hardware/reference/tee-connector/README.md#observed-push-connect-action)
-  establish extraction while depressed, relocking after a small separating tug and
-  insertion against spring-level collet tension on the identified fittings. They carry no
-  instrumented force and provide no seal or endurance acceptance for the assembled dock,
-  whose complete release and insertion force are unmeasured.
+  establish insertion against spring-level collet tension and relocking after a small
+  separating tug on the identified fittings. They carry no instrumented force and provide no
+  seal or endurance acceptance for the assembled dock. The force of pushing all four tubes home
+  at once, and each tee's aft stop through its return under that push, are unmeasured.
 - **Clearance around a fitting is not a placement criterion.** Room for a hand, a spanner or a
   collet release ranks below volume. Where a run needs room, it needs it to be *routed*, not to
   be reached.

@@ -66,7 +66,7 @@ they became.
 | **funnel** | the part flavor concentrate is poured into, with its own drain plug | hopper |
 | **valve tray** | either of the two four-seat plates fused into `enclosure-front-top` that the solenoids stand on | valve panel |
 | **bulkhead ring** | the labelled printed chip in a pocket around one through-wall fitting | port ring |
-| **pump tray** | either of the two fused beds on the pump cartridge's deck that a peristaltic pump sits in | |
+| **pump tray** | either of the two fused beds on the pump cradle's deck that a peristaltic pump sits in | |
 | **flow-meter anchor** | either of the two anchors off the top wall that the flow meter's barrel seats in | flow-meter saddle, saddle |
 | **reed bridge** | the printed interposer holding a level reed to the carbonator and carrying the coil wrap over it | |
 | **main board** | the assembled PCB on the +X wall that drives the valves, pumps and compressor | the board, the base, the controller, controller PCBA, the PCBA |
@@ -83,9 +83,9 @@ they became.
 | **+Y wall of back-top** | the rear face of the same quadrant, carrying every through-wall crossing | rear wall, back wall, back panel |
 | **compressor bay** | the volume in the enclosure's front-bottom the compressor and condenser stand in | refrigeration bay, refrigeration stratum, refrigeration compartment |
 | **electronics bay** | the +X lane of back-top, where the main board, PSU, both relay modules and the AC inlet bolt to the wall's bosses | electronics bay, electronics shelf |
-| **pump cartridge** | the removable unit carrying the pumps, that rides out of the pump bay | cartridge |
-| **pump bay** | the compartment in `enclosure-front-top` the pump cartridge rides in | |
-| **collet plate** | the release face printed into front-top across the pump bay, holding the collets so the pump cartridge can be pulled | |
+| **pump cradle** | `enclosure-pump-cartridge`, the printed piece both pumps stand in under the top clamp, forming the machine's front face across the pump bay | pump cartridge, cartridge |
+| **pump bay** | the compartment in `enclosure-front-top` the pump cradle stands in | |
+| **collet plate** | the tee wall's fore band across the pump bay, carrying a tube hole and a collet recess for each pump tee | release face |
 | **tee carrier** | `enclosure-tee-carrier-plate`, the printed plate that carries the four barb tees Y-C, Y-D, Y-F and Y-G through both front flanks | moving plate, carrier halves |
 | **bowed flex stub** | one of the four short formed LLDPE links between a moving barb tee and fixed V-E/F/H/I, specified by exposed developed path rather than blank cut length | bow tube, flexible butt |
 | **collet press** | the printed 1/4-inch U-jaw and raised handle that depresses a push-connect collet around its tube | release tool, disconnect tool |
@@ -105,7 +105,7 @@ to **Derek approved** when he recognises them, or are replaced when he doesn't.
 | --- | --- | --- |
 | **holder** | one printed Gridfinity module of `printed-parts/shop-storage/`, holding one kind of thing | tool tray, tool caddy, organizer, bin |
 | **anchor cap** | the printed half pipe pressed on over a tube in its anchor, its two wings' lips catching a window in each of the rib's flanks, closing the anchor in place of a zip tie | tube clip, snap cap, saddle |
-| **tee wall** | front-top's bay bulkhead, one flat slab whose fore face is the collet plate, with a bore through it for each pump tee's branch | |
+| **tee wall** | front-top's bay bulkhead, one flat slab whose fore band is the collet plate, with a bore through it for each pump tee's branch | |
 | **window cover** | `enclosure-window-cover-west` and `-east`, the printed slabs that close each front flank's tee-carrier window aft of the seated carrier, each hung on a post of front-top's | cosmetic hole covering plate |
 | **Sculpted** | the faucet style with smooth curves and softly blended transitions | Arc |
 | **Industrial** | the faucet style with simple cylinders and crisp, pronounced shoulders | Stepped |
@@ -117,7 +117,6 @@ to **Derek approved** when he recognises them, or are replaced when he doesn't.
 | **tube miter box** | the printed bench block with two open troughs and one blade slot, that holds 1/4" and 3/8" LLDPE tube round and guides a razor blade square across it | tube cutter jig, cut guide, cutting block, tube cutting block |
 | **fake countertop** | the printed inverted-U bench stand that stands in for a counter, its legs as far apart as the cavity under Derek's counter: one faucet clamps through its 1-3/8" hole and the umbilical hangs and bends under it | counter stand, dummy counter, photo counter, countertop stand |
 | **parcel figure** | a dimension that is a listing's shipping box: an upper bound on the thing inside it, and no lower bound at all | product dimensions, listing envelope |
-| **contact pair** | the YYFKGCP 4-pin magnetic pogo pair the pump cartridge connects through as it seats: the female half in the top clamp's aft face, the male half opposite it in the bay bulkhead | pogo connector, pogo pins, cartridge connector |
 | **install kit** | the box beside the soda machine in the carton holding what the install needs beyond the faucet bag: the customer's plumbing, the collet press, the line cord, the documentation packet | installer kit |
 | **cold kit** | the bagged bonus in the install kit — the tube cutter, the loose foam segments and its own guide — for trimming and insulating the run to the faucet | cold optimization kit, cold enhancing kit, cold-line kit |
 | **quick start** | the illustrated one-sheet guide from installation through the first glass, lying face up on top of the packing | quickstart sheet, install sheet |

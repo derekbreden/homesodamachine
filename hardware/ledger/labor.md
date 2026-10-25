@@ -96,30 +96,29 @@ starting another. The map, cut lengths, tools and materials are ready; shared
 setup is amortized, with no separate mass-crimping station. These are
 theoretical attended-time estimates, not timed production readings. Development,
 lookup, learning and final cabinet fitting are outside the bench cycles.
-J13 is finished with front-top loose on the bench: its free cable end passes
-through the empty bulkhead bore before the pogo tails are soldered. Connector
-mounting and final routing retain their separate assembly allowances.
+J13's XHP-4 end is made on the bench; its free end passes through front-top's
+lead bore into the bay before its four Fastons are crimped. Landing them on the
+motor tabs and final routing retain their separate assembly allowances.
 
 The [J2](https://homesodamachine.com/cost#j2-harness) and
-[J13 fixed-half](https://homesodamachine.com/cost#j13-harness) visual guides
+[J13](https://homesodamachine.com/cost#j13-harness) visual guides
 are the corresponding rows below and are included in the unit total. J2's
 10-minute estimate allows about 5–6 minutes for its 18 crimps and 4–5 minutes
 for preparation, dressing, Wago assembly, continuity and labeling; allow up to
 15 minutes for planning. J13's five minutes covers four JST crimps, four
-individually insulated solder tails and its end-to-end check; allow up to ten.
+Faston crimps and its end-to-end check; allow up to ten.
 The other estimates use the same practiced method: five minutes for a simple
 four-conductor cable, ten for a smaller fan-out, and fifteen for the larger
 valve or reed assembly. All remain unmeasured.
 
 ### Finished bench harnesses
 
-Twelve pieces: ten JST-ended looms, the separate cartridge contact cable and
-the ferruled J10 supply lead. Reed soldering and insulation belong to J6/J7;
-mounting the finished columns belongs to Assembly. The separate faucet
-umbilical is included in that subassembly's Assembly allowance. J8 is the
-unused I2C expansion header, with no production loom in the cable schedule;
-the reserved J4 IO23/IO27 positions are also unpopulated. Neither adds a
-moisture-sensor harness.
+Eleven pieces: ten JST-ended looms and the ferruled J10 supply lead. Reed
+soldering and insulation belong to J6/J7; mounting the finished columns
+belongs to Assembly. The separate faucet umbilical is included in that
+subassembly's Assembly allowance. J8 is the unused I2C expansion header, with
+no production loom in the cable schedule; the reserved J4 IO23/IO27 positions
+are also unpopulated. Neither adds a moisture-sensor harness.
 
 | Operation | Procedure | Notes | Minutes |
 |---|---|---|---:|
@@ -132,15 +131,14 @@ moisture-sensor harness.
 | J7 · Reeds B → four reservoir and two carbonator reeds | [cable-assemblies](/hardware/assembly/cable-assemblies.md) | Seven JST contacts, six reed pairs soldered and insulated, shared-ground 221-420, dressing and magnet/continuity check; excludes mounting reeds or column | 15 |
 | J9 · Display → enclosure LCD | [cable-assemblies](/hardware/assembly/cable-assemblies.md) | Four JST contacts, four ferruled display-terminal ends, dressing, label and test | 5 |
 | J11 · Gas → MQ-6 sensor | [cable-assemblies](/hardware/assembly/cable-assemblies.md) | Four JST contacts, four sensor-end connections, dressing, label and test | 5 |
-| J13 · Pumps → fixed pogo half | [J13 bench guide](/hardware/assembly/harnesses/j13.md) | With front-top loose and ready: 350 mm 4P ribbon, four JST contacts, free end through the empty bore before four individually heat-shrunk male-half solder tails; identify attracting orientation, label and test; excludes bulkhead mounting | 5 |
-| Pump cartridge · pogo half → both motors | [cable-assemblies](/hardware/assembly/cable-assemblies.md#contact-pair--dc-5) | Four 100 mm leads, four individually heat-shrunk female-half solder tails and four motor Fastons; identify attracting orientation and test; excludes clamp mounting | 5 |
+| J13 · Pumps → both motors | [J13 bench guide](/hardware/assembly/harnesses/j13.md) | 4P ribbon, four JST contacts in the XHP-4, free end through the lead bore into the bay before four motor Fastons, +X leads to pump A and −X leads to pump B; label and test; excludes landing on the motor tabs | 5 |
 | J10 · 12 V distribution → board input | [cable-assemblies](/hardware/assembly/cable-assemblies.md) | Two 16 AWG leads, four ferrules, label and test; excludes landing the finished lead in the cabinet | 5 |
 
 ### Installation and AC checks
 
 These operations begin with the finished bench harnesses. Their recurring
 work is cabinet power distribution, mounting connections, routing and installed
-checks; no JST crimping, reed soldering or pogo-tail fabrication is counted again.
+checks; no JST crimping, reed soldering or J13 Faston crimping is counted again.
 
 | Operation | Procedure | Notes | Minutes |
 |---|---|---|---:|
@@ -148,9 +146,9 @@ checks; no JST crimping, reed soldering or pogo-tail fabrication is counted agai
 | DC distribution + 12 V branches; land J10 and RELAYS J5 |  | Cabinet distribution connections and completed loom landings; J10/J5 cable fabrication is counted above | 5 |
 | Chassis-ground bonds; C14 to compressor and PSU | [wiring](/hardware/assembly/wiring.md) | | 10 |
 | Dielectric + continuity check, AC side | [wiring](/hardware/assembly/wiring.md) | Pre-power isolation proof — nothing gets energized before it passes | 10 |
-| Cabinet 12 V runs and signal looms | [wiring](/hardware/assembly/wiring.md) | Land the labeled 7P J4/J7 housings at their own wafers. Route the finished fixed cable along the ridge clip and +X wall, and the cartridge leads in its grooves; the bulkhead bore was threaded before soldering. With AC unplugged, check all four channels point to point and for neighbor isolation with the cartridge out and seated | 10 |
+| Cabinet 12 V runs and signal looms | [wiring](/hardware/assembly/wiring.md) | Land the labeled 7P J4/J7 housings at their own wafers. Land J13's Fastons on the motor tabs, dress its leads into the clamp's slot and grooves, and draw its slack back along the bulkhead crown as the pump cradle goes home, then plug its XHP-4 into J13. With AC unplugged, check all four J13 channels point to point and for neighbor isolation | 10 |
 | Bundle, route, strain-relieve | [wiring](/hardware/assembly/wiring.md) | | 5 |
-| **Wiring** | | | **[145](LAB_SEC6)** |
+| **Wiring** | | | **[140](LAB_SEC6)** |
 
 ## 7. Plumbing
 
@@ -162,26 +160,26 @@ Every wetted and gas joint in the unit: the carbonator's four elbow stacks, the 
 | Route the seven cold-core penetrations; stack the copper plugs | [cold-core](/hardware/assembly/cold-core.md) | Done before the body foam locks them in | 10 |
 | CO2 path — +Y wall of back-top to cold core | [internal-plumbing](/hardware/assembly/internal-plumbing.md) | | 10 |
 | Water path — +Y wall of back-top to cold core | [internal-plumbing](/hardware/assembly/internal-plumbing.md) | Filter, backflow, pump, top-plate port | 10 |
-| Flavor manifold — fixed valves, pump tees, upper tubes and lower returns, prepared pumps and channels | [internal-plumbing](/hardware/assembly/internal-plumbing.md) | [10](SOLENOIDS) fixed valves total. Seat the rear valves; fit each pump tee, its upper tube and its fore valve as a group, the branch into its bore through the tee wall; cut eight stem elbows' stems, push them up into the tees and rear valves, and fit the four straight return tubes. Fit the prepared pumps' LLDPE tubes and set their tips with the tube setting jig. This assembly time is an unmeasured allowance | 15 |
+| Flavor manifold — fixed valves, pump tees, upper tubes and lower returns, prepared pumps and channels | [internal-plumbing](/hardware/assembly/internal-plumbing.md) | [10](SOLENOIDS) fixed valves total. Seat the rear valves; fit each pump tee, its upper tube and its fore valve as a group, the branch into its bore through the tee wall; cut eight stem elbows' stems, push them up into the tees and rear valves, and fit the four straight return tubes. Fit the prepared pumps' LLDPE tubes, set their tips with the tube setting jig and push the pump cradle home into the four tee collets. This assembly time is an unmeasured allowance | 15 |
 | Risers to the umbilical bulkheads | [internal-plumbing](/hardware/assembly/internal-plumbing.md) | | 5 |
 | Witness and tidy every joint | [internal-plumbing](/hardware/assembly/internal-plumbing.md) | The pass that makes the next leak someone else's fault | 5 |
 | **Plumbing** | | | **[70](LAB_SEC7)** |
 
 ## 8. Assembly
 
-Everything that is putting parts together with fasteners and hands. The print model allocates [7.329](LAB_PRINT_KG) kg of filament and [179.7](LAB_PRINT_H) printer-hours per unit, including the three ASA Aero floats ([machine-time.md](/hardware/ledger/machine-time.md)). The attended share is plate changes, spool swaps, part removal, support cleanup, the three RC62 insertions at their print pauses and the [8](DOCK_MAGNETS) SB443-IN blocks loaded at the front-top and cartridge pauses. That tending allowance is provisional. Assembly includes the [70](TOTAL_INSERTS) M3/M5 heat-set inserts and [70](TOTAL_SCREWS) matching screws, plus four M1.4 inserts and four M1.4 × 8 screws mounting the pogo halves.
+Everything that is putting parts together with fasteners and hands. The print model allocates [7.329](LAB_PRINT_KG) kg of filament and [179.7](LAB_PRINT_H) printer-hours per unit, including the three ASA Aero floats ([machine-time.md](/hardware/ledger/machine-time.md)). The attended share is plate changes, spool swaps, part removal, support cleanup and the three RC62 insertions at their print pauses. That tending allowance is provisional. Assembly includes the [70](TOTAL_INSERTS) M3/M5 heat-set inserts and [70](TOTAL_SCREWS) matching screws.
 
 | Operation | Procedure | Notes | Minutes |
 |---|---|---|---:|
 | Tend the printers — plate changes, spool swaps, part removal, support cleanup and float-magnet insertion | — | [7.329](LAB_PRINT_KG) kg over [179.7](LAB_PRINT_H) estimated printer-hours; includes three RC62 insertion/resume passes. Provisional attended allowance; the v2 float slice and elapsed manual pauses are unmeasured | 25 |
-| Press the [70](TOTAL_INSERTS) M3/M5 heat-set inserts and four M1.4 pogo inserts | [cold-core](/hardware/assembly/cold-core.md), [enclosure-mechanical](/hardware/assembly/enclosure-mechanical.md) | Shell faces, cap columns, reservoir caps, touch-flo pods, wall bosses, condenser fingers, roof closures, [4](SEAM_INSERTS) enclosure Y-seam anchors and floor posts. FX-888D + T18 tips for [62](TOTAL_M3_INSERTS) M3 and [8](TOTAL_M5_INSERTS) M5; use an on-hand VECO-T T18 I/LB fine tip with the recessed-seat cold reach/depth check for the four M1.4 × 4 × Ø2.3 pogo inserts ([enclosure assembly](/hardware/assembly/enclosure-mechanical.md)) | 10 |
-| Drive the [70](TOTAL_SCREWS) M3/M5 build screws and four M1.4 × 8 pogo screws | — | [20](FOAM_SCREWS) foam-cap, [4](PUMP_MOUNT_SCREWS) water-pump, [12](RES_SCREWS) reservoir-cap, [3](TOUCHFLO_SCREWS) faucet base, [13](SHELF_SCREWS) electronics, [2](COND_SCREWS) condenser, [4](ROOF_CLOSURE_SCREWS) funnel-frame/access-panel, [0](DISPLAY_COVER_SCREWS) display plate, [0](NAMEPLATE_SCREWS) nameplate, [4](SEAM_RODS) M5 enclosure Y-seam screws, two upward through the handholds and two downward through the roof, each with one flat washer, [4](FLOOR_SCREWS) floor, [2](PUMP_CAP_SCREWS) pump clamp, [2](C14_SCREWS) C14 inlet; two M1.4 × 8 screws per pogo half, seated with a hand-operated 1.3 mm hex driver | 5 |
+| Press the [70](TOTAL_INSERTS) M3/M5 heat-set inserts | [cold-core](/hardware/assembly/cold-core.md), [enclosure-mechanical](/hardware/assembly/enclosure-mechanical.md) | Shell faces, cap columns, reservoir caps, touch-flo pods, wall bosses, condenser fingers, roof closures, [4](SEAM_INSERTS) enclosure Y-seam anchors and floor posts. FX-888D + T18 tips for [62](TOTAL_M3_INSERTS) M3 and [8](TOTAL_M5_INSERTS) M5 | 10 |
+| Drive the [70](TOTAL_SCREWS) M3/M5 build screws | — | [20](FOAM_SCREWS) foam-cap, [4](PUMP_MOUNT_SCREWS) water-pump, [12](RES_SCREWS) reservoir-cap, [3](TOUCHFLO_SCREWS) faucet base, [13](SHELF_SCREWS) electronics, [2](COND_SCREWS) condenser, [4](ROOF_CLOSURE_SCREWS) funnel-frame/access-panel, [0](DISPLAY_COVER_SCREWS) display plate, [0](NAMEPLATE_SCREWS) nameplate, [4](SEAM_RODS) M5 enclosure Y-seam screws, two upward through the handholds and two downward through the roof, each with one flat washer, [4](FLOOR_SCREWS) floor, [2](PUMP_CAP_SCREWS) pump clamp, [2](C14_SCREWS) C14 inlet | 5 |
 | Wind the evaporator coil on the mandrel; transfer it, set the band | [cold-core](/hardware/assembly/cold-core.md) | | 10 |
 | Dress the carbonator wall — reeds, probe, foil; bond the coil probe | [cold-core](/hardware/assembly/cold-core.md) | | 10 |
 | Fit the finished reed columns; seat rods and floats; close the reservoirs | [cold-core](/hardware/assembly/cold-core.md) | Two reservoirs, gaskets, caps, vent filters; J6/J7 soldering and insulation are counted in Wiring | 15 |
 | Lower the carbonator; seat the reservoirs in their pockets | [cold-core](/hardware/assembly/cold-core.md) | | 5 |
 | Populate the WAGO wells; mount PSU, relays, PCB and earth stack | [electronics-bay](/hardware/assembly/electronics-bay.md) | PCB and PSU use the core's full-length cap inserts. The west-wall relays and core earth boss use [5](SHELF_INSERTS) short inserts | 5 |
-| Stage the printed enclosure and dock parts and the +Y wall's seven bodies; bolt the compressor down to the slab | [enclosure-mechanical](/hardware/assembly/enclosure-mechanical.md) | Four quadrants, cartridge, pump clamp, four pump tees and four tee caps; rear-wall set includes the RJ11 keystone. Four floor posts, one M5 and a fender washer each, snugged onto the post crowns | 10 |
+| Stage the printed enclosure and dock parts and the +Y wall's seven bodies; bolt the compressor down to the slab | [enclosure-mechanical](/hardware/assembly/enclosure-mechanical.md) | Four quadrants, pump cradle, top clamp and four pump tees; rear-wall set includes the RJ11 keystone. Four floor posts, one M5 and a fender washer each, snugged onto the post crowns | 10 |
 | Seat the cold core; condenser, electronics bay, close the box, ASSE drip pan | [enclosure-mechanical](/hardware/assembly/enclosure-mechanical.md) | | 10 |
 | Cut, route and sleeve the umbilical; bag it with the under-counter plate | [faucet-and-umbilical](/hardware/assembly/faucet-and-umbilical.md) | Three LLDPE tubes, braid, the bag | 10 |
 | Assemble the faucet — two-piece shell, display cover, plate, gasket and o-ring | — | Route tubes and ribbon before closing the plate; PET-GF prints, TPU seals | 5 |
@@ -225,22 +223,22 @@ The unit passed. Empty it, clean it up, name it, box it.
 | 3. Pressure, leak & flow checks | [1 h](LAB_HM3) | [$100.00](LAB_USD3) |
 | 4. Silicone casting | [35 m](LAB_HM4) | [$58.33](LAB_USD4) |
 | 5. Foam pouring | [35 m](LAB_HM5) | [$58.33](LAB_USD5) |
-| 6. Wiring | [2 h 25 m](LAB_HM6) | [$241.67](LAB_USD6) |
+| 6. Wiring | [2 h 20 m](LAB_HM6) | [$233.33](LAB_USD6) |
 | 7. Plumbing | [1 h 10 m](LAB_HM7) | [$116.67](LAB_USD7) |
 | 8. Assembly | [2 h](LAB_HM8) | [$200.00](LAB_USD8) |
 | 9. Power-on & testing | [55 m](LAB_HM9) | [$91.67](LAB_USD9) |
 | 10. Finishing & packing | [35 m](LAB_HM10) | [$58.33](LAB_USD10) |
-| **Per-unit total** | **[11 h 5 m](LAB_HM)** | **[$1,108.33](LAB_USD)** |
+| **Per-unit total** | **[11 h](LAB_HM)** | **[$1,100.00](LAB_USD)** |
 
-The target is 10 hours attended per unit. The current estimate is [11 h 5 m](LAB_HM), including 20 minutes of unmeasured recurring jet work. The largest attended-time categories are:
+The target is 10 hours attended per unit. The current estimate is [11 h](LAB_HM), including 20 minutes of unmeasured recurring jet work. The largest attended-time categories are:
 
-- **Wiring** ([2 h 25 m](LAB_HM6), the largest category) — 95 minutes for twelve finished bench harnesses and 50 minutes for installation and AC checks. Ready maps, a cut list and staged crimping and soldering tools support the practiced unit-25 estimates.
-- **Assembly** ([2 h](LAB_HM8)) — includes 25 minutes of provisional printer tending. Additional printer capacity changes elapsed print time; plate handling and magnet insertion still require attended work.
-- **Machining** — the four hand-tapped NPT ports are the slowest five minutes each in the build, and the production tapping fixture is still an open item in [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md).
+- **Wiring** ([2 h 20 m](LAB_HM6), the largest category) — 90 minutes for eleven finished bench harnesses and 50 minutes for installation and AC checks. Ready maps, a cut list and staged crimping and soldering tools support the practiced unit-25 estimates.
+- **Assembly** ([2 h](LAB_HM8)) — includes 25 minutes of provisional printer tending. Additional printer capacity changes elapsed print time; plate handling and float-magnet insertion still require attended work.
+- **Machining** — the four hand-tapped NPT ports are the slowest five minutes each in the build.
 
 ## Not counted here
 
-- **Pump-dock manufacturing allowances** — the pump tube preparation and the magnet loading at the two print pauses are required production operations. Their attended time is unmeasured and excluded from these totals.
+- **Pump-dock manufacturing allowance** — the pump tube preparation is a required production operation. Its attended time is unmeasured and excluded from these totals.
 - **Unattended process time** — every hour a machine is busy and nobody is on it. That is its own ledger: [machine-time.md](/hardware/ledger/machine-time.md), which holds the print, the cures and bakes, the hydro and vacuum holds, the passivation soak, the chill-down and the burn-in, and derives turnaround and throughput from them. Nothing there is costed.
 - **Shipping and receiving** — unpacking orders, kitting, inventory.
 - **Design, CAD, firmware and documentation** — this file costs building a unit, not developing one.
