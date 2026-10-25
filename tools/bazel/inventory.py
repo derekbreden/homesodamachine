@@ -159,10 +159,6 @@ IMPLICIT_SOLIDS = {
         for side in ("inlet", "outlet")
         for suffix in ("step", "stl", "step.mesh")
     ),
-    "hardware/printed-parts/enclosure/electronics-access-panel/electronics_access_panel.py": tuple(
-        f"hardware/printed-parts/enclosure/electronics-access-panel/electronics-access-panel.{suffix}"
-        for suffix in ("step", "stl", "step.mesh")
-    ),
     "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py": (
         "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl",
         "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.mesh",

@@ -95,10 +95,6 @@ HELD_BY = {
     "water-inlet-jet-cap-nominal": "water elbow tip weld (unqualified)",
     "reservoir-b-fill-lower": "cap pocket and reservoir fill bore",
     "reservoir-b-fill-upper": "cap pocket",
-    "digiten-flow": "cap-lid collar bearings and ties",
-    "soda-bend-holder": "continuous soda tube through the accepted bend channel",
-    "soda-continuous-insulation": "continuous soda tube and bend holder",
-    "tube-soda-core-rise": "core guide, accepted R14 holder and meter inlet socket",
 }
 for _n in _V.PORTS:
     HELD_BY[f"carbonator-elbow-{_n}"] = "plate thread"
@@ -136,7 +132,6 @@ def held_for(name: str) -> str:
 JOINED = {frozenset(p) for p in (
     ("evap-coil", "evap-tail-inlet"),
     ("evap-coil", "evap-tail-outlet"),
-    ("tube-soda-core-rise", "digiten-flow"),
 )}
 
 # Bodies the wrap RIDES ON rather than routes around. THE CARBONATOR IS THE ONE IT IS WOUND ON:

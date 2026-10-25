@@ -5454,10 +5454,6 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
                                 _enc.funnel_seat_z(box.outer))
     a.add(frame, name="funnel-frame", color=M_PETGF_BLACK)
     a.pack_solids["funnel-frame"] = frame
-    panel = _enc._above_core_shell.access_panel()
-    a.add(panel, name='electronics-access-panel', color=M_PETGF_BLACK)
-    a.pack_solids['electronics-access-panel'] = panel
-    record_seat('electronics-access-panel', planes={'z0':346.}, got=panel.BoundingBox())
     for name, shape, colour in _enc._above_core_shell.rear_identification().parts():
         a.add(shape, name=name, color=colour)
         a.pack_solids[name] = shape
@@ -5466,10 +5462,6 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
         (f'funnel-frame-{p["name"]}', p['x'], p['y'], p['head_seat_z'], p['insert_top_z'])
         for p in _funnel_frame.fastener_datums(box.inner, box.y_joint, funnel_centre(box),
                                               _enc.funnel_seat_z(box.outer))]
-    access = _enc._above_core_shell.access_plan()['fasteners']
-    closure_stations.extend((f'electronics-panel-{i}', x, y,
-                             access['counterbore_floor_z_mm'], access['bearing_z_mm'])
-                            for i, (x, y) in enumerate(access['centres_xy_mm'], 1))
     for name, x, y, head, insert_top in closure_stations:
         screw, insert = _enc._above_core_shell.closure_hardware(x, y, head, insert_top)
         a.add(screw, name=name+'-screw', color=M_STAINLESS)

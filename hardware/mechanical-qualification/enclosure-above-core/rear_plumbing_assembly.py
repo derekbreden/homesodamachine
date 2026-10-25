@@ -104,7 +104,7 @@ def optional_late_connection_probe():
     started = time.monotonic()
     warm = parts.components()
     junctions = electrical.components()
-    meter = parts.core_components()['digiten-flow'][0]
+    meter = parts.components()['digiten-flow'][0]
     pair = {name: warm[name][0] for name in LATE_BODIES[-2:]}
     tube_review = parts._module('rear_assembly_tube_sources',
                                'wiring/installed/above-core-review/tube_review.py')

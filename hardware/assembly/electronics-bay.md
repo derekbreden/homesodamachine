@@ -99,8 +99,10 @@ records the current rigid-slide and final-connection limits.
    Seat the junctions in their named wells and label their electrical purpose.
    Check that each seated body's levers can open and close before populating
    it. Mount the PCB, pump, V-B and ground stack on their core features.
-   Mount the PSU, relay modules and meter on back-top, and prepare its inlet
-   and concealed outlet plumbing. Keep the funnel frame removed. The PCB's J14 remains the
+   Fasten the PSU on bare back-top before seating the rear WAGO-H junction;
+   its aft mounting-driver path crosses that connector. Mount the relays and
+   meter, and prepare the meter’s inlet and concealed outlet plumbing. Service
+   of that PSU mounting screw may require withdrawing WAGO-H from its well. Keep the funnel frame removed. The PCB's J14 remains the
    programming interface.
 3. Land the fixed AC and DC runs by the schedule: C14 to H/N/G, H/N to the
    PSU primary, H to relay 1 COM, the PSU secondary to V12/GND, V12 to relay 2
