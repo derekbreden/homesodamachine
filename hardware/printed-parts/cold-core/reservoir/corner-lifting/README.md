@@ -1,12 +1,14 @@
 # Reservoir adhesion observations
 
 The [right-pair left-hotend Engineering Plate retry](../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/README.md)
-is **prepared, not sent**, with the same recipe and **0.00 mm Z compensation**.
-Derek reports the left 0.8 mm hotend installed, transparent PETG AMS moved
-to it and the Engineering Plate cleaned and re-glued. Studio verifies
-**A1 PETG L**, automatic refill On and left-only PETG assignment. A1 reports
-42%, before matching A2–A4 (100%). Send is disabled while the printer reports
-the fixed left nozzle as 0.4 mm; touchscreen registration is requested.
+is running as **Mark1 task 1374963298**, accepted **15:18:16 CDT / 20:18:16 UTC
+on October 25**, with the same recipe and **0.00 mm Z compensation**.
+Fresh status identifies the fixed left 0.8 mm Standard hotend and confirms
+A1 loaded into it during preparation. A1 starts at 42%, before matching
+A2–A4 (100%), with automatic refill On. Startup is RUNNING, layer 0/833,
+print error 0 and no HMS. Two changing live frames show the cleared glued
+Engineering Plate during preparation; body/cap attachment and lift onset
+are unassessed. [Startup evidence](../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/startup.json).
 No scheduled monitor is created or reactivated.
 
 Engineering Plate **task 1374272357** has [reported right-hotend polymer

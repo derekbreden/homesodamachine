@@ -15,12 +15,13 @@ carries both mouths: the fill, and the dip tube the draw line becomes.
 ## Engineering Plate left-hotend retry
 
 The [right reservoir and matching cap](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/README.md)
-are **prepared, not sent**, for Mark1's **left 0.8 mm Standard** nozzle on the
+are running as **Mark1 task 1374963298**, accepted **15:18:16 CDT / 20:18:16 UTC
+on October 25**, through the identified **left 0.8 mm Standard** nozzle on the
 cleaned, glued **Engineering Plate**, with **0.00 mm Z compensation**.
-The recipe and geometry are retained. Studio verifies **A1 PETG L** and
-automatic refill On; A1 reports **42%**, before matching A2–A4 at 100%.
-Send remains disabled while Mark1 reports the fixed left nozzle as 0.4 mm;
-registering the installed 0.8 mm Standard nozzle requires the touchscreen.
+The recipe and geometry are retained. **A1 (42%)** starts before matching
+A2–A4 (100%), with automatic refill On. Fresh startup confirms A1 loaded on
+the left, **RUNNING, layer 0/833, error 0 and no HMS**. Live camera frames show
+the cleared plate during preparation; model adhesion remains unassessed.
 
 The preceding Engineering Plate **task 1374272357** has [reported right-hotend
 polymer buildup and a motion-step-loss warning](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json).

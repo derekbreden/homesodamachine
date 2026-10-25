@@ -1,0 +1,184 @@
+{
+  "printer": "Mark1",
+  "job_id": "1374963298",
+  "snapshots": [
+    {
+      "job_id": "1374963298",
+      "subtask_name": "Flavor_reservoirs_-_PETG_0.24_mm",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 833,
+      "stg_cur": 13,
+      "mc_remaining_time": 342,
+      "mc_percent": 0,
+      "bed_temper": 27.0,
+      "bed_target_temper": 27.0,
+      "nozzle_temper": 34.0,
+      "nozzle_target_temper": 0.0,
+      "cooling_fan_speed": "0",
+      "big_fan1_speed": "0",
+      "big_fan2_speed": "0",
+      "heatbreak_fan_speed": "7",
+      "observed_at_utc": "2026-10-25T20:18:34.702631+00:00",
+      "observed_at_central": "2026-10-25T15:18:34.702631-05:00",
+      "source": "Fresh tools/bambu_printer.py Connection status, read-only",
+      "timelapse": "disable",
+      "chamber_temperature_c": 26,
+      "extruders": [
+        {
+          "id": 0,
+          "hnow": 0,
+          "snow": 65535,
+          "stat": 2048,
+          "temperature_c": 34,
+          "target_c": 0,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS00",
+            "diameter": 0.2
+          }
+        },
+        {
+          "id": 1,
+          "hnow": 1,
+          "snow": 65279,
+          "stat": 0,
+          "temperature_c": 63,
+          "target_c": 180,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.8
+          }
+        }
+      ],
+      "extruder_state": 274,
+      "ams": {
+        "tray_now": "255",
+        "tray_tar": "255",
+        "tray_exist_bits": "f"
+      }
+    },
+    {
+      "job_id": "1374963298",
+      "subtask_name": "Flavor_reservoirs_-_PETG_0.24_mm",
+      "gcode_state": "RUNNING",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 833,
+      "stg_cur": 54,
+      "mc_remaining_time": 342,
+      "mc_percent": 0,
+      "bed_temper": 27.0,
+      "bed_target_temper": 27.0,
+      "nozzle_temper": 36.0,
+      "nozzle_target_temper": 0.0,
+      "cooling_fan_speed": "8",
+      "big_fan1_speed": "0",
+      "big_fan2_speed": "0",
+      "heatbreak_fan_speed": "14",
+      "observed_at_utc": "2026-10-25T20:22:29.742976+00:00",
+      "observed_at_central": "2026-10-25T15:22:29.742976-05:00",
+      "source": "Fresh tools/bambu_printer.py Connection status, read-only",
+      "timelapse": "disable",
+      "chamber_temperature_c": 27,
+      "extruders": [
+        {
+          "id": 0,
+          "hnow": 0,
+          "snow": 65535,
+          "stat": 0,
+          "temperature_c": 36,
+          "target_c": 0,
+          "mounted_nozzle": {
+            "id": 0,
+            "type": "HS00",
+            "diameter": 0.2
+          }
+        },
+        {
+          "id": 1,
+          "hnow": 1,
+          "snow": 0,
+          "stat": 197376,
+          "temperature_c": 255,
+          "target_c": 255,
+          "mounted_nozzle": {
+            "id": 1,
+            "type": "HS01",
+            "diameter": 0.8
+          }
+        }
+      ],
+      "extruder_state": 33042,
+      "ams": {
+        "tray_now": "0",
+        "tray_tar": "0",
+        "tray_exist_bits": "f"
+      }
+    }
+  ],
+  "camera_observations": [
+    {
+      "observed_at_utc": "2026-10-25T20:19:40+00:00",
+      "observed_at_central": "2026-10-25T15:19:40-05:00",
+      "time_scope": "Approximate live-frame time from the adjacent tool clock.",
+      "source": "cua_repl Bambu Studio Device live camera",
+      "printer": "Mark1",
+      "archive": "2026-10-25-reservoir-right-cap-engineering-flow105-overlap30-temp260-left08-z000-a1-mark1.gcode",
+      "identity_confirmation": "Mark1 selected, exact archive title visible, matching right body/cap job thumbnail.",
+      "layer": 0,
+      "total_layers": 833,
+      "stage": "Heatbed surface foreign object detection",
+      "assessment": "Flat grey Engineering Plate with central glue/coating area; toolhead at rear/right. No model deposition visible; body and cap adhesion unassessed."
+    },
+    {
+      "observed_at_utc": "2026-10-25T20:22:00+00:00",
+      "observed_at_central": "2026-10-25T15:22:00-05:00",
+      "time_scope": "Approximate live-frame time, immediately after 20:21:58 UTC clock.",
+      "source": "cua_repl Bambu Studio Device live camera",
+      "printer": "Mark1",
+      "identity_confirmation": "Same exact archive title, Mark1 selected and matching right-pair job thumbnail.",
+      "layer": 0,
+      "total_layers": 833,
+      "stage": "Changing filament / Filament loading",
+      "assessment": "Changing live frame shows toolhead at rear/left and cleared glued Engineering Plate. No model deposition visible; body and cap adhesion unassessed.",
+      "visible_temperatures_c": {
+        "left": [
+          266,
+          270
+        ],
+        "right": [
+          36,
+          0
+        ],
+        "bed": [
+          27,
+          27
+        ],
+        "chamber": [
+          27,
+          0
+        ]
+      },
+      "temperature_scope": "Startup loading temperatures; these do not replace the saved 255/260 C model-deposition settings."
+    }
+  ],
+  "scope": "Startup verification; model first-layer attachment, surface finish and water holding are unassessed.",
+  "mapping_verification": {
+    "observed_at_utc": "2026-10-25T20:22:29.742976+00:00",
+    "ams_unit": 0,
+    "tray": 0,
+    "slot": "A1",
+    "extruder_id": 1,
+    "side": "left",
+    "mounted_nozzle_id": 1,
+    "mounted_nozzle_mm": 0.8,
+    "basis": "Fresh runtime tray_now=0, tray_tar=0, left extruder snow=0, mounted nozzle ID1=0.8 mm; left 255/255 C, right 36/0 C.",
+    "scope": "A1 loaded into the left extruder during preparation; model deposition not yet observed."
+  },
+  "timelapse_scope": "Send On verified; runtime disable at layer 0 preparation. Activation at model deposition remains unobserved."
+}
