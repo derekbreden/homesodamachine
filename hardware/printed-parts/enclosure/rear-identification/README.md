@@ -12,6 +12,13 @@ recess leaves 4 mm of printed wall between its floor and the Y465.3 nut
 plane. The chip and wall retain a 6 mm clamped stack. Pockets have 0.15 mm
 side clearance and preserve at least 3.64 mm of wall between rows.
 
+Print the chips face up, with the native Y0 back face on the bed and +Y
+upward, using the shared two-colour label process. The 0.48 mm raised word
+uses two 0.24 mm layers above the flush fitting face. The accepted TAP/FLAVOR
+[appearance record](../tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-30-bulkhead-raised-mark2-v2/physical-result.json)
+covers the 2 mm chip and raised-letter process; it does not qualify this
+smaller 4.6 mm type or the new installed mounting fit.
+
 The unchanged [accepted flat-wing nameplate](../nameplate/README.md) sits at
 world X−38/Z228 with its face at Y473.5. Its broad plain field stands 2.2 mm
 above the rear wall. The full 3.6 mm receiver backing begins at Y466.39,
