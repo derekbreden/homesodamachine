@@ -8,20 +8,15 @@ its individually dressed override stations.
 from __future__ import annotations
 
 import json
-import math
 from pathlib import Path
 
 from .model import STOCK, add, mul, finish
 
 OVERRIDES = Path(__file__).with_name('route-overrides.json')
 
-# The pump lead's passage in the enclosure frame: front-top's lead bore on X 0, the clamp's
-# lead slot fore of its flat aft face, whose floor climbs at 45° to the fore wall, and one crown
-# groove per pump from the slot's fore corner to that pump's terminal well.
-LEAD_AXIS_Z = 274.626
-LEAD_SLOT_AFT_Y, LEAD_SLOT_FORE_Y, LEAD_SLOT_FLOOR_Z = 82.265, 73.265, 268.876
-LEAD_SLOT_HALF, LEAD_GROOVE_WIDTH, LEAD_LANE_Z = 5.5, 4.0, 282.4
-WELL_ENTRY_MM = 19.5
+# Both front-top ribbons cross the same rear mouth. The channel stations come
+# from the exact integral mount geometry through Attachments.cable_passages.
+RIBBON_PITCH_MM = 1.85
 
 
 def station(spec, attachments):
@@ -44,6 +39,10 @@ def routed(connections, attachments):
         saved = overrides.get(c.id, {})
         guides = ([station(s, attachments) for s in saved['stations']]
                   if 'stations' in saved else guide_points(c, attachments, groups, saved))
+        if saved.get('front_top_passage') == 'pump':
+            guides.extend(pump_terminal_guides(c, attachments, groups[c.harness].index(c.id)))
+        elif saved.get('front_top_passage') == 'display':
+            guides.extend(display_internal_guides(attachments, groups[c.harness].index(c.id)))
         lead = 6. if STOCK[c.stock]['awg'] == 22 else 8.
         start_lead, end_lead = saved.get('end_lands_mm', [lead, lead])
         # PSU side wire entries and vertical screw approaches are separate.
@@ -124,10 +123,9 @@ def guide_points(c, at, groups, saved=None):
 
     if c.harness == 'J9':
         n = idx % 4
-        x = 4.+n*1.85
+        x = 4.+n*RIBBON_PITCH_MM
         return [(p[0], p[1], 298.), (x, p[1], 298.), (x, 208., 298.),
-                (x, 184., 298.), (32.+n*1.85, 184., 298.), (32.+n*1.85, 112., 296.),
-                (28.+n*1.85, 88., 304.), (28.+n*1.85, 84., 304.)]
+                (x, 184., 298.), *display_internal_guides(at, n)]
 
     if c.harness == 'J11':
         x = -92.+lane
@@ -228,23 +226,41 @@ def guide_points(c, at, groups, saved=None):
 
 
 def pump_lead_guides(c, at, n):
-    """One J13 conductor, AM2, AM1, BM2, BM1 in lanes +X to -X: a stacked run from the board
-    past the Y-B stem elbow, a row through the lead bore, up the slot's floor and along the
-    pump's crown groove into its terminal well. The outboard tab takes the groove's aft lane."""
-    p, tab = at.terminals[c.start].point, at.terminals[c.end].point
+    """One J13 conductor through the common mouth and transverse terminal channel."""
+    p = at.terminals[c.start].point
+    z = 277.3+n*1.9
+    return [(p[0], p[1], z), (-36., 157., z), *pump_terminal_guides(c, at, n)]
+
+
+def pump_terminal_guides(c, at, n):
+    tab = at.terminals[c.end].point
     bank = c.end.split('.')[0]
-    axis = [sum(at.terminals[f'{bank}.{i}'].point[k] for i in (1, 2))/2 for k in (0, 1)]
-    x, z = (1.5-n)*1.85, 277.3+n*1.9
-    side = 1. if x > 0 else -1.
-    start = (side*(LEAD_SLOT_HALF-LEAD_GROOVE_WIDTH/2), LEAD_SLOT_FORE_Y+LEAD_GROOVE_WIDTH/2)
-    run = math.hypot(axis[0]-start[0], axis[1]-start[1])
-    u = ((axis[0]-start[0])/run, (axis[1]-start[1])/run)
-    aft = (-u[1], u[0]) if u[0] > 0 else (u[1], -u[0])
-    lane = .85 if abs(tab[0]) > abs(axis[0]) else -.85
-    y = start[1]+lane*aft[1]+(x-start[0]-lane*aft[0])/u[0]*u[1]
-    climb = LEAD_SLOT_FLOOR_Z+2.
-    return [(p[0], p[1], z), (-36., 157., z), (x, 113.5, z), (x, 104.5, LEAD_AXIS_Z),
-            (x, LEAD_SLOT_AFT_Y-(LEAD_AXIS_Z-climb), LEAD_AXIS_Z),
-            (x, y, climb+LEAD_SLOT_AFT_Y-y), (x, y, LEAD_LANE_Z),
-            (axis[0]-u[0]*WELL_ENTRY_MM+lane*aft[0], axis[1]-u[1]*WELL_ENTRY_MM+lane*aft[1],
-             LEAD_LANE_Z)]
+    axis_x = sum(at.terminals[f'{bank}.{i}'].point[0] for i in (1, 2))/2
+    x = (1.5-n)*RIBBON_PITCH_MM
+    lane = RIBBON_PITCH_MM/2 if abs(tab[0]) > abs(axis_x) else -RIBBON_PITCH_MM/2
+    return pump_internal_guides(at, x, tab[0], lane, n)
+
+
+def pump_internal_guides(at, x, terminal_x, lane, n):
+    """Bare 4P ribbon below the display ribbon, then one pair to either motor."""
+    rear, fore = at.passages['front-top-electrical']['points_mm']
+    cross = at.passages['front-top-pump-cross']['points_mm'][1]
+    return [(x, rear[1]+14.5, rear[2]-2.7+n*1.9),
+            (x, rear[1]+5.5, rear[2]-4.5),
+            (x, fore[1]+22., rear[2]-4.5),
+            (x, cross[1]+8., cross[2]),
+            (x, cross[1]+lane, cross[2]),
+            (terminal_x, cross[1]+lane, cross[2])]
+
+
+def display_internal_guides(at, n):
+    """Bare display ribbon from the shared mouth up to the display pocket."""
+    x = (n-1.5)*RIBBON_PITCH_MM
+    rear = at.passages['front-top-electrical']['points_mm'][0]
+    low, high = at.passages['front-top-display-chimney']['points_mm']
+    # The link's fore mouth is centred on the module rear plane plus the
+    # terminal approach. routed() appends that per-terminal end land directly,
+    # letting the four conductors fan out without a short lateral kink.
+    return [(x, rear[1], rear[2]+4.5),
+            (x, low[1], rear[2]+4.5),
+            (x, high[1], high[2])]

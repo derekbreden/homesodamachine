@@ -141,14 +141,10 @@ PARTS = {
         "enclosure/enclosure/enclosure-front-bottom.step",
         "enclosure/enclosure/enclosure-front-top.step",
     ],
-    # THE FIFTH PIECE OF THE BOX, the one that carries both pumps: the front wall's flat
-    # span and the large lower cradle behind it come off the plate as one solid
-    # (`enclosure.build_pump_cartridge`); the small top clamp comes off as a second
-    # (`enclosure.build_pump_cap`). ONE ROW FOR THE PAIR, because they are screwed together
-    # on the bench and go into the bay as one. The two case-derived collars are clamp material, not parts.
-    "Enclosure — pump cradle + clamp (one set)": [
-        "enclosure/enclosure/enclosure-pump-cartridge.step",
-        "enclosure/enclosure/enclosure-pump-cap.step",
+    # The fitted upper pump mount is front-top material, billed in its quadrant row.
+    # One broad lower retainer captures both pumps and fastens into that integral mount.
+    "Enclosure — pump retainer": [
+        "enclosure/enclosure/enclosure-pump-retainer.step",
     ],
     "Carbonator reed bridge": ["cold-core/reed-bridge/reed-bridge.step"],
     "Enclosure — back bottom + back top (two quadrants)": [
@@ -225,7 +221,7 @@ GROUP_OF = [
     ("Cold-core foam cap",          "bulk"),
     ("Enclosure — front",           "ext"),
     ("Enclosure — back",            "ext"),
-    ("Enclosure — pump cradle",     "ext"),
+    ("Enclosure — pump retainer",   "ext"),
     ("Display cover plate",         "ext"),
     ("Soda inlet bend holder",       "small"),
     ("Flavor reservoir",            "tight"),

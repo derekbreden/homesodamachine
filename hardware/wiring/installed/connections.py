@@ -27,7 +27,7 @@ def owner(part):
             'wago-v12','wago-gnd','wago-sensors','wago-reeds-b'):
         return 'cold-core'
     if part in ('pump-a-motor','pump-b-motor'):
-        return 'pump-cartridge'
+        return 'front-top'
     if part in ('compressor','condenser+fan','thermal-fuse','mq6-sensor'):
         return 'front-bottom'
     if part in ('relay-1','relay-2'):

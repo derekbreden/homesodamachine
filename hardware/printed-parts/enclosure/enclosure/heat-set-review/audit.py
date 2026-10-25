@@ -11,12 +11,14 @@ ENC = ROOT / 'hardware/printed-parts/enclosure/enclosure'
 sys.path[:0] = [str(ROOT / 'hardware/scripts'), str(ENC)]
 import enclosure as e
 import _box_spec
+import _fixed_pump_mount as fixed_mount
 from materialize_pump_cartridge import _declared_box
 
 def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
-source_paths = (ENC / 'enclosure.py', ENC / '_enclosure_interface.py', _box_spec.ARTIFACT)
+source_paths = (ENC / 'enclosure.py', ENC / '_enclosure_interface.py',
+                Path(fixed_mount.__file__), _box_spec.ARTIFACT)
 input_paths = (*source_paths, *(ENC / f'enclosure-{name}.step' for name in e.PIECE_COLORS))
 input_hashes = {str(p.relative_to(ROOT)): sha(p) for p in input_paths}
 box, bounds, box_path = _declared_box(_box_spec, e)
@@ -86,11 +88,20 @@ for x,y,tip,dia in box.pack.floor_bosses:
 for x,y,tip in box.pack.cond_mount[-1]:
     add('front-bottom','condenser',(x,y,tip),(0,0,-1),e.heatset_dia,
         e.heatset_long_len,e.cond_bore_depth,1.6)
-cap_split=e.cap_split_z(box.pack.pump_trays)
-sets=e._cap_screws(box)[1]
-for y,cutter in zip(e.cap_screw_ys(box.inner,box.pack.collet_plate),sets):
-    add('pump-cartridge','pump clamp',(0,y,cap_split),(0,0,-1),e.heatset_dia,
-        e.cap_heatset_len,cap_split-cutter.BoundingBox().zmin,1.6)
+for fastener in fixed_mount.fasteners(e, box):
+    mouth = fastener['insert_mouth_z']
+    add('front-top', 'pump retainer', (fastener['x'], fastener['y'], mouth),
+        (0, 0, 1), e.heatset_dia, e.heatset_long_len,
+        fastener['insert_top_z']+e.mount_bore_relief-mouth, 1.6)
+    station_rows[-1].update(
+        through_passage_mm=e.screw_clear_dia,
+        screw_length_mm=fastener['screw_length_mm'],
+        nominal_thread_reach_mm=fastener['screw_tip_z']-mouth,
+        nominal_thread_engagement_mm=e.heatset_long_len,
+        nominal_blind_tip_clearance_mm=fastener['pilot_end_z']-fastener['screw_tip_z'],
+        screw_reach_pass=(fastener['screw_tip_z'] >= fastener['insert_top_z']
+                          and fastener['pilot_end_z']-fastener['screw_tip_z'] >= 0.5),
+        tip_passage_depth_mm=fastener['pilot_end_z']-mouth)
 fore=box.outer[3]-e.socket_cap-e.c14_tunnel_len
 for x,z in box.pack.c14:
     add('back-top','C14',(x,fore,z),(0,1,0),e.heatset_dia,e.heatset_len,

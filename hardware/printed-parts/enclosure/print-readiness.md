@@ -9,7 +9,7 @@ core and refrigeration provisions, even when a bench build uses the external Lil
 carbonator.
 
 The complete enclosure print includes the four shell quadrants (front-top, front-bottom,
-back-top, back-bottom), pump cradle and cap, machine display cover, drop-in
+back-top, back-bottom), lower pump retainer, machine display cover, drop-in
 funnel frame and six rear identification labels. The
 [cold-core cap](../cold-core/foam-cap/README.md) carries its equipment columns,
 V-B wall and fitting bearings as integral stock. Front-top's tee wall holds the four purchased PP0208E pump tees in its
@@ -20,8 +20,12 @@ The complete dock requires assembled physical qualification: the tees' seals and
 collets' grip on the pump tubes, the tees' running fit in their bores and
 the pump heads' tube clamps.
 The [pump-holder acceptance](../../reference/kamoer-kphm400/physical-fit.json)
-retains its identified scope; it does not establish the wet seals or
-retention under pressure.
+retains its identified cradle/cap article scope; its firm retention and no reported
+vertical play do not qualify the integral upper mount and underside retainer.
+The current mount’s [native assembly](enclosure/pump-mount-review/native-review.json)
+and [slice readings](enclosure/pump-mount-review/print-review.json) establish their
+listed geometry and emitted paths, not physical fit, support cleanup, load capacity or
+wet seals and retention under pressure.
 
 The [manual mesh-interface review](pump-dock/lint-interface-review.json) records
 the exact air/boundary classifier diagnoses, specific cosmetic flute contours and
@@ -66,15 +70,17 @@ establish solid material in those regions. Each fresh native review must verify
 their actual placement and emitted deposition as well as the show surfaces.
 Bind these settings and modifier regions to each production native project and emitted paths; they do not establish support removal or physical load capacity.
 
-Front-top's display backing is one continuous plane at Y92.75, with at least
-3.016 mm behind the deepest display-pocket corner. The
-[fixed pump lead review](enclosure/fixed-pump-lead-review.json) binds that wall to
-its identified export. The J13 pump lead passes below the funnel frame; the
+Front-top’s fitted upper pump inverse grows in broad continuous stock into the
+existing roof and display housing. The display seat, motor/terminal wells,
+loading gates and internal wire passages are functional voids. J13’s pump leads
+and SIG-7’s display ribbon leave through one rear mouth below the funnel frame.
+The [native mount review](enclosure/pump-mount-review/native-review.json) and
 [installed wiring review](../../wiring/installed/above-core-review/README.md)
-records the current conductor routes against the exported appliance. Display and seam
-findings retain their recorded scope.
+record their current artifact scopes. The earlier
+[display-backing review](enclosure/fixed-pump-lead-review.json) retains its
+identified export scope.
 
-The show transitions print without support contacts. Back-top's roof side edges use
+The show transitions require support-free deposition. Back-top's roof side edges use
 the additive 0.24 mm treatment. Keep supports for separate functional features and
 use face-specific blockers on the show transitions. Inspect all emitted support paths, including short bodies without labelled
 interfaces, against the rounded surfaces before sending a slice. Previously prepared archives
@@ -153,8 +159,9 @@ load-capacity or drop result.
 | Current back-top support cleanup and wall finish | The [identified Mark1 article](../drain-readiness/prints/2026-10-10-current-back-top-bridge50-mark1/physical-result.json) has trapped, fragile sliding-groove stems and reinforcement-boundary tracks on both X+ wall faces. The [next-print preparation](../drain-readiness/prints/2026-10-11-back-top-groove-supports-mark1/README.md) uses 23 infill-only solid regions, three named local groove ribbons, the 50 mm bridge limit and normal Mark1 trim. Native readings find zero artificial box-face outer walls and no support in the declared tie-floor windows. Physical cleanup, finish and installed fit are unassessed. |
 | Front-top v17 rim and support cleanup | Rejected for nearly impossible cleanup, fused normal/tree support masses, extreme supported fine-layer spaghettification and a broken tee-carrier window-cover holder. The [seam and frame review](enclosure/y-seam-plain-review.json) records native bearing, closed clearances and sampled assembly motions for its listed artifacts; the [fit review](enclosure/y-seam-fit-review.json) records its identified exports' finite gaps and local stock. The [flush-roof review](../zone-c/funnel/flush-roof-review/README.md) retains its identified geometry scope. Physical cleanup and assembled fit remain pending. [Physical result](tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/physical-result.json); [bounded tree-clearance correction](enclosure/support-bottom-gap/README.md). |
 | Tee-carrier visible rounds | The additive bottom chamfer/taper is physically accepted. It uses a 0.20 mm first layer, 0.24 mm bottom/body, 0.08 mm top R6, six walls in the lower 6.1 mm, and saved wall-first order, speeds and 15% overlap. No supports. Sliding is accepted with 1.00 mm above and 0.25 mm below against the existing front-top, with less tilt reported. Spring return and other parts remain separate checks. [Surface record](tee-carrier/physical-acceptance.json); [sliding-fit record](tee-carrier/low-force-trial/physical-acceptance.json). |
-| Kamoer cradle and cap | Derek confirms both pumps are firmly held with screws tightened and no vertical play. The current cap keeps the broad fitted holder geometry; its surrounding crown reaches the cradle top while motor ends and spade-terminal wells remain open. Raised-crown fit and four-tube operation remain full-assembly observations. [Physical record](../../reference/kamoer-kphm400/physical-fit.json). |
-| Pump dock | No physical result. Each purchased PP0208E tee stands in its bore through front-top's tee wall, its branch collet extended in the collet plate's hole ahead of the bore face and gripping its pump tube, and a lower return of two stem elbows and a straight tube joins each tee to its rear valve. The four collets hold the pump cradle home. The force to push all four tubes home at once, the tees' running fit in their bores, the collets' hold against pressure, sealing and cleanability remain physical qualifications. |
+| Kamoer cradle/cap acceptance record | Derek confirms both pumps firmly held with screws tightened and no vertical play in the identified assembled cradle/cap. That physical result remains scoped to that article. The current integral mount preserves its fitted lower-well, boss and motor profiles while using explicit skirt capture and an underside retainer; the report does not establish physical fit or no-play performance of this assembly. [Physical record](../../reference/kamoer-kphm400/physical-fit.json). |
+| Integral pump mount and lower retainer | [Native assembly readings](enclosure/pump-mount-review/native-review.json) cover the stated insertion, closure and tool-access motions. [Native slice readings](enclosure/pump-mount-review/print-review.json) bind the current meshes, local dense hosts and support topology. Physical support removal, fit, retention force, vibration and life are unassessed. |
+| Pump tee joints | No physical wet result. Each purchased PP0208E tee slides over its prepared pump tube after the pumps and retainer are secured, then stands in front-top’s bore. Its branch collet grips the tube; the integral mount and three-screw retainer carry the pumps. The tees’ running fit, individual insertion effort, collet grip, sealing and cleanability remain physical qualifications. |
 | Beduan sockets | The [upright hand-fit selection](enclosure/magnet-retention/fit-coupons/physical-fit-selection.json) sets V69 / Ø6.90 mm for production sockets. V70 / Ø7.00 mm is the conditional alternate for a valve or print orientation that does not fit V69 well. The shared seat retains its exterior envelope and zip-tie passages. The earlier Ø7.2 coupon's easy-insertion and positive tie-retention result retains its [bound scope](../fixtures/valve-socket-fit/physical-acceptance.json). Installed tie access, retention force and endurance remain full-assembly observations. |
 | Faucet lever | The flat-sided lever with the 9 mm cylinder channel has accepted fit and function. Reuse it. [Physical record](../faucet/lever-replica/physical-acceptance.json). |
 | Faucet display cover | Its broad, substantial flexing walls and retaining lips work in PET-GF. This is Derek's accepted simple snap-fit example. [Physical record](../faucet/faucet-display-cover/physical-acceptance.json). |
@@ -209,13 +216,13 @@ unmeasured does not by itself supply a task or test for the founder.
 
 | Area | Work needed |
 | --- | --- |
-| Final pump dock | The tees' running fit in their bores, the collets' grip on the pump tubes and the push home of all four tubes at once remain scoped to the actual parts. See the [pump dock](pump-dock/README.md). |
+| Final pump dock | The tees' running fit in their bores, the collets' grip on the pump tubes and each tee’s insertion over its secured tube remain scoped to the actual parts. See the [pump dock](pump-dock/README.md). |
 | Remaining enclosure geometry | Resolve the front-top seam-to-roof and display-wing corners, plus the sensor/scarf, rear-interface, handhold/floor, warning, lid-perimeter and valve-fixture findings in the [manual interface review](pump-dock/lint-interface-review.json) and the [front-top findings](../lint-answers/enclosure/enclosure/enclosure-front-top.lint-answers). Keep each classifier diagnosis and supported functional section tied to its exact feature; unresolved inherited geometry remains open. |
 | Production deposition and finish | Complete fresh native preparations for the final meshes, dense fastener hosts and roots, support removal, visible transitions and the back-top sliding grooves. The rejected full-shell articles and accepted local surfaces above retain their recorded scopes. Prepared settings do not establish deposited material or usable cleanup. |
 | Complete assembly | Close the current [assembly feedback](enclosure/assembly-fit-review/README.md) against the populated machine: cord and driver access, valve and tube installation, pump feet and washers, routing, lid/deck stations, funnel frame and all four closing quadrants. A nominal CAD gap is not complete assembly acceptance. Production LLDPE routes retain nominal ¼-inch and ⅜-inch outside diameters. |
 | Cold-core moisture boundary | The warm-side closure is the foil bands on the dry casing seams ([seam review](../cold-core/foam-cap/seam-moisture-review.json)) plus, at final assembly, a 3M 425 foil collar pressed from each conduit's tube or cable onto the lid face round its annulus, the same at both copper exits, a foil patch over each cap-screw head pocket and over any cap foam left showing ([cold core](../../assembly/cold-core.md#7-final-assembly)). It needs no printed sealing land; its effect on condensation inside the core is unmeasured. |
 | Condensate and refill water | Condensate is addressed by insulating the meter, union and tails and by the umbilical's drip loop. The funnel's integral silicone apron covers the exposed frame/roof joints to the exterior sides; its broad, flat underside rests on the roof. The [overflow review](../zone-c/funnel/overflow-review/README.md) records the native geometry and assembly checks. Physical overpour and roof-runoff exclusion remain unqualified. Floor water needs feet under the slab, a purchase. |
-| Loads and retention | Assess the complete grip-to-floor and seam load paths, fastener/insert backing, the cradle's seat and the four tees' collet joints for actual operating and handling conditions. The dock's geometric motion allowance still needs the manufacturing, temperature and loaded-deformation contributions. Complete-assembly pressure/leak/prime performance, the collets' hold on the four pump tubes against pressure, the force to push them home at once, cleanability/drainage and creep/lifetime remain open. The [mechanical register](../../mechanical-qualification/README.md) identifies the current basis and limits. Coupon fit and saved infill settings retain their specific scopes. |
+| Loads and retention | Assess the complete grip-to-floor and seam load paths, fastener/insert backing, the fixed mount’s skirt capture and three retainer stations, and the four tees’ collet joints for actual operating and handling conditions. The dock's geometric motion allowance still needs the manufacturing, temperature and loaded-deformation contributions. Complete-assembly pressure/leak/prime performance, the collets' hold on the four pump tubes against pressure, individual tee insertion effort, cleanability/drainage and creep/lifetime remain open. The [mechanical register](../../mechanical-qualification/README.md) identifies the current basis and limits. Coupon fit and saved infill settings retain their specific scopes. |
 | Finished appliance function | Close the relevant material, cleaning, fluid, electrical, control and commissioning work in [acceptance and burn-in](../../assembly/acceptance-and-burn-in.md). Any resolution that changes a printed part, access, load path or manufacturing process belongs in this print's design review. The current Lillium-fed soda observation retains its complete stated scope. |
 
 Known design and manufacturing problems are addressed before releasing the affected

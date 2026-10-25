@@ -1,28 +1,28 @@
 {
   "id": "J13",
   "name": "Pumps",
-  "scope": "One complete 500 mm board-to-motor-tab harness, its Faston end finished through front-top's lead bore with the box closed and the funnel frame out",
+  "scope": "One complete 500 mm board-to-motor-tab harness, its Faston end finished through front-top's common rear electrical passage with front-top loose",
   "mapStatus": "Circuit and pair order follow the assembly schedule. The white-striped edge is assigned to AM2 as a bench convention; it is not a record of an assembled sample.",
   "housing": "XHP-4",
   "contact": "SXH-001T-P0.6",
   "pitchMm": 2.5,
-  "overview": "Four separate motor conductors run from the J13 JST plug to four insulated female Faston receptacles on the two pumps' motor tabs. The +X pair serves pump A and the −X pair pump B.",
+  "overview": "Four separate motor conductors run from the J13 JST plug to four insulated female Faston receptacles on the two pumps' motor tabs. The +X pair serves pump A and the \u2212X pair pump B.",
   "overviewFacts": [
     [
       "Board end",
-      "XHP-4 · 4 SXH-001T-P0.6 contacts"
+      "XHP-4 \u00b7 4 SXH-001T-P0.6 contacts"
     ],
     [
       "Cable",
-      "500 mm · 22 AWG black 4P ribbon"
+      "500 mm \u00b7 22 AWG black 4P ribbon"
     ],
     [
       "Other end",
-      "4 insulated female Fastons · two per pump"
+      "4 insulated female Fastons \u00b7 two per pump"
     ],
     [
       "Dressing",
-      "None · the ribbon stays bare"
+      "None \u00b7 the ribbon stays bare"
     ]
   ],
   "ribbons": [
@@ -44,7 +44,7 @@
       "conductor": 1,
       "stripe": true,
       "cutMm": 500,
-      "destination": "Pump A motor tab 2 · +X pair",
+      "destination": "Pump A motor tab 2 \u00b7 +X pair",
       "termination": "Insulated female Faston receptacle",
       "detail": "Striped A1 joins J13 cavity 1 / AM2 to pump A's motor tab 2. This is one H-bridge motor lead, not a shared supply."
     },
@@ -55,7 +55,7 @@
       "conductor": 2,
       "stripe": false,
       "cutMm": 500,
-      "destination": "Pump A motor tab 1 · +X pair",
+      "destination": "Pump A motor tab 1 \u00b7 +X pair",
       "termination": "Insulated female Faston receptacle",
       "detail": "A2 joins J13 cavity 2 / AM1 to pump A's motor tab 1. Keep it separate from AM2 and both pump-B conductors."
     },
@@ -66,7 +66,7 @@
       "conductor": 3,
       "stripe": false,
       "cutMm": 500,
-      "destination": "Pump B motor tab 2 · −X pair",
+      "destination": "Pump B motor tab 2 \u00b7 \u2212X pair",
       "termination": "Insulated female Faston receptacle",
       "detail": "A3 joins J13 cavity 3 / BM2 to pump B's motor tab 2. It carries one pump-B motor lead straight to its tab."
     },
@@ -77,18 +77,18 @@
       "conductor": 4,
       "stripe": false,
       "cutMm": 500,
-      "destination": "Pump B motor tab 1 · −X pair",
+      "destination": "Pump B motor tab 1 \u00b7 \u2212X pair",
       "termination": "Insulated female Faston receptacle",
-      "detail": "A4 joins J13 cavity 4 / BM1 to pump B's motor tab 1. It is the ribbon's −X edge in the lead bore and the lead slot."
+      "detail": "A4 joins J13 cavity 4 / BM1 to pump B's motor tab 1. It is the pump ribbon's \u2212X edge through the shared electrical mouth."
     }
   ],
   "conductors": [
     {
       "id": "AM2",
       "net": "AM2",
-      "title": "J13 AM2 → pump A motor tab 2",
-      "from": "PCB J13 · AM2 · cavity 1",
-      "to": "Pump A motor tab 2 · +X pair",
+      "title": "J13 AM2 \u2192 pump A motor tab 2",
+      "from": "PCB J13 \u00b7 AM2 \u00b7 cavity 1",
+      "to": "Pump A motor tab 2 \u00b7 +X pair",
       "pin": 1,
       "ribbon": "A1",
       "stripe": true,
@@ -96,16 +96,16 @@
       "left": "jst",
       "right": "disconnect",
       "sharedDress": false,
-      "fromPart": "SXH-001T-P0.6 contact · XHP-4 cavity 1",
-      "toPart": "Insulated female Faston receptacle · matched to the motor tab",
-      "note": "White-striped A1, the ribbon's +X edge in the lead bore and the lead slot. It turns +X with A2 along pump A's crown groove."
+      "fromPart": "SXH-001T-P0.6 contact \u00b7 XHP-4 cavity 1",
+      "toPart": "Insulated female Faston receptacle \u00b7 matched to the motor tab",
+      "note": "White-striped A1, the ribbon's +X edge in the common rear electrical mouth. It turns +X with A2 along the transverse channel to pump A."
     },
     {
       "id": "AM1",
       "net": "AM1",
-      "title": "J13 AM1 → pump A motor tab 1",
-      "from": "PCB J13 · AM1 · cavity 2",
-      "to": "Pump A motor tab 1 · +X pair",
+      "title": "J13 AM1 \u2192 pump A motor tab 1",
+      "from": "PCB J13 \u00b7 AM1 \u00b7 cavity 2",
+      "to": "Pump A motor tab 1 \u00b7 +X pair",
       "pin": 2,
       "ribbon": "A2",
       "stripe": false,
@@ -113,16 +113,16 @@
       "left": "jst",
       "right": "disconnect",
       "sharedDress": false,
-      "fromPart": "SXH-001T-P0.6 contact · XHP-4 cavity 2",
-      "toPart": "Insulated female Faston receptacle · matched to the motor tab",
-      "note": "Second conductor counted from the white stripe. It turns +X with A1 along pump A's crown groove."
+      "fromPart": "SXH-001T-P0.6 contact \u00b7 XHP-4 cavity 2",
+      "toPart": "Insulated female Faston receptacle \u00b7 matched to the motor tab",
+      "note": "Second conductor counted from the white stripe. It turns +X with A1 along the transverse channel to pump A."
     },
     {
       "id": "BM2",
       "net": "BM2",
-      "title": "J13 BM2 → pump B motor tab 2",
-      "from": "PCB J13 · BM2 · cavity 3",
-      "to": "Pump B motor tab 2 · −X pair",
+      "title": "J13 BM2 \u2192 pump B motor tab 2",
+      "from": "PCB J13 \u00b7 BM2 \u00b7 cavity 3",
+      "to": "Pump B motor tab 2 \u00b7 \u2212X pair",
       "pin": 3,
       "ribbon": "A3",
       "stripe": false,
@@ -130,16 +130,16 @@
       "left": "jst",
       "right": "disconnect",
       "sharedDress": false,
-      "fromPart": "SXH-001T-P0.6 contact · XHP-4 cavity 3",
-      "toPart": "Insulated female Faston receptacle · matched to the motor tab",
-      "note": "Third conductor counted from the white stripe. It turns −X with A4 along pump B's crown groove."
+      "fromPart": "SXH-001T-P0.6 contact \u00b7 XHP-4 cavity 3",
+      "toPart": "Insulated female Faston receptacle \u00b7 matched to the motor tab",
+      "note": "Third conductor counted from the white stripe. It turns \u2212X with A4 along the transverse channel to pump B."
     },
     {
       "id": "BM1",
       "net": "BM1",
-      "title": "J13 BM1 → pump B motor tab 1",
-      "from": "PCB J13 · BM1 · cavity 4",
-      "to": "Pump B motor tab 1 · −X pair",
+      "title": "J13 BM1 \u2192 pump B motor tab 1",
+      "from": "PCB J13 \u00b7 BM1 \u00b7 cavity 4",
+      "to": "Pump B motor tab 1 \u00b7 \u2212X pair",
       "pin": 4,
       "ribbon": "A4",
       "stripe": false,
@@ -147,22 +147,22 @@
       "left": "jst",
       "right": "disconnect",
       "sharedDress": false,
-      "fromPart": "SXH-001T-P0.6 contact · XHP-4 cavity 4",
-      "toPart": "Insulated female Faston receptacle · matched to the motor tab",
-      "note": "Fourth conductor counted from the white stripe, the ribbon's −X edge. It turns −X with A3 along pump B's crown groove."
+      "fromPart": "SXH-001T-P0.6 contact \u00b7 XHP-4 cavity 4",
+      "toPart": "Insulated female Faston receptacle \u00b7 matched to the motor tab",
+      "note": "Fourth conductor counted from the white stripe, the ribbon's \u2212X edge. It turns \u2212X with A3 along the transverse channel to pump B."
     }
   ],
   "dress": {
     "sleeve": "None",
     "collars": 0,
     "ties": 0,
-    "description": "No sleeves, collars or ties. The 4P ribbon stays bare along the bulkhead crown, through the lead bore and up the clamp's lead slot; each pair lies bare in its crown groove.",
-    "qualification": "Feeding the free end through the lead bore precedes the Faston crimps. Landing the Fastons, dressing the leads, seating the pump cradle and installed routing are separate assembly jobs."
+    "description": "No sleeves, collars or ties. The 4P pump ribbon stays bare below the funnel frame, through the common rear electrical mouth and along the integral transverse channel to the two motor terminal rooms.",
+    "qualification": "Feed the free pump end through the common passage with front-top loose before crimping the Fastons. Landing the Fastons, motor-first installation with the lower retainer and installed dressing are separate assembly jobs."
   },
   "materials": [
     {
       "label": "JST end",
-      "detail": "1 XHP-4 housing · 4 SXH-001T-P0.6 contacts"
+      "detail": "1 XHP-4 housing \u00b7 4 SXH-001T-P0.6 contacts"
     },
     {
       "label": "Cable",
@@ -170,11 +170,11 @@
     },
     {
       "label": "Other end",
-      "detail": "4 insulated female Faston receptacles from the §11 kit, matched to the motor tabs"
+      "detail": "4 insulated female Faston receptacles from the \u00a711 kit, matched to the motor tabs"
     },
     {
       "label": "Tools",
-      "detail": "Stripper · SN-2549 JST crimper · Haisstronica insulated-terminal crimper · flush cutters · multimeter"
+      "detail": "Stripper \u00b7 SN-2549 JST crimper \u00b7 Haisstronica insulated-terminal crimper \u00b7 flush cutters \u00b7 multimeter"
     }
   ],
   "steps": [
@@ -189,28 +189,28 @@
       "id": "jst",
       "title": "Crimp the JST end",
       "minutes": 1.5,
-      "instruction": "Splay and strip the four JST ends. Crimp four SXH-001T-P0.6 contacts, inspect the conductor and insulation barrels, then seat A1–A4 in XHP-4 cavities 1–4. Match cavity 1 to the native PCB AM2 label and the housing circuit-1 mark.",
+      "instruction": "Splay and strip the four JST ends. Crimp four SXH-001T-P0.6 contacts, inspect the conductor and insulation barrels, then seat A1\u2013A4 in XHP-4 cavities 1\u20134. Match cavity 1 to the native PCB AM2 label and the housing circuit-1 mark.",
       "focus": "connector"
     },
     {
       "id": "ends",
       "title": "Crimp the Fastons",
       "minutes": 2,
-      "instruction": "With the box closed and the funnel frame out, feed the free pump end forward through front-top's lead bore and out of the empty bay. Strip the four ends and crimp four insulated female Faston receptacles, matched to the motor tabs' width. Inspect and tug each crimp.",
+      "instruction": "With front-top loose, feed the free pump end forward through the common rear electrical mouth and out underneath. Keep the XHP-4 aft of the mouth. Strip the four ends and crimp four insulated female Faston receptacles, matched to the motor tabs' width. Inspect and tug each crimp.",
       "focus": "terminals"
     },
     {
       "id": "test",
       "title": "Ring out & label",
       "minutes": 1,
-      "instruction": "With the XHP-4 unplugged and the Fastons not yet landed, ring out each XHP-4 cavity to its Faston and check all six pairs for isolation. Check contact retention. Label the housing J13 · PUMPS and stage the piece for the pump cradle's installation.",
+      "instruction": "With the XHP-4 unplugged and the Fastons not yet landed, ring out each XHP-4 cavity to its Faston and check all six pairs for isolation. Check contact retention. Label the housing J13 \u00b7 PUMPS and stage it for motor-first installation into front-top.",
       "focus": "all"
     }
   ],
   "estimateUnit": 25,
   "estimateUnit25": 5,
   "estimateUpperMinutes": 10,
-  "estimateBasis": "5 attended minutes per finished J13 at unit 25: 0.5 minute to cut, identify and split the pump end, 1.5 minutes for four JST crimps and housing insertion, 2 minutes to feed the free end through the lead bore and crimp four insulated Fastons, and 1 minute to ring out and label. One practiced person completes the piece start to finish with the map, materials and hand tools ready, the box closed and the funnel frame out; shared setup is amortized. Ten minutes is the upper planning allowance. This is a theoretical, unmeasured estimate. It excludes development and lookup, landing the Fastons, seating the pump cradle and cabinet routing.",
+  "estimateBasis": "5 attended minutes per finished J13 at unit 25: 0.5 minute to cut, identify and split the pump end, 1.5 minutes for four JST crimps and housing insertion, 2 minutes to feed the free end through the shared electrical passage and crimp four insulated Fastons, and 1 minute to ring out and label. One practiced person completes the piece start to finish with the map, materials and hand tools ready and front-top loose; shared setup is amortized. Ten minutes is the upper planning allowance. This is a theoretical, unmeasured estimate. It excludes development and lookup, landing the Fastons, installing the pumps and lower retainer, and cabinet routing.",
   "sources": [
     {
       "label": "Board pin order",
@@ -221,7 +221,7 @@
       "path": "hardware/assembly/cable-assemblies.md"
     },
     {
-      "label": "Pump cradle installation",
+      "label": "Integral pump mount installation",
       "path": "hardware/assembly/internal-plumbing.md"
     },
     {
@@ -229,7 +229,7 @@
       "path": "hardware/wiring/ac-wiring-schedule.md"
     },
     {
-      "label": "Lead bore, lead slot and crown grooves",
+      "label": "Common electrical passage and transverse terminal channel",
       "path": "hardware/printed-parts/enclosure/enclosure/README.md"
     },
     {

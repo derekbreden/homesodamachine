@@ -144,6 +144,12 @@ class Attachments:
                 'bore_diameter_mm': 2*self.ea._cci.cap_conduit_bore_radius,
                 'basis': 'Native top-cap cable conduit, carried into the installed frame',
             }
+        import _box_spec
+        enc = self.ea._enc
+        box, _bounds = _box_spec.read(
+            enc.Box, enc.Bound, (enc.Pack, enc.PortField, enc.Nameplate),
+            path=HW / 'manifold-layout/enclosure-box.json')
+        self.passages.update(enc._fixed_pump_mount.wiring_passages(enc, box))
 
     def board(self):
         path=Path(__file__).with_name('connector-map.json')
@@ -274,7 +280,7 @@ class Attachments:
             name=f'pump-{bank}-motor'; lo,hi=bounds(self.part(name)); c=centre(self.part(name))
             for i,dx in ((1,-4.),(2,4.)):
                 self.put(f'pump-{bank}.{i}',name,(c[0]+dx,c[1],hi[2]),(0,0,1),'female-disconnect',
-                         'Faston receptacle on the motor tab, at the native rear-cap plane under the clamp terminal well; actual motor tabs unlocated','unlocated',i)
+                         'Faston receptacle on the motor tab, at the native rear-cap plane inside the integral mount terminal room; actual motor tabs unlocated','unlocated',i)
 
     def sensors(self):
         ea=self.ea

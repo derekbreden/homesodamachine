@@ -333,7 +333,7 @@
         }
       ]
     },
-    "pump-cradle-clamp": {
+    "pump-retainer": {
       "printer": "Mark1",
       "nozzle": {
         "side": "left",
@@ -343,23 +343,10 @@
         "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C); Mark1's fixed left hardened 0.4 mm carries black PET-GF (tools/bambu-printers.md, Purge and wipe)."
       },
       "material": "Polymaker Fiberon PET-GF15, black",
-      "spacing_mm": 15,
       "parts": [
         {
-          "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
-          "regions": "pump-cartridge"
-        },
-        {
-          "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
-          "regions": "pump-cap",
-          "pose": {
-            "turns": [
-              [
-                "x",
-                180
-              ]
-            ]
-          }
+          "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl",
+          "regions": "pump-retainer"
         }
       ]
     },

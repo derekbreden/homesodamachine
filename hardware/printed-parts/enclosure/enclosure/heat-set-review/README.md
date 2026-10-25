@@ -1,7 +1,7 @@
 # Enclosure insert and seam construction
 
 The customer outcome is an enclosure that keeps its internal components secured,
-seats the pump cradle precisely and can be handled without its joints opening.
+captures both pumps in the fixed upper mount and lower retainer and can be handled without its joints opening.
 The [native audit](geometry-check.json) records 35 insert stations and 10 finished
 knuckles for the 2026-10-19 sources it hashes; those include pump-cartridge contact-pair
 inserts that no current piece carries. The current insert schedule is
@@ -37,7 +37,7 @@ frame. The rim at the handhold's R6 lip is in
 | Four Y-seam stack stations | M5, 9.5 mm | Lower 10.5 mm; upper 15.15 mm | Both are pressed into the top of their knuckles: the lower into back-bottom's knuckle under the Z seam, where the M5 × 120 enters from the deep end and its tip stands past the open top; the upper into front-top's knuckle under the funnel frame. Both keep full 9.5 mm engagement with the ±0.8 mm length allowance |
 | Seventeen electronics / ground stations | M3 short, 4.0 mm | At least 5.0 mm | Ø8 mm exposed hosts give 2 mm radial material from the Ø4 pilot; four PSU inserts seat on the actual wall face; four PCBA inserts start 2.25 mm behind the unchanged PCB mounting face |
 | Two condenser fingers | M3, 5.7 mm | 9.0 mm | Complete host and supporting finger |
-| Two pump-clamp stations | M3, 5.7 mm | At least 6.7 mm | M3×60, at least 0.5 mm steel-tip clearance |
+| Three pump-retainer stations | M3, 5.7 mm | Ø4 × 6.7 mm insert pilot, followed by narrower screw-tip relief | Upward M3×60 from underside head seats; 1 mm steel-tip clearance in front-top’s fixed mount |
 | Two C14 stations | M3 short, 4.0 mm | 5.25 mm | Full tunnel stock and closed rear wall |
 | Four compressor posts | M5, 9.5 mm | 10.5 mm | Manufacturer pilot and minimum surrounding stock |
 
@@ -78,10 +78,9 @@ and the native 1 mm lifting engagement are checked by the enclosure producer.
 
 [Print regions](print-regions.json) require local 100% infill through
 the complete insert hosts, blind caps and supporting roots, every Y-seam knuckle
-and its root, and Z hook/foot/stop roots. The manual specification binds the six
-main pieces' STEP/STL by hash, with their prescribed source-to-print transforms. It
-also carries an entry for a tee cap, a part the appliance does not have. Plate X/Y
-nesting remains part of the native project.
+and its root, and Z hook/foot/stop roots. The manual specification binds the five
+main pieces' STEP/STL by hash, with their prescribed source-to-print transforms.
+Plate X/Y nesting remains part of the native project.
 
 These modifiers change deposition
 only inside the existing material. Reinforcement boxes set infill density and pattern

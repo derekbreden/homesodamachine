@@ -113,6 +113,9 @@ def write_manifest(manifest,scene_step):
            ROOT/'hardware/manifold-layout/above_core.py',
            ROOT/'hardware/manifold-layout/above-core.json',
            ROOT/'hardware/manifold-layout/above_core_wiring.py',
+           ROOT/'hardware/manifold-layout/enclosure-box.json',
+           ROOT/'hardware/printed-parts/enclosure/enclosure/enclosure.py',
+           ROOT/'hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py',
            ROOT/'hardware/printed-parts/cold-core/_above_core_mounts.py',
            ROOT/'hardware/printed-parts/cold-core/_cold_core_interface.py',
            ROOT/'hardware/assembly/harnesses/j2.json',ROOT/'hardware/assembly/harnesses/j13.json']

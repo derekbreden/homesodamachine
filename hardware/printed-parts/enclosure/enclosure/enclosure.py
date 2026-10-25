@@ -153,6 +153,7 @@ sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "pum
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "pump-dock"))
 from _cadq_export import export_assembly
 from _materials import WALL_COLORS as PIECE_COLORS, one_body
+import _fixed_pump_mount
 from docgen import substitute_md, substitute_py_comments
 import _boxes
 import _realized
@@ -220,9 +221,7 @@ corner_round = _interface.show_corner_r  # standing body corners
 # arrises along the build axis on every piece (`corner_round`).
 PIECE_PRINT_UP = {
     "front-top": 1.0, "front-bottom": 1.0, "back-bottom": 1.0, "back-top": -1.0,
-    # The clamp beds on its crown. Printed so, its two boss-to-can shoulders look print-up;
-    # what looks down is the two head seats, each a bridge over its own clearance bore.
-    "pump-cartridge": 1.0, "pump-cap": -1.0,
+    "pump-retainer": 1.0,
 }
 BACK_TOP_UP = PIECE_PRINT_UP["back-top"]
 
@@ -281,12 +280,8 @@ column_corners = ((-1, -1), (1, -1), (-1, 1), (1, 1))
 # the whole machine is struck about. Whatever `flute_count` is, the half-perimeter carries
 # the same grooves the other way round.
 #
-# AND THE BOX HAS A SECOND FIELD, INDOORS. The bay's storey shows two mouth ledges, and those
-# two actual surfaces are two open rails. `_bay_storey_segments` carries their one global phase
-# path across the intervening open flanks and hidden tee span, which are never cutter paths.
-# Both are struck at THIS pitch from a datum on the same x = 0, so their phase remains the
-# machine's phase inside as it is outside. `flute_rails` is where the box says which runs it
-# has, and `flute_skin.py` reads nothing else about either of them.
+# The outer field follows the enclosure perimeter. Functional pump and wire
+# passages keep their smooth native faces.
 flute_count = 272
 # THE DEPTH IS THE COUPON'S. the corner coupon at `c14bb2fff` cut this into a `wall`-thick standing wall
 # and printed it; going deeper is a new question, not a free one.
@@ -1450,115 +1445,33 @@ rail_flare_drop = slide_slip + hook_arm + 0.5
 # given. Taking one column's section would make the figure true of both only while they agree.
 rail_reach_in = (max(front_top_flank_t, back_top_flank_t) - wall) + slide_slip + hook_arm
 
-# --- THE PUMP BAY AND ITS PUMP CRADLE ---------------------------------------------
+# --- THE FIXED PUMP MOUNT ---------------------------------------------------
 #
-# THE PUMPS GO IN THROUGH THE FRONT OF THE BOX, ONCE, AT THE FACTORY. The front wall's flat
-# span — corner column to corner column — and the large lower cradle are one piece apart from
-# front-top, the PUMP CRADLE (`enclosure-pump-cartridge`). Both pumps drop into that cradle and
-# one top clamp closes on their stamped brackets. The cradle keeps its nominal bed while the
-# receiving floor retreats by `pump_bay_floor_air`; the stationary perimeter keeps its separate
-# running clearance. Each prepared pump's head clamps its two straight LLDPE tubes; they pass
-# the cradle's open tube passages and the tee wall's tube holes into four purchased tees, whose
-# branch collets stand extended in those holes and grip them. Those four collets hold the
-# cradle home.
-#
-# FRONT-TOP CARRIES A FLOOR ACROSS THE BAY (`_bay_floor`), and everything in this storey
-# slides across it. The floor begins at front-top's actual bed, above the nominal
-# Z seam by its base running clearance. The cradle datum is fixed independently of
-# the receiving sill's relief. Front-bottom's side lip is given up over this whole run
-# (`_flank_lip_drop`), so the
-# floor crosses it wall to wall and only the front boss's own plinth still stands over the
-# mouth here.
-#
-# THE BULKHEAD IS THE TEE WALL (`_bulkhead`): one flat slab the bay's whole width and height.
-# Its fore band carries the tube holes; behind them each tee's branch stands in a collar-clear
-# bore through the rest of the wall (`dock_structure`). The bulkhead joins the
-# bay floor, lintel and both flanks; front-bottom supports its two lower ends.
-#
-# The full-width opening extends from the show face to this bulkhead. The cradle's front,
-# rounded corners and flanks share the enclosure silhouette. Its pump wells and fitted tube
-# passages open through this one piece; the clamp lowers through the same straight upper wells
-# and two screws hold it.
-bay_crown_air = 1.7          # neutral pump datum to the nominal bay roof
-pump_bay_floor_relief = 2.6  # continuous sill clears the scanned rigid head-front rim
-pump_bay_roof_relief = 2.5   # lintel underside above its neutral pump-derived datum
-pump_relief_z_air = 1.0      # pump pocket past each head/collar end
-pump_cartridge_z_clearance = fits.running  # Z air at the fixed sill and on the pump clamp; this
-                                  # is not an X/Y inset or a cosmetic surface offset
-pump_cartridge_top_clearance = fits.running  # the cradle face's crown below the fixed lintel
+# Front-top carries the upper pump inverse in broad stock continuous to the roof.
+# Both prepared pumps sit in one plain lower retainer. The complete unit lifts
+# motor-first into front-top from below; three M3x60 screws rise through its lower
+# face into RX-M3x5.7 inserts in front-top. The tee wall has bottom-open tube gates.
+# J13 and J9 share the electrical passage behind the motors. _fixed_pump_mount
+# defines the solids, fasteners, loading opening and named wire passages.
+bay_crown_air = 1.7
+pump_bay_floor_relief = 2.6
+pump_bay_roof_relief = 2.5
+pump_relief_z_air = 1.0
+pump_cartridge_z_clearance = fits.running
+pump_cartridge_top_clearance = fits.running
 pump_bay_floor_air = fits.clearance(sliding=True, at_floor=True)
-pump_bay_side_air = fits.running      # pump-body air inside each cavity throat plane
-# THE LOWER CRADLE HAS ONE RECTANGULAR Z OUTLINE. The exterior shell reaches the appliance's
-# complete plan silhouette and its filled body reaches both cavity planes without a side taper.
-# The monolithic clamp remains inside the cradle's two vertical wells as the cradle goes into
-# the bay.
-cap_kiss = fits.running               # preferred plate air, cradle and clamp alike
-cap_kiss_station_allowance = 0.01      # one least-significant place of the measured 30.11 mm skirt datum
-# Front-bottom's two bearing lands under the pump-bay bulkhead.
+pump_bay_side_air = fits.running
+cap_kiss = fits.running
+cap_kiss_station_allowance = 0.01
 plate_foot_reach = 10.0
 plate_foot_y = 20.0
 plate_foot_t = 3.0
 plate_foot_corbel_angle = 45.0
 
-
-# --- THE PUMPS RIDE ONE CRADLE UNDER ONE TOP CLAMP --------------------------
-#
-# THE LOWER CRADLE owns the complete front face, the full-height block behind it and both
-# bracket lands. Each pump drops through
-# its open well until the molded flange at the head-to-boss junction lands on the cradle.
-# Nothing under the head carries it; the head clears the bay floor and the bracket puts the
-# load into the block around the well.
-#
-# THE TOP CAP IS A CLAMP. One filled field spans both pump heads, begins on the stamped
-# brackets' upper face and reaches its pump-carried crown over the cradle's complete
-# fore/aft depth, ending on the same flat back the cradle ends on. The complete boss octagons
-# and motor cans are cut from that field, leaving the case-derived locating walls and pressing
-# lands wherever the pumps allow material, and nothing else is cut from it: the field stays
-# full. Two M3×60 run DOWN from counterbores in the crown through the whole field into long
-# heat-sets in the cradle spine, so the cap captures both brackets. The screw is as long as the
-# field is tall.
-#
-# BOTH PARTS INSTALL IN Z. With the clamp off, the molded flange, head and two tube-side
-# fittings have straight open paths from the top of the cradle to their seats. The clamp
-# follows the same path over the cans. Its plate footprint
-# is therefore the well above the bracket plane; below that plane the smaller head room leaves
-# the bracket's three closed sides standing on material.
-cap_pump_air = 0.4                    # fitted case-profile air in the cradle's lower well
-cap_boss_air = fits.running  # per-face insertion air around each octagonal pump boss
-cap_slot_half = _tray.outlet_open_half
+# Retain the measured lower-well fit and the rear-stack boss fit.
+cap_pump_air = 0.4
+cap_boss_air = fits.running
 cap_fitting_half = _tray.shaft_w / 2.0
-cap_screw_len = 60.0         # M3 SHCS under-head length (M3x60), crown seat → cradle insert
-cap_heatset_len = heatset_long_len  # RX-M3x5.7 in the cradle spine, which has the depth for it
-cap_head_h = 3.0             # DIN 912 M3 head, nominal: the least crown a seat keeps over it
-cap_screw_off = 18.0         # the two screws fore/aft of the centre lane's mid-depth
-clamp_lane_overlap = 2.0     # the cradle's centre clearance into each upper well, so the lane
-                             # and the two wells read as one opening for the clamp's spine
-clamp_drop_air = fits.running  # clamp footprint and bracket air through the cradle well
-clamp_pump_y_shift = _tray.rear_axis_y_shift  # rear-stack openings off the head/cradle datum
-# Broad underside and fitted boss/can openings of the physically accepted cap. Above each
-# fitted motor bore a 45-degree cone opens through the crown round the motor end and its
-# terminal pair, so the crown-down print builds each well without support.
-cap_bridge_rise = 2.0
-cap_lift_clearance = 0.25      # extra sampled travel below the nominal cap position
-
-# --- THE PUMP LEAD -----------------------------------------------------------
-#
-# THE J13 RIBBON RUNS STRAIGHT TO THE MOTOR TABS. From the board it comes along the bulkhead's
-# crown below the funnel frame, turns into front-top's lead bore — one teardropped Y bore through
-# the tee wall — and crosses the frame gap into the clamp's lead slot, which opens on the clamp's
-# flat aft face over the whole bore. The slot rises through the crown, which is the clamp's bed
-# face, and one groove per pump carries that pump's two leads along the crown into its terminal
-# well, where four Faston receptacles land on the motor tabs: the -X leads serve the -X pump.
-#
-# THE STATION IS THE CLAMP'S CENTRE LANE. The lane between the two boss octagons stays full base
-# to crown, so the slot is cut from solid stock clear of both screw counterbores. The bore's apex
-# keeps `lead_bore_skin` under the bulkhead's crown, which behind the ridge wall is open air. The
-# fore valve tray stands on the bulkhead's aft face below the bore's axis: the bore opens through
-# that face above the tray's crown and ends on it below.
-lead_bore_r = 5.5            # the bulkhead's lead bore, teardropped for front-top's print
-lead_bore_skin = wall        # full bulkhead stock over the teardrop bore apex
-lead_slot_run = 9.0          # the clamp's lead slot fore of its aft face, where the leads turn up
-lead_groove = (4.0, 3.5)     # a crown groove, (width, depth): two 22 AWG leads side by side
 
 
 # The whole description of one box — what `build_pieces` cuts the four pieces from: the pack it
@@ -2654,7 +2567,7 @@ def housing_back_y(outer):
     """The Y the display housing reaches back to — the display wall's flat face, cut the full
     width, one running fit ahead of the funnel frame's flat front, which is the silicone
     brim's front edge. The frontmost the Y seam may sit, since the whole facet belongs to the
-    front top piece. `_report_ridge_roof` holds the display's backing behind it.
+    front top piece. The display pockets keep their functional backing.
 
     ONE PLANE, NOT A REACH OFF THE 45°. The slab behind the face is
     `display_facet_thickness` thick measured perpendicular to it, which would put
@@ -2684,14 +2597,6 @@ def _ridge_join(outer, fore):
     jog = rz - abs(ry - fore)
     return jog, (fore + ridge_wall_t,
                  jog - ridge_wall_t * (math.sqrt(2.0) - 1.0))
-
-
-def _ridge_loom_station(outer, plate, bay):
-    """The enclosure-display loom's bore in the rib's straight section, `(x, y, z)`: east of the
-    box centreline, on the flank the loom arrives on, halfway up the straight section."""
-    fore, foot = plate["aft_y"], bay[2]
-    jog, _crown = _ridge_join(outer, fore)
-    return (display_centre_x(outer) + display_loom_x_offset, fore, (foot + jog) / 2.0)
 
 
 def _seat_back(depth, half_slope):
@@ -2773,43 +2678,6 @@ def _plan_segments(outer):
     )
 
 
-def _bay_storey_segments(inner, outer, bay, plate):
-    """The phase path round the INSIDE of the bay's storey, from −X mouth edge to +X.
-
-    IT IS THE OPEN BOX'S PLAN WALKED INDOORS. Material on the left, so the normal it hands
-    back points into the room: the two front-wall cut edges, the two open flanks and the tee
-    wall between them. Every segment carries its own length, so this is an arc-length walk
-    like the closed outer field even though this run has no corner turns.
-
-    ITS DATUM IS x = 0 ON THE TEE WALL — the plane the whole machine is struck about, and the
-    same plane the outer plan's datum stands on, so both fields put a groove there and each is
-    symmetric in x about it. It is walked from the middle out (`flute_rails`), which is why
-    the segments read from one mouth edge straight through to the other.
-
-    ITS TWO LONG OUTBOARD STRETCHES ARE AIR. From the front-wall interior plane to the bulkhead
-    the side wall is cut away over this whole storey (`_bay_cut`), so these two segments carry
-    the global arc coordinate across each window but never become flute rails. The central
-    segment carries phase across the lower tee face, which is berthed or hidden; above it the
-    final closure face is on another Y plane. `flute_rails` therefore strikes only two separate
-    open runs, one on each actual mouth ledge.
-
-    AND IT DOES NOT CLOSE. What lies between the two mouth edges is the drawer, not a surface; a run
-    stops at its own two ends and the field ramps out on them the way it ramps out on any edge,
-    which is what keeps the flutes off the mouth arris."""
-    bx0, bx1 = bay_x_span(inner)
-    fore = inner[2]                        # the flank opening begins on the front-wall plane
-    aft = plate["aft_y"]                   # the collet plate's aft face, the storey's back
-    ledge = bx0 - outer[0]                 # exposed front-wall section, mouth to exterior
-    window = aft - fore
-    return (
-        ("line", ledge, ((bx0, fore), (-1.0, 0.0), (0.0, 1.0))),
-        ("line", window, ((outer[0], fore), (0.0, 1.0), (1.0, 0.0))),
-        ("line", outer[1] - outer[0], ((outer[0], aft), (1.0, 0.0), (0.0, -1.0))),
-        ("line", window, ((outer[1], aft), (0.0, -1.0), (-1.0, 0.0))),
-        ("line", ledge, ((outer[1], fore), (-1.0, 0.0), (0.0, 1.0))),
-    )
-
-
 def seam_cap_z():
     """THE PLANE THE Z SEAM'S OWN FURNITURE TOPS OUT UNDER, one `wall` over the lip rim.
 
@@ -2825,15 +2693,6 @@ def plate_outline(plate):
     """The release band's rectangular X/Z extent within the continuous bay bulkhead."""
     x0, x1, z0, z1 = plate["x0"], plate["x1"], plate["z0"], plate["z1"]
     return [(x0, z0), (x1, z0), (x1, z1), (x0, z1)]
-
-
-def bay_storey_z(bay):
-    """The interior bay-surround band carrying its own flute run.
-
-    The cradle itself begins lower, on the bay floor. This narrower band begins at
-    the seam furniture's ceiling because that is where an exposed interior surround exists
-    behind the installed cradle."""
-    return seam_cap_z(), bay[2]
 
 
 #: A run's point and outward normal at an arc length — `flute_skin.walk`, which is where it
@@ -2866,14 +2725,8 @@ def plan_at(s, outer):
 def flute_rails(box, berthed=()):
     """Every run this box's field is struck along.
 
-    THE OUTER PLAN IS ONE OF THEM. The bay storey's two mouth ledges are two more open rails;
-    its intervening windows and hidden tee span only advance the global arc coordinate
-    (`_bay_storey_segments`). Every surface is struck at the same `flute_pitch` from a datum on
-    x = 0, so each keeps the same phase and neither is told the other exists.
-
-    `berthed` carries the lower cradle, top clamp and the collet plate's shadow envelope.
-    What a fitted body hides is not show face and gets no flutes
-    (`flute_skin._shadow_mask`); which of them hides what is measured, not listed."""
+    The continuous front and side skins follow one exterior plan and phase.
+    The integral pump mount and its underside retainer keep plain working faces."""
     outer = box.outer
     rails = [_flute_skin.Rail(at=lambda s: plan_at(s, outer),
                               length=plan_perimeter(outer),
@@ -2884,25 +2737,6 @@ def flute_rails(box, berthed=()):
                                       if box.pack.nameplate else ()) +
                                      (_data_fit.plain_lips(box.pack.keystone,outer[3])
                                       if box.pack.keystone else ())))]
-    if box.pump_bay and box.pack.collet_plate:
-        segments = _bay_storey_segments(box.inner, outer, box.pump_bay, box.pack.collet_plate)
-        run = sum(length for _kind, length, _data in segments)
-        cursor = -run / 2.0
-        # Segments 1 and 3 cross the two open flanks, and segment 2 crosses the lower tee face
-        # hidden by the installed cradle/plate. They preserve phase between the two real
-        # mouth ledges but are not cutter paths: late-fused guide and cap faces stand on their
-        # opposite sides. Each ledge is open, so its two actual free edges fade normally.
-        for index, segment in enumerate(segments):
-            length = segment[1]
-            if index in (0, 4):
-                start = cursor
-                one = (segment,)
-                rails.append(_flute_skin.Rail(
-                    at=lambda s, one=one, start=start: _walk(one, s - start),
-                    length=length, start=start, closed=False,
-                    band=bay_storey_z(box.pump_bay), berthed=tuple(berthed),
-                    mouth=(0.0, -1.0)))
-            cursor += length
     return rails
 
 
@@ -2933,70 +2767,10 @@ def _rounded_outer(outer):
 
 
 def housing_fill(box):
-    """The storey between the pump bay's lintel and the display housing, kept solid either side
-    of the display's own opening; None on a pack without the bay.
-
-    ONE BLOCK A SIDE, WALL TO WALL AND FRONT WALL TO RIDGE WALL. Each stands on the lintel's own
-    plane (`pump_bay[2]`, where `_bay_cut` stops), runs up into the housing and meets the ridge
-    wall on its fore face and 45° crown (`_ridge_join`), so the skirt slots are cut out of solid
-    and nothing of the housing hangs into the storey. Its inboard face is the PCB opening's own
-    side plane: between the two, the display's back, SIG-7's run to the ridge bore and the pump
-    plug's unplug path keep one room, open to the bay. `display_storey_cavities` then opens
-    everything of it outboard of the skirts' flex lanes and under their catches."""
+    """The integral upper pump inverse continues as broad stock to the roof."""
     if not (box.pump_bay and box.pack.collet_plate):
         return None
-    inner, outer = box.inner, box.outer
-    section = _storey_section(box, inner[2] - 1.0)
-    x0 = display_centre_x(outer) + display_body_offset_x - display_pcb_x / 2.0
-    x1 = x0 + display_pcb_x
-    return (_yz_prism(inner[0] - 1.0, x0, section)
-            .fuse(_yz_prism(x1, inner[1] + 1.0, section)))
-
-
-def _storey_section(box, y0):
-    """The display storey's `(y, z)` section from `y0` back: the lintel's plane up past the top
-    wall, aft to the ridge wall's fore face and 45° crown."""
-    outer = box.outer
-    fore = box.pack.collet_plate["aft_y"]
-    ry, rz = pcb_ridge(outer)
-    jog, _aft_crown = _ridge_join(outer, fore)
-    z0, z1 = box.pump_bay[2], outer[5] + 1.0
-    return [(y0, z0), (fore, z0), (fore, jog), (ry, rz), (ry, z1), (y0, z1)]
-
-
-def display_storey_cavities(box):
-    """One cavity a side in the display storey, empty on a pack without the bay.
-
-    ONE CAVITY, WALL TO WALL AND FRONT WALL TO RIDGE WALL, UNDER ONE CEILING. Each runs from the
-    skirt's flex lane out to `display_storey_side_wall` inside the side wall's flute valleys, and
-    from the front wall to one structural wall fore of the bay bulkhead, retaining a continuous
-    rear shoulder beside the display exits. It opens into the bay across its floor.
-    Its ceiling is the catch plane, a flat parallel to the display `CATCH` below its face,
-    so each skirt's catch is that ceiling where the slot comes through it and the lip hangs into
-    the cavity."""
-    if not (box.pump_bay and box.pack.collet_plate):
-        return []
-    inner, outer = box.inner, box.outer
-    plane = display_plane(outer)
-    o, n = plane.origin, plane.zDir
-
-    def below_catch(y, z):
-        return (y - o.y) * n.y + (z - o.z) * n.z + 10.02
-
-    y0, y1 = inner[2], bay_back_y(box.pack.collet_plate) - wall
-    z0, z1 = box.pump_bay[2], outer[5] + 1.0
-    section, ring = [], [(y0, z0), (y1, z0), (y1, z1), (y0, z1)]
-    for (ya, za), (yb, zb) in zip(ring, ring[1:] + ring[:1]):
-        da, db = below_catch(ya, za), below_catch(yb, zb)
-        if da <= 0.0:
-            section.append((ya, za))
-        if da * db < 0.0:
-            t = da / (da - db)
-            section.append((ya + t * (yb - ya), za + t * (zb - za)))
-    flex = 59.65
-    side = flute_depth + display_storey_side_wall
-    return [_yz_prism(outer[0] + side, o.x - flex, section),
-            _yz_prism(o.x + flex, outer[1] - side, section)]
+    return _fixed_pump_mount.stock(sys.modules[__name__], box)
 
 
 def _shell_with_facet(inner, outer, fill=None, housing_back=None):
@@ -4742,87 +4516,6 @@ def _front_flat_lip_drop(inner, zj):
     return drop
 
 
-def _pump_full_width_band(inner, outer, bay, pump_trays, y_aft,
-                          lower_inset=0.0, upper_inset=None):
-    """The complete front-wall band the cradle carries, clipped only by the appliance silhouette.
-
-    It begins on the outside of the front face, runs aft to `y_aft`, and owns both front-top
-    side skins over the bay as well as the flat face between them. The fixed opening uses neither
-    inset. The cradle uses `lower_inset` and `upper_inset` for its flat running gaps above the
-    sill and below the lintel. Omitting `upper_inset` keeps a symmetric inset for callers that
-    state one figure."""
-    upper_inset = lower_inset if upper_inset is None else upper_inset
-    z0 = bay_floor_z(pump_trays)[1] + lower_inset
-    z1 = bay[2] - upper_inset
-    return _rounded_outer(outer).intersect(
-        _ybox(outer[0] - 1.0, outer[1] + 1.0,
-              outer[2] - 1.0, y_aft, z0, z1))
-
-
-def _pump_cartridge_outer(outer):
-    """The lower cradle's plan silhouette, flush with the fixed enclosure.
-
-    The front wall reaches the cradle's show plane, so the same outline supplies its front,
-    rounded corners and side faces. The pump station remains one flute depth behind that plane;
-    the field's groove floors therefore retain the pocket's complete printable backing."""
-    return outer
-
-
-def _pump_upper_x_span(cx):
-    """One upper insertion well's X faces, on the tube pair's exact outer boundary."""
-    return cx - cap_slot_half, cx + cap_slot_half
-
-
-def _pump_front_smooth_skin(pump_trays):
-    """Smooth stock between the flush face and the clamp's upper insertion wells."""
-    return _pump_upper_well_fore_y(pump_trays) - pump_cartridge_front_y
-
-
-def _pump_upper_well_fore_y(pump_trays):
-    """The upper well's flat fore face, one running clearance ahead of the clamp."""
-    return (min(cy - _tray.half_width() for _cx, cy, _cz in pump_trays)
-            - clamp_drop_air)
-
-
-def _pump_upper_well_aft_y(plate):
-    """The upper insertion wells open through the cradle's flat aft face."""
-    return bay_back_y(plate)
-
-
-def _pump_cartridge_front_flute_rail(outer):
-    """The flush face and its two front corner turns, on the enclosure's flute datum.
-
-    This open rail covers the front half of the same plan the fixed walls carry. The side rail
-    takes over at both tangencies, so the cradle retains the enclosure's phase without a
-    translated step or a plain return."""
-    face = _pump_cartridge_outer(outer)
-    front_run = (face[1] - face[0] - 2.0 * corner_round) + math.pi * corner_round
-    return _flute_skin.Rail(
-        at=lambda s: plan_at(s, face), length=front_run,
-        start=-front_run / 2.0, closed=False)
-
-
-def _pump_cartridge_side_flute_rail(outer):
-    """The enclosure-phase field on the cradle's two outer side faces.
-
-    This open run starts at the +X front tangency, walks round the back of the box and ends at
-    the -X front tangency. The front rail carries the face and its two corner turns; this rail
-    carries the two cradle flank bands on the same unbroken plan and phase."""
-    segments = _plan_segments(outer)
-    start = sum(length for _kind, length, _data in segments[:2])
-    length = sum(length for _kind, length, _data in segments[2:7])
-    return _flute_skin.Rail(
-        at=lambda s: plan_at(s, outer), length=length,
-        start=start, closed=False)
-
-
-def _bay_cut(inner, outer, bay, pump_trays, plate):
-    """The full-width opening between the sill, lintel and flat rear bulkhead."""
-    return _supported_cut(_pump_full_width_band(
-        inner, outer, bay, pump_trays, bay_back_y(plate),
-        lower_inset=-pump_bay_floor_air, upper_inset=0.0))
-
-
 def bay_back_y(plate):
     """The bulkhead's cradle-facing plane, continuous from floor to lintel."""
     return plate["fore_y"]
@@ -5217,35 +4910,9 @@ def _back_top_ceiling(solid, inner, y_joint, box):
     return solid.fuse(cq.Workplane(obj=stock).clean().val())
 
 
-def _pump_cartridge_face_region(inner, outer, bay, pump_trays, plate):
-    """The exterior shell the lower cradle owns.
-
-    It spans the complete rounded front and both side skins through the cradle's Y+ edge.
-    Its show face shares the fixed enclosure's front plane, with one flute depth between that
-    plane and the pump pocket datum. The same corner radius returns into the side planes. That
-    complete plan begins on the cradle's own bed plane and continues plumb to one flat
-    `pump_cartridge_top_clearance` below the lintel, without a bevel, ramp, starter strip or shelf.
-    The matching lower Z clearance is cut into the fixed shell perimeter by `_bay_cut`, outside
-    the interior bearing floor."""
-    proud = _pump_cartridge_outer(outer)
-    return _pump_full_width_band(
-        inner, proud, bay, pump_trays, pump_cartridge_aft_y(pump_trays, plate),
-        lower_inset=0.0, upper_inset=pump_cartridge_top_clearance)
-
-
 def cap_split_z(pump_trays):
     """The holder station datum; the seated physical flange lies pump_seated_drop below it."""
     return min(cz for _cx, _cy, cz in pump_trays)
-
-
-def cap_drop_start_z(pump_trays):
-    """The upper insertion wells' tolerance-overlapped start below the bracket plane."""
-    return cap_split_z(pump_trays) - 0.001
-
-
-def cap_base_z(pump_trays):
-    """The fitted cap's broad underside, two millimetres above its holder datum."""
-    return cap_split_z(pump_trays) + cap_bridge_rise
 
 
 def cap_terminal_opening_z(box):
@@ -5262,14 +4929,6 @@ def cap_crown_z(box):
 def cap_terminal_crown_r(box):
     """The terminal well's radius where its 45-degree cone meets the crown."""
     return _tray.can_half + cap_crown_z(box) - cap_terminal_opening_z(box)
-
-
-def cap_head_seat_z(box):
-    """Each clamp screw's head seat, struck from the screw itself: the M3×60's tip lands at the
-    blind end of the cradle's long insert. The crown-down print retreats that bridged annulus
-    by the supported-surface allowance; the pilot gives the screw tip the same extra depth."""
-    return (cap_split_z(box.pack.pump_trays) - cap_heatset_len + cap_screw_len
-            + PIECE_PRINT_UP["pump-cap"] * fits.supported_surface)
 
 
 def pump_skirt_support_z(pump_trays):
@@ -5300,22 +4959,6 @@ def pump_cartridge_aft_y(pump_trays, plate):
             f"{_tray.skirt_upper_band:g} mm behind the pumps and "
             f"{cap_kiss - cap_kiss_station_allowance:g} mm minimum plate air")
     return aft
-
-
-def _clamp_lane_edge(pump_trays):
-    """The cradle's centre clearance's X edge above the bracket plane: the lane between the two
-    upper wells, run `clamp_lane_overlap` into each so the clamp's spine drops through one
-    continuous opening."""
-    return (min(abs(cx) - _tray.half_width() for cx, _cy, _cz in pump_trays)
-            + clamp_lane_overlap)
-
-
-def cap_screw_ys(inner, plate):
-    """The top clamp's two screw stations, fore and aft of the centre lane's mid-depth.
-
-    Both stand between the pumps, clear of their bosses, fittings and tubes."""
-    mid = (inner[2] + (plate["fore_y"] - 2.0)) / 2.0
-    return mid - cap_screw_off, mid + cap_screw_off
 
 
 def _outlet_fore_miter_wedges(cx, cy, cz):
@@ -5365,219 +5008,9 @@ def _pump_lower_well(pump_trays):
     return _tray.drop_well(cap_pump_air, support_top=support_top).val()
 
 
-def _pump_drop_voids(box):
-    """The two straight Z insertion wells through the lower cradle.
-
-    BELOW THE BRACKET the well is `pump_tray.drop_well` on `cap_pump_air` — the two-piece
-    bench case's own cavity, the solid `kamoer_kphm400.build_head` clips this pump to, carried
-    up its axis so every station stands as open as the widest one under it. It brings the
-    case's figures with it: 56 mm across at the narrow half, 64 at the centre, 70 at the
-    outlet face where the fittings stand, the corner radii, and the flat step under the 8 mm
-    skirt. The step supports X-, Y- and X+ continuously; on Y+ it supports only the centre
-    between the two tube passages. From that outlet face, two individual
-    fitting passages run aft to the block's own face. Each keeps a circular lower half around
-    its tube axis and a straight 13.25 mm shaft above it. The two shafts' outside edges, the
-    tube-side case room and the upper well share one 73 mm opening boundary. Each passage's
-    fore end closes on the flare's own 45 degree seam plane, run from the body room's edge out
-    to that boundary; under each circle, the room's seam edge joins it on one steep tangent
-    plane standing on the case ramp's own seam. The wall between and outside them remains
-    printed stock.
-
-    ABOVE THE BRACKET each 73 mm well passes the molded flange, pump and complete
-    clamp, opening through the cradle's flat aft face. The centre clearance joins
-    the two wells over the clamp spine. At the seat the upper wells stop on the bracket
-    plane, leaving the fitted head room and its bearing lands below."""
-    trays, plate = box.pack.pump_trays, box.pack.collet_plate
-    drop_start = cap_drop_start_z(trays)
-    top = box.pump_bay[2] + 1.0
-    lower_source = _pump_lower_well(trays)
-    out = []
-    for cx, cy, cz in trays:
-        lower = lower_source.moved(cq.Location(cq.Vector(cx, cy, cz)))
-        outlet_face = cy + _tray.head_half - _tray.outlet_relief
-        outlet_axis = cz + _tray.outlet_axis_z
-        fittings = None
-        for sx in (-1.0, 1.0):
-            hx = cx + sx * _tray.outlet_pitch / 2.0
-            # Carry the complete circle-and-shaft passage through the tube-side body room.
-            # Its overlap with that room is free volume; the circle joins the 13.25 mm shaft
-            # tangent to the 73 mm upper boundary.
-            y0 = cy + _tray.outlet_passage_start_y(cap_pump_air)
-            y1 = pump_cartridge_aft_y(trays, plate) + 1.0
-            circle = _ycyl(cap_fitting_half, hx, outlet_axis, y0, y1)
-            shaft = _ybox(
-                hx - cap_fitting_half, hx + cap_fitting_half,
-                y0, y1, outlet_axis, top)
-            opening = circle.fuse(shaft)
-            fittings = opening if fittings is None else fittings.fuse(opening)
-        # The upper well carries the same exact tube-pair boundary as the lower room and shafts.
-        upper_x0, upper_x1 = _pump_upper_x_span(cx)
-        upper = _ybox(upper_x0, upper_x1,
-                      _pump_upper_well_fore_y(trays),
-                      _pump_upper_well_aft_y(plate),
-                      drop_start, top)
-        body = lower.fuse(fittings)
-        for wedge in _outlet_under_tangent_wedges(cx, cy, cz):
-            body = body.fuse(wedge)
-        for wedge in _outlet_fore_miter_wedges(cx, cy, cz):
-            body = body.cut(wedge)
-        out.append(body.fuse(upper))
-
-    edge = _clamp_lane_edge(trays)
-    out.append(_ybox(-(edge + clamp_drop_air), edge + clamp_drop_air,
-                     _pump_upper_well_fore_y(trays), _pump_upper_well_aft_y(plate),
-                     drop_start, top))
-    return out
-
-
-def _cap_x_span(bay):
-    """The lower cradle's exterior side faces: the appliance's complete stated width."""
-    _bx0, bx1, _top = bay
-    edge = bx1 + wall
-    return -edge, edge
-
-
 def pump_cartridge_figures(box):
-    """The cradle, clamp and fitting opening dimensions written into the docs."""
-    if not (box.pump_bay and box.pack.pump_trays):
-        return {}
-    bay, trays, plate = box.pump_bay, box.pack.pump_trays, box.pack.collet_plate
-    edge = _cap_x_span(bay)[1]
-    aft = pump_cartridge_aft_y(trays, plate)
-    clamp_edge = max(abs(cx) + _tray.half_width() for cx, _cy, _cz in trays)
-    clamp_fore = min(cy - _tray.half_width() for _cx, cy, _cz in trays)
-    clamp_aft = aft
-    clamp_base = cap_base_z(trays)
-    clamp_crown = cap_crown_z(box)
-    floor_top = bay_floor_z(trays)[1]
-    receiver_floor = floor_top - pump_bay_floor_air
-    receiver_bed = z_seam + fits.running
-    cartridge_top = bay[2] - pump_cartridge_top_clearance
-    head_floor = pump_skirt_support_z(trays) - _tray.head_front_below_skirt
-    motor_crown = max(cz + _tray.motor_crown - _interface.pump_seated_drop
-                      for _cx, _cy, cz in trays)
-    foot_low = (box.splits[0] - plate_foot_t
-                - plate_foot_reach * math.tan(math.radians(plate_foot_corbel_angle)))
-    condenser_top, foot_air = plate_foot_condenser_clearance(
-        plate, box.splits[0], box.pack)
-    return {
-        "PUMP_STATION_DROP": f"{pump_station_drop:.4g} mm",
-        "PUMP_BAY_FLOOR_RELIEF": f"{pump_bay_floor_relief:.4g} mm",
-        "PUMP_BAY_ROOF_RELIEF": f"{pump_bay_roof_relief:.4g} mm",
-        "PUMP_BAY_FLOOR_Z": f"{receiver_floor:.6g} mm",
-        "PUMP_BAY_FLOOR_STOCK": f"{receiver_floor - receiver_bed:.6g} mm",
-        "PUMP_BAY_LINTEL_Z": f"{bay[2] + fits.supported_surface:.6g} mm",
-        "PUMP_CARTRIDGE_TOP_AIR": f"{pump_cartridge_top_clearance + fits.supported_surface:.4g} mm",
-        "PUMP_HEAD_FLOOR_AIR": f"{(head_floor - receiver_floor):.4g} mm",
-        "PUMP_MOTOR_LINTEL_AIR": f"{(bay[2] + fits.supported_surface - motor_crown):.4g} mm",
-        "PUMP_CARTRIDGE_BOTTOM_Z": f"{floor_top:.6g} mm",
-        "PUMP_CARTRIDGE_TOP_Z": f"{cartridge_top:.6g} mm",
-        "PUMP_CARTRIDGE_RISE": f"{(cartridge_top - floor_top):.6g} mm",
-        "CLAMP_SPAN": f"{2.0 * clamp_edge:.4g} mm",
-        "CLAMP_RISE": f"{(clamp_crown - clamp_base):.5g} mm",
-        "CLAMP_BASE_Z": f"{clamp_base:.5g} mm",
-        "CLAMP_CROWN_Z": f"{clamp_crown:.5g} mm",
-        "CLAMP_LINTEL_AIR": f"{(bay[2] + fits.supported_surface - clamp_crown):.4g} mm",
-        "CLAMP_PUMP_Y_SHIFT": f"{abs(clamp_pump_y_shift):.4g} mm",
-        "CLAMP_SCREW_LEN": f"{cap_screw_len:.4g} mm",
-        "CLAMP_SCREW_PITCH": f"{2.0 * cap_screw_off:.4g} mm",
-        "CLAMP_HEAD_SEAT_DEPTH": f"{(clamp_crown - cap_head_seat_z(box)):.4g} mm",
-        "CLAMP_HEAD_SEAT_Z": f"{cap_head_seat_z(box):.6g} mm",
-        "CLAMP_INSERT_LEN": f"{cap_heatset_len:.4g} mm",
-        "CLAMP_SCREW_LANE": f"{2.0 * (min(abs(cx) for cx, _cy, _cz in trays)
-                                     - _tray.boss_half - cap_boss_air):.4g} mm",
-        "CLAMP_BOSS_AIR": f"{cap_boss_air:.4g} mm",
-        "CLAMP_DROP_AIR": f"{clamp_drop_air:.4g} mm",
-        "CLAMP_FRONT_SKIN": f"{(clamp_fore - clamp_drop_air - pump_cartridge_front_y):.4g} mm",
-        "CLAMP_AFT_WALL": f"{(clamp_aft - max(cy + clamp_pump_y_shift + _tray.boss_half
-                                                for _cx, cy, _cz in trays)):.4g} mm",
-        "CLAMP_BRIDGE_RISE": f"{cap_bridge_rise:.4g} mm",
-        "CLAMP_TERMINAL_OPENING": f"{2.0 * cap_terminal_crown_r(box):.4g} mm",
-        "CLAMP_TERMINAL_OPENING_Z": f"{cap_terminal_opening_z(box):.6g} mm",
-        "PUMP_SEATED_DROP": f"{_interface.pump_seated_drop:g} mm",
-        "CAP_TUBE_OPEN_SPAN": f"{2.0 * cap_slot_half:.4g} mm",
-        "CAP_TUBE_PART_SPAN": f"{2.0 * _tray.outlet_half:.4g} mm",
-        "CAP_TUBE_OPEN": f"{2.0 * cap_fitting_half:.5g} mm",
-        "CAP_TUBE_PART": f"{_tray.fitting_w:.4g} mm",
-        "CAP_TUBE_PITCH": f"{_tray.outlet_pitch:.4g} mm",
-        "CAP_TUBE_RADIAL_AIR": f"{cap_fitting_half - _tray.fitting_w / 2.0:.4g} mm",
-        "CAP_TUBE_START_Y": f"{min(cy for _cx, cy, _cz in trays) + _tray.outlet_passage_start_y(cap_pump_air):.6g} mm",
-        "PUMP_SKIRT_DEPTH": f"{_tray.skirt_depth:.4g} mm",
-        "PUMP_SKIRT_SUPPORT_AIR": f"{_tray.skirt_support_air:.4g} mm",
-        "PUMP_SKIRT_SUPPORT_Z": f"{pump_skirt_support_z(trays):.6g} mm",
-        "PUMP_SKIRT_BODY_Y": f"{_tray.skirt_body_y:.4g} mm",
-        "PUMP_SKIRT_OPEN_Y": f"{_tray.skirt_body_open_y:.4g} mm",
-        "PUMP_SKIRT_XY_AIR": f"{_tray.skirt_support_xy_air:.4g} mm",
-        "PUMP_SKIRT_BODY_Y_MINUS_EDGE":
-            f"{(trays[0][1] + _tray.skirt_body_open_y_bounds[0]):.6g} mm",
-        "PUMP_SKIRT_BODY_Y_PLUS_EDGE":
-            f"{(trays[0][1] + _tray.skirt_body_open_y_bounds[1]):.6g} mm",
-        "PUMP_SKIRT_Y": f"{_tray.skirt_y:.4g} mm",
-        "PUMP_SKIRT_Y_MINUS_EDGE":
-            f"{(trays[0][1] + _tray.skirt_open_y_max
-                  - _tray.skirt_y_plus_air - _tray.skirt_y):.6g} mm",
-        "PUMP_SKIRT_Y_PLUS_EDGE":
-            f"{(trays[0][1] + _tray.skirt_open_y_max
-                  - _tray.skirt_y_plus_air):.6g} mm",
-        "PUMP_SKIRT_Y_PLUS_AIR": f"{_tray.skirt_y_plus_air:.4g} mm",
-        "PUMP_SKIRT_Y_MINUS_LAND": f"{_tray.skirt_support_y_minus:.4g} mm",
-        "PUMP_SKIRT_Y_PLUS_LAND": f"{_tray.skirt_support_y_plus:.4g} mm",
-        "PUMP_SKIRT_Y_PLUS_OPEN_EDGE":
-            f"{(trays[0][1] + _tray.skirt_open_y_max):.6g} mm",
-        "PUMP_SKIRT_UPPER_BAND": f"{_tray.skirt_upper_band:.4g} mm",
-        "PUMP_SKIRT_UPPER_BAND_AFT":
-            f"{(trays[0][1] + _tray.skirt_open_y_max
-                  + _tray.skirt_upper_band):.6g} mm",
-        "PUMP_CARTRIDGE_AFT_Y": f"{aft:.6g} mm",
-        "PUMP_SKIRT_AFT_STOCK":
-            f"{(aft - max(cy + _tray.skirt_open_y_max for _cx, cy, _cz in trays)):.4g} mm",
-        "CARTRIDGE_BULKHEAD_KISS": f"{(bay_back_y(plate) - aft):.4g} mm",
-        "PUMP_FACE_OFFSET": f"{(box.outer[2] - pump_cartridge_front_y):.4g} mm",
-        "PUMP_STATION_LEAD": f"{pump_station_lead:.4g} mm",
-        "PUMP_SHOW_GROWTH": f"{pump_show_growth:.4g} mm",
-        "PUMP_FACE_SKIN": f"{(min(cy for _cx, cy, _cz in trays) + _pump_lower_well(trays).BoundingBox().ymin - pump_cartridge_front_y):.4g} mm",
-        "PUMP_OUTLET_BULKHEAD_AIR": f"{(bay_back_y(plate) - max(cy + _tray.head_half for _cx, cy, _cz in trays)):.4g} mm",
-        "PUMP_FACE_BACKING": f"{(_pump_front_smooth_skin(trays) - flute_depth):.4g} mm",
-        "PUMP_UPPER_SMOOTH_SKIN": f"{_pump_front_smooth_skin(trays):.4g} mm",
-        "PUMP_UPPER_FLUTED_SKIN": f"{(_pump_front_smooth_skin(trays) - flute_depth):.4g} mm",
-        "PUMP_UPPER_WELL_AFT": f"{_pump_upper_well_aft_y(plate):.6g} mm",
-        "CRADLE_EDGE": f"{edge:.4g} mm",
-        "CRADLE_WIDE": f"{2.0 * edge:.4g} mm",
-        "PLATE_STEP_Z": f"{seam_cap_z():.4g} mm",
-        "PLATE_FOOT_X": f"{plate_foot_reach:.4g} mm",
-        "PLATE_FOOT_Y": f"{plate_foot_y:.4g} mm",
-        "PLATE_FOOT_T": f"{plate_foot_t:.4g} mm",
-        "PLATE_FOOT_ANGLE": f"{plate_foot_corbel_angle:.4g}°",
-        "PLATE_FOOT_LOW_Z": f"{foot_low:.6g} mm",
-        "PLATE_FOOT_COND_Z_AIR": f"{foot_low - condenser_top:.4g} mm",
-        "PLATE_FOOT_COND_AIR": f"{foot_air:.4g} mm",
-        "BAY_BACK_Y": f"{bay_back_y(plate):.6g} mm",
-        "BAY_BULKHEAD_T": f"{plate['wall_aft_y'] - bay_back_y(plate):.6g} mm",
-        "PLATE_STROKE": "0 mm",
-        "PLATE_REST_GAP": "0 mm",
-        "SLEEVE_TRAVEL": "0 mm",
-        **pump_lead_figures(box),
-    }
-
-
-def pump_lead_figures(box):
-    """The pump lead's bore, slot and groove dimensions written into the docs."""
-    trays, plate = box.pack.pump_trays, box.pack.collet_plate
-    if not (box.pump_bay and trays and plate):
-        return {}
-    groove_w, groove_d = lead_groove
-    axis = pump_lead_axis_z(box)
-    # What the bulkhead keeps over the lead bore's teardrop apex, to its crown.
-    roof = box.pump_bay[2] - (axis + lead_bore_r / math.cos(math.radians(teardrop_roof_angle)))
-    floor = _lead_bore_floor(box)
-    return {
-        "LEAD_BORE": f"Ø{2.0 * lead_bore_r:g} mm",
-        "LEAD_AXIS_Z": f"{axis:.6g} mm",
-        "LEAD_BORE_ROOF": f"{roof:.4g} mm",
-        "LEAD_EXIT_FLOOR": (f"{floor:.6g} mm" if floor is not None else "no tray"),
-        "LEAD_SLOT": f"{2.0 * lead_bore_r:g} × {lead_slot_run:g} mm",
-        "LEAD_GROOVE": f"{groove_w:g} × {groove_d:g} mm, on a 45° vee",
-    }
+    """Current pump retainer, fixed inverse and underside fastener dimensions."""
+    return _fixed_pump_mount.figures(sys.modules[__name__], box)
 
 
 def bay_floor_z(pump_trays):
@@ -5684,9 +5117,6 @@ def _ridge_wall(inner, outer, plate, bay, funnel):
     section.extend(((face, outer[5]), (fore, outer[5])))
     slab = _yz_prism(inner[0], inner[1], section)
     slab = slab.intersect(_rounded_outer(outer))
-    loom = _ridge_loom_station(outer, plate, bay)
-    slab = slab.cut(_teardrop_y(cable_bore_dia / 2.0, loom[0], loom[2],
-                                fore - 1.0, face + 1.0))
 
     return slab
 
@@ -5726,143 +5156,9 @@ def _unified(solid):
     return cq.Workplane(obj=solid).clean()
 
 
-def build_pump_cartridge(box, halves_cache=None):
-    """THE LOWER CRADLE: the complete front face and the load-bearing body under both pumps.
-
-    Its filled block rests on the bay floor while its exterior face begins on the same bed plane
-    over a recessed fixed sill, ends on the flat back it shares with the clamp, and remains one
-    piece through the complete front-wall height of the bay. Two open wells admit the pumps and
-    top clamp in Z. Below the bracket plane those wells close to the head clearance, leaving the
-    molded flanges on three cradle lands; four fitting-sized passages stay open through the whole
-    drop path while the aft wall remains between them.
-
-    Two heat-set bores open upward from the centre spine for the clamp screws."""
-    solid = _pump_cartridge_gross(box, halves_cache)
-    for void in _pump_drop_voids(box):
-        solid = solid.cut(void)
-    for bore in _cap_screws(box)[1]:
-        solid = solid.cut(bore)
-    return _unified(solid)
-
-
-def _pump_cartridge_gross(box, halves_cache=None):
-    """The lower cradle before its pump wells and clamp fasteners are cut.
-
-    The cradle's face begins with its filled block on one common bed plane, above the fixed
-    sill's Z-clearance gap, and ends `pump_cartridge_top_clearance` below the lintel. It bears on
-    the bay floor back to the cradle's flat back, one kiss fore of the bay bulkhead. Pump and
-    clamp openings are cuts in this one body; the top clamp is built independently from the
-    conformal collars it needs."""
-    inner, outer = box.inner, box.outer
-    bay, plate = box.pump_bay, box.pack.collet_plate
-    if not bay or not plate:
-        raise ValueError("a pump cradle wants a bay and a tee wall, and this box "
-                         "carries neither station — the pack has no pumps")
-    if halves_cache is not None and "pump-cartridge-gross" in halves_cache:
-        return halves_cache["pump-cartridge-gross"]
-    if halves_cache is not None and "front" in halves_cache:
-        half = halves_cache["front"]
-    else:
-        half = build_front_half(box)
-        if halves_cache is not None:
-            halves_cache["front"] = half
-    face = _pump_cartridge_face_region(inner, outer, bay, box.pack.pump_trays, plate)
-    # Keep every cut and relief the fixed half already gives the band, then restore the complete
-    # front nose through the bay cut. It overlaps both rounded corners through their side
-    # tangencies, so it joins them with volume rather than meeting either flank on a line.
-    solid = half.val().intersect(face)
-    nose = face.intersect(_ybox(
-        outer[0] - 1.0, outer[1] + 1.0,
-        pump_cartridge_front_y - 1.0, outer[2] + corner_round + 0.01,
-        bay_floor_z(box.pack.pump_trays)[1], bay[2]))
-    solid = solid.fuse(nose)
-    bx0, bx1, top = bay
-    aft = pump_cartridge_aft_y(box.pack.pump_trays, plate)
-    floor_top = bay_floor_z(box.pack.pump_trays)[1]
-    # The filled body bears on the floor and reaches both cavity planes. The exterior shell's
-    # complete flush front, rounded corners and side faces begin on that same bed plane and stand
-    # plumb from there. The lower running gap is in the fixed shell perimeter, outside this
-    # bearing floor. No fixed side skin frames the cradle.
-    fill = _ybox(
-        bx0, bx1, pump_relief_floor, aft,
-        floor_top, top - pump_cartridge_top_clearance)
-    solid = solid.fuse(fill).intersect(face.fuse(
-        _ybox(bx0, bx1, pump_cartridge_front_y, aft, floor_top, top)))
-    if halves_cache is not None:
-        halves_cache["pump-cartridge-gross"] = solid
-    return solid
-
-
-def pump_cap_body_x_span(pump_trays):
-    """The cap's two outer body planes."""
-    return (min(cx - _tray.half_width() for cx, _cy, _cz in pump_trays),
-            max(cx + _tray.half_width() for cx, _cy, _cz in pump_trays))
-
-
-def _pump_clamp_gross(box, halves_cache=None):
-    """One broad cap with fitted octagonal bosses and cylindrical motor openings.
-
-    The surrounding crown reaches the cradle top. Above each fitted motor bore a
-    45-degree cone opens through that crown, leaving the motor end and terminals open."""
-    if halves_cache is not None and "pump-clamp-gross" in halves_cache:
-        return halves_cache["pump-clamp-gross"]
-    trays, plate = box.pack.pump_trays, box.pack.collet_plate
-    split = cap_split_z(trays)
-    base = cap_base_z(trays)
-    crown = cap_crown_z(box)
-    well = cap_terminal_opening_z(box)
-    rise = crown + 1.0 - well
-    fore = min(cy - _tray.half_width() for _cx, cy, _cz in trays)
-    aft = pump_cartridge_aft_y(trays, plate)
-    x0, x1 = pump_cap_body_x_span(trays)
-    solid = _ybox(x0, x1, fore, aft, base, crown)
-    for cx, cy, cz in trays:
-        opening_y = cy + clamp_pump_y_shift
-        solid = solid.cut(_tray.boss_room(cap_boss_air).moved(
-            cq.Location(cq.Vector(cx, opening_y, split))))
-        solid = solid.cut(_zcyl(
-            _tray.can_half, cx, opening_y,
-            split + _tray.boss_depth - 0.1, well + 0.01))
-        solid = solid.cut(cq.Solid.makeCone(
-            _tray.can_half, _tray.can_half + rise, rise,
-            cq.Vector(cx, opening_y, well), cq.Vector(0.0, 0.0, 1.0)))
-    if halves_cache is not None:
-        halves_cache["pump-clamp-gross"] = solid
-    return solid
-
-
-def _cap_screws(box):
-    """The clamp's two top-down screw bores and the cradle's two upward heat-set bores.
-
-    Each M3×60 sits in a counterbore struck into the crown, runs the whole filled field, crosses
-    the bridge clearance over the cradle spine and takes the complete long heat-set
-    opened from the cradle's bracket plane; the pilot keeps at least one millimetre beyond
-    the insert and half a millimetre beyond the screw tip. The
-    seat is placed by the screw (`cap_head_seat_z`), so the crown must stand at least one head
-    over it, and both bores stand in the filled lane between the boss octagons with a wall to
-    spare on each side."""
-    trays, plate = box.pack.pump_trays, box.pack.collet_plate
-    split, base, crown = cap_split_z(trays), cap_base_z(trays), cap_crown_z(box)
-    seat = cap_head_seat_z(box)
-    if crown - seat < cap_head_h:
-        raise ValueError(
-            f"an M3x{cap_screw_len:g} seats {crown - seat:.2f} mm under the clamp's crown at "
-            f"Z{crown:g}, less than its {cap_head_h:g} mm head: the screw is too long for "
-            f"the field it crosses")
-    lane = min(abs(cx) for cx, _cy, _cz in trays) - _tray.boss_half - cap_boss_air
-    if lane < head_cbore_dia / 2.0 + wall:
-        raise ValueError(
-            f"the two boss octagons leave {lane:.2f} mm of filled lane either side of the "
-            f"clamp screws, under the {head_cbore_dia / 2.0 + wall:g} mm a counterbore and "
-            f"one wall need")
-    screw_tip = seat - cap_screw_len
-    bore_tip = min(screw_tip - 0.5, split - cap_heatset_len - mount_bore_relief)
-    clear, sets = [], []
-    for y in cap_screw_ys(box.inner, plate):
-        clear.append(_zcyl(screw_clear_dia / 2.0, 0.0, y, base - 0.1, crown + 1.0)
-                     .fuse(_zcyl(head_cbore_dia / 2.0, 0.0, y, seat, crown + 1.0)))
-        sets.append(_zcyl(heatset_dia / 2.0, 0.0, y, bore_tip, split + 0.1))
-    return clear, sets
+def build_pump_retainer(box, halves_cache=None):
+    """The plain lower retainer installs upward through loose front-top's mouth."""
+    return _fixed_pump_mount.retainer(sys.modules[__name__], box)
 
 
 def pump_dock_figures(box):
@@ -5918,104 +5214,6 @@ def pump_dock_figures(box):
     }
 
 
-def pump_lead_axis_z(box):
-    """The bulkhead lead bore's axis: its teardrop apex `lead_bore_skin` under the bay
-    bulkhead's crown."""
-    apex = lead_bore_r / math.cos(math.radians(teardrop_roof_angle))
-    return box.pump_bay[2] - lead_bore_skin - apex
-
-
-def _lead_bore_end(box):
-    """Where the lead bore stops: a wall and a millimetre past the bay bulkhead's aft face, or a
-    millimetre past the far face of the valve tray standing on that face, whichever is aft."""
-    wall_back = box.pack.collet_plate["wall_aft_y"]
-    end = wall_back + wall + 1.0
-    for plane, sign, _seats in box.pack.valve_trays:
-        face = plane - sign * _valve_tray.SEAT
-        near, far = sorted((face, face - sign * _valve_tray.THICK))
-        if near <= wall_back + 1.0 and far >= wall_back:
-            end = max(end, far + 1.0)
-    return end
-
-
-def _lead_bore_floor(box):
-    """The crown of the valve tray standing on the bay bulkhead's aft face, or None: the lead
-    bore runs out through that face above it and ends on the face below it."""
-    wall = box.pack.collet_plate["wall_aft_y"]
-    tops = []
-    for plane, sign, seats in box.pack.valve_trays:
-        face = plane - sign * _valve_tray.SEAT
-        near, far = sorted((face, face - sign * _valve_tray.THICK))
-        if near <= wall + 1.0 and far >= wall:
-            zs = [z for _x, z in seats]
-            tops.append((min(zs) + max(zs)) / 2.0 + _valve_tray.height(seats) / 2.0)
-    return max(tops) if tops else None
-
-
-def _pump_lead_fixed_cuts(box):
-    """Front-top's teardrop lead bore, from the bay face through the tee wall."""
-    up = PIECE_PRINT_UP["front-top"]
-    return [_teardrop_y(lead_bore_r, 0.0, pump_lead_axis_z(box),
-                        bay_back_y(box.pack.collet_plate) - 1.0, _lead_bore_end(box), up=up)]
-
-
-def _xy_groove(p0, p1, width, floor, top):
-    """A straight crown groove `width` wide in plan from `p0` to `p1`, open from `top` down to a
-    45° vee whose shoulders stand at `floor` and whose apex is half the width below them, so the
-    crown-down clamp builds the groove's floor as a peaked roof. One section, one prism."""
-    (x0, y0), (x1, y1) = p0, p1
-    run = math.hypot(x1 - x0, y1 - y0)
-    half = width / 2.0
-    groove = _xz_prism(0.0, run, [(-half, top), (half, top), (half, floor),
-                                  (0.0, floor - half), (-half, floor)])
-    turn = math.degrees(math.atan2(-(x1 - x0), y1 - y0))
-    return groove.rotate((0.0, 0.0, 0.0), (0.0, 0.0, 1.0), turn).translate((x0, y0, 0.0))
-
-
-def _pump_lead_cap_cuts(box):
-    """The clamp's lead slot, open on its aft face over the whole lead bore and up through the
-    crown, and one crown groove from that slot to each pump's terminal well.
-
-    The slot's floor rises at 45° from the bore's floor at the aft face to the slot's fore wall,
-    turning the leads up toward the crown, and each groove's floor is a 45° vee, so the clamp
-    prints crown-down with no flat face over air."""
-    trays, plate = box.pack.pump_trays, box.pack.collet_plate
-    up = PIECE_PRINT_UP["pump-cap"]
-    face = pump_cartridge_aft_y(trays, plate)
-    crown = cap_crown_z(box)
-    floor = pump_lead_axis_z(box) - lead_bore_r + min(up, 0.0) * fits.supported_surface
-    fore = face - lead_slot_run
-    slot = _yz_prism(-lead_bore_r, lead_bore_r,
-                     [(face + 1.0, floor), (face, floor), (fore, floor + lead_slot_run),
-                      (fore, crown + 1.0), (face + 1.0, crown + 1.0)])
-    groove_w, groove_d = lead_groove
-    grooves = []
-    for cx, cy, _cz in trays:
-        side = 1.0 if cx > 0.0 else -1.0
-        start = (side * (lead_bore_r - groove_w / 2.0), fore + groove_w / 2.0)
-        grooves.append(_xy_groove(start, (cx, cy + clamp_pump_y_shift), groove_w,
-                                  crown - groove_d, crown + 1.0))
-    return [slot, *grooves]
-
-
-def build_pump_cap(box, halves_cache=None):
-    """THE TOP CLAMP: one filled field fitted around both pump heads.
-
-    With the cradle out of the bay, it lowers over both motor cans after the pumps stand in the
-    cradle. Each opening takes its boss on the complete case-profile octagon and closes with one
-    shoulder round the can. The broad underside, locating profiles and screw seats share the
-    fitted holder datums. Two open motor-terminal wells cross the crown, level with the cradle's
-    top edge, and two M3×60 reach the cradle from counterbores in that crown. The lead slot opens
-    on the aft face, and the J13 ribbon reaches both terminal wells along the crown. This piece
-    carries no show face or plate stop."""
-    solid = _pump_clamp_gross(box, halves_cache)
-    for bore in _cap_screws(box)[0]:
-        solid = solid.cut(bore)
-    for cutter in _pump_lead_cap_cuts(box):
-        solid = solid.cut(cutter)
-    return _unified(solid)
-
-
 def build_front_half(box):
     """The whole front column, both pieces still joined at its Z seam."""
     inner, outer, y_joint = box.inner, box.outer, box.y_joint
@@ -6043,8 +5241,6 @@ def build_front_half(box):
     front = front.cut(_display_cuts(
         outer, box.pump_bay[2] if box.pump_bay else None,
         bay_back_y(box.pack.collet_plate) if box.pack.collet_plate else None))
-    for cavity in display_storey_cavities(box):
-        front = front.cut(cavity)
     # Punch the funnel's throat through the top wall, behind the display.
     if box.pack.funnel:
         front = front.cut(_funnel_cut(inner, outer, box.pack.funnel))
@@ -9006,12 +8202,11 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # The bay's opening, after every fuse that stands near it: what stands in it is the pump
     # cradle, and what it takes from this piece is what `build_pump_cartridge` keeps.
     if y_side == "front" and z_side == "top" and box.pump_bay:
-        piece = piece.cut(_bay_cut(inner, outer, box.pump_bay, box.pack.pump_trays,
-                                   box.pack.collet_plate))
+        piece = piece.cut(_fixed_pump_mount.loading_opening(sys.modules[__name__], box))
         # And the pump lead's bore and the tees' holes and bores through the bulkhead face the bay
         # ends on.
         if box.pack.collet_plate:
-            for cutter in (*_pump_lead_fixed_cuts(box), *_dock.wall_cuts(box.pack.collet_plate)):
+            for cutter in _dock.wall_cuts(box.pack.collet_plate):
                 piece = piece.cut(cutter)
     # And then the columns give up whatever the pack stands in them (`_column_relief`), which is
     # last of everything: a relief is air, and air a later step fuses back in is not a relief.
@@ -9099,8 +8294,6 @@ def build_piece(box, y_side, z_side, halves_cache=None):
             piece = piece.cut(_display_cuts(
                 outer, box.pump_bay[2] if box.pump_bay else None,
                 bay_back_y(box.pack.collet_plate) if box.pack.collet_plate else None))
-            for cavity in display_storey_cavities(box):
-                piece = piece.cut(cavity)
             if box.pump_bay and box.pack.collet_plate:
                 # Keep the complete display backing on one plane. The roof
                 # surround must leave the frame's fore running gap open too.
@@ -9121,96 +8314,13 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     if z_side == "bottom":
         piece = _finish_handholds(piece, inner)
     piece = _seam_fit_reliefs(piece, box, y_side, z_side)
+    if y_side == "front" and z_side == "top" and box.pump_bay and plate:
+        for cutter in _fixed_pump_mount.fixed_cuts(sys.modules[__name__], box):
+            piece = piece.cut(cutter)
     return _unified(piece)
 
 
 # --- reporting --------------------------------------------------------------
-
-def _report_bay_sill(front_top, box):
-    """Prove the stationary front sill is one uninterrupted section below the bay floor.
-
-    The pump cradle owns every pump-shaped opening above ``bay_floor_z``. Immediately
-    below that plane the fixed wall is plain stock across the enclosure's complete rounded
-    front: a pump-well cutter, clearance pocket or old jamb repeated in this band is a hole in
-    the sill, not cradle running air.
-    """
-    if not (box.pump_bay and box.pack.pump_trays):
-        return
-    outer = box.outer
-    top = bay_floor_z(box.pack.pump_trays)[1] - pump_bay_floor_air
-    expected = _rounded_outer(outer).intersect(_ybox(
-        outer[0] - 1.0, outer[1] + 1.0,
-        outer[2] - 1.0, front_plane_y,
-        top - pump_cartridge_z_clearance, top))
-    missing = expected.cut(front_top.val()).Volume()
-    if missing > stated_bound_tol:
-        raise ValueError(
-            "the fixed front sill is not one uninterrupted section immediately below the "
-            f"pump bay floor: {missing:.6f} mm³ is missing")
-    print(f"  bay sill:         one uninterrupted {pump_cartridge_z_clearance:g} mm "
-          f"witness band below the receiver floor; {pump_bay_floor_air:g} mm cradle gap")
-
-
-def _report_ridge_roof(half, box):
-    """The display backing has one broad flat face and clears the funnel."""
-    if not (box.pump_bay and box.pack.collet_plate and box.pack.funnel):
-        return
-    inner, outer = box.inner, box.outer
-    wall_y = _funnel_frame_part.roof_datums(
-        inner, box.pack.funnel, funnel_seat_z(outer), box.y_joint)['front'] - slide_slip
-    tol = 1e-4
-
-    roof_faces = []
-    for face in half.val().Faces():
-        if face.geomType() != "PLANE":
-            continue
-        normal = face.normalAt()
-        if (normal.y >= 1.0 - tol
-                and abs(face.Center().y - wall_y) <= tol):
-            roof_faces.append(face)
-
-    grown = front_top_flank_t - wall
-    lower_x0, lower_x1 = inner[0] + grown, inner[1] - grown
-
-    funnel_foul = half.val().intersect(
-        _funnel_keepout(outer, box.pack.funnel)).Volume()
-    p = display_plane(outer)
-    corner = (p.origin + p.yDir * (display_body_offset_slope + display_pcb_slope / 2.0)
-              - p.zDir * (display_facet_thickness + display_pcb_cut_through))
-    backing = wall_y - corner.y
-    foot = box.pump_bay[2]
-    flat_root = foot + abs(wall_y - box.pack.collet_plate['wall_aft_y'])
-    loom = _ridge_loom_station(outer, box.pack.collet_plate, box.pump_bay)
-    witness = _rounded_outer(outer).intersect(_ybox(
-        lower_x0, lower_x1, wall_y - .05, wall_y, flat_root, outer[5]))
-    witness = witness.cut(_teardrop_y(cable_bore_dia / 2, loom[0], loom[2],
-                                    wall_y - 1, wall_y + 1))
-    missing = abs(witness.cut(half.val()).Volume())
-    unexpected_witness = abs(half.val().intersect(_ybox(
-        lower_x0, lower_x1, wall_y - .05, wall_y, flat_root, outer[5])).cut(witness).Volume())
-    air = _ybox(lower_x0, lower_x1, wall_y,
-                wall_y + .05, flat_root, outer[5]).intersect(_rounded_outer(outer))
-    extra = abs(air.intersect(half.val()).Volume())
-    largest_area = max((face.Area() for face in roof_faces), default=0.0)
-    whole = (len(roof_faces) == 1 and missing <= stated_bound_tol
-             and unexpected_witness <= stated_bound_tol and extra <= stated_bound_tol
-             and backing >= ridge_wall_t and half.val().isValid() and funnel_foul <= stated_bound_tol)
-    if not whole:
-        raise ValueError(
-            "the front-top display backing lacks its broad flat face or required stock: "
-            f"flat faces {len(roof_faces)}, face {largest_area:.1f} mm², backing {backing:.3f} mm, "
-            f"missing witness {missing:.6f} mm³, unexpected witness {unexpected_witness:.6f} mm³, "
-            f"unexpected aft stock {extra:.6f} mm³, "
-            f"solid valid={half.val().isValid()}, "
-            f"funnel keepout intersection {funnel_foul:.6f} mm³")
-    print(f"  front wall:       Y{wall_y:.3f}, {largest_area:.1f} mm² flat face, "
-          f"{backing:.3f} mm display backing, funnel keepout clear")
-    return dict(face_y_mm=wall_y,flat_root_z_mm=flat_root,flat_face_count=len(roof_faces),
-                flat_face_area_mm2=largest_area,minimum_display_backing_mm=backing,
-                missing_flat_wall_witness_mm3=missing,unexpected_aft_stock_mm3=extra,
-                unexpected_flat_wall_witness_mm3=unexpected_witness,
-                witness_thickness_mm=.05)
-
 
 def _report_facet(half, box):
     a = math.radians(display_facet_angle_deg)
@@ -9623,7 +8733,7 @@ def _silhouette_bound(pieces, box):
     ox0, ox1, oy0, oy1, oz0, oz1 = box.outer
     over = []
     for name, piece in pieces.items():
-        if name in ("pump-cartridge", "pump-cap"):
+        if name == "pump-retainer":
             continue
         solid = piece.val()
         if name == "back-bottom":
@@ -9653,9 +8763,7 @@ def _silhouette_bound(pieces, box):
 
 
 def build_pieces(box):
-    """The printable pieces of one box — the four quadrants and, when the pack stands
-    pumps, the pump cradle and its clamp in the front pair's bay — and the assembly of them in
-    place with the seams intact.
+    """The four enclosure quadrants and the underside pump retainer, assembled in place.
 
     DRAWING A PIECE TAKES NO READING. Every bound the box states is in the ledger before this
     runs — `_dims` states its own as it sizes the shells, `with_funnel` states the throat's as
@@ -9668,14 +8776,12 @@ def build_pieces(box):
     cache = {}
 
     def _product(n):
-        if n == "pump-cartridge":
-            return build_pump_cartridge(box, halves_cache=cache)
-        if n == "pump-cap":
-            return build_pump_cap(box, halves_cache=cache)
+        if n == "pump-retainer":
+            return build_pump_retainer(box, halves_cache=cache)
         return build_piece(box, *n.split("-"), halves_cache=cache)
 
     names = [n for n in PIECE_COLORS
-             if n not in ("pump-cartridge", "pump-cap")
+             if n != "pump-retainer"
              or (box.pump_bay and box.pack.collet_plate)]
     pieces = {name: _realized.realized(
                   _realized.key(__name__, box, name,
@@ -9698,6 +8804,11 @@ def build_pieces(box):
     for name, piece in pieces.items():
         assy.add(piece, name=f"enclosure-{name}".replace("-", "_"),
                  color=PIECE_COLORS[name])
+    if box.pump_bay and box.pack.collet_plate:
+        from _materials import M_STAINLESS, M_BRASS
+        for name, part, kind in _fixed_pump_mount.hardware(sys.modules[__name__], box):
+            assy.add(part, name=name,
+                     color=M_STAINLESS if kind == 'screw' else M_BRASS)
     if box.pack.collet_plate:
         for name, part in _dock.parts(box.pack.collet_plate).items():
             assy.add(part, name=name, color=_dock.part_color(name))
@@ -9767,11 +8878,8 @@ def _export_pieces(pieces, assy):
         # full-width cradle owns the flush front face and both outer flanks: its front rail
         # carries the face and front corners, while the enclosure-phase side rail starts at
         # their tangencies. No rail is struck on the fixed front plane inside it.
-        if name == "pump-cap":
+        if name == "pump-retainer":
             rails = []
-        elif name == "pump-cartridge":
-            rails = [_pump_cartridge_side_flute_rail(outer),
-                     _pump_cartridge_front_flute_rail(outer)]
         mesh = _flute_skin.flute(bodies[name], rails,
                                  flute_pitch(outer), flute_depth, flute_rise)
         mesh = finish_print_mesh(name, piece.val(), mesh, outer)
@@ -9879,8 +8987,6 @@ def main():
     core, box = machine_of()
     pieces, assy = build_pieces(box)
     print("enclosure:")
-    _report_bay_sill(pieces["front-top"], box)
-    _report_ridge_roof(pieces["front-top"], box)
     _report_slide(pieces, box)     # the slides swept and the catches lifted, into BOUNDS
     _report_bounds()          # the machine's, with its pieces cut and its slides swept
 
@@ -10021,12 +9127,6 @@ def main():
         "FLUTE_RISE": f"{flute_rise:.4g} mm",
         "FLUTE_STEPS": f"{flute_fade_steps:d}",
         "FLUTE_RAMP": f"{math.degrees(math.atan(1.5 * flute_depth / flute_rise)):.3g}°",
-        # The bay storey's complete phase path, including its two uncut air spans.
-        "STOREY_RUN": (
-            f"{sum(l for _k, l, _d in _bay_storey_segments(box.inner, bo, box.pump_bay, box.pack.collet_plate)):.5g} mm"
-            if box.pump_bay and box.pack.collet_plate else "no bay on this pack"),
-        "STOREY_BAND": (f"{bay_storey_z(box.pump_bay)[0]:.4g}..{bay_storey_z(box.pump_bay)[1]:.4g} mm"
-                        if box.pump_bay else "no bay on this pack"),
         # The condenser's own two vents, pierced down the flutes those flanks already carry.
         # Every one of these is READ OFF THE BUILT PIECE (`vent_readings`) or off the field
         # the slot was struck on, so the page and `flank-vent-mullions` quote one derivation.

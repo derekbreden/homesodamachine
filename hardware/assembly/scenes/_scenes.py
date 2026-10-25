@@ -245,24 +245,33 @@ SCENES = (
         cam=(0.8, -1.0, 0.9), up=(0, 0, 1), zoom=4.4, look="centre",
         note="The same pose as the back top and the other half of the same box: on its ceiling, "
              "the mouth to the room. Every seat under this manifold is the piece's own "
-             "material, including the tee wall's four collet holes and bores. The drop-in "
+             "material, including the upper fitted pump inverses and the broad stock continuing "
+             "into the display housing and roof. The pumps and plain lower retainer load "
+             "motor-first from underneath before the tees and valves. Four bottom-open gates "
+             "admit their prepared tubes, and three screws secure the retainer from below. "
+             "Pump and display leads share one rear wire passage. The drop-in "
              "frame carries its snapped-in drain cradle and enters after final connections.",
     ),
-    # THE UNIT THAT FILLS THAT BAY, rooted on its two printed pieces: the full-height lower
-    # cradle and the small top clamp. It is worked upright, the same way it stands in the bay,
-    # because both complete pumps drop along +Z into the cradle before the clamp comes down.
+    # Both fitted halves are shown with the enclosing quadrant: the upper half is inseparable
+    # from front-top, and the plain lower retainer is the one removable printed piece.
     Scene(
-        "pump-cartridge", "Pump cradle",
-        roots=("enclosure-pump-cartridge", "enclosure-pump-cap"), inner=(),
-        flip=None, also=(), later=(),
-        cam=(0.9, 0.75, 0.55), up=(0, 0, 1), zoom=2.9, look="centre",
-        note="Upright on its lower cradle, the same pose in which it is assembled and installed: "
-             "both complete pumps drop through straight wells until their molded skirts bear "
-             "on the cradle lands, then the small top clamp lowers over both octagonal bosses "
-             "and takes two screws. Each pump head clamps its two short LLDPE tubes, which "
-             "pass the cradle's open tube passages. Pushed home, the four tubes enter the tee "
-             "wall's collet holes and the tees' gripping collets, which hold the cradle in its "
-             "bay.",
+        "pump-mount", "Integral pump mount",
+        roots=("enclosure-front-top", "enclosure-pump-retainer"), inner=(),
+        flip=((1, 0, 0), 180.0),
+        also=tuple(f'pump-retainer-{side}-{part}'
+                   for side in ('left', 'centre', 'right') for part in ('screw', 'insert')),
+        later=("display", "display-cover", "display-gasket", "funnel-frame", "funnel"),
+        cam=(0.8, -1.0, 0.9), up=(0, 0, 1), zoom=4.4, look="centre",
+        note="Front-top is loose on the bench, with access to its underside. Set the four "
+             "tube tips with both pumps seated in the loose rectangular retainer, then remove "
+             "the jig. Thread the bare pump lead through the shared rear wire passage, crimp "
+             "and land the Fastons while the motors are accessible, and raise the prepared "
+             "unit motor-first into the integral upper inverses. The tubes rise through four "
+             "bottom-open tee-wall gates. Three M3x60 screws enter upward from the retainer "
+             "into front-top, capturing the molded skirts. Bring each prepared tee, upper "
+             "tube and fore valve straight in from aft before fitting the rear valve row "
+             "and returns. Fit the display with its facet open. The funnel frame enters "
+             "after final connections.",
     ),
     # THE PAIR IS WORKED FLAT ON A BENCH, so the camera is a person standing over it: nearly
     # down the lid's own normal, leaned just far enough onto the near edge that a valve and
@@ -472,8 +481,8 @@ def holders(assembly=None):
             out[f"tube-{rid}"] = tube_pieces[rid]
     # Body and cap seats already have fastening rows. Their geometric helper
     # tables do not create additional body or tube occupants in a scene.
-    # Prepared pump tubes ride the pump cradle; the upper tubes and lower returns stay on
-    # front-top with the pump tees.
+    # Prepared pump tubes ride their fixed pump heads; the upper tubes and lower returns stay
+    # on front-top with the pump tees. The retainer and both pumps travel with that quadrant.
     pump_at = {x: name for name, x in _ml.PUMPS.items()}
     for cid, _frm, _to, how in _ml.SEGMENTS:
         if not active(f"tube-fluid-{cid}"):
