@@ -62,28 +62,51 @@ def main():
         records.append({'check':'Native printed component / '+tail,
                         'passed':valid and solids==1,
                         'valid':valid,'solids':solids})
-    sleeve_name=name_for('soda-rise-insulation')
-    sleeve=placed[sleeve_name]
-    low,high=bounds(sleeve)
-    sleeve_readings=[]
-    for name,body in placed.items():
-        if name==sleeve_name or name.split('/')[-1]=='tube-soda-core-rise':
-            continue
-        a,b=bounds(body)
-        if np.any(high<a) or np.any(b<low):
-            continue
-        sleeve_readings.append({'body':name,
-            'common_mm3':sleeve.intersect(body).Volume(),
-            'distance_mm':sleeve.distance(body)})
-    records.append({'check':'Square-cut soda insulation against installed stock and wiring',
-        'passed':sleeve.isValid() and len(sleeve.Solids())==1
-                 and all(r['common_mm3']<.001 for r in sleeve_readings),
-        'valid':sleeve.isValid(),'solids':len(sleeve.Solids()),
-        'nominal_stock_mm':{'length':15.,'inside_diameter':6.35,'outside_diameter':25.4},
-        'nearby_tested':sleeve_readings,
-        'scope':'Uncompressed nominal annulus; intended soda-tube bore contact excluded. '
-                'No foam compression, slit/tape retention, installation force or thermal performance result.'})
-    def query(label, moving_tail, poses, skip, moving_shapes=None, component_names=None):
+    sys.path.insert(0,str(ROOT/'hardware/manifold-layout'))
+    import soda_inlet
+    inlet_path=Path(__file__).with_name('soda-inlet-review.json')
+    inlet_receipt=json.loads(inlet_path.read_text())
+    inlet_plan=soda_inlet.plan()
+    inlet_components=[]
+    for tail in ('tube-soda-core-rise','soda-bend-holder','soda-continuous-insulation'):
+        shape=placed[name_for(tail)]
+        low,high=bounds(shape)
+        actual={'valid':shape.isValid(),'solids':len(shape.Solids()),
+                'faces':len(shape.Faces()),'volume_mm3':shape.Volume(),
+                'center_mm':list(shape.Center().toTuple()),
+                'bounds_mm':[*low.tolist(),*high.tolist()]}
+        expected=inlet_receipt['component_signatures'][tail]
+        volume_tolerance=max(.001,abs(expected['volume_mm3'])*1e-7)
+        differences={'volume_mm3':abs(actual['volume_mm3']-expected['volume_mm3']),
+            'center_mm':max(abs(a-b) for a,b in zip(actual['center_mm'],expected['center_mm'])),
+            'bounds_mm':max(abs(a-b) for a,b in zip(actual['bounds_mm'],expected['bounds_mm']))}
+        passed=actual['valid'] and actual['solids']==expected['solids']
+        passed &= actual['faces']==expected['faces']
+        passed &= differences['volume_mm3']<=volume_tolerance
+        passed &= differences['center_mm']<=1e-5 and differences['bounds_mm']<=1e-5
+        if tail!='soda-continuous-insulation':
+            passed &= actual['solids']==1
+        inlet_components.append({'component':name_for(tail),'passed':bool(passed),
+            'actual':actual,'fixture':expected,'absolute_differences':differences,
+            'comparison_tolerances':{'volume_mm3':volume_tolerance,
+                                     'center_mm':1e-5,'bounds_mm':1e-5}})
+    records.append({'check':'Selected continuous soda inlet matches the native fit receipt',
+        'passed':bool(inlet_receipt['passed'] and all(r['passed'] for r in inlet_components)),
+        'receipt':str(inlet_path.relative_to(ROOT)),
+        'receipt_sha256':hashlib.sha256(inlet_path.read_bytes()).hexdigest(),
+        'components':inlet_components,
+        'nominal_stock_mm':{'physical_piece_count':1,
+            'cut_length':inlet_plan['foam_cut_mm'],
+            'centerline_length':inlet_plan['nominal_foam_cut_length_mm'],
+            'inside_diameter':inlet_plan['nominal_foam_id_mm'],
+            'outside_diameter':inlet_plan['nominal_foam_od_mm']},
+        'scope':'Artifact comparison to the linked native tube/holder/contact receipt. '
+                'The occupied foam is an estimated compression display proxy; its native '
+                'regions do not specify cuts or separate physical foam pieces. The full '
+                'stock contacts and accepted qualitative physical evidence retain the '
+                'receipt scope. No compression, force or thermal prediction.'})
+    def query(label, moving_tail, poses, skip, moving_shapes=None, component_names=None,
+              finite_mates=None):
         moving=name_for(moving_tail)
         offsets=np.asarray(poses,float)
         shapes={moving:placed[moving]} if moving_shapes is None else moving_shapes
@@ -93,6 +116,7 @@ def main():
         sweep_high=np.max([high for low,high in boxes.values()],axis=0)+offsets.max(axis=0)
         hits=[]
         tested=[]
+        mating_readings=[]
         for name,body in placed.items():
             tail=name.split('/')[-1]
             if name==moving or skip(tail):
@@ -114,7 +138,15 @@ def main():
                 obstacle=meshed(name)
                 moving_mesh=local_meshes[key]
                 for i in active:
-                    volumes[i]+=float((moving_mesh.translate(offsets[i])^obstacle).volume())
+                    common=moving_mesh.translate(offsets[i])^obstacle
+                    mate=(finite_mates or {}).get((key.split('/')[-1],tail))
+                    if mate is not None:
+                        raw=float(common.volume())
+                        common=common-mate['mesh']
+                        mating_readings.append({'moving':key,'stationary':name,
+                            'offset_mm':offsets[i].tolist(),'raw_common_mm3':raw,
+                            'outside_finite_mate_mm3':float(common.volume())})
+                    volumes[i]+=float(common.volume())
                 nearby.append(key)
             if not nearby:
                 continue
@@ -131,6 +163,12 @@ def main():
                          'the entire moving group is not unioned before the query.'}
         if component_names is not None:
             record['moving_components']=component_names
+        if finite_mates:
+            record['finite_mate_regions']=[
+                {'moving_tail':pair[0],'stationary_tail':pair[1],
+                 **{key:value for key,value in mate.items() if key!='mesh'}}
+                for pair,mate in finite_mates.items()]
+            record['finite_mate_readings']=mating_readings
         records.append(record)
         print(json.dumps(record),flush=True)
     lifts=[0,.1,.25,.5,1,2,3,6,9,12,15,20,30,40,50,56,60]
@@ -167,16 +205,15 @@ def main():
     inventory.wiring_body_names=frozenset(n for n in inventory_names
         if n.startswith(('wire-','terminal-','jacket-')))
     ownership=_scenes.holders(inventory)
-    late_rear=frozenset(('bulkhead-carb','bulkhead-carb-nut',
-                         'bulkhead-drain','bulkhead-drain-nut',
-                         'soda-stem-elbow','soda-outlet-return-stem',
-                         'tube-soda-meter-bulkhead','tube-drain-vent'))
+    late_rear=frozenset(('tube-drain-vent',))
+    rear_preassembly=frozenset(_scenes.BACK_COLUMN_REAR_PREASSEMBLY)
     header_preassembly=frozenset(_scenes.CORE_INLET_HEADER_PREASSEMBLY)
     back_bodies=frozenset(name for name in _scenes.held_by('enclosure-back-top',ownership,
                          stop=('electronics-access-panel','funnel-frame','funnel','funnel-cover'))
                          if not name.startswith('tube-')
                          and name not in (late_rear | header_preassembly))
     back_tails=set(back_bodies)
+    back_tails |= rear_preassembly
     present_tails={name.split('/')[-1] for name in placed}
     def endpoint_body(endpoint):
         candidates=[tail for tail in present_tails if endpoint==tail
@@ -197,10 +234,27 @@ def main():
              and bounds(body)[1][2]>253.3]
     moving={name_for('enclosure-back-top')+' above Z253.3':back_top,
             **{name:placed[name] for name in carried}}
+    rear_receipt_path=Path(__file__).with_name('rear-plumbing-assembly.json')
+    rear_receipt=json.loads(rear_receipt_path.read_text())['selected_carried_group']
+    if not (rear_receipt['continuous_carried_group_clear']
+            and rear_receipt['finite_outlet_capture_clear']):
+        raise ValueError('Rear preassembly needs its bounded native capture receipt')
+    outlet=rear_receipt['finite_outlet_capture']
+    if outlet['outward_world'] != [0.,1.,0.]:
+        raise ValueError('The finite outlet mesh orientation requires the recorded +Y outlet')
+    outlet_mask=mf.Manifold.cylinder(outlet['insertion_mm'],outlet['radius_mm'],
+        circular_segments=512).rotate((90.,0.,0.)).translate(outlet['mouth_world_mm'])
+    rear_mates={('tube-soda-meter-bulkhead','digiten-flow'):{
+        'mesh':outlet_mask,'mouth_world_mm':outlet['mouth_world_mm'],
+        'inward_world':[0.,-1.,0.],'depth_mm':outlet['insertion_mm'],
+        'radius_mm':outlet['radius_mm'],'circular_segments':512,
+        'scope':'Inscribed finite receiving cylinder, with no radial or axial enlargement. '
+                'The linked native receipt owns the exact socket readings.'}}
     query('Back-top upper stock and fixed group over populated cold core','enclosure-back-top',
           [(0,y,0) for y in (0,.25,.5,1,*range(2,302,2))],
           lambda n:n not in core_tails,moving_shapes=moving,
-          component_names=[name_for('enclosure-back-top')+' above Z253.3',*carried])
+          component_names=[name_for('enclosure-back-top')+' above Z253.3',*carried],
+          finite_mates=rear_mates)
     # Seat the two bare valves before the removable lid equipment. The post
     # needs only the real socket depth of axial clearance during lowering.
     # Use untrimmed native bodies here: clipping the target at a coincident
@@ -210,7 +264,7 @@ def main():
     import valve_seat
     printed={name:body for name,body in placed.items()
              if 'cold-core/' in name and name.split('/')[-1].startswith('foam-')}
-    late_bench=set(layout.core_equipment_names())|{'digiten-flow','soda-inlet-stem'}
+    late_bench=set(layout.core_equipment_names())|{'digiten-flow'}
     electrical_tokens=('wago','junction','ground','terminal','housing',
                        'termination','ferrule','spade')
     bench_fixed={name:body for name,body in placed.items()
@@ -305,13 +359,14 @@ def main():
              ROOT/'hardware/manifold-layout/above-core.json',
              Path(enc.__file__),Path(enc._above_core_shell.__file__),
              ROOT/'hardware/manifold-layout/above_core_wiring.py',_box_spec.ARTIFACT]
-    sources.extend((ROOT/'hardware/reference/soda-rise-insulation/soda_rise_insulation.py',
-                    ROOT/'hardware/reference/soda-rise-insulation/soda-rise-insulation.step',
+    sources.extend((Path(soda_inlet.__file__),inlet_path,rear_receipt_path,
+                    ROOT/soda_inlet.HOLDER_ACCEPTANCE,ROOT/soda_inlet.FOAM_EVIDENCE,
                     Path(layout.__file__),Path(valve_seat.__file__),
                     ROOT/'hardware/reference/beduan-solenoid/beduan_solenoid.py'))
     result={'passed':all(row['passed'] for row in records),
-            'scope':'Sampled nominal empty-closure removal after removing the funnel silicone, cover and cradled drain group, back-top upper stock and its named fixed equipment plus native fluid spans with both endpoints on that fixed group during the populated-core ride, and bare valve installation on the open-bench core. The inlet header and its three concealed links are preassembled with the stationary core while the open saddles capture it; permanent installed ownership is unchanged. V-A lowers at the real socket-depth axial offset and seats before V-K; PCB, PSU, pump, meter, electrical junctions, inserted valve elbows and warm tubes install after both bare valves. Full printed core stock and internal equipment remain. Valve lowering uses continuous conservative bounds; seating uses native sampled poses. Closure screws are removed. Drain disconnection or cradle release is a prerequisite; their motion and force are not queried. Soda/drain rear bulkheads, their nuts and the nested meter return elbows install after the column ride. Other inter-quadrant tubes/leads are connected after the ride. Lower seams and floors retain their separate records.',
+            'scope':'Sampled nominal empty-closure removal after removing the funnel silicone, cover and cradled drain group, back-top upper stock and its named fixed equipment plus native fluid spans with both endpoints on that fixed group during the populated-core ride, and bare valve installation on the open-bench core. The inlet header and its three concealed links are preassembled with the stationary core while the open saddles capture it; permanent installed ownership is unchanged. V-A lowers at the real socket-depth axial offset and seats before V-K; PCB, PSU, pump, meter, electrical junctions, inserted valve elbows and warm tubes install after both bare valves. Full printed core stock and internal equipment remain. Valve lowering uses continuous conservative bounds; seating uses native sampled poses. Closure screws are removed. Drain disconnection or cradle release is a prerequisite; their motion and force are not queried. Soda/drain rear bulkheads, prethreaded nuts and the nested soda elbows and concealed tube ride with back-top; the separate rear-capture receipt owns finite meter engagement. Other inter-quadrant tubes/leads and the flexible drain vent connect after the ride. Lower seams and floors retain their separate records.',
             'late_rear_components':sorted(late_rear),
+            'back_column_rear_preassembly':sorted(rear_preassembly),
             'stationary_core_inlet_header_preassembly':sorted(header_preassembly),
             'evidence_limit':'Closure/column motions use tessellated native geometry with a 0.1 mm3 reporting threshold; valve installation uses full native shapes with 1e-6 mm Boolean tolerance and 1e-6 mm3 reporting threshold. No physical fit, installation force, hand/tool access, printed stiffness, insert strength, sealing or lifetime result.',
             'source_sha256':{str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sources},
