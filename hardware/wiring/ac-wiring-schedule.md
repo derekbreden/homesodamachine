@@ -173,10 +173,10 @@ insulated local taps. The Wago joins that column common to the board return.
 The carbonator pair has its own common branch at the reservoir-B Wago. The two
 probes are parallel-bussed on the three 1-wire conductors.
 
-The compressor cable uses 700 mm preparation stock. Its switched-hot budget
-contains two separate wire pieces: 591.052 mm from the relay to the thermal
+The compressor cable uses [~700 mm](LEN_COMPRESSOR) preparation stock. Its switched-hot budget
+contains two separate wire pieces: 606.306 mm from the relay to the thermal
 fuse, then a 36.777 mm continuation from the fuse to the compressor interface.
-Their 627.829 mm modeled total leaves 72.171 mm nominal termination and
+Their approximately 643.082 mm modeled total leaves 56.918 mm nominal termination and
 dressing reserve. The shared jacket occupies the fore floor lane; its insulated
 cores fan out to their upper terminals. Dress and retain the jacket and fanouts
 before trimming the conductors. The fuse's two leads reach separate insulated
@@ -186,6 +186,24 @@ The model's centreline lengths exclude hidden contact insertion and final cut
 reserve. The bench cuts remain fitting stock; use the current installed route
 and its attachment status before settling a finished length. The fan routes
 end at the condenser-crown approach while its donor lead remains unlocated.
+
+The [local source-native receipts](installed/above-core-review/ground-j2-wiring-review.json)
+and [routing witness receipt](installed/above-core-review/routing-witness-native-review.json)
+give the preparation budget for the dressed fore connections:
+
+| Conductor | Modeled path (mm) | Preparation stock | Nominal reserve (mm) |
+|---|---:|---:|---:|
+| PE-bus, rear PE WAGO → lid stack | 295.531 | [~400 mm](LEN_EARTH_BUS) | 104.469 |
+| PE-carbonator, lid stack → carbonator | 422.415 | [~500 mm](LEN_EARTH_CARBONATOR) | 77.585 |
+| J2-COM | 195.864 | [~300 mm](LEN_MAN_B_COM) | 104.136 |
+| J2-FAN | 329.600 | [~650 mm](LEN_FAN) | 320.400 |
+| DC3-negative | 253.272 | [~350 mm](LEN_PUMP) | 96.728 |
+| J2-positive-K | 260.156 | [~450 mm](LEN_MAN_B_FANOUT) | 189.844 |
+
+AC6-PE's modeled path is 333.691 mm within the same compressor cord; the
+switched-hot budget above governs its common preparation stock. The carbonator
+bond landing and donor fan lead remain unlocated. These reserves are fitting
+allowances, not physical harness-fit measurements.
 
 The peristaltic pumps have no such nut: DC-5 is two DRV8870 H-bridge pairs, each motor driven differentially on its own two conductors, so there is no rail to share and nothing to fan out. Four direct conductors run from J13 to the motor tabs.
 
@@ -199,6 +217,14 @@ Single-point chassis ground at the core-lid ring-terminal stack, bonded back thr
 - **Ground bus** distributes to: compressor body (via AC-6), and any other exposed metal (faucet via the SS under-counter plate, the SS carbonator inside the cold core, etc.) via short bonding wires. Chassis grounding is via these discrete bonding wires; there is no metal chassis backbone.
 - Separate ground bonds are [16 AWG](AWG_MAINS_U) green-insulated stranded wire with ring terminals at the bus and metalwork. AC-6 is the green 18 AWG conductor inside the SJOOW compressor cord, as specified in its run row.
 - The chassis bond gives the appliance Class I status: if a fault energizes any exposed metal part, fault current returns to the building ground through the C14 cord and trips the upstream breaker before the user touches anything.
+
+The stack's inlet bond uses its northeast-facing lug, the carbonator bond its
+northwest-facing lug, and AC-6 its southwest-facing lug. Keep the inlet bond's
+nominal 6 mm straight entry and the fore paired-tube tie head on the east side.
+Fasten the stack before dressing AC4-H and AC5-N through the fore connection
+area; hold those flexible leads clear of its vertical driver during service.
+The complete installed harness has no simultaneous driver-clearance or
+flexible handling-force qualification.
 
 ## What's not yet decided
 

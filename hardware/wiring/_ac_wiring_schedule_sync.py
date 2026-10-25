@@ -114,7 +114,9 @@ len_short_2_mm = 200    # AC-2: 85 mm maximum modeled centreline plus fitting re
 len_dc1_mm = 350        # PSU secondary → core DC WAGOs: 283.293 mm modeled maximum; 66.707 mm reserve.
 len_dc2_mm = 350        # Core V12 WAGO → relay 2: 244 mm plus reserve.
 len_mid_mm = 150        # AC-1 (C14 → distribution block, over the foam-cap top), DC-4
-len_pump_mm = 350       # DC-3: 249 mm maximum modeled centreline plus fitting reserve.
+len_pump_mm = 350       # DC-3: 253.272 mm maximum modeled centreline plus fitting reserve.
+len_earth_bus_mm = 400  # Rear PE WAGO → lid stack: 295.531 mm modeled path; 104.469 mm reserve.
+len_earth_carbonator_mm = 500  # Lid stack → unlocated carbonator bond: 422.415 mm modeled path; 77.585 mm reserve.
 
 # ─── Loom bench cut lengths ───────────────────────────────────────────
 # Manifold cuts use the authored native-clear wire paths in the junction review,
@@ -146,7 +148,7 @@ len_reeds_b_mm = 500     # Reservoir B: 401 mm continuous common plus fitting re
 len_fan_mm = 650         # J2 FAN → condenser-crown approach (~543 mm), plus donor-lead reserve
 len_reeds_a_mm = 600     # Reservoir A: 512 mm continuous common plus fitting reserve.
 len_gas_mm = 600         # SIG-12 → the MQ-6 low on the rear cabinet floor, the longest in the box (582)
-len_compressor_mm = 700  # Hot stock: 591.052 mm main + 36.777 mm fuse continuation; 72.171 mm nominal termination/dressing reserve. Separate pieces; trim after routing.
+len_compressor_mm = 700  # Hot stock: 606.306 mm main + 36.777 mm fuse continuation; 56.918 mm nominal termination/dressing reserve. Separate pieces; trim after routing.
 len_umbilical_m = 1.0    # SIG-6 ONLY — the faucet display, up the umbilical and OUT of the box,
                          # above this model's ceiling. The one length still estimated.
 
@@ -202,6 +204,8 @@ def main():
         "LEN_DC2": f"~{len_dc2_mm:.4g} mm",
         "LEN_MID": f"~{len_mid_mm:.4g} mm",
         "LEN_PUMP": f"~{len_pump_mm:.4g} mm",
+        "LEN_EARTH_BUS": f"~{len_earth_bus_mm:.4g} mm",
+        "LEN_EARTH_CARBONATOR": f"~{len_earth_carbonator_mm:.4g} mm",
         "LEN_RELAYS": f"~{len_relays_mm:.4g} mm",
         "LEN_VK": f"~{len_vk_mm:.4g} mm",
         "LEN_MAN_A_COM": f"~{len_man_a_com_mm:.4g} mm",
