@@ -2,9 +2,9 @@
 
 The PCB lies flat on the west side of the cold-core roof, with its long axis
 fore–aft. The PSU and diaphragm pump stand aft of it on that roof. V-B mounts
-on the core's integral upright wall. V-A/V-K also travel with the lid on
-uprights beside the sidewalls; the two relay modules belong to
-`enclosure-back-top`. The display, fixed pump contacts and front valve coils
+on the core's integral upright wall. V-A/V-K, their fitted plumbing, the
+water header and the two relay modules belong to `enclosure-back-top`.
+The display, fixed pump contacts and front valve coils
 belong to `enclosure-front-top`.
 
 The fore–aft flow meter belongs to the cold-core lid, between the CO₂ group
@@ -88,10 +88,9 @@ Keep the appliance unplugged throughout this assembly.
    passages; a straight chord between the lower and upper mouths does not
    describe their path. Complete the cold-core assembly in
    [cold-core.md](cold-core.md).
-2. Seat bare V-A, then bare V-K, in their lid uprights. Attach their prepared
-   downward-blade leads while the open bench is clear, before installing the
-   PCB, PSU, pump or meter. The bare seating review stages those leads out;
-   female-housing fit and connection force remain unqualified.
+2. Seat V-A/V-K on open back-top with their fitted plumbing. Attach their
+   prepared downward-blade leads while that subassembly is accessible.
+   Female-housing fit and connection force remain unqualified.
    Seat the junctions in their named wells and label their electrical purpose.
    Check that each seated body's levers can open and close before populating
    it. Mount the PCB, PSU, pump, meter, V-B and ground stack on their core
@@ -122,8 +121,8 @@ Keep the appliance unplugged throughout this assembly.
    Pass the four J9 display conductors through the existing ridge loom bore
    near X32/Z308, then dress them to the display terminals.
    Keep the leads with their mounting parents and dress each crossing below
-   the closing surfaces. Clear the two lid-rooted valve-union bearings and their
-   cable-tie paths while dressing the leads. Keep the coil leads outside the
+   the closing surfaces. Clear the V-B return bearing and its
+   cable-tie path while dressing the leads. Keep the coil leads outside the
    continuous soda inlet's holder and foam sleeve. Dress the three meter leads
    below V-K's coil, cross east ahead of the foam and run aft outside its wall.
    Route lengths describe centerlines; allow the

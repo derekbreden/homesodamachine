@@ -1,0 +1,1012 @@
+{
+  "schema": 1,
+  "units": "mm",
+  "frame": "Production enclosure XYZ; Z up",
+  "scope": "Manual bounded native counterexample and finite-handoff query of the approved carried arrangement. No physical force, flexible-lead motion or complete-path clearance qualification.",
+  "approved_carried_names": [
+    "asse-drain-adapter",
+    "asse-inlet-tpu",
+    "asse-outlet-tpu",
+    "asse1022-assembly",
+    "bulkhead-carb",
+    "bulkhead-carb-nut",
+    "bulkhead-drain",
+    "bulkhead-drain-nut",
+    "bulkhead-flavor-a",
+    "bulkhead-flavor-a-nut",
+    "bulkhead-flavor-b",
+    "bulkhead-flavor-b-nut",
+    "bulkhead-water",
+    "bulkhead-water-nut",
+    "c14-inlet",
+    "co2-inlet",
+    "co2-inlet-nut",
+    "flow-regulator",
+    "gas-check",
+    "gas-inlet-elbow",
+    "gas-lower-a",
+    "gas-lower-b",
+    "gas-regulator",
+    "gas-upper-a",
+    "gas-upper-b",
+    "keystone-jack",
+    "lower-pump-elbow",
+    "lower-valve-elbow",
+    "reg-va-elbow",
+    "relay-1",
+    "relay-2",
+    "soda-outlet-return-stem",
+    "soda-stem-elbow",
+    "tee-fold",
+    "tube-above-core-gas-check-link",
+    "tube-above-core-gas-inlet",
+    "tube-above-core-reg-va-link",
+    "tube-above-core-tee-regulator",
+    "tube-above-core-tee-vk-link",
+    "tube-above-core-va-fore-feed",
+    "tube-above-core-va-under-head",
+    "tube-above-core-water-in",
+    "va-east-turn",
+    "va-outlet-elbow",
+    "valve-v-a",
+    "vk-solenoid",
+    "wago-g",
+    "wago-h",
+    "wago-n",
+    "water-split"
+  ],
+  "separate_handoff_tubes": [
+    "tube-above-core-pump-inlet-link",
+    "tube-above-core-gas-core-drop",
+    "tube-soda-meter-bulkhead"
+  ],
+  "source_sha256": {
+    "hardware/mechanical-qualification/enclosure-above-core/approved_carried_group_review.py": "96fc2d3de074aad2badb75cac241fbbbfa6f91bdc4193355a912258ab368cb81",
+    "hardware/manifold-layout/above_core_parts.py": "9dd5b0576f8fdc87f9a8b79bf57d4677a228cedad549e32c3fc1a67cc1e6752c",
+    "hardware/manifold-layout/above_core.py": "0de88a8738cc99fbb7f9fe1f06dc8f501ebc0ceca47cb458f6fadbd3364d5c2f",
+    "hardware/manifold-layout/above_core_routes.py": "6fe523eb4fc63558845a6931eb9ddc3ec367557b44eb8c9a2ecafc57bc542962",
+    "hardware/manifold-layout/above-core.json": "1a0e2b6050d81f2a0de087a75aac6ae8f5a7a936fb895809bb2695ce8f5af031",
+    "hardware/assembly/scenes/_scenes.py": "29279639591cf41a8e6a7810e1fbe0480e55d1305977abfedf6f2e29d7836954",
+    "hardware/mechanical-qualification/enclosure-above-core/connector_service.py": "0ca76a102e2d78dcf40ed6874cd3d56b953b635fa267b21e9ddd228a4111d2b6",
+    "hardware/mechanical-qualification/enclosure-above-core/flavor-and-connector-review.json": "fcc015e13b30b9d7f78bd0015b37405a0cef0aa217e0fbc3c5f2bc5e6b198a12",
+    "hardware/manifold-layout/studies/funnel-gate/assembly-ownership.json": "5c605d411e05efba7d729ba4fc4814da160748937883da78725d8620854f8489",
+    "hardware/manifold-layout/studies/funnel-gate/approved-arrangement.json": "323824e8dc72825551f6f6f7f5b76878a9a926e260de97c7d3b2a5d4de2c006c"
+  },
+  "reference_sha256": {
+    "hardware/reference/multiplex-asse1022/multiplex-asse1022.step": "1dcb9c16d5a954336fe89c9072c62b854077be74b3fda15e9e0b338eae10d083",
+    "hardware/reference/branch-stem-tees/neofit-atbu444-e-estimate.step": "b3d52d71eef55a5210d5c426def3a8b7e27309a3a63d880c363a2a18b6b0c2a5",
+    "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step": "181e81dc1e2e9757c671df7163998127dea32e24cbbeffcd885e84c2801a9975",
+    "hardware/reference/beduan-solenoid/beduan-solenoid.step": "fcf554f470667fc739c49119942e3142ae25eaf417ab920f8168ff6e3c15c818",
+    "hardware/reference/jg-pp0308e-elbow/jg-pp0308e-elbow.step": "805f210ef6a669f08f9bebacdbf3dcec2a0d22691484dc72308425fdaf3d5daa",
+    "hardware/reference/compact-inline-candidates/geometry/candidate-regulator.step": "08cc291161a54961c062f89ae4213f46c099d6e1fc4f77322da5d9e706fd87ae",
+    "hardware/reference/yzmsz-water-regulator/geometry/yzmsz-water-regulator.step": "ea55169a72b0fb7a257a22143247293c67ea1fbebd0306eae53ae07c452de1ea",
+    "hardware/reference/meanwell-irm90/meanwell-irm90.step": "27cc1e5c3f5bf010f6df8a15a4b9b96dfef7b3836eee4905347e8a0035d033d7",
+    "hardware/reference/neofit-stem-elbow/neofit-stem-elbow.step": "a2545e7db825ff0d1990cacce6b539ff95341f1f13f9cc3e722369278abe5b6c",
+    "hardware/reference/iec-c14-inlet/iec-c14-inlet.step": "778d68ef2a4231bbaaa80abdebcddb25c190d83af11bbf920e6a4fede2a2f6c8",
+    "hardware/printed-parts/electronics/pcba-tray/pcba-board.step": "2a3ffad8f798dc7731e4a3f741da62e61080d005d52768f4625652605d972280",
+    "hardware/reference/neofit-achv44-check/neofit-achv44-check.step": "6cba8b0db77eb05d3488c114d184e9bb8a691db49b681dcacbcfe833f7da2c82",
+    "hardware/reference/teyleten-relay/teyleten-relay.step": "a941bb075f7c1b34e0d5033a3cd084bcaf4c8ad5bdc86fdfb0f2e0cf409515cd",
+    "hardware/reference/riteav-keystone/riteav-keystone.step": "cd7c975fbda11ed0a7e7ced14c6eb435ab39c882626fab8f234fd59043bf5971"
+  },
+  "lid_fixture": {
+    "path": "tmp/approved-valve-mounts/lid-world.brep",
+    "sha256": "e33adc91ca7d5a797df47ddc4e367615e1eeba0841a2940ef2405602398af09e"
+  },
+  "selected_native_components": {
+    "tube-above-core-va-under-head": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 1823.5229594140096,
+      "bounds_mm": [
+        -74.2451011287684,
+        293.1647604281867,
+        258.4249999,
+        28.269310100000002,
+        312.31050010000007,
+        265.96064798053675
+      ]
+    },
+    "tube-above-core-water-in": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 1177.0426293470227,
+      "bounds_mm": [
+        34.0749987712316,
+        392.3849605281867,
+        331.2010477805363,
+        40.42500010000001,
+        459.2100001,
+        341.5510479805364
+      ]
+    },
+    "tube-above-core-vb-yb-cross": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 1186.202496201434,
+      "bounds_mm": [
+        -20.46332900257188,
+        277.52454,
+        277.56637360671834,
+        47.353885835135195,
+        283.87454,
+        293.261460974726
+      ]
+    },
+    "tube-above-core-vb-yb-link": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 1917.574040538062,
+      "bounds_mm": [
+        -29.17175765370465,
+        167.9661086954074,
+        273.5451999,
+        -19.483968514141246,
+        275.83715,
+        293.96907385084853
+      ]
+    },
+    "vb-outlet-return": {
+      "valid": true,
+      "solids": 3,
+      "volume_mm3": 3935.9042173850407,
+      "bounds_mm": [
+        -32.926523961791986,
+        260.13715,
+        280.50048142071176,
+        -3.8159569602398937,
+        288.86244,
+        298.8840737508485
+      ]
+    }
+  },
+  "rigid_back_top_counterexamples": [
+    {
+      "moving": "valve-v-a",
+      "stationary": "psu",
+      "offset_mm": [
+        0.0,
+        20.0,
+        0.0
+      ],
+      "common_mm3": 354.4753834106865,
+      "outside_finite_mate_mm3": 354.4753834106865,
+      "distance_mm": 0.0,
+      "common_bounds_mm": [
+        -88.55410122876839,
+        359.00001210703124,
+        280.0678964251193,
+        -63.954101028768385,
+        362.5897606281867,
+        286.9000001
+      ]
+    },
+    {
+      "moving": "vk-solenoid",
+      "stationary": "digiten-flow",
+      "offset_mm": [
+        0.0,
+        20.0,
+        0.0
+      ],
+      "common_mm3": 0.0,
+      "outside_finite_mate_mm3": 0.0,
+      "distance_mm": 3.622502351860811,
+      "common_bounds_mm": null
+    },
+    {
+      "moving": "vk-solenoid",
+      "stationary": "digiten-flow",
+      "offset_mm": [
+        0.0,
+        50.0,
+        0.0
+      ],
+      "common_mm3": 1538.1200750244202,
+      "outside_finite_mate_mm3": 1538.1200750244202,
+      "distance_mm": 0.0,
+      "common_bounds_mm": [
+        60.354098871231585,
+        373.41479989999993,
+        282.3808478805363,
+        68.70000010000123,
+        391.68976062818666,
+        308.5972803491313
+      ]
+    },
+    {
+      "moving": "lower-pump-elbow",
+      "stationary": "g-ganen-pump",
+      "offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "common_mm3": 0.0,
+      "outside_finite_mate_mm3": 0.0,
+      "distance_mm": 13.787142395541368,
+      "common_bounds_mm": null
+    },
+    {
+      "moving": "lower-pump-elbow",
+      "stationary": "g-ganen-pump",
+      "offset_mm": [
+        0.0,
+        20.0,
+        0.0
+      ],
+      "common_mm3": 0.0,
+      "outside_finite_mate_mm3": 0.0,
+      "distance_mm": 0.558121122642541,
+      "common_bounds_mm": null
+    },
+    {
+      "moving": "lower-pump-elbow",
+      "stationary": "g-ganen-pump",
+      "offset_mm": [
+        0.0,
+        50.0,
+        0.0
+      ],
+      "common_mm3": 0.0,
+      "outside_finite_mate_mm3": 0.0,
+      "distance_mm": 2.493427928865305,
+      "common_bounds_mm": null
+    },
+    {
+      "moving": "lower-pump-elbow",
+      "stationary": "g-ganen-pump",
+      "offset_mm": [
+        0.0,
+        100.0,
+        0.0
+      ],
+      "common_mm3": 0.0,
+      "outside_finite_mate_mm3": 0.0,
+      "distance_mm": 7.097028322068788,
+      "common_bounds_mm": null
+    },
+    {
+      "moving": "lower-pump-elbow",
+      "stationary": "g-ganen-pump",
+      "offset_mm": [
+        0.0,
+        150.0,
+        0.0
+      ],
+      "common_mm3": 0.0,
+      "outside_finite_mate_mm3": 0.0,
+      "distance_mm": 1.1805630892173744,
+      "common_bounds_mm": null
+    }
+  ],
+  "rigid_back_top_path": {
+    "offset_basis": "Back-top starts aft of its installed pose and translates in -Y; offsets here are +Y from the installed pose.",
+    "reviewed_travel_mm": [
+      0.0,
+      237.5
+    ],
+    "status": "obstructed",
+    "complete_path_tested": false,
+    "scope": "A positive native intersection is a counterexample to rigid travel of the full approved group. The limited named-pair search cannot establish a clear complete path."
+  },
+  "selected_return_access": {
+    "drivers": [
+      {
+        "name": "J10-GND",
+        "point_mm": [
+          -22.499998896484364,
+          272.5529200200504,
+          269.200007
+        ],
+        "axis": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "diameter_mm": 3.3,
+        "roof_z_mm": 355.0
+      },
+      {
+        "name": "J10-V12",
+        "point_mm": [
+          -27.49998889648436,
+          272.5529200200504,
+          269.200007
+        ],
+        "axis": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "diameter_mm": 3.3,
+        "roof_z_mm": 355.0
+      }
+    ],
+    "readings": [
+      {
+        "body": "tube-above-core-vb-yb-cross",
+        "witness": "J10-GND",
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 3.8984474905849544,
+        "common_bounds_mm": null
+      },
+      {
+        "body": "tube-above-core-vb-yb-cross",
+        "witness": "J10-V12",
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 7.292785790387688,
+        "common_bounds_mm": null
+      },
+      {
+        "body": "tube-above-core-vb-yb-cross",
+        "witness": "J11-complete-6up-6east-20up",
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 76.47141170158454,
+        "common_bounds_mm": null
+      },
+      {
+        "body": "tube-above-core-vb-yb-cross",
+        "witness": "J11-stage-0",
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 77.88538011166762,
+        "common_bounds_mm": null
+      },
+      {
+        "body": "tube-above-core-vb-yb-cross",
+        "witness": "J11-stage-1",
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 77.73425335914847,
+        "common_bounds_mm": null
+      },
+      {
+        "body": "tube-above-core-vb-yb-cross",
+        "witness": "J11-stage-2",
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 76.47141170158454,
+        "common_bounds_mm": null
+      },
+      {
+        "body": "tube-above-core-vb-yb-link",
+        "witness": "J10-GND",
+        "common_mm3": 21.10401282248738,
+        "outside_finite_mate_mm3": 21.10401282248738,
+        "distance_mm": 3.552713678800501e-15,
+        "common_bounds_mm": [
+          -24.149998996690993,
+          270.902919919992,
+          287.69418521154535,
+          -21.661523861791977,
+          274.20292011975744,
+          293.89396229015176
+        ]
+      },
+      {
+        "body": "tube-above-core-vb-yb-link",
+        "witness": "J10-V12",
+        "common_mm3": 18.615010331684147,
+        "outside_finite_mate_mm3": 18.615010331684147,
+        "distance_mm": 0.0,
+        "common_bounds_mm": [
+          -28.011524061791988,
+          270.9029199293642,
+          287.7851678985576,
+          -25.84998879648436,
+          274.2029201239032,
+          293.8029796031394
+        ]
+      },
+      {
+        "body": "tube-above-core-vb-yb-link",
+        "witness": "J11-complete-6up-6east-20up",
+        "common_mm3": 1.3041511240445098,
+        "outside_finite_mate_mm3": 1.3041511240445098,
+        "distance_mm": 0.0,
+        "common_bounds_mm": [
+          -22.800090512957482,
+          195.35271164168452,
+          276.71324794006057,
+          -22.524949737073637,
+          201.05312839841545,
+          280.18985883048094
+        ]
+      },
+      {
+        "body": "tube-above-core-vb-yb-link",
+        "witness": "J11-stage-0",
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 0.4081045278155582,
+        "common_bounds_mm": null
+      },
+      {
+        "body": "tube-above-core-vb-yb-link",
+        "witness": "J11-stage-1",
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 0.4081045278155582,
+        "common_bounds_mm": null
+      },
+      {
+        "body": "tube-above-core-vb-yb-link",
+        "witness": "J11-stage-2",
+        "common_mm3": 1.3041511240445098,
+        "outside_finite_mate_mm3": 1.3041511240445098,
+        "distance_mm": 0.0,
+        "common_bounds_mm": [
+          -22.800090512957482,
+          195.35271164168452,
+          276.71324794006057,
+          -22.524949737073637,
+          201.05312839841545,
+          280.18985883048094
+        ]
+      },
+      {
+        "body": "vb-outlet-return",
+        "witness": "J10-GND",
+        "common_mm3": 72.39571912039423,
+        "outside_finite_mate_mm3": 72.39571912039423,
+        "distance_mm": 0.0,
+        "common_bounds_mm": [
+          -24.149998996690993,
+          270.9029199199919,
+          284.0534464547827,
+          -20.849998796484364,
+          274.2029201207343,
+          297.53470104691525
+        ]
+      },
+      {
+        "body": "vb-outlet-return",
+        "witness": "J10-V12",
+        "common_mm3": 76.01691520774264,
+        "outside_finite_mate_mm3": 76.01691520774264,
+        "distance_mm": 0.0,
+        "common_bounds_mm": [
+          -29.149988995815605,
+          270.9029199208205,
+          284.0950820450952,
+          -25.84998879648436,
+          274.20292012390325,
+          297.49306545660204
+        ]
+      },
+      {
+        "body": "vb-outlet-return",
+        "witness": "J11-complete-6up-6east-20up",
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 59.08402170158456,
+        "common_bounds_mm": null
+      },
+      {
+        "body": "vb-outlet-return",
+        "witness": "J11-stage-0",
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 60.224349202781326,
+        "common_bounds_mm": null
+      },
+      {
+        "body": "vb-outlet-return",
+        "witness": "J11-stage-1",
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 60.224349202781326,
+        "common_bounds_mm": null
+      },
+      {
+        "body": "vb-outlet-return",
+        "witness": "J11-stage-2",
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 59.08402170158456,
+        "common_bounds_mm": null
+      }
+    ],
+    "J11_prerequisites": "Remove funnel, removable frame and disconnected cradled drain assembly. Actual housing sweep is 6 mm up,6 mm east,20 mm up; flexible leads, latch, hand force and further extraction are unqualified.",
+    "simultaneous_tool_occupancy_clear": false,
+    "sequence_scope": "Complete PCB power wiring before final B-return tube mating. A simultaneous driver collision alone does not reject the selected installed route."
+  },
+  "selected_native_neighbors": {
+    "readings": [
+      {
+        "subject": "tube-above-core-va-under-head",
+        "obstacle": "g-ganen-pump",
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 4.921827898447819,
+        "common_bounds_mm": null
+      },
+      {
+        "subject": "tube-above-core-va-under-head",
+        "obstacle": "foam-cap-lid-top",
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 5.025000000000006,
+        "common_bounds_mm": null
+      },
+      {
+        "subject": "tube-above-core-vb-yb-cross",
+        "obstacle": "foam-cap-lid-top",
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 6.6397555446257455,
+        "common_bounds_mm": null
+      },
+      {
+        "subject": "tube-above-core-vb-yb-link",
+        "obstacle": "pcba",
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 7.027873358823046,
+        "common_bounds_mm": null
+      },
+      {
+        "subject": "tube-above-core-vb-yb-link",
+        "obstacle": "foam-cap-lid-top",
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 6.169270737154425,
+        "common_bounds_mm": null
+      },
+      {
+        "subject": "vb-outlet-return",
+        "obstacle": "g-ganen-pump",
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 4.801635012612835,
+        "common_bounds_mm": null
+      },
+      {
+        "subject": "vb-outlet-return",
+        "obstacle": "foam-cap-lid-top",
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 2.921981026580199,
+        "common_bounds_mm": null
+      }
+    ],
+    "scope": "Selected V-A under-head, ASSE supply and B return against current purchased neighbors and the optional source-current lid. Named tube endpoint owners are left to their finite receiving-interface review; this is not a blanket equipment exclusion."
+  },
+  "stationary_meter_tube_receiving": {
+    "stationary_body": "tube-soda-meter-bulkhead",
+    "moving_host": "soda-outlet-return-stem",
+    "stationary_meter_mouth_mm": [
+      50.0,
+      421.41479999999996,
+      306.3760478805363
+    ],
+    "moving_host_installed_mouth_mm": [
+      50.0,
+      421.41479999999996,
+      306.3760478805363
+    ],
+    "moving_host_outward": [
+      0.0,
+      -1.0,
+      0.0
+    ],
+    "fixed_tube_free_tip_mm": [
+      50.0,
+      438.3058,
+      306.3760478805363
+    ],
+    "host_receiving_depth_mm": 16.891,
+    "meter_insertion_mm": 15.7,
+    "mouth_separation_mm": 0.0,
+    "readings": [
+      {
+        "remaining_y_stroke_mm": 16.891,
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 0.0,
+        "common_bounds_mm": null
+      },
+      {
+        "remaining_y_stroke_mm": 12.0,
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 0.0,
+        "common_bounds_mm": null
+      },
+      {
+        "remaining_y_stroke_mm": 8.0,
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 0.0,
+        "common_bounds_mm": null
+      },
+      {
+        "remaining_y_stroke_mm": 4.0,
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 0.0,
+        "common_bounds_mm": null
+      },
+      {
+        "remaining_y_stroke_mm": 0.0,
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 0.0,
+        "common_bounds_mm": null
+      }
+    ],
+    "scope": "Finite native containment of the stationary tube during named coaxial receiving poses. The tube remains inserted in the core meter; it does not travel with back-top. Receiving depth, sealing and force are inferred/unqualified."
+  },
+  "pump_inlet_handoff": {
+    "moving_elbow_mouth_mm": [
+      51.30889887123159,
+      313.23731690023175,
+      271.58195896266363
+    ],
+    "fixed_tpu_mouth_mm": [
+      51.30889887123159,
+      313.23731690023175,
+      271.5819589626637
+    ],
+    "moving_elbow_outward": [
+      0.0,
+      0.8870108331782217,
+      0.4617486132350339
+    ],
+    "fixed_tpu_outward": [
+      0.0,
+      -0.8870108331782218,
+      -0.4617486132350338
+    ],
+    "mouth_separation_mm": 5.684341886080802e-14,
+    "concealed_tube_length_mm": 31.89100000000001,
+    "elbow_receiving_depth_mm": 16.891,
+    "tpu_receiving_depth_mm": 15.0,
+    "tube_axis_angle_to_positive_y_deg": 27.5,
+    "fixed_tube_case": [
+      {
+        "remaining_y_stroke_mm": 0.0,
+        "transverse_axis_error_mm": 0.0,
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 0.0,
+        "common_bounds_mm": null
+      },
+      {
+        "remaining_y_stroke_mm": 2.0,
+        "transverse_axis_error_mm": 0.9234972264700679,
+        "common_mm3": 117.45674684921403,
+        "outside_finite_mate_mm3": 117.45674684921403,
+        "distance_mm": 0.0,
+        "common_bounds_mm": [
+          48.13389877123159,
+          296.78876496999715,
+          260.9663036411698,
+          54.48389897123159,
+          315.0241051184104,
+          275.2173704022935
+        ]
+      },
+      {
+        "remaining_y_stroke_mm": 4.0,
+        "transverse_axis_error_mm": 1.8469944529401359,
+        "common_mm3": 193.1060342888649,
+        "outside_finite_mate_mm3": 193.1060342888649,
+        "distance_mm": 0.0,
+        "common_bounds_mm": [
+          48.133898871231594,
+          296.78876496999715,
+          260.96665297968747,
+          54.48389897383518,
+          316.8108933365828,
+          276.0365224465825
+        ]
+      },
+      {
+        "remaining_y_stroke_mm": 6.0,
+        "transverse_axis_error_mm": 2.770491679410204,
+        "common_mm3": 249.70963222918394,
+        "outside_finite_mate_mm3": 249.70963222918394,
+        "distance_mm": 0.0,
+        "common_bounds_mm": [
+          48.13389877123159,
+          296.87903298186376,
+          260.9663036411698,
+          54.48389897123159,
+          318.59768165475873,
+          276.46051864514385
+        ]
+      },
+      {
+        "remaining_y_stroke_mm": 10.0,
+        "transverse_axis_error_mm": 4.61748613235034,
+        "common_mm3": 264.52996662134416,
+        "outside_finite_mate_mm3": 264.52996662134416,
+        "distance_mm": 0.0,
+        "common_bounds_mm": [
+          48.133898769724965,
+          298.32254801335614,
+          261.27378588991195,
+          54.48389897273749,
+          322.17125809110934,
+          277.0929390160649
+        ]
+      },
+      {
+        "remaining_y_stroke_mm": 20.0,
+        "transverse_axis_error_mm": 9.23497226470068,
+        "common_mm3": 39.17438277155326,
+        "outside_finite_mate_mm3": 39.17438277155326,
+        "distance_mm": 0.0,
+        "common_bounds_mm": [
+          48.77558600521484,
+          317.93933206690207,
+          270.4502354003876,
+          53.842211737248334,
+          328.0085313449263,
+          276.6517217076101
+        ]
+      }
+    ],
+    "automatic_rail_mating_supported": false,
+    "scope": "Rigid fixed-tube diagnostic only. The closing stroke is not coaxial with either receiving socket. A specific final manual connection or released/staged member must be selected; no TPU deformation, over-insertion or blind auto-mating is claimed."
+  },
+  "late_pump_inlet_cuff": {
+    "barb_tip_mm": [
+      46.392766266226865,
+      329.64701731402886,
+      280.1243083075118
+    ],
+    "barb_outward_axis": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "barb_receiving_depth_mm": 11.0,
+    "tube_receiving_depth_mm": 15.0,
+    "readings": [
+      {
+        "remaining_barb_stroke_mm": 11.0,
+        "offset_mm": [
+          11.0,
+          0.0,
+          0.0
+        ],
+        "obstacle": "preinserted-short-tube",
+        "common_mm3": 47.559708912019055,
+        "outside_finite_mate_mm3": 47.559708912019055,
+        "distance_mm": 0.0,
+        "common_bounds_mm": [
+          48.133898770232165,
+          321.95535374305246,
+          274.06720053120796,
+          54.48389897223101,
+          327.5405691051639,
+          281.0808419336075
+        ]
+      },
+      {
+        "remaining_barb_stroke_mm": 11.0,
+        "offset_mm": [
+          11.0,
+          0.0,
+          0.0
+        ],
+        "obstacle": "lower-pump-elbow",
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 0.0,
+        "common_bounds_mm": null
+      },
+      {
+        "remaining_barb_stroke_mm": 11.0,
+        "offset_mm": [
+          11.0,
+          0.0,
+          0.0
+        ],
+        "obstacle": "g-ganen-pump",
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 1.2423688684188063,
+        "common_bounds_mm": null
+      },
+      {
+        "remaining_barb_stroke_mm": 8.0,
+        "offset_mm": [
+          8.0,
+          0.0,
+          0.0
+        ],
+        "obstacle": "preinserted-short-tube",
+        "common_mm3": 80.17135347264637,
+        "outside_finite_mate_mm3": 80.17135347264637,
+        "distance_mm": 0.0,
+        "common_bounds_mm": [
+          48.133898770232165,
+          312.30065899848523,
+          269.7826559664205,
+          54.48389897123159,
+          327.5405691051639,
+          281.0808419336075
+        ]
+      },
+      {
+        "remaining_barb_stroke_mm": 8.0,
+        "offset_mm": [
+          8.0,
+          0.0,
+          0.0
+        ],
+        "obstacle": "lower-pump-elbow",
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 0.0,
+        "common_bounds_mm": null
+      },
+      {
+        "remaining_barb_stroke_mm": 8.0,
+        "offset_mm": [
+          8.0,
+          0.0,
+          0.0
+        ],
+        "obstacle": "g-ganen-pump",
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 0.3129500583753397,
+        "common_bounds_mm": null
+      },
+      {
+        "remaining_barb_stroke_mm": 4.0,
+        "offset_mm": [
+          4.0,
+          0.0,
+          0.0
+        ],
+        "obstacle": "preinserted-short-tube",
+        "common_mm3": 118.81509203931445,
+        "outside_finite_mate_mm3": 118.81509203931445,
+        "distance_mm": 0.0,
+        "common_bounds_mm": [
+          48.133898770232165,
+          311.7712649532105,
+          268.7656994673228,
+          53.3088989712337,
+          328.0085313449263,
+          281.32444765653014
+        ]
+      },
+      {
+        "remaining_barb_stroke_mm": 4.0,
+        "offset_mm": [
+          4.0,
+          0.0,
+          0.0
+        ],
+        "obstacle": "lower-pump-elbow",
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 0.0,
+        "common_bounds_mm": null
+      },
+      {
+        "remaining_barb_stroke_mm": 4.0,
+        "offset_mm": [
+          4.0,
+          0.0,
+          0.0
+        ],
+        "obstacle": "g-ganen-pump",
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 0.11178509581740048,
+        "common_bounds_mm": null
+      },
+      {
+        "remaining_barb_stroke_mm": 2.0,
+        "offset_mm": [
+          2.0,
+          0.0,
+          0.0
+        ],
+        "obstacle": "preinserted-short-tube",
+        "common_mm3": 138.60152953171954,
+        "outside_finite_mate_mm3": 138.60152953171954,
+        "distance_mm": 0.0,
+        "common_bounds_mm": [
+          48.13389877123159,
+          311.7712649532105,
+          268.7656994673228,
+          52.30889897123219,
+          328.0085313449263,
+          281.32444765653014
+        ]
+      },
+      {
+        "remaining_barb_stroke_mm": 2.0,
+        "offset_mm": [
+          2.0,
+          0.0,
+          0.0
+        ],
+        "obstacle": "lower-pump-elbow",
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 0.0,
+        "common_bounds_mm": null
+      },
+      {
+        "remaining_barb_stroke_mm": 2.0,
+        "offset_mm": [
+          2.0,
+          0.0,
+          0.0
+        ],
+        "obstacle": "g-ganen-pump",
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 0.11178509581740048,
+        "common_bounds_mm": null
+      },
+      {
+        "remaining_barb_stroke_mm": 0.0,
+        "offset_mm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "obstacle": "preinserted-short-tube",
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 0.0,
+        "common_bounds_mm": null
+      },
+      {
+        "remaining_barb_stroke_mm": 0.0,
+        "offset_mm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "obstacle": "lower-pump-elbow",
+        "common_mm3": 0.0,
+        "outside_finite_mate_mm3": 0.0,
+        "distance_mm": 0.0,
+        "common_bounds_mm": null
+      },
+      {
+        "remaining_barb_stroke_mm": 0.0,
+        "offset_mm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "obstacle": "g-ganen-pump",
+        "common_mm3": 0.19687950568600077,
+        "outside_finite_mate_mm3": 0.19687950568600077,
+        "distance_mm": 0.0,
+        "common_bounds_mm": [
+          46.39276616622686,
+          325.5650714337682,
+          276.04239665012835,
+          46.413780264953175,
+          331.396329130782,
+          283.81237421189456
+        ]
+      }
+    ],
+    "tube_preinserted_in": "lower-pump-elbow",
+    "scope": "Existing installed-envelope TPU cuff translated on the actual pump-barb axis with the short tube already seated in the back-top elbow. Bands are separate loose installation items; their screw housings, TPU stretch, hand access and flexible assembly motions are not modeled. A rigid interference does not predict TPU installation force."
+  },
+  "status": "requires_sequence_resolution",
+  "manual_reader": {
+    "path": "hardware/mechanical-qualification/enclosure-above-core/approved_carried_group_review.py",
+    "sha256": "48ef84d707007dbe2477bdd976231a1fd71ece93d06ff9af34b6edcda3f4bceb",
+    "command": "HSM_NO_BUILD_LOCK=1 tmp/takeover/cadq \"Approved carried-group query\" -- tools/cad-venv/bin/python hardware/mechanical-qualification/enclosure-above-core/approved_carried_group_review.py --lid <source-current-world-lid.brep>",
+    "scope": "Manually invoked mechanical query; --electrical-only resolves source-wire consequences independently. The execution source hashes remain in source_sha256."
+  }
+}
