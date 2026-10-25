@@ -445,9 +445,10 @@ they do not establish flexible tube handling or physical assembly force.
 
 Keep the drop-in funnel frame separate during final cross-quadrant connections.
 Lift the silicone and remove the frame's four recessed screws to reopen that
-aperture. Its drain cradle snaps into the frame's original 3 mm web. Disconnect
-the drain tube or release the cradle before lifting the frame. Disconnect and
-support crossing connections before reversing the enclosure slides.
+aperture. Its drain cradle snaps into the frame's original 3 mm web. The plug,
+stub, elbow and cradle travel with the frame; disconnect the V-B feed before
+lifting it. Disconnect and support crossing connections before reversing the
+enclosure slides.
 
 ## Cold-core grips
 
@@ -963,17 +964,15 @@ lump one actually reaches into (`Box.column_reliefs`), cut last of all and clipp
 pillar so it can never take the wall behind it or the boss beside it. A column is a
 print-corner feature — what it buys is a fat vertical on the bed, and it buys that over the
 height it does have; a body hung on a wall has already answered to the boss that holds it and
-to whatever the pack packed it against. Two corners are relieved today, and `main()` prints
-every one so a hollowed column is never silent:
+to whatever the pack packed it against. `main()` prints every relief, so a hollowed column is
+never silent. The condenser's flanges relieve the front-east column:
 
 - **X+/Y-** — the condenser's two sheet flanges, at z 8.0–10.4 and 144.6–147.0. The pocket
   shares material with the cradle groove. Its ceiling keeps the column's two 45° walks through
   that overlap, while the groove roof rises toward its insertion mouth; the rail's east end and
   the lens print as one body without restoring a flat roof over the pocket.
-- **X+/Y+** — the PSU's aft-east corner, over z 252.4–306.4, about a millimetre deep at its
-  widest. The brick cannot give ground instead: its rear mount hole is on the aftmost boss
-  station, the relay and the main board are packed one `WIRED_CLEAR` at a time ahead of
-  it, and the front of that stack stands ~1.3 mm off `carb-1`. What a column cannot absorb is a seam station:
+
+What a column cannot absorb is a seam station:
 the lens runs along the wall to its cusp and would be a leaf-shaped hole through a socket
 collar's root, so a station landing there stands one collar radius clear of that cusp
 instead and the collar comes out whole — the front column's front-wall station
@@ -1432,17 +1431,16 @@ of bearing stock. Its apron covers the screw wells; lift the silicone for access
 The drain cradle snaps into the frame's lower web and supports the elbow and
 standing drain stub. Finish the tubing and PCB connections beneath the open
 aperture, then fit the frame, engage the cradle's snap seat and complete the
-drain connection. Disconnect the drain tube or release the cradle snap before
-lifting the frame. The
+drain connection. The plug, stub, elbow and cradle travel with the frame;
+disconnect the V-B feed before lifting it. The
 [drop-in review](../../zone-c/funnel/drop-in-review/native-review.json) records
 nominal fastener stacks and sampled motion; the
 [funnel source](../../zone-c/funnel/README.md) owns its dimensions and physical
 qualification limits.
 
-The upper knuckle bearing is Z318.0 on front-top and Z318.25 on back-top.
-The common raised plane lets back-top pass above the core-owned valve socket
-walls during closing. The M5 × 50 screw retains its full insert engagement;
-its blind tip relief follows the screw’s fixed head seat and length.
+The upper knuckle bearing is Z318.0 on front-top and Z318.25 on back-top,
+heights that fit the M5 × 50 screws on hand. The screw retains its full insert
+engagement; its blind tip relief follows the screw’s fixed head seat and length.
 
 ## back-top's ceiling
 
@@ -1455,10 +1453,9 @@ Y364. Their broad lower plane is Z315.926, above the populated core’s meter
 during the back-column ride; the circular bearing retains at least 3.34 mm of
 stock beneath its west edge.
 
-The west/aft access opening removes the slab over the electrical service space.
-Its empty panel is a separate part and supports no equipment. Four discrete
-bearings and their two-sided roots join the surrounding fixed roof/wall stock.
-The funnel opening and its four frame ledges span the front/back roof seam.
+Aft of the funnel opening the slab is continuous, with component recesses and
+no access panel. The funnel opening and its four frame ledges span the front/back
+roof seam.
 
 The rear nameplate's plain field stands 2.2 mm beyond the rear wall. Its
 complete 3.6 mm backing clears the cold core by 1.09 mm. The named receiver

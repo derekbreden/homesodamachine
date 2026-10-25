@@ -9,8 +9,9 @@ Both flavors share this filling interface.
 Complete the four-quadrant joining, plumbing and electrical connections through the
 open roof. Fit the frame after the central connections, engage the drain cradle’s
 snap seat, and tighten the four screws. Complete the drain connection before
-seating the silicone funnel and smoothing its apron onto the roof. Disconnect
-the drain tube or release the cradle snap before removing the frame.
+seating the silicone funnel and smoothing its apron onto the roof. The plug,
+stub, elbow and cradle travel with the frame; disconnect the V-B feed before
+removing it.
 The [lift-off cover](../funnel-cover/README.md) closes the mouth between fills.
 Remove it before pouring or lifting the silicone out, and reseat it after filling.
 
@@ -115,10 +116,10 @@ Only the [11.25 mm](FRAME_HOLE) drain hole and two straight
 bear above the 3 mm web on both sides. The elbow’s fixed nose face stands
 0.65 mm below the frame’s underside in the released pose.
 
-The cradle, elbow and stub attach to the removable frame. Release the drain
-connection or the cradle’s snap before frame withdrawal. The bare-frame lift
-review excludes those drain parts; it does not establish snap-release access,
-force or the motion of the connected tubing. Fit and inspect the drain before
+The cradle, elbow and stub attach to the removable frame and travel with it;
+disconnect the V-B feed before frame withdrawal. The bare-frame lift review
+excludes those drain parts; it does not establish disconnection access, force
+or the motion of the connected tubing. Fit and inspect the drain before
 seating the silicone funnel.
 
 ## Elbow cradle
@@ -186,7 +187,7 @@ pilots with `funnel_frame.shell_screw_cuts` after furniture is joined.
 The manual [drop-in review](drop-in-review/review.py) measures the authored rigid
 empty frame, ledges, silicone brim bearing, original snap web/socket and screw engagement.
 With production shells included, it also measures the nominal Ø3.3 mm J10 tool
-passages with the frame, cradled drain and electronics panel removed.
+passages with the frame and its cradled drain removed.
 Its [record](drop-in-review/native-review.json) states whether exported production
 upper shells are included. Its lift scope removes the drain cradle, elbow, stub
 and connected tubing. Sampled geometry does not establish hand access,

@@ -171,8 +171,8 @@ relays, meter, V-A/V-K and fitted plumbing beneath a continuous rear ceiling.
 Its printable set includes the upper quadrants, cap/cup and lid interfaces,
 compact rear chips and the 35 mm deeper funnel family. The frame installs
 vertically after the final connections, with the drain cradle snapped into its
-3 mm web. Disconnect the drain tube or release that cradle before lifting
-its frame.
+3 mm web. The plug, stub, elbow and cradle travel with the frame; disconnect
+the V-B feed before lifting it.
 
 The [cap review](../cold-core/foam-cap/above-core-native-review.json),
 [rear identification review](rear-identification/native-review.json) and

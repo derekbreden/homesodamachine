@@ -42,9 +42,9 @@ V-A's selected low route reaches Y-A below the funnel. V-B's return stays aft
 of the funnel, crosses west above the PCB and descends into Y-B. The funnel's
 drain cradle snaps into the removable rigid frame's bottom web. Complete the
 front-to-core and rear-quadrant connections through this opening before lowering
-the frame with its drain assembly and fitting its four screws. Disconnect the
-drain tube or release the cradle before removing the frame.
-The rear ceiling is continuous.
+the frame with its drain assembly and fitting its four screws. The plug, stub,
+elbow and cradle travel with the frame; disconnect the V-B feed before removing
+it. The rear ceiling is continuous.
 
 Keep the low V-A tube/union chain and the lower pump-side elbow loose during
 the back column's ride over the core. The elbow's transverse stem connection

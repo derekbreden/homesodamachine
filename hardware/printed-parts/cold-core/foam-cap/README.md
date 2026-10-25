@@ -31,9 +31,9 @@ its final connection is at front-top's Y-A. No independent V-A printed bearing
 or retaining strip is included in this cap.
 
 Thread the V-B holder before seating the fitting and dress its tie before
-final upper connections. Complete J10 power termination with the selected
-return released; that return occupies its vertical screwdriver corridors.
-Release the flexible return for the recorded J11 service path. The native
+final upper connections. Complete J10 power termination and seat J11 before
+fitting the selected return; that return occupies J10's vertical screwdriver
+corridors, and the recorded J11 housing path belongs to the X−50 return variant. The native
 review includes the source-scoped pump and PCB mounting tools,
 seven JST housing withdrawal columns, both KF301 screw axes and 8 mm straight
 wire-entry lands. J1, J2 and J11 use the complete housing paths in the

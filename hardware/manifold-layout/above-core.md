@@ -19,7 +19,7 @@ retain at least 3 mm above the water and gas fittings.
 | G Ganen pump | Motor fore–aft, discharge −X, four identical rubber feet | Cold-core cup/lid mount columns |
 | PCB | Flat, west/forward, long axis fore–aft; JST connectors upward | Cold-core cup/lid mount columns |
 | Mean Well PSU | On edge on the dry west wall, below the relays | Back-top wall mounts |
-| V-B | Upright east of the PCB, ports fore–aft | Integral cold-core lid socket wall |
+| V-B | On its side east of the PCB, head east, flow aft | Integral cold-core lid socket wall |
 | V-A and V-K | Beside opposite sidewalls; inlet above, outlet below, underside flow arrow down | Integral back-top socket seats |
 | Multiplex ASSE 1022 | Fore–aft above the pump; vent faces west | Two fixed-roof saddles and ties |
 | YZMSZ 0.3 MPa water regulator | Transverse, above the forward pump body | Two fixed-roof saddles and ties |
@@ -62,8 +62,8 @@ The reservoir cap bores remain on their own native datums. The lower fitting
 has a 3.05 mm cover; a broad 2.4 mm upper cover retains the upward-facing
 fitting beneath the PCB tails with 0.25 mm nominal CAD air. The original
 cup-floor section remains intact outside the named bores. Assemble the pair
-and short link in the open cup before closing its lid; these clearances do
-not qualify physical fit or retention loads.
+and short link in the open cup before its lid goes on for the cap pour; these
+clearances do not qualify physical fit or retention loads.
 
 The soda tube rises from the fixed bottom outlet beside the coil, crosses above
 the tank at Z239.4 and exits through the plain guide at X50/Y342.4148/Z253.4.
@@ -84,9 +84,9 @@ The funnel frame drops vertically through the roof and is secured by four
 recessed M3 × 12 screws into RX-M3 × 5.7 inserts. The drain cradle snaps into
 the frame's 3 mm bottom web beneath its 19 mm silicone socket. Complete the
 connections beneath the funnel and between the four quadrants before installing
-the frame and its drain assembly. Frame removal requires disconnecting the
-drain tube or releasing the cradle. The silicone funnel lifts separately for
-cleaning.
+the frame and its drain assembly. The plug, stub, elbow and cradle travel with
+the frame; disconnect the V-B feed before removing it. The silicone funnel lifts
+separately for cleaning.
 
 Prepare the PSU, relays, meter, rear fittings and their connections with
 back-top open on the bench. Complete the accessible central handoffs before
@@ -112,9 +112,10 @@ Its inlet uses level stem elbows with a 10.95 mm exposed straight tube;
 its return crosses west above the PCB at Y280.69954 to the union at
 X−24.83652/Z290.79407, then follows a 2 mm crowned R27.44 return into Y-B.
 The union has a direct lid support near its fixed body band. Terminate the
-PCB power connections before fitting the return. Disconnect and move aside
-the flexible V-B return for J11 service. J11 unmates 6 mm upward, moves 6 mm
-east, then lifts 20 mm with the funnel frame and drain removed.
+PCB power connections and seat J11 before fitting the return. The recorded
+J11 housing path (6 mm up, 6 mm east, then 20 mm up with the funnel frame and
+drain removed) belongs to the X−50 return variant and does not qualify the
+selected return.
 The meter's origin is X50/Y390.9148/Z306.376.
 Two 6 mm fixed-collar bearings reach the east wall through 9 × 3 mm beams.
 The fore beam has a flat dogleg around the gas-drop column; the aft beam
