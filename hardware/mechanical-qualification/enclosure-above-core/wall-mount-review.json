@@ -2401,5 +2401,230 @@
     "PSU drawing envelope, mounting pattern and nominal ear height are published; its terminal blocks are representative. Relay pin and terminal envelopes are representative; its clearance-hole diameter is assumed.",
     "The relay bearing tip is a short functional support interface with an unthreaded screw passage. The full 3 mm insert wall starts behind the pin envelope. No physical pin clearance, tool/hand access, printed load capacity, heat-set retention or lifetime result is implied.",
     "Screw-head dimensions are nominal DIN912 envelopes. Actual fastener and purchased-board fit remain unqualified."
-  ]
+  ],
+  "actual_back_top_binding": {
+    "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+    "sha256": "1a74a3c9dab42fa7defb8de45d4b04c0c74436a93235a97660b131a5fce0c4a2",
+    "stock": {
+      "valid": true,
+      "solids": 1,
+      "faces": 474,
+      "volume_mm3": 1479304.3486830855,
+      "bounds_mm": [
+        -107.5000001,
+        200.1499999,
+        160.2499999,
+        107.5000001,
+        473.5,
+        355.00000010002543
+      ],
+      "center_mm": [
+        -2.3748095551916024,
+        365.46355142712616,
+        279.080757504526
+      ]
+    },
+    "component_geometry_comparison": {
+      "psu": {
+        "bounds_max_deviation_mm": 0.0,
+        "volume_deviation_mm3": 0.0,
+        "same_face_count": true,
+        "same_solid_count": true,
+        "matched": true
+      },
+      "relay-1": {
+        "bounds_max_deviation_mm": 0.0,
+        "volume_deviation_mm3": 0.0,
+        "same_face_count": true,
+        "same_solid_count": true,
+        "matched": true
+      },
+      "relay-2": {
+        "bounds_max_deviation_mm": 0.0,
+        "volume_deviation_mm3": 0.0,
+        "same_face_count": true,
+        "same_solid_count": true,
+        "matched": true
+      },
+      "psu-host-0": {
+        "bounds_max_deviation_mm": 0.0,
+        "volume_deviation_mm3": 0.0,
+        "same_face_count": true,
+        "same_solid_count": true,
+        "matched": true
+      },
+      "psu-host-1": {
+        "bounds_max_deviation_mm": 0.0,
+        "volume_deviation_mm3": 0.0,
+        "same_face_count": true,
+        "same_solid_count": true,
+        "matched": true
+      },
+      "psu-host-2": {
+        "bounds_max_deviation_mm": 0.0,
+        "volume_deviation_mm3": 0.0,
+        "same_face_count": true,
+        "same_solid_count": true,
+        "matched": true
+      },
+      "psu-host-3": {
+        "bounds_max_deviation_mm": 0.0,
+        "volume_deviation_mm3": 0.0,
+        "same_face_count": true,
+        "same_solid_count": true,
+        "matched": true
+      },
+      "relays-host-0": {
+        "bounds_max_deviation_mm": 0.0,
+        "volume_deviation_mm3": 0.0,
+        "same_face_count": true,
+        "same_solid_count": true,
+        "matched": true
+      },
+      "relays-host-1": {
+        "bounds_max_deviation_mm": 0.0,
+        "volume_deviation_mm3": 0.0,
+        "same_face_count": true,
+        "same_solid_count": true,
+        "matched": true
+      },
+      "relays-host-2": {
+        "bounds_max_deviation_mm": 0.0,
+        "volume_deviation_mm3": 0.0,
+        "same_face_count": true,
+        "same_solid_count": true,
+        "matched": true
+      },
+      "relays-host-3": {
+        "bounds_max_deviation_mm": 0.0,
+        "volume_deviation_mm3": 0.0,
+        "same_face_count": true,
+        "same_solid_count": true,
+        "matched": true
+      },
+      "relays-host-4": {
+        "bounds_max_deviation_mm": 0.0,
+        "volume_deviation_mm3": 0.0,
+        "same_face_count": true,
+        "same_solid_count": true,
+        "matched": true
+      },
+      "relays-host-5": {
+        "bounds_max_deviation_mm": 0.0,
+        "volume_deviation_mm3": 0.0,
+        "same_face_count": true,
+        "same_solid_count": true,
+        "matched": true
+      },
+      "relays-host-6": {
+        "bounds_max_deviation_mm": 0.0,
+        "volume_deviation_mm3": 0.0,
+        "same_face_count": true,
+        "same_solid_count": true,
+        "matched": true
+      },
+      "relays-host-7": {
+        "bounds_max_deviation_mm": 0.0,
+        "volume_deviation_mm3": 0.0,
+        "same_face_count": true,
+        "same_solid_count": true,
+        "matched": true
+      }
+    },
+    "local_host_material_missing_mm3": {
+      "psu-host-0": 0.0,
+      "psu-host-1": 0.0,
+      "psu-host-2": 0.0,
+      "psu-host-3": 0.0,
+      "relays-host-0": 0.0,
+      "relays-host-1": 0.0,
+      "relays-host-2": 0.0,
+      "relays-host-3": 0.0,
+      "relays-host-4": 0.0,
+      "relays-host-5": 0.0,
+      "relays-host-6": 0.0,
+      "relays-host-7": 0.0
+    },
+    "equipment_contacts": {
+      "psu": {
+        "common_mm3": 0.0,
+        "contact_bounds_mm": null
+      },
+      "relay-1": {
+        "common_mm3": 0.0,
+        "contact_bounds_mm": null
+      },
+      "relay-2": {
+        "common_mm3": 0.0,
+        "contact_bounds_mm": null
+      }
+    },
+    "finite_insert_stock": [
+      {
+        "equipment": "psu",
+        "native_hole_index": 0,
+        "complete3mm_insert_wall_missing_mm3": 0.0,
+        "complete3mm_blind_floor_missing_mm3": 0.0
+      },
+      {
+        "equipment": "psu",
+        "native_hole_index": 1,
+        "complete3mm_insert_wall_missing_mm3": 0.0,
+        "complete3mm_blind_floor_missing_mm3": 0.0
+      },
+      {
+        "equipment": "psu",
+        "native_hole_index": 2,
+        "complete3mm_insert_wall_missing_mm3": 0.0,
+        "complete3mm_blind_floor_missing_mm3": 0.0
+      },
+      {
+        "equipment": "psu",
+        "native_hole_index": 3,
+        "complete3mm_insert_wall_missing_mm3": 0.0,
+        "complete3mm_blind_floor_missing_mm3": 0.0
+      },
+      {
+        "equipment": "relay-1",
+        "native_hole_index": 0,
+        "complete3mm_insert_wall_missing_mm3": 0.0,
+        "complete3mm_blind_floor_missing_mm3": 0.0
+      },
+      {
+        "equipment": "relay-1",
+        "native_hole_index": 3,
+        "complete3mm_insert_wall_missing_mm3": 0.0,
+        "complete3mm_blind_floor_missing_mm3": 0.0
+      },
+      {
+        "equipment": "relay-2",
+        "native_hole_index": 0,
+        "complete3mm_insert_wall_missing_mm3": 0.0,
+        "complete3mm_blind_floor_missing_mm3": 0.0
+      },
+      {
+        "equipment": "relay-2",
+        "native_hole_index": 3,
+        "complete3mm_insert_wall_missing_mm3": 0.0,
+        "complete3mm_blind_floor_missing_mm3": 0.0
+      }
+    ],
+    "relay2_top_world_z_mm": 344.0,
+    "plain_roof_inner_world_z_mm": 346.0,
+    "relay2_to_actual_ceiling_band_gap_mm": 2.0,
+    "comparison_tolerances": {
+      "coordinate_mm": 1e-05,
+      "volume_mm3": 0.001,
+      "volume_relative": 1e-07,
+      "faces_solids": "exact"
+    },
+    "reproduce": "HSM_NO_BUILD_LOCK=1 tmp/takeover/cadq \"bind actual dry-wall hosts\" -- tools/cad-venv/bin/python hardware/mechanical-qualification/enclosure-above-core/wall_mounts.py --bind-back-top hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+    "binding_source_sha256": {
+      "hardware/mechanical-qualification/enclosure-above-core/wall_mounts.py": "a04c285de6d3b91fc6a095b51842ab200526ed9368922be1b5c0aadce42384ca",
+      "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "1c3375a7c896ea0f4075037e8e83ef1087e794fc6b3ca24808e7a2b16eb8157c",
+      "hardware/manifold-layout/above-core.json": "04887b550cc53b2516832689b40f81a56e83119e4cc04921ad9819ed343c726b"
+    },
+    "scope": "Imported back-top only versus the three unchanged equipment bodies and eight finite insert-wall/floor witnesses. Electrical results above retain their original source/cache binding; those pairs were not replayed.",
+    "passed": true
+  }
 }
