@@ -88,6 +88,22 @@ hardware/printed-parts/zone-c/funnel/elbow-cradle.stl
 hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl
 hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl
 hardware/printed-parts/zone-c/funnel/cradle-trial/test-*.stl
+# Print meshes cut from a STEP-only part's STEP by trial-preparation/step_meshes.py, which
+# binds each to its STEP digest in step-meshes.json.
+hardware/printed-parts/cold-core/copper-plugs/copper-plug-*.stl
+hardware/printed-parts/cold-core/prv-shroud/prv-shroud.stl
+hardware/printed-parts/cold-core/reed-bridge/reed-bridge.stl
+hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.stl
+hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl
+hardware/printed-parts/cold-core/reservoir/reservoir-gasket.stl
+hardware/printed-parts/cold-core/reservoir/reservoir-retaining-ring.stl
+hardware/printed-parts/cold-core/reservoir/reservoir-left.stl
+hardware/printed-parts/cold-core/reservoir/reservoir-right.stl
+hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.stl
+hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.stl
+hardware/printed-parts/enclosure/display-gasket/display-gasket.stl
+hardware/printed-parts/enclosure/data-ring/data-ring.stl
+hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.stl
 # The placement pass hands this description directly from `//:enclosure-box` to the enclosure,
 # ceiling and full-assembly actions. Direct design runs derive the live placement and never read
 # a checkout copy, so retaining one here would only preserve a stale action intermediate.

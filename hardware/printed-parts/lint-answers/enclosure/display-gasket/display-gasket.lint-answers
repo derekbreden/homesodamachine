@@ -1,0 +1,13 @@
+[thin] Derived seal section: the ring's 1 mm is the gap between the display cover plate's underside, 3.84 mm below the display plane, and the glass's front face at 4.84 mm (display-gasket/README.md). The ring fills it so the snap-retained cover bears on the glass through TPU.
+alternatives: A thicker ring holds the cover off its snap seat; a thinner one leaves the cover bearing on bare glass or not at all. Either is a change to the cover or the display's mounting, not to this ring.
+file: hardware/printed-parts/enclosure/display-gasket/display-gasket.step
+click: x=-53.795 y=-35.490 z=-4.840
+click: x=-53.795 y=-35.490 z=-3.840
+
+[sliver] The ring's own 1 mm edges: the outer edge on the glass's 113.5 × 77 mm outline and the inner edge on the cover plate's 107.5 × 71 mm window, 3 mm apart (display-gasket/README.md). They are the derived 1 mm thickness seen side-on.
+alternatives: As for the section: the thickness is set by the cover and glass faces it fills between.
+file: hardware/printed-parts/enclosure/display-gasket/display-gasket.step
+click: x=0.000 y=-38.500 z=-4.340
+click: x=0.000 y=38.500 z=-4.340
+click: x=0.000 y=35.500 z=-4.340
+click: x=0.000 y=-35.500 z=-4.340

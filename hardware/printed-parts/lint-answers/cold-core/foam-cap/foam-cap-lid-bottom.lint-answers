@@ -1,0 +1,19 @@
+[ceiling] Functional head seat: each clamp screw's head bears on this flat. The bottom lid prints outer face down, so its Ø5.8 counterbore and radial slot open on the bed, and the seat prints as a 1.25 mm overhang ring around the screw hole, under the cold-core recipe with supports off.
+alternatives: Printing mouth side down stands the plate on its head pads and turns the whole plate into a ceiling. A tree stub inside a Ø5.8 × 3.4 mm blind pocket is hard to clear and marks the bearing face. A sacrificial skin across the pocket mouth adds a drilling step.
+file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step
+click: x=40.000 y=86.900 z=3.400
+click: x=-40.000 y=86.900 z=3.400
+click: x=-40.000 y=-86.900 z=3.400
+click: x=40.000 y=-86.900 z=3.400
+click: x=-137.900 y=0.000 z=3.400
+click: x=137.900 y=0.000 z=3.400
+click: x=-131.871 y=-86.776 z=3.400
+click: x=-131.871 y=86.776 z=3.400
+click: x=131.871 y=86.776 z=3.400
+click: x=131.871 y=-86.776 z=3.400
+
+[thin] Outside this pass and reported to Derek: the cold-core stack's shared 2 mm section. The bottom lid's plate is the stack's 2.0 mm floor section, the same one the shell and the top cap carry.
+alternatives: A 3 mm floor or plate raises the stack by a millimetre at each end or takes it from the foam. Derek's printed shell carries the present section. Either is a stack revision, not a local fix.
+file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step
+click: x=-127.030 y=-84.250 z=2.835
+click: x=-128.853 y=-85.066 z=2.835
