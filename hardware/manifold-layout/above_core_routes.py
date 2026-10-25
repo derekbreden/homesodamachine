@@ -283,32 +283,57 @@ def route_specifications(station):
     # Reservoir guides come from the current native cap interface. B-fill's
     # JG mouth is above the lid; its lower stem/link belong to the core builder.
     a_fill = station('foam-assembly', 'reservoir-a-fill')[0]
-    a_fill_s_start = (a_fill[0], 406., 290.)
-    a_fill_shift = a_fill[1]-a_fill_s_start[1]
+    a_fill_s_start = (92.5, 442., 283.)
+    a_fill_delta = (a_fill[0]-a_fill_s_start[0],
+                    a_fill[1]-a_fill_s_start[1], 0.)
+    a_fill_shift = _norm(a_fill_delta)
+    a_fill_direction = _unit(a_fill_delta)
+    a_fill_axis = (a_fill_direction[1], -a_fill_direction[0], 0.)
     a_fill_angle = math.acos(1-a_fill_shift/(2*14.))
-    a_fill_first, a_fill_mid = _arc(a_fill_s_start, (0., 0., -1.), (1., 0., 0.), a_fill_angle, 14.)
-    a_fill_second, a_fill_s_end = _arc(a_fill_mid, (0., math.sin(a_fill_angle), -math.cos(a_fill_angle)),
-                                             (-1., 0., 0.), a_fill_angle, 14.)
+    a_fill_first, a_fill_mid = _arc(a_fill_s_start, (0., 0., -1.),
+                                  a_fill_axis, a_fill_angle, 14.)
+    a_fill_second, a_fill_s_end = _arc(
+        a_fill_mid, (a_fill_direction[0]*math.sin(a_fill_angle),
+                     a_fill_direction[1]*math.sin(a_fill_angle),
+                     -math.cos(a_fill_angle)),
+        _mul(a_fill_axis, -1.), a_fill_angle, 14.)
     route('fluid-14', ('valve-v-f', 'outlet'), ('foam-assembly', 'reservoir-a-fill'),
           [(82.1, 108.04, 297.7), (29.75, 108.04, 295.25),
            (29.75, 280., 295.25), (29.75, 280., 341.8), (92.5, 280., 341.8),
-           (92.5, 350., 341.8), (92.5, 406., 341.8), (a_fill[0], 406., 341.8), a_fill_s_start],
+           (92.5, 350., 341.8), (92.5, 442., 341.8), a_fill_s_start],
           destination_depth=0., suffix=[a_fill_first, a_fill_second, _line(a_fill_s_end, a_fill)],
-          note='A fill passes west of V-B below the frame, rises aft of the frame and crosses above V-K before descending into its R14 guide S')
+          note='A fill passes west of V-B, crosses above V-K and descends aft of the gas fold through an R14 S into the fixed guide')
+    # A draw passes west of the V-B return, crosses below B draw ahead of the
+    # drain cradle, then rises on two R14 arcs before the V-E entry bend.
+    a_draw_target = station('valve-v-e', 'inlet')[0]
+    a_draw_cross_y = 156.
+    a_draw_low = 288.3
+    a_draw_level = a_draw_target[2] + 14.
+    a_draw_angle = math.acos(1-(a_draw_level-a_draw_low)/(2*14.))
+    a_draw_rise_start = (-15., a_draw_cross_y, a_draw_low)
+    a_draw_rise, a_draw_mid = _arc(a_draw_rise_start, (1., 0., 0.),
+                                  (0., -1., 0.), a_draw_angle, 14.)
+    a_draw_restore, a_draw_rise_end = _arc(
+        a_draw_mid, (math.cos(a_draw_angle), 0., math.sin(a_draw_angle)),
+        (0., 1., 0.), a_draw_angle, 14.)
+    a_draw_down_start = (a_draw_target[0], a_draw_target[1]+14., a_draw_level)
+    a_draw_fore = _rounded([
+        a_draw_rise_end,
+        (a_draw_target[0], a_draw_cross_y, a_draw_level),
+        a_draw_down_start], 14.)
+    a_draw_down, _ = _arc(a_draw_down_start, (0., -1., 0.),
+                          (1., 0., 0.), math.pi/2, 14.)
     route('fluid-16', ('foam-assembly', 'reservoir-a'), ('valve-v-e', 'inlet'),
           [(45., 408., 291.), (61., 436., 291.), (61., 455., 291.),
-           (-18., 455., 291.), (-18., 455., 321.5), (-18., 330., 321.5),
-           (-18., 280., 296.175), (15., 280., 296.175),
-           (15., 230., 296.175), (22.35, 150., 296.175), (22.35, 108.04, 296.175)],
-          source_depth=0.)
+           (-14., 455., 291.), (-14., 455., 321.5), (-14., 330., 321.5),
+           (-40., 280., 295.7), (-40., 210., 295.7),
+           (-40., a_draw_cross_y, a_draw_low), a_draw_rise_start],
+          source_depth=0.,
+          suffix=[a_draw_rise, a_draw_restore, *a_draw_fore, a_draw_down],
+          note='A draw clears the selected V-B return and drain cradle through west and low fore lanes')
     b_draw = station('foam-assembly', 'reservoir-b')[0]
     b_draw_target = station('valve-v-h', 'inlet')[0]
     b_draw_z = 295.7
-    b_draw_s_start = (b_draw[0]+2., 202., b_draw_z)
-    b_draw_angle = math.acos(1-(b_draw_s_start[0]-b_draw_target[0])/(2*14.))
-    b_draw_first, b_draw_mid = _arc(b_draw_s_start, (0., -1., 0.), (0., 0., -1.), b_draw_angle, 14.)
-    b_draw_second, b_draw_s_end = _arc(b_draw_mid, (-math.sin(b_draw_angle), -math.cos(b_draw_angle), 0.),
-                                               (0., 0., 1.), b_draw_angle, 14.)
     b_draw_down_start = (b_draw_target[0]+14., b_draw_target[1], b_draw_target[2]+14.)
     b_draw_rise_angle = math.acos(1-(b_draw_down_start[2]-b_draw_z)/(2*14.))
     b_draw_rise_start = (b_draw_down_start[0]+28.*math.sin(b_draw_rise_angle), b_draw_target[1], b_draw_z)
@@ -316,14 +341,14 @@ def route_specifications(station):
                                                        b_draw_rise_angle, 14.)
     b_draw_rise_second, _ = _arc(b_draw_rise_mid, (-math.cos(b_draw_rise_angle), 0., math.sin(b_draw_rise_angle)),
                                               (0., -1., 0.), b_draw_rise_angle, 14.)
-    b_draw_fore = _rounded([b_draw_s_end, (b_draw_target[0], 138., b_draw_z),
-                           (11.3, 138., b_draw_z), (11.3, b_draw_target[1], b_draw_z), b_draw_rise_start], 14.)
     b_draw_down, _ = _arc(b_draw_down_start, (-1., 0., 0.), (0., -1., 0.), math.pi/2, 14.)
     route('fluid-26', ('foam-assembly', 'reservoir-b'), ('valve-v-h', 'inlet'),
-          [(b_draw[0], b_draw[1], b_draw_z), (b_draw_s_start[0], 210., b_draw_z), b_draw_s_start],
-          source_depth=0., suffix=[b_draw_first, b_draw_second, *b_draw_fore,
-                                  b_draw_rise_first, b_draw_rise_second, b_draw_down],
-          note='B draw clears the PCB connector withdrawal spaces and cradle through an R14 S, then enters V-H from the fore corridor')
+          [(b_draw[0], b_draw[1], b_draw_z), (b_draw_target[0], 214., b_draw_z),
+           (b_draw_target[0], 138., b_draw_z), (11.3, 138., b_draw_z),
+           (11.3, b_draw_target[1], b_draw_z), b_draw_rise_start],
+          source_depth=0.,
+          suffix=[b_draw_rise_first, b_draw_rise_second, b_draw_down],
+          note='B draw completes its westward offset aft of the drain cradle, then enters V-H from the fore corridor')
     b_fill = station('foam-assembly', 'reservoir-b-fill')[0]
     route('fluid-24', ('valve-v-i', 'outlet'), ('foam-assembly', 'reservoir-b-fill'),
           [(-82.1, 108.04, 296.175), (-82.1, 180., 296.175),
