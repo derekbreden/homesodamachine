@@ -5322,5 +5322,320 @@
       ],
       "scope": "The descriptive electronics-access C14 datum matches the approved active pose. This metadata edit changes neither the queried c14-inlet pose nor rear-wall cutters, fastener datums or local stock; no native query or export is repeated."
     }
+  },
+  "selected_legacy_continuations": {
+    "scope": "Manual native correction of three legacy reservoir continuations around the approved V-B return, meter and removable drain cradle. Actual receiving endpoints and approved body/fitting poses are fixed. CAD geometry only; physical bending, insertion marks, dressing, retention and force remain unqualified. Subsequent PSU/relay/meter mount and wiring changes need their own geometry scope.",
+    "reference_ea_sha256": "c053798bde2773d65c4a735728f82754e2ccfae06d3557de058ff8011ff6a127",
+    "reference_back_top_sha256": "93c4e463c1e9e36f1867616b9b0b3e5df5a59410a5daa3b434ff1e59434ed22c",
+    "substituted_j2_wire_sha256": "d02971e3dc1c4c58c96cad9f49c00997a13227fb1566dd39dbaef4452eace6f9",
+    "production_source_binding": {
+      "source_sha256": "b98a1831569c7c8e980c776fba474d8fbce2210dc7db91613c512d47f1869cea",
+      "routes": {
+        "fluid-16": {
+          "maximum_segment_point_deviation_mm": 1.4210854715202004e-14,
+          "segments": 26
+        },
+        "fluid-26": {
+          "maximum_segment_point_deviation_mm": 2.842170943040401e-14,
+          "segments": 15
+        },
+        "fluid-14": {
+          "maximum_segment_point_deviation_mm": 0.0,
+          "segments": 16
+        }
+      }
+    },
+    "routes": {
+      "fluid-14": {
+        "valid": true,
+        "solids": 1,
+        "native_target_count": 26,
+        "contacts": [
+          {
+            "name": "valve-v-f",
+            "volume_mm3": 91.2581457907578,
+            "bounds_mm": [
+              [
+                78.925,
+                104.865,
+                269.475
+              ],
+              [
+                85.27499999999999,
+                111.21499999999999,
+                274.675
+              ]
+            ]
+          }
+        ],
+        "nearest_under_1_5_mm": [
+          {
+            "name": "valve-v-f",
+            "gap_mm": 0.0
+          },
+          {
+            "name": "cold-core/line-reservoir-a-fill",
+            "gap_mm": 2.842170943040401e-14
+          },
+          {
+            "name": "enclosure-back-top",
+            "gap_mm": 1.0249999999999773
+          },
+          {
+            "name": "wire-AC5-N",
+            "gap_mm": 1.058569999999975
+          },
+          {
+            "name": "wire-PE-bus",
+            "gap_mm": 1.075000000000063
+          },
+          {
+            "name": "cold-core/foam-cap-lid-top",
+            "gap_mm": 1.0750000156410024
+          },
+          {
+            "name": "funnel-frame",
+            "gap_mm": 1.3320480188815749
+          },
+          {
+            "name": "wire-J1-positive-A",
+            "gap_mm": 1.3886024457046198
+          },
+          {
+            "name": "tube-fluid-28",
+            "gap_mm": 1.465580493160699
+          }
+        ],
+        "length_mm": 599.7529641392533,
+        "first_endpoint_mm": [
+          82.1,
+          108.03999999999999,
+          269.475
+        ],
+        "last_endpoint_mm": [
+          61.000000015640786,
+          426.2999999,
+          253.4
+        ],
+        "first_endpoint_unchanged": true,
+        "last_endpoint_unchanged": true
+      },
+      "fluid-16": {
+        "valid": true,
+        "solids": 1,
+        "native_target_count": 19,
+        "contacts": [
+          {
+            "name": "wire-J9-B",
+            "volume_mm3": 0.4452925239608161,
+            "bounds_mm": [
+              [
+                9.054691357277953,
+                154.15189472029007,
+                292.9999998995123
+              ],
+              [
+                10.568998023664003,
+                156.88688721993736,
+                293.5030931372701
+              ]
+            ]
+          }
+        ],
+        "nearest_under_1_5_mm": [
+          {
+            "name": "wire-J9-B",
+            "gap_mm": 5.684341886080802e-14
+          },
+          {
+            "name": "cold-core/foam-cap-lid-top",
+            "gap_mm": 0.3729843167422924
+          },
+          {
+            "name": "funnel-frame",
+            "gap_mm": 0.5499999999999545
+          },
+          {
+            "name": "tube-fluid-14",
+            "gap_mm": 1.107588417176137
+          },
+          {
+            "name": "wire-AC5-N",
+            "gap_mm": 1.195447837805909
+          },
+          {
+            "name": "wire-PE-bus",
+            "gap_mm": 1.2606459679990834
+          }
+        ],
+        "length_mm": 602.056415157636,
+        "first_endpoint_mm": [
+          45.000000015640786,
+          407.9999999,
+          253.4
+        ],
+        "last_endpoint_mm": [
+          22.35,
+          108.04,
+          269.475
+        ],
+        "first_endpoint_unchanged": true,
+        "last_endpoint_unchanged": true
+      },
+      "fluid-26": {
+        "valid": true,
+        "solids": 1,
+        "native_target_count": 55,
+        "contacts": [
+          {
+            "name": "valve-v-h",
+            "volume_mm3": 91.25814579075801,
+            "bounds_mm": [
+              [
+                -25.525000000000002,
+                104.86500000000001,
+                269.475
+              ],
+              [
+                -19.175,
+                111.215,
+                274.675
+              ]
+            ]
+          }
+        ],
+        "nearest_under_1_5_mm": [
+          {
+            "name": "valve-v-h",
+            "gap_mm": 0.0
+          },
+          {
+            "name": "cold-core/line-reservoir-b",
+            "gap_mm": 0.0
+          },
+          {
+            "name": "wire-DC2-V12",
+            "gap_mm": 0.3250000156407733
+          },
+          {
+            "name": "wire-DC4-V12",
+            "gap_mm": 0.4278619626882137
+          },
+          {
+            "name": "wire-J7-earth-4",
+            "gap_mm": 0.818681510772456
+          },
+          {
+            "name": "wire-J4-V5",
+            "gap_mm": 0.8698987448595051
+          },
+          {
+            "name": "wire-J7-RB2",
+            "gap_mm": 0.9893202160143596
+          },
+          {
+            "name": "wire-J9-B",
+            "gap_mm": 1.0051982640235564
+          },
+          {
+            "name": "cold-core/pcba",
+            "gap_mm": 1.0249939121207738
+          },
+          {
+            "name": "funnel-frame",
+            "gap_mm": 1.0249999999999773
+          },
+          {
+            "name": "wire-J1-OUT7",
+            "gap_mm": 1.1342754130813733
+          },
+          {
+            "name": "wire-J7-RB3",
+            "gap_mm": 1.4155111207144777
+          },
+          {
+            "name": "wire-J1-OUT6",
+            "gap_mm": 1.4265803340335343
+          }
+        ],
+        "length_mm": 234.1053992658924,
+        "first_endpoint_mm": [
+          -5.999999984359227,
+          229.4999999,
+          253.4
+        ],
+        "last_endpoint_mm": [
+          -22.35,
+          108.04,
+          269.475
+        ],
+        "first_endpoint_unchanged": true,
+        "last_endpoint_unchanged": true
+      }
+    },
+    "a_draw_retained_rear_scope": {
+      "native_target_count": 36,
+      "scope": "The complete first A-draw query supplies unchanged rear and receiving-span readings. The final native delta repeats X\u221245..28/Y118..212/Z284..301 for its changed fore crossing. The earlier fore crossing and its J9 result are superseded.",
+      "retained_near_gaps_mm": [
+        {
+          "name": "cold-core/line-reservoir-a",
+          "gap_mm": 0.0
+        },
+        {
+          "name": "cold-core/foam-cap-lid-top",
+          "gap_mm": 0.3729843167422924
+        },
+        {
+          "name": "funnel-frame",
+          "gap_mm": 0.5499999999999545
+        },
+        {
+          "name": "tube-fluid-14",
+          "gap_mm": 1.107588417176137
+        },
+        {
+          "name": "wire-AC5-N",
+          "gap_mm": 1.195447837805909
+        },
+        {
+          "name": "wire-PE-bus",
+          "gap_mm": 1.2606459679990834
+        },
+        {
+          "name": "tube-fluid-18",
+          "gap_mm": 1.3250000000000473
+        }
+      ]
+    },
+    "route_pair_air_mm": {
+      "fluid-14 / fluid-16": 1.1075884171761374,
+      "fluid-14 / fluid-26": 12.105486988968877,
+      "fluid-16 / fluid-26": 1.0499999999999545
+    },
+    "receiving_end_scope": "Each retained 91.25814579 mm\u00b3 V-E/V-F/V-H body contact occupies the unchanged straight end of its nominal 12.7 mm receiving segment. It is reported as a receiving contact, not as a broad valve-body clearance exemption. The other guide ends remain plain continuous tube boundaries.",
+    "fixed_neighbor_result": "The queried revised tubes have zero nonmate contact with purchased components, printed stock and the other installed tubes. The sole remaining source-wire contact is named separately.",
+    "electrical_followup": {
+      "status": "Local J9-B dressing pending",
+      "tube": "fluid-16",
+      "wire": "wire-J9-B",
+      "intersection_mm3": 0.4452925239608161,
+      "bounds_mm": [
+        [
+          9.054691357277953,
+          154.15189472029007,
+          292.9999998995123
+        ],
+        [
+          10.568998023664003,
+          156.88688721993736,
+          293.5030931372701
+        ]
+      ]
+    },
+    "manual_receipts_sha256": {
+      "tmp/selected-continuation-native/review.json": "a095baf1982fe0f4aca3ae6ef396866a0578b2c8056bbf5fcd0d0e4c2e2b03fc",
+      "tmp/selected-continuation-final-native/review.json": "d816ff3466268553dcc258ae3eb99ce770c962053cc1c3cf99dae20eb8857cca",
+      "tmp/selected-fill-final-native/review.json": "b4a180e4c8e5c7245cdea7fc7acbdcc0cc37ba05334adb4a18ae0f6c3b8ccb77"
+    }
   }
 }
