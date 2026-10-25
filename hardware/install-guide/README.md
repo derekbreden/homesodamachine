@@ -43,7 +43,7 @@ The cabinet dimensions include the seated 3 mm funnel-cover plate.
 
 The mounting illustrations use a nominal 30 mm countertop and approximate retained
 washer and nut envelopes. Complete clamp engagement and maximum supported countertop
-thickness remain open in the [mechanical concerns](../concerns.md). The 19–38 mm
+thickness are unmeasured ([mount stack](../printed-parts/faucet/faucet-shell/ASSEMBLY.md)). The 19–38 mm
 geometric routing envelope measures tube and plate clearance.
 
 ## Artwork

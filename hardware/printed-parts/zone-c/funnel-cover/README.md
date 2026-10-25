@@ -28,8 +28,7 @@ the bottle's filling envelope.
 Direct overhead drips and debris meet the plate instead of the open bowl.
 Runoff leaves at the plate perimeter onto the funnel's continuous silicone
 apron, which covers the exposed frame joints and reaches the exterior sides.
-The apron's flat underside rests on the roof. Physical water exclusion
-remains open in the [concerns register](/hardware/concerns.md).
+The apron's flat underside rests on the roof.
 Remove external water and debris
 before opening it, and clean both faces separately from the funnel.
 

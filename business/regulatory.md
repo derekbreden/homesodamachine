@@ -89,8 +89,6 @@ The U.S. home sparkling-water manual survey covers:
 - **ASSE 1022 specified, with no vent discharge location described:** GROHE Blue includes it; Zip HydroTap requires the installer to add it on the supply.
 - **Office-product reference:** Bevi describes discharge over an internal carbonator tray with a leak-detection valve, or through a tube to a container in the cabinet.
 
-Open engineering items are tracked separately in the [hardware concerns register](/hardware/concerns.md).
-
 ## AIM Act — not applicable
 
 The American Innovation and Manufacturing Act regulates HFCs. R-600a is a hydrocarbon, not an HFC, and is outside the scope of AIM Act phase-down rules, leak-management thresholds (15 lb rule, Jan 2026), and refillable-cylinder requirements.

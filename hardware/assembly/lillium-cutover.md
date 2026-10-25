@@ -212,8 +212,8 @@ Build both closed before they go into the shell ([cold core §4](cold-core.md#4-
 4. **Close:** the PTFE membrane and its TPU ring in the cap's vent pocket, the TPU gasket on the
    wall top, the cap over the rod, six 304 M3×12.
 5. **Water test now:** fill each with water and leave them a few hours over a towel. The current
-   reservoir prints have no water result ([concerns](/hardware/concerns.md), "Reservoir
-   watertightness").
+   reservoir recipe's water results are in the
+   [reservoir record](/hardware/printed-parts/cold-core/reservoir/README.md).
 
 ## 6. Close the box
 
@@ -357,6 +357,5 @@ The main board runs `b79be4d54` or later. Nothing is configured for this build.
 1. **Pump current.** Read one pump's startup and stall current with the multimeter in series on a
    motor lead. The cartridge contacts are rated 2 A each. A batch-1 or batch-2 board limits motor
    current only at the driver's 3.7–6.4 A overcurrent protection; a board built from the current
-   source holds it at 1.54–1.81 A ([concerns](/hardware/concerns.md), "Pump startup or jam current
-   through the pogo contacts").
+   source holds it at 1.54–1.81 A.
 2. **The first glass.** Leave it idle overnight, then pour each flavor without priming.
