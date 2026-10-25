@@ -910,7 +910,7 @@
         "terminal": "psu.GND",
         "offset": [
           62.0,
-          -69.50001221,
+          -72.50001221,
           -1.6
         ]
       },
@@ -918,7 +918,7 @@
         "terminal": "psu.GND",
         "offset": [
           91.8,
-          -69.50001221,
+          -72.50001221,
           -1.6
         ]
       },
@@ -954,7 +954,7 @@
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "native_review_pending",
-    "note": "The back-top PSU secondary exits west of V-A, crosses above the aft PCB housings and reaches its core junction from above. Its source-native stock/contact review is in progress; physical bend, entry and dressing remain unqualified."
+    "note": "Installed route to the back-top dry-wall PSU arrangement, preserving the named terminal frames and graph. Physical lead dressing and termination fit remain unqualified."
   },
   "DC1-V12": {
     "stations": [
@@ -979,7 +979,7 @@
         "offset": [
           -8.2,
           -18.00001221,
-          -25.4
+          -24.3
         ]
       },
       {
@@ -987,7 +987,7 @@
         "offset": [
           -8.2,
           -36.00001221,
-          -25.4
+          -24.3
         ]
       },
       {
@@ -995,7 +995,7 @@
         "offset": [
           62.0,
           -36.00001221,
-          -25.4
+          -24.3
         ]
       },
       {
@@ -1054,7 +1054,7 @@
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "native_review_pending",
-    "note": "The back-top PSU secondary exits west of V-A, crosses above the aft PCB housings and reaches its core junction from above. Its source-native stock/contact review is in progress; physical bend, entry and dressing remain unqualified.",
+    "note": "Installed route to the back-top dry-wall PSU arrangement, preserving the named terminal frames and graph. Physical lead dressing and termination fit remain unqualified.",
     "endpoint_tangent_fraction": 0.9
   },
   "DC4-GND": {
