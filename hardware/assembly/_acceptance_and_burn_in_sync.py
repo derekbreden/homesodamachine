@@ -40,16 +40,16 @@ co2_primary_set_psi = 75                # the unit's own Taprite 3741 primary, s
 co2_primary_set_tol_psi = 5             # locked in step 1; it ships at this setting
 co2_primary_relief_psi = 130            # its safety blow-off, 130 ± 4 PSI on Taprite's
 co2_primary_relief_tol_psi = 4          # 3741 drawing
-secondary_listed_psi = 50               # Interstate's listing for the WR1105, whose
-                                        # barrel reads 3 bar
+secondary_listed_psi = 44               # PISCO's listing for the RVFUP1/4-1/4-0.3's
+                                        # 0.3 MPa preset
 
-# Centerline: the in-appliance WR1105 secondary regulator's preset, which holds the
+# Centerline: the in-appliance PISCO secondary regulator's preset, which holds the
 # gas feed from the primary's factory setting above it.
 co2_centerline_psi = secondary_regulator_pressure_psi
 assert (co2_primary_set_psi - co2_primary_set_tol_psi
         > max(co2_centerline_psi, secondary_listed_psi)), (
     f"the primary's {co2_primary_set_psi:g} ± {co2_primary_set_tol_psi:g} PSI factory "
-    f"setting does not clear the WR1105's preset — the primary must feed it from above")
+    f"setting does not clear the PISCO's preset — the primary must feed it from above")
 assert (co2_primary_set_psi + co2_primary_set_tol_psi
         < co2_primary_relief_psi - co2_primary_relief_tol_psi), (
     f"the primary's factory setting reaches its own {co2_primary_relief_psi:g} PSI blow-off")

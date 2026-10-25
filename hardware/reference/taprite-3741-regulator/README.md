@@ -11,8 +11,8 @@ threads onto anything: the CGA-320 nut pulls down on the cylinder valve.
 regulator and sets it:
 
 - Taprite's 1/4" flare outlet fitting with its ball check (5436A) comes out of the body's 1/4" NPT
-  outlet port, and a gray acetal John Guest PI010822S threads in, sealed as WR1105 IN is
-  ([`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md)).
+  outlet port, and a gray acetal John Guest PI010822S threads in on the build's PTFE
+  thread-seal tape ([`bom.md`](/hardware/ledger/bom.md) §1).
 - The unit's red 1/4" LLDPE tether pushes into that PI010822S and stays there: regulator and tether
   ship as one piece, and the tether's other end goes into the CO2 bulkhead on the +Y wall of
   back-top.
@@ -22,8 +22,8 @@ regulator and sets it:
 
 There is no knob and no outlet shutoff. The customer seats a washer in the nut, tightens it onto the
 cylinder, pushes the tether's free end into the machine and opens the cylinder valve. The in-machine
-WR1105 holds the feed at 3 bar below the 75 psi, and the GASHER check downstream of it is the gas
-path's check valve.
+PISCO RVFUP1/4-1/4-0.3 secondary holds the feed at its 0.3 MPa preset below the 75 psi, and the
+neoFit ACHV44-E downstream of it is the gas path's check valve.
 
 ## Six things a picture points at
 

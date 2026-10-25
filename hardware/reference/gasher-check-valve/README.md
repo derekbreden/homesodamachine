@@ -1,18 +1,15 @@
 # GASHER 1/4" NPT inline check valve
 
 Owned SKU B0FV2D2FFX has a female 1/4-inch NPT inlet and male 1/4-inch NPT
-outlet in the nominal dimensional drawing. Verify the supplied body's arrow
-runs female → male. It serves the **gasher-co2** position downstream of the WR1105, before the cold core's plain bottom gas port. Its female inlet takes PI010822S; its male outlet takes PI450822S.
+outlet in the nominal dimensional drawing. It is not part of the appliance.
+Both of the machine's check valves, the CO2 check downstream of the PISCO
+secondary and the pump-discharge water check, are the push-connect
+[neoFit ACHV44-E](../neofit-achv44-check/README.md).
 
 The owned valve's exact body and seat materials are not established by the
 source drawing. Stainless/PTFE and nickel-plated-copper/soft-seat descriptions
-in the source record conflict. Confirm the supplier specification, pressure
-rating, CO2/carbonated-water suitability, cracking pressure and reverse sealing
-before qualifying the part for this duty. The gas-check placement must
-include the adapters, as specified in
-[internal plumbing](/hardware/assembly/internal-plumbing.md).
-
-Fluid roles are in [fluid topology](/hardware/topology/fluid-topology.md).
+in the source record conflict. Its pressure rating, CO2/carbonated-water
+suitability, cracking pressure and reverse sealing are unconfirmed.
 
 ## Model
 
@@ -29,7 +26,7 @@ threads are plain cylinders at the nominal major Ø.
 | female socket boss | Ø15.5 × 11 mm | inlet end, the depth a male threads in |
 | male NPT stub | Ø13.7 × 11 mm | outlet end, 1/4" NPT major Ø, simplified |
 
-Frame: **+Y = flow axis** (matches the enclosure placement), the female inlet
+Frame: **+Y = flow axis**, the female inlet
 at −Y and the male outlet at +Y, centered on X/Z, +Z up.
 
 Terminals: `inlet()` (socket mouth) and `outlet()` (stub end), each

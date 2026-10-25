@@ -1,6 +1,7 @@
-# Compact inline layout candidates
+# PISCO secondary regulator and Fluidfit check
 
-The PISCO RVFUP1/4–1/4-0.3 preset regulator is modeled from the
+The PISCO RVFUP1/4–1/4-0.3 preset regulator is the appliance's in-machine CO₂
+secondary ([bom.md §4](/hardware/ledger/bom.md)). It is modeled from the
 [OEM catalog](https://shop.pisco.com/wp-content/themes/agency-ecommerce/assets/images/preset-regulator.pdf),
 PDF page 4. It is 62.4 mm overall with a 21.5 mm maximum diameter and 20 mm
 secondary body diameter. Both 6.35 mm sockets take 17 mm insertion. The
@@ -15,7 +16,9 @@ by this geometry. The model separates the estimated PBT body, aluminum outlet
 fitting and POM release rings. Undimensioned necks and clipped wrench details
 follow the OEM drawing/photo while retaining the published envelope.
 
-The Fluidfit HCVU 1/4–1/4 check is modeled from its
+The Fluidfit HCVU 1/4–1/4 check is not part of the appliance, whose two check
+valves are both the [neoFit ACHV44-E](../neofit-achv44-check/README.md). The
+HCVU is modeled from its
 [exact OEM imperial drawing](https://www.fluidfit.net/eng/open_content/product/view.php?pm_no=262).
 It has 6.35 mm push-connect sockets at both ends, 45.5 mm overall length,
 15.5 mm maximum diameter and 16.1 mm tube insertion from each mouth.

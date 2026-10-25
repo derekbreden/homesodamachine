@@ -5,6 +5,10 @@ for mounting, tube routing, lead routing and enclosure clearance. The MINI 2
 capture records the actual sample. The STEP is a reference for integration;
 its hidden turbine, seals and electronics are not reconstructed.
 
+Two DIGITEN models are in stock ([purchases](/hardware/ledger/purchases.md)):
+four of B07QRXLRTH, 0.3–10 L/min, and one of B07QS17S6Q, 0.3–6 L/min. The scan
+record does not name which model the sample is.
+
 The ports are coaxial, but their axis is offset from the round housing centre.
 That offset, the fixed mounting collars and the complete cover envelope matter
 for placement. Dimensions below are millimetres.

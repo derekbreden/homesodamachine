@@ -40,8 +40,9 @@ MM_PER_IN = 25.4
 PSI_PER_BAR = 14.5038
 PSI_PER_ATM = 14.6959
 
-# Nominal gas feed: the preset of the in-appliance WR1105 secondary regulator, etched on
-# its barrel as 3 bar. Refill can compress the trapped headspace above it: the downstream
+# Nominal gas feed: the 0.3 MPa (3 bar) preset of the in-appliance PISCO RVFUP1/4-1/4-0.3
+# secondary regulator (hardware/reference/compact-inline-candidates). Refill can compress
+# the trapped headspace above it: the downstream
 # check isolates the headspace from the regulator, so this is not a maximum vessel
 # pressure. The procedure's nominal figures and the downstream bench documents read it.
 secondary_regulator_bar = 3.0
