@@ -42,7 +42,7 @@ J2-OUT2,J2,J2.OUT2,J2.OUT2,V-J.negative,22,172.975,proposed,nominal,nominal,fixe
 J2-positive-J,J2,V12,wago-manb.3,V-J.positive,22,173.108,proposed,nominal,nominal,fixed
 J2-FAN,J2,J2.FAN,J2.FAN,fan.negative,22,323.104,proposed,nominal,unlocated,fixed
 J2-positive-fan,J2,V12,wago-manb.4,fan.positive,22,185.15,proposed,nominal,unlocated,fixed
-J2-OUT3,J2,J2.OUT3,J2.OUT3,V-K.negative,22,241.95,proposed,nominal,modeled,fixed
+J2-OUT3,J2,J2.OUT3,J2.OUT3,V-K.negative,22,267.649,proposed,nominal,modeled,fixed
 J2-positive-K,J2,V12,wago-manb.5,V-K.positive,22,260.295,proposed,nominal,modeled,fixed
 J13-AM2,J13,AM2,J13.AM2,pogo-male.1,22,184.279,proposed,nominal,modeled,fixed
 cartridge-AM2,Cartridge,AM2,pogo-female.1,pump-a.2,22,70.833,proposed,nominal,unlocated,moves with pump cartridge

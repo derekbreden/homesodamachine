@@ -1,0 +1,136 @@
+{
+  "schema": 1,
+  "units": "mm",
+  "frame": "Enclosure world XYZ; Z up",
+  "scope": "Native point counterexamples against the actual exported hooked shell rails. Only the two named shell pieces are tested. No body, attachment or routing change; no complete-path or force claim.",
+  "moving": "enclosure-back-top",
+  "stationary": "enclosure-back-bottom",
+  "proposed_handling": "Lower back-top at a near-final Y offset, then seat fore.",
+  "readings": [
+    {
+      "offset_mm": [
+        0.0,
+        0.0,
+        3.0
+      ],
+      "common_mm3": 5076.449999999993,
+      "common_bounds_mm": [
+        -103.50000000000011,
+        223.8,
+        169.45,
+        103.50000000000011,
+        456.2200000000021,
+        171.7
+      ],
+      "straight_vertical_entry_disproved": true
+    },
+    {
+      "offset_mm": [
+        0.0,
+        0.5,
+        3.0
+      ],
+      "common_mm3": 5059.574999999997,
+      "common_bounds_mm": [
+        -103.50000000000011,
+        224.3,
+        169.45,
+        103.50000000000011,
+        456.2200000000021,
+        171.7
+      ],
+      "straight_vertical_entry_disproved": true
+    },
+    {
+      "offset_mm": [
+        0.0,
+        1.0,
+        3.0
+      ],
+      "common_mm3": 5042.699999999997,
+      "common_bounds_mm": [
+        -103.5000000000001,
+        224.8,
+        169.45,
+        103.5000000000001,
+        456.2200000000021,
+        171.7
+      ],
+      "straight_vertical_entry_disproved": true
+    },
+    {
+      "offset_mm": [
+        0.0,
+        2.0,
+        3.0
+      ],
+      "common_mm3": 5008.949999999997,
+      "common_bounds_mm": [
+        -103.5000000000001,
+        225.8,
+        169.45,
+        103.5000000000001,
+        456.2200000000021,
+        171.7
+      ],
+      "straight_vertical_entry_disproved": true
+    },
+    {
+      "offset_mm": [
+        0.0,
+        5.0,
+        3.0
+      ],
+      "common_mm3": 4907.699999999997,
+      "common_bounds_mm": [
+        -103.50000000000011,
+        228.8,
+        169.45,
+        103.50000000000011,
+        456.2200000000021,
+        171.7
+      ],
+      "straight_vertical_entry_disproved": true
+    },
+    {
+      "offset_mm": [
+        0.0,
+        10.0,
+        3.0
+      ],
+      "common_mm3": 4738.949999999997,
+      "common_bounds_mm": [
+        -103.50000000000011,
+        233.8,
+        169.45,
+        103.50000000000011,
+        456.2200000000021,
+        171.7
+      ],
+      "straight_vertical_entry_disproved": true
+    },
+    {
+      "offset_mm": [
+        0.0,
+        15.0,
+        3.0
+      ],
+      "common_mm3": 4603.949999999993,
+      "common_bounds_mm": [
+        -103.50000000000011,
+        238.8,
+        169.45,
+        103.50000000000011,
+        456.2200000000021,
+        171.7
+      ],
+      "straight_vertical_entry_disproved": true
+    }
+  ],
+  "all_named_vertical_entries_disproved": true,
+  "source_sha256": {
+    "hardware/mechanical-qualification/enclosure-above-core/back_top_approach.py": "f1e4226ede3a13c1987d3a11f80d977e8e804723912b1a9301c56c16a5952d6e",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "cd4efe9269aeb96d910ae13bf5d591f5306a10de3325c12013aa582b88e48868",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "eeded1b93397baaba065dac9cfeea01a20edd51e72672172070a34119bffcd46"
+  }
+}
