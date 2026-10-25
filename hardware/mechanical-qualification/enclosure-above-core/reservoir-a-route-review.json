@@ -1,0 +1,67 @@
+{
+  "scope": "Exact selected Reservoir A route promotion. Pure line/arc length and endpoint/data reading; native contact proof is separate. Plain guides add no joint, insertion or tube cut. The warm span includes 12.7 mm estimated front-valve receiving only; the internal span continues to the reservoir fill bore/dip-tube tip.",
+  "selected_study_commit": "b1c1e549c",
+  "selected_study_path": "hardware/manifold-layout/studies/funnel-gate/reservoir-a-routes.json",
+  "selected_study_sha256": "667fcf9eb7ab8d05417cf24928c62b60ff9477061a8bc08fdf23fa1e2581aa2f",
+  "production_data_path": "hardware/manifold-layout/reservoir-a-routes.json",
+  "production_data_sha256": "c5eae2b37031e54d226d7fffe41421759c5ac0c04566cc7cb1a963ff11969ca5",
+  "production_routes_sha256": "bec911386e5aa2a6264aaee3e451cdad49cfa7c2d7a20b3370bef5208f08af5d",
+  "routes": {
+    "fluid-14": {
+      "length_mm": 425.84269481977947,
+      "selected_length_mm": 425.8426948197794,
+      "length_difference_mm": 5.684341886080802e-14,
+      "segment_count": 19,
+      "from": "valve-v-f.outlet",
+      "to": "foam-assembly.reservoir-a-fill",
+      "first_endpoint_mm": [
+        82.1,
+        108.04,
+        269.475
+      ],
+      "last_endpoint_mm": [
+        61.0,
+        426.3,
+        253.39999999999998
+      ],
+      "first_endpoint_shift_mm": 1.4210854715202004e-14,
+      "last_endpoint_shift_mm": 1.0121580260789164e-07,
+      "radii_mm": [
+        14.0
+      ]
+    },
+    "fluid-16": {
+      "length_mm": 418.39087772790543,
+      "selected_length_mm": 418.3908777279054,
+      "length_difference_mm": 5.684341886080802e-14,
+      "segment_count": 19,
+      "from": "foam-assembly.reservoir-a",
+      "to": "valve-v-e.inlet",
+      "first_endpoint_mm": [
+        45.0,
+        408.0,
+        253.39999999999998
+      ],
+      "last_endpoint_mm": [
+        22.35,
+        108.04,
+        269.475
+      ],
+      "first_endpoint_shift_mm": 1.0121580260789164e-07,
+      "last_endpoint_shift_mm": 1.4210854715202004e-14,
+      "radii_mm": [
+        14.0
+      ]
+    }
+  },
+  "other_continuation_specs_unchanged": {
+    "drain-vent": true,
+    "soda-core-rise": true,
+    "soda-meter-bulkhead": true,
+    "fluid-24": true,
+    "fluid-28": true,
+    "fluid-26": true,
+    "fluid-18": true
+  },
+  "native_contact_scope": "Pending bounded source-current contact query."
+}
