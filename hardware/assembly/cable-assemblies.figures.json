@@ -1,6 +1,6 @@
 {
   "/hardware/assembly/_cable_assemblies_sync.py": {
-    "EXTERNAL_SIG6": "1 m",
+    "EXTERNAL_SIG6": "2 m",
     "J10_PINS": "2",
     "J11_PINS": "4",
     "J13_PINS": "4",

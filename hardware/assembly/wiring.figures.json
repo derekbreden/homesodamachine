@@ -15,15 +15,14 @@
     "EARTH_BUS_LEN": "~400 mm",
     "EARTH_CARBONATOR_LEN": "~500 mm",
     "FAN_RUN_LEN": "~650 mm",
+    "JOIN_LEN": "~300 mm",
     "JST_PITCH": "2.5 mm",
-    "LOGIC_V": "5 V",
-    "MCU_V": "3.3 V",
     "PLATE_D": "54.55 mm",
     "PULLUP_R": "4.7 k\u03a9",
     "SIG_DISPLAY_LEN": "~400 mm",
     "SIG_ONEWIRE_LEN": "~650 mm",
     "SIG_REEDS_A_LEN": "~600 mm",
-    "SIG_UMBILICAL_LEN": "~1 m",
+    "SIG_UMBILICAL_LEN": "~2 m",
     "WINDING_R_HIGH": "30 \u03a9",
     "WINDING_R_LOW": "10"
   }
