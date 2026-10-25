@@ -256,7 +256,18 @@ The nominal closed tie path is
 unqualified. The [route record](/hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json)
 preserves the selected line/arc definitions and contact scope.
 
-Reservoir B fill turns through two actual compact fittings below the lid and emerges aft of the PCB. Its lower stem enters the reservoir cap's existing fill bore; the short link between fittings has known exposed length, while the JG socket insertion remains unmeasured. A-fill and B-draw use shallow guide offsets. Dress and tag the front-top ends on the bench, and connect the remaining ends through the open roof before fitting the closures. Keep access to the lower returns' elbows and their collets.
+Reservoir B fill turns through two actual compact fittings below the lid and emerges aft of the PCB at X−33/Y287.5. Its lower stem enters the reservoir cap's existing fill bore; the approximately 15.6 mm exposed link excludes the unmeasured JG socket insertion. Assemble the pair and link in the open cup, then close the lid over the lower 3.05 mm and upper 2.4 mm retaining covers. The upper cover has 0.25 mm nominal CAD air to the PCB tails; physical fit and retention load remain unqualified. A-fill and B-draw use shallow guide offsets. Dress and tag the front-top ends on the bench, and connect the remaining ends through the open roof before fitting the closures. Keep access to the lower returns' elbows and their collets.
+
+The drawn `fluid-24` span is [247.400 mm](RESERVOIR_B_FILL_WARM), including
+the 12.7 mm nominal V-I receiving allowance and ending at the upper JG socket
+face. Add the actual JG receiving mark when preparing that physical tube;
+the cap's separate short link is another piece. Terminate both J10 power
+leads on the loose PCB before fastening the board to the core, then connect
+their free ends to the core WAGOs. The captured B-fill fitting clears the
+installed lead and vertical screw tools but overlaps the optional straight
+wire-entry witness. Installed retermination and flexible service handling
+remain unqualified. Disconnect/stage the flexible B-fill tube for the
+recorded vertical J5/J6/J13 withdrawal approaches.
 
 The carbonated-water riser leaves `carb-water-out` directly for the rear middle-right rear
 bulkhead through the DIGITEN meter. Flavor A leaves V-G on `fluid-18`; flavor B leaves

@@ -6728,7 +6728,7 @@
       253.4
     ],
     "B-fill": [
-      -48.0,
+      -33.0,
       287.5,
       253.4
     ],
@@ -6762,7 +6762,8 @@
     "lower_corner_z_mm": 243.5,
     "upper_corner_z_mm": 244.0,
     "roof_top_z_mm": 254.45,
-    "fitting_clearance_mm": 0.15
+    "fitting_clearance_mm": 0.15,
+    "upper_cover_thickness_mm": 2.4
   },
   "logical_connections": {
     "water-1": {

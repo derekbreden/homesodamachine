@@ -13,9 +13,16 @@ pump and still finds the transverse stem joint and low V-A tube/union chain
 in the travel corridor. The [loose-connection subset](wall-closing-loose-stage-review.json)
 removes those named loose pieces from the same pair readings; its retained
 rigid group has no counterexample at the seventeen tested offsets. It establishes
-neither a continuous path nor the final connection handling. The low V-A tube's
-6.237989 mm³ final-pose contact with the upper B-fill elbow is a separate,
-unresolved installed-fit reading; late handling does not remove it.
+neither a continuous path nor the final connection handling. The selected
+[B-fill pocket and cover reading](../../printed-parts/cold-core/foam-cap/b-fill-pair-review.json)
+places its upper guide at X−33/Y287.5. Both fittings, the direct link and changed
+`fluid-24` tail clear the scoped installed purchased and conductor bodies;
+the upper fitting clears the fixed low V-A tube by 1.482589 mm. Its 2.4 mm
+cover leaves 0.25 mm nominal air below the PCB tails and retains upward
+capture. These are CAD readings. The upper fitting overlaps the separate
+8 mm J10-V12 straight wire-entry witness; actual lead noncontact does not
+qualify terminal insertion or handling. Vertical connector service columns
+and final flexible connection handling retain their separately named scope.
 
 The funnel silicone, cover and cradled drain assembly are removed before the
 empty-frame query. The cradle snaps into the removable frame's 3 mm web.

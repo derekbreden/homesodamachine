@@ -831,6 +831,7 @@ def reservoir_b_fill_link():
         'upper_mouth_world_mm': above_core.point(upper_frame, (0., 0., 20.56239)),
         'exposed_span_mm': exposed,
         'roof_top_z_mm': link['roof_top_z_mm'],
+        'upper_cover_thickness_mm': link['upper_cover_thickness_mm'],
         'clearance_mm': link['fitting_clearance_mm'],
     }
 
@@ -851,10 +852,12 @@ def reservoir_b_fill_parts():
 
 @lru_cache(maxsize=2)
 def reservoir_b_fill_features(cup_height):
-    """Simple carrier, rectangular roof and fitting air pockets in world XYZ.
+    """Broad carrier, flat covers and fitting air pockets in world XYZ.
 
-    The original cup floor remains intact around the male stem. A single flat
-    roof over the lower elbow retains at least 3 mm above its clearance pocket.
+    The original cup floor remains intact around the male stem. The lower
+    cover retains 3.05 mm; the upper cover uses the scoped 2.4 mm section to
+    retain upward capture beneath the PCB tails. The short link opens into
+    the dry fitting pocket below the plain lid.
     """
     import cadquery as cq
 
@@ -867,25 +870,64 @@ def reservoir_b_fill_features(cup_height):
     lower = cq.Solid.makeBox(15.8, 25.4, 15.8, cq.Vector(-7.9, -6.2, -7.9))
     lower = lower.moved(above_core.frame_location(first))
     radius, reach = 8.35, 20.75
-    upper = cq.Solid.makeSphere(radius, angleDegrees1=-90., angleDegrees2=90.).fuse(
-        cq.Solid.makeCylinder(radius, reach, cq.Vector(), cq.Vector(0., 1., 0.)),
-        cq.Solid.makeCylinder(radius, reach, cq.Vector(), cq.Vector(0., 0., 1.)))
-    upper = upper.moved(above_core.frame_location(second))
+    upper_horizontal = cq.Solid.makeSphere(
+        radius, angleDegrees1=-90., angleDegrees2=90.).fuse(
+        cq.Solid.makeCylinder(radius, reach, cq.Vector(), cq.Vector(0., 1., 0.)))
+    upper_outlet = cq.Solid.makeCylinder(
+        radius, reach, cq.Vector(), cq.Vector(0., 0., 1.))
+    upper_location = above_core.frame_location(second)
+    upper_horizontal = upper_horizontal.moved(upper_location)
+    upper_outlet = upper_outlet.moved(upper_location)
+    upper = upper_horizontal.fuse(upper_outlet)
     # The exposed link is almost level; a rectangular corridor adds generous
     # access without a contoured pocket or a thin web between the fittings.
     a, b = data['exposed_route_world_mm'][0], data['exposed_route_world_mm'][-1]
     axis = cq.Vector(b[0]-a[0], b[1]-a[1], b[2]-a[2])
     tube = cq.Solid.makeCylinder(3.75, axis.Length, cq.Vector(*a), axis.normalized())
     air = lower.fuse(upper, tube)
-    lower_box, air_box = lower.BoundingBox(), air.BoundingBox()
+    air_box = air.BoundingBox()
     margin = 3.0
     lid_bottom = above_core.cap_lid_pose()['translation_mm'][2]
+    lid_top = above_core.specification()['cap_face_z_mm']
     carrier = cq.Solid.makeBox(air_box.xlen + 2.*margin, air_box.ylen + 2.*margin,
         cup_height, cq.Vector(air_box.xmin-margin, air_box.ymin-margin, lid_bottom-cup_height))
-    roof = cq.Solid.makeBox(lower_box.xlen + 2.*margin, lower_box.ylen + 2.*margin,
-        data['roof_top_z_mm']-lid_bottom,
-        cq.Vector(lower_box.xmin-margin, lower_box.ymin-margin, lid_bottom))
-    return {'cup_add': carrier, 'lid_add': roof, 'cut': air}
+
+    def cover(pocket, top, side_margin):
+        bounds = pocket.BoundingBox()
+        height = top-lid_top
+        # One broad 45-degree transition joins each flat cover to the plate.
+        # The upper boundary keeps the approved 3.6 mm side margin.
+        base_margin = side_margin+height
+        roof = (cq.Workplane('XY').workplane(offset=lid_top)
+                .rect(bounds.xlen+2.*base_margin, bounds.ylen+2.*base_margin)
+                .workplane(offset=height)
+                .rect(bounds.xlen+2.*side_margin, bounds.ylen+2.*side_margin)
+                .loft(combine=True).val())
+        return roof.translate(((bounds.xmin+bounds.xmax)/2.,
+                               (bounds.ymin+bounds.ymax)/2., 0.))
+
+    upper_ceiling = upper_horizontal.BoundingBox().zmax
+    upper_top = upper_ceiling+data['upper_cover_thickness_mm']
+    lower_roof = cover(lower, data['roof_top_z_mm'], margin)
+    upper_roof = cover(upper_horizontal, upper_top, 3.6)
+    link_box = tube.BoundingBox()
+    link_top = lid_bottom-importlib.import_module('_cold_core_interface').cap_lid_clearance
+    link_opening = cq.Solid.makeBox(
+        link_box.xlen, link_box.ylen, link_top-max(a[2], b[2])+.01,
+        cq.Vector(link_box.xmin, link_box.ymin, max(a[2], b[2])))
+    return {
+        'cup_add': carrier,
+        'lid_add': lower_roof.fuse(upper_roof),
+        'cut': air.fuse(link_opening),
+        'lower_air': lower,
+        'upper_air': upper,
+        'upper_horizontal_air': upper_horizontal,
+        'upper_outlet_air': upper_outlet,
+        'lower_cover': lower_roof,
+        'upper_cover': upper_roof,
+        'upper_cover_top_z_mm': upper_top,
+        'upper_cover_thickness_mm': data['upper_cover_thickness_mm'],
+    }
 
 
 def schedule():

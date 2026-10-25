@@ -133,7 +133,7 @@ The upper passages follow the installed equipment:
   turns above their unchanged reservoir bores.
 - B-fill uses a trimmed NeoFit stem elbow through its original plain reservoir
   bore, a short exposed tube and a JG PP0308E union elbow. The upper socket is
-  at enclosure world (−48, 287.5, 264.56239) mm. The 14.7741 mm exposed span
+  at enclosure world (−33, 287.5, 264.56239) mm. The approximately 15.6 mm exposed link
   excludes socket insertion; the JG insertion depth is unmeasured. The lower
   stem ends 1 mm below the reservoir cap's fill boss in the headspace.
 - The pressure-water inlet remains one continuous R14 tube from the fixed
@@ -161,11 +161,25 @@ The upper passages follow the installed equipment:
   the sensor/earth bundle.
 
 B-fill's lower fitting pocket has a flat floor at world Z235.6 and ceiling at
-Z251.4. Its single rectangular roof ends at Z254.45, leaving 3.05 mm roof
-stock and 0.55 mm nominal clearance to the populated-board tail envelope.
-These are CAD clearances. The existing 2 mm cup floor remains around the
-lower stem entry. The purchased fitting references establish external layout;
-they do not qualify printed fits, assembly tolerance, pressure sealing or life.
+Z251.4. Its flat cover ends at Z254.45, retaining 3.05 mm stock. The upper
+fitting has a separate broad 2.4 mm retaining cover ending at Z254.75, with
+0.25 mm nominal air to the PCB solder tails. One plain transition joins each
+cover to the lid; the pocket walls retain at least 3 mm stock. The short
+link opens into the dry pocket beneath the plain lid. Assemble both fittings
+and their prepared link in the open cup before closing the lid. The upper
+horizontal barrel bears upward against its cover; the PCB is not a restraint.
+The original 2 mm cup floor remains around the lower stem entry. Mask the
+fitting pockets and link during the foam pour, including their dry lid joints.
+The [local fitting review](b-fill-pair-review.json) and
+[manual reader](b_fill_pair_review.py) scope these CAD readings. The 2.4 mm
+section is specific to this internal cover; it does not qualify pull strength,
+printed tolerance, support removal, pressure sealing, condensation or life.
+Terminate both J10 power leads on the loose PCB before fastening the board
+to the core, then land their free ends at the core WAGOs. The captured upper
+fitting overlaps the optional 8 mm straight J10-V12 wire-entry witness;
+the current installed lead and vertical screw tools clear it. Installed
+wire insertion/withdrawal service is unqualified and may require unbolting
+and staging the PCB and flexible leads.
 
 The [aft water-passage receipt](../../../mechanical-qualification/enclosure-above-core/water-in-passage-review.json)
 binds the exported cup, lid and continuous internal tube, including the existing
