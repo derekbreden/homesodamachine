@@ -94,11 +94,11 @@ spools. Remaining quantity is not a launch condition; no weighing is required.
 Mark1's AMS 2 Pro A carries Bambu PETG Translucent Clear (`GFG01`, transparent
 `00000000`) in **A1–A4**, feeding the right **0.8 mm Standard-flow** hotend.
 At the Engineering Plate retry preflight on October 25, **A1 reports 55%**
-and **A2–A4 report 100%**. The [prepared right reservoir retry](../hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md)
-uses **A1** first, the most depleted matching spool. The preceding right task
-1372664582 is FAILED with reported lifting; the prepared job awaits Mac unlock
-for final Studio verification and Send. Use each spool fully and refresh actual
-depletion before a later launch.
+and **A2–A4 report 100%**. The [Engineering Plate right reservoir retry](../hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md),
+task **1374272357**, starts from **A1**, the most depleted matching spool.
+Studio visibly verified Engineering Plate, A1 PETG R, automatic refill On and
+standing calibration options before its accepted Send. Use each spool fully and
+refresh actual depletion before a later launch.
 
 AMS unit `0` addresses A1–A4 as trays `0`–`3`. **AMS filament backup is On**,
 visibly checked in Mark1's AMS Settings. The right-side Auto Refill group

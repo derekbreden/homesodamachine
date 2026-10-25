@@ -597,7 +597,7 @@ This right article has no reported water-hold test. The earlier left articles'
 reported water holds remain accepted.
 [Physical result and photographs](prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json).
 
-## Right pair, glued Engineering Plate retry — prepared (2026-10-25, Mark1)
+## Right pair, glued Engineering Plate native preparation (2026-10-25, Mark1)
 
 The same **right reservoir and cap** are prepared with **Engineering Plate**
 selected globally and in native plate metadata. The preceding submitted file
@@ -618,3 +618,27 @@ plate warning and **70.519 mm** minimum full-bead inset. Intended material start
 the Mac is locked, and CUA automatic unlock failed. Final Send selections,
 shared-circuit re-read and startup verification await manual unlock.
 [Prepared print and command comparison](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md).
+
+
+### Engineering Plate launch after Mac restart (2026-10-25, Mark1 task 1374272357)
+
+Derek followed up:
+
+> The mac restarted. Try now.
+
+Studio opened the reviewed Engineering Plate right-pair archive without
+reslicing. **Mark1**, **Engineering**, **A1 PETG R**, green Auto Refill,
+Timelapse On, Bed Leveling On, Flow Dynamics Auto and Nozzle Offset Calibration
+Auto were visibly verified. AMS filament backup was freshly read **On**.
+A1 reports **55%**, matching A2–A4 **100%** each. The same idle finished Mark2
+task was re-read before Send, establishing at least **222 seconds** of startup
+spacing.
+
+One Studio Send was acknowledged **SUCCESS** at **11:39:30 CDT / 16:39:30 UTC**,
+creating task **1374272357**. Fresh startup reports **RUNNING, layer 0/833**,
+print error 0, no HMS, unit 0 tray 0 (A1) and mounted right 0.8 mm. Changing
+live frames show the flat plate during preparation. Model adhesion and water
+holding are unassessed. Send timelapse is On; runtime activation at deposition
+is unobserved. The reviewed archive and G-code hashes remain unchanged after
+import. No scheduled monitor was created or reactivated.
+[Receipt and startup](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md).

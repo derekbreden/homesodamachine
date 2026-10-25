@@ -1,8 +1,9 @@
 # Printing the reservoir in PETG
 
-The [same right reservoir and matching cap on glued Engineering Plate](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md)
-are **prepared, not sent** for Mark1. Studio access is blocked by the locked Mac;
-manual unlock is requested. The preceding [Textured PEI right article](prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json)
+Mark1 task **1374272357** is printing the [same right reservoir and matching cap on glued Engineering Plate](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md).
+The printer acknowledged one Studio Send with **SUCCESS** at **11:39:30 CDT /
+16:39:30 UTC October 25**; startup reports RUNNING, layer 0/833, no print error/HMS.
+The preceding [Textured PEI right article](prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json)
 has reported persistent lifting and no water-hold result.
 
 The retry uses **Engineering Plate, 70 °C bed and 0.00 mm Z compensation**.
@@ -11,7 +12,9 @@ retain **255/260 °C**, flow 1.05, five walls and 30% overlap, and every other
 setting of that right print. Native temperature/cooling commands are identical;
 plate detection and compensation change. Native motion/extrusion sequences
 match on 832 of 833 layers, with variation only at layer 816 under the same
-random-seam settings. A1 reports 55%, with matching A2–A4 at 100% and automatic refill intended.
+random-seam settings. **A1 (55%)** starts before matching A2–A4 (100%), with
+automatic refill On. Timelapse and bed leveling are On; flow dynamics and
+nozzle offset calibration are Auto.
 
 The completed [255/260 °C left article](prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json)
 and older 265/270 °C article are reported holding water on October 25. Both

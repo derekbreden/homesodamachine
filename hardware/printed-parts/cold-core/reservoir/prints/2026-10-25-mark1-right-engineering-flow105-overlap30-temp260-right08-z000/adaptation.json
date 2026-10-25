@@ -30,7 +30,7 @@
     260
   ],
   "selected_pair": "Right reservoir and matching cap",
-  "status": "Native review complete; prepared for Studio Send. Not submitted.",
+  "status": "Launched on Mark1 as task 1374272357; startup RUNNING at layer 0/833, no print error/HMS.",
   "per_plate_metadata_changes": [
     {
       "plate": "1",
@@ -58,5 +58,9 @@
   ],
   "model_geometry_payload_entries_byte_identical": true,
   "object_placements_and_other_metadata_identical": true,
-  "geometry_and_placement_validation": "All entries except the two plate-type containers are byte-identical; model_settings XML is identical after normalizing only plate bed_type values."
+  "geometry_and_placement_validation": "All entries except the two plate-type containers are byte-identical; model_settings XML is identical after normalizing only plate bed_type values.",
+  "job_id": "1374272357",
+  "launch": "launch.json",
+  "startup": "startup.json",
+  "restart_followup": "The mac restarted. Try now."
 }
