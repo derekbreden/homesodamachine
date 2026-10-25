@@ -3,8 +3,8 @@
 Each pump tee stands behind front-top's collet plate, its branch on the pump tube and its
 run upright (`fixed_returns`). The fore valve stands over the run on one short tube; a lower
 return, a stem elbow in each collet and one straight tube, joins the run's lower port to the rear
-valve's bottom port. The plate holds each tee's branch collet pressed, so pump replacement
-withdraws only the pump tubes.
+valve's bottom port. Each tee's branch collet stands extended in its recess and grips its pump
+tube.
 
 Authoring frame: X spans the two channels; +Y becomes enclosure +Z; +Z becomes
 enclosure +Y. The pump station retains its fitted physical datum. The fore
@@ -118,19 +118,19 @@ OUTER_AFT_DROP = INNER_LIMB_DROP
 # Existing world lift is independent of the fixed routing's lowest surface.
 WORLD_LIFT = 191.425
 PACK_ORIGIN_Y = 14.48
-# The collet plate's fore face stands this far aft of the pump barb plane: the cartridge's
+# The collet plate's fore face stands this far aft of the pump barb plane: the cradle's
 # fitted back datum and its frame gap. The pump tube reaches on through the plate to its
 # seated tip in the tee.
 BARB_TO_PLATE = 5.351
-CUSTOMER_STUB_PROJECTION = BARB_TO_PLATE + _returns.TIP_FROM_FORE
+PUMP_STUB_PROJECTION = BARB_TO_PLATE + _returns.TIP_FROM_FORE
 # The prepared tube's length inside the pump's BPT tube, under the head's clamp, and the
 # length it is cut to.
 PUMP_TUBE_HELD = 13.149
-PUMP_TUBE_CUT = PUMP_TUBE_HELD + CUSTOMER_STUB_PROJECTION
+PUMP_TUBE_CUT = PUMP_TUBE_HELD + PUMP_STUB_PROJECTION
 # Reference span preserving the fitted pump/skirt datum. The permanent junction
 # mouths and fixed returns have separately derived stations.
-PUMP_BARBS_TO_RELEASE_PLANE = 5.526
-BARB_PLATE_BERTH = (PUMP_BARBS_TO_RELEASE_PLANE - _enc_if.pump_station_lead
+PUMP_BARBS_TO_BORE_FACE = 5.526
+BARB_PLATE_BERTH = (PUMP_BARBS_TO_BORE_FACE - _enc_if.pump_station_lead
                     - CARRIER_DATUM_SHIFT - tee.BRANCH_COLLET_TRAVEL)
 PUMP_BARB_Z = HEAD_W - _enc_if.pump_station_lead
 # World Z is this study's Y after `enclosure_assembly.pose_manifold` stands the pack.
@@ -139,7 +139,7 @@ PUMP_BARB_Z = HEAD_W - _enc_if.pump_station_lead
 PUMP_Y = (kp.outlet_above_skirt_bottom - _enc_if.pump_station_drop - _enc_if.pump_seated_drop
           - _enc_if.manifold_rise)
 # Pump-to-deck reference span preserving the fitted pump placement.
-# Customer stub tips are set independently by `customer_tip()`.
+# Stub tips are set independently by `stub_tip()`.
 BARB_STANDOFF = BARB_PLATE_BERTH + _enc_if.pump_station_lead
 CROSSBAR = 0.0        # exposed tube between Y-A's and Y-B's branches. At 0 the two fittings
                       # meet face to face across the mirror plane and no tube is drawn.
@@ -694,7 +694,7 @@ def authoring_shape(shape):
 
 def pump_wall_fore_y():
     """The collet plate's fore face, derived from the prepared pump tube's seated tip."""
-    tip = enclosure_point(customer_tip(next(iter(sorted(PUMP_JUNCTIONS)))))
+    tip = enclosure_point(stub_tip(next(iter(sorted(PUMP_JUNCTIONS)))))
     return tip[1] - _returns.TIP_FROM_FORE
 
 
@@ -951,9 +951,9 @@ def bowed(a, b, developed=None, d: float = TUBE_D):
 # made. A BUTT is two collet faces meeting: there is tube in both quick-connects and none
 # between them, so the study draws no solid for it. The other two are straight lengths.
 
-def customer_tip(name: str) -> tuple:
+def stub_tip(name: str) -> tuple:
     start = barb_station(name)
-    return (start[0], start[1], start[2] + CUSTOMER_STUB_PROJECTION)
+    return (start[0], start[1], start[2] + PUMP_STUB_PROJECTION)
 
 
 def factory_tail_runs() -> dict:
@@ -969,14 +969,14 @@ def factory_tail_length(name: str) -> float:
 def runs(carrier_offset: float = CARRIER_SQUEEZE) -> dict:
     """Fixed external paths; service-state argument is retained for callers."""
     out = {"crossbar": (branch_port("Y-A")[0], branch_port("Y-B")[0])}
-    out.update({name: (barb_station(name), customer_tip(name)) for name in BARB_OF})
+    out.update({name: (barb_station(name), stub_tip(name)) for name in BARB_OF})
     out.update({name: (branch_port(name)[0], elbow_pose(*JOINS[name])[1]) for name in JOINS})
     return out
 
 
 RUNS = runs()
-BARB_TUBE_LEN = CUSTOMER_STUB_PROJECTION
-PUMP_TUBE_PROJECTION = CUSTOMER_STUB_PROJECTION
+BARB_TUBE_LEN = PUMP_STUB_PROJECTION
+PUMP_TUBE_PROJECTION = PUMP_STUB_PROJECTION
 
 # Four short tubes from each pump tee's upper collet to the fore valve over it. Their
 # lengths exclude insertion inside both fittings.
@@ -1419,7 +1419,7 @@ def selftest() -> int:
         _mouth, axis = carrier_collet_port(name)
         if abs(skew_deg(a, b, axis) - 180) > 1e-6:
             failures.append(f"{name} pump tube is not on its tee's branch axis")
-        if abs(dist(a, b) - CUSTOMER_STUB_PROJECTION) > 1e-8:
+        if abs(dist(a, b) - PUMP_STUB_PROJECTION) > 1e-8:
             failures.append(f"{name} pump tube misses its prepared-tip datum")
     for name, (a, b) in FORE_STUBS.items():
         shape = bowed(a, b)

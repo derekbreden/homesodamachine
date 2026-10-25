@@ -8,9 +8,9 @@ Design intent for the Founder Edition shipping experience lives in [`/marketing/
 
 In: one soda machine that has passed acceptance + burn-in per [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) with its per-serial log archive intact under `logs/<serial>/`; the pre-generated per-unit nameplate plate (printed per [`/hardware/printed-parts/enclosure/nameplate/README.md`](/hardware/printed-parts/enclosure/nameplate/README.md) with the unit identity encoded in its QR); the bagged faucet-and-umbilical sub-assembly (output of [`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md)); the install kit's contents — the customer's plumbing from [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §3 and §4 (both under-sink tees, the short jumper, the white run with the Waterdrop filter inline, the Taprite 3741 CGA-320 regulator, set to 75 PSI and locked at acceptance, with the red tether in its outlet), the collet press from §7, the NEMA 5-15P → C13 line cord from §5, the `TAP` and `CO2` tube collars, and the customer documentation packet — and the cold kit from §14 (Mudder PTFE tubing cutter, CARGEN nitrile foam segments, its own guide); the machine carton with molded foam end-caps; tracking + labeling supplies.
 
-Out: a sealed machine carton sitting on the loading-out shelf, ready for carrier pickup: cosmetic wipe-down complete; every exposed surface visually inspected and passed; the per-unit serialized nameplate applied to the +Y wall of back-top with its QR verified; the system fluid-drained and air-purged dry (no water in any line, no flavor in any reservoir) and the +Y wall's inlets capped and the pump cartridge taped into its bay for transit; install kit packed; printed customer documentation included; outer shipping label affixed; shipping weight + dimensions recorded against the order; carrier tracking number assigned and emailed to the customer.
+Out: a sealed machine carton sitting on the loading-out shelf, ready for carrier pickup: cosmetic wipe-down complete; every exposed surface visually inspected and passed; the per-unit serialized nameplate applied to the +Y wall of back-top with its QR verified; the system fluid-drained and air-purged dry (no water in any line, no flavor in any reservoir) and the +Y wall's inlets capped for transit; install kit packed; printed customer documentation included; outer shipping label affixed; shipping weight + dimensions recorded against the order; carrier tracking number assigned and emailed to the customer.
 
-Not in scope: the customer-side countertop install at the kitchen — that's the customer's (or their installer's) job, supported by the printed install guide in the kit. International shipping is out of scope for Founder Edition; the run ships to lower 48 US states only (see Open items).
+Not in scope: the customer-side countertop install at the kitchen — that's the customer's (or their installer's) job, supported by the printed install guide in the kit. International shipping is out of scope for Founder Edition; the run ships to lower 48 US states only.
 
 ## Inputs per machine
 
@@ -25,9 +25,8 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §3 a
 | CGA-320 primary regulator | [`bom.md`](/hardware/ledger/bom.md) §4 | The Taprite 3741 ships with the machine and mounts on the customer's own 5 lb cylinder — the tank is the one thing on the water-and-gas path the customer brings. It arrives here set to 75 PSI, its jam nut locked and paint-marked, with the red tether in its outlet ([`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) step 1). The customer sets nothing. Packed in the install kit at step 6. |
 | Cold kit | Its own bag, with its own guide | The Mudder PTFE tubing cutter (B08VW15TK8, 1 of 3 pk, [`bom.md`](/hardware/ledger/bom.md) §14) and loose 1-ft CARGEN nitrile foam segments (B0D2XFK337, [`bom.md`](/hardware/ledger/bom.md) §9) **on top of the 84"/build §9 allocates** — 60" to the umbilical's five segments and ~24" to the cabinet-internal riser. The umbilical ships at its built length and installs uncut; the kit is for the buyer who trims it to the cabinet's own length and foams the whole run. The segment count per machine is open until the first real install. |
 | Monoprice NEMA 5-15P → IEC C13 line cord, 18 AWG, 6 ft, UL-listed | B08VS8D4WC, 1 of 6 pk per machine | [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §5. Standard US wall outlet to C14 inlet. |
-| Customer documentation packet | Install guide printed by Lulu, per [`install-guide/press/ORDER.md`](/hardware/install-guide/press/ORDER.md); [`bom.md`](/hardware/ledger/bom.md) §15 | (a) The bound install guide ([`/hardware/install-guide/`](/hardware/install-guide/README.md)), with the actual refrigerant, finished-unit charge and applicable installation/service/disposal instructions; (b) Founder Edition welcome letter, personally signed — Open item, no letterhead is drawn yet. The [refrigerant marking specification](/hardware/markings/README.md) specifies the integral exterior disposal warning, compressor-area service panel, and remaining rating fields. |
+| Customer documentation packet | Install guide printed by Lulu, per [`install-guide/press/ORDER.md`](/hardware/install-guide/press/ORDER.md); [`bom.md`](/hardware/ledger/bom.md) §15 | (a) The bound install guide ([`/hardware/install-guide/`](/hardware/install-guide/README.md)), with the actual refrigerant, finished-unit charge and applicable installation/service/disposal instructions; (b) Founder Edition welcome letter, personally signed — no letterhead is drawn yet. The [refrigerant marking specification](/hardware/markings/README.md) specifies the integral exterior disposal warning, compressor-area service panel, and remaining rating fields. |
 | Transit inlet caps | TBD per Open items | Two caps for transit — one over the water-inlet PP1208E collet, one over the CO2 inlet PTC. Both inlets are on the +Y wall. Keeps debris out of the wetted path and signals to the installer "remove these before connecting." |
-| Transit tape | TBD per Open items | Blue painter's tape, the kind Epson ships its printers taped with. Holds the pump cartridge in its bay through transit; the customer peels it off at unboxing. |
 | Soda machine carton + molded foam end-caps | TBD per Open items | Outer carton sized for the machine + install kit + faucet-and-umbilical bag, with foam end-caps cradling the enclosure to absorb drop loads at corners. |
 | Outer shipping label + tracking | Carrier's label format | Generated at carrier-handoff step 9. |
 
@@ -42,11 +41,11 @@ ships fitted and is removed for every refill.
 
 ### 1. Cosmetic wipe-down + final visual inspection
 
-Take the machine fresh from [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md). Wipe every exposed surface with the microfiber + isopropyl: the +Y wall and its inlets, the funnel's brim and the top wall around it, condenser intake/exhaust grilles, both side faces, the front face and the pump cartridge's own span of it, and the bottom. Foam-tip swab the funnel cavity to clear any settled dust. Lift the silicone funnel straight up off the raw drain stub, leaving the tube and elbow in the machine, and wipe it down separately. After the unit is dry, press its plug into the frame's socket until the brim seats. The unit has been on the bench rig for the acceptance soak — fingerprints, dust drift from shop air, and the residue of fingers from prior assembly steps all land here.
+Take the machine fresh from [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md). Wipe every exposed surface with the microfiber + isopropyl: the +Y wall and its inlets, the funnel's brim and the top wall around it, condenser intake/exhaust grilles, both side faces, the front face and the pump cradle's own span of it, and the bottom. Foam-tip swab the funnel cavity to clear any settled dust. Lift the silicone funnel straight up off the raw drain stub, leaving the tube and elbow in the machine, and wipe it down separately. After the unit is dry, press its plug into the frame's socket until the brim seats. The unit has been on the bench rig for the acceptance soak — fingerprints, dust drift from shop air, and the residue of fingers from prior assembly steps all land here.
 
 Inspect every exposed surface against the following pass criteria:
 
-- Every visible printed surface clean of layer-line debris and stringing — particular attention to the funnel opening's collar seat, the pump cartridge's face and the bay jambs either side of it, and the +Y wall's cutouts, where small printed features land near user sightlines.
+- Every visible printed surface clean of layer-line debris and stringing — particular attention to the funnel opening's collar seat, the pump cradle's face and the bay jambs either side of it, and the +Y wall's cutouts, where small printed features land near user sightlines.
 - No scuffs, scratches, or print-bed adhesion marks that telegraph through the Founder Edition framing.
 - No exposed wiring at any wall cutout. Every cutout on the wall is a fitting's own
   flange or housing — the machine carries no cable gland.
@@ -102,7 +101,7 @@ Photograph the permanent markings with the per-unit finish photos, recording the
 measured letter/symbol sizes and locations and the process-tube red extent. Check
 that labels remain readable and attached and do not cover a vent, connector or screw.
 
-### 4. Cap the inlets and tape the pump cartridge for transit
+### 4. Cap the inlets for transit
 
 Cap the two fluid inlets — the water inlet and the CO2 inlet PTC, both on the +Y wall — with the transit caps. The caps do two jobs: keep dust and packing-foam fragments out of the wetted path during transit and warehouse handling, and signal to the installer at unboxing "remove these before connecting."
 
@@ -113,9 +112,7 @@ Inlet-by-inlet:
 
 The umbilical-port PP1208E bulkhead row on the +Y wall is *not* capped — those bulkheads land on the customer-supplied umbilical tubes from the bagged faucet sub-assembly, and a cap there would be removed and discarded by the installer in any case. The PP1208E's grab-ring collet keeps debris out of the bulkhead's bore well enough for the transit-only window.
 
-Cap specifications and source are TBD (see Open items); working assumption is a press-on rubber cap sized to each inlet OD, sourced as a small assortment kit from McMaster.
-
-Tape the pump cartridge into its bay with blue painter's tape, the kind Epson ships its printers taped with: run strips across the cartridge face onto the front face either side of the bay, so the cartridge cannot slide out of its bay in transit. The customer peels it off at unboxing.
+Cap specifications and source are TBD; working assumption is a press-on rubber cap sized to each inlet OD, sourced as a small assortment kit from McMaster.
 
 ### 5. Photograph the finished unit + archive to the per-serial log
 
@@ -126,7 +123,7 @@ Two photos minimum:
 
 Both go into the unit's archive at `logs/<serial>/finish/` — the archive already has the burn-in test logs under `logs/<serial>/burn-in/`, and the finish photos sit alongside as the visual confirmation of the unit's ship-state. The photos exist for two reasons: customer-support reference if the unit arrives with damage and a "what it looked like leaving the shop" comparison shot is needed for the claim, and a record of the as-shipped state for the run that the founder can look back on.
 
-Whether the per-serial archive ships with the machine (USB stick in the box, cloud archive at the link the plate carries, `homesodamachine.com/NNNN`, both), stays with Derek only, or some split is an Open item.
+Whether the per-serial archive ships with the machine (USB stick in the box, cloud archive at the link the plate carries, `homesodamachine.com/NNNN`, both), stays with Derek only, or some split is undecided.
 
 ### 6. Pack the install kit
 
@@ -145,7 +142,7 @@ Into the install kit box, in this order (bottom-up so the customer encounters th
 - **Collet press** ([`/hardware/printed-parts/collet-press/`](/hardware/printed-parts/collet-press/README.md), [`bom.md`](/hardware/ledger/bom.md) §7): one PET-GF tool, laid flat above the coiled plumbing. The customer uses its U-jaw to depress a 1/4-inch push-fitting collet squarely during installation and keeps it for later reconnection work.
 - **Customer documentation packet on top** (so the customer hits it first when they open the kit): the bound install guide ([`/hardware/install-guide/`](/hardware/install-guide/README.md)) face up, and the Founder Edition welcome letter on letterhead, hand-signed, under it. The guide is the first thing the customer sees in the kit.
 
-Whether a starter SodaStream concentrate pair + a primed CO2 tank also ride in the install kit is an Open item — the BOM currently calls both user-supplied, but the Founder Edition framing might justify a starter pack to make the first pour happen the day the machine arrives, rather than asking the customer to source CO2 from a local welding-gas supplier (per [`/marketing/target-market.md`](/marketing/target-market.md) "The CO2 pain point needs honesty") before they get their first soda.
+Whether a starter SodaStream concentrate pair + a primed CO2 tank also ride in the install kit is undecided — the BOM currently calls both user-supplied, but the Founder Edition framing might justify a starter pack to make the first pour happen the day the machine arrives, rather than asking the customer to source CO2 from a local welding-gas supplier (per [`/marketing/target-market.md`](/marketing/target-market.md) "The CO2 pain point needs honesty") before they get their first soda.
 
 ### 7. Pack the carton
 
@@ -162,21 +159,21 @@ Wedge both items with foam corner-blocks so they don't shift during transit. Clo
 
 Place the sealed carton on the platform scale, level surface, zero the scale empty first. Record actual weight to [0.1 kg](SCALE_PRECISION) precision. Measure length × width × height with a tape measure across the carton's longest dimension on each axis (not the foam end-cap recess — the carrier dim-weight algorithm uses external dimensions, not internal void). Record both against the order in the run log (`logs/<serial>/finish/ship-dims.txt` is the working format, containing: serial, gross weight in kg, length × width × height in cm, and the run-log entry's timestamp).
 
-Expected envelope: the machine at ~[10](APPLIANCE_W_LOW)–[15 kg](APPLIANCE_W_HIGH) + packaging + install kit + faucet-and-umbilical bag lands the carton at **[15](CARTON_W_LOW)–[20 kg](CARTON_W_HIGH)** and roughly [60](CARTON_L) × [50](CARTON_W_DIM) × [50 cm](CARTON_H_DIM) — both numbers are working assumptions, not precision specs, and the first-unit measurement is what calibrates the carrier-cost model for the run. The exact target weight is flagged as an Open item.
+Expected envelope: the machine at ~[10](APPLIANCE_W_LOW)–[15 kg](APPLIANCE_W_HIGH) + packaging + install kit + faucet-and-umbilical bag lands the carton at **[15](CARTON_W_LOW)–[20 kg](CARTON_W_HIGH)** and roughly [60](CARTON_L) × [50](CARTON_W_DIM) × [50 cm](CARTON_H_DIM) — both numbers are working assumptions, not precision specs, and the first-unit measurement is what calibrates the carrier-cost model for the run.
 
-If the weight exceeds the carrier's ground threshold (typically [70 lb](CARRIER_LIMIT_LB) / [~32 kg](CARRIER_LIMIT_KG) for UPS Ground / FedEx Ground residential), escalate to LTL freight; see Open items for the carrier-selection commit. At the Founder Edition unit's expected [15](CARTON_W_LOW)–[20 kg](CARTON_W_HIGH), no escalation is anticipated, but the measurement is the gate.
+If the weight exceeds the carrier's ground threshold (typically [70 lb](CARRIER_LIMIT_LB) / [~32 kg](CARRIER_LIMIT_KG) for UPS Ground / FedEx Ground residential), escalate to LTL freight. At the Founder Edition unit's expected [15](CARTON_W_LOW)–[20 kg](CARTON_W_HIGH), no escalation is anticipated, but the measurement is the gate.
 
 ### 9. Generate the shipping label, hand off to carrier, email tracking
 
-Carrier selection — UPS Ground vs FedEx Ground vs LTL freight, per package weight and customer ZIP — is an Open item; working default for the [50](FOUNDER_EDITION_COUNT)-unit Founder run is ground freight to lower 48 US states. International is out of scope.
+Carrier selection — UPS Ground vs FedEx Ground vs LTL freight, per package weight and customer ZIP — is undecided; working default for the [50](FOUNDER_EDITION_COUNT)-unit Founder run is ground freight to lower 48 US states. International is out of scope.
 
-Generate the carrier label from the carrier's web portal against the customer's shipping address. Declared value at the carrier's insurance level is TBD pending the damage-claim decision (Open item 3); working assumption is full declared value of [$7,500](FOUNDER_EDITION_PRICE). Affix the label to the carton's top face (so the carrier's scanner reads it on the loading dock without rotating the carton) with the label-pouch's adhesive backing, not loose-taped — the carton sees rough handling and a corner-lifted label peels off in transit.
+Generate the carrier label from the carrier's web portal against the customer's shipping address. Declared value at the carrier's insurance level is TBD pending the damage-claim decision; working assumption is full declared value of [$7,500](FOUNDER_EDITION_PRICE). Affix the label to the carton's top face (so the carrier's scanner reads it on the loading dock without rotating the carton) with the label-pouch's adhesive backing, not loose-taped — the carton sees rough handling and a corner-lifted label peels off in transit.
 
 Hand the carton off to the carrier at scheduled pickup. Scan the carton out of the run log at handoff (`logs/<serial>/finish/shipped.txt` records the tracking number, carrier, handoff date/time, and the carrier's pickup-driver acknowledgment).
 
 Email the tracking number to the customer the same day, against the email on file with the order. The Founder Edition framing per [`/marketing/target-market.md`](/marketing/target-market.md) "Trust at Founder Edition: the brand is a person" makes the carrier-handoff email a personal touch from the founder — written from `derek@homesodamachine.com`, naming the unit's serial number, attaching the +Y wall's photo from step 5 — not a templated drop-ship notification. The customer paid [$7,500](FOUNDER_EDITION_PRICE) to one of the first [50](FOUNDER_EDITION_COUNT) hand-built units; the handoff email reads accordingly.
 
-Damage-claim and warranty-registration workflow at carrier handoff is an Open item.
+Damage-claim and warranty-registration workflow at carrier handoff is undecided.
 
 ## Output condition
 
@@ -186,25 +183,11 @@ A finished, ship-ready unit is:
 - Confirmed fluid-drained dry: no water in the carbonator or any line, no flavor in either reservoir, system at atmospheric pressure
 - Nameplate snapped into the +Y wall, retained and scanned to confirm this unit
 - Water + CO2 inlets, both on the +Y wall, capped for transit
-- Pump cartridge taped into its bay for transit
 - Carton sealed with the machine + bagged faucet-and-umbilical sub-assembly + install kit (the collet press, the regulator and the cold kit inside it) + customer documentation packet with the install guide face up
 - Shipping weight + dimensions recorded against the order in the per-serial run log
 - Outer shipping label affixed to the carton's top face; carrier tracking number assigned
 - Tracking number emailed to the customer from the founder's address with the +Y wall photo attached
 - Per-serial photo set + ship-dims + tracking number archived under `logs/<serial>/finish/`
-
-## Open items
-
-Procedure-level gaps that need answers before unit 1 ships:
-
-1. **Carrier selection — undecided.** UPS Ground, FedEx Ground, or LTL freight for the [50](FOUNDER_EDITION_COUNT)-unit Founder Edition run is not yet committed. Working default is ground to lower 48; decision drives the label-generation tooling at step 9 and the per-shipment cost model.
-2. **Starter pack — undecided.** The BOM calls both flavor concentrate and the CO2 tank user-supplied (see [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) "External / user-supplied"). The Founder Edition framing arguably justifies a starter SodaStream concentrate pair + a primed CO2 tank in the box so the first pour happens the day the unit arrives. The call hasn't been made.
-3. **Damage-claim + warranty-registration workflow.** Carrier handoff with insurance level, customer-facing claim process, and what the founder commits to on a damaged-in-transit unit (replace? repair? refund?) — all unwritten. Founder Edition unit value at [$7,500](FOUNDER_EDITION_PRICE) makes the answer non-trivial.
-4. **Per-serial archive disposition.** Whether `logs/<serial>/` exports with the machine (USB stick in the box, a cloud archive behind the plate's own link, both), is retained by Derek only, or some split between the two. The per-unit link on the nameplate could resolve to a customer-portal page that surfaces this unit's log archive — a future customer-portal decision per [`/hardware/printed-parts/enclosure/nameplate/README.md`](/hardware/printed-parts/enclosure/nameplate/README.md) "What it says".
-5. **International shipping — scoped out for Founder Edition.** Currently lower-48-only. Flagged here as a future-work item because the Founder Edition demand pipeline already includes inbound interest from outside the US, and the answer needs a separate set of carrier, customs, and regulatory marking workstreams (every marking this unit wears is written against US-only requirements).
-6. **Carton + foam end-cap + transit-cap + transit-tape source.** No SKU committed yet for the outer carton, the molded foam end-caps, the two transit caps or the transit tape. Working assumption is a custom-cut carton + custom-poured foam from a local packaging house; the per-unit cost lands in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) once the source is committed. The box the customer opens is an inner box with a lift-off top inside the shipping carton, with the install kit accessible above the machine.
-7. **Shipping weight — precise number.** The [15](CARTON_W_LOW)–[20 kg](CARTON_W_HIGH) working envelope is an estimate; the first-unit measurement at step 8 calibrates the run, and the cost model for the carrier-selection decision (Open item 1) depends on the precise number landing.
-8. **Founder Edition signature carrier.** The horizontal brand-and-QR nameplate has no signature field. The physical signature carrier remains to be specified with the Founder Edition presentation.
 
 ## Sources
 [value](NAME) texts are updated by:

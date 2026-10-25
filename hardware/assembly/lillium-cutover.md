@@ -26,7 +26,7 @@ every part used in the working assembly.
 ## In and out
 
 **In this build:**
-- The four enclosure quadrants, the pump cartridge and the tee carrier
+- The four enclosure quadrants, the pump cradle and its clamp, and the tee carrier
   ([prototype record](/hardware/printed-parts/enclosure/lillium-prototype-2026-10-07/README.md),
   [current back top](/hardware/printed-parts/drain-readiness/prints/2026-10-08-current-back-top-mark1/README.md)).
 - Front-top's manifold: V-C–V-J, Y-A–Y-G, both KPHM600 pumps.
@@ -58,7 +58,7 @@ every part used in the working assembly.
   and white 1/4" LLDPE, white 3/8" LLDPE, and the 28 AWG umbilical ribbon.
 - §11: the 22 AWG 3P, 4P and 5P ribbons and black spool, JST XH kits, female spades, ring
   terminals, ferrules, heat-shrink, braided sleeve, 16 AWG stranded silicone plus solid black/white stock, Wago 221-413, -415 and -420,
-  the RJ11 keystone and plugs, the pogo contact pair, and 4", 6" zip ties.
+  the RJ11 keystone and plugs, and 4", 6" zip ties.
 - §12: the RC62 magnets, MDSR-7-10-15 reeds and the 1/8" 316 rod.
 - §13: ruthex short and full-length M3 inserts, M3×8, ×10, ×60 and 304 ×12 screws, and the PTFE
   vent membranes.
@@ -70,9 +70,6 @@ every part used in the working assembly.
   umbilical runs ([B005S4MTXO](https://www.amazon.com/dp/B005S4MTXO), one per listing).
 - 16 AWG solid tinned-copper black and white hookup wire for AC-2 and DC-1/4,
   with Prime links in [BOM §11](/hardware/ledger/bom.md#11-wiring--fasteners).
-
-**On order:** the M1.4 heat-set inserts and M1.4×8 screws for both pogo halves, and the Wiha
-1.3 mm hex driver that seats them.
 
 **Printed:**
 - **Fit together, per Derek's October 7 report
@@ -107,7 +104,6 @@ in every piece before anything goes in the box:
 - **Full-length M3:** the lower pump cradle's two, under the clamp's M3×60s; and six in each
   reservoir's wall-top bosses.
 - **M5:** four Y-seam inserts, two in back-bottom's knuckles under the Z seam and two in front-top's knuckles under the funnel frame.
-- **M1.4:** two in front-top's bay bulkhead and two in the pump clamp, for the pogo halves.
 - **The faucet:** the three short M3 in the shell base
   ([faucet assembly](/hardware/printed-parts/faucet/faucet-shell/ASSEMBLY.md#base-joint)).
 
@@ -117,13 +113,7 @@ The condenser's two M3 and the compressor's four M5 are not pressed.
 
 Front-top is the fixture for the whole flavor side.
 
-1. **The pump contacts' fixed half**, before the valves, frame or slides
-   ([enclosure mechanical §8](enclosure-mechanical.md#8-let-the-display-into-the-facet-and-clear-the-funnel-opening)):
-   the fixed 4P ribbon ([cable assemblies](cable-assemblies.md#contact-pair--dc-5)) soldered to
-   the male half in `AM2`, `AM1`, `BM2`, `BM1` order from +X,
-   seated with two M1.4×8, laid along the bulkhead crown below the funnel frame,
-   its unplugged J13 end supported clear of the closing slides.
-2. **The manifold** per
+1. **The manifold** per
    [internal plumbing §3](internal-plumbing.md#3-flavor-manifold-v-a-through-v-j--y-a-y-b-y-c-y-d-y-f-y-g--pumps),
    whose steps 1–4 dock the pumps on the machine's four pump tees under tee caps. This build's
    dock is the tee carrier with Y-C, Y-D, Y-F and Y-G
@@ -131,11 +121,11 @@ Front-top is the fixture for the whole flavor side.
    valves V-C, V-D, V-G and V-J and their window covers; the fore valves V-E, V-F, V-H and V-I
    with the four bowed stubs; Y-A and Y-B butted to V-C and V-D, with the crossbar between them;
    the four hairpins.
-3. **Y-A port 1**, V-A's: the PI0808S plug. **Y-B port 1**, V-B's: the dip tube, black 1/4"
+2. **Y-A port 1**, V-A's: the PI0808S plug. **Y-B port 1**, V-B's: the dip tube, black 1/4"
    LLDPE, left long.
-4. **The machine display** in its facet: TPU ring on the glass, both cover wings in their
+3. **The machine display** in its facet: TPU ring on the glass, both cover wings in their
    pockets, leads loose (§8).
-5. **The funnel frame** remains off until the box's final connections are complete.
+4. **The funnel frame** remains off until the box's final connections are complete.
    Bring the prototype dip tube through its drain opening, then lower the frame vertically
    and fit its four M3 × 12 screws. The tube reaches the bottom of a bottle beside the
    machine; between fills its end rests up in the opening. The integrated drain
@@ -186,13 +176,11 @@ Populate it inverted, ceiling down
    continuity checks: no H–N, H–G or N–G continuity, J10's `V12` to PSU +, the stack to the C14
    earth pin.
 
-## 4. The pump cartridge
+## 4. The pump cradle
 
 Build it upright on the bench and keep it out of the box until the box is closed
 ([internal plumbing §3](internal-plumbing.md#3-flavor-manifold-v-a-through-v-j--y-a-y-b-y-c-y-d-y-f-y-g--pumps)):
 - Both KPHM600s go into the cradle wells, under the clamp and its two M3×60.
-- The female pogo half goes in the clamp's aft face with two M1.4×8. Its four leads carry
-  Fastons to the motor tabs: `AM2`, `AM1` to pump A on +X; `BM2`, `BM1` to pump B.
 - Push 1/4" LLDPE into both silicone ends and zip-tie them. Set the free tips as §3 gives.
 
 ## 5. The reservoirs
@@ -244,9 +232,12 @@ the order [§4](enclosure-mechanical.md#4-close-the-front-column) and
 5. **The FLAVOR risers:** V-G and V-J to the two FLAVOR bulkheads, `fluid-18` and `fluid-28`, at
    their developed lengths in the assembly facts
    ([internal plumbing §4](internal-plumbing.md#4-risers-up-to-the-umbilical-bulkheads-on-the-y-wall)).
-6. **The pump cartridge** goes in last, through the front bay (§3 step 7). Its four tubes bottom
-   at release with the cartridge short of seating, then it seats through the final push. Tug
-   all four.
+6. **The pump cradle** goes in last, through the front bay
+   ([internal plumbing §3](internal-plumbing.md#3-flavor-manifold-v-a-through-v-j--y-a-y-b-y-c-y-d-y-f-y-g--pumps)
+   step 7): the J13 ribbon's free end through front-top's lead bore, its four Fastons
+   crimped and landed on the motor tabs, `AM2`, `AM1` on pump A at +X and `BM2`, `BM1` on
+   pump B, then the cradle pushed home until its four tubes bottom in the tees, with the
+   slack drawn back from behind, and J13 plugged.
 
 ## 7. Wiring
 
@@ -257,7 +248,7 @@ Build the looms per [cable assemblies](cable-assemblies.md) and land them per
 |---|---|
 | J1 MANIFOLD A | All nine conductors. OUT3–OUT8 to V-C–V-H, COM into the 221-420 at its +X well. OUT1 (V-A) and OUT2 (V-B) folded back and labeled. |
 | J2 MANIFOLD B | OUT1 to V-I, OUT2 to V-J, COM into the 221-415. OUT3 (V-K) and FAN folded back and labeled; contact 3 stays empty. |
-| J13 | The fixed pogo half, already soldered. |
+| J13 | The pump ribbon, already landed with the cradle (§6 step 6). |
 | J6, J7 | Reservoir A's and B's reed columns, GND into their lever nuts. J7's CLO and CHI conductors trimmed at the housing. |
 | J4 | The meter only, SIG-4: IO25, V5, GND. |
 | J9 | The machine display: B, A, GND, V12 to the 4.3B's terminals. |
@@ -305,9 +296,8 @@ Follow [firmware and commissioning](firmware-and-commissioning.md):
 
 ## 10. Under the sink
 
-- **Placement:** the front, the top and the rear wall all need to stay reachable — the pump
-  cartridge comes out the front, the display and the dip tube are on top, and every connection
-  is on the rear wall.
+- **Placement:** the top and the rear wall need to stay reachable — the display and the dip tube
+  are on top, and every connection is on the rear wall.
 - **Connections:**
   - The Lillium's cold carbonated outlet → blue 1/4" LLDPE → TAP. The Lillium's outlets are 1/4"
     push-connect.
@@ -345,7 +335,8 @@ The main board runs `b79be4d54` or later. Nothing is configured for this build.
   flavor at a time and let each fill draw its bottle empty, so air follows the syrup through the
   line the two flavors share ([concerns](/hardware/concerns.md), "One flavor carried into the
   other").
-- **Dry**, Settings → Pump service: the dip tube out of the bottle, in air.
+- **Dry**, `AIR:DRY` on the machine display's USB console: the dip tube out of the bottle, in
+  air.
 - **Clean** is not for this build. Its first step pumps whatever the dip tube stands in out
   through the faucet. With V-A's port plugged no water comes in, and its flush step pumps the
   reservoir out through the faucet.
@@ -354,8 +345,4 @@ The main board runs `b79be4d54` or later. Nothing is configured for this build.
 
 ## Before guests use it
 
-1. **Pump current.** Read one pump's startup and stall current with the multimeter in series on a
-   motor lead. The cartridge contacts are rated 2 A each. A batch-1 or batch-2 board limits motor
-   current only at the driver's 3.7–6.4 A overcurrent protection; a board built from the current
-   source holds it at 1.54–1.81 A.
-2. **The first glass.** Leave it idle overnight, then pour each flavor without priming.
+1. **The first glass.** Leave it idle overnight, then pour each flavor without priming.

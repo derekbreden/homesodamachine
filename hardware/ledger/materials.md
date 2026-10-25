@@ -68,7 +68,7 @@ An assembly is counted through its parent occurrence. Its components occur withi
 that assembly. Purchased pack sizes, delivered costs, fabrication consumables and
 stock allowances remain in [`bom.md`](bom.md). Its per-unit costing scope differs
 from this composition catalog. Each catalog BOM's `scope` states its coverage;
-the machine catalog includes modeled parts and selected service hardware, with
+the machine catalog includes modeled parts and selected hardware, with
 remaining wiring, tubing and fasteners described by the build and cost records.
 
 `bom.source` links the record that establishes the contents. `bom.imports` reads
@@ -95,19 +95,18 @@ core's prefix in the soda machine is `cold-core/`. Multiple solids can represent
 one purchased material, and a combined envelope can represent several materials.
 Physical quantities come from the parts and assembly records.
 
-`contexts: [{"material": "HSM-000001"}]` allows an assembly with no separate
-model to be inspected in a containing material's model. The cartridge uses the
-soda machine as its context; the vessel and magnetic level float use the cold
+`contexts: [{"material": "HSM-000001"}]` allows an assembly with no separate model
+to be inspected in a containing material's model. The pump cradle assembly uses
+the soda machine as its context; the vessel and magnetic level float use the cold
 core. Context inspection keeps the selected assembly's own identity and BOM and
 highlights its represented contents. A representation may also specify
 `context: true` to use a particular enclosing model file. Context representations
 do not allocate that enclosing model's identity to the contained material.
 
-Some parts, including embedded magnets and cartridge fasteners, have no individual
-geometry in the containing model. The two ASSE outlet fittings share a combined
-envelope, as do the constituents of each pump fitting chain. Their BOM quantities
-and document links remain available without claiming independently selectable
-geometry.
+Some parts, including the pump cradle's fasteners, have no individual geometry in
+the containing model. The two ASSE outlet fittings share a combined envelope, as
+do the constituents of each pump fitting chain. Their BOM quantities and document
+links remain available without claiming independently selectable geometry.
 
 Every named body in the cataloged machine, faucet, cold-core and build-tool
 assembly views maps to a material. Routed tube sections share their fitted run's
@@ -134,7 +133,7 @@ recorded scope.
 
 | Material | Contents and interfaces | Authority |
 | --- | --- | --- |
-| HSM-000161 — Pump cartridge assembly | Both complete prepared pumps with their four clamped LLDPE tubes, lower cradle, top clamp, female contact half, moving motor leads and Fastons, four printed-in SB443-IN magnets, and mounting hardware. The fixed male half, the four pump tees in the tee wall, the collet plate, the upper tubes and lower returns, and the four mating magnets stay in the appliance. The customer replaces complete prepared pumps under the cap; the dock retains its physical qualification scope. | [Cartridge build](../assembly/internal-plumbing.md), [service boundary](../service/pump-replacement.md) |
+| HSM-000161 — Pump cradle assembly | Both prepared pumps with their four clamped LLDPE tubes, the pump cradle, its top clamp and mounting hardware, and the Fastons that land the J13 ribbon on the motor tabs. The four pump tees in the tee wall, the upper tubes and lower returns, and the J13 ribbon stay in the appliance, whose four tee collets hold the cradle home; the dock retains its physical qualification scope. | [Cradle build](../assembly/internal-plumbing.md), [pump dock](../printed-parts/enclosure/pump-dock/README.md) |
 | HSM-000004 — Carbonator vessel | Vessel, port fittings, pressure relief, captive float and welded guide rod. The other two floats and guide rods belong to the cold core's reservoir installation. | [Vessel build](../assembly/pressure-vessel.md) |
 | HSM-000087 — ASSE 1022 water-fitting assembly | Backflow preventer and four inlet/outlet fittings, between its two tube collets and bare atmospheric vent. The vent sleeve, return tube and mounting hardware belong to the machine. | [Fitting assembly](../reference/asse1022-assembly/README.md) |
 | HSM-000058 — neoFit ACHV44-E single check valve | One 1/4-inch push-connect check with a nominal 0.3 psi crack pressure, used at both the pump discharge and downstream of the PISCO CO2 regulator. Tubes, elbows and installation hardware belong to the machine. | [Water and gas assembly](../assembly/internal-plumbing.md), [check-valve scope](../reference/neofit-achv44-check/README.md) |

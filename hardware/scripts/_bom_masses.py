@@ -141,12 +141,12 @@ PARTS = {
         "enclosure/enclosure/enclosure-front-bottom.step",
         "enclosure/enclosure/enclosure-front-top.step",
     ],
-    # THE FIFTH PIECE OF THE BOX, and the one that leaves it loaded: the front wall's flat
+    # THE FIFTH PIECE OF THE BOX, the one that carries both pumps: the front wall's flat
     # span and the large lower cradle behind it come off the plate as one solid
     # (`enclosure.build_pump_cartridge`); the small top clamp comes off as a second
     # (`enclosure.build_pump_cap`). ONE ROW FOR THE PAIR, because they are screwed together
-    # on the bench and ride as one. The two case-derived collars are clamp material, not parts.
-    "Enclosure — pump cartridge + clamp (one set)": [
+    # on the bench and go into the bay as one. The two case-derived collars are clamp material, not parts.
+    "Enclosure — pump cradle + clamp (one set)": [
         "enclosure/enclosure/enclosure-pump-cartridge.step",
         "enclosure/enclosure/enclosure-pump-cap.step",
     ],
@@ -225,7 +225,7 @@ GROUP_OF = [
     ("Cold-core foam cap",          "bulk"),
     ("Enclosure — front",           "ext"),
     ("Enclosure — back",            "ext"),
-    ("Enclosure — pump cartridge",  "ext"),
+    ("Enclosure — pump cradle",     "ext"),
     ("Display cover plate",         "ext"),
     ("Soda inlet bend holder",       "small"),
     ("Flavor reservoir",            "tight"),

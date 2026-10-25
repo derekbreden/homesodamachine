@@ -213,8 +213,6 @@ enum Page { PAGE_HOME, PAGE_FLAVOR, PAGE_SERVICE, PAGE_SETUP, PAGE_COUNT };
 enum FlavorView  { FLV_DETAIL, FLV_IMAGES, FLV_COUNT };
 enum ServiceView { SVC_PRIME_PICK, SVC_PRIME_HOLD, SVC_CLEAN_PICK,
                    SVC_CLEAN_CONFIRM, SVC_FILL_PICK, SVC_FILL_CONFIRM, SVC_COUNT };
-// Settings lands on the system status; each area beside it is a view of its own.
-enum SettingsView { SET_STATUS, SET_PUMP, SET_COUNT };
 
 // Stable diagnostic destination IDs. The live rail contains flavor images;
 // the three service destinations are the tabs above the task pane.
@@ -235,11 +233,9 @@ static bool operationLockMachine = false;
 static bool operationResultVisible = false;
 static lv_obj_t *flvView[FLV_COUNT];
 static lv_obj_t *svcView[SVC_COUNT];
-static lv_obj_t *setView[SET_COUNT];
 static Page activePage = PAGE_HOME;
 static ServiceView activeSvc = SVC_PRIME_PICK;
 static FlavorView  activeFlv = FLV_DETAIL;
-static SettingsView activeSet = SET_STATUS;
 static RailPage activeRail = RAIL_CHOOSE;
 static bool uiReady = false;
 
@@ -253,7 +249,6 @@ static void tileStripAffordance();
 static void tilePickService();
 static void tileDisarm();
 static void showService(ServiceView v);
-static void showSettings(SettingsView v);
 static void animRun(bool on);
 static void idleReset(uint8_t stage);
 static void refreshHomeSelection();
@@ -540,8 +535,9 @@ static unsigned long cleanCardUntilMs = 0;      // nonzero: the closing card is 
 #define CLEAN_CARD_MS         FILL_CARD_MS
 
 // ── The air cycles, as this glass shows it ──
-// Dry is started from Settings before a pump replacement; a purge is the
-// console's. Both are shown on the lock the way the clean cycle is.
+// Dry, which dries the flavor lines, is the bench's and the factory's: AIR:DRY
+// on this board's USB or `dry` on the console. A purge is the console's. Both
+// are shown on the lock the way the clean cycle is.
 static AirStatePayload airState = {};
 static bool          airKnown = false;
 static bool          airLockShown = false;
@@ -551,7 +547,6 @@ static unsigned long airStartSentMs = 0;
 static unsigned long airQueryMs = 0;
 static unsigned long airUiMs = 0;
 static unsigned long airCardUntilMs = 0;
-static lv_obj_t *settingsMsg = NULL;   // the pump service card's own message line
 static lv_obj_t *settingsBtn;      // bottom of the persistent flavor rail
 
 // ── System status, as this glass shows it ──
@@ -1782,7 +1777,6 @@ static void applyPrimeSessionState(const PrimeSessionStatePayload &state);
 static void applyFillState(const FillStatePayload &state);
 static void applyCleanState(const CleanStatePayload &state);
 static void applyAirState(const AirStatePayload &state);
-static void setSettingsMsg(const char *s);
 static void refreshHomeLevel();
 static void refreshStatusReeds();
 static void refreshStatusThermal();
@@ -2091,7 +2085,7 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     } else if (airStartSentMs) {
       airStartSentMs = 0;
       lockScreenHide();
-      setSettingsMsg("this main board has no air cycle");
+      Serial.println("[J9] dry: this main board has no air cycle");
     }
     Serial.println("[J9] MSG_ERR_UNSUPPORTED");
     return;
@@ -3914,10 +3908,12 @@ static void cleanStopCb(lv_event_t *e) {
 }
 
 // ── The air cycles, on the lock ───────────────────────────────────────────
-// Dry — before a pump replacement — is asked for from Settings; a purge is the
-// console's. The lock shows either the way it shows the clean cycle: the face
-// of the channel whose pump is turning, a bar across the whole cycle, a note
-// with the step and which way the air is going, STOP, and the time left.
+// Dry — the bench's and the factory's, drying the flavor lines — is asked for
+// over this board's USB or from the console; a purge is the console's. Nothing
+// on the glass starts either. The lock shows either the way it shows the clean
+// cycle: the face of the channel whose pump is turning, a bar across the whole
+// cycle, a note with the step and which way the air is going, STOP, and the
+// time left.
 static uint32_t airDisplayedStepElapsed() {
   if (!airKnown) return 0;
   uint32_t elapsed = airState.stepElapsedMs;
@@ -3970,8 +3966,7 @@ static void airLockProgress() {
 static void airLockShow() {
   operationLockMachine = true;
   showPage(PAGE_SETUP);
-  showSettings(SET_PUMP);
-  lockScreenShow(airState.mode == AIR_MODE_PURGE ? "AIR PURGE" : "PUMP SERVICE",
+  lockScreenShow(airState.mode == AIR_MODE_PURGE ? "AIR PURGE" : "DRY THE LINES",
                  airState.mode == AIR_MODE_PURGE ? "Purging" : "Drying", "");
   lv_img_set_src(lockFace, &flavorTile[flavorImage[airState.channel & 1]]);
   lockFillLayout(true);
@@ -3993,7 +3988,7 @@ static void airLockCard(uint8_t outcome) {
     case AIR_OUTCOME_DONE:
       title = purge ? "Purged" : "Dry";
       body = purge ? "The reservoir is\nempty and the line\nis clear."
-                   : "The lines are dry.\nPull the pump\ncartridge.";
+                   : "The lines are dry.";
       break;
     case AIR_OUTCOME_STOPPED:
       body = "Stopped early. The\nlines may not be\nclear.";
@@ -4005,7 +4000,7 @@ static void airLockCard(uint8_t outcome) {
       body = "A valve did not answer.\nEverything is switched off.";
       break;
   }
-  lv_label_set_text(lockKicker, purge ? "AIR PURGE" : "PUMP SERVICE");
+  lv_label_set_text(lockKicker, purge ? "AIR PURGE" : "DRY THE LINES");
   lv_label_set_text(lockTitle, title);
   lv_label_set_text(lockBody, body);
   lv_obj_clear_flag(lockBody, LV_OBJ_FLAG_HIDDEN);
@@ -4044,13 +4039,12 @@ static void applyAirState(const AirStatePayload &st) {
     const bool stopping = airStopSent;
     airStartSentMs = 0;
     if (running) {
-      setSettingsMsg("");
       airLockShow();
       if (stopping) airStopCb(nullptr);
     } else {
       airStopSent = false;
       lockScreenHide();
-      setSettingsMsg(stopping ? "Stopped" : airRefusalText(st.outcome));
+      Serial.printf("[J9] dry: %s\n", stopping ? "stopped" : airRefusalText(st.outcome));
     }
     return;
   }
@@ -4073,16 +4067,15 @@ static void airStopCb(lv_event_t *e) {
   else airLockProgress();
 }
 
-// Settings' one commitment: dry the lines before the pump cartridge is pulled.
-static void dryStartCb(lv_event_t *e) {
-  (void)e;
+// AIR:DRY's start: the dry cycle asked of the main board, on the lock until it
+// answers. A refusal is printed on this board's USB, where the ask came from.
+static void dryStart() {
   if (lockActive || airStartSentMs || fillStartSentMs || cleanStartSentMs) return;
   AirRequestPayload p{AIR_MODE_DRY, 0};
   j9Post(MSG_AIR_START, &p, sizeof(p));
   airStartSentMs = millis() ? millis() : 1;
-  setSettingsMsg("starting");
   airStopSent = false;
-  pendingOperationShow("PUMP SERVICE", true);
+  pendingOperationShow("DRY THE LINES", true);
 }
 
 static void airService() {
@@ -4327,10 +4320,8 @@ static void refreshShell() {
     lv_obj_set_style_bg_color(railBtn[i], lv_color_hex(selected ? COL_DIM : COL_CARD_ON), LV_STATE_PRESSED);
     lv_obj_set_style_opa(railBtn[i], lockActive || holding ? LV_OPA_50 : LV_OPA_COVER, 0);
   }
-  if (machine) {
-    lv_obj_clear_flag(systemTitle, LV_OBJ_FLAG_HIDDEN);
-    lv_label_set_text(systemTitle, activeSet == SET_PUMP ? "Pump service" : "System status");
-  } else lv_obj_add_flag(systemTitle, LV_OBJ_FLAG_HIDDEN);
+  if (machine) lv_obj_clear_flag(systemTitle, LV_OBJ_FLAG_HIDDEN);
+  else lv_obj_add_flag(systemTitle, LV_OBJ_FLAG_HIDDEN);
   if (front_ui::showDone(activePage == PAGE_HOME, lockActive)) lv_obj_clear_flag(doneBtn, LV_OBJ_FLAG_HIDDEN);
   else lv_obj_add_flag(doneBtn, LV_OBJ_FLAG_HIDDEN);
   lv_obj_set_style_bg_color(settingsBtn, lv_color_hex(machine ? COL_ACCENT : COL_CARD), 0);
@@ -4472,13 +4463,6 @@ static void buildService(lv_obj_t *page) {
       cleanStartCb, &cleanMsg);
 }
 
-static void setSettingsMsg(const char *s) { if (settingsMsg) lv_label_set_text(settingsMsg, s); }
-
-static void settingsAreaCb(lv_event_t *e) {
-  showSettings((SettingsView)(intptr_t)lv_event_get_user_data(e));
-}
-static void settingsBackCb(lv_event_t *e) { (void)e; showSettings(SET_STATUS); }
-
 // A plain outline: a border and nothing inside it.
 static lv_obj_t *mkOutline(lv_obj_t *parent, lv_coord_t x, lv_coord_t y, lv_coord_t w,
                            lv_coord_t h, lv_coord_t radius) {
@@ -4582,12 +4566,8 @@ static lv_coord_t buildStatusDiagram(lv_obj_t *card, lv_coord_t w, lv_coord_t to
   return h;
 }
 
-// Settings lands on the system status — the machine's profile with every reed on
-// it — and the areas a person can go into stand in a column beside it. One so
-// far: pump service, which carries the one thing a person does to this machine
-// that is not a drink, drying the lines before the pump cartridge is pulled
-// (hardware/service/pump-replacement.md). A container goes under the faucet
-// first; the button is the commitment, and the lock shows the cycle.
+// Settings is the system status: the machine's profile with every reed on it,
+// and beside it the cold loop and the refill.
 static void buildSettings(lv_obj_t *page) {
   lv_obj_set_pos(page, RAIL_W, HEADER_H);
   lv_obj_set_width(page, SCREEN_W - RAIL_W);
@@ -4596,43 +4576,16 @@ static void buildSettings(lv_obj_t *page) {
   const lv_coord_t diagramHeight = buildStatusDiagram(status, 436, 5);
   statusNote = mkText(status, "Not reading the sensors", &lv_font_montserrat_20, COL_WARN);
   lv_obj_set_pos(statusNote, 0, diagramHeight + 10);
-  lv_obj_t *service = mkBtn(status, 186, 64, COL_CARD_ON);
-  lv_obj_set_pos(service, 460, 5);
-  lv_obj_set_style_border_width(service, 1, 0);
-  lv_obj_set_style_border_color(service, lv_color_hex(0x8eacef), 0);
-  lv_obj_add_event_cb(service, settingsAreaCb, ACT_EVENT, (void *)(intptr_t)SET_PUMP);
-  lv_obj_center(mkText(service, "Pump service " LV_SYMBOL_RIGHT, &lv_font_montserrat_20, COL_TEXT));
-  // The cold loop and the refill, in the column under the pump service button:
-  // a dim label at the column's left edge and its value beside it, five rows.
+  // The cold loop and the refill, in the column beside the profile: a dim label
+  // at the column's left edge and its value beside it, five rows down from the
+  // profile's top.
   static const char *const thermalLabel[STATUS_THERMAL_ROWS] = {"Tank", "Coil", "Cold", "Refill", "Probes"};
   for (uint8_t i = 0; i < STATUS_THERMAL_ROWS; i++) {
-    const lv_coord_t y = 80 + i * 34;
+    const lv_coord_t y = 5 + i * 34;
     lv_obj_set_pos(mkText(status, thermalLabel[i], &lv_font_montserrat_20, COL_DIM), 460, y);
     statusThermalValue[i] = mkText(status, "--", &lv_font_montserrat_20, COL_TEXT);
     lv_obj_set_pos(statusThermalValue[i], 548, y);
   }
-  setView[SET_STATUS] = status;
-
-  lv_obj_t *pump = mkView(page);
-  lv_obj_set_pos(mkText(pump, "Dry the lines.", &lv_font_montserrat_40, COL_TEXT), 0, 0);
-  lv_obj_t *body = mkText(pump, "Before pulling the pump cartridge, set a container under the faucet and dry the lines.",
-                           &lv_font_montserrat_24, COL_TEXT);
-  lv_obj_set_width(body, 580);
-  lv_obj_set_style_text_line_space(body, 8, 0);
-  lv_obj_set_pos(body, 0, 73);
-  lv_obj_t *back = mkBtn(pump, 200, 66, COL_BLUE);
-  lv_obj_align(back, LV_ALIGN_BOTTOM_LEFT, 0, -5);
-  lv_obj_add_event_cb(back, settingsBackCb, ACT_EVENT, NULL);
-  lv_obj_align(mkText(back, LV_SYMBOL_LEFT " Settings", &lv_font_montserrat_24, COL_TEXT), LV_ALIGN_LEFT_MID, 0, 0);
-  lv_obj_t *go = mkBtn(pump, 300, 66, COL_ACCENT);
-  lv_obj_align(go, LV_ALIGN_BOTTOM_RIGHT, 0, -5);
-  lv_obj_clear_flag(go, LV_OBJ_FLAG_PRESS_LOCK);
-  lv_obj_add_event_cb(go, dryStartCb, LV_EVENT_CLICKED, NULL);
-  lv_obj_center(mkText(go, "Dry the lines " LV_SYMBOL_RIGHT, &lv_font_montserrat_24, COL_INK));
-  settingsMsg = mkText(pump, "", &lv_font_montserrat_20, COL_WARN);
-  lv_obj_set_width(settingsMsg, 646);
-  lv_obj_set_pos(settingsMsg, 0, 245);
-  setView[SET_PUMP] = pump;
 }
 
 // GPIO43 reads RS485_RXD on Waveshare's table and is the S3's U0TXD. The pair is a
@@ -4662,14 +4615,6 @@ static void showFlavor(FlavorView v) {
   refreshFlavorImages();
   refreshShell();
   tileDisarm();
-}
-
-static void showSettings(SettingsView v) {
-  activeSet = v;
-  showOnly(setView, SET_COUNT, v);
-  if (v == SET_STATUS) { refreshStatusReeds(); refreshStatusThermal(); }
-  if (v == SET_PUMP)   setSettingsMsg("");
-  refreshShell();
 }
 
 static void showService(ServiceView v) {
@@ -4740,7 +4685,6 @@ static void idleReset(uint8_t stage) {
       }
     }
     else if (activePage == PAGE_FLAVOR) showPage(PAGE_HOME);
-    else if (activePage == PAGE_SETUP)  showSettings(SET_STATUS);
   } else if (stage == 3) {
     showPage(PAGE_HOME);
   }
@@ -4777,7 +4721,7 @@ static void showPage(Page p) {
   if (p == PAGE_HOME)    refreshHomeSelection();
   if (p == PAGE_FLAVOR)  showFlavor(FLV_DETAIL);
   if (p == PAGE_SERVICE) { activeSvc = SVC_PRIME_PICK; showOnly(svcView, SVC_COUNT, -1); }
-  if (p == PAGE_SETUP)   showSettings(SET_STATUS);
+  if (p == PAGE_SETUP)   { refreshStatusReeds(); refreshStatusThermal(); }
   refreshFlavorImages();
   refreshShell();
 }
@@ -4840,12 +4784,6 @@ static bool uiShow(const UiShowPayload &req) {
       return true;
     case UI_RAIL_SETTINGS:
       showPage(PAGE_SETUP);
-      if (req.act) { showSettings(SET_PUMP); dryStartCb(nullptr); }
-      return true;
-    case UI_RAIL_PUMP_SERVICE:
-      showPage(PAGE_SETUP);
-      showSettings(SET_PUMP);
-      if (req.act) dryStartCb(nullptr);
       return true;
     default:
       return false;
@@ -4931,9 +4869,9 @@ static void processTextLine(const char *line) {
                   (unsigned long)ctrlStatus.j9ReplyOverruns,
                   (unsigned long)flushCount, (unsigned long)maxLoopMs,
                   (unsigned long)ESP.getFreeHeap(), (unsigned long)ESP.getMinFreeHeap());
-    Serial.printf("DIAG_UI:set=%d,images=%u,selected=%u,flavorSync=%d,flavorSaved=%d,flavorPending=%d,flavorRetries=%lu,"
+    Serial.printf("DIAG_UI:images=%u,selected=%u,flavorSync=%d,flavorSaved=%d,flavorPending=%d,flavorRetries=%lu,"
                   "flavorStale=%lu,bridged=%lu,stale=%lu,touch=%lu,lastXY=%u/%u\n",
-                  (int)activeSet, (unsigned)imagePage, (unsigned)activeFlavor, flavorSynchronized ? 1 : 0,
+                  (unsigned)imagePage, (unsigned)activeFlavor, flavorSynchronized ? 1 : 0,
                   flavorMainBoardPersisted ? 1 : 0, flavorRequestPending ? 1 : 0,
                   (unsigned long)flavorRetries, (unsigned long)flavorStaleResponses,
                   (unsigned long)touchBridged, (unsigned long)gt911Stale,
@@ -5047,15 +4985,11 @@ static void processTextLine(const char *line) {
     sendPumpRun(PUMP_CHANNEL_B, 1000);
     Serial.println("OK:PUMP");
   } else if (strncmp(line, "PAGE:", 5) == 0) {
-    // 0..3 are the rail, in rail order. Settings left the rail for the corner
-    // and keeps a number here anyway, so a bring-up script can still reach it;
-    // 5 is its pump service area.
+    // 0..3 are the rail, in rail order, and 4 is Settings in the corner, so a
+    // bring-up script reaches it too.
     int p = atoi(line + 5);
     if (p == RAIL_PAGE_COUNT) { showPage(PAGE_SETUP); Serial.printf("OK:PAGE=%d\n", p); }
-    else if (p == RAIL_PAGE_COUNT + 1) {
-      showPage(PAGE_SETUP); showSettings(SET_PUMP); Serial.printf("OK:PAGE=%d\n", p);
-    }
-    else if (p < 0 || p > RAIL_PAGE_COUNT + 1) Serial.println("ERR:PAGE expects 0..5");
+    else if (p < 0 || p > RAIL_PAGE_COUNT) Serial.println("ERR:PAGE expects 0..4");
     else { showRail((RailPage)p); Serial.printf("OK:PAGE=%d\n", p); }
   } else if (strncmp(line, "CLICK:", 6) == 0) {
     if (line[6] != '0' && line[6] != '1') Serial.println("ERR:CLICK expects 0 or 1");
@@ -5098,10 +5032,10 @@ static void processTextLine(const char *line) {
     cleanStopCb(nullptr);
     Serial.println("OK:CLEAN:STOP");
   } else if (strcmp(line, "AIR:DRY") == 0) {
-    // Settings' PUMP SERVICE → DRY THE LINES, without a finger on the glass.
+    // The bench's and the factory's dry cycle: both channels' flavor lines
+    // swept with air to the faucet, shown on the lock over Settings.
     showPage(PAGE_SETUP);
-    showSettings(SET_PUMP);
-    dryStartCb(nullptr);
+    dryStart();
     Serial.println("OK:AIR:DRY");
   } else if (strcmp(line, "AIR:STOP") == 0) {
     airStopCb(nullptr);
