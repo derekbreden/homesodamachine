@@ -326,7 +326,6 @@ def components():
         ('gas-upper-b', 16.891), ('soda-stem-elbow', 12.7),
         ('soda-outlet-return-stem', 16.891 + layout.specification()['fore_routes']['soda_route']['metrics']['rear_stem_exposure_mm']),
         ('ya-stem-elbow', tee_reference().INSERTION),
-        ('ya-fold-return', tee_reference().INSERTION),
         ('drain-outlet-stem', layout.specification()['fore_routes']['drain_stem_length_mm']),
         ('vb-inlet-turn', 12.7), ('vb-outlet-stem', 12.7),
         ('vb-outlet-return', 16.891), ('yb-stem-elbow', tee_reference().INSERTION)))
@@ -478,7 +477,7 @@ def route_specs():
         segments=[_line(points[0], control[0]), _bezier(control), _line(control[-1], points[-1])],
         minimum_radius=under.get('under_head_minimum_radius_mm', under.get('minimum_centerline_radius_mm')))
     ownership = {
-        'va-fore-feed': ('va-east-turn', 'ya-stem-elbow' if 'va_fore_controls_mm' in fore else 'ya-fold-return'),
+        'va-fore-feed': ('va-east-turn', 'ya-stem-elbow'),
         'ya-concealed-link': ('ya-stem-elbow', 'ya-fold-inner'),
         'drain-vb-east-link': ('drain-outlet-stem', 'vb-inlet-turn'),
         'drain-vb-inlet-link': ('vb-inlet-turn', 'valve-v-b'),
