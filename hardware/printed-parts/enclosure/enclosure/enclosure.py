@@ -3549,25 +3549,16 @@ def _funnel_cut(inner, outer, centre, wells=(), up=1.0):
 
 
 def _ceiling_corbels(solid, inner, centre, y_joint):
-    """The lip's ceiling tongue on a top piece, corbelled, so a top piece — printing
-    mouth-down — lays every tongue layer on the one below it. Fore of the tongue, from the
-    housing's back plane to the lip's shoulder, the roof is the funnel frame's own from flank
-    face to flank face (`_funnel_frame_part.front_roof_clearance`).
+    """The ceiling tongue's wall-rooted corbels over the thickened flanks.
 
-    Each side's two corbels run the lip's shoulder to its end on the tongue's own underside:
-    the funnel-side span roots on the side band's inboard face and the wall-side span walks
-    45° off the thickened flank's face. Together they carry the whole tongue into the mouth it
-    telescopes into; at each flank the corner stack under the roof takes the corner over."""
-    hole_x0, hole_x1, _hole_y0, _hole_y1 = _funnel_cut_plan(centre)
+    The removable frame owns the central roof span. Each fixed corbel runs
+    from the lip's shoulder to its end, with its 45 degree underside wholly
+    over the flank that carries it.
+    """
     iz1 = inner[5]
     shoulder = y_joint - wall
-    for hole_x, wall_x, sx in ((hole_x1, inner[1], -1.0),
-                               (hole_x0, inner[0], +1.0)):
-        chain = wall_x + sx * side_band_inset
+    for wall_x, sx in ((inner[1], -1.0), (inner[0], +1.0)):
         tz = iz1 - wall - fits.running - ceiling_lip_drop
-        solid = solid.fuse(_xz_prism(shoulder, y_joint + lip_len,
-                                     [(hole_x, tz), (chain, tz),
-                                      (chain, tz - abs(chain - hole_x))]))
         x_tip, x_cap = _band_x(wall_x - sx * wall, sx)
         walk = tz - abs(x_cap - x_tip)
         solid = solid.fuse(_xz_prism(shoulder, y_joint + lip_len,
