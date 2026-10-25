@@ -119,5 +119,5 @@
   },
   "rigid_fit_passed": true,
   "meter_and_main_component_poses": "Fixed; the core guide moves 11.9548 mm fore, in Y\u2212.",
-  "production_limits": "Current printed lid/supports, the internal continuation and complete installed wiring need integration review for this candidate."
+  "production_limits": "Current printed lid/supports, the internal continuation and complete installed wiring need integration review for the selected inlet."
 }
