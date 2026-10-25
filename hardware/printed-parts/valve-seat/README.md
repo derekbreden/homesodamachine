@@ -43,14 +43,14 @@ verifies the native socket cuts, exterior envelope, bearing and blind-floor
 datums, port clearance and shared cold-core stock datum.
 
 The preferred hand fit belongs to the tested valve and upright enclosure-oriented
-PET-GF panel. Shared cold-core plinths and other print orientations require their
+PET-GF panel. The cold-core lid's V-B wall and other print orientations require their
 own installed fit observation. No insertion force, retention load or lifetime
 is established by the selected bore.
 
-The [cold-core top cap lid](/hardware/printed-parts/cold-core/foam-cap/foam_cap.py)
-carries three plinths at `_cold_core_interface.cap_cradles`. The reservoir-B fill
-conduit has an open vertical passage along its neighbouring plinth's edge. The lid's
-pour opening and vents remain accessible.
+The [cold-core top lid](/hardware/printed-parts/cold-core/foam-cap/foam_cap.py)
+carries V-B's integral upright socket wall (`_above_core_mounts.valve_support`), the
+lid's only valve seat; V-A and V-K seat in back-top's integral sidewall seats. The
+lid's pour opening and vents remain accessible.
 
 ## Sources
 [value](NAME) texts are updated by:

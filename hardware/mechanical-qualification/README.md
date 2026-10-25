@@ -430,24 +430,25 @@ bound in that report; rubber compression and installed isolation remain physical
 observations.
 
 The [selected cap arrangement](../printed-parts/cold-core/foam-cap/README.md)
-has twelve cup-rooted full-length M3 insert stations: four pump feet, four PCB
-posts and four flat PSU seats. The PCB's M3×8 screws engage 6.4 mm; the pump's
-M3×20 stack gives 6.65 mm nominal reach. The PSU's M3×20 screws give 6.75–8.75 mm
-over the supplier's 6.7±1 mm ear tolerance, retaining at least 1 mm tip reserve in
-the 9.75 mm pilots. The B-fill roof retains 3.05 mm nominal stock and 0.55 mm
-nominal clearance to the modeled board tails. The [scoped native review](../printed-parts/cold-core/foam-cap/above-core-native-review.json)
+has eight cup-rooted full-length M3 insert stations: four pump feet and four PCB
+posts. The PCB's M3×8 screws engage 6.4 mm; the pump's M3×20 stack gives 6.65 mm
+nominal reach. The PSU's hosts are on back-top's west sidewall, in the
+[wall-mount review](enclosure-above-core/wall-mount-review.json). The B-fill lower
+pocket's cover retains 3.05 mm nominal stock; the upper fitting's 2.4 mm cover leaves
+0.25 mm nominal air below the modeled PCB tails
+([B-fill pair review](../printed-parts/cold-core/foam-cap/b-fill-pair-review.json)). The [scoped native review](../printed-parts/cold-core/foam-cap/above-core-native-review.json)
 records the passage, complete pilot-stock, B-fill, check-bridge, valve-wall and
 three JG union-restraint queries. The union windows retain complete 3 mm native
 surrounding stock; their nominal strip segments are checked against the selected
 equipment, tubes and dressed electrical references. These establish CAD geometry,
-without transferring physical acceptance to the complete cap, three upright valve
-walls, flow-meter bearings, union restraints, cable passages, fitting pockets or
-water-inlet extension. Printed fit, load capacity, installed tube/cable behavior, seam
+without transferring physical acceptance to the complete cap, the V-B wall, union
+restraints, cable passages, fitting pockets or water-inlet extension. Printed fit, load capacity, installed tube/cable behavior, seam
 adhesion and lifetime retain their separate qualification scopes.
 
 The [above-core closure review](enclosure-above-core/README.md) reads the
-exported populated appliance for empty roof-closure removal, the changed
-upper back-column ride and the raised M5 host stacks. Its adjacent report
+exported populated appliance for vertical removal of the empty funnel frame,
+the sampled ride of back-top's wall-carried group over the core and the stock
+and screw reach at the two raised upper M5 joints. Its adjacent report
 names the sampled motions and exact source/artifact hashes. The
 [native contact record](enclosure-above-core/native-contact-review.json) covers
 the west core bracket, six rear clamped fittings, PSU terminal approaches and

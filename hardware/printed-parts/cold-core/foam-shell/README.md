@@ -617,8 +617,7 @@ Every internal component is installed first:
 - Water inlet: a 1/4" PTC × 1/4" NPT M adapter (JG PP010822E) made up on the
   lateral FNPT of the carbonator's top-plate −Y elbow, collet clocked onto the diagonal
   the line leaves on. One continuous 1/4-inch OD LLDPE tube follows the nominal R14
-  cap corridor, east of the sensor passage and clear of the PSU insert column,
-  then rises through the aft `water-in` guide beneath the downward check outlet.
+  cap corridor, east of the sensor passage, then rises through the aft `water-in` guide beneath the downward check outlet.
   The guide is plain: it adds no fitting, insertion or tube cut. Lay the complete
   route before pouring; use both CAD spans and actual receiving-end marks for
   its single blank per [Internal plumbing](/hardware/assembly/internal-plumbing.md#parts-and-cut-lengths).
