@@ -1,0 +1,96 @@
+{
+  "views": [
+    {
+      "name": "seat",
+      "caption": "A section through the aft Reservoir A seat: its west stock ramps up from the lid face, under V-K's outlet elbow.",
+      "before": "seat-before.webp",
+      "after": "seat-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 532.1,
+          "y": 615.7,
+          "r": 80,
+          "label": "Ramp",
+          "at": [
+            81.6,
+            300.5,
+            255.2
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -64.40282618186225,
+          -289.111304727449,
+          346.94169570911737
+        ],
+        "target": [
+          83,
+          300.5,
+          258.5
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 9,
+        "near": 326.80034661060506,
+        "far": 992.1390340437207,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            83,
+            300.5,
+            258
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "cold-core/foam-cap-lid-top"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-cap-lid-top",
+        "lower-valve-elbow",
+        "tube-fluid-16",
+        "tube-fluid-14"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "dd9ec2ecd7e371556510c02ff2eb3b5b1ea64c2b94292535b798fa4914f71588",
+          "commit": "c74cddbf282255ee5705cc62275bbe99bf3101d4",
+          "taken": "2026-10-25T08:45:21.350Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "9729f81f2425246186ac3a00be4c11a91aa859fbc36fed5c0664b6fcf0cdd88e",
+          "commit": "b28fe140b252d22f0a3ed85f99293cbe38a52c94",
+          "published": true
+        }
+      },
+      "changed": [
+        "ya-stem-elbow",
+        "yb-stem-elbow",
+        "tube-fluid-16",
+        "cold-core/foam-cap-lid-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
