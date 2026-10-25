@@ -1467,8 +1467,53 @@
       "hardware/printed-parts/cold-core/foam-cap/reservoir_a_anchor_review.py": "a72d86e04c69890b542cf7246d58422ae8324f88c9666741380cf3808cf12450"
     },
     "actual_export_binding": {
-      "state": "source-native subtractive candidate; canonical export pending",
-      "basis": "The finite stock and unchanged end-bearing checks read the actual input lid plus only the selected two mouth cuts. Prior full contact/native/STL readings retain their original source and artifact bindings. The new seats are subsets; nominal ties and tube stations are identical."
+      "state": "canonical native artifact matched to the finite subtractive candidate",
+      "reader_sha256": "002bf7da195edcef54300c65699aedc69cfde8bbc1fb1e4cfb14c0f27afdb4ab",
+      "exported_artifacts": {
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "9aea53c4994a262dd656791717b4b65c433c2ecb529078faa5f4796e40adbf29",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "005cd76f19eab97eadec9a02495821009d45327385bffc03b5227939dd1111ec",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "3a94ca08139770eaf2d839a1adf67462e7fa1ee8aa727acab127f7afb2c3d185",
+        "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "e78c372f2f8bb8d4cab17a542c6a53cce73338e4ba1485c053c68dfa460352ae",
+        "hardware/cold-core-layout/cold-core-assembly.step": "62a0080265bb5cf885417e894c6cacdf521483bc1ea767908104739685f1e10b"
+      },
+      "world_lid": {
+        "path": "tmp/reservoir-a-anchor-native/mouth-canonical-lid-world.brep",
+        "sha256": "6bd026a1dd9c7b8c231ad681429638bd04abea5b11220cc9b32f251ce2b2b9d5"
+      },
+      "actual_signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 216,
+        "volume_mm3": 295472.1021891443,
+        "center_mm": [
+          2.9409749200956927,
+          317.74613187734707,
+          252.60490425387766
+        ],
+        "bounds_mm": [
+          -90.2000001,
+          182.45000000000002,
+          247.9999998999971,
+          97.7,
+          465.0000001,
+          299.21000000000004
+        ]
+      },
+      "metrics": {
+        "valid": true,
+        "same_solid_count": true,
+        "same_face_count": true,
+        "volume_difference_mm3": 1.7462298274040222e-10,
+        "maximum_center_difference_mm": 6.252776074688882e-13,
+        "maximum_bound_difference_mm": 0.0,
+        "passed": true
+      },
+      "tolerances": {
+        "volume_mm3": 0.029547210218914412,
+        "coordinates_mm": 1e-05,
+        "face_and_solid_counts": "exact"
+      },
+      "basis": "Only the named two threading-mouth cuts changed. The native canonical lid matches the finite candidate metrics; no equipment, wire, column, bridge or whole-lid stock reading is repeated."
     }
   }
 }
