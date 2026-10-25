@@ -24,6 +24,12 @@ private let log = Logger(subsystem: "com.derekbreden.SodaMachine", category: "Ma
 // that unit once the machine has said it, and by this phone's own id for the
 // peripheral until then. A display moved between machines advertises the
 // machine it is now wired to; a replaced machine is a new record.
+//
+// WHICH MACHINES ARE ON THE PHONE IS THE SYSTEM'S TO SAY. The system hands
+// this app one machine at a time and lists each in Settings (MachineAccess),
+// by the peripheral id the radio had when it was handed over. A record keeps
+// that id beside its key, and keeps it when the machine is later found on a
+// radio of another id: it is how the system's list and this one line up.
 // ────────────────────────────────────────────────────────────
 
 enum MachineModel: UInt8, Codable {
@@ -57,18 +63,6 @@ struct DiscoveredMachine: Identifiable, Equatable {
     /// board holds it and the radio advertises it — and a machine nobody has
     /// named is just what it is.
     var displayName: String { name.isEmpty ? "Soda machine" : name }
-
-    /// Only what tells one machine from another in a room with two of them.
-    var subtitle: String { signal }
-
-    var signal: String {
-        switch rssi {
-        case (-55)...:    return "right here"
-        case (-70)..<(-55): return "nearby"
-        case (-85)..<(-70): return "far"
-        default:          return "very far"
-        }
-    }
 }
 
 enum MachineAdvert {
@@ -176,6 +170,15 @@ final class KnownMachine: Identifiable {
     /// A name given while the machine was out of earshot, sent when it is next
     /// in it.
     var pendingName: String?
+
+    /// The peripheral id the system lists this machine under, once it has
+    /// handed the machine to this app: added through its sheet, or carried
+    /// over from an earlier build. Nil for the demo, and for a machine an
+    /// earlier build added that has not been carried over.
+    var accessoryID: String?
+    /// What the system calls the machine — the name Settings shows — as this
+    /// phone last saw it. A change there is a name someone gave there.
+    var accessoryName: String?
 
     // What every board reports running, as the main board assembled it.
     var versions = MachineVersions()
@@ -358,6 +361,8 @@ struct MachineRecord: Codable {
     var lastSeen: Date?
     var lastConnected: Date?
     var pendingName: String?
+    var accessoryID: String?
+    var accessoryName: String?
     var versions: MachineVersions
     var radioBoardVersion: String
     var versionsReadAt: Date?
@@ -381,6 +386,8 @@ struct MachineRecord: Codable {
         lastSeen = m.lastSeen
         lastConnected = m.lastConnected
         pendingName = m.pendingName
+        accessoryID = m.accessoryID
+        accessoryName = m.accessoryName
         versions = m.versions
         radioBoardVersion = m.radioBoardVersion
         versionsReadAt = m.versionsReadAt
@@ -399,6 +406,8 @@ struct MachineRecord: Codable {
         m.lastSeen = lastSeen
         m.lastConnected = lastConnected
         m.pendingName = pendingName
+        m.accessoryID = accessoryID
+        m.accessoryName = accessoryName
         m.versions = versions
         m.radioBoardVersion = radioBoardVersion
         m.versionsReadAt = versionsReadAt
@@ -418,6 +427,7 @@ struct MachineRecord: Codable {
 private struct DirectoryFile: Encodable {
     var current: String?
     var machines: [MachineRecord]
+    var carriedOver: Bool
 }
 
 /// One record, or nothing. A record that no longer decodes is skipped rather
@@ -430,6 +440,7 @@ private struct Skippable<T: Decodable>: Decodable {
 private struct DirectoryFileRead: Decodable {
     var current: String?
     var machines: [Skippable<MachineRecord>]
+    var carriedOver: Bool?
 }
 
 /// The later of two moments, either of which may not have come.
@@ -450,6 +461,12 @@ private func later(_ a: Date?, _ b: Date?) -> Date? {
 final class MachineDirectory {
     private(set) var known: [KnownMachine] = []
     private(set) var current: KnownMachine?
+
+    /// The machines an earlier build added have been offered to the system,
+    /// which happens once. One the system did not take stays reachable on
+    /// whatever Bluetooth access that build was given, and is added through
+    /// the system's sheet like any other.
+    @ObservationIgnored var carriedOver = false
 
     @ObservationIgnored private var saveSoon: DispatchWorkItem?
 
@@ -478,27 +495,32 @@ final class MachineDirectory {
 
     var demo: KnownMachine? { known.first { $0.isDemo } }
 
-    /// Whether a sighting is a machine this phone already has.
-    func knows(_ seen: DiscoveredMachine) -> Bool { machine(matching: seen) != nil }
+    func machine(peripheralID: String) -> KnownMachine? {
+        known.first { $0.peripheralID == peripheralID }
+    }
+
+    /// The machine the system lists under this peripheral id.
+    func machine(accessoryID: String) -> KnownMachine? {
+        known.first { $0.accessoryID == accessoryID }
+    }
 
     // ── Adding, choosing, forgetting ──────────────────────────────────────
 
-    /// A machine picked out of a scan. One that is already known is handed
-    /// back rather than doubled.
+    /// A machine the system handed over, by the peripheral id it came with.
+    /// One this phone already reaches by that id is handed back rather than
+    /// doubled. A new one is keyed by the id until it says its unit, when
+    /// `introduce` folds it into any record that unit already has.
+    ///
+    /// IT IS AN APPLIANCE UNTIL IT SAYS OTHERWISE. The sheet hands over a
+    /// peripheral id and no advertisement, and the page a machine gets depends
+    /// on its kind. Every main board built from this repository says
+    /// appliance, and a sighting whose advertisement names another kind
+    /// corrects it.
     @discardableResult
-    func add(_ seen: DiscoveredMachine) -> KnownMachine {
-        if let have = machine(matching: seen) {
-            have.peripheralID = seen.id
-            have.lastSeen = seen.lastSeen
-            if !seen.name.isEmpty { have.name = seen.name }
-            if seen.model != .unknown { have.model = seen.model }
-            save()
-            return have
-        }
-        let m = KnownMachine(key: seen.unit.isEmpty ? seen.id : seen.unit,
-                             unit: seen.unit, peripheralID: seen.id,
-                             name: seen.name, model: seen.model)
-        m.lastSeen = seen.lastSeen
+    func add(peripheralID: String) -> KnownMachine {
+        if let have = machine(peripheralID: peripheralID) { return have }
+        let m = KnownMachine(key: peripheralID, unit: "", peripheralID: peripheralID,
+                             name: "", model: .appliance)
         known.append(m)
         log.info("added \(m.displayName) as \(m.key)")
         save()
@@ -547,6 +569,12 @@ final class MachineDirectory {
             twin.lastSeen = later(m.lastSeen, twin.lastSeen)
             twin.lastConnected = later(m.lastConnected, twin.lastConnected)
             twin.pendingName = m.pendingName ?? twin.pendingName
+            // The system's listing goes with the record that is kept: a
+            // machine handed over again is the newer listing.
+            if let listed = m.accessoryID {
+                twin.accessoryID = listed
+                twin.accessoryName = m.accessoryName
+            }
             known.removeAll { $0.id == m.id }
             try? FileManager.default.removeItem(at: m.folder)
             if current?.id == m.id { current = twin }
@@ -573,6 +601,7 @@ final class MachineDirectory {
         }
         known = file.machines.compactMap { $0.value?.restore() }
         current = known.first { $0.id == file.current }
+        carriedOver = file.carriedOver ?? false
         log.info("\(self.known.count) machine(s) known")
     }
 
@@ -583,7 +612,8 @@ final class MachineDirectory {
         let encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .iso8601
         encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
-        let file = DirectoryFile(current: current?.id, machines: known.map(MachineRecord.init))
+        let file = DirectoryFile(current: current?.id, machines: known.map(MachineRecord.init),
+                                 carriedOver: carriedOver)
         do {
             try FileManager.default.createDirectory(at: Self.root, withIntermediateDirectories: true)
             try encoder.encode(file).write(to: Self.file, options: .atomic)

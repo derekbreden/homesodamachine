@@ -2,7 +2,7 @@ name: SodaMachine
 options:
   bundleIdPrefix: com.derekbreden
   deploymentTarget:
-    iOS: "17.0"
+    iOS: "18.0"
   xcodeVersion: "16.0"
 
 targets:
@@ -31,6 +31,22 @@ targets:
       path: SodaMachine/Info.plist
       properties:
         CFBundleDisplayName: Soda Machine
+        # A machine is added through the system's own sheet (MachineAccess.swift):
+        # the person taps the one at hand and the app is handed that machine,
+        # with no Bluetooth prompt. The sheet looks for the Nordic UART service,
+        # the one thing every machine's primary advertisement carries; FFFF is
+        # the company id its manufacturer block is written under. A picker item
+        # that asks for anything not named here stops the app, and so does any
+        # of these keys left with an empty list.
+        NSAccessorySetupKitSupports:
+          - Bluetooth
+        NSAccessorySetupBluetoothServices:
+          - "6E400001-B5A3-F393-E0A9-E50E24DCCA9E"
+        NSAccessorySetupBluetoothCompanyIdentifiers:
+          - "FFFF"
+        # Never shown while the keys above are declared: the sheet stands in for
+        # the prompt. CoreBluetooth still carries every word to the machine, and
+        # a phone that gave an earlier build Bluetooth access keeps it.
         NSBluetoothAlwaysUsageDescription: "This app uses Bluetooth to connect to your soda machine for managing display images, maintenance, and usage statistics."
         UILaunchStoryboardName: LaunchScreen
         # An update is minutes of pulling one chunk at a time, and a phone whose

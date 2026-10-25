@@ -9,12 +9,14 @@ import SwiftUI
 // and the radio goes looking for it. Most people own one machine and open
 // this once, to add it. A house with the old unit boxed for return and the
 // new one under the sink has two rows here, and both still say what they
-// said.
+// said. Settings lists the same machines under Accessories, and one removed
+// there is gone from here too.
 // ────────────────────────────────────────────────────────────
 
 struct YourMachinesView: View {
     @Environment(BLEManager.self) var ble
     @Environment(MachineDirectory.self) var directory
+    @Environment(MachineAccess.self) var access
     @Environment(\.dismiss) private var dismiss
 
     @State private var adding = false
@@ -59,7 +61,7 @@ struct YourMachinesView: View {
         }
         .onAppear { ble.beginBrowsing() }
         .onDisappear { ble.endBrowsing() }
-        .sheet(isPresented: $adding, onDismiss: { ble.beginBrowsing() }) {
+        .sheet(isPresented: $adding) {
             AddMachineView()
                 .presentationBackground(Theme.background)
         }
@@ -71,7 +73,7 @@ struct YourMachinesView: View {
                isPresented: Binding(get: { forgetting != nil },
                                     set: { if !$0 { forgetting = nil } })) {
             Button("Forget", role: .destructive) {
-                if let m = forgetting { ble.forget(m) }
+                if let m = forgetting { access.forget(m) }
                 forgetting = nil
             }
             Button("Cancel", role: .cancel) { forgetting = nil }
@@ -112,7 +114,11 @@ struct YourMachinesView: View {
 
             Menu {
                 Button("Rename") { renaming = machine }
-                Button("Forget", role: .destructive) { forgetting = machine }
+                Button("Forget", role: .destructive) {
+                    // One the system lists is the system's to remove, and the
+                    // system asks first; asking here too would ask twice.
+                    if access.lists(machine) { access.forget(machine) } else { forgetting = machine }
+                }
             } label: {
                 Image(systemName: "ellipsis")
                     .font(.system(size: 16, weight: .semibold))
