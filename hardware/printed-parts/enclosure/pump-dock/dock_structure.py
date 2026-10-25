@@ -2,16 +2,16 @@
 
 Each pump port feeds a purchased PP0208E tee (`fixed_returns`). Its branch stands in the TEE
 WALL: front-top's bay bulkhead, one flat slab the bay's whole width and height
-(`enclosure._bulkhead`), whose fore band is the collet plate. Behind the plate each tee has
-one collar-clear bore through the rest of the wall; ahead of the bore a smaller tube hole leaves
-a face that holds the branch collet pressed. The bore holds the tee in X and Z; the plate stops
-it fore through its pressed collet, and its lower return, anchored in the rear valve, stops it
-aft.
+(`enclosure._bulkhead`). Each tee has one collar-clear bore through the wall from its bore
+face; ahead of the bore a collet recess lets the branch collet stand extended and grip its
+pump tube, and a smaller tube hole passes that tube through the wall's fore band. The bore
+holds the tee in X and Z. Its fixed branch barrel stops it fore on the bore face, clear of the
+collet, and its lower return, anchored in the rear valve, stops it aft.
 
 Each lower return carries a NeoFit stem elbow in the tee's lower collet and another in the rear
 valve's bottom collet, their stems cut to stand where `fixed_returns.elbow_return` puts them.
 
-Both wall cuts are horizontal bores in a piece printed on Z, so each is teardropped.
+Every wall cut is a horizontal bore in a piece printed on Z, so each is teardropped.
 """
 from functools import lru_cache
 from pathlib import Path
@@ -29,7 +29,6 @@ for _p in (HW / 'printed-parts' / 'cadlib', HW / 'printed-parts' / 'enclosure' /
         sys.path.insert(0, str(_p))
 import fits  # noqa: E402
 import tee_connector as tee  # noqa: E402
-import dock_retention as retention  # noqa: E402
 import fixed_returns as plumbing  # noqa: E402
 import neofit_stem_elbow as stem_elbow  # noqa: E402
 
@@ -42,7 +41,12 @@ TEES = {'west-outer': 'Y-G', 'west-inner': 'Y-F', 'east-inner': 'Y-C', 'east-out
 BORE_R = tee.COLLAR_ENVELOPE_D / 2.0 + fits.running
 # The wall's aft face stands this far fore of the tee's run barrel.
 BODY_AIR = 1.454
-HOLE_R = 4.25                          # the plate's tube hole: a face left under each collet
+HOLE_R = 4.25                          # the fore band's tube hole
+# The extended branch collet's room ahead of the bore face: its clearance radius and one running
+# air round it, and deep enough that the collet still stands clear with the tee pushed fore onto
+# its fixed barrel.
+RECESS_R = tee.COLLET_NOSE_R + fits.running
+RECESS_DEPTH = tee.COLLET_PROUD + fits.running
 RETURN_CHANNEL_R = 8.1                 # a rear valve's port channel in its tray (`valve_tray`)
 TEARDROP_DEG = 36.0                    # front-top's printable roof angle over a horizontal bore
 
@@ -80,7 +84,7 @@ def wall_aft_y(fore_y):
 
 
 def bore_depth(plate):
-    """Each tee's bore along the branch: from the release face to the wall's aft face."""
+    """Each tee's bore along the branch: from the bore face to the wall's aft face."""
     return plate['wall_aft_y'] - plumbing.plate_aft_y(plate['fore_y'])
 
 
@@ -97,13 +101,24 @@ def return_clearances(plate):
 
 
 def plate_holes(plate):
-    """One teardropped tube hole through the collet plate per tee."""
+    """One teardropped tube hole through the wall's fore band per tee."""
     y0, y1 = plate['fore_y'] - 1.0, plumbing.plate_aft_y(plate['fore_y']) + 1.0
     return [teardrop_y(HOLE_R, x, z, y0, y1) for x, z in plate['holes']]
 
 
+def collet_recesses(plate):
+    """One teardropped recess per tee, `RECESS_DEPTH` fore of the bore face, where the branch
+    collet stands extended."""
+    face = plumbing.plate_aft_y(plate['fore_y'])
+    if RECESS_DEPTH >= plumbing.PLATE_T:
+        raise ValueError(f"a {RECESS_DEPTH:g} mm collet recess opens through the "
+                         f"{plumbing.PLATE_T:g} mm fore band")
+    return [teardrop_y(RECESS_R, x, z, face - RECESS_DEPTH, face + 0.01)
+            for x, z in plate['holes']]
+
+
 def tee_bores(plate):
-    """One teardropped collar-clear bore per tee, from the release face out through the wall's
+    """One teardropped collar-clear bore per tee, from the bore face out through the wall's
     aft face."""
     y0, y1 = plumbing.plate_aft_y(plate['fore_y']), plate['wall_aft_y'] + 1.0
     return [teardrop_y(BORE_R, x, z, y0, y1) for x, z in plate['holes']]
@@ -111,15 +126,14 @@ def tee_bores(plate):
 
 def wall_cuts(plate):
     """Everything the dock takes out of the tee wall."""
-    return plate_holes(plate) + tee_bores(plate)
+    return plate_holes(plate) + collet_recesses(plate) + tee_bores(plate)
 
 
 @lru_cache(maxsize=1)
 def _tee_native():
-    """The scanned tee with its branch collet pressed home."""
+    """The scanned tee with its branch collet extended, gripping its pump tube."""
     from _cadq_export import import_step
-    native = import_step(str(HW / 'reference' / 'tee-connector' / 'tee-connector.step')).val()
-    return tee.depress_branch(native, tee.BRANCH_COLLET_TRAVEL)
+    return import_step(str(HW / 'reference' / 'tee-connector' / 'tee-connector.step')).val()
 
 
 def tee_body(plate, x, z):
@@ -205,25 +219,20 @@ def part_color(name):
     return M_NEOFIT_WHITE_ACETAL if name.startswith('stem-elbow-') else M_JG_BLACK_PP
 
 
-def tube_setting_jig(plate, cartridge_face_y):
-    """Factory gauge seats on the cartridge back and catches the four tube tips.
+def tube_setting_jig(plate, cradle_back_y):
+    """Factory gauge that seats on the cradle's flat back and catches the four tube tips.
 
     Four open channels admit the tubes; the blind ends are the seated tip datum, where each
-    tube bottoms in its tee at connected. The tool is removed before docking the cartridge.
+    tube bottoms in its tee with the cradle home. The tool comes off before the cradle goes into
+    the bay.
     """
     row = plate['holes'][0][1]
     tip = plumbing.tip_y(plate['fore_y'])
     body = box(plate['holes'][0][0] - 8, plate['holes'][-1][0] + 8,
-               cartridge_face_y, tip + 3, row - 8, row + 8)
+               cradle_back_y, tip + 3, row - 8, row + 8)
     for x, z in plate['holes']:
         # Full axial bore with open top, ending at the tube's cut-face datum.
-        bore = ycyl(3.5, x, z, cartridge_face_y - .1, tip)
-        opening = box(x - 3.5, x + 3.5, cartridge_face_y - .1, tip, z, row + 8.1)
+        bore = ycyl(3.5, x, z, cradle_back_y - .1, tip)
+        opening = box(x - 3.5, x + 3.5, cradle_back_y - .1, tip, z, row + 8.1)
         body = body.cut(bore.fuse(opening))
-    # The two moving pole columns stand proud of the cartridge back to the wall face. Each
-    # clears in one full-height groove 3 mm deep, so its walls are stock and not strips.
-    for x, z in retention.column_stations(plate['holes']):
-        half = retention.SLOT_HALF + 1.0
-        body = body.cut(box(x - half, x + half, cartridge_face_y - .1, cartridge_face_y + 3,
-                            row - 9, row + 9))
     return body.clean()

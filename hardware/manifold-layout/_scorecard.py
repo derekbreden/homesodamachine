@@ -51,7 +51,6 @@ import _overlap                                        # noqa: E402
 import _routing as R                                   # noqa: E402
 import _gas_chain                                      # noqa: E402
 import _drain                                          # noqa: E402
-import dock_retention                                  # noqa: E402
 
 _TOPOLOGY = _hw / "topology" / "fluid-topology.md"
 
@@ -279,11 +278,6 @@ MOUNTS = (
     ("display", ("enclosure-front-top", "display-cover"), "plate-capture"),
     ("display-cover", "enclosure-front-top", "snap-capture"),
     ("display-gasket", ("display-cover", "display"), "gap-press"),
-    # The cartridge's contact pair: each half's ear plate screwed down on its seat's datum by two
-    # M1.4 into heat-sets, the male in front-top's bay bulkhead and the female in the clamp
-    # (`enclosure._pump_contact_fixed_cuts`, `enclosure._pump_contact_cap_cuts`).
-    ("pump-contact-male", "enclosure-front-top", "bosses"),
-    ("pump-contact-female", "enclosure-pump-cap", "bosses"),
     # The check chain lies in a rib printed on the cold core's cap lid — the same plate the pump
     # bolts to, so the tube from the discharge elbow spans no joint
     # (`_cold_core_interface.cap_anchors`, read by `chains-seated`).
@@ -420,16 +414,9 @@ MOUNTS = (
     ("pump-a-head", "enclosure-pump-cartridge", "case"),
     ("pump-b-head", "enclosure-pump-cartridge", "case"),
     # Each pump tee's branch stands in its bore through front-top's tee wall: X and Z held,
-    # its pressed collet on the collet plate fore and its lower return aft.
+    # its fixed barrel on the bore face fore and its lower return aft.
     *((f"tee-{tee.lower()}", "enclosure-front-top", "bore-in-tee-wall")
       for tee, _segment in PUMP_DOCK_PORTS.values()),
-    # Each SB443-IN block rides its column slot's printed rails in its two side grooves,
-    # closed in by the layer printed over the column at the part's one pause.
-    *((f"pump-dock-SB443-{side}-{column}-{row}", host, "rails-in-printed-slot")
-      for side, host in (("moving", "enclosure-pump-cartridge"),
-                         ("fixed", "enclosure-front-top"))
-      for column in range(1, dock_retention.COLUMNS_PER_HALF + 1)
-      for row in range(1, dock_retention.ROWS_PER_COLUMN + 1)),
 )
 
 
@@ -530,7 +517,7 @@ def derived_mounts() -> tuple:
     """Selected native joints and one row for every remaining manifold body.
 
     `manifold_layout` arranges the flavour manifold as one connected pack. Fixed valves have
-    printed seats, the pump heads have their cartridge cradle and the permanent TPU
+    printed seats, the pump heads have their cradle and the permanent TPU
     junctions have wall seats; purchased elbows connect to mounted valves through short push-fit links. A remaining body no printed feature reaches is carried only
     by that connected pack and stays an open `pack` construction until its exemption says why.
 
@@ -669,24 +656,8 @@ TOUCHING_OK = {frozenset(p) for p in (
     # The silicone apron seats its integral rib on the two rigid roof halves.
     ("funnel", "enclosure-front-top"),
     ("funnel", "enclosure-back-top"),
-    # Bare attracting pole faces meet; adjacent blocks share a column stack.
-    *((f"pump-dock-SB443-moving-{column}-{row}", f"pump-dock-SB443-fixed-{column}-{row}")
-      for column in range(1, dock_retention.COLUMNS_PER_HALF + 1)
-      for row in range(1, dock_retention.ROWS_PER_COLUMN + 1)),
-    *((f"pump-dock-SB443-{side}-{column}-{row}", f"pump-dock-SB443-{side}-{column}-{row + 1}")
-      for side in ("moving", "fixed")
-      for column in range(1, dock_retention.COLUMNS_PER_HALF + 1)
-      for row in range(1, dock_retention.ROWS_PER_COLUMN)),
-    # Opposite-side adjacent rows share an edge on the common pole plane.
-    # These exact neighbor pairs skip only the distance floor, not volume clashes.
-    *((f"pump-dock-SB443-moving-{column}-{row}",
-       f"pump-dock-SB443-fixed-{column}-{row + offset}")
-      for column in range(1, dock_retention.COLUMNS_PER_HALF + 1)
-      for row in range(1, dock_retention.ROWS_PER_COLUMN + 1)
-      for offset in (-1, 1)
-      if 1 <= row + offset <= dock_retention.ROWS_PER_COLUMN),
-    # Each pump tee's pressed collet stands on the collet plate's release face and its collar
-    # runs in its bore through the tee wall.
+    # Each pump tee's collar runs in its bore through the tee wall, and its extended branch
+    # collet stands in its recess ahead of the bore face.
     *((f"tee-{tee.lower()}", "enclosure-front-top")
       for tee, _segment in PUMP_DOCK_PORTS.values()),
 
@@ -711,8 +682,6 @@ TOUCHING_OK = {frozenset(p) for p in (
     # The plate and the glass therefore stand one ring apart, which is a seat and not a gap:
     # `display_gasket.thickness` IS this distance, taken off the same two depths.
     ("display-cover", "display"),
-    # The contact pair mated: the male's pins pressed onto the female's pads across the kiss.
-    ("pump-contact-male", "pump-contact-female"),
     # AND THE EIGHT IN THE TWO VALVE TRAYS' — the same seat and the same press, on a plate the
     # front-top piece carries instead of a lid.
     *(("enclosure-front-top", f"valve-v-{v}") for v in "cdefghij"),

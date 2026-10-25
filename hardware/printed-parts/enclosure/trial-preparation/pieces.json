@@ -25,15 +25,6 @@
         {
           "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
           "regions": "front-top",
-          "pause": {
-            "source_z_mm": 192.8772,
-            "stack_top_source_z_mm": 192.7272,
-            "blocker_roof_overlap_mm": 0.5,
-            "slots_source_mm": [[-55.5, -48.95, 82.415, 87.504, 179.824, 192.877], [48.95, 55.5, 82.415, 87.504, 179.824, 192.877]],
-            "gcode": "M400 U1",
-            "message": "Front-top magnet pause: drop two K&J SB443-IN blocks down each of the two slots in the bay face, grooves on the rails, poles facing the bay. Bottom block north pole out, then south (N, S from the bottom); the top block snaps flat onto the one below. Check with the marked reference block, then resume; the next layer closes over them.",
-            "reason": "The two K&J SB443-IN blocks of each pump's column drop down their printed rail slot at this one pause; the first layer sliced above the slots' roof at Z192.8772 bridges over them, and its bottom must clear the drawing-maximum two-block stack at Z192.7272. Support stays out of both slots. pump-dock/magnet-retention.md."
-          },
           "features": [
             {
               "name": "R6 roof side edges, level run",
@@ -204,49 +195,11 @@
     },
     "pump-cartridge-cap": {
       "printer": "Mark1",
-      "settings": {
-        "support_object_xy_distance": {
-          "value": "1.0",
-          "reason": "Two bed-rooted tree trunks rise past the flanks into the hand pockets to carry each pull roof. Where a trunk passes the lower hand-pocket rim, the R6 slopes away under the trunk's edge, so a trunk held 0.4 mm off the rim's slice outline still ran its edge beads within a bead radius of the painted rim (clearance down to -0.07 mm, 2026-10-19 Mark1 slices of the 693f9e26 cartridge). 1.0 mm keeps the trunk off the rim's whole slope. Cartridge-cap plate only."
-        },
-        "independent_support_layer_height": {
-          "value": "0",
-          "reason": "Support on the model's own layers: through the 0.08 mm rim band the trunk's beads are 0.08 mm tall instead of 0.28 mm, and the support audit reads each trunk as one bed-rooted body instead of hundreds of one-layer islands. Cartridge-cap plate only."
-        }
-      },
       "spacing_mm": 15,
       "parts": [
         {
           "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl",
-          "regions": "pump-cartridge",
-          "pause": {
-            "source_z_mm": 192.8772,
-            "stack_top_source_z_mm": 192.7272,
-            "blocker_roof_overlap_mm": 0.5,
-            "slots_source_mm": [[-55.5, -48.95, 77.276, 82.365, 179.824, 192.877], [48.95, 55.5, 77.276, 82.365, 179.824, 192.877]],
-            "gcode": "M400 U1",
-            "message": "Cartridge magnet pause: drop two K&J SB443-IN blocks down each of the two slots in the cartridge's flat back, grooves on the rails, poles facing aft. Bottom block south pole out, then north (S, N from the bottom); the top block snaps flat onto the one below. Check with the marked reference block, then resume; the next layer closes over them.",
-            "reason": "The two K&J SB443-IN blocks of each pump's column drop down their printed rail slot at this one pause; the first layer sliced above the slots' roof at Z192.8772 bridges over them, and its bottom must clear the drawing-maximum two-block stack at Z192.7272. Support stays out of both slots. pump-dock/magnet-retention.md."
-          },
-          "features": [
-            {
-              "name": "Lower hand-pocket rims",
-              "kind": "fine_band",
-              "select": {"normal_z": [0.02, 0.995], "exterior_x_mm": 7.5, "half": "lower"},
-              "rolls_to_normal_z": 0.9,
-              "min_component_area_mm2": 20,
-              "expect": {"span_mm": [8.0, 16.0], "components": [2, 2]},
-              "reason": "The cartridge's inward/top lower hand-pocket rims. enclosure/layer-policy-correction/README.md; print-readiness.md."
-            },
-            {
-              "name": "Upper hand-pocket rim transitions",
-              "kind": "transition_band",
-              "select": {"exterior_x_mm": 3.0, "half": "upper"},
-              "radius_mm": 6.0,
-              "expect": {"chamfer_area_mm2": [50, 600]},
-              "reason": "Expanding print-down R6 under each hand pocket's flat pull roof, with its corner returns. layer-policy-correction/README.md."
-            }
-          ]
+          "regions": "pump-cartridge"
         },
         {
           "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",

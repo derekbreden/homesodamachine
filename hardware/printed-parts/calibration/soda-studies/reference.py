@@ -46,7 +46,7 @@ def _source_bore():
     """Load the production bore and its four small construction dependencies."""
     tree = ast.parse(ENCLOSURE_SOURCE.read_text())
     function_names = {"_ring", "_xcyl", "_yz_prism", "_teardrop_x"}
-    constants = {"pogo_lead_r", "teardrop_roof_angle"}
+    constants = {"lead_bore_r", "teardrop_roof_angle"}
     nodes = [node for node in tree.body
              if isinstance(node, ast.FunctionDef) and node.name in function_names
              or isinstance(node, ast.Assign)
@@ -82,7 +82,7 @@ HEIGHT = _phase_up(PROFILE_RISE + LIP_TOP + NOSE_REVEAL)
 FLUTE_Y0, FLUTE_LENGTH = 7.5, 20.0
 FLUTE_Y1 = FLUTE_Y0 + FLUTE_LENGTH
 FLUTE_Z0, FLUTE_Z1 = RIM_R, RIM_R+15.0
-BORE_R = BORE["pogo_lead_r"]
+BORE_R = BORE["lead_bore_r"]
 BORE_Y = DEPTH-RIM_R-WALL-BORE_R
 BORE_Z = _phase_up(LIP_TOP+BORE_R+PORTAL.Z_AIR)
 
@@ -329,7 +329,7 @@ def export(include_pip=True, *, xy_air=.25, z_air=.48):
                        "depth_mm":1.2,"fade_mm":5,
                        "backing_after_deepest_groove_mm":3,
                        "field_mm":[WIDTH/2,WIDTH/2,FLUTE_Y0,FLUTE_Y1,FLUTE_Z0,FLUTE_Z1]},
-            "teardrop":{"source":"enclosure.py:_teardrop_x and pogo_lead_r",
+            "teardrop":{"source":"enclosure.py:_teardrop_x and lead_bore_r",
                         "radius_mm":BORE_R,"roof_degrees_from_horizontal":BORE["teardrop_roof_angle"],
                         "axis_yz_mm":[BORE_Y,BORE_Z],"axis_direction":[1,0,0]},
             "design":{"width":{"bay_ties_mm":REFERENCE_BOUNDS.xlen,"side_stock_each_mm":WALL},
