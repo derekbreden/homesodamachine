@@ -158,7 +158,6 @@ BUNDLED_MESH_DIRS = (
     "hardware/printed-parts/fixtures/pgfun-positioner",
     "hardware/printed-parts/calibration/dual-nozzle-registration",
     "hardware/printed-parts/enclosure/display-cover",
-    "hardware/printed-parts/enclosure/anchor-cap",
     "hardware/printed-parts/enclosure/nameplate",
     "hardware/printed-parts/faucet/industrial",
     "hardware/printed-parts/cold-core/magnetic-float",
@@ -182,6 +181,20 @@ BUNDLED_MESH_DIRS = (
     "hardware/printed-parts/fixtures/gun-positioner",
     "hardware/printed-parts/fixtures/gun-positioner-observation",
     "hardware/gun-positioner/mounting",
+    # The STEP-only parts whose printable meshes trial preparation exports beside their STEPs
+    # (`trial-preparation/step-meshes.json`), and the rear chips, R14 holder and ASSE cuffs.
+    "hardware/printed-parts/cold-core/copper-plugs",
+    "hardware/printed-parts/cold-core/prv-shroud",
+    "hardware/printed-parts/cold-core/reed-bridge",
+    "hardware/printed-parts/cold-core/coil-mandrel",
+    "hardware/printed-parts/cold-core/reservoir",
+    "hardware/printed-parts/enclosure/display-gasket",
+    "hardware/printed-parts/enclosure/data-ring",
+    "hardware/printed-parts/enclosure/rear-identification",
+    "hardware/printed-parts/refrigeration/fuse-clamp",
+    "hardware/printed-parts/faucet/tube-collar",
+    "hardware/printed-parts/soda-bend-holder",
+    "hardware/printed-parts/asse-straight-cuffs",
 )
 
 #: Scene meshes the parts viewer opens as themselves. `web/public/js/viewer/parts.js` names `glb`
@@ -220,7 +233,6 @@ BUNDLED_PAYLOAD_DIRS = (
     "hardware/printed-parts/fixtures/pgfun-positioner",
     "hardware/printed-parts/enclosure/grip-cover",
     "hardware/printed-parts/enclosure/display-cover",
-    "hardware/printed-parts/enclosure/anchor-cap",
     "hardware/printed-parts/faucet/industrial",
     "hardware/printed-parts/cold-core/magnetic-float",
     "hardware/printed-parts/zone-c/funnel-mold",
