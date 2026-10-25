@@ -1,0 +1,41 @@
+{
+  "units": "mm",
+  "assembly_owner": "back-bottom",
+  "mounting_parent": "cold-core top lid",
+  "tube_od_mm": 6.35,
+  "tube_axis_world": [0, 1, 0],
+  "lid_face_z_mm": 253.4,
+  "root_z_mm": 250.4,
+  "seat_top_z_mm": 258.0,
+  "seat_radius_mm": 3.325,
+  "station_length_mm": 10.0,
+  "stock_west_of_first_tube_mm": 3.7,
+  "stock_east_of_last_tube_mm": 3.7,
+  "tie_slot_width_y_mm": 3.2,
+  "tie_slot_bottom_z_mm": 251.6,
+  "tie_slot_top_z_mm": 253.2,
+  "tie_access_outer_offset_mm": 6.0,
+  "tie_access_inner_offset_mm": 2.75,
+  "core_east_face_x_mm": 90.5,
+  "ideal_enclosure_inner_east_face_x_mm": 98.5,
+  "tie_witness_width_mm": 2.5,
+  "tie_witness_thickness_mm": 0.8,
+  "tie_witness_outer_bend_radius_mm": 3.75,
+  "tie_witness_bottom_center_z_mm": 252.4,
+  "stations": [
+    {
+      "id": "a-pair-fore-anchor",
+      "label": "Fore tube anchor",
+      "tube_centers_world_mm": [[50.5, 205.0, 259.5], [58.0, 205.0, 259.5]],
+      "routes_west_to_east": ["a-draw", "a-fill"]
+    },
+    {
+      "id": "a-pair-aft-anchor",
+      "label": "Aft tube anchor",
+      "tube_centers_world_mm": [[86.5, 304.0, 259.5], [94.0, 304.0, 259.5]],
+      "routes_west_to_east": ["a-draw", "a-fill"]
+    }
+  ],
+  "construction": "Two shallow paired seats integral with the cold-core lid. One common narrow zip tie per station passes through a transverse slot beneath the seat. Open mouths beside the tubes expose the slot for threading. The aft seat extends from the lid edge to support the outboard tube.",
+  "scope": "Arrangement-study retaining geometry. Tube centerlines and component poses are fixed. Native lid fusion and access cuts are supplied by the builder for production integration. Tie strips are nominal occupied-space witnesses, not purchased-part measurements."
+}
