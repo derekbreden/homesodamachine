@@ -176,6 +176,9 @@ BRAND_WAIVED = {
     "Lillium": "lillium-cutover.md retires the prototype's Lillium carbonator, on hand "
                "per inventory.md; the integrated cold core replaces it, so no bom/tools "
                "line carries it",
+    "PureSec": "lillium-cutover.md's build draws its October reservoirs through the "
+               "PureSec bulkheads on hand per purchases.md; the integrated reservoirs draw "
+               "through dip tubes, so no bom/tools line carries them",
 }
 
 corpus_text = "\n".join(CORPUS.values())
