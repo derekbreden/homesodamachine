@@ -1,0 +1,93 @@
+{
+  "recorded_at_utc": "2026-10-25T00:57:48.024662+00:00",
+  "status": "Corrected tip and cover candidate; no printer submission",
+  "source_tip_sha256": "bf8501164de094f48a8dc241b57a841c685a2f13a95551f78d1d20219115ce22",
+  "buttons": [
+    {
+      "native_switch_bounds_mm": [
+        [
+          7.555094373015,
+          -16.799938458034546,
+          0.600000408776642
+        ],
+        [
+          11.555094602433504,
+          -12.19993843458,
+          4.400000849108161
+        ]
+      ],
+      "pocket_bounds_x_s_n_mm": [
+        [
+          7.055094373015,
+          7.440061541965452,
+          7.1
+        ],
+        [
+          12.055094602433504,
+          13.040061565419999,
+          8.1
+        ]
+      ],
+      "pocket_width_length_mm": [
+        5.000000229418505,
+        5.600000023454546
+      ],
+      "nominal_ledge_interference_mm": 0.3999995912233576,
+      "nominal_floor_clearance_mm": 0.6000004087766424,
+      "actual_switch_before_intersection_mm3": 4.52493061729314,
+      "actual_switch_after_intersection_mm3": 0.0,
+      "actual_switch_after_tip_minimum_distance_mm": 0.5749997421045389
+    },
+    {
+      "native_switch_bounds_mm": [
+        [
+          -11.555123118024664,
+          -16.80012158536,
+          0.6000004087766536
+        ],
+        [
+          -7.555122824515,
+          -12.20012154602,
+          4.40000084910816
+        ]
+      ],
+      "pocket_bounds_x_s_n_mm": [
+        [
+          -12.055123118024664,
+          7.439878414639999,
+          7.1
+        ],
+        [
+          -7.055122824515,
+          13.039878453979998,
+          8.1
+        ]
+      ],
+      "pocket_width_length_mm": [
+        5.000000293509664,
+        5.600000039339999
+      ],
+      "nominal_ledge_interference_mm": 0.39999959122334605,
+      "nominal_floor_clearance_mm": 0.600000408776654,
+      "actual_switch_before_intersection_mm3": 4.524930617290618,
+      "actual_switch_after_intersection_mm3": 0.0,
+      "actual_switch_after_tip_minimum_distance_mm": 0.5749996524999773
+    }
+  ],
+  "button_side_clearance_mm": 0.5,
+  "local_recess_depth_below_surrounding_seat_mm": 1.0,
+  "surrounding_seat_n_mm": 8.1,
+  "button_pocket_floor_n_mm": 7.1,
+  "retained_foot_floor_n_mm": 7.1,
+  "retained_display_drop_mm": 4.5,
+  "foot_bearing_region_material_differences_mm3": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "snap_region_removed_material_mm3": 0.0,
+  "tip_valid_single_solid": true,
+  "removed_tip_stock_mm3": 56.00303286925191,
+  "scope": "Vendor switch geometry matches the published source hash. The photo identifies a bearing conflict; its exact dimensions and elastic installation force are not measured. Button relief and cover reach are separate corrections."
+}
