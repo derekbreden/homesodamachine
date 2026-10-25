@@ -88,11 +88,15 @@ Keep the appliance unplugged throughout this assembly.
    passages; a straight chord between the lower and upper mouths does not
    describe their path. Complete the cold-core assembly in
    [cold-core.md](cold-core.md).
-2. Seat the junctions in their named wells and label their electrical purpose.
+2. Seat bare V-A, then bare V-K, in their lid uprights. Attach their prepared
+   downward-blade leads while the open bench is clear, before installing the
+   PCB, PSU, pump or meter. The bare seating review stages those leads out;
+   female-housing fit and connection force remain unqualified.
+   Seat the junctions in their named wells and label their electrical purpose.
    Check that each seated body's levers can open and close before populating
-   it. Mount the PCB, PSU, pump, V-B and ground stack on their core features;
-   seat V-A and V-K in their lid uprights and mount the relay modules on
-   back-top. Keep both roof closures removed. The PCB's J14 remains the
+   it. Mount the PCB, PSU, pump, meter, V-B and ground stack on their core
+   features. Mount the relay modules on back-top.
+   Keep both roof closures removed. The PCB's J14 remains the
    programming interface.
 3. Land the fixed AC and DC runs by the schedule: C14 to H/N/G, H/N to the
    PSU primary, H to relay 1 COM, the PSU secondary to V12/GND, V12 to relay 2
@@ -119,7 +123,8 @@ Keep the appliance unplugged throughout this assembly.
    near X32/Z308, then dress them to the display terminals.
    Keep the leads with their mounting parents and dress each crossing below
    the closing surfaces. Clear the two lid-rooted valve-union bearings and their
-   cable-tie paths while dressing the leads. Route lengths describe centerlines; allow the
+   cable-tie paths while dressing the leads. Keep the coil leads outside the
+   continuous soda inlet's holder and foam sleeve. Route lengths describe centerlines; allow the
    specified termination reserve and assembly slack when fabricating looms.
 6. Inspect the wiring and plumbing in the central four-quadrant connection
    region while the roof opening is clear. Lower the rigid frame vertically,

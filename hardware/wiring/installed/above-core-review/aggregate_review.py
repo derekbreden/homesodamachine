@@ -72,7 +72,7 @@ def selected_equipment():
            set(above_core_wiring.placements())|
            {'ground-stack','asse-inlet-tpu','asse-outlet-tpu','asse-drain-adapter',
             'water-split','flow-regulator','gas-regulator','gas-check','keystone-jack',
-            'soda-rise-insulation'})
+            'soda-bend-holder','soda-continuous-insulation'})
     for row in data['fluid_grid']['assignment']:
         for name in row:names.update((name,name+'-nut'))
     return names

@@ -154,7 +154,8 @@ def main():
     exterior_tubes=frozenset(n.rsplit('/',1)[-1] for n in scene
                               if n.rsplit('/',1)[-1].startswith('tube-'))
     external_core=(exterior_tubes | above_core.core_equipment_names() |
-                   frozenset(('digiten-flow','soda-inlet-stem','tube-soda-core-rise',
+                   frozenset(('digiten-flow','soda-bend-holder',
+                              'soda-continuous-insulation','tube-soda-core-rise',
                               'reservoir-b-fill-lower','reservoir-b-fill-upper',
                               'wago-v12','wago-gnd','wago-sensors','wago-reeds-b',
                               'ground-stack')))
