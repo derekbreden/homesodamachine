@@ -22,14 +22,12 @@
       "changes/2026-10-24-2129-compact-above-core-layout/funnel-frame-after.webp",
       "changes/2026-10-24-2129-compact-above-core-layout/funnel-frame-before.webp",
       "changes/2026-10-24-2129-compact-above-core-layout/views.json",
-      "hardware/manifold-layout/studies/funnel-gate/implementation-review.json",
-      "hardware/mechanical-qualification/enclosure-above-core/approved-carried-group-review.json",
-      "hardware/mechanical-qualification/enclosure-above-core/approved-carried-wiring-review.json",
-      "hardware/mechanical-qualification/enclosure-above-core/approved_carried_group_review.py",
       "hardware/mechanical-qualification/enclosure-above-core/back-top-approach-review.json",
       "hardware/mechanical-qualification/enclosure-above-core/back_top_approach.py",
-      "hardware/mechanical-qualification/enclosure-above-core/valve-wall-mount-review.json",
-      "hardware/mechanical-qualification/enclosure-above-core/valve_wall_mounts.py"
+      "hardware/wiring/enclosure-wiring.csv",
+      "hardware/wiring/enclosure-wiring.json",
+      "hardware/wiring/installed/integration-review.json",
+      "tools/bazel/graph.json"
     ],
     "members": [
       "hardware/.cache/pump-roof/enclosure-pump-cartridge.step",
@@ -1631,8 +1629,8 @@
     "hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png": "8a00340093b0dc25942826efdbb12236525daad39a98dc4f6d62c81b97c643fc",
     "hardware/install-guide/plumbing/modern/art/modern-water-off.png": "eb5623a33b96b53f5a3d451395f0cc6e4a7b8c6242bd600e0ab661f33765f27c",
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": "9d15c3c5ef60820f86c6cec68b200dfb5f43fda1dea5b86ec0600b8c53074fb7",
-    "hardware/manifold-layout/enclosure-assembly.step": "b6c2d182046674f72dc80473b101f1016cfbd54d033cbe492e0eaefc398c9016",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "b3970b1ba0a5d4f49e75081ffc672ad8b56bb53f2be30093919887a80f9a37e1",
+    "hardware/manifold-layout/enclosure-assembly.step": "c053798bde2773d65c4a735728f82754e2ccfae06d3557de058ff8011ff6a127",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "95d82f90312beb880f0a4dce5d789acd2b411cf24681de54b4f7d6c60d86f464",
     "hardware/manifold-layout/manifold-layout.step": "5eef4a1580f9571e71cac2dda03eb02df691074e276b79e694b3ee3a2eedd1ad",
     "hardware/manifold-layout/manifold-layout.step.mesh": "e710b90db3148a6a790a5842f065c20e108c45112f6e1715ec8b7f8fbf1abab6",
     "hardware/pcb/pcba/out/pcba.bom.csv": "8e50da9512f4775249bb0a81e7ef8dc1059fbd3ed31513aaae1511838bb65209",
@@ -2845,8 +2843,8 @@
     "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-west-outer/body.stl": "9f4abb20c725e7b0ba2b8b42da55153db4d53a9fe736da71d565ab1d292f7f54",
     "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-west-outer/wet-shadow-blocker.stl": "52846b6501e3de851c8685c8143c2eda01a7318189c51f6d5056824f5cd53ff1",
     "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-west-outer/wet-void.stl": "4ba7d4254b61595c78b71715914ceff958a65f8a926f41e1b25753be8421e7fc",
-    "hardware/wiring/enclosure-wiring.step": "f184172ae96b8d5d33873cb6f0411f19a2ae80081d71cb691f77328e17bbe13b",
-    "hardware/wiring/enclosure-wiring.step.mesh": "f05cfc55cb20854bcf5c497b93038c1ee3de1ced3f8a0ef120fb731682ac4cae",
+    "hardware/wiring/enclosure-wiring.step": "c9593e2e17435d9fff5ea8b6b878ce9e701e65157bd2aab205bdc896ec4ecb3b",
+    "hardware/wiring/enclosure-wiring.step.mesh": "26ff069cee28a3725429ec4c7696fb826392df4ce651ed317793686a2d10bb7e",
     "hardware/printed-parts/enclosure/anchor-cap/anchor-cap-4mm.step": "468e08c5d8f60a205a1cd7f863633b391cfc7b8c4c0907baa5b9892c37883b13",
     "hardware/printed-parts/enclosure/anchor-cap/anchor-cap-4mm.step.mesh": "6e7f6bd90c7b5b161ce630516e4e74d80a7c6b12cccc53d40ab5bbc0ab87d308",
     "hardware/printed-parts/enclosure/anchor-cap/anchor-cap-4mm.stl": "6a61dbffaa36c234e400c41b3760c8c756e1e9a31abd15554e5aac5616860b74",
@@ -3061,8 +3059,8 @@
     "hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png": 1791566298,
     "hardware/install-guide/plumbing/modern/art/modern-water-off.png": 1791566298,
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": 1791566298,
-    "hardware/manifold-layout/enclosure-assembly.step": 1792897106,
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1792897823,
+    "hardware/manifold-layout/enclosure-assembly.step": 1792898135,
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1792898135,
     "hardware/manifold-layout/manifold-layout.step": 1792740989,
     "hardware/manifold-layout/manifold-layout.step.mesh": 1792740989,
     "hardware/manifold-layout/studies/ceiling-fit/parts/back-wall.step": 1792743994,
@@ -4404,7 +4402,7 @@
     "hardware/reference/yyfkgcp-pogo-4p/pogo-4p-female.step": 1790919001,
     "hardware/reference/yyfkgcp-pogo-4p/pogo-4p-male.step": 1790919001,
     "hardware/reference/yzmsz-water-regulator/geometry/yzmsz-water-regulator.step": 1792828088,
-    "hardware/wiring/enclosure-wiring.step": 1792897106,
-    "hardware/wiring/enclosure-wiring.step.mesh": 1792897106
+    "hardware/wiring/enclosure-wiring.step": 1792898135,
+    "hardware/wiring/enclosure-wiring.step.mesh": 1792898135
   }
 }
