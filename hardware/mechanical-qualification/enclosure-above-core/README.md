@@ -1,34 +1,34 @@
 # Above-core enclosure integration
 
-The [native review](native-review.json) reads the exported production appliance.
-It records sampled vertical removal of the empty funnel frame and electronics
-panel, the changed upper portion of back-top passing over the populated core,
-bare valve seating on the open bench, and stock and screw reach at the two
-raised upper M5 joints. The report binds its source and native artifact hashes.
+The manual [review script](review.py) reads the exported production appliance.
+It queries vertical removal of the empty funnel frame and electronics panel,
+the approved back-top group passing over the populated core, and stock and
+screw reach at the two raised upper M5 joints. The [saved native record](native-review.json)
+binds its source, artifact and tested group; its result applies to that scope.
 
 The funnel silicone, cover and cradled drain assembly are removed before the
 empty-frame query. The cradle snaps into the removable frame's 3 mm web.
 Disconnect the drain tube or release the cradle before lifting the frame;
 the query does not establish disconnection or snap-release motion or force. Closure
 screws are removed for the motion queries; their inserts remain in place.
-The back-column query moves the upper printed stock, its fixed equipment and
-fluid spans whose two endpoints belong to back-top. Core-owned equipment,
-junctions and fluid spans above the lid remain stationary. The lower seams
-and floor retain their separate records.
-Both soda and drain bulkheads and their nuts, the nested soda return elbows
-and the concealed tube travel with back-top. The free tube end enters the
-fixed meter outlet during the final 15.7 mm of closing. The flexible drain-vent
-line connects through the open roof afterward.
-Final inter-quadrant wires and tubes are connected through the open roof after
-the shell closes.
-V-K's inlet stem belongs to the populated core during the column ride.
-Inserted valve elbows, tubing and leads are absent during bare-valve seating.
+The selected back-top subassembly carries V-A, V-K, their fitted elbows,
+the low V-A feed and the complete ASSE/tee/regulator inlet header. V-B,
+pump, PCB, PSU, meter and continuous insulated soda inlet remain with the
+cold core. The carrying-piece record is
+[the approved arrangement](../../manifold-layout/studies/funnel-gate/assembly-ownership.json).
+The manual query uses that named back-top group. The concealed meter-outlet
+tube stays with the meter; the rear return elbow receives its free end as
+back-top closes. Only the finite nominal Ø6.35  × 16.891 mm receiving region
+is an intended socket engagement. The separate pump, gas and drain-vent
+handoffs need final-connection evidence; a clear rigid-group ride alone does
+not establish their assembly access.
+
 V-A and V-K have their underside flow arrows down, upper inlet and lower
 outlet. V-A's upper release collet uses a −15° clock about native +Y to clear
 the inlet elbow while retaining its finite 12.7 mm stem engagement. The
 contact record bounds that articulation and the unchanged socket walls.
-Attach prepared blade leads on the open bench before the PCB, PSU, pump and
-meter; separate female terminal housings and seating force remain unqualified.
+Their bench installation must use the selected back-top mounts. The saved
+core-bench seating scenario does not establish back-top installation.
 
 The upper M5 bearing planes are Z318.0 on front-top and Z318.25 on back-top.
 Each host reading asks for the full 9.5 mm insert length, 3 mm outside its
@@ -58,18 +58,18 @@ core brackets, the six rear bulkheads and separate nuts against the exported
 back-top, PSU terminal approaches, and finite nominal stem, tube, thread and
 heat-set engagement regions. The west bracket is 6 mm wide between the PSU and
 rear jack, with nominal 0.40 and 0.275 mm gaps respectively. The rear relief
-retains the 6 mm clamp stack and 3.5 mm roof stock. NeoFit external mouth
+retains the 6 mm clamp stack and 3 mm roof stock. NeoFit external mouth
 stations and body envelopes remain nominal and unmeasured; the manufacturer's
 B1/B2 dimensions describe internal tube stops.
 
-Its header-capture block covers the connected split tee, water regulator and
-three short links prepared with the core. The back-top saddles capture the
-regulator, while its ASSE cuff receives the tee's finite 15 mm male stem.
-The connected ceiling pocket retains 3 mm of roof. The receiver block records
-full 3 mm pilot walls and blind floors, complete screw-head bearing and the
-frame's sampled vertical passage. Fasten the frame before laying the silicone
-funnel over its screw heads. These CAD readings establish no insertion force,
-seal, insert strength or physical assembly qualification.
+The header-capture block is limited to the stationary-header arrangement
+named in that receipt. It does not establish the approved back-top-carried
+header motion. The connected ceiling pocket retains 3 mm of roof. The
+receiver block records full 3 mm pilot walls and blind floors, complete
+screw-head bearing and the frame's sampled vertical passage. Fasten the
+frame before laying the silicone funnel over its screw heads. These CAD
+readings establish no insertion force, seal, insert strength or physical
+assembly qualification.
 
 The same purchased [neoFit ACHV44-E reference](../../reference/neofit-achv44-check/README.md)
 represents both check positions. Its body scale and 16.891 mm receiving depth
@@ -94,16 +94,12 @@ the inlet for that screw's service. This is a staged tool-access limit,
 not a clear installed driver column.
 
 The [rear plumbing assembly record](rear-plumbing-assembly.json) and its
-[manual reproduction script](rear_plumbing_assembly.py) cover the finite
-installation sequence. The two rear bulkheads, prethreaded nuts, nested soda
-elbows and 32.591 mm concealed tube ride with back-top. Continuous conservative
-prisms and a coaxial tube cylinder clear the stationary populated core; the
-free end enters the fixed meter outlet within its finite 15.7 mm receiving
-region. The white drain-vent line connects afterward. A straight late meter
-lift hits the fixed ASSE saddle; a fore approach hits its collar bearing.
-General reoriented late-meter paths remain outside this scope. The readings
-do not establish hand/tool access, thread tightening, collet operation or
-connection force.
+[manual reproduction script](rear_plumbing_assembly.py) identify the bodies
+in each tested installation scenario. A scenario carrying the concealed tube
+with back-top is not evidence for the approved meter-owned tube. The current
+manual closure query uses the approved ownership and the rear elbow's finite
+receiving region. Physical collet operation, sealing and connection force
+remain unqualified.
 
 The [PP1208E drawing](https://www.johnguest.com/sites/jg/files/2023-04/JG%20Drinks%20Polypropylene%20Bulkhead%20Connector%20Data%20Sheet.pdf)
 and [ABU44M drawing](https://assets.freshwatersystems.com/image/upload/qnbgcy8djx3nj2weqz9v.pdf)
@@ -127,9 +123,9 @@ The header is fully disengaged before the fore move. Their closest PCB
 clearances are 0.545 mm for J1 and 1.10 mm for J2; the adjacent housings retain
 1.20 mm. With the funnel, frame and disconnected drain removed, J11 lifts
 6 mm, moves 6 mm east, then lifts another 20 mm. Its first lift clears the
-selected header by 1.30 mm. Complete nominal housing sweeps clear the
-populated board, neighboring housings, selected fluid routes and printed
-stock. The [manual constructor](connector_service.py) reproduces the recorded
+selected header by 1.30 mm. The saved housing sweeps are limited to their recorded fluid-route
+variant. Their result does not establish access with the selected V-B return
+at X−24.836524/Z290.794074 and its 2 mm crown. The [manual constructor](connector_service.py) reproduces the recorded
 continuous stage bounds. The dimensional basis is the
 [JST XH drawing](https://www.jst-mfg.com/product/pdf/eng/eXH.pdf) and native
 fabrication component envelopes. This records mating and unmating access;

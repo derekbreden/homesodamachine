@@ -555,19 +555,17 @@ def route_specs():
 
     inlet = part['asse-inlet-tpu'][2](((-20., 0., 0.), (-1., 0., 0.)))[0]
     water_port = part['bulkhead-water'][2](((0., -24.79, 0.), (0., -1., 0.)))[0]
-    low = (inlet[0]+5., 420., 332.5)
-    controls = [[list(inlet), _offset(inlet, (0., 1., 0.), (low[1]-inlet[1])/3),
-                 _offset(low, (0., -1., 0.), (low[1]-inlet[1])/3), list(low)],
-                [list(low), _offset(low, (0., 1., 0.), (water_port[1]-low[1])/3),
-                 _offset(water_port, (0., -1., 0.), (water_port[1]-low[1])/3), list(water_port)]]
+    span = water_port[1] - inlet[1]
+    controls = [[list(inlet), _offset(inlet, (0., 1., 0.), span/3),
+                 _offset(water_port, (0., -1., 0.), span/3), list(water_port)]]
     points = [_offset(inlet, (0., -1., 0.), 15.),
               *[p for control in controls for p in _sample_bezier(control)],
               _offset(water_port, (0., 1., 0.), 12.7)]
     add('above-core-water-in', points, ('asse-inlet-tpu', 'bulkhead-water'),
         segments=[_line(points[0], inlet), *[_bezier(control) for control in controls],
                   _line(water_port, points[-1])],
-        minimum_radius=(water_port[1]-low[1])**2/
-        (6*math.hypot(water_port[0]-low[0], water_port[2]-low[2])))
+        minimum_radius=span**2/
+        (6*math.hypot(water_port[0]-inlet[0], water_port[2]-inlet[2])))
 
     d = specification['gas_datums']
     gas_inlet = d.get('inlet_route', {})

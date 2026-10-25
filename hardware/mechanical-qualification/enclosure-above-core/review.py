@@ -142,7 +142,10 @@ def main():
                     mate=(finite_mates or {}).get((key.split('/')[-1],tail))
                     if mate is not None:
                         raw=float(common.volume())
-                        common=common-mate['mesh']
+                        mate_mesh=mate['mesh']
+                        if mate.get('moves_with_group'):
+                            mate_mesh=mate_mesh.translate(offsets[i])
+                        common=common-mate_mesh
                         mating_readings.append({'moving':key,'stationary':name,
                             'offset_mm':offsets[i].tolist(),'raw_common_mm3':raw,
                             'outside_finite_mate_mm3':float(common.volume())})
@@ -180,9 +183,9 @@ def main():
     query('Empty electronics panel vertical removal','electronics-access-panel',
           [(0,0,z) for z in lifts if z<=30],
           lambda n:n.startswith('electronics-panel-') and n.endswith('-screw'))
-    # The lid equipment stays with the core. Back-top's changed upper stock,
-    # fixed equipment and prepared internal fluid group ride together.
-    # Inter-quadrant tubing and leads are connected after the column closes.
+    # The approved back-top equipment and its prepared plumbing ride together.
+    # The core retains V-B, pump, PCB, PSU and the selected soda inlet.
+    # Cross-owner handoffs need their own final-connection evidence.
     import cadquery as cq
     sys.path[:0]=[str(ROOT/'hardware/manifold-layout'),
                   str(ROOT/'hardware/assembly/scenes'),
@@ -205,16 +208,15 @@ def main():
     inventory.wiring_body_names=frozenset(n for n in inventory_names
         if n.startswith(('wire-','terminal-','jacket-')))
     ownership=_scenes.holders(inventory)
-    late_rear=frozenset(('tube-drain-vent',))
-    rear_preassembly=frozenset(_scenes.BACK_COLUMN_REAR_PREASSEMBLY)
-    header_preassembly=frozenset(_scenes.CORE_INLET_HEADER_PREASSEMBLY)
+    late_handoffs=frozenset(('tube-drain-vent', *_scenes.BACK_TOP_HANDOFF_TUBES))
     back_bodies=frozenset(name for name in _scenes.held_by('enclosure-back-top',ownership,
                          stop=('electronics-access-panel','funnel-frame','funnel','funnel-cover'))
-                         if not name.startswith('tube-')
-                         and name not in (late_rear | header_preassembly))
-    back_tails=set(back_bodies)
-    back_tails |= rear_preassembly
+                         if not name.startswith('tube-') and name not in late_handoffs)
+    back_tails=set(back_bodies) | set(_scenes.back_top_carried_names())
     present_tails={name.split('/')[-1] for name in placed}
+    missing_selected=set(_scenes.back_top_carried_names())-present_tails
+    if missing_selected:
+        raise ValueError(f'Approved back-top group is missing: {sorted(missing_selected)}')
     def endpoint_body(endpoint):
         candidates=[tail for tail in present_tails if endpoint==tail
                     or endpoint.startswith(tail+'.') or endpoint.startswith(tail+' ')]
@@ -222,9 +224,10 @@ def main():
     for run in facts['native_runs']:
         if {endpoint_body(run['frm']),endpoint_body(run['to'])} <= back_bodies:
             back_tails.add('tube-'+run['id'])
+    back_tails -= late_handoffs
     core_tails={n.split('/')[-1] for n,s in placed.items()
                 if 'cold-core/' in n and bounds(s)[1][2]>253.3}
-    core_tails |= header_preassembly
+    core_tails.add('tube-soda-meter-bulkhead')
     upper=cq.Solid.makeBox(400,800,200,cq.Vector(-200,0,253.3))
     back_top=placed[name_for('enclosure-back-top')].intersect(upper)
     carried=[name for name,body in placed.items()
@@ -234,95 +237,27 @@ def main():
              and bounds(body)[1][2]>253.3]
     moving={name_for('enclosure-back-top')+' above Z253.3':back_top,
             **{name:placed[name] for name in carried}}
-    rear_receipt_path=Path(__file__).with_name('rear-plumbing-assembly.json')
-    rear_receipt=json.loads(rear_receipt_path.read_text())['selected_carried_group']
-    if not (rear_receipt['continuous_carried_group_clear']
-            and rear_receipt['finite_outlet_capture_clear']):
-        raise ValueError('Rear preassembly needs its bounded native capture receipt')
-    outlet=rear_receipt['finite_outlet_capture']
-    if outlet['outward_world'] != [0.,1.,0.]:
-        raise ValueError('The finite outlet mesh orientation requires the recorded +Y outlet')
-    outlet_mask=mf.Manifold.cylinder(outlet['insertion_mm'],outlet['radius_mm'],
-        circular_segments=512).rotate((90.,0.,0.)).translate(outlet['mouth_world_mm'])
-    rear_mates={('tube-soda-meter-bulkhead','digiten-flow'):{
-        'mesh':outlet_mask,'mouth_world_mm':outlet['mouth_world_mm'],
-        'inward_world':[0.,-1.,0.],'depth_mm':outlet['insertion_mm'],
-        'radius_mm':outlet['radius_mm'],'circular_segments':512,
-        'scope':'Inscribed finite receiving cylinder, with no radial or axial enlargement. '
-                'The linked native receipt owns the exact socket readings.'}}
-    query('Back-top upper stock and fixed group over populated cold core','enclosure-back-top',
-          [(0,y,0) for y in (0,.25,.5,1,*range(2,302,2))],
+    import above_core as layout
+    return_frame=layout.snapshot_pose('soda-outlet-return-stem')
+    return_mouth=layout.point(return_frame,(0.,19.05,0.))
+    return_axis=layout.vector(return_frame['rotation'],(0.,1.,0.))
+    if return_axis != (0.,-1.,0.):
+        raise ValueError('Finite rear capture requires the selected fore-facing socket')
+    return_depth=16.891
+    return_mask=mf.Manifold.cylinder(return_depth,3.175,circular_segments=512).rotate(
+        (-90.,0.,0.)).translate(return_mouth)
+    rear_mates={('soda-outlet-return-stem','tube-soda-meter-bulkhead'):{
+        'mesh':return_mask,'moves_with_group':True,'mouth_world_mm':list(return_mouth),
+        'inward_world':[0.,1.,0.],'depth_mm':return_depth,'radius_mm':3.175,
+        'circular_segments':512,
+        'scope':'Finite receiving cylinder travels with the back-top elbow. The concealed '
+                'tube stays in the fixed meter. Nominal same-family receiving depth; '
+                'no radial or axial enlargement.'}}
+    query('Approved back-top upper stock and carried group over populated cold core',
+          'enclosure-back-top',[(0,y,0) for y in (0,.25,.5,1,*range(2,302,2))],
           lambda n:n not in core_tails,moving_shapes=moving,
           component_names=[name_for('enclosure-back-top')+' above Z253.3',*carried],
           finite_mates=rear_mates)
-    # Seat the two bare valves before the removable lid equipment. The post
-    # needs only the real socket depth of axial clearance during lowering.
-    # Use untrimmed native bodies here: clipping the target at a coincident
-    # socket face changes the kernel's treatment of that mating boundary.
-    sys.path.insert(0,str(ROOT/'hardware/printed-parts/valve-seat'))
-    import above_core as layout
-    import valve_seat
-    printed={name:body for name,body in placed.items()
-             if 'cold-core/' in name and name.split('/')[-1].startswith('foam-')}
-    late_bench=set(layout.core_equipment_names())|{'digiten-flow'}
-    electrical_tokens=('wago','junction','ground','terminal','housing',
-                       'termination','ferrule','spade')
-    bench_fixed={name:body for name,body in placed.items()
-        if 'cold-core/' in name
-        and name.split('/')[-1] not in late_bench
-        and not name.split('/')[-1].startswith(
-            ('tube-','wire-','terminal-','jacket-','termination-'))
-        and not any(token in name.split('/')[-1] for token in electrical_tokens)}
-    def near(a,b):
-        return np.all(a[1]>=b[0]-1e-7) and np.all(b[1]>=a[0]-1e-7)
-    def native_common(a,b):
-        common=a.intersect(b,tol=1e-6)
-        return 0. if common.isNull() else abs(common.Volume())
-    for valve in ('valve-v-a','vk-solenoid'):
-        moving=name_for(valve)
-        shape=placed[moving]
-        low,high=bounds(shape)
-        axis=np.asarray(layout.vector(layout.pose(valve)['rotation'],(0.,0.,1.)))
-        depth=valve_seat.socket_depth()
-        offset=axis*depth
-        highest=max(bounds(body)[1][2] for body in printed.values())
-        lift=highest+1.-low[2]
-        sweep_low=low+offset
-        sweep_high=high+offset+np.array((0.,0.,lift))
-        envelope=cq.Solid.makeBox(*(sweep_high-sweep_low),cq.Vector(*sweep_low))
-        vertical=[]
-        for name,body in bench_fixed.items():
-            if near((sweep_low,sweep_high),bounds(body)):
-                vertical.append({'body':name,'common_mm3':native_common(envelope,body),
-                                 'distance_mm':envelope.distance(body)})
-        samples=[]
-        for amount in (depth,6.,5.5,5.2,5.,4.,3.,2.,1.,.5,.25,.1,0.):
-            shift=axis*amount
-            moved=shape.translate(tuple(shift))
-            tested=[{'body':name,'common_mm3':native_common(moved,body)}
-                    for name,body in bench_fixed.items()
-                    if near(bounds(moved),bounds(body))]
-            samples.append({'offset_mm':shift.tolist(),'native_candidates':tested})
-        passed=all(row['common_mm3']<1e-6 for row in vertical)
-        passed &= all(row['common_mm3']<1e-6
-                      for sample in samples for row in sample['native_candidates'])
-        record={'check':'Bare valve open-bench lowering and seating / '+valve,
-            'passed':passed,'moving':moving,
-            'post_engagement_mm':valve_seat.seat_top_z,
-            'blind_socket_depth_mm':depth,
-            'socket_floor_reserve_mm':-valve_seat.socket_floor_z,
-            'vertical_offset_path_mm':[(offset+np.array((0.,0.,z))).tolist()
-                                       for z in (lift,0.)],
-            'vertical_scope':'Continuous conservative full-valve bounding-box envelope.',
-            'vertical_native_candidates':vertical,'seating_samples':samples,
-            'stage_present_components':sorted(bench_fixed),
-            'stage_absent_core_components':sorted(name for name in placed
-                if 'cold-core/' in name and name not in bench_fixed and name!=moving),
-            'full_printed_core_members_retained':sorted(printed),
-            'native_boolean_tolerance_mm':1e-6}
-        records.append(record)
-        print(json.dumps(record),flush=True)
-        bench_fixed[moving]=shape
     sys.path.insert(0,str(ROOT/'hardware/printed-parts/enclosure/enclosure'))
     import enclosure as enc
     import _box_spec
@@ -359,16 +294,15 @@ def main():
              ROOT/'hardware/manifold-layout/above-core.json',
              Path(enc.__file__),Path(enc._above_core_shell.__file__),
              ROOT/'hardware/manifold-layout/above_core_wiring.py',_box_spec.ARTIFACT]
-    sources.extend((Path(soda_inlet.__file__),inlet_path,rear_receipt_path,
+    sources.extend((Path(soda_inlet.__file__),inlet_path,
                     ROOT/soda_inlet.HOLDER_ACCEPTANCE,ROOT/soda_inlet.FOAM_EVIDENCE,
-                    Path(layout.__file__),Path(valve_seat.__file__),
+                    ROOT/'hardware/manifold-layout/above_core.py',
                     ROOT/'hardware/reference/beduan-solenoid/beduan_solenoid.py'))
     result={'passed':all(row['passed'] for row in records),
-            'scope':'Sampled nominal empty-closure removal after removing the funnel silicone, cover and cradled drain group, back-top upper stock and its named fixed equipment plus native fluid spans with both endpoints on that fixed group during the populated-core ride, and bare valve installation on the open-bench core. The inlet header and its three concealed links are preassembled with the stationary core while the open saddles capture it; permanent installed ownership is unchanged. V-A lowers at the real socket-depth axial offset and seats before V-K; PCB, PSU, pump, meter, electrical junctions, inserted valve elbows and warm tubes install after both bare valves. Full printed core stock and internal equipment remain. Valve lowering uses continuous conservative bounds; seating uses native sampled poses. Closure screws are removed. Drain disconnection or cradle release is a prerequisite; their motion and force are not queried. Soda/drain rear bulkheads, prethreaded nuts and the nested soda elbows and concealed tube ride with back-top; the separate rear-capture receipt owns finite meter engagement. Other inter-quadrant tubes/leads and the flexible drain vent connect after the ride. Lower seams and floors retain their separate records.',
-            'late_rear_components':sorted(late_rear),
-            'back_column_rear_preassembly':sorted(rear_preassembly),
-            'stationary_core_inlet_header_preassembly':sorted(header_preassembly),
-            'evidence_limit':'Closure/column motions use tessellated native geometry with a 0.1 mm3 reporting threshold; valve installation uses full native shapes with 1e-6 mm Boolean tolerance and 1e-6 mm3 reporting threshold. No physical fit, installation force, hand/tool access, printed stiffness, insert strength, sealing or lifetime result.',
+            'scope':'Sampled nominal empty-closure removal after removing the funnel silicone, cover and cradled drain group; the approved back-top upper stock and named carried equipment/plumbing passing over the populated cold core; and raised upper M5 stock. V-A, V-K, their fitted elbows, low V-A feed and the complete inlet header travel with back-top. V-B, pump, PCB, PSU, meter and the continuous insulated soda inlet remain with the core. The concealed meter-outlet tube remains on the core. The explicitly listed cross-owner spans are omitted from the rigid-group motion and require separate final-connection evidence. This report does not establish those handoffs or bare-valve bench installation. Closure screws are removed. Lower seams and floors retain their separate records.',
+            'late_handoff_components':sorted(late_handoffs),
+            'approved_back_top_carried_components':sorted(back_tails),
+            'evidence_limit':'Closure/column motions use tessellated native geometry with a0.1mm3 reporting threshold. No physical fit, installation force, hand/tool access, printed stiffness, insert strength, sealing or lifetime result. A clear rigid-group motion does not establish the final handoffs.',
             'source_sha256':{str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sources},
             'checks':records}
     OUTPUT.write_text(json.dumps(result,indent=2)+'\n')
