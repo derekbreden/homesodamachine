@@ -55,7 +55,7 @@ from docgen import load_module, substitute_md, substitute_py_comments  # noqa: E
 
 # Every ruthex insert this procedure presses, off the patterns that hold them.
 # The shell clamps a cap on each face; the top cap's deck-mount columns take one
-# each for the pump, PCB and PSU; each reservoir cap takes its own wall-top ring.
+# each for the pump and PCB; each reservoir cap takes its own wall-top ring.
 # The electrical ground boss and enclosure-wall equipment retain their own
 # installation steps and insert families.
 CAP_CLAMP_INSERTS = len(attachment_xy_positions) * 2

@@ -301,9 +301,8 @@ Prepare the rear soda connection with back-top on the open bench:
 The [rear assembly record](/hardware/mechanical-qualification/enclosure-above-core/rear-plumbing-assembly.json)
 records each tested rear group's staging and finite socket scope. It retains the explicit 0.22493 mm³ nominal soda fitting
 contact. Collet fit, connection force, threading and hand/tool access remain
-unqualified. The meter and rear outlet are prepared together on back-top;
-the evaluated core-mounted-meter insertion variants do not establish this
-selected assembly sequence.
+unqualified. The meter and rear outlet are prepared together on back-top.
+Closing and flexible handoffs are established only to the scope of that record.
 
 Flavor A and B use black 4 mm lines from the reducers at V-G and V-J to the
 lower-left and lower-right rear fittings respectively. Retain R25 turns and
