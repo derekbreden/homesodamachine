@@ -1,15 +1,14 @@
 {
- "gatesPass": false,
+ "gatesPass": true,
  "checks": [
   {
    "id": "bodies-clear",
    "label": "No two placed solids share volume",
    "kind": "gate",
-   "status": "fail",
-   "value": "1 clash",
+   "status": "pass",
+   "value": "0 clash",
    "target": "0 clash",
    "detail": [
-    "soda-continuous-insulation \u2229 tube-soda-core-rise = 0.31 mm\u00b3",
     "carbonator-tube \u2229 evap-coil: the wrap rides it \u2014 see RIDES_ON",
     "evap-coil \u2229 reed-bridge: the wrap rides it \u2014 see RIDES_ON",
     "evap-coil \u2229 reed-carb-1: the wrap rides it \u2014 see RIDES_ON",
@@ -42,12 +41,13 @@
    "label": "Every billed cold-core part has a body here",
    "kind": "goal",
    "status": "fail",
-   "value": "31/40",
+   "value": "30/40",
    "target": "a body per billed part",
    "detail": [
     "heat-set inserts: no row in bom.md matching \"ruthex M3 Threaded Inserts\"",
     "reservoir cap screws: no row in bom.md matching \"BNUOK M3 \u00d7 12 mm DIN 912 socket head cap, 304 stainless\"",
     "meter inlet stem elbow: soda-inlet-stem not placed",
+    "carbonated-water flow sensor: digiten-flow not placed",
     "soda riser insulation: soda-rise-insulation not placed",
     "PTFE thread tape \u2014 billed, no solid here (\"Millrose 70894 Nickel Guard\")",
     "pour-in-place foam \u2014 billed, no solid here (\"closed-cell pour-in-place PU foam\")",
@@ -55,9 +55,7 @@
     "reed columns \u2014 billed, no solid here (\"Pre-soldered reed-and-wire column\")",
     "heat-set inserts \u2014 billed, no solid here (\"ruthex M3 Threaded Inserts\")",
     "cap clamp screws \u2014 billed, no solid here (\"BNUOK M3 \u00d7 25 mm DIN 912\")",
-    "reservoir cap screws \u2014 billed, no solid here (\"BNUOK M3 \u00d7 12 mm DIN 912 socket head cap, 304 stainless\")",
-    "placed, unbilled: soda-bend-holder",
-    "placed, unbilled: soda-continuous-insulation"
+    "reservoir cap screws \u2014 billed, no solid here (\"BNUOK M3 \u00d7 12 mm DIN 912 socket head cap, 304 stainless\")"
    ],
    "active": true
   },
@@ -116,7 +114,7 @@
    "label": "Every body the core carries is placed",
    "kind": "goal",
    "status": "pass",
-   "value": "56/56",
+   "value": "52/52",
    "target": "a solid per body",
    "detail": [],
    "active": false
@@ -146,7 +144,7 @@
    "label": "A feature of another placed part locates every body",
    "kind": "goal",
    "status": "fail",
-   "value": "54/56",
+   "value": "50/52",
    "target": "a located joint per body",
    "detail": [
     "probe-carbonator-ds18b20: foil tape",
@@ -166,7 +164,6 @@
   "collet-water-in",
   "copper-plug-port",
   "copper-plug-west",
-  "digiten-flow",
   "endcap-bottom",
   "endcap-top",
   "evap-coil",
@@ -206,9 +203,6 @@
   "reservoir-b-fill-lower",
   "reservoir-b-fill-upper",
   "reservoir-b-gasket",
-  "soda-bend-holder",
-  "soda-continuous-insulation",
-  "tube-soda-core-rise",
   "vent-membrane-a",
   "vent-membrane-b",
   "water-inlet-jet-cap-nominal"
