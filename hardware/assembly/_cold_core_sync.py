@@ -165,8 +165,8 @@ def main():
         # them stands on: the bare channel a wrap leaves between turns, which is
         # why the reed cannot fit between wraps at all, and where the bridge's own
         # bottom edge lands off the tube's rim, which is what the setting gauge
-        # marks. All four off the bridge's own module, so the witness list, the
-        # explanation and the closed open item read one part.
+        # marks. All four off the bridge's own module, so the witness list and the
+        # explanation read one part.
         "LOW_LEVEL": f"{_reed_bridge_gen.low_level_z:.4g} mm",
         "HIGH_LEVEL": f"{_reed_bridge_gen.high_level_z:.4g} mm",
         "REED_LOW_Z": f"{_reed_bridge_gen.reed_low_z:.3f} mm",
