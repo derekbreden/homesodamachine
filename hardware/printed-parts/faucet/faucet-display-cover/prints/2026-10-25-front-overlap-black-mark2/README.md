@@ -19,8 +19,9 @@ The tip and display have no changes. The
 [physical result and five photographs](physical-result/physical-result.json)
 record working fit and approval. A corner gap remains and is accepted as good
 enough; no further iteration is requested. The complete production recipe uses
-uniform 0.24 mm layers, including the first layer, with the remaining settings
-retained. The [production selection](../../../industrial/production-selection.json)
+Bambu’s default 0.20 mm first bed layer and 0.24 mm later layers without fine
+bands, with the remaining settings retained. This archived cover print used a
+0.24 mm first layer. The [production selection](../../../industrial/production-selection.json)
 binds the approved sources and subsequent print defaults.
 
 The [complete settings export](all-settings.json) contains all 582 prepared and

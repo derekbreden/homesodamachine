@@ -1,16 +1,16 @@
 {
   "schema": 3,
-  "status": "Approved Industrial production faucet with Sculpted cover and uniform 0.24 mm layers",
+  "status": "Approved Industrial production faucet with Sculpted cover, Bambu default 0.20 mm first layer and 0.24 mm later layers",
   "production_selection": "hardware/printed-parts/faucet/industrial/production-selection.json",
-  "production_selection_sha256": "1a418acedf39b6e82198c08a3380d9542603db3bc243105547608d44b5d51c69",
+  "production_selection_sha256": "72a99d7374623220ff97edb3a38a853378a5efb989de51851e46bfbd709aa2d1",
   "finish_selection": "hardware/printed-parts/faucet/industrial/finish-selection.json",
-  "finish_selection_sha256": "55cf932099dc02734046c943649f1098269e4240910d722497f8e9a28d78a819",
+  "finish_selection_sha256": "b9078cbec847126ccb723e16886b0b19ce0fac982a9f1d5db6917f2d54a01854",
   "canonical_project": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.3mf",
-  "canonical_project_sha256": "138381e13b3089fa3130bc7f0fe7752dd2b65b804a0eedcafb277819f2878fa0",
+  "canonical_project_sha256": "73c95d29517201c65af103677be0423a7b093eb801140636029f3fb062bab8c3",
   "canonical_default_printer": "Mark2",
   "native_archive": "hardware/printed-parts/faucet/industrial/faucet-industrial-petgf.gcode.3mf",
-  "native_archive_sha256": "7a3e848c5202c0247b549cba9de20cb517c3f6640eada07e0c85ef0fdd70b9f4",
-  "gcode_sha256": "231ed05c153ecb348f88a60822873e0d4b1140fc78cd943b2b79e023abcd42fb",
+  "native_archive_sha256": "a332b67b21fb7cfe12c80eb9d628e791c192567321d17f7f05765a26ecb94762",
+  "gcode_sha256": "2f68aedec66e154f845a9be9e78c28e2f626e304f956da7b0dd298a48b07189e",
   "native_review": "hardware/printed-parts/faucet/industrial/production/2026-10-25/native-review.json",
   "full_settings": "hardware/printed-parts/faucet/industrial/production/2026-10-25/all-settings.json",
   "source_geometry_hashes": {
@@ -26,14 +26,14 @@
     "1374330388"
   ],
   "layer_recipe": {
-    "first_bed_layer_height_mm": 0.24,
+    "first_bed_layer_height_mm": 0.2,
     "normal_layer_height_mm": 0.24,
     "variable_layer_ranges": [],
     "independent_support_layer_height": false
   },
   "accepted_remaining_corner_gap": true,
   "gap_iteration_requested": false,
-  "production_tag": "faucet-industrial-production-2026-10-25",
+  "production_tag": "faucet-industrial-production-2026-10-25-first020",
   "current_native_archive_submitted": false,
-  "scope": "The exact approved component geometry and selected uniform-layer production recipe are prepared and reviewed offline. This complete native archive has not been submitted. Historical acceptance records retain their original scope."
+  "scope": "The exact approved component geometry and selected production recipe are prepared and reviewed offline: Bambu default 0.20 mm first bed layer, 0.24 mm later layers and no fine bands. This complete native archive has not been submitted. Historical acceptance records retain their original scope."
 }

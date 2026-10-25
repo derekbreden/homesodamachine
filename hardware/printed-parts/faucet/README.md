@@ -69,7 +69,8 @@ identifies the tested physical article. The current complete Industrial
 project uses the [selected printing recipe](industrial/finish-selection.json):
 Back with A2 on the base, tip and mounting plate, rear-center seam enforcement
 through the base's full rear silhouette and the tip's exposed curved neck, default Aligned/15%/scarf-off
-seams on the cover and lever, and uniform **0.24 mm layers including the first layer**.
+seams on the cover and lever, **Bambu’s 0.20 mm first bed layer and 0.24 mm later
+layers**, with no fine bands.
 The [production selection](industrial/production-selection.json) identifies the
 exact approved five-part source set: Industrial base, lowered tip with foot and
 switch recesses, extended-skirt Sculpted cover, rigid Industrial plate and

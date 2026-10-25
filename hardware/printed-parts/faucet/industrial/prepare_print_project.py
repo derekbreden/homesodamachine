@@ -177,7 +177,7 @@ def write_readiness(project: Path, report: dict, reading: dict | None = None,
     """Record what this offline preparation actually checked."""
     result = {
         "project_title": TITLE,
-        "status": ("approved production geometry and uniform-layer native slice reviewed"
+        "status": ("approved production geometry and selected-layer native slice reviewed"
                    if reading is not None else "approved production geometry prepared; native review pending"),
         "preparation_only": True,
         "launch_authorized": False,
@@ -202,7 +202,8 @@ def write_readiness(project: Path, report: dict, reading: dict | None = None,
         "physical_print": {
             "approved_geometry_record": PRODUCTION["physical_result"],
             "approved_geometry_selection": relative(PRODUCTION_PATH),
-            "selected_uniform_layer_height_mm": .24,
+            "first_bed_layer_height_mm": report["first_bed_layer_height_mm"],
+            "normal_layer_height_mm": report["layer_height_mm"],
             "accepted_remaining_corner_gap": True,
             "this_archive_printed": False,
         },
@@ -371,6 +372,7 @@ def refresh(settings_from: Path = PROFILE, output: Path = PROJECT,
         "project_sha256": writer.digest(output.read_bytes()),
         "settings_sha256": writer.digest(actual_profile[writer.SETTINGS_MEMBER]),
         "native_settings_sha256": writer.digest(actual_profile[writer.SETTINGS_MEMBER]),
+        "settings_preserved_byte_for_byte": actual_profile[writer.SETTINGS_MEMBER] == preserved[writer.SETTINGS_MEMBER],
         "all_profile_members_preserved_byte_for_byte": actual_profile == preserved,
         "profile_member_sha256": {name: writer.digest(data) for name, data in actual_profile.items()},
         "sculpted_artifacts_unchanged": before,
@@ -396,7 +398,7 @@ def refresh(settings_from: Path = PROFILE, output: Path = PROJECT,
         "finish_choices_pending": [],
         "finish_selection": relative(FINISH),
         "selected_finish": finish,
-        "selected_finish_scope": "Approved Industrial faucet with lowered tip and extended Sculpted cover; uniform 0.24 mm first and later layers, no variable bands and independent support heights off. A2 with Back on base, tip and mounting plate, full rear seam enforcement, and Aligned/15%/scarf-off on cover and lever. Retain 125% bridge flow, 15 mm/s bridges, 10-15 mm/s overhangs, ordinary and auxiliary fan off, localized 70% bridge/overhang fan after three off layers, accepted base rim arcs, tip fins, local lip trees and hidden-root disc. Tree(auto)/Default elsewhere.",
+        "selected_finish_scope": "Approved Industrial faucet with lowered tip and extended Sculpted cover; Bambu's 0.20 mm first bed layer and 0.24 mm later layers, no variable bands and independent support heights off. A2 with Back on base, tip and mounting plate, full rear seam enforcement, and Aligned/15%/scarf-off on cover and lever. Retain 125% bridge flow, 15 mm/s bridges, 10-15 mm/s overhangs, ordinary and auxiliary fan off, localized 70% bridge/overhang fan after three off layers, accepted base rim arcs, tip fins, local lip trees and hidden-root disc. Tree(auto)/Default elsewhere.",
         "base_layer_bands": [{"print_z_mm": band, "layer_height_mm": finish["fine_layer_height_mm"]}
                              for band in bands],
     })

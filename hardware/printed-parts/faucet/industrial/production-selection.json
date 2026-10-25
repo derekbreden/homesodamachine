@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "reported_date": "2026-10-25",
-  "status": "approved_production_print_geometry_and_uniform_layer_recipe",
+  "status": "approved_production_print_geometry_and_layer_recipe",
   "user_quote": "That worked. There's still a gap, so make a note of it, but I don't want to iterate any further on this right now. It's fine. It's good enough. Regarding the thinner layers that we tried on the previous FASA print there, that didn't turn out so good, so I'd like to go back to the same layer height everywhere as our final production print settings. And other than that, make sure that our next prints match what we did here, because all of this is looking good and is approved.",
   "physical_result": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json",
   "complete_head_fit_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/physical-result/physical-result.json",
@@ -49,7 +49,7 @@
     }
   ],
   "recipe": {
-    "first_bed_layer_height_mm": 0.24,
+    "first_bed_layer_height_mm": 0.2,
     "layer_height_mm": 0.24,
     "variable_layer_ranges": [],
     "independent_support_layer_height": false,
@@ -70,5 +70,6 @@
   },
   "historical_shipping_acceptance": "hardware/printed-parts/faucet/industrial/physical-acceptance.json",
   "scope": "Approval and selected settings apply to this Industrial faucet with Sculpted display cover. Frozen source meshes preserve the printed geometry. Other faucet styles and historical physical records retain their own scope.",
-  "production_tag": "faucet-industrial-production-2026-10-25"
+  "production_tag": "faucet-industrial-production-2026-10-25-first020",
+  "first_layer_selection_quote": "I don't know why bambu defaults 0.24 layer height to a 0.20 first layer, but if I don't have a reason to muck with a bambu default choice, I don't muck with it. I haven't had a reason to muck with it ..."
 }

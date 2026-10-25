@@ -13,7 +13,7 @@ sys.path.insert(0,str(INDUSTRIAL))
 import prepare_print_project as production
 from review_rim_supports import material_review
 writer=production.writer
-NATIVE=ROOT/'.cache/faucet-production-uniform024-20261025/native'
+NATIVE=ROOT/'.cache/faucet-production-first020-20261025/native'
 PROJECT=INDUSTRIAL/'faucet-industrial-petgf.3mf'
 
 
@@ -26,7 +26,13 @@ def main():
     assert [p['stl_sha256'] for p in report['parts']]==[p['stl_sha256'] for p in selection['parts']]
     with ZipFile(PROJECT) as prepared,ZipFile(archive) as native,ZipFile(ROOT/selection['settings_source']) as accepted:
         settings=prepared.read(writer.SETTINGS_MEMBER)
-        assert settings==accepted.read(writer.SETTINGS_MEMBER)
+        accepted_settings=json.loads(accepted.read(writer.SETTINGS_MEMBER))
+        prepared_settings=json.loads(settings)
+        changes={k:{'from':accepted_settings.get(k),'to':prepared_settings.get(k)}
+                 for k in set(accepted_settings)|set(prepared_settings)
+                 if accepted_settings.get(k)!=prepared_settings.get(k)}
+        assert changes=={'initial_layer_print_height':{'from':'0.24','to':'0.2'}},changes
+        assert float(json.loads(native.read(writer.SETTINGS_MEMBER))['initial_layer_print_height'])==.20
         assert not ET.fromstring(prepared.read('Metadata/layer_config_ranges.xml')).findall('object')
         commands=native.read('Metadata/plate_1.gcode')
         assert hashlib.md5(commands).hexdigest()==native.read('Metadata/plate_1.gcode.md5').decode().strip().lower()
@@ -41,10 +47,10 @@ def main():
                 return {o.find("metadata[@key='name']").get('value'):{m.get('key'):m.get('value') for m in o.findall('metadata') if m.get('key')}
                         for o in ET.fromstring(payload).findall('object')}
             assert per_object(prepared.read('Metadata/model_settings.config'))==per_object(reference.read('Metadata/model_settings.config'))
-    material,_=material_review(NATIVE/'plate_1.gcode',report,localized_cooling=True,first_three_max_z=.72)
+    material,_=material_review(NATIVE/'plate_1.gcode',report,localized_cooling=True,first_three_max_z=.68)
     zvalues=[float(z) for z in re.findall(rb'^; Z_HEIGHT: ([-+0-9.]+)',commands,re.M)]
     increments=Counter(round(b-a,5) for a,b in zip([0.]+zvalues,zvalues))
-    assert set(increments)=={.24},increments
+    assert zvalues[0]==.20 and increments[.20]==1 and set(increments)=={.20,.24},increments
     declared=Counter(float(h) for h in re.findall(rb'^; LAYER_HEIGHT: ([-+0-9.]+)',commands,re.M))
     trim=[float(v) for v in re.findall(rb'^\s*G29\.1 Z([-+0-9.]+)',commands,re.M)]
     assert trim==[0.,.02],trim
@@ -61,19 +67,22 @@ def main():
             if e and float(e[1])>0:by_part[names[obj]].add(z)
     layers={name:{'first_z_mm':min(v),'last_z_mm':max(v),'model_layer_count':len(v),
                   'z_increment_counts_mm':dict(Counter(round(b-a,5) for a,b in zip([0.]+sorted(v),sorted(v))))} for name,v in by_part.items()}
-    assert all(set(map(float,row['z_increment_counts_mm']))=={.24} for row in layers.values())
+    assert all(row['first_z_mm']==.20 and row['z_increment_counts_mm'].get(.20)==1
+               and set(row['z_increment_counts_mm'])=={.20,.24} for row in layers.values()),layers
     (HERE/'all-settings.json').write_text(json.dumps(full,indent=2)+'\n')
     result={'recorded_at_utc':datetime.now(timezone.utc).isoformat(),'project_sha256':writer.digest(PROJECT.read_bytes()),
             'archive':str(archive.relative_to(ROOT)),'archive_sha256':writer.digest(archive.read_bytes()),
             'gcode_sha256':hashlib.sha256(commands).hexdigest(),'embedded_checksum_matches':True,
-            'approved_geometry_sources_match':True,'project_settings_match_accepted_print_byte_for_byte':True,
+            'approved_geometry_sources_match':True,'project_settings_match_accepted_print_byte_for_byte':False,
+            'intentional_settings_changes_from_accepted_print':changes,'other_settings_match_accepted_print':True,
             'object_process_overrides_match_accepted_complete_print':True,'variable_layer_ranges':[],
-            'first_and_later_layer_height_mm':.24,'total_layer_planes':len(zvalues),'layer_increments_mm':dict(increments),
+            'first_bed_layer_height_mm':.20,'normal_layer_height_mm':.24,
+            'total_layer_planes':len(zvalues),'layer_increments_mm':dict(increments),
             'declared_feature_bead_heights_mm':dict(declared),
-            'bead_height_scope':'Per-feature extrusion cross-sections include support and thick-bridge bead heights and floating-point quantization. Build-plane and per-part model increments are separately verified at 0.24 mm.',
+            'bead_height_scope':'Per-feature extrusion cross-sections include support and thick-bridge bead heights and floating-point quantization. Build-plane and per-part model increments are separately verified at 0.20 mm for the first bed layer and 0.24 mm afterward.',
             'part_layer_planes':layers,'emitted_trim_values_mm':trim,
             'material_commands':material,'plates':audit['plates'],'fit':audit['fit'],
-            'scope':'Offline complete production slice of the exact approved source meshes and selected uniform layer recipe. No printer submission. The accepted remaining corner gap is retained.'}
+            'scope':'Offline complete production slice of the exact approved source meshes, Bambu default 0.20 mm first layer and 0.24 mm later layers without fine bands. No printer submission. The accepted remaining corner gap is retained.'}
     (HERE/'native-review.json').write_text(json.dumps(result,indent=2)+'\n')
     print(json.dumps({k:result[k] for k in ['total_layer_planes','part_layer_planes','plates','emitted_trim_values_mm']},indent=2),flush=True)
 

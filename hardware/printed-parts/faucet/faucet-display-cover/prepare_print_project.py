@@ -36,12 +36,22 @@ def prepare(project, printer='Mark2', colour=None):
         members['Metadata/layer_config_ranges.xml'] = writer.xml(ET.Element('objects'))
         settings = json.loads(members[writer.SETTINGS_MEMBER])
         settings['filament_colour'] = [colour or selection['recipe']['filament_colour']]
+        for key, value in {
+            'initial_layer_print_height': str(selection['recipe']['first_bed_layer_height_mm']),
+            'layer_height': str(selection['recipe']['layer_height_mm']),
+        }.items():
+            if settings[key] != value:
+                report['settings_changes'][key] = {'from': settings[key], 'to': value}
+                settings[key] = value
         members[writer.SETTINGS_MEMBER] = (json.dumps(settings, indent=2) + '\n').encode()
+        report['settings_preserved_byte_for_byte'] = (
+            members[writer.SETTINGS_MEMBER] == baseline.read(writer.SETTINGS_MEMBER))
     writer.archive_write(project, members)
     report.update(project_sha256=writer.digest(project.read_bytes()),
         settings_sha256=writer.digest(members[writer.SETTINGS_MEMBER]),
         printer=printer, requested_z_trim_mm=trim, active_nozzle=0,
-        first_bed_layer_height_mm=.24, layer_height_mm=.24, layer_ranges=[],
+        first_bed_layer_height_mm=float(settings['initial_layer_print_height']),
+        layer_height_mm=float(settings['layer_height']), layer_ranges=[],
         production_selection=str(selection_path.relative_to(ROOT)),
         physical_approval=selection['physical_result'],
         accepted_remaining_corner_gap=True, launch_authorized=False, submitted=False)
@@ -56,4 +66,5 @@ if __name__ == '__main__':
     parser.add_argument('--filament-colour')
     args = parser.parse_args()
     result = prepare(args.project.resolve(), args.printer, args.filament_colour)
-    print(f'{args.project}: approved cover; uniform 0.24 mm layers; {result["printer"]}')
+    print(f'{args.project}: approved cover; {result["first_bed_layer_height_mm"]:.2f} mm first layer, '
+          f'{result["layer_height_mm"]:.2f} mm later layers; {result["printer"]}')

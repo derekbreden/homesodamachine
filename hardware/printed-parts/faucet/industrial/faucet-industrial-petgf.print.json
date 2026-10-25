@@ -2,7 +2,7 @@
   "project": "faucet-industrial-petgf.3mf",
   "settings_source": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/2026-10-25-sculpted-cover-front-overlap-black-left04-z004-mark2.3mf",
   "settings_source_sha256": "fb08838af3bf6cff212acec6ccc2dabc6701fe8745840bbbf459c78597cb765d",
-  "settings_sha256": "987a5e177a7ff369594322a0107c23f4dddfdb094bbbfe9fd22f7628e0961d99",
+  "settings_sha256": "6ad46f6f99b05b01b6a10cbe8a4604925d569c5849720099fc56fe0195780756",
   "source_settings_sha256": "987a5e177a7ff369594322a0107c23f4dddfdb094bbbfe9fd22f7628e0961d99",
   "settings_changes": {
     "machine_start_gcode": {
@@ -13,6 +13,10 @@
     "printer_settings_id": {
       "from": "Bambu Lab H2C 0.4 Standard +0.04 Z trim",
       "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    },
+    "initial_layer_print_height": {
+      "from": "0.24",
+      "to": "0.2"
     }
   },
   "printer": "Mark2",
@@ -337,8 +341,8 @@
       "embedded_vertex_error_mm": 4.997851021926181e-10
     }
   ],
-  "project_sha256": "138381e13b3089fa3130bc7f0fe7752dd2b65b804a0eedcafb277819f2878fa0",
-  "settings_preserved_byte_for_byte": true,
+  "project_sha256": "73c95d29517201c65af103677be0423a7b093eb801140636029f3fb062bab8c3",
+  "settings_preserved_byte_for_byte": false,
   "local_solid_regions": [
     {
       "part": "industrial-shell-base",
@@ -630,11 +634,11 @@
   },
   "project_title": "Industrial faucet PET-GF",
   "profile_source": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/2026-10-25-sculpted-cover-front-overlap-black-left04-z004-mark2.3mf",
-  "native_settings_sha256": "987a5e177a7ff369594322a0107c23f4dddfdb094bbbfe9fd22f7628e0961d99",
-  "all_profile_members_preserved_byte_for_byte": true,
+  "native_settings_sha256": "6ad46f6f99b05b01b6a10cbe8a4604925d569c5849720099fc56fe0195780756",
+  "all_profile_members_preserved_byte_for_byte": false,
   "profile_member_sha256": {
     "Metadata/filament_settings_1.config": "091f10287f1cb62de98ece1c2a38ad31fcdcd29aff3e3a7605ab194d6089cd0c",
-    "Metadata/project_settings.config": "987a5e177a7ff369594322a0107c23f4dddfdb094bbbfe9fd22f7628e0961d99"
+    "Metadata/project_settings.config": "6ad46f6f99b05b01b6a10cbe8a4604925d569c5849720099fc56fe0195780756"
   },
   "sculpted_artifacts_unchanged": {
     "hardware/printed-parts/faucet/faucet-petgf.3mf": "523aca51a52146930133187ae873afeb1677849ffc4d15bf4cf56a7d2f15e055",
@@ -651,7 +655,7 @@
   "physical_production_approval": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json",
   "active_nozzle": 0,
   "requested_z_trim_mm": 0.04,
-  "first_bed_layer_height_mm": 0.24,
+  "first_bed_layer_height_mm": 0.2,
   "selected_faces": [
     {
       "cad_z_mm": 14.0,
@@ -913,7 +917,7 @@
   "selected_finish": {
     "schema": 1,
     "selected_date": "2026-10-25",
-    "selection_basis": "Derek approves the Industrial faucet with the corrected lowered tip and extended Sculpted cover; production uses uniform 0.24 mm layers including the first layer.",
+    "selection_basis": "Derek approves the Industrial faucet with the corrected lowered tip and extended Sculpted cover; production retains Bambu's 0.20 mm first bed layer and uses 0.24 mm later layers without fine bands.",
     "seam_specimen": "A2",
     "seam_parts": [
       "industrial-shell-base",
@@ -971,8 +975,8 @@
     },
     "wall_generators": "Retain base Arachne for the continuous reinforced foot; other rigid parts retain Classic.",
     "base_fine_bands_print_z_mm": [],
-    "first_bed_layer_height_mm": 0.24,
-    "scope": "Approved complete Industrial faucet with the Sculpted display cover. Uniform 0.24 mm layers including the first bed layer; accepted seams, support geometry and localized cooling retained.",
+    "first_bed_layer_height_mm": 0.2,
+    "scope": "Approved complete Industrial faucet with the Sculpted display cover. Bambu's 0.20 mm first bed layer and 0.24 mm later layers without fine bands; accepted seams, support geometry and localized cooling retained.",
     "seam_selection_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/launch.json",
     "default_printer": "Mark2",
     "default_filament_colour": "#161616",
@@ -1048,13 +1052,14 @@
       "selection_quote": "That worked. That disc works in this case, and is removable, but it leaves a bit of a scuff that would be a problem on a visible surface, but since its on the male insertion portion that is hidden, we are golden here."
     },
     "normal_layer_height_mm": 0.24,
-    "uniform_layer_height": true,
     "independent_support_layer_height": false,
     "layer_selection_quote": "I'd like to go back to the same layer height everywhere as our final production print settings.",
     "production_selection": "hardware/printed-parts/faucet/industrial/production-selection.json",
-    "production_tag": "faucet-industrial-production-2026-10-25"
+    "production_tag": "faucet-industrial-production-2026-10-25-first020",
+    "uniform_model_layer_height": true,
+    "first_layer_selection_quote": "I don't know why bambu defaults 0.24 layer height to a 0.20 first layer, but if I don't have a reason to muck with a bambu default choice, I don't muck with it. I haven't had a reason to muck with it ..."
   },
-  "selected_finish_scope": "Approved Industrial faucet with lowered tip and extended Sculpted cover; uniform 0.24 mm first and later layers, no variable bands and independent support heights off. A2 with Back on base, tip and mounting plate, full rear seam enforcement, and Aligned/15%/scarf-off on cover and lever. Retain 125% bridge flow, 15 mm/s bridges, 10-15 mm/s overhangs, ordinary and auxiliary fan off, localized 70% bridge/overhang fan after three off layers, accepted base rim arcs, tip fins, local lip trees and hidden-root disc. Tree(auto)/Default elsewhere.",
+  "selected_finish_scope": "Approved Industrial faucet with lowered tip and extended Sculpted cover; Bambu's 0.20 mm first bed layer and 0.24 mm later layers, no variable bands and independent support heights off. A2 with Back on base, tip and mounting plate, full rear seam enforcement, and Aligned/15%/scarf-off on cover and lever. Retain 125% bridge flow, 15 mm/s bridges, 10-15 mm/s overhangs, ordinary and auxiliary fan off, localized 70% bridge/overhang fan after three off layers, accepted base rim arcs, tip fins, local lip trees and hidden-root disc. Tree(auto)/Default elsewhere.",
   "base_layer_bands": [],
   "source_sha256": {
     "hardware/printed-parts/faucet/prepare_vent_prints.py": "0d57a8feb9f0b2a9e42fa66e7482644137f999ace4501f2b25885b66425c5f17",
@@ -1064,11 +1069,11 @@
     "hardware/printed-parts/faucet/industrial/production/2026-10-25/sculpted-display-cover.stl": "3d4d2e05edde5a0e45aad36e9de072a57103c3b0f8da2bbd875cbfbedbe68133",
     "hardware/printed-parts/faucet/industrial/production/2026-10-25/industrial-above-counter-plate.stl": "5dcf7c25eddfd45f5a9db12b687b751ba24c3c3f9bb87d042b6d97ca4d134bee",
     "hardware/printed-parts/faucet/industrial/production/2026-10-25/lever-replica.stl": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
-    "hardware/printed-parts/faucet/industrial/prepare_print_project.py": "4e57afaf25bc9e3517c6b101cc781ec017be71b132d2ffca77a103fa35189819",
+    "hardware/printed-parts/faucet/industrial/prepare_print_project.py": "4ce383168eeb397a5c13a36f7533b055b73823ee64fcdebddebbd44e1f0fad4c",
     "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.3mf": "2561bcdaa520e94f4b0a5989fcbb9e941f707b50c46af97655ceacf312748302",
     "hardware/printed-parts/faucet/industrial/physical-acceptance.json": "74793cb4503186aca90897b4a3be7ec2ba386247e60d4191880499010405479f",
-    "hardware/printed-parts/faucet/industrial/finish-selection.json": "55cf932099dc02734046c943649f1098269e4240910d722497f8e9a28d78a819",
-    "hardware/printed-parts/faucet/industrial/production-selection.json": "1a418acedf39b6e82198c08a3380d9542603db3bc243105547608d44b5d51c69",
+    "hardware/printed-parts/faucet/industrial/finish-selection.json": "b9078cbec847126ccb723e16886b0b19ce0fac982a9f1d5db6917f2d54a01854",
+    "hardware/printed-parts/faucet/industrial/production-selection.json": "72a99d7374623220ff97edb3a38a853378a5efb989de51851e46bfbd709aa2d1",
     "hardware/printed-parts/faucet/industrial/rim_supports.py": "a9698d5f3ea8ebe89fb0881bcdd97a1b9450d69c54329451d2e66ede3d7745ea",
     "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/2026-10-15-faucet-base-segmented-rim-arcs-tree-current15-bridge125-fan70-z004-mark2.3mf": "3fd336e3e44a32896bd0b76c13f11b91c74911308e81454ae670680c6b579cf7",
     "hardware/printed-parts/faucet/industrial/tip_supports.py": "42d474e5034d8e490a7fb78b438742c8f8c603533a8dab55a30299047fc211c7",

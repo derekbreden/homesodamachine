@@ -17,12 +17,13 @@
   },
   "production_selection": {
     "complete_faucet": "Industrial base, corrected lowered tip and extended-front-skirt Sculpted display cover, rigid Industrial plate and side-down lever",
-    "normal_and_first_layer_height_mm": 0.24,
     "variable_layer_ranges": [],
     "retain_other_settings": true,
-    "corner_gap_iteration": "Stopped at Derek's request; accepted cosmetic condition."
+    "corner_gap_iteration": "Stopped at Derek's request; accepted cosmetic condition.",
+    "first_bed_layer_height_mm": 0.2,
+    "normal_layer_height_mm": 0.24
   },
-  "scope": "Direct approval of the pictured assembled faucet and identified cover print. The uniform 0.24 mm complete-faucet recipe is selected for production. Numerical installation force, retention force and lifetime are not measured.",
+  "scope": "Direct approval of the pictured assembled faucet and identified cover print, which used a 0.24 mm first layer. The selected complete-faucet production recipe retains the Bambu default 0.20 mm first bed layer and uses 0.24 mm later layers without fine bands. Numerical installation force, retention force and lifetime are not measured.",
   "photos": [
     {
       "file": "photo-1.jpg",
@@ -50,5 +51,10 @@
       "saved_sha256": "b958a5382b99a66c018b5fb77a785a84864f10caf98b8ba88b47a03e087e7ed3"
     }
   ],
-  "image_processing": "EXIF orientation applied; resized to at most 1600 px; metadata omitted."
+  "image_processing": "EXIF orientation applied; resized to at most 1600 px; metadata omitted.",
+  "printed_layer_recipe": {
+    "first_bed_layer_height_mm": 0.24,
+    "normal_layer_height_mm": 0.24
+  },
+  "first_layer_selection_quote": "I don't know why bambu defaults 0.24 layer height to a 0.20 first layer, but if I don't have a reason to muck with a bambu default choice, I don't muck with it. I haven't had a reason to muck with it ..."
 }

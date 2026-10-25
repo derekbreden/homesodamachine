@@ -1,13 +1,29 @@
 # Industrial faucet print log
 
-## Production approval and uniform layers — 2026-10-25
+## First-layer archive audit — 2026-10-25
+
+The archived native settings and first deposited Z agree on these first-layer
+heights. The 0.24 mm first layers were an unintended agent change while removing
+fine model bands. Derek selects Bambu’s default 0.20 mm first layer with 0.24 mm
+later layers and no fine bands for subsequent prints.
+
+| Mark2 task | Article | First layer |
+| --- | --- | ---: |
+| 1366512080 | October 23 complete black Industrial faucet | 0.20 mm |
+| 1369497043 | October 24 lowered display with Industrial cover | 0.20 mm |
+| 1370902777 | [October 24 complete faucet with Sculpted cover](prints/2026-10-24-sculpted-cover-uniform024-mark2/README.md) | 0.24 mm |
+| 1372253517 | [October 24 complete faucet with button relief](prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md) | 0.24 mm |
+| 1374330388 | [October 25 cover with front overlap](../faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/README.md) | 0.24 mm |
+
+## Production approval and layer recipe — 2026-10-25
 
 The [five photographs and physical result](../faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json)
 accept the extended-front-skirt Sculpted cover, task **1374330388**, on the
 approved lowered head. A corner gap remains and is explicitly accepted as good
 enough, with no further iteration requested. Derek reports that the previous
 complete print's thinner base-band layers did not turn out well and selects
-**0.24 mm for the first and every later layer** as the production recipe.
+**0.24 mm for all model layers after Bambu’s default 0.20 mm first bed layer**,
+with no fine bands, as the production recipe.
 The [production selection](production-selection.json) and complete default
 project use the exact approved source meshes and retain the other settings.
 

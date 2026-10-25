@@ -8,9 +8,10 @@ The [production selection](production-selection.json) binds the exact meshes and
 The small remaining front-corner gap is accepted as good enough. No further
 iteration on that gap is requested.
 
-Every layer is **0.24 mm, including the first bed layer**. There are no 0.08,
-0.12 or 0.20 mm bands, and independent support layer height is Off. The approved
-source meshes are preserved in [the production source set](production/2026-10-25/README.md),
+The first bed layer retains **Bambu’s 0.20 mm default**; every later layer is
+**0.24 mm**. There are no fine layer bands, and independent support layer
+height is Off. The approved source meshes are preserved in
+[the production source set](production/2026-10-25/README.md),
 so preparation uses the actual printed parts. The display retains its 4.5 mm
 inward reduction, four 1 mm foot recesses and two 1 mm switch pockets. The cover
 retains the working glass and neck clearances and fixed snap datums.
@@ -34,12 +35,12 @@ prints or parts.
 The [complete settings export](production/2026-10-25/all-settings.json) preserves
 all prepared/native settings, filament presets and object overrides. The
 [native reading](production/2026-10-25/native-review.json) verifies the exact
-approved source geometry, uniform layer heights and emitted commands. The
+approved source geometry, selected layer heights and emitted commands. The
 [process selection](finish-selection.json) retains the accepted supports and seams.
 
 | Setting | Value |
 | --- | --- |
-| First / later layer height | 0.24 / 0.24 mm |
+| First / later layer height | 0.20 / 0.24 mm |
 | Nozzle / bed temperatures | 265°C first, 280°C later / 80°C |
 | Flow / volumetric limit | 0.9555 / 18 mm³/s |
 | Global walls / infill | 2 / 15% grid |
@@ -88,8 +89,9 @@ The current [prepared project](faucet-industrial-petgf.3mf),
 [native archive](faucet-industrial-petgf.gcode.3mf),
 [preparation](faucet-industrial-petgf.print.json),
 [support reading](faucet-industrial-petgf.support-audit.json) and
-[readiness](faucet-industrial-petgf.readiness.json) describe the complete uniform-layer
-production set. Preparing or reviewing it does not authorize or submit a print.
+[readiness](faucet-industrial-petgf.readiness.json) describe the complete
+production set with the 0.20 mm first layer and 0.24 mm later layers. Preparing
+or reviewing it does not authorize or submit a print.
 A cover-only project is available through the
 [cover preparer](../faucet-display-cover/README.md#printing-and-checks).
 
