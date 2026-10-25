@@ -36,9 +36,6 @@ the floor. The other end goes on to the draw valve with the rest of its run
   working head with no weep. Print guidance in [`watertight-petg.md`](watertight-petg.md); attempts
   tracked in [`print-log.md`](print-log.md). The September water-hold result belongs to the
   articles it tested.
-- [ ] Whether the as-printed wetted surface stays clean under the software rinse cycle across
-  repeated fills — the flavor-carryover and food-contact test is
-  [`wetted-surface-test.md`](wetted-surface-test.md).
 
 ## Sources
 [value](NAME) texts are updated by:

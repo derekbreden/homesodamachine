@@ -179,17 +179,9 @@ A finished carbonator is:
 
 ## Open items
 
-Procedure-level gaps that need answers before unit 1 ships:
-
-1. **Hydro pass/fail criteria.** No committed PSI-drop tolerance over the 30-min hold.
-2. **Hydro failure handling.** Re-weld vs. scrap decision tree, especially for marginal cases (faint weep, slow drift).
-3. **Weld inspection acceptance criteria.** The dye-penetrant method + materials are now defined (step 6); the accept/reject criteria for an indication are not — max acceptable porosity/pinhole size, linear-vs-rounded handling, and whether a post-hydro PT re-check is also required. Define against a written standard before unit 1.
-4. **Closure-weld qualification.** The §3 settings have not been qualified end-to-end on the 316L production joint. Root fusion, internal oxidation and a repeatable cleaning method remain to be demonstrated. Use the rotation rig only after its build and dry-commissioning gates pass per [`weld-rotation-rig.md`](/hardware/assembly/weld-rotation-rig.md).
-5. **Water-inlet jet fit and small-joint qualification.** Actual elbow bore, tip land, made-up projection, cap/weld passage through the tapped plate, and a sectioned same-material weld are outstanding. The nominal 9.5 mm × 2 mm cap with a 1/16-inch hole is a trial specification, not a measured fit. See [`water-inlet-jet.md`](/hardware/assembly/water-inlet-jet.md).
-6. **Integrated operating point.** Refill flow, pressure excursion, temperature, carbonation after refill and overnight idle, and carbonation delivered at the faucet have no integrated measurements. Acceptance belongs to [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md); the conditional pump path is [`carbonation-plan-b.md`](/future/carbonation-plan-b.md).
-7. **Production tapping fixture.** The rig in [`tapping-plan-2026-05-03.md`](/hardware/snapshots/tapping-plan-2026-05-03.md) is a single-use Baltic-birch + MDF snapshot. Plate registration, tap-axis guidance and repeatable engagement across 40 ports remain to be demonstrated.
-8. **Recessed-port fitting and foam clearance.** Verify the four elbow stacks seat and clock with the plates recessed 1/4 inch and the existing foam-shell envelope. Port 2's completed cap must remain clear of the plate and discharge into the headspace.
-9. **Pressure protection and cleaning acceptance.** Establish the completed carbonator's pressure basis and relief suitability for both connected pressure sources. Define acceptance for internal root condition, oxide removal, passivation and rinse cleanliness before the batch.
+1. **Closure-weld qualification.** The §3 settings have not been qualified end-to-end on the 316L production joint. Root fusion, internal oxidation and a repeatable cleaning method remain to be demonstrated. Use the rotation rig only after its build and dry-commissioning gates pass per [`weld-rotation-rig.md`](/hardware/assembly/weld-rotation-rig.md).
+2. **Water-inlet jet fit and small-joint qualification.** Actual elbow bore, tip land, made-up projection, cap/weld passage through the tapped plate, and a sectioned same-material weld are outstanding. The nominal 9.5 mm × 2 mm cap with a 1/16-inch hole is a trial specification, not a measured fit. See [`water-inlet-jet.md`](/hardware/assembly/water-inlet-jet.md).
+3. **Recessed-port fitting and foam clearance.** Verify the four elbow stacks seat and clock with the plates recessed 1/4 inch and the existing foam-shell envelope. Port 2's completed cap must remain clear of the plate and discharge into the headspace.
 
 ## Sources
 [value](NAME) texts are updated by:

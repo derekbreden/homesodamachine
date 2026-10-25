@@ -28,12 +28,12 @@ Not in scope: any acceptance test that requires water or CO2 (that's [`acceptanc
 | Item | Source / spec | Notes |
 |---|---|---|
 | Wired chassis | Output of [`wiring.md`](/hardware/assembly/wiring.md) | Never powered. AC + DC continuity checks passed. Compressor bolted down and grounded; donor terminal cover intact, unmodified, and securely retained; factory lead exit undamaged. |
-| Firmware source tree | [`/firmware/`](/firmware/) on the build host, current `main` | PlatformIO project; envs `appliance`, `esp32s3_front`, `esp32s3_faucet` (see [`/platformio.ini`](/platformio.ini) and [`/firmware/README.md`](/firmware/README.md)). The `appliance` tree is an Open item below. |
+| Firmware source tree | [`/firmware/`](/firmware/) on the build host, current `main` | PlatformIO project; envs `appliance`, `esp32s3_front`, `esp32s3_faucet` (see [`/platformio.ini`](/platformio.ini) and [`/firmware/README.md`](/firmware/README.md)). |
 | PlatformIO | On the build host | `pio run -e <env> -t upload` builds and flashes. One board on USB at a time, or name the port — PlatformIO picks the S3 otherwise and esptool leaves that panel dark. |
 | USB-C cable | Fits the main board's J14, the 4.3B, and the 1.47" faucet display | Build-bench stock; not per-unit consumable. |
 | Multimeter | Build-bench stock | DC-rail spot checks at [12 V](RAIL_12V) (J10 clamps), [5 V](RAIL_5V) + [3.3 V](RAIL_33V) (connector pins). |
 | Serial monitor | `pio device monitor -e appliance` (115200 baud) | Captures the ESP32 boot log + structured commissioning output for the per-serial archive. |
-| Commissioning-log template | TBD — see Open items | Per-unit serial + sensor readings + I²C ACK list + valve confirmation + suction-line ΔT during the relay #1 verification. |
+| Commissioning-log template | TBD | Per-unit serial + sensor readings + I²C ACK list + valve confirmation + suction-line ΔT during the relay #1 verification. |
 
 Tooling (per-unit-amortized): one bench setup with a PSU-controlled outlet feeding the C14 input, a current meter inline with the PSU output for the 12 V rail, and a USB hub on the bench host.
 
@@ -75,7 +75,7 @@ pio run -e appliance -t upload
 
 Per [`/platformio.ini`](/platformio.ini). Expected outcome: build succeeds, upload reaches 100 %, ESP32 resets, the serial monitor at 115200 baud shows the firmware boot banner with the `fw_version.h` build ID.
 
-`src_appliance/` boots to that banner with every actuator parked. What it runs is in its [README](/firmware/src_appliance/README.md) "What runs today"; what has not yet answered on real hardware is the Open item below.
+`src_appliance/` boots to that banner with every actuator parked. What it runs is in its [README](/firmware/src_appliance/README.md) "What runs today"; steps 6 and 8 are the first time a probe or relay answers this procedure on real hardware.
 
 ### 4. Flash the ESP32-S3 enclosure display
 
@@ -172,7 +172,7 @@ Then query the three limits the hardware imposes. Each one is a part's rating, a
 - Refill gated on the dispense window: **relay #2 ([GPIO 2](GPIO_RELAY2)) de-energized while a dispense is open**. The main board peaks at [3.33 A](BOARD_PEAK_A) and the G Ganen is budgeted at [5 A](DIAPHRAGM_A) on one [6.7 A](PSU_MAX_A) supply — [8.32 A](COINCIDENT_A) if they overlap. The low reed asserts mid-pour, so the refill it queues waits ([`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) step 5).
 - Reed pull-ups: **`GPPU` written on both MCP23017s**. No loom carries a resistor and the main board pulls none of these inputs ([`/hardware/pcb/pcba/pcba.tsx`](/hardware/pcb/pcba/pcba.tsx)), so a reed with no pull-up floats and step 6's baselines are meaningless.
 
-A unit that walks step 7 and passes step 6 can still be failing all three — nothing here reads them off behavior. The query is the check, and step 7's own walk goes through the state machine holding them (Open item 3).
+A unit that walks step 7 and passes step 6 can still be failing all three — nothing here reads them off behavior. The query is the check, and step 7's own walk goes through the state machine holding them (What the step-7 and step-9 commands touch, below).
 
 Then confirm the one safety property that lives entirely in firmware and has no hardware behind it: **the gas alarm cannot be silenced.** Volume, mute and quiet hours reach every sound the machine makes except that one, and a unit that let a customer mute a refrigerant-leak alarm would ship a defect nothing downstream would catch. Set the clock first, since quiet hours will not engage without one:
 
@@ -193,7 +193,7 @@ volume 70
 
 Snapshot the serial-monitor output from steps 6–9 into a per-serial log file. At minimum capture: firmware build ID (`fw_version.h`), I²C ACK list, 1-wire probe addresses + family codes (0x28 carbonator / 0x10 coil) + first-read temperatures, all [10](REEDS_TOTAL) reed baselines, flow-meter pulse count, MQ-6 baseline, valve self-test pass/fail per channel, suction-line probe temperatures before/during/after the relay #1 verification, the DS3231 time as set, and the volume-0 alarm check from step 9.
 
-Where this log lives — local file under `/commissioning/<serial>/`, uploaded to cloud, both — is an Open item below. Working position: keep the file locally on the build host until that decision lands.
+Where this log lives — local file under `/commissioning/<serial>/`, uploaded to cloud, both — is undecided. Working position: keep the file locally on the build host until that decision lands.
 
 ## Output condition
 
@@ -213,14 +213,9 @@ A commissioned unit is:
 
 The unit is now the input to [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md), which adds water + CO2 and runs the first wet thermal cycle.
 
-## Open items
+## What the step-7 and step-9 commands touch
 
-Procedure-level gaps that need answers before unit 1 ships:
-
-1. **No probe or relay has answered this procedure on real hardware.** The cold loop, the refill and the 1-wire driver are written and the state machines are checked off-board by `pio test -e native`; both relays, the condenser fan and the readout on the glass have been exercised on a bench board against readings injected with `sim` ([`/firmware/src_appliance/README.md`](/firmware/src_appliance/README.md)). What no one has done is hang a DS18B20 and a DS18S20 on J4 and read them, or watch relay #1 close an AC leg. Steps 6 and 8 are the first time either happens.
-2. **Where the per-serial commissioning log lives.** Local file under `/commissioning/<serial>/` on the build host, cloud-uploaded for support recall, both, or some other format. Decision pending — working position is local-only until the support-recall workflow is specified.
-3. **What the step-7 and step-9 commands are allowed to touch.** They run as serial commands against the one shipping image — there is no separate factory build. A command here asks the state machine to do a thing (`selftest valves` walks the census; `selftest pumps` turns both heads) and never writes a pin, because a command that writes a pin is outside the [3](MAX_VALVES)-valve ceiling and the refill interlock by construction, and step 9 is where those are confirmed held. `src_pcba_bench` is the surface that does write pins, and it runs on a bare board with the manifold unplugged.
-4. **Calibration constants that vary per-unit vs. baked into firmware as constants.** The DIGITEN flow meter's pulses-per-mL and each reed switch's pull-in threshold (effective voltage on INPUT_PULLUP at the moment the magnet engages) are in principle per-build values, but in practice may be tight enough across the parts SKUs to ship a single constant. Whether step 6's sensor walkthrough captures these as per-unit numbers for the commissioning log, or whether they're constants in the firmware and step 6 only verifies they're within a wide envelope, is undecided. Resolve once the first ~3 units' commissioning data is in hand.
+They run as serial commands against the one shipping image — there is no separate factory build. A command here asks the state machine to do a thing (`selftest valves` walks the census; `selftest pumps` turns both heads) and never writes a pin, because a command that writes a pin is outside the [3](MAX_VALVES)-valve ceiling and the refill interlock by construction, and step 9 is where those are confirmed held. `src_pcba_bench` is the surface that does write pins, and it runs on a bare board with the manifold unplugged.
 
 ## Sources
 [value](NAME) texts are updated by:

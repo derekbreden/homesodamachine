@@ -75,14 +75,6 @@ The failure mode is a **through-wall void or pinhole**, not strength, so test fo
 - **Cold dyed-column soak:** dyed water at 2–3× head, 24 h at 8–15 °C, pre/post weigh; pass = no dye bleed, < ~0.1 g/24 h gain.
 - **Permeation/aroma soak (specific to silicone):** because silicone is gas-permeable, a long cold soak with the actual concentrate, checking for flavor migration through the wall and mass change, is this material's added qualification.
 
-## Open questions
-
-- **Flexibility** — the foam-shell pocket must fully support the reservoir; it does not stand on its own.
-- **Aroma / gas permeability** — flavor migration through the wall over a 10-year flavor reservoir is unquantified.
-- **Cert duty** — per [`/business/regulatory.md`](/business/regulatory.md) the D2C path follows a standard's *substance*, not its third-party *listing*, so an absent food/immersion listing is not the blocker. The substance for food contact is formulation-specific — whether *this* cured silicone leaches safely into pH-3.5 sweetened syrup — and the shop-castable food RTVs (incl. Smooth-SIL 940) carry only FDA 177.2600 with maker disclaimers against acidic/continuous use (177.2600 doesn't split intermittent from continuous; the limit is the disclaimer, not the cert). So meeting it means either a formulation whose extractables are *already* tested for liquid contact, or **our own extraction test** on the actual syrup ([`wetted-surface-test.md`](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md)). Cleanest is the GFCI sourcing pattern ([`/future/pie-in-the-sky/gfci.md`](/future/pie-in-the-sky/gfci.md)): an off-the-shelf cert-carrying finished silicone carries the testing for an already-verified material. (Room-temp castable immersion grades stay out of reach — NSF-61 = Dow SILASTIC LSR at 200 °C cure, USP-VI = medical-not-food RTV — and NSF-61 is potable *water* anyway; for syrup the matched standard is NSF-51 / FDA food-contact.)
-- **Thin-wall fill** — whether a 2–3 mm wall fills void-free down a 200 mm gap, with venting + degas alone or only under pressure, is the make-or-break process question.
-- **Demold** — releasing a thin flexible wall off the core without tearing, given the concave centerward wall and corner fillets.
-
 ## References
 
 - Smooth-On Smooth-SIL 940 — product page + food-grade Technical Bulletin: https://www.smooth-on.com/products/smooth-sil-940/
