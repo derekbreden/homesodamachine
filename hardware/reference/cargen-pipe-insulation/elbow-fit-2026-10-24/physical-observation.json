@@ -3,20 +3,20 @@
   "evidence_kind": "Founder physical fit report and six supplied photographs",
   "parts": {
     "insulation": "Owned pipe foam discussed as CARGEN, nominal 6.35 mm bore and 9.525 mm wall; not dimensioned in these photographs",
-    "fitting": "Printed tube elbow shown inside the foam. Exact CAD revision and print article are not identified.",
-    "comparison": "Purchased black push-connect elbow shown alongside the insulated printed elbow"
+    "comparison": "Purchased black push-connect elbow shown alongside the insulated printed elbow",
+    "holder": "Printed external R14 tube-bend-holder option, carrying one continuous tube. The holder is outside the wet path. The pictured wall/leg variant is not identified."
   },
   "report": {
     "reported_by": "Derek",
     "quote": "You should see that we've got a printed elbow option, and that printed elbow option can fit inside of this insulation. And it appears that the insulation doesn't expand too much. The compression is mostly happening on the inside."
   },
   "observations": [
-    "The printed elbow is enclosed by the foam around the bend, with tube leaving both ends.",
-    "The foam follows the elbow and retains a comparatively compact outer profile in the supplied views.",
+    "The printed bend holder is enclosed by the foam around the turn, with the continuous tube leaving both ends.",
+    "The foam follows the supported tube bend and retains a comparatively compact outer profile in the supplied views.",
     "Derek reports little outer expansion and compression occurring mainly inside the foam wall."
   ],
-  "design_basis": "A printed elbow can fit inside this owned foam. Packaging estimates may allow local wall compression around the fitting rather than adding a full nominal foam-wall thickness outside the fitting body.",
-  "scope": "Qualitative fit evidence for the pictured article. The photographs provide no numerical outer diameter, wall compression, fitting revision or thermal measurement. This record supplies no deformation law for other fittings.",
+  "design_basis": "The accepted R14 tube-bend holder is an option for supporting continuous LLDPE inside the owned foam. Packaging estimates may allow local wall compression around the holder rather than adding a full nominal foam-wall thickness outside it.",
+  "scope": "Qualitative fit evidence for the pictured holder and foam. The photographs provide no numerical outer diameter, wall compression, exact holder variant or thermal measurement. Local compression elsewhere in an installed arrangement remains a layout estimate.",
   "photos": [
     {
       "file": "photo-1.jpg",
@@ -42,5 +42,6 @@
       "file": "photo-6.jpg",
       "sha256": "ec1189e15adcc2f47f83a4a06bd8237078c0f7c985ac8434196eb54f297bd0f9"
     }
-  ]
+  ],
+  "related_holder_acceptance": "future/tube-bend-holder-exploration/prints/2026-10-23-legs-123-w2-petgf-left04-z018-mark1/physical-result.json"
 }

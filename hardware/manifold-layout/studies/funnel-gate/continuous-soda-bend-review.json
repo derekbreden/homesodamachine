@@ -1,0 +1,123 @@
+{
+  "scope": "The round stock envelope conforms to the holder internally. The occupied-space display excludes neighboring bodies to illustrate local compression; it does not predict exact strain or thermal performance.",
+  "rigid_parts": {
+    "soda-continuous-inlet": {
+      "hits": [],
+      "nearest_mm": [
+        [
+          "pump-inlet-tpu",
+          1.890617861308493
+        ],
+        [
+          "pump-inlet-barb-band",
+          3.995236812590083
+        ],
+        [
+          "pump",
+          6.195191489799521
+        ],
+        [
+          "vk",
+          7.55681161749083
+        ],
+        [
+          "asse",
+          13.159300697766549
+        ],
+        [
+          "pump-inlet-tube-band",
+          15.037839438341784
+        ],
+        [
+          "asse-inlet-tpu",
+          16.228029512788538
+        ],
+        [
+          "gas-core-drop",
+          21.850000763119255
+        ],
+        [
+          "asse-outlet-tpu",
+          22.16624905470726
+        ],
+        [
+          "gas-check",
+          22.468133675472604
+        ]
+      ]
+    },
+    "soda-bend-holder": {
+      "hits": [],
+      "nearest_mm": [
+        [
+          "digiten-flow",
+          1.000005078124957
+        ],
+        [
+          "pump-inlet-tpu",
+          4.124439471365578
+        ],
+        [
+          "pump-inlet-barb-band",
+          4.263415303663409
+        ],
+        [
+          "pump",
+          4.632897461397497
+        ],
+        [
+          "vk",
+          4.954097329711907
+        ],
+        [
+          "asse",
+          10.231805368623203
+        ],
+        [
+          "asse-outlet-tpu",
+          19.49602618496589
+        ],
+        [
+          "asse-inlet-tpu",
+          20.115940507349517
+        ],
+        [
+          "pump-inlet-tube-band",
+          20.307277138242068
+        ],
+        [
+          "gas-core-drop",
+          21.191608928305318
+        ]
+      ]
+    }
+  },
+  "nominal_stock_soft_contacts": [
+    "vk",
+    "pump",
+    "pump-inlet-tpu",
+    "pump-inlet-barb-band"
+  ],
+  "soft_contact_tool_solids": {
+    "vk": 11,
+    "pump": 16,
+    "pump-inlet-tpu": 1,
+    "pump-inlet-barb-band": 1
+  },
+  "nominal_foam_volume_mm3": 27600.229686850464,
+  "occupied_foam_volume_mm3": 26388.643529130728,
+  "foam_occupied_proxy_watertight": true,
+  "narrowest_sampled_straight_riser_space": {
+    "axis_point_mm": [
+      50.0,
+      342.41479999999996,
+      280.13328492925183
+    ],
+    "part": "pump-inlet-tpu",
+    "radial_space_mm": 5.064878909867779,
+    "foam_between_tube_and_part_mm": 1.8898789098677788
+  },
+  "rigid_fit_passed": true,
+  "meter_and_main_component_poses": "Fixed; the core guide moves 11.9548 mm fore, in Y\u2212.",
+  "production_limits": "Current printed lid/supports, the internal continuation and complete installed wiring need integration review for this candidate."
+}
