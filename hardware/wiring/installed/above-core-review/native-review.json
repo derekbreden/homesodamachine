@@ -42534,5 +42534,126 @@
         }
       ]
     }
+  },
+  "source_meter_inlet_review": {
+    "scope": "Three source-native meter leads against actual baseline equipment/closures/tubes, final downward valves, accepted continuous inlet tube/holder, full nominal foam stock, occupied proxy, current restored whole lid, separate added-shoulder witness, five nominal retaining strips and thirty current service/tool witnesses. Installed bodies and other connectors service columns are clear. Own attached flexible lead motion remains unqualified. This source review precedes the next actual aggregate export.",
+    "mechanical_base_aggregate_sha256": "a3788ba4e037c8dc943ce550f1d5e7795f0bc7729ef17222d1e2f48c859e4fa6",
+    "source_sha256": {
+      "hardware/wiring/installed/route-overrides.json": "4244ef1384c373e28b213f6d45d3422f932e468a6fc80a0190eb684f387e0dae",
+      "hardware/wiring/installed/model.py": "c5952d78165275dec59d44d257e7cc1b7a1636a80b52050f565096e501ecec2e",
+      "hardware/wiring/_ac_wiring_schedule_sync.py": "2673ffa74f3e84c42723531aaccf015cc9ae11b67a67b1f81556e2ccafca3497"
+    },
+    "current_lid_fixture": {
+      "path": "tmp/soda-inlet-restored-core/lid-world.brep",
+      "sha256": "992b18864ca2a0b28a09dc27140fd99b2d945ee78639a9808fc0eae19c32e0ae"
+    },
+    "native_inlet_fixture_shapes": {
+      "cold-core/valve-v-a": {
+        "path": "tmp/valve-flow-clock/valve-v-a.brep",
+        "sha256": "baea24e0bcc632e23f1fe01324f8c7715bf105c025847278ae4ed352b08a0ba5"
+      },
+      "cold-core/vk-solenoid": {
+        "path": "tmp/valve-flow-clock/vk-solenoid.brep",
+        "sha256": "04c15f4b0de006765b0f57cf2869814c33cd489805381b984a155e7a092e258c"
+      },
+      "cold-core/tube-soda-core-rise": {
+        "path": "tmp/soda-inlet-production-fixture/tube-soda-core-rise.brep",
+        "sha256": "a696b775faca3b1b67549f6681e969faa2b092551ff6a33f8d05beff37d3d5e3"
+      },
+      "cold-core/soda-bend-holder": {
+        "path": "tmp/soda-inlet-production-fixture/soda-bend-holder.brep",
+        "sha256": "7a1b30b1dc7aa03317771e4f41388f42acc11c37ee40401164bfa5cbc950b5ec"
+      },
+      "cold-core/soda-continuous-insulation": {
+        "path": "tmp/soda-inlet-production-fixture/soda-continuous-insulation.brep",
+        "sha256": "a5096264dd914ee333840fc9bf3f1faad46c8fe5eda60c52eeb81323ff3fb2c8"
+      }
+    },
+    "full_nominal_foam_sha256": "b6403613215e01bb69e72698b5054225a3f72ef5b6b5a440047176402b363f8c",
+    "source_valid": {
+      "J4-V5": true,
+      "J4-IO25": true,
+      "flow-GND": true
+    },
+    "native_boolean_count": 119,
+    "intersections": [],
+    "errors": [],
+    "inlet_clearances_mm": {
+      "J4-V5": {
+        "tube-soda-core-rise": 11.975000003515646,
+        "soda-bend-holder": 21.639691121718677,
+        "soda-foam-stock": 2.4500000035156404,
+        "soda-continuous-insulation": 2.4500000035156404
+      },
+      "J4-IO25": {
+        "tube-soda-core-rise": 13.072538130015188,
+        "soda-bend-holder": 22.686164517302718,
+        "soda-foam-stock": 3.547538130015231,
+        "soda-continuous-insulation": 3.547538130015231
+      },
+      "flow-GND": {
+        "tube-soda-core-rise": 15.288869853931882,
+        "soda-bend-holder": 23.842946960306982,
+        "soda-foam-stock": 5.763869853931868,
+        "soda-continuous-insulation": 5.763869853931868
+      }
+    },
+    "own_attached_lead_motion_unqualified": [
+      {
+        "wire": "J4-V5",
+        "part": "access-terminal-J4-withdrawal",
+        "raw_mm3": 22.869725552386242,
+        "outside_own_endpoint_cells_mm3": 0.08438201477605381,
+        "bounds_mm": [
+          -13.700607476400334,
+          227.16832087399257,
+          273.8343803675001,
+          -13.349993796330647,
+          228.6977803294018,
+          275.04738261648964
+        ],
+        "scope": "The fixed installed lead intersects its own moving plug service witness; attached flexible lead motion remains unqualified. This is separate from installed-body contacts."
+      },
+      {
+        "wire": "J4-IO25",
+        "part": "access-terminal-J4-withdrawal",
+        "raw_mm3": 22.126267425435582,
+        "outside_own_endpoint_cells_mm3": 0.02451155407302694,
+        "bounds_mm": [
+          -13.571997244143622,
+          229.41194844023536,
+          274.2910903556273,
+          -13.349993787632616,
+          230.63328180352514,
+          275.2126045148927
+        ],
+        "scope": "The fixed installed lead intersects its own moving plug service witness; attached flexible lead motion remains unqualified. This is separate from installed-body contacts."
+      }
+    ],
+    "flow_GND_gas_lower_b_air_mm": 0.18472882498525128,
+    "preparation_stock_mm": 300.0,
+    "leads": {
+      "J4-V5": {
+        "native_brep_sha256": "8fbe5af799e4f9779db1ba7b120bea73b01580e08ac3d9a6d605709f76a062d1",
+        "developed_length_mm": 221.53,
+        "preparation_remaining_mm": 78.47,
+        "route_segments_sha256": "b4b966aa16a1d302b7b2ebd6fb4580ebde5c1c13627ae2be2d7e69bf56d07be6"
+      },
+      "J4-IO25": {
+        "native_brep_sha256": "ceb3bba51651d23944909cf663a4f42970422d7d410d33e52f4aee73282ae14a",
+        "developed_length_mm": 229.457,
+        "preparation_remaining_mm": 70.543,
+        "route_segments_sha256": "9794733056b72c48c1321506a001a1461fc2e6ac07b9baed743a66889b8a5bec"
+      },
+      "flow-GND": {
+        "native_brep_sha256": "e2e4ffbc443e0222b9bda4ac30e655e81fe5da11e421942bd2dbdbb1c8414cd3",
+        "developed_length_mm": 248.719,
+        "preparation_remaining_mm": 51.281,
+        "route_segments_sha256": "5d0c5fe7ec89c976c1a4b0ed87e09d4189c3e607c2b79acc507678d977a5eee9"
+      }
+    },
+    "unchanged_source_scope": "Other122 wiring bodies retain the preceding source-native validity proof; the six completed valve/relay routes, graph and all terminal frames are unchanged. The twelve reported STEP orientation flags concern unchanged conductors and remain an exchange limitation pending the next actual readback.",
+    "review_complete": true,
+    "geometrically_clear": true
   }
 }
