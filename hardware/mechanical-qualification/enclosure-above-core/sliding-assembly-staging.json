@@ -1,0 +1,66 @@
+{
+  "record_type": "manual_assembly_plan",
+  "date": "2026-10-25",
+  "scope": "Assembly staging within the selected above-core arrangement. Final component poses, carrying pieces, fixed connections, Reservoir A anchor positions and the sliding enclosure joints are preserved. This is a selected manual assembly plan, not a completed-enclosure assembly trial.",
+  "pump_inlet": {
+    "status": "derek_directed_rotation",
+    "record": "pump-inlet-rotation-assembly.json"
+  },
+  "va_low_feed": {
+    "status": "selected_late_connection_sequence",
+    "parts": [
+      "va-outlet-elbow",
+      "tube-above-core-va-under-head",
+      "va-east-turn",
+      "tube-above-core-va-fore-feed"
+    ],
+    "sequence": [
+      "Seat V-A's outlet elbow on back-top. Keep its low tube, east-turn union and forward feed disconnected during the column slide.",
+      "Leave the pump-side connection clocked apart as in pump-inlet-rotation-assembly.json while assembling the V-A low feed.",
+      "With the column home, feed the bare low tube west under the pump head into the V-A elbow, to its receiving mark. The east-turn union is not on the tube during this step.",
+      "Fit the east-turn union to the tube's east end, then fit the forward feed and its Y-A connection. Use the loose tube and union's rotation for handling; restore the selected final route.",
+      "Complete the pump inlet's directed rotational connection."
+    ],
+    "geometric_basis": "The pump-body collision in a rigid rear-to-front sweep does not describe feeding this bare tube along X after the column is home. A local surface-point screen of the exported tube at 0, 8 and 16.891 mm east of home found no tube sample inside any of the 26 pump bodies. This is a sampled mesh screen, not continuous clearance, hand-access or insertion-force qualification.",
+    "physical_operation": "Use the actual marked receiving depths; the model's 16.891 mm west insertion is nominal. No component mount, final pose or permanent attachment is changed."
+  },
+  "reservoir_a": {
+    "status": "selected_free_span_handling",
+    "approval": "../../manifold-layout/studies/funnel-gate/reservoir-a-anchors.json:approval_scope",
+    "sequence": [
+      "Prethread and finish the two paired-seat ties on the open core, retaining the selected anchor locations.",
+      "Leave the front valve ends free during the column slide and dress the flexible spans between the fixed seats and core entries clear of passing fittings. Use the loose elbow joints' rotation while their fittings pass the tubes.",
+      "After the column is home and valve fittings are at installed clocking, finish dressing the unanchored spans and connect their front ends."
+    ],
+    "fixed": "Both paired-anchor stations, core entries and valve connections.",
+    "not_fixed_during_assembly": "Intermediate bends and unretained spans. The drawn free curves are not rigid obstacles or prescribed assembly poses."
+  },
+  "co2_last_elbow": {
+    "status": "selected_existing_stem_handoff",
+    "parts": [
+      "gas-upper-a",
+      "gas-upper-b",
+      "tube-above-core-gas-core-drop"
+    ],
+    "sequence": [
+      "Fit the last elbow, gas-upper-b, to the core tube on the open core. Leave its male stem disconnected from gas-upper-a on the back-top header.",
+      "Keep this tube and loose elbow clear while V-K passes, using tube handling and rotation at the existing joints. Do not hold the stub upright in its final pose throughout the slide.",
+      "For the last approximately 20 mm of travel, present gas-upper-b in its installed orientation, with its male stem pointing aft into gas-upper-a's fore-facing socket.",
+      "Guide the existing stem into that socket during the final nominal 16.891 mm of travel. Use actual receiving marks; stop and realign a catching joint rather than drawing it together with the enclosure screws."
+    ],
+    "temporary_staging": "gas-upper-b is loose and presented with the core tube during the connection. Its final back-top carrying assignment does not change.",
+    "nominal_axis_world": [0, 1, 0],
+    "axis_x_mm": 78.2,
+    "axis_z_mm": 343.21245450827917,
+    "male_tip_home_y_mm": 391.2984,
+    "socket_face_home_y_mm": 374.4074,
+    "nominal_seating_travel_mm": 16.891,
+    "handling_scope": "The visual shows the final 20 mm of this sequence. Earlier tube handling is manual, with the tube and last elbow free to move; it is not represented by a rigid-body sweep. The final carrying assignment is unchanged by temporarily presenting a loose fitting with the other subassembly.",
+    "geometry_scope": "The opposing ports are coaxial with the closing direction in the selected final geometry. Six surface-point screens of the last elbow against the shell at 0, 5, 10, 16.891, 18 and 20 mm aft found no sampled point inside the shell. This is a limited mesh screen, not a complete motion or connection-force qualification."
+  },
+  "geometry_source": {
+    "appliance_mesh_sha256": "9729f81f2425246186ac3a00be4c11a91aa859fbc36fed5c0664b6fcf0cdd88e",
+    "datums": "../../manifold-layout/above-core.json:gas_datums",
+    "stem_trim": "../../manifold-layout/above_core_parts.py:stem_elbow; 6.0452 mm shoulder offset plus 16.891 mm receiving depth and 0.4 mm nominal shoulder land"
+  }
+}
