@@ -203,14 +203,16 @@ and their fitted plumbing, the complete inlet header, ASSE and gas group.
 The V-A low feed connects to front-top's Y-A. Complete rear connections on
 the open back-top; keep the funnel opening available for central handoffs.
 Keep the low V-A under-head tube, fore feed and east-turn union loose during
-the ride over the core. Leave the lower pump-side elbow loose too: its male
-stem engages along X, across the enclosure's Y closing direction. Make that
-joint after the column is home. The
+the ride over the core. Rotate the pump's TPU inlet elbow up and the lower
+pump-side push-fit elbow down about 45° at their existing round joints, so
+they pass each other during the slide. After the column is home, rotate them
+back to their installed clocking and connect the pump-inlet link
+([Derek's assembly direction](/hardware/mechanical-qualification/enclosure-above-core/pump-inlet-rotation-assembly.json)). The
 [manual closing readings](/hardware/mechanical-qualification/enclosure-above-core/README.md)
 record the named rigid group and seventeen sampled offsets. They do not
 establish a continuous populated path or flexible connection handling. The
-low V-A tube's final-pose interference with the upper B-fill fitting remains
-an open fit issue; do not force that connection.
+low V-A tube clears the selected upper B-fill fitting by 1.482589 mm in the
+[native fit reading](/hardware/printed-parts/cold-core/foam-cap/b-fill-pair-review.json).
 
 Preassemble the rear soda fittings and meter together while back-top is open.
 Their concealed blue tube occupies a nominal 15.7 mm in the meter and
