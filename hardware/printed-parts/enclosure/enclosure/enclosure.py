@@ -897,6 +897,9 @@ def back_wall_t_at(x, z):
     the solid is cut on rather than by naming an exception."""
     if z < z_seam:
         return 2.0 * wall              # back-bottom: the wall and its lip's own skin
+    wet_field = _above_core_shell.layout.specification()['rear_wall']['interior_panel_relief']
+    if wet_field['xmin'] <= x <= wet_field['xmax'] and wet_field['zmin'] <= z <= wet_field['zmax']:
+        return wet_field['retained_panel_mm']
     for _who, rx, rz, wx, wz in back_top_wall_reliefs:
         if abs(x - rx) <= wx / 2.0 and abs(z - rz) <= wz / 2.0:
             return wall
