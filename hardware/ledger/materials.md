@@ -47,7 +47,7 @@ role, with stock details where useful.
 | HSM-000090 | Faucet tube sealing thimble · TPU 85A | Physical form, sealing role and stock |
 | HSM-000023 | Cold-core copper-slot covers | Covers supplied as a two-piece set |
 | HSM-000277 | Flavor A pump suction flex tube · 1/4 inch black LLDPE | Circuit, connection role and stock |
-| HSM-000055 | Interstate Pneumatics WR1105 CO₂ secondary regulator | Installed manufacturer identity and function |
+| HSM-000331 | PISCO RVFUP1/4-1/4-0.3 preset regulator · CO₂ secondary · 0.3 MPa | Installed manufacturer identity, function and setting |
 
 CAD body keys, route IDs and file paths identify engineering representations.
 The component inspector shows the body key alongside the material name and
@@ -104,9 +104,8 @@ highlights its represented contents. A representation may also specify
 do not allocate that enclosing model's identity to the contained material.
 
 Some parts, including the pump cradle's fasteners, have no individual geometry in
-the containing model. The two ASSE outlet fittings share a combined envelope, as
-do the constituents of each pump fitting chain. Their BOM quantities and document
-links remain available without claiming independently selectable geometry.
+the containing model. Their BOM quantities and document links remain available
+without claiming independently selectable geometry.
 
 Every named body in the cataloged machine, faucet, cold-core and build-tool
 assembly views maps to a material. Routed tube sections share their fitted run's
@@ -135,7 +134,7 @@ recorded scope.
 | --- | --- | --- |
 | HSM-000161 — Pump cradle assembly | Both prepared pumps with their four clamped LLDPE tubes, the pump cradle, its top clamp and mounting hardware, and the Fastons that land the J13 ribbon on the motor tabs. The four pump tees in the tee wall, the upper tubes and lower returns, and the J13 ribbon stay in the appliance, whose four tee collets hold the cradle home; the dock retains its physical qualification scope. | [Cradle build](../assembly/internal-plumbing.md), [pump dock](../printed-parts/enclosure/pump-dock/README.md) |
 | HSM-000004 — Carbonator vessel | Vessel, port fittings, pressure relief, captive float and welded guide rod. The other two floats and guide rods belong to the cold core's reservoir installation. | [Vessel build](../assembly/pressure-vessel.md) |
-| HSM-000087 — ASSE 1022 water-fitting assembly | Backflow preventer and four inlet/outlet fittings, between its two tube collets and bare atmospheric vent. The vent sleeve, return tube and mounting hardware belong to the machine. | [Fitting assembly](../reference/asse1022-assembly/README.md) |
+| HSM-000173 — Multiplex 19-0897 ASSE 1022 backflow preventer | The bare purchased body. Its two TPU 85A straight cuffs (HSM-000334, HSM-000335), the branch stem tee in the outlet cuff, the vent sleeve, return tube and saddles belong to the machine. | [Water and gas assembly](../assembly/internal-plumbing.md), [straight cuffs](../printed-parts/asse-straight-cuffs/README.md) |
 | HSM-000058 — neoFit ACHV44-E single check valve | One 1/4-inch push-connect check with a nominal 0.3 psi crack pressure, used at both the pump discharge and downstream of the PISCO CO2 regulator. Tubes, elbows and installation hardware belong to the machine. | [Water and gas assembly](../assembly/internal-plumbing.md), [check-valve scope](../reference/neofit-achv44-check/README.md) |
 
 The KPHM600-SW3B17 pump's fitted representation lives in the `kamoer-kphm400`
@@ -143,6 +142,6 @@ reference directory. Both purchased check positions use the shared
 `neofit-achv44-check` reference.
 Manufacturer identity and current assembly descriptions are stated independently
 of those model paths.
-The WR1105 secondary regulator uses the scanned WR1110 exterior representation;
-its [fit and representation scope](../reference/wr1110-regulator/README.md) remains
+The PISCO secondary regulator uses the envelope modeled from its OEM catalog; its
+[representation scope](../reference/compact-inline-candidates/README.md) remains
 attached to the material record.
