@@ -1046,8 +1046,8 @@ adapter stay clear of the bearings. Two fixed-roof bearings support the transver
 water regulator's two native diameters; its collets remain free.
 
 The folded gas regulator and separate check use two east-wall saddles with tie
-windows. Their stems and tubes carry no mounting obligation into the removable
-panel. The meter's support also belongs to fixed shell stock. Main component
+windows. Back-top carries those saddles, the meter's collar bearings and the
+continuous ceiling. Main component
 placements, actual fitting engagement, insulated routes and support loads retain
 the scope stated in the [arrangement](/hardware/manifold-layout/above-core.md).
 
