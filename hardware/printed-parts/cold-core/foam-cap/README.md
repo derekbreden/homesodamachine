@@ -84,11 +84,14 @@ entirely on the lid. The levers open upward.
 Reservoir A's draw and fill tubes share two integral paired seats at world
 Y205 and Y304 mm. Their respective west/east axes are X50.5/58 and
 X86.5/94 mm, at Z259.5 mm. The 10 mm-long open seats have 3.325 mm radii
-and one narrow tie passage beneath each pair. The slot ceiling at Z253.175
-retains a complete 3 mm wall below the lowest seat; its floor at Z251.6
-leaves 3.6 mm of the lid beneath it. The anchor base begins at Z248.6,
-retaining 3 mm beneath the aft overhang's slot and remaining 0.6 mm above
-the lid's underside. Side mouths provide threading access.
+and one narrow tie passage beneath each pair. Their top plane at Z257 leaves
+a 3.116 mm central ridge. Closed outer cheeks retain at least 3 mm of stock;
+the aft outer tube uses an open outboard quarter-seat with a 3 mm bottom
+bearing. Its base ends at X97.7, clear of the enclosure flank. The slot ceiling
+at Z253.175 retains a complete 3 mm wall below the lowest seat; its floor at
+Z251.6 leaves 3.6 mm beneath it. The anchor base shares the lid's underside
+at Z248. Side mouths provide threading access. The fore nominal tie head
+lies east of its tubes, leaving the ground lead's northeast entry open.
 The aft seat extends beyond the core's east edge. One nominal 2.5 × 0.8 mm
 tie witness per pair describes the selected path; purchased tie dimensions,
 threading, installed retention and load capacity remain unqualified.

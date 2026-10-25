@@ -1547,5 +1547,604 @@
       }
     ],
     "reader_sha256": "ebb65bb2b7a6f62c18a5e4e61855518f91cd40080623ea3f23f1d7cd5215dd6a"
+  },
+  "ordinary_stock_correction": {
+    "scope": "Private two-anchor stock candidate only; no production adoption. Top257/root248/outer stockR3.325+3, with aft outboard quarter-seat and unchanged tube axes, seats, slots and closed tie profiles. Only the fore nominal head moves east.",
+    "old_specification": {
+      "units": "mm",
+      "assembly_owner": "back-bottom",
+      "mounting_parent": "cold-core top lid",
+      "tube_od_mm": 6.35,
+      "tube_axis_world": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "lid_face_z_mm": 253.4,
+      "root_z_mm": 248.6,
+      "seat_top_z_mm": 258.0,
+      "seat_radius_mm": 3.325,
+      "seat_floor_stock_mm": 3.0,
+      "station_length_mm": 10.0,
+      "stock_west_of_first_tube_mm": 3.7,
+      "stock_east_of_last_tube_mm": 3.7,
+      "tie_slot_width_y_mm": 3.2,
+      "tie_slot_bottom_z_mm": 251.6,
+      "tie_slot_floor_stock_mm": 3.0,
+      "tie_access_outer_offset_mm": 6.0,
+      "tie_access_inner_offset_mm": 0.0,
+      "tie_witness_width_mm": 2.5,
+      "tie_witness_thickness_mm": 0.8,
+      "tie_witness_outer_bend_radius_mm": 3.75,
+      "tie_witness_bottom_center_z_mm": 252.4,
+      "stations": [
+        {
+          "id": "a-pair-fore-anchor",
+          "label": "Reservoir A fore paired anchor",
+          "tube_centers_world_mm": [
+            [
+              50.5,
+              205.0,
+              259.5
+            ],
+            [
+              58.0,
+              205.0,
+              259.5
+            ]
+          ],
+          "routes_west_to_east": [
+            "fluid-16",
+            "fluid-14"
+          ]
+        },
+        {
+          "id": "a-pair-aft-anchor",
+          "label": "Reservoir A aft paired anchor",
+          "tube_centers_world_mm": [
+            [
+              86.5,
+              304.0,
+              259.5
+            ],
+            [
+              94.0,
+              304.0,
+              259.5
+            ]
+          ],
+          "routes_west_to_east": [
+            "fluid-16",
+            "fluid-14"
+          ]
+        }
+      ],
+      "tie_slot_top_z_mm": 253.175
+    },
+    "candidate_specification": {
+      "units": "mm",
+      "assembly_owner": "back-bottom",
+      "mounting_parent": "cold-core top lid",
+      "tube_od_mm": 6.35,
+      "tube_axis_world": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "lid_face_z_mm": 253.4,
+      "root_z_mm": 248.0,
+      "seat_top_z_mm": 257.0,
+      "seat_radius_mm": 3.325,
+      "seat_floor_stock_mm": 3.0,
+      "station_length_mm": 10.0,
+      "stock_west_of_first_tube_mm": 6.325,
+      "stock_east_of_last_tube_mm": 6.325,
+      "tie_slot_width_y_mm": 3.2,
+      "tie_slot_bottom_z_mm": 251.6,
+      "tie_slot_floor_stock_mm": 3.0,
+      "tie_access_outer_offset_mm": 6.0,
+      "tie_access_inner_offset_mm": 0.0,
+      "tie_witness_width_mm": 2.5,
+      "tie_witness_thickness_mm": 0.8,
+      "tie_witness_outer_bend_radius_mm": 3.75,
+      "tie_witness_bottom_center_z_mm": 252.4,
+      "stations": [
+        {
+          "id": "a-pair-fore-anchor",
+          "label": "Reservoir A fore paired anchor",
+          "tube_centers_world_mm": [
+            [
+              50.5,
+              205.0,
+              259.5
+            ],
+            [
+              58.0,
+              205.0,
+              259.5
+            ]
+          ],
+          "routes_west_to_east": [
+            "fluid-16",
+            "fluid-14"
+          ]
+        },
+        {
+          "id": "a-pair-aft-anchor",
+          "label": "Reservoir A aft paired anchor",
+          "tube_centers_world_mm": [
+            [
+              86.5,
+              304.0,
+              259.5
+            ],
+            [
+              94.0,
+              304.0,
+              259.5
+            ]
+          ],
+          "routes_west_to_east": [
+            "fluid-16",
+            "fluid-14"
+          ]
+        }
+      ],
+      "tie_slot_top_z_mm": 253.175
+    },
+    "actual_lid": {
+      "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+      "sha256": "9aea53c4994a262dd656791717b4b65c433c2ecb529078faa5f4796e40adbf29"
+    },
+    "actual_back_top": {
+      "path": "tmp/rear-clamp-lands/back-top.step",
+      "sha256": "10a6008999aa3096a3c3b85a7222bc8d0ca39167f09b29966aa8d33e8b2c3bc9"
+    },
+    "reader_sha256": "ebb65bb2b7a6f62c18a5e4e61855518f91cd40080623ea3f23f1d7cd5215dd6a",
+    "full_anchor_vs_back_top": {
+      "a-pair-fore-anchor": {
+        "common_mm3": 0.0,
+        "bounds_mm": null,
+        "distance_mm": 35.55236454864852
+      },
+      "a-pair-aft-anchor": {
+        "common_mm3": 136.60199999999992,
+        "bounds_mm": [
+          98.5,
+          299.0,
+          248.0,
+          100.325,
+          309.0,
+          257.0
+        ],
+        "distance_mm": 0.0
+      }
+    },
+    "quarter_anchor_vs_back_top": {
+      "a-pair-fore-anchor": {
+        "common_mm3": 0.0,
+        "bounds_mm": null,
+        "distance_mm": 35.55236454864852
+      },
+      "a-pair-aft-anchor": {
+        "common_mm3": 0.0,
+        "bounds_mm": null,
+        "distance_mm": 0.7999999999999972
+      }
+    },
+    "stock": [
+      {
+        "station": "a-pair-fore-anchor",
+        "feature": "complete3mm floor beneath both seats",
+        "missing_mm3": 0.0,
+        "passed": true
+      },
+      {
+        "station": "a-pair-fore-anchor",
+        "feature": "full3.6mm slot floor",
+        "missing_mm3": 0.0,
+        "passed": true
+      },
+      {
+        "station": "a-pair-fore-anchor",
+        "feature": "closed3mm central ridge",
+        "missing_mm3": 0.0,
+        "passed": true
+      },
+      {
+        "station": "a-pair-fore-anchor",
+        "feature": "fore3mm outer west wall",
+        "missing_mm3": 0.0,
+        "passed": true
+      },
+      {
+        "station": "a-pair-fore-anchor",
+        "feature": "fore3mm outer east wall",
+        "missing_mm3": 0.0,
+        "passed": true
+      },
+      {
+        "station": "a-pair-fore-anchor",
+        "feature": "aft3mm outer west wall",
+        "missing_mm3": 0.0,
+        "passed": true
+      },
+      {
+        "station": "a-pair-fore-anchor",
+        "feature": "aft3mm outer east wall",
+        "missing_mm3": 0.0,
+        "passed": true
+      },
+      {
+        "station": "a-pair-aft-anchor",
+        "feature": "complete3mm floor beneath both seats",
+        "missing_mm3": 0.0,
+        "passed": true
+      },
+      {
+        "station": "a-pair-aft-anchor",
+        "feature": "full3.6mm slot floor",
+        "missing_mm3": 0.0,
+        "passed": true
+      },
+      {
+        "station": "a-pair-aft-anchor",
+        "feature": "closed3mm central ridge",
+        "missing_mm3": 0.0,
+        "passed": true
+      },
+      {
+        "station": "a-pair-aft-anchor",
+        "feature": "fore3mm outer west wall",
+        "missing_mm3": 0.0,
+        "passed": true
+      },
+      {
+        "station": "a-pair-aft-anchor",
+        "feature": "foreopen-quarter3mm bottom bearing",
+        "missing_mm3": 0.0,
+        "passed": true
+      },
+      {
+        "station": "a-pair-aft-anchor",
+        "feature": "aft3mm outer west wall",
+        "missing_mm3": 0.0,
+        "passed": true
+      },
+      {
+        "station": "a-pair-aft-anchor",
+        "feature": "aftopen-quarter3mm bottom bearing",
+        "missing_mm3": 0.0,
+        "passed": true
+      }
+    ],
+    "tie_contacts": [
+      {
+        "tie": "a-pair-fore-anchor-tie",
+        "candidate_lid": {
+          "common_mm3": 0.0,
+          "bounds_mm": null,
+          "distance_mm": 0.3499999999999943
+        },
+        "back_top": {
+          "common_mm3": 0.0,
+          "bounds_mm": null,
+          "distance_mm": 35.66472346731431
+        }
+      },
+      {
+        "tie": "a-pair-aft-anchor-tie",
+        "candidate_lid": {
+          "common_mm3": 0.0,
+          "bounds_mm": null,
+          "distance_mm": 0.34999999999979536
+        },
+        "back_top": {
+          "common_mm3": 0.0,
+          "bounds_mm": null,
+          "distance_mm": 0.3499999999999943
+        }
+      }
+    ],
+    "new_wire_contacts": [
+      {
+        "subject": "a-pair-fore-anchor",
+        "wire": "J2-COM",
+        "common_mm3": 0.0,
+        "bounds_mm": null,
+        "distance_mm": 7.891583346918865
+      },
+      {
+        "subject": "east-head fore tie",
+        "wire": "PE-bus",
+        "wire_sha256": "a1798a487939caaaec3c73c66db1fb8479ab3777557074e79d89f57aa43d2cdc",
+        "common_mm3": 0.0,
+        "bounds_mm": null,
+        "distance_mm": 1.5757550884137501
+      },
+      {
+        "subject": "east-head fore tie",
+        "wire": "J2-COM",
+        "wire_sha256": "52c4cae5dad60a8a97414d8aa6b4745b13515c0bae9ea730e5bcc2c4e74e8798",
+        "common_mm3": 0.0,
+        "bounds_mm": null,
+        "distance_mm": 4.740530704356196
+      }
+    ],
+    "limits": "Nominal tie/head route, native geometry and source-defined stations only. No physical threading, hold/load, print or service acceptance is inferred.",
+    "continuous_positive_Y_stock_bound": {
+      "a-pair-fore-anchor": {
+        "scope": "Conservative candidate-seat box against the actual shell over0..300mm+Y translation of the shell.",
+        "common_mm3": 0.0,
+        "bounds_mm": null,
+        "passed": true
+      },
+      "a-pair-aft-anchor": {
+        "scope": "Conservative candidate-seat box against the actual shell over0..300mm+Y translation of the shell.",
+        "common_mm3": 0.0,
+        "bounds_mm": null,
+        "passed": true
+      }
+    },
+    "final_A_tubes_and_local_ground": {
+      "scope": "Only final A14/A16 and two local bond tails against the private seats/ties.",
+      "reader_sha256": "37225b88bf04a145b6be3798801c517cf08ffa4ab7bb6aa36ef5a6092582a011",
+      "targets_sha256": {
+        "fluid-14": "53edb3e0e7b32f1590581b59e2ee19c6f2940d3e0a4e90a63ea14f29b12af80f",
+        "fluid-16": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae",
+        "ground-stack": "29f11f406e04c53712586f8408b97ac6128e146e8ffd2e914678f33f0136323e",
+        "ground-boss": "aa2063ffd73fe0101a0b43142db74494a850d6d990cb555955a25a3f290aa93a"
+      },
+      "contacts": [
+        {
+          "subject": "a-pair-fore-anchor",
+          "tube": "fluid-14",
+          "common_mm3": 0.0,
+          "bounds_mm": null,
+          "distance_mm": 0.14999999999825872
+        },
+        {
+          "subject": "a-pair-aft-anchor",
+          "tube": "fluid-14",
+          "common_mm3": 0.0,
+          "bounds_mm": null,
+          "distance_mm": 0.13833315665085222
+        },
+        {
+          "subject": "a-pair-fore-anchor-tie",
+          "tube": "fluid-14",
+          "common_mm3": 0.0,
+          "bounds_mm": null,
+          "distance_mm": 0.16697096214475365
+        },
+        {
+          "subject": "a-pair-aft-anchor-tie",
+          "tube": "fluid-14",
+          "common_mm3": 0.0,
+          "bounds_mm": null,
+          "distance_mm": 0.1669709621447223
+        },
+        {
+          "subject": "a-pair-fore-anchor",
+          "tube": "fluid-16",
+          "common_mm3": 0.0,
+          "bounds_mm": null,
+          "distance_mm": 0.14999999999820662
+        },
+        {
+          "subject": "a-pair-aft-anchor",
+          "tube": "fluid-16",
+          "common_mm3": 0.0,
+          "bounds_mm": null,
+          "distance_mm": 0.14999999999821131
+        },
+        {
+          "subject": "a-pair-fore-anchor-tie",
+          "tube": "fluid-16",
+          "common_mm3": 0.0,
+          "bounds_mm": null,
+          "distance_mm": 0.1669709621446957
+        },
+        {
+          "subject": "a-pair-aft-anchor-tie",
+          "tube": "fluid-16",
+          "common_mm3": 0.0,
+          "bounds_mm": null,
+          "distance_mm": 0.1501429256294257
+        },
+        {
+          "subject": "a-pair-fore-anchor",
+          "tube": "ground-stack",
+          "common_mm3": 0.0,
+          "bounds_mm": null,
+          "distance_mm": 3.8949822897757342
+        }
+      ],
+      "source_fore_head_match": {
+        "source_sha256": "b98ac1498385554c014d619fa0469b51d76892fd44090ec84627782afd154e2b",
+        "source_signature": {
+          "valid": true,
+          "solids": 1,
+          "faces": 108,
+          "volume_mm3": 139.26248459841477,
+          "center_mm": [
+            57.233297844582054,
+            205.0000000000002,
+            258.590512138191
+          ],
+          "bounds_mm": [
+            46.35,
+            203.1,
+            252.0,
+            65.25,
+            206.9,
+            263.65
+          ]
+        },
+        "saved_candidate_signature": {
+          "valid": true,
+          "solids": 1,
+          "faces": 108,
+          "volume_mm3": 139.26248459841463,
+          "center_mm": [
+            57.23329784458205,
+            205.0000000000002,
+            258.59051213819106
+          ],
+          "bounds_mm": [
+            46.35,
+            203.1,
+            252.0,
+            65.25,
+            206.9,
+            263.65
+          ]
+        },
+        "source_minus_candidate_mm3": 0.0,
+        "candidate_minus_source_mm3": 0.0
+      },
+      "passed": true
+    },
+    "candidate_lid_signature": {
+      "valid": true,
+      "solids": 1,
+      "faces": 210,
+      "volume_mm3": 295556.01990024507,
+      "center_mm": [
+        2.950853449044482,
+        317.70980791374427,
+        252.6041089475518
+      ],
+      "bounds_mm": [
+        -90.2000001,
+        182.45000000000002,
+        247.9999998999971,
+        97.7000001,
+        465.0000001,
+        299.21000000000004
+      ]
+    },
+    "selected_specification": {
+      "units": "mm",
+      "assembly_owner": "back-bottom",
+      "mounting_parent": "cold-core top lid",
+      "tube_od_mm": 6.35,
+      "tube_axis_world": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "lid_face_z_mm": 253.4,
+      "root_z_mm": 248.0,
+      "seat_top_z_mm": 257.0,
+      "seat_radius_mm": 3.325,
+      "seat_floor_stock_mm": 3.0,
+      "station_length_mm": 10.0,
+      "stock_west_of_first_tube_mm": 6.325,
+      "stock_east_of_last_tube_mm": 6.325,
+      "tie_slot_width_y_mm": 3.2,
+      "tie_slot_bottom_z_mm": 251.6,
+      "tie_slot_floor_stock_mm": 3.0,
+      "tie_access_outer_offset_mm": 6.0,
+      "tie_access_inner_offset_mm": 0.0,
+      "tie_witness_width_mm": 2.5,
+      "tie_witness_thickness_mm": 0.8,
+      "tie_witness_outer_bend_radius_mm": 3.75,
+      "tie_witness_bottom_center_z_mm": 252.4,
+      "stations": [
+        {
+          "id": "a-pair-fore-anchor",
+          "label": "Reservoir A fore paired anchor",
+          "tube_centers_world_mm": [
+            [
+              50.5,
+              205.0,
+              259.5
+            ],
+            [
+              58.0,
+              205.0,
+              259.5
+            ]
+          ],
+          "tie_head_side": "east",
+          "routes_west_to_east": [
+            "fluid-16",
+            "fluid-14"
+          ]
+        },
+        {
+          "id": "a-pair-aft-anchor",
+          "label": "Reservoir A aft paired anchor",
+          "tube_centers_world_mm": [
+            [
+              86.5,
+              304.0,
+              259.5
+            ],
+            [
+              94.0,
+              304.0,
+              259.5
+            ]
+          ],
+          "open_quarter_side": "east",
+          "base_east_of_last_tube_mm": 3.7,
+          "routes_west_to_east": [
+            "fluid-16",
+            "fluid-14"
+          ]
+        }
+      ],
+      "tie_slot_top_z_mm": 253.175
+    },
+    "selected_source_sha256": {
+      "hardware/printed-parts/cold-core/_reservoir_a_anchors.py": "b41a6507328db0e62567f1eac8c2ea411fd097b9f447578fcdc542cd51359496",
+      "hardware/printed-parts/cold-core/foam-cap/reservoir_a_anchor_review.py": "b5f416945e73ac761835ccceef325766960fee4089fa6065ad3db9da0739ed40"
+    },
+    "passed": true,
+    "post_live_lint_input": {
+      "log": "tmp/above-core-implementation/a-mouth-post-live-lint.log",
+      "log_sha256": "d8a9b681494e83f730536cfcd17f8e4854fd2aa8ae8faf3f626bd1d62535d0c3",
+      "live_payload": {
+        "url": "https://homesodamachine.com/meshes/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
+        "http_status": 200,
+        "bytes": 375148,
+        "sha256": "3a94ca08139770eaf2d839a1adf67462e7fa1ee8aa727acab127f7afb2c3d185",
+        "expected_sha256": "3a94ca08139770eaf2d839a1adf67462e7fa1ee8aa727acab127f7afb2c3d185",
+        "headers": {
+          "Date": "Sun, 25 Oct 2026 06:03:41 GMT",
+          "Content-Type": "application/octet-stream",
+          "Content-Length": "375148",
+          "Connection": "close",
+          "Accept-Ranges": "bytes",
+          "Cache-Control": "public, max-age=0",
+          "etag": "W/\"5b96c-1a1719c0c50\"",
+          "last-modified": "Sun, 25 Oct 2026 05:50:14 GMT",
+          "rndr-id": "c293ae29-18b7-433e",
+          "Server": "cloudflare",
+          "x-powered-by": "Express",
+          "x-render-origin-server": "Render",
+          "cf-cache-status": "DYNAMIC",
+          "CF-RAY": "a4ff0501ed53e66b-DEN",
+          "alt-svc": "h3=\":443\"; ma=86400"
+        },
+        "matched": true
+      },
+      "new_delta_findings": {
+        "central_ridges_mm": 1.565,
+        "outer_cheeks_mm": [
+          1.033,
+          1.077
+        ],
+        "functional_tie_slot_ceilings": 2,
+        "aft_raised_underside_mm": 0.6,
+        "ground_findings": 0
+      },
+      "scope": "Only anchor/ground delta findings are classified; all other findings retain their prior scope. No answer waives the narrow ridge or cheeks."
+    },
+    "actual_export_binding": {
+      "state": "selected source-native stock candidate; canonical export pending"
+    }
   }
 }

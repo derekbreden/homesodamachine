@@ -118,6 +118,8 @@ def main():
                         help='Rebind existing seat/tie contacts to the actual lid stock and STL.')
     parser.add_argument('--bind-mouth-only', action='store_true',
                         help='Bind the finite mouth-cut candidate to the canonical lid metrics only.')
+    parser.add_argument('--bind-feature', default='threading_mouth_cleanup',
+                        help='Saved finite candidate block used by --bind-mouth-only.')
     parser.add_argument('--wire-index', type=Path)
     parser.add_argument('--exclude-wire', action='append', default=[])
     parser.add_argument('--neighbor-index', type=Path)
@@ -133,7 +135,7 @@ def main():
         args.wire_index = args.wire_index.resolve()
     if args.bind_mouth_only:
         record = json.loads(args.output.read_text())
-        delta = record['threading_mouth_cleanup']
+        delta = record[args.bind_feature]
         lid = cq.importers.importStep(str(args.lid)).val().moved(
             layout.frame_location(layout.cap_lid_pose()))
         expected, observed = delta['candidate_lid_signature'], signature(lid)
@@ -169,6 +171,9 @@ def main():
             'basis': 'Only the named two threading-mouth cuts changed. The native '
                      'canonical lid matches the finite candidate metrics; no equipment, '
                      'wire, column, bridge or whole-lid stock reading is repeated.'}
+        if args.bind_feature == 'ordinary_stock_correction':
+            delta['printed_stock_after_export'] = printed_stock(
+                args.lid.with_suffix('.stl'), anchors.specification(), anchors.datums())
         args.output.write_text(json.dumps(record, indent=2)+'\n')
         print(json.dumps(delta['actual_export_binding']), flush=True)
         return
