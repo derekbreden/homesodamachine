@@ -42616,7 +42616,7 @@
     "Nominal and unlocated terminals remain visible in the graph and manifest; no exact donor termination is invented.",
     "The electrical graph does not qualify grounding, mains isolation, current capacity or energization."
   ],
-  "physical_scene_sha256": "26d35b573456303c3c5412608cc22e85b437cc125429c450aa0e3ff94bba12ba",
+  "physical_scene_sha256": "aab0a33ba1054cf8b227719935410387507c8fcdff0356ce7ca40c224e4c50b4",
   "source_sha256": {
     "hardware/wiring/installed/build.py": "b5598d2f596b44a16bf405f50dd37caaf75c840b8c6c3eec90a6707e50bf62a6",
     "hardware/wiring/installed/connections.py": "5429fc87ccff151594385cbf15b5d7f37d4bd2526561da1215de3cf7a994257e",
@@ -42630,10 +42630,10 @@
     "hardware/wiring/installed/bundle-routes.json": "a016b1d3f7e86cfe131eb512cad4181c5b0ad977c93bf9832741e3d7923696b7",
     "hardware/wiring/installed/connector-map.json": "8986c0f9b7e7394d965af41546f90fd4425f8ccb98a6360db6bbff8ba64a2126",
     "hardware/manifold-layout/above_core.py": "0ad87c7c252ab3cfe803c0f2a63a9374d06d0005591509031328ad6e3203988f",
-    "hardware/manifold-layout/above-core.json": "e7e69fe4c5505fcccb1be3be983d2357c25bd7f85bbc40b55fbeb1ab51adb460",
+    "hardware/manifold-layout/above-core.json": "70de28e454278ad9676a14663dd97120ea7130c67e5e168ec1e69d7fba6b2fc6",
     "hardware/manifold-layout/above_core_wiring.py": "6a0d17acbf71ea578c7d73671544553bf6b4abd035fd084eb7a3f47e1ffea6fc",
-    "hardware/printed-parts/cold-core/_above_core_mounts.py": "a2c6c6651851d23794aa5a2322add08e620a56ff0e147fcc1cdb553192383d48",
-    "hardware/printed-parts/cold-core/_cold_core_interface.py": "c0719df5f3bb053bf30960b67f2538575fbe606e72dd8d035b07000f38f4ef43",
+    "hardware/printed-parts/cold-core/_above_core_mounts.py": "5e1814e785e0dc593528aa8c6804282241d025df4cac4a727196a52fc238bf94",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "53039157eecad372391d0f7675e4f577a0b0862a7111a152bc4e38c4fa46287c",
     "hardware/assembly/harnesses/j2.json": "21a81f0c721844b574a6945ce3e33c057409196aa2320530927e8f8e6194a486",
     "hardware/assembly/harnesses/j13.json": "3fc9bba20dc77c55dd5c9a667ba5f686de8795e91917017712df9193c95513d3"
   }

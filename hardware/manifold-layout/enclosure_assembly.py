@@ -5240,7 +5240,7 @@ def build_drain_joint(box):
       * the drain stub in the elbow's upper collet, up through the hole into the plug's land
         (`funnel_drain_stub`, origin on the elbow's release face).
 
-    Disconnect the drain tube or release the cradle before removing the frame.
+    All three travel with the frame; disconnect the V-B feed before removing it.
     Returns `(name, solid, colour, carry)` per body — the elbow's carry is what `fluid-4`
     anchors on."""
     _stub.joint_holds()
