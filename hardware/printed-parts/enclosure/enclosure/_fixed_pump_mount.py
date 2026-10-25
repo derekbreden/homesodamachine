@@ -3,13 +3,15 @@
 The enclosure module supplies the machine frame and the fitted pump profiles.
 This module reads its declared Box without realizing another enclosure piece.
 """
+import math
+
 import cadquery as cq
 
 
 SCREW_LENGTH = 60.0
 SCREW_EDGE_X = 92.0
 HEAD_BEARING = 3.0
-SHARED_HALF_SPAN = 14.0
+SHARED_HALF_SPAN = 11.0
 INTERNAL_WIRE_HALF_SPAN = 6.0
 DISPLAY_LINK_HALF_SPAN = 9.0
 TUBE_GATE_WIDTH = 6.35 + 2.0 * 0.25
@@ -95,7 +97,7 @@ def wiring_passages(e, box):
             diamond_half_span_mm=INTERNAL_WIRE_HALF_SPAN),
         'front-top-display-chimney': dict(
             points_mm=[(0., 79., cross_z), (0., 78., 321.)],
-            bounds_mm=[-8., 8., 74., 84., rear_z, 334.]),
+            bounds_mm=[-10., 10., 72., 84., rear_z, 334.]),
         'front-top-display-link': dict(
             points_mm=[link.toTuple(), (0., 78., 321.)],
             terminal_entry_mm=(back+plane.zDir*2.).toTuple(),
@@ -115,6 +117,10 @@ def wire_cuts(e, box):
     r = shared['diamond_half_span_mm']
     out = [cq.Solid.makeLoft([_diamond_y(0.,fore[1],rear[2],r),
                               _diamond_y(0.,rear[1],rear[2],r)],True)]
+    # The rear upper half opens through the bulkhead top; the forward roof
+    # and the lower half retain the printable diamond section.
+    out.append(e._ybox(-r,r,e.housing_back_y(box.outer),rear[1],
+                       rear[2],box.pump_bay[2]+.01))
     cross = p['front-top-pump-cross']
     a, _mid, b = cross['points_mm']
     r = cross['diamond_half_span_mm']
@@ -125,9 +131,19 @@ def wire_cuts(e, box):
     link = p['front-top-display-link']
     a,b = link['points_mm']
     r = link['diamond_half_span_mm']
-    out.append(cq.Solid.makeLoft([
-        _diamond_y(*link['terminal_entry_mm'],r),
-        _diamond_y(*a,r),_diamond_y(*b,r)],True))
+    plane=e.display_plane(box.outer)
+    first=_diamond_y(*link['terminal_entry_mm'],r)
+    inner=_diamond_y(*a,r)
+    # A single rectangular pocket-normal connection contains the complete
+    # entry envelope and joins the diamond run to the chimney.
+    points=[plane.toLocalCoords(vertex.Center()).toTuple()
+            for section in (first,inner) for vertex in section.Vertices()]
+    bounds=[value for axis in range(3) for value in
+            (min(point[axis] for point in points)-1.,
+             max(point[axis] for point in points)+1.)]
+    entry=e._ybox(*bounds).moved(cq.Location(plane))
+    run=cq.Solid.makeLoft([inner,_diamond_y(*b,r)],True)
+    out.append(entry.fuse(run).clean())
     return out
 
 
@@ -145,17 +161,16 @@ def inverse_cuts(e, box):
         motor_end=flange+e._tray.motor_crown
         terminal_r=e.cap_terminal_crown_r(box)
         start=motor_end-e.wall
-        top=motor_end+12.45
         out.append(e._zcyl(e._tray.can_half,cx,y,
                            flange+e._tray.boss_depth+finish-.01,start+.01))
-        # An expanding void removes material as the print rises; its final
-        # shrinking roof grows from the surrounding continuous stock at 45°.
+        # The terminal room expands above the can and closes directly at the
+        # saved printable roof angle, leaving full stock below the display seat.
         rise=terminal_r-e._tray.can_half
         out.append(cq.Solid.makeCone(e._tray.can_half,terminal_r,rise,
                     cq.Vector(cx,y,start),cq.Vector(0,0,1)))
-        out.append(e._zcyl(terminal_r,cx,y,start+rise-.01,top))
-        out.append(cq.Solid.makeCone(terminal_r,0.,terminal_r,
-                    cq.Vector(cx,y,top),cq.Vector(0,0,1)))
+        roof_rise=terminal_r*math.tan(math.radians(e.teardrop_roof_angle))
+        out.append(cq.Solid.makeCone(terminal_r,0.,roof_rise,
+                    cq.Vector(cx,y,start+rise),cq.Vector(0,0,1)))
     return out
 
 
@@ -178,6 +193,10 @@ def lower_voids(e, box):
     trays,plate=box.pack.pump_trays,box.pack.collet_plate
     d=datums(e,box)
     source=e._pump_lower_well(trays)
+    wall_offset=e._tray._pc.skirt_wall-e.cap_pump_air
+    upper_half=e._tray._pc.skirt_base_half_extent-wall_offset
+    corner_r=e._tray._pc.corner_r-wall_offset
+    support=e.pump_skirt_support_z(trays)
     out=[]
     for cx,cy,cz in trays:
         body=source.translate((cx,cy,cz))
@@ -192,6 +211,11 @@ def lower_voids(e, box):
             body=body.fuse(wedge)
         for wedge in e._outlet_fore_miter_wedges(cx,cy,cz):
             body=body.cut(wedge)
+        # One square fore mouth per well reaches the corner tangency above
+        # the fitted skirt land; the complete bearing section below stays solid.
+        body=body.fuse(e._ybox(cx-upper_half,cx+upper_half,
+            d['y0']-1.,cy-upper_half+corner_r+.01,
+            support,d['retainer_top_z']+1.))
         out.append(body)
     return out
 

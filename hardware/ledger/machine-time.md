@@ -27,7 +27,7 @@ Eight groups take masses from §7 using `_bom_masses.GROUP_OF`. The ASA Aero gro
 | Group | Parts | Rate | Mass | Hours |
 |---|---|---|---:|---:|
 | Cold-core PET-GF, 0.8 TC | Cold-core shell, four foam-cap pieces — the stack the box's own fluted skin is carried onto, printed on the big nozzle rather than the exterior's fine one ([foam-shell/print-log.md](/hardware/printed-parts/cold-core/foam-shell/print-log.md)) | [13.3](MT_RATE_BULK) h/kg — est., the [12.8](MT_RATE_BULK_PETG) measured plate carried across the stock | [2.572](MT_KG_BULK) kg | [34.2](MT_H_BULK) |
-| Enclosure exterior PET-GF, 0.4 TC | The four quadrants with front-top's integral upper pump mount, the lower pump retainer, display cover plate, funnel frame and its drain-elbow cradle — the enclosure mechanisms and show surfaces printed at the finish the box is judged on ([enclosure/print-log.md](/hardware/printed-parts/enclosure/enclosure/print-log.md)) | [31.2](MT_RATE_EXT) h/kg — **measured** | [3.442](MT_KG_EXT) kg | [107.4](MT_H_EXT) |
+| Enclosure exterior PET-GF, 0.4 TC | The four quadrants with front-top's integral upper pump mount, the lower pump retainer, display cover plate, funnel frame and its drain-elbow cradle — the enclosure mechanisms and show surfaces printed at the finish the box is judged on ([enclosure/print-log.md](/hardware/printed-parts/enclosure/enclosure/print-log.md)) | [31.2](MT_RATE_EXT) h/kg — **measured** | [3.451](MT_KG_EXT) kg | [107.7](MT_H_EXT) |
 | Watertight translucent PETG, 0.6 nozzle | Both reservoir bodies + caps — 3 mm walls as 5 × 0.60 mm beads, Arachne, for a syrup-tight wall ([watertight-petg.md](/hardware/printed-parts/cold-core/reservoir/watertight-petg.md)); the nozzle is the one all three logged runs were made on ([reservoir/print-log.md](/hardware/printed-parts/cold-core/reservoir/print-log.md)) | [26](MT_RATE_TIGHT) h/kg — est., ~½ the measured plate's volumetric rate | [0.874](MT_KG_TIGHT) kg | [22.7](MT_H_TIGHT) |
 | Small PETG parts | Umbilical organizer, copper-slot covers, PRV shroud, reed bridge and fuse clamp | [36](MT_RATE_SMALL) h/kg — est., travel and layer-change overhead dominate a small part | [0.041](MT_KG_SMALL) kg | [1.5](MT_H_SMALL) |
 | Small solid PET-GF parts, 0.4 TC | The install-kit collet press — at least six walls and 100% infill ([collet press](/hardware/printed-parts/collet-press/README.md)) | [36](MT_RATE_TOOL) h/kg — est., the small-part rate until its production slice is logged | [0.017](MT_KG_TOOL) kg | [0.6](MT_H_TOOL) |
@@ -35,9 +35,9 @@ Eight groups take masses from §7 using `_bom_masses.GROUP_OF`. The ASA Aero gro
 | Faucet and nameplate PET-GF, 0.4 TC | Faucet shell, lever, display cover, above-counter plate and serial nameplate; 0.24 mm layers, two wall loops and 15 % grid ([faucet-petgf.md](/hardware/printed-parts/faucet/faucet-petgf.md)) | [32.7](MT_RATE_PETGF) h/kg — duration from saved-profile slice | [0.141](MT_KG_PETGF) kg | [4.6](MT_H_PETGF) |
 | ASA Aero floats, right 0.4 HS | [3](MT_FLOAT_QTY) one-piece floats, carbonator + two reservoirs; RC62 inserted during printing, 0.20 mm layers and nested perimeters ([float record](/hardware/printed-parts/cold-core/magnetic-float/all-aero/README.md)) | [88.3](MT_FLOAT_MINUTES) min each — v1 native slice estimate, manual pause excluded; v2 unsliced | [0.042](MT_KG_AERO) kg | [4.4](MT_H_AERO) |
 | Funnel cover, black PETG, left 0.4 nozzle | Solid removable plate and locating skirt ([cover recipe](/hardware/printed-parts/zone-c/funnel-cover/README.md)) | [14](MT_RATE_FUNNEL_COVER) h/kg — estimate from the reference native slice; current geometry unsliced | [0.134](MT_KG_FUNNEL_COVER) kg | [1.9](MT_H_FUNNEL_COVER) |
-| **Known printer-time subtotal per unit** | | | **[7.297](MT_KG)** kg | **[178.5](MT_H_PRINT)** |
+| **Known printer-time subtotal per unit** | | | **[7.306](MT_KG)** kg | **[178.8](MT_H_PRINT)** |
 
-Spread across [2](MT_PRINTERS) machines, the known subtotal is **[89.3](MT_H_PRINT_WALL) hours** of estimated wall clock.
+Spread across [2](MT_PRINTERS) machines, the known subtotal is **[89.4](MT_H_PRINT_WALL) hours** of estimated wall clock.
 
 Filament drying is per spool: the AMS 2 Pro dries and feeds the [1.05](MT_KG_PETG_UNIT) kg PETG allocation. PET-GF15 is dried [10 h at 100 °C](MT_PETGF_DRY) and feeds from a PolyDryer Box XL ([tools.md](/hardware/ledger/tools.md) "What dries where"). ASA Aero uses its own drying cycle and the sealed external drybox route recorded in the [float recipe](/hardware/printed-parts/cold-core/magnetic-float/all-aero/README.md).
 
@@ -76,7 +76,7 @@ The printers are the constraint in this estimate. Per unit, before unmeasured RC
 
 | Machine | Occupied per unit | Units/year at 100 % | |
 |---|---:|---:|---|
-| [2](MT_PRINTERS) × H2C | [89.3](MT_H_PRINT_WALL) h wall | [98](MT_CEIL_PRINT) | **the bottleneck** |
+| [2](MT_PRINTERS) × H2C | [89.4](MT_H_PRINT_WALL) h wall | [98](MT_CEIL_PRINT) | **the bottleneck** |
 | Test bench (burn-in + chill) | [9.0](MT_OCC_BENCH) h | [973](MT_CEIL_BENCH) | |
 | Funnel mold + oven | [9.0](MT_OCC_MOLD) h | [973](MT_CEIL_MOLD) | |
 | Hydro rig, passivation tub, vacuum pump | [2.6](MT_OCC_CARBONATOR) h | [3,369](MT_CEIL_CARBONATOR) | |
@@ -89,20 +89,20 @@ What one unit takes end to end if production is unpaused and the shop starts emp
 
 | Stage | Hours | |
 |---|---:|---|
-| Print the timed parts | [89.3](MT_H_PRINT_WALL) | 2 printers, both on this unit |
+| Print the timed parts | [89.4](MT_H_PRINT_WALL) | 2 printers, both on this unit |
 | Build the cold core; pour the foam and let it cure | 8.0 | carbonator already done, in parallel with the prints |
 | Assembly, plumbing, wiring | 8.0 | one working day |
 | Power-on and test | 2.0 | |
 | First fill and chill-down | 1.0 | |
 | Burn-in | 8.0 | |
 | Finish and pack | 1.0 | |
-| **Turnaround** | **[117.3](MT_H_TURN)** | **[4.9](MT_DAYS_TURN) days** |
+| **Turnaround** | **[117.4](MT_H_TURN)** | **[4.9](MT_DAYS_TURN) days** |
 
 Pump tube preparation and the small TPU seals have unmeasured production durations; plate handling and physical print yield remain unmeasured.
 
 Runs in parallel with the print when started early enough: the whole carbonator chain (machining, welding, PT, hydro, passivation, fittings), the eleven bench harnesses, the silicone funnel's cure and bake, and the PRV-shroud subassembly with its 24-hour caulk cure. Each of those has to be *started* early enough, which is a scheduling problem, not a duration one.
 
-A second unit behind the first does not cost another [4.9](MT_DAYS_TURN) days — it costs the bottleneck's [89.3](MT_H_PRINT_WALL) hours, since its prints start the moment the first unit's come off the plates.
+A second unit behind the first does not cost another [4.9](MT_DAYS_TURN) days — it costs the bottleneck's [89.4](MT_H_PRINT_WALL) hours, since its prints start the moment the first unit's come off the plates.
 
 ## Sources
 [value](NAME) texts are updated by:

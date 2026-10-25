@@ -5,14 +5,24 @@ continuous into the display housing and roof. The plain rectangular
 `enclosure-pump-retainer` carries both pumps for motor-first insertion from the
 open underside. Three M3 × 60 screws close the skirt capture from below. The four
 prepared tubes rise through bottom-open tee-wall gates. Pump and display leads
-share the rear diamond mouth at X0/Z280.
+share the rear exit at X0/Z280.
 
 [`native-review.json`](native-review.json) records explicit native geometry
 queries. [`print-review.json`](print-review.json) records the identified native
 slices. These are manual reviews, with no build, hook or scorecard integration.
 
-The native reading uses front-top STEP `455cd05a…` and retainer STEP
-`ea79019f…`; the report stores the full hashes and the native hardware inputs.
+The current parts are front-top STEP `38930496…` and retainer STEP `bd394956…`.
+The original complete path receipts bind front-top `455cd05a…` and retainer
+`ea79019f…`; the report preserves those actual input hashes. Its
+`printed_stock_refinements` records bind the current parts separately. The
+retainer removes only the upper fore-corner films, preserving its lower land
+and screw columns. Front-top `d65c9d61…` has direct complete added-stock motion
+queries against the retained native hardware. The current front-top is its
+native material subset; removed stock cannot introduce a rigid collision.
+All nine front-top modifier boxes and both complete valve tray/post/bearing
+envelopes remain unchanged. The nearest fore-valve envelope is 5.55 mm below
+the removed stock. The intermediate `e0b491ba…` review retains its own scope
+and is not used as a subset inference for `d65c9d61…`.
 
 | Recorded interaction | Native result |
 |---|---|
@@ -31,6 +41,16 @@ envelopes remain at least 11.20 mm apart, so sequential installation does not
 create an inter-group collision. Both east WAGO wells retain their own pocket
 and backing at a common broad fore plane, Y166.10. The yoke's furthest aft
 position in the conservative approach is Y165.04, leaving 1.06 mm to that plane.
+
+The added front-top stock clears the complete 130 mm pump-loading path by at
+least 5.278 mm and the 11.65 mm fore-group path by at least 4.540 mm. It also
+clears the declared casing loading, front-column slide, driver columns,
+nominal/+0.40 mm takeup, display and funnel frame. The fixed bearing and screw
+stock through Z236.074 is unchanged. The shared passage has a 22 mm diamond
+section forward and a rear upper-half U breakout over the bulkhead lip;
+the terminal rooms close at 36° into continuous stock below the display seat.
+Wire and Faston clearance retain their separate native review and physical
+fit limits.
 
 Run the geometry reading after exporting the named parts and appliance:
 
@@ -54,6 +74,16 @@ When a final producer emits the same named hardware as a small native subset,
 compares every body by native serialization or two-way native Boolean difference.
 Its agreement record preserves the original path-query inputs and binds the
 final subset separately.
+`refine_review.py --old-directory <saved-native-parts> --stage all` appends an
+old/new native stock comparison and the required added-stock motion queries.
+It keeps the original path-query identities and checks the lower skirt land
+and screw-column stock separately.
+`verify_successor.py <saved-predecessor.step>` compares a subsequent front-top
+to its recorded predecessor. Any added material triggers direct complete
+stock-path queries against the original native baseline.
+`verify_rear_breakout.py <saved-predecessor.step>` binds a removal-only rear
+breakout and checks every existing front-top modifier box plus the valve
+tray/post/bearing envelopes and pump guards.
 
 A complete translation is bounded by native minimum-distance intervals. Each
 proved interval is shorter than the current solid-to-solid gap, after a

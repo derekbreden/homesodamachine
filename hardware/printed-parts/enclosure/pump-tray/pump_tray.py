@@ -1,13 +1,15 @@
-"""Case-derived locating collar and head well for the Kamoer pump cartridge.
+"""Case-derived locating profiles for the integral pump inverse and lower retainer.
 
-The lower cradle has flat lands around the rigid eight-millimetre molded skirt. The cap's
-fitted octagonal opening locates the rear boss and its circular opening clears the motor can.
-The assembled cartridge and cap hold both physical pumps firmly, with no observed vertical play.
+The lower retainer has flat lands around the rigid eight-millimetre molded skirt.
+Front-top's integral upper inverse locates the rear boss and clears the motor can.
+The production geometry consumes these profiles in enclosure._fixed_pump_mount.
 
-This module carries the proven case profiles and their clearances. Its collar builder is a
-source solid, not a separate printed part. The production cap is enclosure.build_pump_cap.
-The physical reference is hardware/reference/kamoer-kphm400/scan-review.md; the case-derived
-reference solid alone is not independent evidence of physical contact.
+The accepted earlier cradle/cap assembly held both physical pumps firmly without observed
+vertical play; hardware/reference/kamoer-kphm400/physical-fit.json binds that identified
+article. It does not qualify the integral upper/lower skirt capture. This module's collar
+builder is a source solid, not a separate printed part. The physical reference is
+hardware/reference/kamoer-kphm400/scan-review.md; case-derived geometry alone does not
+independently establish physical contact.
 
 Run:
     tools/cad-venv/bin/python hardware/printed-parts/enclosure/pump-tray/pump_tray.py selftest
@@ -46,17 +48,17 @@ boss_depth = _pc.bore_bottom_z
 # The bore the case turns the can in, half of it — what rises out of the shoulder.
 can_half = _pc.cylinder_id / 2.0
 # The molded flange's plan envelope. Its eight-millimetre skirt transfers clamp load from
-# the measured motor-facing outer rim to the lower cradle's lands.
+# the measured motor-facing outer rim to the lower retainer's lands.
 bracket_half = _kp.bracket_w / 2.0
 bracket_t = _kp.bracket_t
-# The motor can's far face above the bracket datum. The enclosure's removable clamp follows
-# the pump rather than the fixed bay lintel, so its common crown is struck from this reach.
+# The motor can's far face above the bracket datum. The integral upper inverse and its
+# terminal room follow this reach.
 motor_crown = _kp.motor_end_z
-# The boss and motor's common plan offset from the head datum. The lower cradle stays on the
+# The boss and motor's common plan offset from the head datum. The lower retainer stays on the
 # head; only the fitted rear-stack collar and openings take this shift.
 rear_axis_y_shift = _kp.rear_axis_y_shift
 # The fall the head's outlet side takes under its barbs, and how far up off its front face it
-# holds it — figures the lower cradle uses for its vertical fitting opening.
+# holds it — figures the lower retainer uses for its vertical fitting opening.
 outlet_relief = _kp.outlet_relief
 outlet_relief_run = _kp.outlet_relief_run
 # The complete pump's widest X span, across the two tube fittings on its outlet face. This is
@@ -90,8 +92,8 @@ skirt_support_y_plus = skirt_open_y_max - skirt_body_open_y_bounds[1]
 outlet_axis_z = _pc.skirt_bottom_z
 # The case's own footprint, half of it — what its base plate and the foot of its ramp reach.
 case_half = _pc.footprint_half_extent
-# And that base plate's own thickness. The enclosure restores this whole section above the
-# molded flange before joining both collars into the clamp.
+# The case-derived base plate's thickness, retained by the collar source builder.
+# Production upper stock belongs to front-top's continuous body.
 PLATE = _pc.base_thickness
 
 # --- what the tray adds over the case it is cut out of -----------------------

@@ -988,7 +988,7 @@ The **tee wall** grows from the seam region into the continuous upper stock. Eac
 bore and collet opening has a teardropped roof. A narrow bottom-open gate admits the prepared
 tube from below without opening the entire branch-bore width. The remaining bore-face lands
 locate the fixed tee barrels. The shared wire passage above the pumps uses diamond roofs;
-its motor rooms close with 45° conical roofs. The display receiver keeps its required seats
+its motor rooms close with 36° conical roofs. The display receiver keeps its required seats
 and support exits. The exact native slice supplies the support/contact reading for those
 functional faces; no earlier slice establishes cleanup of this geometry.
 
@@ -1058,7 +1058,7 @@ closing travel between the printed halves. These face allowances describe the CA
 process; they are not a measured axial-play or retention result.
 
 The fitted octagonal boss openings use the case-derived profile and its ledges. The Ø37 mm
-motor bores open into wider terminal rooms and close above them with 45° conical roofs.
+motor bores open into wider terminal rooms and close above them with 36° conical roofs.
 The continuous stock fills the rest of the pump-to-roof volume, around the functional
 hardware and cable rooms.
 
@@ -1143,7 +1143,8 @@ records the exact exports and assembly queries.
 ## The pump lead
 
 DC-5 and SIG-7 use one rear wire passage through the continuous pump/display body. Its
-[28 mm](PUMP_SHARED_WIRE_SPAN) diamond mouth is centred at X0/Z280 and opens through Y99.
+[22 mm](PUMP_SHARED_WIRE_SPAN) diamond passage is centred at X0/Z280 and opens through Y99.
+Its rear upper half opens straight over the bulkhead lip, leaving no tapered banks.
 The pump branches reach their terminal rooms through a crosswise diamond passage, while
 SIG-7 reaches the open display receiver through the chimney and display-link passage.
 These functional rooms retain printable sloping roofs around the required cable space.
@@ -1208,7 +1209,7 @@ turn into the smooth top curves. The rounded display bezel and funnel rim remain
 smooth. Print meshes use a 0.005 mm absolute surface tolerance and 0.05 radian
 angular tolerance before the flute field is cut.
 
-The display loom shares the pump lead's rear diamond mouth at X0/Z280. Its unbraided
+The display loom shares the pump lead's rear exit at X0/Z280. Its unbraided
 ribbon follows the display-link passage from the module's nominal rear terminal plane to
 the chimney; the rear mouth also carries DC-5's pump ribbon. Keep both runs clear of the
 frame seats and closing slides. The [wiring procedure](../../../assembly/wiring.md) owns
