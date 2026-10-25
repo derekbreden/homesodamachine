@@ -1,0 +1,92 @@
+{
+  "views": [
+    {
+      "name": "pump-lead",
+      "caption": "The V-K control lead rises ahead of the diaphragm pump head and keeps its terminal landings.",
+      "before": "pump-lead-before.webp",
+      "after": "pump-lead-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 521.5,
+          "y": 493.9,
+          "r": 52.3,
+          "label": "Fore rise",
+          "at": [
+            15,
+            274,
+            291
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          247.17355480402927,
+          -4.216943505036568,
+          579.2169435050366
+        ],
+        "target": [
+          15,
+          286,
+          289
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 43,
+        "near": 303.9846946631641,
+        "far": 814.82697351721,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "wire-J2-OUT3"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/g-ganen-pump",
+        "cold-core/pcba",
+        "wire-J2-OUT3",
+        "terminal-J2"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "4758ec834b820766cb3f7d92deca1a011d75657403848a4465285c4785fe31e1",
+          "commit": "0bdf4e3c12ac5b5f58413e3adeaaf9f42877ce0c",
+          "taken": "2026-10-25T06:35:40.092Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "c7d7515fc2fc5d64ff6b9b324d56bfa6bd8dfb0e8a6e421c6f98171d87036f23",
+          "commit": "9784cbfb8bbdfcb57e72d5b2450af7ec4e2e8141",
+          "published": true
+        }
+      },
+      "changed": [
+        "tube-fluid-14",
+        "tube-fluid-16",
+        "wire-PE-bus",
+        "wire-J2-OUT3",
+        "cold-core/reservoir-b-fill-upper",
+        "tube-fluid-24",
+        "cold-core/foam-cap-top",
+        "wire-J2-COM",
+        "cold-core/line-reservoir-b-fill",
+        "wire-DC3-negative",
+        "cold-core/reservoir-b-fill-lower",
+        "wire-J2-positive-K",
+        "cold-core/foam-cap-lid-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
