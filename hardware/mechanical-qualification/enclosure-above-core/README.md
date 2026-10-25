@@ -7,7 +7,14 @@ binds its source, artifact and tested group; its result applies to that scope.
 The separate [wall closing reader](wall_closing.py) samples the selected
 wall-carried group over the populated core and reads mesh-positive poses again
 as native intersections. The [pump-joint counterexamples](wall-closing-counterexamples.json)
-disprove a slide with the fitted pump-side elbow riding back-top.
+record overlaps when the pump-side elbow and pump TPU elbow retain their final
+clocking throughout the slide. The [pump-inlet assembly direction](pump-inlet-rotation-assembly.json)
+uses rotation at their existing round joints: turn the TPU elbow up and the
+pump-side push-fit elbow down about 45°, slide them past each other, then
+rotate back and connect. Derek reports 360° rotation at these joints. Final
+component poses and carrying pieces stay as selected; this pair's fixed-clocking
+overlap is not a closure blocker. The record captures Derek's assembly direction,
+not a completed-enclosure assembly trial.
 The [staged reading](wall-closing-staged-review.json) keeps that elbow at the
 pump and still finds the transverse stem joint and low V-A tube/union chain
 in the travel corridor. The [loose-connection subset](wall-closing-loose-stage-review.json)

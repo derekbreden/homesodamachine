@@ -1,0 +1,33 @@
+{
+  "record_type": "founder_assembly_direction",
+  "date": "2026-10-25",
+  "source": {
+    "chat": "Above cold core",
+    "thread_id": "01a1577a-17f1-7b53-9467-cc072d95c422",
+    "derek": [
+      "I don't see why, the yellow one bends up and the teal one bends down and the slide past each other and can then connect.",
+      "Not flexing, rotating, they all can rotate 360 degrees, but we only need 45 degrees of rotation here."
+    ]
+  },
+  "parts": [
+    "cold-core/pump-inlet-tpu",
+    "lower-pump-elbow"
+  ],
+  "joint_motion": "Rotation at the existing round joints; the installed elbow clocking is not fixed during closure.",
+  "available_rotation_deg_reported_by_derek": 360,
+  "assembly_rotation_deg_directed_by_derek": 45,
+  "sequence": [
+    "Rotate the pump TPU inlet elbow up and the pump-side push-fit elbow down at their existing round joints, about 45 degrees from installed clocking.",
+    "Slide the back column home with those elbows clocked apart so they pass each other.",
+    "Rotate the elbows back to their installed clocking and connect the pump-inlet link."
+  ],
+  "preserved": [
+    "Final component poses and compact pump-inlet connection",
+    "V-K and its carried fittings on back-top",
+    "Pump and its TPU inlet elbow on the cold core",
+    "Existing enclosure sliding closure"
+  ],
+  "answered_concern": "Overlap between these two elbows in a slide that holds both at final clocking is not an assembly blocker; closure uses their rotation.",
+  "diagnostic_scope": "approved-carried-group-review.json and wall-closing-counterexamples.json retain their fixed-clocking rigid-motion results. Those results do not evaluate this rotational assembly sequence.",
+  "evidence_scope": "Derek's assembly direction and reported joint rotation. This is not a recorded completed-enclosure assembly trial, and it does not resolve the other plumbing or electrical handoffs. No geometry, carrying-piece or closure change is required by this pump-elbow overlap."
+}
