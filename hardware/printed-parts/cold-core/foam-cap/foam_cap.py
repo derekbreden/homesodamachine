@@ -480,7 +480,7 @@ def build_top_lid():
             add_cradles(cut_deck_mounts_lid(build_foam_cap_lid()), lid_total_height),
             lid_total_height, names=tuple(n for n in cap_anchors if n != 'discharge-chain')),
         lid_total_height)
-    for name in ('valve-v-a','valve-v-b','vk-solenoid'):
+    for name in ('valve-v-b',):
         lid = lid.union(_above_mounts.valve_support(name,lid_total_height))
     lid = lid.union(_above_mounts.check_support())
     for support in _above_mounts.meter_supports():
@@ -520,7 +520,7 @@ def main():
         ("foam-cap-lid-bottom", lid_bottom, 0.0),
         ("foam-cap-lid-top", lid_top, max(cradle_proud, anchor_proud, side_proud,
                     *(_above_mounts.valve_support(n,lid_total_height).BoundingBox().zmax
-                      - lid_total_height for n in ('valve-v-a','valve-v-b','vk-solenoid')),
+                      - lid_total_height for n in ('valve-v-b',)),
                     *(s.BoundingBox().zmax-lid_total_height
                       for s in _above_mounts.meter_supports()))),
     ):
