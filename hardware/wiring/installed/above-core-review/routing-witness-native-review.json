@@ -1086,12 +1086,13 @@
     "scope": "Actual wire-body and source-curve binding only. The contact subsets retain their named fixtures and query scopes; no equipment or packing query is repeated.",
     "readback_record": {
       "path": "hardware/wiring/installed/above-core-review/installed-wiring-binding.json",
-      "sha256": "8c2b9e33681beb270169f1e777ad3f0f6bafa78d2960614ddba3ea709e99a854"
+      "sha256": "d402b055cdc23d55fa17a4017db71e319986c8fc5c9a3dcd956439c86b5a08b2"
     },
-    "assembly_step_sha256": "718e42d6df645a037a61bb83cb14c8c9ba8bd7a6a1d011e5411f15481bcb3795",
+    "assembly_step_sha256": "79483a957d0d56f811942edd7ac6f0210f193f420965eb7e9977e18426cf081f",
     "wiring_step_sha256": "19aa3cf46d1df76491ad41fbac79f1696d82b784fbfccacf18258ebc428260f9",
-    "manifest_sha256": "24efd37e993b5ea368973abd0199cdfc1156e8b4b69262a0042c1537c9f976c2",
+    "manifest_sha256": "d72567894d379f9bcf40938b0e9f2c15b0031c632460d2236d1ff4bae9709e54",
     "all_source_curves_match": true,
-    "all_native_shapes_bound": true
+    "all_native_shapes_bound": true,
+    "metadata_rebind_scope": "Metadata-only physical-artifact rebind. The standalone wiring STEP and CSV are byte-identical; every manifest section except physical-scene provenance and source hashes is semantically identical. The only changed hashed source defines the B-fill printed link cutter. Native source/body signatures, curve comparisons, installed-wire placement readings and ten exchange-validity flags are reused; no STEP readback, source-curve reconstruction, contact or packing query is repeated."
   }
 }

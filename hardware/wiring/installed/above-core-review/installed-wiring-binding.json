@@ -4,8 +4,8 @@
   "scope": "Manual actual installed-wiring STEP/manifest binding to the current source electrical graph and native wiring bodies, including their placements inside the complete appliance STEP. No equipment/contact sweep or mechanical regeneration. Unchanged accepted contact receipts remain separately scoped.",
   "reader_sha256": "c076c0ac4b46d7cc0d3b8d0619c55a106468716762276420ea924d6f7ae85ff2",
   "actual_step_sha256": "19aa3cf46d1df76491ad41fbac79f1696d82b784fbfccacf18258ebc428260f9",
-  "actual_manifest_sha256": "24efd37e993b5ea368973abd0199cdfc1156e8b4b69262a0042c1537c9f976c2",
-  "physical_EA_sha256": "718e42d6df645a037a61bb83cb14c8c9ba8bd7a6a1d011e5411f15481bcb3795",
+  "actual_manifest_sha256": "d72567894d379f9bcf40938b0e9f2c15b0031c632460d2236d1ff4bae9709e54",
+  "physical_EA_sha256": "79483a957d0d56f811942edd7ac6f0210f193f420965eb7e9977e18426cf081f",
   "source_sha256": {
     "hardware/wiring/installed/build.py": "b5598d2f596b44a16bf405f50dd37caaf75c840b8c6c3eec90a6707e50bf62a6",
     "hardware/wiring/installed/route-overrides.json": "46aee7c75571c2bdb3798731e2f533cad3b7cd99a1ef64ac40dd03070a1517d2",
@@ -9101,5 +9101,93 @@
   "all_source_curves_match": true,
   "maximum_installed_bounds_delta_mm": 0.0,
   "all_native_shapes_bound": true,
-  "exchange_scope": "Native source solids and geometric agreement are distinct from STEP reader orientation validity. Any listed readback-invalid bodies retain their explicit exchange limitation; no per-wire geometry is altered to silence it."
+  "exchange_scope": "Native source solids and geometric agreement are distinct from STEP reader orientation validity. Any listed readback-invalid bodies retain their explicit exchange limitation; no per-wire geometry is altered to silence it.",
+  "native_query_artifacts": {
+    "binding_record_sha256": "8c2b9e33681beb270169f1e777ad3f0f6bafa78d2960614ddba3ea709e99a854",
+    "assembly_step_sha256": "718e42d6df645a037a61bb83cb14c8c9ba8bd7a6a1d011e5411f15481bcb3795",
+    "wiring_step_sha256": "19aa3cf46d1df76491ad41fbac79f1696d82b784fbfccacf18258ebc428260f9",
+    "manifest_sha256": "24efd37e993b5ea368973abd0199cdfc1156e8b4b69262a0042c1537c9f976c2"
+  },
+  "metadata_rebindings": [
+    {
+      "scope": "Metadata-only physical-artifact rebind. The standalone wiring STEP and CSV are byte-identical; every manifest section except physical-scene provenance and source hashes is semantically identical. The only changed hashed source defines the B-fill printed link cutter. Native source/body signatures, curve comparisons, installed-wire placement readings and ten exchange-validity flags are reused; no STEP readback, source-curve reconstruction, contact or packing query is repeated.",
+      "prior_query": {
+        "binding_record_sha256": "8c2b9e33681beb270169f1e777ad3f0f6bafa78d2960614ddba3ea709e99a854",
+        "assembly_step_sha256": "718e42d6df645a037a61bb83cb14c8c9ba8bd7a6a1d011e5411f15481bcb3795",
+        "wiring_step_sha256": "19aa3cf46d1df76491ad41fbac79f1696d82b784fbfccacf18258ebc428260f9",
+        "manifest_sha256": "24efd37e993b5ea368973abd0199cdfc1156e8b4b69262a0042c1537c9f976c2"
+      },
+      "current_artifacts": {
+        "hardware/manifold-layout/enclosure-assembly.step": "79483a957d0d56f811942edd7ac6f0210f193f420965eb7e9977e18426cf081f",
+        "hardware/manifold-layout/enclosure-assembly.step.mesh": "dd9ec2ecd7e371556510c02ff2eb3b5b1ea64c2b94292535b798fa4914f71588",
+        "hardware/wiring/enclosure-wiring.step": "19aa3cf46d1df76491ad41fbac79f1696d82b784fbfccacf18258ebc428260f9",
+        "hardware/wiring/enclosure-wiring.json": "d72567894d379f9bcf40938b0e9f2c15b0031c632460d2236d1ff4bae9709e54",
+        "hardware/wiring/enclosure-wiring.csv": "f89e824c3c8fc1f11c67b5d3b88a5bc5c859f34fda842c3c9c1fea515e91f16d"
+      },
+      "baseline_commit": "ca3fef234",
+      "old_manifest_sha256": "24efd37e993b5ea368973abd0199cdfc1156e8b4b69262a0042c1537c9f976c2",
+      "changed_manifest_sections": [
+        "physical_scene_sha256",
+        "source_sha256"
+      ],
+      "all_wiring_geometry_and_frame_metadata_equal": true,
+      "unchanged_manifest_section_sha256": {
+        "schema": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+        "units": "3eb20ab926da2555b05722744e27375549f836dfbe2e6a1c93398d754a038f38",
+        "frame": "27c930920fc897ffd3e77639dd0a2d66626d8b10ae875e1de91a133d661c3912",
+        "scope": "69035daef23695031a3a7909524d09cc74289b81e1059649277bb3e649bf0c27",
+        "connection_count": "29db0c6782dbd5000559ef4d9e953e300e2b479eed26d887ef3f92b921c06a67",
+        "harnesses": "e12bd5296057f6a6b5ded44492c89f817c3b832e0810f5d49cb53b8d02417c98",
+        "route_status_counts": "623bdc63528eb638a8eb4032a918022053ffe347b84d6e786f31a904d1c04838",
+        "stock": "6af6b3146b93875d4bcaf08d90f97e8730e541ff5140ff8b1c26cb568103b4f8",
+        "unused": "c199745a8d6c60a3c1e79cfa2aa42350c8df1cf5453904a53cce109810768400",
+        "boundaries": "d607deec77f8fd7ad7b943564486a6fa4a346275d9f3bf1147b8667725893382",
+        "interfaces": "0ca486ecf7a3b45fba8a7b5210e0e3bb12173a70eca3e9cfa277b21c18ce19a4",
+        "terminal_status_counts": "dec3a717467ab196408b1ae4d2eaf6d02a5040240be4747db1a55963a09b6631",
+        "terminals": "4b6df399571b35cd23090956d5a70a7191361aa173e3d458607c9c0f7f31b772",
+        "reference_frames": "61a6ffbbb4980c7d19d51f697655d4a02cd1b6a27843f89b26ece86b1152b968",
+        "cable_passages": "9ad9e589c4554b031846da98ff009807b36e20710ceb7fca0a486da65efff8e3",
+        "pcb_reference": "5c810503ab1843f79d1164e89948c3f25ed68b5a7b6a523f93d5dded61cd90ee",
+        "terminations": "75623ad818e88c99444cfe85b948668be781bf52a90ad6dc8bfdc5e2a88cdeaf",
+        "bundles": "c3326b4d007278373b8ba3bd671574906b0ddb6775ea40e4375f35690f1fc32a",
+        "routes": "80efa3a0b7b815a09222318f3a973aed5baa9f924280b4e45147e5e12b0792ab",
+        "limits": "5d1025837cc40f049de42184c7a68387bc00bb3f43db6f2f78b00aa4d9194a29"
+      },
+      "changed_source_hashes": {
+        "hardware/printed-parts/cold-core/_above_core_mounts.py": {
+          "before": "613282bcaae9ddb690b76be46fad43019352279bd20f256b26b25262640922c3",
+          "after": "a2c6c6651851d23794aa5a2322add08e620a56ff0e147fcc1cdb553192383d48"
+        }
+      },
+      "changed_source_definitions": [
+        "reservoir_b_fill_features"
+      ],
+      "standalone_wiring_step_byte_identical": true,
+      "wiring_csv_byte_identical": true,
+      "physical_cleanup": {
+        "path": "hardware/printed-parts/cold-core/foam-cap/b-fill-pair-review.json",
+        "json_pointer": "/link_access_cleanup",
+        "canonical_json_sha256": "14762632f5c0706885bfa5b3249190736223f2a813feb7c0ba6bcb16b7e3d111",
+        "added_mm3": 0.0,
+        "removed_mm3": 336.71196727443737,
+        "source_sha256": "a2c6c6651851d23794aa5a2322add08e620a56ff0e147fcc1cdb553192383d48"
+      },
+      "source_route_count": 98,
+      "source_standalone_installed_body_count": 113,
+      "exchange_validity_flags_reused": [
+        "wire-J4-3V3",
+        "wire-J4-IO26",
+        "wire-temp-GND",
+        "wire-J6-GND",
+        "wire-J6-RA4",
+        "wire-J7-RB2",
+        "wire-J7-RB4",
+        "wire-J7-CLO",
+        "wire-J7-CHI",
+        "wire-J7-carb-earth-2"
+      ],
+      "metadata_script_sha256": "908425f958cc0159d8c18a15e3acd43afb07789133fba04dfa0c7030324a64e8"
+    }
+  ],
+  "installed_readback_scope": "Signatures were measured at native_query_artifacts. The current appliance reference reuses them through the explicit byte-identical wiring/unchanged placement metadata proof in metadata_rebindings; no new physical-STEP readback is asserted."
 }
