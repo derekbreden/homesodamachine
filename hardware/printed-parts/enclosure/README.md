@@ -18,23 +18,41 @@ What the core's yaw buys is vertical: a column above and ahead of it, where the 
 
 **The cold core is the back of the floor.** It stands flat on the floor slab — its bottom cap's lid is a plane and every cap screw is down in a counterbore, so nothing goes under it — and packed off the REAR: its own aft face seats flush on the inner face of the rear Z-seam lip, one `rear_seam_clear` inside `rear_plane_y`. Its front face lands at y [182.3](CORE_FRONT_Y) and what falls out AHEAD of it is the lane the refrigerant loop's two drawn legs cross. Its cap's lid at z [253.4](CORE_CROWN) is the service bay's floor. Geometry source: [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md).
 
-**The flavour manifold stands at its own stated storey**, [207](MANIFOLD_W) × [541.4](MANIFOLD_D) × [218.8](MANIFOLD_H) mm, topping out at z [358](MANIFOLD_TOP). A quarter turn about X lays its pump-head faces down and a half turn about Z brings the pumps to the front, so the two valve decks — [60.95](DECK_SEP) mm apart — stand aft of the pumps, and every mouth that faced the back now faces up. Eight valves are fixed in those two trays. Four purchased John Guest PP0208E tees, one on each pump port, take the prepared pumps' straight LLDPE tubes through front-top's collet plate. Each tee's branch stands in a bore through front-top's tee wall; a short upper tube joins the tee to its fore valve, and a lower return of two stem elbows and a straight tube joins it to its rear valve. The pump-head faces stand [20.79](PUMP_FACE_CLEAR) mm clear of the crown. [31](OVERHANG_N) of the manifold bodies reach aft over the cold core, overhanging its front face by up to [373.7](CORE_OVERHANG) mm and clearing its crown by [-1.4](CORE_OVERHANG_CLEAR) mm — the seam between the two halves is measured against what reaches BELOW that crown, and what stands over it is left to overhang. Geometry source: [`/hardware/manifold-layout/README.md`](/hardware/manifold-layout/README.md).
+**The front flavour manifold** carries eight fixed valves on two decks behind the
+removable pump cartridge. Its four purchased pump tees pass through front-top's tee wall;
+upper tubes and lower returns are assembled while that piece is open. V-A mounts on the
+cold-core lid beside the west wall and V-B east of the PCB. Their links to Y-A
+and Y-B are native production routes. Source geometry:
+[`manifold-layout/`](/hardware/manifold-layout/README.md).
 
-**The service bay is the column over the core's cap** — [98.6](DECK_HEIGHT) mm from the lid at [253.4](DECK_TOP) to the interior ceiling — in three lanes:
+**The service bay stands above the Z253.4 cold-core lid.** The pump's motor runs fore–aft
+and its discharge faces −X. The PCB lies flat west/forward and the PSU flat west/aft.
+Two relays mount on the west wall. The ASSE body lies above the pump with its vent west;
+the transverse YZMSZ water regulator feeds V-A. V-K stands beside the east wall on its core-lid upright. The compact
+PISCO regulator and neoFit ACHV44-E check form a folded gas group beside that wall.
+The [production arrangement](/hardware/manifold-layout/above-core.md) defines their exact
+native poses, supports, cap entries and qualification limits.
 
-- **The middle lane is the diaphragm pump.** The G Ganen lies flat on the crown on its four rubber feet, motor axis front to back. Its crown at z [313.9](PUMP_CROWN) is the tallest thing in the bay, and the panel deck overhead is struck on it.
-- **The +X flank is the power block**, every body on one wall seat — hung on the wall itself, on a boss no longer than the M3 heat-set inside it, standing in the depth that band states aft of the Y seam's blocks (`enclosure.east_band_free_y`): the PSU brick on its side with its rear mount hole on `enclosure.wall_boss_aft_limit`, the last station the back corner leaves a full-length boss under, relay #2 standing on end forward of it, the main board forward of that, and relay #1 with the ground stud on the main board's crown. The five Wago lever nuts need no seat at all — they press into wells printed on the wall itself. The C14 inlet takes the wall above them; the CO2 chain crosses west of it on the panel deck's own storey.
-- **The −X lane is the tap water.** It runs FORWARD from the +Y wall of back-top: the bulkhead union, the ASSE 1022 backflow chain butted straight onto it, the split one straight length ahead of that, with the pressure regulator beside the pump in a single tied cradle on the cold-core lid. V-K sits east of the pump on the same cap, and the pump's printed elbows take the tap water straight onto its barbs. The chain's atmospheric vent connects through the black neoFit adapters and dedicated 4 mm OVER bulkhead to the separate faucet outlet over the bowl.
+The funnel frame drops in vertically and takes four recessed screws. Its drain cradle
+snaps into the frame's bottom web. Final connections beneath the funnel are made with
+the frame absent. An empty screw-fastened panel over the west/aft electronics space provides a
+second service opening; it carries no components, wires, tubes or clips.
 
 **The top of the box is packed.** The top-front arris is rounded wall to wall — an R12 off the front wall, a 30° plane, an R18 onto the roof — with the enclosure display let into the plane. Immediately behind it, the funnel takes the top wall's full width and reaches aft for the plan area its capacity needs — which puts it across the front↔back seam, both halves taking their share of the opening. Detail: [`enclosure/README.md`](/hardware/printed-parts/enclosure/enclosure/README.md), [`/hardware/printed-parts/zone-c/README.md`](/hardware/printed-parts/zone-c/README.md).
 
 **The back column carries no open Z band under its content, so its seam runs through it.** The core's cap stack runs from the floor slab and the whole bay stands on its lid, so the column is solid to the bay's crown and every band it leaves open stands higher than a [320](BED_Z) mm bed carries the piece beneath. A Z seam's lip is a one-wall ring inset from the cavity, and the pack stands one wall off the front and +Y walls and one boss chain off the sides. Both columns share the stated seam at [160](BACK_Z_SEAM), leaving [180.8](BACK_BOTTOM_H) mm under the back seam. The front column's condenser and valve-tray wall roots bound that plane; the staggered tray's lower band stays inset from the lip. The cold core spans the seam in both columns.
 
-**What crosses the +Y wall of back-top.** The three umbilical unions — carbonated water to the faucet and the two flavor tubes to the gooseneck — cross on one storey at z [336.2](PORT_ROW_Z), at a [37.36 mm](PANEL_PITCH) pitch, which is well past what a socket needs to reach a nut with its neighbours made up. The band they take is the one over the pump's crown and under the top wall, open from the west boss chain across to the C14's own corner. The tap-water union stands lower, at z [336.2](WATER_PORT_Z), on the ASSE chain's own inlet column, so the joint between the two is flush and the chain stands as far aft as the wall allows. The CO2 inlet crosses on that same storey, one pitch east of the carb union, the mains C14 takes the +X flank beside the power block, and the RJ11 signal keystone snaps into its own keyed receptacle from inside. Detail: [`y-wall-of-back-top/`](/hardware/printed-parts/enclosure/y-wall-of-back-top/).
+**The rear connection face** carries six fluid fittings in two columns at X37.25 and
+X77.5, with rows at Z338.376, 306.376 and 274.376. Water/CO2 enter at the top,
+vent/soda leave at the middle, and flavor A/B leave at the bottom. C14 is west/upper,
+RJ11 west/lower. The rear wall is 9 mm stock with a 6 mm fluid-panel clamping section.
 
-**The cold core is reached through its cap, not through its wall.** All four reservoir lines land on cap conduits — bores up the cap's own columns, each opening on the lid's outer face, which is the bay's own floor — so a line reaching one arrives at the deck rather than at a body face, and none of them crosses the shell. Reservoir A is filled on `fluid-14` and drawn on `fluid-16`; reservoir B on `fluid-24` and `fluid-26`. The carb riser `carb-1` leaves the core's own outlet conduit and runs forward to the flow meter lying inline ahead of its union. The two flavour lines that leave the machine, `fluid-18` and `fluid-28`, are the longest runs it carries, each turning east on its own lane so neither stands where the other crosses. No cut length is drawn on this page: `tools/cad-venv/bin/python hardware/topology/_fluid_topology_sync.py` reports routed geometry and known cuts from the built assembly. The dock's upper tubes report their exposed paths, not stock blanks, and factory assembly adds the actual engagement at both fittings; each lower return tube reports its cut stock, both socket insertions included. The IP-01/IP-02 build cards carry the figures a bench works to.
-
-**What the scorecard reports:** the `routed` axis, [39](ROUTED_N) of the [39](CONNECTIONS_N) connections the machine owes are built. What is left is counted rather than dropped, so nothing disappears by being absent. The card written beside `enclosure-assembly.step` carries the rest of the verdict — the clash check, the bend grades, and the gates that block an export.
+**The cold core's fluid routes leave through its cap.** Reservoir cap bores retain their
+own datums while selected lid guides clear the PCB and pump. B-fill uses two actual
+compact fittings under the lid; A-fill and B-draw use shallow offsets. The gas guide
+follows the folded gas group. The carbonator water and soda fitting datums stay fixed.
+Tube geometry, insertions and spool choices are authored beside the production poses;
+nominal CAD paths are not physical cut-length or pressure qualification.
 
 ## Constraints the layout respects
 
@@ -46,8 +64,8 @@ The arrangement above is the current pack — a working layout. It is free to re
 - The condenser's airflow axis is its own short dimension, and it lies ACROSS the machine: the block draws through its finstack from the −X side face and exhausts out the +X one it stands against, so the air crosses the cabinet rather than turning inside it and the hot end leaves by the nearest wall.
 - The compressor stands upright, on its own feet, and cannot be laid on its side or inverted: the oil charge sits in the bottom of the hermetic can and the pickup is gravity-fed. That fixes its plate on the floor, which leaves a yaw as the only turn it has — and a yaw keeps its copper-bearing tangents horizontal, so the copper always leaves sideways.
 - The compressor is the one body on the floor the box fastens: four posts on the slab, struck off its own plate pattern, each rising through the rubber grommet in a plate hole to that grommet's crown, where a washer stops on it.
-- The funnel drains by gravity to the funnel gate, V-B, below it: the PP0308E elbow under its frame turns the drain aft, and `fluid-4` only falls from that elbow to V-B's inlet. The silicone stays top-removable for cleaning.
-- The ASSE 1022 vent uses a clear PVC hose and black neoFit adapters to the white 4 mm OVER, through the umbilical and faucet to its separate open outlet over the bowl.
+- The funnel drains by gravity to the funnel gate, V-B, below it: the fixed PP0308E elbow turns the drain aft, and the selected links reach V-B through compact elbows with no upward gravity-drain leg. The silicone stays top-removable for cleaning.
+- The ASSE 1022 vent uses its printed TPU drain adapter and white 4 mm LLDPE to the white 4 mm OVER, through the umbilical and faucet to its separate open outlet over the bowl.
 - Everything the customer draws leaves by the rear umbilical, so the carbonated-water run from the core's outlet to its own bulkhead stays short.
 
 The crossing airflow's grilles are the flanks' own flutes, pierced over the finstack — an intake on the −X face and an exhaust on the +X one ([the condenser's vents](/hardware/printed-parts/enclosure/enclosure/README.md#the-condensers-vents)); what ducts the block's faces to them is open. The gap beside each grille is [40 mm](/marketing/install-envelope.md), sized so the slot is not what the fan is fighting while it runs.
@@ -63,9 +81,9 @@ The crossing airflow's grilles are the flanks' own flutes, pierced over the fins
 ## Sub-folders
 
 - [`y-wall-of-back-top/`](/hardware/printed-parts/enclosure/y-wall-of-back-top/) — that wall's connection inventory. Not a separate part: it is a wall of `enclosure-back-top`.
-- [`nameplate/`](/hardware/printed-parts/enclosure/nameplate/) — the 104.53 × 38 mm horizontal brand-and-QR plate, lying flush in a pocket of the +Y wall of back-top beside the bulkhead rings, retained by two integral PET-GF snap tabs.
-- [`bulkhead-ring/`](/hardware/printed-parts/enclosure/bulkhead-ring/) — the flat chip inset into the wall under each rear-wall fitting's flange, in the colour of the tube that goes into it and lettered in raised type with that port's name.
-- [`anchor-cap/`](/hardware/printed-parts/enclosure/anchor-cap/) — the printed other half of a tube anchor's pipe, pressed on over the tube in place of a zip tie; five close the tube ribs: `carb-1`'s and `co2-2`'s under back-top's ceiling, `fluid-28`'s on its −X wall, and `fluid-14`'s and `fluid-18`'s on the cold core's lid.
+- [`nameplate/`](/hardware/printed-parts/enclosure/nameplate/) — the 104.53 × 38 mm horizontal brand-and-QR plate, seated in a raised flat field of back-top’s +Y wall below the port grid, retained by its integral horizontal wings.
+- [`rear-identification/`](/hardware/printed-parts/enclosure/rear-identification/) — six compact color chips seated under the rear fittings, with raised port names and common row pitch.
+- [`electronics-access-panel/`](/hardware/printed-parts/enclosure/electronics-access-panel/) — the empty screw-fastened roof closure over the rear electrical connections.
 - [`valve-tray/`](/hardware/printed-parts/enclosure/valve-tray/) — the plate of four valve seats under each of the flavour manifold's two decks. Not a separate part: both are `enclosure-front-top`'s own material, wall to wall.
 - [`pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/) — the case-derived collar source used twice in the small `enclosure-pump-cap` top clamp: a plate over the molded flange, an octagonal wall around the boss, and a shoulder around the motor can. Neither collar is separate. Pump weight bears through the molded skirt into the large lower `enclosure-pump-cartridge` cradle.
 

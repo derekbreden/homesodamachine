@@ -134,7 +134,7 @@ def fastener_datums(inner=DEFAULT_INNER, y_joint=200.0,
     bore_bottom = ledge - enc.heatset_long_len - SCREW_PILOT_RELIEF
     rows = []
     for col, x, y in (('front', 93.0, r['front'] + 32.0),
-                      ('back', 85.0, r['back'] - rear_roof_access_extension - 11.2)):
+                      ('back', 87.7, r['back'] - rear_roof_access_extension - 11.2)):
         for side in (-1, 1):
             name = 'west' if side < 0 else 'east'
             rows.append(dict(name=f'{col}-{name}', col=col, side=side,
@@ -144,24 +144,25 @@ def fastener_datums(inner=DEFAULT_INNER, y_joint=200.0,
                 bore_bottom_z=bore_bottom, host_bottom_z=bore_bottom - enc.wall,
                 screw_length=SCREW_LENGTH,
                 screw_length_allowance=SCREW_LENGTH_ALLOWANCE,
-                tip_z=head_seat - SCREW_LENGTH))
+                tip_z=head_seat - SCREW_LENGTH,
+                host_radius_mm=enc.heatset_dia / 2 + enc.wall))
     return tuple(rows)
 
 
-def _rear_ledge_relief(inner, y_joint, centre, seat, air=0.0):
-    """Open-bottom corner relief passing the rear ledges through the whole drop."""
+def _ledge_relief(inner, y_joint, centre, seat, air=0.0):
+    """Plain underside notches passing the four ledges through the vertical drop."""
     import enclosure as enc
     floor = datums(seat)[0]
     r = roof_datums(inner, centre, seat, y_joint)
     cuts = []
     for row in fastener_datums(inner, y_joint, centre, seat):
-        if row['col'] != 'back':
-            continue
         side = row['side']
-        inside = row['x'] - side * (enc.mount_boss_dia / 2 + enc.slide_slip - air)
+        inside = row['x'] - side * (row['host_radius_mm'] + enc.slide_slip - air)
         xa, xb = sorted((inside, centre[0] + side * 150.0))
         start = row['y'] - SCREW_PAD_HALF_Y - enc.slide_slip + air
-        cuts.append(cq.Solid.makeBox(xb - xa, r['back'] + air + 1 - start,
+        end = (r['back'] + air + 1 if row['col'] == 'back' else
+               row['y'] + SCREW_PAD_HALF_Y + enc.slide_slip - air)
+        cuts.append(cq.Solid.makeBox(xb - xa, end - start,
             r['floor'] - floor + 1, cq.Vector(xa, start, floor - 1)))
     return cq.Compound.makeCompound(cuts)
 
@@ -173,7 +174,7 @@ def body_blank(centre, seat, air=0.0, inner=DEFAULT_INNER, y_joint=200.0):
     body = _front_square_blank(body_width + 2 * air, r['front'] - air,
         r['back'] + air, floor - air, seat + air, cx, corner_radius + air,
         rear_narrowing(inner, y_joint, air))
-    body = body.cut(_rear_ledge_relief(inner, y_joint, centre, seat, air),
+    body = body.cut(_ledge_relief(inner, y_joint, centre, seat, air),
                     corbel_cut(centre, floor, air))
     return body.fuse(roof_blank(inner, centre, seat, air, y_joint)).clean()
 
@@ -212,13 +213,11 @@ def _frame_screw_cuts(inner, y_joint, centre, seat):
             head - floor + 1.01, cq.Vector(x, y, floor - 1))
         head_cut = cq.Solid.makeCylinder(enc.head_cbore_dia / 2,
             seat + funnel.brim_thickness + 1 - head, cq.Vector(x, y, head))
-        if row['col'] == 'front':
-            # Open the counterbore to the frame's side above its full bearing
-            # floor. This keeps no thin outer strip above the screw head seat.
-            xa, xb = sorted((x, centre[0] + row['side'] * 150.0))
-            head_cut = head_cut.fuse(cq.Solid.makeBox(xb - xa, enc.head_cbore_dia,
-                seat + funnel.brim_thickness + 1 - head,
-                cq.Vector(xa, y - enc.head_cbore_dia / 2, head)))
+        # Open each counterbore to the side above its complete bearing floor.
+        xa, xb = sorted((x, centre[0] + row['side'] * 150.0))
+        head_cut = head_cut.fuse(cq.Solid.makeBox(xb - xa, enc.head_cbore_dia,
+            seat + funnel.brim_thickness + 1 - head,
+            cq.Vector(xa, y - enc.head_cbore_dia / 2, head)))
         cuts.append(shank.fuse(head_cut).clean())
     return cq.Compound.makeCompound(cuts)
 
@@ -258,7 +257,7 @@ def receivers(inner, outer, y_joint, centre, seat, col):
         if row['col'] != col:
             continue
         side = row['side']
-        inside = row['x'] - side * enc.mount_boss_dia / 2
+        inside = row['x'] - side * row['host_radius_mm']
         xa, xb = sorted((inside, outer[0] if side < 0 else outer[1]))
         blocks.append(cq.Solid.makeBox(xb - xa, 2 * SCREW_PAD_HALF_Y,
             row['ledge_z'] - row['host_bottom_z'],

@@ -1,0 +1,434 @@
+{
+  "scope": "Cached insulated conductors and native connector/termination/jacket bodies against selected native fluid tube spans; no physical qualification.",
+  "conductor_count": 102,
+  "wiring_body_count": 125,
+  "tube_count": 25,
+  "cached_conductor_count": 102,
+  "missing_wire_breps": [],
+  "tube_spec_sha256": "82b4e0d4b3b07ad31a22956f173326e669182af7fb31080b5a63589f8228075b",
+  "tube_spec_source": "above_core_parts.route_specs + above_core_routes.route_specifications",
+  "review_complete": true,
+  "native_boolean_count": 160,
+  "tubes": {
+    "above-core-va-under-head": {
+      "candidate_bodies": [
+        "wire-DC1-V12",
+        "wire-DC1-GND",
+        "wire-DC2-V12",
+        "wire-DC3-negative",
+        "wire-J7-carb-earth-2",
+        "terminal-compressor-cord-jacket"
+      ],
+      "native_boolean_count": 6
+    },
+    "above-core-va-fore-feed": {
+      "candidate_bodies": [
+        "wire-AC6-PE",
+        "wire-PE-carbonator",
+        "wire-J1-COM",
+        "wire-J1-OUT6",
+        "wire-J1-OUT7",
+        "wire-J2-COM",
+        "wire-J2-FAN",
+        "wire-J7-RB1",
+        "wire-J7-RB2",
+        "wire-J7-RB3",
+        "wire-J7-RB4",
+        "wire-J7-earth-4",
+        "terminal-compressor-cord-jacket"
+      ],
+      "native_boolean_count": 13
+    },
+    "above-core-drain-vb-east-link": {
+      "candidate_bodies": [
+        "terminal-compressor-cord-jacket"
+      ],
+      "native_boolean_count": 1
+    },
+    "above-core-vb-yb-cross": {
+      "candidate_bodies": [
+        "wire-AC6-PE",
+        "wire-PE-bus",
+        "wire-J1-positive-A",
+        "terminal-compressor-cord-jacket"
+      ],
+      "native_boolean_count": 4
+    },
+    "above-core-vb-yb-link": {
+      "candidate_bodies": [
+        "wire-AC6-PE",
+        "wire-J1-positive-A",
+        "wire-J1-OUT7",
+        "wire-J13-AM2",
+        "wire-J13-AM1",
+        "wire-J13-BM2",
+        "wire-J13-BM1",
+        "terminal-compressor-cord-jacket"
+      ],
+      "native_boolean_count": 8
+    },
+    "above-core-pump-inlet-link": {
+      "candidate_bodies": [
+        "wire-J4-IO25",
+        "wire-flow-GND",
+        "terminal-compressor-cord-jacket"
+      ],
+      "native_boolean_count": 3
+    },
+    "above-core-pump-check-link": {
+      "candidate_bodies": [
+        "wire-PE-carbonator",
+        "wire-DC2-V12",
+        "wire-J4-IO26",
+        "wire-temp-GND",
+        "wire-J6-RA1",
+        "wire-J6-RA2",
+        "wire-J7-CLO",
+        "wire-J7-carb-earth-2",
+        "terminal-compressor-cord-jacket"
+      ],
+      "native_boolean_count": 9
+    },
+    "above-core-tee-vk-link": {
+      "candidate_bodies": [
+        "wire-J2-positive-K",
+        "terminal-compressor-cord-jacket"
+      ],
+      "native_boolean_count": 2
+    },
+    "above-core-reg-va-link": {
+      "candidate_bodies": [
+        "wire-J1-positive-A",
+        "terminal-compressor-cord-jacket"
+      ],
+      "native_boolean_count": 2
+    },
+    "above-core-tee-regulator": {
+      "candidate_bodies": [
+        "wire-J1-positive-A",
+        "terminal-compressor-cord-jacket"
+      ],
+      "native_boolean_count": 2
+    },
+    "above-core-water-in": {
+      "candidate_bodies": [
+        "terminal-compressor-cord-jacket"
+      ],
+      "native_boolean_count": 1
+    },
+    "above-core-gas-inlet": {
+      "candidate_bodies": [],
+      "native_boolean_count": 0
+    },
+    "above-core-gas-check-link": {
+      "candidate_bodies": [
+        "terminal-compressor-cord-jacket"
+      ],
+      "native_boolean_count": 1
+    },
+    "above-core-gas-core-drop": {
+      "candidate_bodies": [
+        "terminal-compressor-cord-jacket"
+      ],
+      "native_boolean_count": 1
+    },
+    "soda-core-rise": {
+      "candidate_bodies": [
+        "wire-J1-OUT2",
+        "wire-J2-positive-K",
+        "terminal-compressor-cord-jacket"
+      ],
+      "native_boolean_count": 3
+    },
+    "soda-core-meter": {
+      "candidate_bodies": [
+        "wire-J2-OUT3",
+        "terminal-compressor-cord-jacket"
+      ],
+      "native_boolean_count": 2
+    },
+    "water-5": {
+      "candidate_bodies": [
+        "wire-PE-bus",
+        "wire-J1-positive-A",
+        "wire-J1-OUT7",
+        "wire-J1-OUT8",
+        "wire-J2-OUT1",
+        "wire-J2-OUT2",
+        "wire-J2-OUT3",
+        "wire-J13-AM2",
+        "wire-J13-AM1",
+        "wire-J13-BM2",
+        "wire-J13-BM1",
+        "wire-J6-RA2",
+        "wire-J6-RA4",
+        "wire-J11-DOUT",
+        "wire-J11-AOUT",
+        "terminal-compressor-cord-jacket"
+      ],
+      "native_boolean_count": 16
+    },
+    "soda-meter-bulkhead": {
+      "candidate_bodies": [
+        "terminal-compressor-cord-jacket"
+      ],
+      "native_boolean_count": 1
+    },
+    "fluid-18": {
+      "candidate_bodies": [
+        "wire-AC1-PE",
+        "wire-AC4-H",
+        "wire-AC5-N",
+        "wire-AC6-PE",
+        "wire-PE-bus",
+        "wire-DC2-V12",
+        "wire-J1-positive-A",
+        "wire-J1-positive-C",
+        "wire-J1-positive-D",
+        "wire-J1-positive-E",
+        "wire-J1-OUT6",
+        "wire-J1-positive-F",
+        "wire-J1-OUT7",
+        "wire-J1-positive-G",
+        "wire-J1-positive-H",
+        "wire-J2-FAN",
+        "wire-J2-OUT3",
+        "terminal-compressor-cord-jacket"
+      ],
+      "native_boolean_count": 18
+    },
+    "fluid-28": {
+      "candidate_bodies": [
+        "wire-AC6-PE",
+        "wire-DC2-V12",
+        "wire-J1-OUT1",
+        "wire-J1-positive-A",
+        "wire-J2-OUT1",
+        "wire-J2-OUT3",
+        "wire-J13-AM2",
+        "wire-J13-AM1",
+        "wire-J13-BM2",
+        "wire-J13-BM1",
+        "wire-J5-IO2",
+        "wire-J6-RA2",
+        "wire-J11-DOUT",
+        "terminal-compressor-cord-jacket"
+      ],
+      "native_boolean_count": 14
+    },
+    "drain-vent": {
+      "candidate_bodies": [
+        "wire-PE-bus",
+        "terminal-compressor-cord-jacket"
+      ],
+      "native_boolean_count": 2
+    },
+    "fluid-14": {
+      "candidate_bodies": [
+        "wire-AC4-H",
+        "wire-J2-positive-K",
+        "wire-J4-V5",
+        "terminal-compressor-cord-jacket"
+      ],
+      "native_boolean_count": 4
+    },
+    "fluid-16": {
+      "candidate_bodies": [
+        "wire-PE-bus",
+        "wire-DC2-V12",
+        "wire-DC3-positive",
+        "wire-J1-positive-A",
+        "wire-J2-OUT3",
+        "wire-J6-RA2",
+        "terminal-compressor-cord-jacket"
+      ],
+      "native_boolean_count": 7
+    },
+    "fluid-26": {
+      "candidate_bodies": [
+        "wire-AC6-PE",
+        "wire-PE-carbonator",
+        "wire-DC1-V12",
+        "wire-DC4-V12",
+        "wire-DC2-V12",
+        "wire-J1-COM",
+        "wire-J1-positive-A",
+        "wire-J1-OUT6",
+        "wire-J1-OUT7",
+        "wire-J2-COM",
+        "wire-J2-FAN",
+        "wire-J13-AM2",
+        "wire-J13-AM1",
+        "wire-J13-BM2",
+        "wire-J13-BM1",
+        "wire-J4-IO25",
+        "wire-J7-RB1",
+        "wire-J7-RB2",
+        "wire-J7-RB3",
+        "wire-J7-RB4",
+        "wire-J7-earth-4",
+        "wire-J11-DOUT",
+        "terminal-compressor-cord-jacket"
+      ],
+      "native_boolean_count": 23
+    },
+    "fluid-24": {
+      "candidate_bodies": [
+        "wire-PE-carbonator",
+        "wire-DC1-V12",
+        "wire-DC2-V12",
+        "wire-J1-OUT1",
+        "wire-J1-positive-A",
+        "wire-J4-IO26",
+        "wire-temp-GND",
+        "wire-J5-IO2",
+        "wire-J6-GND",
+        "wire-J6-RA1",
+        "wire-J6-RA2",
+        "wire-J6-RA3",
+        "wire-J6-RA4",
+        "wire-J7-CLO",
+        "wire-J7-CHI",
+        "wire-J7-carb-earth-2",
+        "terminal-compressor-cord-jacket"
+      ],
+      "native_boolean_count": 17
+    }
+  },
+  "intersections": [],
+  "errors": [],
+  "wire_brep_sha256": {
+    "wire-AC1-L": "95570e4dc1ee9e876340943d4b231f380d51e2ddf41d3c58398de50a64f95bac",
+    "wire-AC1-N": "9299f86f39a957f6096efe446c6e8cc5ea4c11c7318c64ba639fc505d2d19bd5",
+    "wire-AC1-PE": "f598e5a4ecec6d9cfaa89a50b588e4205abc7776ebf1d3e3328127e70d37d377",
+    "wire-AC2-L": "7e94f145476dccf4e66c3fbc74043ca6d340862ab801c5107ce4794b74e99f38",
+    "wire-AC2-N": "36bae4c93fd8393f4ec73eab35f072aab4e9f728dc46f94b922dc0d5348c3a2d",
+    "wire-AC3-L": "3b96d50e5e78fc2314781485b6a1114316b9b9a6d1cf2f7bca26b9f7716731eb",
+    "wire-AC4-H": "b497c824d63339d62611f83da300c63d2f0e7e748f742c00687a917be641aa7a",
+    "wire-AC4-fuse": "dc503f3e3ea65dffa9849cae091f0034289ef485f6440e42c9be17af417b532b",
+    "wire-AC5-N": "29c7e5d9a4d278ac6ca576bc11c5db4b698ebb660fd1249be53ee88bd0ee660b",
+    "wire-AC6-PE": "61552cb9de0a4dfccde898e0abaedb1b724a0971e4d136944eafe53b6db31f9a",
+    "wire-PE-bus": "eedfe2ac0698dc734e3e9b9b1d19bfb4295088f3818cfae443620ce7c760a9c6",
+    "wire-PE-carbonator": "110b6a65227ef8c84303d1e3ed045b7ba5b83f2059a6413f397e07cbe10189f8",
+    "wire-DC1-V12": "a7ee555385ee92b247f29bff0a82c66a9e958f5045fda798685ea8af4b275880",
+    "wire-DC4-V12": "8097f017d829adc8ba008faddf63c8c1e470a16035cc683795294a5056ddd766",
+    "wire-DC1-GND": "15ae5522fc263b3e24b34d95c54d398d4ad2335bcf96f7a64eee632f2b4922a8",
+    "wire-DC4-GND": "afcbf06564ceec3f05c669b03c7bc482c23d46b1f1430024b920c9a9b957e7e9",
+    "wire-DC2-V12": "aa453c35babea634f99d660710a19f91d077308c889679c2ace6c1432beda0a7",
+    "wire-DC3-positive": "206315f96afa86d8d5ff05626663dbc07662624ef8c988b22c1a433fb81f1491",
+    "wire-DC3-negative": "933fe331342445ed830be34b1154ea47743aa80906b0aecef469cb67f4f0fbbb",
+    "wire-J1-COM": "8c1e3327329758cf5c470cb177d085e9fa22f6175a0eafd86de0711ebadf71bc",
+    "wire-J1-OUT1": "46d7d3710dc6ba0a0025df15ad2a199800bda7e2bbe896389d13ada39ccd7ebb",
+    "wire-J1-positive-A": "34c90348f47a320be2fce470a21c26241118ae61f56bfd47f492ddac406c6163",
+    "wire-J1-OUT2": "1025f400634cb8de7bab12e6d93ef79f5048560999757ba94af903f60fe5c4ca",
+    "wire-J1-positive-B": "6eeca478dec8429de45913af7f6ff4a9fd92eef3922f48a3216a7e1e6bec426e",
+    "wire-J1-OUT3": "3723476520648f0c49bfe2e0bdde797f919fd0c8d7cedddcc545c8c8411f22db",
+    "wire-J1-positive-C": "a34f2ddb9dae655a7be2cfb7db659d781c7bdc667a82f923cb14529d6bad73de",
+    "wire-J1-OUT4": "8a0eb36741fe942992599969586c24d0dfd45388d2cab5e71c9094505e4fbdb7",
+    "wire-J1-positive-D": "906425f55dbcd76b74905d031ba4073d3b5ea0dac9c832dfde4cc01e9438e59a",
+    "wire-J1-OUT5": "8c4e7d9373fd67b1980154c300892d3ff0b8875cf63870c177d203b9ee7a727f",
+    "wire-J1-positive-E": "8aec17b0de52cfedc7c73d44ee466a73ecb11a663f9b146e625d99e5fe18576d",
+    "wire-J1-OUT6": "7993d67f43f86ba26531981e110cdad0445875658f5a5afdd44d387477d3fd92",
+    "wire-J1-positive-F": "4e597b13d0d2bf3066e7f75f77b6695760746c787636f372767f59d183746af7",
+    "wire-J1-OUT7": "ba2a3e518e2c0a23f199f5778ed77a0258a5626b251c8f7363cae59d11934fbc",
+    "wire-J1-positive-G": "596b76fed8d09c01530003c53650000283ddaf0fce78f47ae66d54994723d15e",
+    "wire-J1-OUT8": "841939128aadc10bdbf8ddfe161f1a0afd6b15e8aeae523313e2f42ad51139c9",
+    "wire-J1-positive-H": "7f22dc60364817283eb1e8580d374bc6c7cd33685ff2b27cc88ab590de79c2ff",
+    "wire-J2-COM": "b9217cc13169911b87c48db39dcce0558f225753dcfd13b0662192c4ac450e21",
+    "wire-J2-OUT1": "849e0715dc41fb0cdc632feb67288e4ca372add500c27057587c9d2335c8fe60",
+    "wire-J2-positive-I": "706fbf790951cb8cd360aece912935ffaf53cb5386de83e574ccb23fd50f8bd6",
+    "wire-J2-OUT2": "b444b9f867e79870ab7e58a356641f5593e01b96b562058b5babf20470cc242d",
+    "wire-J2-positive-J": "263577f06ad4ca03fafa3530cd3ed8fa8f201a40a4e7c0c215876da99228d958",
+    "wire-J2-FAN": "13cefecfe4f63dcb1a1a21b19b6724c0707f33e9bac750f83aac83ace9ae1a66",
+    "wire-J2-positive-fan": "121d27ed8c912c450eb2be0eabf2b4f8051fecf7bab1f5fc880f11af3b1d3b09",
+    "wire-J2-OUT3": "91346cf7a4d6824ba83686639729efbf05987295bd66db3586fd436241df43a5",
+    "wire-J2-positive-K": "189b81289b8f4bfd19a3dc274deaa21b733ce4f0b6dad6db5871f35db5b482b5",
+    "wire-J13-AM2": "e51a4ac8361aff96fa6801b2332ca0ecef9b1a9cf0ba4eba6e7c6976106b354a",
+    "wire-cartridge-AM2": "d6708930f7e9d62d5b13c2f330bb428d739814f1257c4e7664e885edfdcea218",
+    "wire-J13-AM1": "9219e197284337570c4744150b3f4ab17b3fc4aa606aaf5f3cd7cf34c122bbb6",
+    "wire-cartridge-AM1": "9509a9b2332d9866f887164c032da09a181033abcec206f7496f55da6bb847e4",
+    "wire-J13-BM2": "800873d22155b238555a0ba4fcb6451e46dc951a22f194bf1ba5de62832099ed",
+    "wire-cartridge-BM2": "cee1c66aab27f79383f5e618be7ffec1028a287f50c43e80d1901db62fe5cc6c",
+    "wire-J13-BM1": "0395a2693fe591b86efa4d789fa502bfc8c8613b7c7b70d92975ba38229ffca8",
+    "wire-cartridge-BM1": "b5555a1362f8a1174d75918a66cff8f494ee5bbf93818643c5dff57bbef2a7f3",
+    "wire-J3-V5": "76fb6599d7bfc942b9c2e307fd2e03577270d026b191bba32b513996ea72c2be",
+    "wire-J3-GND": "17a6c73269b2d72f7eb0accb0e569910056235182184a8cf8589b6b7391a6491",
+    "wire-J3-IO35": "8c095d5cca0576c403502ec21db4c2754cd1f267994df7c3eac608d9625a2498",
+    "wire-J3-IO33": "7f71330bc7345facca881abe9d465ac5da9bc29bea828d7dbcb4c2060c44ab0e",
+    "wire-J4-3V3": "dd5bd3a7b0335b86f2d8f3199e0f66911ee92e09b158035c07d9bb9fc923108d",
+    "wire-J4-IO26": "c12972457535c71f5d929a9f5acf46bc93276ac649080e50593f6e12d4805184",
+    "wire-J4-V5": "8f9197bd070c6515ab6056c4499fb91f7203627a38ef6cea773d93923798f4c9",
+    "wire-J4-IO25": "df0c2103f3247af0dfacc3d8d5bda091845aebca26ae6b534aaa565ed7a8738f",
+    "wire-J4-GND": "39f3b526dab984401f7c47ca7cda924207f034ad8fc72ba60da71286dab77652",
+    "wire-temp-GND": "9a776c88749b34801a825bdf302b282723490608585cca5a8e86264a6d4172d8",
+    "wire-flow-GND": "fc91eef9cb4ec3028d54ad1d0578c3cd3a8a096730c0e776ce11bbe5c2d99f89",
+    "wire-temp-bus-V": "a66e5fcb790b6bab394722d13af71ecfc922aafa38ce77916c0a6c061334cc1a",
+    "wire-temp-bus-DATA": "77000469d29904db0035039aff94e30821893121cc8c3ff74fbb57b12919ec18",
+    "wire-temp-bus-GND": "e6e6e2328b960d3fe55c8ed01b628c7b5be8b519d588f5ed179e65924401f5ff",
+    "wire-J5-V5": "ef8783368cd163d5b2e4b9014b8f94b6f42ec4e39ce0f1f26bedf7547e6d8d37",
+    "wire-relay-bus-V5": "32a2b875bbcc4f30e84bbfc6bfea63e8ae7197b066e3cd221b6a47e3be5d2ff4",
+    "wire-J5-GND": "743920a92b8462aef385b1d49bf9db39a950448ab82bb7421b66f9d0d9f3b74f",
+    "wire-relay-bus-GND": "3c7188f98a6a2a33505258a7be6d14d30ae362d9b266ed5574ff7066d298f7f0",
+    "wire-J5-IO19": "63f95684153aa9e131fd58da81b918f777c83e8b255e7b3cb5a8ae6794ea85e9",
+    "wire-J5-IO2": "e2c248415c719a3261f2420ba908a7100febea33c199ac06a5a8fb0c1efb5fcd",
+    "wire-J6-GND": "36ca8a39ba4305506ae3909cfc9e1c66e35c189ee9fffe7932c65765d324d15f",
+    "wire-J6-RA1": "32aa955b35aa08499e1c60c21cf865409bd3445830d5543088303fdbb06a1765",
+    "wire-J6-earth-1": "7e47b4fee4d3748ba57b8a2418bad6b919d588c001fa745a77f2993b0cc1ec2b",
+    "wire-J6-RA2": "ab9ebd7cc46826f5820124f7bb57c5dd99df76622029860112cea86fb423439a",
+    "wire-J6-earth-2": "b5a2be70da7ca6c6997b99e0271e7775355539af805fbc4d5ea1b4907f5291f7",
+    "wire-J6-RA3": "dc527f9dd01fba79044ca484e1eb5a31c1cb60e4e70571c885d86023bf1e6787",
+    "wire-J6-earth-3": "bb2cdfa2af46b8b1961bbb9463d7585a153643ab9b348bc5b425a11cfc5e583c",
+    "wire-J6-RA4": "18fb3b837fb87aca6c74467fe177f5b6df11e5c06e01e7a0067fb9d71e03c1e8",
+    "wire-J7-GND": "0ad59046e378709a502b7beeeb977e18e25d03b32949cb2e4c9e98747a64e0f0",
+    "wire-J7-RB1": "2eda94789f695870a0a2e9fef07982a558a020db17ed4800f09bfac688ca8869",
+    "wire-J7-earth-1": "64ffb0bbcc56dc72d9bcce828f97a400a1fc8b035e89aceee14c1c43ece074cc",
+    "wire-J7-RB2": "b8996283af466ea0568eacbbc80f9d065311db606ba5041f57a29ddbf1e0bbe2",
+    "wire-J7-earth-2": "7249aaf2fd99d130c684ae97ff4c38839b478e7242d6f4c08ecbbe7378299d3f",
+    "wire-J7-RB3": "4128f772782947921587fe2fb3ff1a7448a9091ae497b9e384dbfa9c88078584",
+    "wire-J7-earth-3": "f5f023fd1aa3125d85b1e7643e977fd4d7bd37cba4f5c2e3548f607c513729bd",
+    "wire-J7-RB4": "0b2b6f79e21537779f05de8c964d83cff96a0778d7e0b2119b6d34972ba1f902",
+    "wire-J7-earth-4": "acda8740104aa28c86786a4bf9f28dec526e420a4c47c2345101b4a9d2582037",
+    "wire-J7-CLO": "f5652756fd2d5715358cb709e0e9375744dd9355851761ae11c3e0a1891a516d",
+    "wire-J7-carb-earth-1": "2dee8f23037fe497c7a29612901eeac6ce9ec12190082817f4af9429a3395918",
+    "wire-J7-CHI": "4e1768224ac85ed64d1bd7499c1ac0871e2507d2f7d02948d8fd9bbb3026de91",
+    "wire-J7-carb-earth-2": "ed4d6721235452d5f5944e0fdc81a9f722263bcf60350cf0dd5bc18852f726b3",
+    "wire-J9-B": "0012752f3be0f399c6843a72f2765e74fcce41ffc40d659f039c22513893382f",
+    "wire-J9-A": "d53eac965aa9470fbd59f3d1d1acc7f7f0f051b469c946d793f9fb672f5bee9e",
+    "wire-J9-GND": "68d8c3030f186bc92028d457ca60705331997fb16dd3b51e58fcfdded6330aab",
+    "wire-J9-V12": "30e861e5223295ff3cb6f80258a279898f0a4b1aec8103ad83d69750a9a49f6e",
+    "wire-J11-V5": "252929c3c143c02139e3e4a7c9884fecb12009c76a4cdc1bdf7177f866a5e237",
+    "wire-J11-GND": "88315072ae332bad5a87fb3341807ccdd839e599c7fb43bd6998afc2826e516d",
+    "wire-J11-DOUT": "91dfed5d55a525c7fce6d5b3275b88ab903362681df07e07e882bb5277eb8a94",
+    "wire-J11-AOUT": "579e772287fce9989addf5585391ebdf8b58b4b26e72feb4dee01437bd0baf6e",
+    "terminal-J1": "ce87a10774eaa8a64bdc30c48cbf676476047ee43d1d40ea31a2181e6eac015e",
+    "terminal-J2": "4c0423f5b68cf37d23460c91e7a4a899f5467e51c7f4d9bd376ca69b60da9017",
+    "terminal-J3": "e0f0ca825d822853790005dcc432a978568c8ff67cc2670e5e2100919f3c765f",
+    "terminal-J4": "a733027ea5970d0a55fd7055e680320edbb47cbf319a2ea24826776eaf65ba57",
+    "terminal-J5": "a8bd074a36226a65ccf26e6bedd8513d204efa4debedb9b1548a7042c9418d3a",
+    "terminal-J6": "c7fac8a154ef19f17018f0613499b552b229cc0cda6e7ad3c9123d115f5e639d",
+    "terminal-J7": "ff588f67f196d30fe4a05f14501346e9bc023a897decd7942d2a9e24ca9dbc34",
+    "terminal-J9": "88c102cb3f764196e45147d5bd948dc9d8219c1d428918194589ca28269402b7",
+    "terminal-J11": "a54da32e4c38020340be8e35e5d094bb927943b93ffde376fef11d01b08e3bb0",
+    "terminal-J13": "e8e0e941e4a9c60b0ae4a2249f8d9e986d9366dd748ebe06318bbe33b4b1bcf6",
+    "terminal-pogo-male-1": "95b82dd3a53a80c0cb8e6c0fd2b1145ee76fe76f30eea104e56855f0a1ad4272",
+    "terminal-pogo-male-2": "9e35e695529cd764d21263bc1c5f457bff65879feebf071fe77e914503a51579",
+    "terminal-pogo-male-3": "6d73da14694cda208952d8f760f32bceebc0fc7544e8cbfa1ef162c9f7241d93",
+    "terminal-pogo-male-4": "59e936f68d3256c931d4598714936a39db7ad927a4204296684b297851ea87ff",
+    "terminal-pogo-female-1": "41f500ffbe3dc5bebcd3e0314021787ddb4c23beeb081c24d235d531fbc578df",
+    "terminal-pogo-female-2": "f7ed3a6cca6ca93f5542fb486f34a20942cb73a2599b2a1c7b72a7b6ba68c452",
+    "terminal-pogo-female-3": "0ebf533fad4f8845b9fe1c56354d75f12bccfe61e6313e6edbe8cdbba9ad32f7",
+    "terminal-pogo-female-4": "6afdb87fc072dc8a8dfd886b4d6b0b39e8530590d655aed9006bd585a92b2a63",
+    "terminal-fuse-in-lead": "399ad04d0cd39bb82033b7bd58108fb88dcb7de3d2cdd0157d076a2058d8b1e5",
+    "terminal-fuse-in-splice": "912fd951e66580fad674a1ed33ab59d420f766694a99583fc17b94a20d9b3c26",
+    "terminal-fuse-out-lead": "ad193cc820b3588a1a7af682d59fc5d809d38901eda8db54a1f3a0ec3df2f8d1",
+    "terminal-fuse-out-splice": "2894af090968b9b05e017f583c7ffc5be6a1deb284ea760893c377d678b3f35c",
+    "terminal-compressor-cord-jacket": "96d9adea575fac6d6eef420d012dc6c851150ef2fd5371994cf8a5e1e682ee6b"
+  },
+  "geometrically_clear": true,
+  "source_sha256": {
+    "hardware/wiring/installed/above-core-review/tube_review.py": "b312ec622ef82ddaf70da1d3ad7af53fae759d389f6e359f4fb85bd9981548c7",
+    "hardware/manifold-layout/above_core_parts.py": "d379fc00d3e2f2779b5ab8ef76ee3e826cc45a3cb185d2a7665e3d81567a684d",
+    "hardware/manifold-layout/above_core_routes.py": "6d19d0196afbb0a429730f7df535a081b86d1ae4484b56187164dc8083893fd0",
+    "hardware/manifold-layout/above-core.json": "a67cd3b7a7711615206614201d07548bad1e945a937950a7718d4372abe29beb"
+  }
+}

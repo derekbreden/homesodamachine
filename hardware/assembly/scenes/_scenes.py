@@ -60,6 +60,16 @@ INNER_FOAM = ("foam-shell", "foam-cap-top", "foam-cap-lid-top",
 
 _COLD_CARD = _HW / "cold-core-layout" / "cold-core-assembly.scorecard.json"
 
+# Connected on the open core before the back column captures the header.
+# These final back-top tenants retain their temporary bench-stage ownership.
+CORE_INLET_HEADER_PREASSEMBLY = (
+    "water-split",
+    "flow-regulator",
+    "tube-above-core-tee-vk-link",
+    "tube-above-core-reg-va-link",
+    "tube-above-core-tee-regulator",
+)
+
 
 def core_names() -> tuple:
     """Every body the cold core's own assembly places, off the card written beside its STEP.
@@ -158,12 +168,16 @@ SCENES = (
         # It is the longest run in the appliance and its far end is a valve on the front top,
         # which is why it is made up here rather than reached for down a closed box.
         also=("tube-fluid-18",),
-        later=("bulkhead-carb", "bulkhead-drain"),
+        later=("bulkhead-carb", "bulkhead-drain",
+               *[name for name in CORE_INLET_HEADER_PREASSEMBLY
+                 if not name.startswith("tube-")]),
         cam=(0.6, -1.0, 0.5), up=(0, 0, 1), zoom=2.7, look="centre",
         note="Turned over, which is how it is worked: its ceiling is the bench, the Z seam "
              "looks up and the Y-seam mouth faces the room — the +X wall is seen from where a "
              "hand reaches it. The soda and drain bulkheads, their nuts and the nested soda "
-             "return elbows install after the back column closes. The tray's sleeve stands empty.",
+             "return elbows install after the back column closes. The split tee, regulator and "
+             "three header links are prepared on the core; the open roof saddles capture them "
+             "during the ride. The tray's sleeve stands empty.",
     ),
     Scene(
         "front-top", "Enclosure front top",
@@ -225,16 +239,19 @@ SCENES = (
         cam=(0.35, -0.2, 1.0), up=(-1.7, 1.0, 0), zoom=2.9, look="crown",
         note="The same cap and lid with everything that face carries: the pump bolted through, "
              "three valves seated in upright walls, flat PCB and PSU, check and meter in tied bearings. "
+             "Bare V-A seats first, then V-K, before equipment and fitted elbows obstruct the approach. "
              "It meets the rest of the core after all of it is on.",
     ),
     Scene(
         "cold-core", "Cold core, plumbed",
         roots=("foam-assembly",), inner=INNER_ALL, flip=None,
-        also=(), later=(),
+        also=CORE_INLET_HEADER_PREASSEMBLY, later=(),
         cam=(0.85, -1.0, 1.0), up=(0, 0, 1), zoom=3.25, look="centre",
         note="The core as it comes off its own bench and before the box is anywhere near it: "
              "the crown populated, and one tube standing in each of the seven cap conduits "
-             "with its far end loose. The evaporator's two coppers are not among them — those "
+             "with its far end loose. Its split tee, regulator and three short links are connected "
+             "and temporarily supported for capture by the back-top saddles. The evaporator's two "
+             "coppers are not among them — those "
              "are brazed with the machine built, not on this bench.",
     ),
     Scene(

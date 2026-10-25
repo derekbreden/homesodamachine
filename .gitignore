@@ -79,6 +79,10 @@ tools/cad-venv
 # what git carries.
 *.step
 hardware/printed-parts/zone-c/funnel/funnel-frame.stl
+hardware/printed-parts/enclosure/electronics-access-panel/electronics-access-panel.stl
+hardware/printed-parts/enclosure/rear-identification/rear-label-*.stl
+hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.stl
+hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.stl
 hardware/printed-parts/zone-c/funnel/elbow-cradle.stl
 hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl
 hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl

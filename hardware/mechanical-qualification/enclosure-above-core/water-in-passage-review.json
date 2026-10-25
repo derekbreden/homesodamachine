@@ -1,0 +1,935 @@
+{
+  "schema": 1,
+  "reviewed_date": "2026-10-24",
+  "scope": "Manual nominal native reading of the aft water-in passage, its floor-rooted side/roof sleeve and one continuous tube through the plain guide. The source metal elbow/adapter and all purchased poses are retained. No physical fit, hand access, pressure, sealing, retention, thermal or lifetime qualification.",
+  "reproduce": "tools/cad-venv/bin/python hardware/mechanical-qualification/enclosure-above-core/water_in_passage.py",
+  "guide_world_mm": [
+    -32.80179966121266,
+    410.0532889963965,
+    253.4
+  ],
+  "internal_points_world_mm": [
+    [
+      0.5513786173715971,
+      314.79497457293076,
+      219.4
+    ],
+    [
+      -55.0,
+      287.75287415846714,
+      219.4
+    ],
+    [
+      -56.0,
+      310.0,
+      239.4
+    ],
+    [
+      -56.0,
+      330.0,
+      239.4
+    ],
+    [
+      0.0,
+      330.0,
+      239.4
+    ],
+    [
+      -32.80179966121266,
+      410.0532889963965,
+      239.4
+    ],
+    [
+      -32.80179966121266,
+      410.0532889963965,
+      253.4
+    ]
+  ],
+  "minimum_radius_mm": 14.0,
+  "passage_diameter_mm": 7.5,
+  "side_and_roof_stock_mm": 3.0,
+  "cup_floor_specification_mm": 2.0,
+  "horizontal_floor_backing_mm": 2.1,
+  "floor_scope": "Existing complete 2 mm cup floor; only the actual curved pressure passage crosses it. New stock is clipped at its outer face with no below-floor projection.",
+  "floor_scope_sources": [
+    "hardware/printed-parts/cold-core/_cold_core_interface.py:43",
+    "hardware/printed-parts/cold-core/foam-cap/dry-closure-review.json"
+  ],
+  "cup_floor_outer_world_z_mm": 233.55,
+  "horizontal_floor_probes": [
+    {
+      "segment": 4,
+      "thickness_mm": 2.0,
+      "probe_volume_mm3": 9.40774756642412,
+      "missing_stock_mm3": 0.0
+    },
+    {
+      "segment": 5,
+      "thickness_mm": 2.0,
+      "probe_volume_mm3": 329.86722862692795,
+      "missing_stock_mm3": 0.0
+    },
+    {
+      "segment": 6,
+      "thickness_mm": 2.0,
+      "probe_volume_mm3": 317.00732170189144,
+      "missing_stock_mm3": 0.0
+    },
+    {
+      "segment": 7,
+      "thickness_mm": 2.0,
+      "probe_volume_mm3": 411.53261867362403,
+      "missing_stock_mm3": 0.0
+    },
+    {
+      "segment": 8,
+      "thickness_mm": 2.0,
+      "probe_volume_mm3": 774.7012788947426,
+      "missing_stock_mm3": 0.0
+    }
+  ],
+  "sensor_passage_wall_mm": 3.659307414297364,
+  "cup": {
+    "valid": true,
+    "solids": 1,
+    "passage_contact_mm3": 0.0,
+    "tube_contact_mm3": 0.0,
+    "missing_named_sleeve_stock_mm3": 0.0
+  },
+  "lid": {
+    "valid": true,
+    "solids": 1,
+    "passage_contact_mm3": 0.0,
+    "tube_contact_mm3": 0.0,
+    "missing_named_sleeve_stock_mm3": 0.0
+  },
+  "exported_internal_tube": {
+    "body": "line-water-in",
+    "valid": true,
+    "solids": 1,
+    "bounds_world_mm": [
+      [
+        -59.175,
+        290.99683438609605,
+        216.225
+      ],
+      [
+        1.941043035129033,
+        413.22828899639603,
+        253.4
+      ]
+    ],
+    "solid_tube_volume_mm3": 7273.034186157372,
+    "segmented_nominal_volume_mm3": 7273.034186156552,
+    "volume_difference_mm3": 8.194547262974083e-10
+  },
+  "continuous_tube_accounting": {
+    "internal_span_mm": 229.6562647659553,
+    "warm_span_mm": 24.60982837176045,
+    "modeled_total_mm": 254.26609313771576,
+    "warm_exposed_mm": 7.718828371760452,
+    "warm_elbow_receiving_mm": 16.891,
+    "warm_elbow_receiving_basis": "ATEU44 female socket published B=.665 inch; distinct from the ACHV receiving-depth family inference for its male stem.",
+    "carbonator_nominal_adapter_standoff_mm": 18.5,
+    "carbonator_socket_receiving_depth_mm": null,
+    "carbonator_allowance_basis": "The internal CAD span starts at the metal elbow mouth and includes the nominal 18.5 mm adapter standoff. Actual receiving depth is unmeasured; replace that nominal allowance with the installed receiving mark.",
+    "plain_guide_joint": false,
+    "plain_guide_insertion_mm": 0.0,
+    "plain_guide_cut": false
+  },
+  "source_hosts": {
+    "collet-water-in": {
+      "contact_mm3": 585.8805227063986
+    },
+    "carbonator-elbow-water-in": {
+      "contact_mm3": 0.0
+    }
+  },
+  "bounded_context_centerline_matches_current": true,
+  "bounded_context_receipt": {
+    "scope": "Completed corridor candidate against the recorded exported core and all125 cached electrical bodies. The current artifact reading below separately binds the final cup/lid and complete internal tube. This receipt is reused only while its centerline and recorded context remain unchanged.",
+    "source_sha256": "312265b172946f423ef203d2aced1b3a99cff63cb97960eef712e536440dd2ee",
+    "raw_port_world_mm": [
+      19.049999999999997,
+      323.8,
+      219.4
+    ],
+    "metal_elbow_mouth_world_mm": [
+      0.5513786173715971,
+      314.79497457293076,
+      219.4
+    ],
+    "adapter_release_world_mm": [
+      -16.08245513292613,
+      306.69771733560304,
+      219.4
+    ],
+    "adapter_body_standoff_mm": 18.5,
+    "original_metal_axis_world": [
+      -0.8991261486647418,
+      -0.4376895803960939,
+      0.0
+    ],
+    "points_world_mm": [
+      [
+        0.5513786173715971,
+        314.79497457293076,
+        219.4
+      ],
+      [
+        -55.0,
+        287.75287415846714,
+        219.4
+      ],
+      [
+        -56.0,
+        310.0,
+        239.4
+      ],
+      [
+        -56.0,
+        330.0,
+        239.4
+      ],
+      [
+        0.0,
+        330.0,
+        239.4
+      ],
+      [
+        -32.80179966121266,
+        410.0532889963965,
+        239.4
+      ],
+      [
+        -32.80179966121266,
+        410.0532889963965,
+        253.4
+      ]
+    ],
+    "segments": [
+      {
+        "kind": "line",
+        "points_mm": [
+          [
+            0.5513786173715971,
+            314.79497457293076,
+            219.4
+          ],
+          [
+            -37.93447579169723,
+            296.06027589632555,
+            219.4
+          ]
+        ]
+      },
+      {
+        "kind": "arc",
+        "points_mm": [
+          [
+            -37.93447579169723,
+            296.06027589632555,
+            219.4
+          ],
+          [
+            -49.84456430646999,
+            294.7854997411365,
+            223.37906588193698
+          ],
+          [
+            -55.63410451959639,
+            301.8598772026129,
+            232.08209039192792
+          ]
+        ],
+        "radius_mm": 14.0,
+        "center_mm": [
+          -42.31433512482988,
+          305.0576252285374,
+          229.19104372455345
+        ],
+        "axis": [
+          -0.306102701388543,
+          0.6288131025332735,
+          -0.7147693462125494
+        ],
+        "angle_rad": 1.8705392636718128
+      },
+      {
+        "kind": "line",
+        "points_mm": [
+          [
+            -55.63410451959639,
+            301.8598772026129,
+            232.08209039192792
+          ],
+          [
+            -55.820500237480125,
+            306.006646194695,
+            235.81000474960246
+          ]
+        ]
+      },
+      {
+        "kind": "arc",
+        "points_mm": [
+          [
+            -55.820500237480125,
+            306.006646194695,
+            235.81000474960246
+          ],
+          [
+            -55.95358426524324,
+            310.3567068218438,
+            238.47168530486476
+          ],
+          [
+            -56.0,
+            315.37281682890506,
+            239.4
+          ]
+        ],
+        "radius_mm": 14.0,
+        "center_mm": [
+          -55.30087336278551,
+          315.37281682890506,
+          225.41746725571016
+        ],
+        "axis": [
+          -0.9987523388778448,
+          0.0,
+          -0.04993761694389224
+        ],
+        "angle_rad": 0.7328789498596071
+      },
+      {
+        "kind": "line",
+        "points_mm": [
+          [
+            -56.0,
+            315.37281682890506,
+            239.4
+          ],
+          [
+            -56.0,
+            316.0,
+            239.4
+          ]
+        ]
+      },
+      {
+        "kind": "arc",
+        "points_mm": [
+          [
+            -56.0,
+            316.0,
+            239.4
+          ],
+          [
+            -51.89949493661167,
+            325.8994949366117,
+            239.4
+          ],
+          [
+            -42.0,
+            330.0,
+            239.4
+          ]
+        ],
+        "radius_mm": 14.0,
+        "center_mm": [
+          -42.0,
+          316.0,
+          239.4
+        ],
+        "axis": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "angle_rad": 1.5707963267948966
+      },
+      {
+        "kind": "line",
+        "points_mm": [
+          [
+            -42.0,
+            330.0,
+            239.4
+          ],
+          [
+            -20.866178553207234,
+            330.0,
+            239.4
+          ]
+        ]
+      },
+      {
+        "kind": "arc",
+        "points_mm": [
+          [
+            -20.866178553207234,
+            330.0,
+            239.4
+          ],
+          [
+            -9.240466613211044,
+            336.19981911182634,
+            239.4
+          ],
+          [
+            -7.91151339809711,
+            349.3081683016814,
+            239.4
+          ]
+        ],
+        "radius_mm": 14.0,
+        "center_mm": [
+          -20.866178553207234,
+          344.0,
+          239.4
+        ],
+        "axis": [
+          0.0,
+          -0.0,
+          0.9999999999999999
+        ],
+        "angle_rad": 1.9596791365410713
+      },
+      {
+        "kind": "line",
+        "points_mm": [
+          [
+            -7.91151339809711,
+            349.3081683016814,
+            239.4
+          ],
+          [
+            -27.49363135953123,
+            397.0986238412863,
+            239.4
+          ]
+        ]
+      },
+      {
+        "kind": "arc",
+        "points_mm": [
+          [
+            -27.49363135953123,
+            397.0986238412863,
+            239.4
+          ],
+          [
+            -31.24707316132965,
+            406.2589554204658,
+            243.50050506338835
+          ],
+          [
+            -32.80179966121266,
+            410.0532889963965,
+            253.4
+          ]
+        ],
+        "radius_mm": 14.0,
+        "center_mm": [
+          -27.49363135953123,
+          397.0986238412863,
+          253.4
+        ],
+        "axis": [
+          0.925333225365009,
+          0.3791548786915309,
+          -0.0
+        ],
+        "angle_rad": 1.5707963267948966
+      }
+    ],
+    "guide_world_mm": [
+      -32.80179966121266,
+      410.0532889963965,
+      253.4
+    ],
+    "minimum_radius_mm": 14.0,
+    "tube_length_mm": 229.6562647659553,
+    "valid": true,
+    "solids": 1,
+    "native_core": [
+      {
+        "body": "foam-shell",
+        "contact_mm3": 0.0,
+        "gap_mm": 2.8261531073251227
+      },
+      {
+        "body": "carbonator-elbow-prv",
+        "contact_mm3": 0.0,
+        "gap_mm": 5.260090270114599
+      },
+      {
+        "body": "reservoir-a",
+        "contact_mm3": 0.0,
+        "gap_mm": 14.172083834848129
+      },
+      {
+        "body": "reservoir-a-cap",
+        "contact_mm3": 0.0,
+        "gap_mm": 3.224532678091602
+      },
+      {
+        "body": "reservoir-a-gasket",
+        "contact_mm3": 0.0,
+        "gap_mm": 12.17870209162942
+      },
+      {
+        "body": "prv-sv125",
+        "contact_mm3": 0.0,
+        "gap_mm": 8.950999999999993
+      },
+      {
+        "body": "prv-shroud",
+        "contact_mm3": 0.0,
+        "gap_mm": 5.275000000000047
+      },
+      {
+        "body": "reservoir-b-fill-upper",
+        "contact_mm3": 0.0,
+        "gap_mm": 11.034554137732968
+      },
+      {
+        "body": "line-carb-water-out",
+        "contact_mm3": 0.0,
+        "gap_mm": 52.042741407026625
+      }
+    ],
+    "tube_vs_warm": [
+      {
+        "body": "psu",
+        "contact_mm3": 0.0,
+        "gap_mm": 8.023194235271824
+      },
+      {
+        "body": "g-ganen-pump",
+        "contact_mm3": 0.0,
+        "gap_mm": 8.49434215866623
+      },
+      {
+        "body": "va-outlet-elbow",
+        "contact_mm3": 0.0,
+        "gap_mm": 17.279645701464826
+      }
+    ],
+    "sleeve_vs_native": [
+      {
+        "body": "reservoir-a-cap",
+        "contact_mm3": 0.0,
+        "gap_mm": 0.4000000000000057
+      },
+      {
+        "body": "reservoir-b-fill-upper",
+        "contact_mm3": 0.0,
+        "gap_mm": 7.906400769888211
+      },
+      {
+        "body": "line-carb-water-out",
+        "contact_mm3": 0.0,
+        "gap_mm": 48.46774122777904
+      }
+    ],
+    "current_printed_passage_cuts": {
+      "foam-cap-top": 137.8142845802079,
+      "foam-cap-lid-top": 245.35547946266945
+    },
+    "receiving_mate_contacts": [
+      {
+        "body": "carbonator-elbow-water-in",
+        "overlap_mm3": 0.0
+      },
+      {
+        "body": "collet-water-in",
+        "overlap_mm3": 324.6684032939991
+      }
+    ],
+    "sensor_passage_air_gap_mm": 3.659307414297364,
+    "sensor_passage_air_overlap_mm3": 0.0,
+    "electrical_cache": [
+      {
+        "subject": "tube",
+        "body": "wire-AC4-H",
+        "contact_mm3": 0.0,
+        "gap_mm": 56.50430867411919
+      },
+      {
+        "subject": "carrier",
+        "body": "wire-AC4-H",
+        "contact_mm3": 0.0,
+        "gap_mm": 56.77170417195649
+      },
+      {
+        "subject": "tube",
+        "body": "wire-AC5-N",
+        "contact_mm3": 0.0,
+        "gap_mm": 62.268430191479524
+      },
+      {
+        "subject": "carrier",
+        "body": "wire-AC5-N",
+        "contact_mm3": 0.0,
+        "gap_mm": 67.54003698839283
+      },
+      {
+        "subject": "carrier",
+        "body": "wire-PE-bus",
+        "contact_mm3": 0.0,
+        "gap_mm": 67.95654319571135
+      },
+      {
+        "subject": "tube",
+        "body": "wire-PE-carbonator",
+        "contact_mm3": 0.0,
+        "gap_mm": 6.484307414297358
+      },
+      {
+        "subject": "carrier",
+        "body": "wire-PE-carbonator",
+        "contact_mm3": 0.0,
+        "gap_mm": 2.9093074142973663
+      },
+      {
+        "subject": "carrier",
+        "body": "wire-DC2-V12",
+        "contact_mm3": 0.0,
+        "gap_mm": 38.086164558423704
+      },
+      {
+        "subject": "tube",
+        "body": "wire-J4-3V3",
+        "contact_mm3": 0.0,
+        "gap_mm": 3.7334141840912944
+      },
+      {
+        "subject": "carrier",
+        "body": "wire-J4-3V3",
+        "contact_mm3": 0.0,
+        "gap_mm": 0.43720954041637583
+      },
+      {
+        "subject": "tube",
+        "body": "wire-J4-IO26",
+        "contact_mm3": 0.0,
+        "gap_mm": 4.346289273500147
+      },
+      {
+        "subject": "carrier",
+        "body": "wire-J4-IO26",
+        "contact_mm3": 0.0,
+        "gap_mm": 1.1116716401877358
+      },
+      {
+        "subject": "tube",
+        "body": "wire-temp-GND",
+        "contact_mm3": 0.0,
+        "gap_mm": 3.692380081343737
+      },
+      {
+        "subject": "carrier",
+        "body": "wire-temp-GND",
+        "contact_mm3": 0.0,
+        "gap_mm": 0.8989263209214283
+      },
+      {
+        "subject": "tube",
+        "body": "wire-J6-GND",
+        "contact_mm3": 0.0,
+        "gap_mm": 32.613811194815526
+      },
+      {
+        "subject": "carrier",
+        "body": "wire-J6-GND",
+        "contact_mm3": 0.0,
+        "gap_mm": 36.680355665721365
+      },
+      {
+        "subject": "tube",
+        "body": "wire-J6-RA1",
+        "contact_mm3": 0.0,
+        "gap_mm": 17.006569233490392
+      },
+      {
+        "subject": "carrier",
+        "body": "wire-J6-RA1",
+        "contact_mm3": 0.0,
+        "gap_mm": 21.314137647109526
+      },
+      {
+        "subject": "tube",
+        "body": "wire-J6-RA2",
+        "contact_mm3": 0.0,
+        "gap_mm": 36.02248505107944
+      },
+      {
+        "subject": "carrier",
+        "body": "wire-J6-RA2",
+        "contact_mm3": 0.0,
+        "gap_mm": 36.141461115573776
+      },
+      {
+        "subject": "tube",
+        "body": "wire-J6-RA3",
+        "contact_mm3": 0.0,
+        "gap_mm": 17.193263751533454
+      },
+      {
+        "subject": "carrier",
+        "body": "wire-J6-RA3",
+        "contact_mm3": 0.0,
+        "gap_mm": 21.337097081643805
+      },
+      {
+        "subject": "tube",
+        "body": "wire-J6-RA4",
+        "contact_mm3": 0.0,
+        "gap_mm": 34.8674431668479
+      },
+      {
+        "subject": "carrier",
+        "body": "wire-J6-RA4",
+        "contact_mm3": 0.0,
+        "gap_mm": 36.68500451913688
+      },
+      {
+        "subject": "tube",
+        "body": "wire-J7-CLO",
+        "contact_mm3": 0.0,
+        "gap_mm": 8.397608121725943
+      },
+      {
+        "subject": "carrier",
+        "body": "wire-J7-CLO",
+        "contact_mm3": 0.0,
+        "gap_mm": 4.822608121725968
+      },
+      {
+        "subject": "tube",
+        "body": "wire-J7-CHI",
+        "contact_mm3": 0.0,
+        "gap_mm": 9.582516924991674
+      },
+      {
+        "subject": "carrier",
+        "body": "wire-J7-CHI",
+        "contact_mm3": 0.0,
+        "gap_mm": 6.007516924991707
+      },
+      {
+        "subject": "tube",
+        "body": "wire-J7-carb-earth-2",
+        "contact_mm3": 0.0,
+        "gap_mm": 8.55570150414974
+      },
+      {
+        "subject": "carrier",
+        "body": "wire-J7-carb-earth-2",
+        "contact_mm3": 0.0,
+        "gap_mm": 4.980701504149718
+      }
+    ],
+    "air_vs_current_cup_above_floor_mm3": 0.0,
+    "cup_floor_outer_world_z": 233.55,
+    "horizontal_air_backing_mm": 2.0999999999999943,
+    "candidate_receipt_sha256": "dc1ce97db2a90da3c8adca2148cd79c9397ed4726d76b7513d3621e0faf69616",
+    "electrical_body_sha256": {
+      "wire-AC1-L": "95570e4dc1ee9e876340943d4b231f380d51e2ddf41d3c58398de50a64f95bac",
+      "wire-AC1-N": "9299f86f39a957f6096efe446c6e8cc5ea4c11c7318c64ba639fc505d2d19bd5",
+      "wire-AC1-PE": "f598e5a4ecec6d9cfaa89a50b588e4205abc7776ebf1d3e3328127e70d37d377",
+      "wire-AC2-L": "7e94f145476dccf4e66c3fbc74043ca6d340862ab801c5107ce4794b74e99f38",
+      "wire-AC2-N": "36bae4c93fd8393f4ec73eab35f072aab4e9f728dc46f94b922dc0d5348c3a2d",
+      "wire-AC3-L": "3b96d50e5e78fc2314781485b6a1114316b9b9a6d1cf2f7bca26b9f7716731eb",
+      "wire-AC4-H": "af771daa6178276747e2c92493b0c78d28d518ac184d448ee9d4dee581c6c54c",
+      "wire-AC4-fuse": "dc503f3e3ea65dffa9849cae091f0034289ef485f6440e42c9be17af417b532b",
+      "wire-AC5-N": "c6dfcb5baa8498033746c5eb655d08c5a8793c6f34939f88cb0641aabd008a2f",
+      "wire-AC6-PE": "a5831b6e6070580ed8928f662f83f4ca79f8e5b5847214d7b9b5ab9e1c312018",
+      "wire-PE-bus": "d53d89ade01494eee6309dee5447e5ccea563c70528000e236949844c5c67c05",
+      "wire-PE-carbonator": "110b6a65227ef8c84303d1e3ed045b7ba5b83f2059a6413f397e07cbe10189f8",
+      "wire-DC1-V12": "a7ee555385ee92b247f29bff0a82c66a9e958f5045fda798685ea8af4b275880",
+      "wire-DC4-V12": "9a84239e3bd465fdfa6e7f5723055b20f113b601ba6b6315bc1011403a97f45a",
+      "wire-DC1-GND": "7fd4fcd5a2991dfa550067d0d35bc39f66c6c286b825ae83861f58499a1dcbad",
+      "wire-DC4-GND": "afcbf06564ceec3f05c669b03c7bc482c23d46b1f1430024b920c9a9b957e7e9",
+      "wire-DC2-V12": "aa453c35babea634f99d660710a19f91d077308c889679c2ace6c1432beda0a7",
+      "wire-DC3-positive": "206315f96afa86d8d5ff05626663dbc07662624ef8c988b22c1a433fb81f1491",
+      "wire-DC3-negative": "933fe331342445ed830be34b1154ea47743aa80906b0aecef469cb67f4f0fbbb",
+      "wire-J1-COM": "70d2f68d474c15b9e698dbd0fef531f078f9e18bdf20bd55130b3738facc8151",
+      "wire-J1-OUT1": "46d7d3710dc6ba0a0025df15ad2a199800bda7e2bbe896389d13ada39ccd7ebb",
+      "wire-J1-positive-A": "e188a3b9b454870d5f982121278004c9244e1739983b4d861935fd484eb72bee",
+      "wire-J1-OUT2": "dfa813a2bd43622ede0245109807f9b134bdd5d1f44c924e50fe24c8e7d9366b",
+      "wire-J1-positive-B": "752463180d12affff91fc557f3565a18314725559c3e946e66ed3d61a808dd71",
+      "wire-J1-OUT3": "3723476520648f0c49bfe2e0bdde797f919fd0c8d7cedddcc545c8c8411f22db",
+      "wire-J1-positive-C": "26cf4e69d46706386dea3705c8be94cb158d44bb9eadab9c5525da28ff3f2796",
+      "wire-J1-OUT4": "8a0eb36741fe942992599969586c24d0dfd45388d2cab5e71c9094505e4fbdb7",
+      "wire-J1-positive-D": "37775b62ea112fd5b6e07fe47b536692ac7259eb9152144f7aa18c5792236328",
+      "wire-J1-OUT5": "8c4e7d9373fd67b1980154c300892d3ff0b8875cf63870c177d203b9ee7a727f",
+      "wire-J1-positive-E": "bc0c58f7a271ff537d47586b9dc88826e26fc5f1522196b437cb7b70aa6dce0f",
+      "wire-J1-OUT6": "0132e235b1339333996c3431fff5095cd6c9179d828e413927caa691b5448902",
+      "wire-J1-positive-F": "4e597b13d0d2bf3066e7f75f77b6695760746c787636f372767f59d183746af7",
+      "wire-J1-OUT7": "998e99407bb5d7e3fbab77c0472e7c926251c913f9dc16e745f75b95825f7bcd",
+      "wire-J1-positive-G": "596b76fed8d09c01530003c53650000283ddaf0fce78f47ae66d54994723d15e",
+      "wire-J1-OUT8": "841939128aadc10bdbf8ddfe161f1a0afd6b15e8aeae523313e2f42ad51139c9",
+      "wire-J1-positive-H": "4623aac400012b32c5d968113df4cdebd975c9a39d262eb20ae1578d87ce29b3",
+      "wire-J2-COM": "b9217cc13169911b87c48db39dcce0558f225753dcfd13b0662192c4ac450e21",
+      "wire-J2-OUT1": "b7a73f1cb515a6d4b857b8bbc8c3d04f7bfeaccddee8b50029d9bde7fc4ec0c9",
+      "wire-J2-positive-I": "706fbf790951cb8cd360aece912935ffaf53cb5386de83e574ccb23fd50f8bd6",
+      "wire-J2-OUT2": "b444b9f867e79870ab7e58a356641f5593e01b96b562058b5babf20470cc242d",
+      "wire-J2-positive-J": "263577f06ad4ca03fafa3530cd3ed8fa8f201a40a4e7c0c215876da99228d958",
+      "wire-J2-FAN": "de15b9089ba98e903ec6c1f3e8c1a0e84c77e42083aa7d4ebeede0d41aa4e4c8",
+      "wire-J2-positive-fan": "81acb451c8258adf627221c2b5f3b96d91370f71805b32e31bdd79f1f83ea1ae",
+      "wire-J2-OUT3": "a10aac4bd53d412479ef2fcbdce1e79bbdbfc1363a0e8181b849a3f1dec1d0ac",
+      "wire-J2-positive-K": "83f1c41e12bc7f77e1c13e4035ad99a05fbca6e42713d2ed43fcd66f0efac564",
+      "wire-J13-AM2": "e51a4ac8361aff96fa6801b2332ca0ecef9b1a9cf0ba4eba6e7c6976106b354a",
+      "wire-cartridge-AM2": "d6708930f7e9d62d5b13c2f330bb428d739814f1257c4e7664e885edfdcea218",
+      "wire-J13-AM1": "78f7ea323910f5f5008c780d7794d276e4adc69b40cf8ed62a49e71f9a29a7f7",
+      "wire-cartridge-AM1": "9509a9b2332d9866f887164c032da09a181033abcec206f7496f55da6bb847e4",
+      "wire-J13-BM2": "ffde206791eebeb99a32044afeb53b6914b4e20e639bc27d4e67ad94e559a175",
+      "wire-cartridge-BM2": "cee1c66aab27f79383f5e618be7ffec1028a287f50c43e80d1901db62fe5cc6c",
+      "wire-J13-BM1": "3913f5c44a0881fa57871c2a3e94c9016eabe56f9eb2acd9e4d9452745a9e30b",
+      "wire-cartridge-BM1": "b5555a1362f8a1174d75918a66cff8f494ee5bbf93818643c5dff57bbef2a7f3",
+      "wire-J3-V5": "76fb6599d7bfc942b9c2e307fd2e03577270d026b191bba32b513996ea72c2be",
+      "wire-J3-GND": "17a6c73269b2d72f7eb0accb0e569910056235182184a8cf8589b6b7391a6491",
+      "wire-J3-IO35": "64122a6608e7bb825c1d47b9ea48ab7f31b0a2f9c873459df87de499ecc8c150",
+      "wire-J3-IO33": "495cb3428d16fef46eb87ccd30d4d619c2dbc15b6e438a40235daf37e06bdbc0",
+      "wire-J4-3V3": "0bb7168e3ba173516a18785f4914c3774b614dd4ae188284713e62a45450f388",
+      "wire-J4-IO26": "1d25b99daf895c2725b0bd57f29724ba4e84ea345f35a5d80dffdeea9c6e1fa3",
+      "wire-J4-V5": "c4a3dc3c925b77e6735c2035b3eec67a5a98d9c1fce154c4c2e5da8b3348da09",
+      "wire-J4-IO25": "45aa89d8275305199c3894d4576992763805b42d16ac094bde4b1dd1c92b93f9",
+      "wire-J4-GND": "39f3b526dab984401f7c47ca7cda924207f034ad8fc72ba60da71286dab77652",
+      "wire-temp-GND": "10ee99f0ae6ddf25a113bd794654c1923955fb19deaa6855aa529573cc0721ef",
+      "wire-flow-GND": "f561864e87aa541e7fbdc1057e8a93c2a842b3ddc5abad8bf2115b146ea6b635",
+      "wire-temp-bus-V": "a66e5fcb790b6bab394722d13af71ecfc922aafa38ce77916c0a6c061334cc1a",
+      "wire-temp-bus-DATA": "77000469d29904db0035039aff94e30821893121cc8c3ff74fbb57b12919ec18",
+      "wire-temp-bus-GND": "e6e6e2328b960d3fe55c8ed01b628c7b5be8b519d588f5ed179e65924401f5ff",
+      "wire-J5-V5": "ef8783368cd163d5b2e4b9014b8f94b6f42ec4e39ce0f1f26bedf7547e6d8d37",
+      "wire-relay-bus-V5": "32a2b875bbcc4f30e84bbfc6bfea63e8ae7197b066e3cd221b6a47e3be5d2ff4",
+      "wire-J5-GND": "743920a92b8462aef385b1d49bf9db39a950448ab82bb7421b66f9d0d9f3b74f",
+      "wire-relay-bus-GND": "3c7188f98a6a2a33505258a7be6d14d30ae362d9b266ed5574ff7066d298f7f0",
+      "wire-J5-IO19": "63f95684153aa9e131fd58da81b918f777c83e8b255e7b3cb5a8ae6794ea85e9",
+      "wire-J5-IO2": "e2c248415c719a3261f2420ba908a7100febea33c199ac06a5a8fb0c1efb5fcd",
+      "wire-J6-GND": "a254b9e439013fd30e5927f93581df7b65007ac0dda3c6586048cd1662a09c3c",
+      "wire-J6-RA1": "202a57f251e0e8767f041637d2d5c87f25ec1c611bd4816ec60a3a230a847e9c",
+      "wire-J6-earth-1": "7e47b4fee4d3748ba57b8a2418bad6b919d588c001fa745a77f2993b0cc1ec2b",
+      "wire-J6-RA2": "a07d31e1260d115623529106424c9a51e81a3a9d32f75c609be48e85bc9b706a",
+      "wire-J6-earth-2": "b5a2be70da7ca6c6997b99e0271e7775355539af805fbc4d5ea1b4907f5291f7",
+      "wire-J6-RA3": "d8fac514bcc60a04e7b124befde435d0913aa42225a29035cde93cedcf002b8c",
+      "wire-J6-earth-3": "bb2cdfa2af46b8b1961bbb9463d7585a153643ab9b348bc5b425a11cfc5e583c",
+      "wire-J6-RA4": "6502ddf44e51141c770932fbdcdf13e24460b27f300b24eb89a472786fd33916",
+      "wire-J7-GND": "0ad59046e378709a502b7beeeb977e18e25d03b32949cb2e4c9e98747a64e0f0",
+      "wire-J7-RB1": "d5cc4eb845178b6e88579d85f282c18646345f37857f9713098f6550e08dd567",
+      "wire-J7-earth-1": "64ffb0bbcc56dc72d9bcce828f97a400a1fc8b035e89aceee14c1c43ece074cc",
+      "wire-J7-RB2": "b8996283af466ea0568eacbbc80f9d065311db606ba5041f57a29ddbf1e0bbe2",
+      "wire-J7-earth-2": "7249aaf2fd99d130c684ae97ff4c38839b478e7242d6f4c08ecbbe7378299d3f",
+      "wire-J7-RB3": "4128f772782947921587fe2fb3ff1a7448a9091ae497b9e384dbfa9c88078584",
+      "wire-J7-earth-3": "f5f023fd1aa3125d85b1e7643e977fd4d7bd37cba4f5c2e3548f607c513729bd",
+      "wire-J7-RB4": "0b2b6f79e21537779f05de8c964d83cff96a0778d7e0b2119b6d34972ba1f902",
+      "wire-J7-earth-4": "acda8740104aa28c86786a4bf9f28dec526e420a4c47c2345101b4a9d2582037",
+      "wire-J7-CLO": "5dd51f7c19acf31f2a8723498edcf89ba677f77b11c88afc33832550f3fa3ea0",
+      "wire-J7-carb-earth-1": "2dee8f23037fe497c7a29612901eeac6ce9ec12190082817f4af9429a3395918",
+      "wire-J7-CHI": "4b4f55f37ae12e7506628e671ec95db8b458925b2c805f6ae824acb4f55ad592",
+      "wire-J7-carb-earth-2": "ed4d6721235452d5f5944e0fdc81a9f722263bcf60350cf0dd5bc18852f726b3",
+      "wire-J9-B": "f824396d53850e221398b35938d8a58e4a73663b230c6c1ce51de62a3e4ba912",
+      "wire-J9-A": "9d3c1c2d66e9810cba5c9d2dd666a5c30d1d44ea1939f19cc8fc43ebe8db9c27",
+      "wire-J9-GND": "ccd804531e55faf95bfff16d815414d750e62a770740a12baa4c66dd952ff9e1",
+      "wire-J9-V12": "1be11057a2a62e10a2953108467dc83331090cff933ce5af6a7ec49951f8cd61",
+      "wire-J11-V5": "252929c3c143c02139e3e4a7c9884fecb12009c76a4cdc1bdf7177f866a5e237",
+      "wire-J11-GND": "88315072ae332bad5a87fb3341807ccdd839e599c7fb43bd6998afc2826e516d",
+      "wire-J11-DOUT": "91dfed5d55a525c7fce6d5b3275b88ab903362681df07e07e882bb5277eb8a94",
+      "wire-J11-AOUT": "ad996aa320bb94a2a47144fcd0005f24cdc96cccbf6e8a4e94ed32c91e12e77b",
+      "terminal-J1": "ce87a10774eaa8a64bdc30c48cbf676476047ee43d1d40ea31a2181e6eac015e",
+      "terminal-J2": "4c0423f5b68cf37d23460c91e7a4a899f5467e51c7f4d9bd376ca69b60da9017",
+      "terminal-J3": "e0f0ca825d822853790005dcc432a978568c8ff67cc2670e5e2100919f3c765f",
+      "terminal-J4": "a733027ea5970d0a55fd7055e680320edbb47cbf319a2ea24826776eaf65ba57",
+      "terminal-J5": "a8bd074a36226a65ccf26e6bedd8513d204efa4debedb9b1548a7042c9418d3a",
+      "terminal-J6": "c7fac8a154ef19f17018f0613499b552b229cc0cda6e7ad3c9123d115f5e639d",
+      "terminal-J7": "ff588f67f196d30fe4a05f14501346e9bc023a897decd7942d2a9e24ca9dbc34",
+      "terminal-J9": "88c102cb3f764196e45147d5bd948dc9d8219c1d428918194589ca28269402b7",
+      "terminal-J11": "a54da32e4c38020340be8e35e5d094bb927943b93ffde376fef11d01b08e3bb0",
+      "terminal-J13": "e8e0e941e4a9c60b0ae4a2249f8d9e986d9366dd748ebe06318bbe33b4b1bcf6",
+      "terminal-pogo-male-1": "95b82dd3a53a80c0cb8e6c0fd2b1145ee76fe76f30eea104e56855f0a1ad4272",
+      "terminal-pogo-male-2": "9e35e695529cd764d21263bc1c5f457bff65879feebf071fe77e914503a51579",
+      "terminal-pogo-male-3": "6d73da14694cda208952d8f760f32bceebc0fc7544e8cbfa1ef162c9f7241d93",
+      "terminal-pogo-male-4": "59e936f68d3256c931d4598714936a39db7ad927a4204296684b297851ea87ff",
+      "terminal-pogo-female-1": "41f500ffbe3dc5bebcd3e0314021787ddb4c23beeb081c24d235d531fbc578df",
+      "terminal-pogo-female-2": "f7ed3a6cca6ca93f5542fb486f34a20942cb73a2599b2a1c7b72a7b6ba68c452",
+      "terminal-pogo-female-3": "0ebf533fad4f8845b9fe1c56354d75f12bccfe61e6313e6edbe8cdbba9ad32f7",
+      "terminal-pogo-female-4": "6afdb87fc072dc8a8dfd886b4d6b0b39e8530590d655aed9006bd585a92b2a63",
+      "terminal-fuse-in-lead": "399ad04d0cd39bb82033b7bd58108fb88dcb7de3d2cdd0157d076a2058d8b1e5",
+      "terminal-fuse-in-splice": "912fd951e66580fad674a1ed33ab59d420f766694a99583fc17b94a20d9b3c26",
+      "terminal-fuse-out-lead": "ad193cc820b3588a1a7af682d59fc5d809d38901eda8db54a1f3a0ec3df2f8d1",
+      "terminal-fuse-out-splice": "2894af090968b9b05e017f583c7ffc5be6a1deb284ea760893c377d678b3f35c",
+      "terminal-compressor-cord-jacket": "f82eb33efbf1926cb4ac6de60df3092afaff2218150fc6069d109fde4ecb5285"
+    }
+  },
+  "source_hashes_sha256": {
+    "hardware/manifold-layout/above-core.json": "925438fdf7bb58011a95ea53c485b713bc8c243a80b0c515a2ba0ead000ccc5a",
+    "hardware/printed-parts/cold-core/_above_core_mounts.py": "6a95906f395fc774eb11a06e1246847cf5ef30bff6e39e08489b8c006baedc27",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "5dae3ef9f2254127cd24bbed5c063bbe77b95c1af6d829d02fc6057c724d5a9d",
+    "hardware/printed-parts/cold-core/_internal_routes.py": "bc13050bf193f415a18c677b97ce4af703d9cd02f6750d08aef34cab39534480",
+    "hardware/printed-parts/cold-core/_foam_cap.py": "32401fcd127cdc7cfc80eb3fb3a9b01026c3b1e4c7ebf0b7b138362cfbf28203",
+    "hardware/printed-parts/cold-core/_foam_shell.py": "45955f213fbaedf6ea31763abb672b3c4eec660394bb81ff2b5017bcddcad6e1",
+    "hardware/cold-core-layout/cold_core_assembly.py": "7a1752f075cc06dcea539020a6672b02aa1dcfeb113c393cb9fb25f4a931b0bd"
+  },
+  "exported_solids_sha256": {
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "bcc58b8837501a5f7d326767912a077882846347be00329a87d65a05aef6d1b2",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "286834d9a5fe464c54168b432c37f13ce65b19caeac1985dfa22d1ce36cb49ee",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "83309617dae07a93762d1665676d8c5e812b0daed369ee5fbd58d2f4b8a80691",
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "a12f6ef07d3bcf8d40ac9e20852177db27072ce1ed243b3de9e5dc4c9af6088b",
+    "hardware/cold-core-layout/cold-core-assembly.step": "07088668313393ee69a2091ab4d6bf3f6dc1d552780b3067a040dbe2d66e7aa2"
+  },
+  "carrier_root_connectivity_basis": "The complete named sleeve is present in the valid single-solid cup and overlaps its retained floor; the source clips new stock at the existing outer floor face.",
+  "current_artifact_binding": {
+    "scope": "Current canonical artifact binding through the exact named subtractive stock change. The original scoped native query is retained at its own source/artifact hashes; unchanged geometry is not represented as a repeated full query.",
+    "current_artifact_sha256": {
+      "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "286834d9a5fe464c54168b432c37f13ce65b19caeac1985dfa22d1ce36cb49ee",
+      "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "3dc027887921d731b82089a236f760df9b5f27abc85851f1f347b71c43ecda20",
+      "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "890b6a06c4306d847265fcd4a3757c9b3c8b73a5828d856e93d81128b9788843",
+      "hardware/cold-core-layout/cold-core-assembly.step": "ff57cb20b177e4bef8dcbbbd81b429c6725ab60ad8f08f704c8950d4122d747d"
+    },
+    "current_source_sha256": {
+      "hardware/manifold-layout/above-core.json": "925438fdf7bb58011a95ea53c485b713bc8c243a80b0c515a2ba0ead000ccc5a",
+      "hardware/printed-parts/cold-core/_above_core_mounts.py": "57b2a5912d73ef99b62c0de45feceef4d2bb96711079d9e31b4eaead1199bbda",
+      "hardware/printed-parts/cold-core/_foam_cap.py": "32401fcd127cdc7cfc80eb3fb3a9b01026c3b1e4c7ebf0b7b138362cfbf28203"
+    },
+    "retained_geometry": {
+      "points_unchanged": true,
+      "maximum_probe_z_mm": 254.4,
+      "removed_stock_min_z_mm": 267.3,
+      "disjoint_z_gap_mm": 12.900000000000006
+    },
+    "native_lid_reconstruction": {
+      "construction": "Prior canonical lid minus the one named 6 x 7.7 x 12.7 mm rectangular shoulder, in the native lid frame, followed by native face cleanup.",
+      "expected_volume_mm3": 335051.11791577045,
+      "current_export_volume_mm3": 335051.11791577056,
+      "volume_difference_mm3": 1.1641532182693481e-10,
+      "face_count": [
+        270,
+        270
+      ],
+      "all_face_signatures_match": true,
+      "signature_fields": [
+        "surface type",
+        "area rounded to 1e-5 mm2",
+        "centroid rounded to 1e-5 mm",
+        "bounds rounded to 1e-5 mm"
+      ],
+      "no_added_or_changed_stock_outside_named_cut": true,
+      "coincident_whole_lid_commons_used": false
+    },
+    "removed_shoulder_world_mm": [
+      [
+        50.0,
+        364.71479999999997,
+        267.3
+      ],
+      [
+        57.7,
+        370.71479999999997,
+        280.0
+      ]
+    ]
+  }
+}

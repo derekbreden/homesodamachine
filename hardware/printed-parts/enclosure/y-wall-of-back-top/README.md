@@ -1,99 +1,91 @@
-# +Y wall of back-top
+# Rear connection face
 
-**It is not a part of its own.** The face every connection crosses is a wall of the printed
-`enclosure-back-top` piece, and every connection the appliance makes to the world
-is a hole in it — cut by
-[`../enclosure/enclosure.py`](/hardware/printed-parts/enclosure/enclosure/enclosure.py)
-from the pack's own `back_ports`
-([`enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py)). This file is that
-face's connection inventory.
+The rear connection face is part of `enclosure-back-top`, printed in PET-GF.
+[above-core.json](/hardware/manifold-layout/above-core.json) supplies the native
+fluid and dry-connector stations;
+[_above_core_shell.py](/hardware/printed-parts/enclosure/enclosure/_above_core_shell.py)
+cuts the wall and supports. The face manages connections. Each purchased
+bulkhead seals the fluid around its tube; the printed wall carries its flange
+and panel nut.
 
-Everything lands in the band above the cold core: the umbilical port that accepts
-the four tubes coming down from the under-cabinet faucet through the countertop
-and the keystone jack its signal ribbon plugs into, the tap-water inlet, the AC
-inlet, and the **CO2 inlet**. The connector bodies
-reach forward into the band's open rear half — the electronics bay stands against the
-+X wall, clear of them — so every body hangs in open air. The piece prints in
-**PET-GF** — see §"Material" below.
+## Six fluid stations
 
-The face has no fluid-pressure duty. It is a connection-management face:
-hole patterns sized for off-the-shelf bulkheads and panel-mount receptacles,
-with printed bezels, recesses, and labels where the user-facing fit-and-feel
-benefits.
+Coordinates are enclosure-world millimetres. +Y is outward, toward the
+customer's connections. Both columns use 32 mm vertical pitch.
 
-## Connections inventory
+| Row / Z | West / X37.25 | East / X77.5 |
+|---|---|---|
+| [338.376](GRID_TOP_Z) | TAP: PP1208E, white 1/4-inch inlet | CO2: neoFit ABU44-E, red 1/4-inch inlet |
+| [306.376](GRID_MIDDLE_Z) | OVER: ABU44M-E, white 4 mm vent | SODA: PP1208E, blue 1/4-inch outlet |
+| [274.376](GRID_BOTTOM_Z) | FLAVOR: ABU44M-E, black 4 mm A outlet | FLAVOR: ABU44M-E, black 4 mm B outlet |
 
-| # | Connection | Face | Hardware | Hole | Notes |
-|---|---|---|---|---|---|
-| 1 | AC inlet | Rear | IEC 60320 C14 panel-mount receptacle ([MXR B07DCXKNXQ](https://www.amazon.com/dp/B07DCXKNXQ)) | rounded rectangular cutout per C14 spec, bored through a printed tunnel standing round it on the inner face | Easternmost station, on the umbilical row's own storey, at the end of the wall the electronics bay stands against — its cordage drops the wall and runs forward to the AC distribution on that column. It lands from **inside**: the rim round its cavity on the pocket floor around the bore, its ears standing [1.84 mm](C14_RIM_PROUD) off that floor with an M3 heat-set either side of the bore. The rim face sits [8.25 mm](C14_RIM_INSET) inside the wall's outer plane and the C13 nose comes down the bore to it and into the cavity. Cord housing is the strain relief — no separate grommet here, and no cable gland anywhere on this wall. Recess detail in §"AC inlet recess" below. |
-| 2 | Water inlet | Rear | John Guest PP1208E 1/4" OD black PP push-to-connect bulkhead union ([B00JYFU8MM](https://www.amazon.com/dp/B00JYFU8MM)) — customer pushes the install-kit 1/4" LLDPE into this bulkhead, no tools | ø[17.4 mm](PANEL_HOLE_D) barrel envelope with a tangent teardrop roof (identical SKU and hole to the SODA umbilical port) | **Customer-facing 1/4" JG QC**, at the west end of the umbilical row's own storey, over the west flavor union, its nut riding just above the rear seam-lip band. The install-kit Waterdrop 15UC-UF filter mounts customer-side, inline upstream of this bulkhead (`bom.md §3`). Inboard, the feed runs forward across the band above the cold core and down the foam-face slab: through the PP010822E 1/4" PTC × 1/4" NPT M → GAGIRA 316L SS 3/8" NPT F × 1/4" NPT F reducing coupling → ASSE 1022's 3/8" MPT inlet, then the ASSE 1022's 3/8" MFL outlet → PI4512F6S + PP061208W → 1/4" LLDPE → water-split PP0208E tee → V-K → a clamped 3/8" stub onto the G Ganen's molded suction barb. The internal ASSE 1022 chain sits *inside* the cabinet (downstream of the ASSE 1022's MFL outlet), not on this wall. Install kit ships **two** under-sink tee options and the white run, filter inline: a JG PP0208E 1/4" PTC × 1/4" PTC × 1/4" PTC union tee (black NSF-cert PP) for homes with 1/4" LLDPE already under the sink, and a John Guest ASVPP1LF 3/8"×3/8"×1/4" angle stop adapter valve for homes with a 3/8" angle stop + braided riser. |
-| 4 | CO2 inlet | Rear | neoFit ABU44 acetal black bulkhead connector, 1/4" tube ([FWS](https://www.freshwatersystems.com/products/neofit-acetal-black-bulkhead-connector-1-4-tube)) | Ø[17.3](CO2_HOLE_D) barrel envelope with a tangent teardrop roof, one column east of the carb union on the umbilical row's own storey | **On this wall** — the customer's red 1/4" LLDPE tether from the CGA-320 regulator on their own cylinder pushes into this collet; its regulator end sits in a gray acetal PI010822S threaded into that regulator's 1/4" NPT outlet port before shipping. Acetal, rated for CO2 and inert gases where the black polypropylene range is not, and black like the four unions beside it. Red bulkhead ring under its flange. Inboard, red tube reaches WR1105 IN, then WR1105 OUT feeds the downstream GASHER check with its arrow toward the carbonator. Gas-rated gray acetal adapters take every threaded end onto tube: PI010822S in the three female ports (WR1105 IN, the check's inlet, the cold-core gas elbow) and PI450822S on the two male outlets (WR1105 OUT, the check's outlet). The check and its measured hose routes lead to the cold core's `co2-in` cap conduit (`bom.md §4`, [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §1). |
-| 5 | OVER | Rear middle row | Black neoFit ABU44M-E, 4 mm tube bulkhead ([FWS](https://www.freshwatersystems.com/products/neofit-acetal-black-bulkhead-connector-4mm-5-32-tube)) | Ø15.3 mm M15 barrel opening; white rectangular OVER chip | White 4 mm OD LLDPE from the ASSE vent adapters, through the umbilical and faucet to the separate open outlet over the bowl near the gooseneck joint. The different tube/socket size prevents interchange with the white 1/4-inch TAP supply ([drain assembly](/hardware/assembly/asse-drain.md)). |
-| 6 | Beverage umbilical ports | Rear | 1× John Guest PP1208E 1/4-inch SODA + 2× neoFit ABU44M-E 4 mm FLAVOR | SODA Ø[17.4 mm](PANEL_HOLE_D); FLAVOR Ø15.3 mm, with M15 barrels and matching chips |
-| 7 | Umbilical signal | Rear | [RiteAV RJ11 6P4C black punchdown keystone jack](https://www.riteav.com/products/riteav-rj11-phone-black-punchdown-type-keystone-jack-10-pack) — customer pushes the umbilical's plug in until it clicks, no tools | A **receptacle**, not a hole: aperture [14.8](KEYSTONE_W) × [16.3](KEYSTONE_H) mm at the show face, a [3 mm](KEYSTONE_LIP) lip behind it, a [14.95 × 24.45 mm](KEYSTONE_POCKET) pocket behind that, and an ease at [50°](KEYSTONE_EASE) over the aperture's top edge, which leaves the show face on a square shoulder 1 mm above that edge. The aperture and body pocket have 0.15 mm per-face assembly clearance; their supported floors extend a further [0.25 mm](SUPPORTED_CLEARANCE) toward print-up (machine −Z), retaining the seated jack datum. Struck by `enclosure._keystone_receptacle` from `riteav_keystone` | **SIG-6**, the faucet display's TTL UART and its 5 V. On the shared SODA / FLAVOR-A column, on the middle row, where its webs to the SODA and FLAVOR pockets come out equal. At the show face its aperture leaves [6.50 mm](KEYSTONE_FLAVOR_FACE_CLEAR) to the flavour chip pocket and [9.29 mm](KEYSTONE_SODA_FACE_CLEAR) to the soda chip pocket; behind the lip, the full pocket leaves [8.65 mm](KEYSTONE_FLAVOR_POCKET_CLEAR) and [3.63 mm](KEYSTONE_SODA_POCKET_CLEAR) to their through-bores. **The jack is held by the receptacle's own two catches**, which its tang hooks and its latch snaps over — it goes in from inside the box, tang first, and the body swings down through the ease. Its face stands 0.16 mm behind the DATA plate's back. The wall runs [6 mm](KEYSTONE_WALL_T) here, so the lip comes out of the wall's own section and a boss stands [3.70 mm](KEYSTONE_BOSS) further inboard to carry the pocket's back and the catches. Behind it the body reaches [30 mm](KEYSTONE_DEPTH) in total, where the J3 loom punches onto its 110 IDC at [`wiring.md`](/hardware/assembly/wiring.md). Black through, including the dust cover it ships with. 6P4C takes SIG-6's four conductors and an RJ45 plug does not enter it. `bom.md §11`. |
+The main rear wall is 9 mm stock. The fluid field retains a 6 mm clamping
+stack between Y465.3 and Y471.3. Each flush 2 mm identification chip replaces
+2 mm of that section, leaving 4 mm of printed wall behind it. Fitting flange,
+chip and wall are clamped by the fitting's own nut. The compact labels retain
+32 mm width, approximately 3.5 mm letter cap height, and the established tube
+colors. Their upper edges finish at Z355.
 
-## Umbilical port — tube identification
+The water filter is upstream, on the customer's side of TAP. Inside, the white
+line reaches the bare Multiplex ASSE through its straight TPU inlet cuff.
+The outlet cuff receives the branch stem tee feeding V-K and the flavor-water
+regulator. CO2 reaches the compact PISCO secondary and downstream check.
+OVER is a dedicated atmospheric return from the ASSE vent, through the
+umbilical to its separate faucet outlet above the bowl. It is not joined to
+the soda or flavor paths. See [internal plumbing](/hardware/assembly/internal-plumbing.md)
+and [ASSE drain assembly](/hardware/assembly/asse-drain.md).
 
-The 4-tube umbilical bundle leaves the faucet shell, runs through the countertop into the cabinet, sleeved in a braided cover with foam insulation on the cold (carbonated-water) line for thermal protection on the most temperature-critical run in the system. At this wall the user must connect each tube to the matching bulkhead — three identical-looking bulkheads in a black wall is a failure mode, so the carbonated-water tube and bulkhead are color-coded:
+## Dry connections and nameplate
 
-- **Carbonated water — blue.** Separate spool of 1/4" OD blue LLDPE ([`bom.md`](/hardware/ledger/bom.md) §3). The bulkhead receiving it on this wall is marked with a **blue accent ring** around its opening.
-- **OVER — white, 4 mm OD.** The dedicated vent tube connects only to the 4 mm bulkhead. TAP uses a larger 1/4-inch white tube. Both white chips carry their own word.
-- **Flavor A / Flavor B — black.** Continuous black 4 mm OD / 2.5 mm ID neoFlo LLDPE from the outlet-valve stem reducers through the two ABU44M-E sockets to the faucet tip. Both chips read FLAVOR. The separate white 4 mm OVER socket has its own white chip.
+C14 is at X−61.75/Z323. Its native flange seats in a shallow outside pocket;
+the body passes through the wall. Two short RX-M3S×4 inserts receive M3 × 10
+socket-head screws through Ø7 × 0.5 mm washers. Each washer spans the native
+flange countersink. The 3.25 mm flange/washer stack leaves 6.25 mm screw
+projection; the 7.25 mm pilot retains 1 mm nominal tip air and 3 mm backing.
+The C13 cord mates directly to the inlet's native rim and cavity.
 
-User rule at install: **blue tube into the blue-ringed bulkhead**. The rear ports occupy three rows: TAP, SODA and CO2 above; OVER in the middle of the west column; two FLAVOR ports below, so the blue one is read by its ring rather than by its place in a line — it takes the [east](CARB_END) column of the upper storey, with the white-ringed tap-water union across from it and the two black-ringed flavor unions below. Black-into-either-black is unambiguous because both flavor tubes route through the same wall-side bundle and the user does not need to distinguish them at the face. The two FLAVOR sockets and OVER share the 4 mm mechanical fit: match black FLAVOR tails to black FLAVOR chips, and the white OVER tail to the white OVER chip.
+The RiteAV RJ11 6P4C receptacle is at X−30/Z274.376. Its native tang and latch
+engage the printed catches; the internal SIG-6 loom connects to its IDC
+terminals. The RJ11 is the rectangular data connection, separate from the
+six fluid ports.
 
-**And the tube carries the same word out.** A chip stays on the wall; a tube does not. The tap-water run ends at the customer's angle stop and the CO2 tether at their cylinder's regulator, and neither of those ends wears a ring. So each tube threads through a printed collar — [`../../faucet/tube-collar/`](../../faucet/tube-collar/README.md), this chip's outline bored for the tube and run along it, in the same colour and lettered in the same word. Six stations, six chips, six collars: the four on the umbilical go on at [`assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) §4 and the two on the customer's own runs go on at [`assembly/finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md) §6, where those runs are made up for the install kit.
+The 104.53 × 38 mm nameplate sits below the ports at X−38/Z228. Its plain
+field stands 2.2 mm beyond the main wall, placing the plate face at Y473.5.
+This retains the accepted flat-wing interface, full 3.6 mm backing and 1.09 mm
+nominal clearance to the core. The [nameplate acceptance](/hardware/printed-parts/enclosure/nameplate/README.md)
+keeps its recorded material, orientation and artifact scope; the surrounding
+host and its physical clearance remain subject to qualification.
 
-The ring is a **separately printed chip inset into the wall** — [`../bulkhead-ring/`](../bulkhead-ring/README.md). The wall cuts one pocket per station, the chip's own thickness and a static back gap deep. At every station that keeps the wall's whole section the fitting's own nut bears on the wall's inner face and draws flange, chip and wall together. Nothing else fastens it, and colour and wall come out one plane. Each chip carries its own word, raised, in a second colour, so a chip is a two-colour print; the piece running `enclosure-back-top` still needs one filament.
+The [rear identification generator](../rear-identification/rear_identification.py)
+owns the compact chips, their matching wall pockets and the nameplate field.
+None of these changes the fluid flange or nut seating planes.
 
-Net identification scheme on this wall: **blue = carbonated water** [#1f6feb](CARB_COLOR), **black = flavor lines** [#262629](FLAVOR_COLOR), **white = tap water and 4 mm OVER** [#ffffff](WATER_COLOR) (the water bulkhead body itself is the white-marked station), **red = CO2** [#d63a3a](CO2_COLOR) (the CO2 bulkhead's own ring, east of the blue one on the same storey — station 4 above).
+## Tube identification and bundle
 
-The scheme covers six tube crossings. The signal station wears no ring: it is the one rectangle among them, it takes a plug and not a tube, and its own opening is the shape a customer reads it by.
+Blue identifies carbonated water, white identifies tap water and the separate
+smaller OVER return, red identifies CO2, and black identifies both flavors.
+The white TAP and OVER sockets take different tube diameters and carry their
+own words. The same spool colors continue inside the enclosure.
 
-**The scheme does not stop at the wall.** Every line inside the cabinet is cut off the spool of what it carries — [`_routing.SPOOLS`](/hardware/scripts/_routing.py), which reads `port_colors` above — so the tube outboard of a ring and the tube inboard of it are one colour, the colour the ring between them is named for: white through the water station, blue through the carb union, red through the CO2 bulkhead, black through the two flavour unions. [`assembly/internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) names the spool at each cut, and the enclosure and cold-core assemblies draw every run in it.
+The faucet umbilical carries soda, two flavors, OVER and the signal ribbon.
+Only the soda tube receives the specified pipe insulation. PET braid covers
+the prepared bundle; the organizer below the faucet mounting space keeps its
+tubes in formation while allowing deliberate hand adjustment. Tube lengths,
+insulation and braid preparation are specified in
+[faucet and umbilical assembly](/hardware/assembly/faucet-and-umbilical.md).
 
-Blue naming carbonated water is what makes the other two fall out: the umbilical riser is bought as blue tube ([`bom.md`](/hardware/ledger/bom.md) §3) and the union that receives it is bought to wear a blue ring (§8), so blue is spent, and the customer's teed-in tap-water station is the white-marked one. The iso line-art paints its rings from this table, and so does the [install guide's art](/hardware/install-guide/installation_art.py). A chip prints in the Fiberon PET-GF15 spool that answers to its colour's name ([`_y_wall_dimensions.chip_filaments`](_y_wall_dimensions.py)), lettered with its station's word.
+## Evidence
 
-## Umbilical bundle construction
+Native checks cover the purchased bodies/nuts against the wall, compact-chip
+row spacing and the nameplate field's clearance to the core. They do not
+establish printed fit, tube insertion force, insert strength, pressure sealing
+or lifetime. The selected components retain the limits in their part
+references and the [mechanical qualification index](/hardware/mechanical-qualification/README.md).
 
-The 4-tube umbilical from the faucet down to this wall is bundled into a single sleeved run, in PET braid segments laid over the foam's own, per [`/hardware/assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) §3. One [PET-GF organizer](../../faucet/umbilical-organizer/README.md) sits on the bare tubes below the faucet mounting workspace, inside the top braid. It holds the four tubes in formation while permitting deliberate hand adjustment.
+## Sources
 
-**Foam insulation on the soda umbilical tube only.** The two flavor tubes carry ambient-temperature syrup at low duty cycle (a few mL per dispense) — warm-in, warm-out, no thermal benefit from insulation. The soda umbilical tube is the temperature-critical run: a multi-meter cold-line carrying chilled CO2-saturated water from the cold-core reservoir up to the faucet, where every degree of warm-up costs dissolved-CO2 retention. Insulating that one tube (and leaving the flavor tubes bare inside the sleeve) is the right thermal allocation.
-
-- **Foam:** CARGEN nitrile rubber pipe insulation, 1/4" ID × 3/8" wall (`B0D2XFK337`, `bom.md §9`). Sized to slip over 1/4" OD LLDPE with a snug interference fit.
-- **Foam ships as 1-ft segments.** Install procedure: slide five segments onto the soda umbilical tube and butt them together along the run, laying a braid segment over each as it seats.
-- **Tube cutting:** the four continuous LLDPE tubes are cut to length using the kit's Mudder PEX/PE tube cutter (`bom.md §14`), then pushed into their labeled rear bulkheads; OVER takes the separate 4 mm ABU44M-E.
-- **Foam segment count and total length:** five 1-ft CARGEN segments, over the length [`/hardware/assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) §3 gives, from below the organizer and gathered return to the wall.
-
-## AC inlet recess
-
-The recess is the cutout itself, carried inboard. A printed tunnel stands round the hole on the wall's inner face (`enclosure._c14_tunnel`) and the receptacle sits in that tunnel's pocket with the [31.03 × 22.13 mm](C14_RIM) rim round its cavity bearing on the pocket floor around the bore, its ears [1.84 mm](C14_RIM_PROUD) off the floor and screwed to it, so the bore the C13 nose enters runs the whole depth of wall and tunnel together and the rim face sits [8.25 mm](C14_RIM_INSET) inside the wall's outer plane. The C13 cord mates through that bore. IEC 60320 specifies the male-blade insertion region only, not face-to-face mating distance.
-
-The mounting datum is [x 66.9, z 336.21, seat y 463.05](C14_SEAT), with screw axes at [x 46.9 and 86.9](C14_SCREWS). The nominal working opening is [24.3 × 18.3 mm R1.5](C14_OPENING), with a further [0.25 mm](SUPPORTED_CLEARANCE) toward machine −Z at its supported floor. The tunnel is one [56.07 × 30.55 mm](C14_BLOCK) block from the pocket's mouth to the wall. Cut into its fore face, the pocket is a [49.77 × 22.17 mm](C14_POCKET) rounded/tapered outline — the inlet's [49.77 × 21.9 mm](C14_FLANGE) flange's width and its rim's height — with [0.15 mm](C14_POCKET_SLIP) insertion slip, [5 mm](C14_POCKET_DEPTH) deep from mouth to floor, so the seated part's flange back lies at the mouth; the block keeps at least [3 mm](C14_POCKET_WALL) of material around that outline in XZ. The block runs [10.25 mm](C14_RUN) from the mouth to the wall and its crown fuses into back-top's ceiling slab, so on that ceiling-down print it stands on the bed through the slab and the wall; its underside looks print-up. The block does not move the cutout, screws, or seating plane, and the exterior wall stays on its established planes.
-
-## References
-
-- [`/hardware/README.md`](/hardware/README.md) — broader enclosure context, backflow-vent monitoring, layout.
-- [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §8 — one PP1208E SODA bulkhead and two ABU44M-E FLAVOR bulkheads; the §3 water inlet brings PP1208E to two per build.
-- [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §3 — water-inlet path (Waterdrop filter, Multiplex 19-0897 backflow, the PI4512F6S + PP061208W outlet stack, water-split PP0208E tee, PP1208E wall bulkhead, HAOCHEN install-kit tee).
-- [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 and [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) — AC runs C14 inward.
-- [`../nameplate/README.md`](/hardware/printed-parts/enclosure/nameplate/README.md) — the plate that fills the field east of the flavour chips, and the two screw bosses the wall stands for it.
-
-## Bulkhead array arrangement
-
-The beverage connections occupy two storeys on the field's pitch (`enclosure_assembly.PANEL_X`). The blue-ringed PP1208E SODA port occupies the east column of the upper storey. The two 4 mm ABU44M-E FLAVOR ports stand side by side on the lower storey, below TAP and SODA. The user identifies each connection by its word and color.
-
-The two flavor unions stand side by side at the [west](FLAVOR_B_END) end on one storey of their own, `enclosure_assembly.FLAVOR_STOREY_DROP` under the lane their runs cruise in (`enclosure_assembly.PANEL_ON_GATE_LANE`), below the carb union's, under the tap-water bulkhead that takes its place on the row's own storey. The rectangular signal jack stands between SODA and FLAVOR-A on their shared column. The CO2 PTC stands one column east of the carb union on the upper storey, and east of it again is the C14 cutout, at the end of the wall the electronics bay stands against. Every station's Z is the pack's, and the wall takes its ceiling from the field's own top edge ([`enclosure.py`](/hardware/printed-parts/enclosure/enclosure/enclosure.py) `port_top`).
-
-## Material
-
-This wall is `enclosure-back-top`'s own, so it is that piece's material: **PET-GF** (Polymaker Fiberon PET-GF15), the same as the rest of the enclosure ([`bom.md`](/hardware/ledger/bom.md) §7). Service temperature is above the ~30–40 °C cabinet ambient. There is no row of its own in §7 because there is no separate part.
-
-The wall is not a moisture or vapor barrier — the appliance is not hermetic. Each bulkhead seals the pressurized fluid path *around the tube* via its internal O-ring; the wall interface is purely mechanical capture, flange + ring + nut sandwiching the wall through its fitting-specific opening (Ø15.3 mm for the metric FLAVOR/OVER barrels; Ø[17.44](PANEL_HOLE_D_SHORT) for PP1208E), so no wall-side bulkhead gasket is required.
-
-## Status
-
-Design-in-progress. The through-holes, the chips' pockets, the AC inlet's tunnel and flange pocket, and the nameplate's pocket and bosses are all cut into the back-top enclosure piece by `enclosure.py`. This README is the source-of-truth for this wall's connection inventory; `../nameplate/README.md` carries the plate standing beside them.
+[value](NAME) texts are updated by `_y_wall_dimensions.py` from the production
+rear grid. Color helpers in that module serve labels, tubing and installation art.
 
 ## Sources
 [value](NAME) texts are updated by:

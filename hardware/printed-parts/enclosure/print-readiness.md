@@ -9,9 +9,10 @@ core and refrigeration provisions, even when a bench build uses the external Lil
 carbonator.
 
 The complete enclosure print includes the four shell quadrants (front-top, front-bottom,
-back-top, back-bottom), pump cartridge and cap, machine display cover, the
-five [anchor caps](anchor-cap/README.md) on the tube ribs of back-top and the cold core's lid and the two G Ganen cold-core
-mounting parts. Front-top's tee wall holds the four purchased PP0208E pump tees in its
+back-top, back-bottom), pump cartridge and cap, machine display cover, empty
+electronics access panel and six rear identification labels. The
+[cold-core cap](../cold-core/foam-cap/README.md) carries its equipment columns,
+valve walls and fitting bearings as integral stock. Front-top's tee wall holds the four purchased PP0208E pump tees in its
 [bores](pump-dock/README.md#the-tees-bores) behind the collet plate.
 The front flanks are continuous across the fixed dock room.
 
@@ -77,8 +78,9 @@ the bare-face SB443-IN columns loaded at front-top's and the cartridge plate's p
 Front-top's display backing is one continuous plane at Y92.75, with at least
 3.016 mm behind the deepest display-pocket corner. The
 [fixed pump lead review](enclosure/fixed-pump-lead-review.json) binds that wall to
-the current export. The fixed lead passes below the funnel frame; a complete
-installed harness route remains an integration item. The magnet-rail exception
+its identified export. The fixed lead passes below the funnel frame; the
+[installed wiring review](../../wiring/installed/above-core-review/README.md)
+records the current conductor routes against the exported appliance. The magnet-rail exception
 applies only to the groove rails; unrelated display and seam findings retain
 their recorded scope.
 
@@ -131,8 +133,8 @@ material has extreme spaghettification, normal snug and tree supports are
 fused into masses too large for their cavities, and one embedded tee-carrier
 window-cover holder broke. The [seam and frame review](enclosure/y-seam-plain-review.json)
 records closed native quadrants, full funnel-brim bearing and sampled assembly motions
-for its listed artifacts. The [current fit review](enclosure/y-seam-fit-review.json) records
-finite native gaps and complete local stock for the production exports. The
+for its listed artifacts. The [fit review](enclosure/y-seam-fit-review.json) records
+finite native gaps and complete local stock for its identified exports. The
 [frame motion record](../zone-c/funnel/integration-review/rail-motion-check.json) records
 insertion and capture for its listed source and native hashes. Physical receiver/rail fit,
 cleanup, loom retention, load capacity and lifetime remain unqualified. The
@@ -163,7 +165,7 @@ load-capacity or drop result.
 | --- | --- |
 | Integral handhold ceilings | The production enclosure uses the bottom pieces' printed lifting ceilings as its gripping surfaces. One complete R6 opening and exterior transition spans the Y seam and is mirrored on the two flanks. Their current bare-surface finish, support cleanup, comfort and loaded lifting are unqualified. The [receiver/cover coupon acceptance](grip-cover/physical-acceptance.json) retains its identified test-article scope; accepted underside results on the faucet and other parts do not qualify these handholds. |
 | Current back-top support cleanup and wall finish | The [identified Mark1 article](../drain-readiness/prints/2026-10-10-current-back-top-bridge50-mark1/physical-result.json) has trapped, fragile sliding-groove stems and reinforcement-boundary tracks on both X+ wall faces. The [next-print preparation](../drain-readiness/prints/2026-10-11-back-top-groove-supports-mark1/README.md) uses 23 infill-only solid regions, three named local groove ribbons, the 50 mm bridge limit and normal Mark1 trim. Native readings find zero artificial box-face outer walls and no support in the declared tie-floor windows. Physical cleanup, finish and installed fit are unassessed. |
-| Front-top v17 rim and support cleanup | Rejected for nearly impossible cleanup, fused normal/tree support masses, extreme supported fine-layer spaghettification and a broken tee-carrier window-cover holder. The [seam and frame review](enclosure/y-seam-plain-review.json) records native bearing, closed clearances and sampled assembly motions for its listed artifacts; the [current fit review](enclosure/y-seam-fit-review.json) records the production exports' finite gaps and local stock. The [flush-roof review](../zone-c/funnel/flush-roof-review/README.md) retains its identified geometry scope. Physical cleanup and assembled fit remain pending. [Physical result](tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/physical-result.json); [bounded tree-clearance correction](enclosure/support-bottom-gap/README.md). |
+| Front-top v17 rim and support cleanup | Rejected for nearly impossible cleanup, fused normal/tree support masses, extreme supported fine-layer spaghettification and a broken tee-carrier window-cover holder. The [seam and frame review](enclosure/y-seam-plain-review.json) records native bearing, closed clearances and sampled assembly motions for its listed artifacts; the [fit review](enclosure/y-seam-fit-review.json) records its identified exports' finite gaps and local stock. The [flush-roof review](../zone-c/funnel/flush-roof-review/README.md) retains its identified geometry scope. Physical cleanup and assembled fit remain pending. [Physical result](tee-readiness/full-enclosure-print/native-slice-reviews/2026-10-03-enclosure-front-top-current-h2c-v17/physical-result.json); [bounded tree-clearance correction](enclosure/support-bottom-gap/README.md). |
 | Tee-carrier visible rounds | The additive bottom chamfer/taper is physically accepted. It uses a 0.20 mm first layer, 0.24 mm bottom/body, 0.08 mm top R6, six walls in the lower 6.1 mm, and saved wall-first order, speeds and 15% overlap. No supports. Sliding is accepted with 1.00 mm above and 0.25 mm below against the existing front-top, with less tilt reported. Spring return and other parts remain separate checks. [Surface record](tee-carrier/physical-acceptance.json); [sliding-fit record](tee-carrier/low-force-trial/physical-acceptance.json). |
 | Kamoer cartridge and cap | Derek confirms both pumps are firmly held with screws tightened and no vertical play. The current cap keeps the broad fitted holder geometry; its surrounding crown reaches the cartridge top while motor ends and spade-terminal wells remain open. This holder result does not qualify the cap's pogo connector. Raised-crown fit and four-tube operation remain full-assembly observations. [Physical record](../../reference/kamoer-kphm400/physical-fit.json). |
 | Pump cartridge electrical contacts | The YYFKGCP halves mount in pump-cap and front-top seats, each recessed 0.125 mm for a 0.500 mm nominal contact-face gap. The [mounting audit](../../reference/yyfkgcp-pogo-4p/mounting-audit.md) records its identified exports, nominal mating and conditional 0.200–0.800 mm compression range. The founder accepts connector fit and mating/compression in the printed test piece, reported 2026-10-04; that result retains its own seat geometry. Full-enclosure compression, insert retention, continuity, operating resistance and lifetime remain unmeasured. [Physical scope](../../reference/yyfkgcp-pogo-4p/physical-observations.json). |
@@ -176,6 +178,33 @@ load-capacity or drop result.
 | Nameplate | The support-free face-up plate and raised artwork have accepted appearance. Fit is accepted on that pair with the receiver at 0.15 mm body X per side, 0.25 mm centered wing-tip X and 0.45 mm wing-thickness clearance. The current receiver keeps the body X and wing-thickness clearances and uses 0.30 mm wing-tip X with 0.15 mm back air, so that acceptance does not establish its fit. The [current fit review](enclosure/y-seam-fit-review.json) checks back-top's nominal gaps and complete receiver backing against the placed PSU. The [accepted pair](nameplate/horizontal-wing-trial/physical-acceptance.json) retains its scope; physical full-enclosure fit remains separate. |
 | C14 inlet and cord | The identified inlet/C13 station has earlier acceptance in the [native interface record](tee-readiness/full-enclosure-print/hard-contact-review/README.md). The [October 17 assembly feedback](enclosure/assembly-fit-review/assembly-feedback.json) reports that the female side fits and the mating cord body needs 3 mm more X access. The [assembly-fit review](enclosure/assembly-fit-review/README.md) specifies a centered 28.3 × 19.3 mm cord bore, independent of the flange pocket's 0.65 mm per-edge X/Z clearance, fixed Y seating depth and screw stations. Physical fit of the wider bore is unmeasured. |
 | G Ganen feet and flow | Derek identifies four identical flexible rubber feet with approximately 7 mm pads; they slide fore/aft independently and can be removed. Captured scan positions are not a fixed bolt pattern. Discharge is enclosure −X, corresponding to reference +Y at +90° yaw. Actual screw passage, washer seating and loaded rubber behavior remain assembly observations. [Sample authority](../../reference/g-ganen-pump/scan-evidence.json). |
+
+## Above-core production geometry
+
+The production arrangement uses the flat PCB/PSU, three core-owned upright
+valve walls, compact water/gas fittings and core-owned meter in
+[above-core.md](../../manifold-layout/above-core.md). Its printable set includes
+the upper quadrants, cap/cup and lid interfaces, the empty electronics panel,
+compact rear chips and the 35 mm deeper funnel family. The frame installs
+vertically after the final connections, with the drain cradle snapped into its
+3 mm web. Disconnect the drain tube or release that cradle before lifting
+the frame.
+
+The [cap review](../cold-core/foam-cap/above-core-native-review.json),
+[rear identification review](rear-identification/native-review.json) and
+[frame review](../zone-c/funnel/drop-in-review/native-review.json) state their
+native-geometry scopes. The upper M5 joint’s common bearing plane permits
+back-top to pass above the populated valve walls. The C14 flange is accessible outside the wall, with
+washer-backed M3 × 10 screws in blind hosts. The low nameplate field retains
+the accepted flat-wing receiver and 1.09 mm nominal core clearance.
+The [populated closure review](../../mechanical-qualification/enclosure-above-core/README.md)
+records sampled opening/closing motions and the raised joint's native stock.
+
+Print preparations must name these exact production meshes and their support
+contacts before claiming that the new interfaces are ready to print. Accepted
+coupons, surfaces and connector fits in this file retain their recorded artifact
+scope. They establish no complete-assembly fit, support cleanup, insertion force,
+load capacity, pressure seal or lifetime for this arrangement.
 
 ## Pump tees and returns
 

@@ -16,10 +16,17 @@
 | V-J | Pump B outlet → flavor tube B |
 
 All valves are normally closed solenoid valves. Flow direction is inlet (I) to outlet (O) only.
+The upright V-A and V-K take the header at their upper inlet ports and discharge
+through their lower outlet ports, with their underside flow arrows downward.
 
-**A stopped pump is not a closed valve.** A parked KPHM600 head passes flow both ways — gravity drains a standing line down through one — so every path in this manifold is held by its NC solenoids alone, and each dispense path carries a gate at both ends of its pump. It is also what carries the clean-fill modes below, where tap water, pressure-limited by the internal SB-FPV-40 on V-A's feed, crosses an idle pump to reach a reservoir.
+**A stopped pump is not a closed valve.** A parked KPHM600 head passes flow both ways — gravity drains a standing line down through one — so every path in this manifold is held by its NC solenoids alone, and each dispense path carries a gate at both ends of its pump. It is also what carries the clean-fill modes below, where tap water, pressure-limited by the YZMSZ 0.3 MPa regulator on V-A's feed, crosses an idle pump to reach a reservoir.
 
 > **V-K** — the water-supply fill/shutoff solenoid, an 11th valve of the same Beduan NC type — is **not** part of this manifold. It stands on the cold core's crown east of the G Ganen pump and gates the carbonator fill on the water-split's branch to that pump's suction, downstream of the ASSE 1022 (see [`fluid-topology-carbonator.mmd`](/hardware/topology/fluid-topology-carbonator.mmd) and [`assembly/internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §2), driven off the main board's spare `J2.OUT3` channel.
+
+The water discharge and CO2 feed each use one purchased neoFit ACHV44-E
+check, oriented by its flow arrow toward the carbonator. The selected reference
+and its fit and service limits are in
+[the check-valve record](/hardware/reference/neofit-achv44-check/README.md).
 
 ## The pack
 
@@ -27,7 +34,7 @@ All valves are normally closed solenoid valves. Flow direction is inlet (I) to o
 
 **A limb is a lane.** Each pump has an inner and outer valve lane. Channel A stands east of the mirror plane and channel B west. The two source tees meet their neighbouring valves face to face. Behind front-top's collet plate, each pump tee takes a prepared pump's LLDPE tube in its branch, reaches its fore valve on a short upper tube and reaches its rear valve on a lower return from its lower port: a stem elbow in each collet and one straight tube between them.
 
-**The pack occupies two fixed decks.** The topology assigns [8](UPPER_COUNT) logical nodes to the upper deck and [8](LOWER_COUNT) to the lower one. The four lower returns cross between them, each from a pump tee's lower port aft into its rear valve's bottom collet. The source pair's formed R14 paths on segments 3 and 5 have their separate retained scope.
+**The pack occupies two fixed decks.** The topology assigns [8](UPPER_COUNT) logical nodes to the upper deck and [8](LOWER_COUNT) to the lower one. The four lower returns cross between them, each from a pump tee's lower port aft into its rear valve's bottom collet. The relocated V-A and V-B source paths reach the fixed Y-A and Y-B tees through their named native tubes and stem fittings.
 
 Per-limb grouping is in [fluid-topology-limbs.mmd](/hardware/topology/fluid-topology-limbs.mmd); where each body stands and how it is turned is [`manifold-layout/README.md`](/hardware/manifold-layout/README.md).
 
@@ -37,7 +44,7 @@ The six three-port junction identifiers are **Y-A, Y-B, Y-C, Y-D, Y-F and Y-G**,
 
 **Neither reservoir has a junction.** Each carries **two mouths of its own**, both bores in its own cap — the fill, ending above the liquid, and the draw, whose line goes on down to the floor as the reservoir's dip tube — so each pair's two valves reach one directly and nothing stands between them. Every junction here therefore joins two VALVES, or connects two valves to a pump port.
 
-Y-A and Y-B inherit location from their fixed face-to-face valve joints. Each pump tee's branch stands in a bore through front-top's tee wall, which holds it in X and Z, and the collet plate holds its branch collet pressed. The tee, its upper tube and its lower return stay in the machine during a pump change.
+Y-A and Y-B retain their fixed front-manifold stations. V-A and V-B stand above the core and reach those tees through the routed source connections. Each pump tee's branch stands in a bore through front-top's tee wall, which holds it in X and Z, and the collet plate holds its branch collet pressed. The tee, its upper tube and its lower return stay in the machine during a pump change.
 
 **Y-A and Y-B are the SELECTS-SOURCE junction.** Each stands on its own inner limb's axis, one valve forward of the select it feeds, so its RUN is the limb — the source valve one side, the select the other. The two branches face each other across the mirror plane and meet on segment 6, which is what puts all four ports on one hydraulic node. Every mode opens exactly one of {V-A, V-B} and exactly one of {V-C, V-D}, so the traffic the pair carries is always one source to one select — straight down a limb, or down half a limb, across the bar and down the other half.
 
@@ -68,12 +75,14 @@ Each segment is one labelled edge in [fluid-topology-manifold.mmd](/hardware/top
 [`_scorecard.py`](/hardware/manifold-layout/_scorecard.py) reads these tables as the flavor
 connection inventory. A segment is a face-to-face `butt`, a known `straight`, a
 set of two stem `elbows` and a straight tube from a pump tee to its rear valve, a `pump-dock`
-connection, a `turn` out of a deck plane, or a swept `drawn` run.
+connection, or a `drawn` connection made from its ordered native tubes and physical fittings. Reported lengths sum the actual tube centrelines; fitting flow paths add no connecting tube.
 Of [26](SEGMENT_COUNT) manifold segments, [3](BUTT_COUNT) carry no exposed tube,
 [4](UPPER_LINK_COUNT) short upper tubes have [15.251 mm](UPPER_LINK_EXPOSED) exposed
 and [4](LOWER_RETURN_COUNT) lower return tubes are reported as cut stock, both socket
-insertions included. Reported LLDPE paths total [2995.0 mm](FLUID_TOTAL); the other exposed
-lengths need their actual fitting insertions when making finished blanks. A butt
+insertions included. Reported LLDPE paths total [3693.6 mm](FLUID_TOTAL). Native routed
+paths include their authored socket insertions, with the insertion basis recorded
+in the production route data. The short upper links need their actual fitting
+insertions when making finished blanks. A butt
 joint still needs tube through both fittings despite its zero exposed length. The
 factory marks each actual fully seated insertion in the purchased collets before
 cutting.
@@ -87,11 +96,11 @@ Four of the seven conduits in the cold core's top cap are this circuit's: a fill
 
 | # | From | To | Notes |
 |---|---|---|---|
-| 1 | water-split to-flavor | flow-regulator inlet | Off the ASSE 1022's split, west lane (see [`fluid-topology-carbonator.mmd`](/hardware/topology/fluid-topology-carbonator.mmd)) |
-| 2 | flow-regulator outlet | V-A-I | Across the machine and up onto the folded deck |
-| 3 | V-A-O | Y-A-1 | Quarter turn out of the deck plane, then the step aft over the core's crown |
+| 1 | water-split to-flavor | flow-regulator inlet | Above-core tee-to-regulator feed (see [`fluid-topology-carbonator.mmd`](/hardware/topology/fluid-topology-carbonator.mmd)) |
+| 2 | flow-regulator outlet | V-A-I | Native tube through the regulator-to-V-A elbow above the core |
+| 3 | V-A-O | Y-A-1 | V-A outlet elbow, under-head and forward native tubes, fixed Y-A stem elbow |
 | 4 | funnel-drain-union outlet | V-B-I | Gravity drain, aft off the funnel's drain elbow |
-| 5 | V-B-O | Y-B-1 | The mirror of segment 3 |
+| 5 | V-B-O | Y-B-1 | V-B outlet stem and return fittings, native tube to the fixed Y-B stem elbow |
 | 6 | Y-A-3 | Y-B-3 | The crossbar — branch to branch, face to face |
 | 7 | Y-A-2 | V-C-I | Butted |
 | 8 | Y-B-2 | V-D-I | Butted |

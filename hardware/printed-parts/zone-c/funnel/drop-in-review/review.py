@@ -1,7 +1,7 @@
 """Manual bare-frame lift review and static drain-snap/fastener interfaces.
 
 Run through tmp/takeover/cadq. --shells adds both exported production upper shells;
-without it the record covers only the authored frame and ledges. With shells,
+without it the record covers the exported frame and authored ledges. With shells,
 nominal J10 tool columns are checked with both roof closures removed. All lift poses
 remove the cradle, elbow, stub and connected tubing. No snap-deflection or
 connected-plumbing motion is modeled.
@@ -66,7 +66,12 @@ def main():
     args = parser.parse_args()
     inner, outer = ff.DEFAULT_INNER, (-107.5, 107.5, 0.0, 472.0, 0.0, 355.0)
     centre, seat, joint = (0.0, ff.center_y), 349.0, 200.0
-    frame = ff.build(inner, joint, centre, seat)
+    source_frame = ff.build(inner, joint, centre, seat)
+    frame_path = FUNNEL / 'funnel-frame.step'
+    frame = cq.importers.importStep(str(frame_path)).val().translate(
+        (centre[0], centre[1], ff.datums(seat)[0]))
+    frame_difference = (source_frame.cut(frame).Volume() +
+                        frame.cut(source_frame).Volume())
     receivers = {}
     for col in ('front', 'back'):
         receivers[col] = ff.receivers(inner, outer, joint, centre, seat, col).cut(
@@ -74,7 +79,8 @@ def main():
     fixed = {f'{n} ledges': s for n, s in receivers.items()}
     files = [Path(ff.__file__), Path(ff.funnel.__file__), Path(ff.elbow_cradle.__file__),
              Path(enc.__file__), ENC / '_enclosure_interface.py',
-             FUNNEL / 'funnel.step', FUNNEL / 'elbow-cradle.step', Path(__file__)]
+             FUNNEL / 'funnel.step', frame_path,
+             FUNNEL / 'elbow-cradle.step', Path(__file__)]
     checks = []
 
     def check(label, passed, **values):
@@ -86,8 +92,10 @@ def main():
         check('no shell drain crossbar / ' + col,
               ff.drain_support(inner, outer, joint, centre, seat, col) is None)
     for name, shape in {'frame': frame, **fixed}.items():
-        check(name + ' valid stock', shape.isValid() and len(shape.Solids()) >= 1,
-              solids=len(shape.Solids()), volume_mm3=shape.Volume())
+        metrics = {'solids': len(shape.Solids()), 'volume_mm3': shape.Volume()}
+        if name == 'frame':metrics['exported_source_difference_mm3'] = frame_difference
+        check(name + ' valid stock', shape.isValid() and len(shape.Solids()) >= 1
+              and (name != 'frame' or frame_difference < .001), **metrics)
     if args.shells:
         for col in ('front', 'back'):
             path = ENC / f'enclosure-{col}-top.step'
@@ -159,34 +167,58 @@ def main():
     check('clear original plug socket', socket_stock < .001,
           socket_depth_mm=ff.socket_depth, unintended_stock_mm3=socket_stock)
 
-    # A solid plug fills each frame hole below its head seat: the whole ledge
-    # overlap must remain, except the matching M3 clearance/pilot apertures.
+    # The complete selected screw-head footprint continues through the frame
+    # grip; the shell pilot has its own full wall and blind-backing witnesses.
     rows = ff.fastener_datums(inner, joint, centre, seat)
     for row in rows:
         shortest = row['head_seat_z'] - (ff.SCREW_LENGTH - ff.SCREW_LENGTH_ALLOWANCE)
         longest = row['head_seat_z'] - (ff.SCREW_LENGTH + ff.SCREW_LENGTH_ALLOWANCE)
         minimum_thread = row['insert_top_z'] - shortest
         minimum_tip_air = longest - row['bore_bottom_z']
-        bearing_cylinder = cq.Solid.makeCylinder(enc.mount_boss_dia / 2,
-            .05, cq.Vector(row['x'], row['y'], row['ledge_z']))
-        shank = cq.Solid.makeCylinder(enc.screw_clear_dia / 2, .1,
+        head_diameter = enc.head_cbore_dia - 2 * enc.fits.slip
+        grip = row['head_seat_z'] - row['ledge_z']
+        bearing_cylinder = cq.Solid.makeCylinder(head_diameter / 2,
+            grip, cq.Vector(row['x'], row['y'], row['ledge_z']))
+        shank = cq.Solid.makeCylinder(enc.screw_clear_dia / 2, grip + .02,
             cq.Vector(row['x'], row['y'], row['ledge_z'] - .01))
         land = bearing_cylinder.cut(shank)
         missing_land = land.cut(frame).Volume()
+        radius = row['host_radius_mm']
+        pilot_height = row['insert_top_z'] - row['bore_bottom_z']
+        host = cq.Solid.makeCylinder(radius, pilot_height,
+            cq.Vector(row['x'], row['y'], row['bore_bottom_z']))
+        pilot = cq.Solid.makeCylinder(enc.heatset_dia / 2, pilot_height + .02,
+            cq.Vector(row['x'], row['y'], row['bore_bottom_z'] - .01))
+        annulus = host.cut(pilot)
+        backing = cq.Solid.makeCylinder(radius,
+            row['bore_bottom_z'] - row['host_bottom_z'],
+            cq.Vector(row['x'], row['y'], row['host_bottom_z']))
+        hosts = {'authored receiver': receivers[row['col']]}
+        if args.shells:
+            hosts['production shell'] = fixed[f'production {row["col"]}-top']
+        missing_pilot = {name: annulus.cut(shape).Volume() for name, shape in hosts.items()}
+        missing_backing = {name: backing.cut(shape).Volume() for name, shape in hosts.items()}
         check('screw / ' + row['name'],
               minimum_thread >= enc.heatset_long_len - 1e-6 and
-              minimum_tip_air >= .5 and missing_land < .001,
+              minimum_tip_air >= .5 and missing_land < .001 and
+              radius - enc.heatset_dia / 2 >= enc.wall - 1e-6 and
+              max(missing_pilot.values()) < .001 and max(missing_backing.values()) < .001,
               **row, minimum_thread_reach_mm=minimum_thread,
               minimum_blind_tip_air_mm=minimum_tip_air,
+              pilot_radial_stock_mm=radius - enc.heatset_dia / 2,
+              pilot_wall_missing_volume_mm3=missing_pilot,
+              blind_backing_missing_volume_mm3=missing_backing,
+              screw_head_bearing_diameter_mm=head_diameter,
+              complete_frame_grip_mm=grip,
               missing_frame_bearing_volume_mm3=missing_land)
 
     result = dict(passed=all(row['passed'] for row in checks),
-        scope=('Sampled bare-frame vertical motion through exported upper shells and authored '
+        scope=('Sampled exported bare-frame vertical motion through exported upper shells and authored '
                'ledges; drain cradle, elbow, stub and connected tubing removed from all lift poses. '
                'Nominal J10 tool passages through both upper shells are checked with the '
                'frame, cradled drain and electronics panel removed.'
                if args.shells else
-               'Authored bare frame and ledges only; drain cradle, elbow, stub and tubing removed '
+               'Exported bare frame and authored ledges only; drain cradle, elbow, stub and tubing removed '
                'from all lift poses. Production shells and the populated assembly are outside this record.'),
         drain_attachment='Cradle snaps into the removable frame original 3 mm web.',
         removal_prerequisite='Disconnect the drain tube or release the cradle snap before frame withdrawal. '
