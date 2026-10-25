@@ -1,7 +1,7 @@
 wire_id,harness,net,from_terminal,to_terminal,awg,modeled_length_mm,route_status,start_status,end_status,service
-AC1-L,AC inlet,L,c14.L,wago-h.1,16,63.278,proposed,nominal,nominal,fixed
-AC1-N,AC inlet,N,c14.N,wago-n.1,16,47.587,proposed,nominal,nominal,fixed
-AC1-PE,AC inlet,PE,c14.PE,wago-g.1,16,70.683,proposed,nominal,nominal,fixed
+AC1-L,AC inlet,L,c14.L,wago-h.1,16,72.856,proposed,nominal,nominal,fixed
+AC1-N,AC inlet,N,c14.N,wago-n.1,16,56.379,proposed,nominal,nominal,fixed
+AC1-PE,AC inlet,PE,c14.PE,wago-g.1,16,71.59,proposed,nominal,nominal,fixed
 AC2-L,PSU primary,L,wago-h.2,psu.L,16,67.863,proposed,nominal,nominal,fixed
 AC2-N,PSU primary,N,wago-n.2,psu.N,16,84.322,proposed,nominal,nominal,fixed
 AC3-L,Compressor,L,wago-h.3,relay-1.COM,16,59.524,proposed,nominal,nominal,fixed
@@ -19,8 +19,8 @@ DC2-V12,Diaphragm pump,V12,wago-v12.2,relay-2.COM,16,243.553,proposed,nominal,no
 DC3-positive,Diaphragm pump,pump-switched,relay-2.NO,diaphragm.positive,16,113.169,proposed,nominal,unlocated,fixed
 DC3-negative,Diaphragm pump,GND,wago-gnd.2,diaphragm.negative,16,248.605,proposed,nominal,unlocated,fixed
 J1-COM,J1,V12,J1.COM,wago-mana.1,22,200.984,proposed,nominal,nominal,fixed
-J1-OUT1,J1,J1.OUT1,J1.OUT1,V-A.negative,22,116.372,proposed,nominal,modeled,fixed
-J1-positive-A,J1,V12,wago-mana.2,V-A.positive,22,243.618,proposed,nominal,modeled,fixed
+J1-OUT1,J1,J1.OUT1,J1.OUT1,V-A.negative,22,135.487,proposed,nominal,modeled,fixed
+J1-positive-A,J1,V12,wago-mana.2,V-A.positive,22,327.578,proposed,nominal,modeled,fixed
 J1-OUT2,J1,J1.OUT2,J1.OUT2,V-B.negative,22,170.527,proposed,nominal,modeled,fixed
 J1-positive-B,J1,V12,wago-mana.3,V-B.positive,22,119.175,proposed,nominal,modeled,fixed
 J1-OUT3,J1,J1.OUT3,J1.OUT3,V-C.negative,22,242.957,proposed,nominal,modeled,fixed
@@ -42,8 +42,8 @@ J2-OUT2,J2,J2.OUT2,J2.OUT2,V-J.negative,22,172.975,proposed,nominal,nominal,fixe
 J2-positive-J,J2,V12,wago-manb.3,V-J.positive,22,173.108,proposed,nominal,nominal,fixed
 J2-FAN,J2,J2.FAN,J2.FAN,fan.negative,22,323.104,proposed,nominal,unlocated,fixed
 J2-positive-fan,J2,V12,wago-manb.4,fan.positive,22,185.15,proposed,nominal,unlocated,fixed
-J2-OUT3,J2,J2.OUT3,J2.OUT3,V-K.negative,22,168.922,proposed,nominal,modeled,fixed
-J2-positive-K,J2,V12,wago-manb.5,V-K.positive,22,200.398,proposed,nominal,modeled,fixed
+J2-OUT3,J2,J2.OUT3,J2.OUT3,V-K.negative,22,241.95,proposed,nominal,modeled,fixed
+J2-positive-K,J2,V12,wago-manb.5,V-K.positive,22,260.295,proposed,nominal,modeled,fixed
 J13-AM2,J13,AM2,J13.AM2,pogo-male.1,22,184.279,proposed,nominal,modeled,fixed
 cartridge-AM2,Cartridge,AM2,pogo-female.1,pump-a.2,22,70.833,proposed,nominal,unlocated,moves with pump cartridge
 J13-AM1,J13,AM1,J13.AM1,pogo-male.2,22,183.821,proposed,nominal,modeled,fixed
@@ -58,19 +58,19 @@ J3-IO35,J3,IO35,J3.IO35,keystone.4,22,240.818,proposed,nominal,nominal,fixed
 J3-IO33,J3,IO33,J3.IO33,keystone.5,22,237.909,proposed,nominal,nominal,fixed
 J4-3V3,J4,3V3,J4.3V3,temp-carbonator.V,22,437.113,proposed,nominal,nominal,fixed
 J4-IO26,J4,IO26,J4.IO26,temp-carbonator.DATA,22,436.371,proposed,nominal,nominal,fixed
-J4-V5,J4,V5,J4.V5,flow.V,22,210.559,proposed,nominal,nominal,fixed
-J4-IO25,J4,IO25,J4.IO25,flow.PULSE,22,213.891,proposed,nominal,nominal,fixed
+J4-V5,J4,V5,J4.V5,flow.V,22,221.53,proposed,nominal,nominal,fixed
+J4-IO25,J4,IO25,J4.IO25,flow.PULSE,22,229.457,proposed,nominal,nominal,fixed
 J4-GND,J4,GND,J4.GND,wago-sensors.1,22,46.301,proposed,nominal,nominal,fixed
 temp-GND,J4,GND,wago-sensors.2,temp-carbonator.GND,22,467.103,proposed,nominal,nominal,fixed
-flow-GND,J4,GND,wago-sensors.3,flow.GND,22,230.796,proposed,nominal,nominal,fixed
+flow-GND,J4,GND,wago-sensors.3,flow.GND,22,248.719,proposed,nominal,nominal,fixed
 temp-bus-V,J4,3V3,temp-carbonator.V,temp-coil.V,22,100.71,proposed,nominal,nominal,fixed
 temp-bus-DATA,J4,IO26,temp-carbonator.DATA,temp-coil.DATA,22,106.557,proposed,nominal,nominal,fixed
 temp-bus-GND,J4,GND,temp-carbonator.GND,temp-coil.GND,22,112.525,proposed,nominal,nominal,fixed
-J5-V5,J5,V5,J5.V5,relay-1.V5,22,172.706,proposed,nominal,nominal,fixed
+J5-V5,J5,V5,J5.V5,relay-1.V5,22,184.616,proposed,nominal,nominal,fixed
 relay-bus-V5,J5,V5,relay-1.V5,relay-2.V5,22,45.766,proposed,nominal,nominal,fixed
 J5-GND,J5,GND,J5.GND,relay-1.GND,22,176.55,proposed,nominal,nominal,fixed
 relay-bus-GND,J5,GND,relay-1.GND,relay-2.GND,22,52.966,proposed,nominal,nominal,fixed
-J5-IO19,J5,IO19,J5.IO19,relay-1.IN,22,170.134,proposed,nominal,nominal,fixed
+J5-IO19,J5,IO19,J5.IO19,relay-1.IN,22,183.426,proposed,nominal,nominal,fixed
 J5-IO2,J5,IO2,J5.IO2,relay-2.IN,22,182.122,proposed,nominal,nominal,fixed
 J6-GND,J6,GND,J6.GND,reed-a-4.GND,22,350.393,proposed,nominal,nominal,fixed
 J6-RA1,J6,RA1,J6.RA1,reed-a-1.signal,22,482.752,proposed,nominal,nominal,fixed

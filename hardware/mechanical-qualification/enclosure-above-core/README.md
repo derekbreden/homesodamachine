@@ -30,6 +30,15 @@ contact record bounds that articulation and the unchanged socket walls.
 Their bench installation must use the selected back-top mounts. The saved
 core-bench seating scenario does not establish back-top installation.
 
+The [approved carried-group query](approved-carried-group-review.json) records
+native counterexamples to a fully populated rigid back-top ride: V-A crosses
+the fixed PSU at 20 mm aft of its installed pose, and V-K crosses the fixed
+meter at 50 mm aft. The selected poses and carrying pieces remain the baseline;
+these collisions require an assembly-order resolution. The same query records
+the finite rear-tube capture and the oblique pump-inlet handoff. Rigid-envelope
+interference during late TPU-cuff fitting does not predict stretch or insertion
+force. This report does not establish a complete assembly sequence.
+
 The upper M5 bearing planes are Z318.0 on front-top and Z318.25 on back-top.
 Each host reading asks for the full 9.5 mm insert length, 3 mm outside its
 Ø6.4 mm pilot, a 3 mm blind floor, complete screw engagement and at least
