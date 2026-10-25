@@ -1,37 +1,18 @@
 # Cold-core cap and equipment mounts
 
 The top cap is a foam-pour cup closed by a 5.4 mm lid. The PCB and Mean Well
-PSU lie flat on its west half; the diaphragm pump stands aft. V-A, V-B and V-K
-seat in integral upright socket walls. V-B stands east of the PCB; V-A and
-V-K flank the fore plumbing. The water check rests on a fore–aft quarter
-bearing on an aft-rooted bridge. It opens upward and west, leaving the PSU face clear.
-The four DC/sensor junction wells and the earth boss remain accessible from
-above. The fixed enclosure wall carries both relays.
+PSU lie flat on its west half; the diaphragm pump stands aft. V-B seats in
+an integral upright socket wall east of the PCB. The water check rests on
+a fore–aft quarter bearing on an aft-rooted bridge. It opens upward and west,
+leaving the PSU face clear. The four DC/sensor junction wells and the earth
+boss remain accessible from above. Back-top carries V-A, V-K, their fitted
+plumbing, the complete inlet header and both relays.
 
-V-A and V-K retain their complete socket plates above each plate's lower
-bearing edge. Their broad lower roots stay inside the core's X±90.5 mm
-footprint, while the socket plates project about 4.7 mm beyond it above the
-root. A single flat aft relief below each complete socket plate clears the
-lower valve barrel and its attached NeoFit collar with 0.15 mm nominal air;
-the full-width lower root retains 7.153 mm of depth. The three socket walls
-move with the populated core during enclosure assembly.
-
-Clock V-A and V-K with their underside flow arrows downward, inlet above
-and outlet below. Their terminal blades point downward.
-Seat bare V-A first and V-K second on the open bench, before the PCB, PSU,
-pump, meter, fitted elbows and leads. Lower each body 6.2 mm aft of its final
-position, then seat it 6.2 mm fore. The native approach keeps the post tips
-1 mm off the lip before its 5.2 mm engagement. Clock V-A's upper inlet release
-ear clear of the elbow body; the model uses a 15° turn. Keep the collet free
-to operate. Fit the upper inlet elbows
-before the back column closes; the fixed roof obstructs their complete axial
-insertion stroke. These are geometric sequencing constraints, not insertion
-force or fit qualification.
-
-Attach the prepared blade leads after both bare valves are seated, before
-installing the PCB, PSU, pump and meter. Dress the free PCB ends for final
-connection through the open roof. The native valve proof includes the blades;
-separate female terminal housings and their seating force remain unqualified.
+V-B uses the shared V69 socket profile. Its wall travels with the populated
+core. V-A and V-K use back-top's sidewall-rooted seats; their open-bench
+preparation belongs to [internal plumbing](../../../assembly/internal-plumbing.md).
+Their underside flow arrows point down, with the header at the upper inlets
+and the pump/Y-A feeds at the lower outlets.
 
 The edge-on flow meter sits fore–aft on two fixed-collar bearings rooted in
 the lid. Each six-millimetre-wide east-lower quarter bearing opens upward
@@ -50,16 +31,15 @@ The fore bearing has one flat step above the pump foot,
 leaving a 4.6 mm-thick east root below Z267.3. The aft bearing occupies the fore 6 mm of its fixed
 collar band, leaving 0.1 mm at the band's fore edge.
 
-Two JG union elbows have integral lid restraints. V-A's east turn sits on
-an upward-open west quarter bearing below the pump head. V-B's return uses a
-short broad ledge and a flat root aft of the PCB; its
-closed tie window retains more than 3 mm above it. Each uses one six-inch
-narrow tie around a fixed
-body band. Bearings and nominal strap routes stay off the collet reference
-envelopes; release travel is unmeasured.
+The V-B return has an integral lid restraint. Its broad ledge and flat root
+sit aft of the PCB, with one six-inch narrow tie on the fixed body band.
+Keep both release collets free. V-A's low turn travels with back-top through
+its connected tubing. Support and dress that free feed on the open bench;
+its final connection is at front-top's Y-A. No independent V-A printed bearing
+or retaining strip is included in this cap.
 
-Thread the empty holders and seat V-A's elbow on the bench before installing
-the pump. Dress the V-B tie before its final upper connections. The native
+Thread the V-B holder before seating the fitting and dress its tie before
+final upper connections. The native
 review includes the pump, PCB and PSU mounting tools, PSU terminal approaches,
 seven JST housing withdrawal columns, both KF301 screw axes and 8 mm straight
 wire-entry lands. J1, J2 and J11 use the complete housing paths in the
@@ -77,8 +57,7 @@ head engagement and retention remain unqualified.
 
 | Restraint | Nominal strip route | Allocated tie |
 | --- | ---: | --- |
-| V-A east turn | 81.99 mm | One 152.4 mm narrow tie |
-| V-B outlet return | 112.05 mm | One 152.4 mm narrow tie |
+| V-B outlet return | Selected route under access review | One 152.4 mm narrow tie |
 | Fore meter collar | 88.65 mm | One 152.4 mm narrow tie |
 | Aft meter collar | 137.40 mm | One 152.4 mm narrow tie |
 | Water-check barrel | 69.81 mm | One 152.4 mm narrow tie |

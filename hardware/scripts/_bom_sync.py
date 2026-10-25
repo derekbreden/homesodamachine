@@ -119,7 +119,8 @@ four_inch_ties_per_build = 15 + 2
 # One six-inch tie at each selected fluid saddle and explicit cap retaining path.
 # This allocates owned stock; installed loop fit/retention remain unqualified.
 _cap_retaining_paths = {**_selected_cap.meter_tie_routes(),
-                        **_selected_cap.union_tie_routes(),
+                        **{name: route for name, route in _selected_cap.union_tie_routes().items()
+                           if _selected_cap.union_support_datums()[name]['support_implemented']},
                         'water-check': _selected_cap.check_tie_route()}
 six_inch_ties_per_build = (len(_selected_shell.fluid_supports())
                             + len(_cap_retaining_paths))
@@ -160,8 +161,8 @@ stem_elbows_per_build = (2*len(ml.LOWER_CONNECTIONS)
 stem_elbow_delivered_unit_cost = (
     Decimal('36.18') / Decimal(30) * Decimal('173.54') / Decimal('147.22'))
 
-# Valve sockets belong to the printed parent already billed in §7: V-A/V-B/V-K to
-# the cap lid, and the front manifold
+# Valve sockets belong to the printed parent already billed in §7: V-B to the
+# cap lid, V-A/V-K to back-top, and the front manifold
 # valves to enclosure-front-top. Both flavour-pump trays also belong to that
 # front piece. No separate valve panel or equipment tray is allocated.
 _trays = sorted(n for n in _placed if "tray" in n or n.startswith("valve-panel"))

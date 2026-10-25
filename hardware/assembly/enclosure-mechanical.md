@@ -108,12 +108,11 @@ qualification items.
 
 **Prepare the supports on the bench.** Thread the ASSE, regulator and gas-pair
 ties through their fixed-shell windows, and the meter ties through its lid
-windows. Seat the ASSE and gas bodies; leave the regulator saddles empty with
-their ties loose for capture. Seat bare V-A, then bare V-K, in the lid's
-upright sockets before the PCB, PSU, pump, meter, fitted elbows and leads, per
-[cold-core assembly](cold-core.md). Fit both upper inlet elbows before the
-back-column ride. Keep both roof closures separate. The connected lid equipment
-travels with the cold core during the back-column ride.
+windows. Seat the ASSE, regulator and gas bodies in back-top's supports.
+Fit bare V-A and V-K to its integral seats, attach their prepared blade leads
+and complete their fitted plumbing and inlet header while back-top is open
+on the bench. Keep both roof closures separate. V-B and the connected pump,
+PCB, PSU and meter travel with the cold core.
 
 Dry-fit the seams with the box empty: slide each column's top onto its bottom — front-top entering fore of front-bottom's front wall and running AFT to its stop blocks, back-top entering aft of back-bottom's rear wall and running FORE to its own — then part them again and telescope front-bottom into back-bottom, front-top into back-top. Confirm every slide runs its whole travel without shaving, reaches its assembled position, and every knuckle passes its neighbours as the halves telescope.
 
@@ -139,7 +138,7 @@ panel retains a 6 mm clamping stack: 4 mm printed wall and 2 mm identification c
 collets free. Actual fitting make-up and insertion witnesses determine physical
 assembly; the reference envelopes do not establish those dimensions.
 
-Fit C14 at X−61.75/Z323, flange in its shallow rear pocket and solder tabs inboard.
+Fit C14 at X−68.5/Z330, flange in its shallow rear pocket and solder tabs inboard.
 The inboard aperture follows the measured chamfered wiring-body profile with
 0.25 mm clearance; the separate outboard recess follows the flange's rounded,
 tapered outline. This fit basis retains the neighboring WAGO wall and full
@@ -206,25 +205,24 @@ accessible for final connection. Keep PSU terminal screwdriver approaches clear.
 
 ### 6. Close the box
 
-The box closes in two slides and four M5 screws. The PCB, PSU, pump, all three source valves and meter with its inlet plumbing travel with the core. The split tee, regulator and three connected header links are temporarily supported with that core; back-top's open-fore saddles capture the regulator during closing. The ASSE, gas group and relays travel with back-top. Both roof openings remain uncovered.
+The box closes in two slides and four M5 screws. The PCB, PSU, pump, V-B and meter with its inlet plumbing travel with the core. V-A, V-K, their fitted plumbing, the split tee, regulator and three connected header links belong to back-top with the ASSE, gas group and relays. The V-A low feed travels with that valve and connects to front-top's Y-A. Both roof openings remain uncovered for the final handoffs.
 
-Preassemble both rear bulkheads and their nuts, the nested soda stem elbows
-and the 32.591 mm concealed tube with back-top while it is open on the bench.
-Leave 15.7 mm of tube free to enter the fixed meter outlet during closing.
+Preassemble both rear bulkheads and their nuts and the nested soda stem
+elbows with back-top while it is open on the bench. The 32.591 mm concealed
+tube stays with the core-mounted meter: seat its nominal 15.7 mm meter end
+and leave the other 16.891 mm for the back-top return elbow.
 Keep the white 4 mm drain-vent line unconnected for final dressing through the
 open roof. The
 [rear assembly record](/hardware/mechanical-qualification/enclosure-above-core/rear-plumbing-assembly.json)
-bounds this complete group's continuous closing envelope.
+records the exact staging and finite socket scope of its native queries.
 
-1. **Back column.** Slide back-top fore onto the empty back-bottom from its aft entry position, through the 237.5 mm rail travel to the stops. Keep the wiring ends supported inside the column and clear of its seam. The ASSE, gas group and relays ride on back-top. Its regulator saddles and ASSE outlet cuff remain empty. Both roof closures remain separate.
+1. **Back column.** Slide back-top fore onto the empty back-bottom from its aft entry position, through the 237.5 mm rail travel to the stops. Keep the wiring ends supported inside the column and clear of its seam. The ASSE, gas group and relays ride on back-top. Its source valves and complete water header are preassembled on their back-top mounts. Both roof closures remain separate.
 
 2. **The back assembly rides forward over the core.** Stand the closed back column behind the core's cart, mouth facing the core's aft face, and bring it FORE — the Y-seam mouth swallowing the core, the slab passing under it, the hold-down feet's eased tips riding over the cap's crown — one continuous motion that runs the column's whole depth and ends as the Y seam's own telescope: over the last [17.8 mm](Y_OVERLAP) the front assembly's proud tongue enters the back's mouth, the floor's tongue closes square inside the slab, the corner stacks' knuckles pass one another into place, and the handholds' inner walls close. The rear seam band, front-bottom's corner pockets and cap brackets provide 0.25 mm around the nominal core plan and above its crown. The floor is one plane at Z−0.35: 0.25 mm running plus 0.10 mm cavity-floor transition allowance, over 5.65 mm of slab. The hold-down foot is Z253.65. These are allowances for printed material under the [fit policy](/hardware/printed-parts/enclosure/clearance-audit.md). **Set the core's lid tenants before this ride**: the water pump and everything else that stands on the cap goes on at [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) while the core is still on the open cart, where every face of it is bench work.
 
-   Guide the free concealed soda tube into the fixed meter outlet during
-   the final 15.7 mm. Guide the ASSE outlet cuff over the split tee's male stem
-   during the final 15 mm. The regulator enters its open-fore roof saddles
-   at the same time.
-   Check the actual seating marks and tighten its prepared ties through the
+   Guide the back-top return elbow onto the concealed tube carried by the
+   meter; its nominal receiving depth is 16.891 mm. The ASSE, source valves and complete header remain
+   connected on back-top. Check the actual seating marks through the
    open roof. Do not use the enclosure screws to force a fluid joint home.
 
 3. **Four screws.** Support the flank securely over the bench edge.
@@ -255,7 +253,7 @@ bounds this complete group's continuous closing envelope.
 
 With the quadrants home, complete the tubing and leads between the front
 manifold, core and rear wall through the two open roof apertures.
-Inspect the captured rear soda tube and connect the drain-vent line last.
+Inspect the rear soda engagement and connect the drain-vent line last.
 Follow [internal plumbing §4](internal-plumbing.md#4-rear-beverage-connections)
 for the bench preassembly and actual insertion marks. The manual rear record
 retains the nominal fitting contact and does not qualify hand/tool access,
@@ -362,7 +360,7 @@ roof and covers the frame screw wells. Lift it for cleaning and frame screw acce
 - Compressor and condenser retained on their specified floor/wall mounts, with the donor electrical cover intact and the refrigerant loop supported.
 - Cold core seated within its nominal floor pocket and hold-down envelope; PCB, PSU, pump and V-B on their core mounts.
 - Four quadrants home, four M5 seam screws seated, no tube or conductor trapped in a joint.
-- Fixed front manifold and rear connection bodies installed; V-A/V-K in their core-lid upright sockets; relays and junctions on their specified parents.
+- Fixed front manifold and rear connection bodies installed; V-A/V-K and their complete inlet header on back-top; relays and junctions on their specified parents.
 - Machine display retained by the accepted cover and gasket, with contact-pair installation retaining its named fit scope.
 - Final connections accessible through the open roof apertures until verified; drop-in frame and empty panel fitted afterward.
 
