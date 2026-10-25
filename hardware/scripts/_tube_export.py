@@ -255,8 +255,14 @@ def export(a):
     hold_rows = []      # (rid, dict) — every anchor row, resolved to its run
     unmatched = []
 
-    # The box's ribs — TUBE_ANCHOR_SITES, one row per site, matched to a.tube_anchors by its mid.
+    # The box's ribs — TUBE_ANCHOR_SITES, one row per site the live pack stands
+    # (`a.tube_anchor_sites`, as `_scorecard` reads it), matched to a.tube_anchors by its mid.
+    sites = getattr(a, "tube_anchor_sites", None)
+    site_ids = ({row[0] for row in sites} if sites is not None else
+                {rid for rid, _leg, _root, _piece in ea.TUBE_ANCHOR_SITES})
     for n, (rid, leg, root, piece) in enumerate(ea.TUBE_ANCHOR_SITES):
+        if rid not in site_ids:
+            continue
         r = by_id.get(rid)
         if r is None:
             unmatched.append(f"TUBE_ANCHOR_SITES[{n}] names {rid}, which the machine does not draw")
