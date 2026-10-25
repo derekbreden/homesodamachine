@@ -597,5 +597,93 @@
     "native_errors": [],
     "source_native_valid": true,
     "physical_scope": "Wire dressing, minimum bend qualification, packing, crimp entry and flexible service forces remain unqualified."
+  },
+  "J2_positive_K_margin": {
+    "scope": "One lower guide at X96/Y322/Z258 leaves the fixed aft A departure below the tube while preserving endpoints and all other guides. Fixed tube pair geometry and all selected device poses remain unchanged. Physical wire dress, bend qualification, packing and disconnect fit remain unqualified.",
+    "source_state": "frozen",
+    "input_native_air_to_A14_mm": 0.06137003100922659,
+    "final_native_air_mm": {
+      "fluid-14": 1.1756528989204487,
+      "fluid-16": 3.245367924581949
+    },
+    "native_intersections": [],
+    "native_errors": [],
+    "native_boolean_count": 18,
+    "source_native_valid": true,
+    "signature": {
+      "valid": true,
+      "solids": 1,
+      "faces": 15,
+      "volume_mm3": 590.5023031450828,
+      "bounds_mm": [
+        68.1040987702869,
+        168.1499999,
+        254.1499999,
+        96.85000009999999,
+        338.3397606295766,
+        320.85000010000005
+      ],
+      "center_mm": [
+        90.07260087000112,
+        267.24329167190683,
+        286.686537206253
+      ]
+    },
+    "brep_sha256": "7e758eb6986073d1f35f47267e85d4dc8940c7a20b2104c643c43b8f70dce640",
+    "curve_sha256": "6d45f71e35e0d18cc1cee6fc875f876fc2f3f84e9ef5d8e5935d117e48af0163",
+    "native_receipt_sha256": "ce407d082e3b1565564121dec0df2662efdaea153cc838c1f31995d3b20fd9d3",
+    "fixture_sha256": {
+      "ground-stack": {
+        "path": "tmp/reservoir-a-ground-native/ground-stack.brep",
+        "sha256": "29f11f406e04c53712586f8408b97ac6128e146e8ffd2e914678f33f0136323e"
+      },
+      "ground-boss": {
+        "path": "tmp/reservoir-a-ground-native/ground-boss.brep",
+        "sha256": "aa2063ffd73fe0101a0b43142db74494a850d6d990cb555955a25a3f290aa93a"
+      },
+      "foam-cap-lid-top": {
+        "path": "tmp/new-routing-witnesses/foam-cap-lid-top.brep",
+        "sha256": "a8a3ce0be01833037e88d8d6def5f3958c7abfa870d72ec70280de91460bb867"
+      },
+      "g-ganen-pump": {
+        "path": "tmp/new-routing-witnesses/g-ganen-pump.brep",
+        "sha256": "e5b7a03ed1ce8ba11cfd893faf07b6fec62430d0e0b61706784a2bbce7be4670"
+      },
+      "tube-fluid-14": {
+        "path": "tmp/reservoir-a-free-final/fluid-14.brep",
+        "sha256": "53edb3e0e7b32f1590581b59e2ee19c6f2940d3e0a4e90a63ea14f29b12af80f"
+      },
+      "tube-fluid-16": {
+        "path": "tmp/reservoir-a-free-final/fluid-16.brep",
+        "sha256": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae"
+      },
+      "a-pair-fore-anchor": {
+        "path": "tmp/reservoir-a-anchor-native/a-pair-fore-anchor.brep",
+        "sha256": "0ad7c3b7358c651e4dcd2e517942d44bc8acd7235c0168dcfddb0e7d59c3b9fe"
+      },
+      "a-pair-aft-anchor": {
+        "path": "tmp/reservoir-a-anchor-native/a-pair-aft-anchor.brep",
+        "sha256": "fd6077e099a1f3e405101d6a0807e4ef270b13a5491b5f314a3952eec7318dd4"
+      },
+      "a-pair-fore-anchor-tie": {
+        "path": "tmp/reservoir-a-anchor-native/a-pair-fore-anchor-tie.brep",
+        "sha256": "c0453bdc01809cf3a33f0adb99ceddbd8c36db0fa0b04d7b3213171f04703e58"
+      },
+      "a-pair-aft-anchor-tie": {
+        "path": "tmp/reservoir-a-anchor-native/a-pair-aft-anchor-tie.brep",
+        "sha256": "920706efb8b6d1b9c218ed8a8d99473cd8b58ee3e9da956a1f29126756f2aa7e"
+      },
+      "enclosure-front-top": {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+        "sha256": "2f696dd4497e3c8c19a9d8d4a184e4c12c830a033f6b7ac25c88e95cd9548b42"
+      },
+      "enclosure-back-top": {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+        "sha256": "10a6008999aa3096a3c3b85a7222bc8d0ca39167f09b29966aa8d33e8b2c3bc9"
+      }
+    },
+    "developed_length_mm": 260.15601509394725,
+    "prepared_length_mm": 450,
+    "reserve_mm": 189.84398490605275
   }
 }
