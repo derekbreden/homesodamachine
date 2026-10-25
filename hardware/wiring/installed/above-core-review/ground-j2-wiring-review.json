@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "scope": "Frozen local source dressing for the two J2 leads and three protective-earth branches after the selected ground-stack translation. The fifteen selected PSU/relay/display paths are unchanged. The initial guide screen passes; source-native checks against the actual moved stack, lid, paired seats and fixed neighbors are pending. Physical wire bends, crimp entry, packing, flexible service motion and assembly force remain unqualified.",
-  "source_state": "frozen_native_review_pending",
+  "scope": "Frozen local source dressing for two J2 leads and three protective-earth branches at the selected ground-stack landing. The fifteen selected PSU/relay/display paths remain unchanged. The initial five native solids are valid and their300 bounded equipment checks have zero residual contact. Two guide portions separate the measured COM/carbonator-PE crossing; their focused native recheck is pending. Physical wire bends, crimp entry, packing, flexible service motion and assembly force remain unqualified.",
+  "source_state": "frozen_native_recheck_pending",
   "wire_ids": [
     "AC6-PE",
     "PE-bus",
@@ -33,8 +33,8 @@
   "developed_lengths_mm": {
     "AC6-PE": 333.691,
     "PE-bus": 352.885,
-    "PE-carbonator": 421.229,
-    "J2-COM": 189.984,
+    "PE-carbonator": 422.41485895620053,
+    "J2-COM": 190.88296824976572,
     "J2-FAN": 329.6
   },
   "native_review_complete": false,
@@ -42,7 +42,20 @@
   "actual_export_binding_pending": true,
   "source_sha256": {
     "hardware/wiring/installed/terminals.py": "a33f359b26dc6e742f10f50824e249ef353bbb25439f9afe73f32cdc6c630e99",
-    "hardware/wiring/installed/route-overrides.json": "be306e2f6639f47a7d98a361dad68a884569f7954119ffb04ec8c0f1a76b964a",
-    "hardware/wiring/installed/bundle-routes.json": "11800d125d32a810b42668337f3862db1e103e2d9ba5b4a413ac5e6583214d21"
+    "hardware/wiring/installed/route-overrides.json": "2b91a9174efd3b1b22d3519621f5e17bc172592bbd02a6dfe8fc72eecd56c339",
+    "hardware/wiring/installed/bundle-routes.json": "a016b1d3f7e86cfe131eb512cad4181c5b0ad977c93bf9832741e3d7923696b7"
+  },
+  "input_wire_pair_contact": {
+    "a": "J2-COM",
+    "b": "PE-carbonator",
+    "common_mm3": 7.367183728138871,
+    "bounds_mm": [
+      28.427077568994214,
+      206.05681053799702,
+      262.7751536267638,
+      32.932780545728576,
+      219.21022589633364,
+      270.631075107011
+    ]
   }
 }
