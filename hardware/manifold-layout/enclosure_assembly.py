@@ -711,15 +711,18 @@ def build_fuse_clamp(comp_carry, fuse):
 
 
 def build_foam(front_y: float):
-    """The cold core at the machine's own `FOAM_YAW` and on the machine's own floor, its front
-    face on `front_y`. Its native box hangs 20 mm below its origin, so the floor is the box's own
-    bottom and not that origin.
+    """The cold core at `FOAM_YAW`, seated by its shell footprint and stack floor.
+
+    The quarter turn carries the shell's native -X face to the appliance's
+    front. Lid anchors may overhang the shell; they do not move these datums.
 
     Returns `(placed, carry)` like every other seated body, so the cap's conduit mouths ride the
     placement — a line reaching one is drawn to where the bore actually comes out."""
     f = import_step(str(FOAM_STEP)).val()
+    shell = box(import_step(str(_foam.SHELL_STEP)).val())
+    datum = (shell.xmin, (shell.ymin + shell.ymax) / 2.0, _foam.stack_floor_z)
     return seat_body(f, (((0.0, 0.0, 1.0), FOAM_YAW),), seat="foam-assembly",
-                     cx=0.0, y0=front_y, z0=0.0)
+                     station=((datum, (0.0, -1.0, 0.0)), (0.0, front_y, 0.0)))
 
 
 #: THE SUB-ASSEMBLY THE CORE'S BODIES STAND IN. The machine exports them under this name and
