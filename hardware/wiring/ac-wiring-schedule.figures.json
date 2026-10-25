@@ -20,6 +20,8 @@
     "LEN_COMPRESSOR": "~700 mm",
     "LEN_DC1": "~350 mm",
     "LEN_DC2": "~350 mm",
+    "LEN_EARTH_BUS": "~400 mm",
+    "LEN_EARTH_CARBONATOR": "~500 mm",
     "LEN_FAN": "~650 mm",
     "LEN_FAUCET_INBOARD": "~400 mm",
     "LEN_FLOW": "~300 mm",
