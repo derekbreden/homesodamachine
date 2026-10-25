@@ -644,6 +644,7 @@ def graft(path: Path, fluted: dict, *, same_frame=False):
 
     `same_frame` preserves those coordinates when the caller knows the host and pieces
     share a frame. Added raised lettering changes a bounding box, not a placement.
+    Otherwise an unrecoverable placement leaves the host body where it stands.
 
     THE HOST KEEPS ITS OWN NAME AND COLOUR. A body is coloured by the assembly that places it,
     and swapping the surface is not swapping which part it is.
@@ -671,9 +672,9 @@ def graft(path: Path, fluted: dict, *, same_frame=False):
         surface = fluted.get(fluted_key(entry["name"], fluted, owner=owner) or "")
         if surface is None:
             continue
-        # Identity is established by the complete name or an owner-scoped
-        # alias before considering placement. A changed part may have new
-        # extents, so failure to recover a carry does not reject that edit.
+        # A name establishes which body this is, but not where the assembly
+        # places it. A shared-frame edit is explicit; an unknown carry cannot
+        # be replaced with the piece's print coordinates.
         drift = _placement_drift(entry, surface)
         if drift > PLACEMENT_TOL and not same_frame:
             placement = placement_onto(entry, surface)
@@ -681,11 +682,12 @@ def graft(path: Path, fluted: dict, *, same_frame=False):
                 surface = carried(surface, placement)
             else:
                 moved.append((entry["name"], drift))
+                continue
         entry.update({k: surface[k] for k in ("pos", "nrm", "idx", "fac")})
         landed += 1
     for name, drift in moved:
-        print(f"   {Path(path).name}: {name} lands as cut, {drift:.1f} mm off the body it "
-              f"replaces")
+        print(f"   {Path(path).name}: {name} keeps its host surface; no placement recovered "
+              f"across {drift:.1f} mm")
     if not landed:
         return 0
     # BYTES THAT DID NOT MOVE DO NOT MOVE THE FILE. A payload rewritten identically takes a new
@@ -858,7 +860,7 @@ def _matching_checks(check):
         replacement = entry("faucet-display-cover", edited)
         _mesh_payload.write([original[1]], str(resized))
         check("a correctly named part may change its extents",
-              graft(resized, {replacement["name"]: replacement}), 1)
+              graft(resized, {replacement["name"]: replacement}, same_frame=True), 1)
         check("the changed part reaches the viewer in its cut frame",
               read_payload(resized)[0]["pos"],
               np.asarray(replacement["pos"], dtype=np.float32).astype(float).tolist())
@@ -1093,6 +1095,15 @@ def selftest(matching_only=False, exact_only=False):
         crate = wedge.bounding_box.subdivide().subdivide()
         check("a surface that is not the body is not placed at all",
               placement_onto(own_frame, {"pos": crate.vertices.ravel().tolist()}), None)
+        stood_before = stood.read_bytes()
+        check("an unresolved carry does not insert a surface at print origin",
+              graft(stood, {"a-wedge": {**own_frame,
+                    "pos": crate.vertices.ravel().tolist(),
+                    "nrm": crate.vertex_normals.ravel().tolist(),
+                    "idx": crate.faces.ravel().tolist(),
+                    "fac": [0, len(crate.faces) - 1]}}), 0)
+        check("the correctly placed host remains byte-for-byte intact",
+              stood.read_bytes() == stood_before, True)
 
         # AND THE SAME SUBSTITUTION IN A SCENE MESH. cadquery gives a piece one body per BREP
         # face; the graft has to take every one of them and leave the bodies around it standing,
