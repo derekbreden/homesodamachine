@@ -63,15 +63,13 @@ def dock_regions(box, region):
 def above_core_regions(box, region):
     """Complete fixed-shell hosts from the selected native interface helpers."""
     shell = e._above_core_shell
-    for number, shape in enumerate(shell.access_bosses(), start=1):
-        region('back-top', f'Electronics closure host, blind cap and roof root {number}',
-               shape_bounds(shape))
-    bosses, _holes = shell.relay_bosses()
-    for number, shape in enumerate(bosses, start=1):
-        bounds = shape_bounds(shape)
-        bounds[0] = min(bounds[0], box.outer[0])
-        region('back-top', f'Relay insert host and complete west wall root {number}',
-               bounds)
+    for label, (bosses, _holes) in (('PSU', shell.psu_bosses()),
+                                   ('Relay', shell.relay_bosses())):
+        for number, shape in enumerate(bosses, start=1):
+            bounds = shape_bounds(shape)
+            bounds[0] = min(bounds[0], box.outer[0])
+            region('back-top', f'{label} bearing pad, insert host and west wall root {number}',
+                   bounds)
     x, y, z = shell.layout.pose('c14-inlet')['translation_mm']
     fasteners = shell.c14_fastener_plan()
     seat = y - fasteners['flange_thickness_mm']
@@ -169,6 +167,7 @@ def main():
            Path(e._above_core_shell.__file__),
            Path(e._above_core_shell.layout.__file__),
            ROOT/'hardware/manifold-layout/above-core.json',
+           ROOT/'hardware/reference/meanwell-irm90/meanwell_irm90.py',
            ROOT/'hardware/reference/teyleten-relay/teyleten_relay.py',
            Path(e._funnel_frame_part.__file__),
            Path(e._funnel_frame_part.funnel.__file__),

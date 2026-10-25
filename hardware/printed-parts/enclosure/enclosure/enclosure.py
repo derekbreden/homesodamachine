@@ -9765,7 +9765,6 @@ def _ceiling_show_cap_bound(back_top, box):
     cap = _ybox(fx0, fx1, back_flank_start(box.y_joint), back_top_wall_face(), show - wall, show)
     if box.pack.funnel:
         cap = cap.cut(_funnel_cut(box.inner, box.outer, box.pack.funnel))
-    cap = cap.cut(_above_core_shell.access_opening())
     missing = abs(cap.cut(solid).Volume())
     ok = missing <= stated_bound_tol
     return record_bound(Bound(
@@ -9773,7 +9772,7 @@ def _ceiling_show_cap_bound(back_top, box):
         "The ceiling slab keeps a complete exterior wall over its whole field",
         ok,
         f"{wall:g} mm cap; missing {missing:.4f} mm³",
-        "a complete wall outside the funnel and electronics-panel openings",
+        "a complete wall outside the funnel opening",
         ([] if ok else [
             "the finished back-top has lost show-face stock over its ceiling; inspect every "
             "cutter applied after `_back_top_ceiling` and keep every pocket under the lane"])))
