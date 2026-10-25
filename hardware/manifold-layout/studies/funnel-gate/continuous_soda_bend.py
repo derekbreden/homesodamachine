@@ -1,6 +1,6 @@
 """Continuous soda inlet tube, accepted R14 holder and stock foam over the turn.
 
-This manual candidate keeps the meter and main component poses fixed. Its foam
+This selected arrangement keeps the meter and main component poses fixed. Its foam
 display is available occupied space after local compression, not a cutting
 template or an elastic material prediction. Production placement is separate.
 """
@@ -48,7 +48,9 @@ def plan():
     tube_points=[guide-12*U,guide,*arc,port,port+soda['metrics']['insertions_mm']['meter_estimate']*N]
     foam_points=[guide+1.1*U,*arc,port-1.*N]
     old=np.array(soda['upstream_handoff']['core_carb_water_out_mm'])
-    return {'scope':'Layout candidate; main components and rear outlet path fixed. The passive core guide and its internal continuation require production integration.',
+    return {'scope':'Selected insulated inlet; main components and rear outlet path fixed. The passive core guide and its internal continuation require production integration.',
+            'selection':{'status':'selected','date':'2026-10-24',
+                         'derek':'I am good with this insulation, this is what I want.'},
             'customer_outcome':'One continuous soda tube through an insulated supported turn; one inlet elbow and its extra push-fit connection are absent.',
             'source_holder':str((SOURCE/'tube_bend_holder.py').relative_to(ROOT)),
             'physical_acceptance':str(ACCEPTANCE.relative_to(ROOT)),
@@ -145,7 +147,7 @@ def assess():
             'narrowest_sampled_straight_riser_space':narrowest,
             'rigid_fit_passed':all(not rows[n]['hits'] for n in NAMES[:2]),
             'meter_and_main_component_poses':'Fixed; the core guide moves 11.9548 mm fore, in Y−.',
-            'production_limits':'Current printed lid/supports, the internal continuation and complete installed wiring need integration review for this candidate.'}
+            'production_limits':'Current printed lid/supports, the internal continuation and complete installed wiring need integration review for the selected inlet.'}
     (HERE/'continuous-soda-bend-review.json').write_text(json.dumps(record,indent=2)+'\n')
     print(json.dumps(record,indent=2),flush=True)
 
@@ -164,7 +166,7 @@ def viewer(baseline,output):
         part={'name':name,'geometry':name,'rotation':IDENTITY,'translation':[0.,0.,0.],
               'role':'insulation' if name==NAMES[2] else 'support' if name==NAMES[1] else 'wet',
               'kind':'component' if name!=NAMES[0] else 'tube','label':label,'latest_change':True,
-              'assembly':{'quadrant':'back-bottom','status':'proposed','basis':'The supported continuous tube joins the core-mounted meter; the core guide and internal continuation require integration.'}}
+              'assembly':{'quadrant':'back-bottom','status':'selected','basis':'The supported continuous tube joins the core-mounted meter; the core guide and internal continuation require production integration.'}}
         if name==NAMES[2]:part['opacity']=.30
         data['scene']['instances'].append(part)
         limits={NAMES[0]:1800,NAMES[1]:2500,NAMES[2]:5000}
@@ -183,7 +185,7 @@ def viewer(baseline,output):
     template=template.replace("function build(){","function build(){\n  pin('R14 holder · continuous tube',[50,346,301]);\n  pin('Foam · local compression',[50,342.4148,280]);")
     template=template.replace("pin('Core soda',[50,354.3696,253.4]);","pin('Core entry · 12 mm fore',[50,342.4148,253.4]);")
     template=re.sub(r'(<div id="qa-stage" role="img" aria-label=")[^"]*(")',
-       r'\1Rotatable above-core candidate with one continuous soda inlet tube supported by the accepted R14 printed holder inside the owned foam. The foam is translucent and shows an approximate locally compressed occupied envelope. The meter and every main component retain their poses. The core entry moves about 12 mm fore. The inlet push-fit elbow is removed. Roof hidden.\2',template)
+       r'\1Rotatable selected above-core arrangement with one continuous soda inlet tube supported by the accepted R14 printed holder inside the owned foam. The foam is translucent and shows an approximate locally compressed occupied envelope. The meter and every main component retain their poses. The core entry is at X50 Y342.4148. Roof hidden.\2',template)
     packed=base64.b85encode(gzip.compress(json.dumps(data,separators=(',',':')).encode(),9,mtime=0)).decode()
     template=template.replace('<!-- ARRANGEMENT_DATA -->','<script id="qa-data" type="application/octet-stream">'+packed+'</script>')
     output.parent.mkdir(parents=True,exist_ok=True);output.write_text(template)
