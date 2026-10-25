@@ -2642,11 +2642,11 @@
     },
     "c14": {
       "flange_centre_mm": [
-        -61.75,
+        -68.5,
         471.3,
-        323.0
+        330.0
       ],
-      "balance_basis": "Approximately equal scanned-flange clearance to the ideal left inner wall and ordinary ceiling underside"
+      "datum_basis": "Approved C14 flange datum"
     },
     "illustrated_lift_mm": 70.0,
     "equipment_carried_by_panel": [],
