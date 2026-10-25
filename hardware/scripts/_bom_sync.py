@@ -7,7 +7,7 @@ Use --only-bom to update the BOM without rewriting the labor ledger.
 import argparse
 import json
 import sys
-from decimal import Decimal, ROUND_HALF_UP
+from decimal import Decimal, ROUND_CEILING, ROUND_HALF_UP
 from pathlib import Path
 
 _here = Path(__file__).resolve().parent  # = hardware/scripts/
@@ -40,7 +40,7 @@ import ground_ring_stack as _gnd  # on the path once `enclosure_assembly` is imp
 import enclosure as _enc  # likewise
 import digiten_flow_sensor as _digiten  # likewise — the arm the meter's anchors bore for
 import iec_c14_inlet as _c14  # likewise — the inlet whose flange the +Y wall's tunnel bores for
-import meanwell_irm90 as _psu  # the flat cap-mounted supply and its mounting ears
+import meanwell_irm90 as _psu  # the west-wall supply and its mounting ears
 import teyleten_relay as _relay  # likewise
 import pcba_tray as _pcba  # likewise
 import _above_core_shell as _selected_shell
@@ -55,6 +55,18 @@ _f = _facts.read()
 _placed = set(_f.pack["placed"])
 _floor_bosses = _f.box["floor_bosses"]
 _cond_bosses = _f.box["cond_mount"][3] if _f.box["cond_mount"] else ()
+
+
+# Fixed solid-copper cuts: AC-1 has three conductors, AC-2 two, AC-3 one,
+# DC-1 two, DC-2 one and DC-4 two. Allocate in 0.1 m increments.
+_wire_schedule = load_module(
+    "bom_wire_schedule", _here.parent / "wiring" / "_ac_wiring_schedule_sync.py")
+solid16_cut_m = Decimal(str(
+    5 * _wire_schedule.len_mid_mm + 2 * _wire_schedule.len_short_2_mm
+    + _wire_schedule.len_short_mm + 2 * _wire_schedule.len_dc1_mm
+    + _wire_schedule.len_dc2_mm)) / 1000
+solid16_allocation_m = (solid16_cut_m * 10).to_integral_value(
+    rounding=ROUND_CEILING) / 10
 
 
 # Evaporator-coil copper consumption (§5 GOORY row) — pitch and wrap arc
@@ -429,6 +441,9 @@ def main(*, only_bom=False):
         "FOUR_INCH_TIES_COST": pack_line_cost(four_inch_ties_per_build, "4.28", 200),
         "SIX_INCH_TIES": f"{six_inch_ties_per_build:.4g}",
         "SIX_INCH_TIES_COST": pack_line_cost(six_inch_ties_per_build, "6.42", 100),
+        "SOLID16_CUT_LENGTH": f"{solid16_cut_m:g} m",
+        "SOLID16_ALLOCATION": f"{solid16_allocation_m:g} m",
+        "SOLID16_COST": pack_line_cost(solid16_allocation_m, "12.86", "7.62"),
         "PP1208E_PANEL": f"{panel_umbilical_bulkheads:.4g}",
         "PP1208E_INLET": f"{panel_water_inlet_bulkheads:.4g}",
         "PP1208E_TOTAL": f"{pp1208e_per_build:.4g}",

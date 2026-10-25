@@ -224,7 +224,7 @@ The buzzer is on the main board — an MLT-5020 magnetic transducer (U8) low-sid
 | [CQRobot JST XH 2.54 mm 9-pin connector kit (30 sets)](https://www.amazon.com/dp/B0B2R73RQB) | 9-pin XH — MANIFOLD A (J1) loom housing + terminals; ~1/unit; $9.19/30 | 1 (of 30 pk) | $0.31 | $0.31 <!--@wiring--> |
 | [CQRobot JST XH 2.54 mm 5-pin kit (50 sets)](https://www.amazon.com/dp/B0B2R9P2TS) + [7-pin kit (50 sets)](https://www.amazon.com/dp/B0B2R96VS3) | REEDS A (J6, XHP-5 ×1) + SENSORS (J4) / REEDS B (J7) (XHP-7 ×2) loom housings + terminals — the on-hand kits cover 4/6/9P only, so these two same-family kits close the set — the J6/J4/J7 loom housings crimped at [`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md). Ordered + delivered (Amazon 112-7067792-6289059, Jun 30): $8.29/50 + $8.99/50: (1 × $0.166) + (2 × $0.18) | 3 sets | — | $0.52 <!--@wiring--> |
 | [BNTECHGO 16 AWG silicone wire, 5-color kit (25 ft ea)](https://www.amazon.com/dp/B06Y557TCL) | Stranded DC-3 pump lead and separate protective-earth bonds. The compressor uses its own 18 AWG SJOOW cord. Fixed AC-1/2/3 and DC-1/2/4 use the solid stock below. 252-strand silicone, 600 V; acquired stock. $38.29/125 ft = $0.306/ft; approximately 7.8 ft/build. | ~7.8 ft | $0.31/ft | $2.39 <!--@wiring--> |
-| MECCANIXITY 16 AWG solid tinned-copper UL1007 hookup wire, [black 25 ft](https://www.amazon.com/dp/B0FK5HH8H1) + [white 25 ft](https://www.amazon.com/dp/B0FK5G1Q1J) + [green 25 ft](https://www.amazon.com/dp/B0FK5JHQW7) | Fixed runs AC-1 (black H / white N / green G, soldered at the C14's tabs), AC-2 (black H / white N), AC-3 and DC-1/2/4 (black). Bare solid in screw cages and WAGO 221 clamps. Marked 300 V / 80°C, 2 mm OD; keep clear of hot refrigeration surfaces. Black and white Amazon 114-8768578-0217027 2026-10-17: $11.99 + $0.87 allocated tax = $12.86 per 25 ft spool, **ON-ORDER** ([purchases.md §9](/hardware/ledger/purchases.md)); green a Prime offer verified 2026-10-17 at $11.99, not purchased. Approximately 2.2 m/build of preparation stock across AC-1/2/3 and DC-1/2/4, mostly black; trim after dressing. $12.86/7.62 m. | ~2.2 m | $1.69/m | $3.71 <!--@wiring--> |
+| MECCANIXITY 16 AWG solid tinned-copper UL1007 hookup wire, [black 25 ft](https://www.amazon.com/dp/B0FK5HH8H1) + [white 25 ft](https://www.amazon.com/dp/B0FK5G1Q1J) + [green 25 ft](https://www.amazon.com/dp/B0FK5JHQW7) | Fixed runs AC-1 (black H / white N / green G, soldered at the C14's tabs), AC-2 (black H / white N), AC-3 and DC-1/2/4 (black). Bare solid in screw cages and WAGO 221 clamps. Marked 300 V / 80°C, 2 mm OD; keep clear of hot refrigeration surfaces. Black and white Amazon 114-8768578-0217027 2026-10-17: $11.99 + $0.87 allocated tax = $12.86 per 25 ft spool, **ON-ORDER** ([purchases.md §9](/hardware/ledger/purchases.md)); green a Prime offer verified 2026-10-17 at $11.99, not purchased. Listed preparation cuts across AC-1/2/3 and DC-1/2/4 total [2.35 m](SOLID16_CUT_LENGTH); allocate [2.4 m](SOLID16_ALLOCATION) per build, mostly black, in 0.1 m increments. Trim after dressing. $12.86/7.62 m. | ~[2.4 m](SOLID16_ALLOCATION) | $1.69/m | [$4.05](SOLID16_COST) <!--@wiring--> |
 | [WAGO 221-420 lever-nut, 10-conductor (box of 15)](https://www.amazon.com/dp/B0H1MW1LCX) | J1 MANIFOLD A COM, one 9-conductor node in the +X front-top wall well. Ten ports on one busbar; its two lever rows remain accessible. $28.90/15 paid. | 1 (of 15 box) | $1.93 | $1.93 <!--@wiring--> |
 | [WAGO 221-415 lever-nut, 5-conductor (25 pk)](https://www.amazon.com/dp/B0107SYYGU) | J2 MANIFOLD B COM, all five ports used: board feed, V-I, V-J, condenser fan and V-K positives. In the +X front-top wall well below MANIFOLD A. $26.76/25 paid. | 1 (of 25 pk) | $1.07 | $1.07 <!--@wiring--> |
 | [WAGO 221-413 lever-nut, 3-conductor (box of 50)](https://www.amazon.com/dp/B07W7W91FX) | Three rear-wall mains blocks for L, N and PE, plus four core-lid junctions for +12 V, DC GND, J7 / reservoir-B / carbonator-reed common, and J4 / temperature-bus / flow-meter common. One conductor per entry. $27.83/50 paid. | 7 (of 50 box) | $0.56 | $3.90 <!--@wiring--> |
@@ -343,12 +343,12 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 | 8. Flavor subsystem | [$279.71](BOM_SEC8) |
 | 9. Dispensing | [$80.18](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
-| 11. Wiring | [$39.58](BOM_SEC11) |
+| 11. Wiring | [$39.92](BOM_SEC11) |
 | 12. Level sensing | [$29.78](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$18.66](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
 | 15. Customer documentation | [$25.14](BOM_SEC15) |
-| **Total** | **[$1,504.14](BOM_GRAND)** |
+| **Total** | **[$1,504.48](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
