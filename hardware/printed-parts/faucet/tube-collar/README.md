@@ -1,16 +1,16 @@
 # Tube identification collars
 
-A printed collar threaded onto a 1/4-inch or 4 mm line, carrying the word and the colour of the bulkhead ring that
-line goes through. The chip in [`../../enclosure/bulkhead-ring/`](../../enclosure/bulkhead-ring/README.md) marks the wall; this marks
+A printed collar threaded onto a 1/4-inch or 4 mm line, carrying the word and the colour of the rear chip under the
+fitting that line goes through. The chip in [`../../enclosure/rear-identification/`](../../enclosure/rear-identification/README.md) marks the wall; this marks
 the tube.
 
 The collar has a half circle below the bore's axis and a rectangle above it for the word. The word reads along the tube. The wall chip is rectangular.
 
 | | |
 |---|---|
-| tube | Ø[6.35](COLLAR_TUBE_OD) mm — 1/4" OD LLDPE, TAP, SODA, CO2 and both FLAVOR lines |
+| tube | Ø[6.35](COLLAR_TUBE_OD) mm 1/4" OD LLDPE on TAP, SODA and CO2; 4 mm OD on OVER and both FLAVOR lines |
 | bore, 1/4-inch stations | Ø[6.68](COLLAR_BORE) mm modelled; Ø[6.58](COLLAR_BORE_PRINTED) mm PETG calibration estimate |
-| bore, OVER station | Ø4.25 mm modelled for white 4 mm OD tubing |
+| bore, 4 mm stations | Ø4.28 mm modelled for the OVER and both FLAVOR tails |
 | width | Ø[12](COLLAR_OD) mm |
 | height | [13.05](COLLAR_TALL) mm — [7.05](COLLAR_RISE) mm of rectangle over the axis, its own half circle under |
 | length | [30 mm](COLLAR_LENGTH) along the tube |
@@ -89,4 +89,4 @@ the enclosure's own stock ([`bom.md`](/hardware/ledger/bom.md) §7).
 [value](NAME) texts are updated by:
 - `/hardware/printed-parts/faucet/tube-collar/tube_collar.py`
 
-The white OVER collar uses a Ø4.25 mm modelled bore for 4 mm OD tubing. Its black word and three-face identification use the existing collar construction. The drain tail is separately accessible beside the three beverage tails. Its 0.25 mm nominal diametral allowance is a CAD value; the finished part's fit is checked on the actual drain tube.
+The white OVER and black FLAVOR collars use a Ø4.28 mm modelled bore for 4 mm OD tubing: the published 0.076 mm tube tolerance, 0.10 mm print shrink and 0.10 mm slip over 4 mm (`bore_d`). The OVER collar's black word and three-face identification use the existing collar construction. The drain tail is separately accessible beside the three beverage tails. The allowance is a CAD value; the finished part's fit is checked on the actual tube.

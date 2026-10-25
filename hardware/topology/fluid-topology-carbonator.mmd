@@ -13,9 +13,10 @@ flowchart LR
   %% Cut lengths are recorded in assembly/internal-plumbing.md from these routed runs.
   %% This chart carries no length marker of its own; its edges are labelled by the driver above.
 
-  %% The customer's supply and the CO2 bottle both land on the +Y wall of back-top, and the three risers
-  %% leave by it too — carbonated water, flavor A, flavor B, on one row of PP1208E unions under
-  %% the umbilical.
+  %% The customer's supply and the CO2 bottle both land on the +Y wall of back-top, and four lines
+  %% leave by it to the umbilical: carbonated water through the PP1208E SODA bulkhead, flavor A
+  %% and B through ABU44M-E FLAVOR bulkheads, and the ASSE vent's OVER return through a third
+  %% ABU44M-E. The six fittings stand in one two-column, three-row grid.
 
   subgraph Sources["Sources"]
     Tap["Tap Water"]
@@ -33,7 +34,7 @@ flowchart LR
     BFP["asse1022-assembly<br/>(Multiplex 19-0897)"]
     Split["water-split<br/>(trimmed neoFit stem tee)"]
     VK["vk-solenoid<br/>(V-K, 12 V NC)"]
-    FlowReg["flow-regulator<br/>(clean-water feed)"]
+    FlowReg["flow-regulator<br/>(YZMSZ 0.3 MPa, clean-water feed)"]
     ElbowS["pump-inlet-tpu<br/>(straight TPU cuff)"]
     PW["g-ganen-pump<br/>(G Ganen, 110 PSI advertised)"]
     ElbowD["pump-outlet-tpu<br/>(straight TPU cuff)"]
@@ -95,7 +96,7 @@ flowchart LR
     Gooseneck["Gooseneck"]
   end
 
-  Vent["ASSE 1022 vent<br/>— ASSE drip pan, over the moisture sensor"]
+  Vent["ASSE 1022 vent<br/>— white 4 mm OVER line to the faucet's open outlet over the bowl"]
   PRVOut["PRV Discharge"]
   LevelSense["Level Sense from reed switches"]
   VA["V-A<br/>— the flavor manifold's tap"]
