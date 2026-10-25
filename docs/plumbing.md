@@ -118,10 +118,10 @@ Each flavor line gets its own clean solenoid and tee. The needle valve and water
 
 A needle valve restricts flowing water through the prototype's cleaning circuit.
 A blocked path can still reach supply pressure. The integrated enclosure's V-A
-feed uses an internal [Hydronix SB-FPV-40 pressure regulator](/hardware/reference/shok-blok-regulator/README.md).
+feed uses an internal [YZMSZ fixed 0.3 MPa water regulator](/hardware/reference/yzmsz-water-regulator/README.md).
 Reservoir level sensing ends the clean fill; the regulator limits its supply
-pressure. The manufacturer's output table and the provisional installed
-envelope are recorded beside the reference.
+pressure to a nominal 43.5 psi. The listing's rating and the estimated envelope
+are recorded beside the reference.
 
 ### Clean Cycle Sequence
 

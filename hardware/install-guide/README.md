@@ -160,7 +160,8 @@ The owner's regulator steps are attaching it and opening the cylinder valve: it 
 guide tells the owner to leave its adjusting screw alone. The owner gas checks cover locating a
 leak and closing the supply. The gas disconnection procedure is not published. The cylinder nut,
 the regulator's outlet push-fit and the red tether/bulkhead joint all sit upstream of the
-machine's GASHER check valve, and the regulator has no outlet shutoff or manual relief. A verified
+machine's PISCO secondary regulator and its neoFit ACHV44-E check valve, and the primary
+regulator has no outlet shutoff or manual relief. A verified
 procedure must establish how the red tether is brought to zero pressure, confirmed at both gauges,
 before disconnection, without touching the factory setting. Closing the cylinder alone is not a
 pressure-release procedure.

@@ -1,10 +1,9 @@
 # WR1110 fixed inline regulator
 
-The received WR1110 is the scan specimen for the secondary regulator inside the
-appliance's warm CO₂ chain. The installed secondary is the WR1105, Interstate's
-3-bar preset in the same Mini Body series ([bom.md §4](/hardware/ledger/bom.md)), so
-this exterior stands for both; check a received WR1105's barrel and outlet stub against
-the table below before it goes into the cradle. The reference is an analytic CadQuery
+The received WR1110 is a scanned Interstate Mini Body inline regulator. It is not
+part of the appliance: the in-machine CO₂ secondary is the push-connect PISCO
+RVFUP1/4-1/4-0.3 ([reference](../compact-inline-candidates/README.md),
+[bom.md §4](/hardware/ledger/bom.md)). The reference is an analytic CadQuery
 exterior measured from two coated MINI 2 captures. The inlet face is Y = 0, the male outlet points along +Y, and the
 smooth mounting barrel is centred on X/Z.
 
@@ -13,7 +12,7 @@ smooth mounting barrel is centred on X/Z.
 | Smooth barrel diameter | 18.87 | Independent scan fits: 18.883 and 18.852 |
 | Straight barrel band | Y 14.65–50.05 | Radial profile at the wrench transitions |
 | Usable model barrel length | 35.40 | Difference of those two stations |
-| Barrel midpoint | Y 32.35 | Enclosure cradle datum |
+| Barrel midpoint | Y 32.35 | Midpoint of the straight band |
 | Inlet wrench across flats / turned blank | 19.00 / 20.60 | Flat normals and corner arcs |
 | Outlet wrench across flats / turned blank | 19.08 / 21.76 | Flat normals and corner arcs |
 | Outlet hex shoulder | Y 54.47 | Observed annular face |
@@ -60,24 +59,11 @@ and the maximum over all regions is 0.68 mm at a visible mouth. The full regiona
 results and diagram are in [`scan-model-check.json`](scan-model-check.json) and
 [`scan-model-check.png`](scan-model-check.png).
 
-## Appliance integration
+## Placement record
 
-`barrel()` supplies the enclosure-back-top cradle and the neighboring GASHER
-placement datum. With the shared 0.15 mm radial slip, the WR1110 seat is Ø19.17 mm.
-Its 9.5 mm rib occupies the centre of the 35.4 mm barrel, leaving 12.95 mm of round
-band at each end. The inlet location remains the assembly's bulkhead-derived
-station; connected parts, gas routes and ceiling reliefs derive from that placement.
-The regulator-to-check U-turn also respects the carbonated-water cradle's aft
-flank, keeping the gas tube 1.1 mm beyond the rib with R14 bends.
-
-`_gas_chain.py` limits its nominal female-adapter insertion to the 9.18 mm exposed
-stub, so the adapter cannot start inside the hex shoulder. Shoulder seating remains
-an assumption until the actual PI450822S is installed. The modeled regulator plus
-adapters spans 98.97 mm between tube mouths. GASHER dimensions, gray-adapter envelopes
-and actual made-up reaches remain nominal, as the assembly scorecard states.
-
-[`integration-check.json`](integration-check.json) records the current placement, gas
-route lengths, adapter fit, printed mesh checks and the assembly’s 99 passing gates.
+[`integration-check.json`](integration-check.json) is a dated record of this
+exterior's placement in an enclosure CO₂ chain with GASHER and gray-acetal
+adapters. The appliance carries none of these parts.
 
 ```sh
 tools/cad-venv/bin/python hardware/reference/wr1110-regulator/analyze_scan.py
