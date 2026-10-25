@@ -24,8 +24,14 @@ The Sculpted cover has 0.50 mm additional bezel-to-lip reach and the matching
 0.50 mm arch offset used by the working Industrial control. Nominal glass
 clearance is 0.60 mm and arch-crown clearance is 0.65 mm. The bezel remains
 1.30 mm thick and the lips retain N3.30–6.30 and 1.20 mm engagement. These
-coordinated cover dimensions are one 0.50 mm adjustment. Physical installation,
-retention and support removal require this print's observations.
+coordinated cover dimensions are one 0.50 mm adjustment.
+
+The [October 25 physical record and eight photographs](physical-result/physical-result.json)
+report that the Sculpted cover fits very well with the display, tubes and wiring
+in the tip. A front-corner opening exposes internal hardware; the
+[cover-only skirt-overlap trial](../../../faucet-display-cover/corner-overlap-review/2026-10-25/README.md)
+addresses that cosmetic opening. Numerical seating force, retention and support
+removal effort are unreported.
 
 The [full settings export](all-settings.json) retains complete prepared/native
 project dictionaries, embedded filament presets and object/range XML.

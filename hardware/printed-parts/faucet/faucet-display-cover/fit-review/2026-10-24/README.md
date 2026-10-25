@@ -40,8 +40,12 @@ switch pockets into the exact lowered tip. The corrected relaxed cover STL
 and corrected tip STL are embedded in the
 [requested complete fit print](../../../industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md).
 Its native project retains 0.24 mm ordinary layers and uses 0.20 mm in the
-two selected base bands. These are print-specific geometry variants. Their
-installation force, retention and physical fit require observation of that print.
+two selected base bands. These are print-specific geometry variants. The
+[identified print's physical record](../../../industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/physical-result/physical-result.json)
+reports that the cover fits very well over the display, tubes and wiring.
+The remaining front-corner opening has a
+[cover-only overlap trial](../../corner-overlap-review/2026-10-25/README.md).
+Numerical installation force and retention are unmeasured.
 
 The nominal CAD placement shows the intended seated position. It does not show
 elastic deformation or establish that the previously working Industrial cover
