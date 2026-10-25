@@ -85,7 +85,7 @@ connection, or a `drawn` connection made from its ordered native tubes and physi
 Of [26](SEGMENT_COUNT) manifold segments, [3](BUTT_COUNT) carry no exposed tube,
 [4](UPPER_LINK_COUNT) short upper tubes have [15.251 mm](UPPER_LINK_EXPOSED) exposed
 and [4](LOWER_RETURN_COUNT) lower return tubes are reported as cut stock, both socket
-insertions included. Reported LLDPE paths total [3719.7 mm](FLUID_TOTAL). Native routed
+insertions included. Reported LLDPE paths total [3414.5 mm](FLUID_TOTAL). Native routed
 paths include their authored socket insertions, with the insertion basis recorded
 in the production route data. The short upper links need their actual fitting
 insertions when making finished blanks. A butt
@@ -174,13 +174,13 @@ This table is canonical for the integrated flavor manifold. Pumps run forward on
 ### Clean Water Fill → Reservoir A
 
 - Open: V-A, V-C, V-F
-- Pump A: OFF (throttled tap water through the idle pump)
+- Pump A: OFF (regulated tap water through the idle pump)
 - Path: Tap → flow regulator → V-A → V-C → P-A (idle) → V-F → Reservoir A
 
 ### Clean Water Fill → Reservoir B
 
 - Open: V-A, V-D, V-I
-- Pump B: OFF (throttled tap water through the idle pump)
+- Pump B: OFF (regulated tap water through the idle pump)
 - Path: Tap → flow regulator → V-A → V-D → P-B (idle) → V-I → Reservoir B
 
 ### Clean Flush A (water out)

@@ -37,7 +37,7 @@ and [ASSE drain assembly](/hardware/assembly/asse-drain.md).
 
 ## Dry connections and nameplate
 
-C14 is at X−61.75/Z323. Its native flange seats in a shallow outside pocket;
+C14 is at X−68.5/Z330. Its native flange seats in a shallow outside pocket;
 the body passes through the wall. Two short RX-M3S×4 inserts receive M3 × 10
 socket-head screws through Ø7 × 0.5 mm washers. Each washer spans the native
 flange countersink. The 3.25 mm flange/washer stack leaves 6.25 mm screw
