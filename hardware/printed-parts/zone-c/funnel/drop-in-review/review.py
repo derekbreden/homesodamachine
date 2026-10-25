@@ -2,7 +2,7 @@
 
 Run through tmp/takeover/cadq. --shells adds both exported production upper shells;
 without it the record covers the exported frame and authored ledges. With shells,
-nominal J10 tool columns are checked with both roof closures removed. All lift poses
+nominal J10 tool columns are checked with the frame and its cradled drain removed. All lift poses
 remove the cradle, elbow, stub and connected tubing. No snap-deflection or
 connected-plumbing motion is modeled.
 This script is not called by a generator, build or hook.
@@ -116,7 +116,7 @@ def main():
                   shell_gap_mm={col: column.distance(fixed[f'production {col}-top'])
                                 for col in ('front', 'back')},
                   tool_basis='Nominal screwdriver cylinder; purchased tool fit and hand access unqualified.',
-                  closure_prerequisite='Frame, cradled drain and electronics panel removed.')
+                  closure_prerequisite='Frame and its cradled drain removed.')
 
     frame_mesh = mesh_solid(frame)
     lifts = sorted(set([0.0, .1, .25, .5, 1, 2, 3, 6, 9, 12, 12.25,
@@ -216,13 +216,14 @@ def main():
         scope=('Sampled exported bare-frame vertical motion through exported upper shells and authored '
                'ledges; drain cradle, elbow, stub and connected tubing removed from all lift poses. '
                'Nominal J10 tool passages through both upper shells are checked with the '
-               'frame, cradled drain and electronics panel removed.'
+               'frame and its cradled drain removed.'
                if args.shells else
                'Exported bare frame and authored ledges only; drain cradle, elbow, stub and tubing removed '
                'from all lift poses. Production shells and the populated assembly are outside this record.'),
         drain_attachment='Cradle snaps into the removable frame original 3 mm web.',
-        removal_prerequisite='Disconnect the drain tube or release the cradle snap before frame withdrawal. '
-                             'This review does not model that release, snap deflection or connected-tube motion.',
+        removal_prerequisite='The plug, stub, elbow and cradle travel with the frame; disconnect the V-B feed '
+                             'before frame withdrawal. This review does not model that disconnection, snap '
+                             'deflection or connected-tube motion.',
         evidence_limit='Native and tessellated geometry; no printed fit, support removal, force, '
                        'water exclusion, stiffness or lifetime result.',
         source_sha256={str(p.resolve().relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
