@@ -96,8 +96,11 @@ Mark1's AMS 2 Pro A carries Bambu PETG Translucent Clear (`GFG01`, transparent
 0.8 mm Standard-flow** hotend for the [Engineering Plate reservoir retry](../hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/README.md).
 At its October 25 preflight, **A1 reports 42%** and **A2–A4 report 100%**.
 Select A1 first. Studio verifies **A1 PETG L** and green Auto Refill; Send is
-pending touchscreen registration of the fixed left nozzle, which still
-reports 0.4 mm. No new job has been accepted.
+pending **Settings → Nozzle & Extruder → Read Left Nozzle Info** on Mark1's
+touchscreen; fixed left still reports 0.4 mm. Studio's **Read All** identifies
+the right-side induction hotends. A direct native left refresh request was
+rejected by command verification; [read result and manufacturer procedure](../hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/nozzle-read.json).
+No new job has been accepted.
 
 AMS unit `0` addresses A1–A4 as trays `0`–`3`. **AMS filament backup is On**,
 freshly checked in Mark1's AMS Settings. A specific automatic backup priority
