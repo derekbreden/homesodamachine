@@ -886,7 +886,7 @@
         "terminal": "psu.GND",
         "offset": [
           -10.2,
-          -34.00001221,
+          -31.00001221,
           -20.3
         ]
       },
@@ -894,7 +894,7 @@
         "terminal": "psu.GND",
         "offset": [
           62.0,
-          -34.00001221,
+          -31.00001221,
           -20.3
         ]
       },
@@ -902,7 +902,7 @@
         "terminal": "psu.GND",
         "offset": [
           62.0,
-          -34.00001221,
+          -31.00001221,
           -1.6
         ]
       },
@@ -953,7 +953,7 @@
     ],
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
-    "route_status": "native_review_pending",
+    "route_status": "proposed",
     "note": "Installed route to the back-top dry-wall PSU arrangement, preserving the named terminal frames and graph. Physical lead dressing and termination fit remain unqualified."
   },
   "DC1-V12": {
@@ -1053,7 +1053,7 @@
     ],
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
-    "route_status": "native_review_pending",
+    "route_status": "proposed",
     "note": "Installed route to the back-top dry-wall PSU arrangement, preserving the named terminal frames and graph. Physical lead dressing and termination fit remain unqualified.",
     "endpoint_tangent_fraction": 0.9
   },
