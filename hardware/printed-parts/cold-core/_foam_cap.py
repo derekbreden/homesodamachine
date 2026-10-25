@@ -399,4 +399,7 @@ def build_foam_cap_lid(open_down=False):
         water = _above_mounts.water_in_features()
         lid = lid.union(_above_mounts.world_shape_in_cap(water['lid_add']))
         lid = lid.cut(_above_mounts.world_shape_in_cap(water['cut']))
+        soda = _above_mounts.soda_out_features()
+        lid = lid.union(_above_mounts.world_shape_in_cap(soda['lid_add']))
+        lid = lid.cut(_above_mounts.world_shape_in_cap(soda['cut']))
     return lid
