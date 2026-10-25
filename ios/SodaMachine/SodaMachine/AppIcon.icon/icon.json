@@ -1,0 +1,32 @@
+{
+  "fill" : {
+    "solid" : "srgb:0.09020,0.28627,0.81961,1.00000"
+  },
+  "groups" : [
+    {
+      "layers" : [
+        {
+          "image-name" : "drop.svg",
+          "name" : "drop"
+        },
+        {
+          "image-name" : "faucet.svg",
+          "name" : "faucet"
+        }
+      ],
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "translucency" : {
+        "enabled" : false,
+        "value" : 0.5
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "squares" : [
+      "iOS"
+    ]
+  }
+}

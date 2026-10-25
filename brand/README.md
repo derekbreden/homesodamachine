@@ -47,13 +47,14 @@ tools/cad-venv/bin/python tools/build_brand_assets.py
 tools/cad-venv/bin/python tools/gen_animation_frames.py
 ```
 
-The asset generator writes iOS app and launch icons, iOS launch background,
+The asset generator writes the iOS app icon's layers and launch icon, iOS launch background,
 Android launch and adaptive-icon vectors, Android launch background, PWA icons,
 favicons, web artwork and the PCB's flattened source contour. Add `--preview`
 on macOS to render the reference sheet above.
 
-The iOS app icon is opaque and square; its operating system supplies the corner
-mask. The launch image has transparency. Android's launcher and splash vectors
+The iOS app icon is an Icon Composer file: the faucet and the drop as two layers
+over a cobalt fill. iOS draws its light, dark, clear and tinted appearances from
+those layers and supplies the corner mask. The launch image has transparency. Android's launcher and splash vectors
 place the complete mark inside their circular safe areas. The PWA maskable icon
 preserves the mark inside the central 80-percent-diameter safe circle.
 
