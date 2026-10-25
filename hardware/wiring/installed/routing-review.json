@@ -3873,11 +3873,11 @@
     "scope": "Actual current wiring/manifest readback plus scoped dispositions of the recorded mesh witnesses. Equipment receipts keep their named geometry and query scopes. This is not a new whole-scene contact, packing, closing-motion or physical harness qualification.",
     "readback_record": {
       "path": "hardware/wiring/installed/above-core-review/installed-wiring-binding.json",
-      "sha256": "8c2b9e33681beb270169f1e777ad3f0f6bafa78d2960614ddba3ea709e99a854"
+      "sha256": "d402b055cdc23d55fa17a4017db71e319986c8fc5c9a3dcd956439c86b5a08b2"
     },
-    "assembly_step_sha256": "718e42d6df645a037a61bb83cb14c8c9ba8bd7a6a1d011e5411f15481bcb3795",
+    "assembly_step_sha256": "79483a957d0d56f811942edd7ac6f0210f193f420965eb7e9977e18426cf081f",
     "wiring_step_sha256": "19aa3cf46d1df76491ad41fbac79f1696d82b784fbfccacf18258ebc428260f9",
-    "manifest_sha256": "24efd37e993b5ea368973abd0199cdfc1156e8b4b69262a0042c1537c9f976c2",
+    "manifest_sha256": "d72567894d379f9bcf40938b0e9f2c15b0031c632460d2236d1ff4bae9709e54",
     "mesh_snapshot_is_current": false,
     "native_snapshot_is_current": false,
     "source_route_count": 98,
@@ -3920,7 +3920,7 @@
         "native_reading_mm3": 0.0,
         "evidence": {
           "path": "hardware/wiring/installed/above-core-review/routing-witness-native-review.json",
-          "sha256": "980b8afae79bae4d451879c05a0c33e04864473e369bbaf388532bf234ca116a",
+          "sha256": "f778d93607266ae734037871c9aac07b2a1a80b9a085786b537abb9380c7d56e",
           "json_pointer": "/pairs/2",
           "canonical_json_sha256": "d1adf3831ec4a40fa870ba36fa1501376f30d8e39b2c46e742a81e2c137aa9e8"
         },
@@ -3933,9 +3933,9 @@
         "status": "addressed_by_scoped_native_route_and_wire_receipts",
         "evidence": {
           "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
           "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
         },
         "tube_brep_sha256": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae"
       },
@@ -3946,9 +3946,9 @@
         "status": "addressed_by_scoped_native_route_and_wire_receipts",
         "evidence": {
           "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
           "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
         },
         "tube_brep_sha256": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae"
       },
@@ -3959,9 +3959,9 @@
         "status": "addressed_by_scoped_native_route_and_wire_receipts",
         "evidence": {
           "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
           "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
         },
         "tube_brep_sha256": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae"
       },
@@ -3972,9 +3972,9 @@
         "status": "addressed_by_scoped_native_route_and_wire_receipts",
         "evidence": {
           "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
           "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
         },
         "tube_brep_sha256": "53edb3e0e7b32f1590581b59e2ee19c6f2940d3e0a4e90a63ea14f29b12af80f"
       },
@@ -3985,9 +3985,9 @@
         "status": "addressed_by_scoped_native_route_and_wire_receipts",
         "evidence": {
           "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
           "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
         },
         "tube_brep_sha256": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae"
       },
@@ -3998,7 +3998,7 @@
         "status": "addressed_by_local_native_wire_correction",
         "evidence": {
           "path": "hardware/wiring/installed/above-core-review/routing-witness-native-review.json",
-          "sha256": "980b8afae79bae4d451879c05a0c33e04864473e369bbaf388532bf234ca116a",
+          "sha256": "f778d93607266ae734037871c9aac07b2a1a80b9a085786b537abb9380c7d56e",
           "json_pointer": "/DC3_negative_correction",
           "canonical_json_sha256": "13a2cfdd1fa27ae2231be02ca1fd479c515b55ad43b8f2a61e9e0ebc0cbb27b6"
         }
@@ -4011,7 +4011,7 @@
         "native_reading_mm3": 0.0,
         "evidence": {
           "path": "hardware/wiring/installed/above-core-review/routing-witness-native-review.json",
-          "sha256": "980b8afae79bae4d451879c05a0c33e04864473e369bbaf388532bf234ca116a",
+          "sha256": "f778d93607266ae734037871c9aac07b2a1a80b9a085786b537abb9380c7d56e",
           "json_pointer": "/pairs/3",
           "canonical_json_sha256": "6ce1a6a4b00d82b07428074e6ee36ca225030c95bcc08b73b368353280c191a0"
         },
@@ -4025,7 +4025,7 @@
         "native_reading_mm3": 0.0,
         "evidence": {
           "path": "hardware/wiring/installed/above-core-review/routing-witness-native-review.json",
-          "sha256": "980b8afae79bae4d451879c05a0c33e04864473e369bbaf388532bf234ca116a",
+          "sha256": "f778d93607266ae734037871c9aac07b2a1a80b9a085786b537abb9380c7d56e",
           "json_pointer": "/pairs/4",
           "canonical_json_sha256": "d32fa689d256da0fe1d34714c3aee1aae69da2c2637be01261994a1945ee82e8"
         },
@@ -4039,7 +4039,7 @@
         "native_reading_mm3": 0.0,
         "evidence": {
           "path": "hardware/wiring/installed/above-core-review/routing-witness-native-review.json",
-          "sha256": "980b8afae79bae4d451879c05a0c33e04864473e369bbaf388532bf234ca116a",
+          "sha256": "f778d93607266ae734037871c9aac07b2a1a80b9a085786b537abb9380c7d56e",
           "json_pointer": "/pairs/5",
           "canonical_json_sha256": "577310f4b8c18c9548f0c310c5b8ce0a412d79e78a195e699cb011dbede98d5a"
         },
@@ -4052,9 +4052,9 @@
         "status": "addressed_by_scoped_native_route_and_wire_receipts",
         "evidence": {
           "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
           "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
         },
         "tube_brep_sha256": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae"
       },
@@ -4065,9 +4065,9 @@
         "status": "addressed_by_scoped_native_route_and_wire_receipts",
         "evidence": {
           "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
           "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
         },
         "tube_brep_sha256": "53edb3e0e7b32f1590581b59e2ee19c6f2940d3e0a4e90a63ea14f29b12af80f"
       },
@@ -4078,9 +4078,9 @@
         "status": "addressed_by_scoped_native_route_and_wire_receipts",
         "evidence": {
           "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
           "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
         },
         "tube_brep_sha256": "53edb3e0e7b32f1590581b59e2ee19c6f2940d3e0a4e90a63ea14f29b12af80f"
       },
@@ -4091,9 +4091,9 @@
         "status": "addressed_by_scoped_native_route_and_wire_receipts",
         "evidence": {
           "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
           "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
         },
         "tube_brep_sha256": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae"
       },
@@ -4104,7 +4104,7 @@
         "status": "addressed_by_local_native_wire_correction",
         "evidence": {
           "path": "hardware/wiring/installed/above-core-review/routing-witness-native-review.json",
-          "sha256": "980b8afae79bae4d451879c05a0c33e04864473e369bbaf388532bf234ca116a",
+          "sha256": "f778d93607266ae734037871c9aac07b2a1a80b9a085786b537abb9380c7d56e",
           "json_pointer": "/J2_OUT3_pump_correction",
           "canonical_json_sha256": "33b8dd5e2e60e2360c318874d43cb5c0e2fba47d8ac7edd72f1d258b37ff9e04"
         }
@@ -4116,7 +4116,7 @@
         "status": "addressed_by_local_native_wire_correction",
         "evidence": {
           "path": "hardware/wiring/installed/above-core-review/routing-witness-native-review.json",
-          "sha256": "980b8afae79bae4d451879c05a0c33e04864473e369bbaf388532bf234ca116a",
+          "sha256": "f778d93607266ae734037871c9aac07b2a1a80b9a085786b537abb9380c7d56e",
           "json_pointer": "/J2_OUT3_pump_correction",
           "canonical_json_sha256": "33b8dd5e2e60e2360c318874d43cb5c0e2fba47d8ac7edd72f1d258b37ff9e04"
         }
@@ -4129,7 +4129,7 @@
         "native_reading_mm3": 0.0,
         "evidence": {
           "path": "hardware/wiring/installed/above-core-review/routing-witness-native-review.json",
-          "sha256": "980b8afae79bae4d451879c05a0c33e04864473e369bbaf388532bf234ca116a",
+          "sha256": "f778d93607266ae734037871c9aac07b2a1a80b9a085786b537abb9380c7d56e",
           "json_pointer": "/pairs/6",
           "canonical_json_sha256": "a40d37dd8283413d2cb635121e32bdebc7bda9119b9a4a09eb35a393a59d11d6"
         },
@@ -4142,9 +4142,9 @@
         "status": "addressed_by_scoped_native_route_and_wire_receipts",
         "evidence": {
           "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
           "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
         },
         "tube_brep_sha256": "53edb3e0e7b32f1590581b59e2ee19c6f2940d3e0a4e90a63ea14f29b12af80f"
       },
@@ -4155,9 +4155,9 @@
         "status": "addressed_by_scoped_native_route_and_wire_receipts",
         "evidence": {
           "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
           "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
         },
         "tube_brep_sha256": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae"
       },
@@ -4168,9 +4168,9 @@
         "status": "addressed_by_scoped_native_route_and_wire_receipts",
         "evidence": {
           "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
           "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
         },
         "tube_brep_sha256": "53edb3e0e7b32f1590581b59e2ee19c6f2940d3e0a4e90a63ea14f29b12af80f"
       },
@@ -4181,9 +4181,9 @@
         "status": "addressed_by_scoped_native_route_and_wire_receipts",
         "evidence": {
           "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
           "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
         },
         "tube_brep_sha256": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae"
       },
@@ -4194,9 +4194,9 @@
         "status": "addressed_by_scoped_native_route_and_wire_receipts",
         "evidence": {
           "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
           "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
         },
         "tube_brep_sha256": "53edb3e0e7b32f1590581b59e2ee19c6f2940d3e0a4e90a63ea14f29b12af80f"
       },
@@ -4207,9 +4207,9 @@
         "status": "addressed_by_scoped_native_route_and_wire_receipts",
         "evidence": {
           "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
           "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
         },
         "tube_brep_sha256": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae"
       },
@@ -4220,9 +4220,9 @@
         "status": "addressed_by_scoped_native_route_and_wire_receipts",
         "evidence": {
           "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
           "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
         },
         "tube_brep_sha256": "53edb3e0e7b32f1590581b59e2ee19c6f2940d3e0a4e90a63ea14f29b12af80f"
       },
@@ -4233,9 +4233,9 @@
         "status": "addressed_by_scoped_native_route_and_wire_receipts",
         "evidence": {
           "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
           "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
         },
         "tube_brep_sha256": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae"
       }
@@ -4248,13 +4248,14 @@
         "status": "addressed_by_scoped_native_route_receipt",
         "evidence": {
           "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
-          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "sha256": "b10dac728157da6aec764562aeb0c7222199a664a7f21e0def4775fd252bbfae",
           "json_pointer": "/current_free_curves",
-          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+          "canonical_json_sha256": "6580043dd2bb627206c6438543029cd6b43beadc351d0d3a53397db85e37c11e"
         }
       }
     ],
     "unresolved_recorded_witnesses": [],
-    "wire_packing_scope": "The original mesh packing rows and original native bundle readings retain their own artifact scope. No current wire-packing or flexible handling claim is added by this binding."
+    "wire_packing_scope": "The original mesh packing rows and original native bundle readings retain their own artifact scope. No current wire-packing or flexible handling claim is added by this binding.",
+    "metadata_rebind_scope": "Metadata-only physical-artifact rebind. The standalone wiring STEP and CSV are byte-identical; every manifest section except physical-scene provenance and source hashes is semantically identical. The only changed hashed source defines the B-fill printed link cutter. Native source/body signatures, curve comparisons, installed-wire placement readings and ten exchange-validity flags are reused; no STEP readback, source-curve reconstruction, contact or packing query is repeated."
   }
 }
