@@ -86,8 +86,12 @@ def printed_stock(path, spec, datums):
             ('seat web', (spec['tie_slot_top_z_mm'] + row['tube_centers_world_mm'][0][2]
                           - spec['seat_radius_mm'])/2, 3.),
             ('slot floor', (spec['root_z_mm']+spec['tie_slot_bottom_z_mm'])/2, 3.)):
-            origins = np.array([[p[0], p[1]+dy, zmid]
-                                for p in row['tube_centers_world_mm'] for dy in (-1.2, 0., 1.2)])
+            # The seat-web mouth planes meet the outer tube axes. Read just
+            # inside the closed web rather than exactly on those open edges.
+            inward = (.1, -.1) if feature == 'seat web' else (0., 0.)
+            origins = np.array([[p[0]+dx, p[1]+dy, zmid]
+                                for p, dx in zip(row['tube_centers_world_mm'], inward)
+                                for dy in (-1.2, 0., 1.2)])
             sides = []
             for direction in (1., -1.):
                 locations, rays, _ = mesh.ray.intersects_location(
@@ -231,8 +235,9 @@ def main():
         y, z = first[1:]
         h = spec['tie_slot_width_y_mm']/2
         seat_bottom = z-spec['seat_radius_mm']
-        witness = box(x0-2.75, y-h, spec['tie_slot_top_z_mm'],
-                      x1+2.75, y+h, seat_bottom)
+        inner = spec['tie_access_inner_offset_mm']
+        witness = box(x0-inner, y-h, spec['tie_slot_top_z_mm'],
+                      x1+inner, y+h, seat_bottom)
         missing = volume(witness.cut(lid))
         record['stock_checks'].append({'check': name+' / complete seat floor',
             'thickness_mm': seat_bottom-spec['tie_slot_top_z_mm'],

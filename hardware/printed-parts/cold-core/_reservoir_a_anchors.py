@@ -28,7 +28,7 @@ _SPECIFICATION = {
     "tie_slot_bottom_z_mm": 251.6,
     "tie_slot_floor_stock_mm": 3.,
     "tie_access_outer_offset_mm": 6.,
-    "tie_access_inner_offset_mm": 2.75,
+    "tie_access_inner_offset_mm": 0.,
     "tie_witness_width_mm": 2.5,
     "tie_witness_thickness_mm": .8,
     "tie_witness_outer_bend_radius_mm": 3.75,
