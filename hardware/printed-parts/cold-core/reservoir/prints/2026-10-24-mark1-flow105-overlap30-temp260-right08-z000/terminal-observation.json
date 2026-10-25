@@ -1,0 +1,112 @@
+{
+  "job_id": "1371867808",
+  "subtask_name": "Flavor_reservoirs_-_PETG_0.24_mm",
+  "gcode_state": "FINISH",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 833,
+  "total_layer_num": 833,
+  "mc_percent": 100,
+  "mc_remaining_time": 0,
+  "bed_temper": 29.0,
+  "bed_target_temper": 0.0,
+  "nozzle_temper": 36.0,
+  "nozzle_target_temper": 0.0,
+  "stg_cur": -1,
+  "cooling_fan_speed": "0",
+  "big_fan1_speed": "0",
+  "big_fan2_speed": "0",
+  "heatbreak_fan_speed": "0",
+  "observed_at_utc": "2026-10-25T05:28:54.889134+00:00",
+  "printer": "Mark1",
+  "timelapse": "disable",
+  "ams": {
+    "tray_now": "255",
+    "tray_tar": "255",
+    "ams_exist_bits": "1",
+    "tray_exist_bits": "f"
+  },
+  "ams_units": [
+    {
+      "unit": "0",
+      "trays": [
+        {
+          "id": "0",
+          "tray_type": "PETG",
+          "tray_color": "00000000",
+          "tray_info_idx": "GFG01",
+          "remain": 65,
+          "state": 11
+        },
+        {
+          "id": "1",
+          "tray_type": "PETG",
+          "tray_color": "00000000",
+          "tray_info_idx": "GFG01",
+          "remain": 100,
+          "state": 11
+        },
+        {
+          "id": "2",
+          "tray_type": "PETG",
+          "tray_color": "00000000",
+          "tray_info_idx": "GFG01",
+          "remain": 100,
+          "state": 11
+        },
+        {
+          "id": "3",
+          "tray_type": "PETG",
+          "tray_color": "00000000",
+          "tray_info_idx": "GFG01",
+          "remain": 100,
+          "state": 11
+        }
+      ]
+    }
+  ],
+  "extruders": [
+    {
+      "id": 0,
+      "hnow": 0,
+      "snow": 65535,
+      "temp": 37,
+      "stat": 0
+    },
+    {
+      "id": 1,
+      "hnow": 1,
+      "snow": 65024,
+      "temp": 32,
+      "stat": 393216
+    }
+  ],
+  "nozzles": [
+    {
+      "id": 18,
+      "diameter": 0.4,
+      "type": "HS01"
+    },
+    {
+      "id": 1,
+      "diameter": 0.4,
+      "type": "HS01"
+    },
+    {
+      "id": 17,
+      "diameter": 0.2,
+      "type": "HS00"
+    },
+    {
+      "id": 20,
+      "diameter": 0.2,
+      "type": "HS00"
+    },
+    {
+      "id": 0,
+      "diameter": 0.8,
+      "type": "HS01"
+    }
+  ],
+  "source": "Fresh tools/bambu_printer.py Connection status before the authorized right-pair launch; printer identifiers omitted."
+}

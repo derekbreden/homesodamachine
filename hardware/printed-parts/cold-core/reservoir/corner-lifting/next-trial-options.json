@@ -1,26 +1,26 @@
 {
-  "recorded_on": "2026-10-24",
-  "status": "Mark1 task 1371867808 is printing the selected 255/260 C temperature-only trial. All other executable commands match the task-1365626370 water-holding baseline; appearance and sealing are unassessed.",
+  "recorded_on": "2026-10-25",
+  "status": "Both October five-wall articles are reported holding water. Mark1 task 1372664582 is printing the right pair with the exact 255/260 C settings of the completed left task 1371867808.",
   "customer_outcome": "A flat, leak-free vented reservoir with acceptable appearance and less production time.",
-  "trigger": "../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json",
+  "trigger": "../prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json",
   "priority": [
     {
-      "candidate": "Try all settings from the one-hour water-hold article with 255 C first-layer and 260 C subsequent-layer nozzle temperatures.",
-      "purpose": "Address Derek's aesthetic concerns while assessing whether the recipe retains water holding at the previous temperatures.",
-      "evidence": "Derek reports aesthetic concerns and intends to try a temperature-only change. The existing one-hour water hold applies to the 265/270 C article.",
-      "record": "../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json",
+      "candidate": "Repeat the completed 255/260 C left article recipe on the right body and matching cap.",
+      "purpose": "Produce the matching other side with the demonstrated water-holding recipe.",
+      "evidence": "Derek reports the completed left reservoir turned out well so far and is holding water alongside the older article, which is still holding water; he requests the same settings for the other side.",
+      "record": "../prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json",
       "retained": "All other settings from task 1365626370, including flow 1.05, five Arachne walls at 10 degrees, 30% overlap, solid floor fill, 0.30/0.24 mm layers, May motion/cooling, 70 C bed, no brim, zero added trim and ironing off.",
-      "status": "Launched on Mark1 as task 1371867808",
-      "launch": "../prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/launch.json"
+      "status": "Launched right pair on Mark1 as task 1372664582",
+      "launch": "../prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/launch.json"
     },
     {
-      "candidate": "Retain the current five-wall, 1.05-flow, 30%-overlap, 265/270 C recipe as the baseline.",
+      "candidate": "Retain the 265/270 C five-wall recipe as the hotter comparison reference.",
       "purpose": "Fill actual body walls and curved corners entirely with wall paths; use solid floor fill with increased overlap and melt temperature.",
       "record": "../recipe-reviews/2026-10-22-flow105-overlap30/README.md",
       "evidence": "The identified printed portion held water for one hour, reported by Derek on 2026-10-23. Native counts 2-4 retain fill in the ordinary corners; 5 contains only wall features there.",
       "retained": "0.30/0.24 mm layers, 0.8 mm lines, Arachne at its 10-degree default, May motion/cooling, 21 mm3/s, 70 C bed, no brim, zero added trim, ironing off and current automatic supports.",
       "limits": "One-hour water hold for the printed portion. Exact cut height, water head and cap/gasket sealing are unspecified; the combined recipe changes are not causally isolated.",
-      "status": "Positive physical water-hold evidence; retain this tested recipe as the comparison baseline."
+      "status": "Retained as the hotter comparison recipe; the selected repeat uses 255/260 C and also has reported water holding."
     }
   ],
   "historical_comparison": {
@@ -88,38 +88,39 @@
     "evidence": "Current body/floor receives 90% commands; successful May profile also saves a 90% overhang override. No observed onset link isolates cooling as the cause.",
     "candidate": "Review supported-path fan inheritance if investigating curl; preserve the demonstrated May cooling as the baseline."
   },
-  "prepared_recipe": "../recipe-reviews/2026-10-22-flow105-overlap30/adaptation.json",
+  "prepared_recipe": "../prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/adaptation.json",
   "previous_completed_trial": {
-    "job_id": "1364550539",
-    "printer": "Mark1",
-    "recipe": "Walls-only May Water, Arachne transition angle 59 degrees, right 0.8 mm Standard",
-    "accepted_at_utc": "2026-10-22T16:40:35.753433+00:00",
-    "record": "../prints/2026-10-22-mark1-walls-t59-right08-z000/README.md",
-    "start_slot": "A1",
-    "status": "FINISH 833/833; Derek reports bottom leakage at the same location, perhaps worse, and a new vertical-edge defect.",
-    "physical_result": "../prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/physical-result.json"
-  },
-  "current_trial": {
     "job_id": "1371867808",
     "printer": "Mark1",
+    "recipe": "Five Arachne walls, flow 1.05, 30% overlap, 255/260 C, right 0.8 mm Standard",
     "record": "../prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/README.md",
+    "status": "FINISH 833/833; Derek reports holding water on October 25.",
+    "physical_result": "../prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json"
+  },
+  "current_trial": {
+    "job_id": "1372664582",
+    "printer": "Mark1",
+    "side": "right",
+    "record": "../prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/README.md",
     "start_slot": "A1",
-    "status": "RUNNING, layer-0 startup; no physical outcome yet.",
+    "status": "RUNNING at layer-0 startup; no print error/HMS. Right physical outcome unassessed.",
     "nozzle_c_first_subsequent": [
       255,
       260
-    ]
+    ],
+    "complete_settings_identical_to_task": "1371867808"
   },
   "reported_water_hold": {
     "result": "../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json",
     "duration_reported_hours": 1,
     "article": "Intentionally stopped before print completion.",
-    "scope": "Printed portion at the unreported water head; corner flatness and lift onset unassessed."
+    "scope": "Printed portion at the unreported water head; corner flatness and lift onset unassessed.",
+    "followup": "Derek reports the older article still holding water on October 25; total duration unspecified."
   },
   "next_intended_trial": {
     "recorded_on": "2026-10-23",
     "recorded_at_central": "2026-10-23T02:15:23.905916-05:00",
-    "status": "Launched on Mark1 as task 1371867808",
+    "status": "Fulfilled: task 1371867808 completed and has reported water holding. Exact same settings selected for right-pair task 1372664582.",
     "baseline_task_id": "1365626370",
     "baseline_settings": "../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/settings.json",
     "baseline_settings_file_sha256": "a1d008a858e4ad444e9ff6526e31afc1234231f4b92222bd0cc847bddcabf48e",
@@ -137,10 +138,26 @@
     "previous_temperature_basis": "The adaptation records 255 C initial / 260 C subsequent before the 10 C increase.",
     "all_other_settings": "Retain the baseline settings except the two nozzle temperatures. The baseline reservoir.3mf and print-settings.json retain 265/270 C; the launched trial has its own frozen settings.json at 255/260 C.",
     "reported_availability": "Derek reports Mark1 available with four translucent PETG spools feeding the right 0.8 mm hotend.",
-    "comparison": "Compare appearance and water holding with the identified 265/270 C article; no outcome is claimed for the planned temperatures.",
+    "comparison": "Derek reports that the 255/260 C article turned out well so far and is holding water. Specific appearance defects are not separately evaluated.",
     "founder_quote": "Please record I have some aesthetic concerns with the print, and I'd like to consider trying all of those same settings, but back to our previous temperatures. The printer is busy elsewise now, and I don't have filament loaded, but just make a note of what I intend to try next.",
     "launched_on": "2026-10-24",
     "launch": "../prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/launch.json",
-    "trial_settings": "../prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/settings.json"
-  }
+    "trial_settings": "../prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/settings.json",
+    "physical_result": "../prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json",
+    "repeat_launch": "../prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/launch.json"
+  },
+  "reported_water_holds": [
+    {
+      "job_id": "1371867808",
+      "result": "../prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json",
+      "reported_on": "2026-10-25",
+      "status": "Holding water; total duration and head unspecified."
+    },
+    {
+      "job_id": "1365626370",
+      "result": "../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json",
+      "reported_on": "2026-10-25",
+      "status": "Still holding water; initial one-hour report preserved, total duration unspecified."
+    }
+  ]
 }

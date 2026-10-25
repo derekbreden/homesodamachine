@@ -1,0 +1,29 @@
+{
+  "recorded_on": "2026-10-25",
+  "printer": "Mark1",
+  "job_id": "1372664582",
+  "status": "Launched right reservoir and matching cap with the completed water-holding left article settings.",
+  "baseline_task_id": "1371867808",
+  "baseline_side": "left",
+  "selected_side": "right",
+  "baseline_result": "../2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json",
+  "baseline_settings": "../2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/settings.json",
+  "settings": "settings.json",
+  "settings_file_sha256": "0e241f0882603af4873f0cf73a8196d43a9d540617646787fc5ec2093df12c6f",
+  "complete_settings_byte_identical_to_baseline": true,
+  "setting_changes": {},
+  "nozzle_c_first_subsequent": [
+    255,
+    260
+  ],
+  "geometry_selection": "Select the existing native right body/cap plate 2 from the same two-plate slice used for the completed left pair; submitted as plate 1.",
+  "geometry_changes": null,
+  "resliced": false,
+  "native_review": "native-review.json",
+  "packaging": "packaging.json",
+  "launch": "launch.json",
+  "source_native_archive_sha256": "f31999ee96314422aed95c21ae021d9e309cdb60085db6aa0e476dd8f443e381",
+  "source_plate_gcode_byte_identical": true,
+  "founder_quote": "That turned out well so far. It is holding water along with its older sibling that is still holding water. Please print me the other side (left or right) from what you just printed, same settings, mark1 bed is clear.",
+  "scope": "Same recipe, other named body/cap pair. Water holding is reported for the completed left article; no physical outcome yet for this right pair."
+}

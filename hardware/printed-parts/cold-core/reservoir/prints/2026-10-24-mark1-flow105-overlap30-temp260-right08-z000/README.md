@@ -1,10 +1,16 @@
 # Mark1 reservoir: temperature-only 255/260 °C trial
 
-Mark1 task **1371867808** is printing the full-height **left reservoir and matching
-cap** through the **right 0.8 mm Standard** hotend. The printer acknowledged one
-Studio Send with **SUCCESS** at **16:59:19 CDT / 21:59:19 UTC, October 24, 2026**.
-A fresh startup reading confirms **RUNNING, layer 0/833**, with print error 0
-and no HMS. [Launch receipt](launch.json) · [Startup observations](startup.json).
+Mark1 task **1371867808** completed the full-height **left reservoir and matching
+cap** through the **right 0.8 mm Standard** hotend. Fresh status before the next
+launch confirms **FINISH 833/833**, print error 0 and no HMS. On October 25,
+Derek reports that it turned out well so far and is **holding water** alongside
+the older reservoir, which is still holding water. Hold duration and water head
+are unspecified. [Physical result](physical-result/physical-result.json) ·
+[Terminal status](terminal-observation.json).
+
+The printer acknowledged one Studio Send with **SUCCESS** at **16:59:19 CDT /
+21:59:19 UTC, October 24, 2026**. [Launch receipt](launch.json) ·
+[Startup observations](startup.json).
 
 This trial uses **255 °C first layer / 260 °C subsequent layers**, retaining
 **flow 1.05, five requested Arachne walls, 30% Infill/Wall overlap**, 100% solid
@@ -23,8 +29,9 @@ differ; every other command is identical**, including motion, extrusion,
 cooling and supports. The only saved-setting changes are the two temperature
 fields and the filament preset's temperature label. The native estimate is
 **5 h 42 min, 444.28 g and 833 layers**; full deposited beads retain at least
-**70.519 mm** of bed-edge inset. Appearance, sealing and adhesion on this article
-are unassessed.
+**70.519 mm** of bed-edge inset. Derek's water-hold report is positive physical
+evidence for this article; specific surface defects and corner flatness are
+not separately assessed.
 
 **A1 PETG R** is visibly selected in Studio's Send dialog. AMS A unit 0 trays
 0–3 carry matching Bambu PETG Translucent Clear (`GFG01`, transparent `00000000`),
@@ -48,6 +55,10 @@ bind that name to this trial. No scheduled monitor was created or reactivated.
 Runtime material loading and timelapse at model deposition are distinct from
 these selected Send options; see startup.json for the observed stage.
 
-Derek authorized:
+Derek requested the [right pair with these same settings](../2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/README.md):
+
+> That turned out well so far. It is holding water along with its older sibling that is still holding water. Please print me the other side (left or right) from what you just printed, same settings, mark1 bed is clear.
+
+Derek authorized this left print:
 
 > Mark One is available now and loaded up with an AMS 2 Pro with four spools of Translucent PETG connected to that right hot end for the 0.8 millimeter there. So please go ahead and start our next print on Mark One. Thanks.

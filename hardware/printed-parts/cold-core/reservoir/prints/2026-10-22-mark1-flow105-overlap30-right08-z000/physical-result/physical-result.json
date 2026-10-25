@@ -65,5 +65,16 @@
     "next_trial_intent": "Retain all settings from this article except nozzle temperatures: use 255 C first layer and 260 C subsequent layers.",
     "next_trial_plan": "../../../corner-lifting/next-trial-options.json",
     "water_hold_result": "The reported one-hour water hold remains a positive sealing result for this printed portion at 265/270 C."
-  }
+  },
+  "followup_reports": [
+    {
+      "reported_date": "2026-10-25",
+      "reported_by": "Derek",
+      "quote": "That turned out well so far. It is holding water along with its older sibling that is still holding water. Please print me the other side (left or right) from what you just printed, same settings, mark1 bed is clear.",
+      "observation": "The older sibling is still holding water, as reported by Derek.",
+      "ongoing_at_report": true,
+      "total_hold_duration_reported_hours": null,
+      "attribution": "Older sibling refers to the preceding task-1365626370 article in this chat."
+    }
+  ]
 }

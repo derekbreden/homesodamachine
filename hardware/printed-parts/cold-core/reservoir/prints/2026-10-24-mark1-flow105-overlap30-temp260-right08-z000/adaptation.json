@@ -34,7 +34,7 @@
     }
   },
   "geometry_and_placement_container_entries_byte_identical": true,
-  "status": "Launched on Mark1 as task 1371867808",
+  "status": "Completed FINISH 833/833; Derek reports holding water on October 25, 2026.",
   "recorded_on": "2026-10-24",
   "baseline_result": "../2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json",
   "settings": "settings.json",
@@ -50,5 +50,6 @@
     "Please record I have some aesthetic concerns with the print, and I'd like to consider trying all of those same settings, but back to our previous temperatures. The printer is busy elsewise now, and I don't have filament loaded, but just make a note of what I intend to try next.",
     "Mark One is available now and loaded up with an AMS 2 Pro with four spools of Translucent PETG connected to that right hot end for the 0.8 millimeter there. So please go ahead and start our next print on Mark One. Thanks."
   ],
-  "scope": "Temperature-only comparison for appearance and water holding; no physical outcome yet."
+  "scope": "Temperature-only recipe comparison with reported water holding for the completed left article; specific appearance defects and water head are unreported.",
+  "physical_result": "physical-result/physical-result.json"
 }
