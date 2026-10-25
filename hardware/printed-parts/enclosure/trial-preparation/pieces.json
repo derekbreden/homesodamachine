@@ -292,10 +292,10 @@
       "material": "Polymaker Fiberon PET-GF15, black",
       "plate_offset_mm": {
         "value": [
-          -5.1,
+          0.0,
           18.8
         ],
-        "reason": "With the footprint centered, tree trunks under the seam-end knuckles' undersides root 10.3 mm past the seam end and the trunk under the Z169.4 side ledge roots 37.6 mm off the -X flank (2026-10-19 Mark2 slice of the 8b4aae4e4 mesh). This offset centers the emitted bead envelope: 20.8 and 21.4 mm from the X edges, 30.8 and 33.7 mm from the Y edges. Back-bottom only."
+        "reason": "The 2026-10-25 Mark2 slice of the a967b77ebfbc mesh takes yaw 90. With this Y offset and X centred, its emitted bead envelope stands 26.5 mm from both X edges and 33.7 and 30.8 mm from the Y edges. Back-bottom only."
       },
       "parts": [
         {
