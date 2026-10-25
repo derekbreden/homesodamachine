@@ -212,7 +212,7 @@ click: x=-101.400 y=306.183 z=260.200
 click: x=-101.400 y=331.317 z=260.200
 click: x=-101.400 y=338.683 z=260.200
 click: x=-43.202 y=458.947 z=294.222
-[thin] Required short relay PCB bearing tips: these four active pads have a 2.15 mm long, Ø5.7 bearing tip and an unthreaded Ø3.4 screw passage, leaving the measured 1.15 mm annulus. The tip gives 0.15 mm nominal clearance to the reference's 2 mm pin projection; the lower tips also clear the fixed PSU by 0.15 mm. The Ø10/Ø4 insert host begins behind this interface. Actual pin fit, printed holding capacity and fastener retention remain unqualified.
+[thin] Required short relay PCB bearing tips: these four active pads have a 2.15 mm long, Ø5.7 bearing tip and an unthreaded Ø3.4 screw passage, leaving the measured 1.15 mm annulus. The full Ø10 insert host ends 0.15 mm behind the reference's 2 mm pin projection; the narrow tips reach the PCB base, and the lower tips clear the fixed PSU by 0.15 mm. The Ø10/Ø4 insert wall begins behind this interface. Actual pin fit, printed holding capacity and fastener retention remain unqualified.
 alternatives: A 3 mm annulus around the same passage requires Ø9.4 tips, entering the modeled pin envelope and the PSU at the selected frames. Longer tips move the accepted relay planes; smaller screw passages lose the nominal M3 clearance. The short bearing interface is retained without extending this answer to the ordinary insert wall or blind floor.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-95.566 y=366.440 z=311.859
