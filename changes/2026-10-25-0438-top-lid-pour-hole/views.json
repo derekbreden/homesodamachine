@@ -1,0 +1,97 @@
+{
+  "views": [
+    {
+      "name": "face",
+      "caption": "The top lid from above: the pour hole moves to the fore-west quarter, and both vents step 2.5 mm toward −X.",
+      "before": "face-before.webp",
+      "after": "face-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 1082.5,
+          "y": 726.9,
+          "r": 56.3,
+          "label": "Pour hole",
+          "at": [
+            111.5,
+            -64,
+            5.4
+          ]
+        },
+        {
+          "x": 106.7,
+          "y": 188.2,
+          "r": 26,
+          "label": "Vent",
+          "at": [
+            -114,
+            60.5,
+            5.4
+          ]
+        },
+        {
+          "x": 106.7,
+          "y": 711.8,
+          "r": 26,
+          "label": "Vent",
+          "at": [
+            -114,
+            -60.5,
+            5.4
+          ]
+        }
+      ],
+      "model": "printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          0,
+          0,
+          514.7500355109214
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "half": 104,
+        "near": 274.6802415588845,
+        "far": 832.3261133623827,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "foam-cap-lid-top"
+      ],
+      "ghost": [],
+      "only": [],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
+          "from": "snapshot",
+          "sha256": "554e00a36daaeae0693a962322ee2d638aef2c07ebda6899fd343e9531c37de2",
+          "commit": "4c7435a4905c10cfc02f16af240f0083c8c57e19",
+          "taken": "2026-10-25T09:36:27.966Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
+          "from": "tree",
+          "sha256": "096b5895d95404ff87db32d98b3fb9e7b52f592a699babf10c4c2c414b1687c8",
+          "commit": "5e0fc16751fe3836acaa478543c9a12dd5cce454",
+          "published": true
+        }
+      },
+      "changed": [
+        "foam-cap-lid-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
