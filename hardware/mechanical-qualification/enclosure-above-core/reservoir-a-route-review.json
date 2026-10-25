@@ -63,7 +63,7 @@
     "fluid-26": true,
     "fluid-18": true
   },
-  "native_contact_scope": "Bounded query complete. A-draw has an unresolved ground boss/stack contact; twelve cached electrical bodies need local dressing. No approved route or component is moved by this receipt. New paired-anchor stock/tie paths have their own cap record.",
+  "native_contact_scope": "The issued illustrative curves retain their bounded native contact record below. Current free-curve source uses the same fixed paired-anchor points and ports; its exact seat/tie/electrical delta is pending the explicitly scoped local query. Original contacts are not current clearance claims.",
   "native_exports": {
     "fluid-14": {
       "valid": true,
@@ -830,5 +830,58 @@
     37.0,
     195.0,
     259.4
-  ]
+  ],
+  "current_free_curves": {
+    "production_data_sha256": "37b53fc68eb8636071d71fa9f60b0bd6ea84c0784027d138963dcb522b0dfb8d",
+    "source_paths": "hardware/manifold-layout/reservoir-a-routes.json",
+    "basis": "Illustrative R14 line/arc bends around installed equipment and unchanged wiring; fixed paired-anchor centres/axes and connection ports. Physical blanks include the continuous below-lid route and actual receiving marks.",
+    "native_qualification": "Pending the bounded actual tube/seat/tie/ground/electrical query; no whole-machine replay requested.",
+    "routes": {
+      "fluid-14": {
+        "drawn_warm_length_mm": 472.6252418840347,
+        "segment_count": 25,
+        "radii_mm": [
+          14.0
+        ]
+      },
+      "fluid-16": {
+        "drawn_warm_length_mm": 415.2995670555609,
+        "segment_count": 25,
+        "radii_mm": [
+          14.0
+        ]
+      }
+    },
+    "fixed_anchor_centres_mm": [
+      [
+        50.5,
+        205.0,
+        259.5
+      ],
+      [
+        58.0,
+        205.0,
+        259.5
+      ],
+      [
+        86.5,
+        304.0,
+        259.5
+      ],
+      [
+        94.0,
+        304.0,
+        259.5
+      ]
+    ],
+    "unmoved_other_continuations": [
+      "drain-vent",
+      "soda-core-rise",
+      "soda-meter-bulkhead",
+      "fluid-24",
+      "fluid-28",
+      "fluid-26",
+      "fluid-18"
+    ]
+  }
 }
