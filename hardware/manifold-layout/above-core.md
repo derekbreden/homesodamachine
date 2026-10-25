@@ -44,7 +44,7 @@ Reservoir A's selected routes are defined in
 [reservoir-a-routes.json](reservoir-a-routes.json). The fore seat's tube
 centres are X50.5/58 at Y205; the aft pair is X86.5/94 at Y304, all at
 Z259.5. The `fluid-14` fill warm span is 472.625 mm and the `fluid-16`
-draw span is 415.300 mm, including the estimated front-valve receiving ends.
+draw span is 414.018 mm, including the estimated front-valve receiving ends.
 Each continues through its plain core guide without a joint or physical cut.
 Only the connection points and paired-anchor centres/axes are fixed;
 intervening bends, radii and displayed lengths illustrate routing and may
