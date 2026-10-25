@@ -34,12 +34,19 @@ def meter_support_datums():
         tie_y = y + (.7 if side == -1 else -1.7)
         beam_y = tie_y if side == -1 else y - .4
         beam_width = 9.
+        beam_plan = None
         if side == -1:
             # A broad flat dogleg passes fore of the fixed gas-drop column.
+            # Its six-millimetre neck shares the collar's two end planes;
+            # one plain flare reaches full slot stock before X63.
             wall_y = 358.
+            beam_plan = ((x+3., y-3.), (59., y-3.),
+                         (63., beam_y-beam_width/2.),
+                         (73., beam_y-beam_width/2.),
+                         (73., beam_y+beam_width/2.),
+                         (63., beam_y+beam_width/2.),
+                         (59., y+3.), (x+3., y+3.))
             beam_boxes = (
-                ((x+3., beam_y-beam_width/2., bottom),
-                 (73., beam_y+beam_width/2., bottom+wall)),
                 ((64., wall_y-beam_width/2., bottom),
                  (73., beam_y+beam_width/2., bottom+wall)),
                 ((64., wall_y-beam_width/2., bottom),
@@ -59,6 +66,7 @@ def meter_support_datums():
             'seat_bottom_world_z_mm': seat_bottom,
             'beam_width_mm': beam_width, 'beam_thickness_mm': wall,
             'beam_bottom_world_z_mm': bottom,
+            'beam_plan_world_xy_mm': beam_plan,
             'beam_boxes_world_mm': beam_boxes,
             'wall_lane_world_y_mm': wall_y,
             'wall_root_x_mm': 98.51,
@@ -85,6 +93,10 @@ def meter_supports():
             cq.Vector(x, y - half, low)))
         beams = [cq.Solid.makeBox(*(b[i]-a[i] for i in range(3)), cq.Vector(*a))
                  for a, b in data['beam_boxes_world_mm']]
+        if data['beam_plan_world_xy_mm']:
+            beams.append(cq.Workplane('XY').polyline(data['beam_plan_world_xy_mm'])
+                         .close().extrude(wall).val().translate(
+                             (0., 0., data['beam_bottom_world_z_mm'])))
         bore = cq.Solid.makeCylinder(radius, 2. * half + .2,
                                      cq.Vector(x, y - half - .1, z), cq.Vector(0, 1, 0))
         a, b = data['tie_slot_min_world_mm'], data['tie_slot_max_world_mm']

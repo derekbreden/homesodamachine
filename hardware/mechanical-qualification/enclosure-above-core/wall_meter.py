@@ -82,6 +82,20 @@ def stock_probes(data):
             'wall_landing_missing_mm3': landing}
 
 
+def neck_clearance(data):
+    """The two removed fore shoulder wedges, with no other shell allowance."""
+    points = data['beam_plan_world_xy_mm']
+    if not points:
+        return cq.Compound.makeCompound([])
+    x0, x1 = min(p[0] for p in points), max(p[0] for p in points)
+    y0, y1 = min(p[1] for p in points), max(p[1] for p in points)
+    bottom = data['beam_bottom_world_z_mm']
+    rectangle = cq.Solid.makeBox(x1 - x0, y1 - y0, 3., cq.Vector(x0, y0, bottom))
+    neck = (cq.Workplane('XY').polyline(points).close().extrude(3.).val()
+            .translate((0., 0., bottom)))
+    return rectangle.cut(neck)
+
+
 def bind_back_top(path, output):
     """Append only actual printed-stock readings to the original local proof."""
     from _cadq_export import import_step
@@ -106,10 +120,12 @@ def bind_back_top(path, output):
             'source_support_missing_mm3': support.cut(stock).Volume(),
             'actual_tie_slot_stock_mm3': slot.intersect(stock).Volume(),
             'actual_seat_bore_stock_mm3': bore.intersect(stock).Volume(),
+            'neck_relief_stock_mm3': neck_clearance(data).intersect(stock).Volume(),
             **{key: probe.cut(stock).Volume()
                for key, probe in stock_probes(data).items()}}
     binding = {
         'path': str(path.relative_to(ROOT)), 'sha256': sha(path),
+        'current_applicability': True,
         'stock_valid': stock.isValid(), 'stock_solids': len(stock.Solids()),
         'source_sha256': {
             str(Path(meter.__file__).relative_to(ROOT)): sha(Path(meter.__file__)),
