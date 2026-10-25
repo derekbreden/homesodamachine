@@ -26,21 +26,24 @@ flowchart TD
   %% (SENSORS J4) and the MQ-6 heater (GAS J11) draw 5 V / 3.3 V off
   %% the same on-board rails.
   %% Physical placement:
-  %% - The C14 inlet, AC distribution, PSU, both Teyleten relays, and
-  %%   the main board all stand on the +X wall of back-top, behind the
-  %%   C14 inlet's crossing in the +Y wall beside it.
+  %% - The C14 inlet and the three mains WAGOs (H, N, PE) stand on
+  %%   back-top's +Y wall, west/upper. The PSU stands upright on
+  %%   back-top's west (-X) sidewall beneath both Teyleten relays. The
+  %%   main board lies flat on the cold-core lid, west/forward.
   %% - The compressor sits middle-bottom, bolted down to the enclosure
   %%   floor slab on four printed posts. Its terminal block and its
   %%   clip-on PTC start relay + overload module remain under the R-600a
   %%   donor's own moulded power-box cover. The build adds no second
   %%   sheet-metal shroud; `/business/regulatory.md` carries the
   %%   qualification still owed on the retained donor cover.
-  %% - Teyleten relay #1 stays on the +X WALL, away from the refrigerant
-  %%   compartment. Only switched AC reaches the compressor — one
-  %%   jacketed SJOOW bundle, switched H + N + chassis G (AC-4/5/6),
-  %%   unbroken from that wall and its own strain relief. This keeps
-  %%   the arcing contact out of the hydrocarbon-refrigerant volume,
-  %%   which is the one placement rule that still holds there.
+  %% - Teyleten relay #1 stays on back-top's WEST WALL, away from the
+  %%   refrigerant compartment. Only switched AC reaches the compressor —
+  %%   one jacketed SJOOW bundle, switched H + N + chassis G (AC-4/5/6).
+  %%   Its H and N cores meet the relay's and the N block's back-top
+  %%   pigtails in lever-nut joins under the funnel opening; PE lands on
+  %%   the lid earth stack. This keeps the arcing contact out of the
+  %%   hydrocarbon-refrigerant volume, which is the one placement rule
+  %%   that still holds there.
   %% - The condenser fan motor is on the side of the enclosure
   %%   (the side-to-side intake → condenser → exhaust airflow path).
   %%   It is a 12 V DC brushless axial
@@ -64,7 +67,7 @@ flowchart TD
   end
 
   subgraph Refrigeration["Refrigeration  (harvested ice-maker)"]
-    RELAY["Teyleten 3.3 V relay #1\n(opto-isolated, GPIO 19)\nLOCATION: +X wall of back-top"]
+    RELAY["Teyleten 3.3 V relay #1\n(opto-isolated, GPIO 19)\nLOCATION: west wall of back-top"]
     COMP_AC["AC hermetic compressor\n+ clip-on PTC start relay/overload\n(Frigidaire EFIC117-SS donor)\nLOCATION: floor slab, terminals under retained donor cover"]
     COND_FAN["Condenser fan motor\n12 V DC brushless axial, ~0.35 A\n(donor PCB discarded; driven from 12 V bus)\nLOCATION: side of enclosure (side-to-side airflow path)"]
   end
@@ -93,7 +96,7 @@ flowchart TD
   %% AC distribution (hot leg)
   C14 ==>|"120 VAC"| RELAY
   C14 ==>|"120 VAC"| PSU
-  RELAY ==>|"switched AC hot\n(unbroken SJOOW jacket)"| COMP_AC
+  RELAY ==>|"switched AC hot\n(SJOOW, joined under the funnel opening)"| COMP_AC
 
   %% 12 V distribution
   PSU ==>|"12 V trunk (J10 screw inlet)"| MAIN
@@ -113,7 +116,7 @@ flowchart TD
   %% Power paths (red, thick).
   %% 0    = C14 -> relay #1 (AC mains)
   %% 1    = C14 -> PSU (AC mains)
-  %% 2    = relay #1 -> compressor (switched AC, unbroken SJOOW jacket)
+  %% 2    = relay #1 -> compressor (switched AC, SJOOW lead)
   %% 3    = PSU 12 V trunk -> MAIN (J10)
   %% 4    = PSU 12 V -> diaphragm relay #2
   %% 5    = relay #2 -> diaphragm pump (switched 12 V)

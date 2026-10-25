@@ -12,10 +12,12 @@ remain free. Its three leads leave the downward-facing native wire boss.
 The accepted R14 holder, continuous inlet and foam sleeve travel with the meter;
 the uncut tube passes through the core's plain guide.
 
-The ceiling is continuous behind the funnel aperture. Keep the drop-in frame,
-silicone and cover off during the final connections. The drain cradle snaps
-into the removable frame’s 3 mm lower web. Disconnect its tube or release
-the cradle snap before lifting the frame.
+The ceiling is continuous behind the funnel aperture, so every end beneath it
+is landed while back-top is open on the bench. Once the box is closed, the
+final connections are made through the funnel opening with the drop-in frame,
+silicone and cover off. The frame stays out through commissioning. The plug,
+stub, elbow and drain cradle travel with the removable frame; disconnect the
+V-B feed before lifting it.
 
 The production placements are in
 [`above_core.py`](/hardware/manifold-layout/above_core.py) and
@@ -32,7 +34,7 @@ fit and donor terminal locations retain their stated qualification limits.
 | Junction | Connector | Parent | Connections |
 |---|---|---|---|
 | H | 221-413 | Back-top rear wall | C14 L; PSU L; relay 1 COM |
-| N | 221-413 | Back-top rear wall | C14 N; PSU N; compressor neutral |
+| N | 221-413 | Back-top rear wall | C14 N; PSU N; compressor neutral pigtail |
 | G | 221-413 | Back-top rear wall | C14 PE; ground ring stack |
 | V12 | 221-413 | Cold-core lid | PSU V12; relay 2 COM; PCB J10 V12 |
 | GND | 221-413 | Cold-core lid | PSU GND; pump negative; PCB J10 GND |
@@ -40,7 +42,10 @@ fit and donor terminal locations retain their stated qualification limits.
 | Reservoir B common | 221-413 | Cold-core lid | PCB J7 GND; reservoir B reed common; carbonator reed common |
 | Manifold A common | 221-420 | Front-top east wall | PCB J1 COM; valve A–H positive leads |
 | Manifold B common | 221-415 | Front-top east wall | PCB J2 COM; valve I/J/K and condenser-fan positive leads |
-| Protective-earth ring stack | M3 ring-terminal stack | Cold-core lid | C14 earth feed; compressor earth; carbonator bond lead |
+| Compressor H join | 221-413 | Free, under the funnel opening | Relay 1 NO pigtail; compressor switched-H core |
+| Compressor N join | 221-413 | Free, under the funnel opening | N junction pigtail; compressor neutral core |
+| Pump positive join | 221-413 | Free, under the funnel opening | Relay 2 NO pigtail; pump positive |
+| Protective-earth ring stack | M3 ring-terminal stack | Cold-core lid | C14 earth feed; compressor earth; carbonator bond lead; faucet-plate bond |
 
 The rear H/G connectors share a vertical row beside the C14 inlet; N stands
 14.5 mm forward on its own broad rear-rooted well. Their wire entries face
@@ -49,7 +54,8 @@ forward and their levers open upward. The four core-side
 −X toward the PCB and levers face upward. The printed wells capture each connector's blank
 rear half with 3 mm stock. The manifold common connectors retain their native
 front-top stations and their two lever faces remain accessible from the front
-assembly's open interior.
+assembly's open interior and through the funnel opening. The three joins have no
+well; they go in last, where their leads meet, with one port of each empty.
 
 The PSU's wire entries face fore/aft. Its screw axes point inward from the
 west sidewall. Land and inspect these terminals on accessible back-top before
@@ -69,7 +75,7 @@ RX-M3×5.7 inserts. The pump retains its specified rubber-pad/washer stack.
 The PSU and relay wall-host stacks are defined by
 [`_above_core_shell.py`](/hardware/printed-parts/enclosure/enclosure/_above_core_shell.py)
 and allocated in the [BOM](/hardware/ledger/bom.md); use the stack assigned to
-each device. The five-ring stack and tooth washer clamp under M3 × 10 into an
+each device. The ring stack and its Ø9 × 0.8 flat washer clamp under M3 × 10 into an
 RX-M3S×4 short insert in the upward-facing core-lid boss. Its 4.8 mm clamp
 stack gives 5.2 mm screw projection into a 7 mm blind pilot.
 
@@ -78,7 +84,8 @@ specified soldered joints, helping hands, insulated driver and multimeter.
 Keep the appliance unplugged throughout this assembly.
 
 Follow the carrying parts and closing order in
-[enclosure-mechanical.md](enclosure-mechanical.md). The
+[enclosure-mechanical.md](enclosure-mechanical.md); [wiring.md](wiring.md)
+tables the stage at which each end lands. The
 [carried-group review](../mechanical-qualification/enclosure-above-core/approved-carried-group-review.json)
 records the current rigid-slide and final-connection limits.
 
@@ -93,84 +100,91 @@ records the current rigid-slide and final-connection limits.
    passages; a straight chord between the lower and upper mouths does not
    describe their path. Complete the cold-core assembly in
    [cold-core.md](cold-core.md).
-2. Seat V-A/V-K on open back-top with their fitted plumbing. Attach their
-   prepared downward-blade leads while that subassembly is accessible.
+2. On open back-top, seat V-A/V-K with their fitted plumbing. Land their legs
+   on the downward blades: J1 `OUT1` and positive-A at V-A, J2 `OUT3` and
+   positive-K at V-K, each XH contact crimped but left out of its housing.
    Female-housing fit and connection force remain unqualified.
-   Seat the junctions in their named wells and label their electrical purpose.
+   Seat the rear junctions in their named wells and label their electrical purpose.
    Check that each seated body's levers can open and close before populating
-   it. Land the two prepared J10 power leads on the loose PCB before fastening
-   it to the core; leave their WAGO ends free. The captured upper B-fill fitting
-   limits a straight lead-entry approach at the installed board. Mount the PCB,
-   pump, V-B and ground stack on their core features.
-   Fasten the PSU on bare back-top before seating the rear WAGO-H junction;
+   it. Fasten the PSU on bare back-top before seating the rear WAGO-H junction;
    its aft mounting-driver path crosses that connector. Mount the relays and
-   meter, and prepare the meter’s inlet and concealed outlet plumbing. Service
-   of that PSU mounting screw may require withdrawing WAGO-H from its well. Keep the funnel frame removed. The PCB's J14 remains the
-   programming interface.
-3. Land the fixed AC and DC runs by the schedule: C14 to H/N/G, H/N to the
-   PSU primary, H to relay 1 COM, the PSU secondary to V12/GND, V12 to relay 2
-   COM, and the free ends of the prelanded J10 leads to V12/GND. Keep the V-B
-   return union and its flexible return tube clear while tightening J10, then
-   fit them at their selected poses. The installed lead and vertical screw
-   tools clear the selected B-fill fitting; the nominal 8 mm straight wire-entry
-   land does not. Field retermination may require unbolting and staging the PCB
-   and flexible leads. That handling and its service path remain unqualified.
-   Relay 2 NO feeds the pump positive lead;
-   pump negative returns to GND. Relay 1 NO, neutral and protective earth
-   are the continuous three cores of the compressor's single SJOOW lead. Its
-   jacket rises through the open front floor lane near X48/Y130 and ends at
-   approximately X48/Y165.76/Z274.77 in the fore connection area. The same
-   individually insulated cores fan out from there to the existing relay,
-   neutral junction and earth stack, without an inline splice. The jacket's
-   lower end approaches the thermal-fuse/donor-interface region. Retain the specified direct solid-wire clamp
-   and stranded-wire termination choices.
-4. Land J5 at the two relay modules: IO19 to relay 1 IN, IO2 to relay 2 IN,
-   V5 and GND to both modules. The shared relay-end rail termination remains
-   subject to the installed model's stated termination limit. Populate the
-   sensor and reservoir-B common junctions without adding junctions to the
-   continuous reservoir-A reed common.
-5. Stage the front-top looms at their fixed display and front coil endpoints.
-   Install the core/back-bottom and upper quadrants with the final
-   funnel opening clear. Use this opening to connect J1/J2 valve commons
-   and returns, the J13 pump ribbon at the pump cradle's installation
-   ([internal plumbing §3](internal-plumbing.md#3-flavor-manifold-v-a-through-v-j--y-a-y-b-y-c-y-d-y-f-y-g--pumps)),
-   J9 display, the remaining PCB sensor/data headers, the rear relay
-   connections and the core-to-rear power leads.
-   Bounded J11 housing service uses 6 mm up, 6 mm east and 20 mm up after
-   removing the funnel/frame and disconnected cradled drain and releasing the
-   flexible B return from its path. Flexible lead handling remains unqualified.
-   Pass the four J9 display conductors through the existing ridge loom bore
-   near X32/Z308, then dress them to the display terminals.
+   meter, and prepare the meter’s inlet and concealed outlet plumbing. Solder
+   J4's flow pair and the sensor-GND branch to the meter's three factory leads,
+   heat-shrink each joint, and dress them below V-K's coil, east ahead of the
+   foam and forward to the funnel opening. Keep the funnel frame removed.
+3. Still on open back-top, land the fixed AC runs by the schedule: C14 to
+   H/N/G, H/N to the PSU primary, and H to relay 1 COM. Then land the back-top
+   ends of the runs that finish under the funnel opening: the PSU secondary
+   (DC-1), relay 2 COM (DC-2), the relay 1 NO and N-junction pigtails (AC-4,
+   AC-5), the relay 2 NO pigtail (DC-3), the PE bus from G, and J5 at the two
+   relay modules: IO19 to relay 1 IN, IO2 to relay 2 IN, V5 and GND to both
+   modules. The shared relay-end rail termination remains subject to the
+   installed model's stated termination limit. Punch J3 down on the rear
+   keystone. Dress every free end forward so it lies within the funnel
+   opening's footprint once the box is closed, clear of the seams and every
+   sliding surface, and flag it with its run ID. Retain the specified direct
+   solid-wire clamp and stranded-wire termination choices.
+4. On the open core, land the two prepared J10 power leads on the loose PCB
+   before fastening it, `V12` and `GND` each in the clamp beside its silk
+   label; the captured upper B-fill fitting limits a straight lead-entry
+   approach at the installed board. Mount the PCB, pump, V-B and ground boss
+   on their core features. Land the J10 leads' free ends in the V12 and GND
+   junctions, and the pump negative in GND. Land the pump positive on the
+   pump's lead and dress it forward to the funnel opening. Land V-B's leg on
+   its blades: J1 `OUT2` and positive-B, `OUT2`'s contact crimped but out of
+   its housing. Seat J6, J7 and J4 at the PCB, J4 with cavities 4 and 5 empty.
+   Populate the sensor and reservoir-B common junctions without adding
+   junctions to the continuous reservoir-A reed common.
+5. Close the box per [enclosure-mechanical.md](enclosure-mechanical.md); the
+   front-bottom and front-top looms have landed at their devices by then
+   ([wiring.md](wiring.md)). Through the funnel opening, with the frame out:
+   - Stack the ground rings on the lid boss: carbonator bond, inlet PE bus,
+     compressor PE and the staged faucet-plate ring, then the flat washer and
+     M3 × 10.
+   - Land the free ends of DC-1 and DC-2 in the V12 and GND junctions.
+   - Make the three joins: the compressor's switched-H core with the relay 1
+     NO pigtail, its neutral core with the N-junction pigtail, and the pump
+     positive with the relay 2 NO pigtail, each in a 221-413.
+   - Seat the loose contacts: J1 cavities 2 and 3 (`OUT1`, `OUT2`), J2
+     cavities 2 and 4 (`FAN`, `OUT3`), J4 cavities 5 and 4 (`V5`, `IO25`).
+     Then seat J1 and J2 on their wafers. Land the V-A, V-B, V-K and fan
+     positives in the manifold commons and the meter's GND in the sensor
+     common.
+   - Seat J3 and J5. Seat J11 before the V-B return union and its flexible
+     return tube go in ([internal plumbing](internal-plumbing.md)); the
+     return lies over J11 and the J10 clamps.
+   - Feed the J9 display end from inside through the existing ridge loom bore
+     near X32/Z308 and out the open facet, land it on the display's terminals,
+     seat the display ([enclosure-mechanical.md](enclosure-mechanical.md) §8),
+     then seat J9.
+   - Connect the J13 pump ribbon at the pump cradle's installation
+     ([internal plumbing §3](internal-plumbing.md#3-flavor-manifold-v-a-through-v-j--y-a-y-b-y-c-y-d-y-f-y-g--pumps)).
    Keep the leads with their mounting parents and dress each crossing below
    the closing surfaces. Clear the V-B return bearing and its
    cable-tie path while dressing the leads. Keep the coil leads outside the
-   continuous soda inlet's holder and foam sleeve. Dress the three meter leads
-   below V-K's coil, cross east ahead of the foam and run aft outside its wall.
+   continuous soda inlet's holder and foam sleeve.
    Route lengths describe centerlines; allow the
    specified termination reserve and assembly slack when fabricating looms.
 6. Inspect the wiring and plumbing in the central four-quadrant connection
-   region while the roof opening is clear. Lower the rigid frame vertically,
-   engage the drain cradle’s snaps in its lower web and seat the four
-   upward-accessible M3 screws. Complete and inspect the drain connection
-   before fitting the silicone funnel onto the standing stub and bearing
-   surfaces. The geometric frame-lift review removes the cradle, elbow, stub
-   and tubing; it does not qualify connected-tube motion or snap-release
-   access and force. Disconnect the drain tube or release the cradle snap
-   before lifting the frame. The frame carries no electrical connection.
+   region while the roof opening is clear. Leave the rigid frame out for
+   [firmware-and-commissioning.md](firmware-and-commissioning.md): its USB
+   console at J14 and its rail test points lie beneath the frame. The frame
+   carries no electrical connection.
 
 ## Unpowered completion checks
 
 Confirm continuity from C14 L/N/PE to each scheduled destination, with H, N
-and PE isolated from one another. Check the DC polarity at J10 and at both
-pump supply leads. Confirm protective-earth continuity through each completed
-metal bond back to C14 PE. Confirm each populated terminal retains its wire
-and each plug is squarely seated and labeled. Inspect the final roof seats
-for trapped conductors before closing them.
+and PE isolated from one another, per [wiring.md](wiring.md) step 3. Check
+the DC polarity at J10 (`V12` west, `GND` east) and at both pump supply
+leads. Confirm protective-earth continuity through each completed metal bond
+back to C14 PE. Confirm each populated terminal and join retains its wire and
+each plug is squarely seated and labeled. Inspect the funnel opening's edge
+and the seams for trapped conductors.
 
 The compressor, fan, display and carbonator bond interfaces retain the
 installed model's nominal or unlocated status. A plastic mounting screw does
-not provide a carbonator metal bond. The faucet plate's earth landing is
-unresolved in the wiring schedule. These limits prevent claiming a completed
+not provide a carbonator metal bond. The enclosure has no exit for the faucet
+plate's bond conductor. These limits prevent claiming a completed
 bond or exact donor termination from CAD alone.
 
 Leave the assembly unpowered. Firmware and first power-up belong to

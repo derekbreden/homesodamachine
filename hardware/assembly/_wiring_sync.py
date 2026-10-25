@@ -49,6 +49,7 @@ from _ac_wiring_schedule_sync import (  # noqa: E402
     len_earth_bus_mm as _sched_len_earth_bus_mm,
     len_earth_carbonator_mm as _sched_len_earth_carbonator_mm,
     len_compressor_mm as _sched_len_compressor_mm,
+    len_opening_join_mm as _sched_len_opening_join_mm,
     len_fan_mm as _sched_len_fan_mm,
     len_vk_mm as _sched_len_vk_mm,
     len_front_face_mm as _sched_len_front_face_mm,
@@ -86,6 +87,7 @@ def main():
         "MCU_V": f"{_sched_v_rail_io:.4g} V",
         # Run lengths.
         "COMP_LEAD_LEN": f"~{_sched_len_compressor_mm:.4g} mm",
+        "JOIN_LEN": f"~{_sched_len_opening_join_mm:.4g} mm",
         "COMP_FAN_OUT": f"~{_sched_len_short_mm:.4g} mm",
         "AC1_LEN": f"~{_sched_len_mid_mm:.4g} mm",
         "AC2_LEN": f"~{_sched_len_short_2_mm:.4g} mm",
