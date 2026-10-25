@@ -1,10 +1,21 @@
 # Above-core enclosure integration
 
 The manual [review script](review.py) reads the exported production appliance.
-It queries vertical removal of the empty funnel frame,
-the approved back-top group passing over the populated core, and stock and
-screw reach at the two raised upper M5 joints. The [saved native record](native-review.json)
+It queries vertical removal of the empty funnel frame, continuous-inlet
+artifact binding, and stock and screw reach at the two raised upper M5 joints. The [saved native record](native-review.json)
 binds its source, artifact and tested group; its result applies to that scope.
+The separate [wall closing reader](wall_closing.py) samples the selected
+wall-carried group over the populated core and reads mesh-positive poses again
+as native intersections. The [pump-joint counterexamples](wall-closing-counterexamples.json)
+disprove a slide with the fitted pump-side elbow riding back-top.
+The [staged reading](wall-closing-staged-review.json) keeps that elbow at the
+pump and still finds the transverse stem joint and low V-A tube/union chain
+in the travel corridor. The [loose-connection subset](wall-closing-loose-stage-review.json)
+removes those named loose pieces from the same pair readings; its retained
+rigid group has no counterexample at the seventeen tested offsets. It establishes
+neither a continuous path nor the final connection handling. The low V-A tube's
+6.237989 mm³ final-pose contact with the upper B-fill elbow is a separate,
+unresolved installed-fit reading; late handling does not remove it.
 
 The funnel silicone, cover and cradled drain assembly are removed before the
 empty-frame query. The cradle snaps into the removable frame's 3 mm web.
@@ -27,7 +38,9 @@ flexible handling, collet access or connection force.
 
 The [wall electronics reading](wall-mount-review.json) and its
 [manual script](wall_mounts.py) bind the native PSU/relay datums, twelve local
-hosts and eight fastener stacks. They distinguish local flat-wall coupons
+hosts and eight fastener stacks. Printed pilot-floor readings use the fluted
+STL; the smooth STEP alone does not establish the remaining printed backing.
+They distinguish local flat-wall coupons
 from the actual exported-shell readback. The two aft relay screw-head contacts
 with the representative terminal-block envelope remain explicit nominal fit
 limits; source host clearance does not establish purchased hardware fit.

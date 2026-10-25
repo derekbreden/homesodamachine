@@ -1,0 +1,1972 @@
+{
+  "schema": 1,
+  "units": "mm",
+  "frame": "Production enclosure XYZ; Z up",
+  "scope": "Sampled pure-Y travel of the selected back-top upper stock and carried equipment over the populated cold core. The latest separate back-top and any explicitly named world-lid fixture replace their appliance copies at unchanged datums.",
+  "method": "Native bodies tessellated at 0.02 mm / 0.08 rad, float32 manifold intersections at the listed offsets. Each mesh-positive peak is read again with a native solid intersection. A clear sample set is not a continuous-path proof.",
+  "mesh_reporting_threshold_mm3": 0.1,
+  "no_rigid_counterexample_at_tested_offsets": false,
+  "offsets_mm": [
+    [
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.25,
+      0.0
+    ],
+    [
+      0.0,
+      0.5,
+      0.0
+    ],
+    [
+      0.0,
+      1.0,
+      0.0
+    ],
+    [
+      0.0,
+      2.0,
+      0.0
+    ],
+    [
+      0.0,
+      5.0,
+      0.0
+    ],
+    [
+      0.0,
+      10.0,
+      0.0
+    ],
+    [
+      0.0,
+      20.0,
+      0.0
+    ],
+    [
+      0.0,
+      30.0,
+      0.0
+    ],
+    [
+      0.0,
+      50.0,
+      0.0
+    ],
+    [
+      0.0,
+      75.0,
+      0.0
+    ],
+    [
+      0.0,
+      100.0,
+      0.0
+    ],
+    [
+      0.0,
+      132.0,
+      0.0
+    ],
+    [
+      0.0,
+      150.0,
+      0.0
+    ],
+    [
+      0.0,
+      200.0,
+      0.0
+    ],
+    [
+      0.0,
+      250.0,
+      0.0
+    ],
+    [
+      0.0,
+      300.0,
+      0.0
+    ]
+  ],
+  "moving_components": [
+    "asse-drain-adapter",
+    "asse-inlet-tpu",
+    "asse-outlet-tpu",
+    "asse1022-assembly",
+    "bulkhead-carb",
+    "bulkhead-carb-nut",
+    "bulkhead-drain",
+    "bulkhead-drain-nut",
+    "bulkhead-flavor-a",
+    "bulkhead-flavor-a-nut",
+    "bulkhead-flavor-b",
+    "bulkhead-flavor-b-nut",
+    "bulkhead-ring-carb",
+    "bulkhead-ring-carb-word",
+    "bulkhead-ring-co2",
+    "bulkhead-ring-co2-word",
+    "bulkhead-ring-drain",
+    "bulkhead-ring-drain-word",
+    "bulkhead-ring-flavor-a",
+    "bulkhead-ring-flavor-a-word",
+    "bulkhead-ring-flavor-b",
+    "bulkhead-ring-flavor-b-word",
+    "bulkhead-ring-water",
+    "bulkhead-ring-water-word",
+    "bulkhead-water",
+    "bulkhead-water-nut",
+    "c14-inlet",
+    "co2-inlet",
+    "co2-inlet-nut",
+    "digiten-flow",
+    "enclosure-back-top above Z253.3",
+    "flow-regulator",
+    "funnel-frame-back-east-insert",
+    "funnel-frame-back-west-insert",
+    "gas-check",
+    "gas-inlet-elbow",
+    "gas-lower-a",
+    "gas-lower-b",
+    "gas-regulator",
+    "gas-upper-a",
+    "gas-upper-b",
+    "keystone-jack",
+    "lower-valve-elbow",
+    "psu",
+    "reg-va-elbow",
+    "relay-1",
+    "relay-2",
+    "soda-bend-holder",
+    "soda-outlet-return-stem",
+    "soda-stem-elbow",
+    "tee-fold",
+    "tube-above-core-gas-check-link",
+    "tube-above-core-gas-inlet",
+    "tube-above-core-reg-va-link",
+    "tube-above-core-tee-regulator",
+    "tube-above-core-tee-vk-link",
+    "tube-above-core-va-fore-feed",
+    "tube-above-core-va-under-head",
+    "tube-above-core-water-in",
+    "tube-soda-meter-bulkhead",
+    "va-east-turn",
+    "va-outlet-elbow",
+    "valve-v-a",
+    "vk-solenoid",
+    "wago-g",
+    "wago-h",
+    "wago-n",
+    "water-split"
+  ],
+  "stationary_components": [
+    "cold-core/carbonator-fold",
+    "cold-core/discharge-chain",
+    "cold-core/foam-cap-lid-top",
+    "cold-core/foam-cap-top",
+    "cold-core/g-ganen-pump",
+    "cold-core/ground-stack",
+    "cold-core/line-carb-water-out",
+    "cold-core/line-co2-in",
+    "cold-core/line-reservoir-a",
+    "cold-core/line-reservoir-a-fill",
+    "cold-core/line-reservoir-b",
+    "cold-core/line-water-in",
+    "cold-core/pcba",
+    "cold-core/pump-inlet-barb-band",
+    "cold-core/pump-inlet-tpu",
+    "cold-core/pump-inlet-tube-band",
+    "cold-core/pump-outlet-barb-band",
+    "cold-core/pump-outlet-tpu",
+    "cold-core/pump-outlet-tube-band",
+    "cold-core/reservoir-b-fill-upper",
+    "cold-core/tube-above-core-pump-check-link",
+    "cold-core/tube-above-core-vb-yb-cross",
+    "cold-core/tube-water-5",
+    "cold-core/valve-v-b",
+    "cold-core/vb-inlet-turn",
+    "cold-core/vb-outlet-return",
+    "cold-core/vb-outlet-stem",
+    "cold-core/wago-gnd",
+    "cold-core/wago-reeds-b",
+    "cold-core/wago-sensors",
+    "cold-core/wago-v12",
+    "lower-pump-elbow"
+  ],
+  "omitted_cross_parent_handoffs": [
+    "tube-above-core-gas-core-drop",
+    "tube-above-core-pump-inlet-link",
+    "tube-drain-vent",
+    "tube-soda-core-rise"
+  ],
+  "pump_joint_staged_at_core": true,
+  "unqueried_soft_component": "soda-continuous-insulation",
+  "same_datum_back_top_volume_delta_mm3": 28.530964579200372,
+  "same_datum_core_lid_override": "tmp/reservoir-a-anchor-native/lid-world.brep",
+  "rigid_native_counterexamples": [
+    {
+      "moving": "lower-valve-elbow",
+      "stationary": "lower-pump-elbow",
+      "sample_count": 8,
+      "maximum_mesh_common_mm3": 182.38368794771094,
+      "peak_offset_mm": [
+        0.0,
+        5.0,
+        0.0
+      ],
+      "native_common_at_peak_mm3": 182.49388648667164,
+      "native_common_bounds_mm": [
+        57.35409877123055,
+        293.59276042818,
+        259.61064778053,
+        74.245098971232,
+        307.14935464287674,
+        269.0261906635938
+      ],
+      "positive_samples": [
+        {
+          "offset_mm": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "mesh_common_mm3": 0.19217725613793218
+        },
+        {
+          "offset_mm": [
+            0.0,
+            0.25,
+            0.0
+          ],
+          "mesh_common_mm3": 26.96053585114122
+        },
+        {
+          "offset_mm": [
+            0.0,
+            0.5,
+            0.0
+          ],
+          "mesh_common_mm3": 53.73802065569147
+        },
+        {
+          "offset_mm": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "mesh_common_mm3": 106.99833168848811
+        },
+        {
+          "offset_mm": [
+            0.0,
+            2.0,
+            0.0
+          ],
+          "mesh_common_mm3": 155.4397891613199
+        },
+        {
+          "offset_mm": [
+            0.0,
+            5.0,
+            0.0
+          ],
+          "mesh_common_mm3": 182.38368794771094
+        },
+        {
+          "offset_mm": [
+            0.0,
+            10.0,
+            0.0
+          ],
+          "mesh_common_mm3": 48.39590839519114
+        }
+      ]
+    },
+    {
+      "moving": "tube-above-core-va-fore-feed",
+      "stationary": "cold-core/g-ganen-pump",
+      "sample_count": 16,
+      "maximum_mesh_common_mm3": 1447.9727090749238,
+      "peak_offset_mm": [
+        0.0,
+        150.0,
+        0.0
+      ],
+      "native_common_at_peak_mm3": 898.5266830466387,
+      "native_common_bounds_mm": [
+        19.483968514141118,
+        317.96610869540154,
+        258.7839359067927,
+        36.306700100000654,
+        439.4354522726,
+        279.8952001
+      ],
+      "positive_samples": [
+        {
+          "offset_mm": [
+            0.0,
+            50.0,
+            0.0
+          ],
+          "mesh_common_mm3": 63.16320504850216
+        },
+        {
+          "offset_mm": [
+            0.0,
+            75.0,
+            0.0
+          ],
+          "mesh_common_mm3": 333.5615892718375
+        },
+        {
+          "offset_mm": [
+            0.0,
+            100.0,
+            0.0
+          ],
+          "mesh_common_mm3": 659.1279088572542
+        },
+        {
+          "offset_mm": [
+            0.0,
+            132.0,
+            0.0
+          ],
+          "mesh_common_mm3": 1382.852124611584
+        },
+        {
+          "offset_mm": [
+            0.0,
+            150.0,
+            0.0
+          ],
+          "mesh_common_mm3": 1447.9727090749238
+        },
+        {
+          "offset_mm": [
+            0.0,
+            200.0,
+            0.0
+          ],
+          "mesh_common_mm3": 1126.9401779407306
+        },
+        {
+          "offset_mm": [
+            0.0,
+            250.0,
+            0.0
+          ],
+          "mesh_common_mm3": 477.7954420696159
+        }
+      ]
+    },
+    {
+      "moving": "tube-above-core-va-under-head",
+      "stationary": "cold-core/reservoir-b-fill-upper",
+      "sample_count": 5,
+      "maximum_mesh_common_mm3": 6.155861786549321,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "native_common_at_peak_mm3": 6.237989175445638,
+      "native_common_bounds_mm": [
+        -52.04577991988051,
+        293.41210983387737,
+        259.8512802767035,
+        -45.38493977825747,
+        295.5828535234327,
+        262.78682665915727
+      ],
+      "positive_samples": [
+        {
+          "offset_mm": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "mesh_common_mm3": 6.155861786549321
+        },
+        {
+          "offset_mm": [
+            0.0,
+            0.25,
+            0.0
+          ],
+          "mesh_common_mm3": 3.0037587191145834
+        },
+        {
+          "offset_mm": [
+            0.0,
+            0.5,
+            0.0
+          ],
+          "mesh_common_mm3": 1.0293107595151876
+        }
+      ]
+    },
+    {
+      "moving": "tube-above-core-va-under-head",
+      "stationary": "cold-core/carbonator-fold",
+      "sample_count": 2,
+      "maximum_mesh_common_mm3": 1.5328878441290712,
+      "peak_offset_mm": [
+        0.0,
+        100.0,
+        0.0
+      ],
+      "native_common_at_peak_mm3": 1.56133111014348,
+      "native_common_bounds_mm": [
+        -33.78761151715947,
+        402.9032888963454,
+        262.4981382556335,
+        -28.554285777319862,
+        404.3016696152644,
+        264.1971429325651
+      ],
+      "positive_samples": [
+        {
+          "offset_mm": [
+            0.0,
+            100.0,
+            0.0
+          ],
+          "mesh_common_mm3": 1.5328878441290712
+        }
+      ]
+    },
+    {
+      "moving": "tube-above-core-va-under-head",
+      "stationary": "cold-core/g-ganen-pump",
+      "sample_count": 14,
+      "maximum_mesh_common_mm3": 715.9779184735377,
+      "peak_offset_mm": [
+        0.0,
+        75.0,
+        0.0
+      ],
+      "native_common_at_peak_mm3": 397.9525835810964,
+      "native_common_bounds_mm": [
+        -38.36826957636,
+        371.32626618738703,
+        258.42499989999845,
+        28.26931010000254,
+        387.3105001000004,
+        265.7510968701694
+      ],
+      "positive_samples": [
+        {
+          "offset_mm": [
+            0.0,
+            10.0,
+            0.0
+          ],
+          "mesh_common_mm3": 19.50140175737862
+        },
+        {
+          "offset_mm": [
+            0.0,
+            20.0,
+            0.0
+          ],
+          "mesh_common_mm3": 216.00732554413804
+        },
+        {
+          "offset_mm": [
+            0.0,
+            30.0,
+            0.0
+          ],
+          "mesh_common_mm3": 169.4737683894443
+        },
+        {
+          "offset_mm": [
+            0.0,
+            50.0,
+            0.0
+          ],
+          "mesh_common_mm3": 270.61935590767405
+        },
+        {
+          "offset_mm": [
+            0.0,
+            75.0,
+            0.0
+          ],
+          "mesh_common_mm3": 715.9779184735377
+        },
+        {
+          "offset_mm": [
+            0.0,
+            100.0,
+            0.0
+          ],
+          "mesh_common_mm3": 541.2214462792389
+        },
+        {
+          "offset_mm": [
+            0.0,
+            132.0,
+            0.0
+          ],
+          "mesh_common_mm3": 367.4901951879479
+        }
+      ]
+    },
+    {
+      "moving": "va-east-turn",
+      "stationary": "cold-core/g-ganen-pump",
+      "sample_count": 14,
+      "maximum_mesh_common_mm3": 2262.428094248224,
+      "peak_offset_mm": [
+        0.0,
+        75.0,
+        0.0
+      ],
+      "native_common_at_peak_mm3": 383.2101007134258,
+      "native_common_bounds_mm": [
+        12.569309899999984,
+        376.47410069365645,
+        263.2334363134345,
+        24.52780834251083,
+        391.8135293519,
+        269.7629001
+      ],
+      "positive_samples": [
+        {
+          "offset_mm": [
+            0.0,
+            2.0,
+            0.0
+          ],
+          "mesh_common_mm3": 0.8702156386220788
+        },
+        {
+          "offset_mm": [
+            0.0,
+            5.0,
+            0.0
+          ],
+          "mesh_common_mm3": 58.87949145525575
+        },
+        {
+          "offset_mm": [
+            0.0,
+            10.0,
+            0.0
+          ],
+          "mesh_common_mm3": 481.2943920167176
+        },
+        {
+          "offset_mm": [
+            0.0,
+            20.0,
+            0.0
+          ],
+          "mesh_common_mm3": 897.6778784726023
+        },
+        {
+          "offset_mm": [
+            0.0,
+            30.0,
+            0.0
+          ],
+          "mesh_common_mm3": 1019.5610475618123
+        },
+        {
+          "offset_mm": [
+            0.0,
+            50.0,
+            0.0
+          ],
+          "mesh_common_mm3": 1057.1199498616884
+        },
+        {
+          "offset_mm": [
+            0.0,
+            75.0,
+            0.0
+          ],
+          "mesh_common_mm3": 2262.428094248224
+        },
+        {
+          "offset_mm": [
+            0.0,
+            100.0,
+            0.0
+          ],
+          "mesh_common_mm3": 1453.4145605915367
+        },
+        {
+          "offset_mm": [
+            0.0,
+            132.0,
+            0.0
+          ],
+          "mesh_common_mm3": 1546.20206348684
+        },
+        {
+          "offset_mm": [
+            0.0,
+            150.0,
+            0.0
+          ],
+          "mesh_common_mm3": 21.437148037845457
+        }
+      ]
+    }
+  ],
+  "soft_foam_proxy_contacts": [],
+  "soft_foam_scope": "Not queried as a rigid sliding member. The occupied proxy is an estimated compressed shape; its handling is unqualified.",
+  "pair_readings": [
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/foam-cap-top",
+      "sample_count": 16,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 16,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/reservoir-b-fill-upper",
+      "sample_count": 11,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/line-carb-water-out",
+      "sample_count": 13,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/line-co2-in",
+      "sample_count": 14,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/line-reservoir-a",
+      "sample_count": 15,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/line-reservoir-a-fill",
+      "sample_count": 15,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/line-reservoir-b",
+      "sample_count": 9,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/line-water-in",
+      "sample_count": 15,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/carbonator-fold",
+      "sample_count": 15,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/discharge-chain",
+      "sample_count": 15,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/g-ganen-pump",
+      "sample_count": 15,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/pcba",
+      "sample_count": 11,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/pump-inlet-barb-band",
+      "sample_count": 13,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/pump-inlet-tpu",
+      "sample_count": 13,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/pump-inlet-tube-band",
+      "sample_count": 12,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/pump-outlet-barb-band",
+      "sample_count": 13,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/pump-outlet-tpu",
+      "sample_count": 13,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/pump-outlet-tube-band",
+      "sample_count": 13,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/valve-v-b",
+      "sample_count": 10,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/vb-inlet-turn",
+      "sample_count": 8,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/vb-outlet-return",
+      "sample_count": 11,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/vb-outlet-stem",
+      "sample_count": 11,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/wago-sensors",
+      "sample_count": 5,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/wago-v12",
+      "sample_count": 8,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/wago-gnd",
+      "sample_count": 10,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/wago-reeds-b",
+      "sample_count": 10,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/ground-stack",
+      "sample_count": 5,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/tube-above-core-vb-yb-cross",
+      "sample_count": 11,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/tube-above-core-pump-check-link",
+      "sample_count": 14,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/tube-water-5",
+      "sample_count": 15,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "lower-pump-elbow",
+      "sample_count": 12,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "bulkhead-carb",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 7,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "bulkhead-carb-nut",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 5,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "bulkhead-drain",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 7,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "bulkhead-drain-nut",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 6,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "bulkhead-flavor-a",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 7,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "bulkhead-flavor-a-nut",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 6,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "bulkhead-flavor-b",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 7,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "bulkhead-flavor-b-nut",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 6,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "digiten-flow",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 12,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "digiten-flow",
+      "stationary": "cold-core/g-ganen-pump",
+      "sample_count": 11,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "gas-check",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 11,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "gas-lower-a",
+      "stationary": "cold-core/foam-cap-top",
+      "sample_count": 10,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "gas-lower-a",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 10,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "gas-lower-b",
+      "stationary": "cold-core/foam-cap-top",
+      "sample_count": 11,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "gas-lower-b",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 11,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "gas-regulator",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 10,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "keystone-jack",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 8,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "keystone-jack",
+      "stationary": "cold-core/g-ganen-pump",
+      "sample_count": 5,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "lower-valve-elbow",
+      "stationary": "cold-core/foam-cap-top",
+      "sample_count": 14,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "lower-valve-elbow",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 14,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "lower-valve-elbow",
+      "stationary": "cold-core/pump-inlet-tpu",
+      "sample_count": 3,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        10.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "lower-valve-elbow",
+      "stationary": "cold-core/pump-inlet-tube-band",
+      "sample_count": 3,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        10.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "lower-valve-elbow",
+      "stationary": "lower-pump-elbow",
+      "sample_count": 8,
+      "maximum_mesh_common_mm3": 182.38368794771094,
+      "peak_offset_mm": [
+        0.0,
+        5.0,
+        0.0
+      ],
+      "native_common_at_peak_mm3": 182.49388648667164,
+      "native_common_bounds_mm": [
+        57.35409877123055,
+        293.59276042818,
+        259.61064778053,
+        74.245098971232,
+        307.14935464287674,
+        269.0261906635938
+      ],
+      "positive_samples": [
+        {
+          "offset_mm": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "mesh_common_mm3": 0.19217725613793218
+        },
+        {
+          "offset_mm": [
+            0.0,
+            0.25,
+            0.0
+          ],
+          "mesh_common_mm3": 26.96053585114122
+        },
+        {
+          "offset_mm": [
+            0.0,
+            0.5,
+            0.0
+          ],
+          "mesh_common_mm3": 53.73802065569147
+        },
+        {
+          "offset_mm": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "mesh_common_mm3": 106.99833168848811
+        },
+        {
+          "offset_mm": [
+            0.0,
+            2.0,
+            0.0
+          ],
+          "mesh_common_mm3": 155.4397891613199
+        },
+        {
+          "offset_mm": [
+            0.0,
+            5.0,
+            0.0
+          ],
+          "mesh_common_mm3": 182.38368794771094
+        },
+        {
+          "offset_mm": [
+            0.0,
+            10.0,
+            0.0
+          ],
+          "mesh_common_mm3": 48.39590839519114
+        }
+      ]
+    },
+    {
+      "moving": "psu",
+      "stationary": "cold-core/foam-cap-top",
+      "sample_count": 12,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "psu",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 12,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "soda-bend-holder",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 12,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "soda-bend-holder",
+      "stationary": "cold-core/g-ganen-pump",
+      "sample_count": 12,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "soda-outlet-return-stem",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 9,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "soda-outlet-return-stem",
+      "stationary": "cold-core/g-ganen-pump",
+      "sample_count": 8,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "soda-stem-elbow",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 9,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "tube-above-core-gas-check-link",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 10,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "tube-above-core-va-fore-feed",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 16,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "tube-above-core-va-fore-feed",
+      "stationary": "cold-core/g-ganen-pump",
+      "sample_count": 16,
+      "maximum_mesh_common_mm3": 1447.9727090749238,
+      "peak_offset_mm": [
+        0.0,
+        150.0,
+        0.0
+      ],
+      "native_common_at_peak_mm3": 898.5266830466387,
+      "native_common_bounds_mm": [
+        19.483968514141118,
+        317.96610869540154,
+        258.7839359067927,
+        36.306700100000654,
+        439.4354522726,
+        279.8952001
+      ],
+      "positive_samples": [
+        {
+          "offset_mm": [
+            0.0,
+            50.0,
+            0.0
+          ],
+          "mesh_common_mm3": 63.16320504850216
+        },
+        {
+          "offset_mm": [
+            0.0,
+            75.0,
+            0.0
+          ],
+          "mesh_common_mm3": 333.5615892718375
+        },
+        {
+          "offset_mm": [
+            0.0,
+            100.0,
+            0.0
+          ],
+          "mesh_common_mm3": 659.1279088572542
+        },
+        {
+          "offset_mm": [
+            0.0,
+            132.0,
+            0.0
+          ],
+          "mesh_common_mm3": 1382.852124611584
+        },
+        {
+          "offset_mm": [
+            0.0,
+            150.0,
+            0.0
+          ],
+          "mesh_common_mm3": 1447.9727090749238
+        },
+        {
+          "offset_mm": [
+            0.0,
+            200.0,
+            0.0
+          ],
+          "mesh_common_mm3": 1126.9401779407306
+        },
+        {
+          "offset_mm": [
+            0.0,
+            250.0,
+            0.0
+          ],
+          "mesh_common_mm3": 477.7954420696159
+        }
+      ]
+    },
+    {
+      "moving": "tube-above-core-va-fore-feed",
+      "stationary": "cold-core/pump-inlet-barb-band",
+      "sample_count": 7,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        20.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "tube-above-core-va-fore-feed",
+      "stationary": "cold-core/pump-inlet-tpu",
+      "sample_count": 8,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        10.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "tube-above-core-va-fore-feed",
+      "stationary": "cold-core/vb-inlet-turn",
+      "sample_count": 10,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "tube-above-core-va-fore-feed",
+      "stationary": "cold-core/vb-outlet-stem",
+      "sample_count": 12,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "tube-above-core-va-fore-feed",
+      "stationary": "cold-core/ground-stack",
+      "sample_count": 9,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "tube-above-core-va-fore-feed",
+      "stationary": "cold-core/tube-above-core-vb-yb-cross",
+      "sample_count": 12,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "tube-above-core-va-under-head",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 14,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "tube-above-core-va-under-head",
+      "stationary": "cold-core/reservoir-b-fill-upper",
+      "sample_count": 5,
+      "maximum_mesh_common_mm3": 6.155861786549321,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "native_common_at_peak_mm3": 6.237989175445638,
+      "native_common_bounds_mm": [
+        -52.04577991988051,
+        293.41210983387737,
+        259.8512802767035,
+        -45.38493977825747,
+        295.5828535234327,
+        262.78682665915727
+      ],
+      "positive_samples": [
+        {
+          "offset_mm": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "mesh_common_mm3": 6.155861786549321
+        },
+        {
+          "offset_mm": [
+            0.0,
+            0.25,
+            0.0
+          ],
+          "mesh_common_mm3": 3.0037587191145834
+        },
+        {
+          "offset_mm": [
+            0.0,
+            0.5,
+            0.0
+          ],
+          "mesh_common_mm3": 1.0293107595151876
+        }
+      ]
+    },
+    {
+      "moving": "tube-above-core-va-under-head",
+      "stationary": "cold-core/carbonator-fold",
+      "sample_count": 2,
+      "maximum_mesh_common_mm3": 1.5328878441290712,
+      "peak_offset_mm": [
+        0.0,
+        100.0,
+        0.0
+      ],
+      "native_common_at_peak_mm3": 1.56133111014348,
+      "native_common_bounds_mm": [
+        -33.78761151715947,
+        402.9032888963454,
+        262.4981382556335,
+        -28.554285777319862,
+        404.3016696152644,
+        264.1971429325651
+      ],
+      "positive_samples": [
+        {
+          "offset_mm": [
+            0.0,
+            100.0,
+            0.0
+          ],
+          "mesh_common_mm3": 1.5328878441290712
+        }
+      ]
+    },
+    {
+      "moving": "tube-above-core-va-under-head",
+      "stationary": "cold-core/g-ganen-pump",
+      "sample_count": 14,
+      "maximum_mesh_common_mm3": 715.9779184735377,
+      "peak_offset_mm": [
+        0.0,
+        75.0,
+        0.0
+      ],
+      "native_common_at_peak_mm3": 397.9525835810964,
+      "native_common_bounds_mm": [
+        -38.36826957636,
+        371.32626618738703,
+        258.42499989999845,
+        28.26931010000254,
+        387.3105001000004,
+        265.7510968701694
+      ],
+      "positive_samples": [
+        {
+          "offset_mm": [
+            0.0,
+            10.0,
+            0.0
+          ],
+          "mesh_common_mm3": 19.50140175737862
+        },
+        {
+          "offset_mm": [
+            0.0,
+            20.0,
+            0.0
+          ],
+          "mesh_common_mm3": 216.00732554413804
+        },
+        {
+          "offset_mm": [
+            0.0,
+            30.0,
+            0.0
+          ],
+          "mesh_common_mm3": 169.4737683894443
+        },
+        {
+          "offset_mm": [
+            0.0,
+            50.0,
+            0.0
+          ],
+          "mesh_common_mm3": 270.61935590767405
+        },
+        {
+          "offset_mm": [
+            0.0,
+            75.0,
+            0.0
+          ],
+          "mesh_common_mm3": 715.9779184735377
+        },
+        {
+          "offset_mm": [
+            0.0,
+            100.0,
+            0.0
+          ],
+          "mesh_common_mm3": 541.2214462792389
+        },
+        {
+          "offset_mm": [
+            0.0,
+            132.0,
+            0.0
+          ],
+          "mesh_common_mm3": 367.4901951879479
+        }
+      ]
+    },
+    {
+      "moving": "tube-above-core-va-under-head",
+      "stationary": "cold-core/tube-water-5",
+      "sample_count": 1,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        100.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "tube-soda-meter-bulkhead",
+      "stationary": "cold-core/g-ganen-pump",
+      "sample_count": 9,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "va-east-turn",
+      "stationary": "cold-core/foam-cap-top",
+      "sample_count": 14,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "va-east-turn",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 14,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "va-east-turn",
+      "stationary": "cold-core/g-ganen-pump",
+      "sample_count": 14,
+      "maximum_mesh_common_mm3": 2262.428094248224,
+      "peak_offset_mm": [
+        0.0,
+        75.0,
+        0.0
+      ],
+      "native_common_at_peak_mm3": 383.2101007134258,
+      "native_common_bounds_mm": [
+        12.569309899999984,
+        376.47410069365645,
+        263.2334363134345,
+        24.52780834251083,
+        391.8135293519,
+        269.7629001
+      ],
+      "positive_samples": [
+        {
+          "offset_mm": [
+            0.0,
+            2.0,
+            0.0
+          ],
+          "mesh_common_mm3": 0.8702156386220788
+        },
+        {
+          "offset_mm": [
+            0.0,
+            5.0,
+            0.0
+          ],
+          "mesh_common_mm3": 58.87949145525575
+        },
+        {
+          "offset_mm": [
+            0.0,
+            10.0,
+            0.0
+          ],
+          "mesh_common_mm3": 481.2943920167176
+        },
+        {
+          "offset_mm": [
+            0.0,
+            20.0,
+            0.0
+          ],
+          "mesh_common_mm3": 897.6778784726023
+        },
+        {
+          "offset_mm": [
+            0.0,
+            30.0,
+            0.0
+          ],
+          "mesh_common_mm3": 1019.5610475618123
+        },
+        {
+          "offset_mm": [
+            0.0,
+            50.0,
+            0.0
+          ],
+          "mesh_common_mm3": 1057.1199498616884
+        },
+        {
+          "offset_mm": [
+            0.0,
+            75.0,
+            0.0
+          ],
+          "mesh_common_mm3": 2262.428094248224
+        },
+        {
+          "offset_mm": [
+            0.0,
+            100.0,
+            0.0
+          ],
+          "mesh_common_mm3": 1453.4145605915367
+        },
+        {
+          "offset_mm": [
+            0.0,
+            132.0,
+            0.0
+          ],
+          "mesh_common_mm3": 1546.20206348684
+        },
+        {
+          "offset_mm": [
+            0.0,
+            150.0,
+            0.0
+          ],
+          "mesh_common_mm3": 21.437148037845457
+        }
+      ]
+    },
+    {
+      "moving": "va-east-turn",
+      "stationary": "cold-core/pump-inlet-tpu",
+      "sample_count": 9,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "va-outlet-elbow",
+      "stationary": "cold-core/foam-cap-top",
+      "sample_count": 14,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "va-outlet-elbow",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 14,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "valve-v-a",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 14,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "vk-solenoid",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 14,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "vk-solenoid",
+      "stationary": "lower-pump-elbow",
+      "sample_count": 9,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "wago-h",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 7,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "wago-h",
+      "stationary": "cold-core/g-ganen-pump",
+      "sample_count": 1,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "wago-n",
+      "stationary": "cold-core/g-ganen-pump",
+      "sample_count": 7,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "limits": [
+    "The original lower rails, floor and shell seam motions retain their separate records.",
+    "Funnel, frame, drain group and closure screws are removed.",
+    "The continuous inlet stays one physical tube through a plain guide. Its cross-parent span is not included as an undeformable moving member.",
+    "Pump, gas, drain and electrical handoffs need separate final-connection handling.",
+    "The occupied foam is a soft display estimate. Its contacts are reported separately and establish no compression force, strain or clearance.",
+    "No hand access, insertion force, printed fit, stiffness, retention, sealing or lifetime qualification is inferred."
+  ],
+  "source_sha256": {
+    "hardware/mechanical-qualification/enclosure-above-core/wall_closing.py": "6ea9f1528d63eebf4d2c9b0805adc9ec75857f7648ff3998c3b994b396f70dc2",
+    "hardware/mechanical-qualification/enclosure-above-core/review.py": "3a02a0680f8079e8a94ba2f9353a839f8e545c2bab621c5a9778be12446d8bc2",
+    "hardware/manifold-layout/enclosure-assembly.step": "a86e70dae875b56ac1563effd4cd154945b0a07161f385453c524a8d6938914f",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "10a6008999aa3096a3c3b85a7222bc8d0ca39167f09b29966aa8d33e8b2c3bc9",
+    "hardware/assembly/scenes/_scenes.py": "7aaa63a1de971f55475b88380714d991f81725ba2cbed28ec6ae3fb02fb4d34b",
+    "hardware/manifold-layout/above_core.py": "0ad87c7c252ab3cfe803c0f2a63a9374d06d0005591509031328ad6e3203988f",
+    "hardware/manifold-layout/above-core.json": "04887b550cc53b2516832689b40f81a56e83119e4cc04921ad9819ed343c726b",
+    "hardware/manifold-layout/_scorecard.py": "b48b906e714c57f1c152e57fdf8ad2e96c88a41738c58022617f413e2733db55",
+    "tmp/reservoir-a-anchor-native/lid-world.brep": "70719e87c4e7417b8354ec2533dc5c72667a6b0d463d57c8f69efe1d995c9130"
+  }
+}
