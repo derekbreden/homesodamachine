@@ -2,7 +2,6 @@
 Rigid seats retain their printed-face clearances; exterior foil tape
 seals the dry casing seams."""
 
-import itertools
 import cadquery as cq
 import math
 import sys
@@ -102,20 +101,6 @@ import _anchor_cap_interface as _anchor_cap
 from docgen import substitute_py_comments
 
 
-# The lid's own footprint, as area: the shell's rectangle less what its four corner rounds take
-# out of it. Every plate in this stack is cut to it, and the two lids' plates differ by nothing
-# else.
-footprint_area = ((outer_shell_x_length - 2 * casing_seal_rebate)
-                  * (outer_shell_y_length - 2 * casing_seal_rebate)
-                  - (4.0 - math.pi) * (corner_round_radius - casing_seal_rebate) ** 2)
-# The pour hole and the two vents, as one area. Neither lid carries anything else through its
-# plate that the other does not, so this is the whole of what the two have in common there.
-lid_open_area = (math.pi * foam_cap_lid_pour_radius ** 2
-                 + 2.0 * math.pi * foam_cap_lid_vent_radius ** 2)
-
-
-
-
 def _ring(section):
     """A section's own points with the first repeated, so the closing edge is DRAWN.
 
@@ -125,58 +110,6 @@ def _ring(section):
     source write the same bytes."""
     pts = list(section)
     return pts if pts[0] == pts[-1] else pts + [pts[0]]
-
-
-def _circle_beyond(d, r):
-    """The area of a circle of radius `r` lying beyond a chord its centre stands `d` from —
-    signed, so a centre on the far side of that line (`d` < 0) reports most of the circle."""
-    if d >= r:
-        return 0.0
-    if d <= -r:
-        return math.pi * r ** 2
-    return r * r * math.acos(d / r) - d * math.sqrt(max(r * r - d * d, 0.0))
-
-
-def _conduit_wall_overlap_area(x, y):
-    """The part of one column's section that is ALREADY the cup's perimeter wall.
-
-    A column merged into that wall (`_cold_core_interface.cap_conduit_wall_neck`) adds only
-    what stands INBOARD of the cavity face — the rest of its circle is wall the cup already
-    carried, and counting it twice is what makes the stack's volume disagree with its parts.
-    A column may merge into one face and no more: two at once is a corner, where the cup's
-    own fillet is, and the section there is not this figure."""
-    over = [d for d in (outer_shell_x_length / 2.0 - outer_shell_wall - abs(x),
-                        outer_shell_y_length / 2.0 - outer_shell_wall - abs(y))
-            if d < cap_conduit_boss_radius]
-    assert len(over) <= 1, (
-        f"cap conduit at ({x:g}, {y:g}) merges into two walls at once — that is the cup's "
-        f"filleted corner, and a circle-and-chord does not describe the section there")
-    return _circle_beyond(over[0], cap_conduit_boss_radius) if over else 0.0
-
-
-def _conduit_section_area():
-    """The conduit columns' section as ONE figure — the union of their circles, less the
-    part of any of them the perimeter wall already holds.
-
-    Where two columns overlap they are a single post, so the lens they share is area the
-    pack holds once. `build_conduit_columns` unions them for the same reason."""
-    r = cap_conduit_boss_radius
-    centres = list(cap_conduits.values())
-    area = len(centres) * math.pi * r ** 2
-    for i, a in enumerate(centres):
-        for b in centres[i + 1:]:
-            d = math.dist(a, b)
-            if d < 2.0 * r:
-                area -= (2.0 * r ** 2 * math.acos(d / (2.0 * r))
-                         - (d / 2.0) * math.sqrt(4.0 * r ** 2 - d ** 2))
-    # The named links join separated columns inside the cup. Each rectangle's
-    # exposed area is its length times width, less the two circular end strips.
-    # Their added sections do not overlap each other or the perimeter wall.
-    half = cap_conduit_link_width / 2.0
-    end_strip = half * math.sqrt(r * r - half * half) + r * r * math.asin(half / r)
-    for first, second in cap_conduit_links:
-        area += math.dist(cap_conduits[first], cap_conduits[second]) * cap_conduit_link_width - 2 * end_strip
-    return area - sum(_conduit_wall_overlap_area(*c) for c in centres)
 
 
 def deck_boss_z_top(name):
@@ -275,20 +208,6 @@ def capped_lid_rib(lid, name, face_z):
     return lid
 
 
-def capped_lid_rib_volume(name):
-    """What a capped row adds to the lid, in closed form: the post from the face to the axis
-    plane less its half bore and its two lip-ride chamfers, less each window's share of the
-    post, less what each window and slot take out of the plate under it."""
-    a = _anchor_cap
-    b_face = cap_anchor_axis_over_face(name)
-    post = a.RIB_LEN * (2.0 * a.RIB_R * b_face - a.RIB_CHAMFER ** 2
-                        - 0.5 * math.pi * cap_anchors[name].seat_r ** 2)
-    in_post = 2.0 * a.WINDOW_DEPTH * (b_face - a.WINDOW_B0) * a.WINDOW_LEN
-    in_plate = (2.0 * (a.WINDOW_DEPTH + a.SLOT_W) * (a.SLOT_TOP - b_face) * a.WINDOW_LEN
-                if b_face < a.SLOT_TOP - a.HEADROOM / 2.0 else 0.0)
-    return post - in_post - in_plate
-
-
 def add_chain_anchors(lid, face_z, names=None):
     """Every chain anchor, standing on the lid's outer face at `face_z`.
 
@@ -344,34 +263,6 @@ def add_chain_anchors(lid, face_z, names=None):
         lid = lid.union(rib.cut(bore).clean().val())
 
     return lid
-
-
-def cradle_anchor_intersections(face_z):
-    """Actual shared material between valve seats and the lid's tube anchors."""
-    rows = []
-    for valve in cap_cradles:
-        plinth = cradle_shape(valve, face_z).val()
-        for anchor in cap_anchors:
-            rib = add_chain_anchors(cq.Workplane('XY'), face_z, (anchor,)).val()
-            shared = plinth.intersect(rib)
-            volume = shared.Volume()
-            if volume <= 0.001:
-                continue
-            b = shared.BoundingBox()
-            rows.append({'valve': valve, 'anchor': anchor, 'volume_mm3': volume,
-                         'bounds_cap_mm': [[b.xmin, b.ymin, b.zmin],
-                                           [b.xmax, b.ymax, b.zmax]]})
-        for anchor in cap_side_anchors:
-            rib = add_side_anchors(cq.Workplane('XY'), face_z, (anchor,)).val()
-            shared = plinth.intersect(rib)
-            volume = shared.Volume()
-            if volume <= 0.001:
-                continue
-            b = shared.BoundingBox()
-            rows.append({'valve': valve, 'anchor': anchor, 'volume_mm3': volume,
-                         'bounds_cap_mm': [[b.xmin, b.ymin, b.zmin],
-                                           [b.xmax, b.ymax, b.zmax]]})
-    return rows
 
 
 def add_side_anchors(lid, face_z, names=None):
