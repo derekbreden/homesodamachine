@@ -159,7 +159,7 @@ The current [native print reviews](../printed-parts/enclosure/enclosure/magnet-r
 bind the reinforced jobs and their emitted paths; the ledger totals are not a measured
 assembled mass or a complete material allowance for those modifiers.
 
-Each cap lid ships bolted to its cap. The [10](FOAM_FACE_SCREWS) M3 × 25 screws per face clamp the lid and cap into the shell-face inserts. The top lid carries the flat PCB and PSU, the pump, the V-B upright socket wall and two flow-meter quarter bearings. Its [12](DECK_INSERTS) full-insert columns follow the native PCB, PSU and four-foot pump patterns; fluid and electrical passages follow the [above-core arrangement](/hardware/manifold-layout/above-core.md).
+Each cap lid ships bolted to its cap. The [10](FOAM_FACE_SCREWS) M3 × 25 screws per face clamp the lid and cap into the shell-face inserts. The top lid carries the flat PCB, pump, V-B upright socket wall and water-check quarter bearing. Its [8](DECK_INSERTS) full-insert columns follow the native PCB and four-foot pump patterns. Back-top carries the PSU, relays and two meter collar bearings. Fluid and electrical passages follow the [above-core arrangement](/hardware/manifold-layout/above-core.md).
 
 The PCB bolts directly to the cold-core lid columns. The separate PCBA tray is bench geometry and is not shipped.
 
