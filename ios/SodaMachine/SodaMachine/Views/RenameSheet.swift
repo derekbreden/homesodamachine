@@ -6,6 +6,9 @@ import SwiftUI
 // The name lives on the main board and the radio advertises it, so every
 // phone and both glasses agree on it. Given here, it goes to the machine the
 // moment it can hear; until then the page wears it and the record holds it.
+// A name given in Settings, or in the system's sheet that adds the machine,
+// goes the same way (MachineAccess). One given here stays off Settings, which
+// changes the name it shows only when a person changes it there.
 // ────────────────────────────────────────────────────────────
 
 struct RenameSheet: View {

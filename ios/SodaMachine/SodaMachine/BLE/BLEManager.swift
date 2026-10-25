@@ -178,9 +178,11 @@ class BLEManager {
     // ── Which machines are in range ──────────────────────────────────────
     // Every scan result lands here rather than the first one winning. A phone
     // standing between the bench and the machine under the sink sees both.
-    // The one this phone is pointed at is connected to as soon as it is heard;
-    // a known machine among the rest has its sighting noted; and the rest are
-    // what Add a machine lists.
+    // The one this phone is pointed at is connected to as soon as it is heard,
+    // and a known machine among the rest has its sighting noted. A scan hears
+    // only the machines the system has handed this app — every machine in
+    // range, on a phone that gave an earlier build Bluetooth access of its
+    // own — and adding one is the system's sheet, not this list.
     var discovered: [DiscoveredMachine] = []
 
     /// Scanning while connected, for a list that wants to say what is in range
@@ -188,7 +190,7 @@ class BLEManager {
     var browsing = false
 
     /// The phone's radio is off, or this app may not use it. Said once the
-    /// system has said so, which is after the first ask for permission.
+    /// system has said so.
     var radioOff = false
 
     @ObservationIgnored fileprivate var lastRssiPush: [String: Date] = [:]
@@ -392,7 +394,7 @@ class BLEManager {
     }
 
     /// An update or a picture on its way across the link.
-    private var transferInFlight: Bool {
+    var transferInFlight: Bool {
         // A finished or failed update stays on screen until it is dismissed,
         // and is not crossing the link.
         if let p = otaProgress, !p.finished, p.failure == nil { return true }
@@ -720,13 +722,15 @@ class BLEManager {
         point()
     }
 
-    /// A machine picked out of a scan: added, pointed at, and connected to
-    /// while its peripheral is still in hand.
-    func add(_ seen: DiscoveredMachine) {
+    /// A machine the system's sheet has just handed over: added, pointed at,
+    /// and reached by the peripheral id the system gave it.
+    @discardableResult
+    func add(peripheralID: String) -> KnownMachine {
         dropLink()
-        let m = directory.add(seen)
+        let m = directory.add(peripheralID: peripheralID)
         directory.select(m)
         point()
+        return m
     }
 
     func addDemo() {
@@ -782,18 +786,44 @@ class BLEManager {
             configSynced = true
             return
         }
-        // A real machine is the first thing that needs the radio. Creating
-        // the central manager is what asks for Bluetooth permission, and a
-        // machine just pointed at is the screen that has said why.
+        // A real machine is the first thing that needs the radio, which comes
+        // up once the system has said which machines this app may reach.
         ensureRadio()
         connectionState = radioDown ? .bluetoothOff : .searching
         startScan()
     }
 
+    // ── The radio, and the system's say over it ──────────────────────────
+    // THE CENTRAL MANAGER WAITS FOR THE SYSTEM. Which machines this app may
+    // reach is the system's to say (MachineAccess), and on a phone that gave
+    // an earlier build Bluetooth access of its own, the system will not open
+    // its sheet — to add a machine, or to carry that build's machines over —
+    // while this app holds a central manager. So none is made until the
+    // system's list is settled at launch, and the one there is goes whenever
+    // the sheet has to come up over it.
+
+    /// The radio may come up.
+    @ObservationIgnored fileprivate var radioAllowed = false
+
     fileprivate func ensureRadio() {
-        guard centralManager == nil else { return }
+        guard centralManager == nil, radioAllowed else { return }
         // No queue is the main queue: see ONE THREAD HOLDS THE LINK.
         centralManager = CBCentralManager(delegate: cbAdapter, queue: nil)
+    }
+
+    /// Let the radio go — the link, the scan, and the central manager itself —
+    /// until `allowRadio`.
+    func holdRadio() {
+        radioAllowed = false
+        dropLink()
+        centralManager = nil
+    }
+
+    /// Bring the radio up, turned toward the machine this phone is pointed at.
+    func allowRadio() {
+        guard !radioAllowed else { return }
+        radioAllowed = true
+        point()
     }
 
     /// The radio has said it cannot be used. A radio still making up its mind
@@ -1482,6 +1512,12 @@ class BLEManager {
         }
         if !seen.name.isEmpty, known.pendingName == nil, known.name != seen.name {
             known.name = seen.name
+            directory.touch()
+        }
+        // Which kind of machine, in its own advertisement: one the system's
+        // sheet handed over came with no advertisement at all.
+        if seen.model != .unknown, known.model != seen.model {
+            known.model = seen.model
             directory.touch()
         }
         if let m = current, m.id == known.id,
