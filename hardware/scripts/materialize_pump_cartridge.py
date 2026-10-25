@@ -135,9 +135,10 @@ def _materialize_piece(enc, flute_payload, box, name, output: Path, started: flo
 
         # These are the exact body tessellation, rails and flute operation used by
         # enclosure._export_pieces for this name.
-        body = enc._piece_mesh(piece.val())
+        body = enc._piece_mesh(enc._print_solid(name, piece.val(), box.outer))
         printed = enc._flute_skin.flute(
             body, rails_of(box), enc.flute_pitch(box.outer), enc.flute_depth, enc.flute_rise)
+        printed = enc.finish_print_mesh(name, piece.val(), printed, box.outer)
         printed.export(str(stl))
 
         # The ordinary producer reads the written file back exactly this way before accepting a
