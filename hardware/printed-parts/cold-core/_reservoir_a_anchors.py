@@ -3,8 +3,10 @@
 All public coordinates are appliance-world millimetres. The selected stations
 are recorded in ``studies/funnel-gate/reservoir-a-anchors.json``; production
 geometry is independent of that study. The slot ceiling is derived from the
-seat bottom and the ordinary 3 mm wall. Nominal tie witnesses describe routing,
-not purchased tie dimensions, threading, retention or physical acceptance.
+seat bottom and the ordinary 3 mm wall. The aft seat's west stock ramps from
+the lid face up to the seat top, under V-K's outlet elbow. Nominal tie
+witnesses describe routing, not purchased tie dimensions, threading, retention
+or physical acceptance.
 """
 from copy import deepcopy
 import math
@@ -41,6 +43,10 @@ _SPECIFICATION = {
          "tube_centers_world_mm": [[86.5, 304., 259.5], [94., 304., 259.5]],
          "open_quarter_side": "east",
          "base_east_of_last_tube_mm": 3.7,
+         # The west stock leaves the lid face at its ordinary root edge and
+         # meets the seat top this far west of the first tube, 1.3 mm short of
+         # the groove lip. V-K's outlet elbow hub stands over the ramp.
+         "west_ramp_top_west_of_first_tube_mm": 3.5,
          "routes_west_to_east": ["fluid-16", "fluid-14"]},
     ],
 }
@@ -94,6 +100,13 @@ def datums():
                 [x1, y-half, spec["tie_slot_top_z_mm"]],
                 [x1+east+.1, y+half, spec["seat_top_z_mm"]+.1],
             ]
+        if "west_ramp_top_west_of_first_tube_mm" in station:
+            # X/Z ends of the west ramp: the root edge on the lid face, then
+            # the seat top's west edge. The ramp spans the station's length.
+            result[station["id"]]["west_ramp_xz_mm"] = [
+                [west_edge, spec["lid_face_z_mm"]],
+                [x0-station["west_ramp_top_west_of_first_tube_mm"], spec["seat_top_z_mm"]],
+            ]
     return result
 
 
@@ -114,6 +127,20 @@ def cuts():
     return result
 
 
+def _west_ramp_cutter(row, spec):
+    """Everything above the west ramp's line, over the station's length."""
+    import cadquery as cq
+    (xa, za), (xb, zb) = row["west_ramp_xz_mm"]
+    slope = (zb-za)/(xb-xa)
+    y = row["tube_centers_world_mm"][0][1]
+    half = spec["station_length_mm"]/2+.1
+    ceiling = zb+slope
+    outline = [(xa-1., za-slope), (xb+1., ceiling), (xa-1., ceiling)]
+    wire = cq.Wire.makePolygon(
+        [cq.Vector(x, y-half, z) for x, z in outline], close=True)
+    return cq.Solid.extrudeLinear(wire, [], cq.Vector(0, 2*half, 0))
+
+
 def supports():
     """Native open paired seats, including their local slot and mouth cuts."""
     import cadquery as cq
@@ -122,6 +149,8 @@ def supports():
     result = {}
     for name, row in datums().items():
         body = _box(row["stock_bounds_mm"])
+        if "west_ramp_xz_mm" in row:
+            body = body.cut(_west_ramp_cutter(row, spec))
         for x, y, z in row["tube_centers_world_mm"]:
             bore = cq.Solid.makeCylinder(
                 spec["seat_radius_mm"], spec["station_length_mm"]+.2,
