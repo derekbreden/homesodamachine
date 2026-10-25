@@ -114,6 +114,10 @@ def main():
                         help='Rebind existing seat/tie contacts to the actual lid stock and STL.')
     parser.add_argument('--wire-index', type=Path)
     parser.add_argument('--exclude-wire', action='append', default=[])
+    parser.add_argument('--neighbor-index', type=Path)
+    parser.add_argument('--neighbor-dir', type=Path)
+    parser.add_argument('--neighbor-tubes-only', action='store_true',
+                        help='Append only the unchanged cached tube-neighbor contacts.')
     parser.add_argument('--cache', type=Path, default=ROOT/'tmp/reservoir-a-anchor-native')
     parser.add_argument('--output', type=Path, default=HERE/'reservoir-a-anchor-review.json')
     args = parser.parse_args()
@@ -121,6 +125,37 @@ def main():
     args.output = args.output.resolve()
     if args.wire_index:
         args.wire_index = args.wire_index.resolve()
+    if args.neighbor_tubes_only:
+        record = json.loads(args.output.read_text())
+        if record['source_sha256'][str(Path(anchors.__file__).relative_to(ROOT))] != sha(Path(anchors.__file__)):
+            raise ValueError('Anchor source differs from the saved stock reading.')
+        index_path = args.neighbor_index.resolve()
+        directory = args.neighbor_dir.resolve()
+        index = json.loads(index_path.read_text())
+        selected = {**anchors.supports(), **anchors.tie_witnesses()}
+        result = {'scope': 'Only the new seats/nominal ties versus cached unchanged tube '
+                           'neighbors; selected A14/A16 retain their separate route review.',
+                  'index': str(index_path.relative_to(ROOT)), 'index_sha256': sha(index_path),
+                  'reader_sha256': sha(Path(__file__)), 'tube_sha256': {}, 'contacts': []}
+        for name, relative in index['parts'].items():
+            if not name.startswith('tube-') or name in ('tube-fluid-14', 'tube-fluid-16'):
+                continue
+            path = directory/relative
+            other = cq.Shape.importBrep(str(path))
+            result['tube_sha256'][name] = sha(path)
+            for subject, shape in selected.items():
+                if nearby(shape, other):
+                    result['contacts'].append({'subject': subject, 'target': name,
+                                               **contact(shape, other)})
+        result['passed'] = all(row['passed'] for row in result['contacts'])
+        record['unchanged_tube_neighbors'] = result
+        record['passed'] = (record['stock_passed'] and result['passed']
+                            and all(row['passed'] for row in record['contacts']))
+        args.output.write_text(json.dumps(record, indent=2)+'\n')
+        print(json.dumps({'tube_count': len(result['tube_sha256']),
+            'candidate_count': len(result['contacts']), 'passed': result['passed'],
+            'contacts': [row for row in result['contacts'] if not row['passed']]}), flush=True)
+        return
     prior = json.loads(args.output.read_text()) if args.bind_only else None
     args.cache.mkdir(parents=True, exist_ok=True)
     spec, datums = anchors.specification(), anchors.datums()
