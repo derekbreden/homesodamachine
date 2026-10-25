@@ -834,14 +834,21 @@
         "diameter_mm": 0.4,
         "flow": "Standard",
         "hardened": false,
-        "reason": "PETG Translucent Clear from Mark1's AMS HT-A on the right 0.4 mm (zone-c/funnel-mold/README.md)."
+        "reason": "PETG Translucent Clear from Mark1's AMS on the right 0.4 mm Standard hotend, the README's recipe and the October 6 cavity retry's (zone-c/funnel-mold/print-log.md)."
       },
       "material": "Bambu PETG Translucent, clear",
       "external": {
         "command": [
-          "tools/funnel-mold-print/prepare_print.py"
+          "tools/funnel-mold-print/prepare_print.py",
+          "--models",
+          "hardware/printed-parts/zone-c/funnel-mold",
+          "--output",
+          ".cache/prints/funnel-mold/funnel-mold.3mf",
+          "--label",
+          "Funnel mold",
+          "--slice"
         ],
-        "reason": "The silicone mold's own preparer from the current cavity and core meshes and installed Bambu presets."
+        "reason": "The silicone mold's own preparer: its README recipe from the installed Bambu presets, the current cavity and core meshes, one plate each, centred on the right hotend's bed."
       }
     },
     "reservoirs": {

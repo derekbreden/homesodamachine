@@ -13,6 +13,7 @@ ET.register_namespace('', CORE)
 ET.register_namespace('p', PROD)
 ET.register_namespace('BambuStudio', 'http://schemas.bambulab.com/package/2021')
 qn = lambda tag: f'{{{CORE}}}{tag}'
+SIDES = {'left': 0, 'right': 1}
 PRESET_METADATA = {'type', 'name', 'inherits', 'include', 'from', 'setting_id',
                    'instantiation', 'description', 'alias', 'filament_id',
                    'version', 'rename', 'compatible_printers'}
@@ -80,7 +81,7 @@ def preset_bundle(root, recipe, version, destination):
         profiles.append({'from': 'User', 'inherits': recipe['system_presets']['machine'],
             'name': name, 'printer_settings_id': name, 'version': version,
             'machine_start_gcode': trimmed_start_gcode(stock['machine_start_gcode'], offset),
-            'default_nozzle_volume_type': [recipe['nozzle_type'], 'Standard']})
+            'default_nozzle_volume_type': volume_types(recipe)})
     for kind, identity in (('process', 'print_settings_id'), ('filament', 'filament_settings_id')):
         name = recipe[f'{kind}_name']
         assert not any(c in name for c in '/\\'), 'Preset names must also be valid filenames.'
@@ -99,8 +100,16 @@ def preset_bundle(root, recipe, version, destination):
             archive.writestr(profile['name']+'.json', json.dumps(profile, indent=2)+'\n')
 
 
+def volume_types(recipe):
+    """Each hotend's flow type, left first; the recipe's nozzle on its side, Standard opposite."""
+    volumes = ['Standard', 'Standard']
+    volumes[SIDES[recipe['side']]] = recipe['nozzle_type']
+    return volumes
+
+
 def fresh_settings(root, recipe, trim):
     values, sources, files = {}, {}, {}
+    side, volumes = SIDES[recipe['side']], volume_types(recipe)
     filament_id = None
     for kind, name in recipe['system_presets'].items():
         resolved, origins, ids = system_preset(root, kind, name, files)
@@ -122,21 +131,21 @@ def fresh_settings(root, recipe, trim):
             ';'.join(recipe['process_settings']),
             ';'.join(recipe['filament_settings']), 'machine_start_gcode;default_nozzle_volume_type;nozzle_volume_type'],
         'filament_ids': [filament_id], 'filament_colour': ['#DDEBF0'],
-        'filament_map_mode': 'Manual', 'filament_map': ['1'],
-        'filament_map_2': ['1'], 'filament_nozzle_map': ['0'],
-        'filament_self_index': ['1', '1'],
+        'filament_map_mode': 'Manual', 'filament_map': [str(side+1)],
+        'filament_map_2': [str(side+1)], 'filament_nozzle_map': [str(side)],
+        'filament_self_index': ['1']*len(values['filament_extruder_variant']),
         'filament_volume_map': ['1' if recipe['nozzle_type'] == 'High Flow' else '0'],
-        'nozzle_volume_type': [recipe['nozzle_type'], 'Standard'],
-        'default_nozzle_volume_type': [recipe['nozzle_type'], 'Standard'],
-        'extruder_nozzle_stats': [recipe['nozzle_type']+'#1', 'Standard#1'],
-        'extruder_nozzle_stats_new': [recipe['nozzle_type']+'#1', 'Standard#1'],
+        'nozzle_volume_type': volumes,
+        'default_nozzle_volume_type': volumes,
+        'extruder_nozzle_stats': [v+'#1' for v in volumes],
+        'extruder_nozzle_stats_new': [v+'#1' for v in volumes],
         'curr_bed_type': 'Textured PEI Plate',
         'print_compatible_printers': printer_names(recipe),
     }
     for key, value in assignment.items():
         values[key] = value
         sources[key] = {'generator': 'fresh_settings',
-            'reason': 'One PETG filament on the left selected nozzle, textured PEI; named source presets.'}
+            'reason': f"One PETG filament on the {recipe['side']} hotend, textured PEI; named source presets."}
     values['machine_start_gcode'] = trimmed_start_gcode(values['machine_start_gcode'], trim)
     sources['machine_start_gcode'] = {
         'preset': sources['machine_start_gcode']['preset'],
