@@ -1,5 +1,10 @@
 # Tee carrier
 
+The tee carrier is the pump-tee dock of the [Lillium build](/hardware/assembly/lillium-cutover.md),
+fitted to the printed front-top and front-bottom that build uses; the flank windows, cover posts
+and spring pockets below are features of those prints. The integrated machine has no carrier:
+its four pump tees stand in front-top's tee wall ([pump dock](../pump-dock/README.md)).
+
 One PET-GF plate, `enclosure-tee-carrier-plate`, carries Y-C, Y-D, Y-F and Y-G across the front
 column. It is [215 mm](LENGTH) long, flank face to flank face, so neither end stands past the
 enclosure. Two window covers close the flank openings aft of it.

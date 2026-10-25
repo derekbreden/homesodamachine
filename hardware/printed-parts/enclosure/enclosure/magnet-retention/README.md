@@ -1,12 +1,22 @@
-# Centered cartridge retention pair
+# Cartridge retention pair records
 
-The pump-cartridge lower cradle and front-top each contain **one K&J RC62**.
-Both ring axes point along Y, the cartridge insertion direction. Their centers
-are at **X0, Z186.174 mm**, on the four tube axes and **92.350 mm below the pogo
-row**. Attraction acts at tube height to help seat and retain the cartridge.
-The existing tube stops, guide datums and pogo seats set its final position.
-The pump cap contains the female pogo half; this retention ring belongs to the
-lower cradle.
+This folder holds the design, fit coupons and print records of an RC62 magnet
+pair for a removable pump cartridge. No production piece carries an RC62 pocket
+or a pogo pair: the pump cradle is docked at the factory and stays home, held by
+the pump tees' gripping collets ([pump dock](../../pump-dock/README.md)), and the
+appliance's RC62s are its float magnets ([BOM](/hardware/ledger/bom.md)).
+[fit-coupons/physical-fit-selection.json](fit-coupons/physical-fit-selection.json)
+also records Derek's V69 valve-socket choice, which the production valve seats
+use ([valve post fit](/hardware/mechanical-qualification/README.md#front-top-valve-post-fit)).
+The sections below describe the recorded pair.
+
+The recorded pair puts **one K&J RC62** in the cartridge's lower cradle and one
+in front-top. Both ring axes point along Y, the cartridge insertion direction.
+Their centers are at **X0, Z186.174 mm**, on the four tube axes and
+**92.350 mm below the pogo row**. Attraction acts at tube height to help seat
+and retain the cartridge. The tube stops, guide datums and pogo seats set its
+final position. The pump cap contains the female pogo half; this retention ring
+belongs to the lower cradle.
 
 The [native geometry check](geometry-check.json) verifies both pockets, nominal
 seating, intentional maximum-size X/Y interference, independent roof headroom,
@@ -67,8 +77,8 @@ its centered pocket's closing layer. Preparations retain each printer's saved
 trim, tree supports and show-surface exclusions. The current
 [normal-layer preparation policy](../layer-policy-correction/README.md) uses
 0.24 mm with six local walls on the cartridge upper additive transition,
-while retaining 0.08 mm on its real lower inward/top rim. The current
-production pocket uses C3 from the [open X/Y fit samples](fit-coupons/README.md).
+while retaining 0.08 mm on its real lower inward/top rim. The recorded
+pocket uses C3 from the [open X/Y fit samples](fit-coupons/README.md).
 Fresh candidates bind that fit to their own exported geometry and native paths.
 Retained archives keep the dimensions and hashes in their preparation records.
 The pocket roof has a local support blocker; functional seats and lifting

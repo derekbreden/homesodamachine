@@ -3,7 +3,10 @@
 The customer outcome is an enclosure that keeps its internal components secured,
 seats the pump cradle precisely and can be handled without its joints opening.
 The [native audit](geometry-check.json) records 35 insert stations and 10 finished
-knuckles for its exact source and native input hashes. It reads complete installed insert
+knuckles for the 2026-10-19 sources it hashes; those include pump-cartridge contact-pair
+inserts that no current piece carries. The current insert schedule is
+[enclosure mechanical §1](/hardware/assembly/enclosure-mechanical.md#1-stage-the-printed-pieces).
+It reads complete installed insert
 envelopes, open pilots, blind relief, closed stock, insertion access and the Y seam's
 knuckles. Source and STEP hashes are checked before and after the run. These are geometry results;
 installed fit, pullout, torque, transport and drop performance require physical
@@ -48,7 +51,7 @@ and back-bottom's under the Z seam. An M5 × 120 drives up from the handhold cei
 all three into the insert pressed into the top of the upper back knuckle, so back-bottom
 holds the screw at both ends and front-bottom's knuckle hangs on it between them. The upper
 stack stands under the roof: front-top's knuckle under the funnel frame and back-top's roof
-knuckle, with an M5 × 60 driven down into front-top's insert. The lower blocks reach
+knuckle, with an M5 × 50 driven down into front-top's insert. The lower blocks reach
 13.75 mm from `interior_x`, leaving 0.25 mm to the core. Every face between knuckles keeps
 0.25 mm of running fit measured square to the face; knuckle faces that print facing down
 rise 45° off their own piece's stock. Clearance holes print at Ø5.6 mm. The audit reports
@@ -58,7 +61,7 @@ A seam-opening load puts the screws in shear at the faces between knuckles: two 
 corner, one per upper corner. The lower M5 × 120 screws are partially threaded McMaster
 91290A290, whose 22 mm of thread at the tip lies within back-bottom's upper knuckle and the
 insert, so front-bottom's knuckle bears on the plain shank at both its faces; the upper
-M5 × 60 screws are fully threaded SVLING B0GHNHFYJN. The Ø5.6 mm
+M5 × 50 screws are fully threaded SVLING B0GHNQFZYR. The Ø5.6 mm
 printed holes have clearance around the nominal Ø5 mm screws; print variation and
 deflection determine which faces bear first. The audit reads every knuckle's whole native
 section, its length along the screw and its ligament fore and aft of the clearance hole.
@@ -75,16 +78,14 @@ and the native 1 mm lifting engagement are checked by the enclosure producer.
 
 [Print regions](print-regions.json) require local 100% infill through
 the complete insert hosts, blind caps and supporting roots, every Y-seam knuckle
-and its root, and Z hook/foot/stop roots. The manual specification also covers the
-whole tee cap. It binds the six main pieces and the tee
-cap's STEP/STL by hash. The tee cap's manufacturing export already contains its
-print pose; the main pieces retain their prescribed source-to-print
-transforms. Plate X/Y nesting remains part of the native project.
+and its root, and Z hook/foot/stop roots. The manual specification binds the six
+main pieces' STEP/STL by hash, with their prescribed source-to-print transforms. It
+also carries an entry for a tee cap, a part the appliance does not have. Plate X/Y
+nesting remains part of the native project.
 
 These modifiers change deposition
 only inside the existing material. Reinforcement boxes set infill density and pattern
-and inherit the ordinary wall settings. The tee cap uses six walls and 100% infill
-throughout, both wings and lips included.
+and inherit the ordinary wall settings.
 General enclosure infill remains 15%; normal walls,
 fine show-layer bands, production orientations and support policy remain part
 of each native review. A CAD solid or a few perimeter loops do not make the

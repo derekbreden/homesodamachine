@@ -1,12 +1,14 @@
 # Contact-pair coupon
 
-Two small prints that carry the pump cartridge's
-[contact pair](/hardware/reference/yyfkgcp-pogo-4p/README.md) seats exactly as the production pieces carry them.
-[`contact_pair_coupon.py`](contact_pair_coupon.py) builds `enclosure-front-top` and
-`enclosure-pump-cap` from the declared enclosure box and keeps one box round each seat;
+Two small prints carry the seats of a pogo
+[contact pair](/hardware/reference/yyfkgcp-pogo-4p/README.md) for a removable pump cartridge,
+cut from the front-top and pump-cap sources that carried it. No production piece carries a
+pogo pair: J13's ribbon lands on Fastons at the pump motors' own tabs
+([J13 bench guide](/hardware/assembly/harnesses/j13.md)).
 [`geometry-check.json`](geometry-check.json) records each crop, each coupon's machine-to-bed
 transform, the bed position of every seat feature a slice review looks for, and the hashes of the
-files it was cut from.
+files it was cut from. [`contact_pair_coupon.py`](contact_pair_coupon.py) reads pogo seats
+that the current enclosure source does not define, so it does not rebuild against it.
 
 | Coupon | Size | Cut from | Prints | Holds |
 |---|---|---|---|---|
