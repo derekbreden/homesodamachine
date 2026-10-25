@@ -16,19 +16,11 @@
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, its rule would not cut, or an interactive publication explicitly deferred that rule.",
     "paths": [
+      "hardware/wiring/enclosure-wiring.csv",
+      "hardware/wiring/enclosure-wiring.json",
+      "hardware/wiring/installed/above-core-review/ground-j2-wiring-review.json",
       "hardware/wiring/installed/above-core-review/installed_wiring_binding.py",
-      "ios/SodaMachine/SodaMachine/Assets.xcassets/SetupPicture.imageset/Contents.json",
-      "ios/SodaMachine/SodaMachine/Assets.xcassets/SetupPicture.imageset/SetupPicture.png",
-      "ios/SodaMachine/SodaMachine/BLE/BLEManager.swift",
-      "ios/SodaMachine/SodaMachine/BLE/MachineAccess.swift",
-      "ios/SodaMachine/SodaMachine/BLE/MachineDirectory.swift",
-      "ios/SodaMachine/SodaMachine/SodaMachineApp.swift",
-      "ios/SodaMachine/SodaMachine/Views/AddMachineView.swift",
-      "ios/SodaMachine/SodaMachine/Views/RenameSheet.swift",
-      "ios/SodaMachine/SodaMachine/Views/RootView.swift",
-      "ios/SodaMachine/SodaMachine/Views/YourMachinesView.swift",
-      "ios/SodaMachine/project.yml",
-      "tools/bazel/graph.json"
+      "hardware/wiring/installed/integration-review.json"
     ],
     "members": [
       "hardware/.cache/pump-roof/enclosure-pump-cartridge.step",
@@ -1650,8 +1642,8 @@
     "hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png": "8a00340093b0dc25942826efdbb12236525daad39a98dc4f6d62c81b97c643fc",
     "hardware/install-guide/plumbing/modern/art/modern-water-off.png": "eb5623a33b96b53f5a3d451395f0cc6e4a7b8c6242bd600e0ab661f33765f27c",
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": "9d15c3c5ef60820f86c6cec68b200dfb5f43fda1dea5b86ec0600b8c53074fb7",
-    "hardware/manifold-layout/enclosure-assembly.step": "43598be1c2950565ba9548fc8671de6790815a44c34445edc3e367d09f372d19",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "8ce6379a5dab629fbe6c3d8a0edb37441e96df8577e21df31ab3f07bdf62c132",
+    "hardware/manifold-layout/enclosure-assembly.step": "b6ed81c2f72a78df8d7217f5a11d388355302a4979caadbd1591b6b2078c596c",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "f02de150c322d5ecc07a81ee1bef787a0ea4ab30bb870455f0ddc4108671c792",
     "hardware/manifold-layout/manifold-layout.step": "5eef4a1580f9571e71cac2dda03eb02df691074e276b79e694b3ee3a2eedd1ad",
     "hardware/manifold-layout/manifold-layout.step.mesh": "e710b90db3148a6a790a5842f065c20e108c45112f6e1715ec8b7f8fbf1abab6",
     "hardware/pcb/pcba/out/pcba.bom.csv": "8e50da9512f4775249bb0a81e7ef8dc1059fbd3ed31513aaae1511838bb65209",
@@ -2864,8 +2856,8 @@
     "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-west-outer/body.stl": "9f4abb20c725e7b0ba2b8b42da55153db4d53a9fe736da71d565ab1d292f7f54",
     "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-west-outer/wet-shadow-blocker.stl": "52846b6501e3de851c8685c8143c2eda01a7318189c51f6d5056824f5cd53ff1",
     "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-west-outer/wet-void.stl": "4ba7d4254b61595c78b71715914ceff958a65f8a926f41e1b25753be8421e7fc",
-    "hardware/wiring/enclosure-wiring.step": "68962686958197594399914d9e44e5f9a95159447a1b2476421c67e1fe49a53b",
-    "hardware/wiring/enclosure-wiring.step.mesh": "83565ebd00b36371894bb74063fe75af422c40560b32b02b753592ba66196e31",
+    "hardware/wiring/enclosure-wiring.step": "bcf67ec7819741425dc57b6518afc331cb31336c94afaafac8f3b58fe310409a",
+    "hardware/wiring/enclosure-wiring.step.mesh": "0f5c9a2c8d41f2c5fd0dfcb6640726bd532225ccfe828f7b207b0bc337ccc690",
     "hardware/printed-parts/enclosure/anchor-cap/anchor-cap-4mm.step": "468e08c5d8f60a205a1cd7f863633b391cfc7b8c4c0907baa5b9892c37883b13",
     "hardware/printed-parts/enclosure/anchor-cap/anchor-cap-4mm.step.mesh": "6e7f6bd90c7b5b161ce630516e4e74d80a7c6b12cccc53d40ab5bbc0ab87d308",
     "hardware/printed-parts/enclosure/anchor-cap/anchor-cap-4mm.stl": "6a61dbffaa36c234e400c41b3760c8c756e1e9a31abd15554e5aac5616860b74",
@@ -3080,8 +3072,8 @@
     "hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png": 1791566298,
     "hardware/install-guide/plumbing/modern/art/modern-water-off.png": 1791566298,
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": 1791566298,
-    "hardware/manifold-layout/enclosure-assembly.step": 1792906678,
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1792906678,
+    "hardware/manifold-layout/enclosure-assembly.step": 1792907385,
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1792907385,
     "hardware/manifold-layout/manifold-layout.step": 1792740989,
     "hardware/manifold-layout/manifold-layout.step.mesh": 1792740989,
     "hardware/manifold-layout/studies/ceiling-fit/parts/back-wall.step": 1792743994,
@@ -4423,7 +4415,7 @@
     "hardware/reference/yyfkgcp-pogo-4p/pogo-4p-female.step": 1790919001,
     "hardware/reference/yyfkgcp-pogo-4p/pogo-4p-male.step": 1790919001,
     "hardware/reference/yzmsz-water-regulator/geometry/yzmsz-water-regulator.step": 1792828088,
-    "hardware/wiring/enclosure-wiring.step": 1792906678,
-    "hardware/wiring/enclosure-wiring.step.mesh": 1792906678
+    "hardware/wiring/enclosure-wiring.step": 1792907385,
+    "hardware/wiring/enclosure-wiring.step.mesh": 1792907385
   }
 }
