@@ -20,12 +20,13 @@ retain at least 3 mm above the water and gas fittings.
 | PCB | Flat, west/forward, long axis fore–aft; JST connectors upward | Cold-core cup/lid mount columns |
 | Mean Well PSU | Flat, west/aft; terminal screw approaches from above | Cold-core cup/lid mount columns |
 | V-B | Upright east of the PCB, ports fore–aft | Integral cold-core lid socket wall |
-| V-A and V-K | Beside opposite sidewalls; inlet above, outlet below, underside flow arrow down | Integral cold-core lid upright socket walls |
+| V-A and V-K | Beside opposite sidewalls; inlet above, outlet below, underside flow arrow down | Integral back-top socket seats |
 | Multiplex ASSE 1022 | Fore–aft above the pump; vent faces west | Two fixed-roof saddles and ties |
 | YZMSZ 0.3 MPa water regulator | Transverse, above the forward pump body | Two fixed-roof saddles and ties |
 | PISCO regulator and neoFit ACHV44-E check | Folded gas path at the east rear | Fixed east-wall saddles and ties |
 | DIGITEN flow meter | On edge between pump and gas group, ports fore–aft, label east | Two integral cold-core lid collar bearings |
-| V-A turn and V-B return union elbows | Fixed native fitting positions | Integral cold-core lid bearings and retaining ties |
+| V-A turn | Low feed traveling with V-A to the front-top Y-A handoff | Connected tubing carried with back-top |
+| V-B return union elbow | Fixed native fitting position | Integral cold-core lid bearing and retaining tie |
 | Two relays | West wall, one above the other | Integral back-top bosses |
 | Mains WAGOs | Beside C14, east of PSU screwdriver approaches | Rear-wall wells |
 | DC/sensor/reed WAGOs and ground stack | Beside the PCB | Cold-core lid wells and ground boss |
@@ -36,7 +37,7 @@ remain clear of wiring and tubing attachments.
 
 The six rear fluid stations form two columns at X37.25 and X77.5, with 32 mm row
 pitch. The upper row is water/CO2 inlet, the middle row vent/soda outlet, and the
-lower row flavor A/B outlet. C14 is at X−61.75/Z323 and RJ11 at X−30/Z274.376.
+lower row flavor A/B outlet. C14 is at X−68.5/Z330 and RJ11 at X−30/Z274.376.
 
 ## Core entries
 
@@ -106,15 +107,14 @@ exposed length. The rear return reaches the soda bulkhead through nested
 stem elbows.
 
 Install both rear bulkheads and nuts with back-top open, and preassemble the
-nested soda elbows with their 32.591 mm concealed tube. This group rides with
-the back column; the free 15.7 mm tube end enters the fixed meter during the
-last 15.7 mm of closing. Connect the flexible drain-vent line and remaining
-inter-quadrant wiring through the open roof afterward. The
-[rear assembly record](../mechanical-qualification/enclosure-above-core/rear-plumbing-assembly.json)
-covers the continuous conservative closing envelope and finite meter-outlet
-capture. It records the explicit 0.22493 mm³ nominal soda fitting contact;
-physical collet fit, threading, hand/tool access and connection force remain
-unqualified.
+nested soda elbows there. The 32.591 mm concealed tube stays with the meter:
+15.7 mm in that socket and 16.891 mm available for the return elbow. The
+back-top return elbow receives the free end at the closing handoff. Connect
+the flexible drain-vent line and remaining inter-quadrant wiring through the
+open roof. The [rear assembly record](../mechanical-qualification/enclosure-above-core/rear-plumbing-assembly.json)
+names the exact staging and finite socket scope of each tested motion.
+Its explicit 0.22493 mm³ nominal soda fitting contact does not establish
+physical collet fit, threading, hand/tool access or connection force.
 
 Tube cut lengths retain the insertion estimates named in the production data;
 they are not physical assembly acceptance records.

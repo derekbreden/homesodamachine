@@ -338,10 +338,10 @@ MOUNTS = (
     # isolate the can, so a clamp on one of those screws would be bolted to the cabinet. This
     # axis counts a PRINTED feature, so the row is open on it and the joint is not.
     ("fuse-clamp", None, "gap-press"),
-    # Selected water/gas fittings use fixed shell saddles; source valves ride the lid.
+    # Selected water/gas fittings and source valves ride back-top.
     ("water-split", "asse-outlet-tpu", "sleeve"),
     ("flow-regulator", "enclosure-back-top", "cradle"),
-    ("vk-solenoid", "foam-assembly", "cradle"),
+    ("vk-solenoid", "enclosure-back-top", "cradle"),
     # EVERY FITTING ON THE +Y WALL OF BACK-TOP IS CLAMPED THROUGH IT. The flange lands on the ring in its
     # pad, the barrel passes a bore struck one `PORT_HOLE_SLIP` over it, and the fitting's own nut
     # draws up on the inside — so the printed material is the clamped member and the joint is a
@@ -397,9 +397,8 @@ MOUNTS = (
     # Two lid-rooted quarter bearings carry the fixed meter collars. Ties close
     # their open faces without restraining either release collet.
     ("digiten-flow", "foam-assembly", "cradle"),
-    # Three upright lid walls carry the shared four-socket valve seats. The
-    # lid is material within foam-assembly, independent of either roof closure.
-    ("valve-v-a", "foam-assembly", "cradle"),
+    # V-A and V-K use back-top's integral seats; V-B's upright belongs to the lid.
+    ("valve-v-a", "enclosure-back-top", "cradle"),
     ("valve-v-b", "foam-assembly", "cradle"),
     # AND THE OTHER EIGHT STAND ON TWO VALVE TRAYS — a plate wall to wall on each plane the
     # fold left a deck on, carrying that same four-boss seat per valve. A tray is not a part:
@@ -479,8 +478,9 @@ def rides_hold(rows, rides=None) -> None:
 def _selected_mounts() -> tuple:
     """Selected direct joints and fasteners, without building any part solids.
 
-    A female union held only by tubing keeps an open tube-hung row. Explicit
-    stem joints name their actual receiving socket, including nested pairs.
+    A tubing-carried union names its upstream connected fitting without claiming
+    an independent printed mount. Explicit stem joints name their actual
+    receiving socket, including nested pairs.
     """
     import above_core as layout
     import above_core_bom as bom
@@ -505,14 +505,15 @@ def _selected_mounts() -> tuple:
         "drain-outlet-stem": ("funnel-drain-union", "collet"),
         "vb-inlet-turn": ("valve-v-b", "collet"),
         "vb-outlet-stem": ("valve-v-b", "collet"),
-        "va-east-turn": (None, "tube-hung"),
+        "va-east-turn": ("va-outlet-elbow", "tube-carried"),
         "vb-outlet-return": (None, "tube-hung"),
         "reservoir-b-fill-lower": ("foam-assembly", "cap-pocket"),
         "reservoir-b-fill-upper": ("foam-assembly", "cap-pocket"),
     }
     import _above_core_mounts
     fittings.update({name: (datum['parent'], 'cradle')
-                     for name, datum in _above_core_mounts.union_support_datums().items()})
+                     for name, datum in _above_core_mounts.union_support_datums().items()
+                     if datum['support_implemented']})
     selected = (*bom.stem_elbow_names(), *bom.union_elbow_names(),
                 *bom.core_stem_elbow_names(), *bom.core_union_elbow_names())
     rows = [(name, *fittings[name]) for name in selected if name in fittings]
@@ -703,9 +704,9 @@ TOUCHING_OK = {frozenset(p) for p in (
     # What stands on the core's cap — `build_water_pump` and `build_psu` both take its crown as `z0`.
     ("foam-assembly", "g-ganen-pump"),
     ("foam-assembly", "psu"),
-    # Three lid uprights carry the selected valves through their V69 sockets.
-    ("foam-assembly", "vk-solenoid"),
-    ("foam-assembly", "valve-v-a"),
+    # The three selected valves retain their actual mounting parents.
+    ("enclosure-back-top", "vk-solenoid"),
+    ("enclosure-back-top", "valve-v-a"),
     ("foam-assembly", "valve-v-b"),
     # The bezel bears on the inset seat, with its skirts flexed into the side recesses.
     ("enclosure-front-top", "display-cover"),
@@ -1477,8 +1478,8 @@ def selected_clearance_joints(a) -> set:
     import above_core_wiring as wiring
     import soda_inlet
 
-    pairs = {frozenset((name, host)) for name, host, _joint in _selected_mounts()
-             if isinstance(host, str)}
+    pairs = {frozenset((name, host)) for name, host, joint in _selected_mounts()
+             if isinstance(host, str) and joint != 'tube-carried'}
     # PCB columns, fixed meter collars and installed electrical wells are
     # specific features of the populated core or their named shell quadrant.
     pairs |= {frozenset((name, 'foam-assembly')) for name in ('pcba', 'digiten-flow')}
