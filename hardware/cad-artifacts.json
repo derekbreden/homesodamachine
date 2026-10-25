@@ -1576,7 +1576,7 @@
     "hardware/assembly/scenes/glb/front-top.glb": "222b8000f214cc4a9b5056a18aa70d3c9c93adeeae9cf63647256c2dda44f306",
     "hardware/assembly/scenes/glb/funnel-drain.glb": "2233722c171c2f4575c6150f3b62f295543333e7e3e174b1950c894882bdfb5d",
     "hardware/assembly/scenes/glb/pump-cartridge.glb": "0b1c247cdb741697f82019a84a1c4e3eb7da7c4f3741e5c53601970a201dbb16",
-    "hardware/cold-core-layout/cold-core-assembly.step": "692124f51e023186a15b51ec90ba792d0a76bdf7487cb7b5c663752ce87457c8",
+    "hardware/cold-core-layout/cold-core-assembly.step": "848f256dbddac4867773ced5606aec4b2b5697114d1ad76911c037cb588cd14c",
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": "bed4d5c11ec06b9f7d62b4c74baa60d38820f2c7a5e28d56d47fd4c1c9582cfa",
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": "cd81ff529ce5d1fafef25744935ea798db8ae4ed898c1ed42b63b8d0be2ec00a",
     "hardware/faucet-layout/faucet-assembly.step": "0a8456113e631c8387854cf3b7f4b889cc81eeca54d3b76de1f17d785a21cc09",
@@ -2989,9 +2989,9 @@
     "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step": "b5e0d17146ae8473e9dbd817fd3a42ac083fc34b59ea31082dc4cac274bcf6a8"
   },
   "sidecars": {
-    "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "b8a42be16fb5baec114b0ba84af3f8c28b49fc382300eb1c72b6cb10b104c8ec",
+    "hardware/cold-core-layout/cold-core-assembly.scorecard.json": "d2e855e469b64f14a41eae1cc294ff5ac554ce281fba29af877a0d1d2462ec1a",
     "hardware/manifold-layout/enclosure-assembly.scorecard.json": "24833e1a8677d3e4ffe735e9e1127ae050ef3a89a2c6737dbee084ec51ba1d57",
-    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.scorecard.json": "b8a42be16fb5baec114b0ba84af3f8c28b49fc382300eb1c72b6cb10b104c8ec"
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.scorecard.json": "d2e855e469b64f14a41eae1cc294ff5ac554ce281fba29af877a0d1d2462ec1a"
   },
   "moved": {
     "hardware/.cache/pump-roof/enclosure-pump-cartridge.step": 1791257167,
@@ -3006,7 +3006,7 @@
     "hardware/assembly/scenes/glb/front-top.glb": 1792906134,
     "hardware/assembly/scenes/glb/funnel-drain.glb": 1792906678,
     "hardware/assembly/scenes/glb/pump-cartridge.glb": 1792906134,
-    "hardware/cold-core-layout/cold-core-assembly.step": 1792910211,
+    "hardware/cold-core-layout/cold-core-assembly.step": 1792911572,
     "hardware/cut-parts/carbonation/carbonator-tube/carbonator-tube.step": 1792391966,
     "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step": 1791068517,
     "hardware/faucet-layout/faucet-assembly.step": 1792570180,
