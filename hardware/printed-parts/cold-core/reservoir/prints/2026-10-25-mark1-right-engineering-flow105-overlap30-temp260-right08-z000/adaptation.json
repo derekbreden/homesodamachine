@@ -30,7 +30,7 @@
     260
   ],
   "selected_pair": "Right reservoir and matching cap",
-  "status": "Launched on Mark1 as task 1374272357; startup RUNNING at layer 0/833, no print error/HMS.",
+  "status": "FAILED; Derek reports right-hotend polymer buildup and supplies motion-step-loss warning photograph. Left-hotend retry requested.",
   "per_plate_metadata_changes": [
     {
       "plate": "1",
@@ -62,5 +62,7 @@
   "job_id": "1374272357",
   "launch": "launch.json",
   "startup": "startup.json",
-  "restart_followup": "The mac restarted. Try now."
+  "restart_followup": "The mac restarted. Try now.",
+  "physical_result": "physical-result/physical-result.json",
+  "terminal_observation": "terminal-observation.json"
 }

@@ -1,18 +1,17 @@
 {
   "recorded_on": "2026-10-25",
-  "status": "Mark1 task 1374272357 is printing the same right pair on glued Engineering Plate with 0.00 mm Z compensation and retained recipe. Startup RUNNING layer 0/833, no error/HMS; model contact and sealing unassessed. Earlier left water holds remain accepted.",
+  "status": "Right-pair left 0.8 mm Engineering Plate retry prepared, not sent. Studio Send disabled because Mark1 registers fixed left nozzle as 0.4 mm; touchscreen update requested. Prior task 1374272357 FAILED with reported polymer buildup and motion-step-loss warning.",
   "customer_outcome": "A flat, leak-free vented reservoir with acceptable appearance and less production time.",
-  "trigger": "../prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json",
+  "trigger": "../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json",
   "priority": [
     {
-      "candidate": "Repeat the right reservoir and matching cap on the glued Engineering Plate, zero Z compensation, with every other recipe setting retained.",
-      "purpose": "Address persistent lifting with the installed glued Engineering Plate.",
-      "evidence": "Derek reports worse/persistent lifting, supplies two photographs and reports the flat Engineering Plate glued and ready. Prior added user Z trim is verified zero; native Textured PEI compensation is -0.02 mm.",
-      "record": "../prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json",
-      "retained": "Flow 1.05, five Arachne walls at 10 degrees, 30% overlap, 255/260 C nozzle, 70 C bed, solid floor fill, 0.30/0.24 mm layers, May motion/cooling, no brim, zero added trim and ironing off.",
-      "status": "Launched on Mark1 as task 1374272357.",
-      "launch": "../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/launch.json",
-      "prepared_record": "../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md"
+      "candidate": "Retry the same right reservoir and matching cap on the left 0.8 mm Standard hotend, with cleaned/glued Engineering Plate and retained recipe.",
+      "purpose": "Evaluate the user-selected left hotend after right-hotend polymer buildup and motion-step-loss report.",
+      "evidence": "../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json",
+      "retained": "Flow 1.05, five Arachne walls at 10 degrees, overlap 30%, nozzle 255/260 C, bed 70 C, 0.30/0.24 mm layers, solid floor/cap fill, May motion/cooling, no brim, zero added/effective Engineering Z trim, ironing Off.",
+      "status": "Prepared; awaiting printer fixed-left-nozzle registration as 0.8 mm Standard.",
+      "prepared_record": "../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/README.md",
+      "limits": "Photographs do not prove a general right-hotend defect or the order of buildup, nozzle contact, motion loss or adhesion changes."
     },
     {
       "candidate": "Retain the 265/270 C five-wall recipe as the hotter comparison reference.",
@@ -89,7 +88,7 @@
     "evidence": "Current body/floor receives 90% commands; successful May profile also saves a 90% overhang override. No observed onset link isolates cooling as the cause.",
     "candidate": "Review supported-path fan inheritance if investigating curl; preserve the demonstrated May cooling as the baseline."
   },
-  "prepared_recipe": "../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/adaptation.json",
+  "prepared_recipe": "../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/adaptation.json",
   "previous_completed_trial": {
     "job_id": "1371867808",
     "printer": "Mark1",
@@ -99,13 +98,14 @@
     "physical_result": "../prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json"
   },
   "current_trial": {
-    "job_id": "1374272357",
+    "job_id": null,
     "printer": "Mark1",
-    "side": "right",
-    "record": "../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md",
+    "side": "right model pair",
+    "hotend": "left 0.8 mm Standard",
+    "record": "../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/README.md",
     "start_slot": "A1",
-    "status": "RUNNING at layer 0/833, no print error/HMS. Native right 0.8 mm and A1 confirmed at startup. Adhesion and sealing unassessed.",
-    "plate": "Engineering Plate, glued",
+    "status": "Prepared and imported; Send disabled for registered left 0.4 mm mismatch. No job accepted.",
+    "plate": "Engineering Plate, cleaned and glued",
     "nozzle_c_first_subsequent": [
       255,
       260
@@ -116,8 +116,7 @@
     ],
     "added_user_z_trim_mm": 0,
     "emitted_plate_z_trim_mm": 0,
-    "only_saved_setting_change": "Plate type, including per-plate bed_type metadata.",
-    "launch": "../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/launch.json"
+    "saved_setting_changes": "Filament assignment to left nozzle only, including per-plate mapping."
   },
   "reported_water_hold": {
     "result": "../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json",
@@ -171,6 +170,11 @@
     }
   ],
   "preceding_attempt": {
+    "job_id": "1374272357",
+    "status": "FAILED; reported polymer buildup and photographed motion-step-loss warning 0300-800c 015526; no current error/HMS. Actual stop layer and failure cause unestablished.",
+    "physical_result": "../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json"
+  },
+  "preceding_textured_attempt": {
     "job_id": "1372664582",
     "status": "FAILED; reported persistent lifting; no physical water-hold test reported.",
     "physical_result": "../prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json"

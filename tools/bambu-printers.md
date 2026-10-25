@@ -92,18 +92,18 @@ Use up the **most depleted suitable spool first**, then progress toward fuller
 spools. Remaining quantity is not a launch condition; no weighing is required.
 
 Mark1's AMS 2 Pro A carries Bambu PETG Translucent Clear (`GFG01`, transparent
-`00000000`) in **A1–A4**, feeding the right **0.8 mm Standard-flow** hotend.
-At the Engineering Plate retry preflight on October 25, **A1 reports 55%**
-and **A2–A4 report 100%**. The [Engineering Plate right reservoir retry](../hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md),
-task **1374272357**, starts from **A1**, the most depleted matching spool.
-Studio visibly verified Engineering Plate, A1 PETG R, automatic refill On and
-standing calibration options before its accepted Send. Use each spool fully and
-refresh actual depletion before a later launch.
+`00000000`) in **A1–A4**. Derek reports it connected to the installed **left
+0.8 mm Standard-flow** hotend for the [Engineering Plate reservoir retry](../hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/README.md).
+At its October 25 preflight, **A1 reports 42%** and **A2–A4 report 100%**.
+Select A1 first. Studio verifies **A1 PETG L** and green Auto Refill; Send is
+pending touchscreen registration of the fixed left nozzle, which still
+reports 0.4 mm. No new job has been accepted.
 
 AMS unit `0` addresses A1–A4 as trays `0`–`3`. **AMS filament backup is On**,
-visibly checked in Mark1's AMS Settings. The right-side Auto Refill group
-contains A1–A4. A specific automatic backup priority order is unverified; apply
-the depletion preference when choosing a replacement or the next starting slot.
+freshly checked in Mark1's AMS Settings. A specific automatic backup priority
+sequence is unverified; apply depletion preference when choosing a replacement
+or the next starting slot. Use each spool fully and refresh actual depletion
+before later launches.
 
 ## Mark2 clear PETG spool order
 
