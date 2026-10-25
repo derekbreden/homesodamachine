@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "scope": "One manual full-scene mesh interference review of every wire, every wire pair and cable jackets against physical bodies. Tessellated penetration is a routing witness, not a native-solid or physical assembly qualification.",
+  "scope": "The mesh and packing fields describe only their explicit artifact hashes. The separate current_artifact_binding records actual wiring readback and scoped native resolutions of the listed witnesses; it does not rerun the mesh scene, contacts or wire packing.",
   "manifest_sha256": "f7840792440df6fdec99a5e6fefcfa4c63c6e1fe66e9605ff8c2f26055984290",
   "assembly_step_sha256": "43598be1c2950565ba9548fc8671de6790815a44c34445edc3e367d09f372d19",
   "assembly_mesh_sha256": "8ce6379a5dab629fbe6c3d8a0edb37441e96df8577e21df31ab3f07bdf62c132",
@@ -3868,5 +3868,393 @@
       "J2": true,
       "J13": true
     }
+  },
+  "current_artifact_binding": {
+    "scope": "Actual current wiring/manifest readback plus scoped dispositions of the recorded mesh witnesses. Equipment receipts keep their named geometry and query scopes. This is not a new whole-scene contact, packing, closing-motion or physical harness qualification.",
+    "readback_record": {
+      "path": "hardware/wiring/installed/above-core-review/installed-wiring-binding.json",
+      "sha256": "8c2b9e33681beb270169f1e777ad3f0f6bafa78d2960614ddba3ea709e99a854"
+    },
+    "assembly_step_sha256": "718e42d6df645a037a61bb83cb14c8c9ba8bd7a6a1d011e5411f15481bcb3795",
+    "wiring_step_sha256": "19aa3cf46d1df76491ad41fbac79f1696d82b784fbfccacf18258ebc428260f9",
+    "manifest_sha256": "24efd37e993b5ea368973abd0199cdfc1156e8b4b69262a0042c1537c9f976c2",
+    "mesh_snapshot_is_current": false,
+    "native_snapshot_is_current": false,
+    "source_route_count": 98,
+    "actual_body_count": 113,
+    "status": "bound",
+    "all_source_curves_match": true,
+    "all_native_shapes_bound": true,
+    "source_invalid_bodies": [],
+    "actual_readback_invalid_bodies": [
+      "wire-J4-3V3",
+      "wire-J4-IO26",
+      "wire-temp-GND",
+      "wire-J6-GND",
+      "wire-J6-RA4",
+      "wire-J7-RB2",
+      "wire-J7-RB4",
+      "wire-J7-CLO",
+      "wire-J7-CHI",
+      "wire-J7-carb-earth-2"
+    ],
+    "installed_readback_invalid_bodies": [
+      "wire-J4-3V3",
+      "wire-J4-IO26",
+      "wire-temp-GND",
+      "wire-J6-GND",
+      "wire-J6-RA4",
+      "wire-J7-RB2",
+      "wire-J7-RB4",
+      "wire-J7-CLO",
+      "wire-J7-CHI",
+      "wire-J7-carb-earth-2"
+    ],
+    "exchange_scope": "Native source solids and geometric agreement are distinct from STEP reader orientation validity. Any listed readback-invalid bodies retain their explicit exchange limitation; no per-wire geometry is altered to silence it.",
+    "physical_pair_dispositions": [
+      {
+        "mesh_pair_index": 0,
+        "wire": "AC1-PE",
+        "part": "c14-inlet",
+        "status": "native_zero_mesh_witness",
+        "native_reading_mm3": 0.0,
+        "evidence": {
+          "path": "hardware/wiring/installed/above-core-review/routing-witness-native-review.json",
+          "sha256": "980b8afae79bae4d451879c05a0c33e04864473e369bbaf388532bf234ca116a",
+          "json_pointer": "/pairs/2",
+          "canonical_json_sha256": "d1adf3831ec4a40fa870ba36fa1501376f30d8e39b2c46e742a81e2c137aa9e8"
+        },
+        "endpoint_scope": "Raw native common is zero; no new mask or body exclusion is used."
+      },
+      {
+        "mesh_pair_index": 1,
+        "wire": "AC4-H",
+        "part": "tube-fluid-16",
+        "status": "addressed_by_scoped_native_route_and_wire_receipts",
+        "evidence": {
+          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
+          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "json_pointer": "/current_free_curves",
+          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+        },
+        "tube_brep_sha256": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae"
+      },
+      {
+        "mesh_pair_index": 2,
+        "wire": "AC5-N",
+        "part": "tube-fluid-16",
+        "status": "addressed_by_scoped_native_route_and_wire_receipts",
+        "evidence": {
+          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
+          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "json_pointer": "/current_free_curves",
+          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+        },
+        "tube_brep_sha256": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae"
+      },
+      {
+        "mesh_pair_index": 3,
+        "wire": "AC6-PE",
+        "part": "tube-fluid-16",
+        "status": "addressed_by_scoped_native_route_and_wire_receipts",
+        "evidence": {
+          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
+          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "json_pointer": "/current_free_curves",
+          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+        },
+        "tube_brep_sha256": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae"
+      },
+      {
+        "mesh_pair_index": 4,
+        "wire": "PE-bus",
+        "part": "tube-fluid-14",
+        "status": "addressed_by_scoped_native_route_and_wire_receipts",
+        "evidence": {
+          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
+          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "json_pointer": "/current_free_curves",
+          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+        },
+        "tube_brep_sha256": "53edb3e0e7b32f1590581b59e2ee19c6f2940d3e0a4e90a63ea14f29b12af80f"
+      },
+      {
+        "mesh_pair_index": 5,
+        "wire": "PE-bus",
+        "part": "tube-fluid-16",
+        "status": "addressed_by_scoped_native_route_and_wire_receipts",
+        "evidence": {
+          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
+          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "json_pointer": "/current_free_curves",
+          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+        },
+        "tube_brep_sha256": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae"
+      },
+      {
+        "mesh_pair_index": 6,
+        "wire": "DC3-negative",
+        "part": "cold-core/foam-cap-lid-top",
+        "status": "addressed_by_local_native_wire_correction",
+        "evidence": {
+          "path": "hardware/wiring/installed/above-core-review/routing-witness-native-review.json",
+          "sha256": "980b8afae79bae4d451879c05a0c33e04864473e369bbaf388532bf234ca116a",
+          "json_pointer": "/DC3_negative_correction",
+          "canonical_json_sha256": "13a2cfdd1fa27ae2231be02ca1fd479c515b55ad43b8f2a61e9e0ebc0cbb27b6"
+        }
+      },
+      {
+        "mesh_pair_index": 7,
+        "wire": "J1-OUT1",
+        "part": "valve-v-a/6",
+        "status": "native_zero_mesh_witness",
+        "native_reading_mm3": 0.0,
+        "evidence": {
+          "path": "hardware/wiring/installed/above-core-review/routing-witness-native-review.json",
+          "sha256": "980b8afae79bae4d451879c05a0c33e04864473e369bbaf388532bf234ca116a",
+          "json_pointer": "/pairs/3",
+          "canonical_json_sha256": "6ce1a6a4b00d82b07428074e6ee36ca225030c95bcc08b73b368353280c191a0"
+        },
+        "endpoint_scope": "Raw native common is zero; no new mask or body exclusion is used."
+      },
+      {
+        "mesh_pair_index": 8,
+        "wire": "J1-positive-A",
+        "part": "valve-v-a/7",
+        "status": "native_zero_mesh_witness",
+        "native_reading_mm3": 0.0,
+        "evidence": {
+          "path": "hardware/wiring/installed/above-core-review/routing-witness-native-review.json",
+          "sha256": "980b8afae79bae4d451879c05a0c33e04864473e369bbaf388532bf234ca116a",
+          "json_pointer": "/pairs/4",
+          "canonical_json_sha256": "d32fa689d256da0fe1d34714c3aee1aae69da2c2637be01261994a1945ee82e8"
+        },
+        "endpoint_scope": "Raw native common is zero; no new mask or body exclusion is used."
+      },
+      {
+        "mesh_pair_index": 9,
+        "wire": "J1-positive-B",
+        "part": "cold-core/valve-v-b/6",
+        "status": "native_zero_mesh_witness",
+        "native_reading_mm3": 0.0,
+        "evidence": {
+          "path": "hardware/wiring/installed/above-core-review/routing-witness-native-review.json",
+          "sha256": "980b8afae79bae4d451879c05a0c33e04864473e369bbaf388532bf234ca116a",
+          "json_pointer": "/pairs/5",
+          "canonical_json_sha256": "577310f4b8c18c9548f0c310c5b8ce0a412d79e78a195e699cb011dbede98d5a"
+        },
+        "endpoint_scope": "Raw native common is zero; no new mask or body exclusion is used."
+      },
+      {
+        "mesh_pair_index": 10,
+        "wire": "J1-positive-D",
+        "part": "tube-fluid-16",
+        "status": "addressed_by_scoped_native_route_and_wire_receipts",
+        "evidence": {
+          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
+          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "json_pointer": "/current_free_curves",
+          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+        },
+        "tube_brep_sha256": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae"
+      },
+      {
+        "mesh_pair_index": 11,
+        "wire": "J1-positive-H",
+        "part": "tube-fluid-14",
+        "status": "addressed_by_scoped_native_route_and_wire_receipts",
+        "evidence": {
+          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
+          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "json_pointer": "/current_free_curves",
+          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+        },
+        "tube_brep_sha256": "53edb3e0e7b32f1590581b59e2ee19c6f2940d3e0a4e90a63ea14f29b12af80f"
+      },
+      {
+        "mesh_pair_index": 12,
+        "wire": "J2-COM",
+        "part": "tube-fluid-14",
+        "status": "addressed_by_scoped_native_route_and_wire_receipts",
+        "evidence": {
+          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
+          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "json_pointer": "/current_free_curves",
+          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+        },
+        "tube_brep_sha256": "53edb3e0e7b32f1590581b59e2ee19c6f2940d3e0a4e90a63ea14f29b12af80f"
+      },
+      {
+        "mesh_pair_index": 13,
+        "wire": "J2-OUT3",
+        "part": "tube-fluid-16",
+        "status": "addressed_by_scoped_native_route_and_wire_receipts",
+        "evidence": {
+          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
+          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "json_pointer": "/current_free_curves",
+          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+        },
+        "tube_brep_sha256": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae"
+      },
+      {
+        "mesh_pair_index": 14,
+        "wire": "J2-OUT3",
+        "part": "cold-core/g-ganen-pump/1",
+        "status": "addressed_by_local_native_wire_correction",
+        "evidence": {
+          "path": "hardware/wiring/installed/above-core-review/routing-witness-native-review.json",
+          "sha256": "980b8afae79bae4d451879c05a0c33e04864473e369bbaf388532bf234ca116a",
+          "json_pointer": "/J2_OUT3_pump_correction",
+          "canonical_json_sha256": "33b8dd5e2e60e2360c318874d43cb5c0e2fba47d8ac7edd72f1d258b37ff9e04"
+        }
+      },
+      {
+        "mesh_pair_index": 15,
+        "wire": "J2-OUT3",
+        "part": "cold-core/g-ganen-pump/3",
+        "status": "addressed_by_local_native_wire_correction",
+        "evidence": {
+          "path": "hardware/wiring/installed/above-core-review/routing-witness-native-review.json",
+          "sha256": "980b8afae79bae4d451879c05a0c33e04864473e369bbaf388532bf234ca116a",
+          "json_pointer": "/J2_OUT3_pump_correction",
+          "canonical_json_sha256": "33b8dd5e2e60e2360c318874d43cb5c0e2fba47d8ac7edd72f1d258b37ff9e04"
+        }
+      },
+      {
+        "mesh_pair_index": 16,
+        "wire": "J2-positive-K",
+        "part": "vk-solenoid/6",
+        "status": "native_zero_mesh_witness",
+        "native_reading_mm3": 0.0,
+        "evidence": {
+          "path": "hardware/wiring/installed/above-core-review/routing-witness-native-review.json",
+          "sha256": "980b8afae79bae4d451879c05a0c33e04864473e369bbaf388532bf234ca116a",
+          "json_pointer": "/pairs/6",
+          "canonical_json_sha256": "a40d37dd8283413d2cb635121e32bdebc7bda9119b9a4a09eb35a393a59d11d6"
+        },
+        "endpoint_scope": "Raw native common is zero; no new mask or body exclusion is used."
+      },
+      {
+        "mesh_pair_index": 17,
+        "wire": "J2-positive-K",
+        "part": "tube-fluid-14",
+        "status": "addressed_by_scoped_native_route_and_wire_receipts",
+        "evidence": {
+          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
+          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "json_pointer": "/current_free_curves",
+          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+        },
+        "tube_brep_sha256": "53edb3e0e7b32f1590581b59e2ee19c6f2940d3e0a4e90a63ea14f29b12af80f"
+      },
+      {
+        "mesh_pair_index": 18,
+        "wire": "J2-positive-K",
+        "part": "tube-fluid-16",
+        "status": "addressed_by_scoped_native_route_and_wire_receipts",
+        "evidence": {
+          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
+          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "json_pointer": "/current_free_curves",
+          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+        },
+        "tube_brep_sha256": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae"
+      },
+      {
+        "mesh_pair_index": 19,
+        "wire": "J4-V5",
+        "part": "tube-fluid-14",
+        "status": "addressed_by_scoped_native_route_and_wire_receipts",
+        "evidence": {
+          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
+          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "json_pointer": "/current_free_curves",
+          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+        },
+        "tube_brep_sha256": "53edb3e0e7b32f1590581b59e2ee19c6f2940d3e0a4e90a63ea14f29b12af80f"
+      },
+      {
+        "mesh_pair_index": 20,
+        "wire": "J4-V5",
+        "part": "tube-fluid-16",
+        "status": "addressed_by_scoped_native_route_and_wire_receipts",
+        "evidence": {
+          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
+          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "json_pointer": "/current_free_curves",
+          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+        },
+        "tube_brep_sha256": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae"
+      },
+      {
+        "mesh_pair_index": 21,
+        "wire": "J4-IO25",
+        "part": "tube-fluid-14",
+        "status": "addressed_by_scoped_native_route_and_wire_receipts",
+        "evidence": {
+          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
+          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "json_pointer": "/current_free_curves",
+          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+        },
+        "tube_brep_sha256": "53edb3e0e7b32f1590581b59e2ee19c6f2940d3e0a4e90a63ea14f29b12af80f"
+      },
+      {
+        "mesh_pair_index": 22,
+        "wire": "J4-IO25",
+        "part": "tube-fluid-16",
+        "status": "addressed_by_scoped_native_route_and_wire_receipts",
+        "evidence": {
+          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
+          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "json_pointer": "/current_free_curves",
+          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+        },
+        "tube_brep_sha256": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae"
+      },
+      {
+        "mesh_pair_index": 23,
+        "wire": "flow-GND",
+        "part": "tube-fluid-14",
+        "status": "addressed_by_scoped_native_route_and_wire_receipts",
+        "evidence": {
+          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
+          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "json_pointer": "/current_free_curves",
+          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+        },
+        "tube_brep_sha256": "53edb3e0e7b32f1590581b59e2ee19c6f2940d3e0a4e90a63ea14f29b12af80f"
+      },
+      {
+        "mesh_pair_index": 24,
+        "wire": "flow-GND",
+        "part": "tube-fluid-16",
+        "status": "addressed_by_scoped_native_route_and_wire_receipts",
+        "evidence": {
+          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
+          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "json_pointer": "/current_free_curves",
+          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+        },
+        "tube_brep_sha256": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae"
+      }
+    ],
+    "bundle_pair_dispositions": [
+      {
+        "mesh_pair_index": 0,
+        "bundle": "terminal-compressor-cord-jacket",
+        "part": "tube-fluid-16",
+        "status": "addressed_by_scoped_native_route_receipt",
+        "evidence": {
+          "path": "hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json",
+          "sha256": "840bfecb1c4d2b424005f85651fe32e33d187b9d346bc533f5795d158339835a",
+          "json_pointer": "/current_free_curves",
+          "canonical_json_sha256": "a0022f36d141f89e33162cf888c3826ffd29307ef2a6f3bec7778a0ba8e32d55"
+        }
+      }
+    ],
+    "unresolved_recorded_witnesses": [],
+    "wire_packing_scope": "The original mesh packing rows and original native bundle readings retain their own artifact scope. No current wire-packing or flexible handling claim is added by this binding."
   }
 }

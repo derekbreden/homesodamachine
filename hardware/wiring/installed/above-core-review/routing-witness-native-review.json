@@ -1080,6 +1080,18 @@
     "retained_packing_scope": "Positive wire-packing readings at the unchanged PCB crossing and existing tail remain explicit. The current common minus the original conductor is zero for each listed retained reading. This correction does not qualify those existing overlaps as physical packing.",
     "selected_B_fill_change_scope": "The shifted B-fill bodies and printed delta remain west ofX\u221215; the changed J2-OUT3 guides lie atX5..40. Its negative-X PCB crossing is unchanged. The routing owner retains its separate bounded B-fill proof.",
     "physical_scope": "Minimum physical wire bends, entry/crimp fit, flexible handling, service motion, packing and installation force remain unqualified.",
-    "actual_export_binding_pending": true
+    "actual_export_binding_pending": false
+  },
+  "current_artifact_binding": {
+    "scope": "Actual wire-body and source-curve binding only. The contact subsets retain their named fixtures and query scopes; no equipment or packing query is repeated.",
+    "readback_record": {
+      "path": "hardware/wiring/installed/above-core-review/installed-wiring-binding.json",
+      "sha256": "8c2b9e33681beb270169f1e777ad3f0f6bafa78d2960614ddba3ea709e99a854"
+    },
+    "assembly_step_sha256": "718e42d6df645a037a61bb83cb14c8c9ba8bd7a6a1d011e5411f15481bcb3795",
+    "wiring_step_sha256": "19aa3cf46d1df76491ad41fbac79f1696d82b784fbfccacf18258ebc428260f9",
+    "manifest_sha256": "24efd37e993b5ea368973abd0199cdfc1156e8b4b69262a0042c1537c9f976c2",
+    "all_source_curves_match": true,
+    "all_native_shapes_bound": true
   }
 }
