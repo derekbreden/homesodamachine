@@ -152,8 +152,8 @@ for name in ('valve-v-a','valve-v-b'):
  def inside_volume(s,region):return s.intersect(region).Volume() if s.Solids() else 0.0
  add(name+' socket/bearing region native extra',inside_volume(newseat.cut(oldseat),critical),maximum=1e-6)
  add(name+' socket/bearing region native missing',inside_volume(oldseat.cut(newseat),critical),maximum=1e-6)
- openings=[('pour',fc.foam_cap_lid_pour_xy(),fc.foam_cap_lid_pour_radius)]
- openings += [('vent',xy,fc.foam_cap_lid_vent_radius) for xy in fc.foam_cap_lid_vent_xy()]
+ openings=[('pour',fc.foam_cap_lid_pour_xy(top=True),fc.foam_cap_lid_pour_radius)]
+ openings += [('vent',xy,fc.foam_cap_lid_vent_radius) for xy in fc.foam_cap_lid_vent_xy(top=True)]
  openings += [('deck '+key,xy,fc.deck_lid_hole_radius(key)) for key in fc.deck_mounts for xy in fc.deck_mount_xy(key)]
  openings += [('conduit '+key,xy,fc.cap_conduit_entry_relief_radius) for key,xy in fc.cap_conduits.items()]
  openings += [('clamp screw',xy,fc.head_cbore_radius) for xy in fc.attachment_xy_positions]
