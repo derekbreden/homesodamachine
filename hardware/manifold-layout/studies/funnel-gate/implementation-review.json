@@ -1,14 +1,13 @@
 {
   "scope": "Manual comparison of the selected issued scene with the named exported production artifact. This record is not an automatic build or commit check. Reference-shape updates and new retaining details are assessed separately from component moves and attachment changes.",
   "approved_arrangement": "approved-arrangement.json",
-  "source_revision": "614850e0ef5733ecfe2473a6fa2ba1715882797f",
-  "source_production_mesh_sha256": "8e18e7b1f4a6eeba0ade9b96227deef03588dd7d794274f514afe4168b75c2bd",
-  "source_approved_scene_sha256": "f1730e82070e9d4f1e2f193ddacbdf9d149597cb5ebf27aa86428b24e5c92094",
-  "status": "selected_layout_restored_assembly_sequence_open",
+  "source_production_mesh_sha256": "9e3c2742847eae24c68bedda480a98bd2480f9df5fd3e6b8756ec318246a1c14",
+  "source_approved_scene_sha256": "f2363a7d4a1d8a7f40342f6b99dda8d71717648f9c35d64ce217afb44778d310",
+  "status": "approved_wall_carried_layout_assembly_staging_under_review",
   "findings": [
     {
       "id": "valve-carrying-piece",
-      "status": "restored_in_export_closing_sequence_unresolved",
+      "status": "matches_selected_layout",
       "components": [
         "va",
         "vk",
@@ -19,28 +18,22 @@
         "lower-pump-elbow"
       ],
       "selected": "Back-top, with its integral valve mounts.",
-      "implementation": "Cold-core lid, carried by back-bottom.",
-      "required_action": "Restore the selected carrying piece and remove the unwanted core-rooted walls. Preserve the valve port/post stations and correct flow direction.",
-      "review_reading": "V-A and V-K are outside cold-core in the exported assembly at the selected stations. Source-native back-top seats pass the separate bare-valve seating query. The full carried-group closing sequence is unresolved.",
-      "review_source_revision": "30078a39d71731bcbb8f80d8302a002ea49bd7ee"
+      "review_reading": "V-A and V-K retain their selected back-top seats and port/post stations. The complete fitted-group closing sequence has separate assembly limits."
     },
     {
       "id": "va-low-feed-carrying-piece",
-      "status": "restored_in_export_handoff_sequence_unresolved",
+      "status": "matches_selected_layout",
       "components": [
         "va-east-turn",
         "va-flavor",
         "va-ya-straight"
       ],
       "selected": "Low V-A turn/feed carried with back-top; final connection at front-top Y-A.",
-      "implementation": "The V-A turn and under-head tube are core children; its bearing grows from the core lid.",
-      "required_action": "Carry the turn/feed with the valve plumbing and retain the selected connection boundary. Carrying ownership does not imply an independent printed fitting support.",
-      "review_reading": "The low turn and fitted V-A feed travel with back-top in the selected carrying record and source. Exported placement agrees with the selected route. No separate fitting shelf is required by that assignment.",
-      "review_source_revision": "30078a39d71731bcbb8f80d8302a002ea49bd7ee"
+      "review_reading": "The selected low V-A turn and feed travel with back-top. Their final connection is front-top Y-A; no independent core-rooted fitting shelf is selected."
     },
     {
       "id": "c14-position",
-      "status": "restored_in_export",
+      "status": "matches_selected_layout",
       "components": [
         "c14-inlet"
       ],
@@ -49,23 +42,11 @@
         471.3,
         330.0
       ],
-      "implementation_native_flange_center_mm": [
-        -61.75,
-        471.3,
-        323.0
-      ],
-      "implementation_translation_from_selected_mm": [
-        6.75,
-        0.0,
-        -7.0
-      ],
-      "required_action": "Restore the selected position and orientation. If an actual interference prevents it, present that conflict for discussion rather than moving the inlet.",
-      "review_reading": "The exported inlet uses the selected flange center. The rear roof-panel host is cut at that same inlet opening after fusion; source revision 893031639 is included in the published export.",
-      "review_source_revision": "30078a39d71731bcbb8f80d8302a002ea49bd7ee"
+      "review_reading": "The exported inlet uses the selected flange center and matching rear-panel host opening."
     },
     {
       "id": "va-outlet-clock",
-      "status": "restored_in_export",
+      "status": "matches_selected_layout",
       "components": [
         "va-outlet-elbow"
       ],
@@ -86,26 +67,20 @@
           0
         ]
       ],
-      "implementation_clock_from_selected_degrees": 5.0,
-      "required_action": "Restore the selected square outlet direction. Any necessary different routing angle requires discussion.",
-      "review_reading": "The exported elbow is at the selected square direction; its selected/native source frame is restored.",
-      "review_source_revision": "30078a39d71731bcbb8f80d8302a002ea49bd7ee"
+      "review_reading": "The exported elbow retains the selected square outlet direction."
     },
     {
       "id": "water-in-route",
-      "status": "restored_in_export",
+      "status": "matches_selected_layout",
       "components": [
         "water-in"
       ],
       "selected": "Constant-X smooth rise from ASSE inlet to water bulkhead, as fold-water-link in co2-fold/study.py.",
-      "implementation": "Intermediate point is 5 mm east of the inlet and at Z332.5.",
-      "required_action": "Restore the selected path. Supporting stock must accommodate the selected tube where practical.",
-      "review_reading": "The exported constant-X smooth-rise route agrees with the selected issued scene within its display tessellation.",
-      "review_source_revision": "30078a39d71731bcbb8f80d8302a002ea49bd7ee"
+      "review_reading": "The selected constant-X smooth-rise tube agrees with the named export within display tessellation."
     },
     {
       "id": "vb-return-route",
-      "status": "restored_in_export",
+      "status": "matches_selected_layout",
       "components": [
         "vb-outlet-return",
         "vb-yb-cross",
@@ -116,31 +91,53 @@
         280.69954,
         290.7940737508485
       ],
-      "implementation_turn_mm": [
-        -50.0,
-        280.69954,
-        294.3305696772719
-      ],
       "selected_cross_exposed_mm": 35.000259134175096,
       "selected_return_crown_mm": 2.0,
-      "implementation_cross_exposed_mm": 60.41103124389922,
-      "implementation_return_crown_mm": 3.0,
-      "recorded_reason": "The implementation variant leaves PCB power-terminal screwdriver paths clear; connector service was assessed against that variant.",
-      "required_action": "Resolve access within the selected route if simple. If a route compromise is needed, present the exact interference and a 3D comparison before adoption.",
-      "review_reading": "The selected X\u221224.836524 return is restored in the exported assembly. Complete PCB power wiring before final return-tube mating; servicing J11 can require releasing that flexible return. The manual access witness does not establish a need to move the route.",
-      "review_source_revision": "30078a39d71731bcbb8f80d8302a002ea49bd7ee"
+      "review_reading": "The selected X\u221224.836524 return remains fixed. Complete PCB power wiring before final return-tube mating; J11 service can require releasing that flexible return."
     },
     {
       "id": "concealed-soda-tube-carrying-piece",
-      "status": "selected_staging_restored_finite_mate_reviewed",
+      "status": "matches_selected_back_top_ownership",
       "components": [
         "soda-meter-bulkhead"
       ],
-      "selected": "Concealed tube travels with the back-bottom meter; the rear return stem belongs to back-top.",
-      "implementation": "A proposed back-top rear preassembly carried the tube with the rear elbows to make the demonstrated capture motion.",
-      "required_action": "Retain the selected carrying piece and verify closing with that staging. A passing motion with a different parent does not approve reparenting.",
-      "review_reading": "The tube retains the meter/back-bottom carrying assignment. The native query supports its receiving into the moving rear elbow at the named finite poses. The complete column-closing sequence is separate.",
-      "review_source_revision": "30078a39d71731bcbb8f80d8302a002ea49bd7ee"
+      "selected": "Flow meter and concealed meter-to-rear tube belong to back-top with the rear return stem.",
+      "review_reading": "The meter, concealed outlet join and rear return travel together. Their seated tube is internal to back-top. The continuous inlet through the cold-core guide is the cross-parent soda handoff."
+    },
+    {
+      "id": "west-wall-electronics",
+      "status": "matches_selected_export",
+      "components": [
+        "psu",
+        "relay-1",
+        "relay-2"
+      ],
+      "selected": "Upright on the west dry sidewall below the two raised relays; carried by back-top.",
+      "maximum_display_bound_difference_mm": {
+        "psu": 0.01999999999999602,
+        "relay-1": 6.1035156022626325e-06,
+        "relay-2": 2.1362304636340923e-06
+      },
+      "native_mount_record": "../../../mechanical-qualification/enclosure-above-core/wall-mount-review.json"
+    },
+    {
+      "id": "back-top-meter",
+      "status": "matches_selected_export",
+      "components": [
+        "digiten-flow",
+        "soda-continuous-inlet",
+        "soda-bend-holder",
+        "soda-continuous-insulation",
+        "soda-meter-bulkhead"
+      ],
+      "selected": "Existing pose, carried by back-top with its continuous inlet, R14 holder, insulation and concealed outlet join.",
+      "native_mount_record": "../../../mechanical-qualification/enclosure-above-core/wall-meter-review.json"
+    },
+    {
+      "id": "continuous-ceiling",
+      "status": "selected_in_production",
+      "selected": "Continuous back-top ceiling with selected component recesses and no access panel.",
+      "named_access_panel_instances": []
     }
   ],
   "reference_geometry_notes": [
@@ -157,7 +154,7 @@
         "va",
         "vk"
       ],
-      "classification": "Functional valve clock correction with unchanged port/post station sets; distinct from the unapproved attachment change."
+      "classification": "Functional valve clock about unchanged selected port/post stations."
     },
     {
       "components": [
@@ -357,19 +354,19 @@
       "study": "vk",
       "production": "vk-solenoid",
       "expected_owner": "back-top",
-      "core_assembly_member": true,
+      "core_assembly_member": false,
       "production_mesh_names": [
-        "cold-core/vk-solenoid/1",
-        "cold-core/vk-solenoid/2",
-        "cold-core/vk-solenoid/3",
-        "cold-core/vk-solenoid/4",
-        "cold-core/vk-solenoid/5",
-        "cold-core/vk-solenoid/6",
-        "cold-core/vk-solenoid/7",
-        "cold-core/vk-solenoid/8",
-        "cold-core/vk-solenoid/9",
-        "cold-core/vk-solenoid/10",
-        "cold-core/vk-solenoid/11"
+        "vk-solenoid/1",
+        "vk-solenoid/2",
+        "vk-solenoid/3",
+        "vk-solenoid/4",
+        "vk-solenoid/5",
+        "vk-solenoid/6",
+        "vk-solenoid/7",
+        "vk-solenoid/8",
+        "vk-solenoid/9",
+        "vk-solenoid/10",
+        "vk-solenoid/11"
       ],
       "expected_bounds_mm": [
         [
@@ -459,19 +456,19 @@
       "study": "va",
       "production": "valve-v-a",
       "expected_owner": "back-top",
-      "core_assembly_member": true,
+      "core_assembly_member": false,
       "production_mesh_names": [
-        "cold-core/valve-v-a/1",
-        "cold-core/valve-v-a/2",
-        "cold-core/valve-v-a/3",
-        "cold-core/valve-v-a/4",
-        "cold-core/valve-v-a/5",
-        "cold-core/valve-v-a/6",
-        "cold-core/valve-v-a/7",
-        "cold-core/valve-v-a/8",
-        "cold-core/valve-v-a/9",
-        "cold-core/valve-v-a/10",
-        "cold-core/valve-v-a/11"
+        "valve-v-a/1",
+        "valve-v-a/2",
+        "valve-v-a/3",
+        "valve-v-a/4",
+        "valve-v-a/5",
+        "valve-v-a/6",
+        "valve-v-a/7",
+        "valve-v-a/8",
+        "valve-v-a/9",
+        "valve-v-a/10",
+        "valve-v-a/11"
       ],
       "expected_bounds_mm": [
         [
@@ -652,10 +649,10 @@
         [
           34.07904815673828,
           392.38494873046875,
-          329.3251953125
+          331.2010498046875
         ],
         [
-          45.416481018066406,
+          40.41647720336914,
           459.2099914550781,
           341.5510559082031
         ]
@@ -664,15 +661,15 @@
         [
           -0.0009518432617170447,
           0.0049487304687545475,
-          -1.8748046874999886
+          0.0010498046875113687
         ],
         [
-          4.9964810180664045,
+          -0.0035227966308610803,
           0.009991455078136369,
           -0.008944091796877274
         ]
       ],
-      "max_bound_difference_mm": 4.9964810180664045
+      "max_bound_difference_mm": 0.009991455078136369
     },
     {
       "study": "pump-inlet-tpu",
@@ -1049,10 +1046,10 @@
       "study": "tee-fold",
       "production": "tee-fold",
       "expected_owner": "back-top",
-      "core_assembly_member": true,
+      "core_assembly_member": false,
       "production_mesh_names": [
-        "cold-core/tee-fold/1",
-        "cold-core/tee-fold/2"
+        "tee-fold/1",
+        "tee-fold/2"
       ],
       "expected_bounds_mm": [
         [
@@ -1096,10 +1093,10 @@
       "study": "lower-valve-elbow",
       "production": "lower-valve-elbow",
       "expected_owner": "back-top",
-      "core_assembly_member": true,
+      "core_assembly_member": false,
       "production_mesh_names": [
-        "cold-core/lower-valve-elbow/1",
-        "cold-core/lower-valve-elbow/2"
+        "lower-valve-elbow/1",
+        "lower-valve-elbow/2"
       ],
       "expected_bounds_mm": [
         [
@@ -1143,10 +1140,10 @@
       "study": "lower-pump-elbow",
       "production": "lower-pump-elbow",
       "expected_owner": "back-top",
-      "core_assembly_member": true,
+      "core_assembly_member": false,
       "production_mesh_names": [
-        "cold-core/lower-pump-elbow/1",
-        "cold-core/lower-pump-elbow/2"
+        "lower-pump-elbow/1",
+        "lower-pump-elbow/2"
       ],
       "expected_bounds_mm": [
         [
@@ -1236,10 +1233,10 @@
       "study": "reg-va-elbow",
       "production": "reg-va-elbow",
       "expected_owner": "back-top",
-      "core_assembly_member": true,
+      "core_assembly_member": false,
       "production_mesh_names": [
-        "cold-core/reg-va-elbow/1",
-        "cold-core/reg-va-elbow/2"
+        "reg-va-elbow/1",
+        "reg-va-elbow/2"
       ],
       "expected_bounds_mm": [
         [
@@ -1283,10 +1280,10 @@
       "study": "va-outlet-elbow",
       "production": "va-outlet-elbow",
       "expected_owner": "back-top",
-      "core_assembly_member": true,
+      "core_assembly_member": false,
       "production_mesh_names": [
-        "cold-core/va-outlet-elbow/1",
-        "cold-core/va-outlet-elbow/2"
+        "va-outlet-elbow/1",
+        "va-outlet-elbow/2"
       ],
       "expected_bounds_mm": [
         [
@@ -1302,37 +1299,37 @@
       ],
       "production_bounds_mm": [
         [
-          -82.92744445800781,
-          289.3757629394531,
+          -82.44930267333984,
+          288.64923095703125,
           255.0386505126953
         ],
         [
-          -56.95072937011719,
-          305.2647705078125,
+          -57.35409927368164,
+          304.0302734375,
           281.5308532714844
         ]
       ],
       "bound_delta_mm": [
         [
-          -0.4833433292394176,
-          0.776002411266461,
+          -0.005201544571448835,
+          0.04947042884458597,
           -0.006997367840995139
         ],
         [
-          0.413371758651202,
-          1.165009979625836,
+          0.01000185508674889,
+          -0.06948709068666403,
           0.005205390948049171
         ]
       ],
-      "max_bound_difference_mm": 1.165009979625836
+      "max_bound_difference_mm": 0.06948709068666403
     },
     {
       "study": "va-flavor",
       "production": "tube-above-core-va-under-head",
       "expected_owner": "back-top",
-      "core_assembly_member": true,
+      "core_assembly_member": false,
       "production_mesh_names": [
-        "cold-core/tube-above-core-va-under-head"
+        "tube-above-core-va-under-head"
       ],
       "expected_bounds_mm": [
         [
@@ -1348,29 +1345,29 @@
       ],
       "production_bounds_mm": [
         [
-          -74.53003692626953,
-          293.3650207519531,
-          258.4287109375
+          -74.24510192871094,
+          293.1856994628906,
+          258.42498779296875
         ],
         [
           28.269309997558594,
-          312.31048583984375,
-          265.9447021484375
+          312.30645751953125,
+          265.9606628417969
         ]
       ],
       "bound_delta_mm": [
         [
-          -0.29003692626953637,
-          0.2050207519531,
-          0.008710937499984084
+          -0.005101928710942616,
+          0.02569946289059999,
+          0.004987792968734084
         ],
         [
           0.009309997558592187,
-          -0.009514160156243179,
-          -0.015297851562479536
+          -0.013542480468743179,
+          0.0006628417968954636
         ]
       ],
-      "max_bound_difference_mm": 0.29003692626953637
+      "max_bound_difference_mm": 0.02569946289059999
     },
     {
       "study": "funnel",
@@ -1743,48 +1740,48 @@
     {
       "study": "psu",
       "production": "psu",
-      "expected_owner": "back-bottom",
-      "core_assembly_member": true,
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
       "production_mesh_names": [
-        "cold-core/psu"
+        "psu"
       ],
       "expected_bounds_mm": [
         [
-          -95.99999389648437,
+          -95.99999999999999,
           346.00001220703126,
-          253.40999999999997
+          254.39999999999998
         ],
         [
-          -43.9999938964844,
+          -62.519999999999996,
           455.00001220703126,
-          286.89
+          306.4
         ]
       ],
       "production_bounds_mm": [
         [
-          -95.99999237060547,
+          -96.0,
           346.0,
-          253.39999389648438
+          254.39999389648438
         ],
         [
-          -43.99999237060547,
+          -62.5,
           455.0,
-          286.8999938964844
+          306.3999938964844
         ]
       ],
       "bound_delta_mm": [
         [
-          1.5258789005656581e-06,
+          -1.4210854715202004e-14,
           -1.2207031261368684e-05,
-          -0.010006103515593168
+          -6.1035156022626325e-06
         ],
         [
-          1.5258789289873675e-06,
+          0.01999999999999602,
           -1.2207031261368684e-05,
-          0.009993896484388642
+          -6.1035156022626325e-06
         ]
       ],
-      "max_bound_difference_mm": 0.010006103515593168
+      "max_bound_difference_mm": 0.01999999999999602
     },
     {
       "study": "relay-1",
@@ -1798,39 +1795,39 @@
         [
           -96.49,
           362.99999999999994,
-          294.5
+          307.4
         ],
         [
           -77.49,
           432.99999999999994,
-          311.5
+          324.4
         ]
       ],
       "production_bounds_mm": [
         [
-          -96.5,
+          -96.48999786376953,
           363.0,
-          294.5
+          307.3999938964844
         ],
         [
-          -77.5,
+          -77.48999786376953,
           433.0,
-          311.5
+          324.3999938964844
         ]
       ],
       "bound_delta_mm": [
         [
-          -0.010000000000005116,
+          2.1362304636340923e-06,
           5.684341886080802e-14,
-          0.0
+          -6.1035156022626325e-06
         ],
         [
-          -0.010000000000005116,
+          2.1362304636340923e-06,
           5.684341886080802e-14,
-          0.0
+          -6.1035156022626325e-06
         ]
       ],
-      "max_bound_difference_mm": 0.010000000000005116
+      "max_bound_difference_mm": 6.1035156022626325e-06
     },
     {
       "study": "relay-2",
@@ -1844,39 +1841,39 @@
         [
           -96.49,
           363.0,
-          319.49999999999994
+          326.99999999999994
         ],
         [
           -77.49,
           433.0,
-          336.49999999999994
+          343.99999999999994
         ]
       ],
       "production_bounds_mm": [
         [
-          -96.5,
+          -96.48999786376953,
           363.0,
-          319.5
+          327.0
         ],
         [
-          -77.5,
+          -77.48999786376953,
           433.0,
-          336.5
+          344.0
         ]
       ],
       "bound_delta_mm": [
         [
-          -0.010000000000005116,
+          2.1362304636340923e-06,
           0.0,
           5.684341886080802e-14
         ],
         [
-          -0.010000000000005116,
+          2.1362304636340923e-06,
           0.0,
           5.684341886080802e-14
         ]
       ],
-      "max_bound_difference_mm": 0.010000000000005116
+      "max_bound_difference_mm": 2.1362304636340923e-06
     },
     {
       "study": "c14-inlet",
@@ -1900,29 +1897,29 @@
       ],
       "production_bounds_mm": [
         [
-          -86.60231018066406,
+          -93.35231018066406,
           446.29998779296875,
-          311.93499755859375
+          318.93499755859375
         ],
         [
-          -36.89768981933594,
+          -43.64768981933594,
           473.1400146484375,
-          334.06500244140625
+          341.06500244140625
         ]
       ],
       "bound_delta_mm": [
         [
-          6.757689819335951,
+          0.007689819335951142,
           0.00998779296878638,
-          -6.994421603849446
+          0.005578396150553999
         ],
         [
-          6.742310180664063,
+          -0.0076898193359369316,
           0.010014648437504547,
-          -7.004416721036932
+          -0.004416721036932358
         ]
       ],
-      "max_bound_difference_mm": 7.004416721036932
+      "max_bound_difference_mm": 0.010014648437504547
     },
     {
       "study": "keystone-jack",
@@ -3273,11 +3270,11 @@
       "study": "va-east-turn",
       "production": "va-east-turn",
       "expected_owner": "back-top",
-      "core_assembly_member": true,
+      "core_assembly_member": false,
       "production_mesh_names": [
-        "cold-core/va-east-turn/1",
-        "cold-core/va-east-turn/2",
-        "cold-core/va-east-turn/3"
+        "va-east-turn/1",
+        "va-east-turn/2",
+        "va-east-turn/3"
       ],
       "expected_bounds_mm": [
         [
@@ -3515,21 +3512,21 @@
     {
       "study": "digiten-flow",
       "production": "digiten-flow",
-      "expected_owner": "back-bottom",
-      "core_assembly_member": true,
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
       "production_mesh_names": [
-        "cold-core/digiten-flow/1",
-        "cold-core/digiten-flow/2",
-        "cold-core/digiten-flow/3",
-        "cold-core/digiten-flow/4",
-        "cold-core/digiten-flow/5",
-        "cold-core/digiten-flow/6",
-        "cold-core/digiten-flow/7",
-        "cold-core/digiten-flow/8",
-        "cold-core/digiten-flow/9",
-        "cold-core/digiten-flow/10",
-        "cold-core/digiten-flow/11",
-        "cold-core/digiten-flow/12"
+        "digiten-flow/1",
+        "digiten-flow/2",
+        "digiten-flow/3",
+        "digiten-flow/4",
+        "digiten-flow/5",
+        "digiten-flow/6",
+        "digiten-flow/7",
+        "digiten-flow/8",
+        "digiten-flow/9",
+        "digiten-flow/10",
+        "digiten-flow/11",
+        "digiten-flow/12"
       ],
       "expected_bounds_mm": [
         [
@@ -3545,7 +3542,7 @@
       ],
       "production_bounds_mm": [
         [
-          40.60000228881836,
+          40.599998474121094,
           360.414794921875,
           279.87603759765625
         ],
@@ -3557,7 +3554,7 @@
       ],
       "bound_delta_mm": [
         [
-          2.2888183579539145e-06,
+          -1.5258789076710855e-06,
           -5.078124956980901e-06,
           -1.0282880055001442e-05
         ],
@@ -3920,29 +3917,29 @@
       ],
       "production_bounds_mm": [
         [
-          -58.08856964111328,
+          -32.92509460449219,
           260.13714599609375,
-          284.0369873046875
+          280.50048828125
         ],
         [
-          -28.979433059692383,
+          -3.8159570693969727,
           288.80291748046875,
-          302.37847900390625
+          298.8420104980469
         ]
       ],
       "bound_delta_mm": [
         [
-          -25.396274251851295,
+          -0.23279921523020164,
           -0.0023940039062608776,
-          3.750999924947564
+          0.21450090151006407
         ],
         [
-          -24.956097089971877,
+          0.20737890032353334,
           1.1233774804687187,
-          4.069286256796147
+          0.532817750936772
         ]
       ],
-      "max_bound_difference_mm": 25.396274251851295
+      "max_bound_difference_mm": 1.1233774804687187
     },
     {
       "study": "yb-stem-elbow",
@@ -4106,29 +4103,29 @@
       ],
       "production_bounds_mm": [
         [
-          -45.62680435180664,
+          -20.463329315185547,
           277.5476989746094,
           277.5663757324219
         ],
         [
           47.353885650634766,
           283.85137939453125,
-          296.7979431152344
+          293.261474609375
         ]
       ],
       "bound_delta_mm": [
         [
-          -25.16680435180664,
+          -0.0033293151855460223,
           0.02769897460939319,
           0.006375732421872726
         ],
         [
           -0.0061143493652338066,
           -0.028620605468745453,
-          3.537943115234384
+          0.001474609375009095
         ]
       ],
-      "max_bound_difference_mm": 25.16680435180664
+      "max_bound_difference_mm": 0.028620605468745453
     },
     {
       "study": "vb-yb-link",
@@ -4152,34 +4149,34 @@
       ],
       "production_bounds_mm": [
         [
-          -53.151851654052734,
-          167.9679412841797,
-          273.5463562011719
+          -29.163042068481445,
+          167.9678497314453,
+          273.54656982421875
         ],
         [
-          -19.497861862182617,
+          -19.49716567993164,
           275.837158203125,
-          297.5055847167969
+          293.9690856933594
         ]
       ],
       "bound_delta_mm": [
         [
-          -23.971851654052735,
-          0.007941284179679542,
-          0.006356201171854536
+          0.016957931518554403,
+          0.007849731445304542,
+          0.006569824218729536
         ],
         [
-          -0.01786186218261676,
+          -0.0171656799316402,
           -0.002841796874974989,
-          3.5455847167968955
+          0.009085693359395464
         ]
       ],
-      "max_bound_difference_mm": 23.971851654052735
+      "max_bound_difference_mm": 0.0171656799316402
     },
     {
       "study": "soda-meter-bulkhead",
       "production": "tube-soda-meter-bulkhead",
-      "expected_owner": "back-bottom",
+      "expected_owner": "back-top",
       "core_assembly_member": false,
       "production_mesh_names": [
         "tube-soda-meter-bulkhead"
@@ -4271,10 +4268,10 @@
     {
       "study": "soda-continuous-inlet",
       "production": "tube-soda-core-rise",
-      "expected_owner": "back-bottom",
-      "core_assembly_member": true,
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
       "production_mesh_names": [
-        "cold-core/tube-soda-core-rise"
+        "tube-soda-core-rise"
       ],
       "expected_bounds_mm": [
         [
@@ -4290,49 +4287,134 @@
       ],
       "production_bounds_mm": [
         [
-          46.82500076293945,
-          351.2177429199219,
+          46.848148345947266,
+          339.23980712890625,
           253.39999389648438
         ],
         [
-          53.17499923706055,
-          357.5214538574219,
-          304.217041015625
+          53.151851654052734,
+          376.11480712890625,
+          309.5510559082031
         ]
       ],
       "bound_delta_mm": [
         [
-          0.025000762939455967,
-          11.977742919921866,
+          0.04814834594726847,
+          -0.00019287109375909495,
           11.99999389648437
         ],
         [
-          -0.005000762939452841,
-          -18.59854614257813,
-          -5.342958984375002
+          -0.02814834594726534,
+          -0.0051928710937545475,
+          -0.008944091796877274
         ]
       ],
-      "max_bound_difference_mm": 18.59854614257813
+      "max_bound_difference_mm": 11.99999389648437
+    },
+    {
+      "study": "soda-bend-holder",
+      "production": "soda-bend-holder",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "soda-bend-holder"
+      ],
+      "expected_bounds_mm": [
+        [
+          43.2,
+          337.02,
+          289.38
+        ],
+        [
+          55.4,
+          359.42,
+          311.78
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          43.23104476928711,
+          337.0148010253906,
+          289.37603759765625
+        ],
+        [
+          55.400001525878906,
+          359.414794921875,
+          311.77606201171875
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          0.031044769287106533,
+          -0.00519897460935681,
+          -0.0039624023437454525
+        ],
+        [
+          1.5258789076710855e-06,
+          -0.005205078125015916,
+          -0.003937988281222715
+        ]
+      ],
+      "max_bound_difference_mm": 0.031044769287106533
+    },
+    {
+      "study": "soda-continuous-insulation",
+      "production": "soda-continuous-insulation",
+      "expected_owner": "back-top",
+      "core_assembly_member": false,
+      "production_mesh_names": [
+        "soda-continuous-insulation/1",
+        "soda-continuous-insulation/2"
+      ],
+      "expected_bounds_mm": [
+        [
+          37.3,
+          329.72,
+          254.5
+        ],
+        [
+          62.7,
+          359.42,
+          319.1
+        ]
+      ],
+      "production_bounds_mm": [
+        [
+          37.29999923706055,
+          329.7198486328125,
+          254.5
+        ],
+        [
+          62.70000076293945,
+          359.414794921875,
+          318.98345947265625
+        ]
+      ],
+      "bound_delta_mm": [
+        [
+          -7.629394502828291e-07,
+          -0.00015136718752728484,
+          0.0
+        ],
+        [
+          7.629394502828291e-07,
+          -0.005205078125015916,
+          -0.11654052734377274
+        ]
+      ],
+      "max_bound_difference_mm": 0.11654052734377274
     }
   ],
-  "current_source_status": "Selected component layout and carrying assignments are restored in the full exported assembly, including the corrected rear-panel host opening. Live viewer bytes match the audited local export. Closing order and flexible final handoffs remain unresolved.",
+  "current_source_status": "Selected wall PSU, raised relays, back-top meter and continuous ceiling agree with the approved arrangement. Component and carrying-piece approval is settled. Complete closure and final flexible handoffs have their separate assembly review.",
   "export_readback": {
-    "production_mesh_sha256": "b3970b1ba0a5d4f49e75081ffc672ad8b56bb53f2be30093919887a80f9a37e1",
-    "pointer_source_revision": "2eaea329d128836d567f242e6e87a7e187a4fb53",
-    "review_source_revision": "30078a39d71731bcbb8f80d8302a002ea49bd7ee",
+    "production_mesh_sha256": "9e3c2742847eae24c68bedda480a98bd2480f9df5fd3e6b8756ec318246a1c14",
     "matched_selected_instances": 90,
-    "scope": "Named component frames, tube paths, reference updates and carrying membership; display-bound comparison is a diagnostic and is not a full assembly qualification.",
+    "scope": "Manual display bounds and core-membership reading of the named local export against the approved scene. Bound differences can reflect reference shape or insertion spans; these readings are not full assembly qualification.",
     "maximum_selected_display_bound_difference_mm": {
-      "vk": 0.010008330921039033,
-      "va": 0.010008330921039033,
-      "water-in": 0.009991455078136369,
-      "va-outlet-elbow": 0.06948709068666403,
-      "va-flavor": 0.02569946289059999,
-      "c14-inlet": 0.010014648437504547,
-      "va-ya-straight": 0.016449737548825283,
-      "vb": 0.010000000000005116,
-      "vb-yb-cross": 0.028620605468745453,
-      "vb-yb-link": 0.0171656799316402
+      "psu": 0.01999999999999602,
+      "relay-1": 6.1035156022626325e-06,
+      "relay-2": 2.1362304636340923e-06,
+      "digiten-flow": 0.010014131182458641
     },
     "missing_name_interpretation": {
       "ideal_wall_and_ceiling_planes": "The isolated scene planes are replaced by the production shell.",
@@ -4340,36 +4422,59 @@
       "pump_sliding_foot": "Use the accepted common purchased rubber-foot reference; do not infer a pump move from that changed shape.",
       "check_carbonator": "Legacy display alias; shared purchased-check native frames and the actual downward check outlet define the implementation.",
       "bulkhead_departure_stubs": "Illustrative endpoints are replaced by production onward tube runs."
-    },
-    "live_viewer": {
-      "url": "https://homesodamachine.com/meshes/manifold-layout/enclosure-assembly.step.mesh",
-      "sha256": "b3970b1ba0a5d4f49e75081ffc672ad8b56bb53f2be30093919887a80f9a37e1",
-      "matches_local_export": true
     }
   },
   "assembly_sequence": {
-    "status": "requires_resolution_without_unapproved_layout_change",
-    "native_record": "../../../mechanical-qualification/enclosure-above-core/approved-carried-group-review.json",
-    "mount_seating_record": "../../../mechanical-qualification/enclosure-above-core/valve-wall-mount-review.json",
+    "status": "final_handoffs_and_closure_under_review",
+    "selected_group": "Back-top carries V-A, V-K, inlet header, west-wall PSU, raised relays and meter group; pump, PCB and V-B remain with back-bottom.",
     "known_counterexamples": [
       {
-        "moving": "V-A on back-top",
-        "fixed": "core-mounted PSU",
-        "remaining_y_mm": 20.0,
-        "native_common_mm3": 354.475
+        "moving": "enclosure-back-top above Z253.3",
+        "stationary": "cold-core/pump-inlet-tpu",
+        "peak_offset_mm": [
+          0.0,
+          42.0,
+          0.0
+        ],
+        "native_common_at_peak_mm3": 11.843501496339163
       },
       {
-        "moving": "V-K on back-top",
-        "fixed": "core-mounted meter",
-        "remaining_y_mm": 50.0,
-        "native_common_mm3": 1538.12
+        "moving": "lower-pump-elbow",
+        "stationary": "cold-core/g-ganen-pump",
+        "peak_offset_mm": [
+          0.0,
+          132.0,
+          0.0
+        ],
+        "native_common_at_peak_mm3": 316.9007084393011
+      },
+      {
+        "moving": "lower-pump-elbow",
+        "stationary": "cold-core/pump-inlet-tpu",
+        "peak_offset_mm": [
+          0.0,
+          20.0,
+          0.0
+        ],
+        "native_common_at_peak_mm3": 420.68682792338967
+      },
+      {
+        "moving": "lower-pump-elbow",
+        "stationary": "cold-core/pump-inlet-tube-band",
+        "peak_offset_mm": [
+          0.0,
+          6.0,
+          0.0
+        ],
+        "native_common_at_peak_mm3": 62.92795940429715
       }
     ],
-    "scope": "These disprove the named rigid populated long slide. They do not establish that the approved final layout or carrying assignments must change. Assembly staging, loose flexible connections and shell closing order remain under investigation.",
-    "decision_boundary": "Present any necessary change of component pose, carrying piece or selected route to Derek with 3D evidence before adoption.",
-    "near_final_vertical_entry": {
-      "record": "../../../mechanical-qualification/enclosure-above-core/back-top-approach-review.json",
-      "reading": "The actual hooked shell rails obstruct straight lowering near the final Y station, including offsets 0 through 15 mm. This does not supply an alternative to the long slide."
-    }
-  }
+    "scope": "The selected mounting parents remain fixed. A complete rigid-group slide and the staged final pump, gas, vent and continuous soda inlet connections require their own evidence. The inlet guide is not a fluid joint.",
+    "mount_seating_record": "../../../mechanical-qualification/enclosure-above-core/valve-wall-mount-review.json",
+    "decision_boundary": "A necessary change of component pose, permanent carrying piece or selected route requires discussion with Derek; connection staging does not reopen the approved layout.",
+    "native_counterexample_artifact_sha256": "2e7e53cc8f52e5534339540e8c64f9f18a5cb16837a839397c2e6fb62c9890a5",
+    "native_counterexample_scope": "Native point counterexamples to carrying the fitted pump-side elbow with back-top through a pure Y slide. The larger sampled query stopped before completion; no negative or complete-path result is claimed."
+  },
+  "review_source_revision": "e0875e4af355b0a04475961a1a177f5a0a96c892",
+  "source_native_step_sha256": "a86e70dae875b56ac1563effd4cd154945b0a07161f385453c524a8d6938914f"
 }

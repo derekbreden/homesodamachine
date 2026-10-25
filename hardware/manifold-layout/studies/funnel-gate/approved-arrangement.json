@@ -1,8 +1,8 @@
 {
   "scope": "Selected above-core arrangement and carrying pieces. Frames refer to the named study display geometry; world bounds are millimetres. Native reference corrections require interpreting physical datums rather than equating a different reference origin with a component move.",
   "source": {
-    "issued_view": "continuous-insulated-soda-bend",
-    "sha256": "f1730e82070e9d4f1e2f193ddacbdf9d149597cb5ebf27aa86428b24e5c92094"
+    "issued_view": "back-top-carried-arrangement",
+    "sha256": "f2363a7d4a1d8a7f40342f6b99dda8d71717648f9c35d64ce217afb44778d310"
   },
   "ownership": "assembly-ownership.json",
   "selected_updates": {
@@ -1415,9 +1415,9 @@
       "geometry": "psu",
       "rotation": [
         [
+          -1.0,
           0.0,
-          0.0,
-          1.0
+          0.0
         ],
         [
           0.0,
@@ -1425,27 +1425,27 @@
           0.0
         ],
         [
-          -1.0,
           0.0,
-          0.0
+          0.0,
+          -1.0
         ]
       ],
       "translation_mm": [
-        -349.3999938964844,
+        2.240000000000009,
         -4.79998779296875,
-        351.65
+        559.8
       ],
-      "quadrant": "back-bottom",
+      "quadrant": "back-top",
       "bounds_mm": [
         [
-          -95.99999389648437,
+          -95.99999999999999,
           346.00001220703126,
-          253.40999999999997
+          254.39999999999998
         ],
         [
-          -43.9999938964844,
+          -62.519999999999996,
           455.00001220703126,
-          286.89
+          306.4
         ]
       ],
       "display_geometry_sha256": "fb0b65223716580a7f8873c7584409728ead1a96df19fde64b3572d937f87172"
@@ -1473,19 +1473,19 @@
       "translation_mm": [
         1.75,
         689.8,
-        -34.7
+        -21.800000000000026
       ],
       "quadrant": "back-top",
       "bounds_mm": [
         [
           -96.49,
           362.99999999999994,
-          294.5
+          307.4
         ],
         [
           -77.49,
           432.99999999999994,
-          311.5
+          324.4
         ]
       ],
       "display_geometry_sha256": "bd223707af8d3aa5762bd957de17a9bdf717997fb8d25ea1f1a8aaa102c10716"
@@ -1513,19 +1513,19 @@
       "translation_mm": [
         1.75,
         686.4,
-        666.3
+        673.8
       ],
       "quadrant": "back-top",
       "bounds_mm": [
         [
           -96.49,
           363.0,
-          319.49999999999994
+          326.99999999999994
         ],
         [
           -77.49,
           433.0,
-          336.49999999999994
+          343.99999999999994
         ]
       ],
       "display_geometry_sha256": "fd1be5efcfbf7cd8474f137939c86a8370d60a9f9e1c220444d3bb6d35ce6e83"
@@ -1652,7 +1652,7 @@
     },
     {
       "name": "left-wall",
-      "geometry": "expanded-funnel-left-wall",
+      "geometry": "back-top-dry-wall",
       "rotation": [
         [
           1.0,
@@ -1688,7 +1688,7 @@
           346.0
         ]
       ],
-      "display_geometry_sha256": "31ef7aadd24e1150f9f9683e0f25c13dcb3655e8392d5f100d5ffaa3afe6a0ca"
+      "display_geometry_sha256": "a54c88c60c275e754f45c9a41098e307e8decfd12616eec073843f752dab1668"
     },
     {
       "name": "right-wall",
@@ -3012,7 +3012,7 @@
     },
     {
       "name": "relay-mount-highlight",
-      "geometry": "relay-mount-highlight",
+      "geometry": "raised-relay-mounts",
       "rotation": [
         [
           1.0,
@@ -3039,16 +3039,16 @@
       "bounds_mm": [
         [
           -98.52,
-          360.96,
-          292.48
+          361.0,
+          305.4
         ],
         [
           -94.5,
-          435.04,
-          338.52
+          435.0,
+          346.0
         ]
       ],
-      "display_geometry_sha256": "b78be86826a08315c68ba9b828750c95eb98766526f66d41b9b2f8c461ee4f3b"
+      "display_geometry_sha256": "3fd3cefdc9023a8225b49e23f21e113ac93e36269629d3ec48613a62b836b426"
     },
     {
       "name": "vk-support-highlight",
@@ -3355,7 +3355,7 @@
         390.91479999999996,
         306.3760478805363
       ],
-      "quadrant": "back-bottom",
+      "quadrant": "back-top",
       "bounds_mm": [
         [
           40.6,
@@ -3955,7 +3955,7 @@
         0,
         0
       ],
-      "quadrant": "back-bottom",
+      "quadrant": "back-top",
       "bounds_mm": [
         [
           46.82,
@@ -4035,7 +4035,7 @@
         0.0,
         0.0
       ],
-      "quadrant": "back-bottom",
+      "quadrant": "back-top",
       "bounds_mm": [
         [
           46.8,
@@ -4075,7 +4075,7 @@
         0.0,
         0.0
       ],
-      "quadrant": "back-bottom",
+      "quadrant": "back-top",
       "bounds_mm": [
         [
           43.2,
@@ -4115,7 +4115,7 @@
         0.0,
         0.0
       ],
-      "quadrant": "back-bottom",
+      "quadrant": "back-top",
       "bounds_mm": [
         [
           37.3,
@@ -4129,6 +4129,63 @@
         ]
       ],
       "display_geometry_sha256": "1e48f65f52451334f6fb170598fc5cba3a21e32526b65df985777d2e965649aa"
+    },
+    {
+      "name": "psu-sidewall-mounts",
+      "geometry": "psu-sidewall-mounts",
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        0,
+        0,
+        0
+      ],
+      "quadrant": "back-top",
+      "bounds_mm": [
+        [
+          -98.52,
+          347.76,
+          260.16
+        ],
+        [
+          -96.0,
+          453.24,
+          300.64
+        ]
+      ],
+      "display_geometry_sha256": "5314f48ba61f96d1663219b8260560b6622f15e823650684215c94c6d2d7448a"
     }
-  ]
+  ],
+  "approval": {
+    "status": "approved",
+    "date": "2026-10-24",
+    "local_time": "22:24",
+    "timezone": "America/Chicago",
+    "derek": "Looks good."
+  },
+  "selected_structure": {
+    "mean_well": "Upright on the west dry sidewall below the two raised relays; carried by back-top.",
+    "flow_meter": "Existing pose, carried by back-top with its continuous inlet, R14 holder, insulation and concealed outlet join.",
+    "ceiling": {
+      "quadrant": "back-top",
+      "continuous": true,
+      "access_panel": false,
+      "component_recesses": "Selected component pockets retained."
+    }
+  }
 }
