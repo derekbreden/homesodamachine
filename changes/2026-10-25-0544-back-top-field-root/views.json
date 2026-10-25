@@ -1,0 +1,77 @@
+{
+  "views": [
+    {
+      "name": "root",
+      "caption": "A cut through the lower edge of back-top's raised nameplate field: the field now joins the wall instead of floating 0.4 mm off it.",
+      "before": "root-before.webp",
+      "after": "root-after.webp",
+      "width": 1200,
+      "height": 900,
+      "model": "printed-parts/enclosure/enclosure/enclosure.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          568.4394222914557,
+          559.7659133437184,
+          266.34394222914557
+        ],
+        "target": [
+          -20,
+          471.5,
+          207.5
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 3,
+        "near": 361.52008841327955,
+        "far": 1009.2722886789941,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            -20,
+            471,
+            207
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure_back_top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure_back_top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "snapshot",
+          "sha256": "57a08f8ca6aea622a5ea53c133f284056d9bdb73339b86d2ee473d8a330b10a9",
+          "commit": "e1a35e0ce57be9239229318b99ecf73593425b7c",
+          "taken": "2026-10-25T10:38:28.121Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "tree",
+          "sha256": "6e862ffb30f43bd87867370b173393cc3819664db066ffcd9453b3ba60a9a6e3",
+          "commit": "81a26e1bc6e0d6b62f9d1ef9922adde82c3ea0a5",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure_back_top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
