@@ -1,0 +1,37 @@
+{
+  "baseline_task_id": "1372664582",
+  "baseline_gcode_sha256": "32f99973a6fbd8d0abaf0b051097b071c710557ee5a1d0e636ae6bb33c4e5e73",
+  "engineering_gcode_sha256": "57e59dfd18ebb1586927f4601751fb0290f13a2419cd2d8fd4c4068804b3d206",
+  "baseline_nonprogress_commands": 1332455,
+  "engineering_nonprogress_commands": 1332455,
+  "nonmotion_command_differences": [
+    {
+      "sequence_index_1based": 76,
+      "textured": "M972 S26 P0 C0",
+      "engineering": "M972 S36 P0 C0 X1"
+    },
+    {
+      "sequence_index_1based": 265,
+      "textured": "G29.1 Z-0.02",
+      "engineering": "G29.1 Z0"
+    }
+  ],
+  "all_other_nonmotion_commands_identical": true,
+  "changed_model_layers": [
+    {
+      "layer_1based": 816,
+      "height_mm": 195.9,
+      "textured_command_count": 2704,
+      "engineering_command_count": 2704
+    }
+  ],
+  "unchanged_model_layer_count": 832,
+  "native_path_scope": "Native re-slicing with unchanged random-seam settings changes motion/extrusion ordering in layer 816 only (Z195.9 mm). All other 832 model-layer command sequences are identical after excluding M73. No paths are hand-edited.",
+  "progress_reporting": {
+    "baseline_M73_count": 1272,
+    "engineering_M73_count": 1272,
+    "M73_sequence_identical": true,
+    "scope": "Native progress-report placement can move between adjacent commands; excluded from physical-command comparison."
+  },
+  "scope": "Same complete process, filament and machine settings except plate type, including per-plate metadata. Nonmotion comparison includes temperatures, cooling and machine controls; only plate surface detection and Z compensation differ."
+}

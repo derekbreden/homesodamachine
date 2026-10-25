@@ -93,10 +93,12 @@ spools. Remaining quantity is not a launch condition; no weighing is required.
 
 Mark1's AMS 2 Pro A carries Bambu PETG Translucent Clear (`GFG01`, transparent
 `00000000`) in **A1–A4**, feeding the right **0.8 mm Standard-flow** hotend.
-At the October 25 preflight, **A1 reports 65%** and **A2–A4 report 100%**.
-The [right reservoir and cap](../hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/README.md),
-task **1372664582**, starts from **A1**, the most depleted matching spool.
-Use each spool fully and refresh actual depletion before a later launch.
+At the Engineering Plate retry preflight on October 25, **A1 reports 55%**
+and **A2–A4 report 100%**. The [prepared right reservoir retry](../hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md)
+uses **A1** first, the most depleted matching spool. The preceding right task
+1372664582 is FAILED with reported lifting; the prepared job awaits Mac unlock
+for final Studio verification and Send. Use each spool fully and refresh actual
+depletion before a later launch.
 
 AMS unit `0` addresses A1–A4 as trays `0`–`3`. **AMS filament backup is On**,
 visibly checked in Mark1's AMS Settings. The right-side Auto Refill group
@@ -134,6 +136,10 @@ names carry the requested value (`z004`, `z018`).
 | Mark2 | 0.8 mm | +0.04 mm | `G29.1 Z0.02` | `Bambu Lab H2C 0.8 Standard +0.04 Z trim` |
 | Mark1 (`H2C` connection key) | 0.4 mm | +0.18 mm | `G29.1 Z0.16` | `Bambu Lab H2C 0.4 Standard +0.18 Z trim` |
 | Mark1, clear PETG reservoir | 0.8 mm | 0.00 mm | `G29.1 Z-0.02` | `Bambu Lab H2C 0.8 Standard PETG zero Z trim` |
+
+The [Engineering Plate clear-PETG reservoir retry](../hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md)
+retains zero added user trim and emits **`G29.1 Z0`** for its plate compensation.
+The preceding Textured PEI print emitted **−0.02 mm**, the stock compensation.
 
 Mark1's standard PET-GF user Z trim is +0.18 mm. The clear PETG reservoir uses
 zero added user trim, explicitly authorized by Derek for its first-layer adhesion

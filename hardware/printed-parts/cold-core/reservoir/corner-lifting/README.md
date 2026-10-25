@@ -1,12 +1,19 @@
 # Reservoir adhesion observations
 
-Mark1 task **1372664582** is printing the [right body and matching cap](../prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/README.md)
-with the exact settings of the completed left article: **255/260 °C**, flow
-1.05, five Arachne walls and 30% overlap. A1 reports 65%; A2–A4 report 100%.
-It starts from A1 with AMS backup On. Layer-0 startup has no print error/HMS;
-changing camera frames show the empty plate during material preparation.
-Model contact, corner flatness and this right article's sealing are unassessed.
-The old task-bound monitor remains paused.
+The [right-pair Engineering Plate retry](../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md)
+is **prepared, not sent**, with the same recipe and **0.00 mm Z compensation**.
+Derek reports the flat Engineering Plate installed, glued and ready on Mark1.
+The Mac is locked; final Studio verification and Send await manual unlock.
+A1 reports 55%, matching A2–A4 100%; use the most depleted matching spool first.
+
+The preceding **right task 1372664582** has [reported persistent lifting](../prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json)
+and two photographs. Derek says it seemed worse. Raised/ragged facing edges
+and loose strands are visible; the low view shows local separation at the
+inward-facing tips. Blur and reflection limit complete contact assessment.
+Retained status is FAILED, print error 0 and no HMS, with layer reset to 0.
+Neither that reading nor the photographs supplies a lift-onset layer or a
+quantified comparison. The submitted file had zero added user Z trim and
+stock **−0.02 mm Textured PEI compensation**. The old monitor remains paused.
 
 The completed **left task 1371867808** has a [reported water hold](../prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json)
 on October 25. Derek says it turned out well so far and requests the other
@@ -14,7 +21,7 @@ side with the same settings. The older **265/270 °C task 1365626370** is also
 [still holding water](../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json);
 its initial October 23 report was one hour on the intentionally shortened
 article. Total ongoing durations, water heads, corner flatness and lift onset
-are unspecified. The selected repeat recipe retains **255/260 °C**.
+are unspecified. The selected Engineering Plate trial retains **255/260 °C**.
 
 Mark1 task **1364550539** is the completed
 [59° walls-only May Water trial](../prints/2026-10-22-mark1-walls-t59-right08-z000/README.md),
@@ -89,7 +96,7 @@ and a rough edge left after removal. His exact words and the recovered native
 settings are in the [historical recipe review](historical-recipe-review.json).
 The [recipe discussion](next-trial-options.json) takes the successful May
 Water recipe and ordinary Bambu motion settings as its reference. The selected
-[255/260 °C repeat settings](../prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/settings.json)
+[Engineering Plate trial settings](../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/settings.json)
 retain the [five-wall adaptation](../recipe-reviews/2026-10-22-flow105-overlap30/adaptation.json).
 The root project retains the 265/270 °C reference recipe.
 

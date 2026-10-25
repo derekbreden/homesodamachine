@@ -12,12 +12,18 @@ carries both mouths: the fill, and the dip tube the draw line becomes.
 [Level sensing](level-sensing.md) · [Floor and dip tube](floor-and-dip-tube.md) ·
 [Vent](vent.md)
 
-## Active right pair and selected recipe
+## Engineering Plate retry
 
-Mark1 task **1372664582** is printing the [right body and matching cap](prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/README.md)
-with the exact **255/260 °C** settings of the completed left pair. It starts on
-**A1 (65%)**, the most depleted matching spool, with **automatic refill** to
-A2–A4 (100% each at preflight).
+The [right reservoir and matching cap](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md)
+are **prepared, not sent**, for Mark1's glued **Engineering Plate**, with
+**0.00 mm Z compensation**. All other settings match the preceding right print.
+The Mac is locked; final Studio selections and Send await manual unlock.
+A1 reports **55%**, before matching A2–A4 at 100%, with automatic refill intended.
+
+The preceding **task 1372664582** has [reported persistent lifting](prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json)
+on Textured PEI, documented in two photographs. It reports FAILED with no
+print error/HMS. Its submitted G-code has zero added user trim and the stock
+**−0.02 mm Textured PEI compensation**. The Engineering Plate trial emits zero.
 
 The completed [left article, task 1371867808](prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json)
 is **holding water**, as reported by Derek on October 25. He reports it turned
@@ -27,9 +33,10 @@ heads are unspecified. [Acceptance records](water-hold-acceptance.json).
 
 The selected repeat recipe uses **1.05 flow, five requested Arachne wall loops,
 30% Infill/Wall overlap and 255/260 °C** first/subsequent nozzle temperatures.
-Use its [complete frozen settings](prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/settings.json)
-and [native two-plate source](prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/packaging.json)
-for repeats through Mark1's right **0.8 mm Standard** nozzle.
+Use the [Engineering Plate trial settings](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/settings.json)
+and [native source](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/packaging.json)
+for this retry through Mark1's right **0.8 mm Standard** nozzle. The completed
+left water-hold article used Textured PEI.
 
 [reservoir.3mf](reservoir.3mf) and [print-settings.json](print-settings.json)
 retain the **265/270 °C reference recipe** on the current left/right body/cap
@@ -57,7 +64,8 @@ conditional scarf seams retain the May 15% gap. Automatic Tree/Default supports
 serve the current geometry.
 
 **No brim, zero added user Z trim and ironing Off** are explicit selections.
-Stock Textured PEI compensation emits **`G29.1 Z-0.02`**.
+The Engineering Plate trial emits **`G29.1 Z0`**; the Textured PEI reference
+emits stock **`G29.1 Z-0.02`** compensation.
 [Complete settings](print-settings.json) · [Printing guide](watertight-petg.md) ·
 [Project verification](reservoir.print.json) · [Native slice review](slice-review.json).
 The left body/cap plate estimates **5 h 42 min and 444 g**, with a **70.5 mm**

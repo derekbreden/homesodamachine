@@ -1,17 +1,23 @@
 # Printing the reservoir in PETG
 
-Mark1 task **1372664582** is printing the [right body and matching cap](prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/README.md)
-with the exact settings of the completed [255/260 °C left article](prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/README.md),
-which Derek reports is **holding water** on October 25. He reports it turned
-out well so far and asks for the other side with the same settings. The older
-265/270 °C article is also still holding water. Use the selected recipe's
-[complete frozen settings](prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/settings.json)
-for repeats. The active right pair starts on **A1 (65%)** with automatic refill
-to matching A2–A4 (100% each at preflight). Its sealing is unassessed.
+The [same right reservoir and matching cap on glued Engineering Plate](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md)
+are **prepared, not sent** for Mark1. Studio access is blocked by the locked Mac;
+manual unlock is requested. The preceding [Textured PEI right article](prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json)
+has reported persistent lifting and no water-hold result.
 
-The selected repeat recipe is the table below, with **255/260 °C** first/subsequent
-nozzle temperatures. The root project and print-settings.json retain the
-**265/270 °C reference**; the active print uses the frozen 255/260 °C settings.
+The retry uses **Engineering Plate, 70 °C bed and 0.00 mm Z compensation**.
+Its [complete settings](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/settings.json)
+retain **255/260 °C**, flow 1.05, five walls and 30% overlap, and every other
+setting of that right print. Native temperature/cooling commands are identical;
+plate detection and compensation change. Native motion/extrusion sequences
+match on 832 of 833 layers, with variation only at layer 816 under the same
+random-seam settings. A1 reports 55%, with matching A2–A4 at 100% and automatic refill intended.
+
+The completed [255/260 °C left article](prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json)
+and older 265/270 °C article are reported holding water on October 25. Both
+used Textured PEI with zero added user trim. The table describes the selected
+Engineering Plate trial; it has no physical adhesion or sealing result yet.
+The root project and print-settings.json retain the 265/270 °C Textured PEI reference.
 
 [reservoir.3mf](reservoir.3mf) uses the **five-wall May Water adaptation**
 through Mark1's right 0.8 mm Standard nozzle: **flow 1.05, 30% Infill/Wall overlap,
@@ -29,7 +35,7 @@ identifies the current geometry and project. The baseline water-hold acceptance 
 `may-30-clear-06` in [water-hold-acceptance.json](water-hold-acceptance.json).
 Its water hold belongs to the historical May article. The 59° article [still leaks at the bottom and has a new vertical-edge defect](prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/physical-result.json). The preceding walls-only article has [reported seam leakage](prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json); corner-flatness and adhesion are not separately reported for that article.
 
-## Selected repeat recipe
+## Engineering Plate trial recipe
 
 | Parameter | Value |
 | --- | --- |
@@ -37,7 +43,8 @@ Its water hold belongs to the historical May article. The 59° article [still le
 | Filament | Bambu PETG Translucent Clear, GFG01 |
 | Layer height, first / subsequent | 0.30 / 0.24 mm |
 | Nozzle temperature, first / subsequent | 255 / 260 °C |
-| Textured PEI bed, first / subsequent | 70 / 70 °C |
+| Build plate | Engineering Plate, glued as reported by Derek |
+| Bed, first / subsequent | 70 / 70 °C |
 | Flow ratio / maximum volumetric speed | 1.05 / 21 mm³/s |
 | Requested outer / inner wall speeds | 200 / 300 mm/s |
 | Requested solid fill / sparse fill / top speeds | 250 / 350 / 200 mm/s |
@@ -56,12 +63,13 @@ Its water hold belongs to the historical May article. The 59° article [still le
 | Supports | Tree auto, bed only, 30° threshold |
 | Support top / bottom gap | 0.18 / 0.18 mm |
 | Support interface top / bottom layers | Two / two |
-| Saved printer trim | Mark1 clear PETG: zero added user trim |
+| Saved printer trim | Zero added user trim; Engineering Plate emits 0.00 mm |
 | Brim | None; no native brim paths |
 
-The start block clears user trim and emits **`G29.1 Z-0.02`**, the stock
-Textured PEI compensation for this 0.8 mm nozzle. This clear PETG recipe has no
-added Z lift. Its [first-layer failure record](prints/2026-10-20-mark1-right08/physical-result/physical-result.json)
+The Engineering Plate start block clears trim and emits **`G29.1 Z0`**:
+zero added user trim and **0.00 mm** plate compensation. The preceding Textured
+PEI right print used zero added user trim with stock **`G29.1 Z-0.02`**
+compensation. The earlier [first-layer failure record](prints/2026-10-20-mark1-right08/physical-result/physical-result.json)
 and [retry](prints/2026-10-21-mark1-right08-z000/README.md) bind the correction to
 this material and article. PET-GF profiles retain their own trim settings.
 

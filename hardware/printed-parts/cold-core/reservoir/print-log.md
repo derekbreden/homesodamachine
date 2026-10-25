@@ -580,3 +580,41 @@ and this right article's water holding are unassessed. Runtime timelapse is
 disabled during preparation; deposition activation is unobserved. No scheduled
 monitor was created or reactivated.
 [Launch, settings and native review](prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/README.md).
+
+
+### Result — persistent lifting on the right Textured PEI pair (2026-10-25)
+
+Derek reports and authorizes:
+
+> So the lifting seemed to have gotten worse on that one. I don't know. Sometimes when I've cleaned the textured plate, it's worked a little better, but we've had persistent lifting here. So I've gone ahead and switched Mark 1 out to the engineering plate and glued it up. And I'd like you to try to start a print of this same reservoir we just tried to print, with all the same settings and everything, just adjusted to use the engineering plate instead. No Z offset. I hope we didn't have a Z offset before. If we did, let me know, because we'd want to fix that first instead. But assuming we didn't have that incorrect on the last print, I've got the flat engineering plate set up for you here on Mark 1 now, glued and ready to go.
+
+Task **1372664582** has reported persistent lifting, seemingly worse to Derek,
+with raised/ragged facing edges and loose strands in two photographs. The low
+view shows local edge separation; blur/reflections prevent a complete contact
+assessment. Fresh retained status is **FAILED**, print error 0 and no HMS.
+Its layer has reset to 0, which cannot establish the stop or lift-onset layer.
+This right article has no reported water-hold test. The earlier left articles'
+reported water holds remain accepted.
+[Physical result and photographs](prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json).
+
+## Right pair, glued Engineering Plate retry — prepared (2026-10-25, Mark1)
+
+The same **right reservoir and cap** are prepared with **Engineering Plate**
+selected globally and in native plate metadata. The preceding submitted file
+has **zero added user Z trim** and stock Textured PEI **`G29.1 Z-0.02`**. The
+Engineering Plate slice emits **`G29.1 Z0`** for both reset and compensation.
+All other saved settings remain identical: **1.05 flow, five Arachne walls,
+30% overlap, 255/260 °C nozzle, 70 °C bed, 0.30/0.24 mm layers, no brim and
+ironing Off**, with retained May motion/cooling and automatic supports.
+
+Native temperature, cooling and other nonmotion commands match the preceding
+right print except plate-surface detection and Z compensation. Excluding `M73`
+progress reports, 832 of 833 model layers retain identical motion/extrusion
+sequences. Layer 816 (Z195.9 mm) has native path variation under the same saved
+random-seam settings; no G-code is hand-edited.
+The native estimate is **5 h 42 min 27 s / 444.21 g / 833 layers**, with no
+plate warning and **70.519 mm** minimum full-bead inset. Intended material start:
+**A1 (55%)**, then matching A2–A4 (100%), with automatic refill. **Not sent**:
+the Mac is locked, and CUA automatic unlock failed. Final Send selections,
+shared-circuit re-read and startup verification await manual unlock.
+[Prepared print and command comparison](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md).

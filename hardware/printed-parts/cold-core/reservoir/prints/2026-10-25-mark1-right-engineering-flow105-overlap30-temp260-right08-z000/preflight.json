@@ -1,0 +1,202 @@
+{
+  "Mark1": {
+    "job_id": "1372664582",
+    "subtask_name": "Flavor_reservoirs_-_PETG_0.24_mm",
+    "gcode_state": "FAILED",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 0,
+    "total_layer_num": 833,
+    "mc_percent": 0,
+    "mc_remaining_time": 0,
+    "bed_temper": 46.0,
+    "bed_target_temper": 0.0,
+    "nozzle_temper": 40.0,
+    "nozzle_target_temper": 0.0,
+    "stg_cur": -1,
+    "cooling_fan_speed": "0",
+    "big_fan1_speed": "0",
+    "big_fan2_speed": "0",
+    "heatbreak_fan_speed": "0",
+    "observed_at_utc": "2026-10-25T16:10:37.190080+00:00",
+    "printer": "Mark1",
+    "timelapse": "disable",
+    "ams": {
+      "tray_now": "0",
+      "tray_tar": "0",
+      "ams_exist_bits": "1",
+      "tray_exist_bits": "f"
+    },
+    "ams_units": [
+      {
+        "unit": "0",
+        "trays": [
+          {
+            "id": "0",
+            "tray_type": "PETG",
+            "tray_color": "00000000",
+            "tray_info_idx": "GFG01",
+            "remain": 55,
+            "state": 27
+          },
+          {
+            "id": "1",
+            "tray_type": "PETG",
+            "tray_color": "00000000",
+            "tray_info_idx": "GFG01",
+            "remain": 100,
+            "state": 11
+          },
+          {
+            "id": "2",
+            "tray_type": "PETG",
+            "tray_color": "00000000",
+            "tray_info_idx": "GFG01",
+            "remain": 100,
+            "state": 11
+          },
+          {
+            "id": "3",
+            "tray_type": "PETG",
+            "tray_color": "00000000",
+            "tray_info_idx": "GFG01",
+            "remain": 100,
+            "state": 11
+          }
+        ]
+      }
+    ],
+    "extruders": [
+      {
+        "id": 0,
+        "hnow": 0,
+        "snow": 0,
+        "temp": 40,
+        "stat": 395264
+      },
+      {
+        "id": 1,
+        "hnow": 1,
+        "snow": 65024,
+        "temp": 35,
+        "stat": 393216
+      }
+    ],
+    "nozzles": [
+      {
+        "id": 18,
+        "diameter": 0.4,
+        "type": "HS01"
+      },
+      {
+        "id": 1,
+        "diameter": 0.4,
+        "type": "HS01"
+      },
+      {
+        "id": 17,
+        "diameter": 0.2,
+        "type": "HS00"
+      },
+      {
+        "id": 20,
+        "diameter": 0.2,
+        "type": "HS00"
+      },
+      {
+        "id": 0,
+        "diameter": 0.8,
+        "type": "HS01"
+      }
+    ]
+  },
+  "Mark2": {
+    "job_id": "1372253517",
+    "subtask_name": "2026-10-24-industrial-sculpted-buttons-bands020v2-black-left04-z004-mark2.gcode.3mf",
+    "gcode_state": "FINISH",
+    "print_error": 0,
+    "hms": [
+      {
+        "attr": 201326848,
+        "code": 131095
+      }
+    ],
+    "layer_num": 1416,
+    "total_layer_num": 1416,
+    "mc_percent": 100,
+    "mc_remaining_time": 0,
+    "bed_temper": 25.0,
+    "bed_target_temper": 0.0,
+    "nozzle_temper": 27.0,
+    "nozzle_target_temper": 0.0,
+    "stg_cur": -1,
+    "cooling_fan_speed": "0",
+    "big_fan1_speed": "0",
+    "big_fan2_speed": "0",
+    "heatbreak_fan_speed": "0",
+    "observed_at_utc": "2026-10-25T16:10:37.474238+00:00",
+    "printer": "Mark2",
+    "timelapse": "disable",
+    "ams": {
+      "tray_now": "0",
+      "tray_tar": "255",
+      "ams_exist_bits": "0",
+      "tray_exist_bits": "0"
+    },
+    "ams_units": [],
+    "extruders": [
+      {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65535,
+        "temp": 33,
+        "stat": 0
+      },
+      {
+        "id": 1,
+        "hnow": 1,
+        "snow": 65024,
+        "temp": 27,
+        "stat": 393216
+      }
+    ],
+    "nozzles": [
+      {
+        "id": 17,
+        "diameter": 0.4,
+        "type": "HS01"
+      },
+      {
+        "id": 1,
+        "diameter": 0.4,
+        "type": "HS01"
+      },
+      {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      {
+        "id": 18,
+        "diameter": 0.2,
+        "type": "HS00"
+      },
+      {
+        "id": 20,
+        "diameter": 0.8,
+        "type": "HH01"
+      }
+    ]
+  },
+  "start_slot": "A1",
+  "spool_order": "Use the most depleted matching spool first. A1 reports 55%; A2-A4 each report 100%.",
+  "bed_clear_source": "Derek reports flat Engineering Plate installed, glued and ready on Mark1.",
+  "shared_circuit": {
+    "other_printer": "Mark2",
+    "observed_at_utc": "2026-10-25T16:10:37.474238+00:00",
+    "job_id": "1372253517",
+    "minimum_spacing_seconds": 180,
+    "verification": "Re-read the same idle finished task before Send; elapsed since initial observation is a lower bound on start spacing."
+  },
+  "submission_status": "Prepared; not sent. Mac locked at initial CUA access; unlock requested."
+}
