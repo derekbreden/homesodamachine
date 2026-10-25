@@ -870,41 +870,49 @@ def soda_out_guide_points():
     turns retain vertical end tangents; the guide is an ownership boundary
     in one continuous tube.
     """
+    import soda_inlet
     core = importlib.import_module('_cold_core_interface')
     frame = above_core.cap_lid_pose()
     lower = above_core.point(frame, (*core.cap_conduit_floor_xy['carb-water-out'], 0.))[:2]
-    upper = above_core.point(frame, (*core.cap_conduits['carb-water-out'], 0.))[:2]
-    face = above_core.specification()['cap_face_z_mm']
-    radius = 14.
-    return [(*lower, face-2.*radius), (*lower, face-radius),
-            (*upper, face-radius), (*upper, face)]
+    return soda_inlet.passage_points(lower)
 
 
 @lru_cache(maxsize=1)
 def soda_out_features():
-    """Curved D7.5 soda passage with the cap's complete 2 mm guide wall.
+    """Curved D7.5 soda passage with 3 mm side and roof stock.
 
-    The sleeve is clipped to the existing cup band and joins its floor.
-    The lid retains its full plate outside the matching curved passage.
-    No stock projects below the cup or changes the main foam shell.
+    Individual native line/arc sleeves join the established cup floor;
+    its horizontal backing is2.10mm. The sleeve is clipped at the existing
+    floor and lid bands, with no added projection below the cup.
     """
     import cadquery as cq
-    from _internal_routes import build_route
+    from _internal_routes import route_wire
 
     core = importlib.import_module('_cold_core_interface')
     points = soda_out_guide_points()
     points[0] = (*points[0][:2], points[0][2]-1.)
     points[-1] = (*points[-1][:2], points[-1][2]+1.)
-    air = build_route(points, 14., core.cap_conduit_bore_radius)
-    sleeve = build_route(points, 14., core.cap_conduit_boss_radius)
+    wire = route_wire(points,14.)
+    def pieces(radius):
+        return [cq.Workplane(cq.Plane(origin=edge.startPoint(),normal=edge.tangentAt(0.)))
+                .circle(radius).sweep(cq.Wire.assembleEdges([edge]),isFrenet=False).val()
+                for edge in wire.Edges()]
+    air_parts = pieces(core.cap_conduit_bore_radius)
+    air = air_parts[0].fuse(*air_parts[1:]).clean()
+    sleeve_parts = pieces(core.cap_conduit_bore_radius+3.)
     lid_bottom = above_core.cap_lid_pose()['translation_mm'][2]
     cup_bottom = lid_bottom-(core.foam_cap_height-core.head_pad_height)
-    b = sleeve.BoundingBox()
-    band = cq.Solid.makeBox(b.xlen+2., b.ylen+2.,
-        lid_bottom-core.cap_lid_clearance-cup_bottom-core.cap_shell_clearance,
-        cq.Vector(b.xmin-1., b.ymin-1., cup_bottom+core.cap_shell_clearance))
-    return {'cup_add': sleeve.intersect(band), 'cut': air,
-            'wall_mm': core.cap_conduit_wall}
+    def stock(z0,z1):
+        band=cq.Solid.makeBox(220.,330.,z1-z0,cq.Vector(-110.,170.,z0))
+        clipped=[part.intersect(band) for part in sleeve_parts]
+        clipped=[part for part in clipped if part.Solids()]
+        return clipped[0].fuse(*clipped[1:]).clean()
+    return {'cup_add': stock(cup_bottom+core.cap_shell_clearance,
+                             lid_bottom-core.cap_lid_clearance),
+            'lid_add': stock(lid_bottom,above_core.specification()['cap_face_z_mm']),
+            'cut': air,'wall_mm':3.,
+            'horizontal_floor_backing_mm': points[1][2]-core.cap_conduit_bore_radius
+                                           -cup_bottom-core.cap_shell_clearance}
 
 
 @lru_cache(maxsize=1)
