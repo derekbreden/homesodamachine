@@ -38,8 +38,7 @@ The merged scan therefore cannot establish an absolute terminal seam or minimum
 ring size. Read pass by pass, all three collets give **Ø10.43 mm** median over twelve
 readings, 10.24–10.77, each resting near the pressed end
 ([`collet-passes.json`](../jg-pp0208e-tee/collet-passes.json)). Release moves only the terminal proxy and preserves both the fixed
-collar and reduced barrel. The printed **Ø8.5 mm circular tube opening** retains
-a full flat annular bearing; actual release performance still requires the part.
+collar and reduced barrel.
 
 The bores show Ø6.35 mm tube clearance. They do not claim teeth, O-rings, the
 hydraulic bore or an inferred internal stop. The stop is the measured insertion
@@ -71,32 +70,25 @@ branch sleeve's face with the sleeve pulled out.
 | the tube bottoms, branch sleeve extended | 11.5 mm (`BRANCH_INSERTION_EXTENDED`) |
 
 The collet and its gripping teeth move during locking; the internal tube stop stays in the
-body. The measured sleeve stroke sets the tees' fore-to-aft movement. The 7 and 8.5 mm
-insertion observations describe how the tube enters the fitting.
+body. The 7 and 8.5 mm insertion observations describe how the tube enters the fitting.
 
-At the fore stop the plate holds each sleeve fully depressed and a bottomed tube projects
-10 mm beyond that face. The return stroke is the 1.50 mm of branch-sleeve extension, the nose
-staying at the plate throughout. Tube length places each tip at the internal stop at connected
-with the cartridge fully seated: 11.50 mm beyond the extended branch sleeve. The tubes bottom
-with the cartridge up to 1.50 mm short of seating, the whole 1.50 mm with a tee at the fore
-stop; it advances through that to seat, pushing each tee back to connected.
+In the [pump dock](../../printed-parts/enclosure/pump-dock/README.md) each branch sleeve
+stands extended and grips its pump tube, and the tube bottoms at the internal stop: 11.50 mm
+beyond the extended branch sleeve's face.
 
 ## Observed push-connect action
 
 Derek's physical checks use a tube-tight collar to hold the collet while the tube moves:
 
 - With the collar continuously holding the collet in, the tube withdraws easily with a
-  small pull. Derek considers four times that single-connection effort comfortable for
-  cartridge removal.
+  small pull.
 - A collet that is free to move follows an extracting tube outward and locks again, even
   if it was pressed inward immediately beforehand. Release requires continued restraint
   throughout withdrawal.
 - A very small separating tug on either the tube or the fitting draws the collet into its
-  locked position. The required movement is the collet's short travel; Derek judges the
-  effort compatible with spring return.
+  locked position. The required movement is the collet's short travel.
 - During insertion, the tube pushes an extended collet inward, including against a small
   spring-level outward force.
 
-The fixed enclosure plate supplies the continuous collet restraint during cartridge removal.
 These observations establish the connection action. They contain no instrumented force
 reading.

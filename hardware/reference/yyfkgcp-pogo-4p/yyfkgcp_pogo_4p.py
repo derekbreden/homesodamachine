@@ -1,8 +1,6 @@
-"""YYFKGCP 4-pin magnetic pogo connector with ears — the pump cartridge's contact pair
-(Amazon B0GCBNTBT8, `ledger/purchases.md` §9). The FEMALE half, four flush gold pads between
-two magnets, rides the cartridge in the top clamp's flat back; the MALE half, four spring pins
-between two magnets, stands in the bay bulkhead facing it. Sliding the cartridge home mates the
-pair, so the pumps connect without a cord.
+"""YYFKGCP 4-pin magnetic pogo connector with ears (Amazon B0GCBNTBT8, `ledger/purchases.md`
+§9). The FEMALE half carries four flush gold pads between two magnets; the MALE half carries
+four spring pins between two magnets. Pressed face to face, the halves mate on their own axis.
 
 External envelope only, read off the listing's two drawings. Either half is one moulded body
 4.00 deep: a 17.54 x 4.00 stadium NOSE from the mating face to the ear plate, the EAR PLATE
