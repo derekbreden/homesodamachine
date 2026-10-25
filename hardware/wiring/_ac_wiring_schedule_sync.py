@@ -111,7 +111,7 @@ solenoid_count = 10
 # All values mm except where noted.
 len_short_mm = 150      # AC-3: 60 mm modeled centreline plus termination/dressing reserve.
 len_short_2_mm = 200    # AC-2: 85 mm maximum modeled centreline plus fitting reserve.
-len_dc1_mm = 250        # PSU secondary → core DC WAGOs: 163 mm maximum plus reserve.
+len_dc1_mm = 350        # PSU secondary → core DC WAGOs: 283.293 mm modeled maximum; 66.707 mm reserve.
 len_dc2_mm = 350        # Core V12 WAGO → relay 2: 244 mm plus reserve.
 len_mid_mm = 150        # AC-1 (C14 → distribution block, over the foam-cap top), DC-4
 len_pump_mm = 350       # DC-3: 249 mm maximum modeled centreline plus fitting reserve.
