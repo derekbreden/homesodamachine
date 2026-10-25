@@ -97,8 +97,9 @@ Its inlet uses level stem elbows with a 10.95 mm exposed straight tube;
 its return crosses west above the PCB at Y280.69954 to the union at
 X−24.83652/Z290.79407, then follows a 2 mm crowned R27.44 return into Y-B.
 The union has a direct lid support near its fixed body band. Terminate the
-PCB power connections before fitting the return. J11 unmates 6 mm upward,
-moves 6 mm east, then lifts 20 mm with the funnel frame and drain removed.
+PCB power connections before fitting the return. Disconnect and move aside
+the flexible V-B return for J11 service. J11 unmates 6 mm upward, moves 6 mm
+east, then lifts 20 mm with the funnel frame and drain removed.
 The meter's origin is X50/Y390.9148/Z306.376.
 Two 6 mm fixed-collar bearings reach the east wall through 9 × 3 mm beams.
 The fore beam has a flat dogleg around the gas-drop column; the aft beam

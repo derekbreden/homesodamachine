@@ -34,7 +34,6 @@ from reservoir import insert_positions_for_side_plus_1
 from faucet_shell import base_pod_centers
 
 import manifold_layout as ml
-import dock_retention
 import _facts
 import enclosure_assembly as _ea  # noqa: F401  — holds the closure these docs watch
 import ground_ring_stack as _gnd  # on the path once `enclosure_assembly` is imported
@@ -100,10 +99,9 @@ carbonator_ports = 4
 # Flavor reservoirs per appliance.
 reservoirs_per_build = 2
 
-# One inserted RC62 per vessel float. Cartridge retention uses stepped block magnets.
+# One inserted RC62 per vessel float.
 floats_per_build = 1 + reservoirs_per_build
 rc62_per_build = floats_per_build
-dock_magnets_per_build = 2 * len(dock_retention.stations(_f.box["collet_plate"]["holes"]))
 
 # Carbonator reeds (threshold-only). Per-reservoir count lives in
 # `_reed_channels.py`.
@@ -211,7 +209,7 @@ faucet_display_cover_inserts_per_build = len(faucet_display_cover_stations)
 faucet_display_cover_screws_per_build = faucet_display_cover_inserts_per_build
 
 # Electronics use their native hole patterns and the selected wall fastener plans.
-# PCB inserts belong to the cap count; the wall relays use full-length inserts.
+# PCB inserts belong to the cap count; wall relays use short inserts.
 psu_fasteners = _selected_shell.psu_fastener_plan()
 relay_fasteners = _selected_shell.relay_fastener_plan()
 shelf_psu_screws_per_build = psu_fasteners['count']
@@ -306,15 +304,15 @@ funnel_frame_screws_per_build = len(_enc._funnel_frame_part.fastener_datums())
 roof_closure_screws_per_build = funnel_frame_screws_per_build
 roof_closure_inserts_per_build = roof_closure_screws_per_build
 
-# M3×8 screws retain the PCB, condenser and faucet base.
+# M3×8 screws retain the PCB, relay diagonals, condenser and faucet base.
 m3x8_per_build = (shelf_pcba_screws_per_build + cond_screws_per_build
+                  + shelf_relay_screws_per_build
                   + nameplate_screws_per_build + display_cover_screws_per_build
                   + faucet_display_cover_screws_per_build
                   + touchflo_screws_per_build)
 
-# Earth, C14 and the relay diagonals use M3×10.
-m3x10_per_build = (shelf_ground_screws_per_build + c14_screws_per_build
-                   + shelf_relay_screws_per_build)
+# Earth and C14 use M3×10.
+m3x10_per_build = shelf_ground_screws_per_build + c14_screws_per_build
 m3x20_per_build = pump_mount_screws_per_build
 
 # The PCB stack belongs to the cap; PSU and relay stacks belong to the wall.
@@ -332,9 +330,6 @@ pcba_screw_reach = deck_mount_reach('pcba')
 relay_screw_reach = min(relay_fasteners['receiving_range_mm'])
 c14_screw_reach = c14_screw_len - _c14.FLANGE_T - c14_washer_thickness
 
-# One screw and insert per ear, on each of the magnetic pair's two halves.
-pogo_fasteners_per_build = 2 * len(_enc._pogo.ear_xs())
-
 # And every M3 x 60: the pump clamp's two, the one station whose screw is as long as the field
 # it crosses.
 m3x60_per_build = pump_cap_screws_per_build
@@ -351,7 +346,7 @@ m3x12_per_build = (dock_fixture_locks_per_build + roof_closure_screws_per_build
 #
 # Short insert families and the stock available behind their seats:
 #   touch-flo base pods  — the blind pilots receive 4 mm inserts above the locating sockets
-#   PSU wall ears and cap earth boss — their screws use the short family
+#   PSU/relay wall hosts and cap earth boss — their screws use the short family
 m3_long_inserts_per_build = (
     foam_cap_inserts_per_build
     + reservoir_cap_inserts_per_build
@@ -360,7 +355,6 @@ m3_long_inserts_per_build = (
     + display_cover_inserts_per_build
     + pump_cap_inserts_per_build
     + roof_closure_inserts_per_build
-    + shelf_relay_screws_per_build
 )
 m3_short_inserts_per_build = (
     touchflo_inserts_per_build
@@ -368,6 +362,7 @@ m3_short_inserts_per_build = (
     + faucet_display_cover_inserts_per_build
     + c14_inserts_per_build
     + dock_fixture_locks_per_build
+    + shelf_relay_screws_per_build
 )
 
 # Combined heat-set insert count across the appliance, by thread.
@@ -421,8 +416,6 @@ def main(*, only_bom=False):
         "AERO_FLOATS": f"{floats_per_build:.4g}",
         "RC62_TOTAL": f"{rc62_per_build:.4g}",
         "RC62_COST": pack_line_cost(rc62_per_build, "88.28", 30),
-        "DOCK_MAGNETS": f"{dock_magnets_per_build:.4g}",
-        "DOCK_MAGNET_COST": pack_line_cost(dock_magnets_per_build, "70.54", 50),
         # Reeds.
         "REEDS_PER_RES": f"{reeds_per_reservoir:.4g}",
         "CARB_REEDS": f"{reeds_per_carbonator:.4g}",
@@ -480,6 +473,7 @@ def main(*, only_bom=False):
         "RELAY_INSERT_LEN": f"{relay_fasteners['insert_length_mm']:g}",
         "RELAY_BEARING_TIP": f"{relay_fasteners['bearing_tip_height_mm']:g}",
         "RELAY_BACKING": f"{relay_fasteners['minimum_blind_backing_mm']:.3g}",
+        "RELAY_FLUTED_BACKING": f"{relay_fasteners['minimum_fluted_backing_mm']:.3g}",
         "RELAY_BORE": f"{relay_bore:.3g}",
         "RELAY_SCREW_REACH": f"{relay_screw_reach:.3g}",
         "RELAY_SCREW_TIP": f"{relay_bore - relay_screw_reach:.3g}",
@@ -559,13 +553,6 @@ def main(*, only_bom=False):
         "M3_LONG_INSERTS_COST": pack_line_cost(m3_long_inserts_per_build, "10.71", 100),
         "M3_SHORT_INSERTS": f"{m3_short_inserts_per_build:.4g}",
         "M3_SHORT_INSERTS_COST": pack_line_cost(m3_short_inserts_per_build, "10.71", 100),
-        "POGO_FASTENERS": f"{pogo_fasteners_per_build:.4g}",
-        "POGO_INSERTS_COST": pack_line_cost(pogo_fasteners_per_build, "8.57", 200),
-        "POGO_SCREWS_COST": pack_line_cost(pogo_fasteners_per_build, "8.78", 50),
-        "POGO_INSERT_SETBACK": f"{_enc.pogo_heatset_setback:.4g}",
-        "POGO_INSERT_HOST_DEPTH": f"{_enc._pogo.ear_back() + _enc.pogo_heatset_setback + _enc.pump_contact_face_recess:.4g}",
-        "POGO_THREAD_ENGAGEMENT": f"{max(0.0, min(_enc.pogo_heatset_len, _enc._pogo.EAR_FACE + _enc.pogo_screw_len - _enc._pogo.ear_back() - _enc.pogo_heatset_setback)):.4g}",
-        "POGO_SCREW_TIP_AIR": f"{_enc._pogo.ear_back() + _enc.pogo_heatset_setback + _enc.pogo_heatset_len + _enc.pogo_heatset_relief - _enc._pogo.EAR_FACE - _enc.pogo_screw_len:.4g}",
         "C14_INSERTS": f"{c14_inserts_per_build:.4g}",
         "C14_SCREWS": f"{c14_screws_per_build:.4g}",
         "TOTAL_M5_INSERTS": f"{total_m5_inserts_per_build:.4g}",
@@ -634,8 +621,6 @@ def main(*, only_bom=False):
             "DISPLAY_COVER_SCREWS": f"{display_cover_screws_per_build:.4g}",
             "PUMP_CAP_SCREWS": f"{pump_cap_screws_per_build:.4g}",
             "DOCK_LOCKS": f"{dock_fixture_locks_per_build:.4g}",
-            # The blocks loaded at the front-top and cartridge print pauses.
-            "DOCK_MAGNETS": f"{dock_magnets_per_build:.4g}",
             "C14_SCREWS": f"{c14_screws_per_build:.4g}",
             "ROOF_CLOSURE_SCREWS": f"{roof_closure_screws_per_build:.4g}",
             "NAMEPLATE_SCREWS": f"{nameplate_screws_per_build:.4g}",
