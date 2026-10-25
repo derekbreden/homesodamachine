@@ -1,0 +1,82 @@
+{
+  "printedSculpted": {
+    "wing_reach_extension_mm": 0.0,
+    "bezel_top_n_mm": 18.85,
+    "bezel_inner_n_mm": 17.55,
+    "glass_gap_mm": 0.10000000000000142,
+    "bezel_thickness_mm": 1.3000000000000007,
+    "lip_top_to_bezel_inner_mm": 11.25,
+    "lip_bottom_top_n_mm": [
+      3.3,
+      6.3
+    ],
+    "seated_cover_to_tip_intersection_mm3": 0.0,
+    "display_body_to_cover_intersection_mm3": 0.0,
+    "screen_to_cover_intersection_mm3": 0.0,
+    "valid_single_solid": true,
+    "volume_mm3": 3068.5341656064643
+  },
+  "correctedSculpted": {
+    "wing_reach_extension_mm": 0.5,
+    "bezel_top_n_mm": 19.35,
+    "bezel_inner_n_mm": 18.05,
+    "glass_gap_mm": 0.6000000000000014,
+    "bezel_thickness_mm": 1.3000000000000007,
+    "lip_top_to_bezel_inner_mm": 11.75,
+    "lip_bottom_top_n_mm": [
+      3.3,
+      6.3
+    ],
+    "seated_cover_to_tip_intersection_mm3": 0.0,
+    "display_body_to_cover_intersection_mm3": 0.0,
+    "screen_to_cover_intersection_mm3": 0.0,
+    "valid_single_solid": true,
+    "volume_mm3": 3137.3495825069335
+  },
+  "extraOneMillimeter": {
+    "wing_reach_extension_mm": 1.0,
+    "bezel_top_n_mm": 19.85,
+    "bezel_inner_n_mm": 18.55,
+    "glass_gap_mm": 1.1000000000000014,
+    "bezel_thickness_mm": 1.3000000000000007,
+    "lip_top_to_bezel_inner_mm": 12.25,
+    "lip_bottom_top_n_mm": [
+      3.3,
+      6.3
+    ],
+    "seated_cover_to_tip_intersection_mm3": 0.0,
+    "display_body_to_cover_intersection_mm3": 0.0,
+    "screen_to_cover_intersection_mm3": 0.0,
+    "valid_single_solid": true,
+    "volume_mm3": 3201.4707152976666
+  },
+  "industrial": {
+    "wing_reach_extension_mm": 0.5,
+    "bezel_top_n_mm": 19.35,
+    "bezel_inner_n_mm": 18.05,
+    "glass_gap_mm": 0.6000000000000014,
+    "bezel_thickness_mm": 1.3000000000000007,
+    "lip_top_to_bezel_inner_mm": 11.75,
+    "lip_bottom_top_n_mm": [
+      3.3,
+      6.3
+    ],
+    "seated_cover_to_tip_intersection_mm3": 0.0,
+    "display_body_to_cover_intersection_mm3": 0.0
+  },
+  "tube_crown_n_mm": 17.527512922,
+  "nominal_arch_cutout_clearance_at_crown_mm": {
+    "printedSculpted": 0.15,
+    "industrial": 0.65,
+    "correctedSculpted": 0.65
+  },
+  "retained": {
+    "display_foot_bearing_n_mm": 7.1,
+    "display_drop_mm": 4.5,
+    "foot_recess_depth_mm": 1.0,
+    "radial_lip_engagement_mm": 1.1999999999999993,
+    "preload_at_lip_top_mm": 1.25
+  },
+  "baseline_native_volume_difference_mm3": -1.5558025097561767e-05,
+  "recorded_at_utc": "2026-10-25T00:46:41.349186+00:00"
+}

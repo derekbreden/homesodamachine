@@ -18,6 +18,13 @@ to the identified pre-clearance-change STL. The current seat and bezel add
 1.50 mm outward clearance while retaining the neck snap datums.
 Numerical force and cycle life have not been measured.
 
+The [lowered-head fit review](fit-review/2026-10-24/README.md) records the
+October 24 black Sculpted cover's installation failure and a working Industrial
+control on the same tip. Its corrected print variant includes two local switch
+pockets in the tip and 0.50 mm extra Sculpted cover reach with matching arch
+relief. This variant retains the lowered display and four foot recesses; its
+physical fit is separate from the earlier accepted covers above.
+
 ## Geometry
 
 The planar face is [27.5 mm](PLATE_X) wide and [48.49 mm](PLATE_S) long. Its

@@ -44,9 +44,12 @@ translated +7.35 mm in Z to put the metal feet at zero. Optional header rows
 The vendor PCB underside is Z 4.000 mm; the caliper measurement is Z 3.900 mm.
 PCB-attached component bounds are shifted down by that 0.100 mm difference.
 The four metal feet (indices 241–244) retain their zero datum and use cylinders
-enclosing their hexagonal sections. Other components use bounding boxes extended
-upward to the PCB, enclosing any small solder gap. These are
-clearance envelopes; they do not reproduce the components' visible details.
+enclosing their hexagonal sections. Most other components use bounding boxes
+extended upward to the PCB, enclosing any small solder gap. The two side switches
+(vendor indices 211 and 212) use the complete vendor housing, metalwork and round
+actuator shapes in [`buttons.json`](buttons.json), with the same PCB-height
+correction. Their lowest point is 0.6000 mm above the metal-foot datum. The
+assembly uses these switch shapes in place of their bounding boxes.
 The model's tube and ribbon clearances need confirmation on the assembled
 device because the vendor STEP is not a dimensional inspection of the part
 in hand.

@@ -1,5 +1,32 @@
 # Industrial faucet print log
 
+## Complete Industrial faucet with button relief — 2026-10-24, Mark2
+
+Mark2 accepted the [complete corrected five-part set](prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md)
+as task **1372253517**, observed PREPARE at **20:09:23 CDT**, no print error or
+HMS. At **20:10:37 CDT**, the exact task is RUNNING at 0/1416 merged layer
+planes, 392 minutes remaining, no print error and no HMS. The tip has two local 1 mm switch pockets and retains its lowered display
+seat and four foot recesses. The Sculpted cover matches the working Industrial
+control's 0.50 mm extra reach and arch offset. The base uses 0.20 mm in print
+Z17–29 and Z55.16–68.12 mm; first and ordinary layers are 0.24 mm. The native
+commands contain 125 base layers at 0.20 mm; all other parts retain 0.24 mm.
+The warning-free slice estimates **6 h 32 min 9 s / 160.58 g** and keeps at least
+**42.1365 mm** of full-bead bed margin. Black PET-GF, fixed left hardened 0.4 mm,
+Textured PEI, Mark2 +0.04/+0.02 mm trim, selected supports, seams, localized
+cooling and standing calibration options are retained. Physical fit is untested.
+
+## Sculpted cover and display-button fit — 2026-10-24
+
+The [nine physical photographs](prints/2026-10-24-sculpted-cover-uniform024-mark2/physical-result/physical-result.json)
+record repeated installation failure of the lowered Sculpted cover, while the
+square Industrial cover repeatedly fits the same newest printed tip tightly.
+Close photographs identify the side switch housing bearing on the unrelieved
+ledge beside a mounting-post recess. The
+[fit correction](../faucet-display-cover/fit-review/2026-10-24/README.md) has two
+local 1 mm switch pockets and matches the Industrial control's 0.50 mm cover
+reach and arch offset. The [requested complete fit print](prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md)
+uses 0.20 mm layers in the selected base bands and 0.24 mm elsewhere.
+
 ## Complete Industrial faucet with Sculpted cover — 2026-10-24, Mark2
 
 Mark2 accepted the [complete five-part black PET-GF set](prints/2026-10-24-sculpted-cover-uniform024-mark2/README.md)
@@ -8,7 +35,8 @@ the accepted 4.5 mm lower shared tip with four 1 mm foot recesses, a matching
 lowered Sculpted display cover, rigid Industrial counter plate and side-down
 lever. The Sculpted cover retains its broad-wing geometry and fixed snap
 datums. Its native seated solid has zero intersection volume with the accepted
-tip; physical fit and retention of this cover are pending.
+tip. The linked physical record reports repeated installation failure of this
+Sculpted cover and identifies the local button bearing problem.
 
 All **1,022** native layer planes advance by **0.24 mm**, including the first
 bed layer. Fine-layer ranges are empty and independent support layer height is

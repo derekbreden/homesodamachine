@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "selected_date": "2026-10-24",
-  "selection_basis": "Derek requests uniform 0.24 mm layers throughout the complete faucet, including the first bed layer. Selected seams, localized cooling and edge supports are retained.",
+  "selection_basis": "Derek selects 0.20 mm layers in the two base bands; ordinary and first bed layers are 0.24 mm. Selected seams, localized cooling and edge supports are retained.",
   "seam_specimen": "A2",
   "seam_parts": [
     "industrial-shell-base",
@@ -58,9 +58,18 @@
     "cooling_policy": "hardware/printed-parts/cooling/README.md"
   },
   "wall_generators": "Retain base Arachne for the continuous reinforced foot; other rigid parts retain Classic.",
-  "base_fine_bands_print_z_mm": [],
+  "base_fine_bands_print_z_mm": [
+    [
+      17.0,
+      29.0
+    ],
+    [
+      55.16,
+      68.12
+    ]
+  ],
   "first_bed_layer_height_mm": 0.24,
-  "scope": "Selected complete Industrial print recipe with uniform 0.24 mm layers requested by Derek. Prior physical results retain their identified geometry, layer-height and material scope.",
+  "scope": "Selected complete Industrial print recipe: 0.20 mm in the two base bands, 0.24 mm elsewhere. Physical results retain their identified geometry, layer-height and material scope.",
   "seam_selection_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/launch.json",
   "default_printer": "Mark1",
   "default_filament_colour": "#000000",
@@ -137,7 +146,8 @@
     "selection_quote": "That worked. That disc works in this case, and is removable, but it leaves a bit of a scuff that would be a problem on a visible surface, but since its on the male insertion portion that is hidden, we are golden here."
   },
   "normal_layer_height_mm": 0.24,
-  "uniform_layer_height": true,
+  "uniform_layer_height": false,
   "independent_support_layer_height": false,
-  "layer_selection_quote": "So it's the same layer height throughout the print."
+  "layer_selection_quote": "I think I\u2019d like to see 0.20 layers in the same bands we had 0.12 layers in before.",
+  "fine_layer_height_mm": 0.2
 }

@@ -24,8 +24,12 @@ The [Sculpted cover geometry reading](cover-geometry.json) records its matching
 4.5 mm lower display position, fixed N3.30–6.30 snap lips, 1.30 mm bezel and
 0.10 mm nominal glass-to-bezel gap. The printable cover is one valid solid;
 the nominal seated cover has zero native intersection volume with the accepted
-tip. This is a geometric fit check. Physical fit and retention of the lowered
-Sculpted cover await this print.
+tip. This is a geometric fit check. The
+[physical result and nine photographs](physical-result/physical-result.json)
+record repeated Sculpted installation failure, a tight but working Industrial
+control on the same printed tip, and the side button housing bearing at the tip
+ledge. The [corrected fit print](../2026-10-24-buttons-sculpted-bands020-mark2/README.md)
+includes local button pockets and the Industrial control's extra cover reach.
 
 All 1,022 native layer planes advance by 0.24 mm, beginning at Z0.24. The
 first bed layer is also 0.24 mm. Fine ranges and adaptive layer profiles are

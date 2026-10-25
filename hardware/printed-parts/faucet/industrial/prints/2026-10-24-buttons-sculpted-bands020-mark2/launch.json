@@ -1,0 +1,56 @@
+{
+  "printer": "Mark2",
+  "observed_at": "2026-10-25T01:09:23.268955+00:00",
+  "gcode_state": "PREPARE",
+  "subtask_name": "2026-10-24-industrial-sculpted-buttons-bands020v2-black-left04-z004-mark2.gcode.3mf",
+  "task_id": "1372253517",
+  "job_id": "1372253517",
+  "subtask_id": "1372253517",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 1022,
+  "total_layer_num": 1022,
+  "mc_remaining_time": 0,
+  "mc_percent": 0,
+  "nozzle_temper": 28.0,
+  "nozzle_target_temper": 0.0,
+  "bed_temper": 25.0,
+  "bed_target_temper": 0.0,
+  "archive": {
+    "name": "2026-10-24-industrial-sculpted-buttons-bands020v2-black-left04-z004-mark2.gcode.3mf",
+    "sha256": "1f2c95d3d313d5569c276fb8ea344d9a1e400f8a51fea7491846d6612e04df1f",
+    "gcode_sha256": "6ed4af1db2343dd8c2fd36f81f890b0c61875677568183a987b7eebb7c70d078",
+    "objects": [
+      "industrial-shell-base",
+      "faucet-shell-tip",
+      "sculpted-display-cover",
+      "industrial-above-counter-plate",
+      "lever-replica"
+    ]
+  },
+  "printer_task_id": "1372253517",
+  "send_method": "Bambu Connect foreground CUA input",
+  "send_click_count": 1,
+  "launch_options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "external_spool_mapping": {
+    "left": 254,
+    "type": "PET-CF",
+    "colour": "161616FF"
+  },
+  "selected_plate": "Textured PEI Plate",
+  "peer_printer_spacing": {
+    "peer": "Mark1",
+    "already_running_observed_at": "2026-10-25T00:56:42.001031+00:00",
+    "peer_layer_at_that_reading": 319,
+    "peer_still_running_at_preflight": "2026-10-25T01:07:57.782438+00:00",
+    "minimum_required_seconds": 180,
+    "verified_elapsed_before_send_seconds": 722
+  },
+  "existing_hms_scope": "Preflight contains the previously recorded nozzle camera notification; accepted job reports no HMS.",
+  "authorization_quote": "Mark2 bed is clear, start your next print when you\u2019re ready."
+}

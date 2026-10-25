@@ -945,14 +945,27 @@ display_screen_depth = 0.4
 _display_component_path = (Path(__file__).resolve().parents[1]
                            / "reference/touch-flo-faucet/display-reference/component-envelopes.json")
 _display_components = json.loads(_display_component_path.read_text())
+_display_button_path = _display_component_path.parent / "buttons.json"
+_display_buttons = json.loads(_display_button_path.read_text())
 if abs(_display_components["measured_pcb_underside_above_feet_mm"] - display_pcb_bottom_z) > 1e-6:
     raise ValueError("display component envelopes need the current measured PCB height")
 
 
+def build_display_buttons_native():
+    """Vendor switch housings and actuators, corrected to the measured PCB height."""
+    return cq.Workplane(obj=cq.Compound.makeCompound([
+        cq.importers.importStep(str(_display_button_path.parent / row["file"])).val()
+        for row in _display_buttons["buttons"]
+    ]))
+
+
 def build_display_components_native():
-    """Conservative underside component envelopes in the display's native frame."""
+    """Underside envelopes with the two complete vendor switch shapes."""
     bodies = []
+    button_indices = {row["vendor_solid_index"] for row in _display_buttons["buttons"]}
     for row in _display_components["components"]:
+        if row["vendor_solid_index"] in button_indices:
+            continue
         cylinder = row.get("conservative_cylinder")
         if cylinder is not None:
             x, y = cylinder["center_xy_mm"]
@@ -966,6 +979,7 @@ def build_display_components_native():
         top = max(high[2], display_pcb_bottom_z + 0.02)
         bodies.append(cq.Solid.makeBox(high[0] - low[0], high[1] - low[1],
                                       top - low[2], cq.Vector(*low)))
+    bodies.extend(build_display_buttons_native().val().Solids())
     return cq.Workplane(obj=cq.Compound.makeCompound(bodies))
 
 
