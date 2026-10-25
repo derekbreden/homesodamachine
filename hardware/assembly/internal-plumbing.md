@@ -244,6 +244,23 @@ line is its reservoir's dip tube: cut it long enough to reach the reservoir's fl
 end at 45°, straighten it by hand, and feed it down its draw conduit and the cap's draw bore
 until the tip touches the floor
 ([floor and dip tube](/hardware/printed-parts/cold-core/reservoir/floor-and-dip-tube.md)).
+
+Reservoir A's two continuous tubes share integral paired seats at Y205 and
+Y304 mm. Draw is west of fill: their centreline X stations are 50.5/58 mm
+at the fore seat and 86.5/94 mm at the aft seat, both at Z259.5 mm. Thread
+one four-inch narrow tie through each empty seat's transverse slot before
+laying in the pair; retain both tubes with that shared tie. Keep each tube
+unbroken through its plain core guide. The drawn warm spans are
+[425.843 mm](RESERVOIR_A_FILL_WARM) for `fluid-14` fill and
+[418.391 mm](RESERVOIR_A_DRAW_WARM) for `fluid-16` draw. Each includes a
+12.7 mm estimated front-valve receiving allowance. For the physical blank,
+continue through the guide to the reservoir fill bore or dip-tube tip and
+replace the valve allowance with its actual fully seated insertion mark.
+The guide adds no fitting, insertion or cut. The nominal closed tie path is
+47.182 mm before head engagement and tail; threading and retention remain
+unqualified. The [route record](/hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json)
+preserves the selected line/arc definitions and contact scope.
+
 Reservoir B fill turns through two actual compact fittings below the lid and emerges aft of the PCB. Its lower stem enters the reservoir cap's existing fill bore; the short link between fittings has known exposed length, while the JG socket insertion remains unmeasured. A-fill and B-draw use shallow guide offsets. Dress and tag the front-top ends on the bench, and connect the remaining ends through the open roof before fitting the closures. Keep access to the lower returns' elbows and their collets.
 
 The carbonated-water riser leaves `carb-water-out` directly for the rear middle-right rear

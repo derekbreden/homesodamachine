@@ -45,6 +45,7 @@ import teyleten_relay as _relay  # likewise
 import pcba_tray as _pcba  # likewise
 import _above_core_shell as _selected_shell
 import _above_core_mounts as _selected_cap
+import _reservoir_a_anchors
 import above_core as _above_core
 import above_core_wiring as _above_core_wiring
 import above_core_bom as _above_core_bom
@@ -124,8 +125,10 @@ reeds_per_carbonator = 2
 solenoid_count = sum(1 for n in ml.P if n.startswith("V-"))
 tee_count = len(ml.PURCHASED_TEES)
 
-# Cable management (~15) and two vent-adapter lands use four-inch stock.
-four_inch_ties_per_build = 15 + 2
+# Cable management, vent-adapter lands and one shared tie at each paired
+# Reservoir A anchor use four-inch stock.
+reservoir_a_ties_per_build = len(_reservoir_a_anchors.datums())
+four_inch_ties_per_build = 15 + 2 + reservoir_a_ties_per_build
 # One six-inch tie at each selected fluid saddle and explicit cap retaining path.
 # This allocates owned stock; installed loop fit/retention remain unqualified.
 _cap_retaining_paths = {**_selected_cap.meter_tie_routes(),
@@ -439,6 +442,7 @@ def main(*, only_bom=False):
         "TEES_COST": pack_line_cost(tee_count, "42.68", 20),
         "FOUR_INCH_TIES": f"{four_inch_ties_per_build:.4g}",
         "FOUR_INCH_TIES_COST": pack_line_cost(four_inch_ties_per_build, "4.28", 200),
+        "RESERVOIR_A_TIES": f"{reservoir_a_ties_per_build}",
         "SIX_INCH_TIES": f"{six_inch_ties_per_build:.4g}",
         "SIX_INCH_TIES_COST": pack_line_cost(six_inch_ties_per_build, "6.42", 100),
         "SOLID16_CUT_LENGTH": f"{solid16_cut_m:g} m",
