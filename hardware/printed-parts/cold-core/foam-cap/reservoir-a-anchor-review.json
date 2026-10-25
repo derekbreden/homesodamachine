@@ -993,5 +993,88 @@
     "executed_source_sha256": "43474fa9f8515ab87d47e58d52f77eb5ba2916c69204eefa68342f919fc5ce3d",
     "current_source_sha256": "0d1ff2e632a3c162bcda2949d4c5263ba30bc5edf025b778a40be52dab9add9c",
     "scope": "The current reader additionally derives stock_passed from the saved stock, signature and printed-read fields. Native construction, queries, finite witnesses and printed readings are unchanged. This metadata-only source difference does not imply a second geometry run."
+  },
+  "unchanged_tube_neighbors": {
+    "scope": "Only the new seats/nominal ties versus cached unchanged tube neighbors; selected A14/A16 retain their separate route review.",
+    "index": "tmp/dry-sidewall-wiring/native-targets.json",
+    "index_sha256": "fe19c7602a3a730d3113e43ce9260ad1bbba46c9da18164e1ee964ce39a030ae",
+    "reader_sha256": "79ee852ca4c991d266a3556df28c5fe70307626efb4eb35055b19b42c898f71a",
+    "tube_sha256": {
+      "tube-above-core-pump-check-link": "0118c81dd703d49b7b416be6a30a79812f8bf1dd69d9874466d88ffbb09a4be5",
+      "tube-above-core-pump-inlet-link": "426f64383f1b5c38bec5ab366324d5e5448db4b59dc3c7129690d3b1d5500cf9",
+      "tube-above-core-va-under-head": "1b2965840fb62dc1f457ebabb4f6b2a67d426b7394e09f3c4cea5c661302c0f5",
+      "tube-above-core-vb-yb-cross": "20a4c8c4bb6a60ad6a598c09f818bff193475e5b16781c0edd937a48cbe22007",
+      "tube-soda-core-rise": "a696b775faca3b1b67549f6681e969faa2b092551ff6a33f8d05beff37d3d5e3",
+      "tube-water-5": "3537134251cc85396a8a00862df05dad51a1c0ea260eeae87e649d78925143b5",
+      "tube-above-core-drain-vb-east-link": "aeca37db80690e6a40837a24569e15278d77f5f43b40284b467ec0f7256438db",
+      "tube-above-core-gas-check-link": "91cefbc5f054205d8224a51c8c883d6daf045a8287225c1782b80aa844beda05",
+      "tube-above-core-gas-core-drop": "ceb6fc08e6513fdd306586da2eab582953432d55ed82668bf57f390f819a48cc",
+      "tube-above-core-gas-inlet": "0e168e5b9549d035946390efbab84e007188801f347466813e6095310030ec37",
+      "tube-above-core-reg-va-link": "7581ce44e0915214e8bea9b447cde7ac8f1d6407d4f262400538414f543f8346",
+      "tube-above-core-tee-regulator": "979bff856542bbd92fbb6d10a33f256aecb69c83a60b05b2334aba102c9f10b3",
+      "tube-above-core-tee-vk-link": "e2e215bfcf60de9a2ca8afb58ae97b24ab289eaad4bb7b7482291b39543eab7a",
+      "tube-above-core-va-fore-feed": "384036f242d893d24a20df85ed37e242f4b431a45e03d05e21d9635efd3b1965",
+      "tube-above-core-vb-yb-link": "155b699ab36cb5077cb687bb6c70c127412cb9c6494822b4c9fd659584f48567",
+      "tube-above-core-water-in": "3ada8674a0c9e5ec90d4a45fe7d08aae3b19bf1fcefdbbc49ce78eb38cac641f",
+      "tube-drain-vent": "3ca8536a94c367d2e13ef7f7716072945f875cc3ed7688a13418af5c8197363e",
+      "tube-fluid-10": "cfa2de05cb18678376080d619ee79a4da432a9c9bc7a3503481c7bd6eabdaa4d",
+      "tube-fluid-11": "429248b7daffbb95251612aa28a301f3a3841f9cf0e89cfd23388ad6276298a8",
+      "tube-fluid-12": "01edd8d0fc888e7fbededcbf0b1b4d19baa8f9c5eef7247f20b6adb17d7dd808",
+      "tube-fluid-13": "1bf6df45df34b895bfd64c98bd90129e86e0963656de0061aef160bff731efe9",
+      "tube-fluid-17": "1afcf42e4c9ee7137f896197a9b0e060225c3b27c9b387509381e98d15d95931",
+      "tube-fluid-18": "0f6e5adb1160f843ba78a62bb6c57873ff9be446fdf6530f8b06487fe9d6dd69",
+      "tube-fluid-19": "0d855758513edd0c8f12c12c2f283586610999f7f09501369a0b8f9496fd44f4",
+      "tube-fluid-20": "edbf9f536197d476ed41c814b6bb38cdcac6ac165999e03857bb646ba8877d33",
+      "tube-fluid-21": "e97a3e63e4334f1b923fe6febcf85e8cd62bbdaf5b3e429fa81a1964843b787b",
+      "tube-fluid-22": "1c7ecfc6807346297e57ce407a2cd4897d0f93a644ee8ffb81ab42a051b84f5d",
+      "tube-fluid-23": "60e6b20f1fe97b6ca74d7a320100f6beb4c3793d19ba63e2996c9852cee9466e",
+      "tube-fluid-24": "a608eace97635b00c17ed046c062378efd626375f4e7f76914364d047a3952c2",
+      "tube-fluid-26": "16468822cfdfa7a7c5f21e1f28f4f094dd498a010e4b0aea4a8c3f07be8607c3",
+      "tube-fluid-27": "12be880644311d66b9012713ddb9a73208a03a6b396173a4e84c2297ea124615",
+      "tube-fluid-28": "264a895b95042ba816737451b32011c2ee59902b6508cf7158061a393b0fe60a",
+      "tube-fluid-9": "562c55d7c5c03162d206661102fde928a82fba2c1983d9fcb498ab76ea356788",
+      "tube-refrig-1": "e56bcbb0e772702c64796847ffee5826aa1d8b04a7fb4d459ed0eb1fa67f5598",
+      "tube-refrig-2": "d1340dd878523ef495d841dc55063da0d502603a02e79c422022cc46c1b6db96",
+      "tube-refrig-3": "22350f7cc776e1a0879fc5ea982a0744a996ff18abe254dea4ea668f1c76adc0",
+      "tube-soda-meter-bulkhead": "39ed20c28b3ebba8159c93f32d2171f2bb4e8535c38182047104d60e9db07f16"
+    },
+    "contacts": [
+      {
+        "subject": "a-pair-fore-anchor",
+        "target": "tube-fluid-18",
+        "overlap_mm3": 0.0,
+        "bounds_mm": null,
+        "passed": true
+      },
+      {
+        "subject": "a-pair-fore-anchor-tie",
+        "target": "tube-fluid-18",
+        "overlap_mm3": 0.0,
+        "bounds_mm": null,
+        "passed": true
+      },
+      {
+        "subject": "a-pair-fore-anchor",
+        "target": "tube-fluid-28",
+        "overlap_mm3": 0.0,
+        "bounds_mm": null,
+        "passed": true
+      },
+      {
+        "subject": "a-pair-fore-anchor-tie",
+        "target": "tube-fluid-28",
+        "overlap_mm3": 0.0,
+        "bounds_mm": null,
+        "passed": true
+      },
+      {
+        "subject": "a-pair-aft-anchor-tie",
+        "target": "tube-fluid-28",
+        "overlap_mm3": 0.0,
+        "bounds_mm": null,
+        "passed": true
+      }
+    ],
+    "passed": true
   }
 }
