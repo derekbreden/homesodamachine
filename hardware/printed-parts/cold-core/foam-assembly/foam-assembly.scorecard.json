@@ -1,14 +1,15 @@
 {
- "gatesPass": true,
+ "gatesPass": false,
  "checks": [
   {
    "id": "bodies-clear",
    "label": "No two placed solids share volume",
    "kind": "gate",
-   "status": "pass",
-   "value": "0 clash",
+   "status": "fail",
+   "value": "1 clash",
    "target": "0 clash",
    "detail": [
+    "soda-continuous-insulation \u2229 tube-soda-core-rise = 0.31 mm\u00b3",
     "carbonator-tube \u2229 evap-coil: the wrap rides it \u2014 see RIDES_ON",
     "evap-coil \u2229 reed-bridge: the wrap rides it \u2014 see RIDES_ON",
     "evap-coil \u2229 reed-carb-1: the wrap rides it \u2014 see RIDES_ON",
@@ -41,18 +42,22 @@
    "label": "Every billed cold-core part has a body here",
    "kind": "goal",
    "status": "fail",
-   "value": "33/40",
+   "value": "31/40",
    "target": "a body per billed part",
    "detail": [
     "heat-set inserts: no row in bom.md matching \"ruthex M3 Threaded Inserts\"",
     "reservoir cap screws: no row in bom.md matching \"BNUOK M3 \u00d7 12 mm DIN 912 socket head cap, 304 stainless\"",
+    "meter inlet stem elbow: soda-inlet-stem not placed",
+    "soda riser insulation: soda-rise-insulation not placed",
     "PTFE thread tape \u2014 billed, no solid here (\"Millrose 70894 Nickel Guard\")",
     "pour-in-place foam \u2014 billed, no solid here (\"closed-cell pour-in-place PU foam\")",
     "foil tape \u2014 billed, no solid here (\"3M 425 aluminum foil tape\")",
     "reed columns \u2014 billed, no solid here (\"Pre-soldered reed-and-wire column\")",
     "heat-set inserts \u2014 billed, no solid here (\"ruthex M3 Threaded Inserts\")",
     "cap clamp screws \u2014 billed, no solid here (\"BNUOK M3 \u00d7 25 mm DIN 912\")",
-    "reservoir cap screws \u2014 billed, no solid here (\"BNUOK M3 \u00d7 12 mm DIN 912 socket head cap, 304 stainless\")"
+    "reservoir cap screws \u2014 billed, no solid here (\"BNUOK M3 \u00d7 12 mm DIN 912 socket head cap, 304 stainless\")",
+    "placed, unbilled: soda-bend-holder",
+    "placed, unbilled: soda-continuous-insulation"
    ],
    "active": true
   },
@@ -141,12 +146,11 @@
    "label": "A feature of another placed part locates every body",
    "kind": "goal",
    "status": "fail",
-   "value": "53/56",
+   "value": "54/56",
    "target": "a located joint per body",
    "detail": [
     "probe-carbonator-ds18b20: foil tape",
-    "probe-coil-ds18s20: foil tape",
-    "soda-rise-insulation: the pour"
+    "probe-coil-ds18s20: foil tape"
    ],
    "active": true
   }
@@ -202,8 +206,8 @@
   "reservoir-b-fill-lower",
   "reservoir-b-fill-upper",
   "reservoir-b-gasket",
-  "soda-inlet-stem",
-  "soda-rise-insulation",
+  "soda-bend-holder",
+  "soda-continuous-insulation",
   "tube-soda-core-rise",
   "vent-membrane-a",
   "vent-membrane-b",
@@ -217,13 +221,13 @@
    "to": "carb-water-out.end",
    "stock": "1/4\" LLDPE",
    "od": 6.35,
-   "length": 391.97,
+   "length": 380.71,
    "bend": 14.0,
    "radius": 14.0,
    "minBend": 14.0,
    "ratio": 1.0,
    "grade": "B",
-   "reach": 232.84,
+   "reach": 230.51,
    "reachGrade": "D",
    "binding": null,
    "corners": [
@@ -283,7 +287,7 @@
     }
    ],
    "need": {
-    "detour": 1.683
+    "detour": 1.652
    }
   },
   {
