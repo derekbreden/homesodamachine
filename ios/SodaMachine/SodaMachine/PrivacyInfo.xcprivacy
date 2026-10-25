@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  What the app does with a person's data, for App Store Connect.
+
+  It tracks no one and collects nothing. Its only requests off the phone fetch
+  the firmware homesodamachine.com publishes, and carry nothing about the
+  person; everything else is Bluetooth to the person's own machine.
+
+  The one API it calls that Apple asks a reason for is UserDefaults, in the
+  app's own domain: the serving size the usage charts count in, and where
+  firmware is fetched from when a laptop serving the site stands in for
+  homesodamachine.com during development.
+-->
+<plist version="1.0">
+<dict>
+	<key>NSPrivacyTracking</key>
+	<false/>
+	<key>NSPrivacyCollectedDataTypes</key>
+	<array/>
+	<key>NSPrivacyAccessedAPITypes</key>
+	<array>
+		<dict>
+			<key>NSPrivacyAccessedAPIType</key>
+			<string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+			<key>NSPrivacyAccessedAPITypeReasons</key>
+			<array>
+				<string>CA92.1</string>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>
