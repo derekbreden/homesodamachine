@@ -34,7 +34,7 @@ sliding. If both opposing printed faces require support, their two 0.25 mm allow
 to the same gap. Each supported face is counted once, on that face or its mate.
 
 Sliding describes a joint whose mating surfaces constrain movement and whose function
-requires an easy slide. It includes the pump cartridge, enclosure assembly slides and
+requires an easy slide. It includes the pump cradle's insertion, enclosure assembly slides and
 spring-driven hook engagement; travel length alone does not decide the category. The
 hand-flexed flat-wing nameplate uses static clearances.
 For the enclosure's Y assembly motion, Y-normal end faces approach head-on and use
@@ -114,13 +114,13 @@ records the separate printed cold-core components and their print orientations.
 ## Coverage in the source
 
 Front-top, front-bottom and back-bottom print with machine +Z as print-up. Back-top and the
-pump cap print with machine −Z as print-up. The pump cartridge uses +Z.
+pump cap print with machine −Z as print-up. The pump cradle uses +Z.
 The same clearance policy follows these orientations rather than the assembled appearance.
 
 | Interface family | Source coverage |
 |---|---|
 | Enclosure quadrant seams | Y-normal head-on closure faces use 0.15 mm static clearance. Tangential sliding tongues, rail channels and pin passages use 0.25 mm running clearance; the floor tongue and the handholds' inner walls end square with the same 0.25 mm, more than the head-on closure faces keep. Both broad Z shoulders use 0.25 mm: front-top's mating face is bedded, and the rear shoulder pair looks print-up. The separate front catch has one supported face and retains 0.50 mm; the rear catch has two and retains 0.75 mm. |
-| Pump cartridge and cap | PET-GF bay, bulkhead and casing interfaces use their static or sliding allowances. The receiving floor is 0.35 mm below the unchanged cartridge bed: 0.25 running + 0.10 local cavity-floor transition. Supported PET-GF shoulders and recesses receive directional relief with backing retained. |
+| Pump cradle and cap | PET-GF bay, bulkhead and casing interfaces use their static or sliding allowances. The receiving floor is 0.35 mm below the cradle bed: 0.25 running + 0.10 local cavity-floor transition. Supported PET-GF shoulders and recesses receive directional relief with backing retained. |
 | Rear printed receivers | Nameplate, DATA plate and bulkhead-ring backs have 0.15 mm static clearance. Supported PET-GF pocket edges receive directional relief. Normal ring backing remains 4 mm; the CO2 land retains 3 mm. The clamped barrel stack includes the 0.15 mm ring-back gap. |
 | Funnel frame | Front rail receivers have 0.50 mm above the frame feet: 0.25 running + 0.25 supported receiver underside. The cradle's 2.75 mm hooks have 0.40 mm over the full 3 mm web: 0.15 static + 0.25 supported finish. Frame rail and foot stock remain at their specified sections. |
 | Other rigid-part interfaces | Their fit remains unresolved by this bounded pass. Component records identify their geometry; the same rigid printed-face allowances apply. |
@@ -136,7 +136,7 @@ to the geometry identified by their input hashes.
 | Lower stack faces | Back-bottom's lower knuckle stands on the handhold ceiling at Z29.25. Front-bottom's knuckle starts at Z41.453553 on an underside rising 45° aft from the seam plane Y200, over back-bottom's top at Z41.1. Front-bottom's top rises 45° inboard from Z125.95 at `interior_x`; back-bottom's upper knuckle starts at Z126.303553 and ends on the Z seam at Z160. Each sloped pair keeps 0.353553 mm in Z, 0.25 mm square to the faces. |
 | Upper stack faces | Upper axes are at X±97.7, 9.8 mm from the exterior. Front-top's insert mouth is Z299.65 and back-top's block starts at Z299.9, leaving 0.25 mm. |
 | Screw-head pockets | The lower opening runs 11.55 mm up from the handhold ceiling to its floor at Z40.8 and ends on the handhold inner wall's finger-facing plane; the upper runs 8 mm down from the roof to its floor at Z347. Each M5 head bears directly on its printed floor: the lower head's face stands 6.55 mm above the ceiling, the upper 3 mm inside the roof. |
-| Pump bay floor | Floor Z164.845 is 0.35 mm below the cartridge bed Z165.195. Front-top's actual bed is Z160.25, leaving 4.595 mm of floor stock. |
+| Pump bay floor | Floor Z164.845 is 0.35 mm below the cradle bed Z165.195. Front-top's actual bed is Z160.25, leaving 4.595 mm of floor stock. |
 | Funnel front rail | Frame foot Z306.9 to receiver underside Z307.4 gives 0.50 mm: 0.25 running + 0.25 supported. |
 | Core pocket and hold-downs | The pocket follows the rounded core plan with 0.25 mm around it, from the floor to Z253.65. The whole floor is one plane at Z−0.35, the core's 0.25 mm running + 0.10 mm cavity-floor transition, over a 5.65 mm slab. The complete hold-down profile stands 0.25 mm above the nominal Z253.4 crown. The native review checks finite material at both hold-foot lands and the complete 8 mm foot stock. |
 | PRV chase beside core | Lip X−90.75 to core flank X−90.5 gives 0.25 mm. |
@@ -187,7 +187,7 @@ The 35 insert-station readings
 and 14 finished-knuckle queries remain evidence for their original artifact hashes.
 The current stock-only stage does not refresh screw engagement or blind-tip reserve.
 Those records do not qualify the pump dock; the [pump dock](pump-dock/README.md)
-specifies its collet plate, tee anchors, tee caps and magnet slots with their
+specifies its collet plate's holes and tee bores with their
 clearances.
 
 The [quadrant reading](mating-clearance-check.json) records the four current enclosure
@@ -218,7 +218,7 @@ accessories and physical support finish need their separate checks.
 
 Feature checks read supported relief on the actual print-up side, ordinary clearance on the
 opposite and lateral faces, retained wall sections, and clearance at seating planes. Enclosure
-assembly checks also cover whole-part intersections, cap/cartridge withdrawal, hardware
+assembly checks also cover whole-part intersections, cradle and cap insertion, hardware
 envelopes, and seam capture. Zero whole-part overlap does not establish positive
 clearance between printed mating faces.
 

@@ -48,9 +48,8 @@ not specify this covered magnet-to-magnet arrangement.
 Force passes through the two covers into the cradle and front-top bulkhead.
 The cartridge floor and fitted pump wells carry weight. Tube insertion stops
 and collets locate and capture the four tubes; the existing guides resist tilt.
-The [pogo mounting audit](../../../../reference/yyfkgcp-pogo-4p/mounting-audit.md)
-retains its spring-compression and installed-gap limits. Stronger attraction
-does not establish correct contact compression or tube insertion depth.
+Stronger attraction does not establish correct contact compression or tube
+insertion depth.
 
 ## Print and insertion
 

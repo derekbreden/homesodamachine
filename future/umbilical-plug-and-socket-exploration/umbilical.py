@@ -99,7 +99,7 @@ HOLE_CLR = fits.slip
 PLUG_L = 52.0
 COUNTER_HOLE = 34.93                      # faucet_assembly.countertop_hole_diameter, 1-3/8"
 
-# --- pogo, both halves (yyfkgcp-pogo-4p/mounting-audit.md) ---------------------------------------
+# --- pogo, both halves (yyfkgcp-pogo-4p/README.md) ------------------------------------------------
 POGO_RECESS = 0.123                       # each nose behind its face: 0.246 between them, as on the cartridge
 POGO_CLR = 0.20
 INSERT_HOLE, INSERT_PILOT, INSERT_L = 2.6, 2.0, 4.0

@@ -59,10 +59,10 @@ back now faces up.
 
 `PACK_CROWN` locates the manifold above the refrigeration base. Eight flavor valves stand in
 the two valve trays and two stand on the cold core's cap. The cap also carries the separate
-water-fill valve. The pump cartridge supports both pump heads. Each pump tube enters a
+water-fill valve. The pump cradle supports both pump heads. Each pump tube enters a
 purchased PP0208E tee behind front-top's collet plate; the tee's branch stands in a bore
-through front-top's tee wall with its collet held pressed, and a stem elbow in its lower port and
-another in the rear valve beneath it join the two on one straight tube. The
+through front-top's tee wall with its collet extended and gripping the tube, and a stem elbow in
+its lower port and another in the rear valve beneath it join the two on one straight tube. The
 crossbar's two tees butt onto held valves.
 The `mounted` axis records these load paths.
 
@@ -1079,8 +1079,8 @@ def valve_tray_stations(placed: dict) -> tuple:
 
     Each fixed valve seats its whole post in its socket and lands its body on
     the tray face. The permanent junctions and supported purchased elbows connect
-    to those seated ports through straight upper links and bent lower tubes and short elbow-to-valve links. Cartridge withdrawal leaves
-    the valves, junctions, elbows and tubing stationary."""
+    to those seated ports through straight upper links and bent lower tubes and short
+    elbow-to-valve links."""
     out = []
     for _name, (axis, sign, plane, seats) in sorted(valve_tray_decks(placed).items()):
         if axis != 1:
@@ -1351,7 +1351,7 @@ CORE_RIDERS = ("g-ganen-pump", "valve-v-a", "valve-v-b", "vk-solenoid",
                "coil-v-a", "coil-v-b", "stub-fluid-2", "stub-fluid-4",
                "discharge-chain", "pump-elbow-suction", "pump-elbow-discharge")
 # And what is NOT in the box at all when the core rides in: the pan and its plate come
-# through the −X wall after, the pump cartridge later still, and every crossing run is
+# through the −X wall after, the pump cradle later still, and every crossing run is
 # internal-plumbing's, made up at the mouth. Everything else in the back — the chain,
 # the meter, the wall electronics, the bulkheads and their rings — rides back-top or
 # clamps its walls and is already standing, which is what the sweep is against.

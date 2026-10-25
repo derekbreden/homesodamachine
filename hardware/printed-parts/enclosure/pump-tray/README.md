@@ -25,7 +25,7 @@ The flavour manifold carries two KPHM600-SW3B17 pumps, so the top clamp contains
 `enclosure._pump_clamp_gross` uses the case-derived octagon and can openings on the reference
 pump's offset rear-stack axis. Its broad underside, locating profiles and screw seats share
 the physically accepted holder datums. Two top-access M3 screws close the cap onto the pumps
-while the lower cradle takes the load. The surrounding crown reaches the cartridge's top edge;
+while the lower cradle takes the load. The surrounding crown reaches the cradle's top edge;
 two wider terminal wells leave the motor ends open.
 
 The pump's front rim clears the continuous bay floor; the floor is not a competing pump seat.

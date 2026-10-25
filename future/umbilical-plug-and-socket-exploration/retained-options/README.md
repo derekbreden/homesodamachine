@@ -42,7 +42,7 @@ nominal radial clearance in the Ø34.93 counter hole before manufacturing error.
 
 The [YYFKGCP four-pin pair](https://www.amazon.com/dp/B0GCBNTBT8?th=1) is the
 existing selected connector, with a delivered reference and accepted fit/mating
-observation in the [mounting audit](../../../hardware/reference/yyfkgcp-pogo-4p/mounting-audit.md).
+observation in its [part reference](../../../hardware/reference/yyfkgcp-pogo-4p/README.md).
 Each half's ear plate seats on a printed shoulder. Two M1.4 × 8 screws clamp it
 to two Ø2.3 × 4 mm inserts. The front opening admits the complete ear plate,
 and the drawing includes the screw heads, hex sockets, insert entries and pilots.
