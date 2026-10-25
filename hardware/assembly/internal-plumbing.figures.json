@@ -15,8 +15,6 @@
     "DOCK_VALVE_ELBOW_SHOWING": "3.75 mm",
     "DOCK_VALVE_ELBOW_STEM": "15.75 mm",
     "DOCK_VALVE_INSERTION": "12 mm",
-    "MANIFOLD_TEES": "6",
-    "POGO_INSERT_HOST_DEPTH": "5.125 mm",
-    "POGO_INSERT_SETBACK": "2 mm"
+    "MANIFOLD_TEES": "6"
   }
 }
