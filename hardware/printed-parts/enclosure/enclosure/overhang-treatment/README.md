@@ -7,7 +7,7 @@ straight profile advances 0.12 mm per normal 0.24 mm layer. Top/inward rounds
 retain fine layers.
 
 The geometry applies to the tee carrier aft bed edges, upper exterior rims of
-the enclosure and pump-cartridge hand pockets, and exterior roof side edges. Hand-pocket fills leave their flat lifting
+the enclosure's hand pockets, and exterior roof side edges. Hand-pocket fills leave their flat lifting
 ceilings and lower rims in place. Roof fills share the front/back silhouette.
 
 `geometry-check.json` records samples from the actual STL sections and the
