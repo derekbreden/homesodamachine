@@ -50,9 +50,10 @@ place of their nominal allowances. The plain lid guide adds no insertion,
 fitting or physical cut. The reported warm span is part of this single tube,
 as with the continuous soda riser through its own plain guide.
 
-The V-A turn has its bearing on back-top; the V-B return bearing belongs to
-the core lid. Thread their retaining ties before seating the fittings. Keep
-each tie on the fixed body band and leave both release collets free.
+The V-A turn and feed travel with back-top on their connected tubing. The
+V-B return bearing belongs to the core lid. Thread its retaining tie before
+seating the fitting. Keep the tie on the fixed body band and leave both
+release collets free.
 
 ## Procedure
 

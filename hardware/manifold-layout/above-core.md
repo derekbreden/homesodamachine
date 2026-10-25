@@ -77,8 +77,8 @@ The electronics panel is an empty 100 × 126.55 × 9 mm closure, retained by fou
 recessed M3 × 12 screws. Remove it to reach the rear electrical connections.
 It carries no components, clips, tubing or wires. Both closures install after
 their respective connection work. The common upper M5 knuckle bearing is
-Z318.0 on front-top, with back-top’s underside at Z318.25. This leaves the
-entry path above the core-owned valve walls; the upper joints use acquired M5 × 50 screws and the lower joints use
+Z318.0 on front-top, with back-top’s underside at Z318.25. The upper joints
+use acquired M5 × 50 screws and the lower joints use
 M5 × 120 screws.
 
 ## Evidence scope
@@ -96,9 +96,9 @@ Y179.19575, at the enlarged mouth center. V-B's native origin is
 X38/Y244.90434/Z280.41.
 Its inlet uses level stem elbows with a 10.95 mm exposed straight tube;
 its return crosses west above the PCB at Y280.69954 to the union at
-X−50/Z294.33057, then follows a 3 mm crowned R30.31 return into Y-B.
-The union has a short direct lid support near its fixed body band. The
-power-terminal screwdriver paths remain open. J11 unmates 6 mm upward,
+X−24.83652/Z290.79407, then follows a 2 mm crowned R27.44 return into Y-B.
+The union has a direct lid support near its fixed body band. Terminate the
+PCB power connections before fitting the return. J11 unmates 6 mm upward,
 moves 6 mm east, then lifts 20 mm with the funnel frame and drain removed.
 The meter's origin is X50/Y390.9148/Z306.376.
 Its inlet is the continuous insulated R14 tube. Its outlet meets the rear
