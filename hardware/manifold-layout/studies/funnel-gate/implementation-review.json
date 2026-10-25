@@ -4,11 +4,11 @@
   "source_revision": "614850e0ef5733ecfe2473a6fa2ba1715882797f",
   "source_production_mesh_sha256": "8e18e7b1f4a6eeba0ade9b96227deef03588dd7d794274f514afe4168b75c2bd",
   "source_approved_scene_sha256": "f1730e82070e9d4f1e2f193ddacbdf9d149597cb5ebf27aa86428b24e5c92094",
-  "status": "corrections_in_progress",
+  "status": "selected_layout_restored_assembly_sequence_open",
   "findings": [
     {
       "id": "valve-carrying-piece",
-      "status": "restoration_in_progress",
+      "status": "restored_in_export_closing_sequence_unresolved",
       "components": [
         "va",
         "vk",
@@ -20,11 +20,13 @@
       ],
       "selected": "Back-top, with its integral valve mounts.",
       "implementation": "Cold-core lid, carried by back-bottom.",
-      "required_action": "Restore the selected carrying piece and remove the unwanted core-rooted walls. Preserve the valve port/post stations and correct flow direction."
+      "required_action": "Restore the selected carrying piece and remove the unwanted core-rooted walls. Preserve the valve port/post stations and correct flow direction.",
+      "review_reading": "V-A and V-K are outside cold-core in the exported assembly at the selected stations. Source-native back-top seats pass the separate bare-valve seating query. The full carried-group closing sequence is unresolved.",
+      "review_source_revision": "30078a39d71731bcbb8f80d8302a002ea49bd7ee"
     },
     {
       "id": "va-low-feed-carrying-piece",
-      "status": "restoration_in_progress",
+      "status": "restored_in_export_handoff_sequence_unresolved",
       "components": [
         "va-east-turn",
         "va-flavor",
@@ -32,11 +34,13 @@
       ],
       "selected": "Low V-A turn/feed carried with back-top; final connection at front-top Y-A.",
       "implementation": "The V-A turn and under-head tube are core children; its bearing grows from the core lid.",
-      "required_action": "Restore back-top attachment and the selected connection boundary."
+      "required_action": "Carry the turn/feed with the valve plumbing and retain the selected connection boundary. Carrying ownership does not imply an independent printed fitting support.",
+      "review_reading": "The low turn and fitted V-A feed travel with back-top in the selected carrying record and source. Exported placement agrees with the selected route. No separate fitting shelf is required by that assignment.",
+      "review_source_revision": "30078a39d71731bcbb8f80d8302a002ea49bd7ee"
     },
     {
       "id": "c14-position",
-      "status": "restoration_requested",
+      "status": "restored_in_export",
       "components": [
         "c14-inlet"
       ],
@@ -55,11 +59,13 @@
         0.0,
         -7.0
       ],
-      "required_action": "Restore the selected position and orientation. If an actual interference prevents it, present that conflict for discussion rather than moving the inlet."
+      "required_action": "Restore the selected position and orientation. If an actual interference prevents it, present that conflict for discussion rather than moving the inlet.",
+      "review_reading": "The exported inlet uses the selected flange center. The rear roof-panel host is cut at that same inlet opening after fusion; source revision 893031639 is included in the published export.",
+      "review_source_revision": "30078a39d71731bcbb8f80d8302a002ea49bd7ee"
     },
     {
       "id": "va-outlet-clock",
-      "status": "restoration_requested",
+      "status": "restored_in_export",
       "components": [
         "va-outlet-elbow"
       ],
@@ -81,21 +87,25 @@
         ]
       ],
       "implementation_clock_from_selected_degrees": 5.0,
-      "required_action": "Restore the selected square outlet direction. Any necessary different routing angle requires discussion."
+      "required_action": "Restore the selected square outlet direction. Any necessary different routing angle requires discussion.",
+      "review_reading": "The exported elbow is at the selected square direction; its selected/native source frame is restored.",
+      "review_source_revision": "30078a39d71731bcbb8f80d8302a002ea49bd7ee"
     },
     {
       "id": "water-in-route",
-      "status": "restoration_requested",
+      "status": "restored_in_export",
       "components": [
         "water-in"
       ],
       "selected": "Constant-X smooth rise from ASSE inlet to water bulkhead, as fold-water-link in co2-fold/study.py.",
       "implementation": "Intermediate point is 5 mm east of the inlet and at Z332.5.",
-      "required_action": "Restore the selected path. Supporting stock must accommodate the selected tube where practical."
+      "required_action": "Restore the selected path. Supporting stock must accommodate the selected tube where practical.",
+      "review_reading": "The exported constant-X smooth-rise route agrees with the selected issued scene within its display tessellation.",
+      "review_source_revision": "30078a39d71731bcbb8f80d8302a002ea49bd7ee"
     },
     {
       "id": "vb-return-route",
-      "status": "unapproved_variant_requires_resolution",
+      "status": "restored_in_export",
       "components": [
         "vb-outlet-return",
         "vb-yb-cross",
@@ -116,17 +126,21 @@
       "implementation_cross_exposed_mm": 60.41103124389922,
       "implementation_return_crown_mm": 3.0,
       "recorded_reason": "The implementation variant leaves PCB power-terminal screwdriver paths clear; connector service was assessed against that variant.",
-      "required_action": "Resolve access within the selected route if simple. If a route compromise is needed, present the exact interference and a 3D comparison before adoption."
+      "required_action": "Resolve access within the selected route if simple. If a route compromise is needed, present the exact interference and a 3D comparison before adoption.",
+      "review_reading": "The selected X\u221224.836524 return is restored in the exported assembly. Complete PCB power wiring before final return-tube mating; servicing J11 can require releasing that flexible return. The manual access witness does not establish a need to move the route.",
+      "review_source_revision": "30078a39d71731bcbb8f80d8302a002ea49bd7ee"
     },
     {
       "id": "concealed-soda-tube-carrying-piece",
-      "status": "restoring_selected_staging",
+      "status": "selected_staging_restored_finite_mate_reviewed",
       "components": [
         "soda-meter-bulkhead"
       ],
       "selected": "Concealed tube travels with the back-bottom meter; the rear return stem belongs to back-top.",
       "implementation": "A proposed back-top rear preassembly carried the tube with the rear elbows to make the demonstrated capture motion.",
-      "required_action": "Retain the selected carrying piece and verify closing with that staging. A passing motion with a different parent does not approve reparenting."
+      "required_action": "Retain the selected carrying piece and verify closing with that staging. A passing motion with a different parent does not approve reparenting.",
+      "review_reading": "The tube retains the meter/back-bottom carrying assignment. The native query supports its receiving into the moving rear elbow at the named finite poses. The complete column-closing sequence is separate.",
+      "review_source_revision": "30078a39d71731bcbb8f80d8302a002ea49bd7ee"
     }
   ],
   "reference_geometry_notes": [
@@ -4300,5 +4314,62 @@
       ],
       "max_bound_difference_mm": 18.59854614257813
     }
-  ]
+  ],
+  "current_source_status": "Selected component layout and carrying assignments are restored in the full exported assembly, including the corrected rear-panel host opening. Live viewer bytes match the audited local export. Closing order and flexible final handoffs remain unresolved.",
+  "export_readback": {
+    "production_mesh_sha256": "b3970b1ba0a5d4f49e75081ffc672ad8b56bb53f2be30093919887a80f9a37e1",
+    "pointer_source_revision": "2eaea329d128836d567f242e6e87a7e187a4fb53",
+    "review_source_revision": "30078a39d71731bcbb8f80d8302a002ea49bd7ee",
+    "matched_selected_instances": 90,
+    "scope": "Named component frames, tube paths, reference updates and carrying membership; display-bound comparison is a diagnostic and is not a full assembly qualification.",
+    "maximum_selected_display_bound_difference_mm": {
+      "vk": 0.010008330921039033,
+      "va": 0.010008330921039033,
+      "water-in": 0.009991455078136369,
+      "va-outlet-elbow": 0.06948709068666403,
+      "va-flavor": 0.02569946289059999,
+      "c14-inlet": 0.010014648437504547,
+      "va-ya-straight": 0.016449737548825283,
+      "vb": 0.010000000000005116,
+      "vb-yb-cross": 0.028620605468745453,
+      "vb-yb-link": 0.0171656799316402
+    },
+    "missing_name_interpretation": {
+      "ideal_wall_and_ceiling_planes": "The isolated scene planes are replaced by the production shell.",
+      "support_highlights": "Study highlight geometry is replaced by native fused retaining stock. See the native mounting record.",
+      "pump_sliding_foot": "Use the accepted common purchased rubber-foot reference; do not infer a pump move from that changed shape.",
+      "check_carbonator": "Legacy display alias; shared purchased-check native frames and the actual downward check outlet define the implementation.",
+      "bulkhead_departure_stubs": "Illustrative endpoints are replaced by production onward tube runs."
+    },
+    "live_viewer": {
+      "url": "https://homesodamachine.com/meshes/manifold-layout/enclosure-assembly.step.mesh",
+      "sha256": "b3970b1ba0a5d4f49e75081ffc672ad8b56bb53f2be30093919887a80f9a37e1",
+      "matches_local_export": true
+    }
+  },
+  "assembly_sequence": {
+    "status": "requires_resolution_without_unapproved_layout_change",
+    "native_record": "../../../mechanical-qualification/enclosure-above-core/approved-carried-group-review.json",
+    "mount_seating_record": "../../../mechanical-qualification/enclosure-above-core/valve-wall-mount-review.json",
+    "known_counterexamples": [
+      {
+        "moving": "V-A on back-top",
+        "fixed": "core-mounted PSU",
+        "remaining_y_mm": 20.0,
+        "native_common_mm3": 354.475
+      },
+      {
+        "moving": "V-K on back-top",
+        "fixed": "core-mounted meter",
+        "remaining_y_mm": 50.0,
+        "native_common_mm3": 1538.12
+      }
+    ],
+    "scope": "These disprove the named rigid populated long slide. They do not establish that the approved final layout or carrying assignments must change. Assembly staging, loose flexible connections and shell closing order remain under investigation.",
+    "decision_boundary": "Present any necessary change of component pose, carrying piece or selected route to Derek with 3D evidence before adoption.",
+    "near_final_vertical_entry": {
+      "record": "../../../mechanical-qualification/enclosure-above-core/back-top-approach-review.json",
+      "reading": "The actual hooked shell rails obstruct straight lowering near the final Y station, including offsets 0 through 15 mm. This does not supply an alternative to the long slide."
+    }
+  }
 }

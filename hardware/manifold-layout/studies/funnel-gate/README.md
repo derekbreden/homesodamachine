@@ -10,11 +10,18 @@ Ground and WAGO placement remain deferred.
 [approved-arrangement.json](approved-arrangement.json) records the selected
 component frames and display bounds.
 [assembly-ownership.json](assembly-ownership.json) records the carrying pieces
-and connections between them. V-A, V-K and their low feed plumbing attach to
-back-top. V-B attaches to the cold-core lid, carried by back-bottom. Component
-position and attachment are both part of the implementation target. Retaining
+and connections between them. V-A and V-K mount to back-top; their fitted low
+feed plumbing travels with them. V-B mounts to the cold-core lid, carried by
+back-bottom. Component position and attachment are both part of the implementation target. Retaining
 details follow those assignments. A necessary layout or attachment compromise
 requires discussion with Derek before adoption.
+
+[implementation-review.json](implementation-review.json) records the manual
+production readback and unresolved assembly sequence. The selected component
+positions and carrying pieces are restored in the exported appliance. A fully
+populated rigid closing slide crosses V-A with the PSU and V-K with the meter;
+the final closing order and flexible handoffs require resolution within the
+selected arrangement, or discussion before an arrangement change.
 
 ## Funnel and opening
 
