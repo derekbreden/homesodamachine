@@ -1,0 +1,117 @@
+{
+  "printer": "Mark1",
+  "job_id": "1374272357",
+  "source": "Fresh read-only tools/bambu_printer.py Connection status before left-hotend retry.",
+  "observation": {
+    "job_id": "1374272357",
+    "subtask_name": "Flavor_reservoirs_-_PETG_0.24_mm",
+    "gcode_state": "FAILED",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 0,
+    "total_layer_num": 833,
+    "mc_percent": 0,
+    "mc_remaining_time": 0,
+    "bed_temper": 40.0,
+    "bed_target_temper": 0.0,
+    "nozzle_temper": 43.0,
+    "nozzle_target_temper": 0.0,
+    "stg_cur": -1,
+    "cooling_fan_speed": "0",
+    "big_fan1_speed": "0",
+    "big_fan2_speed": "0",
+    "heatbreak_fan_speed": "0",
+    "observed_at_utc": "2026-10-25T18:28:23.365826+00:00",
+    "printer": "Mark1",
+    "timelapse": "disable",
+    "ams": {
+      "tray_now": "255",
+      "tray_tar": "255",
+      "ams_exist_bits": "1",
+      "tray_exist_bits": "f"
+    },
+    "ams_units": [
+      {
+        "unit": "0",
+        "trays": [
+          {
+            "id": "0",
+            "tray_type": "PETG",
+            "tray_color": "00000000",
+            "tray_info_idx": "GFG01",
+            "remain": 42,
+            "state": 11
+          },
+          {
+            "id": "1",
+            "tray_type": "PETG",
+            "tray_color": "00000000",
+            "tray_info_idx": "GFG01",
+            "remain": 100,
+            "state": 11
+          },
+          {
+            "id": "2",
+            "tray_type": "PETG",
+            "tray_color": "00000000",
+            "tray_info_idx": "GFG01",
+            "remain": 100,
+            "state": 11
+          },
+          {
+            "id": "3",
+            "tray_type": "PETG",
+            "tray_color": "00000000",
+            "tray_info_idx": "GFG01",
+            "remain": 100,
+            "state": 11
+          }
+        ]
+      }
+    ],
+    "extruders": [
+      {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65535,
+        "temp": 43,
+        "stat": 0
+      },
+      {
+        "id": 1,
+        "hnow": 1,
+        "snow": 65279,
+        "temp": 36,
+        "stat": 0
+      }
+    ],
+    "nozzles": [
+      {
+        "id": 18,
+        "diameter": 0.4,
+        "type": "HS01"
+      },
+      {
+        "id": 1,
+        "diameter": 0.4,
+        "type": "HS01"
+      },
+      {
+        "id": 17,
+        "diameter": 0.2,
+        "type": "HS00"
+      },
+      {
+        "id": 0,
+        "diameter": 0.2,
+        "type": "HS00"
+      },
+      {
+        "id": 19,
+        "diameter": 0.8,
+        "type": "HS01"
+      }
+    ]
+  },
+  "scope": "Retained task FAILED with print_error 0 and no HMS. Layer reset to 0; photos show deposition, so this cannot establish the actual stop/fault/onset layer. Historical touchscreen warning remains evidence even though no current HMS is reported."
+}

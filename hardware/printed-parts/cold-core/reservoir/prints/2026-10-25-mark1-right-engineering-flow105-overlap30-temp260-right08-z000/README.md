@@ -1,12 +1,19 @@
 # Mark1 right reservoir and cap: glued Engineering Plate
 
-Mark1 task **1374272357** is printing the **right reservoir and matching cap**
-through the **right 0.8 mm Standard** nozzle on the glued **Engineering Plate**.
-One Studio Send was acknowledged **SUCCESS** at **11:39:30 CDT / 16:39:30 UTC,
-October 25, 2026**. Fresh startup status confirms **RUNNING, layer 0/833**,
-print error 0 and no HMS. Changing live frames show the flat plate during
-startup; model adhesion and water holding are unassessed.
-[Launch receipt](launch.json) · [Startup](startup.json) · [Preflight](preflight.json).
+Mark1 task **1374272357** has **reported polymer buildup and a motion-step-loss warning**
+on its **right 0.8 mm Standard** hotend. Four photographs show the historical
+warning **0300-800c 015526**, partial body/cap footprints, loose strands and
+buildup around the right nozzle/hotend region. Fresh retained status is
+**FAILED**, print error 0 and no HMS; its reset layer 0 cannot establish the
+stop or fault layer. No water-hold result is reported for this article.
+[Physical result and photographs](physical-result/physical-result.json) ·
+[Terminal observation](terminal-observation.json).
+
+The job's single Studio Send was acknowledged SUCCESS at **11:39:30 CDT /
+16:39:30 UTC October 25, 2026**. Derek requests the [same right pair through
+the left 0.8 mm hotend](../2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/README.md) on the cleaned, re-glued Engineering
+Plate, retaining the recipe and zero Z compensation.
+[Launch receipt](launch.json) · [Startup](startup.json).
 
 The preceding **Textured PEI task 1372664582** has [reported persistent lifting](../2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json).
 Derek supplied two photographs and says the lifting seemed worse. Fresh

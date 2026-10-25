@@ -1,0 +1,152 @@
+{
+  "native_application": "BambuStudio-02.08.02.61",
+  "return_code": 0,
+  "plate_type": "Engineering Plate",
+  "selected_pair": "Right reservoir and matching cap",
+  "selected_hotend": "Left 0.8 mm Standard",
+  "filament_map": [
+    "1"
+  ],
+  "filament_nozzle_map": [
+    "0"
+  ],
+  "native_left_hotend_commands": [
+    "M620 S0A H-1",
+    "T0 H-1"
+  ],
+  "selected_plate": {
+    "feature_type_times": {
+      "Bottom surface": 267.191650390625,
+      "Bridge": 10.309184074401855,
+      "Custom": 298.260009765625,
+      "Flush": 15.0,
+      "Inner wall": 8853.5341796875,
+      "Internal solid infill": 780.9876708984375,
+      "Outer wall": 6772.013671875,
+      "Overhang wall": 28.575138092041016,
+      "Sparse infill": 1075.725830078125,
+      "Support": 50.475337982177734,
+      "Support interface": 3.3479180335998535,
+      "Top surface": 181.93101501464844,
+      "Travel": 2219.286865234375,
+      "Undefined": 2217.2890625
+    },
+    "filament_change_times": 0,
+    "filaments": [
+      {
+        "filament_id": "",
+        "id": 1,
+        "main_used_g": 444.21124267578125,
+        "total_used_g": 444.21124267578125
+      }
+    ],
+    "generate_support_material_time": 496,
+    "id": 2,
+    "infill_time": 162,
+    "layer_filament_change": 0,
+    "main_predication": 20221.521484375,
+    "make_perimeters_time": 1600,
+    "obj_cached_cnt": 0,
+    "objects": [
+      {
+        "bbox": {
+          "depth": 140.5,
+          "height": 199.89999389648438,
+          "width": 76.96180725097656,
+          "x": 578.5191040039062,
+          "y": 89.75,
+          "z": -2.4218138605647255e-10
+        },
+        "id": 13,
+        "name": "reservoir-right",
+        "triangle_count": 9208
+      },
+      {
+        "bbox": {
+          "depth": 140.5,
+          "height": 11.0,
+          "width": 76.96180725097656,
+          "x": 491.51910400390625,
+          "y": 89.75,
+          "z": 0.0
+        },
+        "id": 17,
+        "name": "reservoir-cap-right",
+        "triangle_count": 16270
+      }
+    ],
+    "sliced_time": 5054,
+    "sliced_time_with_cache": 2562,
+    "total_predication": 20547.783203125,
+    "triangle_count": 25478,
+    "warning_message": ""
+  },
+  "layer_count": 833,
+  "z_trim_commands": [
+    "G29.1 Z0 ; clear z-trim value first",
+    "G29.1 Z0"
+  ],
+  "bed_temperature_c_first_subsequent": [
+    70,
+    70
+  ],
+  "nozzle_temperature_c_first_subsequent": [
+    255,
+    260
+  ],
+  "added_user_z_trim_mm": 0,
+  "effective_plate_z_trim_mm": 0,
+  "placement": {
+    "model_support_brim_xy_bounds_mm": [
+      [
+        95.525003,
+        89.750003
+      ],
+      [
+        259.480997,
+        230.249997
+      ]
+    ],
+    "edge_margins_left_front_right_back_mm": [
+      95.525003,
+      89.750003,
+      65.519003,
+      89.75000299999999
+    ],
+    "minimum_full_bead_edge_margin_mm": 65.519003,
+    "minimum_body_cap_full_bead_box_gap_mm": 10.042005999999986,
+    "deposited_move_count": 841914,
+    "support_move_count": 5281,
+    "scope": "Native deposited model, support and brim beads, including arc extrema and half-width. Vendor startup purge/calibration paths are excluded. Placement does not establish adhesion.",
+    "left_nozzle_usable_bed_bounds_mm": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        325.0,
+        320.0
+      ]
+    ]
+  },
+  "wall_cooling_above_cap_pwm_values": [
+    35.7,
+    38.25,
+    40.8,
+    43.35,
+    229.5
+  ],
+  "gcode_sha256": "e4ea8328d8d9c2d8154237d858fc611518bd9a4f110d82955a533f81322bf5ef",
+  "embedded_gcode_md5_verified": true,
+  "source_geometry_and_placement_unchanged": true,
+  "geometry_entries_byte_identical": [
+    "3D/3dmodel.model",
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model",
+    "3D/Objects/object_3.model",
+    "3D/Objects/object_4.model",
+    "3D/_rels/3dmodel.model.rels"
+  ],
+  "support_basis": "Retained Tree(auto)/Default, bed-only; native full-bead support/model envelope included in placement review.",
+  "physical_result_scope": "Slice and assignment review; adhesion, hotend performance and water hold untested for this left-hotend trial."
+}

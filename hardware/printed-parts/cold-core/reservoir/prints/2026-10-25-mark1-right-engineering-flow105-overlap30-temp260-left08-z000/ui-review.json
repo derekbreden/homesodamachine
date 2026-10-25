@@ -1,0 +1,25 @@
+{
+  "observed_at_utc": "2026-10-25T18:36:21.812351+00:00",
+  "observed_at_central": "2026-10-25T13:36:21.812351-05:00",
+  "source": "cua_repl Bambu Studio Device, Printer Parts, AMS Settings, Preview and Send print job in this chat.",
+  "printer": "Mark1",
+  "archive": "2026-10-25-reservoir-right-cap-engineering-flow105-overlap30-temp260-left08-z000-a1-mark1.gcode.3mf",
+  "preview": {
+    "plate": "Engineering Plate",
+    "parts": "Right body and cap",
+    "filament_group": "Left nozzle PETG; right empty"
+  },
+  "ams_backup": "On",
+  "send_dialog": {
+    "plate": "Engineering",
+    "left_tile": "A1 PETG L",
+    "auto_refill": "green enabled indicator",
+    "slice_nozzle": "L: 0.8mm Standard x1",
+    "printer_left_nozzle": "L: 0.4mm Standard x1",
+    "warning": "The nozzle type doesn't match. Please re-slice.",
+    "Send_enabled": false
+  },
+  "configuration_limit": "Studio Printer Parts shows left Hardened Steel / 0.4 / Standard and says 'Please change the nozzle settings on the printer.' Controls are disabled.",
+  "user_action_requested": "Set fixed left nozzle to installed 0.8 mm Standard on Mark1 touchscreen; final fresh verification required.",
+  "submission_status": "No Send clicked."
+}

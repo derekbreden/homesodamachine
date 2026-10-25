@@ -1,20 +1,22 @@
 # Printing the reservoir in PETG
 
-Mark1 task **1374272357** is printing the [same right reservoir and matching cap on glued Engineering Plate](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md).
-The printer acknowledged one Studio Send with **SUCCESS** at **11:39:30 CDT /
-16:39:30 UTC October 25**; startup reports RUNNING, layer 0/833, no print error/HMS.
-The preceding [Textured PEI right article](prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json)
-has reported persistent lifting and no water-hold result.
+The [right reservoir and matching cap](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/README.md)
+are prepared for Mark1's **left 0.8 mm Standard** hotend on the cleaned,
+glued **Engineering Plate**, with **0.00 mm Z compensation**. No Send is
+clicked. Studio shows **A1 PETG L** and automatic refill On, but Send is
+disabled because the printer still registers the fixed left nozzle as
+0.4 mm. The nozzle setting must be updated on Mark1's touchscreen.
 
-The retry uses **Engineering Plate, 70 °C bed and 0.00 mm Z compensation**.
-Its [complete settings](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/settings.json)
-retain **255/260 °C**, flow 1.05, five walls and 30% overlap, and every other
-setting of that right print. Native temperature/cooling commands are identical;
-plate detection and compensation change. Native motion/extrusion sequences
-match on 832 of 833 layers, with variation only at layer 816 under the same
-random-seam settings. **A1 (55%)** starts before matching A2–A4 (100%), with
-automatic refill On. Timelapse and bed leveling are On; flow dynamics and
-nozzle offset calibration are Auto.
+The [preceding right-hotend Engineering Plate article](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json)
+has reported polymer buildup and a photographed motion-step-loss warning.
+Fresh retained status is FAILED with no current error/HMS. The failure's
+cause and actual stop layer are unestablished.
+
+The retry's [complete settings](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/settings.json)
+retain **255/260 °C**, flow 1.05, five walls, 30% overlap and **70 °C** bed.
+Only the nozzle assignment changes. **A1 (42%)** is selected before matching
+A2–A4 (100%). Timelapse On, bed leveling On, flow dynamics Auto and nozzle
+offset calibration Auto require final verification before Send.
 
 The completed [255/260 °C left article](prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json)
 and older 265/270 °C article are reported holding water on October 25. Both
@@ -42,7 +44,7 @@ Its water hold belongs to the historical May article. The 59° article [still le
 
 | Parameter | Value |
 | --- | --- |
-| Active nozzle | Mark1 right 0.8 mm, Standard flow |
+| Active nozzle | Mark1 left 0.8 mm, Standard flow |
 | Filament | Bambu PETG Translucent Clear, GFG01 |
 | Layer height, first / subsequent | 0.30 / 0.24 mm |
 | Nozzle temperature, first / subsequent | 255 / 260 °C |
@@ -79,7 +81,7 @@ this material and article. PET-GF profiles retain their own trim settings.
 The project uses the May Water controls, with ironing disabled according to the
 [flat-square finish selection](ironing-study/prints/2026-10-06-mark2-squares-v1/physical-result.json).
 Its process and filament display names identify the current reservoir recipe.
-Both plates explicitly assign the right nozzle in Manual mode. Use the matching
+The trial plates explicitly assign the left nozzle in Manual mode; the root reference project retains its right-nozzle assignment. Use the matching
 spool with the least filament remaining first and automatic refill to the other
 matching stock; [printer guidance](../../../../tools/bambu-printers.md#mark1-clear-petg-spool-order)
 records the consumption policy. Refresh actual slots before a future Send.

@@ -642,3 +642,33 @@ holding are unassessed. Send timelapse is On; runtime activation at deposition
 is unobserved. The reviewed archive and G-code hashes remain unchanged after
 import. No scheduled monitor was created or reactivated.
 [Receipt and startup](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md).
+
+## 2026-10-25 — right-hotend Engineering Plate failure and prepared left-hotend retry
+
+Engineering Plate right-pair task **1374272357**: Derek reports polymer buildup
+on the right 0.8 mm hotend and supplies four photographs. The touchscreen
+photograph shows **Multiple motion step loss detected**, code
+**0300-800c 015526**. Other photographs show partial low-height body/cap
+footprints, loose strands and polymer around the right nozzle/hotend region.
+Fresh retained telemetry at **13:28:23 CDT / 18:28:23 UTC** reports FAILED,
+print error 0, no HMS, and layer reset to 0. Actual stop/fault layer and water
+holding are unrecorded. [Physical evidence](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json).
+
+Derek reports the **left 0.8 mm** hotend installed, transparent PETG AMS connected
+to that side, and Engineering Plate cleaned and glued again. Same right pair
+prepared with unchanged geometry/placement and recipe, changing only native
+left-nozzle assignment: flow 1.05, five Arachne walls at 10°, overlap 30%,
+255/260 °C, bed 70 °C, 0.30/0.24 mm layers, no brim, zero trim, ironing Off.
+Native source plate 2, 833 layers, 5 h 42 min 27 s, 444.21 g; minimum left usable-bed bead
+inset 65.519 mm. G-code emits `G29.1 Z0` for reset and plate compensation.
+[Prepared record](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/README.md).
+
+Studio Preview verifies Engineering Plate and left-only PETG. Send dialog
+shows A1 PETG L and Auto Refill; AMS backup is On. A1 reports 42%, A2–A4 each 100%.
+Send is disabled for left-nozzle mismatch: slice 0.8 mm versus printer 0.4 mm.
+Studio directs nozzle configuration to the printer touchscreen; update requested.
+No Send clicked, no new task accepted, no monitor created/reactivated.
+
+Derek:
+
+> I'm not sure exactly what went wrong there, but the nozzle clearly got pretty gunked up, wiped onto itself. We really hadn't been using the right hot end for PETG 0.8 very much, so I wonder if it just maybe doesn't work very well. So I've switched Mark 1 over to 0.8 left hot end. The AMS 2 with all the transparent filament is connected to that left hot end on Mark 1 now. I've still got the engineering plate there, and I've cleaned it and glued it up again. So I'd like you to try again on the left hot end on Mark 1 now. Thanks.

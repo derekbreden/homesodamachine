@@ -1,12 +1,21 @@
 # Reservoir adhesion observations
 
-Mark1 task **1374272357** is the active [right-pair Engineering Plate retry](../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md),
-with the same recipe and **0.00 mm Z compensation**. The printer acknowledged
-SUCCESS at **11:39:30 CDT / 16:39:30 UTC October 25**. Fresh startup reports
-RUNNING, layer 0/833, print error 0 and no HMS. Changing live camera frames show
-the flat plate during preparation; model contact and lifting are unassessed.
-**A1 (55%)** starts before matching A2–A4 (100%) with automatic refill On.
+The [right-pair left-hotend Engineering Plate retry](../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/README.md)
+is **prepared, not sent**, with the same recipe and **0.00 mm Z compensation**.
+Derek reports the left 0.8 mm hotend installed, transparent PETG AMS moved
+to it and the Engineering Plate cleaned and re-glued. Studio verifies
+**A1 PETG L**, automatic refill On and left-only PETG assignment. A1 reports
+42%, before matching A2–A4 (100%). Send is disabled while the printer reports
+the fixed left nozzle as 0.4 mm; touchscreen registration is requested.
 No scheduled monitor is created or reactivated.
+
+Engineering Plate **task 1374272357** has [reported right-hotend polymer
+buildup and a motion-step-loss warning](../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json).
+Four photographs show partial low-height footprints, strings, hotend buildup
+and warning **0300-800c 015526**. Fresh retained status is FAILED, with no
+current error/HMS and layer reset to 0. There is no lift-onset bracket or
+water-hold result. Buildup/contact/motion-loss sequence and general right-hotend
+performance are unestablished; Derek selected the left-hotend comparison.
 
 The preceding **right task 1372664582** has [reported persistent lifting](../prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json)
 and two photographs. Derek says it seemed worse. Raised/ragged facing edges
@@ -98,7 +107,7 @@ and a rough edge left after removal. His exact words and the recovered native
 settings are in the [historical recipe review](historical-recipe-review.json).
 The [recipe discussion](next-trial-options.json) takes the successful May
 Water recipe and ordinary Bambu motion settings as its reference. The selected
-[Engineering Plate trial settings](../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/settings.json)
+[Engineering Plate trial settings](../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/settings.json)
 retain the [five-wall adaptation](../recipe-reviews/2026-10-22-flow105-overlap30/adaptation.json).
 The root project retains the 265/270 °C reference recipe.
 

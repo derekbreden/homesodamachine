@@ -1,0 +1,48 @@
+{
+  "recorded_on": "2026-10-25",
+  "baseline_task_id": "1374272357",
+  "baseline_settings": "../2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/settings.json",
+  "baseline_settings_file_sha256": "e77199de752a854e8c46fda925b465c54a3228cddb864fea4da84227198925eb",
+  "source_project": ".cache/reservoir-right-engineering-20261025/candidate.3mf",
+  "source_project_sha256": "dbebfe03d2477f52bd24aad846fc5e2c432271c291f30523c9a5a435ffd7b3e6",
+  "candidate_project": ".cache/reservoir-left08-engineering-20261025/candidate.3mf",
+  "candidate_project_sha256": "acc2a97102605025df73ab977277e478964e765290f9709261994be7739615f9",
+  "settings": "settings.json",
+  "settings_file_sha256": "8c97d8528fb4c1d85fa44c1176fde2b860957925e3764f029d9d44994ad5d8d7",
+  "setting_changes": {
+    "filament_map": {
+      "from": [
+        "2"
+      ],
+      "to": [
+        "1"
+      ]
+    },
+    "filament_nozzle_map": {
+      "from": [
+        "1"
+      ],
+      "to": [
+        "0"
+      ]
+    }
+  },
+  "plate_metadata_changes": {
+    "filament_maps": {
+      "from": "2",
+      "to": "1"
+    }
+  },
+  "all_other_saved_settings_identical": true,
+  "geometry_and_placement_container_entries_byte_identical": true,
+  "selected_pair": "Right reservoir and matching cap",
+  "selected_hotend": "Left 0.8 mm Standard",
+  "plate_preparation": "Derek reports Engineering Plate cleaned and glued again; transparent PETG AMS connected to left hotend.",
+  "added_user_z_trim_mm": 0,
+  "expected_effective_z_trim_mm": 0,
+  "status": "Native review complete; awaiting printer nozzle configuration and Studio Send.",
+  "native_review": "native-review.json",
+  "packaging": "packaging.json",
+  "emitted_z_trim_mm": 0,
+  "founder_quote": "I'm not sure exactly what went wrong there, but the nozzle clearly got pretty gunked up, wiped onto itself. We really hadn't been using the right hot end for PETG 0.8 very much, so I wonder if it just maybe doesn't work very well. So I've switched Mark 1 over to 0.8 left hot end. The AMS 2 with all the transparent filament is connected to that left hot end on Mark 1 now. I've still got the engineering plate there, and I've cleaned it and glued it up again. So I'd like you to try again on the left hot end on Mark 1 now. Thanks."
+}

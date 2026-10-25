@@ -12,14 +12,21 @@ carries both mouths: the fill, and the dip tube the draw line becomes.
 [Level sensing](level-sensing.md) · [Floor and dip tube](floor-and-dip-tube.md) ·
 [Vent](vent.md)
 
-## Engineering Plate retry
+## Engineering Plate left-hotend retry
 
-Mark1 task **1374272357** is printing the [right reservoir and matching cap](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md)
-on the glued **Engineering Plate**, with **0.00 mm Z compensation**. All other
-settings match the preceding right print. The printer acknowledged **SUCCESS**
-at **11:39:30 CDT / 16:39:30 UTC October 25**; startup is RUNNING at layer 0/833
-with no print error/HMS. **A1 (55%)** starts before matching A2–A4 (100% each),
-with automatic refill On.
+The [right reservoir and matching cap](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/README.md)
+are **prepared, not sent**, for Mark1's **left 0.8 mm Standard** nozzle on the
+cleaned, glued **Engineering Plate**, with **0.00 mm Z compensation**.
+The recipe and geometry are retained. Studio verifies **A1 PETG L** and
+automatic refill On; A1 reports **42%**, before matching A2–A4 at 100%.
+Send remains disabled while Mark1 reports the fixed left nozzle as 0.4 mm;
+registering the installed 0.8 mm Standard nozzle requires the touchscreen.
+
+The preceding Engineering Plate **task 1374272357** has [reported right-hotend
+polymer buildup and a motion-step-loss warning](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json).
+It is FAILED with no current error/HMS. Four photographs do not establish a
+fault-onset layer or a general right-hotend defect. The left-hotend retry is
+selected by Derek.
 
 The preceding **task 1372664582** has [reported persistent lifting](prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json)
 on Textured PEI, documented in two photographs. It reports FAILED with no
@@ -34,9 +41,9 @@ heads are unspecified. [Acceptance records](water-hold-acceptance.json).
 
 The selected repeat recipe uses **1.05 flow, five requested Arachne wall loops,
 30% Infill/Wall overlap and 255/260 °C** first/subsequent nozzle temperatures.
-Use the [Engineering Plate trial settings](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/settings.json)
-and [native source](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/packaging.json)
-for this retry through Mark1's right **0.8 mm Standard** nozzle. The completed
+Use the [Engineering Plate trial settings](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/settings.json)
+and [native source](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/packaging.json)
+for this retry through Mark1's left **0.8 mm Standard** nozzle. The completed
 left water-hold article used Textured PEI.
 
 [reservoir.3mf](reservoir.3mf) and [print-settings.json](print-settings.json)
