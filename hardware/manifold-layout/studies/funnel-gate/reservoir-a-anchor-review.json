@@ -1,0 +1,80 @@
+{
+  "assembly_owner": "back-bottom",
+  "parts": {
+    "a-pair-fore-anchor": {
+      "valid": true,
+      "solid_count": 1,
+      "bounds_mm": [
+        [
+          46.799999899998035,
+          199.99852319376802,
+          250.39999989999825
+        ],
+        [
+          61.700000100001965,
+          210.00147680623198,
+          258.00147680623195
+        ]
+      ]
+    },
+    "a-pair-aft-anchor": {
+      "valid": true,
+      "solid_count": 1,
+      "bounds_mm": [
+        [
+          82.79999989999952,
+          298.9985231937697,
+          250.3999998999997
+        ],
+        [
+          97.70000010000034,
+          309.0014768062303,
+          258.0014768062303
+        ]
+      ]
+    },
+    "a-pair-fore-anchor-tie": {
+      "valid": true,
+      "solid_count": 1,
+      "bounds_mm": [
+        [
+          43.24999989999994,
+          203.09999989999994,
+          251.9999998999999
+        ],
+        [
+          62.1500001000001,
+          206.90000010000006,
+          263.65000010000006
+        ]
+      ]
+    },
+    "a-pair-aft-anchor-tie": {
+      "valid": true,
+      "solid_count": 1,
+      "bounds_mm": [
+        [
+          79.24999989999989,
+          302.0999998999999,
+          251.99999989999978
+        ],
+        [
+          98.15000010000024,
+          305.9000001000001,
+          263.6500001000002
+        ]
+      ]
+    }
+  },
+  "nominal_lid_union": {
+    "valid": true,
+    "solid_count": 1
+  },
+  "tie_to_lid_and_seat_overlap_mm3": {
+    "a-pair-fore-anchor-tie": 0.0,
+    "a-pair-aft-anchor-tie": 0.0
+  },
+  "seat_floor_above_tie_slot_mm": 2.9750000000000227,
+  "slot_leaves_nominal_9mm_lid_floor_mm": 7.199999999999989,
+  "scope": "Native seats, tie cuts and nominal flat lid union; production lid features are separate."
+}
