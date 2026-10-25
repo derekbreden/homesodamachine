@@ -27,7 +27,7 @@ adds no fitting, insertion or tube cut. A single 63 mm square-ended foam piece
 covers the tube and holder before the meter connects. The meter outlet joins
 the preassembled rear group as back-top closes.
 
-> **V-K** — the water-supply fill/shutoff solenoid, an 11th valve of the same Beduan NC type — is **not** part of this manifold. It stands on the cold core's crown east of the G Ganen pump and gates the carbonator fill on the water-split's branch to that pump's suction, downstream of the ASSE 1022 (see [`fluid-topology-carbonator.mmd`](/hardware/topology/fluid-topology-carbonator.mmd) and [`assembly/internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §2), driven off the main board's spare `J2.OUT3` channel.
+> **V-K** — the water-supply fill/shutoff solenoid, an 11th valve of the same Beduan NC type — is **not** part of this manifold. It mounts on back-top east of the G Ganen pump and gates the carbonator fill on the water-split's branch to that pump's suction, downstream of the ASSE 1022 (see [`fluid-topology-carbonator.mmd`](/hardware/topology/fluid-topology-carbonator.mmd) and [`assembly/internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §2), driven off the main board's spare `J2.OUT3` channel.
 
 The water discharge and CO2 feed each use one purchased neoFit ACHV44-E
 check, oriented by its flow arrow toward the carbonator. The selected reference

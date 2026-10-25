@@ -11,11 +11,9 @@ functions and logical connections. A logical connection can contain several
 short tubes and directly inserted stem fittings.
 
 Assemble the fixed front manifold while front-top is loose. Fit below-lid core
-plumbing before the PCB, then the pump and other core equipment. Seat bare V-A,
-then bare V-K, before the other lid equipment. Prepare their connected split
-tee, regulator and three short links on the core. The ASSE and gas group are
-prepared on back-top; its open regulator saddles capture the header during
-the closing ride. Complete the remaining connections between
+plumbing before the PCB, then the pump, V-B and other core equipment.
+Prepare V-A, V-K, their fitted plumbing, the complete inlet header, ASSE and
+gas group on back-top. Complete the remaining connections between
 quadrants through the two roof apertures after the enclosure ride. Install the
 funnel frame and empty electronics panel after final tubing and wiring work.
 See [mechanical assembly](enclosure-mechanical.md) for the closing sequence.
@@ -52,9 +50,9 @@ place of their nominal allowances. The plain lid guide adds no insertion,
 fitting or physical cut. The reported warm span is part of this single tube,
 as with the continuous soda riser through its own plain guide.
 
-The V-A turn and V-B return union elbows have their own lid-rooted
-bearings. Thread their retaining ties before seating the fittings. Keep each
-tie on the fixed body band and leave both release collets free.
+The V-A turn has its bearing on back-top; the V-B return bearing belongs to
+the core lid. Thread their retaining ties before seating the fittings. Keep
+each tie on the fixed body band and leave both release collets free.
 
 ## Procedure
 
@@ -88,32 +86,23 @@ cuff receives the trimmed stem tee. One branch feeds the transverse YZMSZ
 regulator and V-A; the other feeds V-K beside the east wall, the pump inlet elbow,
 the pump, the discharge elbow and the neoFit ACHV44-E check.
 
-Clock V-A and V-K with their underside flow arrows downward. The header feeds
-their upper inlet ports; the lower outlet ports feed Y-A and the pump
-respectively. Their terminal blades point downward. Attach the prepared blade
-leads after seating both bare valves, before the PCB, PSU, pump and meter are
-installed. Dress their free PCB ends for the final connections through the
-open roof.
+V-A and V-K mount in back-top's integral socket seats. Clock their underside
+flow arrows downward: the header feeds their upper inlet ports, and their
+lower outlets feed Y-A and the pump respectively. Their terminal blades point
+downward. Seat the bare valves on the open back-top bench, then attach their
+prepared blade leads before fitting the surrounding plumbing. Dress the free
+PCB ends for final connection through the open roof. Physical terminal-housing
+fit and seating force remain unqualified.
 
-Thread the two ASSE ties and two regulator ties through their fixed-roof
-windows before seating the ASSE. Leave the regulator saddles empty and their
-ties loose for the back-column ride. Clock V-A's upper inlet release ear clear
-of the elbow body; the nominal model uses a 15° turn. Keep the release collet
-free to operate. On the open core, seat the upper V-A and V-K elbows, then
-connect the split tee, regulator and all three short header
-links. The two outer links have no exposed tube between their opposed collets;
-make those joints on the bench. Support this connected header during the ride.
-The open-fore roof saddles capture the regulator, and the ASSE outlet cuff
-slides over the tee's 15 mm male stem during the final 15 mm of closing travel.
-Guide that engagement through the uncovered roof apertures, check the actual
-seating marks, then tighten the regulator ties. The named ceiling pocket
-continues to the frame opening and retains 3 mm of roof above this capture
-path. The [native assembly record](/hardware/mechanical-qualification/enclosure-above-core/native-contact-review.json)
-bounds this sequence; it establishes no installation force or seal.
-The broad saddles carry the bodies; ties retain them. Keep all release collets
-and the vent adapter free. The ASSE
-cuffs are nominal printed interfaces whose sealing, retention, material
-suitability and pressure performance remain unqualified.
+Thread the two ASSE ties and two regulator ties through their back-top support
+windows before seating the bodies. Fit V-A's and V-K's inlet/outlet elbows,
+the split tee, regulator and all three short header links on that same
+subassembly. The two outer links have no exposed tube between their opposed
+collets. Clock V-A's upper inlet release ear clear of the elbow body; the
+nominal model uses a 15° turn. Keep release collets free to operate and tighten
+ties on the fixed body bands. The complete water header travels with back-top;
+the pump inlet is its connection to the core, and the low V-A feed connects
+to front-top's Y-A. Keep those handoffs accessible through the uncovered roof.
 
 Fit the pump's [TPU elbows](/hardware/printed-parts/diaphragm-pump-sleeve/README.md)
 to the measured barb datums. Inspect both passages for strands first. Each barb
@@ -163,7 +152,7 @@ collets and seal on their O-rings. The
 [pump service procedure](/hardware/service/pump-replacement.md) describes the separating
 joints and the complete prepared pumps supplied for a customer swap.
 
-**V-A, V-B and V-K mount in upright socket walls integral to the cold-core lid.** Their forward runs reach Y-A and Y-B beneath the open funnel aperture. Complete these connections before fitting the drop-in frame.
+**V-A and V-K mount on back-top; V-B mounts in the cold-core lid's upright socket wall.** Their forward runs reach Y-A and Y-B beneath the open funnel aperture. Complete these connections before fitting the drop-in frame.
 
 Lay out the ten Beduan valves and the [6](MANIFOLD_TEES) PP0208E tees. Cut stationary links from the [current manifold geometry](/hardware/manifold-layout/README.md), including engagement at both actual fittings. Exposed path length is not a tube-blank cut length. Use black LLDPE except for `fluid-3`, which uses white. Square-cut, deburr without scoring the sealing surface, and tag each segment.
 
@@ -294,22 +283,21 @@ Prepare the rear soda connection with back-top on the open bench:
 1. Install the soda and adjacent vent/drain bulkheads with their nuts through
    the rear wall. Keep the white 4 mm drain-vent line disconnected for final
    dressing through the open roof.
-2. Connect both nested soda stem elbows and the nominal 32.591 mm concealed
-   blue tube. Seat 16.891 mm in the return elbow and leave 15.7 mm free for
-   the meter, replacing nominal depths with the actual receiving marks when
-   preparing the blank. Secure the bulkhead nuts while access is open.
-3. Close the back column with this complete rear group. Guide its free tube
-   end into the fixed meter outlet during the final 15.7 mm of fore travel.
+2. Connect both nested soda stem elbows on back-top and secure the bulkhead
+   nuts while access is open. Prepare the nominal 32.591 mm concealed blue
+   tube on the core: seat 15.7 mm in the meter and leave the other 16.891 mm
+   for the return elbow. Replace nominal depths with actual receiving marks.
+3. Close the back column with its rear fittings. Guide the return elbow onto
+   the free tube carried by the meter, over its nominal 16.891 mm engagement.
    Keep the meter, both collars and rear fittings on their common axis.
-   The prepared inlet header is captured at the same time by its roof saddles
-   and the ASSE cuff, as described in §2.
+   The complete inlet header remains on its back-top mounts throughout this
+   motion, as described in §2.
 4. With the quadrants seated, inspect the engagements through the open roof
    and connect the white drain-vent line, keeping its atmospheric path open.
    Dress the remaining inter-quadrant leads before installing either closure.
 
 The [rear assembly record](/hardware/mechanical-qualification/enclosure-above-core/rear-plumbing-assembly.json)
-bounds the complete rear group's continuous closing envelope and finite
-meter-outlet capture. It retains the explicit 0.22493 mm³ nominal soda fitting
+records each tested rear group's staging and finite socket scope. It retains the explicit 0.22493 mm³ nominal soda fitting
 contact. Collet fit, connection force, threading and hand/tool access remain
 unqualified. The meter installs on the open core before closure; a straight
 late lift meets the fixed ASSE saddle and a fore insertion crosses its

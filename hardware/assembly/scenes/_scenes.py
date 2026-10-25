@@ -60,9 +60,8 @@ INNER_FOAM = ("foam-shell", "foam-cap-top", "foam-cap-lid-top",
 
 _COLD_CARD = _HW / "cold-core-layout" / "cold-core-assembly.scorecard.json"
 
-# Connected on the open core before the back column captures the header.
-# These final back-top tenants retain their temporary bench-stage ownership.
-CORE_INLET_HEADER_PREASSEMBLY = (
+# The inlet header is assembled on back-top with its two source valves.
+BACK_TOP_INLET_HEADER = (
     "water-split",
     "flow-regulator",
     "tube-above-core-tee-vk-link",
@@ -70,7 +69,47 @@ CORE_INLET_HEADER_PREASSEMBLY = (
     "tube-above-core-tee-regulator",
 )
 
-# The free concealed-tube end enters the fixed meter during column closure.
+# Selected above-core bodies carried by the approved back-top subassembly.
+# These production names map the mounting-parent groups in the accepted
+# funnel-gate assembly-ownership record, with the purchased check references.
+BACK_TOP_CARRIED_COMPONENTS = (
+    "valve-v-a", "vk-solenoid", "relay-1", "relay-2", "c14-inlet",
+    "keystone-jack", "asse1022-assembly", "asse-inlet-tpu",
+    "asse-outlet-tpu", "asse-drain-adapter", "water-split", "flow-regulator",
+    "reg-va-elbow", "va-outlet-elbow", "tee-fold", "lower-valve-elbow",
+    "lower-pump-elbow", "va-east-turn", "gas-regulator", "gas-check",
+    "gas-inlet-elbow", "gas-lower-a", "gas-lower-b", "gas-upper-a",
+    "gas-upper-b", "soda-stem-elbow", "soda-outlet-return-stem",
+    "wago-h", "wago-n", "wago-g",
+    *(name for fitting in ("bulkhead-water", "bulkhead-carb", "bulkhead-drain",
+                           "bulkhead-flavor-a", "bulkhead-flavor-b", "co2-inlet")
+      for name in (fitting, fitting + "-nut")),
+)
+BACK_TOP_CARRIED_TUBES = (
+    "tube-above-core-water-in",
+    "tube-above-core-tee-vk-link",
+    "tube-above-core-reg-va-link",
+    "tube-above-core-tee-regulator",
+    "tube-above-core-va-under-head",
+    "tube-above-core-va-fore-feed",
+    "tube-above-core-gas-inlet",
+    "tube-above-core-gas-check-link",
+)
+# These drawn spans cross mounting parents. They are explicit final handoffs,
+# rather than extra rigid bodies silently assigned to the cold core.
+BACK_TOP_HANDOFF_TUBES = (
+    "tube-above-core-pump-inlet-link",
+    "tube-above-core-gas-core-drop",
+    "tube-soda-meter-bulkhead",
+)
+
+
+def back_top_carried_names():
+    """Approved selected rigid body/tube names, without building a CAD assembly."""
+    return frozenset((*BACK_TOP_CARRIED_COMPONENTS, *BACK_TOP_CARRIED_TUBES))
+
+
+# Rear fittings ride back-top; the concealed outlet tube stays with the meter.
 BACK_COLUMN_REAR_PREASSEMBLY = (
     "bulkhead-carb",
     "bulkhead-carb-nut",
@@ -78,7 +117,6 @@ BACK_COLUMN_REAR_PREASSEMBLY = (
     "bulkhead-drain-nut",
     "soda-stem-elbow",
     "soda-outlet-return-stem",
-    "tube-soda-meter-bulkhead",
 )
 
 
@@ -178,17 +216,14 @@ SCENES = (
         # The flavour-A riser, pushed into its union from the room while this piece is open.
         # It is the longest run in the appliance and its far end is a valve on the front top,
         # which is why it is made up here rather than reached for down a closed box.
-        also=("tube-fluid-18",),
-        later=tuple(name for name in CORE_INLET_HEADER_PREASSEMBLY
-                    if not name.startswith("tube-")),
+        also=("tube-fluid-18", *BACK_TOP_INLET_HEADER), later=(),
         cam=(0.6, -1.0, 0.5), up=(0, 0, 1), zoom=2.7, look="centre",
         note="Turned over, which is how it is worked: its ceiling is the bench, the Z seam "
              "looks up and the Y-seam mouth faces the room — the +X wall is seen from where a "
-             "hand reaches it. The preassembled soda outlet chain and both rear bulkheads "
-             "ride with this piece; the free concealed-tube end enters the fixed meter during "
-             "the final 15.7 mm of closing. The split tee, regulator and "
-             "three header links are prepared on the core; the open roof saddles capture them "
-             "during the ride. The tray's sleeve stands empty.",
+             "hand reaches it. The soda outlet fittings and both rear bulkheads "
+             "ride with this piece; the concealed tube stays with the meter. "
+             "V-A, V-K, the split tee, regulator and "
+             "three header links belong to this back-top assembly. The tray's sleeve stands empty.",
     ),
     Scene(
         "front-top", "Enclosure front top",
@@ -249,19 +284,17 @@ SCENES = (
         later=(),
         cam=(0.35, -0.2, 1.0), up=(-1.7, 1.0, 0), zoom=2.9, look="crown",
         note="The same cap and lid with everything that face carries: the pump bolted through, "
-             "three valves seated in upright walls, flat PCB and PSU, check and meter in tied bearings. "
-             "Bare V-A seats first, then V-K, before equipment and fitted elbows obstruct the approach. "
+             "V-B seated in its upright wall, flat PCB and PSU, check and meter in tied bearings. "
              "It meets the rest of the core after all of it is on.",
     ),
     Scene(
         "cold-core", "Cold core, plumbed",
         roots=("foam-assembly",), inner=INNER_ALL, flip=None,
-        also=CORE_INLET_HEADER_PREASSEMBLY, later=(),
+        also=(), later=(),
         cam=(0.85, -1.0, 1.0), up=(0, 0, 1), zoom=3.25, look="centre",
         note="The core as it comes off its own bench and before the box is anywhere near it: "
              "the crown populated, and one tube standing in each of the seven cap conduits "
-             "with its far end loose. Its split tee, regulator and three short links are connected "
-             "and temporarily supported for capture by the back-top saddles. The evaporator's two "
+             "with its far end loose. The back-top water header is a separate subassembly. The evaporator's two "
              "coppers are not among them — those "
              "are brazed with the machine built, not on this bench.",
     ),
@@ -269,7 +302,7 @@ SCENES = (
         "cold-core-open", "Cold core, ready to foam",
         roots=("foam-assembly",), inner=INNER_ALL, flip=None, also=(), later=(),
         # THE PLUMBED CORE LESS ITS OWN CAP ASSEMBLY. What SA-04 stands on that plate — the pump,
-        # three valves, both chains and every run between them — and the plate and lid with it.
+        # V-B, the pump/check/meter and their carried plumbing — and the plate and lid with it.
         without="cap-lid",
         # Over the open mouth, which is what there is to see: the cavities the shot has to find,
         # both reservoirs standing in their pockets, and every line standing out of the top.
@@ -448,11 +481,14 @@ def holders(assembly=None):
     for cid in _ml.lower_links():
         if active(f"tube-fluid-{cid}"):
             out[f"tube-fluid-{cid}"] = "enclosure-front-top"
+    for name in BACK_TOP_CARRIED_TUBES:
+        if active(name):
+            out[name] = "enclosure-back-top"
     import above_core
     for name in above_core.core_equipment_names():
         if name in out:
             out[name] = "foam-assembly"
-    for name in ('tube-soda-core-rise',):
+    for name in ('tube-soda-core-rise', 'tube-soda-meter-bulkhead'):
         if active(name):
             out[name] = "foam-assembly"
     # A RIDER GOES WHERE ITS HOST GOES — `_scorecard.RIDES`, the coils on their valves and the
