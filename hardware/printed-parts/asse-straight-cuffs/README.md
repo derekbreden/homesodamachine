@@ -3,8 +3,7 @@
 Two straight cuffs connect the Multiplex ASSE's inlet and outlet to 6.35 mm
 OD tube. Their compact, coaxial sockets leave the regulator, pump and wiring
 bay accessible above the cold core. The enclosure assembly calls this
-generator for the installed geometry; each exported job solid stands on its
-large open socket for printing.
+generator for the installed geometry.
 
 These are **unprinted nominal fit candidates**. The CAD bores match the
 reference interfaces without an interference allowance. Neither the model
@@ -28,7 +27,17 @@ Metal interface dimensions come from the
 [native Multiplex reference](../../reference/multiplex-asse1022/README.md).
 Thread crests, actual tube dimensions and compliant fit remain properties of
 the physical mating parts. The socket sizes are source parameters for fit
-work; no print recipe or acceptance is assigned to these cuffs.
+work; no print acceptance is assigned to these cuffs.
+
+Print each cuff on its tube end, the metal socket mouth up. The flat floor of the
+metal socket then faces up and prints as a floor. The 1 mm tube-stop shoulder
+prints as a short overhang wall, and the outer reducer taper rises at 42.5°. No
+support is used. The recipe is the vent sleeve's
+[accepted Siraya single](../asse-drain-adapter/README.md#print-and-assemble):
+Siraya Tech Flex TPU 85A on Mark1's right 0.6 mm nozzle, a glued Engineering
+Plate, zero user Z trim, and an attached 5 mm outer brim around the 11.8 mm
+footprint. The plate is `asse-cuffs` in
+[trial preparation](../enclosure/trial-preparation/README.md).
 
 Available TPU 85A stock and the
 [pump sleeve's physical records](../diaphragm-pump-sleeve/README.md) establish
@@ -36,8 +45,8 @@ printing experience for their identified parts. They do not transfer fit,
 seal or pressure acceptance to this geometry.
 
 The two independent files are `asse-inlet-cuff` and `asse-outlet-cuff`, each
-with STEP, STL, viewer payload and material sidecar. Print orientation is
-encoded with the metal socket mouth at Z=0. Use `assembly_shape(side)` for
+with STEP, STL, viewer payload and material sidecar. The exported solid has
+the metal socket mouth at Z=0; the print turns it over. Use `assembly_shape(side)` for
 installation; it returns the exact selected shape in the ASSE flow-axis
 frame, whose origin is native ASSE `(0, 0, 27)`.
 

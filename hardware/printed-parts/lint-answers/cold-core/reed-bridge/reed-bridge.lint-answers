@@ -1,3 +1,23 @@
 [ceiling] The lead-groove floor bridges the open channel when the convex +X face is on the bed. The groove is 5.6 mm wide, with a 6.8 mm maximum span at the cross-notches; its nominal 2.30 mm depth includes 0.25 mm for retained bridge strands. The 3.25 mm outer plateau supplies that allowance while preserving the floor at X=64.450, at least 0.8 mm of backing, and the glass bearing and tube seat. Supports are accessible through the outward-open groove.
 face: plane · n x=1.000 y=0.000 z=0.000 · thru x=64.450 y=4.800 z=86.069
 click: x=64.450 y=4.800 z=86.069
+
+[sliver] The 0.8 mm skirt's edge faces: the bridge is a shell segment 3.25 mm proud at the plateau and 0.8 mm at the skirt (reed-bridge/README.md, The part). The skirt is the foot of the 16 mm circumferential ramps each copper wrap rides up and over.
+alternatives: A thicker skirt makes each wrap step up at the bridge's edge instead of riding onto it, lifting the copper off the wall there. Longer ramps widen the bridge's 51.4 mm arc and the copper it carries over the reeds.
+file: hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step
+click: x=59.074 y=-24.753 z=72.408
+click: x=59.074 y=24.753 z=72.408
+
+[thin] The same 0.8 mm skirt and the ramps rising from it to the 3.25 mm plateau (reed-bridge/README.md).
+alternatives: As for the skirt's edges: a thicker skirt puts a step under every wrap.
+file: hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step
+click: x=63.621 y=1.822 z=92.998
+click: x=64.450 y=1.822 z=92.998
+
+[ledge] The linter is wrong for this part's pose. The bridge prints with its outer convex face down, turned a quarter about Y (reed-bridge/README.md; trial-preparation pieces.json `small-petg`). These faces are the pocket and lead-notch ends, which look along Z in the bridge's own frame and are vertical in the print. The lint reads ledges only through an X tilt and a Z flip.
+alternatives: None in the part. The lint could take a Y turn among its print poses.
+file: hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step
+click: x=65.205 y=2.069 z=81.334
+click: x=65.205 y=2.069 z=53.182
+click: x=64.949 y=0.311 z=93.634
+click: x=64.949 y=0.311 z=65.482

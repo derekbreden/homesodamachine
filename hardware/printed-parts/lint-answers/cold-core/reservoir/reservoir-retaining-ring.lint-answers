@@ -1,0 +1,5 @@
+[thin] Specified fit: the TPU 90A ring that presses the 0.5 mm PTFE vent membrane into its 2.75 mm cap pocket is 2 mm thick, so the filter, the ring and 0.25 mm of clearance fill the pocket (cold-core/reservoir/vent.md). Its 13.5 mm outside diameter is a light interference in the 13.3 mm pocket.
+alternatives: A thicker ring stands proud of the cap face; a deeper pocket thins the cap ceiling over the splash baffle.
+file: hardware/printed-parts/cold-core/reservoir/reservoir-retaining-ring.step
+click: x=-3.999 y=-3.959 z=0.000
+click: x=-3.999 y=-3.959 z=2.000

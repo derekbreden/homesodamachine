@@ -3,11 +3,21 @@
   "profile": "hardware/printed-parts/petgf.3mf",
   "regions": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
   "printers": {
-    "Mark1": {"connection_key": "H2C", "z_trim_mm": 0.18, "filament_colour": "#000000"},
-    "Mark2": {"z_trim_mm": 0.04, "filament_colour": "#161616"}
+    "Mark1": {
+      "connection_key": "H2C",
+      "z_trim_mm": 0.18,
+      "filament_colour": "#000000"
+    },
+    "Mark2": {
+      "z_trim_mm": 0.04,
+      "filament_colour": "#161616"
+    }
   },
   "filament_mapping": {
-    "extruder_ams_count": ["1#0|4#0", "1#0|4#0"],
+    "extruder_ams_count": [
+      "1#0|4#0",
+      "1#0|4#0"
+    ],
     "support_filament": "1",
     "support_interface_filament": "1",
     "flush_into_support": "0"
@@ -15,6 +25,14 @@
   "pieces": {
     "front-top": {
       "printer": "Mark1",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C); Mark1's fixed left hardened 0.4 mm carries black PET-GF (tools/bambu-printers.md, Purge and wipe)."
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
       "settings": {
         "support_object_xy_distance": {
           "value": "0.5",
@@ -29,28 +47,56 @@
             {
               "name": "R6 roof side edges, level run",
               "kind": "fine_band",
-              "select": {"normal_z": [0.02, 0.995], "top_mm": 15, "exterior_x_mm": 15, "abs_normal_y_max": 0.05},
+              "select": {
+                "normal_z": [
+                  0.02,
+                  0.995
+                ],
+                "top_mm": 15,
+                "exterior_x_mm": 15,
+                "abs_normal_y_max": 0.05
+              },
               "min_component_area_mm2": 50,
-              "expect": {"span_mm": [5.0, 9.5], "components": [2, 2], "area_mm2": [600, 3000]},
+              "expect": {
+                "span_mm": [
+                  5.0,
+                  9.5
+                ],
+                "components": [
+                  2,
+                  2
+                ],
+                "area_mm2": [
+                  600,
+                  3000
+                ]
+              },
               "reason": "Inward/top show round where the R6 side edges roll level into the roof, with the flute runout beneath it. enclosure/enclosure/README.md Display housing; print-readiness.md."
             },
             {
               "name": "R18 display-to-roof roll",
               "kind": "fine_band",
-              "select": {"normal_z": [0.871, 0.995], "top_mm": 6, "abs_normal_x_max": 0.05, "normal_y_max": -0.05},
+              "select": {
+                "normal_z": [
+                  0.871,
+                  0.995
+                ],
+                "top_mm": 6,
+                "abs_normal_x_max": 0.05,
+                "normal_y_max": -0.05
+              },
               "min_component_area_mm2": 50,
-              "expect": {"span_mm": [1.5, 3.5], "components": [1, 1]},
+              "expect": {
+                "span_mm": [
+                  1.5,
+                  3.5
+                ],
+                "components": [
+                  1,
+                  1
+                ]
+              },
               "reason": "Inward/top show round where the 30-degree display plane rolls level into the roof. enclosure/enclosure/README.md Display housing."
-            },
-            {
-              "name": "Flank tube-anchor tie channels",
-              "kind": "tie_windows",
-              "channel_widths_mm": [2.0, 3.5],
-              "long_side_max_mm": 30,
-              "cavity_depth_mm": 3.25,
-              "blockers": true,
-              "expect": {"count": [1, 12]},
-              "reason": "Support printed in zip-tie cavities is impossible to remove (drain-readiness/prints/2026-10-09-current-back-top-tree-mark1/physical-result.json). Local support blockers fill only each detected channel's room under its roof."
             }
           ]
         }
@@ -58,6 +104,14 @@
     },
     "front-bottom": {
       "printer": "Mark1",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C); Mark1's fixed left hardened 0.4 mm carries black PET-GF (tools/bambu-printers.md, Purge and wipe)."
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
       "parts": [
         {
           "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl",
@@ -66,25 +120,43 @@
             {
               "name": "Handhold lifting-edge transition",
               "kind": "transition_band",
-              "select": {"exterior_x_mm": 3.0},
+              "select": {
+                "exterior_x_mm": 3.0
+              },
               "radius_mm": 6.0,
-              "expect": {"chamfer_area_mm2": [60, 600]},
+              "expect": {
+                "chamfer_area_mm2": [
+                  60,
+                  600
+                ]
+              },
               "reason": "Expanding print-down R6 at the handhold's exterior lifting edge, with its corner returns. printed-parts/AGENTS.md; layer-policy-correction/README.md."
             },
             {
               "name": "Handhold lifting ceiling boundary strip",
               "kind": "ceiling_inset",
-              "select": {"exterior_x_mm": 15},
+              "select": {
+                "exterior_x_mm": 15
+              },
               "inset_mm": 0.8,
-              "expect": {"area_mm2": [200, 2000]},
+              "expect": {
+                "area_mm2": [
+                  200,
+                  2000
+                ]
+              },
               "reason": "Tree(auto) supports the flat lifting ceiling and its inner corners; contacts stay 0.8 mm inside its boundary next to the blocked exterior transition. layer-policy-correction/README.md."
             },
             {
               "name": "Handhold lifting edge fins",
               "kind": "edge_fins",
               "enabled": true,
-              "wall_mm": 0.9, "outboard_mm": 0.05, "top_gap_mm": 0.24,
-              "segment_mm": 20.0, "release_gap_mm": 2.0, "end_inset_mm": 1.0,
+              "wall_mm": 0.9,
+              "outboard_mm": 0.05,
+              "top_gap_mm": 0.24,
+              "segment_mm": 20.0,
+              "release_gap_mm": 2.0,
+              "end_inset_mm": 1.0,
               "reason": "The handhold lifting edge is a print-down overhang edge on the surface a hand grips. Derek, 942ac2244: \"I'm quite convinced that we need to do this everywhere, that we've got these rough edges on overhangs.\" The accepted faucet-base arcs are faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json."
             }
           ]
@@ -93,8 +165,19 @@
     },
     "back-top": {
       "printer": "Mark2",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark2's 2026-10-24 jobs ran black PET-GF on its fixed left hardened 0.4 mm Standard-flow hotend (faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md, task 1372253517)."
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
       "plate_offset_mm": {
-        "value": [-5.4, 0.0],
+        "value": [
+          -5.4,
+          0.0
+        ],
         "reason": "With the footprint centered, tree trunks under the rear face root up to 11.6 mm past it while the seam end's beads stay within 0.9 mm of it: emitted bead envelope X 26.05-309.70 mm (2026-10-19 Mark2 slice of the 8b4aae4e4 mesh). This offset centers that envelope, 20.6 mm from both bed edges. Back-top only."
       },
       "settings": {
@@ -115,38 +198,82 @@
         {
           "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
           "regions": "back-top",
-          "pose": {"turns": [["x", 180]]},
+          "pose": {
+            "turns": [
+              [
+                "x",
+                180
+              ]
+            ]
+          },
           "features": [
             {
               "name": "Roof side edge transition",
               "kind": "transition_band",
-              "select": {"exterior_x_mm": 3.0, "bottom_mm": 12},
+              "select": {
+                "exterior_x_mm": 3.0,
+                "bottom_mm": 12
+              },
               "radius_mm": 6.0,
-              "expect": {"chamfer_area_mm2": [1000, 5000]},
+              "expect": {
+                "chamfer_area_mm2": [
+                  1000,
+                  5000
+                ]
+              },
               "reason": "Back-top's roof side edges print on the bed as the additive 0.24 mm treatment. print-readiness.md; printed-parts/AGENTS.md."
             },
             {
               "name": "Z-seam sliding-groove ribbons",
               "kind": "groove_ribbons",
-              "select": {"top_mm": 20, "exterior_x_mm": 16},
+              "select": {
+                "top_mm": 20,
+                "exterior_x_mm": 16
+              },
               "min_length_mm": 40,
-              "width_mm": [3.5, 8.0],
+              "width_mm": [
+                3.5,
+                8.0
+              ],
               "max_depth_mm": 12,
-              "side_clearance_mm": 0.40,
-              "expect": {"count": [2, 4], "total_length_mm": [300, 560]},
-              "ribbon_settings": {"extruder": "1", "wall_loops": "2", "sparse_infill_density": "0%",
-                                  "top_shell_layers": "2", "bottom_shell_layers": "2",
-                                  "top_shell_thickness": "0", "bottom_shell_thickness": "0"},
+              "side_clearance_mm": 0.4,
+              "expect": {
+                "count": [
+                  2,
+                  4
+                ],
+                "total_length_mm": [
+                  300,
+                  560
+                ]
+              },
+              "ribbon_settings": {
+                "extruder": "1",
+                "wall_loops": "2",
+                "sparse_infill_density": "0%",
+                "top_shell_layers": "2",
+                "bottom_shell_layers": "2",
+                "top_shell_thickness": "0",
+                "bottom_shell_thickness": "0"
+              },
               "reason": "Each caught face prints down from back-top's ceiling over its open sliding groove. A removable two-wall ribbon stands on the groove floor one empty layer up and stops two empty layers under the caught face; automatic support is blocked on the caught faces and the ribbons, and the solid-host modifiers stop at the ribbons. The 2026-10-10 article's long groove stems were trapped in the walls; the other quadrants' groove supports released easily. enclosure/enclosure/README.md Support-removal strategy; drain-readiness/prints/2026-10-10-current-back-top-bridge50-mark1/physical-result.json."
             },
             {
               "name": "Tie channel windows",
               "kind": "tie_windows",
-              "channel_widths_mm": [2.0, 3.5],
+              "channel_widths_mm": [
+                2.0,
+                3.5
+              ],
               "long_side_max_mm": 30,
               "cavity_depth_mm": 3.25,
               "blockers": false,
-              "expect": {"count": [18, 30]},
+              "expect": {
+                "count": [
+                  18,
+                  30
+                ]
+              },
               "reason": "Review windows for support in the zip-tie channels; the 50 mm bridge limit carries their roofs. drain-readiness/prints/2026-10-10-current-back-top-bridge50-mark1/tie-cavity-support-review.json."
             }
           ]
@@ -155,8 +282,19 @@
     },
     "back-bottom": {
       "printer": "Mark2",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark2's 2026-10-24 jobs ran black PET-GF on its fixed left hardened 0.4 mm Standard-flow hotend (faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md, task 1372253517)."
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
       "plate_offset_mm": {
-        "value": [-5.1, 18.8],
+        "value": [
+          -5.1,
+          18.8
+        ],
         "reason": "With the footprint centered, tree trunks under the seam-end knuckles' undersides root 10.3 mm past the seam end and the trunk under the Z169.4 side ledge roots 37.6 mm off the -X flank (2026-10-19 Mark2 slice of the 8b4aae4e4 mesh). This offset centers the emitted bead envelope: 20.8 and 21.4 mm from the X edges, 30.8 and 33.7 mm from the Y edges. Back-bottom only."
       },
       "parts": [
@@ -167,34 +305,62 @@
             {
               "name": "Handhold lifting-edge transition",
               "kind": "transition_band",
-              "select": {"exterior_x_mm": 3.0},
+              "select": {
+                "exterior_x_mm": 3.0
+              },
               "radius_mm": 6.0,
-              "expect": {"chamfer_area_mm2": [100, 1000]},
+              "expect": {
+                "chamfer_area_mm2": [
+                  100,
+                  1000
+                ]
+              },
               "reason": "Expanding print-down R6 at the handhold's exterior lifting edge, with its corner returns. printed-parts/AGENTS.md; layer-policy-correction/README.md."
             },
             {
               "name": "Handhold lifting ceiling boundary strip",
               "kind": "ceiling_inset",
-              "select": {"exterior_x_mm": 15},
+              "select": {
+                "exterior_x_mm": 15
+              },
               "inset_mm": 0.8,
-              "expect": {"area_mm2": [400, 3000]},
+              "expect": {
+                "area_mm2": [
+                  400,
+                  3000
+                ]
+              },
               "reason": "Tree(auto) supports the flat lifting ceiling and its inner corners; contacts stay 0.8 mm inside its boundary next to the blocked exterior transition. layer-policy-correction/README.md."
             },
             {
               "name": "Handhold lifting edge fins",
               "kind": "edge_fins",
               "enabled": true,
-              "wall_mm": 0.9, "outboard_mm": 0.05, "top_gap_mm": 0.24,
-              "segment_mm": 20.0, "release_gap_mm": 2.0, "end_inset_mm": 1.0,
-              "foot_outboard_mm": 5.0, "foot_inboard_mm": 4.0, "foot_height_mm": 0.44,
+              "wall_mm": 0.9,
+              "outboard_mm": 0.05,
+              "top_gap_mm": 0.24,
+              "segment_mm": 20.0,
+              "release_gap_mm": 2.0,
+              "end_inset_mm": 1.0,
+              "foot_outboard_mm": 5.0,
+              "foot_inboard_mm": 4.0,
+              "foot_height_mm": 0.44,
               "reason": "The handhold lifting edge is a print-down overhang edge on the surface a hand grips. Derek, 942ac2244: \"I'm quite convinced that we need to do this everywhere, that we've got these rough edges on overhangs.\" The accepted faucet-base arcs are faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/physical-result/physical-result.json. Each fin stands on a 0.44 mm foot, 5 mm outboard and 4 mm inboard of it, as its bed anchor: auto_brim gave each bare 0.9 x 22 x 35 mm fin a 15-17 mm brim, which left back-bottom's bead envelope 18.3 mm from the X edges; on feet the slice emits no brim (2026-10-19 Mark2 slice). The inboard foot stops 6.6 mm short of the recess's inner wall. Back-bottom only."
             }
           ]
         }
       ]
     },
-    "pump-cartridge-cap": {
+    "pump-cradle-clamp": {
       "printer": "Mark1",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C); Mark1's fixed left hardened 0.4 mm carries black PET-GF (tools/bambu-printers.md, Purge and wipe)."
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
       "spacing_mm": 15,
       "parts": [
         {
@@ -204,35 +370,777 @@
         {
           "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.stl",
           "regions": "pump-cap",
-          "pose": {"turns": [["x", 180]]}
+          "pose": {
+            "turns": [
+              [
+                "x",
+                180
+              ]
+            ]
+          }
         }
       ]
     },
     "funnel-frame": {
       "printer": "Mark2",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark2's 2026-10-24 jobs ran black PET-GF on its fixed left hardened 0.4 mm Standard-flow hotend (faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md, task 1372253517)."
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
       "settings": {
-        "elefant_foot_compensation": {"value": "0", "reason": "The 2026-10-05 Mark2 frame recipe (zone-c/funnel/flush-roof-review/mark2-v1/preparation.json), whose article fit the 2026-10-07 build (enclosure/lillium-prototype-2026-10-07/physical-observation.json)."},
-        "brim_type": {"value": "no_brim", "reason": "The 2026-10-05 Mark2 frame recipe, whose article fit the 2026-10-07 build."},
-        "brim_width": {"value": "0", "reason": "The 2026-10-05 Mark2 frame recipe, whose article fit the 2026-10-07 build."},
-        "support_object_xy_distance": {"value": "0.5", "reason": "The 2026-10-05 Mark2 frame recipe, whose article fit the 2026-10-07 build."}
+        "elefant_foot_compensation": {
+          "value": "0",
+          "reason": "The 2026-10-05 Mark2 frame recipe (zone-c/funnel/flush-roof-review/mark2-v1/preparation.json), whose article fit the 2026-10-07 build (enclosure/lillium-prototype-2026-10-07/physical-observation.json)."
+        },
+        "brim_type": {
+          "value": "no_brim",
+          "reason": "The 2026-10-05 Mark2 frame recipe, whose article fit the 2026-10-07 build."
+        },
+        "brim_width": {
+          "value": "0",
+          "reason": "The 2026-10-05 Mark2 frame recipe, whose article fit the 2026-10-07 build."
+        },
+        "support_object_xy_distance": {
+          "value": "0.5",
+          "reason": "The 2026-10-05 Mark2 frame recipe, whose article fit the 2026-10-07 build."
+        }
       },
       "parts": [
-        {"stl": "hardware/printed-parts/zone-c/funnel/funnel-frame.stl"}
+        {
+          "stl": "hardware/printed-parts/zone-c/funnel/funnel-frame.stl"
+        }
       ]
     },
     "factory-tools": {
       "printer": "Mark2",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark2's 2026-10-24 jobs ran black PET-GF on its fixed left hardened 0.4 mm Standard-flow hotend (faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md, task 1372253517)."
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
       "spacing_mm": 15,
       "parts": [
-        {"stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl"}
+        {
+          "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-tube-setting-jig.stl"
+        }
       ]
+    },
+    "display-cover": {
+      "printer": "Mark1",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C); Mark1's fixed left hardened 0.4 mm carries black PET-GF (tools/bambu-printers.md, Purge and wipe)."
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "parts": [
+        {
+          "stl": "hardware/printed-parts/enclosure/display-cover/display-cover.stl"
+        }
+      ],
+      "pose_reason": "As exported: the back and both wings lie directly on the bed, face up (display-cover/README.md). The same bytes are the accepted face-up trial (display-cover/face-up-trial/physical-acceptance.json), sliced at rotation 0 on H2C (tee-readiness/full-enclosure-print/native-slice-reviews/2026-09-29-display-flat-wings-h2c-v1/preparation.json)."
+    },
+    "elbow-cradle": {
+      "printer": "Mark1",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C); Mark1's fixed left hardened 0.4 mm carries black PET-GF (tools/bambu-printers.md, Purge and wipe)."
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "parts": [
+        {
+          "stl": "hardware/printed-parts/zone-c/funnel/elbow-cradle.stl"
+        }
+      ],
+      "pose_reason": "As exported: the cradle prints on its bottom, and the hooks' flat undersides take accessible supports (zone-c/funnel/README.md)."
+    },
+    "soda-bend-holder": {
+      "printer": "Mark1",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C); Mark1's fixed left hardened 0.4 mm carries black PET-GF (tools/bambu-printers.md, Purge and wipe)."
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "parts": [
+        {
+          "stl": "hardware/printed-parts/soda-bend-holder/soda-bend-holder.stl",
+          "object_settings": {
+            "wall_loops": {
+              "value": "6",
+              "reason": "The accepted 2026-10-23 Mark1 article of these exact bytes (its 3 mm legs) printed six walls (future/tube-bend-holder-exploration/prints/2026-10-23-legs-123-w2-petgf-left04-z018-mark1/*.print.json; D-26)."
+            },
+            "sparse_infill_density": {
+              "value": "100%",
+              "reason": "The accepted 2026-10-23 Mark1 article's solid recipe."
+            },
+            "sparse_infill_pattern": {
+              "value": "zig-zag",
+              "reason": "The accepted 2026-10-23 Mark1 article's solid recipe."
+            }
+          }
+        }
+      ],
+      "pose_reason": "As exported: the flat back of the D on the plate, the channel's teardrop point up (the accepted article's print_pose)."
+    },
+    "foam-shell": {
+      "printer": "Mark2",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.8,
+        "flow": "High Flow",
+        "hardened": true,
+        "reason": "The cold-core stack prints on a 0.8 mm tungsten carbide hotend on the left (cold-core/foam-shell/README.md, Printer / profile; hardware/ledger/tools.md lists a 0.8 TC HF and two 0.8 Diamond PCD). Which of them is mounted is Derek's to say; a Standard-flow 0.8 takes nozzle_volume_type Standard and a reslice."
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "profile": "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf",
+      "filament_from": "hardware/printed-parts/petgf.3mf",
+      "settings": {
+        "nozzle_temperature": {
+          "value": [
+            "280",
+            "280",
+            "270"
+          ],
+          "reason": "The cold-core plate takes the stock's figures from the slot the exterior is sliced on (cold-core/foam-shell/print-log.md, Stock): petgf.3mf's Standard-hotend 280 C, carried to the High Flow hotend's entry."
+        },
+        "nozzle_temperature_initial_layer": {
+          "value": [
+            "265",
+            "265",
+            "270"
+          ],
+          "reason": "The exterior slot's first-layer temperature (petgf.3mf), on the High Flow entry too."
+        },
+        "filament_flow_ratio": {
+          "value": [
+            "0.9555",
+            "0.9555",
+            "1"
+          ],
+          "reason": "The exterior slot's flow ratio (petgf.3mf; foam-shell/README.md, Filament), on the High Flow entry too."
+        },
+        "filament_max_volumetric_speed": {
+          "value": [
+            "18",
+            "18",
+            "5"
+          ],
+          "reason": "The exterior slot's 18 mm3/s cap (petgf.3mf; foam-shell/README.md, Filament), on the High Flow entry too."
+        },
+        "nozzle_volume_type": {
+          "value": [
+            "High Flow",
+            "Standard"
+          ],
+          "reason": "The left hotend is the 0.8 mm High Flow the stack prints on; the base project's right entry reads Hybrid, which the slicer command line refuses (\"unsupported NozzleVolumeType=2\"). The right hotend carries no filament on this plate."
+        }
+      },
+      "plate_border_mm": 20.0,
+      "parts": [
+        {
+          "stl": "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl"
+        }
+      ],
+      "pose_reason": "As exported: the floor on the bed; supports off as the shell's own recipe sets (foam-shell/README.md, Printer / profile)."
+    },
+    "foam-cap-bottom": {
+      "printer": "Mark2",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.8,
+        "flow": "High Flow",
+        "hardened": true,
+        "reason": "The cold-core stack prints on a 0.8 mm tungsten carbide hotend on the left (cold-core/foam-shell/README.md, Printer / profile; hardware/ledger/tools.md lists a 0.8 TC HF and two 0.8 Diamond PCD). Which of them is mounted is Derek's to say; a Standard-flow 0.8 takes nozzle_volume_type Standard and a reslice."
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "profile": "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf",
+      "filament_from": "hardware/printed-parts/petgf.3mf",
+      "settings": {
+        "nozzle_temperature": {
+          "value": [
+            "280",
+            "280",
+            "270"
+          ],
+          "reason": "The cold-core plate takes the stock's figures from the slot the exterior is sliced on (cold-core/foam-shell/print-log.md, Stock): petgf.3mf's Standard-hotend 280 C, carried to the High Flow hotend's entry."
+        },
+        "nozzle_temperature_initial_layer": {
+          "value": [
+            "265",
+            "265",
+            "270"
+          ],
+          "reason": "The exterior slot's first-layer temperature (petgf.3mf), on the High Flow entry too."
+        },
+        "filament_flow_ratio": {
+          "value": [
+            "0.9555",
+            "0.9555",
+            "1"
+          ],
+          "reason": "The exterior slot's flow ratio (petgf.3mf; foam-shell/README.md, Filament), on the High Flow entry too."
+        },
+        "filament_max_volumetric_speed": {
+          "value": [
+            "18",
+            "18",
+            "5"
+          ],
+          "reason": "The exterior slot's 18 mm3/s cap (petgf.3mf; foam-shell/README.md, Filament), on the High Flow entry too."
+        },
+        "nozzle_volume_type": {
+          "value": [
+            "High Flow",
+            "Standard"
+          ],
+          "reason": "The left hotend is the 0.8 mm High Flow the stack prints on; the base project's right entry reads Hybrid, which the slicer command line refuses (\"unsupported NozzleVolumeType=2\"). The right hotend carries no filament on this plate."
+        }
+      },
+      "plate_border_mm": 20.0,
+      "parts": [
+        {
+          "stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl",
+          "pose": {
+            "turns": [
+              [
+                "x",
+                180
+              ]
+            ]
+          }
+        }
+      ],
+      "pose_reason": "Half a turn about X puts the bottom cap's 50,700 mm2 flat face on the bed; as exported it stands on 2,200 mm2."
+    },
+    "foam-cap-lid-bottom": {
+      "printer": "Mark2",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.8,
+        "flow": "High Flow",
+        "hardened": true,
+        "reason": "The cold-core stack prints on a 0.8 mm tungsten carbide hotend on the left (cold-core/foam-shell/README.md, Printer / profile; hardware/ledger/tools.md lists a 0.8 TC HF and two 0.8 Diamond PCD). Which of them is mounted is Derek's to say; a Standard-flow 0.8 takes nozzle_volume_type Standard and a reslice."
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "profile": "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf",
+      "filament_from": "hardware/printed-parts/petgf.3mf",
+      "settings": {
+        "nozzle_temperature": {
+          "value": [
+            "280",
+            "280",
+            "270"
+          ],
+          "reason": "The cold-core plate takes the stock's figures from the slot the exterior is sliced on (cold-core/foam-shell/print-log.md, Stock): petgf.3mf's Standard-hotend 280 C, carried to the High Flow hotend's entry."
+        },
+        "nozzle_temperature_initial_layer": {
+          "value": [
+            "265",
+            "265",
+            "270"
+          ],
+          "reason": "The exterior slot's first-layer temperature (petgf.3mf), on the High Flow entry too."
+        },
+        "filament_flow_ratio": {
+          "value": [
+            "0.9555",
+            "0.9555",
+            "1"
+          ],
+          "reason": "The exterior slot's flow ratio (petgf.3mf; foam-shell/README.md, Filament), on the High Flow entry too."
+        },
+        "filament_max_volumetric_speed": {
+          "value": [
+            "18",
+            "18",
+            "5"
+          ],
+          "reason": "The exterior slot's 18 mm3/s cap (petgf.3mf; foam-shell/README.md, Filament), on the High Flow entry too."
+        },
+        "nozzle_volume_type": {
+          "value": [
+            "High Flow",
+            "Standard"
+          ],
+          "reason": "The left hotend is the 0.8 mm High Flow the stack prints on; the base project's right entry reads Hybrid, which the slicer command line refuses (\"unsupported NozzleVolumeType=2\"). The right hotend carries no filament on this plate."
+        }
+      },
+      "plate_border_mm": 20.0,
+      "parts": [
+        {
+          "stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.stl"
+        }
+      ],
+      "pose_reason": "As exported: the lid's 50,100 mm2 flat face is its Z0 face."
+    },
+    "foam-cap-top": {
+      "printer": "Mark2",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.8,
+        "flow": "High Flow",
+        "hardened": true,
+        "reason": "The cold-core stack prints on a 0.8 mm tungsten carbide hotend on the left (cold-core/foam-shell/README.md, Printer / profile; hardware/ledger/tools.md lists a 0.8 TC HF and two 0.8 Diamond PCD). Which of them is mounted is Derek's to say; a Standard-flow 0.8 takes nozzle_volume_type Standard and a reslice."
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "profile": "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf",
+      "filament_from": "hardware/printed-parts/petgf.3mf",
+      "settings": {
+        "nozzle_temperature": {
+          "value": [
+            "280",
+            "280",
+            "270"
+          ],
+          "reason": "The cold-core plate takes the stock's figures from the slot the exterior is sliced on (cold-core/foam-shell/print-log.md, Stock): petgf.3mf's Standard-hotend 280 C, carried to the High Flow hotend's entry."
+        },
+        "nozzle_temperature_initial_layer": {
+          "value": [
+            "265",
+            "265",
+            "270"
+          ],
+          "reason": "The exterior slot's first-layer temperature (petgf.3mf), on the High Flow entry too."
+        },
+        "filament_flow_ratio": {
+          "value": [
+            "0.9555",
+            "0.9555",
+            "1"
+          ],
+          "reason": "The exterior slot's flow ratio (petgf.3mf; foam-shell/README.md, Filament), on the High Flow entry too."
+        },
+        "filament_max_volumetric_speed": {
+          "value": [
+            "18",
+            "18",
+            "5"
+          ],
+          "reason": "The exterior slot's 18 mm3/s cap (petgf.3mf; foam-shell/README.md, Filament), on the High Flow entry too."
+        },
+        "nozzle_volume_type": {
+          "value": [
+            "High Flow",
+            "Standard"
+          ],
+          "reason": "The left hotend is the 0.8 mm High Flow the stack prints on; the base project's right entry reads Hybrid, which the slicer command line refuses (\"unsupported NozzleVolumeType=2\"). The right hotend carries no filament on this plate."
+        }
+      },
+      "plate_border_mm": 20.0,
+      "parts": [
+        {
+          "stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl"
+        }
+      ],
+      "pose_reason": "As exported: the cap's 50,300 mm2 flat face is its Z0.15 seat face."
+    },
+    "foam-cap-lid-top": {
+      "printer": "Mark2",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.8,
+        "flow": "High Flow",
+        "hardened": true,
+        "reason": "The cold-core stack prints on a 0.8 mm tungsten carbide hotend on the left (cold-core/foam-shell/README.md, Printer / profile; hardware/ledger/tools.md lists a 0.8 TC HF and two 0.8 Diamond PCD). Which of them is mounted is Derek's to say; a Standard-flow 0.8 takes nozzle_volume_type Standard and a reslice."
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "profile": "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf",
+      "filament_from": "hardware/printed-parts/petgf.3mf",
+      "settings": {
+        "nozzle_temperature": {
+          "value": [
+            "280",
+            "280",
+            "270"
+          ],
+          "reason": "The cold-core plate takes the stock's figures from the slot the exterior is sliced on (cold-core/foam-shell/print-log.md, Stock): petgf.3mf's Standard-hotend 280 C, carried to the High Flow hotend's entry."
+        },
+        "nozzle_temperature_initial_layer": {
+          "value": [
+            "265",
+            "265",
+            "270"
+          ],
+          "reason": "The exterior slot's first-layer temperature (petgf.3mf), on the High Flow entry too."
+        },
+        "filament_flow_ratio": {
+          "value": [
+            "0.9555",
+            "0.9555",
+            "1"
+          ],
+          "reason": "The exterior slot's flow ratio (petgf.3mf; foam-shell/README.md, Filament), on the High Flow entry too."
+        },
+        "filament_max_volumetric_speed": {
+          "value": [
+            "18",
+            "18",
+            "5"
+          ],
+          "reason": "The exterior slot's 18 mm3/s cap (petgf.3mf; foam-shell/README.md, Filament), on the High Flow entry too."
+        },
+        "nozzle_volume_type": {
+          "value": [
+            "High Flow",
+            "Standard"
+          ],
+          "reason": "The left hotend is the 0.8 mm High Flow the stack prints on; the base project's right entry reads Hybrid, which the slicer command line refuses (\"unsupported NozzleVolumeType=2\"). The right hotend carries no filament on this plate."
+        }
+      },
+      "plate_border_mm": 20.0,
+      "parts": [
+        {
+          "stl": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl"
+        }
+      ],
+      "pose_reason": "As exported: the lid's 48,900 mm2 flat face is its Z0 face, the walls and wells standing up from it."
     },
     "labels": {
       "printer": "Mark2",
+      "nozzle": {
+        "side": "both",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Two-colour PET-GF: white on the left 0.4 mm, the plate's colour on the right 0.4 mm, with Mark2's measured right-nozzle registration (calibration/dual-nozzle-registration/mark2-registration.json)."
+      },
+      "material": "Polymaker Fiberon PET-GF15, white with black, blue, red or black",
       "external": {
-        "command": ["hardware/printed-parts/drain-readiness/prepare.py", "labels"],
-        "reason": "The chips, collars and DATA plate are two-body STEPs; their meshes are tessellated from the CAD source under the CAD lock."
+        "command": [
+          "hardware/printed-parts/enclosure/trial-preparation/labels.py",
+          "--slice"
+        ],
+        "reason": "Six rear chips, six tube collars, the DATA plate and nameplate 0001 on four two-colour plates; each part's body and lettering come from its published STEP."
       }
+    },
+    "funnel-cover": {
+      "printer": "Mark1",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": false,
+        "reason": "Black PETG on the left 0.4 mm (zone-c/funnel-cover/prepare_print.py; hardware/ledger/machine-time.md)."
+      },
+      "material": "Bambu PETG Basic, black",
+      "external": {
+        "command": [
+          "hardware/printed-parts/zone-c/funnel-cover/prepare_print.py"
+        ],
+        "reason": "The cover's own preparer: solid PETG, three walls, no supports, from funnel-cover-print.stl."
+      }
+    },
+    "funnel-mold": {
+      "printer": "Mark1",
+      "nozzle": {
+        "side": "right",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": false,
+        "reason": "PETG Translucent Clear from Mark1's AMS HT-A on the right 0.4 mm (zone-c/funnel-mold/README.md)."
+      },
+      "material": "Bambu PETG Translucent, clear",
+      "external": {
+        "command": [
+          "tools/funnel-mold-print/prepare_print.py"
+        ],
+        "reason": "The silicone mold's own preparer from the current cavity and core meshes and installed Bambu presets."
+      }
+    },
+    "reservoirs": {
+      "printer": "Mark1",
+      "nozzle": {
+        "side": "right",
+        "diameter_mm": 0.8,
+        "flow": "Standard",
+        "hardened": false,
+        "reason": "Clear PETG from Mark1's AMS on the right 0.8 mm Standard hotend, zero added user Z trim (tools/bambu-printers.md, Mark1 clear PETG spool order; Z trim)."
+      },
+      "material": "Bambu PETG Translucent, clear",
+      "archive": {
+        "path": ".cache/reservoir-flow105-overlap30-temp260/reservoir-review.3mf",
+        "sha256": "f31999ee96314422aed95c21ae021d9e309cdb60085db6aa0e476dd8f443e381",
+        "reason": "The two-plate native slice of the current reservoir STEPs, 255/260 C, flow 1.05, five Arachne walls. Plate 1, the left pair, is task 1371867808, finished and holding water; plate 2, the right pair, is task 1372664582, sent 2026-10-25 00:34 (cold-core/reservoir/prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/README.md). Package one plate with its print-only step (packaging.json there)."
+      }
+    },
+    "level-floats": {
+      "printer": "Mark2",
+      "nozzle": {
+        "side": "right",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "White ASA Aero through right external slot 255 and the standard hardened 0.4 mm right nozzle on a glued Engineering Plate (cold-core/magnetic-float/all-aero/mark2-print/three-close-v1/README.md)."
+      },
+      "material": "Bambu ASA Aero, white",
+      "archive": {
+        "path": "hardware/printed-parts/cold-core/magnetic-float/all-aero/mark2-print/three-close-v1/2026-10-08-three-floats-close-asa-aero-right04-engineering-mark2.gcode.3mf",
+        "sha256": "a11c7a5270091798c93dd8dd08a2e67209ec3304cf2a26a63d7268c13f8e99f6",
+        "reason": "Three floats of the current float-aero.stl (a7ca570ba033, bound by its preparation.json) with the RC62 insertion pause before layer 81; printed 2026-10-08."
+      }
+    },
+    "pump-elbows": {
+      "printer": "Mark2",
+      "nozzle": {
+        "side": "right",
+        "diameter_mm": 0.6,
+        "flow": "Standard",
+        "hardened": false,
+        "reason": "The accepted Mark2 pair printed on the right 0.6 mm, glued Engineering Plate (diaphragm-pump-sleeve/README.md, Material and print)."
+      },
+      "material": "Siraya Tech Flex TPU 85A, clear",
+      "archive": {
+        "path": "future/pump-elbow-exploration/prints/2026-10-16-deposited-links-siraya85a-mark1/2026-10-16-elbows-deposited-links-siraya85a-right06-z000-mark1.gcode.3mf",
+        "sha256": "e48038ec34adf03cdd635e53f4359348f1e0a787a8056a7b523d055d82b898e7",
+        "reason": "Use the processed archive directly; reslicing loses the deposited links (diaphragm-pump-sleeve/README.md). Accepted as the 2026-10-22 Mark2 pair (D-56)."
+      }
+    },
+    "asse-vent-sleeve": {
+      "printer": "Mark1",
+      "nozzle": {
+        "side": "right",
+        "diameter_mm": 0.6,
+        "flow": "Standard",
+        "hardened": false,
+        "reason": "Mark1's right 0.6 mm with Siraya Tech Flex TPU 85A Clear on the external right spool (asse-drain-adapter/README.md, Print and assemble)."
+      },
+      "material": "Siraya Tech Flex TPU 85A, clear",
+      "profile": "future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/2026-10-14-compact-single-elbow-siraya85a-overhang10-engineering-right06-z000-mark1.3mf",
+      "z_trim_mm": {
+        "value": 0.0,
+        "reason": "The accepted Siraya single's zero user Z trim on the glued Engineering Plate (asse-drain-adapter/README.md)."
+      },
+      "filament_mapping": {
+        "value": {
+          "support_filament": "2",
+          "support_interface_filament": "2",
+          "flush_into_support": "0"
+        },
+        "reason": "One TPU spool on the right nozzle; the recipe prints no support."
+      },
+      "filament_colour": {
+        "value": "#FFFFFF",
+        "reason": "Mark1's external right spool reads TPU FFFFFF (2026-10-23 tube-bend-holder physical-result.json)."
+      },
+      "parts": [
+        {
+          "stl": "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl"
+        }
+      ],
+      "pose_reason": "As exported: upright, the large socket on the bed and the small socket up (asse-drain-adapter/README.md)."
+    },
+    "asse-cuffs": {
+      "printer": "Mark1",
+      "nozzle": {
+        "side": "right",
+        "diameter_mm": 0.6,
+        "flow": "Standard",
+        "hardened": false,
+        "reason": "Mark1's right 0.6 mm with Siraya Tech Flex TPU 85A Clear on the external right spool (asse-drain-adapter/README.md, Print and assemble)."
+      },
+      "material": "Siraya Tech Flex TPU 85A, clear",
+      "profile": "future/pump-elbow-exploration/prints/2026-10-14-compact-single-siraya85a-overhang10-engineering-z000-mark1/2026-10-14-compact-single-elbow-siraya85a-overhang10-engineering-right06-z000-mark1.3mf",
+      "z_trim_mm": {
+        "value": 0.0,
+        "reason": "The accepted Siraya single's zero user Z trim on the glued Engineering Plate (asse-drain-adapter/README.md)."
+      },
+      "filament_mapping": {
+        "value": {
+          "support_filament": "2",
+          "support_interface_filament": "2",
+          "flush_into_support": "0"
+        },
+        "reason": "One TPU spool on the right nozzle; the recipe prints no support."
+      },
+      "filament_colour": {
+        "value": "#FFFFFF",
+        "reason": "Mark1's external right spool reads TPU FFFFFF (2026-10-23 tube-bend-holder physical-result.json)."
+      },
+      "spacing_mm": 2,
+      "parts": [
+        {
+          "stl": "hardware/printed-parts/asse-straight-cuffs/asse-inlet-cuff.stl",
+          "pose": {
+            "turns": [
+              [
+                "x",
+                180
+              ]
+            ]
+          }
+        },
+        {
+          "stl": "hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.stl",
+          "pose": {
+            "turns": [
+              [
+                "x",
+                180
+              ]
+            ]
+          }
+        }
+      ],
+      "pose_reason": "Half a turn about X stands each cuff on its tube end, so the flat metal-socket floor faces up and prints as a floor, the 1 mm tube-stop shoulder is the only ceiling, and the outer reducer taper rises at 42.5 degrees. The recipe's attached 5 mm outer brim carries the 11.8 mm footprint. No recipe is assigned to the cuffs; they take the vent sleeve's, the same stock's accepted single (asse-drain-adapter/README.md).",
+      "spacing_reason": "TPU objects stay close to shorten travel between extrusion stops and starts; the compact retry used a 2 mm model gap (tools/bambu-printers.md, Placement on unseasoned plates)."
+    },
+    "seals": {
+      "printer": "Mark2",
+      "nozzle": {
+        "side": "right",
+        "diameter_mm": 0.6,
+        "flow": "Standard",
+        "hardened": false,
+        "reason": "The 2026-10-08 flat gasket plate: Mark2's right 0.6 mm, external slot 255 (prototype-gaskets-2026-10-08/README.md)."
+      },
+      "material": "Bambu TPU 85A, black (the 2026-10-08 plate's stock; display-gasket/README.md and bom.md name TPU 90A)",
+      "profile": "hardware/printed-parts/prototype-gaskets-2026-10-08/projects/2026-10-08-prototype-flat-gaskets-tpu85a-right06-mark2.3mf",
+      "spacing_mm": 3,
+      "filament_mapping": {
+        "value": {
+          "support_filament": "2",
+          "support_interface_filament": "2",
+          "flush_into_support": "0"
+        },
+        "reason": "One TPU spool on the right nozzle; the solid TPU process prints no support."
+      },
+      "filament_colour": {
+        "value": "#161616",
+        "reason": "Mark2's external right spool reads TPU 161616 (faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/preflight.json)."
+      },
+      "parts": [
+        {
+          "stl": "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.stl",
+          "quantity": 2
+        },
+        {
+          "stl": "hardware/printed-parts/cold-core/reservoir/reservoir-retaining-ring.stl",
+          "quantity": 2
+        },
+        {
+          "stl": "hardware/printed-parts/enclosure/display-gasket/display-gasket.stl"
+        }
+      ],
+      "pose_reason": "As exported: each seal is a flat 1 or 2 mm sheet in its own frame. The reservoir gasket is symmetric in Y; flip one to fit the opposite reservoir (prototype-gaskets-2026-10-08/README.md).",
+      "spacing_reason": "TPU objects stay close to shorten travel between extrusion stops and starts; the compact retry used a 2 mm model gap (tools/bambu-printers.md, Placement on unseasoned plates)."
+    },
+    "small-petg": {
+      "printer": "Mark1",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": false,
+        "reason": "PETG on the left 0.4 mm, as the black PETG funnel cover (hardware/ledger/machine-time.md)."
+      },
+      "material": "Bambu PETG Basic, black",
+      "filament_from": "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-petg.3mf",
+      "filament_colour": {
+        "value": "#000000",
+        "reason": "Black PETG, the funnel cover's spool."
+      },
+      "spacing_mm": 10,
+      "parts": [
+        {
+          "stl": "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.stl",
+          "name": "copper-plug-port",
+          "pose": {
+            "turns": [
+              [
+                "x",
+                -90
+              ]
+            ]
+          }
+        },
+        {
+          "stl": "hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.stl",
+          "name": "copper-plug-west",
+          "pose": {
+            "turns": [
+              [
+                "x",
+                -90
+              ]
+            ]
+          }
+        },
+        {
+          "stl": "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.stl",
+          "pose": {
+            "turns": [
+              [
+                "x",
+                180
+              ]
+            ]
+          }
+        },
+        {
+          "stl": "hardware/printed-parts/cold-core/reed-bridge/reed-bridge.stl",
+          "pose": {
+            "turns": [
+              [
+                "y",
+                90
+              ]
+            ]
+          }
+        },
+        {
+          "stl": "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.stl",
+          "pose": {
+            "turns": [
+              [
+                "y",
+                90
+              ]
+            ]
+          }
+        }
+      ],
+      "pose_reason": "Copper covers: the continuous interior flange (+Y, 1,583 mm2) flat on the bed (copper-plugs/README.md). PRV shroud: the closed cap on the bed, the cavity opening upward (prv-shroud/README.md). Reed bridge: the outer convex face down (reed-bridge/README.md). Fuse clamp: on its side, the swept profile face (refrigeration/fuse-clamp/README.md)."
+    },
+    "factory-petg": {
+      "printer": "Mark1",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": false,
+        "reason": "PETG on the left 0.4 mm, as the black PETG funnel cover (hardware/ledger/machine-time.md)."
+      },
+      "material": "Bambu PETG Basic, black",
+      "filament_from": "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-petg.3mf",
+      "filament_colour": {
+        "value": "#000000",
+        "reason": "Black PETG, the funnel cover's spool."
+      },
+      "spacing_mm": 15,
+      "parts": [
+        {
+          "stl": "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl"
+        },
+        {
+          "stl": "hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.stl"
+        }
+      ],
+      "pose_reason": "As exported: the mandrel stands on its end face; the setting gauge on its 362 mm2 Z-4 face."
     }
   }
 }

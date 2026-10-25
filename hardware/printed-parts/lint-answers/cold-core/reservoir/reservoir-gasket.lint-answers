@@ -1,0 +1,5 @@
+[thin] Specified seal section: the cap's perimeter gasket is the 2 mm TPU 90A disk the six M3 × 12 cap screws compress between the reservoir body and its cap (reservoir.py, build_reservoir_gasket). Its thickness is the clamped stack's seal allowance, not a wall.
+alternatives: A thicker gasket lifts the cap, changes the clamped stack the M3 × 12 screws and the cap's vent pocket are drawn to, and asks more squeeze of the same screws; a thinner one leaves less compliance for the printed faces' flatness.
+file: hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step
+click: x=54.746 y=-67.655 z=0.000
+click: x=54.746 y=-67.655 z=2.000

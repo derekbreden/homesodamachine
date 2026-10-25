@@ -3,3 +3,27 @@ click: x=0.000 y=-24.500 z=-22.000
 
 [sliver] The 1 mm tip land follows the 1.5 mm entry chamfer on the 2.5 mm lower spring leaf. It starts the leaf into the compressor's gap; the full leaf section remains behind the lead-in. Printed on the X end, every layer carries this same supported profile.
 click: x=0.000 y=-35.500 z=-22.000
+
+[ceiling] The linter is wrong for this part's pose. The clamp prints on its side, on its 18 mm swept profile face, with every layer the same silhouette and nothing needing support (fuse-clamp/README.md, Frame and print; trial-preparation pieces.json `small-petg`). These are Z-facing faces of the profile, vertical in the print. The lint reads ceilings only for a piece bedded on its Z- or Z+ face.
+alternatives: Printing on the seating plane would make them real ceilings over the leaves' gap. The lint could read ceilings in a declared turned pose, as it reads ledges.
+file: hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step
+click: x=0.000 y=-12.375 z=0.000
+click: x=0.000 y=-30.000 z=0.000
+click: x=0.000 y=5.600 z=0.000
+click: x=0.000 y=0.000 z=4.200
+
+[thin] Specific compliant element: the two 2.5 mm leaves are 22 mm cantilevers. They are the one compliant thing in the part, and they take up the compressor gap's tolerance by bending. Each tip is chamfered so it starts into the gap rather than butting its mouth, and the chamfer reads 1.786 mm (fuse-clamp/README.md).
+alternatives: Thicker leaves stiffen the press until the gap's tolerance crushes the cutoff or the leaves will not enter. A square tip butts the gap's mouth.
+file: hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step
+click: x=3.748 y=-25.000 z=-20.474
+click: x=3.748 y=-23.737 z=-21.737
+click: x=-3.748 y=-35.000 z=-20.474
+click: x=-3.748 y=-36.263 z=-21.737
+
+[thin] Specified crown: the head is 6.7 mm on the seating plane, and the channel through it is the cutoff case's own 4.2 mm diameter. That leaves this 2.5 mm crown over the case, which presses its outboard generatrix (fuse-clamp/README.md, What holds the case).
+alternatives: A taller head stands further into the bay over the flank. A shallower channel puts clamp material between the cover and the case and loses the direct pinch.
+file: hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step
+click: x=-7.347 y=-2.112 z=6.700
+click: x=-7.347 y=-2.112 z=4.200
+click: x=7.281 y=2.042 z=4.200
+click: x=7.281 y=2.042 z=6.700

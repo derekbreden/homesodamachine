@@ -17,3 +17,29 @@ click: x=-3.700 y=-142.000 z=209.400
 click: x=3.700 y=-142.000 z=209.400
 click: x=3.700 y=-142.000 z=35.023
 click: x=-3.700 y=-142.000 z=35.023
+
+[thin] Specified fit sections, both from copper-plugs/README.md:
+- The continuous 1 mm interior flange overlaps both slot edges by 1 mm and bears on the shell's recessed inner seat under foam pressure.
+- The two 1 mm exterior retaining tabs clear the outside wall by 0.50 mm: 0.25 mm running clearance plus 0.25 mm for their supported undersides.
+alternatives: A thicker flange needs a deeper recess in the shell's 3.2 mm wall. Thicker tabs stand further proud of the shell beside the enclosure valve tray, or close the tabs' 0.50 mm clearance.
+file: hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.step
+click: x=3.076 y=-138.050 z=31.414
+click: x=3.076 y=-137.050 z=31.414
+click: x=-3.076 y=-137.050 z=175.332
+click: x=-3.076 y=-138.050 z=175.332
+click: x=-3.341 y=-142.000 z=206.475
+click: x=-3.341 y=-143.000 z=206.475
+click: x=3.132 y=-143.000 z=211.766
+click: x=3.132 y=-142.000 z=211.766
+click: x=3.528 y=-142.000 z=32.182
+click: x=3.528 y=-143.000 z=32.182
+click: x=-3.404 y=-143.000 z=31.774
+click: x=-3.404 y=-142.000 z=31.774
+
+[ledge] The undersides of the 1 mm exterior retaining tabs' 1.25 mm lateral overhangs. The cover prints on its interior flange, so these face the bed, 4.9 mm up. They are the tabs' supported faces, accessible before installation, with the 0.25 mm supported-face allowance in their 0.50 mm wall clearance (copper-plugs/README.md).
+alternatives: Tabs flush with the web lose the inward stop that holds the cover before the pour. A 45° underside thickens the tab toward the wall and closes its clearance.
+file: hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.step
+click: x=3.908 y=-142.000 z=33.690
+click: x=-3.492 y=-142.000 z=33.690
+click: x=-3.492 y=-142.000 z=208.067
+click: x=3.908 y=-142.000 z=208.067
