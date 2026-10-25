@@ -19,8 +19,6 @@ def stem_elbow_names():
 def core_stem_elbow_names():
     """Cold-core-owned stems, excluded from the warm component builder."""
     names = ['reservoir-b-fill-lower'] if 'reservoir_b_fill_link' in layout.specification() else []
-    if 'soda-inlet-stem' in layout.specification()['snapshots']:
-        names.append('soda-inlet-stem')
     return tuple(names)
 
 

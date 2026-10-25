@@ -27,7 +27,7 @@ from _cadq_export import import_step
 from _materials import (C_C14, C_DIGITEN, C_PCBA, C_PSU, C_RELAY, C_VALVE,
                         M_BRASS, M_DONOR_BLACK, M_JG_BLACK_PP,
                         M_JG_WHITE_PP, M_NEOFIT_ACETAL, M_NEOFIT_WHITE_ACETAL, M_STAINLESS,
-                        M_TPU_BLACK, M_NITRILE_BLACK)
+                        M_TPU_BLACK, M_NITRILE_BLACK, M_PETGF_BLACK)
 
 IDENTITY = ((1., 0., 0.), (0., 1., 0.), (0., 0., 1.))
 ORIGIN = (0., 0., 0.)
@@ -51,7 +51,6 @@ REFERENCES = {
     'gas-regulator': HW / 'reference/compact-inline-candidates/geometry/candidate-regulator.step',
     'gas-check': HW / 'reference/neofit-achv44-check/neofit-achv44-check.step',
     'digiten-flow': HW / 'reference/digiten-flow-sensor/digiten-flow-sensor.step',
-    'soda-rise-insulation': HW / 'reference/soda-rise-insulation/soda-rise-insulation.step',
 }
 
 
@@ -263,11 +262,13 @@ def abu44m_bulkhead():
 @cache
 def core_components():
     """World rows owned once by the standalone cold-core assembly."""
+    import soda_inlet
+    neighbors = {name: components()[name][0] for name in soda_inlet.SOFT_NEIGHBORS}
     result = {}
     for name, shape, color, frame in (
         ('digiten-flow', native_reference('digiten-flow'), C_DIGITEN, layout.pose('digiten-flow')),
-        ('soda-inlet-stem', stem_elbow(15.7), M_NEOFIT_WHITE_ACETAL, _snapshot('soda-inlet-stem')),
-        ('soda-rise-insulation', native_reference('soda-rise-insulation'), M_NITRILE_BLACK, _frame()),
+        ('soda-bend-holder', soda_inlet.holder_native(), M_PETGF_BLACK, layout.pose('soda-bend-holder')),
+        ('soda-continuous-insulation', soda_inlet.foam_occupied(neighbors), M_NITRILE_BLACK, _frame()),
     ):
         solid, carry = _placed(shape, frame)
         result[name] = solid, color, carry

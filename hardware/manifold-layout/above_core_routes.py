@@ -155,7 +155,7 @@ def _station(carries, name, port):
         import enclosure_assembly as assembly
         point, axis = assembly.cap_conduit(port)
         diameter = 6.35
-    elif name in ('soda-stem-elbow', 'carbonator-fold', 'soda-inlet-stem', 'soda-outlet-return-stem'):
+    elif name in ('soda-stem-elbow', 'carbonator-fold', 'soda-outlet-return-stem'):
         point, axis, diameter = (0., 19.05, 0.), (0., 1., 0.), 6.35
     else:
         import _lines
@@ -181,29 +181,9 @@ def continuations(placed, carries):
 
 
 def core_route_specs():
-    """The continuous soda tube above its plain cap-guide boundary.
-
-    The guide introduces no socket or added insertion. Its internal continuation
-    reaches the same plane; the external span seats into the downward stem socket.
-    """
-    soda = layout.specification()['fore_routes']['soda_route']
-    mouth = tuple(soda['upstream_handoff']['core_carb_water_out_mm'])
-    stem_frame = layout.snapshot_pose('soda-inlet-stem')
-    socket = layout.point(stem_frame, (0., 19.05, 0.))
-    axis = layout.vector(stem_frame['rotation'], (0., 1., 0.))
-    end = _sub(socket, _mul(axis, 16.891))
-    segments = [_line(mouth, end)]
-    points = _points(segments)
-    return {'soda-core-rise': {
-        'points_mm': points, 'centerline_mm': points, 'segments': segments,
-        'od_mm': 6.35, 'id_mm': 4.24, 'radius_mm': None,
-        'minimum_radius_mm': None, 'spool': 'blue',
-        'from': 'foam-assembly.carb-water-out',
-        'frm': 'foam-assembly.carb-water-out', 'to': 'soda-inlet-stem.socket',
-        'owners': ['foam-assembly', 'soda-inlet-stem'],
-        'status': 'selected_native_layout',
-        'note': 'Straight rise from the plain core guide into the directly seated meter inlet stem',
-    }}
+    """The continuous soda tube from its plain guide through the R14 holder."""
+    import soda_inlet
+    return {'soda-core-rise': soda_inlet.tube_spec()}
 
 
 def route_specifications(station):
