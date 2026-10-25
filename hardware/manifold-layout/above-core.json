@@ -2685,12 +2685,12 @@
         "xmax": 10.7,
         "ymin": 275.5,
         "ymax": 310.9,
-        "zmax": 349.0,
+        "zmax": 352.0,
         "bodies": [
           "reg"
         ],
-        "minimum_nominal_roof_gap_mm": 1.12,
-        "retained_roof_stock_mm": 6.0
+        "minimum_nominal_roof_gap_mm": 4.12,
+        "retained_roof_stock_mm": 3.0
       },
       {
         "name": "co2",
