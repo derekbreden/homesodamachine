@@ -2,14 +2,13 @@
 
 The physical realization of the single-point **ground bus**: the bolted stack
 that *is* the bus. There is no copper bar — a copper bar distributes ground
-along a run or across many tap points, and this appliance has five home-run
+along a run or across many tap points, and this appliance has three home-run
 bonds landing at one spot. Instead, every green bond ends in a ring terminal and
-they all clamp together under one M3 × 10 screw into the heat-set insert in the
-stack's own printed boss on the enclosure's +X wall — the one station on that wall
-whose screw crosses a fan of lugs before it reaches its insert, which is why it is
-the long screw. The lugs are bolted to each other, so they are equipotential — the
-**stack is the bus**, and the dielectric (plastic) boss it lands on is electrically
-irrelevant; it only provides the clamp reaction and holds the earthed thread.
+they all clamp together under one M3 × 8 screw into the heat-set insert in the
+stack's own printed boss on the cold-core lid. The lugs are bolted to each other,
+so they are equipotential — the **stack is the bus**, and the dielectric (plastic)
+boss it lands on is electrically irrelevant; it only provides the clamp reaction
+and holds the earthed thread.
 
 `ground-ring-stack.step` is a generated stand-in built to make the boss's
 purpose legible in the assembly. **Cables are intentionally omitted** — only the
@@ -24,8 +23,10 @@ step 3 — one green ring-terminal bond per exposed-metal part:
 
 - Carbonator
 - Compressor body (run AC-6, at the can's own terminal-box earth screw)
-- Under-counter plate
 - the C14 inlet's earth feed (G Wago → bus)
+
+The faucet carries no earth: its only conductors are SIG-6's SELV ribbon, and its
+tubes are plastic.
 
 This is a **Class I** appliance ([`/business/regulatory.md`](/business/regulatory.md)):
 the stack is earthed through the C14 cord, so a basic-insulation fault clears to
@@ -38,11 +39,11 @@ earth is a pass-through on such a device, so this bond path is unchanged by it.
 
 | | mm |
 |---|---|
-| Layout-model lug capacity | **5**, fanned 60° apart, rising one tongue thickness each; four earth connections are allocated above |
+| Lugs | **3**, bottom-up carbonator at 120°, inlet at 60° and compressor at 240°, rising one tongue thickness each; none points east (0°), where Reservoir A's draw tube passes |
 | Ring-terminal tongue | ⌀**8.0** eye, ⌀**3.2** bore, **0.8** thick |
 | Crimp barrel | ⌀**4.2** × **6.0** stub (no wire past it) |
 | Washer | ⌀**7.0** × **0.8** stand-in over the top lug; the build's washer is the ⌀9 × 0.8 flat washer [bom.md](/hardware/ledger/bom.md) §13 bills |
-| Screw | M3 SHCS, ⌀5.5 × 3.0 head; ~6 mm thread into the boss insert |
+| Screw | M3 × 8 SHCS, ⌀5.5 × 3.0 head; 4.8 mm below the landing, through the boss's 4 mm insert |
 
 Frame: Z up, screw axis on Z, origin at the **landing surface** (the boss top).
 Rings stack upward; the shank runs down (−Z) into the heat-set insert. Drop at

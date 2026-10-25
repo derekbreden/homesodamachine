@@ -1,16 +1,14 @@
 [sliver] Unavoidable fitted catch projections: the 1.4 mm upper tang keeper and 1.3 mm lower latch keeper retain the purchased keystone module. Their full native profiles and actual swing/insertion clearances are identified in the receptacle review. This does not establish printed latch life or physical support cleanup.
 alternatives: Filling the keeper openings enters the module envelope. Removing or sloping the working projections changes tang/latch capture; a different retention arrangement requires a complete receptacle redesign.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-40.710 y=458.730 z=294.222
-click: x=-40.710 y=458.780 z=314.272
+click: x=-30.000 y=462.300 z=286.246
+click: x=-30.000 y=462.250 z=266.196
 
-[thin] Accepted wing-retention lips: each row is the flat lip over a sideways wing slot of the DATA plate or nameplate receiver, 1.23 mm thick (plate 3.36 - wing 1.68 - 0.45 air), thinning to 0.83 mm at the slot mouth along the 1.10 x 0.40 mm entry bevel; the lint reads it 1.01 mm through, partway up the bevel. `plain_lips` keeps the flutes off it. This receiver geometry is the one physically accepted on 2026-09-30 (nameplate/horizontal-wing-trial/physical-acceptance.json).
+[thin] Accepted wing-retention lips: each row is the flat lip over a sideways wing slot of the DATA plate or nameplate receiver, 1.23 mm thick (plate 3.36 - wing 1.68 - 0.45 air), thinning to 0.83 mm at the slot mouth along the 1.10 x 0.40 mm entry bevel; the lint reads it 1.02 mm through, partway up the bevel. `plain_lips` keeps the flutes off it. This receiver geometry is the one physically accepted on 2026-09-30 (nameplate/horizontal-wing-trial/physical-acceptance.json).
 alternatives: A thicker lip needs a thicker plate or a thinner wing, each a change to the accepted fit.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-23.878 y=471.297 z=306.752
-click: x=-57.544 y=471.296 z=312.753
-click: x=87.269 y=471.298 z=278.310
-click: x=-18.931 y=471.297 z=278.307
+click: x=-91.128 y=473.500 z=241.129
+click: x=15.142 y=473.500 z=215.092
 
 [thin] Set aside by Derek: the eight M3 insert hosts for the two relays on the west wall retain the same specific Ø8 host / Ø4 pilot radial section, 2.000 mm from pilot to host face. This answer covers that radial relay-host section only. The PCB and ground mounts have their own current core-lid geometry. Derek, 2026-10-22: "Regarding (E) I'm far less concerned about the 2 mm thick walls, and far more concerned about those bumps." and "So we really don't want to waste time chasing 2 mm thickness edges when we still have "bumps" or other defects to solve."
 alternatives: A 3 mm radial host needs another millimetre beside the relay's existing pin-box envelope, or a different mounting interface.
@@ -27,8 +25,8 @@ click: x=-97.313 y=429.124 z=310.193
 [thin] Approved by Derek as drawn: the keystone receptacle's two catches across its pocket's inner end, the upper 1.4 mm and the lower 1.3 mm thick (`CATCH_UPPER`, `CATCH_LOWER` in hardware/reference/riteav-keystone/riteav_keystone.py), which the jack's tang and latch hook. Test fits have held the jack stable, and they print. The delivered jack has nothing behind the upper catch where the model's block rises, so either catch has room to grow inboard should a fit ever ask for it. Derek, 2026-10-22: "So make a note of that in case it matters later, but test fitting has been good so far and quite stable and all printable, so let's leave it be. Approved as is."
 alternatives: A thicker catch grows inboard, into the room the delivered jack leaves behind it; its face toward the opening is the jack's seat and stays where it is.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-47.666 y=458.080 z=291.671
-click: x=-37.024 y=458.080 z=315.040
+click: x=-22.870 y=461.600 z=263.601
+click: x=-30.376 y=461.600 z=287.040
 
 [thin] Specific required partition: each reading is the 1.95 mm slab between a zip tie's channel and the flow meter's pocket (Y372.56-374.51 and 413.51-415.46). It is the anchor's 1.7 mm inner end web, which the meter's 7.2 mm collar fixes and which keeps the tie on the collar, plus 0.25 mm of slab; the tie channel is the 18 lb tie's 2.5 mm plus 1.0 mm of room; and the pocket keeps 2.0 mm of axial room because the meter is laid into its plain half-bores with nothing locating it along Y, so the pocket walls, not the slab under the label cover's Ø35 rim, are what it meets.
 alternatives: A 3 mm partition needs a positive axial stop holding the meter within about 0.9 mm, e.g. the inner end webs carried over the neck with a lead-in, so the pocket can give up the room; a narrower tie channel or a shifted band thins the collar's end webs.
@@ -59,18 +57,14 @@ click: x=-101.400 y=295.117 z=254.700
 [ledge] Accepted receiver wing-slot ends: the print-down ends of the DATA and nameplate wing slots, 2.55 x 2.28 mm, bridged between the slot floor and the lip with their 0.15 + 0.25 mm allowance. verify_geometry.py holds the receiver to the accepted coupon.
 alternatives: 45° slot ends would change the receiver that the accepted nameplate coupon (horizontal-wing-trial/physical-acceptance.json) qualified.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-19.462 y=468.550 z=260.553
-click: x=-58.077 y=468.550 z=295.002
-click: x=-23.541 y=468.550 z=295.002
-click: x=87.802 y=468.550 z=260.553
-click: x=-19.462 y=468.550 z=260.518
-click: x=87.802 y=468.550 z=260.518
+click: x=-91.576 y=471.557 z=212.600
+click: x=15.632 y=471.557 z=212.600
 
-[slope] Wrong slope classification for the nameplate's release diamond: its two roof faces stand 48° across 3.6 mm of pad stock, a through-opening's gable roof carried by the stock beside it at every layer, not a corbel running along a wall.
+[slope] Wrong slope classification for the nameplate's release diamond: its two roof faces stand 48° through the host wall and the receiver pad, Y462.3 to the pocket floor, a through-opening's gable roof carried by the stock beside it at every layer, not a corbel running along a wall.
 alternatives: Read hole roofs separately from sideways corbels.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=38.670 y=465.990 z=270.953
-click: x=29.670 y=465.990 z=270.953
+click: x=-33.500 y=467.770 z=223.000
+click: x=-42.500 y=467.770 z=223.000
 
 [sliver] Required transition between two running fits: aft of the front tongue and its knuckles back-top's wall face stays at |X|104.5, one fit outside front-top's tongue; from the back rail's closed end it steps 0.75 mm in to the channel's standing wall, one slip outside the head.
 alternatives: Either face moved onto the other closes a running fit.
@@ -87,8 +81,7 @@ click: x=-92.250 y=323.800 z=185.600
 [ceiling] Unavoidable fitted plate ends: these nameplate and DATA body mouths retain the shared static and supported-face allowances at their complete lower outlines. Support leaves through the empty rear-facing mouths before plate installation; cleanup remains unqualified.
 alternatives: Filling reduces body-end clearance. Tapering removes part of the fitted perimeter; enlarging changes the locating boundary.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=34.170 y=469.545 z=256.553
-click: x=-40.710 y=469.545 z=291.002
+click: x=-38.000 y=471.745 z=208.600
 
 [ceiling] Unavoidable screw-head bearings: these Z347 floors seat the two upper M5 heads 8 mm down from the roof, where each Ø9 opening runs on into the funnel opening. Tree(auto)/Default support can leave through the opening and the roof before assembly; actual cleanup remains unqualified.
 alternatives: Sloping tilts the head seat. Raising the floor shortens the screw's reach into front-top's insert; a corbel under it occupies frame/service room.
@@ -106,16 +99,17 @@ click: x=-101.125 y=270.800 z=168.700
 [ceiling] Unavoidable fitted jack/chip boundaries: these flats retain the complete purchased connector, chip-end and latch-passage profiles with their current positive clearances. Support can leave through empty rear openings before hardware placement. Native fit geometry does not qualify physical cleanup or retention.
 alternatives: Filling enters the hardware or latch path. Sloping or truncating spends the complete fitted outline; changing the module arrangement requires a separate receiver redesign.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=66.900 y=467.175 z=326.311
-click: x=66.900 y=460.550 z=324.226
-click: x=-40.710 y=470.225 z=257.194
-click: x=-78.070 y=470.225 z=257.194
-click: x=-40.710 y=470.225 z=324.381
-click: x=-78.070 y=470.225 z=324.381
-click: x=-3.350 y=470.225 z=324.591
-click: x=-78.070 y=470.225 z=291.002
-click: x=-40.710 y=466.290 z=294.002
-click: x=-40.710 y=462.085 z=291.597
+click: x=-30.000 y=465.605 z=263.571
+click: x=77.500 y=470.300 z=294.796
+click: x=37.250 y=470.300 z=326.796
+click: x=37.250 y=470.300 z=263.226
+click: x=37.250 y=470.300 z=295.226
+click: x=77.500 y=470.300 z=263.226
+click: x=77.500 y=470.300 z=327.257
+click: x=-68.500 y=469.675 z=318.800
+click: x=-68.500 y=465.175 z=320.750
+click: x=-30.000 y=460.450 z=263.571
+click: x=-30.000 y=469.805 z=265.976
 
 [ceiling] Unavoidable open tie/seat profiles: these flats close the retained tube, chain and meter anchor channels while their ends/root profiles locate the purchased bodies. The tie returns remain open for assembly and support withdrawal before tubing and fittings are installed. Physical support contacts, cleanup and loaded retention remain unqualified.
 alternatives: Filling blocks the tie return or installed body. Extending a root through the open span spends that assembly path; changing the seat or channel needs a complete anchor review.
@@ -166,15 +160,15 @@ alternatives: Group facets by the B-rep face they came from before comparing pla
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-3.262 y=465.378 z=321.095
 
-[sliver] Specific fitted keystone swing ease: the strip is the square shoulder that ends the jack's 50° swing ease 1.0 mm over the aperture's top edge (`keystone_ease_shoulder`); 0.84 mm is that slope's run across the shoulder's 1.0 mm. The ease gives the purchased jack's top the room it swings through going in, and retention stays on the back catches.
+[sliver] Specific fitted keystone swing ease: the strip is the square shoulder that ends the jack's 50° swing ease 1.0 mm over the aperture's top edge (`keystone_ease_shoulder`); 0.83 mm is that slope's run across the shoulder's 1.0 mm. The ease gives the purchased jack's top the room it swings through going in, and retention stays on the back catches.
 alternatives: Running the ease out on the aperture's edge meets the face in a knife edge, and a taller shoulder leaves more open face over the jack.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-40.710 y=467.370 z=311.552
+click: x=-30.000 y=470.885 z=283.526
 
-[thin] Specific fitted keystone swing ease: the face's lip over the keystone's swing ease thickens up the ease's 50° slope from 0.84 mm where its square shoulder meets the face (`keystone_ease_shoulder`, 1.0 mm over the aperture's top edge); the lint reads it 1.36 mm through, up the slope.
+[thin] Specific fitted keystone swing ease: the face's lip over the keystone's swing ease thickens up the ease's 50° slope from 0.83 mm where its square shoulder meets the face (`keystone_ease_shoulder`, 1.0 mm over the aperture's top edge); the lint reads it 1.43 mm through, up the slope.
 alternatives: Running the ease out on the aperture's edge meets the face in a knife edge, and a taller shoulder leaves more open face over the jack.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-44.357 y=467.790 z=312.674
+click: x=-23.111 y=469.867 z=284.246
 
 [thin] Approved by Derek as drawn: these readings are the flute grooves on the retained 3 mm flank walls. The unchanged 1.2 mm groove leaves 1.8 mm between its floor and the inner face. The lower flank transition reads 1.81 mm where the same field fades. This answer covers those named wall/groove sections, not new receiver lips, rear relief films or connector-cut remnants. Derek, 2026-10-21: "The flute grooves on 3mm walls is good with me and approved by me."
 alternatives: A 4.2 mm wall keeps 3 mm under each groove and takes 1.2 mm more interior room; a shallower groove changes the accepted texture.
@@ -182,6 +176,8 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-104.500 y=213.453 z=202.929
 click: x=104.500 y=213.453 z=275.571
 click: x=-106.310 y=327.030 z=174.575
+click: x=-106.310 y=327.028 z=174.661
+click: x=-104.500 y=327.028 z=173.586
 
 [ceiling] Outside the water-check/WAGO arrangement change and unresolved: these faces are in the retained rear-wall ledges and west plumbing-cradle region, outside the resized WAGO pockets. Their support placement and removal need their own review; this entry does not accept the flat print-down spans.
 alternatives: Reconcile each ledge with its mating hardware and print pose, or provide the appropriate removable support through its actual access. Those interfaces are not revised by the connector arrangement.
@@ -212,10 +208,12 @@ click: x=-101.400 y=306.183 z=260.200
 click: x=-101.400 y=331.317 z=260.200
 click: x=-101.400 y=338.683 z=260.200
 click: x=-43.202 y=458.947 z=294.222
+
 [thin] Required short relay PCB bearing tips: these four active pads have a 2.15 mm long, Ø5.7 bearing tip and an unthreaded Ø3.4 screw passage, leaving the measured 1.15 mm annulus. The full Ø10 insert host ends 0.15 mm behind the reference's 2 mm pin projection; the narrow tips reach the PCB base, and the lower tips clear the fixed PSU by 0.15 mm. The Ø10/Ø4 insert wall begins behind this interface. Actual pin fit, printed holding capacity and fastener retention remain unqualified.
 alternatives: A 3 mm annulus around the same passage requires Ø9.4 tips, entering the modeled pin envelope and the PSU at the selected frames. Longer tips move the accepted relay planes; smaller screw passages lose the nominal M3 clearance. The short bearing interface is retained without extending this answer to the ordinary insert wall or blind floor.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-95.566 y=366.440 z=311.859
+click: x=-95.564 y=363.560 z=311.859
 click: x=-95.566 y=429.560 z=324.859
 click: x=-95.566 y=362.972 z=326.997
 click: x=-95.566 y=428.997 z=339.972
@@ -225,3 +223,67 @@ alternatives: The ordinary corbel enters the two named purchased bodies. Sloping
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=75.750 y=423.057 z=296.576
 
+[ledge] Unavoidable fitted catch projection: the top face of the 1.3 mm lower latch keeper (`CATCH_LOWER` in hardware/reference/riteav-keystone/riteav_keystone.py), which the purchased keystone module's latch hooks; it runs 14.95 mm across the pocket between the receptacle's cheeks. Derek approved both catches as drawn (2026-10-22, the [thin] entry for them).
+alternatives: Sloping or filling behind the keeper changes the latch's capture; the keeper faces toward the opening are the jack's seat.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-32.492 y=462.033 z=266.196
+
+[slope] Wrong slope classification for the C14 inlet's body opening: its two lower corner chamfers are the 45° roof faces of a through-opening in back-top's ceiling-down print (Y462.3-468.05), each grown off the opening's vertical side through the profile's corner round and carried by the stock beside it at every layer. The lint takes a level foot only from a plane wall, and the one plane wall either chamfer meets is the flange pocket's floor, along the chamfer's own rising edge.
+alternatives: Read hole roofs separately from sideways corbels. Squaring the opening's corners puts a flat roof over the inlet's chamfered body.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-57.698 y=465.175 z=323.248
+click: x=-79.315 y=465.175 z=323.235
+
+[ceiling] Required valve seat plates: the V-A and V-K solenoids stand on these faces, the shared `valve_seat` V69 plate with its four blind sockets and open port channel, rooted in the side walls (`_above_core_shell.valve_seats`). Back-top prints ceiling-down, so each plate's top looks at the bed 28 mm up; Tree(auto)/Default support stands in the valve's own room (slice 257a5648, interfaces 16 and 17) and leaves before the valve goes in. Physical cleanup remains unqualified.
+alternatives: A 45-degree corbel over the plate occupies the solenoid; a seat printed separately is a second part to hold the valve.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=78.052 y=285.890 z=317.606
+click: x=-78.052 y=285.890 z=317.606
+
+[ceiling] Required gas saddle tops: each is the top of an east-wall saddle (`_above_core_shell.fluid_supports`) round its half-bore, the gas check's at Z297.65 and the gas regulator's at Z305.0. A 45-degree roofward corbel occupies the fitted bodies: the check stands over its saddle at X78.0-86.6 from Z297.8, the regulator and its inlet elbow at X78.0-89.0 from Z305.1. Tree(auto)/Default support stands under each top through the open interior (slice 257a5648, interfaces 30 and 22) and leaves before the gas fittings go in. Physical cleanup remains unqualified.
+alternatives: A corbel east of the bodies leaves the saddle's west part flat over the same air; a different saddle needs its own body clearance.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=88.350 y=393.364 z=297.650
+click: x=88.350 y=418.953 z=305.000
+
+[ceiling] Required funnel-frame flange ledges: the removable frame's flange bears on these two Z346 faces and screws down into their RX-M3x5.7 inserts (`funnel_frame.receivers`, `shell_screw_cuts`). The roof's funnel opening leaves them open to the bed 9 mm up, so Tree(auto)/Default support stands on the bed through the opening (slice 257a5648, interfaces 3 and 4) and leaves before the frame is fitted. Physical cleanup remains unqualified.
+alternatives: Sloping the ledge tilts the flange's bearing; a corbel over it occupies the flange seat.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-87.100 y=259.492 z=346.000
+click: x=87.100 y=259.492 z=346.000
+
+[ledge] Required capped insert pilots: each is the blind floor of a funnel-frame ledge's Ø4 RX-M3x5.7 pilot, one millimetre of relief past the insert with one wall of cap under it (`fastener_datums`: `host_bottom_z`); the pilot opens to the bed through the roof's funnel opening and its floor prints as a Ø4 bridge.
+alternatives: A through pilot opens the ledge's underside under the frame flange; a shorter relief bottoms the screw.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-88.030 y=259.127 z=338.800
+click: x=87.370 y=259.127 z=338.800
+click: x=-88.206 y=259.785 z=338.800
+click: x=87.194 y=259.785 z=338.800
+
+[ceiling] Unavoidable wet-field floor: the rear wall's relief opens the fluid grid's nut room from Z258 up (`interior_panel_relief`), and the wall's lower section and the east core hold's foot end on it. A 45-degree transition either enters the bottom row's nut room or takes the hold's foot. Tree(auto)/Default support stands from the bed through the open interior (slice 257a5648, interface 45) and leaves before assembly. Physical cleanup remains unqualified.
+alternatives: A lower relief floor thins the hold's foot; a higher one cuts the bottom row's nut room.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=57.500 y=459.300 z=258.000
+
+[ledge] Required meter seat ends: each quarter seat (`_back_top_meter.meter_supports`) stops at its collar's axis plane, open west and above for the meter to drop in; that 3 x 6 mm end looks at the bed and takes Tree(auto)/Default support in the meter's own room (slice 257a5648, interfaces 20 and 21), removed before the meter goes in.
+alternatives: Carrying the seat on round closes it over the meter's drop-in path; a column up to the ceiling stands in the meter's own envelope.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=60.300 y=368.715 z=306.376
+click: x=60.300 y=414.615 z=306.376
+
+[ceiling] Required fore meter carrier neck: this flat face is the fore collar's dogleg between its seat and the corbelled wall lane (`_back_top_meter`), passing fore of the fixed gas-drop column. A 45-degree roofward corbel over it either rises into the standing CO2 tube (X74.4-81.4, Y364.8-371.9) on its way to the wall or closes the collar tie's path up through its slot (X66-68). Tree(auto)/Default support stands under it through the open interior (slice 257a5648, interfaces 33 and 34) and leaves before the meter goes in. Physical cleanup remains unqualified.
+alternatives: Moving the neck changes the collar's fixed bearing; a corbel short of the tube and the tie leaves the same face flat.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=65.525 y=367.707 z=297.076
+
+[ceiling] Required forward lever-nut well top: the middle WAGO 221-413's well (`above_core_wiring`, wago-n) stands 14.5 mm forward of the stack's tower, and this is its top there. The upper lever nut's front half and its PE leads stand 8 mm over it, so no corbel fits. Tree(auto)/Default support stands under it through the open interior (slice 257a5648, interface 12) and leaves before the nuts are fitted. Physical cleanup remains unqualified.
+alternatives: Setting the well back into the tower moves the lever nut's station; a corbel over it enters the upper nut and its leads.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-34.000 y=447.250 z=323.550
+
+[ceiling] Required lever-nut well floors: each WAGO 221-413 rests on its well's 19.1 x 9.5 mm floor, which back-top's ceiling-down print lays as a bridge between the well's 3 mm side walls; slice 257a5648 places no support under any of the three.
+alternatives: A floor of end tabs, as the flank wells have (`wago_roof_tab`), leaves two 2 mm ledges and opens the nut's underside.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-34.000 y=459.225 z=292.350
+click: x=-34.000 y=444.725 z=311.850
+click: x=-34.000 y=459.225 z=331.350

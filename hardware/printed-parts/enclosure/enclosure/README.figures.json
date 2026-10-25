@@ -46,7 +46,7 @@
     "CORE_HOLD_LAND": "8 mm",
     "CORE_HOLD_REACH": "12 mm",
     "CORE_HOLD_RISE": "40 mm",
-    "CORE_HOLD_WIDE": "6 mm",
+    "CORE_HOLD_WIDE": "6.125 mm",
     "CORE_STOP_BORE": "24.5 mm",
     "CORE_STOP_RISE": "40 mm",
     "CORE_STOP_WEB": "6 mm",

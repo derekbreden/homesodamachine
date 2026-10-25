@@ -1,10 +1,10 @@
 """Reference solid for the chassis-ground ring-terminal stack — the physical
 realization of the single-point "ground bus" on the +X wall of back-top.
 
-This is not one SKU: it is the bolted stack that *is* the bus. An M3 × 10
-stainless SHCS through a tooth washer clamps a fan of insulated ring terminals —
-one green bond per exposed-metal part (carbonator, compressor body,
-under-counter plate, + the C14 earth feed; the layout model reserves five positions) — down
+This is not one SKU: it is the bolted stack that *is* the bus. An M3 × 8
+SHCS through a flat washer clamps a fan of insulated ring terminals —
+one green bond per exposed-metal part (carbonator, compressor body, + the C14 earth feed),
+stacked bottom-up as electronics-bay.md lands them — down
 onto the heat-set insert in its own column of the top foam cap. The lugs are
 bolted together, so they are equipotential to each other: the *stack* is the
 bus, and the plastic column it sits on is electrically irrelevant — it only
@@ -33,8 +33,10 @@ from _cadq_export import export_assembly
 from _materials import C_GND, one_body
 
 # --- Stack geometry (standard M3 hardware + insulated ring terminals) ------
-ring_count = 5          # one green bond per exposed-metal part + the C14 feed
-fan_step = 60.0         # deg between successive lugs — a radial fan up the stud
+# The bonds bottom-up, as electronics-bay.md stacks them, each with its lug's bearing about the
+# stud. No lug points east (0°), where Reservoir A's draw tube passes the stack.
+RINGS = (("carbonator", 120.0), ("inlet", 60.0), ("compressor", 240.0))
+ring_count = len(RINGS)
 
 eye_od = 8.0            # ring-terminal tongue outer diameter
 hole_d = 3.2            # ring eye / washer bore (M3 clearance)
@@ -42,13 +44,14 @@ tongue_t = 0.8          # tongue (and washer) thickness — sets the stack pitch
 barrel_d = 4.2          # insulated crimp-barrel diameter (16 AWG green)
 barrel_len = 6.0        # barrel stub — no wire past it
 
-washer_od = 7.0         # external-tooth washer over the top lug
+washer_od = 7.0         # flat washer over the top lug
 washer_t = 0.8
 
 head_d = 5.5            # M3 socket-head cap screw head
 head_h = 3.0
 shank_d = 3.4           # fills the eyes/washer (slightly proud for a clean fuse)
-engage = 6.0            # thread length down into the heat-set insert
+screw_len = 8.0         # M3 × 8
+engage = screw_len - ring_count * tongue_t - washer_t   # shank below the landing
 
 # The mount pattern in the stack's own frame: ONE hole, on the screw's own axis, at the
 # landing surface. The stack IS its screw — the lugs are clamped by it and there is nothing
@@ -82,9 +85,10 @@ def landing():
 
 
 def build():
-    part = _ring(0.0, 0.0)
-    for i in range(1, ring_count):
-        part = part.union(_ring(i * tongue_t, i * fan_step))
+    part = None
+    for i, (_bond, bearing) in enumerate(RINGS):
+        ring = _ring(i * tongue_t, bearing)
+        part = ring if part is None else part.union(ring)
     top = landing()[0][2]
 
     washer = (

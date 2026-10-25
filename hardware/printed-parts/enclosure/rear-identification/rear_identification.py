@@ -127,10 +127,14 @@ def parts():
 
 
 def _nameplate_receiver(piece):
+    wall = above_core.specification()['rear_wall']['rear_wall']
+    # One wall of pad stock under the mouth's print-down allowance, and the pad's crown run
+    # out to the rear face at 45 degrees: back-top prints ceiling-down.
     receiver = nameplate.wing_interface.apply(
         piece, nameplate_station(), nameplate_plan()['face_y_mm'],
-        up=-1, wall_face=above_core.specification()['rear_wall']['rear_wall']['ymin'],
-        runout_lead=nameplate.wing_interface.RUNOUT_LEAD)
+        up=-1, wall_face=wall['ymin'],
+        runout_lead=nameplate.wing_interface.RUNOUT_LEAD,
+        end_margin=3.+fits.supported_surface, crown_face=wall['ymax'])
     return receiver.cut(nameplate_release_access()).clean()
 
 

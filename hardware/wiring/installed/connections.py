@@ -12,7 +12,6 @@ UNUSED = {
     "J8": "I2C expansion, unused", "J14": "USB programming, no permanent harness",
     "relay-1.NC": "Normally-closed contact unused", "relay-2.NC": "Normally-closed contact unused",
     "keystone.1": "Unused IDC", "keystone.6": "Unused IDC",
-    "faucet-earth": "Bond requirement and plate landing unresolved; no completed connection claimed",
 }
 BOUNDARIES = {
     "faucet": "The inboard harness ends at the rear keystone. The umbilical and faucet have their own assembly.",
