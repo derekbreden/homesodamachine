@@ -2233,8 +2233,8 @@
         "terminal": "wago-manb.5",
         "offset": [
           10.25,
-          148.0,
-          4.0
+          153.0,
+          3.0
         ]
       },
       {
@@ -2253,7 +2253,7 @@
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Native-terminal route around the back-top valve and core-mounted pump, leaving the downward coil tabs clear of the lid; physical dressing and disconnect fit remain unqualified."
+    "note": "The coil-positive lead passes beneath the fixed aft Reservoir A tube departure. Physical lead dress and disconnect fit remain unqualified."
   },
   "J3-GND": {
     "stations": [
