@@ -1344,14 +1344,14 @@
       ],
       "passed": true
     },
-    "tube-fluid-18": {
+    "tube-fluid-28": {
       "centerline_radii_mm": [
         25.0
       ],
       "stock_minimum_mm": 25.0,
       "passed": true
     },
-    "tube-fluid-28": {
+    "tube-fluid-18": {
       "centerline_radii_mm": [
         25.0
       ],
