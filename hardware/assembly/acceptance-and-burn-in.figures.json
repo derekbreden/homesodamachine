@@ -7,7 +7,6 @@
     "BURN_IN_HOURS_DASH": "8-hour",
     "BURN_IN_MIN_DISP": "6 metered dispenses",
     "BURN_IN_MIN_DISP_SHORT": "6 dispenses",
-    "BURN_IN_TARGET": "8-hour / 6-dispense",
     "CHANNEL_TOL": "~10 %",
     "CHANNEL_TOL_FAIL": "10 %",
     "CO2_CENTERLINE": "43.5 PSI",
