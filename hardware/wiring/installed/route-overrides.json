@@ -1245,46 +1245,35 @@
         ]
       },
       {
-        "terminal": "wago-g.2",
-        "offset": [
-          60.0,
-          -243.2,
-          -46.2
+        "point_mm": [
+          26.0,
+          220.0,
+          280.0
         ]
       },
       {
-        "terminal": "wago-g.2",
-        "offset": [
-          98.0,
-          -243.2,
-          -46.2
+        "point_mm": [
+          30.0,
+          220.0,
+          268.0
         ]
       },
       {
-        "terminal": "wago-g.2",
-        "offset": [
-          98.0,
-          -250.2,
-          -65.7
-        ]
-      },
-      {
-        "terminal": "wago-g.2",
-        "offset": [
-          96.0,
-          -250.2,
-          -74.2
+        "point_mm": [
+          42.0,
+          217.0,
+          266.0
         ]
       }
     ],
     "end_lands_mm": [
       8.0,
-      8.0
+      6.0
     ],
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "The earth feed stays west of the V-B wall and turns toward the earth stack ahead of it; physical dressing and wire packing remain open."
+    "note": "The inlet earth feed uses the60-degree ring lug and approaches from aft/west beneath the V-B inlet. Physical lead dress and crimp entry remain unqualified."
   },
   "AC2-N": {
     "stations": [
@@ -2033,7 +2022,7 @@
         "offset": [
           100.23007,
           -86.20292,
-          -10.4
+          0.1
         ]
       },
       {
