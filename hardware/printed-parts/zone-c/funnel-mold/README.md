@@ -110,9 +110,19 @@ supports for the bolt pockets. The cavity
 prints upright; the core prints inverted on its dry back. The Textured PEI
 recipe uses **+0.04 mm requested trim** (`G29.1 Z0.02`). First-layer
 walls/infill run at 20/30 mm/s with an 8 mm outer brim. Probing clump checks
-remain Off. The apron tooling has no production slice qualification or physical
-casting result. Its larger footprint needs a production plate layout and
-support review before printing.
+remain Off.
+
+`tools/funnel-mold-print/prepare_print.py --slice` composes this recipe from the
+installed Bambu presets and lays each piece on its own plate, centred on the right
+hotend's bed. The cavity's full bead envelope stands 27.0 mm from the X edges and
+43.8 mm from the Y edges; the core's stands 21.6 and 38.4 mm. Bambu Studio
+02.08.02.61 estimates the cavity at **29.3 h and 600 g** and the core at
+**18.4 h and 368 g**. The cavity's supports are eight bed-rooted Snug columns, one
+under each bolt-pocket ceiling (107.6 mm² at Z 54.15, 53.5 mm build-up), each with
+an open lane outward through its pocket and down to the bed. Together they are
+about 122 m of road, 41 minutes and 16 g of the plate. They stand on 10 × 11.2 mm
+interfaces; the October 6 columns that stood were 43.4 mm tall on 12 × 15.2 mm.
+The apron tooling has no physical print or casting result.
 
 The generator's [design record](design.json) records closure with the intended
 fill, vent and rod-guide mouths capped for analysis, straight rod withdrawal,
