@@ -1,31 +1,36 @@
-# Flavor-fill funnel and sliding frame
+# Flavor-fill funnel and drop-in frame
 
-The removable silicone funnel holds nominally [531 mL](FUNNEL_CAP). Its PET-GF
-frame slides into front-top on one pair of front rails. Closing the enclosure
-captures the frame against withdrawal. Its rear passes between the upper Y-seam
-screw blocks. The frame uses the enclosure's production rail section and its
-running clearances. Both flavors share this filling interface.
+The removable silicone funnel holds nominally [698 mL](FUNNEL_CAP). Its PET-GF
+frame lowers vertically through the closed upper enclosure and fastens from above
+with four M3 × 12 screws. The drain cradle snaps into the frame’s 3 mm lower web
+and supports the elbow and standing drain stub.
+Both flavors share this filling interface.
 
+Complete the four-quadrant joining, plumbing and electrical connections through the
+open roof. Fit the frame after the central connections, engage the drain cradle’s
+snap seat, and tighten the four screws. Complete the drain connection before
+seating the silicone funnel and smoothing its apron onto the roof. Disconnect
+the drain tube or release the cradle snap before removing the frame.
 The [lift-off cover](../funnel-cover/README.md) closes the mouth between fills.
 Remove it before pouring or lifting the silicone out, and reseat it after filling.
 
 ## Silicone
 
-The collar center is world X0, Y161.70. Its frame-bearing brim underside is
+The collar center is world X0, Y179.20. Its frame-bearing brim underside is
 Z349. The mouth and cover seat are Z358, 3 mm above the rigid enclosure roof;
 the fitted cover reaches Z361. The collar is
-165 × 123.392 mm with R20 corners; the mouth is 153 × 111.392 mm with R14 corners;
-the bearing brim is 179 × 137.392 mm with R27 aft corners and square front corners. The collar
-wall and ramp's normal wall are 6 mm. The ramp falls to the outlet at the collar's centre,
-X0, Y161.70.
+165 × 158.392 mm with R20 corners; the mouth is 153 × 146.392 mm with R14 corners;
+the bearing brim is 179 × 172.392 mm with R27 aft corners and square front corners. The collar
+wall and ramp's normal wall are 6 mm. The ramp falls to the outlet at the collar
+centre, X0, Y179.20.
 
-The native cavity holds 530.54 mL to the mouth rim. The bearing brim's flat front edge, Y93.0, stands
+The native cavity holds 698.21 mL to the mouth rim. The bearing brim's flat front edge, Y93.0, stands
 one 0.25 mm running fit behind the display wall across its full width; its square front
-corners meet the frame's two side strips. The drain exits at X0, Y161.70, Z306.05.
+corners meet the frame's two side strips. The drain exits at X0, Y179.20, Z306.05.
 
-An integral **215 × 155.392 mm silicone apron** covers the exposed frame/roof
+An integral **215 × 190.392 mm silicone apron** covers the exposed frame/roof
 joints and upper seam screw wells. It reaches both exterior sides and runs
-from Y87.0 to Y242.392. Overpour crosses this continuous silicone surface to
+from Y87.0 to Y277.392. Overpour crosses this continuous silicone surface to
 the exterior. The apron is a uniform 3 mm sheet with one flat underside
 resting on the rigid roof at Z355. The bearing brim's underside is Z349;
 the 6 mm shoulder between these planes locates it in the recessed frame.
@@ -53,58 +58,66 @@ complete block and cylindrical outlet.
 
 ## PET-GF frame
 
-The frame's complete plan envelope is 207 mm wide and 142.692 mm long.
-Its lower footprint runs from Y113.39 to Y210, 96.61 mm long and at most 207 mm wide;
-aft of Y199.75 it narrows to [182.5 mm](FRAME_REAR_WIDTH). Its underside is flat at
-Z299.9. Its socket floor is Z302.9, with a 3 mm web beneath it and 3.15 mm air to the
-silicone block's lower face. An [11.25 mm](FRAME_HOLE) hole at
-X0, Y161.70 passes the drain elbow's collet. Its fixed nose face stands 0.65 mm
-below the frame's underside in the released pose. The plug socket is a
-[36.6 × 41.6 mm](FRAME_SOCKET) rectangle centred on that
-hole, with a [0.25 mm](CRADLE_SOCKET_CORNER) receiver corner radius and a 1 mm
-lead-in at its mouth. The cast plug keeps its square corners and its specified dimensions.
-Two straight [5.54 × 32.3 mm](FRAME_SLOTS) slots through the web take the cradle's
-wings, with 0.25 mm air beyond each wing end. The complete 2.6 mm catch overlap
-stands above 3 mm of frame web on both sides.
+The complete rigid flange is [196.5 mm](FRAME_WIDTH) wide ahead of Y199.75 and
+[182.5 mm](FRAME_REAR_WIDTH) wide aft of that shoulder, beside the upper M5 seam
+blocks. Its full Y envelope is 182.692 mm. The flange's flat underside bears at
+Z346; its top finishes flush with the enclosure roof at Z355. The silicone brim
+retains its complete 3 mm bearing below Z349. Its front stands at Y93.0,
+0.25 mm behind the display backing. The rear flange reaches Y275.692, with
+R6 aft corners. Its 5 mm aft access extension opens the J10 screw-tool passages
+when the frame and drain are removed. Both upper shells have the matching
+stepped roof pocket.
 
-Both end corbels are 30° from vertical, across the complete X width, including
-the rail wings. Below Z306.9, the two front foot wings outside the 196.5 mm body
-end at Y111.082 with 3 mm high blunt faces. The lower footprint runs from
-Y113.39 to Y210. The body widens
-upward to its flat front at Y93.0, reached at Z335.2, and its rear at Y235.692. The rail datum
-is Z306.9 and its top is Z321.7. The physical front foot is at Z306.9;
-front-top's receiver underside is Z307.4, leaving 0.50 mm for running clearance
-and one supported face. This allowance accommodates printed material at the seat.
-The broad body fills the stock between its bowl clearance and rails.
-The removable frame carries the complete brim bearing at Z349, with 3 mm of
-material beneath the slipped collar footprint; the brim's front edge is flush with the
-frame's flat front. The roof surround is two side strips that finish flush with the
-enclosure at Z355 and end at Y199.75, one running clearance before the Y200 seam.
-The rear frame envelope remains at Z349 beneath the existing back-top roof. The side
-strips and body are 196.5 mm wide,
-fitting front-top's complete 9 mm flanks with 0.25 mm air on each side. Aft of
-Y199.75 the body is [182.5 mm](FRAME_REAR_WIDTH) wide, with 0.25 mm air to each
-upper screw block. The 179 mm silicone brim retains its complete bearing.
-The rail pair engages front-top from [Y106.0 to Y199.75](FRAME_RAILS);
-there are no rear rails. The rear portion of the frame is supported from the
-front receivers. Geometric capture does not establish its loaded stiffness.
-The side strips have square plan corners at both ends and keep 0.25 mm air to the
-shell. The frame's flat front clears the solid display wall at Y92.75 by 0.25 mm. The
-lower body's aft corners have R6 plan rounds within the narrowed 182.5 mm envelope,
-trimmed by the same 30° corbel planes. Its shoulders at Y199.75 remain square.
-Front-top's opening clears the side strips and its roof tongue, with
-no fixed inward brim-bearing ledge above the frame. Existing rail, socket
-and drain datums are retained.
-[`Flush-roof geometry`](flush-roof-review/README.md) records the exported parts
-and their integration checks. Front-rail engagement, brim bearing,
-capture and assembly motion for the identified artifact hashes are recorded in
-[`integration-review/rail-motion-check.json`](integration-review/rail-motion-check.json).
+The [176.5 mm](FRAME_BODY_WIDTH) lower body passes between the shell ledges.
+Its lower front and rear feet reach Z299.9 and keep their 30° end corbels.
+Plain open-bottom notches pass all four ledges. The lower body carries
+the drain socket and its 3 mm snap web. The empty frame’s vertical passage is
+reviewed with the drain cradle, elbow, stub and connected tubing removed.
+There are no sliding rails or outboard lower foot wings.
 
-The frame prints on its underside. The exported individual STEP and STL place
-that face at Z0 and the funnel's plan center at X0, Y0. Functional rail catches
-retain their square bearing faces and accessible supports. Use the enclosure's
-PET-GF support-removal strategy; physical surface and fit qualification remain
-separate from geometric checks.
+Four broad shell-rooted ledges bear the flange: one pair in front-top and one in
+back-top. Four [M3 × 12 mm](FRAME_SCREWS) socket-head screws enter from above
+into full-length RX-M3×5.7 inserts. The front axes are X±93.0, Y125.0;
+the rear axes are X±87.7, Y259.492. Each Ø4 mm pilot has a full 3 mm radial
+surround in its 10 mm host. The rear ledges' inner planes are X±82.7, leaving
+0.251 mm nominal air beside the preinstalled upper valve elbows during the
+back-column ride. The conservative remaining rear flange bearing is 5.55 mm.
+The screw-head bearing planes are Z351.8, and the head tops are Z354.8, below
+the flat silicone apron. All four head wells open to the frame's sides above
+their complete bearing floors. The rear wells stand outside the brim's rounded
+corners. Fasten the frame with the silicone funnel absent, then lay the funnel
+and its apron over the heads.
+
+Each insert opens upward at Z346. Its Ø4.0 mm pilot ends at Z338.8 with
+3 mm of blind backing. The nominal screw takes the complete 5.7 mm insert
+and extends 0.5 mm beyond it. A ±0.4 mm screw-length allowance retains at
+least 5.8 mm reach below the insert entrance and 0.6 mm blind-tip clearance.
+The upper M5 seam blocks and their screw passages retain their own stock and datums.
+
+The frame prints on its lower feet, with the exported individual STEP and STL
+placing their undersides at Z0 and the funnel's plan center at X0, Y0.
+Its flat underside flange and lower corbels are functional bearing/access features;
+use the enclosure's PET-GF support-removal strategy. Printed fit, support cleanup,
+stiffness, insertion force and lifetime remain unqualified.
+
+## Drain socket and snap web
+
+The removable frame’s underside is Z299.9 and the socket floor is Z302.9.
+The 3 mm web beneath the [36.6 × 41.6 mm](FRAME_SOCKET) socket carries the
+cradle’s two snap hooks. The socket extends 19 mm above that web; its R0.25
+receiver corners and 1 mm mouth lead-in retain room around the square silicone
+plug and released hook tips. The plug’s lower face bears on the hooks at Z306.05.
+
+Only the [11.25 mm](FRAME_HOLE) drain hole and two straight
+[5.54 × 32.3 mm](FRAME_SLOTS) wing slots pierce this web. The complete catches
+bear above the 3 mm web on both sides. The elbow’s fixed nose face stands
+0.65 mm below the frame’s underside in the released pose.
+
+The cradle, elbow and stub attach to the removable frame. Release the drain
+connection or the cradle’s snap before frame withdrawal. The bare-frame lift
+review excludes those drain parts; it does not establish snap-release access,
+force or the motion of the connected tubing. Fit and inspect the drain before
+seating the silicone funnel.
 
 ## Elbow cradle
 
@@ -149,7 +162,8 @@ The [cradle trial](cradle-trial/README.md) records accepted insertion for its
 identified meshes; it does not establish this joint's loaded retention or lifetime.
 
 The cradle prints on its bottom. The hooks' flat undersides take accessible
-supports.
+supports. Its accepted trial retains its artifact-bound scope; the complete installed joint and its release access
+retain their stated qualification limits.
 
 ## Regenerate
 
@@ -161,30 +175,31 @@ tools/cad-venv/bin/python hardware/printed-parts/zone-c/funnel/elbow_cradle.py
 
 The assembly places all three parts through
 [`enclosure_assembly.py`](/hardware/manifold-layout/enclosure_assembly.py).
-The shell uses `funnel_frame.receivers` and `funnel_frame.shell_clearance` for
-its matching enclosure features.
+The shell uses `funnel_frame.receivers`, `funnel_frame.shell_clearance` and
+`funnel_frame.front_roof_clearance` for both upper shells. It opens the insert
+pilots with `funnel_frame.shell_screw_cuts` after furniture is joined.
 
 ## Integration checks
 
-[`integration-review/rail-motion-check.json`](integration-review/rail-motion-check.json)
-records sampled insertion of the exported frame through both actual upper shells,
-their closing motion, and capture against 2 mm translations on all three axes.
-Run `integration-review/check_fit.py` from the CAD environment to refresh it.
+The manual [drop-in review](drop-in-review/review.py) measures the authored rigid
+empty frame, ledges, silicone brim bearing, original snap web/socket and screw engagement.
+With production shells included, it also measures the nominal Ø3.3 mm J10 tool
+passages with the frame, cradled drain and electronics panel removed.
+Its [record](drop-in-review/native-review.json) states whether exported production
+upper shells are included. Its lift scope removes the drain cradle, elbow, stub
+and connected tubing. Sampled geometry does not establish hand access,
+printed fit, support-removal effort, sealing, load capacity or lifetime.
 
-The [Mark2 frame job](flush-roof-review/mark2-v1/README.md) binds its
-recorded STEP/STL to one printer-accepted job, all 230 native model layers and complete
-support-slab removal sweeps. Its four bed-rooted supports reach the external
-rail bearings and have outward removal paths after contacts and branch
-junctions are detached. Physical support-removal effort and fit remain
-unqualified. The retained
-[`support audit`](integration-review/frame-support-audit.json) describes the
-input meshes named in that record: a 0.20 mm first layer, 0.24 mm subsequent
-layers, six walls through its 44.499 mm corbel band and four bed-rooted support
-bodies at the rail bearings. That retained slice does not qualify the current roof
-surround. The current surround and body share one width and require no
-side-expansion band. The flat rails retain accessible
-supports. Physical fit, brim support under load and surface finish remain
-separate observations.
+```sh
+tmp/takeover/cadq "funnel: drop-in review" -- tools/cad-venv/bin/python \
+  hardware/printed-parts/zone-c/funnel/drop-in-review/review.py --shells
+```
+
+The retained [horizontal rail-motion record](integration-review/rail-motion-check.json)
+and [frame print receipt](flush-roof-review/mark2-v1/README.md) apply only to the
+artifacts named in those records. The [cradle trial](cradle-trial/physical-acceptance.json)
+retains its accepted insertion scope. The drop-in frame and installed drain joint require their own physical print
+and assembly observations.
 
 ## Sources
 [value](NAME) texts are updated by:

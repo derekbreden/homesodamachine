@@ -1052,12 +1052,13 @@ def valve_tray_decks(placed: dict) -> dict:
     runs on, which way it points, the world coordinate of their shared mounting plane, and each
     valve's centre in the plate's two in-plane axes.
 
-    The cap's three valves are not here: the cold core's lid prints their seats
-    (`_cold_core_interface.cap_cradles`), and a body is held once."""
+    The lid-owned valves are excluded: their integral seats follow the
+    above-core equipment placement, and each body has one holder."""
     placed = _bodies(placed)
     groups = collections.defaultdict(list)
     for name in placed:
-        if not name.startswith("valve-v-") or name in _cci.cap_cradles:
+        if (not name.startswith("valve-v-") or name in _cci.cap_cradles
+                or name in _above.core_equipment_names()):
             continue
         axis, sign = _valve_up(placed, name)
         b = box(placed[name])

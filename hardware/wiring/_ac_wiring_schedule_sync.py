@@ -147,7 +147,7 @@ len_reeds_b_mm = 500     # Reservoir B: 401 mm continuous common plus fitting re
 len_fan_mm = 650         # J2 FAN → condenser-crown approach (~543 mm), plus donor-lead reserve
 len_reeds_a_mm = 600     # Reservoir A: 512 mm continuous common plus fitting reserve.
 len_gas_mm = 600         # SIG-12 → the MQ-6 low on the rear cabinet floor, the longest in the box (582)
-len_compressor_mm = 700  # Preparation stock: 591 mm modeled longest core plus 109 mm termination/dressing reserve; trim after routing.
+len_compressor_mm = 700  # Hot stock: 591.052 mm main + 36.777 mm fuse continuation; 72.171 mm nominal termination/dressing reserve. Separate pieces; trim after routing.
 len_umbilical_m = 1.0    # SIG-6 ONLY — the faucet display, up the umbilical and OUT of the box,
                          # above this model's ceiling. The one length still estimated.
 

@@ -3526,6 +3526,13 @@ def _funnel_cut(inner, outer, centre, wells=(), up=1.0):
     plumb = (cq.Workplane(obj=_ybox(-half, half, cy, back,
                                     seat - funnel_seat_thickness - 1.0, seat + slide_slip))
              .edges("|Z and >Y").fillet(_funnel_frame_part.corner_radius + slide_slip).val())
+    # The frame's plain underside notches pass these complete insert hosts.
+    # Keep their stock while the central passage remains open for J10 tools.
+    for column in ('front', 'back'):
+        receiver_stock = _funnel_frame_part.receivers(
+            inner, outer, y_seam, centre, seat, column)
+        if receiver_stock is not None:
+            plumb = plumb.cut(receiver_stock)
     cut = (pocket.fuse(sides).fuse(throat).fuse(_funnel_keepout(outer, centre))
            .fuse(clearance.fuse(plumb)))
     floor = _funnel_frame_part.datums(seat)[0] - slide_slip

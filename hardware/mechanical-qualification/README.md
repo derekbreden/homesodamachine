@@ -396,9 +396,6 @@ depressurization route ([pump dock evidence](../printed-parts/enclosure/pump-doc
 
 The [core-stop review](../printed-parts/enclosure/pump-dock/core-stop-native-review.json)
 records the lower quadrants' complete bearing faces and webs against its Box and native inputs.
-The [cold-core cradle review](../printed-parts/cold-core/foam-cap/valve-cradle-native-review.json)
-binds the cap lid's fixed-valve stations and conduit passage to matching native lid leaves
-in both cold-core models. It does not qualify printed lid fit or valve retention.
 The [manual mesh-interface review](../printed-parts/enclosure/pump-dock/lint-interface-review.json)
 records complete six-class readings of front-bottom, both rear shells and the revised
 cold-core lid. Exact classifier diagnoses, specified cosmetic contours and unresolved
@@ -452,7 +449,7 @@ specifies the following dimensions. Its minimum surrounding wall is measured fro
 | Insert | Knurl OD | Recommended nominal bore | Minimum surrounding wall | Relevant CAD feature |
 | --- | --- | --- | --- | --- |
 | RX-M2x4 | 3.6 mm | 3.2 mm | 1.3 mm | The shared bench-tray engine uses a 5.8 mm boss and a 5.0 mm blind pocket for this family. No M2 insert is specified in the integrated appliance. |
-| RX-M3Sx4.0 and RX-M3x5.7 | 4.6 mm | 4.0 mm | 1.6 mm | Enclosure wall-mount bosses and the pump's cold-core columns are 8.0 mm OD; the pump columns have 8.5 mm pockets. The main-board bench tray uses 7.2 mm OD with 5.0 mm pockets for short inserts. Complete native stock, including adjacent cuts, is checked separately. |
+| RX-M3Sx4.0 and RX-M3x5.7 | 4.6 mm | 4.0 mm | 1.6 mm | The selected cold-core pump, PCB and PSU columns are 8.0 mm OD with 9.75 mm blind pilots for full-length inserts. The main-board bench tray uses 7.2 mm OD with 5.0 mm pockets for short inserts. Complete native stock, including adjacent cuts, is checked separately. |
 | RX-M5x9.5 | 7.1 mm | 6.4 mm | 2.6 mm | Compressor posts are 12.0 mm OD with a 6.4 mm bore, giving a nominal 2.8 mm annulus. CAD checks the M5 manufacturer's minimum surrounding wall. |
 
 Ruthex specifies at least 1.0 mm of blind relief below the installed insert.
@@ -464,15 +461,47 @@ Its 39 appliance pockets are the 20 cold-core cap stations, four water-pump colu
 bench-tray pockets are checked in their finished floor-and-boss solid. The report binds
 the imported geometry sources by SHA-256. It establishes CAD geometry; it does not
 establish the deposited structure, installation quality or load capacity.
-The [pump-column integration check](pump-column-integration.json) separately verifies
+The [pump-column integration check](pump-column-integration.json) separately records
 the four mounting axes, installed feet, screw/washer stack, cap and lid clearances,
-blind ends and connected routes. All 66 native checks pass with the 8.0 mm columns;
-rubber compression and installed isolation remain physical observations.
+blind ends and connected routes. Its 66 passing native checks apply to the sources
+bound in that report; rubber compression and installed isolation remain physical
+observations.
+
+The [selected cap arrangement](../printed-parts/cold-core/foam-cap/README.md)
+has twelve cup-rooted full-length M3 insert stations: four pump feet, four PCB
+posts and four flat PSU seats. The PCB's M3×8 screws engage 6.4 mm; the pump's
+M3×20 stack gives 6.65 mm nominal reach. The PSU's M3×20 screws give 6.75–8.75 mm
+over the supplier's 6.7±1 mm ear tolerance, retaining at least 1 mm tip reserve in
+the 9.75 mm pilots. The B-fill roof retains 3.05 mm nominal stock and 0.55 mm
+nominal clearance to the modeled board tails. The [scoped native review](../printed-parts/cold-core/foam-cap/above-core-native-review.json)
+records the passage, complete pilot-stock, B-fill, check-bridge, valve-wall and
+three JG union-restraint queries. The union windows retain complete 3 mm native
+surrounding stock; their nominal strip segments are checked against the selected
+equipment, tubes and dressed electrical references. These establish CAD geometry,
+without transferring physical acceptance to the complete cap, three upright valve
+walls, flow-meter bearings, union restraints, cable passages, fitting pockets or
+water-inlet extension. Printed fit, load capacity, installed tube/cable behavior, seam
+adhesion and lifetime retain their separate qualification scopes.
+
+The [above-core closure review](enclosure-above-core/README.md) reads the
+exported populated appliance for empty roof-closure removal, the changed
+upper back-column ride and the raised M5 host stacks. Its adjacent report
+names the sampled motions and exact source/artifact hashes. The
+[native contact record](enclosure-above-core/native-contact-review.json) covers
+the west core bracket, six rear clamped fittings, PSU terminal approaches and
+finite nominal mating regions against their named native solids. The
+[flavor and connector service record](enclosure-above-core/flavor-and-connector-review.json)
+covers the fixed-endpoint R25 flavor lanes and complete J1/J2 housing staging
+motions: 17 mm up, then 8 mm fore. It retains the dimensional reference and
+CAD-only scope. The
+[electrical review](../wiring/installed/above-core-review/native-review.json)
+and adjacent tube/wall records state their installed-route scopes. These
+nominal checks establish no physical fit, assembly force, strength or life.
 
 The [native enclosure integration record](enclosure-integration.json) binds the checked
 materialized appliance STEP and fit card: required gates pass with no body clashes,
 unanswered overlap calculations or routed-tube interference. It also compares the
-current installed ring and lettering leaves with those exact assembly solids. The
+bound installed ring and lettering leaves with those exact assembly solids. The
 record retains the full run's concurrent ring-source drift; its scope is the checked
 materialized assembly. The inactive tube-support and support-column goals remain
 recorded. These checks establish fit, without a load or drop acceptance.

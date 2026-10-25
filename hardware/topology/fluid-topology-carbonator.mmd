@@ -23,22 +23,21 @@ flowchart LR
   end
 
   %% =========================
-  %% Water supply — the west lane, floor to crown
+  %% Water supply — above the cold core
   %% =========================
-  %% The rear bulkhead's inboard collet and the ASSE chain's inlet collet meet face to face, so
-  %% the first tube in the machine is a length of stock cut to the two grips and swallowed whole
-  %% by them. There is no `water-1`.
+  %% The rear bulkhead reaches the ASSE inlet cuff through water-1. The outlet
+  %% cuff receives the trimmed water-split stem at the water-2 mating joint.
   subgraph WaterSupply["Water Supply"]
     direction LR
     BhW["bulkhead-water<br/>(PP1208E, +Y wall of back-top)"]
     BFP["asse1022-assembly<br/>(Multiplex 19-0897)"]
-    Split["water-split<br/>(1/4&quot; union tee)"]
+    Split["water-split<br/>(trimmed neoFit stem tee)"]
     VK["vk-solenoid<br/>(V-K, 12 V NC)"]
     FlowReg["flow-regulator<br/>(clean-water feed)"]
-    ElbowS["pump-elbow-suction<br/>(printed TPU 85A elbow)"]
+    ElbowS["pump-inlet-tpu<br/>(straight TPU cuff)"]
     PW["g-ganen-pump<br/>(G Ganen, 110 PSI advertised)"]
-    ElbowD["pump-elbow-discharge<br/>(printed TPU 85A elbow)"]
-    DischChain["water check<br/>(1/4-inch push-connect)"]
+    ElbowD["pump-outlet-tpu<br/>(straight TPU cuff)"]
+    DischChain["water check<br/>(neoFit ACHV44-E, 1/4-inch)"]
   end
 
   %% =========================
@@ -46,12 +45,12 @@ flowchart LR
   %% =========================
   %% The ABU44 is clamped through the +Y wall of back-top by its own nut, a collet on each face. The
   %% customer's red tether lands on the outboard one; co2-0 leaves the inboard one for the
-  %% regulator, followed by the downstream check whose arrow points toward the carbonator.
+  %% selected compact regulator, followed by the downstream check toward the carbonator.
   subgraph CO2Supply["CO2 Supply"]
     direction LR
     CO2In["co2-inlet<br/>(neoFit ABU44 1/4&quot; bulkhead, +Y wall of back-top)"]
-    GasherCO2["gasher-co2<br/>(check + PI adapters + 316 coupling)"]
-    WR["wr1110<br/>(WR1105 secondary regulator, fixed 3 bar)"]
+    GasCheck["gas-check<br/>(neoFit ACHV44-E, 1/4-inch)"]
+    GasReg["gas-regulator<br/>(PISCO RVFUP1/4-1/4-0.3)"]
   end
 
   %% =========================
@@ -106,14 +105,13 @@ flowchart LR
   %% while forward pressure permits; the carbonated draw leaves at the other bottom port. Both
   %% reservoirs are filled and drawn the same way.
   Tap --> BhW
-  BhW --> BFP
-  BFP -->|"water-2"| Split
+  BhW -->|"water-1"| BFP
+  BFP -->|"water-2<br/>mate"| Split
   BFP --> Vent
   Split -->|"fluid-1"| FlowReg
   FlowReg -->|"fluid-2"| VA
   Split -->|"water-3"| VK
-  %% Each printed elbow pushes onto one of the pump's moulded barbs, so the two edges at the
-  %% pump carry no line. There is no `water-4`.
+  %% Straight TPU cuffs join the two pump barbs; the edges at the pump carry no line.
   VK -->|"water-7"| ElbowS
   ElbowS --> PW
   PW --> ElbowD
@@ -121,9 +119,9 @@ flowchart LR
   DischChain -->|"water-5"| CapWater
   CapWater --> P2
   CO2 --> CO2In
-  CO2In -->|"co2-0"| WR
-  WR -->|"co2-1"| GasherCO2
-  GasherCO2 -->|"co2-2"| CapCO2
+  CO2In -->|"co2-0"| GasReg
+  GasReg -->|"co2-1"| GasCheck
+  GasCheck -->|"co2-2"| CapCO2
   CapCO2 --> P1
   P3 --> CapCarb
   CapCarb -->|"carb-1"| FlowMeter

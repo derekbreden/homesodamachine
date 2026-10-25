@@ -265,6 +265,7 @@ IMPLICIT_SOLIDS = {
     ),
     "hardware/manifold-layout/enclosure_assembly.py": (
         "hardware/manifold-layout/enclosure-assembly.step.mesh",
+        "hardware/wiring/enclosure-wiring.step.mesh",
     ),
     "hardware/manifold-layout/manifold_layout.py": (
         "hardware/manifold-layout/manifold-layout.step.mesh",

@@ -10,7 +10,7 @@ the plate rests evenly on the brim after the fill is complete.
 
 ![The cover's underside, locating skirt and broad front lifting edge](underside.png)
 
-The plate is [182 mm](WIDTH) across and [144.392 mm](DEPTH) front to back.
+The plate is [182 mm](WIDTH) across and [179.392 mm](DEPTH) front to back.
 Its entire front edge extends [4 mm](FRONT_EXTENSION) toward the display,
 beyond the [1.5 mm](OVERHANG) brim overlap. A shallow
 [1.2 mm](FRONT_RELIEF) recess under that edge provides lifting access.
@@ -53,11 +53,12 @@ The [saved PETG project](funnel-cover-petg.3mf) and
 [native slice review](native-slice-review.json) record the separate cover
 slice with no support paths. It has not been submitted to a printer. The
 review identifies the material preset, source hashes, solid infill and
-toolpaths; physical fit and drip exclusion remain unqualified.
+toolpaths for its identified artifact. The expanded plate needs a production
+reslice; physical fit and drip exclusion remain unqualified.
 
-The [native check](geometry-check.json) binds the exact cover, funnel and
-assembly exports. It checks the solid plate, silicone clearance,
-surrounding hardware clearance and vertical removal. It does not measure
+The [native check](geometry-check.json) identifies the cover, funnel and
+assembly exports it measures. It checks the solid plate, silicone clearance,
+surrounding hardware clearance and vertical removal within that artifact scope. It does not measure
 friction, silicone distortion, deposited watertightness or lifetime.
 
 The post-publication [mesh review](mesh-review.json) identifies the lifting

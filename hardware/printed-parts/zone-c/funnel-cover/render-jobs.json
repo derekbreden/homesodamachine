@@ -1,0 +1,13 @@
+[
+  {
+    "step": "printed-parts/zone-c/funnel-cover/funnel-cover-print.step",
+    "out": "hardware/printed-parts/zone-c/funnel-cover/underside.png",
+    "cam": [1, -1, 2],
+    "zoom": 3.5,
+    "up": [0, 0, 1],
+    "solid": true,
+    "ground": false,
+    "fog": false,
+    "size": "1400x1000"
+  }
+]

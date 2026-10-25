@@ -1,0 +1,28 @@
+[
+  {
+    "step": "printed-parts/zone-c/funnel/funnel.step",
+    "out": "hardware/printed-parts/zone-c/funnel/overflow-review/assembly.png",
+    "cam": [
+      1,
+      -1,
+      2
+    ],
+    "up": [
+      0,
+      0,
+      1
+    ],
+    "solid": true,
+    "ground": false,
+    "fog": false,
+    "size": "1400x1000",
+    "ortho": true,
+    "span": 145,
+    "target": [
+      0,
+      0,
+      -10
+    ],
+    "bg": "#e9edf3"
+  }
+]

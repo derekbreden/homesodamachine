@@ -1,0 +1,3033 @@
+{
+  "schema": 1,
+  "reviewed_date": "2026-10-24",
+  "evidence_type": "Scoped manual native CAD queries",
+  "scope": "Selected cap mount stock, fluid and cable passages, curved water and soda roof passages, B-fill fitting pocket, discharge-check bridge, quarter flow-meter bearings and three integral valve walls. Results are geometric nominal clearances, not physical fit, structural capacity, pressure sealing or lifetime qualification. The checks are separate feature probes, not a complete appliance interference claim.",
+  "feature_checks": {
+    "passages_and_pilot_stock": {
+      "shell": {
+        "valid": true,
+        "solids": 1
+      },
+      "cup": {
+        "valid": true,
+        "solids": 1
+      },
+      "passages": {
+        "water-in": {
+          "cup": 0.0,
+          "lid": 0.0
+        },
+        "reservoir-a": {
+          "cup": 0.0,
+          "lid": 0.0
+        },
+        "reservoir-b": {
+          "cup": 0.0,
+          "lid": 0.0
+        },
+        "reservoir-a-fill": {
+          "cup": 0.0,
+          "lid": 0.0
+        },
+        "reservoir-b-fill": {
+          "cup": 0.0,
+          "lid": 0.0
+        },
+        "carb-water-out": {
+          "cup": 0.0,
+          "lid": 0.0
+        },
+        "co2-in": {
+          "cup": 0.0,
+          "lid": 0.0
+        },
+        "reed-cable-a": {
+          "cup": 0.0,
+          "lid": 0.0
+        },
+        "reed-cable-b": {
+          "cup": 0.0,
+          "lid": 0.0
+        },
+        "sensor-cable": {
+          "cup": 0.0,
+          "lid": 0.0
+        }
+      },
+      "water": {
+        "radii": [
+          0.0,
+          14.0,
+          14.0,
+          14.0,
+          14.0,
+          14.0,
+          0.0
+        ],
+        "shell_contact_mm3": 0.0
+      },
+      "inserts": {
+        "g-ganen-pump": [
+          {
+            "xy_mm": [
+              -106.63545217260645,
+              -30.868269476362286
+            ],
+            "missing_full_pilot_wall_mm3": 0.0,
+            "pilot_intrusion_mm3": 0.0,
+            "missing_1mm_blind_backing_mm3": 0.0
+          },
+          {
+            "xy_mm": [
+              -106.63545217260645,
+              49.131730523637714
+            ],
+            "missing_full_pilot_wall_mm3": 0.0,
+            "pilot_intrusion_mm3": 0.0,
+            "missing_1mm_blind_backing_mm3": 0.0
+          },
+          {
+            "xy_mm": [
+              -48.63545217260645,
+              -30.868269476362286
+            ],
+            "missing_full_pilot_wall_mm3": 0.0,
+            "pilot_intrusion_mm3": 0.0,
+            "missing_1mm_blind_backing_mm3": 0.0
+          },
+          {
+            "xy_mm": [
+              -48.63545217260645,
+              49.131730523637714
+            ],
+            "missing_full_pilot_wall_mm3": 0.0,
+            "pilot_intrusion_mm3": 0.0,
+            "missing_1mm_blind_backing_mm3": 0.0
+          }
+        ],
+        "pcba": [
+          {
+            "xy_mm": [
+              50.097079979949626,
+              -79.49999389648437
+            ],
+            "missing_full_pilot_wall_mm3": 0.0,
+            "pilot_intrusion_mm3": 0.0,
+            "missing_1mm_blind_backing_mm3": 0.0
+          },
+          {
+            "xy_mm": [
+              50.097079979949626,
+              -13.199993896484365
+            ],
+            "missing_full_pilot_wall_mm3": 0.0,
+            "pilot_intrusion_mm3": 0.0,
+            "missing_1mm_blind_backing_mm3": 0.0
+          },
+          {
+            "xy_mm": [
+              128.09707997994963,
+              -79.49999389648437
+            ],
+            "missing_full_pilot_wall_mm3": 0.0,
+            "pilot_intrusion_mm3": 0.0,
+            "missing_1mm_blind_backing_mm3": 0.0
+          },
+          {
+            "xy_mm": [
+              128.09707997994963,
+              -13.199993896484365
+            ],
+            "missing_full_pilot_wall_mm3": 0.0,
+            "pilot_intrusion_mm3": 0.0,
+            "missing_1mm_blind_backing_mm3": 0.0
+          }
+        ],
+        "psu": [
+          {
+            "xy_mm": [
+              -125.70001220703125,
+              -86.4999938964844
+            ],
+            "missing_full_pilot_wall_mm3": 0.0,
+            "pilot_intrusion_mm3": 0.0,
+            "missing_1mm_blind_backing_mm3": 0.0
+          },
+          {
+            "xy_mm": [
+              -125.70001220703125,
+              -53.4999938964844
+            ],
+            "missing_full_pilot_wall_mm3": 0.0,
+            "pilot_intrusion_mm3": 0.0,
+            "missing_1mm_blind_backing_mm3": 0.0
+          },
+          {
+            "xy_mm": [
+              -27.70001220703125,
+              -86.4999938964844
+            ],
+            "missing_full_pilot_wall_mm3": 0.0,
+            "pilot_intrusion_mm3": 0.0,
+            "missing_1mm_blind_backing_mm3": 0.0
+          },
+          {
+            "xy_mm": [
+              -27.70001220703125,
+              -53.4999938964844
+            ],
+            "missing_full_pilot_wall_mm3": 0.0,
+            "pilot_intrusion_mm3": 0.0,
+            "missing_1mm_blind_backing_mm3": 0.0
+          }
+        ]
+      }
+    },
+    "b_fill_pair": {
+      "link": {
+        "exposed_route_world_mm": [
+          [
+            -45.07621873130372,
+            252.28467894148037,
+            243.5
+          ],
+          [
+            -45.48369395248118,
+            257.19249160544,
+            243.5
+          ],
+          [
+            -45.89116917365864,
+            262.1003042693996,
+            244.0
+          ],
+          [
+            -46.2986443948361,
+            267.00811693335925,
+            244.0
+          ]
+        ],
+        "upper_mouth_world_mm": [
+          -48.0,
+          287.5,
+          264.56239
+        ],
+        "exposed_span_mm": 14.774097292341274,
+        "roof_top_z_mm": 254.45,
+        "clearance_mm": 0.15
+      },
+      "fitting_bounds_mm": {
+        "reservoir-b-fill-lower": [
+          [
+            -52.42018264375602,
+            226.7997669899195,
+            221.15
+          ],
+          [
+            -36.441493023138136,
+            252.73975521561005,
+            251.247
+          ]
+        ],
+        "reservoir-b-fill-upper": [
+          [
+            -56.09,
+            266.6167513376077,
+            235.8371
+          ],
+          [
+            -38.55797412986601,
+            295.59,
+            264.56239
+          ]
+        ]
+      },
+      "air_bounds_mm": [
+        [
+          -56.35,
+          226.46760433519802,
+          235.6
+        ],
+        [
+          -35.11409345030038,
+          295.85,
+          264.75
+        ]
+      ],
+      "roof_to_pcb_mm": 0.5500000000000114,
+      "roof_pcb_intersection_mm3": 0.0,
+      "fitting_contacts_mm3": {
+        "reservoir-b-fill-lower": {
+          "cup": 0.0,
+          "lid": 0.0,
+          "reservoir_cap": 0.0,
+          "pcb": 0.0
+        },
+        "reservoir-b-fill-upper": {
+          "cup": 0.0,
+          "lid": 0.0,
+          "reservoir_cap": 0.0,
+          "pcb": 0.0
+        }
+      },
+      "pcb_contacts_mm3": {
+        "cup": 0.0,
+        "lid": 0.0
+      },
+      "passive_guides": {
+        "reservoir-b": {
+          "points_mm": [
+            [
+              -94.3,
+              9.5,
+              8.425
+            ],
+            [
+              -94.3,
+              9.5,
+              219.41478445646027
+            ],
+            [
+              -94.30000000000001,
+              6.0,
+              225.74065725526572
+            ],
+            [
+              -94.30000000000001,
+              6.0,
+              233.4
+            ]
+          ],
+          "radii_mm": [
+            0.0,
+            14.0,
+            14.0,
+            0.0
+          ],
+          "cup_contact_mm3": 0.0,
+          "lid_contact_mm3": 0.0
+        },
+        "reservoir-a-fill": {
+          "points_mm": [
+            [
+              102.5,
+              -57.5,
+              213.15
+            ],
+            [
+              102.5,
+              -57.5,
+              219.41478445646027
+            ],
+            [
+              102.5,
+              -61.0,
+              225.74065725526572
+            ],
+            [
+              102.5,
+              -61.0,
+              233.4
+            ]
+          ],
+          "radii_mm": [
+            0.0,
+            14.0,
+            14.0,
+            0.0
+          ],
+          "cup_contact_mm3": 0.0,
+          "lid_contact_mm3": 0.0
+        }
+      },
+      "installed_wiring_fixture_probe": {
+        "scope": "Current native B-fill lower/upper fittings against cached125 installed wiring bodies",
+        "body_count": 125,
+        "intersections": [],
+        "fittings": {
+          "reservoir-b-fill-lower": {
+            "bounds_mm": [
+              -52.42018264375602,
+              226.7997669899195,
+              221.15,
+              -36.441493023138136,
+              252.73975521561005,
+              251.247
+            ],
+            "candidate_count": 20
+          },
+          "reservoir-b-fill-upper": {
+            "bounds_mm": [
+              -56.09,
+              266.6167513376077,
+              235.8371,
+              -38.55797412986601,
+              295.59,
+              264.56239
+            ],
+            "candidate_count": 29
+          }
+        },
+        "qualification_scope": "Zero native intersections against the identified 125-body cache, including J6/J7 housings. Subsequent wire dressing has its separate review in hardware/wiring/installed/above-core-review; this probe is not a full electrical interference claim."
+      }
+    },
+    "check_bridge": {
+      "scope": "Source-native east quarter bearing, complete 3 mm lid backing, four nominal pump-driver columns and complete water-check retaining-strip path, bound to the exported cap lid. Separate actual-appliance records cover equipment and wiring. No physical fit, threading, retention, pressure or life qualification.",
+      "source_sha256": {
+        "hardware/printed-parts/cold-core/foam-cap/check_bridge_review.py": "357720c3bd790183b16a59ee1341c74e41c256f9eebbe32b9c7496f7613de507",
+        "hardware/printed-parts/cold-core/_above_core_mounts.py": "57b2a5912d73ef99b62c0de45feceef4d2bb96711079d9e31b4eaead1199bbda",
+        "hardware/printed-parts/cold-core/_cold_core_interface.py": "5dae3ef9f2254127cd24bbed5c063bbe77b95c1af6d829d02fc6057c724d5a9d",
+        "hardware/manifold-layout/above_core.py": "4dd9b5e53315a066771300cfbe8102f71501adc442469adfa8bb5008e809d4fc",
+        "hardware/reference/neofit-achv44-check/neofit_achv44_check.py": "a05bb8c69df5ee919985a0280fc04be1a425c71c605a6c9b846ab991c6e0f719",
+        "hardware/printed-parts/cadlib/fits.py": "85b7eedd9af4ee77c4321575410b6e232c7572bda27609faf83c4bfdf5e77ab1",
+        "hardware/reference/g-ganen-pump/installation/g_ganen_installation.py": "7c0c1fb6c5d91b6a2ff38b01a5e50d014be5c6e930f5c92de13970debab1997c",
+        "hardware/manifold-layout/above-core.json": "925438fdf7bb58011a95ea53c485b713bc8c243a80b0c515a2ba0ead000ccc5a",
+        "hardware/reference/neofit-achv44-check/model-dimensions.json": "a9058aa42dc8a34f072abe4a1e5cc74d9b2a1c4d0547eba4e5d68bee679f9e4d",
+        "hardware/reference/neofit-achv44-check/neofit-achv44-check.step": "6cba8b0db77eb05d3488c114d184e9bb8a691db49b681dcacbcfe833f7da2c82"
+      },
+      "exported_lid": {
+        "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+        "sha256": "3dc027887921d731b82089a236f760df9b5f27abc85851f1f347b71c43ecda20"
+      },
+      "reference_basis": "neoFit ACHV44-E vendor mesh with same-family fixed-collar scale and receiving-depth inference; actual part dimensions unmeasured.",
+      "datums": {
+        "centre_world_mm": [
+          -32.80179966121266,
+          360.4912956512049,
+          280.16882837176047
+        ],
+        "fixed_band_from_inlet_mm": [
+          4.43650159122278,
+          20.1931249738797
+        ],
+        "bearing_from_inlet_mm": [
+          7.91481328255124,
+          16.71481328255124
+        ],
+        "fixed_band_radius_mm": 8.431478550423588,
+        "root_fore_y_mm": 382.43545217260646,
+        "root_aft_y_mm": 387.43545217260646,
+        "bearing_fore_y_mm": 356.0912956512049,
+        "half_width_mm": 11.581478550423588,
+        "stock_x_limits_world_mm": [
+          -32.80179966121266,
+          -21.220321110789072
+        ],
+        "bridge_bottom_world_z_mm": 268.5873498213369,
+        "open_direction": "west-and-up",
+        "pump_driver_axis_world_mm": [
+          -30.868269476362286,
+          372.43545217260646,
+          253.4000061035156
+        ],
+        "pump_driver_radius_mm": 1.5933756729740645,
+        "tool_notch_max_x_mm": -29.124893803388222,
+        "tool_notch_y_mm": [
+          370.6920764996324,
+          374.17882784558054
+        ],
+        "wall_mm": 3.0
+      },
+      "geometric_minimum_loop_mm": 66.52024302387129,
+      "nominal_strip_route": {
+        "segments": [
+          {
+            "kind": "line",
+            "points_mm": [
+              [
+                -33.35179966121266,
+                360.4912956512049,
+                268.0373498213369
+              ],
+              [
+                -20.67032111078907,
+                360.4912956512049,
+                268.0373498213369
+              ]
+            ],
+            "wide_axis": [
+              0.0,
+              1.0,
+              0.0
+            ]
+          },
+          {
+            "kind": "line",
+            "points_mm": [
+              [
+                -20.67032111078907,
+                360.4912956512049,
+                268.0373498213369
+              ],
+              [
+                -20.67032111078907,
+                360.4912956512049,
+                280.16882837176047
+              ]
+            ],
+            "wide_axis": [
+              0.0,
+              1.0,
+              0.0
+            ]
+          },
+          {
+            "kind": "line",
+            "points_mm": [
+              [
+                -20.67032111078907,
+                360.4912956512049,
+                280.16882837176047
+              ],
+              [
+                -26.152407617494926,
+                360.4912956512049,
+                286.20642246217943
+              ]
+            ],
+            "wide_axis": [
+              0.0,
+              1.0,
+              0.0
+            ]
+          },
+          {
+            "kind": "arc",
+            "points_mm": [
+              [
+                -26.152407617494926,
+                360.4912956512049,
+                286.20642246217943
+              ],
+              [
+                -39.003514534127774,
+                360.4912956512049,
+                286.6654189842881
+              ],
+              [
+                -39.14153917982523,
+                360.4912956512049,
+                273.8068585676934
+              ]
+            ],
+            "radius_mm": 8.981478550423589,
+            "sweep_degrees": 182.86108384967855,
+            "wide_axis": [
+              0.0,
+              -1.0,
+              0.0
+            ]
+          },
+          {
+            "kind": "line",
+            "points_mm": [
+              [
+                -39.14153917982523,
+                360.4912956512049,
+                273.8068585676934
+              ],
+              [
+                -33.35179966121266,
+                360.4912956512049,
+                268.0373498213369
+              ]
+            ],
+            "wide_axis": [
+              0.0,
+              1.0,
+              0.0
+            ]
+          }
+        ],
+        "length_mm": 69.80634235042726,
+        "stock": "6-inch narrow nylon tie",
+        "stock_length_mm": 152.4,
+        "width_mm": 2.5,
+        "thickness_mm": 0.8,
+        "fixed_band_plane_world_y_mm": 360.4912956512049,
+        "threading_height_mm": 15.18734982133688,
+        "strip_basis": "Nominal layout allowance; purchased strap/head dimensions unmeasured"
+      },
+      "remaining_stock_mm": 82.59365764957275,
+      "continuous_beam_at_notch_mm": 7.9045726925991495,
+      "pump_hex_driver": {
+        "across_flats_mm": 2.5,
+        "radial_air_mm": 0.15,
+        "assembly_scope": "Fasten the pump before seating the removable check group; release or disconnect that group for the occupied screw-column service.",
+        "purchased_tool_fit_and_hand_access_qualified": false,
+        "axes": {
+          "0": {
+            "axis_mm": [
+              49.131730523637714,
+              430.43545217260646,
+              264.2000061035156
+            ],
+            "bridge_intersection_mm3": 0.0,
+            "check_intersection_mm3": 0.0
+          },
+          "1": {
+            "axis_mm": [
+              -30.868269476362286,
+              430.43545217260646,
+              264.2000061035156
+            ],
+            "bridge_intersection_mm3": 0.0,
+            "check_intersection_mm3": 0.0
+          },
+          "2": {
+            "axis_mm": [
+              49.131730523637714,
+              372.43545217260646,
+              264.2000061035156
+            ],
+            "bridge_intersection_mm3": 0.0,
+            "check_intersection_mm3": 0.0
+          },
+          "3": {
+            "axis_mm": [
+              -30.868269476362286,
+              372.43545217260646,
+              264.2000061035156
+            ],
+            "bridge_intersection_mm3": 0.0,
+            "check_intersection_mm3": 105.89386962840635
+          }
+        }
+      },
+      "checks": [
+        {
+          "check": "support valid solid",
+          "passed": true,
+          "valid": true,
+          "solids": 1
+        },
+        {
+          "check": "support present in exported lid",
+          "passed": true,
+          "missing_volume_mm3": 0.0
+        },
+        {
+          "check": "complete east-lower quarter bearing",
+          "passed": true,
+          "radial_stock_mm": 3.0,
+          "length_mm": 8.8,
+          "missing_volume_mm3": 0.0
+        },
+        {
+          "check": "complete lid backing under root",
+          "passed": true,
+          "thickness_mm": 3.0,
+          "missing_volume_mm3": 0.0
+        },
+        {
+          "check": "support / purchased check",
+          "passed": true,
+          "overlap_mm3": 0.0
+        },
+        {
+          "check": "nominal strip / purchased check",
+          "passed": true,
+          "overlap_mm3": 0.0
+        },
+        {
+          "check": "nominal strip / support",
+          "passed": true,
+          "overlap_mm3": 0.0
+        },
+        {
+          "check": "nominal strip / exported lid",
+          "passed": true,
+          "overlap_mm3": 0.0
+        },
+        {
+          "check": "pump driver / support / 0",
+          "passed": true,
+          "bridge_intersection_mm3": 0.0
+        },
+        {
+          "check": "pump driver / support / 1",
+          "passed": true,
+          "bridge_intersection_mm3": 0.0
+        },
+        {
+          "check": "pump driver / support / 2",
+          "passed": true,
+          "bridge_intersection_mm3": 0.0
+        },
+        {
+          "check": "pump driver / support / 3",
+          "passed": true,
+          "bridge_intersection_mm3": 0.0
+        },
+        {
+          "check": "nominal retaining-strip stock",
+          "passed": true,
+          "path_length_mm": 69.80634235042726,
+          "remaining_stock_mm": 82.59365764957275,
+          "physical_head_engagement_qualified": false
+        }
+      ],
+      "passed": true
+    },
+    "vb_ground_and_reed_b": {
+      "VB_pose": {
+        "rotation": [
+          [
+            0.0,
+            0.0,
+            1.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            -1.0,
+            0.0,
+            0.0
+          ]
+        ],
+        "translation_mm": [
+          38.0,
+          244.90434,
+          280.41
+        ],
+        "reference": "hardware/reference/beduan-solenoid/beduan-solenoid.step"
+      },
+      "VB_ground_intersection_mm3": 0.0,
+      "VB_reed_B_intersection_mm3": 0.0,
+      "lid_reed_B_intersection_mm3": 0.0,
+      "VB_native_valve_intersection_mm3": 0.0,
+      "ground_fasteners": {
+        "screw": "M3x10 SHCS",
+        "screw_length_mm": 10.0,
+        "ring_count": 5,
+        "tongue_thickness_mm": 0.8,
+        "washer_thickness_mm": 0.8,
+        "clamped_thickness_mm": 4.8,
+        "screw_projection_mm": 5.2,
+        "insert": "RX-M3Sx4",
+        "insert_length_mm": 4.0,
+        "landing_z_mm": 259.4,
+        "pilot_diameter_mm": 4.0,
+        "pilot_depth_mm": 7.0,
+        "pilot_bottom_z_mm": 252.39999999999998,
+        "tip_air_mm": 1.8,
+        "blind_backing_mm": 4.399999999999977,
+        "boss_diameter_mm": 10.0,
+        "radial_stock_mm": 3.0
+      },
+      "wall_datums": {
+        "bearing_min_world_mm": [
+          34.0,
+          225.87933999999998,
+          261.61
+        ],
+        "bearing_max_world_mm": [
+          43.2,
+          263.92933999999997,
+          299.21000000000004
+        ],
+        "root_min_world_mm": [
+          34.0,
+          225.87933999999998,
+          253.4
+        ],
+        "socket_backing_mm": 3.0,
+        "root_max_world_mm": [
+          43.2,
+          263.92933999999997,
+          261.61
+        ],
+        "root_depth_mm": 38.04999999999998
+      },
+      "selected_wall_native": {
+        "native_candidates": 10,
+        "overlap_mm3": {},
+        "valid": true,
+        "solids": 1
+      },
+      "scope": "Selected source-current V-B wall; ground boss and reed-B upper passage remain at their recorded fixed stations. The shifted wall is clear of selected native purchased/printed parts, tubes and all30 approach witnesses. Source-current conductor contacts belong to the electrical native record."
+    },
+    "flow_meter_bearings": {
+      "meter_pose": {
+        "rotation": [
+          [
+            0.0,
+            1.0,
+            -0.0
+          ],
+          [
+            1.0,
+            0.0,
+            -0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -1.0
+          ]
+        ],
+        "translation_mm": [
+          50.0,
+          390.91479999999996,
+          306.3760478805363
+        ],
+        "reference": "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step"
+      },
+      "quarter_bearing_datums": [
+        {
+          "centre_world_mm": [
+            50.0,
+            367.71479999999997,
+            306.3760478805363
+          ],
+          "width_mm": 6.0,
+          "seat_radius_mm": 9.3,
+          "wall_mm": 3.0,
+          "native_bearing_band_mm": [
+            -26.200000000000003,
+            -20.200000000000003
+          ],
+          "root_bottom_world_z_mm": 253.4,
+          "stock_top_world_z_mm": 306.3760478805363,
+          "tie_window_world_mm": [
+            53.1,
+            55.9,
+            289.0760478805363,
+            291.0760478805363
+          ],
+          "lower_root_min_x_mm": 57.7,
+          "lower_root_top_z_mm": 280.0
+        },
+        {
+          "centre_world_mm": [
+            50.0,
+            413.61479999999995,
+            306.3760478805363
+          ],
+          "width_mm": 6.0,
+          "seat_radius_mm": 9.3,
+          "wall_mm": 3.0,
+          "native_bearing_band_mm": [
+            19.700000000000003,
+            25.700000000000003
+          ],
+          "root_bottom_world_z_mm": 253.4,
+          "stock_top_world_z_mm": 306.3760478805363,
+          "tie_window_world_mm": [
+            53.1,
+            55.9,
+            266.0,
+            268.0
+          ],
+          "central_root_min_x_mm": 54.1,
+          "central_root_width_mm": 3.0,
+          "base_top_z_mm": 271.0
+        }
+      ],
+      "native_stock_clearance": {
+        "0": {
+          "valid": true,
+          "solids": 1,
+          "native_target_count": 15,
+          "closest_under2_mm": [
+            [
+              "cold-core/foam-cap-lid-top",
+              0.0
+            ],
+            [
+              "digiten-flow",
+              0.16660240344207394
+            ],
+            [
+              "access/g-ganen-pump-mount-2",
+              0.33393742631152074
+            ],
+            [
+              "cold-core/g-ganen-pump",
+              1.214239773361299
+            ]
+          ],
+          "contacts_mm3": {},
+          "missing_3mm_tie_window_surround_mm3": 0.0
+        },
+        "1": {
+          "valid": true,
+          "solids": 1,
+          "native_target_count": 13,
+          "closest_under2_mm": [
+            [
+              "cold-core/foam-cap-lid-top",
+              0.0
+            ],
+            [
+              "digiten-flow",
+              0.180485937062251
+            ],
+            [
+              "tube-fluid-16",
+              0.3729841095501036
+            ],
+            [
+              "tube-fluid-14",
+              0.7250000000000014
+            ],
+            [
+              "tube-fluid-28",
+              1.300110674746406
+            ]
+          ],
+          "contacts_mm3": {},
+          "missing_3mm_tie_window_surround_mm3": 0.0
+        }
+      },
+      "stock_query_scope": "Exact native two-bearing/root proof at the selected aft meter pose against the unchanged physical fixture, 24 tube spans, 30 source-defined access witnesses, 122 unchanged electrical bodies and two union strips. The three meter leads have a separate native electrical review. Later V-B/drain changes are recorded by the bounded changed-group proof; the aft bearing and nearby tube lanes are unchanged. The fore stock-removal/foam delta is recorded separately.",
+      "stock_query_source_sha256": {
+        "hardware/printed-parts/cold-core/_above_core_mounts.py": "5f199486c572eb00cae9da1d55b3ad528040aa831b97b79b46f40e839edf0f3a",
+        "hardware/manifold-layout/above-core.json": "f1f214a50257f49e8a93293c85869afb210181ccf76c0ab905b94793c5ef8acb",
+        "hardware/manifold-layout/above_core_routes.py": "3a2b93bc6a99fbec6d8cd10a5904488e4a319a88a82c4707b82bce2d12c83185"
+      },
+      "complete_nominal_strips": {
+        "source_api": "_above_core_mounts.meter_tie_routes()",
+        "nominal_section_mm": [
+          2.5,
+          0.8
+        ],
+        "native": {
+          "meter-fore": {
+            "length_mm": 88.6484431548186,
+            "stock_margin_mm": 63.75155684518141,
+            "segments": [
+              {
+                "valid": true,
+                "contacts_mm3": {}
+              },
+              {
+                "valid": true,
+                "contacts_mm3": {}
+              },
+              {
+                "valid": true,
+                "contacts_mm3": {}
+              },
+              {
+                "valid": true,
+                "contacts_mm3": {}
+              },
+              {
+                "valid": true,
+                "contacts_mm3": {}
+              },
+              {
+                "valid": true,
+                "contacts_mm3": {}
+              },
+              {
+                "valid": true,
+                "contacts_mm3": {}
+              },
+              {
+                "valid": true,
+                "contacts_mm3": {}
+              },
+              {
+                "valid": true,
+                "contacts_mm3": {}
+              }
+            ]
+          },
+          "meter-aft": {
+            "length_mm": 137.4043150389063,
+            "stock_margin_mm": 14.995684961093701,
+            "segments": [
+              {
+                "valid": true,
+                "contacts_mm3": {}
+              },
+              {
+                "valid": true,
+                "contacts_mm3": {}
+              },
+              {
+                "valid": true,
+                "contacts_mm3": {}
+              },
+              {
+                "valid": true,
+                "contacts_mm3": {}
+              },
+              {
+                "valid": true,
+                "contacts_mm3": {}
+              },
+              {
+                "valid": true,
+                "contacts_mm3": {}
+              },
+              {
+                "valid": true,
+                "contacts_mm3": {}
+              },
+              {
+                "valid": true,
+                "contacts_mm3": {}
+              },
+              {
+                "valid": true,
+                "contacts_mm3": {}
+              },
+              {
+                "valid": true,
+                "contacts_mm3": {}
+              }
+            ]
+          }
+        },
+        "scope": "Complete line/arc strip compounds have no native contact with their purchased/printed fixture, 24 fluid spans or current 125 electrical bodies at the selected aft meter pose. Later V-B/drain changes receive a separate whole-strip changed-group check. Nominal strip/head dimensions, bend/twist transitions, physical threading, head engagement, force and retention are unqualified."
+      },
+      "ordinary_stock": "Both bearing bands retain 3 mm radial stock and complete 3 mm native material around each closed tie window. The fore lower root is 4.6 mm thick; the aft central root is 3 mm thick with a broad lid-fused base. The full exported lid is a single valid solid.",
+      "qualification_scope": "Nominal CAD only. The aft bearing has 0.373 mm air to fluid16 and 0.725 mm to fluid14; these are fixed-stock-to-tube clearances, not physical fit or service qualification.",
+      "selected_B_delta": {
+        "scope": "Aft meter/collar geometry and two complete strips remain fixed; final V-B/drain/return group and30approaches are checked without repeating unchanged meter queries.",
+        "fore": {
+          "native_candidates": 1,
+          "overlap_mm3": {}
+        },
+        "aft": {
+          "native_candidates": 0,
+          "overlap_mm3": {}
+        },
+        "final_flavor_route_contacts_mm3": {
+          "fluid-18": {},
+          "fluid-28": {}
+        },
+        "nominal_aft_strip_to_B_flavor_mm": 0.308831495432322
+      },
+      "fore_foam_clearance_delta": {
+        "scope": "The fore bearing retains its6mm seat and tie window; its single flat east-root shoulder reaches worldZ280. Only stock is removed from the preceding fore bearing. Purchased equipment, sleeve and tube poses remain fixed. Earlier noncontact readings for the stock superset remain at their original scope; this bounded probe adds the15mm uncompressed foam annulus.",
+        "receipt_sha256": "f4fc0a75851e67e6c45132c714c40609df68b41c3713f9c527fef56acfdfe2fb",
+        "source_sha256": {
+          "hardware/printed-parts/cold-core/_above_core_mounts.py": "57b2a5912d73ef99b62c0de45feceef4d2bb96711079d9e31b4eaead1199bbda"
+        },
+        "candidate_bearings": [
+          {
+            "bearing": 0,
+            "valid": true,
+            "solids": 1,
+            "sleeve_contact_mm3": 0.0,
+            "sleeve_gap_mm": 0.19624608326002776,
+            "stock_bounds_world_mm": [
+              50.0,
+              364.71479999999997,
+              253.4,
+              62.3,
+              370.71479999999997,
+              306.3760478805363
+            ]
+          },
+          {
+            "bearing": 1,
+            "valid": true,
+            "solids": 1,
+            "sleeve_contact_mm3": 0.0,
+            "sleeve_gap_mm": 43.545199999999966,
+            "stock_bounds_world_mm": [
+              50.0,
+              410.61479999999995,
+              253.4,
+              62.3,
+              416.61479999999995,
+              306.3760478805363
+            ]
+          }
+        ],
+        "ordinary_stock": "4.6mm east lower root; unchanged full6mm axial seat and3mm bearing surround; tie window unchanged.",
+        "qualification_scope": "Native nominal foam/support noncontact only. No compressed foam fit, slit/tape retention, installation force, load capacity or thermal-performance result."
+      },
+      "exported_shoulder_delta": {
+        "scope": "One subtractive fore-meter shoulder correction in the canonical exported lid. Full source stock and final CCA foam are queried. Water/soda/bridge evidence is reused only through exact retained geometry and disjoint removed-stock bounds. No unchanged route, electrical, whole-core or 151-position motion rescreen.",
+        "old_lid_sha256": "83309617dae07a93762d1665676d8c5e812b0daed369ee5fbd58d2f4b8a80691",
+        "new_lid_sha256": "3dc027887921d731b82089a236f760df9b5f27abc85851f1f347b71c43ecda20",
+        "new_lid_valid": true,
+        "new_lid_solids": 1,
+        "native_boolean_tolerance_mm": 1e-06,
+        "expected_removed_shoulder_bounds_world_mm": [
+          [
+            50.0,
+            364.71479999999997,
+            267.3
+          ],
+          [
+            57.7,
+            370.71479999999997,
+            280.0
+          ]
+        ],
+        "expected_removed_shoulder_volume_mm3": 586.7399999999996,
+        "fore_datum": {
+          "centre_world_mm": [
+            50.0,
+            367.71479999999997,
+            306.3760478805363
+          ],
+          "width_mm": 6.0,
+          "seat_radius_mm": 9.3,
+          "wall_mm": 3.0,
+          "native_bearing_band_mm": [
+            -26.200000000000003,
+            -20.200000000000003
+          ],
+          "root_bottom_world_z_mm": 253.4,
+          "stock_top_world_z_mm": 306.3760478805363,
+          "tie_window_world_mm": [
+            53.1,
+            55.9,
+            289.0760478805363,
+            291.0760478805363
+          ],
+          "lower_root_min_x_mm": 57.7,
+          "lower_root_top_z_mm": 280.0
+        },
+        "root_thickness_mm": 4.599999999999994,
+        "missing_complete_root_mm3": 0.0,
+        "radial_stock_thickness_mm": 3.0,
+        "missing_radial_stock_mm3": 0.0,
+        "tie_window_surround_mm": 3.0,
+        "missing_tie_window_surround_mm3": 0.0,
+        "actual_cca_foam": {
+          "source": "hardware/cold-core-layout/cold-core-assembly.step",
+          "source_sha256": "ff57cb20b177e4bef8dcbbbd81b429c6725ab60ad8f08f704c8950d4122d747d",
+          "body": "soda-rise-insulation",
+          "valid": true,
+          "solids": 1,
+          "lid_contact_mm3": 0.0,
+          "lid_gap_mm": 0.19624608326008608
+        },
+        "retained_features": {
+          "top_cup": {
+            "prior_sha256": "286834d9a5fe464c54168b432c37f13ce65b19caeac1985dfa22d1ce36cb49ee",
+            "current_sha256": "286834d9a5fe464c54168b432c37f13ce65b19caeac1985dfa22d1ce36cb49ee",
+            "byte_identical": true
+          },
+          "water_passage": {
+            "points_unchanged": true,
+            "maximum_probe_z_mm": 254.4,
+            "removed_stock_min_z_mm": 267.3,
+            "disjoint_z_gap_mm": 12.900000000000006
+          },
+          "soda_passage": {
+            "points_unchanged": true,
+            "maximum_probe_z_mm": 254.4,
+            "removed_stock_min_z_mm": 267.3,
+            "disjoint_z_gap_mm": 12.900000000000006
+          },
+          "check_bridge": {
+            "current_source_stock_bounds_world_mm": [
+              [
+                -32.80179966121266,
+                356.0912956512049,
+                253.4
+              ],
+              [
+                -21.220321110789072,
+                387.43545217260646,
+                280.16882837176047
+              ]
+            ],
+            "bounds_gap_to_removed_stock_mm": 71.22032111078907
+          }
+        },
+        "current_source_sha256": {
+          "hardware/manifold-layout/above-core.json": "925438fdf7bb58011a95ea53c485b713bc8c243a80b0c515a2ba0ead000ccc5a",
+          "hardware/printed-parts/cold-core/_above_core_mounts.py": "57b2a5912d73ef99b62c0de45feceef4d2bb96711079d9e31b4eaead1199bbda",
+          "hardware/printed-parts/cold-core/_foam_cap.py": "32401fcd127cdc7cfc80eb3fb3a9b01026c3b1e4c7ebf0b7b138362cfbf28203"
+        },
+        "current_artifact_sha256": {
+          "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "286834d9a5fe464c54168b432c37f13ce65b19caeac1985dfa22d1ce36cb49ee",
+          "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "3dc027887921d731b82089a236f760df9b5f27abc85851f1f347b71c43ecda20",
+          "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "890b6a06c4306d847265fcd4a3757c9b3c8b73a5828d856e93d81128b9788843",
+          "hardware/cold-core-layout/cold-core-assembly.step": "ff57cb20b177e4bef8dcbbbd81b429c6725ab60ad8f08f704c8950d4122d747d"
+        },
+        "physical_fit_load_capacity_and_retention_qualified": false,
+        "seconds": 3.1140474999847356,
+        "native_reconstruction": {
+          "construction": "Prior canonical lid minus the one named 6 x 7.7 x 12.7 mm rectangular shoulder, in the native lid frame, followed by native face cleanup.",
+          "expected_volume_mm3": 335051.11791577045,
+          "current_export_volume_mm3": 335051.11791577056,
+          "volume_difference_mm3": 1.1641532182693481e-10,
+          "face_count": [
+            270,
+            270
+          ],
+          "all_face_signatures_match": true,
+          "signature_fields": [
+            "surface type",
+            "area rounded to 1e-5 mm2",
+            "centroid rounded to 1e-5 mm",
+            "bounds rounded to 1e-5 mm"
+          ],
+          "no_added_or_changed_stock_outside_named_cut": true,
+          "coincident_whole_lid_commons_used": false
+        }
+      }
+    },
+    "va_vk_walls": {
+      "datums": {
+        "valve-v-a": {
+          "bearing_min_world_mm": [
+            -95.20410112876839,
+            281.28976052818666,
+            279.5558478805363
+          ],
+          "bearing_max_world_mm": [
+            -57.60410112876839,
+            290.48976052818665,
+            317.60584788053626
+          ],
+          "root_min_world_mm": [
+            -90.5,
+            281.28976052818666,
+            253.4
+          ],
+          "socket_backing_mm": 3.0,
+          "port_throat_aft_world_y_mm": 288.4427605281867,
+          "port_throat_clearance_mm": 0.15,
+          "root_max_world_mm": [
+            -57.60410112876839,
+            288.4427605281867,
+            279.5558478805363
+          ],
+          "root_depth_mm": 7.15300000000002
+        },
+        "vk-solenoid": {
+          "bearing_min_world_mm": [
+            57.604098871231585,
+            281.28976052818666,
+            279.5558478805363
+          ],
+          "bearing_max_world_mm": [
+            95.20409887123158,
+            290.48976052818665,
+            317.60584788053626
+          ],
+          "root_min_world_mm": [
+            57.604098871231585,
+            281.28976052818666,
+            253.4
+          ],
+          "socket_backing_mm": 3.0,
+          "port_throat_aft_world_y_mm": 288.4427605281867,
+          "port_throat_clearance_mm": 0.15,
+          "root_max_world_mm": [
+            90.5,
+            288.4427605281867,
+            279.5558478805363
+          ],
+          "root_depth_mm": 7.15300000000002
+        }
+      },
+      "native_body_probes": {
+        "valve-v-a": {
+          "valid": true,
+          "solids": 1,
+          "tested_native_bodies": [
+            "pcba",
+            "psu",
+            "relay-1",
+            "relay-2",
+            "c14-inlet",
+            "asse1022-assembly",
+            "discharge-chain",
+            "valve-v-a",
+            "valve-v-b",
+            "vk-solenoid",
+            "asse-inlet-tpu",
+            "asse-outlet-tpu",
+            "asse-drain-adapter",
+            "pump-inlet-tpu",
+            "pump-inlet-barb-band",
+            "pump-inlet-tube-band",
+            "pump-outlet-tpu",
+            "pump-outlet-barb-band",
+            "pump-outlet-tube-band",
+            "water-split",
+            "flow-regulator",
+            "gas-regulator",
+            "gas-check",
+            "keystone-jack",
+            "tee-fold",
+            "lower-valve-elbow",
+            "lower-pump-elbow",
+            "reg-va-elbow",
+            "va-outlet-elbow",
+            "carbonator-fold",
+            "gas-inlet-elbow",
+            "gas-lower-a",
+            "gas-lower-b",
+            "gas-upper-a",
+            "gas-upper-b",
+            "soda-stem-elbow",
+            "soda-outlet-return-stem",
+            "ya-stem-elbow",
+            "drain-outlet-stem",
+            "vb-inlet-turn",
+            "vb-outlet-stem",
+            "yb-stem-elbow",
+            "va-east-turn",
+            "vb-outlet-return",
+            "bulkhead-water",
+            "bulkhead-water-nut",
+            "co2-inlet",
+            "co2-inlet-nut",
+            "bulkhead-drain",
+            "bulkhead-drain-nut",
+            "bulkhead-carb",
+            "bulkhead-carb-nut",
+            "bulkhead-flavor-a",
+            "bulkhead-flavor-a-nut",
+            "bulkhead-flavor-b",
+            "bulkhead-flavor-b-nut",
+            "digiten-flow",
+            "soda-core-stem",
+            "rigid_casing_envelope",
+            "head_outer_shell_external_envelope",
+            "switch_outer_shell_external_envelope",
+            "head_side_yminus_external_envelope",
+            "head_side_yplus_external_envelope",
+            "lower_cradle_occupied_external_envelope",
+            "motor_surface_yminus_external_envelope",
+            "motor_surface_yplus_external_envelope",
+            "motor_can_vent_filled_envelope",
+            "crown_round_head_01_external_envelope",
+            "crown_round_head_02_external_envelope",
+            "crown_round_head_03_external_envelope",
+            "crown_round_head_04_external_envelope",
+            "crown_round_head_05_external_envelope",
+            "crown_round_head_06_external_envelope",
+            "crown_round_head_07_external_envelope",
+            "crown_round_molded_boss_external_envelope",
+            "crown_long_molded_boss_external_envelope",
+            "port_yminus_barb_envelope",
+            "port_yminus_root_envelope",
+            "port_yplus_barb_envelope",
+            "port_yplus_root_envelope",
+            "foot-9.5--1",
+            "foot-9.5-1",
+            "foot-67.5--1",
+            "foot-67.5-1",
+            "reservoir-b-fill-lower",
+            "reservoir-b-fill-upper"
+          ],
+          "maximum_intersection_mm3": 0.0,
+          "nonzero_intersections_mm3": {}
+        },
+        "vk-solenoid": {
+          "valid": true,
+          "solids": 1,
+          "tested_native_bodies": [
+            "pcba",
+            "psu",
+            "relay-1",
+            "relay-2",
+            "c14-inlet",
+            "asse1022-assembly",
+            "discharge-chain",
+            "valve-v-a",
+            "valve-v-b",
+            "vk-solenoid",
+            "asse-inlet-tpu",
+            "asse-outlet-tpu",
+            "asse-drain-adapter",
+            "pump-inlet-tpu",
+            "pump-inlet-barb-band",
+            "pump-inlet-tube-band",
+            "pump-outlet-tpu",
+            "pump-outlet-barb-band",
+            "pump-outlet-tube-band",
+            "water-split",
+            "flow-regulator",
+            "gas-regulator",
+            "gas-check",
+            "keystone-jack",
+            "tee-fold",
+            "lower-valve-elbow",
+            "lower-pump-elbow",
+            "reg-va-elbow",
+            "va-outlet-elbow",
+            "carbonator-fold",
+            "gas-inlet-elbow",
+            "gas-lower-a",
+            "gas-lower-b",
+            "gas-upper-a",
+            "gas-upper-b",
+            "soda-stem-elbow",
+            "soda-outlet-return-stem",
+            "ya-stem-elbow",
+            "drain-outlet-stem",
+            "vb-inlet-turn",
+            "vb-outlet-stem",
+            "yb-stem-elbow",
+            "va-east-turn",
+            "vb-outlet-return",
+            "bulkhead-water",
+            "bulkhead-water-nut",
+            "co2-inlet",
+            "co2-inlet-nut",
+            "bulkhead-drain",
+            "bulkhead-drain-nut",
+            "bulkhead-carb",
+            "bulkhead-carb-nut",
+            "bulkhead-flavor-a",
+            "bulkhead-flavor-a-nut",
+            "bulkhead-flavor-b",
+            "bulkhead-flavor-b-nut",
+            "digiten-flow",
+            "soda-core-stem",
+            "rigid_casing_envelope",
+            "head_outer_shell_external_envelope",
+            "switch_outer_shell_external_envelope",
+            "head_side_yminus_external_envelope",
+            "head_side_yplus_external_envelope",
+            "lower_cradle_occupied_external_envelope",
+            "motor_surface_yminus_external_envelope",
+            "motor_surface_yplus_external_envelope",
+            "motor_can_vent_filled_envelope",
+            "crown_round_head_01_external_envelope",
+            "crown_round_head_02_external_envelope",
+            "crown_round_head_03_external_envelope",
+            "crown_round_head_04_external_envelope",
+            "crown_round_head_05_external_envelope",
+            "crown_round_head_06_external_envelope",
+            "crown_round_head_07_external_envelope",
+            "crown_round_molded_boss_external_envelope",
+            "crown_long_molded_boss_external_envelope",
+            "port_yminus_barb_envelope",
+            "port_yminus_root_envelope",
+            "port_yplus_barb_envelope",
+            "port_yplus_root_envelope",
+            "foot-9.5--1",
+            "foot-9.5-1",
+            "foot-67.5--1",
+            "foot-67.5-1",
+            "reservoir-b-fill-lower",
+            "reservoir-b-fill-upper"
+          ],
+          "maximum_intersection_mm3": 0.0,
+          "nonzero_intersections_mm3": {}
+        }
+      },
+      "pump_driver_axes": {
+        "0": {
+          "axis_mm": [
+            49.131730523637714,
+            430.43545217260646,
+            264.2000061035156
+          ],
+          "features_mm3": {
+            "valve-v-a": 0.0,
+            "vk-solenoid": 0.0
+          }
+        },
+        "1": {
+          "axis_mm": [
+            -30.868269476362286,
+            430.43545217260646,
+            264.2000061035156
+          ],
+          "features_mm3": {
+            "valve-v-a": 0.0,
+            "vk-solenoid": 0.0
+          }
+        },
+        "2": {
+          "axis_mm": [
+            49.131730523637714,
+            372.43545217260646,
+            264.2000061035156
+          ],
+          "features_mm3": {
+            "valve-v-a": 0.0,
+            "vk-solenoid": 0.0
+          }
+        },
+        "3": {
+          "axis_mm": [
+            -30.868269476362286,
+            372.43545217260646,
+            264.2000061035156
+          ],
+          "features_mm3": {
+            "valve-v-a": 0.0,
+            "vk-solenoid": 0.0
+          }
+        }
+      },
+      "complete_lid": {
+        "valid": true,
+        "solids": 1
+      },
+      "root_fit_scope": "One flat aft face clears the native lower valve barrel and NeoFit collar by 0.15 mm nominal. The full socket plates and 3 mm socket backing remain unchanged. The lower roots are 7.153 mm deep and remain inside core X \u00b190.5 mm."
+    },
+    "core_junction_wells": {
+      "scope": "Four native connector bodies, blank-backed wells and twelve straight 8 mm long, 3 mm diameter wire-entry witnesses against the selected 25 fluid spans, PCB and 23 mated connector housings, cup, mount posts, valve walls and purchased components. This does not establish complete dressed-wire clearance.",
+      "stations": {
+        "wago-sensors": {
+          "size": "413",
+          "parent": "cold-core",
+          "rotation": [
+            [
+              0.0,
+              -1.0,
+              0.0
+            ],
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "translation_mm": [
+            7.5,
+            195.0,
+            256.4
+          ],
+          "purpose": "PCB J4 / temperature bus / flow meter common"
+        },
+        "wago-v12": {
+          "size": "413",
+          "parent": "cold-core",
+          "rotation": [
+            [
+              0.0,
+              -1.0,
+              0.0
+            ],
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "translation_mm": [
+            7.5,
+            218.0,
+            256.4
+          ],
+          "purpose": "PSU secondary / relay 2 COM / PCB J10 V12"
+        },
+        "wago-gnd": {
+          "size": "413",
+          "parent": "cold-core",
+          "rotation": [
+            [
+              0.0,
+              -1.0,
+              0.0
+            ],
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "translation_mm": [
+            7.5,
+            242.0,
+            256.4
+          ],
+          "purpose": "PSU secondary / pump negative / PCB J10 GND"
+        },
+        "wago-reeds-b": {
+          "size": "413",
+          "parent": "cold-core",
+          "rotation": [
+            [
+              0.0,
+              -1.0,
+              0.0
+            ],
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "translation_mm": [
+            7.5,
+            265.0,
+            256.4
+          ],
+          "purpose": "PCB J7 / reservoir B / carbonator reed common"
+        }
+      },
+      "wells": {
+        "wago-sensors": {
+          "valid": true,
+          "bounds_mm": [
+            7.5,
+            182.45,
+            253.24999999999997,
+            19.950000000000003,
+            207.55,
+            267.95
+          ]
+        },
+        "wago-v12": {
+          "valid": true,
+          "bounds_mm": [
+            7.5,
+            205.45,
+            253.24999999999997,
+            19.950000000000003,
+            230.55,
+            267.95
+          ]
+        },
+        "wago-gnd": {
+          "valid": true,
+          "bounds_mm": [
+            7.5,
+            229.45,
+            253.24999999999997,
+            19.950000000000003,
+            254.55,
+            267.95
+          ]
+        },
+        "wago-reeds-b": {
+          "valid": true,
+          "bounds_mm": [
+            7.5,
+            252.45,
+            253.24999999999997,
+            19.950000000000003,
+            277.55,
+            267.95
+          ]
+        }
+      },
+      "stock_and_body_intersections": [],
+      "wire_entry_intersections": [],
+      "ordinary_wall_mm": 3.0,
+      "lid_fusion_mm": 0.15,
+      "fore_lid_edge_world_y_mm": 182.3
+    },
+    "ground_pilot_exported_stock": {
+      "lid_underside_world_z_mm": 248.0,
+      "pilot_bottom_world_z_mm": 252.4,
+      "native_backing_mm": 4.4,
+      "full_backing_disk_missing_mm3": 0.0,
+      "pilot_blockage_mm3": 0.0,
+      "datum_backing_mm": 4.399999999999977
+    },
+    "jg_union_restraints": {
+      "scope": "Two integral core-lid fixed-body JG union restraints. Selected V-B244.90434 and return cornerX\u221250/Z294.3305696773; current24 physical tube spans. No physical threading, retention, structural or purchased-tie/head-fit qualification.",
+      "datums": {
+        "va-east-turn": {
+          "stock_min_world_mm": [
+            16.954800000000002,
+            297.6355,
+            253.25
+          ],
+          "stock_max_world_mm": [
+            33.1317,
+            300.6355,
+            261.6
+          ],
+          "bore_origin_world_mm": [
+            33.1317,
+            297.53549999999996,
+            261.6
+          ],
+          "bore_axis_world": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "bore_length_mm": 3.2,
+          "seat_radius_mm": 7.176900000000001,
+          "native_leg": "z",
+          "native_band_mm": [
+            8.5,
+            11.5
+          ],
+          "tie_window_min_world_mm": [
+            20.1548,
+            297.53549999999996,
+            254.60000000000002
+          ],
+          "tie_window_max_world_mm": [
+            22.954800000000002,
+            300.7355,
+            257.1
+          ],
+          "wall_mm": 3.0,
+          "parent": "foam-assembly"
+        },
+        "vb-outlet-return": {
+          "stock_min_world_mm": [
+            -36.4,
+            280.69954,
+            280.9996597133509
+          ],
+          "stock_max_world_mm": [
+            -33.4,
+            292.01244,
+            292.31255971335094
+          ],
+          "beam_min_world_mm": [
+            -36.4,
+            280.69954,
+            280.9996597133509
+          ],
+          "beam_max_world_mm": [
+            -26.4,
+            287.7,
+            283.9996597133509
+          ],
+          "root_min_world_mm": [
+            -35.4,
+            284.7,
+            253.25
+          ],
+          "root_max_world_mm": [
+            -26.4,
+            287.7,
+            283.9996597133509
+          ],
+          "bore_origin_world_mm": [
+            -42.07785545006744,
+            280.69954,
+            293.2171848695914
+          ],
+          "bore_axis_world": [
+            0.9902680687415704,
+            0.0,
+            -0.13917310096006544
+          ],
+          "bore_length_mm": 13.0,
+          "seat_radius_mm": 8.3129,
+          "native_leg": "y",
+          "native_band_mm": [
+            13.0,
+            16.0
+          ],
+          "tie_window_min_world_mm": [
+            -32.3,
+            284.59999999999997,
+            277.9
+          ],
+          "tie_window_max_world_mm": [
+            -29.5,
+            287.8,
+            280.7
+          ],
+          "wall_mm": 3.0,
+          "parent": "foam-assembly"
+        }
+      },
+      "native_stock_clearance": {
+        "va-east-turn": {
+          "valid": true,
+          "solids": 1,
+          "bounds": [
+            16.954800000000002,
+            33.1317,
+            297.6355,
+            300.6355,
+            253.25,
+            261.6
+          ],
+          "purchased": {
+            "aabb_candidates": 2,
+            "overlap_mm3": {}
+          },
+          "tubes": {
+            "aabb_candidates": 5,
+            "overlap_mm3": {}
+          },
+          "wiring": {
+            "aabb_candidates": 7,
+            "overlap_mm3": {}
+          },
+          "vertical_jst_withdrawal": {
+            "aabb_candidates": 0,
+            "overlap_mm3": {}
+          },
+          "tools": {
+            "aabb_candidates": 0,
+            "overlap_mm3": {}
+          },
+          "slot_purchased": {
+            "aabb_candidates": 2,
+            "overlap_mm3": {}
+          },
+          "slot_tubes": {
+            "aabb_candidates": 3,
+            "overlap_mm3": {}
+          },
+          "slot_wiring": {
+            "aabb_candidates": 5,
+            "overlap_mm3": {}
+          }
+        },
+        "vb-outlet-return": {
+          "valid": true,
+          "solids": 1,
+          "purchased_bodies_B_routes_and_tools": {
+            "contacts_mm3": {},
+            "scope": "Source-current selected-group native stock query; separately authored flavor spans are read in final_flavor_paths."
+          },
+          "final_flavor_paths": {
+            "fluid-18": {
+              "native_contacts_mm3": {},
+              "scope": "Complete final native flavor route against all selected stock, including the canonical lid and return root."
+            },
+            "fluid-28": {
+              "native_contacts_mm3": {},
+              "scope": "Complete final native flavor route against all selected stock, including the canonical lid and return root."
+            }
+          },
+          "whole_lid": {
+            "valid": true,
+            "solids": 1
+          }
+        }
+      },
+      "tool_scope": {
+        "pump_mount_hex_columns": 4,
+        "pcb_mount_hex_columns": 4,
+        "psu_mount_hex_columns": 4,
+        "mount_tool_af_mm": 2.5,
+        "mount_tool_radial_allowance_mm": 0.15,
+        "psu_terminal_columns": 4,
+        "psu_terminal_column_radius_mm": 3.0,
+        "kf301_screw_columns": 2,
+        "kf301_column_radius_mm": 1.65,
+        "kf301_wire_entry_lands": 2,
+        "kf301_wire_entry_length_mm": 8.0,
+        "kf301_wire_entry_diameter_mm": 3.0,
+        "jst_housing_withdrawal_columns": 7,
+        "column_top_world_z_mm": 355.0,
+        "scope": "30 source-defined witnesses:12mount drivers,4PSUterminal drivers,2KF301drivers,2straight8mm wire lands,7vertical JST columns and three complete bounded XH housing service paths. J1/J2 lift17mm then move8mm fore; J11 lifts6mm, moves6mm east, then lifts20mm, with removable funnel/frame/disconnected drain removed. Physical hand access, latch, clone fit, flexible leads and force remain unqualified.",
+        "staged_complete_housing_paths": 3
+      },
+      "final_window_stock": {
+        "va-east-turn": {
+          "ordinary_wall_probed_mm": 3.0,
+          "probe_section_world_y_mm": 299.1355,
+          "probe_thickness_mm": 0.2,
+          "probe_volume_mm3": 12.014866776464357,
+          "missing_stock_mm3": 0.0
+        },
+        "vb-outlet-return": {
+          "ordinary_wall_mm": 3.0,
+          "missing_stock_mm3": 0.0
+        }
+      },
+      "nominal_tie_routes": {
+        "va-east-turn": {
+          "segments": [
+            {
+              "kind": "line",
+              "points_mm": [
+                [
+                  21.5548,
+                  302.03549999999996,
+                  255.85000000000002
+                ],
+                [
+                  21.5548,
+                  297.03549999999996,
+                  255.85000000000002
+                ]
+              ],
+              "wide_axis": [
+                1.0,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "kind": "line",
+              "points_mm": [
+                [
+                  21.5548,
+                  297.03549999999996,
+                  255.85000000000002
+                ],
+                [
+                  15.554800000000002,
+                  297.03549999999996,
+                  255.85000000000002
+                ]
+              ],
+              "wide_axis": [
+                0.0,
+                0.0,
+                1.0
+              ]
+            },
+            {
+              "kind": "line",
+              "points_mm": [
+                [
+                  15.554800000000002,
+                  297.03549999999996,
+                  255.85000000000002
+                ],
+                [
+                  15.554800000000002,
+                  297.03549999999996,
+                  262.26037034722475
+                ]
+              ],
+              "wide_axis": [
+                1.0,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "kind": "line",
+              "points_mm": [
+                [
+                  15.554800000000002,
+                  297.03549999999996,
+                  262.26037034722475
+                ],
+                [
+                  15.554800000000002,
+                  299.1355,
+                  262.26037034722475
+                ]
+              ],
+              "wide_axis": [
+                1.0,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "kind": "line",
+              "points_mm": [
+                [
+                  15.554800000000002,
+                  299.1355,
+                  262.26037034722475
+                ],
+                [
+                  25.583632392028655,
+                  299.1355,
+                  262.26037034722475
+                ]
+              ],
+              "wide_axis": [
+                0.0,
+                1.0,
+                0.0
+              ]
+            },
+            {
+              "kind": "arc",
+              "points_mm": [
+                [
+                  25.583632392028655,
+                  299.1355,
+                  262.26037034722475
+                ],
+                [
+                  38.71797665327663,
+                  299.1355,
+                  266.71887944408314
+                ],
+                [
+                  33.1317,
+                  299.1355,
+                  254.02310000000003
+                ]
+              ],
+              "radius_mm": 7.576900000000001,
+              "sweep_degrees": -265.0,
+              "wide_axis": [
+                0.0,
+                -1.0,
+                0.0
+              ]
+            },
+            {
+              "kind": "line",
+              "points_mm": [
+                [
+                  33.1317,
+                  299.1355,
+                  254.02310000000003
+                ],
+                [
+                  34.5317,
+                  299.1355,
+                  254.02310000000003
+                ]
+              ],
+              "wide_axis": [
+                0.0,
+                1.0,
+                0.0
+              ]
+            },
+            {
+              "kind": "line",
+              "points_mm": [
+                [
+                  34.5317,
+                  299.1355,
+                  254.02310000000003
+                ],
+                [
+                  34.5317,
+                  302.03549999999996,
+                  254.02310000000003
+                ]
+              ],
+              "wide_axis": [
+                1.0,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "kind": "line",
+              "points_mm": [
+                [
+                  34.5317,
+                  302.03549999999996,
+                  254.02310000000003
+                ],
+                [
+                  21.5548,
+                  302.03549999999996,
+                  255.85000000000002
+                ]
+              ],
+              "wide_axis": [
+                0.0,
+                1.0,
+                0.0
+              ]
+            }
+          ],
+          "length_mm": 81.98815894684833,
+          "stock": "6-inch narrow nylon tie",
+          "stock_length_mm": 152.4,
+          "width_mm": 2.5,
+          "thickness_mm": 0.8,
+          "strip_basis": "Nominal layout allowance; purchased strap dimensions unmeasured"
+        },
+        "vb-outlet-return": {
+          "segments": [
+            {
+              "kind": "line",
+              "points_mm": [
+                [
+                  -30.9,
+                  289.1,
+                  279.29999999999995
+                ],
+                [
+                  -30.9,
+                  284.09999999999997,
+                  279.29999999999995
+                ]
+              ],
+              "wide_axis": [
+                1.0,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "kind": "line",
+              "points_mm": [
+                [
+                  -30.9,
+                  284.09999999999997,
+                  279.29999999999995
+                ],
+                [
+                  -37.8,
+                  284.09999999999997,
+                  279.29999999999995
+                ]
+              ],
+              "wide_axis": [
+                0.0,
+                0.0,
+                1.0
+              ]
+            },
+            {
+              "kind": "line",
+              "points_mm": [
+                [
+                  -37.8,
+                  284.09999999999997,
+                  279.29999999999995
+                ],
+                [
+                  -37.8,
+                  294.21244,
+                  279.29999999999995
+                ]
+              ],
+              "wide_axis": [
+                1.0,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "kind": "line",
+              "points_mm": [
+                [
+                  -37.8,
+                  294.21244,
+                  279.29999999999995
+                ],
+                [
+                  -37.8,
+                  294.21244,
+                  295
+                ]
+              ],
+              "wide_axis": [
+                1.0,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "kind": "line",
+              "points_mm": [
+                [
+                  -37.8,
+                  294.21244,
+                  295
+                ],
+                [
+                  -35.219238928350094,
+                  289.02794172876344,
+                  295.31434973253283
+                ]
+              ],
+              "wide_axis": [
+                0.9902680687415704,
+                0.0,
+                -0.13917310096006544
+              ]
+            },
+            {
+              "kind": "arc",
+              "points_mm": [
+                [
+                  -35.219238928350094,
+                  289.02794172876344,
+                  295.31434973253283
+                ],
+                [
+                  -34.848249093083794,
+                  273.91016470508083,
+                  297.95407957369895
+                ],
+                [
+                  -36.85585098830779,
+                  279.16051356615577,
+                  283.669249833821
+                ]
+              ],
+              "radius_mm": 8.862900000000002,
+              "sweep_degrees": 240.0,
+              "wide_axis": [
+                0.9902680687415704,
+                0.0,
+                -0.13917310096006544
+              ]
+            },
+            {
+              "kind": "line",
+              "points_mm": [
+                [
+                  -36.85585098830779,
+                  279.16051356615577,
+                  283.669249833821
+                ],
+                [
+                  -25.0,
+                  279.16051356615577,
+                  274.99999999999994
+                ]
+              ],
+              "wide_axis": [
+                0.0,
+                1.0,
+                0.0
+              ]
+            },
+            {
+              "kind": "line",
+              "points_mm": [
+                [
+                  -25.0,
+                  279.16051356615577,
+                  274.99999999999994
+                ],
+                [
+                  -25.0,
+                  289.1,
+                  279.29999999999995
+                ]
+              ],
+              "wide_axis": [
+                1.0,
+                0.0,
+                0.0
+              ]
+            },
+            {
+              "kind": "line",
+              "points_mm": [
+                [
+                  -25.0,
+                  289.1,
+                  279.29999999999995
+                ],
+                [
+                  -30.9,
+                  289.1,
+                  279.29999999999995
+                ]
+              ],
+              "wide_axis": [
+                0.0,
+                0.0,
+                1.0
+              ]
+            }
+          ],
+          "length_mm": 112.05416691054067,
+          "stock": "6-inch narrow nylon tie",
+          "stock_length_mm": 152.4,
+          "width_mm": 2.5,
+          "thickness_mm": 0.8,
+          "strip_basis": "Nominal layout allowance; purchased strap dimensions unmeasured"
+        }
+      },
+      "complete_native_strip": {
+        "va-east-turn": {
+          "valid": true,
+          "selected_delta": {
+            "native_candidates": 0,
+            "overlap_mm3": {}
+          },
+          "scope": "Unchanged full native strip proof retained; final B group/tools checked as a bounded delta."
+        },
+        "vb-outlet-return": {
+          "valid": true,
+          "length_mm": 112.05416691054067,
+          "remaining_152p4mm_stock_mm": 40.34583308945933,
+          "purchased_stock_B_routes_and_tools_contacts_mm3": {},
+          "final_flavor_path_contacts_mm3": {
+            "fluid-18": {},
+            "fluid-28": {}
+          }
+        }
+      },
+      "reproduction_api": "hardware/printed-parts/cold-core/_above_core_mounts.py:nominal_tie_strips()",
+      "strip_section_mm": [
+        2.5,
+        0.8
+      ],
+      "nominal_strip_scope": "Complete line/arc native compounds use nominal2.5\u00d70.8mm strip sections. Purchased dimensions, corner/twist transitions, physical head threading/engagement and retention/load capacity are unqualified. Neither strip compound is printed stock.",
+      "wiring_record": "hardware/wiring/installed/above-core-review/native-review.json",
+      "assembly_scope": "Thread empty holders and seat V-A union on the bench before installing the pump; dress V-B tie before final upper connections. J10 drivers and8mm wire-entry lands remain clear in the selected native group. The drain cradle travels with the removable funnel frame.",
+      "source_sha256": {
+        "hardware/manifold-layout/above-core.json": "43d2feb98e34e109ee0da1b3626bca8990bf5aa1fb9870eeb196306e3095082e",
+        "hardware/manifold-layout/above_core_parts.py": "2e75ac73378cceadc7f3a6903bf8a9b25968f32c6227066f4cc7890416564820",
+        "hardware/manifold-layout/above_core_routes.py": "ecfad90d3bc84499583d806fae03a89c80590deaa7de149562ff9536f1d96c98",
+        "hardware/printed-parts/cold-core/_above_core_mounts.py": "804602d0871500c5035352e6c5d2bfefdac9fa8378f6cc9ae781e67e1b69d08d"
+      },
+      "continuous_frame_installation": {
+        "scope": "Conservative continuous straight vertical frame lift/drop from installed pose to worldZ600. Native frame is split atZ330 so its high5mm aft roof surround never becomes a false lower obstruction. Each separate band bounding prism contains every translated frame pose. Four complete nominal strips plus the selected V-B wall/return stock are the scoped targets. Purchased tie/head fit, disconnection/snap release, force and hand access are unqualified.",
+        "frame_source_sha256": "2f8440622d28e1ac272ca9713cffaded45abf7cf4aa8d0a5d055acb54c50fe20",
+        "frame_generator_sha256": "a0a51b6f70cd71a1f063d65a1ce8c70ecbcf1dacd57a7003b1980664983f3ca5",
+        "bounds_mm": {
+          "lower_frame": [
+            [
+              -88.2500001,
+              96.01325679739224,
+              299.89999989999995
+            ],
+            [
+              88.2500001,
+              262.37824320260773,
+              600.0
+            ]
+          ],
+          "upper_surround": [
+            [
+              -98.25,
+              92.99999207671826,
+              329.9999998999999
+            ],
+            [
+              98.25,
+              275.6915079232813,
+              600.0
+            ]
+          ]
+        },
+        "targets": {
+          "va-east-turn": {
+            "valid": true,
+            "bounds_mm": [
+              [
+                14.3047999,
+                296.63549989999996,
+                253.62309990000003
+              ],
+              [
+                41.1086,
+                303.2855001,
+                269.5769
+              ]
+            ],
+            "continuous_prism_contacts_mm3": {},
+            "sampled_actual_frame_contacts_mm3": {},
+            "brep_sha256": "12963ee5dae20b1e85b77e8e82ca6a41a0ab490aaac548697bd02a5fa6047c2d"
+          },
+          "vb-outlet-return": {
+            "valid": true,
+            "bounds_mm": [
+              [
+                -39.0500001,
+                271.43663999999984,
+                274.63288189864585
+              ],
+              [
+                -23.7499999,
+                294.8006419914257,
+                301.6592801834975
+              ]
+            ],
+            "continuous_prism_contacts_mm3": {},
+            "sampled_actual_frame_contacts_mm3": {},
+            "brep_sha256": "15f5e7ba8ff365368948d61078f7ba47a6b7daf3ef93547fffa83e09b26a7949"
+          },
+          "meter-fore": {
+            "valid": true,
+            "bounds_mm": [
+              [
+                39.699999999999974,
+                361.75277378671575,
+                289.0661623961481
+              ],
+              [
+                60.4505506295917,
+                373.5648,
+                316.6760478805363
+              ]
+            ],
+            "continuous_prism_contacts_mm3": {},
+            "sampled_actual_frame_contacts_mm3": {},
+            "brep_sha256": "7a3055c258c9918b9491d5d2fe09272c89f8af75bb3bd7a8eaa455520ec78fe7"
+          },
+          "meter-aft": {
+            "valid": true,
+            "bounds_mm": [
+              [
+                39.69999999999995,
+                409.59999989999994,
+                266.5999999
+              ],
+              [
+                61.042951860030584,
+                419.46479999999997,
+                316.6760478805364
+              ]
+            ],
+            "continuous_prism_contacts_mm3": {},
+            "sampled_actual_frame_contacts_mm3": {},
+            "brep_sha256": "8ca5e3c382aab046948fe3751f3161e0bf96e30f95ec56ab32818cf2b5ec7316"
+          },
+          "V-B-wall": {
+            "valid": true,
+            "bounds_mm": [
+              [
+                34.0,
+                225.87933999999996,
+                253.4
+              ],
+              [
+                43.2,
+                263.92933999999997,
+                299.21000000000004
+              ]
+            ],
+            "continuous_prism_contacts_mm3": {},
+            "sampled_actual_frame_contacts_mm3": {},
+            "brep_sha256": null
+          },
+          "V-B-return-root": {
+            "valid": true,
+            "bounds_mm": [
+              [
+                -36.40000000000022,
+                280.69954,
+                253.25
+              ],
+              [
+                -26.4,
+                292.01244,
+                292.31255971335094
+              ]
+            ],
+            "continuous_prism_contacts_mm3": {},
+            "sampled_actual_frame_contacts_mm3": {},
+            "brep_sha256": null
+          }
+        },
+        "sampled_native_poses_mm": [
+          0,
+          5,
+          10,
+          20,
+          50,
+          100
+        ]
+      }
+    },
+    "soda_out_passage": {
+      "scope": "Selected nominal soda roof passage in the exported top cup/lid; fixed lower riser and metal outlet. The curved floor opening is distinct from the complete floor beneath the horizontal reach. No physical fit, thermal, pressure, retention or lifetime qualification.",
+      "guide_world_mm": [
+        50.0,
+        354.36959999999993,
+        253.4
+      ],
+      "lower_riser_world_xy_mm": [
+        77.5,
+        271.6
+      ],
+      "upper_guide_points_world_mm": [
+        [
+          77.5,
+          271.6,
+          225.4
+        ],
+        [
+          77.5,
+          271.6,
+          239.4
+        ],
+        [
+          50.0,
+          354.36959999999993,
+          239.4
+        ],
+        [
+          50.0,
+          354.36959999999993,
+          253.4
+        ]
+      ],
+      "internal_route_shell_points_mm": [
+        [
+          0.0,
+          19.049999999999997,
+          17.0
+        ],
+        [
+          -48.5,
+          19.049999999999997,
+          17.0
+        ],
+        [
+          -48.5,
+          -56.55086206239477,
+          17.0
+        ],
+        [
+          -48.5,
+          -56.55086206239477,
+          55.35
+        ],
+        [
+          -41.75,
+          -63.116108284652654,
+          97.675
+        ],
+        [
+          -35.0,
+          -67.09475109872605,
+          140.0
+        ],
+        [
+          -35.0,
+          -67.09475109872605,
+          179.29753237292837
+        ],
+        [
+          -52.2,
+          -77.5,
+          199.4
+        ],
+        [
+          -52.19999999999999,
+          -77.5,
+          219.4
+        ],
+        [
+          30.569599999999923,
+          -50.0,
+          219.4
+        ],
+        [
+          30.569599999999923,
+          -50.0,
+          233.4
+        ]
+      ],
+      "minimum_radius_mm": 14.0,
+      "strict_R14_route": true,
+      "passage_diameter_mm": 7.5,
+      "guide_wall_mm": 2.0,
+      "horizontal_center_z_mm": 239.4,
+      "horizontal_passage_bottom_z_mm": 235.65,
+      "cup_floor_outer_z_mm": 233.55,
+      "curved_floor_crossing_center_world_mm": [
+        76.67492577583167,
+        274.0833114001718,
+        233.55
+      ],
+      "horizontal_floor_backing_mm": 2.0999999999999943,
+      "complete_floor_probe_thickness_mm": 2.0,
+      "missing_complete_horizontal_floor_mm3": 0.0,
+      "missing_complete_guide_wall_mm3": 0.0,
+      "cup": {
+        "valid": true,
+        "solids": 1,
+        "tube_contact_mm3": 0.0,
+        "passage_contact_mm3": 0.0
+      },
+      "lid": {
+        "valid": true,
+        "solids": 1,
+        "tube_contact_mm3": 0.0,
+        "passage_contact_mm3": 0.0
+      },
+      "source_hashes_sha256": {
+        "hardware/manifold-layout/above-core.json": "925438fdf7bb58011a95ea53c485b713bc8c243a80b0c515a2ba0ead000ccc5a",
+        "hardware/printed-parts/cold-core/_above_core_mounts.py": "6a95906f395fc774eb11a06e1246847cf5ef30bff6e39e08489b8c006baedc27",
+        "hardware/printed-parts/cold-core/_cold_core_interface.py": "5dae3ef9f2254127cd24bbed5c063bbe77b95c1af6d829d02fc6057c724d5a9d",
+        "hardware/printed-parts/cold-core/_internal_routes.py": "bc13050bf193f415a18c677b97ce4af703d9cd02f6750d08aef34cab39534480",
+        "hardware/printed-parts/cold-core/_foam_cap.py": "32401fcd127cdc7cfc80eb3fb3a9b01026c3b1e4c7ebf0b7b138362cfbf28203",
+        "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "4c987b8b9751eb8246bf4db6fc4bc67c2cfe33b806fadd918b1535fb6dc4bfe7",
+        "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py": "9834783ae7590c7c13cd2adf1b13cfb8bc7a422402be94b5d0b78342ab89b0d0"
+      },
+      "exported_solids_sha256": {
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "286834d9a5fe464c54168b432c37f13ce65b19caeac1985dfa22d1ce36cb49ee",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "83309617dae07a93762d1665676d8c5e812b0daed369ee5fbd58d2f4b8a80691"
+      },
+      "exported_internal_tube": {
+        "source": "hardware/cold-core-layout/cold-core-assembly.step",
+        "sha256": "07088668313393ee69a2091ab4d6bf3f6dc1d552780b3067a040dbe2d66e7aa2",
+        "body": "line-carb-water-out",
+        "valid": true,
+        "solids": 1,
+        "bounds_world_mm": [
+          [
+            -22.225000000000005,
+            268.4249999000054,
+            33.82499999999999
+          ],
+          [
+            80.67500009999374,
+            357.5446,
+            253.4
+          ]
+        ],
+        "cup_contact_mm3": 0.0,
+        "lid_contact_mm3": 0.0,
+        "missing_end_disk_mm3": 0.0
+      },
+      "upper_vs_exported_core_bodies": [
+        {
+          "body": "foam-shell",
+          "contact_mm3": 0.0,
+          "gap_mm": 1.908303262436521
+        },
+        {
+          "body": "reservoir-b",
+          "contact_mm3": 0.0,
+          "gap_mm": 6.308355997549772
+        },
+        {
+          "body": "reservoir-b-cap",
+          "contact_mm3": 0.0,
+          "gap_mm": 5.406741661280151
+        },
+        {
+          "body": "reservoir-b-gasket",
+          "contact_mm3": 0.0,
+          "gap_mm": 5.549356304277297
+        },
+        {
+          "body": "line-co2-in",
+          "contact_mm3": 0.0,
+          "gap_mm": 24.688636161403764
+        }
+      ],
+      "upper_vs_unchanged_electrical": {
+        "scope": "Upper internal soda span only against all125 current cached electrical bodies at their recorded per-body hashes. Conservative native body bounds prune noncandidate pairs.",
+        "excluded_separate_review": [],
+        "bodies": 125,
+        "native_candidates": [
+          {
+            "body": "wire-AC4-H",
+            "source_sha256": "af771daa6178276747e2c92493b0c78d28d518ac184d448ee9d4dee581c6c54c",
+            "contact_mm3": 0.0,
+            "gap_mm": 81.67654821189183
+          },
+          {
+            "body": "wire-AC5-N",
+            "source_sha256": "c6dfcb5baa8498033746c5eb655d08c5a8793c6f34939f88cb0641aabd008a2f",
+            "contact_mm3": 0.0,
+            "gap_mm": 80.0630842411596
+          },
+          {
+            "body": "wire-PE-carbonator",
+            "source_sha256": "110b6a65227ef8c84303d1e3ed045b7ba5b83f2059a6413f397e07cbe10189f8",
+            "contact_mm3": 0.0,
+            "gap_mm": 21.619038409501776
+          },
+          {
+            "body": "wire-J1-OUT7",
+            "source_sha256": "998e99407bb5d7e3fbab77c0472e7c926251c913f9dc16e745f75b95825f7bcd",
+            "contact_mm3": 0.0,
+            "gap_mm": 96.44863277593157
+          },
+          {
+            "body": "wire-J2-COM",
+            "source_sha256": "b9217cc13169911b87c48db39dcce0558f225753dcfd13b0662192c4ac450e21",
+            "contact_mm3": 0.0,
+            "gap_mm": 77.39255630713501
+          },
+          {
+            "body": "wire-J2-FAN",
+            "source_sha256": "de15b9089ba98e903ec6c1f3e8c1a0e84c77e42083aa7d4ebeede0d41aa4e4c8",
+            "contact_mm3": 0.0,
+            "gap_mm": 87.76963169486251
+          },
+          {
+            "body": "wire-J2-positive-K",
+            "source_sha256": "83f1c41e12bc7f77e1c13e4035ad99a05fbca6e42713d2ed43fcd66f0efac564",
+            "contact_mm3": 0.0,
+            "gap_mm": 71.2755007473598
+          }
+        ]
+      },
+      "seconds": 7.158964125002967,
+      "current_artifact_binding": {
+        "scope": "Current canonical artifact binding through the exact named subtractive stock change. The original scoped native query is retained at its own source/artifact hashes; unchanged geometry is not represented as a repeated full query.",
+        "current_artifact_sha256": {
+          "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "286834d9a5fe464c54168b432c37f13ce65b19caeac1985dfa22d1ce36cb49ee",
+          "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "3dc027887921d731b82089a236f760df9b5f27abc85851f1f347b71c43ecda20",
+          "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "890b6a06c4306d847265fcd4a3757c9b3c8b73a5828d856e93d81128b9788843",
+          "hardware/cold-core-layout/cold-core-assembly.step": "ff57cb20b177e4bef8dcbbbd81b429c6725ab60ad8f08f704c8950d4122d747d"
+        },
+        "current_source_sha256": {
+          "hardware/manifold-layout/above-core.json": "925438fdf7bb58011a95ea53c485b713bc8c243a80b0c515a2ba0ead000ccc5a",
+          "hardware/printed-parts/cold-core/_above_core_mounts.py": "57b2a5912d73ef99b62c0de45feceef4d2bb96711079d9e31b4eaead1199bbda",
+          "hardware/printed-parts/cold-core/_foam_cap.py": "32401fcd127cdc7cfc80eb3fb3a9b01026c3b1e4c7ebf0b7b138362cfbf28203"
+        },
+        "retained_geometry": {
+          "points_unchanged": true,
+          "maximum_probe_z_mm": 254.4,
+          "removed_stock_min_z_mm": 267.3,
+          "disjoint_z_gap_mm": 12.900000000000006
+        },
+        "native_lid_reconstruction": {
+          "construction": "Prior canonical lid minus the one named 6 x 7.7 x 12.7 mm rectangular shoulder, in the native lid frame, followed by native face cleanup.",
+          "expected_volume_mm3": 335051.11791577045,
+          "current_export_volume_mm3": 335051.11791577056,
+          "volume_difference_mm3": 1.1641532182693481e-10,
+          "face_count": [
+            270,
+            270
+          ],
+          "all_face_signatures_match": true,
+          "signature_fields": [
+            "surface type",
+            "area rounded to 1e-5 mm2",
+            "centroid rounded to 1e-5 mm",
+            "bounds rounded to 1e-5 mm"
+          ],
+          "no_added_or_changed_stock_outside_named_cut": true,
+          "coincident_whole_lid_commons_used": false
+        },
+        "removed_shoulder_world_mm": [
+          [
+            50.0,
+            364.71479999999997,
+            267.3
+          ],
+          [
+            57.7,
+            370.71479999999997,
+            280.0
+          ]
+        ]
+      }
+    },
+    "water_in_passage": {
+      "scope": "Manual nominal native reading of the aft water-in passage, its floor-rooted side/roof sleeve and one continuous tube through the plain guide. The source metal elbow/adapter and all purchased poses are retained. No physical fit, hand access, pressure, sealing, retention, thermal or lifetime qualification.",
+      "record": "hardware/mechanical-qualification/enclosure-above-core/water-in-passage-review.json",
+      "record_sha256": "4e3576fe7ed7eade0e4e8577b01d72d32e7c2173af3c3536c52a777f3986e91d",
+      "manual_script": "hardware/mechanical-qualification/enclosure-above-core/water_in_passage.py",
+      "manual_script_sha256": "4e6d5742bed850ff46fa1015023e5f815052abfa3e060b39a526b270cd8634e4",
+      "guide_world_mm": [
+        -32.80179966121266,
+        410.0532889963965,
+        253.4
+      ],
+      "minimum_radius_mm": 14.0,
+      "passage_diameter_mm": 7.5,
+      "side_and_roof_stock_mm": 3.0,
+      "cup_floor_specification_mm": 2.0,
+      "horizontal_floor_backing_mm": 2.1,
+      "floor_scope": "Existing complete 2 mm cup floor; only the actual curved pressure passage crosses it. New stock is clipped at its outer face with no below-floor projection.",
+      "floor_scope_sources": [
+        "hardware/printed-parts/cold-core/_cold_core_interface.py:43",
+        "hardware/printed-parts/cold-core/foam-cap/dry-closure-review.json"
+      ],
+      "horizontal_floor_probes": [
+        {
+          "segment": 4,
+          "thickness_mm": 2.0,
+          "probe_volume_mm3": 9.40774756642412,
+          "missing_stock_mm3": 0.0
+        },
+        {
+          "segment": 5,
+          "thickness_mm": 2.0,
+          "probe_volume_mm3": 329.86722862692795,
+          "missing_stock_mm3": 0.0
+        },
+        {
+          "segment": 6,
+          "thickness_mm": 2.0,
+          "probe_volume_mm3": 317.00732170189144,
+          "missing_stock_mm3": 0.0
+        },
+        {
+          "segment": 7,
+          "thickness_mm": 2.0,
+          "probe_volume_mm3": 411.53261867362403,
+          "missing_stock_mm3": 0.0
+        },
+        {
+          "segment": 8,
+          "thickness_mm": 2.0,
+          "probe_volume_mm3": 774.7012788947426,
+          "missing_stock_mm3": 0.0
+        }
+      ],
+      "sensor_passage_wall_mm": 3.659307414297364,
+      "carrier_root_connectivity_basis": "The complete named sleeve is present in the valid single-solid cup and overlaps its retained floor; the source clips new stock at the existing outer floor face.",
+      "cup": {
+        "valid": true,
+        "solids": 1,
+        "passage_contact_mm3": 0.0,
+        "tube_contact_mm3": 0.0,
+        "missing_named_sleeve_stock_mm3": 0.0
+      },
+      "lid": {
+        "valid": true,
+        "solids": 1,
+        "passage_contact_mm3": 0.0,
+        "tube_contact_mm3": 0.0,
+        "missing_named_sleeve_stock_mm3": 0.0
+      },
+      "exported_internal_tube": {
+        "body": "line-water-in",
+        "valid": true,
+        "solids": 1,
+        "bounds_world_mm": [
+          [
+            -59.175,
+            290.99683438609605,
+            216.225
+          ],
+          [
+            1.941043035129033,
+            413.22828899639603,
+            253.4
+          ]
+        ],
+        "solid_tube_volume_mm3": 7273.034186157372,
+        "segmented_nominal_volume_mm3": 7273.034186156552,
+        "volume_difference_mm3": 8.194547262974083e-10
+      },
+      "continuous_tube_accounting": {
+        "internal_span_mm": 229.6562647659553,
+        "warm_span_mm": 24.60982837176045,
+        "modeled_total_mm": 254.26609313771576,
+        "warm_exposed_mm": 7.718828371760452,
+        "warm_elbow_receiving_mm": 16.891,
+        "warm_elbow_receiving_basis": "ATEU44 female socket published B=.665 inch; distinct from the ACHV receiving-depth family inference for its male stem.",
+        "carbonator_nominal_adapter_standoff_mm": 18.5,
+        "carbonator_socket_receiving_depth_mm": null,
+        "carbonator_allowance_basis": "The internal CAD span starts at the metal elbow mouth and includes the nominal 18.5 mm adapter standoff. Actual receiving depth is unmeasured; replace that nominal allowance with the installed receiving mark.",
+        "plain_guide_joint": false,
+        "plain_guide_insertion_mm": 0.0,
+        "plain_guide_cut": false
+      },
+      "bounded_context_centerline_matches_current": true,
+      "source_hashes_sha256": {
+        "hardware/manifold-layout/above-core.json": "925438fdf7bb58011a95ea53c485b713bc8c243a80b0c515a2ba0ead000ccc5a",
+        "hardware/printed-parts/cold-core/_above_core_mounts.py": "6a95906f395fc774eb11a06e1246847cf5ef30bff6e39e08489b8c006baedc27",
+        "hardware/printed-parts/cold-core/_cold_core_interface.py": "5dae3ef9f2254127cd24bbed5c063bbe77b95c1af6d829d02fc6057c724d5a9d",
+        "hardware/printed-parts/cold-core/_internal_routes.py": "bc13050bf193f415a18c677b97ce4af703d9cd02f6750d08aef34cab39534480",
+        "hardware/printed-parts/cold-core/_foam_cap.py": "32401fcd127cdc7cfc80eb3fb3a9b01026c3b1e4c7ebf0b7b138362cfbf28203",
+        "hardware/printed-parts/cold-core/_foam_shell.py": "45955f213fbaedf6ea31763abb672b3c4eec660394bb81ff2b5017bcddcad6e1",
+        "hardware/cold-core-layout/cold_core_assembly.py": "7a1752f075cc06dcea539020a6672b02aa1dcfeb113c393cb9fb25f4a931b0bd"
+      },
+      "exported_solids_sha256": {
+        "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "bcc58b8837501a5f7d326767912a077882846347be00329a87d65a05aef6d1b2",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "286834d9a5fe464c54168b432c37f13ce65b19caeac1985dfa22d1ce36cb49ee",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "83309617dae07a93762d1665676d8c5e812b0daed369ee5fbd58d2f4b8a80691",
+        "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "a12f6ef07d3bcf8d40ac9e20852177db27072ce1ed243b3de9e5dc4c9af6088b",
+        "hardware/cold-core-layout/cold-core-assembly.step": "07088668313393ee69a2091ab4d6bf3f6dc1d552780b3067a040dbe2d66e7aa2"
+      },
+      "current_artifact_binding": {
+        "scope": "Current canonical artifact binding through the exact named subtractive stock change. The original scoped native query is retained at its own source/artifact hashes; unchanged geometry is not represented as a repeated full query.",
+        "current_artifact_sha256": {
+          "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "286834d9a5fe464c54168b432c37f13ce65b19caeac1985dfa22d1ce36cb49ee",
+          "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "3dc027887921d731b82089a236f760df9b5f27abc85851f1f347b71c43ecda20",
+          "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "890b6a06c4306d847265fcd4a3757c9b3c8b73a5828d856e93d81128b9788843",
+          "hardware/cold-core-layout/cold-core-assembly.step": "ff57cb20b177e4bef8dcbbbd81b429c6725ab60ad8f08f704c8950d4122d747d"
+        },
+        "current_source_sha256": {
+          "hardware/manifold-layout/above-core.json": "925438fdf7bb58011a95ea53c485b713bc8c243a80b0c515a2ba0ead000ccc5a",
+          "hardware/printed-parts/cold-core/_above_core_mounts.py": "57b2a5912d73ef99b62c0de45feceef4d2bb96711079d9e31b4eaead1199bbda",
+          "hardware/printed-parts/cold-core/_foam_cap.py": "32401fcd127cdc7cfc80eb3fb3a9b01026c3b1e4c7ebf0b7b138362cfbf28203"
+        },
+        "retained_geometry": {
+          "points_unchanged": true,
+          "maximum_probe_z_mm": 254.4,
+          "removed_stock_min_z_mm": 267.3,
+          "disjoint_z_gap_mm": 12.900000000000006
+        },
+        "native_lid_reconstruction": {
+          "construction": "Prior canonical lid minus the one named 6 x 7.7 x 12.7 mm rectangular shoulder, in the native lid frame, followed by native face cleanup.",
+          "expected_volume_mm3": 335051.11791577045,
+          "current_export_volume_mm3": 335051.11791577056,
+          "volume_difference_mm3": 1.1641532182693481e-10,
+          "face_count": [
+            270,
+            270
+          ],
+          "all_face_signatures_match": true,
+          "signature_fields": [
+            "surface type",
+            "area rounded to 1e-5 mm2",
+            "centroid rounded to 1e-5 mm",
+            "bounds rounded to 1e-5 mm"
+          ],
+          "no_added_or_changed_stock_outside_named_cut": true,
+          "coincident_whole_lid_commons_used": false
+        },
+        "removed_shoulder_world_mm": [
+          [
+            50.0,
+            364.71479999999997,
+            267.3
+          ],
+          [
+            57.7,
+            370.71479999999997,
+            280.0
+          ]
+        ]
+      }
+    }
+  },
+  "pilot_probe": {
+    "depth_mm": 9.75,
+    "bore_radius_mm": 2.0,
+    "minimum_surrounding_wall_mm": 1.6,
+    "complete_blind_backing_probed_mm": 1.0
+  },
+  "recorded_sources_sha256": {
+    "hardware/manifold-layout/above-core.json": "925438fdf7bb58011a95ea53c485b713bc8c243a80b0c515a2ba0ead000ccc5a",
+    "hardware/manifold-layout/above_core_wiring.py": "c14a4ec2d8e0d3ccee119c9ddaf2b50c0dec08c40d15999d078a59244d356a03",
+    "hardware/printed-parts/cold-core/_above_core_mounts.py": "57b2a5912d73ef99b62c0de45feceef4d2bb96711079d9e31b4eaead1199bbda",
+    "hardware/printed-parts/cold-core/_cold_core_interface.py": "5dae3ef9f2254127cd24bbed5c063bbe77b95c1af6d829d02fc6057c724d5a9d",
+    "hardware/printed-parts/cold-core/_foam_cap.py": "32401fcd127cdc7cfc80eb3fb3a9b01026c3b1e4c7ebf0b7b138362cfbf28203",
+    "hardware/printed-parts/cold-core/_foam_shell.py": "45955f213fbaedf6ea31763abb672b3c4eec660394bb81ff2b5017bcddcad6e1",
+    "hardware/printed-parts/cold-core/_internal_routes.py": "bc13050bf193f415a18c677b97ce4af703d9cd02f6750d08aef34cab39534480",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "4c987b8b9751eb8246bf4db6fc4bc67c2cfe33b806fadd918b1535fb6dc4bfe7",
+    "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py": "9834783ae7590c7c13cd2adf1b13cfb8bc7a422402be94b5d0b78342ab89b0d0",
+    "hardware/cold-core-layout/cold_core_assembly.py": "7a1752f075cc06dcea539020a6672b02aa1dcfeb113c393cb9fb25f4a931b0bd"
+  },
+  "exported_solids_sha256": {
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "286834d9a5fe464c54168b432c37f13ce65b19caeac1985dfa22d1ce36cb49ee",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "3dc027887921d731b82089a236f760df9b5f27abc85851f1f347b71c43ecda20",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "bcc58b8837501a5f7d326767912a077882846347be00329a87d65a05aef6d1b2",
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "890b6a06c4306d847265fcd4a3757c9b3c8b73a5828d856e93d81128b9788843",
+    "hardware/cold-core-layout/cold-core-assembly.step": "ff57cb20b177e4bef8dcbbbd81b429c6725ab60ad8f08f704c8950d4122d747d"
+  },
+  "final_exported_lid": {
+    "valid": true,
+    "solids": 1,
+    "source": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+    "sha256": "3dc027887921d731b82089a236f760df9b5f27abc85851f1f347b71c43ecda20"
+  },
+  "complete_nominal_strips_vs_final_tool_witnesses": {
+    "tool_count": 30,
+    "tool_names": [
+      "g-ganen-pump-mount-0",
+      "g-ganen-pump-mount-1",
+      "g-ganen-pump-mount-2",
+      "g-ganen-pump-mount-3",
+      "pcba-mount-0",
+      "pcba-mount-1",
+      "pcba-mount-2",
+      "pcba-mount-3",
+      "psu-mount-0",
+      "psu-mount-1",
+      "psu-mount-2",
+      "psu-mount-3",
+      "psu--1--4",
+      "psu--1-+4",
+      "psu-+1--4",
+      "psu-+1-+4",
+      "J10-GND",
+      "J10-mouth-GND",
+      "J10-V12",
+      "J10-mouth-V12",
+      "terminal-J3-withdrawal",
+      "terminal-J4-withdrawal",
+      "terminal-J5-withdrawal",
+      "terminal-J6-withdrawal",
+      "terminal-J7-withdrawal",
+      "terminal-J9-withdrawal",
+      "terminal-J13-withdrawal",
+      "terminal-J1-service",
+      "terminal-J2-service",
+      "terminal-J11-service"
+    ],
+    "contacts": {
+      "va-east-turn": {
+        "overlap_mm3": {},
+        "scope": "Complete source-native strip and all30 current source-defined approach witnesses; unchanged meter/VA body proof plus selected B-group delta."
+      },
+      "vb-outlet-return": {
+        "overlap_mm3": {},
+        "scope": "Complete source-native strip and all30 current source-defined approach witnesses; unchanged meter/VA body proof plus selected B-group delta."
+      },
+      "meter-fore": {
+        "overlap_mm3": {},
+        "scope": "Complete source-native strip and all30 current source-defined approach witnesses; unchanged meter/VA body proof plus selected B-group delta."
+      },
+      "meter-aft": {
+        "overlap_mm3": {},
+        "scope": "Complete source-native strip and all30 current source-defined approach witnesses; unchanged meter/VA body proof plus selected B-group delta."
+      },
+      "water-check": {
+        "overlap_mm3": {},
+        "scope": "Complete source-native water-check strip against the same30 frozen approach witnesses. Bounding boxes prune disjoint pairs before native commons in the260-pair water-interface query. Only this strip/tool subset is reused.",
+        "route_sha256": "37bc50919c4650e1fd65cd4ee11f9420f8434fb253c30e8b3f4f309bd237720c",
+        "route_identical_to_native_query": true,
+        "native_query_strip_brep_sha256": "21eaf25cb41d362368053bd9b175270c8f50c700f51424267c4736ed24515a0c",
+        "witness_index_sha256": "0310ef5c497bf2418eaf8a959a81bf156d463fd678a68ee3ff648f64097f28c0",
+        "witness_index_identical_to_native_query": true,
+        "witness_geometry_sha256": {
+          "g-ganen-pump-mount-0": "177d1542d2e440f4d401f2d1599a316c7fbaca18d6dbdf5d60249f5c56f59c12",
+          "g-ganen-pump-mount-1": "b9380d78539bd8aa45fd9a01b10a97a735df5dfad0dca86cc57807c8dffcac55",
+          "g-ganen-pump-mount-2": "1d0103f7bbe023b04cc5faa950a1078c469e303e77cc4e469e1f4ccd375fec82",
+          "g-ganen-pump-mount-3": "0547891fdea2706a050e7160da8a0597c0f9ca512f8a301426b700bc2f53d81b",
+          "pcba-mount-0": "4e157520b1e8c34fdd253bcfb2047e7bad853d6f9d58305bc63c01a9aeceb780",
+          "pcba-mount-1": "41c4f93a0c6d70f09478541879992692afd4027f5d5dfddac65f93096b7f244b",
+          "pcba-mount-2": "42074a3db51cb21eb4ea79ce643ad1ef5e0c09dc3ecf650c381b583f62a30776",
+          "pcba-mount-3": "b4133569bfed7397a4e02837cc3f29a13a0168dba16770d0a7d6d9a8fee3892d",
+          "psu-mount-0": "559ccaea9a24b8732e51874fec66b2d5817d5f5aa2e05ff4c79c56b56a901612",
+          "psu-mount-1": "a6c75aafee339649aa790999a3fed757bbe1fff09b9c311cab04a09c842f567f",
+          "psu-mount-2": "86ab485452141544d6f5f3b4e1ec33a85f7e3cde69753f91ae6433a85f8555fa",
+          "psu-mount-3": "d813abf800326415ed3d20ffc9c50c55004880d6a85548cf515e27180608ecfe",
+          "psu--1--4": "0da6d437474e211e84345a0ea6fbe1e307d46cbcdcfad9dfae6778fc60ddea44",
+          "psu--1-+4": "1f09b83eb417b816747f96966c684667233731d428595af4f98d5f3b07543ad1",
+          "psu-+1--4": "0b37499717c93f4ea6e7c46678ba0357f6988ab6978c0e1cb9321118f5a40539",
+          "psu-+1-+4": "abdf72bf31d578ce57a718181d7ccb2389e24124cff5f9e2e28f906f15e473b3",
+          "J10-GND": "39fa09cb68c912c749bd5282fceaca042da41b58730db51753d965449cc8eb83",
+          "J10-mouth-GND": "091eeef771bd6e1576d7ced9e9802e618e09ca74144901a1ffe56308c664b8ae",
+          "J10-V12": "9f6518985c04ba7c30be427f50cf75a39b7fb11b609abf8ae5c28c4f2dbf88f4",
+          "J10-mouth-V12": "3cf246a6d8928eb109f475bf889c4f2930a482d97ce998f7938ee60454bf06ad",
+          "terminal-J3-withdrawal": "21d5a47ede8141423a03b6733aa7dfbfb6d889be90bfd909e7493540ccce78aa",
+          "terminal-J4-withdrawal": "0d883a871b72127b00c3752977e25e0e768307edfce0a75fab24d70edf8bf43e",
+          "terminal-J5-withdrawal": "15086bcc190e3bc5bf64a9ae57c1f63db121e4cdabfda4da460422adc26ad4a8",
+          "terminal-J6-withdrawal": "a727990b0d57c7b652ab5926e3db6ad7fa0a51cd7237d1712410908e4150b9a0",
+          "terminal-J7-withdrawal": "6292f65803fd576506c1a8fd5f9e3dc8141979c5c35b38d368fdf95f068d6c1e",
+          "terminal-J9-withdrawal": "71638ca4e10ca88a424e996e4ba6c468f05f84f3a0c5f189afaa0535798d0d86",
+          "terminal-J13-withdrawal": "20c54f9f90f6a83df682d9162c3912fad9ab1a3aa6e9ff84ade7c519906f168d",
+          "terminal-J1-service": "284c0a59bd79e3b90bfe7ab69fa9e53f5c1d60c8fcb9b4cefb2d74f1565cc123",
+          "terminal-J2-service": "ff04e2a9b1ff382ee6351b457cccffda266e3b4f4f7ea19baa69288e6cf6d64c",
+          "terminal-J11-service": "bf0192a82c0a5c6d47d8a34644abde84df43876d5dd6a376f59938275c73a55c"
+        },
+        "reused_probe": {
+          "receipt_sha256": "969e4c62f0000656b7e7d449575e9b7424a3d5617ebb7d1a5b178b85e31d7377",
+          "complete_query_native_boolean_count": 260,
+          "subset_tool_count": 30,
+          "subset_errors": [],
+          "subset_contact_count": 0,
+          "geometry_query_repeated": false
+        },
+        "final_lid_binding": {
+          "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+          "sha256": "3dc027887921d731b82089a236f760df9b5f27abc85851f1f347b71c43ecda20"
+        },
+        "actual_exported_lid_strip_overlap_mm3": 0.0,
+        "physical_tool_fit_threading_hand_access_and_retention_qualified": false,
+        "final_lid_check_reproduction": "hardware/printed-parts/cold-core/foam-cap/check_bridge_review.py; feature_checks.check_bridge / nominal strip / exported lid"
+      }
+    },
+    "reproduction_api": "hardware/printed-parts/cold-core/_above_core_mounts.py:nominal_tie_strips()",
+    "current_lid_binding": {
+      "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+      "sha256": "3dc027887921d731b82089a236f760df9b5f27abc85851f1f347b71c43ecda20",
+      "scope": "The new lid is the prior lid minus only the named shoulder. The prior zero strip/stock intersections remain conservative; nominal routes and approach witnesses are unchanged."
+    }
+  },
+  "current_artifact_binding_scope": "Global hashes name the current canonical artifacts. Each feature retains its separate scoped native receipt; unchanged feature geometry is not represented as a complete cap/appliance rerun."
+}

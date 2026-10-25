@@ -1,0 +1,1525 @@
+{
+  "scope": "Manual finite nominal CAD assembly envelopes. Current rear-wall STEP, purchased reference bodies, rear-region production tube spans and populated exported core are used. Electrical conductors and the flexible drain-vent line are dressed through the open roof afterward. No helical thread/collet release motion, tool or hand reach, installation force, hardware fit, retention, pressure, sealing or lifetime qualification.",
+  "primary_drawings": {
+    "PP1208E": {
+      "url": "https://www.johnguest.com/sites/jg/files/2023-04/JG%20Drinks%20Polypropylene%20Bulkhead%20Connector%20Data%20Sheet.pdf",
+      "drawing": "PP4608_01/23",
+      "nominal_mount_hole_N_mm": 17.0,
+      "released_collet_overall_B_mm": 34.6,
+      "limits": "Operating collet extensions are unmeasured. Selected nominal mouth planes and conservative outside flange retained."
+    },
+    "ABU44M": {
+      "url": "https://assets.freshwatersystems.com/image/upload/qnbgcy8djx3nj2weqz9v.pdf",
+      "thread": "M15 x 1.5",
+      "panel_span_A_mm": 8.1,
+      "nut_width_E_mm": 6.5,
+      "limits": "The drawing places the far body and collet inside the M15 barrel. Their exact profiles and operating mouth stations remain unmeasured; selected nominal mouth planes retained."
+    }
+  },
+  "production_adapters": {
+    "PP1208E": {
+      "valid": true,
+      "solids": 1,
+      "maximum_inboard_envelope_d_mm": 17.14,
+      "outside_envelope_mm3": 0.0
+    },
+    "ABU44M": {
+      "valid": true,
+      "solids": 1,
+      "maximum_inboard_envelope_d_mm": 15.0,
+      "outside_envelope_mm3": 0.0
+    }
+  },
+  "late_bodies": [
+    "bulkhead-carb",
+    "bulkhead-carb-nut",
+    "bulkhead-drain",
+    "bulkhead-drain-nut",
+    "soda-stem-elbow",
+    "soda-outlet-return-stem"
+  ],
+  "late_tube_ids": [
+    "soda-meter-bulkhead",
+    "drain-vent"
+  ],
+  "sequence": [
+    "Preplace the loose soda nut in the back-top rear relief at the recorded parked pose. Hold it or temporarily tape it at the rear wall with the roof panel open; no printed stock retains it. Keep both late bulkheads, the rear elbow pair and the two late flexible spans disconnected.",
+    "Close the back-top over the populated core with the parked nut travelling with the back-top.",
+    "Preassemble the two rear elbows and the concealed 32.591 mm tube, with 16.891 mm seated in the return elbow and 15.7 mm free for the meter.",
+    "Move that assembly fore by 15.7 mm into the fixed meter outlet, maintaining the recorded coaxial pose.",
+    "Slide the loose soda nut diagonally to its final axis. Feed the PP1208E from outside, engaging its inboard port with the fixed stem and threading the nut onto the barrel. The axial samples represent the combined envelope, not free sliding through real threads.",
+    "Feed the adjacent ABU44M drain bulkhead from outside. Bring its nut from the inboard side onto the barrel and tighten. Connect the drain-vent tube and dress flexible conductors through the open roof."
+  ],
+  "rear_pair_feed_y_offsets_mm": [
+    15.7,
+    14.0,
+    12.0,
+    10.0,
+    8.0,
+    6.0,
+    4.0,
+    2.0,
+    1.0,
+    0.0
+  ],
+  "rear_pair_feed": [
+    {
+      "offset_mm": 15.7,
+      "contacts": {
+        "soda-stem-elbow": [],
+        "soda-outlet-return-stem": [],
+        "tube-soda-meter-bulkhead": []
+      }
+    },
+    {
+      "offset_mm": 14.0,
+      "contacts": {
+        "soda-stem-elbow": [],
+        "soda-outlet-return-stem": [],
+        "tube-soda-meter-bulkhead": []
+      }
+    },
+    {
+      "offset_mm": 12.0,
+      "contacts": {
+        "soda-stem-elbow": [],
+        "soda-outlet-return-stem": [],
+        "tube-soda-meter-bulkhead": []
+      }
+    },
+    {
+      "offset_mm": 10.0,
+      "contacts": {
+        "soda-stem-elbow": [],
+        "soda-outlet-return-stem": [],
+        "tube-soda-meter-bulkhead": []
+      }
+    },
+    {
+      "offset_mm": 8.0,
+      "contacts": {
+        "soda-stem-elbow": [],
+        "soda-outlet-return-stem": [],
+        "tube-soda-meter-bulkhead": []
+      }
+    },
+    {
+      "offset_mm": 6.0,
+      "contacts": {
+        "soda-stem-elbow": [],
+        "soda-outlet-return-stem": [],
+        "tube-soda-meter-bulkhead": []
+      }
+    },
+    {
+      "offset_mm": 4.0,
+      "contacts": {
+        "soda-stem-elbow": [],
+        "soda-outlet-return-stem": [],
+        "tube-soda-meter-bulkhead": []
+      }
+    },
+    {
+      "offset_mm": 2.0,
+      "contacts": {
+        "soda-stem-elbow": [],
+        "soda-outlet-return-stem": [],
+        "tube-soda-meter-bulkhead": []
+      }
+    },
+    {
+      "offset_mm": 1.0,
+      "contacts": {
+        "soda-stem-elbow": [],
+        "soda-outlet-return-stem": [],
+        "tube-soda-meter-bulkhead": []
+      }
+    },
+    {
+      "offset_mm": 0.0,
+      "contacts": {
+        "soda-stem-elbow": [],
+        "soda-outlet-return-stem": [],
+        "tube-soda-meter-bulkhead": []
+      }
+    }
+  ],
+  "concealed_tube": {
+    "id": "soda-meter-bulkhead",
+    "length_mm": 32.591,
+    "meter_insertion_mm": 15.7,
+    "return_insertion_mm": 16.891,
+    "exposed_length_mm": 0.0
+  },
+  "loose_soda_nut": {
+    "park_center_world_mm": [
+      57.375,
+      463.3,
+      323.3
+    ],
+    "clock_change_deg": -30.0,
+    "static_contacts": [],
+    "rear_pair_feed_contacts": [],
+    "diagonal_transfer_contacts": [],
+    "ride_y_offsets_mm": [
+      0.0,
+      0.25,
+      0.5,
+      1.0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26,
+      28,
+      30,
+      32,
+      34,
+      36,
+      38,
+      40,
+      42,
+      44,
+      46,
+      48,
+      50,
+      52,
+      54,
+      56,
+      58,
+      60,
+      62,
+      64,
+      66,
+      68,
+      70,
+      72,
+      74,
+      76,
+      78,
+      80,
+      82,
+      84,
+      86,
+      88,
+      90,
+      92,
+      94,
+      96,
+      98,
+      100,
+      102,
+      104,
+      106,
+      108,
+      110,
+      112,
+      114,
+      116,
+      118,
+      120,
+      122,
+      124,
+      126,
+      128,
+      130,
+      132,
+      134,
+      136,
+      138,
+      140,
+      142,
+      144,
+      146,
+      148,
+      150,
+      152,
+      154,
+      156,
+      158,
+      160,
+      162,
+      164,
+      166,
+      168,
+      170,
+      172,
+      174,
+      176,
+      178,
+      180,
+      182,
+      184,
+      186,
+      188,
+      190,
+      192,
+      194,
+      196,
+      198,
+      200,
+      202,
+      204,
+      206,
+      208,
+      210,
+      212,
+      214,
+      216,
+      218,
+      220,
+      222,
+      224,
+      226,
+      228,
+      230,
+      232,
+      234,
+      236,
+      238,
+      240,
+      242,
+      244,
+      246,
+      248,
+      250,
+      252,
+      254,
+      256,
+      258,
+      260,
+      262,
+      264,
+      266,
+      268,
+      270,
+      272,
+      274,
+      276,
+      278,
+      280,
+      282,
+      284,
+      286,
+      288,
+      290,
+      292,
+      294,
+      296,
+      298,
+      300
+    ],
+    "fixed_core_bodies": 91,
+    "sampled_ride": [
+      {
+        "body": "foam-cap-lid-top",
+        "hits": []
+      }
+    ],
+    "retention": "Loose part held or temporarily taped at the rear wall with the roof panel open. No printed retention, tape envelope, hand/tool path or retention capacity is qualified."
+  },
+  "soda_bulkhead_feed": [
+    {
+      "offset_mm": 26.0,
+      "contacts": {
+        "bulkhead-carb": []
+      }
+    },
+    {
+      "offset_mm": 25.0,
+      "contacts": {
+        "bulkhead-carb": []
+      }
+    },
+    {
+      "offset_mm": 24.0,
+      "contacts": {
+        "bulkhead-carb": []
+      }
+    },
+    {
+      "offset_mm": 20.0,
+      "contacts": {
+        "bulkhead-carb": []
+      }
+    },
+    {
+      "offset_mm": 16.0,
+      "contacts": {
+        "bulkhead-carb": []
+      }
+    },
+    {
+      "offset_mm": 12.7,
+      "contacts": {
+        "bulkhead-carb": []
+      }
+    },
+    {
+      "offset_mm": 10.0,
+      "contacts": {
+        "bulkhead-carb": []
+      }
+    },
+    {
+      "offset_mm": 8.0,
+      "contacts": {
+        "bulkhead-carb": []
+      }
+    },
+    {
+      "offset_mm": 6.0,
+      "contacts": {
+        "bulkhead-carb": []
+      }
+    },
+    {
+      "offset_mm": 4.0,
+      "contacts": {
+        "bulkhead-carb": []
+      }
+    },
+    {
+      "offset_mm": 2.0,
+      "contacts": {
+        "bulkhead-carb": []
+      }
+    },
+    {
+      "offset_mm": 1.0,
+      "contacts": {
+        "bulkhead-carb": []
+      }
+    },
+    {
+      "offset_mm": 0.5,
+      "contacts": {
+        "bulkhead-carb": []
+      }
+    },
+    {
+      "offset_mm": 0.25,
+      "contacts": {
+        "bulkhead-carb": []
+      }
+    },
+    {
+      "offset_mm": 0.0,
+      "contacts": {
+        "bulkhead-carb": [
+          {
+            "body": "soda-stem-elbow",
+            "overlap_mm3": 0.2249255109720371,
+            "bounds_world_mm": [
+              [
+                71.7849999,
+                446.50999989999997,
+                304.7892091119881
+              ],
+              [
+                72.56863999999953,
+                446.7148001,
+                307.9628866490845
+              ]
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "drain_bulkhead_feed": [
+    {
+      "offset_mm": 26.0,
+      "contacts": {
+        "bulkhead-drain": []
+      }
+    },
+    {
+      "offset_mm": 25.0,
+      "contacts": {
+        "bulkhead-drain": []
+      }
+    },
+    {
+      "offset_mm": 24.0,
+      "contacts": {
+        "bulkhead-drain": []
+      }
+    },
+    {
+      "offset_mm": 20.0,
+      "contacts": {
+        "bulkhead-drain": []
+      }
+    },
+    {
+      "offset_mm": 16.0,
+      "contacts": {
+        "bulkhead-drain": []
+      }
+    },
+    {
+      "offset_mm": 12.7,
+      "contacts": {
+        "bulkhead-drain": []
+      }
+    },
+    {
+      "offset_mm": 10.0,
+      "contacts": {
+        "bulkhead-drain": []
+      }
+    },
+    {
+      "offset_mm": 8.0,
+      "contacts": {
+        "bulkhead-drain": []
+      }
+    },
+    {
+      "offset_mm": 6.0,
+      "contacts": {
+        "bulkhead-drain": []
+      }
+    },
+    {
+      "offset_mm": 4.0,
+      "contacts": {
+        "bulkhead-drain": []
+      }
+    },
+    {
+      "offset_mm": 2.0,
+      "contacts": {
+        "bulkhead-drain": []
+      }
+    },
+    {
+      "offset_mm": 1.0,
+      "contacts": {
+        "bulkhead-drain": []
+      }
+    },
+    {
+      "offset_mm": 0.5,
+      "contacts": {
+        "bulkhead-drain": []
+      }
+    },
+    {
+      "offset_mm": 0.25,
+      "contacts": {
+        "bulkhead-drain": []
+      }
+    },
+    {
+      "offset_mm": 0.0,
+      "contacts": {
+        "bulkhead-drain": []
+      }
+    }
+  ],
+  "drain_nut_feed": [
+    {
+      "offset_mm": -11.7,
+      "contacts": {
+        "bulkhead-drain-nut": []
+      }
+    },
+    {
+      "offset_mm": -10.0,
+      "contacts": {
+        "bulkhead-drain-nut": []
+      }
+    },
+    {
+      "offset_mm": -8.0,
+      "contacts": {
+        "bulkhead-drain-nut": []
+      }
+    },
+    {
+      "offset_mm": -6.0,
+      "contacts": {
+        "bulkhead-drain-nut": []
+      }
+    },
+    {
+      "offset_mm": -4.0,
+      "contacts": {
+        "bulkhead-drain-nut": []
+      }
+    },
+    {
+      "offset_mm": -2.0,
+      "contacts": {
+        "bulkhead-drain-nut": []
+      }
+    },
+    {
+      "offset_mm": -1.0,
+      "contacts": {
+        "bulkhead-drain-nut": []
+      }
+    },
+    {
+      "offset_mm": 0.0,
+      "contacts": {
+        "bulkhead-drain-nut": []
+      }
+    }
+  ],
+  "nut_rotation_envelope_contacts": {
+    "bulkhead-carb-nut": [],
+    "bulkhead-drain-nut": []
+  },
+  "accepted_nominal_soda_end_contact": {
+    "overlap_mm3": 0.2249255109720371,
+    "bounds_world_mm": [
+      [
+        71.7849999,
+        446.50999989999997,
+        304.7892091119881
+      ],
+      [
+        72.56863999999953,
+        446.7148001,
+        307.9628866490845
+      ]
+    ],
+    "treatment": "Explicit accepted nominal-form contact outside the finite stem engagement. No shape trimming or broader mate mask. PP operating collet and NeoFit hub flare are unmeasured; physical fit remains unqualified."
+  },
+  "meter_to_return_collet": {
+    "overlap_mm3": 0.0,
+    "distance_mm": 0.0
+  },
+  "source_sha256": {
+    "hardware/mechanical-qualification/enclosure-above-core/rear_plumbing_assembly.py": "6c81e5a07a11726f2804fc54e9cc9b11a52cb470ed51417311a613b704f2c568",
+    "hardware/manifold-layout/above_core_parts.py": "2e75ac73378cceadc7f3a6903bf8a9b25968f32c6227066f4cc7890416564820",
+    "hardware/manifold-layout/above-core.json": "1154f0e80a576ff988491f3a7a83131b6cbee327442bb985b1eccffc41e29e20",
+    "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py": "62b13c9c562db4ef857c159beae7e6adac08d1bb0d35aaa0c8903117b696f5c4",
+    "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "a1e869c93ed2dba3873036fe10506b99ace883bc46a033833354be4e49bcc096",
+    "hardware/manifold-layout/above_core_wiring.py": "c14a4ec2d8e0d3ccee119c9ddaf2b50c0dec08c40d15999d078a59244d356a03",
+    "hardware/manifold-layout/above_core_routes.py": "3a2b93bc6a99fbec6d8cd10a5904488e4a319a88a82c4707b82bce2d12c83185",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "038e8cceceb3630d93757fed3867d6ddfbab033c0f24ab25cd2a94468c20764c",
+    "hardware/cold-core-layout/cold-core-assembly.step": "7b7028357a8e62200a73b08ca4ed4d8253a4fcd8e0fcf8cb37e971075a9ed7d9",
+    "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step": "4bd7fb8a5db6a8ed3a1f8656ea3dc63aac4a0a8d51d3e1146173923eb5edfe99",
+    "hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step": "4cbf43dd8ab8e4cc3637bb4557bbed54a09e3eee3a17a65e45c7be2d7d63287b"
+  },
+  "seconds": 230.21380591602065,
+  "current_artifact_binding": {
+    "scope": "Original finite late-assembly and 151-position ride results remain at their recorded source/artifact hashes. Current artifacts are bound by unchanged rear semantic inputs and feed-corridor geometry, a current exported-core conservative parked-nut swept box, current flavor-tail stage readings and a delta against only the changed ACHV/gas/water targets. This does not repeat the whole static fixture or 151-position ride, or qualify hand/tool reach, temporary retention or hardware fit.",
+    "source_sha256": {
+      "hardware/mechanical-qualification/enclosure-above-core/rear_plumbing_assembly.py": "6c81e5a07a11726f2804fc54e9cc9b11a52cb470ed51417311a613b704f2c568",
+      "hardware/manifold-layout/above_core_parts.py": "483a81270294ddd76e915e55a2db2d575f29fdc29a4edb69e5ec7dfa3afbe7d5",
+      "hardware/manifold-layout/above-core.json": "925438fdf7bb58011a95ea53c485b713bc8c243a80b0c515a2ba0ead000ccc5a",
+      "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py": "62b13c9c562db4ef857c159beae7e6adac08d1bb0d35aaa0c8903117b696f5c4",
+      "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "a1e869c93ed2dba3873036fe10506b99ace883bc46a033833354be4e49bcc096",
+      "hardware/manifold-layout/above_core_wiring.py": "c14a4ec2d8e0d3ccee119c9ddaf2b50c0dec08c40d15999d078a59244d356a03",
+      "hardware/manifold-layout/above_core_routes.py": "2cbdd79151729ad6f2278fb0b15542cfd4229935d444ca96e5be79d9381f9c57",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "3dcabe58567bb3f45b8ced0088e5503c4518ee8701571e33ff0c798b924ee5ab",
+      "hardware/cold-core-layout/cold-core-assembly.step": "07088668313393ee69a2091ab4d6bf3f6dc1d552780b3067a040dbe2d66e7aa2",
+      "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step": "4bd7fb8a5db6a8ed3a1f8656ea3dc63aac4a0a8d51d3e1146173923eb5edfe99",
+      "hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step": "4cbf43dd8ab8e4cc3637bb4557bbed54a09e3eee3a17a65e45c7be2d7d63287b",
+      "hardware/printed-parts/cold-core/_above_core_mounts.py": "6a95906f395fc774eb11a06e1246847cf5ef30bff6e39e08489b8c006baedc27",
+      "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "263a1a5ea7bc716fb69d9080d590539df6ac37848b4f235f38aace3ad4b3bdc3",
+      "hardware/reference/neofit-achv44-check/neofit_achv44_check.py": "a05bb8c69df5ee919985a0280fc04be1a425c71c605a6c9b846ab991c6e0f719",
+      "hardware/reference/neofit-achv44-check/model-dimensions.json": "a9058aa42dc8a34f072abe4a1e5cc74d9b2a1c4d0547eba4e5d68bee679f9e4d"
+    },
+    "unchanged_rear_semantic_inputs": {
+      "parts.digiten-flow": true,
+      "snapshots.soda-stem-elbow": true,
+      "snapshots.soda-outlet-return-stem": true,
+      "fluid_grid": true,
+      "soda_route": true
+    },
+    "rear_wall_roi_receipt": {
+      "scope": "Native rear soda bulkhead feed corridor identity; the J10 roof opening is in the fore region.",
+      "roi_world_mm": [
+        [
+          57.5,
+          435.0,
+          286.3760478805363
+        ],
+        [
+          97.5,
+          525.0,
+          326.3760478805363
+        ]
+      ],
+      "native_query_brep_sha256": "2f56815cf031c149ff8d3c21949154665c3ebe1283cd038de40b5f8a62f99348",
+      "current_wall_source": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+      "current_wall_sha256": "3dcabe58567bb3f45b8ced0088e5503c4518ee8701571e33ff0c798b924ee5ab",
+      "native_query_roi_volume_mm3": 7634.156580292453,
+      "current_roi_volume_mm3": 7634.15658029239,
+      "symmetric_difference_mm3": 0.0
+    },
+    "rear_tube_roi_receipts": {
+      "fluid-18": {
+        "scope": "Rear-region native shape identity only; fore/middle route portions have separate current native reviews.",
+        "roi_world_mm": [
+          [
+            20.0,
+            395.0,
+            285.0
+          ],
+          [
+            105.0,
+            525.0,
+            350.0
+          ]
+        ],
+        "native_query_brep_sha256": "f01f71f7dd917c62449cf1091c74bae69b0fe0fb95b689aa7e04719df58f43f1",
+        "current_brep_sha256": "0f6e5adb1160f843ba78a62bb6c57873ff9be446fdf6530f8b06487fe9d6dd69",
+        "native_query_roi_volume_mm3": 460.141026986401,
+        "current_roi_volume_mm3": 460.14136556030456,
+        "symmetric_difference_mm3": 0.001113666239689337
+      },
+      "fluid-28": {
+        "scope": "Rear-region native shape identity only; fore/middle route portions have separate current native reviews.",
+        "roi_world_mm": [
+          [
+            20.0,
+            395.0,
+            285.0
+          ],
+          [
+            105.0,
+            525.0,
+            350.0
+          ]
+        ],
+        "native_query_brep_sha256": "831b592e3dc907a7b49b9d080e303eb3da35bcf5df6f20e4bd08770edb780056",
+        "current_brep_sha256": "264a895b95042ba816737451b32011c2ee59902b6508cf7158061a393b0fe60a",
+        "native_query_roi_volume_mm3": 698.5288254737189,
+        "current_roi_volume_mm3": 698.5291104576459,
+        "symmetric_difference_mm3": 0.0
+      }
+    },
+    "parked_nut_swept_box_receipt": {
+      "scope": "Conservative bounding box of the recorded parked soda nut over the full 0..300 mm Y translation, against the current exported cold core only. This current-artifact ROI receipt does not repeat the 151-position ride or qualify temporary retention/hand access.",
+      "bounds_world_mm": [
+        [
+          45.82799361620747,
+          461.299999,
+          313.299999
+        ],
+        [
+          68.9220063837925,
+          765.300001,
+          333.30000100000007
+        ]
+      ],
+      "core_source": "hardware/cold-core-layout/cold-core-assembly.step",
+      "core_sha256": "07088668313393ee69a2091ab4d6bf3f6dc1d552780b3067a040dbe2d66e7aa2",
+      "park_center_world_mm": [
+        57.375,
+        463.3,
+        323.3
+      ],
+      "clock_change_deg": -30.0,
+      "native_candidates": [
+        {
+          "body": "foam-cap-lid-top",
+          "overlap_mm3": 0.0
+        }
+      ]
+    },
+    "current_flavor_tail_stage_delta": {
+      "scope": "Only the two current flavor tail BREPs against the existing late rear assembly stages. Rear ROI fully contains each stage body; no full static-fixture or 151-position ride repeat.",
+      "roi_world_mm": [
+        [
+          20.0,
+          395.0,
+          285.0
+        ],
+        [
+          105.0,
+          525.0,
+          350.0
+        ]
+      ],
+      "stage_rows": 82,
+      "native_candidates": 14,
+      "contacts": [],
+      "current_tail_brep_sha256": {
+        "fluid-18": "0f6e5adb1160f843ba78a62bb6c57873ff9be446fdf6530f8b06487fe9d6dd69",
+        "fluid-28": "264a895b95042ba816737451b32011c2ee59902b6508cf7158061a393b0fe60a"
+      },
+      "source_sha256": {
+        "hardware/manifold-layout/above_core_parts.py": "483a81270294ddd76e915e55a2db2d575f29fdc29a4edb69e5ec7dfa3afbe7d5",
+        "hardware/manifold-layout/above_core_routes.py": "2cbdd79151729ad6f2278fb0b15542cfd4229935d444ca96e5be79d9381f9c57",
+        "hardware/manifold-layout/above-core.json": "925438fdf7bb58011a95ea53c485b713bc8c243a80b0c515a2ba0ead000ccc5a"
+      },
+      "seconds": 0.31260699999984354
+    },
+    "changed_gas_water_lid_stage_delta": {
+      "scope": "Only the changed ACHV water/gas bodies, attached gas elbows, changed water/gas tube spans and canonical current lid versus the established82late rear assembly-stage rows. Original unchanged static-body results are retained separately. No151-position ride or whole-static-fixture repeat; no hand/tool/tape/force/hardware-fit qualification.",
+      "moving_stage_rows": 82,
+      "changed_targets": [
+        "gas-regulator",
+        "gas-check",
+        "gas-inlet-elbow",
+        "gas-lower-a",
+        "gas-lower-b",
+        "gas-upper-a",
+        "gas-upper-b",
+        "discharge-chain",
+        "carbonator-fold",
+        "tube-above-core-pump-check-link",
+        "tube-above-core-gas-inlet",
+        "tube-above-core-gas-check-link",
+        "tube-above-core-gas-core-drop",
+        "tube-water-5",
+        "canonical-current-core-lid"
+      ],
+      "native_contact_candidates": 78,
+      "contacts": [],
+      "native_gaps_under2mm": [
+        {
+          "stage": "loose-nut-park",
+          "moving": "bulkhead-carb-nut",
+          "position": null,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 45.21844990700844
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-stem-elbow",
+          "position": 15.7,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 31.810702742944805
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-outlet-return-stem",
+          "position": 15.7,
+          "body": "gas-inlet-elbow",
+          "gap_mm": 26.671005177931363
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-outlet-return-stem",
+          "position": 15.7,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 20.84922060893404
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "tube-soda-meter-bulkhead",
+          "position": 15.7,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 7.781749481961177
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-stem-elbow",
+          "position": 14.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 30.11113762380952
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-outlet-return-stem",
+          "position": 14.0,
+          "body": "gas-inlet-elbow",
+          "gap_mm": 25.564799610073575
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-outlet-return-stem",
+          "position": 14.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 19.18019812202159
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "tube-soda-meter-bulkhead",
+          "position": 14.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 6.864810631037339
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-stem-elbow",
+          "position": 12.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 28.111716578679385
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-outlet-return-stem",
+          "position": 12.0,
+          "body": "gas-inlet-elbow",
+          "gap_mm": 24.341136940561714
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-outlet-return-stem",
+          "position": 12.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 17.224401295836113
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "tube-soda-meter-bulkhead",
+          "position": 12.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 6.222991643896319
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-stem-elbow",
+          "position": 10.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 26.112384207498128
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-outlet-return-stem",
+          "position": 10.0,
+          "body": "gas-regulator",
+          "gap_mm": 14.676616936588328
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-outlet-return-stem",
+          "position": 10.0,
+          "body": "gas-inlet-elbow",
+          "gap_mm": 23.212554858708103
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-outlet-return-stem",
+          "position": 10.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 15.280052355931275
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "tube-soda-meter-bulkhead",
+          "position": 10.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 6.125
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-stem-elbow",
+          "position": 8.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 24.113162567361375
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-outlet-return-stem",
+          "position": 8.0,
+          "body": "gas-regulator",
+          "gap_mm": 13.611117561392792
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-outlet-return-stem",
+          "position": 8.0,
+          "body": "gas-inlet-elbow",
+          "gap_mm": 22.191649605025237
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-outlet-return-stem",
+          "position": 8.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 13.352153384379655
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "tube-soda-meter-bulkhead",
+          "position": 8.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 6.125
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-stem-elbow",
+          "position": 6.0,
+          "body": "gas-inlet-elbow",
+          "gap_mm": 18.40153490989268
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-stem-elbow",
+          "position": 6.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 22.114081690180985
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-outlet-return-stem",
+          "position": 6.0,
+          "body": "gas-regulator",
+          "gap_mm": 12.668267417552485
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-outlet-return-stem",
+          "position": 6.0,
+          "body": "gas-inlet-elbow",
+          "gap_mm": 21.29176851985056
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-outlet-return-stem",
+          "position": 6.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 11.449017425089425
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "tube-soda-meter-bulkhead",
+          "position": 6.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 6.125
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-stem-elbow",
+          "position": 4.0,
+          "body": "gas-inlet-elbow",
+          "gap_mm": 16.41488614154844
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-stem-elbow",
+          "position": 4.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 20.115183543781004
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-outlet-return-stem",
+          "position": 4.0,
+          "body": "gas-regulator",
+          "gap_mm": 11.769422391349202
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-outlet-return-stem",
+          "position": 4.0,
+          "body": "gas-inlet-elbow",
+          "gap_mm": 20.526527138921146
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-outlet-return-stem",
+          "position": 4.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 9.585405573057482
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "tube-soda-meter-bulkhead",
+          "position": 4.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 6.125000000000018
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-stem-elbow",
+          "position": 2.0,
+          "body": "gas-inlet-elbow",
+          "gap_mm": 14.431925964333354
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-stem-elbow",
+          "position": 2.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 18.116528613396063
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-outlet-return-stem",
+          "position": 2.0,
+          "body": "gas-regulator",
+          "gap_mm": 9.787175678266955
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-outlet-return-stem",
+          "position": 2.0,
+          "body": "gas-inlet-elbow",
+          "gap_mm": 18.775645415895326
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-outlet-return-stem",
+          "position": 2.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 7.789736837660283
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "tube-soda-meter-bulkhead",
+          "position": 2.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 6.1250000000000195
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-stem-elbow",
+          "position": 1.0,
+          "body": "gas-inlet-elbow",
+          "gap_mm": 13.442339344027856
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-stem-elbow",
+          "position": 1.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 17.117318978157716
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-outlet-return-stem",
+          "position": 1.0,
+          "body": "gas-regulator",
+          "gap_mm": 8.797408647695473
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-outlet-return-stem",
+          "position": 1.0,
+          "body": "gas-inlet-elbow",
+          "gap_mm": 17.852228512006707
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-outlet-return-stem",
+          "position": 1.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 6.93397432934401
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "tube-soda-meter-bulkhead",
+          "position": 1.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 6.1250000000000195
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-stem-elbow",
+          "position": 0.0,
+          "body": "gas-inlet-elbow",
+          "gap_mm": 12.454416366895693
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-stem-elbow",
+          "position": 0.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 16.11820737551166
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-outlet-return-stem",
+          "position": 0.0,
+          "body": "gas-regulator",
+          "gap_mm": 7.808738772880009
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-outlet-return-stem",
+          "position": 0.0,
+          "body": "gas-inlet-elbow",
+          "gap_mm": 16.93607680298515
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "soda-outlet-return-stem",
+          "position": 0.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 6.122091146005735
+        },
+        {
+          "stage": "rear-pair-feed",
+          "moving": "tube-soda-meter-bulkhead",
+          "position": 0.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 6.125000000000021
+        },
+        {
+          "stage": "nut-diagonal-transfer",
+          "moving": "bulkhead-carb-nut",
+          "position": 0.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 45.21844990700844
+        },
+        {
+          "stage": "nut-diagonal-transfer",
+          "moving": "bulkhead-carb-nut",
+          "position": 0.1,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 44.990402162201185
+        },
+        {
+          "stage": "nut-diagonal-transfer",
+          "moving": "bulkhead-carb-nut",
+          "position": 0.2,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 44.82513541025169
+        },
+        {
+          "stage": "nut-diagonal-transfer",
+          "moving": "bulkhead-carb-nut",
+          "position": 0.3,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 44.72334564279646
+        },
+        {
+          "stage": "nut-diagonal-transfer",
+          "moving": "bulkhead-carb-nut",
+          "position": 0.4,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 44.68546664777622
+        },
+        {
+          "stage": "nut-diagonal-transfer",
+          "moving": "bulkhead-carb-nut",
+          "position": 0.5,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 44.68519999999995
+        },
+        {
+          "stage": "nut-diagonal-transfer",
+          "moving": "bulkhead-carb-nut",
+          "position": 0.6,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 44.68519999999995
+        },
+        {
+          "stage": "nut-diagonal-transfer",
+          "moving": "bulkhead-carb-nut",
+          "position": 0.7,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 44.687709151308134
+        },
+        {
+          "stage": "nut-diagonal-transfer",
+          "moving": "bulkhead-carb-nut",
+          "position": 0.8,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 44.7062034490114
+        },
+        {
+          "stage": "nut-diagonal-transfer",
+          "moving": "bulkhead-carb-nut",
+          "position": 0.9,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 44.66844309248265
+        },
+        {
+          "stage": "nut-diagonal-transfer",
+          "moving": "bulkhead-carb-nut",
+          "position": 1.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 42.9760478805363
+        },
+        {
+          "stage": "outside-bulkhead-feed",
+          "moving": "bulkhead-carb",
+          "position": 20.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 44.81090479301308
+        },
+        {
+          "stage": "outside-bulkhead-feed",
+          "moving": "bulkhead-carb",
+          "position": 16.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 44.45151502894455
+        },
+        {
+          "stage": "outside-bulkhead-feed",
+          "moving": "bulkhead-carb",
+          "position": 12.7,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 43.63847256767814
+        },
+        {
+          "stage": "outside-bulkhead-feed",
+          "moving": "bulkhead-carb",
+          "position": 10.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 41.00722141330718
+        },
+        {
+          "stage": "outside-bulkhead-feed",
+          "moving": "bulkhead-carb",
+          "position": 8.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 39.06419598609447
+        },
+        {
+          "stage": "outside-bulkhead-feed",
+          "moving": "bulkhead-carb",
+          "position": 6.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 37.12722192731364
+        },
+        {
+          "stage": "outside-bulkhead-feed",
+          "moving": "bulkhead-carb",
+          "position": 4.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 35.19729830597796
+        },
+        {
+          "stage": "outside-bulkhead-feed",
+          "moving": "bulkhead-carb",
+          "position": 2.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 33.27565188001581
+        },
+        {
+          "stage": "outside-bulkhead-feed",
+          "moving": "bulkhead-carb",
+          "position": 1.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 32.31839426766125
+        },
+        {
+          "stage": "outside-bulkhead-feed",
+          "moving": "bulkhead-carb",
+          "position": 0.5,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 31.840750745546174
+        },
+        {
+          "stage": "outside-bulkhead-feed",
+          "moving": "bulkhead-carb",
+          "position": 0.25,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 31.602188342581584
+        },
+        {
+          "stage": "outside-bulkhead-feed",
+          "moving": "bulkhead-carb",
+          "position": 0.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 31.363804106644963
+        },
+        {
+          "stage": "outside-bulkhead-feed",
+          "moving": "bulkhead-drain",
+          "position": 12.7,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 45.494625296103166
+        },
+        {
+          "stage": "outside-bulkhead-feed",
+          "moving": "bulkhead-drain",
+          "position": 10.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 45.02975233852698
+        },
+        {
+          "stage": "outside-bulkhead-feed",
+          "moving": "bulkhead-drain",
+          "position": 8.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 44.34499515919554
+        },
+        {
+          "stage": "outside-bulkhead-feed",
+          "moving": "bulkhead-drain",
+          "position": 6.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 43.74104017589289
+        },
+        {
+          "stage": "outside-bulkhead-feed",
+          "moving": "bulkhead-drain",
+          "position": 4.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 41.81349273854419
+        },
+        {
+          "stage": "outside-bulkhead-feed",
+          "moving": "bulkhead-drain",
+          "position": 2.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 39.85507966365502
+        },
+        {
+          "stage": "outside-bulkhead-feed",
+          "moving": "bulkhead-drain",
+          "position": 1.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 38.8774610153015
+        },
+        {
+          "stage": "outside-bulkhead-feed",
+          "moving": "bulkhead-drain",
+          "position": 0.5,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 38.38908406039779
+        },
+        {
+          "stage": "outside-bulkhead-feed",
+          "moving": "bulkhead-drain",
+          "position": 0.25,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 38.14500852007098
+        },
+        {
+          "stage": "outside-bulkhead-feed",
+          "moving": "bulkhead-drain",
+          "position": 0.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 37.90101021076203
+        },
+        {
+          "stage": "drain-nut-feed",
+          "moving": "bulkhead-drain-nut",
+          "position": -11.7,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 30.98792494574983
+        },
+        {
+          "stage": "drain-nut-feed",
+          "moving": "bulkhead-drain-nut",
+          "position": -10.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 32.661769279134646
+        },
+        {
+          "stage": "drain-nut-feed",
+          "moving": "bulkhead-drain-nut",
+          "position": -8.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 34.63426009666475
+        },
+        {
+          "stage": "drain-nut-feed",
+          "moving": "bulkhead-drain-nut",
+          "position": -6.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 36.60973603351196
+        },
+        {
+          "stage": "drain-nut-feed",
+          "moving": "bulkhead-drain-nut",
+          "position": -4.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 38.58773862826667
+        },
+        {
+          "stage": "drain-nut-feed",
+          "moving": "bulkhead-drain-nut",
+          "position": -2.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 40.567898299559765
+        },
+        {
+          "stage": "drain-nut-feed",
+          "moving": "bulkhead-drain-nut",
+          "position": -1.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 41.558690696933944
+        },
+        {
+          "stage": "drain-nut-feed",
+          "moving": "bulkhead-drain-nut",
+          "position": 0.0,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 42.54991389466522
+        },
+        {
+          "stage": "nut-rotation-envelope",
+          "moving": "bulkhead-carb-nut",
+          "position": null,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 41.42904249674379
+        },
+        {
+          "stage": "nut-rotation-envelope",
+          "moving": "bulkhead-drain-nut",
+          "position": null,
+          "body": "canonical-current-core-lid",
+          "gap_mm": 42.52803106305733
+        }
+      ],
+      "unchanged_rear_semantic_inputs": {
+        "parts.digiten-flow": true,
+        "snapshots.soda-stem-elbow": true,
+        "snapshots.soda-outlet-return-stem": true,
+        "fluid_grid": true,
+        "soda_route": true
+      },
+      "current18_28_segment_identity": {
+        "fluid-18": true,
+        "fluid-28": true
+      },
+      "source_sha256": {
+        "hardware/manifold-layout/above-core.json": "925438fdf7bb58011a95ea53c485b713bc8c243a80b0c515a2ba0ead000ccc5a",
+        "hardware/manifold-layout/above_core_parts.py": "483a81270294ddd76e915e55a2db2d575f29fdc29a4edb69e5ec7dfa3afbe7d5",
+        "hardware/manifold-layout/above_core_routes.py": "2cbdd79151729ad6f2278fb0b15542cfd4229935d444ca96e5be79d9381f9c57",
+        "hardware/printed-parts/cold-core/_above_core_mounts.py": "6a95906f395fc774eb11a06e1246847cf5ef30bff6e39e08489b8c006baedc27",
+        "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "263a1a5ea7bc716fb69d9080d590539df6ac37848b4f235f38aace3ad4b3bdc3",
+        "hardware/reference/neofit-achv44-check/neofit_achv44_check.py": "a05bb8c69df5ee919985a0280fc04be1a425c71c605a6c9b846ab991c6e0f719",
+        "hardware/reference/neofit-achv44-check/model-dimensions.json": "a9058aa42dc8a34f072abe4a1e5cc74d9b2a1c4d0547eba4e5d68bee679f9e4d"
+      },
+      "reference_step_sha256": "6cba8b0db77eb05d3488c114d184e9bb8a691db49b681dcacbcfe833f7da2c82",
+      "canonical_lid_brep_sha256": "272c3c2b4b4fa8c16aca0ba22603482afb336dc93cdc99144082bb44529c2460",
+      "seconds": 14.431317958020372,
+      "segment_comparison_basis": "JSON-normalized line/arc control arrays; tuple/list serialization does not alter geometry."
+    },
+    "reference_dimensions_scope": "ACHV scale and 16.891 mm receiving depth remain same-family inferences, not published ACHV engineering dimensions. ATEU44 female 16.891 mm depth is separately published; PP010822E receiving depth remains unmeasured.",
+    "accepted_nominal_end_contact_scope": "The explicitly recorded 0.22492551 mm3 final PP/NeoFit body contact remains unmeasured nominal-form contact outside stem engagement. No new shape trim or mate mask is applied.",
+    "subtractive_core_lid_update": {
+      "scope": "The established rear-stage and conservative parked-nut results remain valid when the only core stock change removes this shoulder. Other selected rear poses, fittings and tube paths are unchanged. No 151-position ride or whole-static-fixture repeat.",
+      "current_core_sha256": "ff57cb20b177e4bef8dcbbbd81b429c6725ab60ad8f08f704c8950d4122d747d",
+      "current_lid_sha256": "3dc027887921d731b82089a236f760df9b5f27abc85851f1f347b71c43ecda20",
+      "removed_shoulder_world_mm": [
+        [
+          50.0,
+          364.71479999999997,
+          267.3
+        ],
+        [
+          57.7,
+          370.71479999999997,
+          280.0
+        ]
+      ],
+      "native_lid_reconstruction": {
+        "construction": "Prior canonical lid minus the one named 6 x 7.7 x 12.7 mm rectangular shoulder, in the native lid frame, followed by native face cleanup.",
+        "expected_volume_mm3": 335051.11791577045,
+        "current_export_volume_mm3": 335051.11791577056,
+        "volume_difference_mm3": 1.1641532182693481e-10,
+        "face_count": [
+          270,
+          270
+        ],
+        "all_face_signatures_match": true,
+        "signature_fields": [
+          "surface type",
+          "area rounded to 1e-5 mm2",
+          "centroid rounded to 1e-5 mm",
+          "bounds rounded to 1e-5 mm"
+        ],
+        "no_added_or_changed_stock_outside_named_cut": true,
+        "coincident_whole_lid_commons_used": false
+      },
+      "top_cup_byte_identical": true
+    }
+  }
+}

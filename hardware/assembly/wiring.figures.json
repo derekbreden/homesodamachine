@@ -1,7 +1,7 @@
 {
   "/hardware/assembly/_wiring_sync.py": {
     "AC1_LEN": "~150 mm",
-    "AC2_LEN": "~100 mm",
+    "AC2_LEN": "~200 mm",
     "AC_LINE_V": "120 VAC",
     "AWG_AC_BRANCH_U": "16 AWG",
     "AWG_AC_MAIN": "16 AWG",
@@ -10,9 +10,8 @@
     "AWG_TRIPLE": "16/22 AWG",
     "CABINET_SLACK": "200 mm",
     "COMP_CLASS_W": "100 W",
-    "COMP_FAN_OUT": "~50 mm",
     "COMP_LEAD_AWG": "18 AWG",
-    "COMP_LEAD_LEN": "~600 mm",
+    "COMP_LEAD_LEN": "~700 mm",
     "DC_BUS_V": "12 V",
     "FAN_RUN_LEN": "~650 mm",
     "JST_PITCH": "2.5 mm",
@@ -21,10 +20,9 @@
     "PLATE_D": "54.55 mm",
     "PULLUP_R": "4.7 k\u03a9",
     "SIG_DISPLAY_LEN": "~400 mm",
-    "SIG_ONEWIRE_LEN": "~300 mm",
-    "SIG_REEDS_A_LEN": "~450 mm",
+    "SIG_ONEWIRE_LEN": "~650 mm",
+    "SIG_REEDS_A_LEN": "~600 mm",
     "SIG_UMBILICAL_LEN": "~1 m",
-    "VK_RUN_LEN": "~150 mm",
     "WINDING_R_HIGH": "30 \u03a9",
     "WINDING_R_LOW": "10"
   }

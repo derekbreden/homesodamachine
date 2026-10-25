@@ -60,6 +60,42 @@ def dock_regions(box, region):
             region(piece, f'SB443 column {number}: rail slot walls, roof over the blocks and root', b)
 
 
+def above_core_regions(box, region):
+    """Complete fixed-shell hosts from the selected native interface helpers."""
+    shell = e._above_core_shell
+    for number, shape in enumerate(shell.access_bosses(), start=1):
+        region('back-top', f'Electronics closure host, blind cap and roof root {number}',
+               shape_bounds(shape))
+    bosses, _holes = shell.relay_bosses()
+    for number, shape in enumerate(bosses, start=1):
+        bounds = shape_bounds(shape)
+        bounds[0] = min(bounds[0], box.outer[0])
+        region('back-top', f'Relay insert host and complete west wall root {number}',
+               bounds)
+    x, y, z = shell.layout.pose('c14-inlet')['translation_mm']
+    fasteners = shell.c14_fastener_plan()
+    seat = y - fasteners['flange_thickness_mm']
+    depth = fasteners['boss_depth_mm']
+    pitch = shell.layout.specification()['rear_wall']['dry_openings']['c14']['mount_pitch_mm']
+    for side in (-1, 1):
+        # Use the same native cylinder as rear_geometry(); carry its complete
+        # blind end and backing through the supporting exterior rear wall.
+        host = shell.ycylinder(5., x + side*pitch/2, z, seat-depth, seat)
+        bounds = shape_bounds(host)
+        bounds[3] = max(bounds[3], box.outer[3])
+        region('back-top', f'C14 blind insert host and rear wall root {side:+g}', bounds)
+    if box.pack.funnel:
+        frame = e._funnel_frame_part
+        for col in ('front', 'back'):
+            receivers = frame.receivers(box.inner, box.outer, box.y_joint,
+                                        box.pack.funnel, e.funnel_seat_z(box.outer), col)
+            if receivers is not None:
+                for number, shape in enumerate(receivers.Solids(), start=1):
+                    region(f'{col}-top',
+                           f'Funnel frame receiver, blind cap and full flank root {number}',
+                           shape_bounds(shape))
+
+
 def main():
     box, _bounds, box_path = _declared_box(_box_spec, e)
     pieces = {name: [] for name in e.PIECE_COLORS}
@@ -99,10 +135,6 @@ def main():
     for x,y,tip in box.pack.cond_mount[-1]:
         region('front-bottom',f'Condenser host and supporting finger {x:g}/{y:g}',
                [x-5,x+5,y-5,y+5,box.outer[4],tip])
-    fore=box.outer[3]-e.socket_cap-e.c14_tunnel_len
-    for x,z in box.pack.c14:
-        region('back-top',f'C14 host and wall {x:g}',
-               [x-5,x+5,fore,box.outer[3],z-5,z+5])
     split=e.cap_split_z(box.pack.pump_trays)
     lane = min(abs(cx) for cx, _cy, _cz in box.pack.pump_trays) - e._tray.boss_half - e.cap_boss_air
     for y in e.cap_screw_ys(box.inner,box.pack.collet_plate):
@@ -121,6 +153,7 @@ def main():
         region(name,'Both pogo insert hosts, loading passages and blind caps',
                bounds)
     dock_regions(box, region)
+    above_core_regions(box, region)
     poses = {}
     for name, rows in pieces.items():
         mesh = trimesh.load_mesh(ENC/f'enclosure-{name}.stl', process=False)
@@ -133,6 +166,12 @@ def main():
             row['print_bounds_mm'] = transformed_bounds(
                 clipped, poses[name]['source_to_print_mm'])
     paths=[Path(__file__),ENC/'enclosure.py',ENC/'_enclosure_interface.py',box_path,
+           Path(e._above_core_shell.__file__),
+           Path(e._above_core_shell.layout.__file__),
+           ROOT/'hardware/manifold-layout/above-core.json',
+           ROOT/'hardware/reference/teyleten-relay/teyleten_relay.py',
+           Path(e._funnel_frame_part.__file__),
+           Path(e._funnel_frame_part.funnel.__file__),
            Path(e._dock.__file__),
            Path(e._retention.__file__),
            Path(e._dock.plumbing.__file__),

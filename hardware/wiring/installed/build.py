@@ -88,7 +88,8 @@ def export_enclosure(assembly, target):
         else:physical.add(child,name=child.name)
     export_assembly(physical,str(target))
     if wires is not None:
-        export_assembly(wires,str(OUT.with_suffix('.step')))
+        # Preserve native swept-face orientation through STEP readback.
+        export_assembly(wires,str(OUT.with_suffix('.step')),precision_mode=1)
         write_manifest(assembly.wiring_model,Path(target))
         install(Path(target),OUT.with_suffix('.step'))
 
@@ -138,7 +139,7 @@ def main():
     print('Resolve electrical attachments and route every conductor',flush=True)
     wires,manifest=compose(scene,ea)
     write_manifest(manifest,target)
-    export_assembly(wires,str(OUT.with_suffix('.step')))
+    export_assembly(wires,str(OUT.with_suffix('.step')),precision_mode=1)
     print('Install wiring while retaining all physical assembly records and meshes',flush=True)
     receipt=install(target,OUT.with_suffix('.step'),verify_retained='--verify-retained' in sys.argv)
     receipt['connection_count']=manifest['connection_count']
