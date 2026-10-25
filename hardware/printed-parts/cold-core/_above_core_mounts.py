@@ -910,11 +910,18 @@ def reservoir_b_fill_features(cup_height):
     upper_top = upper_ceiling+data['upper_cover_thickness_mm']
     lower_roof = cover(lower, data['roof_top_z_mm'], margin)
     upper_roof = cover(upper_horizontal, upper_top, 3.6)
-    link_box = tube.BoundingBox()
     link_top = lid_bottom-importlib.import_module('_cold_core_interface').cap_lid_clearance
+    link_radius = 3.75
+    link_y_overlap = 2.0
+    link_min = (min(a[0], b[0])-link_radius,
+                min(a[1], b[1])-link_y_overlap,
+                min(a[2], b[2])-link_radius)
+    link_max = (max(a[0], b[0])+link_radius,
+                max(a[1], b[1])+link_y_overlap, link_top+.01)
+    # The single flat corridor overlaps both fitting pockets. Its 4.2 mm
+    # bottom backing avoids cutter-junction tips beside the shallow link.
     link_opening = cq.Solid.makeBox(
-        link_box.xlen, link_box.ylen, link_top-max(a[2], b[2])+.01,
-        cq.Vector(link_box.xmin, link_box.ymin, max(a[2], b[2])))
+        *(high-low for low, high in zip(link_min, link_max)), cq.Vector(*link_min))
     return {
         'cup_add': carrier,
         'lid_add': lower_roof.fuse(upper_roof),
@@ -927,6 +934,8 @@ def reservoir_b_fill_features(cup_height):
         'upper_cover': upper_roof,
         'upper_cover_top_z_mm': upper_top,
         'upper_cover_thickness_mm': data['upper_cover_thickness_mm'],
+        'link_access': link_opening,
+        'link_access_bounds_mm': (link_min, link_max),
     }
 
 
