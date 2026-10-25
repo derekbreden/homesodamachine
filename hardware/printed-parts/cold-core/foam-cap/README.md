@@ -39,11 +39,13 @@ and west, retains 3 mm of outer stock and has a 2.8 × 2 mm closed tie window
 below its seat. One
 six-inch tie retains each collar without crossing a release collet or the
 downward lead root. Tighten the pump screws before dropping the meter into
-its bearings. The meter and its direct inlet stem belong to the standalone
-core assembly.
-The fore bearing has one flat step above the pump foot and soda-riser foam,
-leaving a 4.6 mm-thick east root below Z280. Its nominal gap to the uncompressed
-foam sleeve is 0.196 mm. The aft bearing occupies the fore 6 mm of its fixed
+its bearings. The meter, continuous inlet tube, accepted R14 holder and
+single 63 mm square-ended foam piece belong to the standalone core assembly.
+Thread the tube through the holder and slide the foam over both before
+connecting the meter. The holder has a 2 mm wall and 3 mm legs; local foam
+compression remains an estimate informed by the recorded physical fit.
+The fore bearing has one flat step above the pump foot,
+leaving a 4.6 mm-thick east root below Z280. The aft bearing occupies the fore 6 mm of its fixed
 collar band, leaving 0.1 mm at the band's fore edge.
 
 Two JG union elbows have integral lid restraints. V-A's east turn sits on
@@ -152,11 +154,12 @@ The upper passages follow the installed equipment:
 - The gas guide feeds the retained lower gas lane through a shallow shift;
   the carbonator fitting and support-ring approach retain their own stations.
 - The soda outlet retains its lower riser beside the coil, then turns through
-  a curved 7.5 mm passage above the tank to world (50, 354.3696, 253.4) mm.
+  a curved 7.5 mm passage above the tank to world (50, 342.4148, 253.4) mm.
   Its R14 upper bends occupy a 2 mm-wall sleeve within the cup. The horizontal
   span retains 2.10 mm of floor beneath the passage; the curved entry crosses
   the cup floor beside the lower riser. The plain upper guide is a boundary
-  in one uncut tube that continues into the meter's downward inlet socket.
+  in one uncut tube that follows the accepted R14 holder directly into the
+  meter inlet. No extra fitting or tube cut occurs at the guide.
 - Reed and sensor looms have separate lower entries and upper exits. Their
   7.5 mm passages make 5.5 mm turns within the cup. Reed B crosses at world
   Y205 around the PCB columns; the sensor loom passes around the PSU columns.

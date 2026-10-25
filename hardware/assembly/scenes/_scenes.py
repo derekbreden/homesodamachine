@@ -70,6 +70,17 @@ CORE_INLET_HEADER_PREASSEMBLY = (
     "tube-above-core-tee-regulator",
 )
 
+# The free concealed-tube end enters the fixed meter during column closure.
+BACK_COLUMN_REAR_PREASSEMBLY = (
+    "bulkhead-carb",
+    "bulkhead-carb-nut",
+    "bulkhead-drain",
+    "bulkhead-drain-nut",
+    "soda-stem-elbow",
+    "soda-outlet-return-stem",
+    "tube-soda-meter-bulkhead",
+)
+
 
 def core_names() -> tuple:
     """Every body the cold core's own assembly places, off the card written beside its STEP.
@@ -168,14 +179,14 @@ SCENES = (
         # It is the longest run in the appliance and its far end is a valve on the front top,
         # which is why it is made up here rather than reached for down a closed box.
         also=("tube-fluid-18",),
-        later=("bulkhead-carb", "bulkhead-drain",
-               *[name for name in CORE_INLET_HEADER_PREASSEMBLY
-                 if not name.startswith("tube-")]),
+        later=tuple(name for name in CORE_INLET_HEADER_PREASSEMBLY
+                    if not name.startswith("tube-")),
         cam=(0.6, -1.0, 0.5), up=(0, 0, 1), zoom=2.7, look="centre",
         note="Turned over, which is how it is worked: its ceiling is the bench, the Z seam "
              "looks up and the Y-seam mouth faces the room — the +X wall is seen from where a "
-             "hand reaches it. The soda and drain bulkheads, their nuts and the nested soda "
-             "return elbows install after the back column closes. The split tee, regulator and "
+             "hand reaches it. The preassembled soda outlet chain and both rear bulkheads "
+             "ride with this piece; the free concealed-tube end enters the fixed meter during "
+             "the final 15.7 mm of closing. The split tee, regulator and "
              "three header links are prepared on the core; the open roof saddles capture them "
              "during the ride. The tray's sleeve stands empty.",
     ),
@@ -441,9 +452,6 @@ def holders(assembly=None):
     for name in above_core.core_equipment_names():
         if name in out:
             out[name] = "foam-assembly"
-    for name in ('soda-inlet-stem',):
-        if name in out:
-            out[name] = "foam-assembly"
     for name in ('tube-soda-core-rise',):
         if active(name):
             out[name] = "foam-assembly"
@@ -536,7 +544,7 @@ def named(scene, runs, assembly=None):
         derived |= inner - set(scene.later)
     import above_core
     promoted = above_core.core_equipment_names() | {
-        'digiten-flow', 'soda-inlet-stem', 'tube-soda-core-rise'}
+        'digiten-flow', 'tube-soda-core-rise'}
     if assembly is not None:
         promoted |= set(getattr(assembly, 'core_external_components', ()))
     derived -= {INNER_ROOT_HELD+n for n in promoted if n in derived}

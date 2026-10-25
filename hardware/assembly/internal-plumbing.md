@@ -107,7 +107,7 @@ The open-fore roof saddles capture the regulator, and the ASSE outlet cuff
 slides over the tee's 15 mm male stem during the final 15 mm of closing travel.
 Guide that engagement through the uncovered roof apertures, check the actual
 seating marks, then tighten the regulator ties. The named ceiling pocket
-continues to the frame opening and retains 6 mm of roof above this capture
+continues to the frame opening and retains 3 mm of roof above this capture
 path. The [native assembly record](/hardware/mechanical-qualification/enclosure-above-core/native-contact-review.json)
 bounds this sequence; it establishes no installation force or seal.
 The broad saddles carry the bodies; ties retain them. Keep all release collets
@@ -261,47 +261,50 @@ V-J on `fluid-28`. Complete these routes in §4.
 
 ### 4. Rear beverage connections
 
-The soda outlet is the middle-right rear fitting. The blue line from the core
-guide rises into the downward socket of the DIGITEN's direct inlet stem elbow.
-The meter sits in its two cold-core lid collar bearings, with its lead root
-down and label east. Its outlet collet meets the rear return fitting's collet;
-the continuous short tube occupies both sockets with no exposed span.
+The soda outlet is the middle-right rear fitting. One continuous blue tube
+runs from the carbonator through the plain core guide at world
+(50, 342.4148, 253.4) mm and the accepted R14 printed bend holder directly
+into the DIGITEN inlet. The holder has a 2 mm wall, 3 mm legs and a 6.8 mm
+channel. The guide adds no joint, insertion or physical cut. The meter sits
+in its two cold-core lid collar bearings, with its lead root down and label
+east. Its outlet collet meets the rear return fitting's collet; the short
+tube occupies both sockets with no exposed span.
 
-Keep the rear soda bulkhead and nut, the adjacent vent/drain bulkhead and nut,
-both rear stem elbows and the concealed soda tube out of their installed
-positions during the back-column ride. Leave the white 4 mm drain-vent line
-unconnected at its rear bulkhead. With the roof panel open, hold or temporarily
-tape the loose soda nut at the rear-wall parking pose in the
-[rear assembly record](/hardware/mechanical-qualification/enclosure-above-core/rear-plumbing-assembly.json).
-No printed stock retains that loose nut.
+Thread the continuous tube through the holder. Square-cut one 63 mm piece
+of the owned CARGEN ID6.35/OD25.4 mm foam and slide it over the tube and holder
+before connecting the meter. Keep the square ends; no axial slit or shaped
+trimming is specified. The nominal foam centreline is 62.867 mm. The foam
+compresses around the holder and locally beside V-K, the pump, its inlet TPU
+elbow and barb band. The occupied CAD display estimates that compression;
+it is not a measured strain, physical air-gap or thermal result. The external
+umbilical retains its five 1-ft foam segments. Meter-body insulation remains
+deferred.
 
-After the quadrants are home:
+Prepare the rear soda connection with back-top on the open bench:
 
-1. Preassemble both rear stem elbows with the nominal 32.591 mm concealed blue
-   tube: 16.891 mm in the return elbow and 15.7 mm free for the meter. Establish
-   actual socket engagements as described under cut lengths above.
-2. Feed the complete elbow pair and tube 15.7 mm fore into the fixed meter
-   outlet, maintaining their common axis. Keep the moving collets and pigtail
-   accessible.
-3. Move the parked soda nut diagonally to its final axis. Feed the PP1208E soda
-   bulkhead from outside onto the fixed stem while bringing the nut onto its
-   barrel, then secure the nut. The tube and rear elbows remain in place.
-4. Install the adjacent vent/drain bulkhead from outside and its nut from
-   inside. Connect the white 4 mm drain-vent line last, keeping the complete
-   atmospheric path open.
+1. Install the soda and adjacent vent/drain bulkheads with their nuts through
+   the rear wall. Keep the white 4 mm drain-vent line disconnected for final
+   dressing through the open roof.
+2. Connect both nested soda stem elbows and the nominal 32.591 mm concealed
+   blue tube. Seat 16.891 mm in the return elbow and leave 15.7 mm free for
+   the meter, replacing nominal depths with the actual receiving marks when
+   preparing the blank. Secure the bulkhead nuts while access is open.
+3. Close the back column with this complete rear group. Guide its free tube
+   end into the fixed meter outlet during the final 15.7 mm of fore travel.
+   Keep the meter, both collars and rear fittings on their common axis.
+   The prepared inlet header is captured at the same time by its roof saddles
+   and the ASSE cuff, as described in §2.
+4. With the quadrants seated, inspect the engagements through the open roof
+   and connect the white drain-vent line, keeping its atmospheric path open.
+   Dress the remaining inter-quadrant leads before installing either closure.
 
-The manual record covers sampled nominal envelopes, including the held nut's
-closing ride. It retains the explicit 0.22493 mm³ estimated soda fitting contact;
-hardware collet fit, threading, hand/tool access and temporary nut retention
-remain unqualified.
-
-Square-cut one 15 mm length of the owned CARGEN ID6.35/OD25.4 mm foam, then make
-one straight axial slit. Wrap it around the straight soda riser at world
-X50/Y354.3696, covering Z264.5..279.5, and close the slit with the existing
-3M 425 foil tape. Keep the lid's tube seal and the inlet fitting's release
-collet accessible. The external umbilical retains its five 1-ft foam segments.
-Meter-body insulation remains deferred; bare component clearances do not
-qualify a complete insulated assembly.
+The [rear assembly record](/hardware/mechanical-qualification/enclosure-above-core/rear-plumbing-assembly.json)
+bounds the complete rear group's continuous closing envelope and finite
+meter-outlet capture. It retains the explicit 0.22493 mm³ nominal soda fitting
+contact. Collet fit, connection force, threading and hand/tool access remain
+unqualified. The meter installs on the open core before closure; a straight
+late lift meets the fixed ASSE saddle and a fore insertion crosses its
+collar bearing.
 
 Flavor A and B use black 4 mm lines from the reducers at V-G and V-J to the
 lower-left and lower-right rear fittings respectively. Retain R25 turns and
