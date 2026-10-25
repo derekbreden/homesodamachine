@@ -115,7 +115,7 @@ Front-top is the fixture for the whole flavor side.
 
 1. **The manifold** per
    [internal plumbing §3](internal-plumbing.md#3-flavor-manifold-v-a-through-v-j--y-a-y-b-y-c-y-d-y-f-y-g--pumps),
-   whose steps 1–4 dock the pumps on the machine's four pump tees under tee caps. This build's
+   whose steps 1–4 seat the machine's four pump tees in front-top's tee wall. This build's
    dock is the tee carrier with Y-C, Y-D, Y-F and Y-G
    ([tee carrier](/hardware/printed-parts/enclosure/tee-carrier/README.md#assembly)); the aft
    valves V-C, V-D, V-G and V-J and their window covers; the fore valves V-E, V-F, V-H and V-I
@@ -150,7 +150,7 @@ Populate it inverted, ceiling down
    C14 from inside, two M3×8 into the tunnel; the RJ11 keystone. The CO2 and OVER openings stay
    empty.
 2. **The meter** in its two roof anchors, one 6" zip tie each, arrow toward SODA
-   ([internal plumbing §4](internal-plumbing.md#4-risers-up-to-the-umbilical-bulkheads-on-the-y-wall)).
+   ([internal plumbing §4](internal-plumbing.md#4-rear-beverage-connections)).
 3. **The soda runs**, blue 1/4" LLDPE. TAP's inboard collet → the meter's inlet is the one run
    with no model: TAP stands west of SODA on the top row and the meter hangs by SODA's column,
    so cut it on the parts, across the empty water deck, bends no tighter than R14, clear of the
@@ -181,7 +181,9 @@ Populate it inverted, ceiling down
 Build it upright on the bench and keep it out of the box until the box is closed
 ([internal plumbing §3](internal-plumbing.md#3-flavor-manifold-v-a-through-v-j--y-a-y-b-y-c-y-d-y-f-y-g--pumps)):
 - Both KPHM600s go into the cradle wells, under the clamp and its two M3×60.
-- Push 1/4" LLDPE into both silicone ends and zip-tie them. Set the free tips as §3 gives.
+- Pull Kamoer's barbed connectors and push 1/4" LLDPE into both silicone ends under the loosened
+  pump-head housing, then tighten the housing; it clamps the tube (§3 step 5). Set the free tips
+  as §3 gives.
 
 ## 5. The reservoirs
 
@@ -231,7 +233,7 @@ the order [§4](enclosure-mechanical.md#4-close-the-front-column) and
    ([enclosure mechanical §6](enclosure-mechanical.md#6-close-the-box)).
 5. **The FLAVOR risers:** V-G and V-J to the two FLAVOR bulkheads, `fluid-18` and `fluid-28`, at
    their developed lengths in the assembly facts
-   ([internal plumbing §4](internal-plumbing.md#4-risers-up-to-the-umbilical-bulkheads-on-the-y-wall)).
+   ([internal plumbing §4](internal-plumbing.md#4-rear-beverage-connections)).
 6. **The pump cradle** goes in last, through the front bay
    ([internal plumbing §3](internal-plumbing.md#3-flavor-manifold-v-a-through-v-j--y-a-y-b-y-c-y-d-y-f-y-g--pumps)
    step 7): the J13 ribbon's free end through front-top's lead bore, its four Fastons
@@ -287,8 +289,9 @@ Follow [firmware and commissioning](firmware-and-commissioning.md):
   J4's pins.
 - **§3–§5:** flash the main board, the 4.3B and the 1.47 from `main`, one board on USB at a time
   or naming the port ([firmware](/firmware/README.md#building-and-flashing)).
-- **§6:** the I²C ACKs; the eight reservoir reeds with a magnet; the meter's impeller turned by
-  hand; the faucet's touch switching the flavor. No probes, carbonator reeds or MQ-6 here.
+- **§6:** the I²C ACKs; the eight reservoir reeds with a magnet; the faucet's touch switching the
+  flavor. No probes, carbonator reeds or MQ-6 here. The meter's ports are both made up, so its
+  pulses wait for the first pour in §11.
 - **§7:** `selftest`. Eight valves click and both pumps turn; the V-A, V-B, V-K and fan steps
   drive nothing.
 - **§9:** `rtc set` and the sound checks.
