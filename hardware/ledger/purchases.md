@@ -526,6 +526,9 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 
 | Part | ASIN link | Qty | $ | Order # | Ordered | Delivered | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- |
+| <!--purchase:pur-7f5e5ae2f85e4d74bca9edb78b7332f0--> Klein Tools 54400MBX MODbox tall compartment box, full width — clear-lid IP65 small-parts organizer, 9 removable bins and 20 compartments, for the JST housing and spade terminal stock. Sold by Amazon.com; $64.98 + $4.71 allocated estimated NE tax, free shipping; Amazon order details verified 2026-10-24, arriving 2026-10-27 | [B0GLKTG7C6](https://www.amazon.com/dp/B0GLKTG7C6) | 1 | $69.69 | 114-0006703-7518633 | 2026-10-24 | — | ON-ORDER |
+| <!--purchase:pur-ae7d87fe77614d0098db388d7f0fa11d--> Klein Tools 54823MB MODbox 3-drawer tool box — the base the 54400MBX above stacks on; ball-bearing full-extension slides, 50 lb rating, 24 removable dividers. Sold by Amazon.com; $169.98 + $12.32 allocated estimated NE tax, free shipping; Amazon order details verified 2026-10-24, arriving 2026-10-26 | [B0CZ7FQGMG](https://www.amazon.com/dp/B0CZ7FQGMG) | 1 | $182.30 | 114-0006703-7518633 | 2026-10-24 | — | ON-ORDER |
+| <!--purchase:pur-e17001f6d6074a8884e9e1b2af82fa1f--> Klein Tools 54866MB MODbox roll dispenser (spool holder rail attachment) — spool rods on MODbox rails for the stranded wire reels a build cuts from ([bom.md](/hardware/ledger/bom.md) §9 ribbons, §11 hookup wire); adjustable width, 20 lb rating. Two at $19.98 ea + $2.90 allocated estimated NE tax, sold by Amazon.com, free shipping; Amazon order details verified 2026-10-24, arriving 2026-10-25 | [B0H9B8LC8V](https://www.amazon.com/dp/B0H9B8LC8V) | 2 | $42.86 | 114-0006703-7518633 | 2026-10-24 | — | ON-ORDER |
 | <!--purchase:pur-250afee3f9d341c9a9d18d4e33c0fd0e--> BESSEY GSCC2.506 clutch-style bar clamps, 6" opening × 2.5" throat, 600 lb — C1/C2, the two outboard metal screw clamps of the [tube insertion guide](/hardware/tube-insertion-guide/README.md). Two clamps, $10.99 ea + $1.60 estimated tax, free shipping | [B000FA0BL8](https://www.amazon.com/dp/B000FA0BL8) | 2 | $23.58 | 112-8160692-2465006 | 2026-10-10 | — | ON-ORDER (Amazon estimate 2026-10-13; order details verified 2026-10-11) |
 | <!--purchase:pur-6efcbbd5fcb44c888f18a2ef86a18960--> VEVOR adjustable 48" workbench w/ power outlet, wheels, pegboard, 2000 lb load | [B0FCD13KKQ](https://www.amazon.com/dp/B0FCD13KKQ) | 2 | $172.64 ea | 114-1978684-7068269 | 2026-04-20 | 2026-04-27 | ACQUIRED |
 | <!--purchase:pur-9d460728372b4fa4ac76a549453697e0--> VEVOR 72" adjustable garage workbench, heavy-duty | [B0C9SYN89J](https://www.amazon.com/dp/B0C9SYN89J) | 1 | $383.85 | 112-2273377-9628208 | 2026-04-06 | — | ACQUIRED |
@@ -559,6 +562,7 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | <!--purchase:pur-ca9d45d7a7324f948e048807d3467361--> Polymaker PolyDryer Filament Storage Box XL, 2-Pack (Polymaker PX01009) — sealed spool boxes sized for a 3 kg spool, hygrometer in the lid, filament fed out through the box wall. What a 3 kg spool prints from: it turns too stiffly in the SUNLU E2's chamber to feed a print from there. ($109.99 item + $1.99 shipping + $8.11 tax) | [B0FPQV18L5](https://www.amazon.com/dp/B0FPQV18L5) | 1 pk (2) | $120.09 | 114-8931415-0067401 | 2026-08-13 | 2026-08-15 | ACQUIRED |
 | <!--purchase:pur-f7d7511ce9394cae80352c28342d27fd--> Polymaker PolyDryer Filament Storage Box (1 kg spool), single — $27.99 + $2.03 NE tax | [B0CK17RTP4](https://www.amazon.com/dp/B0CK17RTP4) | 1 | $30.02 | 114-3202733-4767455 | 2026-10-01 | 2026-10-02 | ACQUIRED |
 | <!--purchase:pur-6fb9cbd2160040c983dc0055e58d4de1--> Polymaker PolyDryer Filament Storage Box (1 kg spool), single — a second order placed a minute later; it shipped and arrived with the box above. $27.99 + $2.03 NE tax | [B0CK17RTP4](https://www.amazon.com/dp/B0CK17RTP4) | 1 | $30.02 | 114-4680955-8473844 | 2026-10-01 | 2026-10-02 | ACQUIRED |
+| <!--purchase:pur-242d69307ce84a69948b9e502ff3dd71--> Polymaker PolyDryer Filament Storage Box (1 kg spool), two — sold by Polymaker LLC; $27.99 ea + $4.06 allocated estimated NE tax, free shipping; Amazon order details verified 2026-10-24, arriving 2026-10-26 | [B0CK17RTP4](https://www.amazon.com/dp/B0CK17RTP4) | 2 | $60.04 | 114-0006703-7518633 | 2026-10-24 | — | ON-ORDER |
 | <!--purchase:pur-6589f83fde5f4aeeabb9b600cb513c8c--> SUNLU Official 3D Printer Filament Dryer E2 | [B0F5PMMXKD](https://www.amazon.com/dp/B0F5PMMXKD) | 1 | $321.74 | 114-9662555-0662608 | 2026-04-05 | 2026-04-07 | ACQUIRED |
 | <!--purchase:pur-bc68eb131e31422d8ad8a45a02ba8328--> DUROZZLE 0.6mm Diamond PCD Nozzle Hotend, L-side (H2D/H2S/P2S/A1 series) | [B0GWDBQW4G](https://www.amazon.com/dp/B0GWDBQW4G) | 1 | $64.24 | 112-9688188-4729035 | 2026-05-08 | 2026-05-09 | ACQUIRED |
 | <!--purchase:pur-309471632e7349928ff68b62bc97314f--> DUROZZLE 0.6mm Tungsten Carbide Nozzle Hotend, L-side (H2D/H2S/P2S/A1 series) | [B0GWDDKG47](https://www.amazon.com/dp/B0GWDDKG47) | 1 | $37.43 | 112-7749428-2806629 | 2026-05-08 | 2026-05-09 | ACQUIRED (used on faucet-shell PET-CF attempt 7) |
@@ -808,17 +812,17 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | Acquired hardware valuation — includes replaced/returned originals | [$39,487.86](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,519.51](LEDGER_LABOR) |
 | Acquired procurement valuation (combined) | [$46,007.37](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$1,036.69](LEDGER_ON_ORDER) |
+| ON-ORDER | [$1,391.58](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Recorded procurement valuation — includes commitments** | [$47,097.13](LEDGER_GRAND_TOTAL) |
+| **Recorded procurement valuation — includes commitments** | [$47,452.02](LEDGER_GRAND_TOTAL) |
 
 Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
 | Final vendor amounts | [$20,798.77](LEDGER_FINAL_VENDOR) |
-| Estimated amounts | [$2,308.68](LEDGER_ESTIMATES) |
+| Estimated amounts | [$2,663.57](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$23,989.68](LEDGER_LEGACY_UNVERIFIED) |
 
 Merchant-evidenced payments (project shares; includes the undated bucket):

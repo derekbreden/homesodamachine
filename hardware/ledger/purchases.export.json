@@ -193,6 +193,14 @@
       "purchase_id": "pur-6cd30f5bb2824177a87475fe86b765d1"
     },
     {
+      "allocation_id": "alloc-1dd4ee149dfe42e58f2204fbbb9e678f",
+      "amount_minor": 6969,
+      "currency": "USD",
+      "event_id": "evt-f309b3ca14d1489d87b39daf5c7b7841",
+      "order_id": "amazon:114-0006703-7518633",
+      "purchase_id": "pur-7f5e5ae2f85e4d74bca9edb78b7332f0"
+    },
+    {
       "allocation_id": "alloc-1e64f02ba23342a4a733c635fb6617a9",
       "amount_minor": 20364,
       "currency": "USD",
@@ -343,6 +351,14 @@
       "event_id": "evt-62588441fd5642cdb529536a8652c08a",
       "order_id": "bambu:us712460111015776257",
       "purchase_id": "pur-2457df51398f4e368395d5ee52488c9b"
+    },
+    {
+      "allocation_id": "alloc-3b61d87597fd42388d02bd53f3a944ba",
+      "amount_minor": 4286,
+      "currency": "USD",
+      "event_id": "evt-f309b3ca14d1489d87b39daf5c7b7841",
+      "order_id": "amazon:114-0006703-7518633",
+      "purchase_id": "pur-e17001f6d6074a8884e9e1b2af82fa1f"
     },
     {
       "allocation_id": "alloc-3ba8d7076b1441f6b5f631ef46da5630",
@@ -1185,12 +1201,28 @@
       "purchase_id": "pur-7ec9003837a84240a84dce82a00c39f3"
     },
     {
+      "allocation_id": "alloc-d356935e0225460c9dbba2f2bc89d4e2",
+      "amount_minor": 6004,
+      "currency": "USD",
+      "event_id": "evt-f309b3ca14d1489d87b39daf5c7b7841",
+      "order_id": "amazon:114-0006703-7518633",
+      "purchase_id": "pur-242d69307ce84a69948b9e502ff3dd71"
+    },
+    {
       "allocation_id": "alloc-d4e7e67f23ce46449071c98a7ce6539d",
       "amount_minor": 7998,
       "currency": "USD",
       "event_id": "evt-dd13591ae1b245d5bde74f9f06d64679",
       "order_id": "bambu:us715792490246602753",
       "purchase_id": "pur-9fdd5aadd3a5416cb941df9d49ef528b"
+    },
+    {
+      "allocation_id": "alloc-d554d4356e674098873f3cdf3fca912b",
+      "amount_minor": 18230,
+      "currency": "USD",
+      "event_id": "evt-f309b3ca14d1489d87b39daf5c7b7841",
+      "order_id": "amazon:114-0006703-7518633",
+      "purchase_id": "pur-ae7d87fe77614d0098db388d7f0fa11d"
     },
     {
       "allocation_id": "alloc-d55c38a478424974baefefb1e88c6a06",
@@ -2768,6 +2800,27 @@
       "source_ids": [],
       "stream": "project merchant charges and refunds",
       "vendor": "BrewHardware"
+    },
+    {
+      "checked_at": "2026-10-24",
+      "complete_period": null,
+      "coverage": "partial",
+      "coverage_id": "coverage-fda23ec3e207480aad6773991c0498cc",
+      "evidence_type": "fulfillment_and_merchant_transactions",
+      "examined_period": {
+        "end": "2026-10-24",
+        "start": "2026-10-24"
+      },
+      "note": "Order details and order-scoped Transactions for one named project order; its USD 354.89 debit is Pending. No claim of complete Amazon account coverage.",
+      "order_ids": [
+        "amazon:114-0006703-7518633"
+      ],
+      "source_ids": [
+        "src-ae55c5c9340f446d9252acbc07d9463c",
+        "src-ed76085250f14e07816a73e4ce658525"
+      ],
+      "stream": "selected project orders and order-scoped Transactions",
+      "vendor": "Amazon"
     },
     {
       "checked_at": "2026-10-23",
@@ -7151,6 +7204,40 @@
     },
     {
       "allocation_ids": [
+        "alloc-1dd4ee149dfe42e58f2204fbbb9e678f",
+        "alloc-3b61d87597fd42388d02bd53f3a944ba",
+        "alloc-d356935e0225460c9dbba2f2bc89d4e2",
+        "alloc-d554d4356e674098873f3cdf3fca912b"
+      ],
+      "allocation_status": "all_project",
+      "amount_minor": 35489,
+      "confirmation": "expected",
+      "currency": "USD",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-10-24"
+      },
+      "event_id": "evt-f309b3ca14d1489d87b39daf5c7b7841",
+      "event_type": "charge",
+      "order_ids": [
+        "amazon:114-0006703-7518633"
+      ],
+      "purchase_ids": [
+        "pur-242d69307ce84a69948b9e502ff3dd71",
+        "pur-7f5e5ae2f85e4d74bca9edb78b7332f0",
+        "pur-ae7d87fe77614d0098db388d7f0fa11d",
+        "pur-e17001f6d6074a8884e9e1b2af82fa1f"
+      ],
+      "source_ids": [
+        "src-ae55c5c9340f446d9252acbc07d9463c",
+        "src-ed76085250f14e07816a73e4ce658525"
+      ],
+      "unallocated_to_purchase_minor": 0,
+      "vendor": "Amazon",
+      "verified_at": "2026-10-24"
+    },
+    {
+      "allocation_ids": [
         "alloc-29f8ab9546bb4b1193a78bcbeac7ec52"
       ],
       "allocation_status": "all_project",
@@ -7722,7 +7809,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:41ed0759d1b92660f209a217fa539bdfa72859ed15cc15ab4848156e87e5d0e5",
+  "input_fingerprint": "sha256:7eadf92fa7359ba996f36550494cdb991ba1d19b9d52466e3fc23b94b3efcfea",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -12206,6 +12293,28 @@
       "source_ids": [
         "saved-amazon:113-0268248-7908209",
         "src-05758d04ba5542e4a019685a09254f0d"
+      ],
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [
+        "evt-f309b3ca14d1489d87b39daf5c7b7841"
+      ],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-24"
+      },
+      "order_id": "amazon:114-0006703-7518633",
+      "purchase_ids": [
+        "pur-242d69307ce84a69948b9e502ff3dd71",
+        "pur-7f5e5ae2f85e4d74bca9edb78b7332f0",
+        "pur-ae7d87fe77614d0098db388d7f0fa11d",
+        "pur-e17001f6d6074a8884e9e1b2af82fa1f"
+      ],
+      "reference": "114-0006703-7518633",
+      "source_ids": [
+        "src-ed76085250f14e07816a73e4ce658525"
       ],
       "vendor": "Amazon"
     },
@@ -20569,6 +20678,53 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-amazon:112-7063184-8235469"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 6004,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "Polymaker PolyDryer Filament Storage Box (1 kg spool), two — sold by Polymaker LLC; $27.99 ea + $4.06 allocated estimated NE tax, free shipping; Amazon order details verified 2026-10-24, arriving 2026-10-26",
+      "event_ids": [
+        "evt-f309b3ca14d1489d87b39daf5c7b7841"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-242d69307ce84a69948b9e502ff3dd71",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-24"
+      },
+      "order_ids": [
+        "amazon:114-0006703-7518633"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-242d69307ce84a69948b9e502ff3dd71",
+      "purpose": "equipment_tooling",
+      "quantity": 2,
+      "quantity_text": "2",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-24"
+      },
+      "row_date_basis": "order_date",
+      "section": "13. Printing consumables",
+      "service_period": null,
+      "source_ids": [
+        "src-ae55c5c9340f446d9252acbc07d9463c",
+        "src-ed76085250f14e07816a73e4ce658525"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -32417,6 +32573,53 @@
     },
     {
       "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 6969,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "Klein Tools 54400MBX MODbox tall compartment box, full width — clear-lid IP65 small-parts organizer, 9 removable bins and 20 compartments, for the JST housing and spade terminal stock. Sold by Amazon.com; $64.98 + $4.71 allocated estimated NE tax, free shipping; Amazon order details verified 2026-10-24, arriving 2026-10-27",
+      "event_ids": [
+        "evt-f309b3ca14d1489d87b39daf5c7b7841"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-7f5e5ae2f85e4d74bca9edb78b7332f0",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-24"
+      },
+      "order_ids": [
+        "amazon:114-0006703-7518633"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-7f5e5ae2f85e4d74bca9edb78b7332f0",
+      "purpose": "equipment_tooling",
+      "quantity": 1,
+      "quantity_text": "1",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-24"
+      },
+      "row_date_basis": "order_date",
+      "section": "12. Shop / bench infrastructure",
+      "service_period": null,
+      "source_ids": [
+        "src-ae55c5c9340f446d9252acbc07d9463c",
+        "src-ed76085250f14e07816a73e4ce658525"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
       "amount_evidence": "final_vendor_amount",
       "amount_minor": 7720,
       "contributes": true,
@@ -38584,6 +38787,53 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-amazon:112-4810974-5145053"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 18230,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "Klein Tools 54823MB MODbox 3-drawer tool box — the base the 54400MBX above stacks on; ball-bearing full-extension slides, 50 lb rating, 24 removable dividers. Sold by Amazon.com; $169.98 + $12.32 allocated estimated NE tax, free shipping; Amazon order details verified 2026-10-24, arriving 2026-10-26",
+      "event_ids": [
+        "evt-f309b3ca14d1489d87b39daf5c7b7841"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-ae7d87fe77614d0098db388d7f0fa11d",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-24"
+      },
+      "order_ids": [
+        "amazon:114-0006703-7518633"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-ae7d87fe77614d0098db388d7f0fa11d",
+      "purpose": "equipment_tooling",
+      "quantity": 1,
+      "quantity_text": "1",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-24"
+      },
+      "row_date_basis": "order_date",
+      "section": "12. Shop / bench infrastructure",
+      "service_period": null,
+      "source_ids": [
+        "src-ae55c5c9340f446d9252acbc07d9463c",
+        "src-ed76085250f14e07816a73e4ce658525"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -45119,6 +45369,53 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-amazon:112-8958234-5634623"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 4286,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "Klein Tools 54866MB MODbox roll dispenser (spool holder rail attachment) — spool rods on MODbox rails for the stranded wire reels a build cuts from (bom.md §9 ribbons, §11 hookup wire); adjustable width, 20 lb rating. Two at $19.98 ea + $2.90 allocated estimated NE tax, sold by Amazon.com, free shipping; Amazon order details verified 2026-10-24, arriving 2026-10-25",
+      "event_ids": [
+        "evt-f309b3ca14d1489d87b39daf5c7b7841"
+      ],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-e17001f6d6074a8884e9e1b2af82fa1f",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-24"
+      },
+      "order_ids": [
+        "amazon:114-0006703-7518633"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-e17001f6d6074a8884e9e1b2af82fa1f",
+      "purpose": "equipment_tooling",
+      "quantity": 2,
+      "quantity_text": "2",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-24"
+      },
+      "row_date_basis": "order_date",
+      "section": "12. Shop / bench infrastructure",
+      "service_period": null,
+      "source_ids": [
+        "src-ae55c5c9340f446d9252acbc07d9463c",
+        "src-ed76085250f14e07816a73e4ce658525"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -58430,6 +58727,19 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-10-24"
+      },
+      "document_type": "pending_merchant_transaction",
+      "note": "Order-scoped Transactions lists the USD 354.89 debit In Progress (Pending) on 2026-10-24; this is an expected charge, without completed-charge or authorization proof. Delivery is pending.",
+      "proves": [],
+      "reference": "114-0006703-7518633",
+      "source_id": "src-ae55c5c9340f446d9252acbc07d9463c",
+      "vendor": "Amazon",
+      "verified_at": "2026-10-24"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-10-13"
       },
       "document_type": "merchant_order_page",
@@ -59705,6 +60015,22 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-10-24"
+      },
+      "document_type": "order_details",
+      "note": "Signed-in Amazon order details: ordered 2026-10-24; Klein Tools 54866MB MODbox Roll Dispenser (B0H9B8LC8V) × 2 at USD 19.98 each, arriving 2026-10-25; Polymaker PolyDryer Filament Storage Box (B0CK17RTP4) × 2 at USD 27.99 each, sold by Polymaker LLC, and Klein Tools 54823MB MODbox 3-Drawer Tool Box (B0CZ7FQGMG) at USD 169.98, both arriving 2026-10-26; Klein Tools 54400MBX MODbox Tall Compartment Box (B0GLKTG7C6) at USD 64.98, arriving 2026-10-27. The Klein items are sold by Amazon.com. USD 330.90 item subtotal, USD 0.00 shipping, USD 23.99 estimated tax and USD 354.89 grand total. The tax is not itemized; it is allocated in proportion to item price: USD 4.71 to the compartment box, 12.32 to the 3-drawer, 2.90 to the two roll dispensers and 4.06 to the two storage boxes.",
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "reference": "114-0006703-7518633",
+      "source_id": "src-ed76085250f14e07816a73e4ce658525",
+      "vendor": "Amazon",
+      "verified_at": "2026-10-24"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-03-18"
       },
       "document_type": "merchant_monetary_receipt",
@@ -60798,11 +61124,12 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 103669,
+          "amount_minor": 139158,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
             "pur-1ead43e8eead4989adf3de560d23febe",
+            "pur-242d69307ce84a69948b9e502ff3dd71",
             "pur-250afee3f9d341c9a9d18d4e33c0fd0e",
             "pur-25f35741f88e40729bec555987f79640",
             "pur-2c46198fe81f4cf7bf5a65d4e4ec638a",
@@ -60810,6 +61137,7 @@
             "pur-43767918757a4173a8b69a9b725d64fd",
             "pur-4eaf76e6557740d7b0e85e0be8664f71",
             "pur-6bc71f4f15b34503ac9bf8beea6ef815",
+            "pur-7f5e5ae2f85e4d74bca9edb78b7332f0",
             "pur-91bd3b099e80493ab591655550b439ca",
             "pur-9835cb05727440fa98029e6134ffd627",
             "pur-9c025ba9576044b38a4745d084361ea5",
@@ -60817,7 +61145,9 @@
             "pur-a61e59a7635c4aa0887475454ad04b04",
             "pur-a667e3ee975c42218852bc7b225d75a8",
             "pur-abd647629bfa41e1ae7de9bf129dbf44",
+            "pur-ae7d87fe77614d0098db388d7f0fa11d",
             "pur-d8a8a1e239ff48b6a6b19c43e22b4858",
+            "pur-e17001f6d6074a8884e9e1b2af82fa1f",
             "pur-f4ddddb90dbd4ae2bba5008f74f8d4b6"
           ],
           "unknown_amount_ids": []
@@ -60836,6 +61166,7 @@
       "expected_refund_event_ids": [],
       "outstanding_purchase_ids": [
         "pur-1ead43e8eead4989adf3de560d23febe",
+        "pur-242d69307ce84a69948b9e502ff3dd71",
         "pur-250afee3f9d341c9a9d18d4e33c0fd0e",
         "pur-25f35741f88e40729bec555987f79640",
         "pur-2c46198fe81f4cf7bf5a65d4e4ec638a",
@@ -60843,6 +61174,7 @@
         "pur-43767918757a4173a8b69a9b725d64fd",
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
         "pur-6bc71f4f15b34503ac9bf8beea6ef815",
+        "pur-7f5e5ae2f85e4d74bca9edb78b7332f0",
         "pur-91bd3b099e80493ab591655550b439ca",
         "pur-9835cb05727440fa98029e6134ffd627",
         "pur-9c025ba9576044b38a4745d084361ea5",
@@ -60850,9 +61182,11 @@
         "pur-a61e59a7635c4aa0887475454ad04b04",
         "pur-a667e3ee975c42218852bc7b225d75a8",
         "pur-abd647629bfa41e1ae7de9bf129dbf44",
+        "pur-ae7d87fe77614d0098db388d7f0fa11d",
         "pur-b6c01a5b012340fc888139c1070dc054",
         "pur-c887374045604177851c4a81cc779f0e",
         "pur-d8a8a1e239ff48b6a6b19c43e22b4858",
+        "pur-e17001f6d6074a8884e9e1b2af82fa1f",
         "pur-f4ddddb90dbd4ae2bba5008f74f8d4b6"
       ],
       "returned_without_evidenced_refund_purchase_ids": []
@@ -60869,7 +61203,8 @@
         "evt-c0203246ff88423a9af71d1977ede6c4",
         "evt-c8a1b3ae1a6d4021a36b2fe4e55971e9",
         "evt-e479c6487dd243a088862f30dcf951f6",
-        "evt-e5f1a5d1860941fe82124df7e77e67fe"
+        "evt-e5f1a5d1860941fe82124df7e77e67fe",
+        "evt-f309b3ca14d1489d87b39daf5c7b7841"
       ],
       "monthly": [
         {
@@ -61137,6 +61472,7 @@
             "evt-e5f1a5d1860941fe82124df7e77e67fe",
             "evt-ed4b655c12a24295898f2074f883b6a9",
             "evt-ef96ebf561264b5dafd229959a5acabe",
+            "evt-f309b3ca14d1489d87b39daf5c7b7841",
             "evt-fbf07ae494714e37ad3336ebf5f2b76a"
           ],
           "evidence_scope": "retrieved_records_only",
@@ -61862,7 +62198,7 @@
         },
         {
           "currency": "USD",
-          "estimate_minor": 66815,
+          "estimate_minor": 102304,
           "evidence_scope": "retrieved_records_only",
           "final_vendor_amount_minor": 124656,
           "legacy_unverified_minor": 30634,
@@ -61872,6 +62208,7 @@
             "pur-0d4eaf3ef27646a8b8f77ea46d4f2d44",
             "pur-1394610e499a45c08ba665ed1200053c",
             "pur-1ead43e8eead4989adf3de560d23febe",
+            "pur-242d69307ce84a69948b9e502ff3dd71",
             "pur-250afee3f9d341c9a9d18d4e33c0fd0e",
             "pur-25f35741f88e40729bec555987f79640",
             "pur-27bb6c07598243e390e2ca407e908695",
@@ -61886,6 +62223,7 @@
             "pur-65c979f1bb194148918426361d985f73",
             "pur-6bc71f4f15b34503ac9bf8beea6ef815",
             "pur-6fb9cbd2160040c983dc0055e58d4de1",
+            "pur-7f5e5ae2f85e4d74bca9edb78b7332f0",
             "pur-87565d390bcc451a9fbfb44dc871d585",
             "pur-8c01bda97e5f42a49e5b956f6f1a46c9",
             "pur-8d0598d87bd8438496d8a9fbf38dcf9a",
@@ -61897,18 +62235,20 @@
             "pur-a667e3ee975c42218852bc7b225d75a8",
             "pur-abd647629bfa41e1ae7de9bf129dbf44",
             "pur-ad87bb1e2d7548aa9fdf66293915a4f4",
+            "pur-ae7d87fe77614d0098db388d7f0fa11d",
             "pur-b03a2dd1d7054c408d12d07ac3eaa1ec",
             "pur-c08cee116c73400bae488deb2d2015f4",
             "pur-cfc338b991f7400a851a0ea5a018e44e",
             "pur-d22466e29dac4d8ca46fdc5c575dde2c",
             "pur-d8a8a1e239ff48b6a6b19c43e22b4858",
+            "pur-e17001f6d6074a8884e9e1b2af82fa1f",
             "pur-e7fa6e37def64cf3baaf64a1a2458232",
             "pur-f24cd0a88f4b4a8ca76f3abc490f81b3",
             "pur-f4ddddb90dbd4ae2bba5008f74f8d4b6",
             "pur-f7d7511ce9394cae80352c28342d27fd",
             "pur-f98feadd5dec4c1cba460dd7c74baa09"
           ],
-          "total_minor": 222105,
+          "total_minor": 257594,
           "unknown_amount_ids": []
         },
         {
@@ -61956,7 +62296,7 @@
           "purpose": "engineering_software_services"
         },
         {
-          "amount_minor": 2168879,
+          "amount_minor": 2204368,
           "currency": "USD",
           "purpose": "equipment_tooling"
         },
@@ -61974,10 +62314,10 @@
       "totals": [
         {
           "currency": "USD",
-          "estimate_minor": 230868,
+          "estimate_minor": 266357,
           "final_vendor_amount_minor": 2079877,
           "legacy_unverified_minor": 2398968,
-          "total_minor": 4709713
+          "total_minor": 4745202
         }
       ],
       "undated_unallocated": [
@@ -62131,11 +62471,11 @@
       "by_currency": [
         {
           "currency": "USD",
-          "estimated_purchase_minor": 230868,
+          "estimated_purchase_minor": 266357,
           "legacy_unverified_purchase_minor": 2398968,
           "order_only_charge_allocation_minor": 6561,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 2950581,
+          "purchases_without_merchant_charge_minor": 2986070,
           "undated_charge_minor": 57998,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 922346,
@@ -62149,6 +62489,7 @@
         "pur-0504233f1bc64d7cbd4faa23bf63edd9",
         "pur-0d4eaf3ef27646a8b8f77ea46d4f2d44",
         "pur-1394610e499a45c08ba665ed1200053c",
+        "pur-242d69307ce84a69948b9e502ff3dd71",
         "pur-250afee3f9d341c9a9d18d4e33c0fd0e",
         "pur-3ce173932d6c45f184bcd60237a2c790",
         "pur-3e2e38c4658c47eba0f7b8efe6bb4734",
@@ -62157,6 +62498,7 @@
         "pur-5090fe33ed404b20b5f3401171bf8565",
         "pur-5da1ea9540d44a8897b0c2774fe1ff35",
         "pur-7cb5c1d8028249feb0e80687059fc82e",
+        "pur-7f5e5ae2f85e4d74bca9edb78b7332f0",
         "pur-87565d390bcc451a9fbfb44dc871d585",
         "pur-88c94356779a413f95d4e1b878b4bb18",
         "pur-8d0598d87bd8438496d8a9fbf38dcf9a",
@@ -62166,11 +62508,13 @@
         "pur-a02ce33a2d984d9fbea615cbad793ab3",
         "pur-a61e59a7635c4aa0887475454ad04b04",
         "pur-a667e3ee975c42218852bc7b225d75a8",
+        "pur-ae7d87fe77614d0098db388d7f0fa11d",
         "pur-b03a2dd1d7054c408d12d07ac3eaa1ec",
         "pur-c08cee116c73400bae488deb2d2015f4",
         "pur-cfc338b991f7400a851a0ea5a018e44e",
         "pur-d0a38d1d52934be7866d5286a6a8271e",
         "pur-d8a8a1e239ff48b6a6b19c43e22b4858",
+        "pur-e17001f6d6074a8884e9e1b2af82fa1f",
         "pur-e7fa6e37def64cf3baaf64a1a2458232",
         "pur-f24cd0a88f4b4a8ca76f3abc490f81b3",
         "pur-f4ddddb90dbd4ae2bba5008f74f8d4b6"
@@ -62245,6 +62589,7 @@
         "coverage-f622e58e83ff4673a617ac4d519ec225",
         "coverage-f793ca689f7448fbb52cc6a48e492007",
         "coverage-f9613b999fd5422a8f49b9032ec3f7d7",
+        "coverage-fda23ec3e207480aad6773991c0498cc",
         "coverage-fee7edc5545c4ce58fba854587790eb4"
       ],
       "legacy_unverified_purchase_ids": [
@@ -62808,6 +63153,7 @@
         "pur-2194a215bd63436688709f9d34dbab32",
         "pur-221ddf9f8004473dbd36b14440a9a4d5",
         "pur-231e62f4d5184efe8dea6ec5f44a1a7a",
+        "pur-242d69307ce84a69948b9e502ff3dd71",
         "pur-24c3ed43ee7f4fa7b4ac854f8ff90935",
         "pur-250afee3f9d341c9a9d18d4e33c0fd0e",
         "pur-256b2c67900b47178deeae21da804833",
@@ -63008,6 +63354,7 @@
         "pur-7dbe18c3a31842fdb95ee876aba52106",
         "pur-7e10c7635d424871a6d1ec291cb0451f",
         "pur-7f274b6a86f5498d86be3c929534fef7",
+        "pur-7f5e5ae2f85e4d74bca9edb78b7332f0",
         "pur-7fdf05c1bdde4ed8bb23130334e10db1",
         "pur-7ff00d6c81e044de8b1322aa40adad89",
         "pur-8108029584db4221867aed4085f839a3",
@@ -63101,6 +63448,7 @@
         "pur-adb86d9b3bbd4c5cacd3e74beda4c9d2",
         "pur-ade22aba11974e1d9fe5963fbb9f2d40",
         "pur-ae7d727516254dc59f65e97677d5ac9a",
+        "pur-ae7d87fe77614d0098db388d7f0fa11d",
         "pur-aefb0680ad614755a4e10cd1d7df120d",
         "pur-af0cc437c2894196aef6229762c9ad97",
         "pur-af1068f44ac345c390fead569d8da134",
@@ -63205,6 +63553,7 @@
         "pur-e072750dd8ce4f27b3713d63641fdd06",
         "pur-e0dcd15ac4f14ade97ba39d3e3d970f0",
         "pur-e10019d90dec403e975b3237678b720d",
+        "pur-e17001f6d6074a8884e9e1b2af82fa1f",
         "pur-e2fc9bcf78a145f1973a4bcdd9baba61",
         "pur-e5286860c4be4e05938d36cb3e7b9c4b",
         "pur-e565ec8b14d741c7923c8b701723bd8f",
@@ -63482,6 +63831,7 @@
       "coverage-f622e58e83ff4673a617ac4d519ec225: evidence coverage is unknown",
       "coverage-f793ca689f7448fbb52cc6a48e492007: evidence coverage is partial",
       "coverage-f9613b999fd5422a8f49b9032ec3f7d7: evidence coverage is unknown",
+      "coverage-fda23ec3e207480aad6773991c0498cc: evidence coverage is partial",
       "coverage-fee7edc5545c4ce58fba854587790eb4: evidence coverage is partial",
       "Legacy order 112-0019658-3684217: row valuation USD 139.80, preserved project invoice USD 139.81; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
       "Legacy order 112-0066205-0960237: row valuation USD 423.94, preserved project invoice USD 423.95; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",

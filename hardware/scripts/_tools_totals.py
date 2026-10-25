@@ -226,7 +226,7 @@ TOOLS = [
     ("Engineering Plate", "T_ENG_PLATE", L(order="us712460111015776257", contains="Engineering Plate")),
     ("SUNLU E2", "T_DRYER_E2", A("B0F5PMMXKD")),
     ("SUNLU S4", "T_DRYER_S4", A("B0CQJMV71Z")),
-    ("PolyDryer Box ×6", "T_POLYDRYER", SUM([A("B0FHPS82YG"), AN("B0CK17RTP4")])),
+    ("PolyDryer Box ×8", "T_POLYDRYER", SUM([A("B0FHPS82YG"), AN("B0CK17RTP4")])),
     ("PolyDryer Box XL ×2", "T_POLYDRYER_XL", A("B0FPQV18L5")),
     ("Hotend stock", "T_HOTENDS", SUM([
         L(order="us712460111015776257", contains="Hotends + nozzles"),
@@ -251,6 +251,9 @@ TOOLS = [
     ("monitoring thermometer", "T_OVEN_THERMO", A("B005KDEIZ0")),
     ("dowel pins", "T_DOWEL_PINS", A("B086DCHYQK")),
     ('48" workbench', "T_WORKBENCH", A("B0FCD13KKQ")),
+    ("MODbox tall compartment box", "T_MODBOX_PARTS", A("B0GLKTG7C6")),
+    ("MODbox 3-drawer", "T_MODBOX_3DRAWER", A("B0CZ7FQGMG")),
+    ("MODbox roll dispenser", "T_MODBOX_ROLL", A("B0H9B8LC8V")),
     ("Ultra Duster", "T_DUSTER", A("B07JRBR1MM")),
     ("DeWalt DWFP55130", "T_DEWALT", FIXED(0.0)),  # owned, not on ledger
     ("Husky 41257HOM", "T_HUSKY", FIXED(0.0)),     # owned, not on ledger
