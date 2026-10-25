@@ -36,7 +36,7 @@
     "delta_applied": false
   },
   "source_sha256": {
-    "hardware/printed-parts/cold-core/foam-cap/reservoir_a_anchor_review.py": "0d1ff2e632a3c162bcda2949d4c5263ba30bc5edf025b778a40be52dab9add9c",
+    "hardware/printed-parts/cold-core/foam-cap/reservoir_a_anchor_review.py": "43474fa9f8515ab87d47e58d52f77eb5ba2916c69204eefa68342f919fc5ce3d",
     "hardware/printed-parts/cold-core/_reservoir_a_anchors.py": "273c4330e3672675d4f45a8fb3e45d65619cedced02bfa6589f540efe3ec0aff",
     "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "f2e5eaba779c18f9890ebde949e8b4deceb3114ed75728609e9ec5f2183aabc9",
     "hardware/manifold-layout/above_core_routes.py": "bec911386e5aa2a6264aaee3e451cdad49cfa7c2d7a20b3370bef5208f08af5d",
@@ -988,5 +988,10 @@
     "passed": true
   },
   "passed": false,
-  "stock_passed": true
+  "stock_passed": true,
+  "reader_status_metadata_receipt": {
+    "executed_source_sha256": "43474fa9f8515ab87d47e58d52f77eb5ba2916c69204eefa68342f919fc5ce3d",
+    "current_source_sha256": "0d1ff2e632a3c162bcda2949d4c5263ba30bc5edf025b778a40be52dab9add9c",
+    "scope": "The current reader additionally derives stock_passed from the saved stock, signature and printed-read fields. Native construction, queries, finite witnesses and printed readings are unchanged. This metadata-only source difference does not imply a second geometry run."
+  }
 }
