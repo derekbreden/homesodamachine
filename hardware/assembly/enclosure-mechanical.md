@@ -1,8 +1,9 @@
 # Enclosure Mechanical Assembly
 
 The mechanical build joins the refrigeration base, cold core, front valve manifold
-and above-core equipment inside four printed quadrants. The funnel frame and empty
-electronics panel install after the final plumbing and wiring connections.
+and above-core equipment inside four printed quadrants. The funnel frame installs
+after the accessible central plumbing and wiring connections. The electronics
+ceiling is continuous; rear connections are prepared on the open back-top.
 The [above-core arrangement](/hardware/manifold-layout/above-core.md) defines native
 component poses and mechanical ownership. The procedures for the fluid paths and
 conductors are [internal plumbing](internal-plumbing.md) and [wiring](wiring.md).
@@ -48,7 +49,6 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §7 (
 | Nameplate | [`/hardware/printed-parts/enclosure/nameplate/`](/hardware/printed-parts/enclosure/nameplate/) | Printed per unit with its identity encoded in the QR; scanned and snapped in at [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md), not here |
 | Rear fluid fittings, C14 and RJ11 | [Production arrangement](/hardware/manifold-layout/above-core.md) | Six fluid fittings in a 2 × 3 grid; C14 west/upper, RJ11 west/lower |
 | Drop-in funnel frame and snap-in drain joint | [Funnel](/hardware/printed-parts/zone-c/funnel/README.md) | Cradle snaps into the frame’s 3 mm web; frame fastens from above |
-| Empty electronics roof panel | [Panel](/hardware/printed-parts/enclosure/electronics-access-panel/README.md) | Four recessed M3 × 12 screws into integral back-top bosses |
 
 Tooling: standard hand tools — Phillips + hex (2.5 mm for M3 socket caps, 4 mm for M5), soldering iron + ruthex insert tips for any inserts not pre-installed at the printed-part stage, a level, and a bench fixture that holds the pieces square while the pack goes in (not yet specified — see Open items).
 
@@ -81,7 +81,7 @@ Install ruthex heat-set inserts everywhere the pieces call for them. Standard pr
 
 **This step is the one place in the build that presses both M3 bodies, and they are indistinguishable in the hand but for length.** RX-M3x5.7 and RX-M3Sx4.0 carry the same ⌀4.6 knurl into the same ⌀4 hole; a short one pressed where the long one belongs is a weaker joint that looks finished, and a long one pressed where it does not fit will not seat flush. Work from two labelled troughs, not one dish:
 
-- **Full-length RX-M3×5.7.** The condenser fingers, four funnel-frame ledges and four electronics-panel bosses take full-length inserts. The core's PCB, PSU and pump mount columns use the [cold-core mount schedule](/hardware/printed-parts/cold-core/_above_core_mounts.py), with the lid removed for insert installation.
+- **Full-length RX-M3×5.7.** The condenser fingers, four funnel-frame ledges and relay mounts take full-length inserts. The core's PCB and pump mount columns use the [cold-core mount schedule](/hardware/printed-parts/cold-core/_above_core_mounts.py), with the lid removed for insert installation.
 - **Short RX-M3S×4.0.** The C14's two rear-wall bosses and the relays' eight west-wall bosses take short inserts. Install them before the purchased bodies. Their mounting faces are the insert-top datums; use M3 × 10 with Ø7 × 0.5 mm washers at C14 and M3 × 6 through each relay board.
 - **M1.4 — two.** The contact pair's male seat in the bay bulkhead's fore face on `enclosure-front-top`. The connector face is recessed [0.125 mm](POGO_FACE_RECESS); its ear datum is [3.125 mm](POGO_EAR_HOST_DEPTH) and the insert's top [5.125 mm](POGO_INSERT_HOST_DEPTH) inside the printed face. The insert starts [2 mm](POGO_INSERT_SETBACK) behind the ear datum. The 2.6 mm wide loading stadium admits the whole Ø2.3 knurl; the Ø2.0 pilot continues 5.5 mm from the insert-top datum. The T18 insert kit stops at M2; use a fine conical tip. The pump clamp's two use the same recessed installation at the cartridge build ([`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3).
 - **M5 — eight.** The four posts standing off the floor slab under the compressor's feet, and the Y seam's four corner-stack stations: back-bottom's two knuckles under the Z seam and front-top's two knuckles under the funnel frame, each pressed in from above. A second tip off the same T18 kit.
@@ -107,12 +107,13 @@ that review. Installed fit, pullout and assembled drop performance remain physic
 qualification items.
 
 **Prepare the supports on the bench.** Thread the ASSE, regulator and gas-pair
-ties through their fixed-shell windows, and the meter ties through its lid
-windows. Seat the ASSE, regulator and gas bodies in back-top's supports.
+ties through their fixed-shell windows, and the meter ties through its
+back-top collar-bearing windows. Seat the ASSE, regulator and gas bodies in back-top's supports.
 Fit bare V-A and V-K to its integral seats, attach their prepared blade leads
 and complete their fitted plumbing and inlet header while back-top is open
-on the bench. Keep both roof closures separate. V-B and the connected pump,
-PCB, PSU and meter travel with the cold core.
+on the bench. Mount the PSU, relays and meter on back-top; prepare its
+continuous external inlet, holder, foam and concealed rear join there. Keep
+the funnel frame separate. V-B, the pump and PCB travel with the cold core.
 
 Dry-fit the seams with the box empty: slide each column's top onto its bottom — front-top entering fore of front-bottom's front wall and running AFT to its stop blocks, back-top entering aft of back-bottom's rear wall and running FORE to its own — then part them again and telescope front-bottom into back-bottom, front-top into back-top. Confirm every slide runs its whole travel without shaving, reaches its assembled position, and every knuckle passes its neighbours as the halves telescope.
 
@@ -191,39 +192,45 @@ The cold core stays **on its cart** through this step, tethered to the compresso
 
 ### 5. Populate the cold-core roof and fixed west wall
 
-Mount the PCB west/forward and the PSU west/aft, both flat. Fit the pump with its
+Mount the PCB flat west/forward on the core lid. Fit the pump with its
 motor fore–aft and discharge −X, on four identical rubber feet. V-B enters its
 upright socket wall east of the PCB. Use the actual mount holes, fasteners and
 insert datums in [electronics-bay.md](electronics-bay.md) and the
 [core mount source](/hardware/printed-parts/cold-core/_above_core_mounts.py).
 The lid's below-board fluid fittings and routes go in before the PCB.
 
-Fit both relays to back-top's west wall. Seat the mains WAGOs in the rear-wall
+Fit the PSU and both relays to back-top's dry west wall. Fit the meter to its
+sidewall-rooted collar bearings and prepare its inlet and rear outlet there.
+Seat the mains WAGOs in the rear-wall
 wells. Core-side junctions and ground hardware go in their own lid mounts;
 front manifold commons go in front-top. Leave the cross-quadrant conductor ends
 accessible for final connection. Keep PSU terminal screwdriver approaches clear.
 
 ### 6. Close the box
 
-The box closes in two slides and four M5 screws. The PCB, PSU, pump, V-B and meter with its inlet plumbing travel with the core. V-A, V-K, their fitted plumbing, the split tee, regulator and three connected header links belong to back-top with the ASSE, gas group and relays. The V-A low feed travels with that valve and connects to front-top's Y-A. Both roof openings remain uncovered for the final handoffs.
+The column seams use their mirrored slides and four M5 screws. The pump,
+PCB and V-B belong to the core. Back-top carries the PSU, relays, meter,
+its external continuous inlet/holder/foam and concealed rear join, V-A/V-K
+and their fitted plumbing, the complete inlet header, ASSE and gas group.
+The V-A low feed connects to front-top's Y-A. Complete rear connections on
+the open back-top; keep the funnel opening available for central handoffs.
+The populated closing path and continuous-line handling retain the scope of
+the [manual assembly record](/hardware/mechanical-qualification/enclosure-above-core/rear-plumbing-assembly.json).
 
-Preassemble both rear bulkheads and their nuts and the nested soda stem
-elbows with back-top while it is open on the bench. The 32.591 mm concealed
-tube stays with the core-mounted meter: seat its nominal 15.7 mm meter end
-and leave the other 16.891 mm for the back-top return elbow.
-Keep the white 4 mm drain-vent line unconnected for final dressing through the
-open roof. The
-[rear assembly record](/hardware/mechanical-qualification/enclosure-above-core/rear-plumbing-assembly.json)
-records the exact staging and finite socket scope of its native queries.
+Preassemble the rear soda fittings and meter together while back-top is open.
+Their concealed blue tube occupies a nominal 15.7 mm in the meter and
+16.891 mm in the return elbow. Replace those allowances with actual receiving
+marks. The core guide adds no joint or physical cut in the inlet tube.
+Keep the atmospheric drain-vent path open while dressing its final connection.
 
-1. **Back column.** Slide back-top fore onto the empty back-bottom from its aft entry position, through the 237.5 mm rail travel to the stops. Keep the wiring ends supported inside the column and clear of its seam. The ASSE, gas group and relays ride on back-top. Its source valves and complete water header are preassembled on their back-top mounts. Both roof closures remain separate.
+1. **Back column.** Slide back-top fore onto the empty back-bottom from its aft entry position, through the 237.5 mm rail travel to the stops. Keep the wiring ends supported inside the column and clear of its seam. The ASSE, gas group, source valves and header, PSU, relays, meter and external inlet belong to back-top. Keep the funnel frame separate. Populated-group motion is qualified only to the scope stated in the manual record.
 
 2. **The back assembly rides forward over the core.** Stand the closed back column behind the core's cart, mouth facing the core's aft face, and bring it FORE — the Y-seam mouth swallowing the core, the slab passing under it, the hold-down feet's eased tips riding over the cap's crown — one continuous motion that runs the column's whole depth and ends as the Y seam's own telescope: over the last [17.8 mm](Y_OVERLAP) the front assembly's proud tongue enters the back's mouth, the floor's tongue closes square inside the slab, the corner stacks' knuckles pass one another into place, and the handholds' inner walls close. The rear seam band, front-bottom's corner pockets and cap brackets provide 0.25 mm around the nominal core plan and above its crown. The floor is one plane at Z−0.35: 0.25 mm running plus 0.10 mm cavity-floor transition allowance, over 5.65 mm of slab. The hold-down foot is Z253.65. These are allowances for printed material under the [fit policy](/hardware/printed-parts/enclosure/clearance-audit.md). **Set the core's lid tenants before this ride**: the water pump and everything else that stands on the cap goes on at [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) while the core is still on the open cart, where every face of it is bench work.
 
-   Guide the back-top return elbow onto the concealed tube carried by the
-   meter; its nominal receiving depth is 16.891 mm. The ASSE, source valves and complete header remain
-   connected on back-top. Check the actual seating marks through the
-   open roof. Do not use the enclosure screws to force a fluid joint home.
+   The meter and rear outlet join remain together on back-top. Support the
+   continuous inlet where it crosses the plain core guide and keep the
+   inter-quadrant tube and wire handoffs free. Do not use the enclosure
+   screws to force a fluid joint or a binding slide home.
 
 3. **Four screws.** Support the flank securely over the bench edge.
    Allow about 125 mm clear below the enclosure for the lower screws to enter or withdraw,
@@ -246,13 +253,14 @@ records the exact staging and finite socket scope of its native queries.
 
    **The brackets retain the core's nominal envelope.** Two brackets
    (`enclosure._core_holds`) stand in the [3 mm](REAR_SEAM_CLEAR) band behind the nominal
-   core. The west bracket is 6 mm wide at X−43.6..−37.6 between the PSU and rear
+   core. The west bracket is 6 mm wide at X−43.6..−37.6 beside the rear
    jack; the east bracket is 9 mm wide at X56.6..65.6 beside the pump. Each has its foot
    [12 mm](CORE_HOLD_REACH) forward onto the aft edge of the cap. Their feet are Z253.65,
    0.25 mm above the nominal cap crown.
 
-With the quadrants home, complete the tubing and leads between the front
-manifold, core and rear wall through the two open roof apertures.
+Complete rear-wall wiring and tubing on the open back-top subassembly.
+Use the remaining funnel opening for the accessible central handoffs between
+the front manifold, core and back-top.
 Inspect the rear soda engagement and connect the drain-vent line last.
 Follow [internal plumbing §4](internal-plumbing.md#4-rear-beverage-connections)
 for the bench preassembly and actual insertion marks. The manual rear record
@@ -263,12 +271,11 @@ Check that all tubing and conductors stay clear of the seam screws and closure
 bearings. Keep power disconnected during this work.
 
 Lower the frame and fasten its four M3 screws with the silicone funnel absent.
-Lay the silicone funnel and its apron over the screw heads afterward. Fit the
-empty electronics panel independently after its connections are complete.
+Lay the silicone funnel and its apron over the screw heads afterward.
 
 For teardown, lift the silicone and disconnect and support the tubing at the
 frame's cradled drain elbow. Remove the four funnel-frame screws and lift the
-frame with its drain cradle. Remove the electronics panel independently.
+frame with its drain cradle.
 Disconnect and support the tubing and leads that cross the separating quadrants,
 then reverse the M5 joints and slides.
 Pump-cartridge service uses its separate front opening.
@@ -350,19 +357,17 @@ static web/socket and screw stack. Disconnect the drain tube or release the
 cradle snap before frame withdrawal. Connected-tube motion, snap-release access
 and force, physical fit and the drain seal remain separate qualifications.
 
-Fit the empty electronics panel after its bay's connections are complete. Its four
-M3 × 12 screws use the same insert family. No harness or tube attaches to this panel.
 The silicone funnel seats on its stub and frame separately; its apron rests on the
 roof and covers the frame screw wells. Lift it for cleaning and frame screw access.
 
 ## Output condition
 
 - Compressor and condenser retained on their specified floor/wall mounts, with the donor electrical cover intact and the refrigerant loop supported.
-- Cold core seated within its nominal floor pocket and hold-down envelope; PCB, PSU, pump and V-B on their core mounts.
+- Cold core seated within its nominal floor pocket and hold-down envelope; PCB, pump and V-B on their core mounts.
 - Four quadrants home, four M5 seam screws seated, no tube or conductor trapped in a joint.
-- Fixed front manifold and rear connection bodies installed; V-A/V-K and their complete inlet header on back-top; relays and junctions on their specified parents.
+- Fixed front manifold and rear connection bodies installed; V-A/V-K and their complete inlet header on back-top; PSU, relays and meter on back-top; junctions on their specified parents.
 - Machine display retained by the accepted cover and gasket, with contact-pair installation retaining its named fit scope.
-- Final connections accessible through the open roof apertures until verified; drop-in frame and empty panel fitted afterward.
+- Rear connections completed on the open back-top; accessible central handoffs completed before the drop-in frame is fitted.
 
 Native geometry does not establish physical slide effort, printed support cleanup,
 load capacity or lifetime. Preserve accepted results at the

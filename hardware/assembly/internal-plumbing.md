@@ -13,9 +13,10 @@ short tubes and directly inserted stem fittings.
 Assemble the fixed front manifold while front-top is loose. Fit below-lid core
 plumbing before the PCB, then the pump, V-B and other core equipment.
 Prepare V-A, V-K, their fitted plumbing, the complete inlet header, ASSE and
-gas group on back-top. Complete the remaining connections between
-quadrants through the two roof apertures after the enclosure ride. Install the
-funnel frame and empty electronics panel after final tubing and wiring work.
+gas group on back-top, together with the sidewall PSU, relays, meter and its
+external inlet/insulation. Complete rear connections on the open subassembly.
+The electronics ceiling is continuous. Complete the accessible central
+inter-quadrant connections before installing the funnel frame.
 See [mechanical assembly](enclosure-mechanical.md) for the closing sequence.
 
 ## Parts and cut lengths
@@ -256,8 +257,8 @@ runs from the carbonator through the plain core guide at world
 (50, 342.4148, 253.4) mm and the accepted R14 printed bend holder directly
 into the DIGITEN inlet. The holder has a 2 mm wall, 3 mm legs and a 6.8 mm
 channel. The guide adds no joint, insertion or physical cut. The meter sits
-in its two cold-core lid collar bearings, with its lead root down and label
-east. Its outlet collet meets the rear return fitting's collet; the short
+in its two back-top sidewall-rooted collar bearings, with its lead root down
+and label east. Its outlet collet meets the rear return fitting's collet; the short
 tube occupies both sockets with no exposed span.
 
 The drawn continuous tube is 461.382 mm: 380.715 mm from the metal elbow
@@ -286,23 +287,23 @@ Prepare the rear soda connection with back-top on the open bench:
    dressing through the open roof.
 2. Connect both nested soda stem elbows on back-top and secure the bulkhead
    nuts while access is open. Prepare the nominal 32.591 mm concealed blue
-   tube on the core: seat 15.7 mm in the meter and leave the other 16.891 mm
-   for the return elbow. Replace nominal depths with actual receiving marks.
-3. Close the back column with its rear fittings. Guide the return elbow onto
-   the free tube carried by the meter, over its nominal 16.891 mm engagement.
-   Keep the meter, both collars and rear fittings on their common axis.
-   The complete inlet header remains on its back-top mounts throughout this
-   motion, as described in §2.
-4. With the quadrants seated, inspect the engagements through the open roof
-   and connect the white drain-vent line, keeping its atmospheric path open.
-   Dress the remaining inter-quadrant leads before installing either closure.
+   tube between the meter and return elbow: 15.7 mm in the meter and
+   16.891 mm in the return elbow. Replace nominal depths with actual receiving
+   marks. Keep both collars and the rear fittings on their common axis.
+3. Fit the continuous inlet, holder and foam to the meter on the open back-top
+   subassembly. Its plain core guide introduces no physical cut or joint.
+   The actual closing and flexible handoffs remain scoped by the manual
+   assembly record; a drawn mounting parent does not establish rigid closing
+   clearance.
+4. Connect and dress the white drain-vent line with its atmospheric path open.
+   Complete accessible central inter-quadrant leads before fitting the frame.
 
 The [rear assembly record](/hardware/mechanical-qualification/enclosure-above-core/rear-plumbing-assembly.json)
 records each tested rear group's staging and finite socket scope. It retains the explicit 0.22493 mm³ nominal soda fitting
 contact. Collet fit, connection force, threading and hand/tool access remain
-unqualified. The meter installs on the open core before closure; a straight
-late lift meets the fixed ASSE saddle and a fore insertion crosses its
-collar bearing.
+unqualified. The meter and rear outlet are prepared together on back-top;
+the evaluated core-mounted-meter insertion variants do not establish this
+selected assembly sequence.
 
 Flavor A and B use black 4 mm lines from the reducers at V-G and V-J to the
 lower-left and lower-right rear fittings respectively. Retain R25 turns and
@@ -320,7 +321,7 @@ withdrawing the frame.
 
 Confirm every push-fit witness, trim engagement, clamp and tie on the made-up
 hardware. Keep wiring clear of wet joints and preserve access to moving
-collets. Fit the drop-in frame and empty electronics panel after the final
+collets. Fit the drop-in frame after the final
 connections. Physical leak, pressure, venting and cleaning qualifications are
 separate from native geometry and precede fluid commissioning.
 

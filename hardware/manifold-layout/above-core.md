@@ -18,13 +18,13 @@ retain at least 3 mm above the water and gas fittings.
 |---|---|---|
 | G Ganen pump | Motor fore–aft, discharge −X, four identical rubber feet | Cold-core cup/lid mount columns |
 | PCB | Flat, west/forward, long axis fore–aft; JST connectors upward | Cold-core cup/lid mount columns |
-| Mean Well PSU | Flat, west/aft; terminal screw approaches from above | Cold-core cup/lid mount columns |
+| Mean Well PSU | On edge on the dry west wall, below the relays | Back-top wall mounts |
 | V-B | Upright east of the PCB, ports fore–aft | Integral cold-core lid socket wall |
 | V-A and V-K | Beside opposite sidewalls; inlet above, outlet below, underside flow arrow down | Integral back-top socket seats |
 | Multiplex ASSE 1022 | Fore–aft above the pump; vent faces west | Two fixed-roof saddles and ties |
 | YZMSZ 0.3 MPa water regulator | Transverse, above the forward pump body | Two fixed-roof saddles and ties |
 | PISCO regulator and neoFit ACHV44-E check | Folded gas path at the east rear | Fixed east-wall saddles and ties |
-| DIGITEN flow meter | On edge between pump and gas group, ports fore–aft, label east | Two integral cold-core lid collar bearings |
+| DIGITEN flow meter | On edge between pump and gas group, ports fore–aft, label east | Two back-top sidewall-rooted collar bearings |
 | V-A turn | Low feed traveling with V-A to the front-top Y-A handoff | Connected tubing carried with back-top |
 | V-B return union elbow | Fixed native fitting position | Integral cold-core lid bearing and retaining tie |
 | Two relays | West wall, one above the other | Integral back-top bosses |
@@ -32,8 +32,8 @@ retain at least 3 mm above the water and gas fittings.
 | DC/sensor/reed WAGOs and ground stack | Beside the PCB | Cold-core lid wells and ground boss |
 | Valve manifold commons | Beside their front valve rows | Front-top wells |
 
-WAGO positions follow actual branch connections. Both removable roof closures
-remain clear of wiring and tubing attachments.
+WAGO positions follow actual branch connections. The electronics ceiling is
+continuous; the funnel frame is the removable roof closure.
 
 The six rear fluid stations form two columns at X37.25 and X77.5, with 32 mm row
 pitch. The upper row is water/CO2 inlet, the middle row vent/soda outlet, and the
@@ -73,10 +73,9 @@ the frame and its drain assembly. Frame removal requires disconnecting the
 drain tube or releasing the cradle. The silicone funnel lifts separately for
 cleaning.
 
-The electronics panel is an empty 100 × 126.55 × 9 mm closure, retained by four
-recessed M3 × 12 screws. Remove it to reach the rear electrical connections.
-It carries no components, clips, tubing or wires. Both closures install after
-their respective connection work. The common upper M5 knuckle bearing is
+Prepare the PSU, relays, meter, rear fittings and their connections with
+back-top open on the bench. Complete the accessible central handoffs before
+installing the funnel frame. The common upper M5 knuckle bearing is
 Z318.0 on front-top, with back-top’s underside at Z318.25. The upper joints
 use acquired M5 × 50 screws and the lower joints use
 M5 × 120 screws.
@@ -107,11 +106,11 @@ exposed length. The rear return reaches the soda bulkhead through nested
 stem elbows.
 
 Install both rear bulkheads and nuts with back-top open, and preassemble the
-nested soda elbows there. The 32.591 mm concealed tube stays with the meter:
-15.7 mm in that socket and 16.891 mm available for the return elbow. The
-back-top return elbow receives the free end at the closing handoff. Connect
-the flexible drain-vent line and remaining inter-quadrant wiring through the
-open roof. The [rear assembly record](../mechanical-qualification/enclosure-above-core/rear-plumbing-assembly.json)
+meter and nested soda elbows there. Their 32.591 mm concealed tube occupies
+15.7 mm in the meter socket and 16.891 mm in the return elbow. The meter,
+its external inlet tube, bend holder and foam belong to back-top. The inlet
+continues uncut through the plain core guide. Closing and flexible handoff
+geometry retain the scope of the manual assembly record. The [rear assembly record](../mechanical-qualification/enclosure-above-core/rear-plumbing-assembly.json)
 names the exact staging and finite socket scope of each tested motion.
 Its explicit 0.22493 mm³ nominal soda fitting contact does not establish
 physical collet fit, threading, hand/tool access or connection force.

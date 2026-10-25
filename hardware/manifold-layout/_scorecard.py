@@ -271,7 +271,6 @@ MOUNTS = (
     ("funnel", None, "wall-capture"),
     ("funnel-cover", "funnel", "silicone-grip"),
     ("funnel-frame", ("enclosure-front-top", "enclosure-back-top"), "bosses"),
-    ("electronics-access-panel", "enclosure-back-top", "bosses"),
     # The drain cradle snaps into the removable frame's original bottom web.
     ("elbow-cradle", "funnel-frame", "snap-capture"),
     ("funnel-drain-union", "elbow-cradle", "cradle"),
@@ -293,7 +292,7 @@ MOUNTS = (
     # sockets, so all three ride the pump (`RIDES`) and its deck mounts are their fastening.
     *((name, None, "sleeve" if name.endswith("-tpu") else "tube-clamp")
       for name in PUMP_ELBOW_BODIES),
-    ("psu", "foam-assembly", "deck-mount"),
+    ("psu", "enclosure-back-top", "bosses"),
     ("pcba", "foam-assembly", "deck-mount"),
     ("soda-bend-holder", "tube-soda-core-rise", "tube-grip"),
     ("soda-continuous-insulation", "tube-soda-core-rise", "sleeve"),
@@ -396,7 +395,7 @@ MOUNTS = (
     ("nameplate-ink", "nameplate", "well"),
     # Two lid-rooted quarter bearings carry the fixed meter collars. Ties close
     # their open faces without restraining either release collet.
-    ("digiten-flow", "foam-assembly", "cradle"),
+    ("digiten-flow", "enclosure-back-top", "cradle"),
     # V-A and V-K use back-top's integral seats; V-B's upright belongs to the lid.
     ("valve-v-a", "enclosure-back-top", "cradle"),
     ("valve-v-b", "foam-assembly", "cradle"),
@@ -701,9 +700,9 @@ TOUCHING_OK = {frozenset(p) for p in (
     ("wr1110", _gas_chain.REG_OUT_ADAPTER),
     ("gasher-co2", _gas_chain.CHECK_IN_ADAPTER),
     ("gasher-co2", _gas_chain.CHECK_OUT_ADAPTER),
-    # What stands on the core's cap — `build_water_pump` and `build_psu` both take its crown as `z0`.
+    # The pump and PCB stand on the core cap; the PSU mounts on back-top.
     ("foam-assembly", "g-ganen-pump"),
-    ("foam-assembly", "psu"),
+    ("enclosure-back-top", "psu"),
     # The three selected valves retain their actual mounting parents.
     ("enclosure-back-top", "vk-solenoid"),
     ("enclosure-back-top", "valve-v-a"),
@@ -1482,7 +1481,8 @@ def selected_clearance_joints(a) -> set:
              if isinstance(host, str) and joint != 'tube-carried'}
     # PCB columns, fixed meter collars and installed electrical wells are
     # specific features of the populated core or their named shell quadrant.
-    pairs |= {frozenset((name, 'foam-assembly')) for name in ('pcba', 'digiten-flow')}
+    pairs.add(frozenset(('pcba', 'foam-assembly')))
+    pairs.add(frozenset(('digiten-flow', 'enclosure-back-top')))
     # These two collet faces meet across the concealed outlet tube. Their
     # actual body contact remains independently measured by pack_clashes.
     pairs.add(frozenset(('digiten-flow', 'soda-outlet-return-stem')))

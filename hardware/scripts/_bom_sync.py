@@ -188,7 +188,7 @@ assert not _cover, (
     f"— add the cut-part row, its cable gland and its bond back with it")
 
 # Foam-cap hardware: one clamp insert + one M3 × 25 screw per station per face, both faces, PLUS
-# the top cap's pump, PCB and flat PSU columns, each with a full-length M3
+# the top cap's pump and PCB columns, each with a full-length M3
 # insert. The upright V-B wall takes no separate mount fasteners.
 foam_cap_deck_inserts_per_build = sum(len(deck_mount_xy(n)) for n in deck_mounts)
 pump_mount_screws_per_build = len(deck_mount_xy("g-ganen-pump"))
@@ -210,18 +210,19 @@ faucet_display_cover_stations = ()
 faucet_display_cover_inserts_per_build = len(faucet_display_cover_stations)
 faucet_display_cover_screws_per_build = faucet_display_cover_inserts_per_build
 
-# Electronics use their native hole patterns. PCB/PSU inserts belong to the
-# cap's full-length count above. The wall relays and cap earth boss use short
-# inserts; the total electronics screw count also includes the PCB and PSU.
-shelf_psu_screws_per_build = len(deck_mount_xy('psu'))
+# Electronics use their native hole patterns and the selected wall fastener plans.
+# PCB inserts belong to the cap count; the wall relays use full-length inserts.
+psu_fasteners = _selected_shell.psu_fastener_plan()
+relay_fasteners = _selected_shell.relay_fastener_plan()
+shelf_psu_screws_per_build = psu_fasteners['count']
 shelf_ground_screws_per_build = len(_gnd.holes)
 ground_fasteners = _above_core_wiring.ground_fastener_datums()
 shelf_pcba_screws_per_build = len(deck_mount_xy('pcba'))
 shelf_relay_screws_per_build = (sum(1 for name in _placed if name.startswith("relay-"))
-                                * len(_relay.holes))
-shelf_inserts_per_build = shelf_relay_screws_per_build + shelf_ground_screws_per_build
-shelf_screws_per_build = (shelf_inserts_per_build + shelf_pcba_screws_per_build
-                          + shelf_psu_screws_per_build)
+                                * relay_fasteners['count'])
+shelf_inserts_per_build = shelf_psu_screws_per_build + shelf_ground_screws_per_build
+shelf_screws_per_build = (shelf_ground_screws_per_build + shelf_pcba_screws_per_build
+                          + shelf_psu_screws_per_build + shelf_relay_screws_per_build)
 
 # Floor-slab hardware (assembly/enclosure-mechanical.md §5). The compressor is the one body in
 # the box bolted DOWN to it: `enclosure_assembly.floor_mounts` stands ONE POST PER HOLE in the
@@ -300,39 +301,33 @@ enclosure_seam_long_rods_per_build = 2 * sum(1 for r in _seam_rods if r[0] == "l
 enclosure_seam_short_rods_per_build = 2 * sum(1 for r in _seam_rods if r[0] == "upper")
 enclosure_seam_inserts_per_build = enclosure_seam_rods_per_build
 
-# The empty electronics panel and drop-in funnel frame each fasten from above.
+# The drop-in funnel frame fastens from above the continuous electronics ceiling.
 funnel_frame_screws_per_build = len(_enc._funnel_frame_part.fastener_datums())
-electronics_panel_screws_per_build = len(
-    _above_core.specification()['electronics_access']['fasteners']['centres_xy_mm'])
-roof_closure_screws_per_build = (funnel_frame_screws_per_build
-                                + electronics_panel_screws_per_build)
+roof_closure_screws_per_build = funnel_frame_screws_per_build
 roof_closure_inserts_per_build = roof_closure_screws_per_build
 
-# M3×8 screws retain the PCB, condenser and faucet base.
+# M3×8 screws retain the PCB, two diagonals per relay, condenser and faucet base.
 m3x8_per_build = (shelf_pcba_screws_per_build + cond_screws_per_build
+                  + shelf_relay_screws_per_build
                   + nameplate_screws_per_build + display_cover_screws_per_build
                   + faucet_display_cover_screws_per_build
                   + touchflo_screws_per_build)
 
-# Earth and C14 use M3×10. Flat PSU screws cross its ears and the lid.
+# Earth and C14 use M3×10; the pump feet retain their M3×20 screws.
 m3x10_per_build = shelf_ground_screws_per_build + c14_screws_per_build
-m3x20_per_build = pump_mount_screws_per_build + shelf_psu_screws_per_build
+m3x20_per_build = pump_mount_screws_per_build
 
-# And every M3 x 6: the relays'.
-m3x6_per_build = shelf_relay_screws_per_build
-
-# The cap owns PCB/PSU stacks. The fixed west-wall relay's blind depth is
-# read from its native pilot, from the module mounting plane to the blind end.
-psu_screw_len = deck_mounts['psu'].screw
+# The PCB stack belongs to the cap; PSU and relay stacks belong to the wall.
+psu_screw_len = psu_fasteners['screw_length_mm']
 pcba_screw_len = deck_mounts['pcba'].screw
-relay_screw_len = 6.0
+relay_screw_len = relay_fasteners['screw_length_mm']
 c14_screw_len = c14_fasteners['screw_length_mm']
 pcba_insert_recess = 0.0
-pcba_bore = psu_bore = deck_mount_bore_depth
-_relay_holes = _selected_shell.relay_bosses()[1]
-relay_bore = (_above_core.pose('relay-1')['translation_mm'][0]
-              - min(s.BoundingBox().xmin for s in _relay_holes))
-psu_screw_reach = deck_mount_reach('psu')
+pcba_bore = deck_mount_bore_depth
+psu_bore = psu_fasteners['pilot_depth_mm']
+relay_bore = relay_fasteners['pilot_depth_mm']
+psu_screw_reach = min(psu_fasteners['receiving_range_mm'])
+psu_screw_reach_max = max(psu_fasteners['receiving_range_mm'])
 pcba_screw_reach = deck_mount_reach('pcba')
 relay_screw_reach = relay_screw_len - _relay.pcb_t
 c14_screw_reach = c14_screw_len - _c14.FLANGE_T - c14_washer_thickness
@@ -344,8 +339,9 @@ pogo_fasteners_per_build = 2 * len(_enc._pogo.ear_xs())
 # it crosses.
 m3x60_per_build = pump_cap_screws_per_build
 
-# M3 × 12 closes the roof frame/panel; selected dock locks contribute zero.
-m3x12_per_build = dock_fixture_locks_per_build + roof_closure_screws_per_build
+# M3 × 12 retains the funnel frame and the PSU's four wall ears.
+m3x12_per_build = (dock_fixture_locks_per_build + roof_closure_screws_per_build
+                   + shelf_psu_screws_per_build)
 
 # WHICH M3 BODY EACH STATION TAKES. ruthex's short and full-length M3 are the same insert but
 # for the body — same knurl, same recommended hole — so this split is a statement about BORE
@@ -355,7 +351,7 @@ m3x12_per_build = dock_fixture_locks_per_build + roof_closure_screws_per_build
 #
 # Short insert families and the stock available behind their seats:
 #   touch-flo base pods  — the blind pilots receive 4 mm inserts above the locating sockets
-#   fixed-wall relays and cap earth boss — their screws use the short family
+#   PSU wall ears and cap earth boss — their screws use the short family
 m3_long_inserts_per_build = (
     foam_cap_inserts_per_build
     + reservoir_cap_inserts_per_build
@@ -364,6 +360,7 @@ m3_long_inserts_per_build = (
     + display_cover_inserts_per_build
     + pump_cap_inserts_per_build
     + roof_closure_inserts_per_build
+    + shelf_relay_screws_per_build
 )
 m3_short_inserts_per_build = (
     touchflo_inserts_per_build
@@ -472,13 +469,15 @@ def main(*, only_bom=False):
         "PSU_EAR_T": f"{_psu.ledge_h:g}",
         "PSU_BORE": f"{psu_bore:.3g}",
         "PSU_SCREW_REACH": f"{psu_screw_reach:.3g}",
-        "PSU_SCREW_TIP": f"{psu_bore - psu_screw_reach:.3g}",
+        "PSU_SCREW_REACH_MAX": f"{psu_screw_reach_max:.3g}",
+        "PSU_SCREW_TIP": f"{psu_bore - psu_screw_reach_max:.3g}",
         "PCBA_BOARD_T": f"{_pcba._thickness:g}",
         "PCBA_INSERT_RECESS": f"{pcba_insert_recess:.3g}",
         "PCBA_BORE": f"{pcba_bore:.3g}",
         "PCBA_SCREW_REACH": f"{pcba_screw_reach:.3g}",
         "PCBA_SCREW_TIP": f"{pcba_bore - pcba_screw_reach:.3g}",
         "RELAY_BOARD_T": f"{_relay.pcb_t:g}",
+        "RELAY_INSERT_LEN": f"{relay_fasteners['insert_length_mm']:g}",
         "RELAY_BORE": f"{relay_bore:.3g}",
         "RELAY_SCREW_REACH": f"{relay_screw_reach:.3g}",
         "RELAY_SCREW_TIP": f"{relay_bore - relay_screw_reach:.3g}",
@@ -492,8 +491,6 @@ def main(*, only_bom=False):
         "C14_WASHERS_COST": pack_line_cost(c14_washers_per_build, "7.82", 200),
         "SMALL_WASHERS": f"{small_washers_per_build:g}",
         "SMALL_WASHERS_COST": pack_line_cost(small_washers_per_build, "7.82", 200),
-        "M3X6_TOTAL": f"{m3x6_per_build:.4g}",
-        "M3X6_COST": pack_line_cost(m3x6_per_build, "7.12", 120),
         "M3X8_TOTAL": f"{m3x8_per_build:.4g}",
         "M3X8_COST": pack_line_cost(m3x8_per_build, "7.71", 120),
         "NAMEPLATE_INSERTS": f"{nameplate_inserts_per_build:.4g}",
@@ -515,7 +512,6 @@ def main(*, only_bom=False):
         "M3X20_TOTAL": f"{m3x20_per_build:.4g}",
         "M3X20_COST": pack_line_cost(m3x20_per_build, "8.14", 60),
         "FUNNEL_FRAME_SCREWS": f"{funnel_frame_screws_per_build:.4g}",
-        "ELECTRONICS_PANEL_SCREWS": f"{electronics_panel_screws_per_build:.4g}",
         "ROOF_CLOSURE_INSERTS": f"{roof_closure_inserts_per_build:.4g}",
         "ROOF_CLOSURE_SCREWS": f"{roof_closure_screws_per_build:.4g}",
         "M3X60_TOTAL": f"{m3x60_per_build:.4g}",
