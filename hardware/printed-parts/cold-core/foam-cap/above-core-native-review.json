@@ -1172,6 +1172,206 @@
           "no_added_or_changed_stock_outside_named_cut": true,
           "coincident_whole_lid_commons_used": false
         }
+      },
+      "selected_fore_root_restoration": {
+        "scope": "Single flat lower-root step atZ267.3, preserving the fore pump-foot clearance and full4.6mm east root. Existing seat/tie geometry is unchanged; added stock is outside both sleeve passages and tie window. No structural load qualification.",
+        "receipt": "hardware/mechanical-qualification/enclosure-above-core/soda-inlet-review.json",
+        "receipt_sha256": "ff1371667f53c1c1a7d17e97f60184ec29ed1c0de52bd907004ae2337878f371",
+        "exported_delta": {
+          "old_lid": {
+            "valid": true,
+            "solids": 1,
+            "faces": 268,
+            "volume_mm3": 335092.8483215667,
+            "center_mm": [
+              2.9483467688104152,
+              315.1741089792607,
+              256.62963997099405
+            ],
+            "bounds_mm": [
+              -95.20410112876,
+              182.45000000000002,
+              247.99999989999705,
+              95.204098871232,
+              465.0000001,
+              317.60584788053603
+            ]
+          },
+          "new_lid": {
+            "valid": true,
+            "solids": 1,
+            "faces": 268,
+            "volume_mm3": 335679.5883185045,
+            "center_mm": [
+              3.037318624602156,
+              315.26594573625925,
+              256.6593901446403
+            ],
+            "bounds_mm": [
+              -95.20410112876,
+              182.45000000000002,
+              247.99999989999705,
+              95.204098871232,
+              465.0000001,
+              317.60584788053603
+            ]
+          },
+          "added_volume_mm3": 586.7399969378021,
+          "expected_box_volume_mm3": 586.74,
+          "named_roi_world_mm": [
+            50.0,
+            364.7148,
+            267.3,
+            57.7,
+            370.7148,
+            280.0
+          ],
+          "retained_old_faces_outside_roi": 263,
+          "current_faces_outside_roi": 263,
+          "maximum_face_metric_delta": {
+            "area_mm2": 0.0,
+            "centroid_mm": 0.0,
+            "bounds_mm": 0.0
+          }
+        },
+        "added_stock_native_contacts": [
+          {
+            "subject": "meter-fore-shoulder-restored",
+            "obstacle": "tube-fluid-18",
+            "common_mm3": 0.0,
+            "outside_finite_mate_mm3": 0.0,
+            "distance_mm": 59.456960610281115
+          },
+          {
+            "subject": "meter-fore-shoulder-restored",
+            "obstacle": "tube-fluid-28",
+            "common_mm3": 0.0,
+            "outside_finite_mate_mm3": 0.0,
+            "distance_mm": 49.835142349749454
+          },
+          {
+            "subject": "meter-fore-shoulder-restored",
+            "obstacle": "tube-fluid-14",
+            "common_mm3": 0.0,
+            "outside_finite_mate_mm3": 0.0,
+            "distance_mm": 33.26420616315437
+          },
+          {
+            "subject": "meter-fore-shoulder-restored",
+            "obstacle": "tube-fluid-16",
+            "common_mm3": 0.0,
+            "outside_finite_mate_mm3": 0.0,
+            "distance_mm": 34.44395967759973
+          },
+          {
+            "subject": "meter-fore-shoulder-restored",
+            "obstacle": "digiten-flow",
+            "common_mm3": 0.0,
+            "outside_finite_mate_mm3": 0.0,
+            "distance_mm": 4.998248863979857
+          },
+          {
+            "subject": "meter-fore-shoulder-restored",
+            "obstacle": "g-ganen-pump",
+            "common_mm3": 0.0,
+            "outside_finite_mate_mm3": 0.0,
+            "distance_mm": 6.899993896484432
+          },
+          {
+            "subject": "meter-fore-shoulder-restored",
+            "obstacle": "enclosure-back-top",
+            "common_mm3": 0.0,
+            "outside_finite_mate_mm3": 0.0,
+            "distance_mm": 25.213682959501423
+          },
+          {
+            "subject": "meter-fore-shoulder-restored",
+            "obstacle": "tube-soda-core-rise",
+            "common_mm3": 0.0,
+            "outside_finite_mate_mm3": 0.0,
+            "distance_mm": 19.125
+          },
+          {
+            "subject": "meter-fore-shoulder-restored",
+            "obstacle": "wire-AC4-H",
+            "common_mm3": 0.0,
+            "outside_finite_mate_mm3": 0.0,
+            "distance_mm": 84.49555855225614
+          },
+          {
+            "subject": "meter-fore-shoulder-restored",
+            "obstacle": "wire-J4-IO25",
+            "common_mm3": 0.0,
+            "outside_finite_mate_mm3": 0.0,
+            "distance_mm": 9.449996103516
+          },
+          {
+            "subject": "meter-fore-shoulder-restored",
+            "obstacle": "wire-J4-V5",
+            "common_mm3": 0.0,
+            "outside_finite_mate_mm3": 0.0,
+            "distance_mm": 7.449996103516
+          },
+          {
+            "subject": "meter-fore-shoulder-restored",
+            "obstacle": "wire-PE-bus",
+            "common_mm3": 0.0,
+            "outside_finite_mate_mm3": 0.0,
+            "distance_mm": 83.67188503256224
+          },
+          {
+            "subject": "meter-fore-shoulder-restored",
+            "obstacle": "wire-flow-GND",
+            "common_mm3": 0.0,
+            "outside_finite_mate_mm3": 0.0,
+            "distance_mm": 9.450000000000003
+          }
+        ],
+        "additional_six_conductor_scope": {
+          "count": 6,
+          "changed_conductors": [
+            "wire-J1-OUT1",
+            "wire-J1-positive-A",
+            "wire-J2-OUT3",
+            "wire-J2-positive-K",
+            "wire-J5-V5",
+            "wire-J5-IO19"
+          ],
+          "native_wire_breps": {
+            "J1-OUT1": {
+              "path": "tmp/valve-flow-clock/wiring-native/wire-J1-OUT1.brep",
+              "sha256": "ac9c71dac057693994bc71454295afd45344ee3adb6662f184a154eb046d6eeb"
+            },
+            "J1-positive-A": {
+              "path": "tmp/valve-flow-clock/wiring-native/wire-J1-positive-A.brep",
+              "sha256": "c44c9e4f16e550e608461b95b58ddb130daca12f95584ffd0b18aada812c0c41"
+            },
+            "J2-OUT3": {
+              "path": "tmp/valve-flow-clock/wiring-native/wire-J2-OUT3.brep",
+              "sha256": "4f78af7b581f276c6efc8da9ca449618e6adcfee0b3dfe7e80a7db696ebbc838"
+            },
+            "J2-positive-K": {
+              "path": "tmp/valve-flow-clock/wiring-native/wire-J2-positive-K.brep",
+              "sha256": "e73483486c8fc0fbeee178f21b7073be70a8c07685dfdbc1675148a95cdf4bb6"
+            },
+            "J5-V5": {
+              "path": "tmp/valve-flow-clock/wiring-native/wire-J5-V5.brep",
+              "sha256": "6ea514d1b18a3b3ee62afd88436a8800e2c053f6e5647173a606615453504cf2"
+            },
+            "J5-IO19": {
+              "path": "tmp/valve-flow-clock/wiring-native/wire-J5-IO19.brep",
+              "sha256": "bde035d0357a23d9966a9e59e7c009f815910a52888edff26bbc3350f2e41640"
+            }
+          },
+          "prior_receipt_sha256": "d12db6c0a32f2b5ef91a7eccffc4f794b3dbfb1bf9c6acfc8a6227637877eafc",
+          "scope": "Six source-frozen valve/relay lead paths were separately checked by the electrical owner against rigid tube/holder, nominal full foam, installed stock/tubes, restored shoulder and service witnesses; no inlet contact remains. Current3meter-lead changes preserve those6paths."
+        },
+        "current_artifact_sha256": {
+          "hardware/cold-core-layout/cold-core-assembly.step": "b02ab73d0d320f2b8e1f768874136df9e620bcf709c80952d59ecf2eee3767ad",
+          "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "1ee3e42ce35b741dbf891dd4e5a0325465500609f634d4fa435687583b8cf2b2",
+          "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "dd29d9995ea887bbaa6d21a56c5c760adadb4853978d7b8ae46523a34cbdc8b1",
+          "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "4d00f713a15018da6d17833611f50fead6d123bd6aef80af18f81e74b3d64d25"
+        }
       }
     },
     "va_vk_walls": {
@@ -2429,10 +2629,12 @@
       }
     },
     "soda_out_passage": {
-      "scope": "Selected nominal soda roof passage in the exported top cup/lid; fixed lower riser and metal outlet. The curved floor opening is distinct from the complete floor beneath the horizontal reach. No physical fit, thermal, pressure, retention or lifetime qualification.",
+      "scope": "Selected continuous soda inlet through the exported cup/lid, retaining the lower riser and actual metal outlet. New3mm side/roof sleeve joins the established complete2mm cup floor with2.10mm horizontal backing. No physical pressure, sealing, thermal, retention or lifetime qualification.",
+      "receipt": "hardware/mechanical-qualification/enclosure-above-core/soda-inlet-review.json",
+      "receipt_sha256": "ff1371667f53c1c1a7d17e97f60184ec29ed1c0de52bd907004ae2337878f371",
       "guide_world_mm": [
         50.0,
-        354.36959999999993,
+        342.4148,
         253.4
       ],
       "lower_riser_world_xy_mm": [
@@ -2452,263 +2654,219 @@
         ],
         [
           50.0,
-          354.36959999999993,
+          342.4148,
           239.4
         ],
         [
           50.0,
-          354.36959999999993,
+          342.4148,
           253.4
         ]
       ],
-      "internal_route_shell_points_mm": [
+      "internal_pressure_path_world_mm": [
         [
-          0.0,
-          19.049999999999997,
-          17.0
+          -19.049999999999997,
+          303.226,
+          37.0
         ],
         [
-          -48.5,
-          19.049999999999997,
-          17.0
+          -19.049999999999997,
+          275.3,
+          37.0
         ],
         [
-          -48.5,
-          -56.55086206239477,
-          17.0
+          56.55086206239477,
+          275.3,
+          37.0
         ],
         [
-          -48.5,
-          -56.55086206239477,
-          55.35
+          56.55086206239477,
+          275.3,
+          75.35
         ],
         [
-          -41.75,
-          -63.116108284652654,
-          97.675
+          63.116108284652654,
+          282.05,
+          117.67499999999998
         ],
         [
-          -35.0,
-          -67.09475109872605,
-          140.0
+          67.09475109872605,
+          288.8,
+          160.0
         ],
         [
-          -35.0,
-          -67.09475109872605,
-          179.29753237292837
+          67.09475109872605,
+          288.8,
+          199.29753237292837
         ],
         [
-          -52.2,
-          -77.5,
-          199.4
-        ],
-        [
-          -52.19999999999999,
-          -77.5,
+          77.5,
+          271.6,
           219.4
         ],
         [
-          30.569599999999923,
-          -50.0,
-          219.4
+          77.5,
+          271.6,
+          239.4
         ],
         [
-          30.569599999999923,
-          -50.0,
-          233.4
+          50.0,
+          342.4148,
+          239.4
+        ],
+        [
+          50.0,
+          342.4148,
+          253.4
         ]
       ],
       "minimum_radius_mm": 14.0,
       "strict_R14_route": true,
       "passage_diameter_mm": 7.5,
-      "guide_wall_mm": 2.0,
-      "horizontal_center_z_mm": 239.4,
-      "horizontal_passage_bottom_z_mm": 235.65,
-      "cup_floor_outer_z_mm": 233.55,
-      "curved_floor_crossing_center_world_mm": [
-        76.67492577583167,
-        274.0833114001718,
-        233.55
-      ],
-      "horizontal_floor_backing_mm": 2.0999999999999943,
+      "guide_wall_mm": 3.0,
+      "horizontal_floor_backing_mm": 2.1,
       "complete_floor_probe_thickness_mm": 2.0,
       "missing_complete_horizontal_floor_mm3": 0.0,
-      "missing_complete_guide_wall_mm3": 0.0,
       "cup": {
         "valid": true,
         "solids": 1,
-        "tube_contact_mm3": 0.0,
-        "passage_contact_mm3": 0.0
+        "faces": 228,
+        "volume_mm3": 197013.1068681026,
+        "center_mm": [
+          -6.011065274685404,
+          316.97758742056646,
+          238.03730205174705
+        ],
+        "bounds_mm": [
+          -90.49999389648,
+          182.59999990000003,
+          233.54999989999766,
+          90.2000001,
+          465.0000001,
+          257.0
+        ],
+        "passage_contact_mm3": 0.0,
+        "missing_named_sleeve_stock_mm3": 0.0
       },
       "lid": {
         "valid": true,
         "solids": 1,
-        "tube_contact_mm3": 0.0,
-        "passage_contact_mm3": 0.0
-      },
-      "source_hashes_sha256": {
-        "hardware/manifold-layout/above-core.json": "925438fdf7bb58011a95ea53c485b713bc8c243a80b0c515a2ba0ead000ccc5a",
-        "hardware/printed-parts/cold-core/_above_core_mounts.py": "6a95906f395fc774eb11a06e1246847cf5ef30bff6e39e08489b8c006baedc27",
-        "hardware/printed-parts/cold-core/_cold_core_interface.py": "5dae3ef9f2254127cd24bbed5c063bbe77b95c1af6d829d02fc6057c724d5a9d",
-        "hardware/printed-parts/cold-core/_internal_routes.py": "bc13050bf193f415a18c677b97ce4af703d9cd02f6750d08aef34cab39534480",
-        "hardware/printed-parts/cold-core/_foam_cap.py": "32401fcd127cdc7cfc80eb3fb3a9b01026c3b1e4c7ebf0b7b138362cfbf28203",
-        "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "4c987b8b9751eb8246bf4db6fc4bc67c2cfe33b806fadd918b1535fb6dc4bfe7",
-        "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py": "9834783ae7590c7c13cd2adf1b13cfb8bc7a422402be94b5d0b78342ab89b0d0"
-      },
-      "exported_solids_sha256": {
-        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "286834d9a5fe464c54168b432c37f13ce65b19caeac1985dfa22d1ce36cb49ee",
-        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "83309617dae07a93762d1665676d8c5e812b0daed369ee5fbd58d2f4b8a80691"
-      },
-      "exported_internal_tube": {
-        "source": "hardware/cold-core-layout/cold-core-assembly.step",
-        "sha256": "07088668313393ee69a2091ab4d6bf3f6dc1d552780b3067a040dbe2d66e7aa2",
-        "body": "line-carb-water-out",
-        "valid": true,
-        "solids": 1,
-        "bounds_world_mm": [
-          [
-            -22.225000000000005,
-            268.4249999000054,
-            33.82499999999999
-          ],
-          [
-            80.67500009999374,
-            357.5446,
-            253.4
-          ]
+        "faces": 268,
+        "volume_mm3": 335679.5883185045,
+        "center_mm": [
+          3.037318624602156,
+          315.26594573625925,
+          256.6593901446403
         ],
-        "cup_contact_mm3": 0.0,
-        "lid_contact_mm3": 0.0,
-        "missing_end_disk_mm3": 0.0
+        "bounds_mm": [
+          -95.20410112876,
+          182.45000000000002,
+          247.99999989999705,
+          95.204098871232,
+          465.0000001,
+          317.60584788053603
+        ],
+        "passage_contact_mm3": 0.0,
+        "missing_named_sleeve_stock_mm3": 0.0
+      },
+      "continuous_tube_accounting": {
+        "internal_span_mm": 380.7145606045048,
+        "external_span_mm": 80.66719645566485,
+        "meter_receiving_estimate_mm": 15.7,
+        "carbonator_nominal_adapter_standoff_mm": 18.5,
+        "carbonator_socket_receiving_depth_mm": null,
+        "receiving_basis": "DIGITEN 15.7 mm is a layout estimate. The internal CAD span starts at the actual metal elbow mouth and includes nominal 18.5 mm PP010822E adapter standoff; its actual receiving depth is unmeasured. Replace nominal allowances with actual receiving marks.",
+        "plain_guide_joint": false,
+        "plain_guide_insertion_mm": 0.0,
+        "plain_guide_cut": false,
+        "exported_internal_outer_envelope_volume_mm3": 12056.9322037208,
+        "nominal_R14_outer_envelope_volume_mm3": 12056.93220372626,
+        "model_scope": "Internal CAD span is a solid outer envelope; the external span is an annular 6.35/4.24 mm tube.",
+        "modeled_total_mm": 461.38175706016966
       },
       "upper_vs_exported_core_bodies": [
         {
-          "body": "foam-shell",
-          "contact_mm3": 0.0,
-          "gap_mm": 1.908303262436521
+          "subject": "soda-pressure-passage",
+          "obstacle": "reservoir-b-cap",
+          "common_mm3": 0.0,
+          "outside_finite_mate_mm3": 0.0,
+          "distance_mm": 4.831741661280143
         },
         {
-          "body": "reservoir-b",
-          "contact_mm3": 0.0,
-          "gap_mm": 6.308355997549772
-        },
-        {
-          "body": "reservoir-b-cap",
-          "contact_mm3": 0.0,
-          "gap_mm": 5.406741661280151
-        },
-        {
-          "body": "reservoir-b-gasket",
-          "contact_mm3": 0.0,
-          "gap_mm": 5.549356304277297
-        },
-        {
-          "body": "line-co2-in",
-          "contact_mm3": 0.0,
-          "gap_mm": 24.688636161403764
+          "subject": "soda-pressure-passage",
+          "obstacle": "line-co2-in",
+          "common_mm3": 0.0,
+          "outside_finite_mate_mm3": 0.0,
+          "distance_mm": 31.1595833213389
         }
       ],
-      "upper_vs_unchanged_electrical": {
-        "scope": "Upper internal soda span only against all125 current cached electrical bodies at their recorded per-body hashes. Conservative native body bounds prune noncandidate pairs.",
-        "excluded_separate_review": [],
-        "bodies": 125,
-        "native_candidates": [
-          {
-            "body": "wire-AC4-H",
-            "source_sha256": "af771daa6178276747e2c92493b0c78d28d518ac184d448ee9d4dee581c6c54c",
-            "contact_mm3": 0.0,
-            "gap_mm": 81.67654821189183
-          },
-          {
-            "body": "wire-AC5-N",
-            "source_sha256": "c6dfcb5baa8498033746c5eb655d08c5a8793c6f34939f88cb0641aabd008a2f",
-            "contact_mm3": 0.0,
-            "gap_mm": 80.0630842411596
-          },
-          {
-            "body": "wire-PE-carbonator",
-            "source_sha256": "110b6a65227ef8c84303d1e3ed045b7ba5b83f2059a6413f397e07cbe10189f8",
-            "contact_mm3": 0.0,
-            "gap_mm": 21.619038409501776
-          },
-          {
-            "body": "wire-J1-OUT7",
-            "source_sha256": "998e99407bb5d7e3fbab77c0472e7c926251c913f9dc16e745f75b95825f7bcd",
-            "contact_mm3": 0.0,
-            "gap_mm": 96.44863277593157
-          },
-          {
-            "body": "wire-J2-COM",
-            "source_sha256": "b9217cc13169911b87c48db39dcce0558f225753dcfd13b0662192c4ac450e21",
-            "contact_mm3": 0.0,
-            "gap_mm": 77.39255630713501
-          },
-          {
-            "body": "wire-J2-FAN",
-            "source_sha256": "de15b9089ba98e903ec6c1f3e8c1a0e84c77e42083aa7d4ebeede0d41aa4e4c8",
-            "contact_mm3": 0.0,
-            "gap_mm": 87.76963169486251
-          },
-          {
-            "body": "wire-J2-positive-K",
-            "source_sha256": "83f1c41e12bc7f77e1c13e4035ad99a05fbca6e42713d2ed43fcd66f0efac564",
-            "contact_mm3": 0.0,
-            "gap_mm": 71.2755007473598
-          }
-        ]
+      "upper_vs_electrical": [
+        {
+          "subject": "soda-pressure-passage",
+          "obstacle": "wire-AC4-H",
+          "common_mm3": 0.0,
+          "outside_finite_mate_mm3": 0.0,
+          "distance_mm": 80.73394750786926
+        },
+        {
+          "subject": "soda-pressure-passage",
+          "obstacle": "wire-AC5-N",
+          "common_mm3": 0.0,
+          "outside_finite_mate_mm3": 0.0,
+          "distance_mm": 79.11462752229323
+        },
+        {
+          "subject": "soda-pressure-passage",
+          "obstacle": "wire-J1-OUT7",
+          "common_mm3": 0.0,
+          "outside_finite_mate_mm3": 0.0,
+          "distance_mm": 95.77697401714477
+        },
+        {
+          "subject": "soda-pressure-passage",
+          "obstacle": "wire-J2-COM",
+          "common_mm3": 0.0,
+          "outside_finite_mate_mm3": 0.0,
+          "distance_mm": 76.7782400369384
+        },
+        {
+          "subject": "soda-pressure-passage",
+          "obstacle": "wire-J2-FAN",
+          "common_mm3": 0.0,
+          "outside_finite_mate_mm3": 0.0,
+          "distance_mm": 87.03003425296615
+        },
+        {
+          "subject": "soda-pressure-passage",
+          "obstacle": "wire-PE-carbonator",
+          "common_mm3": 0.0,
+          "outside_finite_mate_mm3": 0.0,
+          "distance_mm": 20.65602476431724
+        }
+      ],
+      "current_artifact_binding_scope": "The proven added box is atZ267.3..280; named soda cup/lid stock is clipped atZ253.4. Their regions are disjoint by13.9mm. All263 retained faces outside the named box match exactly; current lid volume increases only by586.739996938mm3 versus586.74mm3 specified stock. The original native passage/floor/missing-sleeve readings are retained, not repeated.",
+      "source_hashes_sha256": {
+        "hardware/manifold-layout/soda_inlet.py": "4f1da5341b864fff66051ce99773517cc9bad9589ae21cfd5074f4de753c972d",
+        "hardware/manifold-layout/above-core.json": "3f40a9334f464695c4495bcad3aec8d87cbb3044e273cee5833afb4779c19e51",
+        "hardware/manifold-layout/above_core_parts.py": "5af440e34ae1a8c3ef2ba7498400701f21262562a4a27b5150d08182ad202a7c",
+        "hardware/manifold-layout/above_core_routes.py": "6fe523eb4fc63558845a6931eb9ddc3ec367557b44eb8c9a2ecafc57bc542962",
+        "hardware/printed-parts/cold-core/_above_core_mounts.py": "46c19fdbb726b8088b9eb43f93c18d79d82bae1dd14bfaa4a78f0f87a911ff88",
+        "hardware/printed-parts/cold-core/_cold_core_interface.py": "5dae3ef9f2254127cd24bbed5c063bbe77b95c1af6d829d02fc6057c724d5a9d",
+        "hardware/printed-parts/cold-core/_internal_routes.py": "bc13050bf193f415a18c677b97ce4af703d9cd02f6750d08aef34cab39534480",
+        "hardware/printed-parts/cold-core/_foam_cap.py": "16ec6de2e29f77065ee63ff7ba725ea5c80001593397af61a73c4798f779c863",
+        "hardware/cold-core-layout/cold_core_assembly.py": "3bd1284f5cbde55a5e486c25676f758a546a4b46094ab5a812b41ed30c81a60e"
       },
-      "seconds": 7.158964125002967,
-      "current_artifact_binding": {
-        "scope": "Current canonical artifact binding through the exact named subtractive stock change. The original scoped native query is retained at its own source/artifact hashes; unchanged geometry is not represented as a repeated full query.",
-        "current_artifact_sha256": {
-          "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "286834d9a5fe464c54168b432c37f13ce65b19caeac1985dfa22d1ce36cb49ee",
-          "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "3dc027887921d731b82089a236f760df9b5f27abc85851f1f347b71c43ecda20",
-          "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "890b6a06c4306d847265fcd4a3757c9b3c8b73a5828d856e93d81128b9788843",
-          "hardware/cold-core-layout/cold-core-assembly.step": "ff57cb20b177e4bef8dcbbbd81b429c6725ab60ad8f08f704c8950d4122d747d"
-        },
-        "current_source_sha256": {
-          "hardware/manifold-layout/above-core.json": "925438fdf7bb58011a95ea53c485b713bc8c243a80b0c515a2ba0ead000ccc5a",
-          "hardware/printed-parts/cold-core/_above_core_mounts.py": "57b2a5912d73ef99b62c0de45feceef4d2bb96711079d9e31b4eaead1199bbda",
-          "hardware/printed-parts/cold-core/_foam_cap.py": "32401fcd127cdc7cfc80eb3fb3a9b01026c3b1e4c7ebf0b7b138362cfbf28203"
-        },
-        "retained_geometry": {
-          "points_unchanged": true,
-          "maximum_probe_z_mm": 254.4,
-          "removed_stock_min_z_mm": 267.3,
-          "disjoint_z_gap_mm": 12.900000000000006
-        },
-        "native_lid_reconstruction": {
-          "construction": "Prior canonical lid minus the one named 6 x 7.7 x 12.7 mm rectangular shoulder, in the native lid frame, followed by native face cleanup.",
-          "expected_volume_mm3": 335051.11791577045,
-          "current_export_volume_mm3": 335051.11791577056,
-          "volume_difference_mm3": 1.1641532182693481e-10,
-          "face_count": [
-            270,
-            270
-          ],
-          "all_face_signatures_match": true,
-          "signature_fields": [
-            "surface type",
-            "area rounded to 1e-5 mm2",
-            "centroid rounded to 1e-5 mm",
-            "bounds rounded to 1e-5 mm"
-          ],
-          "no_added_or_changed_stock_outside_named_cut": true,
-          "coincident_whole_lid_commons_used": false
-        },
-        "removed_shoulder_world_mm": [
-          [
-            50.0,
-            364.71479999999997,
-            267.3
-          ],
-          [
-            57.7,
-            370.71479999999997,
-            280.0
-          ]
-        ]
-      }
+      "exported_solids_sha256": {
+        "hardware/cold-core-layout/cold-core-assembly.step": "b02ab73d0d320f2b8e1f768874136df9e620bcf709c80952d59ecf2eee3767ad",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "1ee3e42ce35b741dbf891dd4e5a0325465500609f634d4fa435687583b8cf2b2",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "dd29d9995ea887bbaa6d21a56c5c760adadb4853978d7b8ae46523a34cbdc8b1",
+        "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "4d00f713a15018da6d17833611f50fead6d123bd6aef80af18f81e74b3d64d25"
+      },
+      "new_stock_min_world_z_mm": 233.54999990000002,
+      "floor_scope_sources": [
+        "hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "hardware/printed-parts/cold-core/foam-cap/dry-closure-review.json"
+      ]
     },
     "water_in_passage": {
       "scope": "Manual nominal native reading of the aft water-in passage, its floor-rooted side/roof sleeve and one continuous tube through the plain guide. The source metal elbow/adapter and all purchased poses are retained. No physical fit, hand access, pressure, sealing, retention, thermal or lifetime qualification.",
@@ -2890,29 +3048,55 @@
     "complete_blind_backing_probed_mm": 1.0
   },
   "recorded_sources_sha256": {
-    "hardware/manifold-layout/above-core.json": "925438fdf7bb58011a95ea53c485b713bc8c243a80b0c515a2ba0ead000ccc5a",
+    "hardware/manifold-layout/above-core.json": "3f40a9334f464695c4495bcad3aec8d87cbb3044e273cee5833afb4779c19e51",
     "hardware/manifold-layout/above_core_wiring.py": "c14a4ec2d8e0d3ccee119c9ddaf2b50c0dec08c40d15999d078a59244d356a03",
-    "hardware/printed-parts/cold-core/_above_core_mounts.py": "57b2a5912d73ef99b62c0de45feceef4d2bb96711079d9e31b4eaead1199bbda",
+    "hardware/printed-parts/cold-core/_above_core_mounts.py": "46c19fdbb726b8088b9eb43f93c18d79d82bae1dd14bfaa4a78f0f87a911ff88",
     "hardware/printed-parts/cold-core/_cold_core_interface.py": "5dae3ef9f2254127cd24bbed5c063bbe77b95c1af6d829d02fc6057c724d5a9d",
-    "hardware/printed-parts/cold-core/_foam_cap.py": "32401fcd127cdc7cfc80eb3fb3a9b01026c3b1e4c7ebf0b7b138362cfbf28203",
+    "hardware/printed-parts/cold-core/_foam_cap.py": "16ec6de2e29f77065ee63ff7ba725ea5c80001593397af61a73c4798f779c863",
     "hardware/printed-parts/cold-core/_foam_shell.py": "45955f213fbaedf6ea31763abb672b3c4eec660394bb81ff2b5017bcddcad6e1",
     "hardware/printed-parts/cold-core/_internal_routes.py": "bc13050bf193f415a18c677b97ce4af703d9cd02f6750d08aef34cab39534480",
     "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "4c987b8b9751eb8246bf4db6fc4bc67c2cfe33b806fadd918b1535fb6dc4bfe7",
     "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py": "9834783ae7590c7c13cd2adf1b13cfb8bc7a422402be94b5d0b78342ab89b0d0",
-    "hardware/cold-core-layout/cold_core_assembly.py": "7a1752f075cc06dcea539020a6672b02aa1dcfeb113c393cb9fb25f4a931b0bd"
+    "hardware/cold-core-layout/cold_core_assembly.py": "3bd1284f5cbde55a5e486c25676f758a546a4b46094ab5a812b41ed30c81a60e"
   },
   "exported_solids_sha256": {
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "286834d9a5fe464c54168b432c37f13ce65b19caeac1985dfa22d1ce36cb49ee",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "3dc027887921d731b82089a236f760df9b5f27abc85851f1f347b71c43ecda20",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "1ee3e42ce35b741dbf891dd4e5a0325465500609f634d4fa435687583b8cf2b2",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "dd29d9995ea887bbaa6d21a56c5c760adadb4853978d7b8ae46523a34cbdc8b1",
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "bcc58b8837501a5f7d326767912a077882846347be00329a87d65a05aef6d1b2",
-    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "890b6a06c4306d847265fcd4a3757c9b3c8b73a5828d856e93d81128b9788843",
-    "hardware/cold-core-layout/cold-core-assembly.step": "ff57cb20b177e4bef8dcbbbd81b429c6725ab60ad8f08f704c8950d4122d747d"
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "4d00f713a15018da6d17833611f50fead6d123bd6aef80af18f81e74b3d64d25",
+    "hardware/cold-core-layout/cold-core-assembly.step": "b02ab73d0d320f2b8e1f768874136df9e620bcf709c80952d59ecf2eee3767ad"
   },
   "final_exported_lid": {
+    "native_step": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+    "step_sha256": "dd29d9995ea887bbaa6d21a56c5c760adadb4853978d7b8ae46523a34cbdc8b1",
+    "world_brep": "tmp/soda-inlet-restored-core/lid-world.brep",
+    "world_brep_sha256": "992b18864ca2a0b28a09dc27140fd99b2d945ee78639a9808fc0eae19c32e0ae",
     "valid": true,
     "solids": 1,
-    "source": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
-    "sha256": "3dc027887921d731b82089a236f760df9b5f27abc85851f1f347b71c43ecda20"
+    "cap_lid_pose": {
+      "rotation": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          -1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "translation_mm": [
+        0.0,
+        323.8,
+        248.0
+      ]
+    }
   },
   "complete_nominal_strips_vs_final_tool_witnesses": {
     "tool_count": 30,
@@ -3029,5 +3213,5 @@
       "scope": "The new lid is the prior lid minus only the named shoulder. The prior zero strip/stock intersections remain conservative; nominal routes and approach witnesses are unchanged."
     }
   },
-  "current_artifact_binding_scope": "Global hashes name the current canonical artifacts. Each feature retains its separate scoped native receipt; unchanged feature geometry is not represented as a complete cap/appliance rerun."
+  "current_artifact_binding_scope": "Current canonical cup/lid/foam/core exports. The selected soda passage is natively reviewed at its own linked receipt. Fore-meter root restoration is the separately measured additive box; unchanged feature receipts retain their recorded scope and source/artifact hashes. No repeated whole-cap or global contact claim."
 }
