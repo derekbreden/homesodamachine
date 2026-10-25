@@ -9,6 +9,7 @@ import cadquery as cq
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parents[2] / 'manifold-layout'))
 import above_core as layout
+from _enclosure_interface import flute_depth
 
 
 @functools.cache
@@ -44,6 +45,8 @@ def psu_fastener_plan():
             'ear_thickness_range_mm':(5.7,7.7), 'receiving_range_mm':reach,
             'pilot_depth_mm':pilot, 'minimum_tip_air_mm':1.,
             'minimum_blind_backing_mm':layout.pose('psu')['translation_mm'][0]-pilot+107.5,
+            'minimum_fluted_backing_mm':layout.pose('psu')['translation_mm'][0]-pilot+107.5-flute_depth,
+            'maximum_flute_depth_mm':flute_depth,
             'boss_radius_mm':5., 'pilot_radius_mm':2.,
             'parent':'enclosure-back-top', 'load_retention_qualified':False}
 
@@ -51,15 +54,18 @@ def psu_fastener_plan():
 def relay_fastener_plan():
     """Two diagonal screws and four bearing pads support each relay PCB."""
     tip=2.15
-    reach=10.-1.5-tip
+    reach=8.-1.5-tip
     pilot=reach+1.
     return {'count':2, 'active_hole_indices':(0,3),
-            'screw':'M3x10 SHCS', 'screw_length_mm':10.,
-            'insert':'RX-M3x5.7', 'insert_length_mm':5.7,
+            'screw':'M3x8 SHCS', 'screw_length_mm':8.,
+            'insert':'RX-M3Sx4', 'insert_length_mm':4.,
             'pcb_thickness_mm':1.5, 'receiving_range_mm':(reach,reach),
             'pilot_depth_mm':pilot, 'minimum_tip_air_mm':1.,
             'minimum_blind_backing_mm':min(layout.pose(n)['translation_mm'][0]
                 for n in ('relay-1','relay-2'))-tip-pilot+107.5,
+            'minimum_fluted_backing_mm':min(layout.pose(n)['translation_mm'][0]
+                for n in ('relay-1','relay-2'))-tip-pilot+107.5-flute_depth,
+            'maximum_flute_depth_mm':flute_depth,
             'boss_radius_mm':5., 'pilot_radius_mm':2.,
             'bearing_tip_height_mm':tip, 'bearing_tip_radius_mm':2.85,
             'screw_clearance_radius_mm':1.7,
