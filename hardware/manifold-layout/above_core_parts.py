@@ -289,7 +289,7 @@ def components():
                         ('c14-inlet', C_C14), ('asse1022-assembly', M_BRASS),
                         ('discharge-chain', M_NEOFIT_ACETAL)):
         add(name, native_reference(name), color, layout.pose(name))
-    for name in ('valve-v-a', 'valve-v-b', 'vk-solenoid'):
+    for name in layout.valve_names():
         add(name, valve_native(name), C_VALVE, layout.pose(name))
     add('g-ganen-pump', pump_native(), M_DONOR_BLACK, layout.pose('g-ganen-pump'))
 

@@ -1052,12 +1052,13 @@ def valve_tray_decks(placed: dict) -> dict:
     runs on, which way it points, the world coordinate of their shared mounting plane, and each
     valve's centre in the plate's two in-plane axes.
 
-    The lid-owned valves are excluded: their integral seats follow the
-    above-core equipment placement, and each body has one holder."""
+    The selected above-core valves are excluded: their integral back-top or
+    lid seats follow the native placement, and each body has one holder."""
     placed = _bodies(placed)
     groups = collections.defaultdict(list)
     for name in placed:
-        if (not name.startswith("valve-v-") or name in _cci.cap_cradles
+        if (not name.startswith("valve-v-") or name in _above.valve_names()
+                or name in _cci.cap_cradles
                 or name in _above.core_equipment_names()):
             continue
         axis, sign = _valve_up(placed, name)
