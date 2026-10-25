@@ -42,7 +42,7 @@ def compose(scene, ea):
     used={id for c in graph for id in (c.start,c.end)}
     manifest={
         'schema':1,'units':'mm','frame':'Enclosure assembly XYZ; Z up',
-        'scope':'Installed enclosure wiring, including embedded core leads and the moving pump-cartridge half. External cord, faucet and umbilical end at the enclosure interfaces.',
+        'scope':'Installed enclosure wiring, including embedded core leads. External cord, faucet and umbilical end at the enclosure interfaces.',
         'connection_count':len(graph),'harnesses':dict(sorted(Counter(c.harness for c in graph).items())),
         'route_status_counts':dict(Counter(r.status for r in routes)),
         'stock':STOCK,'unused':UNUSED,'boundaries':BOUNDARIES,
@@ -59,7 +59,7 @@ def compose(scene, ea):
             'Routes and conductor packing are proposed installed geometry; physical harness dressing and assembly are not accepted by this model.',
             'Lengths follow the routed insulated conductor centreline; hidden crimp insertion, cut reserve, sleeve fit and final service slack are separate.',
             'Wire bend radii are reported geometric radii, not manufacturer-qualified minima.',
-            'No rigid Faston boot box is imposed on the flexible valve tabs. G/J use a proposed aft exit at the tab engagement region.',
+            'No rigid Faston boot box is imposed on the flexible valve tabs or the pump motor tabs. G/J use a proposed aft exit at the tab engagement region.',
             'Nominal and unlocated terminals remain visible in the graph and manifest; no exact donor termination is invented.',
             'The electrical graph does not qualify grounding, mains isolation, current capacity or energization.',
         ],

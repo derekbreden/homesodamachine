@@ -4,17 +4,6 @@ These are purchased-part layout envelopes. Latches, crimp barrels and the
 on-hand copies' manufacturing tolerances remain outside this representation.
 """
 from __future__ import annotations
-import math
-
-
-def _lead_prefix(route, length, reverse=False):
-    """The sleeve follows the wire's exact initial lines and circular bends."""
-    from .bundles import trimmed
-    segments = route.segments
-    if reverse:
-        segments = [{**s, 'start_mm': s['end_mm'], 'end_mm': s['start_mm']}
-                    for s in reversed(segments)]
-    return trimmed(segments, 0., max(0., sum(s['length_mm'] for s in segments)-length))
 
 
 def add_terminations(assembly,attachments,connections,routes):
@@ -49,19 +38,6 @@ def add_terminations(assembly,attachments,connections,routes):
                            p.id:{'part':p.part,'point':p.point,'outward':p.outward,
                                  'pin':p.pin} for p in pins}}
     from .model import Route,Connection,rounded_segments,shape
-    for side in ('male','female'):
-        for i in range(1,5):
-            terminal=terminals[f'pogo-{side}.{i}']
-            wire=next(r for r in routes if terminal.id in (r.connection.start,r.connection.end))
-            segments=_lead_prefix(wire,4.,reverse=wire.connection.end==terminal.id)
-            sleeve_route=Route(wire.connection,[],segments)
-            sleeve=shape(sleeve_route,2.3,1.72)
-            name=f'terminal-pogo-{side}-{i}'
-            assembly.add(sleeve,name=name,color=cq.Color(.04,.04,.045))
-            records[name]={'kind':'Individual solder-joint heat shrink','outer_diameter_mm':2.3,
-                           'length_mm':4.,'status':'proposed recovered profile; actual sleeve/finished joint unmeasured',
-                           'wire':wire.connection.id,'segments':segments,
-                           'terminal_ids':[terminal.id]}
     for label,lead in attachments.fuse_leads.items():
         segments=rounded_segments(lead['points_mm'],lead['bend_radius_mm'],keep_collinear=True)
         route=Route(Connection('fuse-'+label,'Compressor','','',''),lead['points_mm'],segments)

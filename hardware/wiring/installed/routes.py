@@ -8,11 +8,20 @@ its individually dressed override stations.
 from __future__ import annotations
 
 import json
+import math
 from pathlib import Path
 
 from .model import STOCK, add, mul, finish
 
 OVERRIDES = Path(__file__).with_name('route-overrides.json')
+
+# The pump lead's passage in the enclosure frame: front-top's lead bore on X 0, the clamp's
+# lead slot fore of its flat aft face, whose floor climbs at 45° to the fore wall, and one crown
+# groove per pump from the slot's fore corner to that pump's terminal well.
+LEAD_AXIS_Z = 274.626
+LEAD_SLOT_AFT_Y, LEAD_SLOT_FORE_Y, LEAD_SLOT_FLOOR_Z = 82.265, 73.265, 268.876
+LEAD_SLOT_HALF, LEAD_GROOVE_WIDTH, LEAD_LANE_Z = 5.5, 4.0, 282.4
+WELL_ENTRY_MM = 19.5
 
 
 def station(spec, attachments):
@@ -110,21 +119,15 @@ def guide_points(c, at, groups, saved=None):
         return pts+[(70.+lane, 190., 280.), (70.+lane, 80., 165.+lane),
                     (q[0], 80., 165.+lane), (q[0], q[1]+12., q[2])]
 
-    if c.harness in ('J13', 'J9'):
-        n = idx % 4
-        z = 291.+n*1.85 if c.harness == 'J13' else 298.
-        x = 19.5+n*1.85 if c.harness == 'J13' else 4.+n*1.85
-        pts = [(p[0], p[1], z), (x, p[1], z), (x, 208., z)]
-        if c.harness == 'J13':
-            return pts+[(40.+n*1.85, 208., 280.), (40.+n*1.85, 184., 280.),
-                        (12.+n*1.85, 124., 272.), (n*1.85, 104., 272.),
-                        (n*1.85, 96., 272.)]
-        return pts+[(x, 184., 298.), (32.+n*1.85, 184., 298.), (32.+n*1.85, 112., 296.),
-                    (28.+n*1.85, 88., 304.), (28.+n*1.85, 84., 304.)]
+    if c.harness == 'J13':
+        return pump_lead_guides(c, at, idx % 4)
 
-    if c.harness == 'Cartridge':
-        z = 281.5-(idx % 4)*.15
-        return [(p[0], p[1]-5., z), (q[0], p[1]-5., z), (q[0], q[1]+5., z)]
+    if c.harness == 'J9':
+        n = idx % 4
+        x = 4.+n*1.85
+        return [(p[0], p[1], 298.), (x, p[1], 298.), (x, 208., 298.),
+                (x, 184., 298.), (32.+n*1.85, 184., 298.), (32.+n*1.85, 112., 296.),
+                (28.+n*1.85, 88., 304.), (28.+n*1.85, 84., 304.)]
 
     if c.harness == 'J11':
         x = -92.+lane
@@ -222,3 +225,26 @@ def guide_points(c, at, groups, saved=None):
                 (-49., 280., 340.), (28., 280., 340.), (28., 240., 340.),
                 (28., 240., 282.), (28., q[1], 282.), (q[0], q[1], 282.)]
     raise ValueError('No installed route family for '+c.id)
+
+
+def pump_lead_guides(c, at, n):
+    """One J13 conductor, AM2, AM1, BM2, BM1 in lanes +X to -X: a stacked run from the board
+    past the Y-B stem elbow, a row through the lead bore, up the slot's floor and along the
+    pump's crown groove into its terminal well. The outboard tab takes the groove's aft lane."""
+    p, tab = at.terminals[c.start].point, at.terminals[c.end].point
+    bank = c.end.split('.')[0]
+    axis = [sum(at.terminals[f'{bank}.{i}'].point[k] for i in (1, 2))/2 for k in (0, 1)]
+    x, z = (1.5-n)*1.85, 277.3+n*1.9
+    side = 1. if x > 0 else -1.
+    start = (side*(LEAD_SLOT_HALF-LEAD_GROOVE_WIDTH/2), LEAD_SLOT_FORE_Y+LEAD_GROOVE_WIDTH/2)
+    run = math.hypot(axis[0]-start[0], axis[1]-start[1])
+    u = ((axis[0]-start[0])/run, (axis[1]-start[1])/run)
+    aft = (-u[1], u[0]) if u[0] > 0 else (u[1], -u[0])
+    lane = .85 if abs(tab[0]) > abs(axis[0]) else -.85
+    y = start[1]+lane*aft[1]+(x-start[0]-lane*aft[0])/u[0]*u[1]
+    climb = LEAD_SLOT_FLOOR_Z+2.
+    return [(p[0], p[1], z), (-36., 157., z), (x, 113.5, z), (x, 104.5, LEAD_AXIS_Z),
+            (x, LEAD_SLOT_AFT_Y-(LEAD_AXIS_Z-climb), LEAD_AXIS_Z),
+            (x, y, climb+LEAD_SLOT_AFT_Y-y), (x, y, LEAD_LANE_Z),
+            (axis[0]-u[0]*WELL_ENTRY_MM+lane*aft[0], axis[1]-u[1]*WELL_ENTRY_MM+lane*aft[1],
+             LEAD_LANE_Z)]
