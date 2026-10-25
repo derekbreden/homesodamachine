@@ -82,13 +82,66 @@ def stock_probes(data):
             'wall_landing_missing_mm3': landing}
 
 
+def bind_back_top(path, output):
+    """Append only actual printed-stock readings to the original local proof."""
+    from _cadq_export import import_step
+
+    report = json.loads(output.read_text())
+    stock = import_step(path).val()
+    rows = {}
+    for number, data in enumerate(meter.meter_support_datums()):
+        name = 'meter-' + ('fore' if number == 0 else 'aft')
+        support = meter.meter_supports()[number]
+        x, y, z = data['centre_world_mm']
+        half = data['width_mm'] / 2.
+        a, b = data['tie_slot_min_world_mm'], data['tie_slot_max_world_mm']
+        bottom = data['beam_bottom_world_z_mm']
+        slot = cq.Solid.makeBox(b[0] - a[0], b[1] - a[1], 3.,
+                                cq.Vector(a[0], a[1], bottom))
+        bore = cq.Solid.makeCylinder(data['seat_radius_mm'], 2. * half,
+                                     cq.Vector(x, y - half, z), cq.Vector(0, 1, 0))
+        original = report['rows'][name]['datums']
+        rows[name] = {
+            'same_recorded_datums': json.loads(json.dumps(data)) == original,
+            'source_support_missing_mm3': support.cut(stock).Volume(),
+            'actual_tie_slot_stock_mm3': slot.intersect(stock).Volume(),
+            'actual_seat_bore_stock_mm3': bore.intersect(stock).Volume(),
+            **{key: probe.cut(stock).Volume()
+               for key, probe in stock_probes(data).items()}}
+    binding = {
+        'path': str(path.relative_to(ROOT)), 'sha256': sha(path),
+        'stock_valid': stock.isValid(), 'stock_solids': len(stock.Solids()),
+        'source_sha256': {
+            str(Path(meter.__file__).relative_to(ROOT)): sha(Path(meter.__file__)),
+            str(Path(__file__).relative_to(ROOT)): sha(Path(__file__))},
+        'rows': rows,
+        'scope': ('Imported back-top versus the two unchanged source bracket solids, '
+                  'complete quarter/slot stock, open slots and bore air. The original '
+                  '172-target cached-neighbor/strip reading is preserved and is not replayed. '
+                  'No installed-wire, whole-group motion or physical qualification is added.')}
+    binding['passed_actual_stock'] = (
+        binding['stock_valid'] and binding['stock_solids'] == 1
+        and all(row['same_recorded_datums'] and all(
+            value <= 1.e-6 for key, value in row.items()
+            if key.endswith('_mm3')) for row in rows.values()))
+    report['actual_back_top_binding'] = binding
+    output.write_text(json.dumps(report, indent=2) + '\n')
+    print('Actual meter bracket stock:', json.dumps(binding), flush=True)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--targets', type=Path, required=True,
+    parser.add_argument('--targets', type=Path,
                         help='JSON with scope and parts mapping names to native BREP paths')
+    parser.add_argument('--bind-back-top', type=Path,
+                        help='Append only imported-shell stock to the existing receipt')
     parser.add_argument('--output', type=Path, default=HERE / 'wall-meter-review.json')
     parser.add_argument('--brep-output', type=Path)
     args = parser.parse_args()
+    if args.bind_back_top:
+        return bind_back_top(args.bind_back_top.resolve(), args.output)
+    if not args.targets:
+        parser.error('--targets is required for the local cached-neighbor reading')
     index_path = args.targets.resolve()
     index = json.loads(index_path.read_text())
     files = {name: (Path(path) if Path(path).is_absolute() else ROOT / path)
