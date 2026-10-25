@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-25T20:36:48.750650+00:00",
+  "reported_by": "Derek",
+  "reported_date": "2026-10-25",
+  "printer_task_id": "1374330388",
+  "archive_sha256": "38320cd929e2bf870e2ce4cfa526f5a01648bb5d44fbd199723e926fb3943842",
+  "gcode_sha256": "d59c52d3c96c41641e0154cf3dbc2e0f7252b93d2cffb1c9d20e2823eedd602e",
+  "cover_stl_sha256": "3d4d2e05edde5a0e45aad36e9de072a57103c3b0f8da2bbd875cbfbedbe68133",
+  "status": "approved_with_accepted_remaining_corner_gap",
+  "user_quote": "That worked. There's still a gap, so make a note of it, but I don't want to iterate any further on this right now. It's fine. It's good enough. Regarding the thinner layers that we tried on the previous FASA print there, that didn't turn out so good, so I'd like to go back to the same layer height everywhere as our final production print settings. And other than that, make sure that our next prints match what we did here, because all of this is looking good and is approved.",
+  "observations": {
+    "fit": "Worked; approved for subsequent production prints.",
+    "remaining_corner_gap": "Still present and accepted as good enough. No further iteration requested.",
+    "photographs": "Installed extended-skirt Sculpted cover with display and three tubes. Photos 1 and 2 show the remaining corner opening.",
+    "previous_base_band_trial": "Derek reports the thinner layers on the previous complete faucet did not turn out well."
+  },
+  "production_selection": {
+    "complete_faucet": "Industrial base, corrected lowered tip and extended-front-skirt Sculpted display cover, rigid Industrial plate and side-down lever",
+    "normal_and_first_layer_height_mm": 0.24,
+    "variable_layer_ranges": [],
+    "retain_other_settings": true,
+    "corner_gap_iteration": "Stopped at Derek's request; accepted cosmetic condition."
+  },
+  "scope": "Direct approval of the pictured assembled faucet and identified cover print. The uniform 0.24 mm complete-faucet recipe is selected for production. Numerical installation force, retention force and lifetime are not measured.",
+  "photos": [
+    {
+      "file": "photo-1.jpg",
+      "original_sha256": "7fd353781edf7c238718d773c8f47200b3ba02c8113aab1bab9dde02c5b3c663",
+      "saved_sha256": "8c98e99b146bc4c882e650c11631e8e2014aaacfe773a4ab4fa25dff35fea2b2"
+    },
+    {
+      "file": "photo-2.jpg",
+      "original_sha256": "a5db675b1c2458a7d7bd0a4a2a3f6ff01100dc22ea221f56103ae16582bd7878",
+      "saved_sha256": "4a7b04ce3349c0109dae3cde1fc29212d3ba7d46fb478e88675c5cdab71396d9"
+    },
+    {
+      "file": "photo-3.jpg",
+      "original_sha256": "5067418b64ec0637f90d5afa56da8c2665cc13ba009667e5e495e4bf9bbf90b1",
+      "saved_sha256": "7b8e121764e92a00d8f93a950b9bd9682ebc67193c8552a6e4cd6a4357fb6a3d"
+    },
+    {
+      "file": "photo-4.jpg",
+      "original_sha256": "49a33c7c2329de0365ba757b1a3acf0f7d684a648c3d86bd1b63683e2970edef",
+      "saved_sha256": "13a33b7e21b0feba442d1ff049877f6eae130e4c640638335dafe1dd535cd9a3"
+    },
+    {
+      "file": "photo-5.jpg",
+      "original_sha256": "e4beab1352d5dc3e8e22797a452c91c358dc56fd36aef2a5a0275facd60800b0",
+      "saved_sha256": "b958a5382b99a66c018b5fb77a785a84864f10caf98b8ba88b47a03e087e7ed3"
+    }
+  ],
+  "image_processing": "EXIF orientation applied; resized to at most 1600 px; metadata omitted."
+}

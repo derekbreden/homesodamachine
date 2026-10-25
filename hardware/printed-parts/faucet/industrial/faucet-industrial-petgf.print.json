@@ -1,265 +1,21 @@
 {
   "project": "faucet-industrial-petgf.3mf",
-  "settings_source": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.3mf",
-  "settings_source_sha256": "2561bcdaa520e94f4b0a5989fcbb9e941f707b50c46af97655ceacf312748302",
-  "settings_sha256": "73ddca1a51a6de2ada2dac8f59afb37b29b45f96b4b8d4e7e8fd7dda006f33cc",
-  "source_settings_sha256": "36d8751b21f7305ff391f6d17430394ccf4322901b7b12fd35f07ff230343183",
+  "settings_source": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/2026-10-25-sculpted-cover-front-overlap-black-left04-z004-mark2.3mf",
+  "settings_source_sha256": "fb08838af3bf6cff212acec6ccc2dabc6701fe8745840bbbf459c78597cb765d",
+  "settings_sha256": "987a5e177a7ff369594322a0107c23f4dddfdb094bbbfe9fd22f7628e0961d99",
+  "source_settings_sha256": "987a5e177a7ff369594322a0107c23f4dddfdb094bbbfe9fd22f7628e0961d99",
   "settings_changes": {
     "machine_start_gcode": {
       "from_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
-      "to_sha256": "409b1516f0401361a02b18a34420c10ca83bc33615e8896cade2fea42edee871",
-      "requested_z_trim_mm": 0.18
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
     },
     "printer_settings_id": {
       "from": "Bambu Lab H2C 0.4 Standard +0.04 Z trim",
-      "to": "Bambu Lab H2C 0.4 Standard +0.18 Z trim"
-    },
-    "fan_max_speed": {
-      "from": [
-        "70"
-      ],
-      "to": [
-        "0"
-      ]
-    },
-    "overhang_fan_speed": {
-      "from": [
-        "0"
-      ],
-      "to": [
-        "70"
-      ]
-    },
-    "overhang_fan_threshold": {
-      "from": [
-        "0%"
-      ],
-      "to": [
-        "50%"
-      ]
-    },
-    "reduce_fan_stop_start_freq": {
-      "from": [
-        "1"
-      ],
-      "to": [
-        "0"
-      ]
-    },
-    "pre_start_fan_time": {
-      "from": [
-        "2"
-      ],
-      "to": [
-        "0"
-      ]
-    },
-    "filament_wipe": {
-      "from": [
-        "nil",
-        "nil",
-        "nil"
-      ],
-      "to": [
-        "0",
-        "nil",
-        "nil"
-      ]
-    },
-    "filament_wipe_distance": {
-      "from": [
-        "nil",
-        "nil",
-        "nil"
-      ],
-      "to": [
-        "0",
-        "nil",
-        "nil"
-      ]
-    },
-    "bridge_speed": {
-      "from": [
-        "50",
-        "50",
-        "50",
-        "50",
-        "50"
-      ],
-      "to": [
-        "15",
-        "15",
-        "15",
-        "15",
-        "15"
-      ]
-    },
-    "filament_bridge_speed": {
-      "from": [
-        "25",
-        "25",
-        "25"
-      ],
-      "to": [
-        "15",
-        "15",
-        "15"
-      ]
-    },
-    "bridge_flow": {
-      "from": "1",
-      "to": "1.25"
-    },
-    "overhang_1_4_speed": {
-      "from": [
-        "0",
-        "0",
-        "0",
-        "0",
-        "0"
-      ],
-      "to": [
-        "15",
-        "15",
-        "15",
-        "15",
-        "15"
-      ]
-    },
-    "overhang_2_4_speed": {
-      "from": [
-        "50",
-        "50",
-        "50",
-        "50",
-        "50"
-      ],
-      "to": [
-        "15",
-        "15",
-        "15",
-        "15",
-        "15"
-      ]
-    },
-    "overhang_3_4_speed": {
-      "from": [
-        "30",
-        "30",
-        "30",
-        "30",
-        "30"
-      ],
-      "to": [
-        "15",
-        "15",
-        "15",
-        "15",
-        "15"
-      ]
-    },
-    "overhang_4_4_speed": {
-      "from": [
-        "10",
-        "10",
-        "10",
-        "10",
-        "10"
-      ],
-      "to": [
-        "10.0",
-        "10.0",
-        "10.0",
-        "10.0",
-        "10.0"
-      ]
-    },
-    "overhang_totally_speed": {
-      "from": [
-        "10",
-        "10",
-        "10",
-        "10",
-        "10"
-      ],
-      "to": [
-        "10.0",
-        "10.0",
-        "10.0",
-        "10.0",
-        "10.0"
-      ]
-    },
-    "filament_overhang_1_4_speed": {
-      "from": [
-        "0",
-        "0",
-        "0"
-      ],
-      "to": [
-        "15",
-        "15",
-        "15"
-      ]
-    },
-    "filament_overhang_2_4_speed": {
-      "from": [
-        "35",
-        "50",
-        "50"
-      ],
-      "to": [
-        "15",
-        "15",
-        "15"
-      ]
-    },
-    "filament_overhang_3_4_speed": {
-      "from": [
-        "35",
-        "30",
-        "30"
-      ],
-      "to": [
-        "15",
-        "15",
-        "15"
-      ]
-    },
-    "filament_overhang_4_4_speed": {
-      "from": [
-        "10",
-        "10",
-        "10"
-      ],
-      "to": [
-        "10.0",
-        "10.0",
-        "10.0"
-      ]
-    },
-    "filament_overhang_totally_speed": {
-      "from": [
-        "10",
-        "10",
-        "10"
-      ],
-      "to": [
-        "10.0",
-        "10.0",
-        "10.0"
-      ]
-    },
-    "filament_colour": {
-      "from": [
-        "#161616"
-      ],
-      "to": [
-        "#000000"
-      ]
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
     }
   },
-  "printer": "Mark1",
+  "printer": "Mark2",
   "process": "0.24mm PET-GF faucet",
   "filament": [
     "Polymaker PET-GF @BBL H2C"
@@ -307,7 +63,7 @@
       "part_id": "1",
       "member": "3D/Objects/object_1.model",
       "identify_id": 1901,
-      "source": "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl",
+      "source": "hardware/printed-parts/faucet/industrial/production/2026-10-25/industrial-shell-base.stl",
       "stl_sha256": "dc855eb7d8eae75886222d8b4aee8b9e02fe1d55ae4740c1ae5b4b64cf6ba742",
       "triangles": 142556,
       "rotation_x_degrees": -14.999999999999998,
@@ -363,14 +119,14 @@
       "part_id": "3",
       "member": "3D/Objects/object_2.model",
       "identify_id": 1902,
-      "source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
-      "stl_sha256": "ced30018682bec2b3099ebc6db8da75198fda923cc9a86d1189f2f03ebfdabe8",
-      "triangles": 185790,
+      "source": "hardware/printed-parts/faucet/industrial/production/2026-10-25/faucet-shell-tip.stl",
+      "stl_sha256": "35ec9f0b99c5e90f038836549e6f5e8f112b2af03e1849b08b2d759050d260e6",
+      "triangles": 29212,
       "rotation_x_degrees": -105.0,
       "source_center_mm": [
         0.0,
-        -80.5707836151123,
-        208.50643157958984
+        -80.57017707824707,
+        208.50757598876953
       ],
       "build_transform": [
         1.0,
@@ -383,13 +139,13 @@
         0.9659258262890683,
         -0.25881904510252085,
         182.5,
-        201.78619739310935,
-        68.9342972168119
+        201.79490772981305,
+        68.93074137088173
       ],
       "plate_translation_mm": [
         182.5,
-        201.78619739310935,
-        68.9342972168119
+        201.79490772981305,
+        68.93074137088173
       ],
       "plate_origin_mm": [
         0.0,
@@ -399,34 +155,34 @@
       "plate_bounds_mm": [
         [
           169.0,
-          180.69483637413302,
+          180.70603837801687,
           0.0
         ],
         [
           196.0,
-          233.30516362586698,
-          137.87054537063977
+          233.2939616219831,
+          137.8654754488954
         ]
       ],
       "watertight": true,
       "body_count": 1,
-      "embedded_vertex_error_mm": 5.000018177270249e-10
+      "embedded_vertex_error_mm": 4.998168545711223e-10
     },
     {
-      "name": "industrial-display-cover",
+      "name": "sculpted-display-cover",
       "plate": 1,
       "object_id": "6",
       "part_id": "5",
       "member": "3D/Objects/object_3.model",
       "identify_id": 1903,
-      "source": "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl",
-      "stl_sha256": "4a09250f4900d864ac1dbe8cc7d040a307f2a62c5bb84bfabcf01576ee716a1f",
-      "triangles": 4346,
+      "source": "hardware/printed-parts/faucet/industrial/production/2026-10-25/sculpted-display-cover.stl",
+      "stl_sha256": "3d4d2e05edde5a0e45aad36e9de072a57103c3b0f8da2bbd875cbfbedbe68133",
+      "triangles": 4982,
       "rotation_x_degrees": -50.0,
       "source_center_mm": [
         0.0,
-        -128.40642929077148,
-        208.1699447631836
+        -128.5051383972168,
+        207.77315521240234
       ],
       "build_transform": [
         1.0,
@@ -439,13 +195,13 @@
         0.766044443118978,
         0.6427876096865394,
         251.5,
-        246.00000689122214,
-        10.275003998891606
+        245.01714081182666,
+        10.095567854458237
       ],
       "plate_translation_mm": [
         251.5,
-        246.00000689122214,
-        10.275003998891606
+        245.01714081182666,
+        10.095567854458237
       ],
       "plate_origin_mm": [
         0.0,
@@ -454,19 +210,19 @@
       ],
       "plate_bounds_mm": [
         [
-          236.60000038146973,
-          221.1249909957943,
+          237.27867889404297,
+          220.50953324431714,
           0.0
         ],
         [
-          266.3999996185303,
-          270.8750090042057,
-          20.550012584253857
+          265.72132110595703,
+          271.49046675568286,
+          16.05001425648164
         ]
       ],
       "watertight": true,
       "body_count": 1,
-      "embedded_vertex_error_mm": 4.992672941739329e-10
+      "embedded_vertex_error_mm": 4.990234891977252e-10
     },
     {
       "name": "industrial-above-counter-plate",
@@ -475,7 +231,7 @@
       "part_id": "7",
       "member": "3D/Objects/object_4.model",
       "identify_id": 1904,
-      "source": "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl",
+      "source": "hardware/printed-parts/faucet/industrial/production/2026-10-25/industrial-above-counter-plate.stl",
       "stl_sha256": "5dcf7c25eddfd45f5a9db12b687b751ba24c3c3f9bb87d042b6d97ca4d134bee",
       "triangles": 15144,
       "rotation_x_degrees": 0.0,
@@ -531,7 +287,7 @@
       "part_id": "9",
       "member": "3D/Objects/object_5.model",
       "identify_id": 1905,
-      "source": "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl",
+      "source": "hardware/printed-parts/faucet/industrial/production/2026-10-25/lever-replica.stl",
       "stl_sha256": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
       "triangles": 5072,
       "rotation_x_degrees": 0.0,
@@ -581,8 +337,8 @@
       "embedded_vertex_error_mm": 4.997851021926181e-10
     }
   ],
-  "project_sha256": "a1171fe55e0e10ef7d06ab1ca2d3955793e129b48f0cec41166a824a4ec8980a",
-  "settings_preserved_byte_for_byte": false,
+  "project_sha256": "138381e13b3089fa3130bc7f0fe7752dd2b65b804a0eedcafb277819f2878fa0",
+  "settings_preserved_byte_for_byte": true,
   "local_solid_regions": [
     {
       "part": "industrial-shell-base",
@@ -646,17 +402,17 @@
     "target": "Outer curved neck rear meridian at CAD X=0, excluding plug and display-frame surfaces",
     "native_evidence": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/native-review.json",
     "physical_result": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json",
-    "enforced_triangles": 186,
+    "enforced_triangles": 48,
     "painted_facet_bounds_cad_mm": [
       [
-        -0.100378074,
-        -114.90322876011231,
-        226.03443908658986
+        -0.322636545,
+        -114.90206909224707,
+        226.03253173876953
       ],
       [
-        0.161997616,
-        -32.373329162112306,
-        242.71292114258983
+        0.536821306,
+        -32.37330627424707,
+        242.71250915576954
       ]
     ],
     "mesh_vertices_and_triangle_indices_unchanged": true
@@ -830,7 +586,7 @@
         "source_member": "3D/Objects/retained-tip-eight-fins.model",
         "member": "3D/Objects/tip-eight-fin-walls.model",
         "source_member_sha256": "2d38b3a328b3d57a3a496062bd7fd866e692be677377c82c11669ddba6fd3b59",
-        "member_sha256": "a20d6f777390640c3d940179b51a9338270ea2a04560319a33c612094932f2a5"
+        "member_sha256": "a13c7d3d4bc68932eeb29d108307f8b705e12ba77c730d9b986dd372689370ce"
       },
       {
         "source_component_id": 2400,
@@ -838,14 +594,14 @@
         "source_member": "3D/Objects/plug-root-breakaway-foot.model",
         "member": "3D/Objects/tip-hidden-root-disc.model",
         "source_member_sha256": "ae1749aebf01efcd912f9c9521f81bed6d3b6370b6232b3341c53c8ea181070b",
-        "member_sha256": "01fe8b48c4010ab6bdd99bee36fb994bd952d91b11cfce002fa5ef81af8adbdb"
+        "member_sha256": "f14c53394af6a402eba80ef1b8b234c9dc40a3108c7579d5c45c3eb80765c9c3"
       }
     ],
     "fin_count": 8,
     "source_local_to_target_local_translation_mm": [
       7.62939453125e-06,
-      43.82826042175293,
-      16.129234313964844
+      43.827653884887695,
+      16.128089904785156
     ],
     "joint_plane": {
       "point": [
@@ -859,10 +615,10 @@
         0.3420201433256688
       ]
     },
-    "joint_plane_faces": 579,
-    "joint_plane_area_mm2": 167.85411880342102,
-    "enforced_lip_faces": 129,
-    "enforced_lip_area_mm2": 37.47638320401949,
+    "joint_plane_faces": 262,
+    "joint_plane_area_mm2": 167.8107676046123,
+    "enforced_lip_faces": 58,
+    "enforced_lip_area_mm2": 37.16393077593614,
     "lip_enforcer_selection": {
       "maximum_build_z_mm": 21,
       "maximum_abs_cad_x_mm": 8
@@ -873,27 +629,29 @@
     "scope": "Exact accepted fin and hidden-root-disc meshes; accepted lip support-selection geometry on the full tip tessellation. Tree(auto)/Default elsewhere. Bonded disc contact stays on the hidden male insertion end."
   },
   "project_title": "Industrial faucet PET-GF",
-  "profile_source": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.3mf",
-  "native_settings_sha256": "73ddca1a51a6de2ada2dac8f59afb37b29b45f96b4b8d4e7e8fd7dda006f33cc",
-  "all_profile_members_preserved_byte_for_byte": false,
+  "profile_source": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/2026-10-25-sculpted-cover-front-overlap-black-left04-z004-mark2.3mf",
+  "native_settings_sha256": "987a5e177a7ff369594322a0107c23f4dddfdb094bbbfe9fd22f7628e0961d99",
+  "all_profile_members_preserved_byte_for_byte": true,
   "profile_member_sha256": {
     "Metadata/filament_settings_1.config": "091f10287f1cb62de98ece1c2a38ad31fcdcd29aff3e3a7605ab194d6089cd0c",
-    "Metadata/project_settings.config": "73ddca1a51a6de2ada2dac8f59afb37b29b45f96b4b8d4e7e8fd7dda006f33cc"
+    "Metadata/project_settings.config": "987a5e177a7ff369594322a0107c23f4dddfdb094bbbfe9fd22f7628e0961d99"
   },
   "sculpted_artifacts_unchanged": {
-    "hardware/printed-parts/faucet/faucet-petgf.3mf": "acd55748bd829abf5164a8088e3827163fc600d5920c6c4fa2209eb04d2bbc8a",
-    "hardware/printed-parts/faucet/faucet-petgf.print.json": "29264f9bdf646135e563daef0555974bae027c1eb7bb1983723e67049a54ae96",
+    "hardware/printed-parts/faucet/faucet-petgf.3mf": "523aca51a52146930133187ae873afeb1677849ffc4d15bf4cf56a7d2f15e055",
+    "hardware/printed-parts/faucet/faucet-petgf.print.json": "5c340eda872ef27accb10f0e2ba8692b00cb55be466258efae13102d03fc79d3",
     "hardware/printed-parts/faucet/faucet-petgf.support-audit.json": "383212521536bbe4a6661bf127e59203eeacfe3206bf80d4eaea8ea775823b97",
-    "hardware/printed-parts/faucet/faucet-petgf.readiness.json": "b66c9baa212ff5978b68071bc84f819d0698b9f3d5f0a345e2418bc317732632"
+    "hardware/printed-parts/faucet/faucet-petgf.readiness.json": "520bfcfe182db137271f9cfce89b05fc268c625a2ae37593eddf8d0cd42133cb"
   },
-  "shared_tip_source": "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl",
+  "shared_tip_source": "hardware/printed-parts/faucet/industrial/production/2026-10-25/faucet-shell-tip.stl",
   "gasket_included": false,
   "color_independent_geometry": true,
   "accepted_recipe": "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.3mf",
   "accepted_recipe_sha256": "2561bcdaa520e94f4b0a5989fcbb9e941f707b50c46af97655ceacf312748302",
-  "accepted_geometry_tag": "faucet-industrial-shipping-2026-10-10",
+  "approved_geometry_selection": "hardware/printed-parts/faucet/industrial/production-selection.json",
+  "physical_production_approval": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json",
   "active_nozzle": 0,
-  "requested_z_trim_mm": 0.18,
+  "requested_z_trim_mm": 0.04,
+  "first_bed_layer_height_mm": 0.24,
   "selected_faces": [
     {
       "cad_z_mm": 14.0,
@@ -920,10 +678,7 @@
         13.871648117739781,
         28.793276836907097
       ],
-      "fine_band_print_z_mm": [
-        17.0,
-        29.0
-      ]
+      "model_layer_height_mm": 0.24
     },
     {
       "cad_z_mm": 57.5,
@@ -950,10 +705,7 @@
         55.46313145649684,
         67.83949033899097
       ],
-      "fine_band_print_z_mm": [
-        55.16,
-        68.12
-      ]
+      "model_layer_height_mm": 0.24
     }
   ],
   "insert_review_regions": [
@@ -1160,8 +912,8 @@
   "finish_selection": "hardware/printed-parts/faucet/industrial/finish-selection.json",
   "selected_finish": {
     "schema": 1,
-    "selected_date": "2026-10-14",
-    "selection_basis": "Current planned production faucet approved by Derek with complete-base and exposed curved-tip rear seam enforcement; A2/Back/150% on base, tip and mounting plate; default corner seams on cover and lever; E eight coarse lip layers.",
+    "selected_date": "2026-10-25",
+    "selection_basis": "Derek approves the Industrial faucet with the corrected lowered tip and extended Sculpted cover; production uses uniform 0.24 mm layers including the first layer.",
     "seam_specimen": "A2",
     "seam_parts": [
       "industrial-shell-base",
@@ -1218,31 +970,12 @@
       "cooling_policy": "hardware/printed-parts/cooling/README.md"
     },
     "wall_generators": "Retain base Arachne for the continuous reinforced foot; other rigid parts retain Classic.",
-    "lift_specimen": "E",
-    "additional_coarse_model_layers": 8,
-    "coarse_layer_height_mm": 0.24,
-    "last_starting_lip_first_coarse_nozzle_z_mm": 15.32,
-    "first_fine_nozzle_z_mm": 17.12,
-    "base_fine_bands_print_z_mm": [
-      [
-        17.0,
-        29.0
-      ],
-      [
-        55.16,
-        68.12
-      ]
-    ],
-    "fine_layer_height_mm": 0.12,
-    "first_bed_layer_height_mm": 0.2,
-    "scope": "Current planned production recipe accepted by direct user inspection of the seam-fixed base and tip, with the other three rigid parts retained from the accepted complete faucet.",
+    "base_fine_bands_print_z_mm": [],
+    "first_bed_layer_height_mm": 0.24,
+    "scope": "Approved complete Industrial faucet with the Sculpted display cover. Uniform 0.24 mm layers including the first bed layer; accepted seams, support geometry and localized cooling retained.",
     "seam_selection_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/launch.json",
-    "default_printer": "Mark1",
-    "default_filament_colour": "#000000",
-    "lift_coupon_preparation": "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/combined/preparation.json",
-    "lift_coupon_preparation_sha256": "8c88a822e4f5dede5c12efc785eb07936381c2cbf8b557a993dfebf76a90a746",
-    "lift_coupon_task_id": "1328441515",
-    "lift_physical_result": "hardware/printed-parts/faucet/finish-coupons/coarse-start-v1/combined/physical-result.json",
+    "default_printer": "Mark2",
+    "default_filament_colour": "#161616",
     "seam_coupon_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-12-a2-aligned-gap150-mark2/launch.json",
     "rear_seam_enforcement": {
       "part": "industrial-shell-base",
@@ -1259,9 +992,8 @@
       "native_evidence": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/native-review.json",
       "physical_result": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json"
     },
-    "accepted_complete_print": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/physical-result.json",
-    "production_approval": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json",
-    "production_tag": "faucet-industrial-production-2026-10-14",
+    "accepted_complete_print": "hardware/printed-parts/faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/physical-result/physical-result.json",
+    "production_approval": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json",
     "base_rim_supports": {
       "selected_date": "2026-10-15",
       "part": "industrial-shell-base",
@@ -1277,12 +1009,12 @@
       "requested_vertical_gap_mm": 0.24,
       "tree_support_scope": "Tree(auto)/Default elsewhere, retaining automatic normal sections. Narrow blockers duplicate the accepted arc contact strips only.",
       "selection_quote": "Those arc fins snapped off super easy, and they provided excellent support.",
-      "scope": "Transfer the exact physically accepted base-rim support meshes at the retained -15 degree pose. Their local finish and release are accepted; the complete-height project with these supports is unprinted."
+      "scope": "Exact accepted base-rim support meshes at the retained -15 degree pose, with narrow contact blockers and Tree(auto)/Default elsewhere."
     },
     "edge_support_strategy": {
       "selection_quote": "I'm quite convinced that we need to do this everywhere, that we've got these rough edges on overhangs.",
       "method": "Follow the visible unsupported edge with a removable fin shaped to that edge; use intermittent arcs on curved rims and retain Tree(auto)/Default on the remaining geometry.",
-      "application": "Use this treatment for the faucet rough overhang edges. The base rim has physical acceptance. Tip lip and other geometry require their own edge placement and an anchored printing start; their physical result is not inferred from the base."
+      "application": "The approved complete Industrial print retains the base rim arcs and tip fins, local lip trees and hidden-root disc. Other features retain their own edge-placement and physical-result scope."
     },
     "tip_supports": {
       "selected_date": "2026-10-15",
@@ -1314,30 +1046,29 @@
       "root_contact_scope": "Hidden male insertion terminal end only. The directly bonded disc leaves a scuff; do not transfer this bonded contact to visible surfaces.",
       "tree_support_scope": "Tree(auto)/Default elsewhere. Retain the accepted joint-plane block paint except the seam-side low lip support enforcers.",
       "selection_quote": "That worked. That disc works in this case, and is removable, but it leaves a bit of a scuff that would be a problem on a visible surface, but since its on the male insertion portion that is hidden, we are golden here."
-    }
+    },
+    "normal_layer_height_mm": 0.24,
+    "uniform_layer_height": true,
+    "independent_support_layer_height": false,
+    "layer_selection_quote": "I'd like to go back to the same layer height everywhere as our final production print settings.",
+    "production_selection": "hardware/printed-parts/faucet/industrial/production-selection.json",
+    "production_tag": "faucet-industrial-production-2026-10-25"
   },
-  "selected_finish_scope": "A2 with Back on base, tip and mounting plate; complete build-pose rear seam enforcement on the base and matching exposed curved tip meridian; default corner seams on cover and lever; E eight coarse lip layers before 0.12 mm; native125% bridge flow; ordinary part cooling off, 70% on bridges and walls with at least 50% unsupported bead width after three off bed layers; Bridge15mm/s and overhang limits<=15 preserving existing10mm/s; accepted segmented base-rim arcs, tip eight fins and local lip trees, and the removable hidden-root disc. Tree(auto)/Default elsewhere.",
+  "selected_finish_scope": "Approved Industrial faucet with lowered tip and extended Sculpted cover; uniform 0.24 mm first and later layers, no variable bands and independent support heights off. A2 with Back on base, tip and mounting plate, full rear seam enforcement, and Aligned/15%/scarf-off on cover and lever. Retain 125% bridge flow, 15 mm/s bridges, 10-15 mm/s overhangs, ordinary and auxiliary fan off, localized 70% bridge/overhang fan after three off layers, accepted base rim arcs, tip fins, local lip trees and hidden-root disc. Tree(auto)/Default elsewhere.",
+  "base_layer_bands": [],
   "source_sha256": {
     "hardware/printed-parts/faucet/prepare_vent_prints.py": "0d57a8feb9f0b2a9e42fa66e7482644137f999ace4501f2b25885b66425c5f17",
     "hardware/printed-parts/faucet/refresh_print_project.py": "3f50932f08de677e414ccab4ef4cb50f1a4bd04d80f9db3af85356658584a9b9",
-    "hardware/printed-parts/faucet/_faucet_interface.py": "7c561070a6ee966519b2bb29c6dec0860fd128d647210493fa626c97fb73a2f3",
-    "hardware/printed-parts/faucet/faucet_paths.py": "1f26379fede4e2bc2ef7292269c4d08e83f01b2ff6e892d3f5c224326377c701",
-    "hardware/printed-parts/faucet/_display_snap.py": "344e9919836622bd68d7d5b1b1a0c0c3c79d5d28ccebedec864718a0fac90683",
-    "hardware/printed-parts/faucet/vent_seals.py": "2a234324193fdaaf82ab713835cc03347414ebfe97b43f4196c3712066fd3283",
-    "hardware/printed-parts/faucet/faucet-shell/faucet_shell.py": "7f3dd1f885342701c3c667d48880fedb3f03f069338dc7091687988f7c613e71",
-    "hardware/printed-parts/faucet/above-counter-plate/above_counter_plate.py": "4fdcb70f9a93a21b9a784c03a0077ecfff2775a1f25a05a15ade3b962dd548a6",
-    "hardware/printed-parts/faucet/above-counter-gasket/above_counter_gasket.py": "0a41d34ac4e346aa07ba09149981f744ab0172d6fbe9219063a8653e363467d8",
-    "hardware/printed-parts/faucet/industrial/industrial_faucet.py": "c1beda8647bb2c60d609dd9b56b6c33941412f4c35f58a7c3fce7f42075164f5",
-    "hardware/printed-parts/faucet/industrial/industrial_display_cover.py": "0b3defadfeafabcabf83442df8d31570fe21f3af7adbfaf259d0210f08fdf600",
-    "hardware/printed-parts/faucet/industrial/industrial-shell-base.stl": "dc855eb7d8eae75886222d8b4aee8b9e02fe1d55ae4740c1ae5b4b64cf6ba742",
-    "hardware/printed-parts/faucet/faucet-shell/faucet-shell-tip.stl": "ced30018682bec2b3099ebc6db8da75198fda923cc9a86d1189f2f03ebfdabe8",
-    "hardware/printed-parts/faucet/industrial/industrial-display-cover.stl": "4a09250f4900d864ac1dbe8cc7d040a307f2a62c5bb84bfabcf01576ee716a1f",
-    "hardware/printed-parts/faucet/industrial/industrial-above-counter-plate.stl": "5dcf7c25eddfd45f5a9db12b687b751ba24c3c3f9bb87d042b6d97ca4d134bee",
-    "hardware/printed-parts/faucet/lever-replica/lever-replica-side-down.stl": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
-    "hardware/printed-parts/faucet/industrial/prepare_print_project.py": "8909c09f7aa2c83463a69a6fabb195c790bda76fde6a8b28a421a4ba7ceb3574",
+    "hardware/printed-parts/faucet/industrial/production/2026-10-25/industrial-shell-base.stl": "dc855eb7d8eae75886222d8b4aee8b9e02fe1d55ae4740c1ae5b4b64cf6ba742",
+    "hardware/printed-parts/faucet/industrial/production/2026-10-25/faucet-shell-tip.stl": "35ec9f0b99c5e90f038836549e6f5e8f112b2af03e1849b08b2d759050d260e6",
+    "hardware/printed-parts/faucet/industrial/production/2026-10-25/sculpted-display-cover.stl": "3d4d2e05edde5a0e45aad36e9de072a57103c3b0f8da2bbd875cbfbedbe68133",
+    "hardware/printed-parts/faucet/industrial/production/2026-10-25/industrial-above-counter-plate.stl": "5dcf7c25eddfd45f5a9db12b687b751ba24c3c3f9bb87d042b6d97ca4d134bee",
+    "hardware/printed-parts/faucet/industrial/production/2026-10-25/lever-replica.stl": "7a3f5c7d9034c4cce0e0f39bfac6e868f6bd8d01a05add3d21951981eca296eb",
+    "hardware/printed-parts/faucet/industrial/prepare_print_project.py": "4e57afaf25bc9e3517c6b101cc781ec017be71b132d2ffca77a103fa35189819",
     "hardware/printed-parts/faucet/industrial/prints/2026-10-10-shoulders012-wing050-restored-joint-mark2/2026-10-10-industrial-faucet-complete-shoulders012-wing050-restored-joint-petgf-left04-z004-mark2.3mf": "2561bcdaa520e94f4b0a5989fcbb9e941f707b50c46af97655ceacf312748302",
     "hardware/printed-parts/faucet/industrial/physical-acceptance.json": "74793cb4503186aca90897b4a3be7ec2ba386247e60d4191880499010405479f",
-    "hardware/printed-parts/faucet/industrial/finish-selection.json": "bf46987b759459c0cdf8b5f42cf8fad476d353175ce40bf651fe986d97a5394d",
+    "hardware/printed-parts/faucet/industrial/finish-selection.json": "55cf932099dc02734046c943649f1098269e4240910d722497f8e9a28d78a819",
+    "hardware/printed-parts/faucet/industrial/production-selection.json": "1a418acedf39b6e82198c08a3380d9542603db3bc243105547608d44b5d51c69",
     "hardware/printed-parts/faucet/industrial/rim_supports.py": "a9698d5f3ea8ebe89fb0881bcdd97a1b9450d69c54329451d2e66ede3d7745ea",
     "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/2026-10-15-faucet-base-segmented-rim-arcs-tree-current15-bridge125-fan70-z004-mark2.3mf": "3fd336e3e44a32896bd0b76c13f11b91c74911308e81454ae670680c6b579cf7",
     "hardware/printed-parts/faucet/industrial/tip_supports.py": "42d474e5034d8e490a7fb78b438742c8f8c603533a8dab55a30299047fc211c7",

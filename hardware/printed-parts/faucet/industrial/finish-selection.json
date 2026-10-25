@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "selected_date": "2026-10-24",
-  "selection_basis": "Derek selects 0.20 mm layers in the two base bands; ordinary and first bed layers are 0.24 mm. Selected seams, localized cooling and edge supports are retained.",
+  "selected_date": "2026-10-25",
+  "selection_basis": "Derek approves the Industrial faucet with the corrected lowered tip and extended Sculpted cover; production uses uniform 0.24 mm layers including the first layer.",
   "seam_specimen": "A2",
   "seam_parts": [
     "industrial-shell-base",
@@ -58,21 +58,12 @@
     "cooling_policy": "hardware/printed-parts/cooling/README.md"
   },
   "wall_generators": "Retain base Arachne for the continuous reinforced foot; other rigid parts retain Classic.",
-  "base_fine_bands_print_z_mm": [
-    [
-      17.0,
-      29.0
-    ],
-    [
-      55.16,
-      68.12
-    ]
-  ],
+  "base_fine_bands_print_z_mm": [],
   "first_bed_layer_height_mm": 0.24,
-  "scope": "Selected complete Industrial print recipe: 0.20 mm in the two base bands, 0.24 mm elsewhere. Physical results retain their identified geometry, layer-height and material scope.",
+  "scope": "Approved complete Industrial faucet with the Sculpted display cover. Uniform 0.24 mm layers including the first bed layer; accepted seams, support geometry and localized cooling retained.",
   "seam_selection_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/launch.json",
-  "default_printer": "Mark1",
-  "default_filament_colour": "#000000",
+  "default_printer": "Mark2",
+  "default_filament_colour": "#161616",
   "seam_coupon_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-12-a2-aligned-gap150-mark2/launch.json",
   "rear_seam_enforcement": {
     "part": "industrial-shell-base",
@@ -89,9 +80,8 @@
     "native_evidence": "hardware/printed-parts/faucet/industrial/seam-placement/rear-center-v2/native-review.json",
     "physical_result": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json"
   },
-  "accepted_complete_print": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-a2-back-mark2/physical-result.json",
-  "production_approval": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json",
-  "production_tag": "faucet-industrial-production-2026-10-14",
+  "accepted_complete_print": "hardware/printed-parts/faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/physical-result/physical-result.json",
+  "production_approval": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json",
   "base_rim_supports": {
     "selected_date": "2026-10-15",
     "part": "industrial-shell-base",
@@ -107,12 +97,12 @@
     "requested_vertical_gap_mm": 0.24,
     "tree_support_scope": "Tree(auto)/Default elsewhere, retaining automatic normal sections. Narrow blockers duplicate the accepted arc contact strips only.",
     "selection_quote": "Those arc fins snapped off super easy, and they provided excellent support.",
-    "scope": "Transfer the exact physically accepted base-rim support meshes at the retained -15 degree pose. Their local finish and release are accepted; the complete-height project with these supports is unprinted."
+    "scope": "Exact accepted base-rim support meshes at the retained -15 degree pose, with narrow contact blockers and Tree(auto)/Default elsewhere."
   },
   "edge_support_strategy": {
     "selection_quote": "I'm quite convinced that we need to do this everywhere, that we've got these rough edges on overhangs.",
     "method": "Follow the visible unsupported edge with a removable fin shaped to that edge; use intermittent arcs on curved rims and retain Tree(auto)/Default on the remaining geometry.",
-    "application": "Use this treatment for the faucet rough overhang edges. The base rim has physical acceptance. Tip lip and other geometry require their own edge placement and an anchored printing start; their physical result is not inferred from the base."
+    "application": "The approved complete Industrial print retains the base rim arcs and tip fins, local lip trees and hidden-root disc. Other features retain their own edge-placement and physical-result scope."
   },
   "tip_supports": {
     "selected_date": "2026-10-15",
@@ -146,8 +136,9 @@
     "selection_quote": "That worked. That disc works in this case, and is removable, but it leaves a bit of a scuff that would be a problem on a visible surface, but since its on the male insertion portion that is hidden, we are golden here."
   },
   "normal_layer_height_mm": 0.24,
-  "uniform_layer_height": false,
+  "uniform_layer_height": true,
   "independent_support_layer_height": false,
-  "layer_selection_quote": "I think I\u2019d like to see 0.20 layers in the same bands we had 0.12 layers in before.",
-  "fine_layer_height_mm": 0.2
+  "layer_selection_quote": "I'd like to go back to the same layer height everywhere as our final production print settings.",
+  "production_selection": "hardware/printed-parts/faucet/industrial/production-selection.json",
+  "production_tag": "faucet-industrial-production-2026-10-25"
 }

@@ -5,7 +5,7 @@ The faucet has two styles, each in Black or White PET-GF.
 | Faucet style | Shape | PET-GF print project |
 |---|---|---|
 | **Sculpted** | Smooth curves and softly blended transitions. | [Production project](faucet-petgf.3mf) · [print settings](sculpted/README.md) |
-| **Industrial** | Simple cylinders and crisp, pronounced shoulders. | [Production project](industrial/faucet-industrial-petgf.3mf) · [print settings](industrial/faucet-industrial-petgf.md) |
+| **Industrial** | Simple cylinders and crisp shoulders, with the approved Sculpted display cover. | [Production project](industrial/faucet-industrial-petgf.3mf) · [print settings](industrial/faucet-industrial-petgf.md) |
 
 **Finish** is a separate Black or White choice in the [3D viewer](/3d).
 It applies to the PET-GF shell, display cover and above-counter plate.
@@ -69,14 +69,14 @@ identifies the tested physical article. The current complete Industrial
 project uses the [selected printing recipe](industrial/finish-selection.json):
 Back with A2 on the base, tip and mounting plate, rear-center seam enforcement
 through the base's full rear silhouette and the tip's exposed curved neck, default Aligned/15%/scarf-off
-seams on the cover and lever, and E eight coarse lip layers before the 0.12 mm band.
-The [production approval](industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/physical-result.json)
-selects the seam-fixed faucet as the current planned production model, tagged
-`faucet-industrial-production-2026-10-14`. The corrected base and tip have
-physical acceptance; the other three rigid parts retain the
-[accepted complete-print reference](industrial/prints/2026-10-13-a2-back-mark2/physical-result.json). The
-[retained sealed-cavity reviews](vent-print-readiness/README.md) apply to
-their exact archived geometry.
+seams on the cover and lever, and uniform **0.24 mm layers including the first layer**.
+The [production selection](industrial/production-selection.json) identifies the
+exact approved five-part source set: Industrial base, lowered tip with foot and
+switch recesses, extended-skirt Sculpted cover, rigid Industrial plate and
+side-down lever. The [October 25 approval](faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json)
+accepts the remaining visible corner gap as good enough, with no further
+iteration requested. Historical physical and sealed-cavity records retain
+their identified geometry and material scope.
 
 The [assembly procedure](faucet-shell/ASSEMBLY.md) supplies the shared mounting,
 tube routing and display seating order. The Industrial base has a round foot
@@ -84,18 +84,16 @@ and rectangular lever opening; its mounting stations and hardware are shared.
 The complete printed assembly supplies the physical readings of lever travel,
 display fit, snap retention and surface finish.
 
-## Generate Industrial
+## Prepare the approved Industrial print
 
 ```
-tools/cad-venv/bin/python hardware/printed-parts/faucet/industrial/industrial_faucet.py
-tools/cad-venv/bin/python hardware/faucet-layout/faucet_industrial_assembly.py
 tools/cad-venv/bin/python hardware/printed-parts/faucet/industrial/prepare_print_project.py
 ```
 
-The Industrial generator reads the current Sculpted base's shared upper
-gooseneck. Both assemblies use the same hardware locations and tube paths.
-Printable meshes use the faucet's absolute tessellation tolerance;
-their viewer payloads retain every print triangle.
+The production preparer reads the preserved approved print meshes and retains
+the selected process, supports and per-printer trim. The source set is separate
+from the design generators used for CAD studies. Preparing a project does not
+submit it to a printer.
 
 The [Industrial geometry readings](industrial/geometry-check.json) cover the
 saved solids, hardware, lever travel and named wall sections. The
