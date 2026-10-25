@@ -1226,17 +1226,35 @@
     "basis": "The three positive readings are real only for the named cached strip hash. Its dressing differs from the current pure production route. No strap geometry change is supported by this stale-cache pair."
   },
   "current_nominal_strip_scope": {
-    "requeried_here": false,
-    "current_window_world_x_mm": [
-      -7.2,
-      -4.4
+    "scope": "Current source-derived nominal strip versus the selected fluid24 tail, using a conservative whole-circle/line X bound. The earlier cached strip is at the former west station and is not the current production restraint. No strap/head/slot geometry change is adopted. Physical strip dimensions and handling remain unqualified.",
+    "source_sha256": {
+      "hardware/printed-parts/cold-core/_above_core_mounts.py": "a2c6c6651851d23794aa5a2322add08e620a56ff0e147fcc1cdb553192383d48",
+      "hardware/manifold-layout/above-core.json": "e7e69fe4c5505fcccb1be3be983d2357c25bd7f85bbc40b55fbeb1ab51adb460"
+    },
+    "current_window_world_mm": [
+      [
+        -7.200000000000001,
+        284.59999999999997,
+        274.4
+      ],
+      [
+        -4.4,
+        287.8,
+        277.4631637869275
+      ]
     ],
-    "current_straight_tie_centres_world_x_mm": [
-      -12.7,
-      0.1
+    "current_conservative_strip_x_mm": [
+      -20.99053696503921,
+      1.7499999999999991
     ],
-    "current_band_centre_world_x_mm": -10.48,
-    "B_fill_tail_max_world_x_mm": -29.82499989999999,
-    "basis": "The production geometry owner identified that the saved west-strip witness differs from the current east dressing through the selected window. These current pure datums distinguish the scope; the historical native pair is not transferred to the production strip."
-  }
+    "fluid24_tail_xmax_mm": -29.824999900000016,
+    "guaranteed_axis_separation_mm": 8.834462934960804,
+    "section_bound_basis": "Each line endpoint and the entire arc circle are expanded by(width+thickness)/2=1.65mm in X. This contains every nominal swept flat-section point regardless of twist.",
+    "current_length_mm": 111.55317893806699,
+    "stock_length_mm": 152.4,
+    "requeried_with_CAD_here": false,
+    "proof_type": "Conservative source-route axis separation; line endpoints and entire arc circle enlarged by the nominal section bound.",
+    "source_receipt": "hardware/printed-parts/cold-core/foam-cap/b-fill-pair-review.json.current_VB_strip_scope"
+  },
+  "current_nominal_strip_axis_bound_passed": true
 }
