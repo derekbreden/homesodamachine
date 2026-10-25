@@ -4516,7 +4516,7 @@
         "JG": 15.7,
         "NeoFit": 16.891,
         "Beduan": 12.7,
-        "YB_tee": 15.7
+        "YB_tee": 10.0
       },
       "drain_stem_exposure_mm": 3.3058
     },
@@ -4904,7 +4904,7 @@
       "JG_socket": 15.7,
       "NeoFit_socket": 16.891,
       "Beduan_socket": 12.7,
-      "YA_YB_tee": 15.7
+      "YA_YB_tee": 10.0
     },
     "drain_stem_exposure_mm": 3.3058,
     "drain_stem_length_mm": 19.0058,
@@ -6592,7 +6592,7 @@
     "Complete tube and wire routes",
     "WAGO junctions and ground hardware",
     "Final cross-quadrant connections",
-    "Funnel frame and empty electronics access panel",
+    "Funnel frame, drain cradle and elbow",
     "Silicone funnel and cover"
   ],
   "rear_wall": {
@@ -7013,10 +7013,10 @@
     }
   },
   "placement_status": {
-    "flow_meter": "The meter label faces east, with ports fore/aft between the pump and folded gas pair. The meter and direct inlet elbow belong to the cold core; the rear nested stems install after the back column closes. Native fit and physical qualification remain separate.",
+    "flow_meter": "The meter label faces east, with ports fore/aft between the pump and folded gas pair. The meter, continuous inlet, R14 holder, foam and concealed rear outlet join travel with back-top. Native fit and physical qualification remain separate.",
     "funnel_y_extent": "The funnel extends 35 mm aft with retained fore/X/Z boundaries. Its outlet is centered at Y179.19575. The drain cradle snaps into the removable frame\u2019s 3 mm web; the frame drops vertically into the roof and is secured by four screws.",
     "vb_return": "V-B stands at native [38,244.90434,280.41]. Its level direct-stem inlet has a 10.95 mm exposed tube. The 8-degree raised outlet crosses at Y280.69954 to the return union at X\u221224.8365239618/Z290.7940737508. The selected return has 20 mm end handles and a 2 mm crown. Driver access, housing service and installed contacts retain their separate manual review scopes.",
-    "va_outlet": "The V-A lower outlet stem is clocked 5 degrees aft about its vertical seated axis. The under-head tube has an 86.18 mm minimum radius and 1.139 mm native clearance to the core B-fill union."
+    "va_outlet": "The V-A lower outlet stem keeps the approved square clock. The under-head tube has a 61.75 mm minimum radius and clears the upper B-fill fitting by 1.482589 mm."
   },
   "soda_inlet": {
     "selection": {

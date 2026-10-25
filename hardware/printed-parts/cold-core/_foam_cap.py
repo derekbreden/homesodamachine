@@ -359,11 +359,12 @@ def build_foam_cap_lid(open_down=False):
             (0, 0, wall_and_floor_thickness)))
     head_cbores = head_access_pockets(cbore_z0, cbore_depth)
 
-    # Pour hole on the +X half, off the centreline by whatever the deck-mount stations and
-    # the valve cradles there leave it (`foam_cap_lid_pour_xy`); vent holes mirrored across y
-    # at the −X corners, where nothing stands.
-    pour_xy = foam_cap_lid_pour_xy()
-    vent_plus_y_xy, vent_minus_y_xy = foam_cap_lid_vent_xy()
+    # Pour hole on the +X half: the top lid's at its fore-west station over open cavity, the
+    # bottom lid's off the centreline by whatever the deck-mount stations leave it
+    # (`foam_cap_lid_pour_xy`); vent holes mirrored across y at the −X corners, where nothing
+    # stands.
+    pour_xy = foam_cap_lid_pour_xy(top=not open_down)
+    vent_plus_y_xy, vent_minus_y_xy = foam_cap_lid_vent_xy(top=not open_down)
 
     def cut_hole(anchor_xy, radius):
         return (

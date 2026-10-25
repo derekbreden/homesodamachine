@@ -264,6 +264,13 @@ foam_cap_height = foam_cap_interior_height + wall_and_floor_thickness
 foam_cap_lid_pour_radius = 10.0
 foam_cap_lid_vent_radius = 3.0
 foam_cap_lid_hole_inset = 30.0
+# The TOP lid's pour hole stands in its fore-west quarter, over open cavity: west of the
+# reed-B cable column and the B-fill carrier, clear of the PCB's fore-west post. At the
+# centreline station it would open onto that cable column's top and under a WAGO well.
+top_lid_pour_xy = (outer_shell_x_length / 2 - foam_cap_lid_hole_inset, -64.0)
+# The top lid's vents stand this much nearer its −X end, clear of the A-fill guide's entry
+# countersink.
+top_lid_vent_setback = 2.5
 
 # --- The carbonator's clocking --------------------------------------------------
 #
@@ -995,8 +1002,11 @@ for _name in cap_conduits:
         f"— a column either stands the pour gap off the wall or merges into it")
 
 
-def foam_cap_lid_pour_xy():
-    """Pour centre nearest the cap centreline with room beside mounts and plinths."""
+def foam_cap_lid_pour_xy(top=False):
+    """The top lid's fore-west pour station, or the bottom lid's: nearest the cap centreline
+    with room beside mounts and plinths."""
+    if top:
+        return top_lid_pour_xy
     x = outer_shell_x_length / 2 - foam_cap_lid_hole_inset
     bands = []
 
@@ -1038,10 +1048,11 @@ def foam_cap_lid_pour_xy():
     return (x, y)
 
 
-def foam_cap_lid_vent_xy():
+def foam_cap_lid_vent_xy(top=False):
     """Both vent holes' centres in the lid — the −X corners, mirrored across y, where the
     pour hole is not and nothing stands. Air leaves by whichever is uppermost."""
-    x = -(outer_shell_x_length / 2 - foam_cap_lid_hole_inset)
+    x = -(outer_shell_x_length / 2 - foam_cap_lid_hole_inset
+          + (top_lid_vent_setback if top else 0.0))
     y = outer_shell_y_length / 2 - foam_cap_lid_hole_inset
     return ((x, y), (x, -y))
 
@@ -1050,7 +1061,7 @@ _mount_pour = bound(
     "deck-mount-pour", "Every deck mount's lid hole leaves a land under its screw head",
     f"{deck_mount_cap_gap:g} mm off the pour hole")
 for _name in deck_mounts:
-    _px, _py = foam_cap_lid_pour_xy()
+    _px, _py = foam_cap_lid_pour_xy(top=True)
     for _sx, _sy in deck_mount_xy(_name):
         _room = (math.hypot(_px - _sx, _py - _sy)
                  - foam_cap_lid_pour_radius - screw_clearance_radius)
@@ -1073,7 +1084,8 @@ for _name in cap_cradles:
     _room, _what = cap_cradle_room(_name)
     _cradle_room(_room >= cap_cradle_room_gap - 1e-9,
                  f"valve plinth {_name}: {_room:.3f} mm off {_what}")
-    _room = cap_cradle_circle_gap(_name, *foam_cap_lid_pour_xy(), foam_cap_lid_pour_radius)
+    _room = cap_cradle_circle_gap(_name, *foam_cap_lid_pour_xy(top=True),
+                                  foam_cap_lid_pour_radius)
     _cradle_pour(_room >= cap_cradle_room_gap - 1e-9,
                  f"valve plinth {_name}: {_room:.3f} mm off the pour hole")
     for _sx, _sy in cap_cradle_xy(_name):
@@ -1220,8 +1232,8 @@ def cap_anchor_room(name):
     for vname in cap_cradles:
         room.append((cap_cradle_rectangle_gap(vname, x0, x1, y0, y1),
                      f"the {vname} plinth"))
-    room.append((off(*foam_cap_lid_pour_xy(), foam_cap_lid_pour_radius), "the pour hole"))
-    for hx, hy in foam_cap_lid_vent_xy():
+    room.append((off(*foam_cap_lid_pour_xy(top=True), foam_cap_lid_pour_radius), "the pour hole"))
+    for hx, hy in foam_cap_lid_vent_xy(top=True):
         room.append((off(hx, hy, foam_cap_lid_vent_radius), "a vent"))
     room.append((min(outer_shell_x_length / 2.0 - abs(x0),
                      outer_shell_x_length / 2.0 - abs(x1),
@@ -1436,8 +1448,8 @@ def cap_side_anchor_room(name):
         room.append((off(*cap_anchors[aname].centre,
                          cap_anchors[aname].seat_r + cap_anchor_wall),
                      f"the {aname} rib"))
-    room.append((off(*foam_cap_lid_pour_xy(), foam_cap_lid_pour_radius), "the pour hole"))
-    for hx, hy in foam_cap_lid_vent_xy():
+    room.append((off(*foam_cap_lid_pour_xy(top=True), foam_cap_lid_pour_radius), "the pour hole"))
+    for hx, hy in foam_cap_lid_vent_xy(top=True):
         room.append((off(hx, hy, foam_cap_lid_vent_radius), "a vent"))
     return min(room)
 

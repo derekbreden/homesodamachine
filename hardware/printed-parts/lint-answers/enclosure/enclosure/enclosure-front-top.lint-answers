@@ -13,31 +13,20 @@ alternatives: Filling beneath the roof enters the cradle's insertion path. Slopi
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=0.000 y=43.757 z=284.674
 
-[ceiling] The manifold-B connector well retains its complete flat lid at Z261.400/Y169.000. It captures the connector across the pocket width; support approaches through the empty inboard pocket before connector installation. Printed fit and removal effort remain unqualified.
-alternatives: Removing the lid removes connector capture. Filling or sloping into the well enters the connector and open-lever envelope. Tabs require a different retention profile and support treatment.
+[ceiling] The lint is wrong for these two faces: each is the roof of a Wago pocket in the east manifold tower, a bridge across the pocket's own span between the tower's two side walls, 8.7 mm over the 221-415 at Z258.15 and 16.1 mm over the 221-420 at Z292.05, with its back edge on the flank. Every line of either roof lands on stock at both ends; the ceiling class reads only a corbel, a column or support as a carrier, not a bridge between two walls.
+alternatives: A 45-degree gable over each pocket needs about 4.4 mm (415) or 8 mm (420) more tower above it and bears on the connector's end at two edges only. The side wells' two-tab lid with a 45-degree ramp gives up the flat capture across the connector's end. Support inside a 9.45 mm-deep, 8.7 mm-wide pocket is harder to clear than the bridge it would replace.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=99.850 y=169.000 z=261.400
-
-[ceiling] These Z307.400 flats are the hooked bearing feet of the front funnel-frame receivers. They preserve the nominal supported moving-face and vertical-guide clearances of that captured frame. Support approaches through the empty frame opening; physical fit and cleanup remain unqualified.
-alternatives: Sloping the caught face changes its lifting-retention profile. Filling beneath it reduces frame entry clearance; removing it removes capture.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-101.125 y=152.261 z=307.400
-click: x=101.125 y=152.261 z=307.400
-
-[ledge] These two 2 mm projection faces are the separated manifold-A Wago retention tabs at Z295.300. They retain the connector ends while leaving the center open for lever/wire access and the selected short roof profile. Physical retention and support cleanup remain unqualified.
-alternatives: Removing the tabs removes end retention. Joining their ends changes the open-center pocket, lever access and support treatment.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=98.300 y=176.383 z=295.300
-click: x=98.300 y=161.617 z=295.300
+click: x=99.775 y=169.000 z=258.150
+click: x=99.775 y=169.000 z=292.050
 
 [thin] Accepted wing-retention lips: each reading is the 1.80 mm lip over one of the display cover's wings (3.84 - 1.44 - 0.60), which the accepted face-up cover needs: display-cover/face-up-trial records its 3.30 mm capture and the receiver passed the 2026-09-30 shake test.
 alternatives: A thicker lip needs a deeper inset (cover below flush), thinner wings or less wing air, each a change to the accepted fit; the exits stay world-vertical so supports leave into the display storey.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=66.890 y=19.433 z=311.879
-click: x=-66.517 y=19.269 z=311.784
+click: x=-66.890 y=19.433 z=311.879
 
-[thin] Approved by Derek as drawn: each reading is the wall a flute groove leaves on a 3 mm section. The 1.2 mm groove (`flute_depth`) leaves 1.8 mm between its floor and the inner face (enclosure README, Nothing may relieve into the outermost 3 mm of a fluted face), on front-top's flanks. Derek, 2026-10-21: "The flute grooves on 3mm walls is good with me and approved by me."
+[thin] Approved by Derek as drawn: each reading is the wall a flute groove leaves on a 3 mm section. The 1.2 mm groove (`flute_depth`) leaves 1.8 mm between its floor and the inner face (enclosure README, Nothing may relieve into the outermost 3 mm of a fluted face), on front-top's flanks, two of them where the east manifold tower's Wago pockets bottom on the flank's 3 mm outer wall. Derek, 2026-10-21: "The flute grooves on 3mm walls is good with me and approved by me."
 alternatives: A 4.2 mm wall keeps 3 mm under every groove and takes 1.2 mm more of the room inside each flank; a shallower groove changes the texture the corner coupon set.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=104.500 y=169.033 z=293.098
-click: x=104.500 y=169.066 z=257.153
+click: x=106.300 y=169.048 z=283.700
+click: x=104.500 y=169.048 z=254.648

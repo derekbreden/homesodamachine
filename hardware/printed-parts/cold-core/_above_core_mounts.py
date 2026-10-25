@@ -287,7 +287,13 @@ def union_support_datums():
     frame = above_core.snapshot_pose('vb-outlet-return')
     centre = above_core.point(frame,(0.,14.5,0.))
     radius = _jg_band_radius('y',13.,16.)+fits.slip
-    bottom = centre[2]-radius-3.
+    bore_origin = above_core.point(frame,(0.,8.,0.))
+    bore_axis = above_core.vector(frame['rotation'],(0.,1.,0.))
+    bore_length = 13.
+    # The leg leans; 3 mm of floor stays under the bore's lowest generator.
+    bore_low = (min(bore_origin[2], bore_origin[2]+bore_axis[2]*bore_length)
+                - radius*math.sqrt(1.-bore_axis[2]**2))
+    bottom = bore_low-3.
     pcb = importlib.import_module('pcba_tray')
     board_aft = max(above_core.point(above_core.pose('pcba'),
         (px-pcb._centre[0],py-pcb._centre[1],0.))[1]
@@ -304,9 +310,9 @@ def union_support_datums():
           'beam_max_world_mm':(root_x+9.,root_aft,bottom+3.),
           'root_min_world_mm':(root_x,root_fore,face),
           'root_max_world_mm':(root_x+9.,root_aft,bottom+3.),
-          'bore_origin_world_mm':above_core.point(frame,(0.,8.,0.)),
-          'bore_axis_world':above_core.vector(frame['rotation'],(0.,1.,0.)),
-          'bore_length_mm':13.,'seat_radius_mm':radius,
+          'bore_origin_world_mm':bore_origin,
+          'bore_axis_world':bore_axis,
+          'bore_length_mm':bore_length,'seat_radius_mm':radius,
           'native_leg':'y','native_band_mm':(13.,16.),
           'tie_window_min_world_mm':(root_x+3.1,root_fore-.1,window_top-2.8),
           'tie_window_max_world_mm':(root_x+5.9,root_aft+.1,bottom),
