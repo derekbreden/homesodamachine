@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 import plistlib
+import subprocess
 import sys
 import uuid
 import zipfile
@@ -13,6 +14,7 @@ import xml.etree.ElementTree as ET
 import trimesh
 
 HERE = Path(__file__).resolve().parent
+STUDIO = '/Applications/BambuStudio.app/Contents/MacOS/BambuStudio'
 from profiles import (CORE, PROD, REL, equivalent, fresh_settings, mesh_object, metadata,
                            preset_bundle, qn)
 
@@ -22,25 +24,72 @@ def choice(value, reason):
 
 
 def recipe(info, nozzle=0.4):
-    fine = nozzle == 0.4
-    size = f'{nozzle:g}'
-    layer = '0.16' if fine else '0.4'
-    process = '0.16mm Standard @BBL H2C' if fine else '0.40mm Standard @BBL H2C 0.8 nozzle'
-    filament = 'Bambu PETG Translucent @BBL H2C'+('' if fine else ' 0.8 nozzle')
-    settings = {
-        'nozzle_mm': nozzle, 'nozzle_type': 'Standard' if fine else 'High Flow',
+    if nozzle == 0.4:
+        return mold_recipe()
+    return gentle_recipe()
+
+
+def mold_recipe():
+    """The README's recipe: stock 0.24 mm H2C process and PETG Translucent on the right 0.4 mm
+    Standard hotend, with the October 6 Mark1 cavity retry's changes (task 1315124888, whose
+    cavity completed; print-log.md)."""
+    log = 'zone-c/funnel-mold/print-log.md'
+    retry = 'the October 6 Mark1 cavity retry (native-slice-reviews/2026-10-06-mark1-retry-z004-v2)'
+    return {
+        'nozzle_mm': 0.4, 'nozzle_type': 'Standard', 'side': 'right',
         'system_presets': {
-            'machine': f'Bambu Lab H2C {size} nozzle',
-            'process': process, 'filament': filament},
-        'process_name': f'Funnel mold shell - {size} nozzle - tree supports',
-        'filament_name': f'Funnel mold PETG Translucent - {size} nozzle - 255C',
+            'machine': 'Bambu Lab H2C 0.4 nozzle',
+            'process': '0.24mm Standard @BBL H2C',
+            'filament': 'Bambu PETG Translucent @BBL H2C 0.4 nozzle'},
+        'process_name': 'Funnel mold - six walls - 15% gyroid - PETG088',
+        'filament_name': 'Funnel mold PETG Translucent - 0.4 Standard - flow 0.88',
+        'z_trim': {'default_mm': 0.04, 'available_mm': [0.04, 0.18],
+            'reason': f"Derek's +0.04 mm for {retry}; the October 7 core used the same ({log})."},
+        'process_settings': {
+            'wall_loops': choice('6', 'Six walls: continuous forming and dry-back perimeters (README).'),
+            'top_shell_layers': choice('6', 'Six top layers (README).'),
+            'bottom_shell_layers': choice('6', 'Six bottom layers; dry-side breathers are drilled after printing (README).'),
+            'sparse_infill_density': choice('15%', f'15% gyroid; the September 16 15% cavity worked well ({log}).'),
+            'sparse_infill_pattern': choice('gyroid', 'Three-dimensional infill without crossings within a layer (README).'),
+            'skeleton_infill_density': choice('100%', f'As {retry}.'),
+            'skin_infill_density': choice('100%', f'As {retry}.'),
+            'initial_layer_speed': choice(['20']*5, '20 mm/s first-layer walls (README).'),
+            'initial_layer_infill_speed': choice(['30']*5, '30 mm/s first-layer solid infill (README).'),
+            'brim_type': choice('outer_only', 'Outer brim (README).'),
+            'brim_width': choice('8', '8 mm outer brim (README).'),
+            'brim_object_gap': choice('0.1', f'0.10 mm brim gap, as {retry}.'),
+            'enable_support': choice('1', "Removable support under the eight bolt pockets' flat washer-bearing ceilings (README)."),
+            'support_type': choice('normal(auto)', 'Snug normal supports for the bolt pockets (README): tall tree '
+                f'supports detached or were knocked over on September 14, and Snug columns stood on September 16 and on October 6 ({log}).'),
+            'support_style': choice('snug', 'Snug normal supports for the bolt pockets (README).'),
+            'support_object_xy_distance': choice('0.48', f'0.48 mm XY gap, as {retry}.'),
+            'support_object_first_layer_gap': choice('0.48', f'As {retry}.'),
+            'enable_prime_tower': choice('0', 'One filament per plate.')},
+        'filament_settings': {
+            'filament_flow_ratio': choice(['0.88', '0.97', '0.97'],
+                f'0.88 flow on the Standard nozzle; the September 18 cavity at 0.88 reduced the overflow defect ({log}).'),
+            'filament_max_volumetric_speed': choice(['5.61702', '6', '6'],
+                f'5.61702 mm3/s on the Standard nozzle with the 0.88 flow ({log}, September 18).'),
+            'filament_cost': choice(['11.20'], 'Ledger cost per kilogram.')},
+        'layer_ranges_mm': {'cavity': [], 'core': []}}
+
+
+def gentle_recipe():
+    """The September 14 left 0.8 mm High Flow trial recipe (print-log.md, 0.40 mm support trial)."""
+    return {
+        'nozzle_mm': 0.8, 'nozzle_type': 'High Flow', 'side': 'left',
+        'system_presets': {
+            'machine': 'Bambu Lab H2C 0.8 nozzle',
+            'process': '0.40mm Standard @BBL H2C 0.8 nozzle',
+            'filament': 'Bambu PETG Translucent @BBL H2C 0.8 nozzle'},
+        'process_name': 'Funnel mold shell - 0.8 nozzle - 0.40 mm gentle supports',
+        'filament_name': 'Funnel mold PETG Translucent - 0.8 nozzle - Bambu defaults',
         'z_trim': {'default_mm': 0.18, 'available_mm': [0.04, 0.18],
             'reason': 'User-established PET-GF plate corrections; transfer to PETG is not established.'},
         'process_settings': {
             'enable_arc_fitting': choice('0', 'Connected H2C firmware uses curve planning.'),
-            'layer_height': choice(layer, 'Fine forming layers.' if fine else
-                'Stock 0.8 mm nozzle layer height; finish the forming slopes before casting.'),
-            'initial_layer_print_height': choice('0.2' if fine else '0.4', 'Stock nozzle first-layer height.'),
+            'layer_height': choice('0.4', 'Stock 0.8 mm nozzle layer height; finish the forming slopes before casting.'),
+            'initial_layer_print_height': choice('0.4', 'Stock nozzle first-layer height.'),
             'wall_generator': choice('arachne', 'Variable-width paths around sockets and shell transitions.'),
             'wall_loops': choice('6', 'Continuous forming and dry-back perimeters.'),
             'sparse_infill_density': choice('15%', 'Sparse interior with continuous forming skins.'),
@@ -74,17 +123,7 @@ def recipe(info, nozzle=0.4):
             'support_interface_spacing': choice('0.5', 'Project sparse interface spacing.'),
             'support_filament': choice('0', 'Same PETG as model.'),
             'support_interface_filament': choice('0', 'Same PETG as model.'),
-            'enable_prime_tower': choice('0', 'One filament per plate.')},
-        'filament_settings': {
-            'filament_prime_volume': choice(['45'], 'Bambu Studio saved purge volume.'),
-            'nozzle_temperature': choice(['255', '255'], 'PETG Translucent specimen and existing process temperature.'),
-            'nozzle_temperature_initial_layer': choice(['255', '255'], 'Same melt temperature on the first layer.'),
-            'filament_max_volumetric_speed': choice(['12', '18'], '12 mm3/s standard nozzle, 18 mm3/s high flow.'),
-            'filament_cost': choice(['11.20'], 'Ledger cost per kilogram.')},
-        'layer_ranges_mm': {'cavity': [], 'core': []}}
-    if not fine:
-        settings['process_name'] = 'Funnel mold shell - 0.8 nozzle - 0.40 mm gentle supports'
-        settings['process_settings'].update({
+            'enable_prime_tower': choice('0', 'One filament per plate.'),
             'raft_first_layer_expansion': choice('8', 'Broad connected support feet on the build plate.'),
             'support_speed': choice(['40']*4, 'Tall tree extrusion capped at 40 mm/s.'),
             'support_interface_speed': choice(['30']*4, 'Support interfaces capped at 30 mm/s.'),
@@ -93,27 +132,39 @@ def recipe(info, nozzle=0.4):
             'travel_acceleration': choice(['1500']*4, 'Travel acceleration at 1500 mm/s2.'),
             'avoid_crossing_wall_includes_support': choice('1', 'Support walls participate in travel detours.'),
             'tree_support_wall_count': choice('2', 'Two perimeter loops around tree branches.'),
-            'tree_support_branch_diameter': choice('4', 'Tree nodes start at 4 mm diameter.')})
-        settings['filament_name'] = 'Funnel mold PETG Translucent - 0.8 nozzle - Bambu defaults'
-        settings['filament_settings'] = {
-            'filament_cost': choice(['11.20'], 'Ledger cost per kilogram.')}
-    return settings
+            'tree_support_branch_diameter': choice('4', 'Tree nodes start at 4 mm diameter.')},
+        'filament_settings': {
+            'filament_cost': choice(['11.20'], 'Ledger cost per kilogram.')},
+        'layer_ranges_mm': {'cavity': [], 'core': []}}
+
+
+def bed_centre(settings, side):
+    """Centre of the selected hotend's printable area, the plate's model centre."""
+    area = settings['extruder_printable_area'][{'left': 0, 'right': 1}[side]]
+    points = [[float(v) for v in point.split('x')] for point in area.split(',')]
+    xs, ys = zip(*points)
+    return (min(xs)+max(xs))/2, (min(ys)+max(ys))/2
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--models', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
-    parser.add_argument('--z-trim', type=float, choices=(0.04, 0.18), default=0.18)
+    parser.add_argument('--z-trim', type=float, choices=(0.04, 0.18),
+                        help="Requested Z trim; default is the recipe's (+0.04 for the 0.4 mm recipe).")
     parser.add_argument('--label')
-    parser.add_argument('--nozzle', type=float, choices=(0.4, 0.8), default=0.8)
+    parser.add_argument('--nozzle', type=float, choices=(0.4, 0.8), default=0.4)
     parser.add_argument('--only', choices=('cavity', 'core'))
     parser.add_argument('--settings-from', type=Path,
                         help='Preserve the complete settings payload from this saved 3MF.')
+    parser.add_argument('--slice', action='store_true',
+                        help='Slice the project with the installed Bambu Studio command line into native/ beside it.')
     args = parser.parse_args()
     info = json.loads((args.models/'design.json').read_text())
     settings_recipe = recipe(info, args.nozzle)
     presets = Path('/Applications/BambuStudio.app/Contents/Resources/profiles/BBL')
+    if args.z_trim is None:
+        args.z_trim = settings_recipe['z_trim']['default_mm']
     settings, provenance = fresh_settings(presets, settings_recipe, args.z_trim)
     settings_payload = json.dumps(settings, indent=2).encode()
     if args.settings_from:
@@ -136,6 +187,9 @@ def main():
         provenance['supplied_settings'] = {
             key: {'value': value, **source} for key, value in settings.items()}
     version = plistlib.loads((presets.parents[2]/'Info.plist').read_bytes())['CFBundleShortVersionString']
+    centre_x, centre_y = bed_centre(settings, settings_recipe['side'])
+    side_map = {'left': '1', 'right': '2'}[settings_recipe['side']]
+    assert settings['filament_map'] == [side_map], (settings['filament_map'], side_map)
     data = {'Metadata/project_settings.config': settings_payload}
     model = ET.Element(qn('model'), unit='millimeter', requiredextensions='p',
         **{'xmlns:BambuStudio': 'http://schemas.bambulab.com/package/2021'})
@@ -169,7 +223,7 @@ def main():
             transform='1 0 0 0 1 0 0 0 1 0 0 0',
             **{f'{{{PROD}}}path': path, f'{{{PROD}}}UUID': str(uuid.uuid4())})
         rotation = '1 0 0 0 -1 0 0 0 -1' if name == 'core' else '1 0 0 0 1 0 0 0 1'
-        transform = f'{rotation} {149.5+(index-1)*396} 160 {height/2:.9f}'
+        transform = f'{rotation} {centre_x+(index-1)*396:g} {centre_y:g} {height/2:.9f}'
         ET.SubElement(build, qn('item'), objectid=object_id, transform=transform,
             printable='1', **{f'{{{PROD}}}UUID': str(uuid.uuid4())})
         ET.SubElement(rels, f'{{{REL}}}Relationship', Target=path, Id=f'rel-{index}',
@@ -188,7 +242,7 @@ def main():
             degenerate_facets='0', facets_removed='0', facets_reversed='0', backwards_edges='0')
         plate = ET.SubElement(config, 'plate')
         for key, value in {'plater_id': index, 'plater_name': f"{args.label or 'Funnel mold'} {name}", 'locked': 'false',
-                'filament_map_mode': 'Manual', 'filament_maps': '1',
+                'filament_map_mode': 'Manual', 'filament_maps': side_map,
                 'filament_volume_maps': '1' if settings_recipe['nozzle_type'] == 'High Flow' else '0',
                 'bed_type': 'Textured PEI Plate'}.items():
             metadata(plate, key, value)
@@ -230,6 +284,26 @@ def main():
     args.output.with_suffix('.provenance.json').write_text(json.dumps(provenance, indent=2)+'\n')
     preset_bundle(presets, settings_recipe, version, args.output.parent/'funnel-mold-presets.bbscfg')
     print(args.output)
+    if args.slice:
+        slice_project(args.output.resolve())
+
+
+def slice_project(project):
+    """Native slice of every plate; prints each plate's estimate. Nothing is sent to a printer."""
+    native = project.parent/'native'
+    native.mkdir(exist_ok=True)
+    archive = native/project.name.replace('.3mf', '.gcode.3mf')
+    with (native/'slice.log').open('w') as log:
+        code = subprocess.run([STUDIO, '--slice', '0', '--arrange', '0', '--orient', '0',
+                               '--outputdir', str(native), '--export-3mf', archive.name, str(project)],
+                              cwd=native, stdout=log, stderr=subprocess.STDOUT).returncode
+    result = json.loads((native/'result.json').read_text()) if (native/'result.json').is_file() else {}
+    if code or result.get('return_code') != 0:
+        raise SystemExit(f"slice failed ({code}): {result.get('error_string')}; see {native/'slice.log'}")
+    for plate in result['sliced_plates']:
+        grams = sum(f['total_used_g'] for f in plate['filaments'])
+        print(f"plate {plate['id']}: {plate['total_predication']/3600:.1f} h, {grams:.0f} g")
+    print(archive)
 
 
 if __name__ == '__main__':
