@@ -1,0 +1,81 @@
+{
+  "views": [
+    {
+      "name": "assembly",
+      "caption": "The shell and caps sit together in the rear enclosure. Half the enclosure is cut away to show the casing position.",
+      "before": "assembly-before.webp",
+      "after": "assembly-after.webp",
+      "width": 1440,
+      "height": 1000,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          766.7349785004235,
+          -407.97217003159403,
+          590.0409871002541
+        ],
+        "target": [
+          0,
+          215,
+          130
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 650,
+        "near": 604.2755257486334,
+        "far": 1784.8675998076328,
+        "aspect": 1.44,
+        "section": {
+          "at": [
+            0,
+            0,
+            0
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "cold-core/foam-*"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-*",
+        "enclosure-front-*",
+        "enclosure-back-*"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "file",
+          "sha256": "60f929b588627859e348583f953c5a80613efaf4dcc509c363b3e8f6e0a5cc9d",
+          "commit": null
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "5ed785c118a39d7c2ca33e345fe1f4c99e555f88a2e77a1a3eb8504fcf18b46e",
+          "commit": "69d6270744b9014fef98a1635b5ab99271cb201d",
+          "published": false
+        }
+      },
+      "changed": [
+        "cold-core/foam-cap-top",
+        "cold-core/foam-cap-lid-top",
+        "cold-core/foam-shell",
+        "cold-core/foam-cap-lid-bottom",
+        "cold-core/foam-cap-bottom"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
