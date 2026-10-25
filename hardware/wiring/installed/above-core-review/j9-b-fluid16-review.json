@@ -439,7 +439,7 @@
   },
   "native_common_mm3": 0.0,
   "minimum_native_air_mm": 0.5037193331225075,
-  "full_changed_route_review": "dry-wall-wiring-review.json",
+  "full_changed_route_review": "dry-wall-wiring-native.json",
   "source_state": "frozen",
   "actual_export_binding_pending": true,
   "inherited_service_scope": "The retained prefix intersects simultaneous J3/J4 vertical diagnostic columns and its own plug withdrawal envelope. Installed equipment contact clearance does not establish those staged service motions."
