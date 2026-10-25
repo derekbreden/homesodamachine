@@ -81,8 +81,9 @@ def export(a):
     it could not classify or match."""
     runs = list(a.runs)
     by_id = {r.id: r for r in runs}
-    native_a_specs = {name: spec for name, spec in
-                      getattr(a, 'native_route_specs', {}).items()
+    # A native route is its own exact line/arc/Bezier wire; its sampled `pts` are for reporting.
+    native_specs = dict(getattr(a, 'native_route_specs', {}))
+    native_a_specs = {name: spec for name, spec in native_specs.items()
                       if name in ('fluid-14', 'fluid-16')}
     print(f"{len(runs)} runs: {', '.join(r.id for r in runs)}")
 
@@ -141,6 +142,50 @@ def export(a):
     }
     for _v in _lines.VALVES:
         END_KINDS[f"valve-{_v.lower()}"] = "collet"
+    # The above-core stem and union elbows take a tube in a push-in socket at either end a run
+    # reaches; their insertion depths are the layout's (`above_core_parts.components`).
+    import above_core_bom
+    for _name in (*above_core_bom.stem_elbow_names(), *above_core_bom.core_stem_elbow_names(),
+                  *above_core_bom.union_elbow_names(), *above_core_bom.core_union_elbow_names()):
+        END_KINDS.setdefault(_name, ("collet", COLLET_GRIP,
+                                     "above-core push-in socket; 10.0 grip assumed, the layout's "
+                                     "socket depth is in above_core_parts.components"))
+    _cuffs = ea._above_parts._module('above_core_asse_cuffs',
+                                     'printed-parts/asse-straight-cuffs/asse_straight_cuffs.py')
+    _vent = ea._above_parts._module('above_core_vent_adapter',
+                                    'printed-parts/asse-drain-adapter/asse_drain_adapter.py')
+    END_KINDS.update({
+        **{cuff: ("socket", float(_pump_elbow.TUBE_DEPTH),
+                  "diaphragm_pump_sleeve.TUBE_DEPTH: the TPU sleeve's tube socket, mouth to shelf")
+           for cuff in ("pump-inlet-tpu", "pump-outlet-tpu")},
+        **{cuff: ("socket", float(_cuffs.TUBE_SOCKET_DEPTH),
+                  "asse_straight_cuffs.TUBE_SOCKET_DEPTH: the TPU cuff's tube socket")
+           for cuff in ("asse-inlet-tpu", "asse-outlet-tpu")},
+        "asse-drain-adapter": ("socket", float(_vent.TUBE_DEPTH),
+                               "asse_drain_adapter.TUBE_DEPTH: the printed adapter's 4 mm tube bore"),
+        "bulkhead-drain": ("collet", float(_lines._drain_bulkhead.TUBE_STOP_DEPTH),
+                           "neofit_drain_bulkhead.TUBE_STOP_DEPTH: the bulkhead's tube stop"),
+        # The CO₂ drop stands in the core's plain guide and runs on, potted, below it.
+        "core-co2-guide": "cap-bore",
+    })
+
+    def resolve_end(name, at_pt, tangent, diam):
+        """The fitting a run end lands in. A body the pack registers a routing frame for answers
+        by that frame; an above-core `component.port` answers by the layout's own port resolver
+        (`above_core_routes._station`); a native tube named only by the two fittings it joins
+        starts inside their sockets, so its own end and direction are the port."""
+        comp, _, port = name.partition(".")
+        if comp in R._frames and port:
+            return R._anchor(name)
+        if comp in R._frames:
+            # Named by the fitting alone: the end sits in the frame's nearest port.
+            frame = R._frames[comp]
+            return frame, min(frame.ports, key=lambda p: math.dist(frame.at(p), at_pt))
+        if port:
+            import above_core_routes
+            point, outward, d = above_core_routes._station(a.carries, comp, port)
+            return R.Frame(comp, {port: (tuple(point), tuple(outward), d)}, None), port
+        return R.Frame(comp, {"socket": (tuple(at_pt), tuple(tangent), diam)}, None), "socket"
 
 
     def end_kind(frame_name, port):
@@ -186,8 +231,8 @@ def export(a):
 
 
     def sample_centreline(run):
-        wire = (ea._above_parts.route_wire(native_a_specs[run.id])
-                if run.id in native_a_specs else R.centreline(run))
+        wire = (ea._above_parts.route_wire(native_specs[run.id])
+                if run.id in native_specs else R.centreline(run))
         chain = ordered_edges(wire, run.pts[0])
         pts, ss, kinds = [], [], []
         s0 = 0.0
@@ -392,7 +437,9 @@ def export(a):
         wire, pts, ss, kinds, s_total = sample_centreline(r)
         native_stations = (ea.reservoir_a_developed_stations(r, ())
                            if r.id in native_a_specs else None)
-        length = native_stations[-1] if native_stations is not None else r.length
+        length = (native_stations[-1] if native_stations is not None else
+                  ea._above_parts.route_wire(native_specs[r.id]).Length() if r.id in native_specs
+                  else r.length)
         ok_len = abs(s_total - length) <= LENGTH_TOL
         if not ok_len:
             length_mismatch.append((r.id, s_total, length))
@@ -405,7 +452,7 @@ def export(a):
         for which, name, at_pt, tangent in (
                 ("frm", r.frm, r.pts[0], unit(r.pts[0], r.pts[1])),
                 ("to", r.to, r.pts[-1], unit(r.pts[-1], r.pts[-2]))):
-            fact, port = R._anchor(name)
+            fact, port = resolve_end(name, at_pt, tangent, r.diam)
             kind, grip, why = end_kind(fact.name, port)
             if kind == "unknown":
                 unclassified.append(f"{r.id} {which} {name}")
@@ -485,7 +532,8 @@ def export(a):
 
         # bodies + alignment
         body_name = f"tube-{r.id}"
-        bodies = [n for n in leaves if n == body_name]
+        # A tube the cold core carries is drawn as one of its children (`cold-core/tube-…`).
+        bodies = [n for n in leaves if n == body_name or n.endswith("/" + body_name)]
         insulation = []       # nothing in this assembly is drawn as a sleeve on a run (see report)
         insulation_note = None
         if r.id in ("carb-1", "carb-2"):
@@ -498,11 +546,13 @@ def export(a):
         align = {"mode": None, "checked": 0, "outside": 0, "max_surface_miss_mm": None,
                  "max_outside_mm": None}
         if bodies:
-            solid = leaves[body_name]
+            solid = leaves[bodies[0]]
             # THE SKIN, NOT THE SOLID: BRepExtrema's distance to a solid is 0 for any point inside
             # it, so the radial reading is taken against the compound of its faces.
             skin = cq.Compound.makeCompound(solid.Faces())
             rad = r.diam / 2.0
+            # An open-bore native tube: its centreline stands in the bore, whose face is nearest.
+            bore = (native_specs[r.id].get("id_mm") or 0.0) / 2.0 if r.id in native_specs else 0.0
             if align_mode == "exact":
                 t_al = time.perf_counter()
                 worst, worst_out, outside = 0.0, 0.0, 0
@@ -510,10 +560,17 @@ def export(a):
                     v = cq.Vector(*p)
                     inside = solid.isInside(v, 1e-3)
                     d = skin.distance(cq.Vertex.makeVertex(*p))
-                    if not inside:
-                        outside += 1
-                        worst_out = max(worst_out, d)
-                    expected = min(rad, s, s_total - s)       # nearest skin, on an on-centre point
+                    if bore:
+                        # In the bore: not in the wall, and the bore's face is the nearest.
+                        if inside or d > bore + 0.05:
+                            outside += 1
+                            worst_out = max(worst_out, d)
+                        expected = bore
+                    else:
+                        if not inside:
+                            outside += 1
+                            worst_out = max(worst_out, d)
+                        expected = min(rad, s, s_total - s)   # nearest skin, on an on-centre point
                     worst = max(worst, abs(expected - d))
                 align = {"mode": "exact (BRepClass3d isInside the swept solid + BRepExtrema distance "
                                  "to its faces; miss = |min(r, s, L-s) - distance|)",
@@ -536,6 +593,8 @@ def export(a):
 
         rec = {
             "id": r.id, "kind": r.kind, "diam": r.diam, "cut_length": length,
+            # A native route's displayed tube is swept with its bore open (`route_shape`).
+            "bore": native_specs[r.id].get("id_mm") if r.id in native_specs else None,
             "note": r.note, "frm": r.frm, "to": r.to,
             "material": material_of(r),
             "stock": {"name": stock.name, "od": stock.od, "min_bend": stock.min_bend,
