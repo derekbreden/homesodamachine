@@ -193,7 +193,7 @@
     "minimum_spacing_seconds": 180,
     "verification": "Re-read the same finished task before Send; elapsed since initial observation is a lower bound on start spacing. Re-evaluate if task changes."
   },
-  "submission_status": "Prepared and imported, not sent. Studio Send disabled: printer left nozzle remains registered as 0.4 mm. Touchscreen update requested.",
+  "submission_status": "Prepared and imported, not sent. Studio rack Read All completed; separate native refresh_nozzle request rejected with mqtt message verify failed. Fixed left remains 0.4 mm. Touchscreen Read Left Nozzle Info is required.",
   "latest_observation": {
     "Mark1": {
       "job_id": "1374272357",
@@ -391,5 +391,45 @@
     "print_error": 0,
     "hms": [],
     "submission": "No Send; awaiting touchscreen nozzle configuration."
+  },
+  "nozzle_identification_read": "nozzle-read.json",
+  "post_read_status": {
+    "job_id": "1374272357",
+    "gcode_state": "FAILED",
+    "print_error": 0,
+    "hms": [
+      {
+        "attr": 83887360,
+        "code": 65543
+      }
+    ],
+    "nozzle_state": 0,
+    "nozzle_info": [
+      {
+        "id": 18,
+        "type": "HS01",
+        "diameter": 0.4
+      },
+      {
+        "id": 1,
+        "type": "HS01",
+        "diameter": 0.4
+      },
+      {
+        "id": 17,
+        "type": "HS00",
+        "diameter": 0.2
+      },
+      {
+        "id": 0,
+        "type": "HS00",
+        "diameter": 0.2
+      },
+      {
+        "id": 19,
+        "type": "HS01",
+        "diameter": 0.8
+      }
+    ]
   }
 }

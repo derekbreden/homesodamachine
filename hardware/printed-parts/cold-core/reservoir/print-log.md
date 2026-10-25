@@ -672,3 +672,24 @@ No Send clicked, no new task accepted, no monitor created/reactivated.
 Derek:
 
 > I'm not sure exactly what went wrong there, but the nozzle clearly got pretty gunked up, wiped onto itself. We really hadn't been using the right hot end for PETG 0.8 very much, so I wonder if it just maybe doesn't work very well. So I've switched Mark 1 over to 0.8 left hot end. The AMS 2 with all the transparent filament is connected to that left hot end on Mark 1 now. I've still got the engineering plate there, and I've cleaned it and glued it up again. So I'd like you to try again on the left hot end on Mark 1 now. Thanks.
+
+## 2026-10-25 — nozzle-identification read for the prepared left-hotend retry
+
+Studio Device > Hotends > Read All was triggered once and its motion warning
+confirmed. Subsequent native nozzle state is 0; the fixed left nozzle remains
+0.4 mm. Bambu's H2C manual assigns Read All to right-rack induction hotends and
+provides a separate Settings > Nozzle & Extruder > Read Left Nozzle Info on
+the printer touchscreen.
+
+A single native `refresh_nozzle` request through the existing printer
+connection was rejected: result **failed**, reason **mqtt message verify
+failed**, error **84033543**. Studio displays **MQTT Command verification
+failed**; subsequent HMS is attr 83887360 / code 65543. This is the command
+verification warning after the request. No diameter setting is written,
+no new print task is accepted, and no Send is clicked. The fixed left nozzle
+still reports 0.4 mm. The prepared recipe and archive are unchanged.
+[Read evidence](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/nozzle-read.json).
+
+Derek:
+
+> Oh, can you not trigger a read?

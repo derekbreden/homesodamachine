@@ -5,9 +5,15 @@ Mark1's **left 0.8 mm Standard** hotend on the cleaned, glued **Engineering
 Plate**. Studio Preview verifies the right model pair, Engineering Plate and
 PETG assigned only to the left nozzle. Send verifies **A1 PETG L** and green
 Auto Refill, but is disabled: the printer still reports **left 0.4 mm**.
-Studio's Printer Parts controls are read-only and direct nozzle-setting
-changes to the printer touchscreen. Derek has been asked to register the
-installed **left 0.8 mm Standard** nozzle there. No Send is clicked.
+Studio's Printer Parts controls are read-only and do not expose a left
+refresh button. The **Read All** rack read completes without updating the
+fixed left nozzle. A separate native **`refresh_nozzle`** request is rejected
+with **“mqtt message verify failed”**; Studio reports a command-verification
+warning. No software diameter override is sent, and no print is started.
+
+The remaining read is on Mark1's touchscreen: **Settings → Nozzle & Extruder
+→ Read Left Nozzle Info**. This automatically identifies the left hotend;
+manual entry of 0.8 mm is not required. [Read result and manufacturer procedure](nozzle-read.json) ·
 [UI review](ui-review.json) · [Preflight](preflight.json).
 
 The preceding right-hotend **task 1374272357** has [reported polymer buildup and a motion-step-loss warning](../2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json).

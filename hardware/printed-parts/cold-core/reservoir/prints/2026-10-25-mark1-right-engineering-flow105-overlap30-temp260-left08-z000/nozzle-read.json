@@ -1,0 +1,225 @@
+{
+  "printer": "Mark1",
+  "purpose": "User requested triggering a nozzle-identification read for the installed fixed left 0.8 mm hotend.",
+  "source_command": "BambuStudio v02.08.02.61 MachineObject::command_refresh_nozzle, DeviceManager.cpp lines 1622-1628; called by PrinterPartsDialog::OnNozzleRefresh.",
+  "source_url": "https://github.com/bambulab/BambuStudio/blob/v02.08.02.61/src/slic3r/GUI/DeviceManager.cpp#L1622",
+  "command": "refresh_nozzle",
+  "software_diameter_overwrite": false,
+  "events": [],
+  "before": {
+    "job_id": "1374272357",
+    "gcode_state": "FAILED",
+    "print_error": 0,
+    "hms": [],
+    "nozzle_state": 0,
+    "nozzle_info": [
+      {
+        "id": 18,
+        "type": "HS01",
+        "diameter": 0.4
+      },
+      {
+        "id": 1,
+        "type": "HS01",
+        "diameter": 0.4
+      },
+      {
+        "id": 17,
+        "type": "HS00",
+        "diameter": 0.2
+      },
+      {
+        "id": 0,
+        "type": "HS00",
+        "diameter": 0.2
+      },
+      {
+        "id": 19,
+        "type": "HS01",
+        "diameter": 0.8
+      }
+    ]
+  },
+  "requested_at_utc": "2026-10-25T18:51:12.146453+00:00",
+  "request_sequence": "146478000",
+  "acknowledgment": {
+    "command": "refresh_nozzle",
+    "result": "failed",
+    "reason": "mqtt message verify failed",
+    "err_code": 84033543,
+    "sequence_id": "146478000"
+  },
+  "after": {
+    "job_id": "1374272357",
+    "gcode_state": "FAILED",
+    "print_error": 0,
+    "hms": [
+      {
+        "attr": 83887360,
+        "code": 65543
+      }
+    ],
+    "nozzle_state": 0,
+    "nozzle_info": [
+      {
+        "id": 18,
+        "type": "HS01",
+        "diameter": 0.4
+      },
+      {
+        "id": 1,
+        "type": "HS01",
+        "diameter": 0.4
+      },
+      {
+        "id": 17,
+        "type": "HS00",
+        "diameter": 0.2
+      },
+      {
+        "id": 0,
+        "type": "HS00",
+        "diameter": 0.2
+      },
+      {
+        "id": 19,
+        "type": "HS01",
+        "diameter": 0.8
+      }
+    ]
+  },
+  "completed_at_utc": "2026-10-25T18:51:13.344057+00:00",
+  "resolved": false,
+  "founder_quote": "Oh, can you not trigger a read?",
+  "studio_rack_read": {
+    "source": "cua_repl Bambu Studio Device > Hotends > Read All, warning confirmed once in this chat.",
+    "result": "Rack read initiated in Studio; subsequent native nozzle_state returns to 0. Fixed left ID1 remains 0.4 mm.",
+    "status_after_rack_read": {
+      "job_id": "1374272357",
+      "subtask_name": "Flavor_reservoirs_-_PETG_0.24_mm",
+      "gcode_state": "FAILED",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 0,
+      "total_layer_num": 833,
+      "mc_percent": 0,
+      "mc_remaining_time": 0,
+      "bed_temper": 34.0,
+      "bed_target_temper": 0.0,
+      "nozzle_temper": 34.0,
+      "nozzle_target_temper": 0.0,
+      "stg_cur": -1,
+      "cooling_fan_speed": "0",
+      "big_fan1_speed": "0",
+      "big_fan2_speed": "0",
+      "heatbreak_fan_speed": "0",
+      "observed_at_utc": "2026-10-25T18:47:16.485466+00:00",
+      "printer": "Mark1",
+      "timelapse": "disable",
+      "ams": {
+        "tray_now": "255",
+        "tray_tar": "255",
+        "ams_exist_bits": "1",
+        "tray_exist_bits": "f"
+      },
+      "ams_units": [
+        {
+          "unit": "0",
+          "trays": [
+            {
+              "id": "0",
+              "tray_type": "PETG",
+              "tray_color": "00000000",
+              "tray_info_idx": "GFG01",
+              "remain": 42,
+              "state": 11
+            },
+            {
+              "id": "1",
+              "tray_type": "PETG",
+              "tray_color": "00000000",
+              "tray_info_idx": "GFG01",
+              "remain": 100,
+              "state": 11
+            },
+            {
+              "id": "2",
+              "tray_type": "PETG",
+              "tray_color": "00000000",
+              "tray_info_idx": "GFG01",
+              "remain": 100,
+              "state": 11
+            },
+            {
+              "id": "3",
+              "tray_type": "PETG",
+              "tray_color": "00000000",
+              "tray_info_idx": "GFG01",
+              "remain": 100,
+              "state": 11
+            }
+          ]
+        }
+      ],
+      "extruders": [
+        {
+          "id": 0,
+          "hnow": 0,
+          "snow": 65535,
+          "temp": 34,
+          "stat": 2050
+        },
+        {
+          "id": 1,
+          "hnow": 1,
+          "snow": 65279,
+          "temp": 34,
+          "stat": 0
+        }
+      ],
+      "nozzles": [
+        {
+          "id": 18,
+          "diameter": 0.4,
+          "type": "HS01"
+        },
+        {
+          "id": 1,
+          "diameter": 0.4,
+          "type": "HS01"
+        },
+        {
+          "id": 17,
+          "diameter": 0.2,
+          "type": "HS00"
+        },
+        {
+          "id": 16,
+          "diameter": 0.2,
+          "type": "HS00"
+        },
+        {
+          "id": 19,
+          "diameter": 0.8,
+          "type": "HS01"
+        }
+      ]
+    },
+    "scope": "Read All identifies induction hotends on the right-side rack, not the fixed left hotend."
+  },
+  "studio_after_left_request": {
+    "source": "cua_repl Bambu Studio Device and Printer Parts after the rejected refresh_nozzle request.",
+    "message": "MQTT Command verification failed. Please update Studio/Suite (including the network plugin) or Handy to the latest version, then restart the software and try again.",
+    "printer_parts": "Left Hardened Steel /0.4 /Standard; read-only fields, no Refresh control exposed. Text directs nozzle settings to printer.",
+    "hms_scope": "Command-verification warning observed following the rejected remote refresh request; not a new printing or mechanical fault."
+  },
+  "next_action": {
+    "location": "Mark1 touchscreen: Settings > Nozzle & Extruder > Read Left Nozzle Info",
+    "purpose": "Identify installed left hotend type, material and diameter automatically.",
+    "acceptance": "Printer reports the installed fixed left 0.8 mm Standard nozzle; freshly recheck Studio Send and both printers before launch.",
+    "manual_diameter_overwrite_required": false,
+    "source": "https://csm.bblcdn.com/hub/eff78da43720461787dc8bbe5fa0372d.pdf#page=106",
+    "source_scope": "Bambu Lab H2C manual pp104-107 distinguishes Read Left Nozzle Info from right-rack Read All."
+  },
+  "submission_status": "No Send; prepared reservoir retry remains unstarted."
+}
