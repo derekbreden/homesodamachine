@@ -368,13 +368,41 @@ def closure_hardware(x, y, head_seat, insert_top, length=12.):
     return screw, insert
 
 
+def stacked_well_towers(stock, inner):
+    """Front-top's manifold wells, each connected cluster as one tower on its flank.
+
+    Each well's rear-half stock is drawn at its own inboard reach and span. Stacked, two wells
+    overlap in height and leave a step and a strip where their inboard faces differ, and a
+    print-down soffit under each. One tower takes the envelope of a cluster: one inboard face,
+    one span along the wall, and a 45 degree wedge carrying its print-down face to the wall.
+    The pockets are still cut at their own stations."""
+    towers = []
+    for solid in stock.Solids():
+        bb = solid.BoundingBox()
+        east = bb.xmax > 0.
+        wall_x = inner[1] if east else inner[0]
+        face_x = bb.xmin if east else bb.xmax
+        run = abs(wall_x - face_x)
+        wedge = (cq.Workplane('XZ')
+                 .polyline([(face_x, bb.zmin), (wall_x, bb.zmin), (wall_x, bb.zmin - run)])
+                 .close().extrude(-(bb.ymax - bb.ymin)).val().translate((0., bb.ymin, 0.)))
+        towers.append(box(bb.xmin, bb.xmax, bb.ymin, bb.ymax, bb.zmin, bb.zmax).fuse(wedge))
+    result = towers[0]
+    for tower in towers[1:]:
+        result = result.fuse(tower)
+    return result.clean()
+
+
 def apply(piece, box_spec, y_side, z_side):
     if z_side != 'top':
         return piece
     import above_core_wiring
     wiring = above_core_wiring.shell_features(y_side+'-top')
-    if wiring['add'] is not None:
-        piece = piece.fuse(wiring['add'])
+    stock = wiring['add']
+    if stock is not None and y_side == 'front':
+        stock = stacked_well_towers(stock, box_spec.inner)
+    if stock is not None:
+        piece = piece.fuse(stock)
     if wiring['cut'] is not None:
         piece = piece.cut(wiring['cut'])
     if y_side != 'back':

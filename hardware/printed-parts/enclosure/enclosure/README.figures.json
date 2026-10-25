@@ -46,7 +46,7 @@
     "CORE_HOLD_LAND": "8 mm",
     "CORE_HOLD_REACH": "12 mm",
     "CORE_HOLD_RISE": "40 mm",
-    "CORE_HOLD_WIDE": "9 mm",
+    "CORE_HOLD_WIDE": "6 mm",
     "CORE_STOP_BORE": "24.5 mm",
     "CORE_STOP_RISE": "40 mm",
     "CORE_STOP_WEB": "6 mm",
@@ -160,7 +160,7 @@
     "STOREY_BAND": "177.8..284.4 mm",
     "STOREY_RUN": "367.38 mm",
     "TEARDROP_ROOF": "36\u00b0",
-    "UPPER_ROD": "M5 \u00d7 60",
+    "UPPER_ROD": "M5 \u00d7 50",
     "VENT_ASPECT": "13.4:1",
     "VENT_ASPECT_BARE": "60:1",
     "VENT_BAND": "31..141 mm",
@@ -179,8 +179,8 @@
     "VENT_OPEN_IN": "65.5 cm\u00b2",
     "VENT_OPEN_OUT": "65.5 cm\u00b2",
     "VENT_OPEN_PCT": "62.8 %",
-    "VENT_RIB_BASE": "3.296 mm",
-    "VENT_RIB_LAND": "7.754 mm",
+    "VENT_RIB_BASE": "8 mm",
+    "VENT_RIB_LAND": "3.05 mm",
     "VENT_RUNS_IN": "92",
     "VENT_RUNS_OUT": "92",
     "VENT_SEGMENT": "24.5 mm",
@@ -209,7 +209,7 @@
     "Y_STACK_INSERT_BOSS": "\u00d811.6",
     "Y_STACK_LOWER_AXIS_OUT": "9.25 mm",
     "Y_STACK_LOWER_CBORE": "11.55 mm",
-    "Y_STACK_UPPER_FLOOR": "272.5",
+    "Y_STACK_UPPER_FLOOR": "281.4",
     "Z_RISE": "14.8 mm"
   }
 }

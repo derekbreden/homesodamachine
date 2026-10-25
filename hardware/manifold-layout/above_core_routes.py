@@ -290,7 +290,9 @@ def route_specifications(station):
           destination_depth=10., suffix=[hairpin, _line(hairpin_end, start_a), arc_a])
 
     flavor_b = station('bulkhead-flavor-b', 'tube-in')[0]
-    b_drop_x = 63.
+    # R25 and the port fix the drop's Y from its X. Moving the drop east takes it aft, off
+    # the meter collar's tie pad and toward the PISCO regulator; X64.35 splits the room.
+    b_drop_x = 64.35
     b_heading = math.pi/4-math.asin(((flavor_b[0]-b_drop_x)/r-1)/math.sqrt(2))
     b_east, b_aft = math.cos(b_heading), math.sin(b_heading)
     b_drop_y = flavor_b[1]-r*(b_east+b_aft)

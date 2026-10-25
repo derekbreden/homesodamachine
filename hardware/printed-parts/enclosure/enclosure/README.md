@@ -1029,10 +1029,10 @@ becomes the closed fall, the groove's roof is level across the
 [3 mm](VENT_GROOVE_ROOF) show-skin section: it looks print-up on back-top and meets the show
 face square. The closed passage's roof is one X plane
 from its liner inside the flank through the wall and out to the cold-core lip, and the lip
-keeps [7.754 mm](VENT_RIB_LAND) of solid land below the square mouth. The lip ends
+keeps [3.05 mm](VENT_RIB_LAND) of solid land below the square mouth. The lip ends
 at X−90.75, 0.25 mm outboard of the core's X−90.5 flank. Back-top's share of the rib
 stands square on the seam rim, which looks print-up on that piece. Its exterior crown is flat
-at the lip's height across the [3.296 mm](VENT_RIB_BASE) to the grown flank, with the complete
+at the lip's height across the [8 mm](VENT_RIB_BASE) to the grown flank, with the complete
 first printed section carried by removable tree support. The inner passage roof keeps its
 45° plane. The mouth's floor is a `vent_channel_w` bridge
 between the passage's two jambs. The exterior groove edge, the square passage and the back

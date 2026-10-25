@@ -489,6 +489,10 @@ y_stack_upper_chamfer = 5.1    # front-top's −X knuckle gives its inboard-aft 
 lower_rod_len = 120.0          # ISO 4762 M5 × 120, handhold ceiling to the insert under the Z seam
 lower_rod_thread = 22.0        # ISO 4762 M5 b: its thread at the tip, the rest plain shank
 upper_rod_len = 50.0           # acquired ISO 4762 M5 × 50, roof to the upper front knuckle
+y_stack_upper_datum = 318.0    # front-top's upper knuckle ends here, where its M5 insert opens;
+                               # back-top's knuckle stands one seated running fit above it, at
+                               # Z318.25. From the head seat under the roof the M5 × 50 takes
+                               # the insert's whole depth
 screw_clear_dia = _interface.screw_clear_dia  # M3 shank clearance
 head_cbore_dia = _interface.head_cbore_dia    # M3 SHCS head counterbore
 heatset_dia = _interface.heatset_dia  # ruthex M3, ⌀4.0 recommended hole either length
@@ -1258,8 +1262,8 @@ front_bottom_flank_t = 9.0
 
 # --- back-top's own ceiling ---------------------------------------------------
 # A 9 mm roof slab is the back-top print bed. The selected broad pockets retain
-# at least 3 mm of roof. Fixed fluid supports and the removable access panel share
-# the native above-core datums in _above_core_shell.
+# at least 3 mm of roof. Fixed fluid supports share the native above-core datums in
+# _above_core_shell.
 back_top_ceiling_t = 9.0
 back_top_ceiling_growth = back_top_ceiling_t - ceiling_skin
 
@@ -3507,22 +3511,41 @@ def _funnel_cut(inner, outer, centre, wells=(), up=1.0):
     return cut
 
 
-def _ceiling_corbels(solid, inner, centre, y_joint):
-    """The ceiling tongue's wall-rooted corbels over the thickened flanks.
+def _seat_ledge_corbels(solid, inner, outer, centre, y_joint):
+    """Front-top's 45° corbels under the funnel seat's two flank ledges.
 
-    The removable frame owns the central roof span. Each fixed corbel runs
-    from the lip's shoulder to its end, with its 45 degree underside wholly
-    over the flank that carries it.
-    """
-    iz1 = inner[5]
-    shoulder = y_joint - wall
-    for wall_x, sx in ((inner[1], -1.0), (inner[0], +1.0)):
-        tz = iz1 - wall - fits.running - ceiling_lip_drop
-        x_tip, x_cap = _band_x(wall_x - sx * wall, sx)
-        walk = tz - abs(x_cap - x_tip)
-        solid = solid.fuse(_xz_prism(shoulder, y_joint + lip_len,
-                                     [(x_tip, tz), (x_cap, tz), (x_tip, walk)]))
+    The removable frame's flange bears on each ledge at the roof pocket's floor, and the frame's
+    lower body passes inboard of the ledge's inner face. Under the ledge a corbel walks 45° out to
+    the thickened flank, so the piece, printing roof-up, lays every layer of the ledge on the one
+    below it. Aft of the funnel's centre the ledge ends on the frame's plumb clearance
+    (`_funnel_cut`) and the corbel ends on that plane too. Its face passes through the lip
+    shoulder's underside on that plane, so the shoulder (`_front_lip`) lands on the corbel's face
+    rather than standing a strip proud of it."""
+    _cx, cy = centre
+    floor = funnel_seat_z(outer) - funnel_seat_thickness
+    reach = _funnel_frame_part.body_width / 2.0 + slide_slip
+    plumb = inner[1] - y_stack_high_depth
+    shoulder = inner[5] - ceiling_lip_drop - wall - fits.running
+    front = housing_back_y(outer)
+    for wall_x, sx in ((inner[1], 1.0), (inner[0], -1.0)):
+        for ya, yb, x_in in ((front, cy, reach), (cy, y_joint, plumb)):
+            solid = solid.fuse(_xz_prism(ya, yb, [
+                (sx * x_in, floor), (wall_x, floor),
+                (wall_x, shoulder + plumb - abs(wall_x)),
+                (sx * x_in, shoulder + plumb - x_in)]))
     return solid
+
+
+def _ceiling_tongue_air(inner, y_joint):
+    """What the funnel frame's clearances leave of the lip's ceiling tongue between the upper
+    corner stacks. The frame's roof pocket crosses the seam there, so the tongue has no span:
+    the frame's body clearance takes its middle and back-top's knuckles its ends, and the strip
+    left between them would stand as a free bar aft of the shoulder. Front-top's own knuckles
+    stand outboard of this plan and below it."""
+    lip_top = inner[5] - ceiling_lip_drop
+    return _ybox(inner[0] + y_stack_high_depth, inner[1] - y_stack_high_depth,
+                 y_joint - wall, y_joint + lip_len + 1.0,
+                 lip_top - wall - fits.running - 1.0, lip_top + 1.0)
 
 
 # --- split joint: telescoping lip + two corner stacks ----------------------
@@ -3617,14 +3640,7 @@ def y_stack(inner):
         ("back-bottom", bb0, top, sloped, 0.0),
     )
     roof = inner[5] + wall
-    frame_floor = _funnel_frame_part.datums(roof - _funnel.brim_thickness)[0]
-    valve_top = max(_above_core_shell.layout.pose(n)['translation_mm'][2]
-                    + _seat.seat_half_y for n in ('valve-v-a', 'vk-solenoid'))
-    # The back column passes above the core-owned socket walls. Keep one
-    # running allowance and one supported-face allowance over their top.
-    back_floor = math.ceil(max(frame_floor,
-        valve_top + fits.running + fits.supported_surface) / .25) * .25
-    datum = back_floor - seated
+    datum = y_stack_upper_datum
     head_seat = roof - y_stack_head_recess - y_stack_head_h
     pilot_bottom = min(datum - floor_heatset_depth - mount_bore_relief,
                        head_seat - upper_rod_len - y_stack_tip_clearance)
@@ -5135,9 +5151,8 @@ def _back_top_ceiling(solid, inner, y_joint, box):
         x0, x1, y0, y1 = _funnel_cut_plan(box.pack.funnel)
         stock = stock.cut(_ybox(x0, x1, y0 - 1.0, y1, face - 1.0, lane + 2.0))
     # A pocket that runs on out of another body's pocket under the same roof, its two sides
-    # standing less than a wall inside that pocket's, is cut with that pocket's sides: the gas
-    # chain's adapters run on in line out of the gasher's crown pocket, and on their own slipped
-    # plans they would leave a sub-wall step at each end of it.
+    # standing less than a wall inside that pocket's, is cut with that pocket's sides; on its
+    # own slipped plan it would leave a sub-wall step at each end of it.
     reliefs = []
     for who, *plan in box.pack.ceiling_reliefs:
         for name, *other in box.pack.ceiling_reliefs:
@@ -6933,6 +6948,11 @@ def _cond_cradle(solid, inner, stations, y0, y1, z0, z1):
     for face, cx0, cx1, fz0, fz1, root in stations:
         if not (y0 <= face <= y1 and z0 <= (fz0 + fz1) / 2.0 <= z1):
             continue
+        # The base rail's station roots it on the machine floor, which the slab's top stands
+        # its allowance under; carried on down to that top, the rail meets the slab in one
+        # corner instead of over a sliver of corbel.
+        if root < inner[4] + cond_rail_wall:
+            root = inner[4]
         half = cond_slot_half(fz1 - fz0)
         # The rail roots on the wall surface actually behind the block, which is the front
         # wall's own interior plane where no relief is struck over this station's span.
@@ -7713,8 +7733,7 @@ def _digiten_bore(x_axis, z_axis, r, y0, y1, reach):
 #
 # NOTHING FASTENS A VALVE TO IT. The four corner posts press into their sockets and the valve's
 # own round body boss lands on the plate's face, which is what sets its height — the same
-# bargain the cold core's cap lid strikes under its own three valves, whose thinner lid stands
-# the bosses instead.
+# bargain V-A's and V-K's plates on back-top's sidewalls strike (`_above_core_shell.valve_seats`).
 def _valve_socket_cutters(plane, sign, seat_x, seat_z):
     """One tray seat's four complete post rooms with support-free roofs, in world coordinates.
 
@@ -8930,9 +8949,9 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     # here it roots with the bar in one continuous section.
     if y_side == "back":
         piece = _nameplate(piece, box.pack.nameplate, outer, oy1, zlo, zhi, up=up)
-    # And the lip's ceiling tongue over the funnel opening's flanks, on the front top alone.
+    # And the funnel seat's flank ledges' corbels, on the front top alone.
     if y_side == "front" and z_side == "top" and box.pack.funnel:
-        piece = _ceiling_corbels(piece, inner, box.pack.funnel, y_joint)
+        piece = _seat_ledge_corbels(piece, inner, outer, box.pack.funnel, y_joint)
     # The bay's opening, after every fuse that stands near it: what stands in it is the pump
     # cradle, and what it takes from this piece is what `build_pump_cartridge` keeps.
     if y_side == "front" and z_side == "top" and box.pump_bay:
@@ -9013,19 +9032,16 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         if y_side == 'front':
             piece = piece.cut(_y_lip_channel(inner, y_joint))
         receivers = _funnel_frame_part.receivers(
-            inner, outer, y_joint, box.pack.funnel, funnel_seat_z(outer), y_side)
+            inner, outer, y_joint, box.pack.funnel, funnel_seat_z(outer), y_side, up=up)
         if receivers is not None:
             piece = piece.fuse(receivers)
         piece = piece.cut(_funnel_cut(inner, outer, box.pack.funnel, box.pack.side_wells, up))
+        if y_side == 'front':
+            piece = piece.cut(_ceiling_tongue_air(inner, y_joint))
         piece = piece.cut(_funnel_frame_part.front_roof_clearance(
             inner, box.pack.funnel, funnel_seat_z(outer), y_joint))
         piece = piece.cut(_funnel_frame_part.shell_screw_cuts(
             inner, box.pack.funnel, funnel_seat_z(outer), y_side, y_joint))
-        rail = _funnel_frame_part.datums(funnel_seat_z(outer))[2]
-        frame_runs = _funnel_frame_part.rail_runs(inner, y_joint, y_side, box.pack.funnel)
-        if frame_runs:
-            piece = piece.cut(_z_rail_channels(inner, y_joint, rail, y_side, None,
-                                               runs=frame_runs))
         if y_side == 'front':
             piece = piece.cut(_y_lip_channel(inner, y_joint))
         if y_side == 'front':
@@ -9523,8 +9539,8 @@ def _handhold_bound(pieces, box):
 def _ceiling_show_cap_bound(back_top, box):
     """Record the complete exterior cap over back-top's whole ceiling field.
 
-    The field excludes the funnel and the removable electronics panel. It
-    retains one `wall` of stock from the show face down outside those openings.
+    The field excludes the funnel opening. It retains one `wall` of stock from the show face
+    down outside that opening.
     """
     solid = back_top.val() if hasattr(back_top, "val") else back_top
     fx0, fx1 = back_top_flank_face()
