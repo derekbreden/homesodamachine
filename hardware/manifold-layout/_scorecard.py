@@ -295,7 +295,8 @@ MOUNTS = (
       for name in PUMP_ELBOW_BODIES),
     ("psu", "foam-assembly", "deck-mount"),
     ("pcba", "foam-assembly", "deck-mount"),
-    ("soda-rise-insulation", "tube-soda-core-rise", "sleeve"),
+    ("soda-bend-holder", "tube-soda-core-rise", "tube-grip"),
+    ("soda-continuous-insulation", "tube-soda-core-rise", "sleeve"),
     ("relay-1", "enclosure-back-top", "bosses"),
     ("relay-2", "enclosure-back-top", "bosses"),
     ("ground-stack", "foam-assembly", "bosses"),
@@ -508,7 +509,6 @@ def _selected_mounts() -> tuple:
         "vb-outlet-return": (None, "tube-hung"),
         "reservoir-b-fill-lower": ("foam-assembly", "cap-pocket"),
         "reservoir-b-fill-upper": ("foam-assembly", "cap-pocket"),
-        "soda-inlet-stem": ("digiten-flow", "collet"),
     }
     import _above_core_mounts
     fittings.update({name: (datum['parent'], 'cradle')
@@ -1213,7 +1213,6 @@ def selected_mate_contacts(a, placed, clashes) -> dict:
         'lower-valve-elbow': ('vk-solenoid', 12.7),
         'carbonator-fold': ('discharge-chain', selected_parts.check_reference().socket_depth('outlet')),
         'soda-stem-elbow': ('bulkhead-carb', 12.7),
-        'soda-inlet-stem': ('digiten-flow', 15.7),
     }
     tube_hosts = (
         ('tube-fluid-16', 'valve-v-e', 'inlet', 12.7),
@@ -1222,7 +1221,7 @@ def selected_mate_contacts(a, placed, clashes) -> dict:
         ('tube-fluid-24', 'valve-v-i', 'outlet', 12.7),
         ('tube-above-core-water-in', 'bulkhead-water', 'inboard', 12.7),
         ('tube-soda-meter-bulkhead', 'digiten-flow', 'outlet', 15.7),
-        ('tube-soda-core-rise', 'soda-inlet-stem', 'socket', 16.891),
+        ('tube-soda-core-rise', 'digiten-flow', 'inlet', 15.7),
         ('tube-above-core-pump-check-link', 'discharge-chain', 'inlet',
          selected_parts.check_reference().socket_depth('inlet')),
     )
@@ -1476,6 +1475,7 @@ def selected_clearance_joints(a) -> set:
     measures contact outside the finite mating regions.
     """
     import above_core_wiring as wiring
+    import soda_inlet
 
     pairs = {frozenset((name, host)) for name, host, _joint in _selected_mounts()
              if isinstance(host, str)}
@@ -1485,6 +1485,15 @@ def selected_clearance_joints(a) -> set:
     # These two collet faces meet across the concealed outlet tube. Their
     # actual body contact remains independently measured by pack_clashes.
     pairs.add(frozenset(('digiten-flow', 'soda-outlet-return-stem')))
+    # These named interfaces intentionally meet. Foam occupied geometry is a
+    # compression estimate; its display subtraction is no physical air-gap proof.
+    pairs |= {
+        frozenset(('soda-bend-holder', 'tube-soda-core-rise')),
+        frozenset(('soda-continuous-insulation', 'tube-soda-core-rise')),
+        frozenset(('soda-continuous-insulation', 'soda-bend-holder')),
+        *(frozenset(('soda-continuous-insulation', name))
+          for name in soda_inlet.SOFT_NEIGHBORS),
+    }
     pairs |= {frozenset((name, 'foam-assembly' if row['parent'] == 'cold-core'
                         else 'enclosure-' + row['parent']))
               for name, row in wiring.placements().items()}

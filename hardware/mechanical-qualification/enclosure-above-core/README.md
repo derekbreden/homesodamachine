@@ -15,11 +15,10 @@ The back-column query moves the upper printed stock, its fixed equipment and
 fluid spans whose two endpoints belong to back-top. Core-owned equipment,
 junctions and fluid spans above the lid remain stationary. The lower seams
 and floor retain their separate records.
-The soda and drain rear bulkheads, drain nut, nested meter return elbows and
-their concealed tube are uninstalled during the column ride. The loose soda
-nut is held or temporarily taped at the recorded rear-wall parking pose with
-the roof panel open; no printed stock retains it. The flexible drain-vent line
-is connected after the drain bulkhead is installed.
+Both soda and drain bulkheads and their nuts, the nested soda return elbows
+and the concealed tube travel with back-top. The free tube end enters the
+fixed meter outlet during the final 15.7 mm of closing. The flexible drain-vent
+line connects through the open roof afterward.
 Final inter-quadrant wires and tubes are connected through the open roof after
 the shell closes.
 V-K's inlet stem belongs to the populated core during the column ride.
@@ -66,7 +65,7 @@ B1/B2 dimensions describe internal tube stops.
 Its header-capture block covers the connected split tee, water regulator and
 three short links prepared with the core. The back-top saddles capture the
 regulator, while its ASSE cuff receives the tee's finite 15 mm male stem.
-The connected ceiling pocket retains 6 mm of roof. The receiver block records
+The connected ceiling pocket retains 3 mm of roof. The receiver block records
 full 3 mm pilot walls and blind floors, complete screw-head bearing and the
 frame's sampled vertical passage. Fasten the frame before laying the silicone
 funnel over its screw heads. These CAD readings establish no insertion force,
@@ -81,20 +80,26 @@ electrical, connector-service and nominal retaining-strip geometry. Its
 roof, lid and meter gaps are 1.041, 1.139 and 1.069 mm respectively. These
 readings establish no physical fit, reverse seal or gas-service compatibility.
 
-The 15 mm soda-riser insulation sleeve is an ID6.35/OD25.4 nominal annulus.
-The actual appliance review checks it against nearby installed stock,
-equipment and wires, excluding its intended tube-bore contact. Thermal
-performance, foam compression and slit/tape retention remain unqualified.
+The continuous R14 meter inlet uses the accepted PET-GF holder with a 2 mm
+wall and 3 mm legs. One 63 mm square-ended piece of owned ID6.35/OD25.4 foam
+slides over the tube and holder before the meter connects. Its nominal stock
+envelope and occupied display retain separate scopes in the inlet receipt.
+Local compression against V-K, the pump, its inlet TPU elbow and barb band is
+a layout estimate informed by qualitative physical fit evidence. Subtracting
+those bodies in the occupied CAD display is not a physical clearance result,
+shaped cutting pattern, measured strain or thermal-performance qualification.
 
 The [rear plumbing assembly record](rear-plumbing-assembly.json) and its
 [manual reproduction script](rear_plumbing_assembly.py) cover the finite
-installation sequence. With the shell closed and roof open, the two rear
-elbows and their 32.591 mm concealed tube feed 15.7 mm fore into the fixed
-meter. The parked soda nut moves diagonally to its axis, the soda bulkhead
-feeds from outside, and the adjacent drain bulkhead and nut install afterward.
-The sampled envelopes include the parked nut's closing ride and both nut
-rotation envelopes. They do not establish hand/tool access, temporary tape
-retention, helical thread engagement or physical collet operation.
+installation sequence. The two rear bulkheads, prethreaded nuts, nested soda
+elbows and 32.591 mm concealed tube ride with back-top. Continuous conservative
+prisms and a coaxial tube cylinder clear the stationary populated core; the
+free end enters the fixed meter outlet within its finite 15.7 mm receiving
+region. The white drain-vent line connects afterward. A straight late meter
+lift hits the fixed ASSE saddle; a fore approach hits its collar bearing.
+General reoriented late-meter paths remain outside this scope. The readings
+do not establish hand/tool access, thread tightening, collet operation or
+connection force.
 
 The [PP1208E drawing](https://www.johnguest.com/sites/jg/files/2023-04/JG%20Drinks%20Polypropylene%20Bulkhead%20Connector%20Data%20Sheet.pdf)
 and [ABU44M drawing](https://assets.freshwatersystems.com/image/upload/qnbgcy8djx3nj2weqz9v.pdf)

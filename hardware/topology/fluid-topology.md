@@ -21,6 +21,12 @@ through their lower outlet ports, with their underside flow arrows downward.
 
 **A stopped pump is not a closed valve.** A parked KPHM600 head passes flow both ways — gravity drains a standing line down through one — so every path in this manifold is held by its NC solenoids alone, and each dispense path carries a gate at both ends of its pump. It is also what carries the clean-fill modes below, where tap water, pressure-limited by the YZMSZ 0.3 MPa regulator on V-A's feed, crosses an idle pump to reach a reservoir.
 
+The carbonated-water draw uses one continuous tube through the plain core
+guide and an accepted R14 bend holder directly into the meter inlet. The guide
+adds no fitting, insertion or tube cut. A single 63 mm square-ended foam piece
+covers the tube and holder before the meter connects. The meter outlet joins
+the preassembled rear group as back-top closes.
+
 > **V-K** — the water-supply fill/shutoff solenoid, an 11th valve of the same Beduan NC type — is **not** part of this manifold. It stands on the cold core's crown east of the G Ganen pump and gates the carbonator fill on the water-split's branch to that pump's suction, downstream of the ASSE 1022 (see [`fluid-topology-carbonator.mmd`](/hardware/topology/fluid-topology-carbonator.mmd) and [`assembly/internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §2), driven off the main board's spare `J2.OUT3` channel.
 
 The water discharge and CO2 feed each use one purchased neoFit ACHV44-E
