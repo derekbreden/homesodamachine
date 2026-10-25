@@ -124,7 +124,9 @@ Keep the appliance unplugged throughout this assembly.
    Keep the leads with their mounting parents and dress each crossing below
    the closing surfaces. Clear the two lid-rooted valve-union bearings and their
    cable-tie paths while dressing the leads. Keep the coil leads outside the
-   continuous soda inlet's holder and foam sleeve. Route lengths describe centerlines; allow the
+   continuous soda inlet's holder and foam sleeve. Dress the three meter leads
+   below V-K's coil, cross east ahead of the foam and run aft outside its wall.
+   Route lengths describe centerlines; allow the
    specified termination reserve and assembly slack when fabricating looms.
 6. Inspect the wiring and plumbing in the central four-quadrant connection
    region while the roof opening is clear. Lower the rigid frame vertically,

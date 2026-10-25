@@ -2198,23 +2198,39 @@
         "terminal": "wago-sensors.3",
         "offset": [
           45.0048,
-          120.53333,
+          120.53333333,
+          0.4
+        ]
+      },
+      {
+        "terminal": "wago-sensors.3",
+        "offset": [
+          71.8,
+          124.73333333,
+          0.4
+        ]
+      },
+      {
+        "terminal": "wago-sensors.3",
+        "offset": [
+          71.8,
+          145.73333333,
+          0.4
+        ]
+      },
+      {
+        "terminal": "wago-sensors.3",
+        "offset": [
+          71.8,
+          148.73333333,
           9.27605
         ]
       },
       {
         "terminal": "wago-sensors.3",
         "offset": [
-          69.8,
-          142.73333,
-          9.27605
-        ]
-      },
-      {
-        "terminal": "wago-sensors.3",
-        "offset": [
-          69.8,
-          191.44813,
+          71.8,
+          191.44813333,
           9.27605
         ]
       }
@@ -2223,10 +2239,10 @@
       6.0,
       6.0
     ],
-    "bend_radius_mm": 2.0,
+    "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Meter signal ground follows the east-side corridor below its native wire boss and west of the lower gas elbow; physical dressing remains open."
+    "note": "Lead route passes fore of the continuous soda inlet foam, below the valve coil and then aft outside the nominal full sleeve. Physical harness dressing and foam compression remain unqualified."
   },
   "J5-GND": {
     "stations": [
@@ -2844,24 +2860,40 @@
       {
         "terminal": "J4.IO25",
         "offset": [
-          59.40479,
-          98.79708,
+          59.4047939,
+          98.79707998,
+          -5.4
+        ]
+      },
+      {
+        "terminal": "J4.IO25",
+        "offset": [
+          84.1999939,
+          102.79707998,
+          -5.4
+        ]
+      },
+      {
+        "terminal": "J4.IO25",
+        "offset": [
+          84.1999939,
+          121.79707998,
+          -5.4
+        ]
+      },
+      {
+        "terminal": "J4.IO25",
+        "offset": [
+          84.1999939,
+          124.79707998,
           1.47605
         ]
       },
       {
         "terminal": "J4.IO25",
         "offset": [
-          84.19999,
-          116.79708,
-          1.47605
-        ]
-      },
-      {
-        "terminal": "J4.IO25",
-        "offset": [
-          84.19999,
-          165.71188,
+          84.1999939,
+          165.71187998,
           1.47605
         ]
       }
@@ -2870,10 +2902,10 @@
       6.0,
       6.0
     ],
-    "bend_radius_mm": 2.0,
+    "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Three meter leads approach the downward native wire boss through parallel east-side lanes, clear of the inlet drop and collar bearings; physical dressing remains open."
+    "note": "Lead route passes fore of the continuous soda inlet foam, below the valve coil and then aft outside the nominal full sleeve. Physical harness dressing and foam compression remain unqualified."
   },
   "J4-V5": {
     "stations": [
@@ -2896,24 +2928,40 @@
       {
         "terminal": "J4.V5",
         "offset": [
-          59.40479,
-          99.49708,
+          59.4047939,
+          99.49707998,
+          -3.6
+        ]
+      },
+      {
+        "terminal": "J4.V5",
+        "offset": [
+          82.1999939,
+          103.29707998,
+          -3.6
+        ]
+      },
+      {
+        "terminal": "J4.V5",
+        "offset": [
+          82.1999939,
+          124.29707998,
+          -3.6
+        ]
+      },
+      {
+        "terminal": "J4.V5",
+        "offset": [
+          82.1999939,
+          127.29707998,
           1.47605
         ]
       },
       {
         "terminal": "J4.V5",
         "offset": [
-          82.19999,
-          117.29708,
-          1.47605
-        ]
-      },
-      {
-        "terminal": "J4.V5",
-        "offset": [
-          82.19999,
-          166.41188,
+          82.1999939,
+          166.41187998,
           1.47605
         ]
       }
@@ -2922,9 +2970,9 @@
       6.0,
       6.0
     ],
-    "bend_radius_mm": 2.0,
+    "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Three meter leads approach the downward native wire boss through parallel east-side lanes, clear of the inlet drop and collar bearings; physical dressing remains open."
+    "note": "Lead route passes fore of the continuous soda inlet foam, below the valve coil and then aft outside the nominal full sleeve. Physical harness dressing and foam compression remain unqualified."
   }
 }
