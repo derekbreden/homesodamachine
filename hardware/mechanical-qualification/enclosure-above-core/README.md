@@ -1,7 +1,7 @@
 # Above-core enclosure integration
 
 The manual [review script](review.py) reads the exported production appliance.
-It queries vertical removal of the empty funnel frame and electronics panel,
+It queries vertical removal of the empty funnel frame,
 the approved back-top group passing over the populated core, and stock and
 screw reach at the two raised upper M5 joints. The [saved native record](native-review.json)
 binds its source, artifact and tested group; its result applies to that scope.
@@ -12,16 +12,18 @@ Disconnect the drain tube or release the cradle before lifting the frame;
 the query does not establish disconnection or snap-release motion or force. Closure
 screws are removed for the motion queries; their inserts remain in place.
 The selected back-top subassembly carries V-A, V-K, their fitted elbows,
-the low V-A feed and the complete ASSE/tee/regulator inlet header. V-B,
-pump, PCB, PSU, meter and continuous insulated soda inlet remain with the
-cold core. The carrying-piece record is
+the low V-A feed, the complete ASSE/tee/regulator inlet header, the sidewall
+PSU, both raised relays, and the meter. The meter retains its fitted R14
+continuous inlet, accepted holder, foam and concealed rear outlet join.
+V-B, pump and PCB remain with the cold core. The carrying-piece record is
 [the approved arrangement](../../manifold-layout/studies/funnel-gate/assembly-ownership.json).
-The manual query uses that named back-top group. The concealed meter-outlet
-tube stays with the meter; the rear return elbow receives its free end as
-back-top closes. Only the finite nominal Ø6.35  × 16.891 mm receiving region
-is an intended socket engagement. The separate pump, gas and drain-vent
-handoffs need final-connection evidence; a clear rigid-group ride alone does
-not establish their assembly access.
+
+The external soda inlet is a cross-parent handoff through a plain core guide.
+It is one continuous tube; that guide is not a socket, joint or cut. Its
+permanent back-top owner does not make the complete span a rigid moving
+member during closure. The pump, gas and drain-vent handoffs likewise need
+final-connection evidence; a clear rigid-group ride alone does not establish
+flexible handling, collet access or connection force.
 
 V-A and V-K have their underside flow arrows down, upper inlet and lower
 outlet. V-A's upper release collet uses a −15° clock about native +Y to clear
@@ -30,14 +32,13 @@ contact record bounds that articulation and the unchanged socket walls.
 Their bench installation must use the selected back-top mounts. The saved
 core-bench seating scenario does not establish back-top installation.
 
-The [approved carried-group query](approved-carried-group-review.json) records
-native counterexamples to a fully populated rigid back-top ride: V-A crosses
-the fixed PSU at 20 mm aft of its installed pose, and V-K crosses the fixed
-meter at 50 mm aft. The selected poses and carrying pieces remain the baseline;
-these collisions require an assembly-order resolution. The same query records
-the finite rear-tube capture and the oblique pump-inlet handoff. Rigid-envelope
-interference during late TPU-cuff fitting does not predict stretch or insertion
-force. This report does not establish a complete assembly sequence.
+The [carried-group diagnostic](approved-carried-group-review.json) and
+[rear plumbing scenarios](rear-plumbing-assembly.json) bind their exact source,
+components and evaluated ownership. Their fixed-PSU/fixed-meter slide and
+finite rear-tube capture scenarios do not establish the selected group’s
+closing motion. The [near-final rail query](back-top-approach-review.json)
+records native hooked-rail interference under small raised-Z offsets; it
+does not provide an alternative lowering path.
 
 The upper M5 bearing planes are Z318.0 on front-top and Z318.25 on back-top.
 Each host reading asks for the full 9.5 mm insert length, 3 mm outside its
@@ -47,7 +48,8 @@ Each host reading asks for the full 9.5 mm insert length, 3 mm outside its
 The [funnel review](../../printed-parts/zone-c/funnel/drop-in-review/native-review.json)
 records the frame's native fit, screw stacks and silicone bearing. It also
 checks both nominal J10 screwdriver paths through the exported upper shells
-with the frame, drain assembly and electronics panel removed. The aft frame
+with the frame and drain assembly removed. The selected V-B return is
+fitted after its covered J10 screw approaches have been used. The aft frame
 surround covers those access paths when installed.
 The [core review](../../printed-parts/cold-core/foam-cap/above-core-native-review.json)
 covers the cap's passages, equipment hosts, valve walls and tool approaches.
@@ -62,14 +64,12 @@ and the carbonator adapter's receiving depth remains unmeasured.
 The [electrical review](../../wiring/installed/above-core-review/native-review.json)
 and its adjacent tube/wall records cover the installed conductor geometry.
 
-The [native contact review](native-contact-review.json) records the two rear
-core brackets, the six rear bulkheads and separate nuts against the exported
-back-top, PSU terminal approaches, and finite nominal stem, tube, thread and
-heat-set engagement regions. The west bracket is 6 mm wide between the PSU and
-rear jack, with nominal 0.40 and 0.275 mm gaps respectively. The rear relief
-retains the 6 mm clamp stack and 3 mm roof stock. NeoFit external mouth
-stations and body envelopes remain nominal and unmeasured; the manufacturer's
-B1/B2 dimensions describe internal tube stops.
+The [native contact review](native-contact-review.json) records its named
+rear core brackets, six rear bulkheads and separate nuts against back-top,
+and finite nominal stem, tube, thread and heat-set engagement regions.
+Its PSU approach and bracket gap readings apply to the PSU pose bound by
+that receipt. NeoFit external mouth stations and body envelopes remain
+nominal and unmeasured; manufacturer B1/B2 dimensions describe internal stops.
 
 The header-capture block is limited to the stationary-header arrangement
 named in that receipt. It does not establish the approved back-top-carried
@@ -102,13 +102,10 @@ before threading the tube, holder and foam and connecting the meter; remove
 the inlet for that screw's service. This is a staged tool-access limit,
 not a clear installed driver column.
 
-The [rear plumbing assembly record](rear-plumbing-assembly.json) and its
-[manual reproduction script](rear_plumbing_assembly.py) identify the bodies
-in each tested installation scenario. A scenario carrying the concealed tube
-with back-top is not evidence for the approved meter-owned tube. The current
-manual closure query uses the approved ownership and the rear elbow's finite
-receiving region. Physical collet operation, sealing and connection force
-remain unqualified.
+The [bare valve bench record](valve-wall-mount-review.json) identifies its
+empty back-top and the two native seating paths. Their handling envelopes
+clear the named stock. It establishes neither hand clearance nor insertion
+force, retention or complete populated assembly.
 
 The [PP1208E drawing](https://www.johnguest.com/sites/jg/files/2023-04/JG%20Drinks%20Polypropylene%20Bulkhead%20Connector%20Data%20Sheet.pdf)
 and [ABU44M drawing](https://assets.freshwatersystems.com/image/upload/qnbgcy8djx3nj2weqz9v.pdf)

@@ -399,25 +399,23 @@ even though the whole enclosure does not — that is the point of the split.
 ## Above-core mounts
 
 The [production arrangement](/hardware/manifold-layout/above-core.md) owns the native
-component frames. `_above_core_shell.py` builds back-top's relay bosses,
-rear ports, fluid supports and empty electronics-panel interface.
-The PCB, flat PSU, pump and all three upright valves belong to the cold-core mounts. Junction wells follow
+component frames. `_above_core_shell.py` builds back-top's PSU and relay hosts,
+V-A/V-K sidewall plates, rear ports and fluid supports. `_back_top_meter.py`
+constructs the two fixed-collar meter bearings and their east-wall beams.
+The PCB, pump and V-B belong to the cold-core mounts. Junction wells follow
 their actual branch points on the rear wall, core lid and front manifold.
 
-Each relay has four short-insert bosses off the fixed west wall. V-A and V-K use
-the shared V69 socket section on broad lid-rooted plates. Preserve the
-[accepted valve-fit scope](/hardware/mechanical-qualification/README.md); the new
-mount orientation and complete installed load path are separate qualification items.
+The PSU mounts to the dry west sidewall with its AC end aft; both relays sit
+above it. Relay mounting uses two diagonal screws per module and four support
+pads. The shared V69 socket sections on back-top carry V-A and V-K. Preserve
+the [accepted valve-fit scope](/hardware/mechanical-qualification/README.md);
+the complete installed load paths remain separate qualification items.
 
-The rear six-port field has a 6 mm clamping land within the 9 mm wall. C14 uses two
-short-insert hosts around its shallow flange pocket; RJ11 uses its keyed receptacle.
-Their stations and the two-column fluid grid are defined in the shared arrangement.
-
-Both roof closures remain clear of wires, tubes and component mounts. The electronics
-panel is 100 × 126.55 × 9 mm with four discrete M3 × 12 bearing bosses. Each east boss
-has full-depth 9 mm roots into both its +X roof edge and adjacent front/rear roof edge;
-the west pair also join the sidewall. RX-M3×5.7 inserts enter from Z346. The panel
-heads bear at Z351.8 and finish 0.2 mm below the exterior roof. There is no perimeter rim.
+The rear six-port field has a 6 mm clamping land within the 9 mm wall. C14 uses
+two short-insert hosts around its shallow flange pocket; RJ11 uses its keyed
+receptacle. Their stations and the two-column fluid grid are defined in the
+shared arrangement. The rear ceiling is continuous. No wiring or device
+mount attaches to the removable funnel frame.
 
 ## Condenser cradle
 
@@ -437,17 +435,17 @@ The groove keeps 0.25 mm on each face of the sheet at its datum. Its sloping roo
 
 ## Closing and final access
 
-Front-top slides aft onto front-bottom. Back-top slides fore onto the empty
-back-bottom. The back column then rides fore over the populated cold core to join
-the front column, and four M5 screws retain the quadrants. The
-[mechanical procedure](/hardware/assembly/enclosure-mechanical.md) stages the fixed
-shell equipment, core equipment and post-ride valve installation.
+The [mechanical procedure](/hardware/assembly/enclosure-mechanical.md) names the
+carrying pieces, preparation and cross-quadrant handoffs. Back-top carries its
+PSU, relays, meter, V-A/V-K and fitted plumbing while the core carries the PCB,
+pump and V-B. The motion records state the actual tested groups and clearances;
+they do not establish flexible tube handling or physical assembly force.
 
-Keep the drop-in funnel frame and empty electronics panel separate during final
-cross-quadrant connections. Lift the silicone and remove the frame's four recessed
-screws to reopen the funnel aperture. Its drain bridge stays fixed in front-top.
-Remove the electronics panel independently for rear electrical access. Disconnect
-and support crossing connections before reversing the enclosure slides.
+Keep the drop-in funnel frame separate during final cross-quadrant connections.
+Lift the silicone and remove the frame's four recessed screws to reopen that
+aperture. Its drain cradle snaps into the frame's original 3 mm web. Disconnect
+the drain tube or release the cradle before lifting the frame. Disconnect and
+support crossing connections before reversing the enclosure slides.
 
 ## Cold-core grips
 

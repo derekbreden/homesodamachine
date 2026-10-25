@@ -9,10 +9,10 @@ core and refrigeration provisions, even when a bench build uses the external Lil
 carbonator.
 
 The complete enclosure print includes the four shell quadrants (front-top, front-bottom,
-back-top, back-bottom), pump cartridge and cap, machine display cover, empty
-electronics access panel and six rear identification labels. The
+back-top, back-bottom), pump cartridge and cap, machine display cover, drop-in
+funnel frame and six rear identification labels. The
 [cold-core cap](../cold-core/foam-cap/README.md) carries its equipment columns,
-valve walls and fitting bearings as integral stock. Front-top's tee wall holds the four purchased PP0208E pump tees in its
+V-B wall and fitting bearings as integral stock. Front-top's tee wall holds the four purchased PP0208E pump tees in its
 [bores](pump-dock/README.md#the-tees-bores) behind the collet plate.
 The front flanks are continuous across the fixed dock room.
 
@@ -181,24 +181,24 @@ load-capacity or drop result.
 
 ## Above-core production geometry
 
-The production arrangement uses the flat PCB/PSU, three core-owned upright
-valve walls, compact water/gas fittings and core-owned meter in
-[above-core.md](../../manifold-layout/above-core.md). Its printable set includes
-the upper quadrants, cap/cup and lid interfaces, the empty electronics panel,
+The [production arrangement](../../manifold-layout/above-core.md) places the flat
+PCB, pump and V-B on the cold core. Back-top carries the sidewall PSU, raised
+relays, meter, V-A/V-K and fitted plumbing beneath a continuous rear ceiling.
+Its printable set includes the upper quadrants, cap/cup and lid interfaces,
 compact rear chips and the 35 mm deeper funnel family. The frame installs
 vertically after the final connections, with the drain cradle snapped into its
 3 mm web. Disconnect the drain tube or release that cradle before lifting
-the frame.
+its frame.
 
 The [cap review](../cold-core/foam-cap/above-core-native-review.json),
 [rear identification review](rear-identification/native-review.json) and
 [frame review](../zone-c/funnel/drop-in-review/native-review.json) state their
-native-geometry scopes. The upper M5 joint’s common bearing plane permits
-back-top to pass above the populated valve walls. The C14 flange is accessible outside the wall, with
+native-geometry scopes. The C14 flange is accessible outside the wall, with
 washer-backed M3 × 10 screws in blind hosts. The low nameplate field retains
-the accepted flat-wing receiver and 1.09 mm nominal core clearance.
+the accepted flat-wing receiver.
 The [populated closure review](../../mechanical-qualification/enclosure-above-core/README.md)
-records sampled opening/closing motions and the raised joint's native stock.
+identifies its actual exported components, tested motions and stock readings.
+Those records do not establish the strength or assembly fit of new wall hosts.
 
 Print preparations must name these exact production meshes and their support
 contacts before claiming that the new interfaces are ready to print. Accepted
