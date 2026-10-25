@@ -95,16 +95,12 @@ extension BLEManager {
     // The main board owns this. The app asks and sets; it never keeps an idea
     // of its own, so a change made on either glass shows here immediately.
     func queryFlavorArt() {
-        bleQueue.async { [weak self] in
-            self?.sendBLEFrame(type: ImageFrame.artQuery, payload: Data())
-        }
+        sendBLEFrame(type: ImageFrame.artQuery, payload: Data())
     }
 
     func setFlavorArt(channel: Int, art: Int) {
         guard !demoMode, channel >= 0, channel < 2 else { return }
-        bleQueue.async { [weak self] in
-            self?.sendBLEFrame(type: ImageFrame.artSet, payload: Data([UInt8(channel), UInt8(art)]))
-        }
+        sendBLEFrame(type: ImageFrame.artSet, payload: Data([UInt8(channel), UInt8(art)]))
     }
 
     func handleFlavorArt(_ payload: Data) {
@@ -114,7 +110,7 @@ extension BLEManager {
         a.art = [Int(payload[b]), Int(payload[b + 1])]
         a.factory = Int(payload[b + 2])
         a.custom = Int(payload[b + 3])
-        onMain(linkGeneration) { self.flavorArt = a }
+        flavorArt = a
     }
 
     /// Keep a read moving for as long as there is a link, rather than for as
@@ -124,9 +120,12 @@ extension BLEManager {
     /// long after anyone has stopped watching a particular view.
     func startFacePump() {
         stopFacePump()
+        // A timer scheduled here fires on the main run loop.
         facePump = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true) { [weak self] _ in
-            self?.resumeFaceIfStalled()
-            self?.nudgeUploadIfStalled()
+            MainActor.assumeIsolated {
+                self?.resumeFaceIfStalled()
+                self?.nudgeUploadIfStalled()
+            }
         }
     }
 
@@ -140,9 +139,7 @@ extension BLEManager {
     /// otherwise invisible to anyone holding the machine.
     func say(_ text: String) {
         guard let data = text.data(using: .utf8) else { return }
-        bleQueue.async { [weak self] in
-            self?.sendBLEFrame(type: 0x01, payload: data.prefix(72))
-        }
+        sendBLEFrame(type: 0x01, payload: data.prefix(72))
     }
 
     /// The same, for a condition that persists rather than an event that
@@ -180,22 +177,18 @@ extension BLEManager {
             let slot = imageSlotSending
             say("upload: slot \(slot) gave up after \(uploadAsks) asks")
             forgetPreview(slot: slot)
-            bleQueue.async { [weak self] in self?.imageBundle = Data() }
+            imageBundle = Data()
             finishActive(.failed("the machine never said it kept it"))
             return
         }
         say("upload: slot \(imageSlotSending) asking again, \(uploadAsks)")
-        bleQueue.async { [weak self] in
-            self?.sendBLEFrame(type: ImageFrame.end, payload: Data(), withResponse: true)
-        }
+        sendBLEFrame(type: ImageFrame.end, payload: Data(), withResponse: true)
         queryImageSlots()
     }
 
     // ── Asking ────────────────────────────────────────────────────────────
     func queryImageSlots() {
-        bleQueue.async { [weak self] in
-            self?.sendBLEFrame(type: ImageFrame.query, payload: Data())
-        }
+        sendBLEFrame(type: ImageFrame.query, payload: Data())
     }
 
     func handleImageState(_ payload: Data) {
@@ -218,37 +211,33 @@ extension BLEManager {
         // A PICTURE ERASED OR REPLACED WHILE IT WAS BEING READ IS NOT COMING
         // BACK. The board stops sending it; a read left waiting on it asks again
         // forever, and every other missing face waits behind it. So the read is
-        // let go, here on the radio's queue where its state lives, before the
-        // reconcile below asks for whatever is missing now.
-        let now = slots
-        bleQueue.async { [weak self] in
-            guard let self, self.faceSlot >= 0 else { return }
-            let s = self.faceSlot
-            guard !now.isHeld(s) || (self.faceCrc != 0 && now.crc(of: s) != self.faceCrc) else { return }
-            self.say("faces: slot \(s) changed while it was read; letting it go")
-            self.faceSlot = -1
-            self.faceCrc = 0
-            self.facePixels = Data()
-            self.faceHave.removeAll()
-            self.faceReceived = 0
+        // let go before the reconcile below asks for whatever is missing now.
+        if faceSlot >= 0 {
+            let s = faceSlot
+            if !slots.isHeld(s) || (faceCrc != 0 && slots.crc(of: s) != faceCrc) {
+                say("faces: slot \(s) changed while it was read; letting it go")
+                faceSlot = -1
+                faceCrc = 0
+                facePixels = Data()
+                faceHave.removeAll()
+                faceReceived = 0
+            }
         }
 
-        onMain(linkGeneration) {
-            self.imageSlots = slots
-            self.current?.picturesReadAt = Date()
-            log.info("slots \(slots.count) held \(slots.held) bundle \(slots.bundleBytes)")
-            // The machine listing this picture's own crc32 in the slot it was
-            // sent to is the picture having arrived, and outranks any frame
-            // that went missing on the way back.
-            if case .sending = self.imageUploadState, let active = self.activeUpload,
-               let want = self.pendingCrc[active.slot], want != 0,
-               slots.crc(of: active.slot) == want {
-                self.say("upload: slot \(active.slot) is on the machine")
-                self.bleQueue.async { [weak self] in self?.imageBundle = Data() }
-                self.finishActive(.done)
-            }
-            self.fetchMissingFaces()
+        imageSlots = slots
+        current?.picturesReadAt = Date()
+        log.info("slots \(slots.count) held \(slots.held) bundle \(slots.bundleBytes)")
+        // The machine listing this picture's own crc32 in the slot it was
+        // sent to is the picture having arrived, and outranks any frame
+        // that went missing on the way back.
+        if case .sending = imageUploadState, let active = activeUpload,
+           let want = pendingCrc[active.slot], want != 0,
+           slots.crc(of: active.slot) == want {
+            say("upload: slot \(active.slot) is on the machine")
+            imageBundle = Data()
+            finishActive(.done)
         }
+        fetchMissingFaces()
     }
 
     // ── Reading one back ──────────────────────────────────────────────────
@@ -280,80 +269,57 @@ extension BLEManager {
                 say("faces: slot \(slot) came off disk")
                 continue
             }
-            // One read at a time. Whether one is in flight is decided where the
-            // read state lives, not here — this runs on the main queue and
-            // would be reading a copy of it.
+            // One read at a time: requestFace turns a fresh ask away while
+            // another picture is still being read.
             log.info("asking for slot \(slot) face, crc \(crc)")
             requestFace(slot: slot, crc: crc)
             return   // one at a time; the next goes when this one lands
         }
     }
 
-    /// Always on the radio's queue, which is the only place face state lives.
     private func requestFace(slot: Int, from offset: Int = 0, crc: UInt32 = 0) {
-        bleQueue.async { [weak self] in
-            guard let self else { return }
-            // A fresh ask while one is already running would reset the buffer
-            // out from under the frames arriving into it.
-            if offset == 0, self.faceSlot >= 0, self.faceSlot != slot { return }
-            if offset == 0, self.faceSlot == slot, self.faceReceived > 0 { return }
-            if crc != 0 {
-                self.say("faces: asking slot \(slot) crc \(String(crc, radix: 16))")
-            }
-            self.faceSlot = slot
-            if offset == 0 { self.faceCrc = crc }
-            if offset == 0 {
-                self.facePixels = Data()
-                self.faceHave.removeAll()
-                self.faceReceived = 0
-                self.faceResumes = 0
-            }
-            self.faceAskedAt = Date()
-            var payload = Data([UInt8(slot), 0])
-            payload.append(contentsOf: withUnsafeBytes(of: UInt32(offset).littleEndian, Array.init))
-            self.sendBLEFrame(type: ImageFrame.read, payload: payload)
+        // A fresh ask while one is already running would reset the buffer
+        // out from under the frames arriving into it.
+        if offset == 0, faceSlot >= 0, faceSlot != slot { return }
+        if offset == 0, faceSlot == slot, faceReceived > 0 { return }
+        if crc != 0 {
+            say("faces: asking slot \(slot) crc \(String(crc, radix: 16))")
         }
+        faceSlot = slot
+        if offset == 0 { faceCrc = crc }
+        if offset == 0 {
+            facePixels = Data()
+            faceHave.removeAll()
+            faceReceived = 0
+            faceResumes = 0
+        }
+        faceAskedAt = Date()
+        var payload = Data([UInt8(slot), 0])
+        payload.append(contentsOf: withUnsafeBytes(of: UInt32(offset).littleEndian, Array.init))
+        sendBLEFrame(type: ImageFrame.read, payload: payload)
     }
 
     /// A stream that stopped short. Notifications are not acknowledged, so a
     /// dropped one leaves every frame after it at an offset nothing is waiting
-    /// for — silence that used to cost the whole picture. Asking again from
-    /// where this actually got to costs the remainder and nothing else.
+    /// for. Asking again from where this actually got to costs the remainder
+    /// and nothing else.
     func resumeFaceIfStalled() {
-        // On the radio's queue, because that is where the buffer this decides
-        // from is filled. Deciding on the main queue meant deciding from a copy
-        // that never saw a single byte arrive.
-        bleQueue.async { [weak self] in self?.resumeFaceOnBleQueue() }
-    }
-
-    private func resumeFaceOnBleQueue() {
-        // Nothing in flight: something may still be missing, and a fetch that
-        // died with a link would otherwise never be started again.
+        // Nothing in flight is the normal state of a machine whose faces are
+        // all in hand. A fetch that died with a link is caught up by a sweep
+        // for whatever is still missing, every three seconds.
         guard faceSlot >= 0 else {
-            // Nothing in flight is the normal state of a machine whose faces
-            // are all in hand. Sweeping for a missing one is a catch-up for a
-            // fetch that died with a link, not something to do five times a
-            // second.
             guard Date().timeIntervalSince(faceSweptAt) > 3.0 else { return }
             faceSweptAt = Date()
-            DispatchQueue.main.async { [weak self] in
-                guard let self, !self.imageSlots.crc.isEmpty else { return }
-                self.fetchMissingFaces()
-            }
+            if !imageSlots.crc.isEmpty { fetchMissingFaces() }
             return
         }
-        // A burst ends in deliberate silence, so this is the normal way the
-        // next one is asked for rather than an error path. Short, because it is
-        // in the middle of a transfer someone is watching.
+        // A burst ends in deliberate silence, and this is how the next one is
+        // asked for, a moment after the last frame landed.
         guard Date().timeIntervalSince(faceAskedAt) > 0.35 else { return }
         let from = firstGap()
         // How far this phone has actually got is the number that settles
-        // whether a read is working, and it is the one number that has never
-        // left the phone. Every eighth pull, so it says enough to be read
-        // without becoming the traffic.
-        // Throttled by the clock, not by a count. The count is reset on every
-        // ask from zero, so "every eighth" was every single one — which is how
-        // a progress line became the traffic it was reporting on.
+        // whether a read is working. The machine's console hears it every
+        // three seconds at most.
         faceResumes += 1
         if Date().timeIntervalSince(faceSaidAt) > 3.0 {
             faceSaidAt = Date()
@@ -363,15 +329,10 @@ extension BLEManager {
     }
 
     /// Pixels coming back, a frame at a time, each carrying where it belongs.
-    /// Called on the radio's delegate queue, and everything it touches stays
-    /// there. The one thing that leaves is a finished picture.
     ///
     /// EVERY FRAME GOES WHERE ITS OFFSET SAYS, and none of them has to be first.
-    /// Requiring the next contiguous byte meant one lost frame at the head of a
-    /// burst threw away every frame behind it, forever — the phone asked from
-    /// zero, the first frames were the ones dropped, and it asked from zero
-    /// again. What is missing is asked for instead, so the order things arrive
-    /// in stops being something this has to be lucky about.
+    /// What is missing is asked for again by its offset, whatever order the
+    /// frames arrived in.
     func handleImagePix(_ payload: Data) {
         guard payload.count >= 10 else { return }
         let b = payload.startIndex
@@ -411,19 +372,17 @@ extension BLEManager {
         faceReceived = 0
         faceSlot = -1
         faceCrc = 0
-        onMain(linkGeneration) {
-            if let m = self.current, let face = ImageBundle.decode(whole, ImageBundle.sizes[0]) {
-                // Filed under the picture that was asked for, not whatever the
-                // slot holds by the time the last frame lands.
-                let crc = asked != 0 ? asked : m.imageSlots.crc(of: slot)
-                m.saveFace(face, crc: crc)
-                m.faces[crc] = face         // observable: this is what redraws the tile
-                log.info("read back slot \(slot), \(total) bytes")
-                self.say("faces: slot \(slot) decoded, \(total) B")
-                self.saidStanding = ""      // the path works; a fault may be said again
-            }
-            self.fetchMissingFaces()   // whatever else is missing, now this is in hand
+        if let m = current, let face = ImageBundle.decode(whole, ImageBundle.sizes[0]) {
+            // Filed under the picture that was asked for, not whatever the
+            // slot holds by the time the last frame lands.
+            let crc = asked != 0 ? asked : m.imageSlots.crc(of: slot)
+            m.saveFace(face, crc: crc)
+            m.faces[crc] = face         // observable: this is what redraws the tile
+            log.info("read back slot \(slot), \(total) bytes")
+            say("faces: slot \(slot) decoded, \(total) B")
+            saidStanding = ""           // the path works; a fault may be said again
         }
+        fetchMissingFaces()   // whatever else is missing, now this is in hand
     }
 
     /// The lowest byte this phone still needs, which is where the next pull
@@ -444,9 +403,7 @@ extension BLEManager {
     // does on its own — nothing here has to reassign anything.
     func removeImage(slot: Int) {
         guard !demoMode, slot >= 0 else { return }
-        bleQueue.async { [weak self] in
-            self?.sendBLEFrame(type: ImageFrame.erase, payload: Data([UInt8(slot)]))
-        }
+        sendBLEFrame(type: ImageFrame.erase, payload: Data([UInt8(slot)]))
     }
 
     /// Stop one partway. The board's slot was erased when the transfer opened
@@ -454,13 +411,10 @@ extension BLEManager {
     func cancelImageUpload() {
         guard case .sending = imageUploadState else { return }
         let slot = imageSlotSending
-        bleQueue.async { [weak self] in
-            guard let self else { return }
-            self.imageBundle = Data()
-            self.sendBLEFrame(type: ImageFrame.abort, payload: Data())
-        }
+        imageBundle = Data()
+        sendBLEFrame(type: ImageFrame.abort, payload: Data())
         forgetPreview(slot: slot)
-        DispatchQueue.main.async { self.finishActive(.idle) }
+        finishActive(.idle)
     }
 
     /// Drop one that has not started yet.
@@ -524,21 +478,18 @@ extension BLEManager {
         activeUpload = item
         imageUploadState = .preparing
 
-        // Resampling every rendition is real work; it does not belong on the
-        // main thread and it does not belong on the BLE queue either, which has
-        // a transfer to run the moment this finishes.
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let self else { return }
-            guard let bundle = ImageBundle.make(from: item.crop) else {
-                DispatchQueue.main.async {
-                    self.forgetPreview(slot: item.slot)
-                    self.activeUpload = nil
-                    self.imageUploadState = .failed("that picture would not convert")
-                    self.startNextImage()
-                }
+        Task {
+            let prepared = await PreparedImage.make(from: item.crop)
+            // A link let go while this was being made took the picture with it.
+            guard activeUpload?.id == item.id else { return }
+            guard let prepared else {
+                forgetPreview(slot: item.slot)
+                activeUpload = nil
+                imageUploadState = .failed("that picture would not convert")
+                startNextImage()
                 return
             }
-            self.startImagePush(bundle, slot: item.slot)
+            startImagePush(prepared, slot: item.slot)
         }
     }
 
@@ -562,36 +513,31 @@ extension BLEManager {
         }
     }
 
-    private func startImagePush(_ bundle: Data, slot: Int) {
-        bleQueue.async { [weak self] in
-            guard let self else { return }
-            self.imageBundle = bundle
-            self.imageSlotSending = slot
-            self.imageSentOffset = 0
-            self.imageStartedAt = Date()
-            self.uploadHeardAt = Date()
-            self.uploadAsks = 0
+    private func startImagePush(_ prepared: PreparedImage, slot: Int) {
+        let bundle = prepared.bundle
+        imageBundle = bundle
+        imageSlotSending = slot
+        imageSentOffset = 0
+        imageStartedAt = Date()
+        uploadHeardAt = Date()
+        uploadAsks = 0
 
-            // The face is decoded out of the bundle just built and filed under
-            // its crc32 — byte for byte what the board would send back if
-            // asked, so an upload and a read-back agree without meeting.
-            let crc = crc32(bundle)
-            self.pendingCrc[slot] = crc
-            if let face = ImageBundle.face(of: bundle) {
-                DispatchQueue.main.async {
-                    self.current?.saveFace(face, crc: crc)
-                    self.faces[crc] = face
-                }
-            }
-
-            var payload = Data([UInt8(slot)])
-            payload.append(contentsOf: withUnsafeBytes(of: UInt32(bundle.count).littleEndian, Array.init))
-            payload.append(contentsOf: withUnsafeBytes(of: crc.littleEndian, Array.init))
-            self.sendBLEFrame(type: ImageFrame.begin, payload: payload)
-            log.info("slot \(slot): \(bundle.count) bytes")
-            // Nothing is sent until the board answers BEGIN with the offset it
-            // wants, which is also how it says the slot was erased and is ready.
+        // The face is decoded out of the bundle just built and filed under
+        // its crc32 — byte for byte what the board would send back if
+        // asked, so an upload and a read-back agree without meeting.
+        pendingCrc[slot] = prepared.crc
+        if let face = prepared.face {
+            current?.saveFace(face, crc: prepared.crc)
+            faces[prepared.crc] = face
         }
+
+        var payload = Data([UInt8(slot)])
+        payload.append(contentsOf: withUnsafeBytes(of: UInt32(bundle.count).littleEndian, Array.init))
+        payload.append(contentsOf: withUnsafeBytes(of: prepared.crc.littleEndian, Array.init))
+        sendBLEFrame(type: ImageFrame.begin, payload: payload)
+        log.info("slot \(slot): \(bundle.count) bytes")
+        // Nothing is sent until the board answers BEGIN with the offset it
+        // wants, which is also how it says the slot was erased and is ready.
     }
 
     /// The board's only steering signal: send from `have`.
@@ -610,28 +556,24 @@ extension BLEManager {
             // The preview was kept before the push so a slow send still had a
             // face. A send that failed has none, and must not pretend to.
             let slot = imageSlotSending
-            bleQueue.async { [weak self] in self?.imageBundle = Data() }
-            onMain(linkGeneration) {
-                self.forgetPreview(slot: slot)
-                self.finishActive(.failed(why))
-            }
+            imageBundle = Data()
+            forgetPreview(slot: slot)
+            finishActive(.failed(why))
             log.error("slot upload failed: \(why)")
         case 2:   // DONE
             let took = Date().timeIntervalSince(imageStartedAt)
             let kbs = Double(imageBundle.count) / took / 1024
             log.info("done in \(took, format: .fixed(precision: 1))s — \(kbs, format: .fixed(precision: 1)) KB/s")
-            bleQueue.async { [weak self] in self?.imageBundle = Data() }
-            onMain(linkGeneration) { self.finishActive(.done) }
+            imageBundle = Data()
+            finishActive(.done)
             queryImageSlots()
         default:  // TAKING — either the opening ack, or a rewind
-            bleQueue.async { [weak self] in
-                guard let self, !self.imageBundle.isEmpty else { return }
-                if have != self.imageSentOffset {
-                    log.info("rewind \(self.imageSentOffset) -> \(have)")
-                    self.imageSentOffset = have
-                }
-                self.pumpImageFrames()
+            guard !imageBundle.isEmpty else { return }
+            if have != imageSentOffset {
+                log.info("rewind \(self.imageSentOffset) -> \(have)")
+                imageSentOffset = have
             }
+            pumpImageFrames()
         }
     }
 
@@ -650,9 +592,7 @@ extension BLEManager {
             payload.append(imageBundle[imageSentOffset..<end])
             sendBLEFrame(type: ImageFrame.data, payload: payload, withResponse: false)
             imageSentOffset = end
-
-            let sent = imageSentOffset, total = imageBundle.count
-            DispatchQueue.main.async { self.imageUploadState = .sending(sent: sent, total: total) }
+            imageUploadState = .sending(sent: imageSentOffset, total: imageBundle.count)
         }
 
         // Everything is on the air. END is the one frame worth an acknowledged
@@ -661,8 +601,23 @@ extension BLEManager {
     }
 }
 
+/// A picture made ready to push: the bundle the board takes, the crc32 it
+/// holds that bundle to, and the face decoded back out of it.
+nonisolated struct PreparedImage: Sendable {
+    let bundle: Data
+    let crc: UInt32
+    let face: UIImage?
+
+    /// Every rendition resampled, off the main actor.
+    @concurrent
+    static func make(from crop: UIImage) async -> PreparedImage? {
+        guard let bundle = ImageBundle.make(from: crop) else { return nil }
+        return PreparedImage(bundle: bundle, crc: crc32(bundle), face: ImageBundle.face(of: bundle))
+    }
+}
+
 /// The crc32 the board holds a picture to before it writes its header.
-func crc32(_ data: Data) -> UInt32 {
+nonisolated func crc32(_ data: Data) -> UInt32 {
     var table = [UInt32](repeating: 0, count: 256)
     for i in 0..<256 {
         var c = UInt32(i)

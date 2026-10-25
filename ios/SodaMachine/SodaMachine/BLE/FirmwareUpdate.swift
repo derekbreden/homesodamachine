@@ -109,8 +109,9 @@ final class FirmwareCatalog {
     @ObservationIgnored private var payloads: [String: Data] = [:]
 
     func refresh() async {
-        await MainActor.run { self.loading = true; self.error = nil }
-        defer { Task { @MainActor in self.loading = false } }
+        loading = true
+        error = nil
+        defer { loading = false }
         do {
             var request = URLRequest(url: Self.origin.appendingPathComponent("api/firmware"))
             request.cachePolicy = .reloadIgnoringLocalCacheData
@@ -119,10 +120,10 @@ final class FirmwareCatalog {
                 throw URLError(.badServerResponse)
             }
             let decoded = try JSONDecoder().decode(FirmwareManifest.self, from: data)
-            await MainActor.run { self.manifest = decoded }
+            manifest = decoded
             log.info("Manifest: \(decoded.images.count) image(s) at \(decoded.commit ?? "?")")
         } catch {
-            await MainActor.run { self.error = error.localizedDescription }
+            self.error = error.localizedDescription
             log.error("Manifest: \(error.localizedDescription)")
         }
     }

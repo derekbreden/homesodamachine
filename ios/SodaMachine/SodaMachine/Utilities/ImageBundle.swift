@@ -29,7 +29,7 @@ import UIKit
 // crop chosen by arithmetic would put the wrong half of most photographs on the
 // machine.
 
-struct ImageBundle {
+nonisolated struct ImageBundle {
 
     /// One rendition's geometry, matching IMAGE_BUNDLE on the wire. The glass
     /// at four, three and two: 43 by 80, all of them.

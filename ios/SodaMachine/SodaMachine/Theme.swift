@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// Big Blue palette. The faucet mark lives in Assets.xcassets/LaunchIcon.
-enum Theme {
+nonisolated enum Theme {
     static let cobalt = Color(red: 23 / 255, green: 73 / 255, blue: 209 / 255) // #1749D1
     static let navy = Color(red: 16 / 255, green: 49 / 255, blue: 156 / 255) // #10319C
     static let ice = Color(red: 220 / 255, green: 230 / 255, blue: 255 / 255) // #DCE6FF
