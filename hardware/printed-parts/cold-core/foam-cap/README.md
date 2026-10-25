@@ -94,6 +94,11 @@ tie witness per pair describes the selected path; purchased tie dimensions,
 threading, installed retention and load capacity remain unqualified.
 [_reservoir_a_anchors.py](../_reservoir_a_anchors.py) owns these stations and
 native seat, passage and witness builders. The tubes remain continuous.
+The manually invoked [anchor reader](reservoir_a_anchor_review.py) records
+finite native stock witnesses and vertical measurements through the actual
+printed STL in its [scoped receipt](reservoir-a-anchor-review.json). The lid's
+plain tessellation is distinct from the cup's fluted show surface. Nearby
+electrical and nominal-tie contacts retain their explicit fixture status.
 
 The [neoFit ACHV44-E water check](../../../reference/neofit-achv44-check/README.md)
 uses an 8.8 mm-long east quarter bearing centered within its fixed barrel band.

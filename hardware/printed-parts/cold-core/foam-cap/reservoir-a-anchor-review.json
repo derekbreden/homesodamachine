@@ -1,0 +1,992 @@
+{
+  "scope": "Two selected paired seats and lid passages, actual exported lid stock, the two source-native continuous A tubes, selected above-core purchased bodies and explicitly supplied cached electrical bodies. No other lid feature is requalified. Nominal ties do not establish threading, purchased fit, retention or load capacity.",
+  "lid_input": {
+    "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+    "sha256": "06dfa192f0551b0efa928d178a2c5d2899ba26feb81b33f3243666b8571af6c8",
+    "mode": "actual exported populated lid",
+    "baseline_signature": {
+      "valid": true,
+      "solids": 1,
+      "faces": 216,
+      "volume_mm3": 295592.9407598973,
+      "center_mm": [
+        2.979681520793214,
+        317.72027682130835,
+        252.6058491575052
+      ],
+      "bounds_mm": [
+        -90.2000001,
+        182.45000000000002,
+        247.9999998999971,
+        97.7,
+        465.0000001,
+        299.21000000000004
+      ]
+    }
+  },
+  "actual_input_seat_presence": {
+    "missing_mm3": {
+      "a-pair-fore-anchor": 0.0,
+      "a-pair-aft-anchor": 0.0
+    },
+    "passage_stock_mm3": {
+      "a-pair-fore-anchor": 0.0,
+      "a-pair-aft-anchor": 0.0
+    },
+    "delta_applied": false
+  },
+  "source_sha256": {
+    "hardware/printed-parts/cold-core/foam-cap/reservoir_a_anchor_review.py": "0d1ff2e632a3c162bcda2949d4c5263ba30bc5edf025b778a40be52dab9add9c",
+    "hardware/printed-parts/cold-core/_reservoir_a_anchors.py": "273c4330e3672675d4f45a8fb3e45d65619cedced02bfa6589f540efe3ec0aff",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "f2e5eaba779c18f9890ebde949e8b4deceb3114ed75728609e9ec5f2183aabc9",
+    "hardware/manifold-layout/above_core_routes.py": "bec911386e5aa2a6264aaee3e451cdad49cfa7c2d7a20b3370bef5208f08af5d",
+    "hardware/manifold-layout/above_core_parts.py": "06f5b5c4c506788689e2f9e1a1bf910bd6a74c1c202546ac5ce37d360c3c0063",
+    "hardware/manifold-layout/above_core_wiring.py": "3946bc25b663d6d2364dff3921126bb554cafded13e07a4900630da502fb989b",
+    "hardware/manifold-layout/above-core.json": "04887b550cc53b2516832689b40f81a56e83119e4cc04921ad9819ed343c726b",
+    "hardware/manifold-layout/reservoir-a-routes.json": "578ee4b2dad292bfee16418b2a200c02f234dc61378985ac9b6c17bc900a2ef8"
+  },
+  "specification": {
+    "units": "mm",
+    "assembly_owner": "back-bottom",
+    "mounting_parent": "cold-core top lid",
+    "tube_od_mm": 6.35,
+    "tube_axis_world": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "lid_face_z_mm": 253.4,
+    "root_z_mm": 248.6,
+    "seat_top_z_mm": 258.0,
+    "seat_radius_mm": 3.325,
+    "seat_floor_stock_mm": 3.0,
+    "station_length_mm": 10.0,
+    "stock_west_of_first_tube_mm": 3.7,
+    "stock_east_of_last_tube_mm": 3.7,
+    "tie_slot_width_y_mm": 3.2,
+    "tie_slot_bottom_z_mm": 251.6,
+    "tie_slot_floor_stock_mm": 3.0,
+    "tie_access_outer_offset_mm": 6.0,
+    "tie_access_inner_offset_mm": 2.75,
+    "tie_witness_width_mm": 2.5,
+    "tie_witness_thickness_mm": 0.8,
+    "tie_witness_outer_bend_radius_mm": 3.75,
+    "tie_witness_bottom_center_z_mm": 252.4,
+    "stations": [
+      {
+        "id": "a-pair-fore-anchor",
+        "label": "Reservoir A fore paired anchor",
+        "tube_centers_world_mm": [
+          [
+            50.5,
+            205.0,
+            259.5
+          ],
+          [
+            58.0,
+            205.0,
+            259.5
+          ]
+        ],
+        "routes_west_to_east": [
+          "fluid-16",
+          "fluid-14"
+        ]
+      },
+      {
+        "id": "a-pair-aft-anchor",
+        "label": "Reservoir A aft paired anchor",
+        "tube_centers_world_mm": [
+          [
+            86.5,
+            304.0,
+            259.5
+          ],
+          [
+            94.0,
+            304.0,
+            259.5
+          ]
+        ],
+        "routes_west_to_east": [
+          "fluid-16",
+          "fluid-14"
+        ]
+      }
+    ],
+    "tie_slot_top_z_mm": 253.175
+  },
+  "datums": {
+    "a-pair-fore-anchor": {
+      "id": "a-pair-fore-anchor",
+      "label": "Reservoir A fore paired anchor",
+      "tube_centers_world_mm": [
+        [
+          50.5,
+          205.0,
+          259.5
+        ],
+        [
+          58.0,
+          205.0,
+          259.5
+        ]
+      ],
+      "routes_west_to_east": [
+        "fluid-16",
+        "fluid-14"
+      ],
+      "stock_bounds_mm": [
+        [
+          46.8,
+          200.0,
+          248.6
+        ],
+        [
+          61.7,
+          210.0,
+          258.0
+        ]
+      ],
+      "tie_slot_bounds_mm": [
+        [
+          44.4,
+          203.4,
+          251.6
+        ],
+        [
+          64.1,
+          206.6,
+          253.175
+        ]
+      ],
+      "access_bounds_mm": [
+        [
+          [
+            44.4,
+            203.4,
+            251.6
+          ],
+          [
+            47.75,
+            206.6,
+            258.1
+          ]
+        ],
+        [
+          [
+            60.75,
+            203.4,
+            251.6
+          ],
+          [
+            64.1,
+            206.6,
+            258.1
+          ]
+        ]
+      ]
+    },
+    "a-pair-aft-anchor": {
+      "id": "a-pair-aft-anchor",
+      "label": "Reservoir A aft paired anchor",
+      "tube_centers_world_mm": [
+        [
+          86.5,
+          304.0,
+          259.5
+        ],
+        [
+          94.0,
+          304.0,
+          259.5
+        ]
+      ],
+      "routes_west_to_east": [
+        "fluid-16",
+        "fluid-14"
+      ],
+      "stock_bounds_mm": [
+        [
+          82.8,
+          299.0,
+          248.6
+        ],
+        [
+          97.7,
+          309.0,
+          258.0
+        ]
+      ],
+      "tie_slot_bounds_mm": [
+        [
+          80.4,
+          302.4,
+          251.6
+        ],
+        [
+          100.1,
+          305.6,
+          253.175
+        ]
+      ],
+      "access_bounds_mm": [
+        [
+          [
+            80.4,
+            302.4,
+            251.6
+          ],
+          [
+            83.75,
+            305.6,
+            258.1
+          ]
+        ],
+        [
+          [
+            96.75,
+            302.4,
+            251.6
+          ],
+          [
+            100.1,
+            305.6,
+            258.1
+          ]
+        ]
+      ]
+    }
+  },
+  "lid_signature": {
+    "valid": true,
+    "solids": 1,
+    "faces": 216,
+    "volume_mm3": 295592.9407598973,
+    "center_mm": [
+      2.979681520793214,
+      317.72027682130835,
+      252.6058491575052
+    ],
+    "bounds_mm": [
+      -90.2000001,
+      182.45000000000002,
+      247.9999998999971,
+      97.7,
+      465.0000001,
+      299.21000000000004
+    ]
+  },
+  "seats": {
+    "a-pair-fore-anchor": {
+      "valid": true,
+      "solids": 1,
+      "faces": 18,
+      "volume_mm3": 1141.6244519895283,
+      "center_mm": [
+        54.25,
+        205.00000000000003,
+        252.76673510392274
+      ],
+      "bounds_mm": [
+        46.8,
+        200.0,
+        248.6,
+        61.7,
+        210.0,
+        258.0
+      ],
+      "missing_from_lid_mm3": 0.0
+    },
+    "a-pair-aft-anchor": {
+      "valid": true,
+      "solids": 1,
+      "faces": 18,
+      "volume_mm3": 1141.6244519890884,
+      "center_mm": [
+        90.24999999999999,
+        303.99999999999994,
+        252.76673510392231
+      ],
+      "bounds_mm": [
+        82.8,
+        299.0,
+        248.6,
+        97.7,
+        309.0,
+        258.0000000000004
+      ],
+      "missing_from_lid_mm3": 0.0
+    }
+  },
+  "nominal_ties": {
+    "a-pair-fore-anchor-tie": {
+      "valid": true,
+      "solids": 1,
+      "faces": 108,
+      "volume_mm3": 139.26248459841494,
+      "center_mm": [
+        51.266702155418,
+        205.00000000000006,
+        258.5905121381911
+      ],
+      "bounds_mm": [
+        43.25,
+        203.1,
+        252.0,
+        62.15,
+        206.9,
+        263.65
+      ],
+      "closed_piecewise_linear_centerline_length_mm": 47.181588565996044,
+      "physical_threading_retention_and_load_qualified": false
+    },
+    "a-pair-aft-anchor-tie": {
+      "valid": true,
+      "solids": 1,
+      "faces": 108,
+      "volume_mm3": 139.26248459841452,
+      "center_mm": [
+        87.26670215541803,
+        303.99999999999983,
+        258.5905121381908
+      ],
+      "bounds_mm": [
+        79.25,
+        302.1,
+        252.0,
+        98.15,
+        305.9,
+        263.65
+      ],
+      "closed_piecewise_linear_centerline_length_mm": 47.18158856599605,
+      "physical_threading_retention_and_load_qualified": false
+    }
+  },
+  "contacts": [
+    {
+      "subject": "a-pair-fore-anchor-tie",
+      "target": "actual lid",
+      "overlap_mm3": 0.0,
+      "bounds_mm": null,
+      "passed": true
+    },
+    {
+      "subject": "a-pair-aft-anchor-tie",
+      "target": "actual lid",
+      "overlap_mm3": 0.0,
+      "bounds_mm": null,
+      "passed": true
+    },
+    {
+      "subject": "a-pair-fore-anchor",
+      "target": "ground-stack",
+      "overlap_mm3": 0.0,
+      "bounds_mm": null,
+      "passed": true
+    },
+    {
+      "subject": "a-pair-fore-anchor",
+      "target": "fluid-14",
+      "overlap_mm3": 0.0,
+      "bounds_mm": null,
+      "passed": true
+    },
+    {
+      "subject": "a-pair-fore-anchor",
+      "target": "fluid-16",
+      "overlap_mm3": 0.0,
+      "bounds_mm": null,
+      "passed": true
+    },
+    {
+      "subject": "a-pair-aft-anchor",
+      "target": "fluid-14",
+      "overlap_mm3": 0.0,
+      "bounds_mm": null,
+      "passed": true
+    },
+    {
+      "subject": "a-pair-aft-anchor",
+      "target": "fluid-16",
+      "overlap_mm3": 0.0,
+      "bounds_mm": null,
+      "passed": true
+    },
+    {
+      "subject": "a-pair-fore-anchor-tie",
+      "target": "ground-stack",
+      "overlap_mm3": 0.007477264307314296,
+      "bounds_mm": [
+        47.626943724814424,
+        203.74999999999906,
+        261.4937083832291,
+        47.844555433773415,
+        203.8442286340604,
+        262.68035128811647
+      ],
+      "passed": false
+    },
+    {
+      "subject": "a-pair-fore-anchor-tie",
+      "target": "fluid-14",
+      "overlap_mm3": 0.0,
+      "bounds_mm": null,
+      "passed": true
+    },
+    {
+      "subject": "a-pair-fore-anchor-tie",
+      "target": "fluid-16",
+      "overlap_mm3": 0.0,
+      "bounds_mm": null,
+      "passed": true
+    },
+    {
+      "subject": "a-pair-aft-anchor-tie",
+      "target": "lower-valve-elbow",
+      "overlap_mm3": 0.0,
+      "bounds_mm": null,
+      "passed": true
+    },
+    {
+      "subject": "a-pair-aft-anchor-tie",
+      "target": "fluid-14",
+      "overlap_mm3": 0.0,
+      "bounds_mm": null,
+      "passed": true
+    },
+    {
+      "subject": "a-pair-aft-anchor-tie",
+      "target": "fluid-16",
+      "overlap_mm3": 0.0,
+      "bounds_mm": null,
+      "passed": true
+    },
+    {
+      "subject": "a-pair-fore-anchor",
+      "target": "wire-AC5-N",
+      "overlap_mm3": 0.0,
+      "bounds_mm": null,
+      "passed": true
+    },
+    {
+      "subject": "a-pair-fore-anchor-tie",
+      "target": "wire-AC5-N",
+      "overlap_mm3": 0.0,
+      "bounds_mm": null,
+      "passed": true
+    },
+    {
+      "subject": "a-pair-fore-anchor-tie",
+      "target": "wire-PE-bus",
+      "overlap_mm3": 0.0,
+      "bounds_mm": null,
+      "passed": true
+    },
+    {
+      "subject": "a-pair-fore-anchor",
+      "target": "wire-PE-carbonator",
+      "overlap_mm3": 0.0,
+      "bounds_mm": null,
+      "passed": true
+    },
+    {
+      "subject": "a-pair-fore-anchor-tie",
+      "target": "wire-PE-carbonator",
+      "overlap_mm3": 0.0,
+      "bounds_mm": null,
+      "passed": true
+    },
+    {
+      "subject": "a-pair-fore-anchor-tie",
+      "target": "wire-J1-positive-A",
+      "overlap_mm3": 0.0,
+      "bounds_mm": null,
+      "passed": true
+    },
+    {
+      "subject": "a-pair-aft-anchor-tie",
+      "target": "wire-J1-positive-A",
+      "overlap_mm3": 0.0,
+      "bounds_mm": null,
+      "passed": true
+    },
+    {
+      "subject": "a-pair-fore-anchor",
+      "target": "wire-J1-OUT7",
+      "overlap_mm3": 0.0,
+      "bounds_mm": null,
+      "passed": true
+    },
+    {
+      "subject": "a-pair-fore-anchor-tie",
+      "target": "wire-J1-OUT7",
+      "overlap_mm3": 0.0,
+      "bounds_mm": null,
+      "passed": true
+    },
+    {
+      "subject": "a-pair-fore-anchor",
+      "target": "wire-J2-COM",
+      "overlap_mm3": 1.1207962011697057,
+      "bounds_mm": [
+        46.79999989999747,
+        200.67100466405327,
+        257.14999989678074,
+        48.14774055229253,
+        202.6136600913681,
+        258.0000001
+      ],
+      "passed": false
+    },
+    {
+      "subject": "a-pair-fore-anchor-tie",
+      "target": "wire-J2-COM",
+      "overlap_mm3": 0.0,
+      "bounds_mm": null,
+      "passed": true
+    },
+    {
+      "subject": "a-pair-fore-anchor",
+      "target": "wire-J2-FAN",
+      "overlap_mm3": 0.0,
+      "bounds_mm": null,
+      "passed": true
+    },
+    {
+      "subject": "a-pair-fore-anchor-tie",
+      "target": "wire-J2-FAN",
+      "overlap_mm3": 0.0,
+      "bounds_mm": null,
+      "passed": true
+    },
+    {
+      "subject": "a-pair-aft-anchor-tie",
+      "target": "wire-J2-OUT3",
+      "overlap_mm3": 0.0,
+      "bounds_mm": null,
+      "passed": true
+    },
+    {
+      "subject": "a-pair-aft-anchor",
+      "target": "wire-J2-positive-K",
+      "overlap_mm3": 0.0,
+      "bounds_mm": null,
+      "passed": true
+    },
+    {
+      "subject": "a-pair-aft-anchor-tie",
+      "target": "wire-J2-positive-K",
+      "overlap_mm3": 0.0,
+      "bounds_mm": null,
+      "passed": true
+    },
+    {
+      "subject": "a-pair-fore-anchor-tie",
+      "target": "wire-flow-GND",
+      "overlap_mm3": 0.0,
+      "bounds_mm": null,
+      "passed": true
+    }
+  ],
+  "stock_checks": [
+    {
+      "check": "a-pair-fore-anchor / complete seat floor",
+      "thickness_mm": 3.0,
+      "missing_mm3": 0.0,
+      "passed": true
+    },
+    {
+      "check": "a-pair-fore-anchor / slot floor within lid edge",
+      "thickness_mm": 3.5999999999999943,
+      "east_edge_world_x_mm": 90.2,
+      "missing_mm3": 0.0,
+      "passed": true
+    },
+    {
+      "check": "a-pair-fore-anchor / complete slot floor including overhang",
+      "thickness_mm": 3.0,
+      "missing_mm3": 0.0,
+      "passed": true
+    },
+    {
+      "check": "a-pair-fore-anchor / fore lid root",
+      "thickness_mm": 4.800000000000011,
+      "missing_mm3": 0.0,
+      "passed": true
+    },
+    {
+      "check": "a-pair-fore-anchor / aft lid root",
+      "thickness_mm": 4.800000000000011,
+      "missing_mm3": 0.0,
+      "passed": true
+    },
+    {
+      "check": "a-pair-aft-anchor / complete seat floor",
+      "thickness_mm": 3.0,
+      "missing_mm3": 0.0,
+      "passed": true
+    },
+    {
+      "check": "a-pair-aft-anchor / slot floor within lid edge",
+      "thickness_mm": 3.5999999999999943,
+      "east_edge_world_x_mm": 90.2,
+      "missing_mm3": 0.0,
+      "passed": true
+    },
+    {
+      "check": "a-pair-aft-anchor / complete slot floor including overhang",
+      "thickness_mm": 3.0,
+      "missing_mm3": 0.0,
+      "passed": true
+    },
+    {
+      "check": "a-pair-aft-anchor / fore lid root",
+      "thickness_mm": 4.800000000000011,
+      "missing_mm3": 0.0,
+      "passed": true
+    },
+    {
+      "check": "a-pair-aft-anchor / aft lid root",
+      "thickness_mm": 4.800000000000011,
+      "missing_mm3": 0.0,
+      "passed": true
+    }
+  ],
+  "volume_tolerance_mm3": 0.001,
+  "b_fill_scope": "Unchanged; neither fittings nor their passage/roof are authored here.",
+  "electrical_cache": {
+    "path": "tmp/dry-sidewall-wiring/current-wiring-index.json",
+    "sha256": "80320073cfa7b1f3bcf6e2c99edf9c9a9e19e942cbd9429158b3a8b7106d4665",
+    "excluded": [
+      "AC2-L",
+      "AC2-N",
+      "AC3-L",
+      "AC4-H",
+      "DC1-V12",
+      "DC1-GND",
+      "DC2-V12",
+      "DC3-positive",
+      "J5-V5",
+      "relay-bus-V5",
+      "J5-GND",
+      "relay-bus-GND",
+      "J5-IO19",
+      "J5-IO2",
+      "J9-B"
+    ],
+    "body_count": 110,
+    "candidate_pairs": 17,
+    "body_sha256": {
+      "wire-AC1-L": "d9ace70ccd4592acbccc4bf30c05e20128dbb1e600772eccb112884b4196bd10",
+      "wire-AC1-N": "f6563cd8634ab931b15fbbe08bae4feaffa45e00cb4bcc25a0b9670514dabb1f",
+      "wire-AC1-PE": "3fba10b09a8f97339b22fb6e80d527d5fecfc6e2157bd8298b2cb618fa023175",
+      "wire-AC4-fuse": "a2a0652de34f1c5cfcb6cd7902671021dd729cf6679409e0c86d857d9950b252",
+      "wire-AC5-N": "dcb49f9ae443ef3df42e5b54558bb378929b0dcae467f71cf3c14da054d7ea56",
+      "wire-AC6-PE": "d7e275db27ee7c3f69f2f8ce53d1f9758c289f02c2f947c0a2e967ec9da5a709",
+      "wire-PE-bus": "aa7140b4ef5f8f7bb975fa2dcb231bce9a2d7c858c14ed67af735d4e7de91321",
+      "wire-PE-carbonator": "110b6a65227ef8c84303d1e3ed045b7ba5b83f2059a6413f397e07cbe10189f8",
+      "wire-DC4-V12": "e7c2d17a7fb36e5caa1b195e9737bf2003b88f5d2bca33a1e67633752586ffe6",
+      "wire-DC4-GND": "9a10712b3768948cb84091db2c49277abb8e40e0932a9102f41a44d7418f9fad",
+      "wire-DC3-negative": "1f948cc348f3a050d74e88c1a7dd3e48e9c851b6d5e98e2579caf51d53656450",
+      "wire-J1-COM": "4283189efbbab625657d44f9175a01f04e93d7143733bd72c289f03e5ba903da",
+      "wire-J1-OUT1": "e8db95e92e50b774ff1ecdd00204e1873999e682116a0dd3df89985864ea5907",
+      "wire-J1-positive-A": "40d220b3e79f751e835aaf87fd0b83e695837a89ff599c05ae71cec2ba01a7e2",
+      "wire-J1-OUT2": "8d498af3f9bf02b2482074729247fc2f0d68e4a6df4119b0799d85c7f1f1dc14",
+      "wire-J1-positive-B": "d36657f7c56c933745ffda45cbc568a5bb2dbac006040dda156a3e256322af21",
+      "wire-J1-OUT3": "f8a7299f26de7a44f9a40d0538b04433d09b7bbd04aa74f6bbd00032c1ec7b62",
+      "wire-J1-positive-C": "5509fd1204bd13bb6181a8174a0885392d9f552d9a0d6e6a33c98cd5504344af",
+      "wire-J1-OUT4": "06a3d0f1d267729fe1760c8eee471b688bcd54f277b93c6e1b5de1fad038f8af",
+      "wire-J1-positive-D": "836938f09aeed44ad75428b176e2a3122a082f4d85b2b138997634de2588347f",
+      "wire-J1-OUT5": "f85c87e8bbe0d4b6f23f4c0109cfe49421734132b1a029981059471e290b92fb",
+      "wire-J1-positive-E": "a7191123afcbb6e6a4cdcaff09aa4c03122c5600b630277f2d9b652c1897618f",
+      "wire-J1-OUT6": "4564c779d0e5c3b97cbf1bc7a5349c09e931e56346978791e07739b1567eb4f9",
+      "wire-J1-positive-F": "044adf68d604ce947157649142f342c1f326ca3b26fcf24bc5685be0dc88d1be",
+      "wire-J1-OUT7": "30fe5ff50197325585e89b5b437768c7b1b19d6edd9c0d8cff28967593e7d837",
+      "wire-J1-positive-G": "ff8f89d86373d27024b3b03a3e404e1035d9c8736ffdd6e98773e3782460c8e7",
+      "wire-J1-OUT8": "6ccc19c2fbb879b2c44186442aba4d3e4f7f530a42bbbbdcb90badd36aaa01cb",
+      "wire-J1-positive-H": "172e031c9c5a21407ba5119b58b9351a4bd5015e388df79978065e5731cd449e",
+      "wire-J2-COM": "e5fd43b0231f9ac3ebc3cfd68bed4626e242a122f59d9b3bcd6c291fe76ed19e",
+      "wire-J2-OUT1": "66fc7ba05592dbe20c5725da0bfb6a8f17d7cb5e0214ca2bacf7e68c0866b5ce",
+      "wire-J2-positive-I": "98fd6ff4c31f6044f8073235a141ecdaef5298fc02c180ddf48c1b7f43292b42",
+      "wire-J2-OUT2": "26f381c9abe9536c0342f142a20ede3f58145b4aa9ad9eab269b5939ca5a6c10",
+      "wire-J2-positive-J": "41521bbfa7aba359ee1244d55128cf5aa712be501c561a176834bb3cf78e36f7",
+      "wire-J2-FAN": "0bd848110dc9ae38020890aab2013602f17a2af2d640002cde292e3ef306289f",
+      "wire-J2-positive-fan": "0025db1aa5af4307aff808f006a7d1acc2f576beae97a67273f52820e41dfdb9",
+      "wire-J2-OUT3": "599d41d2718adb1e1713019ebe0f3dfc79ef5c026edbdbdce390d73780f4d193",
+      "wire-J2-positive-K": "eeb2df3605cc7d19e3ee101c421ee34ad69fc772b69b9ba24d6d525000264cf3",
+      "wire-J13-AM2": "10adb6f9ce8cc8b333a275c3f97378caac738eaf4c324a109ca8953c839db791",
+      "wire-cartridge-AM2": "d2c58af43f406e237e4771a1b90ad419481c69da873219861305bd2e8c075513",
+      "wire-J13-AM1": "cc98e1d464fec5280ae1fb008dcd5ffec543e0c24774086863b7318a826787f8",
+      "wire-cartridge-AM1": "4349c2d11104935c403390e34a13e409e3c07ba5233aa3769e5887071bafb811",
+      "wire-J13-BM2": "8b32970742fd4b3d753406673317a034c7ee30c6eb7fe6a632df2b13624ef7d0",
+      "wire-cartridge-BM2": "02c62cd78ac995ae29843f15497ecd7984b8a90e960a3a3e8af836d60072bcfa",
+      "wire-J13-BM1": "e72f8fde0eb96bd661f27c1fef0d3656fa5adaf3731d0bb20b6348fb8c58233a",
+      "wire-cartridge-BM1": "756f1970358b5815de03c891de2f0b81a99140ff8f3e9dd39f9c0c7933b0dc35",
+      "wire-J3-V5": "4d86f8c75068d6f537dcc7a867bcdd0e85a93b913e6f7d8f40a5a17c15da0048",
+      "wire-J3-GND": "22347178c596b893294f6dd5e87d3bd18a57ce6c49879bd4b97273a0f4b42f4c",
+      "wire-J3-IO35": "45a949dcf0379064d08a44aa3a51d280a76de67ac287c5eac33beaceaf30083c",
+      "wire-J3-IO33": "29f359250570dfb52ca19e66b8d4b8a5bca3f873ecd696fa1b1ab43a7a38f247",
+      "wire-J4-3V3": "ccfd728a0c81d34aeaefddca991da8d76850819f7d376bc1ec446df1d008ba74",
+      "wire-J4-IO26": "ed68d084772e3799fd750e8aa4c665feeb0e88824349f6ac165cb5623a77651a",
+      "wire-J4-V5": "6eb03344163762fe659a88fcd66e3a8730e24c0a1dab7eb0e6206d3a7e103be8",
+      "wire-J4-IO25": "7b3aeea7f3bd664711189f5799babda2b64b38d842beb510291a96b420abb7bf",
+      "wire-J4-GND": "5699329f3aa223014232e6655df33afd74fcfff8ee7660fd721770184f1c0fc7",
+      "wire-temp-GND": "eea8ef578d7fdaede025a43b60c5b03c6e0d2ca186eb7af156a1089dbfde40b5",
+      "wire-flow-GND": "8471e7f22700e88b3f9e2d55ca58a732a706c200632ccd007677eea8366caab3",
+      "wire-temp-bus-V": "1341066908e6710b59714c446e6e64679df1b81b5630ad210b46e4985ff4f762",
+      "wire-temp-bus-DATA": "7cb28de987464c977896eae4df5fa1edf798e8f276588928749ae493335aa231",
+      "wire-temp-bus-GND": "99dac34ac7d18113f3d13b44cf68359c3187d20d411eddffb52813cebc7b4d2f",
+      "wire-J6-GND": "e3b0c14deb00831be538da8b45517bca63a4488d2090532e0915d7ce53926d61",
+      "wire-J6-RA1": "0da7a5d08f12412449687f4c72dd41b578131c7d403e1e529e2586ec6b6fe75c",
+      "wire-J6-earth-1": "5e629dbff978e86de3efd2351ff546e1da9caec1d3de5243e8bb2607165c1dc8",
+      "wire-J6-RA2": "62cdf8800ecbb031e657e0a3bb810c452bae9a730db74d1f180c6b0bca7c6676",
+      "wire-J6-earth-2": "d733c17516a3b7a95153d48e6d13c97b7142a10f17128ded77d09d7971f7dc87",
+      "wire-J6-RA3": "dafce1f0fc14ed41972fdda0d669a690ece04a2c743f1b37b49e0707d9a53408",
+      "wire-J6-earth-3": "275f788e5da429e09a1d6f64020b277ccc0da09078d5e6416d3a0b57d4c72c60",
+      "wire-J6-RA4": "22185865e747ff2b3b369b8688c6050d5c78c3c7ebd674dd9399e23c6d8cb753",
+      "wire-J7-GND": "6282d20cbbdd82c0962e9a6ecc523b85b28cfaf5d400d84f82d7fea506ea7bd4",
+      "wire-J7-RB1": "75917e8224f35b8b72b9666780903302bc2bf37bfc8ef4d99d16c90a2d24ebe0",
+      "wire-J7-earth-1": "48a7b280f0071410dcbe5694c062d579fd20eccabf8706f7109c3db37e2ba718",
+      "wire-J7-RB2": "c8beaf9036a2b7527e1a09f649915d86682e2d9ff8d94c1b32cafbc906532fb9",
+      "wire-J7-earth-2": "7ba331361cd7c5cbbdd5d015f45fea54748052ebb3f3725531934002f3424686",
+      "wire-J7-RB3": "c3dc15c85efce76963e7da1557eb1243849590c3a5ebc10232cdfa9c8c1a1c4f",
+      "wire-J7-earth-3": "8baf125b7ddd7f34a048703ec17e348daf8814404a20307afc182fa907097613",
+      "wire-J7-RB4": "42d64633715b8f9b86be91f52c4a14bb4f7484f489085ddec4dbdbe080affab0",
+      "wire-J7-earth-4": "f72802ee7fbcf362ace78eaa1bc90b5220c391b87ad8b5f90af2df3de4396851",
+      "wire-J7-CLO": "34cec6cd4aedf365adf9ae585ea8a6d50b6bda1c9867a1c7b1d8ab52bf8677cc",
+      "wire-J7-carb-earth-1": "d4ce48f54bf1ed6ce4c514acd4189a574917308a5f09bff3fcb571a159ec4e44",
+      "wire-J7-CHI": "945fb1675866a848d47fef85c18baf10863b5ce3883eae770c1cf85f900b066a",
+      "wire-J7-carb-earth-2": "b0ceb4bb67d2e974688c2c8866bc604e6082b66a5696229a28c5ca4eb7fc18c9",
+      "wire-J9-A": "04a0985d7add4b0eec6eeaf47c2a971b955ee6a3c51d690250033451d642836a",
+      "wire-J9-GND": "7fb411100c4d721584b7af053bc21f167ed653a0657d82ca43cb68b3991928c5",
+      "wire-J9-V12": "badc2be236a3745b110b84a5fc6c2102532c65a6c5988d3ebc3bf0b63f4228ef",
+      "wire-J11-V5": "462f1498cadbff47960fd26525f8b4a0d7623ad6e587ac238dfb23096b781bd7",
+      "wire-J11-GND": "58c6193bfc8e7ade2d6325551eae5d61b346da0b143bc2774e096d84d35d2d84",
+      "wire-J11-DOUT": "96e9343f548a7fffe35467acac66cb4fe3ca5a1026814ddaf814d200ea4cfa3c",
+      "wire-J11-AOUT": "810556253873c962a10c0a091ba63a04f98e7da91a5abf61b05e0b1dca89e2cd",
+      "terminal-J1": "c332ab7a4fafb6cd3b645c84dd084c522b663f5e89fb0c4c65b14b97d65a12e4",
+      "terminal-J2": "459d900e596318dc04c70a4fc870ae8add4c071a2f44cb731217092b8833d747",
+      "terminal-J3": "a698e5df51ad4e3b63d011e8c051d4da5c80288cb91560e321f3c63eb786f899",
+      "terminal-J4": "90a96bcdc13c01f41c59d5be380abe59154d0026172a74a8fe19d1abd02cb603",
+      "terminal-J5": "a2d075d214a87624f9db0ad8ecf38c9233a1d294fbe5e541d0ff7a03f12da23a",
+      "terminal-J6": "01ee99d63814ca73abbddecbc1f0a32e7516837f59b6586fea8c09a4363d4717",
+      "terminal-J7": "bd34563231523ab7cd636616dcb6a97ce9f22a3feb5ae622dd1c529b5be83ffb",
+      "terminal-J9": "9b3439464c06a3d2681e370f76b52fd97245ebee11373556780ec7d2f2d660da",
+      "terminal-J11": "73759907f08698fcea7ae7cb67e9d3e81747310f34d2e976d3be01454e531afe",
+      "terminal-J13": "d2828e68191c5ab9b66a6cf0d2a8e5afaa88dc3fe4e5f2d687cf9c9df8db76fa",
+      "terminal-pogo-male-1": "a5a6c805043e1ebd81695e0f69180a16ae1d44df146b6824cd54fb68aba631ae",
+      "terminal-pogo-male-2": "b1a16453f0f988ef12ba78de28fc5d9d4a6ae3105b5efdeaa8025434a9b43af0",
+      "terminal-pogo-male-3": "70eb2f0f5e7c99b89a9e0c1b4b863bd03cb7788b2b46360f8ade20169cb38e48",
+      "terminal-pogo-male-4": "17942681191e1d0fb3fc894b09d8f007a3c1778af12ba2a84158b5847265a531",
+      "terminal-pogo-female-1": "d00c431a1e08dd9351f0b51e666bd4279cc0d2637bc5e8a768af99fb597045b5",
+      "terminal-pogo-female-2": "c780aba6e580f9de0db1cf1e9e5a53bd18879658e6d176521bad6270bb7bbe65",
+      "terminal-pogo-female-3": "987fc7a26a9c43a559b2cdc611a51627cc644183906817c865735c22aa861fe4",
+      "terminal-pogo-female-4": "de82a7b45af8e945a12d04201379ee4dc7b98f796754505e9326b23aca052dd8",
+      "terminal-fuse-in-lead": "db38d2c02eef681788c12dd47e87155c586facb87a2f10b0717625d8a43e59e5",
+      "terminal-fuse-in-splice": "39d068bfeeab1decb6679289a582cad5469078458929706100eac744e6ccf092",
+      "terminal-fuse-out-lead": "e7319e5b45c3b55281f790dd2beba98f6419c50464647df8ad689bd58ac0c886",
+      "terminal-fuse-out-splice": "6d588f23d08b296f13fa5c7eea72e23df7443907d7c0f99f079756bd10f51d13",
+      "terminal-compressor-cord-jacket": "b46116df712569887568775ba6e840ffbc0f948aa655fefc2746b9eca738846c"
+    }
+  },
+  "printed_stock": {
+    "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl",
+    "sha256": "ad297bff486cf324fd6369e9d4a5786aabb8dfc3c9145f4475b5c472a1b953ab",
+    "surface_basis": "foam_cap.main writes both lids through _show_skin.piece_mesh(), the plain source tessellation; only the cup branch calls write_bed_file()/fluted(). These finite anchor webs/floors do not meet a fluted field.",
+    "source_sha256": {
+      "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "f2e5eaba779c18f9890ebde949e8b4deceb3114ed75728609e9ec5f2183aabc9",
+      "hardware/printed-parts/cold-core/_show_skin.py": "1764afdc035372168caf8de4eac7cfc6128e8f606a1bf0d0ffc861af039d248f"
+    },
+    "coordinate_tolerance_mm": 1e-05,
+    "readings": [
+      {
+        "station": "a-pair-fore-anchor",
+        "feature": "seat web",
+        "axes_world_mm": [
+          [
+            50.5,
+            203.8,
+            254.67499999999998
+          ],
+          [
+            50.5,
+            205.0,
+            254.67499999999998
+          ],
+          [
+            50.5,
+            206.2,
+            254.67499999999998
+          ],
+          [
+            58.0,
+            203.8,
+            254.67499999999998
+          ],
+          [
+            58.0,
+            205.0,
+            254.67499999999998
+          ],
+          [
+            58.0,
+            206.2,
+            254.67499999999998
+          ]
+        ],
+        "thicknesses_mm": [
+          3.0,
+          3.0,
+          3.0,
+          3.0,
+          3.0,
+          3.0
+        ],
+        "minimum_required_mm": 3.0,
+        "passed": true
+      },
+      {
+        "station": "a-pair-fore-anchor",
+        "feature": "slot floor",
+        "axes_world_mm": [
+          [
+            50.5,
+            203.8,
+            250.1
+          ],
+          [
+            50.5,
+            205.0,
+            250.1
+          ],
+          [
+            50.5,
+            206.2,
+            250.1
+          ],
+          [
+            58.0,
+            203.8,
+            250.1
+          ],
+          [
+            58.0,
+            205.0,
+            250.1
+          ],
+          [
+            58.0,
+            206.2,
+            250.1
+          ]
+        ],
+        "thicknesses_mm": [
+          3.5999999046325684,
+          3.5999999046325684,
+          3.5999999046325684,
+          3.5999999046325684,
+          3.5999999046325684,
+          3.5999999046325684
+        ],
+        "minimum_required_mm": 3.0,
+        "passed": true
+      },
+      {
+        "station": "a-pair-aft-anchor",
+        "feature": "seat web",
+        "axes_world_mm": [
+          [
+            86.5,
+            302.8,
+            254.67499999999998
+          ],
+          [
+            86.5,
+            304.0,
+            254.67499999999998
+          ],
+          [
+            86.5,
+            305.2,
+            254.67499999999998
+          ],
+          [
+            94.0,
+            302.8,
+            254.67499999999998
+          ],
+          [
+            94.0,
+            304.0,
+            254.67499999999998
+          ],
+          [
+            94.0,
+            305.2,
+            254.67499999999998
+          ]
+        ],
+        "thicknesses_mm": [
+          3.0,
+          3.0,
+          3.0,
+          3.0,
+          3.0,
+          3.0
+        ],
+        "minimum_required_mm": 3.0,
+        "passed": true
+      },
+      {
+        "station": "a-pair-aft-anchor",
+        "feature": "slot floor",
+        "axes_world_mm": [
+          [
+            86.5,
+            302.8,
+            250.1
+          ],
+          [
+            86.5,
+            304.0,
+            250.1
+          ],
+          [
+            86.5,
+            305.2,
+            250.1
+          ],
+          [
+            94.0,
+            302.8,
+            250.1
+          ],
+          [
+            94.0,
+            304.0,
+            250.1
+          ],
+          [
+            94.0,
+            305.2,
+            250.1
+          ]
+        ],
+        "thicknesses_mm": [
+          3.5999999046325684,
+          3.5999999046325684,
+          3.5999999046325684,
+          2.9999998807907104,
+          2.9999998807907104,
+          2.9999998807907104
+        ],
+        "minimum_required_mm": 3.0,
+        "passed": true
+      }
+    ],
+    "passed": true
+  },
+  "passed": false,
+  "stock_passed": true
+}
