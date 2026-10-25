@@ -54,6 +54,10 @@ surround are present; its 3 by 6 mm wall bridge clears the actual installed
 regulator by 0.530 mm. The named native fittings, tubes and leads clear that
 local carrier and strip. The retaining strips remain unqualified for physical
 threading, head engagement and holding force.
+The [aft-carrier travel reading](aft-carrier-closing-review.json) bounds that
+carrier and strip continuously over 0–300 mm of rearward travel against all
+31 retained stationary core bodies. Only the lid and pump survive the bounds;
+their four native common volumes are zero.
 
 The [rear fitting-land reading](rear-clamp-lands.json) and
 [manual reader](rear_clamp_lands.py) read all six selected ports in the actual
