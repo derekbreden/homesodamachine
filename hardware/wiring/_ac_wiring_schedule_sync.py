@@ -126,7 +126,7 @@ len_pump_mm = 350       # DC-3: 249 mm maximum modeled centreline plus fitting r
 # and power leads. Bench cuts include fitting reserve and are trimmed in place;
 # native centreline lengths do not qualify physical harness fit.
 len_relays_mm = 300      # J5 → west-wall relays: 230 mm longest continuous common plus reserve.
-len_vk_mm = 250          # DC-9 OUT3 → V-K: 169 mm modeled path plus termination/dressing reserve.
+len_vk_mm = 350          # DC-9 OUT3 → V-K: 242 mm modeled path plus termination/dressing reserve.
 len_man_a_com_mm = 300   # J1 COM → +X Y169 221-420; 223.699 mm free-wire path + 11.65 mm board span
 len_man_b_com_mm = 300   # J2 COM → +X Y169 221-415, independently of the valve OUT cuts
 len_flow_mm = 300        # SIG-4 → the DIGITEN in the strip ahead of the cold core (256)
@@ -137,7 +137,7 @@ len_man_a_mm = 550       # DC-6 OUT1–OUT8 → eight coils; checked H free-wire
 len_moisture_mm = 350    # SIG-9 → the dry LM393 board by the pan's −X-wall cable clip (304)
 len_carb_reeds_mm = 500  # Carbonator reeds: 406 mm maximum modeled path plus reserve.
 len_man_b_mm = 550       # DC-7 OUT1/OUT2 → V-I/V-J; checked I free-wire path 480.455 mm
-len_man_a_fanout_mm = 350  # +X Y169 221-420 → eight coil positives; checked D path 289.685 mm
+len_man_a_fanout_mm = 450  # 221-420 → eight coil positives; V-A's 328 mm path plus termination/dressing reserve
 len_man_b_fanout_mm = 450  # +X Y169 221-415 → I, J, V-K and the condenser-crown lead approach
 len_pump_fixed_mm = 350  # DC-5, J13 → the fixed contact half along +X and the bulkhead crown (319)
 len_cartridge_mm = 100   # DC-5, the contact pair's female half → each pump's tabs, in the clamp (95)
