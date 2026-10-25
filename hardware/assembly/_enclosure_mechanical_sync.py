@@ -39,12 +39,6 @@ def main():
         'Z_SEAM_FRONT': f'{box["splits"][0]:.4g}',
         'RAIL_TRAVEL_FRONT': f'{enc._z_rail_travel(box["inner"], box["y_joint"], "front", plate if box["pump_bay"] else None, box["vent_chase"]):.4g} mm',
         'DOCK_TEES': f'{len(plate["holes"])}',
-        'POGO_FACE_RECESS': f'{enc.pump_contact_face_recess:.4g} mm',
-        'POGO_EAR_HOST_DEPTH': f'{enc._pogo.ear_back() + enc.pump_contact_face_recess:.4g} mm',
-        'POGO_INSERT_HOST_DEPTH': f'{enc._pogo.ear_back() + enc.pogo_heatset_setback + enc.pump_contact_face_recess:.4g} mm',
-        'POGO_INSERT_SETBACK': f'{enc.pogo_heatset_setback:.4g} mm',
-        'POGO_THREAD_ENGAGEMENT': f'{min(enc.pogo_heatset_len, enc._pogo.EAR_FACE + enc.pogo_screw_len - enc._pogo.ear_back() - enc.pogo_heatset_setback):.4g} mm',
-        'POGO_SCREW_TIP_AIR': f'{enc._pogo.ear_back() + enc.pogo_heatset_setback + enc.pogo_heatset_len + enc.pogo_heatset_relief - enc._pogo.EAR_FACE - enc.pogo_screw_len:.4g} mm',
         'APPLIANCE_W': f'{enc.appliance_width:.4g} mm',
         'COMP_BAY_X': f'{bay_width:.0f}',
         # The quarter-yawed floor footprint, beneath the proud cap uprights.
