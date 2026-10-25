@@ -306,15 +306,15 @@ funnel_frame_screws_per_build = len(_enc._funnel_frame_part.fastener_datums())
 roof_closure_screws_per_build = funnel_frame_screws_per_build
 roof_closure_inserts_per_build = roof_closure_screws_per_build
 
-# M3×8 screws retain the PCB, two diagonals per relay, condenser and faucet base.
+# M3×8 screws retain the PCB, condenser and faucet base.
 m3x8_per_build = (shelf_pcba_screws_per_build + cond_screws_per_build
-                  + shelf_relay_screws_per_build
                   + nameplate_screws_per_build + display_cover_screws_per_build
                   + faucet_display_cover_screws_per_build
                   + touchflo_screws_per_build)
 
-# Earth and C14 use M3×10; the pump feet retain their M3×20 screws.
-m3x10_per_build = shelf_ground_screws_per_build + c14_screws_per_build
+# Earth, C14 and the relay diagonals use M3×10.
+m3x10_per_build = (shelf_ground_screws_per_build + c14_screws_per_build
+                   + shelf_relay_screws_per_build)
 m3x20_per_build = pump_mount_screws_per_build
 
 # The PCB stack belongs to the cap; PSU and relay stacks belong to the wall.
@@ -329,7 +329,7 @@ relay_bore = relay_fasteners['pilot_depth_mm']
 psu_screw_reach = min(psu_fasteners['receiving_range_mm'])
 psu_screw_reach_max = max(psu_fasteners['receiving_range_mm'])
 pcba_screw_reach = deck_mount_reach('pcba')
-relay_screw_reach = relay_screw_len - _relay.pcb_t
+relay_screw_reach = min(relay_fasteners['receiving_range_mm'])
 c14_screw_reach = c14_screw_len - _c14.FLANGE_T - c14_washer_thickness
 
 # One screw and insert per ear, on each of the magnetic pair's two halves.
@@ -478,6 +478,8 @@ def main(*, only_bom=False):
         "PCBA_SCREW_TIP": f"{pcba_bore - pcba_screw_reach:.3g}",
         "RELAY_BOARD_T": f"{_relay.pcb_t:g}",
         "RELAY_INSERT_LEN": f"{relay_fasteners['insert_length_mm']:g}",
+        "RELAY_BEARING_TIP": f"{relay_fasteners['bearing_tip_height_mm']:g}",
+        "RELAY_BACKING": f"{relay_fasteners['minimum_blind_backing_mm']:.3g}",
         "RELAY_BORE": f"{relay_bore:.3g}",
         "RELAY_SCREW_REACH": f"{relay_screw_reach:.3g}",
         "RELAY_SCREW_TIP": f"{relay_bore - relay_screw_reach:.3g}",
