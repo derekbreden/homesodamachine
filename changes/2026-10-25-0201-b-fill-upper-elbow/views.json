@@ -1,0 +1,196 @@
+{
+  "views": [
+    {
+      "name": "pockets",
+      "caption": "In the open cup, the upper fill elbow sits 15 mm east, clear of V-A's low tube, and one corridor joins the two fitting pockets.",
+      "before": "pockets-before.webp",
+      "after": "pockets-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 773.4,
+          "y": 254.2,
+          "r": 86,
+          "label": "Upper elbow",
+          "at": [
+            -33,
+            287.5,
+            264.6
+          ]
+        },
+        {
+          "x": 494.6,
+          "y": 593.9,
+          "r": 72.8,
+          "label": "One corridor",
+          "at": [
+            -38.4,
+            259.6,
+            247.2
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          190.05567362514228,
+          -31.74089816685637,
+          587.414987983542
+        ],
+        "target": [
+          -40,
+          275,
+          250
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 34,
+        "near": 312.0465991696084,
+        "far": 865.357935967733,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "cold-core/reservoir-b-fill-upper",
+        "cold-core/reservoir-b-fill-lower",
+        "cold-core/line-reservoir-b-fill"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-cap-top",
+        "cold-core/reservoir-b-fill-upper",
+        "cold-core/reservoir-b-fill-lower",
+        "cold-core/line-reservoir-b-fill",
+        "tube-above-core-va-under-head",
+        "va-outlet-elbow"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "4758ec834b820766cb3f7d92deca1a011d75657403848a4465285c4785fe31e1",
+          "commit": "0bdf4e3c12ac5b5f58413e3adeaaf9f42877ce0c",
+          "taken": "2026-10-25T06:35:40.092Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "dd9ec2ecd7e371556510c02ff2eb3b5b1ea64c2b94292535b798fa4914f71588",
+          "commit": "0e1481d1138b7e8cfd097fbccae33d694db91f0f",
+          "published": true
+        }
+      },
+      "changed": [
+        "tube-fluid-14",
+        "tube-fluid-16",
+        "wire-PE-bus",
+        "wire-J2-OUT3",
+        "cold-core/reservoir-b-fill-upper",
+        "tube-fluid-24",
+        "cold-core/foam-cap-top",
+        "wire-J2-COM",
+        "cold-core/line-reservoir-b-fill",
+        "wire-DC3-negative",
+        "cold-core/reservoir-b-fill-lower",
+        "wire-J2-positive-K",
+        "cold-core/foam-cap-lid-top"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "cover",
+      "caption": "On the lid, a broad 2.4 mm cover retains the upper elbow from above; its socket rises 15 mm east of where it stood.",
+      "before": "cover-before.webp",
+      "after": "cover-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 629.1,
+          "y": 489.8,
+          "r": 92.6,
+          "label": "2.4 mm cover",
+          "at": [
+            -35,
+            272,
+            254.75
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          237.76235560781743,
+          -95.34980747708988,
+          661.384788224799
+        ],
+        "target": [
+          -40,
+          275,
+          254
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 34,
+        "near": 338.40776461993863,
+        "far": 1006.4593621822828,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "cold-core/reservoir-b-fill-upper"
+      ],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-cap-lid-top",
+        "cold-core/reservoir-b-fill-upper",
+        "tube-above-core-va-under-head",
+        "va-outlet-elbow",
+        "tube-fluid-24"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "4758ec834b820766cb3f7d92deca1a011d75657403848a4465285c4785fe31e1",
+          "commit": "0bdf4e3c12ac5b5f58413e3adeaaf9f42877ce0c",
+          "taken": "2026-10-25T06:35:40.092Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "dd9ec2ecd7e371556510c02ff2eb3b5b1ea64c2b94292535b798fa4914f71588",
+          "commit": "0e1481d1138b7e8cfd097fbccae33d694db91f0f",
+          "published": true
+        }
+      },
+      "changed": [
+        "tube-fluid-14",
+        "tube-fluid-16",
+        "wire-PE-bus",
+        "wire-J2-OUT3",
+        "cold-core/reservoir-b-fill-upper",
+        "tube-fluid-24",
+        "cold-core/foam-cap-top",
+        "wire-J2-COM",
+        "cold-core/line-reservoir-b-fill",
+        "wire-DC3-negative",
+        "cold-core/reservoir-b-fill-lower",
+        "wire-J2-positive-K",
+        "cold-core/foam-cap-lid-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
