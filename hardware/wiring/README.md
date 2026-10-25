@@ -19,6 +19,10 @@ is an explicit electrical interface.
   and the shared bore through all three assembly hosts.
 - [Integration record](installed/integration-review.json): wiring subassembly and
   retained physical assembly scope.
+- [Integral pump-mount wiring review](installed/integral-pump-mount-review.json):
+  the eight pump/display conductors, shared passage and current printed stock.
+- [Manifold junction wiring review](installed/manifold-wago-shift-review.json):
+  the 14 conductors at the aligned front-top WAGO holders and retained hardware.
 - [Inspection overview](installed/enclosure-wiring-overview.png): the complete
   wiring and a closer front-assembly view, with unresolved routes dashed red.
 - [Compressor cable views](https://homesodamachine.com/changes/2026-10-20-2338-compressor-cable):
@@ -45,7 +49,8 @@ model imposes no rigid Faston boot box on a valve or pump-motor tab. Board pin
 identities and physical XY positions come from the fabricated `pcba.circuit.json`,
 carried through the native board pose. J10's side wire entries are separate from
 the screw-head direction. The tilted display and vertical pump motors retain
-their own reference frames.
+their own reference frames. Their terminal locations remain explicitly
+unlocated; the shared passage describes proposed installed wire dressing.
 
 The ten XH housings use nominal dimensions from the
 [JST XH drawing](https://www.jst-mfg.com/product/pdf/eng/eXH.pdf): 2.5 mm pitch,
@@ -54,11 +59,13 @@ Their outer profiles and wire throats are layout envelopes; latch details and th
 on-hand copies' fit are unmeasured.
 
 The four J13 conductors leave the board stacked 1.9 mm apart, over the J6 leads
-and west of the Y-B stem elbow. They cross the bulkhead side by side through
-front-top's lead bore, `AM2`, `AM1`, `BM2` and `BM1` from +X to −X, climb the
-clamp's lead-slot floor and follow one crown groove per pump into its terminal
-well. Each motor's outboard tab takes its groove's aft lane, and each lead ends
-in a Faston receptacle on its motor tab.
+and west of the Y-B stem elbow. They cross front-top's common rear electrical
+mouth side by side, `AM2`, `AM1`, `BM2` and `BM1` from +X to −X, below the J9
+display ribbon. The pairs turn through the integral transverse channel into
+the two motor terminal rooms. Each lead ends in a Faston receptacle on its
+motor tab. J9 shares that rear mouth and rises through the display chimney;
+both ribbons are bare inside the print and SIG-7's braid ends aft of the mouth.
+The passage centres come from the same native geometry that cuts front-top.
 
 The compressor's three conductors share one jacket corridor below the funnel
 frame, through the gap between the valve banks and into the compressor bay.
@@ -106,9 +113,10 @@ needs attention; geometry remains visible for complete electrical coverage. An
 unsuccessful bounded route search does not prove that the physical route is
 impossible. The manual routing report names actual mesh intersections separately.
 
-The manifest lists every wire crossing between the base, cold core, front-top,
-back-top and the pump cradle (`pump-cartridge`). The four J13 conductors run
-from the board on the cold core to the motor tabs on the cradle.
+The manifest lists every wire crossing between the base, cold core, front-top
+and back-top. The four J13 conductors run from the board on the cold core to
+the pumps carried by front-top. The lower pump retainer is a mechanical piece;
+it carries no separate electrical connection.
 
 A drawn route does not establish that the dressed harness permits every enclosure
 assembly and closing motion. Terminal access, actual ribbon web/branch dressing,

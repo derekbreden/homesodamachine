@@ -406,13 +406,11 @@ MOUNTS = (
     ("valve-v-f", "enclosure-front-top", "bosses"),
     ("valve-v-h", "enclosure-front-top", "bosses"),
     ("valve-v-i", "enclosure-front-top", "bosses"),
-    # BOTH PUMPS STAND IN THE LARGE LOWER CRADLE. Each molded skirt bears on cradle lands along
-    # three sides and, on +Y, between the tube fittings. A small clamp screws down from above
-    # over both pumps and locates both bosses in case-derived octagonal collars
-    # (`enclosure._cap_screws`, read by `pump-clamped-in-cradle` and `clamp-locates-pumps`).
-    # The assembled cradle and clamp ride out of the front bay with both pumps aboard.
-    ("pump-a-head", "enclosure-pump-cartridge", "case"),
-    ("pump-b-head", "enclosure-pump-cartridge", "case"),
+    # The lower retainer carries both molded skirts; front-top's integral upper inverse
+    # captures them from above and locates their octagonal bosses. Three screws enter upward
+    # through the retainer into front-top. The complete prepared unit loads from the underside.
+    ("pump-a-head", "enclosure-pump-retainer", "case"),
+    ("pump-b-head", "enclosure-pump-retainer", "case"),
     # Each pump tee's branch stands in its bore through front-top's tee wall: X and Z held,
     # its fixed barrel on the bore face fore and its lower return aft.
     *((f"tee-{tee.lower()}", "enclosure-front-top", "bore-in-tee-wall")
@@ -510,6 +508,10 @@ def _selected_mounts() -> tuple:
         base = f'funnel-frame-{datum["name"]}'
         rows.extend(((base+'-screw', host, 'thread'),
                      (base+'-insert', host, 'heat-set')))
+    for side in ('left', 'centre', 'right'):
+        base = f'pump-retainer-{side}'
+        rows.extend(((base+'-screw', 'enclosure-pump-retainer', 'thread'),
+                     (base+'-insert', 'enclosure-front-top', 'heat-set')))
     return tuple(rows)
 
 
@@ -1191,6 +1193,8 @@ def selected_mate_contacts(a, placed, clashes) -> dict:
     )
     closure_hosts = {f'funnel-frame-{column}-{side}': f'enclosure-{column}-top'
                      for column in ('front', 'back') for side in ('west', 'east')}
+    closure_hosts.update({f'pump-retainer-{side}': 'enclosure-front-top'
+                          for side in ('left', 'centre', 'right')})
     pending = {frozenset((hit.a, hit.b)): hit for hit in clashes}
     regions = {}
 
@@ -1237,6 +1241,10 @@ def selected_mate_contacts(a, placed, clashes) -> dict:
             for row in enc._funnel_frame_part.fastener_datums(
                 box.inner, box.y_joint, centre, enc.funnel_seat_z(box.outer))
         }
+        datums.update({
+            'pump-retainer-'+side: (row['x'], row['y'], row['insert_top_z'])
+            for side, row in zip(('left', 'centre', 'right'),
+                                 enc._fixed_pump_mount.fasteners(enc, box))})
         for base, host in closure_hosts.items():
             x, y, top = datums[base]
             start = (x, y, top - 5.7)
@@ -1466,6 +1474,11 @@ def selected_clearance_joints(a) -> set:
     for base in (f'funnel-frame-{column}-{side}'
                  for column in ('front', 'back') for side in ('west', 'east')):
         pairs.add(frozenset((base + '-screw', base + '-insert')))
+    for side in ('left', 'centre', 'right'):
+        base = 'pump-retainer-'+side
+        pairs.add(frozenset((base+'-screw', base+'-insert')))
+        pairs.add(frozenset((base+'-screw', 'enclosure-pump-retainer')))
+        pairs.add(frozenset((base+'-insert', 'enclosure-front-top')))
     bodies, tubes, pieces = _split_placed(a)
     present = set(bodies) | set(tubes) | set(pieces)
     return {pair for pair in pairs if pair <= present}

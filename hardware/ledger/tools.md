@@ -172,7 +172,7 @@ path and the big-part path are the same path.
 carbide, with three DUROZZLE 0.4 mm Diamond PCD acquired; Derek, 2026-09-11: *"one to arrive
 tomorrow to start using, and a couple more to have on hand."* Every surface a customer sees
 prints on it in PET-GF15 — the four
-quadrants, the lower pump cradle and its top clamp, the display cover
+quadrants with the integral upper pump mount, the lower pump retainer, the display cover
 plate, the faucet shell and the above-counter plate ([bom.md
 §7](/hardware/ledger/bom.md)). Polymaker's own `Fiberon PET-GF15 @BBL H2C`
 preset carries `required_nozzle_HRC` 40 and names one compatible printer:

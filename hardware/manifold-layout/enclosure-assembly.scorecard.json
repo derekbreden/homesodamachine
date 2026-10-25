@@ -46,7 +46,7 @@
    "label": "Every placed body is declared in the fastening table",
    "kind": "gate",
    "status": "pass",
-   "value": "145/145 declared",
+   "value": "151/151 declared",
    "target": "all declared",
    "detail": [],
    "active": true
@@ -72,7 +72,7 @@
    "value": "0 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
    "detail": [
-    "Selected nominal mates: 22/22 within finite insertion/thread/heat-set regions at the existing 1 mm\u00b3 contact floor; maximum outside 0.743481 mm\u00b3. Physical insertion, sealing and retention remain unqualified.",
+    "Selected nominal mates: 28/28 within finite insertion/thread/heat-set regions at the existing 1 mm\u00b3 contact floor; maximum outside 0.743481 mm\u00b3. Physical insertion, sealing and retention remain unqualified.",
     "Flavor reducer stems in their valve outlets: v-g 258.0 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; v-j 258.0 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it",
     "Stem elbows in their collets: v-c 77.2 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; v-d 77.2 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; v-g 77.2 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; v-j 77.2 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; y-c 0.2 mm\u00b3 in the stem, 0.224926 mm\u00b3 outside it; y-d 0.2 mm\u00b3 in the stem, 0.224926 mm\u00b3 outside it; y-f 0.2 mm\u00b3 in the stem, 0.224926 mm\u00b3 outside it; y-g 0.2 mm\u00b3 in the stem, 0.224926 mm\u00b3 outside it",
     "Drain stub in the plug's land: 17.02 mm\u00b3 in the push-on seal's ring, 0.000000 mm\u00b3 outside it"
@@ -195,6 +195,9 @@
     "funnel-drain-union \u2014 funnel-drain-stub: 0.000 mm \u2014 excluded from the global pack floor",
     "display \u2014 display-gasket: 0.000 mm \u2014 excluded from the global pack floor",
     "display-cover \u2014 display-gasket: 0.000 mm \u2014 excluded from the global pack floor",
+    "pump-retainer-left-screw \u2014 pump-retainer-left-insert: 0.000 mm \u2014 excluded from the global pack floor",
+    "pump-retainer-centre-screw \u2014 pump-retainer-centre-insert: 0.000 mm \u2014 excluded from the global pack floor",
+    "pump-retainer-right-screw \u2014 pump-retainer-right-insert: 0.000 mm \u2014 excluded from the global pack floor",
     "soda-core-rise \u2014 soda-continuous-insulation: 0.000 mm \u2014 excluded from the global pack floor",
     "g-ganen-pump \u2014 foam-assembly: 0.000 mm \u2014 excluded from the global pack floor",
     "vb-outlet-return \u2014 foam-assembly: 0.147 mm \u2014 excluded from the global pack floor",
@@ -259,7 +262,7 @@
    "label": "Every printed piece fits the bed",
    "kind": "gate",
    "status": "pass",
-   "value": "6/6 on the bed",
+   "value": "5/5 on the bed",
    "target": "every piece on the bed",
    "detail": [],
    "active": true
@@ -270,7 +273,7 @@
    "kind": "gate",
    "status": "pass",
    "value": "holds",
-   "target": "6.8 >= 6.5 mm",
+   "target": "6.94 >= 6.5 mm",
    "detail": [],
    "active": true
   },
@@ -330,7 +333,7 @@
    "kind": "gate",
    "status": "pass",
    "value": "10/10 hold",
-   "target": "the pour gap apart or a 2 mm neck",
+   "target": "the pour gap apart or a 2.38 mm neck",
    "detail": [],
    "active": true
   },
@@ -390,7 +393,7 @@
    "kind": "gate",
    "status": "pass",
    "value": "45/45 hold",
-   "target": "the pour gap apart or a 2 mm neck",
+   "target": "the pour gap apart or a 2.38 mm neck",
    "detail": [],
    "active": true
   },
@@ -501,7 +504,7 @@
    "label": "Every print-down slope on a ceiling-down piece has its stated carry",
    "kind": "goal",
    "status": "fail",
-   "value": "20 print-down slope(s): 4 under a body, 4 within 1 mm of one, 0 in a kept room, 12 could be columns",
+   "value": "16 print-down slope(s): 4 under a body, 3 within 1 mm of one, 0 in a kept room, 9 could be columns",
    "target": "no unaccounted slope a column could replace, and every named room standing",
    "detail": [
     "enclosure-back-top: a 45\u00b0 face at x -21.45..-19.52 y 459.30..462.30 z 291.27..294.27: a column of 146 mm\u00b3 rising 51.7 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=-0.707 z=0.707 \u00b7 thru x=-20.487 y=460.800 z=292.771\nclick: x=-20.487 y=460.800 z=292.771",
@@ -512,10 +515,7 @@
     "enclosure-back-top: a 45\u00b0 face at x -8.35..-2.35 y 314.34..315.59 z 331.13..332.38: a column of 17 mm\u00b3 rising 4.0 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=-0.707 z=0.707 \u00b7 thru x=-5.354 y=314.965 z=331.751\nclick: x=-5.354 y=314.965 z=331.751",
     "enclosure-back-top: a 45\u00b0 face at x -8.35..-2.35 y 313.09..314.34 z 331.13..332.38: a column of 15 mm\u00b3 rising 4.0 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=0.707 z=0.707 \u00b7 thru x=-5.354 y=313.715 z=331.751\nclick: x=-5.354 y=313.715 z=331.751",
     "enclosure-back-top: a 45\u00b0 face at x -32.35..-26.35 y 312.84..314.09 z 331.13..332.38: a column of 17 mm\u00b3 rising 4.0 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=-0.707 z=0.707 \u00b7 thru x=-29.354 y=313.465 z=331.751\nclick: x=-29.354 y=313.465 z=331.751",
-    "enclosure-back-top: a 45\u00b0 face at x -32.35..-26.35 y 311.59..312.84 z 331.13..332.38: a column of 15 mm\u00b3 rising 4.0 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=0.707 z=0.707 \u00b7 thru x=-29.354 y=312.215 z=331.751\nclick: x=-29.354 y=312.215 z=331.751",
-    "enclosure-pump-cap: a 45\u00b0 face at x -36.66..-5.50 y 54.65..76.37 z 278.67..280.67: a column of 71 mm\u00b3 rising -0.0 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step\nfaceA: plane \u00b7 n x=0.374 y=-0.600 z=0.707 \u00b7 thru x=-20.970 y=65.539 z=279.671\nclick: x=-20.970 y=65.539 z=279.671",
-    "enclosure-pump-cap: a 45\u00b0 face at x -36.53..-2.93 y 53.83..74.02 z 278.67..280.67: a column of 280 mm\u00b3 rising 3.5 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step\nfaceA: plane \u00b7 n x=-0.374 y=0.600 z=0.707 \u00b7 thru x=-20.000 y=63.788 z=279.675\nclick: x=-20.000 y=63.788 z=279.675",
-    "enclosure-pump-cap: a 45\u00b0 face at x 5.50..36.66 y 54.65..76.37 z 278.67..280.67: a column of 282 mm\u00b3 rising 3.5 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-pump-cap.step\nfaceA: plane \u00b7 n x=-0.374 y=-0.600 z=0.707 \u00b7 thru x=20.970 y=65.539 z=279.671\nclick: x=20.970 y=65.539 z=279.671"
+    "enclosure-back-top: a 45\u00b0 face at x -32.35..-26.35 y 311.59..312.84 z 331.13..332.38: a column of 15 mm\u00b3 rising 4.0 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=0.707 z=0.707 \u00b7 thru x=-29.354 y=312.215 z=331.751\nclick: x=-29.354 y=312.215 z=331.751"
    ],
    "active": false
   },
@@ -574,7 +574,7 @@
    "label": "The pack stands inside the appliance's stated width",
    "kind": "gate",
    "status": "pass",
-   "value": "pack reaches x \u00b1104.50 at foam-assembly, wall at \u00b1104.50",
+   "value": "pack reaches x \u00b1104.35 at wago-mana, wall at \u00b1104.50",
    "target": "inside a 215 mm appliance",
    "detail": [],
    "active": true
@@ -711,7 +711,7 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "gate",
    "status": "pass",
-   "value": "107/107 mounted, 33 part of another body, 5 nothing fastens",
+   "value": "113/113 mounted, 33 part of another body, 5 nothing fastens",
    "target": "a printed joint per body",
    "detail": [
     "funnel: wall-capture \u2014 nothing fastens it; The silicone brim rests in the removable frame's roof surround. Its plug locates on the cradle snapped into the frame's web, with its sealing land on the drain stub. The funnel lifts out by hand for the dishwasher, the land sliding off the stub.",
@@ -727,7 +727,7 @@
    "label": "Every placement is stated as a rule, and the solid lands on it",
    "kind": "goal",
    "status": "fail",
-   "value": "123/145 stated",
+   "value": "129/151 stated",
    "target": "a stated rule per body, each landing on it",
    "detail": [
     "bulkhead-ring-carb: no seat states where it stands",

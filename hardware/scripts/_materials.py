@@ -152,7 +152,7 @@ C_REED = M_GLASS
 # component picker, neither of which needs the paint to lie.
 WALL_COLORS = {name: M_PETGF_BLACK
                for name in ("front-bottom", "front-top", "back-bottom", "back-top",
-                            "pump-cartridge", "pump-cap")}
+                            "pump-retainer")}
 C_PCBA = cq.Color(0.11, 0.11, 0.12)
 
 # --- the bought-in bodies, by what each one is --------------------------------

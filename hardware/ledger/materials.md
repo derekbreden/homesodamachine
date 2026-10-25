@@ -96,14 +96,14 @@ one purchased material, and a combined envelope can represent several materials.
 Physical quantities come from the parts and assembly records.
 
 `contexts: [{"material": "HSM-000001"}]` allows an assembly with no separate model
-to be inspected in a containing material's model. The pump cradle assembly uses
+to be inspected in a containing material's model. The pump mount assembly uses
 the soda machine as its context; the vessel and magnetic level float use the cold
 core. Context inspection keeps the selected assembly's own identity and BOM and
 highlights its represented contents. A representation may also specify
 `context: true` to use a particular enclosing model file. Context representations
 do not allocate that enclosing model's identity to the contained material.
 
-Some parts, including the pump cradle's fasteners, have no individual geometry in
+Some parts, including the pump retainer's fasteners, have no individual geometry in
 the containing model. Their BOM quantities and document links remain available
 without claiming independently selectable geometry.
 
@@ -132,7 +132,7 @@ recorded scope.
 
 | Material | Contents and interfaces | Authority |
 | --- | --- | --- |
-| HSM-000161 — Pump cradle assembly | Both prepared pumps with their four clamped LLDPE tubes, the pump cradle, its top clamp and mounting hardware, and the Fastons that land the J13 ribbon on the motor tabs. The four pump tees in the tee wall, the upper tubes and lower returns, and the J13 ribbon stay in the appliance, whose four tee collets hold the cradle home; the dock retains its physical qualification scope. | [Cradle build](../assembly/internal-plumbing.md), [pump dock](../printed-parts/enclosure/pump-dock/README.md) |
+| HSM-000161 — Pump mount assembly | Both prepared pumps with their four clamped LLDPE tubes, the plain lower retainer and mounting hardware, and the Fastons that land DC-5 on the motor tabs. Three upward M3 × 60 screws fasten the retainer to front-top's integral upper fitted half, whose broad stock continues into the display housing and roof. The prepared unit loads motor-first from below on loose front-top, before the pump tees and valve plumbing; pump and display wires share one rear passage. Physical fit and retention retain their qualification scope. | [Pump installation](../assembly/internal-plumbing.md), [pump mount](../printed-parts/enclosure/pump-dock/README.md) |
 | HSM-000004 — Carbonator vessel | Vessel, port fittings, pressure relief, captive float and welded guide rod. The other two floats and guide rods belong to the cold core's reservoir installation. | [Vessel build](../assembly/pressure-vessel.md) |
 | HSM-000173 — Multiplex 19-0897 ASSE 1022 backflow preventer | The bare purchased body. Its two TPU 85A straight cuffs (HSM-000334, HSM-000335), the branch stem tee in the outlet cuff, the vent sleeve, return tube and saddles belong to the machine. | [Water and gas assembly](../assembly/internal-plumbing.md), [straight cuffs](../printed-parts/asse-straight-cuffs/README.md) |
 | HSM-000058 — neoFit ACHV44-E single check valve | One 1/4-inch push-connect check with a nominal 0.3 psi crack pressure, used at both the pump discharge and downstream of the PISCO CO2 regulator. Tubes, elbows and installation hardware belong to the machine. | [Water and gas assembly](../assembly/internal-plumbing.md), [check-valve scope](../reference/neofit-achv44-check/README.md) |

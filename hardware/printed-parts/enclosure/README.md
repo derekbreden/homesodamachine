@@ -19,8 +19,10 @@ What the core's yaw buys is vertical: a column above and ahead of it, where the 
 **The cold core is the back of the floor.** It stands flat on the floor slab — its bottom cap's lid is a plane and every cap screw is down in a counterbore, so nothing goes under it — and packed off the REAR: its own aft face seats flush on the inner face of the rear Z-seam lip, one `rear_seam_clear` inside `rear_plane_y`. Its front face lands at y [182.3](CORE_FRONT_Y) and what falls out AHEAD of it is the lane the refrigerant loop's two drawn legs cross. Its cap's lid at z [253.4](CORE_CROWN) is the service bay's floor. Geometry source: [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md).
 
 **The front flavour manifold** carries eight fixed valves on two decks behind the
-pump cradle. Its four purchased pump tees pass through front-top's tee wall;
-upper tubes and lower returns are assembled while that piece is open. V-A mounts on
+integral pump mount. Front-top and its plain lower retainer capture the two pumps,
+loaded motor-first from below and secured by three upward screws. Their four prepared
+tube stubs rise through tee-wall gates before the purchased tees, valves, upper tubes
+and lower returns are installed on the loose quadrant. V-A mounts on
 back-top's west sidewall seat; V-B lies on its side on its upright wall on the cold-core
 lid, east of the PCB. Their links to Y-A and Y-B are native production routes. Source geometry:
 [`manifold-layout/`](/hardware/manifold-layout/README.md).
@@ -71,12 +73,12 @@ The arrangement above is the current pack — a working layout. It is free to re
 
 The crossing airflow's grilles are the flanks' own flutes, pierced over the finstack — an intake on the −X face and an exhaust on the +X one ([the condenser's vents](/hardware/printed-parts/enclosure/enclosure/README.md#the-condensers-vents)); what ducts the block's faces to them is open. The gap beside each grille is [40 mm](/marketing/install-envelope.md), sized so the slot is not what the fan is fighting while it runs.
 
-**The cabinet does not need venting.** ~240 W is what the condenser sheds *while the compressor runs*, and what the cabinet has to carry away is the average behind it: a heavy day's 2.5 L chilled from tap to 2 °C is 314 kJ out of the condenser, which is 3.6 W over 24 hours, call it 5–10 W with the cold core's standing loss on top — a duty cycle around 4 %. A sink base sheds that through the gaps it already has. The Lillium carbonator under this project's own sink has done exactly that for six months in a new house with nothing but door gaps, and keeps its water nearly ice cold on little power. So the grilles answer to the fan, not to the cabinet. The two source tees use commercial collets for factory plumbing. Four more purchased PP0208E tees take the pump tubes in front-top's tee wall, each joined to its fore valve by a short upper tube and to its rear valve by a lower return of two stem elbows and a straight tube. Each tee's branch collet grips its pump tube, and the four collets hold the pump cradle home. Insertion force, retention under pressure, sealing, cleanability and lifetime require physical qualification; the accepted pump-holder fit keeps its identified scope.
+**The cabinet does not need venting.** ~240 W is what the condenser sheds *while the compressor runs*, and what the cabinet has to carry away is the average behind it: a heavy day's 2.5 L chilled from tap to 2 °C is 314 kJ out of the condenser, which is 3.6 W over 24 hours, call it 5–10 W with the cold core's standing loss on top — a duty cycle around 4 %. A sink base sheds that through the gaps it already has. The Lillium carbonator under this project's own sink has done exactly that for six months in a new house with nothing but door gaps, and keeps its water nearly ice cold on little power. So the grilles answer to the fan, not to the cabinet. The two source tees use commercial collets for factory plumbing. Four more purchased PP0208E tees take the pump tubes in front-top's tee wall, each joined to its fore valve by a short upper tube and to its rear valve by a lower return of two stem elbows and a straight tube. Each tee's branch collet grips and seals its pump tube; three upward M3 screws fasten the lower retainer to front-top's upper fitted half. Insertion force, retention under pressure, sealing, cleanability and lifetime require physical qualification; the accepted pump-holder fit keeps its identified scope.
 
 ## What is on the front face
 
 - The machine display — a 4.3" touchscreen let into the rounded 30° top, centred, angled up toward the standing user. Default state shows the selected flavor; touch reaches flavor-image/ratio tuning, clean cycles, priming, and advanced settings.
-- The pump cradle's face — the flat front under the facet, jamb to jamb, filling the bay with both peristaltic pumps aboard. Detail: [`enclosure/README.md`](/hardware/printed-parts/enclosure/enclosure/README.md#the-pump-cradle-and-its-bay) "The pump cradle and its bay".
+- The continuous front-top skin beneath the facet, surrounding the integral upper pump mount. The lower retainer is reached from inside the loose quadrant. Detail: [Integral pump mount](/hardware/printed-parts/enclosure/enclosure/README.md#integral-pump-mount).
 - Nothing else. Every fluid connection the customer makes is on the +Y wall of back-top: the water inlet, the CO2 inlet, and the umbilical that carries carbonated water and both flavours up to the faucet.
 
 ## Sub-folders
@@ -85,7 +87,7 @@ The crossing airflow's grilles are the flanks' own flutes, pierced over the fins
 - [`nameplate/`](/hardware/printed-parts/enclosure/nameplate/) — the 104.53 × 38 mm horizontal brand-and-QR plate, seated in a raised flat field of back-top’s +Y wall below the port grid, retained by its integral horizontal wings.
 - [`rear-identification/`](/hardware/printed-parts/enclosure/rear-identification/) — six compact color chips seated under the rear fittings, with raised port names and common row pitch.
 - [`valve-tray/`](/hardware/printed-parts/enclosure/valve-tray/) — the plate of four valve seats under each of the flavour manifold's two decks. Not a separate part: both are `enclosure-front-top`'s own material, wall to wall.
-- [`pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/) — the case-derived collar source used twice in the small `enclosure-pump-cap` top clamp: a plate over the molded flange, an octagonal wall around the boss, and a shoulder around the motor can. Neither collar is separate. Pump weight bears through the molded skirt into the large lower `enclosure-pump-cartridge` cradle.
+- [`pump-tray/`](/hardware/printed-parts/enclosure/pump-tray/) — the case-derived lower wells and octagonal boss profiles used by the integral front-top mount and plain underside `enclosure-pump-retainer`. The molded skirts transfer load between the two fitted halves; the surrounding upper stock continues to the enclosure roof.
 
 ## Sources
 [value](NAME) texts are updated by:

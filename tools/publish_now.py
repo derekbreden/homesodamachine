@@ -179,7 +179,7 @@ def refresh_enclosure_viewer() -> None:
     """Graft current enclosure piece payloads into both viewer hosts, without building.
 
     `surfaces` admits a piece only when its payload names the exact STEP beside it.
-    The six pieces share the host frame. The operation reads no CAD source and acquires no
+    The five pieces share the host frame. The operation reads no CAD source and acquires no
     Bazel lock.
     """
     scripts = ROOT / "hardware" / "scripts"
@@ -382,7 +382,7 @@ def selftest() -> int:
 
         fixed = {f"enclosure-{name}" for name in (
             "front-top", "front-bottom", "back-top", "back-bottom",
-            "pump-cartridge", "pump-cap")}
+            "pump-retainer")}
         appliance = root / "hardware/manifold-layout/enclosure-assembly.step.mesh"
         appliance.parent.mkdir(parents=True)
         appliance.write_bytes(b"appliance host")

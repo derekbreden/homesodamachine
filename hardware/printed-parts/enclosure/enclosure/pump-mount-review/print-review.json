@@ -1,0 +1,557 @@
+{
+  "schema": 1,
+  "recorded_utc": "2026-10-25T22:43:12+00:00",
+  "scope": "Offline native slices of the current integral front-top pump mount and plain underside retainer. This record identifies emitted paths, recipe settings, selected density samples and support-body access. It does not establish physical cleanup, surface finish, fit, axial take-up, load capacity or lifetime.",
+  "method": "Existing trial-preparation/prepare.py --slice --review; supplemental reading of all upper support paths against source coordinates. No new automatic build or commit check.",
+  "current_print_regions": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
+  "current_print_regions_sha256": "124c27efad68cacda5310131dc617ebceedee81ae482c3c8ce8241754bbad7f0",
+  "printer_job_submitted": false,
+  "printer_preflight_performed": false,
+  "physical_evidence_scope": "The accepted former cradle/cap article remains identified in hardware/reference/kamoer-kphm400/physical-fit.json. Its reported firm retention and no vertical play do not qualify these two current prints.",
+  "pieces": [
+    {
+      "piece": "enclosure-front-top",
+      "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+      "stl_sha256": "a8a9d29f312c08500f173a683e2898c20e066cd58045320e8b0393d56be4dfad",
+      "step_sha256": "455cd05a225b6f47b252577cb25a45cf3e4fb81b63eb2dc0b39fa39a28d12dc0",
+      "mesh": {
+        "edges": 742770,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "source_print_up": "+Z",
+      "preparation": ".cache/prints/fixed-pump-mount-2026-10-25/2026-10-25-front-top-mark1-9da77fde/preparation.json",
+      "project": ".cache/prints/fixed-pump-mount-2026-10-25/2026-10-25-front-top-mark1-9da77fde/2026-10-25-front-top-mark1-9da77fde.3mf",
+      "project_sha256": "9a669c76d3c62b83eb97c94b1d20d13c570ae39a4f11a479c7753994064878d6",
+      "archive": ".cache/prints/fixed-pump-mount-2026-10-25/2026-10-25-front-top-mark1-9da77fde/2026-10-25-front-top-mark1-9da77fde.gcode.3mf",
+      "archive_sha256": "61ec507b1df4b7fe84b4fac7032bd736a901042351ccf5170c6fde6fd0a3418c",
+      "gcode_sha256": "179163fa2fe52b4f4e80b041a929ba90b9b593139c8bed17309c3c080cd215a7",
+      "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+      "native_review": ".cache/prints/fixed-pump-mount-2026-10-25/2026-10-25-front-top-mark1-9da77fde/review.json",
+      "native_review_sha256": "dae8f24a87c2026bd1749922b1151338f1d29ff0a0033ac4d76e8d9be3027cc3",
+      "support_audit": ".cache/prints/fixed-pump-mount-2026-10-25/2026-10-25-front-top-mark1-9da77fde/support-audit-1901.json",
+      "support_audit_sha256": "c0d14eaf1d98881db397e95c556a03648feb6625e7c0b8c20a0784ba9d7f3267",
+      "slicer": "BambuStudio 02.08.02.61",
+      "prepared_utc": "2026-10-25T22:18:58+00:00",
+      "printer_recipe": {
+        "printer": "Mark1",
+        "nozzle_side": "left",
+        "nozzle_mm": 0.4,
+        "material": "Polymaker Fiberon PET-GF15, black",
+        "bed_type": "Textured PEI Plate",
+        "requested_z_trim_mm": 0.18,
+        "emitted_textured_trim_mm": 0.16
+      },
+      "process": {
+        "wall_loops": "2",
+        "sparse_infill_density": "15%",
+        "sparse_infill_pattern": "gyroid",
+        "initial_layer_print_height": "0.2",
+        "layer_height": "0.24",
+        "enable_support": "1",
+        "support_type": "tree(auto)",
+        "support_style": "default",
+        "support_on_build_plate_only": "0",
+        "support_threshold_angle": "35",
+        "support_object_xy_distance": "0.5",
+        "support_top_z_distance": "0.45",
+        "support_bottom_z_distance": "0.3",
+        "support_interface_top_layers": "2",
+        "support_interface_bottom_layers": "2",
+        "support_interface_spacing": "0.5"
+      },
+      "fine_layer_ranges": [
+        {
+          "min_z": 188.25423217773437,
+          "max_z": 194.83,
+          "options": {
+            "layer_height": "0.08"
+          },
+          "feature": "R6 roof side edges, level run + R18 display-to-roof roll"
+        }
+      ],
+      "modifier_count": 9,
+      "modifier_density": "100%",
+      "modifier_pattern": "zig-zag",
+      "modifier_scope": "Infill-only boxes within existing stock; ordinary wall settings are inherited.",
+      "region_record_sha256_at_preparation": "124c27efad68cacda5310131dc617ebceedee81ae482c3c8ce8241754bbad7f0",
+      "current_per_piece_modifier_regions_match_preparation": true,
+      "existing_review_checks": {
+        "archive": true,
+        "z_trim": true,
+        "bed_border": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "tie_windows_support_free": true,
+        "ribbons_support_free_and_printed": true,
+        "solid_hosts_sampled": true
+      },
+      "existing_review_pass": true,
+      "first_second_layer_stack": {
+        "1901": {
+          "second_layer_model_bead_area_mm2": 9436.428490687886,
+          "fraction_over_first_layer": 0.9650777020339983,
+          "second_layer_centerline_outside_first_mm": 86.48942445262443
+        }
+      },
+      "minimum_sampled_dense_host_coverage": 0.9784099518235774,
+      "minimum_full_bead_bed_margin_mm": 53.450159499999984,
+      "support_summary": {
+        "support_bodies": 2,
+        "interface_islands": 5,
+        "bed_rooted_bodies": 2,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": 53.71,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 5,
+        "shortest_labelled_build_up_mm": 53.71
+      },
+      "support_bodies": [
+        {
+          "id": "tree-1",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "first_interface_z_mm": 53.91,
+          "shortest_build_up_mm": 53.71,
+          "top_z_mm": 185.48,
+          "bbox_xy_mm": [
+            64.8,
+            63.2,
+            260.4,
+            130.4
+          ],
+          "interfaces": [
+            "interface-1",
+            "interface-2",
+            "interface-3"
+          ],
+          "interface_reading": "explicit_feature",
+          "bbox_cad_xyz_mm": [
+            -97.7,
+            14.6,
+            160.45,
+            97.9,
+            81.8,
+            345.73
+          ]
+        },
+        {
+          "id": "tree-2",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "first_interface_z_mm": 97.153,
+          "shortest_build_up_mm": 96.953,
+          "top_z_mm": 131.27,
+          "bbox_xy_mm": [
+            236.0,
+            195.2,
+            266.4,
+            233.2
+          ],
+          "interfaces": [
+            "interface-4",
+            "interface-5"
+          ],
+          "interface_reading": "explicit_feature",
+          "bbox_cad_xyz_mm": [
+            73.5,
+            146.6,
+            160.45,
+            103.9,
+            184.6,
+            291.52
+          ]
+        }
+      ],
+      "labelled_support_interfaces": [
+        {
+          "id": "interface-1",
+          "first_z_mm": 53.91,
+          "last_z_mm": 54.47,
+          "bbox_xy_mm": [
+            64.8,
+            63.2,
+            260.4,
+            130.4
+          ],
+          "tree": "tree-1",
+          "build_up_mm": 53.71,
+          "bbox_cad_xyz_mm": [
+            -97.7,
+            14.6,
+            214.161,
+            97.9,
+            81.8,
+            214.72
+          ]
+        },
+        {
+          "id": "interface-2",
+          "first_z_mm": 74.79,
+          "last_z_mm": 75.35,
+          "bbox_xy_mm": [
+            84.4,
+            67.6,
+            136.4,
+            119.6
+          ],
+          "tree": "tree-1",
+          "build_up_mm": 74.59,
+          "bbox_cad_xyz_mm": [
+            -78.1,
+            19.0,
+            235.04,
+            -26.1,
+            71.0,
+            235.6
+          ]
+        },
+        {
+          "id": "interface-3",
+          "first_z_mm": 74.79,
+          "last_z_mm": 75.35,
+          "bbox_xy_mm": [
+            188.8,
+            67.6,
+            240.8,
+            119.6
+          ],
+          "tree": "tree-1",
+          "build_up_mm": 74.59,
+          "bbox_cad_xyz_mm": [
+            26.3,
+            19.0,
+            235.04,
+            78.3,
+            71.0,
+            235.6
+          ]
+        },
+        {
+          "id": "interface-4",
+          "first_z_mm": 97.153,
+          "last_z_mm": 97.43,
+          "bbox_xy_mm": [
+            257.2,
+            218.4,
+            266.4,
+            225.6
+          ],
+          "tree": "tree-2",
+          "build_up_mm": 96.953,
+          "bbox_cad_xyz_mm": [
+            94.7,
+            169.8,
+            257.403,
+            103.9,
+            177.0,
+            257.68
+          ]
+        },
+        {
+          "id": "interface-5",
+          "first_z_mm": 130.992,
+          "last_z_mm": 131.27,
+          "bbox_xy_mm": [
+            257.2,
+            218.4,
+            266.4,
+            233.2
+          ],
+          "tree": "tree-2",
+          "build_up_mm": 130.792,
+          "bbox_cad_xyz_mm": [
+            94.7,
+            169.8,
+            291.242,
+            103.9,
+            184.6,
+            291.52
+          ]
+        }
+      ],
+      "support_count_scope": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+      "show_face_support_evidence": {
+        "protected_face_set_selected": false,
+        "measured_minimum_clearance_mm": null,
+        "scope": "The generic show-face check has no selected protected faces in this recipe; its true value does not establish support-free exterior surfaces."
+      },
+      "estimated_seconds": 128302.0546875,
+      "slicer_warnings": [],
+      "submitted": false,
+      "upper_functional_void_support_reading": {
+        "source_z_mm": [
+          295.03,
+          345.73
+        ],
+        "source_xy_centerline_bounds_mm": [
+          -66.09,
+          19.941001525999994,
+          66.09,
+          79.83300152599999
+        ],
+        "segments": 66439,
+        "scope": "All emitted support features above CAD Z295 were read, including branches beyond the last labelled interface. They follow the sloping display/wing functional lanes. Labelled island count is not the total contact count."
+      },
+      "support_removal_access_reading": [
+        "The broad pump-mount underside and motor/boss shoulders open downward through the unloaded pump region before the retainer is installed.",
+        "Upper display/wing support branches are accessed through the empty display seat and open underside before fitting the display or pumps.",
+        "East-side WAGO pocket supports are accessed through the open inboard pocket faces before fitting wiring blocks.",
+        "These are native path/geometry access readings, not a physical support-removal result or a swept extraction proof."
+      ]
+    },
+    {
+      "piece": "enclosure-pump-retainer",
+      "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl",
+      "stl_sha256": "c3e53daffc048a5b4a058e42edc2144d5aafb13ab29d47456a1f9973ec19573e",
+      "step_sha256": "ea79019f2cc2cfd7ac84decff522190f252ce17e70b2a4a075708bf8b23b7192",
+      "mesh": {
+        "edges": 14982,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "source_print_up": "+Z",
+      "preparation": ".cache/prints/fixed-pump-mount-2026-10-25/2026-10-25-pump-retainer-mark1-445ba93f/preparation.json",
+      "project": ".cache/prints/fixed-pump-mount-2026-10-25/2026-10-25-pump-retainer-mark1-445ba93f/2026-10-25-pump-retainer-mark1-445ba93f.3mf",
+      "project_sha256": "f7b3a66ab5d9069977c022016a8b95db9dab90fc278bd942b25670fc1afdf078",
+      "archive": ".cache/prints/fixed-pump-mount-2026-10-25/2026-10-25-pump-retainer-mark1-445ba93f/2026-10-25-pump-retainer-mark1-445ba93f.gcode.3mf",
+      "archive_sha256": "769b6fd644b857d718b0d200d919a75a6b850ed1faac778da882b485302fa36a",
+      "gcode_sha256": "05c2b383e4d92474b613cc814e827270a72efe7e5a8f50f7b13a0c25c7c67075",
+      "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+      "native_review": ".cache/prints/fixed-pump-mount-2026-10-25/2026-10-25-pump-retainer-mark1-445ba93f/review.json",
+      "native_review_sha256": "f7469d7af81b57f6b282832c97ee6994df6b903174a1c932adfb2823146b0d7b",
+      "support_audit": ".cache/prints/fixed-pump-mount-2026-10-25/2026-10-25-pump-retainer-mark1-445ba93f/support-audit-1901.json",
+      "support_audit_sha256": "13375104b29beefa7f52c2c80636436964cd2e21de9f17a53a78d7b33abbf759",
+      "slicer": "BambuStudio 02.08.02.61",
+      "prepared_utc": "2026-10-25T21:53:04+00:00",
+      "printer_recipe": {
+        "printer": "Mark1",
+        "nozzle_side": "left",
+        "nozzle_mm": 0.4,
+        "material": "Polymaker Fiberon PET-GF15, black",
+        "bed_type": "Textured PEI Plate",
+        "requested_z_trim_mm": 0.18,
+        "emitted_textured_trim_mm": 0.16
+      },
+      "process": {
+        "wall_loops": "2",
+        "sparse_infill_density": "15%",
+        "sparse_infill_pattern": "gyroid",
+        "initial_layer_print_height": "0.2",
+        "layer_height": "0.24",
+        "enable_support": "1",
+        "support_type": "tree(auto)",
+        "support_style": "default",
+        "support_on_build_plate_only": "0",
+        "support_threshold_angle": "35",
+        "support_object_xy_distance": "0.4",
+        "support_top_z_distance": "0.45",
+        "support_bottom_z_distance": "0.3",
+        "support_interface_top_layers": "2",
+        "support_interface_bottom_layers": "2",
+        "support_interface_spacing": "0.5"
+      },
+      "fine_layer_ranges": [],
+      "modifier_count": 3,
+      "modifier_density": "100%",
+      "modifier_pattern": "zig-zag",
+      "modifier_scope": "Infill-only boxes within existing stock; ordinary wall settings are inherited.",
+      "region_record_sha256_at_preparation": "ab77aff987c46d82d216d77000f6a0dad5bf943a5131b67d435d3da7a0c3f1b7",
+      "current_per_piece_modifier_regions_match_preparation": true,
+      "existing_review_checks": {
+        "archive": true,
+        "z_trim": true,
+        "bed_border": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "tie_windows_support_free": true,
+        "ribbons_support_free_and_printed": true,
+        "solid_hosts_sampled": true
+      },
+      "existing_review_pass": true,
+      "first_second_layer_stack": {
+        "1901": {
+          "second_layer_model_bead_area_mm2": 7086.61432291838,
+          "fraction_over_first_layer": 0.9760370253648163,
+          "second_layer_centerline_outside_first_mm": 42.078044794621036
+        }
+      },
+      "minimum_sampled_dense_host_coverage": 0.9778931219872526,
+      "minimum_full_bead_bed_margin_mm": 64.13694799999996,
+      "support_summary": {
+        "support_bodies": 3,
+        "interface_islands": 3,
+        "bed_rooted_bodies": 3,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": 2.16,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 3,
+        "shortest_labelled_build_up_mm": 2.16
+      },
+      "support_bodies": [
+        {
+          "id": "tree-1",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "first_interface_z_mm": 2.36,
+          "shortest_build_up_mm": 2.16,
+          "top_z_mm": 2.6,
+          "bbox_xy_mm": [
+            68.0,
+            155.2,
+            72.8,
+            160.0
+          ],
+          "interfaces": [
+            "interface-1"
+          ],
+          "interface_reading": "explicit_feature",
+          "bbox_cad_xyz_mm": [
+            -94.5,
+            43.457,
+            165.395,
+            -89.7,
+            48.257,
+            167.795
+          ]
+        },
+        {
+          "id": "tree-2",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "first_interface_z_mm": 2.36,
+          "shortest_build_up_mm": 2.16,
+          "top_z_mm": 2.6,
+          "bbox_xy_mm": [
+            160.0,
+            155.2,
+            164.8,
+            160.0
+          ],
+          "interfaces": [
+            "interface-2"
+          ],
+          "interface_reading": "explicit_feature",
+          "bbox_cad_xyz_mm": [
+            -2.5,
+            43.457,
+            165.395,
+            2.3,
+            48.257,
+            167.795
+          ]
+        },
+        {
+          "id": "tree-3",
+          "root": "bed",
+          "base_z_mm": 0.2,
+          "first_interface_z_mm": 2.36,
+          "shortest_build_up_mm": 2.16,
+          "top_z_mm": 2.6,
+          "bbox_xy_mm": [
+            252.0,
+            155.2,
+            256.8,
+            160.0
+          ],
+          "interfaces": [
+            "interface-3"
+          ],
+          "interface_reading": "explicit_feature",
+          "bbox_cad_xyz_mm": [
+            89.5,
+            43.457,
+            165.395,
+            94.3,
+            48.257,
+            167.795
+          ]
+        }
+      ],
+      "labelled_support_interfaces": [
+        {
+          "id": "interface-1",
+          "first_z_mm": 2.36,
+          "last_z_mm": 2.6,
+          "bbox_xy_mm": [
+            68.4,
+            155.6,
+            72.8,
+            160.0
+          ],
+          "tree": "tree-1",
+          "build_up_mm": 2.16,
+          "bbox_cad_xyz_mm": [
+            -94.1,
+            43.857,
+            167.555,
+            -89.7,
+            48.257,
+            167.795
+          ]
+        },
+        {
+          "id": "interface-2",
+          "first_z_mm": 2.36,
+          "last_z_mm": 2.6,
+          "bbox_xy_mm": [
+            160.4,
+            155.6,
+            164.8,
+            160.0
+          ],
+          "tree": "tree-2",
+          "build_up_mm": 2.16,
+          "bbox_cad_xyz_mm": [
+            -2.1,
+            43.857,
+            167.555,
+            2.3,
+            48.257,
+            167.795
+          ]
+        },
+        {
+          "id": "interface-3",
+          "first_z_mm": 2.36,
+          "last_z_mm": 2.6,
+          "bbox_xy_mm": [
+            252.4,
+            155.6,
+            256.8,
+            160.0
+          ],
+          "tree": "tree-3",
+          "build_up_mm": 2.16,
+          "bbox_cad_xyz_mm": [
+            89.9,
+            43.857,
+            167.555,
+            94.3,
+            48.257,
+            167.795
+          ]
+        }
+      ],
+      "support_count_scope": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up.",
+      "show_face_support_evidence": {
+        "protected_face_set_selected": false,
+        "measured_minimum_clearance_mm": null,
+        "scope": "The generic show-face check has no selected protected faces in this recipe; its true value does not establish support-free exterior surfaces."
+      },
+      "estimated_seconds": 13571.91015625,
+      "slicer_warnings": [],
+      "submitted": false,
+      "support_removal_access_reading": [
+        "Three short bed-rooted bodies occupy the underside screw-head counterbores. Each opens directly downward for axial removal before assembly.",
+        "Physical cleanup and bearing-surface finish are unassessed for this article."
+      ]
+    }
+  ]
+}

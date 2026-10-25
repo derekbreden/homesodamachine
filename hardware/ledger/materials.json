@@ -3402,11 +3402,11 @@
     },
     {
       "id": "HSM-000082",
-      "description": "Pump cradle",
+      "description": "Lower pump retainer",
       "kind": "manufactured",
       "models": [
         {
-          "file": "printed-parts/enclosure/enclosure/enclosure-pump-cartridge.step"
+          "file": "printed-parts/enclosure/enclosure/enclosure-pump-retainer.step"
         }
       ],
       "documents": [
@@ -3416,27 +3416,8 @@
         }
       ],
       "aliases": [
-        "enclosure-pump-cartridge"
-      ]
-    },
-    {
-      "id": "HSM-000083",
-      "description": "Pump cradle top clamp",
-      "kind": "manufactured",
-      "models": [
-        {
-          "file": "printed-parts/enclosure/enclosure/enclosure-pump-cap.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Part details",
-          "path": "printed-parts/enclosure/enclosure/README.md"
-        }
-      ],
-      "aliases": [
-        "enclosure-pump-cap",
-        "pump cap"
+        "enclosure-pump-retainer",
+        "pump retainer"
       ]
     },
     {
@@ -4264,11 +4245,11 @@
     },
     {
       "id": "HSM-000161",
-      "description": "Pump cradle assembly",
+      "description": "Fixed pump assembly",
       "kind": "assembly",
       "aliases": [
-        "pump cradle",
-        "two-pump cradle"
+        "fixed pump mount",
+        "two-pump assembly"
       ],
       "contexts": [
         {
@@ -4277,7 +4258,7 @@
       ],
       "documents": [
         {
-          "title": "Cradle assembly",
+          "title": "Pump installation",
           "path": "assembly/internal-plumbing.md"
         },
         {
@@ -4285,12 +4266,12 @@
           "path": "assembly/wiring.md"
         },
         {
-          "title": "Cradle retention",
+          "title": "Fixed pump retention",
           "path": "printed-parts/enclosure/pump-dock/README.md"
         }
       ],
       "bom": {
-        "scope": "Two pumps, the pump cradle, its top clamp with two screws and inserts, the four prepared pump tubes, and the Fastons that land the J13 ribbon on the motor tabs. The pump tees, their upper tubes and lower returns, and the J13 ribbon belong to the machine; the four tee collets hold the cradle home. Pump tubes are fitted during assembly; motor-tab terminal sizes are recorded in the wiring procedure when established.",
+        "scope": "Two pumps, the broad lower retainer, three underside M3\u00d760 screws and three RX-M3\u00d75.7 inserts, four prepared pump tubes, and the Fastons that land the J13 ribbon on the motor tabs. The fitted upper inverse is integral front-top material, included in the machine\u2019s enclosure item. The pump tees, upper tubes, lower returns and J13 ribbon belong to the machine. The retainer captures the molded pump skirts against the fixed upper mount; the tee collets grip their prepared tubes.",
         "source": "assembly/internal-plumbing.md",
         "items": [
           {
@@ -4311,27 +4292,20 @@
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "enclosure-pump-cartridge"
-            ]
-          },
-          {
-            "material": "HSM-000083",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "enclosure-pump-cap"
+              "enclosure-pump-retainer"
             ]
           },
           {
             "material": "HSM-000164",
-            "quantity": 2,
+            "quantity": 3,
             "unit": "ea",
-            "note": "The cradle spine's centre lane retains the clamp screws."
+            "note": "Installed upward into front-top\u2019s integral pump mount from its open underside."
           },
           {
             "material": "HSM-000165",
-            "quantity": 2,
-            "unit": "ea"
+            "quantity": 3,
+            "unit": "ea",
+            "note": "Driven upward through the lower retainer into the three fixed-mount inserts."
           },
           {
             "material": "HSM-000168",
@@ -4371,7 +4345,7 @@
       "description": "M3 \u00d7 60 socket-head screw \u00b7 black oxide",
       "kind": "purchased",
       "aliases": [
-        "pump clamp screw",
+        "pump retainer screw",
         "BNUOK M3x60"
       ],
       "documents": [

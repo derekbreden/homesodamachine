@@ -8,7 +8,7 @@
 
 The snapshot sets aside the geometry the generator replaces, for the change's
 [before and after](../../changes/README.md). The piece's own generator cuts its STEP, STL and
-payload (the pump cradle, its clamp and front-top have the dedicated materializer above);
+payload (the pump retainer and front-top have the dedicated materializer above);
 `publish_now.py` grafts the changed payload into both viewer hosts — the enclosure aggregate
 and the appliance assembly — and tells the site.
 

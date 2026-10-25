@@ -17,7 +17,7 @@ a compromise — so `thin` and `ledge` are a ranking of where the piece is
 thinnest and smallest, and an answer never takes a place off it.
 
     tools/cad-venv/bin/python hardware/scripts/geometry_lint.py \
-        hardware/printed-parts/enclosure/enclosure/enclosure-pump-cartridge.stl
+        hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl
 
     geometry_lint.py <piece>.stl [<piece2>.stl …] [--top N] [--all] [--classes a,b]
 
@@ -182,7 +182,7 @@ def answers_path(stl):
 #: Which way each piece builds along the box's Z. Every coordinate the lint reads and emits
 #: stays in the box's own frame; the sign only says which faces look print-down and where the
 #: bed is: +1 for a piece bedded on its Z- face, -1 for one bedded on its Z+ face.
-PRINT_UP = {"enclosure-back-top": -1.0, "enclosure-pump-cap": -1.0, "funnel-mold/core": -1.0,
+PRINT_UP = {"enclosure-back-top": -1.0, "funnel-mold/core": -1.0,
             "foam-cap/foam-cap-bottom": -1.0, "prv-shroud/prv-shroud": -1.0,
             "asse-straight-cuffs/asse-inlet-cuff": -1.0, "asse-straight-cuffs/asse-outlet-cuff": -1.0,
             **{f"tube-collar/tube-collar-{which}": -1.0

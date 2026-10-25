@@ -19,21 +19,21 @@ silicone-bearing measurements. It does not establish physical assembly force or 
 
 ## The box
 
-Four printed PET-GF15 quadrants — `enclosure-front-bottom`, `enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top` — measuring [215 × 466.3 × 361 mm](BOX_SIZE) over the outside ([`enclosure.py`](/hardware/printed-parts/enclosure/enclosure/enclosure.py)), plus the pump cradle (`enclosure-pump-cartridge`) and its top clamp (`enclosure-pump-cap`): six printed enclosure pieces in all. Every standing face is a wall of a quadrant: the rear face is the back pieces' own +Y wall, the 30° display plane and its tangent curves are part of `enclosure-front-top`'s top-front arris, the flat front below the facet is the pump cradle's face, and the funnel opening is cut in the top wall, both top pieces taking their share of it.
+Four printed PET-GF15 quadrants — `enclosure-front-bottom`, `enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top` — measuring [215 × 466.3 × 361 mm](BOX_SIZE) over the outside ([`enclosure.py`](/hardware/printed-parts/enclosure/enclosure/enclosure.py)), plus the plain rectangular lower pump retainer (`enclosure-pump-retainer`): five printed enclosure pieces in all. Every standing face is a wall of a quadrant: the rear face is the back pieces' own +Y wall, and the complete front face, 30° display plane and tangent curves belong to `enclosure-front-top`. Its upper fitted pump inverses occupy one broad body continuous into the display housing and roof. The funnel opening is cut in the top wall, both top pieces taking their share of it.
 
 - **The Y seam is stated at [200](Y_SEAM).** The front pieces' +Y walls telescope into the back pieces — a proud tongue on the side walls and ceiling, and a full-thickness, square-ended tongue inside the floor slab, so the floor stays flat where the cold core rides across it. At each ±X corner a stack of knuckles, alternating between the front and back pieces, is held by two vertical M5 screws: an [M5 × 120](LOWER_ROD) up from the handhold ceiling through front-bottom's knuckle into an insert in back-bottom's knuckle under the Z seam, and an [M5 × 50](UPPER_ROD) down from back-top's roof into an insert in front-top's knuckle under the funnel frame. Four screws in all.
 - **The Z seam is one stated plane, both columns, at [160](Z_SEAM_FRONT)** — the seam line runs level round the box and the four pieces meet at a four-way corner on each side wall. Both columns run solid there (the compressor bay and flavour deck forward, the cold core and service bay aft), so the seam runs through each on the lane its lip's ring keeps of the pack. The bottom pieces carry the lips and hooked rails; the top pieces carry the mating feet and channels. The Z seams take no screws; at the corners the seam's screws hold the tops down.
-- **The wall is a fact about a face, not about the box.** [3 mm](WALL_T) is the section a piece starts from and every exterior wall carries at least [6 mm](LIP_UNDERWALL), each grown INWARD — the stated silhouette and `interior_x` both stand still, and only the piece carrying a section knows about it. A bottom piece gets its [6 mm](LIP_UNDERWALL) for nothing down all three of its lipped sides, the lip's own skin carried to the slab. On the top pieces it is stated per face: [9 mm](FRONT_TOP_FLANK) on `enclosure-front-top`'s ±X flanks, [9 mm](BACK_TOP_FLANK) on `enclosure-back-top`'s, 9 mm on its +Y wall and 9 mm on its ceiling, a slab the piece prints on, pocketed over every body that stands in it back to the unchanged z = [352](CEILING_LANE) pack lane. The front face is [9 mm](FRONT_WALL); the complete flavour pack stands behind it with the pump cradle's face on that same exterior plane. **The floor is the one section that grows OUTWARD** — [6 mm](FLOOR_T) of slab under both bottom pieces, and the stated height is struck to its underside, so the slab stands in the silhouette rather than in the cavity and everything the pack sets on the floor stays where it was. What noses into a section is never moved for it: the wall gives that station back as a stated, 45°-chamfered relief — a Wago well, the PRV chase's rib, the CO2 nut's clamp stack — and `back_wall_t_at`, `box-front` and `back-top-flank-clear` are what read those back against the pack.
-- Three quadrants bed on their Z− face — the bottoms on their floor slabs, front-top on its seam rim, mouth down — and back-top beds on its ceiling's outer face, its mouth up. The lower pump cradle and top clamp take their own print orientations; the bed-fit checks belong to each part's source.
+- **The wall is a fact about a face, not about the box.** [3 mm](WALL_T) is the section a piece starts from and every exterior wall carries at least [6 mm](LIP_UNDERWALL), each grown INWARD — the stated silhouette and `interior_x` both stand still, and only the piece carrying a section knows about it. A bottom piece gets its [6 mm](LIP_UNDERWALL) for nothing down all three of its lipped sides, the lip's own skin carried to the slab. On the top pieces it is stated per face: [9 mm](FRONT_TOP_FLANK) on `enclosure-front-top`'s ±X flanks, [9 mm](BACK_TOP_FLANK) on `enclosure-back-top`'s, 9 mm on its +Y wall and 9 mm on its ceiling, a slab the piece prints on, pocketed over every body that stands in it back to the unchanged z = [352](CEILING_LANE) pack lane. The front face is [9 mm](FRONT_WALL); the complete flavour pack stands behind front-top's continuous exterior face. **The floor is the one section that grows OUTWARD** — [6 mm](FLOOR_T) of slab under both bottom pieces, and the stated height is struck to its underside, so the slab stands in the silhouette rather than in the cavity and everything the pack sets on the floor stays where it was. What noses into a section is never moved for it: the wall gives that station back as a stated, 45°-chamfered relief — a Wago well, the PRV chase's rib, the CO2 nut's clamp stack — and `back_wall_t_at`, `box-front` and `back-top-flank-clear` are what read those back against the pack.
+- Three quadrants bed on their Z− face — the bottoms on their floor slabs, front-top on its seam rim, mouth down — and back-top beds on its ceiling's outer face, its mouth up. The lower pump retainer takes its own print orientation; the bed-fit checks belong to each part's source.
 
 **Width is a stated bound, not a consequence of what stands inside.** [215 mm](APPLIANCE_W), struck symmetric about x = 0 — the axis the whole pack is centred on — exactly as the height and the rear plane are stated. No body sets it: a narrower body taking a wider one's place does not make the machine narrower, and a pack that outgrows it reads red on `box-width` rather than quietly resizing the appliance. What that check requires OF a body on the floor is one [14 mm](SIDE_BAND) side band of clearance to the ±X walls **where the seam's corner stacks stand**. The lower knuckles reach 13.75 mm into that band, leaving 0.25 mm to the core. Their reach is in Y and in Z as much as in X: a stack runs from a front knuckle's root [3 mm](Y_STACK_FRONT_ROOT) fore of the seam to the back pieces' thickened flank; the lower stands from the handhold ceiling to the Z seam, the upper from Z[281.4](Y_STACK_UPPER_FLOOR) to the ceiling. Outside those footprints the band is open. The widest thing on the slab is the **cold core**: yawed a quarter turn so its short face crosses the machine, it still measures [181](CORE_X) against the mated compressor and condenser's [174](COMP_BAY_X).
 
 ## Scope
 
 Start with the charged refrigeration-loop assembly, the printed quadrants, the
-pump cradle and clamp, the fixed front manifold, and the unpowered components in
+pump retainer, the fixed front manifold, and the unpowered components in
 [electronics-bay.md](electronics-bay.md). End with the shell joined around the core,
-the pump cradle home in its bay and the funnel opening clear for the final
+the pumps screwed between front-top and their lower retainer and the funnel opening clear for the final
 connections and commissioning. The funnel frame drops in after commissioning. Native fit records describe nominal geometry;
 physical assembly force and durability retain the qualification limits below.
 
@@ -44,7 +44,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §7 (
 | Item | Source / spec | Notes |
 |---|---|---|
 | Integrated refrigerant-loop assembly | Output of [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) | Cold core + plumbed compressor + condenser/fan, charged, run-up-verified, leak-checked |
-| Six printed enclosure pieces | [`/hardware/printed-parts/enclosure/`](/hardware/printed-parts/enclosure/) | PET-GF15 enclosure set: four quadrants, lower pump cradle, pump top clamp |
+| Five printed enclosure pieces | [`/hardware/printed-parts/enclosure/`](/hardware/printed-parts/enclosure/) | PET-GF15 enclosure set: four quadrants and lower pump retainer |
 | Nameplate | [`/hardware/printed-parts/enclosure/nameplate/`](/hardware/printed-parts/enclosure/nameplate/) | Printed per unit with its identity encoded in the QR; scanned and snapped in at [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md), not here |
 | Rear fluid fittings, C14 and RJ11 | [Production arrangement](/hardware/manifold-layout/above-core.md) | Six fluid fittings in a 2 × 3 grid; C14 west/upper, RJ11 west/lower |
 | Drop-in funnel frame and snap-in drain joint | [Funnel](/hardware/printed-parts/zone-c/funnel/README.md) | Cradle snaps into the frame’s 3 mm web; frame fastens from above |
@@ -64,13 +64,18 @@ Remove loose support material before closing the two halves. The current
 bare surfaces' finish, cleanup and comfort remain unqualified by other parts' underside
 results.
 
-Print-inspect all six enclosure pieces — the four quadrants, lower pump cradle and pump top clamp — plus this unit's nameplate. Inspect the tee wall's four teardropped collet holes, the four teardropped bores behind them and its teardropped lead bore, and the clamp's lead slot and two crown grooves. On the ridge wall behind the display, verify the J9 loom's +X teardrop passage is open and the display backing's cavity face is continuous. The pump cradle goes in after the box closes (§6); its pumps are installed in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3. Wipe down every interior face; remove brim residue and any stray support material at the +Y wall's bores, the rails' heads and channels — a bead in a channel is a 100 mm slide that binds at one station — the Y seam's lips and knuckles, and — above all — **the floor slab the cold core lands on**. The core bears on that slab across its whole footprint, so a bead of brim under it is a high spot, not a blemish. Both halves of the floor joint print on their bed faces and end square, one running fit apart. Set the nameplate aside in the unit's build folder; it does not go on at this step (see [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md)). **The display's two printed parts go in that folder with it**, not loose on the bench: the cover plate ([`/hardware/printed-parts/enclosure/display-cover/`](/hardware/printed-parts/enclosure/display-cover/README.md)) and, under it, the TPU gasket ring that goes between the plate's lap and the display's glass ([`/hardware/printed-parts/enclosure/display-gasket/`](/hardware/printed-parts/enclosure/display-gasket/README.md)). Both go on at §8, and the ring is soft, black and one wipe from being swept off a bench unnoticed — a display closed without it is a display the cover plate does not hold.
+Print-inspect all five enclosure pieces — the four quadrants and lower pump retainer — plus this unit's nameplate. Inspect front-top's fitted upper pump pockets, the retainer's lower wells and skirt lands, and the three underside screw passages. Verify that all four tee-wall tube-loading gates open from the underside into the collet openings and teardropped branch bores. Check the shared pump/display wire passage through the continuous upper stock and its rear diamond mouth at X0/Z280; the display backing's cavity face remains continuous around its required openings. Install and screw-retain the pumps while front-top is loose, before its tees, valves and chassis closure, per [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3. Wipe down every interior face; remove brim residue and any stray support material at the +Y wall's bores, the rails' heads and channels — a bead in a channel is a 100 mm slide that binds at one station — the Y seam's lips and knuckles, and — above all — **the floor slab the cold core lands on**. The core bears on that slab across its whole footprint, so a bead of brim under it is a high spot, not a blemish. Both halves of the floor joint print on their bed faces and end square, one running fit apart. Set the nameplate aside in the unit's build folder; it does not go on at this step (see [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md)). **The display's two printed parts go in that folder with it**, not loose on the bench: the cover plate ([`/hardware/printed-parts/enclosure/display-cover/`](/hardware/printed-parts/enclosure/display-cover/README.md)) and, under it, the TPU gasket ring that goes between the plate's lap and the display's glass ([`/hardware/printed-parts/enclosure/display-gasket/`](/hardware/printed-parts/enclosure/display-gasket/README.md)). Both go on at §8, and the ring is soft, black and one wipe from being swept off a bench unnoticed — a display closed without it is a display the cover plate does not hold.
 
 Install ruthex heat-set inserts everywhere the pieces call for them. Standard procedure: soldering iron on the insert, press straight down until flush. All of them go in *before* anything is in the box, while there is bench access from every face.
 
+Clear front-top's functional-cavity support through the empty display seat and
+open underside before installing hardware. The current
+[native print reading](/hardware/printed-parts/enclosure/enclosure/pump-mount-review/print-review.json)
+identifies those branches; it does not establish physical cleanup effort.
+
 **This step is the one place in the build that presses both M3 bodies, and they are indistinguishable in the hand but for length.** RX-M3x5.7 and RX-M3Sx4.0 carry the same ⌀4.6 knurl into the same ⌀4 hole; a short one pressed where the long one belongs is a weaker joint that looks finished, and a long one pressed where it does not fit will not seat flush. Work from two labelled troughs, not one dish:
 
-- **Full-length RX-M3×5.7.** The condenser fingers, the four funnel-frame ledges and the pump cradle's two spine stations take full-length inserts. The core's PCB and pump mount columns use the [cold-core mount schedule](/hardware/printed-parts/cold-core/_above_core_mounts.py), with the lid removed for insert installation.
+- **Full-length RX-M3×5.7.** The condenser fingers, the four funnel-frame ledges and front-top's three pump-retainer stations take full-length inserts. The retainer screws enter upward from below; install these inserts from the open underside before loading the pumps. The core's PCB and pump mount columns use the [cold-core mount schedule](/hardware/printed-parts/cold-core/_above_core_mounts.py), with the lid removed for insert installation.
 - **Short RX-M3S×4.0.** The C14's two rear-wall bosses, four PSU hosts, two diagonal hosts per relay and the core lid's ground boss take short inserts. Install them before the purchased bodies. Use M3 × 10 with Ø7 × 0.5 mm washers at C14, M3 × 12 through the PSU ears, M3 × 8 through each relay's two active diagonal holes and M3 × 10 through the ground stack. All four corners of each relay board bear on pads; the other two pads have no insert or screw. The [wall-host schedule](/hardware/printed-parts/enclosure/enclosure/_above_core_shell.py) defines the bearing tips and insert-face datums.
 - **M5 — eight.** The four posts standing off the floor slab under the compressor's feet, and the Y seam's four corner-stack stations: back-bottom's two knuckles under the Z seam and front-top's two knuckles under the funnel frame, each pressed in from above. Use the M5 tip from the T18 heat-set insert tip kit.
 
@@ -161,13 +166,22 @@ tee wall with its collet extended in the hole ahead of the bore. A short straigh
 fore valve over it, and a lower return of two stem elbows and a straight tube joins its lower collet to its rear valve. Keep the
 valve terminals and release collets accessible during bench assembly.
 
-**Fit the pump tees before closing front-top.** Its tee wall carries [4](DOCK_TEES) bores, each behind a collet hole through the wall's fore band. Seat the rear valves, bring each tee with its upper tube and fore valve in, the branch into its bore from the wall's aft face, and press the fore valve onto its posts. Fit the lower returns from the underside while it is open. The complete bench order is in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3.
+**Secure the pumps before fitting the tees or closing front-top.** Set their four tube
+tips with both pumps seated in the loose retainer and remove the jig. Thread the bare
+DC-5 pump end through the shared rear wire passage, crimp and land its Fastons on the
+loose motors, then raise the prepared unit motor-first from underneath. The stubs rise
+through the four bottom-open tee-wall gates. Drive all three M3 × 60 retainer screws
+upward while the underside is open. The upper fitted surfaces and lower lands capture
+each molded skirt; the direct two-face capture has no physical assembly acceptance.
 
-After chassis closure, the pump cradle's four LLDPE tubes enter the tee wall's collet holes
-and the tees' branch collets together and bottom there (§6). The collets grip the tubes and
-hold the cradle home.
+With the rear row absent, bring each tee with its upper tube and fore valve straight in from aft,
+pushing the branch onto its fixed pump tube and into the wall bore as the fore valve seats
+on its posts. Seat all four fore groups, then fit the rear valves and the lower returns
+from underneath. Dress the display loom through
+the same wire passage while front-top is loose. The complete bench order is in
+[`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3.
 
-`enclosure-front-top` **slides AFT onto `enclosure-front-bottom`** — brought in from the front, standing [97.66 mm](RAIL_TRAVEL_FRONT) proud of the bottom piece's front wall and drawn straight back to its assembled position at the stop blocks aft of the tee wall. The broad shoulder has 0.25 mm of modeled allowance, and each rail end has 0.25 mm to its stop. This is the piece that carries the display facet, front half of the funnel opening, fixed valve trays, tee wall and the manifold prepared at [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3. The pump tees, their upper tubes and lower returns travel with front-top during this chassis slide. A slide that binds mid-travel is something standing in the channel's lane; a slide that will not close the last millimetre is a foot meeting something on a stop block's face.
+`enclosure-front-top` **slides AFT onto `enclosure-front-bottom`** — brought in from the front, standing [97.66 mm](RAIL_TRAVEL_FRONT) proud of the bottom piece's front wall and drawn straight back to its assembled position at the stop blocks aft of the tee wall. The broad shoulder has 0.25 mm of modeled allowance, and each rail end has 0.25 mm to its stop. This is the piece that carries the display facet, front half of the funnel opening, fixed valve trays, tee wall and the manifold prepared at [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3. Both pumps, their lower retainer, the pump tees, upper tubes and lower returns travel with front-top during this chassis slide. A slide that binds mid-travel is something standing in the channel's lane; a slide that will not close the last millimetre is a foot meeting something on a stop block's face.
 
 The dock's wet sealing, retention under pressure and endurance remain separate qualifications.
 
@@ -289,17 +303,10 @@ The nearby PCB connections remain accessible until the funnel frame is fitted.
 Check that all tubing and conductors stay clear of the seam screws and closure
 bearings. Keep power disconnected during this work.
 
-**The pump cradle goes in now, through the open bay.** The bay rides open during
-enclosure assembly. Confirm through it that each of the [4](DOCK_TEES) pump tees' collet
-faces stands in its hole and the bay face is clear. With the box closed and the
-funnel frame out, install the cradle per
-[internal plumbing §3](internal-plumbing.md#3-flavor-manifold-v-a-through-v-j--y-a-y-b-y-c-y-d-y-f-y-g--pumps)
-step 7: feed the J13 ribbon's free end forward through front-top's lead bore, crimp and land
-its four Fastons on the motor tabs with the cradle standing out of the bay, and dress the
-leads into the clamp's lead slot and crown grooves. Push the cradle straight home while
-drawing the slack back from behind through the funnel-frame opening, until its four tubes
-bottom in the gripping collets, then plug the XHP-4 into J13. Once home, the cradle stays:
-its collets cannot be released from the bay.
+The pumps and retainer are already secured in front-top. Through the open funnel aperture,
+finish dressing DC-5 and SIG-7 from their shared rear passage, clear of the slide bearings,
+fluid paths and funnel-frame seats. Confirm the four pump tube insertion marks at their
+tees and plug the DC-5 XHP-4 into J13. Support the free harness ends during this work.
 
 Leave the funnel frame out. The final connections through the funnel opening
 ([electronics-bay.md](electronics-bay.md) step 5) and commissioning come first:
@@ -325,7 +332,7 @@ performance remain subject to the part's qualification record.
 The machine display sits in the rounded 30° top. Flash the 4.3B on the bench first
 ([firmware-and-commissioning.md](firmware-and-commissioning.md) step 4): its USB-C
 is enclosed once it is seated. Feed the J9 loom's display end from inside through
-the ridge loom bore and out the open facet, and land it on the display's terminals
+the shared pump/display passage and out the open facet, and land it on the display's terminals
 ([wiring.md](wiring.md) §5). Then seat its glass in the shallow counterbore with the
 PCB passing through the housing. Handle it ESD-safe.
 
@@ -337,11 +344,11 @@ resists lift. The [accepted cover](../printed-parts/enclosure/display-cover/READ
 and [bound native integration check](../printed-parts/enclosure/enclosure/accepted-fit-integration/current-geometry-check.json)
 identify the accepted receiver geometry within the check's listed source hashes; there are no display-cover screws.
 
-The ridge wall immediately below the display has the J9 teardrop at
-+X for the display loom. Deburr the passage. The J13 pump ribbon
-([`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md#pump-leads--dc-5)) lies bare
-along the bulkhead crown below the funnel frame, from the board to front-top's lead bore,
-and is fed and landed at the pump cradle's installation (§6).
+The display loom and J13 pump ribbon share the rear diamond mouth centred at X0/Z280,
+28 × 28 mm and open through Y99. Deburr the passage before threading the leads. DC-5's
+motor ends are landed before pump insertion on loose front-top (§4); its free board end
+connects to J13 through the open funnel aperture. Dress both runs clear of the frame and
+closing surfaces ([cable assemblies](/hardware/assembly/cable-assemblies.md)).
 
 The silicone funnel seats in a separate drop-in PET-GF frame across the Y seam.
 The elbow cradle’s two wings snap through the frame’s 3 mm lower web; the frame
@@ -370,7 +377,7 @@ roof and covers the frame screw wells. Lift it for cleaning and frame screw acce
 - Four quadrants home, four M5 seam screws seated, no tube or conductor trapped in a joint.
 - Fixed front manifold and rear connection bodies installed; V-A/V-K and their complete inlet header on back-top; PSU, relays and meter on back-top; junctions on their specified parents.
 - Machine display retained by the accepted cover and gasket.
-- Pump cradle home in its bay, its four tubes bottomed in the tees' gripping collets, and the J13 ribbon's four Fastons on the motor tabs with its housing seated at J13.
+- Both pumps captured between front-top and the lower retainer, all three underside M3 screws seated, their four tubes bottomed in the tees' gripping collets, and DC-5's four Fastons on the motor tabs with its housing seated at J13.
 - Rear connections completed on the open back-top; accessible central handoffs completed before the drop-in frame is fitted.
 
 Native geometry does not establish physical slide effort, printed support cleanup,

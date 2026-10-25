@@ -23,7 +23,7 @@ Every loom is **BNTECHGO 22 AWG black silicone ribbon** — 3P, 4P and 5P, one o
 
 Terminations: stripped solid copper directly into screw cages and WAGO clamps on AC-1/2/3 and DC-1/2/4; insulated bootlace ferrules (Preciva kit) for the retained stranded screw-cage landings; female Faston disconnects (6.3 mm / 4.8 mm) at valves, motors, and fan; the current Frigidaire donor's factory-external electrical interface is Open item 1 in [`wiring.md`](/hardware/assembly/wiring.md); ring terminals to the ground bus + the compressor's terminal-box earth screw; JST-XH housings at the main board's labeled wafers — every loom XH, J7 (REEDS B) included. J7 and J4 (SENSORS) share the same 7P housing, so **label both looms at the housing** and dress them to their own edges: a swapped pair would put J4's 3V3/5V on J7's MCP reed inputs. Distribution / fan-out: **221-413** for the rear mains H/N/G blocks and the core-lid sensor, reed and DC commons; **221-415** for MANIFOLD B COM; **221-420** for MANIFOLD A COM.
 
-Dress: **black PET braided sleeve** — 1/2" for most bundles, 3/4" for the manifold trunk, 1/4" for thin runs; every cut sleeve end finished with heat-shrink so it can't fray; black UV-nylon zip ties, **flush-cut** (no proud tail). Keep DC-5's ribbon bare from J13 to the motor tabs: below the funnel frame, through the lead bore and in the clamp's lead slot and crown grooves. Tools: ferrule crimper (Preciva 28–5), Faston/insulated-terminal crimper (Haisstronica 22–10), JST-XH crimper (iCrimp SN-2549), impact punchdown tool (Klein VDV427-300) and modular-plug crimper (VCE) for the SIG-6 rear keystone and separate umbilical plug, wire stripper (Klein 11063W), flush cutters, heat gun, multimeter — see [`/hardware/ledger/tools.md`](/hardware/ledger/tools.md).
+Dress: **black PET braided sleeve** — 1/2" for most bundles, 3/4" for the manifold trunk, 1/4" for thin runs; every cut sleeve end finished with heat-shrink so it can't fray; black UV-nylon zip ties, **flush-cut** (no proud tail). Keep DC-5's ribbon bare from J13 to the motor tabs. Keep SIG-7 bare inside front-top's printed channels; finish its PET braid aft of the shared rear electrical mouth. Tools: ferrule crimper (Preciva 28–5), Faston/insulated-terminal crimper (Haisstronica 22–10), JST-XH crimper (iCrimp SN-2549), impact punchdown tool (Klein VDV427-300) and modular-plug crimper (VCE) for the SIG-6 rear keystone and separate umbilical plug, wire stripper (Klein 11063W), flush cutters, heat gun, multimeter — see [`/hardware/ledger/tools.md`](/hardware/ledger/tools.md).
 
 ### Ribbon pairs
 
@@ -133,7 +133,7 @@ Conductor counts are the main board's connector pin counts (`pcba.tsx` J1–J11 
 | Faucet display | J3 / SIG-6 | [4](J3_PINS) (TX / RX / 5 V / GND) | 22 AWG black 4P ribbon | **Ends at the wall, not at the faucet** — XH on J3, 110 IDC on the back of the keystone jack the umbilical plugs into. The ribbon outboard of that jack is the umbilical's, built at [`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md). **The TTL lines are ESD-clamped on the main board at U1** (D10/D11, 2× low-cap TVS — see the ESD note below); a faucet-end TVS is now optional | 1/2" |
 | Enclosure display | J9 / SIG-7 | [4](J9_PINS) (`B` / `A` / GND / `V12`) | 22 AWG black 4P ribbon | A/B pair to the 4.3B's RS485 terminals; `V12` + GND to its 7–36 V screw input on the same loom | 1/2" |
 | Gas sensor | J11 | [4](J11_PINS) (GND / `V5` / `DOUT` / `AOUT`) | 22 AWG black 4P ribbon | MQ-6 leads | 1/4" |
-| Pumps | J13 / DC-5 | [4](J13_PINS) (`AM2` / `AM1` / `BM2` / `BM1`) | 22 AWG black 4P ribbon, [500 mm](LOOM_J13) | XH contacts at J13; four insulated female Fastons on the pump-motor tabs, crimped after the free end passes front-top's lead bore | — |
+| Pumps | J13 / DC-5 | [4](J13_PINS) (`AM2` / `AM1` / `BM2` / `BM1`) | 22 AWG black 4P ribbon, [500 mm](LOOM_J13) | XH contacts at J13; four insulated female Fastons on the pump-motor tabs, crimped after the free end passes front-top's shared electrical passage | — |
 | 12 V input | J10 / DC-4 | [2](J10_PINS) (`V12` / GND) | 16 AWG solid | bare solid copper in the J10 screw cages, each beside its silk label; from the core-lid V12 and GND junctions ([`electronics-bay.md`](/hardware/assembly/electronics-bay.md)) | — |
 | AC mains | AC-1…6 | per run | 16 AWG solid on AC-1/2/3; stranded on earth bonds; 18 AWG SJOOW | bare solid or the specified stranded termination → **221-413**; current-donor external-interface connector TBD at compressor; rings to ground | SJOOW jacket on the compressor lead |
 
@@ -173,16 +173,20 @@ show the same assignment at the display and wall connector.
 
 One [500 mm](LOOM_J13) piece of the BNTECHGO 22 AWG 4P ribbon runs from J13 to both pumps'
 motor tabs: J13's XH contacts at one end, and at the other the ribbon peeled into its two pairs
-back 70 mm, each conductor ending in an insulated female Faston receptacle. From the board it
-lies along the bay bulkhead's crown below the funnel frame and turns into front-top's
-[lead bore](/hardware/printed-parts/enclosure/enclosure/README.md#the-pump-lead) through the tee
-wall. Across the frame gap it enters the top clamp's lead slot and rises through the crown, where
-each pair turns along its own crown groove into its pump's terminal well. Feed the free end
-through the bore before crimping the Fastons; the [J13 bench guide](harnesses/j13.md) gives the
-complete piece.
+back 70 mm, each conductor ending in an insulated female Faston receptacle. The ribbon runs
+below the funnel frame and passes front-top's
+[shared rear electrical mouth](/hardware/printed-parts/enclosure/enclosure/README.md#the-pump-lead),
+below the display ribbon. Inside the integral upper pump mount, its two pairs follow the
+transverse channel to their motor terminal rooms. Both ribbons stay bare in the printed
+channels; SIG-7's braid finishes aft of the common mouth.
 
-The ribbon passes the bore and the slot in J13 order, read in machine X with its striped edge
-at +X:
+With front-top loose, feed the free pump end through the common mouth and out underneath
+before crimping the Fastons. Ring out the completed harness, land the Fastons on the loose
+pumps, then raise the prepared pumps and lower retainer motor-first into front-top while
+drawing slack aft. The [J13 bench guide](harnesses/j13.md) gives the complete piece.
+
+The pump ribbon passes the common mouth in J13 order, read in machine X with its striped
+edge at +X:
 
 | conductor, +X to −X | J13 net | Device |
 |---:|---|---|
