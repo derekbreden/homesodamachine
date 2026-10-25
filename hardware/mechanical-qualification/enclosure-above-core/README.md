@@ -2,7 +2,7 @@
 
 The manual [review script](review.py) reads the exported production appliance.
 It queries vertical removal of the empty funnel frame, continuous-inlet
-artifact binding, and stock and screw reach at the two raised upper M5 joints. The [saved native record](native-review.json)
+artifact binding, and stock and screw reach at the two upper M5 joints, at Z318.0 on front-top and Z318.25 on back-top. The [saved native record](native-review.json)
 binds its source, artifact and tested group; its result applies to that scope.
 The separate [wall closing reader](wall_closing.py) samples the selected
 wall-carried group over the populated core and reads mesh-positive poses again
@@ -25,9 +25,9 @@ qualify terminal insertion or handling. Vertical connector service columns
 and final flexible connection handling retain their separately named scope.
 
 The funnel silicone, cover and cradled drain assembly are removed before the
-empty-frame query. The cradle snaps into the removable frame's 3 mm web.
-Disconnect the drain tube or release the cradle before lifting the frame;
-the query does not establish disconnection or snap-release motion or force. Closure
+empty-frame query. The cradle snaps into the removable frame's 3 mm web and travels with it.
+Disconnect the V-B feed before lifting the frame; the query does not establish
+disconnection or snap-release motion or force. Closure
 screws are removed for the motion queries; their inserts remain in place.
 The selected back-top subassembly carries V-A, V-K, their fitted elbows,
 the low V-A feed, the complete ASSE/tee/regulator inlet header, the sidewall
@@ -91,8 +91,7 @@ V-A and V-K have their underside flow arrows down, upper inlet and lower
 outlet. V-A's upper release collet uses a −15° clock about native +Y to clear
 the inlet elbow while retaining its finite 12.7 mm stem engagement. The
 contact record bounds that articulation and the unchanged socket walls.
-Their bench installation must use the selected back-top mounts. The saved
-core-bench seating scenario does not establish back-top installation.
+Their bench installation uses the selected back-top mounts.
 
 The [carried-group diagnostic](approved-carried-group-review.json) and
 [rear plumbing scenarios](rear-plumbing-assembly.json) bind their exact source,
