@@ -241,8 +241,20 @@
   },
   "tie_remainder_mm": 74.39642812108578,
   "source_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/_back_top_meter.py": "40ac80859cf955b0ba4151b8db5f85da00c057972941e3e5862e11dfc26075cd",
+    "hardware/mechanical-qualification/enclosure-above-core/aft_meter_refit.py": "e9088b2454920116b0b4168327fc23c399f0dd7cc50dca065f416b5b37daef2a",
     "hardware/mechanical-qualification/enclosure-above-core/wall_meter.py": "a034e8a5d2205cdeba42fd29b5b594e92438fb6b3559ceb78df1d3cfd264dda9",
-    "hardware/mechanical-qualification/enclosure-above-core/aft_meter_refit.py": "e9088b2454920116b0b4168327fc23c399f0dd7cc50dca065f416b5b37daef2a"
+    "hardware/printed-parts/enclosure/enclosure/_back_top_meter.py": "40ac80859cf955b0ba4151b8db5f85da00c057972941e3e5862e11dfc26075cd"
+  },
+  "actual_back_top_binding": {
+    "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+    "sha256": "890a99c81edff9c95252de1f6eeec617f68165e445f4c718fafef90683c73d9a",
+    "valid": true,
+    "solids": 1,
+    "source_support_missing_mm3": 0.0,
+    "tie_slot_stock_mm3": 0.0,
+    "seat_bore_stock_mm3": 0.0,
+    "full_3mm_quarter_missing_mm3": 0.0,
+    "full_3mm_slot_surround_missing_mm3": 0.0,
+    "wall_landing_missing_mm3": 0.0
   }
 }
