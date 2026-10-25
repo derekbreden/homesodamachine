@@ -46,11 +46,21 @@ with the representative terminal-block envelope remain explicit nominal fit
 limits; source host clearance does not establish purchased hardware fit.
 
 The [meter carrier reading](wall-meter-review.json) and
-[manual script](wall_meter.py) bind both fixed-collar quarter bearings, their
-3 mm beams/slot stock and complete nominal tie paths. The named purchased,
-fluid, electrical and tool fixtures clear that local stock. The changed
-PSU/relay leads have their separate electrical review; the retaining strips
-remain unqualified for physical threading, head engagement and holding force.
+[manual script](wall_meter.py) retain the fore carrier's recorded fixture
+scope. The [aft carrier reading](aft-meter-refit-review.json) and
+[manual reader](aft_meter_refit.py) bind the aft quarter bearing, its short
+nominal tie and the dogleg landing at Y436. Its full 3 mm bearing and tie-slot
+surround are present; its 3 by 6 mm wall bridge clears the actual installed
+regulator by 0.530 mm. The named native fittings, tubes and leads clear that
+local carrier and strip. The retaining strips remain unqualified for physical
+threading, head engagement and holding force.
+
+The [rear fitting-land reading](rear-clamp-lands.json) and
+[manual reader](rear_clamp_lands.py) read all six selected ports in the actual
+back-top. Their clamp stacks contain 4 mm of printed backing and 2 mm of
+identification chip. Each complete nominal nut/flange land has its backing,
+and each selected barrel extends beyond the stack and nut. This establishes
+nominal geometry; thread engagement, tightening and sealing remain unqualified.
 
 The [paired Reservoir A anchor reading](../../printed-parts/cold-core/foam-cap/reservoir-a-anchor-review.json)
 records the two fixed stations, finite 3 mm stock witnesses and printed lid
@@ -161,7 +171,7 @@ The [flavor and connector record](flavor-and-connector-review.json) covers the
 two R25 flavor routes and the complete nominal J1/J2/J11 housing service paths.
 The flavor lines cross above V-A at west X−94, below the rear frame receiver,
 then join their fixed rear returns. Their native mutual clearance is 1.176 mm;
-the aft meter's nominal strip has 0.309 mm air to the B line. Two separate
+the named nominal retaining strips clear the recorded lines. Two separate
 conservative frame-height prisms establish the changed lines' continuous
 vertical frame-installation corridor.
 

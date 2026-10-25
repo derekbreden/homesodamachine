@@ -1,7 +1,8 @@
 """East-wall bearings for the back-top-carried meter's fixed collars.
 
 The purchased body and tube ports keep their selected world poses. Each
-six-millimetre bearing meets the wall through a flat three-millimetre beam.
+six-millimetre bearing meets the wall through a plain dogleg with at least
+three millimetres of stock.
 The vertical tie opening retains three millimetres of stock on both sides.
 Strap sections are nominal clearance allowances, not retention qualification.
 """
@@ -31,7 +32,7 @@ def meter_support_datums():
         x, y, z = layout.point(layout.pose('digiten-flow'), (station, 0., 0.))
         seat_bottom = z - radius - wall
         bottom = seat_bottom - (.5 if side == 1 else 0.)
-        tie_y = y + (.7 if side == -1 else -1.7)
+        tie_y = y + (.7 if side == -1 else -.5)
         beam_y = tie_y if side == -1 else y - .4
         beam_width = 9.
         beam_plan = None
@@ -53,11 +54,15 @@ def meter_support_datums():
                  (98.51, wall_y+beam_width/2., bottom+wall)),
             )
         else:
-            wall_y = beam_y
-            # The full quarter seat overlaps this broad beam east of the
-            # unchanged reservoir-draw tube beneath its western edge.
-            beam_boxes = (((x+3., beam_y-beam_width/2., bottom),
-                           (98.51, beam_y+beam_width/2., bottom+wall)),)
+            # A flat dogleg reaches the wall aft of the fixed regulator.
+            # The local pad carries the short tie beside the fixed collar.
+            wall_y = 436.
+            beam_boxes = (
+                ((x+3., y-3., bottom), (60., 437.5, bottom+wall)),
+                ((59., tie_y-4.5, bottom), (67., tie_y+4.5, bottom+wall)),
+                ((57.5, wall_y-wall/2., bottom-wall),
+                 (98.51, wall_y+wall/2., bottom+wall)),
+            )
         result.append({
             'parent': 'enclosure-back-top',
             'centre_world_mm': (x, y, z),
@@ -69,10 +74,15 @@ def meter_support_datums():
             'beam_plan_world_xy_mm': beam_plan,
             'beam_boxes_world_mm': beam_boxes,
             'wall_lane_world_y_mm': wall_y,
+            'wall_landing_width_mm': beam_width if side == -1 else wall,
+            'wall_landing_height_mm': wall if side == -1 else 2.*wall,
+            'wall_landing_bottom_world_z_mm': bottom if side == -1 else bottom-wall,
             'wall_root_x_mm': 98.51,
             'tie_plane_world_y_mm': tie_y,
-            'tie_slot_min_world_mm': (x + 16., beam_y - 1.5, bottom - .1),
-            'tie_slot_max_world_mm': (x + 18., beam_y + 1.5, bottom + wall + .1),
+            'tie_slot_min_world_mm': ((x + 16., beam_y - 1.5, bottom - .1)
+                                      if side == -1 else (62., tie_y-1.5, bottom-.1)),
+            'tie_slot_max_world_mm': ((x + 18., beam_y + 1.5, bottom + wall + .1)
+                                      if side == -1 else (64., tie_y+1.5, bottom+wall+.1)),
         })
     return tuple(result)
 
@@ -120,9 +130,10 @@ def meter_tie_routes():
         slot_y = sum(point[1] for point in (
             data['tie_slot_min_world_mm'], data['tie_slot_max_world_mm'])) / 2.
         west = (x - 4., y, bottom)
-        under = (x + 17., slot_y, bottom)
-        upper_slot = (x + 17., slot_y, z + 1.)
-        upper = (x + 17., y, z + 1.)
+        slot_x = sum(point[0] for point in (
+            data['tie_slot_min_world_mm'], data['tie_slot_max_world_mm'])) / 2.
+        under = (slot_x, slot_y, bottom)
+        upper = (slot_x, y, z + 1.)
         phi = math.atan2(upper[2] - z, upper[0] - x)
         east_angle = math.degrees(phi + math.acos(radius / math.hypot(
             upper[0] - x, upper[2] - z)))
@@ -138,17 +149,7 @@ def meter_tie_routes():
             return {'kind': 'line', 'points_mm': [a, b], 'wide_axis': wide_axis}
 
         east, far = point(east_angle), point(west_angle)
-        if abs(slot_y-y) > 1.e-9:
-            # The aft collar plane stays fore of the reservoir tube. Offset
-            # below and above the beam, leaving its complete slot surround.
-            below_collar = (x + 5., y, bottom)
-            below_slot = (x + 5., slot_y, bottom)
-            segments = [line(west, below_collar),
-                        line(below_collar, below_slot, (1., 0., 0.)),
-                        line(below_slot, under), line(under, upper_slot),
-                        line(upper_slot, upper, (1., 0., 0.))]
-        else:
-            segments = [line(west, under), line(under, upper)]
+        segments = [line(west, under), line(under, upper)]
         segments += [line(upper, east),
                     {'kind': 'arc', 'points_mm': [east, point((east_angle + west_angle) / 2.), far],
                      'radius_mm': radius, 'sweep_degrees': west_angle - east_angle,
