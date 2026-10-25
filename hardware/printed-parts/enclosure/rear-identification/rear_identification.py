@@ -127,10 +127,24 @@ def parts():
 
 
 def _nameplate_receiver(piece):
-    return nameplate.wing_interface.apply(
+    receiver = nameplate.wing_interface.apply(
         piece, nameplate_station(), nameplate_plan()['face_y_mm'],
         up=-1, wall_face=above_core.specification()['rear_wall']['rear_wall']['ymin'],
         runout_lead=nameplate.wing_interface.RUNOUT_LEAD)
+    return receiver.cut(nameplate_release_access()).clean()
+
+
+def nameplate_release_access():
+    """Extend the accepted 18 by 20 mm release diamond through the host wall."""
+    plan = nameplate_plan()
+    x, z = plan['center_x_mm'], plan['center_z_mm']
+    outside = plan['face_y_mm'] + 1.
+    inside = above_core.specification()['rear_wall']['rear_wall']['ymin'] - 1.
+    # This is the same release diamond as wing_interface.apply. Extending its
+    # depth removes the host-wall membrane behind the raised receiver's pad.
+    return (cq.Workplane('XZ', origin=(0., outside, 0.))
+            .polyline(((x-9., z), (x, z+10.), (x+9., z), (x, z-10.)))
+            .close().extrude(outside-inside).val())
 
 
 @functools.cache
