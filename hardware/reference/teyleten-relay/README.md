@@ -4,9 +4,10 @@ The opto-isolated **1-channel relay module** (`hardware/ledger/bom.md` §1, Amaz
 B07XGZSYJV), used **2× per appliance**: relay #1 switches the compressor's
 120 VAC hot leg, relay #2 gates 12 V to the G Ganen diaphragm pump. Both sit
 above the PSU on back-top's dry west wall. Each board bears on four pads and
-fastens at two diagonal holes with M3 × 10 screws and full-length RX-M3×5.7
+fastens at two diagonal holes with M3 × 8 screws and short RX-M3S×4
 inserts. The insert faces stand 2.15 mm behind the PCB underside, with narrow
-unthreaded bearing tips at the board. The [wall-mount record](../../mechanical-qualification/enclosure-above-core/wall-mount-review.json)
+unthreaded bearing tips at the board. The 5.35 mm pilot preserves at least
+4.31 mm of backing beneath the selected outer flute envelope. The [wall-mount record](../../mechanical-qualification/enclosure-above-core/wall-mount-review.json)
 defines the native pin-clearance and fastener scope; actual board fit and
 retention remain unqualified.
 SRD-style SPDT relay, 10 A @ 250 VAC; 3.3 V coil.
