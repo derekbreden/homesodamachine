@@ -5313,6 +5313,14 @@
       "hardware/printed-parts/enclosure/enclosure/enclosure.py:_keystone_pocket_cut": "45d3a061787442a25230124a98524224dd0092378ad2d3391b9259b7b4da10a5",
       "hardware/printed-parts/enclosure/enclosure/enclosure.py:_keystone_catches": "5831b0de0e0e4b8fbfec813efb067859033f3cab783e2eddea3cb496acd1c491"
     },
-    "manual_receipt_sha256": "1320865d04fe89a903d09235fdf85a32ba4848eb96ec7faf8e0518071f189b67"
+    "manual_receipt_sha256": "1320865d04fe89a903d09235fdf85a32ba4848eb96ec7faf8e0518071f189b67",
+    "metadata_binding": {
+      "current_above_core_json_sha256": "12fe326b7b7cfa8c67c8efbcea57eb83fe646ceca2a8f3d1809db636d749583f",
+      "changed_paths_after_query": [
+        "electronics_access.c14.flange_centre_mm",
+        "electronics_access.c14.balance_basis -> datum_basis"
+      ],
+      "scope": "The descriptive electronics-access C14 datum matches the approved active pose. This metadata edit changes neither the queried c14-inlet pose nor rear-wall cutters, fastener datums or local stock; no native query or export is repeated."
+    }
   }
 }
