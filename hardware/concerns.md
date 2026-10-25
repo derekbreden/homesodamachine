@@ -19,6 +19,7 @@ and regulatory basis is [`/business/regulatory.md`](/business/regulatory.md), an
 | Zip-tied pump tube joints | No pump tube joint is tied: the pump head's own housing clamps each straight tube in its tube end ([pump dock](/hardware/printed-parts/enclosure/pump-dock/README.md)). |
 | 1/4" LLDPE bent at its R14 floor | A printed PET-GF [tube bend holder](/future/tube-bend-holder-exploration/README.md), 2 mm wall with 3 mm straight legs on both sides of a 90° turn, holds it there; Derek reports it works pretty well ([physical result](/future/tube-bend-holder-exploration/prints/2026-10-23-legs-123-w2-petgf-left04-z018-mark1/physical-result.json)). |
 | Valve spade terminals beside tubes | Derek: “please don’t worry about the spades like that, it is causing you to do very silly things. The tabs bend, and the connectors are not large.” |
+| Elbows meeting while a quadrant closes | The push-fit and TPU elbows turn on their stems and barbs. Derek: “the yellow one bends up and the teal one bends down and the slide past each other and can then connect” and “Not flexing, rotating, they all can rotate 360 degrees, but we only need 45 degrees of rotation here.” |
 | Enclosure walls and infill | Two wall loops and 15% gyroid, with local solid reinforcement at loaded features ([infill and deposited structure](/hardware/mechanical-qualification/README.md#infill-and-deposited-structure)). Derek: “I don’t see why we need more walls or increased infill percent.” |
 
 ## Packed, shipped and stored
