@@ -195,14 +195,14 @@ give the preparation budget for the dressed fore connections:
 | Conductor | Modeled path (mm) | Preparation stock | Nominal reserve (mm) |
 |---|---:|---:|---:|
 | PE-bus, rear PE WAGO → lid stack | 295.531 | [~400 mm](LEN_EARTH_BUS) | 104.469 |
-| PE-carbonator, lid stack → carbonator | 422.415 | [~500 mm](LEN_EARTH_CARBONATOR) | 77.585 |
+| PE-carbonator, lid stack → carbonator | 423.501 | [~500 mm](LEN_EARTH_CARBONATOR) | 76.499 |
 | J2-COM | 195.864 | [~300 mm](LEN_MAN_B_COM) | 104.136 |
 | J2-FAN | 329.600 | [~650 mm](LEN_FAN) | 320.400 |
 | DC3-negative | 253.272 | [~350 mm](LEN_PUMP) | 96.728 |
 | J2-positive-K | 260.156 | [~450 mm](LEN_MAN_B_FANOUT) | 189.844 |
 | J2-OUT3 | 277.762 | [~350 mm](LEN_VK) | 72.238 |
 
-AC6-PE's modeled path is 333.691 mm within the same compressor cord; the
+AC6-PE's modeled path is 333.114 mm within the same compressor cord; the
 switched-hot budget above governs its common preparation stock. The carbonator
 bond landing and donor fan lead remain unlocated. These reserves are fitting
 allowances, not physical harness-fit measurements.
@@ -216,7 +216,7 @@ Fabrication — bulk cut-to-length all-black wire, crimp tooling, sleeving, and 
 Single-point chassis ground at the core-lid ring-terminal stack, bonded back through the C14 inlet's earth pin to the building's protective earth.
 
 - **C14 ground pin** → ground bus on the core lid (run AC-1 carries the green conductor from the inlet to the distribution block's G pole).
-- **Ground bus** distributes to: compressor body (via AC-6), and any other exposed metal (faucet via the SS under-counter plate, the SS carbonator inside the cold core, etc.) via short bonding wires. Chassis grounding is via these discrete bonding wires; there is no metal chassis backbone.
+- **Ground bus** distributes to the compressor body (via AC-6) and the SS carbonator inside the cold core, via short bonding wires. The faucet carries no earth: its only conductors are SIG-6's SELV ribbon, and its tubes are plastic. Chassis grounding is via these discrete bonding wires; there is no metal chassis backbone.
 - Separate ground bonds are [16 AWG](AWG_MAINS_U) green-insulated stranded wire with ring terminals at the bus and metalwork. AC-6 is the green 18 AWG conductor inside the SJOOW compressor cord, as specified in its run row.
 - The chassis bond gives the appliance Class I status: if a fault energizes any exposed metal part, fault current returns to the building ground through the C14 cord and trips the upstream breaker before the user touches anything.
 

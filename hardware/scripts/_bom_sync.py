@@ -326,15 +326,16 @@ funnel_frame_screws_per_build = len(_enc._funnel_frame_part.fastener_datums())
 roof_closure_screws_per_build = funnel_frame_screws_per_build
 roof_closure_inserts_per_build = roof_closure_screws_per_build
 
-# M3×8 screws retain the PCB, relay diagonals, condenser and faucet base.
-m3x8_per_build = (shelf_pcba_screws_per_build + cond_screws_per_build
+# M3×8 screws retain the PCB, relay diagonals, condenser and faucet base, and close the
+# cap ground stack.
+m3x8_per_build = (shelf_pcba_screws_per_build + cond_screws_per_build + shelf_ground_screws_per_build
                   + shelf_relay_screws_per_build
                   + nameplate_screws_per_build + display_cover_screws_per_build
                   + faucet_display_cover_screws_per_build
                   + touchflo_screws_per_build)
 
-# Earth and C14 use M3×10.
-m3x10_per_build = shelf_ground_screws_per_build + c14_screws_per_build
+# C14 uses M3×10.
+m3x10_per_build = c14_screws_per_build
 m3x20_per_build = pump_mount_screws_per_build
 
 # The PCB stack belongs to the cap; PSU and relay stacks belong to the wall.
