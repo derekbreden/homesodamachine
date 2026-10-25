@@ -63,7 +63,7 @@
     "fluid-26": true,
     "fluid-18": true
   },
-  "native_contact_scope": "Current free curves have a bounded native neighbor, open-seat and nominal-tie record. Ground-bus/J2-common lead dressing remains pending at the fore approaches, and K-wire air is only0.06137mm nominal. The issued illustrative curves retain their separately scoped contact readings below. No physical bending, gripping or useful assembly-clearance claim is made.",
+  "native_contact_scope": "Current free curves have a bounded native neighbor, open-seat and nominal-tie record, plus final named local wire substitutions. Earlier issued illustrative curve and prior-cache contact readings retain their own explicit scope. No physical bending, gripping or installed whole-appliance clearance claim is made.",
   "native_exports": {
     "fluid-14": {
       "valid": true,
@@ -640,8 +640,8 @@
     "article": "Owned four-inch narrow ties, one common tie per tube pair station.",
     "scope": "The piecewise-linear witness does not measure purchased head engagement, tail, threading, retention or lifetime."
   },
-  "current_route_status": "Free tube portions are under local refit around unchanged mechanical and electrical neighbors. The fixed fore seat requires a local J2-COM continuation change; the ground station is translated8mm west as a separately scoped ancillary interface change.",
-  "current_metadata_source_sha256": "1c855162f873c07e8513699caa9baa0ec5475629c5d5f0e192ff0983f5f845d9",
+  "current_route_status": "Current illustrative free curves retain the fixed paired anchor/port geometry. Final local bus/COM, nominal fore tie head and K-wire dressing have the named source-native noncontact records in current_free_curves; physical installation and whole-appliance binding remain separately scoped.",
+  "current_metadata_source_sha256": "c94f4a98f2912193420f6969c33c8cdb14c9fd8c75f1e0d1ef2606195d904264",
   "fixed_seat_obstruction": {
     "scope": "Read-only ground relocation feasibility against only the mandatory straight tube segment inside the fixed fore anchorY200..210. Free intervening tube bends are not constrained by this query. No source datum changed. Native geometry only; other ground/wire/conduit neighbors still require review if any relocation is selected.",
     "ground_source": "tmp/dry-sidewall-wiring/targets/ground-stack.brep",
@@ -835,7 +835,7 @@
     "production_data_sha256": "c94f4a98f2912193420f6969c33c8cdb14c9fd8c75f1e0d1ef2606195d904264",
     "source_paths": "hardware/manifold-layout/reservoir-a-routes.json",
     "basis": "Illustrative R14 line/arc bends around installed equipment and unchanged wiring; fixed paired-anchor centres/axes and connection ports. Physical blanks include the continuous below-lid route and actual receiving marks.",
-    "native_qualification": "Valid one-solid tubes, fixed seat/port interfaces and bounded native records below; local bus/COM dressing and useful K-wire clearance remain open.",
+    "native_qualification": "Valid one-solid tubes and bounded native fixed-seat, port, neighbor and nominal-tie records. The final named bus/COM and K-wire source-native subsets below replace only their prior local contact or small-gap readings. Actual whole-appliance wire readback and physical bending, gripping, threading, packing and force remain outside this local record.",
     "routes": {
       "fluid-14": {
         "drawn_warm_length_mm": 472.6252418840347,
@@ -1082,7 +1082,8 @@
           ],
           "geometry_scope": "Full bounded neighbor query plus the exact aft-departure refinement below. Fore sections are unchanged by that refinement."
         }
-      }
+      },
+      "wire_overlay_scope": "The fore_wire_contacts rows retain their exact earlier five-body cache scope. Only PE-bus/J2-COM and J2-positive-K are superseded by the final local_wire_dressing receipts; the remaining native neighbor and finite front-valve interface readings retain their own unchanged-geometry scope."
     },
     "aft_departures": {
       "scope": "Only the free departures after the aft seat centre move; the four anchored tube points, source seat/tie geometry and all connection ports stay fixed. Exact native seat/tie/K/pair readings bind the refined production curves. Other local neighbor readings are reused only where geometry is unchanged or outside the changed307..340mm Y band.",
@@ -1098,8 +1099,8 @@
       },
       "mutual_air_mm": 1.0088905929150775,
       "mutual_overlap_mm3": 0.0,
-      "k_wire_air_mm": 0.061370031011434414,
-      "k_wire_scope": "Nominal CAD noncontact only; no useful installation margin is inferred. A local flexible-lead or free-departure correction remains open.",
+      "k_wire_air_mm": 1.1756528989204487,
+      "k_wire_scope": "Final source-native J2-positive-K guide has zero native overlap and the recorded air to the unchanged tube pair. The earlier0.06137mm reading belongs to the replaced wire body; physical dressing and fit remain unqualified.",
       "source_receipt": "tmp/reservoir-a-free-final/seat-refinement.json"
     },
     "input_sha256": {
@@ -1123,6 +1124,98 @@
         "fluid-16": 154.5299527512998
       },
       "scope": "Nominal geometry between held stations, not tie gripping/load qualification."
+    },
+    "local_wire_dressing": {
+      "scope": "Final named conductor substitutions only. Tube geometry, fixed seat points, ports, all fifteen wall routes and other mechanical neighbors stay unchanged. Saved source-native subset proofs are composed with the existing two-tube neighbor record; no global wire replay or physical installation qualification is inferred.",
+      "source_commits": [
+        "95ea42c59",
+        "b98d375f6",
+        "779e8d63b"
+      ],
+      "native_index": {
+        "path": "tmp/ground-j2-wire-delta/final-seven-index.json",
+        "sha256": "4f004cbd6f3c66dd02c03fef65f7a7fd8d2afa28ee00536b7e4963dd56e761ee"
+      },
+      "native_bodies": {
+        "wire-AC6-PE": {
+          "path": "tmp/ground-j2-wire-delta/initial-wires/wire-AC6-PE.brep",
+          "sha256": "902b525b0dd03c5b1d8941dc5b4f030bf7ef2fac6ebbc4fab259fc551d84d85f"
+        },
+        "wire-PE-bus": {
+          "path": "tmp/a-fore-ground-dress/wires/wire-PE-bus.brep",
+          "sha256": "a1798a487939caaaec3c73c66db1fb8479ab3777557074e79d89f57aa43d2cdc"
+        },
+        "wire-PE-carbonator": {
+          "path": "tmp/ground-j2-wire-delta/corrected-wires/wire-PE-carbonator.brep",
+          "sha256": "8d8b69aa8dcf3bb6d5a9916439b729d1f80e694b6d4c851f8336ac2a529becfc"
+        },
+        "wire-J2-COM": {
+          "path": "tmp/a-fore-ground-dress/wires/wire-J2-COM.brep",
+          "sha256": "52c4cae5dad60a8a97414d8aa6b4745b13515c0bae9ea730e5bcc2c4e74e8798"
+        },
+        "wire-J2-FAN": {
+          "path": "tmp/ground-j2-wire-delta/initial-wires/wire-J2-FAN.brep",
+          "sha256": "faf4fc230c87953dfa9493dc1d96c001dd56690befee8c25785b629dbc51ed85"
+        },
+        "wire-DC3-negative": {
+          "path": "tmp/dc3-root-dress/wires/wire-DC3-negative.brep",
+          "sha256": "092d508546147fbc5c45c8f7e79af5f15b849739986081da50aa0f40aa69584d"
+        },
+        "wire-J2-positive-K": {
+          "path": "tmp/k-lead-local-dress/wires/wire-J2-positive-K.brep",
+          "sha256": "7e758eb6986073d1f35f47267e85d4dc8940c7a20b2104c643c43b8f70dce640"
+        }
+      },
+      "unchanged_prior_five_body_members": [
+        "wire-AC6-PE",
+        "wire-PE-carbonator",
+        "wire-J2-FAN"
+      ],
+      "fore_bus_COM": {
+        "record": {
+          "path": "hardware/wiring/installed/above-core-review/ground-j2-wiring-review.json",
+          "json_pointer": "/final_A_fore_dressing",
+          "canonical_json_sha256": "ff9077ec9da015703b3831649fe488273582eadb8fd7e618f74717cfb3bc9026"
+        },
+        "source_native_valid": true,
+        "native_boolean_count": 112,
+        "native_errors": [],
+        "tube_scope": "The fixed fore portions are frozen; the routing owner separately binds the source-current aft departure.",
+        "nominal_east_head": {
+          "path": "tmp/reservoir-a-stock-candidate/a-pair-fore-anchor-tie.brep",
+          "sha256": "03ab0999619dabca9336efb7ffb335d4d90706fd639b227e4b7c5401e3cd453e",
+          "PE_bus_common_mm3": 0.0,
+          "PE_bus_air_mm": 1.575755,
+          "J2_COM_common_mm3": 0.0,
+          "J2_COM_air_mm": 4.740531
+        },
+        "head_source_equivalence_record": {
+          "path": "hardware/printed-parts/cold-core/foam-cap/reservoir-a-anchor-review.json",
+          "json_pointer": "/fore_tie_head_dressing",
+          "canonical_json_sha256": "3dfaf3a1f4826c9d0225ac6201046b2045a9607f60802acc5b1fe8a156f1f770"
+        }
+      },
+      "aft_K": {
+        "record": {
+          "path": "hardware/wiring/installed/above-core-review/routing-witness-native-review.json",
+          "json_pointer": "/J2_positive_K_margin",
+          "canonical_json_sha256": "bbafa55920bf827a97f8c41019a5c08cdf4c913257cc2500db76ad64927c1f06"
+        },
+        "source_native_valid": true,
+        "native_boolean_count": 18,
+        "native_intersections": [],
+        "native_errors": [],
+        "air_mm": {
+          "fluid-14": 1.1756528989204487,
+          "fluid-16": 3.245367924581949
+        },
+        "brep_sha256": "7e758eb6986073d1f35f47267e85d4dc8940c7a20b2104c643c43b8f70dce640"
+      },
+      "DC3_negative": {
+        "brep_sha256": "092d508546147fbc5c45c8f7e79af5f15b849739986081da50aa0f40aa69584d",
+        "separation_basis": "Complete final wire Xmax12.631731mm is below both complete A tube Xmin19.166554mm; the changed root-bypass portion needs no additional native pair replay."
+      },
+      "actual_export_scope": "Source-native local receipt only. Final exported wiring/appliance readback is owned by the installed-wiring binding record and is not asserted here."
     }
   },
   "routes_scope": "Issued illustrative study path measurements. The current production curve/data binding is current_free_curves."
