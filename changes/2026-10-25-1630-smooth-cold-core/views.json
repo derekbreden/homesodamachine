@@ -1,0 +1,85 @@
+{
+  "views": [
+    {
+      "name": "shell",
+      "caption": "Smooth 2.38 mm walls retain the reservoir mating cavities.",
+      "before": "shell-before.webp",
+      "after": "shell-after.webp",
+      "width": 1024,
+      "height": 768,
+      "marks": [
+        {
+          "x": 492.5,
+          "y": 491.7,
+          "r": 36,
+          "label": "Smooth casing",
+          "at": [
+            90.2,
+            323.8,
+            126.7
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          420.54560587198335,
+          379.8727474495978,
+          589.3001664591817
+        ],
+        "target": [
+          0,
+          323.8,
+          126.7
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 378.9175685246835,
+        "far": 1025.7402636635484,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "*foam-shell*"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "640aabcbf694c55b34e2eb07e974f1eb4bd2cdb341bdc9d455c07cca736336b0",
+          "commit": "b58ee4350b9041825c2c33acf097128e6d4b65f3",
+          "taken": "2026-10-25T21:06:21.655Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "021d1156feb91a6a766988c4b7bb90a03dff4fe2782b9e5e40f3fa61d73b7a84",
+          "commit": "99635dae0fdce38068bbe387d6b40367367caa1c",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-front-bottom",
+        "cold-core/foam-shell",
+        "cold-core/foam-cap-top",
+        "cold-core/foam-cap-bottom",
+        "enclosure-back-top"
+      ],
+      "withinMeshing": [
+        "enclosure-back-bottom",
+        "cold-core/foam-cap-lid-bottom",
+        "cold-core/foam-cap-lid-top",
+        "enclosure-front-top",
+        "enclosure-pump-cartridge"
+      ]
+    }
+  ]
+}

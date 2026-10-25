@@ -27,8 +27,8 @@ alternatives: Filling the pocket obstructs the elbow. Changing its ceiling or fi
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
 click: x=84.119 y=-42.264 z=3.400
 
-[thin] Unavoidable without moving the stack's clamp stations: each clamp screw's Ø3.3 clearance hole stands on the shared attachment station, 4 mm in from the bare outside face at the shell's Ø8 boss centre. The 0.30 mm foil-seal rebate takes the outside face in, leaving 2.04–2.05 mm of wall below the head pocket floor.
-alternatives: Moving the stations inboard moves the shell's bosses and every cap's and lid's holes, Derek's printed shell among them. Dropping the rebate loses the flush foil land. Carrying the head pocket's outward slot down through the plate removes the wall and leaves the screw's floor open to the side.
+[thin] Unavoidable without moving the stack's clamp stations: each clamp screw's Ø3.3 clearance hole stands on the shared attachment station, 4 mm in from the bare outside face at the shell's Ø8 boss centre. The plain casing face reserves 0.30 mm for foil inside the enclosure envelope, leaving 2.04–2.05 mm of wall below the head pocket floor.
+alternatives: Moving the stations inboard moves the shell's bosses and every cap's and lid's holes, Derek's printed shell among them. Moving the outside face outward spends the reserved foil allowance. Carrying the head pocket's outward slot down through the plate removes the wall and leaves the screw's floor open to the side.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
 click: x=131.926 y=-87.843 z=1.123
 click: x=132.436 y=-89.819 z=1.126
