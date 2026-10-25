@@ -220,3 +220,8 @@ click: x=-95.566 y=429.560 z=324.859
 click: x=-95.566 y=362.972 z=326.997
 click: x=-95.566 y=428.997 z=339.972
 
+[ceiling] Required aft meter carrier profile: this flat face belongs to the collar's local tie pad and the dogleg passing behind the installed regulator. A 45-degree roofward corbel at this lane occupies the fitted soda outlet elbow and return stem; the local native reading records 444.223 and 1.616 mm³ respectively. Retain Tree(auto)/Default beneath the profile and remove its support through the empty interior before installing the meter and outlet fittings. Physical cleanup and holding capacity remain unqualified.
+alternatives: The ordinary corbel enters the two named purchased bodies. Sloping the collar seat or tie-pad stock changes the fixed bearing and complete slot surround. A different wall lane requires its own plumbing and carrier fit; no local contour is added around those bodies.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=75.750 y=423.057 z=296.576
+

@@ -256,5 +256,21 @@
     "full_3mm_quarter_missing_mm3": 0.0,
     "full_3mm_slot_surround_missing_mm3": 0.0,
     "wall_landing_missing_mm3": 0.0
+  },
+  "post_live_printed_review": {
+    "stl_sha256": "bc5b81975c990558ab27c51892687527119c5d8df8d098ecf972720ccac173f1",
+    "viewer_sha256": "ea7162ea189b1e3c38efd29ff8b4471217c70be70252429ae55582c3200ffa41",
+    "live_viewer": "HTTP200, exact hash via the object named by the live /api/objects map, with the normal viewer Origin.",
+    "lint_total_findings": 79,
+    "lint_preexisting_answered": 7,
+    "changed_carrier": "No thin, sliver or step finding in the changed carrier. Its flat print-down profile is retained for the fixed bearing/tie pad and fitted outlet clearance, with Tree(auto)/Default support. The6x3mm quarter-end ledge is identical to the prior carrier and retains that prior scope.",
+    "roofward_corbel_alternative": {
+      "construction": "Right triangular prism above the existing beam plane: XZ vertices(57.5,293.5760478805363),(98.51,293.5760478805363),(98.51,334.5860478805363); Y434.5..437.5. It represents additional45degree corbel stock only.",
+      "native_common_mm3": {
+        "soda-stem-elbow": 444.22268455889656,
+        "soda-outlet-return-stem": 1.615960969717473
+      }
+    },
+    "limits": "This local printed-stock classification does not accept unrelated findings or establish support cleanup, printed strength, purchased fit or lifetime."
   }
 }

@@ -1,0 +1,95 @@
+{
+  "views": [
+    {
+      "name": "carrier",
+      "caption": "The aft meter collar reaches the east wall behind the regulator. Both purchased parts keep their selected positions.",
+      "before": "carrier-before.webp",
+      "after": "carrier-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 498.4,
+          "y": 443.7,
+          "r": 34.4,
+          "label": "Carrier clearance",
+          "at": [
+            78.2,
+            414,
+            295
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          137.37721232570675,
+          487.37721232570675,
+          347.3017698605654
+        ],
+        "target": [
+          72,
+          422,
+          295
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.47034536207081495,
+        "far": 659.20999584929,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            65,
+            420,
+            300
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-back-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "digiten-flow",
+        "gas-regulator",
+        "tube-fluid-28"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "8ce6379a5dab629fbe6c3d8a0edb37441e96df8577e21df31ab3f07bdf62c132",
+          "commit": "9d641ccb969c43e38eb932fbed38c79235b6bb5a",
+          "taken": "2026-10-25T05:45:41.835Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "4758ec834b820766cb3f7d92deca1a011d75657403848a4465285c4785fe31e1",
+          "commit": "7d3f88a367f536abdcceca5a3b2c35f613cd5b4a",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-back-top",
+        "wire-J2-COM",
+        "wire-PE-carbonator"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
