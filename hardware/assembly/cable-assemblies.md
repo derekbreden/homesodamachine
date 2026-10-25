@@ -23,7 +23,7 @@ Every loom is **BNTECHGO 22 AWG black silicone ribbon** — 3P, 4P and 5P, one o
 
 Terminations: stripped solid copper directly into screw cages and WAGO clamps on AC-1/2/3 and DC-1/2/4; insulated bootlace ferrules (Preciva kit) for the retained stranded screw-cage landings; female Faston disconnects (6.3 mm / 4.8 mm) at valves, motors, and fan; the current Frigidaire donor's factory-external electrical interface is Open item 1 in [`wiring.md`](/hardware/assembly/wiring.md); ring terminals to the ground bus + the compressor's terminal-box earth screw; JST-XH housings at the main board's labeled wafers — every loom XH, J7 (REEDS B) included. J7 and J4 (SENSORS) share the same 7P housing, so **label both looms at the housing** and dress them to their own edges: a swapped pair would put J4's 3V3/5V on J7's MCP reed inputs. Distribution / fan-out: **221-413** for the rear mains H/N/G blocks and the core-lid sensor, reed and DC commons; **221-415** for MANIFOLD B COM; **221-420** for MANIFOLD A COM.
 
-Dress: **black PET braided sleeve** — 1/2" for most bundles, 3/4" for the manifold trunk, 1/4" for thin runs; every cut sleeve end finished with heat-shrink so it can't fray; black UV-nylon zip ties, **flush-cut** (no proud tail). Keep DC-5's ribbon bare from the +X flank to the motor tabs: below the funnel frame, through the lead bore and in the clamp's lead slot and crown grooves. Tools: ferrule crimper (Preciva 28–5), Faston/insulated-terminal crimper (Haisstronica 22–10), JST-XH crimper (iCrimp SN-2549), impact punchdown tool (Klein VDV427-300) and modular-plug crimper (VCE) for the SIG-6 rear keystone and separate umbilical plug, wire stripper (Klein 11063W), flush cutters, heat gun, multimeter — see [`/hardware/ledger/tools.md`](/hardware/ledger/tools.md).
+Dress: **black PET braided sleeve** — 1/2" for most bundles, 3/4" for the manifold trunk, 1/4" for thin runs; every cut sleeve end finished with heat-shrink so it can't fray; black UV-nylon zip ties, **flush-cut** (no proud tail). Keep DC-5's ribbon bare from J13 to the motor tabs: below the funnel frame, through the lead bore and in the clamp's lead slot and crown grooves. Tools: ferrule crimper (Preciva 28–5), Faston/insulated-terminal crimper (Haisstronica 22–10), JST-XH crimper (iCrimp SN-2549), impact punchdown tool (Klein VDV427-300) and modular-plug crimper (VCE) for the SIG-6 rear keystone and separate umbilical plug, wire stripper (Klein 11063W), flush cutters, heat gun, multimeter — see [`/hardware/ledger/tools.md`](/hardware/ledger/tools.md).
 
 ### Ribbon pairs
 
@@ -34,10 +34,10 @@ two 3P cover the one six-way wafer and reach four counts besides.
 
 | Loom | Conductors | Ribbon | Preparation cut per ribbon | Carries |
 |---|---:|---|---|---|
-| J1 MANIFOLD A | [9](J1_PINS) | 5P + 4P | [550 mm](LOOM_J1) | `OUT1`–`OUT8` to the eight coils, `COM` to the 221-420 |
-| J2 MANIFOLD B | [6](J2_PINS) | 3P + 3P | [650 mm](LOOM_J2) | five populated; the conductor that would land in contact 3 is trimmed at the housing, not crimped; FAN sets the blank length |
+| J1 MANIFOLD A | [9](J1_PINS) | 5P + 4P | [550 mm](LOOM_J1) | `OUT1`–`OUT8` to the eight coils, `COM` to the 221-420; `OUT1` and `OUT2` seat after the box closes |
+| J2 MANIFOLD B | [6](J2_PINS) | 3P + 3P | [650 mm](LOOM_J2) | five populated; the conductor that would land in contact 3 is trimmed at the housing, not crimped; FAN sets the blank length; `FAN` and `OUT3` seat after the box closes |
 | J3 FAUCET | [4](J3_PINS) | 4P | [400 mm](LOOM_J3) | the inboard half only, board to the keystone on the +Y wall |
-| J4 SENSORS | [7](J4_PINS) | 4P + 3P | [650 mm](LOOM_J4) | the 1-wire and flow pairs (`3V3`/`IO26`, `V5`/`IO25`) on the 4P; the shared `GND` on the 3P, two reserved conductors trimmed at the housing |
+| J4 SENSORS | [7](J4_PINS) | 4P + 3P | [650 mm](LOOM_J4) | the 1-wire and flow pairs (`3V3`/`IO26`, `V5`/`IO25`) on the 4P; the shared `GND` on the 3P, two reserved conductors trimmed at the housing; the flow pair seats after the box closes |
 | J5 RELAYS | [4](J5_PINS) | 4P | [300 mm](LOOM_J5) | both Teyleten modules |
 | J6 REEDS A | [5](J6_PINS) | 5P | [600 mm](LOOM_J6) | reservoir A's column entire — four reeds and the common |
 | J7 REEDS B | [7](J7_PINS) | 5P + 3P | [500 mm](LOOM_J7) | reservoir B's column on the 5P; `CLO`/`CHI` on the 3P, third conductor trimmed |
@@ -56,6 +56,26 @@ Both J2 blanks retain the FAN allowance; its shorter valve and common legs are t
 The 50 ft spool supplies 15.24 m, so these looms require no length splice. Final connections
 between the quadrants are made through the open funnel aperture before its frame and silicone
 drop in.
+
+### Legs that land on another piece
+
+A loom's housing seats on the main board, on the cold core, once the box is closed. A leg whose
+device stands on another piece lands on that piece's open bench first, so its XH contact is
+crimped, ring-tested and left out of the housing until the box closes
+([`wiring.md`](/hardware/assembly/wiring.md) "Where each end lands"):
+
+| Loom | Leg | Device and bench | Cavity |
+|---|---|---|---|
+| J1 | `OUT1` | V-A, open back-top | 2 |
+| J1 | `OUT2` | V-B, open core | 3 |
+| J2 | `FAN` | condenser fan, open front-bottom | 2 |
+| J2 | `OUT3` | V-K, open back-top | 4 |
+| J4 | `IO25`, `V5` | DIGITEN flow meter, open back-top | 4, 5 |
+
+The same holds for the fan-out branches: positive-A and positive-B land at V-A and V-B and take
+their 221-420 ports, and the fan and V-K positives take their 221-415 ports, once the box
+closes. J4's flow pair and the sensor-GND branch are soldered to the meter's three factory
+leads and heat-shrunk on the open back-top.
 
 The [installed wiring model](../wiring/README.md) gives each conductor a stable
 ID in the populated enclosure, including its attachment direction, proposed
@@ -104,24 +124,24 @@ Conductor counts are the main board's connector pin counts (`pcba.tsx` J1–J11 
 
 | Assembly | Board conn. | Conductors | Wire | Terminations | Sleeve |
 |---|---|---|---|---|---|
-| Manifold A | J1 | [9](J1_PINS) (8 OUT + COM) | 22 AWG black 5P + 4P ribbon | Fastons at 8 valves; COM → **221-420** fan-out at the manifold | 3/4" |
-| Manifold B | J2 | 5 of [6](J2_PINS) (2 OUT + FAN + COM + OUT3) | 22 AWG black 3P + 3P ribbon | **XHP-6 housing, contact 3 (`OUT4`) left empty** — see below; Fastons at 2 valves + fan; `OUT3` + a `COM` tap to V-K on back-top’s east sidewall mount (DC-9); COM → **221-415** | 1/2" |
+| Manifold A | J1 | [9](J1_PINS) (8 OUT + COM) | 22 AWG black 5P + 4P ribbon | Fastons at 8 valves; COM → **221-420** fan-out at the manifold; V-A's and V-B's legs land on back-top and the core, their contacts loose until the box closes | 3/4" |
+| Manifold B | J2 | 5 of [6](J2_PINS) (2 OUT + FAN + COM + OUT3) | 22 AWG black 3P + 3P ribbon | **XHP-6 housing, contact 3 (`OUT4`) left empty** — see below; Fastons at 2 valves + fan; `OUT3` + a `COM` tap to V-K on back-top’s east sidewall mount (DC-9); COM → **221-415**; the `FAN` and `OUT3` contacts loose until the box closes | 1/2" |
 | Reservoir A reeds | J6 | [5](J6_PINS) (4 reed + GND) | 22 AWG black 5P ribbon | one ribbon board to column, a conductor given up at each reed height; continuous GND returns directly to J6 | 1/4" |
 | Reservoir B + carb reeds | J7 | [7](J7_PINS) (6 reed + GND) | 22 AWG black 5P + 3P ribbon | reservoir B's column on the 5P, the two carbonator reeds on the 3P; female JST-XH housing (XHP-7) + XH contacts — the same 7P housing as SENSORS (J4), so **label both looms at the housing** (a swap would put J4's 3V3/5V on the MCP reed inputs); GND → **221-413** on the core lid aft of the PCB | 1/4" |
 | Sensors | J4 | [7](J4_PINS) | 22 AWG black 4P + 3P ribbon | the DS18B20 and flow pairs on the 4P; shared GND on the 3P with its reserved pair trimmed; GND → **221-413** on the core lid forward of the PCB | 1/4" |
-| Relays | J5 | [4](J5_PINS) (`IO19` / `IO2` / `V5` / GND) | 22 AWG black 4P ribbon | XH at J5; screw terminals at both relay modules, `V5`/GND teed to both at the relay end (LV-1/2/3 — lands in the column at [`electronics-bay.md`](/hardware/assembly/electronics-bay.md)) | 1/4" |
+| Relays | J5 | [4](J5_PINS) (`IO19` / `IO2` / `V5` / GND) | 22 AWG black 4P ribbon | XH at J5; screw terminals at both relay modules, `V5`/GND teed to both at the relay end (LV-1/2/3 — lands at the two west-wall relays on the open back-top, [`electronics-bay.md`](/hardware/assembly/electronics-bay.md)) | 1/4" |
 | Faucet display | J3 / SIG-6 | [4](J3_PINS) (TX / RX / 5 V / GND) | 22 AWG black 4P ribbon | **Ends at the wall, not at the faucet** — XH on J3, 110 IDC on the back of the keystone jack the umbilical plugs into. The ribbon outboard of that jack is the umbilical's, built at [`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md). **The TTL lines are ESD-clamped on the main board at U1** (D10/D11, 2× low-cap TVS — see the ESD note below); a faucet-end TVS is now optional | 1/2" |
 | Enclosure display | J9 / SIG-7 | [4](J9_PINS) (`B` / `A` / GND / `V12`) | 22 AWG black 4P ribbon | A/B pair to the 4.3B's RS485 terminals; `V12` + GND to its 7–36 V screw input on the same loom | 1/2" |
 | Gas sensor | J11 | [4](J11_PINS) (GND / `V5` / `DOUT` / `AOUT`) | 22 AWG black 4P ribbon | MQ-6 leads | 1/4" |
 | Pumps | J13 / DC-5 | [4](J13_PINS) (`AM2` / `AM1` / `BM2` / `BM1`) | 22 AWG black 4P ribbon, [500 mm](LOOM_J13) | XH contacts at J13; four insulated female Fastons on the pump-motor tabs, crimped after the free end passes front-top's lead bore | — |
-| 12 V input | J10 / DC-4 | [2](J10_PINS) (`V12` / GND) | 16 AWG solid | bare solid copper in the J10 screw cages; from the electronics bay's 12 V distribution block (lands in the column at [`electronics-bay.md`](/hardware/assembly/electronics-bay.md)) | — |
+| 12 V input | J10 / DC-4 | [2](J10_PINS) (`V12` / GND) | 16 AWG solid | bare solid copper in the J10 screw cages, each beside its silk label; from the core-lid V12 and GND junctions ([`electronics-bay.md`](/hardware/assembly/electronics-bay.md)) | — |
 | AC mains | AC-1…6 | per run | 16 AWG solid on AC-1/2/3; stranded on earth bonds; 18 AWG SJOOW | bare solid or the specified stranded termination → **221-413**; current-donor external-interface connector TBD at compressor; rings to ground | SJOOW jacket on the compressor lead |
 
 ### Faucet display (SIG-6)
 
 Build the [400 mm](LOOM_J3) inboard loom from **black 22 AWG 4P ribbon**. Its XH housing plugs
 into J3; its other end punches down onto the **RiteAV CAT3 USOC jack**.
-The separate [1 m](EXTERNAL_SIG6) outboard ribbon is black 28 AWG: mark one edge white at both free ends,
+The separate [2 m](EXTERNAL_SIG6) outboard ribbon is black 28 AWG: mark one edge white at both free ends,
 call that edge **C1**, and count C1-C4 across from it before separating wires.
 
 | Inboard J3 lead | Jack IDC pin and printed label | Outboard plug pin | Outboard ribbon wire | Display pad |
@@ -182,11 +202,11 @@ protection.
 
 J2 is the one loom whose housing is wider than its conductor count. The main board's wafer is [6](J2_PINS)-way, labelled from contact 1 `COM`, `FAN`, `OUT4`, `OUT3`, `OUT2`, `OUT1` ([`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx)) — and `OUT4` drives no valve. It is a fully-routed spare channel, so the harness crimps **five contacts into an XHP-6 and leaves contact 3 empty**.
 
-**Contact 3 is in the middle of the housing, not on an end.** Crimp the five in their labelled positions and skip the third; do not close the gap. A loom that fills contacts 1–5 consecutively lands every conductor one position off — `FAN` on `OUT4`, `COM` on `FAN` — which puts the shared 12 V rail on a driver output. The empty cavity is the guard, so leave it empty and verify it at the step-5 continuity test.
+**Contact 3 is in the middle of the housing, not on an end.** Crimp the five in their labelled positions and skip the third; do not close the gap. A loom that fills contacts 1–5 consecutively lands every conductor one position off — `FAN` on `OUT4`, `COM` on `FAN` — which puts the shared 12 V rail on a driver output. The empty cavity is the guard, so leave it empty and verify it at the step-5 continuity test. On the bench the housing carries `COM`, `OUT2` and `OUT1` in contacts 1, 5 and 6; `FAN` and `OUT3` seat in 2 and 4 once the box is closed, and cavity 3 stays empty.
 
 ## Faucet-display ESD protection (SIG-6)
 
-The faucet flavor LCD is the one user-touched surface at the far end of a ~1 m umbilical, so its
+The faucet flavor LCD is the one user-touched surface at the far end of a ~2 m umbilical, so its
 TTL UART pins are the main board's most exposed ESD path. The **primary** clamp is now **on the main board, at
 the ESP32** — so no cable-assembly step is required for ESD; the faucet-end TVS drops to an optional
 belt-and-braces extra. The protection is:

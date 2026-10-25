@@ -96,7 +96,7 @@ ds18b20_pullup_kohm = 4.7
 # ─── Conductor counts down the cabinet trunks ────────────────────────
 # Three wires (switched H + N + chassis G) reach the compressor in the
 # SJOOW bundle. Five would reach it if Teyleten relay #1 stood beside it
-# rather than on the +X wall of back-top (add the relay's #1 logic leg +
+# rather than on back-top's west wall (add the relay's #1 logic leg +
 # opto return).
 compressor_wires_wall_relay = 3
 compressor_wires_local_relay = 5
@@ -149,8 +149,14 @@ len_fan_mm = 650         # J2 FAN → condenser-crown approach (~543 mm), plus d
 len_reeds_a_mm = 600     # Reservoir A: 512 mm continuous common plus fitting reserve.
 len_gas_mm = 600         # SIG-12 → the MQ-6 low on the rear cabinet floor, the longest in the box (582)
 len_compressor_mm = 700  # Hot stock: 606.306 mm main + 36.777 mm fuse continuation; 56.918 mm nominal termination/dressing reserve. Separate pieces; trim after routing.
-len_umbilical_m = 1.0    # SIG-6 ONLY — the faucet display, up the umbilical and OUT of the box,
-                         # above this model's ceiling. The one length still estimated.
+# Back-top pigtails to the three lever-nut joins under the funnel opening: relay 1 NO
+# and WAGO-N (AC-4/AC-5, 16 AWG solid) and relay 2 NO (DC-3, 16 AWG stranded), each
+# about 165-200 mm straight from its terminal to the opening's aft edge; the pump-side
+# DC-3 piece reaches the same opening from the pump's aft lead exit. Trimmed at the join.
+len_opening_join_mm = 300
+len_umbilical_m = 2.0    # SIG-6 ONLY — the faucet display, down the umbilical to the rear keystone,
+                         # outside this model. It rides the 1963 mm flavor runs and is cut 75 mm past
+                         # the tube tails (faucet-and-umbilical.md), the ~2.0 m bom.md §9 allocates.
 
 # ─── Loom connector pitch ─────────────────────────────────────────────
 # JST XH 2.50 mm — every board loom connector (J1–J9, J11, J13); J10 is
@@ -228,6 +234,7 @@ def main():
         "LEN_REEDS_A": f"~{len_reeds_a_mm:.4g} mm",
         "LEN_GAS": f"~{len_gas_mm:.4g} mm",
         "LEN_COMPRESSOR": f"~{len_compressor_mm:.4g} mm",
+        "LEN_JOIN": f"~{len_opening_join_mm:.4g} mm",
         "LEN_UMBILICAL": f"~{len_umbilical_m:.4g} m",
         # Connector pitch.
         "JST_PITCH": f"{jst_pitch_mm:.4g} mm",
