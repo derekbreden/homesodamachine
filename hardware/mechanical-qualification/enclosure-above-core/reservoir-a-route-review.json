@@ -1215,7 +1215,28 @@
         "brep_sha256": "092d508546147fbc5c45c8f7e79af5f15b849739986081da50aa0f40aa69584d",
         "separation_basis": "Complete final wire Xmax12.631731mm is below both complete A tube Xmin19.166554mm; the changed root-bypass portion needs no additional native pair replay."
       },
-      "actual_export_scope": "Source-native local receipt only. Final exported wiring/appliance readback is owned by the installed-wiring binding record and is not asserted here."
+      "actual_export_scope": "Source-native local receipt only. Final exported wiring/appliance readback is owned by the installed-wiring binding record and is not asserted here.",
+      "subsequent_J2_OUT3": {
+        "record": {
+          "path": "hardware/wiring/installed/above-core-review/routing-witness-native-review.json",
+          "json_pointer": "/J2_OUT3_pump_correction",
+          "canonical_json_sha256": "33b8dd5e2e60e2360c318874d43cb5c0e2fba47d8ac7edd72f1d258b37ff9e04"
+        },
+        "scope": "One corrected pump-side lead after the seven-body overlay. Both fixed A native tubes are unchanged; only the named current-source local readings in this subset are added. No global replay or physical dressing claim.",
+        "source_commit": "1f0715378",
+        "brep_path": "tmp/j2-out3-pump-dress/wires/wire-J2-OUT3.brep",
+        "brep_sha256": "55dea3368a238575329e36df1092ae21ba5291a1d548a6611f2f5fbfd1c266a6",
+        "native_overlap_mm3": {
+          "fluid-14": 0.0,
+          "fluid-16": 0.0
+        },
+        "native_air_mm": {
+          "fluid-14": 0.831523856,
+          "fluid-16": 1.329098872
+        },
+        "optional_combined_overlay_path": "tmp/ground-j2-wire-delta/final-local-index.json",
+        "actual_wire_binding_scope": "The public wire receipt binds98 curves/113 bodies to the718e42 appliance and corresponding standalone wire export. This local link preserves that artifact scope; subsequent subtractive cup cleanup does not constitute a whole-scene replay."
+      }
     }
   },
   "routes_scope": "Issued illustrative study path measurements. The current production curve/data binding is current_free_curves."
