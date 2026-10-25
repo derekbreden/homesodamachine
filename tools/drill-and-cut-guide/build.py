@@ -928,7 +928,7 @@ def build():
               ["Choose the wafer's specified <b>22 AWG 3P/4P/5P ribbon pair</b>. Measure the longest leg plus the actual service loop, then cut both ribbons together.",
                "Peel branch conductors without nicking insulation; trim the shorter legs to their endpoints. The 3P/5P web tear behavior still needs the stated stock check.",
                "Use <b>16 AWG bulk</b> for the specified mains/trunk runs, <b>18 AWG SJOOW</b> for the compressor lead, and <b>28 AWG 4P</b> for the umbilical. Strip to the received terminal's barrel length."],
-              "LABEL THE LOOM BEFORE TERMINATION", "DC-5 fixed half is 350 mm 22 AWG 4P; cartridge leads are four ~100 mm pieces. Keep the current donor's unverified external connector decision out of a speculative final cut.",
+              "LABEL THE LOOM BEFORE TERMINATION", "DC-5 is one 500 mm 22 AWG 4P ribbon from J13 to the motor tabs. Keep the current donor's unverified external connector decision out of a speculative final cut.",
               "hardware/assembly/cable-assemblies.md | cut and strip")
     draw_page(c,27,"Snip the attached filler wire","At the end of a bead, keep the gun where it stopped while the wire is detached.",wire_stub_art,
               "One hand holds the stopped gun; the other brings the diagonal-cutter tips between wire nozzle and bead.",

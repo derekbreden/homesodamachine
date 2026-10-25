@@ -238,11 +238,12 @@ constexpr uint8_t MSG_RESP_CLEAN  = 0x5D;  // CleanStatePayload: to START, QUERY
 constexpr uint8_t MSG_CLEAN_STOP  = 0x5E;  // no payload: end the cycle now
 
 // ── The air cycles (0x5F..) ──────────────────────────────────────────────
-// Air in at the funnel, carried along the flavor path by a pump. Dry, before
-// a pump replacement, sweeps both channels in then through to the faucet and
-// draws on no reservoir; Purge airs one channel's reservoir and draws it out
-// the faucet. The main board answers START, every step and every ending with
-// its complete air state; QUERY gets the same, and STOP ends the cycle.
+// Air in at the funnel, carried along the flavor path by a pump. Dry, the
+// bench and factory command that dries the flavor lines, sweeps both channels
+// in then through to the faucet and draws on no reservoir; Purge airs one
+// channel's reservoir and draws it out the faucet. The main board answers
+// START, every step and every ending with its complete air state; QUERY gets
+// the same, and STOP ends the cycle.
 constexpr uint8_t MSG_AIR_START  = 0x5F;  // AirRequestPayload
 constexpr uint8_t MSG_AIR_QUERY  = 0x60;  // no payload: answer with AirStatePayload
 constexpr uint8_t MSG_RESP_AIR   = 0x61;  // AirStatePayload
@@ -421,15 +422,13 @@ constexpr uint8_t UI_RAIL_CHOOSE   = 0;
 constexpr uint8_t UI_RAIL_PRIME    = 1;
 constexpr uint8_t UI_RAIL_FILL     = 2;
 constexpr uint8_t UI_RAIL_CLEAN    = 3;
-constexpr uint8_t UI_RAIL_SETTINGS = 4;       // the corner: system status, and the areas beside it
-constexpr uint8_t UI_RAIL_PUMP_SERVICE = 5;   // Settings' pump service area
+constexpr uint8_t UI_RAIL_SETTINGS = 4;      // the corner: the system status
 constexpr uint8_t UI_CHANNEL_NONE  = 0xFF;   // the rail's own page rather than a channel's
 
 struct __attribute__((packed)) UiShowPayload {
   uint8_t rail;      // UI_RAIL_*
   uint8_t channel;   // PUMP_CHANNEL_*, or UI_CHANNEL_NONE
-  uint8_t act;       // 1: also press the page's commitment — START FILL, START CLEAN CYCLE, DRY THE LINES
-                     //    (SETTINGS opens its pump service area first)
+  uint8_t act;       // 1: also press the page's commitment — START FILL, START CLEAN CYCLE
 };
 
 constexpr uint8_t PUMP_CHANNEL_A = 0;  // U11 -> J13.AM2/AM1, the two WEST pins

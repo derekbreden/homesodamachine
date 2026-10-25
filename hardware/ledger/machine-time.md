@@ -27,7 +27,7 @@ Eight groups take masses from §7 using `_bom_masses.GROUP_OF`. The ASA Aero gro
 | Group | Parts | Rate | Mass | Hours |
 |---|---|---|---:|---:|
 | Cold-core PET-GF, 0.8 TC | Cold-core shell, four foam-cap pieces — the stack the box's own fluted skin is carried onto, printed on the big nozzle rather than the exterior's fine one ([foam-shell/print-log.md](/hardware/printed-parts/cold-core/foam-shell/print-log.md)) | [13.3](MT_RATE_BULK) h/kg — est., the [12.8](MT_RATE_BULK_PETG) measured plate carried across the stock | [2.566](MT_KG_BULK) kg | [34.1](MT_H_BULK) |
-| Enclosure exterior PET-GF, 0.4 TC | The four quadrants, the lower pump cradle and its top clamp, display cover plate, empty electronics panel, funnel frame and its drain-elbow cradle — the enclosure mechanisms and show surfaces printed at the finish the box is judged on ([enclosure/print-log.md](/hardware/printed-parts/enclosure/enclosure/print-log.md)) | [31.2](MT_RATE_EXT) h/kg — **measured** | [3.480](MT_KG_EXT) kg | [108.6](MT_H_EXT) |
+| Enclosure exterior PET-GF, 0.4 TC | The four quadrants, the pump cradle and its top clamp, display cover plate, empty electronics panel, funnel frame and its drain-elbow cradle — the enclosure mechanisms and show surfaces printed at the finish the box is judged on ([enclosure/print-log.md](/hardware/printed-parts/enclosure/enclosure/print-log.md)) | [31.2](MT_RATE_EXT) h/kg — **measured** | [3.480](MT_KG_EXT) kg | [108.6](MT_H_EXT) |
 | Watertight translucent PETG, 0.6 nozzle | Both reservoir bodies + caps — 3 mm walls as 5 × 0.60 mm beads, Arachne, for a syrup-tight wall ([watertight-petg.md](/hardware/printed-parts/cold-core/reservoir/watertight-petg.md)); the nozzle is the one all three logged runs were made on ([reservoir/print-log.md](/hardware/printed-parts/cold-core/reservoir/print-log.md)) | [26](MT_RATE_TIGHT) h/kg — est., ~½ the measured plate's volumetric rate | [0.874](MT_KG_TIGHT) kg | [22.7](MT_H_TIGHT) |
 | Small PETG parts | Umbilical organizer, copper-slot covers, PRV shroud, reed bridge and fuse clamp | [36](MT_RATE_SMALL) h/kg — est., travel and layer-change overhead dominate a small part | [0.041](MT_KG_SMALL) kg | [1.5](MT_H_SMALL) |
 | Small solid PET-GF parts, 0.4 TC | The install-kit collet press — at least six walls and 100% infill ([collet press](/hardware/printed-parts/collet-press/README.md)) | [36](MT_RATE_TOOL) h/kg — est., the small-part rate until its production slice is logged | [0.017](MT_KG_TOOL) kg | [0.6](MT_H_TOOL) |
@@ -72,7 +72,7 @@ Filament drying is per spool: the AMS 2 Pro dries and feeds the [1.05](MT_KG_PET
 
 ## Throughput
 
-The printers are the constraint in this estimate. Per unit, before unmeasured magnet-pause delays:
+The printers are the constraint in this estimate. Per unit, before unmeasured RC62-pause delays:
 
 | Machine | Occupied per unit | Units/year at 100 % | |
 |---|---:|---:|---|
@@ -100,30 +100,9 @@ What one unit takes end to end if production is unpaused and the shop starts emp
 
 Pump tube preparation and the small TPU seals have unmeasured production durations; plate handling and physical print yield remain unmeasured.
 
-Runs in parallel with the print when started early enough: the whole carbonator chain (machining, welding, PT, hydro, passivation, fittings), the twelve harnesses, the silicone funnel's cure and bake, and the PRV-shroud subassembly with its 24-hour caulk cure. Each of those has to be *started* early enough, which is a scheduling problem, not a duration one.
+Runs in parallel with the print when started early enough: the whole carbonator chain (machining, welding, PT, hydro, passivation, fittings), the eleven bench harnesses, the silicone funnel's cure and bake, and the PRV-shroud subassembly with its 24-hour caulk cure. Each of those has to be *started* early enough, which is a scheduling problem, not a duration one.
 
 A second unit behind the first does not cost another [4.9](MT_DAYS_TURN) days — it costs the bottleneck's [89.8](MT_H_PRINT_WALL) hours, since its prints start the moment the first unit's come off the plates.
-
-## Open items
-
-1. **Foam cure time.** [cold-core.md](/hardware/assembly/cold-core.md) open item 2 — mix proportions, pot life, cure time and pour temperature window are all still unread from the datasheet. The 4 h rows in §2 are placeholders; the real figure changes the turnaround, not the throughput.
-2. **The four scaled print rates.** Watertight, small-parts, solid PET-GF and ring-and-collar rates remain estimates. The faucet uses its own saved-profile slice duration; the cold-core PET-GF rate is carried from its PETG measurement. The reservoir plate has been sliced twice ([reservoir/print-log.md](/hardware/printed-parts/cold-core/reservoir/print-log.md)) but Bambu Studio wrote no per-plate estimate into either 3MF, so the watertight rate is still inferred. Record the slicer's time on the next slice of each group and these become measurements.
-3. **The small-parts group names no nozzle, and two bounds are held to a wall without one.**
-   Every other group here names one: cold-core bulk 0.8 (measured,
-   [foam-shell/print-log.md](/hardware/printed-parts/cold-core/foam-shell/print-log.md)), enclosure
-   exterior 0.4 TC (measured,
-   [enclosure/print-log.md](/hardware/printed-parts/enclosure/enclosure/print-log.md)), watertight
-   0.6 (measured, three runs), collet press PET-GF 0.4, rings and collars PET-GF 0.4, faucet PET-GF 0.4. The small-parts group — ASSE drip pan, plug stack, PRV
-   shroud, reed bridge, fuse clamp — has no print log and no chosen nozzle, so a bead width for
-   those parts does not exist in this tree. Two constants stand on one anyway:
-   `copper_plugs.min_printable_thickness` = 1.0, the thinnest the plug web's sliver is let run,
-   and `_cold_core_interface.port_lane_wall` = 1.5, whose comment says below it "the wall between
-   two features stops being printable". Neither is wrong — both clear one bead on any nozzle this
-   shop runs — but neither is held either, and a name that says printable reads as though it were. The faucet's saved [print project](/hardware/printed-parts/faucet/faucet-petgf.md) names
-   its 0.4 mm nozzle, 0.42 mm outer wall and 0.45 mm inner wall lines.
-4. **Print failure rate.** The [65 %](MT_DUTY) duty figure carries it implicitly. A measured scrap rate would separate "the printer was idle" from "the printer printed something that went in the bin".
-5. **Dock production schedule.** Pump tube preparation and the attended magnet pauses on front-top and the cartridge remain unmeasured.
-6. **ASA Aero production duration.** The current float has 0.20 mm more upper pocket clearance than the identified v1 slice. Its native v2 duration and the elapsed pause for each of the [3](MT_FLOAT_QTY) inserted magnets are unmeasured. The v1 contribution is a provisional allowance, not an accepted production recipe or a completed-job timing.
 
 ## Sources
 [value](NAME) texts are updated by:

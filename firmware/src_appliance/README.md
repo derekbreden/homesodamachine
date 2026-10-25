@@ -12,9 +12,9 @@ once per fab batch, with the manifold unplugged.
 
 ## What runs today
 
-The glass-facing operations are one flavor pump, the funnel fill, the clean cycle and the dry
-cycle before a pump replacement. The main board also establishes and reports the safe I/O
-foundation the next connected bench uses.
+The glass-facing operations are one flavor pump, the funnel fill and the clean cycle; the dry
+cycle, which dries the flavor lines, is a bench and factory command the glass shows. The main
+board also establishes and reports the safe I/O foundation the next connected bench uses.
 
 - **The pour.** Carbonated water flowing at the faucet opens the selected channel's dispense
   path — its draw and its flavor tube, `DispenseA/B` — and bursts that channel's pump into the
@@ -27,11 +27,12 @@ foundation the next connected bench uses.
   another operation runs, while the expanders are unverified, or under the gas alarm — the
   water still pours. `flow <n> [s]` stands in for the meter on a bench with no water in it.
 - **The air cycles.** The funnel dry and open to air, a pump carrying air along the flavor
-  path one topology state at a time. `MSG_AIR_START { DRY }` from the enclosure's Settings →
-  PUMP SERVICE, or `dry [s]` from the console, runs Air Purge In then Air Purge Through on channel A
-  and then on channel B — every joint the collet plate opens is swept, what the air displaces
-  leaves at the faucet, and neither reservoir is drawn on
-  ([`/hardware/service/pump-replacement.md`](/hardware/service/pump-replacement.md)). `purge
+  path one topology state at a time. `dry [s]` from the console, or `MSG_AIR_START { DRY }`
+  from the enclosure display's `AIR:DRY` bench command, dries the flavor lines: Air Purge In
+  then Air Purge Through on channel A and then on channel B — every segment of the flavor
+  manifold but the two reservoir draws is swept, what the air displaces leaves at the faucet,
+  and neither reservoir is drawn on
+  ([`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md)). `purge
   <a|b> [s]` runs Air Purge In then Air Purge Out on one channel: air into the rinsed
   reservoir, then the reservoir out the faucet until its empty reed has opened and the tail
   has drawn the line clear ([`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md)
@@ -155,11 +156,11 @@ pio device monitor -e appliance
 | `pump <a\|b> [ms]` | run one flavor pump, bounded — default 2000, ceiling 60000 |
 | `fill <a\|b> [s]` | the funnel fill: the channel's funnel path open and its pump drawing, for `s` s (default 80) or until the reservoir's full reed closes |
 | `clean <a\|b> [rounds] [s]` | the clean cycle: the funnel pumped through to the faucet, then tap water in through the idle pump and pumped out the faucet, `rounds` times (default 3); `s` caps every step (default 114 funnel, 90 in, 150 out) |
-| `ui <page> [a\|b] [go]` | put a customer page on the enclosure — choose, prime, fill, clean, settings, pump-service — optionally for a flavor, `go` pressing its START |
+| `ui <page> [a\|b] [go]` | put a customer page on the enclosure — choose, prime, fill, clean, settings — optionally for a flavor, `go` pressing its START |
 | `flavor [a\|b]` | read or set the main-board-owned flavor selection, and the logo pair beside it |
 | `ratio [a\|b] [6-24]` | read or set what a channel pours at, persisted in NVS and carried to the enclosure on its next poll |
 | `art [<a> <b>]` | read or set which logo each channel wears, persisted in NVS and published to both glasses |
-| `dry [s]` | before a pump replacement: air in then through to the faucet, on each channel in turn; `s` caps every step |
+| `dry [s]` | dry the flavor lines, at the bench or the factory: air in then through to the faucet, on each channel in turn; `s` caps every step |
 | `purge <a\|b> [s]` | air into that reservoir, then the reservoir out the faucet until its empty reed opens; `s` caps every step |
 | `flow <n> [s]` | the meter without water: `n` pulses per 50 ms for `s` s (default 5), and the selected channel pours against that reading |
 | `selftest` | [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) §7: V-A through V-K for a quarter second each, the condenser fan for a second, then each pump for a second, one load at a time, each parked and read back before the next |

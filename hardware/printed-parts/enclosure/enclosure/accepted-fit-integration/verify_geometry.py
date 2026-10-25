@@ -66,11 +66,6 @@ def main():
  empty('complete deeper display module clears front-top',module,front)
  funnel,_=assembly.build_funnel(box)
  empty('complete deeper display module clears funnel',module,funnel)
- cap_path=ENC/'enclosure-pump-cap.step'
- cap=cq.importers.importStep(str(cap_path)).val()
- contact=assembly._pump_contact_bound(assembly.build_pump_contacts(box),
-                                    {'front-top':front,'pump-cap':cap},box)
- check('pump cartridge nominal contact mating',contact.ok,reading=contact._asdict())
  foam,_=assembly.build_foam(0)
  psu,_=assembly.build_psu(foam,assembly.east_wall_seat())
  r=nw.production_backing(nw.receiver(),nw.dimensions.station(0,0),nw.THICK).translate(np_loc)
@@ -91,11 +86,11 @@ def main():
   if face.geomType() not in ('PLANE','CYLINDER') and b.zmax>352 and b.zmin>340:
    round_faces.append({'type':face.geomType(),'bounds':[b.xmin,b.xmax,b.ymin,b.ymax,b.zmin,b.zmax]})
  (HERE/'current-geometry-check.json').write_text(json.dumps({'pass':True,'checks':rows,
-    'scope':'Accepted cover/nameplate mating geometry checked against current upper-shell exports and declared Box. Individual-axis clearances and nominal pogo mating only; physical full-shell fit, installed pogo compression and retention remain unmeasured.',
+    'scope':'Accepted cover/nameplate mating geometry checked against current upper-shell exports and declared Box. Individual-axis clearances only; physical full-shell fit and retention remain unmeasured.',
     'front_roof_blend_faces':round_faces,
     'accepted_clearances_preserved':True,'pcb_opening_depth_mm':e.display_facet_thickness+e.display_pcb_cut_through,
     'module_rear_clearance_mm':1.,'minimum_ridge_stock_mm':e.ridge_wall_t,
-    'source_sha256':{str(p.relative_to(ROOT)):sha(p) for p in [Path(__file__),ENC/'enclosure.py',ENC/'_display_wing_interface.py',ENC/'_nameplate_wing_interface.py',ROOT/'hardware/manifold-layout/enclosure_assembly.py',box_path,cap_path,
+    'source_sha256':{str(p.relative_to(ROOT)):sha(p) for p in [Path(__file__),ENC/'enclosure.py',ENC/'_display_wing_interface.py',ENC/'_nameplate_wing_interface.py',ROOT/'hardware/manifold-layout/enclosure_assembly.py',box_path,
             display_dir/'display-cover-flat-wings.step',ENC.parent/'display-cover/display-cover.step',
             name_dir/'nameplate-horizontal-wings-001.step',ENC.parent/'nameplate/nameplate-001.step',
             name_dir/'nameplate-horizontal-wings-receiver.step',

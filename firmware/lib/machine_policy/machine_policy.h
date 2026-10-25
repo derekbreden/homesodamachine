@@ -239,10 +239,12 @@ private:
 // Air enters at the funnel, dry and open to air, and a pump carries it along
 // the flavor path. Two cycles are made of the topology's purge states:
 //
-//   Dry — before a pump replacement (hardware/service/pump-replacement.md).
+//   Dry — the bench and factory command that dries the flavor lines.
 //         Air Purge In then Air Purge Through on channel A, then the same on
-//         channel B: every joint the collet plate opens is swept, and what the
-//         air displaces leaves at the faucet. The reservoirs are not drawn on.
+//         channel B: every segment of the flavor manifold but the two
+//         reservoir draws is swept (hardware/topology/fluid-topology.md), and
+//         what the air displaces leaves at the faucet. The reservoirs are not
+//         drawn on.
 //   Purge — after a clean cycle (acceptance-and-burn-in.md §9). Air Purge In
 //         then Air Purge Out on one channel: air into the rinsed reservoir,
 //         then the reservoir out the faucet until its empty reed opens and the

@@ -10,11 +10,12 @@
     "DOCK_RETURN_OUTER": "54.47 mm",
     "DOCK_TEE_ELBOW_STEM": "11.65 mm",
     "DOCK_TEE_INSERTION": "11.65 mm",
-    "DOCK_TEE_STROKE": "1.5 mm",
     "DOCK_UPPER_TAIL": "38.901 mm",
     "DOCK_VALVE_ELBOW_SHOWING": "3.75 mm",
     "DOCK_VALVE_ELBOW_STEM": "15.75 mm",
     "DOCK_VALVE_INSERTION": "12 mm",
-    "MANIFOLD_TEES": "6"
+    "MANIFOLD_TEES": "6",
+    "RESERVOIR_A_DRAW_WARM": "418.391 mm",
+    "RESERVOIR_A_FILL_WARM": "425.843 mm"
   }
 }

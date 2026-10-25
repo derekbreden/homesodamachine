@@ -36,7 +36,7 @@
         }
       ],
       "bom": {
-        "scope": "Modeled machine contents, including fitted tubing, inlet fittings and selected service hardware. The installation water tube and cylinder tether are connected equipment. Wiring, cut lengths and unmodeled fasteners follow the build and cost records.",
+        "scope": "Modeled machine contents, including fitted tubing, inlet fittings and selected hardware. The installation water tube and cylinder tether are connected equipment. Wiring, cut lengths and unmodeled fasteners follow the build and cost records.",
         "source": "ledger/bom.md",
         "items": [
           {
@@ -491,32 +491,6 @@
             "bodies": [
               "asse-drain-adapter"
             ]
-          },
-          {
-            "material": "HSM-000163",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "pump-contact-male"
-            ]
-          },
-          {
-            "material": "HSM-000328",
-            "quantity": 4,
-            "unit": "ea",
-            "note": "Two columns of two ride the printed rails of front-top's two slots, in bosses behind the collet plate, loaded at its print pause; the moving blocks belong to the pump cartridge."
-          },
-          {
-            "material": "HSM-000166",
-            "quantity": 2,
-            "unit": "ea",
-            "note": "Fixed male contact half, two mounting screws."
-          },
-          {
-            "material": "HSM-000167",
-            "quantity": 2,
-            "unit": "ea",
-            "note": "Fixed male contact half, two heat-set inserts."
           },
           {
             "material": "HSM-000178",
@@ -2678,23 +2652,6 @@
       ]
     },
     {
-      "id": "HSM-000328",
-      "description": "K&J Magnetics SB443-IN N42 stepped block magnet",
-      "kind": "purchased",
-      "aliases": [
-        "SB443-IN",
-        "SB443",
-        "cartridge retention magnet"
-      ],
-      "manufacturer_number": "SB443-IN",
-      "documents": [
-        {
-          "title": "Cartridge retention",
-          "path": "printed-parts/enclosure/pump-dock/magnet-retention.md"
-        }
-      ]
-    },
-    {
       "id": "HSM-000035",
       "description": "Float guide rod \u00b7 316 stainless, 1/8 inch",
       "kind": "purchased",
@@ -3525,7 +3482,7 @@
     },
     {
       "id": "HSM-000082",
-      "description": "Pump cartridge lower cradle",
+      "description": "Pump cradle",
       "kind": "manufactured",
       "models": [
         {
@@ -3539,13 +3496,12 @@
         }
       ],
       "aliases": [
-        "enclosure-pump-cartridge",
-        "printed pump cartridge"
+        "enclosure-pump-cartridge"
       ]
     },
     {
       "id": "HSM-000083",
-      "description": "Pump cartridge top clamp",
+      "description": "Pump cradle top clamp",
       "kind": "manufactured",
       "models": [
         {
@@ -4450,12 +4406,11 @@
     },
     {
       "id": "HSM-000161",
-      "description": "Pump cartridge assembly",
+      "description": "Pump cradle assembly",
       "kind": "assembly",
       "aliases": [
-        "replacement pump cartridge",
-        "removable pump cartridge",
-        "two-pump cartridge"
+        "pump cradle",
+        "two-pump cradle"
       ],
       "contexts": [
         {
@@ -4464,24 +4419,20 @@
       ],
       "documents": [
         {
-          "title": "Cartridge assembly",
+          "title": "Cradle assembly",
           "path": "assembly/internal-plumbing.md"
-        },
-        {
-          "title": "Pump replacement and service boundary",
-          "path": "service/pump-replacement.md"
         },
         {
           "title": "Pump electrical connections",
           "path": "assembly/wiring.md"
         },
         {
-          "title": "Cartridge retention",
-          "path": "printed-parts/enclosure/pump-dock/magnet-retention.md"
+          "title": "Cradle retention",
+          "path": "printed-parts/enclosure/pump-dock/README.md"
         }
       ],
       "bom": {
-        "scope": "Complete removable cartridge: two pumps, lower cradle, top clamp, prepared pump tubes, moving contacts and leads, SB443-IN magnet blocks and mounting hardware. The pump tees, the collet plate and the male contacts belong to the machine. Pump tubes are fitted during assembly; motor-tab terminal sizes are recorded in the wiring procedure when established.",
+        "scope": "Two pumps, the pump cradle, its top clamp with two screws and inserts, the four prepared pump tubes, and the Fastons that land the J13 ribbon on the motor tabs. The pump tees, their upper tubes and lower returns, and the J13 ribbon belong to the machine; the four tee collets hold the cradle home. Pump tubes are fitted during assembly; motor-tab terminal sizes are recorded in the wiring procedure when established.",
         "source": "assembly/internal-plumbing.md",
         "items": [
           {
@@ -4514,37 +4465,13 @@
             ]
           },
           {
-            "material": "HSM-000162",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "pump-contact-female"
-            ]
-          },
-          {
-            "material": "HSM-000328",
-            "quantity": 4,
-            "unit": "ea",
-            "note": "Two columns of two ride the printed rails of the cartridge's two slots in its flat back, loaded at its print pause; no adhesive."
-          },
-          {
             "material": "HSM-000164",
             "quantity": 2,
             "unit": "ea",
-            "note": "The lower cradle centre lane retains the cap screws."
+            "note": "The cradle spine's centre lane retains the clamp screws."
           },
           {
             "material": "HSM-000165",
-            "quantity": 2,
-            "unit": "ea"
-          },
-          {
-            "material": "HSM-000166",
-            "quantity": 2,
-            "unit": "ea"
-          },
-          {
-            "material": "HSM-000167",
             "quantity": 2,
             "unit": "ea"
           },
@@ -4561,77 +4488,13 @@
             "note": "Cut 33.2 mm: 13.149 mm held in the BPT tube under the head's clamp and 20.026 mm beyond the barb plane, each tip set against the tube setting jig at the seated datum, where it bottoms in its pump tee."
           },
           {
-            "material": "HSM-000169",
-            "quantity": 4,
-            "unit": "ea",
-            "note": "Four approximately 100 mm leads run from the female contact half to the motor tabs."
-          },
-          {
             "material": "HSM-000170",
             "quantity": 4,
             "unit": "ea",
-            "note": "Two receptacles per pump. The per-device tab-size map is not yet recorded."
+            "note": "Two receptacles per pump, on the J13 ribbon's free end. The per-device tab-size map is not yet recorded."
           }
         ]
       }
-    },
-    {
-      "id": "HSM-000162",
-      "description": "YYFKGCP 4-pin pogo contact \u00b7 female half",
-      "kind": "purchased",
-      "aliases": [
-        "cartridge contact",
-        "pad contact",
-        "B0GCBNTBT8 female half"
-      ],
-      "models": [
-        {
-          "file": "reference/yyfkgcp-pogo-4p/pogo-4p-female.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Contact mounting and evidence",
-          "path": "reference/yyfkgcp-pogo-4p/mounting-audit.md"
-        },
-        {
-          "title": "Cartridge wiring",
-          "path": "assembly/internal-plumbing.md"
-        },
-        {
-          "title": "Purchased contact pair",
-          "path": "ledger/bom.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000163",
-      "description": "YYFKGCP 4-pin pogo contact \u00b7 male half",
-      "kind": "purchased",
-      "aliases": [
-        "fixed bay contact",
-        "spring pin contact",
-        "B0GCBNTBT8 male half"
-      ],
-      "models": [
-        {
-          "file": "reference/yyfkgcp-pogo-4p/pogo-4p-male.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Contact mounting and evidence",
-          "path": "reference/yyfkgcp-pogo-4p/mounting-audit.md"
-        },
-        {
-          "title": "Cartridge wiring",
-          "path": "assembly/internal-plumbing.md"
-        },
-        {
-          "title": "Purchased contact pair",
-          "path": "ledger/bom.md"
-        }
-      ]
     },
     {
       "id": "HSM-000164",
@@ -4661,50 +4524,11 @@
       ]
     },
     {
-      "id": "HSM-000166",
-      "description": "M1.4 \u00d7 8 socket-head screw \u00b7 black oxide",
-      "kind": "purchased",
-      "aliases": [
-        "pogo contact screw",
-        "Kozelo M1.4x8"
-      ],
-      "documents": [
-        {
-          "title": "Contact fasteners",
-          "path": "ledger/bom.md"
-        },
-        {
-          "title": "Contact mounting",
-          "path": "reference/yyfkgcp-pogo-4p/mounting-audit.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000167",
-      "description": "M1.4 \u00d7 4 \u00d7 \u00d82.3 brass heat-set insert",
-      "kind": "purchased",
-      "aliases": [
-        "ZWMSSLL M1.4",
-        "pogo contact insert"
-      ],
-      "documents": [
-        {
-          "title": "Contact fasteners",
-          "path": "ledger/bom.md"
-        },
-        {
-          "title": "Contact mounting",
-          "path": "reference/yyfkgcp-pogo-4p/mounting-audit.md"
-        }
-      ]
-    },
-    {
       "id": "HSM-000168",
-      "description": "Pump cartridge connecting tube \u00b7 1/4 inch LLDPE",
+      "description": "Pump connecting tube \u00b7 1/4 inch LLDPE",
       "kind": "manufactured",
       "aliases": [
         "pump barb tube",
-        "cartridge tube end",
         "fluid-11",
         "fluid-12",
         "fluid-21",
@@ -4717,34 +4541,13 @@
           "path": "assembly/internal-plumbing.md"
         },
         {
-          "title": "Cartridge connection joints",
-          "path": "service/pump-replacement.md"
+          "title": "Pump tee joints",
+          "path": "printed-parts/enclosure/pump-dock/README.md"
         }
       ],
       "contexts": [
         {
           "material": "HSM-000161"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000169",
-      "description": "Pump cartridge motor lead \u00b7 22 AWG black silicone",
-      "kind": "manufactured",
-      "aliases": [
-        "moving pump lead",
-        "100 mm pump lead",
-        "BNTECHGO 22 AWG",
-        "Cartridge motor lead \u00b7 22 AWG black silicone"
-      ],
-      "documents": [
-        {
-          "title": "Cartridge lead preparation",
-          "path": "assembly/internal-plumbing.md"
-        },
-        {
-          "title": "Wire stock",
-          "path": "ledger/bom.md"
         }
       ]
     },
@@ -4764,21 +4567,6 @@
         {
           "title": "Crimping procedure",
           "path": "assembly/cable-assemblies.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000171",
-      "description": "Pump tube retention cable tie",
-      "kind": "purchased",
-      "aliases": [
-        "pump joint zip tie",
-        "cartridge tube tie"
-      ],
-      "documents": [
-        {
-          "title": "Tube-joint retention",
-          "path": "service/pump-replacement.md"
         }
       ]
     },

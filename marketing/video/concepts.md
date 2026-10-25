@@ -104,8 +104,8 @@ rounds. Answers the objection every food-contact machine gets.
 
 ### H. I 3D printed a soda machine (2-3 min)
 
-The enclosure: four telescoping quadrants, a pump cartridge that draws out with both pumps
-aboard, 170 printer-hours a unit. 3D printing is a large node with real overlap — the maker
+The enclosure: four telescoping quadrants, one printed cradle carrying both pumps and the
+machine's front face, 170 printer-hours a unit. 3D printing is a large node with real overlap — the maker
 who prints things also drinks soda, which "laser welding" cannot say.
 
 - **Title anchor:** *3D printed* — and the machine is the payoff, not the subject.

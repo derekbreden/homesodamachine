@@ -1452,7 +1452,7 @@ rail_reach_in = (max(front_top_flank_t, back_top_flank_t) - wall) + slide_slip +
 # receiving floor retreats by `pump_bay_floor_air`; the stationary perimeter keeps its separate
 # running clearance. Each prepared pump's head clamps its two straight LLDPE tubes; they pass
 # the cradle's open tube passages and the tee wall's tube holes into four purchased tees, whose
-# branch collets stand extended in their recesses and grip them. Those four collets hold the
+# branch collets stand extended in those holes and grip them. Those four collets hold the
 # cradle home.
 #
 # FRONT-TOP CARRIES A FLOOR ACROSS THE BAY (`_bay_floor`), and everything in this storey
@@ -1464,8 +1464,8 @@ rail_reach_in = (max(front_top_flank_t, back_top_flank_t) - wall) + slide_slip +
 # mouth here.
 #
 # THE BULKHEAD IS THE TEE WALL (`_bulkhead`): one flat slab the bay's whole width and height.
-# Its fore band carries the tube holes and collet recesses; behind them each tee's branch stands
-# in a collar-clear bore through the rest of the wall (`dock_structure`). The bulkhead joins the
+# Its fore band carries the tube holes; behind them each tee's branch stands in a collar-clear
+# bore through the rest of the wall (`dock_structure`). The bulkhead joins the
 # bay floor, lintel and both flanks; front-bottom supports its two lower ends.
 #
 # The full-width opening extends from the show face to this bulkhead. The cradle's front,
@@ -5526,7 +5526,7 @@ def pump_lead_figures(box):
         "LEAD_BORE_ROOF": f"{roof:.4g} mm",
         "LEAD_EXIT_FLOOR": (f"{floor:.6g} mm" if floor is not None else "no tray"),
         "LEAD_SLOT": f"{2.0 * lead_bore_r:g} × {lead_slot_run:g} mm",
-        "LEAD_GROOVE": f"{groove_w:g} × {groove_d:g} mm",
+        "LEAD_GROOVE": f"{groove_w:g} × {groove_d:g} mm, on a 45° vee",
     }
 
 
@@ -5607,9 +5607,8 @@ def _bulkhead(inner, y_joint, plate, bay):
 
     Its fore band is the collet plate, whose aft face is the bore face the four tees' branch
     bores open on. The wall carries the pump lead's bore and the display backing, roots the fore
-    valve tray, and its aft face is where the flank rails start. The tube holes, collet recesses
-    and tee bores are the dock's (`dock_structure.wall_cuts`), taken after the bay floor joins the
-    wall.
+    valve tray, and its aft face is where the flank rails start. The tube holes and tee bores are
+    the dock's (`dock_structure.wall_cuts`), taken after the bay floor joins the wall.
     """
     return _ybox(inner[0], inner[1], bay_back_y(plate), plate["wall_aft_y"], z_seam, bay[2])
 
@@ -5838,8 +5837,6 @@ def pump_dock_figures(box):
         "DOCK_WALL_T": f"{plate['wall_aft_y'] - bay_back_y(plate):.6g} mm",
         "DOCK_PLATE_T": f"{plumbing.PLATE_T:.4g} mm",
         "DOCK_HOLE_D": f"Ø{2 * _dock.HOLE_R:.4g} mm",
-        "DOCK_RECESS_D": f"Ø{2 * _dock.RECESS_R:.4g} mm",
-        "DOCK_RECESS_DEPTH": f"{_dock.RECESS_DEPTH:.4g} mm",
         "DOCK_COLLET_PROUD": f"{_dock.tee.COLLET_PROUD:.4g} mm",
         "DOCK_BARREL_AIR": f"{plumbing.BORE_FACE_TO_AXIS - _dock.tee.BRANCH_FIXED_END:.4g} mm",
         "DOCK_FRAME_GAP": f"{bay_back_y(plate) - back:.4g} mm",
@@ -5912,32 +5909,42 @@ def _pump_lead_fixed_cuts(box):
                         bay_back_y(box.pack.collet_plate) - 1.0, _lead_bore_end(box), up=up)]
 
 
-def _xy_lane(p0, p1, width, z0, z1):
-    """A straight channel `width` wide in plan from `p0` to `p1`, standing from `z0` to `z1`."""
+def _xy_groove(p0, p1, width, floor, top):
+    """A straight crown groove `width` wide in plan from `p0` to `p1`, open from `top` down to a
+    45° vee whose shoulders stand at `floor` and whose apex is half the width below them, so the
+    crown-down clamp builds the groove's floor as a peaked roof. One section, one prism."""
     (x0, y0), (x1, y1) = p0, p1
     run = math.hypot(x1 - x0, y1 - y0)
-    nx, ny = -(y1 - y0) / run * width / 2.0, (x1 - x0) / run * width / 2.0
-    return _xy_prism(z0, z1, [(x0 + nx, y0 + ny), (x1 + nx, y1 + ny),
-                              (x1 - nx, y1 - ny), (x0 - nx, y0 - ny)])
+    half = width / 2.0
+    groove = _xz_prism(0.0, run, [(-half, top), (half, top), (half, floor),
+                                  (0.0, floor - half), (-half, floor)])
+    turn = math.degrees(math.atan2(-(x1 - x0), y1 - y0))
+    return groove.rotate((0.0, 0.0, 0.0), (0.0, 0.0, 1.0), turn).translate((x0, y0, 0.0))
 
 
 def _pump_lead_cap_cuts(box):
     """The clamp's lead slot, open on its aft face over the whole lead bore and up through the
-    crown, and one crown groove from that slot to each pump's terminal well."""
+    crown, and one crown groove from that slot to each pump's terminal well.
+
+    The slot's floor rises at 45° from the bore's floor at the aft face to the slot's fore wall,
+    turning the leads up toward the crown, and each groove's floor is a 45° vee, so the clamp
+    prints crown-down with no flat face over air."""
     trays, plate = box.pack.pump_trays, box.pack.collet_plate
     up = PIECE_PRINT_UP["pump-cap"]
     face = pump_cartridge_aft_y(trays, plate)
     crown = cap_crown_z(box)
     floor = pump_lead_axis_z(box) - lead_bore_r + min(up, 0.0) * fits.supported_surface
     fore = face - lead_slot_run
-    slot = _ybox(-lead_bore_r, lead_bore_r, fore, face + 1.0, floor, crown + 1.0)
+    slot = _yz_prism(-lead_bore_r, lead_bore_r,
+                     [(face + 1.0, floor), (face, floor), (fore, floor + lead_slot_run),
+                      (fore, crown + 1.0), (face + 1.0, crown + 1.0)])
     groove_w, groove_d = lead_groove
     grooves = []
     for cx, cy, _cz in trays:
         side = 1.0 if cx > 0.0 else -1.0
         start = (side * (lead_bore_r - groove_w / 2.0), fore + groove_w / 2.0)
-        grooves.append(_xy_lane(start, (cx, cy + clamp_pump_y_shift), groove_w,
-                                crown - groove_d, crown + 1.0))
+        grooves.append(_xy_groove(start, (cx, cy + clamp_pump_y_shift), groove_w,
+                                  crown - groove_d, crown + 1.0))
     return [slot, *grooves]
 
 
@@ -8928,8 +8935,8 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     if y_side == "front" and z_side == "top" and box.pump_bay:
         piece = piece.cut(_bay_cut(inner, outer, box.pump_bay, box.pack.pump_trays,
                                    box.pack.collet_plate))
-        # And the pump lead's bore and the tees' holes, recesses and bores through the bulkhead
-        # face the bay ends on.
+        # And the pump lead's bore and the tees' holes and bores through the bulkhead face the bay
+        # ends on.
         if box.pack.collet_plate:
             for cutter in (*_pump_lead_fixed_cuts(box), *_dock.wall_cuts(box.pack.collet_plate)):
                 piece = piece.cut(cutter)

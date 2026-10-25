@@ -3834,49 +3834,6 @@
       }
     },
     {
-      "id": "B0GCBNTBT8",
-      "name": "YYFKGCP 2.54 mm 4-pin magnetic pogo connector with ears, male + female pair",
-      "bomLines": [
-        225
-      ],
-      "perUnit": 1.0,
-      "unit": "pieces",
-      "supplier": "amazon",
-      "priceBasis": "merchandise",
-      "status": "listed",
-      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
-      "options": [
-        {
-          "quantity": 1,
-          "priceCents": 680,
-          "label": "one piece",
-          "available": true
-        }
-      ],
-      "sourceUrl": "https://www.amazon.com/dp/B0GCBNTBT8",
-      "inventory": {
-        "onHand": 10,
-        "incoming": 0,
-        "basis": "counted",
-        "estimated": false,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 461
-          },
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 462
-          },
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 463
-          }
-        ],
-        "note": "Ten pairs received: four by October 4 and the six delayed pairs on October 9. All three charges are confirmed."
-      }
-    },
-    {
       "id": "B0B2R8Q1JL",
       "name": "CQRobot JST XH 2.54 mm 6-pin connector kit (50 sets)",
       "bomLines": [
@@ -4357,41 +4314,6 @@
       }
     },
     {
-      "id": "B0DFWTJSYD",
-      "name": "ZWMSSLL M1.4 heat-set threaded inserts, M1.4 \u00d7 4 mm \u00d7 \u00d82.3 mm brass, 200 pc",
-      "bomLines": [
-        300
-      ],
-      "perUnit": 4.0,
-      "unit": "pieces",
-      "supplier": "amazon",
-      "priceBasis": "merchandise",
-      "status": "listed",
-      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
-      "options": [
-        {
-          "quantity": 200,
-          "priceCents": 799,
-          "label": "200-piece pack",
-          "available": true
-        }
-      ],
-      "sourceUrl": "https://www.amazon.com/dp/B0DFWTJSYD",
-      "inventory": {
-        "onHand": 200,
-        "incoming": 0,
-        "basis": "counted",
-        "estimated": false,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 487
-          }
-        ],
-        "note": "One 200-piece pack delivered October 6; its $8.57 charge is confirmed."
-      }
-    },
-    {
       "id": "B0DJQGMQZM",
       "name": "BNUOK M3 \u00d7 12 mm DIN 912 socket head cap, 304 stainless steel (18-8), 120 pc",
       "bomLines": [
@@ -4600,42 +4522,6 @@
           }
         ],
         "note": "Acquired quantity from the purchase ledger; usable remainder after development is not separately counted. This is an inventory-credit estimate."
-      }
-    },
-    {
-      "id": "B0DFYKBQ2S",
-      "name": "Kozelo M1.4 \u00d7 8 mm socket head cap screws, M1.4-0.3, alloy steel, black oxide, 50 pc",
-      "bomLines": [
-        307
-      ],
-      "perUnit": 4.0,
-      "unit": "pieces",
-      "supplier": "amazon",
-      "priceBasis": "merchandise",
-      "status": "listed",
-      "note": "Prime offer listed on October 4; full-batch stock not reserved.",
-      "options": [
-        {
-          "quantity": 50,
-          "priceCents": 819,
-          "label": "50-piece pack",
-          "available": true,
-          "listedPackages": 6
-        }
-      ],
-      "sourceUrl": "https://www.amazon.com/dp/B0DFYKBQ2S",
-      "inventory": {
-        "onHand": 50,
-        "incoming": 0,
-        "basis": "counted",
-        "estimated": false,
-        "sources": [
-          {
-            "path": "hardware/ledger/purchases.md",
-            "line": 488
-          }
-        ],
-        "note": "One 50-piece pack delivered October 7; its $8.78 charge is confirmed. A further pack is needed for twenty machines."
       }
     },
     {
@@ -5972,7 +5858,7 @@
     "New purchase requirement = batch consumption (including stated process reserve) minus usable stock and already-ordered quantities, floored at zero. Combine shared SKUs, then round only the shortfall to economical whole supplier lots.",
     "The 5-, 10- and 20-machine alternatives use the same opening inventory; do not add the columns. Each includes the current integrated unit under development.",
     "Existing paid parts, printers, tools, fixtures and reusable spools incur no new acquisition expense. Ten defective batch-1 PCBAs and incompatible/abandoned inventory receive no production credit. Already-ordered stock is shown separately from on hand.",
-    "The possible-payment reserve covers only identified pending component orders whose stock is credited and whose merchant charge is unresolved. Confirmed charges are excluded: the WR1105 regulators, all ten pogo pairs, the M1.4 inserts and screws, the Taprite 3741, the FWS drain-line order, and the October PET-GF15 Black, Clear PETG, ASA Aero, Kamoer pump and Beduan valve orders. Release the reserve when payment is confirmed; do not pay the same order twice.",
+    "The possible-payment reserve covers only identified pending component orders whose stock is credited and whose merchant charge is unresolved. Confirmed charges are excluded: the WR1105 regulators, the Taprite 3741, the FWS drain-line order, and the October PET-GF15 Black, Clear PETG, ASA Aero, Kamoer pump and Beduan valve orders. Release the reserve when payment is confirmed; do not pay the same order twice.",
     "Acquired receipt totals alone do not establish remaining stock. Uncounted credits and provisional one-build consumption reserves are marked *. ASA Aero is credited at a provisional 0.96 kg from the first 2 kg acquired, with two more spools in transit.",
     "Terminal/ferrule/heat-shrink assortments without usable counts by required size receive no numerical stock credit. Cut lengths and wire colours require the recorded per-size/colour allowances; aggregate offcuts are not assumed to make another full component.",
     "No purchase is placed. Stock limits are dated observations, not reservations. Labor uses the existing experienced-operator estimate; early builds may take longer. Owner labor is not automatically a future cash payment.",

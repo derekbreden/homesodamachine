@@ -193,7 +193,7 @@ def native_checks(enc, box):
             x = cx+sx*enc._tray.outlet_pitch/2
             # The tube runs on its collet-plate passage's axis, from the seated pump's tube plane.
             hole_z = next(hz for hx, hz in plate['holes'] if abs(hx-x)<1e-6)
-            datum = (x, plate['aft_y']-ml.PUMP_BARBS_TO_RELEASE_PLANE, hole_z)
+            datum = (x, plate['aft_y']-ml.PUMP_BARBS_TO_BORE_FACE, hole_z)
             check(f'X{x:g} seated casing axis matches its collet plate passage',
                   abs(outlet_z-datum[2])<1e-6, seated_outlet_z_mm=outlet_z, passage_z_mm=datum[2])
             tube = enc._ycyl(3.175,x,outlet_z,datum[1],plate['seated_tube_bottom_y'])

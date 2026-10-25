@@ -1,6 +1,5 @@
 {
   "/hardware/assembly/_cable_assemblies_sync.py": {
-    "CARTRIDGE_LEAD": "100 mm",
     "EXTERNAL_SIG6": "1 m",
     "J10_PINS": "2",
     "J11_PINS": "4",
@@ -16,7 +15,7 @@
     "J9_PINS": "4",
     "LOOM_J1": "550 mm",
     "LOOM_J11": "600 mm",
-    "LOOM_J13": "350 mm",
+    "LOOM_J13": "500 mm",
     "LOOM_J2": "650 mm",
     "LOOM_J3": "400 mm",
     "LOOM_J4": "650 mm",

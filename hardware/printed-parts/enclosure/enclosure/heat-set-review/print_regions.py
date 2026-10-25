@@ -43,23 +43,6 @@ def print_pose(piece, mesh_bounds):
                                     [0, 0, sign, offset], [0, 0, 0, 1]])
 
 
-def dock_regions(box, region):
-    """Load paths from final source interfaces."""
-    plate = box.pack.collet_plate
-    if not plate:
-        return
-    retention = e.pump_retention_features(box)
-    for side, piece in (('moving', 'pump-cartridge'), ('fixed', 'front-top')):
-        for number, shape in enumerate(retention[side]['cutter'].Solids(), start=1):
-            b = shape_bounds(shape)
-            b[0] -= e.wall
-            b[1] += e.wall
-            b[4] -= e.wall
-            b[5] += e.wall
-            b[2 if side == 'moving' else 3] += -e.wall if side == 'moving' else e.wall
-            region(piece, f'SB443 column {number}: rail slot walls, roof over the blocks and root', b)
-
-
 def above_core_regions(box, region):
     """Complete fixed-shell hosts from the selected native interface helpers."""
     shell = e._above_core_shell
@@ -138,19 +121,6 @@ def main():
     for y in e.cap_screw_ys(box.inner,box.pack.collet_plate):
         region('pump-cartridge',f'Clamp insert and complete spine root {y:g}',
                [-lane,lane,y-5,y+5,e.bay_floor_z(box.pack.pump_trays)[1],split])
-    x,z=e.pump_contact_station(box)
-    host_x = max(e._pogo.EAR_L/2.0+e.fits.slip,
-                 max(abs(ex) for ex in e._pogo.ear_xs())+e.pogo_insert_entry_dia/2.0)+e.wall
-    host_z = e._pogo.BODY_W/2.0+e.fits.slip+e.fits.supported_surface+e.wall
-    fixed_face, moving_face = e.pump_contact_faces(box)
-    for name,face,sgn in (('front-top',fixed_face,1), ('pump-cap',moving_face,-1)):
-        back=face+sgn*(e._pogo.ear_back()+e.pogo_heatset_setback+
-                       e.pogo_heatset_len+e.pogo_heatset_relief+e.wall)
-        ya,yc=sorted((face,back))
-        bounds = [x-host_x,x+host_x,ya,yc,z-host_z,z+host_z]
-        region(name,'Both pogo insert hosts, loading passages and blind caps',
-               bounds)
-    dock_regions(box, region)
     above_core_regions(box, region)
     poses = {}
     for name, rows in pieces.items():
@@ -172,7 +142,6 @@ def main():
            Path(e._funnel_frame_part.__file__),
            Path(e._funnel_frame_part.funnel.__file__),
            Path(e._dock.__file__),
-           Path(e._retention.__file__),
            Path(e._dock.plumbing.__file__),
            ROOT/'hardware/printed-parts/petgf.3mf']
     report=dict(scope='Local 100% infill modifiers in existing native material; complete insert hosts, blind caps, roots and seam load paths. No load capacity or lifetime qualification.',

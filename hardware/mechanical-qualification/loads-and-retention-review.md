@@ -2,9 +2,8 @@
 
 Each case: the load, its path, the feature that governs it, a hand-calculation margin and a
 verdict, for the enclosure at `fbc3e5dd3` and its regenerated quadrants; the pump-tube and
-cartridge-seat cases read the current tree's dock. Physical evidence is in the
-[register](README.md). The pump dock's tee caps, tee anchors and collet plate are outside this
-review.
+cradle-seat cases read the current tree's dock. Physical evidence is in the
+[register](README.md). The tee wall that holds the pump tees is outside this review.
 
 ## Basis and assumptions
 
@@ -30,10 +29,8 @@ review.
 | Compressor posts, lateral shock (side or edge drop) | 4.5 kg × deceleration, shared by four posts | Ø12/Ø6.4 post bending at its root on the slab, across layers, lever about 10 mm | 2.1 at 10 g, 1.06 at 20 g, 0.71 at 30 g | Needs a physical observation; see below |
 | Compressor posts, vertical rebound | 4.5 kg × deceleration | Grommet top flange → washer → M5 screw → RX-M5x9.5 pull-out | 276 N per insert at 25 g, 552 N at 50 g | Adequate to about 50 g on an assumed 1 kN insert pull-out; drop acceptance is the evidence |
 | M3 wall-mount inserts (supply, relay, C14, boards) | C14 cord insertion, about 50 N; the 0.33 kg supply at 50 g, 162 N over its screws | Screw → ruthex M3 → boss; C14 insertion loads its two inserts in pull-out because the flange lands from inside | Under 100 N per insert against an assumed 300 N | Adequate |
-| M1.4 connector inserts | Connector magnets plus four 0.44 N springs | Ear plate → two M1.4×8 → M1.4×4 inserts per half | Under 10 N per half | Adequate; installation access is the open item ([mounting audit](../reference/yyfkgcp-pogo-4p/mounting-audit.md)) |
-| Pump tubes under blocked-fill pressure | Blocked-fill pressure over each pump tube's sealed section | Tube → its tee's branch collet; the tube's far end in the pump head's housing clamp. The tube carries the separating load between collet and clamp, and the magnets carry none of it | Not calculated: the collet's grip is the fitting's own and the clamp's hold is unmeasured | Open; see [cartridge seat](#cartridge-seat) |
-| Cartridge seat | Line pressure on each pump tube's 31.7 mm² section, pushing it out of its pressed collet; no collet grips | Pump tubes → pump heads → cartridge → four SB443-IN pairs, one column of two on each pump's own line, printed in on rails, bare poles meeting across the frame gap | 60.9 N for all four pairs at the catalogue steel rating, 30.4 N per pump's column: the thrust of about 70 psi in all four tubes at once | Open; no margin until the installed pull and the tubes' pressure are known |
-| Pogo contact current | Pump start and jam current, held at the trip | DRV8870 current regulation through the 0.2 Ω sense resistor on each ISEN (R28, R29) | 1.54–1.81 A against 2 A: 1.10 at the ceiling; 1.65 A nominal, about twice the 0.8 A running current | Adequate in the board source; the start under the trip needs a physical observation; see below |
+| Pump tubes under blocked-fill pressure | Blocked-fill pressure over each pump tube's sealed section | Tube → its tee's gripping branch collet; the tube's far end in the pump head's housing clamp. The tube carries the separating load between collet and clamp | Not calculated: the collet's grip is the fitting's own and the clamp's hold is unmeasured | Open; see [cradle seat](#cradle-seat) |
+| Cradle seat | Pushing the cradle home: all four tubes through their gripping collets to the tees' stops at once | Cradle → pump heads → housing clamps → tubes → branch collets → tees, each stopped aft by its lower return, anchored in its rear valve. The four collets are all that retain the cradle | Not calculated: the four-tube insertion force and the returns' aft stop are unmeasured | Open |
 
 ## Y-seam head recesses
 
@@ -74,38 +71,19 @@ gauge. If the shell meets a neighbour or the condenser cradle first with the pos
 posts are adequate for lateral shock. If the plate meets a post first, a curb is added before
 shipment.
 
-## Pogo contact current
+## Cradle seat
 
-Each contact is rated 2 A and carries one pump's whole motor current. In the
-[PCB source](../pcb/pcba/pcba.tsx), each DRV8870's ISEN returns through its own 0.2 Ω ±1 %
-sense resistor (R28 on U11, R29 on U12) and VREF is 3V3. The
-[DRV8870 data sheet](https://www.ti.com/lit/ds/symlink/drv8870.pdf) trips at
-I_TRIP = VREF / (A_V × R_ISEN): 1.65 A nominal, 1.54–1.81 A across its 9.4–10.4 ISEN gain, the
-3V3 rail's ±2 % and the resistor's ±1 %. At the trip the bridge brakes for 25 µs and drives
-again, so a start or a jam is held there, and the contacts carry the trip current through the
-brake. The resistor dissipates 0.65 W at the 1.81 A ceiling, on a 1 W part. Boards from the first
-two JLCPCB batches ground ISEN and are bounded only by the driver's 3.7–6.4 A overcurrent
-protection.
-
-A primed head starts against the trip current. The observation that confirms the setting is a
-pump start under it: a primed pump at the coldest expected cabinet temperature reaches full speed
-within 1 s of its command
-([current protection](../reference/yyfkgcp-pogo-4p/mounting-audit.md#current-protection)).
-
-## Cartridge seat
-
-The collet plate holds the tees' branch collets pressed, so no collet grips a pump tube
+The four tees' branch collets stand extended in their recesses and grip the pump tubes. They
+hold the cradle home, its flat back 0.25 mm off the bulkhead, and nothing else retains it
 ([pump dock](../printed-parts/enclosure/pump-dock/README.md)). Under a blocked fill each tube
-is pushed out with the pressure on its 31.7 mm² section, through the pump head's housing clamp
-into the cartridge and onto its seat. The clamp's hold under that load is unmeasured.
+is pushed out of its tee with the pressure on its 31.7 mm² section; the collet grips the tube
+and the pump head's housing clamp holds its other end, so the tube carries that load between
+them. The clamp's hold under that load is unmeasured.
 
-The four SB443-IN pairs seat the cartridge, one column of two on each pump's own line, their
-bare poles setting its flat back 0.25 mm off the collet plate. K&J rates one block at 3.42 lbf
-to thick steel, 15.21 N, so the four pairs give 60.9 N and each pump's column 30.4 N; that
-catalogue figure is not an installed rating. It matches the thrust of about 70 psi in all four
-tubes at once; the pressure the tubes see is unstated, so no seat margin is stated. Straight
-removal parts all four pairs and drags four tubes through their O-rings in the pressed collets;
-that total is unmeasured.
+Pushing the cradle home drives all four tubes through their collets to the tees' stops at
+once. Each tee stops aft on its lower return, anchored in its rear valve, and its fixed branch
+barrel lands on the bore face if it is pushed fore. The four-tube insertion force and the
+returns' aft stop under it are unmeasured.
 
 ## Evidence limits
 

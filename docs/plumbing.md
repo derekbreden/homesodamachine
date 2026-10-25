@@ -2,8 +2,7 @@
 
 This guide describes the installed external-carbonator prototype and its
 Platypus-bag flavor lines. For the integrated appliance, use the
-[fluid topology](../hardware/topology/fluid-topology.md) and
-[pump service guide](../hardware/service/pump-replacement.md).
+[fluid topology](../hardware/topology/fluid-topology.md).
 
 ## Tubing Strategy
 

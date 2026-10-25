@@ -49,11 +49,11 @@ for fixed-width brim types.
 
 | Piece | Printer | Read from the mesh | Recipe changes |
 | --- | --- | --- | --- |
-| `front-top` | Mark1 | 0.08 mm band over the R6 roof side edges' level run and the R18 display-to-roof roll; tie-channel rooms with local support blockers; magnet slots | Support XY 0.50 mm; one magnet pause |
+| `front-top` | Mark1 | 0.08 mm band over the R6 roof side edges' level run and the R18 display-to-roof roll; tie-channel rooms with local support blockers | Support XY 0.50 mm |
 | `front-bottom` | Mark1 | Six-wall band through the handhold lifting-edge transition and its corner returns; 0.8 mm boundary strip of the flat lifting ceiling; removable arc fins along the lifting edges | — |
 | `back-bottom` | Mark2 | Six-wall band through the handhold lifting-edge transition and its corner returns; 0.8 mm boundary strip of the flat lifting ceiling; removable arc fins on feet along the lifting edges | Plate offset X −5.1, Y +18.8 mm |
 | `back-top` | Mark2 | Six-wall band through the roof side edges on the bed; one ribbon per sliding groove; tie-channel review windows | 50 mm bridge limit; 3 mm tree branches, 0.5° growth; plate offset X −5.4 mm |
-| `pump-cartridge-cap` | Mark1 | Cartridge: 0.08 mm band over the lower hand-pocket rims, six-wall band through the upper rim transitions; magnet slots; cap crown-down | Support XY 1.0 mm; support on the model's layers; one magnet pause |
+| `pump-cartridge-cap` | Mark1 | Pump cradle as exported; clamp crown-down | — |
 | `funnel-frame` | Mark2 | — | No brim or elephant-foot compensation; support XY 0.50 mm |
 | `factory-tools` | Mark2 | Tube tip setting jig as exported | — |
 | `dock-petgf` | Mark1 | Four tee caps from the one manufacturing export, already in print pose standing on its fore end | Six walls, 100% zig-zag per part |
@@ -94,8 +94,7 @@ A part may also declare one **`pause`**: parts loaded into closed slots mid-prin
 boxes become support blockers, overlapping their roofs by `blocker_roof_overlap_mm` so the
 roof faces cannot request support in the loading slots. `--slice` slices twice: the first slice gives the emitted
 layers, the pause (`M400 U1` with its loading text) goes on the first layer sliced above the
-slots' roof, and that layer's bottom must clear the loaded stack's top. Front-top and the
-cartridge each take one, for their SB443-IN columns.
+slots' roof, and that layer's bottom must clear the loaded stack's top.
 
 ## Review
 

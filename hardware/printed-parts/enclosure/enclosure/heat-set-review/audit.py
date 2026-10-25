@@ -95,11 +95,6 @@ fore=box.outer[3]-e.socket_cap-e.c14_tunnel_len
 for x,z in box.pack.c14:
     add('back-top','C14',(x,fore,z),(0,1,0),e.heatset_dia,e.heatset_len,
         e.heatset_depth,1.6,True)
-x,z=e.pump_contact_station(box)
-for piece,face,sgn in zip(('front-top','pump-cap'),e.pump_contact_faces(box),(1,-1)):
-    for ex in e._pogo.ear_xs():
-        add(piece,'pogo',(x+ex,face+sgn*(e._pogo.ear_back()+e.pogo_heatset_setback),z),(0,sgn,0),
-            e.pogo_heatset_dia,e.pogo_heatset_len,e.pogo_heatset_len+e.pogo_heatset_relief,(1.5*2.3-e.pogo_heatset_dia)/2.0)
 
 shapes={}
 for piece in sorted(e.PIECE_COLORS):
@@ -133,10 +128,10 @@ for row in station_rows:
         else: hi=mid
     row['minimum_full_depth_wall_mm_interval']=[round(lo,5),round(hi,5)]
     row['stock_rule_pass']=None if minimum is None else row['missing_required_stock_mm3']<=tol
-    row['stock_rule']='SPIROL general FDM boss ≥1.5× knurl OD; ZWMSSLL publishes no host-wall minimum' if row['family']=='pogo' else 'ruthex RX table minimum wall from recommended pilot'
-    row['manufacturer_wall_pass']=row['stock_rule_pass'] if row['family']!='pogo' else None
+    row['stock_rule']='ruthex RX table minimum wall from recommended pilot'
+    row['manufacturer_wall_pass']=row['stock_rule_pass']
     # This is an independent supplier constraint, not an equality between two CAD constants.
-    expected_pilot = None if row['family'] == 'pogo' else (6.4 if row['family'] in ('compressor', 'Y-seam stack') else 4.0)
+    expected_pilot = 6.4 if row['family'] in ('compressor', 'Y-seam stack') else 4.0
     row['manufacturer_pilot_mm'] = expected_pilot
     row['manufacturer_pilot_pass'] = None if expected_pilot is None else abs(row['pilot_mm'] - expected_pilot) < 1e-6
     row['blind_relief_pass']=row['blind_relief_mm']>=1-1e-6
@@ -156,12 +151,7 @@ for row in station_rows:
         cap_probe=cap_probe.cut(cq.Solid.makeCylinder(row['through_passage_mm']/2.0,0.25,cap_start,into))
     row['missing_closed_blind_stock_mm3']=cap_probe.cut(shape).Volume()
     row['closed_blind_pass']=row['missing_closed_blind_stock_mm3']<=tol
-    if row['family']=='pogo':
-        mouth=seat-into*(e.pogo_heatset_setback-0.02)
-        entry=cq.Solid.makeCylinder(2.3/2.0,e.pogo_heatset_setback-0.04,mouth,into)
-        row['blocked_whole_knurl_entry_mm3']=entry.intersect(shape).Volume()
-        row['insertion_access_pass']=row['blocked_whole_knurl_entry_mm3']<=tol
-    elif row.get('entry_setback_mm'):
+    if row.get('entry_setback_mm'):
         mouth=seat-into*(row['entry_setback_mm']-0.02)
         entry=cq.Solid.makeCylinder(4.6/2.0,row['entry_setback_mm']-0.04,mouth,into)
         row['blocked_whole_knurl_entry_mm3']=entry.intersect(shape).Volume()

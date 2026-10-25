@@ -245,7 +245,7 @@ Newline-terminated, 115200 baud over the native USB CDC:
 - `BL:0` / `BL:1` → backlight off / on (drives CH422G EXIO2)
 - `IDLE:0`..`IDLE:3` → wake, or take a rung of the idle ladder without waiting it out
 - `PAGE:0`..`PAGE:3` → On tap, Prime, Fill, Clean;
-  `PAGE:4` → system status; `PAGE:5` → pump service
+  `PAGE:4` → system status
 - `FLAVOR:0` / `FLAVOR:1` → select through the same main-board-owned path as a card tap
 - `EDIT:<1|2>[,<image 0..3>]` → open a flavor's own page, and take one of its logos:
   the same ratio and image-assignment handlers the screen uses
@@ -259,7 +259,7 @@ Newline-terminated, 115200 baud over the native USB CDC:
 - `FILL:START:<1|2>` / `FILL:STOP` → the confirm page's START and the lock's STOP,
   without a finger on the glass: same frame, same answer, same lock
 - `CLEAN:START:<1|2>` / `CLEAN:STOP` → the same for the clean cycle
-- `AIR:DRY` / `AIR:STOP` → Settings' PUMP SERVICE → DRY THE LINES and the lock's STOP
+- `AIR:DRY` / `AIR:STOP` → the bench's and the factory's dry cycle, and the lock's STOP
 - `STATUS` → ask the base for one `StatusPayload`
 - `PUMP` → one `MSG_PUMP_RUN { B, 1000 }`
 - `LINK` → RX/TX GPIO and the frame counters
@@ -339,7 +339,6 @@ while an operation is pending or running.
 | Prime | shared main-board session and Hold to prime |
 | Clean | three rinse cycles, authoritative progress and Stop |
 | System status | complete machine profile and ten live reed indicators |
-| Pump service | instructions and Dry the lines |
 
 Ratios appear only on the Ratio page. Image assignments and ratios are saved by the
 main board and shared with the faucet. Missing uploaded images are unavailable choices;
@@ -378,18 +377,17 @@ ui fill a           # Fill instructions; no actuator
 ui prime a          # shared prime-ready session; pump waits for a hold
 ui clean a          # Clean instructions; no actuator
 ui settings         # System status
-ui pump-service     # Pump service instructions; no actuator
 ```
 
-`go` starts an operation on Fill, Clean or Pump service. On Choose, it opens the image
+`go` starts an operation on Fill or Clean. On Choose, it opens the image
 picker. The existing diagnostic rail IDs remain stable.
 
 ### Sleep and touch
 
 The main board owns the shared quiet interval and first darkening. After two minutes
-dark, flavor tasks return to On tap and machine settings return to System status. After
-ten minutes dark, every page returns to On tap. `IDLE:0`..`IDLE:3` exercise these stages.
-A wake touch is consumed; it wakes without triggering an action.
+dark, flavor tasks return to On tap. After ten minutes dark, every page returns to On tap.
+`IDLE:0`..`IDLE:3` exercise these stages. A wake touch is consumed; it wakes without
+triggering an action.
 
 Navigation responds to a press. Start/Stop require a release on their target; sliding
 off cancels the click. Prime stops on release or slide-off. An image press commits on
@@ -460,13 +458,16 @@ the round and flow direction, and the main board's estimated time left. Queries 
 500 ms. Clean, Stopped and fault outcomes remain readable for six seconds while navigation
 is restored. Refusals appear on the Clean page.
 
-### Dry, before a pump replacement
+### Dry
 
-**Settings → PUMP SERVICE → DRY THE LINES** sends `MSG_AIR_START { DRY }`. The card says to set a container
-under the faucet first. The main board runs air in then through to the faucet on channel A,
-then on channel B — the four purge states that sweep every joint the collet plate opens
-([`/hardware/service/pump-replacement.md`](/hardware/service/pump-replacement.md)) — and
-answers START, `MSG_AIR_QUERY` and `MSG_AIR_STOP` with a complete `AirStatePayload`.
+**`AIR:DRY`** on this board's USB sends `MSG_AIR_START { DRY }`, the cycle the main board's
+console starts with `dry`. It dries the flavor lines at the bench or the factory, with a
+container under the faucet; nothing on the glass starts it. The main board runs air in then
+through to the faucet on channel A, then on channel B — the four purge states that sweep every
+segment of the flavor manifold but the two reservoir draws
+([`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md)) — and
+answers START, `MSG_AIR_QUERY` and `MSG_AIR_STOP` with a complete `AirStatePayload`. A
+refusal is printed on this board's USB.
 
 The full-width machine task shows Drying, progress across four steps, flow direction,
 Stop and the main board's time estimate. Dry and fault results restore navigation and
@@ -499,14 +500,13 @@ of them named on the glass. Each of the ten reeds is a 14 px dot at its own stat
 of four on each pocket's outer wall at 57.5, 102.5, 147.5 and 192.5 mm up the shell, empty at
 the bottom and full at the top, and the carbonator's low and high on its tube's aft wall at
 99.1 and 127.3 mm. A reed the main board reads closed is a filled `COL_GOOD` disc; every other
-one is a ring. The areas a person can go into stand in a column east of the card, one target
-each — one so far, **PUMP SERVICE**, whose page carries Settings to this landing.
+one is a ring.
 
 The reeds ride the same status poll as the gauges, once a second while lit, and the diagram
 repaints only the dots that changed. A poll the main board has not answered for 1.5 s, or a
 reading it flags as stale, empties every dot and puts **Not reading the sensors** in the pane
-below the drawing. The 436 px profile occupies the full machine page beside Pump service.
-The drawing contains no text. `GET_DIAG` reports its settings view as `set=`.
+below the drawing. The 436 px profile occupies the full machine page beside the cold loop and
+refill readings. The drawing contains no text.
 
 ## Integration seams (not implemented)
 

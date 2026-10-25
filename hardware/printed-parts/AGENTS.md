@@ -8,9 +8,9 @@
 
 The snapshot sets aside the geometry the generator replaces, for the change's
 [before and after](../../changes/README.md). The piece's own generator cuts its STEP, STL and
-payload (the pump cartridge has the dedicated materializer above); `publish_now.py` grafts the
-changed payload into both viewer hosts — the enclosure aggregate and the appliance assembly —
-and tells the site.
+payload (the pump cradle, its clamp and front-top have the dedicated materializer above);
+`publish_now.py` grafts the changed payload into both viewer hosts — the enclosure aggregate
+and the appliance assembly — and tells the site.
 
 After the publish is live — never before, and never as a gate in the build path — lint the
 piece you changed and fix what it flags while Derek is already looking:
@@ -87,13 +87,6 @@ and both horizontal wings directly on the bed. Ordinary enclosure walls, webs an
 use the nominal 3 mm wall section. Remove cut remnants and tapered tips that leave thin fins.
 Apply thinner-section exceptions only to the specific flexure, cover or other feature that
 requires them.
-
-The SB443-IN magnet-groove retaining rails are a named local thickness exception.
-Keep the magnets mechanically captured during printing with exposed mating poles and one
-insertion pause per part. Assess each rail's slice in the production orientation: connected
-wall paths, their connection into the parent wall, and the short projection into the groove.
-Thickness alone does not reject this feature. See the
-[magnet construction](enclosure/pump-dock/magnet-retention.md#slot-and-rails).
 
 Use a 0.20 mm first bed layer and normal 0.24 mm layers above it. Expanding
 print-down show rounds use an additive chamfer tangent to their retained taper,

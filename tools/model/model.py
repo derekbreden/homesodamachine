@@ -157,7 +157,7 @@ INPUTS = {
     "pump_spread": (0.90, 1.10),           # this pump against its rated 600
     "supply_v": (11.8, 12.2),              # the IRM-90-12ST under the board's load
     # The DRV8870's high and low switches (565 mOhm together, typical, more when warm) and
-    # J13, the contact pair and the pump leads, at 0.8 A.
+    # the J13 leads to the motor tabs, at 0.8 A.
     "drive_drop_v": (0.5, 1.0),
     "motor_ir_v": (2.5, 5.0),              # armature drop at 0.8 A
     "burst_loss_ms": (10.0, 40.0),         # spin-up a burst does not pump, less its coast

@@ -2,7 +2,7 @@
 
 This register connects the current fasteners and print settings to their design basis and
 physical evidence. The [loads and retention review](loads-and-retention-review.md) sets the handling,
-seam, insert, compressor-post, cartridge and contact loads against their governing features. Evidence limits describe what can be claimed; they do not assign tests
+seam, insert, compressor-post and pump-cradle loads against their governing features. Evidence limits describe what can be claimed; they do not assign tests
 or measurements to the founder. It covers
 the printed enclosure, cold-core caps, reservoir closures and attached hardware. Reviewed
 2026-10-04 against the generators, saved print projects and linked physical records.
@@ -252,8 +252,8 @@ First-layer gap closure, the inspected R face and fin release remain unreported.
 The design objectives are in [design pressures](../design-pressures.md): compactness,
 assemblability, operation, rigidity and substantial feel. Engineering choices prioritize
 those outcomes and durable operation. Material price and printer occupancy describe the
-consequences of a candidate after its performance is assessed. The pump cartridge is the
-field-service operation; the other joints must work without customer retightening.
+consequences of a candidate after its performance is assessed. No joint is serviced in the
+field; each must work without customer retightening.
 
 ## Choosing the starting specification
 
@@ -284,8 +284,7 @@ linked here are the authority for each observation, including their print bindin
 
 | Interface | Established result | Evidence limit |
 | --- | --- | --- |
-| [Pogo contact test piece](../reference/yyfkgcp-pogo-4p/physical-observations.json) | Connector fit and mating/compression accepted by the founder, reported 2026-10-04. | The accepted result belongs to the printed test piece. Numerical full-enclosure gap, insert retention, electrical continuity, operating resistance and lifetime are unmeasured. |
-| [Kamoer cartridge and cap](../reference/kamoer-kphm400/physical-fit.json) | Both pumps held firmly with screws tightened; no vertical play reported. | The report does not independently identify the bearing surfaces or establish operating vibration, handling capacity or the complete four-tube mechanism's performance. |
+| [Kamoer pump cradle and clamp](../reference/kamoer-kphm400/physical-fit.json) | Both pumps held firmly with screws tightened; no vertical play reported. The current cradle and clamp carry the same fitted wells. | The report does not independently identify the bearing surfaces or establish operating vibration, handling capacity or the four-tube dock's performance. |
 | [Grip receiver and cover coupons](../printed-parts/enclosure/grip-cover/physical-acceptance.json) | Support removal and assembled receiver/cover fit accepted on H2C and Mark2 for the identified coupon articles. | This result does not qualify the production enclosure's bare gripping surfaces. Current handhold finish, cleanup, comfort and loaded lifting remain unmeasured. |
 | [Current back top on Mark1](../printed-parts/drain-readiness/prints/2026-10-08-current-back-top-mark1/physical-result.json) | Rejected on 2026-10-09: Derek reports impracticable removal of every normal support and intends to discard the article. | Finished fit and surface qualification are unassessed; native removal access does not establish usable cleanup. |
 | [Faucet display cover](../printed-parts/faucet/faucet-display-cover/physical-acceptance.json) | The identified September PET-GF cover provides accepted give, spring, fit and retention. Two identified white covers [broke during assembly](../printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/reported-failure.json); the [fan-off cover passed normal assembly](../printed-parts/faucet/faucet-display-cover/prints/2026-10-17-cooling-off-prepared-mark2/physical-result.json). Other faucet parts fractured during its installation. | The identified fan-off STL has assembly acceptance. The raised display revision needs its own physical result. Strength, retention force and cycle life are unmeasured. |
@@ -336,7 +335,7 @@ compare Ø7.20, 7.10, 7.00, 6.90 and 6.80 mm holes in the production print
 orientation. The earlier [Ø7.20 coupon acceptance](../printed-parts/fixtures/valve-socket-fit/physical-acceptance.json)
 covers easy insertion with zip ties for positive retention. The
 [current hand-fit selection](../printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/physical-fit-selection.json)
-sets **V69 / Ø6.90 mm** as the production socket. **V70 / Ø7.00 mm** is the
+from those samples sets **V69 / Ø6.90 mm** as the production socket. **V70 / Ø7.00 mm** is the
 conditional alternate for a valve or print orientation that does not fit V69 well.
 The shared seat keeps its exterior envelope and tie passages. The
 [request record](../printed-parts/fixtures/valve-socket-fit/tighter-trial-v2/physical-request.json)
@@ -367,32 +366,25 @@ numerical forces and endurance are not measured separately.
 
 The [pump-dock design](../printed-parts/enclosure/pump-dock/README.md) passes each
 factory-prepared pump's two straight 1/4" LLDPE tubes, clamped by the pump head's own
-housing, through front-top's collet plate into four purchased John Guest PP0208E tees.
-The collet plate holds each tee's branch collet pressed home its whole 1.5 mm stroke, so the
-collet never grips: the tube seals on its O-ring and draws straight out when the cartridge is
-pulled. The branch stands in a bore through front-top's tee wall, which holds the tee in X and
-Z; the plate stops it fore and its lower return stops it aft. A short straight tube joins each
-tee to its fixed fore valve, which stands over the tee's run axis, and a lower return of two
-stem elbows and one straight tube joins it to its rear valve. Four SB443-IN pairs, one column
-of two on each pump's own line, seat the cartridge and hold its tubes in against pressure. The customer replaces complete pumps; the tees, valves and tubing stay in the
-machine.
+housing, through front-top's tee wall into four purchased John Guest PP0208E tees. Each
+tee's branch collet stands extended in its recess and grips its tube like any push-fit; the
+tubes bottom at the tees' stops with the pump cradle home, and the four collets hold it there.
+The branch stands in a bore through the tee wall, which holds the tee in X and Z; its fixed
+branch barrel lands on the bore face if the tee is pushed fore, and its lower return stops it
+aft. A short straight tube joins each tee to its fixed fore valve, which stands over the tee's
+run axis, and a lower return of two stem elbows and one straight tube joins it to its rear
+valve. The cradle goes in once, at the factory; the collets cannot be released from the bay.
 
 The [push-connect observations](../reference/tee-connector/README.md#observed-push-connect-action)
-establish, on the identified PP0208E, easy withdrawal with the collet held in, relocking
-after a small separating tug and insertion against spring-level collet force. They carry no
-instrumented force reading. The
-[magnetic mount record](../printed-parts/enclosure/pump-dock/magnet-retention.md) defines
-the printed-in slots, rails and pause loading.
+establish, on the identified PP0208E, insertion against spring-level collet force and
+relocking after a small separating tug. They carry no instrumented force reading.
 
-The dock has no physical seal, retention, lifetime or cleaning acceptance. The magnets'
-margin against the line pressure on four tubes is unmeasured. The O-ring friction of four tubes
-through pressed collets, the complete withdrawal and insertion force, the cut stem elbows'
-seal, the tees' running fit in their bores,
-the pump tube clamp under docking load,
-the magnets' assembled seat and rail capture, and sealing and lifetime under fluid and
-cleaning are unmeasured. Material data alone do not establish finished wet-part
-food-contact suitability. Release with a failed or stalled pump needs a demonstrated
-depressurization route ([pump dock evidence](../printed-parts/enclosure/pump-dock/README.md#engineering-evidence)).
+The dock has no physical seal, retention, lifetime or cleaning acceptance. The force of
+pushing all four tubes home at once, each tee's aft stop through its return, the cut stem
+elbows' seal, the tees' running fit in their bores, the pump tube clamp under a blocked
+fill's pressure, and sealing and lifetime under fluid and cleaning are unmeasured. Material
+data alone do not establish finished wet-part food-contact suitability
+([pump dock](../printed-parts/enclosure/pump-dock/README.md)).
 
 The [core-stop review](../printed-parts/enclosure/pump-dock/core-stop-native-review.json)
 records the lower quadrants' complete bearing faces and webs against its Box and native inputs.
@@ -402,38 +394,8 @@ cold-core lid. Exact classifier diagnoses, specified cosmetic contours and unres
 sensor, floor, rear-interface, warning and valve-fixture findings retain their
 individual native/source scopes. They do not qualify physical print quality,
 support cleanup or load capacity.
-The accepted tee-carrier surfaces, sliding fit and RC62 print articles remain in their
-linked records; those observations do not transfer to the pump dock.
-
-## Pump cartridge magnetic contacts
-
-The [mounting audit](../reference/yyfkgcp-pogo-4p/mounting-audit.md) covers the current
-YYFKGCP four-contact pair, its factory-contained magnets, screw-fastened printed
-seats, polarity, load path and dimensional allowance. The
-[completed Mark2 RC62 cartridge article](../printed-parts/enclosure/enclosure/magnet-retention/v4/physical-result.json)
-records its enclosed ring's rattle and first covering-layer finish. The
-[C3 open-pocket selection](../printed-parts/enclosure/enclosure/magnet-retention/fit-coupons/physical-fit-selection.json)
-records 19.05 mm X and 3.175 mm Y fit for its identified ring-pocket articles; the
-[H2C C3/V69 result](../printed-parts/enclosure/enclosure/magnet-retention/selected-fit-v1/h2c-v20/physical-acceptance.json)
-accepts its first layer above the inserted ring. Those records retain their individual
-printed-article scopes and provide no acceptance of the SB443-IN mounts.
-
-H2C reported the two contact-seat coupons complete. The
-[physical contact record](../reference/yyfkgcp-pogo-4p/physical-observations.json)
-accepts the founder's successful connector fit and mating/compression check in the
-identified test piece, reported 2026-10-04. Insert retention and electrical continuity
-have no reported result.
-
-The current seats recess both connector faces 0.125 mm, giving a 0.500 mm nominal
-contact-face gap across the 0.250 mm printed-frame gap. The drawing's conservative
-pin protrusion is 0.80–1.20 mm. Applying ±0.05 mm installed face error per half
-about the recessed positions gives 0.200–0.800 mm compression, leaving 0.300 mm
-additional closing allowance before the stated 1.10 mm stroke. This conditional
-calculation does not bound the complete printed frame. The accepted coupon result
-retains its own seat geometry and does not qualify these recessed seats. Installed
-compression, magnetic pull against the four pogo-pin springs,
-whole-cartridge retention, operating resistance and lifetime remain unmeasured.
-The accepted pump-holder fit does not establish those connector properties.
+The accepted tee-carrier surfaces and sliding fit remain in their linked records; those
+observations do not transfer to the pump dock.
 
 ## Screw diameter and insert anchorage
 
@@ -506,16 +468,8 @@ record retains the full run's concurrent ring-source drift; its scope is the che
 materialized assembly. The inactive tube-support and support-column goals remain
 recorded. These checks establish fit, without a load or drop acceptance.
 
-The [ZWMSSLL M1.4 supplier listing](https://www.amazon.com/dp/B0DFWTJSYD)
-specifies a 4.0 mm length and 2.3 mm knurl OD. Its published material does not provide
-a host-bore tolerance, minimum surrounding wall or blind-pocket recommendation.
-The corresponding seats therefore need an explicit application specification; the
-ruthex table is not a manufacturer specification for these inserts. Keep that distinction
-when interpreting the enclosure's native audit.
-
 The [native enclosure audit](../printed-parts/enclosure/enclosure/heat-set-review/geometry-check.json)
-checks 35 additional stations in its six bound enclosure exports, including the four
-M1.4 anchors under their separately stated application rule. It checks complete insert
+checks the additional insert stations in its six bound enclosure exports: complete insert
 stock, fixed supplier pilot dimensions, full-depth open pilots, blind relief and caps,
 whole-knurl installation access, the whole section of every Y-seam knuckle and screw-tip
 clearance. The
@@ -565,7 +519,7 @@ published PLA/SPIROL insert loads cannot be transferred to ruthex inserts in thi
 | Cold-core cap stacks | Ten M3×25 stations per face with 5.7 mm inserts and 10.5 mm blind pilots. Dry printed seats have 0.15 mm static allowance; recessed 3M 425 exterior bands seal both casing seams at each end. The nominal stack envelope is 253.4 mm. The [native closure review](../printed-parts/cold-core/foam-cap/dry-closure-review.json) records floor stock, complete insert walls and screw-tip room. | The caps enclose cured insulation and carry no operating fluid or pressure. Reservoir gaskets retain their separate wet sealing role. Physical cap fit and local foil adhesion are unmeasured; the local seam construction does not qualify the complete vapor barrier or lifetime. |
 | Flavor reservoir caps | Six M3 screws; M3x12 engages 5.0 mm of each 5.7 mm insert. The body bosses are 10.0 mm OD. [Closure geometry](../printed-parts/cold-core/reservoir/reservoir.py). | Vented reservoirs carry liquid head and handling loads. Select the pattern and cap section for controlled gasket compression with allowance for relaxation. Insert length supplies anchorage; it does not by itself preserve gasket preload. |
 | Compressor | Four M5 stations follow the donor plate and grommets. [Mount geometry](../manifold-layout/enclosure_assembly.py). | The donor mounting pattern and isolation geometry provide a starting basis. They do not establish the strength of the printed posts, roots or floor under handling and transport. |
-| Pump cartridge cap | Two M3x60 screws clamp the shared cap into full-length inserts. | Firm assembled fit is established by the linked physical report. Select any improvement from the cap's load distribution, access and operating requirements; additional screws or larger diameter do not need to wait for a reported failure. |
+| Pump top clamp | Two M3x60 screws hold the top clamp to the pump cradle's spine, in full-length inserts. | Firm assembled fit is established by the linked physical report. Select any improvement from the clamp's load distribution, access and operating requirements; additional screws or larger diameter do not need to wait for a reported failure. |
 
 The [floor thickness is 6.0 mm and grip roofs are 12.0 mm](../printed-parts/enclosure/enclosure/enclosure.py).
 Those geometric dimensions do not define load capacity. Engineering assessment must include

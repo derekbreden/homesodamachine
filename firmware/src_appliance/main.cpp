@@ -59,8 +59,8 @@
 // puts tap water through it three rounds over — a fill through the idle pump
 // until the full reed closes, then a pumped flush out the faucet until the
 // empty reed opens — from the enclosure or the console.
-// The air cycles sweep the flavor path dry before a pump replacement, or air a
-// rinsed reservoir out the faucet. The pour opens the selected channel's
+// The air cycles sweep the flavor path dry, at the bench or the factory, or air
+// a rinsed reservoir out the faucet. The pour opens the selected channel's
 // dispense path on the flow meter and bursts its pump against the reading. The
 // self-test walks every solenoid, the condenser fan and both pumps, one load at
 // a time. Both MCP23017s boot with every output verified low and every reed
@@ -225,7 +225,7 @@ static void help() {
     Serial.println("                    tap water in through the idle pump until the full reed closes and pumped");
     Serial.println("                    out the faucet until the empty reed opens, rounds times (default 3);");
     Serial.println("                    s caps every step (default 114 funnel, 90 in, 150 out)");
-    Serial.println("  dry [s]           before a pump replacement: air in then through to the faucet, on each");
+    Serial.println("  dry [s]           dry the flavor lines: air in then through to the faucet, on each");
     Serial.println("                    channel in turn, the funnel dry and open; s caps every step");
     Serial.println("  purge <a|b> [s]   air into that reservoir, then the reservoir out the faucet until");
     Serial.println("                    its empty reed opens; s caps every step");
@@ -252,9 +252,8 @@ static void help() {
     Serial.println("  wake              light both glasses, as a finger on either would");
     Serial.println("  idle              awake or asleep, and how far into the quiet stretch");
     Serial.println("  test [s|off]      the camera's test screen on the enclosure, s seconds (default 120)");
-    Serial.println("  ui <page> [a|b] [go]   a customer page on the enclosure: choose, prime, fill, clean,");
-    Serial.println("                    settings or pump-service; with a flavor, that flavor's own page;");
-    Serial.println("                    go presses its START (settings and pump-service go press DRY THE LINES)");
+    Serial.println("  ui <page> [a|b] [go]   a customer page on the enclosure: choose, prime, fill, clean");
+    Serial.println("                    or settings; with a flavor, that flavor's own page; go presses its START");
     Serial.println("  sound <name>      play one of the machine's sounds; 'sound list' names them");
     Serial.println("  volume [0-100]    how loud everything but the alarm is (persisted)");
     Serial.println("  quiet [on|off] [start] [end] [pct]   quiet hours, off the DS3231 (persisted)");
@@ -1096,7 +1095,7 @@ static void console(const String &line) {
         return;
     }
     if (line == "ui" || line.startsWith("ui ")) {
-        // ui <choose|prime|fill|clean|settings|pump-service> [a|b] [go]
+        // ui <choose|prime|fill|clean|settings> [a|b] [go]
         String rest = line.substring(2); rest.trim();
         String page = rest, tail;
         int sp = rest.indexOf(' ');
@@ -1107,9 +1106,8 @@ static void console(const String &line) {
         else if (page == "fill")     rail = UI_RAIL_FILL;
         else if (page == "clean")    rail = UI_RAIL_CLEAN;
         else if (page == "settings") rail = UI_RAIL_SETTINGS;
-        else if (page == "pump-service") rail = UI_RAIL_PUMP_SERVICE;
         if (rail == 0xFF) {
-            Serial.println("\nusage: ui <choose|prime|fill|clean|settings|pump-service> [a|b] [go]");
+            Serial.println("\nusage: ui <choose|prime|fill|clean|settings> [a|b] [go]");
             return;
         }
         uint8_t channel = UI_CHANNEL_NONE;
@@ -1118,7 +1116,7 @@ static void console(const String &line) {
             char which = tail[0] | 0x20;
             if ((which == 'a' || which == 'b') && (tail.length() == 1 || tail[1] == ' '))
                 channel = which == 'a' ? PUMP_CHANNEL_A : PUMP_CHANNEL_B;
-            act = tail.endsWith("go") ? 1 : 0;
+            act = rail != UI_RAIL_SETTINGS && tail.endsWith("go") ? 1 : 0;
         }
         idleTouched();
         if (!linkUiShow(rail, channel, act)) {

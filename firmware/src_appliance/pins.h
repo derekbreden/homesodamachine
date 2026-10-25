@@ -19,13 +19,14 @@ static const int PIN_BUZZ             = 13;  // R5 -> Q1 -> U8
 // IN2 sits on the GND plane on both DRV8870s, so IN1 alone carries the drive:
 // high drives the bridge one way, low coasts it. PWM on IN1 is fast-decay, and
 // an IN1 parked as an input coasts the head on the driver's own pull-down —
-// which is what makes a brownout reset safe. A Kamoer KPHM600 draws ~0.8 A.
+// which is what makes a brownout reset safe. A Kamoer KPHM600 draws ~0.8 A, on
+// two leads that run from J13 straight to Faston receptacles on its motor tabs.
 // ISEN returns through a 0.2 ohm sense resistor (R28 on U11, R29 on U12), so a
-// start or a jam is held at ~1.65 A (1.54-1.81 A), under the 2 A of each
-// cartridge pogo contact: past it the driver brakes for 25 us and drives again
-// by itself. Full duty is a static IN1, which the data sheet regulates the same
-// way, so nothing here takes part. Boards from the first two JLCPCB batches
-// ground ISEN, and their limit is the driver's 3.7-6.4 A overcurrent shutdown.
+// start or a jam is held at ~1.65 A (1.54-1.81 A): past it the driver brakes
+// for 25 us and drives again by itself. Full duty is a static IN1, which the
+// data sheet regulates the same way, so nothing here takes part. Boards from
+// the first two JLCPCB batches ground ISEN, and their limit is the driver's
+// 3.7-6.4 A overcurrent shutdown.
 static const int PUMP_PWM_HZ   = 20000;  // above hearing — every sound in the room is mechanical
 static const int PUMP_PWM_BITS = 8;      // ledcWrite(255) is a true 100%: the core maps it to full-on
 

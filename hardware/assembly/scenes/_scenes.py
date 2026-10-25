@@ -245,14 +245,14 @@ SCENES = (
         cam=(0.8, -1.0, 0.9), up=(0, 0, 1), zoom=4.4, look="centre",
         note="The same pose as the back top and the other half of the same box: on its ceiling, "
              "the mouth to the room. Every seat under this manifold is the piece's own "
-             "material, including the collet plate and the tee wall's four bores. The drop-in "
+             "material, including the tee wall's four collet holes and bores. The drop-in "
              "frame carries its snapped-in drain cradle and enters after final connections.",
     ),
     # THE UNIT THAT FILLS THAT BAY, rooted on its two printed pieces: the full-height lower
     # cradle and the small top clamp. It is worked upright, the same way it stands in the bay,
     # because both complete pumps drop along +Z into the cradle before the clamp comes down.
     Scene(
-        "pump-cartridge", "Pump cartridge",
+        "pump-cartridge", "Pump cradle",
         roots=("enclosure-pump-cartridge", "enclosure-pump-cap"), inner=(),
         flip=None, also=(), later=(),
         cam=(0.9, 0.75, 0.55), up=(0, 0, 1), zoom=2.9, look="centre",
@@ -260,9 +260,9 @@ SCENES = (
              "both complete pumps drop through straight wells until their molded skirts bear "
              "on the cradle lands, then the small top clamp lowers over both octagonal bosses "
              "and takes two screws. Each pump head clamps its two short LLDPE tubes, which "
-             "pass the cradle's open tube passages. Four printed-in SB443-IN magnet pairs, two "
-             "on each pump's line, hold the installed cartridge where their bare poles meet; "
-             "the four tubes pass the collet plate into the tees behind it.",
+             "pass the cradle's open tube passages. Pushed home, the four tubes enter the tee "
+             "wall's collet holes and the tees' gripping collets, which hold the cradle in its "
+             "bay.",
     ),
     # THE PAIR IS WORKED FLAT ON A BENCH, so the camera is a person standing over it: nearly
     # down the lid's own normal, leaned just far enough onto the near edge that a valve and
@@ -472,7 +472,7 @@ def holders(assembly=None):
             out[f"tube-{rid}"] = tube_pieces[rid]
     # Body and cap seats already have fastening rows. Their geometric helper
     # tables do not create additional body or tube occupants in a scene.
-    # Prepared pump tubes ride the cartridge; the upper tubes and lower returns stay on
+    # Prepared pump tubes ride the pump cradle; the upper tubes and lower returns stay on
     # front-top with the pump tees.
     pump_at = {x: name for name, x in _ml.PUMPS.items()}
     for cid, _frm, _to, how in _ml.SEGMENTS:

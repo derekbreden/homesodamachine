@@ -2982,7 +2982,7 @@ STANDALONE = ("compressor", "condenser+fan", "foam-assembly", "g-ganen-pump",
               *(f"{name}{part}" for name, _toward in PUMP_ELBOWS.values()
                 for part in ("", "-clamp-barb", "-clamp-tube")),
               "funnel", "discharge-chain", "display", "display-cover",
-              "display-gasket", "pump-contact-male", "pump-contact-female",
+              "display-gasket",
               "psu", "pcba",
               "relay-1", "relay-2", "ground-stack", "asse1022-assembly",
               "bulkhead-drain", *_drain.ADAPTER_NAMES,
@@ -5502,9 +5502,6 @@ def report(a: cq.Assembly, clashes=None) -> None:
         line("display", box(named["display"]))
     if "display-cover" in named:
         line("display-cover", box(named["display-cover"]))
-    for n in ("pump-contact-male", "pump-contact-female"):
-        if n in named:
-            line(n, box(named[n]))
     if "psu" in named:
         line("psu", box(named["psu"]))
     for n in ("pcba", "relay-1", "relay-2") + WAGO_POLES + (

@@ -65,10 +65,8 @@ PORT_FACE_Y = 476.5
 PORT_Z_UPPER, PORT_Z_LOWER = 336.2, 273.8
 PORT_X_WEST, PORT_X_EAST = -78.1, -37.8
 
-# The clearances page 7 asks the reader to leave. There is no pad in front: the pump cartridge's
-# own draw is a service motion, and the umbilical's 300 mm service loop is what answers it — the
-# appliance comes out to the cabinet face on the day it is wanted rather than standing off the
-# doors for the years it is not (`marketing/install-envelope.md`). Behind is 60 mm because the lead
+# The clearances page 7 asks the reader to leave. There is no pad in front: nothing on the front
+# face opens (`marketing/install-envelope.md`). Behind is 60 mm because the lead
 # turns 90° at R12 off a collet standing 9.5 mm proud, and that one is permanent. The side gap is
 # the one the machine needs every hour it runs; 40 mm is derived in `marketing/install-envelope.md`
 # so its intake and its exhaust are not the same air.

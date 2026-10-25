@@ -64,7 +64,6 @@ def main():
     }
     variables.update({name: f"{value:g} mm" for name, value in lengths.items()})
     variables["EXTERNAL_SIG6"] = f"{SCHEDULE.len_umbilical_m:g} m"
-    variables["CARTRIDGE_LEAD"] = f"{SCHEDULE.len_cartridge_mm:g} mm"
 
     substitute_md(_here / "cable-assemblies.md", variables)
     print(" ".join(f"{j}={pins[j]}" for j in wanted))

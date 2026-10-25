@@ -51,14 +51,13 @@ The six three-port junction identifiers are **Y-A, Y-B, Y-C, Y-D, Y-F and Y-G**,
 
 **Neither reservoir has a junction.** Each carries **two mouths of its own**, both bores in its own cap — the fill, ending above the liquid, and the draw, whose line goes on down to the floor as the reservoir's dip tube — so each pair's two valves reach one directly and nothing stands between them. Every junction here therefore joins two VALVES, or connects two valves to a pump port.
 
-Y-A and Y-B retain their fixed front-manifold stations. V-A and V-B stand above the core and reach those tees through the routed source connections. Each pump tee's branch stands in a bore through front-top's tee wall, which holds it in X and Z, and the collet plate holds its branch collet pressed. The tee, its upper tube and its lower return stay in the machine during a pump change.
+Y-A and Y-B retain their fixed front-manifold stations. V-A and V-B stand above the core and reach those tees through the routed source connections. Each pump tee's branch stands in a bore through front-top's tee wall, which holds it in X and Z, and its branch collet stands extended in the collet plate's recess.
 
 **Y-A and Y-B are the SELECTS-SOURCE junction.** Each stands on its own inner limb's axis, one valve forward of the select it feeds, so its RUN is the limb — the source valve one side, the select the other. The two branches face each other across the mirror plane and meet on segment 6, which is what puts all four ports on one hydraulic node. Every mode opens exactly one of {V-A, V-B} and exactly one of {V-C, V-D}, so the traffic the pair carries is always one source to one select — straight down a limb, or down half a limb, across the bar and down the other half.
 
 **Y-C, Y-D, Y-F and Y-G are the pump tees.** The prepared pump's LLDPE tube
-passes front-top's collet plate into the branch and bottoms at the tee's stop. The
-plate holds the branch collet pressed, so the collet never grips: the tube seals on its
-O-ring, and pulling the cartridge draws it straight out. The upper port reaches its fore
+passes front-top's collet plate into the branch, where the extended collet grips it, and
+bottoms at the tee's stop. The upper port reaches its fore
 valve on a straight tube with [15.251 mm](UPPER_LINK_EXPOSED) exposed. The lower port
 reaches its rear valve on a lower return: a stem elbow in the tee's lower collet, one
 straight tube, and a stem elbow in the valve. Factory cuts and assembly
@@ -118,11 +117,11 @@ Four of the seven conduits in the cold core's top cap are this circuit's: a fill
 |---|---|---|---|
 | 9 | V-C-O | Y-C-1 | One straight LLDPE tube between a stem elbow in Y-C's lower port and one in V-C's bottom collet |
 | 10 | V-E-O | Y-C-2 | Short upper LLDPE tube from V-E's bottom collet into Y-C's upper port; add actual valve and tee insertion |
-| 11 | Y-C-3 | P-A-I | Prepared pump A suction tube in Y-C's branch collet, through the collet plate; pulling the cartridge releases it |
-| 12 | P-A-O | Y-D-1 | Prepared pump A discharge tube through the collet plate into Y-D's branch collet; pulling the cartridge releases it |
+| 11 | Y-C-3 | P-A-I | Prepared pump A suction tube in Y-C's branch collet, through the collet plate |
+| 12 | P-A-O | Y-D-1 | Prepared pump A discharge tube through the collet plate into Y-D's branch collet |
 | 13 | Y-D-2 | V-F-I | Short upper LLDPE tube from Y-D's upper port into V-F's bottom collet; add actual tee and valve insertion |
-| 14 | V-F-O | Reservoir A fill bore | Aft and down the `reservoir-a-fill` cap conduit, onto the bore in the reservoir's own cap, above the liquid |
-| 16 | Reservoir A draw | V-E-I | The dip tube up off A's floor and out its `reservoir-a` cap conduit, forward across the deck between V-A and V-K |
+| 14 | V-F-O | Reservoir A fill bore | East tube of the paired Y205/Y304 lid anchors, then through the plain `reservoir-a-fill` guide to the reservoir's fill bore; one continuous tube |
+| 16 | Reservoir A draw | V-E-I | One continuous dip tube from A's floor through the plain `reservoir-a` guide and the west seats of the paired Y304/Y205 lid anchors to V-E |
 | 17 | Y-D-3 | V-G-I | One straight LLDPE tube between a stem elbow in Y-D's lower port and one in V-G's bottom collet, leaning inboard |
 | 18 | V-G-O | bulkhead-flavor-a tube-in | Aft over the pack and across the machine to the +Y wall of back-top |
 
@@ -132,8 +131,8 @@ Four of the seven conduits in the cold core's top cap are this circuit's: a fill
 |---|---|---|---|
 | 19 | V-D-O | Y-F-1 | One straight LLDPE tube between a stem elbow in Y-F's lower port and one in V-D's bottom collet |
 | 20 | V-H-O | Y-F-2 | Short upper LLDPE tube from V-H's bottom collet into Y-F's upper port; add actual valve and tee insertion |
-| 21 | Y-F-3 | P-B-I | Prepared pump B suction tube in Y-F's branch collet, through the collet plate; pulling the cartridge releases it |
-| 22 | P-B-O | Y-G-1 | Prepared pump B discharge tube through the collet plate into Y-G's branch collet; pulling the cartridge releases it |
+| 21 | Y-F-3 | P-B-I | Prepared pump B suction tube in Y-F's branch collet, through the collet plate |
+| 22 | P-B-O | Y-G-1 | Prepared pump B discharge tube through the collet plate into Y-G's branch collet |
 | 23 | Y-G-3 | V-I-I | Short upper LLDPE tube from Y-G's upper port into V-I's bottom collet; add actual tee and valve insertion |
 | 24 | V-I-O | Reservoir B fill bore | Aft and down the `reservoir-b-fill` cap conduit, onto the bore in the reservoir's own cap, above the liquid |
 | 26 | Reservoir B draw | V-H-I | The dip tube up off B's floor and out its `reservoir-b` cap conduit, forward west of the funnel drain's elbow |
@@ -244,9 +243,8 @@ This table is canonical for the integrated flavor manifold. Pumps run forward on
 - Reservoir B is not on the path; V-I stays closed
 
 The two Through states with the two Purge In states above them air-fill every segment the flavor
-manifold carries except the two reservoir draws, whose ports stand under the liquid.
-[`/hardware/service/pump-replacement.md`](/hardware/service/pump-replacement.md) runs the four of
-them as the dry cycle before a pump replacement.
+manifold carries except the two reservoir draws, whose ports stand under the liquid. The
+appliance's bench dry cycle runs the four of them in turn.
 
 The clean cycle ([`machine_policy.h`](/firmware/lib/machine_policy/machine_policy.h)) opens with
 the channel's Through state on whatever the funnel holds — air when it is dry, or water poured

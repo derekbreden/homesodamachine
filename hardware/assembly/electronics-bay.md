@@ -4,7 +4,7 @@ The PCB lies flat on the west side of the cold-core roof, with its long axis
 fore–aft. The diaphragm pump and V-B belong to that core. Back-top carries
 V-A/V-K, their fitted plumbing, the water header, the PSU and both relays.
 The PSU mounts to the dry west sidewall, with the relays above it. The display,
-fixed pump contacts and front valve coils belong to `enclosure-front-top`.
+the pump cradle in its bay and the front valve coils belong to `enclosure-front-top`.
 
 The fore–aft flow meter travels with back-top between the CO₂ group and pump.
 Its two fixed collars sit in integral east-wall carriers; the moving collets
@@ -122,11 +122,13 @@ records the current rigid-slide and final-connection limits.
    subject to the installed model's stated termination limit. Populate the
    sensor and reservoir-B common junctions without adding junctions to the
    continuous reservoir-A reed common.
-5. Stage the front-top looms at their fixed display, front coil and pump-contact
-   endpoints. Install the core/back-bottom and upper quadrants with the final
+5. Stage the front-top looms at their fixed display and front coil endpoints.
+   Install the core/back-bottom and upper quadrants with the final
    funnel opening clear. Use this opening to connect J1/J2 valve commons
-   and returns, J13 pump contacts, J9 display, the remaining PCB sensor/data
-   headers, the rear relay connections and the core-to-rear power leads.
+   and returns, the J13 pump ribbon at the pump cradle's installation
+   ([internal plumbing §3](internal-plumbing.md#3-flavor-manifold-v-a-through-v-j--y-a-y-b-y-c-y-d-y-f-y-g--pumps)),
+   J9 display, the remaining PCB sensor/data headers, the rear relay
+   connections and the core-to-rear power leads.
    Bounded J11 housing service uses 6 mm up, 6 mm east and 20 mm up after
    removing the funnel/frame and disconnected cradled drain and releasing the
    flexible B return from its path. Flexible lead handling remains unqualified.

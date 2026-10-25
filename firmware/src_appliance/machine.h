@@ -185,12 +185,13 @@ bool machineIsCleaning();
 void machineReadCleanState(MachineCleanState &state);
 
 // ── The air cycles ────────────────────────────────────────────────────────
-// Dry sweeps both channels with air, in then through to the faucet, before a
-// pump replacement; Purge airs one channel's reservoir and draws it out the
-// faucet. Each step runs its planned time (machine_policy::airStepPlannedMs,
-// or stepPlannedMs when the console names one); the Out step also ends on the
-// empty reed the way a clean flush does. Refused on the same grounds as the
-// fill; every answer, step and ending goes out through machineOnAirState.
+// Dry sweeps both channels with air, in then through to the faucet, and dries
+// the flavor lines at the bench or the factory; Purge airs one channel's
+// reservoir and draws it out the faucet. Each step runs its planned time
+// (machine_policy::airStepPlannedMs, or stepPlannedMs when the console names
+// one); the Out step also ends on the empty reed the way a clean flush does.
+// Refused on the same grounds as the fill; every answer, step and ending goes
+// out through machineOnAirState.
 bool machineAirBegin(uint8_t mode, uint8_t channel, uint32_t stepPlannedMs = 0);
 void machineAirStop();
 bool machineIsAiring();
