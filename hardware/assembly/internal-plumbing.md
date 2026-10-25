@@ -39,9 +39,12 @@ retained in its reference.
 
 Square-cut tube blanks and mark the actual seated insertion at each fitting.
 A displayed path or known exposed link is not a stock blank until both socket
-engagements are established. Stem trim lengths belong to their receiving
-socket families; keep the original sealing surface undamaged and verify the
-actual seated engagement before use. The JG union-elbow scan does not establish
+engagements are established. Trim each stem to its host's marked tube stop:
+mark the stop on the actual received fitting, then cut the stem to that depth
+plus any specified showing length. Y-A and Y-B take their stems to the
+PP0208E's measured 10.0 mm stop ([tee connector](/hardware/reference/tee-connector/README.md)).
+Keep the original sealing surface undamaged and verify the actual seated
+engagement before use. The JG union-elbow scan does not establish
 its hidden insertion stop.
 
 The carbonator's water-in adapter and the check's downward outlet elbow share
@@ -92,8 +95,9 @@ V-A and V-K mount in back-top's integral socket seats. Clock their underside
 flow arrows downward: the header feeds their upper inlet ports, and their
 lower outlets feed Y-A and the pump respectively. Their terminal blades point
 downward. Seat the bare valves on the open back-top bench, then attach their
-prepared blade leads before fitting the surrounding plumbing. Dress the free
-PCB ends for final connection through the open roof. Physical terminal-housing
+prepared blade leads before fitting the surrounding plumbing. Dress their free
+ends forward to the funnel opening for the final connection
+([wiring](wiring.md#4-cabinet-side-12-v-runs-dc-3-dc-5-through-dc-9)). Physical terminal-housing
 fit and seating force remain unqualified.
 
 Thread the two ASSE ties and two regulator ties through their back-top support
@@ -110,7 +114,8 @@ Fit the pump's [TPU elbows](/hardware/printed-parts/diaphragm-pump-sleeve/README
 to the measured barb datums. Inspect both passages for strands first. Each barb
 and tube socket takes its own trial clamp, four per pump. Seat the barb to its
 shelf and the tube to its actual marked engagement, with the clamp band flush
-at the mouth. Preserve the existing fit/pressure-trial scope; a modeled cuff
+at the mouth. Turn each clamp's screw housing away from the water check and
+the lid; the model does not draw the housings. Preserve the existing fit/pressure-trial scope; a modeled cuff
 is not a qualified pressure joint.
 
 The check lies fore–aft west of the pump in its lid saddle, arrow away from the
@@ -152,6 +157,8 @@ holes and the tees' branch collets, which grip them, and seal on their O-rings. 
 [pump dock](/hardware/printed-parts/enclosure/pump-dock/README.md) describes the dock.
 
 **V-A and V-K mount on back-top; V-B mounts in the cold-core lid's upright socket wall.** Their forward runs reach Y-A and Y-B beneath the open funnel aperture. Complete these connections before fitting the drop-in frame.
+
+While front-top is open, land the J1 and J2 trunks on the front coils V-C through V-J and their `COM` feeds in the 221-420 and 221-415 ([wiring](wiring.md#4-cabinet-side-12-v-runs-dc-3-dc-5-through-dc-9)).
 
 Lay out the ten Beduan valves and the [6](MANIFOLD_TEES) PP0208E tees. Cut stationary links from the [current manifold geometry](/hardware/manifold-layout/README.md), including engagement at both actual fittings. Exposed path length is not a tube-blank cut length. Use black LLDPE except for `fluid-3`, which uses white. Square-cut, deburr without scoring the sealing surface, and tag each segment.
 
@@ -245,7 +252,7 @@ paired-anchor centres/axes are fixed; the bends and displayed lengths between
 them illustrate routing and may change to clear installed hardware and
 wires. The current drawn warm spans are
 [472.625 mm](RESERVOIR_A_FILL_WARM) for `fluid-14` fill and
-[415.300 mm](RESERVOIR_A_DRAW_WARM) for `fluid-16` draw. Each includes a
+[414.018 mm](RESERVOIR_A_DRAW_WARM) for `fluid-16` draw. Each includes a
 12.7 mm estimated front-valve receiving allowance. For the physical blank,
 continue through the guide to the reservoir fill bore or dip-tube tip and
 replace the valve allowance with its actual fully seated insertion mark.
@@ -256,7 +263,7 @@ The nominal closed tie path is
 unqualified. The [route record](/hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json)
 preserves the selected line/arc definitions and contact scope.
 
-Reservoir B fill turns through two actual compact fittings below the lid and emerges aft of the PCB at X−33/Y287.5. Its lower stem enters the reservoir cap's existing fill bore; the approximately 15.6 mm exposed link excludes the unmeasured JG socket insertion. Assemble the pair and link in the open cup, then close the lid over the lower 3.05 mm and upper 2.4 mm retaining covers. The upper cover has 0.25 mm nominal CAD air to the PCB tails; physical fit and retention load remain unqualified. A-fill and B-draw use shallow guide offsets. Dress and tag the front-top ends on the bench, and connect the remaining ends through the open roof before fitting the closures. Keep access to the lower returns' elbows and their collets.
+Reservoir B fill turns through two actual compact fittings below the lid and emerges aft of the PCB at X−33/Y287.5. Its lower stem enters the reservoir cap's existing fill bore; the approximately 15.6 mm exposed link excludes the unmeasured JG socket insertion. Assemble the pair and link in the open cup before the top cap's pour ([cold core](cold-core.md) §3); the lid then closes over the lower 3.05 mm and upper 2.4 mm retaining covers. The upper cover has 0.25 mm nominal CAD air to the PCB tails; physical fit and retention load remain unqualified. A-fill and B-draw use shallow guide offsets. Dress and tag the front-top ends on the bench, and connect the remaining ends through the funnel opening before the frame goes in. Keep access to the lower returns' elbows and their collets.
 
 The drawn `fluid-24` span is [247.400 mm](RESERVOIR_B_FILL_WARM), including
 the 12.7 mm nominal V-I receiving allowance and ending at the upper JG socket
@@ -322,24 +329,34 @@ Prepare the rear soda connection with back-top on the open bench:
    Complete accessible central inter-quadrant leads before fitting the frame.
 
 The [rear assembly record](/hardware/mechanical-qualification/enclosure-above-core/rear-plumbing-assembly.json)
-records each tested rear group's staging and finite socket scope. It retains the explicit 0.22493 mm³ nominal soda fitting
-contact. Collet fit, connection force, threading and hand/tool access remain
+retains the explicit 0.22493 mm³ nominal soda fitting contact and its finite
+socket scope. Collet fit, connection force, threading and hand/tool access remain
 unqualified. The meter and rear outlet are prepared together on back-top.
 Closing and flexible handoffs are established only to the scope of that record.
 
 Flavor A and B use black 4 mm lines from the reducers at V-G and V-J to the
-lower-left and lower-right rear fittings respectively. Retain R25 turns and
-straight socket entries. Dress valve leads clear of those lines and leave
-collets accessible.
+lower-left and lower-right rear fittings respectively. Seat `fluid-18` and
+`fluid-28` in their rear bulkheads on the open back-top and carry their free
+ends ahead of back-top's open front through the ride. Once the box is closed,
+connect them at the V-G and V-J reducers through the funnel opening. Retain
+R25 turns and straight socket entries. Dress valve leads clear of those lines
+and leave collets accessible.
 
-### 5. Final connections and roof closures
+### 5. Final connections through the funnel opening
 
 Make the V-A low feed and V-B high feed/return with the funnel frame absent.
-The single Y-A stem points aft and slightly east. The raised B connections
-clear that first elbow. The drain cradle snaps into the removable frame’s 3 mm
-web and carries the elbow and stub. Complete the drain connection before fitting
-the silicone funnel. Disconnect the drain tube or release the cradle snap before
-withdrawing the frame.
+Seat J11 at the main board before the V-B return union and its flexible
+return tube go in; the return lies over J11
+([wiring](wiring.md)). The single Y-A stem points aft and slightly east. The
+raised B connections clear that first elbow.
+
+The drain joint is made as the frame goes in, after commissioning. The drain
+cradle snaps into the removable frame’s 3 mm web and carries the PP0308E elbow
+and stub. Push `fluid-4`, the straight 10.95 mm exposed tube, fully into V-B's
+inlet turn, push the cradle's elbow onto its free end, then lower the
+frame so its web snaps over the cradle's wings. Complete the drain connection
+before fitting the silicone funnel. The plug, stub, elbow and cradle travel
+with the frame; disconnect the V-B feed before withdrawing it.
 
 Confirm every push-fit witness, trim engagement, clamp and tie on the made-up
 hardware. Keep wiring clear of wet joints and preserve access to moving
