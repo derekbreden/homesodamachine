@@ -8363,6 +8363,58 @@
       "source_ids": [
         "src-4bc981aabe95468aa245b2cf12174dfe"
       ]
+    },
+    "pur-7f5e5ae2f85e4d74bca9edb78b7332f0": {
+      "vendor": "Amazon",
+      "purpose": "equipment_tooling",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:114-0006703-7518633"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-ed76085250f14e07816a73e4ce658525",
+        "src-ae55c5c9340f446d9252acbc07d9463c"
+      ]
+    },
+    "pur-ae7d87fe77614d0098db388d7f0fa11d": {
+      "vendor": "Amazon",
+      "purpose": "equipment_tooling",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:114-0006703-7518633"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-ed76085250f14e07816a73e4ce658525",
+        "src-ae55c5c9340f446d9252acbc07d9463c"
+      ]
+    },
+    "pur-e17001f6d6074a8884e9e1b2af82fa1f": {
+      "vendor": "Amazon",
+      "purpose": "equipment_tooling",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:114-0006703-7518633"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-ed76085250f14e07816a73e4ce658525",
+        "src-ae55c5c9340f446d9252acbc07d9463c"
+      ]
+    },
+    "pur-242d69307ce84a69948b9e502ff3dd71": {
+      "vendor": "Amazon",
+      "purpose": "equipment_tooling",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:114-0006703-7518633"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-ed76085250f14e07816a73e4ce658525",
+        "src-ae55c5c9340f446d9252acbc07d9463c"
+      ]
     }
   },
   "orders": {
@@ -14184,6 +14236,18 @@
       "source_ids": [
         "src-4bc981aabe95468aa245b2cf12174dfe"
       ]
+    },
+    "amazon:114-0006703-7518633": {
+      "vendor": "Amazon",
+      "reference": "114-0006703-7518633",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-24"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-ed76085250f14e07816a73e4ce658525"
+      ]
     }
   },
   "events": [
@@ -17705,6 +17769,27 @@
       "order_ids": [
         "fws:WEBFWS100715131"
       ]
+    },
+    {
+      "event_id": "evt-f309b3ca14d1489d87b39daf5c7b7841",
+      "vendor": "Amazon",
+      "event_type": "charge",
+      "confirmation": "expected",
+      "event_date": {
+        "precision": "day",
+        "value": "2026-10-24"
+      },
+      "amount_minor": 35489,
+      "currency": "USD",
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-ed76085250f14e07816a73e4ce658525",
+        "src-ae55c5c9340f446d9252acbc07d9463c"
+      ],
+      "verified_at": "2026-10-24",
+      "order_ids": [
+        "amazon:114-0006703-7518633"
+      ]
     }
   ],
   "allocations": [
@@ -19074,6 +19159,38 @@
       "purchase_id": "pur-43767918757a4173a8b69a9b725d64fd",
       "order_id": "fws:WEBFWS100715131",
       "amount_minor": 17354,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-1dd4ee149dfe42e58f2204fbbb9e678f",
+      "event_id": "evt-f309b3ca14d1489d87b39daf5c7b7841",
+      "purchase_id": "pur-7f5e5ae2f85e4d74bca9edb78b7332f0",
+      "order_id": "amazon:114-0006703-7518633",
+      "amount_minor": 6969,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-d554d4356e674098873f3cdf3fca912b",
+      "event_id": "evt-f309b3ca14d1489d87b39daf5c7b7841",
+      "purchase_id": "pur-ae7d87fe77614d0098db388d7f0fa11d",
+      "order_id": "amazon:114-0006703-7518633",
+      "amount_minor": 18230,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-3b61d87597fd42388d02bd53f3a944ba",
+      "event_id": "evt-f309b3ca14d1489d87b39daf5c7b7841",
+      "purchase_id": "pur-e17001f6d6074a8884e9e1b2af82fa1f",
+      "order_id": "amazon:114-0006703-7518633",
+      "amount_minor": 4286,
+      "currency": "USD"
+    },
+    {
+      "allocation_id": "alloc-d356935e0225460c9dbba2f2bc89d4e2",
+      "event_id": "evt-f309b3ca14d1489d87b39daf5c7b7841",
+      "purchase_id": "pur-242d69307ce84a69948b9e502ff3dd71",
+      "order_id": "amazon:114-0006703-7518633",
+      "amount_minor": 6004,
       "currency": "USD"
     }
   ],
@@ -29420,6 +29537,33 @@
       ],
       "verified_at": "2026-10-24",
       "note": "Signed-in Amazon order history and individual order details: one Frizzlife PRV01 water filter pressure regulator, 60 PSI, 1/4\" quick connect push fit, ASIN B08NDQCZN2, sold by Frizzlife solutions; $10.99 item subtotal, $0.00 shipping, $0.80 estimated tax and $11.79 grand total; ordered 2026-10-23. The order shows Arriving Monday; no charge or delivery is established."
+    },
+    "src-ed76085250f14e07816a73e4ce658525": {
+      "vendor": "Amazon",
+      "document_type": "order_details",
+      "reference": "114-0006703-7518633",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-24"
+      },
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "verified_at": "2026-10-24",
+      "note": "Signed-in Amazon order details: ordered 2026-10-24; Klein Tools 54866MB MODbox Roll Dispenser (B0H9B8LC8V) × 2 at USD 19.98 each, arriving 2026-10-25; Polymaker PolyDryer Filament Storage Box (B0CK17RTP4) × 2 at USD 27.99 each, sold by Polymaker LLC, and Klein Tools 54823MB MODbox 3-Drawer Tool Box (B0CZ7FQGMG) at USD 169.98, both arriving 2026-10-26; Klein Tools 54400MBX MODbox Tall Compartment Box (B0GLKTG7C6) at USD 64.98, arriving 2026-10-27. The Klein items are sold by Amazon.com. USD 330.90 item subtotal, USD 0.00 shipping, USD 23.99 estimated tax and USD 354.89 grand total. The tax is not itemized; it is allocated in proportion to item price: USD 4.71 to the compartment box, 12.32 to the 3-drawer, 2.90 to the two roll dispensers and 4.06 to the two storage boxes."
+    },
+    "src-ae55c5c9340f446d9252acbc07d9463c": {
+      "vendor": "Amazon",
+      "document_type": "pending_merchant_transaction",
+      "reference": "114-0006703-7518633",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-24"
+      },
+      "proves": [],
+      "verified_at": "2026-10-24",
+      "note": "Order-scoped Transactions lists the USD 354.89 debit In Progress (Pending) on 2026-10-24; this is an expected charge, without completed-charge or authorization proof. Delivery is pending."
     }
   },
   "coverage": [
@@ -30875,6 +31019,27 @@
         "fws:WEBFWS100715131"
       ],
       "note": "Scoped Gmail search for Fresh Water Systems mail from the last two days and review of the named order confirmation; no claim of complete Fresh Water Systems account coverage or completed payment/fulfillment evidence."
+    },
+    {
+      "coverage_id": "coverage-fda23ec3e207480aad6773991c0498cc",
+      "vendor": "Amazon",
+      "stream": "selected project orders and order-scoped Transactions",
+      "evidence_type": "fulfillment_and_merchant_transactions",
+      "checked_at": "2026-10-24",
+      "examined_period": {
+        "start": "2026-10-24",
+        "end": "2026-10-24"
+      },
+      "complete_period": null,
+      "coverage": "partial",
+      "source_ids": [
+        "src-ed76085250f14e07816a73e4ce658525",
+        "src-ae55c5c9340f446d9252acbc07d9463c"
+      ],
+      "order_ids": [
+        "amazon:114-0006703-7518633"
+      ],
+      "note": "Order details and order-scoped Transactions for one named project order; its USD 354.89 debit is Pending. No claim of complete Amazon account coverage."
     }
   ],
   "gaps": [

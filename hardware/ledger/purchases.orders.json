@@ -2928,6 +2928,40 @@
       "total": 168.13,
       "project": true,
       "nonproject_amount": 123.91
+    },
+    "114-0006703-7518633": {
+      "ordered": "2026-10-24",
+      "subtotal": 330.9,
+      "shipping": 0.0,
+      "tax": 23.99,
+      "tax_estimated": true,
+      "total": 354.89,
+      "status": "Ordered; arriving 2026-10-25, 2026-10-26 and 2026-10-27",
+      "project": true,
+      "verified": "2026-10-24",
+      "expected_delivery": "2026-10-27",
+      "items": [
+        {
+          "asin": "B0H9B8LC8V",
+          "title": "Klein Tools 54866MB MODbox Roll Dispenser",
+          "quantity": 2
+        },
+        {
+          "asin": "B0CK17RTP4",
+          "title": "Polymaker PolyDryer Filament Storage Box (1 kg)",
+          "quantity": 2
+        },
+        {
+          "asin": "B0CZ7FQGMG",
+          "title": "Klein Tools 54823MB MODbox 3-Drawer Tool Box Organizer",
+          "quantity": 1
+        },
+        {
+          "asin": "B0GLKTG7C6",
+          "title": "Klein Tools 54400MBX MODbox Tall Compartment Box",
+          "quantity": 1
+        }
+      ]
     }
   }
 }
