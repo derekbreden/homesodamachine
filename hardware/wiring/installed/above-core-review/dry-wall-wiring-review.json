@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "scope": "Current in-progress source checkpoint for the selected back-top PSU and relay frames. Thirteen affected conductor paths have cleared the local guide-authoring equipment screen; the two PSU-secondary tails remain explicitly unresolved. A native changed-body proof and the later actual-export binding are separate. No physical wire-bend, terminal-entry, packing or assembly-force qualification.",
-  "source_state": "partial",
+  "scope": "Current source checkpoint for all fifteen affected paths in the selected back-top PSU and relay arrangement. The two PSU-secondary paths use local rounded guides around V-A and the aft PCB fittings. The bounded exact native stock/contact review is running; the later actual-export binding is separate. Physical wire-bend, terminal-entry, lead packing and assembly force remain unqualified.",
+  "source_state": "all_fifteen_paths_checkpointed",
   "requested_changed_conductors": [
     "AC2-L",
     "AC2-N",
@@ -24,6 +24,8 @@
     "AC2-N",
     "AC3-L",
     "AC4-H",
+    "DC1-V12",
+    "DC1-GND",
     "DC2-V12",
     "DC3-positive",
     "J5-V5",
@@ -34,10 +36,7 @@
     "J5-IO2",
     "J9-B"
   ],
-  "unresolved_conductors": [
-    "DC1-V12",
-    "DC1-GND"
-  ],
+  "unresolved_conductors": [],
   "native_changed_wire_contact_review_complete": false,
   "changed_native_poses": {
     "psu": {
@@ -118,7 +117,7 @@
   },
   "clearance_basis": "Manual FCL guide screen against current native equipment, exact current source tube sweeps, full nominal soda foam and final back-top1a74a3c9\u2026. Native source solids still require the bounded contact query.",
   "source_sha256": {
-    "hardware/wiring/installed/route-overrides.json": "09757c02b03edc94f94d88ec525cf124593cc25358e66078817a04eb52b6e444",
+    "hardware/wiring/installed/route-overrides.json": "e845afffda36eb959b62763077922db6c0c8ace9ac9b3ed9081a19ac276dbc8a",
     "hardware/wiring/installed/bundle-routes.json": "11d7866e6cb32d78334588be4c55919b1bcbc40f7773e6a11d4932116bb828a4",
     "hardware/wiring/installed/model.py": "66f6a6ea2228d7a75bb9175f803c9b1c2b02ea05ac074b5da160e66a6722cfac",
     "hardware/wiring/installed/routes.py": "91543624259155561d2840bd8e2bccaeccf553de4d5eb14a7f606b901f291624",
@@ -131,6 +130,8 @@
     "AC2-N": 133.207,
     "AC3-L": 60.296,
     "AC4-H": 606.306,
+    "DC1-V12": 285.231,
+    "DC1-GND": 280.915,
     "DC2-V12": 248.454,
     "DC3-positive": 136.047,
     "J5-V5": 212.41,
@@ -141,5 +142,27 @@
     "J5-IO2": 234.362,
     "J9-B": 256.464
   },
-  "PSU_mounting_sequence": "Fasten PSU before seating WAGO-H, whose occupied region crosses the aft+X mounting-driver approach. Installed lead contacts and staged tool occupancy are separate."
+  "PSU_mounting_sequence": "Fasten PSU before seating WAGO-H, whose occupied region crosses the aft+X mounting-driver approach. Installed lead contacts and staged tool occupancy are separate.",
+  "native_review_pending_conductors": [
+    "AC2-L",
+    "AC2-N",
+    "AC3-L",
+    "AC4-H",
+    "DC1-V12",
+    "DC1-GND",
+    "DC2-V12",
+    "DC3-positive",
+    "J5-V5",
+    "relay-bus-V5",
+    "J5-GND",
+    "relay-bus-GND",
+    "J5-IO19",
+    "J5-IO2",
+    "J9-B"
+  ],
+  "required_preparation_update": {
+    "len_dc1_mm": 350,
+    "maximum_modeled_DC1_mm": 285.231,
+    "basis": "Replace250mm stock with350mm for285.231mm maximum developed route and64.769mm nominal termination/dressing reserve."
+  }
 }
