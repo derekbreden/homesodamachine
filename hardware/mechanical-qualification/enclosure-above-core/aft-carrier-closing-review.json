@@ -1,0 +1,1491 @@
+{
+  "schema": 1,
+  "units": "mm",
+  "frame": "Production enclosure XYZ; Z up",
+  "scope": "Only the aft meter carrier and its complete nominal flat-section strip over the retained stationary core set in the named loose-stage record.",
+  "method": "For each moving body, its complete native bounding box is extended 300 mm in +Y. This box contains every intermediate translated body. Native box/body intersections are read only after exact native bounds survive. A zero common establishes a continuous rigid noncontact bound for 0 <= Y offset <= 300 mm; no sampled scene motion is replayed.",
+  "offset_range_mm": [
+    [
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      300.0,
+      0.0
+    ]
+  ],
+  "native_volume_tolerance_mm3": 1e-06,
+  "stage_record": {
+    "path": "hardware/mechanical-qualification/enclosure-above-core/wall-closing-loose-stage-review.json",
+    "sha256": "21533664043c01b0124b60cecf901a68318928becf5280e1de91c079d7acd523",
+    "removed_moving_components": [
+      "tube-above-core-va-fore-feed",
+      "tube-above-core-va-under-head",
+      "va-east-turn"
+    ],
+    "removed_stationary_component": "lower-pump-elbow"
+  },
+  "artifacts": {
+    "hardware/manifold-layout/enclosure-assembly.step": "b6ed81c2f72a78df8d7217f5a11d388355302a4979caadbd1591b6b2078c596c",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "73c0c39f74f1ff927ca2ff2c1d681a6af9308ae057afc5492a0c6a907611adcf"
+  },
+  "canonical_lid_override": "The separately exported top lid replaces only that appliance leaf at above_core.cap_lid_pose().",
+  "stationary_components": [
+    "cold-core/carbonator-fold",
+    "cold-core/discharge-chain",
+    "cold-core/foam-cap-lid-top",
+    "cold-core/foam-cap-top",
+    "cold-core/g-ganen-pump",
+    "cold-core/ground-stack",
+    "cold-core/line-carb-water-out",
+    "cold-core/line-co2-in",
+    "cold-core/line-reservoir-a",
+    "cold-core/line-reservoir-a-fill",
+    "cold-core/line-reservoir-b",
+    "cold-core/line-water-in",
+    "cold-core/pcba",
+    "cold-core/pump-inlet-barb-band",
+    "cold-core/pump-inlet-tpu",
+    "cold-core/pump-inlet-tube-band",
+    "cold-core/pump-outlet-barb-band",
+    "cold-core/pump-outlet-tpu",
+    "cold-core/pump-outlet-tube-band",
+    "cold-core/reservoir-b-fill-upper",
+    "cold-core/tube-above-core-pump-check-link",
+    "cold-core/tube-above-core-vb-yb-cross",
+    "cold-core/tube-water-5",
+    "cold-core/valve-v-b",
+    "cold-core/vb-inlet-turn",
+    "cold-core/vb-outlet-return",
+    "cold-core/vb-outlet-stem",
+    "cold-core/wago-gnd",
+    "cold-core/wago-reeds-b",
+    "cold-core/wago-sensors",
+    "cold-core/wago-v12"
+  ],
+  "readings": [
+    {
+      "moving": "aft-meter-carrier",
+      "component_signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 24,
+        "volume_mm3": 1729.4310434286242,
+        "center_mm": [
+          66.46825797920273,
+          426.22410246324694,
+          295.19530046930925
+        ],
+        "bounds_mm": [
+          [
+            50.0,
+            408.61479999999995,
+            290.5760478805363
+          ],
+          [
+            98.51,
+            437.5,
+            306.3760478805363
+          ]
+        ]
+      },
+      "swept_box_bounds_mm": [
+        [
+          50.0,
+          408.61479999999995,
+          290.5760478805363
+        ],
+        [
+          98.51,
+          737.5,
+          306.3760478805363
+        ]
+      ],
+      "target_count": 31,
+      "native_candidate_count": 2,
+      "targets": [
+        {
+          "stationary": "cold-core/carbonator-fold",
+          "actual_name": "cold-core/carbonator-fold",
+          "bounds_mm": [
+            [
+              -40.54879966121,
+              386.71708899639,
+              261.11882837176
+            ],
+            [
+              -25.054799661209998,
+              417.80028899639,
+              286.21402837176
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/discharge-chain",
+          "actual_name": "cold-core/discharge-chain",
+          "bounds_mm": [
+            [
+              -41.233278211634,
+              348.17648236865,
+              271.737349821336
+            ],
+            [
+              -24.37032111078,
+              403.60808899639,
+              288.600306922184
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/foam-cap-lid-top",
+          "actual_name": "cold-core/foam-cap-lid-top",
+          "bounds_mm": [
+            [
+              -90.2000001,
+              182.45000000000002,
+              247.9999998999971
+            ],
+            [
+              97.7000001,
+              465.0000001,
+              299.21000000000004
+            ]
+          ],
+          "separated_axes": [],
+          "native_swept_box_common_mm3": 0.0,
+          "native_common_bounds_mm": null,
+          "native_swept_box_air_mm": 37.17604788053629,
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/foam-cap-top",
+          "actual_name": "cold-core/foam-cap-top",
+          "bounds_mm": [
+            [
+              -90.20000008435004,
+              182.59999979999998,
+              233.5500000999964
+            ],
+            [
+              90.20000011564103,
+              465.00000000000006,
+              257.0000002
+            ]
+          ],
+          "separated_axes": [
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/g-ganen-pump",
+          "actual_name": "cold-core/g-ganen-pump",
+          "bounds_mm": [
+            [
+              -38.36826947636,
+              285.03547885502957,
+              253.40000610350788
+            ],
+            [
+              56.631730523638,
+              445.29999389648003,
+              313.9339230057165
+            ]
+          ],
+          "separated_axes": [],
+          "native_swept_box_common_mm3": 0.0,
+          "native_common_bounds_mm": null,
+          "native_swept_box_air_mm": 16.429787708534132,
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/ground-stack",
+          "actual_name": "cold-core/ground-stack",
+          "bounds_mm": [
+            [
+              27.9999999,
+              186.1557712659396,
+              253.4
+            ],
+            [
+              46.0000001,
+              203.8442287340604,
+              267.2
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/line-carb-water-out",
+          "actual_name": "cold-core/line-carb-water-out",
+          "bounds_mm": [
+            [
+              -22.225000084359003,
+              268.42499979999263,
+              33.825
+            ],
+            [
+              80.67500011563574,
+              345.5897999999973,
+              253.4
+            ]
+          ],
+          "separated_axes": [
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/line-co2-in",
+          "actual_name": "cold-core/line-co2-in",
+          "bounds_mm": [
+            [
+              32.93475328819362,
+              334.4034351486758,
+              33.825
+            ],
+            [
+              80.675000115641,
+              374.9749999999911,
+              253.4
+            ]
+          ],
+          "separated_axes": [
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/line-reservoir-a",
+          "actual_name": "cold-core/line-reservoir-a",
+          "bounds_mm": [
+            [
+              41.825000015641,
+              404.82499989999997,
+              28.425
+            ],
+            [
+              48.175000015641,
+              411.1749999,
+              253.4
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/line-reservoir-a-fill",
+          "actual_name": "cold-core/line-reservoir-a-fill",
+          "bounds_mm": [
+            [
+              54.32499991564101,
+              423.12499979999996,
+              233.15
+            ],
+            [
+              64.175000015641,
+              429.4749999,
+              253.4
+            ]
+          ],
+          "separated_axes": [
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/line-reservoir-b",
+          "actual_name": "cold-core/line-reservoir-b",
+          "bounds_mm": [
+            [
+              -12.675000084359,
+              226.3249998,
+              28.425
+            ],
+            [
+              -2.8249999843590006,
+              232.67499990000002,
+              253.4
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/line-water-in",
+          "actual_name": "cold-core/line-water-in",
+          "bounds_mm": [
+            [
+              -59.17500008435435,
+              290.996834286086,
+              216.225
+            ],
+            [
+              1.9410430507690344,
+              413.22828889639,
+              253.4
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/pcba",
+          "actual_name": "cold-core/pcba",
+          "bounds_mm": [
+            [
+              -82.99999389648,
+              186.38685627005,
+              255.0
+            ],
+            [
+              -10.19999389648,
+              277.20292002005,
+              276.1000072
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/pump-inlet-barb-band",
+          "actual_name": "cold-core/pump-inlet-barb-band",
+          "bounds_mm": [
+            [
+              35.392766266227,
+              321.34364385348,
+              271.82093484697
+            ],
+            [
+              44.392766266227,
+              337.95039077456,
+              288.42768176805
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/pump-inlet-tpu",
+          "actual_name": "cold-core/pump-inlet-tpu",
+          "bounds_mm": [
+            [
+              35.392766166227,
+              310.50555077415396,
+              266.33428515150183
+            ],
+            [
+              59.00325076810429,
+              337.35039087456,
+              287.82768186805
+            ]
+          ],
+          "separated_axes": [
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/pump-inlet-tube-band",
+          "actual_name": "cold-core/pump-inlet-tube-band",
+          "bounds_mm": [
+            [
+              44.792766266227005,
+              310.2285017062129,
+              265.80207875159067
+            ],
+            [
+              57.825031476237,
+              324.22922959285,
+              281.51757669283506
+            ]
+          ],
+          "separated_axes": [
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/pump-outlet-barb-band",
+          "actual_name": "cold-core/pump-outlet-barb-band",
+          "bounds_mm": [
+            [
+              -25.8856670562,
+              321.37310890811,
+              271.86545491122
+            ],
+            [
+              -16.8856670562,
+              337.97985582919,
+              288.4722018323
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/pump-outlet-tpu",
+          "actual_name": "cold-core/pump-outlet-tpu",
+          "bounds_mm": [
+            [
+              -40.49615155808292,
+              321.97310880811,
+              272.46545481121996
+            ],
+            [
+              -16.885666956199998,
+              348.17648246865,
+              287.8722019323
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/pump-outlet-tube-band",
+          "actual_name": "cold-core/pump-outlet-tube-band",
+          "bounds_mm": [
+            [
+              -39.317932266214996,
+              339.17648236865,
+              273.65269576675
+            ],
+            [
+              -26.285667056205,
+              348.17648236865,
+              286.684960976765
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/reservoir-b-fill-upper",
+          "actual_name": "cold-core/reservoir-b-fill-upper",
+          "bounds_mm": [
+            [
+              -56.08999998435,
+              266.61675123759863,
+              235.8371
+            ],
+            [
+              -38.557974114219604,
+              295.58999989999995,
+              264.56239000000045
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/tube-above-core-pump-check-link",
+          "actual_name": "cold-core/tube-above-core-pump-check-link",
+          "bounds_mm": [
+            [
+              -35.976799661209995,
+              333.17648236865,
+              276.99382837176
+            ],
+            [
+              -29.626799661209997,
+              365.06748236865,
+              283.34382837176
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/tube-above-core-vb-yb-cross",
+          "actual_name": "cold-core/tube-above-core-vb-yb-cross",
+          "bounds_mm": [
+            [
+              -20.463329002571395,
+              277.52454,
+              277.56637360671
+            ],
+            [
+              47.35388583513482,
+              283.87454,
+              293.2614609747245
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Y"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/tube-water-5",
+          "actual_name": "cold-core/tube-water-5",
+          "bounds_mm": [
+            [
+              -35.976799661209995,
+              406.87828889638996,
+              253.39999998694188
+            ],
+            [
+              -29.62679964557,
+              413.22828899639,
+              278.00982838481815
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/valve-v-b",
+          "actual_name": "cold-core/valve-v-b",
+          "bounds_mm": [
+            [
+              37.9999999,
+              215.15434,
+              263.65999999999997
+            ],
+            [
+              95.30000009999999,
+              274.65434,
+              297.16000010000005
+            ]
+          ],
+          "separated_axes": [
+            "Y"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/vb-inlet-turn",
+          "actual_name": "cold-core/vb-inlet-turn",
+          "bounds_mm": [
+            [
+              29.999999999999996,
+              201.36214,
+              272.663
+            ],
+            [
+              55.095200000000006,
+              227.85434,
+              288.15700000000004
+            ]
+          ],
+          "separated_axes": [
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/vb-outlet-return",
+          "actual_name": "cold-core/vb-outlet-return",
+          "bounds_mm": [
+            [
+              -32.92652396179,
+              260.13715,
+              280.50048142070415
+            ],
+            [
+              -3.8159569602404737,
+              288.86244,
+              298.88407375084
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Y"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/vb-outlet-stem",
+          "actual_name": "cold-core/vb-outlet-stem",
+          "bounds_mm": [
+            [
+              29.41994123519332,
+              261.95434,
+              273.8517780791389
+            ],
+            [
+              55.836613859677,
+              288.4465400000003,
+              290.09961669246104
+            ]
+          ],
+          "separated_axes": [
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/wago-gnd",
+          "actual_name": "cold-core/wago-gnd",
+          "bounds_mm": [
+            [
+              -1.8000000000000007,
+              232.6,
+              256.4
+            ],
+            [
+              16.8,
+              251.4,
+              264.8
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/wago-reeds-b",
+          "actual_name": "cold-core/wago-reeds-b",
+          "bounds_mm": [
+            [
+              -1.8000000000000007,
+              255.6,
+              256.4
+            ],
+            [
+              16.8,
+              274.4,
+              264.8
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/wago-sensors",
+          "actual_name": "cold-core/wago-sensors",
+          "bounds_mm": [
+            [
+              -1.8000000000000007,
+              185.6,
+              256.4
+            ],
+            [
+              16.8,
+              204.4,
+              264.8
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/wago-v12",
+          "actual_name": "cold-core/wago-v12",
+          "bounds_mm": [
+            [
+              -1.8000000000000007,
+              208.6,
+              256.4
+            ],
+            [
+              16.8,
+              227.4,
+              264.8
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "moving": "aft-meter-nominal-strip",
+      "component_signature": {
+        "valid": true,
+        "solids": 5,
+        "faces": 30,
+        "volume_mm3": 156.00714375782434,
+        "center_mm": [
+          52.17632545616398,
+          413.1148000000004,
+          303.5936729846795
+        ],
+        "bounds_mm": [
+          [
+            39.70000000000004,
+            411.8647998999999,
+            292.57604778053627
+          ],
+          [
+            63.4000001,
+            414.36480009999997,
+            316.6760478805363
+          ]
+        ]
+      },
+      "swept_box_bounds_mm": [
+        [
+          39.70000000000004,
+          411.8647998999999,
+          292.57604778053627
+        ],
+        [
+          63.4000001,
+          714.3648000999999,
+          316.6760478805363
+        ]
+      ],
+      "target_count": 31,
+      "native_candidate_count": 2,
+      "targets": [
+        {
+          "stationary": "cold-core/carbonator-fold",
+          "actual_name": "cold-core/carbonator-fold",
+          "bounds_mm": [
+            [
+              -40.54879966121,
+              386.71708899639,
+              261.11882837176
+            ],
+            [
+              -25.054799661209998,
+              417.80028899639,
+              286.21402837176
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/discharge-chain",
+          "actual_name": "cold-core/discharge-chain",
+          "bounds_mm": [
+            [
+              -41.233278211634,
+              348.17648236865,
+              271.737349821336
+            ],
+            [
+              -24.37032111078,
+              403.60808899639,
+              288.600306922184
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/foam-cap-lid-top",
+          "actual_name": "cold-core/foam-cap-lid-top",
+          "bounds_mm": [
+            [
+              -90.2000001,
+              182.45000000000002,
+              247.9999998999971
+            ],
+            [
+              97.7000001,
+              465.0000001,
+              299.21000000000004
+            ]
+          ],
+          "separated_axes": [],
+          "native_swept_box_common_mm3": 0.0,
+          "native_common_bounds_mm": null,
+          "native_swept_box_air_mm": 39.176047780536265,
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/foam-cap-top",
+          "actual_name": "cold-core/foam-cap-top",
+          "bounds_mm": [
+            [
+              -90.20000008435004,
+              182.59999979999998,
+              233.5500000999964
+            ],
+            [
+              90.20000011564103,
+              465.00000000000006,
+              257.0000002
+            ]
+          ],
+          "separated_axes": [
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/g-ganen-pump",
+          "actual_name": "cold-core/g-ganen-pump",
+          "bounds_mm": [
+            [
+              -38.36826947636,
+              285.03547885502957,
+              253.40000610350788
+            ],
+            [
+              56.631730523638,
+              445.29999389648003,
+              313.9339230057165
+            ]
+          ],
+          "separated_axes": [],
+          "native_swept_box_common_mm3": 0.0,
+          "native_common_bounds_mm": null,
+          "native_swept_box_air_mm": 6.433337432991723,
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/ground-stack",
+          "actual_name": "cold-core/ground-stack",
+          "bounds_mm": [
+            [
+              27.9999999,
+              186.1557712659396,
+              253.4
+            ],
+            [
+              46.0000001,
+              203.8442287340604,
+              267.2
+            ]
+          ],
+          "separated_axes": [
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/line-carb-water-out",
+          "actual_name": "cold-core/line-carb-water-out",
+          "bounds_mm": [
+            [
+              -22.225000084359003,
+              268.42499979999263,
+              33.825
+            ],
+            [
+              80.67500011563574,
+              345.5897999999973,
+              253.4
+            ]
+          ],
+          "separated_axes": [
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/line-co2-in",
+          "actual_name": "cold-core/line-co2-in",
+          "bounds_mm": [
+            [
+              32.93475328819362,
+              334.4034351486758,
+              33.825
+            ],
+            [
+              80.675000115641,
+              374.9749999999911,
+              253.4
+            ]
+          ],
+          "separated_axes": [
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/line-reservoir-a",
+          "actual_name": "cold-core/line-reservoir-a",
+          "bounds_mm": [
+            [
+              41.825000015641,
+              404.82499989999997,
+              28.425
+            ],
+            [
+              48.175000015641,
+              411.1749999,
+              253.4
+            ]
+          ],
+          "separated_axes": [
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/line-reservoir-a-fill",
+          "actual_name": "cold-core/line-reservoir-a-fill",
+          "bounds_mm": [
+            [
+              54.32499991564101,
+              423.12499979999996,
+              233.15
+            ],
+            [
+              64.175000015641,
+              429.4749999,
+              253.4
+            ]
+          ],
+          "separated_axes": [
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/line-reservoir-b",
+          "actual_name": "cold-core/line-reservoir-b",
+          "bounds_mm": [
+            [
+              -12.675000084359,
+              226.3249998,
+              28.425
+            ],
+            [
+              -2.8249999843590006,
+              232.67499990000002,
+              253.4
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/line-water-in",
+          "actual_name": "cold-core/line-water-in",
+          "bounds_mm": [
+            [
+              -59.17500008435435,
+              290.996834286086,
+              216.225
+            ],
+            [
+              1.9410430507690344,
+              413.22828889639,
+              253.4
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/pcba",
+          "actual_name": "cold-core/pcba",
+          "bounds_mm": [
+            [
+              -82.99999389648,
+              186.38685627005,
+              255.0
+            ],
+            [
+              -10.19999389648,
+              277.20292002005,
+              276.1000072
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/pump-inlet-barb-band",
+          "actual_name": "cold-core/pump-inlet-barb-band",
+          "bounds_mm": [
+            [
+              35.392766266227,
+              321.34364385348,
+              271.82093484697
+            ],
+            [
+              44.392766266227,
+              337.95039077456,
+              288.42768176805
+            ]
+          ],
+          "separated_axes": [
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/pump-inlet-tpu",
+          "actual_name": "cold-core/pump-inlet-tpu",
+          "bounds_mm": [
+            [
+              35.392766166227,
+              310.50555077415396,
+              266.33428515150183
+            ],
+            [
+              59.00325076810429,
+              337.35039087456,
+              287.82768186805
+            ]
+          ],
+          "separated_axes": [
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/pump-inlet-tube-band",
+          "actual_name": "cold-core/pump-inlet-tube-band",
+          "bounds_mm": [
+            [
+              44.792766266227005,
+              310.2285017062129,
+              265.80207875159067
+            ],
+            [
+              57.825031476237,
+              324.22922959285,
+              281.51757669283506
+            ]
+          ],
+          "separated_axes": [
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/pump-outlet-barb-band",
+          "actual_name": "cold-core/pump-outlet-barb-band",
+          "bounds_mm": [
+            [
+              -25.8856670562,
+              321.37310890811,
+              271.86545491122
+            ],
+            [
+              -16.8856670562,
+              337.97985582919,
+              288.4722018323
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/pump-outlet-tpu",
+          "actual_name": "cold-core/pump-outlet-tpu",
+          "bounds_mm": [
+            [
+              -40.49615155808292,
+              321.97310880811,
+              272.46545481121996
+            ],
+            [
+              -16.885666956199998,
+              348.17648246865,
+              287.8722019323
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/pump-outlet-tube-band",
+          "actual_name": "cold-core/pump-outlet-tube-band",
+          "bounds_mm": [
+            [
+              -39.317932266214996,
+              339.17648236865,
+              273.65269576675
+            ],
+            [
+              -26.285667056205,
+              348.17648236865,
+              286.684960976765
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/reservoir-b-fill-upper",
+          "actual_name": "cold-core/reservoir-b-fill-upper",
+          "bounds_mm": [
+            [
+              -56.08999998435,
+              266.61675123759863,
+              235.8371
+            ],
+            [
+              -38.557974114219604,
+              295.58999989999995,
+              264.56239000000045
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/tube-above-core-pump-check-link",
+          "actual_name": "cold-core/tube-above-core-pump-check-link",
+          "bounds_mm": [
+            [
+              -35.976799661209995,
+              333.17648236865,
+              276.99382837176
+            ],
+            [
+              -29.626799661209997,
+              365.06748236865,
+              283.34382837176
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/tube-above-core-vb-yb-cross",
+          "actual_name": "cold-core/tube-above-core-vb-yb-cross",
+          "bounds_mm": [
+            [
+              -20.463329002571395,
+              277.52454,
+              277.56637360671
+            ],
+            [
+              47.35388583513482,
+              283.87454,
+              293.2614609747245
+            ]
+          ],
+          "separated_axes": [
+            "Y"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/tube-water-5",
+          "actual_name": "cold-core/tube-water-5",
+          "bounds_mm": [
+            [
+              -35.976799661209995,
+              406.87828889638996,
+              253.39999998694188
+            ],
+            [
+              -29.62679964557,
+              413.22828899639,
+              278.00982838481815
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/valve-v-b",
+          "actual_name": "cold-core/valve-v-b",
+          "bounds_mm": [
+            [
+              37.9999999,
+              215.15434,
+              263.65999999999997
+            ],
+            [
+              95.30000009999999,
+              274.65434,
+              297.16000010000005
+            ]
+          ],
+          "separated_axes": [
+            "Y"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/vb-inlet-turn",
+          "actual_name": "cold-core/vb-inlet-turn",
+          "bounds_mm": [
+            [
+              29.999999999999996,
+              201.36214,
+              272.663
+            ],
+            [
+              55.095200000000006,
+              227.85434,
+              288.15700000000004
+            ]
+          ],
+          "separated_axes": [
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/vb-outlet-return",
+          "actual_name": "cold-core/vb-outlet-return",
+          "bounds_mm": [
+            [
+              -32.92652396179,
+              260.13715,
+              280.50048142070415
+            ],
+            [
+              -3.8159569602404737,
+              288.86244,
+              298.88407375084
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Y"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/vb-outlet-stem",
+          "actual_name": "cold-core/vb-outlet-stem",
+          "bounds_mm": [
+            [
+              29.41994123519332,
+              261.95434,
+              273.8517780791389
+            ],
+            [
+              55.836613859677,
+              288.4465400000003,
+              290.09961669246104
+            ]
+          ],
+          "separated_axes": [
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/wago-gnd",
+          "actual_name": "cold-core/wago-gnd",
+          "bounds_mm": [
+            [
+              -1.8000000000000007,
+              232.6,
+              256.4
+            ],
+            [
+              16.8,
+              251.4,
+              264.8
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/wago-reeds-b",
+          "actual_name": "cold-core/wago-reeds-b",
+          "bounds_mm": [
+            [
+              -1.8000000000000007,
+              255.6,
+              256.4
+            ],
+            [
+              16.8,
+              274.4,
+              264.8
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/wago-sensors",
+          "actual_name": "cold-core/wago-sensors",
+          "bounds_mm": [
+            [
+              -1.8000000000000007,
+              185.6,
+              256.4
+            ],
+            [
+              16.8,
+              204.4,
+              264.8
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        },
+        {
+          "stationary": "cold-core/wago-v12",
+          "actual_name": "cold-core/wago-v12",
+          "bounds_mm": [
+            [
+              -1.8000000000000007,
+              208.6,
+              256.4
+            ],
+            [
+              16.8,
+              227.4,
+              264.8
+            ]
+          ],
+          "separated_axes": [
+            "X",
+            "Y",
+            "Z"
+          ],
+          "passed": true
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "source_sha256": {
+    "hardware/mechanical-qualification/enclosure-above-core/aft_carrier_closing.py": "c6e69bfbd55cd885ec3972f346a8d8cf3e3aa4133d19db8833b4d0d77ff6408d",
+    "hardware/printed-parts/enclosure/enclosure/_back_top_meter.py": "40ac80859cf955b0ba4151b8db5f85da00c057972941e3e5862e11dfc26075cd",
+    "hardware/printed-parts/cold-core/_above_core_mounts.py": "98651e90bc1fd520e9737eb4240302a09b97cefb236687f5de32a2536faf5b57",
+    "hardware/manifold-layout/above_core.py": "0ad87c7c252ab3cfe803c0f2a63a9374d06d0005591509031328ad6e3203988f",
+    "hardware/manifold-layout/above-core.json": "04887b550cc53b2516832689b40f81a56e83119e4cc04921ad9819ed343c726b"
+  },
+  "passed": true,
+  "limits": [
+    "No other moving equipment, shell, front rail or handoff path is requalified.",
+    "The low V-A chain and lower pump elbow retain the named loose-stage prerequisites.",
+    "The strip is a nominal compound clearance witness, not a measured purchased tie or a threading, retention, hand-access or force qualification.",
+    "A positive conservative box reading would be inconclusive about actual collision."
+  ]
+}
