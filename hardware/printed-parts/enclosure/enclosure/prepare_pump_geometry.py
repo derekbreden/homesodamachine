@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Qualify the two Kamoer cartridge pieces for the complete enclosure print.
+"""Qualify the pump cradle and its clamp for the complete enclosure print.
 
 This consumes a successfully regenerated, explicitly identified Box. It does not
 regenerate or qualify the complete enclosure or water pump.
@@ -200,25 +200,21 @@ def native_checks(enc, box):
             empty(f'X{x:g} quarter-inch tube clears emitted cradle',tube,cradle)
             empty(f'X{x:g} quarter-inch tube clears fixed plate passage',tube,wall)
     for dy in (0.,-enc._dock.plumbing.TIP_FROM_FORE,-20.,-80.):
-        empty(f'cradle/plate at {dy:g} mm cartridge withdrawal',
+        empty(f'cradle/plate {-dy:g} mm short of home',
               cradle.translate((0,dy,0)),wall)
-        empty(f'cap/plate at {dy:g} mm cartridge withdrawal',
+        empty(f'cap/plate {-dy:g} mm short of home',
               cap.translate((0,dy,0)),wall)
     return {'checks': rows, 'checks_pass': all(r['pass'] for r in rows),
             'pump_trays': trays, 'collet_plate': plate,
             'open_terminal_wells': terminal_rows, 'skirt_land_z_mm': land,
             'support_features': {
-                'pull_y_mm': enc.pull_y_span(trays,plate),
-                'pull_z_mm': enc.pull_z_span(box),
-                'pull_outer_abs_x_mm': enc._cap_x_span(box.pump_bay)[1],
-                'pull_inner_abs_x_mm': enc._cap_x_span(box.pump_bay)[1]-enc.pull_depth,
                 'cap_screw_y_mm': enc.cap_screw_ys(box.inner,plate),
                 'cap_head_seat_z_mm': enc.cap_head_seat_z(box),
                 'cap_counterbore_radius_mm': enc.head_cbore_dia/2,
                 'cap_crown_z_mm': enc.cap_crown_z(box)},
             'floor_z_mm': [floor_bottom,floor_top],
             'unqualified_tee_datums': ml.tee.UNQUALIFIED_DATUMS,
-            'scope': 'Fresh emitted cartridge/cap, current local Box, independent scan rim readings, and local tube/plate passages. No complete enclosure or physical fit qualification.'}
+            'scope': 'Fresh emitted cradle/cap, current local Box, independent scan rim readings, and local tube/plate passages. No complete enclosure or physical fit qualification.'}
 
 
 def main():

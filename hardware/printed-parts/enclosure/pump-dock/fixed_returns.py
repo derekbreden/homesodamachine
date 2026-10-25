@@ -1,5 +1,5 @@
-"""Station datums for the four pump tees, the collet plate and the fittings and tubes that join
-them.
+"""Station datums for the four pump tees, the tee wall's fore band and the fittings and tubes
+that join them.
 
 Coordinates are enclosure millimetres: +Y points inward and +Z points up. Each pump port
 feeds one purchased PP0208E tee, its branch toward the pump and its run upright. The fore
@@ -7,10 +7,10 @@ valve stands over the run on one short straight tube. The lower return reaches t
 bottom port: a trimmed NeoFit stem elbow in the tee's lower collet, one straight tube, and a
 second stem elbow in the valve.
 
-THE PLATE'S AFT FACE IS THE RELEASE FACE, AND IT HOLDS EACH BRANCH COLLET PRESSED. Each tee
-stands with its branch collet pushed home against that face, so the collet never grips: the
-pump tube slides in through it to the tee's stop and draws straight back out, sealed by the
-collet's O-ring. No tee moves.
+THE FORE BAND'S AFT FACE IS THE BORE FACE. Each tee's branch bore opens on it, and the tee
+stands with its fixed branch barrel just aft of it. The branch collet stands extended in its
+recess ahead of that face and grips the pump tube like any push-fit; the tube is pushed home
+once, at the factory, to the tee's stop.
 
 This module holds geometry data only; the dock's solids and the manifold read the same
 figures.
@@ -31,13 +31,14 @@ import neofit_stem_elbow as elbow  # noqa: E402
 
 TUBE_OD = tee.TUBE_D
 TUBE_ID = 4.30
-# The collet plate, from the bay face to the release face: 1/8 in and one branch collet stroke,
-# so the face holds each collet pressed home.
+# The tee wall's fore band, from the bay face to the bore face.
 PLATE_T = 3.175 + tee.BRANCH_COLLET_TRAVEL
-BRANCH_FACE_PRESSED = tee.BRANCH_PRESSED_REACH   # pressed collet face from the run axis
+# The tee's run axis aft of the bore face: its fixed branch barrel stands
+# `BORE_FACE_TO_AXIS - tee.BRANCH_FIXED_END` aft of that face, the stop it lands on pushed fore.
+BORE_FACE_TO_AXIS = tee.BRANCH_PRESSED_REACH
 RUN_FACE = tee.RUN_HALF                          # each run collet face from the tee's centre
-TIP_DEPTH = tee.INSERTION                        # a bottomed tube past the pressed face
-# The pump tube's tip, aft of the plate's fore face, with the cartridge seated.
+TIP_DEPTH = tee.INSERTION                        # a bottomed tube's tip past the bore face
+# The pump tube's tip, aft of the fore band's bay face, with the cradle home.
 TIP_FROM_FORE = PLATE_T + TIP_DEPTH
 # Seat depths: a stem or tube bottomed in a run collet standing extended, and the valve's
 # layout estimate. Actual fully seated marks govern factory cuts.
@@ -68,13 +69,13 @@ def _line(start, direction, length):
 
 
 def plate_aft_y(fore_y):
-    """The release face: the collet plate's aft face."""
+    """The bore face: the fore band's aft face."""
     return fore_y + PLATE_T
 
 
 def tee_axis_y(fore_y):
-    """The tee's run axis in Y: its pressed branch collet on the release face."""
-    return plate_aft_y(fore_y) + BRANCH_FACE_PRESSED
+    """The tee's run axis in Y."""
+    return plate_aft_y(fore_y) + BORE_FACE_TO_AXIS
 
 
 def fore_valve_axis_y(fore_y):

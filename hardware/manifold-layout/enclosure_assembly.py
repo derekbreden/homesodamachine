@@ -113,7 +113,6 @@ for _p in (_hw / "scripts", _here.parent,
            _hw / "reference" / "jg-bulkhead-union",
            _hw / "reference" / "iec-c14-inlet",
            _hw / "reference" / "riteav-keystone",
-           _hw / "reference" / "yyfkgcp-pogo-4p",
            _hw / "reference" / "neofit-bulkhead",
            _hw / "reference" / "neofit-drain-bulkhead",
            _hw / "reference" / "gasher-check-valve",
@@ -180,7 +179,6 @@ import _cold_core_interface as _cci                   # noqa: E402
 import beduan_solenoid as _beduan                     # noqa: E402
 import iec_c14_inlet as _c14                          # noqa: E402
 import riteav_keystone as _keystone                   # noqa: E402
-import yyfkgcp_pogo_4p as _pogo                       # noqa: E402
 import jg_bulkhead_union as _jg                       # noqa: E402
 import bulkhead_ring as _ring                         # noqa: E402
 sys.path.insert(0, str(_hw / "printed-parts" / "enclosure" / "data-ring"))
@@ -286,7 +284,7 @@ FUNNEL_ROT = 0.0
 # The material colours are `hardware/scripts/_materials.py`, which the generators that cut these
 # bodies' own STEPs read too.
 from _materials import (C_AC_HUB, C_C14, C_COMP, C_COND, C_DIGITEN,  # noqa: E402
-                        C_DISPLAY_GLASS, C_DOCK, C_GND, C_MQ6, C_PCBA, C_PLATE,
+                        C_DISPLAY_GLASS, C_GND, C_MQ6, C_PCBA, C_PLATE,
                         C_PSU, C_RELAY,
                         M_ALUMINIUM, M_BRASS, M_DONOR_BLACK, M_JG_BLACK_PP, M_JG_GREY_ACETAL,
                         M_NEOFIT_ACETAL, M_PETG_BLACK, M_PETGF_BLACK, M_SILICONE_BLACK,
@@ -423,16 +421,15 @@ def record_seat(name, *, turns=(), planes=None, station=None, got=None, members=
     return SEATS[name]
 
 
-def record_pump_dock_seats(box_spec, dock_parts, retention):
-    """World-authored dock parts on the release face, their returns' elbows, and bare-pole
-    construction datums."""
+def record_pump_dock_seats(box_spec, dock_parts):
+    """World-authored dock parts at the bore face, and their returns' elbows."""
     plate = box_spec.pack.collet_plate
-    aft = plate['aft_y']
+    fore = _dock.plumbing.tee_axis_y(plate['fore_y']) - _dock.tee.BRANCH_REACH
     for _station, tee_name, x, z in _dock.stations(plate):
-        # Each tee stands with its pressed branch collet on the release face, its run upright
-        # on the pump tube's axis.
+        # Each tee stands with its extended branch collet in its recess ahead of the bore face,
+        # its run upright on the pump tube's axis.
         name = 'tee-' + tee_name.lower()
-        record_seat(name, planes={'y0': aft, 'cx': x, 'z0': z - _dock.plumbing.RUN_FACE},
+        record_seat(name, planes={'y0': fore, 'cx': x, 'z0': z - _dock.plumbing.RUN_FACE},
                     got=box(dock_parts[name]))
         # Its return's two elbows: each stem bottomed in its collet, both sockets level.
         target = plate['return_ports'][str(x)]
@@ -445,21 +442,6 @@ def record_pump_dock_seats(box_spec, dock_parts, retention):
             name = 'stem-elbow-' + host.lower()
             record_seat(name, planes={'z0': line['floor_z'], 'z1': port_z + inserted},
                         got=box(dock_parts[name]))
-    interface = retention['interface']
-    magnet_spec = _enc._retention
-    columns = magnet_spec.column_stations(plate['holes'])
-    for side in ('moving', 'fixed'):
-        features = retention[side]
-        for column, (x, z) in enumerate(columns, start=1):
-            for row in range(magnet_spec.ROWS_PER_COLUMN):
-                mz = magnet_spec.row_z(z, row)
-                name = f'pump-dock-SB443-{side}-{column}-{row + 1}'
-                # The bare pole is y1 on the moving half and y0 on the fixed
-                # half, both on the nominal pole plane. The bar sets the rest.
-                pole_face = 'y1' if side == 'moving' else 'y0'
-                record_seat(name, planes={'cx': x, pole_face: interface.pole_y,
-                                         'z0': mz - magnet_spec.BAR / 2.0},
-                            got=box(features['magnets'][name]))
 
 
 def note_room(name, what, want, got):
@@ -5291,89 +5273,6 @@ def build_display_gasket(box):
                      station=(COVER_ORIGIN, plane.origin.toTuple()))
 
 
-# THE CARTRIDGE'S CONTACT PAIR, on the station `enclosure.pump_contact_station` strikes: the male
-# in the bay bulkhead's fore face, the female in the clamp's aft face, each mating face flush with
-# its own plane. `yyfkgcp_pogo_4p` looks +Z out of either half's face; a quarter turn about X lays
-# the male's face on -Y and the female's on +Y, and the female's half turn about Y stands its N
-# magnet at +X, opposite the male's. Seated, the male's pins reach the female's pads across the
-# kiss.
-POGO_FACE_DATUM = ((0.0, 0.0, 0.0), (0.0, 0.0, 1.0))
-POGO_MALE_TURNS = (((1.0, 0.0, 0.0), 90.0),)
-POGO_FEMALE_TURNS = (((1.0, 0.0, 0.0), -90.0), ((0.0, 1.0, 0.0), 180.0))
-
-
-def build_pump_contacts(box):
-    """The seated contact pair, `(male, female)`, each `(placed, carry)`."""
-    plate, trays = box.pack.collet_plate, box.pack.pump_trays
-    x, z = _enc.pump_contact_station(box)
-    fixed, rides = _enc.pump_contact_faces(box)
-    male = seat_body(_pogo.build_male(pin_reach=fixed - rides).val(), turns=POGO_MALE_TURNS,
-                     seat="pump-contact-male", station=(POGO_FACE_DATUM, (x, fixed, z)))
-    female = seat_body(_pogo.build_female().val(), turns=POGO_FEMALE_TURNS,
-                       seat="pump-contact-female", station=(POGO_FACE_DATUM, (x, rides, z)))
-    return male, female
-
-
-# A CONTACT LANDS ON ITS PAD OR IT IS NOT A CONTACT. The pair is read off the two placements the
-# assembly made: each half's four contacts carried to the world through its own turns, the press
-# the kiss leaves each pin, the male's pins at full rest reach against the seated clamp, and both
-# halves against the pieces that carry them.
-POGO_PAD_TOL = 1e-6
-POGO_OVERLAP_TOL = 1e-6
-
-
-def _pump_contact_bound(contacts, pieces, box) -> Bound:
-    """Prove the pair mates as the cartridge seats: every male pin on a female pad, each pressed
-    within its travel, and the pins at full rest landing only in the female's seat.
-
-    The cartridge seats along Y, the pair's own axis, so the pins meet their pads head-on and the
-    rest-length pins are the whole of what the clamp sweeps past the bulkhead's face."""
-    (male, male_carry), (female, female_carry) = contacts
-    plate, trays = box.pack.collet_plate, box.pack.pump_trays
-    x, z = _enc.pump_contact_station(box)
-    fixed, rides = _enc.pump_contact_faces(box)
-    press = _pogo.PIN_PROUD - (fixed - rides)
-    failures = []
-
-    def contacts_of(carry):
-        return sorted((round(p[0], 6), round(p[2], 6)) for p, _axis in
-                      (carry(((cx, 0.0, 0.0), (0.0, 0.0, 1.0))) for cx in _pogo.contact_xs()))
-
-    pins, pads = contacts_of(male_carry), contacts_of(female_carry)
-    miss = max(math.hypot(a[0] - b[0], a[1] - b[1]) for a, b in zip(pins, pads))
-    if miss > POGO_PAD_TOL:
-        failures.append(f"a pin lands {miss:.6f} mm off its pad")
-    _origin, male_face = male_carry(((0.0, 0.0, 0.0), (0.0, 0.0, 1.0)))
-    _origin, female_face = female_carry(((0.0, 0.0, 0.0), (0.0, 0.0, 1.0)))
-    if male_face[1] > -0.999 or female_face[1] < 0.999:
-        failures.append(f"the faces look {male_face} and {female_face}, not at each other on Y")
-    if not 0.0 < press <= _pogo.STROKE:
-        failures.append(f"the kiss presses each pin {press:.3f} mm, outside its "
-                        f"{_pogo.STROKE:g} mm travel")
-    front_top, cap = (pieces[n].val() if isinstance(pieces[n], cq.Workplane) else pieces[n]
-                      for n in ("front-top", "pump-cap"))
-    rest, _rest_carry = seat_body(_pogo.build_male().val(), turns=POGO_MALE_TURNS,
-                                  station=(POGO_FACE_DATUM, (x, fixed, z)))
-    overlaps = {
-        "rest pins / clamp": rest.intersect(cap).Volume(),
-        "male / front-top": male.intersect(front_top).Volume(),
-        "female / clamp": female.intersect(cap).Volume(),
-    }
-    failures += [f"{name} share {v:.6f} mm³" for name, v in overlaps.items()
-                 if v > POGO_OVERLAP_TOL]
-    return record_bound(Bound(
-        "pump-contacts-mate",
-        "The cartridge's contact pair mates as it seats: every pin on its pad, pressed within "
-        "its travel, and the rest-length pins land only in the female's seat",
-        not failures,
-        f"{len(pins)} pins within {miss:.2g} mm of their pads; {press:.3f} of "
-        f"{_pogo.STROKE:g} mm pressed; " + "; ".join(f"{n} {v:.6f}" for n, v in overlaps.items())
-        + " mm³",
-        "pins on pads; 0 < press ≤ stroke; 0 mm³ against the clamp and the bulkhead",
-        tuple(failures),
-    ))
-
-
 def _seated(box):
     """The box with every station its walls carry, seated. Each is read off the box itself,
     so the wall and the body it is cut for come out of one number. `enclosure.with_funnel`
@@ -5519,12 +5418,6 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     a.add(cover, name="display-cover", color=C_COVER)
     dgasket, _dgasket_carry = build_display_gasket(box)
     a.add(dgasket, name="display-gasket", color=C_DGASKET)
-    contacts = None
-    if box.pump_bay and box.pack.collet_plate:
-        contacts = build_pump_contacts(box)
-        (male, _male_carry), (female, _female_carry) = contacts
-        a.add(male, name="pump-contact-male", color=C_DOCK)
-        a.add(female, name="pump-contact-female", color=C_DOCK)
     pieces = _materialized_enclosure_pieces(box, require_box_spec)
     _enc._handhold_bound(pieces, box)
     for name, piece in pieces.items():
@@ -5542,18 +5435,9 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
               name=f"anchor-cap-{name}", color=C_ANCHOR_CAP)
     if box.pack.collet_plate:
         dock_parts = _dock.parts(box.pack.collet_plate)
-        retention = _enc.pump_retention_features(box)
         for name, part in dock_parts.items():
             a.add(part, name=name, color=_dock.part_color(name))
-        from _materials import M_NICKEL_PLATE
-        for side, features in retention.items():
-            if side not in ("moving", "fixed"):
-                continue
-            for name, magnet in features["magnets"].items():
-                a.add(magnet, name=name, color=M_NICKEL_PLATE)
-        record_pump_dock_seats(box, dock_parts, retention)
-    if contacts is not None:
-        _pump_contact_bound(contacts, pieces, box)
+        record_pump_dock_seats(box, dock_parts)
     placed_solids = _solids(a)
     wedge_fills(placed_solids,
                 authored_anchor_corbels(a.tube_anchors))
