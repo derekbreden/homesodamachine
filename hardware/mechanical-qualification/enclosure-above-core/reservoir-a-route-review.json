@@ -1,5 +1,5 @@
 {
-  "scope": "Exact selected Reservoir A route promotion. Pure line/arc length and endpoint/data reading; native contact proof is separate. Plain guides add no joint, insertion or tube cut. The warm span includes 12.7 mm estimated front-valve receiving only; the internal span continues to the reservoir fill bore/dip-tube tip.",
+  "scope": "Reservoir A production route illustration at fixed port/paired-anchor interfaces. Only the connection points and anchor locations are fixed. Intermediate bends, radii and displayed lengths are illustrative and may change to clear installed stock and wires. Native geometry records retain the exact source scope they queried; they do not establish physical tube bending, insertion force or retention.",
   "selected_study_commit": "b1c1e549c",
   "selected_study_path": "hardware/manifold-layout/studies/funnel-gate/reservoir-a-routes.json",
   "selected_study_sha256": "667fcf9eb7ab8d05417cf24928c62b60ff9477061a8bc08fdf23fa1e2581aa2f",
@@ -9,7 +9,6 @@
   "routes": {
     "fluid-14": {
       "length_mm": 425.84269481977947,
-      "selected_length_mm": 425.8426948197794,
       "length_difference_mm": 5.684341886080802e-14,
       "segment_count": 19,
       "from": "valve-v-f.outlet",
@@ -28,11 +27,11 @@
       "last_endpoint_shift_mm": 1.0121580260789164e-07,
       "radii_mm": [
         14.0
-      ]
+      ],
+      "issued_illustrative_length_mm": 425.8426948197794
     },
     "fluid-16": {
       "length_mm": 418.39087772790543,
-      "selected_length_mm": 418.3908777279054,
       "length_difference_mm": 5.684341886080802e-14,
       "segment_count": 19,
       "from": "foam-assembly.reservoir-a",
@@ -51,7 +50,8 @@
       "last_endpoint_shift_mm": 1.4210854715202004e-14,
       "radii_mm": [
         14.0
-      ]
+      ],
+      "issued_illustrative_length_mm": 418.3908777279054
     }
   },
   "other_continuation_specs_unchanged": {
@@ -63,5 +63,772 @@
     "fluid-26": true,
     "fluid-18": true
   },
-  "native_contact_scope": "Pending bounded source-current contact query."
+  "native_contact_scope": "Bounded query complete. A-draw has an unresolved ground boss/stack contact; twelve cached electrical bodies need local dressing. No approved route or component is moved by this receipt. New paired-anchor stock/tie paths have their own cap record.",
+  "native_exports": {
+    "fluid-14": {
+      "valid": true,
+      "solid_count": 1,
+      "length_mm": 425.8426948197796,
+      "bounds_mm": [
+        [
+          54.81773461882734,
+          104.8566690530033,
+          253.39131377625085
+        ],
+        [
+          97.18395311442569,
+          429.48333094699666,
+          299.35833112837264
+        ]
+      ],
+      "brep_path": "tmp/reservoir-a-selected-routes/fluid-14.brep",
+      "brep_sha256": "6ec3176d1b1e9d4c101ed8eb63443adc2f257474d9aa3e76cd83247f4eab1b5a"
+    },
+    "fluid-16": {
+      "valid": true,
+      "solid_count": 1,
+      "length_mm": 418.3908777279056,
+      "bounds_mm": [
+        [
+          19.16666944057367,
+          104.85631433102097,
+          253.39131433102094
+        ],
+        [
+          89.68359802831877,
+          411.183685668979,
+          299.3586858361787
+        ]
+      ],
+      "brep_path": "tmp/reservoir-a-selected-routes/fluid-16.brep",
+      "brep_sha256": "0fa266af3f0c110f3e90c3ba2fa303a7e0ae71b48b310d2f1b799ba48e1c7a92"
+    }
+  },
+  "native_route_delta": {
+    "scope": "Only the two selected Reservoir A line/arc shapes versus touched current EA mechanical/tube stock, current canonical back-top, source-current meter supports/nominal strips, the existing applicable access witnesses, and110 unchanged electrical cache bodies. The fifteen changed electrical bodies and the new anchors are queried by their owning agents. The imported cap/lid scope predates the two new anchors. Native geometry only; no physical tube bending, assembly force, threading, retention or whole-carried closure qualification.",
+    "source_ea_sha256": "a86e70dae875b56ac1563effd4cd154945b0a07161f385453c524a8d6938914f",
+    "source_routes_sha256": "bec911386e5aa2a6264aaee3e451cdad49cfa7c2d7a20b3370bef5208f08af5d",
+    "production_data_sha256": "c5eae2b37031e54d226d7fffe41421759c5ac0c04566cc7cb1a963ff11969ca5",
+    "wire_index_sha256": "97083d7f9910d5a20016fff11f8e0e2667f23adc7a50acae58ab7c22bde9f7a1",
+    "unchanged_electrical_bodies": 110,
+    "routes": {
+      "fluid-14": {
+        "native_candidate_count": 31,
+        "contacts": [
+          {
+            "name": "electrical-wire-PE-bus",
+            "volume_mm3": 19.684961114004935,
+            "bounds_mm": [
+              [
+                54.86461714824544,
+                193.49999989932206,
+                259.9999999
+              ],
+              [
+                61.08652361994982,
+                196.5000001068419,
+                262.67500010000003
+              ]
+            ]
+          },
+          {
+            "name": "electrical-wire-J1-positive-H",
+            "volume_mm3": 4.983313353064054,
+            "bounds_mm": [
+              [
+                55.00867667615712,
+                161.80918918225854,
+                257.02910369742233
+              ],
+              [
+                60.470896302533134,
+                164.0069219351103,
+                262.49132331756556
+              ]
+            ]
+          },
+          {
+            "name": "electrical-wire-J2-COM",
+            "volume_mm3": 9.146173962241589,
+            "bounds_mm": [
+              [
+                54.89224749555716,
+                188.68249447723986,
+                257.1499999013632
+              ],
+              [
+                61.10775250348021,
+                196.81750577763316,
+                258.8500001062827
+              ]
+            ]
+          },
+          {
+            "name": "electrical-wire-J2-positive-K",
+            "volume_mm3": 6.715839684823155,
+            "bounds_mm": [
+              [
+                90.82499990120205,
+                315.27293817670346,
+                258.14999988184877
+              ],
+              [
+                96.82066843248792,
+                321.9611395604386,
+                262.4594130384161
+              ]
+            ]
+          },
+          {
+            "name": "electrical-wire-J4-V5",
+            "volume_mm3": 9.79643376293618,
+            "bounds_mm": [
+              [
+                65.14999991702918,
+                379.7142138432909,
+                269.026049886328
+              ],
+              [
+                66.85000011175246,
+                387.7423591370772,
+                270.5750001010908
+              ]
+            ]
+          },
+          {
+            "name": "electrical-wire-J4-IO25",
+            "volume_mm3": 8.555532726348636,
+            "bounds_mm": [
+              [
+                67.14999990089395,
+                378.69679055055576,
+                269.0260498969911
+              ],
+              [
+                68.85000011570499,
+                385.4543069364124,
+                270.5750001008053
+              ]
+            ]
+          },
+          {
+            "name": "electrical-wire-flow-GND",
+            "volume_mm3": 7.897405384701036,
+            "bounds_mm": [
+              [
+                69.14999989653266,
+                377.980597144183,
+                269.0260498989832
+              ],
+              [
+                70.85000010625012,
+                384.0410853575284,
+                270.5750001
+              ]
+            ]
+          }
+        ],
+        "finite_front_valve_mates": [
+          {
+            "name": "valve-v-f",
+            "volume_mm3": 91.25814579075782,
+            "bounds_mm": [
+              [
+                78.925,
+                104.86500000000001,
+                269.475
+              ],
+              [
+                85.27499999999999,
+                111.215,
+                274.675
+              ]
+            ],
+            "outside_finite_receiving_mm3": 0.0
+          }
+        ],
+        "nearest_under_1_5_mm": [
+          {
+            "name": "valve-v-f",
+            "gap_mm": 0.0
+          },
+          {
+            "name": "cold-core/line-reservoir-a-fill",
+            "gap_mm": 0.0
+          },
+          {
+            "name": "electrical-wire-PE-bus",
+            "gap_mm": 0.0
+          },
+          {
+            "name": "electrical-wire-J1-positive-H",
+            "gap_mm": 0.0
+          },
+          {
+            "name": "electrical-wire-J2-COM",
+            "gap_mm": 0.0
+          },
+          {
+            "name": "electrical-wire-J2-positive-K",
+            "gap_mm": 0.0
+          },
+          {
+            "name": "electrical-wire-J4-V5",
+            "gap_mm": 0.0
+          },
+          {
+            "name": "electrical-wire-J4-IO25",
+            "gap_mm": 0.0
+          },
+          {
+            "name": "electrical-wire-flow-GND",
+            "gap_mm": 0.0
+          },
+          {
+            "name": "funnel-frame",
+            "gap_mm": 0.5499999999999545
+          },
+          {
+            "name": "electrical-wire-J1-positive-D",
+            "gap_mm": 0.7302931034773995
+          },
+          {
+            "name": "cold-core/ground-stack",
+            "gap_mm": 0.8250000000000002
+          },
+          {
+            "name": "enclosure-back-top",
+            "gap_mm": 1.3250000000000028
+          },
+          {
+            "name": "cold-core/valve-v-b",
+            "gap_mm": 1.384999999999991
+          }
+        ]
+      },
+      "fluid-16": {
+        "native_candidate_count": 43,
+        "contacts": [
+          {
+            "name": "cold-core/foam-cap-lid-top",
+            "volume_mm3": 24.428802424219455,
+            "bounds_mm": [
+              [
+                47.32657508759306,
+                190.57427410026938,
+                256.3646171457503
+              ],
+              [
+                50.000000115641,
+                199.4257256997305,
+                259.40000030000033
+              ]
+            ]
+          },
+          {
+            "name": "cold-core/ground-stack",
+            "volume_mm3": 53.738340858124126,
+            "bounds_mm": [
+              [
+                47.32499989999972,
+                191.7450997479224,
+                259.39999989999944
+              ],
+              [
+                53.67500010831273,
+                203.72130449764686,
+                262.67500010000003
+              ]
+            ]
+          },
+          {
+            "name": "access-tool-g-ganen-pump-mount-2",
+            "volume_mm3": 3.92910415499259,
+            "bounds_mm": [
+              [
+                47.53835475196492,
+                370.92630001499526,
+                265.3389527065367
+              ],
+              [
+                48.6205495354836,
+                373.71248227998717,
+                269.4610472775029
+              ]
+            ]
+          },
+          {
+            "name": "electrical-wire-AC5-N",
+            "volume_mm3": 11.653825304504775,
+            "bounds_mm": [
+              [
+                46.567274861553905,
+                156.7021480410097,
+                257.3750099479478
+              ],
+              [
+                48.50000010284645,
+                160.55792155699177,
+                262.76705773735483
+              ]
+            ]
+          },
+          {
+            "name": "electrical-wire-AC6-PE",
+            "volume_mm3": 8.313785453483343,
+            "bounds_mm": [
+              [
+                47.12112409959265,
+                159.60628856333963,
+                257.09545313039877
+              ],
+              [
+                48.500000109129154,
+                163.34476336774907,
+                261.99135297044245
+              ]
+            ]
+          },
+          {
+            "name": "electrical-wire-J1-positive-D",
+            "volume_mm3": 4.267404258381869,
+            "bounds_mm": [
+              [
+                49.459399660404564,
+                152.95109373545054,
+                258.5052927359536
+              ],
+              [
+                52.71838554623622,
+                156.23118764219276,
+                261.81168367078317
+              ]
+            ]
+          },
+          {
+            "name": "electrical-wire-J2-COM",
+            "volume_mm3": 7.973927586066759,
+            "bounds_mm": [
+              [
+                47.392247486276624,
+                196.18249447723989,
+                257.1499998953439
+              ],
+              [
+                53.6077525034802,
+                202.3949935216548,
+                258.85000011682735
+              ]
+            ]
+          },
+          {
+            "name": "electrical-wire-J2-OUT3",
+            "volume_mm3": 6.795377374160151,
+            "bounds_mm": [
+              [
+                83.32499990000001,
+                320.59577725480204,
+                258.9317943674865
+              ],
+              [
+                84.70409897245774,
+                338.33976062996805,
+                270.01827513075045
+              ]
+            ]
+          },
+          {
+            "name": "electrical-wire-J2-positive-K",
+            "volume_mm3": 1.7683424017953093,
+            "bounds_mm": [
+              [
+                85.8133793799633,
+                321.31392517237134,
+                258.7205720556219
+              ],
+              [
+                89.15158079644894,
+                324.41295266545694,
+                259.8500001077753
+              ]
+            ]
+          },
+          {
+            "name": "electrical-wire-J4-V5",
+            "volume_mm3": 7.353967847372406,
+            "bounds_mm": [
+              [
+                65.1499999077751,
+                357.2729893760928,
+                269.0260498999741
+              ],
+              [
+                66.8500001041939,
+                362.7270106239072,
+                270.5750001
+              ]
+            ]
+          },
+          {
+            "name": "electrical-wire-J4-IO25",
+            "volume_mm3": 7.353623441318676,
+            "bounds_mm": [
+              [
+                67.14999990777508,
+                357.2729893760928,
+                269.0260498999742
+              ],
+              [
+                68.8500001204769,
+                362.7270106239072,
+                270.5750001
+              ]
+            ]
+          },
+          {
+            "name": "electrical-wire-flow-GND",
+            "volume_mm3": 7.353893693285892,
+            "bounds_mm": [
+              [
+                69.149999905613,
+                357.2729893761238,
+                269.026049899976
+              ],
+              [
+                70.85000009516267,
+                362.7270106238762,
+                270.5750001
+              ]
+            ]
+          },
+          {
+            "name": "electrical-terminal-compressor-cord-jacket",
+            "volume_mm3": 31.382266264146146,
+            "bounds_mm": [
+              [
+                46.238405190317366,
+                155.20300404797183,
+                256.3406111418723
+              ],
+              [
+                52.000000099199866,
+                165.20130606187755,
+                263.7776401407178
+              ]
+            ]
+          }
+        ],
+        "finite_front_valve_mates": [
+          {
+            "name": "valve-v-e",
+            "volume_mm3": 91.25814579075755,
+            "bounds_mm": [
+              [
+                19.175000000000004,
+                104.86500000000001,
+                269.475
+              ],
+              [
+                25.525,
+                111.215,
+                274.675
+              ]
+            ],
+            "outside_finite_receiving_mm3": 0.0
+          }
+        ],
+        "nearest_under_1_5_mm": [
+          {
+            "name": "valve-v-e",
+            "gap_mm": 0.0
+          },
+          {
+            "name": "cold-core/foam-cap-lid-top",
+            "gap_mm": 0.0
+          },
+          {
+            "name": "cold-core/line-reservoir-a",
+            "gap_mm": 0.0
+          },
+          {
+            "name": "cold-core/ground-stack",
+            "gap_mm": 0.0
+          },
+          {
+            "name": "access-tool-g-ganen-pump-mount-2",
+            "gap_mm": 0.0
+          },
+          {
+            "name": "electrical-wire-AC5-N",
+            "gap_mm": 0.0
+          },
+          {
+            "name": "electrical-wire-AC6-PE",
+            "gap_mm": 0.0
+          },
+          {
+            "name": "electrical-wire-J2-COM",
+            "gap_mm": 0.0
+          },
+          {
+            "name": "electrical-wire-J2-OUT3",
+            "gap_mm": 0.0
+          },
+          {
+            "name": "electrical-wire-J2-positive-K",
+            "gap_mm": 0.0
+          },
+          {
+            "name": "electrical-wire-J4-V5",
+            "gap_mm": 0.0
+          },
+          {
+            "name": "electrical-wire-J4-IO25",
+            "gap_mm": 0.0
+          },
+          {
+            "name": "electrical-wire-flow-GND",
+            "gap_mm": 0.0
+          },
+          {
+            "name": "electrical-terminal-compressor-cord-jacket",
+            "gap_mm": 0.0
+          },
+          {
+            "name": "electrical-wire-J1-positive-D",
+            "gap_mm": 2.842170943040401e-14
+          },
+          {
+            "name": "electrical-wire-PE-bus",
+            "gap_mm": 0.36053390593273793
+          },
+          {
+            "name": "funnel-frame",
+            "gap_mm": 0.5499999999999545
+          },
+          {
+            "name": "electrical-wire-J1-positive-H",
+            "gap_mm": 0.7656484425402519
+          },
+          {
+            "name": "lower-valve-elbow",
+            "gap_mm": 0.8757011287680001
+          },
+          {
+            "name": "vk-solenoid",
+            "gap_mm": 0.9121022947577186
+          }
+        ]
+      }
+    },
+    "mutual_air_mm": 1.150000000000003,
+    "seconds": 48.66277291701408
+  },
+  "assembly_prerequisites": [
+    {
+      "component": "g-ganen-pump",
+      "source_approach": "tool-g-ganen-pump-mount-2",
+      "requirement": "Tighten this pump screw before threading the continuous Reservoir A draw tube; disconnect/remove the draw tube for screw service.",
+      "scope": "The native installed draw tube intersects the existing vertical driver witness by3.92910415499 mm\u00b3; this is a staging prerequisite, not an access-clearance pass."
+    }
+  ],
+  "paired_ties": {
+    "count": 2,
+    "stock_length_mm": 101.6,
+    "nominal_closed_path_mm": 47.181588566,
+    "nominal_stock_beyond_path_mm": 54.418411434,
+    "article": "Owned four-inch narrow ties, one common tie per tube pair station.",
+    "scope": "The piecewise-linear witness does not measure purchased head engagement, tail, threading, retention or lifetime."
+  },
+  "current_route_status": "Free tube portions are under local refit around unchanged mechanical and electrical neighbors. The fixed fore seat requires a local J2-COM continuation change; the ground station is translated8mm west as a separately scoped ancillary interface change.",
+  "current_metadata_source_sha256": "1c855162f873c07e8513699caa9baa0ec5475629c5d5f0e192ff0983f5f845d9",
+  "fixed_seat_obstruction": {
+    "scope": "Read-only ground relocation feasibility against only the mandatory straight tube segment inside the fixed fore anchorY200..210. Free intervening tube bends are not constrained by this query. No source datum changed. Native geometry only; other ground/wire/conduit neighbors still require review if any relocation is selected.",
+    "ground_source": "tmp/dry-sidewall-wiring/targets/ground-stack.brep",
+    "fixed_tube_segment_bounds_mm": [
+      [
+        47.325,
+        200.0,
+        256.325
+      ],
+      [
+        53.675,
+        210.0,
+        262.675
+      ]
+    ],
+    "fixed_corridor_contact_mm3": 10.994605506850016,
+    "fixed_corridor_contact_bounds_mm": [
+      [
+        47.412570306626606,
+        199.99999989999594,
+        260.1999998999999
+      ],
+      [
+        51.31865344794709,
+        203.72130449764686,
+        262.67500010000003
+      ]
+    ],
+    "fixed_corridor_J2_COM_contact_mm3": 3.5104130540543195,
+    "fixed_corridor_J2_COM_contact_bounds_mm": [
+      [
+        47.392247485144885,
+        199.999999899991,
+        257.1499998998688
+      ],
+      [
+        51.95029724933638,
+        202.3949935166905,
+        258.8500001184158
+      ]
+    ],
+    "readings": [
+      {
+        "west_shift_mm": 0.0,
+        "ground_x_mm": 45.0,
+        "fixed_seat_tube_gap_mm": 0.0,
+        "contact_mm3": 10.994605506850016,
+        "fore_nominal_tie_gap_mm": 0.0,
+        "fore_nominal_tie_contact_mm3": 0.007477264307314296
+      },
+      {
+        "west_shift_mm": 0.5,
+        "ground_x_mm": 44.5,
+        "fixed_seat_tube_gap_mm": 0.0,
+        "contact_mm3": 9.430653098487443,
+        "fore_nominal_tie_gap_mm": 0.0,
+        "fore_nominal_tie_contact_mm3": 0.021073730256110815
+      },
+      {
+        "west_shift_mm": 1.0,
+        "ground_x_mm": 44.0,
+        "fixed_seat_tube_gap_mm": 0.0,
+        "contact_mm3": 7.444338150428567,
+        "fore_nominal_tie_gap_mm": 0.0,
+        "fore_nominal_tie_contact_mm3": 0.3315842495062811
+      },
+      {
+        "west_shift_mm": 1.5,
+        "ground_x_mm": 43.5,
+        "fixed_seat_tube_gap_mm": 0.0,
+        "contact_mm3": 4.976966865809769,
+        "fore_nominal_tie_gap_mm": 0.0,
+        "fore_nominal_tie_contact_mm3": 0.6950431042435925
+      },
+      {
+        "west_shift_mm": 2.0,
+        "ground_x_mm": 43.0,
+        "fixed_seat_tube_gap_mm": 0.0,
+        "contact_mm3": 2.437569149341059,
+        "fore_nominal_tie_gap_mm": 0.0,
+        "fore_nominal_tie_contact_mm3": 0.8481051873514001
+      },
+      {
+        "west_shift_mm": 2.5,
+        "ground_x_mm": 42.5,
+        "fixed_seat_tube_gap_mm": 0.0,
+        "contact_mm3": 0.6940260475265787,
+        "fore_nominal_tie_gap_mm": 0.0,
+        "fore_nominal_tie_contact_mm3": 0.8483577522124064
+      },
+      {
+        "west_shift_mm": 3.0,
+        "ground_x_mm": 42.0,
+        "fixed_seat_tube_gap_mm": 0.0,
+        "contact_mm3": 0.04150839901201843,
+        "fore_nominal_tie_gap_mm": 0.0,
+        "fore_nominal_tie_contact_mm3": 0.8483577522163703
+      },
+      {
+        "west_shift_mm": 3.5,
+        "ground_x_mm": 41.5,
+        "fixed_seat_tube_gap_mm": 0.22973776967137027,
+        "contact_mm3": 0.0,
+        "fore_nominal_tie_gap_mm": 0.0,
+        "fore_nominal_tie_contact_mm3": 0.8483577522121181
+      },
+      {
+        "west_shift_mm": 4.0,
+        "ground_x_mm": 41.0,
+        "fixed_seat_tube_gap_mm": 0.6711299628740779,
+        "contact_mm3": 0.0,
+        "fore_nominal_tie_gap_mm": 0.0,
+        "fore_nominal_tie_contact_mm3": 0.8483577522120076
+      },
+      {
+        "west_shift_mm": 4.5,
+        "ground_x_mm": 40.5,
+        "fixed_seat_tube_gap_mm": 1.1210277594288725,
+        "contact_mm3": 0.0,
+        "fore_nominal_tie_gap_mm": 0.0,
+        "fore_nominal_tie_contact_mm3": 0.6781561130550696
+      },
+      {
+        "west_shift_mm": 5.0,
+        "ground_x_mm": 40.0,
+        "fixed_seat_tube_gap_mm": 1.577750798329788,
+        "contact_mm3": 0.0,
+        "fore_nominal_tie_gap_mm": 0.0,
+        "fore_nominal_tie_contact_mm3": 0.28148821500114646
+      },
+      {
+        "west_shift_mm": 5.5,
+        "ground_x_mm": 39.5,
+        "fixed_seat_tube_gap_mm": 2.040024093063213,
+        "contact_mm3": 0.0,
+        "fore_nominal_tie_gap_mm": 0.0,
+        "fore_nominal_tie_contact_mm3": 0.028838918834983886
+      },
+      {
+        "west_shift_mm": 6.0,
+        "ground_x_mm": 39.0,
+        "fixed_seat_tube_gap_mm": 2.5068653641521825,
+        "contact_mm3": 0.0,
+        "fore_nominal_tie_gap_mm": 0.13980577065382466,
+        "fore_nominal_tie_contact_mm3": 0.0
+      },
+      {
+        "west_shift_mm": 6.5,
+        "ground_x_mm": 38.5,
+        "fixed_seat_tube_gap_mm": 2.9262576776545304,
+        "contact_mm3": 0.0,
+        "fore_nominal_tie_gap_mm": 0.3898057706539195,
+        "fore_nominal_tie_contact_mm3": 0.0
+      },
+      {
+        "west_shift_mm": 7.0,
+        "ground_x_mm": 38.0,
+        "fixed_seat_tube_gap_mm": 3.0069002175434996,
+        "contact_mm3": 0.0,
+        "fore_nominal_tie_gap_mm": 0.6398057706540109,
+        "fore_nominal_tie_contact_mm3": 0.0
+      },
+      {
+        "west_shift_mm": 7.5,
+        "ground_x_mm": 37.5,
+        "fixed_seat_tube_gap_mm": 3.147463234009478,
+        "contact_mm3": 0.0,
+        "fore_nominal_tie_gap_mm": 0.8898057706541022,
+        "fore_nominal_tie_contact_mm3": 0.0
+      },
+      {
+        "west_shift_mm": 8.0,
+        "ground_x_mm": 37.0,
+        "fixed_seat_tube_gap_mm": 3.3461948355942486,
+        "contact_mm3": 0.0,
+        "fore_nominal_tie_gap_mm": 1.139805770654197,
+        "fore_nominal_tie_contact_mm3": 0.0
+      }
+    ],
+    "west_shift_to_positive_gap_interval_mm": [
+      3.234375,
+      3.236328125
+    ]
+  },
+  "selected_ground_target_mm": [
+    37.0,
+    195.0,
+    259.4
+  ]
 }

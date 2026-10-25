@@ -46,6 +46,9 @@ centres are X50.5/58 at Y205; the aft pair is X86.5/94 at Y304, all at
 Z259.5. The `fluid-14` fill warm span is 425.843 mm and the `fluid-16`
 draw span is 418.391 mm, including the estimated front-valve receiving ends.
 Each continues through its plain core guide without a joint or physical cut.
+Only the connection points and the two straight seated portions are fixed;
+intervening bends, radii and displayed lengths illustrate routing and may
+change for installed clearance.
 
 ## Core entries
 

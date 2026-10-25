@@ -95,7 +95,9 @@ four-inch narrow tie through each empty transverse slot before laying in
 both continuous tubes; one common tie retains the pair. The seat floor
 above each slot is 3 mm. Their plain cap guides add no joint or physical
 tube cut; follow the combined warm/internal preparation in
-[internal plumbing](internal-plumbing.md). Nominal tie witnesses do not
+[internal plumbing](internal-plumbing.md). Tighten the pump screws before
+threading the continuous draw tube, which crosses one driver approach;
+remove the tube for that screw's service. Nominal tie witnesses do not
 qualify physical threading, head engagement or retention.
 
 ### 4. Reservoir subassembly (both, at the bench)
@@ -188,8 +190,7 @@ A finished cold core:
 1. **Carbonator reed placement.** The [bridge](/hardware/printed-parts/cold-core/reed-bridge/README.md) provides through-pockets to bare steel, coil ramps and a rim-referenced setting gauge. Current pocket centers are provisional; finished-float liquid immersion and directional switching calibration set the final operating heights. Rod/drilling XY datums are specified in [installation.md](/hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.md).
 2. **Foam data-sheet spec (mix proportions, pot life, cure time, pour temperature window).**
 3. **Trim method after foam cure.**
-4. ~~**Reservoir-internal assembly procedure.**~~ **CLOSED.** Written up as step 4 — reed columns, rod + float, and the cap / gasket / vent-membrane close. The float-rod cut is [`handwork.md`](/hardware/assembly/handwork.md) "Cut + seat the reservoir float rods"; the geometry is owned by [`reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py), [`reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md) and [`reservoir/vent.md`](/hardware/printed-parts/cold-core/reservoir/vent.md).
-5. **Reservoir final-qualification status.** Pending water + syrup-dwell pass.
+4. **Reservoir final-qualification status.** Pending water + syrup-dwell pass.
 
 ## Sources
 [value](NAME) texts are updated by:
