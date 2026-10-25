@@ -2,13 +2,10 @@
 
 The enclosure assembly's **Tubes** tool in [/3d](https://homesodamachine.com/3d#step:manifold-layout%2Fenclosure-assembly.step)
 compares the drawn route with illustrative shapes between its fitting exits and actual ties.
-The tool is optional. It covers the 17 exposed LLDPE runs; the copper and reinforced hose
-remain drawn geometry.
-
-The tool reads [`tube-routes.json`](/web/public/tube-routes.json), exported from the
-assembly at `b3707a180`. Its runs, holds and the readings below are that assembly's. The
-exporter does not resolve the compact above-core fittings' ends, so the current layout's
-tubes are not in it.
+The tool is optional. It covers the 21 exposed 1/4-inch LLDPE runs in
+[`tube-routes.json`](/web/public/tube-routes.json); the copper remains drawn geometry. The
+three 4 mm lines, `fluid-18`, `fluid-28` and `drain-vent`, carry no stock assumption in the
+export, so the tool does not offer them.
 
 Choose a run and **Show run**. Cyan dashes mark the CAD centreline, coloured lines mark the
 assumed shapes, white squares mark fitting exits, and green dots mark retained holds.
@@ -31,8 +28,8 @@ on the installed shape. The stock's minimum bend radius is a diagnostic, not an 
 constitutive law.
 
 Tube-sized capsules are checked against the displayed assembly's triangle surfaces, including
-hidden parts and other tubes in their CAD positions. The documented CARGEN sleeves on carb-1
-and carb-2 contribute their 12.7 mm outer radius. The selected tube's own CAD body is excluded;
+hidden parts and other tubes in their CAD positions. The export records no sleeve on any
+run, so the soda inlet's foam piece is not in the check. The selected tube's own CAD body is excluded;
 fitting and tie contact exemptions cover only their recorded interface intervals.
 
 Contact is reported rather than resolved. A line through a part is not a feasible installed
@@ -41,42 +38,27 @@ possible new locations, at the path sampling resolution. Surface screening does 
 self-contact or guarantee clearance for a tube wholly enclosed inside a solid. Neighbouring
 tubes remain at their drawn positions during a single-run review.
 
-## The six holds in the exposed runs
+## The holds in the exposed runs
 
-These readings use straight stock and coil curvature in both senses about XY, XZ and YZ,
-at an assumed 250 mm coil radius. Each range covers those seven scenarios. Shift is the
-largest displacement of a material station from its CAD position, in millimetres. Every
-rib's hold was read at the zip-tie rib's 9.5 mm, with `carb-1`'s at the middle of its crossing.
-That rib stands at the head of the run's climb and is closed by an anchor cap, which holds the
-tube over 14 mm of a 20.6 mm rib, so `carb-1`'s row reads a hold other than the one it has.
+The only holds are Reservoir A's two paired seats on the cold-core lid, at Y205 and Y304,
+each closed by one narrow tie around `fluid-14` and `fluid-16`. These readings use straight
+stock and coil curvature in both senses about XY, XZ and YZ, at an assumed 250 mm coil
+radius. Each range covers those seven assumptions. Shift is the largest displacement of a
+material station from its CAD position, in millimetres.
 
-| Run | Hold retained | Hold omitted | Reading |
-| --- | ---: | ---: | --- |
-| fluid-18 | 59.9–66.0 | 78.7–93.7 | The post limits movement. Even with it, the free shapes reach surrounding hardware. |
-| fluid-28 | 14.0–15.0 | 26.5–28.4 | The retained rib avoids the new contact locations seen when it is omitted. |
-| water-3 | 35.7–43.9 | 50.8–64.0 | The post limits movement; the free shapes still reach the cap and neighbouring plumbing. |
-| co2-2 | 8.4–8.5 | 35.1–43.0 | The rib strongly limits movement. The retained shapes still reach the main board. |
-| carb-1 | 10.1–10.4 | 30.7–41.6 | The rib limits movement; omitting it introduces contact toward V-K and the funnel. |
-| fluid-14 | 11.8–13.8 | 45.1–49.5 | The cap rib strongly limits movement; retained shapes reach fluid-18 and V-K. |
+| Run | Both seats retained | Fore seat omitted | Aft seat omitted |
+| --- | ---: | ---: | ---: |
+| fluid-14 | 35.9–73.5 | 65.6–113.8 | 64.2–80.9 |
+| fluid-16 | not length-feasible | 59.7–60.1 | 51.3–66.8 |
 
-The retained straight-stock fluid-18 shape shifts 62.5 mm and has possible new contacts at
-front-top, back-top, the Seaflo pump and water-6. Its post's seat axis lies about 0.7 mm from
-the authored arc; the model holds the actual seat axis. That difference describes the tie
-straightening the approach and does not by itself establish a misplaced post.
+With both seats retained, one of `fluid-16`'s exported spans is shorter than the distance
+between the points it joins, so no assumption is length-feasible; omitting either seat makes
+it solvable.
 
-For fluid-28, the retained straight-stock shape shifts 14.2 mm with no new sampled contact
-locations. Omitting its rib gives 27.0 mm and introduces additional contacts in the
-source-bound sweep study. The rib limits that movement without reproducing the drawn corners.
-
-The co2-2 result is smaller in displacement but adjacent to the main board. All seven
-retained scenarios identify that contact. The free shapes of water-3 and fluid-18 also meet
-their surroundings with their existing holds present. These are contact-sensitive routes;
-the unloaded model cannot determine where an installed tube settles against those bodies.
-
-Several visibly different shapes have no new sampled contacts in the straight-stock case:
-fluid-24 shifts 32.6 mm, fluid-26 13.2 mm and fluid-16 9.7 mm. Displacement alone is not an
-anchor requirement. Carb-2 remains straight with zero displacement; its sleeve has contacts
-already present in the CAD envelope.
+Among the unheld runs, `fluid-26` shifts 54.4–57.0 mm, `fluid-24` 40.2–51.3 mm and
+`above-core-va-fore-feed` 17.0–17.3 mm. Every other feasible run stays within 4.2 mm.
+Displacement alone is not an anchor requirement; the tool's contact list shows where each
+shape meets its surroundings.
 
 ## Data and numerical checks
 
@@ -91,11 +73,15 @@ stale export. Refresh with:
 tools/cad-venv/bin/python hardware/scripts/tube_routes.py
 ```
 
-The interactive solver runs in a worker. The 17 runs and six single-hold omissions give 161
-cases across the seven assumptions above; all converge. On the development Mac the median
-solve is about 7 ms and the slowest about 81 ms. For fluid-18, refining the nominal 6 mm
-sampling to 3 mm changes the shape by less than 0.08 mm across those assumptions, with and
-without its post. The solver reports length residuals and unfinished or infeasible results.
+The interactive solver runs in a worker. The 21 runs and four single-seat omissions give 175
+cases across the seven assumptions above, and 153 converge. Twenty-one are not
+length-feasible: `above-core-tee-regulator` and `above-core-tee-vk-link` in every assumption,
+and `fluid-16` with both seats retained, each with an exported span shorter than the distance
+between its retained points. `fluid-16` with its fore seat omitted stalls under coil−
+about XZ. On the development Mac the median solve is about 1 ms and the slowest about
+279 ms. For `fluid-14`, refining the nominal 6 mm sampling to 3 mm changes the shape by at
+most 0.51 mm across those assumptions. The solver reports length residuals and unfinished
+or infeasible results.
 
 The numerical tests cover developed length, finite restraints, endpoint directions, analytic
 bending cases, symmetry, refinement and infeasibility. Contact tests cover triangle crossings,
