@@ -1,5 +1,6 @@
 """Read current pump-manifold preparation figures without building an appliance."""
 
+import math
 import sys
 from pathlib import Path
 
@@ -15,6 +16,7 @@ import _facts
 import enclosure as enc
 import enclosure_assembly as assembly  # Declares the placement source this procedure reads.
 import manifold_layout as manifold
+import above_core_routes
 from docgen import substitute_md
 
 
@@ -24,6 +26,13 @@ def main():
     returns = {tee: manifold.lower_link_length(connection)
                for connection, tee in manifold.LOWER_CONNECTIONS.items()}
     elbows = manifold.pump_plumbing()['Y-C']['return']['elbows']
+    reservoir_a = above_core_routes.reservoir_a_route_specs()
+    reservoir_a_lengths = {
+        name: sum(math.dist(*segment['points_mm']) if segment['kind'] == 'line'
+                  else segment['radius_mm'] * segment['angle_rad']
+                  for segment in row['segments'])
+        for name, row in reservoir_a.items()
+    }
     variables = {
         'MANIFOLD_TEES': f'{len(manifold.PURCHASED_TEES)}',
         'DOCK_TEE_STROKE': f'{manifold._returns.tee.BRANCH_COLLET_TRAVEL:.3g} mm',
@@ -41,6 +50,8 @@ def main():
         'DOCK_BODY_GAP': f'{enc.bay_back_y(box["collet_plate"]) - enc.pump_cartridge_aft_y(box["pump_trays"], box["collet_plate"]):.4g} mm',
         'CAP_SCREWS': f'{len(enc.cap_screw_ys(box["inner"], box["collet_plate"]))}',
         'CAP_SCREW_LEN': f'{enc.cap_screw_len:.4g}',
+        'RESERVOIR_A_FILL_WARM': f'{reservoir_a_lengths["fluid-14"]:.3f} mm',
+        'RESERVOIR_A_DRAW_WARM': f'{reservoir_a_lengths["fluid-16"]:.3f} mm',
     }
     substitute_md(HERE / 'internal-plumbing.md', variables=variables)
     print('-> internal-plumbing.md')

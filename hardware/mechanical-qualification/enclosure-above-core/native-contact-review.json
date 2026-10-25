@@ -5418,7 +5418,9 @@
           253.4
         ],
         "first_endpoint_unchanged": true,
-        "last_endpoint_unchanged": true
+        "last_endpoint_unchanged": true,
+        "current_applicability": false,
+        "current_selected_record": "reservoir-a-route-review.json"
       },
       "fluid-16": {
         "valid": true,
@@ -5480,7 +5482,9 @@
           269.475
         ],
         "first_endpoint_unchanged": true,
-        "last_endpoint_unchanged": true
+        "last_endpoint_unchanged": true,
+        "current_applicability": false,
+        "current_selected_record": "reservoir-a-route-review.json"
       },
       "fluid-26": {
         "valid": true,
@@ -5570,7 +5574,8 @@
           269.475
         ],
         "first_endpoint_unchanged": true,
-        "last_endpoint_unchanged": true
+        "last_endpoint_unchanged": true,
+        "current_applicability": true
       }
     },
     "a_draw_retained_rear_scope": {
@@ -5636,6 +5641,7 @@
       "tmp/selected-continuation-native/review.json": "a095baf1982fe0f4aca3ae6ef396866a0578b2c8056bbf5fcd0d0e4c2e2b03fc",
       "tmp/selected-continuation-final-native/review.json": "d816ff3466268553dcc258ae3eb99ce770c962053cc1c3cf99dae20eb8857cca",
       "tmp/selected-fill-final-native/review.json": "b4a180e4c8e5c7245cdea7fc7acbdcc0cc37ba05334adb4a18ae0f6c3b8ccb77"
-    }
+    },
+    "current_route_scope": "Only fluid-26 retains the route geometry in this original query. The selected Reservoir A pair and its two lid anchors are recorded separately in reservoir-a-route-review.json; this original14/16 evidence retains its original geometry/wiring scope."
   }
 }

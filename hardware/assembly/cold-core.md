@@ -75,7 +75,7 @@ Each cap is a foam-filled cup, poured mouth-up with the foam-cap-lid sealing its
 
 The **bottom lid** carries a pad at each of the [10](CAP_FACE_SCREWS) screw stations, standing off the face that meets the cap. Seat it pads-into-the-cup: each sinks into the relief its boss column leaves at the mouth, and the head goes down inside the pad's counterbore. It prints counterbore-side down, so the face the core stands on comes off the plate.
 
-The **top lid** has no pads. It is solid the whole [5.4 mm](FOAM_CAP_LID_H) over its footprint and its cup is one pad shorter for it, so what meets the cap's mouth rim is the plate's own flat underside — and that underside is the face it prints on, with the V-B upright socket wall, check bridge, V-B return restraint, wiring wells and deck-mount bores building up from it.
+The **top lid** has no pads. It is solid the whole [5.4 mm](FOAM_CAP_LID_H) over its footprint and its cup is one pad shorter for it, so what meets the cap's mouth rim is the plate's own flat underside — and that underside is the face it prints on, with the V-B upright socket wall, check bridge, V-B return restraint, two paired Reservoir A tube seats, wiring wells and deck-mount bores building up from it.
 
 Both caps pour in that same top-face fixture, one after the other. The top cap is bolted there in its installed orientation (floor down, mouth + lid up); the bottom cap is the same operation and flips mouth-down at step 7.
 
@@ -88,6 +88,15 @@ The G Ganen's four identical rubber feet have nominal 7 mm pads and slide indepe
 The V-B return has its own integral lid restraint and one six-inch narrow tie. Thread its holder before seating the fitting and dress the tie before final upper plumbing. V-A's low turn and feed travel with back-top on their connected tubing. Fasten the pump before seating its discharge check or connecting the continuous soda inlet carried by back-top. The installed inlet crosses one pump-driver approach; disconnect and remove it for that screw's service. Thread the check's six-inch narrow tie beneath its east quarter bearing before seating the fixed barrel; its west-open notch keeps the printed support clear of the pump screw's vertical hex-key approach. Remove the check from that column for pump service. The meter, its two collar bearings, external inlet, accepted R14 holder and single 63 mm square-ended foam piece belong to back-top. Prepare those on the open back-top subassembly per [internal plumbing](internal-plumbing.md#4-rear-beverage-connections). Its concealed rear-outlet tube occupies 15.7 mm in the meter and 16.891 mm in the return elbow. The continuous inlet passes through this core's plain guide without a joint or tube cut. Receiving allowances and flexible closing handoffs retain their recorded CAD scope. Printed fit, tie retention and the complete installed fluid path retain their qualification limits.
 
 The main PCB uses the full-length inserts prepared here. The PSU and both relays mount on back-top's dry sidewall; their wall inserts are installed during enclosure assembly. The electronics ceiling is continuous.
+
+The Reservoir A fill/draw pair lies in two shallow integral lid seats at
+Y205 and Y304 mm. Draw occupies the west seat at each station. Thread one
+four-inch narrow tie through each empty transverse slot before laying in
+both continuous tubes; one common tie retains the pair. The seat floor
+above each slot is 3 mm. Their plain cap guides add no joint or physical
+tube cut; follow the combined warm/internal preparation in
+[internal plumbing](internal-plumbing.md). Nominal tie witnesses do not
+qualify physical threading, head engagement or retention.
 
 ### 4. Reservoir subassembly (both, at the bench)
 

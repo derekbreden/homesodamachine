@@ -30,6 +30,7 @@ retain at least 3 mm above the water and gas fittings.
 | Two relays | West wall, one above the other | Integral back-top bosses |
 | Mains WAGOs | Beside C14, east of PSU screwdriver approaches | Rear-wall wells |
 | DC/sensor/reed WAGOs and ground stack | Beside the PCB | Cold-core lid wells and ground boss |
+| Reservoir A fill/draw pair | Low east-side R14 paths, draw west of fill | Two integral cold-core lid paired seats, one shared narrow tie per station |
 | Valve manifold commons | Beside their front valve rows | Front-top wells |
 
 WAGO positions follow actual branch connections. The electronics ceiling is
@@ -38,6 +39,13 @@ continuous; the funnel frame is the removable roof closure.
 The six rear fluid stations form two columns at X37.25 and X77.5, with 32 mm row
 pitch. The upper row is water/CO2 inlet, the middle row vent/soda outlet, and the
 lower row flavor A/B outlet. C14 is at X−68.5/Z330 and RJ11 at X−30/Z274.376.
+
+Reservoir A's selected routes are defined in
+[reservoir-a-routes.json](reservoir-a-routes.json). The fore seat's tube
+centres are X50.5/58 at Y205; the aft pair is X86.5/94 at Y304, all at
+Z259.5. The `fluid-14` fill warm span is 425.843 mm and the `fluid-16`
+draw span is 418.391 mm, including the estimated front-valve receiving ends.
+Each continues through its plain core guide without a joint or physical cut.
 
 ## Core entries
 
