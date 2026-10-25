@@ -14,29 +14,9 @@
 // answered, out of the verdict this deploy carries. It is what the gear's dot
 // is the summary of — shell.js colours that dot, this page names the rows.
 
-import { renderHead, renderNav, renderFooter, renderChecksRows } from "./shell.js";
+import { renderHead, renderNav, renderPageHeader, renderFooter, renderChecksRows } from "./shell.js";
 
 const PAGE_STYLES = `
-.wrap {
-  flex: 1;
-  width: 100%;
-  max-width: 36rem;
-  margin: 0 auto;
-  /* Safe-area on sides (iPhone landscape) and bottom (PWA home indicator).
-     Top doesn't need it — the sticky nav above eats safe-area-top. */
-  padding:
-    2rem
-    calc(env(safe-area-inset-right, 0px) + 1.25rem)
-    calc(env(safe-area-inset-bottom, 0px) + 4rem)
-    calc(env(safe-area-inset-left, 0px) + 1.25rem);
-}
-header.page { margin-bottom: 1.5rem; }
-h1 {
-  font-size: clamp(1.5rem, 4vw, 2rem);
-  font-weight: 600;
-  margin: 0;
-  letter-spacing: -0.02em;
-}
 .modal-backdrop {
   display: none;
   position: fixed;
@@ -102,9 +82,7 @@ h2.section { font-size: 14px; font-weight: 600; margin: 2rem 0 0.75rem; color: v
 }
 `;
 
-const BODY = `<div class="wrap">
-  <header class="page"><h1>Settings</h1></header>
-
+const BODY = `<main class="settings-wrap site-content">
   <div class="settings-card">
     <div class="setting-row" id="row-notifs" hidden>
       <div>
@@ -130,7 +108,7 @@ const BODY = `<div class="wrap">
   <div class="settings-card">
 ${renderChecksRows()}
   </div>
-</div>
+</main>
 
 <div id="subscribe-modal" class="modal-backdrop" role="dialog" aria-modal="true">
   <div class="modal">
@@ -154,10 +132,12 @@ export function mountSettingsRoutes(app) {
       renderHead({
         title: "Settings · Home Soda Machine",
         pageStyles: PAGE_STYLES,
+        pageClass: "site-interior",
       }) +
       renderNav({ active: "settings" }) +
+      renderPageHeader({ eyebrow: "Settings", title: "Stay connected.", description: "Choose how you follow the build, and see the project’s latest check results." }) +
       BODY +
-      renderFooter(),
+      renderFooter({ siteFooter: true }),
     );
   });
 }

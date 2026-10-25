@@ -1,4 +1,4 @@
-import { renderHead, renderNav, renderFooter } from './shell.js';
+import { renderHead, renderNav, renderPageHeader, renderFooter } from './shell.js';
 import { COST_CSS } from './cost.js';
 import { SIGNUP_BUTTON_CSS } from './landing.js';
 import { readMaterialCatalog } from './material-catalog.js';
@@ -96,9 +96,8 @@ ${root.documents.map(document => `  <a class="material-document" href="${documen
   </div>
 </details>`;
 
-  return `<main class="cost-wrap guide">
+  return `<main class="cost-wrap guide site-content">
   <header>
-    <h1 class="cost-title">Website style guide</h1>
     <p>A small reference for building pages on Home Soda Machine. These examples load the same styles as the pages they come from.</p>
     <p>Choose text by its role and importance. The cost page is the reference for compact names, numbers and supporting text. Body copy inherits the shared shell.</p>
     <nav class="guide-contents" aria-label="Style guide sections"><a href="#text-color">Text and color</a><a href="#controls">Links and controls</a><a href="#data">Data and disclosure</a></nav>
@@ -121,7 +120,7 @@ ${root.documents.map(document => `  <a class="material-document" href="${documen
   <section class="guide-section" aria-labelledby="using-guide-title">
     <h2 class="cost-title" id="using-guide-title">Using this reference</h2>
     <p>Each example offers its markup and a link to the styles that render it. Reuse the production classes and connect controls to the feature’s behavior. The local demonstrations live in ${source('web/public/style-guide.js', 'style-guide.js')}; their sample hooks belong to this page.</p>
-    <p>The owner pages use ${source('web/public/css/unit.css', 'IBM Plex Sans and their own layout')}. CAD measurements use specialized numeric displays. Choose the relevant context when extending those surfaces.</p>
+    <p>Page introductions, content surfaces, spacing and typography come from ${source('web/public/css/site.css', 'the shared site styles')}. Owner pages use the same typeface with ${source('web/public/css/unit.css', 'a layout for setup and reference')}. CAD measurements use specialized numeric displays.</p>
     <p>Add a pattern here when new work needs a reusable reference. Apply corrections to existing pages where a concrete readability or hierarchy problem has been identified.</p>
   </section>
 </main>
@@ -134,8 +133,9 @@ export function mountStyleGuideRoutes(app, { hardwareDir } = {}) {
     res.set('Cache-Control', 'no-cache');
     res.send(renderHead({
       title: 'Website style guide — Home Soda Machine',
+      pageClass: 'site-interior',
       pageStyles: COST_CSS + '\n' + SIGNUP_BUTTON_CSS,
       pageHead: '<link rel="stylesheet" href="/css/materials.css"><link rel="stylesheet" href="/css/style-guide.css">',
-    }) + renderNav() + renderGuide(hardwareDir) + renderFooter());
+    }) + renderNav() + renderPageHeader({ eyebrow: 'Style guide', title: 'One visual language.', description: 'The typography, surfaces, and working components shared across Home Soda Machine.' }) + renderGuide(hardwareDir) + renderFooter({ siteFooter: true }));
   });
 }

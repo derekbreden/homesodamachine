@@ -14,7 +14,7 @@
 
 import path from "path";
 import fs from "fs";
-import { renderHead, renderNav, renderFooter } from "./shell.js";
+import { renderHead, renderNav, renderPageHeader, renderFooter } from "./shell.js";
 import { readBatchForecast, renderBatchForecast, BATCH_FORECAST_CSS } from "./batch-forecast.js";
 import { categoryName } from "./cost-categories.js";
 import { readJ2Harness, readJ13Harness, renderHarnessGuide } from "./harness-guide.js";
@@ -268,7 +268,6 @@ function hm(min) {
 }
 
 export const COST_CSS = `
-.cost-wrap { max-width: 860px; margin: 0 auto; padding: 1.5rem 1.25rem 4rem; width: 100%; }
 .cost-title { font-size: 1.5rem; font-weight: 700; margin: 0.25rem 0 1.25rem; letter-spacing: -0.01em; scroll-margin-top: 5rem; }
 .cost-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .cost-wrap a:focus-visible, .cost-wrap summary:focus-visible, .cost-wrap input:focus-visible { outline: 2px solid var(--action); outline-offset: 4px; }
@@ -764,8 +763,7 @@ ${labor ? renderLaborSection(labor, harness) : ""}${mach ? renderMachineSection(
     metrics: forecast.batches.map(batch => metric(`${money(batch.cashCents / 100)}<sup aria-label="estimate">*</sup>`, `First ${batch.units} machines`)).join(""),
     body: renderBatchForecast(forecast),
   });
-  return `<main class="cost-wrap">
-  <h1 class="cost-sr-only">Price, cost &amp; investment</h1>
+  return `<main class="cost-wrap site-content">
 ${renderPrice(unitCost)}
   <nav class="cost-contents" aria-label="Cost sections"><div class="cost-top-cap">On this page</div><ol>${panels.map((panel, index) => `<li><a href="#${panel.anchor}" aria-controls="${panel.id}"><span aria-hidden="true">${index + 1}</span>${escape(panel.title)}</a></li>`).join("")}</ol></nav>
   <div class="cost-sections">${panels.map(renderCostPanel).join("")}</div>
@@ -808,11 +806,11 @@ export function mountCostRoutes(app, { hardwareDir }) {
       body = renderCostBody(readCostRollup(hardwareDir), labor, mach, investment, forecast, harness);
     } catch (e) {
       // A stripped checkout (no bom.md) shouldn't 500 — render an empty state.
-      body = `<main class="cost-wrap"><h1 class="cost-title">Cost &amp; price</h1>${renderPrice(null)}<p class="cost-note">Cost data unavailable.</p></main>`;
+      body = `<main class="cost-wrap site-content">${renderPrice(null)}<p class="cost-note">Cost data unavailable.</p></main>`;
     }
     res.send(
       renderHead({
-        title: "Price & Cost · Home Soda Machine", pageStyles: COST_CSS + BATCH_FORECAST_CSS,
+        title: "Price & Cost · Home Soda Machine", pageStyles: COST_CSS + BATCH_FORECAST_CSS, pageClass: "site-interior",
         pageHead: '<link rel="stylesheet" href="/css/harness.css">',
         importMap: { imports: {
           three: "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js",
@@ -820,8 +818,9 @@ export function mountCostRoutes(app, { hardwareDir }) {
         } },
       }) +
       renderNav({ active: "cost" }) +
+      renderPageHeader({ eyebrow: "Price, cost & investment", title: "What goes into a machine.", description: "The planned price, parts, labor, and investment behind the build. Explore the estimates and the first production batches." }) +
       body +
-      renderFooter(),
+      renderFooter({ siteFooter: true }),
     );
   });
 }

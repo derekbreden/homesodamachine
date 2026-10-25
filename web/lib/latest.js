@@ -7,7 +7,7 @@
 // read the way its own feed reads it, the changes through the reader and carry lib/changes.js
 // hands over and the posts through lib/updates.js, so the hub shows what the feeds show.
 
-import { renderHead, renderNav, renderFooter } from "./shell.js";
+import { renderHead, renderNav, renderPageHeader, renderFooter } from "./shell.js";
 import { imageUrl } from "./changes.js";
 import { readUpdates, fmtRange, KIND_LABEL, imageSizer } from "./updates.js";
 import { FIGURES, FIGURE_CSS } from "./update-figures.js";
@@ -78,8 +78,7 @@ function section({ id, name, href, all, desc, items, empty }) {
 }
 
 export function renderLatestBody({ changesDir, changes, posts, imageSize }) {
-  return `<main class="lt-wrap">
-  <h1 class="lt-h1">Latest</h1>
+  return renderPageHeader({ eyebrow: "Latest", title: "The latest from the build.", description: "Design changes and progress from the workshop, as the machine takes shape." }) + `<main class="lt-wrap site-content">
   ${section({
     id: "changes", name: "Changes", href: "/changes", all: "All changes",
     desc: "Every change to the enclosure, shown before and after, as it lands.",
@@ -96,8 +95,6 @@ export function renderLatestBody({ changesDir, changes, posts, imageSize }) {
 }
 
 const LATEST_CSS = `
-.lt-wrap { width: 100%; max-width: 60rem; min-width: 0; margin: 0 auto; padding: 1.5rem 1rem 5rem; }
-.lt-h1 { font-size: 1.6rem; margin: 0 0 1rem; line-height: 1.25; }
 .lt-sec { margin: 0 0 2.25rem; }
 .lt-head {
   display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
@@ -182,10 +179,10 @@ export function mountLatestRoutes(app, { changesDir, changes, updatesDir, public
     res.set("Content-Type", "text/html; charset=utf-8");
     res.set("Cache-Control", "no-cache");
     res.send(
-      renderHead({ title: "Latest — Home Soda Machine", pageStyles: LATEST_CSS }) +
+      renderHead({ title: "Latest — Home Soda Machine", pageStyles: LATEST_CSS, pageClass: "site-interior" }) +
       renderNav({ active: "latest" }) +
       renderLatestBody({ changesDir, changes: changes.read(), posts: readUpdates(updatesDir), imageSize }) +
-      renderFooter()
+      renderFooter({ siteFooter: true })
     );
   });
 }

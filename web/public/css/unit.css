@@ -1,12 +1,12 @@
-body { background: var(--brand-blue); }
+body { background: var(--site-paper); }
 .unit-page {
-  --unit-paper: var(--brand-blue);
-  --unit-ground: var(--brand-blue);
-  --unit-ink: var(--text);
-  --unit-muted: var(--brand-ice);
-  --unit-line: var(--border);
-  --unit-blue: var(--brand-ice);
-  --unit-ice: var(--brand-navy);
+  --unit-paper: #fff;
+  --unit-ground: var(--site-paper);
+  --unit-ink: var(--brand-navy);
+  --unit-muted: #3f557e;
+  --unit-line: #c7d3e8;
+  --unit-blue: var(--brand-blue);
+  --unit-ice: #e7edf7;
   --unit-button: var(--brand-orange);
   --unit-button-ink: var(--brand-navy);
   --unit-orange: var(--brand-orange);
@@ -14,12 +14,12 @@ body { background: var(--brand-blue); }
   --unit-photo-ink: #182b4d;
   background: var(--unit-ground);
   color: var(--unit-ink);
-  font: 400 15px/1.5 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font: 400 16px/1.65 var(--font-sans);
   text-align: left;
   min-width: 0;
   overflow-wrap: break-word;
   width: 100%;
-  max-width: 1240px;
+  max-width: var(--site-width);
   margin: 0 auto;
   flex: 1;
   display: flex;
