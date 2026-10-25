@@ -1,0 +1,292 @@
+{
+  "schema": 1,
+  "scope": "Selected paired Reservoir A lid anchors and their two complete nominal retaining strips against fifteen frozen source-native electrical conductors. All60 selected wire/anchor-strip pairs have disjoint conservative sweep bounds. Physical wire dressing, tie threading, compression, retention and assembly force remain unqualified. The two earlier illustrative tube curves are recorded only as separate candidate diagnostics; anchor locations and anchored connection points do not fix those bends.",
+  "wire_ids": [
+    "AC2-L",
+    "AC2-N",
+    "AC3-L",
+    "AC4-H",
+    "DC1-GND",
+    "DC1-V12",
+    "DC2-V12",
+    "DC3-positive",
+    "J5-GND",
+    "J5-IO19",
+    "J5-IO2",
+    "J5-V5",
+    "J9-B",
+    "relay-bus-GND",
+    "relay-bus-V5"
+  ],
+  "source_fifteen_native_review_sha256": "9b4162304820b5d4b926ee502c9e179a7c4e758e1f8d6a1aa2d58bccc3ed98aa",
+  "wire_native_brep_sha256": {
+    "DC1-GND": "bed37e790da9345c1f617af02066fa373f0c0dcdd2a9f18890953626ce720200",
+    "DC1-V12": "f7b95802d5f0dc09e6ddccdfdda3019cd96edd8c61f63010408017a07fef7c2c",
+    "AC2-L": "145e4226ada81f83038010b33f7e645e55148e795079eccec50bb3e76a9fe460",
+    "AC2-N": "5ef47c1f982ce61dc6acc95eab4c41b2296da1f58cddf17b9a9562ccec8f2643",
+    "AC3-L": "bf628abcc711508874f178c4a0306164758bba548863a102efa44e9e5764a7fe",
+    "AC4-H": "5bc1573fb099e32443eb066c2fae3c38ca383defee83960880b42d9a9b52c88c",
+    "DC2-V12": "ccda05deddd1a7b7019c285a5deadb29b8baabab5e08fd12887cfc1ec93a012b",
+    "DC3-positive": "cd99a281730950a13743ad40cf53f70c93f458784a84127e44c04a6d5b0dc6cf",
+    "J5-V5": "15594dd523e1dd558838e4f33a2de177574549138f3c5e46613a1ceb4b5fcbe3",
+    "relay-bus-V5": "054b2a39f52b64cf6c244486f76214edcb917293341ddaea74a2bbe555ba97c1",
+    "J5-GND": "e5415656bb4e3babbb41a3c35cf8f43711a7c926d4d32e37bfc2359ae95f8278",
+    "relay-bus-GND": "fbb8b57b37b4107b80c5014190658ad2be6cb88199379ef2b6b16f11aaf77a02",
+    "J5-IO19": "4901e8ebb91583490dbefa943ff88a3481eea0d6f5318bd89471204cc2630ce9",
+    "J5-IO2": "22fbb93000b6814bb869b391abc6f11b359a5f943e79a6ba18fae438a446b275",
+    "J9-B": "d42cd9bbeb74c0c25fcaaa465a15de4a0bb53f603d018b7a939faf7f5345e734"
+  },
+  "tube_specs_sha256": "1d5ee0e9446d77d1ea0727d779b4336d2461e0126f01078c93a6effcb7e195db",
+  "anchor_specification": {
+    "units": "mm",
+    "assembly_owner": "back-bottom",
+    "mounting_parent": "cold-core top lid",
+    "tube_od_mm": 6.35,
+    "tube_axis_world": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "lid_face_z_mm": 253.4,
+    "root_z_mm": 248.6,
+    "seat_top_z_mm": 258.0,
+    "seat_radius_mm": 3.325,
+    "seat_floor_stock_mm": 3.0,
+    "station_length_mm": 10.0,
+    "stock_west_of_first_tube_mm": 3.7,
+    "stock_east_of_last_tube_mm": 3.7,
+    "tie_slot_width_y_mm": 3.2,
+    "tie_slot_bottom_z_mm": 251.6,
+    "tie_slot_floor_stock_mm": 3.0,
+    "tie_access_outer_offset_mm": 6.0,
+    "tie_access_inner_offset_mm": 2.75,
+    "tie_witness_width_mm": 2.5,
+    "tie_witness_thickness_mm": 0.8,
+    "tie_witness_outer_bend_radius_mm": 3.75,
+    "tie_witness_bottom_center_z_mm": 252.4,
+    "stations": [
+      {
+        "id": "a-pair-fore-anchor",
+        "label": "Reservoir A fore paired anchor",
+        "tube_centers_world_mm": [
+          [
+            50.5,
+            205.0,
+            259.5
+          ],
+          [
+            58.0,
+            205.0,
+            259.5
+          ]
+        ],
+        "routes_west_to_east": [
+          "fluid-16",
+          "fluid-14"
+        ]
+      },
+      {
+        "id": "a-pair-aft-anchor",
+        "label": "Reservoir A aft paired anchor",
+        "tube_centers_world_mm": [
+          [
+            86.5,
+            304.0,
+            259.5
+          ],
+          [
+            94.0,
+            304.0,
+            259.5
+          ]
+        ],
+        "routes_west_to_east": [
+          "fluid-16",
+          "fluid-14"
+        ]
+      }
+    ],
+    "tie_slot_top_z_mm": 253.175
+  },
+  "anchor_specification_sha256": "7f180f499c6a46834a7769352b00486455b70281c51d00c655281655c55bf5c8",
+  "source_sha256": {
+    "hardware/printed-parts/cold-core/_reservoir_a_anchors.py": "273c4330e3672675d4f45a8fb3e45d65619cedced02bfa6589f540efe3ec0aff",
+    "hardware/manifold-layout/above_core_routes.py": "bec911386e5aa2a6264aaee3e451cdad49cfa7c2d7a20b3370bef5208f08af5d",
+    "hardware/manifold-layout/above-core.json": "04887b550cc53b2516832689b40f81a56e83119e4cc04921ad9819ed343c726b",
+    "hardware/wiring/installed/route-overrides.json": "4338f319a34db12dc0a6aa12292be450fdb98d29cbbbe36a1b3c29c062778caa"
+  },
+  "targets": {
+    "a-pair-fore-anchor": {
+      "valid": true,
+      "solids": 1,
+      "faces": 18,
+      "volume_mm3": 1141.6244519895283,
+      "center_mm": [
+        54.25,
+        205.00000000000003,
+        252.76673510392274
+      ],
+      "bounds_mm": [
+        46.8,
+        200.0,
+        248.6,
+        61.7,
+        210.0,
+        258.0
+      ]
+    },
+    "a-pair-aft-anchor": {
+      "valid": true,
+      "solids": 1,
+      "faces": 18,
+      "volume_mm3": 1141.6244519890884,
+      "center_mm": [
+        90.24999999999999,
+        303.99999999999994,
+        252.76673510392231
+      ],
+      "bounds_mm": [
+        82.8,
+        299.0,
+        248.6,
+        97.7,
+        309.0,
+        258.0000000000004
+      ]
+    },
+    "a-pair-fore-anchor-tie": {
+      "valid": true,
+      "solids": 1,
+      "faces": 108,
+      "volume_mm3": 139.26248459841494,
+      "center_mm": [
+        51.266702155418,
+        205.00000000000006,
+        258.5905121381911
+      ],
+      "bounds_mm": [
+        43.25,
+        203.1,
+        252.0,
+        62.15,
+        206.9,
+        263.65
+      ]
+    },
+    "a-pair-aft-anchor-tie": {
+      "valid": true,
+      "solids": 1,
+      "faces": 108,
+      "volume_mm3": 139.26248459841452,
+      "center_mm": [
+        87.26670215541803,
+        303.99999999999983,
+        258.5905121381908
+      ],
+      "bounds_mm": [
+        79.25,
+        302.1,
+        252.0,
+        98.15,
+        305.9,
+        263.65
+      ]
+    }
+  },
+  "errors": [],
+  "complete": true,
+  "geometrically_clear": true,
+  "elapsed_seconds": 0.6182675840100273,
+  "selected_anchor_targets": [
+    "a-pair-fore-anchor",
+    "a-pair-aft-anchor",
+    "a-pair-fore-anchor-tie",
+    "a-pair-aft-anchor-tie"
+  ],
+  "selected_anchor_pair_count": 60,
+  "selected_anchor_native_candidate_pair_count": 0,
+  "selected_anchor_intersections": [],
+  "selected_anchor_geometrically_clear": true,
+  "pruning_basis": "Conservative source line/circular-arc sweep bounds, including conductor radius and0.001mm allowance, compared with exact native anchor/strip bounds. All selected pairs are disjoint, so none requires a Boolean.",
+  "candidate_route_diagnostics": {
+    "scope": "Earlier illustrative14/16 curves only; the selected inter-anchor curves are being refitted while fixed wires and ground hardware remain unchanged.",
+    "targets": {
+      "fluid-14": {
+        "valid": true,
+        "solids": 1,
+        "faces": 40,
+        "volume_mm3": 7473.387447652474,
+        "center_mm": [
+          77.0374921396483,
+          256.6807498806471,
+          266.25646302549933
+        ],
+        "bounds_mm": [
+          54.82499989999999,
+          104.8649999,
+          253.39999989999998,
+          97.1750001,
+          429.4750001,
+          299.35000010000005
+        ],
+        "native_brep_sha256": "6ec3176d1b1e9d4c101ed8eb63443adc2f257474d9aa3e76cd83247f4eab1b5a"
+      },
+      "fluid-16": {
+        "valid": true,
+        "solids": 1,
+        "faces": 40,
+        "volume_mm3": 7342.610714849307,
+        "center_mm": [
+          55.18163725255278,
+          252.29126022762603,
+          267.58664912743836
+        ],
+        "bounds_mm": [
+          19.1749999,
+          104.86499989999999,
+          253.39999989999995,
+          89.67500009999999,
+          411.17500010000003,
+          299.35000010000005
+        ],
+        "native_brep_sha256": "0fa266af3f0c110f3e90c3ba2fa303a7e0ae71b48b310d2f1b799ba48e1c7a92"
+      }
+    },
+    "native_pairs": [
+      {
+        "wire": "AC4-H",
+        "target": "fluid-16",
+        "native_common_mm3": 12.513953932891724,
+        "minimum_native_air_mm": 0.0
+      },
+      {
+        "wire": "J9-B",
+        "target": "fluid-16",
+        "native_common_mm3": 0.0,
+        "minimum_native_air_mm": 0.5037193331224951
+      }
+    ],
+    "intersections": [
+      {
+        "wire": "AC4-H",
+        "target": "fluid-16",
+        "native_common_mm3": 12.513953932891724,
+        "minimum_native_air_mm": 0.0,
+        "common_bounds_mm": [
+          48.29999989934681,
+          157.6853900853277,
+          256.5307253404892,
+          50.90000010089561,
+          162.5482436404715,
+          262.98715562296115
+        ]
+      }
+    ],
+    "candidate_curves_clear": false
+  },
+  "producer_apis": [
+    "_reservoir_a_anchors.supports()",
+    "_reservoir_a_anchors.tie_witnesses()",
+    "tube_review.segment_bounds()"
+  ]
+}
