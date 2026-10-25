@@ -1056,6 +1056,27 @@
   "DC3-negative": {
     "stations": [
       {
+        "point_mm": [
+          -10.324662008821557,
+          278.0,
+          264.07081302466753
+        ]
+      },
+      {
+        "point_mm": [
+          -15.0,
+          281.0,
+          260.0
+        ]
+      },
+      {
+        "point_mm": [
+          -15.0,
+          293.0,
+          268.0
+        ]
+      },
+      {
         "terminal": "wago-gnd.2",
         "offset": [
           -9.06827,
@@ -1111,7 +1132,7 @@
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Native-terminal route through selected equipment and fluid corridors; physical dressing and wire packing remain open."
+    "note": "The pump negative lead passes west of the fixed V-B return support root. Its factory terminal location and physical lead dress remain unqualified."
   },
   "DC3-positive": {
     "stations": [
