@@ -1,9 +1,9 @@
 {
   "project": "funnel-cover-petg.3mf",
   "settings_source": "hardware/printed-parts/petgf.3mf",
-  "settings_source_sha256": "afe8b7d865690b511cfdbf7087393c7e9d29398facf6797323acb0ff9dc6c45c",
+  "settings_source_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
   "settings_sha256": "120a33d4804a6fd0d8f2674c8e55405405b9eac6826e6079265f9c77e7dc11cf",
-  "source_settings_sha256": "e8fc4ae8011d87a94485c6268ebc109645e175443376f69f73844c7fbaa90bff",
+  "source_settings_sha256": "107b9a0024c578c73dad7d231f0ffe6fc74e0d8e93fa438ccc6ea062afc3f928",
   "settings_changes": {
     "machine_start_gcode": {
       "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
@@ -64,13 +64,13 @@
       "member": "3D/Objects/object_1.model",
       "identify_id": 1901,
       "source": "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl",
-      "stl_sha256": "65cf73b957433f3c3b35ff1919564683c801419d3c2f4b7a748a2a30e322b1ad",
+      "stl_sha256": "141af0f215c077ee9f2adc3ef1d8c49101652a164b5d59694fc20b10d0b61dc2",
       "triangles": 2812,
       "rotation_x_degrees": 0.0,
       "source_center_mm": [
         0.0,
         2.0,
-        4.499999999999996
+        4.499999999999995
       ],
       "build_transform": [
         1.0,
@@ -84,12 +84,12 @@
         1.0,
         162.5,
         160.0,
-        4.500000000000004
+        4.500000000000005
       ],
       "plate_translation_mm": [
         162.5,
         160.0,
-        4.500000000000004
+        4.500000000000005
       ],
       "plate_origin_mm": [
         0.0,
@@ -99,13 +99,13 @@
       "plate_bounds_mm": [
         [
           71.5,
-          87.80424499511719,
+          70.30424499511719,
           0.0
         ],
         [
           253.5,
-          232.1957550048828,
-          9.000000000000009
+          249.6957550048828,
+          9.00000000000001
         ]
       ],
       "watertight": true,
@@ -113,9 +113,9 @@
       "embedded_vertex_error_mm": 4.999947122996673e-10
     }
   ],
-  "project_sha256": "9b851dc4a8f0bf48e43adb32effbc4a8a00d262820dc6f33a7b49ab2120fe02e",
+  "project_sha256": "7eba727a069be9cc8880c57ea2fd74bac0ace1cc1514a93080dea0fb9b97973e",
   "settings_preserved_byte_for_byte": false,
-  "source_mesh_sha256": "65cf73b957433f3c3b35ff1919564683c801419d3c2f4b7a748a2a30e322b1ad",
+  "source_mesh_sha256": "141af0f215c077ee9f2adc3ef1d8c49101652a164b5d59694fc20b10d0b61dc2",
   "material": "Bambu PETG Basic Black",
   "filament_preset_sha256": {
     "filament/Bambu PETG Basic @BBL H2C.json": "be58edd2b9b7a7409a9b727c625e70c17441b568993bea6f75c2b2595122d9b5",

@@ -1,0 +1,26 @@
+[step] The DATA lettering stands 0.48 mm proud of the flat black face. It fills a 0.72 mm recess, the rear chips' raised two-colour lettering (data-ring/README.md), and prints face up in two 0.24 mm layers above the face.
+alternatives: Flush lettering gives up the relief that edges the white on the black.
+file: hardware/printed-parts/enclosure/data-ring/data-ring.step
+click: x=5.437 y=2.160 z=14.827
+
+[sliver] The raised lettering's 0.48 mm sidewalls: two ordinary 0.24 mm layers above the flush face on the face-up print.
+alternatives: As for the relief: flush lettering removes the sidewalls with the relief.
+file: hardware/printed-parts/enclosure/data-ring/data-ring.step
+click: x=8.730 y=1.920 z=14.895
+
+[ceiling] The linter is wrong for this part's pose. The plate prints flat-back-down with the lettering up (data-ring/README.md), and this face is the 1.68 mm top edge of the RJ11 opening, vertical in the print. The lint reads ceilings only for a piece bedded on its Z- or Z+ face; its ledge reading takes the plate's +Y-up pose.
+alternatives: None in the part. The lint could read ceilings in the declared tilted pose, as it reads ledges.
+file: hardware/printed-parts/enclosure/data-ring/data-ring.step
+click: x=0.000 y=0.840 z=9.150
+
+[thin] Specific lettering and plate section:
+- 0.818 mm is a stroke of the DATA lettering, the bulkhead labels' font at their word size.
+- 1.68 mm is the plate and its two wings, the depth of the accepted flat-wing nameplate interface the plate shares (data-ring/README.md; nameplate/horizontal-wing-trial/physical-acceptance.json).
+alternatives: Heavier strokes change the font the six rear labels share. A thicker plate or wing needs a thicker receiver slot or a thinner retaining lip, each a change to the accepted wing fit.
+file: hardware/printed-parts/enclosure/data-ring/data-ring.step
+click: x=6.779 y=1.734 z=16.419
+click: x=6.714 y=1.734 z=17.234
+click: x=-3.150 y=0.000 z=-10.009
+click: x=-3.150 y=1.680 z=-10.009
+click: x=5.199 y=0.000 z=-10.027
+click: x=5.199 y=1.680 z=-10.027

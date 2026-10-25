@@ -1,0 +1,600 @@
+{
+  "_": "STLs cut by step_meshes.py from the STEP beside each, bound by digest.",
+  "meshes": {
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.stl": {
+      "step": "hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step",
+      "step_sha256": "bd45e743447c9bcc0d5346fd19de77c0987f4fd2e9d778f8f471f9c6bc6af45e",
+      "stl_sha256": "3add087b416cbbe6d110311bf9c6bb0e93703a4c92230acee5a3cee0e8450be1",
+      "bodies": [
+        "copper-plug-port"
+      ],
+      "solids_fused": 1,
+      "result_solids": 1,
+      "tolerance_mm": 0.005,
+      "angle_rad": 0.05,
+      "facets": 588,
+      "volume_mm3": 5629.656,
+      "bounds_mm": [
+        [
+          -4.325,
+          -143.0,
+          28.425
+        ],
+        [
+          4.325,
+          -137.05,
+          213.4
+        ]
+      ],
+      "tool_sha256": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44",
+      "written_utc": "2026-10-25T08:30:29+00:00"
+    },
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.stl": {
+      "step": "hardware/printed-parts/cold-core/copper-plugs/copper-plug-west.step",
+      "step_sha256": "ffaf6c36da12bd2a3232ef8274baebeadb86de629da63a68c57479a6c468c28b",
+      "stl_sha256": "3add087b416cbbe6d110311bf9c6bb0e93703a4c92230acee5a3cee0e8450be1",
+      "bodies": [
+        "copper-plug-west"
+      ],
+      "solids_fused": 1,
+      "result_solids": 1,
+      "tolerance_mm": 0.005,
+      "angle_rad": 0.05,
+      "facets": 588,
+      "volume_mm3": 5629.656,
+      "bounds_mm": [
+        [
+          -4.325,
+          -143.0,
+          28.425
+        ],
+        [
+          4.325,
+          -137.05,
+          213.4
+        ]
+      ],
+      "tool_sha256": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44",
+      "written_utc": "2026-10-25T08:30:39+00:00"
+    },
+    "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.stl": {
+      "step": "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
+      "step_sha256": "71751620be656d36fa3c8caf5be6815a9552c21a98b4715bbf16da61512c2e33",
+      "stl_sha256": "f48bad66b7ff6feb953ac14a5843106440c4e4f45f84d1d58570649a4ec18c8b",
+      "bodies": [
+        "prv-shroud"
+      ],
+      "solids_fused": 1,
+      "result_solids": 1,
+      "tolerance_mm": 0.005,
+      "angle_rad": 0.05,
+      "facets": 3396,
+      "volume_mm3": 6593.75,
+      "bounds_mm": [
+        [
+          -11.55,
+          -11.55,
+          0.0
+        ],
+        [
+          11.55,
+          11.55,
+          46.0
+        ]
+      ],
+      "tool_sha256": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44",
+      "written_utc": "2026-10-25T09:58:46+00:00"
+    },
+    "hardware/printed-parts/cold-core/reed-bridge/reed-bridge.stl": {
+      "step": "hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step",
+      "step_sha256": "491851a69fa4eef0f350913c3848c261f64f2906fabc9b7cf6ad86da2e217914",
+      "stl_sha256": "7cb3c35f8f213ca77bacbaf9befe06f711e497ac22369c68bf84c3fa1b0406eb",
+      "bodies": [
+        "reed-bridge"
+      ],
+      "solids_fused": 1,
+      "result_solids": 1,
+      "tolerance_mm": 0.005,
+      "angle_rad": 0.05,
+      "facets": 1366,
+      "volume_mm3": 6800.289,
+      "bounds_mm": [
+        [
+          58.7046,
+          -24.9077,
+          38.1818
+        ],
+        [
+          66.75,
+          24.9077,
+          106.6339
+        ]
+      ],
+      "tool_sha256": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44",
+      "written_utc": "2026-10-25T09:59:18+00:00"
+    },
+    "hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.stl": {
+      "step": "hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step",
+      "step_sha256": "ca44667b093baa1ea19940f4febf12c09a462cc8534197b3d43e4a574ca6b147",
+      "stl_sha256": "fcb5c1d55550860df0fe6897a867edcc15d1cad5ef12bfb522f273f7b5adbffc",
+      "bodies": [
+        "reed-bridge-setting-gauge"
+      ],
+      "solids_fused": 1,
+      "result_solids": 1,
+      "tolerance_mm": 0.005,
+      "angle_rad": 0.05,
+      "facets": 724,
+      "volume_mm3": 9540.764,
+      "bounds_mm": [
+        [
+          30.075,
+          0.0,
+          -4.0
+        ],
+        [
+          66.65,
+          57.7206,
+          38.1818
+        ]
+      ],
+      "tool_sha256": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44",
+      "written_utc": "2026-10-25T09:59:18+00:00"
+    },
+    "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.stl": {
+      "step": "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step",
+      "step_sha256": "ec9e0fcc5fdd752d811766a41e34dfa92a487c6010c86029d4f16c4d369d0f50",
+      "stl_sha256": "95774aeef9b46c56d65028380b6e679ada8ef9f90993e6f58e45795e88960d1c",
+      "bodies": [
+        "coil-mandrel"
+      ],
+      "solids_fused": 1,
+      "result_solids": 1,
+      "tolerance_mm": 0.005,
+      "angle_rad": 0.05,
+      "facets": 570774,
+      "volume_mm3": 280197.514,
+      "bounds_mm": [
+        [
+          -61.5,
+          -61.5,
+          0.0
+        ],
+        [
+          61.5,
+          61.5,
+          157.5
+        ]
+      ],
+      "tool_sha256": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44",
+      "written_utc": "2026-10-25T08:31:03+00:00"
+    },
+    "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.stl": {
+      "step": "hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step",
+      "step_sha256": "8a58fee954f9dfbd8ee844965ff94b5473ee7ef18232276a4a5fa978f5c3ee7b",
+      "stl_sha256": "0c3627c27d07c495a8494cf3b30fb732e6c44ee3072c366c8d57db68c635904c",
+      "bodies": [
+        "reservoir-gasket"
+      ],
+      "solids_fused": 1,
+      "result_solids": 1,
+      "tolerance_mm": 0.005,
+      "angle_rad": 0.05,
+      "facets": 10344,
+      "volume_mm3": 4549.942,
+      "bounds_mm": [
+        [
+          52.2883,
+          -70.25,
+          0.0
+        ],
+        [
+          129.25,
+          70.25,
+          2.0
+        ]
+      ],
+      "tool_sha256": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44",
+      "written_utc": "2026-10-25T08:31:05+00:00"
+    },
+    "hardware/printed-parts/cold-core/reservoir/reservoir-retaining-ring.stl": {
+      "step": "hardware/printed-parts/cold-core/reservoir/reservoir-retaining-ring.step",
+      "step_sha256": "1efcd78fbab531576c7c412ed2aef0320f02453f7b4d32876258d984e5475b48",
+      "stl_sha256": "ba87234750a972b86ecccf31cbf341e71f60ed0f1d23ef7262eae65e87d64ecc",
+      "bodies": [
+        "reservoir-retaining-ring"
+      ],
+      "solids_fused": 1,
+      "result_solids": 1,
+      "tolerance_mm": 0.005,
+      "angle_rad": 0.05,
+      "facets": 2016,
+      "volume_mm3": 159.027,
+      "bounds_mm": [
+        [
+          -6.75,
+          -6.75,
+          0.0
+        ],
+        [
+          6.75,
+          6.75,
+          2.0
+        ]
+      ],
+      "tool_sha256": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44",
+      "written_utc": "2026-10-25T08:31:07+00:00"
+    },
+    "hardware/printed-parts/enclosure/display-gasket/display-gasket.stl": {
+      "step": "hardware/printed-parts/enclosure/display-gasket/display-gasket.step",
+      "step_sha256": "1caf4a13ebc12ffcd8e41b50df6dd194cb3c8b329f029bd4eeecd6a9f2c52362",
+      "stl_sha256": "5d81bee06026dca148bf07afdf448cb080c2680aa0ce010abc77174dc6f86575",
+      "bodies": [
+        "display-gasket"
+      ],
+      "solids_fused": 1,
+      "result_solids": 1,
+      "tolerance_mm": 0.005,
+      "angle_rad": 0.05,
+      "facets": 2048,
+      "volume_mm3": 1107.0,
+      "bounds_mm": [
+        [
+          -56.75,
+          -38.5,
+          -4.84
+        ],
+        [
+          56.75,
+          38.5,
+          -3.84
+        ]
+      ],
+      "tool_sha256": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44",
+      "written_utc": "2026-10-25T08:31:08+00:00"
+    },
+    "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.stl": {
+      "step": "hardware/printed-parts/refrigeration/fuse-clamp/fuse-clamp.step",
+      "step_sha256": "42258b5738b4bf95869da3af6edb45040213f7c756aafac827f4c014c3d05132",
+      "stl_sha256": "fa07d7cdc2482f51608e1d2532d68383678f5dfaa2890f118f338ef0a4c70206",
+      "bodies": [
+        "fuse-clamp"
+      ],
+      "solids_fused": 1,
+      "result_solids": 1,
+      "tolerance_mm": 0.005,
+      "angle_rad": 0.05,
+      "facets": 68,
+      "volume_mm3": 5556.69,
+      "bounds_mm": [
+        [
+          -9.0,
+          -37.5,
+          -22.0
+        ],
+        [
+          9.0,
+          8.95,
+          6.7
+        ]
+      ],
+      "tool_sha256": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44",
+      "written_utc": "2026-10-25T08:31:10+00:00"
+    },
+    "hardware/printed-parts/faucet/tube-collar/tube-collar-water.stl": {
+      "step": "hardware/printed-parts/faucet/tube-collar/tube-collar-water.step",
+      "step_sha256": "d6899b3e2669fc57fbac1475b4d01df9dbba96db1e9819f3d0434c39192adf9d",
+      "stl_sha256": "cabd4635faa5a22f82755c9a0d21d4c3a5232c69648bd16bca72bdd81643a9d0",
+      "bodies": [
+        "tube-collar-water",
+        "tube-collar-water-word"
+      ],
+      "solids_fused": 10,
+      "result_solids": 1,
+      "tolerance_mm": 0.005,
+      "angle_rad": 0.05,
+      "facets": 2206,
+      "volume_mm3": 3183.003,
+      "bounds_mm": [
+        [
+          -6.0,
+          0.0,
+          -6.0
+        ],
+        [
+          6.0,
+          30.0,
+          7.05
+        ]
+      ],
+      "tool_sha256": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44",
+      "written_utc": "2026-10-25T08:31:11+00:00"
+    },
+    "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.stl": {
+      "step": "hardware/printed-parts/faucet/tube-collar/tube-collar-co2.step",
+      "step_sha256": "8c5225aa175bb5a6bdcdaac050a56a33fdda051229302f91be88bc97a72d363a",
+      "stl_sha256": "c7f84316433193510766371034fdebf60f31672de58670d4cfdca4d7d53531f9",
+      "bodies": [
+        "tube-collar-co2",
+        "tube-collar-co2-word"
+      ],
+      "solids_fused": 10,
+      "result_solids": 1,
+      "tolerance_mm": 0.005,
+      "angle_rad": 0.05,
+      "facets": 4848,
+      "volume_mm3": 3183.003,
+      "bounds_mm": [
+        [
+          -6.0,
+          0.0,
+          -6.0
+        ],
+        [
+          6.0,
+          30.0,
+          7.05
+        ]
+      ],
+      "tool_sha256": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44",
+      "written_utc": "2026-10-25T08:31:15+00:00"
+    },
+    "hardware/printed-parts/faucet/tube-collar/tube-collar-drain.stl": {
+      "step": "hardware/printed-parts/faucet/tube-collar/tube-collar-drain.step",
+      "step_sha256": "7dad2b101e186bbdba4f47455d514f2ac2b46a541657c0140f4dda7bf22f9091",
+      "stl_sha256": "0fb7f67e580abc0fc2c3e69db12f6025378844b5f15cbc96128f32cc5edeee52",
+      "bodies": [
+        "tube-collar-drain",
+        "tube-collar-drain-word"
+      ],
+      "solids_fused": 13,
+      "result_solids": 1,
+      "tolerance_mm": 0.005,
+      "angle_rad": 0.05,
+      "facets": 3830,
+      "volume_mm3": 3803.478,
+      "bounds_mm": [
+        [
+          -6.0,
+          0.0,
+          -6.0
+        ],
+        [
+          6.0,
+          30.0,
+          7.05
+        ]
+      ],
+      "tool_sha256": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44",
+      "written_utc": "2026-10-25T08:31:18+00:00"
+    },
+    "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.stl": {
+      "step": "hardware/printed-parts/faucet/tube-collar/tube-collar-carb.step",
+      "step_sha256": "561869033f0942f2b6d543e7dbc50ad379b6a301f8a6c076dff60aff47417f5b",
+      "stl_sha256": "56aec8c4516bb8cf439960de8f5e6267b5a94343a5d5146325ac7ba1efc7c7d4",
+      "bodies": [
+        "tube-collar-carb",
+        "tube-collar-carb-word"
+      ],
+      "solids_fused": 13,
+      "result_solids": 1,
+      "tolerance_mm": 0.005,
+      "angle_rad": 0.05,
+      "facets": 5196,
+      "volume_mm3": 3183.003,
+      "bounds_mm": [
+        [
+          -6.0,
+          0.0,
+          -6.0
+        ],
+        [
+          6.0,
+          30.0,
+          7.05
+        ]
+      ],
+      "tool_sha256": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44",
+      "written_utc": "2026-10-25T08:31:21+00:00"
+    },
+    "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.stl": {
+      "step": "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-a.step",
+      "step_sha256": "c3bd0b2ccdb3cabc53958004abafebb308103c1f0e42450b385db489ce2d1373",
+      "stl_sha256": "317153d86f119576948bd25a07d97caca43d329c4f9c44e3a91063b44a0a3c09",
+      "bodies": [
+        "tube-collar-flavor-a",
+        "tube-collar-flavor-a-word"
+      ],
+      "solids_fused": 19,
+      "result_solids": 1,
+      "tolerance_mm": 0.005,
+      "angle_rad": 0.05,
+      "facets": 3864,
+      "volume_mm3": 3803.478,
+      "bounds_mm": [
+        [
+          -6.0,
+          0.0,
+          -6.0
+        ],
+        [
+          6.0,
+          30.0,
+          7.05
+        ]
+      ],
+      "tool_sha256": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44",
+      "written_utc": "2026-10-25T08:31:24+00:00"
+    },
+    "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.stl": {
+      "step": "hardware/printed-parts/faucet/tube-collar/tube-collar-flavor-b.step",
+      "step_sha256": "16abf4143bfb5c2539b9b80c5ff8cdf741a9278959dcd95db3bd66458469318c",
+      "stl_sha256": "317153d86f119576948bd25a07d97caca43d329c4f9c44e3a91063b44a0a3c09",
+      "bodies": [
+        "tube-collar-flavor-b",
+        "tube-collar-flavor-b-word"
+      ],
+      "solids_fused": 19,
+      "result_solids": 1,
+      "tolerance_mm": 0.005,
+      "angle_rad": 0.05,
+      "facets": 3864,
+      "volume_mm3": 3803.478,
+      "bounds_mm": [
+        [
+          -6.0,
+          0.0,
+          -6.0
+        ],
+        [
+          6.0,
+          30.0,
+          7.05
+        ]
+      ],
+      "tool_sha256": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44",
+      "written_utc": "2026-10-25T08:31:27+00:00"
+    },
+    "hardware/printed-parts/enclosure/data-ring/data-ring.stl": {
+      "step": "hardware/printed-parts/enclosure/data-ring/data-ring.step",
+      "step_sha256": "c54bb2cd2ba48b45419ef78c5c40645fc06b1b8356224c463516981ab3457199",
+      "stl_sha256": "781a7f1069cc1ba8349e83673263dea9252cde41493730d439a44ec9c4350d28",
+      "bodies": [
+        "data-ring",
+        "data-ring-word"
+      ],
+      "solids_fused": 5,
+      "result_solids": 1,
+      "tolerance_mm": 0.005,
+      "angle_rad": 0.05,
+      "facets": 4800,
+      "volume_mm3": 1152.744,
+      "bounds_mm": [
+        [
+          -18.4,
+          -0.0,
+          -11.0
+        ],
+        [
+          18.4,
+          2.16,
+          18.789
+        ]
+      ],
+      "tool_sha256": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44",
+      "written_utc": "2026-10-25T08:31:29+00:00"
+    },
+    "hardware/printed-parts/cold-core/reservoir/reservoir-left.stl": {
+      "step": "hardware/printed-parts/cold-core/reservoir/reservoir-left.step",
+      "step_sha256": "addefcf9f35e0298efb310b205bbc2b257a9de162b30700584d7454c9c36cdda",
+      "stl_sha256": "80367d7a3be0f1bf50c43d084205f4e3520482eea18d5831f729e614ee809de0",
+      "bodies": [
+        "reservoir-left"
+      ],
+      "solids_fused": 1,
+      "result_solids": 1,
+      "tolerance_mm": 0.005,
+      "angle_rad": 0.05,
+      "facets": 14972,
+      "volume_mm3": 297799.516,
+      "bounds_mm": [
+        [
+          -129.25,
+          -70.25,
+          2.25
+        ],
+        [
+          -52.2883,
+          70.25,
+          202.15
+        ]
+      ],
+      "tool_sha256": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44",
+      "written_utc": "2026-10-25T08:31:31+00:00"
+    },
+    "hardware/printed-parts/cold-core/reservoir/reservoir-right.stl": {
+      "step": "hardware/printed-parts/cold-core/reservoir/reservoir-right.step",
+      "step_sha256": "53bdb23481d31bbf030c496e27dffbc47273c5acf282db0f248e00c13ade753e",
+      "stl_sha256": "24b1e4e05150c2807f1ac77079c3305295af9cc8b508842dd460dcd5bbbb62d1",
+      "bodies": [
+        "reservoir-right"
+      ],
+      "solids_fused": 1,
+      "result_solids": 1,
+      "tolerance_mm": 0.005,
+      "angle_rad": 0.05,
+      "facets": 14982,
+      "volume_mm3": 297799.516,
+      "bounds_mm": [
+        [
+          52.2883,
+          -70.25,
+          2.25
+        ],
+        [
+          129.25,
+          70.25,
+          202.15
+        ]
+      ],
+      "tool_sha256": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44",
+      "written_utc": "2026-10-25T08:31:32+00:00"
+    },
+    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.stl": {
+      "step": "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step",
+      "step_sha256": "70847bc00a185847da37d3fb88d951a2b3c401f26233dddb9a3bd903fe03c20a",
+      "stl_sha256": "7e8f4895d0af9c984937e6e899861daf5a4d66b103aaea34a446b91e23ac1c94",
+      "bodies": [
+        "reservoir-cap-left"
+      ],
+      "solids_fused": 1,
+      "result_solids": 1,
+      "tolerance_mm": 0.005,
+      "angle_rad": 0.05,
+      "facets": 26154,
+      "volume_mm3": 46540.774,
+      "bounds_mm": [
+        [
+          -129.25,
+          -70.25,
+          -2.0
+        ],
+        [
+          -52.2883,
+          70.25,
+          9.0
+        ]
+      ],
+      "tool_sha256": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44",
+      "written_utc": "2026-10-25T08:31:34+00:00"
+    },
+    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.stl": {
+      "step": "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step",
+      "step_sha256": "22ebb75f487a98b05b0cf18f3b779afe629de1e6364116d91f38903b0c1095e4",
+      "stl_sha256": "0f865bcc9c78a832fca3c7129702b0653e9179afb4729a21b6bed06efaee8ffa",
+      "bodies": [
+        "reservoir-cap-right"
+      ],
+      "solids_fused": 1,
+      "result_solids": 1,
+      "tolerance_mm": 0.005,
+      "angle_rad": 0.05,
+      "facets": 26154,
+      "volume_mm3": 46540.774,
+      "bounds_mm": [
+        [
+          52.2883,
+          -70.25,
+          -2.0
+        ],
+        [
+          129.25,
+          70.25,
+          9.0
+        ]
+      ],
+      "tool_sha256": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44",
+      "written_utc": "2026-10-25T08:31:36+00:00"
+    }
+  }
+}

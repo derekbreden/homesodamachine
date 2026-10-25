@@ -1,0 +1,4 @@
+[ledge] Specified tube stop: the square-cut 6.35 mm tube's end bottoms on this 0.975 mm annulus, between the 6.35 mm tube socket and the 4.4 mm throat (asse-straight-cuffs/README.md). The cuff prints on its tube end, so this is the one face inside it that looks at the bed. It is a single 0.975 mm inward step, and the 2026-10-25 Mark1 slice lays it as an overhang wall with no support.
+alternatives: A conical stop gives the tube's square end a line contact and lets it wedge instead of seating. A larger throat narrows the stop under the tube's 1 mm wall. Printing on the metal mouth instead turns the 17 mm socket floor into an unsupported TPU ceiling.
+file: hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.step
+click: x=-0.519 y=2.471 z=19.000

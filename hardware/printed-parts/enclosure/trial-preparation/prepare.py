@@ -38,8 +38,11 @@ import _mesh  # noqa: E402
 import _native  # noqa: E402
 
 SPEC_PATH = HERE / "pieces.json"
+STEP_MESHES = HERE / "step-meshes.json"
 STUDIO = Path("/Applications/BambuStudio.app/Contents/MacOS/BambuStudio")
 OUTPUT = ROOT / ".cache/prints/trial"
+#: Bambu's two-hotend arrays list the left hotend first; a filament maps to hotend 1 or 2.
+SIDES = {"left": 0, "right": 1}
 
 
 def relative(path: Path) -> str:
@@ -67,6 +70,12 @@ class Mesh:
         self.sha256 = _mesh.sha256(path)
         step = path.with_suffix(".step")
         self.step_sha256 = _mesh.sha256(step) if step.is_file() else None
+        bound = (json.loads(STEP_MESHES.read_text())["meshes"].get(relative(path))
+                 if STEP_MESHES.is_file() else None)
+        if bound and (bound["stl_sha256"] != self.sha256 or bound["step_sha256"] != self.step_sha256):
+            raise ValueError(f"{relative(path)} was cut by step_meshes.py from STEP {bound['step_sha256'][:12]}; "
+                             f"the STEP is now {(self.step_sha256 or '-')[:12]} and the STL {self.sha256[:12]}. "
+                             "Cut it again with step_meshes.py.")
         triangles = _mesh.read_stl(path)
         self.vertices, self.faces = _mesh.merge(triangles)
         del triangles
@@ -219,6 +228,24 @@ def yaw_matrix(degrees: float) -> np.ndarray:
     return _mesh.rotation({"turns": [["z", degrees]]})
 
 
+def check_nozzle(name: str, piece: dict, settings: dict, profile_path: Path) -> dict:
+    """The declared hotend against the one the recipe slices for and the side its filament maps to."""
+    nozzle = piece["nozzle"]
+    side = SIDES[nozzle["side"]]
+    diameter = float(settings["nozzle_diameter"][side])
+    if abs(diameter - nozzle["diameter_mm"]) > 1e-6:
+        raise ValueError(f"{name} declares a {nozzle['diameter_mm']:g} mm {nozzle['side']} nozzle; "
+                         f"{relative(profile_path)} slices {diameter:g} mm there")
+    volume = settings.get("nozzle_volume_type", [])
+    if nozzle.get("flow") and len(volume) > side and volume[side] != nozzle["flow"]:
+        raise ValueError(f"{name} declares a {nozzle['flow']} {nozzle['side']} nozzle; "
+                         f"{relative(profile_path)} slices {volume[side]}")
+    mapped = {int(v) for v in settings.get("filament_map", ["1"])}
+    if mapped != {side + 1}:
+        raise ValueError(f"{name} prints on the {nozzle['side']} nozzle; the recipe maps its filament to {sorted(mapped)}")
+    return {**nozzle, "sliced_diameter_mm": diameter, "sliced_volume_type": volume[side] if len(volume) > side else None}
+
+
 def prepare(name: str, printer: str | None = None, parts: list[dict] | None = None,
             output: Path | None = None, border: float | None = None) -> Path:
     spec = json.loads(SPEC_PATH.read_text())
@@ -228,7 +255,9 @@ def prepare(name: str, printer: str | None = None, parts: list[dict] | None = No
     printer = printer or piece["printer"]
     machine = spec["printers"][printer]
     profile_path = ROOT / piece.get("profile", spec["profile"])
-    profile = _native.profile_settings(profile_path, machine["z_trim_mm"])
+    z_trim = piece["z_trim_mm"]["value"] if "z_trim_mm" in piece else machine["z_trim_mm"]
+    filament_from = ROOT / piece["filament_from"] if piece.get("filament_from") else None
+    profile = _native.profile_settings(profile_path, z_trim, filament_from)
     title = f"{name}; {printer}"
     plate = _native.Plate(title, profile)
     settings = plate.settings
@@ -238,11 +267,18 @@ def prepare(name: str, printer: str | None = None, parts: list[dict] | None = No
         changes[key] = {"from": profile["settings"].get(key), "to": value, "reason": reason}
         settings[key] = value
 
-    for key, value in spec["filament_mapping"].items():
-        put(key, value, "Single external black PET-GF spool on the fixed left nozzle for model, support and interface.")
-    put("filament_colour", [machine["filament_colour"]], f"{printer}'s loaded black PET-GF colour reading.")
+    mapping = piece.get("filament_mapping", {"value": spec["filament_mapping"], "reason":
+                        "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."})
+    for key, value in mapping["value"].items():
+        put(key, value, mapping["reason"])
+    colour = piece.get("filament_colour", {"value": machine["filament_colour"],
+                                           "reason": f"{printer}'s loaded black PET-GF colour reading."})
+    put("filament_colour", [colour["value"]], colour["reason"])
+    if "z_trim_mm" in piece:
+        changes["requested_z_trim_mm"] = {"from": machine["z_trim_mm"], "to": z_trim, "reason": piece["z_trim_mm"]["reason"]}
     for key, declared in piece.get("settings", {}).items():
         put(key, declared["value"], declared["reason"])
+    nozzle = check_nozzle(name, piece, settings, profile_path)
 
     declared_parts = parts if parts is not None else piece["parts"]
     meshes, derived, instances = {}, {}, []
@@ -417,7 +453,8 @@ def prepare(name: str, printer: str | None = None, parts: list[dict] | None = No
     sources = sorted({r["stl_sha256"] for r in records})
     stamp = datetime.datetime.now().strftime("%Y-%m-%d")
     stem = f"{stamp}-{name}-{printer.lower()}-{hashlib.sha256(''.join(sources).encode()).hexdigest()[:8]}"
-    directory = (output or OUTPUT) / stem
+    # Absolute, because the slicer runs inside the preparation directory.
+    directory = Path(output or OUTPUT).resolve() / stem
     if directory.exists():
         raise FileExistsError(f"{relative(directory)} exists; a preparation directory is written once")
     directory.mkdir(parents=True)
@@ -432,7 +469,10 @@ def prepare(name: str, printer: str | None = None, parts: list[dict] | None = No
     np.savez_compressed(directory / "show-faces.npz", **{str(r["identify_id"]): t for r, t in zip(records, painted)})
     preparation = {
         "piece": name, "printer": printer, "connection_key": machine.get("connection_key", printer),
-        "requested_z_trim_mm": machine["z_trim_mm"], "emitted_textured_trim_mm": round(machine["z_trim_mm"] - 0.02, 3),
+        "nozzle": nozzle, "material": piece["material"], "bed_type": settings["curr_bed_type"],
+        "requested_z_trim_mm": z_trim,
+        # Bambu's Textured PEI compensation emits 0.02 mm under the request; other plates emit it.
+        "emitted_textured_trim_mm": round(z_trim - (0.02 if settings["curr_bed_type"] == "Textured PEI Plate" else 0.0), 3),
         "project": relative(project), "project_sha256": _mesh.sha256(project),
         "profile": relative(profile_path), "profile_sha256": _mesh.sha256(profile_path),
         "settings_sha256": hashlib.sha256((json.dumps(settings, indent=2) + "\n").encode()).hexdigest(),
@@ -552,6 +592,14 @@ def slice_project(directory: Path) -> Path:
     return archive
 
 
+def check_archive(piece: dict) -> str:
+    """A piece that prints from a retained processed archive: its bytes against the recorded digest."""
+    path = ROOT / piece["archive"]["path"]
+    if not path.is_file():
+        return "missing"
+    return "bound" if _mesh.sha256(path) == piece["archive"]["sha256"] else "CHANGED"
+
+
 def run_external(name: str, piece: dict) -> None:
     command = [str(ROOT / "tools/cad-venv/bin/python"), *[str(ROOT / c) if c.endswith(".py") else c
                                                           for c in piece["external"]["command"]]]
@@ -563,10 +611,16 @@ def listing() -> None:
     spec = json.loads(SPEC_PATH.read_text())
     regions = json.loads((ROOT / spec["regions"]).read_text())["native_artifact_sha256"]
     for name, piece in spec["pieces"].items():
+        nozzle = piece.get("nozzle", {})
+        head = (f"{name:22s} {piece['printer']:6s} {nozzle.get('side', '-'):5s} {nozzle.get('diameter_mm', 0):g} mm "
+                f"{nozzle.get('flow', '')}, {piece.get('material', '-')}")
         if "external" in piece:
-            print(f"{name:20s} {piece['printer']:6s} external: {' '.join(piece['external']['command'])}")
+            print(f"{head}\n    external: {' '.join(piece['external']['command'])}")
             continue
-        print(f"{name:20s} {piece['printer']:6s}")
+        if "archive" in piece:
+            print(f"{head}\n    archive: {piece['archive']['path']}  {check_archive(piece)}")
+            continue
+        print(head)
         for part in piece["parts"]:
             path = ROOT / part["stl"]
             state = "missing" if not path.is_file() else _mesh.sha256(path)[:12]
@@ -598,6 +652,12 @@ def main() -> None:
     for name in names:
         piece = spec["pieces"][name]
         try:
+            if "archive" in piece:
+                state = check_archive(piece)
+                print(f"{name}: prints from {piece['archive']['path']} ({state}); nothing to prepare", flush=True)
+                if state != "bound":
+                    raise ValueError(f"the archive is {state}")
+                continue
             if "external" in piece:
                 # The label preparer slices each plate it writes.
                 if args.slice or args.piece == name:

@@ -11,6 +11,7 @@ Object meshes stream into the archive member by member.
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import math
 import re
@@ -55,8 +56,52 @@ def _metadata(parent, key, value):
     ET.SubElement(parent, "metadata", key=key, value=str(value))
 
 
-def profile_settings(settings_from: Path, z_trim: float | None) -> dict:
-    """The saved project's settings and filament members with trim and cooling applied."""
+PRESETS = Path("/Applications/BambuStudio.app/Contents/Resources/profiles/BBL")
+PRESET_METADATA = {"type", "name", "inherits", "include", "from", "setting_id", "instantiation", "description",
+                   "alias", "filament_id", "version", "rename", "compatible_printers",
+                   "compatible_printers_condition", "compatible_prints", "compatible_prints_condition"}
+
+
+def filament_keys(name: str) -> set:
+    """Every setting Bambu's filament presets define, through the named preset's parents and templates."""
+    data = json.loads((PRESETS / "filament" / f"{name}.json").read_text())
+    keys = set(data) - PRESET_METADATA
+    for parent in ([data["inherits"]] if data.get("inherits") else []) + list(data.get("include", [])):
+        keys |= filament_keys(parent)
+    return keys
+
+
+def take_filament(settings: dict, filament_from: Path) -> tuple[dict, dict]:
+    """Another saved project's filament block over this project's printer and process.
+
+    The block is every setting the filament's system presets define, plus the variant index
+    that ties its per-hotend arrays together. Returns the embedded filament presets that
+    describe it (those named as the project's filament) and the record of what moved."""
+    with zipfile.ZipFile(filament_from) as other:
+        theirs = json.loads(other.read(SETTINGS_MEMBER))
+        presets = {n: other.read(n) for n in other.namelist()
+                   if n.startswith("Metadata/filament_settings_") and n.endswith(".config")}
+    named = theirs["filament_settings_id"][0]
+    current = {n: data for n, data in presets.items() if json.loads(data).get("name") == named}
+    system = next((json.loads(data).get("inherits") for data in current.values()), None) or named
+    keys = filament_keys(system) | {k for data in current.values() for k in json.loads(data)} - PRESET_METADATA
+    keys |= {"filament_self_index"}
+    moved = sorted(k for k in keys if k in theirs and settings.get(k) != theirs[k])
+    for key in moved:
+        settings[key] = theirs[key]
+    for group in ("inherits_group", "different_settings_to_system"):
+        if isinstance(theirs.get(group), list) and isinstance(settings.get(group), list) \
+                and len(theirs[group]) == len(settings[group]):
+            settings[group] = settings[group][:1] + theirs[group][1:-1] + settings[group][-1:]
+    return current, {"project": str(filament_from.resolve().relative_to(ROOT)),
+                     "sha256": hashlib.sha256(filament_from.read_bytes()).hexdigest(),
+                     "filament": named, "system_preset": system, "keys": moved}
+
+
+def profile_settings(settings_from: Path, z_trim: float | None, filament_from: Path | None = None) -> dict:
+    """The saved project's settings and filament members with trim and cooling applied.
+
+    `filament_from` replaces the project's filament block with another saved project's."""
     with zipfile.ZipFile(settings_from) as source:
         if source.testzip() is not None:
             raise ValueError("source project has a damaged member")
@@ -64,6 +109,10 @@ def profile_settings(settings_from: Path, z_trim: float | None) -> dict:
         original = payload
         settings = json.loads(payload)
         changes = {}
+        filament_members = None
+        if filament_from is not None:
+            filament_members, changes["filament_from"] = take_filament(settings, filament_from)
+            payload = (json.dumps(settings, indent=2) + "\n").encode()
         if z_trim is not None:
             if not math.isfinite(z_trim):
                 raise ValueError("Z trim must be a finite millimetre value")
@@ -86,16 +135,21 @@ def profile_settings(settings_from: Path, z_trim: float | None) -> dict:
         G29.1 Z{{{z_trim:.2f}}}
     {{endif}}
 {{endif}}'''
-            import hashlib
             settings["machine_start_gcode"] = start[:marker.start()] + block + start[end:]
             nozzle = float(settings["nozzle_diameter"][0])
             identity = f"Bambu Lab H2C {nozzle:g} Standard +{z_trim:.2f} Z trim"
-            changes = {
+            changes.update({
                 "machine_start_gcode": {"from_sha256": hashlib.sha256(start.encode()).hexdigest(),
                                         "to_sha256": hashlib.sha256(settings["machine_start_gcode"].encode()).hexdigest(),
                                         "requested_z_trim_mm": z_trim},
-                "printer_settings_id": {"from": settings["printer_settings_id"], "to": identity}}
+                "printer_settings_id": {"from": settings["printer_settings_id"], "to": identity}})
             settings["printer_settings_id"] = identity
+            # The slicer refuses a process whose compatible printers do not name the printer
+            # (error 3002) when the project carries no system parent to match instead.
+            compatible = settings.get("print_compatible_printers")
+            if isinstance(compatible, list) and identity not in compatible:
+                settings["print_compatible_printers"] = compatible + [identity]
+                changes["print_compatible_printers"] = {"from": compatible, "to": settings["print_compatible_printers"]}
             payload = (json.dumps(settings, indent=2) + "\n").encode()
         areas = [np.array([[float(v) for v in point.split("x")] for point in area.split(",")])
                  for area in settings.get("extruder_printable_area", [])]
@@ -105,9 +159,12 @@ def profile_settings(settings_from: Path, z_trim: float | None) -> dict:
         low = np.max([a.min(axis=0) for a in chosen], axis=0) if chosen else bed.min(axis=0)
         high = np.min([a.max(axis=0) for a in chosen], axis=0) if chosen else bed.max(axis=0)
         members = {SETTINGS_MEMBER: payload}
-        for name in source.namelist():
-            if name.startswith("Metadata/filament_settings_") and name.endswith(".config"):
-                members[name] = source.read(name)
+        if filament_members is not None:
+            members.update(filament_members)
+        else:
+            for name in source.namelist():
+                if name.startswith("Metadata/filament_settings_") and name.endswith(".config"):
+                    members[name] = source.read(name)
     cooling = petgf_cooling.apply_members(members)
     changes.update(cooling.get(SETTINGS_MEMBER, {}))
     return {"members": members, "settings": json.loads(members[SETTINGS_MEMBER]),
@@ -196,7 +253,8 @@ class Plate:
         config = ET.Element("config")
         plate = ET.Element("plate")
         for key, value in {"plater_id": 1, "plater_name": self.title, "locked": "false",
-                           "filament_map_mode": "Auto For Flush", "filament_maps": "1",
+                           "filament_map_mode": "Auto For Flush",
+                           "filament_maps": " ".join(self.settings.get("filament_map", ["1"])),
                            "filament_volume_maps": "0", "bed_type": self.settings["curr_bed_type"]}.items():
             _metadata(plate, key, value)
         assemble = ET.Element("assemble")

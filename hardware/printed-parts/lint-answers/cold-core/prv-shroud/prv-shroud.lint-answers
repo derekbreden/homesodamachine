@@ -1,0 +1,5 @@
+[thin] Specified section: the shroud is a 2 mm PETG wall and a 2 mm cap around the SV-125 (prv-shroud/README.md, Geometry). Its 19.1 mm bore keeps the 0.15 mm slip over the elbow's 18.8 mm seat cylinder, and the cup lies in the foam beside the carbonator's Port 4 elbow. This reading is the wall at the edge of the 6.8 mm radial vent bore.
+alternatives: A 3 mm wall grows the cup to 25.1 mm across in the foam around the Port 4 elbow, and the vent tube then leaves 1 mm further down its lane. A 3 mm cap takes a third of the 3 mm between the cap face and the foam shell's inner wall. Neither is assessed against the placed core.
+file: hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step
+click: x=3.551 y=-10.990 z=34.500
+click: x=2.938 y=-9.087 z=34.500
