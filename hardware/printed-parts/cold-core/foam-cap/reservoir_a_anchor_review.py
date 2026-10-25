@@ -161,16 +161,18 @@ def main():
         world_path = args.cache/'mouth-canonical-lid-world.brep'
         lid.exportBrep(str(world_path))
         delta['actual_export_binding'] = {
-            'state': 'canonical native artifact matched to the finite subtractive candidate',
+            'state': 'canonical native artifact matched to the finite candidate',
             'reader_sha256': sha(Path(__file__)),
             'exported_artifacts': {str(p.relative_to(ROOT)): sha(p) for p in artifacts},
             'world_lid': {'path': str(world_path.relative_to(ROOT)), 'sha256': sha(world_path)},
             'actual_signature': observed, 'metrics': metrics,
             'tolerances': {'volume_mm3': volume_tolerance, 'coordinates_mm': 1.e-5,
                            'face_and_solid_counts': 'exact'},
-            'basis': 'Only the named two threading-mouth cuts changed. The native '
-                     'canonical lid matches the finite candidate metrics; no equipment, '
-                     'wire, column, bridge or whole-lid stock reading is repeated.'}
+            'basis': ('Only the named two threading-mouth cuts changed. '
+                      if args.bind_feature == 'threading_mouth_cleanup' else
+                      'Only the saved paired-seat feature delta changed. ')
+                     + 'The native canonical lid matches the finite candidate metrics; '
+                       'no equipment, wire, column, bridge or whole-lid stock reading is repeated.'}
         if args.bind_feature == 'ordinary_stock_correction':
             delta['printed_stock_after_export'] = printed_stock(
                 args.lid.with_suffix('.stl'), anchors.specification(), anchors.datums())
