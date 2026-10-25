@@ -81,11 +81,14 @@ def norm(a): return math.sqrt(dot(a, a))
 def unit(a): return mul(a, 1.0 / norm(a))
 
 
-def rounded_segments(points, radius=4.0, *, keep_collinear=False):
+def rounded_segments(points, radius=4.0, *, keep_collinear=False,
+                     endpoint_tangent_fraction=.44):
     """Lines and tangent arcs, with a locally limited radius at short approaches.
 
     The actual minimum is returned in the manifest. This is geometric shaping,
     not a manufacturer bend-radius qualification. Endpoints never move.
+    A saved endpoint tangent fraction can use more of an isolated terminal
+    approach; interior corners retain their usual shared-segment allowance.
     """
     pts = []
     for p in points:
@@ -106,7 +109,10 @@ def rounded_segments(points, radius=4.0, *, keep_collinear=False):
         included = math.acos(max(-1.0, min(1.0, dot(u, v))))
         if included < 1e-5 or abs(math.pi - included) < 1e-5:
             continue
-        tangent = min(radius / math.tan(included/2), .44*la, .44*lb)
+        before_fraction = endpoint_tangent_fraction if i == 1 else .44
+        after_fraction = endpoint_tangent_fraction if i == len(pts)-2 else .44
+        tangent = min(radius / math.tan(included/2), before_fraction*la,
+                      after_fraction*lb)
         r = tangent * math.tan(included/2)
         a, b = add(pts[i], mul(u, tangent)), add(pts[i], mul(v, tangent))
         bisector = unit(add(u, v))
@@ -149,10 +155,11 @@ def shape(route, diameter, inner_diameter=None):
     return cq.Solid.sweep(profile, holes, path, makeSolid=True, isFrenet=False)
 
 
-def finish(connection, points, note="", radius=None):
+def finish(connection, points, note="", radius=None, *, endpoint_tangent_fraction=.44):
     route = Route(connection, points, note=note)
     route.segments = rounded_segments(points, radius if radius is not None else
-                                      5.0 if STOCK[connection.stock]["awg"] < 22 else 4.0)
+                                      5.0 if STOCK[connection.stock]["awg"] < 22 else 4.0,
+                                      endpoint_tangent_fraction=endpoint_tangent_fraction)
     route.length_mm = sum(s["length_mm"] for s in route.segments)
     radii = [s["radius_mm"] for s in route.segments if s["kind"] == "arc"]
     route.minimum_bend_mm = round(min(radii), 4) if radii else None

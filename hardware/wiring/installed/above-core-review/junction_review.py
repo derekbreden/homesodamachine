@@ -36,7 +36,7 @@ if not cache_index.exists():cache_dir=TEMP;cache_index=TEMP/'index.json'
 cache=json.loads(cache_index.read_text())
 cachefiles=cache['parts']
 retained_files={}
-retained=('compressor','condenser+fan','mq6-sensor','thermal-fuse','fuse-clamp','display','display-cover','pump-contact-male','pump-contact-female','funnel-frame','elbow-cradle','funnel-drain-union','funnel-drain-stub','electronics-access-panel')
+retained=('compressor','condenser+fan','mq6-sensor','thermal-fuse','fuse-clamp','display','display-cover','pump-contact-male','pump-contact-female','funnel-frame','elbow-cradle','funnel-drain-union','funnel-drain-stub')
 for qualified_name,file in cachefiles.items():
  name=qualified_name.rsplit('/',1)[-1]
  if (name in retained or name.startswith(('pump-a-','pump-b-','tee-y-','stem-elbow-','flavor-reducer-')) or

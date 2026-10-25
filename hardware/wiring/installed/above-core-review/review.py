@@ -71,7 +71,6 @@ def main():
                 assembly.add(ea._funnel_frame.build(box.inner,box.y_joint,centre,seat),name='funnel-frame')
                 for name,solid,_colour,_carry in ea.build_drain_joint(box):
                     assembly.add(solid,name=name)
-                assembly.add(ea._enc._above_core_shell.access_panel(),name='electronics-access-panel')
                 for name,solid in ea._dock.parts(box.pack.collet_plate).items():
                     assembly.add(solid,name=name)
             else:

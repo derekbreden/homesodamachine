@@ -38,9 +38,9 @@ def routed(connections, attachments):
         lead = 6. if STOCK[c.stock]['awg'] == 22 else 8.
         start_lead, end_lead = saved.get('end_lands_mm', [lead, lead])
         # PSU side wire entries and vertical screw approaches are separate.
-        if c.start.startswith('psu.'):
+        if c.start.startswith('psu.') and 'end_lands_mm' not in saved:
             start_lead = 6.
-        if c.end.startswith('psu.'):
+        if c.end.startswith('psu.') and 'end_lands_mm' not in saved:
             end_lead = 6.
         if c.start.startswith(('wago-mana.','wago-manb.')):
             start_lead = 4.
@@ -51,7 +51,8 @@ def routed(connections, attachments):
         route = finish(c, [a.point, add(a.point, mul(a.outward, start_lead)),
                            *guides, add(b.point, mul(b.outward, end_lead)), b.point],
                        saved.get('note', 'Above-core native terminal poses; proposed installed dressing.'),
-                       saved.get('bend_radius_mm'))
+                       saved.get('bend_radius_mm'),
+                       endpoint_tangent_fraction=saved.get('endpoint_tangent_fraction',.44))
         route.status = saved.get('route_status', 'proposed')
         result.append(route)
     return result

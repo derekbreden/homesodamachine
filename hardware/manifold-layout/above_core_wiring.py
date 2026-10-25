@@ -1,9 +1,9 @@
 """Electrical junctions placed at their actual branches in the above-core layout.
 
-All component and feature shapes use enclosure-world millimetres. Roof closures
-carry neither components nor cable restraints. ``cap_features`` supplies stock
-and cutters for the core lid; ``shell_features`` supplies the corresponding
-features for a named enclosure quadrant.
+All component and feature shapes use enclosure-world millimetres. Junctions
+follow their named back-top, front-top or cold-core mounting parent.
+``cap_features`` supplies stock and cutters for the core lid;
+``shell_features`` supplies the features for a named enclosure quadrant.
 """
 from functools import cache
 from pathlib import Path
@@ -43,8 +43,8 @@ def placements():
         rows[name] = dict(size=size, parent=parent, rotation=rotation,
                           translation_mm=tuple(xyz), purpose=purpose)
 
-    # Rear-wall mains branches stay beside C14 and relay 1, east of both PSU
-    # terminal screwdriver columns. The 19.5 mm pitch clears each lower lever
+    # Rear-wall mains branches stay beside C14 and relay 1.
+    # The 19.5 mm pitch clears each lower lever
     # beneath the next holder's floor.
     for name, z, purpose in (('wago-h', 292.5, 'C14 live / PSU primary / relay 1 COM'),
                             ('wago-n', 312.0, 'C14 neutral / PSU primary / compressor'),
@@ -180,12 +180,16 @@ def shell_features(parent):
 
 
 def driver_columns():
-    """PSU screw approach witnesses, separate from side-facing wire mouths."""
+    """PSU terminal driver approaches along its carried native +Z screw axes."""
     pose = layout.pose('psu')
+    axis = layout.vector(pose['rotation'], (0., 0., 1.))
     result = {}
     for side in (-1, 1):
         for x in (-4., 4.):
             xyz = layout.point(pose, (x, side*48.5, 13.7))
+            limits = (-107.5, 107.5, 0., 473.5, 0., 355.)
+            reach = min((limits[2*i+(1 if value>0 else 0)]-xyz[i])/value
+                        for i,value in enumerate(axis) if abs(value)>1e-9)
             result[f'psu-{side:+}-{x:+g}'] = cq.Solid.makeCylinder(
-                3., 355.-xyz[2], cq.Vector(*xyz))
+                3., reach, cq.Vector(*xyz), cq.Vector(*axis))
     return result

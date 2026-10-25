@@ -1,0 +1,145 @@
+{
+  "schema": 1,
+  "scope": "Current in-progress source checkpoint for the selected back-top PSU and relay frames. Thirteen affected conductor paths have cleared the local guide-authoring equipment screen; the two PSU-secondary tails remain explicitly unresolved. A native changed-body proof and the later actual-export binding are separate. No physical wire-bend, terminal-entry, packing or assembly-force qualification.",
+  "source_state": "partial",
+  "requested_changed_conductors": [
+    "AC2-L",
+    "AC2-N",
+    "AC3-L",
+    "AC4-H",
+    "DC1-V12",
+    "DC1-GND",
+    "DC2-V12",
+    "DC3-positive",
+    "J5-V5",
+    "relay-bus-V5",
+    "J5-GND",
+    "relay-bus-GND",
+    "J5-IO19",
+    "J5-IO2",
+    "J9-B"
+  ],
+  "source_checkpoint_conductors": [
+    "AC2-L",
+    "AC2-N",
+    "AC3-L",
+    "AC4-H",
+    "DC2-V12",
+    "DC3-positive",
+    "J5-V5",
+    "relay-bus-V5",
+    "J5-GND",
+    "relay-bus-GND",
+    "J5-IO19",
+    "J5-IO2",
+    "J9-B"
+  ],
+  "unresolved_conductors": [
+    "DC1-V12",
+    "DC1-GND"
+  ],
+  "native_changed_wire_contact_review_complete": false,
+  "changed_native_poses": {
+    "psu": {
+      "rotation": [
+        [
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation_mm": [
+        -96.0,
+        400.50001220703126,
+        280.4
+      ],
+      "reference": "hardware/reference/meanwell-irm90/meanwell-irm90.step"
+    },
+    "relay-1": {
+      "rotation": [
+        [
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "translation_mm": [
+        -94.49,
+        397.99999999999994,
+        315.9
+      ],
+      "reference": "hardware/reference/teyleten-relay/teyleten-relay.step"
+    },
+    "relay-2": {
+      "rotation": [
+        [
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "translation_mm": [
+        -94.49,
+        398.0,
+        335.5
+      ],
+      "reference": "hardware/reference/teyleten-relay/teyleten-relay.step"
+    }
+  },
+  "clearance_basis": "Manual FCL guide screen against current native equipment, exact current source tube sweeps, full nominal soda foam and final back-top1a74a3c9\u2026. Native source solids still require the bounded contact query.",
+  "source_sha256": {
+    "hardware/wiring/installed/route-overrides.json": "09757c02b03edc94f94d88ec525cf124593cc25358e66078817a04eb52b6e444",
+    "hardware/wiring/installed/bundle-routes.json": "11d7866e6cb32d78334588be4c55919b1bcbc40f7773e6a11d4932116bb828a4",
+    "hardware/wiring/installed/model.py": "66f6a6ea2228d7a75bb9175f803c9b1c2b02ea05ac074b5da160e66a6722cfac",
+    "hardware/wiring/installed/routes.py": "91543624259155561d2840bd8e2bccaeccf553de4d5eb14a7f606b901f291624",
+    "hardware/manifold-layout/above_core_wiring.py": "3946bc25b663d6d2364dff3921126bb554cafded13e07a4900630da502fb989b"
+  },
+  "prior_actual_binding": "installed-wiring-binding.json",
+  "unchanged_electrical_body_proof": "../../../mechanical-qualification/enclosure-above-core/wall-mount-review.json",
+  "source_lengths_mm": {
+    "AC2-L": 92.169,
+    "AC2-N": 133.207,
+    "AC3-L": 60.296,
+    "AC4-H": 606.306,
+    "DC2-V12": 248.454,
+    "DC3-positive": 136.047,
+    "J5-V5": 212.41,
+    "relay-bus-V5": 40.346,
+    "J5-GND": 220.093,
+    "relay-bus-GND": 47.546,
+    "J5-IO19": 217.766,
+    "J5-IO2": 234.362,
+    "J9-B": 256.464
+  },
+  "PSU_mounting_sequence": "Fasten PSU before seating WAGO-H, whose occupied region crosses the aft+X mounting-driver approach. Installed lead contacts and staged tool occupancy are separate."
+}
