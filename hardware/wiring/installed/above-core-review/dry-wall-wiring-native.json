@@ -1,0 +1,5158 @@
+{
+  "schema": 2,
+  "scope": "Manual source-native review of fifteen changed conductors for the selected back-top PSU and relays, including the local J9-B/fluid16 correction. Installed equipment, shell, tube and nominal retaining-strip contacts clear using only the existing own named endpoint and own termination cells within8.5mm. Staged tools and attached-plug withdrawal remain separate readings. Physical wire bends, termination fit, packing, flexible motion and assembly forces remain unqualified.",
+  "source_state": "frozen",
+  "candidate_record_sha256": "26400d0750e48aebba942e2148e085ea251a15818999dfa0eccb0ff07853aec0",
+  "target_fixture_sha256": "fe19c7602a3a730d3113e43ce9260ad1bbba46c9da18164e1ee964ce39a030ae",
+  "actual_artifacts": {
+    "enclosure-back-top": {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+      "sha256": "10a6008999aa3096a3c3b85a7222bc8d0ca39167f09b29966aa8d33e8b2c3bc9"
+    },
+    "enclosure-front-top": {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+      "sha256": "193d7c89cc12cb8d4d69cb473468329a202cf3cc74028bca293b7523c2b481dd"
+    },
+    "foam-cap-lid-top": {
+      "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+      "sha256": "66d318de3189e9292dd31582f248fb737538f428f65295db4a06aa83f88c40a4"
+    },
+    "meter-fore-support": {
+      "path": "tmp/above-core-implementation/wall-meter-final/meter-fore-support.brep",
+      "sha256": "436419ec2249f98a9650192cebd4baec6d1991abe237191e3dad900fc014a460"
+    },
+    "meter-aft-support": {
+      "path": "tmp/above-core-implementation/wall-meter-final/meter-aft-support.brep",
+      "sha256": "4505fa871dc1774ac985760efaf6d9f4565833dae4336f431ccd3e9438b30583"
+    },
+    "added-annulus-pcba-3": {
+      "path": "tmp/deck-column-stock/pcba-3.brep",
+      "sha256": "e81138b37b6ff003f65ac2f3866e6f1041195203c177967e3b365c7cd302f963"
+    },
+    "added-annulus-pcba-2": {
+      "path": "tmp/deck-column-stock/pcba-2.brep",
+      "sha256": "617df1a2a59a1c896a351dd70dcccfc5b5e1ac32ec9efe215237f3c61fee09bd"
+    },
+    "added-annulus-g-ganen-pump-0": {
+      "path": "tmp/deck-column-stock/g-ganen-pump-0.brep",
+      "sha256": "6d605703219e545da572c5dfdabe945c351f28dfe5cec2abe6d5a05ffd69bcd1"
+    },
+    "added-annulus-g-ganen-pump-1": {
+      "path": "tmp/deck-column-stock/g-ganen-pump-1.brep",
+      "sha256": "eb4714954c8a7d97357f3449953cc11436d83f371c408ebfd3206cd8fcb1aad5"
+    },
+    "added-annulus-g-ganen-pump-2": {
+      "path": "tmp/deck-column-stock/g-ganen-pump-2.brep",
+      "sha256": "8bf5dc2ab915b5f36b5a2af25a2db44d37fc5c3260eac7c9661bb6a31a2606c4"
+    },
+    "added-annulus-g-ganen-pump-3": {
+      "path": "tmp/deck-column-stock/g-ganen-pump-3.brep",
+      "sha256": "f6e000bd2c7cf3bff466844e1e41be7a7c4a04751180cca93415ff6a26b92767"
+    },
+    "added-annulus-pcba-1": {
+      "path": "tmp/deck-column-stock/pcba-1.brep",
+      "sha256": "47859923e127de72f8c3a50b3fdb481bc530eb5599700c871cf21d1a2fcee7b2"
+    },
+    "added-annulus-pcba-0": {
+      "path": "tmp/deck-column-stock/pcba-0.brep",
+      "sha256": "5bce75489adf6d86d3199f33861a3d9cabbd7282451cba62f85cc461d1334dc5"
+    }
+  },
+  "source_sha256": {
+    "hardware/wiring/installed/route-overrides.json": "4338f319a34db12dc0a6aa12292be450fdb98d29cbbbe36a1b3c29c062778caa",
+    "hardware/wiring/installed/bundle-routes.json": "11d7866e6cb32d78334588be4c55919b1bcbc40f7773e6a11d4932116bb828a4",
+    "hardware/wiring/installed/routes.py": "91543624259155561d2840bd8e2bccaeccf553de4d5eb14a7f606b901f291624",
+    "hardware/wiring/installed/model.py": "66f6a6ea2228d7a75bb9175f803c9b1c2b02ea05ac074b5da160e66a6722cfac",
+    "hardware/manifold-layout/above-core.json": "04887b550cc53b2516832689b40f81a56e83119e4cc04921ad9819ed343c726b",
+    "hardware/manifold-layout/above_core_wiring.py": "3946bc25b663d6d2364dff3921126bb554cafded13e07a4900630da502fb989b",
+    "hardware/printed-parts/cold-core/_above_core_mounts.py": "98651e90bc1fd520e9737eb4240302a09b97cefb236687f5de32a2536faf5b57"
+  },
+  "bodies": {
+    "DC1-GND": {
+      "signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 27,
+        "volume_mm3": 1985.6694770101685,
+        "center_mm": [
+          -38.22741850744593,
+          296.7845776093507,
+          265.6758289279275
+        ],
+        "bounds_mm": [
+          -97.50000010000001,
+          234.23333323333333,
+          254.59999989999997,
+          7.500000100000028,
+          348.00001220703126,
+          277.9000001
+        ]
+      },
+      "path": "tmp/dry-sidewall-wiring/wires/wire-DC1-GND.brep",
+      "sha256": "bed37e790da9345c1f617af02066fa373f0c0dcdd2a9f18890953626ce720200",
+      "developed_length_mm": 280.91476676699205,
+      "first_line_mm": 3.3600000000000136,
+      "first_bend_mm": 2.640001587901958
+    },
+    "DC1-V12": {
+      "signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 29,
+        "volume_mm3": 2002.4783701161657,
+        "center_mm": [
+          -37.0953671839846,
+          287.4603044555034,
+          267.4268999433501
+        ],
+        "bounds_mm": [
+          -95.5000001,
+          210.23333323333335,
+          258.59999989999994,
+          4.000000100000029,
+          348.00001220703126,
+          285.9000001
+        ]
+      },
+      "path": "tmp/dry-sidewall-wiring/wires/wire-DC1-V12.brep",
+      "sha256": "f7b95802d5f0dc09e6ddccdfdda3019cd96edd8c61f63010408017a07fef7c2c",
+      "developed_length_mm": 283.2927387009708,
+      "first_line_mm": 0.6000044670698799,
+      "first_bend_mm": 3.0
+    },
+    "AC2-L": {
+      "signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 13,
+        "volume_mm3": 651.5064233156576,
+        "center_mm": [
+          -58.024968950553586,
+          450.8047989358119,
+          292.32081708773984
+        ],
+        "bounds_mm": [
+          -87.30000010000002,
+          435.69999989999997,
+          282.89999989999995,
+          -32.49999989999999,
+          460.50001118805363,
+          300.5000001
+        ]
+      },
+      "path": "tmp/dry-sidewall-wiring/wires/wire-AC2-L.brep",
+      "sha256": "145e4226ada81f83038010b33f7e645e55148e795079eccec50bb3e76a9fe460",
+      "developed_length_mm": 92.16930464605203,
+      "first_line_mm": 5.0,
+      "first_bend_mm": 3.0
+    },
+    "AC2-N": {
+      "signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 13,
+        "volume_mm3": 941.5817290070871,
+        "center_mm": [
+          -57.45385893367872,
+          447.6078463440403,
+          301.1793675300324
+        ],
+        "bounds_mm": [
+          -87.30000010000003,
+          421.19999989999997,
+          274.89999989999995,
+          -32.499999899999985,
+          460.50001118805363,
+          319.5000001000003
+        ]
+      },
+      "path": "tmp/dry-sidewall-wiring/wires/wire-AC2-N.brep",
+      "sha256": "5ef47c1f982ce61dc6acc95eab4c41b2296da1f58cddf17b9a9562ccec8f2643",
+      "developed_length_mm": 133.2065657746581,
+      "first_line_mm": 5.0,
+      "first_bend_mm": 3.0
+    },
+    "AC3-L": {
+      "signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 11,
+        "volume_mm3": 426.2104579709918,
+        "center_mm": [
+          -58.00988967740005,
+          433.1331744745796,
+          307.1542902702351
+        ],
+        "bounds_mm": [
+          -82.99,
+          421.4999998999999,
+          295.19999989999997,
+          -38.766666566666665,
+          445.2,
+          312.40000010000006
+        ]
+      },
+      "path": "tmp/dry-sidewall-wiring/wires/wire-AC3-L.brep",
+      "sha256": "bf628abcc711508874f178c4a0306164758bba548863a102efa44e9e5764a7fe",
+      "developed_length_mm": 60.29644549648365,
+      "first_line_mm": 5.0,
+      "first_bend_mm": 3.0
+    },
+    "AC4-H": {
+      "signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 35,
+        "volume_mm3": 3219.054446695904,
+        "center_mm": [
+          12.906957422943217,
+          207.42863017945896,
+          237.98495073659276
+        ],
+        "bounds_mm": [
+          -82.99,
+          25.45562020951615,
+          63.69999989999999,
+          50.90000010000001,
+          424.30000010000003,
+          317.2000001
+        ]
+      },
+      "path": "tmp/dry-sidewall-wiring/wires/wire-AC4-H.brep",
+      "sha256": "5bc1573fb099e32443eb066c2fae3c38ca383defee83960880b42d9a9b52c88c",
+      "developed_length_mm": 606.3057930330931,
+      "first_line_mm": 6.0,
+      "first_bend_mm": 2.0
+    },
+    "DC2-V12": {
+      "signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 13,
+        "volume_mm3": 1756.2186404631063,
+        "center_mm": [
+          -35.51693614354761,
+          322.642118583728,
+          289.53027735820814
+        ],
+        "bounds_mm": [
+          -82.99,
+          216.4999999,
+          259.09999989999994,
+          -1.8000000000000007,
+          424.50000009999997,
+          332.00000010000014
+        ]
+      },
+      "path": "tmp/dry-sidewall-wiring/wires/wire-DC2-V12.brep",
+      "sha256": "ccda05deddd1a7b7019c285a5deadb29b8baabab5e08fd12887cfc1ec93a012b",
+      "developed_length_mm": 248.45411358206854,
+      "first_line_mm": 5.309281555549385,
+      "first_bend_mm": 3.0
+    },
+    "DC3-positive": {
+      "signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 15,
+        "volume_mm3": 961.6592015044865,
+        "center_mm": [
+          -39.50084031097457,
+          433.52688643489716,
+          307.34076385333543
+        ],
+        "bounds_mm": [
+          -82.99,
+          421.4999999,
+          282.1669644546162,
+          8.63173062363765,
+          453.56176787437767,
+          337.0000001
+        ]
+      },
+      "path": "tmp/dry-sidewall-wiring/wires/wire-DC3-positive.brep",
+      "sha256": "cd99a281730950a13743ad40cf53f70c93f458784a84127e44c04a6d5b0dc6cf",
+      "developed_length_mm": 136.04694710155147,
+      "first_line_mm": 21.989999999999995,
+      "first_bend_mm": 3.0
+    },
+    "J5-V5": {
+      "signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 19,
+        "volume_mm3": 482.12937391403545,
+        "center_mm": [
+          -88.3491141965883,
+          298.5714931858806,
+          288.7490016111254
+        ],
+        "bounds_mm": [
+          -95.85000009648442,
+          216.1529199200504,
+          268.4,
+          -72.14999989648439,
+          372.85000010004023,
+          314.2100001000002
+        ]
+      },
+      "path": "tmp/dry-sidewall-wiring/wires/wire-J5-V5.brep",
+      "sha256": "15594dd523e1dd558838e4f33a2de177574549138f3c5e46613a1ceb4b5fcbe3",
+      "developed_length_mm": 212.41044447949648,
+      "first_line_mm": 4.326423098135649,
+      "first_bend_mm": 2.0
+    },
+    "relay-bus-V5": {
+      "signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 7,
+        "volume_mm3": 91.57821994898273,
+        "center_mm": [
+          -74.57002856025767,
+          372.00000000000006,
+          323.15999999999997
+        ],
+        "bounds_mm": [
+          -82.99,
+          371.1499998999999,
+          312.5099998999999,
+          -70.04999990000003,
+          372.85000010000005,
+          333.8100001
+        ]
+      },
+      "path": "tmp/dry-sidewall-wiring/wires/wire-relay-bus-V5.brep",
+      "sha256": "054b2a39f52b64cf6c244486f76214edcb917293341ddaea74a2bbe555ba97c1",
+      "developed_length_mm": 40.346370614359174,
+      "first_line_mm": 8.08999999999999,
+      "first_bend_mm": 4.0
+    },
+    "J5-GND": {
+      "signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 19,
+        "volume_mm3": 499.5673872491582,
+        "center_mm": [
+          -87.94982489418518,
+          298.54747556248725,
+          290.0923787881069
+        ],
+        "bounds_mm": [
+          -95.85000009648441,
+          213.6529199200504,
+          268.4,
+          -70.14999989648435,
+          372.850000100042,
+          316.7500001
+        ]
+      },
+      "path": "tmp/dry-sidewall-wiring/wires/wire-J5-GND.brep",
+      "sha256": "e5415656bb4e3babbb41a3c35cf8f43711a7c926d4d32e37bfc2359ae95f8278",
+      "developed_length_mm": 220.093063219955,
+      "first_line_mm": 4.401699321219269,
+      "first_bend_mm": 2.0
+    },
+    "relay-bus-GND": {
+      "signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 7,
+        "volume_mm3": 107.92078493295716,
+        "center_mm": [
+          -72.51765024862947,
+          372.00000000000006,
+          325.70000000000005
+        ],
+        "bounds_mm": [
+          -82.99,
+          371.1499998999999,
+          315.04999989999993,
+          -66.44999990000002,
+          372.85000010000005,
+          336.35000010000005
+        ]
+      },
+      "path": "tmp/dry-sidewall-wiring/wires/wire-relay-bus-GND.brep",
+      "sha256": "fbb8b57b37b4107b80c5014190658ad2be6cb88199379ef2b6b16f11aaf77a02",
+      "developed_length_mm": 47.54637061435919,
+      "first_line_mm": 11.689999999999998,
+      "first_bend_mm": 4.0
+    },
+    "J5-IO19": {
+      "signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 19,
+        "volume_mm3": 494.2858931258049,
+        "center_mm": [
+          -87.48217038446651,
+          303.07224733641607,
+          292.7388934618053
+        ],
+        "bounds_mm": [
+          -95.85000009648442,
+          221.1529199200504,
+          268.4,
+          -68.14999989648437,
+          372.8500001000432,
+          319.29000010000004
+        ]
+      },
+      "path": "tmp/dry-sidewall-wiring/wires/wire-J5-IO19.brep",
+      "sha256": "4901e8ebb91583490dbefa943ff88a3481eea0d6f5318bd89471204cc2630ce9",
+      "developed_length_mm": 217.7662095268191,
+      "first_line_mm": 4.472869585405817,
+      "first_bend_mm": 2.0
+    },
+    "J5-IO2": {
+      "signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 19,
+        "volume_mm3": 531.9547793785771,
+        "center_mm": [
+          -88.97420853181507,
+          303.1029107874658,
+          298.68717329789223
+        ],
+        "bounds_mm": [
+          -95.85000009648438,
+          218.6529199200504,
+          268.4,
+          -72.14999989648435,
+          372.8500001000403,
+          338.89000010000024
+        ]
+      },
+      "path": "tmp/dry-sidewall-wiring/wires/wire-J5-IO2.brep",
+      "sha256": "22fbb93000b6814bb869b391abc6f11b359a5f943e79a6ba18fae438a446b275",
+      "developed_length_mm": 234.36188965940536,
+      "first_line_mm": 4.505720188809221,
+      "first_bend_mm": 2.0
+    },
+    "J9-B": {
+      "signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 25,
+        "volume_mm3": 582.1211828868611,
+        "center_mm": [
+          9.07312269616154,
+          150.79661991616175,
+          294.54119187178435
+        ],
+        "bounds_mm": [
+          -17.050120996484367,
+          58.489958067621835,
+          268.4,
+          29.84999920351564,
+          239.55292012005037,
+          310.98343704568333
+        ]
+      },
+      "path": "tmp/dry-sidewall-wiring/wires/wire-J9-B.brep",
+      "sha256": "d42cd9bbeb74c0c25fcaaa465a15de4a0bb53f603d018b7a939faf7f5345e734",
+      "developed_length_mm": 256.46356743236805,
+      "first_line_mm": 4.752102776888876,
+      "first_bend_mm": 2.0
+    }
+  },
+  "installed_intersections": [],
+  "staged_tool_contacts": [
+    {
+      "wire": "AC2-L",
+      "obstacle": "access-psu-mount-1",
+      "raw_mm3": 26.528776070868098,
+      "outside_own_named_endpoint_cells_mm3": 26.528776070868098,
+      "bounds_mm": [
+        -56.88021767193856,
+        446.5606244160272,
+        297.49999989961384,
+        -52.76198976290665,
+        452.43940003076756,
+        299.90000010000006
+      ]
+    },
+    {
+      "wire": "DC2-V12",
+      "obstacle": "access-psu-mount-0",
+      "raw_mm3": 8.683949753631639,
+      "outside_own_named_endpoint_cells_mm3": 8.683949753631639,
+      "bounds_mm": [
+        -49.42799124031619,
+        348.56995378892725,
+        297.5440171762483,
+        -45.06107043653966,
+        352.88850367518455,
+        299.90000010000006
+      ]
+    },
+    {
+      "wire": "DC3-positive",
+      "obstacle": "access-psu-+1--4",
+      "raw_mm3": 73.08144280314896,
+      "outside_own_named_endpoint_cells_mm3": 73.08144280314896,
+      "bounds_mm": [
+        -4.780254936411531,
+        446.00001210717437,
+        282.1669644546162,
+        8.63173062363765,
+        452.00001230992166,
+        287.40000010000006
+      ]
+    },
+    {
+      "wire": "J5-V5",
+      "obstacle": "access-terminal-J5-withdrawal",
+      "raw_mm3": 18.920253539141356,
+      "outside_own_named_endpoint_cells_mm3": 18.920253539141356,
+      "bounds_mm": [
+        -80.35020217484987,
+        216.1529199200504,
+        268.4,
+        -76.64986679648436,
+        217.85292012005038,
+        275.7741051789527
+      ]
+    },
+    {
+      "wire": "J5-GND",
+      "obstacle": "access-terminal-J5-withdrawal",
+      "raw_mm3": 19.11695509929292,
+      "outside_own_named_endpoint_cells_mm3": 19.11695509929292,
+      "bounds_mm": [
+        -80.35020217484987,
+        213.6529199200504,
+        268.4,
+        -76.65012079648437,
+        215.35292012005038,
+        275.9158266982656
+      ]
+    },
+    {
+      "wire": "J5-IO19",
+      "obstacle": "access-terminal-J5-withdrawal",
+      "raw_mm3": 19.313548708770917,
+      "outside_own_named_endpoint_cells_mm3": 19.313548708770917,
+      "bounds_mm": [
+        -80.35020217484987,
+        221.1529199200504,
+        268.4,
+        -76.64986679648436,
+        222.85292012005038,
+        276.0593711477432
+      ]
+    },
+    {
+      "wire": "J5-IO2",
+      "obstacle": "access-terminal-J5-withdrawal",
+      "raw_mm3": 19.407727023955488,
+      "outside_own_named_endpoint_cells_mm3": 19.407727023955488,
+      "bounds_mm": [
+        -80.35020217484987,
+        218.6529199200504,
+        268.4,
+        -76.64986679648437,
+        220.35292012005038,
+        276.12906842715677
+      ]
+    },
+    {
+      "wire": "J9-B",
+      "obstacle": "access-terminal-J3-withdrawal",
+      "raw_mm3": 30.63190221099583,
+      "outside_own_named_endpoint_cells_mm3": 30.63190221099583,
+      "bounds_mm": [
+        -16.85000099648437,
+        202.14999992005042,
+        285.40301582412803,
+        -13.349785618118926,
+        214.10301653652306,
+        290.8500001000001
+      ]
+    },
+    {
+      "wire": "J9-B",
+      "obstacle": "access-terminal-J4-withdrawal",
+      "raw_mm3": 50.03635752372751,
+      "outside_own_named_endpoint_cells_mm3": 50.03635752372751,
+      "bounds_mm": [
+        -17.019756960704658,
+        215.30291992004996,
+        275.21547773503244,
+        -15.152528007944904,
+        235.10292002005,
+        286.78956888850485
+      ]
+    },
+    {
+      "wire": "J9-B",
+      "obstacle": "access-terminal-J9-withdrawal",
+      "raw_mm3": 19.083924742639624,
+      "outside_own_named_endpoint_cells_mm3": 19.083924742639624,
+      "bounds_mm": [
+        -17.050120996484367,
+        236.30282350357692,
+        268.4,
+        -15.329826967542054,
+        239.55292012005037,
+        276.52091658225413
+      ]
+    },
+    {
+      "wire": "DC1-GND",
+      "obstacle": "access-pcba-mount-2",
+      "raw_mm3": 6.392142223580186,
+      "outside_own_named_endpoint_cells_mm3": 6.392142223580186,
+      "bounds_mm": [
+        -14.765429885463078,
+        273.9999998970313,
+        273.31389608245246,
+        -11.63455790750565,
+        275.29629579302446,
+        276.28610391754745
+      ],
+      "reused_unchanged_outside_guide_region": true
+    }
+  ],
+  "errors": [],
+  "native_boolean_count": 23,
+  "complete": true,
+  "reused_native_pass_sha256": "4bf731d86e6bb6c74f6c03bf7be87666737bdec42b5870e160fd435d7e35e2d4",
+  "reused_unchanged_conductors": [
+    "DC1-V12",
+    "AC2-L",
+    "AC2-N",
+    "AC3-L",
+    "AC4-H",
+    "DC2-V12",
+    "DC3-positive",
+    "J5-V5",
+    "relay-bus-V5",
+    "J5-GND",
+    "relay-bus-GND",
+    "J5-IO19",
+    "J5-IO2",
+    "J9-B"
+  ],
+  "reused_thirteen_current_front_top_review": {
+    "prior_sha256": "7602762eda4d312769549e641ea411e41e81cca9db5d7e6ed9ad2070377dd670",
+    "current_sha256": "193d7c89cc12cb8d4d69cb473468329a202cf3cc74028bca293b7523c2b481dd",
+    "pairs": 13,
+    "contacts": []
+  },
+  "changed_guide_region_mm": [
+    -97.5001,
+    309.4999,
+    254.5999,
+    -22.2999,
+    321.5001,
+    276.3001
+  ],
+  "PSU_secondary_pair_gap_mm": 0.2999999999999545,
+  "V12_escape_valve_gap_mm": 0.9578851370358499,
+  "J9B_fluid16_gap_mm": 0.5037193331224827,
+  "nominal_foam_gaps_mm": {
+    "DC1-GND": 63.853520479161574,
+    "DC1-V12": 64.65057397124627,
+    "AC2-L": 106.79155937866282,
+    "AC2-N": 95.49802652788857,
+    "AC3-L": 110.05191272831607,
+    "AC4-H": 58.115765649845216,
+    "DC2-V12": 68.21682724702659,
+    "DC3-positive": 92.48547724097922,
+    "J5-V5": 109.64811518989288,
+    "relay-bus-V5": 108.55829109699442,
+    "J5-GND": 107.82423805372807,
+    "relay-bus-GND": 105.25062153943747,
+    "J5-IO19": 106.05994498746328,
+    "J5-IO2": 113.46025888863797,
+    "J9-B": 109.48905906534159
+  },
+  "installed_contacts_clear": true,
+  "source_native_valid": true,
+  "elapsed_seconds": 17.789907499973197,
+  "actual_export_binding_pending": true,
+  "source_centerline_reuse": {
+    "method": "Source line clipping and circular-arc extrema at1e-6mm numeric comparison tolerance. Equal centreline primitives outside the inner region establish equal swept wire geometry outside the region grown by its1.5mm radius.",
+    "centerline_region_mm": [
+      -96.0001,
+      310.9999,
+      256.0999,
+      -23.7999,
+      320.0001,
+      274.8001
+    ],
+    "swept_change_region_mm": [
+      -97.5001,
+      309.4999,
+      254.5999,
+      -22.2999,
+      321.5001,
+      276.3001
+    ],
+    "outside_line_pieces_equal": true,
+    "changed_arcs": [
+      {
+        "kind": "removed",
+        "bounds_mm": [
+          -96.0,
+          313.9999999970312,
+          256.09999999999997,
+          -93.00000000000009,
+          316.99999999703124,
+          256.09999999999997
+        ],
+        "within_centerline_region": true
+      },
+      {
+        "kind": "removed",
+        "bounds_mm": [
+          -26.799999999999997,
+          313.99999999703124,
+          256.09999999999997,
+          -23.79999999999997,
+          313.99999999703124,
+          259.0999999999999
+        ],
+        "within_centerline_region": true
+      },
+      {
+        "kind": "removed",
+        "bounds_mm": [
+          -23.799999999999997,
+          310.99999999703135,
+          271.79999999999995,
+          -23.799999999999997,
+          313.99999999703124,
+          274.79999999999995
+        ],
+        "within_centerline_region": true
+      },
+      {
+        "kind": "added",
+        "bounds_mm": [
+          -96.0,
+          316.9999999970312,
+          256.09999999999997,
+          -93.00000000000009,
+          319.99999999703124,
+          256.09999999999997
+        ],
+        "within_centerline_region": true
+      },
+      {
+        "kind": "added",
+        "bounds_mm": [
+          -26.799999999999997,
+          316.99999999703124,
+          256.09999999999997,
+          -23.79999999999997,
+          316.99999999703124,
+          259.0999999999999
+        ],
+        "within_centerline_region": true
+      },
+      {
+        "kind": "added",
+        "bounds_mm": [
+          -23.799999999999997,
+          313.99999999703135,
+          271.79999999999995,
+          -23.799999999999997,
+          316.99999999703124,
+          274.79999999999995
+        ],
+        "within_centerline_region": true
+      }
+    ],
+    "all_changed_arcs_within_centerline_region": true
+  },
+  "source_curve_segments_sha256": {
+    "AC2-L": "467acdb44e22748974213523db9b28dafbe36e8312065553c3809cd41711918a",
+    "AC2-N": "edcd63e35ebcf1e24235a21c022d2f031efedb2fe55aae879329cbd3ca60771c",
+    "AC3-L": "22bac51045f92c63a0a3fc25459ea1aff41a8a609665ff4382d5d9d9993739ca",
+    "AC4-H": "f01091dfa4dc1d193eecc5156c1ee1f2d5382b0bc54769acee6fc7a7ba4bc3a0",
+    "DC1-V12": "336c8bb9af980be1056b82b3355eb8236f29633afc3d45c011f9693ac9bdccbb",
+    "DC1-GND": "23bea4b3572fcbe2e699d5e0fa2e249ab27a9ff6de6a6c12d4f5214fb2b417d1",
+    "DC2-V12": "74e2226a269ddd9bc79550536d2d5f0716449dd665d9e5790b96e57c19411d6a",
+    "DC3-positive": "1407ce56e65ec385f73acf85c5c8c7cc81412f6a61cc4b44ebd7b5eb7f95ce63",
+    "J5-V5": "bb4beea518620a494f2d19600f1ddc15570860505f167dd0fac141b236856d25",
+    "relay-bus-V5": "ff2a0f50778e0a7a91bc4490e00c9b532e255e19ed453e56d4d706746d3bbd3d",
+    "J5-GND": "c482c9e6dc8f308682b9d62254a1809571be0a55a8fbbf1ecca418dfc1a4f341",
+    "relay-bus-GND": "55f0d1aec6016f992613162c4de99e8bcf8e8cd5e6eff042e1362bbf5eb4daf6",
+    "J5-IO19": "a05935c4c167c31dbde1b21601559840e85a4972da6b466a1389d86f739b9c19",
+    "J5-IO2": "04578ca54c9750b86de693c70a912eda9b94f5b2e6cf25368a7aead04d5a733d",
+    "J9-B": "32a9b2e244e4e773ec934c1e47ce0019076745b3eacd731ce97e05bdd7e7d654"
+  },
+  "native_wire_pair": {
+    "wire_ids": [
+      "DC1-V12",
+      "DC1-GND"
+    ],
+    "positive_common_before_mm3": 15.4786967585863,
+    "previous_common_bounds_mm": [
+      -25.214213668389856,
+      312.49999988798555,
+      259.38326854086506,
+      -22.681965911250074,
+      313.50000010776733,
+      271.328427224704
+    ],
+    "source_correction": "The GND floor crossing and rise are atY317, retaining both terminals and all remaining guides.",
+    "final_minimum_native_air_mm": 0.2999999999999545
+  },
+  "review_batches": [
+    {
+      "scope": "Initial fifteen bodies against selected installed targets and separate staged witnesses. Its thirteen unchanged conductor results are retained.",
+      "receipt_sha256": "01f84454a220e5459482f4046c49d865517c00a48e8aba9ef2cf89c844ce3a1b",
+      "native_boolean_count": 298,
+      "reused_conductors": [
+        "AC2-L",
+        "AC2-N",
+        "AC3-L",
+        "AC4-H",
+        "DC2-V12",
+        "DC3-positive",
+        "J5-V5",
+        "relay-bus-V5",
+        "J5-GND",
+        "relay-bus-GND",
+        "J5-IO19",
+        "J5-IO2",
+        "J9-B"
+      ]
+    },
+    {
+      "scope": "Two secondary cores against selected targets; thirteen cached paths against current back-top. The GND rise is subsequently checked only within its changed region.",
+      "receipt_sha256": "4bf731d86e6bb6c74f6c03bf7be87666737bdec42b5870e160fd435d7e35e2d4",
+      "native_boolean_count": 75,
+      "actual_artifacts": {
+        "enclosure-back-top": {
+          "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+          "sha256": "10a6008999aa3096a3c3b85a7222bc8d0ca39167f09b29966aa8d33e8b2c3bc9"
+        },
+        "enclosure-front-top": {
+          "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+          "sha256": "193d7c89cc12cb8d4d69cb473468329a202cf3cc74028bca293b7523c2b481dd"
+        },
+        "foam-cap-lid-top": {
+          "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+          "sha256": "66d318de3189e9292dd31582f248fb737538f428f65295db4a06aa83f88c40a4"
+        },
+        "meter-fore-support": {
+          "path": "tmp/above-core-implementation/wall-meter-final/meter-fore-support.brep",
+          "sha256": "436419ec2249f98a9650192cebd4baec6d1991abe237191e3dad900fc014a460"
+        },
+        "meter-aft-support": {
+          "path": "tmp/above-core-implementation/wall-meter-final/meter-aft-support.brep",
+          "sha256": "4505fa871dc1774ac985760efaf6d9f4565833dae4336f431ccd3e9438b30583"
+        },
+        "added-annulus-pcba-3": {
+          "path": "tmp/deck-column-stock/pcba-3.brep",
+          "sha256": "e81138b37b6ff003f65ac2f3866e6f1041195203c177967e3b365c7cd302f963"
+        },
+        "added-annulus-pcba-2": {
+          "path": "tmp/deck-column-stock/pcba-2.brep",
+          "sha256": "617df1a2a59a1c896a351dd70dcccfc5b5e1ac32ec9efe215237f3c61fee09bd"
+        },
+        "added-annulus-g-ganen-pump-0": {
+          "path": "tmp/deck-column-stock/g-ganen-pump-0.brep",
+          "sha256": "6d605703219e545da572c5dfdabe945c351f28dfe5cec2abe6d5a05ffd69bcd1"
+        },
+        "added-annulus-g-ganen-pump-1": {
+          "path": "tmp/deck-column-stock/g-ganen-pump-1.brep",
+          "sha256": "eb4714954c8a7d97357f3449953cc11436d83f371c408ebfd3206cd8fcb1aad5"
+        },
+        "added-annulus-g-ganen-pump-2": {
+          "path": "tmp/deck-column-stock/g-ganen-pump-2.brep",
+          "sha256": "8bf5dc2ab915b5f36b5a2af25a2db44d37fc5c3260eac7c9661bb6a31a2606c4"
+        },
+        "added-annulus-g-ganen-pump-3": {
+          "path": "tmp/deck-column-stock/g-ganen-pump-3.brep",
+          "sha256": "f6e000bd2c7cf3bff466844e1e41be7a7c4a04751180cca93415ff6a26b92767"
+        },
+        "added-annulus-pcba-1": {
+          "path": "tmp/deck-column-stock/pcba-1.brep",
+          "sha256": "47859923e127de72f8c3a50b3fdb481bc530eb5599700c871cf21d1a2fcee7b2"
+        },
+        "added-annulus-pcba-0": {
+          "path": "tmp/deck-column-stock/pcba-0.brep",
+          "sha256": "5bce75489adf6d86d3199f33861a3d9cabbd7282451cba62f85cc461d1334dc5"
+        }
+      }
+    },
+    {
+      "scope": "One GND guide region and thirteen cached conductors against the refreshed front-top; native secondary-core air.",
+      "receipt_sha256": "5fce3bffba49aef4a05186be1245cea439e99ddc7a27db094647ef41c5c03807",
+      "native_boolean_count": 23
+    }
+  ],
+  "staged_tool_scope": {
+    "PSU": "Fasten PSU before WAGO-H and dress terminal/core leads afterward. WAGO-H occupies an aft+X mounting approach. Installed-wire contact clearance does not prove simultaneous driver access through dressed leads.",
+    "PCB": "The retained GND crossbar crosses the PCB mount2 vertical diagnostic witness. The PCB is fastened before this lead is dressed. No simultaneous final-harness driver-clearance claim.",
+    "own_plugs": "Own J5/J9 attached leads within moving housing witnesses are flexible motion limits, not installed equipment contacts.",
+    "display_prefix": "The inherited J9-B prefix crosses J3/J4 diagnostic columns. Their withdrawal sequence with the dressed display lead remains unqualified."
+  },
+  "exact_source_routes": {
+    "AC2-L": {
+      "stock": "power16",
+      "start": "wago-h.2",
+      "end": "psu.L",
+      "segments": [
+        {
+          "kind": "line",
+          "start_mm": [
+            -34.0,
+            445.2,
+            296.7
+          ],
+          "end_mm": [
+            -34.0,
+            440.2,
+            296.7
+          ],
+          "length_mm": 5.0
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -34.0,
+            440.2,
+            296.7
+          ],
+          "midpoint_mm": [
+            -34.87159314440389,
+            438.07867965644033,
+            296.81137023511826
+          ],
+          "end_mm": [
+            -36.97580513449514,
+            437.2,
+            297.0802417671855
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 1.5707963267948966,
+          "length_mm": 4.71238898038469
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -36.97580513449514,
+            437.2,
+            297.0802417671855
+          ],
+          "end_mm": [
+            -49.62494984179119,
+            437.2,
+            298.6965213686733
+          ],
+          "length_mm": 12.751988926293079
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -49.62494984179119,
+            437.2,
+            298.6965213686733
+          ],
+          "midpoint_mm": [
+            -51.483666703045074,
+            437.8549683224879,
+            298.91482903359343
+          ],
+          "end_mm": [
+            -52.535266850827895,
+            439.5337634696096,
+            299.0
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 1.3471873297049197,
+          "length_mm": 4.04156198911476
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -52.535266850827895,
+            439.5337634696096,
+            299.0
+          ],
+          "end_mm": [
+            -56.32934054570873,
+            456.07592477929006,
+            299.0
+          ],
+          "length_mm": 16.971685125457523
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -56.32934054570873,
+            456.07592477929006,
+            299.0
+          ],
+          "midpoint_mm": [
+            -56.80356839370496,
+            458.1435581965536,
+            298.12132034355966
+          ],
+          "end_mm": [
+            -57.0,
+            459.0,
+            296.0
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 1.5707963267948966,
+          "length_mm": 4.71238898038469
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -57.0,
+            459.0,
+            296.0
+          ],
+          "end_mm": [
+            -57.0,
+            459.0,
+            287.4
+          ],
+          "length_mm": 8.600000000000023
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -57.0,
+            459.0,
+            287.4
+          ],
+          "midpoint_mm": [
+            -57.878679656440276,
+            459.00000037243296,
+            285.2786796564403
+          ],
+          "end_mm": [
+            -59.99999999999973,
+            459.00000127156574,
+            284.4
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 1.5707963267948966,
+          "length_mm": 4.71238898038469
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -59.99999999999973,
+            459.00000127156574,
+            284.4
+          ],
+          "end_mm": [
+            -83.16000000000024,
+            459.0000110880534,
+            284.4
+          ],
+          "length_mm": 23.16000000000259
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -83.16000000000024,
+            459.0000110880534,
+            284.4
+          ],
+          "midpoint_mm": [
+            -85.02676183445516,
+            458.2267737137453,
+            284.4
+          ],
+          "end_mm": [
+            -85.8,
+            456.3600122070313,
+            284.4
+          ],
+          "radius_mm": 2.6399988810223713,
+          "angle_radians": 1.5707967506501488,
+          "length_mm": 4.146901664029969
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -85.8,
+            456.3600122070313,
+            284.4
+          ],
+          "end_mm": [
+            -85.8,
+            453.00001220703126,
+            284.4
+          ],
+          "length_mm": 3.3600000000000136
+        }
+      ]
+    },
+    "AC2-N": {
+      "stock": "neutral16",
+      "start": "wago-n.2",
+      "end": "psu.N",
+      "segments": [
+        {
+          "kind": "line",
+          "start_mm": [
+            -34.0,
+            430.7,
+            316.2
+          ],
+          "end_mm": [
+            -34.0,
+            425.7,
+            316.2
+          ],
+          "length_mm": 5.0
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -34.0,
+            425.7,
+            316.2
+          ],
+          "midpoint_mm": [
+            -34.874318936439096,
+            423.57867965644033,
+            316.2874318936439
+          ],
+          "end_mm": [
+            -36.98511157062997,
+            422.7,
+            316.498511157063
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 1.5707963267948966,
+          "length_mm": 4.71238898038469
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -36.98511157062997,
+            422.7,
+            316.498511157063
+          ],
+          "end_mm": [
+            -49.39608020778548,
+            422.7,
+            317.7396080207785
+          ],
+          "length_mm": 12.472869114104514
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -49.39608020778548,
+            422.7,
+            317.7396080207785
+          ],
+          "midpoint_mm": [
+            -51.359358691071904,
+            423.4391807471695,
+            317.9257543161159
+          ],
+          "end_mm": [
+            -52.35708402108524,
+            425.2924299930789,
+            318.0
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 1.4346001483904371,
+          "length_mm": 4.303800445171311
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -52.35708402108524,
+            425.2924299930789,
+            318.0
+          ],
+          "end_mm": [
+            -56.59064190601581,
+            456.02806023767477,
+            318.0
+          ],
+          "length_mm": 31.025827610195588
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -56.59064190601581,
+            456.02806023767477,
+            318.0
+          ],
+          "midpoint_mm": [
+            -56.88010179020563,
+            458.12953899689285,
+            317.12132034355966
+          ],
+          "end_mm": [
+            -57.0,
+            459.0,
+            315.0
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 1.5707963267948966,
+          "length_mm": 4.71238898038469
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -57.0,
+            459.0,
+            315.0
+          ],
+          "end_mm": [
+            -57.0,
+            459.0,
+            279.4
+          ],
+          "length_mm": 35.60000000000002
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -57.0,
+            459.0,
+            279.4
+          ],
+          "midpoint_mm": [
+            -57.878679656440276,
+            459.00000037243296,
+            277.2786796564403
+          ],
+          "end_mm": [
+            -59.99999999999973,
+            459.00000127156574,
+            276.4
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 1.5707963267948966,
+          "length_mm": 4.71238898038469
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -59.99999999999973,
+            459.00000127156574,
+            276.4
+          ],
+          "end_mm": [
+            -83.16000000000024,
+            459.0000110880534,
+            276.4
+          ],
+          "length_mm": 23.16000000000259
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -83.16000000000024,
+            459.0000110880534,
+            276.4
+          ],
+          "midpoint_mm": [
+            -85.02676183445516,
+            458.2267737137453,
+            276.4
+          ],
+          "end_mm": [
+            -85.8,
+            456.3600122070313,
+            276.4
+          ],
+          "radius_mm": 2.6399988810223713,
+          "angle_radians": 1.5707967506501488,
+          "length_mm": 4.146901664029969
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -85.8,
+            456.3600122070313,
+            276.4
+          ],
+          "end_mm": [
+            -85.8,
+            453.00001220703126,
+            276.4
+          ],
+          "length_mm": 3.3600000000000136
+        }
+      ]
+    },
+    "AC3-L": {
+      "stock": "power16",
+      "start": "wago-h.3",
+      "end": "relay-1.COM",
+      "segments": [
+        {
+          "kind": "line",
+          "start_mm": [
+            -40.266666666666666,
+            445.2,
+            296.7
+          ],
+          "end_mm": [
+            -40.266666666666666,
+            440.2,
+            296.7
+          ],
+          "length_mm": 5.0
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -40.266666666666666,
+            440.2,
+            296.7
+          ],
+          "midpoint_mm": [
+            -40.82636361575808,
+            438.07867965644033,
+            297.37736051244514
+          ],
+          "end_mm": [
+            -42.17759158107342,
+            437.2,
+            299.0126534482061
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 1.5707963267948966,
+          "length_mm": 4.71238898038469
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -42.17759158107342,
+            437.2,
+            299.0126534482061
+          ],
+          "end_mm": [
+            -51.02765319622324,
+            437.2,
+            309.72323938321995
+          ],
+          "length_mm": 13.89389224311405
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -51.02765319622324,
+            437.2,
+            309.72323938321995
+          ],
+          "midpoint_mm": [
+            -52.115901994362254,
+            437.045840762715,
+            310.5888942585546
+          ],
+          "end_mm": [
+            -53.410747276833376,
+            436.61689112419776,
+            310.9
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 0.9413823031386159,
+          "length_mm": 2.824146909415848
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -53.410747276833376,
+            436.61689112419776,
+            310.9
+          ],
+          "end_mm": [
+            -66.4465307423935,
+            431.22876729176625,
+            310.9
+          ],
+          "length_mm": 14.105443239919381
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -66.4465307423935,
+            431.22876729176625,
+            310.9
+          ],
+          "midpoint_mm": [
+            -66.96711715297369,
+            430.95078062548646,
+            310.9
+          ],
+          "end_mm": [
+            -67.42321039398156,
+            430.5762599277714,
+            310.9
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 0.39407602850810663,
+          "length_mm": 1.18222808552432
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -67.42321039398156,
+            430.5762599277714,
+            310.9
+          ],
+          "end_mm": [
+            -74.111093283089,
+            423.8800067249505,
+            310.9
+          ],
+          "length_mm": 9.464015241677574
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -74.111093283089,
+            423.8800067249505,
+            310.9
+          ],
+          "midpoint_mm": [
+            -75.08482294619427,
+            423.22872052788347,
+            310.9
+          ],
+          "end_mm": [
+            -76.23373986548206,
+            422.99999999999994,
+            310.9
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 0.7860235539766189,
+          "length_mm": 2.358070661929857
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -76.23373986548206,
+            422.99999999999994,
+            310.9
+          ],
+          "end_mm": [
+            -82.99,
+            422.99999999999994,
+            310.9
+          ],
+          "length_mm": 6.75626013451793
+        }
+      ]
+    },
+    "AC4-H": {
+      "stock": "cord18",
+      "start": "relay-1.NO",
+      "end": "fuse.in",
+      "segments": [
+        {
+          "kind": "line",
+          "start_mm": [
+            -82.99,
+            422.99999999999994,
+            315.9
+          ],
+          "end_mm": [
+            -76.99,
+            422.99999999999994,
+            315.9
+          ],
+          "length_mm": 6.0
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -76.99,
+            422.99999999999994,
+            315.9
+          ],
+          "end_mm": [
+            -60.50200000000001,
+            423.0,
+            315.9
+          ],
+          "length_mm": 16.487999999999985
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -60.50200000000001,
+            423.0,
+            315.9
+          ],
+          "midpoint_mm": [
+            -59.08778643762691,
+            422.4520012408924,
+            315.69301422627586
+          ],
+          "end_mm": [
+            -58.502,
+            421.1290152044913,
+            315.19330636413275
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 1.5707963267948994,
+          "length_mm": 3.141592653589799
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -58.502,
+            421.1290152044913,
+            315.19330636413275
+          ],
+          "end_mm": [
+            -58.502,
+            390.6028158767341,
+            303.6631908635016
+          ],
+          "length_mm": 32.63115702600596
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -58.502,
+            390.6028158767341,
+            303.6631908635016
+          ],
+          "midpoint_mm": [
+            -58.421290062312806,
+            390.0104405949418,
+            303.49572813948765
+          ],
+          "end_mm": [
+            -58.18693799016945,
+            389.4379403785729,
+            303.4429177144392
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 0.6233796909531253,
+          "length_mm": 1.2467593819062506
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -58.18693799016945,
+            389.4379403785729,
+            303.4429177144392
+          ],
+          "end_mm": [
+            17.21932934229905,
+            254.91579315772717,
+            305.21825761752893
+          ],
+          "length_mm": 154.22537105708028
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            17.21932934229905,
+            254.91579315772717,
+            305.21825761752893
+          ],
+          "midpoint_mm": [
+            17.568645241680443,
+            254.27811502632224,
+            305.0905631633309
+          ],
+          "end_mm": [
+            17.859523403519493,
+            253.71764319296096,
+            304.70817319296106
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 0.7424708185142976,
+          "length_mm": 1.4849416370285953
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            17.859523403519493,
+            253.71764319296096,
+            304.70817319296106
+          ],
+          "end_mm": [
+            21.39467122709546,
+            246.64734754580903,
+            297.6378775458091
+          ],
+          "length_mm": 10.605443470727925
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            21.39467122709546,
+            246.64734754580903,
+            297.6378775458091
+          ],
+          "midpoint_mm": [
+            21.564487040208768,
+            246.18884159591238,
+            297.2982459195825
+          ],
+          "end_mm": [
+            21.666423513002258,
+            245.63887838297958,
+            297.0943729739955
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 0.5975474808029686,
+          "length_mm": 1.1950949616059372
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            21.666423513002258,
+            245.63887838297958,
+            297.0943729739955
+          ],
+          "end_mm": [
+            25.520830950554334,
+            210.9492114450109,
+            289.38555809889135
+          ],
+          "length_mm": 35.74430410205915
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            25.520830950554334,
+            210.9492114450109,
+            289.38555809889135
+          ],
+          "midpoint_mm": [
+            25.713469438093256,
+            210.28656119100705,
+            289.26805515727517
+          ],
+          "end_mm": [
+            26.119146174767327,
+            209.7175438252326,
+            289.22722000000005
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 0.7036389513047352,
+          "length_mm": 1.4072779026094704
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            26.119146174767327,
+            209.7175438252326,
+            289.22722000000005
+          ],
+          "end_mm": [
+            33.361989105700054,
+            202.4747008942999,
+            289.22722000000005
+          ],
+          "length_mm": 10.24292670306315
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            33.361989105700054,
+            202.4747008942999,
+            289.22722000000005
+          ],
+          "midpoint_mm": [
+            33.58537569993858,
+            202.22866734633348,
+            289.2498669537279
+          ],
+          "end_mm": [
+            33.77991932446906,
+            201.96681101329636,
+            289.3171796622346
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 0.33347317225183204,
+          "length_mm": 0.6669463445036641
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            33.77991932446906,
+            201.96681101329636,
+            289.3171796622346
+          ],
+          "end_mm": [
+            49.245419949201434,
+            178.7685600761978,
+            297.0499299746008
+          ],
+          "length_mm": 28.93330232634346
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            49.245419949201434,
+            178.7685600761978,
+            297.0499299746008
+          ],
+          "midpoint_mm": [
+            49.50904254101393,
+            178.20296036433035,
+            297.181741270507
+          ],
+          "end_mm": [
+            49.599999999999994,
+            177.5733314668634,
+            297.22722000000005
+          ],
+          "radius_mm": 1.9999999999999998,
+          "angle_radians": 0.6405223126794244,
+          "length_mm": 1.2810446253588486
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            49.599999999999994,
+            177.5733314668634,
+            297.22722000000005
+          ],
+          "end_mm": [
+            49.599999999999994,
+            175.61963365152863,
+            297.22722000000005
+          ],
+          "length_mm": 1.9536978153347775
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            49.599999999999994,
+            175.61963365152863,
+            297.22722000000005
+          ],
+          "midpoint_mm": [
+            49.6,
+            174.4821433916724,
+            296.87224763160145
+          ],
+          "end_mm": [
+            49.599999999999994,
+            173.74843074338764,
+            295.93333590873226
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 1.2099587935152485,
+          "length_mm": 2.419917587030497
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            49.599999999999994,
+            173.74843074338764,
+            295.93333590873226
+          ],
+          "end_mm": [
+            49.6,
+            172.82445801947395,
+            293.48481375160594
+          ],
+          "length_mm": 2.6170568103262517
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            49.6,
+            172.82445801947395,
+            293.48481375160594
+          ],
+          "end_mm": [
+            49.6,
+            170.0,
+            286.0
+          ],
+          "length_mm": 8.000000000000007
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            49.6,
+            170.0,
+            286.0
+          ],
+          "end_mm": [
+            49.6,
+            132.4273946741139,
+            186.43259588640186
+          ],
+          "length_mm": 106.42071524329916
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            49.6,
+            132.4273946741139,
+            186.43259588640186
+          ],
+          "midpoint_mm": [
+            49.17629673189375,
+            129.22361961646962,
+            180.36829319355283
+          ],
+          "end_mm": [
+            47.93795529749791,
+            124.66509819977779,
+            175.37771615123566
+          ],
+          "radius_mm": 24.709503828750947,
+          "angle_radians": 0.5580023322392793,
+          "length_mm": 13.787960764918429
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            47.93795529749791,
+            124.66509819977779,
+            175.37771615123566
+          ],
+          "end_mm": [
+            38.265199928108274,
+            94.03470619671062,
+            149.58370183286328
+          ],
+          "length_mm": 41.196046962712536
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            38.265199928108274,
+            94.03470619671062,
+            149.58370183286328
+          ],
+          "midpoint_mm": [
+            37.76534800311809,
+            91.94740570842403,
+            147.74632730707177
+          ],
+          "end_mm": [
+            37.59784762886617,
+            89.91165787556083,
+            145.79432966133456
+          ],
+          "radius_mm": 22.46588028313303,
+          "angle_radians": 0.2516899717581875,
+          "length_mm": 5.654436773984574
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            37.59784762886617,
+            89.91165787556083,
+            145.79432966133456
+          ],
+          "end_mm": [
+            37.59784762886617,
+            74.49223462294908,
+            130.37490640872278
+          ],
+          "length_mm": 21.80635748781462
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            37.59784762886617,
+            74.49223462294908,
+            130.37490640872278
+          ],
+          "midpoint_mm": [
+            37.34211318343852,
+            71.9545784103606,
+            127.78042031937261
+          ],
+          "end_mm": [
+            36.580088883852795,
+            69.52514372272536,
+            125.1816468984961
+          ],
+          "radius_mm": 25.565600618419158,
+          "angle_radians": 0.2848570833870063,
+          "length_mm": 7.282542427199926
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            36.580088883852795,
+            69.52514372272536,
+            125.1816468984961
+          ],
+          "end_mm": [
+            19.535521546863393,
+            29.754486603083418,
+            81.62330814841208
+          ],
+          "length_mm": 61.396671881302844
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            19.535521546863393,
+            29.754486603083418,
+            81.62330814841208
+          ],
+          "end_mm": [
+            18.484491989472676,
+            27.302084302505083,
+            78.93734372396914
+          ],
+          "length_mm": 3.785940446410105
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            18.484491989472676,
+            27.302084302505083,
+            78.93734372396914
+          ],
+          "midpoint_mm": [
+            18.28730783160988,
+            26.756914214003054,
+            77.42033473006491
+          ],
+          "end_mm": [
+            18.649803252767164,
+            27.403609236924417,
+            75.97541572816051
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 1.6723021188887828,
+          "length_mm": 3.3446042377775655
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            18.649803252767164,
+            27.403609236924417,
+            75.97541572816051
+          ],
+          "end_mm": [
+            21.4661647009069,
+            32.94890166111887,
+            70.95214940587681
+          ],
+          "length_mm": 7.9947085263307605
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            21.4661647009069,
+            32.94890166111887,
+            70.95214940587681
+          ],
+          "midpoint_mm": [
+            21.588078514147757,
+            33.70754867278682,
+            69.93568244303127
+          ],
+          "end_mm": [
+            21.053349661860448,
+            34.0,
+            68.81668707732557
+          ],
+          "radius_mm": 1.9999999999999998,
+          "angle_radians": 1.2968090956340732,
+          "length_mm": 2.593618191268146
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            21.053349661860448,
+            34.0,
+            68.81668707732557
+          ],
+          "end_mm": [
+            18.600487923912922,
+            34.0,
+            65.75060990489115
+          ],
+          "length_mm": 3.9264946113308747
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            18.600487923912922,
+            34.0,
+            65.75060990489115
+          ],
+          "midpoint_mm": [
+            17.905127766005126,
+            34.0,
+            65.19739352738628
+          ],
+          "end_mm": [
+            17.03875030502686,
+            34.0,
+            65.0
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 0.8960553845713437,
+          "length_mm": 1.7921107691426874
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            17.03875030502686,
+            34.0,
+            65.0
+          ],
+          "end_mm": [
+            11.999999999999998,
+            34.0,
+            65.0
+          ],
+          "length_mm": 5.038750305026861
+        }
+      ]
+    },
+    "DC1-V12": {
+      "stock": "power16",
+      "start": "psu.V12",
+      "end": "wago-v12.1",
+      "segments": [
+        {
+          "kind": "line",
+          "start_mm": [
+            -85.8,
+            348.00001220703126,
+            284.4
+          ],
+          "end_mm": [
+            -85.8,
+            347.4000077399614,
+            284.4
+          ],
+          "length_mm": 0.6000044670698799
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -85.8,
+            347.4000077399614,
+            284.4
+          ],
+          "midpoint_mm": [
+            -86.67867807709209,
+            345.2786889757512,
+            284.4
+          ],
+          "end_mm": [
+            -88.79999553292684,
+            344.40000773996474,
+            284.4
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 1.5707948377705105,
+          "length_mm": 4.712384513311532
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -88.79999553292684,
+            344.40000773996474,
+            284.4
+          ],
+          "end_mm": [
+            -91.00000181425301,
+            344.40000446410176,
+            284.4
+          ],
+          "length_mm": 2.2000062813286068
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -91.00000181425301,
+            344.40000446410176,
+            284.4
+          ],
+          "midpoint_mm": [
+            -93.12132098499468,
+            344.04313595809776,
+            283.59705296855697
+          ],
+          "end_mm": [
+            -94.0,
+            343.1815853357075,
+            281.65856701202154
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 1.5707957220448165,
+          "length_mm": 4.71238716613445
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -94.0,
+            343.1815853357075,
+            281.65856701202154
+          ],
+          "end_mm": [
+            -94.0,
+            338.1601751202269,
+            270.36039402719024
+          ],
+          "length_mm": 12.363788794188649
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -94.0,
+            338.1601751202269,
+            270.36039402719024
+          ],
+          "midpoint_mm": [
+            -94.0,
+            337.977980064803,
+            270.0134683383218
+          ],
+          "end_mm": [
+            -94.0,
+            337.7521208354807,
+            269.6932495375812
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 0.26142454869687537,
+          "length_mm": 0.7842736460906261
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -94.0,
+            337.7521208354807,
+            269.6932495375812
+          ],
+          "end_mm": [
+            -94.0,
+            330.90055766348024,
+            261.2144401122306
+          ],
+          "length_mm": 10.901106694796056
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -94.0,
+            330.90055766348024,
+            261.2144401122306
+          ],
+          "midpoint_mm": [
+            -94.0,
+            329.8601042795558,
+            260.392909341811
+          ],
+          "end_mm": [
+            -94.0,
+            328.5671773023657,
+            260.09999999999997
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 0.8911474485187894,
+          "length_mm": 2.673442345556368
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -94.0,
+            328.5671773023657,
+            260.09999999999997
+          ],
+          "end_mm": [
+            -94.0,
+            314.99999999703124,
+            260.09999999999997
+          ],
+          "length_mm": 13.56717730533444
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -94.0,
+            314.99999999703124,
+            260.09999999999997
+          ],
+          "midpoint_mm": [
+            -93.12132034355965,
+            312.8786796534716,
+            260.09999999999997
+          ],
+          "end_mm": [
+            -91.0,
+            311.99999999703124,
+            260.09999999999997
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 1.5707963267948966,
+          "length_mm": 4.71238898038469
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -91.0,
+            311.99999999703124,
+            260.09999999999997
+          ],
+          "end_mm": [
+            -26.799999999999997,
+            311.99999999703124,
+            260.09999999999997
+          ],
+          "length_mm": 64.2
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -26.799999999999997,
+            311.99999999703124,
+            260.09999999999997
+          ],
+          "midpoint_mm": [
+            -24.678679656440355,
+            311.99999999703124,
+            260.9786796564403
+          ],
+          "end_mm": [
+            -23.799999999999997,
+            311.99999999703124,
+            263.09999999999997
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 1.5707963267948966,
+          "length_mm": 4.71238898038469
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -23.799999999999997,
+            311.99999999703124,
+            263.09999999999997
+          ],
+          "end_mm": [
+            -23.799999999999997,
+            311.99999999703124,
+            268.5
+          ],
+          "length_mm": 5.400000000000034
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -23.799999999999997,
+            311.99999999703124,
+            268.5
+          ],
+          "midpoint_mm": [
+            -23.799999999999997,
+            311.1213203405909,
+            270.62132034355966
+          ],
+          "end_mm": [
+            -23.799999999999997,
+            308.99999999703124,
+            271.5
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 1.5707963267948966,
+          "length_mm": 4.71238898038469
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -23.799999999999997,
+            308.99999999703124,
+            271.5
+          ],
+          "end_mm": [
+            -23.799999999999997,
+            283.9999999970313,
+            271.5
+          ],
+          "length_mm": 24.999999999999943
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -23.799999999999997,
+            283.9999999970313,
+            271.5
+          ],
+          "midpoint_mm": [
+            -22.92132034355964,
+            281.87867965347164,
+            271.5
+          ],
+          "end_mm": [
+            -20.799999999999997,
+            280.9999999970313,
+            271.5
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 1.5707963267948966,
+          "length_mm": 4.71238898038469
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -20.799999999999997,
+            280.9999999970313,
+            271.5
+          ],
+          "end_mm": [
+            -0.5000000000000004,
+            280.9999999970313,
+            271.5
+          ],
+          "length_mm": 20.299999999999997
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -0.5000000000000004,
+            280.9999999970313,
+            271.5
+          ],
+          "midpoint_mm": [
+            1.6213203435596424,
+            280.12132034059096,
+            271.5
+          ],
+          "end_mm": [
+            2.5,
+            277.9999999970313,
+            271.5
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 1.5707963267948966,
+          "length_mm": 4.71238898038469
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            2.5,
+            277.9999999970313,
+            271.5
+          ],
+          "end_mm": [
+            2.5,
+            225.99999999703127,
+            271.5
+          ],
+          "length_mm": 52.00000000000003
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            2.5,
+            225.99999999703127,
+            271.5
+          ],
+          "midpoint_mm": [
+            1.6213203435596424,
+            223.87867965347164,
+            271.5
+          ],
+          "end_mm": [
+            -0.5,
+            222.99999999703127,
+            271.5
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 1.5707963267948966,
+          "length_mm": 4.71238898038469
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -0.5,
+            222.99999999703127,
+            271.5
+          ],
+          "end_mm": [
+            -6.799999999999997,
+            222.99999999703127,
+            271.5
+          ],
+          "length_mm": 6.299999999999997
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -6.799999999999997,
+            222.99999999703127,
+            271.5
+          ],
+          "midpoint_mm": [
+            -8.921320343559639,
+            222.99999999703127,
+            270.62132034355966
+          ],
+          "end_mm": [
+            -9.799999999999997,
+            222.99999999703127,
+            268.5
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 1.5707963267948966,
+          "length_mm": 4.71238898038469
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -9.799999999999997,
+            222.99999999703127,
+            268.5
+          ],
+          "end_mm": [
+            -9.799999999999997,
+            222.99999999703127,
+            263.59999999999997
+          ],
+          "length_mm": 4.900000000000034
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -9.799999999999997,
+            222.99999999703127,
+            263.59999999999997
+          ],
+          "midpoint_mm": [
+            -9.799999999999999,
+            222.1213203405909,
+            261.4786796564403
+          ],
+          "end_mm": [
+            -9.799999999999999,
+            219.99999999703127,
+            260.59999999999997
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 1.5707963267948966,
+          "length_mm": 4.71238898038469
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -9.799999999999999,
+            219.99999999703127,
+            260.59999999999997
+          ],
+          "end_mm": [
+            -9.799999999999999,
+            214.73333333333332,
+            260.59999999999997
+          ],
+          "length_mm": 5.266666663697947
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -9.799999999999999,
+            214.73333333333332,
+            260.59999999999997
+          ],
+          "midpoint_mm": [
+            -8.921320343559643,
+            212.6120129897737,
+            260.59999999999997
+          ],
+          "end_mm": [
+            -6.8,
+            211.73333333333332,
+            260.59999999999997
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 1.5707963267948968,
+          "length_mm": 4.712388980384691
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -6.8,
+            211.73333333333332,
+            260.59999999999997
+          ],
+          "end_mm": [
+            -1.8000000000000007,
+            211.73333333333332,
+            260.59999999999997
+          ],
+          "length_mm": 4.999999999999999
+        }
+      ]
+    },
+    "DC1-GND": {
+      "stock": "power16",
+      "start": "psu.GND",
+      "end": "wago-gnd.1",
+      "segments": [
+        {
+          "kind": "line",
+          "start_mm": [
+            -85.8,
+            348.00001220703126,
+            276.4
+          ],
+          "end_mm": [
+            -85.8,
+            344.64001220703125,
+            276.4
+          ],
+          "length_mm": 3.3600000000000136
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -85.8,
+            344.64001220703125,
+            276.4
+          ],
+          "midpoint_mm": [
+            -85.8,
+            342.7732497432909,
+            275.62676199865496
+          ],
+          "end_mm": [
+            -85.8,
+            342.0000106191298,
+            273.76000000000045
+          ],
+          "radius_mm": 2.640001587901958,
+          "angle_radians": 1.570795725317063,
+          "length_mm": 4.146903209106655
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -85.8,
+            342.0000106191298,
+            273.76000000000045
+          ],
+          "end_mm": [
+            -85.8,
+            342.0000018014639,
+            259.0999986251309
+          ],
+          "length_mm": 14.660001374872175
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -85.8,
+            342.0000018014639,
+            259.0999986251309
+          ],
+          "midpoint_mm": [
+            -86.36907517644866,
+            341.3305003179506,
+            256.9786791703508
+          ],
+          "end_mm": [
+            -87.7429443698552,
+            339.7141830913192,
+            256.09999999999997
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 1.5707958685052863,
+          "length_mm": 4.712387605515859
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -87.7429443698552,
+            339.7141830913192,
+            256.09999999999997
+          ],
+          "end_mm": [
+            -95.28581795327838,
+            330.8402141696449,
+            256.09999999999997
+          ],
+          "length_mm": 11.64655598528358
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -95.28581795327838,
+            330.8402141696449,
+            256.09999999999997
+          ],
+          "midpoint_mm": [
+            -95.81579951877217,
+            329.9322921313598,
+            256.09999999999997
+          ],
+          "end_mm": [
+            -96.0,
+            328.8972689093583,
+            256.09999999999997
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 0.7044940642422177,
+          "length_mm": 2.113482192726653
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -96.0,
+            328.8972689093583,
+            256.09999999999997
+          ],
+          "end_mm": [
+            -96.0,
+            319.99999999703124,
+            256.09999999999997
+          ],
+          "length_mm": 8.897268912327036
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -96.0,
+            319.99999999703124,
+            256.09999999999997
+          ],
+          "midpoint_mm": [
+            -95.12132034355965,
+            317.8786796534716,
+            256.09999999999997
+          ],
+          "end_mm": [
+            -93.0,
+            316.99999999703124,
+            256.09999999999997
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 1.5707963267948966,
+          "length_mm": 4.71238898038469
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -93.0,
+            316.99999999703124,
+            256.09999999999997
+          ],
+          "end_mm": [
+            -26.799999999999997,
+            316.99999999703124,
+            256.09999999999997
+          ],
+          "length_mm": 66.2
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -26.799999999999997,
+            316.99999999703124,
+            256.09999999999997
+          ],
+          "midpoint_mm": [
+            -24.678679656440355,
+            316.99999999703124,
+            256.9786796564403
+          ],
+          "end_mm": [
+            -23.799999999999997,
+            316.99999999703124,
+            259.09999999999997
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 1.5707963267948966,
+          "length_mm": 4.71238898038469
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -23.799999999999997,
+            316.99999999703124,
+            259.09999999999997
+          ],
+          "end_mm": [
+            -23.799999999999997,
+            316.99999999703124,
+            271.79999999999995
+          ],
+          "length_mm": 12.699999999999989
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -23.799999999999997,
+            316.99999999703124,
+            271.79999999999995
+          ],
+          "midpoint_mm": [
+            -23.799999999999997,
+            316.1213203405909,
+            273.9213203435596
+          ],
+          "end_mm": [
+            -23.799999999999997,
+            313.99999999703124,
+            274.79999999999995
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 1.5707963267948966,
+          "length_mm": 4.71238898038469
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -23.799999999999997,
+            313.99999999703124,
+            274.79999999999995
+          ],
+          "end_mm": [
+            -23.799999999999997,
+            278.4999999970313,
+            274.79999999999995
+          ],
+          "length_mm": 35.49999999999994
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -23.799999999999997,
+            278.4999999970313,
+            274.79999999999995
+          ],
+          "midpoint_mm": [
+            -22.92132034355964,
+            276.37867965347164,
+            274.79999999999995
+          ],
+          "end_mm": [
+            -20.799999999999997,
+            275.4999999970313,
+            274.79999999999995
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 1.5707963267948966,
+          "length_mm": 4.71238898038469
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -20.799999999999997,
+            275.4999999970313,
+            274.79999999999995
+          ],
+          "end_mm": [
+            3.0,
+            275.4999999970313,
+            274.79999999999995
+          ],
+          "length_mm": 23.799999999999997
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            3.0,
+            275.4999999970313,
+            274.79999999999995
+          ],
+          "midpoint_mm": [
+            5.121320343559642,
+            274.62132034059096,
+            274.79999999999995
+          ],
+          "end_mm": [
+            6.0,
+            272.4999999970313,
+            274.79999999999995
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 1.5707963267948966,
+          "length_mm": 4.71238898038469
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            6.0,
+            272.4999999970313,
+            274.79999999999995
+          ],
+          "end_mm": [
+            6.0,
+            254.99999999703127,
+            274.79999999999995
+          ],
+          "length_mm": 17.50000000000003
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            6.0,
+            254.99999999703127,
+            274.79999999999995
+          ],
+          "midpoint_mm": [
+            5.121320343559642,
+            252.87867965347164,
+            274.79999999999995
+          ],
+          "end_mm": [
+            2.9999999999999996,
+            251.99999999703127,
+            274.79999999999995
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 1.5707963267948966,
+          "length_mm": 4.71238898038469
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            2.9999999999999996,
+            251.99999999703127,
+            274.79999999999995
+          ],
+          "end_mm": [
+            -6.799999999999997,
+            251.99999999703127,
+            274.79999999999995
+          ],
+          "length_mm": 9.799999999999997
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -6.799999999999997,
+            251.99999999703127,
+            274.79999999999995
+          ],
+          "midpoint_mm": [
+            -8.921320343559639,
+            251.99999999703127,
+            273.9213203435596
+          ],
+          "end_mm": [
+            -9.799999999999997,
+            251.99999999703127,
+            271.79999999999995
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 1.5707963267948966,
+          "length_mm": 4.71238898038469
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -9.799999999999997,
+            251.99999999703127,
+            271.79999999999995
+          ],
+          "end_mm": [
+            -9.799999999999997,
+            251.99999999703127,
+            263.59999999999997
+          ],
+          "length_mm": 8.199999999999989
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -9.799999999999997,
+            251.99999999703127,
+            263.59999999999997
+          ],
+          "midpoint_mm": [
+            -9.799999999999997,
+            251.1213203405909,
+            261.4786796564403
+          ],
+          "end_mm": [
+            -9.799999999999997,
+            248.99999999703127,
+            260.59999999999997
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 1.5707963267948966,
+          "length_mm": 4.71238898038469
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -9.799999999999997,
+            248.99999999703127,
+            260.59999999999997
+          ],
+          "end_mm": [
+            -9.8,
+            238.73333333333332,
+            260.59999999999997
+          ],
+          "length_mm": 10.266666663697947
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -9.8,
+            238.73333333333332,
+            260.59999999999997
+          ],
+          "midpoint_mm": [
+            -8.921320343559643,
+            236.6120129897737,
+            260.59999999999997
+          ],
+          "end_mm": [
+            -6.8,
+            235.73333333333332,
+            260.59999999999997
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 1.5707963267948968,
+          "length_mm": 4.712388980384691
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -6.8,
+            235.73333333333332,
+            260.59999999999997
+          ],
+          "end_mm": [
+            -1.8000000000000007,
+            235.73333333333332,
+            260.59999999999997
+          ],
+          "length_mm": 4.999999999999999
+        }
+      ]
+    },
+    "DC2-V12": {
+      "stock": "power16",
+      "start": "wago-v12.2",
+      "end": "relay-2.COM",
+      "segments": [
+        {
+          "kind": "line",
+          "start_mm": [
+            -1.8000000000000007,
+            218.0,
+            260.59999999999997
+          ],
+          "end_mm": [
+            -7.109281555549385,
+            218.0,
+            260.59999999999997
+          ],
+          "length_mm": 5.309281555549385
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -7.109281555549385,
+            218.0,
+            260.59999999999997
+          ],
+          "midpoint_mm": [
+            -9.112355381225477,
+            218.76617874624785,
+            260.62786104531807
+          ],
+          "end_mm": [
+            -10.091611244769528,
+            220.673103077054,
+            260.69720374825647
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 1.4622063188505832,
+          "length_mm": 4.386618956551749
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -10.091611244769528,
+            220.673103077054,
+            260.69720374825647
+          ],
+          "end_mm": [
+            -10.960974334661344,
+            228.64226473439564,
+            260.98699144488705
+          ],
+          "length_mm": 8.021677294184096
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -10.960974334661344,
+            228.64226473439564,
+            260.98699144488705
+          ],
+          "midpoint_mm": [
+            -10.97849099550871,
+            228.99972695770595,
+            261.00099721216225
+          ],
+          "end_mm": [
+            -10.953296227728014,
+            229.3566469882588,
+            261.016983189917
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 0.23891876788814415,
+          "length_mm": 0.7167563036644324
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -10.953296227728014,
+            229.3566469882588,
+            261.016983189917
+          ],
+          "end_mm": [
+            -5.639671439403923,
+            269.9334180990973,
+            262.9492103856712
+          ],
+          "length_mm": 40.968798665673404
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -5.639671439403923,
+            269.9334180990973,
+            262.9492103856712
+          ],
+          "midpoint_mm": [
+            -5.65565179468575,
+            270.9520323985793,
+            263.0927369496863
+          ],
+          "end_mm": [
+            -5.964630563608773,
+            271.88035264683765,
+            263.41083123519087
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 0.6892730611874653,
+          "length_mm": 2.067819183562396
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -5.964630563608773,
+            271.88035264683765,
+            263.41083123519087
+          ],
+          "end_mm": [
+            -52.911760410025195,
+            360.8328091979425,
+            304.9219776257064
+          ],
+          "length_mm": 108.81060519061222
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -52.911760410025195,
+            360.8328091979425,
+            304.9219776257064
+          ],
+          "midpoint_mm": [
+            -52.993868725332845,
+            361.00313611446666,
+            304.9989725667009
+          ],
+          "end_mm": [
+            -53.06374288677532,
+            361.17972073579216,
+            305.07391739939834
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 0.13613286186000506,
+          "length_mm": 0.4083985855800152
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -53.06374288677532,
+            361.17972073579216,
+            305.07391739939834
+          ],
+          "end_mm": [
+            -74.31265557915945,
+            421.0902522013591,
+            329.7145392118493
+          ],
+          "length_mm": 68.17586313644647
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -74.31265557915945,
+            421.0902522013591,
+            329.7145392118493
+          ],
+          "midpoint_mm": [
+            -75.40326181136786,
+            422.4723983868719,
+            330.28300256234246
+          ],
+          "end_mm": [
+            -77.16321898771844,
+            423.0,
+            330.5
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 1.2538378993209398,
+          "length_mm": 3.7615136979628194
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -77.16321898771844,
+            423.0,
+            330.5
+          ],
+          "end_mm": [
+            -82.99,
+            423.0,
+            330.5
+          ],
+          "length_mm": 5.8267810122815575
+        }
+      ]
+    },
+    "DC3-positive": {
+      "stock": "power16",
+      "start": "relay-2.NO",
+      "end": "diaphragm.positive",
+      "segments": [
+        {
+          "kind": "line",
+          "start_mm": [
+            -82.99,
+            423.0,
+            335.5
+          ],
+          "end_mm": [
+            -61.0,
+            423.0,
+            335.5
+          ],
+          "length_mm": 21.989999999999995
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -61.0,
+            423.0,
+            335.5
+          ],
+          "midpoint_mm": [
+            -58.878679656440355,
+            423.0,
+            334.62132034355966
+          ],
+          "end_mm": [
+            -58.0,
+            423.0,
+            332.5
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 1.5707963267948966,
+          "length_mm": 4.71238898038469
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -58.0,
+            423.0,
+            332.5
+          ],
+          "end_mm": [
+            -58.0,
+            423.0,
+            306.411362481298
+          ],
+          "length_mm": 26.088637518702
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -58.0,
+            423.0,
+            306.411362481298
+          ],
+          "midpoint_mm": [
+            -57.420763846129276,
+            423.31993547645936,
+            304.53188218302813
+          ],
+          "end_mm": [
+            -55.938583445850895,
+            424.13860345737345,
+            303.4815282328334
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 1.3540922531789374,
+          "length_mm": 4.062276759536813
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -55.938583445850895,
+            424.13860345737345,
+            303.4815282328334
+          ],
+          "end_mm": [
+            -24.992973817729922,
+            441.2311110547285,
+            295.69832455299183
+          ],
+          "length_mm": 36.198934110600455
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -24.992973817729922,
+            441.2311110547285,
+            295.69832455299183
+          ],
+          "midpoint_mm": [
+            -24.87020734216317,
+            441.30226477614224,
+            295.665053428169
+          ],
+          "end_mm": [
+            -24.75131097848801,
+            441.37796268100794,
+            295.62797365949604
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 0.09717248448611793,
+          "length_mm": 0.2915174534583538
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -24.75131097848801,
+            441.37796268100794,
+            295.62797365949604
+          ],
+          "end_mm": [
+            -13.565075853721671,
+            448.8354527641855,
+            291.8992286179072
+          ],
+          "length_mm": 13.951686428257373
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -13.565075853721671,
+            448.8354527641855,
+            291.8992286179072
+          ],
+          "midpoint_mm": [
+            -12.835710607254443,
+            449.1815163570334,
+            291.65610686908485
+          ],
+          "end_mm": [
+            -12.043798195210341,
+            449.29999,
+            291.39213606507013
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 0.5639426413606285,
+          "length_mm": 1.6918279240818856
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -12.043798195210341,
+            449.29999,
+            291.39213606507013
+          ],
+          "end_mm": [
+            -1.5083965880343224,
+            449.29999,
+            287.8803355293448
+          ],
+          "length_mm": 11.105288381091588
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -1.5083965880343224,
+            449.29999,
+            287.8803355293448
+          ],
+          "midpoint_mm": [
+            -0.8908434195035695,
+            449.3697063206212,
+            287.6512458046896
+          ],
+          "end_mm": [
+            -0.3173367251115522,
+            449.5754568877511,
+            287.39149369424734
+          ],
+          "radius_mm": 3.0,
+          "angle_radians": 0.44247194021470504,
+          "length_mm": 1.3274158206441151
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -0.3173367251115522,
+            449.5754568877511,
+            287.39149369424734
+          ],
+          "end_mm": [
+            4.257662417253508,
+            451.8629585375046,
+            285.103996877461
+          ],
+          "length_mm": 5.603206460329096
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            4.257662417253508,
+            451.8629585375046,
+            285.103996877461
+          ],
+          "midpoint_mm": [
+            6.200975552306361,
+            451.6946786664104,
+            284.13234147991386
+          ],
+          "end_mm": [
+            7.131730523639,
+            449.77999389648005,
+            283.6669645546122
+          ],
+          "radius_mm": 2.281773877894594,
+          "angle_radians": 1.9913310904672201,
+          "length_mm": 4.543767264467459
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            7.131730523639,
+            449.77999389648005,
+            283.6669645546122
+          ],
+          "end_mm": [
+            7.131730523639,
+            445.29999389648003,
+            283.6669645546122
+          ],
+          "length_mm": 4.480000000000018
+        }
+      ]
+    },
+    "J5-V5": {
+      "stock": "ribbon22",
+      "start": "J5.V5",
+      "end": "relay-1.V5",
+      "segments": [
+        {
+          "kind": "line",
+          "start_mm": [
+            -77.49986689648436,
+            217.0029200200504,
+            268.4
+          ],
+          "end_mm": [
+            -77.49986689648436,
+            217.0029200200504,
+            272.7264230981356
+          ],
+          "length_mm": 4.326423098135649
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -77.49986689648436,
+            217.0029200200504,
+            272.7264230981356
+          ],
+          "midpoint_mm": [
+            -77.96603386823475,
+            217.0029200200504,
+            274.00991686183323
+          ],
+          "end_mm": [
+            -79.14722313793497,
+            217.0029200200504,
+            274.69508822444743
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 1.3935478003326047,
+          "length_mm": 2.7870956006652094
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -79.14722313793497,
+            217.0029200200504,
+            274.69508822444743
+          ],
+          "end_mm": [
+            -87.14362789479932,
+            217.0029200200504,
+            276.12747110696733
+          ],
+          "length_mm": 8.123682032043034
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -87.14362789479932,
+            217.0029200200504,
+            276.12747110696733
+          ],
+          "midpoint_mm": [
+            -88.49524671295154,
+            217.54778558914938,
+            276.36375720387116
+          ],
+          "end_mm": [
+            -89.11239688777373,
+            218.88548735840632,
+            276.46
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 1.5120984504062691,
+          "length_mm": 3.0241969008125382
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -89.11239688777373,
+            218.88548735840632,
+            276.46
+          ],
+          "end_mm": [
+            -92.99249886075872,
+            283.8744132978821,
+            276.46
+          ],
+          "length_mm": 65.10465180067725
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -92.99249886075872,
+            283.8744132978821,
+            276.46
+          ],
+          "midpoint_mm": [
+            -92.99812053682616,
+            283.99986342104813,
+            276.46347678665404
+          ],
+          "end_mm": [
+            -92.99999689648436,
+            284.1250408851414,
+            276.47389342945456
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 0.12564480105674614,
+          "length_mm": 0.25128960211349227
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -92.99999689648436,
+            284.1250408851414,
+            276.47389342945456
+          ],
+          "end_mm": [
+            -92.99999689648436,
+            319.70569346085995,
+            280.42729927120104
+          ],
+          "length_mm": 35.799612504376945
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -92.99999689648436,
+            319.70569346085995,
+            280.42729927120104
+          ],
+          "midpoint_mm": [
+            -93.01146097863541,
+            319.99480890029037,
+            280.477803925487
+          ],
+          "end_mm": [
+            -93.04560597383323,
+            320.2736540595238,
+            280.56353244510666
+          ],
+          "radius_mm": 1.9999999999999998,
+          "angle_radians": 0.29398194155377944,
+          "length_mm": 0.5879638831075588
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -93.04560597383323,
+            320.2736540595238,
+            280.56353244510666
+          ],
+          "end_mm": [
+            -94.84740933112037,
+            331.08445742848335,
+            284.65361972651317
+          ],
+          "length_mm": 11.698238277200636
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -94.84740933112037,
+            331.08445742848335,
+            284.65361972651317
+          ],
+          "midpoint_mm": [
+            -94.95976171310527,
+            331.8353999331687,
+            285.15835432932664
+          ],
+          "end_mm": [
+            -94.99999999648436,
+            332.2913500958151,
+            285.9468878112355
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 0.9198393277469901,
+          "length_mm": 1.8396786554939801
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -94.99999999648436,
+            332.2913500958151,
+            285.9468878112355
+          ],
+          "end_mm": [
+            -94.99999999648436,
+            339.541187434271,
+            309.5088591612171
+          ],
+          "length_mm": 24.65211218803418
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -94.99999999648436,
+            339.541187434271,
+            309.5088591612171
+          ],
+          "midpoint_mm": [
+            -94.6335247194905,
+            340.1049424823892,
+            310.62243836535066
+          ],
+          "end_mm": [
+            -93.68913465356766,
+            340.8341870364519,
+            311.140620100422
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 1.3249342784366445,
+          "length_mm": 2.649868556873289
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -93.68913465356766,
+            340.8341870364519,
+            311.140620100422
+          ],
+          "end_mm": [
+            -73.92531075944918,
+            353.4111658781637,
+            313.2607393908819
+          ],
+          "length_mm": 23.5219905090614
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -73.92531075944918,
+            353.4111658781637,
+            313.2607393908819
+          ],
+          "midpoint_mm": [
+            -73.24662032061943,
+            354.13657591468734,
+            313.3335443652291
+          ],
+          "end_mm": [
+            -72.99999999648436,
+            355.1012621394518,
+            313.35999999999996
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 1.0066551766037342,
+          "length_mm": 2.0133103532074683
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -72.99999999648436,
+            355.1012621394518,
+            313.35999999999996
+          ],
+          "end_mm": [
+            -72.99999999648436,
+            370.00000000004025,
+            313.35999999999996
+          ],
+          "length_mm": 14.898737860588426
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -72.99999999648436,
+            370.00000000004025,
+            313.35999999999996
+          ],
+          "midpoint_mm": [
+            -73.58578643411484,
+            371.41421356241693,
+            313.35999999999996
+          ],
+          "end_mm": [
+            -74.99999999649445,
+            372.00000000004025,
+            313.35999999999996
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 1.5707963267999436,
+          "length_mm": 3.1415926535998873
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -74.99999999649445,
+            372.00000000004025,
+            313.35999999999996
+          ],
+          "end_mm": [
+            -82.99,
+            371.99999999999994,
+            313.35999999999996
+          ],
+          "length_mm": 7.990000003505543
+        }
+      ]
+    },
+    "relay-bus-V5": {
+      "stock": "ribbon22",
+      "start": "relay-1.V5",
+      "end": "relay-2.V5",
+      "segments": [
+        {
+          "kind": "line",
+          "start_mm": [
+            -82.99,
+            371.99999999999994,
+            313.35999999999996
+          ],
+          "end_mm": [
+            -74.9,
+            371.99999999999994,
+            313.35999999999996
+          ],
+          "length_mm": 8.08999999999999
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -74.9,
+            371.99999999999994,
+            313.35999999999996
+          ],
+          "midpoint_mm": [
+            -72.07157287525382,
+            371.99999999999994,
+            314.53157287525374
+          ],
+          "end_mm": [
+            -70.9,
+            371.99999999999994,
+            317.35999999999996
+          ],
+          "radius_mm": 4.0,
+          "angle_radians": 1.5707963267948966,
+          "length_mm": 6.283185307179586
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -70.9,
+            371.99999999999994,
+            317.35999999999996
+          ],
+          "end_mm": [
+            -70.9,
+            372.0,
+            328.96
+          ],
+          "length_mm": 11.600000000000023
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -70.9,
+            372.0,
+            328.96
+          ],
+          "midpoint_mm": [
+            -72.07157287525382,
+            372.0,
+            331.7884271247462
+          ],
+          "end_mm": [
+            -74.9,
+            372.0,
+            332.96
+          ],
+          "radius_mm": 4.0,
+          "angle_radians": 1.5707963267948966,
+          "length_mm": 6.283185307179586
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -74.9,
+            372.0,
+            332.96
+          ],
+          "end_mm": [
+            -82.99,
+            372.0,
+            332.96
+          ],
+          "length_mm": 8.08999999999999
+        }
+      ]
+    },
+    "J5-GND": {
+      "stock": "ribbon22",
+      "start": "J5.GND",
+      "end": "relay-1.GND",
+      "segments": [
+        {
+          "kind": "line",
+          "start_mm": [
+            -77.50012089648436,
+            214.5029200200504,
+            268.4
+          ],
+          "end_mm": [
+            -77.50012089648436,
+            214.5029200200504,
+            272.80169932121925
+          ],
+          "length_mm": 4.401699321219269
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -77.50012089648436,
+            214.5029200200504,
+            272.80169932121925
+          ],
+          "midpoint_mm": [
+            -77.93773592787224,
+            214.5029200200504,
+            274.05027979914405
+          ],
+          "end_mm": [
+            -79.05907410633925,
+            214.5029200200504,
+            274.7524626920315
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 1.348445283426163,
+          "length_mm": 2.696890566852326
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -79.05907410633925,
+            214.5029200200504,
+            274.7524626920315
+          ],
+          "end_mm": [
+            -87.14387792647669,
+            214.5029200200504,
+            276.58035059846674
+          ],
+          "length_mm": 8.288861623202619
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -87.14387792647669,
+            214.5029200200504,
+            276.58035059846674
+          ],
+          "midpoint_mm": [
+            -88.4935173795567,
+            215.05353874703056,
+            276.8624787353924
+          ],
+          "end_mm": [
+            -89.10930200344221,
+            216.40196217319354,
+            276.9453490088176
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 1.5210854479679985,
+          "length_mm": 3.042170895935997
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -89.10930200344221,
+            216.40196217319354,
+            276.9453490088176
+          ],
+          "end_mm": [
+            -92.98533910534401,
+            283.74526215941023,
+            275.0073308939207
+          ],
+          "length_mm": 67.48258761238013
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -92.98533910534401,
+            283.74526215941023,
+            275.0073308939207
+          ],
+          "midpoint_mm": [
+            -92.99632064150424,
+            283.9986064822706,
+            275.01573972519316
+          ],
+          "end_mm": [
+            -93.00000089648437,
+            284.2491861566976,
+            275.05537469703273
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 0.25389204313316016,
+          "length_mm": 0.5077840862663203
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -93.00000089648437,
+            284.2491861566976,
+            275.05537469703273
+          ],
+          "end_mm": [
+            -93.00000089648437,
+            319.81649668636123,
+            282.9592214814024
+          ],
+          "length_mm": 36.43493340606392
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -93.00000089648437,
+            319.81649668636123,
+            282.9592214814024
+          ],
+          "midpoint_mm": [
+            -93.00735640478008,
+            319.99815638344495,
+            283.00449397739675
+          ],
+          "end_mm": [
+            -93.02935837782215,
+            320.17614498704876,
+            283.0587149890973
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 0.18742905503791185,
+          "length_mm": 0.3748581100758237
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -93.02935837782215,
+            320.17614498704876,
+            283.0587149890973
+          ],
+          "end_mm": [
+            -94.83549064182768,
+            331.0129434295799,
+            286.67098114262814
+          ],
+          "length_mm": 11.564894336009772
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -94.83549064182768,
+            331.0129434295799,
+            286.67098114262814
+          ],
+          "midpoint_mm": [
+            -94.95635853346606,
+            331.8175372678103,
+            287.18064533570663
+          ],
+          "end_mm": [
+            -94.99999999648436,
+            332.29925134462553,
+            288.0099732879412
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 0.9695373769011653,
+          "length_mm": 1.9390747538023305
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -94.99999999648436,
+            332.29925134462553,
+            288.0099732879412
+          ],
+          "end_mm": [
+            -94.99999999648436,
+            339.5400491175308,
+            312.4476657714966
+          ],
+          "length_mm": 25.48783957711854
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -94.99999999648436,
+            339.5400491175308,
+            312.4476657714966
+          ],
+          "midpoint_mm": [
+            -94.60747251315102,
+            340.0995744710848,
+            313.5943504493593
+          ],
+          "end_mm": [
+            -93.60476421651677,
+            340.8138875383648,
+            314.1104561659141
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 1.3610389379358736,
+          "length_mm": 2.722077875871747
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -93.60476421651677,
+            340.8138875383648,
+            314.1104561659141
+          ],
+          "end_mm": [
+            -71.99150369573391,
+            353.4216228421548,
+            315.82150595714273
+          ],
+          "length_mm": 25.08018562965051
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -71.99150369573391,
+            353.4216228421548,
+            315.82150595714273
+          ],
+          "midpoint_mm": [
+            -71.2655618600671,
+            354.15324884229676,
+            315.87897635246634
+          ],
+          "end_mm": [
+            -70.99999999648436,
+            355.1505481464419,
+            315.9
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 1.0440804574001215,
+          "length_mm": 2.088160914800243
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -70.99999999648436,
+            355.1505481464419,
+            315.9
+          ],
+          "end_mm": [
+            -70.99999999648436,
+            370.00000000004195,
+            315.9
+          ],
+          "length_mm": 14.849451853600044
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -70.99999999648436,
+            370.00000000004195,
+            315.9
+          ],
+          "midpoint_mm": [
+            -71.58578643411424,
+            371.414213562418,
+            315.9
+          ],
+          "end_mm": [
+            -72.99999999649278,
+            372.00000000004195,
+            315.9
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 1.5707963267991016,
+          "length_mm": 3.1415926535982033
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -72.99999999649278,
+            372.00000000004195,
+            315.9
+          ],
+          "end_mm": [
+            -82.99,
+            371.99999999999994,
+            315.9
+          ],
+          "length_mm": 9.99000000350722
+        }
+      ]
+    },
+    "relay-bus-GND": {
+      "stock": "ribbon22",
+      "start": "relay-1.GND",
+      "end": "relay-2.GND",
+      "segments": [
+        {
+          "kind": "line",
+          "start_mm": [
+            -82.99,
+            371.99999999999994,
+            315.9
+          ],
+          "end_mm": [
+            -71.3,
+            371.99999999999994,
+            315.9
+          ],
+          "length_mm": 11.689999999999998
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -71.3,
+            371.99999999999994,
+            315.9
+          ],
+          "midpoint_mm": [
+            -68.47157287525381,
+            371.99999999999994,
+            317.07157287525376
+          ],
+          "end_mm": [
+            -67.3,
+            371.99999999999994,
+            319.9
+          ],
+          "radius_mm": 4.0,
+          "angle_radians": 1.5707963267948966,
+          "length_mm": 6.283185307179586
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -67.3,
+            371.99999999999994,
+            319.9
+          ],
+          "end_mm": [
+            -67.3,
+            372.0,
+            331.5
+          ],
+          "length_mm": 11.600000000000023
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -67.3,
+            372.0,
+            331.5
+          ],
+          "midpoint_mm": [
+            -68.47157287525381,
+            372.0,
+            334.3284271247462
+          ],
+          "end_mm": [
+            -71.3,
+            372.0,
+            335.5
+          ],
+          "radius_mm": 4.0,
+          "angle_radians": 1.5707963267948966,
+          "length_mm": 6.283185307179586
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -71.3,
+            372.0,
+            335.5
+          ],
+          "end_mm": [
+            -82.99,
+            372.0,
+            335.5
+          ],
+          "length_mm": 11.689999999999998
+        }
+      ]
+    },
+    "J5-IO19": {
+      "stock": "ribbon22",
+      "start": "J5.IO19",
+      "end": "relay-1.IN",
+      "segments": [
+        {
+          "kind": "line",
+          "start_mm": [
+            -77.49986689648436,
+            222.0029200200504,
+            268.4
+          ],
+          "end_mm": [
+            -77.49986689648436,
+            222.0029200200504,
+            272.8728695854058
+          ],
+          "length_mm": 4.472869585405817
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -77.49986689648436,
+            222.0029200200504,
+            272.8728695854058
+          ],
+          "midpoint_mm": [
+            -77.91027671129801,
+            222.0029200200504,
+            274.08662534467504
+          ],
+          "end_mm": [
+            -78.97306993964358,
+            222.0029200200504,
+            274.8022438275536
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 1.3042529277888062,
+          "length_mm": 2.6085058555776124
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -78.97306993964358,
+            222.0029200200504,
+            274.8022438275536
+          ],
+          "end_mm": [
+            -87.18696171603555,
+            222.0029200200504,
+            277.0449674511498
+          ],
+          "length_mm": 8.514565600552746
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -87.18696171603555,
+            222.0029200200504,
+            277.0449674511498
+          ],
+          "midpoint_mm": [
+            -88.51061569351144,
+            222.54537017218172,
+            277.39682237854646
+          ],
+          "end_mm": [
+            -89.12100598579298,
+            223.87842597347878,
+            277.53999999999996
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 1.5086447014453914,
+          "length_mm": 3.017289402890783
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -89.12100598579298,
+            223.87842597347878,
+            277.53999999999996
+          ],
+          "end_mm": [
+            -92.99584713117646,
+            283.9356816372599,
+            277.53999999999996
+          ],
+          "length_mm": 60.182126514163045
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -92.99584713117646,
+            283.9356816372599,
+            277.53999999999996
+          ],
+          "midpoint_mm": [
+            -92.9989591859466,
+            284.00003346136896,
+            277.53999999999996
+          ],
+          "end_mm": [
+            -92.99999689648436,
+            284.06445213341283,
+            277.53999999999996
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 0.0644298156791443,
+          "length_mm": 0.1288596313582886
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -92.99999689648436,
+            284.06445213341283,
+            277.53999999999996
+          ],
+          "end_mm": [
+            -92.99999689648436,
+            299.647739763849,
+            277.53999999999996
+          ],
+          "length_mm": 15.583287630436189
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -92.99999689648436,
+            299.647739763849,
+            277.53999999999996
+          ],
+          "midpoint_mm": [
+            -93.00520926103988,
+            299.9946600675598,
+            277.5698668026095
+          ],
+          "end_mm": [
+            -93.02068832507577,
+            300.3310623641594,
+            277.65856170205814
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 0.3486840039983994,
+          "length_mm": 0.6973680079967988
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -93.02068832507577,
+            300.3310623641594,
+            277.65856170205814
+          ],
+          "end_mm": [
+            -94.93959619681628,
+            331.03354070397694,
+            288.6538867643774
+          ],
+          "length_mm": 32.668357118980744
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -94.93959619681628,
+            331.03354070397694,
+            288.6538867643774
+          ],
+          "midpoint_mm": [
+            -94.98401448301028,
+            331.81899605935865,
+            289.17007672379617
+          ],
+          "end_mm": [
+            -94.99999999648436,
+            332.2825071797026,
+            289.98877512878266
+          ],
+          "radius_mm": 1.9999999999999998,
+          "angle_radians": 0.9498397925044553,
+          "length_mm": 1.8996795850089103
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -94.99999999648436,
+            332.2825071797026,
+            289.98877512878266
+          ],
+          "end_mm": [
+            -94.99999999648436,
+            339.54051838907344,
+            315.3918143615808
+          ],
+          "length_mm": 26.419559590924976
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -94.99999999648436,
+            339.54051838907344,
+            315.3918143615808
+          ],
+          "midpoint_mm": [
+            -94.58381998595533,
+            340.0940877750563,
+            316.5680179317225
+          ],
+          "end_mm": [
+            -93.52912616804538,
+            340.7920089845944,
+            317.0814637812674
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 1.3929367850260974,
+          "length_mm": 2.785873570052195
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -93.52912616804538,
+            340.7920089845944,
+            317.0814637812674
+          ],
+          "end_mm": [
+            -70.05131454862251,
+            353.43390754889907,
+            318.38177334788156
+          ],
+          "length_mm": 26.69674217421114
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -70.05131454862251,
+            353.43390754889907,
+            318.38177334788156
+          ],
+          "midpoint_mm": [
+            -69.28286202100226,
+            354.16933356410755,
+            318.42433379556513
+          ],
+          "end_mm": [
+            -68.99999999648436,
+            355.195455266384,
+            318.44
+          ],
+          "radius_mm": 1.9999999999999998,
+          "angle_radians": 1.0774939342476326,
+          "length_mm": 2.154987868495265
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -68.99999999648436,
+            355.195455266384,
+            318.44
+          ],
+          "end_mm": [
+            -68.99999999648436,
+            370.00000000004314,
+            318.44
+          ],
+          "length_mm": 14.804544733659156
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -68.99999999648436,
+            370.00000000004314,
+            318.44
+          ],
+          "midpoint_mm": [
+            -69.58578643411381,
+            371.4142135624188,
+            318.44
+          ],
+          "end_mm": [
+            -70.99999999649157,
+            372.00000000004314,
+            318.44
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 1.5707963267985006,
+          "length_mm": 3.141592653597001
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -70.99999999649157,
+            372.00000000004314,
+            318.44
+          ],
+          "end_mm": [
+            -82.99,
+            371.99999999999994,
+            318.44
+          ],
+          "length_mm": 11.990000003508428
+        }
+      ]
+    },
+    "J5-IO2": {
+      "stock": "ribbon22",
+      "start": "J5.IO2",
+      "end": "relay-2.IN",
+      "segments": [
+        {
+          "kind": "line",
+          "start_mm": [
+            -77.49986689648436,
+            219.5029200200504,
+            268.4
+          ],
+          "end_mm": [
+            -77.49986689648436,
+            219.5029200200504,
+            272.9057201888092
+          ],
+          "length_mm": 4.505720188809221
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -77.49986689648436,
+            219.5029200200504,
+            272.9057201888092
+          ],
+          "midpoint_mm": [
+            -77.89767001584075,
+            219.5029200200504,
+            274.1027854149585
+          ],
+          "end_mm": [
+            -78.93283205214023,
+            219.5029200200504,
+            274.82365436007257
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 1.2833362680670284,
+          "length_mm": 2.5666725361340568
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -78.93283205214023,
+            219.5029200200504,
+            274.82365436007257
+          ],
+          "end_mm": [
+            -87.19272657022296,
+            219.5029200200504,
+            277.2656818668221
+          ],
+          "length_mm": 8.61332431721774
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -87.19272657022296,
+            219.5029200200504,
+            277.2656818668221
+          ],
+          "midpoint_mm": [
+            -88.51075749380924,
+            220.04725388486563,
+            277.6453753567756
+          ],
+          "end_mm": [
+            -89.11665583909608,
+            221.3839103228159,
+            277.79999999999995
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 1.5114019393614224,
+          "length_mm": 3.022803878722845
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -89.11665583909608,
+            221.3839103228159,
+            277.79999999999995
+          ],
+          "end_mm": [
+            -92.9961647854238,
+            283.93816002142194,
+            277.79999999999995
+          ],
+          "length_mm": 62.67443454088909
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -92.9961647854238,
+            283.93816002142194,
+            277.79999999999995
+          ],
+          "midpoint_mm": [
+            -92.99904096378329,
+            284.0000297103038,
+            277.79999999999995
+          ],
+          "end_mm": [
+            -92.99999999648436,
+            284.06195879119934,
+            277.79999999999995
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 0.061938981463530496,
+          "length_mm": 0.12387796292706099
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -92.99999999648436,
+            284.06195879119934,
+            277.79999999999995
+          ],
+          "end_mm": [
+            -92.99999999648436,
+            319.10850151506435,
+            277.79999999999995
+          ],
+          "length_mm": 35.046542723865
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -92.99999999648436,
+            319.10850151506435,
+            277.79999999999995
+          ],
+          "midpoint_mm": [
+            -93.02595566499681,
+            319.9227683303867,
+            277.9713074121821
+          ],
+          "end_mm": [
+            -93.09932552409988,
+            320.59595316574354,
+            278.45554848226243
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 0.8386267508016885,
+          "length_mm": 1.677253501603377
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -93.09932552409988,
+            320.59595316574354,
+            278.45554848226243
+          ],
+          "end_mm": [
+            -94.93406812971939,
+            331.60440879946054,
+            290.56484967935114
+          ],
+          "length_mm": 16.467773114486526
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -94.93406812971939,
+            331.60440879946054,
+            290.56484967935114
+          ],
+          "midpoint_mm": [
+            -94.98317124168852,
+            331.92490801829763,
+            291.0377433637257
+          ],
+          "end_mm": [
+            -94.99999999648436,
+            332.10139507049854,
+            291.58302165507706
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 0.5753573069618425,
+          "length_mm": 1.150714613923685
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -94.99999999648436,
+            332.10139507049854,
+            291.58302165507706
+          ],
+          "end_mm": [
+            -94.99999999648436,
+            339.69967456605605,
+            335.2731287545326
+          ],
+          "length_mm": 44.34590521857125
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -94.99999999648436,
+            339.69967456605605,
+            335.2731287545326
+          ],
+          "midpoint_mm": [
+            -94.57832732299016,
+            340.18263059069267,
+            336.5271208672913
+          ],
+          "end_mm": [
+            -93.52241157196657,
+            340.94028354292533,
+            337.06984963461355
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 1.4392401943579012,
+          "length_mm": 2.8784803887158024
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -93.52241157196657,
+            340.94028354292533,
+            337.06984963461355
+          ],
+          "end_mm": [
+            -73.92606777321845,
+            353.4106841421287,
+            337.99622225055435
+          ],
+          "length_mm": 23.24619856249426
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -73.92606777321845,
+            353.4106841421287,
+            337.99622225055435
+          ],
+          "midpoint_mm": [
+            -73.24675608103301,
+            354.1356882560137,
+            338.0283351669122
+          ],
+          "end_mm": [
+            -72.99999999648436,
+            355.09854958875803,
+            338.03999999999996
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 1.0045725213288805,
+          "length_mm": 2.009145042657761
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -72.99999999648436,
+            355.09854958875803,
+            338.03999999999996
+          ],
+          "end_mm": [
+            -72.99999999648436,
+            370.0000000000403,
+            338.03999999999996
+          ],
+          "length_mm": 14.90145041128227
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -72.99999999648436,
+            370.0000000000403,
+            338.03999999999996
+          ],
+          "midpoint_mm": [
+            -73.58578643411484,
+            371.414213562417,
+            338.03999999999996
+          ],
+          "end_mm": [
+            -74.99999999649445,
+            372.0000000000403,
+            338.03999999999996
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 1.5707963267999379,
+          "length_mm": 3.1415926535998757
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -74.99999999649445,
+            372.0000000000403,
+            338.03999999999996
+          ],
+          "end_mm": [
+            -82.99,
+            372.0,
+            338.04
+          ],
+          "length_mm": 7.990000003505543
+        }
+      ]
+    },
+    "J9-B": {
+      "stock": "ribbon22",
+      "start": "J9.B",
+      "end": "display.B",
+      "segments": [
+        {
+          "kind": "line",
+          "start_mm": [
+            -16.20012089648436,
+            238.70292002005039,
+            268.4
+          ],
+          "end_mm": [
+            -16.20012089648436,
+            238.70292002005039,
+            273.15210277688885
+          ],
+          "length_mm": 4.752102776888876
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -16.20012089648436,
+            238.70292002005039,
+            273.15210277688885
+          ],
+          "midpoint_mm": [
+            -16.197561100550104,
+            238.39972874358588,
+            274.21081748176067
+          ],
+          "end_mm": [
+            -16.19065784820472,
+            237.5820831405357,
+            274.94852768360903
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 1.1156858068911633,
+          "length_mm": 2.2313716137823265
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -16.19065784820472,
+            237.5820831405357,
+            274.94852768360903
+          ],
+          "end_mm": [
+            -16.001015430847026,
+            215.12016505520677,
+            285.9411922915905
+          ],
+          "length_mm": 25.008246709876648
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -16.001015430847026,
+            215.12016505520677,
+            285.9411922915905
+          ],
+          "midpoint_mm": [
+            -16.00025481317888,
+            214.99830897585971,
+            285.99587027432045
+          ],
+          "end_mm": [
+            -16.000000896484362,
+            214.87307834983508,
+            286.0423072234051
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 0.13358816663893425,
+          "length_mm": 0.2671763332778685
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -16.000000896484362,
+            214.87307834983508,
+            286.0423072234051
+          ],
+          "end_mm": [
+            -16.000000896484362,
+            204.8973666161514,
+            289.3675444679663
+          ],
+          "length_mm": 10.51532345323582
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -16.000000896484362,
+            204.8973666161514,
+            289.3675444679663
+          ],
+          "midpoint_mm": [
+            -15.414214458857458,
+            203.55572582965152,
+            289.81475806346623
+          ],
+          "end_mm": [
+            -14.000000896484362,
+            203.00000002005038,
+            290.0
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 1.5707963267948966,
+          "length_mm": 3.141592653589793
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -14.000000896484362,
+            203.00000002005038,
+            290.0
+          ],
+          "end_mm": [
+            15.999999103515638,
+            203.00000002005038,
+            290.0
+          ],
+          "length_mm": 30.0
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            15.999999103515638,
+            203.00000002005038,
+            290.0
+          ],
+          "midpoint_mm": [
+            17.414212665888734,
+            202.41421358242349,
+            290.0
+          ],
+          "end_mm": [
+            17.999999103515638,
+            201.00000002005038,
+            290.0
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 1.5707963267948966,
+          "length_mm": 3.141592653589793
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            17.999999103515638,
+            201.00000002005038,
+            290.0
+          ],
+          "end_mm": [
+            17.999999103515638,
+            166.07036753702639,
+            290.0
+          ],
+          "length_mm": 34.929632483023994
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            17.999999103515638,
+            166.07036753702639,
+            290.0
+          ],
+          "midpoint_mm": [
+            17.763348301051526,
+            165.12665168596234,
+            290.0
+          ],
+          "end_mm": [
+            17.109399495966095,
+            164.4062669483507,
+            290.0
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 0.9827937232473287,
+          "length_mm": 1.9655874464946574
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            17.109399495966095,
+            164.4062669483507,
+            290.0
+          ],
+          "end_mm": [
+            10.14723547277802,
+            159.7648242662253,
+            290.0
+          ],
+          "length_mm": 8.36747979126509
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            10.14723547277802,
+            159.7648242662253,
+            290.0
+          ],
+          "midpoint_mm": [
+            9.395416452290178,
+            158.8460693131626,
+            290.0646517067465
+          ],
+          "end_mm": [
+            9.29469931467682,
+            157.67384906982505,
+            290.23576016892895
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 1.207157193689689,
+          "length_mm": 2.414314387379378
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            9.29469931467682,
+            157.67384906982505,
+            290.23576016892895
+          ],
+          "end_mm": [
+            18.860571484749183,
+            114.62742430449943,
+            297.8884579049868
+          ],
+          "length_mm": 44.75560722513403
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            18.860571484749183,
+            114.62742430449943,
+            297.8884579049868
+          ],
+          "midpoint_mm": [
+            19.067169044189736,
+            114.05791207580722,
+            298.0537359525393
+          ],
+          "end_mm": [
+            19.401484476542162,
+            113.59851464702385,
+            298.32118829842125
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 0.6305763724081062,
+          "length_mm": 1.2611527448162123
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            19.401484476542162,
+            113.59851464702385,
+            298.32118829842125
+          ],
+          "end_mm": [
+            28.570967087547345,
+            104.42903203601867,
+            305.65677438722537
+          ],
+          "length_mm": 14.89864577648953
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            28.570967087547345,
+            104.42903203601867,
+            305.65677438722537
+          ],
+          "midpoint_mm": [
+            28.88966755490243,
+            103.98357027008396,
+            306.03849605968907
+          ],
+          "end_mm": [
+            28.999999103515638,
+            103.5070797614303,
+            306.4929202586201
+          ],
+          "radius_mm": 1.9999999999999998,
+          "angle_radians": 0.6707600617904586,
+          "length_mm": 1.3415201235809169
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            28.999999103515638,
+            103.5070797614303,
+            306.4929202586201
+          ],
+          "end_mm": [
+            28.999999103515638,
+            102.58578645767729,
+            307.4142135623731
+          ],
+          "length_mm": 1.3029054850910433
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            28.999999103515638,
+            102.58578645767729,
+            307.4142135623731
+          ],
+          "midpoint_mm": [
+            28.999999103515638,
+            101.93693976003438,
+            307.84775906502256
+          ],
+          "end_mm": [
+            28.999999103515638,
+            101.1715728953042,
+            308.0
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 0.7853981633974483,
+          "length_mm": 1.5707963267948966
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            28.999999103515638,
+            101.1715728953042,
+            308.0
+          ],
+          "end_mm": [
+            28.999999103515638,
+            81.20883540877455,
+            308.0
+          ],
+          "length_mm": 19.962737486529647
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            28.999999103515638,
+            81.20883540877455,
+            308.0
+          ],
+          "midpoint_mm": [
+            28.712516637325294,
+            80.17428937439288,
+            307.97753194246405
+          ],
+          "end_mm": [
+            27.93296742966507,
+            79.43806412388615,
+            307.9166066391511
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 1.0873229500304298,
+          "length_mm": 2.1746459000608596
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            27.93296742966507,
+            79.43806412388615,
+            307.9166066391511
+          ],
+          "end_mm": [
+            -3.2671913424824046,
+            63.0069781404459,
+            305.4781728393
+          ],
+          "length_mm": 35.34651967872755
+        },
+        {
+          "kind": "arc",
+          "start_mm": [
+            -3.2671913424824046,
+            63.0069781404459,
+            305.4781728393
+          ],
+          "midpoint_mm": [
+            -4.330114528342137,
+            62.20936273451879,
+            305.80705705098126
+          ],
+          "end_mm": [
+            -4.75,
+            61.38614602820126,
+            306.8170923496882
+          ],
+          "radius_mm": 2.0,
+          "angle_radians": 1.3972418240073337,
+          "length_mm": 2.7944836480146673
+        },
+        {
+          "kind": "line",
+          "start_mm": [
+            -4.75,
+            61.38614602820126,
+            306.8170923496882
+          ],
+          "end_mm": [
+            -4.75,
+            59.22607966083908,
+            310.55843704568025
+          ],
+          "length_mm": 4.320132734724363
+        }
+      ]
+    }
+  },
+  "unchanged_electrical_body_receipt": "../../../mechanical-qualification/enclosure-above-core/wall-mount-review.json"
+}
