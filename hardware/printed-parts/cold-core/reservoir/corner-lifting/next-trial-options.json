@@ -1,6 +1,6 @@
 {
   "recorded_on": "2026-10-25",
-  "status": "Right task 1372664582 has reported persistent lifting on Textured PEI. Same right pair and recipe are prepared for glued Engineering Plate, 0.00 mm Z compensation; Mac unlock is required for final Studio Send. Earlier left water holds remain accepted.",
+  "status": "Mark1 task 1374272357 is printing the same right pair on glued Engineering Plate with 0.00 mm Z compensation and retained recipe. Startup RUNNING layer 0/833, no error/HMS; model contact and sealing unassessed. Earlier left water holds remain accepted.",
   "customer_outcome": "A flat, leak-free vented reservoir with acceptable appearance and less production time.",
   "trigger": "../prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json",
   "priority": [
@@ -10,8 +10,8 @@
       "evidence": "Derek reports worse/persistent lifting, supplies two photographs and reports the flat Engineering Plate glued and ready. Prior added user Z trim is verified zero; native Textured PEI compensation is -0.02 mm.",
       "record": "../prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json",
       "retained": "Flow 1.05, five Arachne walls at 10 degrees, 30% overlap, 255/260 C nozzle, 70 C bed, solid floor fill, 0.30/0.24 mm layers, May motion/cooling, no brim, zero added trim and ironing off.",
-      "status": "Native review complete; prepared, not sent. Mac locked; unlock requested.",
-      "launch": null,
+      "status": "Launched on Mark1 as task 1374272357.",
+      "launch": "../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/launch.json",
       "prepared_record": "../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md"
     },
     {
@@ -99,12 +99,12 @@
     "physical_result": "../prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json"
   },
   "current_trial": {
-    "job_id": null,
+    "job_id": "1374272357",
     "printer": "Mark1",
     "side": "right",
     "record": "../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md",
     "start_slot": "A1",
-    "status": "Prepared, not sent. Manual Mac unlock required for Studio access and final selections.",
+    "status": "RUNNING at layer 0/833, no print error/HMS. Native right 0.8 mm and A1 confirmed at startup. Adhesion and sealing unassessed.",
     "plate": "Engineering Plate, glued",
     "nozzle_c_first_subsequent": [
       255,
@@ -116,7 +116,8 @@
     ],
     "added_user_z_trim_mm": 0,
     "emitted_plate_z_trim_mm": 0,
-    "only_saved_setting_change": "Plate type, including per-plate bed_type metadata."
+    "only_saved_setting_change": "Plate type, including per-plate bed_type metadata.",
+    "launch": "../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/launch.json"
   },
   "reported_water_hold": {
     "result": "../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json",
@@ -153,7 +154,7 @@
     "trial_settings": "../prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/settings.json",
     "physical_result": "../prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json",
     "repeat_launch": "../prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/launch.json",
-    "repeat_outcome": "The Textured PEI right repeat, task 1372664582, has reported persistent lifting. Same right pair is prepared for glued Engineering Plate; final Studio Send awaits Mac unlock."
+    "repeat_outcome": "The Textured PEI right repeat, task 1372664582, has reported persistent lifting. Same right pair and recipe launched on glued Engineering Plate as task 1374272357."
   },
   "reported_water_holds": [
     {
