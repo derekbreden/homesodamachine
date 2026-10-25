@@ -202,8 +202,14 @@ its external continuous inlet/holder/foam and concealed rear join, V-A/V-K
 and their fitted plumbing, the complete inlet header, ASSE and gas group.
 The V-A low feed connects to front-top's Y-A. Complete rear connections on
 the open back-top; keep the funnel opening available for central handoffs.
-Keep the low V-A under-head tube, fore feed and east-turn union loose during
-the ride over the core. Rotate the pump's TPU inlet elbow up and the lower
+Keep the low V-A under-head tube, fore feed and east-turn union disconnected
+during the ride over the core. After the column is home, feed the bare low
+tube west under the pump head into V-A's fitted outlet elbow. Fit the
+east-turn union to the tube's east end afterward, then connect the forward
+feed to Y-A. Keep the pump-side joint clocked apart until this low feed is
+assembled; the [staging plan](/hardware/mechanical-qualification/enclosure-above-core/sliding-assembly-staging.json)
+records the local tube-insertion screen and its scope.
+Rotate the pump's TPU inlet elbow up and the lower
 pump-side push-fit elbow down about 45° at their existing round joints, so
 they pass each other during the slide. After the column is home, rotate them
 back to their installed clocking and connect the pump-inlet link
@@ -213,6 +219,22 @@ record the named rigid group and seventeen sampled offsets. They do not
 establish a continuous populated path or flexible connection handling. The
 low V-A tube clears the selected upper B-fill fitting by 1.482589 mm in the
 [native fit reading](/hardware/printed-parts/cold-core/foam-cap/b-fill-pair-review.json).
+Finish Reservoir A's paired-seat ties on the open core. Leave the front
+valve ends free for the slide and dress the flexible spans clear of passing
+fittings, using the loose elbow joints' rotation as needed. Keep the selected
+anchor stations and core entries; finish dressing the free spans and connect
+the front ends once the column is home. Their drawn intermediate bends are
+not assembly restraints.
+
+Fit the last CO₂ elbow (`gas-upper-b`) to the core tube before the ride,
+leaving its male stem separate from the header's fore-facing socket
+(`gas-upper-a`). Keep this tube and loose elbow clear while V-K passes.
+For the last approximately 20 mm, present the elbow with its stem pointing
+aft along Y and guide it into the approaching socket. Its modeled engagement
+is 16.891 mm; use the actual receiving mark. This is temporary staging of a
+loose fitting, with its final back-top assignment retained. The
+[staging plan](/hardware/mechanical-qualification/enclosure-above-core/sliding-assembly-staging.json)
+records the coaxial joint and the limits of the local mesh screen.
 
 Preassemble the rear soda fittings and meter together while back-top is open.
 Their concealed blue tube occupies a nominal 15.7 mm in the meter and

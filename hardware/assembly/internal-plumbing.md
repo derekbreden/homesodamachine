@@ -54,7 +54,10 @@ place of their nominal allowances. The plain lid guide adds no insertion,
 fitting or physical cut. The reported warm span is part of this single tube,
 as with the continuous soda riser through its own plain guide.
 
-The V-A turn and feed travel with back-top on their connected tubing. The
+The V-A turn and feed belong to back-top, with their final connection at
+front-top's Y-A. Fit their bare low tube under the pump after the column is
+home, then add the east-turn union and forward feed
+([assembly staging](/hardware/mechanical-qualification/enclosure-above-core/sliding-assembly-staging.json)). The
 V-B return bearing belongs to the core lid. Thread its retaining tie before
 seating the fitting. Keep the tie on the fixed body band and leave both
 release collets free.
@@ -72,6 +75,14 @@ folded group. The below-lid route continues to the carbonator's existing gas
 fitting and support-ring lane. That check-to-carbonator leg is one uncut tube
 through the plain gas guide; combine both CAD spans when marking its two
 receiving ends.
+
+For the enclosure slide, fit the last elbow (`gas-upper-b`) to that core
+tube and leave its male stem separate from `gas-upper-a` on back-top.
+Keep the tube and loose elbow clear while V-K passes. Present the elbow
+for the final approximately 20 mm, guiding its aft-pointing stem into the
+fore-facing socket as the column seats. The existing stem joint follows Y;
+its nominal engagement is 16.891 mm. Use the actual receiving mark and keep
+the joint aligned by hand, without using the enclosure screws to seat it.
 
 Thread ties through the two fixed east-wall support windows before seating the
 bodies. Retain their fixed barrels without loading a stem elbow or moving
@@ -267,7 +278,10 @@ Reservoir A's two continuous tubes share integral paired seats at Y205 and
 Y304 mm. Draw is west of fill: their centreline X stations are 50.5/58 mm
 at the fore seat and 86.5/94 mm at the aft seat, both at Z259.5 mm. Thread
 one four-inch narrow tie through each empty seat's transverse slot before
-laying in the pair; retain both tubes with that shared tie. Keep each tube
+laying in the pair; retain both tubes with that shared tie on the open core.
+Leave the front valve ends free during the column slide and dress the
+flexible spans clear of passing fittings. Once the column is home, finish
+dressing the free spans and connect the front ends. Keep each tube
 unbroken through its plain core guide. Only the connection points and
 paired-anchor centres/axes are fixed; the bends and displayed lengths between
 them illustrate routing and may change to clear installed hardware and
