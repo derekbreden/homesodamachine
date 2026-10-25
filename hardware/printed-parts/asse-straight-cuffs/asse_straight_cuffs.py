@@ -2,7 +2,7 @@
 
 These nominal fit solids define the selected installed envelope. Socket bores
 match the reference interfaces; no elastomer interference, seal, retention or
-pressure qualification is represented. Each print has its large mouth down.
+pressure qualification is represented. Each prints turned over, on its tube end.
 """
 
 from functools import cache
@@ -45,7 +45,7 @@ def _axial(side):
 
 
 def build(side):
-    """One job solid, with its open metal socket on the Z=0 print bed."""
+    """One job solid, its open metal socket mouth at Z=0."""
     return (_axial(side).rotate((0, 0, 0), (1, 0, 0), 180)
             .translate((0., 0., METAL_SOCKET_DEPTH[side])))
 

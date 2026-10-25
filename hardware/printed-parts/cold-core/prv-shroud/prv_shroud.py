@@ -121,17 +121,20 @@ def build_prv_shroud():
         .circle(outer_diameter / 2)
         .extrude(total_length)
     )
+    # The overcut clears the open end; the cavity stops at the cap's inside face.
     cavity = (
         cq.Workplane("XY")
+        .workplane(offset=-overcut)
         .circle(inner_diameter / 2)
         .extrude(cavity_length + overcut)
     )
+    # The bore starts on the cup's axis, inside the cavity, so it opens through the curved
+    # inner wall across its whole width.
     vent_hole = (
         cq.Workplane("XZ")
-        .workplane(offset=inner_diameter / 2 - overcut)
         .center(0.0, vent_station_z)
         .circle(vent_hole_diameter / 2)
-        .extrude(wall_thickness + 2 * overcut)
+        .extrude(outer_diameter / 2 + overcut)
     )
     # Print cap-down (-Z), with the open elbow seat upward. Only the radial
     # vent has a bridge crown: extend that side toward print-up, keeping the
