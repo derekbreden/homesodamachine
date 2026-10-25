@@ -74,9 +74,11 @@ def stock_probes(data):
     slot = cq.Solid.makeBox(b[0] - a[0], b[1] - a[1], 3.2,
                             cq.Vector(a[0], a[1], bottom - .1))
     root_x = data['wall_root_x_mm']
-    landing = cq.Solid.makeBox(.01, data['beam_width_mm'], 3., cq.Vector(
-        root_x - .01, data['wall_lane_world_y_mm'] - data['beam_width_mm'] / 2.,
-        bottom))
+    root_width = data.get('wall_landing_width_mm', data['beam_width_mm'])
+    landing = cq.Solid.makeBox(.01, root_width,
+        data.get('wall_landing_height_mm', 3.), cq.Vector(
+            root_x - .01, data['wall_lane_world_y_mm'] - root_width / 2.,
+            data.get('wall_landing_bottom_world_z_mm', bottom)))
     return {'full_3mm_quarter_missing_mm3': quarter.cut(bore),
             'full_3mm_slot_surround_missing_mm3': surround.cut(slot),
             'wall_landing_missing_mm3': landing}
