@@ -1,7 +1,7 @@
 {
   "scope": "Manual frame remnant correction: preserved fastener annuli, brim bearing and original drain web; no load/print qualification.",
   "before_step_sha256": "159e06d1548cc30b871e6e973f5a9d0929a0fba47a91a9027040efa66b9f7a59",
-  "source_sha256": "0bac48ff768efa9fc1b38c12ab97bab5e0384073777d5fc4a46ca0c143001119",
+  "source_sha256": "f34ff943efdb033bc3a21a03497fa3806a8eec9e87675164c92ff0563ba0eb86",
   "before": {
     "valid": true,
     "solids": 1,
@@ -62,9 +62,38 @@
   "drain_web_changed_mm3": 0.0,
   "passed": true,
   "current_artifacts_sha256": {
-    "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "26502aed4bb2375530be1adc586b84f8fca15edf5552c308afe04234c51488fd",
-    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "693c144c727c12c50153b62548a8bf4bbfb03ae49fb55d8108dbdde906af986e",
-    "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh": "ae05ea4c5f508bd2bfb80e4a248b43a471a8b51b22a9ef2dac32430da6dd351b"
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "da7434235fcae032f9cd10a37c27e28a019910413023c8291c70b5b9a8f9831a",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "b61d9ba8ba32153b8e64d51e08a52c6d7dfa61bb2e8e538a1c47be2495b3a6dc",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh": "8abaa20cb27099b4bba24f371268090e1af8dfcf9174e3b28d3314713f03398c"
   },
-  "before_snapshot": "/var/folders/qc/hn57tpxs7tg5842pdqg075vc0000gn/T/hsm-changes/20261025-032213"
+  "before_snapshot": "/var/folders/qc/hn57tpxs7tg5842pdqg075vc0000gn/T/hsm-changes/20261025-032213",
+  "front_head_well_reconciliation": {
+    "scope": "Extend front upward head wells to the existing silicone pocket edge, removing only the 0.35 mm ribbons above the head seats.",
+    "before_step_sha256": "26502aed4bb2375530be1adc586b84f8fca15edf5552c308afe04234c51488fd",
+    "added_material_mm3": 0.0,
+    "removed_material_mm3": 12.99200000001747,
+    "valid": true,
+    "solids": 1,
+    "head_seats": [
+      {
+        "name": "front-west",
+        "missing_stock_mm3": 0.0
+      },
+      {
+        "name": "front-east",
+        "missing_stock_mm3": 0.0
+      },
+      {
+        "name": "back-west",
+        "missing_stock_mm3": 0.0
+      },
+      {
+        "name": "back-east",
+        "missing_stock_mm3": 0.0
+      }
+    ],
+    "brim_bearing_removed_mm3": 0.0,
+    "drain_web_changed_mm3": 0.0,
+    "passed": true
+  }
 }
