@@ -3222,7 +3222,7 @@
     },
     "scope": "Only four changed relay pilot floors read against the physical printed STL. The devices, pad outer profiles, bearing tips, head envelopes and stations retain the prior native/electrical fixture scope. No unchanged contact pair or core check is replayed. The independent fore-meter neck belongs to wall-meter-review.json.",
     "source_sha256": {
-      "hardware/mechanical-qualification/enclosure-above-core/wall_mounts.py": "234c9480fb6ec24a1b5ae91d07aed3f769a5f6c87eb87b4c0c83737ff7137c08",
+      "hardware/mechanical-qualification/enclosure-above-core/wall_mounts.py": "ce4157e1acb835b1398614b37f5e08c2bf82edf79e16980d4372bef5ff90d6b7",
       "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "817979c0e307c331ed0ef6c3f57b61450c569faff4dc6eecc02ea81f0d6d6530",
       "hardware/manifold-layout/above-core.json": "04887b550cc53b2516832689b40f81a56e83119e4cc04921ad9819ed343c726b"
     },

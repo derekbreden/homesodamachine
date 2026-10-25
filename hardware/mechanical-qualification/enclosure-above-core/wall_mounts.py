@@ -132,7 +132,8 @@ def bind_printed_floor_delta(path, output):
         report['contact_fixture_plans'] = report.pop('plans')
     if 'finite_fastener_stacks' in report:
         report['contact_fixture_finite_fastener_stacks'] = report.pop('finite_fastener_stacks')
-    if 'retained_native_back_top_fixture' not in report:
+    if ('retained_native_back_top_fixture' not in report
+            and 'actual_back_top_binding' in report):
         report['retained_native_back_top_fixture'] = report.pop('actual_back_top_binding')
     report['selected_fastener_plans'] = datums
     report['selected_finite_fastener_stacks'] = [
