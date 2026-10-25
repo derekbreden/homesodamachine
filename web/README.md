@@ -59,7 +59,7 @@ conductors, endpoints and parts; selections can be hidden and restored.
 Both guides include a crop of the native PCB geometry and its printed labels,
 with crop assets and provenance in `public/harness/`. Cable reach is compressed
 for the bench view; it does not specify installed routing. The labor ledger
-includes J2's ten minutes and the J13 fixed half's five minutes once within
+includes J2's ten minutes and J13's five minutes once within
 Wiring, with the other harnesses listed as individual estimates and
 installation counted separately. These are theoretical, unmeasured unit-25
 estimates for practiced hands with the map, tools and materials ready;
