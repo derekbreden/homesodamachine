@@ -530,6 +530,10 @@
             "Standard"
           ],
           "reason": "The left hotend is the 0.8 mm High Flow the stack prints on; the base project's right entry reads Hybrid, which the slicer command line refuses (\"unsupported NozzleVolumeType=2\"). The right hotend carries no filament on this plate."
+        },
+        "sparse_infill_pattern": {
+          "value": "gyroid",
+          "reason": "Derek's PET-GF production baseline is two walls and 15% gyroid (9c40265a5); the base project's grid carries no decision of his."
         }
       },
       "plate_border_mm": 20.0,
