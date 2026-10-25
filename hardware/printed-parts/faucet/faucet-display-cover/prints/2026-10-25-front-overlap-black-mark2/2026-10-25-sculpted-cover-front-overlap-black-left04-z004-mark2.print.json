@@ -1,0 +1,124 @@
+{
+  "project": "2026-10-25-sculpted-cover-front-overlap-black-left04-z004-mark2.3mf",
+  "settings_source": "hardware/printed-parts/faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/2026-10-24-industrial-sculpted-buttons-bands020v2-black-left04-z004-mark2.3mf",
+  "settings_source_sha256": "5da0f3208d9605f8557609b0e957769468c5106301d09e1e2bbc22dbb586dd9f",
+  "settings_sha256": "987a5e177a7ff369594322a0107c23f4dddfdb094bbbfe9fd22f7628e0961d99",
+  "source_settings_sha256": "987a5e177a7ff369594322a0107c23f4dddfdb094bbbfe9fd22f7628e0961d99",
+  "settings_changes": {},
+  "printer": "Mark2",
+  "process": "0.24mm PET-GF faucet",
+  "filament": [
+    "Polymaker PET-GF @BBL H2C"
+  ],
+  "layer_height_mm": 0.24,
+  "nozzle_diameter_mm": [
+    0.4,
+    0.4
+  ],
+  "line_widths_mm": {
+    "outer_wall_line_width": 0.42,
+    "inner_wall_line_width": 0.45,
+    "sparse_infill_line_width": 0.45,
+    "internal_solid_infill_line_width": 0.42,
+    "top_surface_line_width": 0.45,
+    "support_line_width": 0.62
+  },
+  "wall_loops": 2,
+  "sparse_infill_percent": 15.0,
+  "sparse_infill_pattern": "grid",
+  "saved_profile_filament_density_g_cm3": [
+    1.29
+  ],
+  "bed_type": "Textured PEI Plate",
+  "shared_printable_area_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "printable_area_extruders": [
+    0
+  ],
+  "plate_border_mm": 80.0,
+  "plate_count": 1,
+  "parts": [
+    {
+      "name": "sculpted-display-cover",
+      "plate": 1,
+      "object_id": "2",
+      "part_id": "1",
+      "member": "3D/Objects/object_1.model",
+      "identify_id": 1901,
+      "source": "hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/proposed-cover.stl",
+      "stl_sha256": "3d4d2e05edde5a0e45aad36e9de072a57103c3b0f8da2bbd875cbfbedbe68133",
+      "triangles": 4982,
+      "rotation_x_degrees": -50.0,
+      "source_center_mm": [
+        0.0,
+        -128.5051383972168,
+        207.77315521240234
+      ],
+      "build_transform": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.6427876096865394,
+        -0.766044443118978,
+        0.0,
+        0.766044443118978,
+        0.6427876096865394,
+        162.5,
+        159.01714081182666,
+        10.095567854458237
+      ],
+      "plate_translation_mm": [
+        162.5,
+        159.01714081182666,
+        10.095567854458237
+      ],
+      "plate_origin_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "plate_bounds_mm": [
+        [
+          148.27867889404297,
+          134.50953324431714,
+          0.0
+        ],
+        [
+          176.72132110595703,
+          185.49046675568286,
+          16.05001425648164
+        ]
+      ],
+      "watertight": true,
+      "body_count": 1,
+      "embedded_vertex_error_mm": 4.990234891977252e-10
+    }
+  ],
+  "project_sha256": "fb08838af3bf6cff212acec6ccc2dabc6701fe8745840bbbf459c78597cb765d",
+  "settings_preserved_byte_for_byte": true,
+  "requested_z_trim_mm": 0.04,
+  "active_nozzle": 0,
+  "first_bed_layer_height_mm": 0.24,
+  "layer_ranges": [],
+  "complete_project_settings_preserved_byte_for_byte": true,
+  "cover_object_overrides_preserved": true,
+  "authorization_quote": "Please print your recommended faucet display cover on mark2, the bed is clear and ready.",
+  "launch_authorized": true,
+  "submitted": false,
+  "geometric_review": "hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/native-review.json",
+  "source_sha256": {
+    "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/prepare.py": "b33e7a11b5c92358656cb6197c3f0d37d506f38f8a3e3a505a7a1815f32040e0",
+    "hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/review.py": "99ea77ec00f224d8e905e573900162620736ecb41d1ebcbd97548e52cecd8fbe",
+    "hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/native-review.json": "1fb15171e74708d5ea198d5dba4c40deb8c197451bae2fc4ef5db36a8cc6e614",
+    "hardware/printed-parts/faucet/faucet-display-cover/corner-overlap-review/2026-10-25/proposed-cover.stl": "3d4d2e05edde5a0e45aad36e9de072a57103c3b0f8da2bbd875cbfbedbe68133"
+  }
+}

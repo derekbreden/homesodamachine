@@ -1,5 +1,15 @@
 # Industrial faucet print log
 
+## Sculpted cover front-corner overlap — 2026-10-25, Mark2
+
+Mark2 accepted [one centered black PET-GF cover](../faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/README.md)
+as task **1374330388** at **11:57:04 CDT**. Its extended front skirts provide
+1.2 mm nominal overlap of the tip ledge in side projection. The display, tip,
+cover cavity and snap dimensions retain the accepted head's fit datums. The
+slice has 67 uniform 0.24 mm layers, no warnings and an estimate of 23 min 5 s /
+5.85 g. It uses the fixed left hardened 0.4 mm nozzle, Textured PEI and the
+accepted PET-GF settings. The extension's physical result is unreported.
+
 ## Complete Industrial faucet with button relief — 2026-10-24, Mark2
 
 Mark2 accepted the [complete corrected five-part set](prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md)
@@ -13,7 +23,13 @@ commands contain 125 base layers at 0.20 mm; all other parts retain 0.24 mm.
 The warning-free slice estimates **6 h 32 min 9 s / 160.58 g** and keeps at least
 **42.1365 mm** of full-bead bed margin. Black PET-GF, fixed left hardened 0.4 mm,
 Textured PEI, Mark2 +0.04/+0.02 mm trim, selected supports, seams, localized
-cooling and standing calibration options are retained. Physical fit is untested.
+cooling and standing calibration options are retained.
+
+The [October 25 physical record and eight photographs](prints/2026-10-24-buttons-sculpted-bands020-mark2/physical-result/physical-result.json)
+report very good fit of the Sculpted cover with the display, tubes and wiring.
+The remaining front-corner opening has an
+[cover-only skirt-overlap trial](../faucet-display-cover/corner-overlap-review/2026-10-25/README.md).
+Numerical installation force and retention remain unmeasured.
 
 ## Sculpted cover and display-button fit — 2026-10-24
 
