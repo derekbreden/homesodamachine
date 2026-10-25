@@ -1515,5 +1515,37 @@
       },
       "basis": "Only the named two threading-mouth cuts changed. The native canonical lid matches the finite candidate metrics; no equipment, wire, column, bridge or whole-lid stock reading is repeated."
     }
+  },
+  "fore_tie_head_dressing": {
+    "scope": "Only the nominal fore head is on the east side. The closed strip profile, window and tube/seat stations are identical. Physical tie/head fit and threading remain unqualified.",
+    "head_bounds_world_mm": [
+      61.55,
+      203.1,
+      259.0,
+      65.25,
+      206.9,
+      262.4
+    ],
+    "candidate_brep_sha256": "03ab0999619dabca9336efb7ffb335d4d90706fd639b227e4b7c5401e3cd453e",
+    "selected_source_sha256": "b98ac1498385554c014d619fa0469b51d76892fd44090ec84627782afd154e2b",
+    "native_contacts": [
+      {
+        "subject": "east-head fore tie",
+        "wire": "PE-bus",
+        "wire_sha256": "a1798a487939caaaec3c73c66db1fb8479ab3777557074e79d89f57aa43d2cdc",
+        "common_mm3": 0.0,
+        "bounds_mm": null,
+        "distance_mm": 1.5757550884137501
+      },
+      {
+        "subject": "east-head fore tie",
+        "wire": "J2-COM",
+        "wire_sha256": "52c4cae5dad60a8a97414d8aa6b4745b13515c0bae9ea730e5bcc2c4e74e8798",
+        "common_mm3": 0.0,
+        "bounds_mm": null,
+        "distance_mm": 4.740530704356196
+      }
+    ],
+    "reader_sha256": "ebb65bb2b7a6f62c18a5e4e61855518f91cd40080623ea3f23f1d7cd5215dd6a"
   }
 }

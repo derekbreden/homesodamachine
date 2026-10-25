@@ -36,6 +36,7 @@ _SPECIFICATION = {
     "stations": [
         {"id": "a-pair-fore-anchor", "label": "Reservoir A fore paired anchor",
          "tube_centers_world_mm": [[50.5, 205., 259.5], [58., 205., 259.5]],
+         "tie_head_side": "east",
          "routes_west_to_east": ["fluid-16", "fluid-14"]},
         {"id": "a-pair-aft-anchor", "label": "Reservoir A aft paired anchor",
          "tube_centers_world_mm": [[86.5, 304., 259.5], [94., 304., 259.5]],
@@ -139,7 +140,7 @@ def tie_profile(row):
 
 
 def tie_witnesses():
-    """Nominal 2.5 x 0.8 mm strips and west-side heads; no physical-fit claim."""
+    """Nominal 2.5 x 0.8 mm strips and dressed heads; no physical-fit claim."""
     import cadquery as cq
     from shapely.geometry import Polygon
     spec = specification()
@@ -157,6 +158,10 @@ def tie_witnesses():
 
         strip = cq.Solid.extrudeLinear(wire(outer.exterior.coords),
                                       [wire(inner.exterior.coords)], cq.Vector(0, -width, 0))
-        head = _box([[x-7.25, y-1.9, z-.5], [x-3.55, y+1.9, z+2.9]])
+        if row.get("tie_head_side", "west") == "east":
+            x = row["tube_centers_world_mm"][-1][0]
+            head = _box([[x+3.55, y-1.9, z-.5], [x+7.25, y+1.9, z+2.9]])
+        else:
+            head = _box([[x-7.25, y-1.9, z-.5], [x-3.55, y+1.9, z+2.9]])
         result[name+"-tie"] = strip.fuse(head).clean()
     return result
