@@ -2,11 +2,10 @@
 
 The appliance's 12 V supply (`hardware/ledger/bom.md` §1): an encapsulated
 **12 V / 6.7 A, ~80 W** AC-DC power module, screw-terminal ("ST") variant. It is
-the heaviest item on the [+X wall of back-top](/hardware/assembly/electronics-bay.md)
-and its AC→DC anchor — AC mains in on one end, the 12 V bus out the other. It is
-turned so its potted base — its own mounting plane, carrying its four holes — faces
-the enclosure's +X wall, and bolts to four printed bosses reaching in off it. Its
-feet stand on the top foam cap's lid.
+mounted on the [dry west wall of back-top](/hardware/assembly/electronics-bay.md),
+with AC mains in at its aft end and the 12 V bus out at its fore end. Its potted
+base and four-hole mounting plane face the enclosure's −X wall. Four integral
+wall hosts carry the module independently of the cold-core lid.
 
 `meanwell-irm90.step` is a generated stand-in for layout, not the real potted
 module. Geometry is from the official Mean Well IRM-90-SPEC mechanical drawing
@@ -38,7 +37,7 @@ height and hole pattern are the drawing's**. Regenerate with
 ## Terminal access
 
 AC wire entry faces +Y and DC entry −Y along the 109 mm axis. Screw heads
-face +Z in this reference; in the appliance they face the room along −X.
+face +Z in this reference; in the appliance their access axes point +X.
 `wire_entry()` separates the representative side-entry mouths from the
 `ac_in()` / `dc_out()` screw-head planes. Block dimensions are representative.
 The [assembly-fit review](../../printed-parts/enclosure/enclosure/assembly-fit-review/README.md)

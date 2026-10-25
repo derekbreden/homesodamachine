@@ -65,8 +65,8 @@ the cap. The PSU mounts on back-top's dry sidewall; its ceiling is continuous.
 | G Ganen diaphragm pump | 4 | M3 × 20 | RX-M3x5.7 | Nominal 7 mm rubber pad + 0.8 mm washer, 5.4 mm lid and 0.15 mm dry joint; 6.65 mm nominal reach into the column |
 | Main PCB | 4 | M3 × 8 | RX-M3x5.7 | 1.6 mm PCB on 3.6 mm standoffs; 6.4 mm reach |
 
-These eight cup-rooted columns are Ø8 mm with Ø4 mm blind pilots 9.75 mm
-deep. Flush pilot bottoms retain
+These eight cup-rooted columns are Ø10 mm with Ø4 mm blind pilots 9.75 mm
+deep, retaining the ordinary 3 mm radial insert wall. Flush pilot bottoms retain
 4.55 mm of stock to the cup's outer floor. The PCB posts pass through clearance
 holes in the lid. The pump retains its purchased rubber sliders and Ø9 × 0.8 mm
 washers; installed rubber compression and isolation remain unqualified.

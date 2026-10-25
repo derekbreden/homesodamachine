@@ -100,6 +100,12 @@ The union has a direct lid support near its fixed body band. Terminate the
 PCB power connections before fitting the return. J11 unmates 6 mm upward,
 moves 6 mm east, then lifts 20 mm with the funnel frame and drain removed.
 The meter's origin is X50/Y390.9148/Z306.376.
+Two 6 mm fixed-collar bearings reach the east wall through 9 × 3 mm beams.
+The fore beam has a flat dogleg around the gas-drop column; the aft beam
+passes below the gas regulator. Their complete nominal retaining strips use
+84.22 and 87.76 mm of six-inch stock. The [local carrier reading](../mechanical-qualification/enclosure-above-core/wall-meter-review.json)
+binds the printed stock, cached neighbors and access witnesses. Purchased tie
+dimensions, threading, bend/twist transitions and retention remain unqualified.
 Its inlet is the continuous insulated R14 tube. Its outlet meets the rear
 return fitting at the collet faces; the tube between those two sockets has no
 exposed length. The rear return reaches the soda bulkhead through nested
