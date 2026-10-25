@@ -10,17 +10,17 @@ This doc is the **physical wiring view** — gauges, run lengths, terminations, 
 
 ## Physical zones
 
-The insulated cold core occupies the rear floor. Its dry upper lid supports the flat PCB and PSU, four junction WAGOs and the earth stack. The fixed walls support the remaining electrical interfaces; both removable roof closures stay empty.
+The insulated cold core occupies the rear floor. Its dry upper lid supports the flat PCB, four junction WAGOs and the earth stack. Back-top carries the PSU and two raised relays on the dry west sidewall and the meter on its east-wall carriers. The funnel frame remains separate during final connections, beneath a continuous rear ceiling.
 
 | Zone | Location | Contents |
 |---|---|---|
-| Core lid | Above the insulated core | Main PCB, Mean Well IRM-90-12ST, +12 V/DC GND/sensor/reed WAGOs and ring-terminal earth stack |
-| Fixed enclosure walls | Rear wall, west wall and front manifold | C14 and three mains WAGOs at the rear; two Teyleten relays on the west wall; two manifold commons on front-top's east wall |
+| Core lid | Above the insulated core | Main PCB, +12 V/DC GND/sensor/reed WAGOs and ring-terminal earth stack |
+| Fixed enclosure walls | Rear wall, west wall and front manifold | C14 and three mains WAGOs at the rear; Mean Well IRM-90-12ST and two Teyleten relays on the west wall; two manifold commons on front-top's east wall |
 | Compressor zone | Front of the enclosure floor | Upright hermetic compressor on four floor posts, retained donor terminal/PTC cover, thermal fuse, condenser fan and low MQ-6 sensor |
 
 The main board is a single JLCPCB-assembled PCB carrying the ESP32-WROOM-32E, both MCP23017 expanders, the DS3231 RTC, both TBD62083 sink drivers, both DRV8870 pump H-bridges, and its own logic rails — [5 V](V_LOGIC) from the on-board K7805 buck (U10), [3.3 V](V_IO) from the on-board AMS1117 LDO (U9). It takes [12 V](V_DC) at the J10 screw inlet and presents every field interface as a labeled edge connector (next section); J14 is the USB-C programming port (bench cable only, no loom). The board carries those logic functions internally; a low-voltage loom lands either on a main-board connector or on a relay module's terminals.
 
-Teyleten relay #1 is on the west wall above the refrigeration bay. Its compressor lead carries [3](COMP_WIRES) continuous cores: switched H, N and PE. Relay #2 switches the lid-mounted diaphragm pump. See [`/hardware/README.md`](/hardware/README.md) “Safety” for the qualification scope.
+Both Teyleten relays are on back-top’s west wall above the PSU. Its compressor lead carries [3](COMP_WIRES) continuous cores: switched H, N and PE. Relay #2 switches the lid-mounted diaphragm pump. See [`/hardware/README.md`](/hardware/README.md) “Safety” for the qualification scope.
 
 ## Board connector map
 
