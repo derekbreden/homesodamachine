@@ -21,6 +21,7 @@ import cadquery as cq
 import above_core as layout
 import above_core_parts as parts
 import _above_core_shell as shell
+from _cadq_export import import_step
 
 NAMES = ('psu', 'relay-1', 'relay-2')
 CHANGED = ('AC2-L', 'AC2-N', 'AC3-L', 'AC4-H', 'DC1-V12', 'DC1-GND',
@@ -67,12 +68,85 @@ def xcylinder(radius, x0, x1, y, z):
                                  cq.Vector(1., 0., 0.))
 
 
+def bind_back_top(path, output):
+    """Append a local imported-shell reading without repeating electrical pairs."""
+    report = json.loads(output.read_text())
+    stock = import_step(path).val()
+    equipment = {name:layout.place(parts.native_reference(name),name) for name in NAMES}
+    subjects = dict(equipment)
+    for prefix,(pads,cutters) in (('psu',shell.psu_bosses()),
+                                   ('relays',shell.relay_bosses())):
+        subjects.update({prefix+'-host-'+str(i):pad.cut(*cutters).clean()
+                         for i,pad in enumerate(pads)})
+    metrics = {}
+    for name,body in subjects.items():
+        first,last = report['component_signatures'][name],signature(body)
+        deviation = max(abs(x-y) for x,y in zip(first['bounds_mm'],last['bounds_mm']))
+        dv = abs(first['volume_mm3']-last['volume_mm3'])
+        metrics[name] = {'bounds_max_deviation_mm':deviation,'volume_deviation_mm3':dv,
+            'same_face_count':first['faces']==last['faces'],
+            'same_solid_count':first['solids']==last['solids'],
+            'matched':deviation<=1.e-5 and dv<=max(.001,first['volume_mm3']*1.e-7)
+                and first['faces']==last['faces'] and first['solids']==last['solids']}
+    rows = []
+    for name,plan in shell.wall_mount_datums().items():
+        for station in plan['stations']:
+            if not station['threaded']:
+                continue
+            _,y,z = station['position_world_mm']
+            face = station['insert_face_world_mm'][0]
+            wall = xcylinder(5.,face-plan['insert_length_mm'],face,y,z).cut(
+                xcylinder(2.,face-plan['insert_length_mm'],face,y,z))
+            floor = xcylinder(2.,face-plan['pilot_depth_mm']-3.,
+                               face-plan['pilot_depth_mm'],y,z)
+            rows.append({'equipment':name,'native_hole_index':station['native_hole_index'],
+                'complete3mm_insert_wall_missing_mm3':volume(wall.cut(stock)),
+                'complete3mm_blind_floor_missing_mm3':volume(floor.cut(stock))})
+    contacts = {name:reading(body,stock) for name,body in equipment.items()}
+    # The ordinary roof is source Z346. Restrict this distance to the ceiling
+    # band, leaving the intended board-bearing contacts out of the measurement.
+    b = equipment['relay-2'].BoundingBox()
+    ceiling = stock.intersect(cq.Solid.makeBox(b.xlen+2.,b.ylen+2.,9.01,
+        cq.Vector(b.xmin-1.,b.ymin-1.,346.)))
+    host_missing = {name:volume(body.cut(stock))
+                    for name,body in subjects.items() if name not in equipment}
+    report['actual_back_top_binding'] = {
+        'path':str(path.relative_to(ROOT)), 'sha256':sha(path),
+        'stock':signature(stock), 'component_geometry_comparison':metrics,
+        'local_host_material_missing_mm3':host_missing,
+        'equipment_contacts':contacts, 'finite_insert_stock':rows,
+        'relay2_top_world_z_mm':b.zmax,'plain_roof_inner_world_z_mm':346.,
+        'relay2_to_actual_ceiling_band_gap_mm':equipment['relay-2'].distance(ceiling),
+        'comparison_tolerances':{'coordinate_mm':1.e-5,'volume_mm3':.001,
+                                'volume_relative':1.e-7,'faces_solids':'exact'},
+        'reproduce':'HSM_NO_BUILD_LOCK=1 tmp/takeover/cadq "bind actual dry-wall hosts" -- '
+            'tools/cad-venv/bin/python hardware/mechanical-qualification/enclosure-above-core/'
+            'wall_mounts.py --bind-back-top '+str(path.relative_to(ROOT)),
+        'binding_source_sha256':{str(p.relative_to(ROOT)):sha(p) for p in (
+            Path(__file__),Path(shell.__file__),ROOT/'hardware/manifold-layout/above-core.json')},
+        'scope':'Imported back-top only versus the three unchanged equipment bodies and eight finite insert-wall/floor witnesses. Electrical results above retain their original source/cache binding; those pairs were not replayed.',
+        'passed':stock.isValid() and len(stock.Solids())==1
+            and all(r['matched'] for r in metrics.values())
+            and all(value<=.001 for value in host_missing.values())
+            and all(r is None or r['common_mm3']<=TOL_MM3 for r in contacts.values())
+            and all(max(r['complete3mm_insert_wall_missing_mm3'],
+                        r['complete3mm_blind_floor_missing_mm3'])<=.001 for r in rows)}
+    output.write_text(json.dumps(report,indent=2)+'\n')
+    print('Actual back-top binding',report['actual_back_top_binding']['passed'],flush=True)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--wiring-index', required=True, type=Path,
+    parser.add_argument('--wiring-index', type=Path,
                         help='Explicit source-bound 111-body unchanged electrical cache')
+    parser.add_argument('--bind-back-top', type=Path,
+                        help='Append the imported final-shell reading to the existing receipt only')
     parser.add_argument('--output', type=Path, default=HERE/'wall-mount-review.json')
     args = parser.parse_args()
+    if args.bind_back_top:
+        return bind_back_top(args.bind_back_top.resolve(),args.output)
+    if not args.wiring_index:
+        parser.error('--wiring-index is required for the source/cache review')
     index_path = args.wiring_index.resolve()
     wire_index = json.loads(index_path.read_text())
     if set(wire_index['excluded_conductors']) != set(CHANGED):

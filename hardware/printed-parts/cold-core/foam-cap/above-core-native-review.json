@@ -2,7 +2,7 @@
   "schema": 1,
   "reviewed_date": "2026-10-24",
   "evidence_type": "Scoped manual native CAD queries",
-  "scope": "Selected cap mount stock, fluid and cable passages, curved water and soda roof passages, B-fill fitting pocket, discharge-check bridge, quarter flow-meter bearings and three integral valve walls. Results are geometric nominal clearances, not physical fit, structural capacity, pressure sealing or lifetime qualification. The checks are separate feature probes, not a complete appliance interference claim.",
+  "scope": "Selected cap stock for eight pump/PCB columns, V-B socket wall, water-check bridge, fluid/cable passages and B-fill fitting pocket. Each feature retains its named fixture and proof scope. Removed core-lid meter and V-A/V-K wall fixtures are marked inapplicable to current production. No physical fit, structural capacity, pressure sealing, lifetime or complete appliance interference qualification.",
   "feature_checks": {
     "passages_and_pilot_stock": {
       "shell": {
@@ -182,7 +182,8 @@
             "missing_1mm_blind_backing_mm3": 0.0
           }
         ]
-      }
+      },
+      "pilot_applicability_scope": "The recorded insert rows belong to the source/export fixture whose hashes accompany this record. Current eight-column pilot stock is in feature_checks.deck_mount_insert_stock; PSU hosts belong to the separate back-top wall-mount-review.json."
     },
     "b_fill_pair": {
       "link": {
@@ -375,20 +376,20 @@
     "check_bridge": {
       "scope": "Source-native east quarter bearing, complete 3 mm lid backing, four nominal pump-driver columns and complete water-check retaining-strip path, bound to the exported cap lid. Separate actual-appliance records cover equipment and wiring. No physical fit, threading, retention, pressure or life qualification.",
       "source_sha256": {
-        "hardware/printed-parts/cold-core/foam-cap/check_bridge_review.py": "357720c3bd790183b16a59ee1341c74e41c256f9eebbe32b9c7496f7613de507",
-        "hardware/printed-parts/cold-core/_above_core_mounts.py": "57b2a5912d73ef99b62c0de45feceef4d2bb96711079d9e31b4eaead1199bbda",
-        "hardware/printed-parts/cold-core/_cold_core_interface.py": "5dae3ef9f2254127cd24bbed5c063bbe77b95c1af6d829d02fc6057c724d5a9d",
-        "hardware/manifold-layout/above_core.py": "4dd9b5e53315a066771300cfbe8102f71501adc442469adfa8bb5008e809d4fc",
+        "hardware/printed-parts/cold-core/foam-cap/check_bridge_review.py": "3a69397b2d55cf6d33710ab855cb5f76ccfb19bb89cf9fad57e3a6fa8009e2f0",
+        "hardware/printed-parts/cold-core/_above_core_mounts.py": "98651e90bc1fd520e9737eb4240302a09b97cefb236687f5de32a2536faf5b57",
+        "hardware/printed-parts/cold-core/_cold_core_interface.py": "c0719df5f3bb053bf30960b67f2538575fbe606e72dd8d035b07000f38f4ef43",
+        "hardware/manifold-layout/above_core.py": "0ad87c7c252ab3cfe803c0f2a63a9374d06d0005591509031328ad6e3203988f",
         "hardware/reference/neofit-achv44-check/neofit_achv44_check.py": "a05bb8c69df5ee919985a0280fc04be1a425c71c605a6c9b846ab991c6e0f719",
         "hardware/printed-parts/cadlib/fits.py": "85b7eedd9af4ee77c4321575410b6e232c7572bda27609faf83c4bfdf5e77ab1",
         "hardware/reference/g-ganen-pump/installation/g_ganen_installation.py": "7c0c1fb6c5d91b6a2ff38b01a5e50d014be5c6e930f5c92de13970debab1997c",
-        "hardware/manifold-layout/above-core.json": "925438fdf7bb58011a95ea53c485b713bc8c243a80b0c515a2ba0ead000ccc5a",
+        "hardware/manifold-layout/above-core.json": "04887b550cc53b2516832689b40f81a56e83119e4cc04921ad9819ed343c726b",
         "hardware/reference/neofit-achv44-check/model-dimensions.json": "a9058aa42dc8a34f072abe4a1e5cc74d9b2a1c4d0547eba4e5d68bee679f9e4d",
         "hardware/reference/neofit-achv44-check/neofit-achv44-check.step": "6cba8b0db77eb05d3488c114d184e9bb8a691db49b681dcacbcfe833f7da2c82"
       },
       "exported_lid": {
         "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
-        "sha256": "3dc027887921d731b82089a236f760df9b5f27abc85851f1f347b71c43ecda20"
+        "sha256": "66d318de3189e9292dd31582f248fb737538f428f65295db4a06aa83f88c40a4"
       },
       "reference_basis": "neoFit ACHV44-E vendor mesh with same-family fixed-collar scale and receiving-depth inference; actual part dimensions unmeasured.",
       "datums": {
@@ -409,6 +410,7 @@
         "root_fore_y_mm": 382.43545217260646,
         "root_aft_y_mm": 387.43545217260646,
         "bearing_fore_y_mm": 356.0912956512049,
+        "seat_radius_mm": 8.581478550423588,
         "half_width_mm": 11.581478550423588,
         "stock_x_limits_world_mm": [
           -32.80179966121266,
@@ -1372,7 +1374,10 @@
           "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "dd29d9995ea887bbaa6d21a56c5c760adadb4853978d7b8ae46523a34cbdc8b1",
           "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "4d00f713a15018da6d17833611f50fead6d123bd6aef80af18f81e74b3d64d25"
         }
-      }
+      },
+      "current_applicability": false,
+      "selected_parent": "enclosure-back-top",
+      "applicability_scope": "This block records a core-lid bearing fixture. Production meter bearings and retaining-strip paths belong to enclosure-back-top; this block does not qualify those shell hosts."
     },
     "va_vk_walls": {
       "datums": {
@@ -1669,7 +1674,10 @@
         "valid": true,
         "solids": 1
       },
-      "root_fit_scope": "One flat aft face clears the native lower valve barrel and NeoFit collar by 0.15 mm nominal. The full socket plates and 3 mm socket backing remain unchanged. The lower roots are 7.153 mm deep and remain inside core X \u00b190.5 mm."
+      "root_fit_scope": "One flat aft face clears the native lower valve barrel and NeoFit collar by 0.15 mm nominal. The full socket plates and 3 mm socket backing remain unchanged. The lower roots are 7.153 mm deep and remain inside core X \u00b190.5 mm.",
+      "current_applicability": false,
+      "selected_parent": "enclosure-back-top",
+      "applicability_scope": "This block records core-lid V-A/V-K wall stock. Production V-A/V-K socket plates belong to enclosure-back-top; their bare installation procedure is hardware/mechanical-qualification/enclosure-above-core/valve-wall-mount-review.json."
     },
     "core_junction_wells": {
       "scope": "Four native connector bodies, blank-backed wells and twelve straight 8 mm long, 3 mm diameter wire-entry witnesses against the selected 25 fluid spans, PCB and 23 mated connector housings, cup, mount posts, valve walls and purchased components. This does not establish complete dressed-wire clearance.",
@@ -2626,6 +2634,68 @@
           50,
           100
         ]
+      },
+      "window_alignment": {
+        "scope": "V-B window roof aligned to its beam underside. Source-native local subtractive cleanup only; retaining-strip stations and purchased bodies unchanged.",
+        "native_local_reading": {
+          "added": {
+            "valid": true,
+            "solids": 0,
+            "faces": 0,
+            "volume_mm3": 0.0,
+            "bounds_mm": null
+          },
+          "removed": {
+            "valid": true,
+            "solids": 1,
+            "faces": 6,
+            "volume_mm3": 2.2105758101911763,
+            "bounds_mm": [
+              36.10000000000002,
+              -7.200000000000001,
+              29.19999999999999,
+              39.10000000000002,
+              -4.4,
+              29.46316378692751
+            ]
+          },
+          "before": {
+            "valid": true,
+            "solids": 1,
+            "faces": 18,
+            "volume_mm3": 990.2796352737828,
+            "bounds_mm": [
+              31.787559999999985,
+              -11.300000000000008,
+              5.25,
+              43.10046,
+              -1.3000000000000007,
+              40.77606378692757
+            ]
+          },
+          "after": {
+            "valid": true,
+            "solids": 1,
+            "faces": 19,
+            "volume_mm3": 988.0690594634605,
+            "bounds_mm": [
+              31.787559999999985,
+              -11.300000000000008,
+              5.25,
+              43.10046,
+              -1.3000000000000007,
+              40.77606378692757
+            ]
+          },
+          "complete3mm_roof_missing_mm3": 0.0
+        },
+        "strip_geometry": {
+          "old_length_mm": 111.55317893806708,
+          "new_length_mm": 111.55317893806699,
+          "segments_exactly_equal": false
+        },
+        "source_sha256": "3d3a6bbbf1e1b706ffa7e500825e462532d25f73ce9ceb54d54b17ec115ddb12",
+        "reproduction_api": "_above_core_mounts.union_supports()['vb-outlet-return'].cut(_above_core_mounts.union_support_cuts()['vb-outlet-return'])"
       }
     },
     "soda_out_passage": {
@@ -3039,13 +3109,1028 @@
           ]
         ]
       }
+    },
+    "deck_mount_insert_stock": {
+      "scope": "Current native exported cup at the eight pump/PCB stations only. Complete3mm radial pilot walls through the5.7mm insert and complete3mm blind backing are read directly; no load or heat-set retention qualification. The retained2mm cup-floor specification is separate.",
+      "exported_cup": {
+        "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+        "sha256": "1fcfd53ee7ece6df92dce648e3d5355ab1cf957e6c6234a99a697a69cef7078c",
+        "valid": true,
+        "solids": 1
+      },
+      "column_diameter_mm": 10.0,
+      "pilot_diameter_mm": 4.0,
+      "pilot_depth_mm": 9.75,
+      "station_checks": [
+        {
+          "equipment": "g-ganen-pump",
+          "station_cap_xy_mm": [
+            -106.63545217260645,
+            -30.868269476362286
+          ],
+          "top_cap_z_mm": 14.45,
+          "pilot_bottom_cap_z_mm": 4.699999999999999,
+          "complete3mm_insert_wall_missing_mm3": 0.0,
+          "complete3mm_blind_backing_missing_mm3": 0.0,
+          "pilot_blockage_mm3": 0.0
+        },
+        {
+          "equipment": "g-ganen-pump",
+          "station_cap_xy_mm": [
+            -106.63545217260645,
+            49.131730523637714
+          ],
+          "top_cap_z_mm": 14.45,
+          "pilot_bottom_cap_z_mm": 4.699999999999999,
+          "complete3mm_insert_wall_missing_mm3": 0.0,
+          "complete3mm_blind_backing_missing_mm3": 0.0,
+          "pilot_blockage_mm3": 0.0
+        },
+        {
+          "equipment": "g-ganen-pump",
+          "station_cap_xy_mm": [
+            -48.63545217260645,
+            -30.868269476362286
+          ],
+          "top_cap_z_mm": 14.45,
+          "pilot_bottom_cap_z_mm": 4.699999999999999,
+          "complete3mm_insert_wall_missing_mm3": 0.0,
+          "complete3mm_blind_backing_missing_mm3": 0.0,
+          "pilot_blockage_mm3": 0.0
+        },
+        {
+          "equipment": "g-ganen-pump",
+          "station_cap_xy_mm": [
+            -48.63545217260645,
+            49.131730523637714
+          ],
+          "top_cap_z_mm": 14.45,
+          "pilot_bottom_cap_z_mm": 4.699999999999999,
+          "complete3mm_insert_wall_missing_mm3": 0.0,
+          "complete3mm_blind_backing_missing_mm3": 0.0,
+          "pilot_blockage_mm3": 0.0
+        },
+        {
+          "equipment": "pcba",
+          "station_cap_xy_mm": [
+            50.097079979949626,
+            -79.49999389648437
+          ],
+          "top_cap_z_mm": 23.6,
+          "pilot_bottom_cap_z_mm": 13.850000000000001,
+          "complete3mm_insert_wall_missing_mm3": 0.0,
+          "complete3mm_blind_backing_missing_mm3": 0.0,
+          "pilot_blockage_mm3": 0.0
+        },
+        {
+          "equipment": "pcba",
+          "station_cap_xy_mm": [
+            50.097079979949626,
+            -13.199993896484365
+          ],
+          "top_cap_z_mm": 23.6,
+          "pilot_bottom_cap_z_mm": 13.850000000000001,
+          "complete3mm_insert_wall_missing_mm3": 0.0,
+          "complete3mm_blind_backing_missing_mm3": 0.0,
+          "pilot_blockage_mm3": 0.0
+        },
+        {
+          "equipment": "pcba",
+          "station_cap_xy_mm": [
+            128.09707997994963,
+            -79.49999389648437
+          ],
+          "top_cap_z_mm": 23.6,
+          "pilot_bottom_cap_z_mm": 13.850000000000001,
+          "complete3mm_insert_wall_missing_mm3": 0.0,
+          "complete3mm_blind_backing_missing_mm3": 0.0,
+          "pilot_blockage_mm3": 0.0
+        },
+        {
+          "equipment": "pcba",
+          "station_cap_xy_mm": [
+            128.09707997994963,
+            -13.199993896484365
+          ],
+          "top_cap_z_mm": 23.6,
+          "pilot_bottom_cap_z_mm": 13.850000000000001,
+          "complete3mm_insert_wall_missing_mm3": 0.0,
+          "complete3mm_blind_backing_missing_mm3": 0.0,
+          "pilot_blockage_mm3": 0.0
+        }
+      ],
+      "bounded_added_stock_context": {
+        "scope": "Bounded added-stock query for eight ordinary deck columns, R4 -> R5.",
+        "proposed_outer_radius_mm": 5,
+        "pilot_radius_mm": 2,
+        "column_rows": [
+          {
+            "name": "g-ganen-pump-0",
+            "station_cap_xy_mm": [
+              -106.63545217260645,
+              -30.868269476362286
+            ],
+            "native_top_mm": 14.45,
+            "valid": true,
+            "volume_mm3": 352.0154568347361,
+            "conduit_air_common_mm3": 0.0,
+            "bounds_world_mm": [
+              -35.868269476362286,
+              425.43545217260646,
+              235.4,
+              -25.868269476362286,
+              435.43545217260646,
+              247.85
+            ]
+          },
+          {
+            "name": "g-ganen-pump-1",
+            "station_cap_xy_mm": [
+              -106.63545217260645,
+              49.131730523637714
+            ],
+            "native_top_mm": 14.45,
+            "valid": true,
+            "volume_mm3": 352.0154568347361,
+            "conduit_air_common_mm3": 0.0,
+            "bounds_world_mm": [
+              44.131730523637714,
+              425.43545217260646,
+              235.4,
+              54.131730523637714,
+              435.43545217260646,
+              247.85
+            ]
+          },
+          {
+            "name": "g-ganen-pump-2",
+            "station_cap_xy_mm": [
+              -48.63545217260645,
+              -30.868269476362286
+            ],
+            "native_top_mm": 14.45,
+            "valid": true,
+            "volume_mm3": 352.01545683473614,
+            "conduit_air_common_mm3": 0.0,
+            "bounds_world_mm": [
+              -35.868269476362286,
+              367.43545217260646,
+              235.4,
+              -25.868269476362286,
+              377.43545217260646,
+              247.85
+            ]
+          },
+          {
+            "name": "g-ganen-pump-3",
+            "station_cap_xy_mm": [
+              -48.63545217260645,
+              49.131730523637714
+            ],
+            "native_top_mm": 14.45,
+            "valid": true,
+            "volume_mm3": 352.015456834736,
+            "conduit_air_common_mm3": 0.0,
+            "bounds_world_mm": [
+              44.131730523637714,
+              367.43545217260646,
+              235.4,
+              54.131730523637714,
+              377.43545217260646,
+              247.85
+            ]
+          },
+          {
+            "name": "pcba-0",
+            "station_cap_xy_mm": [
+              50.097079979949626,
+              -79.49999389648437
+            ],
+            "native_top_mm": 23.6,
+            "valid": true,
+            "volume_mm3": 610.7256118578563,
+            "conduit_air_common_mm3": 0.0,
+            "bounds_world_mm": [
+              -84.49999389648437,
+              268.7029200200504,
+              235.4,
+              -74.49999389648437,
+              278.7029200200504,
+              257.0
+            ]
+          },
+          {
+            "name": "pcba-1",
+            "station_cap_xy_mm": [
+              50.097079979949626,
+              -13.199993896484365
+            ],
+            "native_top_mm": 23.6,
+            "valid": true,
+            "volume_mm3": 610.7256118578563,
+            "conduit_air_common_mm3": 0.0,
+            "bounds_world_mm": [
+              -18.199993896484365,
+              268.7029200200504,
+              235.4,
+              -8.199993896484365,
+              278.7029200200504,
+              257.0
+            ]
+          },
+          {
+            "name": "pcba-2",
+            "station_cap_xy_mm": [
+              128.09707997994963,
+              -79.49999389648437
+            ],
+            "native_top_mm": 23.6,
+            "valid": true,
+            "volume_mm3": 610.725611857856,
+            "conduit_air_common_mm3": 0.0,
+            "bounds_world_mm": [
+              -84.49999389648437,
+              190.70292002005039,
+              235.4,
+              -74.49999389648437,
+              200.70292002005039,
+              257.0
+            ]
+          },
+          {
+            "name": "pcba-3",
+            "station_cap_xy_mm": [
+              128.09707997994963,
+              -13.199993896484365
+            ],
+            "native_top_mm": 23.6,
+            "valid": true,
+            "volume_mm3": 610.725611857856,
+            "conduit_air_common_mm3": 0.0,
+            "bounds_world_mm": [
+              -18.199993896484365,
+              190.70292002005039,
+              235.4,
+              -8.199993896484365,
+              200.70292002005039,
+              257.0
+            ]
+          }
+        ],
+        "contacts": [
+          {
+            "column": "g-ganen-pump-0",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-AC5-N",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "g-ganen-pump-0",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J6-GND",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "g-ganen-pump-0",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J6-RA1",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "g-ganen-pump-0",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J6-RA2",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "g-ganen-pump-0",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J6-RA3",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "g-ganen-pump-0",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J6-RA4",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "g-ganen-pump-1",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-AC5-N",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "g-ganen-pump-2",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-AC5-N",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "g-ganen-pump-2",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J6-GND",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "g-ganen-pump-2",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J6-RA1",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "g-ganen-pump-2",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J6-RA2",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "g-ganen-pump-2",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J6-RA3",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "g-ganen-pump-2",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J6-RA4",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "g-ganen-pump-2",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J7-CLO",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "g-ganen-pump-2",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J7-CHI",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "g-ganen-pump-2",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J7-carb-earth-2",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "g-ganen-pump-3",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-AC5-N",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-0",
+            "family": "component",
+            "obstacle": "pcba",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-0",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-PE-carbonator",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-0",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J2-OUT2",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-0",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J4-3V3",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-0",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J4-IO26",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-0",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-temp-GND",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-0",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J6-GND",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-0",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J6-RA1",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-0",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J6-RA2",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-0",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J6-RA3",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-0",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J6-RA4",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-0",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J7-CLO",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-1",
+            "family": "component",
+            "obstacle": "pcba",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-1",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-AC5-N",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-1",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-PE-carbonator",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-1",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J1-OUT3",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-1",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J1-OUT5",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-1",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J1-OUT7",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-1",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J2-COM",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-1",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J2-FAN",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-1",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J4-3V3",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-1",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J4-IO26",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-1",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-temp-GND",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-1",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J6-GND",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-1",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J6-RA1",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-1",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J6-RA2",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-1",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J6-RA3",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-1",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J6-RA4",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-1",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J7-CLO",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-1",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J7-CHI",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-1",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J7-carb-earth-2",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-2",
+            "family": "component",
+            "obstacle": "pcba",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-2",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-PE-carbonator",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-2",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J2-OUT2",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-2",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-temp-GND",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-2",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J11-V5",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-2",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J11-GND",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-2",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J11-DOUT",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-2",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J11-AOUT",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-3",
+            "family": "component",
+            "obstacle": "pcba",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-3",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-AC5-N",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-3",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-PE-carbonator",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-3",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J1-OUT3",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-3",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J1-OUT5",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-3",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J1-OUT7",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-3",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J2-COM",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-3",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J2-FAN",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-3",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-temp-GND",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-3",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J7-RB1",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-3",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J7-RB2",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-3",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J7-RB3",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-3",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J7-RB4",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-3",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J7-earth-4",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          },
+          {
+            "column": "pcba-3",
+            "family": "unchanged-electrical",
+            "obstacle": "wire-J11-GND",
+            "common_mm3": 0.0,
+            "bounds_mm": null
+          }
+        ],
+        "passed": true,
+        "wire_scope": "111 unchanged native wiring bodies relative to the frozen installed manifest/source binding, excluding exactly14 moved PSU/relay conductor paths. Existing valid BREP bodies are reused when their full source signature matches; only stale curves are rebuilt from the already-proved manifest segments. No new route or equipment sweep.",
+        "excluded_conductors": [
+          "AC2-L",
+          "AC2-N",
+          "AC3-L",
+          "AC4-H",
+          "DC1-V12",
+          "DC1-GND",
+          "DC2-V12",
+          "DC3-positive",
+          "J5-V5",
+          "relay-bus-V5",
+          "J5-GND",
+          "relay-bus-GND",
+          "J5-IO19",
+          "J5-IO2"
+        ],
+        "tool_scope": "Unchanged pump/PCB/JST/KF301 subset; retired PSU axes omitted. No new tool dimensions.",
+        "source_sha256": {
+          "hardware/printed-parts/cold-core/_above_core_mounts.py": "98651e90bc1fd520e9737eb4240302a09b97cefb236687f5de32a2536faf5b57",
+          "hardware/printed-parts/cold-core/_cold_core_interface.py": "fae1b2aea9f5bdaa19f75968223af50051ac883933d91b9190ed6d0bdad5fd2e",
+          "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "6a546a000b60a62cb263f196d596846ea4d30e310eb612fc6b4a99b3784c9b02",
+          "hardware/printed-parts/cold-core/_foam_cap.py": "16ec6de2e29f77065ee63ff7ba725ea5c80001593397af61a73c4798f779c863",
+          "tmp/dry-sidewall-wiring/unchanged/index.json": "f4ed2ec7015ed0ae7e156eecb0420f6fa590c20bebbf1b42ffee6d84351a932b",
+          "tmp/above-core-tool-witnesses/index.json": "0310ef5c497bf2418eaf8a959a81bf156d463fd678a68ee3ff648f64097f28c0"
+        }
+      },
+      "receiving_and_fasteners": {
+        "frame": "Top cap/lid native coordinates before installed half turn",
+        "insert": "ruthex RX-M3x5.7",
+        "lid_face_z_mm": 5.400000000000006,
+        "column_diameter_mm": 10.0,
+        "pilot_diameter_mm": 4.0,
+        "pilot_depth_mm": 9.75,
+        "insert_length_mm": 5.7,
+        "modules": {
+          "g-ganen-pump": {
+            "points": [
+              [
+                -106.63545217260645,
+                49.131730523637714
+              ],
+              [
+                -106.63545217260645,
+                -30.868269476362286
+              ],
+              [
+                -48.63545217260645,
+                49.131730523637714
+              ],
+              [
+                -48.63545217260645,
+                -30.868269476362286
+              ]
+            ],
+            "standoff": 0.0,
+            "seat": 7.8,
+            "screw": 20.0,
+            "seat_min": 7.8,
+            "quantity": 4,
+            "nominal_threaded_reach_mm": 6.649999999999999,
+            "maximum_threaded_reach_mm": 6.649999999999999,
+            "minimum_tip_clearance_mm": 3.1000000000000014
+          },
+          "pcba": {
+            "points": [
+              [
+                128.09707997994963,
+                -79.49999389648437
+              ],
+              [
+                50.097079979949626,
+                -79.49999389648437
+              ],
+              [
+                50.097079979949626,
+                -13.199993896484365
+              ],
+              [
+                128.09707997994963,
+                -13.199993896484365
+              ]
+            ],
+            "standoff": 3.6,
+            "seat": 1.6,
+            "screw": 8.0,
+            "seat_min": 1.6,
+            "quantity": 4,
+            "nominal_threaded_reach_mm": 6.4,
+            "maximum_threaded_reach_mm": 6.4,
+            "minimum_tip_clearance_mm": 3.3499999999999996
+          }
+        },
+        "valve_supports": {
+          "valve-v-b": {
+            "attachment": "Integral upright socket wall on the top lid",
+            "native_to_cap": {
+              "rotation": [
+                [
+                  0.0,
+                  -1.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  -1.0,
+                  0.0,
+                  0.0
+                ]
+              ],
+              "translation_mm": [
+                78.89566000000002,
+                38.0,
+                32.410000000000025
+              ]
+            },
+            "socket_fit": "Shared valve_seat V69"
+          }
+        },
+        "union_supports": {
+          "va-east-turn": {
+            "stock_min_world_mm": [
+              16.954800000000002,
+              297.6355,
+              253.25
+            ],
+            "stock_max_world_mm": [
+              33.1317,
+              300.6355,
+              261.6
+            ],
+            "bore_origin_world_mm": [
+              33.1317,
+              297.53549999999996,
+              261.6
+            ],
+            "bore_axis_world": [
+              0.0,
+              1.0,
+              0.0
+            ],
+            "bore_length_mm": 3.2,
+            "seat_radius_mm": 7.176900000000001,
+            "native_leg": "z",
+            "native_band_mm": [
+              8.5,
+              11.5
+            ],
+            "tie_window_min_world_mm": [
+              20.1548,
+              297.53549999999996,
+              254.60000000000002
+            ],
+            "tie_window_max_world_mm": [
+              22.954800000000002,
+              300.7355,
+              257.1
+            ],
+            "wall_mm": 3.0,
+            "parent": "enclosure-back-top",
+            "support_implemented": false,
+            "mount_status": "Tube-carried with the back-top V-A plumbing; no independent printed restraint"
+          },
+          "vb-outlet-return": {
+            "stock_min_world_mm": [
+              -11.3,
+              280.69954,
+              277.4631637869275
+            ],
+            "stock_max_world_mm": [
+              -8.3,
+              292.01244,
+              288.7760637869275
+            ],
+            "beam_min_world_mm": [
+              -11.3,
+              280.69954,
+              277.4631637869275
+            ],
+            "beam_max_world_mm": [
+              -1.3000000000000007,
+              287.7,
+              280.4631637869275
+            ],
+            "root_min_world_mm": [
+              -10.3,
+              284.7,
+              253.25
+            ],
+            "root_max_world_mm": [
+              -1.3000000000000007,
+              287.7,
+              280.4631637869275
+            ],
+            "bore_origin_world_mm": [
+              -16.91437941185942,
+              280.69954,
+              289.680688943168
+            ],
+            "bore_axis_world": [
+              0.9902680687415704,
+              0.0,
+              -0.13917310096006544
+            ],
+            "bore_length_mm": 13.0,
+            "seat_radius_mm": 8.3129,
+            "native_leg": "y",
+            "native_band_mm": [
+              13.0,
+              16.0
+            ],
+            "tie_window_min_world_mm": [
+              -7.200000000000001,
+              284.59999999999997,
+              274.4
+            ],
+            "tie_window_max_world_mm": [
+              -4.4,
+              287.8,
+              277.4631637869275
+            ],
+            "tie_route_z_mm": 275.8,
+            "wall_mm": 3.0,
+            "parent": "foam-assembly",
+            "support_implemented": true
+          }
+        },
+        "union_tie_allocation": {
+          "vb-outlet-return": {
+            "length_mm": 111.55317893806699,
+            "stock": "6-inch narrow nylon tie",
+            "stock_length_mm": 152.4
+          }
+        }
+      },
+      "source_sha256": {
+        "hardware/printed-parts/cold-core/_cold_core_interface.py": "c0719df5f3bb053bf30960b67f2538575fbe606e72dd8d035b07000f38f4ef43",
+        "hardware/printed-parts/cold-core/_above_core_mounts.py": "98651e90bc1fd520e9737eb4240302a09b97cefb236687f5de32a2536faf5b57",
+        "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "6a546a000b60a62cb263f196d596846ea4d30e310eb612fc6b4a99b3784c9b02"
+      },
+      "passed": true
     }
   },
   "pilot_probe": {
     "depth_mm": 9.75,
     "bore_radius_mm": 2.0,
     "minimum_surrounding_wall_mm": 1.6,
-    "complete_blind_backing_probed_mm": 1.0
+    "complete_blind_backing_probed_mm": 1.0,
+    "current_applicability": false,
+    "applicability_scope": "Recorded twelve-column fixture including a core-mounted PSU. The current eight pump/PCB columns are read directly in feature_checks.deck_mount_insert_stock."
   },
   "recorded_sources_sha256": {
     "hardware/manifold-layout/above-core.json": "3f40a9334f464695c4495bcad3aec8d87cbb3044e273cee5833afb4779c19e51",
@@ -3060,19 +4145,15 @@
     "hardware/cold-core-layout/cold_core_assembly.py": "3bd1284f5cbde55a5e486c25676f758a546a4b46094ab5a812b41ed30c81a60e"
   },
   "exported_solids_sha256": {
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "1ee3e42ce35b741dbf891dd4e5a0325465500609f634d4fa435687583b8cf2b2",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "dd29d9995ea887bbaa6d21a56c5c760adadb4853978d7b8ae46523a34cbdc8b1",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "1fcfd53ee7ece6df92dce648e3d5355ab1cf957e6c6234a99a697a69cef7078c",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "66d318de3189e9292dd31582f248fb737538f428f65295db4a06aa83f88c40a4",
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "bcc58b8837501a5f7d326767912a077882846347be00329a87d65a05aef6d1b2",
-    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "4d00f713a15018da6d17833611f50fead6d123bd6aef80af18f81e74b3d64d25",
-    "hardware/cold-core-layout/cold-core-assembly.step": "b02ab73d0d320f2b8e1f768874136df9e620bcf709c80952d59ecf2eee3767ad"
+    "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "369fbf2bbd4e0ac648d775c72ec16edbba9b01237a5d8b05bc66b409512a5ba1",
+    "hardware/cold-core-layout/cold-core-assembly.step": "553a8bcc7c165dbcb44f52e3cde5ac1259944de2d2421f04806dbfa351834f44"
   },
   "final_exported_lid": {
     "native_step": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
-    "step_sha256": "dd29d9995ea887bbaa6d21a56c5c760adadb4853978d7b8ae46523a34cbdc8b1",
-    "world_brep": "tmp/soda-inlet-restored-core/lid-world.brep",
-    "world_brep_sha256": "992b18864ca2a0b28a09dc27140fd99b2d945ee78639a9808fc0eae19c32e0ae",
-    "valid": true,
-    "solids": 1,
+    "step_sha256": "66d318de3189e9292dd31582f248fb737538f428f65295db4a06aa83f88c40a4",
     "cap_lid_pose": {
       "rotation": [
         [
@@ -3096,7 +4177,8 @@
         323.8,
         248.0
       ]
-    }
+    },
+    "binding_scope": "Exact current native artifact receipt. The check_bridge feature directly reads this lid; the deck_mount_insert_stock feature directly reads the current cup. Other feature probes retain their explicitly recorded fixture/source scope."
   },
   "complete_nominal_strips_vs_final_tool_witnesses": {
     "tool_count": 30,
@@ -3213,5 +4295,20 @@
       "scope": "The new lid is the prior lid minus only the named shoulder. The prior zero strip/stock intersections remain conservative; nominal routes and approach witnesses are unchanged."
     }
   },
-  "current_artifact_binding_scope": "Current canonical cup/lid/foam/core exports. The selected soda passage is natively reviewed at its own linked receipt. Fore-meter root restoration is the separately measured additive box; unchanged feature receipts retain their recorded scope and source/artifact hashes. No repeated whole-cap or global contact claim."
+  "current_artifact_binding_scope": "Current canonical cup/lid/foam/core byte receipts. The current check bridge and eight deck-column insert walls/backing have fresh exported-native probes. Unchanged passage and fitting probes retain their named source/artifact and geometric scope. Core-lid meter and V-A/V-K wall receipts are explicitly inapplicable to the back-top hosts. The B-fill roof issue remains under layout review; no whole-cap or global contact replay is implied.",
+  "current_source_receipt": {
+    "scope": "Source identities only, not a replay of every feature probe.",
+    "sha256": {
+      "hardware/manifold-layout/above-core.json": "04887b550cc53b2516832689b40f81a56e83119e4cc04921ad9819ed343c726b",
+      "hardware/manifold-layout/above_core_wiring.py": "3946bc25b663d6d2364dff3921126bb554cafded13e07a4900630da502fb989b",
+      "hardware/printed-parts/cold-core/_above_core_mounts.py": "98651e90bc1fd520e9737eb4240302a09b97cefb236687f5de32a2536faf5b57",
+      "hardware/printed-parts/cold-core/_cold_core_interface.py": "c0719df5f3bb053bf30960b67f2538575fbe606e72dd8d035b07000f38f4ef43",
+      "hardware/printed-parts/cold-core/_foam_cap.py": "16ec6de2e29f77065ee63ff7ba725ea5c80001593397af61a73c4798f779c863",
+      "hardware/printed-parts/cold-core/_foam_shell.py": "45955f213fbaedf6ea31763abb672b3c4eec660394bb81ff2b5017bcddcad6e1",
+      "hardware/printed-parts/cold-core/_internal_routes.py": "bc13050bf193f415a18c677b97ce4af703d9cd02f6750d08aef34cab39534480",
+      "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "6a546a000b60a62cb263f196d596846ea4d30e310eb612fc6b4a99b3784c9b02",
+      "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py": "9834783ae7590c7c13cd2adf1b13cfb8bc7a422402be94b5d0b78342ab89b0d0",
+      "hardware/cold-core-layout/cold_core_assembly.py": "895dd2116930dd240743bb841b4f38eea1f9f624a37a5f13730d7517f4527214"
+    }
+  }
 }
