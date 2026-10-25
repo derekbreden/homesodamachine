@@ -82,6 +82,28 @@ def png(path, svg_text, size, opaque=False):
     render(svg_text, size, opaque).save(path, optimize=True)
 
 
+def icon_composer(folder):
+    """The iOS app icon's layers, the faucet and the drop each on the 1024
+    canvas, and the cobalt fill icon.json puts behind them. Icon Composer owns
+    the rest of icon.json."""
+    root = source()
+    faucet = root.find(f"{{{NS}}}path")
+    drop = root.find(f"{{{NS}}}circle")
+    layers = {
+        "faucet": f'<path fill="{faucet.attrib["fill"]}" d="{faucet.attrib["d"]}"/>',
+        "drop": f'<circle fill="{drop.attrib["fill"]}" cx="{drop.attrib["cx"]}" '
+                f'cy="{drop.attrib["cy"]}" r="{drop.attrib["r"]}"/>',
+    }
+    for name, shape in layers.items():
+        write(folder / f"Assets/{name}.svg",
+              f'<svg xmlns="{NS}" width="1024" height="1024" viewBox="0 0 1024 1024">\n'
+              f'  {shape}\n</svg>\n')
+    spec = json.loads((ROOT / folder / "icon.json").read_text())
+    red, green, blue = (int(PALETTE["cobalt"][i:i + 2], 16) / 255 for i in (1, 3, 5))
+    spec["fill"] = {"solid": f"srgb:{red:.5f},{green:.5f},{blue:.5f},1.00000"}
+    write(folder / "icon.json", json.dumps(spec, indent=2, separators=(",", " : ")) + "\n")
+
+
 def android_vector(scale):
     g = geometry()
     d = g["drop"]
@@ -164,8 +186,8 @@ def build():
     write(PUBLIC / "palette.json", json.dumps(PALETTE, indent=2) + "\n")
     write(PUBLIC / "geometry.json", json.dumps(geometry(), indent=2) + "\n")
     write("ios/AppIcon.svg", icon)
+    icon_composer(Path("ios/SodaMachine/SodaMachine/AppIcon.icon"))
     assets = Path("ios/SodaMachine/SodaMachine/Assets.xcassets")
-    png(assets / "AppIcon.appiconset/AppIcon.png", icon, 1024, opaque=True)
     png(assets / "LaunchIcon.imageset/LaunchIcon.png", svg(), 1024)
     color = PALETTE["cobalt"].lstrip("#")
     components = dict(zip(("red", "green", "blue"),
