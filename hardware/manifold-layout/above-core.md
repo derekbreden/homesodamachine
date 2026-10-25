@@ -57,10 +57,13 @@ The carbonator's existing water and soda fitting datums stay fixed. The gas guid
 is at X77.5/Y368.7622 and its below-lid route retains the carbonator fitting and
 support-ring lane. Reservoir A fill and B draw use shallow offsets through the
 cap. Reservoir B fill uses a trimmed stem elbow at its cap bore, a short tube and
-a JG elbow below the lid, with the upward exit aft of the PCB at X−48/Y287.5.
-The reservoir cap bores remain on their own native datums. A solid roof over the
-lower fitting retains at least 3 mm stock; the PCB solder tails clear its top
-nominally. The original cup-floor section remains intact outside the named bores.
+a JG elbow below the lid, with the upward exit aft of the PCB at X−33/Y287.5.
+The reservoir cap bores remain on their own native datums. The lower fitting
+has a 3.05 mm cover; a broad 2.4 mm upper cover retains the upward-facing
+fitting beneath the PCB tails with 0.25 mm nominal CAD air. The original
+cup-floor section remains intact outside the named bores. Assemble the pair
+and short link in the open cup before closing its lid; these clearances do
+not qualify physical fit or retention loads.
 
 The soda tube rises from the fixed bottom outlet beside the coil, crosses above
 the tank at Z239.4 and exits through the plain guide at X50/Y342.4148/Z253.4.
