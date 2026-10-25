@@ -310,7 +310,7 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 
 ## 14. Cold kit
 
-The bonus bagged inside the install kit, with its own guide: what a buyer uses to bring the run to the faucet down to their own cabinet's length and carry the foam over the whole of it, for a colder pour. Nothing in it is an install step — every connection the install makes is a push fitting at the length the tubes ship. The loose CARGEN foam segments it also carries are costed in §9; their count per appliance is open until the first install ([`assembly/finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md) "Open items").
+The bonus bagged inside the install kit, with its own guide: what a buyer uses to bring the run to the faucet down to their own cabinet's length and carry the foam over the whole of it, for a colder pour. Nothing in it is an install step — every connection the install makes is a push fitting at the length the tubes ship. The loose CARGEN foam segments it also carries are costed in §9; their count per appliance is open until the first install.
 
 | Part | Notes | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|

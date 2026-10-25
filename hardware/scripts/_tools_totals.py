@@ -301,7 +301,7 @@ def inject_structure(text):
     if miss:
         raise SystemExit(f"inject: not located in tools.md: {miss}")
     sec = "## Tools total\n\nTotal acquired tooling: **[$0.00](TOOLS_TOTAL)**\n\n"
-    return "\n".join(out).replace("## Open items", sec + "## Open items", 1)
+    return "\n".join(out).replace("## Sources", sec + "## Sources", 1)
 
 
 def main():

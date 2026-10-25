@@ -215,10 +215,3 @@ Bigger guns, in roughly increasing intrusiveness:
 
 Both 90A and 85A spools need a dry cycle before the next iteration.
 Printing is paused until then.
-
-## Open questions
-
-- Does the printed v2 *actually* measure 10.20 OD / 9.45 ID, or has
-  FDM brought both inside their nominal? A caliper pass on the 95A
-  v2 print would confirm the diagnosis above and inform whether any
-  CAD nominal needs bumping independent of the hardness change.

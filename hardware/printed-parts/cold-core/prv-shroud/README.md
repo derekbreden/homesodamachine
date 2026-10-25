@@ -108,14 +108,6 @@ chase, remain unqualified. Once foam is poured around the shroud, the SV-125
 cannot be unscrewed without destroying the foam shell; the cold-core foam pour
 is the serviceable boundary.
 
-## Open items
-
-1. **Dry-run verification of the silicone caulk seal at the shroud-
-   to-elbow joint before unit 001.** Build one subassembly per the
-   procedure above, drop it into a clear plastic cup, pour a small
-   batch of 2-lb PU foam around it, and slice the cup open after
-   cure to confirm no foam intrusion into the cavity.
-
 ## Regression baseline
 
 Geometry is parametric on five scalars (inner_diameter,

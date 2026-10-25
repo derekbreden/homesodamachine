@@ -92,7 +92,6 @@ PETGF_CARRY = (_CAP_PETG * _RHO_PETG) / (_CAP_PETGF * _RHO_PETGF)
 # rate scaled for a slower configuration, which is a scaling of the setup and not of
 # the stock — so they hang off `_BULK_PETG` rather than off the carried figure. All
 # five are labelled est. in the ledger. Faucet and float read native slice durations.
-# See machine-time.md "Open items".
 _BULK_PETG = round(MEASURED[2] / MEASURED[1], 1)
 RATES = {
     "cover": None,  # Reference solid PETG slice rate; current geometry is unsliced.

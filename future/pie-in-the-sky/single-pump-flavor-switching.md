@@ -79,12 +79,3 @@ Prime is a counted volume with or without the faucet electrodes reporting. Witho
 A flavor is two solenoids and a reservoir. The faucet, the umbilical, and the gooseneck are the same part at every N.
 
 The line takes a water flush on every switch. Reverting to the household default in the background after a non-default pour leaves it standing primed with the common flavor.
-
-## Open questions
-
-1. **Are the manifold solenoids bidirectional?** Direct-acting passes reverse flow; pilot-operated does not.
-2. **The 1/4" LLDPE bore is not recorded anywhere in the repo.** Every volume here assumes 4.3 mm, and scales as its square. Measure the neoFlo spool.
-3. **KPHM600 delivered flow is unmeasured.** The 360 mL/min above sits against its rating and the model's prediction, not a reading. Measure the pumps.
-4. **What does 30 mL of aerated syrup do inside the reservoir?** The vented cap passes the air. Foam riding the magnet float reaches the reed column in [`level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md).
-5. **Does a capacitive electrode read through PET-GF15 at the tip**, with condensation on the gooseneck and a hand on the LCD?
-6. **Syrup viscosity and surface tension.** The film range and the flush volume rest on assumed values.
