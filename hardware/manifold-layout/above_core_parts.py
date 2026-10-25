@@ -102,6 +102,11 @@ def check_reference():
                    'reference/neofit-achv44-check/neofit_achv44_check.py')
 
 
+def tee_reference():
+    """The measured PP0208E: Y-A and Y-B take their stems to its tube stop."""
+    return _module('above_core_pp0208e', 'reference/tee-connector/tee_connector.py')
+
+
 def _frame(rotation=IDENTITY, translation=ORIGIN):
     return {'rotation': rotation, 'translation_mm': translation}
 
@@ -320,10 +325,11 @@ def components():
         ('gas-upper-a', check_reference().socket_depth('outlet')),
         ('gas-upper-b', 16.891), ('soda-stem-elbow', 12.7),
         ('soda-outlet-return-stem', 16.891 + layout.specification()['fore_routes']['soda_route']['metrics']['rear_stem_exposure_mm']),
-        ('ya-stem-elbow', 15.7), ('ya-fold-return', 15.7),
+        ('ya-stem-elbow', tee_reference().INSERTION),
+        ('ya-fold-return', tee_reference().INSERTION),
         ('drain-outlet-stem', layout.specification()['fore_routes']['drain_stem_length_mm']),
         ('vb-inlet-turn', 12.7), ('vb-outlet-stem', 12.7),
-        ('vb-outlet-return', 16.891), ('yb-stem-elbow', 15.7)))
+        ('vb-outlet-return', 16.891), ('yb-stem-elbow', tee_reference().INSERTION)))
     for name in ('carbonator-fold', 'gas-inlet-elbow', 'gas-lower-a',
                  'gas-lower-b', 'gas-upper-a', 'gas-upper-b'):
         depths[name] += layout.snapshot_pose(name).get('exposed_stem_mm', 0.)
