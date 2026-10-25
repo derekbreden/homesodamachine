@@ -33,9 +33,8 @@ Four printed PET-GF15 quadrants — `enclosure-front-bottom`, `enclosure-front-t
 Start with the charged refrigeration-loop assembly, the printed quadrants, the
 pump cradle and clamp, the fixed front manifold, and the unpowered components in
 [electronics-bay.md](electronics-bay.md). End with the shell joined around the core,
-the pump cradle home in its bay and both roof openings available for final
-connection work. Fit the roof closures
-only when that work is complete. Native fit records describe nominal geometry;
+the pump cradle home in its bay and the funnel opening clear for the final
+connections and commissioning. The funnel frame drops in after commissioning. Native fit records describe nominal geometry;
 physical assembly force and durability retain the qualification limits below.
 
 ## Inputs per appliance
@@ -46,7 +45,6 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §7 (
 |---|---|---|
 | Integrated refrigerant-loop assembly | Output of [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) | Cold core + plumbed compressor + condenser/fan, charged, run-up-verified, leak-checked |
 | Six printed enclosure pieces | [`/hardware/printed-parts/enclosure/`](/hardware/printed-parts/enclosure/) | PET-GF15 enclosure set: four quadrants, lower pump cradle, pump top clamp |
-| Tee caps × 4 | [`/hardware/printed-parts/enclosure/pump-dock/`](/hardware/printed-parts/enclosure/pump-dock/README.md) (printed PET-GF, solid) | Inspected here; snapped over the pump tees at [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §3 |
 | Nameplate | [`/hardware/printed-parts/enclosure/nameplate/`](/hardware/printed-parts/enclosure/nameplate/) | Printed per unit with its identity encoded in the QR; scanned and snapped in at [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md), not here |
 | Rear fluid fittings, C14 and RJ11 | [Production arrangement](/hardware/manifold-layout/above-core.md) | Six fluid fittings in a 2 × 3 grid; C14 west/upper, RJ11 west/lower |
 | Drop-in funnel frame and snap-in drain joint | [Funnel](/hardware/printed-parts/zone-c/funnel/README.md) | Cradle snaps into the frame’s 3 mm web; frame fastens from above |
@@ -72,8 +70,8 @@ Install ruthex heat-set inserts everywhere the pieces call for them. Standard pr
 
 **This step is the one place in the build that presses both M3 bodies, and they are indistinguishable in the hand but for length.** RX-M3x5.7 and RX-M3Sx4.0 carry the same ⌀4.6 knurl into the same ⌀4 hole; a short one pressed where the long one belongs is a weaker joint that looks finished, and a long one pressed where it does not fit will not seat flush. Work from two labelled troughs, not one dish:
 
-- **Full-length RX-M3×5.7.** The condenser fingers and four funnel-frame ledges take full-length inserts. The core's PCB and pump mount columns use the [cold-core mount schedule](/hardware/printed-parts/cold-core/_above_core_mounts.py), with the lid removed for insert installation.
-- **Short RX-M3S×4.0.** The C14's two rear-wall bosses, four PSU hosts and two diagonal hosts per relay take short inserts. Install them before the purchased bodies. Use M3 × 10 with Ø7 × 0.5 mm washers at C14, M3 × 12 through the PSU ears and M3 × 8 through each relay's two active diagonal holes. All four corners of each relay board bear on pads; the other two pads have no insert or screw. The [wall-host schedule](/hardware/printed-parts/enclosure/enclosure/_above_core_shell.py) defines the bearing tips and insert-face datums.
+- **Full-length RX-M3×5.7.** The condenser fingers, the four funnel-frame ledges and the pump cradle's two spine stations take full-length inserts. The core's PCB and pump mount columns use the [cold-core mount schedule](/hardware/printed-parts/cold-core/_above_core_mounts.py), with the lid removed for insert installation.
+- **Short RX-M3S×4.0.** The C14's two rear-wall bosses, four PSU hosts, two diagonal hosts per relay and the core lid's ground boss take short inserts. Install them before the purchased bodies. Use M3 × 10 with Ø7 × 0.5 mm washers at C14, M3 × 12 through the PSU ears, M3 × 8 through each relay's two active diagonal holes and M3 × 10 through the ground stack. All four corners of each relay board bear on pads; the other two pads have no insert or screw. The [wall-host schedule](/hardware/printed-parts/enclosure/enclosure/_above_core_shell.py) defines the bearing tips and insert-face datums.
 - **M5 — eight.** The four posts standing off the floor slab under the compressor's feet, and the Y seam's four corner-stack stations: back-bottom's two knuckles under the Z seam and front-top's two knuckles under the funnel frame, each pressed in from above. Use the M5 tip from the T18 heat-set insert tip kit.
 
 The [native heat-set audit](/hardware/printed-parts/enclosure/enclosure/heat-set-review/README.md)
@@ -88,7 +86,11 @@ back-top collar-bearing windows. Seat the ASSE, regulator and gas bodies in back
 Fit bare V-A and V-K to its integral seats, attach their prepared blade leads
 and complete their fitted plumbing and inlet header while back-top is open
 on the bench. Mount the PSU, relays and meter on back-top; prepare its
-continuous external inlet, holder, foam and concealed rear join there. Keep
+continuous external inlet, holder, foam and concealed rear join there. Land the
+back-top wiring ends per [electronics-bay.md](electronics-bay.md) steps 2–3: the
+V-A and V-K legs with their XH contacts loose; J4's flow pair on the meter's
+leads; DC-1, DC-2 and the three join pigtails; the PE bus, J5, and J3 at the
+keystone. Dress each free end to the funnel opening's footprint. Keep
 the funnel frame separate. V-B, the pump and PCB travel with the cold core.
 
 Dry-fit the seams with the box empty: slide each column's top onto its bottom — front-top entering fore of front-bottom's front wall and running AFT to its stop blocks, back-top entering aft of back-bottom's rear wall and running FORE to its own — then part them again and telescope front-bottom into back-bottom, front-top into back-top. Confirm every slide runs its whole travel without shaving, reaches its assembled position, and every knuckle passes its neighbours as the halves telescope.
@@ -146,6 +148,12 @@ Both of the block's Y faces stand 20 mm back over its whole width, leaving 0.4 m
 
 **The gas sensor goes in before either body does.** The MQ-6 card lies ALONG the −X strip and drops straight down into the two grooved posts printed on the floor of it (`enclosure._west_cradle`), can facing WEST toward the flank and header facing EAST into the bay — down until the card lands on the shoulder at the foot of each groove, and there is no screw because the card has no hole. Do it with the front-bottom piece still open on the bench: once the compressor is down, the slot is a reach past a charged assembly for no reason. Its loom lands later, in [`wiring.md`](/hardware/assembly/wiring.md). **Card in the wrong way round is the one error this slot allows** — the can must face the wall, with the four pins standing out into the open bay where the loom can reach them.
 
+With front-bottom open, land the compressor end of the SJOOW lead (SF76E splice, donor interface, and the AC-6 ring on the can's earth screw), both fan leads (J2's `FAN` leg, its XH contact left out of the housing, and the fan positive), and the J11 loom's MQ-6 end. Their free ends wait in the front column ([wiring.md](wiring.md#where-each-end-lands), "Where each end lands").
+
+After the compressor is bolted down, check it stands square on its four posts, each washer is on its post's crown with the grommet taken up but not squashed, the green ring is on the can's earth screw, and the AC lead's jacket is unbroken.
+
+### 4. Close the front column
+
 **The flavour manifold arrives with `enclosure-front-top`.** Its eight fixed valves
 press into the two valve trays, four seats per deck. Y-C, Y-D, Y-F and Y-G are purchased
 PP0208E pump tees, one on each pump port, each branch standing in a bore through front-top's
@@ -180,9 +188,11 @@ Seat the mains WAGOs in the rear-wall
 wells. Core-side junctions and ground hardware go in their own lid mounts;
 front manifold commons go in front-top. Leave the cross-quadrant conductor ends
 accessible for final connection. Keep PSU terminal screwdriver approaches clear.
-Fasten the ground stack at X37/Y195 before dressing AC4-H and AC5-N through
-the fore area. For ground-stack service, stage those flexible leads clear of
-the vertical driver. Their installed paths do not provide a clear tool column.
+The ground stack at X37/Y195 is made after closing, its four rings at once
+([electronics-bay.md](electronics-bay.md) step 5), before the compressor's H and N
+cores are joined under the opening. For ground-stack service, stage those flexible
+leads clear of the vertical driver. Their installed paths do not provide a clear
+tool column.
 
 ### 6. Close the box
 
@@ -267,14 +277,17 @@ drawing the slack back from behind through the funnel-frame opening, until its f
 bottom in the gripping collets, then plug the XHP-4 into J13. Once home, the cradle stays:
 its collets cannot be released from the bay.
 
-Lower the frame and fasten its four M3 screws with the silicone funnel absent.
-Lay the silicone funnel and its apron over the screw heads afterward.
+Leave the funnel frame out. The final connections through the funnel opening
+([electronics-bay.md](electronics-bay.md) step 5) and commissioning come first:
+J14's USB console and the rail test points lie beneath the frame
+([firmware-and-commissioning.md](firmware-and-commissioning.md)). The frame drops in
+after commissioning (§8).
 
-For teardown, lift the silicone and disconnect and support the tubing at the
-frame's cradled drain elbow. Remove the four funnel-frame screws and lift the
-frame with its drain cradle.
-Disconnect and support the tubing and leads that cross the separating quadrants,
-unplugging J13 by its housing, then reverse the M5 joints and slides.
+For teardown, lift the silicone, remove the four funnel-frame screws and lift the
+frame. The plug, stub, elbow and cradle travel with the frame; disconnect the V-B
+feed before withdrawing it. Disconnect and support the tubing and leads that cross
+the separating quadrants, unplugging J13 by its housing, then reverse the M5 joints
+and slides.
 
 ### 7. Check the vent route
 
@@ -285,8 +298,12 @@ performance remain subject to the part's qualification record.
 
 ### 8. Let the display into the facet, and clear the funnel opening
 
-The machine display sits in the rounded 30° top. Seat its glass in the shallow
-counterbore with the PCB passing through the housing. Handle it ESD-safe.
+The machine display sits in the rounded 30° top. Flash the 4.3B on the bench first
+([firmware-and-commissioning.md](firmware-and-commissioning.md) step 4): its USB-C
+is enclosed once it is seated. Feed the J9 loom's display end from inside through
+the ridge loom bore and out the open facet, and land it on the display's terminals
+([wiring.md](wiring.md) §5). Then seat its glass in the shallow counterbore with the
+PCB passing through the housing. Handle it ESD-safe.
 
 Place the 1 mm TPU ring on the glass border, aligned with the cover window. Flex
 the accepted cover's middle outward to enter both horizontal wings into their
@@ -295,7 +312,6 @@ flush with the housing. Confirm that both wings are captured and the cover
 resists lift. The [accepted cover](../printed-parts/enclosure/display-cover/README.md)
 and [bound native integration check](../printed-parts/enclosure/enclosure/accepted-fit-integration/current-geometry-check.json)
 identify the accepted receiver geometry within the check's listed source hashes; there are no display-cover screws.
-Leave the display's RS485 and power leads loose for [`wiring.md`](/hardware/assembly/wiring.md).
 
 The ridge wall immediately below the display has the J9 teardrop at
 +X for the display loom. Deburr the passage. The J13 pump ribbon
@@ -308,14 +324,17 @@ The elbow cradle’s two wings snap through the frame’s 3 mm lower web; the fr
 carries the PP0308E elbow and vertical stub. The plug bears on the released hook
 tops. Complete and inspect the drain connection before fitting the silicone funnel.
 
-After central connection work, lower the frame vertically onto its four ledges
-and engage the cradle’s snap seat. Install four M3 × 12 screws from above into
-the RX-M3×5.7 inserts. Seat the heads in their counterbores without using the
-screws to pull a binding frame home. The [manual drop-in review](/hardware/printed-parts/zone-c/funnel/drop-in-review/native-review.json)
+After commissioning, make the drain joint as the frame goes in: push `fluid-4`
+fully into V-B's inlet turn, push the cradle's elbow onto its free end, then lower
+the frame vertically onto its four ledges so its web snaps over the cradle's wings
+([internal-plumbing.md](internal-plumbing.md) §5). Install four M3 × 12 screws from
+above into the RX-M3×5.7 inserts. Seat the heads in their counterbores without using
+the screws to pull a binding frame home. The [manual drop-in review](/hardware/printed-parts/zone-c/funnel/drop-in-review/native-review.json)
 models the bare frame with the cradle, elbow, stub and tubing removed, plus the
-static web/socket and screw stack. Disconnect the drain tube or release the
-cradle snap before frame withdrawal. Connected-tube motion, snap-release access
-and force, physical fit and the drain seal remain separate qualifications.
+static web/socket and screw stack. The plug, stub, elbow and cradle travel with
+the frame; disconnect the V-B feed before withdrawing it. Connected-tube motion,
+snap-release access and force, physical fit and the drain seal remain separate
+qualifications.
 
 The silicone funnel seats on its stub and frame separately; its apron rests on the
 roof and covers the frame screw wells. Lift it for cleaning and frame screw access.
