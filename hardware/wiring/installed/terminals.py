@@ -262,7 +262,7 @@ class Attachments:
                      'Proposed splice beyond dressed SF76E lead; native first 3 mm remain straight','nominal')
         carry=self.frame('ground-stack',ea.GND_STACK_STEP,ea.RELAY_TURN)
         gnd=ea._gnd;mouth=gnd.eye_od/2-1+gnd.barrel_len
-        for label,i in (('inlet',0),('compressor',4),('carbonator',3)):
+        for label,i in (('inlet',0),('compressor',4),('carbonator',2)):
             angle=math.radians(i*gnd.fan_step)
             p,a=carry((mouth*math.cos(angle),mouth*math.sin(angle),i*gnd.tongue_t+gnd.barrel_d/2),
                       (math.cos(angle),math.sin(angle),0))
