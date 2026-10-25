@@ -270,11 +270,10 @@ def meter_support_datums():
                      'tie_window_world_mm': (x+wall+.1,x+wall+.1+2.8,
                                               z-radius-8.,z-radius-6.)})
         if side == -1:
-            # One flat step clears the fore pump foot, head approach and the
-            # selected foam sleeve, whose top is Z279.5. The east root remains
-            # 4.6 mm thick across the full bearing width.
+            # One flat step clears the fore pump foot and head approach.
+            # The east root remains 4.6 mm thick across the full bearing width.
             rows[-1]['lower_root_min_x_mm'] = x+7.7
-            rows[-1]['lower_root_top_z_mm'] = 280.
+            rows[-1]['lower_root_top_z_mm'] = 267.3
         else:
             # A straight central wall passes between the two fixed reservoir
             # tubes. The broad lower base carries the complete closed tie slot.
