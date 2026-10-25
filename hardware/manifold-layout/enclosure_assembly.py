@@ -722,7 +722,7 @@ def build_foam(front_y: float):
     shell = box(import_step(str(_foam.SHELL_STEP)).val())
     datum = (shell.xmin, (shell.ymin + shell.ymax) / 2.0, _foam.stack_floor_z)
     return seat_body(f, (((0.0, 0.0, 1.0), FOAM_YAW),), seat="foam-assembly",
-                     station=((datum, (0.0, -1.0, 0.0)), (0.0, front_y, 0.0)))
+                     station=((datum, (-1.0, 0.0, 0.0)), (0.0, front_y, 0.0)))
 
 
 #: THE SUB-ASSEMBLY THE CORE'S BODIES STAND IN. The machine exports them under this name and

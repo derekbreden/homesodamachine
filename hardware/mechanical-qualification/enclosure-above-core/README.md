@@ -52,6 +52,16 @@ fluid, electrical and tool fixtures clear that local stock. The changed
 PSU/relay leads have their separate electrical review; the retaining strips
 remain unqualified for physical threading, head engagement and holding force.
 
+The [paired Reservoir A anchor reading](../../printed-parts/cold-core/foam-cap/reservoir-a-anchor-review.json)
+records the two fixed stations, finite 3 mm stock witnesses and printed lid
+measurements. The free tube bends can be dressed between the fixed stations.
+The [ground landing reading](../../printed-parts/cold-core/foam-cap/ground-relocation-review.json)
+binds the stack at X37/Y195, its full 3 mm insert surround and 4.4 mm blind
+backing in the exported lid. Its nearby lead and nominal driver contacts
+retain the separate local wiring and assembly-order scope. The core seats
+from the shell footprint and stack floor; overhanging lid anchors do not
+recenter the shell or change the enclosure dimensions.
+
 V-A and V-K have their underside flow arrows down, upper inlet and lower
 outlet. V-A's upper release collet uses a −15° clock about native +Y to clear
 the inlet elbow while retaining its finite 12.7 mm stem engagement. The

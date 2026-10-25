@@ -189,8 +189,15 @@ its external continuous inlet/holder/foam and concealed rear join, V-A/V-K
 and their fitted plumbing, the complete inlet header, ASSE and gas group.
 The V-A low feed connects to front-top's Y-A. Complete rear connections on
 the open back-top; keep the funnel opening available for central handoffs.
-The populated closing path and continuous-line handling retain the scope of
-the [manual assembly record](/hardware/mechanical-qualification/enclosure-above-core/rear-plumbing-assembly.json).
+Keep the low V-A under-head tube, fore feed and east-turn union loose during
+the ride over the core. Leave the lower pump-side elbow loose too: its male
+stem engages along X, across the enclosure's Y closing direction. Make that
+joint after the column is home. The
+[manual closing readings](/hardware/mechanical-qualification/enclosure-above-core/README.md)
+record the named rigid group and seventeen sampled offsets. They do not
+establish a continuous populated path or flexible connection handling. The
+low V-A tube's final-pose interference with the upper B-fill fitting remains
+an open fit issue; do not force that connection.
 
 Preassemble the rear soda fittings and meter together while back-top is open.
 Their concealed blue tube occupies a nominal 15.7 mm in the meter and
@@ -198,7 +205,7 @@ Their concealed blue tube occupies a nominal 15.7 mm in the meter and
 marks. The core guide adds no joint or physical cut in the inlet tube.
 Keep the atmospheric drain-vent path open while dressing its final connection.
 
-1. **Back column.** Slide back-top fore onto the empty back-bottom from its aft entry position, through the 237.5 mm rail travel to the stops. Keep the wiring ends supported inside the column and clear of its seam. The ASSE, gas group, source valves and header, PSU, relays, meter and external inlet belong to back-top. Keep the funnel frame separate. Populated-group motion is qualified only to the scope stated in the manual record.
+1. **Back column.** Slide back-top fore onto the empty back-bottom from its aft entry position, through the 237.5 mm rail travel to the stops. Keep the wiring ends supported inside the column and clear of its seam. The ASSE, gas group, source valves and header, PSU, relays, meter and external inlet belong to back-top. Keep the funnel frame and named loose handoff pieces separate. The manual readings retain their exact sampled-group scope.
 
 2. **The back assembly rides forward over the core.** Stand the closed back column behind the core's cart, mouth facing the core's aft face, and bring it FORE — the Y-seam mouth swallowing the core, the slab passing under it, the hold-down feet's eased tips riding over the cap's crown — one continuous motion that runs the column's whole depth and ends as the Y seam's own telescope: over the last [17.8 mm](Y_OVERLAP) the front assembly's proud tongue enters the back's mouth, the floor's tongue closes square inside the slab, the corner stacks' knuckles pass one another into place, and the handholds' inner walls close. The rear seam band, front-bottom's corner pockets and cap brackets provide 0.25 mm around the nominal core plan and above its crown. The floor is one plane at Z−0.35: 0.25 mm running plus 0.10 mm cavity-floor transition allowance, over 5.65 mm of slab. The hold-down foot is Z253.65. These are allowances for printed material under the [fit policy](/hardware/printed-parts/enclosure/clearance-audit.md). **Set the core's lid tenants before this ride**: the water pump and everything else that stands on the cap goes on at [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) while the core is still on the open cart, where every face of it is bench work.
 
