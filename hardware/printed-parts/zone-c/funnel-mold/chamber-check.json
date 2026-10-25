@@ -1,5 +1,5 @@
 {
-  "checked_date": "2026-10-20",
+  "checked_date": "2026-10-24",
   "method": "Native STEP hardware-clearance booleans, exact rounded-flange enclosing circle, STL bound and drill-path reads.",
   "chamber": {
     "asin": "B0D78ZM928",
@@ -13,9 +13,9 @@
     "source_row_sha256": "5a59b4d358707ad6cadcfa277e72c0b1d875e483c1e823b1498bbf28170c4094"
   },
   "mold_and_M4x20_hardware": {
-    "enclosing_diameter_mm": 291.28159432181735,
+    "enclosing_diameter_mm": 297.6420377317436,
     "height_mm": 73.35015551503808,
-    "radial_clearance_mm": 4.219202839091338,
+    "radial_clearance_mm": 1.0389811341282211,
     "height_clearance_mm": 226.36984448496196,
     "stations": [
       {
@@ -282,9 +282,9 @@
         "part": "head",
         "centre_xy_mm": [
           -50.0,
-          -90.69575792328128
+          -108.19575792328128
         ],
-        "maximum_radius_mm": 107.06500920630245,
+        "maximum_radius_mm": 122.69013808976487,
         "top_mm": 53.350272076316614,
         "mold_interference_mm3": {
           "cavity": 0.0,
@@ -295,9 +295,9 @@
         "part": "shaft",
         "centre_xy_mm": [
           -50.0,
-          -90.69575792328128
+          -108.19575792328128
         ],
-        "maximum_radius_mm": 105.56502823325658,
+        "maximum_radius_mm": 121.19019646567489,
         "top_mm": 73.35015551503808,
         "mold_interference_mm3": {
           "cavity": 0.0,
@@ -308,9 +308,9 @@
         "part": "lower washer",
         "centre_xy_mm": [
           -50.0,
-          -90.69575792328128
+          -108.19575792328128
         ],
-        "maximum_radius_mm": 108.06499681511372,
+        "maximum_radius_mm": 123.69009995906451,
         "top_mm": 54.15034978383564,
         "mold_interference_mm3": {
           "cavity": 0.0,
@@ -321,9 +321,9 @@
         "part": "upper washer",
         "centre_xy_mm": [
           -50.0,
-          -90.69575792328128
+          -108.19575792328128
         ],
-        "maximum_radius_mm": 108.06499681511372,
+        "maximum_radius_mm": 123.69009995906451,
         "top_mm": 64.95034978383583,
         "mold_interference_mm3": {
           "cavity": 0.0,
@@ -334,9 +334,9 @@
         "part": "nut envelope",
         "centre_xy_mm": [
           -50.0,
-          -90.69575792328128
+          -108.19575792328128
         ],
-        "maximum_radius_mm": 107.60645435280716,
+        "maximum_radius_mm": 123.23156925133003,
         "top_mm": 68.15031415119941,
         "mold_interference_mm3": {
           "cavity": 0.0,
@@ -347,9 +347,9 @@
         "part": "head",
         "centre_xy_mm": [
           50.0,
-          -90.69575792328128
+          -108.19575792328128
         ],
-        "maximum_radius_mm": 107.06500920630243,
+        "maximum_radius_mm": 122.69013808976487,
         "top_mm": 53.350272076316614,
         "mold_interference_mm3": {
           "cavity": 0.0,
@@ -360,9 +360,9 @@
         "part": "shaft",
         "centre_xy_mm": [
           50.0,
-          -90.69575792328128
+          -108.19575792328128
         ],
-        "maximum_radius_mm": 105.56502823325658,
+        "maximum_radius_mm": 121.1901964656749,
         "top_mm": 73.35015551503808,
         "mold_interference_mm3": {
           "cavity": 0.0,
@@ -373,9 +373,9 @@
         "part": "lower washer",
         "centre_xy_mm": [
           50.0,
-          -90.69575792328128
+          -108.19575792328128
         ],
-        "maximum_radius_mm": 108.06499681511372,
+        "maximum_radius_mm": 123.69009995906451,
         "top_mm": 54.15034978383564,
         "mold_interference_mm3": {
           "cavity": 0.0,
@@ -386,9 +386,9 @@
         "part": "upper washer",
         "centre_xy_mm": [
           50.0,
-          -90.69575792328128
+          -108.19575792328128
         ],
-        "maximum_radius_mm": 108.06499681511372,
+        "maximum_radius_mm": 123.69009995906451,
         "top_mm": 64.95034978383583,
         "mold_interference_mm3": {
           "cavity": 0.0,
@@ -399,9 +399,9 @@
         "part": "nut envelope",
         "centre_xy_mm": [
           50.0,
-          -90.69575792328128
+          -108.19575792328128
         ],
-        "maximum_radius_mm": 107.60645435280718,
+        "maximum_radius_mm": 123.23156925133004,
         "top_mm": 68.15031415119941,
         "mold_interference_mm3": {
           "cavity": 0.0,
@@ -412,9 +412,9 @@
         "part": "head",
         "centre_xy_mm": [
           -50.0,
-          90.69575792328128
+          108.19575792328128
         ],
-        "maximum_radius_mm": 107.06500920630243,
+        "maximum_radius_mm": 122.69013808976487,
         "top_mm": 53.350272076316614,
         "mold_interference_mm3": {
           "cavity": 0.0,
@@ -425,9 +425,9 @@
         "part": "shaft",
         "centre_xy_mm": [
           -50.0,
-          90.69575792328128
+          108.19575792328128
         ],
-        "maximum_radius_mm": 105.56502823325658,
+        "maximum_radius_mm": 121.19019646567487,
         "top_mm": 73.35015551503808,
         "mold_interference_mm3": {
           "cavity": 0.0,
@@ -438,9 +438,9 @@
         "part": "lower washer",
         "centre_xy_mm": [
           -50.0,
-          90.69575792328128
+          108.19575792328128
         ],
-        "maximum_radius_mm": 108.06499681511372,
+        "maximum_radius_mm": 123.69009995906451,
         "top_mm": 54.15034978383564,
         "mold_interference_mm3": {
           "cavity": 0.0,
@@ -451,9 +451,9 @@
         "part": "upper washer",
         "centre_xy_mm": [
           -50.0,
-          90.69575792328128
+          108.19575792328128
         ],
-        "maximum_radius_mm": 108.06499681511372,
+        "maximum_radius_mm": 123.69009995906451,
         "top_mm": 64.95034978383583,
         "mold_interference_mm3": {
           "cavity": 0.0,
@@ -464,9 +464,9 @@
         "part": "nut envelope",
         "centre_xy_mm": [
           -50.0,
-          90.69575792328128
+          108.19575792328128
         ],
-        "maximum_radius_mm": 107.60645435280716,
+        "maximum_radius_mm": 123.23156925133004,
         "top_mm": 68.15031415119941,
         "mold_interference_mm3": {
           "cavity": 0.0,
@@ -477,9 +477,9 @@
         "part": "head",
         "centre_xy_mm": [
           50.0,
-          90.69575792328128
+          108.19575792328128
         ],
-        "maximum_radius_mm": 107.06500920630243,
+        "maximum_radius_mm": 122.69013808976487,
         "top_mm": 53.350272076316614,
         "mold_interference_mm3": {
           "cavity": 0.0,
@@ -490,9 +490,9 @@
         "part": "shaft",
         "centre_xy_mm": [
           50.0,
-          90.69575792328128
+          108.19575792328128
         ],
-        "maximum_radius_mm": 105.56502823325658,
+        "maximum_radius_mm": 121.19019646567487,
         "top_mm": 73.35015551503808,
         "mold_interference_mm3": {
           "cavity": 0.0,
@@ -503,9 +503,9 @@
         "part": "lower washer",
         "centre_xy_mm": [
           50.0,
-          90.69575792328128
+          108.19575792328128
         ],
-        "maximum_radius_mm": 108.06499681511372,
+        "maximum_radius_mm": 123.69009995906451,
         "top_mm": 54.15034978383564,
         "mold_interference_mm3": {
           "cavity": 0.0,
@@ -516,9 +516,9 @@
         "part": "upper washer",
         "centre_xy_mm": [
           50.0,
-          90.69575792328128
+          108.19575792328128
         ],
-        "maximum_radius_mm": 108.06499681511372,
+        "maximum_radius_mm": 123.69009995906451,
         "top_mm": 64.95034978383583,
         "mold_interference_mm3": {
           "cavity": 0.0,
@@ -529,9 +529,9 @@
         "part": "nut envelope",
         "centre_xy_mm": [
           50.0,
-          90.69575792328128
+          108.19575792328128
         ],
-        "maximum_radius_mm": 107.60645435280716,
+        "maximum_radius_mm": 123.23156925133004,
         "top_mm": 68.15031415119941,
         "mold_interference_mm3": {
           "cavity": 0.0,
@@ -562,7 +562,7 @@
       ],
       "depth_mm": 3.2,
       "outside_stock_mm3": 0.0,
-      "casting_clearance_mm": 29.139538714692446
+      "casting_clearance_mm": 29.139538740170607
     },
     {
       "part": "cavity",
@@ -578,7 +578,7 @@
       ],
       "depth_mm": 3.2,
       "outside_stock_mm3": 0.0,
-      "casting_clearance_mm": 29.139538709683976
+      "casting_clearance_mm": 29.13953870784371
     },
     {
       "part": "core",
@@ -594,7 +594,7 @@
       ],
       "depth_mm": 1.8,
       "outside_stock_mm3": 0.0,
-      "casting_clearance_mm": 25.150165772155198
+      "casting_clearance_mm": 35.89293105891465
     },
     {
       "part": "core",
@@ -610,7 +610,7 @@
       ],
       "depth_mm": 1.8,
       "outside_stock_mm3": 0.0,
-      "casting_clearance_mm": 25.15016577215619
+      "casting_clearance_mm": 35.89293105891465
     }
   ],
   "pressure": {
@@ -627,11 +627,11 @@
   },
   "scope": "Nominal fit in the acquired chamber record, including closure hardware. No physical insertion or sparse-print stiffness measurement is claimed. Dry-side holes are drilled after printing to connect the gyroid to chamber air.",
   "sha256": {
-    "hardware/printed-parts/zone-c/funnel-mold/cavity.step": "240d1b3ba8dade51db4cff52acf1c3a536e820371c4bdf24a4768923702ff148",
-    "hardware/printed-parts/zone-c/funnel-mold/cavity.stl": "f132445abf1e9691b8da34e05472741880220c30cc1fcebe9fcb476dc4a38078",
-    "hardware/printed-parts/zone-c/funnel-mold/core.step": "2dfa976c5b21994df151e4c2ec61d2ad0b173c82b6559caa2e56b8e000eb5452",
-    "hardware/printed-parts/zone-c/funnel-mold/core.stl": "a272b5966763bbdb7b2fd4e7c2a0ff1b9953bc6e3482e0bf98e73d97a15dc85c",
-    "hardware/printed-parts/zone-c/funnel-mold/design.json": "8be499df7913fac8db0b4d89409f20506e093c0e6cf0e12749d86fcc23c864b4",
+    "hardware/printed-parts/zone-c/funnel-mold/cavity.step": "5d9d7c80d71aa7df5894f20526d14456a1b92d8af0cb011d5ad069902e8fbaee",
+    "hardware/printed-parts/zone-c/funnel-mold/cavity.stl": "ec9c34441170bdad2bbec4f2db8889e6963cb53a150af890936d65d494fff86c",
+    "hardware/printed-parts/zone-c/funnel-mold/core.step": "ef28872b87a34df57a27baa386831d9fdf089beb0bc83ee1475156b6a2676208",
+    "hardware/printed-parts/zone-c/funnel-mold/core.stl": "8cfd1d7307ff331eb3908b0cd6ebf78e11197728fe933a408bf1a61fb7849be7",
+    "hardware/printed-parts/zone-c/funnel-mold/design.json": "2f43a52ec48ecda01f260785c8d86f162c55868be0ff62825120c0086be30cb9",
     "tools/funnel-mold-print/review_chamber.py": "b81ae10f2b1f505beb7618ba751012f920a59cc5289bf2fc658d208232f67d46"
   },
   "passed": true

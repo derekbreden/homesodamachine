@@ -1,0 +1,764 @@
+{
+  "final-staggered": {
+    "front_mouth_witness_mm": {
+      "length": 4.0,
+      "diameter": 3.0
+    },
+    "rear_core_mouth_witness_mm": {
+      "length": 8.0,
+      "diameter": 3.0
+    },
+    "fixed_parts": [
+      "asse-drain-adapter",
+      "asse-inlet-tpu",
+      "asse-outlet-tpu",
+      "asse1022-assembly",
+      "bulkhead-carb",
+      "bulkhead-carb-nut",
+      "bulkhead-drain",
+      "bulkhead-drain-nut",
+      "bulkhead-flavor-a",
+      "bulkhead-flavor-a-nut",
+      "bulkhead-flavor-b",
+      "bulkhead-flavor-b-nut",
+      "bulkhead-water",
+      "bulkhead-water-nut",
+      "c14-full-insert-stock--1",
+      "c14-full-insert-stock-1",
+      "c14-inlet",
+      "c14-outside-driver--1",
+      "c14-outside-driver-1",
+      "carbonator-fold",
+      "co2-inlet",
+      "co2-inlet-nut",
+      "coil-v-c",
+      "coil-v-d",
+      "coil-v-e",
+      "coil-v-f",
+      "coil-v-g",
+      "coil-v-h",
+      "coil-v-i",
+      "coil-v-j",
+      "compressor",
+      "condenser+fan",
+      "digiten-flow",
+      "discharge-chain",
+      "display",
+      "display-cover",
+      "drain-outlet-stem",
+      "driver-psu-+1-+4",
+      "driver-psu-+1--4",
+      "driver-psu--1-+4",
+      "driver-psu--1--4",
+      "elbow-cradle",
+      "electronics-access-panel",
+      "fixed-drain-bridge",
+      "flavor-reducer-v-g",
+      "flavor-reducer-v-j",
+      "flow-regulator",
+      "funnel-drain-stub",
+      "funnel-drain-union",
+      "funnel-frame",
+      "fuse-clamp",
+      "g-ganen-pump",
+      "gas-check",
+      "gas-inlet-elbow",
+      "gas-lower-a",
+      "gas-lower-b",
+      "gas-regulator",
+      "gas-upper-a",
+      "gas-upper-b",
+      "keystone-jack",
+      "lower-pump-elbow",
+      "lower-valve-elbow",
+      "mq6-sensor",
+      "pcba",
+      "psu",
+      "pump-a-boss",
+      "pump-a-head",
+      "pump-a-motor",
+      "pump-b-boss",
+      "pump-b-head",
+      "pump-b-motor",
+      "pump-contact-female",
+      "pump-contact-male",
+      "pump-inlet-barb-band",
+      "pump-inlet-tpu",
+      "pump-inlet-tube-band",
+      "pump-outlet-barb-band",
+      "pump-outlet-tpu",
+      "pump-outlet-tube-band",
+      "rear-nameplate-receiver",
+      "reg-va-elbow",
+      "relay-1",
+      "relay-2",
+      "soda-core-elbow",
+      "soda-core-stem",
+      "soda-outlet-return-stem",
+      "soda-stem-elbow",
+      "stem-elbow-v-c",
+      "stem-elbow-v-d",
+      "stem-elbow-v-g",
+      "stem-elbow-v-j",
+      "stem-elbow-y-c",
+      "stem-elbow-y-d",
+      "stem-elbow-y-f",
+      "stem-elbow-y-g",
+      "tee-fold",
+      "tee-y-a",
+      "tee-y-b",
+      "tee-y-c",
+      "tee-y-d",
+      "tee-y-f",
+      "tee-y-g",
+      "thermal-fuse",
+      "tube-fluid-10",
+      "tube-fluid-11",
+      "tube-fluid-12",
+      "tube-fluid-13",
+      "tube-fluid-17",
+      "tube-fluid-19",
+      "tube-fluid-20",
+      "tube-fluid-21",
+      "tube-fluid-22",
+      "tube-fluid-23",
+      "tube-fluid-27",
+      "tube-fluid-9",
+      "va-east-turn",
+      "va-outlet-elbow",
+      "valve-v-a",
+      "valve-v-b",
+      "valve-v-c",
+      "valve-v-d",
+      "valve-v-e",
+      "valve-v-f",
+      "valve-v-g",
+      "valve-v-h",
+      "valve-v-i",
+      "valve-v-j",
+      "vb-inlet-turn",
+      "vb-outlet-return",
+      "vb-outlet-stem",
+      "vk-solenoid",
+      "water-split",
+      "ya-stem-elbow",
+      "yb-stem-elbow"
+    ],
+    "tube_names": [
+      "tube-above-core-drain-vb-east-link",
+      "tube-above-core-gas-check-link",
+      "tube-above-core-gas-core-drop",
+      "tube-above-core-gas-inlet",
+      "tube-above-core-pump-check-link",
+      "tube-above-core-pump-inlet-link",
+      "tube-above-core-reg-va-link",
+      "tube-above-core-tee-regulator",
+      "tube-above-core-tee-vk-link",
+      "tube-above-core-va-fore-feed",
+      "tube-above-core-va-under-head",
+      "tube-above-core-vb-yb-cross",
+      "tube-above-core-vb-yb-link",
+      "tube-above-core-water-in",
+      "tube-drain-vent",
+      "tube-fluid-14",
+      "tube-fluid-16",
+      "tube-fluid-18",
+      "tube-fluid-24",
+      "tube-fluid-26",
+      "tube-fluid-28",
+      "tube-soda-core-meter",
+      "tube-soda-core-rise",
+      "tube-soda-meter-bulkhead",
+      "tube-water-5"
+    ],
+    "c14_insert_stock_removed_by_pockets": [],
+    "parts": {
+      "wago-h": {
+        "body_bounds_mm": [
+          -43.400000000000006,
+          445.2,
+          292.5,
+          -24.6,
+          463.8,
+          300.90000000000003
+        ],
+        "well_bounds_mm": [
+          -46.55,
+          454.5,
+          289.35,
+          -21.45,
+          466.95,
+          304.05
+        ],
+        "well_valid": true
+      },
+      "wago-n": {
+        "body_bounds_mm": [
+          -43.400000000000006,
+          430.7,
+          312.0,
+          -24.6,
+          449.3,
+          320.40000000000003
+        ],
+        "well_bounds_mm": [
+          -46.55,
+          440.0,
+          308.85,
+          -21.45,
+          466.95,
+          323.55
+        ],
+        "well_valid": true
+      },
+      "wago-g": {
+        "body_bounds_mm": [
+          -43.400000000000006,
+          445.2,
+          331.5,
+          -24.6,
+          463.8,
+          339.90000000000003
+        ],
+        "well_bounds_mm": [
+          -46.55,
+          454.5,
+          328.35,
+          -21.45,
+          466.95,
+          343.05
+        ],
+        "well_valid": true
+      },
+      "wago-sensors": {
+        "body_bounds_mm": [
+          -1.8000000000000007,
+          185.6,
+          256.4,
+          16.8,
+          204.4,
+          264.8
+        ],
+        "well_bounds_mm": [
+          7.5,
+          182.45,
+          253.24999999999997,
+          19.950000000000003,
+          207.55,
+          267.95
+        ],
+        "well_valid": true
+      },
+      "wago-v12": {
+        "body_bounds_mm": [
+          -1.8000000000000007,
+          208.6,
+          256.4,
+          16.8,
+          227.4,
+          264.8
+        ],
+        "well_bounds_mm": [
+          7.5,
+          205.45,
+          253.24999999999997,
+          19.950000000000003,
+          230.55,
+          267.95
+        ],
+        "well_valid": true
+      },
+      "wago-gnd": {
+        "body_bounds_mm": [
+          -1.8000000000000007,
+          232.6,
+          256.4,
+          16.8,
+          251.4,
+          264.8
+        ],
+        "well_bounds_mm": [
+          7.5,
+          229.45,
+          253.24999999999997,
+          19.950000000000003,
+          254.55,
+          267.95
+        ],
+        "well_valid": true
+      },
+      "wago-reeds-b": {
+        "body_bounds_mm": [
+          -1.8000000000000007,
+          255.6,
+          256.4,
+          16.8,
+          274.4,
+          264.8
+        ],
+        "well_bounds_mm": [
+          7.5,
+          252.45,
+          253.24999999999997,
+          19.950000000000003,
+          277.55,
+          267.95
+        ],
+        "well_valid": true
+      },
+      "wago-mana": {
+        "body_bounds_mm": [
+          86.05,
+          161.1,
+          262.1,
+          104.35000000000001,
+          176.9,
+          291.90000000000003
+        ],
+        "well_bounds_mm": [
+          95.95,
+          157.95,
+          258.95,
+          107.5,
+          180.05,
+          295.05
+        ],
+        "well_valid": true
+      },
+      "wago-manb": {
+        "body_bounds_mm": [
+          85.75,
+          164.79999999999998,
+          228.0,
+          104.35,
+          173.2,
+          258.0
+        ],
+        "well_bounds_mm": [
+          95.05,
+          161.64999999999998,
+          224.85,
+          107.5,
+          176.35,
+          261.15
+        ],
+        "well_valid": true
+      }
+    },
+    "intersections": [],
+    "wire_entry_intersections": []
+  },
+  "scope": "Nine native WAGO bodies and rooted wells, conservative wire-mouth witnesses, current selected hardware and retained fixed front hardware against selected25 fluid spans; no physical or wire-packing qualification.",
+  "actual_poses": {
+    "wago-h": {
+      "size": "413",
+      "parent": "back-top",
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        -34.0,
+        454.5,
+        292.5
+      ],
+      "purpose": "C14 live / PSU primary / relay 1 COM"
+    },
+    "wago-n": {
+      "size": "413",
+      "parent": "back-top",
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        -34.0,
+        440.0,
+        312.0
+      ],
+      "purpose": "C14 neutral / PSU primary / compressor"
+    },
+    "wago-g": {
+      "size": "413",
+      "parent": "back-top",
+      "rotation": [
+        [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        -34.0,
+        454.5,
+        331.5
+      ],
+      "purpose": "C14 PE / ring-terminal ground bus"
+    },
+    "wago-sensors": {
+      "size": "413",
+      "parent": "cold-core",
+      "rotation": [
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        7.5,
+        195.0,
+        256.4
+      ],
+      "purpose": "PCB J4 / temperature bus / flow meter common"
+    },
+    "wago-v12": {
+      "size": "413",
+      "parent": "cold-core",
+      "rotation": [
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        7.5,
+        218.0,
+        256.4
+      ],
+      "purpose": "PSU secondary / relay 2 COM / PCB J10 V12"
+    },
+    "wago-gnd": {
+      "size": "413",
+      "parent": "cold-core",
+      "rotation": [
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        7.5,
+        242.0,
+        256.4
+      ],
+      "purpose": "PSU secondary / pump negative / PCB J10 GND"
+    },
+    "wago-reeds-b": {
+      "size": "413",
+      "parent": "cold-core",
+      "rotation": [
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        7.5,
+        265.0,
+        256.4
+      ],
+      "purpose": "PCB J7 / reservoir B / carbonator reed common"
+    },
+    "wago-mana": {
+      "size": "420",
+      "parent": "front-top",
+      "rotation": [
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation_mm": [
+        95.2,
+        176.9,
+        277.0
+      ],
+      "purpose": "J1 valve common and eight A-H coil branches"
+    },
+    "wago-manb": {
+      "size": "415",
+      "parent": "front-top",
+      "rotation": [
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation_mm": [
+        95.05,
+        173.2,
+        243.0
+      ],
+      "purpose": "J2 valve common, I/J/K coils and condenser fan"
+    },
+    "ground-stack": {
+      "size": "ground-stack",
+      "parent": "cold-core",
+      "rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        45.0,
+        195.0,
+        259.4
+      ],
+      "purpose": "C14 earth feed and exposed-metal bond branches"
+    }
+  },
+  "actual_pose_sha256": "dfbe8ea61a7118b9e19affb95109026cb43829a630d3a5b0f85677e6ad18eaa8",
+  "front_actual_conductor_od_mm": 1.7,
+  "source_sha256": {
+    "hardware/wiring/installed/above-core-review/junction_review.py": "b5cd4481bb204b9dd354f8680cdcf63374bd5756e47d720df8530f90f6007a35",
+    "hardware/manifold-layout/above_core_wiring.py": "c14a4ec2d8e0d3ccee119c9ddaf2b50c0dec08c40d15999d078a59244d356a03",
+    "hardware/manifold-layout/above-core.json": "a67cd3b7a7711615206614201d07548bad1e945a937950a7718d4372abe29beb",
+    "hardware/manifold-layout/above_core_parts.py": "d379fc00d3e2f2779b5ab8ef76ee3e826cc45a3cb185d2a7665e3d81567a684d",
+    "hardware/manifold-layout/above_core_routes.py": "6d19d0196afbb0a429730f7df535a081b86d1ae4484b56187164dc8083893fd0"
+  },
+  "fixed_fixture_brep_sha256": {
+    "compressor": "e025d14dbe79b2bb7a5f96b1cfe2d5f4384407d2cdaa0c54a9a9a618f8f0ed59",
+    "condenser+fan": "9f704f2a53e5bfb64c51faee96d7a8833fe7246f220da84fbad27c79d251ae87",
+    "mq6-sensor": "1c8b693fc9685d803102078b3e738b6efc3db594fa16bc4e7cf1050aca224d4b",
+    "thermal-fuse": "b4a31e28a3dc891e1721dad8b317337617c4e216804f205bfbfd062cb99c378a",
+    "fuse-clamp": "76f3f2fe6f261e6961c691b3a78d8283836af3b39d890c554285ec7268799123",
+    "tee-y-a": "cff540ee4f6879a6fe85766b33e444bf97dc7ed756f810c64e476e20ecb2b48a",
+    "valve-v-c": "5a8ceb18de01dbdcac4feb82c55312b4acaa8fbf02e951d055dabd7d0d435a01",
+    "coil-v-c": "3c7c85cf450aa05e0155759cdabb89db996c6b3e99e7ff9cc0ed5229f95ff739",
+    "valve-v-e": "9e79388ff0ea2565e168d224795a98fe10626e3dabeaded6b71c469efd88ffe0",
+    "coil-v-e": "738e6f8c6365d9e2e792590664a02528d3b038d236d309012ff427d07caae884",
+    "valve-v-g": "04f9e541f22c455aa60878a6724f26f97228ede6f78587b7f65b1f02b88aa363",
+    "coil-v-g": "7dbd433c251657e6f08c95d369f8ff30012fb63a64773d23bca1e0c8b943739b",
+    "valve-v-f": "ba6b7ea6ef5341c9d68fdf3f1656d7a212a4e0f7f9340f5c51358227eb659522",
+    "coil-v-f": "60bdc04368e803e88c25259f2575bff8bda4d9f7686fa91f0d61990adcca7c1b",
+    "tee-y-b": "22745ecc728a5a9ceafdaaf61db9b0cef47c61b6447d6ac5a4db21cadc7f555f",
+    "valve-v-d": "2ec1141c9bdfc5ef9ef31933eabf1e796e6b99bf03bd86e808c4e2a88e7d5d8f",
+    "coil-v-d": "ba0ea18270a0f6dfbe0284b107d6b50f56a099903407c645222d6431f30c850e",
+    "valve-v-h": "42661a697e469f9c0c1da1e63ce011713775a380f637ab8081db45edec1179cd",
+    "coil-v-h": "5f914c2fca48c791fb78453136aa098fd13cb9be9c4df83a6d5a29300d7ffe67",
+    "valve-v-j": "ed46dc4b5bda9e2a0effdf392dcf0781858fe8e8d5d312f6207aeb95c5cda64c",
+    "coil-v-j": "c86ad62a94496d38f0ae352978b19591027c4bd395a00dfffe95c3a34ad1cb6d",
+    "valve-v-i": "3b22d2b3e0975062abc7adb31fbcd4359ebff29f8e2caa915f8f372037c8c1fa",
+    "coil-v-i": "2ce7307c8f190e46a7c418033ff7df1279ae2a95a26682e4117d22ac006e017d",
+    "pump-a-head": "88836e67f0a5f2af7d1a2ceb8a4fc23bba33d3317f757dfa79b63dddf4c56fa2",
+    "pump-a-boss": "d6073484df3e200da95afc0bb0cb484d993805e80ad1036d57201ce8772e85aa",
+    "pump-a-motor": "3dbf94fcb0a0693a834c5d2d7117bc2f0458f31fb44a268e5b1c4c83bad3c5c4",
+    "pump-b-head": "4d4a2823b5a653a0fa47753701b931e5257f2e85f116fd82b0a6da0eb1946fc3",
+    "pump-b-boss": "8f6f34992112df9c80ab4c2785607cc561502bc46fd0661c041e978ed0a3be3f",
+    "pump-b-motor": "7de05ff952ca13eae85236938f970f5d5721d2b70dd747b6376242dd281cf19f",
+    "tube-fluid-10": "ee554f7f72a04d0917907f0a4a34caa5377a969d7e2feb0b4bc2d5f03c02589d",
+    "tube-fluid-11": "2c1d24340aab380013d8b1893ee90ac1c91a9c9d1a18a5e1c8176e98f42151c4",
+    "tube-fluid-12": "0f04c182f213beb423371d40a6e1f070f05bb1f8a5bb4f523f7902f6b6629ac9",
+    "tube-fluid-13": "026fcb76cabe54280cd302a189af65cebd5a89f190bf30a6e9130ff6367cc5fb",
+    "tube-fluid-20": "29f3f95095928f35999c5fb7a4bc3cbac77773e3cdce32d079ac2b06df297bad",
+    "tube-fluid-21": "f19cd8970a584b9401115d9cc4e763c69e6221b113f9499d317d1d698137631d",
+    "tube-fluid-22": "8c9b7c32ddbf4d510f5418f9d9c9e15611c3c8d978af0ef3f713dc91f6843905",
+    "tube-fluid-23": "a2c8f10538e10f36d2d76373133f7e19918da32448281798d061a0069875eaad",
+    "tube-fluid-9": "c8beeedf7cfd2af3f4091e80861772a6656a0ac3ed6c1f8efaa9032a7b65587b",
+    "tube-fluid-17": "7a42f61bc6f9cf6c85a92edea7c7179a03066c7730edc58ae3ebaa961a2f9c79",
+    "tube-fluid-19": "acb2b6210a5a8d2b11a1886fd02543f29b1067e59082cce1f1cfab0385d0037e",
+    "tube-fluid-27": "d9d9ae39ce5239ee9a500b2458f1c265a4f980a02b3ff66171b3f9e2ed7d0697",
+    "flavor-reducer-v-g": "73f08d88835a06113e52386189175f39cc02ae032e35a49b1ee8d7ea6aeab920",
+    "flavor-reducer-v-j": "f234e59806abd40d28e0d5895f069136ab1f59d348b3acbb0eb8cb2faa77050c",
+    "pcba": "0656d94667ed6fe4966c443823edfa18d3429299cfb1effaa2fbf51bd350074a",
+    "psu": "1c4a32f5295cdfa4d1d6578c9782c33f3d037a0e6eb89ac9135e1d0378d2a317",
+    "relay-1": "32feb1c444d1ebeb6446660f9242fcda73e3a28f545e987b82912c837365ddd6",
+    "relay-2": "b5f17f53612a1775d7b3b0a11d65f0dd187f236eee5ec0bdd18c90ab5d009098",
+    "c14-inlet": "abb5161bb94526c5800f56ffc24d28c5b91dd6c06f54eb052fb3593a2c518bc2",
+    "asse1022-assembly": "f6be68be8839099bcfd6cb7d9f40ee8e25377d0c82e85c80879c4c03fce7300d",
+    "discharge-chain": "79f550b469ddc4a066953a2ebae1bc8755541c9ed1c4ae4561c4d40b72a04a98",
+    "valve-v-a": "8850409a1e20c76f2df70b57d11571adc47ed74dbea53bc8dc792dfd87ebff67",
+    "valve-v-b": "0dfae4ca95bc40acadd729246f8550f866158fa24632c68cb8501b0932840174",
+    "vk-solenoid": "852d94b99fc159b9eb11dce7a9357ee525e5354bdbe336dfe28ab85fb94cb842",
+    "g-ganen-pump": "b0e606721eb58d45deb599e9bd5076b0e7d129ac096deeff86d6b236da9903e4",
+    "asse-inlet-tpu": "b6af79e64fae535c5cf07c1dcf48c9213bd235542c5f8f84f15fc6a4e3a7b4f1",
+    "asse-outlet-tpu": "61d955036c489b065b95148b50b806e4f7573566641e85df90c052e3115fdd66",
+    "asse-drain-adapter": "e1405ef9f43286c9708d28a243ccf1915278afe121bb7976ea9370cc356aff29",
+    "pump-inlet-tpu": "2e5f5f56939f8a2405809b49bcc55f8724afbfd33dadab13d03284cf5cfeb9f2",
+    "pump-inlet-barb-band": "ebdf3219cc46330c4ca6214a58625bdb665760db95889a5f6dce8275513f7390",
+    "pump-inlet-tube-band": "ca63839a1f416a06a95bfeb6834305b77f057a39278c2adab5db3a53e248a983",
+    "pump-outlet-tpu": "f81c5ae2974e0ac8656447af4c76ce3fdb1ff5f789b6181d5d40abddfd284e05",
+    "pump-outlet-barb-band": "cf0c80cdcea0d800a02cd2818da259fb81614729d67a5c33c4f443c3ab620494",
+    "pump-outlet-tube-band": "c46767d170b1a33a3206d2d4570434489a66767d9b2736f6b6d3660935156178",
+    "water-split": "8d598f4992b865756069059fb37740a2e2b68fb52e921bdd8dce51b499f78a0d",
+    "flow-regulator": "edad7514d3fe11a238712d04d47ee198f5ade61e0dea3bfe32efb72a743fe6d6",
+    "gas-regulator": "0e48d603f7b08fd15b35a44f87e258a10967fdd50b1a7754e79239c8c0de3134",
+    "gas-check": "439664340dac7a30734ecd51efefb875d9c5d868844a48b92d8a9d252839c107",
+    "keystone-jack": "6128b44fc98d920989bdff1082429dc5c97b5dd1b7780b4431ff372f5be78229",
+    "tee-fold": "1917304a7cf3beed0bb8cf09615b9f5e5e2c21030a540e418f317c0fed745d20",
+    "lower-valve-elbow": "3929047a2afab9f0d15998effb1066f27949587f3403e169d446d378ad10ba37",
+    "lower-pump-elbow": "81f7e69fe8665252de9e5db660c4df2dbb6d003f3153de988bcce5e316a6145f",
+    "reg-va-elbow": "515d3ff909637bf520bc25af1f582e9af1a2fdbab0b1f4899041d353ca52c686",
+    "va-outlet-elbow": "52785fc154562ea73e850e1f4e70e5ab7d5807396c7fee456ade61e17ef3527f",
+    "carbonator-fold": "5b9ad6ec71ba8573e649fc99de8066a341047976145a96fad0f047e80baab602",
+    "gas-inlet-elbow": "d34cb4228e70f488c2cc5aaf6682ebfaa90c94b036fa7e2400c2872d6152f78c",
+    "gas-lower-a": "95f2feca9c1db6fd235b81406b8fc5db5ead1466a650792ffd4d02b061971250",
+    "gas-lower-b": "743c307c3f03799d3232e1dfc8e6f0cb4412dafb149c591fb76072281ded6c2b",
+    "gas-upper-a": "1f83170d9c1041875ce134ea0c431a33109c508388a551803005d02b9ac4b5a5",
+    "gas-upper-b": "eaeb8627b8bd6e20b9d5a971352368363485d58d843335406af2fe7b16db1ecb",
+    "soda-stem-elbow": "5bc76d8a43ea9dab7eb92bca05c809bba0cc407d898aa19694a053ae6e7b03ae",
+    "ya-stem-elbow": "29554c8e38d759e3e2107175dfeac7bee8bfdbd3a92a69ae901c349aeb1d7075",
+    "drain-outlet-stem": "e411396cdbb56e483b43f13c7bf222ea3d72fc04d9edff6f82c377de07f7ab40",
+    "vb-outlet-stem": "1c7e3bb1c866a1208a741f0cff88f1e0c50ed0d793cac2e30f468652ae2751e7",
+    "vb-outlet-return": "39fa0f8162d11334901bc55d7079bc9734295c42496432b72e88170780830a05",
+    "yb-stem-elbow": "b07dbe420f5c392b6302c40dd07a5f93ce779d9ef29e3c41b7a8c03beff867ed",
+    "va-east-turn": "4e9b0e96c713c32fdd501f722f0725d820f519f9a28bacbae376151715c65a7c",
+    "vb-inlet-turn": "c1f154c2ae415755a1bd248778f9734fd0b00fed8362ce827af6173ddf938789",
+    "bulkhead-water": "4e32d05cd34f032035de4b48719ee61e6a8bf2fa8063152f903f6a84a2c7c63b",
+    "bulkhead-water-nut": "7b374fba9a76432eec45315e63701f0ecb57d1594dabd61a693d80e44c58c9a9",
+    "co2-inlet": "e5a68018c9bbcc47e79cf94be72d26ebf3694b98e6bb4cefd4090bd8f1842d22",
+    "co2-inlet-nut": "0ad3b082c51f4c847bc7bd715ee4fcc5d4d673faa5f6936258120ebbd66c1fef",
+    "bulkhead-drain": "ab2c3841cc242020e7df6798664a415b1f70bf39fde433a3e2dac7f42d2dd981",
+    "bulkhead-drain-nut": "9d2fa289958c59896f77530e4ecb8e34030c25e2fed94a521564cacc6a280692",
+    "bulkhead-carb": "1edfe269a3acea7598baa0a2d54dbded0d45772bd1f14fe8d65c0fc74e45b137",
+    "bulkhead-carb-nut": "abb7a4c04b07c453740e40b087e847c266a81c016f23af8db4a52accbdb71b14",
+    "bulkhead-flavor-a": "a78d052def254714eb38af1b188756394f028f97163ff2eb8916f762fab9895d",
+    "bulkhead-flavor-a-nut": "5d6234fbc13d6c3b5784e2380c6fa02133041817e8f9283cc30f1749b82de423",
+    "bulkhead-flavor-b": "68e720634142eebfde77c6c3f008eada7d69e23ea1b1e07b81b8c9a29005ffcc",
+    "bulkhead-flavor-b-nut": "b26872e048280a591d537b0145277c805ccb1789e05d4c0c86fef1d9187e13bc",
+    "digiten-flow": "c62c3f207dfd685ff47d8aa3d2dd34286bc7d6c13fac368d4865905c3411f88e",
+    "display": "0a26e10fd1c66fa296602369be7033b1fe8230649888c4c87cec4fa2b0d71b66",
+    "display-cover": "2ace5743b85b57ded02ed41e94bda9e7342dc5fdd4cbe8bdc33bc0cc09e682d0",
+    "pump-contact-male": "65b86f2b7115028637ff2303d6bfc2b958afeba3f76ba58f30d193ae7886018e",
+    "pump-contact-female": "770cbbd34c5d35fb24a57f900af3dab8ded061126239d3cc58e3d8193f3be47d",
+    "funnel-frame": "e7e7466dca666a83ecf7d39204bb678c49a4d9f8228a14500d5454448d1efda7",
+    "fixed-drain-bridge": "7930edcd7190195af222b40b6bd53d46258e906ac6ac0a5a591ce3cea8bc0aa0",
+    "elbow-cradle": "c246d3a7d08603de0d5de955c08a6e666e49789fdd84fbb92c0af05ed8a2c286",
+    "funnel-drain-union": "50c47c9e3b34d0f6e28240a6cb3e8e4179c363854ded333dedf6874546ba29ea",
+    "funnel-drain-stub": "ca92f74988229e210b120cb778ddd8eca8e8260e81b4c94a3f6af51a8bca78b9",
+    "electronics-access-panel": "8419482ed937e45c6f5e9e25beba6a99ca4fffcbd0fced8dec83ef2621bed808",
+    "tee-y-g": "ebc0d13fe80d08d363f3bf8bdb1c686407c2d470503f58ec340918bd1ebd1d0c",
+    "stem-elbow-y-g": "e23871d3307a50ff56968a9a42e66bf45570960b25b67ed601ec7cad79a3fb8b",
+    "stem-elbow-v-j": "7eda666470ad46ed4586af5d31d4e87e28963a054836ed37bdcd384a4eac1d4a",
+    "tee-y-f": "15a8672d8a4c3c66c3b2cc52ccb2d95d709a3a830d6284a203864f0448adcf7f",
+    "stem-elbow-y-f": "7eff27eed9166208c055632bfff6477f480ea77f9e01baa32ce98d6bfee88126",
+    "stem-elbow-v-d": "639df270ae26d0fad01d85480df1e96196f327e4d7a820e75be590a6cbe89bd1",
+    "tee-y-c": "9c6e211446751f6c37e2fc758e9a4af913fa6f1d756cbce5d7ffb4ca20bb70fa",
+    "stem-elbow-y-c": "5254bd8da2a9c0193aa484a92301f2e4d9515de99c9d2483d4deaadf42d631c8",
+    "stem-elbow-v-c": "ce05e79f156dba93b8fbcd0bafb0ac12422a66ec1dde60b2d60b9de4b8cb31a6",
+    "tee-y-d": "2bd6c2e6e3e706bb0dcf797aa4aba779fcca9a93a5c883e170549bb0b59161d3",
+    "stem-elbow-y-d": "fc57ccd9cf8286e757ec89b4b7fb30b4d1f09d80e53cbbe5bb10d4e395f32c87",
+    "stem-elbow-v-g": "da3df877c732e886524b99cfab4f4e566a9556351195259d74fc0c5e669bec03"
+  },
+  "native_tube_sha256": "36c4ac67e596d0ebd37aa69cafd316c8be3700ff4ad057cbe3809d176993890f",
+  "reference_sha256": {
+    "hardware/reference/wago-221/wago-221-413.step": "ca567c0670a91fa0b28b66e50744c99a4335da85497cba4f31bd0e04c85d266e",
+    "hardware/reference/wago-221/wago-221-415.step": "83d75c210b172e3f19100b23194b2f453c8398f2f95a7887b0ce2471249da065",
+    "hardware/reference/wago-221/wago-221-420.step": "03568637dc67a1ba7b5648ec1deb53e7238ebec2ead968eefdc8f4e7be2a575c"
+  },
+  "geometrically_clear": true
+}

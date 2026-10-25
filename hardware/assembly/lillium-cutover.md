@@ -135,9 +135,11 @@ Front-top is the fixture for the whole flavor side.
    LLDPE, left long.
 4. **The machine display** in its facet: TPU ring on the glass, both cover wings in their
    pockets, leads loose (§8).
-5. **The funnel frame** slides in (§8) with no elbow, cradle or stub under it. The dip tube
-   comes up through the frame's drain hole and out of the funnel opening, long enough to reach
-   the bottom of a bottle beside the machine. Between fills its end rests up in the opening.
+5. **The funnel frame** remains off until the box's final connections are complete.
+   Bring the prototype dip tube through its drain opening, then lower the frame vertically
+   and fit its four M3 × 12 screws. The tube reaches the bottom of a bottle beside the
+   machine; between fills its end rests up in the opening. The integrated drain
+   cradle, elbow and stub are omitted for this prototype dip-tube arrangement.
 
 Cuts, black 1/4" LLDPE:
 
@@ -220,7 +222,7 @@ Dry-fit every slide with the box empty first
 the order [§4](enclosure-mechanical.md#4-close-the-front-column) and
 [§6](enclosure-mechanical.md#6-close-the-box) give.
 
-1. **The front column:** front-top, carrying its manifold, display and frame, slides aft onto
+1. **The front column:** front-top, carrying its manifold and display, slides aft onto
    front-bottom. The compressor bay stays empty.
 2. **The foam shell:** both reservoirs in their pockets, the reed columns down their channels,
    each draw out through its own pocket wall and up the forward band

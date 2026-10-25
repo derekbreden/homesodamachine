@@ -244,8 +244,8 @@ foam-cap stacks.
 The outer **−X** wall carries one Z-elongated slot on each of its two lanes and
 **no round bore at all**. **Nothing else crosses it** — this face is mated against the
 refrigeration base, so a bore struck here opens into that base rather than into the
-machine. All seven fluid lines leave by the top cap's conduits, and so do both reed
-cables, each up the channel its own column stands in. See Penetrations.
+machine. All seven fluid lines leave by the top cap's conduits, along with the
+two reservoir reed cables and sensor/earth loom in their own passages. See Penetrations.
 
 ### foam_cap and foam_cap_lid
 
@@ -408,7 +408,7 @@ both ends of that.
 
 ## Penetrations
 
-Twelve pass-throughs total — ten tube lines and two reed cables. Every tube is **1/4" OD
+Thirteen pass-throughs total — ten tube lines, two reservoir reed cables and the sensor/earth loom. Every tube is **1/4" OD
 (6.35 mm nominal, about 6.5 mm measured)**. Passive passages through printed
 material are ⌀[7.5 mm](TUBE_HOLE_D), with 0.5 mm radial air around the measured
 tube for insertion below the reservoirs and through the cap. These passages
@@ -428,22 +428,23 @@ the +Y flank into the enclosure’s exterior relief chase.
 | 3 | Copper evaporator inlet | port-lane slot | 1/4" OD ACR copper, made up on the condenser's own outlet pick across the plane the two bodies share |
 | 4 | Copper evaporator outlet | west-lane slot | 1/4" OD ACR copper, made up on the compressor's own suction pick across that same plane |
 | 5 | PRV vent | **+Y flank** | short 1/4" OD LLDPE from the prv-shroud’s barrel into the enclosure’s west-wall relief chase, which opens outside the cabinet (see [`prv-shroud`](/hardware/printed-parts/cold-core/prv-shroud/)) |
-| 6 | Water inlet | **top-cap conduit** `water-in` | from the diaphragm pump — down the forward strip, along the +Y band under the cap floor, then one diagonal across the carbonator's own top into the top-plate −Y elbow **above the water line**, where it falls into the headspace against the CO2 back-pressure |
+| 6 | Water inlet | **plain aft top-cap guide** `water-in` | one continuous tube from the pump's check and downward outlet elbow, through the curved cap corridor to the fixed top-plate −Y adapter **above the water line**, where the water-inlet jet discharges into headspace against the CO2 back-pressure; the guide adds no joint or cut |
 | 7 | Carbonated-water outlet | **top-cap conduit** `carb-water-out` | to the dispense faucet — off the bottom-plate Port 3 elbow **under the liquid**, across under the carbonator, out through the ring's 217° slot and up beside the coil |
-| 8 | CO2 inlet | **top-cap conduit** `co2-in` | from the check downstream of WR1110 — the one line running DOWN: the port lane the shell's whole height, along its floor, then the leaning reach through the ring's 307° slot onto Port 1, which opens **directly below the liquid** |
+| 8 | CO2 inlet | **top-cap conduit** `co2-in` | from the neoFit ACHV44-E check downstream of the PISCO regulator — down the port lane, along its floor, then through the ring's 307° slot onto Port 1, which opens **directly below the liquid** |
 | 9 | Reservoir A draw | **top-cap conduit** `reservoir-a` | A's dip tube: straight down through the draw bore in A's own cap to **its floor** |
-| 10 | Reservoir B draw | **top-cap conduit** `reservoir-b` | the same through B's cap |
-| 11 | Reservoir A fill | **top-cap conduit** `reservoir-a-fill` | straight down onto the fill bore in reservoir A's own cap, **above its liquid** |
-| 12 | Reservoir B fill | **top-cap conduit** `reservoir-b-fill` | the same onto reservoir B's cap |
+| 10 | Reservoir B draw | **top-cap conduit** `reservoir-b` | one continuous dip tube through the cap's 3.5 mm passive shift and B's draw bore to its floor |
+| 11 | Reservoir A fill | **top-cap conduit** `reservoir-a-fill` | through the cap's 3.5 mm passive shift to A's fill bore, **above its liquid** |
+| 12 | Reservoir B fill | **two fitted cap pockets** `reservoir-b-fill` | an upper JG elbow, short tube and lower trimmed NeoFit stem through B's fill bore, ending in the headspace |
+| 13 | Sensor and earth loom | top-cap `sensor-cable` passage | temperature-bus conductors, carbonator reed conductors and carbonator earth lead |
 
 **The carbonator and both reservoirs are filled high and drawn low** — the carbonator at
 its two plates, each reservoir through its cap, from above the liquid and from its floor. Nothing that enters one can leave
 without crossing it, which is what the air-purge and clean-flush service modes run on.
 
-For the water inlet and CO2 inlet, the supply-side tubing reduces to
-1/4" OD before reaching the shell — transition fittings (3/8"
-barb-to-NPT adapter, 5/16" push-to-connect, 1/4" NPT check valves, etc.)
-live on the warm side. Inside, every line is 1/4" OD.
+The selected warm-side water and CO2 groups use 1/4-inch push-connect
+interfaces, as defined by the [above-core arrangement](/hardware/manifold-layout/above-core.md).
+Their tubes continue through the plain guides to the carbonator fittings.
+Every fluid line inside this core is 1/4-inch OD.
 
 ### The runs themselves
 
@@ -615,12 +616,12 @@ Every internal component is installed first:
   own lane's face — the condenser's outlet east, the compressor's suction west.
 - Water inlet: a 1/4" PTC × 1/4" NPT M adapter (JG PP010822E) made up on the
   lateral FNPT of the carbonator's top-plate −Y elbow, collet clocked onto the diagonal
-  the line leaves on, and a length of 1/4" OD LLDPE from that collet across the carbonator's
-  own top in the band between the top plate and the cap floor — the carbonator has ended by
-  this height — onto the +Y band, forward, then into the forward strip and up
-  the top cap's `water-in` conduit. Every corner on it is potted where it turns, and
-  the two either end of the step into the strip are the pack's only ones under the
-  stock arc — that band is 14 mm and the step across it is wider.
+  the line leaves on. One continuous 1/4-inch OD LLDPE tube follows the nominal R14
+  cap corridor, east of the sensor passage and clear of the PSU insert column,
+  then rises through the aft `water-in` guide beneath the downward check outlet.
+  The guide is plain: it adds no fitting, insertion or tube cut. Lay the complete
+  route before pouring; use both CAD spans and actual receiving-end marks for
+  its single blank per [Internal plumbing](/hardware/assembly/internal-plumbing.md#parts-and-cut-lengths).
 - Two copper plugs slid down from above, one per lane, with the continuous
   interior flange facing the cavity and the shell wall held between it and
   the exterior end tabs. Each bottom arch seats over its copper and the top

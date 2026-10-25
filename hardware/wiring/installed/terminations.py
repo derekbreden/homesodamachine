@@ -44,7 +44,10 @@ def add_terminations(assembly,attachments,connections,routes):
                        'dimensions_mm':[width,5.7,7.5],'assembled_height_above_board_mm':9.8,
                        'source':'https://www.jst-mfg.com/product/pdf/eng/eXH.pdf',
                        'status':'nominal envelope; latch detail and on-hand clone fit unqualified',
-                       'terminal_ids':[p.id for p in pins]}
+                       'terminal_ids':[p.id for p in pins],
+                       'mating_terminals':{
+                           p.id:{'part':p.part,'point':p.point,'outward':p.outward,
+                                 'pin':p.pin} for p in pins}}
     from .model import Route,Connection,rounded_segments,shape
     for side in ('male','female'):
         for i in range(1,5):

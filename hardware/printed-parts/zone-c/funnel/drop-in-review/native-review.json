@@ -1,0 +1,611 @@
+{
+  "passed": true,
+  "scope": "Sampled exported bare-frame vertical motion through exported upper shells and authored ledges; drain cradle, elbow, stub and connected tubing removed from all lift poses. Nominal J10 tool passages through both upper shells are checked with the frame, cradled drain and electronics panel removed.",
+  "drain_attachment": "Cradle snaps into the removable frame original 3 mm web.",
+  "removal_prerequisite": "Disconnect the drain tube or release the cradle snap before frame withdrawal. This review does not model that release, snap deflection or connected-tube motion.",
+  "evidence_limit": "Native and tessellated geometry; no printed fit, support removal, force, water exclusion, stiffness or lifetime result.",
+  "source_sha256": {
+    "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "1beaecee640a20e5b95fd0013dd215293cf84a10892c5e42bbc74767c028a931",
+    "hardware/printed-parts/zone-c/funnel/funnel.py": "62b3c64da5adb542663062f33b1b007666ac68b952a892e5c63f464240ec7ef2",
+    "hardware/printed-parts/zone-c/funnel/elbow_cradle.py": "27ab3ca34c264355eaba4b61d082baa2230356b10a44b721c19e9dca978c7e92",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "e8abe95b3d3d481cfdeed0a86afcaeec61b8d0bd0f4dc49dd557f12ab109e4f7",
+    "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "264bb52da73675dcd41f7fff8bc5fce6eabd06336fc3cf8b7a9b8560c21e5040",
+    "hardware/printed-parts/zone-c/funnel/funnel.step": "622ff696753e4d1620772193528fceac409ef807856e423216672652bcedaede",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "159e06d1548cc30b871e6e973f5a9d0929a0fba47a91a9027040efa66b9f7a59",
+    "hardware/printed-parts/zone-c/funnel/elbow-cradle.step": "831c6b23a58f8f541735f5c76d5ebf6d50394912eb4979c1e29003e0fb754b46",
+    "hardware/printed-parts/zone-c/funnel/drop-in-review/review.py": "0d3e4b55d33ddd4418cf48588e09ab750e39a4a477f1989790154550bb2d38ca",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "fb2a105294ef8623a4e0f179c68ddc5317f71f6027ec4ca9e01c88251e544344",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "9db2793517521782d7720aeaf628329aa5e4f194980ff896ab1bbc0a87b38281",
+    "hardware/manifold-layout/above_core.py": "4dd9b5e53315a066771300cfbe8102f71501adc442469adfa8bb5008e809d4fc",
+    "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py": "86e62dc6bcb7a24031dd3e3e4bfa0b22b378abce40095a4ebc7b3787d5456ccf",
+    "hardware/manifold-layout/above-core.json": "8214035f2714c12fcf7393052107abc0e24255bee83b17f132332ca4bd336121",
+    "hardware/wiring/installed/connector-map.json": "8986c0f9b7e7394d965af41546f90fd4425f8ccb98a6360db6bbff8ba64a2126"
+  },
+  "checks": [
+    {
+      "check": "no shell drain crossbar / front",
+      "passed": true
+    },
+    {
+      "check": "no shell drain crossbar / back",
+      "passed": true
+    },
+    {
+      "check": "frame valid stock",
+      "passed": true,
+      "solids": 1,
+      "volume_mm3": 665134.8657062041,
+      "exported_source_difference_mm3": 0.0
+    },
+    {
+      "check": "front ledges valid stock",
+      "passed": true,
+      "solids": 2,
+      "volume_mm3": 4592.644263153227
+    },
+    {
+      "check": "back ledges valid stock",
+      "passed": true,
+      "solids": 2,
+      "volume_mm3": 5890.0842631532205
+    },
+    {
+      "check": "J10 roof tool passage / GND",
+      "passed": true,
+      "driver_diameter_mm": 3.3,
+      "shell_overlap_mm3": {
+        "front": 0.0,
+        "back": 0.0
+      },
+      "roof_world_z_mm": 355.0,
+      "axis_world": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "driver_base_world_mm": [
+        -22.499998896484364,
+        272.5529200200504,
+        269.200007
+      ],
+      "shell_gap_mm": {
+        "front": 84.10478060368473,
+        "back": 1.738587903229643
+      },
+      "tool_basis": "Nominal screwdriver cylinder; purchased tool fit and hand access unqualified.",
+      "closure_prerequisite": "Frame, cradled drain and electronics panel removed."
+    },
+    {
+      "check": "J10 roof tool passage / V12",
+      "passed": true,
+      "driver_diameter_mm": 3.3,
+      "shell_overlap_mm3": {
+        "front": 0.0,
+        "back": 0.0
+      },
+      "roof_world_z_mm": 355.0,
+      "axis_world": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "driver_base_world_mm": [
+        -27.49998889648436,
+        272.5529200200504,
+        269.200007
+      ],
+      "shell_gap_mm": {
+        "front": 80.31879653472454,
+        "back": 1.738587903229643
+      },
+      "tool_basis": "Nominal screwdriver cylinder; purchased tool fit and hand access unqualified.",
+      "closure_prerequisite": "Frame, cradled drain and electronics panel removed."
+    },
+    {
+      "check": "vertical motion / front ledges",
+      "passed": true,
+      "maximum_overlap_mm3": 0.0,
+      "poses": [
+        {
+          "lift_mm": 0.0,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 0.1,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 0.25,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 0.5,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 1,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 2,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 3,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 6,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 9,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 12,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 12.25,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 15,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 20,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 30,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 40,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 50,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 55.1,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 56.0,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 60.0,
+          "overlap_mm3": 0.0
+        }
+      ]
+    },
+    {
+      "check": "vertical motion / back ledges",
+      "passed": true,
+      "maximum_overlap_mm3": 0.0,
+      "poses": [
+        {
+          "lift_mm": 0.0,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 0.1,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 0.25,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 0.5,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 1,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 2,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 3,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 6,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 9,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 12,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 12.25,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 15,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 20,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 30,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 40,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 50,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 55.1,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 56.0,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 60.0,
+          "overlap_mm3": 0.0
+        }
+      ]
+    },
+    {
+      "check": "vertical motion / production front-top",
+      "passed": true,
+      "maximum_overlap_mm3": 2.0032864256336325e-12,
+      "poses": [
+        {
+          "lift_mm": 0.0,
+          "overlap_mm3": 2.0032864256336325e-12
+        },
+        {
+          "lift_mm": 0.1,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 0.25,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 0.5,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 1,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 2,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 3,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 6,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 9,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 12,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 12.25,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 15,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 20,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 30,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 40,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 50,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 55.1,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 56.0,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 60.0,
+          "overlap_mm3": 0.0
+        }
+      ]
+    },
+    {
+      "check": "vertical motion / production back-top",
+      "passed": true,
+      "maximum_overlap_mm3": 0.0,
+      "poses": [
+        {
+          "lift_mm": 0.0,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 0.1,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 0.25,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 0.5,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 1,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 2,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 3,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 6,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 9,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 12,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 12.25,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 15,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 20,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 30,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 40,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 50,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 55.1,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 56.0,
+          "overlap_mm3": 0.0
+        },
+        {
+          "lift_mm": 60.0,
+          "overlap_mm3": 0.0
+        }
+      ]
+    },
+    {
+      "check": "complete silicone brim bearing",
+      "passed": true,
+      "missing_volume_mm3": 0.0,
+      "bearing_thickness_mm": 3.0
+    },
+    {
+      "check": "silicone / frame",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "silicone / front",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "silicone / back",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "released cradle / frame static fit",
+      "passed": true,
+      "overlap_mm3": 0.0
+    },
+    {
+      "check": "complete original snap web",
+      "passed": true,
+      "thickness_mm": 3.0,
+      "missing_volume_mm3": 0.0
+    },
+    {
+      "check": "clear original plug socket",
+      "passed": true,
+      "socket_depth_mm": 19.0,
+      "unintended_stock_mm3": 0.0
+    },
+    {
+      "check": "screw / front-west",
+      "passed": true,
+      "name": "front-west",
+      "col": "front",
+      "side": -1,
+      "x": -93.0,
+      "y": 124.99999207671873,
+      "ledge_z": 346.0,
+      "head_seat_z": 351.8,
+      "head_top_z": 354.8,
+      "insert_top_z": 346.0,
+      "insert_bottom_z": 340.3,
+      "bore_bottom_z": 338.8,
+      "host_bottom_z": 335.8,
+      "screw_length": 12.0,
+      "screw_length_allowance": 0.4,
+      "tip_z": 339.8,
+      "host_radius_mm": 5.0,
+      "minimum_thread_reach_mm": 5.800000000000011,
+      "minimum_blind_tip_air_mm": 0.6000000000000227,
+      "pilot_radial_stock_mm": 3.0,
+      "pilot_wall_missing_volume_mm3": {
+        "authored receiver": 0.0,
+        "production shell": 0.0
+      },
+      "blind_backing_missing_volume_mm3": {
+        "authored receiver": 0.0,
+        "production shell": 0.0
+      },
+      "screw_head_bearing_diameter_mm": 5.5,
+      "complete_frame_grip_mm": 5.800000000000011,
+      "missing_frame_bearing_volume_mm3": 0.0
+    },
+    {
+      "check": "screw / front-east",
+      "passed": true,
+      "name": "front-east",
+      "col": "front",
+      "side": 1,
+      "x": 93.0,
+      "y": 124.99999207671873,
+      "ledge_z": 346.0,
+      "head_seat_z": 351.8,
+      "head_top_z": 354.8,
+      "insert_top_z": 346.0,
+      "insert_bottom_z": 340.3,
+      "bore_bottom_z": 338.8,
+      "host_bottom_z": 335.8,
+      "screw_length": 12.0,
+      "screw_length_allowance": 0.4,
+      "tip_z": 339.8,
+      "host_radius_mm": 5.0,
+      "minimum_thread_reach_mm": 5.800000000000011,
+      "minimum_blind_tip_air_mm": 0.6000000000000227,
+      "pilot_radial_stock_mm": 3.0,
+      "pilot_wall_missing_volume_mm3": {
+        "authored receiver": 0.0,
+        "production shell": 0.0
+      },
+      "blind_backing_missing_volume_mm3": {
+        "authored receiver": 0.0,
+        "production shell": 0.0
+      },
+      "screw_head_bearing_diameter_mm": 5.5,
+      "complete_frame_grip_mm": 5.800000000000011,
+      "missing_frame_bearing_volume_mm3": 0.0
+    },
+    {
+      "check": "screw / back-west",
+      "passed": true,
+      "name": "back-west",
+      "col": "back",
+      "side": -1,
+      "x": -87.7,
+      "y": 259.4915079232813,
+      "ledge_z": 346.0,
+      "head_seat_z": 351.8,
+      "head_top_z": 354.8,
+      "insert_top_z": 346.0,
+      "insert_bottom_z": 340.3,
+      "bore_bottom_z": 338.8,
+      "host_bottom_z": 335.8,
+      "screw_length": 12.0,
+      "screw_length_allowance": 0.4,
+      "tip_z": 339.8,
+      "host_radius_mm": 5.0,
+      "minimum_thread_reach_mm": 5.800000000000011,
+      "minimum_blind_tip_air_mm": 0.6000000000000227,
+      "pilot_radial_stock_mm": 3.0,
+      "pilot_wall_missing_volume_mm3": {
+        "authored receiver": 0.0,
+        "production shell": 0.0
+      },
+      "blind_backing_missing_volume_mm3": {
+        "authored receiver": 0.0,
+        "production shell": 0.0
+      },
+      "screw_head_bearing_diameter_mm": 5.5,
+      "complete_frame_grip_mm": 5.800000000000011,
+      "missing_frame_bearing_volume_mm3": 0.0
+    },
+    {
+      "check": "screw / back-east",
+      "passed": true,
+      "name": "back-east",
+      "col": "back",
+      "side": 1,
+      "x": 87.7,
+      "y": 259.4915079232813,
+      "ledge_z": 346.0,
+      "head_seat_z": 351.8,
+      "head_top_z": 354.8,
+      "insert_top_z": 346.0,
+      "insert_bottom_z": 340.3,
+      "bore_bottom_z": 338.8,
+      "host_bottom_z": 335.8,
+      "screw_length": 12.0,
+      "screw_length_allowance": 0.4,
+      "tip_z": 339.8,
+      "host_radius_mm": 5.0,
+      "minimum_thread_reach_mm": 5.800000000000011,
+      "minimum_blind_tip_air_mm": 0.6000000000000227,
+      "pilot_radial_stock_mm": 3.0,
+      "pilot_wall_missing_volume_mm3": {
+        "authored receiver": 0.0,
+        "production shell": 0.0
+      },
+      "blind_backing_missing_volume_mm3": {
+        "authored receiver": 0.0,
+        "production shell": 0.0
+      },
+      "screw_head_bearing_diameter_mm": 5.5,
+      "complete_frame_grip_mm": 5.800000000000011,
+      "missing_frame_bearing_volume_mm3": 0.0
+    }
+  ]
+}

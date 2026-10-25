@@ -61,6 +61,34 @@ def native_reference(name):
 
 
 @cache
+def valve_native(name):
+    """One purchased reference, with its movable release collets clocked.
+
+    Clock angles are about native +Y through the port centre. The inlet and
+    outlet collet solids occupy the observed end-mouth bands; every other
+    reference solid keeps its exact native shape and frame.
+    """
+    native = native_reference('valve')
+    angles = layout.pose(name).get('collet_clock_degrees', {})
+    if not angles:
+        return native
+    ref = _module('above_core_beduan',
+                  'reference/beduan-solenoid/beduan_solenoid.py')
+    mouth_start = ref.port_length/2. - ref.port_mouth_depth
+    solids = []
+    for solid in native.Solids():
+        box = solid.BoundingBox()
+        port = ('inlet' if box.ymax < -mouth_start else
+                'outlet' if box.ymin > mouth_start else None)
+        angle = angles.get(port, 0.)
+        if angle:
+            solid = solid.rotate((0., 0., ref.port_center_z),
+                                 (0., 1., ref.port_center_z), angle)
+        solids.append(solid)
+    return cq.Compound.makeCompound(solids)
+
+
+@cache
 def _module(name, relative):
     spec = importlib.util.spec_from_file_location(name, HW / relative)
     result = importlib.util.module_from_spec(spec)
@@ -261,7 +289,7 @@ def components():
                         ('discharge-chain', M_NEOFIT_ACETAL)):
         add(name, native_reference(name), color, layout.pose(name))
     for name in ('valve-v-a', 'valve-v-b', 'vk-solenoid'):
-        add(name, native_reference('valve'), C_VALVE, layout.pose(name))
+        add(name, valve_native(name), C_VALVE, layout.pose(name))
     add('g-ganen-pump', pump_native(), M_DONOR_BLACK, layout.pose('g-ganen-pump'))
 
     # Cuffs share the ASSE flow-axis frame, with X=0 at the bare inlet tip.

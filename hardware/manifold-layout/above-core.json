@@ -167,7 +167,7 @@
     "valve-v-a": {
       "rotation": [
         [
-          -1.0,
+          1.0,
           0.0,
           0.0
         ],
@@ -178,7 +178,7 @@
         ],
         [
           0.0,
-          1.0,
+          -1.0,
           0.0
         ]
       ],
@@ -187,7 +187,11 @@
         285.28976052818666,
         298.5808478805363
       ],
-      "reference": "hardware/reference/beduan-solenoid/beduan-solenoid.step"
+      "reference": "hardware/reference/beduan-solenoid/beduan-solenoid.step",
+      "collet_clock_degrees": {
+        "inlet": -15.0
+      },
+      "collet_clock_basis": "Movable inlet release collet rotated about native +Y through the port-centre axis. The shared measured reference supplies the complete collet; the fixed body, posts, ports and nominal stem engagement retain their selected datums."
     },
     "valve-v-b": {
       "rotation": [
@@ -217,7 +221,7 @@
     "vk-solenoid": {
       "rotation": [
         [
-          -1.0,
+          1.0,
           0.0,
           0.0
         ],
@@ -228,7 +232,7 @@
         ],
         [
           0.0,
-          1.0,
+          -1.0,
           0.0
         ]
       ],
@@ -2654,7 +2658,7 @@
         "name": "inline-water-regulator",
         "xmin": -58.4,
         "xmax": 10.7,
-        "ymin": 281.8,
+        "ymin": 275.5,
         "ymax": 310.9,
         "zmax": 349.0,
         "bodies": [

@@ -7,17 +7,18 @@ drain stub over its full 5.015 mm insertion depth; the funnel lifts off for clea
 
 ![The two pieces in their print orientations](overview.png)
 
-The clamping flanges are **247 × 193.392 mm**, with at least 16 mm margin around
-the 215 × 155.392 mm silicone apron. Their R28 corners leave a flat
-197.85 × 144.242 mm cavity base and a **63.4° corbel**
+The clamping flanges are **247 × 228.392 mm**, with at least 16 mm margin around
+the 215 × 190.392 mm silicone apron. Their R47 corners leave a flat
+197.85 × 179.242 mm cavity base and a **63.4° corbel**
 supporting the flange. The core has a flat dry back and one **44.085 mm
-circular tapered access hole** leading to the straight rod guide. Both flanges
+circular tapered access hole** leading to the straight rod guide. The rounded flange envelope fits the nominal 299.72 mm chamber while retaining
+at least 5 mm outside the finished apron-forming boundary. Both flanges
 are 5 mm thick. The core's 0.30 mm brim-finishing pocket retains
-4.70 mm backing. Eight 5 mm holes take M4 × 20 bolts, 9 mm OD washers and nuts;
+4.70 mm backing. Eight 5 mm holes take M4 × 20 bolts, 9 mm OD washers and nuts.
 Eight downward-open cutouts give side access to the cavity bolt heads. Their
 flat washer-bearing ceilings receive removable Snug support; the corbel and
 core access taper print without support. Two locating pegs stand on the
-wider front land, at X±25 mm, Y−85.696 mm. One round receiver and one X slot
+wider front land, at X±25 mm, Y−103.196 mm. One round receiver and one X slot
 locate the halves without thin material at the outer flange edge.
 Four edge notches admit a blunt opening tool.
 
@@ -92,7 +93,7 @@ a successful 15% infill mold with Snug supports on September 16.
 
 The acquired [5-gallon chamber](../../../ledger/tools.md) is recorded with a
 **299.72 mm interior diameter and height**. The rounded mold fits within a
-**291.28 mm circle**, leaving **4.22 mm radial clearance**. With the specified
+**297.64 mm circle**, leaving **1.04 mm radial clearance**. With the specified
 M4 × 20 closure hardware it is about **73.35 mm high**. Use a catch tray no
 larger than 260 mm across and keep it clear of the breathers. The
 [chamber check](chamber-check.json) binds these dimensions to the native parts

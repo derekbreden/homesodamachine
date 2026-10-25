@@ -1,0 +1,657 @@
+{
+  "scope": "Manual native CAD record for endpoint-preserving R25 flavor routes, complete XH connector service staging, source-defined screw/wire approaches and four nominal retaining strips. No physical print, strength, sealing, force, lifetime, flexible-wire service or purchased-tie-fit qualification.",
+  "source_sha256": {
+    "hardware/manifold-layout/above_core_routes.py": "ecfad90d3bc84499583d806fae03a89c80590deaa7de149562ff9536f1d96c98",
+    "hardware/manifold-layout/above-core.json": "43d2feb98e34e109ee0da1b3626bca8990bf5aa1fb9870eeb196306e3095082e",
+    "hardware/printed-parts/cold-core/_above_core_mounts.py": "804602d0871500c5035352e6c5d2bfefdac9fa8378f6cc9ae781e67e1b69d08d",
+    "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py": "86e62dc6bcb7a24031dd3e3e4bfa0b22b378abce40095a4ebc7b3787d5456ccf",
+    "hardware/pcb/pcba/out/pcba.glb": "16314ee4bb4a38c002eb73cec124cf7b83115b179e3f4fa2c206cdb7c30fba5d",
+    "hardware/wiring/installed/connector-map.json": "8986c0f9b7e7394d965af41546f90fd4425f8ccb98a6360db6bbff8ba64a2126",
+    "hardware/wiring/installed/terminations.py": "3675b6eb9e558bf8f4640a4ca395761d91430ff745062562fe67c63a6a2aed3c",
+    "hardware/manifold-layout/above_core_parts.py": "2e75ac73378cceadc7f3a6903bf8a9b25968f32c6227066f4cc7890416564820",
+    "hardware/mechanical-qualification/enclosure-above-core/connector_service.py": "0ca76a102e2d78dcf40ed6874cd3d56b953b635fa267b21e9ddd228a4111d2b6"
+  },
+  "artifact_sha256": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "3579a5cd8054a25f71cfc5db5ef7bc8aa6877a26502a6a413c6770dabd75ab37",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "fd0d13001b342cb179db3ca0069aee64d2442b989da3bd7c2b496d8440f00de6",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "8eaff771351676401e3b127ca3dd7aed17d14e3587572465398a2829a5322589"
+  },
+  "source_segment_identity": "Current source fluid18/28 native line/arc arrays exactly equal the accepted native candidate arrays after JSON list normalization. Rear mouth frames and terminal return arcs are retained.",
+  "meter_pose_at_query": {
+    "rotation": [
+      [
+        0.0,
+        1.0,
+        -0.0
+      ],
+      [
+        1.0,
+        0.0,
+        -0.0
+      ],
+      [
+        0.0,
+        0.0,
+        -1.0
+      ]
+    ],
+    "translation_mm": [
+      50.0,
+      390.91479999999996,
+      306.3760478805363
+    ],
+    "reference": "hardware/reference/digiten-flow-sensor/digiten-flow-sensor.step"
+  },
+  "flavor_routes": {
+    "scope": "Selected X\u221250 return: two endpoint-preserving R25 dispense-route corrections against current24 native spans, purchased equipment, canonical current lid, four complete nominal retaining strips and all30 source-defined approach witnesses. Whole nominal J11 housing witness follows6up/6east/20up with removable funnel/frame/drain removed; J1/J2 retain17up/8fore. Electrical contacts are separately handed to the wire owner. No physical bend, latch, hand force, strip threading/fit/retention or flex-loom qualification.",
+    "parameters": {
+      "west_x_mm": -94.0,
+      "A_west_cross_z_mm": 331.5,
+      "B_west_cross_z_mm": 326.0,
+      "A_rear_hairpin_z_mm": 337.75,
+      "B_rear_cruise_z_mm": 343.0,
+      "B_drop_x_mm": 63.0,
+      "bend_radius_mm": 25.0
+    },
+    "routes": {
+      "fluid-18": {
+        "valid": true,
+        "solids": 1,
+        "length_mm": 688.0509397106205,
+        "physical": {
+          "native_target_count": 113,
+          "contacts": {},
+          "closest_under2_mm": [
+            [
+              "tube-fluid-14",
+              1.0495959627957372
+            ],
+            [
+              "tube-fluid-28",
+              1.176105927216961
+            ],
+            [
+              "tube-drain-vent",
+              1.4943345594576727
+            ],
+            [
+              "tube-fluid-26",
+              1.5249999999999773
+            ],
+            [
+              "g-ganen-pump",
+              1.56314615432007
+            ]
+          ]
+        },
+        "approaches": {
+          "native_target_count": 30,
+          "contacts": {},
+          "closest_under2_mm": []
+        }
+      },
+      "fluid-28": {
+        "valid": true,
+        "solids": 1,
+        "length_mm": 544.1350466787909,
+        "physical": {
+          "native_target_count": 111,
+          "contacts": {},
+          "closest_under2_mm": [
+            [
+              "nominal-strip-meter-aft",
+              0.308831495432322
+            ],
+            [
+              "enclosure-back-top",
+              1.0
+            ],
+            [
+              "gas-regulator",
+              1.1562447335427175
+            ],
+            [
+              "tube-fluid-18",
+              1.176105927216967
+            ],
+            [
+              "foam-cap-lid-top",
+              1.3001106747463487
+            ],
+            [
+              "tube-drain-vent",
+              1.755113102947183
+            ]
+          ]
+        },
+        "approaches": {
+          "native_target_count": 30,
+          "contacts": {},
+          "closest_under2_mm": [
+            [
+              "access/psu-mount-2",
+              1.9066304305415347
+            ],
+            [
+              "access/psu--1-+4",
+              1.9999938964844048
+            ]
+          ]
+        }
+      }
+    },
+    "continuous_frame_installation_bound": {
+      "scope": "Conservative bounding prisms for lower frame and separate Z346+ roof surround, each swept vertically upward toZ600. A zero intersection proves the complete straight drop corridor for these two changed tube bodies; other closure bodies retain their separate selected-group review.",
+      "frame_bands_mm": {
+        "lower": [
+          [
+            -88.25,
+            92.99999207671873,
+            299.89999989999995
+          ],
+          [
+            88.25000000000003,
+            271.6158474096418,
+            600.0
+          ]
+        ],
+        "roof_surround": [
+          [
+            -98.25,
+            92.99999207671826,
+            346.0
+          ],
+          [
+            98.25,
+            275.6915079232813,
+            600.0
+          ]
+        ]
+      },
+      "routes": {
+        "fluid-18": {
+          "native_target_count": 1,
+          "contacts": {},
+          "closest_under2_mm": []
+        },
+        "fluid-28": {
+          "native_target_count": 2,
+          "contacts": {},
+          "closest_under2_mm": []
+        }
+      }
+    },
+    "fixed_stock_gap_scope": "The unchanged aft nominal meter strip has0.30883mm CAD air to B flavor. It is a fixed nominal-strip clearance, not the1mm nonmate tube-to-tube floor or a physical installation/retention claim."
+  },
+  "connector_service": {
+    "scope": "Complete nominal XH housing service paths: J1/J2 lift17mm and stage8mm fore; J11 lifts6mm, moves6mm east and lifts20mm with funnel/frame/disconnected drain removed. The finite selected own header is omitted only during axial disengagement. Populated PCB, other housings, selected24tubes and printed stock remain. Further roof extraction, flexible leads, latch, clone fit and force are unqualified.",
+    "source_sha256": {
+      "hardware/printed-parts/electronics/pcba-tray/pcba_tray.py": "86e62dc6bcb7a24031dd3e3e4bfa0b22b378abce40095a4ebc7b3787d5456ccf"
+    },
+    "paths": {
+      "terminal-J1": {
+        "datums": {
+          "initial_bounds_mm": [
+            [
+              -75.37999389648441,
+              268.35292002004996,
+              260.9
+            ],
+            [
+              -50.5799938964844,
+              274.05292002005,
+              268.4
+            ]
+          ],
+          "displacements_mm": [
+            [
+              0,
+              0,
+              17.0
+            ],
+            [
+              0,
+              -8.0,
+              0
+            ]
+          ],
+          "nominal_header_height_mm": 7.0,
+          "lift_mm": 17.0,
+          "source": "https://www.jst-mfg.com/product/pdf/eng/eXH.pdf",
+          "housing_dimensions_mm": [
+            24.800000000000004,
+            5.7000000000000455,
+            7.5
+          ]
+        },
+        "selected_header_glb_box_mm": [
+          8.58798850000009,
+          14.497988500000096,
+          3.980000000000001,
+          28.980000000000004,
+          -2.6999932,
+          7.7000068
+        ],
+        "header_world_top_z_mm": 265.6000068,
+        "raised_housing_bottom_z_mm": 277.9,
+        "fully_disengaged_vertical_air_mm": 12.29999319999996,
+        "stages": {
+          "lift": {
+            "candidates": 9,
+            "contacts_mm3": {},
+            "closest_under2_mm": [
+              [
+                "cold-core/pcba",
+                0.5449999999999591
+              ],
+              [
+                "terminal-J2",
+                1.2000000000000028
+              ]
+            ]
+          },
+          "fore": {
+            "candidates": 8,
+            "contacts_mm3": {},
+            "closest_under2_mm": []
+          }
+        },
+        "fore_staging_clearance_floor_mm": 2.0,
+        "path_scope": "Housing ends fully disengaged and8 mm fore of its installed station; no further extraction motion is claimed.",
+        "funnel_and_frame_vertical_separation_mm": 8.086164834306715
+      },
+      "terminal-J2": {
+        "datums": {
+          "initial_bounds_mm": [
+            [
+              -49.37999389648441,
+              268.35292002004996,
+              260.9
+            ],
+            [
+              -32.0799938964844,
+              274.05292002005,
+              268.4
+            ]
+          ],
+          "displacements_mm": [
+            [
+              0,
+              0,
+              17.0
+            ],
+            [
+              0,
+              -8.0,
+              0
+            ]
+          ],
+          "nominal_header_height_mm": 7.0,
+          "lift_mm": 17.0,
+          "source": "https://www.jst-mfg.com/product/pdf/eng/eXH.pdf",
+          "housing_dimensions_mm": [
+            17.300000000000004,
+            5.7000000000000455,
+            7.5
+          ]
+        },
+        "selected_header_glb_box_mm": [
+          8.599049899999955,
+          14.300049899999955,
+          -14.520038099999983,
+          2.9799619000000135,
+          -2.299994,
+          7.700006
+        ],
+        "header_world_top_z_mm": 265.600006,
+        "raised_housing_bottom_z_mm": 277.9,
+        "fully_disengaged_vertical_air_mm": 12.29999399999997,
+        "stages": {
+          "lift": {
+            "candidates": 9,
+            "contacts_mm3": {},
+            "closest_under2_mm": [
+              [
+                "cold-core/pcba",
+                1.099999999995596
+              ],
+              [
+                "terminal-J1",
+                1.1999999999999957
+              ]
+            ]
+          },
+          "fore": {
+            "candidates": 8,
+            "contacts_mm3": {},
+            "closest_under2_mm": []
+          }
+        },
+        "fore_staging_clearance_floor_mm": 2.0,
+        "path_scope": "Housing ends fully disengaged and8 mm fore of its installed station; no further extraction motion is claimed.",
+        "funnel_and_frame_vertical_separation_mm": 8.086164834306715
+      },
+      "terminal-J11": {
+        "datums": {
+          "initial_bounds_mm": [
+            [
+              -28.800090412957466,
+              195.35271174168452,
+              260.9
+            ],
+            [
+              -16.499897380011333,
+              201.05312829841546,
+              268.4
+            ]
+          ],
+          "displacements_mm": [
+            [
+              0.0,
+              0.0,
+              6.0
+            ],
+            [
+              6.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              20.0
+            ]
+          ],
+          "source": "https://www.jst-mfg.com/product/pdf/eng/eXH.pdf",
+          "housing_dimensions_mm": [
+            12.300193032946133,
+            5.700416556730943,
+            7.5
+          ]
+        },
+        "selected_header_glb_box_mm": [
+          -65.46993419999997,
+          -59.559934199999965,
+          -30.100038099999985,
+          -17.600038099999985,
+          -2.6999932,
+          7.7000068
+        ],
+        "header_world_top_z_mm": 265.6000068,
+        "raised_housing_bottom_z_mm": 266.9,
+        "fully_disengaged_vertical_air_mm": 1.2999931999999603,
+        "stages": {
+          "lift": {
+            "native_candidates": 10,
+            "overlap_mm3": {}
+          },
+          "east": {
+            "native_candidates": 10,
+            "overlap_mm3": {}
+          },
+          "rise": {
+            "native_candidates": 10,
+            "overlap_mm3": {}
+          }
+        },
+        "removed_prerequisites": [
+          "drain-outlet-stem",
+          "elbow-cradle",
+          "funnel",
+          "funnel-drain-stub",
+          "funnel-drain-union",
+          "funnel-frame"
+        ],
+        "path_scope": "Complete12.3x5.7x7.5mm nominal XHP4 housing:6mm up,6mm east,20mm up, with funnel/frame/cradled drain removed. Only its own finite header is omitted during axial disengagement. Flexible leads/latch, hand force, clone fit and further roof extraction are unqualified.",
+        "conservative_continuous_witness": {
+          "source_housing": {
+            "sha256": "a54da32e4c38020340be8e35e5d094bb927943b93ffde376fef11d01b08e3bb0",
+            "bounds_mm": [
+              [
+                -28.800090789794922,
+                195.3527069091797,
+                260.8999938964844
+              ],
+              [
+                -16.499897003173828,
+                201.05313110351562,
+                268.3999938964844
+              ]
+            ]
+          },
+          "phases": [
+            {
+              "name": "unmate-6up",
+              "start_offset_mm": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "end_offset_mm": [
+                0.0,
+                0.0,
+                6.0
+              ],
+              "bounds_mm": [
+                [
+                  -28.800090789794922,
+                  195.3527069091797,
+                  260.8999938964844
+                ],
+                [
+                  -16.499897003173828,
+                  201.05313110351562,
+                  274.3999938964844
+                ]
+              ],
+              "sha256": "b2b77d0aaeed2760c3350acf6b6779c9f75f1f04ffd650b72103ffe4b17741f4"
+            },
+            {
+              "name": "shift-6east",
+              "start_offset_mm": [
+                0.0,
+                0.0,
+                6.0
+              ],
+              "end_offset_mm": [
+                6.0,
+                0.0,
+                6.0
+              ],
+              "bounds_mm": [
+                [
+                  -28.800090789794922,
+                  195.3527069091797,
+                  266.8999938964844
+                ],
+                [
+                  -10.499897003173828,
+                  201.05313110351562,
+                  274.3999938964844
+                ]
+              ],
+              "sha256": "50116b740027009a2da5a698e90996d27ae022dae9d0457972c939cbf70ff3bb"
+            },
+            {
+              "name": "lift-20up",
+              "start_offset_mm": [
+                6.0,
+                0.0,
+                6.0
+              ],
+              "end_offset_mm": [
+                6.0,
+                0.0,
+                26.0
+              ],
+              "bounds_mm": [
+                [
+                  -22.800090789794922,
+                  195.3527069091797,
+                  266.8999938964844
+                ],
+                [
+                  -10.499897003173828,
+                  201.05313110351562,
+                  294.3999938964844
+                ]
+              ],
+              "sha256": "c4ff39127fab31ba73d9eb59d46a65d28a84f03f7ca402a19ffba5ce1dc0ed39"
+            }
+          ],
+          "compound_sha256": "a6fe1c5d2f927b45b217aa7472e985e0f097a617bbd7d89e5c4e49ddfcdbe841",
+          "scope": "Conservative continuous swept housing bounds; funnel/frame and disconnected drain assembly removed; hand and flexible lead excluded."
+        }
+      }
+    },
+    "reproduction_script": "connector_service.py",
+    "selected_delta_scope": "J1/J2 populated-board/neighbor-housing proof is unchanged. Final selected V-B/return/strip and24tube deltas are separately native-clear against their complete sweeps. J11 has a whole-housing three-stage native proof and the final two flavor routes also clear the rounded Float32 housing witness."
+  },
+  "electrical_contact_review": {
+    "record": "hardware/wiring/installed/above-core-review/native-review.json",
+    "scope": "The two source-final flavor routes clear all125cached native electrical bodies (102complete insulated conductors plus23termination/housing/jacket bodies). Final exported-artifact binding belongs to the adjacent electrical native record; the gas-check substitution has its own affected-body proof.",
+    "conductor_count": 102,
+    "wiring_body_count": 125,
+    "native_boolean_count": 29,
+    "intersections": [],
+    "errors": [],
+    "source_sha256": {
+      "hardware/wiring/installed/above-core-review/tube_review.py": "acb663993b7c9252ed6acefa6134b7544f7e5246087e3570876f2d810c11ff85",
+      "hardware/manifold-layout/above_core_parts.py": "2e75ac73378cceadc7f3a6903bf8a9b25968f32c6227066f4cc7890416564820",
+      "hardware/manifold-layout/above_core_routes.py": "ecfad90d3bc84499583d806fae03a89c80590deaa7de149562ff9536f1d96c98",
+      "hardware/manifold-layout/above-core.json": "43d2feb98e34e109ee0da1b3626bca8990bf5aa1fb9870eeb196306e3095082e"
+    },
+    "wire_brep_sha256": {
+      "wire-AC1-L": "95570e4dc1ee9e876340943d4b231f380d51e2ddf41d3c58398de50a64f95bac",
+      "wire-AC1-N": "9299f86f39a957f6096efe446c6e8cc5ea4c11c7318c64ba639fc505d2d19bd5",
+      "wire-AC1-PE": "f598e5a4ecec6d9cfaa89a50b588e4205abc7776ebf1d3e3328127e70d37d377",
+      "wire-AC2-L": "7e94f145476dccf4e66c3fbc74043ca6d340862ab801c5107ce4794b74e99f38",
+      "wire-AC2-N": "36bae4c93fd8393f4ec73eab35f072aab4e9f728dc46f94b922dc0d5348c3a2d",
+      "wire-AC3-L": "3b96d50e5e78fc2314781485b6a1114316b9b9a6d1cf2f7bca26b9f7716731eb",
+      "wire-AC4-H": "af771daa6178276747e2c92493b0c78d28d518ac184d448ee9d4dee581c6c54c",
+      "wire-AC4-fuse": "dc503f3e3ea65dffa9849cae091f0034289ef485f6440e42c9be17af417b532b",
+      "wire-AC5-N": "c6dfcb5baa8498033746c5eb655d08c5a8793c6f34939f88cb0641aabd008a2f",
+      "wire-AC6-PE": "a5831b6e6070580ed8928f662f83f4ca79f8e5b5847214d7b9b5ab9e1c312018",
+      "wire-PE-bus": "d53d89ade01494eee6309dee5447e5ccea563c70528000e236949844c5c67c05",
+      "wire-PE-carbonator": "110b6a65227ef8c84303d1e3ed045b7ba5b83f2059a6413f397e07cbe10189f8",
+      "wire-DC1-V12": "a7ee555385ee92b247f29bff0a82c66a9e958f5045fda798685ea8af4b275880",
+      "wire-DC4-V12": "9a84239e3bd465fdfa6e7f5723055b20f113b601ba6b6315bc1011403a97f45a",
+      "wire-DC1-GND": "7fd4fcd5a2991dfa550067d0d35bc39f66c6c286b825ae83861f58499a1dcbad",
+      "wire-DC4-GND": "afcbf06564ceec3f05c669b03c7bc482c23d46b1f1430024b920c9a9b957e7e9",
+      "wire-DC2-V12": "aa453c35babea634f99d660710a19f91d077308c889679c2ace6c1432beda0a7",
+      "wire-DC3-positive": "206315f96afa86d8d5ff05626663dbc07662624ef8c988b22c1a433fb81f1491",
+      "wire-DC3-negative": "933fe331342445ed830be34b1154ea47743aa80906b0aecef469cb67f4f0fbbb",
+      "wire-J1-COM": "70d2f68d474c15b9e698dbd0fef531f078f9e18bdf20bd55130b3738facc8151",
+      "wire-J1-OUT1": "46d7d3710dc6ba0a0025df15ad2a199800bda7e2bbe896389d13ada39ccd7ebb",
+      "wire-J1-positive-A": "e188a3b9b454870d5f982121278004c9244e1739983b4d861935fd484eb72bee",
+      "wire-J1-OUT2": "dfa813a2bd43622ede0245109807f9b134bdd5d1f44c924e50fe24c8e7d9366b",
+      "wire-J1-positive-B": "752463180d12affff91fc557f3565a18314725559c3e946e66ed3d61a808dd71",
+      "wire-J1-OUT3": "3723476520648f0c49bfe2e0bdde797f919fd0c8d7cedddcc545c8c8411f22db",
+      "wire-J1-positive-C": "26cf4e69d46706386dea3705c8be94cb158d44bb9eadab9c5525da28ff3f2796",
+      "wire-J1-OUT4": "8a0eb36741fe942992599969586c24d0dfd45388d2cab5e71c9094505e4fbdb7",
+      "wire-J1-positive-D": "37775b62ea112fd5b6e07fe47b536692ac7259eb9152144f7aa18c5792236328",
+      "wire-J1-OUT5": "8c4e7d9373fd67b1980154c300892d3ff0b8875cf63870c177d203b9ee7a727f",
+      "wire-J1-positive-E": "bc0c58f7a271ff537d47586b9dc88826e26fc5f1522196b437cb7b70aa6dce0f",
+      "wire-J1-OUT6": "0132e235b1339333996c3431fff5095cd6c9179d828e413927caa691b5448902",
+      "wire-J1-positive-F": "4e597b13d0d2bf3066e7f75f77b6695760746c787636f372767f59d183746af7",
+      "wire-J1-OUT7": "998e99407bb5d7e3fbab77c0472e7c926251c913f9dc16e745f75b95825f7bcd",
+      "wire-J1-positive-G": "596b76fed8d09c01530003c53650000283ddaf0fce78f47ae66d54994723d15e",
+      "wire-J1-OUT8": "841939128aadc10bdbf8ddfe161f1a0afd6b15e8aeae523313e2f42ad51139c9",
+      "wire-J1-positive-H": "4623aac400012b32c5d968113df4cdebd975c9a39d262eb20ae1578d87ce29b3",
+      "wire-J2-COM": "b9217cc13169911b87c48db39dcce0558f225753dcfd13b0662192c4ac450e21",
+      "wire-J2-OUT1": "b7a73f1cb515a6d4b857b8bbc8c3d04f7bfeaccddee8b50029d9bde7fc4ec0c9",
+      "wire-J2-positive-I": "706fbf790951cb8cd360aece912935ffaf53cb5386de83e574ccb23fd50f8bd6",
+      "wire-J2-OUT2": "b444b9f867e79870ab7e58a356641f5593e01b96b562058b5babf20470cc242d",
+      "wire-J2-positive-J": "263577f06ad4ca03fafa3530cd3ed8fa8f201a40a4e7c0c215876da99228d958",
+      "wire-J2-FAN": "de15b9089ba98e903ec6c1f3e8c1a0e84c77e42083aa7d4ebeede0d41aa4e4c8",
+      "wire-J2-positive-fan": "81acb451c8258adf627221c2b5f3b96d91370f71805b32e31bdd79f1f83ea1ae",
+      "wire-J2-OUT3": "a10aac4bd53d412479ef2fcbdce1e79bbdbfc1363a0e8181b849a3f1dec1d0ac",
+      "wire-J2-positive-K": "83f1c41e12bc7f77e1c13e4035ad99a05fbca6e42713d2ed43fcd66f0efac564",
+      "wire-J13-AM2": "e51a4ac8361aff96fa6801b2332ca0ecef9b1a9cf0ba4eba6e7c6976106b354a",
+      "wire-cartridge-AM2": "d6708930f7e9d62d5b13c2f330bb428d739814f1257c4e7664e885edfdcea218",
+      "wire-J13-AM1": "78f7ea323910f5f5008c780d7794d276e4adc69b40cf8ed62a49e71f9a29a7f7",
+      "wire-cartridge-AM1": "9509a9b2332d9866f887164c032da09a181033abcec206f7496f55da6bb847e4",
+      "wire-J13-BM2": "ffde206791eebeb99a32044afeb53b6914b4e20e639bc27d4e67ad94e559a175",
+      "wire-cartridge-BM2": "cee1c66aab27f79383f5e618be7ffec1028a287f50c43e80d1901db62fe5cc6c",
+      "wire-J13-BM1": "3913f5c44a0881fa57871c2a3e94c9016eabe56f9eb2acd9e4d9452745a9e30b",
+      "wire-cartridge-BM1": "b5555a1362f8a1174d75918a66cff8f494ee5bbf93818643c5dff57bbef2a7f3",
+      "wire-J3-V5": "76fb6599d7bfc942b9c2e307fd2e03577270d026b191bba32b513996ea72c2be",
+      "wire-J3-GND": "17a6c73269b2d72f7eb0accb0e569910056235182184a8cf8589b6b7391a6491",
+      "wire-J3-IO35": "8c095d5cca0576c403502ec21db4c2754cd1f267994df7c3eac608d9625a2498",
+      "wire-J3-IO33": "7f71330bc7345facca881abe9d465ac5da9bc29bea828d7dbcb4c2060c44ab0e",
+      "wire-J4-3V3": "0bb7168e3ba173516a18785f4914c3774b614dd4ae188284713e62a45450f388",
+      "wire-J4-IO26": "1d25b99daf895c2725b0bd57f29724ba4e84ea345f35a5d80dffdeea9c6e1fa3",
+      "wire-J4-V5": "c4a3dc3c925b77e6735c2035b3eec67a5a98d9c1fce154c4c2e5da8b3348da09",
+      "wire-J4-IO25": "45aa89d8275305199c3894d4576992763805b42d16ac094bde4b1dd1c92b93f9",
+      "wire-J4-GND": "39f3b526dab984401f7c47ca7cda924207f034ad8fc72ba60da71286dab77652",
+      "wire-temp-GND": "10ee99f0ae6ddf25a113bd794654c1923955fb19deaa6855aa529573cc0721ef",
+      "wire-flow-GND": "824688cc90f9cf28c5dd792a2a5ee8ad0e915aa762bd93bd98a8d88435e46cf7",
+      "wire-temp-bus-V": "a66e5fcb790b6bab394722d13af71ecfc922aafa38ce77916c0a6c061334cc1a",
+      "wire-temp-bus-DATA": "77000469d29904db0035039aff94e30821893121cc8c3ff74fbb57b12919ec18",
+      "wire-temp-bus-GND": "e6e6e2328b960d3fe55c8ed01b628c7b5be8b519d588f5ed179e65924401f5ff",
+      "wire-J5-V5": "ef8783368cd163d5b2e4b9014b8f94b6f42ec4e39ce0f1f26bedf7547e6d8d37",
+      "wire-relay-bus-V5": "32a2b875bbcc4f30e84bbfc6bfea63e8ae7197b066e3cd221b6a47e3be5d2ff4",
+      "wire-J5-GND": "743920a92b8462aef385b1d49bf9db39a950448ab82bb7421b66f9d0d9f3b74f",
+      "wire-relay-bus-GND": "3c7188f98a6a2a33505258a7be6d14d30ae362d9b266ed5574ff7066d298f7f0",
+      "wire-J5-IO19": "63f95684153aa9e131fd58da81b918f777c83e8b255e7b3cb5a8ae6794ea85e9",
+      "wire-J5-IO2": "e2c248415c719a3261f2420ba908a7100febea33c199ac06a5a8fb0c1efb5fcd",
+      "wire-J6-GND": "36ca8a39ba4305506ae3909cfc9e1c66e35c189ee9fffe7932c65765d324d15f",
+      "wire-J6-RA1": "32aa955b35aa08499e1c60c21cf865409bd3445830d5543088303fdbb06a1765",
+      "wire-J6-earth-1": "7e47b4fee4d3748ba57b8a2418bad6b919d588c001fa745a77f2993b0cc1ec2b",
+      "wire-J6-RA2": "ab9ebd7cc46826f5820124f7bb57c5dd99df76622029860112cea86fb423439a",
+      "wire-J6-earth-2": "b5a2be70da7ca6c6997b99e0271e7775355539af805fbc4d5ea1b4907f5291f7",
+      "wire-J6-RA3": "dc527f9dd01fba79044ca484e1eb5a31c1cb60e4e70571c885d86023bf1e6787",
+      "wire-J6-earth-3": "bb2cdfa2af46b8b1961bbb9463d7585a153643ab9b348bc5b425a11cfc5e583c",
+      "wire-J6-RA4": "18fb3b837fb87aca6c74467fe177f5b6df11e5c06e01e7a0067fb9d71e03c1e8",
+      "wire-J7-GND": "0ad59046e378709a502b7beeeb977e18e25d03b32949cb2e4c9e98747a64e0f0",
+      "wire-J7-RB1": "d5cc4eb845178b6e88579d85f282c18646345f37857f9713098f6550e08dd567",
+      "wire-J7-earth-1": "64ffb0bbcc56dc72d9bcce828f97a400a1fc8b035e89aceee14c1c43ece074cc",
+      "wire-J7-RB2": "b8996283af466ea0568eacbbc80f9d065311db606ba5041f57a29ddbf1e0bbe2",
+      "wire-J7-earth-2": "7249aaf2fd99d130c684ae97ff4c38839b478e7242d6f4c08ecbbe7378299d3f",
+      "wire-J7-RB3": "4128f772782947921587fe2fb3ff1a7448a9091ae497b9e384dbfa9c88078584",
+      "wire-J7-earth-3": "f5f023fd1aa3125d85b1e7643e977fd4d7bd37cba4f5c2e3548f607c513729bd",
+      "wire-J7-RB4": "0b2b6f79e21537779f05de8c964d83cff96a0778d7e0b2119b6d34972ba1f902",
+      "wire-J7-earth-4": "acda8740104aa28c86786a4bf9f28dec526e420a4c47c2345101b4a9d2582037",
+      "wire-J7-CLO": "5dd51f7c19acf31f2a8723498edcf89ba677f77b11c88afc33832550f3fa3ea0",
+      "wire-J7-carb-earth-1": "2dee8f23037fe497c7a29612901eeac6ce9ec12190082817f4af9429a3395918",
+      "wire-J7-CHI": "4b4f55f37ae12e7506628e671ec95db8b458925b2c805f6ae824acb4f55ad592",
+      "wire-J7-carb-earth-2": "ed4d6721235452d5f5944e0fdc81a9f722263bcf60350cf0dd5bc18852f726b3",
+      "wire-J9-B": "f824396d53850e221398b35938d8a58e4a73663b230c6c1ce51de62a3e4ba912",
+      "wire-J9-A": "9d3c1c2d66e9810cba5c9d2dd666a5c30d1d44ea1939f19cc8fc43ebe8db9c27",
+      "wire-J9-GND": "ccd804531e55faf95bfff16d815414d750e62a770740a12baa4c66dd952ff9e1",
+      "wire-J9-V12": "1be11057a2a62e10a2953108467dc83331090cff933ce5af6a7ec49951f8cd61",
+      "wire-J11-V5": "252929c3c143c02139e3e4a7c9884fecb12009c76a4cdc1bdf7177f866a5e237",
+      "wire-J11-GND": "88315072ae332bad5a87fb3341807ccdd839e599c7fb43bd6998afc2826e516d",
+      "wire-J11-DOUT": "91dfed5d55a525c7fce6d5b3275b88ab903362681df07e07e882bb5277eb8a94",
+      "wire-J11-AOUT": "ad996aa320bb94a2a47144fcd0005f24cdc96cccbf6e8a4e94ed32c91e12e77b",
+      "terminal-J1": "ce87a10774eaa8a64bdc30c48cbf676476047ee43d1d40ea31a2181e6eac015e",
+      "terminal-J2": "4c0423f5b68cf37d23460c91e7a4a899f5467e51c7f4d9bd376ca69b60da9017",
+      "terminal-J3": "e0f0ca825d822853790005dcc432a978568c8ff67cc2670e5e2100919f3c765f",
+      "terminal-J4": "a733027ea5970d0a55fd7055e680320edbb47cbf319a2ea24826776eaf65ba57",
+      "terminal-J5": "a8bd074a36226a65ccf26e6bedd8513d204efa4debedb9b1548a7042c9418d3a",
+      "terminal-J6": "c7fac8a154ef19f17018f0613499b552b229cc0cda6e7ad3c9123d115f5e639d",
+      "terminal-J7": "ff588f67f196d30fe4a05f14501346e9bc023a897decd7942d2a9e24ca9dbc34",
+      "terminal-J9": "88c102cb3f764196e45147d5bd948dc9d8219c1d428918194589ca28269402b7",
+      "terminal-J11": "a54da32e4c38020340be8e35e5d094bb927943b93ffde376fef11d01b08e3bb0",
+      "terminal-J13": "e8e0e941e4a9c60b0ae4a2249f8d9e986d9366dd748ebe06318bbe33b4b1bcf6",
+      "terminal-pogo-male-1": "95b82dd3a53a80c0cb8e6c0fd2b1145ee76fe76f30eea104e56855f0a1ad4272",
+      "terminal-pogo-male-2": "9e35e695529cd764d21263bc1c5f457bff65879feebf071fe77e914503a51579",
+      "terminal-pogo-male-3": "6d73da14694cda208952d8f760f32bceebc0fc7544e8cbfa1ef162c9f7241d93",
+      "terminal-pogo-male-4": "59e936f68d3256c931d4598714936a39db7ad927a4204296684b297851ea87ff",
+      "terminal-pogo-female-1": "41f500ffbe3dc5bebcd3e0314021787ddb4c23beeb081c24d235d531fbc578df",
+      "terminal-pogo-female-2": "f7ed3a6cca6ca93f5542fb486f34a20942cb73a2599b2a1c7b72a7b6ba68c452",
+      "terminal-pogo-female-3": "0ebf533fad4f8845b9fe1c56354d75f12bccfe61e6313e6edbe8cdbba9ad32f7",
+      "terminal-pogo-female-4": "6afdb87fc072dc8a8dfd886b4d6b0b39e8530590d655aed9006bd585a92b2a63",
+      "terminal-fuse-in-lead": "399ad04d0cd39bb82033b7bd58108fb88dcb7de3d2cdd0157d076a2058d8b1e5",
+      "terminal-fuse-in-splice": "912fd951e66580fad674a1ed33ab59d420f766694a99583fc17b94a20d9b3c26",
+      "terminal-fuse-out-lead": "ad193cc820b3588a1a7af682d59fc5d809d38901eda8db54a1f3a0ec3df2f8d1",
+      "terminal-fuse-out-splice": "2894af090968b9b05e017f583c7ffc5be6a1deb284ea760893c377d678b3f35c",
+      "terminal-compressor-cord-jacket": "f82eb33efbf1926cb4ac6de60df3092afaff2218150fc6069d109fde4ecb5285"
+    },
+    "tube_spec_sha256": "a88887e55826b5945ade62d30271ba2429668447d1c0d88b764e1b30afb30c42"
+  },
+  "dimensional_basis": {
+    "JST_XH": "https://www.jst-mfg.com/product/pdf/eng/eXH.pdf",
+    "housing": "XHP-9 and XHP-6 nominal envelopes,5.7 mm deep and7.5 mm tall; native installed height9.8 mm above board. Native GLB header top is7.0 mm above the board top. Latch detail and acquired clone dimensions are unqualified."
+  }
+}

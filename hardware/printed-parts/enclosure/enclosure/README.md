@@ -8,7 +8,7 @@ wall carries at least [6 mm](LIP_UNDERWALL), each taken INWARD so the silhouette
 and `interior_x` both stand still: a bottom piece's three lipped sides get
 [6 mm](LIP_UNDERWALL) as the lip's own skin carried to the slab, front-top's ±X
 flanks are [9 mm](FRONT_TOP_FLANK), back-top's are [9 mm](BACK_TOP_FLANK) and its
-+Y wall [6 mm](BACK_TOP_WALL). The floor is the one section taken OUTWARD:
++Y wall 9 mm. The floor is the one section taken OUTWARD:
 [6 mm](FLOOR_T) of slab under both bottom pieces, with the stated height struck to
 its underside, so it stands in the silhouette and the cavity's floor plane — the
 one the pack sets its bodies on — does not move. **Split into four printable pieces** — front/back × bottom/top, every piece inside the H2C bed. Each
@@ -55,7 +55,7 @@ fuses onto a piece), held open at every height by the standoffs the pack is pack
 one wall off the front and +Y walls and one `side_band_inset` off the sides. Being the skin
 and not a box, it **wraps every column standing in a vertical**, and that wrap stands a
 whole `column_round` inboard of any wall segment — so a body clear of all four walls
-can still be in the lip's way there, as the PSU's aft corner is at the X+/Y+ column.
+can still be in the lip's way there.
 `_lip_denied` measures that lane per column, each seam answering for its own half of
 the box (`z-seam-front-lane`, `z-seam-back-lane`) — the ring read one rail deeper down
 the straight runs, where the groove, arm and head ride. The cold core spans the
@@ -113,9 +113,9 @@ overlap and the [14 mm](SIDE_BAND) side band, its screw mid-overlap in Y.
   faces, both on its plain shank, one wall below its 22 mm of thread. Nothing of either
   bottom stands above the Z seam.
 - **The upper stack** stands under the roof, over the tap-water line on the −X flank:
-  front-top's knuckle, rooted on its lip band at Z[272.5](Y_STACK_UPPER_FLOOR), up to its
-  insert's mouth, and back-top's from Z[299.9](Y_STACK_DATUM) to the roof. An
-  [M5 × 60](UPPER_ROD) drives down from back-top's roof into the insert, so tightening it
+  front-top's knuckle, rooted on its lip band at Z[281.4](Y_STACK_UPPER_FLOOR), up to its
+  insert's mouth, and back-top’s from Z318.25 to the roof. An
+  [M5 × 50](UPPER_ROD) drives down from back-top's roof into the insert, so tightening it
   holds front-top up against back-top, which also locks front-top's slide. Front-top's −X
   knuckle gives its inboard-aft edge a 5.1 mm, 45° chamfer to the flavour line that turns
   past that corner under the frame (`y_stack_upper_chamfer`).
@@ -396,61 +396,28 @@ keep their specified sections and poses.
 Each printed piece fits the H2C left-nozzle build envelope (325 × 320 × 320 mm)
 even though the whole enclosure does not — that is the point of the split.
 
-## Electronics-bay boss corbels
+## Above-core mounts
 
-The +X wall of back-top carries one horizontal boss for every mounting hole in the PSU, main
-board, two relays and ground stack: 17 in all. back-top beds on its ceiling's outer face, so its
-print-up is machine −Z (`enclosure.print_up`) and on this piece print-down is machine-up: a face
-that looks up in the machine is the face the slicer has to carry. Each stem is a D in its
-mounting plane — the round crown keeps the M3 insert annulus compact, and its 7 mm flat chord on
-the machine-top side of the hole gives a full-width 45° corbel one continuous print-down plane
-to carry. The D section runs all the way to the body's own mounting face, so no round pipe is
-left bridging between a generic support block and the part.
+The [production arrangement](/hardware/manifold-layout/above-core.md) owns the native
+component frames. `_above_core_shell.py` builds back-top's relay bosses,
+rear ports, fluid supports and empty electronics-panel interface.
+The PCB, flat PSU, pump and all three upright valves belong to the cold-core mounts. Junction wells follow
+their actual branch points on the rear wall, core lid and front manifold.
 
-`enclosure_assembly.wall_mounts` offers that corbel, struck for back-top's print-up, all the way
-to every mounting face and intersects the offered material with the installed pack. Where a body
-crosses the offered wedge, the wedge is held back to one millimetre past that body's exact
-envelope; where the body crosses it to within that clearance of the wall, no wedge stands over
-the blocker itself, and what is clear beside it is a wing only where `enclosure.east_boss_wings`
-lets one stand — a wing at each end of the span roots a bridge between them, and a stub carrying
-the minority of the span stands down so the chord is offered whole. The two relays' holes come
-in pairs 13 mm apart at either end of each board, and each pair stands in one flat-topped bar
-with two bores, carried on its upper hole's corbel where the pair stands one over the other and
-on one wedge across the bar's span where it stands side by side; the other nine stems stay
-D-shaped and whole across their holes.
+Each relay has four short-insert bosses off the fixed west wall. V-A and V-K use
+the shared V69 socket section on broad lid-rooted plates. Preserve the
+[accepted valve-fit scope](/hardware/mechanical-qualification/README.md); the new
+mount orientation and complete installed load path are separate qualification items.
 
-Four exact-pack rectangles complete this field (`east_mount_fills`), and their names and bounds
-are part of the pack rather than a proximity rule. The ground-stack stem stands under one
-full-width column from its D chord into the ceiling slab; that column replaces its candidate
-corbel. The aft upper main-board stem and relay #2's upper two-hole bar share one rectangular
-pad, with all three bores cut through the fused block. Their separate candidate wedges are
-omitted, leaving one flat box rather than three partial triangles. Relay #1's two vertical
-hole-pair bars each continue on their existing 2.25 × 7 mm footprint as one rectangular column
-into the ceiling, with both corbels in each pair omitted atomically. The upper pad's crown meets
-the lower face of relay #1's aft column. `east-boss-fills`
-intersects all four rectangles with every installed body and admits only the four clear results.
+The rear six-port field has a 6 mm clamping land within the 9 mm wall. C14 uses two
+short-insert hosts around its shallow flange pocket; RJ11 uses its keyed receptacle.
+Their stations and the two-column fluid grid are defined in the shared arrangement.
 
-The joined main-board/relay-2 pad's first printed face projects only 2.25 mm from the east wall,
-with its crown meeting relay #1's aft column. The production slice prints that wall-rooted
-projection with no support body or interface at the pad.
-
-The five Wago wells on the same wall are carried the same way (`enclosure._side_wells`). The
-row's tower stands on the ceiling slab's interior face (`enclosure.back_top_ceiling_face`) as a
-column: the air over its machine-top face is free of every placed body
-(`enclosure_assembly.stand_wells`), so the tower's own section goes straight up to the slab,
-and the three-well row on the −X wall stands the same way. Each pocket keeps its two `wago_roof_tab` tabs on its floor, with the 45° ramp folded
-on the wall between them, and the complete `wago_well_wall` section on its roof; the lug rests
-on the two tabs and the wall's press fit locates it.
-
-The manifold junctions share the +X front-top flank at Y169: the J1 221-420
-is centred at Z280 and the J2 221-415 at Z246. Their pockets retain the
-3 mm wall section. The lower pocket has a full lid; the upper pocket keeps its two tabs
-and ramp, and between the tabs the funnel frame's foot clearance comes down to its lid, so the
-ramp ends on that clearance's outboard face. Both connectors face inboard, with room for their
-wire entries and lever travel below the funnel frame. J1 branches feed V-A through V-H; J2
-branches feed V-I, V-J, the condenser fan and V-K. Their routes and remaining harness
-qualification are described in the
-[wiring schedule](/hardware/wiring/ac-wiring-schedule.md#loom-terminations).
+Both roof closures remain clear of wires, tubes and component mounts. The electronics
+panel is 100 × 126.55 × 9 mm with four discrete M3 × 12 bearing bosses. Each east boss
+has full-depth 9 mm roots into both its +X roof edge and adjacent front/rear roof edge;
+the west pair also join the sidewall. RX-M3×5.7 inserts enter from Z346. The panel
+heads bear at Z351.8 and finish 0.2 mm below the exterior roof. There is no perimeter rim.
 
 ## Condenser cradle
 
@@ -468,26 +435,19 @@ Each fore-flange groove keeps its exact [0.9 mm](COND_SLOT_OPEN) opening at the 
 then its roof rises toward the bay at 45° and leaves through the rail's aft face [3 mm](COND_SLOT_GRIP) higher, a full rail wall under the crown.
 The groove keeps 0.25 mm on each face of the sheet at its datum. Its sloping roof prints without support.
 
-## The box closes in four motions
+## Closing and final access
 
-The slides fix the order, and the order is the service story backwards. **Front column**,
-on the bench: the compressor bay seats in front-bottom, and front-top — carrying the
-flavour pack made up into its trays and tee wall — slides AFT onto it, in from the front. **Back column**,
-on the bench, empty: back-top — carrying the chain, the meter, the ceiling's anchors and the
-wall electronics — slides FORE onto a bare back-bottom, over nothing. **The core rides in
-through the mouth**: the closed back column stands upright and the cold core enters over
-the open Y-seam mouth and slides aft to its seat on the rear lip, under the hold-down
-feet (each fore arris eased 45° for exactly this), past the chain and the bulkhead unions,
-into the pockets their stems land in; the lid's tenants — the water pump and the rest —
-go on through the same mouth after it. **Then the halves telescope**: the front assembly
-slides aft into the back, its corner blocks closing on the core's front face, and the four
-seam screws go in: the lower two up through the handhold ceilings, the upper two down
-through back-top's roof. Service is the same door swinging the other
-way: with about 60 mm of access above the roof, **the two upper screws alone free front-top**,
-which draws fore off its rails into open air with the box still standing where it is —
-the flavour pack, the trays and the tee wall coming with it. All four screws out takes
-the front assembly fore and off, opens the bay through the mouth, brings the core out
-fore, and back-top slides aft off its rails if the tub itself is the work.
+Front-top slides aft onto front-bottom. Back-top slides fore onto the empty
+back-bottom. The back column then rides fore over the populated cold core to join
+the front column, and four M5 screws retain the quadrants. The
+[mechanical procedure](/hardware/assembly/enclosure-mechanical.md) stages the fixed
+shell equipment, core equipment and post-ride valve installation.
+
+Keep the drop-in funnel frame and empty electronics panel separate during final
+cross-quadrant connections. Lift the silicone and remove the frame's four recessed
+screws to reopen the funnel aperture. Its drain bridge stays fixed in front-top.
+Remove the electronics panel independently for rear electrical access. Disconnect
+and support crossing connections before reversing the enclosure slides.
 
 ## Cold-core grips
 
@@ -501,7 +461,7 @@ seams stand every piece against its neighbours**, so a feature printed on one pi
 over a body sitting in another, and the front-bottom, the back-bottom and the back-top close
 on the core together.
 
-Four features, two mirror pairs, and nothing on either that is not a face of the core:
+Four features bearing on the core's own faces:
 
 - **Front corner blocks** (`_core_stops`, on `enclosure-front-bottom`). A block in each front
   corner of the slab, [38 mm](CORE_STOP_WIDE) across — the ±X wall inboard to one corner round
@@ -515,16 +475,18 @@ Four features, two mirror pairs, and nothing on either that is not a face of the
   face on the wall: a corner bracket in one piece with both faces it stands on, the card slot's
   own form.
 - **Aft brackets** (`_core_holds`, on `enclosure-back-top`). A right trapezoid in section,
-  [9 mm](CORE_HOLD_WIDE) wide: the bearing face along the cap from [12 mm](CORE_HOLD_REACH)
+  [6 mm](CORE_HOLD_WIDE) wide on the west and 9 mm on the east: the bearing face along the cap from [12 mm](CORE_HOLD_REACH)
   forward of the core's aft face back to the wall, a leg [40 mm](CORE_HOLD_RISE) up that wall in
   the `rear_seam_clear` band, and one straight from the head of the leg down to the foot's tip,
   [8 mm](CORE_HOLD_LAND) over the bracket's foot plane. The whole bracket profile stands
   0.25 mm above the core's cap crown, putting the cap-facing foot at Z253.65.
   This face prints upward with back-top inverted and adds no supported-face allowance.
   The straight web carries
-  the flange. The lane is the one strip of the aft crown clear of
-  the water pump inboard, the electronics bay outboard and the +Y wall's two flavour unions in the
-  band, taken on both flanks so the pair is a mirror.
+  the flange. The west bracket occupies X−43.6..−37.6 between the PSU and rear jack;
+  the east bracket occupies X56.6..65.6 beside the pump. Their nominal native gaps are
+  0.40 mm to the PSU and 0.275 mm to the rear jack. The complete 300 mm horizontal
+  back-column approach clears the populated core. These are CAD clearances;
+  printed fit and restraint strength remain unqualified.
 
 The whole core pocket follows that same rounded plan with 0.25 mm around it,
 from the floor to Z253.65 above its cap crown. The floor under it is the box's one floor
@@ -839,21 +801,10 @@ faces; a pump boss lands on a flat shoulder. A corbel carries the material behin
 those faces. It does not replace the bearing, locating, sliding, sealing, clamping, insertion or
 access face with a slope.
 
-The ground boss's full-width column joins the ceiling. The ASSE anchor's end sections continue
-from the V's arris to the slab pocket's roof as rectangular blocks. The `fluid-28` anchor has
-an ordinary corbel at each end. The water-pressure regulator rests in its tied cradle on the cold-core lid. Each tube-anchor and
-body-anchor end names its form in `TUBE_ANCHOR_END_FORMS` or `BODY_ANCHOR_END_FORMS`, and each
-Wago tower names its column in `WELL_COLUMNS`.
-
-`wedge-fills` reads every print-down slope on back-top against the pack: each is under a body
-or within a millimetre of one, in a room `enclosure_assembly.KEPT_WEDGES` names — a zip tie's
-loop over a crown, a screw head's pass — or a wedge a column
-could replace, which the bound names with the viewer's pick text. It is a goal row on the
-scorecard. The anchor and tower forms come from their site declarations.
-
-Relay #2's upper bar has a 2.5 mm wing at each end and bridges the 15 mm between them.
-The main board's boss at y 241 has no wing (`enclosure.east_boss_wings`). The corresponding
-solid, passage, clearance and motion checks read the assembled geometry.
+The fixed fluid supports use broad roof/wall roots and separate tie windows.
+The core's ground boss and junction wells belong to its lid. Support removal
+access is assessed on each current slice before hardware is installed; accepted
+results from a different part or orientation retain their recorded scope.
 
 **A support audit does not authorize a layout or mechanism change.** It does not move a placed
 component, shorten a guide, narrow a bearing, reduce retention or alter a working envelope merely
@@ -1049,18 +1000,10 @@ them through the ceiling tongue.
 
 The −X flank is a continuous 9 mm wall in the rear service bay. The ASSE vent connects through a printed TPU sleeve directly to the white 4 mm LLDPE return, which follows two R25 bends to the middle-row OVER bulkhead. [ASSE drain assembly](/hardware/assembly/asse-drain.md) gives the tube and fitting sequence.
 
-The **ASSE anchor** looks print-down on its top. Outside the zip ties'
-span the block goes on up as a column, from the V's upper arris, or the bore's crossing of it,
-back to the wall and straight to the ceiling lane — the piece's own first layers — so nothing
-over it looks print-down; over the span the column is absent so the loop has
-its room, and the web between the tie cavity and the V ends square to the V, one wall across,
-a supported face whose support stands on the slab in the tie channel. Nothing stands under the
-block on this print either, so the V's foot ends square to its flank the same way the whole
-anchor long. Its two 60° seat flanks stand 30° off vertical and lay on themselves either way;
-the two round seats' lower arcs look print-down inside their bores and are supported faces.
-Behind the anchor, one channel spans both zip-tie bands: its fore and aft end faces remain
-`tie_cav_wide_w` wide about their tie centres, the volume between them is open, and its top
-mouth opens into the lane the slab leaves over the same span (`_ceiling_tie_channel_relief`).
+The ASSE and regulator saddles join the fixed roof, with their bodies removed
+while supports are cleared. Their circular bearing faces retain their functional
+geometry. Use the shared Tree(auto)/Default policy and inspect the current slice;
+no physical cleanup result for an older anchor transfers to these supports.
 
 The **bay floor** begins at front-top's Z160.25 print bed, one running fit above the
 nominal Z seam, so there is
@@ -1076,273 +1019,43 @@ PET-GF profile's automatic-support threshold and verified support-free with that
 tangency makes that the narrowest and shortest peak at this angle. The lower circle the collar
 bears on is untouched, and the wall needs no support.
 
-The **five round tube crossings in the +Y wall** use the same `_teardrop_y` section through
-the wall's whole section at each station, struck toward back-top's print-up. This piece beds
-on its ceiling's outer face (`BACK_TOP_UP`), so the crown a print cannot close is each bore's
-machine-bottom, and that is the side the tangent [36°](TEARDROP_ROOF) roof stands on; their
-stated Ø18/Ø17.86 figures remain the complete circular pass envelopes for the threaded barrels
-everywhere else round the circle. The separately printed identification chip keeps its
-circular bore, and the fitting's flange and nut clamp the chip and the remaining wall annulus
-on their two faces. No face in any of the five passages lies flatter than that roof.
-
-The **AC inlet's mount** stands off the +Y wall's inner face in back-top and needs no added
-printed corbel. It is one rectangular block from the flange pocket's mouth to the wall
-(`enclosure._c14_tunnel`): its two flanks are vertical to the bed, its crown runs out into the
-ceiling slab the piece prints on, and its underside looks print-up — a free flat, with the wall
-and the slab carrying the block between them. What is left over air is the bore's own
-print-roof, the aperture's machine-bottom face — a bridge the aperture's full width, carried
-between the block's two flanks. Nothing on the piece stands outside the print silhouette: the
-receptacle's two heat-sets go into the seating face at the floor of the block's flange pocket,
-from inside the box, and the back of the machine is flat.
-
-The inlet stands on one column, `enclosure.c14_station_x`: the aperture, tunnel, pocket and
-both screw stations all follow that one X datum, and its Z is aligned with the other top-row
-ports. The ceiling passage and shallow flange seat are the canonical slipped flange profile —
-the same straight-sided dog-bone with its two round ears. Only the 28.3 × 19.3 mm, R1.5
-cord-access opening continues through the rear wall and tunnel. Its 3 mm total extra X width
-is independent of the female inlet's mounting pocket and keeps the X datum fixed.
-Over the inlet the ceiling is the slab's own
-underside, which looks print-up, so nothing between the receptacle's moulded rim and the ceiling
-asks for a separate rectangular relief band or a support stack.
+The six rear fluid bores pass through the named 6 mm clamping land. Their
+circular pass envelopes and the C14/RJ11 openings receive accessible automatic
+supports as required by the current production slice. The C14 has a shallow
+flange pocket and two short-insert bosses within the rear wall. Both openings
+and insert entries remain clear for cleanup before fitting the hardware.
 
 The **PRV chase's closed roof leans from the −X wall too**. Where its open exterior groove
 becomes the closed fall, the groove's roof is level across the
 [3 mm](VENT_GROOVE_ROOF) show-skin section: it looks print-up on back-top and meets the show
 face square. The closed passage's roof is one X plane
 from its liner inside the flank through the wall and out to the cold-core lip, and the lip
-keeps [3.05 mm](VENT_RIB_LAND) of solid land below the square mouth. The lip ends
+keeps [7.754 mm](VENT_RIB_LAND) of solid land below the square mouth. The lip ends
 at X−90.75, 0.25 mm outboard of the core's X−90.5 flank. Back-top's share of the rib
 stands square on the seam rim, which looks print-up on that piece. Its exterior crown is flat
-at the lip's height across the [8 mm](VENT_RIB_BASE) to the grown flank, with the complete
+at the lip's height across the [3.296 mm](VENT_RIB_BASE) to the grown flank, with the complete
 first printed section carried by removable tree support. The inner passage roof keeps its
 45° plane. The mouth's floor is a `vent_channel_w` bridge
 between the passage's two jambs. The exterior groove edge, the square passage and the back
 slide's opening remain on their own datums.
 
-## ASSE anchor
+## Fixed fluid supports
 
-A stepped anchor on the −X wall that the ASSE 1022 chain lies in
-(`_asse_cradle`). The chain is five fittings made up by hand on one axis, so
-neither the run's length nor the clock any one fitting lands at is a number this
-wall can know — but the **section** each one presents about that axis is the
-fitting's own. The anchor is cut to each in turn, and the steps between sections
-fall out as faces square to the axis.
+The bare ASSE lies above the pump with its vent west. Two 6 mm wide saddles at
+Y346 and Y369 join the fixed roof, open toward −X, and retain 3 mm below the
+nominal barrel. Each has a separate tie window. The straight TPU cuffs and vent
+adapter stay clear of the bearings. Two fixed-roof bearings support the transverse
+water regulator's two native diameters; its collets remain free.
 
-| section | across | seated on |
-|---|---|---|
-| PI4512F6S swivel nut | 22.0 | its circumscribed circle — the nut spins on the body |
-| Multiplex hex barrel | 33.0 | its own two flats |
-| GAGIRA coupling | 25.67 | its circumscribed circle — its clock is wherever the thread stopped |
+The folded gas regulator and separate check use two east-wall saddles with tie
+windows. Their stems and tubes carry no mounting obligation into the removable
+panel. The meter's support also belongs to fixed shell stock. Main component
+placements, actual fitting engagement, insulated routes and support loads retain
+the scope stated in the [arrangement](/hardware/manifold-layout/above-core.md).
 
-The two end sections are there to make the barrel's steps and for nothing else, so
-each runs the **shorter of the two fittings' lengths** rather than its own: the
-coupling is more than twice the nut, and anchor past a section already seated is filament
-paid for in the deck's own headroom. The flanks reach under the axis exactly as far as
-the chain's own lowest arris — the barrel's apothem, `asse_reach_down` — and no
-further, for the same reason.
-
-Every section is the **same 120° V** and only its apex moves. A V of that angle is
-the two flanks of a hex read off its corner, and it is equally the tangent seat of
-any circle — so the section that sits deepest in the wall is the section that is
-widest, and the barrel steps down out of both its neighbours rather than out of a
-number chosen here.
-
-**Only the barrel's V is read off flats, and only the barrel's may.** The other two
-spin: a V cut to their flats would demand an angle the assembly does not control and
-bind on the build that landed 30° off. The Multiplex's hex does not spin — its
-atmospheric vent is machined into it — so keying that one section is what holds the
-drip over the pan, and it is the whole reason this is an anchor and not a zip tie.
-
-`asse_seat_slip` is the fit across the V and `ASSE_STEP_SLIP` the play along it, the
-deeper section taking the latter past both its ends so the barrel drops in and the
-steps stop it travelling rather than hold it still. Aft it needs neither: the chain's
-inlet collet butts the tap-water union's, and that joint takes the length up.
-
-Two **zip ties** shut the anchor's mouth, one in each band the vent leaves clear on
-the barrel — the brass, which is the only section a tie may close on.
-
-Both run through **one shared channel in the anchor's back** (`_asse_tie_cavity`), closed on
-every side but its two mouths. Its fore and aft ends are `tie_cav_wide_w` bands centred on
-their respective ties. The same XZ profile cuts continuously across the volume between them.
-It is **straight on the west and the anchor's own V on the east**, so
-it is narrowest at the axis and flares to both mouths: each mouth opens
-`asse_tie_back / sin 60°` off its lip's own arris, on the block's face where a hand reaches
-it, and at the axis the flare leaves a zip tie pushed through the room to turn the vertex by
-cutting its corner. It stands one `wall` west of the apex at every station, struck on the
-deepest section's apex so the web is no thinner than that anywhere, and one `wall` off the
-side wall behind it — so its width is a remainder between the two rather than a number. The
-continuous horizontal passage gives the slicer one support body with a full-width removal path.
-Its lower XZ mouth terminates on the anchor's underside, where it opens directly into cabinet
-air; its upper mouth runs into the ceiling lane over the same tie span. Only the upper cutter
-passes its opening plane, so the flank beside the lower mouth remains one unnotched wall.
-
-A tie is a closed loop, so its zip tie also has to cross the chain's top flat, come west
-in that lane and drop into its channel. **The 3 mm top-wall cap stays whole.** The storey leaves
-`DECK_CEILING_CLEAR` beneath that cap, while the ceiling slab and flank are relieved over the tie
-span to join the channel. The deck pays the millimetre out of its own headroom. That leg is
-**laid, not pulled**: this piece
-is populated inverted on the bench — ceiling down — so the zip tie lies on the
-ceiling's inner face and the chain comes down onto it.
-
-Nothing about the chain's weight is theirs: cut both and it still lies where it lies. `enclosure_assembly.check_asse_seated` is the row that reads the anchor
-closed on the barrel, measured off the two placed solids, because every other
-reading on the card is satisfied by a chain floating in air. `_ceiling_tie_channel_relief`
-reads the **route** fail-fast: an ASSE-named ceiling pocket must overlap the complete tie span
-and extend inboard of the flank mouth before the slab opens that span to the lane.
-
-## Flow-meter anchors
-
-Two anchors off the **top wall**, one over each of the DIGITEN meter's fixed port
-collars, with its offset housing between them (`_flow_meter_anchors`). The measured
-cover stands 1 mm below the nominal ceiling. The pigtail points toward the main
-board, and the meter's own axis sits below the rear union; `carb-2` rises to it
-through two shallow R14 bends.
-
-The housing's physical flow arrow must agree with the route from `carb-1` to
-`carb-2` before the installation pose is accepted; the reference's port names alone
-do not establish that direction.
-
-Each fixed collar is 7.2 mm long and drafts from ⌀17.9 to ⌀18.3. Its anchor takes a
-**concentric half-round bore at R9.3**, opening down. The seat leaves at least the
-0.15 mm radial slip over the collar, and the barrel comes straight up into it.
-
-**The arc stops on the barrel's own axis plane, and the rib carries one
-`flow_meter_anchor_wall` past that.** The axis plane is where the arc is widest, so
-each lip comes out a **flat 3.000 mm strip**. Carried any further round, the arc
-runs out to nothing against the flank and leaves a feather.
-
-Each anchor is 6.9 mm long, centred on the fixed collar with 0.15 mm at either end.
-The 3.5 mm tie passage has a 1.7 mm axial end web on each side. Those webs span four
-0.42 mm extrusion widths; the radial wall stays 3 mm. The narrower neck and the
-full 3.7 mm movable collet remain outside the bearing band.
-
-**The zip ties are the load path here.** A seat that opens downward carries nothing, so
-unlike the ASSE anchor's two zip ties these hold the meter up — a purchased part of a few tens
-of grams on two nylon zip ties. Each requires a **6-inch, 18 lb tie**: the collar
-and anchor make an [81.2 mm](LOOP_DIGITEN) loop. Thread both empty passages before
-seating the meter, cinch on the fixed collars and tug-test both ties.
-
-Each anchor's zip tie runs through a window over its bore. No cavity is subtracted from the rib
-itself: its centre band is never fused, so the channel is the length the two solid ends do not
-span. The ceiling slab's own relief opens the tie route over that same band
-(`_ceiling_tie_reliefs`). The rib is one box up to one `wall` over the bore's crown, its two ends
-carried on up to the top wall, and one bore through all of it.
-**The rib is unified before it joins the wall**, leaving each bore and lip as one
-continuous bearing feature.
-
-Back-top prints on its ceiling, so the rib **stands up off the bed**: its two end webs rise
-from the slab, the seat is an upward-opening cradle in the print, its lips look print-up, and
-the channel's floor over the crown is a `tie_cav_w` bridge between the two webs. The slab
-stands off the rib's room over its tie band, the channel's own height and no more
-(`_ceiling_tie_reliefs`), so the loop comes down both flanks.
-
-## Tube anchors
-
-One pattern wherever a wall comes near enough to reach something round
-(`_tube_anchors`): a **bore concentric with the body**, half a cylinder at
-`seat_r`, and the zip tie's channel behind it. The stations in
-`enclosure_assembly.TUBE_ANCHOR_SITES` hold lengths of tube and those in
-`enclosure_assembly.BODY_ANCHOR_SITES` hold fittings — the same rib either way, since what the
-builder is handed is an axis, a direction along it and a radius. What closes each tube site is
-stated in `enclosure_assembly.TUBE_ANCHOR_CLOSURES`: a zip tie, as described here, or an
-anchor cap (below).
-
-**The arc stops on the body's own axis plane and the rib carries one `wall` past
-it**, so each lip is a flat strip rather than a feather — the anchors' bargain,
-on the one body this machine has twenty of. The rib's length is its cavity's:
-`tie_cav_w` of zip tie and buffer with `tie_cav_wall` of itself at each end. It states
-no height of its own — it is handed the body, and the wall it stands on is where it
-stops.
-
-Flavor B's wall anchor carries both end webs on the ordinary full-width 45° corbel, rooted on
-the −X wall and reaching `tube_anchor_corbel_reach` under each complete 3 mm web.
-
-**The zip tie's channel is what is never fused.** The rib is one box its whole length
-up to one `wall` over the bore's crown, its two ends carried on up to the face it
-roots on, and one bore through all of it. Where a small tube stands far enough from
-its root face to put at least one routing buffer back into the load path, its central
-band is solid-backed from the wall until one `wall` of useful cavity remains. Compact
-fitting anchors keep their available clearance instead of acquiring a skin-thin roof.
-The two side mouths stay open and no cutter grazes them. A zip tie therefore goes in
-**before** the body does.
-
-**And the face is the piece's own** (`piece_root_faces`), not the box's interior. A
-station is struck in the box's frame because that is the frame the body is in; the
-plane a rib STOPS on is whatever the piece carrying it presents, and on the two
-pieces with a grown flank those two stand [6 mm](BACK_TOP_FLANK_GROWN) and
-[6 mm](FRONT_TOP_FLANK_GROWN) apart. Measured to the wrong one, the channel is
-drawn inside the wall's own stock and the rib arrives buried to its crown.
-
-**Where the piece's face leaves no channel, the wall gives the rib its lane back.**
-The box's interior is one `wall` inside the exterior, and a piece carrying stock
-inboard of it carries stock the rib was drawn to use — so it gives that up over
-the rib's footprint and the rib roots on the box's plane. The
-relief is **wider than the rib, and by the zip tie**: what the loop runs down is the
-rib's two flanks, from the channel's floor to the body's axis plane, so it is
-carried `tie_t + tie_cav_buffer` past each flank and those two lobes are
-what the loop comes down. The tap-water pair's two ribs are the pair that take it —
-back-top's 9 mm flank occupies the room their zip-tie cavities use, so those two generated
-reliefs return only the ribs' footprints to `interior_x` while the nominal flank stays whole
-around them.
-
-**The regulator's rib** closes on its round barrel. The WR1110 lies fore and aft
-on the panel deck one column east of the carb union, and the section under the rib is
-the **scanned ⌀18.87 barrel between its two wrench hexes**. The circular seat is
-independent of wrench clock. The 9.5 mm rib sits in the centre of the 35.4 mm round
-band, leaving 12.95 mm to each wrench transition. The
-[WR1110 measurement record](/hardware/reference/wr1110-regulator/README.md) identifies
-the retained scans, dimensions and model comparison.
-
-The cylindrical seat keeps 0.15 mm radial clearance around the WR1110 barrel. Its
-three-millimetre web separates the bore from the tie channel, which has at least 3.25 mm
-of room under the full three-millimetre exterior ceiling cap. The CO₂ inlet and WR1110
-share one axis 0.25 mm below the other rear ports. The CO₂ chip reaches the common top edge.
-
-**The zip tie is the load path here**, the same bargain the flow-meter anchors make: a
-seat that opens downward carries nothing. Barrel and rib make an [83.2 mm](LOOP_WR1110)
-loop, past what a 4" tie closes, so this one takes the 6".
-
-**The downstream gas check has a separate ceiling cradle**, east and forward of the
-regulator, with its flow arrow pointing aft. The seat closes on the check's round metal
-inlet boss; its adapters remain clear of the tie. Thread one **6-inch
-18 lb zip tie** through the empty cradle before seating the made-up check, then close and
-flush-cut the tie. The [calculated loop and tie allocation](/hardware/ledger/bom.md)
-come from the named body seat, and
-[`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §1
-owns the assembly sequence. The fitting envelopes and received-part cradle fit remain
-physical qualification items. The nominal routes run from the inlet to WR1110, turn
-forward from its outlet into the check inlet, then return from the check through the
-east lane to the cold core.
-
-**Anchor caps close back-top's three ribs that hold a tube, and those ribs take no zip tie**
-(`_capped_anchor`, `_anchor_cap_interface`): `carb-1`'s and `co2-2`'s under the ceiling and
-`fluid-28`'s on the −X wall. Each is the same half pipe at `seat_r` with flat lips one `wall`
-past the axis plane, built as one solid post [16.3 mm](CAP_RIB_LEN) long with nothing cut for a
-tie. Each flank carries a catch window: a pocket [10.3 mm](CAP_WINDOW_LEN) long between the
-rib's two end webs, [1.6 mm](CAP_WINDOW_DEPTH) deep, from [6.92 mm](CAP_WINDOW_B0) over the axis
-plane to where the flank meets the ceiling, past the [10.19 mm](CAP_WINDOW_B1) the lip reaches.
-Back-top prints ceiling-down, so under the ceiling each window's bearing face, the side nearest
-the tube, prints as a bridge web to web. On the −X wall the rib reaches level out of the wall:
-the flank that looks print-down and its window's roof bridge web to web, and the two end webs
-stand on the tied rib's own 45° corbels, beyond the cap's ends. The rib's two outer
-bottom edges carry a [0.8 mm](CAP_RIB_CHAMFER) chamfer the cap's lips ride onto. The
-[anchor cap](../anchor-cap/README.md) presses on over the tube, and its lips drop into the
-windows.
-
-The cap's wings reach [10.3 mm](CAP_WING_TOP) over the axis plane. Where the ceiling's face
-stands inside [0.6 mm](CAP_HEADROOM) of that, the ceiling gives each wing a slot as wide as the
-wing and the spread its lip makes (`_ceiling_cap_reliefs`), and the rib's flank runs on up the
-slot's inner wall. Over `carb-1` the slab's face stands that far off, and the ceiling gives up
-nothing; over `co2-2` it stands 7.04 mm off and gives both slots. `fluid-28`'s wall stands
-12.43 mm off its axis and gives up nothing.
-
-The rib stands at the head of `carb-1`'s climb, its near end one `wall` past the corner the run
-climbs into (`enclosure_assembly.tube_anchor_midpoint`): `co2-1`'s U runs beside the middle of
-the crossing inside the cap's wings, and at the head of the climb the cap stands clear of it.
-
-The cap is cut for the 1/4" seat. It closes a rib rooted on the face its piece prints on or
-reaching level out of a wall, and its rib has to stand on its leg's straight: `co2-2`'s,
-16.85 mm between its two R14 bends, is the shortest it closes.
+Thread ties through the empty support windows before fitting bodies. The native
+clearance readings establish geometric separation at the recorded datums; they
+do not establish tie retention, printed load capacity or lifetime.
 
 ## The pump cartridge and its bay
 
@@ -1749,8 +1462,7 @@ angular tolerance before the flute field is cut.
 
 **Running it to the flanks closes the storey, and two electrical runs meet it.** SIG-7 crosses
 the rib halfway up its straight section, [+32 mm](DISPLAY_LOOM_X) in X from the centreline —
-**east**, the side it arrives on, since the run comes forward from the electronics bay along the +X
-wall. Its four conductors are one flat ribbon, and an expandable braid opens over what is inside
+**east**, the side it arrives on, since the run approaches from the flat PCB through the open central connection region. Its four conductors are one flat ribbon, and an expandable braid opens over what is inside
 it: over a single 4P ribbon the 1/2" sleeve lies at or under the
 [12.7 mm](CABLE_SLEEVE_NOM) nominal it is bought by and never reaches the ceiling that figure
 opens to, so the teardrop bore is that nominal with air all round — Ø[14.7 mm](CABLE_BORE). It
@@ -1758,93 +1470,66 @@ locates nothing and carries nothing; the display loom is dressed after it is thr
 
 The **fixed J13-to-contact lead** leaves the contact pair's lead bore
 ([Cartridge contacts](#cartridge-contacts)), rises behind the bay bulkhead and lies along
-its crown below the funnel frame. It returns toward the electronics bay through the +X half of the cavity, clear of
-the manifold Wago and tube approaches. The display backing and the fore end of the 9 mm flank present
+its crown below the funnel frame. It returns toward the flat PCB through the open central region, clear of
+the manifold WAGO and tube approaches. The display backing and the fore end of the 9 mm flank present
 continuous inner walls. Keep the bare ribbon below the frame and clear of the
 closing slides, with a relaxed exit at the insulated solder joints. Support its free
 J13 end during assembly; unplug J13 by its housing before separating enclosure pieces.
 Both ends stay fixed during a cartridge change. The contact body's screws take the
 contact-separation load.
 
-SIG-7 follows the same +X wall toward its separate display-loom bore. The
-[fixed pump lead review](fixed-pump-lead-review.json) binds the continuous wall to the
-current export and records the limits of the installed routing assessment. The loom bore is teardropped because
-the piece beds on Z.
+SIG-7 reaches its separate display-loom bore from the flat PCB. The installed
+wiring model supplies the current route. The [fixed pump lead review](fixed-pump-lead-review.json)
+retains its identified earlier artifact scope; it does not qualify the current harness
+dressing. The loom bore is teardropped because the piece beds on Z.
 
 ## Funnel opening
 
-The 531 mL silicone funnel sits in a separate solid PET-GF frame centered at
-Y161.70, with its outlet at the same Y centre. The frame's flat front and the brim's
-square-cornered front edge stand together one running fit behind the display wall.
-Its front rail pair slides into
-front-top's receivers. The rear frame is 182.5 mm wide beside back-top's screw
-blocks and has no rear rails. Its actual aft corners retain R6 plan rounds;
-the clearance shoulders at Y199.75 remain square. `funnel_frame.py` uses the
-production Z-seam head/channel section and fit allowances for the front pair.
+The silicone funnel sits in a separate solid PET-GF frame. The drain stays at Y161.69575; the 35 mm aft extension places the collar
+center at Y179.19575.
+Its brim bearing is Z349 and lower body reaches Z299.9. Two full-width end
+corbels stand 30° from vertical. The flange is 196.5 mm wide and lower body
+176.5 mm wide; its aft shoulders clear the upper M5 seam blocks.
 
-The frame's brim bearing is Z349, its flat underside is Z299.9, and its two full-width
-end corbels are 30° from vertical. Its socket has a 3 mm floor, pierced by an 11.25 mm
-elbow-collet hole and the cradle's two wing slots. The silicone block rests on the cradle's
-hook tops 3.15 mm above that socket floor. The 2.75 mm hooks leave 0.40 mm above
-the web for static assembly and its supported finish; the receiving web retains 3 mm.
-The front rail feet remain at Z306.9; front-top's receiver underside is Z307.4,
-providing 0.50 mm for the running fit and its supported receiver face.
-The roof surround's two side strips reach the flush Z355 roof plane and end at Y199.75,
-one running clearance before the seam. The rear frame retains its Z349
-envelope beneath the existing back-top roof. Front-top's opening clears the
-removable side strips and roof tongue, leaving no fixed inward brim-bearing
-ledge above the frame. The complete brim footprint retains 3 mm of frame
-bearing beneath Z349. The rail channels retain their separate functional profile.
-The funnel's integral silicone apron covers the exposed frame joints and
-upper seam screw wells, reaching both exterior sides. Its mouth and cover
-seat are Z358; the fitted cover reaches Z361. Its flat roof-bearing underside
-and spill-path geometry are recorded in the
-[overflow review](../../zone-c/funnel/overflow-review/README.md).
-See [`../../zone-c/funnel/`](../../zone-c/funnel/) for dimensions and the drain joint.
+The frame drops vertically through both upper shell openings and seats on four
+broad ledges. Four recessed M3 × 12 screws engage full RX-M3×5.7 inserts in the
+shell. There are no frame slide rails. The complete silicone brim retains 3 mm
+of bearing stock. Its apron covers the screw wells; lift the silicone for access.
+
+Front-top's integral 12 mm deep drain bridge retains the original drain web,
+elbow-cradle socket, elbow and vertical stub datums. The connected drain stays
+in place when the frame lifts around it. Finish the tubing and PCB connections
+beneath the open aperture before installing the frame. The
+[drop-in review](../../zone-c/funnel/drop-in-review/native-review.json) records
+nominal fastener stacks and sampled motion; the
+[funnel source](../../zone-c/funnel/README.md) owns its dimensions and physical
+qualification limits.
+
+The upper knuckle bearing is Z318.0 on front-top and Z318.25 on back-top.
+The common raised plane lets back-top pass above the core-owned valve socket
+walls during closing. The M5 × 50 screw retains its full insert engagement;
+its blind tip relief follows the screw’s fixed head seat and length.
 
 ## back-top's ceiling
 
-back-top's ceiling is **one slab, and it is the face the piece prints on.** The exterior
-top is at z 355 and the rear storey's established pack lane at z [352](CEILING_LANE):
-every body, port and anchor station under the ceiling is struck on that lane. The slab
-carries [12 mm](BACK_TOP_CEILING_T) of section from the show face inward, to z
-[343](BACK_TOP_CEILING_FACE), between the grown flanks and from the Y telescope's end to
-the +Y wall — [9 mm](BACK_TOP_CEILING_GROWTH) more than the top wall's own `wall` — and
-gives that section back over whatever stands in it. Every pocket opens from the slab's
-interior face up to the lane and no further, so the top wall's own `wall` stands over each
-one (`ceiling-show-cap`).
+Back-top prints on its exterior roof face at Z355. The 9 mm slab's ordinary
+underside is Z346. Broad pockets over the ASSE and gas fittings retain 3 mm roof;
+the water-regulator pocket retains 6 mm. The source data names each pocket's
+plan and top plane, and `_above_core_shell.py` constructs the fixed supports
+from the same part frames. The ASSE’s two east-sector seats stand at Y340 and
+Y364. Their broad lower plane is Z315.926, above the populated core’s meter
+during the back-column ride; the circular bearing retains at least 3.34 mm of
+stock beneath its west edge.
 
-**Three kinds of pocket.** Each connected piece of a named purchased body that enters the slab,
-or comes within the stated 1 mm crown clearance, earns its own rectangular plan pocket with
-2 mm of assembly slip and a roof 1 mm beyond its crown
-(`enclosure_assembly.ceiling_reliefs`; the named population is what keeps an unrelated
-encroachment visible to `pack-closes`). Duplicate readings from the direct and lifted probes
-collapse to one cutter. The ASSE chain's five overlapping section plans share one flat floor
-without changing any plan edge, and the flow meter's body and two arms do the same. Relay #1 and
-the ground stack share one named roof plane and one local connector across their 1.181 mm plan
-gap; the ground stack's two overlapping source rectangles alone take their small rectangular
-envelope. No other pair is merged by proximity. Where a pocket runs on out of another body's
-overlapping pocket under the same roof, both its sides less than a wall inside that pocket's,
-the slab takes it with that pocket's sides (`enclosure._back_top_ceiling`): the gas chain's two
-check adapters and the gasher's crown open as one channel. Gasher's singleton crown pocket
-keeps its plan and is exactly one 3 mm wall deep; every other local pocket between zero and
-3 mm deep is a producer error. The C14's ceiling pocket is its canonical slipped flange profile
-continued along the insertion run, so the pocket and the flange seat are one outline.
-The flow meter's two anchors and every rib a zip tie closes on
-the ceiling — the regulator's — get the room their zip tie's
-loop comes down: over the tie band alone, the rib's reach plus the tie's thickness and its
-routing air either side, from the axis plane up to the channel's roof and no deeper
-(`_ceiling_tie_reliefs`); the rib is fused back afterwards and stands up off the bed with
-its seat an upward-opening cradle in the print. And the tap-water chain's shared tie channel is open to the lane from the −X
-flank to the far edge of the chain's own pocket over the span its two zip ties take
-(`_ceiling_tie_channel_relief`), so each loop comes west over the chain's crown in the
-`DECK_CEILING_CLEAR` lane and drops into the anchor's cavity through the mouth the flank
-leaves it.
+The west/aft access opening removes the slab over the electrical service space.
+Its empty panel is a separate part and supports no equipment. Four discrete
+bearings and their two-sided roots join the surrounding fixed roof/wall stock.
+The funnel opening and its four frame ledges span the front/back roof seam.
 
-**Everything rooted on the ceiling is this piece's**: the flow meter's two anchors and the
-three ribs bored for `carb-1`, `co2-2` and the WR1110's barrel, each drawn to the lane
-through `piece_root_faces` and fused into its own pocket. Back-top is populated inverted
-on the bench, ceiling down, and every one of those seats is a cradle a body drops into.
+The rear nameplate's plain field stands 2.2 mm beyond the rear wall. Its
+complete 3.6 mm backing clears the cold core by 1.09 mm. The named receiver
+and disposal lettering are the exterior-stock exceptions to the quadrant
+silhouette; the wall and component datums stay fixed.
 
 ## Regenerate
 
@@ -1856,5 +1541,5 @@ bed, every piece-pair's slip fit, and the cold-core clearance.
 
 ## Sources
 [value](NAME) texts are updated by:
-- `/<stdin>`
 - `/hardware/printed-parts/enclosure/enclosure/enclosure.py`
+- `/tmp/above-core-implementation/refresh_joint_figures.py`
