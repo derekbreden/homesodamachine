@@ -1521,7 +1521,8 @@
       "top_cup_byte_identical": true
     }
   },
-  "selected_carried_group": {
+  "optional_late_connection_probe_scope": "The existing late-body feed, loose-nut parking, diagonal transfer and nut-rotation readings below demonstrate a separate after-closure connection option. They are not requirements of the selected preassembled carried-group sequence. Their original input hashes and limited physical scope remain unchanged.",
+  "evaluated_tube_on_back_top_scenario": {
     "scope": "Read-only alternative: soda/drain bulkheads and prethreaded nuts, nested soda rear elbows and the concealed tube ride with back-top. The populated core and connected header stay stationary. Continuous conservative prisms/cylinder bound every closing offset0..300mm. Only the fixed meter outlet finite receiving cylinder permits intended tube insertion. Existing back-top/header and static rear-joint receipts retain their separate scope. Flexible drain-vent tube and inter-quadrant wiring connect through the open roof after closing. No thread-tightening, hand/tool access, insertion force, leak or retention qualification.",
     "base_appliance_sha256": "a3788ba4e037c8dc943ce550f1d5e7795f0bc7729ef17222d1e2f48c859e4fa6",
     "moving_components": [
@@ -2230,7 +2231,8 @@
           "separation_y_mm": 46.174999900000046
         }
       }
-    }
+    },
+    "approval_scope": "Evaluated tube-on-back-top scenario only. The approved concealed tube belongs to the fixed meter/back-bottom. Use approved-carried-group-review.json for that ownership and receiving direction."
   },
-  "optional_late_connection_probe_scope": "The existing late-body feed, loose-nut parking, diagonal transfer and nut-rotation readings below demonstrate a separate after-closure connection option. They are not requirements of the selected preassembled carried-group sequence. Their original input hashes and limited physical scope remain unchanged."
+  "current_approved_handoff_record": "approved-carried-group-review.json"
 }

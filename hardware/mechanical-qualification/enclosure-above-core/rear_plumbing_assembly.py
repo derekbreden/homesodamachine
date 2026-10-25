@@ -2,8 +2,9 @@
 
 Run through tmp/takeover/cadq after exporting the back-top and cold core.
 No enclosure/appliance generation, recurring hook or physical qualification runs.
-The default reads the complete rear group carried by back-top. The optional
-late-connection function retains its separate after-closure assembly scope.
+The default delegates to the approved carried-group and handoff query.
+The optional seven-member and late-connection probes are evaluated scenarios;
+they do not define the approved carrying pieces or current assembly procedure.
 """
 from pathlib import Path
 import hashlib
@@ -283,11 +284,12 @@ def optional_late_connection_probe():
     print('REPORT '+str(output), flush=True)
 
 
-def main():
-    """Read the selected seven-member rear preassembly and finite capture."""
+def seven_member_candidate():
+    """Read the evaluated tube-on-back-top scenario and finite capture."""
     started = time.monotonic()
     sys.path.insert(0, str(ROOT / 'hardware/assembly/scenes'))
     import _scenes
+    candidate_members = (*LATE_BODIES, 'tube-soda-meter-bulkhead')
 
     appliance = ROOT / 'hardware/manifold-layout/enclosure-assembly.step'
     placed = {name: row[0] for name, row in import_assembly(appliance).items()}
@@ -296,7 +298,7 @@ def main():
     stationary = {
         name: shape for name, shape in placed.items()
         if ('cold-core/' in name and boxes[name][1, 2] > 253.3)
-        or name.rsplit('/', 1)[-1] in _scenes.CORE_INLET_HEADER_PREASSEMBLY
+        or name.rsplit('/', 1)[-1] in _scenes.BACK_TOP_INLET_HEADER
     }
     meter_name = names['digiten-flow']
     native_mouth, native_outward, diameter = parts.port_stations('digiten-flow')['outlet']
@@ -312,7 +314,7 @@ def main():
     masked = dict(stationary)
     masked[meter_name] = placed[meter_name].cut(mask)
     rows = []
-    for tail in _scenes.BACK_COLUMN_REAR_PREASSEMBLY:
+    for tail in candidate_members:
         name = names[tail]
         low, high = boxes[name]
         if tail == 'tube-soda-meter-bulkhead':
@@ -353,7 +355,7 @@ def main():
         })
     path = HERE / 'rear-plumbing-assembly.json'
     report = json.loads(path.read_text())
-    prior = report.get('selected_carried_group', {})
+    prior = report.get('evaluated_tube_on_back_top_scenario', {})
     prior.update({
         'scope': 'The selected seven-member rear group rides with back-top. '
                  'Continuous conservative component prisms and a coaxial tube '
@@ -364,7 +366,7 @@ def main():
                  'hand/tool reach, installation force, sealing or retention '
                  'qualification is inferred.',
         'base_appliance_sha256': sha(appliance),
-        'moving_components': list(_scenes.BACK_COLUMN_REAR_PREASSEMBLY),
+        'moving_components': list(candidate_members),
         'stationary_components': sorted(stationary),
         'continuous_prism_readings': rows,
         'finite_outlet_capture': {
@@ -385,9 +387,17 @@ def main():
         },
         'seconds': time.monotonic() - started,
     })
-    report['selected_carried_group'] = prior
+    report['evaluated_tube_on_back_top_scenario'] = prior
     path.write_text(json.dumps(report, indent=2) + '\n')
     print('REPORT ' + str(path), flush=True)
+
+
+def main():
+    if '--evaluated-seven-member-candidate' in sys.argv:
+        seven_member_candidate()
+    else:
+        import approved_carried_group_review
+        approved_carried_group_review.main()
 
 
 if __name__ == '__main__':

@@ -12,7 +12,7 @@ white faucet, the machine display, and the flow meter that starts each pour. The
 the cold carbonated water; this build adds no carbonator, refrigeration, CO2 or tap-water feed.
 
 The flavor manifold carries the eight valves front-top holds, V-C through V-J, and all six
-tees. V-A (tap water) and V-B (funnel) stand on the cold-core cap, which this build leaves out.
+tees. V-A (tap water) belongs to back-top; V-B (funnel) stands on the cold-core cap. This cutover build leaves those integrated-machine subassemblies out.
 V-A's tee port takes a plug and V-B's takes a dip tube, so a bottle refills a reservoir through
 the firmware's own Fill. When tap water and the funnel come in, V-A goes onto the plugged port
 and V-B and the funnel onto the dip-tube line; nothing inside front-top changes. The Lillium's
