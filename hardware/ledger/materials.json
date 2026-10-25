@@ -238,23 +238,7 @@
             ]
           },
           {
-            "material": "HSM-000055",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "wr1110"
-            ]
-          },
-          {
-            "material": "HSM-000056",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "gasher-co2"
-            ]
-          },
-          {
-            "material": "HSM-000057",
+            "material": "HSM-000332",
             "quantity": 1,
             "unit": "ea",
             "bodies": [
@@ -263,10 +247,19 @@
           },
           {
             "material": "HSM-000058",
+            "quantity": 2,
+            "unit": "ea",
+            "bodies": [
+              "discharge-chain",
+              "gas-check"
+            ]
+          },
+          {
+            "material": "HSM-000331",
             "quantity": 1,
             "unit": "ea",
             "bodies": [
-              "discharge-chain"
+              "gas-regulator"
             ]
           },
           {
@@ -477,11 +470,27 @@
             ]
           },
           {
-            "material": "HSM-000087",
+            "material": "HSM-000173",
             "quantity": 1,
             "unit": "ea",
             "bodies": [
               "asse1022-assembly"
+            ]
+          },
+          {
+            "material": "HSM-000334",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "asse-inlet-tpu"
+            ]
+          },
+          {
+            "material": "HSM-000335",
+            "quantity": 1,
+            "unit": "ea",
+            "bodies": [
+              "asse-outlet-tpu"
             ]
           },
           {
@@ -509,13 +518,13 @@
             ]
           },
           {
-            "material": "HSM-000043",
+            "material": "HSM-000333",
             "quantity": 1,
             "unit": "ea",
             "bodies": [
               "water-split"
             ],
-            "note": "Tap-water split upstream of V-K, separate from the six flavor-manifold tees."
+            "note": "Tap-water split at the ASSE outlet cuff, feeding V-K and the flavor-water regulator; separate from the six flavor-manifold tees."
           },
           {
             "material": "HSM-000270",
@@ -523,24 +532,6 @@
             "unit": "ea",
             "bodies": [
               "keystone-jack"
-            ]
-          },
-          {
-            "material": "HSM-000014",
-            "quantity": 2,
-            "unit": "ea",
-            "bodies": [
-              "co2-adapter-regulator-in",
-              "co2-adapter-check-in"
-            ]
-          },
-          {
-            "material": "HSM-000271",
-            "quantity": 2,
-            "unit": "ea",
-            "bodies": [
-              "co2-adapter-regulator-out",
-              "co2-adapter-check-out"
             ]
           },
           {
@@ -2980,65 +2971,6 @@
       "manufacturer_number": "ABU44-E"
     },
     {
-      "id": "HSM-000055",
-      "description": "Interstate Pneumatics WR1105 CO\u2082 secondary regulator",
-      "kind": "purchased",
-      "models": [
-        {
-          "file": "reference/wr1110-regulator/wr1110-regulator.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Installed secondary regulator and CO\u2082 plumbing",
-          "path": "assembly/internal-plumbing.md"
-        },
-        {
-          "title": "Exterior scan representation and fit scope",
-          "path": "reference/wr1110-regulator/README.md"
-        }
-      ],
-      "aliases": [
-        "WR1110 fixed inline regulator"
-      ],
-      "manufacturer_number": "WR1105"
-    },
-    {
-      "id": "HSM-000056",
-      "description": "GASHER 1/4\" NPT inline check valve",
-      "kind": "purchased",
-      "models": [
-        {
-          "file": "reference/gasher-check-valve/gasher-check-valve.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Part details",
-          "path": "reference/gasher-check-valve/README.md"
-        }
-      ],
-      "aliases": [
-        "gasher-water",
-        "gasher-co2",
-        "B0FV2D2FFX"
-      ]
-    },
-    {
-      "id": "HSM-000057",
-      "description": "Water-pressure regulator \u00b7 Hydronix SB-FPV-40 \u00b7 internal 1/4 inch feed",
-      "kind": "purchased",
-      "models": [
-        {
-          "file": "reference/shok-blok-regulator/shok-blok-regulator.step"
-        }
-      ],
-      "aliases": [
-        "Water pressure regulator"
-      ],
-      "manufacturer_number": "SB-FPV-40"
-    },
-    {
       "id": "HSM-000058",
       "description": "neoFit ACHV44-E single check valve \u00b7 1/4 inch push-connect \u00b7 0.3 psi crack",
       "kind": "purchased",
@@ -3572,68 +3504,6 @@
       "aliases": [
         "Enclosure window cover east"
       ]
-    },
-    {
-      "id": "HSM-000087",
-      "description": "ASSE 1022 water-fitting assembly",
-      "kind": "assembly",
-      "models": [
-        {
-          "file": "reference/asse1022-assembly/asse1022-assembly.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Water-fitting assembly and interfaces",
-          "path": "reference/asse1022-assembly/README.md"
-        },
-        {
-          "title": "Water-fitting assembly procedure",
-          "path": "assembly/internal-plumbing.md"
-        }
-      ],
-      "aliases": [
-        "backflow preventer assembly",
-        "tap-water chain"
-      ],
-      "bom": {
-        "scope": "Multiplex backflow preventer and four made-up inlet/outlet fittings. The vent sleeve, drain return, wall mounting and installation ties belong to the machine. The two outlet fittings share a combined CAD envelope and have no individual geometry bindings.",
-        "source": "reference/asse1022-assembly/README.md",
-        "items": [
-          {
-            "material": "HSM-000013",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "jg-pp010822e"
-            ]
-          },
-          {
-            "material": "HSM-000172",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "gagira-coupling"
-            ]
-          },
-          {
-            "material": "HSM-000173",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "multiplex-asse1022"
-            ]
-          },
-          {
-            "material": "HSM-000321",
-            "quantity": 1,
-            "unit": "ea",
-            "bodies": [
-              "flare38-14ptc"
-            ]
-          }
-        ]
-      }
     },
     {
       "id": "HSM-000088",
@@ -4571,25 +4441,6 @@
       ]
     },
     {
-      "id": "HSM-000172",
-      "description": "GAGIRA reducing coupling \u00b7 3/8 \u00d7 1/4 inch FNPT",
-      "kind": "purchased",
-      "aliases": [
-        "backflow inlet reducing coupling"
-      ],
-      "models": [
-        {
-          "file": "reference/gagira-reducing-coupling/gagira-reducing-coupling.step"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Inlet fitting specification",
-          "path": "ledger/bom.md"
-        }
-      ]
-    },
-    {
       "id": "HSM-000173",
       "description": "Multiplex 19-0897 ASSE 1022 backflow preventer",
       "kind": "purchased",
@@ -4603,38 +4454,6 @@
         {
           "title": "Backflow preventer and fitting chain",
           "path": "reference/asse1022-assembly/README.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000174",
-      "description": "John Guest PI4512F6S \u00b7 3/8 inch flare swivel adapter",
-      "kind": "purchased",
-      "manufacturer_number": "PI4512F6S",
-      "documents": [
-        {
-          "title": "Outlet fitting specification",
-          "path": "ledger/bom.md"
-        },
-        {
-          "title": "Outlet fitting assembly",
-          "path": "assembly/internal-plumbing.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000175",
-      "description": "John Guest PP061208W \u00b7 3/8 stem \u00d7 1/4 inch reducer",
-      "kind": "purchased",
-      "manufacturer_number": "PP061208W",
-      "documents": [
-        {
-          "title": "Outlet fitting specification",
-          "path": "ledger/bom.md"
-        },
-        {
-          "title": "Outlet fitting assembly",
-          "path": "assembly/internal-plumbing.md"
         }
       ]
     },
@@ -4891,30 +4710,6 @@
         {
           "title": "SIG-6 wiring",
           "path": "assembly/wiring.md"
-        }
-      ]
-    },
-    {
-      "id": "HSM-000271",
-      "description": "John Guest PI450822S \u00b7 CO\u2082 female adapter",
-      "kind": "purchased",
-      "aliases": [
-        "PI450822S",
-        "CO2 outlet adapter"
-      ],
-      "documents": [
-        {
-          "title": "Gas-chain assembly",
-          "path": "assembly/internal-plumbing.md"
-        },
-        {
-          "title": "Adapter geometry and placement",
-          "path": "manifold-layout/_gas_chain.py"
-        }
-      ],
-      "contexts": [
-        {
-          "material": "HSM-000001"
         }
       ]
     },
@@ -6193,45 +5988,6 @@
       ]
     },
     {
-      "id": "HSM-000321",
-      "description": "ASSE 1022 outlet fitting assembly",
-      "kind": "assembly",
-      "documents": [
-        {
-          "title": "Outlet fittings and connections",
-          "path": "reference/asse1022-assembly/README.md"
-        },
-        {
-          "title": "Water-path assembly",
-          "path": "assembly/internal-plumbing.md"
-        }
-      ],
-      "bom": {
-        "scope": "One PI4512F6S flare swivel with one PP061208W stem reducer; represented by their combined fitted envelope.",
-        "source": "assembly/internal-plumbing.md",
-        "items": [
-          {
-            "material": "HSM-000174",
-            "quantity": 1,
-            "unit": "ea"
-          },
-          {
-            "material": "HSM-000175",
-            "quantity": 1,
-            "unit": "ea"
-          }
-        ]
-      },
-      "contexts": [
-        {
-          "material": "HSM-000087"
-        }
-      ],
-      "aliases": [
-        "ASSE outlet fitting assembly"
-      ]
-    },
-    {
       "id": "HSM-000322",
       "description": "Countertop \u00b7 installation reference",
       "kind": "reference",
@@ -6371,6 +6127,143 @@
       "contexts": [
         {
           "material": "HSM-000001"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000331",
+      "description": "PISCO RVFUP1/4-1/4-0.3 preset regulator \u00b7 CO\u2082 secondary \u00b7 0.3 MPa",
+      "kind": "purchased",
+      "models": [
+        {
+          "file": "reference/compact-inline-candidates/geometry/candidate-regulator.step"
+        }
+      ],
+      "aliases": [
+        "CO2 secondary regulator",
+        "gas-regulator",
+        "RVFUP1/4-1/4-0.3"
+      ],
+      "documents": [
+        {
+          "title": "Gas-path assembly",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fitting specification",
+          "path": "ledger/bom.md"
+        },
+        {
+          "title": "Regulator representation and scope",
+          "path": "reference/compact-inline-candidates/README.md"
+        }
+      ],
+      "manufacturer_number": "RVFUP1/4-1/4-0.3"
+    },
+    {
+      "id": "HSM-000332",
+      "description": "YZMSZ fixed water regulator \u00b7 flavor-water feed \u00b7 0.3 MPa",
+      "kind": "purchased",
+      "models": [
+        {
+          "file": "reference/yzmsz-water-regulator/geometry/yzmsz-water-regulator.step"
+        }
+      ],
+      "aliases": [
+        "Water pressure regulator",
+        "flow-regulator",
+        "YZMSZ"
+      ],
+      "documents": [
+        {
+          "title": "Water-path assembly",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fitting specification",
+          "path": "ledger/bom.md"
+        },
+        {
+          "title": "Regulator representation and scope",
+          "path": "reference/yzmsz-water-regulator/README.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000333",
+      "description": "neoFit ATBU444-E branch stem tee \u00b7 tap-water split \u00b7 1/4 inch",
+      "kind": "purchased",
+      "models": [
+        {
+          "file": "reference/branch-stem-tees/neofit-atbu444-e-estimate.step"
+        }
+      ],
+      "aliases": [
+        "water split",
+        "water-split",
+        "ATBU444-E"
+      ],
+      "documents": [
+        {
+          "title": "Water-path assembly",
+          "path": "assembly/internal-plumbing.md"
+        },
+        {
+          "title": "Fitting specification",
+          "path": "ledger/bom.md"
+        },
+        {
+          "title": "Tee representation",
+          "path": "reference/branch-stem-tees/README.md"
+        }
+      ],
+      "manufacturer_number": "ATBU444-E"
+    },
+    {
+      "id": "HSM-000334",
+      "description": "ASSE 1022 inlet cuff \u00b7 TPU 85A",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/asse-straight-cuffs/asse-inlet-cuff.step"
+        }
+      ],
+      "aliases": [
+        "asse-inlet-tpu",
+        "ASSE straight inlet cuff"
+      ],
+      "documents": [
+        {
+          "title": "Straight ASSE cuffs",
+          "path": "printed-parts/asse-straight-cuffs/README.md"
+        },
+        {
+          "title": "Water-path assembly",
+          "path": "assembly/internal-plumbing.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000335",
+      "description": "ASSE 1022 outlet cuff \u00b7 TPU 85A",
+      "kind": "manufactured",
+      "models": [
+        {
+          "file": "printed-parts/asse-straight-cuffs/asse-outlet-cuff.step"
+        }
+      ],
+      "aliases": [
+        "asse-outlet-tpu",
+        "ASSE straight outlet cuff"
+      ],
+      "documents": [
+        {
+          "title": "Straight ASSE cuffs",
+          "path": "printed-parts/asse-straight-cuffs/README.md"
+        },
+        {
+          "title": "Water-path assembly",
+          "path": "assembly/internal-plumbing.md"
         }
       ]
     }
