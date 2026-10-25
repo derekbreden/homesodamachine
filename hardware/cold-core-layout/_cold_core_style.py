@@ -49,9 +49,9 @@ def colour_for(name: str):
         return _mat.M_JG_BLACK_PP
     if name == 'digiten-flow':
         return _mat.C_DIGITEN
-    if name == 'soda-inlet-stem':
-        return _mat.M_NEOFIT_WHITE_ACETAL
-    if name == 'soda-rise-insulation':
+    if name == 'soda-bend-holder':
+        return _mat.M_PETGF_BLACK
+    if name == 'soda-continuous-insulation':
         return _mat.M_NITRILE_BLACK
     if name.startswith('tube-soda-core-'):
         return _routing.color('blue')
