@@ -56,9 +56,8 @@ welding sheets, with the weld-rotator guide's one-picture-per-step approach.
   evidence: what stays, what comes out and the permanent service valve.
 - [Enclosure assembly](../assembly/enclosure-mechanical.md),
   [mechanical fasteners in the BOM](../ledger/bom.md),
-  [fuse clamp](../printed-parts/refrigeration/fuse-clamp/README.md),
-  [mechanical qualification](../mechanical-qualification/README.md) and
-  [concerns](../concerns.md) supply mount order, nominal fit and the installed
+  [fuse clamp](../printed-parts/refrigeration/fuse-clamp/README.md) and
+  [mechanical qualification](../mechanical-qualification/README.md) supply mount order, nominal fit and the installed
   evidence still required.
 - [Firmware commissioning](../assembly/firmware-and-commissioning.md),
   [shipping firmware](../../firmware/src_appliance/README.md),
