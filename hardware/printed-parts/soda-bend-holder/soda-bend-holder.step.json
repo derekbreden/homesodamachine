@@ -1,0 +1,7 @@
+{
+  "thickness_mm": 2.0,
+  "material": "Fiberon PET-GF15",
+  "process": "3D-print",
+  "notes": "Accepted functional 2 mm wall exception for the R14 bend holder with 3 mm legs and 6.8 mm channel. Flat back down. Physical report is qualitative; force, tube roundness, flow, pressure and long-term retention are unmeasured.",
+  "physical_acceptance": "future/tube-bend-holder-exploration/prints/2026-10-23-legs-123-w2-petgf-left04-z018-mark1/physical-result.json"
+}
