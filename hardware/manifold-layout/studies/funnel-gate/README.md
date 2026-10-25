@@ -111,8 +111,9 @@ stem. The bulkhead's own stem seats shoulder-flush.
 
 ### Selected continuous inlet and insulation
 
-[continuous_soda_bend.py](continuous_soda_bend.py) models a continuous 1/4-inch
-LLDPE tube through the accepted R14 PET-GF bend holder, with its 2 mm wall and
+[continuous_soda_bend.py](continuous_soda_bend.py) consumes the shared production
+[soda_inlet.py](../../soda_inlet.py) plan and native builders. It shows a continuous
+1/4-inch LLDPE tube through the accepted R14 PET-GF bend holder, with its 2 mm wall and
 3 mm legs, into the meter's inlet socket. The holder carries no fluid joint.
 One approximately 63 mm square-cut piece of the owned foam slides over the
 tube and holder before the meter connects. The holder displaces foam inside
@@ -120,7 +121,8 @@ the sleeve; the nominal outside diameter is 25.4 mm.
 
 The meter and every main component keep their poses. The passive core entry
 is `(50,342.4148,253.4)` mm.
-The tube continues below that handoff; it is not cut or joined at the guide.
+The external CAD span starts at that handoff. The production tube continues
+below it; it is not cut or joined at the guide.
 The inlet has no push-fit elbow or additional tube joint. The carbonator's
 bottom outlet retains its own fixed port. Two nested stem elbows form the
 meter-to-bulkhead return; [soda_route.py](soda_route.py) supplies its interfaces.
@@ -138,6 +140,8 @@ compresses locally against the pump, V-K and pump inlet hardware. The tightest
 sampled radial space leaves approximately 1.89 mm between tube and TPU.
 The translucent occupied-space foam mesh illustrates this compression; it is
 not a shaped cutting pattern or a prediction of strain or thermal performance.
+The uncompressed stock envelope and occupied-space estimate both come from the
+production native API. Its occupied estimate uses the four named native neighbors.
 
 [continuous-soda-bend.json](continuous-soda-bend.json) supplies the source,
 selection, holder acceptance, datums and native geometry. Production integration

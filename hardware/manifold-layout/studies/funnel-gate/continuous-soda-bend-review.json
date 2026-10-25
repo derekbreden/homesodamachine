@@ -1,5 +1,5 @@
 {
-  "scope": "The round stock envelope conforms to the holder internally. The occupied-space display excludes neighboring bodies to illustrate local compression; it does not predict exact strain or thermal performance.",
+  "scope": "One square-cut piece of owned foam compresses around the holder and locally against the four accepted neighboring bodies. Native display subtraction estimates occupied space; it is not a shaped cut pattern, measured strain, fit tolerance or thermal result.",
   "rigid_parts": {
     "soda-continuous-inlet": {
       "hits": [],
@@ -98,26 +98,27 @@
     "pump-inlet-tpu",
     "pump-inlet-barb-band"
   ],
-  "soft_contact_tool_solids": {
-    "vk": 11,
-    "pump": 16,
-    "pump-inlet-tpu": 1,
-    "pump-inlet-barb-band": 1
-  },
-  "nominal_foam_volume_mm3": 27600.229686850464,
-  "occupied_foam_volume_mm3": 26388.643529130728,
-  "foam_occupied_proxy_watertight": true,
+  "occupied_foam_source": "hardware/manifold-layout/soda_inlet.py:foam_occupied",
+  "accepted_soft_neighbors": [
+    "vk-solenoid",
+    "g-ganen-pump",
+    "pump-inlet-tpu",
+    "pump-inlet-barb-band"
+  ],
+  "nominal_foam_volume_mm3": 29847.735148683216,
+  "occupied_foam_volume_mm3": 26389.254070537612,
+  "foam_occupied_proxy_watertight": false,
   "narrowest_sampled_straight_riser_space": {
     "axis_point_mm": [
       50.0,
-      342.41479999999996,
+      342.4148,
       280.13328492925183
     ],
     "part": "pump-inlet-tpu",
-    "radial_space_mm": 5.064878909867779,
-    "foam_between_tube_and_part_mm": 1.8898789098677788
+    "radial_space_mm": 5.0648789098678355,
+    "foam_between_tube_and_part_mm": 1.8898789098678357
   },
   "rigid_fit_passed": true,
-  "meter_and_main_component_poses": "Fixed; the core guide moves 11.9548 mm fore, in Y\u2212.",
+  "meter_and_main_component_poses": "Fixed; shared production guide is at X50/Y342.4148/Z253.4.",
   "production_limits": "Current printed lid/supports, the internal continuation and complete installed wiring need integration review for the selected inlet."
 }
