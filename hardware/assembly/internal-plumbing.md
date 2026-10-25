@@ -145,8 +145,8 @@ already threaded beneath its east-quarter bearing ([cold core](cold-core.md) §3
 7. Close the TPU elbow's barb and tube-socket bands, close the check's tie around
    its fixed barrel, and check each insertion mark.
 
-The J6 reed leads (RA2, RA4) and DC2-V12 pass within 0.05 mm of the swing:
-dress them after the group seats, or hold them clear while it swings.
+The J6 reed leads RA2 and RA4 pass within 0.05 mm of the swing: dress them
+after the group seats, or hold them clear while it swings.
 
 The reported internal water path is 229.656 mm and its warm span is 24.610 mm,
 a combined 254.266 mm of CAD centreline. The warm span includes the NeoFit
