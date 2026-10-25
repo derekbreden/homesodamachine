@@ -169,7 +169,7 @@ Populate it inverted, ceiling down
    | AC-2 | the H and N WAGOs → PSU L and N | 16 AWG solid black/white, stripped directly in both clamps; the PSU has no earth terminal |
    | G leg | the G Wago → the ground stack | ferrule; ring at the stack |
    | DC-1 | PSU + and − → the + and GND WAGOs | 16 AWG solid black, stripped directly in both clamps |
-   | DC-4 | the + and GND WAGOs → J10 | 16 AWG solid black, stripped directly in both clamps; `V12` east, `GND` west |
+   | DC-4 | the + and GND WAGOs → J10 | 16 AWG solid black, stripped directly in both clamps; `V12` and `GND` each in the clamp beside its silk label |
 
    AC-3 to AC-6 (the compressor's), DC-2 and DC-3 (the water pump's) and the J5 loom are not built.
    Run [electronics bay §7](electronics-bay.md#7-pre-power-continuity--isolation-check)'s

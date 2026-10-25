@@ -41,7 +41,7 @@ Tooling (per-unit-amortized): one bench setup with a PSU-controlled outlet feedi
 
 ### 1. Verify wiring-out inputs
 
-Before any power, walk the chassis once against [`wiring.md`](/hardware/assembly/wiring.md) output condition: compressor bolted down and grounded; donor moulded cover intact, unmodified, and securely retained over the terminal/PTC assembly; factory lead exit undamaged; electronics bay populated and fastened; ground bus continuous from C14 earth pin to every exposed-metal bond point; all JST XH looms seated on their labeled wafers (J4 vs J7 by loom label per [`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md)); the J10 polarity verified (`V12` east / `GND` west).
+Before any power, walk the chassis once against [`wiring.md`](/hardware/assembly/wiring.md) output condition: compressor bolted down and grounded; donor moulded cover intact, unmodified, and securely retained over the terminal/PTC assembly; factory lead exit undamaged; electronics bay populated and fastened; ground bus continuous from C14 earth pin to every exposed-metal bond point; all JST XH looms seated on their labeled wafers (J4 vs J7 by loom label per [`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md)); the J10 polarity verified (`V12` in the west clamp, `GND` in the east, each beside its silk label).
 
 This is a *re-look*, not a re-test — the AC and DC continuity checks from `wiring.md` are not repeated here. If anything in the electronics bay has moved since those checks passed, return the unit there before continuing.
 
