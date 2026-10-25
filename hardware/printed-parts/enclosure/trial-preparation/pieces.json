@@ -483,57 +483,28 @@
       "printer": "Mark2",
       "nozzle": {
         "side": "left",
-        "diameter_mm": 0.8,
-        "flow": "High Flow",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
         "hardened": true,
-        "reason": "The cold-core stack prints on a 0.8 mm tungsten carbide hotend on the left (cold-core/foam-shell/README.md, Printer / profile; hardware/ledger/tools.md lists a 0.8 TC HF and two 0.8 Diamond PCD). Which of them is mounted is Derek's to say; a Standard-flow 0.8 takes nozzle_volume_type Standard and a reslice."
+        "reason": "Smooth 2.38 mm cold-core casing: 0.42 mm outer and 0.45 mm inner lines at 0.24 mm layers, three loops from each boundary."
       },
       "material": "Polymaker Fiberon PET-GF15, black",
-      "profile": "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf",
-      "filament_from": "hardware/printed-parts/petgf.3mf",
       "settings": {
-        "nozzle_temperature": {
-          "value": [
-            "280",
-            "280",
-            "270"
-          ],
-          "reason": "The cold-core plate takes the stock's figures from the slot the exterior is sliced on (cold-core/foam-shell/print-log.md, Stock): petgf.3mf's Standard-hotend 280 C, carried to the High Flow hotend's entry."
+        "wall_loops": {
+          "value": "3",
+          "reason": "Derek selected 2.38 mm standing walls, packed with six perimeter beads."
         },
-        "nozzle_temperature_initial_layer": {
-          "value": [
-            "265",
-            "265",
-            "270"
-          ],
-          "reason": "The exterior slot's first-layer temperature (petgf.3mf), on the High Flow entry too."
-        },
-        "filament_flow_ratio": {
-          "value": [
-            "0.9555",
-            "0.9555",
-            "1"
-          ],
-          "reason": "The exterior slot's flow ratio (petgf.3mf; foam-shell/README.md, Filament), on the High Flow entry too."
-        },
-        "filament_max_volumetric_speed": {
-          "value": [
-            "18",
-            "18",
-            "5"
-          ],
-          "reason": "The exterior slot's 18 mm3/s cap (petgf.3mf; foam-shell/README.md, Filament), on the High Flow entry too."
-        },
-        "nozzle_volume_type": {
-          "value": [
-            "High Flow",
-            "Standard"
-          ],
-          "reason": "The left hotend is the 0.8 mm High Flow the stack prints on; the base project's right entry reads Hybrid, which the slicer command line refuses (\"unsupported NozzleVolumeType=2\"). The right hotend carries no filament on this plate."
+        "wall_generator": {
+          "value": "classic",
+          "reason": "Three fixed-width perimeters from each wall boundary."
         },
         "sparse_infill_pattern": {
           "value": "gyroid",
-          "reason": "Derek's PET-GF production baseline is two walls and 15% gyroid (9c40265a5); the base project's grid carries no decision of his."
+          "reason": "Retain 15% gyroid in thicker regions."
+        },
+        "enable_support": {
+          "value": "0",
+          "reason": "The upright shell and floor-down cap pieces retain their support-free recipe."
         }
       },
       "plate_border_mm": 20.0,
@@ -548,57 +519,28 @@
       "printer": "Mark2",
       "nozzle": {
         "side": "left",
-        "diameter_mm": 0.8,
-        "flow": "High Flow",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
         "hardened": true,
-        "reason": "The cold-core stack prints on a 0.8 mm tungsten carbide hotend on the left (cold-core/foam-shell/README.md, Printer / profile; hardware/ledger/tools.md lists a 0.8 TC HF and two 0.8 Diamond PCD). Which of them is mounted is Derek's to say; a Standard-flow 0.8 takes nozzle_volume_type Standard and a reslice."
+        "reason": "Smooth 2.38 mm cold-core casing: 0.42 mm outer and 0.45 mm inner lines at 0.24 mm layers, three loops from each boundary."
       },
       "material": "Polymaker Fiberon PET-GF15, black",
-      "profile": "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf",
-      "filament_from": "hardware/printed-parts/petgf.3mf",
       "settings": {
-        "nozzle_temperature": {
-          "value": [
-            "280",
-            "280",
-            "270"
-          ],
-          "reason": "The cold-core plate takes the stock's figures from the slot the exterior is sliced on (cold-core/foam-shell/print-log.md, Stock): petgf.3mf's Standard-hotend 280 C, carried to the High Flow hotend's entry."
+        "wall_loops": {
+          "value": "3",
+          "reason": "Derek selected 2.38 mm standing walls, packed with six perimeter beads."
         },
-        "nozzle_temperature_initial_layer": {
-          "value": [
-            "265",
-            "265",
-            "270"
-          ],
-          "reason": "The exterior slot's first-layer temperature (petgf.3mf), on the High Flow entry too."
-        },
-        "filament_flow_ratio": {
-          "value": [
-            "0.9555",
-            "0.9555",
-            "1"
-          ],
-          "reason": "The exterior slot's flow ratio (petgf.3mf; foam-shell/README.md, Filament), on the High Flow entry too."
-        },
-        "filament_max_volumetric_speed": {
-          "value": [
-            "18",
-            "18",
-            "5"
-          ],
-          "reason": "The exterior slot's 18 mm3/s cap (petgf.3mf; foam-shell/README.md, Filament), on the High Flow entry too."
-        },
-        "nozzle_volume_type": {
-          "value": [
-            "High Flow",
-            "Standard"
-          ],
-          "reason": "The left hotend is the 0.8 mm High Flow the stack prints on; the base project's right entry reads Hybrid, which the slicer command line refuses (\"unsupported NozzleVolumeType=2\"). The right hotend carries no filament on this plate."
+        "wall_generator": {
+          "value": "classic",
+          "reason": "Three fixed-width perimeters from each wall boundary."
         },
         "sparse_infill_pattern": {
           "value": "gyroid",
-          "reason": "Derek's PET-GF production baseline is two walls and 15% gyroid (9c40265a5); the base project's grid carries no decision of his."
+          "reason": "Retain 15% gyroid in thicker regions."
+        },
+        "enable_support": {
+          "value": "0",
+          "reason": "The upright shell and floor-down cap pieces retain their support-free recipe."
         }
       },
       "plate_border_mm": 20.0,
@@ -621,57 +563,28 @@
       "printer": "Mark2",
       "nozzle": {
         "side": "left",
-        "diameter_mm": 0.8,
-        "flow": "High Flow",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
         "hardened": true,
-        "reason": "The cold-core stack prints on a 0.8 mm tungsten carbide hotend on the left (cold-core/foam-shell/README.md, Printer / profile; hardware/ledger/tools.md lists a 0.8 TC HF and two 0.8 Diamond PCD). Which of them is mounted is Derek's to say; a Standard-flow 0.8 takes nozzle_volume_type Standard and a reslice."
+        "reason": "Smooth 2.38 mm cold-core casing: 0.42 mm outer and 0.45 mm inner lines at 0.24 mm layers, three loops from each boundary."
       },
       "material": "Polymaker Fiberon PET-GF15, black",
-      "profile": "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf",
-      "filament_from": "hardware/printed-parts/petgf.3mf",
       "settings": {
-        "nozzle_temperature": {
-          "value": [
-            "280",
-            "280",
-            "270"
-          ],
-          "reason": "The cold-core plate takes the stock's figures from the slot the exterior is sliced on (cold-core/foam-shell/print-log.md, Stock): petgf.3mf's Standard-hotend 280 C, carried to the High Flow hotend's entry."
+        "wall_loops": {
+          "value": "3",
+          "reason": "Derek selected 2.38 mm standing walls, packed with six perimeter beads."
         },
-        "nozzle_temperature_initial_layer": {
-          "value": [
-            "265",
-            "265",
-            "270"
-          ],
-          "reason": "The exterior slot's first-layer temperature (petgf.3mf), on the High Flow entry too."
-        },
-        "filament_flow_ratio": {
-          "value": [
-            "0.9555",
-            "0.9555",
-            "1"
-          ],
-          "reason": "The exterior slot's flow ratio (petgf.3mf; foam-shell/README.md, Filament), on the High Flow entry too."
-        },
-        "filament_max_volumetric_speed": {
-          "value": [
-            "18",
-            "18",
-            "5"
-          ],
-          "reason": "The exterior slot's 18 mm3/s cap (petgf.3mf; foam-shell/README.md, Filament), on the High Flow entry too."
-        },
-        "nozzle_volume_type": {
-          "value": [
-            "High Flow",
-            "Standard"
-          ],
-          "reason": "The left hotend is the 0.8 mm High Flow the stack prints on; the base project's right entry reads Hybrid, which the slicer command line refuses (\"unsupported NozzleVolumeType=2\"). The right hotend carries no filament on this plate."
+        "wall_generator": {
+          "value": "classic",
+          "reason": "Three fixed-width perimeters from each wall boundary."
         },
         "sparse_infill_pattern": {
           "value": "gyroid",
-          "reason": "Derek's PET-GF production baseline is two walls and 15% gyroid (9c40265a5); the base project's grid carries no decision of his."
+          "reason": "Retain 15% gyroid in thicker regions."
+        },
+        "enable_support": {
+          "value": "0",
+          "reason": "The upright shell and floor-down cap pieces retain their support-free recipe."
         }
       },
       "plate_border_mm": 20.0,
@@ -686,57 +599,28 @@
       "printer": "Mark2",
       "nozzle": {
         "side": "left",
-        "diameter_mm": 0.8,
-        "flow": "High Flow",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
         "hardened": true,
-        "reason": "The cold-core stack prints on a 0.8 mm tungsten carbide hotend on the left (cold-core/foam-shell/README.md, Printer / profile; hardware/ledger/tools.md lists a 0.8 TC HF and two 0.8 Diamond PCD). Which of them is mounted is Derek's to say; a Standard-flow 0.8 takes nozzle_volume_type Standard and a reslice."
+        "reason": "Smooth 2.38 mm cold-core casing: 0.42 mm outer and 0.45 mm inner lines at 0.24 mm layers, three loops from each boundary."
       },
       "material": "Polymaker Fiberon PET-GF15, black",
-      "profile": "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf",
-      "filament_from": "hardware/printed-parts/petgf.3mf",
       "settings": {
-        "nozzle_temperature": {
-          "value": [
-            "280",
-            "280",
-            "270"
-          ],
-          "reason": "The cold-core plate takes the stock's figures from the slot the exterior is sliced on (cold-core/foam-shell/print-log.md, Stock): petgf.3mf's Standard-hotend 280 C, carried to the High Flow hotend's entry."
+        "wall_loops": {
+          "value": "3",
+          "reason": "Derek selected 2.38 mm standing walls, packed with six perimeter beads."
         },
-        "nozzle_temperature_initial_layer": {
-          "value": [
-            "265",
-            "265",
-            "270"
-          ],
-          "reason": "The exterior slot's first-layer temperature (petgf.3mf), on the High Flow entry too."
-        },
-        "filament_flow_ratio": {
-          "value": [
-            "0.9555",
-            "0.9555",
-            "1"
-          ],
-          "reason": "The exterior slot's flow ratio (petgf.3mf; foam-shell/README.md, Filament), on the High Flow entry too."
-        },
-        "filament_max_volumetric_speed": {
-          "value": [
-            "18",
-            "18",
-            "5"
-          ],
-          "reason": "The exterior slot's 18 mm3/s cap (petgf.3mf; foam-shell/README.md, Filament), on the High Flow entry too."
-        },
-        "nozzle_volume_type": {
-          "value": [
-            "High Flow",
-            "Standard"
-          ],
-          "reason": "The left hotend is the 0.8 mm High Flow the stack prints on; the base project's right entry reads Hybrid, which the slicer command line refuses (\"unsupported NozzleVolumeType=2\"). The right hotend carries no filament on this plate."
+        "wall_generator": {
+          "value": "classic",
+          "reason": "Three fixed-width perimeters from each wall boundary."
         },
         "sparse_infill_pattern": {
           "value": "gyroid",
-          "reason": "Derek's PET-GF production baseline is two walls and 15% gyroid (9c40265a5); the base project's grid carries no decision of his."
+          "reason": "Retain 15% gyroid in thicker regions."
+        },
+        "enable_support": {
+          "value": "0",
+          "reason": "The upright shell and floor-down cap pieces retain their support-free recipe."
         }
       },
       "plate_border_mm": 20.0,
@@ -751,61 +635,28 @@
       "printer": "Mark2",
       "nozzle": {
         "side": "left",
-        "diameter_mm": 0.8,
-        "flow": "High Flow",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
         "hardened": true,
-        "reason": "The cold-core stack prints on a 0.8 mm tungsten carbide hotend on the left (cold-core/foam-shell/README.md, Printer / profile; hardware/ledger/tools.md lists a 0.8 TC HF and two 0.8 Diamond PCD). Which of them is mounted is Derek's to say; a Standard-flow 0.8 takes nozzle_volume_type Standard and a reslice."
+        "reason": "Smooth 2.38 mm cold-core casing: 0.42 mm outer and 0.45 mm inner lines at 0.24 mm layers, three loops from each boundary."
       },
       "material": "Polymaker Fiberon PET-GF15, black",
-      "profile": "hardware/printed-parts/cold-core/foam-shell/foam-shell-8mm-high-flow.3mf",
-      "filament_from": "hardware/printed-parts/petgf.3mf",
       "settings": {
-        "nozzle_temperature": {
-          "value": [
-            "280",
-            "280",
-            "270"
-          ],
-          "reason": "The cold-core plate takes the stock's figures from the slot the exterior is sliced on (cold-core/foam-shell/print-log.md, Stock): petgf.3mf's Standard-hotend 280 C, carried to the High Flow hotend's entry."
+        "wall_loops": {
+          "value": "3",
+          "reason": "Derek selected 2.38 mm standing walls, packed with six perimeter beads."
         },
-        "nozzle_temperature_initial_layer": {
-          "value": [
-            "265",
-            "265",
-            "270"
-          ],
-          "reason": "The exterior slot's first-layer temperature (petgf.3mf), on the High Flow entry too."
+        "wall_generator": {
+          "value": "classic",
+          "reason": "Three fixed-width perimeters from each wall boundary."
         },
-        "filament_flow_ratio": {
-          "value": [
-            "0.9555",
-            "0.9555",
-            "1"
-          ],
-          "reason": "The exterior slot's flow ratio (petgf.3mf; foam-shell/README.md, Filament), on the High Flow entry too."
-        },
-        "filament_max_volumetric_speed": {
-          "value": [
-            "18",
-            "18",
-            "5"
-          ],
-          "reason": "The exterior slot's 18 mm3/s cap (petgf.3mf; foam-shell/README.md, Filament), on the High Flow entry too."
-        },
-        "nozzle_volume_type": {
-          "value": [
-            "High Flow",
-            "Standard"
-          ],
-          "reason": "The left hotend is the 0.8 mm High Flow the stack prints on; the base project's right entry reads Hybrid, which the slicer command line refuses (\"unsupported NozzleVolumeType=2\"). The right hotend carries no filament on this plate."
+        "sparse_infill_pattern": {
+          "value": "gyroid",
+          "reason": "Retain 15% gyroid in thicker regions."
         },
         "enable_support": {
           "value": "1",
           "reason": "The top lid's water-check bearing cantilevers 26.3 mm fore of its root, 15.2 mm over the lid face, and its lint answer has Tree(auto)/Default support it from the lid face beside the pump; the V-B return bracket's answer takes the same support. Without it the slicer reports a floating cantilever. The cold-core profile leaves support off for every other cold-core piece (lint-answers/cold-core/foam-cap/foam-cap-lid-top.lint-answers)."
-        },
-        "sparse_infill_pattern": {
-          "value": "gyroid",
-          "reason": "Derek's PET-GF production baseline is two walls and 15% gyroid (9c40265a5); the base project's grid carries no decision of his."
         }
       },
       "plate_border_mm": 20.0,

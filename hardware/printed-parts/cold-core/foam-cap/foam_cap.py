@@ -20,7 +20,7 @@ from world_workplane import (WorldWorkplane, xy_plane_z_up, xz_plane_y_up,
                              yz_plane_x_up)
 import fits
 from _cadq_export import export_assembly
-from _show_skin import write_bed_file, piece_mesh
+from _show_skin import write_bed_file
 import _materials as _mat
 from _materials import one_body
 import valve_seat as seat
@@ -37,17 +37,15 @@ from _foam_cap import (
     lid_total_height,
     top_cap_height,
 )
-from _outer_shell import build_attachment_bosses, rebate_casing_seals
+from _outer_shell import build_attachment_bosses
 from _cold_core_interface import cap_conduit_links, cap_conduit_link_width
 from _cold_core_interface import (
     build_z_axis_hole_punch,
     attachment_xy_positions,
     cap_shell_clearance,
     cap_lid_clearance,
-    casing_seal_rebate,
     wall_and_floor_thickness,
     corner_round_radius,
-    flute_depth,
     foam_cap_lid_pour_radius,
     foam_cap_lid_pour_xy,
     foam_cap_lid_vent_radius,
@@ -389,14 +387,12 @@ def cut_deck_mounts_lid(lid):
     return lid
 
 
-def rebated_outline(z0, z1):
-    """The lid's foil-land outline, `z0` to `z1`: the bare footprint less the casing seal
-    rebate all round."""
+def casing_outline(z0, z1):
+    """The plain lid footprint, between two heights."""
     return (WorldWorkplane(xy_plane_z_up).workplane(offset=z0)
-            .rect(outer_shell_x_length - 2 * casing_seal_rebate,
-                  outer_shell_y_length - 2 * casing_seal_rebate)
+            .rect(outer_shell_x_length, outer_shell_y_length)
             .extrude(z1 - z0).edges("|Z")
-            .fillet(corner_round_radius - casing_seal_rebate)).unwrap().val()
+            .fillet(corner_round_radius)).unwrap().val()
 
 
 def build_top_lid():
@@ -414,9 +410,9 @@ def build_top_lid():
     for passage in _above_mounts.union_support_cuts().values():
         lid = lid.cut(passage)
     electrical = above_core_wiring.cap_features()
-    # The wiring wells keep to the lid's rebated outline, so the foil land runs past them.
+    # Wiring wells keep to the plain casing footprint.
     lid = lid.union(_above_mounts.world_shape_in_cap(electrical['add'])
-                    .intersect(rebated_outline(-1.0, lid_total_height + 30.0)))
+                    .intersect(casing_outline(-1.0, lid_total_height + 30.0)))
     lid = lid.cut(_above_mounts.world_shape_in_cap(electrical['cut']))
     for support in _a_anchors.supports().values():
         lid = lid.union(_above_mounts.world_shape_in_cap(support))
@@ -467,17 +463,12 @@ def main():
     print("-> foam-cap-lid-top.step")
     print("-> foam-cap-lid-bottom.step")
 
-    # The cups have smooth recessed foil-seal lands. The common bed writer
-    # retains their exact mesh and the shell's source frame; the lands stand
-    # beyond the show-field proximity and receive no cosmetic flute cuts.
-    for shape, name in ((cap_top, "foam-cap-top"), (cap_bottom, "foam-cap-bottom")):
+    for shape, name in ((cap_top, "foam-cap-top"), (cap_bottom, "foam-cap-bottom"),
+                        (lid_top, "foam-cap-lid-top"), (lid_bottom, "foam-cap-lid-bottom")):
         write_bed_file(shape, _here / f"{name}.stl")
-    for shape, name in ((lid_top, "foam-cap-lid-top"), (lid_bottom, "foam-cap-lid-bottom")):
-        piece_mesh(shape).export(str(_here / f"{name}.stl"))
 
     variables = {
         "LID_Z_H": f"{lid_total_height:.4g} mm",
-        "FLUTE_D": f"{flute_depth:.4g} mm",
         "FCAP_BORE_D": f"{2.0 * cap_conduit_bore_radius:.4g} mm",
     }
     substitute_py_comments(
