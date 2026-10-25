@@ -193,10 +193,9 @@ class BLEManager {
 
     @ObservationIgnored fileprivate var lastRssiPush: [String: Date] = [:]
 
-    /// Counts the links this phone has opened and let go. A frame that was on
-    /// its way to the main queue when the phone turned to another machine
-    /// carries the generation it arrived under, and lands only if that is
-    /// still the one.
+    /// Counts the links this phone has opened and let go. A notification's
+    /// frames are read under the generation it arrived in, and stop at the
+    /// first one that lets that link go.
     @ObservationIgnored var linkGeneration = 0
 
     /// The pending name has gone to the machine on this link, and the next
@@ -302,7 +301,7 @@ class BLEManager {
     @ObservationIgnored fileprivate var uploadQueueTotal = 0
     @ObservationIgnored fileprivate var uploadImageRef: UIImage?
 
-    // Image download state — accessed from bleQueue during downloads
+    // Image download state
     @ObservationIgnored fileprivate var imgDownloadSlot: Int = -1
     @ObservationIgnored fileprivate var imgDownloadData = Data()
     @ObservationIgnored fileprivate var imgDownloadExpected: Int = 0
@@ -318,9 +317,10 @@ class BLEManager {
     @ObservationIgnored fileprivate var nusReady = false
     @ObservationIgnored var rxCharacteristic: CBCharacteristic?
 
-    // BLE runs on a dedicated background queue so binary data accumulation
-    // and BLE writes don't block the main thread during image downloads.
-    @ObservationIgnored let bleQueue = DispatchQueue(label: "com.derekbreden.SodaMachine.BLE", qos: .userInitiated)
+    // ONE THREAD HOLDS THE LINK. CoreBluetooth calls back on the main queue,
+    // and the link, the record and a picture half-read all live on the main
+    // actor with it. A photograph is resampled into a bundle off it: see
+    // PreparedImage.
     @ObservationIgnored fileprivate var cbAdapter: CBDelegateAdapter!
     @ObservationIgnored fileprivate var centralManager: CBCentralManager!
     @ObservationIgnored var connectedPeripheral: CBPeripheral?
@@ -349,15 +349,6 @@ class BLEManager {
         point()
     }
 
-    /// Run on the main queue, unless the link the caller was handling has
-    /// been let go in the meantime.
-    func onMain(_ generation: Int, _ body: @escaping () -> Void) {
-        DispatchQueue.main.async {
-            guard generation == self.linkGeneration else { return }
-            body()
-        }
-    }
-
     /// Called when the app returns to foreground after being backgrounded.
     /// Restarts scanning if not connected (iOS silently stops scans while
     /// backgrounded), and resets stale transfer state if connected (downloads
@@ -367,21 +358,17 @@ class BLEManager {
         guard !demoMode, centralManager != nil else { return }
 
         if connectionState == .connected {
-            bleQueue.async { [weak self] in
-                guard let self, self.isDownloading else { return }
-                // Download was interrupted by backgrounding — the S3 stopped
-                // sending while we were suspended. Clear the dead transfer so
-                // requestStatsAndCharts() isn't blocked by isDownloading.
-                self.imgDownloadQueue = []
-                self.imgDownloadData = Data()
-                self.imgDownloadSlot = -1
-                self.binStartReceived = false
-                DispatchQueue.main.async {
-                    self.isDownloading = false
-                    self.imageDownloadProgress = nil
-                    self.pendingStatsRequest = false
-                }
-            }
+            guard isDownloading else { return }
+            // Download was interrupted by backgrounding — the S3 stopped
+            // sending while we were suspended. Clear the dead transfer so
+            // requestStatsAndCharts() isn't blocked by isDownloading.
+            imgDownloadQueue = []
+            imgDownloadData = Data()
+            imgDownloadSlot = -1
+            binStartReceived = false
+            isDownloading = false
+            imageDownloadProgress = nil
+            pendingStatsRequest = false
         } else if connectionState == .searching || connectionState == .searchingLong, current != nil {
             // Looking: iOS may have stopped the scan while the app was away, so
             // it looks again. A connection on its way is left to land — it was
@@ -424,11 +411,9 @@ class BLEManager {
     /// Send a text command to the S3 via BLE GATT/NUS.
     /// Wire format: [type(1B)][len(2B LE)][payload...]
     func send(_ text: String) {
-        bleQueue.async { [weak self] in
-            guard let self, let payload = text.data(using: .utf8) else { return }
-            self.sendBLEFrame(type: 0x01, payload: payload)
-            log.debug("TX: \(text)")
-        }
+        guard let payload = text.data(using: .utf8) else { return }
+        sendBLEFrame(type: 0x01, payload: payload)
+        log.debug("TX: \(text)")
     }
 
     /// Send a framed BLE message: [type(1B)][len(2B LE)][payload...]
@@ -591,7 +576,7 @@ class BLEManager {
 
     func sendSet(_ key: String, value: Int) {
         send("SET:\(key)=\(value)")
-        bleQueue.asyncAfter(deadline: .now() + 0.05) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) { [weak self] in
             self?.send("SAVE")
         }
     }
@@ -720,10 +705,8 @@ class BLEManager {
         if queue.isEmpty { return }
         isDownloading = true
         imageDownloadProgress = 0
-        bleQueue.async {
-            self.imgDownloadQueue = queue
-            self.startNextDownload()
-        }
+        imgDownloadQueue = queue
+        startNextDownload()
     }
 
     // MARK: - Your machines
@@ -809,7 +792,8 @@ class BLEManager {
 
     fileprivate func ensureRadio() {
         guard centralManager == nil else { return }
-        centralManager = CBCentralManager(delegate: cbAdapter, queue: bleQueue)
+        // No queue is the main queue: see ONE THREAD HOLDS THE LINK.
+        centralManager = CBCentralManager(delegate: cbAdapter, queue: nil)
     }
 
     /// The radio has said it cannot be used. A radio still making up its mind
@@ -872,21 +856,16 @@ class BLEManager {
         otaImage = nil
         otaData = Data()
         otaFetch = nil
-        // What the radio's queue owns is cleared on the radio's queue, behind
-        // any frame it is still in the middle of.
-        bleQueue.async { [weak self] in
-            guard let self else { return }
-            self.imgDownloadQueue = []
-            self.imgDownloadSlot = -1
-            self.imgDownloadData = Data()
-            self.binStartReceived = false
-            self.imageBundle = Data()
-            self.pendingCrc = [:]
-            self.faceSlot = -1
-            self.facePixels = Data()
-            self.faceHave.removeAll()
-            self.faceReceived = 0
-        }
+        imgDownloadQueue = []
+        imgDownloadSlot = -1
+        imgDownloadData = Data()
+        binStartReceived = false
+        imageBundle = Data()
+        pendingCrc = [:]
+        faceSlot = -1
+        facePixels = Data()
+        faceHave.removeAll()
+        faceReceived = 0
     }
 
     // MARK: - Demo mode
@@ -949,17 +928,16 @@ class BLEManager {
         uploadSlot = slot
         uploadImageRef = image
         uploadProgress = 0
-        var step = 0
         let totalSteps = 20
-        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
-            guard let self, self.demoMode, self.isUploading else { timer.invalidate(); return }
-            step += 1
-            self.uploadProgress = Double(step) / Double(totalSteps)
-            if step >= totalSteps {
-                timer.invalidate()
-                self.imageNames.append("image_\(slot)")
-                self.completeUpload()
+        Task { [weak self] in
+            for step in 1...totalSteps {
+                try? await Task.sleep(for: .milliseconds(100))
+                guard let self, self.demoMode, self.isUploading else { return }
+                self.uploadProgress = Double(step) / Double(totalSteps)
             }
+            guard let self else { return }
+            self.imageNames.append("image_\(slot)")
+            self.completeUpload()
         }
     }
 
@@ -1042,12 +1020,9 @@ class BLEManager {
 
         uploadBytesSent = 0
 
-        bleQueue.async { [weak self] in
-            guard let self else { return }
-            self.sendBLEFrame(type: 0x02, payload: startPayload)
-            self.bleQueue.asyncAfter(deadline: .now() + 0.05) {
-                self.sendUploadChunks()
-            }
+        sendBLEFrame(type: 0x02, payload: startPayload)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+            self.sendUploadChunks()
         }
     }
 
@@ -1058,7 +1033,7 @@ class BLEManager {
         let chunkSize = min(mtu - 3, 240)
 
         func sendChunk() {
-            self.bleQueue.asyncAfter(deadline: .now() + 0.02) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.02) {
                 guard self.uploadBytesSent < data.count, self.isUploading else { return }
                 let end = min(self.uploadBytesSent + chunkSize, data.count)
                 let chunk = data[self.uploadBytesSent..<end]
@@ -1066,11 +1041,9 @@ class BLEManager {
                 self.sendBLEFrame(type: 0x03, payload: Data(chunk))
                 self.uploadBytesSent = end
 
-                DispatchQueue.main.async {
-                    let stepBase = Double(self.currentUploadStep) / 3.0
-                    let stepProgress = Double(self.uploadBytesSent) / Double(data.count) / 3.0
-                    self.uploadProgress = stepBase + stepProgress
-                }
+                let stepBase = Double(self.currentUploadStep) / 3.0
+                let stepProgress = Double(self.uploadBytesSent) / Double(data.count) / 3.0
+                self.uploadProgress = stepBase + stepProgress
 
                 if self.uploadBytesSent < data.count {
                     sendChunk()
@@ -1157,17 +1130,15 @@ class BLEManager {
         uploadQueueTotal = uploadQueue.count + (isUploading ? 1 : 0)
     }
 
-    // MARK: - Image download (runs entirely on bleQueue)
+    // MARK: - Image download
 
     fileprivate func startNextDownload() {
         guard !imgDownloadQueue.isEmpty else {
-            DispatchQueue.main.async {
-                self.imageDownloadProgress = nil
-                self.isDownloading = false
-                if self.pendingStatsRequest {
-                    self.pendingStatsRequest = false
-                    self.send("GET_CHART_DATA")
-                }
+            imageDownloadProgress = nil
+            isDownloading = false
+            if pendingStatsRequest {
+                pendingStatsRequest = false
+                send("GET_CHART_DATA")
             }
             return
         }
@@ -1178,7 +1149,7 @@ class BLEManager {
         send("GETPNG:\(slot)")
     }
 
-    // MARK: - Response parsing (main thread only)
+    // MARK: - Response parsing
 
     fileprivate func handleTextResponse(_ text: String) {
         if text.hasPrefix("CONFIG:") {
@@ -1290,7 +1261,7 @@ class BLEManager {
                 failUpload(text)
             } else if isDownloading {
                 log.error("Skipping failed image download, continuing queue")
-                bleQueue.async { self.startNextDownload() }
+                startNextDownload()
             } else if pendingDeleteSlot >= 0 {
                 numImages = preDeleteNumImages
                 cachedImages = preDeleteCachedImages
@@ -1454,14 +1425,12 @@ class BLEManager {
     fileprivate func startScan() {
         guard let centralManager, centralManager.state == .poweredOn else { return }
         let idle = connectionState != .connected && connectionState != .connecting
-        DispatchQueue.main.async {
-            if idle {
-                self.connectionState = .searching
-                self.configSynced = false
-            }
-            self.discovered = []
-            self.lastRssiPush = [:]
+        if idle {
+            connectionState = .searching
+            configSynced = false
         }
+        discovered = []
+        lastRssiPush = [:]
         // Duplicates on: RSSI is how a picker sorts, and a machine that moves
         // closer should climb the list rather than keep the reading it had when
         // it was first seen.
@@ -1472,9 +1441,10 @@ class BLEManager {
 
         guard idle else { return }
         reachKnown()
-        DispatchQueue.main.async {
-            self.scanTimer?.invalidate()
-            self.scanTimer = Timer.scheduledTimer(withTimeInterval: scanTimeout, repeats: false) { [weak self] _ in
+        scanTimer?.invalidate()
+        // A timer scheduled here fires on the main run loop.
+        scanTimer = Timer.scheduledTimer(withTimeInterval: scanTimeout, repeats: false) { [weak self] _ in
+            MainActor.assumeIsolated {
                 guard let self, self.connectionState == .searching else { return }
                 self.connectionState = .searchingLong
                 log.info("Still scanning, showing hints")
@@ -1675,9 +1645,7 @@ class BLEManager {
         var payload = Data([target.rawValue, image.otaKind.rawValue])
         payload.append(contentsOf: withUnsafeBytes(of: UInt32(data.count).littleEndian, Array.init))
         payload.append(contentsOf: withUnsafeBytes(of: image.crc32.littleEndian, Array.init))
-        bleQueue.async { [weak self] in
-            self?.sendBLEFrame(type: BLEManager.bleOtaBegin, payload: payload)
-        }
+        sendBLEFrame(type: BLEManager.bleOtaBegin, payload: payload)
         log.info("OTA \(image.target): \(data.count) bytes, crc \(image.crc32)")
     }
 
@@ -1717,15 +1685,13 @@ class BLEManager {
         Task {
             do {
                 let data = try await fetch(next)
-                await MainActor.run { self.startUpdate(image: next, data: data, on: self.otaModel) }
+                startUpdate(image: next, data: data, on: otaModel)
             } catch {
-                await MainActor.run {
-                    self.otaProgress = OTAProgress(target: next.target, what: next.what,
-                                                   sent: 0, total: next.bytes,
-                                                   failure: error.localizedDescription)
-                    self.otaQueue = []
-                    self.otaFetch = nil
-                }
+                otaProgress = OTAProgress(target: next.target, what: next.what,
+                                          sent: 0, total: next.bytes,
+                                          failure: error.localizedDescription)
+                otaQueue = []
+                otaFetch = nil
             }
         }
     }
@@ -1801,15 +1767,11 @@ class BLEManager {
         var frame = Data()
         frame.append(contentsOf: withUnsafeBytes(of: UInt32(offset).littleEndian, Array.init))
         frame.append(otaData[offset..<end])
-        bleQueue.async { [weak self] in
-            self?.sendBLEFrame(type: BLEManager.bleOtaData, payload: frame)
-        }
+        sendBLEFrame(type: BLEManager.bleOtaData, payload: frame)
 
-        onMain(linkGeneration) {
-            if var p = self.otaProgress, end > p.sent {
-                p.sent = end
-                self.otaProgress = p
-            }
+        if var p = otaProgress, end > p.sent {
+            p.sent = end
+            otaProgress = p
         }
     }
 
@@ -1819,13 +1781,12 @@ class BLEManager {
         let state = payload[b]
         let err = OTAError(rawValue: payload[b + 1]) ?? .none
         // OTA_STATE_DONE is 3 (proto_msg.h).
-        let gen = linkGeneration
         if state == 3 {
             log.info("OTA \(self.otaImage?.target ?? "?"): verified and set to boot")
-            onMain(gen) { self.finishUpdate(failure: nil) }
+            finishUpdate(failure: nil)
         } else {
             log.error("OTA failed: state \(state), \(err.detail)")
-            onMain(gen) { self.finishUpdate(failure: err.message) }
+            finishUpdate(failure: err.message)
         }
     }
 
@@ -1844,46 +1805,44 @@ class BLEManager {
         // told us who it is; that beats what a scan happened to catch.
         let unit = payload[(b + 1)..<(b + 4)].map { String(format: "%02X", $0) }.joined()
 
-        onMain(linkGeneration) {
-            guard let m = self.current else { return }
-            // THIS RADIO IS ANOTHER MACHINE'S NOW. A link reached by peripheral
-            // id is reached by the board, and a board can be moved into another
-            // machine. The unit is the machine, so a board that names a
-            // different one is let go and its id with it; the machine is looked
-            // for again by its unit.
-            let reported = unit == "000000" ? "" : unit
-            if !m.unit.isEmpty, !reported.isEmpty, reported != m.unit {
-                log.info("Peripheral \(m.peripheralID ?? "?") is unit \(reported), not \(m.unit)")
-                m.peripheralID = nil
-                self.directory.save()
-                self.dropLink()
-                self.point()
-                return
-            }
-            // 000000 is a board whose main board has not answered it yet, which
-            // says nothing about which machine it is in. The board says again
-            // the moment its main board does.
-            if self.unverified, reported.isEmpty { return }
-            // Filed first, then the session opens: what it pushes — a pending
-            // name — is answered by a reply of its own.
-            defer {
-                if self.unverified {
-                    self.unverified = false
-                    self.linkReady()
-                }
-            }
-            // A name given while the machine was out of earshot stands until
-            // the machine has answered the send — with that name, or with
-            // whatever it made of it, which is then what the machine is called.
-            let pending = m.pendingName
-            let settled = pending == nil || pending == name || self.namePushed
-            let said = self.directory.introduce(m, unit: unit == "000000" ? "" : unit,
-                                                name: settled ? name : "")
-            said.radioBoardVersion = version
-            if settled { said.pendingName = nil }
-            self.namePushed = false
-            self.directory.save()
+        guard let m = current else { return }
+        // THIS RADIO IS ANOTHER MACHINE'S NOW. A link reached by peripheral
+        // id is reached by the board, and a board can be moved into another
+        // machine. The unit is the machine, so a board that names a
+        // different one is let go and its id with it; the machine is looked
+        // for again by its unit.
+        let reported = unit == "000000" ? "" : unit
+        if !m.unit.isEmpty, !reported.isEmpty, reported != m.unit {
+            log.info("Peripheral \(m.peripheralID ?? "?") is unit \(reported), not \(m.unit)")
+            m.peripheralID = nil
+            directory.save()
+            dropLink()
+            point()
+            return
         }
+        // 000000 is a board whose main board has not answered it yet, which
+        // says nothing about which machine it is in. The board says again
+        // the moment its main board does.
+        if unverified, reported.isEmpty { return }
+        // Filed first, then the session opens: what it pushes — a pending
+        // name — is answered by a reply of its own.
+        defer {
+            if unverified {
+                unverified = false
+                linkReady()
+            }
+        }
+        // A name given while the machine was out of earshot stands until
+        // the machine has answered the send — with that name, or with
+        // whatever it made of it, which is then what the machine is called.
+        let pending = m.pendingName
+        let settled = pending == nil || pending == name || namePushed
+        let said = directory.introduce(m, unit: unit == "000000" ? "" : unit,
+                                       name: settled ? name : "")
+        said.radioBoardVersion = version
+        if settled { said.pendingName = nil }
+        namePushed = false
+        directory.save()
     }
 
     /// VersionsPayload: [count:1] then count × [board:1][version:24][artCrc:4][buildEpoch:4].
@@ -1917,25 +1876,23 @@ class BLEManager {
             found.buildEpoch[board] = UInt32(payload[o + 29]) | (UInt32(payload[o + 30]) << 8)
                                     | (UInt32(payload[o + 31]) << 16) | (UInt32(payload[o + 32]) << 24)
         }
-        onMain(linkGeneration) {
-            guard let m = self.current else { return }
-            m.versions = found
-            m.versionsReadAt = Date()
-            // The machine has answered since it went down, so there is a fact
-            // to report and the run is over. What that fact is — took, or did
-            // not — is read off these versions like any other.
-            if let began = self.otaSettlingSince,
-               Date().timeIntervalSince(began) >= Self.otaSettleFloor {
-                self.otaSettlingSince = nil
-            }
-            self.directory.touch()
+        guard let m = current else { return }
+        m.versions = found
+        m.versionsReadAt = Date()
+        // The machine has answered since it went down, so there is a fact
+        // to report and the run is over. What that fact is — took, or did
+        // not — is read off these versions like any other.
+        if let began = otaSettlingSince,
+           Date().timeIntervalSince(began) >= Self.otaSettleFloor {
+            otaSettlingSince = nil
         }
+        directory.touch()
     }
 
     fileprivate func scheduleReconnect() {
-        DispatchQueue.main.async {
-            self.reconnectTimer?.invalidate()
-            self.reconnectTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { [weak self] _ in
+        reconnectTimer?.invalidate()
+        reconnectTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { [weak self] _ in
+            MainActor.assumeIsolated {
                 // From the background the link waits for the app to return:
                 // see handleEnterBackground.
                 guard let self, !self.inBackground else { return }
@@ -1993,17 +1950,14 @@ class BLEManager {
         }
 
         imgDownloadRetries = 0
-        let image = UIImage(data: imgData)
-        onMain(linkGeneration) {
-            // Kept on the record, beside the crc the machine listed for it.
-            self.saveImageToDisk(slot: slot, data: imgData)
-            self.savePersistedCRC(slot: slot, crc: expectedCRC)
-            if let image {
-                self.cachedImages[slot] = image
-                log.info("Image \(slot) cached (\(imgData.count) bytes, CRC verified)")
-            } else {
-                log.error("Image \(slot) decode failed: \(imgData.count) bytes")
-            }
+        // Kept on the record, beside the crc the machine listed for it.
+        saveImageToDisk(slot: slot, data: imgData)
+        savePersistedCRC(slot: slot, crc: expectedCRC)
+        if let image = UIImage(data: imgData) {
+            cachedImages[slot] = image
+            log.info("Image \(slot) cached (\(imgData.count) bytes, CRC verified)")
+        } else {
+            log.error("Image \(slot) decode failed: \(imgData.count) bytes")
         }
         startNextDownload()
     }
@@ -2040,19 +1994,15 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         log.debug("Central state: \(central.state.rawValue)")
         if central.state == .poweredOn {
-            DispatchQueue.main.async {
-                // The radio is up: turned toward whatever the phone is pointed
-                // at, and a list already open keeps looking too.
-                self.ble.radioOff = false
-                self.ble.point()
-                if self.ble.browsing { self.ble.startScan() }
-            }
+            // The radio is up: turned toward whatever the phone is pointed
+            // at, and a list already open keeps looking too.
+            ble.radioOff = false
+            ble.point()
+            if ble.browsing { ble.startScan() }
         } else {
-            DispatchQueue.main.async {
-                // The radio is down. The page says so; the demo does not care.
-                self.ble.radioOff = true
-                self.ble.point()
-            }
+            // The radio is down. The page says so; the demo does not care.
+            ble.radioOff = true
+            ble.point()
         }
     }
 
@@ -2063,43 +2013,37 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
                                             rssi: RSSI) else { return }
 
         // Duplicates are on, so this runs many times a second per machine. Only
-        // a sighting that changes what a row says reaches the main thread.
+        // a sighting that changes what a row says reaches the list.
         if let i = ble.discovered.firstIndex(where: { $0.id == seen.id }) {
             let due = Date().timeIntervalSince(ble.lastRssiPush[seen.id] ?? .distantPast) >= 0.5
             let fills = (!seen.name.isEmpty && ble.discovered[i].name != seen.name)
                      || (!seen.unit.isEmpty && ble.discovered[i].unit != seen.unit)
                      || (seen.model != .unknown && ble.discovered[i].model != seen.model)
             guard due || fills else { return }
-            DispatchQueue.main.async {
-                guard let i = self.ble.discovered.firstIndex(where: { $0.id == seen.id }) else { return }
-                self.ble.lastRssiPush[seen.id] = Date()
-                var entry = self.ble.discovered[i]
-                // Smoothed, because a raw reading swings ten dBm packet to
-                // packet and the row would say "far" and "nearby" by turns.
-                entry.rssi = (entry.rssi * 3 + seen.rssi) / 4
-                entry.lastSeen = seen.lastSeen
-                // A name or a unit that arrived in a later scan response fills
-                // in what the first sighting did not carry.
-                if !seen.name.isEmpty { entry.name = seen.name }
-                if !seen.unit.isEmpty { entry.unit = seen.unit }
-                if seen.model != .unknown { entry.model = seen.model }
-                // ORDER IS NOT RE-DERIVED HERE. Sorting on every reading makes
-                // rows trade places under a finger already on its way down.
-                self.ble.discovered[i] = entry
-                self.ble.noteSighting(entry)
-            }
+            ble.lastRssiPush[seen.id] = Date()
+            var entry = ble.discovered[i]
+            // Smoothed, because a raw reading swings ten dBm packet to
+            // packet and the row would say "far" and "nearby" by turns.
+            entry.rssi = (entry.rssi * 3 + seen.rssi) / 4
+            entry.lastSeen = seen.lastSeen
+            // A name or a unit that arrived in a later scan response fills
+            // in what the first sighting did not carry.
+            if !seen.name.isEmpty { entry.name = seen.name }
+            if !seen.unit.isEmpty { entry.unit = seen.unit }
+            if seen.model != .unknown { entry.model = seen.model }
+            // ORDER IS NOT RE-DERIVED HERE. Sorting on every reading makes
+            // rows trade places under a finger already on its way down.
+            ble.discovered[i] = entry
+            ble.noteSighting(entry)
             return
         }
 
-        DispatchQueue.main.async {
-            guard !self.ble.discovered.contains(where: { $0.id == seen.id }) else { return }
-            log.info("Found \(seen.displayName) at \(seen.rssi) dBm")
-            self.ble.discovered.append(seen)
-            self.ble.lastRssiPush[seen.id] = Date()
-            // The set changed, so this is where the order is settled.
-            self.ble.discovered.sort { $0.rssi > $1.rssi }
-            self.ble.noteSighting(seen)
-        }
+        log.info("Found \(seen.displayName) at \(seen.rssi) dBm")
+        ble.discovered.append(seen)
+        ble.lastRssiPush[seen.id] = Date()
+        // The set changed, so this is where the order is settled.
+        ble.discovered.sort { $0.rssi > $1.rssi }
+        ble.noteSighting(seen)
     }
 
     // EVERY CALLBACK IS HELD TO THE PERIPHERAL THIS LINK IS ON. A machine the
@@ -2113,34 +2057,24 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
         // A connection that was waiting by peripheral id lands without a
         // sighting ever having said so: the page moves on from "looking", and
         // the scan that was looking stops unless a list wants it.
-        let m = ble
-        DispatchQueue.main.async {
-            guard peripheral === m.connectedPeripheral else { return }
-            m.scanTimer?.invalidate()
-            if !m.browsing { m.centralManager?.stopScan() }
-            if m.connectionState == .searching || m.connectionState == .searchingLong {
-                m.connectionState = .connecting
-            }
-            m.watchConnecting()   // up at the radio; the clock starts again for the rest
+        ble.scanTimer?.invalidate()
+        if !ble.browsing { ble.centralManager?.stopScan() }
+        if ble.connectionState == .searching || ble.connectionState == .searchingLong {
+            ble.connectionState = .connecting
         }
+        ble.watchConnecting()   // up at the radio; the clock starts again for the rest
     }
 
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         guard peripheral === ble.connectedPeripheral else { return }
         log.error("Connection failed: \(error?.localizedDescription ?? "unknown")")
         ble.connectedPeripheral = nil
-        let gen = ble.linkGeneration
-        let m = ble
-        DispatchQueue.main.async {
-            guard gen == m.linkGeneration else { return }
-            m.connectionState = m.radioOff ? .bluetoothOff : .searching
-            m.scheduleReconnect()
-        }
+        ble.connectionState = ble.radioOff ? .bluetoothOff : .searching
+        ble.scheduleReconnect()
     }
 
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         guard peripheral === ble.connectedPeripheral else { return }
-        let gen = ble.linkGeneration
         log.info("Disconnected")
         ble.imgDownloadSlot = -1
         ble.binStartReceived = false
@@ -2155,37 +2089,33 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
         ble.facePixels = Data()
         ble.faceHave.removeAll()
         ble.faceReceived = 0
-        let m = ble
-        DispatchQueue.main.async { m.stopFacePump() }
-        DispatchQueue.main.async {
-            guard gen == self.ble.linkGeneration else { return }
-            self.ble.namePushed = false
-            self.ble.connectionState = self.ble.radioOff ? .bluetoothOff : .searching
-            self.ble.configSynced = false
-            self.ble.statsSynced = false
-            self.ble.chartDataSynced = false
-            self.ble.imgDownloadQueue = []
-            self.ble.isDownloading = false
-            self.ble.imageDownloadProgress = nil
-            self.ble.isUploading = false
-            self.ble.uploadProgress = nil
-            self.ble.uploadSteps = []
-            self.ble.uploadQueue = []
-            self.ble.uploadQueueTotal = 0
-            self.ble.uploadImageRef = nil
-            self.ble.activeUploadImage = nil
-            self.ble.activeUploadSlot = -1
-            self.ble.primeActive = false
-            self.ble.cleanCycleActive = false
-            self.ble.cleanCyclePhase = nil
-            if self.ble.pendingDeleteSlot >= 0 {
-                self.ble.numImages = self.ble.preDeleteNumImages
-                self.ble.cachedImages = self.ble.preDeleteCachedImages
-                self.ble.imageNames = self.ble.preDeleteImageNames
-                self.ble.pendingDeleteSlot = -1
-            }
-            self.ble.scheduleReconnect()
+        ble.stopFacePump()
+        ble.namePushed = false
+        ble.connectionState = ble.radioOff ? .bluetoothOff : .searching
+        ble.configSynced = false
+        ble.statsSynced = false
+        ble.chartDataSynced = false
+        ble.imgDownloadQueue = []
+        ble.isDownloading = false
+        ble.imageDownloadProgress = nil
+        ble.isUploading = false
+        ble.uploadProgress = nil
+        ble.uploadSteps = []
+        ble.uploadQueue = []
+        ble.uploadQueueTotal = 0
+        ble.uploadImageRef = nil
+        ble.activeUploadImage = nil
+        ble.activeUploadSlot = -1
+        ble.primeActive = false
+        ble.cleanCycleActive = false
+        ble.cleanCyclePhase = nil
+        if ble.pendingDeleteSlot >= 0 {
+            ble.numImages = ble.preDeleteNumImages
+            ble.cachedImages = ble.preDeleteCachedImages
+            ble.imageNames = ble.preDeleteImageNames
+            ble.pendingDeleteSlot = -1
         }
+        ble.scheduleReconnect()
     }
 
     // MARK: - CBPeripheralDelegate (GATT service/characteristic discovery)
@@ -2209,11 +2139,7 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
         if ble.rxCharacteristic != nil {
             ble.nusReady = true
             log.info("NUS ready")
-            let m = ble
-            DispatchQueue.main.async {
-                guard peripheral === m.connectedPeripheral else { return }
-                m.nusOpened()
-            }
+            ble.nusOpened()
         }
     }
 
@@ -2221,7 +2147,7 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
     // rather than pulled, so this is what paces it: fill the link, stop when it
     // says stop, and carry on from here.
     func peripheralIsReady(toSendWriteWithoutResponse peripheral: CBPeripheral) {
-        ble.bleQueue.async { [weak self] in self?.ble.pumpImageFrames() }
+        ble.pumpImageFrames()
     }
 
     // MARK: - CBPeripheralDelegate (NUS notifications)
@@ -2245,7 +2171,9 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
         var frameBuffer = value
 
         // Parse all complete frames: [type(1B)][len(2B LE)][payload...]
-        while frameBuffer.count >= 3 {
+        // A frame that lets the link go — a board naming another machine —
+        // leaves the rest of this notification to the link that is gone.
+        while frameBuffer.count >= 3, gen == ble.linkGeneration {
             let type = frameBuffer[frameBuffer.startIndex]
             let lenLo = frameBuffer[frameBuffer.startIndex + 1]
             let lenHi = frameBuffer[frameBuffer.startIndex + 2]
@@ -2267,7 +2195,7 @@ private class CBDelegateAdapter: NSObject, CBCentralManagerDelegate, CBPeriphera
             case 0x01: // TEXT
                 if let text = String(data: payload, encoding: .utf8) {
                     if text.hasPrefix("DBG:") { continue }
-                    ble.onMain(gen) { [ble] in ble.handleTextResponse(text) }
+                    ble.handleTextResponse(text)
                 }
             case 0x02: // BIN_START
                 ble.handleBinStart(payload)

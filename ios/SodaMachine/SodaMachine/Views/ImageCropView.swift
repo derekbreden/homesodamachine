@@ -23,7 +23,7 @@ import SwiftUI
 /// of colours along its length: a solid backdrop gives a flat one, a gradient
 /// keeps its gradient, and a subject touching an edge is outvoted by the median
 /// of the band it sits in rather than smeared into a streak.
-struct EdgeBackground {
+nonisolated struct EdgeBackground {
     var top: [Color] = [.black]
     var bottom: [Color] = [.black]
     var left: [Color] = [.black]
