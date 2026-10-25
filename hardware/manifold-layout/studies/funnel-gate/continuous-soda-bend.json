@@ -1,5 +1,5 @@
 {
-  "scope": "Layout candidate; main components and rear outlet path fixed. The passive core guide and its internal continuation require production integration.",
+  "scope": "Selected insulated inlet; main components and rear outlet path fixed. The passive core guide and its internal continuation require production integration.",
   "customer_outcome": "One continuous soda tube through an insulated supported turn; one inlet elbow and its extra push-fit connection are absent.",
   "source_holder": "future/tube-bend-holder-exploration/tube_bend_holder.py",
   "physical_acceptance": "future/tube-bend-holder-exploration/prints/2026-10-23-legs-123-w2-petgf-left04-z018-mark1/physical-result.json",
@@ -974,5 +974,10 @@
     "future/tube-bend-holder-exploration/prints/2026-10-23-legs-123-w2-petgf-left04-z018-mark1/physical-result.json": "67d9e100de0e6042b04d4abdcf2c036a1b3d14bfc10918483a6f2d002a80ac2b",
     "hardware/reference/cargen-pipe-insulation/elbow-fit-2026-10-24/physical-observation.json": "0a02e42940eceef1a0bae2cc023c0d274fe64e0c48d28046bcdc79fe86682755"
   },
-  "nominal_foam_cut_length_mm": 62.86719645566485
+  "nominal_foam_cut_length_mm": 62.86719645566485,
+  "selection": {
+    "status": "selected",
+    "date": "2026-10-24",
+    "derek": "I am good with this insulation, this is what I want."
+  }
 }

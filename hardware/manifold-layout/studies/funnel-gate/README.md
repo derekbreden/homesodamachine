@@ -109,48 +109,7 @@ the two sockets. The rear nested stem retains 2.4048 mm exposed stem to place
 the meter clear of the CO₂ check; it remains shorter than the full factory
 stem. The bulkhead's own stem seats shoulder-flush.
 
-One directly seated inlet stem turns down at `(50,354.3696,306.37605)` mm.
-Its straight tube enters a proposed core guide at `(50,354.3696,253.4)` mm,
-aft of the pump inlet elbow, with 33.926 mm exposed above the roof. The tube
-extends 12 mm below that handoff. The carbonator bottom outlet retains its
-own fixed port; the guide and the internal tube route above the endcap need
-production integration. The study does not model a vertical continuation
-through the pressure vessel.
-
-Three stem elbows and two tube pieces form this above-core line. Socket
-depths remain family-based layout estimates. [soda_route.py](soda_route.py)
-records the poses and seated interfaces; [fit-report.json](fit-report.json)
-records the combined exterior clearance. The measured exterior clears the
-pump by 6.83 mm and CO₂ check by 1.07 mm. The inlet elbow clears the pump by
-1.85 mm; the new drop clears its inlet TPU elbow by 13.84 mm. Meter pigtail
-and core-roof retention detail remain pending.
-
-### Tube insulation
-
-One 15 mm square-cut sleeve of the owned CARGEN pipe foam covers the middle
-of the vertical soda tube at X50, Y354.3696, Z264.5..279.5 mm. Its nominal
-6.35 mm bore and 9.525 mm wall give 25.4 mm outside diameter. A straight
-longitudinal slit allows installation around the connected tube; close the
-slit with the existing foil tape. No shaped relief, printed retainer or
-component movement is needed. The lower 11.1 mm and upper 7.826 mm of the
-33.926 mm exposed tube remain bare. The meter outlet join has no exposed tube.
-The meter and fitting bodies remain bare.
-
-[tube_insulation.py](tube_insulation.py) owns the cut-stock envelope and manual
-query; [tube-insulation-review.json](tube-insulation-review.json) records its
-isolated exterior fit. The native envelope is in
-[parts/soda-rise-insulation.step](parts/soda-rise-insulation.step). Stock foam
-dimensions are nominal; the model does not establish thermal performance.
-Production mounts and complete wiring retain their separate scope.
-
-The [printed-elbow foam fit](../../../reference/cargen-pipe-insulation/elbow-fit-2026-10-24/physical-observation.json)
-has physical evidence: the pictured elbow fits inside the owned sleeve with
-little visible outer expansion. Its foam wall compresses locally around the
-fitting. A fitting's insulation envelope need not add a full nominal foam
-wall outside its body. This is qualitative fit evidence for that article;
-the selected scene's straight sleeve retains its stated dimensions.
-
-### Continuous inlet bend candidate
+### Selected continuous inlet and insulation
 
 [continuous_soda_bend.py](continuous_soda_bend.py) models a continuous 1/4-inch
 LLDPE tube through the accepted R14 PET-GF bend holder, with its 2 mm wall and
@@ -160,9 +119,17 @@ tube and holder before the meter connects. The holder displaces foam inside
 the sleeve; the nominal outside diameter is 25.4 mm.
 
 The meter and every main component keep their poses. The passive core entry
-is `(50,342.4148,253.4)` mm, 11.9548 mm fore of the selected straight inlet.
+is `(50,342.4148,253.4)` mm.
 The tube continues below that handoff; it is not cut or joined at the guide.
-The inlet push-fit elbow and its extra connection are absent in this candidate.
+The inlet has no push-fit elbow or additional tube joint. The carbonator's
+bottom outlet retains its own fixed port. Two nested stem elbows form the
+meter-to-bulkhead return; [soda_route.py](soda_route.py) supplies its interfaces.
+Socket depths remain family-based layout estimates.
+
+The [printed-elbow foam fit](../../../reference/cargen-pipe-insulation/elbow-fit-2026-10-24/physical-observation.json)
+records the pictured holder fitting inside the owned sleeve with little visible
+outer expansion and local compression inside. This is qualitative fit evidence
+for that article.
 
 [continuous-soda-bend-review.json](continuous-soda-bend-review.json) records no
 unrelated rigid contacts. The holder clears the meter by 1 mm and the pump
@@ -173,9 +140,10 @@ The translucent occupied-space foam mesh illustrates this compression; it is
 not a shaped cutting pattern or a prediction of strain or thermal performance.
 
 [continuous-soda-bend.json](continuous-soda-bend.json) supplies the source,
-acceptance, datums and native geometry. Current printed supports, the under-lid
-continuation and the complete installed harness require integration review
-before this candidate replaces the production inlet.
+selection, holder acceptance, datums and native geometry. Production integration
+of the printed supports, under-lid continuation and complete installed harness
+is pending. The selected layout fixes the main component poses; any integration
+change to them requires an explicit arrangement review.
 
 ## PCB access and fit
 
