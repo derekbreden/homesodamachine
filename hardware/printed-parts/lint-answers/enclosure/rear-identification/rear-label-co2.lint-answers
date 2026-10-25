@@ -1,0 +1,16 @@
+[step] Required raised identification lettering: the flush fitting face is nativeY 2 and the contrasting word stands 0.48 mm above it in two 0.24 mm layers. This is the named two-colour letter feature, not an accidental change of wall plane. The earlier TAP/FLAVOR appearance record accepts the raised-letter process, not the smaller current type or mounting fit.
+alternatives: Flush two-colour text would remove the raised mark. Raising by 3 mm would put lettering far above the fitting face and change the selected label interface. The retained 0.48 mm mark uses the shared label process; this answer does not establish small-type print quality.
+file: hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step
+click: x=-1.521 y=2.480 z=13.780
+
+[thin] Required letter contours in Helvetica Bold at 4.6 mm: these picks are the 0.48 mm-proud coloured glyphs and their tapering corners. The full strokes here are 0.539 mm or wider; corner tips are narrower. They are printed face-up as the named identification mark. The current small type has no physical readability acceptance.
+alternatives: Three-millimetre glyph strokes would close the letter counters. Enlarging the shared 6.5 mm type within the fixed band reduces clearance to the bulkhead flange and upper edge; flattening the word removes the raised mark. This answer is limited to the actual glyph points, and gives no strength or lifetime result.
+file: hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step
+click: x=-3.519 y=2.147 z=14.861
+click: x=-3.599 y=2.147 z=15.394
+
+[thin] Required 2 mm flush identification chip in the selected 6 mm clamping stack: the chip occupies 2 mm and its pocket retains 4 mm of enclosure wall. This is the separate flat colour-label interface, with the fitting flange and nut planes fixed. The earlier 2 mm chip appearance acceptance does not establish this installed fit or clamping strength.
+alternatives: A 3 mm chip at the same face would cut the wall to 3 mm and change the retained 2 mm label interface; an outward-thicker chip would move the fitting flange plane. The current allocation preserves 4 mm behind the label. This answer covers only the flat chip body, not other thin features.
+file: hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step
+click: x=-11.006 y=0.000 z=-9.162
+click: x=-11.006 y=2.000 z=-9.162
