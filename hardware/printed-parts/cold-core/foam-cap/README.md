@@ -72,8 +72,8 @@ holes in the lid. The pump retains its purchased rubber sliders and Ø9 × 0.8 m
 washers; installed rubber compression and isolation remain unqualified.
 
 The separate lid-mounted earth boss is Ø10 mm with a Ø4 × 7 mm pilot for
-one RX-M3Sx4 short insert. Its M3 × 10 screw crosses five 0.8 mm ring tongues
-and one 0.8 mm washer: 5.2 mm projection, 1.8 mm nominal tip air and 4.4 mm
+one RX-M3Sx4 short insert. Its M3 × 8 screw crosses three 0.8 mm ring tongues
+and one 0.8 mm washer: 4.8 mm projection, 2.2 mm nominal tip air and 4.4 mm
 blind backing. Its fastener datums belong to
 [above_core_wiring.py](../../../manifold-layout/above_core_wiring.py).
 

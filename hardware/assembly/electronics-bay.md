@@ -45,7 +45,7 @@ fit and donor terminal locations retain their stated qualification limits.
 | Compressor H join | 221-413 | Free, under the funnel opening | Relay 1 NO pigtail; compressor switched-H core |
 | Compressor N join | 221-413 | Free, under the funnel opening | N junction pigtail; compressor neutral core |
 | Pump positive join | 221-413 | Free, under the funnel opening | Relay 2 NO pigtail; pump positive |
-| Protective-earth ring stack | M3 ring-terminal stack | Cold-core lid | C14 earth feed; compressor earth; carbonator bond lead; faucet-plate bond |
+| Protective-earth ring stack | M3 ring-terminal stack | Cold-core lid | C14 earth feed; compressor earth; carbonator bond lead |
 
 The rear H/G connectors share a vertical row beside the C14 inlet; N stands
 14.5 mm forward on its own broad rear-rooted well. Their wire entries face
@@ -75,9 +75,9 @@ RX-M3×5.7 inserts. The pump retains its specified rubber-pad/washer stack.
 The PSU and relay wall-host stacks are defined by
 [`_above_core_shell.py`](/hardware/printed-parts/enclosure/enclosure/_above_core_shell.py)
 and allocated in the [BOM](/hardware/ledger/bom.md); use the stack assigned to
-each device. The ring stack and its Ø9 × 0.8 flat washer clamp under M3 × 10 into an
-RX-M3S×4 short insert in the upward-facing core-lid boss. Its 4.8 mm clamp
-stack gives 5.2 mm screw projection into a 7 mm blind pilot.
+each device. The ring stack and its Ø9 × 0.8 flat washer clamp under M3 × 8 into an
+RX-M3S×4 short insert in the upward-facing core-lid boss. Its 3.2 mm clamp
+stack gives 4.8 mm screw projection into a 7 mm blind pilot.
 
 Tools: ESD mat, suitable wire and contact crimpers, soldering tools for the
 specified soldered joints, helping hands, insulated driver and multimeter.
@@ -138,9 +138,8 @@ records the current rigid-slide and final-connection limits.
 5. Close the box per [enclosure-mechanical.md](enclosure-mechanical.md); the
    front-bottom and front-top looms have landed at their devices by then
    ([wiring.md](wiring.md)). Through the funnel opening, with the frame out:
-   - Stack the ground rings on the lid boss: carbonator bond, inlet PE bus,
-     compressor PE and the staged faucet-plate ring, then the flat washer and
-     M3 × 10.
+   - Stack the ground rings on the lid boss: carbonator bond, inlet PE bus and
+     compressor PE, then the flat washer and M3 × 8.
    - Land the free ends of DC-1 and DC-2 in the V12 and GND junctions.
    - Make the three joins: the compressor's switched-H core with the relay 1
      NO pigtail, its neutral core with the N-junction pigtail, and the pump
@@ -183,8 +182,7 @@ and the seams for trapped conductors.
 
 The compressor, fan, display and carbonator bond interfaces retain the
 installed model's nominal or unlocated status. A plastic mounting screw does
-not provide a carbonator metal bond. The enclosure has no exit for the faucet
-plate's bond conductor. These limits prevent claiming a completed
+not provide a carbonator metal bond. These limits prevent claiming a completed
 bond or exact donor termination from CAD alone.
 
 Leave the assembly unpowered. Firmware and first power-up belong to

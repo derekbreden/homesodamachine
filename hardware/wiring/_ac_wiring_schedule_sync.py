@@ -116,7 +116,7 @@ len_dc2_mm = 350        # Core V12 WAGO → relay 2: 244 mm plus reserve.
 len_mid_mm = 150        # AC-1 (C14 → distribution block, over the foam-cap top), DC-4
 len_pump_mm = 350       # DC-3: 253.272 mm maximum modeled centreline plus fitting reserve.
 len_earth_bus_mm = 400  # Rear PE WAGO → lid stack: 295.531 mm modeled path; 104.469 mm reserve.
-len_earth_carbonator_mm = 500  # Lid stack → unlocated carbonator bond: 422.415 mm modeled path; 77.585 mm reserve.
+len_earth_carbonator_mm = 500  # Lid stack → unlocated carbonator bond: 423.501 mm modeled path; 76.499 mm reserve.
 
 # ─── Loom bench cut lengths ───────────────────────────────────────────
 # Manifold cuts use the authored native-clear wire paths in the junction review,
