@@ -566,7 +566,7 @@ state(
     f"an M3 × {cap_screw_length:g} reaches {cap_screw_beyond_face:g} mm past the shell "
     f"face and bottoms in a {insert_pocket_depth:g} mm pocket before its head is down")
 
-# Deck mounts — the pump, PCB and flat PSU carried on columns of the TOP CAP.
+# Deck mounts — the pump and PCB carried on columns of the TOP CAP.
 # Each column grows from the cup floor and takes a full RX-M3x5.7 heat-set.
 # Foam fills the cup around the columns.
 #   A station with no standoff stops at the cap's mouth rim, under the lid, and its module
@@ -575,7 +575,7 @@ state(
 #   The stations live here, in the cap's own frame, because the mount belongs to the part it
 # is printed in. `foam_assembly.deck_mount_station` carries them into the stack's own frame,
 # and whoever seats the stack carries them from there into the world.
-deck_mount_boss_radius = 4.0     # Ø8 column; 2 mm stock around the Ø4 insert pilot
+deck_mount_boss_radius = 5.0     # Ø10 column; 3 mm stock around the Ø4 insert pilot
 deck_mount_bore_radius = 2.0     # ⌀4 for a ruthex M3 heat-set
 deck_mount_lid_slip = fits.slip  # a standing column to the lid's clearance hole
 deck_mount_insert_length = 5.7   # ruthex RX-M3x5.7, set flush with the column top
@@ -590,7 +590,8 @@ deck_mount_cap_gap = 1.5
 # Each row carries native-reference holes through the production above-core
 # placement into this cap's frame. It gives the column standoff, head-bearing
 # thickness and screw length. The PCB's columns pass through the lid to its
-# underside; the pump and PSU bear on the lid above flush columns.
+# underside; the pump bears on the lid above flush columns. The PSU mounts
+# on back-top's dry sidewall.
 #   THE PATTERN IS THE CAP'S ROTATION KEY. The top cap installs spun a half turn about Z
 # (`foam_assembly._spin`) and its clamp bosses are symmetric under that turn, so the thing
 # that tells a builder which way the cup goes on is what is NOT symmetric — this station and the
@@ -599,8 +600,8 @@ deck_mount_cap_gap = 1.5
 # The pump's four identical rubber sliders stand at their fully engaged
 # fore/aft rail ends. Screw axes sit 1.5 mm outward within the elongated slots,
 # with a Ø9 × 0.8 washer on each 7 mm pad. Actual rubber compression remains
-# an installed observation. V-A, V-B and V-K have integral upright socket walls
-# on the lid; both relay modules are carried by the enclosure wall.
+# an installed observation. V-B has an integral upright socket wall on the
+# lid; V-A, V-K, the PSU and both relay modules are carried by back-top.
 DeckMount = namedtuple("DeckMount", "points standoff seat screw seat_min")
 deck_mounts = {name: DeckMount(*row) for name, row in _above_mounts.deck_mounts().items()}
 
@@ -617,7 +618,7 @@ def deck_mount_standoff(name):
 
 def deck_mount_proud():
     """The tallest standoff in the pack — the foam assembly's own top over its lid's face.
-    PCB columns pass through the lid; the pump and PSU columns stop below it."""
+    PCB columns pass through the lid; the pump columns stop below it."""
     return max((deck_mount_standoff(name) for name in deck_mounts), default=0.0)
 
 
@@ -636,7 +637,7 @@ def deck_mount_reach(name):
 
 
 # The pump's minimum blind depth leaves screw-tip travel below its nominal stack.
-deck_mount_bore_depth = max(deck_mount_insert_length + deck_mount_bore_relief,
+deck_mount_bore_depth = max(9.75, deck_mount_insert_length + deck_mount_bore_relief,
     _water_pump.SCREW_BORE_MIN_DEPTH, max(
     (m.screw - m.seat_min - (foam_cap_lid_height + cap_lid_clearance
                            if m.standoff == 0.0 else 0.0)
@@ -809,7 +810,7 @@ state(
 #
 #   water-in retains the carbonator's TOP-plate elbow and push-connect adapter.
 # Its tube leaves on the fixed lateral clocking line, curves through the cup
-# floor, then crosses east of the sensor loom and around the PSU insert column.
+# floor, then crosses east of the sensor loom into the aft traverse.
 # It rises into the aft plain guide directly beneath the downward check elbow.
 # The guide has no socket or tube break. The cup passage has 3 mm side/roof
 # stock; the existing 2 mm floor provides 2.10 mm backing on the horizontal reach.

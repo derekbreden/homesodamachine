@@ -54,7 +54,7 @@ def main():
     x, y, z = datums['centre_world_mm']
     lower_x, upper_x = datums['stock_x_limits_world_mm']
     first, last = datums['bearing_from_inlet_mm']
-    radius = datums['fixed_band_radius_mm'] + fits.slip
+    radius = datums['seat_radius_mm']
     outer_radius = radius + datums['wall_mm']
     bearing = cq.Solid.makeCylinder(outer_radius, last-first,
         cq.Vector(x, datums['bearing_fore_y_mm'], z), cq.Vector(0., 1., 0.))
