@@ -81,6 +81,9 @@ def export(a):
     it could not classify or match."""
     runs = list(a.runs)
     by_id = {r.id: r for r in runs}
+    native_a_specs = {name: spec for name, spec in
+                      getattr(a, 'native_route_specs', {}).items()
+                      if name in ('fluid-14', 'fluid-16')}
     print(f"{len(runs)} runs: {', '.join(r.id for r in runs)}")
 
     leaves = {name: shape for name, shape, _c in ea.ml.placed_leaves(a)}
@@ -183,7 +186,8 @@ def export(a):
 
 
     def sample_centreline(run):
-        wire = R.centreline(run)
+        wire = (ea._above_parts.route_wire(native_a_specs[run.id])
+                if run.id in native_a_specs else R.centreline(run))
         chain = ordered_edges(wire, run.pts[0])
         pts, ss, kinds = [], [], []
         s0 = 0.0
@@ -380,9 +384,10 @@ def export(a):
     for r in runs:
         t_run = time.perf_counter()
         wire, pts, ss, kinds, s_total = sample_centreline(r)
-        ok_len = abs(s_total - r.length) <= LENGTH_TOL
+        length = s_total if r.id in native_a_specs else r.length
+        ok_len = abs(s_total - length) <= LENGTH_TOL
         if not ok_len:
-            length_mismatch.append((r.id, s_total, r.length))
+            length_mismatch.append((r.id, s_total, length))
 
         stock = R.stock_of(r.kind, r.diam)
         spool = R.spool_of(r.id)
@@ -412,10 +417,10 @@ def export(a):
                 "grip_length_mm": grip,
                 "grip_source": why,
                 # As briefed: the grip counted inside the run's own [0, L].
-                "contact_s": [0.0, grip] if which == "frm" else [r.length - grip, r.length],
+                "contact_s": [0.0, grip] if which == "frm" else [length - grip, length],
                 # As built: every station is the fitting's mouth — a collet face, a barb tip, the
                 # lid's outer face — so the gripped stock lies BEYOND the run's end, outside [0, L].
-                "physical_contact_s": [-grip, 0.0] if which == "frm" else [r.length, r.length + grip],
+                "physical_contact_s": [-grip, 0.0] if which == "frm" else [length, length + grip],
             })
 
         # holds on this run
@@ -522,7 +527,7 @@ def export(a):
                          "max_surface_miss_mm": None, "max_outside_mm": None}
 
         rec = {
-            "id": r.id, "kind": r.kind, "diam": r.diam, "cut_length": r.length,
+            "id": r.id, "kind": r.kind, "diam": r.diam, "cut_length": length,
             "note": r.note, "frm": r.frm, "to": r.to,
             "material": material_of(r),
             "stock": {"name": stock.name, "od": stock.od, "min_bend": stock.min_bend,
@@ -544,8 +549,8 @@ def export(a):
                 "centreline": {
                     "step_mm": SAMPLE_STEP,
                     "sampled_length": s_total,
-                    "length_check": {"run_length": r.length, "sampled": s_total,
-                                     "diff": s_total - r.length, "ok": ok_len},
+                    "length_check": {"run_length": length, "sampled": s_total,
+                                     "diff": s_total - length, "ok": ok_len},
                     "points": [list(p) for p in pts],
                     "s": ss,
                     "edge_kind": kinds,
@@ -561,11 +566,11 @@ def export(a):
             "alignment": align,
         }
         records.append(rec)
-        table.append((r.id, r.kind, rec["material"], r.diam, r.length, len(pts),
+        table.append((r.id, r.kind, rec["material"], r.diam, length, len(pts),
                       f"{ends[0]['fitting_kind']}/{ends[1]['fitting_kind']}", len(holds),
                       r.id in _scorecard.LOOSE, bodies, align.get("outside"),
                       align.get("max_surface_miss_mm"), round(time.perf_counter() - t_run, 2)))
-        print(f"  {r.id:10s} {len(pts):4d} samples  len {r.length:8.2f} vs {s_total:8.2f}  "
+        print(f"  {r.id:10s} {len(pts):4d} samples  len {length:8.2f} vs {s_total:8.2f}  "
               f"ends {table[-1][6]:18s} holds {len(holds)}  align out={align.get('outside')} "
               f"miss={align.get('max_surface_miss_mm')}  {table[-1][-1]} s", flush=True)
     lap("runs")
