@@ -1,7 +1,7 @@
 {
   "scope": "Nominal exact B-rep clearance of the direct TPU ASSE sleeve and dedicated drain against the complete installed assembly population, including cold-core bodies and retained flavor returns. Connected interfaces are excluded. The white 4 mm return requires at least 1 mm to every unconnected body. Pump occupied envelopes are read per component. The sleeve's expanded shape is an occupancy approximation. Hardware tolerances, zip-tie heads, actual bending, seals and vent performance are unmeasured.",
   "conservative_cold_core_envelope_included": true,
-  "installed_body_count": 269,
+  "installed_body_count": 260,
   "checked_members": [
     "asse-drain-adapter",
     "tube-drain-vent",
@@ -26,12 +26,12 @@
         },
         {
           "name": "tube-fluid-16",
-          "gap_mm": 10.4286194,
+          "gap_mm": 7.2032793,
           "overlap_mm3": 0
         },
         {
           "name": "enclosure-back-top",
-          "gap_mm": 1.244726,
+          "gap_mm": 4.1608763,
           "overlap_mm3": 0
         }
       ],
@@ -48,8 +48,18 @@
           "overlap_mm3": 0
         },
         {
+          "name": "digiten-flow",
+          "gap_mm": 16.9931746,
+          "overlap_mm3": 0
+        },
+        {
           "name": "asse-inlet-tpu",
           "gap_mm": 23.5584886,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "soda-continuous-insulation",
+          "gap_mm": 36.9849441,
           "overlap_mm3": 0
         },
         {
@@ -94,22 +104,12 @@
         },
         {
           "name": "tube-fluid-14",
-          "gap_mm": 36.1932489,
+          "gap_mm": 47.3423654,
           "overlap_mm3": 0
         },
         {
           "name": "tube-fluid-16",
-          "gap_mm": 6.3265424,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "digiten-flow",
-          "gap_mm": 16.9931746,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "soda-continuous-insulation",
-          "gap_mm": 36.9849441,
+          "gap_mm": 5.515897,
           "overlap_mm3": 0
         },
         {
@@ -118,28 +118,8 @@
           "overlap_mm3": 0
         },
         {
-          "name": "electronics-panel-4-screw",
-          "gap_mm": 24.5848837,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "electronics-panel-4-insert",
-          "gap_mm": 23.9947216,
-          "overlap_mm3": 0
-        },
-        {
           "name": "enclosure-back-top",
-          "gap_mm": 5.9002119,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "foam-assembly",
-          "gap_mm": 28.0137087,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "cold-core/foam-cap-lid-top",
-          "gap_mm": 28.0137087,
+          "gap_mm": 2.0,
           "overlap_mm3": 0
         }
       ],
@@ -186,13 +166,18 @@
           "overlap_mm3": 0
         },
         {
+          "name": "psu",
+          "gap_mm": 33.7117418,
+          "overlap_mm3": 0
+        },
+        {
           "name": "relay-1",
-          "gap_mm": 44.179568,
+          "gap_mm": 38.0362661,
           "overlap_mm3": 0
         },
         {
           "name": "relay-2",
-          "gap_mm": 35.5506658,
+          "gap_mm": 35.49,
           "overlap_mm3": 0
         },
         {
@@ -203,6 +188,11 @@
         {
           "name": "asse1022-assembly",
           "gap_mm": 39.2150395,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "digiten-flow",
+          "gap_mm": 7.7337183,
           "overlap_mm3": 0
         },
         {
@@ -336,6 +326,16 @@
           "overlap_mm3": 0
         },
         {
+          "name": "soda-bend-holder",
+          "gap_mm": 67.439869,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "soda-continuous-insulation",
+          "gap_mm": 67.1852181,
+          "overlap_mm3": 0
+        },
+        {
           "name": "bulkhead-water",
           "gap_mm": 16.6180837,
           "overlap_mm3": 0
@@ -466,6 +466,11 @@
           "overlap_mm3": 0
         },
         {
+          "name": "tube-soda-core-rise",
+          "gap_mm": 51.3514467,
+          "overlap_mm3": 0
+        },
+        {
           "name": "tube-soda-meter-bulkhead",
           "gap_mm": 7.5750011,
           "overlap_mm3": 0
@@ -501,26 +506,6 @@
           "overlap_mm3": 0
         },
         {
-          "name": "digiten-flow",
-          "gap_mm": 7.7337184,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "soda-bend-holder",
-          "gap_mm": 67.4398691,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "soda-continuous-insulation",
-          "gap_mm": 67.1852182,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "tube-soda-core-rise",
-          "gap_mm": 51.3514468,
-          "overlap_mm3": 0
-        },
-        {
           "name": "carbonator-fold",
           "gap_mm": 49.5359716,
           "overlap_mm3": 0
@@ -538,11 +523,6 @@
         {
           "name": "pcba",
           "gap_mm": 18.5570562,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "psu",
-          "gap_mm": 45.1688038,
           "overlap_mm3": 0
         },
         {
@@ -642,7 +622,7 @@
         },
         {
           "name": "funnel-frame",
-          "gap_mm": 3.75,
+          "gap_mm": 4.25,
           "overlap_mm3": 0
         },
         {
@@ -653,46 +633,6 @@
         {
           "name": "funnel-frame-back-west-insert",
           "gap_mm": 8.9538747,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "electronics-panel-1-screw",
-          "gap_mm": 30.0554087,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "electronics-panel-1-insert",
-          "gap_mm": 29.4197337,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "electronics-panel-2-screw",
-          "gap_mm": 33.0779113,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "electronics-panel-2-insert",
-          "gap_mm": 32.3978585,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "electronics-panel-3-screw",
-          "gap_mm": 64.1245397,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "electronics-panel-3-insert",
-          "gap_mm": 63.4848931,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "electronics-panel-4-screw",
-          "gap_mm": 23.2832454,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "electronics-panel-4-insert",
-          "gap_mm": 22.5328861,
           "overlap_mm3": 0
         },
         {
@@ -829,13 +769,18 @@
           "overlap_mm3": 0
         },
         {
+          "name": "psu",
+          "gap_mm": 34.7669689,
+          "overlap_mm3": 0
+        },
+        {
           "name": "relay-1",
-          "gap_mm": 35.136101,
+          "gap_mm": 24.7277029,
           "overlap_mm3": 0
         },
         {
           "name": "relay-2",
-          "gap_mm": 17.8517002,
+          "gap_mm": 16.49,
           "overlap_mm3": 0
         },
         {
@@ -846,6 +791,11 @@
         {
           "name": "asse1022-assembly",
           "gap_mm": 30.4548927,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "digiten-flow",
+          "gap_mm": 2.3975214,
           "overlap_mm3": 0
         },
         {
@@ -979,6 +929,16 @@
           "overlap_mm3": 0
         },
         {
+          "name": "soda-bend-holder",
+          "gap_mm": 58.9010887,
+          "overlap_mm3": 0
+        },
+        {
+          "name": "soda-continuous-insulation",
+          "gap_mm": 58.4257611,
+          "overlap_mm3": 0
+        },
+        {
           "name": "bulkhead-water",
           "gap_mm": 24.6701836,
           "overlap_mm3": 0
@@ -1109,6 +1069,11 @@
           "overlap_mm3": 0
         },
         {
+          "name": "tube-soda-core-rise",
+          "gap_mm": 42.8152617,
+          "overlap_mm3": 0
+        },
+        {
           "name": "tube-soda-meter-bulkhead",
           "gap_mm": 7.825,
           "overlap_mm3": 0
@@ -1125,7 +1090,7 @@
         },
         {
           "name": "tube-fluid-14",
-          "gap_mm": 5.58919,
+          "gap_mm": 1.4655805,
           "overlap_mm3": 0
         },
         {
@@ -1141,26 +1106,6 @@
         {
           "name": "tube-fluid-24",
           "gap_mm": 12.0052901,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "digiten-flow",
-          "gap_mm": 2.3975214,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "soda-bend-holder",
-          "gap_mm": 58.9010888,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "soda-continuous-insulation",
-          "gap_mm": 58.4257612,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "tube-soda-core-rise",
-          "gap_mm": 42.8152618,
           "overlap_mm3": 0
         },
         {
@@ -1181,11 +1126,6 @@
         {
           "name": "pcba",
           "gap_mm": 14.4428279,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "psu",
-          "gap_mm": 54.1,
           "overlap_mm3": 0
         },
         {
@@ -1285,12 +1225,7 @@
         },
         {
           "name": "funnel-frame",
-          "gap_mm": 9.0044926,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "electronics-access-panel",
-          "gap_mm": 1.0,
+          "gap_mm": 9.2738129,
           "overlap_mm3": 0
         },
         {
@@ -1301,46 +1236,6 @@
         {
           "name": "funnel-frame-back-west-insert",
           "gap_mm": 19.4238452,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "electronics-panel-1-screw",
-          "gap_mm": 23.8801879,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "electronics-panel-1-insert",
-          "gap_mm": 23.2030005,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "electronics-panel-2-screw",
-          "gap_mm": 50.0857129,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "electronics-panel-2-insert",
-          "gap_mm": 49.7553323,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "electronics-panel-3-screw",
-          "gap_mm": 54.9367054,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "electronics-panel-3-insert",
-          "gap_mm": 54.1367054,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "electronics-panel-4-screw",
-          "gap_mm": 31.873236,
-          "overlap_mm3": 0
-        },
-        {
-          "name": "electronics-panel-4-insert",
-          "gap_mm": 31.1601836,
           "overlap_mm3": 0
         },
         {
@@ -1365,12 +1260,12 @@
         },
         {
           "name": "enclosure-back-top",
-          "gap_mm": 1.0,
+          "gap_mm": 0.2538998,
           "overlap_mm3": 0
         },
         {
           "name": "foam-assembly",
-          "gap_mm": 1.3001108,
+          "gap_mm": 14.3599999,
           "overlap_mm3": 0
         },
         {
@@ -1385,7 +1280,7 @@
         },
         {
           "name": "cold-core/foam-cap-lid-top",
-          "gap_mm": 1.3001108,
+          "gap_mm": 14.3599999,
           "overlap_mm3": 0
         },
         {
@@ -1482,7 +1377,7 @@
   "source_sha256": {
     "hardware/scripts/check_asse_drain.py": "91f5b3bab308ee253339de62919f18cc32d70098476a52bfa61e89cb5d97c418",
     "hardware/manifold-layout/_drain.py": "d4f6db44b344125cf6f9b1bc6be341002dae887d78966ada3029e1e452b94c2a",
-    "hardware/manifold-layout/enclosure_assembly.py": "b99ef74c345237f0d54f83119b019cbf9bc453f5fdacbbf0bd89c967c5f0538c",
+    "hardware/manifold-layout/enclosure_assembly.py": "6ece75580c541b664e73bf9fe9e1ab53e27226dde997a22e2cb00f5c3622312c",
     "hardware/manifold-layout/_lines.py": "eb226d118dc2ff57192f556913bb3f733a49b6a8cb5bcc7e27a2abbaaa469d56",
     "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "a1e869c93ed2dba3873036fe10506b99ace883bc46a033833354be4e49bcc096",
     "hardware/reference/asse1022-assembly/asse1022_assembly.py": "4481085380d131f5d85696f5c366058382b07577c6881a274495e5d67ec2b3eb",
