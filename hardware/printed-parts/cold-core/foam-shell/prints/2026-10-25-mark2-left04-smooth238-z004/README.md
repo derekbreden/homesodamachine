@@ -35,3 +35,9 @@ junctions and hardware hosts retain their local filling paths and stock.
 Mark1's latest known accepted start was task 1374963298 at 20:18:16 UTC.
 Its agent confirmed no subsequent start or resume by that session. No Mark1
 start/resume is to occur before 21:29:12 UTC, 180 seconds after this acceptance.
+
+At **16:48:22 CDT**, [first-layer readback](first-layer.json) reported RUNNING,
+layer 1/889, 265 °C nozzle and 80 °C bed, print error 0. HMS
+**0C00010000020017** identifies a dirty nozzle-camera lens, which may affect
+AI monitoring. The print is continuing; Derek was notified. No first-layer
+surface or adhesion acceptance is inferred from the status.

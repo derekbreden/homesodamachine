@@ -1,0 +1,22 @@
+{
+  "observed_at_utc": "2026-10-25T21:48:22.762597+00:00",
+  "printer": "Mark2",
+  "job_id": "1375153599",
+  "gcode_state": "RUNNING",
+  "layer_num": 1,
+  "total_layer_num": 889,
+  "nozzle_temperature_c": 265,
+  "bed_temperature_c": 80,
+  "print_error": 0,
+  "hms": [
+    {
+      "attr": 201326848,
+      "code": 131095,
+      "hex_code": "0C00010000020017",
+      "meaning": "Dirty nozzle-camera lens; AI monitoring may be affected.",
+      "manufacturer_message_source": "/Applications/BambuStudio.app/Contents/Resources/hms/hms_en_31B.json",
+      "user_notified": true
+    }
+  ],
+  "scope": "First-layer progress reported by the printer; no physical surface or adhesion acceptance."
+}

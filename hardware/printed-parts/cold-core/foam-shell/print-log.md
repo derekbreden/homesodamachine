@@ -99,3 +99,8 @@ G29.1 Z0.02. Timelapse and bed leveling On; flow and nozzle-offset Auto.
 The [job record](prints/2026-10-25-mark2-left04-smooth238-z004/README.md)
 binds geometry, settings, emitted paths and the accepted launch.
 Physical outcome is pending.
+
+First-layer readback at 16:48:22 CDT: RUNNING, 1/889, 265/80 °C,
+print error 0. Dirty nozzle-camera warning 0C00010000020017 may affect AI
+monitoring; the print continues and Derek was notified. This is printer
+progress, not physical surface acceptance.
