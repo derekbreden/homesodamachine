@@ -9,7 +9,7 @@ def stem_elbow_names():
              'reg-va-elbow', 'va-outlet-elbow', 'carbonator-fold',
              'gas-inlet-elbow', 'gas-lower-a', 'gas-lower-b',
              'gas-upper-a', 'gas-upper-b', 'soda-stem-elbow', 'soda-outlet-return-stem',
-             'ya-stem-elbow', 'ya-fold-return', 'drain-outlet-stem', 'vb-inlet-turn',
+             'ya-stem-elbow', 'drain-outlet-stem', 'vb-inlet-turn',
              'vb-outlet-stem', 'vb-outlet-return', 'yb-stem-elbow')
     selected = layout.specification()['snapshots']
     return tuple(name for name in names if name in selected
