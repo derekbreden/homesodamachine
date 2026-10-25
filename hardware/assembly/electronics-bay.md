@@ -98,7 +98,10 @@ records the current rigid-slide and final-connection limits.
    Female-housing fit and connection force remain unqualified.
    Seat the junctions in their named wells and label their electrical purpose.
    Check that each seated body's levers can open and close before populating
-   it. Mount the PCB, pump, V-B and ground stack on their core features.
+   it. Land the two prepared J10 power leads on the loose PCB before fastening
+   it to the core; leave their WAGO ends free. The captured upper B-fill fitting
+   limits a straight lead-entry approach at the installed board. Mount the PCB,
+   pump, V-B and ground stack on their core features.
    Fasten the PSU on bare back-top before seating the rear WAGO-H junction;
    its aft mounting-driver path crosses that connector. Mount the relays and
    meter, and prepare the meter’s inlet and concealed outlet plumbing. Service
@@ -106,8 +109,12 @@ records the current rigid-slide and final-connection limits.
    programming interface.
 3. Land the fixed AC and DC runs by the schedule: C14 to H/N/G, H/N to the
    PSU primary, H to relay 1 COM, the PSU secondary to V12/GND, V12 to relay 2
-   COM, and V12/GND to PCB J10. Keep the V-B return union and its flexible
-   return tube clear while landing J10, then fit them at their selected poses.
+   COM, and the free ends of the prelanded J10 leads to V12/GND. Keep the V-B
+   return union and its flexible return tube clear while tightening J10, then
+   fit them at their selected poses. The installed lead and vertical screw
+   tools clear the selected B-fill fitting; the nominal 8 mm straight wire-entry
+   land does not. Field retermination may require unbolting and staging the PCB
+   and flexible leads. That handling and its service path remain unqualified.
    Relay 2 NO feeds the pump positive lead;
    pump negative returns to GND. Relay 1 NO, neutral and protective earth
    are the continuous three cores of the compressor's single SJOOW lead. Its
