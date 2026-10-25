@@ -4,7 +4,7 @@
   "selected_study_path": "hardware/manifold-layout/studies/funnel-gate/reservoir-a-routes.json",
   "selected_study_sha256": "667fcf9eb7ab8d05417cf24928c62b60ff9477061a8bc08fdf23fa1e2581aa2f",
   "production_data_path": "hardware/manifold-layout/reservoir-a-routes.json",
-  "production_data_sha256": "c5eae2b37031e54d226d7fffe41421759c5ac0c04566cc7cb1a963ff11969ca5",
+  "production_data_sha256": "c94f4a98f2912193420f6969c33c8cdb14c9fd8c75f1e0d1ef2606195d904264",
   "production_routes_sha256": "bec911386e5aa2a6264aaee3e451cdad49cfa7c2d7a20b3370bef5208f08af5d",
   "routes": {
     "fluid-14": {
@@ -63,7 +63,7 @@
     "fluid-26": true,
     "fluid-18": true
   },
-  "native_contact_scope": "The issued illustrative curves retain their bounded native contact record below. Current free-curve source uses the same fixed paired-anchor points and ports; its exact seat/tie/electrical delta is pending the explicitly scoped local query. Original contacts are not current clearance claims.",
+  "native_contact_scope": "Current free curves have a bounded native neighbor, open-seat and nominal-tie record. Ground-bus/J2-common lead dressing remains pending at the fore approaches, and K-wire air is only0.06137mm nominal. The issued illustrative curves retain their separately scoped contact readings below. No physical bending, gripping or useful assembly-clearance claim is made.",
   "native_exports": {
     "fluid-14": {
       "valid": true,
@@ -832,10 +832,10 @@
     259.4
   ],
   "current_free_curves": {
-    "production_data_sha256": "37b53fc68eb8636071d71fa9f60b0bd6ea84c0784027d138963dcb522b0dfb8d",
+    "production_data_sha256": "c94f4a98f2912193420f6969c33c8cdb14c9fd8c75f1e0d1ef2606195d904264",
     "source_paths": "hardware/manifold-layout/reservoir-a-routes.json",
     "basis": "Illustrative R14 line/arc bends around installed equipment and unchanged wiring; fixed paired-anchor centres/axes and connection ports. Physical blanks include the continuous below-lid route and actual receiving marks.",
-    "native_qualification": "Pending the bounded actual tube/seat/tie/ground/electrical query; no whole-machine replay requested.",
+    "native_qualification": "Valid one-solid tubes, fixed seat/port interfaces and bounded native records below; local bus/COM dressing and useful K-wire clearance remain open.",
     "routes": {
       "fluid-14": {
         "drawn_warm_length_mm": 472.6252418840347,
@@ -882,6 +882,248 @@
       "fluid-28",
       "fluid-26",
       "fluid-18"
-    ]
-  }
+    ],
+    "native_exports": {
+      "fluid-14": {
+        "valid": true,
+        "solid_count": 1,
+        "length_mm": 472.62524188403495,
+        "bounds_mm": [
+          [
+            33.817622406904135,
+            104.8566690530033,
+            253.39131377625088
+          ],
+          [
+            97.183685668979,
+            429.48333094699666,
+            299.35844334384336
+          ]
+        ],
+        "brep_path": "tmp/reservoir-a-free-final/fluid-14.brep",
+        "brep_sha256": "53edb3e0e7b32f1590581b59e2ee19c6f2940d3e0a4e90a63ea14f29b12af80f"
+      },
+      "fluid-16": {
+        "valid": true,
+        "solid_count": 1,
+        "length_mm": 415.299567055561,
+        "bounds_mm": [
+          [
+            19.166554218206993,
+            104.85631433102097,
+            253.39131433102094
+          ],
+          [
+            89.68335482466263,
+            411.183685668979,
+            299.35883428002455
+          ]
+        ],
+        "brep_path": "tmp/reservoir-a-free-final/fluid-16.brep",
+        "brep_sha256": "9f597cb0d076ad07339947c400d51bd48b8e231ebfc9bf948edbbb7f0ee8d5ae"
+      }
+    },
+    "native_neighbor_review": {
+      "scope": "Only the two free Reservoir A route candidates against local cached purchased equipment, mechanical stock, unchanged other tube spans, exact current seats/ties/ground, applicable saved approach witnesses and final electrical cache with five ground/J2 replacements. The seat points/ports remain fixed; curve and length values are illustrative. Native CAD only, not physical bending, gripping, threading or load qualification. The cached horizontal-deck PSU mount approaches are superseded by the selected wall-mounted PSU; those diagnostic rows are not current service paths. All other applicable saved approaches remain in scope.",
+      "target_count": 330,
+      "source_wire_index_sha256": "80320073cfa7b1f3bcf6e2c99edf9c9a9e19e942cbd9429158b3a8b7106d4665",
+      "five_delta_sha256": "190b644282c73125b89471541aee710fc5b1edec982a81df111bba2d4b2cc30e",
+      "routes": {
+        "fluid-14": {
+          "native_candidate_count": 37,
+          "finite_front_valve_mates": [
+            {
+              "name": "valve-v-f",
+              "volume_mm3": 91.2581457907578,
+              "bounds_mm": [
+                [
+                  78.925,
+                  104.86500000000001,
+                  269.4749999
+                ],
+                [
+                  85.27500010000001,
+                  111.215,
+                  274.675
+                ]
+              ],
+              "outside_finite_receiving_mm3": 0.0
+            }
+          ],
+          "fore_wire_contacts": [
+            {
+              "name": "wire-PE-bus",
+              "volume_mm3": 19.683677236586455,
+              "bounds_mm": [
+                [
+                  54.86461714810364,
+                  193.499999856223,
+                  259.9999998998254
+                ],
+                [
+                  61.08652361994984,
+                  196.5000001068418,
+                  262.6750304781708
+                ]
+              ]
+            },
+            {
+              "name": "wire-J2-COM",
+              "volume_mm3": 6.181389711780339,
+              "bounds_mm": [
+                [
+                  57.169922324050134,
+                  188.88541350194237,
+                  260.2138288603598
+                ],
+                [
+                  60.888559516403376,
+                  193.6519735312907,
+                  262.92831154184046
+                ]
+              ]
+            }
+          ],
+          "pump_screw_service_prerequisites": [],
+          "retired_horizontal_psu_diagnostics": [
+            {
+              "name": "access-psu-mount-2",
+              "volume_mm3": 22.47347386315368,
+              "bounds_mm": [
+                [
+                  91.15032886635528,
+                  348.72110923791877,
+                  260.8999998999944
+                ],
+                [
+                  96.8496711336447,
+                  354.23851098331363,
+                  262.7696466936131
+                ]
+              ]
+            }
+          ],
+          "geometry_scope": "Full bounded neighbor query plus the exact aft-departure refinement below. Fore sections are unchanged by that refinement."
+        },
+        "fluid-16": {
+          "native_candidate_count": 46,
+          "finite_front_valve_mates": [
+            {
+              "name": "valve-v-e",
+              "volume_mm3": 91.25814579075748,
+              "bounds_mm": [
+                [
+                  19.175,
+                  104.86499989999994,
+                  269.47499989999994
+                ],
+                [
+                  25.525000000000002,
+                  111.215,
+                  274.675
+                ]
+              ],
+              "outside_finite_receiving_mm3": 0.0
+            }
+          ],
+          "fore_wire_contacts": [
+            {
+              "name": "wire-PE-bus",
+              "volume_mm3": 19.338107144944985,
+              "bounds_mm": [
+                [
+                  46.403747190150284,
+                  193.49999989223323,
+                  259.99999988641304
+                ],
+                [
+                  53.38305273925985,
+                  196.50000014025252,
+                  263.00000009011643
+                ]
+              ]
+            }
+          ],
+          "pump_screw_service_prerequisites": [
+            {
+              "name": "access-g-ganen-pump-mount-2",
+              "volume_mm3": 2.242628841008124,
+              "bounds_mm": [
+                [
+                  47.53835475066365,
+                  371.1612806810866,
+                  264.20000600351557
+                ],
+                [
+                  48.175000100163544,
+                  373.7096236707935,
+                  267.002048500116
+                ]
+              ]
+            }
+          ],
+          "retired_horizontal_psu_diagnostics": [
+            {
+              "name": "access-psu-mount-2",
+              "volume_mm3": 102.72437960618066,
+              "bounds_mm": [
+                [
+                  54.594953236049534,
+                  348.5000121062105,
+                  261.82499988177807
+                ],
+                [
+                  80.71840794487733,
+                  354.5000123239853,
+                  266.90000010000006
+                ]
+              ]
+            }
+          ],
+          "geometry_scope": "Full bounded neighbor query plus the exact aft-departure refinement below. Fore sections are unchanged by that refinement."
+        }
+      }
+    },
+    "aft_departures": {
+      "scope": "Only the free departures after the aft seat centre move; the four anchored tube points, source seat/tie geometry and all connection ports stay fixed. Exact native seat/tie/K/pair readings bind the refined production curves. Other local neighbor readings are reused only where geometry is unchanged or outside the changed307..340mm Y band.",
+      "fill_start_y_mm": 307.35,
+      "draw_start_y_mm": 304.65,
+      "seat_overlap_mm3": {
+        "fluid-14": 0.0,
+        "fluid-16": 0.0
+      },
+      "nominal_tie_overlap_mm3": {
+        "fluid-14": 0.0,
+        "fluid-16": 0.0
+      },
+      "mutual_air_mm": 1.0088905929150775,
+      "mutual_overlap_mm3": 0.0,
+      "k_wire_air_mm": 0.061370031011434414,
+      "k_wire_scope": "Nominal CAD noncontact only; no useful installation margin is inferred. A local flexible-lead or free-departure correction remains open.",
+      "source_receipt": "tmp/reservoir-a-free-final/seat-refinement.json"
+    },
+    "input_sha256": {
+      "hardware/manifold-layout/above_core_routes.py": "bec911386e5aa2a6264aaee3e451cdad49cfa7c2d7a20b3370bef5208f08af5d",
+      "hardware/printed-parts/cold-core/_reservoir_a_anchors.py": "1232e98c3e1f9b849d28a53c8414879428c46d486ebe5bf5902e528f6208512f",
+      "tmp/dry-sidewall-wiring/native-targets.json": "fe19c7602a3a730d3113e43ce9260ad1bbba46c9da18164e1ee964ce39a030ae",
+      "tmp/dry-sidewall-wiring/current-wiring-index.json": "80320073cfa7b1f3bcf6e2c99edf9c9a9e19e942cbd9429158b3a8b7106d4665",
+      "tmp/ground-j2-wire-delta/final-index.json": "190b644282c73125b89471541aee710fc5b1edec982a81df111bba2d4b2cc30e",
+      "tmp/reservoir-a-anchor-native/mouth-canonical-lid-world.brep": "6bd026a1dd9c7b8c231ad681429638bd04abea5b11220cc9b32f251ce2b2b9d5",
+      "tmp/reservoir-a-ground-native/ground-stack.brep": "29f11f406e04c53712586f8408b97ac6128e146e8ffd2e914678f33f0136323e"
+    },
+    "unchanged_wire_correction_scope": {
+      "DC3-negative": "Its new root-bypass portion at X\u221215 is disjoint from both complete A tube bounds (minimumX19.16655). Other portions retain their bound native proof. Source95ea42c59; no extra native pair replay."
+    },
+    "nominal_restraint_reader": {
+      "source": "enclosure_assembly.reservoir_a_anchor_sites / unsupported_spans",
+      "seat_count_per_tube": 2,
+      "physical_shared_ties": 2,
+      "max_unheld_developed_mm": {
+        "fluid-14": 192.70712916776725,
+        "fluid-16": 154.5299527512998
+      },
+      "scope": "Nominal geometry between held stations, not tie gripping/load qualification."
+    }
+  },
+  "routes_scope": "Issued illustrative study path measurements. The current production curve/data binding is current_free_curves."
 }
