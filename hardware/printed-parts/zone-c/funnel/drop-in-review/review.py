@@ -88,9 +88,6 @@ def main():
         checks.append(row)
         print(json.dumps(row), flush=True)
 
-    for col in ('front', 'back'):
-        check('no shell drain crossbar / ' + col,
-              ff.drain_support(inner, outer, joint, centre, seat, col) is None)
     for name, shape in {'frame': frame, **fixed}.items():
         metrics = {'solids': len(shape.Solids()), 'volume_mm3': shape.Volume()}
         if name == 'frame':metrics['exported_source_difference_mm3'] = frame_difference

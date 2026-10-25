@@ -67,27 +67,27 @@ they became.
 | **valve tray** | either of the two four-seat plates fused into `enclosure-front-top` that the solenoids stand on | valve panel |
 | **bulkhead ring** | the labelled printed chip in a pocket around one through-wall fitting | port ring |
 | **pump tray** | either of the two fused beds on the pump cradle's deck that a peristaltic pump sits in | |
-| **flow-meter anchor** | either of the two anchors off the top wall that the flow meter's barrel seats in | flow-meter saddle, saddle |
+| **flow-meter anchor** | either of the two back-top east-wall carriers the flow meter's fixed collars seat in, each closed by a zip tie | flow-meter saddle, saddle |
 | **reed bridge** | the printed interposer holding a level reed to the carbonator and carrying the coil wrap over it | |
-| **main board** | the assembled PCB on the +X wall that drives the valves, pumps and compressor | the board, the base, the controller, controller PCBA, the PCBA |
+| **main board** | the assembled PCB lying flat on the cold-core lid that drives the valves, pumps and compressor | the board, the base, the controller, controller PCBA, the PCBA |
 | **foam cap** | the printed piece closing one end of the foam shell — one per end, two per machine | |
 | **foam pour lid** | the piece closing the pour opening in a foam cap after the foam goes in | |
 | **foam cap gasket** | the TPU disc sealing a foam cap to the foam shell | |
 | **boss** | material round a socket that a part fastens into — a post, or a plate one socket thick | |
 | **barbed lip** | the catch on a telescoping seam's lip that holds the seam shut against pulling apart, so the joint resists separation along its own axis rather than leaving that to the screws crossing it | snap, snap-fit lip, detent, catch |
-| **anchor** | a printed feature a body seats in and a zip tie or an anchor cap closes over | anchor point |
+| **anchor** | a printed feature a body seats in and a zip tie closes over | anchor point |
 | **zip tie** | the fastener that closes over an anchor | strap |
 | **cable clip** | the printed wall-integrated S-channel that routes and strain-relieves a cable; its embedment sets how far it stands proud | cable organizer, cord clip |
-| **ASSE anchor** | the anchor holding the ASSE 1022 chain, over the ASSE drip pan | tap-water trough |
-| **+X wall of back-top** | the east flank of the rear upper quadrant, carrying the main board and its relay | |
+| **ASSE anchor** | either of the two back-top roof saddles the bare ASSE 1022 seats in, each closed by a zip tie | tap-water trough |
+| **+X wall of back-top** | the east flank of the rear upper quadrant, carrying V-K's seat, the flow meter's carriers and the gas group's saddles | |
 | **+Y wall of back-top** | the rear face of the same quadrant, carrying every through-wall crossing | rear wall, back wall, back panel |
 | **compressor bay** | the volume in the enclosure's front-bottom the compressor and condenser stand in | refrigeration bay, refrigeration stratum, refrigeration compartment |
-| **electronics bay** | the +X lane of back-top, where the main board, PSU, both relay modules and the AC inlet bolt to the wall's bosses | electronics bay, electronics shelf |
+| **electronics bay** | the space over the cold-core lid under back-top: the main board flat on the lid, the PSU and both relay modules on back-top's west wall, the AC inlet and mains WAGOs on its +Y wall | electronics bay, electronics shelf |
 | **pump cradle** | `enclosure-pump-cartridge`, the printed piece both pumps stand in under the top clamp, forming the machine's front face across the pump bay | pump cartridge, cartridge |
 | **pump bay** | the compartment in `enclosure-front-top` the pump cradle stands in | |
 | **collet plate** | the tee wall's fore band across the pump bay, with one hole for each pump tee's tube and extended collet | release face |
-| **tee carrier** | `enclosure-tee-carrier-plate`, the printed plate that carries the four barb tees Y-C, Y-D, Y-F and Y-G through both front flanks | moving plate, carrier halves |
-| **bowed flex stub** | one of the four short formed LLDPE links between a moving barb tee and fixed V-E/F/H/I, specified by exposed developed path rather than blank cut length | bow tube, flexible butt |
+| **tee carrier** | `enclosure-tee-carrier-plate`, the printed plate that carries the four barb tees Y-C, Y-D, Y-F and Y-G through both front flanks in the Lillium build | moving plate, carrier halves |
+| **bowed flex stub** | in the Lillium build, one of the four short formed LLDPE links between a moving barb tee and fixed V-E/F/H/I, specified by exposed developed path rather than blank cut length | bow tube, flexible butt |
 | **collet press** | the printed 1/4-inch U-jaw and raised handle that depresses a push-connect collet around its tube | release tool, disconnect tool |
 | **counterbore** | the flat-bottomed pocket a cylindrical DIN 912 socket-head cap screw drops into, its head flush or under the face | countersink, countersunk, recess |
 | **station** | one fastener position: where a screw crosses a joint or holds a part, named by what it fastens | heat-set boss, boss (when the position is meant) |
@@ -104,9 +104,8 @@ to **Derek approved** when he recognises them, or are replaced when he doesn't.
 | Name | Point at | Not |
 | --- | --- | --- |
 | **holder** | one printed Gridfinity module of `printed-parts/shop-storage/`, holding one kind of thing | tool tray, tool caddy, organizer, bin |
-| **anchor cap** | the printed half pipe pressed on over a tube in its anchor, its two wings' lips catching a window in each of the rib's flanks, closing the anchor in place of a zip tie | tube clip, snap cap, saddle |
 | **tee wall** | front-top's bay bulkhead, one flat slab whose fore band is the collet plate, with a bore through it for each pump tee's branch | |
-| **window cover** | `enclosure-window-cover-west` and `-east`, the printed slabs that close each front flank's tee-carrier window aft of the seated carrier, each hung on a post of front-top's | cosmetic hole covering plate |
+| **window cover** | `enclosure-window-cover-west` and `-east`, the printed slabs that close each front flank's tee-carrier window aft of the seated carrier in the Lillium build, each hung on a post of front-top's | cosmetic hole covering plate |
 | **Sculpted** | the faucet style with smooth curves and softly blended transitions | Arc |
 | **Industrial** | the faucet style with simple cylinders and crisp, pronounced shoulders | Stepped |
 | **tub** | a holder that is an open bin, plain or divided: loose stock, and anything that just stands | drawer, box |
