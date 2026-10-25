@@ -1,0 +1,87 @@
+{
+  "views": [
+    {
+      "name": "run",
+      "caption": "From the east: the Reservoir A draw tube's aft run now stays low under V-K and its port barrel.",
+      "before": "run-before.webp",
+      "after": "run-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 316.7,
+          "y": 501.4,
+          "r": 60,
+          "label": "Lowered under V-K",
+          "at": [
+            78.5,
+            325,
+            264.3
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          661.0241912949303,
+          413.92290295539163,
+          443.3072573884791
+        ],
+        "target": [
+          70,
+          343,
+          266
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 30,
+        "near": 428.7482977273177,
+        "far": 1101.6173634769975,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "tube-fluid-16"
+      ],
+      "ghost": [],
+      "only": [
+        "tube-fluid-16",
+        "vk-solenoid",
+        "lower-valve-elbow",
+        "wire-J2-OUT3",
+        "wire-J4-V5",
+        "wire-J4-IO25",
+        "cold-core/foam-cap-lid-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "dd9ec2ecd7e371556510c02ff2eb3b5b1ea64c2b94292535b798fa4914f71588",
+          "commit": "c74cddbf282255ee5705cc62275bbe99bf3101d4",
+          "taken": "2026-10-25T08:45:21.350Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "9729f81f2425246186ac3a00be4c11a91aa859fbc36fed5c0664b6fcf0cdd88e",
+          "commit": "b28fe140b252d22f0a3ed85f99293cbe38a52c94",
+          "taken": "2026-10-25T09:24:16.103Z",
+          "published": true
+        }
+      },
+      "changed": [
+        "ya-stem-elbow",
+        "yb-stem-elbow",
+        "tube-fluid-16",
+        "cold-core/foam-cap-lid-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
