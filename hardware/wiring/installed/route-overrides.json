@@ -869,33 +869,81 @@
       {
         "terminal": "psu.GND",
         "offset": [
-          34.19999,
-          -52.26668,
-          -7.0
+          0.0,
+          -6.00001221,
+          -20.3
         ]
       },
       {
         "terminal": "psu.GND",
         "offset": [
-          42.19999,
-          -60.26668,
-          -7.0
+          -10.2,
+          -18.00001221,
+          -20.3
         ]
       },
       {
         "terminal": "psu.GND",
         "offset": [
-          48.19999,
-          -70.26668,
-          -3.0
+          -10.2,
+          -34.00001221,
+          -20.3
         ]
       },
       {
         "terminal": "psu.GND",
         "offset": [
-          56.19999,
-          -78.26668,
-          -3.0
+          62.0,
+          -34.00001221,
+          -20.3
+        ]
+      },
+      {
+        "terminal": "psu.GND",
+        "offset": [
+          62.0,
+          -34.00001221,
+          -1.6
+        ]
+      },
+      {
+        "terminal": "psu.GND",
+        "offset": [
+          62.0,
+          -69.50001221,
+          -1.6
+        ]
+      },
+      {
+        "terminal": "psu.GND",
+        "offset": [
+          91.8,
+          -69.50001221,
+          -1.6
+        ]
+      },
+      {
+        "terminal": "psu.GND",
+        "offset": [
+          91.8,
+          -96.00001221,
+          -1.6
+        ]
+      },
+      {
+        "terminal": "psu.GND",
+        "offset": [
+          76.0,
+          -96.00001221,
+          -1.6
+        ]
+      },
+      {
+        "terminal": "psu.GND",
+        "offset": [
+          76.0,
+          -96.00001221,
+          -15.8
         ]
       }
     ],
@@ -905,36 +953,109 @@
     ],
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
-    "route_status": "unresolved_after_psu_move",
-    "note": "The PSU terminal follows its selected back-top native pose; these guide stations require a local refit around V-A and the PCB fittings. Installed clearance is unresolved."
+    "route_status": "native_review_pending",
+    "note": "The back-top PSU secondary exits west of V-A, crosses above the aft PCB housings and reaches its core junction from above. Its source-native stock/contact review is in progress; physical bend, entry and dressing remain unqualified."
   },
   "DC1-V12": {
     "stations": [
       {
         "terminal": "psu.V12",
         "offset": [
-          42.19999,
-          -76.26668,
-          7.0
+          -8.2,
+          -3.60001221,
+          0.0
         ]
       },
       {
         "terminal": "psu.V12",
         "offset": [
-          62.19999,
-          -122.26668,
-          7.0
+          -8.2,
+          -10.00001221,
+          -14.4
+        ]
+      },
+      {
+        "terminal": "psu.V12",
+        "offset": [
+          -8.2,
+          -18.00001221,
+          -25.4
+        ]
+      },
+      {
+        "terminal": "psu.V12",
+        "offset": [
+          -8.2,
+          -36.00001221,
+          -25.4
+        ]
+      },
+      {
+        "terminal": "psu.V12",
+        "offset": [
+          62.0,
+          -36.00001221,
+          -25.4
+        ]
+      },
+      {
+        "terminal": "psu.V12",
+        "offset": [
+          62.0,
+          -36.00001221,
+          -12.9
+        ]
+      },
+      {
+        "terminal": "psu.V12",
+        "offset": [
+          62.0,
+          -67.00001221,
+          -12.9
+        ]
+      },
+      {
+        "terminal": "psu.V12",
+        "offset": [
+          88.3,
+          -67.00001221,
+          -12.9
+        ]
+      },
+      {
+        "terminal": "psu.V12",
+        "offset": [
+          88.3,
+          -125.00001221,
+          -12.9
+        ]
+      },
+      {
+        "terminal": "psu.V12",
+        "offset": [
+          76.0,
+          -125.00001221,
+          -12.9
+        ]
+      },
+      {
+        "terminal": "psu.V12",
+        "offset": [
+          76.0,
+          -125.00001221,
+          -23.8
         ]
       }
     ],
     "end_lands_mm": [
-      6.0,
+      3.6,
       8.0
     ],
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
-    "route_status": "unresolved_after_psu_move",
-    "note": "The PSU terminal follows its selected back-top native pose; these guide stations require a local refit around V-A and the PCB fittings. Installed clearance is unresolved."
+    "route_status": "native_review_pending",
+    "note": "The back-top PSU secondary exits west of V-A, crosses above the aft PCB housings and reaches its core junction from above. Its source-native stock/contact review is in progress; physical bend, entry and dressing remain unqualified.",
+    "endpoint_tangent_fraction": 0.9
   },
   "DC4-GND": {
     "stations": [
