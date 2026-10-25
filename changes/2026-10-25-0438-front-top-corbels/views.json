@@ -1,0 +1,82 @@
+{
+  "views": [
+    {
+      "name": "ledge",
+      "caption": "A section through front-top's west funnel-seat ledge: a 45° corbel now carries the ledge from the wall.",
+      "before": "ledge-before.webp",
+      "after": "ledge-after.webp",
+      "width": 1200,
+      "height": 900,
+      "model": "printed-parts/enclosure/enclosure/enclosure.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -248.82619223585976,
+          -307.75397411953264,
+          215.31150647011685
+        ],
+        "target": [
+          -98,
+          195,
+          341
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 11,
+        "near": 264.37801808003155,
+        "far": 849.0847385555779,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            -97.5,
+            195,
+            343
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure_front_top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure_front_top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "snapshot",
+          "sha256": "bfc6e3b9c6f86e15c1f2e775fdc3a5f9a9ce1ebd18e9e3c2dca9dc64a8317b58",
+          "commit": "b28fe140b252d22f0a3ed85f99293cbe38a52c94",
+          "taken": "2026-10-25T09:24:16.103Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "tree",
+          "sha256": "57a08f8ca6aea622a5ea53c133f284056d9bdb73339b86d2ee473d8a330b10a9",
+          "commit": "5e0fc16751fe3836acaa478543c9a12dd5cce454",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure_front_top",
+        "enclosure_back_bottom"
+      ],
+      "withinMeshing": [
+        "enclosure_front_bottom",
+        "enclosure_pump_cartridge",
+        "enclosure_back_top"
+      ]
+    }
+  ]
+}
