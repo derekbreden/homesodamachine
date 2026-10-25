@@ -27,7 +27,8 @@ Both reservoir bodies and caps clear the finished shell in the native check.
 
 [Native review](native-review.json), [wall-path review](wall-path-review.json),
 [settings](settings.json), [preparation](preparation.json),
-[prelaunch](prelaunch.json) and [launch receipt](launch.json) bind this job.
+[prelaunch](prelaunch.json), [launch receipt](launch.json) and
+[startup readback](postlaunch.json) bind this job.
 All 30 sampled ordinary wall sections contain six perimeter paths. Feature
 junctions and hardware hosts retain their local filling paths and stock.
 

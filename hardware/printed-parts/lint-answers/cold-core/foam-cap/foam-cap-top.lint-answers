@@ -12,8 +12,8 @@ click: x=-81.793 y=-28.897 z=13.242
 click: x=-13.036 y=55.417 z=14.450
 click: x=-14.079 y=53.819 z=13.242
 
-[thin] Outside this pass and reported to Derek: the cold-core stack's shared 2 mm section. The casing is 2.0 mm of wall behind 1.2 mm show flutes, the same section the shell and every cap and lid carry, and each conduit column keeps the shared 2.0 mm wall round its Ø7.5 bore. The readings sit at the flute troughs and on those column walls.
-alternatives: A 3 mm casing grows the whole stack's footprint or takes a millimetre a side from the foam, and Derek's printed shell carries the present section. 3 mm conduit walls widen every column by 2 mm, into the 1.5 mm pour gaps the cup keeps beside the casing and between columns. Either is a stack revision, not a local fix.
+[thin] Specified cold-core section: Derek selected smooth 2.38 mm standing casing walls and conduit stock for the whole casing, with three Classic loops from each boundary. This is the cold-core exception to the enclosure's ordinary 3 mm section; printed strength and lifetime are not established by the slice.
+alternatives: A 3 mm section changes the selected six-bead packing and takes additional foam space; the current section is Derek's explicit geometry choice.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step
 click: x=-135.740 y=-12.473 z=13.432
 click: x=-133.809 y=-12.991 z=13.434
@@ -26,7 +26,7 @@ click: x=134.632 y=-26.755 z=2.760
 click: x=113.050 y=-20.563 z=7.992
 click: x=115.050 y=-20.563 z=8.000
 
-[thin] Outside this pass and reported to Derek: the cup's 2 mm floor, kept where pockets and passages run over it. The floor is the stack's 2.0 mm floor section above its 0.15 mm seat clearance, which leaves 2.05 mm under the B-fill pockets. The horizontal water-in and soda traverses keep 2.10 mm of backing beneath their bores.
+[thin] Specified cup-floor section: Derek selected the 2.38 mm vertical casing while retaining the existing 2 mm floors, pocket heights and passage datums. The floor is the stack's 2.0 mm floor section above its 0.15 mm seat clearance, which leaves 2.05 mm under the B-fill pockets. The horizontal water-in and soda traverses keep 2.10 mm of backing beneath their bores.
 alternatives: A 3 mm floor raises the traverses and pockets a millimetre in a 14.65 mm cup, which moves where their R14 bends cross into the lid, or makes the cup taller and moves the cap face.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step
 click: x=86.951 y=-46.731 z=0.150

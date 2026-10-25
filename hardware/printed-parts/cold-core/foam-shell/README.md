@@ -95,11 +95,9 @@ arc segments along its length:
    envelope, running from y = −[60 mm](POCKET_ARC_TRANSITION_Y) to y = +[60 mm](POCKET_ARC_TRANSITION_Y).
 2. Two **transition segments**, one at each ±Y end — short
    [8.42 mm](TRANSITION_ARC_R)-radius arcs that swing the wall out from
-   the middle arc to the pocket's ±Y wall. Each transition arc is
-   tangent to the middle arc and to the ±Y outboard face; its
-   carbonator-side face has radius [8.42 mm](TRANSITION_ARC_R) and its
-   cavity-side face is concentric with the same center but a slightly
-   smaller radius derived from geometry.
+   the middle arc to the pocket's ±Y wall. The cavity transition keeps its
+   fixed mating profile; the foam-facing boundary is its 2.38 mm offset,
+   with rounded joins where the curve segments meet.
 
 The two **far-side corners** (where the far +X wall meets the ±Y
 walls) are filleted: **[6.25 mm](POCKET_CORNER_R) inner radius**,
