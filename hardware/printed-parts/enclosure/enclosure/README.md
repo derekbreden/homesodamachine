@@ -850,12 +850,12 @@ turn in its build item. `enclosure-front-bottom-petgf.3mf` and `enclosure-back-b
 exterior settings of `enclosure-front-top-petgf.3mf` around their own mesh — the same clones
 `enclosure-pump-cap-petgf.3mf` and `enclosure-pump-cartridge-petgf.3mf` are; the pump cap's
 build item carries a half turn about X, the crown on the bed.
-`enclosure-back-top-petgf.3mf` is the one piece on its own 0.24 mm process, and the other whose build item carries a half turn about X. Each retained slice records its model and profile digests. The pump cap's, front-top's and front-bottom's readings are 2026-10-25 Mark1 slices of the current pieces (STLs `fa10132c600a`, `317721279647` and `1a1c2762f71e`; recipe `45c16e8c8517`). The recorded support counts are:
+`enclosure-back-top-petgf.3mf` is the one piece on its own 0.24 mm process, and the other whose build item carries a half turn about X. Each retained slice records its model and profile digests. The pump cap's, front-top's and front-bottom's readings are 2026-10-25 Mark1 slices of the current pieces (STLs `fa10132c600a`, `317721279647` and `1a1c2762f71e`; recipe `45c16e8c8517`), and back-bottom's is a 2026-10-25 Mark2 slice (STL `a967b77ebfbc`). The recorded support counts are:
 
 | piece | bodies | interface islands | root | shortest build-up |
 |---|---|---|---|---|
 | `enclosure-pump-cap` | 2 | 2 | bed | 14.16 mm |
-| `enclosure-back-bottom` | 4 | 5 | 3 bed, 1 model | 8.60 mm |
+| `enclosure-back-bottom` | 4 | 12 | 3 bed, 1 model | 8.16 mm |
 | `enclosure-front-bottom` | 4 | 4 | 2 bed, 2 model | 7.92 mm |
 | `enclosure-back-top` | 13 | 35 | 2 bed, 11 model | 1.44 mm |
 | `enclosure-front-top` | 2 | 6 | bed | 96.95 mm |
@@ -871,13 +871,16 @@ middle and on both flanks; each of its islands has an open lane down to the mout
 +Y. The other feeds the two east WAGO pocket roofs, Z258.15 and Z292.05, and leaves through
 the pockets' open inboard face. The shortest build-up is 96.95 mm. Remove these bodies through
 the empty bay and funnel opening before installing the hardware.
-Four bed-rooted bodies carry the handhold ceilings, one per flank on each bottom piece:
-34.08 mm of build-up on front-bottom and 34.20 mm on back-bottom. Each comes out through the open bottom. The other bottom-quadrant supports carry one feature
+Four bed-rooted bodies carry the handhold ceilings, one per flank on each bottom piece,
+each with 34.08 mm of build-up, and each comes out through the open bottom. On back-bottom
+the edge fins split each ceiling's contact into several islands, and the same two bodies also
+stand in the M5 head counterbores above the handholds at Z39.8–40.3, 45.6 mm up; each is
+walled by its bore and leaves downward through the counterbore's mouth and the handhold. The other bottom-quadrant supports carry one feature
 standing on all four flanks: the **Z seam's slide-head catch**, the joint's one down-looking flat and the
 whole of its bearing against lift. Back-bottom's west catch reaches the bed from outside its
 flank through the 12 mm PRV passage that crosses it — the same opening that splits that catch
 into two interface islands. The other three have no lane to the bed and root on the arm's own 45°
-under-flare below the catch they carry: 7.92 mm for front-bottom's pair and 8.60 mm
+under-flare below the catch they carry: 7.92 mm for front-bottom's pair and 8.16 mm
 for back-bottom's east catch. These are the material-rooted bodies on the two bottoms, and the
 reading says nothing about what they cost: the groove under a catch is open air from the arm's
 sliding face out past the exterior plane, so each of the four stands on the outside of its flank
@@ -896,7 +899,7 @@ pan is inserted. Each actual body and contact has a removal route through the
 empty shell; release contacts and break sacrificial branches before installing
 hardware. Native access and protected-face sweeps establish geometric lanes;
 physical cleanup effort and finish remain observations of the print.
-Back-bottom's two slide-head bodies carry the broad flat undersides: the west run from the bed through the PRV passage and the east from the arm's under-flare 8.60 mm below.
+Back-bottom's two slide-head bodies carry the broad flat undersides: the west run from the bed through the PRV passage and the east from the arm's under-flare 8.16 mm below.
 
 ## Print orientation + corner relief
 
