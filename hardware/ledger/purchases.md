@@ -157,6 +157,8 @@ Feed-water inlet, filter, ASSE 1022 backflow preventer and its vent-line hardwar
 | <!--purchase:pur-2adc38c7f40a47c0a7ce61c92ac8671d--> John Guest Speedfit **ASVPP1LF** angle stop adapter valve, 3/8" × 3/8" × 1/4", lead-free push-to-connect — one single of the same fitting the bag of ten on WEBFWS100707201 carries. $15.28 + $1.11 NE tax | [B003YKF2JC](https://www.amazon.com/dp/B003YKF2JC) | 1 | $16.39 | 112-4818896-3446652 | 2026-09-08 | 2026-09-09 | ACQUIRED |
 | <!--purchase:pur-65c979f1bb194148918426361d985f73--> Fresh Water Systems order WEBFWS100711469 — neoFit **ABU44M-E** acetal black bulkhead connector, 4 mm (5/32") tube (bag of 10) + neoFit **ARD4M4-E** stem reducer, 4 mm tube × 1/4" stem (bag of 10) + neoFlo **LLDPE4M-WHITE** white 4 mm OD LLDPE tubing (4 × 25 ft) | [FWS](https://www.freshwatersystems.com/), [Gmail confirmation](https://mail.google.com/mail/u/0/#search/WEBFWS100711469) | 3 line items | $109.98 | WEBFWS100711469 | 2026-10-07 | 2026-10-09 | ACQUIRED (ground, 4–5 business days. Merchandise by line: ABU44M-E $27.58; ARD4M4-E $11.89; white 4 mm tubing $18.00 for 100 ft — $57.47 merchandise + $45.07 shipping + $7.44 tax. Hardware for the ASSE 1022 vent's DRAIN line to the faucet) |
 | <!--purchase:pur-03fa2eeee1cd4eae8e6991441f9f90ed--> Fresh Water Systems order WEBFWS100711471 — neoFit **AEU44-E** acetal black union elbow, 1/4" tube × 1/4" tube (bag of 10) + neoFit **ATBC44-E** stem barb connector, 1/4" stem × 1/4" barb (bag of 10) | [FWS](https://www.freshwatersystems.com/), [Gmail confirmation](https://mail.google.com/mail/u/0/#search/WEBFWS100711471) | 2 line items | $41.18 | WEBFWS100711471 | 2026-10-07 | 2026-10-09 | ACQUIRED (2 business days. Merchandise by line: AEU44-E $16.14; ATBC44-E $9.00 — $25.14 merchandise + $13.25 shipping + $2.79 tax. The rest of the ASSE 1022 vent's DRAIN line, between the vent hose and the ARD4M4-E reducer on WEBFWS100711469) |
+| <!--purchase:pur-abd647629bfa41e1ae7de9bf129dbf44--> YZMSZ 1/4" OD fixed 0.3 MPa (3 kg) water pressure-reducing valve, native push-to-connect ports — the clean-water regulator ([reference](/hardware/reference/yzmsz-water-regulator/README.md)). $11.99 + $0.87 tax | [B0CGS34P93](https://www.amazon.com/dp/B0CGS34P93) | 1 | $12.86 | 112-6255534-2742635 | 2026-10-23 | — | ON-ORDER |
+| <!--purchase:pur-2c46198fe81f4cf7bf5a65d4e4ec638a--> Frizzlife PRV01 water pressure regulator, 60 psi, 1/4" quick-connect push-fit ports ([reference](/hardware/reference/frizzlife-prv01/README.md)). $10.99 + $0.80 tax | [B08NDQCZN2](https://www.amazon.com/dp/B08NDQCZN2) | 1 | $11.79 | 112-7854933-1604224 | 2026-10-23 | — | ON-ORDER |
 
 ## 4. Carbonator plumbing (pressurized side)
 
@@ -806,16 +808,16 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | Acquired hardware valuation — includes replaced/returned originals | [$39,487.86](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,519.51](LEDGER_LABOR) |
 | Acquired procurement valuation (combined) | [$46,007.37](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$1,012.04](LEDGER_ON_ORDER) |
+| ON-ORDER | [$1,036.69](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Recorded procurement valuation — includes commitments** | [$47,072.48](LEDGER_GRAND_TOTAL) |
+| **Recorded procurement valuation — includes commitments** | [$47,097.13](LEDGER_GRAND_TOTAL) |
 
 Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
-| Final vendor amounts | [$20,774.12](LEDGER_FINAL_VENDOR) |
+| Final vendor amounts | [$20,798.77](LEDGER_FINAL_VENDOR) |
 | Estimated amounts | [$2,308.68](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$23,989.68](LEDGER_LEGACY_UNVERIFIED) |
 

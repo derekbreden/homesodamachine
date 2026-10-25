@@ -7722,7 +7722,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:f247d697abb897a385c6ed9f8a53aa7e3930d70fd5a8addbdb471219dde192a4",
+  "input_fingerprint": "sha256:41ed0759d1b92660f209a217fa539bdfa72859ed15cc15ab4848156e87e5d0e5",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -10558,6 +10558,23 @@
       "event_ids": [],
       "order_date": {
         "precision": "day",
+        "value": "2026-10-23"
+      },
+      "order_id": "amazon:112-6255534-2742635",
+      "purchase_ids": [
+        "pur-abd647629bfa41e1ae7de9bf129dbf44"
+      ],
+      "reference": "112-6255534-2742635",
+      "source_ids": [
+        "src-b822cdd28ba249e6afcbe01ecef2028a"
+      ],
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [],
+      "order_date": {
+        "precision": "day",
         "value": "2026-09-02"
       },
       "order_id": "amazon:112-6302698-6065059",
@@ -11203,6 +11220,23 @@
       "reference": "112-7818515-5395414",
       "source_ids": [
         "saved-amazon:112-7818515-5395414"
+      ],
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-23"
+      },
+      "order_id": "amazon:112-7854933-1604224",
+      "purchase_ids": [
+        "pur-2c46198fe81f4cf7bf5a65d4e4ec638a"
+      ],
+      "reference": "112-7854933-1604224",
+      "source_ids": [
+        "src-4bc981aabe95468aa245b2cf12174dfe"
       ],
       "vendor": "Amazon"
     },
@@ -21780,6 +21814,50 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-amazon:112-0066205-0960237"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "final_vendor_amount",
+      "amount_minor": 1179,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "Frizzlife PRV01 water pressure regulator, 60 psi, 1/4\" quick-connect push-fit ports (reference). $10.99 + $0.80 tax",
+      "event_ids": [],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-2c46198fe81f4cf7bf5a65d4e4ec638a",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-23"
+      },
+      "order_ids": [
+        "amazon:112-7854933-1604224"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-2c46198fe81f4cf7bf5a65d4e4ec638a",
+      "purpose": "components",
+      "quantity": 1,
+      "quantity_text": "1",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-23"
+      },
+      "row_date_basis": "order_date",
+      "section": "3. Water supply + backflow prevention",
+      "service_period": null,
+      "source_ids": [
+        "src-4bc981aabe95468aa245b2cf12174dfe"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -38220,6 +38298,50 @@
       "split_charge": false,
       "stream": "purchase",
       "unit_amount_minor": 1500,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "final_vendor_amount",
+      "amount_minor": 1286,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "YZMSZ 1/4\" OD fixed 0.3 MPa (3 kg) water pressure-reducing valve, native push-to-connect ports — the clean-water regulator (reference). $11.99 + $0.87 tax",
+      "event_ids": [],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-abd647629bfa41e1ae7de9bf129dbf44",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-23"
+      },
+      "order_ids": [
+        "amazon:112-6255534-2742635"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-abd647629bfa41e1ae7de9bf129dbf44",
+      "purpose": "components",
+      "quantity": 1,
+      "quantity_text": "1",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-23"
+      },
+      "row_date_basis": "order_date",
+      "section": "3. Water supply + backflow prevention",
+      "service_period": null,
+      "source_ids": [
+        "src-b822cdd28ba249e6afcbe01ecef2028a"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
       "vendor": "Amazon"
     },
     {
@@ -56495,6 +56617,22 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-10-24"
+      },
+      "document_type": "order_details",
+      "note": "Signed-in Amazon order history and individual order details: one Frizzlife PRV01 water filter pressure regulator, 60 PSI, 1/4\" quick connect push fit, ASIN B08NDQCZN2, sold by Frizzlife solutions; $10.99 item subtotal, $0.00 shipping, $0.80 estimated tax and $11.79 grand total; ordered 2026-10-23. The order shows Arriving Monday; no charge or delivery is established.",
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "reference": "112-7854933-1604224",
+      "source_id": "src-4bc981aabe95468aa245b2cf12174dfe",
+      "vendor": "Amazon",
+      "verified_at": "2026-10-24"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-03-31"
       },
       "document_type": "merchant_monetary_receipt",
@@ -58407,6 +58545,22 @@
       "source_id": "src-b7c9052f1b294c9fa5fe7f2df7b13763",
       "vendor": "Anthropic",
       "verified_at": "2026-10-04"
+    },
+    {
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-24"
+      },
+      "document_type": "order_details",
+      "note": "Signed-in Amazon order history and individual order details: one YZMSZ 1/4\" O.D. 0.3 MPa (3 kg) non-adjustable water pressure-reducing valve with push-to-connect fittings, ASIN B0CGS34P93, sold by YZMGO; $11.99 item subtotal, $0.00 shipping, $0.87 estimated tax and $12.86 grand total; ordered 2026-10-23. The order shows Arriving Monday; no charge or delivery is established.",
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "reference": "112-6255534-2742635",
+      "source_id": "src-b822cdd28ba249e6afcbe01ecef2028a",
+      "vendor": "Amazon",
+      "verified_at": "2026-10-24"
     },
     {
       "document_date": {
@@ -60644,13 +60798,14 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 101204,
+          "amount_minor": 103669,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
             "pur-1ead43e8eead4989adf3de560d23febe",
             "pur-250afee3f9d341c9a9d18d4e33c0fd0e",
             "pur-25f35741f88e40729bec555987f79640",
+            "pur-2c46198fe81f4cf7bf5a65d4e4ec638a",
             "pur-3ce173932d6c45f184bcd60237a2c790",
             "pur-43767918757a4173a8b69a9b725d64fd",
             "pur-4eaf76e6557740d7b0e85e0be8664f71",
@@ -60661,6 +60816,7 @@
             "pur-a02ce33a2d984d9fbea615cbad793ab3",
             "pur-a61e59a7635c4aa0887475454ad04b04",
             "pur-a667e3ee975c42218852bc7b225d75a8",
+            "pur-abd647629bfa41e1ae7de9bf129dbf44",
             "pur-d8a8a1e239ff48b6a6b19c43e22b4858",
             "pur-f4ddddb90dbd4ae2bba5008f74f8d4b6"
           ],
@@ -60682,6 +60838,7 @@
         "pur-1ead43e8eead4989adf3de560d23febe",
         "pur-250afee3f9d341c9a9d18d4e33c0fd0e",
         "pur-25f35741f88e40729bec555987f79640",
+        "pur-2c46198fe81f4cf7bf5a65d4e4ec638a",
         "pur-3ce173932d6c45f184bcd60237a2c790",
         "pur-43767918757a4173a8b69a9b725d64fd",
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
@@ -60692,6 +60849,7 @@
         "pur-a02ce33a2d984d9fbea615cbad793ab3",
         "pur-a61e59a7635c4aa0887475454ad04b04",
         "pur-a667e3ee975c42218852bc7b225d75a8",
+        "pur-abd647629bfa41e1ae7de9bf129dbf44",
         "pur-b6c01a5b012340fc888139c1070dc054",
         "pur-c887374045604177851c4a81cc779f0e",
         "pur-d8a8a1e239ff48b6a6b19c43e22b4858",
@@ -61706,7 +61864,7 @@
           "currency": "USD",
           "estimate_minor": 66815,
           "evidence_scope": "retrieved_records_only",
-          "final_vendor_amount_minor": 122191,
+          "final_vendor_amount_minor": 124656,
           "legacy_unverified_minor": 30634,
           "month": "2026-10",
           "purchase_ids": [
@@ -61717,6 +61875,7 @@
             "pur-250afee3f9d341c9a9d18d4e33c0fd0e",
             "pur-25f35741f88e40729bec555987f79640",
             "pur-27bb6c07598243e390e2ca407e908695",
+            "pur-2c46198fe81f4cf7bf5a65d4e4ec638a",
             "pur-3ce173932d6c45f184bcd60237a2c790",
             "pur-406788001c4d41f39213bbd4ec7a35ad",
             "pur-43767918757a4173a8b69a9b725d64fd",
@@ -61736,6 +61895,7 @@
             "pur-a02ce33a2d984d9fbea615cbad793ab3",
             "pur-a61e59a7635c4aa0887475454ad04b04",
             "pur-a667e3ee975c42218852bc7b225d75a8",
+            "pur-abd647629bfa41e1ae7de9bf129dbf44",
             "pur-ad87bb1e2d7548aa9fdf66293915a4f4",
             "pur-b03a2dd1d7054c408d12d07ac3eaa1ec",
             "pur-c08cee116c73400bae488deb2d2015f4",
@@ -61748,7 +61908,7 @@
             "pur-f7d7511ce9394cae80352c28342d27fd",
             "pur-f98feadd5dec4c1cba460dd7c74baa09"
           ],
-          "total_minor": 219640,
+          "total_minor": 222105,
           "unknown_amount_ids": []
         },
         {
@@ -61776,7 +61936,7 @@
       ],
       "purpose_totals": [
         {
-          "amount_minor": 1128042,
+          "amount_minor": 1130507,
           "currency": "USD",
           "purpose": "components"
         },
@@ -61815,9 +61975,9 @@
         {
           "currency": "USD",
           "estimate_minor": 230868,
-          "final_vendor_amount_minor": 2077412,
+          "final_vendor_amount_minor": 2079877,
           "legacy_unverified_minor": 2398968,
-          "total_minor": 4707248
+          "total_minor": 4709713
         }
       ],
       "undated_unallocated": [
@@ -61975,7 +62135,7 @@
           "legacy_unverified_purchase_minor": 2398968,
           "order_only_charge_allocation_minor": 6561,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 2948116,
+          "purchases_without_merchant_charge_minor": 2950581,
           "undated_charge_minor": 57998,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 922346,
@@ -62665,6 +62825,7 @@
         "pur-2b1b4051619a4c01885f6d2ca0f72b84",
         "pur-2b9c812ca2194e2d9ae2537dd7079c90",
         "pur-2be9e821f4bd485c95fd41765171b1ba",
+        "pur-2c46198fe81f4cf7bf5a65d4e4ec638a",
         "pur-2cab9c5a03c04046937351ade4988f85",
         "pur-2d770e60452041f4b4ab24b5ac7e7271",
         "pur-2dcd0fd2d5a54c14b3a06b2fafc1f1ea",
@@ -62936,6 +63097,7 @@
         "pur-ab0a53e3b8ab4340aaa9a4612b4ddb00",
         "pur-ab6c1aedc885487f9041593fc16cc55f",
         "pur-abc14bfb204440ea95552fa9d52b468c",
+        "pur-abd647629bfa41e1ae7de9bf129dbf44",
         "pur-adb86d9b3bbd4c5cacd3e74beda4c9d2",
         "pur-ade22aba11974e1d9fe5963fbb9f2d40",
         "pur-ae7d727516254dc59f65e97677d5ac9a",
@@ -63323,7 +63485,7 @@
       "coverage-fee7edc5545c4ce58fba854587790eb4: evidence coverage is partial",
       "Legacy order 112-0019658-3684217: row valuation USD 139.80, preserved project invoice USD 139.81; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
       "Legacy order 112-0066205-0960237: row valuation USD 423.94, preserved project invoice USD 423.95; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
-      "2 legacy named order(s) lack an exact invoice allocation check",
+      "4 legacy named order(s) lack an exact invoice allocation check",
       "1 preserved potentially project order(s) have no named Markdown row"
     ]
   }
