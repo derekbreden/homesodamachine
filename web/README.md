@@ -8,6 +8,8 @@ The hardware/firmware/CAD content the site presents lives in [`hardware/`](/hard
 
 The [website style guide](https://homesodamachine.com/style-guide) is a small working example page for agents and contributors. Read it when adding or changing a web surface. It shows text and color roles, links, buttons, search, selected material rows, tabs and an expandable cost panel, with usage notes, copyable markup and production source links.
 
+The home page sets the visual language: Montserrat, cobalt introductions, pale content surfaces, navy text and orange accents. [`public/css/site.css`](public/css/site.css) shares its 84rem outer width, responsive gutters, type scale and navigation alignment. Interior pages use `renderPageHeader`, a `site-content` main and `renderFooter({ siteFooter: true })` from [`lib/shell.js`](lib/shell.js). Text articles keep a narrower reading column inside those proportions. Immersive CAD tools retain their dark work surfaces; the model shelf uses pale backgrounds and separately rendered thumbnails. Owner pages and the document reader share the typeface and surface colors with layouts suited to setup and reading.
+
 [`lib/style-guide.js`](/web/lib/style-guide.js) uses the shared shell, the exported cost and landing-button CSS, and [`public/css/materials.css`](/web/public/css/materials.css) directly. [`public/css/style-guide.css`](/web/public/css/style-guide.css) supplies documentation layout; [`public/style-guide.js`](/web/public/style-guide.js) supplies local demonstrations and reads displayed font sizes and colors from the browser. Match an existing pattern by its role and importance. Add examples when another reusable pattern needs a reference; correct existing pages where a specific problem is identified.
 
 ## Home page audience

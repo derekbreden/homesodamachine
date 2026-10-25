@@ -17,7 +17,7 @@
 // tap (iOS opens at the link directly) tells us which row to mark seen.
 // The page's HEAD_TAGS reads ?n on load and POSTs /api/notifications/seen.
 
-import { renderHead, renderNav, renderFooter } from "./shell.js";
+import { renderHead, renderNav, renderPageHeader, renderFooter } from "./shell.js";
 import { NOTIF_ICON_BY_KIND } from "./icons.js";
 
 // Append ?n=<id> (or &n=<id> if there's already a query) to a URL,
@@ -161,19 +161,9 @@ function renderNotificationsPage() {
   return (
     renderHead({
       title: "Notifications",
+      pageClass: "site-interior",
       pageStyles: `
-.notifs-page {
-  flex: 1;
-  width: 100%;
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 16px
-           calc(env(safe-area-inset-right, 0px) + 16px)
-           calc(env(safe-area-inset-bottom, 0px) + 32px)
-           calc(env(safe-area-inset-left, 0px) + 16px);
-  display: flex;
-  flex-direction: column;
-}
+.notifs-page { display: flex; flex-direction: column; }
 .notifs-header {
   display: flex;
   align-items: center;
@@ -181,7 +171,6 @@ function renderNotificationsPage() {
   gap: 12px;
   margin-bottom: 16px;
 }
-.notifs-title { font-size: 20px; font-weight: 600; margin: 0; }
 .notifs-mark-all {
   background: var(--surface-2);
   color: var(--text);
@@ -259,9 +248,9 @@ function renderNotificationsPage() {
 `,
     }) +
     renderNav({ active: "notifications" }) +
-    `<main class="notifs-page" id="notifs-page">
+    renderPageHeader({ eyebrow: "Notifications", title: "Your updates, together.", description: "New parts, design changes, and posts from the build." }) +
+    `<main class="notifs-page site-content" id="notifs-page">
   <div class="notifs-header">
-    <h1 class="notifs-title">Notifications</h1>
     <button class="notifs-mark-all" id="notifs-mark-all" type="button" hidden>Mark all as read</button>
   </div>
   <ul class="notifs-list" id="notifs-list" aria-live="polite"></ul>
@@ -370,6 +359,6 @@ function renderNotificationsPage() {
   refresh();
 })();
 </script>` +
-    renderFooter()
+    renderFooter({ siteFooter: true })
   );
 }

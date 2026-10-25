@@ -11,7 +11,7 @@
 
 import fs from "node:fs";
 import path from "node:path";
-import { renderHead, renderNav, renderFooter } from "./shell.js";
+import { renderHead, renderNav, renderPageHeader, renderFooter } from "./shell.js";
 import { FIGURES, FIGURE_CSS } from "./update-figures.js";
 
 const ESC = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" };
@@ -199,14 +199,14 @@ function renderCard(p, imageSize) {
 }
 
 export function renderIndexBody(posts, imageSize = () => null) {
+  const header = renderPageHeader({ eyebrow: "Updates", title: "Progress from the workshop.", description: "A written account of the machine’s development, week by week and four weeks at a time." });
   if (!posts.length) {
-    return `<main class="up-wrap"><h1 class="up-h1">Updates</h1>
+    return header + `<main class="up-wrap site-content">
   <p class="up-empty">No entries.</p></main>`;
   }
   const first = posts[posts.length - 1].start;
   const last = posts[0].end;
-  return `<main class="up-wrap">
-  <h1 class="up-h1">Updates</h1>
+  return header + `<main class="up-wrap site-content">
   <p class="up-lede-top">What changed in the machine, ${esc(fmtRange(first, last))}.
   Four-week entries cover a whole period; week entries cover the most recent one.</p>
   <ul class="up-list">
@@ -216,11 +216,9 @@ ${posts.map((p) => renderCard(p, imageSize)).join("\n")}
 }
 
 export function renderPostBody(p, imageSize) {
-  return `<main class="up-wrap up-post">
+  return renderPageHeader({ eyebrow: "Updates", title: p.title, description: p.lede }) + `<main class="up-wrap up-post site-content">
   <p class="up-meta"><span class="up-kind up-kind-${esc(p.kind)}">${esc(KIND_LABEL[p.kind])}</span>
   <span class="up-range">${esc(fmtRange(p.start, p.end))}</span></p>
-  <h1 class="up-h1">${esc(p.title)}</h1>
-  ${p.lede ? `<p class="up-lede-top">${esc(p.lede)}</p>` : ""}
   <div class="up-body">
 ${renderMarkdown(p.body, FIGURES, imageSize)}
   </div>
@@ -229,12 +227,6 @@ ${renderMarkdown(p.body, FIGURES, imageSize)}
 }
 
 const UPDATES_CSS = `
-/* The shell lays body out as a flex column, where the line's cross size grows
-   to the widest item and stretches the rest to match. An explicit width keeps
-   this column on the viewport, so a figure wider than it scrolls in its own
-   track instead of taking the page sideways. */
-.up-wrap { width: 100%; max-width: 46rem; min-width: 0; margin: 0 auto; padding: 1.5rem 1rem 5rem; }
-.up-h1 { font-size: 1.6rem; margin: 0 0 .5rem; line-height: 1.25; }
 .up-lede-top { color: var(--text-2); line-height: 1.55; margin: 0 0 1.5rem; font-size: .92rem; }
 .up-empty { color: var(--text-2); }
 
@@ -323,10 +315,10 @@ export function mountUpdatesRoutes(app, { updatesDir, publicDir }) {
     res.set("Content-Type", "text/html; charset=utf-8");
     res.set("Cache-Control", "no-cache");
     res.send(
-      renderHead({ title: "Updates — Home Soda Machine", pageStyles: UPDATES_CSS }) +
+      renderHead({ title: "Updates — Home Soda Machine", pageStyles: UPDATES_CSS, pageClass: "site-interior" }) +
       renderNav({ active: "updates" }) +
       renderIndexBody(readUpdates(updatesDir), imageSize) +
-      renderFooter()
+      renderFooter({ siteFooter: true })
     );
   });
 
@@ -336,10 +328,10 @@ export function mountUpdatesRoutes(app, { updatesDir, publicDir }) {
     res.set("Content-Type", "text/html; charset=utf-8");
     res.set("Cache-Control", "no-cache");
     res.send(
-      renderHead({ title: `${post.title} — Updates`, pageStyles: UPDATES_CSS }) +
+      renderHead({ title: `${post.title} — Updates`, pageStyles: UPDATES_CSS, pageClass: "site-interior" }) +
       renderNav({ active: "updates" }) +
       renderPostBody(post, imageSize) +
-      renderFooter()
+      renderFooter({ siteFooter: true })
     );
   });
 }

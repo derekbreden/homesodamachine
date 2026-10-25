@@ -19,7 +19,7 @@ import fs from "node:fs";
 import fsp from "node:fs/promises";
 import path from "node:path";
 import { createHash } from "node:crypto";
-import { renderHead, renderNav, renderFooter } from "./shell.js";
+import { renderHead, renderNav, renderPageHeader, renderFooter } from "./shell.js";
 import { parseFrontmatter, renderMarkdown } from "./updates.js";
 import { FIGURE_CSS } from "./update-figures.js";
 
@@ -322,10 +322,10 @@ function linksOf(e) {
 // The entry whole: what the feed's modal mounts and what /changes/<id> stands in its page. The
 // pictures come straight after the title, and each frame is held to the height of the screen,
 // so a view is seen whole before anything is read or scrolled.
-export function renderDetail(changesDir, e) {
+export function renderDetail(changesDir, e, { showTitle = true } = {}) {
   return `<article class="ch-detail" data-change="${e.id}">
   ${e.shown ? `<p class="ch-dmeta">${timeTag(e, "ch-date")}</p>` : ""}
-  <h1 class="ch-dtitle">${esc(e.title)}</h1>
+  ${showTitle ? `<h1 class="ch-dtitle">${esc(e.title)}</h1>` : ""}
   ${e.views.map((v, i) => viewFigure(changesDir, e, v, i)).join("\n")}
   ${e.lede ? `<p class="ch-dlede">${esc(e.lede)}</p>` : ""}
   ${e.body.trim() ? `<div class="ch-body">\n${renderMarkdown(e.body)}\n  </div>` : ""}
@@ -334,16 +334,13 @@ export function renderDetail(changesDir, e) {
 }
 
 function renderFeedBody(changesDir, page, next, before) {
-  const head = `<h1 class="ch-h1">Changes</h1>
-  <p class="ch-sub">Each recorded change to the machine, before and after, newest first.</p>`;
+  const head = renderPageHeader({ eyebrow: "Changes", title: "Each change, before & after.", description: "A closer look at the machine’s design, with every recorded change shown from the same camera." });
   if (!page.length && !before) {
-    return `<main class="ch-wrap">
-  ${head}
+    return head + `<main class="ch-wrap site-content">
   <p class="ch-empty">No changes recorded yet.</p>
 </main>`;
   }
-  return `<main class="ch-wrap">
-  ${head}
+  return head + `<main class="ch-wrap site-content">
   ${before ? `<p class="ch-newer"><a href="/changes">Newest changes</a></p>` : ""}
   <ul class="ch-list" id="ch-list">
 ${page.map((e) => renderCard(changesDir, e)).join("\n")}
@@ -353,9 +350,6 @@ ${page.map((e) => renderCard(changesDir, e)).join("\n")}
 }
 
 const CHANGES_CSS = `
-.ch-wrap { width: 100%; max-width: 60rem; min-width: 0; margin: 0 auto; padding: 1.5rem 1rem 5rem; }
-.ch-h1 { font-size: 1.6rem; margin: 0 0 .5rem; line-height: 1.25; }
-.ch-sub { color: var(--text-2); line-height: 1.55; margin: 0 0 1.5rem; font-size: .92rem; }
 .ch-empty { color: var(--text-2); }
 .ch-newer { margin: -.75rem 0 1rem; font-size: .85rem; }
 .ch-newer a, .ch-more a, .ch-back a { color: var(--accent); }
@@ -488,11 +482,11 @@ function sendPage(res, title, body) {
   res.set("Content-Type", "text/html; charset=utf-8");
   res.set("Cache-Control", "no-cache");
   res.send(
-    renderHead({ title, pageStyles: CHANGES_CSS }) +
+    renderHead({ title, pageStyles: CHANGES_CSS, pageClass: "site-interior" }) +
     renderNav({ active: "changes" }) +
     body +
     `<script src="/content-viewer.js"></script>\n<script type="module" src="/changes.js"></script>\n` +
-    renderFooter()
+    renderFooter({ siteFooter: true })
   );
 }
 
@@ -743,8 +737,8 @@ export function mountChangesRoutes(app, { changesDir, carry = false } = {}) {
       return res.send(renderDetail(changesDir, entry));
     }
     sendPage(res, `${entry.title} — Changes`,
-      `<main class="ch-wrap">
-  ${renderDetail(changesDir, entry)}
+      renderPageHeader({ eyebrow: "Changes", title: entry.title }) + `<main class="ch-wrap site-content">
+  ${renderDetail(changesDir, entry, { showTitle: false })}
   <p class="ch-back"><a href="/changes">All changes</a></p>
 </main>`);
   });

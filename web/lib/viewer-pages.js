@@ -18,7 +18,7 @@
 import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
-import { renderHead, renderNav, renderFooter } from "./shell.js";
+import { renderHead, renderNav, renderPageHeader, renderFooter } from "./shell.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const TEMPLATES_DIR = path.join(__dirname, "templates");
@@ -34,6 +34,13 @@ const TITLES = {
   pcb: "Boards · Home Soda Machine",
 };
 
+const INTRO = {
+  parts: { eyebrow: "Parts", title: "Explore the machine.", description: "The soda machine, the faucet, and the tools that bring them together. Open a model to explore its parts and documents." },
+  charts: { eyebrow: "Charts", title: "How it all connects.", description: "Plumbing, wiring, and control diagrams for the machine." },
+  drawings: { eyebrow: "Drawings & guides", title: "Guides for the build.", description: "Assembly instructions, drawings, and reference documents for the machine and its tools." },
+  pcb: { eyebrow: "Boards", title: "The circuit boards.", description: "Explore the electronics that control the machine and the faucet." },
+};
+
 export function mountViewerPages(app) {
   function renderPage(active) {
     return (_req, res) => {
@@ -47,10 +54,11 @@ export function mountViewerPages(app) {
       // browser-cached case.
       res.set("Cache-Control", "no-cache");
       res.send(
-        renderHead({ title: TITLES[active] }) +
+        renderHead({ title: TITLES[active], pageClass: `site-interior site-viewer-${active}` }) +
         renderNav({ active }) +
+        renderPageHeader(INTRO[active]) +
         readFragment("viewer-body.html") +
-        renderFooter(),
+        renderFooter({ siteFooter: true }),
       );
     };
   }
