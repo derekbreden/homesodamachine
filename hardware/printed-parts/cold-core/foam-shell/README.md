@@ -57,8 +57,10 @@ The CadQuery script uses an explicit XY plane with +Z normal
 ## Shells
 
 The geometry is built up from open-topped sub-shells that union into
-one foam-shell solid. **All structural walls and floors use [2 mm](FSHELL_WALL_T)
-thickness.**
+one foam-shell solid. **Ordinary standing walls use [2.38 mm](FSHELL_WALL_T);
+the floor remains [2 mm](FSHELL_FLOOR_T).** Reservoir-facing cavity profiles,
+reed slots, screw axes and component heights have independent fit datums.
+The [integration receipt](../casing-integration-review.json) binds their geometric checks.
 
 ### reservoir_pocket_walls
 
@@ -67,10 +69,10 @@ across the YZ plane. Each pocket is a four-walled enclosure (open at
 +Z; the outer_shell's floor closes the bottom; the shell's open +Z
 top receives the foam pour):
 
-- **Far ±X wall** — outboard face at x = ±[131.5 mm](POCKET_X_OUTER), cavity face at
+- **Far ±X wall** — outboard face at x = ±[131.9 mm](POCKET_X_OUTER), cavity face at
   x = ±[129.5 mm](POCKET_X_INNER).
-- **+Y wall** — outboard face at y = +[72.5 mm](POCKET_Y_OUTER), cavity face at y = +[70.5 mm](POCKET_Y_INNER).
-- **−Y wall** — outboard face at y = −[72.5 mm](POCKET_Y_OUTER), cavity face at y = −[70.5 mm](POCKET_Y_INNER).
+- **+Y wall** — outboard face at y = +[72.88 mm](POCKET_Y_OUTER), cavity face at y = +[70.5 mm](POCKET_Y_INNER).
+- **−Y wall** — outboard face at y = −[72.88 mm](POCKET_Y_OUTER), cavity face at y = −[70.5 mm](POCKET_Y_INNER).
   The ±Y half-width is the reservoir's own standalone flavor-charge
   dimension (the window that holds 2 × SodaStream 0.44 L bottles); it
   is not derived from the centerward-arc radius, so growing the
@@ -81,7 +83,7 @@ top receives the foam pour):
   cold-core Z axis); its carbonator-side face is concentric one wall-thickness
   inboard. That carbonator-side face is the reservoir's carbonator-facing wall, and
   because it is a concentric arc the span from the cylinder OD
-  (R = [63.5 mm](TANK_R)) out to it is a uniform 15 mm of foam around the
+  (R = [63.5 mm](TANK_R)) out to it is a uniform 14.62 mm of foam around the
   wrapped arc — the cylinder's designed foam blanket, with the 1/4" ACR
   copper coil ([7 mm](COIL_GAP) radial) embedded in its inner slice and
   pour foam filling everywhere the copper isn't.
@@ -92,10 +94,10 @@ arc segments along its length:
 1. A **middle segment** — the cylindrical arc that wraps the carbonator+coil
    envelope, running from y = −[60 mm](POCKET_ARC_TRANSITION_Y) to y = +[60 mm](POCKET_ARC_TRANSITION_Y).
 2. Two **transition segments**, one at each ±Y end — short
-   [8 mm](TRANSITION_ARC_R)-radius arcs that swing the wall out from
+   [8.42 mm](TRANSITION_ARC_R)-radius arcs that swing the wall out from
    the middle arc to the pocket's ±Y wall. Each transition arc is
    tangent to the middle arc and to the ±Y outboard face; its
-   carbonator-side face has radius [8 mm](TRANSITION_ARC_R) and its
+   carbonator-side face has radius [8.42 mm](TRANSITION_ARC_R) and its
    cavity-side face is concentric with the same center but a slightly
    smaller radius derived from geometry.
 
@@ -109,8 +111,8 @@ around the corner.
 
 The pocket is **open along its centerward face into the foam zone
 inside the centerward arc envelope** — there's no wall at radius
-R < [78.5 mm](POCKET_ARC_INNER_R). During operation, that interior region
-holds the carbonator + copper coil, and the foam pour fills the full 15 mm
+R < [78.12 mm](POCKET_ARC_INNER_R). During operation, that interior region
+holds the carbonator + copper coil, and the foam pour fills the full 14.62 mm
 blanket from the cylinder OD out to the wall's carbonator-side face —
 around and between the embedded helical wraps.
 
@@ -157,11 +159,11 @@ column or the ring fails rather than drifts.
 Outer rectangular cup framing the whole foam-shell: floor + four
 perimeter walls + [10](BOSS_COUNT) ⌀[8 mm](BOSS_D) cylindrical bosses. Total height
 matches the foam-shell outer height of [213.4 mm](OUTER_H).
-Outer footprint [283 mm](SHELL_OUTER_X) × [181](FSHELL_OUTER_Y). The **short** axis is
+Outer footprint [282.4 mm](SHELL_OUTER_X) × [180.4](FSHELL_OUTER_Y). The **short** axis is
 the one that matters to the appliance: the foam assembly is yawed a quarter turn
 in the enclosure, so 181 is what sets the machine's width and the ±X faces are
 its front and back. The outboard foam-pour gap is split by direction: the ±Y
-faces leave [14.8 mm](FSHELL_POUR_BAND) of foam-pour zone between the outer_shell's inner
+faces leave [14.94 mm](FSHELL_POUR_BAND) of foam-pour zone between the outer_shell's inner
 face and the pocket's ±Y walls, while on the ±X side there is no outboard foam —
 the reservoir's reed channel butts the outer shell wall. The 283 mm is held that
 way: the reservoir, shifted outward by the cylinder's foam blanket, lands with
@@ -170,51 +172,21 @@ outboard of the reed has moved to the cylinder side. Those two ±Y bands are wha
 every penetration travels along — see §Port lane.
 
 The four vertical corners are rounded — the exterior wall is a true
-[12 mm](CORNER_ROUND_R)-radius quarter-arc on the outer face, the inner
+[11.7 mm](CORNER_ROUND_R)-radius quarter-arc on the outer face, the inner
 face concentric one wall inboard — so the warp-prone sharp
-corner is gone. A flute crosses that quarter turn without a seam: the field's
-across-coordinate is arc length, which does not know the corner is there.
+corner is gone. STEP and STL describe the same smooth surface.
 
-#### The show skin
+#### Smooth casing
 
-The shell wall between its two smooth seal bands is fluted — half-round grooves
-[4.986 mm](FSHELL_FLUTE_PITCH) apart and [1.2 mm](FSHELL_FLUTE_DEPTH) deep, the box's own
-field at the box's own figures (`cadlib/flute_skin.py`). What it buys is not ornament. The
-groove field lays its own highlight and shadow across the surface at a spacing finer, and in
-far higher contrast, than a layer line — so the layer lines fall under it and a flat face
-stops announcing how it was made. That is worth most on exactly the faces hardest to print
-clean: the current PET-GF profile keeps ordinary part cooling off. The chamber is
-unheated; bridges and qualifying overhangs receive localized cooling.
+The shell, cups and lid edges share a plain 282.4 × 180.4 mm casing footprint,
+with R11.7 outside corners. The 2.38 mm exterior walls and pocket walls take
+stock from their foam-facing sides; the reservoir cavities keep 0.25 mm
+running clearance to the printed reservoirs. The floor is 2 mm.
 
-**The flutes are in the STL and not in the STEP.** The solid beside them is a smooth prism.
-The fade that stops the field is a measurement over the whole surface — how far each station
-stands from the nearest place the show face ends — and it has to follow a port's rim, a lane
-slot's jamb and the piece's own top and bottom edges with one rule, over
-[5 mm](FSHELL_FLUTE_RISE) of ramp. `foam-shell.stl` is what goes to the bed;
-`foam-shell.step` is the surface the field is measured from. Nothing is told where an opening
-is — the piece is asked, at every station, whether it has material at the nominal surface, and
-where it does not, that is an edge, whatever made it.
-
-**[182](FSHELL_FLUTE_COUNT) grooves close on the [907.4 mm](FSHELL_PLAN_PERIMETER) plan
-perimeter exactly**, which is what sets the pitch: a stated pitch would leave a remainder, and
-the remainder has to land somewhere. The count is EVEN, and two separate things buy that. The
-footprint has two mirror planes, and a datum on the middle of the −X wall gives one of them
-free — an even count gives the other. The shell
-therefore presents the same groove alignment after a half turn about Z.
-
-**The stock comes out of the pour, not off the envelope.** A groove must have a whole
-[2 mm](FSHELL_WALL_T) standing behind it, so a wall that carries flutes is
-[3.2 mm](FSHELL_OUTER_WALL) and the depth is found on the inside. The outer footprint is
-untouched — [283 mm](SHELL_OUTER_X) × [181](FSHELL_OUTER_Y), the same figures the cabinet was
-measured against — and the foam gives up the difference: the ±Y pour band is
-[14.8 mm](FSHELL_POUR_BAND) and the ±X forward band is [6.8 mm](FSHELL_FORWARD_BAND), which
-passes the measured 6.5 mm tube. The Ø[7.5 mm](TUBE_HOLE_D) holes are the
-crossings through printed walls and caps. The floor takes none of it and
-stays [2 mm](FSHELL_WALL_T): it lies flat, so it carries no flutes, and every height in the
-core is measured off its top face.
-
-The caps and lid edges are smooth, recessed seal lands. One foil band at each end covers
-the shell/cap and cap/lid seams within the retained exterior outline; see §Dry casing seams.
+Foil tape sits directly on the smooth perimeter. Its 0.30 mm per-face envelope
+allowance contains at most two 0.12 mm tape layers without a groove. The
+component mounts, clamp axes and nominal 253.4 mm stack height retain their
+independent datums. Copper-cover jambs retain their own seating planes.
 
 **Every boss stands hard against the wall it leans on, and the station names which
 wall that is** — never the sign of its own coordinates, which for a boss centred on a
@@ -261,7 +233,7 @@ bottom cap lands its screws on the shell's existing bottom-face
 inserts with no rotation. The cap interior receives the foam pour
 through the pour and vent holes in the lid.
 
-The `foam_cap_lid` is a [2 mm](FSHELL_WALL_T) plate matching the same outer
+The `foam_cap_lid` is a [2.38 mm](FSHELL_WALL_T) plate matching the same outer
 footprint, closing a cap's open mouth. It has the pour hole (Ø [20 mm](POUR_D))
 and two vent holes (Ø [6 mm](LID_VENT_D)), and it carries a pad at each of the
 [10](FACE_SCREWS) screw stations on its mouth-facing side — "The head sits in the lid" below.
@@ -273,9 +245,9 @@ The shell, cups and lids share the same **[10](BOSS_COUNT) clamp axes** —
 four corners, four long-wall stations at X ±[40 mm](MID_BOSS_OFFSET), and
 one centred on each ±X wall. The shell and cup hosts use the common
 ⌀[8 mm](BOSS_D) cylinder and teardrop-web builder. The lower lid's head
-pads add 0.9 mm radially, giving a 9.8 mm diameter and 2 mm inward wall
+pads add 1.28 mm radially, giving a 10.56 mm diameter and 2.38 mm inward wall
 around each ⌀5.8 mm head pocket. The bottom cup receives those pads in
-10.1 mm pockets with 0.15 mm radial static clearance. Every position
+10.86 mm pockets with 0.15 mm radial static clearance. Every position
 passes an M3 screw through the lid and cup into its shell insert.
 See "Cap-to-outer-shell joinery" below.
 
@@ -295,23 +267,20 @@ the four 0.15 mm seating allowances, making the physical core shorter.
 The bottom lid's pad ends and top cap's flush deck columns have the same
 axial allowance; their radial fits retain their own dimensions.
 
-The cups and lids carry smooth perimeter lands recessed 0.30 mm. The
-shell has matching lands for 13 mm at each end, joined to its standing wall
-by 0.6 mm axial tapers. The wall remains 2.90 mm there; the full-depth flutes continue on the shell between the lands.
-The four rounded-corner screw stations stand 0.25 mm inward along Y from
-the flat-wall station line; the shell, cups and lids share this pattern.
-Each corner pilot retains at least 1.69 mm radial wall through its depth.
-Two 0.12 mm foil layers fit within the recess, preserving the core's
-original outside envelope and its enclosure clearances.
+The shell, cups and lids have plain vertical outer faces. Foil sits on these
+faces within a 0.30 mm per-side allowance around the casing. Each corner pilot
+retains at least 1.69 mm radial wall through its depth; the shared clamp axes
+stand independently of the ordinary wall thickness.
 
 Seal each assembled end with one continuous band of the already-owned
 **3M 425 aluminum foil tape**, covering both its cap/shell and cap/lid
-joints. Trim the 50.8 mm stock to the land, ending at the lid's outside
+joints, reaching at least 13 mm onto the shell. Trim the 50.8 mm stock to the
+assembled end, ending at the lid's outside
 edge without folding onto its flat bearing face. Apply to clean, dry parts
 at room temperature. Press around the rounded corners and burnish the
 edges; overlap the band's ends by 25 mm. Use at most two foil layers, with
 no patches stacked over that overlap. The head pockets open to the casing
-edge, with radial corner openings and 2 mm radial stock on the lower
+edge, with radial corner openings and 2.38 mm inward stock on the lower
 lid's inward pad walls. The complete 2 mm bearing floors remain under
 the screw heads. The band
 spans those small dry side openings. Keep the axial driver openings on
@@ -322,8 +291,8 @@ air channels. This local seam seal is not a complete cold-core vapor-barrier or 
 [3M's technical data](https://multimedia.3m.com/mws/media/2366321O/3m-aluminum-foil-tape-425.pdf)
 identifies low moisture-vapor transmission and moisture-barrier use in
 appliances. This supports the local static-seam application. The
-[native closure review](../foam-cap/dry-closure-review.json) records the
-rigid seats, complete floor stock, screw reach and unchanged stack planes.
+[casing integration receipt](../casing-integration-review.json) records the
+rigid seats, floor stock, screw reach and fixed stack planes.
 Reservoir gaskets retain their separate wetted-seal function and accepted
 physical evidence.
 
@@ -471,7 +440,7 @@ annulus between the coil and reservoir B's pocket wall.
 
 **Nothing reaches the −X face head-on.** The reservoir pockets fill both ±X ends
 of the shell, so a line from the carbonator or from either pocket gets there along the
-−Y pour band — the [16 mm](OUTER_GAP) strip that runs the shell's whole length
+−Y pour band — the [14.94 mm](OUTER_GAP) strip that runs the shell's whole length
 outboard of both pockets.
 
 What a line may use of that band is the **lane**: the strip inboard of every
@@ -518,7 +487,7 @@ between them they take the two copper evaporator lines, one lane pitch up off ea
 top extends past the wall top so no sliver of wall material remains
 above it — the plugs slide down into the slot from
 above during assembly. With the centerward wall extending only to
-y = ±[72.5 mm](POCKET_Y_OUTER) (where it meets the ±Y walls via the
+y = ±[72.88 mm](POCKET_Y_OUTER) (where it meets the ±Y walls via the
 transition arcs), each slot pierces only this one outer wall.
 
 **There are two because the refrigeration base is two bodies.** This wall is mated face
@@ -539,7 +508,7 @@ implementations of one transform; this way the plug and the hole it plugs cannot
 land in two places. One frame serves both lanes, so a plug drawn there fits either.
 
 Pass-through Z heights (centers, absolute in the model — the floor occupies
-z = 0 to z = [2 mm](FSHELL_WALL_T), so subtract that for a height above the
+z = 0 to z = [2.38 mm](FSHELL_WALL_T), so subtract that for a height above the
 cavity floor):
 
 [port-lane evap-inlet 28.43; west-lane evap-outlet 28.43](SLOT_Z)
@@ -564,14 +533,15 @@ the same height; they stay two parts because a plug is what fills one column, an
 station added to either lane divides that lane's plug alone.
 
 Each plug has a **continuous interior flange** that overlaps both slot edges
-by 1 mm and seats in the shell's recessed inner face. This 8.5 mm wide,
+by 1 mm and seats against the shell's local jamb planes. This 8.65 mm wide,
 1 mm thick lip keeps foam inside along the slot; outward foam pressure bears
-it against the seat. The 6.5 mm wide web fills the 3.2 mm wall thickness,
-leaving the plug's long middle span flush with the exterior wall face.
+it against the seat. The 6.15 mm wide web spans the copper-cover port frame.
+The local casing jamb is 2.90 mm thick; the cover retains its independent
+3.20 mm grip datum and printed-face clearances.
 
 The **exterior flange is limited to two 8 mm long retaining tabs**, one at
-each end of the web. Each tab is 8.5 mm wide and 1 mm thick. The wall slides
-into the 3.2 mm space between a tab and the interior flange, keeping the plug
+each end of the web. Each tab is 8.65 mm wide and 1 mm thick. The wall slides
+between a tab and the interior flange with its running and supported-face allowances, keeping the plug
 aligned before the foam pour. The web and lower tab start 2.35 mm above the
 copper's centre to leave printable stock beside the arch. Print with the
 continuous interior flange flat on the bed. See `copper-plugs/copper_plugs.py`
@@ -658,7 +628,7 @@ Foam falls into the body and fills one connected volume: the
 ±Y walls (the front/back foam-pour gap; the ±X reservoir side has no
 outboard foam, its reed channel butting the shell wall). This zone
 reaches the centerward space around the carbonator+coil through the gap at
-the pockets' ±Y ends (y = ±[72.5 mm](POCKET_Y_OUTER)), where the ±Y
+the pockets' ±Y ends (y = ±[72.88 mm](POCKET_Y_OUTER)), where the ±Y
 walls stop and the centerward walls' transition arcs swing in to join
 them.
 
@@ -671,7 +641,7 @@ cavities and stay empty: their columns drop in after cure
 
 The longest required traverse for the foam is around the back of the
 coil at the ±X azimuths — the foam has to work through the embedded
-helical wraps and fill the 15 mm blanket out to the centerward wall's
+helical wraps and fill the 14.62 mm blanket out to the centerward wall's
 carbonator-side face, ~110 mm of arc to reach around from the ±Y entry.
 
 Before the pour, mask the clearance gaps around installed tubes at the
@@ -686,37 +656,20 @@ then seat the foam-filled top cap onto the body's top edge with
 (mouth-down) under the body with [10](FACE_SCREWS) more into the bottom-face
 inserts. Apply the exterior seam tape as specified under "Dry casing seams".
 
-## Coincident-wall principle
+## Nominal walls and functional stock
 
-Wherever two structural surfaces touch in the assembly, their walls
-**overlap exactly in 3D space** — same outer face, same inner face.
-After union, that boundary is one wall's worth of material (2 mm).
-
-This drives several dimension choices:
-
-- Each **reservoir pocket's ±Y outboard face** stands on the
-  reservoir's own half-width (its flavor-charge dimension), not on the
-  centerward-arc radius. Growing the cylinder's foam blanket slides the
-  whole pocket outward without resizing or splaying the reservoir, so
-  the ±Y walls keep their standalone width and meet the centerward
-  wall's transition arcs there.
-- The **carbonator_support_ring**'s outer face sits on the carbonator+coil envelope
-  (`carbonator_coil_envelope_radius` = 70.5, the carbonator OD plus the coil radial
-  clearance) — inboard of the pocket's centerward wall, which has moved
-  outward with the foam blanket.
-- Each **reservoir pocket's four walls** are traced as a single
-  connected outer-perimeter polyline (with one cavity-perimeter
-  polyline cut from it), so the four walls union into one solid by
-  construction.
-- The **outer_shell**'s inner face sits [16 mm](OUTER_GAP)
-  outboard of the pocket's ±Y walls — the outer foam-pour zone. On the
-  ±X (reservoir) side there is no outboard foam; the reservoir's reed
-  channel butts the shell wall instead.
+Ordinary casing and pocket walls use 2.38 mm. Pocket cavities, reed slots,
+copper-cover seats and hardware axes have separate fit datums; their local
+junctions retain the stock their function requires. Floors are 2 mm, the
+carbonator support ring retains its 9 mm radial section, and the top lid
+retains its 5.4 mm equipment plate. The printed reservoirs and their caps
+keep their own geometry and watertight PETG recipe.
 
 ## Print settings
 
-The shell uses the 0.8 mm process with two walls and 15% gyroid, Derek's
-PET-GF production baseline. PET-GF15 takes its filament settings from the
+The shell uses a 0.4 mm Standard-flow left nozzle, Classic with three wall
+loops, and 15% gyroid in thicker regions. Three loops from each boundary
+pack six perimeter beads across the ordinary 2.38 mm walls. PET-GF15 takes its filament settings from the
 current shared [`petgf.3mf`](../../petgf.3mf), including the
 [localized cooling policy](../../cooling/README.md).
 
@@ -729,18 +682,18 @@ drip pan, the PRV shroud, the reed bridge and the fuse clamp
 
 ### Printer / profile
 
-- **Printer:** Bambu Lab H2C, **0.8 mm tungsten carbide nozzle, left hotend** —
+- **Printer:** Bambu Lab H2C, **0.4 mm hardened nozzle, left hotend** —
   every abrasive stock runs left ([tools.md](/hardware/ledger/tools.md))
-- **Prepared hotend flow:** High Flow; the Mark2 native preparation is
-  [recorded here](prints/2026-10-25-mark2-left08-highflow-gyroid-z004/README.md).
-- **Print profile:** `0.40mm Standard @BBL H2C 0.8 nozzle`
-- **Layer height:** 0.4 mm (initial layer 0.4 mm)
-- **Line width:** 0.82 mm (inner / outer / top all 0.82)
-- **Wall loops:** 2
+- **Hotend flow:** Standard; current inputs are declared in
+  [`pieces.json`](../../enclosure/trial-preparation/pieces.json).
+- **Print profile:** `petgf.3mf` 0.4 mm process
+- **Layer height:** 0.24 mm (initial layer 0.20 mm)
+- **Line width:** 0.42 mm outer, 0.45 mm inner
+- **Wall loops:** 3, Classic
 - **Top / bottom shells:** 4 / 3
 - **Sparse infill:** 15 % gyroid
-- **Speeds:** retained 0.8 mm process, initial layer 50 mm/s and 18 mm³/s
-  maximum volumetric flow. The native preparation records the emitted speeds.
+- **Speeds:** shared 0.4 mm process, capped at 18 mm³/s maximum volumetric flow.
+  The native preparation records the emitted speeds.
 - **Supports:** off (threshold 30°)
 - **Brim:** auto, 5 mm width, 0.1 mm object gap, 0.15 mm elephant-foot
   compensation
@@ -762,55 +715,14 @@ drip pan, the PRV shroud, the reed bridge and the fuse clamp
   moisture; a 3 kg spool feeds the print from a PolyDryer Box XL
   ([tools.md](/hardware/ledger/tools.md) "What dries where")
 
-The [show skin](#the-show-skin) breaks up visible layer lines on the standing
-walls. Physical surface finish is assessed on the printed shell.
+The casing is smooth. Physical surface finish is assessed on the printed shell.
 
-## Regression baseline
+## Geometry receipt
 
-Source-level refactors of `_foam_shell.build_full_shell()` should
-preserve the geometry of `foam-shell.step` exactly. These scalars
-are the canonical regression sieve — any change to them (beyond
-OCCT numerical noise at the ~1e-6 mm³ level) is a geometry shift
-that needs a deliberate explanation:
-
-| metric | value |
-|---|---|
-| volume | [1226622.369 mm³](FSHELL_VOLUME) |
-| bbox x | [-141.510 to 141.510 mm](FSHELL_BBOX_X) |
-| bbox z | [-0.008 to 213.454 mm](FSHELL_BBOX_Z) |
-| bbox y | [-90.510 to 90.515 mm](FSHELL_BBOX_Y) |
-| centroid | [(0.942927, 0.186261, 93.222547) mm](CENTROID) |
-
-Quick reproduction:
-
-```python
-import cadquery as cq
-s = cq.importers.importStep("foam-shell.step").val()
-bb = s.BoundingBox()
-com = s.Center()
-print(s.Volume(), (bb.xmin, bb.xmax, bb.ymin, bb.ymax, bb.zmin, bb.zmax), (com.x, com.z, com.y))
-```
-
-**THIS SIEVE IS BLIND TO THE SHOW SKIN, and deliberately so.** It reads the SOLID, and
-the flutes are in the mesh (§The show skin) — so the whole field could be lost, or cut
-at the wrong pitch, or ramped flat everywhere, and not one scalar above would move. The
-volume it reports is the un-grooved prism's.
-
-What holds the skin instead, and what to read when a refactor touches it:
-
-- `_show_skin.write_bed_file` takes its reading off the FILE it just wrote, merged by
-  position the way a slicer merges one, and raises on a non-manifold edge or a surface
-  that is not closed. A field that booleans badly fails the export rather than reaching
-  a bed.
-- `hardware/scripts/check_flutes.py` holds each payload against the print it was cut
-  from, point-to-surface. A payload that lost the flutes stands about a groove deep away
-  from the printed mesh, which is far outside the deflection budget it was accepted on.
-- The bound `flute-closes` in `_cold_core_interface` says the count still divides the
-  perimeter near the coupon's pitch.
-
-None of those is a scalar in a table, because the skin is not a scalar: it is a field
-over a surface, and what makes it right is that it closes, stands off the edges, and
-keeps a whole wall behind it.
+The [casing integration receipt](../casing-integration-review.json) records
+native solid validity, reservoir cavity preservation, fixed fit datums,
+floor sections, cap seats and the foil allowance for these inputs. It is a
+one-off record, not a recurring build or commit check.
 
 ## Reference
 

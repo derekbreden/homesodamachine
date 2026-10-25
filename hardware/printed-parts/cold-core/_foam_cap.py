@@ -9,6 +9,7 @@ from world_workplane import WorldWorkplane, xy_plane_z_up
 import fits
 from _cold_core_interface import (
     wall_and_floor_thickness,
+    wall_thickness,
     outer_shell_wall,
     outer_shell_x_length,
     outer_shell_y_length,
@@ -40,8 +41,7 @@ from _cold_core_interface import (
     head_pad_slip,
     foam_cap_lid_height,
 )
-from _outer_shell import (build_attachment_bosses, take_skin_off_the_floor,
-                          rebate_casing_seals)
+from _outer_shell import build_attachment_bosses, trim_cup_floor
 import _above_core_mounts as _above_mounts
 
 # A lid stands one wall of plate over a head pad's own height, and the two ends of the stack
@@ -50,8 +50,8 @@ import _above_core_mounts as _above_mounts
 # stands on, and a plate with pads under it has no face to print on.
 lid_total_height = foam_cap_lid_height
 lid_cut_through_depth = lid_total_height + wall_and_floor_thickness
-# The lower lid's open head pockets retain the casing's full 2 mm radial stock.
-head_pad_growth = max(0.0, head_cbore_radius + wall_and_floor_thickness - screw_boss_size / 2)
+# The lower lid's open head pockets retain the casing's full 2.38 mm inward stock.
+head_pad_growth = max(0.0, head_cbore_radius + wall_thickness - screw_boss_size / 2)
 
 # THE TWO CUPS ARE NOT THE SAME HEIGHT. The bottom cup stands the whole `foam_cap_height` and
 # its lid's pads sink into the relief its boss columns leave at the mouth. The top cup stops one
@@ -244,6 +244,7 @@ def build_foam_cap(open_down=False):
     `cap_fluid_conduits`, the two reservoir reed cables and the internal sensor
     loom — and the service bay is on the top cap's outer face."""
     height = foam_cap_height if open_down else top_cap_height
+    casing_stock = outer_shell_wall
     cap = (
         WorldWorkplane(xy_plane_z_up)
         .workplane(offset=0)
@@ -252,17 +253,18 @@ def build_foam_cap(open_down=False):
         .edges("|Z")
         .fillet(corner_round_radius)
         .faces("<Z" if open_down else ">Z")
-        # A full casing section backs the recessed exterior seal land.
-        .shell(-outer_shell_wall)
+        # The plain casing keeps the nominal standing-wall section.
+        .shell(-casing_stock)
     )
     # The cap's floor takes none of the skin's stock either, and it is at whichever end the
     # cup is not open on — the mouth-down cap carries its floor on top.
-    cap = take_skin_off_the_floor(
+    cap = trim_cup_floor(
         cap,
-        *((height - outer_shell_wall,
+        *((height - casing_stock,
            height - wall_and_floor_thickness - cap_shell_clearance)
           if open_down else
-          (wall_and_floor_thickness + cap_shell_clearance, outer_shell_wall)))
+          (wall_and_floor_thickness + cap_shell_clearance, casing_stock)),
+        wall=casing_stock)
     # Same ⌀ boss + teardrop webs as the outer shell.
     cap = cap.union(build_attachment_bosses(height))
     if open_down:
@@ -286,7 +288,7 @@ def build_foam_cap(open_down=False):
                 .rect(outer_shell_x_length + 2.0, outer_shell_y_length + 2.0)
                 .extrude(z1 - z0))
     cap = cap.intersect(envelope)
-    cap = rebate_casing_seals(cap, ((0.0, height),)).unwrap()
+    cap = cap.unwrap()
     if not open_down:
         water = _above_mounts.water_in_features()
         stock = _above_mounts.world_shape_in_cap(water['cup_add']).translate((0.,0.,height))
@@ -353,7 +355,7 @@ def build_foam_cap_lid(open_down=False):
         .fillet(corner_round_radius)
     )
     if open_down:
-        # Each pad retains 2 mm inward stock around its head pocket.
+        # Each pad retains 2.38 mm inward stock around its head pocket.
         lid = lid.union(build_attachment_bosses(
             head_pad_height, oversize=head_pad_growth).translate(
             (0, 0, wall_and_floor_thickness)))
@@ -395,7 +397,7 @@ def build_foam_cap_lid(open_down=False):
         lid = lid.union(_above_mounts.world_shape_in_cap(roof))
         lid = lid.cut(build_conduit_bores(lid_cut_through_depth, frame='lid'))
         lid = lid.cut(build_conduit_entry_reliefs(lid_total_height - wall_and_floor_thickness))
-    lid = rebate_casing_seals(lid, ((0.0, lid_total_height),)).unwrap()
+    lid = lid.unwrap()
     if not open_down:
         water = _above_mounts.water_in_features()
         lid = lid.union(_above_mounts.world_shape_in_cap(water['lid_add']))

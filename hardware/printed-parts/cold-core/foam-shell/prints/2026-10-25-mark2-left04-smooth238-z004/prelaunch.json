@@ -1,0 +1,110 @@
+{
+  "H2C": {
+    "observed_at_utc": "2026-10-25T21:25:33.446207+00:00",
+    "job_id": "1374963298",
+    "subtask_name": "Flavor_reservoirs_-_PETG_0.24_mm",
+    "gcode_state": "RUNNING",
+    "layer_num": 14,
+    "total_layer_num": 833,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_target_temper": 260.0,
+    "bed_target_temper": 70.0,
+    "nozzles": [
+      {
+        "id": 18,
+        "type": "HS01",
+        "diameter": 0.4
+      },
+      {
+        "id": 1,
+        "type": "HS01",
+        "diameter": 0.8
+      },
+      {
+        "id": 17,
+        "type": "HS00",
+        "diameter": 0.2
+      },
+      {
+        "id": 0,
+        "type": "HS00",
+        "diameter": 0.2
+      },
+      {
+        "id": 19,
+        "type": "HS01",
+        "diameter": 0.8
+      }
+    ],
+    "external_spools": [
+      {
+        "id": "254",
+        "tray_type": "PET-CF",
+        "tray_color": "000000FF"
+      },
+      {
+        "id": "255",
+        "tray_type": "TPU",
+        "tray_color": "FFFFFFFF"
+      }
+    ]
+  },
+  "Mark2": {
+    "observed_at_utc": "2026-10-25T21:25:34.045676+00:00",
+    "job_id": "1374330388",
+    "subtask_name": "2026-10-25-sculpted-cover-front-overlap-black-left04-z004-mark2.gcode.3mf",
+    "gcode_state": "FINISH",
+    "layer_num": 67,
+    "total_layer_num": 67,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_target_temper": 0.0,
+    "bed_target_temper": 0.0,
+    "nozzles": [
+      {
+        "id": 17,
+        "type": "HS01",
+        "diameter": 0.4
+      },
+      {
+        "id": 1,
+        "type": "HS01",
+        "diameter": 0.4
+      },
+      {
+        "id": 0,
+        "type": "HS01",
+        "diameter": 0.6
+      },
+      {
+        "id": 18,
+        "type": "HS00",
+        "diameter": 0.2
+      },
+      {
+        "id": 20,
+        "type": "HH01",
+        "diameter": 0.8
+      }
+    ],
+    "external_spools": [
+      {
+        "id": "254",
+        "tray_type": "PET-CF",
+        "tray_color": "161616FF"
+      },
+      {
+        "id": "255",
+        "tray_type": "TPU",
+        "tray_color": "161616FF"
+      }
+    ]
+  },
+  "startup_spacing": {
+    "other_printer": "H2C",
+    "latest_known_accepted_start_utc": "2026-10-25T20:18:16.702789+00:00",
+    "other_agent_confirms_no_later_start_or_resume_by_their_session": true,
+    "minimum_seconds_between_starts": 180
+  }
+}

@@ -54,9 +54,8 @@ from _materials import C_PLUG, one_body
 from docgen import substitute_py_comments
 from _cold_core_interface import (
     make_box,
-    outer_shell_wall,
+    copper_slot_wall,
     foam_shell_outer_height,
-    outer_shell_x_length,
     front_port_axis,
     front_port_field_top_z,
     front_wall_x,
@@ -87,12 +86,12 @@ tube_clearance_radius = slot_half_width_x  # [3.325 mm](TUBE_CLEAR_R)
 # STEP stays in this frame: a printed part's frame is the one that describes it, and
 # what describes a plug is the wall it plugs — one wall for both lanes, so a plug drawn
 # here fits either.
-# The web fills the [3.2 mm](CPLUG_WALL_T) wall thickness. The interior flange
+# The web spans the [3.2 mm](CPLUG_WALL_T) copper-cover grip datum. The interior flange
 # and exterior end tabs stand [1 mm](FLANGE_T) off their respective wall faces.
-# [-141.5 mm](WALL_OUTER_Y) — outer face of the wall (the shell's −X face, toward the user).
-outer_wall_outer_y = -outer_shell_x_length / 2
+# [-141.5 mm](WALL_OUTER_Y) — the copper cover's exterior reference plane.
+outer_wall_outer_y = front_wall_x
 # [-138.3 mm](WALL_INNER_Y) — inner (cavity-side) face of the −Y outer_shell wall.
-outer_wall_inner_y = outer_wall_outer_y + outer_shell_wall
+outer_wall_inner_y = outer_wall_outer_y + copper_slot_wall
 # Print with the continuous inboard flange on the bed (+Y face down): the
 # exterior tabs' undersides are supported. Budget that extra room only at
 # those tabs, in addition to running clearance on each side of the wall.
@@ -374,7 +373,7 @@ def main():
         "EVAP_OUTLET_Z": f"{evap_cross_z:.4g} mm",
         "WEB_BUFFER": f"{web_arch_buffer:.2f} mm",
         # External references (read-only constants from _cold_core_interface).
-        "CPLUG_WALL_T": f"{outer_shell_wall:.4g} mm",
+        "CPLUG_WALL_T": f"{copper_slot_wall:.4g} mm",
         "SHELL_TOP_Z": f"{foam_shell_outer_height:.4g} mm",
     }
     substitute_py_comments(

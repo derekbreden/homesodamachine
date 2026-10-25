@@ -91,8 +91,8 @@ for fixed-width brim types.
 | `display-cover` | Mark1, left 0.4 | PET-GF black | Face up, back and wings on the bed, as exported | — |
 | `elbow-cradle` | Mark1, left 0.4 | PET-GF black | On its bottom, as exported | — |
 | `soda-bend-holder` | Mark1, left 0.4 | PET-GF black | The flat back of the D on the bed, as exported | Six walls, 100% zig-zag (the accepted 2026-10-23 article) |
-| `foam-shell`, `foam-cap-top`, `foam-cap-lid-top`, `foam-cap-lid-bottom` | Mark2, left 0.8 High Flow | PET-GF black | As exported, each on its flat face | The 0.8 mm shell project's process with petgf.3mf's filament; the exterior's Standard-hotend temperature, flow and 18 mm³/s cap on the High Flow entry |
-| `foam-cap-bottom` | Mark2, left 0.8 High Flow | PET-GF black | Half a turn about X, onto its flat face | As the other cold-core pieces |
+| `foam-shell`, `foam-cap-top`, `foam-cap-lid-top`, `foam-cap-lid-bottom` | Mark2, left 0.4 Standard | PET-GF black | As exported, each on its flat face | Classic, three loops, 15% gyroid; 0.24 mm layers and 0.20 mm first layer; shell and cups support-free, top lid Tree(auto)/Default |
+| `foam-cap-bottom` | Mark2, left 0.4 Standard | PET-GF black | Half a turn about X, onto its flat face | As the other cold-core pieces |
 | `labels` | Mark2, both 0.4 | PET-GF, two colours | [`labels.py`](labels.py) | — |
 | `funnel-cover` | Mark1, left 0.4 | PETG Basic black | [`zone-c/funnel-cover/prepare_print.py`](../../zone-c/funnel-cover/prepare_print.py) | — |
 | `funnel-mold` | Mark1, right 0.4 | PETG Translucent | [`tools/funnel-mold-print/prepare_print.py`](../../../../tools/funnel-mold-print/prepare_print.py) | — |

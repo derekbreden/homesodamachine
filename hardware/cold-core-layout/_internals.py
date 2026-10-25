@@ -34,7 +34,7 @@ import reed_bridge as _bridge                            # noqa: E402
 import _internal_routes as _R                            # noqa: E402
 from _water_inlet_jet import JET_CAP_D, JET_CAP_T, JET_PASSAGE_D  # noqa: E402
 from _cold_core_interface import (                       # noqa: E402
-    bag_pocket_outermost_x,
+    reed_column_axis_x,
     reed_x_depth,
     carbonator_outer_radius,
 )
@@ -111,7 +111,7 @@ def rod_seat_z(reservoir_solid, x: float) -> float:
 
 # The reed column's own x — the middle of the channel `_reed_channels` carves outward from the
 # pocket's far ±X wall.
-REED_COLUMN_X = bag_pocket_outermost_x + reed_x_depth / 2.0
+REED_COLUMN_X = reed_column_axis_x
 # `level-sensing.md`: the float's useful travel on the rod, from its boss on the floor to
 # just under the cap, and the pitch four reeds span it at.
 FLOAT_TRAVEL_Z = _res.float_magnet_travel_z

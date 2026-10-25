@@ -25,7 +25,7 @@ import reed_bridge as bridge
 import endcap_circular_dxf as cap
 import _pressure_vessel_sync as pv
 from _reed_channels import reed_y_center
-from _cold_core_interface import bag_pocket_outermost_x, reed_x_depth
+from _cold_core_interface import reed_column_axis_x
 from _cadq_export import import_step
 from docgen import substitute_md
 
@@ -86,7 +86,7 @@ def main():
                          'minimum_body_cap_distance_mm': min_distance,
                          'end_stops': 'contact allowed at the lower/upper boss; no volume intrusion'}
     carb_reed_axis = bridge.carbonator_outer_radius + f.reed_mount_diameter/2
-    reservoir_reed_axis = bag_pocket_outermost_x + reed_x_depth/2
+    reservoir_reed_axis = reed_column_axis_x
     paths = {'carbonator': f.reed_edge_distance(cap.register_radius*25.4, carb_reed_axis),
              'reservoir': f.reed_edge_distance(res.rod_position_x, reservoir_reed_axis)}
     float_paths = {'carbonator': f.reed_float_edge_distance(cap.register_radius*25.4, carb_reed_axis),

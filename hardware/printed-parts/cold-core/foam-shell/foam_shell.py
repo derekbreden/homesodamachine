@@ -28,12 +28,7 @@ from _cold_core_interface import (
     coil_radial_clearance,
     carbonator_coil_envelope_radius,
     corner_round_radius,
-    flute_count,
-    flute_depth,
-    flute_pitch,
-    flute_rise,
     forward_band_width,
-    outer_shell_plan_perimeter,
     outer_shell_wall,
     pour_band_pocket_side_y,
     pour_band_shell_side_y,
@@ -62,6 +57,7 @@ from _cold_core_interface import (
     carbonator_outer_radius,
     carbonator_support_ring_height,
     wall_and_floor_thickness,
+    wall_thickness,
 )
 from _reservoir_pocket_walls import (
     pocket_centerward_arc_transition_y,
@@ -121,8 +117,7 @@ def main():
     export_assembly(one_body(foam_shell, "foam-shell", C_FOAM_SHELL),
                     str(_here / "foam-shell.step"))
     print("-> foam-shell.step")
-    # AND THE SHOW SURFACES ARE FLUTED HERE, in the mesh, on the way to the bed. The STEP above
-    # is the surface the field is measured FROM; see `_show_skin` for why it is not in it.
+    # STEP and print mesh carry the same smooth casing surface.
     write_bed_file(foam_shell, _here / "foam-shell.stl")
 
     _report_front_ports(foam_shell)
@@ -139,11 +134,12 @@ def main():
             "SHELL_OUTER_X": f"{outer_shell_x_length:.4g} mm",
             "FSHELL_OUTER_Y": f"{outer_shell_y_length:.4g}",
             "OUTER_GAP": f"{outer_shell_foam_gap:.4g} mm",
-            "FSHELL_WALL_T": f"{wall_and_floor_thickness:.4g} mm",
+            "FSHELL_WALL_T": f"{wall_thickness:.4g} mm",
+            "FSHELL_FLOOR_T": f"{wall_and_floor_thickness:.4g} mm",
             "TANK_H": f"{carbonator_height:.4g} mm",
             "TANK_R": f"{carbonator_outer_radius:.4g} mm",
             "POCKET_ARC_R": f"{pocket_centerward_arc_outer_radius:.4g} mm",
-            "POCKET_ARC_INNER_R": f"{pocket_centerward_arc_outer_radius - wall_and_floor_thickness:.4g} mm",
+            "POCKET_ARC_INNER_R": f"{pocket_centerward_arc_outer_radius - wall_thickness:.4g} mm",
             "POCKET_Y_OUTER": f"{bag_pocket_width / 2:.4g} mm",
             "POCKET_Y_INNER": f"{bag_pocket_y_inner_max:.4g} mm",
             "POCKET_ARC_TRANSITION_Y": f"{pocket_centerward_arc_transition_y:.4g} mm",
@@ -163,11 +159,6 @@ def main():
             # a formed copper tail is laid into an open slot, a line is pushed through a hole.
             "PLUG_ARCH_D": f"{2.0 * tube_clearance_radius:.4g} mm",
             "CORNER_ROUND_R": f"{corner_round_radius:.4g} mm",
-            "FSHELL_FLUTE_PITCH": f"{flute_pitch():.4g} mm",
-            "FSHELL_FLUTE_COUNT": f"{flute_count:g}",
-            "FSHELL_FLUTE_DEPTH": f"{flute_depth:.4g} mm",
-            "FSHELL_FLUTE_RISE": f"{flute_rise:.4g} mm",
-            "FSHELL_PLAN_PERIMETER": f"{outer_shell_plan_perimeter():.4g} mm",
             "FSHELL_OUTER_WALL": f"{outer_shell_wall:.4g} mm",
             "FSHELL_POUR_BAND": f"{abs(pour_band_shell_side_y - pour_band_pocket_side_y):.4g} mm",
             "FSHELL_FORWARD_BAND": f"{forward_band_width:.4g} mm",

@@ -1,0 +1,220 @@
+{
+  "piece": "foam-shell",
+  "printer": "Mark2",
+  "connection_key": "Mark2",
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Smooth 2.38 mm cold-core casing: 0.42 mm outer and 0.45 mm inner lines at 0.24 mm layers, three loops from each boundary.",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "bed_type": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.04,
+  "emitted_textured_trim_mm": 0.02,
+  "project": ".cache/prints/2026-10-25-cold-core-shell-settings/integration238/slice/2026-10-25-foam-shell-mark2-bdc6554c/2026-10-25-foam-shell-mark2-bdc6554c.3mf",
+  "project_sha256": "2e8ee4c81fbdc64c765e24bddd2e34ab1ac80f45289965da80f8447c467df493",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+  "settings_sha256": "df3a59bb21ee1fb3965bc63f225125f54c2aa1a1ec59423d4eacc32721eeb954",
+  "settings_changes": {
+    "extruder_ams_count": {
+      "from": [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      "to": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ],
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_interface_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "flush_into_support": {
+      "from": "1",
+      "to": "0",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "filament_colour": {
+      "from": [
+        "#000000"
+      ],
+      "to": [
+        "#161616"
+      ],
+      "reason": "Mark2's loaded black PET-GF colour reading."
+    },
+    "wall_loops": {
+      "from": "2",
+      "to": "3",
+      "reason": "Derek selected 2.38 mm standing walls, packed with six perimeter beads."
+    },
+    "wall_generator": {
+      "from": "classic",
+      "to": "classic",
+      "reason": "Three fixed-width perimeters from each wall boundary."
+    },
+    "sparse_infill_pattern": {
+      "from": "gyroid",
+      "to": "gyroid",
+      "reason": "Retain 15% gyroid in thicker regions."
+    },
+    "enable_support": {
+      "from": "1",
+      "to": "0",
+      "reason": "The upright shell and floor-down cap pieces retain their support-free recipe."
+    }
+  },
+  "profile_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    },
+    "print_compatible_printers": {
+      "from": [
+        "Bambu Lab H2C 0.4 nozzle"
+      ],
+      "to": [
+        "Bambu Lab H2C 0.4 nozzle",
+        "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+      ]
+    }
+  },
+  "usable_plate_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "plate_border_mm": 20.0,
+  "brim_allowance_mm": 0.0,
+  "plate_offset_mm": null,
+  "objects": [
+    {
+      "name": "foam-shell",
+      "identify_id": 1901,
+      "object_id": 2,
+      "stl": "hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
+      "stl_sha256": "b705e3aa5eee906839456b84d7f6419a655db4197b1483d9d05efb3d23149bcd",
+      "step_sha256": "e37b633f92887e296af97d2da8cb0500c2695f8bbb8b3889f37d3b6925d68b7d",
+      "facets": 44578,
+      "closed": {
+        "edges": 66867,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        106.69999694824219
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        162.5,
+        160.0,
+        106.69999694824219
+      ],
+      "plate_bounds_mm": [
+        [
+          21.300003051757812,
+          69.80000305175781,
+          0.0
+        ],
+        [
+          303.6999969482422,
+          250.1999969482422,
+          213.39999389648438
+        ]
+      ],
+      "model_bed_margin_mm": 21.300003051757812,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    }
+  ],
+  "pause": null,
+  "show_faces": ".cache/prints/2026-10-25-cold-core-shell-settings/integration238/slice/2026-10-25-foam-shell-mark2-bdc6554c/show-faces.npz",
+  "spec": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "spec_sha256": "2d25bb98969219d27564fb8d3431493e21f2cfe51dbf0cfcea5850d5cab301f0",
+  "tool_sha256": {
+    "hardware/printed-parts/enclosure/trial-preparation/_derive.py": "31256357a16f37d9f1516ce1ee1636c97559dfe54a1a2050ae661d622e6b3189",
+    "hardware/printed-parts/enclosure/trial-preparation/_mesh.py": "7ab22db36e370608f52df3709c4af1994c8e804ee06e101dcbf79210db99eead",
+    "hardware/printed-parts/enclosure/trial-preparation/_native.py": "3b04cb3fab2a13be16b0d5d8db156cd3bf8045c949e889a25536491ac823fb20",
+    "hardware/printed-parts/enclosure/trial-preparation/labels.py": "c326a74b104b894d81dcfd8eb00c93ebf602291816decaf241a01cf4818b672d",
+    "hardware/printed-parts/enclosure/trial-preparation/prepare.py": "2b834723e6b12cc4c18e783d030438cb1e4e40a3119ffa848e6654f7ea71811e",
+    "hardware/printed-parts/enclosure/trial-preparation/review.py": "3cf718b7a053e711d960dfdca6f7fa4ba970ca8c9c23dec347b2b955b999e492",
+    "hardware/printed-parts/enclosure/trial-preparation/step_meshes.py": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44"
+  },
+  "prepared_utc": "2026-10-25T21:18:56+00:00",
+  "sliced": true,
+  "submitted": false,
+  "archive": ".cache/prints/2026-10-25-cold-core-shell-settings/integration238/slice/2026-10-25-foam-shell-mark2-bdc6554c/2026-10-25-foam-shell-mark2-bdc6554c.gcode.3mf",
+  "archive_sha256": "eb7cace8315b75891dfa78034024dcf391ca1559159434847b05bd49f15bce89",
+  "gcode_sha256": "997f6329859e50dde11ca60b47fa16d7cf2ed7fad870896cae647fc1cc54c13a",
+  "estimated_seconds": 83085.96875,
+  "slicer_warnings": []
+}

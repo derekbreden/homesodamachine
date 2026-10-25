@@ -80,3 +80,22 @@ Sliced (Bambu Studio): 379.99 m / 1142.47 g, 14h22m, single PETG on the left noz
 Derek said:
 - The print is almost finished; "we do have success."
 - The four diagonal corner gussets do not reach the reservoir pocket wall — each rib's pocket-side end stops short of the pocket outer wall.
+
+
+## Smooth 2.38 mm casing, Mark2 0.4 mm (2026-10-25)
+
+Derek: "Please start a print of this new cold core shell on mark2 when you are ready."
+
+Mark2 accepted task **1375153599** at **16:26:12 CDT / 21:26:12 UTC**.
+The shell uses the smooth 282.4 × 180.4 mm casing and fixed reservoir cavities.
+Classic with three loops gives six perimeter lines across sampled ordinary
+2.38 mm walls. The 0.4 mm Standard left nozzle prints black PET-GF15 at
+0.20/0.24 mm layers, 265/280 °C, an 80 °C textured PEI bed, unheated chamber,
+ordinary cooling off and localized 70% bridge/overhang cooling. Thick regions
+use 15% gyroid. Supports are off; minimum native bed margin is 21.183 mm.
+Native estimate: **23 h 4 min 46 s**. Requested user Z trim +0.04 mm emits
+G29.1 Z0.02. Timelapse and bed leveling On; flow and nozzle-offset Auto.
+
+The [job record](prints/2026-10-25-mark2-left04-smooth238-z004/README.md)
+binds geometry, settings, emitted paths and the accepted launch.
+Physical outcome is pending.

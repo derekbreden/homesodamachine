@@ -3,6 +3,9 @@ foam shell on the outer face of each bag-pocket far ±X wall."""
 
 from _cold_core_interface import (
     wall_and_floor_thickness,
+    wall_thickness,
+    reed_channel_inner_x,
+    bag_pocket_far_inner_x,
     foam_shell_outer_height,
     bag_pocket_outermost_x,
     cap_conduits,
@@ -17,7 +20,7 @@ from _cold_core_interface import (
     bound,
 )
 
-w = wall_and_floor_thickness
+w = wall_thickness
 
 # Reed switches per reservoir, level-sensing fuel gauge — see
 # `reservoir/level-sensing.md`.
@@ -32,10 +35,10 @@ reeds_per_reservoir = 4
 # kept level with that one — it IS that one (`_cold_core_interface.level_rod_y`).
 reed_y_center = level_rod_y
 
-# Cavity rests on the foam-shell floor at z=w; envelope bottom at z=0.
+# Cavity rests on the fixed foam-shell floor; envelope bottom is z=0.
 # Open through the cap to full outer height: the pre-soldered reed
 # column drops in before the cap is installed.
-reed_cavity_z_range = (w, foam_shell_outer_height)
+reed_cavity_z_range = (wall_and_floor_thickness, foam_shell_outer_height)
 reed_envelope_z_range = (0, foam_shell_outer_height)
 
 reed_cavity_y_range = (reed_y_center - reed_y_half_w, reed_y_center + reed_y_half_w)
@@ -67,7 +70,7 @@ def reed_channel_plan_room(x, y):
     which side's it is: `(mm, side)`. Negative means it is inside one."""
     room = []
     for s in (+1, -1):
-        env_x = sorted((s * bag_pocket_outermost_x, s * (bag_pocket_outermost_x + reed_x_depth + w)))
+        env_x = sorted((s * reed_channel_inner_x, s * (reed_channel_inner_x + reed_x_depth + w)))
         dx = max(env_x[0] - x, x - env_x[1])
         dy = max(reed_envelope_y_range[0] - y, y - reed_envelope_y_range[1])
         room.append((max(dx, dy), f"reservoir {'AB'[s < 0]}'s reed channel"))
@@ -107,8 +110,8 @@ for _name, _side in sorted(REED_CABLE_CONDUITS.items()):
             f"{'AB'[_side < 0]}'s cable leaves by, and the cap carries no conduit by that name "
             f"— the exemption above is what is still holding it out of `reed-channel-clear`.")
     _x, _y = (-v for v in cap_conduit_floor_xy[_name])
-    _cav_x = sorted((_side * bag_pocket_outermost_x,
-                     _side * (bag_pocket_outermost_x + reed_x_depth)))
+    _cav_x = sorted((_side * reed_channel_inner_x,
+                     _side * (reed_channel_inner_x + reed_x_depth)))
     _cav_y = reed_cavity_y_range
     _mouth_x = min(_cav_x[1], _x + port_hole_radius) - max(_cav_x[0], _x - port_hole_radius)
     _mouth_y = min(_cav_y[1], _y + port_hole_radius) - max(_cav_y[0], _y - port_hole_radius)
@@ -127,7 +130,7 @@ def build_reed_channels(side):
 
     `side` = ±1 mirrors x across the y-z plane."""
     s = side
-    bag_x = s * bag_pocket_outermost_x  # outer face of bag-pocket far ±X wall
+    bag_x = s * reed_channel_inner_x
 
     reed_envelope_x_range = (bag_x, bag_x + s * (reed_x_depth + w))
     reed_cavity_x_range = (bag_x, bag_x + s * reed_x_depth)
@@ -143,7 +146,7 @@ def cut_reed_channel_openings(foam_shell):
     the magnet-to-reed magnetic path across the wall."""
     for s in (+1, -1):
         wall_x_outer = s * bag_pocket_outermost_x
-        wall_x_inner = wall_x_outer - s * w
+        wall_x_inner = s * bag_pocket_far_inner_x
         reed_opening = make_box((wall_x_inner, wall_x_outer), reed_cavity_y_range, reed_cavity_z_range)
         foam_shell = foam_shell.cut(reed_opening)
     return foam_shell

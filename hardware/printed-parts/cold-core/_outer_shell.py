@@ -8,9 +8,12 @@ import cadquery as cq
 from world_workplane import WorldWorkplane, xy_plane_z_up
 import fits
 from _cold_core_interface import (
-    casing_seal_rebate,
     attachment_stations,
     outer_shell_wall,
+    copper_slot_wall,
+    port_lane_mid_y,
+    west_lane_mid_y,
+    front_wall_x,
     wall_and_floor_thickness,
     foam_shell_outer_height,
     outer_shell_x_length,
@@ -22,41 +25,6 @@ from _cold_core_interface import (
     insert_pocket_depth,
     make_box,
 )
-
-
-def rebate_casing_seals(solid, bands, *, transitions=()):
-    """Smooth foil-seal lands within the fixed outside envelope.
-
-    The 0.30 mm recess leaves 2.90 mm of the 3.20 mm casing wall and at
-    least 1.69 mm from each 4 mm pilot to the rounded outside wall.
-    Internal faces, screw axes and the cap/lid bearing planes stay fixed.
-    """
-    for z0, z1 in bands:
-        keep = (WorldWorkplane(xy_plane_z_up).workplane(offset=z0)
-                .rect(outer_shell_x_length - 2 * casing_seal_rebate,
-                      outer_shell_y_length - 2 * casing_seal_rebate)
-                .extrude(z1 - z0).edges("|Z")
-                .fillet(corner_round_radius - casing_seal_rebate))
-        outside = (WorldWorkplane(xy_plane_z_up).workplane(offset=z0)
-                   .rect(outer_shell_x_length + 2, outer_shell_y_length + 2)
-                   .extrude(z1 - z0))
-        solid = solid.cut(outside.cut(keep).unwrap())
-    # A 0.5 mm/mm taper joins a shell seal land to its standing wall.
-    # The band itself remains flat; neither transition adds to the envelope.
-    def outline(z, inset):
-        return (cq.Workplane("XY")
-                .rect(outer_shell_x_length - 2 * inset,
-                      outer_shell_y_length - 2 * inset).extrude(1)
-                .edges("|Z").fillet(corner_round_radius - inset)
-                .faces("<Z").wires().val().translate((0, 0, z)))
-    for z0, z1, inset0, inset1 in transitions:
-        keep = cq.Solid.makeLoft([outline(z0, inset0), outline(z1, inset1)], True)
-        outside = cq.Solid.makeBox(outer_shell_x_length + 2,
-                                  outer_shell_y_length + 2, z1 - z0,
-                                  cq.Vector(-outer_shell_x_length/2 - 1,
-                                            -outer_shell_y_length/2 - 1, z0))
-        solid = solid.cut(outside.cut(keep))
-    return solid
 
 
 def _rounded_footprint(height):
@@ -85,22 +53,9 @@ def cavity_plan(z0, z1, wall=None):
     )
 
 
-#: How much of a shelled cup's floor is the show skin's stock rather than the floor's own.
-floor_skin_stock = outer_shell_wall - wall_and_floor_thickness
-
-
-def take_skin_off_the_floor(cup, z0, z1):
-    """`cup`, with the show skin's stock given back on the one face that is not show face —
-    `z0`..`z1` being the `floor_skin_stock`-thick slab of cavity the shell left behind.
-
-    A SHELL THICKENS EVERY FACE IT LEAVES, and a cup's closed end is one of them. But that end
-    lies FLAT: it carries no flutes, so it has no reason to stand a groove's depth deeper, and
-    it cannot afford to either. Every height in the core is measured off the shell floor's top
-    face (`bag_pocket_floor_top_z`, `front_face_port_z`, the support ring's own seat) and
-    `foam_cap_height` is a pour depth plus one floor, so a floor that moved would carry the
-    whole stack with it. The four standing walls keep their own section; only this is given
-    back."""
-    return cup.cut(cavity_plan(z0, z1))
+def trim_cup_floor(cup, z0, z1, wall=None):
+    """Remove surplus closed-end stock while retaining the cup's vertical walls."""
+    return cup.cut(cavity_plan(z0, z1, wall=wall))
 
 
 def build_attachment_bosses(height, oversize=0.0):
@@ -154,23 +109,22 @@ def build_attachment_bosses(height, oversize=0.0):
 
 
 def build_outer_shell():
-    # Rounded corners with both wall faces concentric arcs, each wrapping an
-    # inward-nested corner boss.
-    shell = (
-        WorldWorkplane(xy_plane_z_up)
-        .workplane(offset=0)
-        .rect(outer_shell_x_length, outer_shell_y_length)
-        .extrude(foam_shell_outer_height)
-        .edges("|Z")
-        .fillet(corner_round_radius)
-        .faces(">Z")
-        # THE WALL IS ONE FLUTE DEEPER THAN THE STRUCTURE NEEDS (`outer_shell_wall`), and the
-        # depth is found on the inside. The footprint this is shelled out of is untouched, so
-        # the groove floor lands on the surface the cabinet was measured against.
-        .shell(-outer_shell_wall)
-    )
-    shell = take_skin_off_the_floor(shell, wall_and_floor_thickness, outer_shell_wall)
-    return shell.union(build_attachment_bosses(foam_shell_outer_height)).unwrap()
+    """Plain standing walls, fixed floor and local copper-cover seating jambs."""
+    h = foam_shell_outer_height
+    shell = _rounded_footprint(h).cut(cavity_plan(wall_and_floor_thickness, h))
+
+    # The continuous inboard flanges seat on a fixed plane. The exterior
+    # clearance also accommodates the foil allowance around the plain casing.
+    from copper_plugs import plug_half_x_outer
+    seat_wall = copper_slot_wall + front_wall_x + outer_shell_x_length/2
+    jamb_stock = cavity_plan(wall_and_floor_thickness, h).cut(
+        cavity_plan(wall_and_floor_thickness, h, wall=seat_wall))
+    for y in (port_lane_mid_y, west_lane_mid_y):
+        clip = make_box((front_wall_x-1.0, front_wall_x+copper_slot_wall+1.0),
+                        (y-plug_half_x_outer, y+plug_half_x_outer),
+                        (wall_and_floor_thickness, h))
+        shell = shell.union(jamb_stock.intersect(clip))
+    return shell.union(build_attachment_bosses(h)).unwrap()
 
 
 def cut_insert_pockets(foam_shell):

@@ -26,7 +26,6 @@ sys.path.insert(0, str(_here.parents[1] / "reference" / "g-ganen-pump" / "instal
 
 import cadquery as cq
 
-import reeding
 import fits
 import valve_seat as _valve_seat
 import g_ganen_installation as _water_pump
@@ -38,52 +37,19 @@ from _enclosure_interface import (manifold_rise, inner_limb_drop,
 import _anchor_cap_interface as _anchor_cap
 
 
-# All structural walls and floors are [2 mm](WALL_AND_FLOOR_THICKNESS) PET-GF. The outer
-# wall is one flute deeper than this, and `outer_shell_wall` below is where that is said.
-wall_and_floor_thickness = 2.0
+# Standing casing walls and pocket walls share a section; floors and stack
+# datums have their own thickness. Changing stock must not resize a mating cavity.
+wall_thickness = 2.38
+floor_thickness = 2.0
+# Public floor/height datum consumed by the assembly and its installation reviews.
+wall_and_floor_thickness = floor_thickness
 hole_shift_from_edge = 15.0
 
 
-# --- The show skin ---------------------------------------------------------------------
-#
-# THE CORE'S OUTER SKIN IS FLUTED, on the box's own field at the box's own figures
-# (`cadlib/flute_skin.py`, `cadlib/reeding.py`). What the texture buys is not ornament. A
-# groove field at this pitch lays its own highlight and shadow across the surface at a spacing
-# finer, and in far higher contrast, than a layer line — so the layer lines fall under it and a
-# large flat face stops announcing how it was made. On PET-GF15 that is the difference between
-# a face that reads as printed and one that reads as moulded, and it is worth most on exactly
-# the faces that are hardest to print clean: the slot's fan is off and its chamber is at 50 °C
-# (`foam-shell/print-log.md`), which is a profile tuned for a standing wall.
-#
-# IT IS LIMITED TO WHAT STANDS VERTICAL, and that is the printer's fact and not a choice. On a
-# standing wall the groove is Z-INVARIANT: every layer traces the same toothed perimeter, so
-# the texture is the outer wall loop taking a wavier path and costs nothing. Off vertical the
-# same groove stops being a wall feature and becomes top-shell geometry, which is stepped solid
-# infill. So the four walls of the shell and of both caps carry it and no horizontal face does.
-flute_depth = 1.2
-flute_rise = 5.0
-flute_pitch_nominal = 5.0
-#: How far the landed pitch may sit from the nominal — `flute_count` closes on the perimeter
-#: exactly, so the pitch is a consequence and this is what holds it near the coupon's.
-flute_pitch_drift = 0.15
-#: THE COUNT IS EVEN, AND TWO SEPARATE THINGS BUY THAT. The footprint has two mirror planes and
-#: a datum on one of them gives its own for free (`flute_skin.rounded_rect_segments`); the
-#: other costs an even count. And the top cap and its lid install spun a half turn about Z
-#: (`foam_assembly._spin`), which shifts their field by half the perimeter — a whole number of
-#: pitches only when the count is even, and half a pitch otherwise, which would land every
-#: groove of the cap on a land of the shell.
-flute_count = 182
-
-# THE GROOVE'S STOCK COMES OUT OF THE POUR, NOT OFF THE ENVELOPE. A flute must have a whole
-# `wall_and_floor_thickness` standing behind it — the box's `flute_backing` rule, which its
-# corner coupon proved on the 0.6 mm an engraved label took out of the far side and which read
-# on the show face as a mark you could find. A 1.2 mm groove in a 2 mm wall leaves 0.8, which is
-# under the 0.87 mm of shell two loops draw, so a wall that carries flutes is one flute deeper
-# than one that does not. The depth is found on the INSIDE: `outer_shell_x_length` and
-# `outer_shell_y_length` are what they were, and the foam behind the wall gives up the
-# difference. Nothing outboard moves, so the cabinet around the core does not know this
-# happened.
-outer_shell_wall = wall_and_floor_thickness + flute_depth
+# Plain outside faces reserve room for the foil within the enclosure envelope.
+# Copper covers grip separate local jamb seats, with their own fit datums.
+outer_shell_wall = wall_thickness
+copper_slot_wall = 3.2
 
 
 # The cold cylinder + its evaporator coil. [7 mm](COIL_RADIAL_CLEARANCE) of
@@ -93,17 +59,11 @@ carbonator_outer_radius = 63.5
 coil_radial_clearance = 7.0
 carbonator_coil_envelope_radius = carbonator_outer_radius + coil_radial_clearance
 
-# Foam blanket around the cylinder — the pour-foam standoff measured from the
-# cylinder OD out to the reservoir's carbonator-facing wall, uniform around the wrapped
-# arc (that wall is a concentric arc), with the coil embedded in its inner slice
-# (so it must be >= coil_radial_clearance). This VALUE is not a thermal target:
-# it is set so the reservoir, shifted out by it, keeps the 283 mm outer width
-# (outer_shell_x_length below) with its reed channel butted against the outer
-# wall — i.e. the foam that used to sit outboard of the reed moved to the
-# cylinder side. The reservoir-facing (cavity) face is one wall further out.
-foam_thickness_around_cylinder = 15.0
-pocket_centerward_arc_outer_radius = (
-    carbonator_outer_radius + foam_thickness_around_cylinder + wall_and_floor_thickness
+# The reservoir-facing arc is a mating datum. Pocket stock grows toward the
+# carbonator, and the remaining radial space contains the coil and pour foam.
+pocket_centerward_arc_outer_radius = 80.5  # reservoir-facing mating arc
+foam_thickness_around_cylinder = (
+    pocket_centerward_arc_outer_radius - wall_thickness - carbonator_outer_radius
 )
 
 # Foam-shell outer height. Carbonator height + [30 mm](ABOVE_TANK_ELBOWS_HEIGHT) above for top-side elbow
@@ -145,19 +105,19 @@ reed_y_half_w = 4.0
 # both of its bores stand off it (`reservoir.py`).
 level_rod_y = 32.5
 
-# Bag pocket. Width and depth are the reservoir's own dimensions — sized to the
-# flavor charge it carries (each usable window, Reed 1 low → Reed 4 full over
-# 162 mm of float travel, holds 2 × SodaStream 0.44 L bottles). They are NOT tied
-# to the carbonator geometry: the ±Y width stands on its own so growing the cylinder's
-# foam blanket slides the pocket outward without resizing the reservoir.
-bag_pocket_width = 145.0
-bag_pocket_depth = 49 + 2 * wall_and_floor_thickness
-bag_pocket_far_inner_x = (
-    pocket_centerward_arc_outer_radius + bag_pocket_depth - 2 * wall_and_floor_thickness
-)
-bag_pocket_y_inner_max = bag_pocket_width / 2 - wall_and_floor_thickness
-bag_pocket_floor_top_z = wall_and_floor_thickness
+# Reservoir mating extents are fixed independently of the PET-GF wall stock.
+# The outer pocket extents follow the stock on their foam-facing sides.
+bag_pocket_far_inner_x = 129.5
+bag_pocket_y_inner_max = 70.5
+bag_pocket_width = 2 * (bag_pocket_y_inner_max + wall_thickness)
+bag_pocket_depth = (bag_pocket_far_inner_x - pocket_centerward_arc_outer_radius
+                    + 2 * wall_thickness)
+bag_pocket_floor_top_z = floor_thickness
 bag_pocket_walls_top_z = foam_shell_outer_height
+# The reed cavity and its cap passage are functional datums, independent of
+# the pocket wall's foam-facing face.
+reed_channel_inner_x = 131.5
+reed_column_axis_x = reed_channel_inner_x + reed_x_depth / 2.0
 
 # Matches the reservoir's outer +X × ±Y fillet (R=6) with reservoir_clearance
 # on top, so the reservoir's outer arc slides into a snugly-mated arc on
@@ -214,36 +174,17 @@ def reservoir_draw_conduit_xy(side):
     x, y = reservoir_draw_port[side]
     return (-x, -y)
 
-# Outer footprint. The ±Y (front/back) gap is the carbonator's foam blanket out to the
-# shell wall. The ±X width is set by the reservoir + its reed channel butted
-# against the shell wall — no outboard foam there; it moved to the cylinder side.
-outer_shell_foam_gap = 16.0  # ±Y front/back foam-pour gap
-bag_pocket_outermost_x = (
-    pocket_centerward_arc_outer_radius + bag_pocket_depth - wall_and_floor_thickness
-)
-# ±X: reservoir far wall + reed cavity + reed wall + shell wall (reed butted).
-outer_shell_x_length = 2 * (
-    bag_pocket_outermost_x + reed_x_depth + 2 * wall_and_floor_thickness
-)
-# ±Y: reservoir side wall (its own half-width) + front/back foam + shell wall.
-outer_shell_y_length = 2 * (
-    bag_pocket_width / 2 + outer_shell_foam_gap + wall_and_floor_thickness
+# Foil sits on the plain casing within a 0.30 mm per-face envelope allowance.
+casing_foil_allowance = 0.30
+outer_shell_x_length = 282.4
+outer_shell_y_length = 180.4
+bag_pocket_outermost_x = bag_pocket_far_inner_x + wall_thickness
+outer_shell_foam_gap = (
+    outer_shell_y_length / 2 - outer_shell_wall - bag_pocket_width / 2
 )
 
-# The ±X FORWARD BAND — what is left between the bag pocket's far wall and the outer shell's
-# inner face. The band exists at every y BECAUSE the reed channel is in it at one: the pair
-# that set `outer_shell_x_length` is the reed channel's own depth and wall. What the show skin
-# takes comes off this band, because the wall it thickens into is this band's outboard face —
-# and the reed channel is unharmed by that, because the wall it grows into is the reed's own
-# outboard wall, which is the same solid once the two are unioned. The reed CAVITY does not
-# move. A line climbing this band is potted in the pour beside the reed column, and there is
-# still a bore's width of it to climb (`forward-band-takes-a-bore`).
-forward_band_width = reed_x_depth + 2 * wall_and_floor_thickness - outer_shell_wall
-# AND ITS MIDDLE, which is where a line climbing it runs. A tube in this band has the pocket's
-# far wall on one hand and the shell's cavity face on the other and no room to favour either,
-# so the station is the band's own centre and not a figure — the show skin thickens the wall
-# this band's outboard face is, and a stated number would have stayed where the wall used to
-# be. `forward-band-takes-a-bore` is what says a tube still fits between the two.
+# Open routing room between the pocket's foam-facing wall and the casing.
+forward_band_width = outer_shell_x_length / 2 - outer_shell_wall - bag_pocket_outermost_x
 forward_band_mid_x = bag_pocket_outermost_x + forward_band_width / 2.0
 
 # The −Y pour band — the open gap between the bag-pocket wall's outer face
@@ -257,7 +198,7 @@ pour_band_shell_side_y = -(outer_shell_y_length / 2 - outer_shell_wall)
 # mouth-up on top, one mouth-down underneath), each with a thin pour lid.
 # The interior height is the cap's foam depth; the printed cup adds one
 # floor.
-foam_cap_interior_height = outer_shell_foam_gap
+foam_cap_interior_height = 16.0  # fixed pour depth and stack-height datum
 foam_cap_height = foam_cap_interior_height + wall_and_floor_thickness
 foam_cap_lid_pour_radius = 10.0
 foam_cap_lid_vent_radius = 3.0
@@ -311,8 +252,6 @@ prv_port_y = +carbonator_port_offset
 # sealed externally with 3M 425 foil tape. See bom.md for hardware SKUs.
 cap_shell_clearance = fits.slip
 cap_lid_clearance = fits.slip
-casing_seal_rebate = 0.30  # two 0.12 mm layers of 3M 425 stay inside the bare envelope
-casing_seal_shell_band = 13.0
 screw_clearance_radius = 3.0 / 2.0 + fits.slip
 insert_pocket_radius = 2.0  # ⌀[4](INSERT_POCKET_DIAMETER), ruthex's own recommended hole
 insert_pocket_depth = 10.5  # 5.7 mm insert; room for the M3×25 tip beyond it
@@ -355,9 +294,9 @@ foam_cap_lid_height = wall_and_floor_thickness + head_pad_height
 #
 # The lane is ONE BORE WIDE. That is what makes each lane a column rather than a grid, and
 # what its slot stands on is `front_port_floor_z` below.
-front_wall_x = -outer_shell_x_length / 2
-port_lane_outer_y = -(outer_shell_y_length / 2 - screw_boss_size)
-port_lane_inner_y = pour_band_pocket_side_y
+front_wall_x = -141.5  # fixed copper/cover port frame
+port_lane_outer_y = -82.5  # fixed tube-routing lane
+port_lane_inner_y = -72.5  # tube/slot routing datum; pocket stock grows outside it
 port_lane_mid_y = (port_lane_outer_y + port_lane_inner_y) / 2
 
 # The +Y band's lane, which is this one mirrored — the bosses stand at both signs, so both
@@ -412,66 +351,11 @@ front_port_axis = (-1.0, 0.0, 0.0)
 
 
 # Rounded outer-shell corners. Each corner's exterior wall is a true arc:
-# the outer face is a quarter-round of [12 mm](CORNER_ROUND_R) radius, the
+# the outer face is a quarter-round of [11.7 mm](CORNER_ROUND_R) radius, the
 # inner face concentric one wall-thickness inboard.
-corner_round_radius = 12.0
+corner_round_radius = 11.7
 
 
-# --- The run the show skin is struck along ----------------------------------------------
-#
-# ONE RUN FOR THE WHOLE STACK. The shell, both caps and both lids are all cut to the SAME
-# footprint (`outer_shell_x_length` × `outer_shell_y_length` on `corner_round_radius`), so from
-# the outside the core is one silhouette with seams across it, and there is one perimeter for
-# every piece of it to strike its field on. A piece that took its own pitch off its own height
-# would put its grooves half a land off its neighbour's at the seam, which is the one place a
-# reader's eye is already going.
-#
-# ARC LENGTH IS THE ACROSS-COORDINATE, so a flute crosses `corner_round_radius`'s quarter turn
-# without knowing the corner is there, and a run round the outside is the same object to
-# `flute_skin` as any other run.
-
-
-def outer_shell_plan_segments():
-    """The core's outer plan boundary as (kind, length, data), walked from the middle of the
-    −X wall — the FRONT face, the one every penetration opens on and the one a reader is
-    standing at. That station is on the y = 0 plane the core is struck about."""
-    return reeding.rounded_rect_segments(
-        outer_shell_x_length, outer_shell_y_length, corner_round_radius)
-
-
-def outer_shell_plan_perimeter():
-    """How far it is round the core's outer plan once — what `flute_count` divides."""
-    return sum(length for _kind, length, _data in outer_shell_plan_segments())
-
-
-def outer_shell_plan_at(s):
-    """That boundary's point and OUTWARD normal at arc length `s` from the datum.
-
-    THE PLAN CLOSES, so any `s` is on it: the walk is taken modulo the perimeter and the core
-    has no station where the field restarts."""
-    segments = outer_shell_plan_segments()
-    return reeding.walk(segments, s % sum(length for _k, length, _d in segments))
-
-
-def flute_pitch():
-    """The spacing the field actually lands on. It is a CONSEQUENCE of `flute_count`, not a
-    figure of its own: a stated pitch would leave the perimeter with a remainder, and the
-    remainder has to go somewhere — one wrong land, at whichever station the array closed on."""
-    return outer_shell_plan_perimeter() / flute_count
-
-
-state("flute-closes", "The flute count lands near the nominal pitch",
-      f"|{flute_pitch():.4g} - {flute_pitch_nominal:g}| <= {flute_pitch_drift:g} mm",
-      abs(flute_pitch() - flute_pitch_nominal) <= flute_pitch_drift,
-      f"{flute_count} grooves close on the {outer_shell_plan_perimeter():.4g} mm perimeter at "
-      f"{flute_pitch():.4g} mm, which is {abs(flute_pitch() - flute_pitch_nominal):.4g} mm off "
-      f"the nominal {flute_pitch_nominal:g}")
-state("flute-backed", "A groove keeps a whole wall behind it",
-      f"{outer_shell_wall:g} - {flute_depth:g} >= {wall_and_floor_thickness:g} mm",
-      outer_shell_wall - flute_depth >= wall_and_floor_thickness - 1e-9,
-      f"a {flute_depth:g} mm groove in the {outer_shell_wall:g} mm outer wall leaves "
-      f"{outer_shell_wall - flute_depth:g} mm, under the {wall_and_floor_thickness:g} mm a "
-      f"fluted face must stand on")
 state("forward-band-takes-a-bore", "The forward band still passes a line",
       f"{forward_band_width:g} >= {passage_tube_od:g} mm",
       forward_band_width >= passage_tube_od,
@@ -511,12 +395,12 @@ state("forward-band-takes-a-bore", "The forward band still passes a line",
 # The whole pattern is symmetric under a 180° turn about Z — balanced cap clamping, and
 # the top cap free to install either way round. Two bosses to a ±Y wall is what makes that
 # free: one to a wall bought the same symmetry only by standing the pair on a diagonal.
-_boss_wall_y = outer_shell_y_length / 2 - screw_boss_size / 2
-_boss_wall_x = outer_shell_x_length / 2 - screw_boss_size / 2
+_boss_wall_y = 86.5
+_boss_wall_x = 137.5
 # Rounded-corner insert pilots retain ruthex's 1.6 mm surrounding wall
 # behind the smooth 0.30 mm exterior foil land.
 _corner_boss_y = _boss_wall_y - 0.25
-_end_boss_x = bag_pocket_outermost_x
+_end_boss_x = 131.5  # cap/shell screw datum, independent of pocket stock
 # The mid bosses stand at ±40 mm on each long wall. The soda lower-riser
 # datum is (52.2, -port_lane_mid_y) in the cap frame; its curved roof passage
 # joins the independently selected upper guide in `cap_fluid_conduits`.
@@ -537,8 +421,7 @@ attachment_xy_positions = [_xy for _xy, _wall in attachment_stations]
 # lane is exactly what it leaves. A ±X boss is in neither band — it stands on the face those
 # lines arrive AT, clear of both lanes in y.
 
-# The shell's central wall carries its fluted show skin. Its two end bands,
-# both cups and both lid edges are smooth recessed lands for exterior foil seals.
+# Foil seals wrap the plain casing at both ends, spanning shell/cup and cup/lid seams.
 # The foil stays off the horizontal seating and bearing faces.
 #
 # The clamp screw, end to end. From under its head an M3 × [25](CAP_SCREW_L)
@@ -768,7 +651,7 @@ def cap_cradle_room(name):
 # service bay stands on that face.
 lldpe_tube_od = 6.35                         # the 1/4" line every fluid port on the core takes
 cap_conduit_bore_radius = port_hole_radius   # the ⌀[7.5](PORT_HOLE_DIAMETER) every shell penetration takes
-cap_conduit_wall = 2.0
+cap_conduit_wall = wall_thickness
 cap_conduit_boss_radius = cap_conduit_bore_radius + cap_conduit_wall
 cap_conduit_lid_slip = deck_mount_lid_slip   # per side, a standing column to the lid's clearance hole
 
@@ -892,7 +775,7 @@ water_outlet_drift_z = (evap_tail_low_z + lldpe_tube_od + 2.0, 140.0)
 #   The bore is wider than the cavity and stands proud of it either side in X; what it owes is
 # that it OPEN on the cavity rather than clip its corner, which is `_reed_channels` bound
 # `reed-cable-conduit-stands-over-its-channel`.
-reed_cable_conduit_x = bag_pocket_outermost_x + reed_x_depth / 2.0
+reed_cable_conduit_x = reed_column_axis_x
 reed_cable_conduit_y = level_rod_y
 
 

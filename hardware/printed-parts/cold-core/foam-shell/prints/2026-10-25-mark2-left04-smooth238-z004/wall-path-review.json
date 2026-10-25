@@ -1,0 +1,979 @@
+{
+  "archive": ".cache/prints/2026-10-25-cold-core-shell-settings/integration238/slice/2026-10-25-foam-shell-mark2-bdc6554c/2026-10-25-foam-shell-mark2-bdc6554c.gcode.3mf",
+  "archive_sha256": "eb7cace8315b75891dfa78034024dcf391ca1559159434847b05bd49f15bce89",
+  "geometry_sha256": "b705e3aa5eee906839456b84d7f6419a655db4197b1483d9d05efb3d23149bcd",
+  "estimated_seconds": 83085.96875,
+  "sampled_cross_sections": {
+    "5.0": {
+      "outer -X": [
+        {
+          "feature": "Outer wall",
+          "position_mm": 21.51073,
+          "width_from_extrusion_mm": 0.42
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 21.89436,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 22.29274,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 22.688,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 23.086,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Outer wall",
+          "position_mm": 23.47,
+          "width_from_extrusion_mm": 0.42
+        }
+      ],
+      "outer -Y": [
+        {
+          "feature": "Outer wall",
+          "position_mm": 70.012,
+          "width_from_extrusion_mm": 0.42
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 70.395,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 70.7935,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 71.188,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 71.586,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Outer wall",
+          "position_mm": 71.97,
+          "width_from_extrusion_mm": 0.42
+        }
+      ],
+      "straight reservoir wall": [
+        {
+          "feature": "Outer wall",
+          "position_mm": 230.71,
+          "width_from_extrusion_mm": 0.42
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 231.093,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 231.492,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 231.88709,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 232.28601,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Outer wall",
+          "position_mm": 232.66901,
+          "width_from_extrusion_mm": 0.42
+        }
+      ],
+      "curved reservoir wall": [
+        {
+          "feature": "Outer wall",
+          "position_mm": 240.82299,
+          "width_from_extrusion_mm": 0.42
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 241.20599,
+          "width_from_extrusion_mm": 0.4499
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 241.60474,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 242.00023,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 242.39898,
+          "width_from_extrusion_mm": 0.4499
+        },
+        {
+          "feature": "Outer wall",
+          "position_mm": 242.78299,
+          "width_from_extrusion_mm": 0.42
+        }
+      ],
+      "outer +X": [
+        {
+          "feature": "Outer wall",
+          "position_mm": 301.52915,
+          "width_from_extrusion_mm": 0.42
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 301.91313,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 302.31111,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 302.704,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 303.103,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Outer wall",
+          "position_mm": 303.486,
+          "width_from_extrusion_mm": 0.42
+        }
+      ],
+      "outer +Y": [
+        {
+          "feature": "Outer wall",
+          "position_mm": 248.03,
+          "width_from_extrusion_mm": 0.42
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 248.413,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 248.812,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 249.2065,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 249.605,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Outer wall",
+          "position_mm": 249.988,
+          "width_from_extrusion_mm": 0.42
+        }
+      ]
+    },
+    "40.04": {
+      "straight reservoir wall": [
+        {
+          "feature": "Outer wall",
+          "position_mm": 230.71,
+          "width_from_extrusion_mm": 0.42
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 231.093,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 231.492,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 231.8871,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 232.28601,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Outer wall",
+          "position_mm": 232.66901,
+          "width_from_extrusion_mm": 0.42
+        }
+      ],
+      "curved reservoir wall": [
+        {
+          "feature": "Outer wall",
+          "position_mm": 240.823,
+          "width_from_extrusion_mm": 0.42
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 241.20601,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 241.60476,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 242.00023,
+          "width_from_extrusion_mm": 0.4501
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 242.39898,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Outer wall",
+          "position_mm": 242.78299,
+          "width_from_extrusion_mm": 0.42
+        }
+      ],
+      "outer -Y": [
+        {
+          "feature": "Outer wall",
+          "position_mm": 70.0135,
+          "width_from_extrusion_mm": 0.42
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 70.3965,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 70.7955,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 71.188,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 71.586,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Outer wall",
+          "position_mm": 71.97,
+          "width_from_extrusion_mm": 0.42
+        }
+      ],
+      "outer +X": [
+        {
+          "feature": "Outer wall",
+          "position_mm": 301.52915,
+          "width_from_extrusion_mm": 0.42
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 301.91313,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 302.31111,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 302.704,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 303.103,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Outer wall",
+          "position_mm": 303.486,
+          "width_from_extrusion_mm": 0.42
+        }
+      ],
+      "outer +Y": [
+        {
+          "feature": "Outer wall",
+          "position_mm": 248.03,
+          "width_from_extrusion_mm": 0.42
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 248.413,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 248.812,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 249.206,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 249.605,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Outer wall",
+          "position_mm": 249.988,
+          "width_from_extrusion_mm": 0.42
+        }
+      ],
+      "outer -X": [
+        {
+          "feature": "Outer wall",
+          "position_mm": 21.51,
+          "width_from_extrusion_mm": 0.42
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 21.893,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 22.292,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 22.688,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 23.086,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Outer wall",
+          "position_mm": 23.47,
+          "width_from_extrusion_mm": 0.42
+        }
+      ]
+    },
+    "99.8": {
+      "straight reservoir wall": [
+        {
+          "feature": "Outer wall",
+          "position_mm": 230.71,
+          "width_from_extrusion_mm": 0.42
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 231.093,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 231.492,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 231.8871,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 232.28601,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Outer wall",
+          "position_mm": 232.66901,
+          "width_from_extrusion_mm": 0.42
+        }
+      ],
+      "curved reservoir wall": [
+        {
+          "feature": "Outer wall",
+          "position_mm": 240.823,
+          "width_from_extrusion_mm": 0.42
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 241.20601,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 241.60476,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 242.00023,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 242.39898,
+          "width_from_extrusion_mm": 0.4499
+        },
+        {
+          "feature": "Outer wall",
+          "position_mm": 242.78299,
+          "width_from_extrusion_mm": 0.42
+        }
+      ],
+      "outer -Y": [
+        {
+          "feature": "Outer wall",
+          "position_mm": 70.013,
+          "width_from_extrusion_mm": 0.42
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 70.396,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 70.795,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 71.188,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 71.586,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Outer wall",
+          "position_mm": 71.97,
+          "width_from_extrusion_mm": 0.42
+        }
+      ],
+      "outer +X": [
+        {
+          "feature": "Outer wall",
+          "position_mm": 301.52915,
+          "width_from_extrusion_mm": 0.42
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 301.91313,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 302.31111,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 302.704,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 303.103,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Outer wall",
+          "position_mm": 303.486,
+          "width_from_extrusion_mm": 0.42
+        }
+      ],
+      "outer +Y": [
+        {
+          "feature": "Outer wall",
+          "position_mm": 248.03,
+          "width_from_extrusion_mm": 0.42
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 248.413,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 248.812,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 249.206,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 249.605,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Outer wall",
+          "position_mm": 249.988,
+          "width_from_extrusion_mm": 0.42
+        }
+      ],
+      "outer -X": [
+        {
+          "feature": "Outer wall",
+          "position_mm": 21.51,
+          "width_from_extrusion_mm": 0.42
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 21.893,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 22.292,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 22.688,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 23.086,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Outer wall",
+          "position_mm": 23.47,
+          "width_from_extrusion_mm": 0.42
+        }
+      ]
+    },
+    "179.72": {
+      "straight reservoir wall": [
+        {
+          "feature": "Outer wall",
+          "position_mm": 230.71,
+          "width_from_extrusion_mm": 0.42
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 231.093,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 231.492,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 231.88709,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 232.28601,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Outer wall",
+          "position_mm": 232.66901,
+          "width_from_extrusion_mm": 0.42
+        }
+      ],
+      "curved reservoir wall": [
+        {
+          "feature": "Outer wall",
+          "position_mm": 240.823,
+          "width_from_extrusion_mm": 0.4199
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 241.20601,
+          "width_from_extrusion_mm": 0.4501
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 241.60476,
+          "width_from_extrusion_mm": 0.4499
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 242.00023,
+          "width_from_extrusion_mm": 0.4501
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 242.39898,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Outer wall",
+          "position_mm": 242.78299,
+          "width_from_extrusion_mm": 0.4201
+        }
+      ],
+      "outer -Y": [
+        {
+          "feature": "Outer wall",
+          "position_mm": 70.0125,
+          "width_from_extrusion_mm": 0.42
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 70.3955,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 70.7945,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 71.188,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 71.586,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Outer wall",
+          "position_mm": 71.97,
+          "width_from_extrusion_mm": 0.42
+        }
+      ],
+      "outer +X": [
+        {
+          "feature": "Outer wall",
+          "position_mm": 301.52915,
+          "width_from_extrusion_mm": 0.42
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 301.91313,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 302.31111,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 302.704,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 303.103,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Outer wall",
+          "position_mm": 303.486,
+          "width_from_extrusion_mm": 0.42
+        }
+      ],
+      "outer +Y": [
+        {
+          "feature": "Outer wall",
+          "position_mm": 248.03,
+          "width_from_extrusion_mm": 0.42
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 248.413,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 248.812,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 249.206,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 249.605,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Outer wall",
+          "position_mm": 249.988,
+          "width_from_extrusion_mm": 0.42
+        }
+      ],
+      "outer -X": [
+        {
+          "feature": "Outer wall",
+          "position_mm": 21.51,
+          "width_from_extrusion_mm": 0.42
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 21.893,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 22.292,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 22.688,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 23.086,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Outer wall",
+          "position_mm": 23.47,
+          "width_from_extrusion_mm": 0.42
+        }
+      ]
+    },
+    "209.96": {
+      "outer +Y": [
+        {
+          "feature": "Outer wall",
+          "position_mm": 248.03,
+          "width_from_extrusion_mm": 0.42
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 248.413,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 248.812,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 249.2065,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 249.605,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Outer wall",
+          "position_mm": 249.988,
+          "width_from_extrusion_mm": 0.42
+        }
+      ],
+      "outer -Y": [
+        {
+          "feature": "Outer wall",
+          "position_mm": 70.012,
+          "width_from_extrusion_mm": 0.42
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 70.3955,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 70.7935,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 71.188,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 71.586,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Outer wall",
+          "position_mm": 71.97,
+          "width_from_extrusion_mm": 0.42
+        }
+      ],
+      "straight reservoir wall": [
+        {
+          "feature": "Outer wall",
+          "position_mm": 230.71,
+          "width_from_extrusion_mm": 0.42
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 231.093,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 231.492,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 231.88792,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 232.28692,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Outer wall",
+          "position_mm": 232.66992,
+          "width_from_extrusion_mm": 0.42
+        }
+      ],
+      "curved reservoir wall": [
+        {
+          "feature": "Outer wall",
+          "position_mm": 240.82299,
+          "width_from_extrusion_mm": 0.42
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 241.20599,
+          "width_from_extrusion_mm": 0.4499
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 241.60474,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 242.00023,
+          "width_from_extrusion_mm": 0.4501
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 242.39899,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Outer wall",
+          "position_mm": 242.783,
+          "width_from_extrusion_mm": 0.42
+        }
+      ],
+      "outer +X": [
+        {
+          "feature": "Outer wall",
+          "position_mm": 301.52915,
+          "width_from_extrusion_mm": 0.42
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 301.91313,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 302.31111,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 302.704,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 303.103,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Outer wall",
+          "position_mm": 303.486,
+          "width_from_extrusion_mm": 0.42
+        }
+      ],
+      "outer -X": [
+        {
+          "feature": "Outer wall",
+          "position_mm": 21.51,
+          "width_from_extrusion_mm": 0.42
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 21.893,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 22.292,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 22.688,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Inner wall",
+          "position_mm": 23.086,
+          "width_from_extrusion_mm": 0.45
+        },
+        {
+          "feature": "Outer wall",
+          "position_mm": 23.47,
+          "width_from_extrusion_mm": 0.42
+        }
+      ]
+    }
+  },
+  "scope": "Commanded extrusion paths from the integrated smooth shell; ordinary sections sampled away from junctions, ports and hardware hosts."
+}

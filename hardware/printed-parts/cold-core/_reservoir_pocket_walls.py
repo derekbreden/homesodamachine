@@ -3,19 +3,19 @@ enclosures whose centerward wall is curved to clear the carbonator+coil
 envelope. The −X pocket mirrors the +X pocket across YZ."""
 
 import math
+import cadquery as cq
 
 from world_workplane import WorldWorkplane, WorldProfile, xy_plane_z_up
 from _cold_core_interface import (
-    wall_and_floor_thickness,
+    wall_thickness,
     pocket_centerward_arc_outer_radius,
     foam_shell_outer_height,
     bag_pocket_corner_inner_radius,
-    bag_pocket_outermost_x,
     bag_pocket_y_inner_max,
-    bag_pocket_width,
+    bag_pocket_far_inner_x,
 )
 
-w = wall_and_floor_thickness
+w = wall_thickness
 
 # Y at which the centerward wall hands off from its middle segment
 # (the cylindrical arc that wraps the carbonator+coil envelope) to the
@@ -24,7 +24,6 @@ pocket_centerward_arc_transition_y = 60.0
 
 # Transition arc: the short curve between the middle (carbonator-wrapping)
 # arc and the pocket's ±Y wall. Carbonator-side face radius.
-transition_outer_r = 8.0
 
 # Centerward-wall arc geometry, at the transition corner where the
 # centerward wall meets a ±Y wall. The +Y side is described; the −Y side
@@ -37,9 +36,11 @@ y_inner = bag_pocket_y_inner_max
 middle_outer_x = math.sqrt(arc_outer_r**2 - pocket_centerward_arc_transition_y**2)
 middle_cavity_x = math.sqrt(arc_cavity_r**2 - pocket_centerward_arc_transition_y**2)
 _chord_half_y = (y_inner - pocket_centerward_arc_transition_y) / 2.0
-transition_center_x = middle_outer_x + math.sqrt(transition_outer_r**2 - _chord_half_y**2)
+# Mating-profile datum, independent of the stock outside the cavity.
+transition_center_x = 56.655020677894306
 transition_center_y = (y_inner + pocket_centerward_arc_transition_y) / 2.0
 transition_cavity_r = math.sqrt((transition_center_x - middle_cavity_x)**2 + _chord_half_y**2)
+transition_outer_r = transition_cavity_r + w
 
 
 def build_plus_x_cavity(height=None):
@@ -47,7 +48,7 @@ def build_plus_x_cavity(height=None):
     across YZ."""
     if height is None:
         height = foam_shell_outer_height
-    far_x_inner = bag_pocket_outermost_x - w
+    far_x_inner = bag_pocket_far_inner_x
     corner_inner_r = bag_pocket_corner_inner_radius
     arc_y = pocket_centerward_arc_transition_y
 
@@ -75,57 +76,11 @@ def build_plus_x_cavity(height=None):
 
 
 def build_reservoir_pocket_walls():
-    """Two reservoir pockets, mirrored across YZ."""
+    """Fixed mating cavities, offset into the foam by the standing-wall stock."""
     height = foam_shell_outer_height
-
-    far_x_outer = bag_pocket_outermost_x
-    far_x_inner = far_x_outer - w
-    y_outer = bag_pocket_width / 2  # ±Y outer wall — reservoir half-width, not the arc radius
-    corner_inner_r = bag_pocket_corner_inner_radius
-    corner_outer_r = corner_inner_r + w
-    arc_y = pocket_centerward_arc_transition_y
-
-    transition_outer_terminus_x = transition_center_x - math.sqrt(
-        transition_outer_r**2 - (y_outer - transition_center_y)**2
-    )
-
-    def transition_apex(y_sign, r):
-        """Apex of the transition arc at y_sign·Y, on the line from its
-        center toward the cold-core axis."""
-        return (transition_center_x - r, y_sign * transition_center_y)
-
-    # Centerward-wall joints for the OUTER (carbonator-side) profile. Apexes are
-    # where each middle-arc reaches its max +X excursion (at y=0).
-    middle_outer_apex = (arc_outer_r, 0)
-    middle_outer_handoff_plus_y = (middle_outer_x, arc_y)
-    middle_outer_handoff_minus_y = (middle_outer_x, -arc_y)
-    transition_outer_terminus_plus_y = (transition_outer_terminus_x, y_outer)
-    transition_outer_terminus_minus_y = (transition_outer_terminus_x, -y_outer)
-
-    # +X far wall outer face + ±Y wall corner-arc termini (outer side).
-    far_wall_outer_plus_y = (far_x_outer, y_inner - corner_inner_r)
-    far_wall_outer_minus_y = (far_x_outer, -(y_inner - corner_inner_r))
-    side_wall_outer_plus_y = (far_x_inner - corner_inner_r, y_outer)
-    side_wall_outer_minus_y = (far_x_inner - corner_inner_r, -y_outer)
-
-    outer_profile = (
-        WorldProfile()
-        .moveTo(far_wall_outer_plus_y)
-        .lineTo(far_wall_outer_minus_y)
-        .radiusArc(side_wall_outer_minus_y, corner_outer_r)
-        .lineTo(transition_outer_terminus_minus_y)
-        .threePointArc(transition_apex(-1, transition_outer_r), middle_outer_handoff_minus_y)
-        .threePointArc(middle_outer_apex, middle_outer_handoff_plus_y)
-        .threePointArc(transition_apex(+1, transition_outer_r), transition_outer_terminus_plus_y)
-        .lineTo(side_wall_outer_plus_y)
-        .radiusArc(far_wall_outer_plus_y, corner_outer_r)
-    )
-    outer_perimeter = (
-        WorldWorkplane(xy_plane_z_up)
-        .workplane(offset=0)
-        .profile(outer_profile).wire()
-        .extrude(height)
-    )
-
-    plus_x_pocket = outer_perimeter.cut(build_plus_x_cavity(height))
-    return plus_x_pocket.union(plus_x_pocket.mirror("YZ")).unwrap()
+    cavity = build_plus_x_cavity(height).unwrap()
+    wire = cavity.faces('<Z').wires().val()
+    outer_wire = wire.offset2D(w, kind='arc')[0]
+    outer = cq.Workplane('XY').add(outer_wire).toPending().extrude(height)
+    plus_x_pocket = outer.cut(cavity)
+    return plus_x_pocket.union(plus_x_pocket.mirror('YZ'))
