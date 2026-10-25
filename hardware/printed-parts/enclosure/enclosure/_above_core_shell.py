@@ -229,6 +229,51 @@ def gas_check_support():
     ).clean()
 
 
+def valve_seat_datums():
+    """Approved full socket plates rooted directly in the two sidewalls."""
+    import itertools
+    sys.path.insert(0, str(HERE.parents[2] / 'printed-parts/valve-seat'))
+    import valve_seat as seat
+
+    result = {}
+    for name in ('valve-v-a', 'vk-solenoid'):
+        frame = layout.pose(name)
+        corners = [layout.point(frame, point) for point in itertools.product(
+            (-seat.seat_half_x, seat.seat_half_x),
+            (-seat.seat_half_y, seat.seat_half_y),
+            (seat.socket_floor_z-seat.wall, seat.seat_top_z))]
+        low = [min(point[i] for point in corners) for i in range(3)]
+        high = [max(point[i] for point in corners) for i in range(3)]
+        if frame['translation_mm'][0] < 0.:
+            low[0] = -98.51
+        else:
+            high[0] = 98.51
+        result[name] = {'parent': 'enclosure-back-top',
+                        'stock_min_world_mm': low, 'stock_max_world_mm': high,
+                        'socket_diameter_mm': seat.socket_diameter,
+                        'socket_floor_backing_mm': seat.wall,
+                        'frame': frame,
+                        'interface': 'Shared valve_seat V69 four blind sockets and open port channel'}
+    return result
+
+
+@functools.cache
+def valve_seats():
+    """Native full-width valve plates fused to their nearest shell sidewall."""
+    datums = valve_seat_datums()
+    import valve_seat as seat
+
+    result = {}
+    for name, row in datums.items():
+        low, high = row['stock_min_world_mm'], row['stock_max_world_mm']
+        stock = box(low[0], high[0], low[1], high[1], low[2], high[2])
+        location = layout.location(name)
+        sockets = seat.build_sockets().val().moved(location)
+        channel = seat.build_port_channel(2.*seat.seat_half_y+2.).val().moved(location)
+        result[name] = stock.cut(sockets, channel).clean()
+    return result
+
+
 @functools.cache
 def fluid_supports():
     """Broad, open saddles on fixed roof/wall stock, with separate tie paths.
@@ -302,6 +347,8 @@ def apply(piece, box_spec, y_side, z_side):
         piece = piece.fuse(feature)
     for hole in holes:
         piece = piece.cut(hole)
+    for feature in valve_seats().values():
+        piece = piece.fuse(feature)
     for feature in fluid_supports().values():
         piece = piece.fuse(feature)
     piece = piece.cut(access_opening())

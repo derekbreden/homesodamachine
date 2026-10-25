@@ -330,11 +330,11 @@ def _jg_band_radius(leg, first, last):
 
 
 def union_support_datums():
-    """World-frame stock and tie windows for the core-owned union elbows.
+    """Selected union interfaces and the implemented core-owned restraint.
 
-    Fixed body bands carry the fitting; their moving collets remain outside
-    the bearing. The short V-A quarter bearing sits below the pump head. V-B uses a
-    short ledge rooted aft of the PCB.
+    Fixed body bands leave the moving collets free. V-B uses a short ledge
+    rooted aft of the PCB. V-A travels with its valve through the connected
+    tubing; its datum does not construct a core bearing or installed strip.
     """
     import fits
     face = above_core.specification()['cap_face_z_mm']-.15
@@ -348,7 +348,9 @@ def union_support_datums():
           'seat_radius_mm':radius,'native_leg':'z','native_band_mm':(8.5,11.5),
           'tie_window_min_world_mm':(x-radius-5.8,yy-1.6,z-7.),
           'tie_window_max_world_mm':(x-radius-3.,yy+1.6,z-4.5),
-          'wall_mm':3.,'parent':'foam-assembly'}
+          'wall_mm':3.,'parent':'enclosure-back-top',
+          'support_implemented':False,
+          'mount_status':'Tube-carried with the back-top V-A plumbing; no independent printed restraint'}
     frame = above_core.snapshot_pose('vb-outlet-return')
     centre = above_core.point(frame,(0.,14.5,0.))
     radius = _jg_band_radius('y',13.,16.)+fits.slip
@@ -375,7 +377,7 @@ def union_support_datums():
           'native_leg':'y','native_band_mm':(13.,16.),
           'tie_window_min_world_mm':(root_x+3.1,root_fore-.1,window_top-2.8),
           'tie_window_max_world_mm':(root_x+5.9,root_aft+.1,window_top),
-          'wall_mm':3.,'parent':'foam-assembly'}
+          'wall_mm':3.,'parent':'foam-assembly','support_implemented':True}
     return {'va-east-turn': va, 'vb-outlet-return': vb}
 
 
@@ -384,6 +386,8 @@ def union_supports():
     import cadquery as cq
     result = {}
     for name,data in union_support_datums().items():
+        if data['parent'] != 'foam-assembly':
+            continue
         low,high = data['stock_min_world_mm'],data['stock_max_world_mm']
         stock = cq.Solid.makeBox(*(high[i]-low[i] for i in range(3)),cq.Vector(*low))
         for prefix in ('beam','root'):
@@ -403,6 +407,8 @@ def union_support_cuts():
     import cadquery as cq
     result = {}
     for name,data in union_support_datums().items():
+        if data['parent'] != 'foam-assembly':
+            continue
         low,high = data['tie_window_min_world_mm'],data['tie_window_max_world_mm']
         result[name] = world_shape_in_cap(cq.Solid.makeBox(
             *(high[i]-low[i] for i in range(3)),cq.Vector(*low)))
@@ -560,6 +566,8 @@ def union_tie_routes():
                 'vb-outlet-return': _vb_union_tie}
     result = {}
     for name, builder in builders.items():
+        if not data[name].get('support_implemented', True):
+            continue
         segments = builder(data[name])
         result[name] = {
             'segments': segments,
@@ -1044,7 +1052,7 @@ def schedule():
             name: {'attachment': 'Integral upright socket wall on the top lid',
                    'native_to_cap': component_in_cap(name),
                    'socket_fit': 'Shared valve_seat V69'}
-            for name in ('valve-v-a', 'valve-v-b', 'vk-solenoid')
+            for name in ('valve-v-b',)
         },
         'union_supports': union_support_datums(),
         'union_tie_allocation': {
