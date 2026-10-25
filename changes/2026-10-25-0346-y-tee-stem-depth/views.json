@@ -1,0 +1,94 @@
+{
+  "views": [
+    {
+      "name": "stem",
+      "caption": "A section through Y-A's tee: the stem elbow's stem now stops at the tee's measured 10.0 mm tube stop.",
+      "before": "stem-before.webp",
+      "after": "stem-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 600,
+          "y": 572.5,
+          "r": 93.7,
+          "label": "Tube stop",
+          "at": [
+            22.4,
+            166.2,
+            260.7
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          123.81793602418051,
+          140.84551599395485,
+          279.21269040362705
+        ],
+        "target": [
+          22.4,
+          166.2,
+          264
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 12,
+        "near": 70.56218438243984,
+        "far": 185.00584564788267,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            22.4,
+            166.2,
+            262
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "ya-stem-elbow"
+      ],
+      "ghost": [],
+      "only": [
+        "tee-y-a",
+        "ya-stem-elbow"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "dd9ec2ecd7e371556510c02ff2eb3b5b1ea64c2b94292535b798fa4914f71588",
+          "commit": "c74cddbf282255ee5705cc62275bbe99bf3101d4",
+          "taken": "2026-10-25T08:45:21.350Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "9729f81f2425246186ac3a00be4c11a91aa859fbc36fed5c0664b6fcf0cdd88e",
+          "commit": "b28fe140b252d22f0a3ed85f99293cbe38a52c94",
+          "published": true
+        }
+      },
+      "changed": [
+        "ya-stem-elbow",
+        "yb-stem-elbow",
+        "tube-fluid-16",
+        "cold-core/foam-cap-lid-top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
