@@ -16,11 +16,8 @@
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, its rule would not cut, or an interactive publication explicitly deferred that rule.",
     "paths": [
-      "hardware/wiring/enclosure-wiring.csv",
-      "hardware/wiring/enclosure-wiring.json",
-      "hardware/wiring/installed/above-core-review/ground-j2-wiring-review.json",
-      "hardware/wiring/installed/above-core-review/installed_wiring_binding.py",
-      "hardware/wiring/installed/integration-review.json"
+      "hardware/mechanical-qualification/enclosure-above-core/wall_meter.py",
+      "hardware/printed-parts/enclosure/enclosure/_back_top_meter.py"
     ],
     "members": [
       "hardware/.cache/pump-roof/enclosure-pump-cartridge.step",
@@ -1689,8 +1686,8 @@
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.stl": "046d7f0cfefa975e0e590b9a169db3b7dce3cee8709de13ca9b5ac66162631b8",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step": "73382d10175214fe26823ce32b432d54752d0450b396def45adba455687057b9",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh": "e86621f5f944c46c26608d06abe5ddd888fbe759c5d0170a0ff57d13e4923ef0",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "9aea53c4994a262dd656791717b4b65c433c2ecb529078faa5f4796e40adbf29",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "3a94ca08139770eaf2d839a1adf67462e7fa1ee8aa727acab127f7afb2c3d185",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "0b69daf92e2122ffbf3c6a414332a14d42757709b03a6d8c62f023afc30e747a",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "5eeca8900a322957f4a23f1238af9ba9c0a05b55d029176f5dfa5070209d8061",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "1fcfd53ee7ece6df92dce648e3d5355ab1cf957e6c6234a99a697a69cef7078c",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh": "98322a4172aeacc4e93acf0a6c9662bf8a2f9e64b8f4bf84c24bb98b5661580c",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl": "79c84123ca634ce55afbb9fa43ebea664729e3c8d982d43c95796e1feb82e306",
@@ -2863,7 +2860,7 @@
     "hardware/printed-parts/enclosure/anchor-cap/anchor-cap-4mm.stl": "6a61dbffaa36c234e400c41b3760c8c756e1e9a31abd15554e5aac5616860b74",
     "hardware/reference/neofit-flavor-reducer/neofit-flavor-reducer.step": "28ad424a683a778950e17844c38cc98ad69bba0135cc0472d703d993221c17e2",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.stl": "2690c95cbd4672b6026e177c1727c34ca0271b5aadffd688c1187712739b081a",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "005cd76f19eab97eadec9a02495821009d45327385bffc03b5227939dd1111ec",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "dbb5b2a3f9ff7b91859860dedd25692111ab153b77de51a273cef0c1006efd49",
     "hardware/reference/hlghlg-check-valve/hlghlg-check-valve.step": "4d6081ce0a082adf6e37db80ccd3192784767a3ed42a99665c186e058b52b0cb",
     "hardware/reference/shok-blok-regulator/shok-blok-regulator.step": "847d8b1c999a1d635cc3cfcca61ca17d593ba3202e53f435251a555c32b488f5",
     "hardware/reference/yetaha-pressure-regulator/yetaha-pressure-regulator.step": "a6fe4f51ebda256915d4d54e08ab94a0ed6c2db580fe3c440d099cf4133502cd",
@@ -3183,9 +3180,9 @@
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step": 1792442215,
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step.mesh": 1792645484,
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.stl": 1792645484,
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": 1792907043,
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": 1792907043,
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": 1792907043,
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": 1792909460,
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": 1792909460,
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": 1792909460,
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": 1792900953,
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step.mesh": 1792900953,
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.stl": 1792900953,
