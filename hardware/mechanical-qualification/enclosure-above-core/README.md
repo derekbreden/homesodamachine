@@ -25,6 +25,20 @@ member during closure. The pump, gas and drain-vent handoffs likewise need
 final-connection evidence; a clear rigid-group ride alone does not establish
 flexible handling, collet access or connection force.
 
+The [wall electronics reading](wall-mount-review.json) and its
+[manual script](wall_mounts.py) bind the native PSU/relay datums, twelve local
+hosts and eight fastener stacks. They distinguish local flat-wall coupons
+from the actual exported-shell readback. The two aft relay screw-head contacts
+with the representative terminal-block envelope remain explicit nominal fit
+limits; source host clearance does not establish purchased hardware fit.
+
+The [meter carrier reading](wall-meter-review.json) and
+[manual script](wall_meter.py) bind both fixed-collar quarter bearings, their
+3 mm beams/slot stock and complete nominal tie paths. The named purchased,
+fluid, electrical and tool fixtures clear that local stock. The changed
+PSU/relay leads have their separate electrical review; the retaining strips
+remain unqualified for physical threading, head engagement and holding force.
+
 V-A and V-K have their underside flow arrows down, upper inlet and lower
 outlet. V-A's upper release collet uses a −15° clock about native +Y to clear
 the inlet elbow while retaining its finite 12.7 mm stem engagement. The
