@@ -483,8 +483,6 @@ def build_top_lid():
     for name in ('valve-v-b',):
         lid = lid.union(_above_mounts.valve_support(name,lid_total_height))
     lid = lid.union(_above_mounts.check_support())
-    for support in _above_mounts.meter_supports():
-        lid = lid.union(support)
     for support in _above_mounts.union_supports().values():
         lid = lid.union(support)
     for passage in _above_mounts.union_support_cuts().values():
@@ -512,7 +510,7 @@ def main():
     assert len(lid_top.solids().vals()) == 1, "lid_top must be a single solid"
     # The lid is no taller than its own plate + pad + whatever stands on its
     # outer face. The bottom lid's outer face is a plane; the top lid's extra
-    # height includes its V-B wall, check bridge and meter collar bearings.
+    # height includes its V-B wall and check bridge.
     cradle_proud = max((s.seat + seat.seat_top_z for s in cap_cradles.values()), default=0.0)
     anchor_proud = max((cap_anchor_axis_over_face(n) for n in cap_anchors), default=0.0)
     side_proud = max((cap_side_anchor_height(n) for n in cap_side_anchors), default=0.0)
@@ -520,9 +518,7 @@ def main():
         ("foam-cap-lid-bottom", lid_bottom, 0.0),
         ("foam-cap-lid-top", lid_top, max(cradle_proud, anchor_proud, side_proud,
                     *(_above_mounts.valve_support(n,lid_total_height).BoundingBox().zmax
-                      - lid_total_height for n in ('valve-v-b',)),
-                    *(s.BoundingBox().zmax-lid_total_height
-                      for s in _above_mounts.meter_supports()))),
+                      - lid_total_height for n in ('valve-v-b',)))),
     ):
         zlen = lid.val().BoundingBox().zlen
         assert math.isclose(zlen, lid_total_height + proud, abs_tol=1e-6), \

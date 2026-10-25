@@ -55,7 +55,7 @@ def main():
         return cache[name]
     records=[]
     for tail in ('enclosure-front-top','enclosure-back-top',
-                 'funnel-frame','electronics-access-panel'):
+                 'funnel-frame'):
         shape=placed[name_for(tail)]
         valid=shape.isValid()
         solids=len(shape.Solids())
@@ -180,11 +180,8 @@ def main():
                          'funnel-drain-stub','drain-outlet-stem','tube-fluid-4',
                          'tube-above-core-drain-vb-east-link')
           or n.startswith('funnel-frame-') and n.endswith('-screw'))
-    query('Empty electronics panel vertical removal','electronics-access-panel',
-          [(0,0,z) for z in lifts if z<=30],
-          lambda n:n.startswith('electronics-panel-') and n.endswith('-screw'))
     # The approved back-top equipment and its prepared plumbing ride together.
-    # The core retains V-B, pump, PCB, PSU and the selected soda inlet.
+    # The core retains V-B, pump and PCB; meter and PSU travel with back-top.
     # Cross-owner handoffs need their own final-connection evidence.
     import cadquery as cq
     sys.path[:0]=[str(ROOT/'hardware/manifold-layout'),
@@ -210,7 +207,7 @@ def main():
     ownership=_scenes.holders(inventory)
     late_handoffs=frozenset(('tube-drain-vent', *_scenes.BACK_TOP_HANDOFF_TUBES))
     back_bodies=frozenset(name for name in _scenes.held_by('enclosure-back-top',ownership,
-                         stop=('electronics-access-panel','funnel-frame','funnel','funnel-cover'))
+                         stop=('funnel-frame','funnel','funnel-cover'))
                          if not name.startswith('tube-') and name not in late_handoffs)
     back_tails=set(back_bodies) | set(_scenes.back_top_carried_names())
     present_tails={name.split('/')[-1] for name in placed}
@@ -227,7 +224,6 @@ def main():
     back_tails -= late_handoffs
     core_tails={n.split('/')[-1] for n,s in placed.items()
                 if 'cold-core/' in n and bounds(s)[1][2]>253.3}
-    core_tails.add('tube-soda-meter-bulkhead')
     upper=cq.Solid.makeBox(400,800,200,cq.Vector(-200,0,253.3))
     back_top=placed[name_for('enclosure-back-top')].intersect(upper)
     carried=[name for name,body in placed.items()

@@ -259,20 +259,9 @@ def abu44m_bulkhead():
     return source.build().intersect(outside.fuse(inboard))
 
 
-@cache
 def core_components():
-    """World rows owned once by the standalone cold-core assembly."""
-    import soda_inlet
-    neighbors = {name: components()[name][0] for name in soda_inlet.SOFT_NEIGHBORS}
-    result = {}
-    for name, shape, color, frame in (
-        ('digiten-flow', native_reference('digiten-flow'), C_DIGITEN, layout.pose('digiten-flow')),
-        ('soda-bend-holder', soda_inlet.holder_native(), M_PETGF_BLACK, layout.pose('soda-bend-holder')),
-        ('soda-continuous-insulation', soda_inlet.foam_occupied(neighbors), M_NITRILE_BLACK, _frame()),
-    ):
-        solid, carry = _placed(shape, frame)
-        result[name] = solid, color, carry
-    return result
+    """Additional standalone-core rows; the meter and inlet travel with back-top."""
+    return {}
 
 
 @cache
@@ -287,7 +276,8 @@ def components():
     for name, color in (('pcba', C_PCBA), ('psu', C_PSU),
                         ('relay-1', C_RELAY), ('relay-2', C_RELAY),
                         ('c14-inlet', C_C14), ('asse1022-assembly', M_BRASS),
-                        ('discharge-chain', M_NEOFIT_ACETAL)):
+                        ('discharge-chain', M_NEOFIT_ACETAL),
+                        ('digiten-flow', C_DIGITEN)):
         add(name, native_reference(name), color, layout.pose(name))
     for name in layout.valve_names():
         add(name, valve_native(name), C_VALVE, layout.pose(name))
@@ -341,6 +331,13 @@ def components():
         add(name, stem_elbow(depths[name]), M_NEOFIT_WHITE_ACETAL, _snapshot(name))
     for name in union_elbow_names():
         add(name, native_reference('jg-turn-elbow'), M_JG_BLACK_PP, _snapshot(name))
+
+    import soda_inlet
+    add('soda-bend-holder', soda_inlet.holder_native(), M_PETGF_BLACK,
+        layout.pose('soda-bend-holder'))
+    neighbors = {name: result[name][0] for name in soda_inlet.SOFT_NEIGHBORS}
+    add('soda-continuous-insulation', soda_inlet.foam_occupied(neighbors),
+        M_NITRILE_BLACK, _frame())
 
     for row in _grid():
         source = _grid_module(row)

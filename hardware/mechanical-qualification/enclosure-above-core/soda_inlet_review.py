@@ -1,6 +1,6 @@
 """Manual native reading of the selected continuous insulated soda inlet.
 
-Run through tmp/takeover/cadq after the cap and cold-core exports. The default
+Run through tmp/takeover/cadq after the appliance, cap and cold-core exports. The default
 reads production builders and native artifacts. Optional saved fixtures avoid
 rebuilding the same four inlet shapes during a coordinated manual review.
 This script is not a generator, build hook, or physical qualification.
@@ -183,7 +183,7 @@ def main():
     core_bodies = {name: shell_world_shape(shape)
                    for name, shape in flat_names(import_assembly(cca_path)).items()}
     source_signatures = signatures
-    signatures = {name: signature(core_bodies[name]) for name in source_signatures}
+    signatures = {name: signature(placed[name]) for name in source_signatures}
     placed.update(core_bodies)
     placed.update(warm)
     for name in (*soda_inlet.RETIRED, *shapes):
@@ -221,7 +221,7 @@ def main():
                         {'soda-bend-holder': shapes['soda-bend-holder']})
     own_foam = contacts({'soda-foam-stock': shapes['soda-foam-stock']},
                        {'soda-bend-holder': shapes['soda-bend-holder']})
-    print('Querying optional fore-meter shoulder restoration', flush=True)
+    print('Querying the explicitly named cap-shoulder diagnostic', flush=True)
     shoulder = cq.Solid.makeBox(7.7, 6., 12.7, cq.Vector(50., 364.7148, 267.3))
     shoulder_obstacles = {name: shape for name, shape in placed.items()
                          if name not in ('foam-cap-lid-top', 'cap-lid-top')}
@@ -313,10 +313,10 @@ def main():
         'schema': 1, 'reviewed_date': '2026-10-24',
         'scope': 'Manual source-current native inlet fixture, actual exported core/cup/lid and recorded appliance context. Rigid contacts and nominal full-stock foam contacts are distinct. No physical fit, insertion force, retained tube roundness, pressure, sealing, thermal or lifetime qualification.',
         'reproduce': 'tools/cad-venv/bin/python hardware/mechanical-qualification/enclosure-above-core/soda_inlet_review.py',
-        'state': 'Current exported core geometry; appliance context is bound separately below.',
+        'state': 'Current exported appliance inlet and separate core passage geometry.',
         'plan': plan, 'component_signatures': signatures,
         'source_fixture_component_signatures': source_signatures,
-        'signature_scope': 'Canonical installed CCA bodies before tessellation; exact solid/face counts. The source Boolean proxy signatures are separately retained. Actual EA comparisons use volume max(0.001 mm3, 1e-7 times volume) and coordinate tolerance 1e-5 mm. Full-stock foam contact readings do not use the carved occupied display estimate.',
+        'signature_scope': 'Canonical installed appliance bodies before tessellation; exact solid/face counts. The source Boolean proxy signatures are separately retained. Actual EA comparisons use volume max(0.001 mm3, 1e-7 times volume) and coordinate tolerance 1e-5 mm. Full-stock foam contact readings do not use the carved occupied display estimate.',
         'rigid_contacts': rigid_rows, 'rigid_vs_electrical': rigid_wire_rows,
         'rigid_vs_30_access_witnesses': rigid_tool_rows,
         'tube_holder': own_rows, 'nominal_foam_holder': own_foam,

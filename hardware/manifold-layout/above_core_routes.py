@@ -127,13 +127,13 @@ def _points(segments):
 
 
 def meter_component():
-    """Meter row for the core assembly and actual native port carries."""
+    """Back-top meter row and its actual native port carries."""
     import above_core_parts as parts
-    return parts.core_components()['digiten-flow']
+    return parts.components()['digiten-flow']
 
 
 def meter_anchors(carry):
-    """Fixed collar data for the cap's two bearings; collets remain free."""
+    """Fixed collar data for two wall bearings; collets remain free."""
     origin = carry(((0., 0., 0.), (1., 0., 0.)))[0]
     bands = tuple(tuple(sorted(carry(((sign*x, 0., 0.), (sign, 0., 0.)))[0][1]
                                for x in (19.6, 26.8))) for sign in (-1, 1))
@@ -181,15 +181,15 @@ def continuations(placed, carries):
 
 
 def core_route_specs():
-    """The continuous soda tube from its plain guide through the R14 holder."""
-    import soda_inlet
-    return {'soda-core-rise': soda_inlet.tube_spec()}
+    """Standalone-core warm-side tube rows; its soda tube ends at a plain guide."""
+    return {}
 
 
 def route_specifications(station):
     """Explicit lines and arcs from a caller's native world-port resolver."""
     unresolved.clear()
-    specifications = core_route_specs()
+    import soda_inlet
+    specifications = {'soda-core-rise': soda_inlet.tube_spec()}
 
     def route(identifier, source, destination, points, *, radius=14., spool='black',
               od=6.35, inside=4.24, source_depth=12.7, destination_depth=12.7,
