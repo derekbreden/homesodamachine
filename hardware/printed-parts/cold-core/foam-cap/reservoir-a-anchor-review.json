@@ -2653,7 +2653,53 @@
       }
     },
     "actual_export_binding": {
-      "state": "canonical export pending"
+      "state": "canonical native artifact matched to the finite candidate",
+      "reader_sha256": "b858cb9ba6b8216ff722715f99acfbdef21c9fa41653d0792c85ed4436cf8a46",
+      "exported_artifacts": {
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "73c0c39f74f1ff927ca2ff2c1d681a6af9308ae057afc5492a0c6a907611adcf",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "af045d039a8a5bc1cf5fabd432f47cd7a21b2f2de654f01885f04fed886c79a4",
+        "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh": "404e89916495b391e36df90735d4e8a0a2a82f671aa80e5ad08a9eb6b17612be",
+        "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "99c93ca9ade78df97860f77659ac2e9c4327bae66cf47f8daeb4a556b93bf2d3",
+        "hardware/cold-core-layout/cold-core-assembly.step": "692124f51e023186a15b51ec90ba792d0a76bdf7487cb7b5c663752ce87457c8"
+      },
+      "world_lid": {
+        "path": "tmp/reservoir-a-anchor-native/mouth-canonical-lid-world.brep",
+        "sha256": "e38a9749641813ad1a2464c177103b20be10615e6b82eed54f91f057da07dbe1"
+      },
+      "actual_signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 216,
+        "volume_mm3": 295544.35590132466,
+        "center_mm": [
+          2.948486335648972,
+          317.712953753032,
+          252.60404201720186
+        ],
+        "bounds_mm": [
+          -90.2000001,
+          182.45000000000002,
+          247.9999998999971,
+          97.7000001,
+          465.0000001,
+          299.21000000000004
+        ]
+      },
+      "metrics": {
+        "valid": true,
+        "same_solid_count": true,
+        "same_face_count": true,
+        "volume_difference_mm3": 4.656612873077393e-10,
+        "maximum_center_difference_mm": 3.979039320256561e-13,
+        "maximum_bound_difference_mm": 0.0,
+        "passed": true
+      },
+      "tolerances": {
+        "volume_mm3": 0.02955443559013251,
+        "coordinates_mm": 1e-05,
+        "face_and_solid_counts": "exact"
+      },
+      "basis": "Only the saved paired-seat feature delta changed. The native canonical lid matches the finite candidate metrics; no equipment, wire, column, bridge or whole-lid stock reading is repeated."
     },
     "post_live_lint_basis": {
       "log": "tmp/above-core-implementation/a-quarter-post-live-lint.log",
@@ -2663,6 +2709,62 @@
     "printed_stock_reuse": {
       "source_feature": "ordinary_stock_correction.printed_stock_after_export",
       "basis": "The 24 finite printed web and floor rays are inside the retained stock, disjoint from the three removed outer-mouth strips. Only subtraction is performed; the retained roof, floor and bearing witnesses have zero missing native stock."
+    },
+    "post_live_lint_result": {
+      "artifact_stl_sha256": "af045d039a8a5bc1cf5fabd432f47cd7a21b2f2de654f01885f04fed886c79a4",
+      "log_path": "tmp/above-core-implementation/a-exit-post-live-lint.log",
+      "log_sha256": "d5a4999109c11b4dd7bcf0979d867dfcf4d10e842de9b4a6785e6f2c6e0f0e6f",
+      "findings_total": 36,
+      "scope": "Only the new paired-anchor and ground delta bounds are classified. Other cap findings retain their recorded scopes.",
+      "thin_sliver_or_ledge_in_delta_bounds": 0,
+      "removed_findings": "All three 0.225 mm outer-mouth fins are absent. The preceding ordinary-stock correction removed the central ridge, outer cheeks and raised aft underside findings.",
+      "retained_findings": [
+        {
+          "feature": "fore paired anchor tie-slot ceiling",
+          "native_pick_mm": [
+            118.8,
+            54.25,
+            5.175
+          ],
+          "world_pick_mm": [
+            54.25,
+            205.0,
+            253.175
+          ],
+          "surface_mm": [
+            7.5,
+            3.2
+          ],
+          "basis": "Functional 3.2 mm threading slot; native web is 3 mm and floor is 3.6 mm. The prior finite printed rays read 3.0036 mm and 3.6 mm respectively, disjoint from the removed mouth fins."
+        },
+        {
+          "feature": "aft paired anchor tie-slot ceiling",
+          "native_pick_mm": [
+            19.8,
+            90.25,
+            5.175
+          ],
+          "world_pick_mm": [
+            90.25,
+            304.0,
+            253.175
+          ],
+          "surface_mm": [
+            7.5,
+            3.2
+          ],
+          "basis": "Functional 3.2 mm threading slot; native web is 3 mm and floor is 3.6 mm. The prior finite printed rays read 3.0036 mm and 3.6 mm respectively, disjoint from the removed mouth fins."
+        }
+      ],
+      "ground_delta_findings": 0,
+      "limits": "The two downward slot faces remain print-orientation findings. No purchased tie threading, print process, retention or load acceptance is claimed."
+    },
+    "live_payload_binding": {
+      "url": "https://homesodamachine.com/meshes/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step.mesh",
+      "status": 200,
+      "expected_sha256": "404e89916495b391e36df90735d4e8a0a2a82f671aa80e5ad08a9eb6b17612be",
+      "observed_sha256": "404e89916495b391e36df90735d4e8a0a2a82f671aa80e5ad08a9eb6b17612be",
+      "matches": true
     }
   }
 }
