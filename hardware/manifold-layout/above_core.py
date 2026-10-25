@@ -43,7 +43,7 @@ def core_equipment_names():
     """Above-core equipment and fitted elbows carried by the cold-core lid."""
     return frozenset(('pcba', 'psu', 'g-ganen-pump', 'valve-v-a', 'valve-v-b',
                       'vk-solenoid', 'tee-fold', 'discharge-chain', 'carbonator-fold',
-                      'soda-rise-insulation',
+                      'soda-bend-holder', 'soda-continuous-insulation',
                       'lower-valve-elbow', 'lower-pump-elbow', 'reg-va-elbow',
                       'va-outlet-elbow', 'va-east-turn', 'vb-inlet-turn', 'vb-outlet-stem',
                       'vb-outlet-return',
