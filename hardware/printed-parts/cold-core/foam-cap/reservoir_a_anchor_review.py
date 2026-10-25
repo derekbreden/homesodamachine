@@ -116,6 +116,8 @@ def main():
     parser.add_argument('--apply-delta', action='store_true')
     parser.add_argument('--bind-only', action='store_true',
                         help='Rebind existing seat/tie contacts to the actual lid stock and STL.')
+    parser.add_argument('--bind-mouth-only', action='store_true',
+                        help='Bind the finite mouth-cut candidate to the canonical lid metrics only.')
     parser.add_argument('--wire-index', type=Path)
     parser.add_argument('--exclude-wire', action='append', default=[])
     parser.add_argument('--neighbor-index', type=Path)
@@ -129,6 +131,47 @@ def main():
     args.output = args.output.resolve()
     if args.wire_index:
         args.wire_index = args.wire_index.resolve()
+    if args.bind_mouth_only:
+        record = json.loads(args.output.read_text())
+        delta = record['threading_mouth_cleanup']
+        lid = cq.importers.importStep(str(args.lid)).val().moved(
+            layout.frame_location(layout.cap_lid_pose()))
+        expected, observed = delta['candidate_lid_signature'], signature(lid)
+        volume_tolerance = max(.001, expected['volume_mm3']*1.e-7)
+        metrics = {
+            'valid': observed['valid'],
+            'same_solid_count': observed['solids'] == expected['solids'],
+            'same_face_count': observed['faces'] == expected['faces'],
+            'volume_difference_mm3': abs(observed['volume_mm3']-expected['volume_mm3']),
+            'maximum_center_difference_mm': max(abs(a-b) for a, b in zip(
+                observed['center_mm'], expected['center_mm'])),
+            'maximum_bound_difference_mm': max(abs(a-b) for a, b in zip(
+                observed['bounds_mm'], expected['bounds_mm'])),
+        }
+        metrics['passed'] = (metrics['valid'] and metrics['same_solid_count']
+            and metrics['same_face_count'] and metrics['volume_difference_mm3'] <= volume_tolerance
+            and metrics['maximum_center_difference_mm'] <= 1.e-5
+            and metrics['maximum_bound_difference_mm'] <= 1.e-5)
+        artifacts = [args.lid, args.lid.with_suffix('.stl'), Path(str(args.lid)+'.mesh'),
+            HW/'printed-parts/cold-core/foam-assembly/foam-assembly.step',
+            HW/'cold-core-layout/cold-core-assembly.step']
+        args.cache.mkdir(parents=True, exist_ok=True)
+        world_path = args.cache/'mouth-canonical-lid-world.brep'
+        lid.exportBrep(str(world_path))
+        delta['actual_export_binding'] = {
+            'state': 'canonical native artifact matched to the finite subtractive candidate',
+            'reader_sha256': sha(Path(__file__)),
+            'exported_artifacts': {str(p.relative_to(ROOT)): sha(p) for p in artifacts},
+            'world_lid': {'path': str(world_path.relative_to(ROOT)), 'sha256': sha(world_path)},
+            'actual_signature': observed, 'metrics': metrics,
+            'tolerances': {'volume_mm3': volume_tolerance, 'coordinates_mm': 1.e-5,
+                           'face_and_solid_counts': 'exact'},
+            'basis': 'Only the named two threading-mouth cuts changed. The native '
+                     'canonical lid matches the finite candidate metrics; no equipment, '
+                     'wire, column, bridge or whole-lid stock reading is repeated.'}
+        args.output.write_text(json.dumps(record, indent=2)+'\n')
+        print(json.dumps(delta['actual_export_binding']), flush=True)
+        return
     if args.neighbor_tubes_only:
         record = json.loads(args.output.read_text())
         if record['source_sha256'][str(Path(anchors.__file__).relative_to(ROOT))] != sha(Path(anchors.__file__)):
