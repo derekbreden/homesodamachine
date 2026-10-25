@@ -56,7 +56,9 @@ from _cold_core_interface import (
     head_pad_height,
     screw_clearance_radius,
     head_cbore_radius,
+    head_cbore_depth,
     deck_mounts,
+    deck_mount_cap_gap,
     deck_mount_xy,
     deck_mount_boss_radius,
     deck_mount_bore_radius,
@@ -458,9 +460,24 @@ def add_side_anchors(lid, face_z, names=None):
     return lid
 
 
+def _joining_slot(a, b, width, z0, z1):
+    """A straight slot of `width` between two hole centres, `z0` to `z1`."""
+    (ax, ay), (bx, by) = a, b
+    return (cq.Workplane("XY")
+            .box(math.dist(a, b), width, z1 - z0, centered=(True, True, False))
+            .rotate((0, 0, 0), (0, 0, 1), math.degrees(math.atan2(by - ay, bx - ax)))
+            .translate(((ax + bx) / 2, (ay + by) / 2, z0)))
+
+
 def cut_deck_mounts_lid(lid):
     """The lid's opening at every deck-mount station — a standing column passes it, and a
-    flush one meets its underside with only the screw crossing."""
+    flush one meets its underside with only the screw crossing.
+
+    A column hole that leaves less than the pour gap beside a clamp screw's head pocket
+    opens into that screw's stations instead: a slot of the clearance hole's width
+    through the plate and one of the pocket's width above its floor, so no web or cusp
+    is left between the two."""
+    head_floor = lid_total_height - head_cbore_depth
     for name in deck_mounts:
         radius = deck_lid_hole_radius(name)
         for x, y in deck_mount_xy(name):
@@ -471,7 +488,24 @@ def cut_deck_mounts_lid(lid):
                     hole_punch_height=lid_cut_through_depth,
                 )
             )
+            for station in attachment_xy_positions:
+                if math.dist((x, y), station) - radius - head_cbore_radius >= deck_mount_cap_gap:
+                    continue
+                lid = (lid.cut(_joining_slot(station, (x, y), 2.0 * screw_clearance_radius,
+                                             -1.0, lid_cut_through_depth))
+                       .cut(_joining_slot(station, (x, y), 2.0 * head_cbore_radius,
+                                          head_floor, lid_cut_through_depth)))
     return lid
+
+
+def rebated_outline(z0, z1):
+    """The lid's foil-land outline, `z0` to `z1`: the bare footprint less the casing seal
+    rebate all round."""
+    return (WorldWorkplane(xy_plane_z_up).workplane(offset=z0)
+            .rect(outer_shell_x_length - 2 * casing_seal_rebate,
+                  outer_shell_y_length - 2 * casing_seal_rebate)
+            .extrude(z1 - z0).edges("|Z")
+            .fillet(corner_round_radius - casing_seal_rebate)).unwrap().val()
 
 
 def build_top_lid():
@@ -489,7 +523,9 @@ def build_top_lid():
     for passage in _above_mounts.union_support_cuts().values():
         lid = lid.cut(passage)
     electrical = above_core_wiring.cap_features()
-    lid = lid.union(_above_mounts.world_shape_in_cap(electrical['add']))
+    # The wiring wells keep to the lid's rebated outline, so the foil land runs past them.
+    lid = lid.union(_above_mounts.world_shape_in_cap(electrical['add'])
+                    .intersect(rebated_outline(-1.0, lid_total_height + 30.0)))
     lid = lid.cut(_above_mounts.world_shape_in_cap(electrical['cut']))
     for support in _a_anchors.supports().values():
         lid = lid.union(_above_mounts.world_shape_in_cap(support))

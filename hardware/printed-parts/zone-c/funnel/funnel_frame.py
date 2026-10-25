@@ -51,11 +51,6 @@ def datums(seat=349.0):
     return seat - funnel.drop - web, seat - funnel.drop, seat - rail_below_seat
 
 
-def rail_runs(inner, y_joint, col, centre):
-    """Compatibility entry point: the drop-in frame has no sliding rails."""
-    return []
-
-
 def rear_narrowing(inner, y_joint, air=0.0):
     """Keep the complete upper M5 seam blocks outside the removable frame."""
     import enclosure as enc
@@ -281,11 +276,13 @@ def build(inner=DEFAULT_INNER, y_joint=200.0, centre=(0.0, center_y), seat=349.0
     return body
 
 
-def receivers(inner, outer, y_joint, centre, seat, col):
+def receivers(inner, outer, y_joint, centre, seat, col, up=None):
     """Broad shell-rooted horizontal ledges below the removable flange.
 
     Fuse these before the final frame clearance. Apply shell_screw_cuts after
-    all furniture and clearances so the insert pilots stay open.
+    all furniture and clearances so the insert pilots stay open. On a piece
+    printing roof-up (`up` > 0) each host's underside walks 45 degrees out to
+    the box's interior plane, so the host stands on its own corbel.
     """
     import enclosure as enc
     blocks = []
@@ -295,9 +292,15 @@ def receivers(inner, outer, y_joint, centre, seat, col):
         side = row['side']
         inside = row['x'] - side * row['host_radius_mm']
         xa, xb = sorted((inside, outer[0] if side < 0 else outer[1]))
-        blocks.append(cq.Solid.makeBox(xb - xa, 2 * SCREW_PAD_HALF_Y,
-            row['ledge_z'] - row['host_bottom_z'],
-            cq.Vector(xa, row['y'] - SCREW_PAD_HALF_Y, row['host_bottom_z'])))
+        y0, bottom = row['y'] - SCREW_PAD_HALF_Y, row['host_bottom_z']
+        block = cq.Solid.makeBox(xb - xa, 2 * SCREW_PAD_HALF_Y,
+            row['ledge_z'] - bottom, cq.Vector(xa, y0, bottom))
+        if up is not None and up > 0:
+            wall_x = inner[1] if side > 0 else inner[0]
+            block = block.fuse(enc._xz_prism(y0, y0 + 2 * SCREW_PAD_HALF_Y, [
+                (inside, bottom), (wall_x, bottom),
+                (wall_x, bottom - abs(wall_x - inside))]))
+        blocks.append(block)
     return cq.Compound.makeCompound(blocks) if blocks else None
 
 
