@@ -135,9 +135,9 @@ Operation fillOperation(uint8_t channel);
 // its select and its flavor tube, pump on — draws whatever the funnel holds
 // down the channel and out through the faucet: air when it is dry, and water
 // poured in first rinses the funnel's path, which the tap water never reaches.
-// The slowest rated head empties a full funnel, 531 mL to its mouth rim, in
-// 84 s, and the 30 s the dry cycle gives this same path draws the line behind
-// it clear. Then tap water goes through the channel the way concentrate does,
+// The slowest rated head empties a full funnel, 698 mL to its mouth rim, in
+// 110.2 s, and the 30 s the dry cycle gives this same path draws the line
+// behind it clear; the step plans 141 s. Then tap water goes through the channel the way concentrate does,
 // kCleanRounds times over. A round fills the reservoir with tap water through
 // the idle pump — V-A, the channel's select and its return, tap pressure
 // across a parked head — until the full reed closes, then draws it out through
@@ -145,8 +145,8 @@ Operation fillOperation(uint8_t channel);
 // pump on — until the empty reed opens and kCleanFlushTailMs more has drawn
 // the flavor tube clear. Each step also ends at its planned time.
 constexpr uint8_t  kCleanRounds            = 3;
-constexpr uint32_t kCleanFunnelMl          = 531;
-constexpr uint32_t kCleanFunnelPlannedMs   = 114000;
+constexpr uint32_t kCleanFunnelMl          = 698;
+constexpr uint32_t kCleanFunnelPlannedMs   = 141000;
 constexpr uint32_t kCleanWaterFillPlannedMs = 90000;
 constexpr uint32_t kCleanFlushPlannedMs     = 150000;
 constexpr uint32_t kCleanFlushTailMs        = 8000;

@@ -40,8 +40,8 @@ board also establishes and reports the safe I/O foundation the next connected be
   answer, step and ending is an `AirStatePayload` on `MSG_RESP_AIR`.
 - **The clean cycle.** `MSG_CLEAN_START` from the enclosure, or `clean <a|b> [rounds] [s]`
   from the console, first draws the funnel through the channel and out of the faucet — V-B,
-  its select and its flavor tube, `AirPurgeThroughA/B` — with the pump on for 114 s: the
-  slowest rated head empties a full 531 mL funnel in 84 s, and the dry cycle's 30 s on this
+  its select and its flavor tube, `AirPurgeThroughA/B` — with the pump on for 141 s: the
+  slowest rated head empties a full 698 mL funnel in 110.2 s, and the dry cycle's 30 s on this
   path draws the line behind it clear. A dry funnel gives it air; water poured in before a
   flavor change rinses the funnel's path, which no other step reaches. Then it puts tap water
   through the channel three rounds over. A round opens the channel's tap-water path — V-A, its
