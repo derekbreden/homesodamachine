@@ -1,0 +1,91 @@
+{
+  "schema": 1,
+  "scope": "One scoped post-publication lint pass for the changed funnel family and accepted soda holder. Ranked thin findings remain listed with their exact functional answers; no generic wall waiver or physical print/load qualification.",
+  "linter_sha256": "3c132b642f38cf2c4db9818002c06b51800e99fb4a7c77cd98851aaca2f8353e",
+  "command_template": "HSM_NO_BUILD_LOCK=1 tmp/takeover/cadq \"Scoped piece lint\" -- tools/cad-venv/bin/python hardware/scripts/geometry_lint.py <piece>.stl --all",
+  "pieces": {
+    "frame": {
+      "piece": "hardware/printed-parts/zone-c/funnel/funnel-frame",
+      "artifacts_sha256": {
+        "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "da7434235fcae032f9cd10a37c27e28a019910413023c8291c70b5b9a8f9831a",
+        "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "b61d9ba8ba32153b8e64d51e08a52c6d7dfa61bb2e8e538a1c47be2495b3a6dc"
+      },
+      "answer_sha256": "cf1f0919203c2ef26a67727092b6d247ea60620bec07513790e87343407e18d9",
+      "log_sha256": "2245c61435c862de546d89376c9ae9c2801315114b38017b49414eb9805b6dff",
+      "summary": "funnel-frame.stl \u00b7 53920 printed facets \u00b7 6 findings \u00b7 1 answered",
+      "ranked_thin_findings": 6,
+      "ranked_thin_answers": 6,
+      "other_unanswered_findings": []
+    },
+    "cover": {
+      "piece": "hardware/printed-parts/zone-c/funnel-cover/funnel-cover",
+      "artifacts_sha256": {
+        "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.step": "5e7b0c51c4e46673310c843da1848e3d6efcea08e3bae60510ca340573628702",
+        "hardware/printed-parts/zone-c/funnel-cover/funnel-cover.stl": "1b4a759f88e659c90cd0b3cb5bd843f84f57087cb01014b92bf3c7c8882a8a00"
+      },
+      "answer_sha256": "7821a87505a74517c0b8737d7ba6c85cd44c799308c05ce20d057f696c5288bf",
+      "log_sha256": "00b2eeb0e30308bc24b0860dbc925e3035acc2d9d3cc922c5f84780cd4fa0760",
+      "summary": "funnel-cover.stl \u00b7 2812 printed facets \u00b7 1 findings \u00b7 4 answered",
+      "ranked_thin_findings": 1,
+      "ranked_thin_answers": 1,
+      "other_unanswered_findings": []
+    },
+    "cover-print": {
+      "piece": "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print",
+      "artifacts_sha256": {
+        "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step": "3719b60e1417e9374d2320527aacbe08ad0601a192d489e42d2022091b537030",
+        "hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.stl": "141af0f215c077ee9f2adc3ef1d8c49101652a164b5d59694fc20b10d0b61dc2"
+      },
+      "answer_sha256": "d0e6788f64282772b848b3661075667a7928e19ed51bae55767524ad02034f59",
+      "log_sha256": "13be5a01ff9086a8584ef6ea4cc6a412babc3f88251f95faf0f8ced06587ec2d",
+      "summary": "funnel-cover-print.stl \u00b7 2812 printed facets \u00b7 1 findings \u00b7 1 answered",
+      "ranked_thin_findings": 1,
+      "ranked_thin_answers": 1,
+      "other_unanswered_findings": []
+    },
+    "mold-cavity": {
+      "piece": "hardware/printed-parts/zone-c/funnel-mold/cavity",
+      "artifacts_sha256": {
+        "hardware/printed-parts/zone-c/funnel-mold/cavity.step": "5d9d7c80d71aa7df5894f20526d14456a1b92d8af0cb011d5ad069902e8fbaee",
+        "hardware/printed-parts/zone-c/funnel-mold/cavity.stl": "ec9c34441170bdad2bbec4f2db8889e6963cb53a150af890936d65d494fff86c"
+      },
+      "answer_sha256": "b721dd15f55e5b686e1998c6f43a2f4debc52176c456d79927352e86142d72b4",
+      "log_sha256": "51517deefbcd07d9025d4aacd581f7c88fb30fe940156e1f11a70fb21ecc3d72",
+      "summary": "cavity.stl \u00b7 77910 printed facets \u00b7 0 findings \u00b7 21 answered",
+      "ranked_thin_findings": 0,
+      "ranked_thin_answers": 0,
+      "other_unanswered_findings": []
+    },
+    "mold-core": {
+      "piece": "hardware/printed-parts/zone-c/funnel-mold/core",
+      "artifacts_sha256": {
+        "hardware/printed-parts/zone-c/funnel-mold/core.step": "ef28872b87a34df57a27baa386831d9fdf089beb0bc83ee1475156b6a2676208",
+        "hardware/printed-parts/zone-c/funnel-mold/core.stl": "8cfd1d7307ff331eb3908b0cd6ebf78e11197728fe933a408bf1a61fb7849be7"
+      },
+      "answer_sha256": "6e03a47b4c37a5ec79bbd7bd937f87c43cc9438a2165ca7f5df5e3e47111c0e6",
+      "log_sha256": "4fe8e128983b62f0f9a88c0261d8295b4a92ea76cd4cf814a0ba9c2902dc3b09",
+      "summary": "core.stl \u00b7 39972 printed facets \u00b7 0 findings \u00b7 5 answered",
+      "ranked_thin_findings": 0,
+      "ranked_thin_answers": 0,
+      "other_unanswered_findings": []
+    },
+    "holder": {
+      "piece": "hardware/printed-parts/soda-bend-holder/soda-bend-holder",
+      "artifacts_sha256": {
+        "hardware/printed-parts/soda-bend-holder/soda-bend-holder.step": "b5e0d17146ae8473e9dbd817fd3a42ac083fc34b59ea31082dc4cac274bcf6a8",
+        "hardware/printed-parts/soda-bend-holder/soda-bend-holder.stl": "976410183d9ea00c6dc25243a9ceca80ec1d874bb76f5c5663dbd68fcbcf55bc"
+      },
+      "answer_sha256": "9d45db04cb4c9abc330bf9dad28e72f627e6c2cd1877b296332250ec4349b3d1",
+      "log_sha256": "1f59da289078e6683ca53122ba0923d4c33ba49b78828a8c0947640c8d6b2a78",
+      "summary": "soda-bend-holder.stl \u00b7 12088 printed facets \u00b7 3 findings",
+      "ranked_thin_findings": 3,
+      "ranked_thin_answers": 3,
+      "other_unanswered_findings": []
+    }
+  },
+  "all_named_findings_answered": true,
+  "geometry_resolution": "Frame lower notch shoulders, raised rear surround strips and both front counterbore/brim ribbons are removed. The retained finite M3 seats bind the separate native plain-stock-review.json. Cover access recess, mold-opening entries/process reserve and the exact physically reported 2mm/3mm holder are named functional geometry.",
+  "published_frame_mesh_sha256": "8abaa20cb27099b4bba24f371268090e1af8dfcf9174e3b28d3314713f03398c",
+  "published_frame_verified_url": "https://homesodamachine.com/meshes/printed-parts/zone-c/funnel/funnel-frame.step.mesh",
+  "published_frame_http_status": 200
+}
