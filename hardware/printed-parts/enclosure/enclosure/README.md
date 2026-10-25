@@ -1427,10 +1427,11 @@ broad ledges. Four recessed M3 × 12 screws engage full RX-M3×5.7 inserts in th
 shell. There are no frame slide rails. The complete silicone brim retains 3 mm
 of bearing stock. Its apron covers the screw wells; lift the silicone for access.
 
-Front-top's integral 12 mm deep drain bridge retains the original drain web,
-elbow-cradle socket, elbow and vertical stub datums. The connected drain stays
-in place when the frame lifts around it. Finish the tubing and PCB connections
-beneath the open aperture before installing the frame. The
+The drain cradle snaps into the frame's lower web and supports the elbow and
+standing drain stub. Finish the tubing and PCB connections beneath the open
+aperture, then fit the frame, engage the cradle's snap seat and complete the
+drain connection. Disconnect the drain tube or release the cradle snap before
+lifting the frame. The
 [drop-in review](../../zone-c/funnel/drop-in-review/native-review.json) records
 nominal fastener stacks and sampled motion; the
 [funnel source](../../zone-c/funnel/README.md) owns its dimensions and physical
