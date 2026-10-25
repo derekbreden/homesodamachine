@@ -208,6 +208,11 @@ def export(a):
     def developed_s(run, pt):
         """Arc length along the authored centreline of a point ON one of the run's straight legs,
         walked the way `enclosure_assembly.unsupported_spans` walks it."""
+        native = ea.reservoir_a_developed_stations(run, (pt,))
+        if native is not None:
+            leg = next((i for i, (p, q) in enumerate(zip(run.pts, run.pts[1:]))
+                        if ea._on_leg(pt, p, q, 1.e-3)), None)
+            return (native[1], leg) if len(native) == 3 else (None, None)
         short = {i: 2.0 * run.radii[i] * math.tan(math.radians(turn) / 2.0)
                     - run.radii[i] * math.radians(turn)
                  for i, turn, _li, _lo in run.bends}
@@ -319,6 +324,28 @@ def export(a):
             "slip_mm": float(st[3] - r.diam / 2.0),
             "clamp_length_mm": float(_cci.cap_side_len),
         }))
+
+    import _reservoir_a_anchors
+    paired_spec = _reservoir_a_anchors.specification()
+    for row in _reservoir_a_anchors.datums().values():
+        for rid, point in zip(row['routes_west_to_east'], row['tube_centers_world_mm']):
+            if rid not in by_id:
+                continue
+            station = find_station(a.cap_tube_anchors, point)
+            if station is None:
+                unmatched.append(f"{row['id']}: no {rid} station at {point}")
+                continue
+            hold_rows.append((rid, {
+                'id': f"{rid}/{row['id']}",
+                'label': row['label'], 'type': 'paired-tied-seat',
+                'source': '_reservoir_a_anchors.datums', 'host': 'foam-cap-lid-top',
+                'point': list(station[0]), 'tangent': list(station[1]),
+                'root': list(station[2]), 'seat_r_mm': station[3],
+                'slip_mm': station[3] - by_id[rid].diam / 2.,
+                'clamp_length_mm': paired_spec['station_length_mm'],
+                'shared_tie': row['id'] + '-tie',
+                'qualification_scope': 'Nominal restraint geometry; gripping/load unqualified',
+            }))
 
     # Every station the assembly carries must have been claimed above.
     claimed = {tuple(h["point"]) for _rid, h in hold_rows}

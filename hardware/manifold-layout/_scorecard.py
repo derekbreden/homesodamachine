@@ -1954,10 +1954,14 @@ def _tube_anchored(a, runs) -> Check:
                   reverse=True)
     anchored = {row[0] for row in
                 getattr(a, 'tube_anchor_sites', _ea.TUBE_ANCHOR_SITES)}
+    paired = {rid for rid, _station in _ea.reservoir_a_anchor_sites(runs)}
+    anchored |= paired
     detail = [f"{rid}: {s:.1f} mm unheld, {s - cap:.1f} over"
               + (" — anchored once already" if rid in anchored else "")
               for s, rid in over]
-    detail += [f"{rid}: {spans[rid]:.1f} mm, held at its anchor" for rid in sorted(anchored)]
+    detail += [f"{rid}: {spans[rid]:.1f} mm, held at "
+               + ("two paired lid seats (nominal restraint geometry)" if rid in paired
+                  else "its anchor") for rid in sorted(anchored)]
     detail += [f"{rid}: {spans[rid]:.1f} mm unheld — left loose; {LOOSE[rid]}"
                for rid in sorted(LOOSE)]
     return Check("tube-anchored", "No run goes further than one span with nothing holding it",
