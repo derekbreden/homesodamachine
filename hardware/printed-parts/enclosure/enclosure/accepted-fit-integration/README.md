@@ -18,10 +18,9 @@ tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/accepted-fi
 
 The check compares the display cover and nameplate with their accepted physical parts,
 checks seated fit and individual-axis clearances, display capture, support-removal exits,
-the complete deeper display module, the current funnel, nominal pump-contact mating and
-PSU clearance. It binds the current exports, placement sources and accepted mating parts
-by hash. It does not claim combined translation extremes, full-enclosure physical fit,
-installed pogo compression or magnetic retention.
+the complete deeper display module, the current funnel and PSU clearance. It binds the
+current exports, placement sources and accepted mating parts by hash. It does not claim
+combined translation extremes or full-enclosure physical fit.
 
 The display-cover pockets are integrated into front-top. The complete deeper module
 clears the shell and funnel in the current native check. The accepted cover's physical

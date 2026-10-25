@@ -54,6 +54,6 @@ current build and queue. The full enclosure is the intended assembly trial;
 physical spring feel, rubber tightening and plumbing commissioning follow on
 that complete printed assembly.
 
-The Kamoer cartridge and cap have a separate materializer and their own accepted
+The Kamoer pump cradle and cap have a separate materializer and their own accepted
 local fit evidence. Pump-foot changes do not establish a need to alter those
 local bearing surfaces.

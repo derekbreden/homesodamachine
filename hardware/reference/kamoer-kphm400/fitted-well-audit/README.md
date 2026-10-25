@@ -5,7 +5,7 @@ axial ramp stations, and 0.30 mm of extra room at the +Y skirt edge. The skirt l
 remain flat. The outlet passage retains its measured station.
 
 The comparison in [fitted-well-check.json](fitted-well-check.json) reads the actual
-September 13 cartridge/cap 3MF and its retained print provenance. It places the current
+September 13 cradle/cap 3MF and its retained print provenance. It places the current
 native well at that print's holder datums, so the reading isolates local fit from
 the assembly's pump placement. It samples all 208 selected inward-facing lower-well
 triangles on the positive pump, including 144 vertical-wall and 50 lower-ramp triangles.
@@ -13,10 +13,10 @@ The native comparison surface has a 0.004 mm tessellation tolerance; this is a s
 surface reading rather than a bound on the whole assembly.
 
 The actual print has its skirt land at Z205.494 mm, broad cap underside at Z215.745 mm,
-and cartridge bottom at Z165.365 mm. In the same holder frame the current fixed floor
+and cradle bottom at Z165.365 mm. In the same holder frame the current fixed floor
 is Z164.015 mm. Changing only the floor-relief parameter leaves the native fitted well
-and cap unchanged. A matching cartridge extends to that lower floor; placing the older
-cartridge on it would lower the complete cartridge and both pumps.
+and cap unchanged. A matching cradle extends to that lower floor; placing the older
+cradle on it would lower the complete cradle and both pumps.
 
 Both raw scan passes are evaluated at unit scale in the recorded underside-strip
 seated pose. Their observed rigid front rims project through the actual printed
@@ -25,7 +25,7 @@ the current fixed floor separately. This supports the floor's role as front-rim
 clearance, without identifying the physical assembly's clamp-load path.
 
 [Derek's physical observation](../physical-fit.json) establishes firm retention of
-both pumps and no vertical play in the assembled cartridge/cap. The exact print date
+both pumps and no vertical play in the assembled cradle/cap. The exact print date
 of that assembly and its individual contact faces are unconfirmed. The retained
 September 13 print is the available earlier printable comparison.
 

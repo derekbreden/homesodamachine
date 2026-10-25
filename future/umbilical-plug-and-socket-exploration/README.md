@@ -77,7 +77,7 @@ the plug is [7.7](UMB_CUP_LEAD) mm in and running straight before a stub reaches
 
 **The floor** carries three Ø[6.6](UMB_HOLE_Q) holes for the 1/4″ tubes and a Ø[4.3](UMB_HOLE_D)
 hole for DRAIN's 4 mm tube on a [16.15](UMB_PITCH) mm square, the
-[YYFKGCP pogo](/hardware/reference/yyfkgcp-pogo-4p/mounting-audit.md) spring-pin half on end
+[YYFKGCP pogo](/hardware/reference/yyfkgcp-pogo-4p/README.md) spring-pin half on end
 between the columns with its two M1.4 inserts and screws, and a
 [K&J SB443-IN](https://www.kjmagnetics.com/sb443-in-neodymium-stepped-block-magnet) bar each side,
 [9.0](UMB_MAG_X) mm out, pole face flush and bare, its grooves on printed rails. Each bar keeps
@@ -198,13 +198,13 @@ be tried without a back-top.
 | [K&J SB443-IN](https://www.kjmagnetics.com/sb443-in-neodymium-stepped-block-magnet) | 4 |
 | John Guest [PP0408W](/hardware/reference/jg-pp0408w/) union | 3 |
 | neoFit [AUC44M](https://www.freshwatersystems.com/products/neofit-acetal-black-union-connector-4mm-5-32-tube-x-4mm-5-32-tube) 4 mm union | 1 |
-| [YYFKGCP pogo pair](/hardware/reference/yyfkgcp-pogo-4p/mounting-audit.md) with four M1.4 × 4 × Ø2.3 inserts and four M1.4 × 8 screws | 1 |
+| [YYFKGCP pogo pair](/hardware/reference/yyfkgcp-pogo-4p/README.md) with four M1.4 × 4 × Ø2.3 inserts and four M1.4 × 8 screws | 1 |
 | [ruthex RX-M3x5.7](https://www.amazon.com/dp/B08BCRZZS3) insert and M3 × 8 socket-head screw | 2 |
 
 ## Assembly
 
 1. Set the M1.4 inserts in both pogo seats, their tops 2 mm behind the ear plate's step, as on the
-   [cartridge](/hardware/reference/yyfkgcp-pogo-4p/mounting-audit.md), and the two M3 inserts in the
+   [seat coupon](/hardware/printed-parts/enclosure/enclosure/contact-pair-coupon/README.md), and the two M3 inserts in the
    socket's back face.
 2. Socket: solder four leads to the spring-pin half, feed them back through the floor's centre
    channel and screw the half down, marked end up. Slide the unions in from the back, the AUC44M

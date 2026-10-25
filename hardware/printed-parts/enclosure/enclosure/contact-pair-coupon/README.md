@@ -1,7 +1,7 @@
 # Contact-pair coupon
 
 Two small prints that carry the pump cartridge's
-[contact pair](../README.md#cartridge-contacts) seats exactly as the production pieces carry them.
+[contact pair](/hardware/reference/yyfkgcp-pogo-4p/README.md) seats exactly as the production pieces carry them.
 [`contact_pair_coupon.py`](contact_pair_coupon.py) builds `enclosure-front-top` and
 `enclosure-pump-cap` from the declared enclosure box and keeps one box round each seat;
 [`geometry-check.json`](geometry-check.json) records each crop, each coupon's machine-to-bed
@@ -73,9 +73,7 @@ Checks 1, 2, 4 and 5 need only the connector pair. Check 3 needs the M1.4 insert
 The H2C trial's slice preparation, support audit, verification and launch record are in
 [`h2c-print/`](h2c-print/README.md).
 
-The [mounting audit](/hardware/reference/yyfkgcp-pogo-4p/mounting-audit.md) states the
-current magnet construction, tolerance basis, load path and evidence limits. The
-connector magnets are contained in the purchased halves; no magnet goes into a paused
+The connector magnets are contained in the purchased halves; no magnet goes into a paused
 coupon or enclosure print.
 
 ## Open questions the prints answer

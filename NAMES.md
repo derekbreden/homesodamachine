@@ -85,7 +85,7 @@ they became.
 | **electronics bay** | the +X lane of back-top, where the main board, PSU, both relay modules and the AC inlet bolt to the wall's bosses | electronics bay, electronics shelf |
 | **pump cradle** | `enclosure-pump-cartridge`, the printed piece both pumps stand in under the top clamp, forming the machine's front face across the pump bay | pump cartridge, cartridge |
 | **pump bay** | the compartment in `enclosure-front-top` the pump cradle stands in | |
-| **collet plate** | the tee wall's fore band across the pump bay, carrying a tube hole and a collet recess for each pump tee | release face |
+| **collet plate** | the tee wall's fore band across the pump bay, with one hole for each pump tee's tube and extended collet | release face |
 | **tee carrier** | `enclosure-tee-carrier-plate`, the printed plate that carries the four barb tees Y-C, Y-D, Y-F and Y-G through both front flanks | moving plate, carrier halves |
 | **bowed flex stub** | one of the four short formed LLDPE links between a moving barb tee and fixed V-E/F/H/I, specified by exposed developed path rather than blank cut length | bow tube, flexible butt |
 | **collet press** | the printed 1/4-inch U-jaw and raised handle that depresses a push-connect collet around its tube | release tool, disconnect tool |

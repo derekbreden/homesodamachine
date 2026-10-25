@@ -1,9 +1,9 @@
 # Kamoer pump scan and contact review
 
-Derek confirms that the existing assembled cartridge and cap hold both pumps firmly with
+Derek confirms that the existing assembled cradle and cap hold both pumps firmly with
 no vertical play. [physical-fit.json](physical-fit.json) records his report and photograph.
 The production cap has a broad underside, fitted octagonal bosses and Ø37 motor openings.
-Its surrounding crown reaches the cartridge top, with two Ø45 openings around the motor ends
+Its surrounding crown reaches the cradle top, with two Ø45 openings around the motor ends
 and spade terminals. The cap has no projecting underside rails.
 
 The two native scans independently describe selected rigid surfaces and outlet-casing
@@ -89,7 +89,7 @@ These readings are conditional on the stated seating transform. The flange-only 
 not establish loose pump retention; Derek's assembled part has no observed vertical play.
 
 The cap's broad underside stands 2 mm above the holder datum. The boss opening, Ø37 motor
-bore and screw seats retain their fitted geometry. The crown reaches the cartridge top and
+bore and screw seats retain their fitted geometry. The crown reaches the cradle top and
 has two Ø45 open terminal wells above the fitted motor bores.
 
 The continuous fixed floor is relieved by 2.6 mm from its pump-neutral datum. At the retained
@@ -98,9 +98,9 @@ stated transform. The floor is one flat insertion lane. Its effect on the physic
 cradle is recorded in the [fitted-well audit](fitted-well-audit/README.md). The lower well
 matches 208 sampled triangles of the retained printed input within 0.004 mm. Changing
 only the floor relief leaves the native well and cap geometry unchanged; the matching
-new cartridge extends to the lower floor. Both scanned front rims project through the
-printed cradle's open wells. An older cartridge placed on the new floor would lower
-the complete cartridge and pumps, so the trial uses the matching new cartridge.
+new cradle extends to the lower floor. Both scanned front rims project through the
+printed cradle's open wells. An older cradle placed on the new floor would lower
+the complete cradle and pumps, so the trial uses the matching new cradle.
 
 ## Checks and assembly test
 
@@ -116,10 +116,10 @@ The cap prints crown-down. Its two upper-well transition faces are flat supporte
 Their support is open to the bed and exits axially through the Ø45 wells before pump assembly.
 The fresh production slice supplies the final support reading.
 
-The complete enclosure print tests terminal-connector space, cartridge insertion and
-withdrawal, all four marked tube insertion depths, collet capture, carrier release and spring
-feel. Primed operation supplies the leak check. These are physical acceptance results of the
-assembled trial, not prerequisites for printing it.
+The complete enclosure print tests terminal-connector space, cradle insertion, all four
+marked tube insertion depths and collet grip. Primed operation supplies the leak check.
+These are physical acceptance results of the assembled trial, not prerequisites for
+printing it.
 
 ## Reproduce
 

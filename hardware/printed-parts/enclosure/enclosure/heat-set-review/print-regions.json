@@ -217,20 +217,19 @@
   },
   "part_process_overrides": {},
   "source_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "91f74bd39a5041a50e02cdb5aa1f06ed838145ebb462e9ce8293a2b2a6364a1e",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "8fc6678b430c9e7da488692f16748fed3432b668e7bd15ae5443ccb3dd3be46b",
+    "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "20a9414ffb65b0d7ce341f2d9bd428813368b2f7e3570f2f0c7c580a3f1853e3",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "2a8651b16ffd63721ef8752fa09c4e0375247b1c38e3d346f717a6691b0fd8b8",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "264bb52da73675dcd41f7fff8bc5fce6eabd06336fc3cf8b7a9b8560c21e5040",
-    "hardware/manifold-layout/enclosure-box.json": "876a158e54c838f9140aa6e3516b7d3bf53f1ca9d7c6ea942515830d3104c53c",
-    "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "1c3375a7c896ea0f4075037e8e83ef1087e794fc6b3ca24808e7a2b16eb8157c",
+    "hardware/manifold-layout/enclosure-box.json": "4c59657fb8f12f5d8a9779f5f61e173dcccdbe584203b1945b9dcec08543e18e",
+    "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "817979c0e307c331ed0ef6c3f57b61450c569faff4dc6eecc02ea81f0d6d6530",
     "hardware/manifold-layout/above_core.py": "0ad87c7c252ab3cfe803c0f2a63a9374d06d0005591509031328ad6e3203988f",
     "hardware/manifold-layout/above-core.json": "04887b550cc53b2516832689b40f81a56e83119e4cc04921ad9819ed343c726b",
     "hardware/reference/meanwell-irm90/meanwell_irm90.py": "5b3e8b9374caf9a3a61cfd8db3f12f5158ada4405b9692fdc004e9c0e47b7db7",
     "hardware/reference/teyleten-relay/teyleten_relay.py": "fe0965a8f3f4a9eab65efac03716dfdd6ef9e93ab658e8c73f3df83af6e7fbe6",
     "hardware/printed-parts/zone-c/funnel/funnel_frame.py": "f34ff943efdb033bc3a21a03497fa3806a8eec9e87675164c92ff0563ba0eb86",
     "hardware/printed-parts/zone-c/funnel/funnel.py": "62b3c64da5adb542663062f33b1b007666ac68b952a892e5c63f464240ec7ef2",
-    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "199db7b3b7905359bd3b558f5bb5008c9087244959ca60c4312f0ddafa223a1a",
-    "hardware/printed-parts/enclosure/pump-dock/dock_retention.py": "8bc24f8bae454f027afa3ca9465ed83b3bfc390b5bcbe35b97e7ee01b172d0e4",
-    "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "c21b06c884d40a03d7338e192f8f0810ea15ebb7ef5782f92eac1b0df04f0eef",
+    "hardware/printed-parts/enclosure/pump-dock/dock_structure.py": "76ce41ae82cef8f8862d097bb9fe69c63c1cb6174524e5fe6fe4cea680ab8f21",
+    "hardware/printed-parts/enclosure/pump-dock/fixed_returns.py": "d87df161ab0e4409fd7cb4fa720cc0319e0a10485a141ff455aed633b48f7e4c",
     "hardware/printed-parts/petgf.3mf": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0"
   },
   "native_artifact_sha256": {
@@ -239,24 +238,24 @@
       ".stl": "790b9e6c5e55312e43db8668ae5ee15bdbeef128fbd70d042e4f6fa53cd0172e"
     },
     "front-top": {
-      ".step": "7602762eda4d312769549e641ea411e41e81cca9db5d7e6ed9ad2070377dd670",
-      ".stl": "3b2d628212b57e2c4963920e38b2427c78c5f52eceda9c6bd034fc751bbb69d2"
+      ".step": "2f696dd4497e3c8c19a9d8d4a184e4c12c830a033f6b7ac25c88e95cd9548b42",
+      ".stl": "c3f8587122f1cb9b9f10dd80569622b6ba40d367a677fcc20ec5eb53307c9ddb"
     },
     "back-bottom": {
       ".step": "eeded1b93397baaba065dac9cfeea01a20edd51e72672172070a34119bffcd46",
       ".stl": "1d143e05539162d81c8502405ff1ca83651227b8be819a875bc54a5122a51d9d"
     },
     "back-top": {
-      ".step": "1a74a3c9dab42fa7defb8de45d4b04c0c74436a93235a97660b131a5fce0c4a2",
-      ".stl": "9512630b76216ba5e9b0b19602e921bcada1e30d94dce3963c7180507e4d9a20"
+      ".step": "10a6008999aa3096a3c3b85a7222bc8d0ca39167f09b29966aa8d33e8b2c3bc9",
+      ".stl": "7ff309c63a24df4933729891869bf90ab002426b36e20a6f5fefd618d4265941"
     },
     "pump-cartridge": {
-      ".step": "1ee2d2b81d6ba91043fd48ce5c69e2865c205b0c2b65eb2275edc2c04f2f0d6d",
-      ".stl": "07fc37ccd4c4238406c0f3d0f3117ec71184720c15b85d6cae04d843cccb0c78"
+      ".step": "46a7452b96183e943704a401c51e547d504f9c77b8dc4b073926152db5eea1ce",
+      ".stl": "c6cb574c40462dca7a536580544f034e2a6b0c9d5418a285994e6b3b70abd0d6"
     },
     "pump-cap": {
-      ".step": "21a12194da0c9c7b3984905ace0f26d8b57e9c12bbba4b5a264e75ee955a95c6",
-      ".stl": "bbcb05f67b2bc71eba6d031bd3eab53661feb4606a7971875294fa8f26df8580"
+      ".step": "da7035f93490749c5a166bc011fe2903a59dde178e4ba2eaba23064bdf8e9ea0",
+      ".stl": "57431f502fdc943d1aa7ba663c5d57e76992ba1d9feb58d26d9af4108c1b5945"
     }
   },
   "pieces": {
@@ -667,93 +666,6 @@
           200.0,
           0.0,
           17.55000000000001
-        ]
-      },
-      {
-        "name": "Both pogo insert hosts, loading passages and blind caps",
-        "machine_bounds_mm": [
-          -14.85,
-          14.85,
-          82.64,
-          96.14,
-          270.1240000000001,
-          280.92400000000004
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag",
-        "applied_source_bounds_mm": [
-          -14.85,
-          14.85,
-          82.64,
-          96.14,
-          270.1240000000001,
-          280.92400000000004
-        ],
-        "print_bounds_mm": [
-          -14.85,
-          14.85,
-          82.64,
-          96.14,
-          109.87400000000008,
-          120.67400000000004
-        ]
-      },
-      {
-        "name": "SB443 column 1: rail slot walls, roof over the blocks and root",
-        "machine_bounds_mm": [
-          -58.49999999999999,
-          -45.949999999999996,
-          82.415,
-          90.5041,
-          176.824,
-          195.87720000000002
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag",
-        "applied_source_bounds_mm": [
-          -58.49999999999999,
-          -45.949999999999996,
-          82.415,
-          90.5041,
-          176.824,
-          195.87720000000002
-        ],
-        "print_bounds_mm": [
-          -58.49999999999999,
-          -45.949999999999996,
-          82.415,
-          90.5041,
-          16.574000000000012,
-          35.627200000000016
-        ]
-      },
-      {
-        "name": "SB443 column 2: rail slot walls, roof over the blocks and root",
-        "machine_bounds_mm": [
-          45.949999999999996,
-          58.49999999999999,
-          82.415,
-          90.5041,
-          176.824,
-          195.87720000000002
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag",
-        "applied_source_bounds_mm": [
-          45.949999999999996,
-          58.49999999999999,
-          82.415,
-          90.5041,
-          176.824,
-          195.87720000000002
-        ],
-        "print_bounds_mm": [
-          45.949999999999996,
-          58.49999999999999,
-          82.415,
-          90.5041,
-          16.574000000000012,
-          35.627200000000016
         ]
       },
       {
@@ -1631,96 +1543,8 @@
           0.0,
           49.72999267578126
         ]
-      },
-      {
-        "name": "SB443 column 1: rail slot walls, roof over the blocks and root",
-        "machine_bounds_mm": [
-          -58.49999999999999,
-          -45.949999999999996,
-          74.27590000000001,
-          82.365,
-          176.824,
-          195.87720000000002
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag",
-        "applied_source_bounds_mm": [
-          -58.49999999999999,
-          -45.949999999999996,
-          74.27590000000001,
-          82.26499938964844,
-          176.824,
-          195.87720000000002
-        ],
-        "print_bounds_mm": [
-          -58.49999999999999,
-          -45.949999999999996,
-          74.27590000000001,
-          82.26499938964844,
-          11.628992675781262,
-          30.682192675781266
-        ]
-      },
-      {
-        "name": "SB443 column 2: rail slot walls, roof over the blocks and root",
-        "machine_bounds_mm": [
-          45.949999999999996,
-          58.49999999999999,
-          74.27590000000001,
-          82.365,
-          176.824,
-          195.87720000000002
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag",
-        "applied_source_bounds_mm": [
-          45.949999999999996,
-          58.49999999999999,
-          74.27590000000001,
-          82.26499938964844,
-          176.824,
-          195.87720000000002
-        ],
-        "print_bounds_mm": [
-          45.949999999999996,
-          58.49999999999999,
-          74.27590000000001,
-          82.26499938964844,
-          11.628992675781262,
-          30.682192675781266
-        ]
       }
     ],
-    "pump-cap": [
-      {
-        "name": "Both pogo insert hosts, loading passages and blind caps",
-        "machine_bounds_mm": [
-          -14.85,
-          14.85,
-          68.64,
-          82.14,
-          270.1240000000001,
-          280.92400000000004
-        ],
-        "sparse_infill_density": "100%",
-        "sparse_infill_pattern": "zig-zag",
-        "applied_source_bounds_mm": [
-          -14.85,
-          14.85,
-          68.64,
-          82.14,
-          270.1240000000001,
-          280.92400000000004
-        ],
-        "print_bounds_mm": [
-          -14.85,
-          14.85,
-          -82.14,
-          -68.64,
-          3.250011230468715,
-          14.05001123046867
-        ]
-      }
-    ]
+    "pump-cap": []
   }
 }
