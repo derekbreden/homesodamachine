@@ -1,0 +1,302 @@
+enclosure-front-top.stl · 495180 printed facets · 47 findings · 6 answered
+answers: hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-front-top.lint-answers · read hardware/printed-parts/lint-answers/AGENTS.md before writing one
+
+  [ceiling] 10096 mm² flat print-down face at z=215.074 · 197.0 × 68.5 mm · open to the bed (54.8 mm up)
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=0.000 y=48.257 z=215.074
+    click: x=0.000 y=48.257 z=215.074
+
+  [ceiling] 607 mm² flat print-down face at z=236.074 · 53.5 × 53.5 mm · open to the bed (75.8 mm up)
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-52.225 y=44.859 z=236.074
+    click: x=-52.225 y=44.859 z=236.074
+
+  [ceiling] 607 mm² flat print-down face at z=236.074 · 53.5 × 53.5 mm · open to the bed (75.8 mm up)
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=52.225 y=44.859 z=236.074
+    click: x=52.225 y=44.859 z=236.074
+
+  [ceiling] 152 mm² flat print-down face at z=292.050 · 16.1 × 9.4 mm · drop 30.1–30.1 mm to material below
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=99.775 y=177.150 z=292.050
+    click: x=99.775 y=177.150 z=292.050
+
+  [ceiling] 82 mm² flat print-down face at z=258.150 · 9.4 × 8.7 mm · drop 30.3–30.3 mm to material below
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=99.775 y=173.450 z=258.150
+    click: x=99.775 y=173.450 z=258.150
+
+  [slope] 45° underside runs along a wall with no level foot · slope dir +0.00,-1.00 vs wall n +1.00,-0.07 · along 1.0 mm · 369 mm²
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    faceA: plane · n x=0.000 y=-0.707 z=-0.707 · thru x=0.000 y=47.872 z=287.013
+    faceB: plane · n x=0.998 y=-0.066 z=0.002 · thru x=28.532 y=46.464 z=288.863
+    click: x=0.000 y=47.872 z=287.013
+
+  [thin] 0.001 mm of material at its thinnest · 3.6 mm² of surface under 0.2 mm · spans 5.7 × 12.7 × 7.3 mm · in 8 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-3.102 y=63.067 z=311.621
+    click: x=-3.102 y=63.068 z=311.621
+
+  [thin] 0.003 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 0.4 × 0.2 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-62.647 y=35.637 z=299.506
+    click: x=-62.650 y=35.637 z=299.506
+
+  [thin] 0.005 mm of material at its thinnest · 0.1 mm² of surface under 0.1 mm · spans 0.1 × 1.1 × 0.2 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=62.645 y=42.409 z=302.718
+    click: x=62.650 y=42.409 z=302.718
+
+  [thin] 0.012 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.1 × 0.2 × 0.1 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-40.101 y=45.204 z=301.293
+    click: x=-40.101 y=45.197 z=301.304
+
+  [thin] 0.016 mm of material at its thinnest · 0.2 mm² of surface under 0.1 mm · spans 0.2 × 0.7 × 0.3 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-38.616 y=42.202 z=299.556
+    click: x=-38.616 y=42.194 z=299.570
+
+  [thin] 0.024 mm of material at its thinnest · 0.1 mm² of surface under 0.05 mm · spans 0.1 × 0.4 × 0.2 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=38.343 y=41.494 z=299.138
+    click: x=38.343 y=41.482 z=299.159
+
+  [thin] 0.031 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 0.0 × 0.0 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=62.619 y=54.811 z=299.032
+    click: x=62.650 y=54.811 z=299.032
+
+  [thin] 0.031 mm of material at its thinnest · 0.1 mm² of surface under 0.05 mm · spans 0.0 × 0.3 × 0.1 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=62.619 y=38.005 z=300.969
+    click: x=62.650 y=38.005 z=300.969
+
+  [thin] 0.031 mm of material at its thinnest · 0.1 mm² of surface under 0.05 mm · spans 0.0 × 0.4 × 0.2 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=62.619 y=52.185 z=300.706
+    click: x=62.650 y=52.185 z=300.706
+
+  [thin] 0.033 mm of material at its thinnest · 0.1 mm² of surface under 0.1 mm · spans 0.0 × 0.7 × 0.2 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=62.617 y=47.744 z=302.637
+    click: x=62.650 y=47.744 z=302.637
+
+  [thin] 0.034 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.1 × 0.2 × 0.1 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=41.885 y=47.687 z=302.702
+    click: x=41.885 y=47.670 z=302.732
+
+  [thin] 0.036 mm of material at its thinnest · 1.0 mm² of surface under 0.05 mm · spans 0.0 × 0.0 × 0.0 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=9.003 y=75.865 z=319.010
+    click: x=8.982 y=75.886 z=318.989
+
+  [thin] 0.040 mm of material at its thinnest · 0.1 mm² of surface under 0.1 mm · spans 0.0 × 0.3 × 0.1 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=37.095 y=34.642 z=295.164
+    click: x=37.095 y=34.622 z=295.199
+
+  [thin] 0.047 mm of material at its thinnest · 0.2 mm² of surface under 0.05 mm · spans 0.0 × 0.3 × 0.2 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-37.163 y=32.176 z=293.732
+    click: x=-37.163 y=32.153 z=293.773
+
+  [thin] 0.047 mm of material at its thinnest · 0.0 mm² of surface under 0.05 mm · spans 0.0 × 0.0 × 0.0 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=62.603 y=34.742 z=298.929
+    click: x=62.650 y=34.742 z=298.929
+
+  [thin] 0.056 mm of material at its thinnest · 0.2 mm² of surface under 0.2 mm · spans 0.1 × 0.5 × 0.3 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=37.400 y=38.009 z=297.090
+    click: x=37.400 y=37.981 z=297.138
+
+  [thin] 0.059 mm of material at its thinnest · 0.3 mm² of surface under 0.2 mm · spans 0.4 × 0.8 × 0.4 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=39.831 y=44.838 z=301.029
+    click: x=39.831 y=44.808 z=301.080
+
+  [thin] 0.077 mm of material at its thinnest · 0.5 mm² of surface under 0.2 mm · spans 0.1 × 0.3 × 0.3 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-62.573 y=38.374 z=301.210
+    click: x=-62.650 y=38.374 z=301.210
+
+  [thin] 0.084 mm of material at its thinnest · 0.2 mm² of surface under 0.2 mm · spans 0.0 × 0.3 × 0.2 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-62.566 y=51.093 z=301.345
+    click: x=-62.650 y=51.093 z=301.345
+
+  [thin] 0.085 mm of material at its thinnest · 1.3 mm² of surface under 0.2 mm · spans 0.0 × 1.4 × 0.7 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=37.154 y=31.708 z=293.418
+    click: x=37.154 y=31.666 z=293.492
+
+  [thin] 0.087 mm of material at its thinnest · 19.4 mm² of surface under 0.4 mm · spans 4.6 × 12.4 × 6.9 mm · in 4 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=7.788 y=73.913 z=315.607
+    click: x=7.788 y=74.000 z=315.607
+
+  [thin] 0.090 mm of material at its thinnest · 1.0 mm² of surface under 0.2 mm · spans 0.0 × 0.1 × 0.1 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-4.679 y=58.136 z=308.774
+    click: x=-4.679 y=58.226 z=308.774
+
+  [thin] 0.107 mm of material at its thinnest · 1.8 mm² of surface under 0.4 mm · spans 0.3 × 1.2 × 0.6 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-37.546 y=39.073 z=297.645
+    click: x=-37.546 y=39.020 z=297.738
+
+  [thin] 0.107 mm of material at its thinnest · 8.6 mm² of surface under 0.4 mm · spans 5.1 × 5.2 × 5.2 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-9.414 y=98.022 z=284.586
+    click: x=-9.414 y=98.098 z=284.662
+
+  [thin] 0.107 mm of material at its thinnest · 8.6 mm² of surface under 0.4 mm · spans 5.1 × 5.2 × 5.2 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=9.414 y=98.022 z=284.586
+    click: x=9.414 y=98.098 z=284.662
+
+  [thin] 0.109 mm of material at its thinnest · 0.8 mm² of surface under 0.4 mm · spans 0.2 × 0.5 × 0.5 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-62.541 y=54.209 z=299.496
+    click: x=-62.650 y=54.209 z=299.496
+
+  [thin] 0.113 mm of material at its thinnest · 5.8 mm² of surface under 0.4 mm · spans 0.4 × 7.6 × 0.6 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-62.537 y=44.926 z=303.111
+    click: x=-62.650 y=44.926 z=303.111
+
+  [thin] 0.122 mm of material at its thinnest · 6.5 mm² of surface under 0.4 mm · spans 0.6 × 6.3 × 3.3 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-37.017 y=35.463 z=295.543
+    click: x=-37.017 y=35.402 z=295.649
+
+  [thin] 0.150 mm of material at its thinnest · 12.7 mm² of surface under 0.4 mm · spans 9.7 × 0.3 × 0.3 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=5.690 y=58.226 z=308.653
+    click: x=5.690 y=58.151 z=308.783
+
+  [thin] 1.800 mm of material at its thinnest · 428.4 mm² of surface under 2.5 mm · spans 2.9 × 61.6 × 36.6 mm · in 2 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-66.890 y=19.433 z=311.879
+    click: x=-66.890 y=18.533 z=313.438
+    answered: Accepted wing-retention lips: each reading is the 1.80 mm lip over one of the display cover's wings (3.84 - 1.44 - 0.60), which the accepted face-up cover needs: display-cover/face-up-trial records its 3.30 mm capture and the receiver passed the 2026-09-30 shake test.
+    alternatives: A thicker lip needs a deeper inset (cover below flush), thinner wings or less wing air, each a change to the accepted fit; the exits stay world-vertical so supports leave into the display storey.
+
+  [thin] 1.800 mm of material at its thinnest · 428.4 mm² of surface under 2.5 mm · spans 2.9 × 61.6 × 36.6 mm · in 2 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=66.890 y=19.433 z=311.879
+    click: x=66.890 y=18.533 z=313.438
+    answered: Accepted wing-retention lips: each reading is the 1.80 mm lip over one of the display cover's wings (3.84 - 1.44 - 0.60), which the accepted face-up cover needs: display-cover/face-up-trial records its 3.30 mm capture and the receiver passed the 2026-09-30 shake test.
+    alternatives: A thicker lip needs a deeper inset (cover below flush), thinner wings or less wing air, each a change to the accepted fit; the exits stay world-vertical so supports leave into the display storey.
+
+  [thin] 1.801 mm of material at its thinnest · 862.8 mm² of surface under 2.5 mm · spans 2.5 × 16.0 × 29.9 mm · in 34 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=106.301 y=183.842 z=291.282
+    click: x=104.500 y=183.842 z=291.282
+
+  [thin] 1.808 mm of material at its thinnest · 432.2 mm² of surface under 2.5 mm · spans 2.5 × 8.6 × 30.1 mm · in 24 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=104.500 y=173.903 z=245.785
+    click: x=106.308 y=173.882 z=245.785
+
+  [thin] 1.808 mm of material at its thinnest · 955.2 mm² of surface under 2.5 mm · spans 2.4 × 56.4 × 9.3 mm · in 41 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-104.500 y=50.644 z=171.681
+    click: x=-106.308 y=50.650 z=171.681
+
+  [thin] 1.808 mm of material at its thinnest · 951.6 mm² of surface under 2.5 mm · spans 2.4 × 56.4 × 9.4 mm · in 41 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=104.500 y=50.644 z=171.681
+    click: x=106.308 y=50.650 z=171.681
+
+  [ledge] 4.01 mm² flat face 0° off facing the bed · 4.0 × 4.0 mm · 61.5 mm up
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-0.190 y=47.615 z=221.774
+    click: x=-0.190 y=47.615 z=221.774
+
+  [ledge] 4.01 mm² flat face 0° off facing the bed · 4.0 × 4.0 mm · 61.5 mm up
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-93.670 y=46.435 z=221.774
+    click: x=-93.670 y=46.435 z=221.774
+
+  [ledge] 4.01 mm² flat face 0° off facing the bed · 4.0 × 4.0 mm · 61.5 mm up
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=90.330 y=46.435 z=221.774
+    click: x=90.330 y=46.435 z=221.774
+
+  [ledge] 8.55 mm² flat face 0° off facing the bed · 3.3 × 3.3 mm · 68.9 mm up
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-0.181 y=45.498 z=229.195
+    click: x=-0.181 y=45.498 z=229.195
+
+  [ledge] 8.55 mm² flat face 0° off facing the bed · 3.3 × 3.3 mm · 68.9 mm up
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-92.354 y=45.438 z=229.195
+    click: x=-92.354 y=45.438 z=229.195
+
+  [ledge] 8.55 mm² flat face 0° off facing the bed · 3.3 × 3.3 mm · 68.9 mm up
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=91.646 y=45.438 z=229.195
+    click: x=91.646 y=45.438 z=229.195
+
+  [sliver · answered] Set aside by Derek, not accepted: these six faces bound the 1.35 mm pockets the outer fore valves' coil yokes need in the flank. Flattening the flank needs those valves 1.35 mm inboard, which puts their upper tubes, or with the tees moved their pump tubes, 1.35 mm off straight and pushing on the tee and cartridge. Derek: "I don't love it. But it's not the highest priority problem."
+    alternatives: Move the outer fore valves 1.35 mm inboard and accept the bent upper tube, or move valve and tee together and accept the bent pump tube. Thinning the whole flank to the pocket floor drags the seam-rail and funnel-frame grooves outboard.
+    1.350 mm strip, 34.6 mm long
+    face: plane · n x=0.000 y=-1.000 z=0.000 · thru x=-99.175 y=153.902 z=253.100
+    edge: x=-99.175 y=153.902 z=270.389 → x=-99.175 y=153.902 z=235.811 · len 34.577 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-99.175 y=153.902 z=253.100
+
+  [sliver · answered] Set aside by Derek, not accepted: these six faces bound the 1.35 mm pockets the outer fore valves' coil yokes need in the flank. Flattening the flank needs those valves 1.35 mm inboard, which puts their upper tubes, or with the tees moved their pump tubes, 1.35 mm off straight and pushing on the tee and cartridge. Derek: "I don't love it. But it's not the highest priority problem."
+    alternatives: Move the outer fore valves 1.35 mm inboard and accept the bent upper tube, or move valve and tee together and accept the bent pump tube. Thinning the whole flank to the pocket floor drags the seam-rail and funnel-frame grooves outboard.
+    1.350 mm strip, 34.6 mm long
+    face: plane · n x=0.000 y=-1.000 z=0.000 · thru x=99.175 y=153.632 z=253.100
+    edge: x=99.175 y=153.632 z=270.389 → x=99.175 y=153.632 z=235.811 · len 34.577 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=99.175 y=153.632 z=253.100
+
+  [sliver · answered] Set aside by Derek, not accepted: these six faces bound the 1.35 mm pockets the outer fore valves' coil yokes need in the flank. Flattening the flank needs those valves 1.35 mm inboard, which puts their upper tubes, or with the tees moved their pump tubes, 1.35 mm off straight and pushing on the tee and cartridge. Derek: "I don't love it. But it's not the highest priority problem."
+    alternatives: Move the outer fore valves 1.35 mm inboard and accept the bent upper tube, or move valve and tee together and accept the bent pump tube. Thinning the whole flank to the pocket floor drags the seam-rail and funnel-frame grooves outboard.
+    1.350 mm strip, 34.6 mm long
+    face: plane · n x=0.000 y=1.000 z=0.000 · thru x=-99.175 y=120.290 z=253.100
+    edge: x=-99.175 y=120.290 z=270.389 → x=-99.175 y=120.290 z=235.811 · len 34.577 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-99.175 y=120.290 z=253.100
+
+  [sliver · answered] Set aside by Derek, not accepted: these six faces bound the 1.35 mm pockets the outer fore valves' coil yokes need in the flank. Flattening the flank needs those valves 1.35 mm inboard, which puts their upper tubes, or with the tees moved their pump tubes, 1.35 mm off straight and pushing on the tee and cartridge. Derek: "I don't love it. But it's not the highest priority problem."
+    alternatives: Move the outer fore valves 1.35 mm inboard and accept the bent upper tube, or move valve and tee together and accept the bent pump tube. Thinning the whole flank to the pocket floor drags the seam-rail and funnel-frame grooves outboard.
+    1.350 mm strip, 34.6 mm long
+    face: plane · n x=0.000 y=1.000 z=0.000 · thru x=99.175 y=120.290 z=253.100
+    edge: x=99.175 y=120.290 z=270.389 → x=99.175 y=120.290 z=235.811 · len 34.577 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=99.175 y=120.290 z=253.100
+
+  [sliver · answered] Set aside by Derek, not accepted: these six faces bound the 1.35 mm pockets the outer fore valves' coil yokes need in the flank. Flattening the flank needs those valves 1.35 mm inboard, which puts their upper tubes, or with the tees moved their pump tubes, 1.35 mm off straight and pushing on the tee and cartridge. Derek: "I don't love it. But it's not the highest priority problem."
+    alternatives: Move the outer fore valves 1.35 mm inboard and accept the bent upper tube, or move valve and tee together and accept the bent pump tube. Thinning the whole flank to the pocket floor drags the seam-rail and funnel-frame grooves outboard.
+    1.350 mm strip, 33.6 mm long
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-99.175 y=137.096 z=235.811
+    edge: x=-99.175 y=120.290 z=235.811 → x=-99.175 y=153.902 z=235.811 · len 33.612 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-99.175 y=137.096 z=235.811
+
+  [sliver · answered] Set aside by Derek, not accepted: these six faces bound the 1.35 mm pockets the outer fore valves' coil yokes need in the flank. Flattening the flank needs those valves 1.35 mm inboard, which puts their upper tubes, or with the tees moved their pump tubes, 1.35 mm off straight and pushing on the tee and cartridge. Derek: "I don't love it. But it's not the highest priority problem."
+    alternatives: Move the outer fore valves 1.35 mm inboard and accept the bent upper tube, or move valve and tee together and accept the bent pump tube. Thinning the whole flank to the pocket floor drags the seam-rail and funnel-frame grooves outboard.
+    1.350 mm strip, 33.3 mm long
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=99.175 y=136.961 z=235.811
+    edge: x=99.175 y=120.290 z=235.811 → x=99.175 y=153.632 z=235.811 · len 33.342 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=99.175 y=136.961 z=235.811
+       26.66 real        25.16 user         2.32 sys
+           827424768  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+              551552  page reclaims
+                7803  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                 900  voluntary context switches
+               87214  involuntary context switches
+        319894249171  instructions retired
+         88212753289  cycles elapsed
+          1866926528  peak memory footprint

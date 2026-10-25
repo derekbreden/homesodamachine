@@ -687,5 +687,275 @@
     "all_eight_curves_match_original_query_within_0_000001_mm": true,
     "all_sixteen_final_stock_intersections_empty": true,
     "comparison_note": "Final source curves match the current manifest exactly. Compared with the original query, pump endpoint coordinate differences are below 6e-14 mm and display endpoint differences are below 1e-6 mm. Their exact serialized hashes differ. Current conservative BRepBndLib Add bounds and original precise bounds use different bounding methods; both sets of native stock queries are preserved."
+  },
+  "manufacturing_cleanup_binding": {
+    "scope": "Fresh native queries of all eight source-native pump/display conductors against both manufacturing-corrected emitted printed parts. Original and prior-final query records remain intact.",
+    "printed_stock_sha256": {
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "d65c9d61ea8964f85e8d120bb1ca5c4b22166474a23a2742758a93e0bba76340",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step": "bd394956fa09afd0985161b9e8ffb699a7083fe7066ff0fed76446c837fb089f"
+    },
+    "source_sha256": {
+      "hardware/wiring/installed/routes.py": "25a614a784977ba733ffb64962bedec8b4e81b1bf8ce7ff1e3d9873d3b7b7ec3",
+      "hardware/wiring/installed/route-overrides.json": "36538dc365902ce2ea3c91e5d2d1f27aa1da745e66b8b55a45417b6990780447",
+      "hardware/wiring/installed/terminals.py": "485ef865f493e321958309bdbf3527ae57adb91ae864d5b924ddaed5d56edf99",
+      "hardware/wiring/installed/connections.py": "11528d05f94efb932dd4b9eee07f01578a401fc8bf37ff9d9cab50b3bd058000",
+      "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "c41ca42b83206fa1e0d0a098b6ae048946ff181ec8f923945656719e6bba7d16",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.py": "8a9f49aeb5aa0be6fe9ad84a9cb89daedc1fe0322cb667692af689937dbda593",
+      "hardware/manifold-layout/enclosure-box.json": "3b8f760a0754d4cad939df7f8ceaf3047a35b3d8e707f602ea6b961548f4129e",
+      "hardware/assembly/harnesses/j13.json": "ea324cc287dce7e8040ab8d3db355c8b6648cf9737dbd8e5598963eb33a2b7e1"
+    },
+    "manifest_snapshot_sha256": "5867abeb87cb4826bc4851e1a81fa428a3fe932d2d65ec7298747d33fb1b7126",
+    "native_wire_comparisons": {
+      "J13-AM2": {
+        "segments_sha256": "4aab72a4f3e1c869b8bf3df1dd764f5df58964f829c79ec186bd4ae1f3f90e40",
+        "curve_matches_manifest_snapshot": true,
+        "curve_matches_prior_final_binding": true,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_mm": [
+          -78.3965741131889,
+          43.98831496573746,
+          268.39999989999995,
+          57.285970666384586,
+          245.20088692355372,
+          285.0848178708334
+        ],
+        "stock_queries": {
+          "front-top": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 0.19999999999998863
+          },
+          "retainer": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 60.22599999999997
+          }
+        }
+      },
+      "J13-AM1": {
+        "segments_sha256": "a90cad339bf84aa851fa7b68cd29c267791de435d2b23ec402e4836492720f2d",
+        "curve_matches_manifest_snapshot": true,
+        "curve_matches_prior_final_binding": true,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_mm": [
+          -78.39105641621265,
+          42.84918212916668,
+          268.39999989999995,
+          49.28597066638458,
+          247.6987251307825,
+          285.0848178708334
+        ],
+        "stock_queries": {
+          "front-top": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 0.19999999999998863
+          },
+          "retainer": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 60.22599999999997
+          }
+        }
+      },
+      "J13-BM2": {
+        "segments_sha256": "36a7305d4534ab9d8df92647c7c0292654e540b1774e3f7224eb155851ac0f54",
+        "curve_matches_manifest_snapshot": true,
+        "curve_matches_prior_final_binding": true,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_mm": [
+          -78.3859317016736,
+          42.84918212916668,
+          268.39999989999995,
+          0.1598178708333246,
+          250.19655093637766,
+          285.0848178708334
+        ],
+        "stock_queries": {
+          "front-top": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 0.19999999999998863
+          },
+          "retainer": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 60.22599999999997
+          }
+        }
+      },
+      "J13-BM1": {
+        "segments_sha256": "6459392519947f44b2f79defb07060a4923b60563e30e1e31a281b2e3de0e97c",
+        "curve_matches_manifest_snapshot": true,
+        "curve_matches_prior_final_binding": true,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_mm": [
+          -78.38094368221032,
+          43.98831496573747,
+          268.39999989999995,
+          -1.6901821291666754,
+          252.6965242486547,
+          285.0848178708334
+        ],
+        "stock_queries": {
+          "front-top": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 0.19999999999998863
+          },
+          "retainer": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 60.22599999999997
+          }
+        }
+      },
+      "J9-B": {
+        "segments_sha256": "71c38302a013e225bd25315b8a3cc7968e4be2826f9ce92c7d00af69496779e6",
+        "curve_matches_manifest_snapshot": true,
+        "curve_matches_prior_final_binding": true,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_mm": [
+          -17.084818767317692,
+          58.489957967621855,
+          268.39999989999995,
+          19.460891844091343,
+          239.78769922919096,
+          319.43448195149267
+        ],
+        "stock_queries": {
+          "front-top": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 1.6765215825149362
+          },
+          "retainer": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 69.22599999999997
+          }
+        }
+      },
+      "J9-A": {
+        "segments_sha256": "7a4a45de60ffad017a9417451aabadcdf3176da745c38b981b957b4e5a5b123e",
+        "curve_matches_manifest_snapshot": true,
+        "curve_matches_prior_final_binding": true,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_mm": [
+          -17.061548581135423,
+          58.489957967621834,
+          268.39999989999995,
+          21.1605654644113,
+          242.2832833536723,
+          319.4115078174226
+        ],
+        "stock_queries": {
+          "front-top": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 3.092120305114948
+          },
+          "retainer": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 69.22599999999997
+          }
+        }
+      },
+      "J9-GND": {
+        "segments_sha256": "c45c44ad584ed146c20f8cdc7025acc018446405bb62b3e2f927ea18fb7c1301",
+        "curve_matches_manifest_snapshot": true,
+        "curve_matches_prior_final_binding": true,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_mm": [
+          -17.065716079536678,
+          58.48995796762185,
+          268.39999989999995,
+          23.084816974348954,
+          244.77238960098666,
+          319.4215617321795
+        ],
+        "stock_queries": {
+          "front-top": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 3.092120305114954
+          },
+          "retainer": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 69.22599999999997
+          }
+        }
+      },
+      "J9-V12": {
+        "segments_sha256": "5b86d900717b1a03a7a6588709ec2d62ba771b0bf31fd45457f863917678698e",
+        "curve_matches_manifest_snapshot": true,
+        "curve_matches_prior_final_binding": true,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_mm": [
+          -17.064622583285242,
+          58.48995796762185,
+          268.39999989999995,
+          25.08482097434895,
+          247.25633238731302,
+          319.4636692720388
+        ],
+        "stock_queries": {
+          "front-top": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 1.6203957405637865
+          },
+          "retainer": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 69.22599999999997
+          }
+        }
+      }
+    },
+    "all_eight_curves_match_manifest_snapshot": true,
+    "all_eight_curves_match_prior_final_binding": true,
+    "all_eight_valid_single_solids": true,
+    "all_sixteen_final_stock_intersections_empty": true,
+    "physical_acceptance_claimed": false,
+    "evidence_limits": [
+      "This query covers the final proposed insulated conductor envelopes. Exact motor-tab and Faston receptacle geometry remains unlocated, and native conductor clearance is not physical connector or assembly acceptance."
+    ]
+  },
+  "rear_breakout_successor_binding": {
+    "printed_stock_sha256": {
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "389304966e148d1b2a63bd4ee4f0798066ff57bb13d86d694b30fd53728e414e",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step": "bd394956fa09afd0985161b9e8ffb699a7083fe7066ff0fed76446c837fb089f"
+    },
+    "source_sha256": {
+      "hardware/wiring/installed/routes.py": "25a614a784977ba733ffb64962bedec8b4e81b1bf8ce7ff1e3d9873d3b7b7ec3",
+      "hardware/wiring/installed/route-overrides.json": "36538dc365902ce2ea3c91e5d2d1f27aa1da745e66b8b55a45417b6990780447",
+      "hardware/wiring/installed/terminals.py": "485ef865f493e321958309bdbf3527ae57adb91ae864d5b924ddaed5d56edf99",
+      "hardware/wiring/installed/connections.py": "11528d05f94efb932dd4b9eee07f01578a401fc8bf37ff9d9cab50b3bd058000",
+      "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "cd2e436bc08ca5cadba0bef11fa1b350c658ed86bd55c865c93cc37bc716c84f",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.py": "20d60ba991f5ea24f8ec18d8db7474a7a7c00a4b312778fe1dfdfcc8bf54f351"
+    },
+    "manifest_sha256": "598fe2cd8c1784359ab6c9a613e895f9e7e44e9f6668d8e892f6b45927051324",
+    "native_stock_refinement": {
+      "path": "hardware/printed-parts/enclosure/enclosure/pump-mount-review/native-review.json",
+      "sha256": "db29aab22a6d2704b06adb642c11eb51ce842fbfbc4b6f4e124d88af0319eeaf",
+      "role": "rear_breakout_removal_successor",
+      "predecessor_top_sha256": "d65c9d61ea8964f85e8d120bb1ca5c4b22166474a23a2742758a93e0bba76340",
+      "current_top_sha256": "389304966e148d1b2a63bd4ee4f0798066ff57bb13d86d694b30fd53728e414e",
+      "material_added_mm3": 0.0,
+      "material_removed_mm3": 3035.7781773145985
+    },
+    "physical_acceptance_claimed": false,
+    "scope": "The final rear-breakout correction removes material only from the exact d65 stock already queried against these same eight source curves. Original native queries remain unchanged; their zero intersections and minimum-distance bounds stay conservative.",
+    "all_eight_source_curves_identical_to_native_query": true,
+    "wire_curve_sha256": {
+      "J13-AM1": "a90cad339bf84aa851fa7b68cd29c267791de435d2b23ec402e4836492720f2d",
+      "J13-AM2": "4aab72a4f3e1c869b8bf3df1dd764f5df58964f829c79ec186bd4ae1f3f90e40",
+      "J13-BM1": "6459392519947f44b2f79defb07060a4923b60563e30e1e31a281b2e3de0e97c",
+      "J13-BM2": "36a7305d4534ab9d8df92647c7c0292654e540b1774e3f7224eb155851ac0f54",
+      "J9-A": "7a4a45de60ffad017a9417451aabadcdf3176da745c38b981b957b4e5a5b123e",
+      "J9-B": "71c38302a013e225bd25315b8a3cc7968e4be2826f9ce92c7d00af69496779e6",
+      "J9-GND": "c45c44ad584ed146c20f8cdc7025acc018446405bb62b3e2f927ea18fb7c1301",
+      "J9-V12": "5b86d900717b1a03a7a6588709ec2d62ba771b0bf31fd45457f863917678698e"
+    },
+    "all_sixteen_wire_stock_intersections_remain_empty": true,
+    "front_top_minimum_distance_lower_bounds_mm": {
+      "J13": 0.19999999999998863,
+      "J9": 1.620396
+    }
   }
 }

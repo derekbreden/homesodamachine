@@ -45,8 +45,9 @@ Installed, the retainer's back stands [0.25 mm](DOCK_FRAME_GAP) ahead of the wal
 The three upward screws clamp the molded skirts against the integral upper half. Reaching
 the underside fasteners after chassis closure requires a factory teardown.
 
-The pump and display leads share one rear passage through the continuous stock, with a
-28 × 28 mm diamond mouth centred at X0/Z280 and opening aft through Y99. Thread DC-5's
+The pump and display leads share one rear passage through the continuous stock. Its
+22 mm diamond section is centred at X0/Z280; the rear upper half opens as a plain U
+over the bulkhead lip through Y99. Thread DC-5's
 bare pump end through it before crimping and landing the Fastons on the loose pumps. Draw
 slack aft during motor-first insertion. SIG-7 uses the same passage with the display facet
 open; finish the display and loom before installing the funnel frame.

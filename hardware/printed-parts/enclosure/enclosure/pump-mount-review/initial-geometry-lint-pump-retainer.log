@@ -1,0 +1,75 @@
+enclosure-pump-retainer.stl · 9988 printed facets · 11 findings
+answers: hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-pump-retainer.lint-answers · read hardware/printed-parts/lint-answers/AGENTS.md before writing one
+
+  [thin] 0.013 mm of material at its thinnest · 1.1 mm² of surface under 0.05 mm · spans 0.0 × 0.0 × 1.9 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+    click: x=-21.055 y=14.263 z=207.644
+    click: x=-21.055 y=14.250 z=207.644
+
+  [thin] 0.013 mm of material at its thinnest · 1.1 mm² of surface under 0.05 mm · spans 0.0 × 0.0 × 1.9 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+    click: x=21.055 y=14.263 z=207.644
+    click: x=21.055 y=14.250 z=207.644
+
+  [thin] 0.013 mm of material at its thinnest · 2.9 mm² of surface under 0.1 mm · spans 0.1 × 0.1 × 4.5 mm · in 2 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+    click: x=83.395 y=14.263 z=207.644
+    click: x=83.395 y=14.250 z=207.644
+
+  [thin] 0.013 mm of material at its thinnest · 2.9 mm² of surface under 0.1 mm · spans 0.1 × 0.1 × 4.5 mm · in 2 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+    click: x=-83.395 y=14.263 z=207.644
+    click: x=-83.395 y=14.250 z=207.644
+
+  [thin] 0.037 mm of material at its thinnest · 1.1 mm² of surface under 0.1 mm · spans 0.1 × 0.1 × 1.9 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+    click: x=21.013 y=14.250 z=212.795
+    click: x=21.036 y=14.278 z=212.795
+
+  [thin] 0.041 mm of material at its thinnest · 1.1 mm² of surface under 0.1 mm · spans 0.0 × 0.1 × 1.9 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+    click: x=-21.006 y=14.250 z=212.147
+    click: x=-21.032 y=14.282 z=212.147
+
+  [thin] 0.090 mm of material at its thinnest · 1.1 mm² of surface under 0.2 mm · spans 0.1 × 0.2 × 0.3 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+    click: x=-83.489 y=14.340 z=213.461
+    click: x=-83.489 y=14.250 z=213.461
+
+  [thin] 0.090 mm of material at its thinnest · 1.1 mm² of surface under 0.2 mm · spans 0.1 × 0.2 × 0.3 mm
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+    click: x=83.489 y=14.340 z=213.461
+    click: x=83.489 y=14.250 z=213.461
+
+  [ledge] 17.87 mm² flat face 0° off facing the bed · 5.8 × 5.8 mm · 3.0 mm up
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-93.868 y=44.975 z=168.195
+    click: x=-93.868 y=44.975 z=168.195
+
+  [ledge] 17.87 mm² flat face 0° off facing the bed · 5.8 × 5.8 mm · 3.0 mm up
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=90.132 y=44.975 z=168.195
+    click: x=90.132 y=44.975 z=168.195
+
+  [ledge] 17.87 mm² flat face 0° off facing the bed · 5.8 × 5.8 mm · 3.0 mm up
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=0.573 y=43.873 z=168.195
+    click: x=0.573 y=43.873 z=168.195
+        3.80 real         2.47 user         0.48 sys
+           422264832  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+               62751  page reclaims
+                7366  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                1062  voluntary context switches
+               24653  involuntary context switches
+         26717013620  instructions retired
+         10272101477  cycles elapsed
+           398951720  peak memory footprint

@@ -1,56 +1,65 @@
-# Pump clamp collar source
+# Pump locating profile source
 
 [`pump_tray.py`](/hardware/printed-parts/enclosure/pump-tray/pump_tray.py) draws the
-case-derived collar used twice in `enclosure-pump-cap`. It is not a separate printed part.
+case-derived locating profiles used at both pump stations by front-top's integral upper
+inverse and `enclosure-pump-retainer`. It is not a separate printed part.
 [`pump_case.py`](/hardware/printed-parts/enclosure/pump-tray/pump_case.py) supplies the fitted
-surfaces: a plate and 45° ramp at the holder station plane, the boss's octagonal bore wall,
-and one shoulder around the motor can.
+head profiles, the boss's octagonal bore and the motor-can opening. The production
+construction is in
+[`_fixed_pump_mount.py`](/hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py).
 
-The flavour manifold carries two KPHM600-SW3B17 pumps, so the top clamp contains
-[2](TRAY_COUNT) collars.
+The flavour manifold carries [2](TRAY_COUNT) KPHM600-SW3B17 pumps.
 
 | | |
 |---|---|
-| source footprint | [70](TRAY_W) across × [70.759](TRAY_L) mm |
-| case footprint | [70](CASE_W) mm square, ramp [18](RAMP_H) mm high |
+| case-profile footprint | [70](CASE_W) mm square |
 | octagonal location | [53](SOCKET_SPAN) mm at the flats, [1.5](SOCKET_LEDGE) mm ledges, [21](BOSS_DEPTH) mm deep |
-| shoulder | [3](SHOULDER) mm over the boss, bored Ø[37](CAN_BORE) for the can |
-| complete collar rise | [24](TRAY_D) mm |
+| motor-can opening | Ø[37](CAN_BORE) mm |
 | pump envelope below it | [62.61](HEAD_W) mm head, [47.88](HEAD_D) mm deep |
 | molded flange envelope | [62.61](BRACKET_W) mm across, with an 8 mm skirt between bearing faces |
-| rear stack axis | [1](REAR_AXIS_Y_SHIFT) mm toward Y− from the head and lower-cradle datum |
+| rear stack axis | [1](REAR_AXIS_Y_SHIFT) mm toward Y− from the head and lower-retainer datum |
 
-## How it becomes the clamp
+## How production uses the profiles
 
-`enclosure._pump_clamp_gross` uses the case-derived octagon and can openings on the reference
-pump's offset rear-stack axis. Its broad underside, locating profiles and screw seats share
-the physically accepted holder datums. Two top-access M3 screws close the cap onto the pumps
-while the lower cradle takes the load. The surrounding crown reaches the cradle's top edge;
-two wider terminal wells leave the motor ends open.
+`boss_room` supplies the octagonal cut on each pump's offset rear-stack axis.
+Front-top's upper inverse adds the motor and terminal room inside one broad body continuous
+to the display housing and roof. `drop_well` supplies the lower retainer's fitted head well
+and flat skirt-support lands. Production reads the pump's seated drop for the actual flange
+and lower land datums.
 
-The pump's front rim clears the continuous bay floor; the floor is not a competing pump seat.
-The physical pump pose includes the holder's seated drop, and the four outlet paths read that
-same pose. Short inserted 1/4-inch LLDPE stubs in the scans are external tubing in silicone;
-they do not define the rigid pump envelope.
+The prepared pump/retainer unit enters motor-first from underneath loose front-top.
+Three M3 × 60 screws enter upward through the retainer into front-top, capturing the molded
+skirts between the fitted faces. The four tube stubs rise through bottom-open tee-wall
+gates. The [integral mount description](/hardware/printed-parts/enclosure/enclosure/README.md#integral-pump-mount)
+and [bench procedure](/hardware/assembly/internal-plumbing.md) define the complete assembly.
 
 ## Verification
 
 `pump_tray.py selftest` checks the case-derived source solid, locating profiles and reference
-clearances. Independent physical observations and native cap/cradle contact checks are in
-[the scan review](/hardware/reference/kamoer-kphm400/scan-review.md) and
-[check_pump_contacts.py](/hardware/reference/kamoer-kphm400/check_pump_contacts.py).
-The new cap and relieved floor still require a dry assembly check with the physical pumps.
+clearances. Production native assembly and print readings are in the
+[pump-mount review](/hardware/printed-parts/enclosure/enclosure/pump-mount-review/README.md).
+
+The [accepted physical observation](/hardware/reference/kamoer-kphm400/physical-fit.json)
+records firm holding without observed vertical play in its identified separate cradle and
+cap. It does not identify the actual load-bearing contact surfaces or qualify the integral
+upper/lower skirt capture. The [scan review](/hardware/reference/kamoer-kphm400/scan-review.md)
+retains its measured-surface and registration scope. Physical assembly force, retention,
+vibration and lifetime of the integral mount remain unqualified.
+
+Short inserted 1/4-inch LLDPE stubs in the scans are external tubing in silicone; they do not
+define the rigid pump envelope. Actual tube insertion marks and joint checks belong to the
+bench procedure.
 
 ## Print
 
-Both collars print inside the top clamp. Their ramps and octagonal walls grow from the
-pressing plate; the two screw heads remain accessible from above. Black PET-GF, the clamp's own stock
-([`bom.md`](/hardware/ledger/bom.md) §7).
+The upper profiles print within `enclosure-front-top`; the lower profiles print within
+`enclosure-pump-retainer`, both in PET-GF. Their print preparation and support access belong
+to those production pieces ([`bom.md`](/hardware/ledger/bom.md) §7).
 
 ## Files
 
-- `pump_tray.py` — the conformal collar source and dimensional selftest
-- `pump_case.py` — the fitted pump-case geometry from which the collar is cut
+- `pump_tray.py` — the fitted profile source, source collar builder and dimensional selftest
+- `pump_case.py` — the case-derived geometry supplying the head, skirt and rear-stack profiles
 
 Run with `tools/cad-venv/bin/python` per the hardware context file.
 

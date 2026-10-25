@@ -4653,7 +4653,7 @@
           280.0
         ]
       ],
-      "diamond_half_span_mm": 14.0
+      "diamond_half_span_mm": 11.0
     },
     "front-top-pump-cross": {
       "points_mm": [
@@ -4689,9 +4689,9 @@
         ]
       ],
       "bounds_mm": [
-        -8.0,
-        8.0,
-        74.0,
+        -10.0,
+        10.0,
+        72.0,
         84.0,
         280.0,
         334.0
@@ -42768,7 +42768,7 @@
     "Nominal and unlocated terminals remain visible in the graph and manifest; no exact donor termination is invented.",
     "The electrical graph does not qualify grounding, mains isolation, current capacity or energization."
   ],
-  "physical_scene_sha256": "b983c029e9bc16b8c564469f81a48293a30cc39d435c697a0d50569a41f035cc",
+  "physical_scene_sha256": "9971ccd310a1ea6a6b693fa9f2b21275310723d5fbadf20bd7530e572c7182cf",
   "source_sha256": {
     "hardware/wiring/installed/build.py": "28ba31fd5f3081c2073f4e25185173c05dbcb0f0c67a259d6c9ef0b955afc578",
     "hardware/wiring/installed/connections.py": "11528d05f94efb932dd4b9eee07f01578a401fc8bf37ff9d9cab50b3bd058000",
@@ -42785,8 +42785,8 @@
     "hardware/manifold-layout/above-core.json": "70de28e454278ad9676a14663dd97120ea7130c67e5e168ec1e69d7fba6b2fc6",
     "hardware/manifold-layout/above_core_wiring.py": "ee4bef33f1ec046b0cf6a4aeb1483edb173cb51f618382698f7073ce68990b46",
     "hardware/manifold-layout/enclosure-box.json": "3b8f760a0754d4cad939df7f8ceaf3047a35b3d8e707f602ea6b961548f4129e",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "b7d07038e283f9a13ee08c3d252e23dcf066b0bcf23e69580e472c36046b7cf0",
-    "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "67c065abe5525cdc4b09c88a6f00c1fd223d6eae311a2f4685f03d3293c2bd5c",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "20d60ba991f5ea24f8ec18d8db7474a7a7c00a4b312778fe1dfdfcc8bf54f351",
+    "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "cd2e436bc08ca5cadba0bef11fa1b350c658ed86bd55c865c93cc37bc716c84f",
     "hardware/printed-parts/cold-core/_above_core_mounts.py": "90a9f83c0ca9a96ba3ecabc8e336e51c8570e8cb76ceb81e58901e718fe883b1",
     "hardware/printed-parts/cold-core/_cold_core_interface.py": "1e99589ad5f8a062acaa6d4f2957774e0f4c29695e3856955258862208ae3c63",
     "hardware/assembly/harnesses/j2.json": "34ef4ac5c41910851100fd36a3f549b2028586440e250d0ebce949c8783c30a5",

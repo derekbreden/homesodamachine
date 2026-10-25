@@ -1,42 +1,12 @@
 {
   "schema": 1,
-  "scope": "Wiring-only integration; existing physical parts retained",
-  "physical_step_sha256": "b983c029e9bc16b8c564469f81a48293a30cc39d435c697a0d50569a41f035cc",
-  "installed_step_sha256": "87272fce061fefa5fc5d84446102d9a1f7f5f55809919e3a6b1f89cc1baf9979",
-  "physical_records_retained": 2507621,
+  "scope": "Canonical physical assembly export with its current installed wiring; all physical native records and viewer arrays retained during wiring installation.",
+  "physical_step_sha256": "9971ccd310a1ea6a6b693fa9f2b21275310723d5fbadf20bd7530e572c7182cf",
+  "installed_step_sha256": "3c6f9f078d9df28c79227759b1e431c810ffdd3d8fac01a3035d309aeeb69f00",
+  "physical_records_retained": 2506045,
   "physical_meshes_retained": 432,
   "wiring_meshes": 113,
   "all_retained_viewer_arrays_identical": true,
-  "wiring_step_sha256": "502344aab6cc29aa6e68a68b42bd40e82f675ac246536130fe61c908afa3b01f",
-  "connection_count": 98,
-  "replaced_route_ids": [
-    "J1-COM",
-    "J1-positive-A",
-    "J1-positive-B",
-    "J1-positive-C",
-    "J1-positive-D",
-    "J1-positive-E",
-    "J1-positive-F",
-    "J1-positive-G",
-    "J1-positive-H",
-    "J2-COM",
-    "J2-positive-I",
-    "J2-positive-J",
-    "J2-positive-K",
-    "J2-positive-fan"
-  ],
-  "changed_source_paths": [
-    "hardware/wiring/installed/route-overrides.json"
-  ],
-  "patch_step_sha256": "e1b12793b6ad7e52f78f8b39af6fce145e593e43d9fae5ccfa021c990139a510",
-  "patch_records_sha256": "5a1e89c30ce16f3da3cb3f32bf961aa2b6557cf2d9162f7a6f26630841122434",
-  "mechanical_fact_rebinding": {
-    "basis": "The 14 wire solids are excluded from enclosure_assembly._solids and mechanical measurements. Every physical native record and viewer array is retained unchanged by wiring-only integration.",
-    "original_step_digest": "8d5aa8b99d79055b4bbf2b796ffdce10",
-    "installed_step_digest": "12e3ec376b7cb26097bee1ca82f72fe7",
-    "original_sources_digest": "f66131c1ffa80bf496489c7641131dd0",
-    "installed_sources_digest": "ec15cd9da6e7cbf462320a4cc7083e7e",
-    "all_measurements_and_card_binding_unchanged": true,
-    "unchanged_measurements_sha256": "ab261c61e99d39c2c3f593effa33ca34c0440aab13a6f2d52e6ec72cb473a33e"
-  }
+  "wiring_step_sha256": "5e1c69dbfc577cb73ee1003db41dfb8ce6a62fb7e4e1e4b097ffded2941f7aa7",
+  "connection_count": 98
 }

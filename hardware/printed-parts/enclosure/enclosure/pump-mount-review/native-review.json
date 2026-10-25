@@ -9256,5 +9256,2010 @@
         "maximum_bound_delta_mm": 0.0
       }
     ]
-  }
+  },
+  "printed_stock_refinements": [
+    {
+      "verification_source_sha256": "c0dad123d0f33f1d48bdda991bfe1ed4acd9e8a7e49dcb82c45489aeb9c9bdc3",
+      "prior_reading_sha256": "6276974b3249c878737029d39ba39a58031d635b6c534b67cd313031325d11fd",
+      "status": "native_refinement_clear",
+      "parts": [
+        {
+          "part": "enclosure-pump-retainer",
+          "original_native": {
+            "path": "/tmp/pump-mount-before-lint-fix/enclosure-pump-retainer.step",
+            "sha256": "ea79019f2cc2cfd7ac84decff522190f252ce17e70b2a4a075708bf8b23b7192"
+          },
+          "refined_native": {
+            "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step",
+            "sha256": "bd394956fa09afd0985161b9e8ffb699a7083fe7066ff0fed76446c837fb089f"
+          },
+          "valid": true,
+          "solids": 1,
+          "added_volume_mm3": 0.0,
+          "removed_volume_mm3": 31.09961642410164,
+          "removed_bounds_mm": [
+            -84.625,
+            84.6250000000005,
+            14.249999999998845,
+            16.85900000000014,
+            206.674,
+            214.424
+          ],
+          "protected_land_z_mm": 206.674,
+          "changed_volume_below_land_mm3": 0.0,
+          "screw_column_guards": [
+            {
+              "x": -92.0,
+              "y": 45.859,
+              "radius_mm": 5.9,
+              "changed_volume_mm3": 0.0
+            },
+            {
+              "x": 0.0,
+              "y": 45.859,
+              "radius_mm": 5.9,
+              "changed_volume_mm3": 0.0
+            },
+            {
+              "x": 92.0,
+              "y": 45.859,
+              "radius_mm": 5.9,
+              "changed_volume_mm3": 0.0
+            }
+          ],
+          "original_path_scope": "The refined retainer is a native subset of the original. All material below the skirt land and around the three screw columns agrees. Previously proved paths against the original retainer remain conservative."
+        }
+      ]
+    },
+    {
+      "verification_source_sha256": "c0dad123d0f33f1d48bdda991bfe1ed4acd9e8a7e49dcb82c45489aeb9c9bdc3",
+      "prior_reading_sha256": "fc790be672430cdeff2317ad14e69eea4a71fb245566ed5d1e3f788e5add8f7d",
+      "status": "native_refinement_clear",
+      "parts": [
+        {
+          "part": "enclosure-front-top",
+          "original_native": {
+            "path": "/tmp/pump-mount-before-lint-fix/enclosure-front-top.step",
+            "sha256": "455cd05a225b6f47b252577cb25a45cf3e4fb81b63eb2dc0b39fa39a28d12dc0"
+          },
+          "refined_native": {
+            "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+            "sha256": "e0b491ba90da4e4ad2fc58259fe1bb0d4ddf9afe05a3f583ce27ae195d3178f3"
+          },
+          "moving_retainer": {
+            "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step",
+            "sha256": "bd394956fa09afd0985161b9e8ffb699a7083fe7066ff0fed76446c837fb089f"
+          },
+          "hardware_cache": {
+            "assembly_sha256": "97806f7dd4877911ebf1d3a1e60d80a4ab978d57c74e2a479d08e3afcc62f5ea",
+            "index_sha256": "39b186ad15ffe3fe1c4198d9765b6788f70b3691cced9c4fbf8fa6c50c5792d3",
+            "cache_directory": ".cache/pump-mount-review/97806f7dd4877911ebf1d3a1e60d80a4ab978d57c74e2a479d08e3afcc62f5ea",
+            "original_assembly": "hardware/manifold-layout/enclosure-assembly.step",
+            "bodies": {
+              "coil-v-e": {
+                "file": "coil-v-e.brep",
+                "sha256": "d197d56dfd8aee49bffc5ab86ea2e017b2543721f6d99c148efa2986973d1842",
+                "bounds_world_mm": [
+                  5.6,
+                  39.1,
+                  122.99,
+                  154.2900001,
+                  225.325,
+                  269.325
+                ],
+                "volume_mm3": 18344.72768812051
+              },
+              "coil-v-f": {
+                "file": "coil-v-f.brep",
+                "sha256": "34e8344465053d38a4248bcf611d1cb414d161c7146e398d142d7483e1467868",
+                "bounds_world_mm": [
+                  65.35,
+                  98.85,
+                  122.99,
+                  154.2900001,
+                  235.525,
+                  279.525
+                ],
+                "volume_mm3": 18344.727688120543
+              },
+              "coil-v-h": {
+                "file": "coil-v-h.brep",
+                "sha256": "41ed7a2840c57639de180b4f3783aa4f3cd4fa6b21e3a2bfb56c7ebb0ad95cc9",
+                "bounds_world_mm": [
+                  -39.1,
+                  -5.6,
+                  122.99,
+                  154.2900001,
+                  225.325,
+                  269.325
+                ],
+                "volume_mm3": 18344.727688118786
+              },
+              "coil-v-i": {
+                "file": "coil-v-i.brep",
+                "sha256": "6d3b77d795fbbd96555416fba90de2863e520f396d6f10b25859d9ca21c96d3a",
+                "bounds_world_mm": [
+                  -98.85,
+                  -65.35,
+                  122.99,
+                  154.2900001,
+                  235.525,
+                  279.525
+                ],
+                "volume_mm3": 18344.727688121366
+              },
+              "compressor": {
+                "file": "compressor.brep",
+                "sha256": "a45dc697dcbe766e905943680633a8ebdc18e23c3833c671fc5aee7cb39138a3",
+                "bounds_world_mm": [
+                  -76.1,
+                  33.9,
+                  11.0,
+                  171.0,
+                  0.0,
+                  135.0
+                ],
+                "volume_mm3": 1572758.1872043
+              },
+              "condenser+fan": {
+                "file": "condenser+fan.brep",
+                "sha256": "75e0f6063d8bf05967897c0a8090d0ac250b2aa1528477bfc5c0d8828c315dc8",
+                "bounds_world_mm": [
+                  41.5,
+                  97.5,
+                  14.0,
+                  168.0,
+                  9.0,
+                  146.0
+                ],
+                "volume_mm3": 876384.2920367322
+              },
+              "display": {
+                "file": "display.brep",
+                "sha256": "7131eb39f32a25c7ad57a88006385eb66043535a821967fd7c27514b7213f5eb",
+                "bounds_world_mm": [
+                  -56.75,
+                  56.75,
+                  17.750127018922,
+                  89.10395609140288,
+                  293.30843694568,
+                  345.89689421380046
+                ],
+                "volume_mm3": 133072.13495409212
+              },
+              "enclosure-front-bottom": {
+                "file": "enclosure-front-bottom.brep",
+                "sha256": "1871f86a1133f0b7528447121148780e85c07d05e8696b368d26f89af7db248e",
+                "bounds_world_mm": [
+                  -107.5000001,
+                  107.5000001,
+                  4.9999999,
+                  217.8,
+                  -6.000000100000138,
+                  174.8
+                ],
+                "volume_mm3": 1096798.1199959128
+              },
+              "funnel-frame": {
+                "file": "funnel-frame.brep",
+                "sha256": "868e67d08e71079bbd043f99f340307f8e03ac92a8f9596ab4957fb484cc0a5c",
+                "bounds_world_mm": [
+                  -98.25,
+                  98.25,
+                  92.999992076719,
+                  275.69150792328,
+                  299.8999998,
+                  354.9999999
+                ],
+                "volume_mm3": 645045.8313466628
+              },
+              "fuse-clamp": {
+                "file": "fuse-clamp.brep",
+                "sha256": "a04242f08e4b0431a04b3ba8a7e2632eacc3e740991cc0946882aefb9fa65c96",
+                "bounds_world_mm": [
+                  -20.6,
+                  8.100000000000001,
+                  15.749999999999998,
+                  33.75,
+                  14.999999999999998,
+                  61.45
+                ],
+                "volume_mm3": 5556.690000000006
+              },
+              "mq6-sensor": {
+                "file": "mq6-sensor.brep",
+                "sha256": "0ab298aac4a52dca53759dbbfbe6864ed0d4fc6a2ee2c955306cd7373786cb64",
+                "bounds_world_mm": [
+                  -97.5,
+                  -75.9,
+                  38.3,
+                  70.3,
+                  3.0,
+                  23.0
+                ],
+                "volume_mm3": 5003.232717810004
+              },
+              "pump-a-boss": {
+                "file": "pump-a-boss.brep",
+                "sha256": "bf6e82a824bb541898ce8ed577b5064104f1f2e61066e66974237f0b519a1b6b",
+                "bounds_world_mm": [
+                  25.725,
+                  78.72500000000001,
+                  18.358999999999998,
+                  71.359,
+                  214.674,
+                  235.674
+                ],
+                "volume_mm3": 34456.91376322826
+              },
+              "pump-a-head": {
+                "file": "pump-a-head.brep",
+                "sha256": "5bb6b58950847d99d84dd0b9aaf32c292bd7c11786aa9c92ef9ca30da7579012",
+                "bounds_world_mm": [
+                  20.919999899999997,
+                  83.53000010000001,
+                  14.55399999999945,
+                  75.96900009999999,
+                  166.79399990000002,
+                  214.6740001
+                ],
+                "volume_mm3": 156956.7016251293
+              },
+              "pump-a-motor": {
+                "file": "pump-a-motor.brep",
+                "sha256": "825df9b86835366d5cfd82b660ddb16262c67888a770c891b8266dc62b5c37e8",
+                "bounds_world_mm": [
+                  34.36,
+                  70.09,
+                  26.994000000000003,
+                  62.724000000000004,
+                  235.674,
+                  277.224
+                ],
+                "volume_mm3": 41660.7363589491
+              },
+              "pump-b-boss": {
+                "file": "pump-b-boss.brep",
+                "sha256": "552b06f783bf8c5eed9972dd57227bc2932b61478411e4bb4cb649454e1d42f9",
+                "bounds_world_mm": [
+                  -78.725,
+                  -25.724999999997,
+                  18.358999999999998,
+                  71.359,
+                  214.674,
+                  235.674
+                ],
+                "volume_mm3": 34456.91376322976
+              },
+              "pump-b-head": {
+                "file": "pump-b-head.brep",
+                "sha256": "c84c19498ee0e65449bfe82af8513dd9689eea5ab8d4c2247048ccf0c001de72",
+                "bounds_world_mm": [
+                  -83.5300001,
+                  -20.919999899999986,
+                  14.553999999995526,
+                  75.96900009999999,
+                  166.79399990000002,
+                  214.6740001
+                ],
+                "volume_mm3": 156956.70162512842
+              },
+              "pump-b-motor": {
+                "file": "pump-b-motor.brep",
+                "sha256": "69392a2c7b55a4ccfaa00b55899639df57700c8293091012e1456d1114e3be8f",
+                "bounds_world_mm": [
+                  -70.09,
+                  -34.36,
+                  26.994000000000003,
+                  62.724000000000004,
+                  235.674,
+                  277.224
+                ],
+                "volume_mm3": 41660.7363589491
+              },
+              "tee-y-c": {
+                "file": "tee-y-c.brep",
+                "sha256": "b16fbdf321dc71311d1f9d9ac05e230bbef1fd0a8f88951390100ddce5fb3f50",
+                "bounds_world_mm": [
+                  14.099999999999993,
+                  30.6,
+                  85.69,
+                  116.29,
+                  164.924,
+                  207.424
+                ],
+                "volume_mm3": 8004.1274611826275
+              },
+              "tee-y-d": {
+                "file": "tee-y-d.brep",
+                "sha256": "d944a3e65ac277343510995b9d0fd530803613971455cc117554e5a19a8a9a08",
+                "bounds_world_mm": [
+                  73.84999999999998,
+                  90.35,
+                  85.69,
+                  116.29,
+                  164.924,
+                  207.424
+                ],
+                "volume_mm3": 8004.1274611826275
+              },
+              "tee-y-f": {
+                "file": "tee-y-f.brep",
+                "sha256": "71eedda4d3123650a97bc0a1c0186ee9302e05e2a84c593f1670c48d19efc973",
+                "bounds_world_mm": [
+                  -30.60000000000001,
+                  -14.1,
+                  85.69,
+                  116.29,
+                  164.924,
+                  207.424
+                ],
+                "volume_mm3": 8004.127461182629
+              },
+              "tee-y-g": {
+                "file": "tee-y-g.brep",
+                "sha256": "28cd79b2d2068e85d56cc15f82a7efdd9dcf62f41a7e6b5d3006ae528db451d0",
+                "bounds_world_mm": [
+                  -90.35000000000001,
+                  -73.85,
+                  85.69,
+                  116.29,
+                  164.924,
+                  207.424
+                ],
+                "volume_mm3": 8004.1274611826275
+              },
+              "tube-fluid-10": {
+                "file": "tube-fluid-10.brep",
+                "sha256": "cfa2de05cb18678376080d619ee79a4da432a9c9bc7a3503481c7bd6eabdaa4d",
+                "bounds_world_mm": [
+                  19.175,
+                  25.525000000000002,
+                  104.86500000000001,
+                  111.215,
+                  207.424,
+                  222.675
+                ],
+                "volume_mm3": 261.5120295916117
+              },
+              "tube-fluid-11": {
+                "file": "tube-fluid-11.brep",
+                "sha256": "429248b7daffbb95251612aa28a301f3a3841f9cf0e89cfd23388ad6276298a8",
+                "bounds_world_mm": [
+                  19.175,
+                  25.525000000000002,
+                  77.164,
+                  97.19,
+                  182.999,
+                  189.34900000000002
+                ],
+                "volume_mm3": 634.2077485254053
+              },
+              "tube-fluid-12": {
+                "file": "tube-fluid-12.brep",
+                "sha256": "01edd8d0fc888e7fbededcbf0b1b4d19baa8f9c5eef7247f20b6adb17d7dd808",
+                "bounds_world_mm": [
+                  78.925,
+                  85.27499999999999,
+                  77.164,
+                  97.19,
+                  182.999,
+                  189.34900000000002
+                ],
+                "volume_mm3": 634.2077485254049
+              },
+              "tube-fluid-13": {
+                "file": "tube-fluid-13.brep",
+                "sha256": "1bf6df45df34b895bfd64c98bd90129e86e0963656de0061aef160bff731efe9",
+                "bounds_world_mm": [
+                  78.925,
+                  85.27499999999999,
+                  104.86500000000001,
+                  111.215,
+                  207.424,
+                  222.675
+                ],
+                "volume_mm3": 261.51202959161174
+              },
+              "tube-fluid-20": {
+                "file": "tube-fluid-20.brep",
+                "sha256": "edbf9f536197d476ed41c814b6bb38cdcac6ac165999e03857bb646ba8877d33",
+                "bounds_world_mm": [
+                  -25.525000000000002,
+                  -19.175,
+                  104.86500000000001,
+                  111.215,
+                  207.424,
+                  222.675
+                ],
+                "volume_mm3": 261.51202959161157
+              },
+              "tube-fluid-21": {
+                "file": "tube-fluid-21.brep",
+                "sha256": "e97a3e63e4334f1b923fe6febcf85e8cd62bbdaf5b3e429fa81a1964843b787b",
+                "bounds_world_mm": [
+                  -25.525000000000002,
+                  -19.175,
+                  77.164,
+                  97.19,
+                  182.999,
+                  189.34900000000002
+                ],
+                "volume_mm3": 634.2077485254053
+              },
+              "tube-fluid-22": {
+                "file": "tube-fluid-22.brep",
+                "sha256": "1c7ecfc6807346297e57ce407a2cd4897d0f93a644ee8ffb81ab42a051b84f5d",
+                "bounds_world_mm": [
+                  -85.275,
+                  -78.925,
+                  77.164,
+                  97.19,
+                  182.999,
+                  189.34900000000002
+                ],
+                "volume_mm3": 634.2077485254048
+              },
+              "tube-fluid-23": {
+                "file": "tube-fluid-23.brep",
+                "sha256": "60e6b20f1fe97b6ca74d7a320100f6beb4c3793d19ba63e2996c9852cee9466e",
+                "bounds_world_mm": [
+                  -85.27499999999999,
+                  -78.925,
+                  104.86500000000001,
+                  111.215,
+                  207.424,
+                  222.675
+                ],
+                "volume_mm3": 261.5120295916116
+              },
+              "valve-v-e": {
+                "file": "valve-v-e.brep",
+                "sha256": "890a77136f4fa440b4d2debc0891627bdc7f8ed8f58476f0218953d3161910e4",
+                "bounds_world_mm": [
+                  5.6,
+                  39.1,
+                  96.99,
+                  122.99,
+                  222.675,
+                  282.17500010000003
+                ],
+                "volume_mm3": 22158.488095258428
+              },
+              "valve-v-f": {
+                "file": "valve-v-f.brep",
+                "sha256": "6ca618035093b5cf2d8c2b8ac2b3d8eb54e1973d13b92d7d2985ac9f46276212",
+                "bounds_world_mm": [
+                  65.35,
+                  98.85000009999999,
+                  96.9899999,
+                  122.99,
+                  222.67499990000002,
+                  282.175
+                ],
+                "volume_mm3": 22158.488095259105
+              },
+              "valve-v-h": {
+                "file": "valve-v-h.brep",
+                "sha256": "1eadc0c7443c9befeed896be51fc7d629145f8294aa3659e32ee4e35c98409c5",
+                "bounds_world_mm": [
+                  -39.1000001,
+                  -5.6,
+                  96.99,
+                  122.99,
+                  222.675,
+                  282.17500010000003
+                ],
+                "volume_mm3": 22158.488095258745
+              },
+              "valve-v-i": {
+                "file": "valve-v-i.brep",
+                "sha256": "9170cf87347d3ca5227f28db1e30c0b8f132e9905fb30969c86577dc6089c680",
+                "bounds_world_mm": [
+                  -98.85,
+                  -65.3499999,
+                  96.9899999,
+                  122.99,
+                  222.67499990000002,
+                  282.175
+                ],
+                "volume_mm3": 22158.488095259636
+              }
+            }
+          },
+          "valid": true,
+          "solids": 1,
+          "added_volume_mm3": 43527.71019732945,
+          "removed_volume_mm3": 2608.4323781099865,
+          "added_bounds_mm": [
+            -75.974,
+            75.97400000000002,
+            21.110000000000003,
+            99.0000001,
+            265.9999999,
+            316.77876285372025
+          ],
+          "removed_bounds_mm": [
+            -10.0000001,
+            10.000000100000006,
+            51.93185092677843,
+            84.0000001,
+            283.9999999,
+            323.70696608400505
+          ],
+          "bearing_and_screw_guard_top_z_mm": 236.074,
+          "changed_volume_in_bearing_and_screw_guard_mm3": 0.0,
+          "added_stock_pump_loading": {
+            "label": "Added front stock vs complete motor-first unit",
+            "status": "clear_continuous_native_distance_intervals",
+            "start_offset_mm": [
+              0.0,
+              0.0,
+              -130.0
+            ],
+            "distance_margin_mm": 1e-05,
+            "proved_travel_mm": 130.0,
+            "total_travel_mm": 130.0,
+            "unproved_final_mm": 0.0,
+            "minimum_read_gap_mm": 5.278007644832879,
+            "interval_count": 3,
+            "intervals": [
+              {
+                "travelled_mm": 0.0,
+                "remaining_mm": 130.0,
+                "offset_mm": [
+                  0.0,
+                  0.0,
+                  -130.0
+                ],
+                "native_gap_mm": 123.64605847336988,
+                "proved_gap_bound_mm": 123.64605847336988,
+                "proved_next_interval_mm": 111.28144362603288
+              },
+              {
+                "travelled_mm": 111.28144362603288,
+                "remaining_mm": 18.718556373967118,
+                "offset_mm": [
+                  0.0,
+                  0.0,
+                  -18.718556373967115
+                ],
+                "native_gap_mm": 21.765179649339213,
+                "proved_gap_bound_mm": 21.765179649339213,
+                "proved_next_interval_mm": 18.718556373967118
+              },
+              {
+                "travelled_mm": 130.0,
+                "remaining_mm": 0.0,
+                "offset_mm": [
+                  0.0,
+                  0.0,
+                  -0.0
+                ],
+                "native_gap_mm": 5.278007644832879,
+                "proved_gap_bound_mm": 5.278007644832879
+              }
+            ],
+            "stopped_contacts": [],
+            "final_contacts": [],
+            "closest_pairs_at_stop": [],
+            "moving_bodies": [
+              "enclosure-pump-retainer",
+              "pump-a-head",
+              "pump-a-boss",
+              "pump-a-motor",
+              "pump-b-head",
+              "pump-b-boss",
+              "pump-b-motor",
+              "tube-fluid-11",
+              "tube-fluid-12",
+              "tube-fluid-21",
+              "tube-fluid-22"
+            ],
+            "fixed_bodies": [
+              "added-front-top-stock"
+            ],
+            "spatial_query_domain": null,
+            "elapsed_seconds": 0.2021485000004759
+          },
+          "added_stock_casing_loading": {
+            "label": "Added front stock vs declared casing loading",
+            "status": "clear_continuous_native_distance_intervals",
+            "start_offset_mm": [
+              0.0,
+              0.0,
+              -130.0
+            ],
+            "distance_margin_mm": 1e-05,
+            "proved_travel_mm": 130.0,
+            "total_travel_mm": 130.0,
+            "unproved_final_mm": 0.0,
+            "minimum_read_gap_mm": 76.52079468223944,
+            "interval_count": 2,
+            "intervals": [
+              {
+                "travelled_mm": 0.0,
+                "remaining_mm": 130.0,
+                "offset_mm": [
+                  0.0,
+                  0.0,
+                  -130.0
+                ],
+                "native_gap_mm": 204.637968264986,
+                "proved_gap_bound_mm": 204.637968264986,
+                "proved_next_interval_mm": 130.0
+              },
+              {
+                "travelled_mm": 130.0,
+                "remaining_mm": 0.0,
+                "offset_mm": [
+                  0.0,
+                  0.0,
+                  -0.0
+                ],
+                "native_gap_mm": 76.52079468223944,
+                "proved_gap_bound_mm": 76.52079468223944
+              }
+            ],
+            "stopped_contacts": [],
+            "final_contacts": [],
+            "closest_pairs_at_stop": [],
+            "moving_bodies": [
+              "declared-casing-x-82.1",
+              "declared-casing-x-22.35",
+              "declared-casing-x22.35",
+              "declared-casing-x82.1"
+            ],
+            "fixed_bodies": [
+              "added-front-top-stock"
+            ],
+            "spatial_query_domain": null,
+            "elapsed_seconds": 0.03891170900169527
+          },
+          "added_stock_fore_groups": {
+            "label": "Added front stock vs full prepared fore groups",
+            "status": "clear_continuous_native_distance_intervals",
+            "start_offset_mm": [
+              0.0,
+              11.649999999999999,
+              0.0
+            ],
+            "distance_margin_mm": 1e-05,
+            "proved_travel_mm": 11.649999999999999,
+            "total_travel_mm": 11.649999999999999,
+            "unproved_final_mm": 0.0,
+            "minimum_read_gap_mm": 4.5403066274079364,
+            "interval_count": 3,
+            "intervals": [
+              {
+                "travelled_mm": 0.0,
+                "remaining_mm": 11.649999999999999,
+                "offset_mm": [
+                  0.0,
+                  11.649999999999999,
+                  0.0
+                ],
+                "native_gap_mm": 10.806609624374103,
+                "proved_gap_bound_mm": 10.806609624374103,
+                "proved_next_interval_mm": 9.725939661936692
+              },
+              {
+                "travelled_mm": 9.725939661936692,
+                "remaining_mm": 1.9240603380633061,
+                "offset_mm": [
+                  0.0,
+                  1.9240603380633063,
+                  0.0
+                ],
+                "native_gap_mm": 4.553568742937645,
+                "proved_gap_bound_mm": 4.553568742937645,
+                "proved_next_interval_mm": 1.9240603380633061
+              },
+              {
+                "travelled_mm": 11.649999999999999,
+                "remaining_mm": 0.0,
+                "offset_mm": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "native_gap_mm": 4.5403066274079364,
+                "proved_gap_bound_mm": 4.5403066274079364
+              }
+            ],
+            "stopped_contacts": [],
+            "final_contacts": [],
+            "closest_pairs_at_stop": [],
+            "moving_bodies": [
+              "tube-fluid-10",
+              "tube-fluid-23",
+              "tee-y-f",
+              "tee-y-d",
+              "valve-v-h",
+              "valve-v-f",
+              "tube-fluid-20",
+              "valve-v-i",
+              "coil-v-h",
+              "coil-v-i",
+              "tee-y-c",
+              "tee-y-g",
+              "valve-v-e",
+              "coil-v-e",
+              "coil-v-f",
+              "tube-fluid-13"
+            ],
+            "fixed_bodies": [
+              "added-front-top-stock"
+            ],
+            "spatial_query_domain": null,
+            "elapsed_seconds": 4.717945249998593
+          },
+          "added_stock_chassis_slide": {
+            "label": "Added front stock rides aft over lower assembly",
+            "status": "clear_continuous_native_distance_intervals",
+            "start_offset_mm": [
+              0.0,
+              -97.664,
+              0.0
+            ],
+            "distance_margin_mm": 1e-05,
+            "proved_travel_mm": 97.664,
+            "total_travel_mm": 97.664,
+            "unproved_final_mm": 0.0,
+            "minimum_read_gap_mm": 106.06330607707832,
+            "interval_count": 3,
+            "intervals": [
+              {
+                "travelled_mm": 0.0,
+                "remaining_mm": 97.664,
+                "offset_mm": [
+                  0.0,
+                  -97.664,
+                  0.0
+                ],
+                "native_gap_mm": 106.06330607707832,
+                "proved_gap_bound_mm": 106.06330607707832,
+                "proved_next_interval_mm": 95.45696646937049
+              },
+              {
+                "travelled_mm": 95.45696646937049,
+                "remaining_mm": 2.2070335306295163,
+                "offset_mm": [
+                  0.0,
+                  -2.2070335306295172,
+                  0.0
+                ],
+                "native_gap_mm": 109.80407634765629,
+                "proved_gap_bound_mm": 109.80407634765629,
+                "proved_next_interval_mm": 2.2070335306295163
+              },
+              {
+                "travelled_mm": 97.664,
+                "remaining_mm": 0.0,
+                "offset_mm": [
+                  0.0,
+                  -0.0,
+                  0.0
+                ],
+                "native_gap_mm": 110.4005338800497,
+                "proved_gap_bound_mm": 110.4005338800497
+              }
+            ],
+            "stopped_contacts": [],
+            "final_contacts": [],
+            "closest_pairs_at_stop": [],
+            "moving_bodies": [
+              "added-front-top-stock"
+            ],
+            "fixed_bodies": [
+              "enclosure-front-bottom",
+              "compressor",
+              "condenser+fan",
+              "fuse-clamp",
+              "mq6-sensor"
+            ],
+            "spatial_query_domain": null,
+            "elapsed_seconds": 0.5402308749980875
+          },
+          "added_stock_takeup": [
+            {
+              "rise_z_mm": 0.0,
+              "contacts": []
+            },
+            {
+              "rise_z_mm": 0.4,
+              "contacts": []
+            }
+          ],
+          "added_stock_display_and_funnel_contacts": [],
+          "added_stock_driver_columns": [
+            {
+              "x": -92.0,
+              "y": 45.859,
+              "contacts": []
+            },
+            {
+              "x": 0.0,
+              "y": 45.859,
+              "contacts": []
+            },
+            {
+              "x": 92.0,
+              "y": 45.859,
+              "contacts": []
+            }
+          ],
+          "current_wiring_passages": {
+            "front-top-electrical": {
+              "points_mm": [
+                [
+                  0.0,
+                  99.0,
+                  280.0
+                ],
+                [
+                  0.0,
+                  44.859,
+                  280.0
+                ]
+              ],
+              "diamond_half_span_mm": 11.0
+            },
+            "front-top-pump-cross": {
+              "points_mm": [
+                [
+                  -70.0,
+                  44.859,
+                  284.0
+                ],
+                [
+                  0.0,
+                  44.859,
+                  284.0
+                ],
+                [
+                  70.0,
+                  44.859,
+                  284.0
+                ]
+              ],
+              "diamond_half_span_mm": 6.0
+            },
+            "front-top-display-chimney": {
+              "points_mm": [
+                [
+                  0.0,
+                  79.0,
+                  284.0
+                ],
+                [
+                  0.0,
+                  78.0,
+                  321.0
+                ]
+              ],
+              "bounds_mm": [
+                -10.0,
+                10.0,
+                72.0,
+                84.0,
+                280.0,
+                334.0
+              ]
+            },
+            "front-top-display-link": {
+              "points_mm": [
+                [
+                  0.5,
+                  62.226079660838636,
+                  305.36228452297667
+                ],
+                [
+                  0.0,
+                  78.0,
+                  321.0
+                ]
+              ],
+              "terminal_entry_mm": [
+                0.5,
+                58.226079660838636,
+                312.2904877532522
+              ],
+              "diamond_half_span_mm": 9.0
+            }
+          },
+          "scope": "Original complete path receipts remain bound to their actual old native parts. Removed stock cannot introduce a rigid collision. Added stock is tested here against the complete rigid loading unit, fore groups and applicable installed neighbors. Wire/Faston fit retains its separate native wiring review and physical limits."
+        }
+      ],
+      "role": "intermediate_rigid_stock_refinement"
+    },
+    {
+      "role": "predecessor_rigid_stock_refinement",
+      "verification_source_sha256": "b67cdce4d960908661c728ce7fabd8ac7f05a9a6105ba47cfd06124bfdc1b581",
+      "comparison_source_sha256": "c0dad123d0f33f1d48bdda991bfe1ed4acd9e8a7e49dcb82c45489aeb9c9bdc3",
+      "prior_reading_sha256": "f450e2c4723a26c37a538567752da93e3670d073bf8bb5deff1232a5d5e0a426",
+      "status": "native_refinement_clear",
+      "parts": [
+        {
+          "part": "enclosure-front-top",
+          "original_native": {
+            "path": "/tmp/pump-mount-before-lint-fix/enclosure-front-top.step",
+            "sha256": "455cd05a225b6f47b252577cb25a45cf3e4fb81b63eb2dc0b39fa39a28d12dc0"
+          },
+          "refined_native": {
+            "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+            "sha256": "d65c9d61ea8964f85e8d120bb1ca5c4b22166474a23a2742758a93e0bba76340"
+          },
+          "moving_retainer": {
+            "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step",
+            "sha256": "bd394956fa09afd0985161b9e8ffb699a7083fe7066ff0fed76446c837fb089f"
+          },
+          "hardware_cache": {
+            "assembly_sha256": "97806f7dd4877911ebf1d3a1e60d80a4ab978d57c74e2a479d08e3afcc62f5ea",
+            "index_sha256": "39b186ad15ffe3fe1c4198d9765b6788f70b3691cced9c4fbf8fa6c50c5792d3",
+            "cache_directory": ".cache/pump-mount-review/97806f7dd4877911ebf1d3a1e60d80a4ab978d57c74e2a479d08e3afcc62f5ea",
+            "original_assembly": "hardware/manifold-layout/enclosure-assembly.step",
+            "bodies": {
+              "coil-v-e": {
+                "file": "coil-v-e.brep",
+                "sha256": "d197d56dfd8aee49bffc5ab86ea2e017b2543721f6d99c148efa2986973d1842",
+                "bounds_world_mm": [
+                  5.6,
+                  39.1,
+                  122.99,
+                  154.2900001,
+                  225.325,
+                  269.325
+                ],
+                "volume_mm3": 18344.72768812051
+              },
+              "coil-v-f": {
+                "file": "coil-v-f.brep",
+                "sha256": "34e8344465053d38a4248bcf611d1cb414d161c7146e398d142d7483e1467868",
+                "bounds_world_mm": [
+                  65.35,
+                  98.85,
+                  122.99,
+                  154.2900001,
+                  235.525,
+                  279.525
+                ],
+                "volume_mm3": 18344.727688120543
+              },
+              "coil-v-h": {
+                "file": "coil-v-h.brep",
+                "sha256": "41ed7a2840c57639de180b4f3783aa4f3cd4fa6b21e3a2bfb56c7ebb0ad95cc9",
+                "bounds_world_mm": [
+                  -39.1,
+                  -5.6,
+                  122.99,
+                  154.2900001,
+                  225.325,
+                  269.325
+                ],
+                "volume_mm3": 18344.727688118786
+              },
+              "coil-v-i": {
+                "file": "coil-v-i.brep",
+                "sha256": "6d3b77d795fbbd96555416fba90de2863e520f396d6f10b25859d9ca21c96d3a",
+                "bounds_world_mm": [
+                  -98.85,
+                  -65.35,
+                  122.99,
+                  154.2900001,
+                  235.525,
+                  279.525
+                ],
+                "volume_mm3": 18344.727688121366
+              },
+              "compressor": {
+                "file": "compressor.brep",
+                "sha256": "a45dc697dcbe766e905943680633a8ebdc18e23c3833c671fc5aee7cb39138a3",
+                "bounds_world_mm": [
+                  -76.1,
+                  33.9,
+                  11.0,
+                  171.0,
+                  0.0,
+                  135.0
+                ],
+                "volume_mm3": 1572758.1872043
+              },
+              "condenser+fan": {
+                "file": "condenser+fan.brep",
+                "sha256": "75e0f6063d8bf05967897c0a8090d0ac250b2aa1528477bfc5c0d8828c315dc8",
+                "bounds_world_mm": [
+                  41.5,
+                  97.5,
+                  14.0,
+                  168.0,
+                  9.0,
+                  146.0
+                ],
+                "volume_mm3": 876384.2920367322
+              },
+              "display": {
+                "file": "display.brep",
+                "sha256": "7131eb39f32a25c7ad57a88006385eb66043535a821967fd7c27514b7213f5eb",
+                "bounds_world_mm": [
+                  -56.75,
+                  56.75,
+                  17.750127018922,
+                  89.10395609140288,
+                  293.30843694568,
+                  345.89689421380046
+                ],
+                "volume_mm3": 133072.13495409212
+              },
+              "enclosure-front-bottom": {
+                "file": "enclosure-front-bottom.brep",
+                "sha256": "1871f86a1133f0b7528447121148780e85c07d05e8696b368d26f89af7db248e",
+                "bounds_world_mm": [
+                  -107.5000001,
+                  107.5000001,
+                  4.9999999,
+                  217.8,
+                  -6.000000100000138,
+                  174.8
+                ],
+                "volume_mm3": 1096798.1199959128
+              },
+              "funnel-frame": {
+                "file": "funnel-frame.brep",
+                "sha256": "868e67d08e71079bbd043f99f340307f8e03ac92a8f9596ab4957fb484cc0a5c",
+                "bounds_world_mm": [
+                  -98.25,
+                  98.25,
+                  92.999992076719,
+                  275.69150792328,
+                  299.8999998,
+                  354.9999999
+                ],
+                "volume_mm3": 645045.8313466628
+              },
+              "fuse-clamp": {
+                "file": "fuse-clamp.brep",
+                "sha256": "a04242f08e4b0431a04b3ba8a7e2632eacc3e740991cc0946882aefb9fa65c96",
+                "bounds_world_mm": [
+                  -20.6,
+                  8.100000000000001,
+                  15.749999999999998,
+                  33.75,
+                  14.999999999999998,
+                  61.45
+                ],
+                "volume_mm3": 5556.690000000006
+              },
+              "mq6-sensor": {
+                "file": "mq6-sensor.brep",
+                "sha256": "0ab298aac4a52dca53759dbbfbe6864ed0d4fc6a2ee2c955306cd7373786cb64",
+                "bounds_world_mm": [
+                  -97.5,
+                  -75.9,
+                  38.3,
+                  70.3,
+                  3.0,
+                  23.0
+                ],
+                "volume_mm3": 5003.232717810004
+              },
+              "pump-a-boss": {
+                "file": "pump-a-boss.brep",
+                "sha256": "bf6e82a824bb541898ce8ed577b5064104f1f2e61066e66974237f0b519a1b6b",
+                "bounds_world_mm": [
+                  25.725,
+                  78.72500000000001,
+                  18.358999999999998,
+                  71.359,
+                  214.674,
+                  235.674
+                ],
+                "volume_mm3": 34456.91376322826
+              },
+              "pump-a-head": {
+                "file": "pump-a-head.brep",
+                "sha256": "5bb6b58950847d99d84dd0b9aaf32c292bd7c11786aa9c92ef9ca30da7579012",
+                "bounds_world_mm": [
+                  20.919999899999997,
+                  83.53000010000001,
+                  14.55399999999945,
+                  75.96900009999999,
+                  166.79399990000002,
+                  214.6740001
+                ],
+                "volume_mm3": 156956.7016251293
+              },
+              "pump-a-motor": {
+                "file": "pump-a-motor.brep",
+                "sha256": "825df9b86835366d5cfd82b660ddb16262c67888a770c891b8266dc62b5c37e8",
+                "bounds_world_mm": [
+                  34.36,
+                  70.09,
+                  26.994000000000003,
+                  62.724000000000004,
+                  235.674,
+                  277.224
+                ],
+                "volume_mm3": 41660.7363589491
+              },
+              "pump-b-boss": {
+                "file": "pump-b-boss.brep",
+                "sha256": "552b06f783bf8c5eed9972dd57227bc2932b61478411e4bb4cb649454e1d42f9",
+                "bounds_world_mm": [
+                  -78.725,
+                  -25.724999999997,
+                  18.358999999999998,
+                  71.359,
+                  214.674,
+                  235.674
+                ],
+                "volume_mm3": 34456.91376322976
+              },
+              "pump-b-head": {
+                "file": "pump-b-head.brep",
+                "sha256": "c84c19498ee0e65449bfe82af8513dd9689eea5ab8d4c2247048ccf0c001de72",
+                "bounds_world_mm": [
+                  -83.5300001,
+                  -20.919999899999986,
+                  14.553999999995526,
+                  75.96900009999999,
+                  166.79399990000002,
+                  214.6740001
+                ],
+                "volume_mm3": 156956.70162512842
+              },
+              "pump-b-motor": {
+                "file": "pump-b-motor.brep",
+                "sha256": "69392a2c7b55a4ccfaa00b55899639df57700c8293091012e1456d1114e3be8f",
+                "bounds_world_mm": [
+                  -70.09,
+                  -34.36,
+                  26.994000000000003,
+                  62.724000000000004,
+                  235.674,
+                  277.224
+                ],
+                "volume_mm3": 41660.7363589491
+              },
+              "tee-y-c": {
+                "file": "tee-y-c.brep",
+                "sha256": "b16fbdf321dc71311d1f9d9ac05e230bbef1fd0a8f88951390100ddce5fb3f50",
+                "bounds_world_mm": [
+                  14.099999999999993,
+                  30.6,
+                  85.69,
+                  116.29,
+                  164.924,
+                  207.424
+                ],
+                "volume_mm3": 8004.1274611826275
+              },
+              "tee-y-d": {
+                "file": "tee-y-d.brep",
+                "sha256": "d944a3e65ac277343510995b9d0fd530803613971455cc117554e5a19a8a9a08",
+                "bounds_world_mm": [
+                  73.84999999999998,
+                  90.35,
+                  85.69,
+                  116.29,
+                  164.924,
+                  207.424
+                ],
+                "volume_mm3": 8004.1274611826275
+              },
+              "tee-y-f": {
+                "file": "tee-y-f.brep",
+                "sha256": "71eedda4d3123650a97bc0a1c0186ee9302e05e2a84c593f1670c48d19efc973",
+                "bounds_world_mm": [
+                  -30.60000000000001,
+                  -14.1,
+                  85.69,
+                  116.29,
+                  164.924,
+                  207.424
+                ],
+                "volume_mm3": 8004.127461182629
+              },
+              "tee-y-g": {
+                "file": "tee-y-g.brep",
+                "sha256": "28cd79b2d2068e85d56cc15f82a7efdd9dcf62f41a7e6b5d3006ae528db451d0",
+                "bounds_world_mm": [
+                  -90.35000000000001,
+                  -73.85,
+                  85.69,
+                  116.29,
+                  164.924,
+                  207.424
+                ],
+                "volume_mm3": 8004.1274611826275
+              },
+              "tube-fluid-10": {
+                "file": "tube-fluid-10.brep",
+                "sha256": "cfa2de05cb18678376080d619ee79a4da432a9c9bc7a3503481c7bd6eabdaa4d",
+                "bounds_world_mm": [
+                  19.175,
+                  25.525000000000002,
+                  104.86500000000001,
+                  111.215,
+                  207.424,
+                  222.675
+                ],
+                "volume_mm3": 261.5120295916117
+              },
+              "tube-fluid-11": {
+                "file": "tube-fluid-11.brep",
+                "sha256": "429248b7daffbb95251612aa28a301f3a3841f9cf0e89cfd23388ad6276298a8",
+                "bounds_world_mm": [
+                  19.175,
+                  25.525000000000002,
+                  77.164,
+                  97.19,
+                  182.999,
+                  189.34900000000002
+                ],
+                "volume_mm3": 634.2077485254053
+              },
+              "tube-fluid-12": {
+                "file": "tube-fluid-12.brep",
+                "sha256": "01edd8d0fc888e7fbededcbf0b1b4d19baa8f9c5eef7247f20b6adb17d7dd808",
+                "bounds_world_mm": [
+                  78.925,
+                  85.27499999999999,
+                  77.164,
+                  97.19,
+                  182.999,
+                  189.34900000000002
+                ],
+                "volume_mm3": 634.2077485254049
+              },
+              "tube-fluid-13": {
+                "file": "tube-fluid-13.brep",
+                "sha256": "1bf6df45df34b895bfd64c98bd90129e86e0963656de0061aef160bff731efe9",
+                "bounds_world_mm": [
+                  78.925,
+                  85.27499999999999,
+                  104.86500000000001,
+                  111.215,
+                  207.424,
+                  222.675
+                ],
+                "volume_mm3": 261.51202959161174
+              },
+              "tube-fluid-20": {
+                "file": "tube-fluid-20.brep",
+                "sha256": "edbf9f536197d476ed41c814b6bb38cdcac6ac165999e03857bb646ba8877d33",
+                "bounds_world_mm": [
+                  -25.525000000000002,
+                  -19.175,
+                  104.86500000000001,
+                  111.215,
+                  207.424,
+                  222.675
+                ],
+                "volume_mm3": 261.51202959161157
+              },
+              "tube-fluid-21": {
+                "file": "tube-fluid-21.brep",
+                "sha256": "e97a3e63e4334f1b923fe6febcf85e8cd62bbdaf5b3e429fa81a1964843b787b",
+                "bounds_world_mm": [
+                  -25.525000000000002,
+                  -19.175,
+                  77.164,
+                  97.19,
+                  182.999,
+                  189.34900000000002
+                ],
+                "volume_mm3": 634.2077485254053
+              },
+              "tube-fluid-22": {
+                "file": "tube-fluid-22.brep",
+                "sha256": "1c7ecfc6807346297e57ce407a2cd4897d0f93a644ee8ffb81ab42a051b84f5d",
+                "bounds_world_mm": [
+                  -85.275,
+                  -78.925,
+                  77.164,
+                  97.19,
+                  182.999,
+                  189.34900000000002
+                ],
+                "volume_mm3": 634.2077485254048
+              },
+              "tube-fluid-23": {
+                "file": "tube-fluid-23.brep",
+                "sha256": "60e6b20f1fe97b6ca74d7a320100f6beb4c3793d19ba63e2996c9852cee9466e",
+                "bounds_world_mm": [
+                  -85.27499999999999,
+                  -78.925,
+                  104.86500000000001,
+                  111.215,
+                  207.424,
+                  222.675
+                ],
+                "volume_mm3": 261.5120295916116
+              },
+              "valve-v-e": {
+                "file": "valve-v-e.brep",
+                "sha256": "890a77136f4fa440b4d2debc0891627bdc7f8ed8f58476f0218953d3161910e4",
+                "bounds_world_mm": [
+                  5.6,
+                  39.1,
+                  96.99,
+                  122.99,
+                  222.675,
+                  282.17500010000003
+                ],
+                "volume_mm3": 22158.488095258428
+              },
+              "valve-v-f": {
+                "file": "valve-v-f.brep",
+                "sha256": "6ca618035093b5cf2d8c2b8ac2b3d8eb54e1973d13b92d7d2985ac9f46276212",
+                "bounds_world_mm": [
+                  65.35,
+                  98.85000009999999,
+                  96.9899999,
+                  122.99,
+                  222.67499990000002,
+                  282.175
+                ],
+                "volume_mm3": 22158.488095259105
+              },
+              "valve-v-h": {
+                "file": "valve-v-h.brep",
+                "sha256": "1eadc0c7443c9befeed896be51fc7d629145f8294aa3659e32ee4e35c98409c5",
+                "bounds_world_mm": [
+                  -39.1000001,
+                  -5.6,
+                  96.99,
+                  122.99,
+                  222.675,
+                  282.17500010000003
+                ],
+                "volume_mm3": 22158.488095258745
+              },
+              "valve-v-i": {
+                "file": "valve-v-i.brep",
+                "sha256": "9170cf87347d3ca5227f28db1e30c0b8f132e9905fb30969c86577dc6089c680",
+                "bounds_world_mm": [
+                  -98.85,
+                  -65.3499999,
+                  96.9899999,
+                  122.99,
+                  222.67499990000002,
+                  282.175
+                ],
+                "volume_mm3": 22158.488095259636
+              }
+            }
+          },
+          "valid": true,
+          "solids": 1,
+          "added_volume_mm3": 42535.75296535611,
+          "removed_volume_mm3": 4374.27085464543,
+          "added_bounds_mm": [
+            -75.974,
+            75.97400000000002,
+            21.110000000000003,
+            99.0000001,
+            265.9999999,
+            312.998
+          ],
+          "removed_bounds_mm": [
+            -10.0000001,
+            10.500000100000003,
+            54.96293984002246,
+            84.0000001,
+            283.9999999,
+            323.70696608400505
+          ],
+          "bearing_and_screw_guard_top_z_mm": 236.074,
+          "changed_volume_in_bearing_and_screw_guard_mm3": 0.0,
+          "added_stock_pump_loading": {
+            "label": "Added front stock vs complete motor-first unit",
+            "status": "clear_continuous_native_distance_intervals",
+            "start_offset_mm": [
+              0.0,
+              0.0,
+              -130.0
+            ],
+            "distance_margin_mm": 1e-05,
+            "proved_travel_mm": 130.0,
+            "total_travel_mm": 130.0,
+            "unproved_final_mm": 0.0,
+            "minimum_read_gap_mm": 5.278007644832879,
+            "interval_count": 3,
+            "intervals": [
+              {
+                "travelled_mm": 0.0,
+                "remaining_mm": 130.0,
+                "offset_mm": [
+                  0.0,
+                  0.0,
+                  -130.0
+                ],
+                "native_gap_mm": 123.64605847336988,
+                "proved_gap_bound_mm": 123.64605847336988,
+                "proved_next_interval_mm": 111.28144362603288
+              },
+              {
+                "travelled_mm": 111.28144362603288,
+                "remaining_mm": 18.718556373967118,
+                "offset_mm": [
+                  0.0,
+                  0.0,
+                  -18.718556373967115
+                ],
+                "native_gap_mm": 21.765179649339213,
+                "proved_gap_bound_mm": 21.765179649339213,
+                "proved_next_interval_mm": 18.718556373967118
+              },
+              {
+                "travelled_mm": 130.0,
+                "remaining_mm": 0.0,
+                "offset_mm": [
+                  0.0,
+                  0.0,
+                  -0.0
+                ],
+                "native_gap_mm": 5.278007644832879,
+                "proved_gap_bound_mm": 5.278007644832879
+              }
+            ],
+            "stopped_contacts": [],
+            "final_contacts": [],
+            "closest_pairs_at_stop": [],
+            "moving_bodies": [
+              "enclosure-pump-retainer",
+              "pump-a-head",
+              "pump-a-boss",
+              "pump-a-motor",
+              "pump-b-head",
+              "pump-b-boss",
+              "pump-b-motor",
+              "tube-fluid-11",
+              "tube-fluid-12",
+              "tube-fluid-21",
+              "tube-fluid-22"
+            ],
+            "fixed_bodies": [
+              "added-front-top-stock"
+            ],
+            "spatial_query_domain": null,
+            "elapsed_seconds": 0.2744395839981735
+          },
+          "added_stock_casing_loading": {
+            "label": "Added front stock vs declared casing loading",
+            "status": "clear_continuous_native_distance_intervals",
+            "start_offset_mm": [
+              0.0,
+              0.0,
+              -130.0
+            ],
+            "distance_margin_mm": 1e-05,
+            "proved_travel_mm": 130.0,
+            "total_travel_mm": 130.0,
+            "unproved_final_mm": 0.0,
+            "minimum_read_gap_mm": 76.52079468223944,
+            "interval_count": 2,
+            "intervals": [
+              {
+                "travelled_mm": 0.0,
+                "remaining_mm": 130.0,
+                "offset_mm": [
+                  0.0,
+                  0.0,
+                  -130.0
+                ],
+                "native_gap_mm": 204.637968264986,
+                "proved_gap_bound_mm": 204.637968264986,
+                "proved_next_interval_mm": 130.0
+              },
+              {
+                "travelled_mm": 130.0,
+                "remaining_mm": 0.0,
+                "offset_mm": [
+                  0.0,
+                  0.0,
+                  -0.0
+                ],
+                "native_gap_mm": 76.52079468223944,
+                "proved_gap_bound_mm": 76.52079468223944
+              }
+            ],
+            "stopped_contacts": [],
+            "final_contacts": [],
+            "closest_pairs_at_stop": [],
+            "moving_bodies": [
+              "declared-casing-x-82.1",
+              "declared-casing-x-22.35",
+              "declared-casing-x22.35",
+              "declared-casing-x82.1"
+            ],
+            "fixed_bodies": [
+              "added-front-top-stock"
+            ],
+            "spatial_query_domain": null,
+            "elapsed_seconds": 0.04320779100089567
+          },
+          "added_stock_fore_groups": {
+            "label": "Added front stock vs full prepared fore groups",
+            "status": "clear_continuous_native_distance_intervals",
+            "start_offset_mm": [
+              0.0,
+              11.649999999999999,
+              0.0
+            ],
+            "distance_margin_mm": 1e-05,
+            "proved_travel_mm": 11.649999999999999,
+            "total_travel_mm": 11.649999999999999,
+            "unproved_final_mm": 0.0,
+            "minimum_read_gap_mm": 4.5403066274079364,
+            "interval_count": 3,
+            "intervals": [
+              {
+                "travelled_mm": 0.0,
+                "remaining_mm": 11.649999999999999,
+                "offset_mm": [
+                  0.0,
+                  11.649999999999999,
+                  0.0
+                ],
+                "native_gap_mm": 10.806609624374103,
+                "proved_gap_bound_mm": 10.806609624374103,
+                "proved_next_interval_mm": 9.725939661936692
+              },
+              {
+                "travelled_mm": 9.725939661936692,
+                "remaining_mm": 1.9240603380633061,
+                "offset_mm": [
+                  0.0,
+                  1.9240603380633063,
+                  0.0
+                ],
+                "native_gap_mm": 4.553568742937645,
+                "proved_gap_bound_mm": 4.553568742937645,
+                "proved_next_interval_mm": 1.9240603380633061
+              },
+              {
+                "travelled_mm": 11.649999999999999,
+                "remaining_mm": 0.0,
+                "offset_mm": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "native_gap_mm": 4.5403066274079364,
+                "proved_gap_bound_mm": 4.5403066274079364
+              }
+            ],
+            "stopped_contacts": [],
+            "final_contacts": [],
+            "closest_pairs_at_stop": [],
+            "moving_bodies": [
+              "tee-y-g",
+              "valve-v-e",
+              "valve-v-i",
+              "tee-y-d",
+              "coil-v-h",
+              "valve-v-h",
+              "coil-v-f",
+              "tube-fluid-20",
+              "tube-fluid-23",
+              "valve-v-f",
+              "coil-v-e",
+              "tube-fluid-13",
+              "coil-v-i",
+              "tube-fluid-10",
+              "tee-y-f",
+              "tee-y-c"
+            ],
+            "fixed_bodies": [
+              "added-front-top-stock"
+            ],
+            "spatial_query_domain": null,
+            "elapsed_seconds": 11.202474541998527
+          },
+          "added_stock_chassis_slide": {
+            "label": "Added front stock rides aft over lower assembly",
+            "status": "clear_continuous_native_distance_intervals",
+            "start_offset_mm": [
+              0.0,
+              -97.664,
+              0.0
+            ],
+            "distance_margin_mm": 1e-05,
+            "proved_travel_mm": 97.664,
+            "total_travel_mm": 97.664,
+            "unproved_final_mm": 0.0,
+            "minimum_read_gap_mm": 106.06330607707832,
+            "interval_count": 3,
+            "intervals": [
+              {
+                "travelled_mm": 0.0,
+                "remaining_mm": 97.664,
+                "offset_mm": [
+                  0.0,
+                  -97.664,
+                  0.0
+                ],
+                "native_gap_mm": 106.06330607707832,
+                "proved_gap_bound_mm": 106.06330607707832,
+                "proved_next_interval_mm": 95.45696646937049
+              },
+              {
+                "travelled_mm": 95.45696646937049,
+                "remaining_mm": 2.2070335306295163,
+                "offset_mm": [
+                  0.0,
+                  -2.2070335306295172,
+                  0.0
+                ],
+                "native_gap_mm": 109.80407634765629,
+                "proved_gap_bound_mm": 109.80407634765629,
+                "proved_next_interval_mm": 2.2070335306295163
+              },
+              {
+                "travelled_mm": 97.664,
+                "remaining_mm": 0.0,
+                "offset_mm": [
+                  0.0,
+                  -0.0,
+                  0.0
+                ],
+                "native_gap_mm": 110.4005338800497,
+                "proved_gap_bound_mm": 110.4005338800497
+              }
+            ],
+            "stopped_contacts": [],
+            "final_contacts": [],
+            "closest_pairs_at_stop": [],
+            "moving_bodies": [
+              "added-front-top-stock"
+            ],
+            "fixed_bodies": [
+              "enclosure-front-bottom",
+              "compressor",
+              "condenser+fan",
+              "fuse-clamp",
+              "mq6-sensor"
+            ],
+            "spatial_query_domain": null,
+            "elapsed_seconds": 1.2841552499994577
+          },
+          "added_stock_takeup": [
+            {
+              "rise_z_mm": 0.0,
+              "contacts": []
+            },
+            {
+              "rise_z_mm": 0.4,
+              "contacts": []
+            }
+          ],
+          "added_stock_display_and_funnel_contacts": [],
+          "added_stock_driver_columns": [
+            {
+              "x": -92.0,
+              "y": 45.859,
+              "contacts": []
+            },
+            {
+              "x": 0.0,
+              "y": 45.859,
+              "contacts": []
+            },
+            {
+              "x": 92.0,
+              "y": 45.859,
+              "contacts": []
+            }
+          ],
+          "current_wiring_passages": {
+            "front-top-electrical": {
+              "points_mm": [
+                [
+                  0.0,
+                  99.0,
+                  280.0
+                ],
+                [
+                  0.0,
+                  44.859,
+                  280.0
+                ]
+              ],
+              "diamond_half_span_mm": 11.0
+            },
+            "front-top-pump-cross": {
+              "points_mm": [
+                [
+                  -70.0,
+                  44.859,
+                  284.0
+                ],
+                [
+                  0.0,
+                  44.859,
+                  284.0
+                ],
+                [
+                  70.0,
+                  44.859,
+                  284.0
+                ]
+              ],
+              "diamond_half_span_mm": 6.0
+            },
+            "front-top-display-chimney": {
+              "points_mm": [
+                [
+                  0.0,
+                  79.0,
+                  284.0
+                ],
+                [
+                  0.0,
+                  78.0,
+                  321.0
+                ]
+              ],
+              "bounds_mm": [
+                -10.0,
+                10.0,
+                72.0,
+                84.0,
+                280.0,
+                334.0
+              ]
+            },
+            "front-top-display-link": {
+              "points_mm": [
+                [
+                  0.5,
+                  62.226079660838636,
+                  305.36228452297667
+                ],
+                [
+                  0.0,
+                  78.0,
+                  321.0
+                ]
+              ],
+              "terminal_entry_mm": [
+                0.5,
+                58.226079660838636,
+                312.2904877532522
+              ],
+              "diamond_half_span_mm": 9.0
+            }
+          },
+          "scope": "Original complete path receipts remain bound to their actual old native parts. Removed stock cannot introduce a rigid collision. Added stock is tested here against the complete rigid loading unit, fore groups and applicable installed neighbors. Wire/Faston fit retains its separate native wiring review and physical limits.",
+          "immediate_predecessor_comparison": {
+            "part": "enclosure-front-top",
+            "original_native": {
+              "path": "/tmp/pump-mount-before-lint-fix/enclosure-front-top-e0.step",
+              "sha256": "e0b491ba90da4e4ad2fc58259fe1bb0d4ddf9afe05a3f583ce27ae195d3178f3"
+            },
+            "refined_native": {
+              "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+              "sha256": "d65c9d61ea8964f85e8d120bb1ca5c4b22166474a23a2742758a93e0bba76340"
+            },
+            "valid": true,
+            "solids": 1,
+            "added_volume_mm3": 62.018312238084064,
+            "removed_volume_mm3": 2819.8140239251325,
+            "removed_bounds_mm": [
+              -9.5000001,
+              10.500000100000003,
+              54.962939840022244,
+              72.00000010000068,
+              294.99625901918995,
+              316.77876285372
+            ],
+            "bearing_and_screw_guard_top_z_mm": 236.074,
+            "changed_volume_in_bearing_and_screw_guard_mm3": 0.0,
+            "scope": "Native immediate-predecessor comparison. The added material requires direct final-stock path queries instead of a subset inference."
+          }
+        }
+      ]
+    },
+    {
+      "role": "rear_breakout_removal_successor",
+      "verification_source_sha256": "770ea95bcbb46d9e101f7b7bfbbc385296d7dd67e72f5ce04719a4506cd7bcec",
+      "comparison_source_sha256": "c0dad123d0f33f1d48bdda991bfe1ed4acd9e8a7e49dcb82c45489aeb9c9bdc3",
+      "prior_reading_sha256": "65ba27ea9f63a3b4e78522dd89e05eb939d5562b39784130b208ffba90a7905f",
+      "status": "native_refinement_clear",
+      "parts": [
+        {
+          "part": "enclosure-front-top",
+          "original_native": {
+            "path": "/tmp/pump-mount-before-lint-fix/enclosure-front-top-d65.step",
+            "sha256": "d65c9d61ea8964f85e8d120bb1ca5c4b22166474a23a2742758a93e0bba76340"
+          },
+          "refined_native": {
+            "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+            "sha256": "389304966e148d1b2a63bd4ee4f0798066ff57bb13d86d694b30fd53728e414e"
+          },
+          "valid": true,
+          "solids": 1,
+          "added_volume_mm3": 0.0,
+          "removed_volume_mm3": 3035.7781773145985,
+          "removed_bounds_mm": [
+            -98.5,
+            98.5,
+            92.749991976719,
+            98.3360001,
+            279.9999999,
+            290.0100080232807
+          ],
+          "modifier_specification": {
+            "path": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
+            "sha256": "3fe998735efe82c233d48ac087092423b0ebc5ac94a3e887337490d7b44efd4b"
+          },
+          "protected_modifier_boxes": [
+            {
+              "name": "Y seam knuckle and its wall root +1/281.35",
+              "bounds_mm": [
+                -107.5,
+                -91.5,
+                197.0,
+                217.8,
+                281.5999999,
+                318.0
+              ],
+              "removed_bounds_separation_mm": 98.6639999,
+              "changed_volume_mm3": 0.0
+            },
+            {
+              "name": "Y seam knuckle and its wall root -1/281.35",
+              "bounds_mm": [
+                91.5,
+                107.5,
+                197.0,
+                217.8,
+                281.5999999,
+                318.0
+              ],
+              "removed_bounds_separation_mm": 98.6639999,
+              "changed_volume_mm3": 0.0
+            },
+            {
+              "name": "Z rail, end stop and wall root -1",
+              "bounds_mm": [
+                -107.5,
+                -90.0,
+                5.0,
+                200.0,
+                157.0,
+                177.8
+              ],
+              "removed_bounds_separation_mm": 102.19999989999997,
+              "changed_volume_mm3": 0.0
+            },
+            {
+              "name": "Z rail, end stop and wall root +1",
+              "bounds_mm": [
+                90.0,
+                107.5,
+                5.0,
+                200.0,
+                157.0,
+                177.8
+              ],
+              "removed_bounds_separation_mm": 102.19999989999997,
+              "changed_volume_mm3": 0.0
+            },
+            {
+              "name": "Pump-retainer insert, blind cap and upper mount root -92/45.859",
+              "bounds_mm": [
+                -96.0,
+                -88.0,
+                41.859,
+                49.859,
+                215.074,
+                232.19500000000002
+              ],
+              "removed_bounds_separation_mm": 64.22581418857973,
+              "changed_volume_mm3": 0.0
+            },
+            {
+              "name": "Pump-retainer insert, blind cap and upper mount root 0/45.859",
+              "bounds_mm": [
+                -4.0,
+                4.0,
+                41.859,
+                49.859,
+                215.074,
+                232.19500000000002
+              ],
+              "removed_bounds_separation_mm": 64.22581418857973,
+              "changed_volume_mm3": 0.0
+            },
+            {
+              "name": "Pump-retainer insert, blind cap and upper mount root 92/45.859",
+              "bounds_mm": [
+                88.0,
+                96.0,
+                41.859,
+                49.859,
+                215.074,
+                232.19500000000002
+              ],
+              "removed_bounds_separation_mm": 64.22581418857973,
+              "changed_volume_mm3": 0.0
+            },
+            {
+              "name": "Funnel frame receiver, blind cap and full flank root 1",
+              "bounds_mm": [
+                -107.5,
+                -88.0,
+                118.99999207671873,
+                130.99999207671874,
+                335.7999999,
+                345.9999999
+              ],
+              "removed_bounds_separation_mm": 50.236679035182185,
+              "changed_volume_mm3": 0.0
+            },
+            {
+              "name": "Funnel frame receiver, blind cap and full flank root 2",
+              "bounds_mm": [
+                88.0,
+                107.5,
+                118.99999207671873,
+                130.99999207671874,
+                335.7999999,
+                345.9999999
+              ],
+              "removed_bounds_separation_mm": 50.236679035182185,
+              "changed_volume_mm3": 0.0
+            }
+          ],
+          "protected_valve_mounting_envelopes": [
+            {
+              "name": "Complete valve tray, post-socket and bearing envelope at Y177.29",
+              "bounds_mm": [
+                -107.5,
+                107.5,
+                172.09,
+                181.29,
+                176.4,
+                220.45000000000002
+              ],
+              "removed_bounds_separation_mm": 94.79374973772899,
+              "changed_volume_mm3": 0.0
+            },
+            {
+              "name": "Complete valve tray, post-socket and bearing envelope at Y96.99",
+              "bounds_mm": [
+                -107.5,
+                107.5,
+                92.99,
+                102.19,
+                230.4,
+                274.45
+              ],
+              "removed_bounds_separation_mm": 5.549999899999989,
+              "changed_volume_mm3": 0.0
+            }
+          ],
+          "protected_pump_stock": {
+            "name": "Fixed pump bearing and screw stock",
+            "bounds_mm": [
+              -150.0,
+              150.0,
+              0.0,
+              230.0,
+              100.0,
+              236.074
+            ],
+            "removed_bounds_separation_mm": 43.925999899999965,
+            "changed_volume_mm3": 0.0
+          },
+          "bearing_and_screw_guard_top_z_mm": 236.074,
+          "changed_volume_in_bearing_and_screw_guard_mm3": 0.0,
+          "scope": "The current part is a native material subset of its recorded predecessor. Prior rigid collision bounds remain conservative. All nine actual front-top infill modifier boxes and both complete valve tray/post/bearing envelopes are checked separately. Valves use press-in posts; the six nonpump modifier boxes cover seam and funnel hosts. No physical retention or lifetime claim is made."
+        }
+      ]
+    }
+  ]
 }

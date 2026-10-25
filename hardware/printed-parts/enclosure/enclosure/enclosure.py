@@ -405,11 +405,9 @@ display_facet_x = display_inset_x + 2 * display_facet_buffer
 display_facet_slope = _swept_top.FLAT
 display_facet_angle_deg = _swept_top.ANGLE
 display_facet_thickness = 19.0   # facet wall depth = display envelope depth
-# The housing ends at a vertical plane ahead of the funnel. Either side of the display's
-# opening it is solid down to the pump bay's lintel (`housing_fill`), and outboard of each
-# skirt's flex lane one cavity under the catch plane opens into the bay
-# (`display_storey_cavities`), standing this far inside the side wall's flute valleys.
-display_storey_side_wall = 6.0
+# The housing ends at a vertical plane ahead of the funnel. Its broad stock continues
+# down into the integral pump mount; the display seat and wing support exits open
+# through that stock.
 display_bezel_depth = _interface.display_bezel_depth   # bezel counterbore depth, user face
 display_pcb_x = 106.0 + 2.0 * fits.slip   # PCB body through-hole, lateral (X)
 display_pcb_slope = 69.0 + 2.0 * fits.slip  # PCB body through-hole, up the display slope
@@ -8165,8 +8163,14 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         # And the rib that stands on that wall's crown, carrying the ridge the display's
         # through-hole leaves across the housing's back. With the wall, because it stands on
         # it — and after the facet's own cuts, which the half took before it was split.
-        piece = piece.fuse(_ridge_wall(
-            inner, outer, box.pack.collet_plate, box.pump_bay, box.pack.funnel))
+        backing = _ridge_wall(
+            inner, outer, box.pack.collet_plate, box.pump_bay, box.pack.funnel)
+        if box.pack.pump_trays:
+            # The integral pump stock carries the display on this one flat back.
+            backing = backing.intersect(_ybox(
+                inner[0], inner[1], outer[2]-1., housing_back_y(outer),
+                outer[4]-1., outer[5]+1.))
+        piece = piece.fuse(backing)
     piece = _valve_trays(
         piece, inner, box.pack.valve_trays, ylo, yhi, zlo, zhi,
         wells=box.pack.side_wells,
