@@ -1,9 +1,9 @@
-[sliver] The 1.2 mm back wall sets the full-width lifting recess's entry height above the silicone apron. This recess provides under-edge purchase for lifting the seated cover and ends outside the bearing brim. The native cover slice has no support paths over this accessible edge; its physical finish remains unqualified.
+[sliver] The 1.2 mm back wall sets the full-width lifting recess's entry height above the silicone apron. This recess provides under-edge purchase for lifting the seated cover and ends outside the bearing brim. The print pose places the continuous exterior on the bed; physical finish remains unqualified.
 alternatives: Filling the recess closes the under-edge purchase against the apron. A taller opening reduces the remaining plate section; increasing the entire plate thickness raises the cover exterior. Retain this local lifting clearance.
 file: hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step
-click: x=0.000 y=69.696 z=2.400
+click: x=0.000 y=87.196 z=2.400
 
-[thin] The front lifting recess leaves a 1.8 mm local cover section above its 1.2 mm opening. Its purpose is finger or nail access under the edge while the plate rests on the apron. This is the specified local cover/access section; the native solid PETG slice records its deposited paths without a physical strength or finish claim.
+[thin] The front lifting recess leaves a 1.8 mm local cover section above its 1.2 mm opening. Its purpose is finger or nail access under the edge while the plate rests on the apron. This is the specified local cover/access section; the printable pose leaves this solid strip directly on the bed. A production reslice and physical strength/finish remain unqualified.
 alternatives: Filling this strip removes the lifting purchase. Thickening the entire cover adds height; a separate handle adds another feature. Retain the broad under-edge recess.
 file: hardware/printed-parts/zone-c/funnel-cover/funnel-cover-print.step
-click: x=89.950 y=69.709 z=1.800
+click: x=89.950 y=87.209 z=1.800

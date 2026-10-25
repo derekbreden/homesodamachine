@@ -22,7 +22,7 @@
     "FUNNEL_PLUG": "36 \u00d7 41.0 mm"
   },
   "/hardware/printed-parts/zone-c/funnel/funnel_frame.py": {
-    "FRAME_BODY_WIDTH": "176.5 mm",
+    "FRAME_BODY_WIDTH": "175.5 mm",
     "FRAME_HOLE": "11.25 mm",
     "FRAME_REAR_WIDTH": "182.5 mm",
     "FRAME_SCREWS": "M3 \u00d7 12 mm",

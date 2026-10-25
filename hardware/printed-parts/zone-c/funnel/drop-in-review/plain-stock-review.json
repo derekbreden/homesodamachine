@@ -1,0 +1,70 @@
+{
+  "scope": "Manual frame remnant correction: preserved fastener annuli, brim bearing and original drain web; no load/print qualification.",
+  "before_step_sha256": "159e06d1548cc30b871e6e973f5a9d0929a0fba47a91a9027040efa66b9f7a59",
+  "source_sha256": "0bac48ff768efa9fc1b38c12ab97bab5e0384073777d5fc4a46ca0c143001119",
+  "before": {
+    "valid": true,
+    "solids": 1,
+    "faces": 97,
+    "volume_mm3": 665134.8657062041,
+    "bounds_mm": [
+      -98.25,
+      92.99999207672,
+      299.89999989999995,
+      98.25,
+      275.691507923281,
+      355.0
+    ]
+  },
+  "candidate": {
+    "valid": true,
+    "solids": 1,
+    "faces": 83,
+    "volume_mm3": 645036.5523589419,
+    "bounds_mm": [
+      -98.25,
+      92.99999207671871,
+      299.89999989999995,
+      98.25,
+      275.6915079232813,
+      355.0
+    ]
+  },
+  "added_material_mm3": 0.0,
+  "removed_mm3": 20076.041106853405,
+  "head_seats": [
+    {
+      "name": "front-west",
+      "diameter_mm": 5.5,
+      "grip_mm": 5.8,
+      "missing_stock_mm3": 0.0
+    },
+    {
+      "name": "front-east",
+      "diameter_mm": 5.5,
+      "grip_mm": 5.8,
+      "missing_stock_mm3": 0.0
+    },
+    {
+      "name": "back-west",
+      "diameter_mm": 5.5,
+      "grip_mm": 5.8,
+      "missing_stock_mm3": 0.0
+    },
+    {
+      "name": "back-east",
+      "diameter_mm": 5.5,
+      "grip_mm": 5.8,
+      "missing_stock_mm3": 0.0
+    }
+  ],
+  "brim_bearing_removed_mm3": 0.0,
+  "drain_web_changed_mm3": 0.0,
+  "passed": true,
+  "current_artifacts_sha256": {
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.step": "26502aed4bb2375530be1adc586b84f8fca15edf5552c308afe04234c51488fd",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.stl": "693c144c727c12c50153b62548a8bf4bbfb03ae49fb55d8108dbdde906af986e",
+    "hardware/printed-parts/zone-c/funnel/funnel-frame.step.mesh": "ae05ea4c5f508bd2bfb80e4a248b43a471a8b51b22a9ef2dac32430da6dd351b"
+  },
+  "before_snapshot": "/var/folders/qc/hn57tpxs7tg5842pdqg075vc0000gn/T/hsm-changes/20261025-032213"
+}
