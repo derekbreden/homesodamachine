@@ -123,9 +123,9 @@ The manually invoked [bearing review](check_bridge_review.py) records its
 [cap receipt](above-core-native-review.json).
 
 The cap's ten M3 × 25 closure stations per face, dry seat allowances and
-reservoir cap bores retain their separate interfaces. All three valve walls use the
-shared [V69 socket fit](../../valve-seat/README.md); that accepted fit does not
-establish retention load or life in these upright hosts.
+reservoir cap bores retain their separate interfaces. The V-B wall, the lid's only
+valve wall, uses the shared [V69 socket fit](../../valve-seat/README.md); that accepted
+fit does not establish retention load or life in this upright host.
 
 The upper passages follow the installed equipment:
 
@@ -139,8 +139,7 @@ The upper passages follow the installed equipment:
 - The pressure-water inlet remains one continuous R14 tube from the fixed
   carbonator fitting through the cup to the aft plain guide at world
   (−32.8018, 410.0533, 253.4) mm, directly below the downward check elbow.
-  Its short S passes east of the sensor loom and its traverse clears the PSU
-  insert column. The D7.5 passage has 3 mm side and roof stock rooted into
+  Its short S passes east of the sensor loom. The D7.5 passage has 3 mm side and roof stock rooted into
   the cup floor. The existing [cap-floor specification](../_cold_core_interface.py) retains
   the complete 2 mm cup floor, with 2.10 mm backing under the horizontal
   passage; only its actual curved entry cuts the floor. No new stock projects
@@ -166,7 +165,7 @@ fitting has a separate broad 2.4 mm retaining cover ending at Z254.75, with
 0.25 mm nominal air to the PCB solder tails. One plain transition joins each
 cover to the lid; the pocket walls retain at least 3 mm stock. The short
 link opens into the dry pocket beneath the plain lid. Assemble both fittings
-and their prepared link in the open cup before closing the lid. The upper
+and their prepared link in the open cup before the lid goes on for the cap pour. The upper
 horizontal barrel bears upward against its cover; the PCB is not a restraint.
 The original 2 mm cup floor remains around the lower stem entry. Mask the
 fitting pockets and link during the foam pour, including their dry lid joints.
