@@ -1,0 +1,117 @@
+{
+  "recorded_at_utc": "2026-10-25T16:54:06.385067+00:00",
+  "archive_sha256": "38320cd929e2bf870e2ce4cfa526f5a01648bb5d44fbd199723e926fb3943842",
+  "gcode_sha256": "d59c52d3c96c41641e0154cf3dbc2e0f7252b93d2cffb1c9d20e2823eedd602e",
+  "embedded_checksum_matches": true,
+  "emitted_trim_values_mm": [
+    0.0,
+    0.02
+  ],
+  "layer_height_mm": 0.24,
+  "first_bed_layer_height_mm": 0.24,
+  "layer_count": 67,
+  "layer_increment_counts_mm": {
+    "0.24": 67
+  },
+  "material_commands": [
+    {
+      "part": "sculpted-display-cover",
+      "extruding_commands": 55349,
+      "first_three_fans": [
+        0.0
+      ],
+      "later_fans": [
+        0.0,
+        70.0
+      ],
+      "bridge_speeds": [
+        15.0
+      ],
+      "overhang_speeds": [
+        10.0,
+        15.0
+      ],
+      "features": [
+        "Bridge",
+        "Floating vertical shell",
+        "Gap infill",
+        "Inner wall",
+        "Internal solid infill",
+        "Outer wall",
+        "Overhang wall",
+        "Sparse infill",
+        "Support",
+        "Support interface",
+        "Top surface"
+      ],
+      "fan_by_feature": {
+        "Support": [
+          0.0,
+          70.0
+        ],
+        "Inner wall": [
+          0.0,
+          70.0
+        ],
+        "Outer wall": [
+          0.0,
+          70.0
+        ],
+        "Gap infill": [
+          0.0
+        ],
+        "Internal solid infill": [
+          0.0
+        ],
+        "Sparse infill": [
+          0.0
+        ],
+        "Floating vertical shell": [
+          0.0
+        ],
+        "Top surface": [
+          0.0
+        ],
+        "Overhang wall": [
+          70.0
+        ],
+        "Bridge": [
+          70.0
+        ],
+        "Support interface": [
+          0.0,
+          70.0
+        ]
+      }
+    }
+  ],
+  "fit": {
+    "minimum_shared_bed_margin_mm": 131.0164085,
+    "complete_layer_bead_bounds": {
+      "extrusion_bounds_xy_mm": [
+        [
+          148.0224085,
+          131.0164085
+        ],
+        [
+          176.9775915,
+          188.6345915
+        ]
+      ],
+      "maximum_line_width_mm": 0.733183,
+      "bounds_padding_mm": 0.46659150000000005
+    },
+    "complete_layer_bead_minimum_bed_margin_mm": 131.0164085,
+    "minimum_toolpath_separation_mm": null,
+    "pairwise_toolpath_separations": []
+  },
+  "plates": [
+    {
+      "plate": 1,
+      "estimated_total_seconds": 1385.026123046875,
+      "saved_profile_filament_estimate_g": 5.847641468048096,
+      "slicer_warning": ""
+    }
+  ],
+  "scope": "Exact one-cover archive, source mesh, complete settings, native commands and deposited-bead bounds. The front extension has no physical result yet."
+}

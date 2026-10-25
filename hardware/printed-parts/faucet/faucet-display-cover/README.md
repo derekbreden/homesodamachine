@@ -25,6 +25,10 @@ pockets in the tip and 0.50 mm extra Sculpted cover reach with matching arch
 relief. This variant retains the lowered display and four foot recesses; its
 physical fit is separate from the earlier accepted covers above.
 
+The corrected black head's [October 25 physical record](../industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/physical-result/physical-result.json)
+reports very good fit with the display, tubes and wiring. Its visible front-corner
+opening is the subject of the [skirt-overlap print trial](corner-overlap-review/2026-10-25/README.md).
+
 ## Geometry
 
 The planar face is [27.5 mm](PLATE_X) wide and [48.49 mm](PLATE_S) long. Its

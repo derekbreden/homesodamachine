@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-10-25T16:41:13.178231+00:00",
+  "reported_by": "Derek",
+  "reported_date": "2026-10-25",
+  "printer_task_id": "1372253517",
+  "archive_sha256": "1f2c95d3d313d5569c276fb8ea344d9a1e400f8a51fea7491846d6612e04df1f",
+  "gcode_sha256": "6ed4af1db2343dd8c2fd36f81f890b0c61875677568183a987b7eebb7c70d078",
+  "status": "reported_working_complete_head_fit_with_cosmetic_corner_opening",
+  "user_quotes": [
+    "That display cover fit very well on the display and tubes and wiring and everything there in the faucet tip.",
+    "The only thing that looks like a problem, and I think this problem existed before, but in that last photo you'll see I point out there's a gap hole that you can see through in the corner there, the way that display cover is shaped and the way that our display tip is shaped.",
+    "I think it'd be neat if that hole could not be something visible to the user."
+  ],
+  "geometry": "Lowered display with four 1 mm foot recesses and two 1 mm switch pockets; Sculpted cover with matching Industrial reach and arch offset.",
+  "observations": {
+    "reported_display_tubes_wiring_and_cover_fit": "fits very well",
+    "photos_show": "Assembled Sculpted cover, display and all three tubes; triangular opening at the front corner exposes internal hardware in photo 8.",
+    "remaining_issue": "Visible front-corner opening between the sloping cover edge and tip ledge."
+  },
+  "scope": "Reported complete faucet-head fit applies to the identified print. Installation force, retention force, endurance and hydraulic function are not measured by these photographs. The corner-overlap proposal is unprinted.",
+  "photos": [
+    {
+      "file": "photo-1.jpg",
+      "original_sha256": "a02a6594c747a2cd681f791455b520541c67cd96d67debe4c0450f5e706edb7a",
+      "saved_sha256": "381562d83f8dee8b51b9336a258941bb3ea6b2ba050f9a6a7aff15969bc2199c"
+    },
+    {
+      "file": "photo-2.jpg",
+      "original_sha256": "717ab475cff9bc4caa3a55bc85b7050926e4be34c3e60dce7260da5e94e7f61e",
+      "saved_sha256": "87b79dca9eee2ab73a72de3739cf3ba0bc15cd59df45c5d2ba766938af3b2e62"
+    },
+    {
+      "file": "photo-3.jpg",
+      "original_sha256": "e4bafbb6567fa4b04ccbf66c834e749cc9d39228a86817485e2915df1ebab2b1",
+      "saved_sha256": "72b1c98e1b6355ee29e80d27f8b77ac8b7e458e742cd810c16142c48445dcbc6"
+    },
+    {
+      "file": "photo-4.jpg",
+      "original_sha256": "806e294bca0f3e0662906d51db14efdd6ea49b5699466a8c5e39bd05052e4458",
+      "saved_sha256": "0113a8b6197e9f3811606d11b9a2c5f93539e3a8e2687f05bf11f84e4ca95adb"
+    },
+    {
+      "file": "photo-5.jpg",
+      "original_sha256": "51ce5b652ec64967d75f9e1a22533dd85c361555c12f8215ce0f63caef6caa08",
+      "saved_sha256": "6655c04808cfd15cf969d149a8c2f3f3f05c5873c49cd59b5d07f11f2f7f7325"
+    },
+    {
+      "file": "photo-6.jpg",
+      "original_sha256": "be3f5cdf0ce8074aee3d0c33c8fb5decc881227202719e8e53bcc69c5e05b6a0",
+      "saved_sha256": "48ff3718a49895308e6b471881cf62851986d8e7df94c3af135364fe7f86eda8"
+    },
+    {
+      "file": "photo-7.jpg",
+      "original_sha256": "4730c52eb121b3ee46edeec8ee7002ee3b7b00a74e9fbac2be5feb083dd38119",
+      "saved_sha256": "92084321bd80070d25294693154ac488af0efb9f5fb43ad94422cf5f6d681ed4"
+    },
+    {
+      "file": "photo-8.jpg",
+      "original_sha256": "d693f779f56bf2982f036dc9714d59257983bd80163d9b038b4f43638278e440",
+      "saved_sha256": "b9995b8a0b19dcc7db49e572f8cd2cd8aa86f10b5889a7aa90a99ef00da783a9"
+    }
+  ],
+  "image_processing": "EXIF orientation applied; resized to at most 1600 px; metadata omitted."
+}

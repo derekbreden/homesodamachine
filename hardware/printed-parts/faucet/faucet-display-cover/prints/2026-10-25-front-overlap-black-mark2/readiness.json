@@ -1,0 +1,16 @@
+{
+  "status": "Mark2 accepted; exact task observed RUNNING",
+  "project_sha256": "fb08838af3bf6cff212acec6ccc2dabc6701fe8745840bbbf459c78597cb765d",
+  "archive_sha256": "38320cd929e2bf870e2ce4cfa526f5a01648bb5d44fbd199723e926fb3943842",
+  "launch_authorized": true,
+  "submitted": true,
+  "parts": [
+    "sculpted-display-cover"
+  ],
+  "full_settings": "all-settings.json",
+  "native_review": "native-review.json",
+  "support_audit": "2026-10-25-sculpted-cover-front-overlap-black-left04-z004-mark2.support-audit.json",
+  "printer_task_id": "1374330388",
+  "launch_receipt": "launch.json",
+  "startup_reading": "startup.json"
+}

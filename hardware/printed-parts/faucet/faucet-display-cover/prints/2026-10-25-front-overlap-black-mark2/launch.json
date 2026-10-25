@@ -1,0 +1,114 @@
+{
+  "printer": "Mark2",
+  "observed_at_utc": "2026-10-25T16:57:04.767194+00:00",
+  "job_id": "1374330388",
+  "subtask_name": "2026-10-25-sculpted-cover-front-overlap-black-left04-z004-mark2.gcode.3mf",
+  "gcode_state": "PREPARE",
+  "print_error": 0,
+  "hms": [
+    {
+      "attr": 201326848,
+      "code": 131095
+    }
+  ],
+  "layer_num": 1416,
+  "total_layer_num": 1416,
+  "mc_remaining_time": 0,
+  "mc_percent": 0,
+  "nozzle_temper": 27.0,
+  "nozzle_target_temper": 0.0,
+  "bed_temper": 25.0,
+  "bed_target_temper": 0.0,
+  "archive": {
+    "name": "2026-10-25-sculpted-cover-front-overlap-black-left04-z004-mark2.gcode.3mf",
+    "sha256": "38320cd929e2bf870e2ce4cfa526f5a01648bb5d44fbd199723e926fb3943842",
+    "gcode_sha256": "d59c52d3c96c41641e0154cf3dbc2e0f7252b93d2cffb1c9d20e2823eedd602e",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "161616"
+      }
+    },
+    "objects": [
+      "sculpted-display-cover"
+    ]
+  },
+  "previous_job_id": "1372253517",
+  "send_method": "Bambu Connect CUA; one Send click",
+  "send_click_count": 1,
+  "launch_options": {
+    "Timelapse": "On",
+    "Auto bed leveling": "On",
+    "Flow dynamic calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "external_spool_mapping": {
+    "left": 254,
+    "type": "PET-CF",
+    "colour": "161616FF"
+  },
+  "selected_plate": "Textured PEI Plate",
+  "shared_circuit": {
+    "peer": "Mark1",
+    "peer_task_id": "1374272357",
+    "peer_accepted_at_utc": "2026-10-25T16:39:30.598475+00:00",
+    "peer_already_running_observed_at_utc": "2026-10-25T16:49:15.227860+00:00",
+    "required_spacing_seconds": 180,
+    "start_spacing_seconds": 1054.169
+  },
+  "command_reply": {
+    "command": "project_file",
+    "result": "SUCCESS",
+    "reason": "SUCCESS",
+    "err_code": 0
+  },
+  "events": [
+    {
+      "job_id": "1372253517",
+      "subtask_name": "2026-10-24-industrial-sculpted-buttons-bands020v2-black-left04-z004-mark2.gcode.3mf",
+      "gcode_state": "FINISH",
+      "print_error": 0,
+      "hms": [
+        {
+          "attr": 201326848,
+          "code": 131095
+        }
+      ],
+      "layer_num": 1416
+    },
+    {
+      "command": "project_file",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "err_code": 0
+    },
+    {
+      "job_id": 1374330388,
+      "subtask_name": "2026-10-25-sculpted-cover-front-overlap-black-left04-z004-mark2.gcode.3mf",
+      "gcode_state": "FINISH",
+      "print_error": 0,
+      "hms": [
+        {
+          "attr": 201326848,
+          "code": 131095
+        }
+      ],
+      "layer_num": 1416
+    },
+    {
+      "job_id": "1374330388",
+      "subtask_name": "2026-10-25-sculpted-cover-front-overlap-black-left04-z004-mark2.gcode.3mf",
+      "gcode_state": "PREPARE",
+      "print_error": 0,
+      "hms": [
+        {
+          "attr": 201326848,
+          "code": 131095
+        }
+      ],
+      "layer_num": 1416
+    }
+  ],
+  "authorization_quote": "Please print your recommended faucet display cover on mark2, the bed is clear and ready.",
+  "imported_copy_matches_native_archive_at_submission": true
+}

@@ -1,0 +1,567 @@
+{
+  "recorded_at_utc": "2026-10-25T16:41:44.422837+00:00",
+  "status": "unprinted_cover_only_proposal",
+  "accepted_printer_task_id": "1372253517",
+  "source_sha256": {
+    "corrected-tip.step": "8116f77a1d2b1856d6bb1ac9cdfe0bb6a7ba39df765c021acd06e5425138f112",
+    "correctedSculpted.step": "c10ad757ac0b93bb4e2a75836eefef1422b5ad8523a96b91362cffce64332d9d",
+    "corrected-sculpted-cover.stl": "7e45df88d35c61e990a3bcf7c1c3f1f1021120460bf108e331ec5ee011ccf59a"
+  },
+  "front_edge": {
+    "equation": "N = intercept - 1.8 * S",
+    "accepted_intercept_n_mm": 14.0,
+    "proposed_intercept_n_mm": 10.5,
+    "normal_extension_mm": 3.5,
+    "pocket_front_station_s_mm": 2.0,
+    "accepted_edge_n_at_pocket_front_mm": 10.4,
+    "proposed_edge_n_at_pocket_front_mm": 6.9,
+    "tip_ledge_n_mm": 8.1,
+    "nominal_projected_overlap_at_pocket_front_mm": 1.1999999999999993
+  },
+  "accepted_baseline_symmetric_difference_mm3": 0.0,
+  "added_seated_stock_mm3": 20.613798128198233,
+  "removed_seated_stock_mm3": 0.0,
+  "valid_single_seated_solid": true,
+  "valid_single_printable_solid": true,
+  "cover_to_tip_intersection_mm3": 0.0,
+  "cover_to_display_intersection_mm3": 0.0,
+  "cover_to_screen_intersection_mm3": 0.0,
+  "cover_to_vendor_switches_intersection_mm3": 0.0,
+  "added_stock_to_switches_minimum_distance_mm": 4.923398114743541,
+  "bezel_region_added_or_removed_stock_mm3": 0.0,
+  "retaining_lip_region_added_or_removed_stock_mm3": 0.0,
+  "lip_builder_symmetric_difference_mm3": 0.0,
+  "retained": {
+    "display_foot_floor_n_mm": 7.1,
+    "surrounding_tip_ledge_n_mm": 8.1,
+    "display_inward_reduction_mm": 4.5,
+    "glass_gap_mm": 0.6,
+    "arch_crown_clearance_mm": 0.65,
+    "bezel_thickness_mm": 1.3,
+    "lip_bottom_top_n_mm": [
+      3.3,
+      6.3
+    ],
+    "radial_lip_engagement_mm": 1.2,
+    "preload_at_lip_top_mm": 1.25
+  },
+  "scope": "The front skirt extends across the corner sightline while the existing circular neck clearance and inner cavity trim it away from the accepted hardware. CAD overlap in side projection is not a liquid seal or a physical fit trial.",
+  "candidate_sha256": {
+    "proposed-cover.step": "e5e37e5314ed6012ae84adcb164ec8e9d0987f29de16a66a061e3839a8ef7206",
+    "proposed-cover-print.step": "7ac44e3f72d43be091287266e27a3f61ccf2a6abd18b7ae85b648facda5b201a",
+    "proposed-cover.stl": "3d4d2e05edde5a0e45aad36e9de072a57103c3b0f8da2bbd875cbfbedbe68133"
+  },
+  "lateral_sightline_reading": {
+    "method": "Lateral rays between X=+/-10 and +/-25 mm at selected stations above the N8.1 ledge. Measures cover occlusion only, not every viewing angle.",
+    "sampled_rays": 72,
+    "accepted_cover_unblocked_rays": 18,
+    "proposed_cover_unblocked_rays": 0,
+    "minimum_cover_stock_on_newly_blocked_rays_mm": 0.37566458457810725,
+    "rays": [
+      {
+        "side": -1,
+        "s_mm": 2.1,
+        "n_mm": 8.2,
+        "accepted_cover_stock_on_ray_mm": 0,
+        "proposed_cover_stock_on_ray_mm": 0.37566458457810725
+      },
+      {
+        "side": -1,
+        "s_mm": 2.1,
+        "n_mm": 8.7,
+        "accepted_cover_stock_on_ray_mm": 0,
+        "proposed_cover_stock_on_ray_mm": 0.5102672832892843
+      },
+      {
+        "side": -1,
+        "s_mm": 2.1,
+        "n_mm": 9.2,
+        "accepted_cover_stock_on_ray_mm": 0,
+        "proposed_cover_stock_on_ray_mm": 0.6607219823391954
+      },
+      {
+        "side": -1,
+        "s_mm": 2.1,
+        "n_mm": 9.7,
+        "accepted_cover_stock_on_ray_mm": 0,
+        "proposed_cover_stock_on_ray_mm": 0.8278160966887942
+      },
+      {
+        "side": -1,
+        "s_mm": 2.1,
+        "n_mm": 10.2,
+        "accepted_cover_stock_on_ray_mm": 0,
+        "proposed_cover_stock_on_ray_mm": 1.0124944950633399
+      },
+      {
+        "side": -1,
+        "s_mm": 2.1,
+        "n_mm": 10.7,
+        "accepted_cover_stock_on_ray_mm": 1.215890953751396,
+        "proposed_cover_stock_on_ray_mm": 1.2158909537514049
+      },
+      {
+        "side": -1,
+        "s_mm": 2.5,
+        "n_mm": 8.2,
+        "accepted_cover_stock_on_ray_mm": 0,
+        "proposed_cover_stock_on_ray_mm": 0.6101537300776076
+      },
+      {
+        "side": -1,
+        "s_mm": 2.5,
+        "n_mm": 8.7,
+        "accepted_cover_stock_on_ray_mm": 0,
+        "proposed_cover_stock_on_ray_mm": 0.7454784577923999
+      },
+      {
+        "side": -1,
+        "s_mm": 2.5,
+        "n_mm": 9.2,
+        "accepted_cover_stock_on_ray_mm": 0,
+        "proposed_cover_stock_on_ray_mm": 0.89691382583535
+      },
+      {
+        "side": -1,
+        "s_mm": 2.5,
+        "n_mm": 9.7,
+        "accepted_cover_stock_on_ray_mm": 1.0652572938662281,
+        "proposed_cover_stock_on_ray_mm": 1.0652572938662281
+      },
+      {
+        "side": -1,
+        "s_mm": 2.5,
+        "n_mm": 10.2,
+        "accepted_cover_stock_on_ray_mm": 1.2514663309793423,
+        "proposed_cover_stock_on_ray_mm": 1.2514663309793406
+      },
+      {
+        "side": -1,
+        "s_mm": 2.5,
+        "n_mm": 10.7,
+        "accepted_cover_stock_on_ray_mm": 1.456690181190357,
+        "proposed_cover_stock_on_ray_mm": 1.4566901811903996
+      },
+      {
+        "side": -1,
+        "s_mm": 3.0,
+        "n_mm": 8.2,
+        "accepted_cover_stock_on_ray_mm": 0,
+        "proposed_cover_stock_on_ray_mm": 0.8704251571879045
+      },
+      {
+        "side": -1,
+        "s_mm": 3.0,
+        "n_mm": 8.7,
+        "accepted_cover_stock_on_ray_mm": 1.006495841924437,
+        "proposed_cover_stock_on_ray_mm": 1.006495841924437
+      },
+      {
+        "side": -1,
+        "s_mm": 3.0,
+        "n_mm": 9.2,
+        "accepted_cover_stock_on_ray_mm": 1.1589437475930424,
+        "proposed_cover_stock_on_ray_mm": 1.1589437475930477
+      },
+      {
+        "side": -1,
+        "s_mm": 3.0,
+        "n_mm": 9.7,
+        "accepted_cover_stock_on_ray_mm": 1.3285761136723,
+        "proposed_cover_stock_on_ray_mm": 1.3285761136723
+      },
+      {
+        "side": -1,
+        "s_mm": 3.0,
+        "n_mm": 10.2,
+        "accepted_cover_stock_on_ray_mm": 1.5163626183768386,
+        "proposed_cover_stock_on_ray_mm": 1.5163626183768386
+      },
+      {
+        "side": -1,
+        "s_mm": 3.0,
+        "n_mm": 10.7,
+        "accepted_cover_stock_on_ray_mm": 1.7234674223007946,
+        "proposed_cover_stock_on_ray_mm": 1.7234674223007946
+      },
+      {
+        "side": -1,
+        "s_mm": 3.5,
+        "n_mm": 8.2,
+        "accepted_cover_stock_on_ray_mm": 1.097012371513399,
+        "proposed_cover_stock_on_ray_mm": 1.0970123715133813
+      },
+      {
+        "side": -1,
+        "s_mm": 3.5,
+        "n_mm": 8.7,
+        "accepted_cover_stock_on_ray_mm": 1.233685096262347,
+        "proposed_cover_stock_on_ray_mm": 1.2336850962623362
+      },
+      {
+        "side": -1,
+        "s_mm": 3.5,
+        "n_mm": 9.2,
+        "accepted_cover_stock_on_ray_mm": 1.386949731313905,
+        "proposed_cover_stock_on_ray_mm": 1.3869497313139139
+      },
+      {
+        "side": -1,
+        "s_mm": 3.5,
+        "n_mm": 9.7,
+        "accepted_cover_stock_on_ray_mm": 1.5576209749281915,
+        "proposed_cover_stock_on_ray_mm": 1.557620974928188
+      },
+      {
+        "side": -1,
+        "s_mm": 3.5,
+        "n_mm": 10.2,
+        "accepted_cover_stock_on_ray_mm": 1.7466777737671535,
+        "proposed_cover_stock_on_ray_mm": 1.74667777376715
+      },
+      {
+        "side": -1,
+        "s_mm": 3.5,
+        "n_mm": 10.7,
+        "accepted_cover_stock_on_ray_mm": 1.9552955613526475,
+        "proposed_cover_stock_on_ray_mm": 1.9552955613526386
+      },
+      {
+        "side": -1,
+        "s_mm": 4.0,
+        "n_mm": 8.2,
+        "accepted_cover_stock_on_ray_mm": 1.2922979694342906,
+        "proposed_cover_stock_on_ray_mm": 1.292297969434296
+      },
+      {
+        "side": -1,
+        "s_mm": 4.0,
+        "n_mm": 8.7,
+        "accepted_cover_stock_on_ray_mm": 1.4294524247513412,
+        "proposed_cover_stock_on_ray_mm": 1.4294524247513447
+      },
+      {
+        "side": -1,
+        "s_mm": 4.0,
+        "n_mm": 9.2,
+        "accepted_cover_stock_on_ray_mm": 1.583370284005447,
+        "proposed_cover_stock_on_ray_mm": 1.5833702840054524
+      },
+      {
+        "side": -1,
+        "s_mm": 4.0,
+        "n_mm": 9.7,
+        "accepted_cover_stock_on_ray_mm": 1.7548719380878062,
+        "proposed_cover_stock_on_ray_mm": 1.7548719380878044
+      },
+      {
+        "side": -1,
+        "s_mm": 4.0,
+        "n_mm": 10.2,
+        "accepted_cover_stock_on_ray_mm": 1.8906342332427108,
+        "proposed_cover_stock_on_ray_mm": 1.8906342332427126
+      },
+      {
+        "side": -1,
+        "s_mm": 4.0,
+        "n_mm": 10.7,
+        "accepted_cover_stock_on_ray_mm": 1.907893379891732,
+        "proposed_cover_stock_on_ray_mm": 1.9078933798917266
+      },
+      {
+        "side": -1,
+        "s_mm": 5.0,
+        "n_mm": 8.2,
+        "accepted_cover_stock_on_ray_mm": 1.59606847808997,
+        "proposed_cover_stock_on_ray_mm": 1.59606847808997
+      },
+      {
+        "side": -1,
+        "s_mm": 5.0,
+        "n_mm": 8.7,
+        "accepted_cover_stock_on_ray_mm": 1.6607220296118257,
+        "proposed_cover_stock_on_ray_mm": 1.6607220296118257
+      },
+      {
+        "side": -1,
+        "s_mm": 5.0,
+        "n_mm": 9.2,
+        "accepted_cover_stock_on_ray_mm": 1.6704403110614034,
+        "proposed_cover_stock_on_ray_mm": 1.6704403110613963
+      },
+      {
+        "side": -1,
+        "s_mm": 5.0,
+        "n_mm": 9.7,
+        "accepted_cover_stock_on_ray_mm": 1.6813703491962713,
+        "proposed_cover_stock_on_ray_mm": 1.6813703491962677
+      },
+      {
+        "side": -1,
+        "s_mm": 5.0,
+        "n_mm": 10.2,
+        "accepted_cover_stock_on_ray_mm": 1.6935460867509953,
+        "proposed_cover_stock_on_ray_mm": 1.6935460867509953
+      },
+      {
+        "side": -1,
+        "s_mm": 5.0,
+        "n_mm": 10.7,
+        "accepted_cover_stock_on_ray_mm": 1.7070084441672186,
+        "proposed_cover_stock_on_ray_mm": 1.7070084441672186
+      },
+      {
+        "side": 1,
+        "s_mm": 2.1,
+        "n_mm": 8.2,
+        "accepted_cover_stock_on_ray_mm": 0,
+        "proposed_cover_stock_on_ray_mm": 0.37566458458218577
+      },
+      {
+        "side": 1,
+        "s_mm": 2.1,
+        "n_mm": 8.7,
+        "accepted_cover_stock_on_ray_mm": 0,
+        "proposed_cover_stock_on_ray_mm": 0.5102672832933113
+      },
+      {
+        "side": 1,
+        "s_mm": 2.1,
+        "n_mm": 9.2,
+        "accepted_cover_stock_on_ray_mm": 0,
+        "proposed_cover_stock_on_ray_mm": 0.6607219823431869
+      },
+      {
+        "side": 1,
+        "s_mm": 2.1,
+        "n_mm": 9.7,
+        "accepted_cover_stock_on_ray_mm": 0,
+        "proposed_cover_stock_on_ray_mm": 0.8278160966927217
+      },
+      {
+        "side": 1,
+        "s_mm": 2.1,
+        "n_mm": 10.2,
+        "accepted_cover_stock_on_ray_mm": 0,
+        "proposed_cover_stock_on_ray_mm": 1.0124944950672194
+      },
+      {
+        "side": 1,
+        "s_mm": 2.1,
+        "n_mm": 10.7,
+        "accepted_cover_stock_on_ray_mm": 1.2158909537552578,
+        "proposed_cover_stock_on_ray_mm": 1.2158909537552702
+      },
+      {
+        "side": 1,
+        "s_mm": 2.5,
+        "n_mm": 8.2,
+        "accepted_cover_stock_on_ray_mm": 0,
+        "proposed_cover_stock_on_ray_mm": 0.6101537300816045
+      },
+      {
+        "side": 1,
+        "s_mm": 2.5,
+        "n_mm": 8.7,
+        "accepted_cover_stock_on_ray_mm": 0,
+        "proposed_cover_stock_on_ray_mm": 0.7454784577963451
+      },
+      {
+        "side": 1,
+        "s_mm": 2.5,
+        "n_mm": 9.2,
+        "accepted_cover_stock_on_ray_mm": 0,
+        "proposed_cover_stock_on_ray_mm": 0.8969138258392366
+      },
+      {
+        "side": 1,
+        "s_mm": 2.5,
+        "n_mm": 9.7,
+        "accepted_cover_stock_on_ray_mm": 1.065257293870074,
+        "proposed_cover_stock_on_ray_mm": 1.0652572938700722
+      },
+      {
+        "side": 1,
+        "s_mm": 2.5,
+        "n_mm": 10.2,
+        "accepted_cover_stock_on_ray_mm": 1.2514663309831242,
+        "proposed_cover_stock_on_ray_mm": 1.2514663309831313
+      },
+      {
+        "side": 1,
+        "s_mm": 2.5,
+        "n_mm": 10.7,
+        "accepted_cover_stock_on_ray_mm": 1.4566901811941335,
+        "proposed_cover_stock_on_ray_mm": 1.4566901811941158
+      },
+      {
+        "side": 1,
+        "s_mm": 3.0,
+        "n_mm": 8.2,
+        "accepted_cover_stock_on_ray_mm": 0,
+        "proposed_cover_stock_on_ray_mm": 0.8704251571916899
+      },
+      {
+        "side": 1,
+        "s_mm": 3.0,
+        "n_mm": 8.7,
+        "accepted_cover_stock_on_ray_mm": 1.0064958419281709,
+        "proposed_cover_stock_on_ray_mm": 1.0064958419281709
+      },
+      {
+        "side": 1,
+        "s_mm": 3.0,
+        "n_mm": 9.2,
+        "accepted_cover_stock_on_ray_mm": 1.158943747596732,
+        "proposed_cover_stock_on_ray_mm": 1.1589437475967284
+      },
+      {
+        "side": 1,
+        "s_mm": 3.0,
+        "n_mm": 9.7,
+        "accepted_cover_stock_on_ray_mm": 1.3285761136759255,
+        "proposed_cover_stock_on_ray_mm": 1.3285761136759326
+      },
+      {
+        "side": 1,
+        "s_mm": 3.0,
+        "n_mm": 10.2,
+        "accepted_cover_stock_on_ray_mm": 1.5163626183804304,
+        "proposed_cover_stock_on_ray_mm": 1.5163626183804286
+      },
+      {
+        "side": 1,
+        "s_mm": 3.0,
+        "n_mm": 10.7,
+        "accepted_cover_stock_on_ray_mm": 1.7234674223043438,
+        "proposed_cover_stock_on_ray_mm": 1.7234674223043456
+      },
+      {
+        "side": 1,
+        "s_mm": 3.5,
+        "n_mm": 8.2,
+        "accepted_cover_stock_on_ray_mm": 1.0970123715168967,
+        "proposed_cover_stock_on_ray_mm": 1.0970123715169002
+      },
+      {
+        "side": 1,
+        "s_mm": 3.5,
+        "n_mm": 8.7,
+        "accepted_cover_stock_on_ray_mm": 1.233685096265793,
+        "proposed_cover_stock_on_ray_mm": 1.2336850962657966
+      },
+      {
+        "side": 1,
+        "s_mm": 3.5,
+        "n_mm": 9.2,
+        "accepted_cover_stock_on_ray_mm": 1.3869497313172978,
+        "proposed_cover_stock_on_ray_mm": 1.386949731317296
+      },
+      {
+        "side": 1,
+        "s_mm": 3.5,
+        "n_mm": 9.7,
+        "accepted_cover_stock_on_ray_mm": 1.557620974931547,
+        "proposed_cover_stock_on_ray_mm": 1.5576209749315346
+      },
+      {
+        "side": 1,
+        "s_mm": 3.5,
+        "n_mm": 10.2,
+        "accepted_cover_stock_on_ray_mm": 1.7466777737704646,
+        "proposed_cover_stock_on_ray_mm": 1.7466777737704646
+      },
+      {
+        "side": 1,
+        "s_mm": 3.5,
+        "n_mm": 10.7,
+        "accepted_cover_stock_on_ray_mm": 1.9552955613559124,
+        "proposed_cover_stock_on_ray_mm": 1.9552955613559142
+      },
+      {
+        "side": 1,
+        "s_mm": 4.0,
+        "n_mm": 8.2,
+        "accepted_cover_stock_on_ray_mm": 1.2922979694374241,
+        "proposed_cover_stock_on_ray_mm": 1.292297969437426
+      },
+      {
+        "side": 1,
+        "s_mm": 4.0,
+        "n_mm": 8.7,
+        "accepted_cover_stock_on_ray_mm": 1.4294524247544178,
+        "proposed_cover_stock_on_ray_mm": 1.4294524247544267
+      },
+      {
+        "side": 1,
+        "s_mm": 4.0,
+        "n_mm": 9.2,
+        "accepted_cover_stock_on_ray_mm": 1.5833702840084936,
+        "proposed_cover_stock_on_ray_mm": 1.58337028400849
+      },
+      {
+        "side": 1,
+        "s_mm": 4.0,
+        "n_mm": 9.7,
+        "accepted_cover_stock_on_ray_mm": 1.7548719380907993,
+        "proposed_cover_stock_on_ray_mm": 1.7548719380907905
+      },
+      {
+        "side": 1,
+        "s_mm": 4.0,
+        "n_mm": 10.2,
+        "accepted_cover_stock_on_ray_mm": 1.8906342332411548,
+        "proposed_cover_stock_on_ray_mm": 1.890634233241153
+      },
+      {
+        "side": 1,
+        "s_mm": 4.0,
+        "n_mm": 10.7,
+        "accepted_cover_stock_on_ray_mm": 1.9078933798900728,
+        "proposed_cover_stock_on_ray_mm": 1.9078933798900781
+      },
+      {
+        "side": 1,
+        "s_mm": 5.0,
+        "n_mm": 8.2,
+        "accepted_cover_stock_on_ray_mm": 1.5960684780921959,
+        "proposed_cover_stock_on_ray_mm": 1.596068478092203
+      },
+      {
+        "side": 1,
+        "s_mm": 5.0,
+        "n_mm": 8.7,
+        "accepted_cover_stock_on_ray_mm": 1.6607220296101914,
+        "proposed_cover_stock_on_ray_mm": 1.6607220296101914
+      },
+      {
+        "side": 1,
+        "s_mm": 5.0,
+        "n_mm": 9.2,
+        "accepted_cover_stock_on_ray_mm": 1.670440311059707,
+        "proposed_cover_stock_on_ray_mm": 1.670440311059707
+      },
+      {
+        "side": 1,
+        "s_mm": 5.0,
+        "n_mm": 9.7,
+        "accepted_cover_stock_on_ray_mm": 1.6813703491945056,
+        "proposed_cover_stock_on_ray_mm": 1.681370349194502
+      },
+      {
+        "side": 1,
+        "s_mm": 5.0,
+        "n_mm": 10.2,
+        "accepted_cover_stock_on_ray_mm": 1.6935460867491514,
+        "proposed_cover_stock_on_ray_mm": 1.693546086749155
+      },
+      {
+        "side": 1,
+        "s_mm": 5.0,
+        "n_mm": 10.7,
+        "accepted_cover_stock_on_ray_mm": 1.707008444165286,
+        "proposed_cover_stock_on_ray_mm": 1.707008444165286
+      }
+    ]
+  }
+}
