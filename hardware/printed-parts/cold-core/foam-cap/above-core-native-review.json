@@ -4217,7 +4217,9 @@
     "contacts": {
       "va-east-turn": {
         "overlap_mm3": {},
-        "scope": "Complete source-native strip and all30 current source-defined approach witnesses; unchanged meter/VA body proof plus selected B-group delta."
+        "scope": "Complete source-native strip and all30 current source-defined approach witnesses; unchanged meter/VA body proof plus selected B-group delta.",
+        "current_applicability": false,
+        "selected_parent": "enclosure-back-top"
       },
       "vb-outlet-return": {
         "overlap_mm3": {},
@@ -4225,11 +4227,15 @@
       },
       "meter-fore": {
         "overlap_mm3": {},
-        "scope": "Complete source-native strip and all30 current source-defined approach witnesses; unchanged meter/VA body proof plus selected B-group delta."
+        "scope": "Complete source-native strip and all30 current source-defined approach witnesses; unchanged meter/VA body proof plus selected B-group delta.",
+        "current_applicability": false,
+        "selected_parent": "enclosure-back-top"
       },
       "meter-aft": {
         "overlap_mm3": {},
-        "scope": "Complete source-native strip and all30 current source-defined approach witnesses; unchanged meter/VA body proof plus selected B-group delta."
+        "scope": "Complete source-native strip and all30 current source-defined approach witnesses; unchanged meter/VA body proof plus selected B-group delta.",
+        "current_applicability": false,
+        "selected_parent": "enclosure-back-top"
       },
       "water-check": {
         "overlap_mm3": {},
@@ -4292,8 +4298,12 @@
     "current_lid_binding": {
       "path": "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
       "sha256": "3dc027887921d731b82089a236f760df9b5f27abc85851f1f347b71c43ecda20",
-      "scope": "The new lid is the prior lid minus only the named shoulder. The prior zero strip/stock intersections remain conservative; nominal routes and approach witnesses are unchanged."
-    }
+      "scope": "The new lid is the prior lid minus only the named shoulder. The prior zero strip/stock intersections remain conservative; nominal routes and approach witnesses are unchanged.",
+      "current_applicability": false,
+      "applicability_scope": "Exact recorded shoulder-delta fixture only; current exported cap identity is in final_exported_lid."
+    },
+    "current_applicability": false,
+    "applicability_scope": "Recorded core-mounted meter/VA strip paths and the accompanying nominal30-witness fixture. Production meter/PSU mounts and tool axes belong to back-top; those routes/axes require their own selected-wall reading. The current check_bridge block separately binds the water-check strip and its four pump-driver prerequisite columns to the exported lid."
   },
   "current_artifact_binding_scope": "Current canonical cup/lid/foam/core byte receipts. The current check bridge and eight deck-column insert walls/backing have fresh exported-native probes. Unchanged passage and fitting probes retain their named source/artifact and geometric scope. Core-lid meter and V-A/V-K wall receipts are explicitly inapplicable to the back-top hosts. The B-fill roof issue remains under layout review; no whole-cap or global contact replay is implied.",
   "current_source_receipt": {

@@ -68,6 +68,104 @@ def xcylinder(radius, x0, x1, y, z):
                                  cq.Vector(1., 0., 0.))
 
 
+def printed_pilot_floors(path, datums, names=None):
+    """Read the printed flutes, which are absent from the smooth native STEP."""
+    import numpy as np
+    import trimesh
+    mesh = trimesh.load(path,process=False)
+    triangles = mesh.triangles
+    low,high = triangles.min(axis=1),triangles.max(axis=1)
+    offsets = [(u,v) for u in np.linspace(-1.99,1.99,17)
+                       for v in np.linspace(-1.99,1.99,17) if u*u+v*v<=1.99**2]
+    rows = []
+    for name,plan in datums.items():
+        if names is not None and name not in names:
+            continue
+        for station in plan['stations']:
+            if not station['threaded']:
+                continue
+            _,y,z = station['position_world_mm']
+            end = station['insert_face_world_mm'][0]-plan['pilot_depth_mm']
+            window = ((low[:,1]<=y+2.) & (high[:,1]>=y-2.)
+                      & (low[:,2]<=z+2.) & (high[:,2]>=z-2.))
+            plane_count = int(np.count_nonzero(window & np.all(
+                np.abs(triangles[:,:,0]-end)<1.e-4,axis=1)))
+            local_triangles = triangles[window & (low[:,0]<end-.01)]
+            local = trimesh.Trimesh(vertices=local_triangles.reshape(-1,3),
+                faces=np.arange(len(local_triangles)*3).reshape(-1,3),process=False)
+            origins = np.array([[end-.001,y+u,z+v] for u,v in offsets])
+            hits,_,_ = local.ray.intersects_location(origins,
+                np.tile([-1.,0.,0.],(len(origins),1)),multiple_hits=False)
+            minimum = float(min(end-point[0] for point in hits)) if len(hits) else None
+            rows.append({'equipment':name,'native_hole_index':station['native_hole_index'],
+                'pilot_floor_world_x_mm':end,'matching_printed_floor_facets':plane_count,
+                'sampled_axes':len(offsets),'ray_hits':len(hits),
+                'minimum_sampled_printed_backing_mm':minimum,
+                'conservative_backing_after_full_flute_depth_mm':plan['minimum_fluted_backing_mm'],
+                'maximum_source_flute_depth_mm':plan['maximum_flute_depth_mm'],
+                'passed':plane_count>0 and len(hits)==len(offsets)
+                    and minimum is not None and minimum>=3.-1.e-4
+                    and plan['minimum_fluted_backing_mm']>=3.-1.e-9})
+    return {'path':str(path.relative_to(ROOT)),'sha256':sha(path),
+        'scope':'197 finite axes per pilot, directly through printed STL triangles, '
+                'plus the source bound on the full 1.2 mm flute depth. '
+                'The smooth native STEP alone does not establish printed backing.',
+        'rows':rows,'passed':all(row['passed'] for row in rows)}
+
+
+def bind_printed_floor_delta(path, output):
+    """Only the four changed relay pilots; retain the existing contact fixture."""
+    report = json.loads(output.read_text())
+    datums = shell.wall_mount_datums()
+    printed = printed_pilot_floors(path,datums,('relay-1','relay-2'))
+    original = report.get('contact_fixture_plans',report.get('plans'))
+    outer_keys = ('boss_radius_mm','bearing_tip_radius_mm','bearing_tip_height_mm',
+                  'screw_clearance_radius_mm','active_hole_indices')
+    preserved = {}
+    for name in NAMES:
+        first,last = original[name],datums[name]
+        preserved[name] = (all(first.get(k)==json.loads(json.dumps(last.get(k)))
+                              for k in outer_keys)
+            and first['stations']==json.loads(json.dumps(last['stations']))
+            and report['native_poses'][name]==layout.pose(name))
+    if 'plans' in report:
+        report['contact_fixture_plans'] = report.pop('plans')
+    if 'finite_fastener_stacks' in report:
+        report['contact_fixture_finite_fastener_stacks'] = report.pop('finite_fastener_stacks')
+    if 'retained_native_back_top_fixture' not in report:
+        report['retained_native_back_top_fixture'] = report.pop('actual_back_top_binding')
+    report['selected_fastener_plans'] = datums
+    report['selected_finite_fastener_stacks'] = [
+        {'equipment':name,'native_hole_index':station['native_hole_index'],
+         'screw':plan['screw'],'insert':plan['insert'],
+         'receiving_range_mm':plan['receiving_range_mm'],
+         'insert_length_mm':plan['insert_length_mm'],
+         'pilot_depth_mm':plan['pilot_depth_mm'],
+         'minimum_tip_air_mm':plan['minimum_tip_air_mm'],
+         'native_smooth_blind_backing_mm':plan['minimum_blind_backing_mm'],
+         'minimum_fluted_backing_mm':plan['minimum_fluted_backing_mm']}
+        for name,plan in datums.items() for station in plan['stations'] if station['threaded']]
+    step = path.with_suffix('.step')
+    report['actual_back_top_binding'] = {
+        'path':str(step.relative_to(ROOT)), 'sha256':sha(step),
+        'printed_pilot_floor_reading':printed,
+        'unchanged_device_pad_head_stations':preserved,
+        'scope':'Only four changed relay pilot floors read against the physical '
+                'printed STL. The devices, pad outer profiles, bearing tips, '
+                'head envelopes and stations retain the prior native/electrical '
+                'fixture scope. No unchanged contact pair or core check is replayed. '
+                'The independent fore-meter neck belongs to wall-meter-review.json.',
+        'source_sha256':{str(p.relative_to(ROOT)):sha(p) for p in (
+            Path(__file__),Path(shell.__file__),ROOT/'hardware/manifold-layout/above-core.json')},
+        'reproduce':'HSM_NO_BUILD_LOCK=1 tmp/takeover/cadq "relay printed pilot floors" -- '
+            'tools/cad-venv/bin/python hardware/mechanical-qualification/enclosure-above-core/'
+            'wall_mounts.py --bind-printed-floors '+str(path.relative_to(ROOT)),
+        'passed':printed['passed'] and all(preserved.values())}
+    output.write_text(json.dumps(report,indent=2)+'\n')
+    print('Printed relay floor delta',report['actual_back_top_binding']['passed'],
+          printed,flush=True)
+
+
 def bind_back_top(path, output):
     """Append a local imported-shell reading without repeating electrical pairs."""
     report = json.loads(output.read_text())
@@ -89,7 +187,8 @@ def bind_back_top(path, output):
             'matched':deviation<=1.e-5 and dv<=max(.001,first['volume_mm3']*1.e-7)
                 and first['faces']==last['faces'] and first['solids']==last['solids']}
     rows = []
-    for name,plan in shell.wall_mount_datums().items():
+    datums = shell.wall_mount_datums()
+    for name,plan in datums.items():
         for station in plan['stations']:
             if not station['threaded']:
                 continue
@@ -110,11 +209,27 @@ def bind_back_top(path, output):
         cq.Vector(b.xmin-1.,b.ymin-1.,346.)))
     host_missing = {name:volume(body.cut(stock))
                     for name,body in subjects.items() if name not in equipment}
+    printed = printed_pilot_floors(path.with_suffix('.stl'),datums)
+    # Contact subjects have identical outer geometry; the pilot-depth change
+    # lies inside the enclosure wall. Preserve the recorded contact cache and
+    # identify the selected finite stack separately from that fixture.
+    stacks = []
+    for row in rows:
+        plan = datums[row['equipment']]
+        receiving = plan['receiving_range_mm']
+        stacks.append({**row,'screw':plan['screw'],'insert':plan['insert'],
+            'receiving_range_mm':receiving,'insert_length_mm':plan['insert_length_mm'],
+            'minimum_tip_air_mm':plan['pilot_depth_mm']-max(receiving),
+            'native_smooth_blind_backing_mm':plan['minimum_blind_backing_mm'],
+            'minimum_fluted_backing_mm':plan['minimum_fluted_backing_mm']})
+    report['selected_fastener_plans'] = datums
+    report['selected_finite_fastener_stacks'] = stacks
     report['actual_back_top_binding'] = {
         'path':str(path.relative_to(ROOT)), 'sha256':sha(path),
         'stock':signature(stock), 'component_geometry_comparison':metrics,
         'local_host_material_missing_mm3':host_missing,
         'equipment_contacts':contacts, 'finite_insert_stock':rows,
+        'printed_pilot_floor_reading':printed,
         'relay2_top_world_z_mm':b.zmax,'plain_roof_inner_world_z_mm':346.,
         'relay2_to_actual_ceiling_band_gap_mm':equipment['relay-2'].distance(ceiling),
         'comparison_tolerances':{'coordinate_mm':1.e-5,'volume_mm3':.001,
@@ -128,6 +243,7 @@ def bind_back_top(path, output):
         'passed':stock.isValid() and len(stock.Solids())==1
             and all(r['matched'] for r in metrics.values())
             and all(value<=.001 for value in host_missing.values())
+            and printed['passed']
             and all(r is None or r['common_mm3']<=TOL_MM3 for r in contacts.values())
             and all(max(r['complete3mm_insert_wall_missing_mm3'],
                         r['complete3mm_blind_floor_missing_mm3'])<=.001 for r in rows)}
@@ -141,8 +257,12 @@ def main():
                         help='Explicit source-bound 111-body unchanged electrical cache')
     parser.add_argument('--bind-back-top', type=Path,
                         help='Append the imported final-shell reading to the existing receipt only')
+    parser.add_argument('--bind-printed-floors', type=Path,
+                        help='Bind only four changed relay floors to the physical STL')
     parser.add_argument('--output', type=Path, default=HERE/'wall-mount-review.json')
     args = parser.parse_args()
+    if args.bind_printed_floors:
+        return bind_printed_floor_delta(args.bind_printed_floors.resolve(),args.output)
     if args.bind_back_top:
         return bind_back_top(args.bind_back_top.resolve(),args.output)
     if not args.wiring_index:

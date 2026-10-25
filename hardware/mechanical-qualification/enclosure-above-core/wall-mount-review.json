@@ -81,342 +81,6 @@
       "reference": "hardware/reference/teyleten-relay/teyleten-relay.step"
     }
   },
-  "plans": {
-    "psu": {
-      "count": 4,
-      "screw": "M3x12 SHCS",
-      "screw_length_mm": 12.0,
-      "insert": "RX-M3Sx4",
-      "insert_length_mm": 4.0,
-      "ear_thickness_range_mm": [
-        5.7,
-        7.7
-      ],
-      "receiving_range_mm": [
-        4.3,
-        6.3
-      ],
-      "pilot_depth_mm": 7.3,
-      "minimum_tip_air_mm": 1.0,
-      "minimum_blind_backing_mm": 4.200000000000003,
-      "boss_radius_mm": 5.0,
-      "pilot_radius_mm": 2.0,
-      "parent": "enclosure-back-top",
-      "load_retention_qualified": false,
-      "stations": [
-        {
-          "native_hole_index": 0,
-          "position_world_mm": [
-            -96.0,
-            351.50001220703126,
-            296.9
-          ],
-          "insert_face_world_mm": [
-            -96.0,
-            351.50001220703126,
-            296.9
-          ],
-          "axis_world": [
-            1.0,
-            0.0,
-            0.0
-          ],
-          "threaded": true,
-          "stock_root_world_x_mm": -98.52,
-          "standoff_mm": 2.5
-        },
-        {
-          "native_hole_index": 1,
-          "position_world_mm": [
-            -96.0,
-            449.50001220703126,
-            296.9
-          ],
-          "insert_face_world_mm": [
-            -96.0,
-            449.50001220703126,
-            296.9
-          ],
-          "axis_world": [
-            1.0,
-            0.0,
-            0.0
-          ],
-          "threaded": true,
-          "stock_root_world_x_mm": -98.52,
-          "standoff_mm": 2.5
-        },
-        {
-          "native_hole_index": 2,
-          "position_world_mm": [
-            -96.0,
-            351.50001220703126,
-            263.9
-          ],
-          "insert_face_world_mm": [
-            -96.0,
-            351.50001220703126,
-            263.9
-          ],
-          "axis_world": [
-            1.0,
-            0.0,
-            0.0
-          ],
-          "threaded": true,
-          "stock_root_world_x_mm": -98.52,
-          "standoff_mm": 2.5
-        },
-        {
-          "native_hole_index": 3,
-          "position_world_mm": [
-            -96.0,
-            449.50001220703126,
-            263.9
-          ],
-          "insert_face_world_mm": [
-            -96.0,
-            449.50001220703126,
-            263.9
-          ],
-          "axis_world": [
-            1.0,
-            0.0,
-            0.0
-          ],
-          "threaded": true,
-          "stock_root_world_x_mm": -98.52,
-          "standoff_mm": 2.5
-        }
-      ]
-    },
-    "relay-1": {
-      "count": 2,
-      "active_hole_indices": [
-        0,
-        3
-      ],
-      "screw": "M3x10 SHCS",
-      "screw_length_mm": 10.0,
-      "insert": "RX-M3x5.7",
-      "insert_length_mm": 5.7,
-      "pcb_thickness_mm": 1.5,
-      "receiving_range_mm": [
-        6.35,
-        6.35
-      ],
-      "pilot_depth_mm": 7.35,
-      "minimum_tip_air_mm": 1.0,
-      "minimum_blind_backing_mm": 3.510000000000005,
-      "boss_radius_mm": 5.0,
-      "pilot_radius_mm": 2.0,
-      "bearing_tip_height_mm": 2.15,
-      "bearing_tip_radius_mm": 2.85,
-      "screw_clearance_radius_mm": 1.7,
-      "bearing_tip_basis": "The short bearing tip clears the reference pin envelope and the PSU. Its passage is unthreaded; the full 3 mm insert wall begins behind the pins. Actual pin fit, load and retention are unqualified.",
-      "parent": "enclosure-back-top",
-      "load_retention_qualified": false,
-      "stations": [
-        {
-          "native_hole_index": 0,
-          "position_world_mm": [
-            -94.49,
-            364.99999999999994,
-            309.4
-          ],
-          "insert_face_world_mm": [
-            -96.64,
-            364.99999999999994,
-            309.4
-          ],
-          "axis_world": [
-            1.0,
-            0.0,
-            0.0
-          ],
-          "threaded": true,
-          "stock_root_world_x_mm": -98.52,
-          "standoff_mm": 4.010000000000005
-        },
-        {
-          "native_hole_index": 1,
-          "position_world_mm": [
-            -94.49,
-            364.99999999999994,
-            322.4
-          ],
-          "insert_face_world_mm": [
-            -96.64,
-            364.99999999999994,
-            322.4
-          ],
-          "axis_world": [
-            1.0,
-            0.0,
-            0.0
-          ],
-          "threaded": false,
-          "stock_root_world_x_mm": -98.52,
-          "standoff_mm": 4.010000000000005
-        },
-        {
-          "native_hole_index": 2,
-          "position_world_mm": [
-            -94.49,
-            430.99999999999994,
-            309.4
-          ],
-          "insert_face_world_mm": [
-            -96.64,
-            430.99999999999994,
-            309.4
-          ],
-          "axis_world": [
-            1.0,
-            0.0,
-            0.0
-          ],
-          "threaded": false,
-          "stock_root_world_x_mm": -98.52,
-          "standoff_mm": 4.010000000000005
-        },
-        {
-          "native_hole_index": 3,
-          "position_world_mm": [
-            -94.49,
-            430.99999999999994,
-            322.4
-          ],
-          "insert_face_world_mm": [
-            -96.64,
-            430.99999999999994,
-            322.4
-          ],
-          "axis_world": [
-            1.0,
-            0.0,
-            0.0
-          ],
-          "threaded": true,
-          "stock_root_world_x_mm": -98.52,
-          "standoff_mm": 4.010000000000005
-        }
-      ]
-    },
-    "relay-2": {
-      "count": 2,
-      "active_hole_indices": [
-        0,
-        3
-      ],
-      "screw": "M3x10 SHCS",
-      "screw_length_mm": 10.0,
-      "insert": "RX-M3x5.7",
-      "insert_length_mm": 5.7,
-      "pcb_thickness_mm": 1.5,
-      "receiving_range_mm": [
-        6.35,
-        6.35
-      ],
-      "pilot_depth_mm": 7.35,
-      "minimum_tip_air_mm": 1.0,
-      "minimum_blind_backing_mm": 3.510000000000005,
-      "boss_radius_mm": 5.0,
-      "pilot_radius_mm": 2.0,
-      "bearing_tip_height_mm": 2.15,
-      "bearing_tip_radius_mm": 2.85,
-      "screw_clearance_radius_mm": 1.7,
-      "bearing_tip_basis": "The short bearing tip clears the reference pin envelope and the PSU. Its passage is unthreaded; the full 3 mm insert wall begins behind the pins. Actual pin fit, load and retention are unqualified.",
-      "parent": "enclosure-back-top",
-      "load_retention_qualified": false,
-      "stations": [
-        {
-          "native_hole_index": 0,
-          "position_world_mm": [
-            -94.49,
-            365.0,
-            329.0
-          ],
-          "insert_face_world_mm": [
-            -96.64,
-            365.0,
-            329.0
-          ],
-          "axis_world": [
-            1.0,
-            0.0,
-            0.0
-          ],
-          "threaded": true,
-          "stock_root_world_x_mm": -98.52,
-          "standoff_mm": 4.010000000000005
-        },
-        {
-          "native_hole_index": 1,
-          "position_world_mm": [
-            -94.49,
-            365.0,
-            342.0
-          ],
-          "insert_face_world_mm": [
-            -96.64,
-            365.0,
-            342.0
-          ],
-          "axis_world": [
-            1.0,
-            0.0,
-            0.0
-          ],
-          "threaded": false,
-          "stock_root_world_x_mm": -98.52,
-          "standoff_mm": 4.010000000000005
-        },
-        {
-          "native_hole_index": 2,
-          "position_world_mm": [
-            -94.49,
-            431.0,
-            329.0
-          ],
-          "insert_face_world_mm": [
-            -96.64,
-            431.0,
-            329.0
-          ],
-          "axis_world": [
-            1.0,
-            0.0,
-            0.0
-          ],
-          "threaded": false,
-          "stock_root_world_x_mm": -98.52,
-          "standoff_mm": 4.010000000000005
-        },
-        {
-          "native_hole_index": 3,
-          "position_world_mm": [
-            -94.49,
-            431.0,
-            342.0
-          ],
-          "insert_face_world_mm": [
-            -96.64,
-            431.0,
-            342.0
-          ],
-          "axis_world": [
-            1.0,
-            0.0,
-            0.0
-          ],
-          "threaded": true,
-          "stock_root_world_x_mm": -98.52,
-          "standoff_mm": 4.010000000000005
-        }
-      ]
-    }
-  },
   "component_signatures": {
     "psu": {
       "valid": true,
@@ -1846,152 +1510,6 @@
       ]
     }
   },
-  "finite_fastener_stacks": [
-    {
-      "equipment": "psu",
-      "native_hole_index": 0,
-      "screw": "M3x12 SHCS",
-      "insert": "RX-M3Sx4",
-      "receiving_range_mm": [
-        4.3,
-        6.3
-      ],
-      "insert_length_mm": 4.0,
-      "minimum_tip_air_mm": 1.0,
-      "blind_backing_mm": 4.200000000000003,
-      "complete3mm_insert_wall_missing_mm3": 0.0,
-      "complete3mm_blind_floor_missing_mm3": 0.0,
-      "nominal_head_diameter_mm": 5.5,
-      "nominal_head_height_mm": 3.0,
-      "short_bearing_tip_mm": 0.0
-    },
-    {
-      "equipment": "psu",
-      "native_hole_index": 1,
-      "screw": "M3x12 SHCS",
-      "insert": "RX-M3Sx4",
-      "receiving_range_mm": [
-        4.3,
-        6.3
-      ],
-      "insert_length_mm": 4.0,
-      "minimum_tip_air_mm": 1.0,
-      "blind_backing_mm": 4.200000000000003,
-      "complete3mm_insert_wall_missing_mm3": 0.0,
-      "complete3mm_blind_floor_missing_mm3": 0.0,
-      "nominal_head_diameter_mm": 5.5,
-      "nominal_head_height_mm": 3.0,
-      "short_bearing_tip_mm": 0.0
-    },
-    {
-      "equipment": "psu",
-      "native_hole_index": 2,
-      "screw": "M3x12 SHCS",
-      "insert": "RX-M3Sx4",
-      "receiving_range_mm": [
-        4.3,
-        6.3
-      ],
-      "insert_length_mm": 4.0,
-      "minimum_tip_air_mm": 1.0,
-      "blind_backing_mm": 4.200000000000003,
-      "complete3mm_insert_wall_missing_mm3": 0.0,
-      "complete3mm_blind_floor_missing_mm3": 0.0,
-      "nominal_head_diameter_mm": 5.5,
-      "nominal_head_height_mm": 3.0,
-      "short_bearing_tip_mm": 0.0
-    },
-    {
-      "equipment": "psu",
-      "native_hole_index": 3,
-      "screw": "M3x12 SHCS",
-      "insert": "RX-M3Sx4",
-      "receiving_range_mm": [
-        4.3,
-        6.3
-      ],
-      "insert_length_mm": 4.0,
-      "minimum_tip_air_mm": 1.0,
-      "blind_backing_mm": 4.200000000000003,
-      "complete3mm_insert_wall_missing_mm3": 0.0,
-      "complete3mm_blind_floor_missing_mm3": 0.0,
-      "nominal_head_diameter_mm": 5.5,
-      "nominal_head_height_mm": 3.0,
-      "short_bearing_tip_mm": 0.0
-    },
-    {
-      "equipment": "relay-1",
-      "native_hole_index": 0,
-      "screw": "M3x10 SHCS",
-      "insert": "RX-M3x5.7",
-      "receiving_range_mm": [
-        6.35,
-        6.35
-      ],
-      "insert_length_mm": 5.7,
-      "minimum_tip_air_mm": 1.0,
-      "blind_backing_mm": 3.510000000000005,
-      "complete3mm_insert_wall_missing_mm3": 0.0,
-      "complete3mm_blind_floor_missing_mm3": 0.0,
-      "nominal_head_diameter_mm": 5.5,
-      "nominal_head_height_mm": 3.0,
-      "short_bearing_tip_mm": 2.15
-    },
-    {
-      "equipment": "relay-1",
-      "native_hole_index": 3,
-      "screw": "M3x10 SHCS",
-      "insert": "RX-M3x5.7",
-      "receiving_range_mm": [
-        6.35,
-        6.35
-      ],
-      "insert_length_mm": 5.7,
-      "minimum_tip_air_mm": 1.0,
-      "blind_backing_mm": 3.510000000000005,
-      "complete3mm_insert_wall_missing_mm3": 0.0,
-      "complete3mm_blind_floor_missing_mm3": 0.0,
-      "nominal_head_diameter_mm": 5.5,
-      "nominal_head_height_mm": 3.0,
-      "short_bearing_tip_mm": 2.15
-    },
-    {
-      "equipment": "relay-2",
-      "native_hole_index": 0,
-      "screw": "M3x10 SHCS",
-      "insert": "RX-M3x5.7",
-      "receiving_range_mm": [
-        6.35,
-        6.35
-      ],
-      "insert_length_mm": 5.7,
-      "minimum_tip_air_mm": 1.0,
-      "blind_backing_mm": 3.510000000000005,
-      "complete3mm_insert_wall_missing_mm3": 0.0,
-      "complete3mm_blind_floor_missing_mm3": 0.0,
-      "nominal_head_diameter_mm": 5.5,
-      "nominal_head_height_mm": 3.0,
-      "short_bearing_tip_mm": 2.15
-    },
-    {
-      "equipment": "relay-2",
-      "native_hole_index": 3,
-      "screw": "M3x10 SHCS",
-      "insert": "RX-M3x5.7",
-      "receiving_range_mm": [
-        6.35,
-        6.35
-      ],
-      "insert_length_mm": 5.7,
-      "minimum_tip_air_mm": 1.0,
-      "blind_backing_mm": 3.510000000000005,
-      "complete3mm_insert_wall_missing_mm3": 0.0,
-      "complete3mm_blind_floor_missing_mm3": 0.0,
-      "nominal_head_diameter_mm": 5.5,
-      "nominal_head_height_mm": 3.0,
-      "short_bearing_tip_mm": 2.15
-    }
-  ],
   "equipment_and_host_contacts": [
     {
       "subject": "psu-host-0",
@@ -2402,7 +1920,489 @@
     "The relay bearing tip is a short functional support interface with an unthreaded screw passage. The full 3 mm insert wall starts behind the pin envelope. No physical pin clearance, tool/hand access, printed load capacity, heat-set retention or lifetime result is implied.",
     "Screw-head dimensions are nominal DIN912 envelopes. Actual fastener and purchased-board fit remain unqualified."
   ],
-  "actual_back_top_binding": {
+  "contact_fixture_plans": {
+    "psu": {
+      "count": 4,
+      "screw": "M3x12 SHCS",
+      "screw_length_mm": 12.0,
+      "insert": "RX-M3Sx4",
+      "insert_length_mm": 4.0,
+      "ear_thickness_range_mm": [
+        5.7,
+        7.7
+      ],
+      "receiving_range_mm": [
+        4.3,
+        6.3
+      ],
+      "pilot_depth_mm": 7.3,
+      "minimum_tip_air_mm": 1.0,
+      "minimum_blind_backing_mm": 4.200000000000003,
+      "boss_radius_mm": 5.0,
+      "pilot_radius_mm": 2.0,
+      "parent": "enclosure-back-top",
+      "load_retention_qualified": false,
+      "stations": [
+        {
+          "native_hole_index": 0,
+          "position_world_mm": [
+            -96.0,
+            351.50001220703126,
+            296.9
+          ],
+          "insert_face_world_mm": [
+            -96.0,
+            351.50001220703126,
+            296.9
+          ],
+          "axis_world": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "threaded": true,
+          "stock_root_world_x_mm": -98.52,
+          "standoff_mm": 2.5
+        },
+        {
+          "native_hole_index": 1,
+          "position_world_mm": [
+            -96.0,
+            449.50001220703126,
+            296.9
+          ],
+          "insert_face_world_mm": [
+            -96.0,
+            449.50001220703126,
+            296.9
+          ],
+          "axis_world": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "threaded": true,
+          "stock_root_world_x_mm": -98.52,
+          "standoff_mm": 2.5
+        },
+        {
+          "native_hole_index": 2,
+          "position_world_mm": [
+            -96.0,
+            351.50001220703126,
+            263.9
+          ],
+          "insert_face_world_mm": [
+            -96.0,
+            351.50001220703126,
+            263.9
+          ],
+          "axis_world": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "threaded": true,
+          "stock_root_world_x_mm": -98.52,
+          "standoff_mm": 2.5
+        },
+        {
+          "native_hole_index": 3,
+          "position_world_mm": [
+            -96.0,
+            449.50001220703126,
+            263.9
+          ],
+          "insert_face_world_mm": [
+            -96.0,
+            449.50001220703126,
+            263.9
+          ],
+          "axis_world": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "threaded": true,
+          "stock_root_world_x_mm": -98.52,
+          "standoff_mm": 2.5
+        }
+      ]
+    },
+    "relay-1": {
+      "count": 2,
+      "active_hole_indices": [
+        0,
+        3
+      ],
+      "screw": "M3x10 SHCS",
+      "screw_length_mm": 10.0,
+      "insert": "RX-M3x5.7",
+      "insert_length_mm": 5.7,
+      "pcb_thickness_mm": 1.5,
+      "receiving_range_mm": [
+        6.35,
+        6.35
+      ],
+      "pilot_depth_mm": 7.35,
+      "minimum_tip_air_mm": 1.0,
+      "minimum_blind_backing_mm": 3.510000000000005,
+      "boss_radius_mm": 5.0,
+      "pilot_radius_mm": 2.0,
+      "bearing_tip_height_mm": 2.15,
+      "bearing_tip_radius_mm": 2.85,
+      "screw_clearance_radius_mm": 1.7,
+      "bearing_tip_basis": "The short bearing tip clears the reference pin envelope and the PSU. Its passage is unthreaded; the full 3 mm insert wall begins behind the pins. Actual pin fit, load and retention are unqualified.",
+      "parent": "enclosure-back-top",
+      "load_retention_qualified": false,
+      "stations": [
+        {
+          "native_hole_index": 0,
+          "position_world_mm": [
+            -94.49,
+            364.99999999999994,
+            309.4
+          ],
+          "insert_face_world_mm": [
+            -96.64,
+            364.99999999999994,
+            309.4
+          ],
+          "axis_world": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "threaded": true,
+          "stock_root_world_x_mm": -98.52,
+          "standoff_mm": 4.010000000000005
+        },
+        {
+          "native_hole_index": 1,
+          "position_world_mm": [
+            -94.49,
+            364.99999999999994,
+            322.4
+          ],
+          "insert_face_world_mm": [
+            -96.64,
+            364.99999999999994,
+            322.4
+          ],
+          "axis_world": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "threaded": false,
+          "stock_root_world_x_mm": -98.52,
+          "standoff_mm": 4.010000000000005
+        },
+        {
+          "native_hole_index": 2,
+          "position_world_mm": [
+            -94.49,
+            430.99999999999994,
+            309.4
+          ],
+          "insert_face_world_mm": [
+            -96.64,
+            430.99999999999994,
+            309.4
+          ],
+          "axis_world": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "threaded": false,
+          "stock_root_world_x_mm": -98.52,
+          "standoff_mm": 4.010000000000005
+        },
+        {
+          "native_hole_index": 3,
+          "position_world_mm": [
+            -94.49,
+            430.99999999999994,
+            322.4
+          ],
+          "insert_face_world_mm": [
+            -96.64,
+            430.99999999999994,
+            322.4
+          ],
+          "axis_world": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "threaded": true,
+          "stock_root_world_x_mm": -98.52,
+          "standoff_mm": 4.010000000000005
+        }
+      ]
+    },
+    "relay-2": {
+      "count": 2,
+      "active_hole_indices": [
+        0,
+        3
+      ],
+      "screw": "M3x10 SHCS",
+      "screw_length_mm": 10.0,
+      "insert": "RX-M3x5.7",
+      "insert_length_mm": 5.7,
+      "pcb_thickness_mm": 1.5,
+      "receiving_range_mm": [
+        6.35,
+        6.35
+      ],
+      "pilot_depth_mm": 7.35,
+      "minimum_tip_air_mm": 1.0,
+      "minimum_blind_backing_mm": 3.510000000000005,
+      "boss_radius_mm": 5.0,
+      "pilot_radius_mm": 2.0,
+      "bearing_tip_height_mm": 2.15,
+      "bearing_tip_radius_mm": 2.85,
+      "screw_clearance_radius_mm": 1.7,
+      "bearing_tip_basis": "The short bearing tip clears the reference pin envelope and the PSU. Its passage is unthreaded; the full 3 mm insert wall begins behind the pins. Actual pin fit, load and retention are unqualified.",
+      "parent": "enclosure-back-top",
+      "load_retention_qualified": false,
+      "stations": [
+        {
+          "native_hole_index": 0,
+          "position_world_mm": [
+            -94.49,
+            365.0,
+            329.0
+          ],
+          "insert_face_world_mm": [
+            -96.64,
+            365.0,
+            329.0
+          ],
+          "axis_world": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "threaded": true,
+          "stock_root_world_x_mm": -98.52,
+          "standoff_mm": 4.010000000000005
+        },
+        {
+          "native_hole_index": 1,
+          "position_world_mm": [
+            -94.49,
+            365.0,
+            342.0
+          ],
+          "insert_face_world_mm": [
+            -96.64,
+            365.0,
+            342.0
+          ],
+          "axis_world": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "threaded": false,
+          "stock_root_world_x_mm": -98.52,
+          "standoff_mm": 4.010000000000005
+        },
+        {
+          "native_hole_index": 2,
+          "position_world_mm": [
+            -94.49,
+            431.0,
+            329.0
+          ],
+          "insert_face_world_mm": [
+            -96.64,
+            431.0,
+            329.0
+          ],
+          "axis_world": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "threaded": false,
+          "stock_root_world_x_mm": -98.52,
+          "standoff_mm": 4.010000000000005
+        },
+        {
+          "native_hole_index": 3,
+          "position_world_mm": [
+            -94.49,
+            431.0,
+            342.0
+          ],
+          "insert_face_world_mm": [
+            -96.64,
+            431.0,
+            342.0
+          ],
+          "axis_world": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "threaded": true,
+          "stock_root_world_x_mm": -98.52,
+          "standoff_mm": 4.010000000000005
+        }
+      ]
+    }
+  },
+  "contact_fixture_finite_fastener_stacks": [
+    {
+      "equipment": "psu",
+      "native_hole_index": 0,
+      "screw": "M3x12 SHCS",
+      "insert": "RX-M3Sx4",
+      "receiving_range_mm": [
+        4.3,
+        6.3
+      ],
+      "insert_length_mm": 4.0,
+      "minimum_tip_air_mm": 1.0,
+      "blind_backing_mm": 4.200000000000003,
+      "complete3mm_insert_wall_missing_mm3": 0.0,
+      "complete3mm_blind_floor_missing_mm3": 0.0,
+      "nominal_head_diameter_mm": 5.5,
+      "nominal_head_height_mm": 3.0,
+      "short_bearing_tip_mm": 0.0
+    },
+    {
+      "equipment": "psu",
+      "native_hole_index": 1,
+      "screw": "M3x12 SHCS",
+      "insert": "RX-M3Sx4",
+      "receiving_range_mm": [
+        4.3,
+        6.3
+      ],
+      "insert_length_mm": 4.0,
+      "minimum_tip_air_mm": 1.0,
+      "blind_backing_mm": 4.200000000000003,
+      "complete3mm_insert_wall_missing_mm3": 0.0,
+      "complete3mm_blind_floor_missing_mm3": 0.0,
+      "nominal_head_diameter_mm": 5.5,
+      "nominal_head_height_mm": 3.0,
+      "short_bearing_tip_mm": 0.0
+    },
+    {
+      "equipment": "psu",
+      "native_hole_index": 2,
+      "screw": "M3x12 SHCS",
+      "insert": "RX-M3Sx4",
+      "receiving_range_mm": [
+        4.3,
+        6.3
+      ],
+      "insert_length_mm": 4.0,
+      "minimum_tip_air_mm": 1.0,
+      "blind_backing_mm": 4.200000000000003,
+      "complete3mm_insert_wall_missing_mm3": 0.0,
+      "complete3mm_blind_floor_missing_mm3": 0.0,
+      "nominal_head_diameter_mm": 5.5,
+      "nominal_head_height_mm": 3.0,
+      "short_bearing_tip_mm": 0.0
+    },
+    {
+      "equipment": "psu",
+      "native_hole_index": 3,
+      "screw": "M3x12 SHCS",
+      "insert": "RX-M3Sx4",
+      "receiving_range_mm": [
+        4.3,
+        6.3
+      ],
+      "insert_length_mm": 4.0,
+      "minimum_tip_air_mm": 1.0,
+      "blind_backing_mm": 4.200000000000003,
+      "complete3mm_insert_wall_missing_mm3": 0.0,
+      "complete3mm_blind_floor_missing_mm3": 0.0,
+      "nominal_head_diameter_mm": 5.5,
+      "nominal_head_height_mm": 3.0,
+      "short_bearing_tip_mm": 0.0
+    },
+    {
+      "equipment": "relay-1",
+      "native_hole_index": 0,
+      "screw": "M3x10 SHCS",
+      "insert": "RX-M3x5.7",
+      "receiving_range_mm": [
+        6.35,
+        6.35
+      ],
+      "insert_length_mm": 5.7,
+      "minimum_tip_air_mm": 1.0,
+      "blind_backing_mm": 3.510000000000005,
+      "complete3mm_insert_wall_missing_mm3": 0.0,
+      "complete3mm_blind_floor_missing_mm3": 0.0,
+      "nominal_head_diameter_mm": 5.5,
+      "nominal_head_height_mm": 3.0,
+      "short_bearing_tip_mm": 2.15
+    },
+    {
+      "equipment": "relay-1",
+      "native_hole_index": 3,
+      "screw": "M3x10 SHCS",
+      "insert": "RX-M3x5.7",
+      "receiving_range_mm": [
+        6.35,
+        6.35
+      ],
+      "insert_length_mm": 5.7,
+      "minimum_tip_air_mm": 1.0,
+      "blind_backing_mm": 3.510000000000005,
+      "complete3mm_insert_wall_missing_mm3": 0.0,
+      "complete3mm_blind_floor_missing_mm3": 0.0,
+      "nominal_head_diameter_mm": 5.5,
+      "nominal_head_height_mm": 3.0,
+      "short_bearing_tip_mm": 2.15
+    },
+    {
+      "equipment": "relay-2",
+      "native_hole_index": 0,
+      "screw": "M3x10 SHCS",
+      "insert": "RX-M3x5.7",
+      "receiving_range_mm": [
+        6.35,
+        6.35
+      ],
+      "insert_length_mm": 5.7,
+      "minimum_tip_air_mm": 1.0,
+      "blind_backing_mm": 3.510000000000005,
+      "complete3mm_insert_wall_missing_mm3": 0.0,
+      "complete3mm_blind_floor_missing_mm3": 0.0,
+      "nominal_head_diameter_mm": 5.5,
+      "nominal_head_height_mm": 3.0,
+      "short_bearing_tip_mm": 2.15
+    },
+    {
+      "equipment": "relay-2",
+      "native_hole_index": 3,
+      "screw": "M3x10 SHCS",
+      "insert": "RX-M3x5.7",
+      "receiving_range_mm": [
+        6.35,
+        6.35
+      ],
+      "insert_length_mm": 5.7,
+      "minimum_tip_air_mm": 1.0,
+      "blind_backing_mm": 3.510000000000005,
+      "complete3mm_insert_wall_missing_mm3": 0.0,
+      "complete3mm_blind_floor_missing_mm3": 0.0,
+      "nominal_head_diameter_mm": 5.5,
+      "nominal_head_height_mm": 3.0,
+      "short_bearing_tip_mm": 2.15
+    }
+  ],
+  "retained_native_back_top_fixture": {
     "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
     "sha256": "1a74a3c9dab42fa7defb8de45d4b04c0c74436a93235a97660b131a5fce0c4a2",
     "stock": {
@@ -2625,6 +2625,608 @@
       "hardware/manifold-layout/above-core.json": "04887b550cc53b2516832689b40f81a56e83119e4cc04921ad9819ed343c726b"
     },
     "scope": "Imported back-top only versus the three unchanged equipment bodies and eight finite insert-wall/floor witnesses. Electrical results above retain their original source/cache binding; those pairs were not replayed.",
+    "passed_native_smooth_stock": true,
+    "passed": false,
+    "printed_backing_lint": {
+      "scope": "Finite pilot-floor axes read directly against printed/fluted STL triangles. Native STEP has smooth outer walls and cannot establish the printed flute deduction. Proposed5.35mm pilot is a plan reading against unchanged external surface, pending its actual new export.",
+      "stl": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+      "stl_sha256": "9512630b76216ba5e9b0b19602e921bcada1e30d94dce3963c7180507e4d9a20",
+      "rows": [
+        {
+          "equipment": "relay-1",
+          "native_hole_index": 0,
+          "local_printed_facets": 331,
+          "sampled_axes": 197,
+          "ray_hits": 197,
+          "minimum_actual_fluted_backing_mm": 2.3155472442284832,
+          "minimum_proposed_short_insert_backing_mm": 4.315547244228483,
+          "minimum_external_surface_world_x_mm": -106.30554724422848,
+          "native_smooth_backing_mm": 3.510000000000005,
+          "actual_pilot_depth_mm": 7.35,
+          "proposed_pilot_depth_mm": 5.35,
+          "source_face_world_x_mm": -96.64
+        },
+        {
+          "equipment": "relay-1",
+          "native_hole_index": 3,
+          "local_printed_facets": 542,
+          "sampled_axes": 197,
+          "ray_hits": 197,
+          "minimum_actual_fluted_backing_mm": 2.316279459556256,
+          "minimum_proposed_short_insert_backing_mm": 4.316279459556256,
+          "minimum_external_surface_world_x_mm": -106.30627945955625,
+          "native_smooth_backing_mm": 3.510000000000005,
+          "actual_pilot_depth_mm": 7.35,
+          "proposed_pilot_depth_mm": 5.35,
+          "source_face_world_x_mm": -96.64
+        },
+        {
+          "equipment": "relay-2",
+          "native_hole_index": 0,
+          "local_printed_facets": 501,
+          "sampled_axes": 197,
+          "ray_hits": 197,
+          "minimum_actual_fluted_backing_mm": 2.3155472442284832,
+          "minimum_proposed_short_insert_backing_mm": 4.315547244228483,
+          "minimum_external_surface_world_x_mm": -106.30554724422848,
+          "native_smooth_backing_mm": 3.510000000000005,
+          "actual_pilot_depth_mm": 7.35,
+          "proposed_pilot_depth_mm": 5.35,
+          "source_face_world_x_mm": -96.64
+        },
+        {
+          "equipment": "relay-2",
+          "native_hole_index": 3,
+          "local_printed_facets": 631,
+          "sampled_axes": 197,
+          "ray_hits": 197,
+          "minimum_actual_fluted_backing_mm": 2.316279459556256,
+          "minimum_proposed_short_insert_backing_mm": 4.316279459556256,
+          "minimum_external_surface_world_x_mm": -106.30627945955625,
+          "native_smooth_backing_mm": 3.510000000000005,
+          "actual_pilot_depth_mm": 7.35,
+          "proposed_pilot_depth_mm": 5.35,
+          "source_face_world_x_mm": -96.64
+        }
+      ]
+    },
+    "printed_scope_status": "The native wall probe is smooth. The actual printed flute floor is below3mm at the relay pilots. The selected M3x8/short-insert source correction awaits its next physical STL binding."
+  },
+  "selected_fastener_plans": {
+    "psu": {
+      "count": 4,
+      "screw": "M3x12 SHCS",
+      "screw_length_mm": 12.0,
+      "insert": "RX-M3Sx4",
+      "insert_length_mm": 4.0,
+      "ear_thickness_range_mm": [
+        5.7,
+        7.7
+      ],
+      "receiving_range_mm": [
+        4.3,
+        6.3
+      ],
+      "pilot_depth_mm": 7.3,
+      "minimum_tip_air_mm": 1.0,
+      "minimum_blind_backing_mm": 4.200000000000003,
+      "minimum_fluted_backing_mm": 3.0000000000000027,
+      "maximum_flute_depth_mm": 1.2,
+      "boss_radius_mm": 5.0,
+      "pilot_radius_mm": 2.0,
+      "parent": "enclosure-back-top",
+      "load_retention_qualified": false,
+      "stations": [
+        {
+          "native_hole_index": 0,
+          "position_world_mm": [
+            -96.0,
+            351.50001220703126,
+            296.9
+          ],
+          "insert_face_world_mm": [
+            -96.0,
+            351.50001220703126,
+            296.9
+          ],
+          "axis_world": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "threaded": true,
+          "stock_root_world_x_mm": -98.52,
+          "standoff_mm": 2.5
+        },
+        {
+          "native_hole_index": 1,
+          "position_world_mm": [
+            -96.0,
+            449.50001220703126,
+            296.9
+          ],
+          "insert_face_world_mm": [
+            -96.0,
+            449.50001220703126,
+            296.9
+          ],
+          "axis_world": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "threaded": true,
+          "stock_root_world_x_mm": -98.52,
+          "standoff_mm": 2.5
+        },
+        {
+          "native_hole_index": 2,
+          "position_world_mm": [
+            -96.0,
+            351.50001220703126,
+            263.9
+          ],
+          "insert_face_world_mm": [
+            -96.0,
+            351.50001220703126,
+            263.9
+          ],
+          "axis_world": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "threaded": true,
+          "stock_root_world_x_mm": -98.52,
+          "standoff_mm": 2.5
+        },
+        {
+          "native_hole_index": 3,
+          "position_world_mm": [
+            -96.0,
+            449.50001220703126,
+            263.9
+          ],
+          "insert_face_world_mm": [
+            -96.0,
+            449.50001220703126,
+            263.9
+          ],
+          "axis_world": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "threaded": true,
+          "stock_root_world_x_mm": -98.52,
+          "standoff_mm": 2.5
+        }
+      ]
+    },
+    "relay-1": {
+      "count": 2,
+      "active_hole_indices": [
+        0,
+        3
+      ],
+      "screw": "M3x8 SHCS",
+      "screw_length_mm": 8.0,
+      "insert": "RX-M3Sx4",
+      "insert_length_mm": 4.0,
+      "pcb_thickness_mm": 1.5,
+      "receiving_range_mm": [
+        4.35,
+        4.35
+      ],
+      "pilot_depth_mm": 5.35,
+      "minimum_tip_air_mm": 1.0,
+      "minimum_blind_backing_mm": 5.510000000000005,
+      "minimum_fluted_backing_mm": 4.310000000000005,
+      "maximum_flute_depth_mm": 1.2,
+      "boss_radius_mm": 5.0,
+      "pilot_radius_mm": 2.0,
+      "bearing_tip_height_mm": 2.15,
+      "bearing_tip_radius_mm": 2.85,
+      "screw_clearance_radius_mm": 1.7,
+      "bearing_tip_basis": "The short bearing tip clears the reference pin envelope and the PSU. Its passage is unthreaded; the full 3 mm insert wall begins behind the pins. Actual pin fit, load and retention are unqualified.",
+      "parent": "enclosure-back-top",
+      "load_retention_qualified": false,
+      "stations": [
+        {
+          "native_hole_index": 0,
+          "position_world_mm": [
+            -94.49,
+            364.99999999999994,
+            309.4
+          ],
+          "insert_face_world_mm": [
+            -96.64,
+            364.99999999999994,
+            309.4
+          ],
+          "axis_world": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "threaded": true,
+          "stock_root_world_x_mm": -98.52,
+          "standoff_mm": 4.010000000000005
+        },
+        {
+          "native_hole_index": 1,
+          "position_world_mm": [
+            -94.49,
+            364.99999999999994,
+            322.4
+          ],
+          "insert_face_world_mm": [
+            -96.64,
+            364.99999999999994,
+            322.4
+          ],
+          "axis_world": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "threaded": false,
+          "stock_root_world_x_mm": -98.52,
+          "standoff_mm": 4.010000000000005
+        },
+        {
+          "native_hole_index": 2,
+          "position_world_mm": [
+            -94.49,
+            430.99999999999994,
+            309.4
+          ],
+          "insert_face_world_mm": [
+            -96.64,
+            430.99999999999994,
+            309.4
+          ],
+          "axis_world": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "threaded": false,
+          "stock_root_world_x_mm": -98.52,
+          "standoff_mm": 4.010000000000005
+        },
+        {
+          "native_hole_index": 3,
+          "position_world_mm": [
+            -94.49,
+            430.99999999999994,
+            322.4
+          ],
+          "insert_face_world_mm": [
+            -96.64,
+            430.99999999999994,
+            322.4
+          ],
+          "axis_world": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "threaded": true,
+          "stock_root_world_x_mm": -98.52,
+          "standoff_mm": 4.010000000000005
+        }
+      ]
+    },
+    "relay-2": {
+      "count": 2,
+      "active_hole_indices": [
+        0,
+        3
+      ],
+      "screw": "M3x8 SHCS",
+      "screw_length_mm": 8.0,
+      "insert": "RX-M3Sx4",
+      "insert_length_mm": 4.0,
+      "pcb_thickness_mm": 1.5,
+      "receiving_range_mm": [
+        4.35,
+        4.35
+      ],
+      "pilot_depth_mm": 5.35,
+      "minimum_tip_air_mm": 1.0,
+      "minimum_blind_backing_mm": 5.510000000000005,
+      "minimum_fluted_backing_mm": 4.310000000000005,
+      "maximum_flute_depth_mm": 1.2,
+      "boss_radius_mm": 5.0,
+      "pilot_radius_mm": 2.0,
+      "bearing_tip_height_mm": 2.15,
+      "bearing_tip_radius_mm": 2.85,
+      "screw_clearance_radius_mm": 1.7,
+      "bearing_tip_basis": "The short bearing tip clears the reference pin envelope and the PSU. Its passage is unthreaded; the full 3 mm insert wall begins behind the pins. Actual pin fit, load and retention are unqualified.",
+      "parent": "enclosure-back-top",
+      "load_retention_qualified": false,
+      "stations": [
+        {
+          "native_hole_index": 0,
+          "position_world_mm": [
+            -94.49,
+            365.0,
+            329.0
+          ],
+          "insert_face_world_mm": [
+            -96.64,
+            365.0,
+            329.0
+          ],
+          "axis_world": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "threaded": true,
+          "stock_root_world_x_mm": -98.52,
+          "standoff_mm": 4.010000000000005
+        },
+        {
+          "native_hole_index": 1,
+          "position_world_mm": [
+            -94.49,
+            365.0,
+            342.0
+          ],
+          "insert_face_world_mm": [
+            -96.64,
+            365.0,
+            342.0
+          ],
+          "axis_world": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "threaded": false,
+          "stock_root_world_x_mm": -98.52,
+          "standoff_mm": 4.010000000000005
+        },
+        {
+          "native_hole_index": 2,
+          "position_world_mm": [
+            -94.49,
+            431.0,
+            329.0
+          ],
+          "insert_face_world_mm": [
+            -96.64,
+            431.0,
+            329.0
+          ],
+          "axis_world": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "threaded": false,
+          "stock_root_world_x_mm": -98.52,
+          "standoff_mm": 4.010000000000005
+        },
+        {
+          "native_hole_index": 3,
+          "position_world_mm": [
+            -94.49,
+            431.0,
+            342.0
+          ],
+          "insert_face_world_mm": [
+            -96.64,
+            431.0,
+            342.0
+          ],
+          "axis_world": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "threaded": true,
+          "stock_root_world_x_mm": -98.52,
+          "standoff_mm": 4.010000000000005
+        }
+      ]
+    }
+  },
+  "selected_finite_fastener_stacks": [
+    {
+      "equipment": "psu",
+      "native_hole_index": 0,
+      "screw": "M3x12 SHCS",
+      "insert": "RX-M3Sx4",
+      "receiving_range_mm": [
+        4.3,
+        6.3
+      ],
+      "insert_length_mm": 4.0,
+      "pilot_depth_mm": 7.3,
+      "minimum_tip_air_mm": 1.0,
+      "native_smooth_blind_backing_mm": 4.200000000000003,
+      "minimum_fluted_backing_mm": 3.0000000000000027
+    },
+    {
+      "equipment": "psu",
+      "native_hole_index": 1,
+      "screw": "M3x12 SHCS",
+      "insert": "RX-M3Sx4",
+      "receiving_range_mm": [
+        4.3,
+        6.3
+      ],
+      "insert_length_mm": 4.0,
+      "pilot_depth_mm": 7.3,
+      "minimum_tip_air_mm": 1.0,
+      "native_smooth_blind_backing_mm": 4.200000000000003,
+      "minimum_fluted_backing_mm": 3.0000000000000027
+    },
+    {
+      "equipment": "psu",
+      "native_hole_index": 2,
+      "screw": "M3x12 SHCS",
+      "insert": "RX-M3Sx4",
+      "receiving_range_mm": [
+        4.3,
+        6.3
+      ],
+      "insert_length_mm": 4.0,
+      "pilot_depth_mm": 7.3,
+      "minimum_tip_air_mm": 1.0,
+      "native_smooth_blind_backing_mm": 4.200000000000003,
+      "minimum_fluted_backing_mm": 3.0000000000000027
+    },
+    {
+      "equipment": "psu",
+      "native_hole_index": 3,
+      "screw": "M3x12 SHCS",
+      "insert": "RX-M3Sx4",
+      "receiving_range_mm": [
+        4.3,
+        6.3
+      ],
+      "insert_length_mm": 4.0,
+      "pilot_depth_mm": 7.3,
+      "minimum_tip_air_mm": 1.0,
+      "native_smooth_blind_backing_mm": 4.200000000000003,
+      "minimum_fluted_backing_mm": 3.0000000000000027
+    },
+    {
+      "equipment": "relay-1",
+      "native_hole_index": 0,
+      "screw": "M3x8 SHCS",
+      "insert": "RX-M3Sx4",
+      "receiving_range_mm": [
+        4.35,
+        4.35
+      ],
+      "insert_length_mm": 4.0,
+      "pilot_depth_mm": 5.35,
+      "minimum_tip_air_mm": 1.0,
+      "native_smooth_blind_backing_mm": 5.510000000000005,
+      "minimum_fluted_backing_mm": 4.310000000000005
+    },
+    {
+      "equipment": "relay-1",
+      "native_hole_index": 3,
+      "screw": "M3x8 SHCS",
+      "insert": "RX-M3Sx4",
+      "receiving_range_mm": [
+        4.35,
+        4.35
+      ],
+      "insert_length_mm": 4.0,
+      "pilot_depth_mm": 5.35,
+      "minimum_tip_air_mm": 1.0,
+      "native_smooth_blind_backing_mm": 5.510000000000005,
+      "minimum_fluted_backing_mm": 4.310000000000005
+    },
+    {
+      "equipment": "relay-2",
+      "native_hole_index": 0,
+      "screw": "M3x8 SHCS",
+      "insert": "RX-M3Sx4",
+      "receiving_range_mm": [
+        4.35,
+        4.35
+      ],
+      "insert_length_mm": 4.0,
+      "pilot_depth_mm": 5.35,
+      "minimum_tip_air_mm": 1.0,
+      "native_smooth_blind_backing_mm": 5.510000000000005,
+      "minimum_fluted_backing_mm": 4.310000000000005
+    },
+    {
+      "equipment": "relay-2",
+      "native_hole_index": 3,
+      "screw": "M3x8 SHCS",
+      "insert": "RX-M3Sx4",
+      "receiving_range_mm": [
+        4.35,
+        4.35
+      ],
+      "insert_length_mm": 4.0,
+      "pilot_depth_mm": 5.35,
+      "minimum_tip_air_mm": 1.0,
+      "native_smooth_blind_backing_mm": 5.510000000000005,
+      "minimum_fluted_backing_mm": 4.310000000000005
+    }
+  ],
+  "actual_back_top_binding": {
+    "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+    "sha256": "10a6008999aa3096a3c3b85a7222bc8d0ca39167f09b29966aa8d33e8b2c3bc9",
+    "printed_pilot_floor_reading": {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
+      "sha256": "7ff309c63a24df4933729891869bf90ab002426b36e20a6f5fefd618d4265941",
+      "scope": "197 finite axes per pilot, directly through printed STL triangles, plus the source bound on the full 1.2 mm flute depth. The smooth native STEP alone does not establish printed backing.",
+      "rows": [
+        {
+          "equipment": "relay-1",
+          "native_hole_index": 0,
+          "pilot_floor_world_x_mm": -101.99,
+          "matching_printed_floor_facets": 250,
+          "sampled_axes": 197,
+          "ray_hits": 197,
+          "minimum_sampled_printed_backing_mm": 4.315547244228483,
+          "conservative_backing_after_full_flute_depth_mm": 4.310000000000005,
+          "maximum_source_flute_depth_mm": 1.2,
+          "passed": true
+        },
+        {
+          "equipment": "relay-1",
+          "native_hole_index": 3,
+          "pilot_floor_world_x_mm": -101.99,
+          "matching_printed_floor_facets": 250,
+          "sampled_axes": 197,
+          "ray_hits": 197,
+          "minimum_sampled_printed_backing_mm": 4.316279459556256,
+          "conservative_backing_after_full_flute_depth_mm": 4.310000000000005,
+          "maximum_source_flute_depth_mm": 1.2,
+          "passed": true
+        },
+        {
+          "equipment": "relay-2",
+          "native_hole_index": 0,
+          "pilot_floor_world_x_mm": -101.99,
+          "matching_printed_floor_facets": 250,
+          "sampled_axes": 197,
+          "ray_hits": 197,
+          "minimum_sampled_printed_backing_mm": 4.315547244228483,
+          "conservative_backing_after_full_flute_depth_mm": 4.310000000000005,
+          "maximum_source_flute_depth_mm": 1.2,
+          "passed": true
+        },
+        {
+          "equipment": "relay-2",
+          "native_hole_index": 3,
+          "pilot_floor_world_x_mm": -101.99,
+          "matching_printed_floor_facets": 250,
+          "sampled_axes": 197,
+          "ray_hits": 197,
+          "minimum_sampled_printed_backing_mm": 4.316279459556256,
+          "conservative_backing_after_full_flute_depth_mm": 4.310000000000005,
+          "maximum_source_flute_depth_mm": 1.2,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    "unchanged_device_pad_head_stations": {
+      "psu": true,
+      "relay-1": true,
+      "relay-2": true
+    },
+    "scope": "Only four changed relay pilot floors read against the physical printed STL. The devices, pad outer profiles, bearing tips, head envelopes and stations retain the prior native/electrical fixture scope. No unchanged contact pair or core check is replayed. The independent fore-meter neck belongs to wall-meter-review.json.",
+    "source_sha256": {
+      "hardware/mechanical-qualification/enclosure-above-core/wall_mounts.py": "234c9480fb6ec24a1b5ae91d07aed3f769a5f6c87eb87b4c0c83737ff7137c08",
+      "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "817979c0e307c331ed0ef6c3f57b61450c569faff4dc6eecc02ea81f0d6d6530",
+      "hardware/manifold-layout/above-core.json": "04887b550cc53b2516832689b40f81a56e83119e4cc04921ad9819ed343c726b"
+    },
+    "reproduce": "HSM_NO_BUILD_LOCK=1 tmp/takeover/cadq \"relay printed pilot floors\" -- tools/cad-venv/bin/python hardware/mechanical-qualification/enclosure-above-core/wall_mounts.py --bind-printed-floors hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl",
     "passed": true
   }
 }
