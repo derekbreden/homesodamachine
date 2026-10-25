@@ -537,3 +537,46 @@ The reported name is `Flavor_reservoirs_-_PETG_0.24_mm`; archive hash, SUCCESS
 reply and new task ID identify this submission. Appearance, adhesion and water
 holding on this trial are unassessed. No scheduled monitor was created or
 reactivated. [Complete trial and source records](prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/README.md).
+
+
+### Result — both October five-wall reservoirs holding water (2026-10-25)
+
+Derek reported and authorized the matching other side:
+
+> That turned out well so far. It is holding water along with its older sibling that is still holding water. Please print me the other side (left or right) from what you just printed, same settings, mark1 bed is clear.
+
+The **255/260 °C left task 1371867808** is holding water and turned out well so
+far. Fresh status before the next Send reports **FINISH 833/833**, print error
+0 and no HMS. The older intentionally shortened **265/270 °C task 1365626370**
+is also still holding water. Its original one-hour report is retained; neither
+ongoing hold has a newly specified total duration or water head. Specific
+surface concerns, corner flatness and cap/gasket sealing are not separately
+assessed. [Left result](prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json) ·
+[Older follow-up](prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json).
+
+## Right reservoir and cap, identical 255/260 °C recipe (2026-10-25, Mark1 task 1372664582)
+
+Mark1 acknowledged one Studio Send with **SUCCESS** at **00:34:07 CDT /
+05:34:07 UTC**. The selected pair is **reservoir-right / reservoir-cap-right**,
+the other side from the completed left print. Complete settings are
+byte-identical: **flow 1.05, five Arachne walls at 10°, 30% Infill/Wall overlap,
+100% solid floor fill, 255/260 °C, 0.30/0.24 mm layers, 70 °C bed**, May motion
+and cooling, 21 mm³/s, no brim, zero added trim and ironing Off. The existing
+native right plate 2 from the same two-plate slice is packaged as plate 1;
+every source G-code byte and the complete project settings are preserved.
+
+**A1 PETG R (65%)** starts the right **0.8 mm Standard** nozzle before matching
+A2–A4 (100% each). **AMS filament backup On** is freshly verified; a specific
+backup priority sequence is unverified. Send options: Timelapse On, Bed
+Leveling On, Flow Dynamics Auto and Nozzle Offset Calibration Auto. The same
+running Mark2 task was re-read before Send, establishing at least **270 seconds**
+of startup spacing.
+
+Native estimate: **5 h 42 min 27 s / 444.21 g / 833 layers**, no plate warning,
+**70.519 mm** minimum full-bead bed-edge inset. Fresh startup reports **RUNNING,
+layer 0/833**, print error 0, no HMS and unit 0 tray 0 (A1), mounted right 0.8 mm.
+Changing live camera frames show the empty plate during loading; model contact
+and this right article's water holding are unassessed. Runtime timelapse is
+disabled during preparation; deposition activation is unobserved. No scheduled
+monitor was created or reactivated.
+[Launch, settings and native review](prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/README.md).

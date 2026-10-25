@@ -1,11 +1,17 @@
 # Printing the reservoir in PETG
 
-Mark1's active [temperature-only trial](prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/README.md),
-task **1371867808**, uses **255/260 °C** first/subsequent nozzle temperatures and
-retains every other executable command from the water-holding article. It
-starts on A1 with automatic refill among four matching loaded spools. Its
-appearance and sealing are unassessed. The project and table below retain the
-**265/270 °C water-holding baseline**.
+Mark1 task **1372664582** is printing the [right body and matching cap](prints/2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/README.md)
+with the exact settings of the completed [255/260 °C left article](prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/README.md),
+which Derek reports is **holding water** on October 25. He reports it turned
+out well so far and asks for the other side with the same settings. The older
+265/270 °C article is also still holding water. Use the selected recipe's
+[complete frozen settings](prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/settings.json)
+for repeats. The active right pair starts on **A1 (65%)** with automatic refill
+to matching A2–A4 (100% each at preflight). Its sealing is unassessed.
+
+The selected repeat recipe is the table below, with **255/260 °C** first/subsequent
+nozzle temperatures. The root project and print-settings.json retain the
+**265/270 °C reference**; the active print uses the frozen 255/260 °C settings.
 
 [reservoir.3mf](reservoir.3mf) uses the **five-wall May Water adaptation**
 through Mark1's right 0.8 mm Standard nozzle: **flow 1.05, 30% Infill/Wall overlap,
@@ -21,16 +27,16 @@ the current left and right body/cap pairs. [print-settings.json](print-settings.
 filament and process setting; [reservoir.print.json](reservoir.print.json)
 identifies the current geometry and project. The baseline water-hold acceptance source is
 `may-30-clear-06` in [water-hold-acceptance.json](water-hold-acceptance.json).
-Its water hold belongs to the historical May article. The most recent 59° article [still leaks at the bottom and has a new vertical-edge defect](prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/physical-result.json). The preceding walls-only article has [reported seam leakage](prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json); corner-flatness and adhesion are not separately reported for that article.
+Its water hold belongs to the historical May article. The 59° article [still leaks at the bottom and has a new vertical-edge defect](prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/physical-result.json). The preceding walls-only article has [reported seam leakage](prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json); corner-flatness and adhesion are not separately reported for that article.
 
-## Water-holding recipe baseline
+## Selected repeat recipe
 
 | Parameter | Value |
 | --- | --- |
 | Active nozzle | Mark1 right 0.8 mm, Standard flow |
 | Filament | Bambu PETG Translucent Clear, GFG01 |
 | Layer height, first / subsequent | 0.30 / 0.24 mm |
-| Nozzle temperature, first / subsequent | 265 / 270 °C |
+| Nozzle temperature, first / subsequent | 255 / 260 °C |
 | Textured PEI bed, first / subsequent | 70 / 70 °C |
 | Flow ratio / maximum volumetric speed | 1.05 / 21 mm³/s |
 | Requested outer / inner wall speeds | 200 / 300 mm/s |
@@ -107,11 +113,13 @@ surrounding air rather than residual moisture in the filament.
 
 ## Evidence and print records
 
-The current five-wall / solid-floor recipe has a **reported one-hour water
-hold** on the intentionally shortened task-1365626370 article. Retain its
-selected settings as the current baseline. Exact printed height, water head
-and cap/gasket assembly sealing are unspecified.
-[Physical report](prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json).
+Both October five-wall / solid-floor articles are reported **holding water**
+on October 25: the completed **255/260 °C** left reservoir and the intentionally
+shortened **265/270 °C** reservoir. The older article's initial report was a
+one-hour hold. Total ongoing durations, water head and cap/gasket assembly
+sealing are unspecified. Retain the completed left article's settings for the
+right pair. [Left physical result](prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json) ·
+[Older physical result](prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json).
 
 The preceding walls-only article has reported seam leakage. Its underside photograph shows
 droplets along a branching floor junction resembling the native perimeter

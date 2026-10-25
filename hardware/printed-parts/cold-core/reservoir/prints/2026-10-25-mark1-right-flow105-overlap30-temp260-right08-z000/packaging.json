@@ -1,0 +1,52 @@
+{
+  "source_archive": ".cache/reservoir-right-flow105-temp260-20261025/reservoir-right-cap-native.gcode.3mf",
+  "source_archive_sha256": "cf7acd79355adc0ba9c6ad1dcee0bdc0eb306dafefda5a599a20a954fd29eab9",
+  "print_only_archive": ".cache/reservoir-right-flow105-temp260-20261025/2026-10-25-reservoir-right-cap-flow105-overlap30-temp260-right08-z000-a1-mark1.gcode.3mf",
+  "print_only_archive_sha256": "7cf8556f9c1c670e0c8cc906ee28ccaa3ded1a3d2e6896b31deb90e80762d49c",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "32f99973a6fbd8d0abaf0b051097b071c710557ee5a1d0e636ae6bb33c4e5e73"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model",
+    "3D/Objects/object_3.model",
+    "3D/Objects/object_4.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ],
+  "native_two_plate_archive": ".cache/reservoir-flow105-overlap30-temp260/reservoir-review.3mf",
+  "native_two_plate_archive_sha256": "f31999ee96314422aed95c21ae021d9e309cdb60085db6aa0e476dd8f443e381",
+  "source_plate": 2,
+  "submitted_plate": 1,
+  "selected_parts": [
+    "reservoir-right",
+    "reservoir-cap-right"
+  ],
+  "omitted_left_plate_entries": [
+    "Metadata/plate_1.png",
+    "Metadata/plate_1_small.png",
+    "Metadata/plate_no_light_1.png",
+    "Metadata/top_1.png",
+    "Metadata/pick_1.png",
+    "Metadata/plate_1.json",
+    "Metadata/plate_1.gcode.md5",
+    "Metadata/plate_1.gcode"
+  ],
+  "renamed_plate_entries": {
+    "Metadata/plate_2.png": "Metadata/plate_1.png",
+    "Metadata/plate_2_small.png": "Metadata/plate_1_small.png",
+    "Metadata/plate_no_light_2.png": "Metadata/plate_no_light_1.png",
+    "Metadata/top_2.png": "Metadata/top_1.png",
+    "Metadata/pick_2.png": "Metadata/pick_1.png",
+    "Metadata/plate_2.json": "Metadata/plate_1.json",
+    "Metadata/plate_2.gcode.md5": "Metadata/plate_1.gcode.md5",
+    "Metadata/plate_2.gcode": "Metadata/plate_1.gcode"
+  },
+  "source_plate_gcode_byte_identical": true,
+  "source_project_settings_byte_identical": true
+}

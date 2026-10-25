@@ -2,7 +2,7 @@
   "schema": 1,
   "part": "flavor-reservoir",
   "reported_by": "Derek",
-  "recorded_date": "2026-10-23",
+  "recorded_date": "2026-10-25",
   "records": [
     {
       "id": "may-30-clear-06",
@@ -157,9 +157,54 @@
       "sparse_infill_density": "100%",
       "maximum_volumetric_speed_mm3_s": 21,
       "observation": "The printed reservoir portion held water for one hour at the time of the report. Derek intentionally stopped the print early.",
-      "scope": "Reported water hold of this partially printed article and recipe. Cut height and water head are unspecified; unprinted upper-section and cap/gasket sealing are unassessed."
+      "scope": "Reported water hold of this partially printed article and recipe. Cut height and water head are unspecified; unprinted upper-section and cap/gasket sealing are unassessed.",
+      "followup_reports": [
+        {
+          "reported_date": "2026-10-25",
+          "reported_by": "Derek",
+          "quote": "That turned out well so far. It is holding water along with its older sibling that is still holding water. Please print me the other side (left or right) from what you just printed, same settings, mark1 bed is clear.",
+          "observation": "The older sibling is still holding water, as reported by Derek.",
+          "ongoing_at_report": true,
+          "total_hold_duration_reported_hours": null,
+          "attribution": "Older sibling refers to the preceding task-1365626370 article in this chat."
+        }
+      ]
+    },
+    {
+      "id": "october-24-flow105-overlap30-temp260-left",
+      "status": "held_water",
+      "printer": "Mark1",
+      "job_id": "1371867808",
+      "side": "left",
+      "print_date": "2026-10-24",
+      "reported_date": "2026-10-25",
+      "reported_by": "Derek",
+      "quote": "That turned out well so far. It is holding water along with its older sibling that is still holding water. Please print me the other side (left or right) from what you just printed, same settings, mark1 bed is clear.",
+      "observation": "Derek reports that this print turned out well so far and is holding water alongside the older reservoir, which is still holding water.",
+      "ongoing_at_report": true,
+      "hold_duration": null,
+      "hold_duration_reported_hours": null,
+      "fill_height_mm": null,
+      "water_temperature_C": null,
+      "article_completion": "FINISH 833/833, freshly read before the next launch.",
+      "recipe": "prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/settings.json",
+      "physical_result": "prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json",
+      "archive_sha256": "c839e75d4f287d3364fed95499b31ade4bf92f12627b5677c6001e4797c01e0a",
+      "gcode_sha256": "a4388a218fa814c1db1c2cf3afcd59f073ac3e8ecda98cc7d50c1704c5aef078",
+      "nozzle_mm": 0.8,
+      "nozzle_flow_type": "Standard",
+      "nozzle_c_first_subsequent": [
+        255,
+        260
+      ],
+      "flow_ratio": 1.05,
+      "wall_loops": 5,
+      "infill_wall_overlap_percent": 30,
+      "layer_height_mm": 0.24,
+      "first_layer_height_mm": 0.3,
+      "scope": "Reported water hold of the identified completed left reservoir. Duration and water head are unspecified; cap/gasket assembly sealing and particular surface concerns are not separately assessed."
     }
   ],
-  "scope": "May and both September reservoir recipes have reported water-holding results. The current 1.05-flow, five-wall, 30%-overlap recipe has a reported one-hour water hold on an intentionally shortened article. Results remain scoped to the identified articles and reported conditions.",
+  "scope": "May and both September recipes retain their reported water holds. Both October flow-1.05, five-wall, 30%-overlap articles are reported holding water: the shortened 265/270 C article and the completed 255/260 C left reservoir. Results apply to the identified articles and reported conditions.",
   "clock_scope": "Printer file timestamps and timelapse filenames are preserved as reported; their different clock conventions are not normalized."
 }

@@ -1,0 +1,128 @@
+{
+  "baseline_task_id": "1371867808",
+  "baseline_side": "left",
+  "selected_side": "right",
+  "native_application": "BambuStudio-02.08.02.61",
+  "source_archive_sha256": "f31999ee96314422aed95c21ae021d9e309cdb60085db6aa0e476dd8f443e381",
+  "source_plate": 2,
+  "submitted_plate": 1,
+  "native_slicing_return_code": 0,
+  "settings_identical_to_completed_left_print": true,
+  "baseline_settings_file_sha256": "0e241f0882603af4873f0cf73a8196d43a9d540617646787fc5ec2093df12c6f",
+  "settings_file_sha256": "0e241f0882603af4873f0cf73a8196d43a9d540617646787fc5ec2093df12c6f",
+  "source_plate_gcode_sha256": "32f99973a6fbd8d0abaf0b051097b071c710557ee5a1d0e636ae6bb33c4e5e73",
+  "packaged_gcode_sha256": "32f99973a6fbd8d0abaf0b051097b071c710557ee5a1d0e636ae6bb33c4e5e73",
+  "selected_plate": {
+    "feature_type_times": {
+      "Bottom surface": 267.191650390625,
+      "Bridge": 10.309184074401855,
+      "Custom": 298.391357421875,
+      "Flush": 15.0,
+      "Inner wall": 8853.5341796875,
+      "Internal solid infill": 780.9876708984375,
+      "Outer wall": 6772.013671875,
+      "Overhang wall": 28.575138092041016,
+      "Sparse infill": 1075.725830078125,
+      "Support": 50.475337982177734,
+      "Support interface": 3.3479180335998535,
+      "Top surface": 181.93101501464844,
+      "Travel": 2219.286865234375,
+      "Undefined": 2217.2890625
+    },
+    "filament_change_times": 0,
+    "filaments": [
+      {
+        "filament_id": "",
+        "id": 1,
+        "main_used_g": 444.21124267578125,
+        "total_used_g": 444.21124267578125
+      }
+    ],
+    "generate_support_material_time": 575,
+    "id": 2,
+    "infill_time": 194,
+    "layer_filament_change": 0,
+    "main_predication": 20221.521484375,
+    "make_perimeters_time": 1995,
+    "obj_cached_cnt": 0,
+    "objects": [
+      {
+        "bbox": {
+          "depth": 140.5,
+          "height": 199.89999389648438,
+          "width": 76.96180725097656,
+          "x": 578.5191040039062,
+          "y": 89.75,
+          "z": -2.4218138605647255e-10
+        },
+        "id": 13,
+        "name": "reservoir-right",
+        "triangle_count": 9208
+      },
+      {
+        "bbox": {
+          "depth": 140.5,
+          "height": 11.0,
+          "width": 76.96180725097656,
+          "x": 491.51910400390625,
+          "y": 89.75,
+          "z": 0.0
+        },
+        "id": 17,
+        "name": "reservoir-cap-right",
+        "triangle_count": 16270
+      }
+    ],
+    "sliced_time": 5788,
+    "sliced_time_with_cache": 2722,
+    "total_predication": 20547.916015625,
+    "triangle_count": 25478,
+    "warning_message": ""
+  },
+  "layer_count": 833,
+  "trim_commands": [
+    "G29.1 Z0 ; clear z-trim value first",
+    "G29.1 Z-0.02"
+  ],
+  "placement": {
+    "right_nozzle_usable_bed_bounds_mm": [
+      [
+        25.0,
+        0.0
+      ],
+      [
+        330.0,
+        320.0
+      ]
+    ],
+    "model_support_brim_xy_bounds_mm": [
+      [
+        95.525003,
+        89.750003
+      ],
+      [
+        259.480997,
+        230.249997
+      ]
+    ],
+    "edge_margins_left_front_right_back_mm": [
+      70.525003,
+      89.750003,
+      70.519003,
+      89.75000299999999
+    ],
+    "minimum_full_bead_edge_margin_mm": 70.519003,
+    "minimum_body_cap_full_bead_box_gap_mm": 10.042005999999986,
+    "deposited_move_count": 841914,
+    "support_move_count": 5281,
+    "scope": "Native deposited model, support and brim beads, including arc extrema and half-width. Vendor startup purge/calibration paths are excluded. Placement does not establish adhesion."
+  },
+  "ordinary_wall_fan_pwm_values": [
+    35.7,
+    38.25,
+    40.8,
+    43.35,
+    229.5
+  ],
+  "scope": "Right body and matching cap, using the same native-sliced project and complete settings as the water-holding left print. Packaging changes plate selection and container numbering only; no toolpath edits or reslicing."
+}
