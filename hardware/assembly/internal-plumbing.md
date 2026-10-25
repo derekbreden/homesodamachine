@@ -270,7 +270,16 @@ in its two cold-core lid collar bearings, with its lead root down and label
 east. Its outlet collet meets the rear return fitting's collet; the short
 tube occupies both sockets with no exposed span.
 
-Thread the continuous tube through the holder. Square-cut one 63 mm piece
+The drawn continuous tube is 461.382 mm: 380.715 mm from the metal elbow
+mouth to the plain guide, plus 80.667 mm above it. This includes the nominal
+18.5 mm PP010822E adapter standoff and the meter's estimated 15.7 mm receiving
+depth. Prepare one physical tube using the actual receiving marks at those
+two fittings; the guide adds no length allowance or cut.
+
+Tighten all four pump screws before threading this inlet: the installed tube
+crosses one vertical pump-driver approach. Disconnect and remove the inlet
+for that screw's service. Thread the continuous tube through the holder.
+Square-cut one 63 mm piece
 of the owned CARGEN ID6.35/OD25.4 mm foam and slide it over the tube and holder
 before connecting the meter. Keep the square ends; no axial slit or shaped
 trimming is specified. The nominal foam centreline is 62.867 mm. The foam

@@ -58,6 +58,9 @@ ID6.35/OD25.4 foam slides over the tube and holder before the meter connects.
 The guide introduces no joint or extra tube insertion. Local foam compression
 is a layout estimate informed by the recorded physical fit; its occupied
 CAD shape is not a cutting pattern or physical clearance result.
+Tighten all four pump screws before threading the inlet and connecting the
+meter. The installed tube crosses one pump-driver approach; service of that
+screw requires disconnecting and removing the inlet.
 
 ## Final access
 

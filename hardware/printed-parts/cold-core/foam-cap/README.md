@@ -39,7 +39,9 @@ and west, retains 3 mm of outer stock and has a 2.8 × 2 mm closed tie window
 below its seat. One
 six-inch tie retains each collar without crossing a release collet or the
 downward lead root. Tighten the pump screws before dropping the meter into
-its bearings. The meter, continuous inlet tube, accepted R14 holder and
+its bearings and before threading the continuous inlet, which crosses one
+pump-driver approach. Disconnect and remove that inlet for screw service.
+The meter, continuous inlet tube, accepted R14 holder and
 single 63 mm square-ended foam piece belong to the standalone core assembly.
 Thread the tube through the holder and slide the foam over both before
 connecting the meter. The holder has a 2 mm wall and 3 mm legs; local foam
