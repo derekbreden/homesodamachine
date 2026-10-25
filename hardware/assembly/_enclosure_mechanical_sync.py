@@ -1,266 +1,63 @@
-"""Doc-sync driver for hardware/assembly/enclosure-mechanical.md.
-
-Run: tools/cad-venv/bin/python hardware/assembly/_enclosure_mechanical_sync.py
-"""
+"""Read current enclosure assembly figures from the canonical appliance facts."""
 
 import sys
 from pathlib import Path
 
-_here = Path(__file__).resolve().parent
-sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware") / "scripts"))
-sys.path.insert(
-    0,
-    str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
-)
+HERE = Path(__file__).resolve().parent
+ROOT = next(p for p in HERE.parents if (p / 'hardware' / 'scripts').is_dir())
+HW = ROOT / 'hardware'
+for path in (ROOT / 'tools', HW / 'scripts', HW / 'manifold-layout',
+             HW / 'printed-parts' / 'cadlib', HW / 'printed-parts' / 'cold-core',
+             HW / 'printed-parts' / 'enclosure' / 'enclosure'):
+    sys.path.insert(0, str(path))
 
-_hw = next(p for p in _here.parents if p.name == "hardware")
-sys.path.insert(0, str(_hw / "manifold-layout"))
-sys.path.insert(0, str(_hw / "printed-parts" / "enclosure" / "y-wall-of-back-top"))
-sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
-sys.path.insert(0, str(_hw / "printed-parts" / "cold-core"))
-sys.path.insert(0, str(_hw / "reference" / "jg-bulkhead-union"))
-sys.path.insert(0, str(_hw / "reference" / "iec-c14-inlet"))
-
-from _y_wall_dimensions import (  # noqa: E402
-    c14_rim_inset,
-)
-from _cold_core_interface import (  # noqa: E402
-    cap_conduits,
-    cap_fluid_conduits,
-    corner_round_radius,
-    outer_shell_x_length,
-    outer_shell_y_length,
-)
-import enclosure_assembly as _ea  # noqa: E402  — the placed pack, and the box sized around it
-import _facts  # noqa: E402  — the machine as the last build wrote it down
-import _scorecard as _card  # noqa: E402  — the fastening table, one row per placed body
-import _clearing  # noqa: E402  — the solid distance the card's own clearance rows are read at
-import enclosure as _enc  # noqa: E402  — on the path once `enclosure_assembly` is imported
-import display_gasket as _dgasket  # noqa: E402  — likewise
-import iec_c14_inlet as _c14  # noqa: E402
-import jg_bulkhead_union as _jg  # noqa: E402
-import meanwell_irm90 as _psu  # noqa: E402  — on the path once `enclosure_assembly` is imported
-from docgen import substitute_md  # noqa: E402
-
-# What the row's hardware takes on the wall face, off each fitting's own panel footprint.
-PORT_NUT_D, _ = _jg.panel_footprint()                        # JG bulkhead nut, across the face
-PORT_C14_FLANGE_W, _ = _c14.panel_footprint()                # and the C14's bezel
-# Clear wall between two adjacent nuts — the margin `_port_chain` prices a row of them at, and
-# the same figure `enclosure_assembly.PORT_PITCH` stands its two columns on.
-PORT_NUT_GAP = _ea.PORT_NUT_GAP
-
-
-def _port_chain(n):
-    """The panel width n adjacent bulkhead nuts occupy, margins included."""
-    return n * PORT_NUT_D + (n - 1) * PORT_NUT_GAP
-
-
-def _span(facts, *names):
-    """How wide a group of placed bodies stands across the machine."""
-    boxes = [facts.bb(n) for n in names]
-    return max(b.xmax for b in boxes) - min(b.xmin for b in boxes)
+import _facts
+import enclosure as enc
+import enclosure_assembly as assembly
+from _cold_core_interface import outer_shell_y_length
+from docgen import substitute_md
 
 
 def main():
-    # The stations as PLACED, each read off the body's own mouth — the same station
-    # `enclosure_assembly.y_wall_ports` strikes its bore on, so prose and hole cannot land on
-    # two different columns — and the walls those stations are struck in, at `enclosure`'s own
-    # stated size.
-    _F = _facts.read()
-    _box = _F.box
-    _water = _F.mouths["bulkhead-water"]
-    _row_z = _F.mouths["bulkhead-carb"][2]
-    _order = ("bulkhead-flavor-b", "bulkhead-flavor-a", "bulkhead-carb")
-    _xs = [_F.mouths[n][0] for n in _order]
-    # The wall's own COLUMNS, not a row of three: the four unions stand on two of them, and the
-    # doc reads out the pitch between the pair that share a storey.
-    _cols = sorted({round(x, 6) for x in _xs})
-    _pitches = {round(b - a, 6) for a, b in zip(_cols, _cols[1:])}
-    if len(_pitches) != 1:
-        raise ValueError(
-            f"the umbilical unions stand on columns {_cols}, {len(_pitches)} pitches apart: "
-            f"{sorted(_pitches)}. The doc quotes a single figure, so either "
-            f"`enclosure_assembly.PANEL_X` goes back on one pitch or this reads out every gap.")
-    # The two bores in the table's "Wall opening" column, taken from the functions that
-    # STRIKE them and not recomputed beside them. These are the calls `enclosure_assembly.pack`
-    # fills `back_ports` with, and `enclosure._port_cuts` bores that list — so the table
-    # cannot quote a hole the wall does not have. One figure covers the four unions,
-    # which holds only while the four are on one diameter.
-    _union_bores = _F.wall_ports["union"]
-    _hole_ds = {round(p[3], 6) for p in _union_bores}
-    if len(_hole_ds) != 1:
-        raise ValueError(
-            f"the +Y wall's four unions are bored at {sorted(_hole_ds)}. The table gives "
-            f"the umbilical row and the tap-water union one opening apiece off one figure, "
-            f"so either they go back on one diameter or the rows read out separately.")
-    _co2_hole_d = _F.wall_ports["co2"][3]
-
-    _ox0, _ox1, _oy0, _oy1, _oz0, _oz1 = _box["outer"]
-    # WHAT EACH OF THE CORE'S GRIPS STANDS CLEAR OF, off the placed bodies rather than typed
-    # beside them. A front block's headroom is the refrigerant loop's: both drawn legs cross the
-    # lane in front of the core and land on its front face, and the block stops under the lower
-    # of them. An aft bracket's is the flavour-A union's barrel, which is the body its lane is
-    # bounded by on the −X flank; the two overlap in Y and in Z, so the distance between them is
-    # the X gap and nothing else, and the assertion is what holds that true.
-    _legs = [_F.bb(n) for n in ("tube-refrig-2", "tube-refrig-3")]
-    _core_stop_headroom = min(b.zmin for b in _legs) - (_box["inner"][4] + _enc.core_stop_rise)
-    _hold = _box["core_holds"][0] if _box.get("core_holds") else None
-    _union = _F.bb("bulkhead-flavor-a")
-    _crown = _hold[3] if _hold else 0.0
-    if _hold and not (_union.ymin < _box["inner"][3] and
-                      _union.zmin < _crown + _enc.core_hold_rise and _union.zmax > _crown):
-        raise ValueError(
-            f"the flavour-A union no longer overlaps the aft bracket's band in Y and Z, so the "
-            f"gap between them is not the X difference this reads. Measure it as a solid "
-            f"distance, or name whatever the bracket is nearest now.")
-    _core_hold_clear = abs(_hold[1]) - abs(_union.xmin) if _hold else 0.0
-
-    _plate = _box["collet_plate"]
-
+    facts = _facts.read()
+    box = facts.box
+    outer = box['outer']
+    plate = box['collet_plate']
+    compressor, condenser = facts.bb('compressor'), facts.bb('condenser+fan')
+    bay_width = max(compressor.xmax, condenser.xmax) - min(compressor.xmin, condenser.xmin)
     variables = {
-        # The box `enclosure._dims` builds around the pack, and where it comes apart.
-        "BOX_SIZE": (f"{_ox1 - _ox0:.6g} × {_oy1 - _oy0:.6g} × {_oz1 - _oz0:.6g} mm"),
-        "WALL_T": f"{_enc.wall:.4g} mm",
-        # The FLOOR's own section, and the one on this box that does NOT grow inward: the
-        # stated height is struck to the slab's underside, so what the floor carries stands in
-        # the silhouette and the cavity keeps its floor plane where the pack stands on it.
-        "FLOOR_T": f"{_enc.floor_t:.4g} mm",
-        # The FRONT wall's own section. The complete flavour pack stands far enough aft that
-        # the pump cartridge shares its exterior plane; what noses into it takes a
-        # 45°-chamfered relief instead. `box-front` reads the pack against that relieved
-        # surface region by region.
-        "FRONT_WALL": f"{_enc.front_wall:.4g} mm",
-        # And front-top's own ±X section, the only wall on this box that is neither `wall` nor
-        # the front face. It grows INWARD off `interior_x` — the exterior is the stated
-        # silhouette and every other piece and seated body reads the interior plane — so this
-        # is a figure about ONE piece and not about the box.
-        "FRONT_TOP_FLANK": f"{_enc.front_top_flank_t:.4g} mm",
-        # And back-top's two, struck the same way and for the same reason: that piece is the
-        # only one of the four whose walls were still one `wall`, the two bottom pieces having
-        # carried `2 * wall` on three sides each all along (`_lip_underwall`). What the flank
-        # spends is the boss chain's room off `interior_x`; what the +Y wall of back-top spends is the
-        # standoff the pack already keeps off `rear_plane_y`.
-        "BACK_TOP_FLANK": f"{_enc.back_top_flank_t:.4g} mm",
-        "BACK_TOP_WALL": f"{_enc.back_top_wall_t:.4g} mm",
-        # And its ceiling, the slab that piece prints on, and the lane every station under it
-        # is struck on.
-        "BACK_TOP_CEILING_T": f"{_enc.back_top_ceiling_t:.4g} mm",
-        "CEILING_LANE": f"{_enc.appliance_height - _enc.floor_t - _enc.wall:.4g}",
-        "LIP_UNDERWALL": f"{2.0 * _enc.wall:.4g} mm",
-        "Y_SEAM": f"{_box["y_joint"]:.4g}",
-        # The corner stacks the halves pin and clamp at, as the enclosure strikes them.
-        **_enc.y_stack_figures(_box["inner"]),
-        "Z_SEAM_FRONT": f"{_box["splits"][0]:.4g}",
-        "Z_SEAM_BACK": f"{_box["splits"][1]:.4g}",
-        # HOW FAR PROUD EACH TOP STANDS before it is drawn home — that column's own rail
-        # travel, read off `_z_rail_runs` rather than typed, so the bench figure moves with
-        # the run whenever the run's own ends do. The two are mirrored: front-top stands
-        # this far ahead of the box and draws aft, back-top this far behind it and draws
-        # fore, so each is the bench room that column's own end of the box wants.
-        "RAIL_TRAVEL_FRONT": f"{_enc._z_rail_travel(
-            _box["inner"], _box["y_joint"], "front",
-            _box["collet_plate"] if _box["pump_bay"] else None,
-            _box["vent_chase"]):.4g} mm",
-        "RAIL_TRAVEL_BACK": f"{_enc._z_rail_travel(
-            _box["inner"], _box["y_joint"], "back",
-            _box["collet_plate"] if _box["pump_bay"] else None,
-            _box["vent_chase"]):.4g} mm",
-        # One pump tee in the tee wall behind each collet-plate hole.
-        "DOCK_TEES": f"{len(_plate['holes'])}",
-        "DOCK_LOCK_INSERTS": "0",
-        "SHELL_SHORT_INSERTS": f"{len(_box['east_bosses']) + len(_c14.panel_screws())}",
-        "POGO_FACE_RECESS": f"{_enc.pump_contact_face_recess:.4g} mm",
-        "POGO_EAR_HOST_DEPTH": f"{_enc._pogo.ear_back() + _enc.pump_contact_face_recess:.4g} mm",
-        "POGO_INSERT_HOST_DEPTH": f"{_enc._pogo.ear_back() + _enc.pogo_heatset_setback + _enc.pump_contact_face_recess:.4g} mm",
-        "POGO_INSERT_SETBACK": f"{_enc.pogo_heatset_setback:.4g} mm",
-        "POGO_THREAD_ENGAGEMENT": f"{min(_enc.pogo_heatset_len, _enc._pogo.EAR_FACE + _enc.pogo_screw_len - _enc._pogo.ear_back() - _enc.pogo_heatset_setback):.4g} mm",
-        "POGO_SCREW_TIP_AIR": f"{_enc._pogo.ear_back() + _enc.pogo_heatset_setback + _enc.pogo_heatset_len + _enc.pogo_heatset_relief - _enc._pogo.EAR_FACE - _enc.pogo_screw_len:.4g} mm",
-        # The STATED width — the bound itself and not a measurement of the box built to it, so
-        # the doc quotes what `enclosure` declares rather than what the pieces came out at.
-        "APPLIANCE_W": f"{_enc.appliance_width:.4g} mm",
-        # The compressor bay's own width, across the pair as it stands, beside the core's
-        # for comparison — `box-width` asks its side band of a body ON THE FLOOR where the
-        # seam's corner stacks stand. Both spans are carried so the doc can say which is
-        # wider by quoting them, rather than this comment naming a winner that goes stale.
-        "COMP_BAY_X": f"{_span(_F, 'compressor', 'condenser+fan'):.0f}",
-        "CORE_X": f"{_span(_F, 'foam-assembly'):.0f}",
-        "SIDE_BAND": f"{_enc.side_band_inset:.4g} mm",
-        # The PSU's own body, off the reference module the pack places it from. The
-        # brick is laid on its side so its SHORTEST axis is the one reaching into the
-        # lane, and the doc says which axis does what — so both are read off the same
-        # module `enclosure_assembly` seats the body with rather than copied beside it.
-        "PSU_DEPTH": f"{_psu.height:.4g} mm",
-        "PSU_LENGTH": f"{_psu.length:.4g} mm",
-        # How far inside the rear plane the inlet's rim face sits.
-        "C14_RIM_INSET": f"{c14_rim_inset():.4g} mm",
-        # Foam-shell outer bottom-cap footprint, then the lid's bores: every conduit standing
-        # on it, and the fluid ones among them — which are the whole of what the warm side
-        # reaches the core through. The other two carry a reed cable apiece.
-        "FOAM_SHELL_X": f"{outer_shell_x_length:.4g}",
-        "FOAM_SHELL_Y": f"{outer_shell_y_length:.4g}",
-        "CAP_CONDUITS": f"{len(cap_conduits)}",
-        "CAP_FLUID_LINES": f"{len(cap_fluid_conduits)}",
-        # The core's own grips: the corner round a front block is pocketed to, that bore, how far
-        # it stands off the slab, and how far an aft bracket's foot runs onto the cap.
-        "CORE_ROUND": f"{2.0 * corner_round_radius:.4g} mm",
-        "CORE_STOP_BORE": (
-            f"{2.0 * (_box['core_stops'][0][2] + _enc.core_stop_slip / 2.0):.4g} mm"
-            if _box.get("core_stops") else "no station"),
-        "CORE_STOP_RISE": f"{_enc.core_stop_rise:.4g} mm",
-        "CORE_STOP_HEADROOM": f"{_core_stop_headroom:.3g} mm",
-        "CORE_HOLD_REACH": f"{_enc.core_hold_reach:.4g} mm",
-        "CORE_HOLD_CLEAR": f"{_core_hold_clear:.3g} mm",
-        "REAR_SEAM_CLEAR": f"{_enc.rear_seam_clear:.4g} mm",
-        # The Y seam's telescoping overlap — the last stretch of the back assembly's ride.
-        "Y_OVERLAP": f"{_enc.lip_len:.3g} mm",
-        # The +Y wall's six stations, its hardware, and what a chain of it occupies.
-        "PORT_HOLE_D": f"{_union_bores[0][3]:.4g}",
-        "CO2_HOLE_D": f"{_co2_hole_d:.4g}",
-        "PORT_NUT_D": f"{PORT_NUT_D:.4g}",
-        "C14_FLANGE_W": f"{PORT_C14_FLANGE_W:.4g}",
-        "PORT_CHAIN_3": f"{_port_chain(3):.4g}",
-        "PORT_ROW_Z": f"{_row_z:.4g}",
-        "UMBILICAL_STATIONS": " / ".join(f"{x:+.4g}" for x in _xs),
-        "UMBILICAL_PITCH": f"{next(iter(_pitches)):.4g} mm",
-        "UMBILICAL_CARB_X": f"{_xs[-1]:+.4g}",
-        "WATER_BACK_X": f"{_water[0]:.4g}",
-        "WATER_BACK_Z": f"{_water[2]:.4g}",
-        "C14_BACK": f"x {_ea.C14_STATION[0]:.4g}, z {_ea.C14_STATION[1]:.4g}",
-        # The gas inlet's own station, read off the placed fitting's collet — the same station
-        # `enclosure_assembly.co2_wall_port` strikes its bore on, so prose and hole cannot land
-        # on two different columns. Its Z is the row's, which is what `PORT_ROW_Z` reads.
-        "CO2_BACK": (f"x {_F.wall_ports["co2"][1]:.4g}, "
-                     f"z {_F.wall_ports["co2"][2]:.4g}"),
-        # One boss per hole in every body's own pattern, carried through that body's own
-        # placement — so a body that moves takes its bosses with it and this is a reading of
-        # the +X wall rather than a count kept by hand.
-        "EAST_BOSSES": f"{len(_box['east_bosses'])}",
-        # How far under the grommet's own crown a floor post stops the washer, which is the
-        # squeeze the operator's hand does not set.
-        "GROMMET_SQUEEZE": f"{_ea.FLOOR_GROMMET_SQUEEZE:.4g}",
-        # Every placed body carries one fastening row, so the card's own table is the census.
-        "BODY_COUNT": f"{len(_card.mounts())}",
-        # What the display's cover plate laps the glass by, which is also the border's own
-        # width outside it — one figure states both halves of the border, so the doc cannot
-        # quote a lap the plate is not cut to.
-        "DISPLAY_INSET_LAP": f"{_enc.display_inset_lap:g} mm",
-        "DISPLAY_BORDER": f"{2.0 * _enc.display_inset_lap:g} mm",
-        # The soft ring between the plate's lap and the glass. Its thickness IS the step
-        # between the two seats, taken off the same two depths the facet is cut to, so the
-        # doc quotes the gap the ring fills rather than a figure typed beside it.
-        "DISPLAY_GASKET_T": f"{_dgasket.thickness:g} mm",
-        # The funnel's drain joint: the frame's hole the elbow's collet stands up, and the stub
-        # cut to reach from the elbow's tube stop up through the web to the top of the plug's land.
-        "FUNNEL_DRAIN_HOLE": f"{_ea._funnel_frame.tube_hole_diameter:g} mm",
-        "FUNNEL_STUB_LEN": f"{_ea._stub.LENGTH:.4g} mm",
+        'BOX_SIZE': f'{outer[1] - outer[0]:.6g} × {outer[3] - outer[2]:.6g} × {outer[5] - outer[4]:.6g} mm',
+        'WALL_T': f'{enc.wall:.4g} mm',
+        'FLOOR_T': f'{enc.floor_t:.4g} mm',
+        'FRONT_WALL': f'{enc.front_wall:.4g} mm',
+        'FRONT_TOP_FLANK': f'{enc.front_top_flank_t:.4g} mm',
+        'BACK_TOP_FLANK': f'{enc.back_top_flank_t:.4g} mm',
+        'CEILING_LANE': f'{enc.appliance_height - enc.floor_t - enc.wall:.4g}',
+        'LIP_UNDERWALL': f'{2 * enc.wall:.4g} mm',
+        'Y_SEAM': f'{box["y_joint"]:.4g}',
+        **enc.y_stack_figures(box['inner']),
+        'Z_SEAM_FRONT': f'{box["splits"][0]:.4g}',
+        'RAIL_TRAVEL_FRONT': f'{enc._z_rail_travel(box["inner"], box["y_joint"], "front", plate if box["pump_bay"] else None, box["vent_chase"]):.4g} mm',
+        'DOCK_TEES': f'{len(plate["holes"])}',
+        'POGO_FACE_RECESS': f'{enc.pump_contact_face_recess:.4g} mm',
+        'POGO_EAR_HOST_DEPTH': f'{enc._pogo.ear_back() + enc.pump_contact_face_recess:.4g} mm',
+        'POGO_INSERT_HOST_DEPTH': f'{enc._pogo.ear_back() + enc.pogo_heatset_setback + enc.pump_contact_face_recess:.4g} mm',
+        'POGO_INSERT_SETBACK': f'{enc.pogo_heatset_setback:.4g} mm',
+        'POGO_THREAD_ENGAGEMENT': f'{min(enc.pogo_heatset_len, enc._pogo.EAR_FACE + enc.pogo_screw_len - enc._pogo.ear_back() - enc.pogo_heatset_setback):.4g} mm',
+        'POGO_SCREW_TIP_AIR': f'{enc._pogo.ear_back() + enc.pogo_heatset_setback + enc.pogo_heatset_len + enc.pogo_heatset_relief - enc._pogo.EAR_FACE - enc.pogo_screw_len:.4g} mm',
+        'APPLIANCE_W': f'{enc.appliance_width:.4g} mm',
+        'COMP_BAY_X': f'{bay_width:.0f}',
+        # The quarter-yawed floor footprint, beneath the proud cap uprights.
+        'CORE_X': f'{outer_shell_y_length:.0f}',
+        'SIDE_BAND': f'{enc.side_band_inset:.4g} mm',
+        'CORE_HOLD_REACH': f'{enc.core_hold_reach:.4g} mm',
+        'REAR_SEAM_CLEAR': f'{enc.rear_seam_clear:.4g} mm',
+        'Y_OVERLAP': f'{enc.lip_len:.3g} mm',
+        'GROMMET_SQUEEZE': f'{assembly.FLOOR_GROMMET_SQUEEZE:.4g}',
     }
-
-    substitute_md(
-        _here / "enclosure-mechanical.md",
-        variables=variables,
-    )
-    print("-> enclosure-mechanical.md")
+    substitute_md(HERE / 'enclosure-mechanical.md', variables=variables)
+    print('-> enclosure-mechanical.md')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

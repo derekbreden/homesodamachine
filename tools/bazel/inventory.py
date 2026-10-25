@@ -137,6 +137,28 @@ POINTERS = _ROOT / "hardware" / "cad-artifacts.json"
 #: smooth writer and the fluting pass; declaring it for both groups those generators into one
 #: action, so the fluting pass never seeds itself from the fetched prior bundle.
 IMPLICIT_SOLIDS = {
+    "hardware/reference/soda-rise-insulation/soda_rise_insulation.py": (
+        "hardware/reference/soda-rise-insulation/soda-rise-insulation.step",
+        "hardware/reference/soda-rise-insulation/soda-rise-insulation.step.mesh",
+    ),
+    "hardware/reference/neofit-achv44-check/neofit_achv44_check.py": (
+        "hardware/reference/neofit-achv44-check/neofit-achv44-check.step",
+        "hardware/reference/neofit-achv44-check/neofit-achv44-check.step.mesh",
+    ),
+    "hardware/printed-parts/enclosure/rear-identification/rear_identification.py": tuple(
+        f"hardware/printed-parts/enclosure/rear-identification/rear-label-{station}.{suffix}"
+        for station in ("water", "co2", "drain", "carb", "flavor-a", "flavor-b")
+        for suffix in ("step", "stl", "step.mesh")
+    ),
+    "hardware/printed-parts/asse-straight-cuffs/asse_straight_cuffs.py": tuple(
+        f"hardware/printed-parts/asse-straight-cuffs/asse-{side}-cuff.{suffix}"
+        for side in ("inlet", "outlet")
+        for suffix in ("step", "stl", "step.mesh")
+    ),
+    "hardware/printed-parts/enclosure/electronics-access-panel/electronics_access_panel.py": tuple(
+        f"hardware/printed-parts/enclosure/electronics-access-panel/electronics-access-panel.{suffix}"
+        for suffix in ("step", "stl", "step.mesh")
+    ),
     "hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py": (
         "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.stl",
         "hardware/printed-parts/asse-drain-adapter/asse-drain-adapter.step.mesh",

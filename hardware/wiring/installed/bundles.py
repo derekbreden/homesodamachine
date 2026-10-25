@@ -77,8 +77,60 @@ def trimmed(segments,front,back):
 
 
 def centreline(b,attachments):
-    points=[attachments.station(s) for s in b['stations']]
+    if 'passage' in b:
+        cached=getattr(attachments,'_shared_cap_cables',{})
+        if b['passage'] in cached:
+            return cached[b['passage']]
+        import _above_core_mounts
+        import _internal_routes
+        corridor=_above_core_mounts.cable_guide_points(b['passage'])
+        source_points=list(reversed(corridor['points_mm']))
+        native=_internal_routes.route_wire(source_points,corridor['bend_radius_mm'])
+        # Read the actual native bore's edges, including its own fitted radii.
+        # A different polyline fillet rule can drift outside this narrow bore.
+        remaining=list(native.Edges());segments=[];cursor=tuple(source_points[0])
+        while remaining:
+            i,edge,reverse=next((i,e,reverse) for i,e in enumerate(remaining)
+                                for reverse in (False,True)
+                                if math.dist(cursor,(e.endPoint() if reverse else e.startPoint()).toTuple())<1e-6)
+            remaining.pop(i)
+            end=(edge.startPoint() if reverse else edge.endPoint()).toTuple()
+            row={'kind':'line','start_mm':cursor,'end_mm':end,'length_mm':edge.Length()}
+            if edge.geomType()=='CIRCLE':
+                radius=edge.radius()
+                row.update(kind='arc',midpoint_mm=edge.positionAt(.5).toTuple(),
+                           radius_mm=radius,angle_radians=edge.Length()/radius)
+            segments.append(row);cursor=end
+        first=tuple(source_points[0])
+        top=(first[0],first[1],265. if b['passage']=='reed-cable-b' else 270.)
+        segments.insert(0,{'kind':'line','start_mm':top,'end_mm':first,
+                           'length_mm':math.dist(top,first)})
+        points=[top,*source_points]
+        cached[b['passage']]=(points,segments)
+        attachments._shared_cap_cables=cached
+        return points,segments
+    else:
+        points=[attachments.station(s) for s in b['stations']]
     return points,rounded_segments(points,b['bend_radius_mm'],keep_collinear=True)
+
+
+def entry_stations(connection,b,attachments,first):
+    """Dress moved endpoint fanouts to the complete shared cable route."""
+    p=attachments.terminals[connection.start].point
+    fan=b.get('fanouts',{}).get(connection.id,{})
+    if fan.get('entry_stations'):
+        return [attachments.station(s) for s in fan['entry_stations']]
+    if b.get('entry_family')=='cap-cable':
+        if b['passage']=='reed-cable-a':
+            z=300.+(int(connection.start[-1]) if connection.start[-1].isdigit() else 0)*1.8
+            return [(p[0],p[1],282.),(-49.,p[1],282.),(-49.,280.5,282.),
+                    (-49.,280.5,z),(-49.,first[1],z),(first[0],first[1],z)]
+        if b['passage']=='reed-cable-b':
+            return [(p[0],p[1],282.),(32.,p[1],282.),(32.,first[1],282.),
+                    (first[0],first[1],282.)]
+        return [(p[0],p[1],282.),(p[0],280.5,282.),(-49.,280.5,282.),
+                (-49.,first[1],282.),(first[0],first[1],282.)]
+    return [attachments.station(s) for s in b['fanouts'][connection.id].get('entry_stations',[])]
 
 
 def core_route(connection,attachments):
@@ -93,7 +145,7 @@ def core_route(connection,attachments):
         tail=add(last,mul(unit(sub(last,core[-1]['start_mm'])),exit_land))
         fan=b['fanouts'][connection.id]
         entry=[a.point,add(a.point,mul(a.outward,fan['end_lands_mm'][0])),
-               *[attachments.station(s) for s in fan.get('entry_stations',[])],head,first]
+               *entry_stations(connection,b,attachments,first),head,first]
         exit=[last,tail,*[attachments.station(s) for s in fan.get('exit_stations',[])],
               add(end.point,mul(end.outward,fan['end_lands_mm'][1])),end.point]
         fixed_stations=b.get('jacket',True)

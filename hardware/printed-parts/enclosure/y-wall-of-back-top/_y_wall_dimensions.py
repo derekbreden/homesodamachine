@@ -158,67 +158,13 @@ def panel_hole_diameters(ports):
 
 
 def main():
-    import _facts
-    import enclosure_assembly as _ea
-
-    facts = _facts.read()
-    bulkhead_panel_hole_diameter, co2_panel_hole_diameter = panel_hole_diameters(
-        facts.wall_ports)
-    keystone_face_clear, keystone_pocket_clear = facts.constants.KEYSTONE_CLEARANCES
-    keystone_aperture = _ea.keystone_cutout((0.0, 0.0))
-    # Read the printed pocket, not the purchased reference's illustrative receptacle.
-    # The slice is behind the lip/ease and before the back, so it measures only the body fit.
-    pocket_cut, (lip_y, back_y) = _ea._enc._keystone_pocket_cut(0.0, 0.0, 0.0)
-    pocket_section = pocket_cut.intersect(_ea._enc._ybox(
-        -100.0, 100.0, back_y + 0.1, lip_y - 0.1, -100.0, 100.0)).BoundingBox()
-    variables = {
-        "C14_RIM_INSET": f"{c14_rim_inset():.4g} mm",
-        "C14_RIM_PROUD": f"{_ea._c14.RIM_PROUD:g} mm",
-        "PANEL_HOLE_D": f"{bulkhead_panel_hole_diameter:.1f} mm",
-        "PANEL_HOLE_D_SHORT": f"{bulkhead_panel_hole_diameter:.4g}",
-        "CO2_HOLE_D": f"{co2_panel_hole_diameter:.4g}",
-        "CARB_COLOR": port_color_hex("carb"),
-        "WATER_COLOR": port_color_hex("water"),
-        "CO2_COLOR": port_color_hex("co2"),
-        "FLAVOR_COLOR": port_color_hex("flavor"),
-        "CARB_END": carb_union_end(_ea.PANEL_X),
-        "FLAVOR_B_END": dropped_union_end(_ea.PANEL_ON_GATE_LANE, _ea.PANEL_X),
-        "C14_POCKET": f"{_ea._enc.c14_pocket_w:g} × {_ea._enc.c14_pocket_h:g} mm",
-        "C14_FLANGE": f"{_ea._c14.FLANGE_W:g} × {_ea._c14.FLANGE_H:g} mm",
-        "C14_RIM": f"{_ea._c14.RIM_W:g} × {_ea._c14.RIM_H:g} mm",
-        "C14_OPENING": (
-            f"{_ea.c14_cutout()[3]:g} × {_ea.c14_cutout()[4]:g} mm "
-            f"R{_ea.c14_cutout()[5]:g}"),
-        "C14_SEAT": (
-            f"x {_ea.C14_STATION[0]:g}, z {_ea.C14_STATION[1]:.2f}, "
-            f"seat y {_ea.c14_seat_y():.2f}"),
-        "C14_SCREWS": f"x {_ea.c14_stations()[0][0]:g} and {_ea.c14_stations()[1][0]:g}",
-        "C14_POCKET_SLIP": f"{_ea._enc.c14_pocket_slip:g} mm",
-        "C14_POCKET_WALL": f"{_ea._enc.c14_pocket_wall:g} mm",
-        "C14_POCKET_DEPTH": f"{_ea._enc.c14_pocket_depth:g} mm",
-        "C14_BLOCK": (f"{2.0 * _ea.c14_mount_half()[0]:.4g} × "
-                      f"{2.0 * _ea.c14_mount_half()[1] + _ea._enc.fits.supported_surface:.4g} mm"),
-        "C14_RUN": (f"{_ea._enc.rear_plane_y - (_ea.c14_seat_y() - _ea._enc.c14_pocket_depth):.4g} mm"),
-        "KEYSTONE_W": f"{keystone_aperture[3]:.4g}",
-        "KEYSTONE_H": f"{keystone_aperture[4]:.4g}",
-        "KEYSTONE_LIP": f"{_ea._keystone.LIP_D:.4g} mm",
-        "KEYSTONE_POCKET": f"{pocket_section.xlen:.4g} × {pocket_section.zlen:.4g} mm",
-        "SUPPORTED_CLEARANCE": f"{_ea._enc.fits.supported_surface:g} mm",
-        "KEYSTONE_RECESS": f"{_ea._keystone.DEPTH:.4g} mm",
-        "KEYSTONE_EASE": f"{_ea._keystone.EASE_DEG:.4g}°",
-        "KEYSTONE_BOSS": f"{_ea._keystone.DEPTH - _ea._enc.back_top_wall_t:.2f} mm",
-        "KEYSTONE_WALL_T": f"{_ea._enc.back_top_wall_t:.4g} mm",
-        "KEYSTONE_DEPTH": f"{_ea._keystone.BODY_DEPTH:.4g} mm",
-        "KEYSTONE_FLAVOR_FACE_CLEAR": f"{keystone_face_clear[0]:.2f} mm",
-        "KEYSTONE_SODA_FACE_CLEAR": f"{keystone_face_clear[1]:.2f} mm",
-        "KEYSTONE_FLAVOR_POCKET_CLEAR": f"{keystone_pocket_clear[0]:.2f} mm",
-        "KEYSTONE_SODA_POCKET_CLEAR": f"{keystone_pocket_clear[1]:.2f} mm",
-    }
-
-    substitute_md(
-        _here / "README.md",
-        variables=variables,
-    )
+    import above_core
+    rows = above_core.specification()['rear_wall']['grid']['rows_z_mm']
+    substitute_md(_here / "README.md", variables={
+        "GRID_TOP_Z": f"{rows[0]:.3f}",
+        "GRID_MIDDLE_Z": f"{rows[1]:.3f}",
+        "GRID_BOTTOM_Z": f"{rows[2]:.3f}",
+    })
     print("-> README.md")
 
 

@@ -2,7 +2,9 @@
 
 Manufacturer drawing: https://assets.freshwatersystems.com/image/upload/qnbgcy8djx3nj2weqz9v.pdf
 The M15 barrel and 8.1 mm panel span determine the printed panel interface.
-The un-dimensioned flange rim is represented by a conservative 22 mm envelope.
+The barrel continues through the separate 6.5 mm nut. The un-dimensioned
+flange rim uses a conservative 22 mm envelope. The external flange-to-mouth
+split is nominal and unmeasured; the drawing's B1/B2 are tube stop depths.
 """
 import math
 import sys
@@ -26,9 +28,11 @@ FLANGE_AF = 17.0
 NUT_AF = 18.0
 FLANGE_D = 22.0
 NUT_D = NUT_AF / math.cos(math.radians(30))
-near_ring_face_y = 14.7
+TUBE_STOP_DEPTH = 14.7
+NOMINAL_OUTBOARD_REACH = 14.7
+near_ring_face_y = NOMINAL_OUTBOARD_REACH
 far_ring_face_y = near_ring_face_y - OVERALL
-far_body_face_y = -PANEL_THREAD
+far_body_face_y = -(PANEL_THREAD + NUT_LEN)
 PROUD_LENGTH = near_ring_face_y
 
 def panel_hole_d(clearance):

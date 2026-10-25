@@ -114,9 +114,7 @@ def source_digest():
 # A pair under the floor is already in `checks[clearance-floor].detail`, so it belongs to the
 # reader rather than to this list. NAMES ARE THE PLACED BODIES'; a run is not one of them,
 # and a pair naming a run raises here rather than going quietly missing from the artifact.
-DECLARED_GAPS = (
-    ("coil-v-a", "coil-v-b", 32.0),
-)
+DECLARED_GAPS = ()
 
 # The runs a document names the neighbours of, each with the horizon its own sentence reaches.
 # This keeps, per run, what it passes and how close — nearest first — so a driver can say which
@@ -140,7 +138,69 @@ CARD_PORT_BODIES = (
     "foam-assembly",
     "vk-solenoid",
     "water-split",
+    "gas-regulator",
+    "gas-check",
+    "asse-inlet-tpu",
+    "asse-outlet-tpu",
 )
+
+
+def _route_facts(whole):
+    """Physical native subroutes and their logical circuit groups.
+
+    Length is the sum of the actual tube centrelines, including authored socket
+    insertions. Fittings remain
+    explicit members and never acquire a fabricated connecting tube. Missing
+    physical subroutes leave the group's length unknown and its status visible.
+    """
+    import above_core_parts
+
+    native_specs = getattr(whole, 'native_route_specs', {})
+    native = {}
+    for rid, spec in native_specs.items():
+        segments = spec['segments']
+        native[rid] = {
+            'id': rid, 'frm': spec.get('frm', spec.get('from', spec.get('owners', [''])[0])),
+            'to': spec.get('to', spec.get('owners', [''])[-1]),
+            'length': float(above_core_parts.route_wire(spec).Length()),
+            'corners': sum(s['kind'] != 'line' for s in segments),
+            'bend': float(spec.get('minimum_radius_mm') or 0.),
+            'diam': float(spec['od_mm']), 'made': 'drawn',
+            'segments': _plain(segments), 'spool': spec.get('spool'),
+        }
+    runs = [{"id": r.id, "frm": r.frm, "to": r.to,
+             "length": float(r.length), "corners": len(r.bends),
+             "bend": float(r.bend), "diam": float(r.diam),
+             'made': 'drawn', 'status': 'complete'}
+            for r in getattr(whole, 'runs', ()) if r.id not in native_specs]
+    groups = getattr(whole, 'native_connections', {})
+    def placed_names(node):
+        if getattr(node, 'obj', None) is not None:
+            yield node.name
+        for child in getattr(node, 'children', ()):
+            yield from placed_names(child)
+    physical_names=set(placed_names(whole))
+    physical_names.update(name.rsplit('/',1)[-1] for name in tuple(physical_names))
+    grouped_members = {rid for group in groups.values() for rid in group['native_routes']}
+    for rid, group in groups.items():
+        rows = [native[n] for n in group['native_routes'] if n in native]
+        missing = [n for n in group['native_routes'] if n not in native]
+        missing_fittings = [n for n in group.get('fittings', ())
+                            if n not in physical_names]
+        complete = not missing and not missing_fittings
+        runs.append({'id': rid, 'frm': group['from'], 'to': group['to'],
+                     'length': sum(r['length'] for r in rows) if complete else None,
+                     'corners': sum(r['corners'] for r in rows),
+                     'bend': min((r['bend'] for r in rows if r['bend'] > 0.), default=0.),
+                     'diam': max((r['diam'] for r in rows), default=0.),
+                     'made': group['made'], 'native_routes': list(group['native_routes']),
+                     'fittings': list(group.get('fittings', ())),
+                     'status': 'complete' if complete else 'incomplete',
+                     'missing_native_routes': missing, 'missing_fittings': missing_fittings})
+    # A physical run outside the logical adapter keeps its own identity.
+    runs.extend({**row, 'status': 'complete'} for rid,row in native.items()
+                if rid not in grouped_members)
+    return runs, list(native.values())
 
 
 def _plain(v):
@@ -217,10 +277,7 @@ def gather(whole=None, module=None):
     # AT THE PRECISION THE DRAWING HAD. The card rounds a length for reading, and a document
     # that rounds again off that reads a different last digit than the machine drew — so the
     # runs are carried here unrounded and the card's rows stay what they are, a reading.
-    runs = [{"id": r.id, "frm": r.frm, "to": r.to,
-             "length": float(r.length), "corners": len(r.bends),
-             "bend": float(r.bend), "diam": float(r.diam)}
-            for r in getattr(whole, "runs", ())]
+    runs, native_runs = _route_facts(whole)
 
     # Every placed body's OPTIMAL box, taken by the same call a reader would have taken. The
     # card carries boxes too, but a figure read off one and a figure read off the other are
@@ -240,11 +297,15 @@ def gather(whole=None, module=None):
         bb = _boxes.boxed(wp.val() if hasattr(wp, "val") else wp)
         piece_boxes[name] = {"box": [bb.xmin, bb.ymin, bb.zmin, bb.xmax, bb.ymax, bb.zmax]}
 
-    union = ea.y_wall_ports(a.bulkhead_carry, a.panel_carries)
-    co2 = ea.co2_wall_port(a.co2_inlet_carry)
+    import above_core
+    wet_ports = above_core.specification()['rear_wall']['wet_ports']
+    wall_bores = {r['name']: ('round', r['center_x_mm'], r['center_z_mm'],
+                            r['bore_diameter_mm']) for r in wet_ports}
+    union = [wall_bores[n] for n in ('bulkhead-water', 'bulkhead-carb',
+                                   'bulkhead-flavor-a', 'bulkhead-flavor-b')]
+    co2 = wall_bores['co2-inlet']
     drain_pos = a.frames["bulkhead-drain"].ports["inboard"][0]
-    drain = ("round", drain_pos[0], drain_pos[2],
-             ea._drain_bulkhead.panel_hole_d(ea.PORT_HOLE_SLIP))
+    drain = wall_bores['bulkhead-drain']
 
     gaps = {}
     for x, y, horizon in DECLARED_GAPS:
@@ -284,14 +345,13 @@ def gather(whole=None, module=None):
         ports[_body] = {n: {"pos": _plain(_pos), "axis": _plain(_ax), "diam": float(_d)}
                         for n, (_pos, _ax, _d) in _fr.ports.items()}
 
-    # The mouth a bulkhead presents, carried to where the machine stands it — the same station
-    # `y_wall_ports` strikes its bore on, so a document and a hole cannot land on two columns.
-    import jg_bulkhead_union as _jg
+    # Bulkhead mouths use their native placed port frames. The rear-wall bores
+    # above use the selected production wet-port stations.
     mouths = {"bulkhead-drain": _plain(drain_pos)}
-    if hasattr(a, "bulkhead_carry"):
-        mouths["bulkhead-water"] = _plain(a.bulkhead_carry(_jg.port(-1.0))[0])
-    for _n, _c in getattr(a, "panel_carries", {}).items():
-        mouths[_n] = _plain(_c(_jg.port(-1.0))[0])
+    for _n in ('bulkhead-water', 'bulkhead-carb', 'bulkhead-flavor-a', 'bulkhead-flavor-b'):
+        table = a.frames[_n].ports
+        alias = 'inboard' if 'inboard' in table else 'tube-in'
+        mouths[_n] = _plain(table[alias][0])
 
     # What a named run passes, nearest first — the exact solid distance, boxes as a prefilter.
     # A run's own two end bodies are out of its population: the tube seats into their collets by
@@ -325,7 +385,7 @@ def gather(whole=None, module=None):
     # but reaching them means loading cadquery and the forty modules behind it — which is the
     # whole of what `_electronics_bay_sync` pays to learn how many poles a Wago row has.
     constants = {
-        "C14_STATION": _plain(ea.C14_STATION),
+        "C14_STATION": _plain([above_core.pose('c14-inlet')['translation_mm'][i] for i in (0,2)]),
         "DIGITEN_COLLET_FREE": _plain(ea.DIGITEN_COLLET_FREE),
         "FLOOR_GROMMET_SQUEEZE": _plain(ea.FLOOR_GROMMET_SQUEEZE),
         "KEYSTONE_CLEARANCES": _plain(whole.keystone_clearances),
@@ -378,6 +438,7 @@ def gather(whole=None, module=None):
         "card_ports": ports,
         "run_near": run_near,
         "runs": runs,
+        "native_runs": native_runs,
         "wall_ports": {"union": _plain(union), "co2": _plain(co2), "drain": _plain(drain)},
         "pieces": piece_boxes,
         "faces": faces,

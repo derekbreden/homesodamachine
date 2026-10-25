@@ -5,8 +5,8 @@ docgen markers. Third of the ledger totals scripts, beside _bom_totals.py
 (dollars) and _labor_totals.py (attended minutes) — this one owns HOURS A
 MACHINE IS OCCUPIED, which is not costed and answers turnaround + throughput.
 
-The print estimate uses §7 masses, which are geometry-derived and commit-gated
-(_bom_masses.py), plus §12's float quantity and the accepted ASA Aero slice.
+The print estimate uses §7's geometry-derived masses (_bom_masses.py), plus
+§12's float quantity and the accepted ASA Aero slice.
 For §7 parts, shape changes propagate through mass, print hours and throughput.
 The float contribution is a provisional native-slice allowance.
 
@@ -51,7 +51,7 @@ sys.path.insert(
 from docgen import cells, substitute_md  # noqa: E402
 
 sys.path.insert(0, HERE)
-from _bom_masses import GROUP_OF  # noqa: E402
+from _bom_masses import GROUP_OF, MATERIALS  # noqa: E402
 
 PRINTERS = 2          # Bambu Lab H2C, tools.md
 DUTY = 0.65           # machine duty — failed prints, plate changes, maintenance
@@ -95,7 +95,7 @@ PETGF_CARRY = (_CAP_PETG * _RHO_PETG) / (_CAP_PETGF * _RHO_PETGF)
 # See machine-time.md "Open items".
 _BULK_PETG = round(MEASURED[2] / MEASURED[1], 1)
 RATES = {
-    "cover": None,  # Native unsent solid PETG cover slice.
+    "cover": None,  # Reference solid PETG slice rate; current geometry is unsliced.
     "bulk":  round(_BULK_PETG * PETGF_CARRY, 1),                # 13.3 — carried, est.
     "ext":   round(MEASURED_EXT[2] / MEASURED_EXT[1], 1),       # 31.2 — measured
     "tight": round(_BULK_PETG * 2.0),  # 3 mm watertight walls, Arachne, fine nozzle: ~½ the rate
@@ -191,14 +191,19 @@ def print_estimate():
                  aero=round(float_hours / float_kg, 1))
     cover_record = Path(HERE).parent / 'printed-parts/zone-c/funnel-cover/native-slice-review.json'
     with open(cover_record, encoding='utf-8') as fh:
-        cover_hours = json.load(fh)['estimated_seconds'] / 3600
+        cover_slice = json.load(fh)
+    cover_hours = cover_slice['estimated_seconds'] / 3600
+    # The identified native slice supplies the rate, not a fixed duration for
+    # every cover size. Normalize its feed mass to the BOM's PETG density.
+    cover_reference_kg = (cover_slice['estimated_grams'] / 1000
+                          * MATERIALS['PETG'][0]
+                          / float(cover_slice['saved_profile_filament_density_g_cm3'][0]))
     if cover_hours <= 0 or kg['cover'] <= 0:
         raise ValueError('Funnel-cover native duration and BOM mass must be positive')
-    rates['cover'] = round(cover_hours / kg['cover'], 1)
+    rates['cover'] = round(cover_hours / cover_reference_kg, 1)
     hours = {g: kg[g] * rates[g] for g in kg}
     hours["petgf"] = faucet_hours
     hours["aero"] = float_qty * float_hours
-    hours['cover'] = cover_hours
     return {"kg": kg, "rates": rates, "hours": hours, "unassigned": orphans,
             "total_kg": sum(kg.values()), "total_hours": sum(hours.values()),
             "float_qty": int(float_qty), "float_minutes": float_hours * 60}

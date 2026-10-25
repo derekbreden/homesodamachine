@@ -55,7 +55,8 @@ def cut(assembly, scene):
     # THE MACHINE STANDS THESE ITSELF. `ea._solids` reads the pack, where the core is one
     # envelope; `ea._core_solids` is the other half of the same children — the core's bodies
     # already placed, so nothing here stands the stack a second time or repeats its transform.
-    core = ea._core_solids(assembly) if inner else {}
+    core = {n:(s,c) for n,s,c in ea.ml.placed_leaves(assembly)
+            if n.startswith('cold-core/')}
     names = _scenes.members(scene, assembly)
     # ONE LENGTH OF TUBE, ONE COLOUR. Each model paints its own half — the core tells its eight
     # lines apart, the machine paints fluid — and a picture carrying both would break colour at
@@ -67,7 +68,7 @@ def cut(assembly, scene):
     out = cq.Assembly(name=scene.id)
     drawn_roots = []
     for name in names:
-        solid, colour = core[name] if name in inner else placed[name]
+        solid, colour = core[name] if name in core else placed[name]
         out.add(solid, name=name, color=joined.get(name, colour))
         if name in inner or (not inner and name in scene.roots):
             drawn_roots.append(solid)
@@ -410,15 +411,24 @@ def _write_payload_glb(path, names, inner, outer_entries, core_entries,
         # under the name the appliance holds it by, already stood where the appliance stands it.
         # The core's own payload is the fallback and the contract read above still holds it to
         # its card — but a scene draws one model, and the transform it needs is the outer one.
-        inside = name in inner and name not in outer
-        entries = (core if inside else outer).get(name)
+        source_name = name
+        inside = False
+        if name not in outer:
+            qualified = (name if name.startswith(_scenes.INNER_ROOT_HELD)
+                         else _scenes.INNER_ROOT_HELD+name)
+            if qualified in outer:
+                source_name = qualified
+            elif name in inner:
+                source_name = name.removeprefix(_scenes.INNER_ROOT_HELD)
+                inside = True
+        entries = (core if inside else outer).get(source_name)
         if not entries:
             missing.append(name)
             continue
         colours = core_rgba if inside else outer_rgba
-        if name not in colours and name not in overrides:
+        if source_name not in colours and name not in overrides:
             raise ValueError(f"{name!r}: live assembly has no RGBA")
-        rgba = overrides.get(name, colours.get(name))
+        rgba = overrides.get(name, colours.get(source_name))
         _add_payload_body(scene, name, entries,
                           core_transform if inside else outer_transform,
                           rgba, len(exact_materials), exact_materials)
@@ -467,6 +477,9 @@ def write_glbs(assembly, require_core_payload=False) -> list:
     stands on the publication path."""
     outer_entries = _payload_geometry(ASSEMBLY_MESH)
     outer_rgba = _assembly_rgba(assembly)
+    for name in getattr(assembly, 'core_external_components', ()):
+        if 'cold-core/'+name in outer_rgba:
+            outer_rgba[name] = outer_rgba['cold-core/'+name]
 
     # The Bazel action receives the exact mesh and scorecard from //:cold-core-assembly. A
     # missing, stale, or malformed handoff is an error, never permission to rebuild from some

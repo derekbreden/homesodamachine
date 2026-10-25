@@ -66,6 +66,9 @@ from _cold_core_interface import (
     foam_cap_height,
     cap_anchors,
     cap_conduits,
+    cap_conduit_floor_xy,
+    cap_passive_guides,
+    cap_cable_guides,
     cap_conduit_axis,
     cap_conduit_bore_radius,
     co2_inlet_tube_radius,
@@ -79,6 +82,7 @@ from _port_cuts import co2_inlet_xyz
 import _internal_routes as routes
 import _routing
 import _materials as _mat
+import _above_core_mounts as _above_mounts
 
 # The one figure whoever seats this assembly needs: how far the cap face stands over the floor
 # the stack is set down on. Both planes are `_foam_cap`'s, beside the lid whose faces they are.
@@ -147,6 +151,35 @@ def cap_conduit_axis_out():
     """The way out of a cap conduit, in the assembly's frame — the top cap's +Z, which the
     spin about Z leaves alone."""
     return cap_conduit_axis
+
+
+def cap_conduit_mouth(name):
+    """Actual upper mouth and outward axis in the native core frame."""
+    if name == 'reservoir-b-fill':
+        point = _above_mounts.reservoir_b_fill_link()['upper_mouth_world_mm']
+        return routes.world_point_in_shell(point), cap_conduit_axis
+    x, y = cap_conduit_station(name)
+    return (x, y, cap_face_z), cap_conduit_axis
+
+
+def cap_passage_probe(name, radius):
+    """The existing cap-opening report's probe, following its actual passage."""
+    if name in cap_cable_guides:
+        route = _above_mounts.cable_guide_points(name)
+        points = [routes.world_point_in_shell(p) for p in route['points_mm']]
+        return routes.build_route(points, route['bend_radius_mm'], radius)
+    if name in cap_passive_guides or name in ('water-in', 'carb-water-out'):
+        return routes.build_route(routes.routes[name], routes.route_bend_radius, radius)
+    if name == 'reservoir-b-fill':
+        shapes = [routes.build_route(routes.routes[name], routes.route_bend_radius, radius)]
+        for world in _above_mounts.reservoir_b_fill_parts().values():
+            shapes.append(_above_mounts.world_shape_in_cap(world)
+                          .rotate((0.,0.,0.),(0.,0.,1.),180.)
+                          .translate((0.,0.,foam_shell_outer_height+top_cap_height)))
+        return cq.Compound.makeCompound(shapes)
+    x,y = cap_conduit_station(name)
+    return cq.Solid.makeCylinder(radius,cap_face_z-foam_shell_outer_height+2.,
+        cq.Vector(x,y,foam_shell_outer_height-1.))
 
 
 def cap_anchor_station(name):
@@ -279,27 +312,28 @@ def _report(placed):
           % (start.x, start.y, end.x, end.y, co2_inlet_xyz[2], reach.Length,
              "clear  OK" if blocked <= 1e-6 else "** BLOCKED by %.3f mm^3" % blocked))
 
-    # Each cap conduit is one column of the TOP cap carrying a through bore, and the lid
-    # passes it. A probe on the conduit's own line meets no material in either — and the
-    # same probe meets solid in both bottom-cap parts, which carry no conduit.
+    # Read each actual upper passage: shifted tubes, cable detours and the
+    # B-fill native fitting pair have distinct lower and upper stations.
     probe_r = cap_conduit_bore_radius - 0.3
     for cname in cap_conduits:
-        cx, cy = cap_conduit_station(cname)
-        for name, want_open in (("foam-cap-top", True), ("foam-cap-lid-top", True),
-                                ("foam-cap-bottom", False), ("foam-cap-lid-bottom", False)):
+        probe = cap_passage_probe(cname, probe_r)
+        blocked = {name: placed[name][0].intersect(probe).Volume()
+                   for name in ("foam-cap-top", "foam-cap-lid-top")}
+        lower_x, lower_y = spin_xy(cap_conduit_floor_xy[cname])
+        for name in ("foam-cap-bottom", "foam-cap-lid-bottom"):
             solid = placed[name][0]
             b = solid.BoundingBox()
-            column = cq.Solid.makeCylinder(
-                probe_r, b.zlen + 4, cq.Vector(cx, cy, b.zmin - 2), cq.Vector(0, 0, 1))
-            blocked = solid.intersect(column).Volume()
-            if want_open and blocked > 1e-6:
-                print("  ** %s blocks the %s conduit at (%.2f, %.2f) by %.3f mm^3"
-                      % (name, cname, cx, cy, blocked))
-            if not want_open and blocked <= 1e-6:
-                print("  ** %s is open on the %s line — the bottom cap carries no conduit"
-                      % (name, cname))
-        print("  cap conduit %-9s (%+7.2f, %+7.2f) clear through cap + lid; bottom solid  OK"
-              % (cname, cx, cy))
+            lower = cq.Solid.makeCylinder(probe_r,b.zlen+4.,
+                cq.Vector(lower_x,lower_y,b.zmin-2.))
+            if solid.intersect(lower).Volume() <= 1e-6:
+                print(f"  ** {name} is open on {cname}'s lower entry")
+        for name, volume in blocked.items():
+            if volume > 1e-6:
+                print(f"  ** {name} blocks {cname}'s actual passage by {volume:.3f} mm^3")
+        mouth, _axis = cap_conduit_mouth(cname)
+        verdict = "clear  OK" if max(blocked.values()) <= 1e-6 else "** BLOCKED"
+        print("  cap conduit %-16s mouth (%+7.2f,%+7.2f,%+7.2f): %s"
+              % (cname,*mouth,verdict))
 
     # A thin vertical probe at each screw position must pass clear through both
     # parts of each stack — a real through-hole for every screw.
