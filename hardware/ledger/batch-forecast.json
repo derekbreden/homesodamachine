@@ -3101,7 +3101,7 @@
       "bomLines": [
         183
       ],
-      "perUnit": 273,
+      "perUnit": 411,
       "unit": "g",
       "supplier": "amazon",
       "priceBasis": "merchandise",
@@ -3117,7 +3117,7 @@
       ],
       "sourceUrl": "https://www.amazon.com/dp/B0FHHBGSQK",
       "inventory": {
-        "onHand": 825.0,
+        "onHand": 687.0,
         "incoming": 0,
         "basis": "ledger_estimate",
         "estimated": true,
@@ -3127,7 +3127,7 @@
             "line": 765
           }
         ],
-        "note": "Recorded purchase supplies 1098 g. A provisional one-machine consumption reserve of 273 is deducted for development; the remaining stock is uncounted and marked *."
+        "note": "Recorded purchase supplies 1098 g. A provisional one-machine consumption reserve of 411 is deducted for development; the remaining stock is uncounted and marked *."
       }
     },
     {
@@ -4086,12 +4086,12 @@
       "bomLines": [
         252
       ],
-      "perUnit": 5.0,
+      "perUnit": 3.0,
       "unit": "pieces",
       "supplier": "kj",
       "priceBasis": "merchandise",
       "status": "listed",
-      "note": "Five RC62 magnets per machine. Live quantity tiers: $1.92 at 1+, $1.87 at 10+, $1.84 at 25+, $1.79 at 50+, $1.75 at 100+. Thirty recorded in hand.",
+      "note": "Three RC62 magnets per machine, one in each float. Live quantity tiers: $1.92 at 1+, $1.87 at 10+, $1.84 at 25+, $1.79 at 50+, $1.75 at 100+. Thirty recorded in hand.",
       "options": [
         {
           "quantity": 1,
