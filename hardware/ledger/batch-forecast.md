@@ -58,7 +58,7 @@ The lot calculation minimizes new purchase cash among the sourced options. It ca
 - Soda umbilicals use one 24-inch and five 12-inch insulation cuts per machine. Each six-foot roll is cut into those discrete lengths; the provisional five-foot stock credit reduces new orders to five / eleven / twenty-three rolls for five / ten / twenty machines.
 - The 4 mm drain tube is bought in 25 ft lengths, three 8 ft drain cuts each; 5 ft lengths cannot supply the continuous 1,871 mm faucet drain. The eleven credited cuts cover five and ten machines; twenty buy three lengths.
 - Red gas tubing includes the external tether and three internal segments, about two feet total per machine. A provisional 25% cut/slack reserve is applied before crediting the acquired red tubing. It covers all three batches without a new order.
-- Each silicone funnel uses a provisional 273 g mixed-material allowance. Kits contain approximately 1,098 g. Stock and process yield remain estimates.
+- Each silicone funnel uses the BOM's 411 g mixed-material batch. Kits contain approximately 1,098 g. Stock and process yield remain estimates.
 - Ribbon cable is purchased by conductor count. The provisional two/three/five gross 16 AWG colour kits for five/ten/twenty machines become one/two/four new kits after the existing kit credit. Terminal and ferrule refills use conservative size-specific allowances while the width/gauge map remains open.
 - The acquired reusable bath container serves any batch. Fluids, welding wire, pigment, mold release, foam and refrigerant use explicitly provisional remaining quantities and production yields, rounded to whole containers only when replenishment is required.
 
