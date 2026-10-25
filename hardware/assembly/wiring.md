@@ -6,7 +6,7 @@ The routed groups above the cold-core lid carry [16 AWG](AWG_AC_MAIN) mains, [12
 
 The field harnesses are **not** wired in place conductor-by-conductor — they are **pre-fabricated as cable assemblies** on the bench (cut-to-length all-black silicone, ferruled/crimped, black-braided-sleeved, continuity-tested), then landed here. The fabrication procedure is [`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md); a failed harness is swapped as a whole assembly, never repaired conductor-by-conductor. Wire is all-black throughout **except the AC mains** (black hot / white neutral / green ground — a safety convention, not a service aid).
 
-The PCB and PSU lie flat on the cold-core lid; both relays stay on the west enclosure wall. Keep the funnel frame and electronics panel off while making the final connections between quadrants. Their empty closures install after the tubing and leads are dressed, with no wire attached to either closure. The [installed routing review](/hardware/wiring/installed/above-core-review/README.md) records the nominal conductor paths and its remaining evidence limits.
+The PCB lies flat on the cold-core lid. The PSU and both relays mount to back-top’s dry west sidewall, and the meter travels on its east-wall carriers. Keep the funnel frame off while making the final connections between quadrants. Fit the frame after the tubing and leads are dressed; it carries no wiring. The rear ceiling is continuous. The [installed routing review](/hardware/wiring/installed/above-core-review/README.md) records the nominal conductor paths and its remaining evidence limits.
 
 ## Scope
 

@@ -1,20 +1,21 @@
 # Electronics above the cold core
 
 The PCB lies flat on the west side of the cold-core roof, with its long axis
-fore–aft. The PSU and diaphragm pump stand aft of it on that roof. V-B mounts
-on the core's integral upright wall. V-A/V-K, their fitted plumbing, the
-water header and the two relay modules belong to `enclosure-back-top`.
-The display, fixed pump contacts and front valve coils
-belong to `enclosure-front-top`.
+fore–aft. The diaphragm pump and V-B belong to that core. Back-top carries
+V-A/V-K, their fitted plumbing, the water header, the PSU and both relays.
+The PSU mounts to the dry west sidewall, with the relays above it. The display,
+fixed pump contacts and front valve coils belong to `enclosure-front-top`.
 
-The fore–aft flow meter belongs to the cold-core lid, between the CO₂ group
-and pump. Its three leads leave the downward-facing native wire boss; their
-installed paths approach from below and clear the two open-west collar supports.
+The fore–aft flow meter travels with back-top between the CO₂ group and pump.
+Its two fixed collars sit in integral east-wall carriers; the moving collets
+remain free. Its three leads leave the downward-facing native wire boss.
+The accepted R14 holder, continuous inlet and foam sleeve travel with the meter;
+the uncut tube passes through the core's plain guide.
 
-The electronics access panel and funnel frame close the roof after the final
-connections. Neither closure carries an electrical component or a cable
-restraint. The drain cradle snaps into the removable frame’s 3 mm lower web.
-The drain tube must be disconnected or the cradle snap released for frame removal.
+The ceiling is continuous behind the funnel aperture. Keep the drop-in frame,
+silicone and cover off during the final connections. The drain cradle snaps
+into the removable frame’s 3 mm lower web. Disconnect its tube or release
+the cradle snap before lifting the frame.
 
 The production placements are in
 [`above_core.py`](/hardware/manifold-layout/above_core.py) and
@@ -50,10 +51,9 @@ rear half with 3 mm stock. The manifold common connectors retain their native
 front-top stations and their two lever faces remain accessible from the front
 assembly's open interior.
 
-The PSU's wire entries face fore/aft. Its terminal screws face upward through
-the electronics opening. The WAGO bodies and their wells clear these vertical
-driver approaches. Leave the opening free while landing and inspecting those
-terminals.
+The PSU's wire entries face fore/aft. Its screw axes point inward from the
+west sidewall. Land and inspect these terminals on accessible back-top before
+closing the quadrants; the continuous ceiling provides no separate rear hatch.
 
 ## Inputs
 
@@ -63,15 +63,15 @@ Use the per-unit [BOM](/hardware/ledger/bom.md),
 assignments, preparation, stripping and termination. Preserve the schedule's
 run IDs and loom labels. Use the specified connector graph.
 
-The PCB, PSU and pump use their own native mounting-hole patterns on the
-cold-core lid/cup columns. The PCB uses M3 × 8 screws through its 1.6 mm board;
-the flat PSU uses M3 × 20 through its 6.7 mm ledges and lid. These columns take
+The PCB and pump use their own native mounting-hole patterns on the cold-core
+lid/cup columns. The PCB uses M3 × 8 screws through its 1.6 mm board into
 RX-M3×5.7 inserts. The pump retains its specified rubber-pad/washer stack.
-Relay mounting screws and their back-top bosses belong to the enclosure
-mechanical assembly. The five-ring stack and tooth washer clamp under M3 × 10
-into an RX-M3S×4 short insert in the upward-facing core-lid boss. Its 4.8 mm
-clamp stack gives 5.2 mm screw projection into a 7 mm blind pilot. Do not
-interchange screw lengths between these stacks.
+The PSU and relay wall-host stacks are defined by
+[`_above_core_shell.py`](/hardware/printed-parts/enclosure/enclosure/_above_core_shell.py)
+and allocated in the [BOM](/hardware/ledger/bom.md); use the stack assigned to
+each device. The five-ring stack and tooth washer clamp under M3 × 10 into an
+RX-M3S×4 short insert in the upward-facing core-lid boss. Its 4.8 mm clamp
+stack gives 5.2 mm screw projection into a 7 mm blind pilot.
 
 Tools: ESD mat, suitable wire and contact crimpers, soldering tools for the
 specified soldered joints, helping hands, insulated driver and multimeter.
@@ -89,7 +89,7 @@ records the current rigid-slide and final-connection limits.
    five-conductor loom. The sensor passage carries the temperature supply,
    data and common, the two carbonator-reed signals and their common, and the
    carbonator PE lead. The printed passages retain the original lower entries
-   and guide the upper exits clear of the PCB and PSU. Follow these curved
+   and guide the upper exits clear of the equipment. Follow these curved
    passages; a straight chord between the lower and upper mouths does not
    describe their path. Complete the cold-core assembly in
    [cold-core.md](cold-core.md).
@@ -98,9 +98,9 @@ records the current rigid-slide and final-connection limits.
    Female-housing fit and connection force remain unqualified.
    Seat the junctions in their named wells and label their electrical purpose.
    Check that each seated body's levers can open and close before populating
-   it. Mount the PCB, PSU, pump, meter, V-B and ground stack on their core
-   features. Mount the relay modules on back-top.
-   Keep both roof closures removed. The PCB's J14 remains the
+   it. Mount the PCB, pump, V-B and ground stack on their core features.
+   Mount the PSU, relay modules and meter on back-top, and prepare its inlet
+   and concealed outlet plumbing. Keep the funnel frame removed. The PCB's J14 remains the
    programming interface.
 3. Land the fixed AC and DC runs by the schedule: C14 to H/N/G, H/N to the
    PSU primary, H to relay 1 COM, the PSU secondary to V12/GND, V12 to relay 2
@@ -122,7 +122,7 @@ records the current rigid-slide and final-connection limits.
    continuous reservoir-A reed common.
 5. Stage the front-top looms at their fixed display, front coil and pump-contact
    endpoints. Install the core/back-bottom and upper quadrants with the final
-   roof openings clear. Use these openings to connect J1/J2 valve commons
+   funnel opening clear. Use this opening to connect J1/J2 valve commons
    and returns, J13 pump contacts, J9 display, the remaining PCB sensor/data
    headers, the rear relay connections and the core-to-rear power leads.
    Bounded J11 housing service uses 6 mm up, 6 mm east and 20 mm up after
@@ -145,8 +145,7 @@ records the current rigid-slide and final-connection limits.
    surfaces. The geometric frame-lift review removes the cradle, elbow, stub
    and tubing; it does not qualify connected-tube motion or snap-release
    access and force. Disconnect the drain tube or release the cradle snap
-   before lifting the frame. Fit the electronics access panel independently;
-   no electrical connection is made to either closure.
+   before lifting the frame. The frame carries no electrical connection.
 
 ## Unpowered completion checks
 
