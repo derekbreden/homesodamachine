@@ -31,14 +31,13 @@ from hardware.wiring.installed.step_merge import base_document
 HERE=Path(__file__).resolve().parent
 CLOSURES=frozenset(('enclosure-front-top','enclosure-back-top','enclosure-front-bottom',
                     'enclosure-back-bottom','enclosure-pump-cap','enclosure-pump-cartridge',
-                    'foam-cap-top','foam-cap-lid-top','funnel-frame','electronics-access-panel'))
+                    'foam-cap-top','foam-cap-lid-top','funnel-frame'))
 METER_WIRES=frozenset(('wire-J4-V5','wire-J4-IO25','wire-flow-GND'))
 B_FILL=frozenset(('reservoir-b-fill-lower','reservoir-b-fill-upper'))
 EMPTY_J4_CONTACTS=('J4.IO23','J4.IO27')
 JUNCTION_FIXED=frozenset(('compressor','condenser+fan','mq6-sensor','thermal-fuse',
     'fuse-clamp','display','display-cover','pump-contact-male','pump-contact-female',
-    'funnel-frame','elbow-cradle','funnel-drain-union','funnel-drain-stub',
-    'electronics-access-panel'))
+    'funnel-frame','elbow-cradle','funnel-drain-union','funnel-drain-stub'))
 
 
 def junction_fixture_member(leaf):
