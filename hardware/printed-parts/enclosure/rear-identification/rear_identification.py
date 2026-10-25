@@ -167,10 +167,20 @@ def apply(piece):
     return piece.clean()
 
 
+def field_land():
+    """The raised nameplate field's whole footprint on the rear face. The flutes leave it flat,
+    so the field joins the fluted wall across its whole base (`enclosure._raised_relief`)."""
+    face = above_core.specification()['rear_wall']['rear_wall']['ymax']
+    proud = receiver_field().intersect(cq.Solid.makeBox(
+        400., 20., 400., cq.Vector(-200., face, 0.))).BoundingBox()
+    return (proud.xmin, proud.xmax, face - 3., face + 1., proud.zmin, proud.zmax)
+
+
 def plain_lands():
-    """Keep the complete accepted retaining lips in the exterior print mesh."""
+    """Keep the complete accepted retaining lips, and the raised field's base, in the exterior
+    print mesh."""
     return nameplate.wing_interface.plain_lips(
-        nameplate_station(), nameplate_plan()['face_y_mm'])
+        nameplate_station(), nameplate_plan()['face_y_mm']) + (field_land(),)
 
 
 def main():

@@ -3269,16 +3269,47 @@ def disposal_figures(outer):
 
 
 def _print_solid(name, solid, outer):
-    """The solid a piece's print mesh is cut from.
+    """The solid a piece's print mesh is cut from: the piece without what it raises proud of its
+    +Y show face (`_raised_relief`), ended exactly on the wall's face.
 
-    Back-bottom's is its own without the disposal letters' relief, ended exactly on the wall's
-    face. The flute cutter closes `_flute_skin.cut_margin` outside the wall even where its depth
-    is zero; a relief it clipped would stand beside the whole letters `_export_pieces` joins
-    after it, two tessellations of one outline a few microns apart."""
-    if name != "back-bottom":
-        return solid
-    fx0, fx1, _fy0, _fy1, fz0, fz1 = disposal_field(outer)
-    return solid.cut(_ybox(fx0, fx1, outer[3], outer[3] + disposal_raise + 1.0, fz0, fz1))
+    The flute cutter closes `_flute_skin.cut_margin` outside the wall even where its depth is
+    zero, so a relief standing on the face would lose its root to it: back-top's raised
+    nameplate field would print as a loose plate, and back-bottom's letters would stand beside
+    a clipped copy of themselves, two tessellations of one outline a few microns apart."""
+    if name == "back-bottom":
+        fx0, fx1, _fy0, _fy1, fz0, fz1 = disposal_field(outer)
+        return solid.cut(_ybox(fx0, fx1, outer[3], outer[3] + disposal_raise + 1.0, fz0, fz1))
+    if name == "back-top":
+        x0, x1, _y0, _y1, z0, z1 = _above_core_shell.rear_identification().field_land()
+        return solid.cut(_ybox(x0, x1, outer[3], outer[3] + 10.0, z0, z1))
+    return solid
+
+
+def _raised_relief(name, solid, outer):
+    """What `_print_solid` takes off a piece's show face, carried `disposal_embed` into the wall
+    so it joins the fluted mesh with an overlap; None for a piece that raises nothing.
+    Back-bottom's is its raised disposal warning, back-top's its raised nameplate field."""
+    if name == "back-bottom":
+        return disposal_letters(outer)
+    if name == "back-top":
+        x0, x1, _y0, _y1, z0, z1 = _above_core_shell.rear_identification().field_land()
+        return solid.intersect(_ybox(x0, x1, outer[3] - disposal_embed, outer[3] + 10.0,
+                                     z0, z1))
+    return None
+
+
+def finish_print_mesh(name, solid, mesh, outer):
+    """A piece's fluted print mesh with its raised relief joined whole, once. Its print mesh was
+    cut without the relief (`_print_solid`), so the flute cutter met none of it, and the field
+    under it is a plain land the flutes leave flat."""
+    relief = _raised_relief(name, solid, outer)
+    if relief is None:
+        return mesh
+    mesh = trimesh.boolean.union(
+        [_flute_skin.as_written(mesh), _flute_skin.as_written(_piece_mesh(relief))],
+        engine="manifold", check_volume=False)
+    return trimesh.boolean.union(
+        [_flute_skin.as_written(mesh)], engine="manifold", check_volume=False)
 
 
 def _nameplate(solid, plate, outer, y_outer, zlo, zhi, up=1.0):
@@ -9723,16 +9754,7 @@ def _export_pieces(pieces, assy):
                      _pump_cartridge_front_flute_rail(outer)]
         mesh = _flute_skin.flute(bodies[name], rails,
                                  flute_pitch(outer), flute_depth, flute_rise)
-        if name == "back-bottom":
-            # Its print mesh was cut without the letters' relief (`_print_solid`), so the
-            # flute cutter met none of it; the raised outlines join the finished smooth field
-            # whole, once.
-            letters = _piece_mesh(disposal_letters(outer))
-            mesh = trimesh.boolean.union(
-                [_flute_skin.as_written(mesh), _flute_skin.as_written(letters)],
-                engine="manifold", check_volume=False)
-            mesh = trimesh.boolean.union(
-                [_flute_skin.as_written(mesh)], engine="manifold", check_volume=False)
+        mesh = finish_print_mesh(name, piece.val(), mesh, outer)
         # WHAT IS CHECKED IS WHAT COMES OUT. A piece tessellates with a handful of edges
         # carrying four faces rather than two — the solid touching itself along a line, which is
         # a fact about the solid — and refusing the cut for it would refuse every piece. The
