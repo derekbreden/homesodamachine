@@ -782,6 +782,10 @@
             "Standard"
           ],
           "reason": "The left hotend is the 0.8 mm High Flow the stack prints on; the base project's right entry reads Hybrid, which the slicer command line refuses (\"unsupported NozzleVolumeType=2\"). The right hotend carries no filament on this plate."
+        },
+        "enable_support": {
+          "value": "1",
+          "reason": "The top lid's water-check bearing cantilevers 26.3 mm fore of its root, 15.2 mm over the lid face, and its lint answer has Tree(auto)/Default support it from the lid face beside the pump; the V-B return bracket's answer takes the same support. Without it the slicer reports a floating cantilever. The cold-core profile leaves support off for every other cold-core piece (lint-answers/cold-core/foam-cap/foam-cap-lid-top.lint-answers)."
         }
       },
       "plate_border_mm": 20.0,
