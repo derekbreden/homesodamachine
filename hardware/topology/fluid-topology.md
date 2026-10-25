@@ -86,7 +86,7 @@ connection, or a `drawn` connection made from its ordered native tubes and physi
 Of [26](SEGMENT_COUNT) manifold segments, [3](BUTT_COUNT) carry no exposed tube,
 [4](UPPER_LINK_COUNT) short upper tubes have [15.251 mm](UPPER_LINK_EXPOSED) exposed
 and [4](LOWER_RETURN_COUNT) lower return tubes are reported as cut stock, both socket
-insertions included. Reported LLDPE paths total [3693.6 mm](FLUID_TOTAL). Native routed
+insertions included. Reported LLDPE paths total [3719.7 mm](FLUID_TOTAL). Native routed
 paths include their authored socket insertions, with the insertion basis recorded
 in the production route data. The short upper links need their actual fitting
 insertions when making finished blanks. A butt

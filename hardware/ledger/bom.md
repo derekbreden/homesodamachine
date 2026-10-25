@@ -119,8 +119,8 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Part | Qty | Material | Mass (kg) | $ |
 |---|---:|---|---:|---:|
 | Cold-core inner shell (foam-shell) | 1 | PET-GF | 1.666 | $41.69 <!--@printed--> |
-| Cold-core foam cap — top | 1 | PET-GF | 0.279 | $6.98 <!--@printed--> |
-| Cold-core foam cap lid — top | 1 | PET-GF | 0.345 | $8.64 <!--@printed--> |
+| Cold-core foam cap — top | 1 | PET-GF | 0.281 | $7.03 <!--@printed--> |
+| Cold-core foam cap lid — top | 1 | PET-GF | 0.304 | $7.60 <!--@printed--> |
 | Cold-core foam cap — bottom | 1 | PET-GF | 0.181 | $4.53 <!--@printed--> |
 | Cold-core foam cap lid — bottom | 1 | PET-GF | 0.134 | $3.36 <!--@printed--> |
 | Cold-core copper-slot covers | 2 | PETG | 0.012 | $0.13 <!--@printed--> |
@@ -129,10 +129,10 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Flavor reservoir body — right | 1 | PETG (translucent) | 0.378 | $4.24 <!--@printed--> |
 | Flavor reservoir cap — left | 1 | PETG (translucent) | 0.059 | $0.66 <!--@printed--> |
 | Flavor reservoir cap — right | 1 | PETG (translucent) | 0.059 | $0.66 <!--@printed--> |
-| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.264 | $31.62 <!--@printed--> |
-| Enclosure — pump cartridge + clamp (one set) | 1 set | PET-GF | 0.491 | $12.29 <!--@printed--> |
+| Enclosure — front bottom + front top (two quadrants) | 1 set | PET-GF | 1.263 | $31.60 <!--@printed--> |
+| Enclosure — pump cartridge + clamp (one set) | 1 set | PET-GF | 0.491 | $12.28 <!--@printed--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--> |
-| Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.383 | $34.60 <!--@printed--> |
+| Enclosure — back bottom + back top (two quadrants) | 1 set | PET-GF | 1.443 | $36.10 <!--@printed--> |
 | Display cover plate | 1 | PET-GF | 0.012 | $0.31 <!--@printed--> |
 | Bulkhead ring — one per +Y-wall crossing | 6 | PET-GF (blue, white ×2, red, black ×2) | 0.011 | $0.28 <!--@printed--> |
 | Tube collar — one per +Y-wall crossing | 6 | PET-GF (blue, white ×2, red, black ×2) | 0.023 | $0.58 <!--@printed--> |
@@ -144,13 +144,13 @@ The soda inlet bend holder is PET-GF with the accepted 2 mm wall, 3 mm legs and 
 | Above-counter plate | 1 | PET-GF | 0.009 | $0.22 <!--@printed--> |
 | Faucet lever | 1 | PET-GF | 0.004 | $0.09 <!--@printed--> |
 | Umbilical organizer — below faucet mount | 1 | PET-GF | 0.005 | $0.12 <!--@printed--> |
-| Soda inlet bend holder | 1 | PET-GF | — | — <!--@printed--> |
-| Funnel frame | 1 | PET-GF | 0.268 | $6.70 <!--@printed--> |
+| Soda inlet bend holder | 1 | PET-GF | 0.003 | $0.06 <!--@printed--> |
+| Funnel frame | 1 | PET-GF | 0.259 | $6.49 <!--@printed--> |
 | Funnel cover | 1 | PETG | 0.134 | $1.50 <!--@printed--> |
 | Funnel drain-elbow cradle | 1 | PET-GF | 0.012 | $0.29 <!--@printed--> |
-| **Printed parts total** | | | **~7.33** | **[$168.99](BOM_SEC7)** |
+| **Printed parts total** | | | **~7.29** | **[$167.93](BOM_SEC7)** |
 
-By material: PETG ≈ 1.04 kg / $11.67 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.80 — and PET-GF ≈ 6.29 kg / $157.33.
+By material: PETG ≈ 1.04 kg / $11.67 — of which the four translucent reservoir parts are ≈ 0.87 kg / $9.80 — and PET-GF ≈ 6.25 kg / $156.27.
 
 These geometry-based estimates use the shared wall and sparse-infill recipes.
 They exclude the additional material in the enclosure's
@@ -272,8 +272,8 @@ trial articles have no pressure-life or wetted-service acceptance record.
 **Two M3 bodies, one hole.** ruthex's
 RX-M3x5.7 and RX-M3Sx4.0 are the same insert but for length — same ⌀4.6 knurl over the same
 ⌀4.0 recommended hole — so which one a station takes is a question about the depth of the bore
-it already cuts and never about its section. [52](M3_LONG_INSERTS) stations have that depth and
-take the full-length body; the [10](M3_SHORT_INSERTS) that do not are each paying for something
+it already cuts and never about its section. [48](M3_LONG_INSERTS) stations have that depth and
+take the full-length body; the [14](M3_SHORT_INSERTS) that do not are each paying for something
 else, named at the SKU rows below. Both bodies press with the same T18 tip into the same pocket.
 
 1. **Foam caps** use [20](FOAM_CLAMP_INSERTS) full-length inserts for the [20](FOAM_SCREWS) M3 × 25 clamp screws. The top cap adds [8](DECK_INSERTS) full-length inserts for the PCB and water pump. See [`assembly/cold-core.md`](/hardware/assembly/cold-core.md).
@@ -339,16 +339,16 @@ The papers packed with each machine ([`assembly/finish-pack-ship.md`](/hardware/
 | 4. CO2 subsystem | [$147.03](BOM_SEC4) |
 | 5. Refrigeration | [$143.06](BOM_SEC5) |
 | 6. Cold core insulation | [$18.64](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-GF) | [$168.99](BOM_SEC7) |
-| 8. Flavor subsystem | [$281.14](BOM_SEC8) |
-| 9. Dispensing | [$79.97](BOM_SEC9) |
+| 7. Printed parts (PETG + PET-GF) | [$167.93](BOM_SEC7) |
+| 8. Flavor subsystem | [$279.71](BOM_SEC8) |
+| 9. Dispensing | [$80.18](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
-| 11. Wiring | [$39.65](BOM_SEC11) |
+| 11. Wiring | [$39.58](BOM_SEC11) |
 | 12. Level sensing | [$29.78](BOM_SEC12) |
-| 13. Mechanical attach hardware + reservoir-cap vent filter | [$20.28](BOM_SEC13) |
+| 13. Mechanical attach hardware + reservoir-cap vent filter | [$18.66](BOM_SEC13) |
 | 14. Cold kit | [$4.29](BOM_SEC14) |
 | 15. Customer documentation | [$25.14](BOM_SEC15) |
-| **Total** | **[$1,508.11](BOM_GRAND)** |
+| **Total** | **[$1,504.14](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
