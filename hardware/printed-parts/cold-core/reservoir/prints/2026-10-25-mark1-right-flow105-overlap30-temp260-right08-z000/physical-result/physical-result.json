@@ -1,0 +1,44 @@
+{
+  "recorded_at_utc": "2026-10-25T16:13:15.537292+00:00",
+  "recorded_at_central": "2026-10-25T11:13:15.537292-05:00",
+  "reported_date": "2026-10-25",
+  "reported_by": "Derek",
+  "printer": "Mark1",
+  "job_id": "1372664582",
+  "side": "right",
+  "status": "reported_persistent_lifting",
+  "founder_quote": "So the lifting seemed to have gotten worse on that one. I don't know. Sometimes when I've cleaned the textured plate, it's worked a little better, but we've had persistent lifting here. So I've gone ahead and switched Mark 1 out to the engineering plate and glued it up. And I'd like you to try to start a print of this same reservoir we just tried to print, with all the same settings and everything, just adjusted to use the engineering plate instead. No Z offset. I hope we didn't have a Z offset before. If we did, let me know, because we'd want to fix that first instead. But assuming we didn't have that incorrect on the last print, I've got the flat engineering plate set up for you here on Mark 1 now, glued and ready to go.",
+  "observation": "Derek reports that lifting seemed worse on this right pair, with persistent textured-plate lifting and sometimes better adhesion after plate cleaning. Worsening is not quantified. He has installed and glued a flat Engineering Plate and requests the same right pair and settings with no Z offset.",
+  "photos": [
+    {
+      "file": "photo-1.jpg",
+      "sha256": "53bd2afb0eb0bf75008a87db1941f4d806709cbe3fa3f8137356a57190ec7bd2",
+      "source": "Derek photograph attached in this chat",
+      "view": "Oblique overview of body-floor and matching-cap footprints on textured plate."
+    },
+    {
+      "file": "photo-2.jpg",
+      "sha256": "569533ff4c309f1a41e1a9bb9fc854e5809e15cb8b10c44daa0f10cfa547a631",
+      "source": "Derek photograph attached in this chat",
+      "view": "Low edge-on view across the textured plate and inward-facing printed edges."
+    }
+  ],
+  "image_assessment": "Both footprints are present at low height. Ragged raised material and loose strands are visible along the facing edges. The low view shows local separation at the inward-facing tips, particularly the image-right footprint. Blur and reflections limit complete underside/contact assessment; no displacement magnitude or exact onset layer is inferred.",
+  "water_hold_result": null,
+  "lift_onset_layer": null,
+  "stop_layer": null,
+  "photos_layer": null,
+  "terminal_observation": "../terminal-observation.json",
+  "baseline_z_verification": {
+    "submitted_archive_sha256": "7cf8556f9c1c670e0c8cc906ee28ccaa3ded1a3d2e6896b31deb90e80762d49c",
+    "gcode_sha256": "32f99973a6fbd8d0abaf0b051097b071c710557ee5a1d0e636ae6bb33c4e5e73",
+    "commands": [
+      "G29.1 Z0 ; clear z-trim value first",
+      "G29.1 Z-0.02"
+    ],
+    "added_user_z_trim_mm": 0,
+    "stock_textured_pei_compensation_mm": -0.02,
+    "interpretation": "The last print used the stock Textured PEI compensation, with zero added user Z trim. This is not the older +0.18 mm user lift."
+  },
+  "scope": "Physical adhesion report and two photographs for this right article. Earlier left-article water holds remain accepted for their identified prints; this right print has no reported water-hold test."
+}

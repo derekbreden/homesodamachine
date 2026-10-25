@@ -1,0 +1,62 @@
+{
+  "recorded_on": "2026-10-25",
+  "baseline_task_id": "1372664582",
+  "baseline_settings": "../2026-10-25-mark1-right-flow105-overlap30-temp260-right08-z000/settings.json",
+  "baseline_settings_file_sha256": "0e241f0882603af4873f0cf73a8196d43a9d540617646787fc5ec2093df12c6f",
+  "source_project": ".cache/reservoir-flow105-overlap30-temp260/candidate.3mf",
+  "source_project_sha256": "0a6724b3fc303a7d9c9af62e5ac04fb9bb116ede9dfbb0d3cda19f9e315cf0d1",
+  "candidate_project": ".cache/reservoir-right-engineering-20261025/candidate.3mf",
+  "candidate_project_sha256": "dbebfe03d2477f52bd24aad846fc5e2c432271c291f30523c9a5a435ffd7b3e6",
+  "settings": "settings.json",
+  "settings_file_sha256": "e77199de752a854e8c46fda925b465c54a3228cddb864fea4da84227198925eb",
+  "setting_changes": {
+    "curr_bed_type": {
+      "from": "Textured PEI Plate",
+      "to": "Engineering Plate"
+    }
+  },
+  "all_other_saved_settings_identical": true,
+  "plate_preparation": "Derek reports flat Engineering Plate installed, glued, clear and ready on Mark1.",
+  "added_user_z_trim_mm": 0,
+  "baseline_emitted_z_trim_mm": -0.02,
+  "baseline_z_trim_basis": "Stock Textured PEI compensation; zero added user trim.",
+  "candidate_expected_emitted_z_trim_mm": 0,
+  "bed_c_first_subsequent": [
+    70,
+    70
+  ],
+  "nozzle_c_first_subsequent": [
+    255,
+    260
+  ],
+  "selected_pair": "Right reservoir and matching cap",
+  "status": "Native review complete; prepared for Studio Send. Not submitted.",
+  "per_plate_metadata_changes": [
+    {
+      "plate": "1",
+      "key": "bed_type",
+      "from": "Textured PEI Plate",
+      "to": "Engineering Plate"
+    },
+    {
+      "plate": "2",
+      "key": "bed_type",
+      "from": "Textured PEI Plate",
+      "to": "Engineering Plate"
+    }
+  ],
+  "geometry_and_placement_unchanged": true,
+  "geometry_and_placement_scope": "Only global plate type and per-plate bed_type metadata change. Object geometry, transforms, identifiers and other plate metadata are retained.",
+  "native_review": "native-review.json",
+  "command_comparison": "command-comparison.json",
+  "packaging": "packaging.json",
+  "candidate_emitted_z_trim_mm": 0,
+  "founder_quote": "So the lifting seemed to have gotten worse on that one. I don't know. Sometimes when I've cleaned the textured plate, it's worked a little better, but we've had persistent lifting here. So I've gone ahead and switched Mark 1 out to the engineering plate and glued it up. And I'd like you to try to start a print of this same reservoir we just tried to print, with all the same settings and everything, just adjusted to use the engineering plate instead. No Z offset. I hope we didn't have a Z offset before. If we did, let me know, because we'd want to fix that first instead. But assuming we didn't have that incorrect on the last print, I've got the flat engineering plate set up for you here on Mark 1 now, glued and ready to go.",
+  "changed_container_entries": [
+    "Metadata/model_settings.config",
+    "Metadata/project_settings.config"
+  ],
+  "model_geometry_payload_entries_byte_identical": true,
+  "object_placements_and_other_metadata_identical": true,
+  "geometry_and_placement_validation": "All entries except the two plate-type containers are byte-identical; model_settings XML is identical after normalizing only plate bed_type values."
+}

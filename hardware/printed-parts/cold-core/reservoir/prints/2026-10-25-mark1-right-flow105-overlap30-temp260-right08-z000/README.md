@@ -1,12 +1,17 @@
 # Mark1 right reservoir and cap: repeat 255/260 °C recipe
 
-Mark1 task **1372664582** is printing the **right reservoir and matching cap**
-through the **right 0.8 mm Standard** hotend. One Studio Send was acknowledged
-with **SUCCESS** at **00:34:07 CDT / 05:34:07 UTC, October 25, 2026**.
-Fresh startup status confirms **RUNNING, layer 0/833**, print error 0 and no
-HMS. Live camera frames show the empty plate during material preparation;
-model adhesion and this right article's sealing are unassessed.
+Mark1 task **1372664582** has **reported persistent lifting** on the right
+reservoir and matching cap. Derek says it seemed worse and supplied two
+photographs. Fresh retained status reports **FAILED**, print error 0 and no
+HMS; the layer field has reset to 0 and cannot establish a stop or lift-onset
+layer. There is no water-hold result for this right article.
+[Physical report and photographs](physical-result/physical-result.json) ·
+[Terminal observation](terminal-observation.json).
+
+The print used the **right 0.8 mm Standard** hotend. One Studio Send was
+acknowledged **SUCCESS** at **00:34:07 CDT / 05:34:07 UTC, October 25, 2026**.
 [Launch](launch.json) · [Startup](startup.json).
+Derek requests the [same right pair on glued Engineering Plate](../2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/README.md).
 
 The completed [left reservoir, task 1371867808](../2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/README.md),
 reports **FINISH 833/833** and Derek reports it is **holding water** alongside
