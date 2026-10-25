@@ -1,0 +1,185 @@
+{
+  "views": [
+    {
+      "name": "meter-lane",
+      "caption": "Back-top's east wall from inside: the fore meter's lane to the wall now rises on a 45\u00b0 corbel, so it prints with no flat underside.",
+      "before": "meter-lane-before.webp",
+      "after": "meter-lane-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 611,
+          "y": 393.9,
+          "r": 19.5,
+          "label": "corbel",
+          "at": [
+            84,
+            358,
+            320
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -46.835027640288715,
+          298.81032043453195,
+          406.70348730474893
+        ],
+        "target": [
+          80,
+          358,
+          312
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.3216394302812869,
+        "far": 559.434576869806,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            62,
+            358,
+            312
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "85aa059d42f7fb65604b673e320e2ce4701541a883572fd73bfa472b8c448883",
+          "commit": "854dfbe38e3ff54220ba6478334f94d1242fa161",
+          "taken": "2026-10-25T17:34:32.791Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "640aabcbf694c55b34e2eb07e974f1eb4bd2cdb341bdc9d455c07cca736336b0",
+          "commit": "8aea0ff4d0723eacc3790874b54c8febee3b77fa",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-back-top",
+        "cold-core/ground-stack",
+        "wire-AC6-PE",
+        "wire-PE-carbonator",
+        "wire-DC2-V12"
+      ],
+      "withinMeshing": [
+        "cold-core/prv-shroud"
+      ]
+    },
+    {
+      "name": "keystone",
+      "caption": "A cut through the jack's centre on back-top's rear wall: the jack's boss now stands a full wall proud inside the wall, and the lever-nut wells above it stand as one tower.",
+      "before": "keystone-before.webp",
+      "after": "keystone-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 580,
+          "y": 607.9,
+          "r": 18.6,
+          "label": "boss",
+          "at": [
+            -30,
+            460.8,
+            262
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          -160.43171715348313,
+          418.8704848539551,
+          316.60792928837077
+        ],
+        "target": [
+          -30,
+          458,
+          284
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.3792032694225397,
+        "far": 588.2164964404325,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            -30,
+            458,
+            280
+          ],
+          "normal": [
+            -1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure-back-top",
+        "keystone-jack"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "85aa059d42f7fb65604b673e320e2ce4701541a883572fd73bfa472b8c448883",
+          "commit": "854dfbe38e3ff54220ba6478334f94d1242fa161",
+          "taken": "2026-10-25T17:34:32.791Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "640aabcbf694c55b34e2eb07e974f1eb4bd2cdb341bdc9d455c07cca736336b0",
+          "commit": "8aea0ff4d0723eacc3790874b54c8febee3b77fa",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-back-top",
+        "cold-core/ground-stack",
+        "wire-AC6-PE",
+        "wire-PE-carbonator",
+        "wire-DC2-V12"
+      ],
+      "withinMeshing": [
+        "cold-core/prv-shroud"
+      ]
+    }
+  ]
+}
