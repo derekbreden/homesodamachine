@@ -106,7 +106,7 @@ Conductor counts are the main board's connector pin counts (`pcba.tsx` J1–J11 
 | Assembly | Board conn. | Conductors | Wire | Terminations | Sleeve |
 |---|---|---|---|---|---|
 | Manifold A | J1 | [9](J1_PINS) (8 OUT + COM) | 22 AWG black 5P + 4P ribbon | Fastons at 8 valves; COM → **221-420** fan-out at the manifold | 3/4" |
-| Manifold B | J2 | 5 of [6](J2_PINS) (2 OUT + FAN + COM + OUT3) | 22 AWG black 3P + 3P ribbon | **XHP-6 housing, contact 3 (`OUT4`) left empty** — see below; Fastons at 2 valves + fan; `OUT3` + a `COM` tap to V-K in the east upright wall on the core lid (DC-9); COM → **221-415** | 1/2" |
+| Manifold B | J2 | 5 of [6](J2_PINS) (2 OUT + FAN + COM + OUT3) | 22 AWG black 3P + 3P ribbon | **XHP-6 housing, contact 3 (`OUT4`) left empty** — see below; Fastons at 2 valves + fan; `OUT3` + a `COM` tap to V-K on back-top’s east sidewall mount (DC-9); COM → **221-415** | 1/2" |
 | Reservoir A reeds | J6 | [5](J6_PINS) (4 reed + GND) | 22 AWG black 5P ribbon | one ribbon board to column, a conductor given up at each reed height; continuous GND returns directly to J6 | 1/4" |
 | Reservoir B + carb reeds | J7 | [7](J7_PINS) (6 reed + GND) | 22 AWG black 5P + 3P ribbon | reservoir B's column on the 5P, the two carbonator reeds on the 3P; female JST-XH housing (XHP-7) + XH contacts — the same 7P housing as SENSORS (J4), so **label both looms at the housing** (a swap would put J4's 3V3/5V on the MCP reed inputs); GND → **221-413** on the core lid aft of the PCB | 1/4" |
 | Sensors | J4 | [7](J4_PINS) | 22 AWG black 4P + 3P ribbon | the DS18B20 and flow pairs on the 4P; shared GND on the 3P with its reserved pair trimmed; GND → **221-413** on the core lid forward of the PCB | 1/4" |
