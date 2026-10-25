@@ -199,6 +199,7 @@ give the preparation budget for the dressed fore connections:
 | J2-FAN | 329.600 | [~650 mm](LEN_FAN) | 320.400 |
 | DC3-negative | 253.272 | [~350 mm](LEN_PUMP) | 96.728 |
 | J2-positive-K | 260.156 | [~450 mm](LEN_MAN_B_FANOUT) | 189.844 |
+| J2-OUT3 | 277.762 | [~350 mm](LEN_VK) | 72.238 |
 
 AC6-PE's modeled path is 333.691 mm within the same compressor cord; the
 switched-hot budget above governs its common preparation stock. The carbonator

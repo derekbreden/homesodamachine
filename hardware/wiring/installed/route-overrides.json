@@ -2124,32 +2124,48 @@
       {
         "terminal": "J2.OUT3",
         "offset": [
-          6.97992789648,
-          4.9970799799500005,
+          6.9799279,
+          4.99707998,
           6.0
         ]
       },
       {
         "terminal": "J2.OUT3",
         "offset": [
-          46.97992789648,
-          4.9970799799500005,
+          46.9799279,
+          4.99707998,
           6.0
         ]
       },
       {
         "terminal": "J2.OUT3",
         "offset": [
-          46.97992789648,
-          20.79707997995,
+          46.9799279,
+          11.89707998,
           6.0
         ]
       },
       {
         "terminal": "J2.OUT3",
         "offset": [
-          46.97992789648,
-          20.79707997995,
+          56.9799279,
+          11.89707998,
+          6.0
+        ]
+      },
+      {
+        "terminal": "J2.OUT3",
+        "offset": [
+          56.9799279,
+          2.79707998,
+          6.0
+        ]
+      },
+      {
+        "terminal": "J2.OUT3",
+        "offset": [
+          56.9799279,
+          2.79707998,
           39.6
         ]
       },
@@ -2201,7 +2217,7 @@
     "bend_radius_mm": 3.0,
     "preserve_stations": true,
     "route_status": "proposed",
-    "note": "Selected back-top coil lead dressed below the fixed V-B return union and outside its core bearing; flexible plug motion remains unqualified."
+    "note": "The back-top coil lead crosses fore of the pump head, then follows its east side to the downward blade. Physical lead dress and disconnect fit remain unqualified."
   },
   "J2-positive-K": {
     "stations": [

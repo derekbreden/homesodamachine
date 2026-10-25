@@ -128,7 +128,7 @@ len_earth_carbonator_mm = 500  # Lid stack → unlocated carbonator bond: 422.41
 # and power leads. Bench cuts include fitting reserve and are trimmed in place;
 # native centreline lengths do not qualify physical harness fit.
 len_relays_mm = 300      # J5 → west-wall relays: 230 mm longest continuous common plus reserve.
-len_vk_mm = 350          # DC-9 OUT3 → V-K: 242 mm modeled path plus termination/dressing reserve.
+len_vk_mm = 350          # DC-9 OUT3 → V-K: 277.762 mm modeled path plus termination/dressing reserve.
 len_man_a_com_mm = 300   # J1 COM → +X Y169 221-420; 223.699 mm free-wire path + 11.65 mm board span
 len_man_b_com_mm = 300   # J2 COM → +X Y169 221-415, independently of the valve OUT cuts
 len_flow_mm = 300        # SIG-4 → the DIGITEN in the strip ahead of the cold core (256)
