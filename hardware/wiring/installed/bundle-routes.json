@@ -244,7 +244,7 @@
           {
             "terminal": "ground.compressor",
             "offset": [
-              6.7,
+              14.7,
               -11.67268,
               32.03801
             ]
@@ -1589,35 +1589,31 @@
       "PE-carbonator": {
         "entry_stations": [
           {
-            "terminal": "ground.carbonator",
-            "offset": [
-              -5.0,
-              24.0,
-              2.1
+            "point_mm": [
+              36.0,
+              213.0,
+              272.0
             ]
           },
           {
-            "terminal": "ground.carbonator",
-            "offset": [
-              -9.0,
-              28.0,
-              6.1
+            "point_mm": [
+              27.0,
+              223.0,
+              270.0
             ]
           },
           {
-            "terminal": "ground.carbonator",
-            "offset": [
-              -47.0,
-              83.0,
-              7.1
+            "point_mm": [
+              -11.0,
+              278.0,
+              271.0
             ]
           },
           {
-            "terminal": "ground.carbonator",
-            "offset": [
-              -85.0,
-              144.0,
-              14.1
+            "point_mm": [
+              -49.0,
+              339.0,
+              278.0
             ]
           }
         ],
@@ -1648,7 +1644,7 @@
           }
         ],
         "end_lands_mm": [
-          8.0,
+          4.0,
           4.0
         ],
         "bend_radius_mm": 3.0,
