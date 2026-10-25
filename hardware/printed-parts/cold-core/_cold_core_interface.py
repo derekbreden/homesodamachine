@@ -182,10 +182,8 @@ reservoir_floor_thickness = 3.0
 # cannot see it — the machine imports the cold core, not the reverse. So the
 # fence is measured where the bodies are, in `manifold-layout/enclosure_assembly.py`,
 # and what arrives here is the answer rather than the reasoning. B's pocket has
-# a clear crown: its fill takes the corner furthest from its draw, and its draw the
-# strip between the lid's pour hole and V-B's plinth, west of the funnel's drain line.
-# A's carries the pump and the power brick: its fill takes the strip they leave between
-# them, and its draw the bay between the pump's two east feet.
+# a clear crown: its fill takes the corner furthest from its draw. A's carries the
+# pump: its draw takes the bay between the pump's two east feet.
 #   The conduit's own boss does not pay that fence either way: it is a column
 # INSIDE the cap, under the crown those bodies stand on. What has to find room
 # up there is the tube.
@@ -364,8 +362,7 @@ port_lane_mid_y = (port_lane_outer_y + port_lane_inner_y) / 2
 
 # The +Y band's lane, which is this one mirrored — the bosses stand at both signs, so both
 # bands leave the same strip. The evaporator's WARM tail drops this band to its own station
-# low on the front wall (`copper_plugs.columns`), and `water-in` runs along it high, over
-# the carbonator, to the forward band.
+# low on the front wall (`copper_plugs.columns`).
 west_lane_mid_y = -port_lane_mid_y
 # PET-GF left either side of a bore on the lane, and under the lowest one over the
 # floor slab. Below this the wall between two features stops being printable.
@@ -670,7 +667,7 @@ def deck_lid_hole_radius(name):
 
 # --- Horizontal valve cradles -----------------------------------------------
 #
-# The lid carries three upright valve walls supplied by `_above_core_mounts`.
+# The lid carries V-B's upright valve wall, supplied by `_above_core_mounts`.
 # Horizontal plinth stations use this table; the current cap has none.
 Cradle = namedtuple("Cradle", "centre yaw seat")
 cap_cradles = {}
@@ -841,9 +838,7 @@ state(
 # segments stay whole), and climbs beside the coil clear of the port lane until the carbonator's top
 # plate is under it. Only there does it step out onto the lane and into this bore. That climb is
 # inboard because the CO2 owns the lane's own strip at the bottom of the shell.
-#   Its X answers to two things. THE DECK ABOVE: the +X flank stands a column of bodies on the
-# lid — V-K, the main board, the power brick — and each leaves the lane a window rather
-# than a lane, and this bore takes the widest of them. And THE COIL'S OWN TAIL: the climb runs
+#   Its X answers to THE COIL'S OWN TAIL: the climb runs
 # in the annulus between the wrapped coil and a reservoir pocket's centreward arc, which is
 # where the evaporator's inlet tail turns off its helix, and one bore of that annulus holds one
 # run. The column stands clear of the tail's own, and far enough round that the ring crossing

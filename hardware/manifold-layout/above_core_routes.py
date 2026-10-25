@@ -168,20 +168,6 @@ def reservoir_a_route_specs():
     return specifications
 
 
-def meter_component():
-    """Back-top meter row and its actual native port carries."""
-    import above_core_parts as parts
-    return parts.components()['digiten-flow']
-
-
-def meter_anchors(carry):
-    """Fixed collar data for two wall bearings; collets remain free."""
-    origin = carry(((0., 0., 0.), (1., 0., 0.)))[0]
-    bands = tuple(tuple(sorted(carry(((sign*x, 0., 0.), (sign, 0., 0.)))[0][1]
-                               for x in (19.6, 26.8))) for sign in (-1, 1))
-    return origin[0], origin[2], 9.15 + .15, bands
-
-
 def _station(carries, name, port):
     import above_core_parts as parts
     selected = parts.port_stations(name)

@@ -1,201 +1,74 @@
-[ceiling] Functional water-check tie passage: this 2.8 mm span crosses the 18.9 mm cradle with two open Y mouths and 3.25 mm nominal floor-to-roof clearance. The flat lid is its floor. Tree(auto)/Default may support its roof; remove contacts through an open mouth before seating the check and tie. Physical cleanup remains unqualified.
-alternatives: Filling the opening removes the tie path. A sloped roof adds faces while preserving the same required through opening; the short flat bridge retains the simple cradle and fixed barrel datum.
+[ceiling] Unavoidable flat over the pump: the water check's quarter bearing cantilevers 26.3 mm fore of its root, 15.2 mm over the lid face, and the pump's head stands under it to world Z262.8, 5.8 mm below the bridge. The flat underside is also the face the check's strap runs along. Tree(auto)/Default supports it from the lid face beside the pump's footprint; the open fore and west sides release them. Support removal is unqualified.
+alternatives: A root carried fore under the bearing, or a corbel, fills the space the pump's head occupies. A sloped underside spans the same head and leaves the strap no flat to bear on. Moving the bearing aft over its root takes it off the check's fixed barrel band.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=71.000 y=-60.500 z=8.650
+click: x=-45.463 y=-27.011 z=20.587
 
-[ceiling] Unavoidable water-3 side-anchor tie window: this Z6.675 roof bridges 2.8 mm along Y with both X mouths open and 1.525 mm available height including the 0.25 mm floor relief. Release support and lift it clear of the lip before withdrawal. Actual cleanup remains unqualified.
-alternatives: Filling blocks the tie path. Sloping spends its required passage or tube-seat profile; preserve the complete window and review emitted supports in its production slice.
+[ceiling] Unavoidable flat over the PCB's wire lane: the V-B return union's bracket overhangs its root 4 mm fore and 4.3 mm aft at world Z276.64. DC1-V12 and PE-carbonator run beneath the fore overhang at Z273 and below, toward the PCB's aft wire-entry lands, and the strap's 2.8 mm tie window passes under the beam. The beam keeps 3.0 mm of floor under the union's leaning bore. Tree(auto)/Default supports it; the supports leave sideways from under the open overhangs.
+alternatives: A 45° corbel under the fore overhang reaches into the wire lane, which stands 3.6 mm below. Carrying the root fore under the beam closes that lane and the PCB's wire-entry lands. A deeper beam lowers the same flat toward the wires.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=134.200 y=-13.000 z=6.675
+click: x=37.444 y=-6.300 z=28.639
 
-[ledge] Unavoidable fluid-18 side-anchor tie roof: this 16.24 mm² Z6.675 face bridges the 2.8 mm tie span beneath its low tube seat. Both X mouths are open above the 0.25 mm floor lip, with the tie return continuing to the post crown. Detach support and lift it clear of the lip before removal; cleanup remains unqualified.
-alternatives: Filling blocks the tie path. Removing or sloping the roof changes the low tube seat or tie clearance. Retain the defined passage and assess actual support contacts in the native production slice.
+[ceiling] Functional retention roof: each WAGO 221-413 well closes over its connector's blank rear half and holds it down. The roof spans the well's 19.1 mm between its side walls, 8.7 mm over the pocket floor, and the well is open on its lever face toward the PCB. It prints as a bridge between the side walls; any support Tree(auto)/Default adds comes out through the open lever face.
+alternatives: An open-topped well lets the connector lift off its floor. A peaked or sloped roof stands taller over the connector and spans the same width. Without the well the connector has no seat on the lid.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=118.867 y=34.467 z=6.675
+click: x=128.800 y=12.225 z=16.950
+click: x=105.800 y=12.225 z=16.950
+click: x=81.800 y=12.225 z=16.950
+click: x=58.800 y=12.225 z=16.950
 
-[thin] Wrong material-thickness classification: every listed tie-anchor foot segment lies on the native boundary at all five interior positions. Their 0.347–0.738 mm lengths run along the existing foot/ramp face rather than through a wall.
-alternatives: Reject boundary-tangent pairs before diagnosing wall thickness. A thickness change at these exact surface segments does not address the invalid measurement.
+[ceiling] Functional tie tunnel: under each Reservoir A paired seat the strap runs through a 3.2 mm transverse slot. This 7.5 × 3.2 mm roof is the seat's ridge between the two tubes, 1.6 mm over the slot floor, and it bridges the slot's 3.2 mm width.
+alternatives: An open-topped slot cuts the ridge that carries both tubes' grooves. A sloped roof takes stock from that ridge or deepens the slot into the lid's floor stock.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=113.800 y=32.564 z=5.745
-click: x=129.200 y=-14.436 z=5.745
-click: x=113.800 y=35.748 z=5.897
-click: x=129.200 y=-11.252 z=5.897
-click: x=138.000 y=-11.413 z=6.074
-click: x=120.800 y=35.588 z=6.074
-click: x=31.512 y=53.400 z=6.108
-click: x=31.512 y=76.700 z=6.108
-click: x=59.392 y=-72.150 z=6.108
-click: x=62.608 y=-48.850 z=6.108
-click: x=39.392 y=38.425 z=6.108
-click: x=42.608 y=51.075 z=6.108
+click: x=118.800 y=54.250 z=5.175
+click: x=19.800 y=90.250 z=5.175
 
-[thin] Outside the pump-dock/cradle-station change and unresolved: these retained lid-perimeter, opening and tie-seat sections have identical native material in exact 4 mm windows. The whole-lid comparison separately proves no material change outside the two moved cradle windows. This scope evidence does not accept these fine sections, deposition or load capacity.
-alternatives: Reconcile the fitted lid rim, passage edge or tie-seat outline with its mate if larger local stock is required, preserving lid seating and tie access. Those lid-interface redesigns are not implemented here.
+[ceiling] Functional lower B-fill fitting pocket: the flat underside at world Z251.4 clears the fixed lower elbow and retains its 3.05 mm roof to Z254.45. This open-bottom dry pocket receives the fitting before the lid closes. Retain Tree(auto)/Default support decisions; actual support release, retention force and print quality are unqualified.
+alternatives: Filling the pocket obstructs the elbow. Changing its ceiling or fitting station requires reconciling the fixed reservoir stem and direct link; the flat pocket preserves those selected interfaces.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=-132.128 y=-89.331 z=4.612
-click: x=132.128 y=-89.331 z=4.612
-click: x=-132.128 y=89.331 z=3.038
-click: x=132.128 y=89.331 z=3.038
-click: x=-140.400 y=0.018 z=3.038
-click: x=140.400 y=-0.018 z=4.612
-click: x=40.054 y=-89.399 z=3.038
-click: x=-39.946 y=-89.399 z=3.038
-click: x=-40.018 y=89.399 z=3.035
-click: x=39.982 y=89.399 z=3.035
-click: x=141.500 y=43.775 z=5.102
-click: x=141.500 y=-55.868 z=5.070
-click: x=141.500 y=-43.237 z=5.051
-click: x=-107.345 y=59.193 z=5.171
-click: x=141.500 y=-31.307 z=5.023
-click: x=-141.500 y=-31.148 z=4.993
-click: x=-106.046 y=58.716 z=0.846
-click: x=138.648 y=-56.070 z=0.846
-click: x=138.648 y=-43.570 z=0.846
-click: x=138.648 y=43.430 z=0.846
+click: x=84.119 y=-42.264 z=3.400
 
-[thin] Outside the pump-dock/cradle-station change and unresolved: these actual 2.530–2.656 mm valve socket/channel sections retain the shared fixture construction. Exact current-native windows match the reference at unchanged V-K coordinates or the authored −0.5 mm local-X transform for V-A/B. The moves do not qualify the fixture thickness, valve retention or service life.
-alternatives: Reconcile the socket, body channel and plinth outline together if larger ligaments are required while preserving the purchased valve envelope and insertion. That shared valve-fixture redesign is not implemented here.
+[thin] Unavoidable without moving the stack's clamp stations: each clamp screw's Ø3.3 clearance hole stands on the shared attachment station, 4 mm in from the bare outside face at the shell's Ø8 boss centre. The 0.30 mm foil-seal rebate takes the outside face in, leaving 2.04–2.05 mm of wall below the head pocket floor.
+alternatives: Moving the stations inboard moves the shell's bosses and every cap's and lid's holes, Derek's printed shell among them. Dropping the rebate loses the flush foil land. Carrying the head pocket's outward slot down through the plate removes the wall and leaves the screw's floor open to the side.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=54.964 y=30.545 z=9.170
-click: x=78.216 y=17.995 z=9.170
-click: x=103.896 y=58.775 z=14.220
-click: x=80.644 y=71.325 z=14.220
-click: x=54.964 y=-16.075 z=9.170
-click: x=78.216 y=-28.625 z=9.170
-click: x=103.898 y=71.233 z=14.126
-click: x=54.962 y=18.087 z=9.076
-click: x=80.642 y=58.867 z=14.126
-click: x=78.218 y=30.453 z=9.076
-click: x=78.218 y=-16.167 z=9.076
-click: x=54.962 y=-28.533 z=9.076
-click: x=79.001 y=15.520 z=8.166
-click: x=54.151 y=15.520 z=8.166
-click: x=79.001 y=-31.100 z=8.166
-click: x=79.029 y=33.020 z=8.166
-click: x=54.179 y=33.020 z=8.166
-click: x=104.681 y=56.300 z=13.216
-click: x=79.831 y=56.300 z=13.216
-click: x=54.151 y=-31.100 z=8.166
-click: x=79.029 y=-13.600 z=8.166
-click: x=54.179 y=-13.600 z=8.166
-click: x=104.709 y=73.800 z=13.216
-click: x=79.859 y=73.800 z=13.216
-
-[thin] Numerical threshold boundary: these exact pairs span the two moved valve fixtures’ authored 3.000 mm blind floors. Native interior samples are material and both endpoints differ by exactly 3.000 mm in Z. Floating-point ranking at the 3 mm reach does not establish a smaller design floor or qualify print/load performance.
-alternatives: Apply an explicit numerical tolerance at the requested thickness threshold. Enlarging a nominal 3 mm fitted floor solely to change its rank has no dimensional basis.
-file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=82.140 y=-35.869 z=0.000
-click: x=56.955 y=-36.200 z=0.000
-click: x=56.998 y=-11.904 z=0.000
-click: x=80.154 y=-13.203 z=0.000
-click: x=79.501 y=8.946 z=0.000
-click: x=54.473 y=8.841 z=0.000
-click: x=54.592 y=33.298 z=0.000
-click: x=78.479 y=33.422 z=0.000
-click: x=81.600 y=-12.431 z=3.000
-click: x=56.750 y=-12.431 z=3.000
-click: x=81.600 y=-36.831 z=3.000
-click: x=56.750 y=-36.831 z=3.000
-click: x=81.600 y=34.189 z=3.000
-click: x=56.750 y=34.189 z=3.000
-click: x=81.600 y=9.789 z=3.000
-click: x=56.750 y=9.789 z=3.000
-
-[step] Outside the water-check/WAGO arrangement change and unresolved: this recess is in the retained water-3 side-post window. The simple check cradle has a separate flat floor. This post's window, tube seat and crown stock need to be considered together before moving its allowance; this record does not accept the remaining step.
-alternatives: Fill the floor and reconcile the window roof with the tube-bearing crown to retain the tie passage and required stock. That side-post revision is not implemented in this pass.
-file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=133.600 y=-13.000 z=5.150
-
-[sliver] Outside the water-check/WAGO arrangement change and unresolved: these faces belong to the retained fluid-18 anchor-cap catches. The mating cap and its wing slots are separate fitted geometry; this review establishes no acceptance of the 1.6 mm strips or their deposition.
-alternatives: Grow the catch and mating wing/slot together, or reconsider that run's retention arrangement. Those coordinated changes are not part of the water-check cradle.
-file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=60.800 y=-86.025 z=12.478
-click: x=60.800 y=-74.975 z=12.478
-click: x=65.950 y=-86.025 z=8.939
-
-[ledge] Outside the water-check/WAGO arrangement change and unresolved: this is the fluid-18 anchor-cap catch's flat underside, beside the sliver faces recorded above. Its print contact and release are not qualified here.
-alternatives: Reconcile the catch underside and mating cap wing in a shared revision; retain the opening and installed tube axis when changing its stock or print support.
-file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=59.083 y=-85.758 z=12.478
-
-[thin] Outside the water-check/WAGO arrangement change and unresolved: these are retained lid-rim and local tie-seat outlines, outside the edited check cradle. The point pairs remain ranked; this entry establishes no printing, strength or life acceptance and does not transfer the nameplate's separate accepted thin-lip result.
-alternatives: Coordinate larger rim stock with the mating cap and any affected tube/tie opening. Review the actual production slice and interfaces before selecting that separate lid revision.
-file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=141.200 y=-56.466 z=4.098
-click: x=139.957 y=-56.373 z=5.098
-click: x=-131.897 y=-87.851 z=1.127
-click: x=-132.407 y=-89.827 z=1.129
+click: x=131.926 y=-87.843 z=1.123
+click: x=132.436 y=-89.819 z=1.126
 click: x=131.897 y=87.851 z=1.127
 click: x=132.407 y=89.827 z=1.129
-
-[sliver] Outside the internal-regulator change and unresolved: these retained lid-rim, screw-seat and anchor-cap-catch features are outside the new post. The exact-native comparison in reference/shok-blok-regulator/installation-review.json establishes unchanged material outside the post window. It does not accept these fine sections, catch strips or print-down lands.
-alternatives: Reconcile the complete lid seating interface or the catch with its mating anchor cap before removing its thin strip, ledge or recess. Those fitted interfaces require their own review.
-file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=65.950 y=-74.975 z=8.939
-click: x=55.650 y=-86.025 z=8.939
-click: x=55.650 y=-74.975 z=8.939
-
-[ceiling] Required regulator tie passage: this roof bridges the 2.8 mm tie width across a 25.4 mm open-ended passage with 3.25 mm nominal height. Both Y mouths stay accessible before the regulator is seated. Retain Tree(auto)/Default; physical support removal is unqualified.
-alternatives: Filling the passage prevents the single tie. An inclined roof adds faces and changes the passage without eliminating its through span. Preserve the simple flat bridge and open mouths.
-file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=-99.773 y=-56.981 z=25.456
-
-[thin] Outside the internal-regulator change and unresolved: these retained lid-rim, screw-seat and anchor-cap-catch features are outside the new post. The exact-native comparison in reference/shok-blok-regulator/installation-review.json establishes unchanged material outside the post window. It does not accept these fine sections, catch strips or print-down lands.
-alternatives: Reconcile the complete lid seating interface or the catch with its mating anchor cap before removing its thin strip, ledge or recess. Those fitted interfaces require their own review.
-file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
+click: x=-131.897 y=-87.851 z=1.127
+click: x=-132.407 y=-89.827 z=1.129
 click: x=-131.897 y=87.851 z=1.123
 click: x=-132.407 y=89.827 z=1.126
-click: x=131.897 y=-87.851 z=1.123
-click: x=132.407 y=-89.827 z=1.126
-click: x=-106.699 y=58.962 z=4.303
-click: x=-108.633 y=59.616 z=4.303
-click: x=39.969 y=88.149 z=1.127
-click: x=39.969 y=90.200 z=1.127
 click: x=39.969 y=-88.149 z=1.127
 click: x=39.969 y=-90.200 z=1.127
 click: x=-40.031 y=-88.149 z=1.127
 click: x=-40.031 y=-90.200 z=1.127
+click: x=39.969 y=88.149 z=1.127
+click: x=39.969 y=90.200 z=1.127
 click: x=-40.031 y=88.149 z=1.127
 click: x=-40.031 y=90.200 z=1.127
 click: x=139.149 y=0.031 z=1.127
 click: x=141.200 y=0.031 z=1.127
 click: x=-139.149 y=0.031 z=1.127
 click: x=-141.200 y=0.031 z=1.127
-click: x=-42.180 y=-84.600 z=0.000
-click: x=-42.180 y=-84.600 z=2.250
-click: x=-134.683 y=0.557 z=0.000
-click: x=-134.683 y=0.557 z=2.250
-click: x=-38.089 y=84.368 z=0.000
-click: x=-38.089 y=84.368 z=2.250
-click: x=132.501 y=-83.661 z=0.000
-click: x=132.501 y=-83.661 z=2.250
-click: x=40.018 y=-83.637 z=0.000
-click: x=40.018 y=-83.637 z=2.250
-click: x=39.480 y=83.721 z=0.000
-click: x=39.480 y=83.721 z=2.250
-click: x=129.428 y=84.307 z=0.000
-click: x=129.428 y=84.307 z=2.250
-click: x=136.588 y=2.744 z=0.000
-click: x=136.588 y=2.744 z=2.250
-click: x=-141.200 y=-32.665 z=3.135
-click: x=-139.239 y=-32.518 z=4.667
-click: x=141.200 y=-32.665 z=3.135
-click: x=139.239 y=-32.518 z=4.667
 
-[ledge] Outside the internal-regulator change and unresolved: these retained lid-rim, screw-seat and anchor-cap-catch features are outside the new post. The exact-native comparison in reference/shok-blok-regulator/installation-review.json establishes unchanged material outside the post window. It does not accept these fine sections, catch strips or print-down lands.
-alternatives: Reconcile the complete lid seating interface or the catch with its mating anchor cap before removing its thin strip, ledge or recess. Those fitted interfaces require their own review.
+[thin] Unavoidable without a proud head or a thicker lid: under each clamp screw's head the lid keeps 2.25 mm of floor, the 5.4 mm lid less the 3.15 mm pocket that seats the DIN 912 head below the flat outer face. That floor is the clamped layer between the head and the cup's boss.
+alternatives: A 3 mm floor stands the head 0.75 mm proud of the lid's flat face, or thickens the lid and raises the cap face that every part above the core is placed from.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=59.083 y=-75.242 z=12.478
-click: x=37.183 y=39.492 z=14.372
-click: x=37.183 y=50.008 z=14.372
+click: x=-37.309 y=-85.531 z=0.000
+click: x=-37.309 y=-85.531 z=2.250
+click: x=-134.888 y=1.043 z=0.000
+click: x=-134.888 y=1.043 z=2.250
+click: x=38.322 y=-84.185 z=0.000
+click: x=38.322 y=-84.185 z=2.250
+click: x=-41.777 y=84.220 z=0.000
+click: x=-41.777 y=84.220 z=2.250
+click: x=135.707 y=-2.183 z=0.000
+click: x=135.707 y=-2.183 z=2.250
+click: x=128.167 y=-85.906 z=2.250
+click: x=128.167 y=-85.906 z=0.000
 
 [thin] Specific B-fill retaining-cover section: this printed pair spans 2.401 mm through the nominal 2.4 mm dry cover above the upper fitting at world X-33/Y287.5. Its top is Z254.75, leaving 0.25 mm nominal air to the fixed PCB tails. The upper fitting reaches its upward stop after 0.2 mm translation. This cover-specific section is accepted under the printed-parts thinner-cover exception; pull strength, printed fit and lifetime remain unqualified. The local native and printed scopes are recorded in foam-cap/b-fill-pair-review.json and b-fill-printed-review.json.
 alternatives: A 3 mm cover raises the same flat roof to Z255.35 and intersects the fixed PCB tails by 24.2728 mm3. An open pocket removes the upward stop. Either changes the selected fit or retention interface; the simple 2.4 mm cover preserves both.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
 click: x=46.782 y=-35.031 z=4.349
 click: x=46.782 y=-35.031 z=6.750
-
-[ceiling] Functional lower B-fill fitting pocket: the flat underside at world Z251.4 clears the fixed lower elbow and retains its 3.05 mm roof to Z254.45. This open-bottom dry pocket receives the fitting before the lid closes. Retain Tree(auto)/Default support decisions; actual support release, retention force and print quality are unqualified.
-alternatives: Filling the pocket obstructs the elbow. Changing its ceiling or fitting station requires reconciling the fixed reservoir stem and direct link; the flat pocket preserves those selected interfaces.
-file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=84.119 y=-42.264 z=3.400

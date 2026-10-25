@@ -11,7 +11,7 @@ the only way to know a line fits is to draw it and measure it, which is what
 WHERE EACH LINE GOES, and what it does at the end of it:
 
   water-in         from the aft plain guide through the cup, east of the sensor loom
-                   and around the PSU insert column, to the fixed TOP-plate elbow.
+                   and clear of the equipment columns, to the fixed TOP-plate elbow.
                    Filtered tap water enters above the liquid against CO2 back-pressure.
   carb-water-out   the carbonator's BOTTOM plate, under the liquid: the carbonator's own
                    drain. Out flat on its own storey and through a slot in the support

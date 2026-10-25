@@ -147,10 +147,6 @@ def valve_support(name, face_z=None):
     return world_shape_in_cap(wall.cut(sockets,channel).clean())
 
 
-def vb_support(face_z=None):
-    return valve_support('valve-v-b',face_z)
-
-
 def _check_bearing_station():
     """Midpoint of the shared ACHV44-E reference's fixed cylindrical band."""
     check = importlib.import_module('neofit_achv44_check')
@@ -430,36 +426,6 @@ def check_tie_route():
     }
 
 
-def _va_union_tie(data):
-    x, y, z = above_core.snapshot_pose('va-east-turn')['translation_mm']
-    y -= 10.
-    radius = data['seat_radius_mm'] + .4
-    centre, u, v = (x, y, z), (1., 0., 0.), (0., 0., 1.)
-    low, high = data['stock_min_world_mm'], data['stock_max_world_mm']
-    first, last = data['tie_window_min_world_mm'], data['tie_window_max_world_mm']
-    wx, wz = (first[0] + last[0]) / 2., (first[2] + last[2]) / 2.
-    window_fore = (wx, low[1] - .6, wz)
-    window_aft = (wx, high[1] + 1.4, wz)
-    upper = _tie_arc_point(centre, u, v, radius, 175.)
-    lower = _tie_arc_point(centre, u, v, radius, -90.)
-    west_upper = (low[0] - 1.4, y, upper[2])
-    fore_upper = (low[0] - 1.4, low[1] - .6, upper[2])
-    fore_lower = (low[0] - 1.4, low[1] - .6, wz)
-    east_lower = (x + 1.4, y, lower[2])
-    aft_lower = (x + 1.4, high[1] + 1.4, lower[2])
-    return [
-        _tie_line(window_aft, window_fore, (1., 0., 0.)),
-        _tie_line(window_fore, fore_lower),
-        _tie_line(fore_lower, fore_upper, (1., 0., 0.)),
-        _tie_line(fore_upper, west_upper, (1., 0., 0.)),
-        _tie_line(west_upper, upper, (0., 1., 0.)),
-        _tie_arc(centre, u, v, radius, 175., -90.),
-        _tie_line(lower, east_lower, (0., 1., 0.)),
-        _tie_line(east_lower, aft_lower, (1., 0., 0.)),
-        _tie_line(aft_lower, window_aft, (0., 1., 0.)),
-    ]
-
-
 def _vb_union_tie(data):
     frame = above_core.snapshot_pose('vb-outlet-return')
     centre = above_core.point(frame, (0., 14.5, 0.))
@@ -502,8 +468,7 @@ def union_tie_routes():
     dimensions, threading, head engagement and retention remain unqualified.
     """
     data = union_support_datums()
-    builders = {'va-east-turn': _va_union_tie,
-                'vb-outlet-return': _vb_union_tie}
+    builders = {'vb-outlet-return': _vb_union_tie}
     result = {}
     for name, builder in builders.items():
         if not data[name].get('support_implemented', True):
