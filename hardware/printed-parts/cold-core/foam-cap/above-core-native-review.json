@@ -186,192 +186,168 @@
       "pilot_applicability_scope": "The recorded insert rows belong to the source/export fixture whose hashes accompany this record. Current eight-column pilot stock is in feature_checks.deck_mount_insert_stock; PSU hosts belong to the separate back-top wall-mount-review.json."
     },
     "b_fill_pair": {
+      "current_applicability": true,
+      "receipt": "b-fill-pair-review.json",
+      "manual_reader": "b_fill_pair_review.py",
+      "geometry_basis": "Source-built selected cup/lid and explicit saved local native targets; canonical artifact binding is pending the selected cap/core export.",
       "link": {
+        "parts": {
+          "reservoir-b-fill-lower": {
+            "reference": "neofit-stem-elbow",
+            "frame": {
+              "rotation": [
+                [
+                  0.0,
+                  0.19019086540333066,
+                  -0.9817471337962399
+                ],
+                [
+                  0.0,
+                  0.9817471337962399,
+                  0.19019086540333066
+                ],
+                [
+                  1.0,
+                  0.0,
+                  0.0
+                ]
+              ],
+              "translation_mm": [
+                -43.5,
+                233.3,
+                243.5
+              ]
+            },
+            "stem_length_mm": 16.3048
+          },
+          "reservoir-b-fill-upper": {
+            "reference": "jg-turn-elbow",
+            "frame": {
+              "rotation": [
+                [
+                  -0.9817471337962399,
+                  -0.19019086540333066,
+                  0.0
+                ],
+                [
+                  0.19019086540333066,
+                  -0.9817471337962399,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "translation_mm": [
+                -33.0,
+                287.5,
+                244.0
+              ]
+            }
+          }
+        },
         "exposed_route_world_mm": [
           [
-            -45.07621873130372,
-            252.28467894148037,
+            -39.87686401406655,
+            252.00228289881838,
             243.5
           ],
           [
-            -45.48369395248118,
-            257.19249160544,
+            -38.88816892566463,
+            257.1058327837121,
             243.5
           ],
           [
-            -45.89116917365864,
-            262.1003042693996,
+            -37.89947383726271,
+            262.2093826686058,
             244.0
           ],
           [
-            -46.2986443948361,
-            267.00811693335925,
+            -36.91077874886079,
+            267.31293255349954,
             244.0
           ]
         ],
         "upper_mouth_world_mm": [
-          -48.0,
+          -33.0,
           287.5,
           264.56239
         ],
-        "exposed_span_mm": 14.774097292341274,
+        "exposed_span_mm": 15.595308738491163,
         "roof_top_z_mm": 254.45,
+        "upper_cover_thickness_mm": 2.4,
         "clearance_mm": 0.15
       },
-      "fitting_bounds_mm": {
-        "reservoir-b-fill-lower": [
-          [
-            -52.42018264375602,
-            226.7997669899195,
-            221.15
-          ],
-          [
-            -36.441493023138136,
-            252.73975521561005,
-            251.247
+      "upper_cover_thickness_mm": 2.4,
+      "lower_cover_thickness_mm": 3.049999999999983,
+      "roof_to_pcb_mm": 0.25,
+      "physical_layout_native_passed": true,
+      "access_witness_contacts": [
+        {
+          "subject": "reservoir-b-fill-upper",
+          "target": "access-J10-mouth-V12",
+          "target_sha256": "3cf246a6d8928eb109f475bf889c4f2930a482d97ce998f7938ee60454bf06ad",
+          "overlap_mm3": 4.478093181619399,
+          "air_mm": 0.0,
+          "bounds_mm": [
+            -28.99998906026316,
+            281.57885878980716,
+            261.0600027,
+            -26.5947737532552,
+            284.1529705200505,
+            263.1136200910979
           ]
-        ],
-        "reservoir-b-fill-upper": [
-          [
-            -56.09,
-            266.6167513376077,
-            235.8371
-          ],
-          [
-            -38.55797412986601,
-            295.59,
-            264.56239
+        },
+        {
+          "subject": "tube-fluid-24-tail",
+          "target": "access-terminal-J13-withdrawal",
+          "target_sha256": "20c54f9f90f6a83df682d9162c3912fad9ab1a3aa6e9ff84ade7c519906f168d",
+          "overlap_mm3": 140.17873605525813,
+          "air_mm": 0.0,
+          "bounds_mm": [
+            -80.35020227731077,
+            241.60526171099843,
+            292.99999989591714,
+            -74.64978561811743,
+            254.10301653652797,
+            299.3500001316588
           ]
-        ]
-      },
-      "air_bounds_mm": [
-        [
-          -56.35,
-          226.46760433519802,
-          235.6
-        ],
-        [
-          -35.11409345030038,
-          295.85,
-          264.75
-        ]
+        },
+        {
+          "subject": "tube-fluid-24-tail",
+          "target": "access-terminal-J5-withdrawal",
+          "target_sha256": "15086bcc190e3bc5bf64a9ae57c1f63db121e4cdabfda4da460422adc26ad4a8",
+          "overlap_mm3": 20.750586133746143,
+          "air_mm": 0.0,
+          "bounds_mm": [
+            -80.35020217484987,
+            220.0,
+            293.5256920580839,
+            -78.925,
+            224.40301653652307,
+            298.8243079419161
+          ]
+        },
+        {
+          "subject": "tube-fluid-24-tail",
+          "target": "access-terminal-J6-withdrawal",
+          "target_sha256": "a727990b0d57c7b652ab5926e3db6ad7fa0a51cd7237d1712410908e4150b9a0",
+          "overlap_mm3": 70.04766835497027,
+          "air_mm": 0.0,
+          "bounds_mm": [
+            -80.34999399796835,
+            225.70291992005,
+            293.4346019643789,
+            -78.75677790221589,
+            240.50292012074624,
+            298.9153980382515
+          ]
+        }
       ],
-      "roof_to_pcb_mm": 0.5500000000000114,
-      "roof_pcb_intersection_mm3": 0.0,
-      "fitting_contacts_mm3": {
-        "reservoir-b-fill-lower": {
-          "cup": 0.0,
-          "lid": 0.0,
-          "reservoir_cap": 0.0,
-          "pcb": 0.0
-        },
-        "reservoir-b-fill-upper": {
-          "cup": 0.0,
-          "lid": 0.0,
-          "reservoir_cap": 0.0,
-          "pcb": 0.0
-        }
-      },
-      "pcb_contacts_mm3": {
-        "cup": 0.0,
-        "lid": 0.0
-      },
-      "passive_guides": {
-        "reservoir-b": {
-          "points_mm": [
-            [
-              -94.3,
-              9.5,
-              8.425
-            ],
-            [
-              -94.3,
-              9.5,
-              219.41478445646027
-            ],
-            [
-              -94.30000000000001,
-              6.0,
-              225.74065725526572
-            ],
-            [
-              -94.30000000000001,
-              6.0,
-              233.4
-            ]
-          ],
-          "radii_mm": [
-            0.0,
-            14.0,
-            14.0,
-            0.0
-          ],
-          "cup_contact_mm3": 0.0,
-          "lid_contact_mm3": 0.0
-        },
-        "reservoir-a-fill": {
-          "points_mm": [
-            [
-              102.5,
-              -57.5,
-              213.15
-            ],
-            [
-              102.5,
-              -57.5,
-              219.41478445646027
-            ],
-            [
-              102.5,
-              -61.0,
-              225.74065725526572
-            ],
-            [
-              102.5,
-              -61.0,
-              233.4
-            ]
-          ],
-          "radii_mm": [
-            0.0,
-            14.0,
-            14.0,
-            0.0
-          ],
-          "cup_contact_mm3": 0.0,
-          "lid_contact_mm3": 0.0
-        }
-      },
-      "installed_wiring_fixture_probe": {
-        "scope": "Current native B-fill lower/upper fittings against cached125 installed wiring bodies",
-        "body_count": 125,
-        "intersections": [],
-        "fittings": {
-          "reservoir-b-fill-lower": {
-            "bounds_mm": [
-              -52.42018264375602,
-              226.7997669899195,
-              221.15,
-              -36.441493023138136,
-              252.73975521561005,
-              251.247
-            ],
-            "candidate_count": 20
-          },
-          "reservoir-b-fill-upper": {
-            "bounds_mm": [
-              -56.09,
-              266.6167513376077,
-              235.8371,
-              -38.55797412986601,
-              295.59,
-              264.56239
-            ],
-            "candidate_count": 29
-          }
-        },
-        "qualification_scope": "Zero native intersections against the identified 125-body cache, including J6/J7 housings. Subsequent wire dressing has its separate review in hardware/wiring/installed/above-core-review; this probe is not a full electrical interference claim."
-      }
+      "assembly_scope": "Assemble both fittings and the short link in the open cup before closing the lid. Terminate J10 on the loose PCB before fastening it to the core; land the free ends at the WAGOs. Installed wire insertion/withdrawal service and flexible handling are unqualified.",
+      "floor_scope": "The original2mm cup floor and fixed lower reservoir stem tip/axis are retained; full roof probes have zero missing stock. The2.4mm upper retaining cover is a local functional section, not a pressure wall or qualified load path."
     },
     "check_bridge": {
       "scope": "Source-native east quarter bearing, complete 3 mm lid backing, four nominal pump-driver columns and complete water-check retaining-strip path, bound to the exported cap lid. Separate actual-appliance records cover equipment and wiring. No physical fit, threading, retention, pressure or life qualification.",

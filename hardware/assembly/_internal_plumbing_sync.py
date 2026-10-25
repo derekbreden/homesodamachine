@@ -52,6 +52,7 @@ def main():
         'CAP_SCREW_LEN': f'{enc.cap_screw_len:.4g}',
         'RESERVOIR_A_FILL_WARM': f'{reservoir_a_lengths["fluid-14"]:.3f} mm',
         'RESERVOIR_A_DRAW_WARM': f'{reservoir_a_lengths["fluid-16"]:.3f} mm',
+        'RESERVOIR_B_FILL_WARM': f'{next(run.length for run in facts.runs if run.id == "fluid-24"):.3f} mm',
     }
     substitute_md(HERE / 'internal-plumbing.md', variables=variables)
     print('-> internal-plumbing.md')
