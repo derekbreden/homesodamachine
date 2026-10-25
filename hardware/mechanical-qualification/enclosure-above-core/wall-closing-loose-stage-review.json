@@ -1,0 +1,975 @@
+{
+  "schema": 1,
+  "units": "mm",
+  "scope": "Derived sampled back-top closing scenario with the low V-A tube/union chain and pump inlet elbow left loose for final connection. No body or pose is changed.",
+  "derivation": "Remove the three named moving bodies and one named stationary elbow from the source pair table. Removing bodies cannot create a new intersection among the retained unchanged bodies. This is a subset reading, not a second CAD query.",
+  "source_record": "hardware/mechanical-qualification/enclosure-above-core/wall-closing-staged-review.json",
+  "source_record_sha256": "611315485a1c493ed6e2592b51e4d727aa242096a11f2c23f218d608bbfb2f1d",
+  "removed_moving_components": [
+    "tube-above-core-va-fore-feed",
+    "tube-above-core-va-under-head",
+    "va-east-turn"
+  ],
+  "removed_stationary_component": "lower-pump-elbow",
+  "offsets_mm": [
+    [
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.25,
+      0.0
+    ],
+    [
+      0.0,
+      0.5,
+      0.0
+    ],
+    [
+      0.0,
+      1.0,
+      0.0
+    ],
+    [
+      0.0,
+      2.0,
+      0.0
+    ],
+    [
+      0.0,
+      5.0,
+      0.0
+    ],
+    [
+      0.0,
+      10.0,
+      0.0
+    ],
+    [
+      0.0,
+      20.0,
+      0.0
+    ],
+    [
+      0.0,
+      30.0,
+      0.0
+    ],
+    [
+      0.0,
+      50.0,
+      0.0
+    ],
+    [
+      0.0,
+      75.0,
+      0.0
+    ],
+    [
+      0.0,
+      100.0,
+      0.0
+    ],
+    [
+      0.0,
+      132.0,
+      0.0
+    ],
+    [
+      0.0,
+      150.0,
+      0.0
+    ],
+    [
+      0.0,
+      200.0,
+      0.0
+    ],
+    [
+      0.0,
+      250.0,
+      0.0
+    ],
+    [
+      0.0,
+      300.0,
+      0.0
+    ]
+  ],
+  "moving_components": [
+    "asse-drain-adapter",
+    "asse-inlet-tpu",
+    "asse-outlet-tpu",
+    "asse1022-assembly",
+    "bulkhead-carb",
+    "bulkhead-carb-nut",
+    "bulkhead-drain",
+    "bulkhead-drain-nut",
+    "bulkhead-flavor-a",
+    "bulkhead-flavor-a-nut",
+    "bulkhead-flavor-b",
+    "bulkhead-flavor-b-nut",
+    "bulkhead-ring-carb",
+    "bulkhead-ring-carb-word",
+    "bulkhead-ring-co2",
+    "bulkhead-ring-co2-word",
+    "bulkhead-ring-drain",
+    "bulkhead-ring-drain-word",
+    "bulkhead-ring-flavor-a",
+    "bulkhead-ring-flavor-a-word",
+    "bulkhead-ring-flavor-b",
+    "bulkhead-ring-flavor-b-word",
+    "bulkhead-ring-water",
+    "bulkhead-ring-water-word",
+    "bulkhead-water",
+    "bulkhead-water-nut",
+    "c14-inlet",
+    "co2-inlet",
+    "co2-inlet-nut",
+    "digiten-flow",
+    "enclosure-back-top above Z253.3",
+    "flow-regulator",
+    "funnel-frame-back-east-insert",
+    "funnel-frame-back-west-insert",
+    "gas-check",
+    "gas-inlet-elbow",
+    "gas-lower-a",
+    "gas-lower-b",
+    "gas-regulator",
+    "gas-upper-a",
+    "gas-upper-b",
+    "keystone-jack",
+    "lower-valve-elbow",
+    "psu",
+    "reg-va-elbow",
+    "relay-1",
+    "relay-2",
+    "soda-bend-holder",
+    "soda-outlet-return-stem",
+    "soda-stem-elbow",
+    "tee-fold",
+    "tube-above-core-gas-check-link",
+    "tube-above-core-gas-inlet",
+    "tube-above-core-reg-va-link",
+    "tube-above-core-tee-regulator",
+    "tube-above-core-tee-vk-link",
+    "tube-above-core-water-in",
+    "tube-soda-meter-bulkhead",
+    "va-outlet-elbow",
+    "valve-v-a",
+    "vk-solenoid",
+    "wago-g",
+    "wago-h",
+    "wago-n",
+    "water-split"
+  ],
+  "stationary_components": [
+    "cold-core/carbonator-fold",
+    "cold-core/discharge-chain",
+    "cold-core/foam-cap-lid-top",
+    "cold-core/foam-cap-top",
+    "cold-core/g-ganen-pump",
+    "cold-core/ground-stack",
+    "cold-core/line-carb-water-out",
+    "cold-core/line-co2-in",
+    "cold-core/line-reservoir-a",
+    "cold-core/line-reservoir-a-fill",
+    "cold-core/line-reservoir-b",
+    "cold-core/line-water-in",
+    "cold-core/pcba",
+    "cold-core/pump-inlet-barb-band",
+    "cold-core/pump-inlet-tpu",
+    "cold-core/pump-inlet-tube-band",
+    "cold-core/pump-outlet-barb-band",
+    "cold-core/pump-outlet-tpu",
+    "cold-core/pump-outlet-tube-band",
+    "cold-core/reservoir-b-fill-upper",
+    "cold-core/tube-above-core-pump-check-link",
+    "cold-core/tube-above-core-vb-yb-cross",
+    "cold-core/tube-water-5",
+    "cold-core/valve-v-b",
+    "cold-core/vb-inlet-turn",
+    "cold-core/vb-outlet-return",
+    "cold-core/vb-outlet-stem",
+    "cold-core/wago-gnd",
+    "cold-core/wago-reeds-b",
+    "cold-core/wago-sensors",
+    "cold-core/wago-v12"
+  ],
+  "pair_readings": [
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/foam-cap-top",
+      "sample_count": 16,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 16,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/reservoir-b-fill-upper",
+      "sample_count": 11,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/line-carb-water-out",
+      "sample_count": 13,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/line-co2-in",
+      "sample_count": 14,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/line-reservoir-a",
+      "sample_count": 15,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/line-reservoir-a-fill",
+      "sample_count": 15,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/line-reservoir-b",
+      "sample_count": 9,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/line-water-in",
+      "sample_count": 15,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/carbonator-fold",
+      "sample_count": 15,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/discharge-chain",
+      "sample_count": 15,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/g-ganen-pump",
+      "sample_count": 15,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/pcba",
+      "sample_count": 11,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/pump-inlet-barb-band",
+      "sample_count": 13,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/pump-inlet-tpu",
+      "sample_count": 13,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/pump-inlet-tube-band",
+      "sample_count": 12,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/pump-outlet-barb-band",
+      "sample_count": 13,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/pump-outlet-tpu",
+      "sample_count": 13,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/pump-outlet-tube-band",
+      "sample_count": 13,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/valve-v-b",
+      "sample_count": 10,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/vb-inlet-turn",
+      "sample_count": 8,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/vb-outlet-return",
+      "sample_count": 11,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/vb-outlet-stem",
+      "sample_count": 11,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/wago-sensors",
+      "sample_count": 5,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/wago-v12",
+      "sample_count": 8,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/wago-gnd",
+      "sample_count": 10,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/wago-reeds-b",
+      "sample_count": 10,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/ground-stack",
+      "sample_count": 5,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/tube-above-core-vb-yb-cross",
+      "sample_count": 11,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/tube-above-core-pump-check-link",
+      "sample_count": 14,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/tube-water-5",
+      "sample_count": 15,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "bulkhead-carb",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 7,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "bulkhead-carb-nut",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 5,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "bulkhead-drain",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 7,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "bulkhead-drain-nut",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 6,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "bulkhead-flavor-a",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 7,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "bulkhead-flavor-a-nut",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 6,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "bulkhead-flavor-b",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 7,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "bulkhead-flavor-b-nut",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 6,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "digiten-flow",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 12,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "digiten-flow",
+      "stationary": "cold-core/g-ganen-pump",
+      "sample_count": 11,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "gas-check",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 11,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "gas-lower-a",
+      "stationary": "cold-core/foam-cap-top",
+      "sample_count": 10,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "gas-lower-a",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 10,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "gas-lower-b",
+      "stationary": "cold-core/foam-cap-top",
+      "sample_count": 11,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "gas-lower-b",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 11,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "gas-regulator",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 10,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "keystone-jack",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 8,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "keystone-jack",
+      "stationary": "cold-core/g-ganen-pump",
+      "sample_count": 5,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "lower-valve-elbow",
+      "stationary": "cold-core/foam-cap-top",
+      "sample_count": 14,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "lower-valve-elbow",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 14,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "lower-valve-elbow",
+      "stationary": "cold-core/pump-inlet-tpu",
+      "sample_count": 3,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        10.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "lower-valve-elbow",
+      "stationary": "cold-core/pump-inlet-tube-band",
+      "sample_count": 3,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        10.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "psu",
+      "stationary": "cold-core/foam-cap-top",
+      "sample_count": 12,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "psu",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 12,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "soda-bend-holder",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 12,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "soda-bend-holder",
+      "stationary": "cold-core/g-ganen-pump",
+      "sample_count": 12,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "soda-outlet-return-stem",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 9,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "soda-outlet-return-stem",
+      "stationary": "cold-core/g-ganen-pump",
+      "sample_count": 8,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "soda-stem-elbow",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 9,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "tube-above-core-gas-check-link",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 10,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "tube-soda-meter-bulkhead",
+      "stationary": "cold-core/g-ganen-pump",
+      "sample_count": 9,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "va-outlet-elbow",
+      "stationary": "cold-core/foam-cap-top",
+      "sample_count": 14,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "va-outlet-elbow",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 14,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "valve-v-a",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 14,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "vk-solenoid",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 14,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "wago-h",
+      "stationary": "cold-core/foam-cap-lid-top",
+      "sample_count": 7,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "wago-h",
+      "stationary": "cold-core/g-ganen-pump",
+      "sample_count": 1,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "moving": "wago-n",
+      "stationary": "cold-core/g-ganen-pump",
+      "sample_count": 7,
+      "maximum_mesh_common_mm3": 0.0,
+      "peak_offset_mm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "rigid_native_counterexamples": [],
+  "no_rigid_counterexample_at_tested_offsets": true,
+  "limits": [
+    "The original lower rails, floor and shell seam motions retain their separate records.",
+    "Funnel, frame, drain group and closure screws are removed.",
+    "The continuous inlet stays one physical tube through a plain guide. Its cross-parent span is not included as an undeformable moving member.",
+    "Pump, gas, drain and electrical handoffs need separate final-connection handling.",
+    "The occupied foam is a soft display estimate. Its contacts are reported separately and establish no compression force, strain or clearance.",
+    "No hand access, insertion force, printed fit, stiffness, retention, sealing or lifetime qualification is inferred.",
+    "This retains the original reader\u2019s exact native inputs and sampled-point scope; it is not a continuous-path proof.",
+    "The low V-A tube still has the source record\u2019s 6.237989 mm3 final-pose contact with reservoir-b-fill-upper. Omitting it from travel does not resolve its installed fit.",
+    "Final connection access, tube flexibility, fitting insertion and cuff stretch/force are not established by this subtraction."
+  ]
+}

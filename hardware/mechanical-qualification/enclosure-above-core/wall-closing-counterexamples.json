@@ -1,0 +1,713 @@
+{
+  "schema": 1,
+  "units": "mm",
+  "frame": "Production enclosure XYZ; Z up",
+  "scope": "Native point counterexamples to carrying the fitted pump-side elbow with back-top through a pure Y slide. The larger sampled query stopped before completion; no negative or complete-path result is claimed.",
+  "native_appliance_sha256": "2e7e53cc8f52e5534339540e8c64f9f18a5cb16837a839397c2e6fb62c9890a5",
+  "back_top_sha256": "10a6008999aa3096a3c3b85a7222bc8d0ca39167f09b29966aa8d33e8b2c3bc9",
+  "moving": "lower-pump-elbow",
+  "point_counterexamples": [
+    {
+      "moving": "enclosure-back-top above Z253.3",
+      "stationary": "cold-core/pump-inlet-tpu",
+      "sample_count": 72,
+      "maximum_mesh_common_mm3": 11.819681458768665,
+      "peak_offset_mm": [
+        0.0,
+        42.0,
+        0.0
+      ],
+      "native_common_at_peak_mm3": 11.843501496339163,
+      "native_common_bounds_mm": [
+        57.60409877123198,
+        324.9470178134049,
+        279.55584778053,
+        59.00325076810429,
+        330.8176385460696,
+        284.3601764374134
+      ],
+      "positive_samples": [
+        {
+          "offset_mm": [
+            0.0,
+            36.0,
+            0.0
+          ],
+          "mesh_common_mm3": 1.338213389780952
+        },
+        {
+          "offset_mm": [
+            0.0,
+            38.0,
+            0.0
+          ],
+          "mesh_common_mm3": 8.376329394621779
+        },
+        {
+          "offset_mm": [
+            0.0,
+            40.0,
+            0.0
+          ],
+          "mesh_common_mm3": 11.809669202157904
+        },
+        {
+          "offset_mm": [
+            0.0,
+            42.0,
+            0.0
+          ],
+          "mesh_common_mm3": 11.819681458768665
+        },
+        {
+          "offset_mm": [
+            0.0,
+            44.0,
+            0.0
+          ],
+          "mesh_common_mm3": 11.794027807055693
+        },
+        {
+          "offset_mm": [
+            0.0,
+            46.0,
+            0.0
+          ],
+          "mesh_common_mm3": 8.26162873700737
+        },
+        {
+          "offset_mm": [
+            0.0,
+            48.0,
+            0.0
+          ],
+          "mesh_common_mm3": 1.0128858711958202
+        }
+      ]
+    },
+    {
+      "moving": "lower-pump-elbow",
+      "stationary": "cold-core/g-ganen-pump",
+      "sample_count": 82,
+      "maximum_mesh_common_mm3": 316.836224151439,
+      "peak_offset_mm": [
+        0.0,
+        132.0,
+        0.0
+      ],
+      "native_common_at_peak_mm3": 316.9007084393011,
+      "native_common_bounds_mm": [
+        45.263698871231995,
+        422.7663975865227,
+        254.8939727730317,
+        56.631730623638,
+        439.39340770372473,
+        260.40000620351003
+      ],
+      "positive_samples": [
+        {
+          "offset_mm": [
+            0.0,
+            56.0,
+            0.0
+          ],
+          "mesh_common_mm3": 0.13574247819604726
+        },
+        {
+          "offset_mm": [
+            0.0,
+            58.0,
+            0.0
+          ],
+          "mesh_common_mm3": 3.2902797516887476
+        },
+        {
+          "offset_mm": [
+            0.0,
+            60.0,
+            0.0
+          ],
+          "mesh_common_mm3": 5.618459364827643
+        },
+        {
+          "offset_mm": [
+            0.0,
+            62.0,
+            0.0
+          ],
+          "mesh_common_mm3": 18.199517158241225
+        },
+        {
+          "offset_mm": [
+            0.0,
+            64.0,
+            0.0
+          ],
+          "mesh_common_mm3": 46.56400352257064
+        },
+        {
+          "offset_mm": [
+            0.0,
+            66.0,
+            0.0
+          ],
+          "mesh_common_mm3": 97.09030911376054
+        },
+        {
+          "offset_mm": [
+            0.0,
+            68.0,
+            0.0
+          ],
+          "mesh_common_mm3": 166.76855083710342
+        },
+        {
+          "offset_mm": [
+            0.0,
+            70.0,
+            0.0
+          ],
+          "mesh_common_mm3": 246.51536971890897
+        },
+        {
+          "offset_mm": [
+            0.0,
+            72.0,
+            0.0
+          ],
+          "mesh_common_mm3": 305.8968140312548
+        },
+        {
+          "offset_mm": [
+            0.0,
+            74.0,
+            0.0
+          ],
+          "mesh_common_mm3": 316.83622415143867
+        },
+        {
+          "offset_mm": [
+            0.0,
+            76.0,
+            0.0
+          ],
+          "mesh_common_mm3": 302.2742078636346
+        },
+        {
+          "offset_mm": [
+            0.0,
+            78.0,
+            0.0
+          ],
+          "mesh_common_mm3": 280.9314472512579
+        },
+        {
+          "offset_mm": [
+            0.0,
+            80.0,
+            0.0
+          ],
+          "mesh_common_mm3": 282.23580227081214
+        },
+        {
+          "offset_mm": [
+            0.0,
+            82.0,
+            0.0
+          ],
+          "mesh_common_mm3": 271.6498855974379
+        },
+        {
+          "offset_mm": [
+            0.0,
+            84.0,
+            0.0
+          ],
+          "mesh_common_mm3": 207.2938601002768
+        },
+        {
+          "offset_mm": [
+            0.0,
+            86.0,
+            0.0
+          ],
+          "mesh_common_mm3": 118.6227306176435
+        },
+        {
+          "offset_mm": [
+            0.0,
+            88.0,
+            0.0
+          ],
+          "mesh_common_mm3": 35.88611938257379
+        },
+        {
+          "offset_mm": [
+            0.0,
+            90.0,
+            0.0
+          ],
+          "mesh_common_mm3": 1.2172655678359492
+        },
+        {
+          "offset_mm": [
+            0.0,
+            114.0,
+            0.0
+          ],
+          "mesh_common_mm3": 0.13574247819604668
+        },
+        {
+          "offset_mm": [
+            0.0,
+            116.0,
+            0.0
+          ],
+          "mesh_common_mm3": 3.290279751688755
+        },
+        {
+          "offset_mm": [
+            0.0,
+            118.0,
+            0.0
+          ],
+          "mesh_common_mm3": 5.618459364827636
+        },
+        {
+          "offset_mm": [
+            0.0,
+            120.0,
+            0.0
+          ],
+          "mesh_common_mm3": 18.199517158241232
+        },
+        {
+          "offset_mm": [
+            0.0,
+            122.0,
+            0.0
+          ],
+          "mesh_common_mm3": 46.564003522570616
+        },
+        {
+          "offset_mm": [
+            0.0,
+            124.0,
+            0.0
+          ],
+          "mesh_common_mm3": 97.0903091137606
+        },
+        {
+          "offset_mm": [
+            0.0,
+            126.0,
+            0.0
+          ],
+          "mesh_common_mm3": 166.76855083710336
+        },
+        {
+          "offset_mm": [
+            0.0,
+            128.0,
+            0.0
+          ],
+          "mesh_common_mm3": 246.51536971890917
+        },
+        {
+          "offset_mm": [
+            0.0,
+            130.0,
+            0.0
+          ],
+          "mesh_common_mm3": 305.8968140312552
+        },
+        {
+          "offset_mm": [
+            0.0,
+            132.0,
+            0.0
+          ],
+          "mesh_common_mm3": 316.836224151439
+        },
+        {
+          "offset_mm": [
+            0.0,
+            134.0,
+            0.0
+          ],
+          "mesh_common_mm3": 302.2742078636335
+        },
+        {
+          "offset_mm": [
+            0.0,
+            136.0,
+            0.0
+          ],
+          "mesh_common_mm3": 280.9314472512578
+        },
+        {
+          "offset_mm": [
+            0.0,
+            138.0,
+            0.0
+          ],
+          "mesh_common_mm3": 282.23580227081237
+        },
+        {
+          "offset_mm": [
+            0.0,
+            140.0,
+            0.0
+          ],
+          "mesh_common_mm3": 271.64988559743784
+        },
+        {
+          "offset_mm": [
+            0.0,
+            142.0,
+            0.0
+          ],
+          "mesh_common_mm3": 207.29386010027628
+        },
+        {
+          "offset_mm": [
+            0.0,
+            144.0,
+            0.0
+          ],
+          "mesh_common_mm3": 118.62273061764361
+        },
+        {
+          "offset_mm": [
+            0.0,
+            146.0,
+            0.0
+          ],
+          "mesh_common_mm3": 35.88611938257343
+        },
+        {
+          "offset_mm": [
+            0.0,
+            148.0,
+            0.0
+          ],
+          "mesh_common_mm3": 1.2172655678359248
+        }
+      ]
+    },
+    {
+      "moving": "lower-pump-elbow",
+      "stationary": "cold-core/pump-inlet-tpu",
+      "sample_count": 28,
+      "maximum_mesh_common_mm3": 420.4831626747308,
+      "peak_offset_mm": [
+        0.0,
+        20.0,
+        0.0
+      ],
+      "native_common_at_peak_mm3": 420.68682792338967,
+      "native_common_bounds_mm": [
+        44.435455954414216,
+        314.8464979106166,
+        266.33428515150183,
+        56.8695208548165,
+        332.5127599762589,
+        277.0692681625738
+      ],
+      "positive_samples": [
+        {
+          "offset_mm": [
+            0.0,
+            0.25,
+            0.0
+          ],
+          "mesh_common_mm3": 12.762838207090706
+        },
+        {
+          "offset_mm": [
+            0.0,
+            0.5,
+            0.0
+          ],
+          "mesh_common_mm3": 26.69726338658004
+        },
+        {
+          "offset_mm": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "mesh_common_mm3": 54.33839294521271
+        },
+        {
+          "offset_mm": [
+            0.0,
+            2.0,
+            0.0
+          ],
+          "mesh_common_mm3": 101.63924018104274
+        },
+        {
+          "offset_mm": [
+            0.0,
+            4.0,
+            0.0
+          ],
+          "mesh_common_mm3": 185.4860652648679
+        },
+        {
+          "offset_mm": [
+            0.0,
+            6.0,
+            0.0
+          ],
+          "mesh_common_mm3": 221.9866795626583
+        },
+        {
+          "offset_mm": [
+            0.0,
+            8.0,
+            0.0
+          ],
+          "mesh_common_mm3": 243.0249697908833
+        },
+        {
+          "offset_mm": [
+            0.0,
+            10.0,
+            0.0
+          ],
+          "mesh_common_mm3": 250.18786016723928
+        },
+        {
+          "offset_mm": [
+            0.0,
+            12.0,
+            0.0
+          ],
+          "mesh_common_mm3": 267.6184626287803
+        },
+        {
+          "offset_mm": [
+            0.0,
+            14.0,
+            0.0
+          ],
+          "mesh_common_mm3": 296.71585870694014
+        },
+        {
+          "offset_mm": [
+            0.0,
+            16.0,
+            0.0
+          ],
+          "mesh_common_mm3": 350.8977685403778
+        },
+        {
+          "offset_mm": [
+            0.0,
+            18.0,
+            0.0
+          ],
+          "mesh_common_mm3": 405.6876167934237
+        },
+        {
+          "offset_mm": [
+            0.0,
+            20.0,
+            0.0
+          ],
+          "mesh_common_mm3": 420.4831626747308
+        },
+        {
+          "offset_mm": [
+            0.0,
+            22.0,
+            0.0
+          ],
+          "mesh_common_mm3": 368.0908587106958
+        },
+        {
+          "offset_mm": [
+            0.0,
+            24.0,
+            0.0
+          ],
+          "mesh_common_mm3": 275.4851426472235
+        },
+        {
+          "offset_mm": [
+            0.0,
+            26.0,
+            0.0
+          ],
+          "mesh_common_mm3": 179.0649556318934
+        },
+        {
+          "offset_mm": [
+            0.0,
+            28.0,
+            0.0
+          ],
+          "mesh_common_mm3": 107.12225874535139
+        },
+        {
+          "offset_mm": [
+            0.0,
+            30.0,
+            0.0
+          ],
+          "mesh_common_mm3": 46.65026255164653
+        },
+        {
+          "offset_mm": [
+            0.0,
+            32.0,
+            0.0
+          ],
+          "mesh_common_mm3": 7.521250996056395
+        }
+      ]
+    },
+    {
+      "moving": "lower-pump-elbow",
+      "stationary": "cold-core/pump-inlet-tube-band",
+      "sample_count": 21,
+      "maximum_mesh_common_mm3": 62.903394197263566,
+      "peak_offset_mm": [
+        0.0,
+        6.0,
+        0.0
+      ],
+      "native_common_at_peak_mm3": 62.92795940429715,
+      "native_common_bounds_mm": [
+        44.79276615935698,
+        311.79233681237014,
+        265.80207865159065,
+        57.825031583106934,
+        320.9668615033015,
+        274.71423973582176
+      ],
+      "positive_samples": [
+        {
+          "offset_mm": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "mesh_common_mm3": 0.9384928879351889
+        },
+        {
+          "offset_mm": [
+            0.0,
+            2.0,
+            0.0
+          ],
+          "mesh_common_mm3": 14.824776286250364
+        },
+        {
+          "offset_mm": [
+            0.0,
+            4.0,
+            0.0
+          ],
+          "mesh_common_mm3": 42.40745985639062
+        },
+        {
+          "offset_mm": [
+            0.0,
+            6.0,
+            0.0
+          ],
+          "mesh_common_mm3": 62.903394197263566
+        },
+        {
+          "offset_mm": [
+            0.0,
+            8.0,
+            0.0
+          ],
+          "mesh_common_mm3": 59.464884791544684
+        },
+        {
+          "offset_mm": [
+            0.0,
+            10.0,
+            0.0
+          ],
+          "mesh_common_mm3": 60.585319249407114
+        },
+        {
+          "offset_mm": [
+            0.0,
+            12.0,
+            0.0
+          ],
+          "mesh_common_mm3": 57.69654221495283
+        },
+        {
+          "offset_mm": [
+            0.0,
+            14.0,
+            0.0
+          ],
+          "mesh_common_mm3": 51.52377278013718
+        },
+        {
+          "offset_mm": [
+            0.0,
+            16.0,
+            0.0
+          ],
+          "mesh_common_mm3": 46.85517703416414
+        },
+        {
+          "offset_mm": [
+            0.0,
+            18.0,
+            0.0
+          ],
+          "mesh_common_mm3": 48.159750176861664
+        },
+        {
+          "offset_mm": [
+            0.0,
+            20.0,
+            0.0
+          ],
+          "mesh_common_mm3": 55.72274621100856
+        },
+        {
+          "offset_mm": [
+            0.0,
+            22.0,
+            0.0
+          ],
+          "mesh_common_mm3": 51.24810637575049
+        },
+        {
+          "offset_mm": [
+            0.0,
+            24.0,
+            0.0
+          ],
+          "mesh_common_mm3": 35.7663436849757
+        },
+        {
+          "offset_mm": [
+            0.0,
+            26.0,
+            0.0
+          ],
+          "mesh_common_mm3": 5.900870137273254
+        }
+      ]
+    }
+  ],
+  "full_prepared_group_pure_y_slide_disproved": true,
+  "raw_query_log_sha256": "e9011cef163304d34c43f2febe244ab5d5accf70324947beb7f330d09f9c1e8d",
+  "limits": [
+    "Each positive peak was read as a native solid intersection; the intermediate mesh samples only locate candidate poses.",
+    "These readings do not qualify a staged pump connection, tube dressing, hand access or connection force."
+  ]
+}
