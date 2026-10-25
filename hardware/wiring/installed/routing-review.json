@@ -1,11 +1,11 @@
 {
   "schema": 1,
   "scope": "One manual full-scene mesh interference review of every wire, every wire pair and cable jackets against physical bodies. Tessellated penetration is a routing witness, not a native-solid or physical assembly qualification.",
-  "manifest_sha256": "2091b48315331417687f5d3cd19eeeaaea9643d333c5249cb9543da06b623762",
-  "assembly_step_sha256": "22ad6814cabf9743fdb12d5b5451e7d1832848302c0257a96cda3e86dc2d8358",
-  "assembly_mesh_sha256": "3d5090bd3a501fb680575a16675c8c3aa45c73fb904e99d32056bb4961915d0e",
+  "manifest_sha256": "f7840792440df6fdec99a5e6fefcfa4c63c6e1fe66e9605ff8c2f26055984290",
+  "assembly_step_sha256": "43598be1c2950565ba9548fc8671de6790815a44c34445edc3e367d09f372d19",
+  "assembly_mesh_sha256": "8ce6379a5dab629fbe6c3d8a0edb37441e96df8577e21df31ab3f07bdf62c132",
   "wire_count": 98,
-  "physical_mesh_count": 452,
+  "physical_mesh_count": 442,
   "coverage_missing": [],
   "physical_interference_pairs": [
     {
@@ -18,6 +18,61 @@
       ],
       "mesh_penetration_mm": 0.041,
       "contacts": 2
+    },
+    {
+      "wire": "AC4-H",
+      "part": "tube-fluid-16",
+      "point_mm": [
+        49.504,
+        155.833,
+        257.623
+      ],
+      "mesh_penetration_mm": 2.2416,
+      "contacts": 293
+    },
+    {
+      "wire": "AC5-N",
+      "part": "tube-fluid-16",
+      "point_mm": [
+        48.172,
+        159.75,
+        257.414
+      ],
+      "mesh_penetration_mm": 2.9709,
+      "contacts": 159
+    },
+    {
+      "wire": "AC6-PE",
+      "part": "tube-fluid-16",
+      "point_mm": [
+        47.159,
+        160.244,
+        259.364
+      ],
+      "mesh_penetration_mm": 2.3985,
+      "contacts": 123
+    },
+    {
+      "wire": "PE-bus",
+      "part": "tube-fluid-14",
+      "point_mm": [
+        46.0,
+        193.729,
+        260.703
+      ],
+      "mesh_penetration_mm": 9.5421,
+      "contacts": 229
+    },
+    {
+      "wire": "PE-bus",
+      "part": "tube-fluid-16",
+      "point_mm": [
+        59.624,
+        194.578,
+        260.061
+      ],
+      "mesh_penetration_mm": 11.8765,
+      "contacts": 228
     },
     {
       "wire": "DC3-negative",
@@ -34,8 +89,8 @@
       "wire": "J1-OUT1",
       "part": "valve-v-a/6",
       "point_mm": [
-        -83.048,
-        337.759,
+        -84.66,
+        337.22,
         262.0
       ],
       "mesh_penetration_mm": 0.1306,
@@ -50,7 +105,7 @@
         262.0
       ],
       "mesh_penetration_mm": 0.1487,
-      "contacts": 1
+      "contacts": 2
     },
     {
       "wire": "J1-positive-B",
@@ -62,6 +117,50 @@
       ],
       "mesh_penetration_mm": 0.1021,
       "contacts": 6
+    },
+    {
+      "wire": "J1-positive-D",
+      "part": "tube-fluid-16",
+      "point_mm": [
+        51.497,
+        152.885,
+        261.925
+      ],
+      "mesh_penetration_mm": 3.1688,
+      "contacts": 80
+    },
+    {
+      "wire": "J1-positive-H",
+      "part": "tube-fluid-14",
+      "point_mm": [
+        37.976,
+        164.503,
+        239.398
+      ],
+      "mesh_penetration_mm": 31.4765,
+      "contacts": 258
+    },
+    {
+      "wire": "J2-COM",
+      "part": "tube-fluid-14",
+      "point_mm": [
+        49.554,
+        200.136,
+        267.839
+      ],
+      "mesh_penetration_mm": 10.531,
+      "contacts": 88
+    },
+    {
+      "wire": "J2-OUT3",
+      "part": "tube-fluid-16",
+      "point_mm": [
+        84.488,
+        336.924,
+        262.0
+      ],
+      "mesh_penetration_mm": 6.4532,
+      "contacts": 185
     },
     {
       "wire": "J2-OUT3",
@@ -89,100 +188,100 @@
       "wire": "J2-positive-K",
       "part": "vk-solenoid/6",
       "point_mm": [
-        69.724,
-        337.849,
+        69.769,
+        337.248,
         262.0
       ],
-      "mesh_penetration_mm": 0.0408,
-      "contacts": 2
+      "mesh_penetration_mm": 0.1581,
+      "contacts": 4
     },
     {
-      "wire": "J13-AM2",
-      "part": "pump-contact-male",
+      "wire": "J2-positive-K",
+      "part": "tube-fluid-14",
       "point_mm": [
-        -6.77,
-        82.64,
-        273.524
+        71.526,
+        335.917,
+        259.796
       ],
-      "mesh_penetration_mm": 7.6021,
-      "contacts": 163
+      "mesh_penetration_mm": 20.2412,
+      "contacts": 256
     },
     {
-      "wire": "J13-AM2",
-      "part": "pump-contact-female",
+      "wire": "J2-positive-K",
+      "part": "tube-fluid-16",
       "point_mm": [
-        3.497,
-        79.343,
-        274.178
+        86.5,
+        325.957,
+        261.171
       ],
-      "mesh_penetration_mm": 2.7966,
-      "contacts": 215
+      "mesh_penetration_mm": 1.9813,
+      "contacts": 56
     },
     {
-      "wire": "J13-AM1",
-      "part": "pump-contact-male",
+      "wire": "J4-V5",
+      "part": "tube-fluid-14",
       "point_mm": [
-        -6.77,
-        82.64,
-        273.524
+        68.143,
+        379.761,
+        270.013
       ],
-      "mesh_penetration_mm": 8.0379,
-      "contacts": 178
+      "mesh_penetration_mm": 2.9854,
+      "contacts": 189
     },
     {
-      "wire": "J13-AM1",
-      "part": "pump-contact-female",
+      "wire": "J4-V5",
+      "part": "tube-fluid-16",
       "point_mm": [
-        1.622,
-        79.343,
-        274.14
+        59.0,
+        358.525,
+        270.211
       ],
-      "mesh_penetration_mm": 2.7966,
-      "contacts": 241
+      "mesh_penetration_mm": 7.8409,
+      "contacts": 180
     },
     {
-      "wire": "J13-BM2",
-      "part": "pump-contact-male",
+      "wire": "J4-IO25",
+      "part": "tube-fluid-14",
       "point_mm": [
-        6.77,
-        82.64,
-        273.524
+        65.802,
+        382.467,
+        269.382
       ],
-      "mesh_penetration_mm": 8.5808,
-      "contacts": 184
+      "mesh_penetration_mm": 2.6788,
+      "contacts": 177
     },
     {
-      "wire": "J13-BM2",
-      "part": "pump-contact-female",
+      "wire": "J4-IO25",
+      "part": "tube-fluid-16",
       "point_mm": [
-        -0.391,
-        79.343,
-        273.965
+        59.0,
+        357.895,
+        269.777
       ],
-      "mesh_penetration_mm": 2.7966,
-      "contacts": 243
+      "mesh_penetration_mm": 9.8193,
+      "contacts": 180
     },
     {
-      "wire": "J13-BM1",
-      "part": "pump-contact-male",
+      "wire": "flow-GND",
+      "part": "tube-fluid-14",
       "point_mm": [
-        6.77,
-        82.64,
-        273.524
+        67.894,
+        379.245,
+        269.505
       ],
-      "mesh_penetration_mm": 10.0693,
-      "contacts": 159
+      "mesh_penetration_mm": 2.9808,
+      "contacts": 179
     },
     {
-      "wire": "J13-BM1",
-      "part": "pump-contact-female",
+      "wire": "flow-GND",
+      "part": "tube-fluid-16",
       "point_mm": [
-        -2.113,
-        79.343,
-        274.093
+        59.0,
+        358.525,
+        270.211
       ],
-      "mesh_penetration_mm": 2.7966,
-      "contacts": 212
+      "mesh_penetration_mm": 11.8247,
+      "contacts": 182
     }
   ],
   "wire_packing_pairs": [
@@ -320,11 +419,11 @@
       "a": "AC5-N",
       "b": "AC6-PE",
       "point_mm": [
-        47.21,
-        174.896,
-        296.689
+        47.054,
+        175.849,
+        296.804
       ],
-      "mesh_penetration_mm": 0.3059
+      "mesh_penetration_mm": 0.4827
     },
     {
       "a": "AC5-N",
@@ -335,16 +434,6 @@
         289.478
       ],
       "mesh_penetration_mm": 7.0506
-    },
-    {
-      "a": "AC6-PE",
-      "b": "J1-OUT6",
-      "point_mm": [
-        46.026,
-        174.755,
-        295.063
-      ],
-      "mesh_penetration_mm": 26.3724
     },
     {
       "a": "PE-bus",
@@ -380,11 +469,11 @@
       "a": "PE-carbonator",
       "b": "DC1-V12",
       "point_mm": [
-        1.135,
+        1.324,
         226.0,
-        270.878
+        270.569
       ],
-      "mesh_penetration_mm": 21.0688
+      "mesh_penetration_mm": 20.8691
     },
     {
       "a": "PE-carbonator",
@@ -394,67 +483,67 @@
         278.5,
         274.076
       ],
-      "mesh_penetration_mm": 12.5796
+      "mesh_penetration_mm": 12.7007
     },
     {
       "a": "PE-carbonator",
       "b": "DC2-V12",
       "point_mm": [
-        -46.531,
-        336.795,
-        276.508
+        -46.561,
+        336.78,
+        276.482
       ],
-      "mesh_penetration_mm": 10.8839
+      "mesh_penetration_mm": 10.8803
     },
     {
       "a": "PE-carbonator",
       "b": "J2-COM",
       "point_mm": [
-        31.029,
-        217.501,
-        264.381
+        30.847,
+        207.122,
+        263.433
       ],
-      "mesh_penetration_mm": 5.3309
+      "mesh_penetration_mm": 1.9671
     },
     {
       "a": "PE-carbonator",
       "b": "J3-V5",
       "point_mm": [
-        -48.497,
-        335.488,
-        277.229
+        -46.561,
+        336.78,
+        276.482
       ],
-      "mesh_penetration_mm": 30.3808
+      "mesh_penetration_mm": 30.4586
     },
     {
       "a": "PE-carbonator",
       "b": "J3-GND",
       "point_mm": [
-        -46.803,
-        336.648,
-        276.321
+        -46.837,
+        336.628,
+        276.304
       ],
-      "mesh_penetration_mm": 29.4192
+      "mesh_penetration_mm": 29.4517
     },
     {
       "a": "PE-carbonator",
       "b": "J3-IO35",
       "point_mm": [
-        -48.497,
-        335.488,
-        277.229
+        -46.561,
+        336.78,
+        276.482
       ],
-      "mesh_penetration_mm": 31.3351
+      "mesh_penetration_mm": 31.4385
     },
     {
       "a": "PE-carbonator",
       "b": "J3-IO33",
       "point_mm": [
-        -46.531,
-        336.795,
-        276.508
+        -17.331,
+        354.659,
+        268.087
       ],
-      "mesh_penetration_mm": 30.0921
+      "mesh_penetration_mm": 30.1909
     },
     {
       "a": "PE-carbonator",
@@ -464,77 +553,77 @@
         279.061,
         274.555
       ],
-      "mesh_penetration_mm": 4.7074
+      "mesh_penetration_mm": 4.8879
     },
     {
       "a": "PE-carbonator",
       "b": "J4-IO26",
       "point_mm": [
-        -72.684,
-        360.52,
+        -72.664,
+        360.483,
         229.376
       ],
-      "mesh_penetration_mm": 2.8299
+      "mesh_penetration_mm": 2.8287
     },
     {
       "a": "PE-carbonator",
       "b": "temp-GND",
       "point_mm": [
-        -75.463,
-        360.133,
+        -75.452,
+        360.175,
         232.4
       ],
-      "mesh_penetration_mm": 2.8166
+      "mesh_penetration_mm": 2.8153
     },
     {
       "a": "PE-carbonator",
       "b": "flow-GND",
       "point_mm": [
-        -12.151,
-        277.033,
-        270.897
+        -12.108,
+        277.069,
+        270.583
       ],
-      "mesh_penetration_mm": 36.6217
+      "mesh_penetration_mm": 36.5963
     },
     {
       "a": "PE-carbonator",
       "b": "J6-RA1",
       "point_mm": [
-        -49.62,
-        337.754,
-        277.889
+        -49.607,
+        337.785,
+        277.916
       ],
-      "mesh_penetration_mm": 0.7438
+      "mesh_penetration_mm": 0.7712
     },
     {
       "a": "PE-carbonator",
       "b": "J7-CLO",
       "point_mm": [
-        -49.253,
-        336.575,
-        277.39
+        -49.673,
+        337.302,
+        277.389
       ],
-      "mesh_penetration_mm": 0.0805
+      "mesh_penetration_mm": 0.1123
     },
     {
       "a": "PE-carbonator",
       "b": "J7-CHI",
       "point_mm": [
-        -48.5,
-        335.404,
-        277.942
+        -48.491,
+        335.405,
+        277.984
       ],
-      "mesh_penetration_mm": 1.9213
+      "mesh_penetration_mm": 1.9279
     },
     {
       "a": "PE-carbonator",
       "b": "J7-carb-earth-2",
       "point_mm": [
-        -46.531,
-        336.795,
-        276.508
+        -46.561,
+        336.78,
+        276.482
       ],
-      "mesh_penetration_mm": 0.5382
+      "mesh_penetration_mm": 0.5349
     },
     {
       "a": "DC1-V12",
@@ -970,11 +1059,11 @@
       "a": "DC3-negative",
       "b": "J3-GND",
       "point_mm": [
-        -30.319,
-        435.238,
-        276.023
+        -30.339,
+        435.201,
+        276.223
       ],
-      "mesh_penetration_mm": 6.6699
+      "mesh_penetration_mm": 6.8689
     },
     {
       "a": "DC3-negative",
@@ -1055,6 +1144,16 @@
         274.61
       ],
       "mesh_penetration_mm": 0.1275
+    },
+    {
+      "a": "J1-COM",
+      "b": "J2-COM",
+      "point_mm": [
+        36.824,
+        205.35,
+        268.769
+      ],
+      "mesh_penetration_mm": 1.9313
     },
     {
       "a": "J1-COM",
@@ -1370,11 +1469,11 @@
       "a": "J1-positive-C",
       "b": "J2-FAN",
       "point_mm": [
-        45.563,
-        170.408,
-        245.206
+        45.465,
+        170.357,
+        245.169
       ],
-      "mesh_penetration_mm": 17.2595
+      "mesh_penetration_mm": 15.261
     },
     {
       "a": "J1-OUT4",
@@ -1485,6 +1584,16 @@
         265.76
       ],
       "mesh_penetration_mm": 58.5756
+    },
+    {
+      "a": "J1-OUT6",
+      "b": "J2-FAN",
+      "point_mm": [
+        35.183,
+        182.398,
+        270.243
+      ],
+      "mesh_penetration_mm": 1.325
     },
     {
       "a": "J1-OUT6",
@@ -1608,6 +1717,16 @@
     },
     {
       "a": "J1-OUT7",
+      "b": "J2-FAN",
+      "point_mm": [
+        37.654,
+        181.567,
+        269.342
+      ],
+      "mesh_penetration_mm": 11.5341
+    },
+    {
+      "a": "J1-OUT7",
       "b": "temp-GND",
       "point_mm": [
         4.277,
@@ -1704,7 +1823,7 @@
         172.432,
         241.248
       ],
-      "mesh_penetration_mm": 0.6914
+      "mesh_penetration_mm": 0.7247
     },
     {
       "a": "J2-COM",
@@ -3250,11 +3369,11 @@
       "a": "J6-RA1",
       "b": "J6-RA4",
       "point_mm": [
-        -33.807,
-        460.985,
-        220.621
+        -33.964,
+        455.633,
+        220.644
       ],
-      "mesh_penetration_mm": 5.0626
+      "mesh_penetration_mm": 5.0646
     },
     {
       "a": "J6-RA1",
@@ -3450,9 +3569,9 @@
       "a": "J7-earth-3",
       "b": "J7-earth-4",
       "point_mm": [
-        -35.936,
-        189.864,
-        143.7
+        -34.544,
+        188.912,
+        219.59
       ],
       "mesh_penetration_mm": 0.0462
     },
@@ -3460,11 +3579,11 @@
       "a": "J7-RB4",
       "b": "J7-earth-4",
       "point_mm": [
-        -33.252,
-        191.789,
-        220.452
+        -33.412,
+        191.897,
+        220.518
       ],
-      "mesh_penetration_mm": 3.8412
+      "mesh_penetration_mm": 3.8539
     },
     {
       "a": "J7-CLO",
@@ -3577,9 +3696,20 @@
       "mesh_penetration_mm": 1.6839
     }
   ],
-  "bundle_interference_pairs": [],
+  "bundle_interference_pairs": [
+    {
+      "bundle": "terminal-compressor-cord-jacket",
+      "part": "tube-fluid-16",
+      "point_mm": [
+        49.441,
+        134.996,
+        185.463
+      ],
+      "mesh_penetration_mm": 72.0013
+    }
+  ],
   "termination_interference_pairs": [],
-  "wires_with_physical_interference": 11,
+  "wires_with_physical_interference": 17,
   "endpoint_contact_scope": "Only the named endpoint part within 8.5 mm of its attachment. All other contact with that part remains in the reading.",
   "native": {
     "scope": "All standalone native wires and their installed native placements, read back from both STEP files.",

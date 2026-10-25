@@ -172,11 +172,9 @@ connector and insulation bodies are valid single solids. The compressor jacket
 is a valid single solid with zero native overlap with its cores. Cores overlap
 one another within the compressor cord, both reed columns and the sensor cable.
 
-The full mesh review records 16 wire/body pairs and 339 wire/wire pairs. Eight
-wire/body pairs are the four J13 conductors against `pump-contact-male` and
-`pump-contact-female`, meshes in the reviewed assembly payload that the current
-enclosure source does not build; the J13 conductors meet no other body and no
-other wire. No jacket or fuse insulation interference appears in the mesh
+The full mesh review records 25 wire/body pairs and 341 wire/wire pairs. The J13
+conductors meet no body and no other wire. Most wire/body pairs are mains, valve and
+sensor leads crossing the `fluid-14` and `fluid-16` tubes above the core. No jacket or fuse insulation interference appears in the mesh
 reading. These are installed-geometry readings; closing motions and physical
 harness dressing retain the scope described above.
 
