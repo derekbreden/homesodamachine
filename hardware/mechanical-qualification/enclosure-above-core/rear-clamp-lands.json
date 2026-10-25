@@ -1,0 +1,868 @@
+{
+  "scope": "Manual native reading of the six selected rear fitting clamping lands.\n\nRead the actual back-top STEP and six exported identification chips, with\nthe selected native fitting/nut builders and port frames. No producer,\nhook or recurring check invokes this reader. Run through the CAD queue.\nThis measures nominal geometry, not thread form, tightening, load or sealing.",
+  "back_top": {
+    "path": "tmp/rear-clamp-lands/back-top.step",
+    "sha256": "10a6008999aa3096a3c3b85a7222bc8d0ca39167f09b29966aa8d33e8b2c3bc9",
+    "signature": {
+      "valid": true,
+      "solids": 1,
+      "faces": 476,
+      "volume_mm3": 1479332.8796476694,
+      "bounds_mm": [
+        -107.5000001,
+        200.1499999,
+        160.2499999,
+        107.5000001,
+        473.5,
+        355.00000010002543
+      ]
+    },
+    "canonical_artifact_path": "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step",
+    "read_copy_basis": "Byte-identical snapshot of the canonical artifact at the recorded SHA256; source geometry is not regenerated."
+  },
+  "source_sha256": {
+    "hardware/mechanical-qualification/enclosure-above-core/rear_clamp_lands.py": "a370f068ed503d36267e432abaacb5d2abe79119e4371ab16fe14a08e908424f",
+    "hardware/manifold-layout/above_core_parts.py": "06f5b5c4c506788689e2f9e1a1bf910bd6a74c1c202546ac5ce37d360c3c0063",
+    "hardware/manifold-layout/above-core.json": "04887b550cc53b2516832689b40f81a56e83119e4cc04921ad9819ed343c726b",
+    "hardware/reference/jg-bulkhead-union/jg_bulkhead_union.py": "62b13c9c562db4ef857c159beae7e6adac08d1bb0d35aaa0c8903117b696f5c4",
+    "hardware/reference/neofit-bulkhead/neofit_bulkhead.py": "1d3bed06f4606c888658685a3f0c9f238f32e327d7fa62b05585849093695426",
+    "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py": "a1e869c93ed2dba3873036fe10506b99ace883bc46a033833354be4e49bcc096"
+  },
+  "selected_planes_world_y_mm": {
+    "flange": 471.3,
+    "nut": 465.3
+  },
+  "selected_total_clamp_mm": 6.0,
+  "volume_tolerance_mm3": 0.001,
+  "face_probe_mm": 0.05,
+  "ports": {
+    "bulkhead-water": {
+      "pose": {
+        "rotation": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "translation_mm": [
+          37.2499988712316,
+          471.3,
+          338.3760478805363
+        ]
+      },
+      "chip": {
+        "path": "hardware/printed-parts/enclosure/rear-identification/rear-label-water.step",
+        "sha256": "4124b45b184af727c1ac0858dbdddfa4797eab94d649875f12c33aa127136368",
+        "signature": {
+          "valid": true,
+          "solids": 4,
+          "faces": 90,
+          "volume_mm3": 1320.5787499417863,
+          "bounds_mm": [
+            21.249998771231596,
+            469.3,
+            326.9460477805363,
+            53.2499989712316,
+            471.7800002000001,
+            355.0000001000003
+          ]
+        }
+      },
+      "body_signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 13,
+        "volume_mm3": 7403.877945026305,
+        "bounds_mm": [
+          25.819998871231597,
+          446.51,
+          326.9460478805363,
+          48.6799988712316,
+          480.8,
+          349.8060478805363
+        ]
+      },
+      "nut_signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 9,
+        "volume_mm3": 462.7048129205537,
+        "bounds_mm": [
+          27.249998871231607,
+          461.3,
+          326.82904249674374,
+          47.24999887123162,
+          465.3,
+          349.92305326432887
+        ]
+      },
+      "clamping_planes_world_y_mm": {
+        "nut": 465.3,
+        "chip_floor": 469.3,
+        "flange": 471.3
+      },
+      "clamped_stack_mm": {
+        "printed_backing": 4.0,
+        "actual_chip": 2.0,
+        "total": 6.0
+      },
+      "native_missing_mm3": {
+        "complete_nut_footprint_backing": 0.0,
+        "complete_flange_footprint_chip": 0.0
+      },
+      "finite_land_area_mm2": {
+        "nut": 107.52848268305368,
+        "flange": 171.55137923825112
+      },
+      "inward_face_probe_supported_area_mm2": {
+        "nut": 107.5284826830688,
+        "flange": 171.55137923827817
+      },
+      "barrel_bore_overlap_mm3": 0.0,
+      "nominal_barrel": {
+        "diameter_mm": 17.14,
+        "thread_span_mm": 15.29,
+        "nut_axial_mm": 4.0,
+        "free_after_selected_stack_and_nut_mm": 5.289999999999999,
+        "basis": "Selected PP1208E production adapter; nominal reference thread span, not a measured PP1208E thread."
+      },
+      "ports_world": {
+        "outboard": {
+          "mouth_mm": [
+            37.2499988712316,
+            480.8,
+            338.3760478805363
+          ],
+          "outward": [
+            0.0,
+            1.0,
+            0.0
+          ]
+        },
+        "inboard": {
+          "mouth_mm": [
+            37.2499988712316,
+            446.51,
+            338.3760478805363
+          ],
+          "outward": [
+            0.0,
+            -1.0,
+            0.0
+          ]
+        }
+      },
+      "checks": {
+        "full_printed_backing_present": true,
+        "full_chip_flange_land_present": true,
+        "nominal_barrel_passes_both_bores": true,
+        "selected_clamp_span_matches": true,
+        "actual_chip_is_2mm": true,
+        "nominal_barrel_free_length_positive": true
+      },
+      "passed": true
+    },
+    "co2-inlet": {
+      "pose": {
+        "rotation": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "translation_mm": [
+          77.5,
+          471.3,
+          338.3760478805363
+        ]
+      },
+      "chip": {
+        "path": "hardware/printed-parts/enclosure/rear-identification/rear-label-co2.step",
+        "sha256": "69a718adebb3784abce920118c365d76f973de074a935eafcfb34f0e1cadd5c9",
+        "signature": {
+          "valid": true,
+          "solids": 4,
+          "faces": 129,
+          "volume_mm3": 1299.3900386866137,
+          "bounds_mm": [
+            61.4999999,
+            469.3,
+            327.4068545461483,
+            93.5000001,
+            471.7800002000001,
+            355.00000010000036
+          ]
+        }
+      },
+      "body_signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 8,
+        "volume_mm3": 9789.651594883613,
+        "bounds_mm": [
+          65.37229571545656,
+          454.00260000000003,
+          326.2483435959929,
+          89.62770428454344,
+          488.19100000000003,
+          350.50375216507973
+        ]
+      },
+      "nut_signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 9,
+        "volume_mm3": 1087.6504278981174,
+        "bounds_mm": [
+          66.99709999999999,
+          458.2896,
+          326.2483435959928,
+          88.00290000000001,
+          465.3,
+          350.5037521650798
+        ]
+      },
+      "clamping_planes_world_y_mm": {
+        "nut": 465.3,
+        "chip_floor": 469.3,
+        "flange": 471.3
+      },
+      "clamped_stack_mm": {
+        "printed_backing": 4.0,
+        "actual_chip": 2.0,
+        "total": 6.0
+      },
+      "native_missing_mm3": {
+        "complete_nut_footprint_backing": 0.0,
+        "complete_flange_footprint_chip": 0.0
+      },
+      "finite_land_area_mm2": {
+        "nut": 147.0663796671724,
+        "flange": 142.94466552339952
+      },
+      "inward_face_probe_supported_area_mm2": {
+        "nut": 147.06637966719737,
+        "flange": 142.94522718528023
+      },
+      "barrel_bore_overlap_mm3": 0.0,
+      "nominal_barrel": {
+        "diameter_mm": 17.0,
+        "thread_span_mm": 14.9098,
+        "nut_axial_mm": 7.0104,
+        "free_after_selected_stack_and_nut_mm": 1.8994000000000009,
+        "basis": "Manufacturer A panel span plus E nut width; external mouth division is nominal."
+      },
+      "ports_world": {
+        "outboard": {
+          "mouth_mm": [
+            77.5,
+            488.19100000000003,
+            338.3760478805363
+          ],
+          "outward": [
+            0.0,
+            1.0,
+            0.0
+          ]
+        },
+        "inboard": {
+          "mouth_mm": [
+            77.5,
+            454.00260000000003,
+            338.3760478805363
+          ],
+          "outward": [
+            0.0,
+            -1.0,
+            0.0
+          ]
+        }
+      },
+      "checks": {
+        "full_printed_backing_present": true,
+        "full_chip_flange_land_present": true,
+        "nominal_barrel_passes_both_bores": true,
+        "selected_clamp_span_matches": true,
+        "actual_chip_is_2mm": true,
+        "nominal_barrel_free_length_positive": true
+      },
+      "passed": true
+    },
+    "bulkhead-drain": {
+      "pose": {
+        "rotation": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "translation_mm": [
+          37.2499988712316,
+          471.3,
+          306.3760478805363
+        ]
+      },
+      "chip": {
+        "path": "hardware/printed-parts/enclosure/rear-identification/rear-label-drain.step",
+        "sha256": "4cbf43dd8ab8e4cc3637bb4557bbed54a09e3eee3a17a65e45c7be2d7d63287b",
+        "signature": {
+          "valid": true,
+          "solids": 5,
+          "faces": 153,
+          "volume_mm3": 1406.7797900639039,
+          "bounds_mm": [
+            21.249998771231596,
+            469.3,
+            295.3760477805363,
+            53.2499989712316,
+            471.7800002000001,
+            323.0000001000003
+          ]
+        }
+      },
+      "body_signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 7,
+        "volume_mm3": 8308.648630765263,
+        "bounds_mm": [
+          26.249998871231597,
+          453.6,
+          295.3760478805363,
+          48.2499988712316,
+          486.0,
+          317.3760478805363
+        ]
+      },
+      "nut_signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 9,
+        "volume_mm3": 675.2046864012566,
+        "bounds_mm": [
+          28.249998871231607,
+          458.8,
+          295.98374303512304,
+          46.24999887123162,
+          465.3,
+          316.76835272594957
+        ]
+      },
+      "clamping_planes_world_y_mm": {
+        "nut": 465.3,
+        "chip_floor": 469.3,
+        "flange": 471.3
+      },
+      "clamped_stack_mm": {
+        "printed_backing": 4.0,
+        "actual_chip": 2.0,
+        "total": 6.0
+      },
+      "native_missing_mm3": {
+        "complete_nut_footprint_backing": 0.0,
+        "complete_flange_footprint_chip": 0.0
+      },
+      "finite_land_area_mm2": {
+        "nut": 96.73837475644889,
+        "flange": 196.27885501465624
+      },
+      "inward_face_probe_supported_area_mm2": {
+        "nut": 96.73837475646427,
+        "flange": 196.27885501469564
+      },
+      "barrel_bore_overlap_mm3": 0.0,
+      "nominal_barrel": {
+        "diameter_mm": 15.0,
+        "thread_span_mm": 14.6,
+        "nut_axial_mm": 6.5,
+        "free_after_selected_stack_and_nut_mm": 2.0999999999999996,
+        "basis": "Manufacturer A panel span plus E nut width; inboard pass-through detail is a conservative bound."
+      },
+      "ports_world": {
+        "outboard": {
+          "mouth_mm": [
+            37.2499988712316,
+            486.0,
+            306.3760478805363
+          ],
+          "outward": [
+            0.0,
+            1.0,
+            0.0
+          ]
+        },
+        "inboard": {
+          "mouth_mm": [
+            37.2499988712316,
+            453.6,
+            306.3760478805363
+          ],
+          "outward": [
+            0.0,
+            -1.0,
+            0.0
+          ]
+        }
+      },
+      "checks": {
+        "full_printed_backing_present": true,
+        "full_chip_flange_land_present": true,
+        "nominal_barrel_passes_both_bores": true,
+        "selected_clamp_span_matches": true,
+        "actual_chip_is_2mm": true,
+        "nominal_barrel_free_length_positive": true
+      },
+      "passed": true
+    },
+    "bulkhead-carb": {
+      "pose": {
+        "rotation": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "translation_mm": [
+          77.5,
+          471.3,
+          306.3760478805363
+        ]
+      },
+      "chip": {
+        "path": "hardware/printed-parts/enclosure/rear-identification/rear-label-carb.step",
+        "sha256": "4bd7fb8a5db6a8ed3a1f8656ea3dc63aac4a0a8d51d3e1146173923eb5edfe99",
+        "signature": {
+          "valid": true,
+          "solids": 5,
+          "faces": 166,
+          "volume_mm3": 1324.5913302103136,
+          "bounds_mm": [
+            61.4999999,
+            469.3,
+            294.9460477805363,
+            93.5000001,
+            471.7800002000001,
+            323.0000001000003
+          ]
+        }
+      },
+      "body_signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 13,
+        "volume_mm3": 7403.877945026305,
+        "bounds_mm": [
+          66.07,
+          446.51,
+          294.9460478805363,
+          88.93,
+          480.8,
+          317.8060478805363
+        ]
+      },
+      "nut_signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 9,
+        "volume_mm3": 462.7048129205509,
+        "bounds_mm": [
+          67.5,
+          461.3,
+          294.8290424967438,
+          87.50000000000001,
+          465.3,
+          317.9230532643288
+        ]
+      },
+      "clamping_planes_world_y_mm": {
+        "nut": 465.3,
+        "chip_floor": 469.3,
+        "flange": 471.3
+      },
+      "clamped_stack_mm": {
+        "printed_backing": 4.0,
+        "actual_chip": 2.0,
+        "total": 6.0
+      },
+      "native_missing_mm3": {
+        "complete_nut_footprint_backing": 0.0,
+        "complete_flange_footprint_chip": 0.0
+      },
+      "finite_land_area_mm2": {
+        "nut": 107.52848268305274,
+        "flange": 171.551379238251
+      },
+      "inward_face_probe_supported_area_mm2": {
+        "nut": 107.52848268320841,
+        "flange": 171.5513792382781
+      },
+      "barrel_bore_overlap_mm3": 0.0,
+      "nominal_barrel": {
+        "diameter_mm": 17.14,
+        "thread_span_mm": 15.29,
+        "nut_axial_mm": 4.0,
+        "free_after_selected_stack_and_nut_mm": 5.289999999999999,
+        "basis": "Selected PP1208E production adapter; nominal reference thread span, not a measured PP1208E thread."
+      },
+      "ports_world": {
+        "outboard": {
+          "mouth_mm": [
+            77.5,
+            480.8,
+            306.3760478805363
+          ],
+          "outward": [
+            0.0,
+            1.0,
+            0.0
+          ]
+        },
+        "inboard": {
+          "mouth_mm": [
+            77.5,
+            446.51,
+            306.3760478805363
+          ],
+          "outward": [
+            0.0,
+            -1.0,
+            0.0
+          ]
+        }
+      },
+      "checks": {
+        "full_printed_backing_present": true,
+        "full_chip_flange_land_present": true,
+        "nominal_barrel_passes_both_bores": true,
+        "selected_clamp_span_matches": true,
+        "actual_chip_is_2mm": true,
+        "nominal_barrel_free_length_positive": true
+      },
+      "passed": true
+    },
+    "bulkhead-flavor-a": {
+      "pose": {
+        "rotation": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "translation_mm": [
+          37.2499988712316,
+          471.3,
+          274.3760478805363
+        ]
+      },
+      "chip": {
+        "path": "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-a.step",
+        "sha256": "e65423c62a241dce119a88984a132c59f980faa5a12b2fc5201efd24b669f225",
+        "signature": {
+          "valid": true,
+          "solids": 7,
+          "faces": 190,
+          "volume_mm3": 1410.1472511908928,
+          "bounds_mm": [
+            21.249998771231596,
+            469.3,
+            263.3760477805363,
+            53.2499989712316,
+            471.7800002000001,
+            291.0000001000003
+          ]
+        }
+      },
+      "body_signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 7,
+        "volume_mm3": 8308.648630765263,
+        "bounds_mm": [
+          26.249998871231597,
+          453.6,
+          263.3760478805363,
+          48.2499988712316,
+          486.0,
+          285.3760478805363
+        ]
+      },
+      "nut_signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 9,
+        "volume_mm3": 675.2046864012593,
+        "bounds_mm": [
+          28.249998871231607,
+          458.8,
+          263.98374303512304,
+          46.24999887123162,
+          465.3,
+          284.76835272594957
+        ]
+      },
+      "clamping_planes_world_y_mm": {
+        "nut": 465.3,
+        "chip_floor": 469.3,
+        "flange": 471.3
+      },
+      "clamped_stack_mm": {
+        "printed_backing": 4.0,
+        "actual_chip": 2.0,
+        "total": 6.0
+      },
+      "native_missing_mm3": {
+        "complete_nut_footprint_backing": 0.0,
+        "complete_flange_footprint_chip": 0.0
+      },
+      "finite_land_area_mm2": {
+        "nut": 96.73837475644933,
+        "flange": 196.27885501465624
+      },
+      "inward_face_probe_supported_area_mm2": {
+        "nut": 96.73837475646486,
+        "flange": 196.27885501469564
+      },
+      "barrel_bore_overlap_mm3": 0.0,
+      "nominal_barrel": {
+        "diameter_mm": 15.0,
+        "thread_span_mm": 14.6,
+        "nut_axial_mm": 6.5,
+        "free_after_selected_stack_and_nut_mm": 2.0999999999999996,
+        "basis": "Manufacturer A panel span plus E nut width; inboard pass-through detail is a conservative bound."
+      },
+      "ports_world": {
+        "outboard": {
+          "mouth_mm": [
+            37.2499988712316,
+            486.0,
+            274.3760478805363
+          ],
+          "outward": [
+            0.0,
+            1.0,
+            0.0
+          ]
+        },
+        "inboard": {
+          "mouth_mm": [
+            37.2499988712316,
+            453.6,
+            274.3760478805363
+          ],
+          "outward": [
+            0.0,
+            -1.0,
+            0.0
+          ]
+        }
+      },
+      "checks": {
+        "full_printed_backing_present": true,
+        "full_chip_flange_land_present": true,
+        "nominal_barrel_passes_both_bores": true,
+        "selected_clamp_span_matches": true,
+        "actual_chip_is_2mm": true,
+        "nominal_barrel_free_length_positive": true
+      },
+      "passed": true
+    },
+    "bulkhead-flavor-b": {
+      "pose": {
+        "rotation": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "translation_mm": [
+          77.5,
+          471.3,
+          274.3760478805363
+        ]
+      },
+      "chip": {
+        "path": "hardware/printed-parts/enclosure/rear-identification/rear-label-flavor-b.step",
+        "sha256": "a3e0fa26403a676f9f654a9050e52264b2fabcc3ca28d773a50704b335ea0a4d",
+        "signature": {
+          "valid": true,
+          "solids": 7,
+          "faces": 190,
+          "volume_mm3": 1410.1472511908926,
+          "bounds_mm": [
+            61.4999999,
+            469.3,
+            263.3760477805363,
+            93.5000001,
+            471.7800002000001,
+            291.0000001000003
+          ]
+        }
+      },
+      "body_signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 7,
+        "volume_mm3": 8308.648630765263,
+        "bounds_mm": [
+          66.5,
+          453.6,
+          263.3760478805363,
+          88.5,
+          486.0,
+          285.3760478805363
+        ]
+      },
+      "nut_signature": {
+        "valid": true,
+        "solids": 1,
+        "faces": 9,
+        "volume_mm3": 675.2046864012592,
+        "bounds_mm": [
+          68.5,
+          458.8,
+          263.98374303512304,
+          86.50000000000001,
+          465.3,
+          284.76835272594957
+        ]
+      },
+      "clamping_planes_world_y_mm": {
+        "nut": 465.3,
+        "chip_floor": 469.3,
+        "flange": 471.3
+      },
+      "clamped_stack_mm": {
+        "printed_backing": 4.0,
+        "actual_chip": 2.0,
+        "total": 6.0
+      },
+      "native_missing_mm3": {
+        "complete_nut_footprint_backing": 0.0,
+        "complete_flange_footprint_chip": 0.0
+      },
+      "finite_land_area_mm2": {
+        "nut": 96.73837475644933,
+        "flange": 196.27885501465613
+      },
+      "inward_face_probe_supported_area_mm2": {
+        "nut": 96.73837475625938,
+        "flange": 196.27885501469558
+      },
+      "barrel_bore_overlap_mm3": 0.0,
+      "nominal_barrel": {
+        "diameter_mm": 15.0,
+        "thread_span_mm": 14.6,
+        "nut_axial_mm": 6.5,
+        "free_after_selected_stack_and_nut_mm": 2.0999999999999996,
+        "basis": "Manufacturer A panel span plus E nut width; inboard pass-through detail is a conservative bound."
+      },
+      "ports_world": {
+        "outboard": {
+          "mouth_mm": [
+            77.5,
+            486.0,
+            274.3760478805363
+          ],
+          "outward": [
+            0.0,
+            1.0,
+            0.0
+          ]
+        },
+        "inboard": {
+          "mouth_mm": [
+            77.5,
+            453.6,
+            274.3760478805363
+          ],
+          "outward": [
+            0.0,
+            -1.0,
+            0.0
+          ]
+        }
+      },
+      "checks": {
+        "full_printed_backing_present": true,
+        "full_chip_flange_land_present": true,
+        "nominal_barrel_passes_both_bores": true,
+        "selected_clamp_span_matches": true,
+        "actual_chip_is_2mm": true,
+        "nominal_barrel_free_length_positive": true
+      },
+      "passed": true
+    }
+  },
+  "limits": [
+    "The native wall and exported chips are the representations read; this is not a printed-STL, torque, thread-engagement or lifetime qualification.",
+    "Fitting exterior subdivisions, PP1208E barrel/nut dimensions and operating collet planes retain their documented nominal-reference estimates. NeoFit A/E dimensions have the published manufacturer basis in their references.",
+    "No exterior recess or fitting/chip/nut/port pose is changed."
+  ],
+  "passed": true
+}
