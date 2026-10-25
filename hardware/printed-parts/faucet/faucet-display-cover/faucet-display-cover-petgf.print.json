@@ -2,7 +2,7 @@
   "project": "faucet-display-cover-petgf.3mf",
   "settings_source": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/2026-10-25-sculpted-cover-front-overlap-black-left04-z004-mark2.3mf",
   "settings_source_sha256": "fb08838af3bf6cff212acec6ccc2dabc6701fe8745840bbbf459c78597cb765d",
-  "settings_sha256": "987a5e177a7ff369594322a0107c23f4dddfdb094bbbfe9fd22f7628e0961d99",
+  "settings_sha256": "6ad46f6f99b05b01b6a10cbe8a4604925d569c5849720099fc56fe0195780756",
   "source_settings_sha256": "987a5e177a7ff369594322a0107c23f4dddfdb094bbbfe9fd22f7628e0961d99",
   "settings_changes": {
     "machine_start_gcode": {
@@ -13,6 +13,10 @@
     "printer_settings_id": {
       "from": "Bambu Lab H2C 0.4 Standard +0.04 Z trim",
       "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    },
+    "initial_layer_print_height": {
+      "from": "0.24",
+      "to": "0.2"
     }
   },
   "printer": "Mark2",
@@ -113,11 +117,11 @@
       "embedded_vertex_error_mm": 4.990234891977252e-10
     }
   ],
-  "project_sha256": "5cc253e1696d7a046d5784e082cfc465c2c0011aaf67816b73f990408390aca0",
-  "settings_preserved_byte_for_byte": true,
+  "project_sha256": "62e068bc67eae169da4da0ad00af35ff7cc3dfb33b700403c14f519f4844c1b1",
+  "settings_preserved_byte_for_byte": false,
   "requested_z_trim_mm": 0.04,
   "active_nozzle": 0,
-  "first_bed_layer_height_mm": 0.24,
+  "first_bed_layer_height_mm": 0.2,
   "layer_ranges": [],
   "production_selection": "hardware/printed-parts/faucet/industrial/production-selection.json",
   "physical_approval": "hardware/printed-parts/faucet/faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json",
