@@ -27,6 +27,7 @@ from _materials import one_body
 import valve_seat as seat
 import _foam_cap as _foam_cap_module
 import _above_core_mounts as _above_mounts
+import _reservoir_a_anchors as _a_anchors
 import above_core_wiring
 from _foam_cap import (
     build_foam_cap,
@@ -490,6 +491,10 @@ def build_top_lid():
     electrical = above_core_wiring.cap_features()
     lid = lid.union(_above_mounts.world_shape_in_cap(electrical['add']))
     lid = lid.cut(_above_mounts.world_shape_in_cap(electrical['cut']))
+    for support in _a_anchors.supports().values():
+        lid = lid.union(_above_mounts.world_shape_in_cap(support))
+    for passage in _a_anchors.cuts().values():
+        lid = lid.cut(_above_mounts.world_shape_in_cap(passage))
     return lid.clean()
 
 

@@ -81,6 +81,18 @@ The four core WAGO junctions face west toward the PCB and stagger around
 the B-draw passage. Their blank-backed wells retain 3 mm walls and sit
 entirely on the lid. The levers open upward.
 
+Reservoir A's draw and fill tubes share two integral paired seats at world
+Y205 and Y304 mm. Their respective west/east axes are X50.5/58 and
+X86.5/94 mm, at Z259.5 mm. The 10 mm-long open seats have 3.325 mm radii
+and one narrow tie passage beneath each pair. The slot ceiling at Z253.175
+retains a complete 3 mm wall below the lowest seat; its floor at Z251.6
+leaves 3.6 mm of the lid beneath it. Side mouths provide threading access.
+The aft seat extends beyond the core's east edge. One nominal 2.5 × 0.8 mm
+tie witness per pair describes the selected path; purchased tie dimensions,
+threading, installed retention and load capacity remain unqualified.
+[_reservoir_a_anchors.py](../_reservoir_a_anchors.py) owns these stations and
+native seat, passage and witness builders. The tubes remain continuous.
+
 The [neoFit ACHV44-E water check](../../../reference/neofit-achv44-check/README.md)
 uses an 8.8 mm-long east quarter bearing centered within its fixed barrel band.
 The bearing retains 3 mm below and east of the body clearance; its 5 mm-deep
