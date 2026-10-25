@@ -59,7 +59,8 @@
     "TANK_R": "63.5 mm",
     "TIP_CLEAR": "2.1 mm",
     "TRANSITION_ARC_R": "8.42 mm",
-    "TUBE_HOLE_D": "7.5 mm"
+    "TUBE_HOLE_D": "7.5 mm",
+    "FSHELL_FLOOR_T": "2 mm"
   },
   "/hardware/printed-parts/cold-core/reservoir/reservoir.py": {
     "RESERVOIR_D": "48.5 mm",
