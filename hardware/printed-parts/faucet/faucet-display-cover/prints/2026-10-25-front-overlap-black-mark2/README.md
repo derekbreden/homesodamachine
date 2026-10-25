@@ -15,7 +15,13 @@ extends the two front skirt edges to overlap the tip ledge by 1.2 mm in side
 projection. It addresses the visible opening in the
 [accepted head's photographs](../../../industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/physical-result/physical-result.json).
 The print retains that cover's glass gap, neck clearance, bezel and snap datums.
-The tip and display have no changes. Physical fit of this extension is unreported.
+The tip and display have no changes. The
+[physical result and five photographs](physical-result/physical-result.json)
+record working fit and approval. A corner gap remains and is accepted as good
+enough; no further iteration is requested. The complete production recipe uses
+uniform 0.24 mm layers, including the first layer, with the remaining settings
+retained. The [production selection](../../../industrial/production-selection.json)
+binds the approved sources and subsequent print defaults.
 
 The [complete settings export](all-settings.json) contains all 582 prepared and
 583 native project settings, the embedded filament preset and object XML.

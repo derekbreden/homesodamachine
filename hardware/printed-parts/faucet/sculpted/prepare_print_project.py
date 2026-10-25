@@ -31,7 +31,7 @@ FINISH = HERE / 'finish-selection.json'
 PART_NAMES = {
     'faucet-shell-base': 'industrial-shell-base',
     'faucet-shell-tip': 'faucet-shell-tip',
-    'faucet-display-cover': 'industrial-display-cover',
+    'faucet-display-cover': 'sculpted-display-cover',
     'above-counter-plate': 'industrial-above-counter-plate',
     'lever-replica': 'lever-replica',
 }

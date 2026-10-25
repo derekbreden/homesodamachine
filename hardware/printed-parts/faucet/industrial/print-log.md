@@ -1,5 +1,16 @@
 # Industrial faucet print log
 
+## Production approval and uniform layers — 2026-10-25
+
+The [five photographs and physical result](../faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/physical-result/physical-result.json)
+accept the extended-front-skirt Sculpted cover, task **1374330388**, on the
+approved lowered head. A corner gap remains and is explicitly accepted as good
+enough, with no further iteration requested. Derek reports that the previous
+complete print's thinner base-band layers did not turn out well and selects
+**0.24 mm for the first and every later layer** as the production recipe.
+The [production selection](production-selection.json) and complete default
+project use the exact approved source meshes and retain the other settings.
+
 ## Sculpted cover front-corner overlap — 2026-10-25, Mark2
 
 Mark2 accepted [one centered black PET-GF cover](../faucet-display-cover/prints/2026-10-25-front-overlap-black-mark2/README.md)
@@ -8,7 +19,8 @@ as task **1374330388** at **11:57:04 CDT**. Its extended front skirts provide
 cover cavity and snap dimensions retain the accepted head's fit datums. The
 slice has 67 uniform 0.24 mm layers, no warnings and an estimate of 23 min 5 s /
 5.85 g. It uses the fixed left hardened 0.4 mm nozzle, Textured PEI and the
-accepted PET-GF settings. The extension's physical result is unreported.
+accepted PET-GF settings. The linked physical result accepts the working cover
+and appearance with the remaining corner gap.
 
 ## Complete Industrial faucet with button relief — 2026-10-24, Mark2
 
