@@ -105,9 +105,10 @@ Customer installation uses the assembled faucet.
 
 ## Printing and checks
 
-The approved production cover uses black PET-GF and **0.24 mm for the first and
-every later layer**. Its [cover-only project](faucet-display-cover-petgf.3mf)
-retains the accepted −50° pose, localized cooling, supports and Mark2 trim.
+The approved production cover uses black PET-GF, **Bambu’s 0.20 mm first bed
+layer and 0.24 mm later layers**, with no fine bands. Its
+[cover-only project](faucet-display-cover-petgf.3mf) retains the accepted −50°
+pose, localized cooling, supports and Mark2 trim.
 Prepare it with:
 
 ```sh

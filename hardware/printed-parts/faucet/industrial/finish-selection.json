@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "selected_date": "2026-10-25",
-  "selection_basis": "Derek approves the Industrial faucet with the corrected lowered tip and extended Sculpted cover; production uses uniform 0.24 mm layers including the first layer.",
+  "selection_basis": "Derek approves the Industrial faucet with the corrected lowered tip and extended Sculpted cover; production retains Bambu's 0.20 mm first bed layer and uses 0.24 mm later layers without fine bands.",
   "seam_specimen": "A2",
   "seam_parts": [
     "industrial-shell-base",
@@ -59,8 +59,8 @@
   },
   "wall_generators": "Retain base Arachne for the continuous reinforced foot; other rigid parts retain Classic.",
   "base_fine_bands_print_z_mm": [],
-  "first_bed_layer_height_mm": 0.24,
-  "scope": "Approved complete Industrial faucet with the Sculpted display cover. Uniform 0.24 mm layers including the first bed layer; accepted seams, support geometry and localized cooling retained.",
+  "first_bed_layer_height_mm": 0.2,
+  "scope": "Approved complete Industrial faucet with the Sculpted display cover. Bambu's 0.20 mm first bed layer and 0.24 mm later layers without fine bands; accepted seams, support geometry and localized cooling retained.",
   "seam_selection_record": "hardware/printed-parts/faucet/industrial/prints/2026-10-13-complete-rear-seam-base-tip-mark2/launch.json",
   "default_printer": "Mark2",
   "default_filament_colour": "#161616",
@@ -136,9 +136,10 @@
     "selection_quote": "That worked. That disc works in this case, and is removable, but it leaves a bit of a scuff that would be a problem on a visible surface, but since its on the male insertion portion that is hidden, we are golden here."
   },
   "normal_layer_height_mm": 0.24,
-  "uniform_layer_height": true,
   "independent_support_layer_height": false,
   "layer_selection_quote": "I'd like to go back to the same layer height everywhere as our final production print settings.",
   "production_selection": "hardware/printed-parts/faucet/industrial/production-selection.json",
-  "production_tag": "faucet-industrial-production-2026-10-25"
+  "production_tag": "faucet-industrial-production-2026-10-25-first020",
+  "uniform_model_layer_height": true,
+  "first_layer_selection_quote": "I don't know why bambu defaults 0.24 layer height to a 0.20 first layer, but if I don't have a reason to muck with a bambu default choice, I don't muck with it. I haven't had a reason to muck with it ..."
 }
