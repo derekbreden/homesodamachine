@@ -253,5 +253,49 @@
     "internal_fluid_routes_clear": 8,
     "no_internal_line_to_line_intersections": true,
     "scope": "foam_assembly.py native report on the integrated pieces and unchanged route datums"
+  },
+  "copper_cover_jamb_witnesses": [
+    {
+      "axis": "X",
+      "y_mm": 73.675,
+      "z_mm": 100.0,
+      "first_wall_faces_mm": [
+        -141.199997,
+        -138.300003
+      ],
+      "wall_stock_mm": 2.8999939999999924
+    },
+    {
+      "axis": "X",
+      "y_mm": -73.675,
+      "z_mm": 100.0,
+      "first_wall_faces_mm": [
+        -141.199997,
+        -138.300003
+      ],
+      "wall_stock_mm": 2.8999939999999924
+    },
+    {
+      "axis": "Y",
+      "point_mm": [
+        -138.204,
+        82.075,
+        118.412
+      ],
+      "corner_stock_mm": 4.242402249484286
+    }
+  ],
+  "copper_cover_jamb_scope": "Local seating shoulders match the retained copper-cover flanges: a 1 mm-wide flat bearing ledge extends 0.52 mm inward from the ordinary casing wall. The normal casing stock at the straight seats is 2.90 mm. These local seats are not ordinary 2.38 mm walls.",
+  "post_publish_lint_review": {
+    "pieces_reviewed": 5,
+    "geometry_changed_after_slice": false,
+    "retained_feature_families": [
+      "Copper-cover seating shoulders and 1 mm flange bearings, with printed-mesh stock witnesses",
+      "Blind insert-pocket roofs with supported-face depth allowance",
+      "Specified 2 mm cap floors and bottom lid plate",
+      "R14 cap passage rims, with retained bore and plane datums",
+      "Fixed clamp-station corner stock"
+    ],
+    "scope": "Review of the post-publish lint findings and their part-specific answers; no additional physical acceptance."
   }
 }
