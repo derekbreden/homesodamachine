@@ -157,9 +157,6 @@ foam_cap_faces = 2
 inserts_per_foam_cap_face = len(attachment_xy_positions)
 inserts_per_reservoir_cap = len(insert_positions_for_side_plus_1)
 
-# Reservoir cap vent filter: one ø13 PTFE membrane per cap.
-vent_filters_per_reservoir_cap = 1
-
 
 # ─── Derived totals ────────────────────────────────────────────────────
 
@@ -407,9 +404,6 @@ total_m3_screws_per_build = (
 )
 total_m5_screws_per_build = floor_screws_per_build + enclosure_seam_rods_per_build
 
-# Reservoir-cap vent filters per build (2).
-vent_filters_per_build = vent_filters_per_reservoir_cap * reservoirs_per_build
-
 # The cap check's complete nominal strip needs the allocated six-inch stock.
 # Its installed threading and retention remain unqualified.
 chain_tie_loop = _cap_retaining_paths['water-check']['length_mm']
@@ -583,8 +577,6 @@ def main(*, only_bom=False):
         "C14_SCREWS": f"{c14_screws_per_build:.4g}",
         "TOTAL_M5_INSERTS": f"{total_m5_inserts_per_build:.4g}",
         "M5_INSERTS_COST": pack_line_cost(total_m5_inserts_per_build, "10.71", 50),
-        # Vent filters.
-        "VENT_FILTERS": f"{vent_filters_per_build:.4g}",
         # Evaporator-coil copper (§5 GOORY row). LAID_FT is the copper a build CONSUMES —
         # the wrap as it lies on the carbonator, bridge lift and all. The mandrel's two shorter
         # readings are MANDREL_FT (what the tool holds) and SPRUNG_FT (what the same wraps

@@ -59,7 +59,8 @@ def main():
     for side, label in ((1, 'right'), (-1, 'left')):
         vessel_path = HERE.parents[1]/'reservoir'/f'reservoir-{label}.step'
         cap_path = HERE.parents[1]/'reservoir'/f'reservoir-cap-{label}.step'
-        vessel, lid = load(vessel_path), load(cap_path)
+        vessel = load(vessel_path)
+        lid = load(cap_path).translate((0, 0, res.cap_assembly_lift))
         inputs += [vessel_path, cap_path]
         max_overlap = 0.0
         min_distance = math.inf

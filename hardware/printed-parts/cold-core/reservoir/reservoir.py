@@ -1,8 +1,7 @@
 """Reservoir — open-top `[`-shaped PETG cup that stands on the floor of each
 bag pocket of the foam shell, closed by a separately-printed cap clamped
 through a TPU gasket. Mirrored ±X. Carries the level-sensing rod, and its
-cap carries the vent and the reservoir's two mouths: the fill, and the
-dip tube the draw is.
+cap carries flush TPU tube grips and a separate bidirectional air tube.
 
 Same coordinate convention as ../foam-shell/: +Z vertical, +X is
 the bag-pocket axis (two cavities sit on opposite sides), +Y is
@@ -23,6 +22,7 @@ sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen")
 from world_workplane import WorldWorkplane, xy_plane_z_up
 import fits
 from _cadq_export import export_assembly
+import _reservoir_ports as tube_ports
 import _materials as _mat
 from _materials import one_body
 from docgen import substitute_md, substitute_py_comments
@@ -89,7 +89,7 @@ inner_corner_fillet_radius = 6.0
 # plate hosts the counterbored screw heads on its flat top face; the
 # perimeter wall provides depth for the screw shaft to pass through to
 # the gasket + body insert below.
-cap_base_thickness = 4.0  # flat top spans the cavity unsupported and hosts the screw counterbores
+cap_base_thickness = tube_ports.plate_thickness  # flat top spans the cavity unsupported and hosts the screw counterbores
 cap_wall_height = 5.0
 cap_wall_width = 6.0
 
@@ -122,108 +122,14 @@ cap_base_z_range = (cap_wall_height, cap_wall_height + cap_base_thickness)
 cap_total_height = cap_base_z_range[1]
 
 
-# Vent feature: a hydrophobic PTFE membrane filter sits in a cylindrical
-# pocket at the top of the cap, held down by a press-fit TPU 90A
-# retaining ring. Air vents through a small hole below the filter into a
-# cylindrical shell that hangs into the reservoir. The cylinder has a
-# closed floor at the bottom (in use) and four slots in its walls, so
-# splash-up syrup hits the closed floor or the cylinder walls and has to
-# take a 90°-turn path through a slot before it could reach the membrane
-# above.
-#
-# Filter: LVDALAB ⌀[13 mm](FILTER_D) PTFE-on-PET membrane (Amazon B0D41KT345)
-# Retaining ring: [2 mm](RETAINING_RING_T)-thick TPU 90A, press-fit into the cap pocket
-filter_diameter = 13.0
-filter_thickness = 0.5
-
-retaining_ring_thickness = 2.0
-retaining_ring_outer_diameter = filter_diameter + 2.0 * fits.slip + 0.2  # retain 0.1 mm/side TPU interference
-retaining_ring_inner_diameter = 9.0   # leaves most of the membrane exposed for airflow
-
-# Filter pocket (cylindrical recess in the cap top) holds the
-# filter + ring stack with 0.15 mm radial static clearance.
-# [13.3 mm](VENT_POCKET_D) — filter ⌀ + 0.15 mm/side clearance.
-vent_pocket_diameter = filter_diameter + 2.0 * fits.slip
-# The membrane pocket opens on the print bed face. Grow its depth while the
-# derived boss below it grows with it, preserving vent_below_pocket_material.
-vent_pocket_depth = filter_thickness + retaining_ring_thickness + fits.supported_surface
-
-# Below the pocket the cap thickens locally into a boss carrying the
-# small vent hole; the boss protrudes below the standard base plate bottom.
-vent_hole_diameter = 5.0
-vent_below_pocket_material = 2.5  # cap material thickness between pocket bottom and boss bottom
-vent_boss_wall_around_pocket = 2.0
-# [17.3 mm](VENT_BOSS_OD) — pocket ⌀ + 2 × wall around pocket.
-vent_boss_outer_diameter = vent_pocket_diameter + 2 * vent_boss_wall_around_pocket
-_vent_boss_depth = vent_pocket_depth + vent_below_pocket_material
-_vent_boss_extension_below_base_plate = _vent_boss_depth - cap_base_thickness
-
-# Cylinder shell hangs below the boss into the reservoir, inside diameter
-# equal to the vent hole so the air column has no internal step. Outer
-# diameter matches the brim diameter (a [2.5 mm](VENT_CYL_WALL_T) wall) so the brim
-# is flush with the cylinder, becoming the closed bottom of a single
-# ⌀[10 mm](VENT_CYL_OD) cylinder.
-vent_cylinder_inner_diameter = vent_hole_diameter
-vent_cylinder_wall_thickness = 2.5
-# [10 mm](VENT_CYL_OD) — cylinder ID + 2 × wall (matches brim ⌀ so brim is flush with cylinder).
-vent_cylinder_outer_diameter = vent_cylinder_inner_diameter + 2 * vent_cylinder_wall_thickness
-vent_brim_thickness = 1.0
-vent_brim_diameter = vent_cylinder_outer_diameter
-
-# Side slots cut through the cylinder walls — four rectangular
-# windows at 0°/90°/180°/270°. Slot height equals the cylinder wall
-# height (no margin above or below), so the wall in the slot zone is
-# four angular ribs spanning between the brim below and the boss
-# extension above.
-vent_slot_count = 4
-vent_slot_width = 3.0
-vent_slot_height = 2.0
-
-vent_cylinder_length = vent_slot_height + vent_brim_thickness
-
-# Vent position on the cap, in the side=+1 frame. Centered between
-# the y=0 and y=−[64.25](CORNER_XY_Y) rows of screw bosses (so the ø[17.3 mm](VENT_BOSS_OD) vent boss and
-# its counterbore-sized pocket clear every screw counterbore and
-# every cap-side boss), and inside the perimeter wall. Mirrored
-# across x=0 for side=−1.
-vent_position_x = 96.0
-vent_position_y = -32.5
-
-# Vent z stack, in cap-local coordinates (anchored from cap_total_height
-# at the top). Top→bottom: filter pocket / boss extension below the
-# base plate / cylinder shell with the four side slots / closed brim.
-vent_pocket_bottom_z = cap_total_height - vent_pocket_depth
-vent_boss_bottom_z = cap_total_height - _vent_boss_depth
-vent_cylinder_walls_bottom_z = vent_boss_bottom_z - (vent_cylinder_length - vent_brim_thickness)
-vent_brim_bottom_z = vent_cylinder_walls_bottom_z - vent_brim_thickness
-
-
-# THE CAP CARRIES BOTH OF THE RESERVOIR'S MOUTHS, each a through bore on a boss
-# hanging below the base plate. The FILL ends there: what arrives falls into the
-# headspace above the liquid. The DRAW goes on down: the line is its own dip tube,
-# one length of the same 1/4" LLDPE from the valve above the cap down through this
-# bore to the floor, its end cut at 45° and resting on the floor — so the reservoir
-# is filled high and drawn low, everything entering has to cross the cavity to leave,
-# and no fitting stands in the wet volume.
-#
-# Each bore is the ⌀[7.5 mm](FILL_BORE_D) every penetration in the cold core takes. The
-# draw's boss and the conduit over it are the two guides that hold the dip tube upright.
-#
-# EACH SIDE HAS ITS OWN STATIONS and they are not mirrored pairs — the fills at A
-# [(102.5, -57.5)](FILL_POSITION_A) and B [(-90.5, 43.5)](FILL_POSITION_B), the draws at A
-# [(84.2, -45)](DRAW_POSITION_A) and B [(-94.3, 9.5)](DRAW_POSITION_B). What this part asks of
-# a station is that the cap is clear of the vent boss, the rod's register boss, all six
-# screw bosses and the other bore there, and that the cavity is open under it; a draw
-# also keeps its dip tube's whole length clear of the float's travel. That leaves a wide
-# choice, and what picks inside it is what stands on the foam cap's crown over each
-# pocket — which this part cannot see. `_cold_core_interface.reservoir_fill_port` and
-# `reservoir_draw_port` carry the answers and say where they were struck.
-fill_bore_diameter = 2 * port_hole_radius
-fill_boss_wall = 2.0
-fill_boss_outer_diameter = fill_bore_diameter + 2 * fill_boss_wall
-fill_boss_drop = 2.0  # below the cap's bottom rim plane, as the rod's register boss hangs
+# The flat plate captures three flush TPU spools: fill, draw and independent air.
+# The casing conduits guide the liquid lines; each air line has its own protected
+# 5.2mm passage through the top cup and lid.
 fill_position = reservoir_fill_port
 draw_position = reservoir_draw_port
+vent_position = tube_ports.air_position
+fill_bore_diameter = tube_ports.liquid_grip['waist_d']
+
 
 # One fill station per physical reservoir — A and B — so this is the reservoir count itself,
 # read by firmware's own census (reeds, rods) and the bench cards rather than kept there.
@@ -765,80 +671,11 @@ def build_reservoir_cap(side=1):
     )
     cap = cap.cut(counterbores)
 
-    # Vent feature. Z-stack runs top→bottom from cap_total_height: filter
-    # pocket (ø[13.3 mm](VENT_POCKET_D)) at the top of the base plate, then the small vent
-    # hole through the remaining base plate material, then the boss
-    # extension below the base plate, then the cylinder shell (slot
-    # zone), then the closed brim. Z-anchors live at module scope
-    # (vent_pocket_bottom_z, vent_boss_bottom_z, vent_cylinder_walls_bottom_z,
-    # vent_brim_bottom_z).
-    vent_anchor_xy = (vent_position_x * side, vent_position_y)
-
-    # Solid pieces: boss extension, cylinder body (cut hollow later),
-    # brim. All unioned with the cap so the air-column cut below
-    # carves a single continuous channel through them.
-    boss_extension = _z_cylinder(
-        vent_anchor_xy,
-        (vent_boss_bottom_z, vent_boss_bottom_z + _vent_boss_extension_below_base_plate),
-        vent_boss_outer_diameter,
-    )
-    cap = cap.union(boss_extension)
-
-    cylinder_solid = _z_cylinder(
-        vent_anchor_xy,
-        (vent_cylinder_walls_bottom_z, vent_boss_bottom_z),
-        vent_cylinder_outer_diameter,
-    )
-    cap = cap.union(cylinder_solid)
-
-    brim = _z_cylinder(
-        vent_anchor_xy,
-        (vent_brim_bottom_z, vent_cylinder_walls_bottom_z),
-        vent_brim_diameter,
-    )
-    cap = cap.union(brim)
-
-    # Cut filter pocket from the cap top face (+0.1 breaks the surface cleanly).
-    pocket = _z_cylinder(
-        vent_anchor_xy,
-        (vent_pocket_bottom_z, cap_total_height + 0.1),
-        vent_pocket_diameter,
-    )
-    cap = cap.cut(pocket)
-
-    # Cut the air column: ø[5 mm](VENT_HOLE_D) from the cylinder bottom (top of brim) up
-    # to the pocket bottom. This both hollows out the cylinder body we
-    # just unioned in and drills the small vent hole through the boss
-    # and the [1.25 mm](VENT_BASE_PLATE_T) of base plate below the pocket.
-    air_column = _z_cylinder(
-        vent_anchor_xy,
-        (vent_cylinder_walls_bottom_z, vent_pocket_bottom_z),
-        vent_hole_diameter,
-    )
-    cap = cap.cut(air_column)
-
-    # Side slots — four rectangular windows through the cylinder wall,
-    # spaced 90° apart. Slot fills the cylinder wall top to bottom:
-    # slot bottom = brim top, slot top = boss extension bottom. The
-    # boss above and the brim below carry the load across the slot.
-    slot_center_z = vent_cylinder_walls_bottom_z + vent_slot_height / 2.0
-    vent_x_signed, vent_y = vent_anchor_xy
-    for i in range(vent_slot_count):
-        theta = 2.0 * math.pi * i / vent_slot_count
-        slot_x = vent_x_signed + (vent_cylinder_outer_diameter / 2.0) * math.cos(theta)
-        slot_y = vent_y + (vent_cylinder_outer_diameter / 2.0) * math.sin(theta)
-        tangent = (-math.sin(theta), math.cos(theta), 0.0)
-        radial = (math.cos(theta), math.sin(theta), 0.0)
-        slot_cut = (
-            cq.Workplane(cq.Plane(
-                origin=(slot_x, slot_y, slot_center_z),
-                xDir=tangent,
-                normal=radial,
-            ))
-            .rect(vent_slot_width, vent_slot_height)
-            .extrude(-(vent_cylinder_wall_thickness + 1.0))
-        )
-        cap = cap.cut(slot_cut)
+    # Independent air tube, captured flush in the plate with a slotted splash
+    # baffle below. The chamber leaves the lower TPU flare accessible.
+    vent_xy = vent_position[side]
+    cap = cap.cut(tube_ports.seat_tool(vent_xy, cap_wall_height, tube_ports.air_grip))
+    cap = cap.union(tube_ports.build_baffle(vent_xy, cap_wall_height))
 
     # Level-sensing rod register boss: a hollow boss hanging down from
     # the cap's underside into the body cavity. The rod top slides into
@@ -865,12 +702,8 @@ def build_reservoir_cap(side=1):
     )
     cap = cap.cut(boss_bore)
 
-    # The two mouths: each a boss hanging below the base plate into the cavity,
-    # and the bore straight through it and the plate. A boss stands inside the
-    # perimeter wall with the cavity open under it, the same clear air the rod's
-    # register boss hangs in, so it takes its length from below the rim rather
-    # than standing proud of the top face — the foam cap seats a
-    # reservoir_clearance above that face and leaves nothing to stand in.
+    # Liquid mouths take flush TPU spools in the flat plate. The foam cap
+    # seats reservoir_clearance above this face, with no projecting flange.
     if side in reservoir_fill_sides:
         cap = _add_port(cap, fill_position[side])
     cap = _add_port(cap, draw_position[side])
@@ -879,18 +712,8 @@ def build_reservoir_cap(side=1):
 
 
 def _add_port(cap, anchor_xy):
-    """One of the cap's through bores — the fill or the draw — and the boss that carries it."""
-    cap = cap.union(_z_cylinder(
-        anchor_xy,
-        (-fill_boss_drop, cap_wall_height),
-        fill_boss_outer_diameter,
-    ))
-    cap = cap.cut(_z_cylinder(
-        anchor_xy,
-        (-fill_boss_drop - 0.1, cap_total_height + 0.1),
-        fill_bore_diameter,
-    ))
-    return cap
+    """Matching double countersink through the flat plate for one liquid-tube spool."""
+    return cap.cut(tube_ports.seat_tool(anchor_xy, cap_wall_height, tube_ports.liquid_grip))
 
 
 def build_reservoir_gasket(side=1):
@@ -935,43 +758,25 @@ def build_reservoir_gasket(side=1):
     return gasket.unwrap()
 
 
-def build_reservoir_retaining_ring():
-    """TPU 90A annular retaining ring that presses into the cap's
-    filter pocket above the membrane and clamps it against the
-    pocket floor (the shelf around the small ø[5 mm](VENT_HOLE_D) vent hole). [2 mm](RETAINING_RING_T)
-    thick. Outer [ø13.5](RETAINING_RING_OD) nominal — sized for a light interference
-    press-fit into the ø[13.3 mm](VENT_POCKET_D) pocket (TPU 90A is soft enough to
-    compress 0.1 mm per side without trouble). Inner ø[9 mm](RETAINING_RING_ID) leaves
-    most of the membrane exposed for airflow.
+def build_reservoir_tube_grip():
+    """Four identical TPU 90A spools per machine, two per reservoir lid."""
+    return tube_ports.build_grommet(tube_ports.liquid_grip)
 
-    Symmetric, so one ring design works on either side; print 2
-    per build (one per reservoir cap)."""
-    return (
-        WorldWorkplane(xy_plane_z_up)
-        .circle(retaining_ring_outer_diameter / 2.0)
-        .circle(retaining_ring_inner_diameter / 2.0)
-        .extrude(retaining_ring_thickness)
-        .unwrap()
-    )
+
+def build_reservoir_air_grip():
+    """Two identical TPU 90A spools per machine, one per reservoir air tube."""
+    return tube_ports.build_grommet(tube_ports.air_grip)
 
 
 def main():
+    from _show_skin import write_bed_file
+    from flute_payload import cut as write_print_payload
     # Left/right naming is geometric: side=+1 → +X reservoir →
     # "*-right.step"; side=-1 → -X reservoir → "*-left.step". The machine's
     # front face is −Y (toward the user — the dispense side); +Y is the rear.
     #
-    # Body and cap genuinely differ between sides — they're NOT
-    # y-symmetric. The rod and vent positions stay at fixed world Y (the
-    # rod at y=+32.5, the cap vent at y=−32.5) so they keep their place for
-    # both reservoirs, and each cap's two bores stand where its own pocket's
-    # crown leaves room. Mirror across x=0 only — never across y=0.
-    #
-    # The gasket and the retaining ring are BOTH y-symmetric in their
-    # own right (perimeter rings with y-mirrored hole patterns), and
-    # under y-symmetry a 180° rotation about Z collapses to an x-mirror
-    # — i.e. the −X gasket is just the +X gasket flipped over. So one
-    # print serves either reservoir; only a single un-suffixed STEP is
-    # exported for each.
+    # A and B use their own fill, draw and air stations. The y-symmetric rim
+    # gasket flips between sides; the two concentric spool designs fit either lid.
     here = Path(__file__).resolve().parent
 
     for side, label in ((+1, "right"), (-1, "left")):
@@ -983,15 +788,22 @@ def main():
                         str(here / f"reservoir-cap-{label}.step"))
         print(f"-> reservoir-{label}.step")
         print(f"-> reservoir-cap-{label}.step")
+        write_bed_file(cap, here / f"reservoir-cap-{label}.stl")
+        write_print_payload(here / f"reservoir-cap-{label}.step",
+                            here / f"reservoir-cap-{label}.stl",
+                            preserve_print_triangles=True)
 
     gasket = build_reservoir_gasket(side=+1)  # y-symmetric: flip to install on −X side
-    retaining_ring = build_reservoir_retaining_ring()
     export_assembly(one_body(gasket, "reservoir-gasket", _mat.C_SILICONE),
                     str(here / "reservoir-gasket.step"))
-    export_assembly(one_body(retaining_ring, "reservoir-retaining-ring", _mat.M_PETG_BLACK),
-                    str(here / "reservoir-retaining-ring.step"))
-    print(f"-> reservoir-gasket.step")
-    print(f"-> reservoir-retaining-ring.step")
+    print("-> reservoir-gasket.step")
+    for name, grip in (("reservoir-tube-grip", build_reservoir_tube_grip()),
+                       ("reservoir-air-grip", build_reservoir_air_grip())):
+        export_assembly(one_body(grip, name, _mat.M_TPU_BLACK), str(here / f"{name}.step"))
+        write_bed_file(grip, here / f"{name}.stl")
+        write_print_payload(here / f"{name}.step", here / f"{name}.stl",
+                            preserve_print_triangles=True)
+        print(f"-> {name}.step / .stl")
 
     # WHAT THE RESERVOIR HOLDS, read off the body just built: the cavity from the
     # floor to the rim, less what the body stands in it (the rod's anchor boss, the
@@ -1019,25 +831,11 @@ def main():
         "RESERVOIR_W": f"{res_w:.4g} mm",
         "RESERVOIR_D": f"{res_d:.4g} mm",
         "RESERVOIR_H": f"{res_h:.4g} mm",
-        # vent.md headline values.
-        "FILTER_D": f"{filter_diameter:.4g} mm",
-        "FILTER_T": f"{filter_thickness:.4g} mm",
-        "VENT_POCKET_D": f"{vent_pocket_diameter:.4g} mm",
-        "VENT_POCKET_DEPTH": f"{vent_pocket_depth:.4g} mm",
-        "VENT_BOSS_OD": f"{vent_boss_outer_diameter:.4g} mm",
-        "VENT_BOSS_WALL": f"{vent_boss_wall_around_pocket:.4g} mm",
-        "VENT_HOLE_D": f"{vent_hole_diameter:.4g} mm",
-        "VENT_CYL_OD": f"{vent_cylinder_outer_diameter:.4g} mm",
-        "VENT_CYL_ID": f"{vent_cylinder_inner_diameter:.4g} mm",
-        "VENT_SLOT_COUNT": f"{vent_slot_count}",
-        "VENT_SLOT_W": f"{vent_slot_width:.4g} mm",
-        "VENT_SLOT_H": f"{vent_slot_height:.4g} mm",
         # The cap's fill bore — the reservoir's second mouth, above the liquid.
         "FILL_BORE_D": f"{fill_bore_diameter:.4g} mm",
         # And the cap conduit standing over a reed channel's mouth, which `level-sensing.md`
         # reads. Same standard, a different feature — neither is the other's figure.
         "CONDUIT_BORE_D": f"{port_hole_radius * 2:.4g} mm",
-        "FILL_BOSS_OD": f"{fill_boss_outer_diameter:.4g} mm",
         "FILL_POSITION_A": "({:.4g}, {:.4g})".format(*fill_position[+1]),
         "FILL_POSITION_B": "({:.4g}, {:.4g})".format(*fill_position[-1]),
         # level-sensing.md rod placement + size + reed count.
@@ -1086,10 +884,7 @@ def main():
         "CAP_CLEARANCE_HOLE_D": f"{cap_clearance_hole_diameter:.4g} mm",
         "GASKET_STRIP_W": f"{gasket_strip_width:.4g} mm",
         "GASKET_THICKNESS": f"{gasket_thickness:.4g} mm",
-        "RETAINING_RING_T": f"{retaining_ring_thickness:.4g} mm",
-        "RETAINING_RING_ID": f"{retaining_ring_inner_diameter:.4g} mm",
         "RESERVOIR_CLEARANCE": f"{reservoir_clearance:.4g} mm",
-        "VENT_CYL_WALL_T": f"{vent_cylinder_wall_thickness:.4g} mm",
         "INSERT_POCKET_DEPTH": f"{insert_pocket_depth:.4g} mm",
         "OUTER_FILLET_R": f"{outer_corner_fillet_radius:.4g} mm",
         # Screw-boss corner row Y, and the inner-wall corner the boss-4/5
@@ -1098,10 +893,8 @@ def main():
         "CORNER_XY_Y": f"{_corner_xy_y:.4g}",
         "INNER_CORNER_CURVE_X": f"{_inner_corner_curve_x:.4g} mm",
         "CORNER_CURVE_DIST": f"{_corner_curve_to_inner_corner_dist:.4g} mm",
-        # Gasket insert pad OD, retaining-ring OD, vent base-plate thickness.
+        # Gasket insert pad OD.
         "GASKET_PAD_D": f"ø{2 * gasket_pad_radius:.4g}",
-        "RETAINING_RING_OD": f"ø{retaining_ring_outer_diameter:.4g}",
-        "VENT_BASE_PLATE_T": f"{cap_base_thickness - vent_pocket_depth:.4g} mm",
     }
     substitute_md(
         here / ".." / "foam-shell" / "README.md",

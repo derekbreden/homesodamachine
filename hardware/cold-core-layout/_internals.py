@@ -1,5 +1,5 @@
 """What stands inside the carbonator and inside each pocket: the inlet jet, the
-level-sensing columns, each reservoir cap's vent membrane, and the two 1-wire probes.
+level-sensing columns and the two 1-wire probes.
 
 Every station here is read off the part that owns it. The reservoir rod is at `reservoir.py`'s
 own `rod_position_x` / `rod_position_y`; the reed column stands in the channel
@@ -220,16 +220,6 @@ def level_bodies(reservoirs: dict = None) -> dict:
     return out
 
 
-def seals(reservoirs: dict = None) -> dict:
-    """The membrane in each cap's vent pocket."""
-    out = {}
-    for name, side in (("a", +1), ("b", -1)):
-        out[f"vent-membrane-{name}"] = F.membrane(
-            centre=(side * _res.vent_position_x, _res.vent_position_y,
-                    _cap_z() + _res.vent_pocket_bottom_z))
-    return out
-
-
 def _cap_z() -> float:
     """Where a reservoir cap's own zero sits in the shell's frame."""
     return _R.reservoir_cap_top_z - _res.cap_total_height
@@ -260,7 +250,6 @@ def bodies(reservoirs: dict = None) -> dict:
     for name, (solid, _m) in carbonator_collets().items():
         out[f"collet-{name}"] = solid
     out.update(level_bodies(reservoirs))
-    out.update(seals(reservoirs))
     out.update(probes())
     return out
 

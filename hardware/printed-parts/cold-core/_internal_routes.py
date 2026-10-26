@@ -312,7 +312,8 @@ def _routes():
             (prv_vent_start[0], prv_vent_lane_y, prv_vent_cross_z),
             (prv_vent_start[0], prv_vent_flank_y + prv_vent_reach, prv_vent_cross_z),
         ],
-        "reservoir-a-fill": reservoir_guide_route("reservoir-a-fill", reservoir_cap_top_z),
+        "reservoir-a-fill": reservoir_guide_route("reservoir-a-fill",
+            reservoir_cap_z + _reservoir.cap_wall_height - 1.0),
         "reservoir-b-fill": [world_point_in_shell(p) for p in
             _above_mounts.reservoir_b_fill_link()['exposed_route_world_mm']],
     }

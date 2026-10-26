@@ -195,15 +195,3 @@ def stand_x_along(solid, *, at, axis):
     else:
         turned = solid.rotate(cq.Vector(0, 0, 0), x.cross(a), math.degrees(math.acos(dot)))
     return turned.translate(cq.Vector(*at))
-
-
-# --- LVDALAB PTFE membrane filter, ⌀13 × 0.45 µm ----------------------------
-#
-# `bom.md` §13 — the hydrophobic membrane in each reservoir cap's vent pocket.
-MEMBRANE_D = 13.0
-MEMBRANE_T = 0.15
-
-
-def membrane(*, centre, axis=(0, 0, 1)):
-    axis = cq.Vector(*axis).normalized()
-    return _orient(_cyl(MEMBRANE_D / 2, MEMBRANE_T), axis).translate(cq.Vector(*centre))

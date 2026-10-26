@@ -1,0 +1,85 @@
+{
+  "status": "Native production CAD check; printed fit and airflow remain unmeasured.",
+  "parts": {
+    "reservoir-cap-right.step": {
+      "valid": true,
+      "solids": 1,
+      "approved_preview_symmetric_difference_mm3": 0.0
+    },
+    "reservoir-cap-left.step": {
+      "valid": true,
+      "solids": 1,
+      "approved_preview_symmetric_difference_mm3": 0.0
+    },
+    "reservoir-tube-grip.step": {
+      "valid": true,
+      "solids": 1,
+      "approved_preview_symmetric_difference_mm3": 0.0
+    },
+    "reservoir-air-grip.step": {
+      "valid": true,
+      "solids": 1,
+      "approved_preview_symmetric_difference_mm3": 0.0
+    },
+    "foam-cap-top": {
+      "valid": true,
+      "solids": 1,
+      "approved_preview_volume_difference_mm3": 0.00022555369650945067,
+      "bidirectional_sampled_surface_distance_max_mm": 2.2366638772497816e-07,
+      "sample_count": 320,
+      "method": "Bidirectional native B-rep vertices to opposing B-rep faces; coincident large-face Boolean results are not used."
+    },
+    "foam-cap-lid-top": {
+      "valid": true,
+      "solids": 1,
+      "approved_preview_volume_difference_mm3": 5.611218512058258e-08,
+      "bidirectional_sampled_surface_distance_max_mm": 2.2366838285503314e-07,
+      "sample_count": 320,
+      "method": "Bidirectional native B-rep vertices to opposing B-rep faces; coincident large-face Boolean results are not used."
+    }
+  },
+  "air_paths": {
+    "a": {
+      "tube_length_mm": 31.25,
+      "cup_clearance_mm": 0.5999999999999943,
+      "casing_lid_clearance_mm": 0.5999999999999943,
+      "headspace_to_open_air_witness_minimum_clearance_mm": 0.5,
+      "top_pride_mm": 6.0,
+      "tube_tip_above_baffle_floor_mm": 1.0,
+      "grip_top_and_bottom_flush_z_mm": [
+        209.15,
+        213.15
+      ]
+    },
+    "b": {
+      "tube_length_mm": 31.25,
+      "cup_clearance_mm": 0.5999999999999943,
+      "casing_lid_clearance_mm": 0.5999999999999927,
+      "headspace_to_open_air_witness_minimum_clearance_mm": 0.5,
+      "top_pride_mm": 6.0,
+      "tube_tip_above_baffle_floor_mm": 1.0,
+      "grip_top_and_bottom_flush_z_mm": [
+        209.15,
+        213.15
+      ]
+    }
+  },
+  "body_geometry_unchanged": {
+    "right": true,
+    "left": true
+  },
+  "sha256": {
+    "hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.step": "0c6458a2fb7245ed078c0bac7f2b4cfa48d39e153f9a028a6c76c25df654170d",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step": "06e1ff34d5355fcbb44e0f0fcef30394c870e9ccaa09ec04e3a9aa6c655db680",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step": "dfdb6d91a285e60ba67b3663c62d7f46e330e508ec9a162203fd887c05bcb72f",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step": "76e74f14a279bc1de4a74a388320334ba80e45ff2c4011c2f24442baef3b657a",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "9f7c1b28119278b14db56401f7c73e695a06d7965c3f335478727eedb3e820ce",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "e024cf5faf3e03603835e3b3af8004b187322a6376c4094a6b42b2cae11e0e11",
+    "hardware/printed-parts/cold-core/_reservoir_ports.py": "4df00ba5d8013959f0b1ad59e5cfe16fd9171df7017bb590be8e7892b34b6a0b"
+  },
+  "design_approval": {
+    "quote": "This all looks perfect. Please implement all of this.",
+    "date": "2026-10-26",
+    "scope": "Approval of the displayed geometry; no printed grip or airflow result."
+  }
+}

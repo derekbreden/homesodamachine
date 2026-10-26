@@ -89,8 +89,10 @@ PARTS = (
     ("heat-set inserts", "ruthex RX-M3 × 5.7 full-length heat-set inserts", ()),
     ("cap clamp screws", "BNUOK M3 × 25 mm DIN 912", ()),
     ("reservoir cap screws", "BNUOK M3 × 12 mm socket head cap, 304 stainless", ()),
-    ("vent membranes", "LVDALAB PTFE Membrane Filter",
-     ("vent-membrane-a", "vent-membrane-b")),
+    ("reservoir tube grips", "4× reservoir tube grip",
+     ("reservoir-grip-a-fill", "reservoir-grip-a-draw", "reservoir-grip-b-fill", "reservoir-grip-b-draw")),
+    ("reservoir air grips", "2× reservoir air grip",
+     ("reservoir-grip-a-air", "reservoir-grip-b-air")),
 )
 
 # A length of tube is stock cut to fit, billed by the foot in §3 and §11, so a drawn line is

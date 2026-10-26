@@ -31,7 +31,7 @@ planes the appliance reads off the stack.
 | lines | the eight `_internal_routes` centrelines — both reservoirs' dip tubes among them — each drawn at the arc its corridor leaves |
 | coil | the wrap as an exact helix on the carbonator's own radius, and both tails to their slot stations |
 | inlet jet | nominal 316 cap, Ø9.5 × 2 mm with a 1/16-inch passage, on the top water elbow's male tip |
-| pockets | both rods, both floats, both cap vent membranes |
+| pockets | both rods, both floats, six flush TPU grips and two independent air tubes |
 | sensing | ten reeds — two on the bridge, four per reservoir — and both 1-wire probes |
 | collets | two PP010822E water adapters and one PI010822S gas adapter on the carbonator elbows |
 
