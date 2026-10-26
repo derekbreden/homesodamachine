@@ -646,6 +646,12 @@ def graft(path: Path, fluted: dict, *, same_frame=False):
     share a frame. Added raised lettering changes a bounding box, not a placement.
     Otherwise an unrecoverable placement leaves the host body where it stands.
 
+    A whole-appliance catalog spans coordinate frames: enclosure pieces are cut
+    in machine coordinates, while cold-core and faucet pieces have their own
+    frames. Leave placement recovery enabled for `surfaces()` without a family
+    filter. `same_frame=True` applies only to a family already in the host frame
+    or surfaces explicitly carried into it before this call.
+
     THE HOST KEEPS ITS OWN NAME AND COLOUR. A body is coloured by the assembly that places it,
     and swapping the surface is not swapping which part it is.
 

@@ -9,4 +9,6 @@ The smooth 2.38 mm casing is carried into the machine with the core’s quarter 
 
 Surface replacement keeps the placed host body when its assembly placement cannot be recovered. Edits authored in a shared coordinate frame declare that frame explicitly.
 
+Whole-appliance refreshes keep placement recovery enabled for catalogs that include the enclosure, cold core and faucet. Each family has its own authoring frame; a shared-frame override belongs to a filtered family or to surfaces already carried into the machine frame. This also applies to the seam rebuild helper.
+
 This viewer correction changes no printable STL or running print job. The shell on Mark2 retains source STL SHA-256 `b705e3aa5eee906839456b84d7f6419a655db4197b1483d9d05efb3d23149bcd`.
