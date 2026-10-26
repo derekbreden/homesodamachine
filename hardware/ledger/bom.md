@@ -258,7 +258,7 @@ trial articles have no pressure-life or wetted-service acceptance record.
 
 | Part | Notes | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| [Tandefio 1/8" × 12" 316 SS round rod (5-pk)](https://www.amazon.com/dp/B0CY4DWJFQ) | Three finished guides per build: carbonator starts with a 131.08 mm blank and is hand-fit to the as-drilled register pair before tacking; each reservoir uses 203.750 mm. A carbonator blank plus one reservoir rod exceeds a 12-inch stick. Batch allocation uses half a stick per carbonator (two blanks per stick) plus one full stick per reservoir, 2.5 sticks/build; a single build needs three physical sticks. $8.57/5 × 2.5 = $4.29 | 2.5 (of 5 pk) | $1.71 | $4.29 <!--@sensors--> |
+| [Tandefio 1/8" × 12" 316 SS round rod (5-pk)](https://www.amazon.com/dp/B0CY4DWJFQ) | Three finished guides per build: carbonator uses a 5.110 ±0.005 inch finished rod (129.79 ±0.13 mm), per FR-CARB-01; each reservoir uses 203.750 mm. A carbonator rod plus one reservoir rod exceeds a 12-inch stick. Batch allocation uses half a stick per carbonator (two carbonator rods per stick) plus one full stick per reservoir, 2.5 sticks/build; a single build needs three physical sticks. $8.57/5 × 2.5 = $4.29 | 2.5 (of 5 pk) | $1.71 | $4.29 <!--@sensors--> |
 
 ### Reeds (two carbonator, eight reservoir)
 

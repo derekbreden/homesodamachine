@@ -11,6 +11,9 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if p.name == "hardware") / "printed-parts" / "cadlib"),
 )
+
+sys.path.insert(0, str(next(p for p in _here.parents if p.name == "hardware")
+                       / "cut-parts" / "carbonation" / "float-rod"))
 sys.path.insert(
     0,
     str(next(p for p in _here.parents if p.name == "hardware") / "printed-parts" / "cold-core"),
@@ -34,6 +37,7 @@ from _cold_core_interface import (
     carbonator_outer_radius,
 )
 from endcap_circular_dxf import disc_thickness, hole_diameter, register_depth, register_radius
+import float_rod_dimensions as rod_spec
 from docgen import substitute_md
 
 MM_PER_IN = 25.4
@@ -95,23 +99,11 @@ def carbonation_volumes(t_c, air):
     fugacity = p_co2 * math.exp(b * p_total / (82.0578 * t))
     return k0 * fugacity * 22.26      # L of CO2 at 0 °C and 1 atm per kg of water
 
-# Carbonator float-rod cut length. Each 1/4" end plate is an ID-fit plug
-# RECESSED plate_recess below its tube end, so the tube wall stands proud and
-# the closure is a corner fillet welded into the recess (step 3/5) — the joint
-# the handheld laser runs best on a thin-wall-to-thick-plate edge. The rod's
-# seat-to-seat span = tube length − both recesses − both plate thicknesses
-# + both register depths (the rod tip drops register_depth into each plate).
-# Cut rod_clearance under that so the rod never holds a plate off its seated
-# depth (which would open the fillet root).
-plate_recess = 0.25 * MM_PER_IN   # mm — plate outer face set 1/4" below the rim
-rod_clearance = 1.0               # mm — cut under seat-to-seat
-carbonator_rod_len = (
-    carbonator_height
-    - 2 * plate_recess
-    - 2 * disc_thickness * MM_PER_IN
-    + 2 * register_depth * MM_PER_IN
-    - rod_clearance
-)
+# The finished rod and its toleranced assembly interface are defined by the
+# part source used by FR-CARB-01. Register depth is to the drill tip, not a
+# flat-ended rod's seating plane.
+carbonator_rod_len = rod_spec.finished_length * MM_PER_IN
+carbonator_rod_tolerance = rod_spec.length_tolerance * MM_PER_IN
 
 
 def main():
@@ -129,12 +121,7 @@ def main():
         # Vertical envelope for the 1/4" NPT 90° elbow stack above and
         # below the carbonator (foam-shell budget).
         "ELBOW_ENV": f"{above_carbonator_elbows_height:.4g} mm",
-        # Carbonator float-rod cut length (computed above), and the one term of its
-        # formula the prose spells out — the undercut that keeps the rod from holding
-        # a plate off its seated depth. Read off the constant the length is cut with,
-        # so the sentence explaining the cut cannot describe a different cut.
-        "ROD_LEN": f"{carbonator_rod_len:.4g} mm ({carbonator_rod_len / MM_PER_IN:.3g} in)",
-        "ROD_CLEARANCE": f"{rod_clearance:.4g} mm",
+        "ROD_LEN": f"{rod_spec.finished_length:.3f} ±{rod_spec.length_tolerance:.3f} in ({carbonator_rod_len:.2f} ±{carbonator_rod_tolerance:.2f} mm)",
         "REGISTER_RADIUS_IN": f"{register_radius:.4f}",
         "REGISTER_RADIUS_MM": f"{register_radius * MM_PER_IN:.3f} mm",
         # Nominal gas-feed setpoint / design reference, not an upper pressure bound.

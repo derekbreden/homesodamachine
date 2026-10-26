@@ -1,7 +1,10 @@
 {
   "title": "Carbonator vessel weldment engineering drawing",
-  "subtitle": "Closure assembly and rod fit · prototype for review · 17 × 11 in",
+  "subtitle": "Closure assembly and fixed rod interface · for review · 17 × 11 in",
   "pages": 1,
   "cover": "carbonator-vessel-weldment-drawing.cover.png",
-  "cover_size": [900, 583]
+  "cover_size": [
+    900,
+    583
+  ]
 }

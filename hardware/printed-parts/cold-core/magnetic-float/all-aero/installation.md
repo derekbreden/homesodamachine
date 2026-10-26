@@ -17,7 +17,7 @@ including upright guide play. Liquid switching heights need calibration.
 | Carbonator register drill | 9/64 in (3.5719 mm), blind **0.100 in (2.54 mm) to drill tip**, on the inside face; 0.150 in (3.81 mm) of plate remains |
 | Reservoir body and matching cap | Rod axis **(x = ±[106.25 mm](RES_X), y = +[32.5 mm](RES_Y))** in the assembled cold-core frame; sign selects the mirrored reservoir |
 | Reservoir local datum | Rod axis is 20 mm inward from its wet far wall, x = ±126.25 mm; body and cap registers share this axis |
-| Carbonator rod blank | **[131.08 mm](CARB_ROD_LENGTH)** starting length; hand-fit the actual conical register pair before tacking, with positive top engagement and fully seated plates |
+| Carbonator rod cut | **[5.110 ±0.005 in (129.79 ±0.13 mm)](CARB_ROD_LENGTH)** finished length, per FR-CARB-01; cap inside-face spacing 5.000 ±0.010 in per CV-WLD-01 |
 | Reservoir rod cut | **[203.750 mm](RES_ROD_LENGTH)**, with **[0.15 mm](RES_ROD_CLEARANCE)** axial clearance |
 
 Use the [end-cap drawing](/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.pdf)
