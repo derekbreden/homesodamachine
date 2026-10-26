@@ -763,7 +763,7 @@ Derek:
 
 > The only thing that was optional was whether you were printing two lids or not.
 
-## 2026-10-26 — two-hour leak and 40% overlap candidate
+## 2026-10-26 — two-hour leak and 50% overlap candidate
 
 Derek reports a small amount of water after two hours on the most recent
 reservoir, at the line between wall and infill. The
@@ -771,12 +771,11 @@ reservoir, at the line between wall and infill. The
 retain the observation without an unconfirmed task assignment. Earlier
 task-specific hold reports retain their scope.
 
-The [next candidate](recipe-reviews/2026-10-26-overlap40/README.md) selects
-40% Infill/Wall overlap with the latest 255/260 °C Engineering Plate / left
+The [next candidate](recipe-reviews/2026-10-26-overlap50/README.md) selects
+50% Infill/Wall overlap with the latest 255/260 °C Engineering Plate / left
 0.8 mm recipe otherwise retained. Archive checks verify the exact setting
-delta and unchanged geometry/placement. Native slicing remains pending after
-two Studio CLI exits with signal 11, including an isolated-data-directory
-attempt. No new job is submitted and no sealing benefit is claimed.
+delta and unchanged geometry/placement. Native slicing and physical sealing
+remain unassessed. No new job is submitted and no sealing benefit is claimed.
 
 Derek:
 

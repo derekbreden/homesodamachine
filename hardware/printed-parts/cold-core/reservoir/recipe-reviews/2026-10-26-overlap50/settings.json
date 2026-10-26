@@ -645,7 +645,7 @@
   "infill_lock_depth": "1",
   "infill_rotate_step": "0",
   "infill_shift_step": "0.4",
-  "infill_wall_overlap": "40%",
+  "infill_wall_overlap": "50%",
   "inherits_group": [
     "",
     "",
@@ -1077,7 +1077,7 @@
   "print_flow_ratio": "1",
   "print_in_clockwise": "0",
   "print_sequence": "by layer",
-  "print_settings_id": "Reservoir PETG 0.8 - five walls overlap40 flow105 260C",
+  "print_settings_id": "Reservoir PETG 0.8 - five walls overlap50 flow105 260C",
   "printable_area": [
     "0x0",
     "330x0",
