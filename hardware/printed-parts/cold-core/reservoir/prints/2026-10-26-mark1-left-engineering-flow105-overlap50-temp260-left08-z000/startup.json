@@ -1,0 +1,53 @@
+{
+  "observed_at_utc": "2026-10-26T14:19:59.596396+00:00",
+  "printer": "Mark1",
+  "job_id": "1377101665",
+  "status": {
+    "job_id": "1377101665",
+    "subtask_name": "Left_reservoir_and_cap_-_PETG_0.24_mm",
+    "gcode_state": "RUNNING",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 0,
+    "total_layer_num": 833,
+    "mc_percent": 0,
+    "mc_remaining_time": 342,
+    "nozzle_temper": 180.0,
+    "nozzle_target_temper": 180.0,
+    "bed_temper": 25.0,
+    "bed_target_temper": 25.0,
+    "stg_cur": 74,
+    "nozzles": [
+      {
+        "id": 18,
+        "type": "HS01",
+        "diameter": 0.4
+      },
+      {
+        "id": 1,
+        "type": "HS01",
+        "diameter": 0.8
+      },
+      {
+        "id": 17,
+        "type": "HS00",
+        "diameter": 0.2
+      },
+      {
+        "id": 0,
+        "type": "HS00",
+        "diameter": 0.2
+      },
+      {
+        "id": 19,
+        "type": "HS01",
+        "diameter": 0.8
+      }
+    ]
+  },
+  "visible_studio_phase": "Homing toolhead; layer 0/833.",
+  "camera": "Studio live view requested; initialization observed, no deposition frame retained.",
+  "start_slot_selected": "A2",
+  "material_feed_scope": "A2 selected in send dialog; loaded-tray state at deposition is unobserved.",
+  "physical_scope": "Startup accepted with no error/HMS. Model adhesion and water holding are unassessed."
+}

@@ -30,7 +30,7 @@ for these countersunk ports.
 The [native integration check](tube-grip-integration.json) records the flush
 seats, open air paths, casing clearance and unchanged body geometry.
 
-## Two-hour leakage and next overlap candidate
+## Two-hour leakage and 50% overlap trial
 
 Derek reports that the most recent reservoir leaks a small amount after
 **two hours**, at the line between wall and infill. The
@@ -38,12 +38,17 @@ Derek reports that the most recent reservoir leaks a small amount after
 retain that result without assigning an unconfirmed task ID. The visible wet
 marks establish leakage beside the base; the internal path is unconfirmed.
 
-The [next candidate](recipe-reviews/2026-10-26-overlap50/README.md) uses **50%
-Infill/Wall overlap**, with the latest **255/260 °C Engineering Plate / left
-0.8 mm** recipe otherwise retained. The candidate settings and unchanged
-body geometry are verified; its frozen lid predates the flush grips. Native slicing and a physical water-hold result are
-pending. No new job is submitted. Earlier task-specific observations retain
-their recorded scope.
+The [50% overlap left body and matching lid](prints/2026-10-26-mark1-left-engineering-flow105-overlap50-temp260-left08-z000/README.md)
+are running as **Mark1 task 1377101665**, verified active at **09:18:30 CDT /
+14:18:30 UTC October 26** after one Studio Send and `project_file SUCCESS`.
+The **255/260 °C Engineering Plate / left 0.8 mm** recipe starts on **A2**,
+with Auto Refill visible, zero added/effective Z trim and ironing Off.
+Native estimate: **5 h 42 min 25 s, 444.89 g, 833 layers**. Fresh startup is
+RUNNING, layer 0/833, error 0 and no HMS. Physical adhesion and water holding
+remain unassessed. [Recipe review](recipe-reviews/2026-10-26-overlap50/README.md).
+This trial retains the frozen matching lid with the earlier port geometry;
+the current flush-grip lid is a separate revision. Earlier task-specific
+observations retain their recorded scope.
 
 ## Recorded Engineering Plate left reservoir and lid
 

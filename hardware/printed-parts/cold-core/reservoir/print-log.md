@@ -782,3 +782,25 @@ Derek:
 > The tiny amount (not sure if you can even see) in this photo is after 2 hours.
 
 > It does appear to be precisely in the line between wall and infill. I know we increased that overlap some already, can we increase it more?
+
+## 2026-10-26 — 50% overlap Engineering Plate launch
+
+The left reservoir and matching lid are running as **Mark1 task 1377101665**,
+verified **09:18:30 CDT / 14:18:30 UTC**, after one Studio Send and
+`project_file SUCCESS`. This is the first retained active-task timestamp,
+not the exact acknowledgment instant. The printer reports
+`Left_reservoir_and_cap_-_PETG_0.24_mm`.
+
+Recipe: **50% overlap**, flow 1.05, five Arachne walls, 255/260 °C nozzle,
+70 °C Engineering Plate, fixed left 0.8 mm Standard, A2 PETG with Auto Refill,
+no brim, zero added/effective Z trim and ironing Off. Send verifies Timelapse
+On, Bed Leveling On, Flow Dynamics Auto and Nozzle Offset Calibration Auto.
+Native slice: **5 h 42 min 25 s, 444.89 g, 833 layers**, 80.519 mm minimum
+full-bead inset, 10.042 mm body/cap gap. The same Mark2 task is observed for
+at least 467 seconds before Send. Fresh startup RUNNING at layer 0/833,
+error 0 and no HMS; model deposition, adhesion and water holding unassessed.
+[Print record, native review and launch](prints/2026-10-26-mark1-left-engineering-flow105-overlap50-temp260-left08-z000/README.md).
+
+Derek:
+
+> Mark 1 is clear and ready for your next print. Got the bed, the industrial plate glued and ready to go.

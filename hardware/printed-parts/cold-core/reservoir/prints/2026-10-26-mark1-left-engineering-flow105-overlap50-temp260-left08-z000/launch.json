@@ -1,0 +1,70 @@
+{
+  "printer": "Mark1",
+  "job_id": "1377101665",
+  "accepted_at_utc": "2026-10-26T14:18:30.505346+00:00",
+  "accepted_at_central": "2026-10-26T09:18:30.505346-05:00",
+  "acceptance_timestamp_scope": "First retained fresh active-task status after project_file SUCCESS. Exact acknowledgment timestamp is not retained.",
+  "job": {
+    "job_id": "1377101665",
+    "subtask_name": "Left_reservoir_and_cap_-_PETG_0.24_mm",
+    "gcode_state": "RUNNING",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 0,
+    "total_layer_num": 833,
+    "mc_percent": 0,
+    "mc_remaining_time": 342,
+    "nozzle_temper": 34.0,
+    "nozzle_target_temper": 180.0,
+    "bed_temper": 25.0,
+    "bed_target_temper": 25.0
+  },
+  "previous_job_id": "1375878568",
+  "reviewed_native_export": ".cache/reservoir-overlap50-20261026/left-pair-native.gcode.3mf",
+  "reviewed_native_export_sha256": "1291359eeead016b505942dc7d074aa93ec693ce15a646626149cf9840da4c0e",
+  "reviewed_gcode_sha256": "2ed4fa6431c4e290a5a271caa6bf2df89495dd37de92de2bf7837a5594674de0",
+  "submitted_editable_candidate": ".cache/reservoir-overlap50-20261026/candidate.3mf",
+  "submitted_candidate_sha256": "7b7f7e6ac83c95721a65878668125440169338b8f6e205ee04175a1b3ca1fac8",
+  "source_scope": "Studio sends its current native slice. Hashes identify the exported copy reviewed before the one Send; upload container byte identity is not claimed.",
+  "visible_send_title": "candidate_Left body and cap",
+  "reported_task_name": "Left_reservoir_and_cap_-_PETG_0.24_mm",
+  "task_name_scope": "Studio reports the source model title on the printer; it differs from the send-dialog title. The single Send has project_file SUCCESS and a new active task ID.",
+  "start_slot": "A2",
+  "available_refill_spools_at_preflight": [
+    "A3",
+    "A4"
+  ],
+  "auto_refill_visible": true,
+  "nozzle": "left 0.8 mm Standard",
+  "infill_wall_overlap": "50%",
+  "nozzle_c_first_subsequent": [
+    255,
+    260
+  ],
+  "user_z_trim_mm": 0,
+  "plate": "Engineering Plate",
+  "plate_z_compensation_mm": 0,
+  "options": {
+    "Timelapse": "On",
+    "Auto Bed Leveling": "On",
+    "Flow Dynamics Calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "submission": "cua_repl Bambu Studio Send print job, single Send click",
+  "command_acknowledgment": {
+    "command": "project_file",
+    "result": "SUCCESS",
+    "reason": "SUCCESS",
+    "err_code": 0
+  },
+  "shared_circuit": {
+    "other_printer": "Mark2",
+    "job_id": "1375153599",
+    "first_same_task_observed_at_utc": "2026-10-26T14:09:22.380135+00:00",
+    "final_same_task_observed_at_utc": "2026-10-26T14:17:09.585756+00:00",
+    "minimum_spacing_seconds": 180,
+    "elapsed_same_task_observation_seconds": 467.205621
+  },
+  "founder_authorization": "Mark 1 is clear and ready for your next print. Got the bed, the industrial plate glued and ready to go.",
+  "scope": "Accepted active print. Physical adhesion and water holding unassessed."
+}
