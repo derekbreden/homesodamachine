@@ -33,6 +33,7 @@
 .guide-buttons .material-actions { display: contents; }
 .guide-preview .bom-tree { margin: 0; }
 .guide-preview .cost-panel { margin: 0; }
+.guide-preview > .cad-workspace-header { max-width: none; margin: 0; }
 .guide [hidden] { display: none; }
 @media (max-width: 700px) {
   .guide-role { grid-template-columns: 1fr; gap: .5rem; }

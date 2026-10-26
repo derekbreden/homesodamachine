@@ -22,17 +22,18 @@ export function mountPdfjsAssets(app) {
   }
 }
 
-export function renderDocumentReader({ file, title, embedded = false }) {
+export function renderDocumentReader({ file, title, embedded = false, hostControls = false }) {
+  hostControls = embedded && hostControls;
   const url = `/docs/${file.split("/").map(encodeURIComponent).join("/")}`;
   const readUrl = `/read/${file.split("/").map(encodeURIComponent).join("/")}`;
   return renderHead({
     title: `${title} · Home Soda Machine`,
-    pageClass: "site-interior" + (embedded ? " pdf-embedded" : ""),
+    pageClass: "site-interior" + (embedded ? " pdf-embedded" : "") + (hostControls ? " pdf-host-controls" : ""),
     pageHead: `<link rel="stylesheet" href="${pdfjsBase}/web/pdf_viewer.css">
 <link rel="stylesheet" href="/css/document-reader.css">
 <script type="module" src="/document-reader.js"></script>`,
   }) + (embedded ? "" : renderNav({ active: "drawings" })) + `
-<main class="pdf-reader site-light" data-pdf-url="${escape(url)}?raw=1" data-pdfjs-base="${pdfjsBase}" data-embedded="${embedded}">
+<main class="pdf-reader site-light" data-pdf-url="${escape(url)}?raw=1" data-pdfjs-base="${pdfjsBase}" data-embedded="${embedded}" data-host-controls="${hostControls}">
   <header class="pdf-heading">
     ${embedded ? `<a href="${escape(readUrl)}" target="_blank" rel="noopener">Open full drawing</a>` : '<a id="pdf-back" href="/drawings">Back</a>'}
     <h1>${escape(title)}</h1>

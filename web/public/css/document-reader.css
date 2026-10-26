@@ -29,6 +29,11 @@ body:has(.pdf-reader) { height: 100svh; min-height: 0; overflow: hidden; }
 .pdf-reader [hidden] { display: none; }
 .pdf-embedded .pdf-heading { justify-content: space-between; }
 .pdf-embedded .pdf-heading h1 { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.pdf-host-controls .pdf-heading, .pdf-host-controls .pdf-toolbar { display: none; }
+.pdf-host-controls .pdf-reader { position: relative; }
+.pdf-host-controls #pdf-status { position: absolute; inset: 40% 16px auto; z-index: 1; }
+.pdf-host-controls .pdf-ready #pdf-status { width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.pdf-host-controls #pdf-retry { position: absolute; top: 50%; z-index: 1; }
 .pdf-embedded .pdf-viewport { scrollbar-gutter: stable; }
 @media (max-width: 390px) {
   .pdf-heading { gap: 0.6rem; padding-block: 0.5rem; }

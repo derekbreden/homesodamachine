@@ -3,6 +3,7 @@
 import { HSM_EVENTS } from "/contracts/client-events.js";
 const reader = document.querySelector(".pdf-reader");
 const embedded = reader.dataset.embedded === "true";
+const hostControls = reader.dataset.hostControls === "true";
 const viewportEl = reader.querySelector(".pdf-viewport");
 const paper = reader.querySelector(".pdf-paper");
 const canvas = document.getElementById("pdf-canvas");
@@ -32,11 +33,14 @@ function updateControls() {
   zoomOut.disabled = !pdf || zoom <= 0.5;
   zoomIn.disabled = !pdf || zoom >= 4;
   fit.disabled = !pdf;
+  if (hostControls) window.parent.postMessage({ type: HSM_EVENTS.DOCUMENT_STATE,
+    page: currentPage, pages: pdf?.numPages || 0, zoom, ready: !!pdf }, location.origin);
 }
 
 function showError() {
   status.textContent = "Couldn’t open this page. Try again or download the PDF.";
   retry.hidden = false;
+  reader.classList.add("pdf-error");
 }
 
 async function renderRequestedPage() {
@@ -50,6 +54,7 @@ async function renderRequestedPage() {
     const pageZoom = zoom;
     let page;
     status.textContent = `Loading page ${pageNumber}…`;
+    reader.classList.remove("pdf-ready", "pdf-error");
     retry.hidden = true;
     paper.hidden = true;
     delete canvas.dataset.page;
@@ -85,6 +90,7 @@ async function renderRequestedPage() {
         paper.hidden = false;
         canvas.dataset.page = pageNumber;
         status.textContent = `Page ${pageNumber} of ${pdf.numPages}`;
+        reader.classList.add("pdf-ready");
         viewportEl.scrollTo(0, 0);
       }
     } catch {
@@ -125,6 +131,16 @@ input.addEventListener("keydown", event => {
 zoomIn.addEventListener("click", () => { zoom = Math.min(4, zoom * 1.25); requestRender(); });
 zoomOut.addEventListener("click", () => { zoom = Math.max(0.5, zoom / 1.25); requestRender(); });
 fit.addEventListener("click", () => { zoom = 1; requestRender(); });
+window.addEventListener("message", event => {
+  if (!hostControls || event.source !== window.parent || event.origin !== location.origin
+      || event.data?.type !== HSM_EVENTS.DOCUMENT_COMMAND) return;
+  const { command, page } = event.data;
+  if (command === "zoom-in") zoomIn.click();
+  else if (command === "zoom-out") zoomOut.click();
+  else if (command === "fit") fit.click();
+  else if (command === "page") goToPage(page);
+  else if (command === "state") updateControls();
+});
 retry.addEventListener("click", () => pdf ? requestRender() : location.reload());
 window.addEventListener("hashchange", () => goToPage(pageFromHash(), false));
 window.addEventListener("popstate", () => goToPage(pageFromHash(), false));
