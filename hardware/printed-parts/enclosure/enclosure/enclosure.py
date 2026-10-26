@@ -2807,11 +2807,12 @@ def display_plane(outer):
     return cq.Plane(origin=cq.Vector(*center), xDir=cq.Vector(1, 0, 0), normal=cq.Vector(*normal))
 
 
-def _display_cuts(outer, support_floor=None, support_fore=None):
+def _display_cuts(outer, support_floor=None, support_fore=None, extend_wing_exits=True):
     """Accepted cover pocket, deeper glass/PCB seat and open wing support lanes.
 
-    The long exits stop at the display-storey floor. Below the complete 12 mm
-    pocket exit, their aft wall joins the bay plane with a 45-degree run-out.
+    Every pocket includes the complete 12 mm exit. Extended wing lanes stop at
+    the display-storey floor, with an aft wall that joins the bay plane on a
+    45-degree run-out. The integral pump stock uses the pocket exits alone.
 
     THE SEATING LAND ENDS ON EACH POCKET MOUTH'S PLANE, ALL THE WAY TO THE CORNER ROUND. An
     exit's down-slope face leans forward as it drops and meets the cover's floor inside the
@@ -2829,7 +2830,7 @@ def _display_cuts(outer, support_floor=None, support_fore=None):
                                      -display_facet_thickness, -display_inset_depth)
     for exit in _display_wings.support_exits(canonical_exit):
         cut = cut.fuse(below.intersect(exit.translate((0, -round_r, 0))).moved(place))
-    if support_floor is not None:
+    if support_floor is not None and extend_wing_exits:
         room = _ybox(outer[0]-1,outer[1]+1,outer[2]-1,outer[3]+1,
                      support_floor,outer[5]+1)
         if support_fore is not None:
@@ -5238,7 +5239,9 @@ def build_front_half(box):
     # also clears whatever rib/wall material sits behind the facet in its path.
     front = front.cut(_display_cuts(
         outer, box.pump_bay[2] if box.pump_bay else None,
-        bay_back_y(box.pack.collet_plate) if box.pack.collet_plate else None))
+        bay_back_y(box.pack.collet_plate) if box.pack.collet_plate else None,
+        extend_wing_exits=not bool(
+            box.pump_bay and box.pack.collet_plate and box.pack.pump_trays)))
     # Punch the funnel's throat through the top wall, behind the display.
     if box.pack.funnel:
         front = front.cut(_funnel_cut(inner, outer, box.pack.funnel))
@@ -8297,7 +8300,9 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         if y_side == 'front':
             piece = piece.cut(_display_cuts(
                 outer, box.pump_bay[2] if box.pump_bay else None,
-                bay_back_y(box.pack.collet_plate) if box.pack.collet_plate else None))
+                bay_back_y(box.pack.collet_plate) if box.pack.collet_plate else None,
+                extend_wing_exits=not bool(
+                    box.pump_bay and box.pack.collet_plate and box.pack.pump_trays)))
             if box.pump_bay and box.pack.collet_plate:
                 # Keep the complete display backing on one plane. The roof
                 # surround must leave the frame's fore running gap open too.
