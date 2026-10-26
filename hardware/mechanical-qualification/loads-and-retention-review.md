@@ -4,7 +4,7 @@ Each case: the load, its path, the feature that governs it, a hand-calculation m
 verdict. The Y-seam cases use the current four M5×100 pin stacks and their
 [native review](../printed-parts/enclosure/enclosure/y-seam-100-review.json).
 The other enclosure calculations bind `fbc3e5dd3` and its regenerated quadrants;
-the pump-tube and cradle-seat cases bind the dock described below. Physical evidence is in the
+the pump-mount and tube-joint cases describe the current integral mount and dock below. Physical evidence is in the
 [register](README.md). The tee wall that holds the pump tees is outside this review.
 
 ## Basis and assumptions
@@ -31,8 +31,9 @@ the pump-tube and cradle-seat cases bind the dock described below. Physical evid
 | Compressor posts, lateral shock (side or edge drop) | 4.5 kg × deceleration, shared by four posts | Ø12/Ø6.4 post bending at its root on the slab, across layers, lever about 10 mm | 2.1 at 10 g, 1.06 at 20 g, 0.71 at 30 g | Needs a physical observation; see below |
 | Compressor posts, vertical rebound | 4.5 kg × deceleration | Grommet top flange → washer → M5 screw → RX-M5x9.5 pull-out | 276 N per insert at 25 g, 552 N at 50 g | Adequate to about 50 g on an assumed 1 kN insert pull-out; drop acceptance is the evidence |
 | M3 wall-mount inserts (supply, relay, C14, boards) | C14 cord insertion, about 50 N; the 0.33 kg supply at 50 g, 162 N over its screws | Screw → ruthex M3 → boss; C14 insertion loads its two inserts in pull-out because the flange lands from inside | Under 100 N per insert against an assumed 300 N | Adequate |
-| Pump tubes under blocked-fill pressure | Blocked-fill pressure over each pump tube's sealed section | Tube → its tee's gripping branch collet; the tube's far end in the pump head's housing clamp. The tube carries the separating load between collet and clamp | Not calculated: the collet's grip is the fitting's own and the clamp's hold is unmeasured | Open; see [cradle seat](#cradle-seat) |
-| Cradle seat | Pushing the cradle home: all four tubes through their gripping collets to the tees' stops at once | Cradle → pump heads → housing clamps → tubes → branch collets → tees, each stopped aft by its lower return, anchored in its rear valve. The four collets are all that retain the cradle | Not calculated: the four-tube insertion force and the returns' aft stop are unmeasured | Open |
+| Pump tubes under blocked-fill pressure | Blocked-fill pressure over each pump tube's sealed section | Tube → its tee's gripping branch collet; the tube's far end is held by the pump head's housing clamp. The fixed upper pockets and lower retainer carry the pump body | Not calculated: the collet's grip is the fitting's own and the housing clamp's hold is unmeasured | Open; see [pump mount and tube joints](#pump-mount-and-tube-joints) |
+| Pump skirt capture | Pump weight, motor reaction and installation/handling loads; magnitudes not assessed here | Molded skirt → lower retainer and fixed upper bearing lands → three upward M3 × 60 screws and their inserts → front-top | Native contact, screw-access and closing-allowance readings are recorded; holding capacity, preload and lifetime are unqualified | See [pump mount and tube joints](#pump-mount-and-tube-joints) |
+| Individual tee installation | One prepared tee/upper-tube/fore-valve group approaches a secured pump tube from aft | Tee branch → tube and pump-head clamp → the secured pump mount; the fore valve seats on its tray posts | Complete 11.65 mm native approaches are clear; actual insertion force and fluid-joint retention are unmeasured | See [pump-mount reading](../printed-parts/enclosure/enclosure/pump-mount-review/README.md) |
 
 ## Y-seam head recesses
 
@@ -80,19 +81,24 @@ gauge. If the shell meets a neighbour or the condenser cradle first with the pos
 posts are adequate for lateral shock. If the plate meets a post first, a curb is added before
 shipment.
 
-## Cradle seat
+## Pump mount and tube joints
 
-The four tees' branch collets stand extended in their recesses and grip the pump tubes. They
-hold the cradle home, its flat back 0.25 mm off the bulkhead, and nothing else retains it
-([pump dock](../printed-parts/enclosure/pump-dock/README.md)). Under a blocked fill each tube
-is pushed out of its tee with the pressure on its 31.7 mm² section; the collet grips the tube
-and the pump head's housing clamp holds its other end, so the tube carries that load between
-them. The clamp's hold under that load is unmeasured.
+Front-top contains the fitted upper pump pockets. The rectangular lower retainer carries
+the lower skirt lands and is secured by three upward M3 × 60 screws into front-top's inserts.
+The two printed halves capture the molded pump skirts. The nominal supported-face allowance
+and closing travel are identified in the [native pump-mount reading](../printed-parts/enclosure/enclosure/pump-mount-review/README.md);
+they do not establish measured preload, operating retention or lifetime.
 
-Pushing the cradle home drives all four tubes through their collets to the tees' stops at
-once. Each tee stops aft on its lower return, anchored in its rear valve, and its fixed branch
-barrel lands on the bore face if it is pushed fore. The four-tube insertion force and the
-returns' aft stop under it are unmeasured.
+With both pumps secured in loose front-top, each prepared tee, upper tube and fore valve
+approaches individually from aft. The [pump dock](../printed-parts/enclosure/pump-dock/README.md)
+defines the sequence and tube-tip marks. Each tee's extended branch collet grips its pump
+tube. Under a blocked fill the separating load acts over the tube's 31.7 mm² section;
+the collet and the pump head's housing clamp hold its ends. Their joint holding force is
+unmeasured. The fixed mount supplies the pump body's structural retention.
+
+Each tee stops aft on its lower return, anchored in its rear valve, and its fixed branch
+barrel lands on the bore face if pushed fore. Native path clearance does not establish
+the actual tee insertion force or the returns' resistance to that load.
 
 ## Evidence limits
 

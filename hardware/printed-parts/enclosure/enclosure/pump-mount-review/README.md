@@ -89,6 +89,32 @@ removal remains unqualified.
 Wire and Faston clearance retain their separate native review and physical
 fit limits.
 
+## Purpose and bearing review
+
+The [independent intent reading](design-intent-reading.json) binds front-top
+`6120cf94…`, retainer `bd394956…` and back-top `4058c568…`. Within the declared
+filled upper-mount stock, subtracting the pump, tube, wire and display cutters
+accounts for the missing material; no further disconnected void remains in that
+region. This scope does not cover every cavity in the enclosure.
+
+Both pump heads have about 534 mm² of nominal planar lower contact and
+2,163 mm² of upper contact after 0.40 mm closing take-up. At that height the
+retainer's non-bearing body remains 0.25 mm below the fixed mount. These native
+contacts establish the intended skirt capture, not printed preload or holding
+capacity.
+
+The two forward flank recesses have no mating feature on the current three-screw
+retainer. Each is 6 mm deep and 56.515 mm long; the retainer stops 6.25 mm from
+its back wall. The snap-wing retainer under discussion is not part of these
+production STEP/STL inputs. The existing aft Z-joining rails are separate.
+
+The Y-seam passages are Ø5.6 mm around the nominal Ø5 mm outside-thread
+envelope. Their 0.6 mm nominal diametral air does not establish close lateral
+support or an absence of rattle. The final printed bearing fit remains a design
+decision. The installed appliance model includes all four M5 × 100 screws and
+four RX-M5x9.5 inserts; the screw bodies show thread envelopes, not smooth shanks
+or detailed helical contact.
+
 Run the geometry reading after exporting the named parts and appliance:
 
 ```sh
