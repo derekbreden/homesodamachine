@@ -3466,6 +3466,11 @@ def y_stack_axis(x_in, sx, y_joint, rod="upper"):
     return x_in + sx * inset, y_joint + lip_len / 2.0
 
 
+def y_stack_head_aft(y_joint):
+    """Upper head block's square aft end, three millimetres beyond its shaft passage."""
+    return y_joint + lip_len / 2.0 + y_stack_clearance_dia / 2.0 + wall
+
+
 def y_stack_rods(inner):
     """Each corner's two screws, the same both corners, as rows of
     `(rod, seat_z, tip_z, length, insert_piece, insert_z0, insert_z1)`: where the head's
@@ -3540,14 +3545,20 @@ def _y_knuckle(inner, outer, x_in, sx, y_joint, piece, z0, z1, depth):
 
     cap = _y_top_cap(top, z1, depth)
     if piece.startswith("front"):
-        xa, xb = xs(fits.running, depth)
+        head = piece == "front-top" and row[3] > 0.0
+        # The head block owns the complete rounded outer flank here. Leaving the back
+        # shell's thin roof-edge strip outside it would split the head's surrounding stock.
+        xa, xb = xs(-wall if head else fits.running, depth)
         root = y_joint - y_stack_front_root
+        aft = y_stack_head_aft(y_joint) if head else y_joint + lip_len
         if bottom == "aft":
             # The underside rises aft from the seam plane; fore of it the root carries the
             # knuckle's whole section down into its own flank and handhold roof.
             body = _y_between_faces(bottom, z0, top, z1, x_in, sx, y_joint, xa, xb,
-                                    y_joint - 0.01, y_joint + lip_len, cap)
-            body = body.fuse(_y_between_faces("level", z0 - y_stack_front_root, top, z1,
+                                    y_joint - 0.01, aft, cap)
+            root_bottom = "in" if head else "level"
+            root_z = (y_stack(inner)[1][0][1] if head else _handhold_levels(inner)[2] - 0.01)
+            body = body.fuse(_y_between_faces(root_bottom, root_z, top, z1,
                                               x_in, sx, y_joint, xa, xb, root, y_joint, cap))
         else:
             body = _y_between_faces(bottom, z0, top, z1, x_in, sx, y_joint, xa, xb,
@@ -3593,6 +3604,9 @@ def _y_knuckle_air(x_in, sx, y_joint, piece, z0, z1, gap_below, gap_above, depth
     xa, xb = sorted((x_in, x_in + sx * (depth + 1.0)))
     if piece.startswith("front"):
         ya, yb = y_joint - 1.0, y_joint + lip_len + fits.running
+        if piece == "front-top" and gap_below > 0.0:
+            xa, xb = sorted((x_in - sx * (wall + 1.0), x_in + sx * (depth + 1.0)))
+            yb = y_stack_head_aft(y_joint) + fits.running
     else:
         ya, yb = y_joint, back_flank_start(y_joint) + 1.0
     return _y_between_faces(bottom, z0 - gap_below, top, z1 + gap_above, x_in, sx, y_joint,
@@ -3620,12 +3634,18 @@ def _y_stack_bores(x_in, sx, y_joint, inner):
     # Above the frame the upper opening joins the funnel opening rather than leaving a strip
     # of roof between the two.
     mouth = x_in + sx * (abs(x_in) - _funnel.collar_w / 2.0)
+    upper_head = head_access(ux, uy, roof - y_stack_cbore_depth, roof + 1.0, mouth)
+    xa, xb = sorted((ux, mouth))
+    # Open the inboard head access aft into the funnel rather than leaving a tapered
+    # remnant between its square side and the stack's diagonal funnel clearance.
+    upper_head = upper_head.fuse(_ybox(xa, xb, uy - rc, y_joint + lip_len + 1.0,
+                                      roof - y_stack_cbore_depth, roof + 1.0))
 
     return (
         head_access(lx, ly, ceiling - 0.01, l_seat, wall_face),
         _zcyl(rp, lx, ly, l_seat - 0.01, l_in0 + 0.01),
         _zcyl(ri, lx, ly, l_in0 - mount_bore_relief, l_in1 + 1.0),
-        head_access(ux, uy, roof - y_stack_cbore_depth, roof + 1.0, mouth),
+        upper_head,
         _zcyl(rp, ux, uy, u_in1 - 0.01, roof - y_stack_cbore_depth + 0.01),
         _zcyl(ri, ux, uy, min(u_in0 - mount_bore_relief,
                               u_tip - y_stack_tip_clearance), u_in1),

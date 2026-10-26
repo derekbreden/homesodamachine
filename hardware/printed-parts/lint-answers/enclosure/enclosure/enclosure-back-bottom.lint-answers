@@ -184,11 +184,11 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
 click: x=-97.979 y=224.075 z=29.250
 click: x=97.979 y=224.075 z=29.250
 
-[ceiling] Unavoidable head bearings: these Z40.8 flats seat the two lower M5 heads at the top of their Ø9 openings, which run up from the handhold ceiling and end on the plane of the handhold inner wall's finger face. Support leaves down through the opening and handhold before hardware placement. Geometric access does not qualify cleanup.
+[ceiling] Unavoidable head bearings: these Z60.8 flats seat the two lower M5×100 heads at the top of their Ø9 openings, which run up from the handhold ceiling and end on the plane of the handhold inner wall's finger face. Support leaves down through the opening and handhold before hardware placement. Geometric access does not qualify cleanup.
 alternatives: Sloping tilts the head seat. Moving the floor changes the screw's reach into its insert; rounding the opening's square inboard side leaves a knife edge where its circle touches the wall face.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step
-click: x=-98.250 y=208.900 z=40.800
-click: x=98.250 y=208.900 z=40.800
+click: x=-98.250 y=208.900 z=60.800
+click: x=98.250 y=208.900 z=60.800
 
 [slope] The linter is wrong for this channel: this 45° face is the roof of the relief over the lower Y-stack screw passage where it crosses back-bottom's upper knuckle underside (`_y_bore_reliefs`). It rises toward the passage inside a slot of the passage's own width, so both of its rising edges stand on the slot's walls 5.6 mm apart and each layer of it is carried at both ends as well as by the layer below; the rule reads one wall and its rising edge, a slope hanging sideways off a single wall.
 alternatives: A level roof over the slot is a down-facing ceiling. A roof rising off the slot walls, a gable, dives under the 45° knuckle face along a V and leaves a ridge down the slot. A vertical end wall where the roof lands meets the knuckle face on a 45° arris. The rule could count a slope whose two rising edges stand on opposed walls as carried.
