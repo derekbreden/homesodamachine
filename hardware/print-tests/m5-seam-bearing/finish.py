@@ -14,10 +14,11 @@ from bambu_print_archive import package
 def finish(folder):
     preparation = json.loads((folder / 'preparation.json').read_text())
     review = json.loads((folder / 'review.json').read_text())
+    printer = preparation['printer']
     if not review['pass']:
         raise ValueError('Use a passing reviewed native slice.')
     archive = ROOT / preparation['archive']
-    printable = folder / 'm5-seam-bearing-mark1-print-only.gcode.3mf'
+    printable = folder / f'm5-seam-bearing-{printer.lower()}-print-only.gcode.3mf'
     packaging = package(archive, printable)
     (folder / 'packaging.json').write_text(json.dumps(packaging, indent=2) + '\n')
     with zipfile.ZipFile(archive) as z:
@@ -26,11 +27,11 @@ def finish(folder):
     job = dict(preparation=str(folder.relative_to(ROOT)),
                project=preparation['project'], archive=str(archive.relative_to(ROOT)),
                print_only_archive=str(printable.relative_to(ROOT)),
-               printer='Mark1', connection_key='H2C', submitted=False,
+               printer=printer, connection_key=preparation['connection_key'], submitted=False,
                estimated_seconds=preparation['estimated_seconds'], filament_g=mass,
                objects=len(preparation['objects']), support_roads=review['support_roads'],
                minimum_bed_margin_mm=review['minimum_bed_margin_mm'],
-               scope='Prepared offline for the requested Mark1 session. No printer command sent.')
+               scope='Prepared offline. Preparation sends no printer command.')
     (HERE / 'print-job.json').write_text(json.dumps(job, indent=2) + '\n')
 
     import matplotlib
@@ -52,11 +53,12 @@ def finish(folder):
     ax.text(214, 124, '12 mm\nbearing', va='center', fontsize=11)
     ax.set(xlim=(112, 245), ylim=(80, 240), aspect='equal')
     ax.axis('off')
-    ax.text(177, 238, 'Back of Mark1', ha='center', va='bottom', fontsize=12)
-    ax.text(177, 82, 'Front of Mark1', ha='center', va='top', fontsize=12)
+    ax.text(177, 238, f'Back of {printer}', ha='center', va='bottom', fontsize=12)
+    ax.text(177, 82, f'Front of {printer}', ha='center', va='top', fontsize=12)
     fig.suptitle('M5 bore comparison', fontsize=15, y=.97)
     fig.tight_layout(rect=(0, 0, 1, .94))
     fig.savefig(HERE / 'plate-map.png', facecolor='white', dpi=150)
+    fig.savefig(folder / 'plate-map.png', facecolor='white', dpi=150)
     plt.close(fig)
     print(json.dumps(job, indent=2))
 

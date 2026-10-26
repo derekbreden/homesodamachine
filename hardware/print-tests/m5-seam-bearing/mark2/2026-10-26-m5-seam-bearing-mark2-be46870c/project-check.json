@@ -1,0 +1,526 @@
+{
+  "project_sha256_matches": true,
+  "objects": [
+    {
+      "name": "m5-d48-h12",
+      "vertices": 9102,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.999999987376214e-07,
+      "placed_bounds_mm": [
+        [
+          122.5,
+          93.0,
+          1.909999998161993e-07
+        ],
+        [
+          142.5,
+          107.0,
+          12.600000191
+        ]
+      ],
+      "bed_contact_z_mm": 1.909999998161993e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "m5-d49-h12",
+      "vertices": 7021,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 5.002651359831134e-07,
+      "placed_bounds_mm": [
+        [
+          152.5,
+          93.0,
+          1.909999998161993e-07
+        ],
+        [
+          172.5,
+          107.0,
+          12.600000191
+        ]
+      ],
+      "bed_contact_z_mm": 1.909999998161993e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "m5-d50-h12",
+      "vertices": 8388,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.999999987376214e-07,
+      "placed_bounds_mm": [
+        [
+          182.5,
+          93.0,
+          1.909999998161993e-07
+        ],
+        [
+          202.5,
+          107.0,
+          12.600000191
+        ]
+      ],
+      "bed_contact_z_mm": 1.909999998161993e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "m5-d51-h12",
+      "vertices": 4579,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.999999987376214e-07,
+      "placed_bounds_mm": [
+        [
+          122.5,
+          117.0,
+          1.909999998161993e-07
+        ],
+        [
+          142.5,
+          131.0,
+          12.600000191
+        ]
+      ],
+      "bed_contact_z_mm": 1.909999998161993e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "m5-d52-h12",
+      "vertices": 6776,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 5.002651359831134e-07,
+      "placed_bounds_mm": [
+        [
+          152.5,
+          117.0,
+          1.909999998161993e-07
+        ],
+        [
+          172.5,
+          131.0,
+          12.600000191
+        ]
+      ],
+      "bed_contact_z_mm": 1.909999998161993e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "m5-d53-h12",
+      "vertices": 10246,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 5.002651359831134e-07,
+      "placed_bounds_mm": [
+        [
+          182.5,
+          117.0,
+          1.909999998161993e-07
+        ],
+        [
+          202.5,
+          131.0,
+          12.600000191
+        ]
+      ],
+      "bed_contact_z_mm": 1.909999998161993e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "m5-d54-h12",
+      "vertices": 4352,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.999771192615299e-07,
+      "placed_bounds_mm": [
+        [
+          122.5,
+          141.0,
+          1.909999998161993e-07
+        ],
+        [
+          142.5,
+          155.0,
+          12.600000191
+        ]
+      ],
+      "bed_contact_z_mm": 1.909999998161993e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "m5-d55-h12",
+      "vertices": 7485,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.999999987376214e-07,
+      "placed_bounds_mm": [
+        [
+          152.5,
+          141.0,
+          1.909999998161993e-07
+        ],
+        [
+          172.5,
+          155.0,
+          12.600000191
+        ]
+      ],
+      "bed_contact_z_mm": 1.909999998161993e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "m5-d56-h12",
+      "vertices": 10111,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.999999987376214e-07,
+      "placed_bounds_mm": [
+        [
+          182.5,
+          141.0,
+          1.909999998161993e-07
+        ],
+        [
+          202.5,
+          155.0,
+          12.600000191
+        ]
+      ],
+      "bed_contact_z_mm": 1.909999998161993e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "m5-d48-h40",
+      "vertices": 9004,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.999999987376214e-07,
+      "placed_bounds_mm": [
+        [
+          122.5,
+          165.0,
+          2.3700000184589953e-07
+        ],
+        [
+          142.5,
+          179.0,
+          40.599998237
+        ]
+      ],
+      "bed_contact_z_mm": 2.3700000184589953e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "m5-d49-h40",
+      "vertices": 6973,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 5.000605440841355e-07,
+      "placed_bounds_mm": [
+        [
+          152.5,
+          165.0,
+          2.3700000184589953e-07
+        ],
+        [
+          172.5,
+          179.0,
+          40.599998237
+        ]
+      ],
+      "bed_contact_z_mm": 2.3700000184589953e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "m5-d50-h40",
+      "vertices": 8350,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 5.000605440841355e-07,
+      "placed_bounds_mm": [
+        [
+          182.5,
+          165.0,
+          2.3700000184589953e-07
+        ],
+        [
+          202.5,
+          179.0,
+          40.599998237
+        ]
+      ],
+      "bed_contact_z_mm": 2.3700000184589953e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "m5-d51-h40",
+      "vertices": 4586,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.999999987376214e-07,
+      "placed_bounds_mm": [
+        [
+          122.5,
+          189.0,
+          2.3700000184589953e-07
+        ],
+        [
+          142.5,
+          203.0,
+          40.599998237
+        ]
+      ],
+      "bed_contact_z_mm": 2.3700000184589953e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "m5-d52-h40",
+      "vertices": 6766,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.999999987376214e-07,
+      "placed_bounds_mm": [
+        [
+          152.5,
+          189.0,
+          2.3700000184589953e-07
+        ],
+        [
+          172.5,
+          203.0,
+          40.599998237
+        ]
+      ],
+      "bed_contact_z_mm": 2.3700000184589953e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "m5-d53-h40",
+      "vertices": 10193,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.999999987376214e-07,
+      "placed_bounds_mm": [
+        [
+          182.5,
+          189.0,
+          2.3700000184589953e-07
+        ],
+        [
+          202.5,
+          203.0,
+          40.599998237
+        ]
+      ],
+      "bed_contact_z_mm": 2.3700000184589953e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "m5-d54-h40",
+      "vertices": 4355,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.999771192615299e-07,
+      "placed_bounds_mm": [
+        [
+          122.5,
+          213.0,
+          2.3700000184589953e-07
+        ],
+        [
+          142.5,
+          227.0,
+          40.599998237
+        ]
+      ],
+      "bed_contact_z_mm": 2.3700000184589953e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "m5-d55-h40",
+      "vertices": 7496,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.999999987376214e-07,
+      "placed_bounds_mm": [
+        [
+          152.5,
+          213.0,
+          2.3700000184589953e-07
+        ],
+        [
+          172.5,
+          227.0,
+          40.599998237
+        ]
+      ],
+      "bed_contact_z_mm": 2.3700000184589953e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    },
+    {
+      "name": "m5-d56-h40",
+      "vertices": 10004,
+      "source_sha256_matches": true,
+      "embedded_vertex_error_mm": 4.999999987376214e-07,
+      "placed_bounds_mm": [
+        [
+          182.5,
+          213.0,
+          2.3700000184589953e-07
+        ],
+        [
+          202.5,
+          227.0,
+          40.599998237
+        ]
+      ],
+      "bed_contact_z_mm": 2.3700000184589953e-07,
+      "blocked_facets": 0,
+      "partially_painted_facets": 0,
+      "parts": {
+        "normal_part": 1
+      },
+      "layer_ranges": [],
+      "ribbon_and_fin_parts": 0,
+      "modifiers_expected": 0
+    }
+  ],
+  "z_trim_block": [
+    "+0.0",
+    "0.04 - 0.01",
+    "0.04 - 0.02",
+    "0.04 + 0.01",
+    "0.04"
+  ],
+  "cooling": {
+    "fan_min_speed": [
+      "0"
+    ],
+    "fan_max_speed": [
+      "0"
+    ],
+    "overhang_fan_speed": [
+      "70"
+    ],
+    "overhang_fan_threshold": [
+      "50%"
+    ],
+    "additional_cooling_fan_speed": [
+      "0"
+    ]
+  },
+  "support": {
+    "support_type": "tree(auto)",
+    "support_style": "default",
+    "support_object_xy_distance": "0.4",
+    "max_bridge_length": "0",
+    "tree_support_branch_diameter": "2",
+    "tree_support_branch_diameter_angle": "5",
+    "brim_type": "auto_brim"
+  },
+  "problems": [],
+  "pass": true
+}

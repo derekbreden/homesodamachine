@@ -1,0 +1,1638 @@
+{
+  "piece": "m5-seam-bearing",
+  "printer": "Mark2",
+  "connection_key": "Mark2",
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark2's 2026-10-24 jobs ran black PET-GF on its fixed left hardened 0.4 mm Standard-flow hotend (faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md, task 1372253517).",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "bed_type": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.04,
+  "emitted_textured_trim_mm": 0.02,
+  "project": "hardware/print-tests/m5-seam-bearing/mark2/2026-10-26-m5-seam-bearing-mark2-be46870c/2026-10-26-m5-seam-bearing-mark2-be46870c.3mf",
+  "project_sha256": "fc0ea018b9755d0c5c78f387feacade936a67e793726dee5cc390846717b2689",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+  "settings_sha256": "2849f6c411a4b691cc53ebf6c7fe84e301d8217d2ab61c34d7dd6cc0e92e0f0c",
+  "settings_changes": {
+    "extruder_ams_count": {
+      "from": [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      "to": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ],
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_interface_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "flush_into_support": {
+      "from": "1",
+      "to": "0",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "filament_colour": {
+      "from": [
+        "#000000"
+      ],
+      "to": [
+        "#161616"
+      ],
+      "reason": "Mark2's loaded black PET-GF colour reading."
+    },
+    "sparse_infill_density": {
+      "from": "15%",
+      "to": "100%",
+      "reason": "These small coupons represent the local dense seam-bearing hosts."
+    },
+    "sparse_infill_pattern": {
+      "from": "gyroid",
+      "to": "zig-zag",
+      "reason": "Match the enclosure seam hosts, with the ordinary two wall loops."
+    }
+  },
+  "profile_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    },
+    "print_compatible_printers": {
+      "from": [
+        "Bambu Lab H2C 0.4 nozzle"
+      ],
+      "to": [
+        "Bambu Lab H2C 0.4 nozzle",
+        "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+      ]
+    }
+  },
+  "usable_plate_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "plate_border_mm": 80,
+  "brim_allowance_mm": 0.0,
+  "plate_offset_mm": null,
+  "objects": [
+    {
+      "name": "m5-d48-h12",
+      "identify_id": 1901,
+      "object_id": 2,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d48-h12.stl",
+      "stl_sha256": "30d0fa619ed0b162e333fcabe3502dfe0632446822e8d656feb2db51c4828273",
+      "step_sha256": "cac223567efb335b9ab1071df0bd4a777e3d1c01cb6560a8e87739970b64a99b",
+      "facets": 18204,
+      "closed": {
+        "edges": 27306,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        6.300000190734863
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        132.5,
+        100.0,
+        6.300000190734863
+      ],
+      "plate_bounds_mm": [
+        [
+          122.5,
+          93.0,
+          0.0
+        ],
+        [
+          142.5,
+          107.0,
+          12.600000381469727
+        ]
+      ],
+      "model_bed_margin_mm": 93.0,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    },
+    {
+      "name": "m5-d49-h12",
+      "identify_id": 1902,
+      "object_id": 4,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d49-h12.stl",
+      "stl_sha256": "a819388187de139a08019730bdcd92ffb6a6fd5500550050cc1c51a6bccd98be",
+      "step_sha256": "eb17ba52cca26be7f4a361e65be429ce31f8fbb5e8610824eebf55d2c0cb3525",
+      "facets": 14042,
+      "closed": {
+        "edges": 21063,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        6.300000190734863
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        162.5,
+        100.0,
+        6.300000190734863
+      ],
+      "plate_bounds_mm": [
+        [
+          152.5,
+          93.0,
+          0.0
+        ],
+        [
+          172.5,
+          107.0,
+          12.600000381469727
+        ]
+      ],
+      "model_bed_margin_mm": 93.0,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    },
+    {
+      "name": "m5-d50-h12",
+      "identify_id": 1903,
+      "object_id": 6,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d50-h12.stl",
+      "stl_sha256": "8a9a02f0af7acfc8fcaf3d926bde408a0b63e4557c7b469f9b385d9c36b25501",
+      "step_sha256": "2cbf051b96cff02cda3514196b3599c7b7c99cb96cee1e50eb07526037b4e887",
+      "facets": 16776,
+      "closed": {
+        "edges": 25164,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        6.300000190734863
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        192.5,
+        100.0,
+        6.300000190734863
+      ],
+      "plate_bounds_mm": [
+        [
+          182.5,
+          93.0,
+          0.0
+        ],
+        [
+          202.5,
+          107.0,
+          12.600000381469727
+        ]
+      ],
+      "model_bed_margin_mm": 93.0,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    },
+    {
+      "name": "m5-d51-h12",
+      "identify_id": 1904,
+      "object_id": 8,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d51-h12.stl",
+      "stl_sha256": "5833880a890c7b4cc1bdf99829c48169007013484a499c7a7ded71c592f19e25",
+      "step_sha256": "3c3ae6319960fc1ca5ac32a5e7ccf6926cc0f327a69b9ec0f5e345f8e076d73f",
+      "facets": 9158,
+      "closed": {
+        "edges": 13737,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        6.300000190734863
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        132.5,
+        124.0,
+        6.300000190734863
+      ],
+      "plate_bounds_mm": [
+        [
+          122.5,
+          117.0,
+          0.0
+        ],
+        [
+          142.5,
+          131.0,
+          12.600000381469727
+        ]
+      ],
+      "model_bed_margin_mm": 117.0,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    },
+    {
+      "name": "m5-d52-h12",
+      "identify_id": 1905,
+      "object_id": 10,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d52-h12.stl",
+      "stl_sha256": "e763de420a3aa53b34431d29bf3f90659a2a27222e27136cf7de16ae936a2273",
+      "step_sha256": "a152afb3b19fe75c07794cd79c90c8b83672d8bf06418c971c591d25e214662a",
+      "facets": 13552,
+      "closed": {
+        "edges": 20328,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        6.300000190734863
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        162.5,
+        124.0,
+        6.300000190734863
+      ],
+      "plate_bounds_mm": [
+        [
+          152.5,
+          117.0,
+          0.0
+        ],
+        [
+          172.5,
+          131.0,
+          12.600000381469727
+        ]
+      ],
+      "model_bed_margin_mm": 117.0,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    },
+    {
+      "name": "m5-d53-h12",
+      "identify_id": 1906,
+      "object_id": 12,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d53-h12.stl",
+      "stl_sha256": "74bde10c6f470a70874f2f439d094749209cf18fa24002522aa93d9640da644c",
+      "step_sha256": "559a864165d984e38ef9508d763d30d2ad98ef289264c442bde3c8a41d44321e",
+      "facets": 20492,
+      "closed": {
+        "edges": 30738,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        6.300000190734863
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        192.5,
+        124.0,
+        6.300000190734863
+      ],
+      "plate_bounds_mm": [
+        [
+          182.5,
+          117.0,
+          0.0
+        ],
+        [
+          202.5,
+          131.0,
+          12.600000381469727
+        ]
+      ],
+      "model_bed_margin_mm": 117.0,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    },
+    {
+      "name": "m5-d54-h12",
+      "identify_id": 1907,
+      "object_id": 14,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d54-h12.stl",
+      "stl_sha256": "d004624deeb5c09beed449825c3350c2782b9eaeafa0112bd3e3f0fa2b38d053",
+      "step_sha256": "ea84468a7a9a992f244c313a6180b6d1405dc36a45675bc2081ac5d9c85e9b1a",
+      "facets": 8704,
+      "closed": {
+        "edges": 13056,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        6.300000190734863
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        132.5,
+        148.0,
+        6.300000190734863
+      ],
+      "plate_bounds_mm": [
+        [
+          122.5,
+          141.0,
+          0.0
+        ],
+        [
+          142.5,
+          155.0,
+          12.600000381469727
+        ]
+      ],
+      "model_bed_margin_mm": 122.5,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    },
+    {
+      "name": "m5-d55-h12",
+      "identify_id": 1908,
+      "object_id": 16,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d55-h12.stl",
+      "stl_sha256": "8f7d3b69023d6d143a557272878a50932580bbbd0d855273752c7ef015eb2e65",
+      "step_sha256": "bd39ceeeac7ec7624a71e968caf3f4dea37dafa4fa586a162f11d5e074ed7cf8",
+      "facets": 14970,
+      "closed": {
+        "edges": 22455,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        6.300000190734863
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        162.5,
+        148.0,
+        6.300000190734863
+      ],
+      "plate_bounds_mm": [
+        [
+          152.5,
+          141.0,
+          0.0
+        ],
+        [
+          172.5,
+          155.0,
+          12.600000381469727
+        ]
+      ],
+      "model_bed_margin_mm": 141.0,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    },
+    {
+      "name": "m5-d56-h12",
+      "identify_id": 1909,
+      "object_id": 18,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d56-h12.stl",
+      "stl_sha256": "52bb1c6b76a49a059f766ae6406e87d7f912003caaef688b7d4afad517a63fe5",
+      "step_sha256": "e211edcab441fe2866c8afcab14c605e0ae7d812cae0b06f05291046a6994adb",
+      "facets": 20222,
+      "closed": {
+        "edges": 30333,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        6.300000190734863
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        192.5,
+        148.0,
+        6.300000190734863
+      ],
+      "plate_bounds_mm": [
+        [
+          182.5,
+          141.0,
+          0.0
+        ],
+        [
+          202.5,
+          155.0,
+          12.600000381469727
+        ]
+      ],
+      "model_bed_margin_mm": 122.5,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    },
+    {
+      "name": "m5-d48-h40",
+      "identify_id": 1910,
+      "object_id": 20,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d48-h40.stl",
+      "stl_sha256": "edecbf5855a37ba58251c5df5371115c636323b70f1c1f826582b9d3afd6d631",
+      "step_sha256": "22d547d96db04fa3e8a883d844cadc6367f50b10b6fde97dd12a6b0c3d54fa8b",
+      "facets": 18008,
+      "closed": {
+        "edges": 27012,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        20.299999237060547
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        132.5,
+        172.0,
+        20.299999237060547
+      ],
+      "plate_bounds_mm": [
+        [
+          122.5,
+          165.0,
+          0.0
+        ],
+        [
+          142.5,
+          179.0,
+          40.599998474121094
+        ]
+      ],
+      "model_bed_margin_mm": 122.5,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    },
+    {
+      "name": "m5-d49-h40",
+      "identify_id": 1911,
+      "object_id": 22,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d49-h40.stl",
+      "stl_sha256": "431850a6907948eb6f96a9733131703e9b38854e36cc48f626f9f1531c7c9d91",
+      "step_sha256": "3944430d868601b36fcd7933de38ed5077207a423a31e5bd5659e9a65a04a114",
+      "facets": 13946,
+      "closed": {
+        "edges": 20919,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        20.299999237060547
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        162.5,
+        172.0,
+        20.299999237060547
+      ],
+      "plate_bounds_mm": [
+        [
+          152.5,
+          165.0,
+          0.0
+        ],
+        [
+          172.5,
+          179.0,
+          40.599998474121094
+        ]
+      ],
+      "model_bed_margin_mm": 141.0,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    },
+    {
+      "name": "m5-d50-h40",
+      "identify_id": 1912,
+      "object_id": 24,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d50-h40.stl",
+      "stl_sha256": "ab6ae3924ccdaa018afbbc02e03d168e7385ef502dfb10fb6f07c0b9d02ad077",
+      "step_sha256": "0c289600dff008dba8c7f4c7fe6a3939d87c03ef496bd1f0aad39baa4725ea0c",
+      "facets": 16700,
+      "closed": {
+        "edges": 25050,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        20.299999237060547
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        192.5,
+        172.0,
+        20.299999237060547
+      ],
+      "plate_bounds_mm": [
+        [
+          182.5,
+          165.0,
+          0.0
+        ],
+        [
+          202.5,
+          179.0,
+          40.599998474121094
+        ]
+      ],
+      "model_bed_margin_mm": 122.5,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    },
+    {
+      "name": "m5-d51-h40",
+      "identify_id": 1913,
+      "object_id": 26,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d51-h40.stl",
+      "stl_sha256": "d898e09ac6582514d464b7d1f1ed02f77f1b7265475c1ec42d79cb7fd9f01584",
+      "step_sha256": "5e209736be31f382cf6821f0f0fff8cf2eb489dd1c6fdaf37c625936d536a166",
+      "facets": 9172,
+      "closed": {
+        "edges": 13758,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        20.299999237060547
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        132.5,
+        196.0,
+        20.299999237060547
+      ],
+      "plate_bounds_mm": [
+        [
+          122.5,
+          189.0,
+          0.0
+        ],
+        [
+          142.5,
+          203.0,
+          40.599998474121094
+        ]
+      ],
+      "model_bed_margin_mm": 117.0,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    },
+    {
+      "name": "m5-d52-h40",
+      "identify_id": 1914,
+      "object_id": 28,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d52-h40.stl",
+      "stl_sha256": "81d7090329f6497b024e52f2bc0ad8acf446fc03b574007bebae670840657027",
+      "step_sha256": "401c40b4d5f1a2a4701ccfd88ea3f1f16681506a3853e63fef0bbc800768f4c1",
+      "facets": 13532,
+      "closed": {
+        "edges": 20298,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        20.299999237060547
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        162.5,
+        196.0,
+        20.299999237060547
+      ],
+      "plate_bounds_mm": [
+        [
+          152.5,
+          189.0,
+          0.0
+        ],
+        [
+          172.5,
+          203.0,
+          40.599998474121094
+        ]
+      ],
+      "model_bed_margin_mm": 117.0,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    },
+    {
+      "name": "m5-d53-h40",
+      "identify_id": 1915,
+      "object_id": 30,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d53-h40.stl",
+      "stl_sha256": "cd3e44cc413aad3bc65e27a87411e7900b9df0062facb980460be30b103fa92e",
+      "step_sha256": "bd43961ca0a4604e899ccf6bdf88cdd9ae641a340a78c692e6e56e05a9b2f0a2",
+      "facets": 20386,
+      "closed": {
+        "edges": 30579,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        20.299999237060547
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        192.5,
+        196.0,
+        20.299999237060547
+      ],
+      "plate_bounds_mm": [
+        [
+          182.5,
+          189.0,
+          0.0
+        ],
+        [
+          202.5,
+          203.0,
+          40.599998474121094
+        ]
+      ],
+      "model_bed_margin_mm": 117.0,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    },
+    {
+      "name": "m5-d54-h40",
+      "identify_id": 1916,
+      "object_id": 32,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d54-h40.stl",
+      "stl_sha256": "dcf0e349b2ccce7fe1d2a70ae3ea0c7e2161efcbdf28c2694e1ab6bad58c2ba7",
+      "step_sha256": "a3fabcccd12bf90ed4443beb58b4dff5e8ec84d162cc4a5df0c97ab5c7f09cd5",
+      "facets": 8710,
+      "closed": {
+        "edges": 13065,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        20.299999237060547
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        132.5,
+        220.0,
+        20.299999237060547
+      ],
+      "plate_bounds_mm": [
+        [
+          122.5,
+          213.0,
+          0.0
+        ],
+        [
+          142.5,
+          227.0,
+          40.599998474121094
+        ]
+      ],
+      "model_bed_margin_mm": 93.0,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    },
+    {
+      "name": "m5-d55-h40",
+      "identify_id": 1917,
+      "object_id": 34,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d55-h40.stl",
+      "stl_sha256": "ff4a5662677c86d9ca323f070d9743eb7f17af51bb1b51d58773c74dc9514e91",
+      "step_sha256": "761a4735e6caff65fd5360540fb57221cd9840dc873bafb3e46d76b05da64c98",
+      "facets": 14992,
+      "closed": {
+        "edges": 22488,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        20.299999237060547
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        162.5,
+        220.0,
+        20.299999237060547
+      ],
+      "plate_bounds_mm": [
+        [
+          152.5,
+          213.0,
+          0.0
+        ],
+        [
+          172.5,
+          227.0,
+          40.599998474121094
+        ]
+      ],
+      "model_bed_margin_mm": 93.0,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    },
+    {
+      "name": "m5-d56-h40",
+      "identify_id": 1918,
+      "object_id": 36,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d56-h40.stl",
+      "stl_sha256": "af38d5ed676b3c50435286860bb54bdd6dd8d18f05b014147c0ec2ed06db4062",
+      "step_sha256": "62d175274eaad1557222dcfe0a3ef4bedbb60599d8faeb6134d97d050ff0dbd5",
+      "facets": 20008,
+      "closed": {
+        "edges": 30012,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        20.299999237060547
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        192.5,
+        220.0,
+        20.299999237060547
+      ],
+      "plate_bounds_mm": [
+        [
+          182.5,
+          213.0,
+          0.0
+        ],
+        [
+          202.5,
+          227.0,
+          40.599998474121094
+        ]
+      ],
+      "model_bed_margin_mm": 93.0,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    }
+  ],
+  "pause": null,
+  "show_faces": "hardware/print-tests/m5-seam-bearing/mark2/2026-10-26-m5-seam-bearing-mark2-be46870c/show-faces.npz",
+  "spec": "hardware/print-tests/m5-seam-bearing/plate-spec-mark2.json",
+  "spec_sha256": "158e4f3f8e5672101cb660ce2d7b8d6909d4a6618eff46558753d93362dad9e6",
+  "tool_sha256": {
+    "hardware/printed-parts/enclosure/trial-preparation/_derive.py": "31256357a16f37d9f1516ce1ee1636c97559dfe54a1a2050ae661d622e6b3189",
+    "hardware/printed-parts/enclosure/trial-preparation/_mesh.py": "7ab22db36e370608f52df3709c4af1994c8e804ee06e101dcbf79210db99eead",
+    "hardware/printed-parts/enclosure/trial-preparation/_native.py": "3b04cb3fab2a13be16b0d5d8db156cd3bf8045c949e889a25536491ac823fb20",
+    "hardware/printed-parts/enclosure/trial-preparation/labels.py": "c326a74b104b894d81dcfd8eb00c93ebf602291816decaf241a01cf4818b672d",
+    "hardware/printed-parts/enclosure/trial-preparation/prepare.py": "2b834723e6b12cc4c18e783d030438cb1e4e40a3119ffa848e6654f7ea71811e",
+    "hardware/printed-parts/enclosure/trial-preparation/review.py": "3cf718b7a053e711d960dfdca6f7fa4ba970ca8c9c23dec347b2b955b999e492",
+    "hardware/printed-parts/enclosure/trial-preparation/step_meshes.py": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44"
+  },
+  "prepared_utc": "2026-10-26T22:30:21+00:00",
+  "sliced": true,
+  "submitted": false,
+  "archive": "hardware/print-tests/m5-seam-bearing/mark2/2026-10-26-m5-seam-bearing-mark2-be46870c/2026-10-26-m5-seam-bearing-mark2-be46870c.gcode.3mf",
+  "archive_sha256": "ca8cf893e73d96d47bcf6e14b363ac5fd24aad347ace944f072de00ca00a43fd",
+  "gcode_sha256": "9a36276e30f41b5c7100760e5bfa9f8d32d34061f186723e63fd1e88704d2fa9",
+  "estimated_seconds": 15258.2607421875,
+  "slicer_warnings": []
+}
