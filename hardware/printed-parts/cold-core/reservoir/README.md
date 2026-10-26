@@ -30,25 +30,26 @@ for these countersunk ports.
 The [native integration check](tube-grip-integration.json) records the flush
 seats, open air paths, casing clearance and unchanged body geometry.
 
-## Two-hour leakage and 50% overlap trial
+## 50% overlap prints
 
-Derek reports that the most recent reservoir leaks a small amount after
-**two hours**, at the line between wall and infill. The
-[physical record and photographs](water-hold-evidence/2026-10-26-two-hour-leak/physical-result.json)
-retain that result without assigning an unconfirmed task ID. The visible wet
-marks establish leakage beside the base; the internal path is unconfirmed.
+The [completed left reservoir, task 1377101665](prints/2026-10-26-mark1-left-engineering-flow105-overlap50-temp260-left08-z000/physical-result/physical-result.json)
+turned out well and is **holding water so far**, as reported by Derek.
+Completion is FINISH 833/833 with no error/HMS. Duration, water head and
+cap/gasket assembly sealing are unspecified.
 
-The [50% overlap left body and matching lid](prints/2026-10-26-mark1-left-engineering-flow105-overlap50-temp260-left08-z000/README.md)
-are running as **Mark1 task 1377101665**, verified active at **09:18:30 CDT /
-14:18:30 UTC October 26** after one Studio Send and `project_file SUCCESS`.
-The **255/260 °C Engineering Plate / left 0.8 mm** recipe starts on **A2**,
-with Auto Refill visible, zero added/effective Z trim and ironing Off.
-Native estimate: **5 h 42 min 25 s, 444.89 g, 833 layers**. Fresh startup is
-RUNNING, layer 0/833, error 0 and no HMS. Physical adhesion and water holding
-remain unassessed. [Recipe review](recipe-reviews/2026-10-26-overlap50/README.md).
-This trial retains the frozen matching lid with the earlier port geometry;
-the current flush-grip lid is a separate revision. Earlier task-specific
-observations retain their recorded scope.
+The [right reservoir and current matching lid](prints/2026-10-26-mark1-right-engineering-flow105-overlap50-temp260-left08-z000/README.md)
+are running as **Mark1 task 1378532609**, with **50% overlap** and every other
+saved setting retained from the left article. Use **255/260 °C**, glued
+**Engineering Plate**, fixed **left 0.8 mm Standard**, A2 with Auto Refill,
+zero added/effective Z trim and ironing Off. Native estimate: **5 h 41 min,
+443.37 g, 833 layers**. Startup has no error/HMS. Physical right-article water
+holding and current flush-grip lid fit are unassessed.
+
+The [two-hour leak report](water-hold-evidence/2026-10-26-two-hour-leak/physical-result.json)
+retains its unconfirmed task identity and reported floor-fill/wall location.
+The 50% left trial retains its saved earlier-port lid. The right print includes
+the current matching lid with flush TPU-grip ports. Earlier observations
+retain their identified article and recipe scope.
 
 ## Recorded Engineering Plate left reservoir and lid
 

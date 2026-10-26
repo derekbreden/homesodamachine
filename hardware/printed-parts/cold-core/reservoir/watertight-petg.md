@@ -1,14 +1,13 @@
 # Printing the reservoir in PETG
 
-The [50% overlap trial](prints/2026-10-26-mark1-left-engineering-flow105-overlap50-temp260-left08-z000/README.md)
-is running as **Mark1 task 1377101665**: left body and matching lid,
-**255/260 °C Engineering Plate / left 0.8 mm**, A2 with Auto Refill,
+The [completed left 50% article](prints/2026-10-26-mark1-left-engineering-flow105-overlap50-temp260-left08-z000/physical-result/physical-result.json)
+is reported holding water so far. The
+[right body and current matching lid](prints/2026-10-26-mark1-right-engineering-flow105-overlap50-temp260-left08-z000/README.md)
+are running as **Mark1 task 1378532609** with the same saved recipe: **50%
+overlap, 255/260 °C, Engineering Plate / left 0.8 mm**, A2 with Auto Refill,
 zero added/effective Z trim and ironing Off. Native slicing is reviewed;
-startup is RUNNING, layer 0/833, with no error/HMS. Physical water holding
-remains unassessed. The saved matching lid has the earlier port geometry;
-the current flush-grip lid is a separate revision. The increased overlap addresses the
-[reported two-hour leakage](water-hold-evidence/2026-10-26-two-hour-leak/physical-result.json)
-at the wall/fill line. [Complete trial settings](prints/2026-10-26-mark1-left-engineering-flow105-overlap50-temp260-left08-z000/settings.json).
+startup has no error/HMS. Physical right-article water holding and current
+flush-grip lid fit remain unassessed.
 
 The [left body and matching lid](prints/2026-10-25-mark1-left-engineering-flow105-overlap30-temp260-left08-z000/README.md)
 have recorded launch **Mark1 task 1375878568**, accepted **22:03:53 CDT October 25 /
@@ -35,7 +34,7 @@ is unobserved during layer 0 preparation.
 The completed [255/260 °C left article](prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json)
 and older 265/270 °C article are reported holding water on October 25. Both
 used Textured PEI with zero added user trim. The table describes the selected
-50% Engineering Plate candidate; it has no physical adhesion or sealing result yet.
+50% Engineering Plate right repeat; its physical adhesion and sealing are unassessed.
 The root project and print-settings.json retain the 265/270 °C Textured PEI reference.
 
 [reservoir.3mf](reservoir.3mf) uses the **five-wall May Water adaptation**
@@ -145,8 +144,9 @@ the completed **255/260 °C** left reservoir on Textured PEI, the completed
 **255/260 °C** right reservoir on glued Engineering Plate, and the intentionally
 shortened **265/270 °C** reservoir. The older article's initial report was a
 one-hour hold. Total ongoing durations, water head and cap/gasket assembly
-sealing are unspecified. The selected 50% candidate uses that Engineering Plate
-recipe for the left body and lid, with increased overlap and no physical result.
+sealing are unspecified. The completed left 50% article is also reported
+holding water so far. The selected right 50% repeat uses the same saved recipe
+and has no physical sealing result.
 The October 26 report records leakage after two hours on the most recent article
 without an explicit task ID.
 [Right Engineering Plate result](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/physical-result/physical-result.json) ·

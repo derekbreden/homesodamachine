@@ -1,9 +1,9 @@
 # Mark1 reservoir: 50% overlap
 
-The **left reservoir and matching lid** are running as **Mark1 task
-1377101665**, freshly verified **09:18:30 CDT / 14:18:30 UTC October 26**
-after a single Studio Send and a `project_file SUCCESS` reply. This is the
-first retained active-task observation, not an exact acknowledgment timestamp.
+The **left reservoir and matching lid**, **Mark1 task 1377101665**, completed
+**833/833 layers** with no error/HMS. Derek reports that the print turned
+out well and is **holding water so far**. Duration and water head are
+unspecified. [Physical result](physical-result/physical-result.json).
 [Launch](launch.json) · [Preflight](preflight.json) · [Startup](startup.json).
 
 Use the glued **Engineering Plate**, fixed **left 0.8 mm Standard** nozzle and
@@ -40,9 +40,10 @@ The new task ID and successful reply identify the launch.
 
 The same Mark2 task **1375153599** is observed before Send for at least
 **467 seconds**, exceeding the 180-second shared-circuit interval. Mark2
-is not controlled by this launch. Fresh startup at **14:19:59 UTC** is
-**RUNNING, layer 0/833, print error 0 and no HMS**. Preparation is active;
-model deposition, adhesion and water holding remain unassessed. A2 is the
+is not controlled by this launch. The retained startup at **14:19:59 UTC** is
+**RUNNING, layer 0/833, print error 0 and no HMS**.
+The completed article has reported water holding; quantified adhesion and
+cap/gasket assembly sealing are unassessed. A2 is the
 selected starting slot; loaded-tray state at deposition is unobserved.
 
 Derek:

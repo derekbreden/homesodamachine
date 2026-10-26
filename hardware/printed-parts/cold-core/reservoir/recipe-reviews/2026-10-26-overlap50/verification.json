@@ -43,8 +43,10 @@
     ]
   },
   "printer_job_submitted": true,
-  "physical_water_hold": "unassessed",
-  "scope": "Archive integrity, exact recipe delta and native slice review. Physical water holding is unassessed.",
+  "physical_water_hold": "Reported holding water on completed left task 1377101665.",
+  "scope": "Archive integrity and native slice of the identified left candidate, with qualitative reported water holding. The right repeat has its own native slice and unassessed physical result.",
   "job_id": "1377101665",
-  "launch": "../../prints/2026-10-26-mark1-left-engineering-flow105-overlap50-temp260-left08-z000/launch.json"
+  "launch": "../../prints/2026-10-26-mark1-left-engineering-flow105-overlap50-temp260-left08-z000/launch.json",
+  "reported_physical_result": "../../prints/2026-10-26-mark1-left-engineering-flow105-overlap50-temp260-left08-z000/physical-result/physical-result.json",
+  "opposite_side_repeat": "../../prints/2026-10-26-mark1-right-engineering-flow105-overlap50-temp260-left08-z000/README.md"
 }

@@ -29,14 +29,18 @@ lid is a separate revision.
 
 Bambu Studio 02.08.02.61 uses this setting when expanding the
 [Arachne solid-fill boundary](https://github.com/bambulab/BambuStudio/blob/v02.08.02.61/src/libslic3r/PerimeterGenerator.cpp#L1444).
-It therefore addresses the reported floor-fill/wall junction. **50% is an
-engineering trial selection**, with no demonstrated sealing result. A saved
-percentage does not establish deposited fusion or water holding. Increasing
+It therefore addresses the reported floor-fill/wall junction. **50% is the
+selected repeat setting**. The identified left article has a reported water
+hold; a saved percentage alone does not establish deposited fusion or sealing. Increasing
 overlap can also leave excess material at the junction; the next article's
 surface and leakage observations determine whether the selection is useful.
 
-The left body and matching lid are running as **Mark1 task 1377101665**.
-[Print record](../../prints/2026-10-26-mark1-left-engineering-flow105-overlap50-temp260-left08-z000/README.md)
-retains the native slice review, successful Send and fresh startup. Studio
-estimates **5 h 42 min 25 s and 444.89 g**, with 833 layers. Startup is
-RUNNING at layer 0/833 with no error/HMS; physical water holding is unassessed.
+The completed left body, **Mark1 task 1377101665**, is reported **holding
+water so far**. [Physical result](../../prints/2026-10-26-mark1-left-engineering-flow105-overlap50-temp260-left08-z000/physical-result/physical-result.json).
+Duration and water head are unspecified.
+
+The [right body and current matching lid](../../prints/2026-10-26-mark1-right-engineering-flow105-overlap50-temp260-left08-z000/README.md)
+are running as **Mark1 task 1378532609**, retaining the same saved recipe.
+Its current lid includes the approved flush-grip ports. Native estimate:
+**5 h 41 min, 443.37 g, 833 layers**. Physical right-article sealing and
+current-lid fit are unassessed.
