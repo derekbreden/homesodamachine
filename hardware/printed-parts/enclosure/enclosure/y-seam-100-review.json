@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "recorded_utc": "2026-10-26T01:23:44.829894+00:00",
+  "recorded_utc": "2026-10-26T01:38:27.533876+00:00",
   "scope": "Manual native checks on the four finished enclosure pieces. Geometry only; no physical fit, bearing capacity, installation torque or lifetime qualification.",
   "customer_outcome": "One available M5x100 SKU at all four Y-seam stations, with the upper screw enclosed and both joints using three alternating knuckles.",
   "common_screw": {
@@ -16,7 +16,7 @@
     "listing_verified": "2026-10-25; Amazon Prime; 20 pieces at USD 7.70 before tax"
   },
   "input_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "23cad59b9f87abf10b16dd034844562116fc5ebaa9b35677b66e6924e2c4339c",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "1f3b501a72db7684d8872c9e6f49cf8d1910b44c0ad32d7a8b6e18ad1fa500e4",
     "hardware/manifold-layout/above_core_routes.py": "fe980a854a87f0db84fcc66e6333a4066388a25e8228a106db70dcdca20fbfa5",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "f856ca9785d5bef868b5eca804c7214f2a5a17cd5260727138a83f729765521d",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "fe1a99b351c2c0545a945f708c8e4f5da11d4fed74c85f01144f4002ba04e497",
@@ -27,9 +27,9 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "6120cf946a471c4cbe44e6edc191978ab97a0c3204767c96577fd240da85614d",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "51e5bb0c134823e3036a68a48471220ceecea1a4b8c936b077d0405a05855e95",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "45f911ca164102662d34cc6bb33c01cbc54906c58564e64dff9474afd8a7cf2e",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "4993c743d9841b90a083072c0b8eb34c23627c2ec4dd67311eea2b39090ec162",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "ec486f19308c6a0cc149326e3a908b401d60908e7cfa9c5f3f40e1c667855506",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "3f7a23101d22a0213b76374ee9d9dbe83370eaa75a09c430736ea8d3d5ee8b65"
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "4058c5688746a7e8731f5756290ddd30948cc5b69360998a233b714f89d36178",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "5cfa41be1623379e912c085b8f3e38898a6b4c5fcb4e381af49a9f78b60a61ed",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "19b61f8724714f1d2bb8568f124c09dd1b9922a2f0726aaf40547432dfcaa1f0"
   },
   "inputs_unchanged": true,
   "native_parts": {
@@ -186,7 +186,7 @@
   "status": "pass",
   "tube_routes": {
     "facts_file": "hardware/manifold-layout/enclosure-assembly.facts.json",
-    "facts_sha256": "37f1797d32bb5f0c5ff80772cc455ff2b80de5edec94081fe1c916b645753f42",
+    "facts_sha256": "182ec84c3d782b2308b65819a0dc569513bb037fdf7286af17f575b32d1cfbde",
     "scope": "Native line/arc paths emitted by the complete appliance assembly; stock bend radius and continuous endpoints. This is not a physical tube-holding result.",
     "routes": [
       {
