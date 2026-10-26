@@ -1,0 +1,242 @@
+{
+  "scope": "One-off read of current native geometry and an illustrative dry-air tube calculation; no CAD or printer changes.",
+  "input_sha256": {
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "e37b633f92887e296af97d2da8cb0500c2695f8bbb8b3889f37d3b6925d68b7d",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "43775ada9c87841a21f1f21da108773fc93a332f386f551f2f7c67cb609b362a",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "1a57043ecc7936ca320b3bb334a3f716ac9f786bf347b9ff7682f3291532c404",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step": "22ebb75f487a98b05b0cf18f3b779afe629de1e6364116d91f38903b0c1095e4",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step": "70847bc00a185847da37d3fb88d951a2b3c401f26233dddb9a3bd903fe03c20a"
+  },
+  "reservoir_cap_top_z_mm": 213.15,
+  "top_cup_underside_z_mm": 213.5500001,
+  "nominal_air_gap_above_reservoir_cap_mm": 0.40000009999999975,
+  "port_bore_mm": 7.5,
+  "nominal_tube_od_mm": 6.35,
+  "passage_design_tube_od_mm": 6.5,
+  "port_bore_length_through_boss_mm": 11.0,
+  "existing_cap_base_thickness_mm": 4.0,
+  "vent_bore_mm": 5.0,
+  "vent_membrane_diameter_mm": 13.0,
+  "vent_positions_shell_xy_mm": {
+    "A": [
+      96.0,
+      -32.5
+    ],
+    "B": [
+      -96.0,
+      -32.5
+    ]
+  },
+  "declared_cap_conduits": {
+    "water-in": [
+      -86.25328899639646,
+      -32.80179966121266
+    ],
+    "reservoir-a": [
+      -84.2,
+      45.0
+    ],
+    "reservoir-b": [
+      94.30000000000001,
+      -6.0
+    ],
+    "reservoir-a-fill": [
+      -102.5,
+      61.0
+    ],
+    "reservoir-b-fill": [
+      36.30000000000001,
+      -33.0
+    ],
+    "carb-water-out": [
+      -18.614800000000002,
+      50.0
+    ],
+    "co2-in": [
+      -44.962199999999996,
+      77.5
+    ],
+    "reed-cable-a": [
+      -130.2,
+      -14.0
+    ],
+    "reed-cable-b": [
+      133.8,
+      26.0
+    ],
+    "sensor-cable": [
+      -15.199999999999989,
+      -49.0
+    ]
+  },
+  "dedicated_reservoir_air_conduit_present": false,
+  "A_vent_to_ambient_clearance_witness": [
+    {
+      "from_mm": [
+        96.0,
+        -32.5,
+        213.35000005
+      ],
+      "to_mm": [
+        84.2,
+        -41.5,
+        213.35000005
+      ],
+      "minimum_distance_to_parts_mm": {
+        "shell": 13.37166771715525,
+        "cup": 0.20000015000235294,
+        "lid": 14.65000015000291,
+        "cap_a": 0.20000004999999987,
+        "cap_b": 138.29295380341068
+      }
+    },
+    {
+      "from_mm": [
+        84.2,
+        -41.5,
+        213.35000005
+      ],
+      "to_mm": [
+        84.2,
+        -41.5,
+        233.5
+      ],
+      "minimum_distance_to_parts_mm": {
+        "shell": 13.371667717155244,
+        "cup": 0.2499999999999929,
+        "lid": 0.2499999999999929,
+        "cap_a": 0.3201562431063971,
+        "cap_b": 138.29295380341068
+      },
+      "clearance_to_nominal_6_5mm_vertical_tube_mm": 0.25
+    }
+  ],
+  "B_vent_to_ambient_clearance_witness": [
+    {
+      "route": "Across nominal gap above B lid to draw-conduit annulus",
+      "from_mm": [
+        -96.0,
+        -32.5,
+        213.35000005
+      ],
+      "to_mm": [
+        -97.8,
+        9.500000000000014,
+        213.35000005
+      ],
+      "minimum_distance_to_parts_mm": {
+        "shell": 16.80353774624236,
+        "cup": 0.20000015000235294,
+        "lid": 14.65000015000291,
+        "cap_a": 151.52115730633918,
+        "cap_b": 0.20000004999999987
+      }
+    },
+    {
+      "route": "Through B draw-conduit annulus following its two native bends",
+      "centerline_points_mm": [
+        [
+          -94.3,
+          9.5,
+          213.35000005
+        ],
+        [
+          -94.3,
+          9.5,
+          219.41478445646027
+        ],
+        [
+          -94.30000000000001,
+          6.0,
+          225.74065725526572
+        ],
+        [
+          -94.30000000000001,
+          6.0,
+          233.5
+        ]
+      ],
+      "transverse_witness_offset_mm": [
+        -3.5,
+        1.4210854715202004e-14,
+        0
+      ],
+      "minimum_distance_to_parts_mm": {
+        "shell": 17.760317524420845,
+        "cup": 0.24999999999998587,
+        "lid": 0.24938169002088695,
+        "cap_a": 159.41188591024658,
+        "cap_b": 0.3201562431063971
+      },
+      "minimum_clearance_to_nominal_6_5mm_tube_mm": 0.25
+    }
+  ],
+  "witness_scope": "Route crosses the nominal gap above reservoir A cap, then its draw-conduit annulus. Nominal clearances do not establish as-built conductance, filter performance or a sealed filtered-air boundary. Foam is absent from the reservoir pockets; cap foam remains outside conduit walls.",
+  "air_tube_estimate": {
+    "tube_od_mm": 4,
+    "tube_id_mm": 2.5,
+    "length_m": 0.3,
+    "airflow_L_min": 0.6,
+    "basis": "Current KPHM600 recorded maximum nominal liquid flow; near-atmospheric displaced air volume equals liquid volume.",
+    "assumed_air_viscosity_Pa_s": 1.81e-05,
+    "assumed_air_density_kg_m3": 1.204,
+    "mean_air_speed_m_s": 2.0371832715762603,
+    "Reynolds_number": 338.7802015162731,
+    "straight_tube_pressure_drop_Pa": 56.63695444305455,
+    "pressure_drop_mm_water": 5.775362069927503,
+    "pressure_drop_psi": 0.008214496093633837,
+    "method": "Hagen-Poiseuille for fully developed laminar dry air, negligible compression at this pressure drop.",
+    "exclusions": "Membrane, connectors, bends, liquid slugs and syrup contamination; not measured installed performance."
+  },
+  "recorded_on": "2026-10-25",
+  "recorded_at_utc": "2026-10-26T04:29:17.049441+00:00",
+  "recorded_at_central": "2026-10-25T23:29:17.049441-05:00",
+  "customer_outcome": "Easy tube insertion and depth adjustment, useful local tube grip and splash obstruction, with an explicit bidirectional reservoir air path independent of casing clearances.",
+  "physical_observation": {
+    "reported_by": "Derek",
+    "reported_on": "2026-10-25",
+    "quote": "So the 1/4 tubes do insert easily into the lid here",
+    "assessment": "Reported easy insertion; no tube-slip failure, numerical pull force or assembled vent-flow result reported."
+  },
+  "tube_grip_candidate": {
+    "status": "Evaluation only; no CAD, printable part or running-print change.",
+    "shape": "Spool-shaped TPU with a cylindrical waist and 45-degree flares at both ends. Matching countersinks in the PETG port seat both TPU ends flush. The lid and insert are designed as a pair.",
+    "outer_fit_purpose": "Capture the insert in the port and obstruct the direct splash gap.",
+    "inner_fit_purpose": "Hand-adjustable tube grip, particularly to preserve dip-tube depth during assembly.",
+    "retention_elsewhere": "The remote valve/fitting push-fit retains the tube at its connection; the current lid and casing bores guide it with clearance and supply no specified axial grip.",
+    "design_basis": "Use the actual tube fit and complete 11 mm port/boss span. A short gripping band with lead-ins can limit assembly drag; exact interference, print fit and retention remain unselected.",
+    "flange_clearance_resolution": "Both objects are printed and controlled. Matching countersinks make the insert flush; nominal 0.4 mm clearance above the present lid is a design datum, not a reason to reject the proposed interface.",
+    "scope": "No pressure-seal, retention-load, creep-life or splash qualification is inferred."
+  },
+  "vent_evaluation": {
+    "present_path": "Headspace -> side-slotted baffle ->5 mm bore ->membrane pocket ->nominal 0.4 mm gap under casing floor ->tube-conduit annulus ->outside air.",
+    "direction": "The open geometry and a dry hydrophobic membrane permit inward and outward flow; no check valve is present.",
+    "bypass": "The current loose tube bores also connect headspace to conduit annuli without passing through the membrane.",
+    "recommendation": "Provide one protected bidirectional vent tube per reservoir to outside the insulation, retaining the splash baffle and a sheltered dry hydrophobic filter at the external end. Keep this air route independent of tube grip and warm-side casing closures.",
+    "sizing": "4 mm OD /2.5 mm ID existing neoFlo stock is a plausible short-route candidate at the recorded nominal KPHM600 0.6 L/min flow; the calculation excludes membrane and installed restrictions.",
+    "limit": "No installed conductance, filter permeability, syrup-wetting or fouling-life test establishes performance of the current assembly."
+  },
+  "sources": [
+    {
+      "url": "https://www.pall.com/en/food-beverage/tank-air-vent.html",
+      "scope": "Air enters as tanks empty and exits as they fill; size using the larger fill/draw rate with equal air volume."
+    },
+    {
+      "url": "https://www.gore.com/resources/faq-gore-protective-vents",
+      "scope": "General bidirectional membrane-vent mechanism; not the specification of our purchased LVDALAB disc."
+    },
+    {
+      "url": "https://assets.freshwatersystems.com/image/upload/s--N9disqrx--/gjtidjfc0tlprqbhb4ka.pdf",
+      "scope": "neoFlo 4 mm OD, 2.5 mm ID and 25 mm minimum bend radius."
+    },
+    {
+      "path": "firmware/lib/machine_policy/machine_policy.h",
+      "scope": "Recorded KPHM600 nominal 380-600 mL/min flow basis."
+    }
+  ],
+  "founder_clarifications": [
+    "To be clear about the \"TPU bulkhead\" I'm Imagining. What I'm imagining is something that looks like an empty spool of thread, where it's a cylinder, and then a 45-degree chamfer, and then flat. So you can also maybe see this as a similar shape to a countersunk screw, where it's that sloped flat to cylinder thing on both sides.",
+    "The whole reason I mentioned the \"countersunk\" shape is because I believe this needs to be actually countersunk, flush with the surface.",
+    "We control both objects, we print this, we can design the shape we need for both."
+  ]
+}

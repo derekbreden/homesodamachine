@@ -21,11 +21,45 @@ The reservoir is non-pressurized; the vent equalizes the air space
 above the liquid as the pump draws syrup up the dip tube and as the
 fill cycle refills it from above.
 
-The hydrophobic PTFE membrane passes air freely and blocks aqueous
-syrup at the membrane surface. The splash-baffle cylinder forces any
-upward splash to take a 90° lateral turn before reaching the
-membrane — splash lands on the closed top of the baffle's inner
-cavity or on the cylinder wall and runs back down.
+Dry hydrophobic membrane vents pass air in both directions. During filling,
+outgoing air replaces the incoming liquid volume; during drawing, incoming air
+replaces the outgoing liquid volume. The required airflow is the larger of the
+fill and draw rates, as described in [Pall's tank-vent guidance](https://www.pall.com/en/food-beverage/tank-air-vent.html).
+No installed airflow or syrup-wetting result is recorded for this particular
+LVDALAB disc. Its restriction and fouling life are unqualified.
+
+The splash-baffle cylinder shields the membrane from direct upward splash:
+liquid meets its closed bottom or wall, with a lateral turn through a slot
+required to reach the vent bore.
+
+## Path through the assembled casing
+
+The filter pocket opens below the top foam-cap floor. Current native geometry
+places the reservoir-cap top at Z213.15 mm and that floor's underside at
+Z213.5500001 mm: **0.4 mm nominal air clearance**. There is no dedicated
+reservoir-air conduit through the foam cap.
+
+The [October 25 review](tube-grip-vent-review.json) traces clear nominal paths
+from both vent positions across that gap and up the draw-conduit annuli,
+including reservoir B's two bends. With a 6.5 mm tube envelope in the 7.5 mm
+passage, the sampled annular paths have approximately 0.25 mm clearance to
+both tube and printed passage. These are geometric openings, not measured
+airflow. Printed contact, assembly and installed closures affect conductance.
+The loose fill/draw tube bores also provide air paths that bypass the membrane.
+
+A dedicated vent line per reservoir is the recommended candidate when defining
+the complete air boundary and tube grips. Preserve the splash baffle, route
+the line through a protected casing passage to outside the insulation, and
+place a hydrophobic filter at a sheltered, dry external termination. The line
+must pass air in both directions and remain free of liquid traps.
+
+The existing neoFlo **4 mm OD / 2.5 mm ID** stock is a plausible size for a
+short vent route. At an illustrative 0.6 L/min air demand, 0.3 m of straight
+dry tubing has a calculated drop of approximately **57 Pa / 0.0082 psi**.
+This excludes the membrane, bends, fittings and liquid contamination; it does
+not qualify a finished assembly. The [manufacturer sheet](https://assets.freshwatersystems.com/image/upload/s--N9disqrx--/gjtidjfc0tlprqbhb4ka.pdf)
+specifies that tube's ID and 25 mm minimum bend radius. No dedicated vent line
+or new tube grip is present in the current printed geometry.
 
 The ø[13 mm](FILTER_D) × [0.5 mm](FILTER_T) filter is a standard lab-filter disc; laminated PTFE on PET support, held in 100-packs at $0.13/filter delivered.
 
@@ -39,7 +73,9 @@ Tracked in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13:
 
 ## Service
 
-If a membrane ever clogs (well past the design lifetime in practice), the cap comes off via the same 6 M3 × 12 SHCS that hold it to the reservoir body; the retaining ring lifts out; the filter swaps. The 100-pack is a lifetime supply at 2/build.
+For bench replacement before the core is enclosed, the cap comes off via its
+six M3 × 12 screws; the retaining ring lifts out and the filter can be replaced.
+No membrane service-life result is recorded.
 
 ## Sources
 [value](NAME) texts are updated by:
