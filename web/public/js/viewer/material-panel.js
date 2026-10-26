@@ -24,7 +24,21 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   panel.setAttribute("aria-label", "Material explorer");
   workspace.append(panel);
   const wrapper = workspace.querySelector(".cad-wrapper");
-  const drawingView = wrapper ? mountMaterialDrawing(workspace, wrapper) : null;
+  const mobile = matchMedia("(max-width: 700px)");
+  const toggle = wrapper ? el("button", "materials-toggle", "Materials") : null;
+  function setOpen(open) {
+    workspace.classList.toggle("materials-open", open);
+    toggle?.setAttribute("aria-expanded", String(open));
+  }
+  if (toggle) {
+    toggle.type = "button";
+    toggle.addEventListener("click", () => setOpen(!workspace.classList.contains("materials-open")));
+    workspace.append(toggle);
+    setOpen(false);
+  }
+  const closeOnMobile = () => { if (mobile.matches) setOpen(false); };
+  mobile.addEventListener("change", closeOnMobile);
+  const drawingView = wrapper ? mountMaterialDrawing(wrapper, { onShowDrawing: closeOnMobile }) : null;
   let root = material || materialForFile(state.materialCatalog, file)?.id;
   let selected = root, selectedPath = [], tab = "bom";
   let selectedBody = null;
@@ -60,10 +74,10 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
 
   function materialLink(m, label = m.description) {
     const link = el("a", "material-link", label);
-    link.href = "/3d#" + materialHash(m.id);
+    link.href = "/3d#" + materialHash(m.id, { panel: "materials" });
     link.addEventListener("click", (event) => {
       if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-      event.preventDefault(); openMaterial(m.id);
+      event.preventDefault(); openMaterial(m.id, true, { panel: "materials" });
     });
     return link;
   }
@@ -86,10 +100,6 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
       const open = el("button", "", "Open component"); open.type = "button";
       open.addEventListener("click", async () => {
         const { drillToComponent } = await import("./step-nav.js");
-        if (matchMedia("(max-width: 700px)").matches) {
-          workspace.classList.remove("materials-open");
-          workspace.querySelector(".materials-toggle")?.setAttribute("aria-expanded", "false");
-        }
         drillToComponent(componentLocation(lastFile, selectedBody), selectedBody);
       });
       actions.append(open);
@@ -108,10 +118,6 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
         const open = el("button", "", "Open 3D"); open.type = "button";
         open.addEventListener("click", async () => {
           if (state.currentCadWrapper) {
-            if (matchMedia("(max-width: 700px)").matches) {
-              workspace.classList.remove("materials-open");
-              workspace.querySelector(".materials-toggle")?.setAttribute("aria-expanded", "false");
-            }
             const { drillTo } = await import("./step-nav.js"); drillTo(model.file);
           } else openMaterial(current.id);
         }); actions.prepend(open);
@@ -292,17 +298,17 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   window.addEventListener(HSM_EVENTS.STEP_MOUNTED, sync);
   window.addEventListener(HSM_EVENTS.MATERIAL_PICKED, picked);
   window.addEventListener(HSM_EVENTS.FAUCET_OPTIONS, sync);
-  function show() {
-    workspace.classList.add("materials-open");
-    workspace.querySelector(".materials-toggle")?.setAttribute("aria-expanded", "true");
-  }
-  const handle = { select, setRoot, sync, show, closeDrawing: () => drawingView?.closeDrawing(), showBom: () => {
+  // Visibility belongs to this navigation. Manual toggles last for this view;
+  // model links start closed, and material lookups open only on desktop.
+  function applyRoute({ panel = null, tab: requestedTab = null } = {}) {
     tab = "bom";
-    show();
+    setOpen(!mobile.matches && (panel === "materials" || requestedTab === "bom"));
     render();
-  }, dispose: () => {
+  }
+  const handle = { select, setRoot, sync, applyRoute, closeDrawing: () => drawingView?.closeDrawing(), dispose: () => {
     disposed = true;
     drawingView?.dispose();
+    mobile.removeEventListener("change", closeOnMobile);
     window.removeEventListener(HSM_EVENTS.STEP_MOUNTED, sync);
     window.removeEventListener(HSM_EVENTS.MATERIAL_PICKED, picked);
     window.removeEventListener(HSM_EVENTS.FAUCET_OPTIONS, sync);

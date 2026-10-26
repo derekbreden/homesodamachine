@@ -62,8 +62,8 @@ function bodyCenter(name = null) {
 // a card still write.
 const STEP_PREFIX = "step:";
 
-export function stepHash(files) {
-  return STEP_PREFIX + files.map(encodeURIComponent).join("/");
+export function stepHash(files, { panel = null } = {}) {
+  return STEP_PREFIX + files.map(encodeURIComponent).join("/") + (panel === "materials" ? "?panel=materials" : "");
 }
 
 const decode = (s) => { try { return decodeURIComponent(s); } catch { return s; } };
@@ -185,6 +185,7 @@ function syncCrumb(file) {
 async function showStep(file, push, view = null) {
   const from = state.mountedDetail && state.mountedDetail.file;
   if (!from || file === from) return false;
+  state.materialPanel?.applyRoute();
   saveCameraState(from);
   state.currentDetail = { type: "step", file };
   if (push) {
