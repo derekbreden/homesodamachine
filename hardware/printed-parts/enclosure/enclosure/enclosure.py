@@ -3558,7 +3558,7 @@ def _y_knuckle(inner, outer, x_in, sx, y_joint, piece, z0, z1, depth):
         else:
             body = _y_between_faces(bottom, z0, top, z1, x_in, sx, y_joint, xa, xb,
                                     root, y_joint + lip_len, cap)
-        if piece == "front-top" and sx > 0:
+        if piece == "front-top" and sx > 0 and not head:
             # A 45° chamfer down the inboard-aft edge of the −X knuckle, where the flavour line
             # (`tube-fluid-1`) turns past that corner under the frame.
             ex, ey, c = x_in + sx * depth, y_joint + lip_len, y_stack_upper_chamfer
