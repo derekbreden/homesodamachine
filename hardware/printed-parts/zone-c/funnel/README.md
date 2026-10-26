@@ -146,6 +146,15 @@ outer edge. The hook tip has [0.15 mm](CRADLE_TIP_GAP) X air to the socket wall;
 the receiver's R0.25 corners preserve at least 0.15 mm normal static air at the
 hook ends. The slot keeps its 0.25 mm allowance beyond each wing end.
 
+The plain lower side faces are relieved 0.65 mm per side to clear the two
+Y elbows by 1.313 mm in nominal CAD. A 45° return preserves the full-width
+3 mm of stock beneath the wing roots. The pocket, floor, wing roots, wings,
+hooks and mating-part stations retain their selected geometry. The removed
+side stock stands at least 6.237 mm from the purchased drain elbow's surface;
+it includes no seating surface. The
+[scoped native review](/hardware/mechanical-qualification/enclosure-above-core/cradle-side-clearance-review.json)
+records the retained interfaces and exported shape.
+
 The installed cradle stands [0.65 mm](CRADLE_CATCH) below its insertion datum.
 The hook undersides are at Z303.3, [0.40 mm](CRADLE_WEB_AIR) above the frame's
 Z302.9 web top: 0.15 mm static allowance plus 0.25 mm for the supported hook
