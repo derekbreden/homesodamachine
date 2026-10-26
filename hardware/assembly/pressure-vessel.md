@@ -14,6 +14,14 @@ The refill pump is the G Ganen B07F35PTFR diaphragm pump, powered by the existin
 
 Not in scope: the evaporator coil wrap itself (boundary with [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md)), the cold-core foam pour ([`cold-core.md`](/hardware/assembly/cold-core.md)), and any system-level installation.
 
+Fabrication drawings: [vessel closure assembly](/hardware/cold-core-layout/carbonator-vessel-weldment-drawing.pdf),
+[finished end cap](/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.pdf), and
+[carbonator float guide rod](/hardware/cut-parts/carbonation/float-rod/carbonator-float-rod-drawing.pdf).
+The closure drawing shows cap recesses, clocking and weld locations. The rod
+drawing defines its starting blank and finished match-fit requirement. Both are
+prototype drawings for review; assembly tolerances and closure-weld size and
+qualification remain open.
+
 ## Inputs per carbonator
 
 Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §2 (carbonator) + §12 (level sensing — the float rod + ASA Aero float). The table below is the procedure-level summary; bom.md is the source of truth for per-unit allocation and cost. Status (ACQUIRED / ON-ORDER / LIKELY-TO-BUY) for every item lives in [`/hardware/ledger/purchases.md`](/hardware/ledger/purchases.md) §1 (carbonator fabrication), §16 (laser welding), §2 (CO2 subsystem), §4 (port-fittings including the new carbonator-port elbows).

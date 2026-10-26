@@ -25,6 +25,12 @@ const COMMITTED_DOCUMENT_FILES = new Set([
   "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.pdf",
   "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.pdf.json",
   "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.cover.png",
+  "hardware/cold-core-layout/carbonator-vessel-weldment-drawing.pdf",
+  "hardware/cold-core-layout/carbonator-vessel-weldment-drawing.pdf.json",
+  "hardware/cold-core-layout/carbonator-vessel-weldment-drawing.cover.png",
+  "hardware/cut-parts/carbonation/float-rod/carbonator-float-rod-drawing.pdf",
+  "hardware/cut-parts/carbonation/float-rod/carbonator-float-rod-drawing.pdf.json",
+  "hardware/cut-parts/carbonation/float-rod/carbonator-float-rod-drawing.cover.png",
 ]);
 
 export function isCommittedDocumentFile(repoRel) {
