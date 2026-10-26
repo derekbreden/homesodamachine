@@ -1,0 +1,250 @@
+{
+  "views": [
+    {
+      "name": "lid",
+      "caption": "Two liquid-tube grips and one air-tube grip sit flush in matched seats through each reservoir lid.",
+      "before": "lid-before.webp",
+      "after": "lid-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 530.5,
+          "y": 361.8,
+          "r": 19.8,
+          "label": "Air",
+          "at": [
+            26,
+            443.8,
+            233.15
+          ]
+        },
+        {
+          "x": 626.8,
+          "y": 526.3,
+          "r": 29.4,
+          "label": "Draw",
+          "at": [
+            45,
+            408,
+            233.15
+          ]
+        },
+        {
+          "x": 690.1,
+          "y": 439.1,
+          "r": 28.3,
+          "label": "Fill",
+          "at": [
+            57.5,
+            426.3,
+            233.15
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          40,
+          329.98911677704024,
+          421.0217664459195
+        ],
+        "target": [
+          40,
+          425,
+          231
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 114.47651801881733,
+        "far": 375.38158821141644,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "cold-core/reservoir-a-cap",
+        "cold-core/reservoir-grip-a-*",
+        "cold-core/vent-membrane-a"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "3bcb7be66b8a8a714dc8b26a5de54d28645fff7d69f2f12a347e18bea3b88369",
+          "commit": "1ead243d40f71abfa7bbaf08f3d5268199c45c47",
+          "taken": "2026-10-26T06:30:35.180Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "b4e29c9df0b1dc8a3f96a0f37eec1f0274c69a08e36b2cad5218eacbfc975c57",
+          "commit": "067c28fbd12f698a782b3a422f7f983176f8a6bf",
+          "published": false
+        }
+      },
+      "changed": [
+        "reservoir-a-draw-turn",
+        "reservoir-a-fill-turn",
+        "reservoir-b-fill-turn",
+        "cold-core/reservoir-grip-a-air",
+        "cold-core/reservoir-grip-a-draw",
+        "cold-core/reservoir-grip-a-fill",
+        "cold-core/reservoir-grip-b-air",
+        "cold-core/reservoir-grip-b-draw",
+        "cold-core/reservoir-grip-b-fill",
+        "cold-core/tube-reservoir-air-a",
+        "cold-core/tube-reservoir-air-b",
+        "cold-core/vent-membrane-a",
+        "cold-core/vent-membrane-b",
+        "tube-fluid-14",
+        "tube-fluid-18",
+        "tube-fluid-16",
+        "tube-fluid-24",
+        "cold-core/foam-cap-top",
+        "cold-core/reservoir-a-cap",
+        "cold-core/reservoir-b-cap",
+        "cold-core/line-reservoir-a-fill",
+        "wire-J9-V12",
+        "wire-J9-GND",
+        "wire-J9-A",
+        "wire-J9-B",
+        "wire-J1-positive-D",
+        "wire-J1-positive-C"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "air-section",
+      "caption": "A dedicated straight air tube passes through the reservoir grip and foam cap, with a splash baffle below and its open end above the casing.",
+      "before": "air-section-before.webp",
+      "after": "air-section-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 600,
+          "y": 280.4,
+          "r": 20.8,
+          "label": "Open air",
+          "at": [
+            26,
+            443.8,
+            258.4
+          ]
+        },
+        {
+          "x": 600,
+          "y": 570.3,
+          "r": 40.4,
+          "label": "Flush grip",
+          "at": [
+            26,
+            443.8,
+            230
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          129.03922628894006,
+          466.4686297835668,
+          254.3647071546728
+        ],
+        "target": [
+          26,
+          443.8,
+          242
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 0.3799558401121615,
+        "far": 537.8204239033877,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            26,
+            443.8,
+            242
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "cold-core/reservoir-a-cap",
+        "cold-core/reservoir-grip-a-air",
+        "cold-core/tube-reservoir-air-a",
+        "cold-core/foam-cap-top",
+        "cold-core/foam-cap-lid-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "3bcb7be66b8a8a714dc8b26a5de54d28645fff7d69f2f12a347e18bea3b88369",
+          "commit": "1ead243d40f71abfa7bbaf08f3d5268199c45c47",
+          "taken": "2026-10-26T06:30:35.180Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "b4e29c9df0b1dc8a3f96a0f37eec1f0274c69a08e36b2cad5218eacbfc975c57",
+          "commit": "067c28fbd12f698a782b3a422f7f983176f8a6bf",
+          "published": false
+        }
+      },
+      "changed": [
+        "reservoir-a-draw-turn",
+        "reservoir-a-fill-turn",
+        "reservoir-b-fill-turn",
+        "cold-core/reservoir-grip-a-air",
+        "cold-core/reservoir-grip-a-draw",
+        "cold-core/reservoir-grip-a-fill",
+        "cold-core/reservoir-grip-b-air",
+        "cold-core/reservoir-grip-b-draw",
+        "cold-core/reservoir-grip-b-fill",
+        "cold-core/tube-reservoir-air-a",
+        "cold-core/tube-reservoir-air-b",
+        "cold-core/vent-membrane-a",
+        "cold-core/vent-membrane-b",
+        "tube-fluid-14",
+        "tube-fluid-18",
+        "tube-fluid-16",
+        "tube-fluid-24",
+        "cold-core/foam-cap-top",
+        "cold-core/reservoir-a-cap",
+        "cold-core/reservoir-b-cap",
+        "cold-core/line-reservoir-a-fill",
+        "wire-J9-V12",
+        "wire-J9-GND",
+        "wire-J9-A",
+        "wire-J9-B",
+        "wire-J1-positive-D",
+        "wire-J1-positive-C"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
