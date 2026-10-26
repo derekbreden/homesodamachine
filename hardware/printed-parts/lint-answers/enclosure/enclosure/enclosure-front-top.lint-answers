@@ -31,3 +31,8 @@ alternatives: A 4.2 mm wall keeps 3 mm under every groove and takes 1.2 mm more 
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=106.300 y=169.048 z=283.700
 click: x=104.500 y=169.048 z=254.648
+
+[slope] Wrong slope classification for the upper M5 passage relief: this is the ramped roof inside a 5.6 mm wide slot, with its two rising edges carried by the opposed slot walls. The classifier tests one adjacent wall and reports a sideways corbel; its grouped click is the mean of the mirrored roofs, not a physical point at X0. Retain Tree(auto)/Default in a fresh native preparation; this reading does not qualify bridge finish or support removal.
+alternatives: A level slot roof creates a flat ceiling. A gable running across the slot meets the 45-degree knuckle face along a V and restores a thin ridge. Filling the slot restores the bore-to-face knife edge.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=0.000 y=211.627 z=338.579

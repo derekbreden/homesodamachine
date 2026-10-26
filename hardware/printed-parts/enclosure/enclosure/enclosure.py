@@ -3632,7 +3632,7 @@ def _y_stack_bores(x_in, sx, y_joint, inner):
     xa, xb = sorted((ux, mouth))
     # Open the inboard head access aft into the funnel rather than leaving a tapered
     # remnant between its square side and the stack's diagonal funnel clearance.
-    upper_head = upper_head.fuse(_ybox(xa, xb, uy - rc, y_joint + lip_len + 1.0,
+    upper_head = upper_head.fuse(_ybox(xa, xb, uy - rc, y_joint + lip_len + fits.running,
                                       roof - y_stack_cbore_depth, roof + 1.0))
 
     return (
