@@ -1,8 +1,8 @@
 """Carbonator closure assembly: source-defined sections and an exterior end view.
 
 Fabrication state of HSM-000004, before permanent fittings. Registers show their
-actual drill points; the rod is depicted within its functional fit range rather
-than at the simplified CAD model's drill-tip-to-drill-tip span. Weld profiles are
+actual drill points; the rod has its fixed finished length and the cap spacing
+is controlled to its specified interface tolerance. Weld profiles are
 diagrammatic because a qualified weld size is not established by the procedure.
 """
 
@@ -63,7 +63,7 @@ def longitudinal_section(c):
     rod_x = CX + ROD_X * IN
     register_opening(c, rod_x, z(FLOOR), IN, -1)
     register_opening(c, rod_x, z(CEILING), IN, 1)
-    # Longitudinal solid rod is left unhatched; its ends indicate fit, not length.
+    # Longitudinal solid rod is left unhatched, at its finished nominal length.
     c.setFillColorRGB(1, 1, 1)
     c.setLineWidth(VISIBLE)
     c.rect(rod_x - ROD_D * IN / 2, z(ROD_BOTTOM), ROD_D * IN,
@@ -83,13 +83,22 @@ def longitudinal_section(c):
     balloon(c, 3, (352, 554), (rod_x - ROD_D * IN / 2, 525))
     balloon(c, 4, (365, 399), (rod_x - float_w / 2, z(2.6) + 20))
     vdim(c, 95, BASE, z(LENGTH), left, left, f"{LENGTH:.3f} REF", size=10)
+    # Direct inside-face dimension: arrow tips touch the two physical planes.
+    gap_x = 250
+    line(c, gap_x, z(FLOOR), gap_x, z(CEILING))
+    arrow(c, (gap_x, z(FLOOR)), (gap_x, z(CEILING)))
+    arrow(c, (gap_x, z(CEILING)), (gap_x, z(FLOOR)))
+    text(c, gap_x - 9, z((FLOOR + CEILING) / 2),
+         f"{INSIDE_SPAN:.3f} ±{INSIDE_SPAN_TOL:.3f}", 10, align="right")
+    text(c, gap_x - 9, z((FLOOR + CEILING) / 2) - 14,
+         "CAP SPAN AT R1", 8, align="right")
     # Detail boundary has its own identifier, separate from the section arrows.
     c.setLineWidth(0.5)
     c.circle(bore_r - 2, z(LENGTH - RECESS) + 2, 23, stroke=1, fill=0)
     line(c, bore_r + 13, z(LENGTH - RECESS) + 19, 546, 708)
     text(c, 551, 710, "B", 12, bold=True)
     leader(c, (rod_x + ROD_D * IN / 2, 580), (525, 550), (545, 550),
-           ["ROD LENGTH FIT", "PER FR-CARB-01"], 8.5)
+           ["FINISHED ROD", "PER FR-CARB-01"], 8.5)
     # A representative tack at the bottom register; the procedure governs it.
     tack_tip = (rod_x + ROD_D * IN / 2, z(FLOOR))
     tack = path_from_points(c, [tack_tip, (tack_tip[0] + 2.5, tack_tip[1]),
@@ -99,7 +108,7 @@ def longitudinal_section(c):
     c.setFillColorRGB(0, 0, 0)
     leader(c, (tack_tip[0] + 1, tack_tip[1] + 1), (525, 320), (545, 320),
            ["T1 - ROD TACK", "BOTTOM CAP ONLY"], 8.5)
-    text(c, CX, 211, "ROD ENDS SHOWN DIAGRAMMATICALLY; FIT TO ACTUAL REGISTERS.", 8, align="center")
+    text(c, CX, 211, "FIXED-LENGTH ROD SEATS IN BOTTOM REGISTER; TOP REGISTER RETAINS CLEARANCE.", 8, align="center")
     text(c, CX, 197, "PORTS LIE OUT OF THE SECTION PLANE. FLOAT ENVELOPE IS REFERENCE ONLY.", 8, align="center")
 
 
@@ -196,8 +205,8 @@ def requirements(c):
     text(c, 650, 336, "ASSEMBLY REQUIREMENTS", 10, bold=True)
     paragraphs = [
         "1. Fabrication state of HSM-000004 before permanent fittings. Component ports, registers and edge preparation: END-CAP-01. Stock dimensions are nominal.",
-        "2. Set BOTH cap outside faces 0.250 below their adjacent tube rims. Align both port pairs on one diameter; align both R1 registers on the same rod axis. In the cold core, rod +X faces reservoir B; ports lie on ±Y.",
-        "3. Seat and tack the rod in the bottom register before the bottom closure weld. Match-fit per FR-CARB-01. Install the float before top closure; verify free travel and full cap seating without rod interference.",
+        f"2. Finished cap inside-face spacing AT ROD AXIS: {INSIDE_SPAN:.3f} ±{INSIDE_SPAN_TOL:.3f}. Set both outside faces 0.250 below adjacent tube rims. Align both port pairs on one diameter; both R1 register axes coaxial with the rod. Rod +X faces reservoir B; ports lie on ±Y in the cold core.",
+        "3. Use the fixed-length rod per FR-CARB-01. Seat and tack it in the bottom register before the bottom closure weld. Install the float before top closure; verify top engagement, free travel and full cap seating at the specified spacing.",
         "4. W1: continuous internal-corner fillet around BOTH cap perimeters. ER316L .030 filler. Clean bore band and cap outside face; preserve the square cap weld root. T1: tack rod to bottom cap. Welding, inspection, hydro and passivation: pressure-vessel procedure, steps 2-8.",
     ]
     end = wrap_lines(c, 650, 318, paragraphs, 525, size=8.6, leading=11.3, gap=5)
@@ -208,16 +217,17 @@ def build_pdf(path):
     c = canvas.Canvas(str(path), pagesize=SHEET, invariant=1, pageCompression=1)
     c.setTitle("Carbonator vessel - closure assembly engineering drawing")
     c.setAuthor("Home Soda Machine / Codex")
-    c.setSubject("CV-WLD-01 Rev A: closure geometry, cap clocking and float-rod fit; prototype for review")
+    c.setSubject("CV-WLD-01 Rev B: closure geometry, cap clocking and fixed-length rod interface")
     frame(c, SHEET)
     longitudinal_section(c)
     outside_end_view(c)
     closure_detail(c)
     parts_list(c)
     requirements(c)
-    text(c, 47, 168, "RELEASE ITEMS: ASSEMBLY TOLERANCES; W1 SIZE AND WELD QUALIFICATION.", 9, bold=True)
+    text(c, 47, 168, "RELEASE ITEMS: W1 SIZE AND WELD QUALIFICATION; REMAINING UNSPECIFIED ASSEMBLY TOLERANCES.", 8.5, bold=True)
     title_block(c, SHEET, "CARBONATOR VESSEL - CLOSURE ASSEMBLY", "CV-WLD-01",
-                "SEE PARTS LIST", "1 PER MACHINE", "HSM-000004 / FABRICATION STATE")
+                "SEE PARTS LIST", "1 PER MACHINE", "HSM-000004 / FABRICATION STATE",
+                revision="B")
     c.showPage()
     c.save()
 

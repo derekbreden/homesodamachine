@@ -18,9 +18,9 @@ Fabrication drawings: [vessel closure assembly](/hardware/cold-core-layout/carbo
 [finished end cap](/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.pdf), and
 [carbonator float guide rod](/hardware/cut-parts/carbonation/float-rod/carbonator-float-rod-drawing.pdf).
 The closure drawing shows cap recesses, clocking and weld locations. The rod
-drawing defines its starting blank and finished match-fit requirement. Both are
-prototype drawings for review; assembly tolerances and closure-weld size and
-qualification remain open.
+drawing specifies the finished rod length and tolerances. Its cap-spacing
+interface is controlled on the closure drawing. Closure-weld size, qualification
+and the remaining unspecified assembly tolerances are open.
 
 ## Inputs per carbonator
 
@@ -30,7 +30,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §2 (
 |---|---|---|
 | 5" OD × 0.065" wall × [152.4 mm](TANK_H) 316L SS welded tube | OnlineMetals #12498 | MTRs required. |
 | 1/4"-thick 316L SS circular end plate, 2-hole pattern | SendCutSend [`endcap-circular-2hole.dxf`](/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.dxf) | 2 per carbonator |
-| 1/8" 316L SS rod, [131.1 mm (5.16 in)](ROD_LEN) cut from 12" stock | Tandefio B0CY4DWJFQ | Internal float rod (bom.md §12) |
+| 1/8" 316 SS rod, [5.110 ±0.005 in (129.79 ±0.13 mm)](ROD_LEN) finished length, from 12" stock | Tandefio B0CY4DWJFQ | Internal float rod (bom.md §12) |
 | Magnetic float | One-piece ASA Aero, 36 × 28 mm, midplane RC62 | Trial article on the 1/8" rod; pressure/wetted service unqualified. [Installation datums](/hardware/printed-parts/cold-core/magnetic-float/all-aero/installation.md) |
 | Water-inlet jet cap, 316 SS | Hosifiy B0FYCJJXCS, nominal 9.5 mm round stock | One drilled slice welded onto Port 2's elbow, fabricated and qualified per [`water-inlet-jet.md`](/hardware/assembly/water-inlet-jet.md). Candidate thickness 2 mm and bore 1/16 inch; cap OD is subject to measured fitting clearance. |
 | **TAISHER 316L SS 1/4" NPT 90° street elbow, M×F** | B0CZ38MYL1 (2-pk) | **4 per carbonator — all four ports.** Port 2 carries the jet cap; the other three are plain. Each male end enters its plate from outside. The lateral stacks occupy the ~[30 mm](ELBOW_ENV) envelope above and below the carbonator — see [`foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md) "Carbonator-port fittings". Millrose PTFE tape on every NPT joint. |
@@ -83,7 +83,11 @@ The register drilled above is what distinguishes the two faces, so each plate ca
 
 ### 2. Prepare the bottom plate — tack the float rod
 
-Start with a 1/8" 316L rod blank of [131.1 mm (5.16 in)](ROD_LEN) — tube length − both 1/4" recesses − both 1/4" plates + both 0.10" registers − [1 mm](ROD_CLEARANCE) clearance, with each plate recessed 1/4" below its tube end (`_pressure_vessel_sync.py`). The 0.10-inch register depth is to the drill tip; its conical bottom seats a flat-ended rod above that point. Hand-fit the blank to the actual pair of registers before tacking; the calculated blank is not the finished seat-to-seat length. Tack-weld it vertically to the inside face of the bottom plate (the side that will face into the carbonator), seating its base in the bottom-plate register from step 1 — the register locates the rod on the float-guide axis and holds it square for the tack. Set the final rod length so that, fully seated at the bottom, its top will enter the top-plate register at closure (step 5) **without** bottoming out and holding the top plate off its seated depth — the rod locates the plate, it must never hold the fillet root open. Verify positive top-register engagement and plate seating at the specified recess with the actual rod. Done in the same welding session as the plate-to-tube welds in steps 3 and 5 — heat the welder once.
+Cut the 1/8" 316 SS rod to its **finished length of [5.110 ±0.005 in (129.79 ±0.13 mm)](ROD_LEN)** per [FR-CARB-01](/hardware/cut-parts/carbonation/float-rod/carbonator-float-rod-drawing.pdf). Both ends are flat and square to the axis within 0.5°, deburred, with a 0.003-inch maximum edge break. Select stock meeting the drawing's 0.125 ±0.002-inch diameter.
+
+The finished vessel's cap **inside faces are 5.000 ±0.010 inches apart at the rod axis**, with both register axes coaxial with the rod, as specified on CV-WLD-01. Prepare and verify the actual tube/end-cap stack to that spacing and the specified 1/4-inch outside-face recesses before closure. The 0.100-inch register depth ends at the 135° drill tip; a flat rod seats above that tip. The fixed rod length leaves nominal top engagement of 0.036 inch and nominal top-seat clearance of 0.038 inch. The part source's independent-extreme stack includes register depth, point angle, rod diameter, end squareness and edge break.
+
+Seat the rod in the bottom register and tack it vertically to the bottom plate's inside face. Verify that the top register engages the rod and that the top cap reaches its specified seating plane without the rod holding the weld root open. Maintain the specified cap spacing; the finished rod length is controlled by FR-CARB-01. Install the float before top closure and verify free travel. The rod tack and plate-to-tube welds are performed in the same welding session.
 
 Leave both bottom ports bare for welding, inspection and hydro. Port 1's plain CO2 elbow installs from outside at step 9.
 
@@ -109,7 +113,7 @@ The 36 mm polymer float cannot pass the finished NPT ports and is captive before
 
 ### 5. Weld top plate to tube
 
-Close the open end with the top plate. Its blind register (step 1) captures the rod's top end as the plate seats to its 1/4" recess — confirm the plate reaches its seated depth against the spacer / depth-stop (the rod must not hold it proud; see the rod-length note in step 2). If the register binds on the rod tip, open that one cap's pocket to 5/32" rather than forcing the plate down — the plate-to-tube joint here is a pressure weld. Same recessed corner fillet as step 3. Same rig, with the carbonator inverted so this end is up and the fillet is again welded downhand.
+Close the open end with the top plate. Its blind register (step 1) captures the rod's top end as the plate seats to its 1/4" recess — confirm the plate reaches its seated depth against the spacer / depth-stop (the rod must not hold it proud; verify the inside-face spacing and rod dimensions in step 2). If the register binds laterally on the rod tip, the top pocket may be opened to 5/32" per END-CAP-01; maintain the specified tip depth and cap spacing — the plate-to-tube joint here is a pressure weld. Same recessed corner fillet as step 3. Same rig, with the carbonator inverted so this end is up and the fillet is again welded downhand.
 
 ### 6. Dye-penetrant (PT) inspection of the closure welds
 
