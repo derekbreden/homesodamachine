@@ -199,8 +199,25 @@ def inverse_cuts(e, box):
     return out
 
 
+def display_cleanouts(e, box):
+    """Two plain wing-support access branches open into the empty PCB room."""
+    wings = e._display_wings
+    reach = wings.COVER_X/2. + wings.WING_REACH + wings.TIP_AIR
+    depth = 12.
+    roof = wings.GLASS_SEAT-e.wall
+    floor = wings.BACK+wings.WING_THICK+wings.BEARING_AIR-depth
+    y0 = -wings.WING_SPAN/2.-wings.END_AIR-depth*math.tan(math.radians(wings.ANGLE))
+    y1 = wings.WING_SPAN/2.+wings.END_AIR
+    pcb0 = e.display_body_offset_x-e.display_pcb_x/2.
+    pcb1 = e.display_body_offset_x+e.display_pcb_x/2.
+    place = cq.Location(e.display_plane(box.outer))
+    return [e._ybox(x0,x1,y0,y1,floor,roof).moved(place)
+            for x0,x1 in ((-reach,pcb0+.01),(pcb1-.01,reach))]
+
+
 def fixed_cuts(e, box):
-    out=[loading_opening(e,box), *inverse_cuts(e,box), *wire_cuts(e,box)]
+    out=[loading_opening(e,box), *inverse_cuts(e,box), *wire_cuts(e,box),
+         *display_cleanouts(e,box)]
     plate=box.pack.collet_plate
     for x,z in plate['holes']:
         out.append(e._ybox(x-TUBE_GATE_WIDTH/2.,x+TUBE_GATE_WIDTH/2.,
