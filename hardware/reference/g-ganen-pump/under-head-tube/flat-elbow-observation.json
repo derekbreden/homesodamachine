@@ -26,5 +26,12 @@
     }
   ],
   "tube_passage_observation": "physical-observations.json",
-  "layout": "../../../manifold-layout/studies/east-feed/README.md"
+  "layout": "../../../manifold-layout/studies/east-feed/README.md",
+  "clearance_attestation": {
+    "date": "2026-10-26",
+    "reporter": "Derek",
+    "quote": "Ah! V-A elbow under pump head, that one I can vouch/attest for myself, our scan or model or something was conservative there, and it does fit with a 1 mm clearance or so.",
+    "result": "Derek accepts the physical under-pump-head V-A elbow fit and reports approximately 1 mm clearance.",
+    "scope": "Qualitative physical fit and approximate clearance attestation for the received pump and union elbow arrangement. The stored CAD closest-point values remain model readings."
+  }
 }
