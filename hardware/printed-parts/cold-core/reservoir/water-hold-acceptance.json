@@ -2,7 +2,7 @@
   "schema": 1,
   "part": "flavor-reservoir",
   "reported_by": "Derek",
-  "recorded_date": "2026-10-25",
+  "recorded_date": "2026-10-26",
   "records": [
     {
       "id": "may-30-clear-06",
@@ -239,8 +239,24 @@
       "layer_height_mm": 0.24,
       "first_layer_height_mm": 0.3,
       "scope": "Water hold belongs to the identified completed right reservoir. Duration, water head, float movement and cap/gasket assembly sealing are not separately assessed."
+    },
+    {
+      "id": "october-26-latest-two-hour-leak",
+      "status": "leaked",
+      "reported_date": "2026-10-26",
+      "reported_by": "Derek",
+      "printer_task_id": null,
+      "article_identification": "Most recent reservoir print, as identified by Derek; exact task and side unconfirmed.",
+      "observation": "A small amount of water after two hours, reported at the line between wall and infill.",
+      "hold_duration": "2 hours",
+      "fill_height_mm": null,
+      "water_temperature_C": null,
+      "leak_volume_ml": null,
+      "physical_result": "water-hold-evidence/2026-10-26-two-hour-leak/physical-result.json",
+      "next_candidate": "recipe-reviews/2026-10-26-overlap40/README.md",
+      "scope": "Applies to the reported article; task-specific earlier hold observations retain their recorded scope."
     }
   ],
-  "scope": "Preserve the identified May and September water holds and all October accepted articles. Task 1374963298 adds a completed right reservoir printed through the fixed left 0.8 mm hotend on glued Engineering Plate, reported holding water. Each result applies to its identified article and reported conditions.",
+  "scope": "Water-hold and leakage observations apply to their identified articles and reported conditions. The October 26 two-hour leak report identifies the most recent reservoir without an explicit task ID. Earlier task-specific hold observations retain their scope; the 40% overlap candidate has no physical result.",
   "clock_scope": "Printer file timestamps and timelapse filenames are preserved as reported; their different clock conventions are not normalized."
 }

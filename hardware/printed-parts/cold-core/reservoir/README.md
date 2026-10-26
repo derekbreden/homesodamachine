@@ -12,16 +12,32 @@ carries both mouths: the fill, and the dip tube the draw line becomes.
 [Level sensing](level-sensing.md) · [Floor and dip tube](floor-and-dip-tube.md) ·
 [Vent](vent.md)
 
-## Engineering Plate left reservoir and lid
+## Two-hour leakage and next overlap candidate
+
+Derek reports that the most recent reservoir leaks a small amount after
+**two hours**, at the line between wall and infill. The
+[physical record and photographs](water-hold-evidence/2026-10-26-two-hour-leak/physical-result.json)
+retain that result without assigning an unconfirmed task ID. The visible wet
+marks establish leakage beside the base; the internal path is unconfirmed.
+
+The [next candidate](recipe-reviews/2026-10-26-overlap40/README.md) uses **40%
+Infill/Wall overlap**, with the latest **255/260 °C Engineering Plate / left
+0.8 mm** recipe otherwise retained. The candidate settings and unchanged
+geometry are verified; native slicing and a physical water-hold result are
+pending. No new job is submitted. Earlier task-specific observations retain
+their recorded scope.
+
+## Recorded Engineering Plate left reservoir and lid
 
 The [left body and matching lid](prints/2026-10-25-mark1-left-engineering-flow105-overlap30-temp260-left08-z000/README.md)
-are running as **Mark1 task 1375878568**, accepted **22:03:53 CDT October 25 /
+have recorded launch **Mark1 task 1375878568**, accepted **22:03:53 CDT October 25 /
 03:03:53 UTC October 26**, through the fixed **left 0.8 mm Standard** nozzle.
 The glued **Engineering Plate** recipe retains flow 1.05, five Arachne walls,
 30% overlap, 255/260 °C nozzle, 70 °C bed and **0.00 mm Z compensation**.
-**A2** starts with automatic refill; A1 is empty. Startup is RUNNING,
-layer 0/833, print error 0 and no HMS. New-article adhesion and water hold
-are unassessed.
+**A2** is the recorded starting spool with automatic refill; A1 is recorded empty.
+The retained startup observation is RUNNING, layer 0/833, print error 0 and no HMS.
+The October 26 leak report identifies the most recent reservoir without an
+explicit task ID.
 
 The preceding [right reservoir, task 1374963298](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/physical-result/physical-result.json)
 completed 833/833 layers and **turned out well and is holding water**, as
@@ -46,11 +62,11 @@ out well so far and requests the other side with the same settings. The older
 265/270 °C article is also still holding water. Total hold durations and water
 heads are unspecified. [Acceptance records](water-hold-acceptance.json).
 
-The selected repeat recipe uses **1.05 flow, five requested Arachne wall loops,
+The recorded 30% repeat recipe uses **1.05 flow, five requested Arachne wall loops,
 30% Infill/Wall overlap and 255/260 °C** first/subsequent nozzle temperatures.
-Use the [Engineering Plate repeat settings](prints/2026-10-25-mark1-left-engineering-flow105-overlap30-temp260-left08-z000/settings.json)
+The [Engineering Plate repeat settings](prints/2026-10-25-mark1-left-engineering-flow105-overlap30-temp260-left08-z000/settings.json)
 and [native source](prints/2026-10-25-mark1-left-engineering-flow105-overlap30-temp260-left08-z000/packaging.json)
-for this repeat through Mark1's left **0.8 mm Standard** nozzle. The completed
+identify this 30% print through Mark1's left **0.8 mm Standard** nozzle. The completed
 left water-hold article used Textured PEI.
 
 [reservoir.3mf](reservoir.3mf) and [print-settings.json](print-settings.json)

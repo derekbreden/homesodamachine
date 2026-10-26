@@ -1,7 +1,14 @@
 # Printing the reservoir in PETG
 
+The [next candidate](recipe-reviews/2026-10-26-overlap40/README.md) uses **40%
+Infill/Wall overlap** with the latest 255/260 °C Engineering Plate / left
+0.8 mm recipe otherwise retained. It addresses the
+[reported two-hour leakage](water-hold-evidence/2026-10-26-two-hour-leak/physical-result.json)
+at the wall/fill line. Its settings and unchanged geometry are verified;
+native slicing and physical sealing remain unassessed. No new job is submitted.
+
 The [left body and matching lid](prints/2026-10-25-mark1-left-engineering-flow105-overlap30-temp260-left08-z000/README.md)
-are running as **Mark1 task 1375878568**, accepted **22:03:53 CDT October 25 /
+have recorded launch **Mark1 task 1375878568**, accepted **22:03:53 CDT October 25 /
 03:03:53 UTC October 26**, on the fixed **left 0.8 mm Standard** hotend,
 glued **Engineering Plate**, **0.00 mm Z compensation**, A2 and automatic refill.
 The preceding [right reservoir](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/physical-result/physical-result.json)
@@ -14,7 +21,7 @@ has reported polymer buildup and a photographed motion-step-loss warning.
 Fresh retained status is FAILED with no current error/HMS. The failure's
 cause and actual stop layer are unestablished.
 
-The repeat's [complete settings](prints/2026-10-25-mark1-left-engineering-flow105-overlap30-temp260-left08-z000/settings.json)
+That print's [complete settings](prints/2026-10-25-mark1-left-engineering-flow105-overlap30-temp260-left08-z000/settings.json)
 retain **255/260 °C**, flow 1.05, five walls, 30% overlap and **70 °C** bed.
 The complete recipe is retained for the opposite-side body/lid pair. **A2**
 starts before matching A3/A4, with A1 empty. Send verifies Timelapse On,
@@ -25,7 +32,7 @@ is unobserved during layer 0 preparation.
 The completed [255/260 °C left article](prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json)
 and older 265/270 °C article are reported holding water on October 25. Both
 used Textured PEI with zero added user trim. The table describes the selected
-Engineering Plate trial; it has no physical adhesion or sealing result yet.
+40% Engineering Plate candidate; it has no physical adhesion or sealing result yet.
 The root project and print-settings.json retain the 265/270 °C Textured PEI reference.
 
 [reservoir.3mf](reservoir.3mf) uses the **five-wall May Water adaptation**
@@ -44,7 +51,7 @@ identifies the current geometry and project. The baseline water-hold acceptance 
 `may-30-clear-06` in [water-hold-acceptance.json](water-hold-acceptance.json).
 Its water hold belongs to the historical May article. The 59° article [still leaks at the bottom and has a new vertical-edge defect](prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/physical-result.json). The preceding walls-only article has [reported seam leakage](prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json); corner-flatness and adhesion are not separately reported for that article.
 
-## Engineering Plate trial recipe
+## Next Engineering Plate candidate
 
 | Parameter | Value |
 | --- | --- |
@@ -61,7 +68,7 @@ Its water hold belongs to the historical May article. The 59° article [still le
 | Arachne wall transition angle | 10°, the Arachne default |
 | Fill / top / first-layer width | 0.80 mm |
 | Model fill | 100% zig-zag; top 3 layers with 0.8 mm minimum thickness; bottom 3 layers |
-| Infill / Wall overlap | 30% |
+| Infill / Wall overlap | 40%; physical result pending |
 | Floor construction | Modeled 3 mm floor, perimeter loops and solid fill |
 | Top / bottom pattern | Zig-zag |
 | Ironing, model and supports | Off |
@@ -135,8 +142,10 @@ the completed **255/260 °C** left reservoir on Textured PEI, the completed
 **255/260 °C** right reservoir on glued Engineering Plate, and the intentionally
 shortened **265/270 °C** reservoir. The older article's initial report was a
 one-hour hold. Total ongoing durations, water head and cap/gasket assembly
-sealing are unspecified. The selected repeat retains the successful right
-article's Engineering Plate recipe for the left body and lid.
+sealing are unspecified. The selected 40% candidate uses that Engineering Plate
+recipe for the left body and lid, with increased overlap and no physical result.
+The October 26 report records leakage after two hours on the most recent article
+without an explicit task ID.
 [Right Engineering Plate result](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/physical-result/physical-result.json) ·
 [Left Textured PEI result](prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json) ·
 [Older physical result](prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json).

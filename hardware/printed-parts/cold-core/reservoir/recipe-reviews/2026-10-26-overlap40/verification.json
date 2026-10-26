@@ -1,0 +1,51 @@
+{
+  "recorded_on": "2026-10-26",
+  "candidate_project": ".cache/reservoir-overlap40-20261026/candidate.3mf",
+  "candidate_project_sha256": "fa8b389379bb76c96eb50d1394eeb5b513890ed074b397562e4cb5207abc0076",
+  "candidate_settings_match_saved_json": true,
+  "changed_archive_entries": [
+    "Metadata/project_settings.config"
+  ],
+  "setting_changes": {
+    "infill_wall_overlap": {
+      "from": "30%",
+      "to": "40%"
+    },
+    "print_settings_id": {
+      "from": "Reservoir May Water 0.8 - solid walls overlap30 flow105",
+      "to": "Reservoir PETG 0.8 - five walls overlap40 flow105 260C"
+    }
+  },
+  "geometry_and_placement_entries_byte_identical": [
+    "3D/3dmodel.model",
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_2.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/model_settings.config"
+  ],
+  "all_other_settings_identical": true,
+  "candidate_contains_gcode": false,
+  "native_slice": {
+    "status": "pending",
+    "application": "BambuStudio-02.08.02.61",
+    "attempt_exit_codes": [
+      139,
+      139
+    ],
+    "isolated_datadir_retry": true,
+    "produced_slice": false,
+    "logs": [
+      {
+        "path": ".cache/reservoir-overlap40-20261026/slicer.log",
+        "sha256": "7fd0ac85f52e2fac11a22e6f730026d9cb27deee40dbfd59651670efdd5fa000"
+      },
+      {
+        "path": ".cache/reservoir-overlap40-20261026/slicer-isolated.log",
+        "sha256": "79e8655859b031817e97bb662c81f0b6fc4e546ef43a69a0322e35e0c0ba355f"
+      }
+    ]
+  },
+  "printer_job_submitted": false,
+  "physical_water_hold": "unassessed",
+  "scope": "Archive integrity and exact recipe delta only. No emitted-path or physical sealing result is claimed."
+}
