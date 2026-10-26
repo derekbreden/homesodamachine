@@ -1,0 +1,908 @@
+{
+  "reviewed_at": "2026-10-26T00:07:59-05:00",
+  "scope": "Manual assembly-clearance reading. Native STEP distances and named interface classification; no physical print fit, vibration amplitude, strength, sealing or lifetime claim.",
+  "customer_outcome": "One millimetre of nominal space between unrelated installed parts, preserving selected carrying pieces and connections.",
+  "native_reading": {
+    "source": "hardware/manifold-layout/enclosure-assembly.step",
+    "sha256": "257021ee95bb8f5b45f15536f699ec6a961468c1e060c3ce5441c9c7c60a5081",
+    "scope": "Exact saved STEP distances; actual casing is the five exported casing pieces. No physical fit or vibration reading.",
+    "clearances": [
+      {
+        "parts": [
+          "va-east-turn",
+          "g-ganen-pump"
+        ],
+        "gap_mm": 0.1904154256439075,
+        "a_mm": [
+          17.6317,
+          309.37135257664414,
+          269.7594920167919
+        ],
+        "b_mm": [
+          17.6303535412482,
+          309.376854156472,
+          269.9498231860506
+        ]
+      },
+      {
+        "parts": [
+          "va-east-turn",
+          "actual-casing"
+        ],
+        "gap_mm": 0.03709980000002133,
+        "a_mm": [
+          17.6317,
+          309.1355,
+          253.43710000000002
+        ],
+        "b_mm": [
+          17.6317,
+          309.1355,
+          253.4000002
+        ]
+      },
+      {
+        "parts": [
+          "funnel-frame",
+          "actual-casing"
+        ],
+        "gap_mm": 0.6899996999999871,
+        "a_mm": [
+          34.000000005148,
+          225.8793398,
+          299.8999999
+        ],
+        "b_mm": [
+          34.000000005148,
+          225.8793398,
+          299.2100002
+        ]
+      },
+      {
+        "parts": [
+          "tube-above-core-va-fore-feed",
+          "actual-casing"
+        ],
+        "gap_mm": 0.8749999948513398,
+        "a_mm": [
+          20.82499999999935,
+          234.99999999999994,
+          261.59999999999974
+        ],
+        "b_mm": [
+          19.95000000514801,
+          234.99999999999997,
+          261.5999999999998
+        ]
+      },
+      {
+        "parts": [
+          "tube-fluid-16",
+          "funnel-frame"
+        ],
+        "gap_mm": 0.5499998999999889,
+        "a_mm": [
+          29.0,
+          176.0,
+          299.35
+        ],
+        "b_mm": [
+          29.0,
+          176.0,
+          299.8999999
+        ]
+      },
+      {
+        "parts": [
+          "tube-fluid-14",
+          "funnel-frame"
+        ],
+        "gap_mm": 0.5499998999999889,
+        "a_mm": [
+          82.1,
+          122.04,
+          299.35
+        ],
+        "b_mm": [
+          82.1,
+          122.04,
+          299.8999999
+        ]
+      },
+      {
+        "parts": [
+          "tube-fluid-24",
+          "funnel-frame"
+        ],
+        "gap_mm": 0.5499998999999889,
+        "a_mm": [
+          -82.1,
+          122.04,
+          299.35
+        ],
+        "b_mm": [
+          -82.1,
+          122.04,
+          299.8999999
+        ]
+      },
+      {
+        "parts": [
+          "tube-fluid-16",
+          "lower-valve-elbow"
+        ],
+        "gap_mm": 0.8757011287680001,
+        "a_mm": [
+          83.325,
+          302.08976052818,
+          259.5
+        ],
+        "b_mm": [
+          82.449298871232,
+          302.08976052818,
+          259.5
+        ]
+      },
+      {
+        "parts": [
+          "ya-stem-elbow",
+          "elbow-cradle"
+        ],
+        "gap_mm": 0.6634861966970114,
+        "a_mm": [
+          15.713486196697012,
+          175.18274530211818,
+          276.7202
+        ],
+        "b_mm": [
+          15.05,
+          175.18274530211818,
+          276.7202
+        ]
+      },
+      {
+        "parts": [
+          "yb-stem-elbow",
+          "elbow-cradle"
+        ],
+        "gap_mm": 0.6634861966970114,
+        "a_mm": [
+          -15.713486196697012,
+          175.18274530211818,
+          276.7202
+        ],
+        "b_mm": [
+          -15.05,
+          175.18274530211818,
+          276.7202
+        ]
+      },
+      {
+        "parts": [
+          "tube-fluid-28",
+          "gas-regulator"
+        ],
+        "gap_mm": 0.8683610129145359,
+        "a_mm": [
+          66.87546880770222,
+          421.0553720127759,
+          289.0076367534627
+        ],
+        "b_mm": [
+          67.5672792324,
+          420.53618740782,
+          288.93084788053
+        ]
+      },
+      {
+        "parts": [
+          "tube-fluid-28",
+          "enclosure-back-top"
+        ],
+        "gap_mm": 0.8038037107539638,
+        "a_mm": [
+          64.40562302843891,
+          418.4151996757805,
+          296.649944865802
+        ],
+        "b_mm": [
+          64.4056230284389,
+          417.6148,
+          296.57604788053
+        ]
+      },
+      {
+        "parts": [
+          "lower-pump-elbow",
+          "pump-inlet-tube-band"
+        ],
+        "gap_mm": 0.3947780521365953,
+        "a_mm": [
+          51.308898871232,
+          315.68541489974604,
+          266.60884337132114
+        ],
+        "b_mm": [
+          51.308898871232,
+          315.9690829263,
+          266.3342852515
+        ]
+      },
+      {
+        "parts": [
+          "bulkhead-carb",
+          "bulkhead-ring-carb-word"
+        ],
+        "gap_mm": 1.1904651162680318,
+        "a_mm": [
+          77.23656796178152,
+          471.7800001,
+          317.80301176256097
+        ],
+        "b_mm": [
+          77.209130809375,
+          471.7800001,
+          318.99316065901
+        ]
+      },
+      {
+        "parts": [
+          "bulkhead-water",
+          "bulkhead-ring-water-word"
+        ],
+        "gap_mm": 1.2144163819151803,
+        "a_mm": [
+          36.563733645971304,
+          471.7800001,
+          349.7854273571097
+        ],
+        "b_mm": [
+          36.490819233732,
+          471.7800001,
+          350.99765284651
+        ]
+      },
+      {
+        "parts": [
+          "funnel",
+          "funnel-frame-front-west-screw"
+        ],
+        "gap_mm": 0.19999999999998863,
+        "a_mm": [
+          -90.25,
+          124.99999207671,
+          354.9999999
+        ],
+        "b_mm": [
+          -90.25,
+          124.99999207671,
+          354.7999999
+        ]
+      },
+      {
+        "parts": [
+          "funnel",
+          "funnel-frame-front-east-screw"
+        ],
+        "gap_mm": 0.19999999999998863,
+        "a_mm": [
+          95.75,
+          124.99999207671,
+          354.9999999
+        ],
+        "b_mm": [
+          95.75,
+          124.99999207671,
+          354.7999999
+        ]
+      },
+      {
+        "parts": [
+          "funnel",
+          "funnel-frame-back-west-screw"
+        ],
+        "gap_mm": 0.19999999999998863,
+        "a_mm": [
+          -88.42168783648,
+          260.74150792328,
+          354.9999999
+        ],
+        "b_mm": [
+          -88.42168783648,
+          260.74150792328,
+          354.7999999
+        ]
+      },
+      {
+        "parts": [
+          "funnel",
+          "funnel-frame-back-east-screw"
+        ],
+        "gap_mm": 0.19999999999998863,
+        "a_mm": [
+          89.143375672974,
+          259.49150792328,
+          354.9999999
+        ],
+        "b_mm": [
+          89.143375672974,
+          259.49150792328,
+          354.7999999
+        ]
+      }
+    ],
+    "mating_pairs": [
+      {
+        "parts": [
+          "water-split",
+          "tee-fold"
+        ],
+        "common_mm3": 0.0,
+        "gap_mm": 0.0,
+        "a_mm": [
+          57.354098871232,
+          296.33976052818,
+          337.55104788053
+        ],
+        "b_mm": [
+          57.354098871232,
+          296.33976052818,
+          337.55104788053
+        ]
+      },
+      {
+        "parts": [
+          "flow-regulator",
+          "reg-va-elbow"
+        ],
+        "common_mm3": 0.0,
+        "gap_mm": 0.0,
+        "a_mm": [
+          -57.35410112876,
+          296.33976052818,
+          331.20104788053
+        ],
+        "b_mm": [
+          -57.35410112876,
+          296.33976052818,
+          331.20104788053
+        ]
+      },
+      {
+        "parts": [
+          "gas-check",
+          "gas-lower-b"
+        ],
+        "common_mm3": 0.0,
+        "gap_mm": 0.0,
+        "a_mm": [
+          78.2,
+          390.2824,
+          281.33564788053
+        ],
+        "b_mm": [
+          78.2,
+          390.2824,
+          281.33564788053
+        ]
+      },
+      {
+        "parts": [
+          "lower-pump-elbow",
+          "pump-inlet-tpu"
+        ],
+        "common_mm3": 0.0,
+        "gap_mm": 0.0,
+        "a_mm": [
+          45.808898871232,
+          313.23731690023,
+          271.58195896266
+        ],
+        "b_mm": [
+          45.808898871232,
+          313.23731690023,
+          271.58195896266
+        ]
+      },
+      {
+        "parts": [
+          "discharge-chain",
+          "pump-outlet-tpu"
+        ],
+        "common_mm3": 0.0,
+        "gap_mm": 0.0,
+        "a_mm": [
+          -32.80179966121,
+          348.17648236865,
+          285.6594881518
+        ],
+        "b_mm": [
+          -32.80179966121,
+          348.17648236865,
+          285.6594881518
+        ]
+      },
+      {
+        "parts": [
+          "discharge-chain",
+          "pump-outlet-tube-band"
+        ],
+        "common_mm3": 0.0,
+        "gap_mm": 0.0,
+        "a_mm": [
+          -28.04391597148941,
+          348.17648236865,
+          275.71657872454796
+        ],
+        "b_mm": [
+          -28.04391597148941,
+          348.17648236865,
+          275.71657872454796
+        ]
+      },
+      {
+        "parts": [
+          "funnel-frame",
+          "funnel-frame-front-west-screw"
+        ],
+        "common_mm3": 0.0,
+        "gap_mm": 0.0,
+        "a_mm": [
+          -91.35,
+          124.99999207671,
+          351.7999999
+        ],
+        "b_mm": [
+          -91.35,
+          124.99999207671,
+          351.7999999
+        ]
+      },
+      {
+        "parts": [
+          "funnel-frame",
+          "funnel-frame-front-west-insert"
+        ],
+        "common_mm3": 0.0,
+        "gap_mm": 0.0,
+        "a_mm": [
+          -91.35,
+          124.99999207671,
+          345.9999999
+        ],
+        "b_mm": [
+          -91.35,
+          124.99999207671,
+          345.9999999
+        ]
+      },
+      {
+        "parts": [
+          "funnel-frame",
+          "funnel-frame-front-east-screw"
+        ],
+        "common_mm3": 0.0,
+        "gap_mm": 0.0,
+        "a_mm": [
+          94.65,
+          124.99999207671,
+          351.7999999
+        ],
+        "b_mm": [
+          94.65,
+          124.99999207671,
+          351.7999999
+        ]
+      },
+      {
+        "parts": [
+          "funnel-frame",
+          "funnel-frame-front-east-insert"
+        ],
+        "common_mm3": 0.0,
+        "gap_mm": 0.0,
+        "a_mm": [
+          94.65,
+          124.99999207671,
+          345.9999999
+        ],
+        "b_mm": [
+          94.65,
+          124.99999207671,
+          345.9999999
+        ]
+      },
+      {
+        "parts": [
+          "funnel-frame",
+          "funnel-frame-back-west-screw"
+        ],
+        "common_mm3": 0.0,
+        "gap_mm": 0.0,
+        "a_mm": [
+          -84.95,
+          259.49150792328,
+          351.7999999
+        ],
+        "b_mm": [
+          -84.95,
+          259.49150792328,
+          351.7999999
+        ]
+      },
+      {
+        "parts": [
+          "funnel-frame",
+          "funnel-frame-back-west-insert"
+        ],
+        "common_mm3": 0.0,
+        "gap_mm": 0.0,
+        "a_mm": [
+          -86.05,
+          259.49150792328,
+          345.9999999
+        ],
+        "b_mm": [
+          -86.05,
+          259.49150792328,
+          345.9999999
+        ]
+      },
+      {
+        "parts": [
+          "funnel-frame",
+          "funnel-frame-back-east-screw"
+        ],
+        "common_mm3": 0.0,
+        "gap_mm": 0.0,
+        "a_mm": [
+          90.45,
+          259.49150792328,
+          351.7999999
+        ],
+        "b_mm": [
+          90.45,
+          259.49150792328,
+          351.7999999
+        ]
+      },
+      {
+        "parts": [
+          "funnel-frame",
+          "funnel-frame-back-east-insert"
+        ],
+        "common_mm3": 0.0,
+        "gap_mm": 0.0,
+        "a_mm": [
+          89.35,
+          259.49150792328,
+          345.9999999
+        ],
+        "b_mm": [
+          89.35,
+          259.49150792328,
+          345.9999999
+        ]
+      }
+    ]
+  },
+  "scorecard": {
+    "path": "hardware/manifold-layout/enclosure-assembly.scorecard.json",
+    "sha256": "4947168273bcfcc7e54c69e36f2a0011c94837d69cb585491e7d4ca4874391e2",
+    "checks": [
+      {
+        "id": "coverage",
+        "label": "Every placed body is declared in the fastening table",
+        "kind": "gate",
+        "status": "pass",
+        "value": "159/159 declared",
+        "target": "all declared",
+        "detail": [],
+        "active": true
+      },
+      {
+        "id": "room-holds",
+        "label": "Every derived pose has the room its own construction states",
+        "kind": "gate",
+        "status": "pass",
+        "value": "3/3 bands held, tightest +0.000 mm",
+        "target": "every band held",
+        "detail": [
+          "funnel-drain-union: the drop off the elbow `fluid-4` reaches V-B on \u2014 wants 0, has 0.000",
+          "thermal-fuse: cover either side of the case \u2014 wants 0, has 5.250",
+          "thermal-fuse: cover above and below the case \u2014 wants 0, has 20.400"
+        ],
+        "active": true
+      },
+      {
+        "id": "pack-closes",
+        "label": "No two solids overlap (pack closes)",
+        "kind": "gate",
+        "status": "pass",
+        "value": "0 clash, 0 unanswered",
+        "target": "0 clash, 0 unanswered",
+        "detail": [
+          "Selected nominal mates: 32/32 within finite insertion/thread/heat-set regions at the existing 1 mm\u00b3 contact floor; maximum outside 0.743481 mm\u00b3. Physical insertion, sealing and retention remain unqualified.",
+          "Flavor reducer stems in their valve outlets: v-g 258.0 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; v-j 258.0 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it",
+          "Stem elbows in their collets: v-c 77.2 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; v-d 77.2 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; v-g 77.2 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; v-j 77.2 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; y-c 0.2 mm\u00b3 in the stem, 0.224926 mm\u00b3 outside it; y-d 0.2 mm\u00b3 in the stem, 0.224926 mm\u00b3 outside it; y-f 0.2 mm\u00b3 in the stem, 0.224926 mm\u00b3 outside it; y-g 0.2 mm\u00b3 in the stem, 0.224926 mm\u00b3 outside it",
+          "Drain stub in the plug's land: 17.02 mm\u00b3 in the push-on seal's ring, 0.000000 mm\u00b3 outside it"
+        ],
+        "active": true
+      },
+      {
+        "id": "clearance-floor",
+        "label": "Pairs outside named pack-floor exclusions stand a millimetre apart",
+        "kind": "gate",
+        "status": "fail",
+        "value": "17 under, tightest 0.037 mm",
+        "target": "\u2265 1 mm",
+        "detail": [
+          "every body pair, and every drawn run against what its own line does not join it to \u2014 the exact solid distance, with boxes only as a prefilter",
+          "va-east-turn \u2014 foam-assembly: 0.037 mm \u2014 \u2717 under the global pack floor",
+          "va-east-turn \u2014 g-ganen-pump: 0.192 mm \u2014 \u2717 under the global pack floor",
+          "funnel \u2014 funnel-frame-front-west-screw: 0.200 mm \u2014 \u2717 under the global pack floor",
+          "funnel \u2014 funnel-frame-front-east-screw: 0.200 mm \u2014 \u2717 under the global pack floor",
+          "funnel \u2014 funnel-frame-back-west-screw: 0.200 mm \u2014 \u2717 under the global pack floor",
+          "funnel \u2014 funnel-frame-back-east-screw: 0.200 mm \u2014 \u2717 under the global pack floor",
+          "lower-pump-elbow \u2014 pump-inlet-tube-band: 0.393 mm \u2014 \u2717 under the global pack floor",
+          "fluid-16 \u2014 funnel-frame: 0.550 mm \u2014 \u2717 under the global pack floor",
+          "fluid-14 \u2014 funnel-frame: 0.551 mm \u2014 \u2717 under the global pack floor",
+          "fluid-24 \u2014 funnel-frame: 0.551 mm \u2014 \u2717 under the global pack floor",
+          "ya-stem-elbow \u2014 elbow-cradle: 0.666 mm \u2014 \u2717 under the global pack floor",
+          "yb-stem-elbow \u2014 elbow-cradle: 0.666 mm \u2014 \u2717 under the global pack floor",
+          "funnel-frame \u2014 foam-assembly: 0.690 mm \u2014 \u2717 under the global pack floor",
+          "fluid-28 \u2014 gas-regulator: 0.800 mm \u2014 \u2717 under the global pack floor",
+          "fluid-28 \u2014 enclosure-back-top: 0.806 mm \u2014 \u2717 under the global pack floor",
+          "above-core-va-fore-feed \u2014 foam-assembly: 0.875 mm \u2014 \u2717 under the global pack floor",
+          "fluid-16 \u2014 lower-valve-elbow: 0.876 mm \u2014 \u2717 under the global pack floor",
+          "fluid-16 threads funnel-frame \u2014 lower-valve-elbow: they leave 7.776 mm and the tube is \u00d86.35, so 0.713 mm a side if it were centred, and it is not",
+          "compressor \u2014 thermal-fuse: 0.000 mm \u2014 excluded from the global pack floor",
+          "compressor \u2014 fuse-clamp: 0.000 mm \u2014 excluded from the global pack floor",
+          "thermal-fuse \u2014 fuse-clamp: 0.000 mm \u2014 excluded from the global pack floor",
+          "tee-y-a \u2014 ya-stem-elbow: 0.000 mm \u2014 excluded from the global pack floor",
+          "valve-v-g \u2014 flavor-reducer-v-g: 0.000 mm \u2014 excluded from the global pack floor",
+          "tee-y-b \u2014 yb-stem-elbow: 0.000 mm \u2014 excluded from the global pack floor",
+          "valve-v-j \u2014 flavor-reducer-v-j: 0.000 mm \u2014 excluded from the global pack floor",
+          "asse1022-assembly \u2014 asse-inlet-tpu: 0.000 mm \u2014 excluded from the global pack floor",
+          "asse1022-assembly \u2014 asse-outlet-tpu: 0.000 mm \u2014 excluded from the global pack floor",
+          "asse1022-assembly \u2014 asse-drain-adapter: 0.000 mm \u2014 excluded from the global pack floor",
+          "digiten-flow \u2014 soda-outlet-return-stem: 0.000 mm \u2014 excluded from the global pack floor",
+          "valve-v-a \u2014 reg-va-elbow: 0.000 mm \u2014 excluded from the global pack floor",
+          "valve-v-a \u2014 va-outlet-elbow: 0.000 mm \u2014 excluded from the global pack floor",
+          "vk-solenoid \u2014 tee-fold: 0.000 mm \u2014 excluded from the global pack floor",
+          "vk-solenoid \u2014 lower-valve-elbow: 0.000 mm \u2014 excluded from the global pack floor",
+          "vk-solenoid \u2014 soda-continuous-insulation: 0.000 mm \u2014 excluded from the global pack floor",
+          "asse-outlet-tpu \u2014 water-split: 0.000 mm \u2014 excluded from the global pack floor",
+          "water-split \u2014 tee-fold: 0.000 mm \u2014 excluded from the global pack floor",
+          "flow-regulator \u2014 reg-va-elbow: 0.000 mm \u2014 excluded from the global pack floor",
+          "gas-regulator \u2014 gas-inlet-elbow: 0.000 mm \u2014 excluded from the global pack floor",
+          "gas-regulator \u2014 gas-lower-a: 0.000 mm \u2014 excluded from the global pack floor",
+          "gas-check \u2014 gas-lower-b: 0.000 mm \u2014 excluded from the global pack floor",
+          "gas-check \u2014 gas-upper-a: 0.000 mm \u2014 excluded from the global pack floor",
+          "lower-valve-elbow \u2014 lower-pump-elbow: 0.000 mm \u2014 excluded from the global pack floor",
+          "lower-pump-elbow \u2014 pump-inlet-tpu: 0.000 mm \u2014 excluded from the global pack floor",
+          "gas-lower-a \u2014 gas-lower-b: 0.000 mm \u2014 excluded from the global pack floor",
+          "gas-upper-a \u2014 gas-upper-b: 0.000 mm \u2014 excluded from the global pack floor",
+          "soda-stem-elbow \u2014 soda-outlet-return-stem: 0.000 mm \u2014 excluded from the global pack floor",
+          "soda-stem-elbow \u2014 bulkhead-carb: 0.000 mm \u2014 excluded from the global pack floor",
+          "drain-outlet-stem \u2014 funnel-drain-union: 0.000 mm \u2014 excluded from the global pack floor",
+          "soda-bend-holder \u2014 soda-continuous-insulation: 0.000 mm \u2014 excluded from the global pack floor",
+          "soda-continuous-insulation \u2014 g-ganen-pump: 0.000 mm \u2014 excluded from the global pack floor",
+          "soda-continuous-insulation \u2014 pump-inlet-barb-band: 0.000 mm \u2014 excluded from the global pack floor",
+          "soda-continuous-insulation \u2014 pump-inlet-tpu: 0.000 mm \u2014 excluded from the global pack floor",
+          "bulkhead-water \u2014 bulkhead-water-nut: 0.000 mm \u2014 excluded from the global pack floor",
+          "bulkhead-water \u2014 bulkhead-ring-water: 0.000 mm \u2014 excluded from the global pack floor",
+          "co2-inlet \u2014 co2-inlet-nut: 0.000 mm \u2014 excluded from the global pack floor",
+          "co2-inlet \u2014 bulkhead-ring-co2: 0.000 mm \u2014 excluded from the global pack floor",
+          "bulkhead-drain \u2014 bulkhead-drain-nut: 0.000 mm \u2014 excluded from the global pack floor",
+          "bulkhead-drain \u2014 bulkhead-ring-drain: 0.000 mm \u2014 excluded from the global pack floor",
+          "bulkhead-carb \u2014 bulkhead-carb-nut: 0.000 mm \u2014 excluded from the global pack floor",
+          "bulkhead-carb \u2014 bulkhead-ring-carb: 0.000 mm \u2014 excluded from the global pack floor",
+          "bulkhead-flavor-a \u2014 bulkhead-flavor-a-nut: 0.000 mm \u2014 excluded from the global pack floor",
+          "bulkhead-flavor-a \u2014 bulkhead-ring-flavor-a: 0.000 mm \u2014 excluded from the global pack floor",
+          "bulkhead-flavor-b \u2014 bulkhead-flavor-b-nut: 0.000 mm \u2014 excluded from the global pack floor",
+          "bulkhead-flavor-b \u2014 bulkhead-ring-flavor-b: 0.000 mm \u2014 excluded from the global pack floor",
+          "carbonator-fold \u2014 discharge-chain: 0.000 mm \u2014 excluded from the global pack floor",
+          "discharge-chain \u2014 pump-outlet-tpu: 0.000 mm \u2014 excluded from the global pack floor",
+          "discharge-chain \u2014 pump-outlet-tube-band: 0.000 mm \u2014 excluded from the global pack floor",
+          "g-ganen-pump \u2014 pump-inlet-tpu: 0.000 mm \u2014 excluded from the global pack floor",
+          "g-ganen-pump \u2014 pump-outlet-tpu: 0.000 mm \u2014 excluded from the global pack floor",
+          "pcba \u2014 foam-assembly: 0.000 mm \u2014 excluded from the global pack floor",
+          "pump-inlet-barb-band \u2014 pump-inlet-tpu: 0.000 mm \u2014 excluded from the global pack floor",
+          "pump-inlet-tpu \u2014 pump-inlet-tube-band: 0.000 mm \u2014 excluded from the global pack floor",
+          "pump-outlet-barb-band \u2014 pump-outlet-tpu: 0.000 mm \u2014 excluded from the global pack floor",
+          "pump-outlet-tpu \u2014 pump-outlet-tube-band: 0.000 mm \u2014 excluded from the global pack floor",
+          "valve-v-b \u2014 vb-inlet-turn: 0.000 mm \u2014 excluded from the global pack floor",
+          "valve-v-b \u2014 vb-outlet-stem: 0.000 mm \u2014 excluded from the global pack floor",
+          "valve-v-b \u2014 foam-assembly: 0.000 mm \u2014 excluded from the global pack floor",
+          "ground-stack \u2014 foam-assembly: 0.000 mm \u2014 excluded from the global pack floor",
+          "funnel \u2014 funnel-cover: 0.000 mm \u2014 excluded from the global pack floor",
+          "funnel \u2014 funnel-frame: 0.000 mm \u2014 excluded from the global pack floor",
+          "funnel \u2014 elbow-cradle: 0.000 mm \u2014 excluded from the global pack floor",
+          "funnel \u2014 funnel-drain-stub: 0.000 mm \u2014 excluded from the global pack floor",
+          "funnel-frame \u2014 funnel-frame-front-west-screw: 0.000 mm \u2014 excluded from the global pack floor",
+          "funnel-frame \u2014 funnel-frame-front-west-insert: 0.000 mm \u2014 excluded from the global pack floor",
+          "funnel-frame \u2014 funnel-frame-front-east-screw: 0.000 mm \u2014 excluded from the global pack floor",
+          "funnel-frame \u2014 funnel-frame-front-east-insert: 0.000 mm \u2014 excluded from the global pack floor",
+          "funnel-frame \u2014 funnel-frame-back-west-screw: 0.000 mm \u2014 excluded from the global pack floor",
+          "funnel-frame \u2014 funnel-frame-back-west-insert: 0.000 mm \u2014 excluded from the global pack floor",
+          "funnel-frame \u2014 funnel-frame-back-east-screw: 0.000 mm \u2014 excluded from the global pack floor",
+          "funnel-frame \u2014 funnel-frame-back-east-insert: 0.000 mm \u2014 excluded from the global pack floor",
+          "bulkhead-ring-water \u2014 bulkhead-ring-water-word: 0.000 mm \u2014 excluded from the global pack floor",
+          "bulkhead-ring-co2 \u2014 bulkhead-ring-co2-word: 0.000 mm \u2014 excluded from the global pack floor",
+          "bulkhead-ring-drain \u2014 bulkhead-ring-drain-word: 0.000 mm \u2014 excluded from the global pack floor",
+          "bulkhead-ring-carb \u2014 bulkhead-ring-carb-word: 0.000 mm \u2014 excluded from the global pack floor",
+          "bulkhead-ring-flavor-a \u2014 bulkhead-ring-flavor-a-word: 0.000 mm \u2014 excluded from the global pack floor",
+          "bulkhead-ring-flavor-b \u2014 bulkhead-ring-flavor-b-word: 0.000 mm \u2014 excluded from the global pack floor",
+          "nameplate \u2014 nameplate-ink: 0.000 mm \u2014 excluded from the global pack floor",
+          "funnel-frame-front-west-screw \u2014 funnel-frame-front-west-insert: 0.000 mm \u2014 excluded from the global pack floor",
+          "funnel-frame-front-east-screw \u2014 funnel-frame-front-east-insert: 0.000 mm \u2014 excluded from the global pack floor",
+          "funnel-frame-back-west-screw \u2014 funnel-frame-back-west-insert: 0.000 mm \u2014 excluded from the global pack floor",
+          "funnel-frame-back-east-screw \u2014 funnel-frame-back-east-insert: 0.000 mm \u2014 excluded from the global pack floor",
+          "elbow-cradle \u2014 funnel-drain-union: 0.000 mm \u2014 excluded from the global pack floor",
+          "funnel-drain-union \u2014 funnel-drain-stub: 0.000 mm \u2014 excluded from the global pack floor",
+          "display \u2014 display-gasket: 0.000 mm \u2014 excluded from the global pack floor",
+          "display-cover \u2014 display-gasket: 0.000 mm \u2014 excluded from the global pack floor",
+          "y-seam-west-lower-screw \u2014 y-seam-west-lower-insert: 0.000 mm \u2014 excluded from the global pack floor",
+          "y-seam-west-upper-screw \u2014 y-seam-west-upper-insert: 0.000 mm \u2014 excluded from the global pack floor",
+          "y-seam-east-lower-screw \u2014 y-seam-east-lower-insert: 0.000 mm \u2014 excluded from the global pack floor",
+          "y-seam-east-upper-screw \u2014 y-seam-east-upper-insert: 0.000 mm \u2014 excluded from the global pack floor",
+          "pump-retainer-left-screw \u2014 pump-retainer-left-insert: 0.000 mm \u2014 excluded from the global pack floor",
+          "pump-retainer-centre-screw \u2014 pump-retainer-centre-insert: 0.000 mm \u2014 excluded from the global pack floor",
+          "pump-retainer-right-screw \u2014 pump-retainer-right-insert: 0.000 mm \u2014 excluded from the global pack floor",
+          "soda-core-rise \u2014 soda-continuous-insulation: 0.000 mm \u2014 excluded from the global pack floor",
+          "g-ganen-pump \u2014 foam-assembly: 0.000 mm \u2014 excluded from the global pack floor",
+          "vb-outlet-return \u2014 foam-assembly: 0.147 mm \u2014 excluded from the global pack floor",
+          "discharge-chain \u2014 foam-assembly: 0.147 mm \u2014 excluded from the global pack floor",
+          "funnel-frame \u2014 elbow-cradle: 0.150 mm \u2014 excluded from the global pack floor",
+          "wago-sensors \u2014 foam-assembly: 0.150 mm \u2014 excluded from the global pack floor",
+          "wago-v12 \u2014 foam-assembly: 0.150 mm \u2014 excluded from the global pack floor",
+          "wago-gnd \u2014 foam-assembly: 0.150 mm \u2014 excluded from the global pack floor",
+          "wago-reeds-b \u2014 foam-assembly: 0.150 mm \u2014 excluded from the global pack floor",
+          "soda-core-rise \u2014 soda-bend-holder: 0.224 mm \u2014 excluded from the global pack floor",
+          "funnel-frame \u2014 funnel-drain-union: 0.364 mm \u2014 excluded from the global pack floor",
+          "display \u2014 display-cover: 1.000 mm \u2014 excluded from the global pack floor",
+          "psu \u2014 relay-1: 1.000 mm",
+          "psu \u2014 foam-assembly: 1.000 mm",
+          "digiten-flow \u2014 soda-bend-holder: 1.000 mm",
+          "digiten-flow \u2014 soda-continuous-insulation: 1.000 mm",
+          "fluid-26 \u2014 pcba: 1.025 mm",
+          "fluid-26 \u2014 funnel-frame: 1.025 mm",
+          "digiten-flow \u2014 gas-check: 1.069 mm",
+          "co2-inlet \u2014 bulkhead-ring-co2-word: 1.081 mm",
+          "soda-continuous-insulation \u2014 foam-assembly: 1.100 mm",
+          "gas-lower-a \u2014 foam-assembly: 1.139 mm",
+          "elbow-cradle \u2014 foam-assembly: 1.147 mm",
+          "fluid-14 \u2014 fluid-16: 1.151 mm",
+          "above-core-vb-yb-cross \u2014 g-ganen-pump: 1.162 mm",
+          "lower-valve-elbow \u2014 foam-assembly: 1.162 mm",
+          "bulkhead-drain \u2014 bulkhead-ring-drain-word: 1.164 mm",
+          "bulkhead-flavor-a \u2014 bulkhead-ring-flavor-a-word: 1.169 mm",
+          "bulkhead-flavor-b \u2014 bulkhead-ring-flavor-b-word: 1.169 mm",
+          "tee-y-a \u2014 elbow-cradle: 1.172 mm",
+          "tee-y-b \u2014 elbow-cradle: 1.172 mm",
+          "bulkhead-carb \u2014 bulkhead-ring-carb-word: 1.191 mm",
+          "bulkhead-water \u2014 bulkhead-ring-water-word: 1.217 mm",
+          "fluid-18 \u2014 fluid-28: 1.250 mm",
+          "pump-inlet-barb-band \u2014 pump-inlet-tube-band: 1.265 mm",
+          "pump-outlet-barb-band \u2014 pump-outlet-tube-band: 1.265 mm",
+          "fluid-16 \u2014 g-ganen-pump: 1.288 mm",
+          "fluid-14 \u2014 enclosure-back-top: 1.325 mm",
+          "fluid-14 \u2014 valve-v-b: 1.386 mm",
+          "fluid-18 \u2014 drain-vent: 1.491 mm",
+          "lower-pump-elbow \u2014 foam-assembly: 1.494 mm",
+          "g-ganen-pump \u2014 pump-outlet-barb-band: 1.518 mm",
+          "fluid-26 \u2014 wago-v12: 1.521 mm",
+          "fluid-18 \u2014 fluid-26: 1.526 mm",
+          "fluid-18 \u2014 g-ganen-pump: 1.571 mm",
+          "drain-outlet-stem \u2014 elbow-cradle: 1.604 mm",
+          "va-outlet-elbow \u2014 foam-assembly: 1.639 mm",
+          "elbow-cradle \u2014 funnel-drain-stub: 1.641 mm",
+          "above-core-gas-core-drop \u2014 foam-assembly: 1.681 mm",
+          "fluid-18 \u2014 fluid-14: 1.688 mm",
+          "above-core-pump-inlet-link \u2014 g-ganen-pump: 1.721 mm",
+          "fluid-16 \u2014 valve-v-b: 1.735 mm",
+          "above-core-pump-check-link \u2014 g-ganen-pump: 1.750 mm",
+          "g-ganen-pump \u2014 pump-inlet-barb-band: 1.761 mm",
+          "fluid-14 \u2014 g-ganen-pump: 1.821 mm",
+          "above-core-gas-core-drop \u2014 fluid-14: 1.889 mm",
+          "soda-core-rise \u2014 pump-inlet-tpu: 1.891 mm",
+          "fluid-28 \u2014 drain-vent: 1.975 mm"
+        ],
+        "active": true
+      },
+      {
+        "id": "funnel-drain-attachment",
+        "label": "The removable funnel has a retained drain tube",
+        "kind": "goal",
+        "status": "pass",
+        "value": "PP0308E nose 0.65 mm below the web at Z299.250; stub top Z311.065 at the plug's 5.01482 mm land; fluid-4 44.7 mm to V-B",
+        "target": "a fixed tube through the frame connected to V-B",
+        "detail": [
+          "The cradle's snap and the plug's push-on seal on the stub are not physically qualified; `zone-c/funnel/cradle-trial` tests the snap."
+        ],
+        "active": false
+      }
+    ]
+  },
+  "drain_requirement": {
+    "route": {
+      "bend": 0.0,
+      "corners": 0,
+      "diam": 6.35,
+      "frm": "drain-outlet-stem",
+      "id": "above-core-drain-vb-east-link",
+      "length": 44.731999999999985,
+      "made": "drawn",
+      "segments": [
+        {
+          "kind": "line",
+          "points_mm": [
+            [
+              2.1590000000000025,
+              209.10914,
+              280.41
+            ],
+            [
+              46.89099999999999,
+              209.10914,
+              280.41
+            ]
+          ]
+        }
+      ],
+      "spool": "black",
+      "to": "vb-inlet-turn"
+    },
+    "minimum_drop_mm": 0.0,
+    "native_drop_mm": 0.0,
+    "basis": "The selected elbow pair has one level straight tube. The stated drain requirement is a non-rising path; tube diameter is not a required vertical drop.",
+    "other_scorecard_rows_unchanged_by_drop_refresh": true
+  },
+  "lettering": {
+    "vertical_lift_mm": 0.25,
+    "stations": [
+      "water",
+      "carb"
+    ],
+    "scope": "Lettering and its recess only. Chip outlines and fitting clamp planes retain their coordinates."
+  },
+  "label_preparations": [
+    {
+      "colour": "white",
+      "preparation": ".cache/prints/trial/2026-10-26-labels-white-mark2-db62f108/preparation.json",
+      "archive": ".cache/prints/trial/2026-10-26-labels-white-mark2-db62f108/2026-10-26-labels-white-mark2-db62f108.gcode.3mf",
+      "sha256": "e04108fe37f7f7fff81b24faafb10c0eeb0fdec71b76ed81916e09eeae77dbee",
+      "passed": true,
+      "checks": {
+        "archive": true,
+        "z_trim": true,
+        "bed_border": true,
+        "no_support": true,
+        "every_part_printed": true,
+        "face_up_tops_closed": true
+      }
+    },
+    {
+      "colour": "blue",
+      "preparation": ".cache/prints/trial/2026-10-26-labels-blue-mark2-b8ff2703/preparation.json",
+      "archive": ".cache/prints/trial/2026-10-26-labels-blue-mark2-b8ff2703/2026-10-26-labels-blue-mark2-b8ff2703.gcode.3mf",
+      "sha256": "f6de6f4ec7a248f4ad76a485b3ef547d6f24f5c93d6b8588c447f34881ffd0ba",
+      "passed": true,
+      "checks": {
+        "archive": true,
+        "z_trim": true,
+        "bed_border": true,
+        "no_support": true,
+        "every_part_printed": true,
+        "face_up_tops_closed": true
+      }
+    }
+  ],
+  "sources": {
+    "hardware/manifold-layout/_scorecard.py": "4053a2188eb2350148acf0a16107aebfbe1b654e7d7e7ea74d3c8b397bb31f76",
+    "hardware/manifold-layout/enclosure_assembly.py": "9b78454edba0ef8c742d3609850fa753dee6a913e1019df73c0fea104fa85248",
+    "hardware/printed-parts/enclosure/rear-identification/rear_identification.py": "4f4ae7be792c955c8431951b7139f14091c1c8ac7893771c5a698070856653cf"
+  },
+  "interpretation": "The seventeen remaining sub-millimetre pairs require their own fit or routing decisions. Passing slices and intended contact classifications do not settle those interfaces."
+}

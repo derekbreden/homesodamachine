@@ -465,6 +465,13 @@ CAD-only scope. The
 and adjacent tube/wall records state their installed-route scopes. These
 nominal checks establish no physical fit, assembly force, strength or life.
 
+The [clearance readiness reading](enclosure-above-core/clearance-readiness-review.json)
+binds native closest points, named mating interfaces, the level funnel-to-V-B
+connection and the upper labels' flange clearances to its exported appliance.
+Its label plates have fresh native slice reviews. The global 1 mm floor still
+applies to unrelated parts; intended contact and passing slices do not establish
+complete assembly fit or operating-motion clearance.
+
 The [native enclosure integration record](enclosure-integration.json) binds the checked
 materialized appliance STEP and fit card: required gates pass with no body clashes,
 unanswered overlap calculations or routed-tube interference. It also compares the

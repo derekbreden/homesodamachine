@@ -512,6 +512,11 @@ def _selected_mounts() -> tuple:
         base = f'pump-retainer-{side}'
         rows.extend(((base+'-screw', 'enclosure-pump-retainer', 'thread'),
                      (base+'-insert', 'enclosure-front-top', 'heat-set')))
+    for side in ('west', 'east'):
+        for station, host in (('lower', 'back-bottom'), ('upper', 'front-top')):
+            base = f'y-seam-{side}-{station}'
+            rows.extend(((base+'-screw', 'enclosure-'+host, 'thread'),
+                         (base+'-insert', 'enclosure-'+host, 'heat-set')))
     return tuple(rows)
 
 
@@ -1262,6 +1267,21 @@ def selected_mate_contacts(a, placed, clashes) -> dict:
                 if key in pending:
                     regions[key] = mask, basis
 
+    # The installed M5 knurls occupy only their supplier-sized pilot annuli.
+    # A contact elsewhere on a knuckle remains an interference.
+    if any(any(name.startswith('y-seam-') for name in pair) for pair in pending):
+        for side, xi, sx in (('west', a.box.inner[0], 1.),
+                             ('east', a.box.inner[1], -1.)):
+            for station, _seat, _tip, _length, host, z0, z1 in enc.y_stack_rods(a.box.inner):
+                x, y = enc.y_stack_axis(xi, sx, a.box.y_joint, station)
+                pair = frozenset((f'y-seam-{side}-{station}-insert', 'enclosure-'+host))
+                if pair in pending:
+                    origin, direction = (x, y, z0), (0., 0., 1.)
+                    region = cylinder(3.55, origin, direction, z1-z0).cut(
+                        cylinder(3.2-2e-6, origin, direction, z1-z0))
+                    regions[pair] = (region,
+                        'RX-M5×9.5: Ø6.4..7.1 mm nominal heat-set interference annulus')
+
     readings = []
     for pair, (region, basis) in regions.items():
         names = sorted(pair)
@@ -1471,14 +1491,33 @@ def selected_clearance_joints(a) -> set:
     pairs |= {frozenset((f'asse-{side}-tpu', 'asse1022-assembly'))
               for side in ('inlet', 'outlet')}
     pairs.add(frozenset(('water-split', 'asse-outlet-tpu')))
+    # The selected short links put these socket faces directly against their
+    # mating fitting or cuff. The outlet tie closes on that same cuff. Their
+    # contact is part of the connection; pack_clashes still reads interference.
+    pairs |= {frozenset(pair) for pair in (
+        ('water-split', 'tee-fold'),
+        ('flow-regulator', 'reg-va-elbow'),
+        ('gas-check', 'gas-lower-b'),
+        ('lower-pump-elbow', 'pump-inlet-tpu'),
+        ('discharge-chain', 'pump-outlet-tpu'),
+        ('discharge-chain', 'pump-outlet-tube-band'),
+    )}
     for base in (f'funnel-frame-{column}-{side}'
                  for column in ('front', 'back') for side in ('west', 'east')):
         pairs.add(frozenset((base + '-screw', base + '-insert')))
+        # The frame's screw head bears on its seat; the insert meets the
+        # underside at the shell pilot. These are named fastener interfaces.
+        pairs.add(frozenset(('funnel-frame', base + '-screw')))
+        pairs.add(frozenset(('funnel-frame', base + '-insert')))
     for side in ('left', 'centre', 'right'):
         base = 'pump-retainer-'+side
         pairs.add(frozenset((base+'-screw', base+'-insert')))
         pairs.add(frozenset((base+'-screw', 'enclosure-pump-retainer')))
         pairs.add(frozenset((base+'-insert', 'enclosure-front-top')))
+    for side in ('west', 'east'):
+        for station in ('lower', 'upper'):
+            base = f'y-seam-{side}-{station}'
+            pairs.add(frozenset((base+'-screw', base+'-insert')))
     bodies, tubes, pieces = _split_placed(a)
     present = set(bodies) | set(tubes) | set(pieces)
     return {pair for pair in pairs if pair <= present}

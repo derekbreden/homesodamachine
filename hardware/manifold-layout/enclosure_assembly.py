@@ -5469,10 +5469,12 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
             a.carries[name] = carry
     # THE DROP, AND NOT THE LENGTH. `fluid-4` carries the funnel's head and is its air-purge path,
     # so what it owes is a line that never ends higher than it starts.
-    drain = next((r for r in a.runs if r.id == "above-core-drain-vb-inlet-link"), None)
+    # The selected direct elbow pair is joined by the east link. Its inlet
+    # elbow's stem completes the connection into V-B; there is no second tube.
+    drain = next((r for r in a.runs if r.id == "above-core-drain-vb-east-link"), None)
     if drain is not None:
         note_room("funnel-drain-union", "the drop off the elbow `fluid-4` reaches V-B on",
-                  _elbow.TUBE_OD, drain.pts[0][2] - drain.pts[-1][2])
+                  0.0, drain.pts[0][2] - drain.pts[-1][2])
     # The joint's own stack, read back off the placed bodies: the elbow's nose on the frame's
     # underside, the stub's top at the plug's land, and the line drawn to V-B.
     union_carry = a.carries["funnel-drain-union"]
