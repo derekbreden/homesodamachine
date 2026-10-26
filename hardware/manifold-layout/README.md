@@ -31,8 +31,8 @@ straight tube, and its lower run reaches a rear valve through two trimmed
 NeoFit ATEU44W stem elbows and one straight LLDPE tube. The two source tees,
 Y-A and Y-B, meet V-C and V-D through their existing collet butt joints.
 
-Front-top's integral upper pockets and the rectangular lower retainer capture
-both prepared pumps. Three upward M3 × 60 screws secure the retainer before the
+Front-top's integral upper pockets and the broad lower retainer capture
+both prepared pumps. Two integral snap wings secure the retainer before the
 four tee/upper-tube/fore-valve groups approach individually from aft. The pump
 housings clamp the four tubes; each tee's extended branch collet grips and seals
 its tube. The retainer and fixed upper pockets carry the pumps.

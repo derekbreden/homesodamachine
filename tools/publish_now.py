@@ -179,15 +179,16 @@ def refresh_enclosure_viewer() -> None:
     """Graft current enclosure piece payloads into both viewer hosts, without building.
 
     `surfaces` admits a piece only when its payload names the exact STEP beside it.
-    The five pieces share the host frame. The operation reads no CAD source and acquires no
-    Bazel lock.
+    The rigid pieces share the host frame; the pump retainer keeps its native seated pose.
+    The operation reads no CAD source and acquires no Bazel lock.
     """
     scripts = ROOT / "hardware" / "scripts"
     if str(scripts) not in sys.path:
         sys.path.insert(0, str(scripts))
     import flute_payload
 
-    pieces = flute_payload.pieces(flute_payload.ENCLOSURE_DIRS)
+    pieces = [(step, stl) for step, stl in flute_payload.pieces(flute_payload.ENCLOSURE_DIRS)
+              if step.stem != "enclosure-pump-retainer"]
     fluted = flute_payload.surfaces(flute_payload.ENCLOSURE_DIRS)
     if len(fluted) != len(pieces):
         print(f"  {len(fluted)} of {len(pieces)} enclosure piece payload(s) are source-current; "
@@ -381,8 +382,7 @@ def selftest() -> int:
         from unittest.mock import patch
 
         fixed = {f"enclosure-{name}" for name in (
-            "front-top", "front-bottom", "back-top", "back-bottom",
-            "pump-retainer")}
+            "front-top", "front-bottom", "back-top", "back-bottom")}
         appliance = root / "hardware/manifold-layout/enclosure-assembly.step.mesh"
         appliance.parent.mkdir(parents=True)
         appliance.write_bytes(b"appliance host")
@@ -393,7 +393,9 @@ def selftest() -> int:
             return len(surfaces)
 
         fake = SimpleNamespace(
-            ENCLOSURE_DIRS=(), pieces=lambda _: [None] * 8,
+            ENCLOSURE_DIRS=(), pieces=lambda _: [
+                (Path(name+".step"), Path(name+".stl"))
+                for name in sorted(fixed | {"enclosure-pump-retainer"})],
             surfaces=lambda _: {name: object() for name in fixed},
             payload_names=lambda host: sorted(fixed) + ["unrelated-component"],
             fluted_key=lambda name, surfaces: name if name in surfaces else None,

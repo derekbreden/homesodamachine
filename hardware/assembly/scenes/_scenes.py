@@ -246,20 +246,21 @@ SCENES = (
         note="The same pose as the back top and the other half of the same box: on its ceiling, "
              "the mouth to the room. Every seat under this manifold is the piece's own "
              "material, including the upper fitted pump inverses and the broad stock continuing "
-             "into the display housing and roof. The pumps and plain lower retainer load "
+             "into the display housing and roof. The pumps and lower retainer load "
              "motor-first from underneath before the tees and valves. Four bottom-open gates "
-             "admit their prepared tubes, and three screws secure the retainer from below. "
+             "admit their prepared tubes. Two full-Y snap wings secure the lower pump "
+             "retainer to flank receivers; the molded pump skirts bear between fitted "
+             "upper and lower lands. "
              "Pump and display leads share one rear wire passage. The drop-in "
              "frame carries its snapped-in drain cradle and enters after final connections.",
     ),
     # Both fitted halves are shown with the enclosing quadrant: the upper half is inseparable
-    # from front-top, and the plain lower retainer is the one removable printed piece.
+    # from front-top, and the snapped lower retainer is the one removable printed piece.
     Scene(
         "pump-mount", "Integral pump mount",
         roots=("enclosure-front-top", "enclosure-pump-retainer"), inner=(),
         flip=((1, 0, 0), 180.0),
-        also=tuple(f'pump-retainer-{side}-{part}'
-                   for side in ('left', 'centre', 'right') for part in ('screw', 'insert')),
+        also=(),
         later=("display", "display-cover", "display-gasket", "funnel-frame", "funnel"),
         cam=(0.8, -1.0, 0.9), up=(0, 0, 1), zoom=4.4, look="centre",
         note="Front-top is loose on the bench, with access to its underside. Set the four "
@@ -267,8 +268,9 @@ SCENES = (
              "the jig. Thread the bare pump lead through the shared rear wire passage, crimp "
              "and land the Fastons while the motors are accessible, and raise the prepared "
              "unit motor-first into the integral upper inverses. The tubes rise through four "
-             "bottom-open tee-wall gates. Three M3x60 screws enter upward from the retainer "
-             "into front-top, capturing the molded skirts. Bring each prepared tee, upper "
+             "bottom-open tee-wall gates. The retainer's two upper-rooted wings flex inward "
+             "and seat their lower hooks on the receiver floors. The fitted upper and lower "
+             "lands capture the molded skirts. Bring each prepared tee, upper "
              "tube and fore valve straight in from aft before fitting the rear valve row "
              "and returns. Fit the display with its facet open. The funnel frame enters "
              "after final connections.",

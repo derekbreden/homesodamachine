@@ -5510,22 +5510,10 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     pieces = _materialized_enclosure_pieces(box, require_box_spec)
     _enc._handhold_bound(pieces, box)
     for name, piece in pieces.items():
-        a.add(piece, name=f"enclosure-{name}", color=WALL_COLORS[name])
+        installed = _enc.build_pump_retainer(box, seated=True) if name == "pump-retainer" else piece
+        a.add(installed, name=f"enclosure-{name}", color=WALL_COLORS[name])
     for name, part, colour in y_seam_hardware(box):
         a.add(part, name=name, color=colour)
-    if box.pump_bay and box.pack.collet_plate:
-        pump_stations = {
-            'pump-retainer-'+side: row
-            for side, row in zip(('left', 'centre', 'right'),
-                                 _enc._fixed_pump_mount.fasteners(_enc, box))}
-        for name, part, kind in _enc._fixed_pump_mount.hardware(_enc, box):
-            a.add(part, name=name,
-                  color=M_STAINLESS if kind == 'screw' else M_BRASS)
-            datum = pump_stations[name.rsplit('-', 1)[0]]
-            bottom = (datum['head_seat_z']-3. if kind == 'screw'
-                      else datum['insert_mouth_z'])
-            record_seat(name, planes={'cx': datum['x'], 'cy': datum['y'], 'z0': bottom},
-                        got=part.BoundingBox())
     # THE ANCHOR CAPS, each pushed home on the rib its site names (`TUBE_ANCHOR_CLOSURES`): the
     # section the part's own generator prints, struck in the station's frame.
     for rid, station in a.tube_anchor_sites:
