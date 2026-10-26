@@ -1,5 +1,7 @@
 {
   "title": "Carbonator end cap engineering drawing",
   "subtitle": "Finished machined part · 17 × 11 in",
-  "pages": 1
+  "pages": 1,
+  "cover": "endcap-circular-2hole-drawing.cover.png",
+  "cover_size": [900, 583]
 }

@@ -38,16 +38,10 @@
 .material-view-switch button:focus-visible { outline: 2px solid var(--text); outline-offset: -4px; }
 .material-view-switch[hidden], .material-drawing-view[hidden], .drawing-tools[hidden], .drawing-pages[hidden], .cad-drawing-subject[hidden] { display: none; }
 .drawing-zoom { display: flex; border: 1px solid var(--border); border-radius: 7px; overflow: hidden; }
-.drawing-tools button, .workspace-menu > summary { min-width: 44px; min-height: 44px; box-sizing: border-box; padding: 8px; border: 0; background: var(--surface); color: var(--text); font: inherit; font-size: 0.8rem; cursor: pointer; text-align: center; }
+.drawing-tools button { min-width: 44px; min-height: 44px; box-sizing: border-box; padding: 8px; border: 0; background: var(--surface); color: var(--text); font: inherit; font-size: 0.8rem; cursor: pointer; text-align: center; }
 .drawing-tools button:disabled { opacity: .4; cursor: default; }
-.drawing-tools button:hover:not(:disabled), .workspace-menu > summary:hover { background: var(--surface-2); }
-.drawing-tools :focus-visible, .workspace-menu > summary:focus-visible { outline: 2px solid var(--text); outline-offset: -3px; }
-.workspace-menu { position: relative; flex-shrink: 0; }
-.workspace-menu > summary { display: flex; justify-content: center; align-items: center; list-style: none; border: 1px solid var(--border); border-radius: 7px; font-size: 20px; line-height: 1; }
-.workspace-menu > summary::-webkit-details-marker { display: none; }
-.workspace-menu-body { position: absolute; z-index: 60; right: 0; top: calc(100% + 8px); width: max-content; max-width: min(300px, calc(100vw - 48px)); padding: 8px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text); box-shadow: 0 8px 32px #0005; }
-.workspace-menu-body > a, .workspace-menu-body > button { display: flex; align-items: center; min-height: 44px; box-sizing: border-box; padding: 8px 12px; width: 100%; border: 0; border-radius: 4px; color: var(--text); background: transparent; font: inherit; font-size: .8rem; text-decoration: none; text-align: left; }
-.workspace-menu-body > a:hover, .workspace-menu-body > button:hover { background: var(--surface-2); }
+.drawing-tools button:hover:not(:disabled) { background: var(--surface-2); }
+.drawing-tools :focus-visible { outline: 2px solid var(--text); outline-offset: -3px; }
 .drawing-pages { display: flex; align-items: center; gap: 6px; padding-bottom: 8px; margin-bottom: 4px; border-bottom: 1px solid var(--border); font-size: .8rem; }
 .drawing-pages input { width: 48px; min-height: 44px; border: 1px solid var(--border); border-radius: 5px; background: var(--bg); color: var(--text); font: inherit; font-size: 16px; text-align: center; }
 .drawing-menu-zoom { display: none; }
