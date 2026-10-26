@@ -1,0 +1,365 @@
+{
+  "scope": "One manual readback of the 18 exported native bores, for this comparison plate only.",
+  "parts": [
+    {
+      "name": "m5-d48-h12",
+      "sha256": "cac223567efb335b9ab1071df0bd4a777e3d1c01cb6560a8e87739970b64a99b",
+      "valid": true,
+      "solids": 1,
+      "cylinders": [
+        {
+          "diameter_mm": 4.8,
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "z_mm": [
+            0.6,
+            12.6
+          ]
+        }
+      ]
+    },
+    {
+      "name": "m5-d49-h12",
+      "sha256": "eb17ba52cca26be7f4a361e65be429ce31f8fbb5e8610824eebf55d2c0cb3525",
+      "valid": true,
+      "solids": 1,
+      "cylinders": [
+        {
+          "diameter_mm": 4.9,
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "z_mm": [
+            0.6,
+            12.6
+          ]
+        }
+      ]
+    },
+    {
+      "name": "m5-d50-h12",
+      "sha256": "2cbf051b96cff02cda3514196b3599c7b7c99cb96cee1e50eb07526037b4e887",
+      "valid": true,
+      "solids": 1,
+      "cylinders": [
+        {
+          "diameter_mm": 5.0,
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "z_mm": [
+            0.6,
+            12.6
+          ]
+        }
+      ]
+    },
+    {
+      "name": "m5-d51-h12",
+      "sha256": "3c3ae6319960fc1ca5ac32a5e7ccf6926cc0f327a69b9ec0f5e345f8e076d73f",
+      "valid": true,
+      "solids": 1,
+      "cylinders": [
+        {
+          "diameter_mm": 5.1,
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "z_mm": [
+            0.6,
+            12.6
+          ]
+        }
+      ]
+    },
+    {
+      "name": "m5-d52-h12",
+      "sha256": "a152afb3b19fe75c07794cd79c90c8b83672d8bf06418c971c591d25e214662a",
+      "valid": true,
+      "solids": 1,
+      "cylinders": [
+        {
+          "diameter_mm": 5.2,
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "z_mm": [
+            0.6,
+            12.6
+          ]
+        }
+      ]
+    },
+    {
+      "name": "m5-d53-h12",
+      "sha256": "559a864165d984e38ef9508d763d30d2ad98ef289264c442bde3c8a41d44321e",
+      "valid": true,
+      "solids": 1,
+      "cylinders": [
+        {
+          "diameter_mm": 5.3,
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "z_mm": [
+            0.6,
+            12.6
+          ]
+        }
+      ]
+    },
+    {
+      "name": "m5-d54-h12",
+      "sha256": "ea84468a7a9a992f244c313a6180b6d1405dc36a45675bc2081ac5d9c85e9b1a",
+      "valid": true,
+      "solids": 1,
+      "cylinders": [
+        {
+          "diameter_mm": 5.4,
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "z_mm": [
+            0.6,
+            12.6
+          ]
+        }
+      ]
+    },
+    {
+      "name": "m5-d55-h12",
+      "sha256": "bd39ceeeac7ec7624a71e968caf3f4dea37dafa4fa586a162f11d5e074ed7cf8",
+      "valid": true,
+      "solids": 1,
+      "cylinders": [
+        {
+          "diameter_mm": 5.5,
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "z_mm": [
+            0.6,
+            12.6
+          ]
+        }
+      ]
+    },
+    {
+      "name": "m5-d56-h12",
+      "sha256": "e211edcab441fe2866c8afcab14c605e0ae7d812cae0b06f05291046a6994adb",
+      "valid": true,
+      "solids": 1,
+      "cylinders": [
+        {
+          "diameter_mm": 5.6,
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "z_mm": [
+            0.6,
+            12.6
+          ]
+        }
+      ]
+    },
+    {
+      "name": "m5-d48-h40",
+      "sha256": "22d547d96db04fa3e8a883d844cadc6367f50b10b6fde97dd12a6b0c3d54fa8b",
+      "valid": true,
+      "solids": 1,
+      "cylinders": [
+        {
+          "diameter_mm": 4.8,
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "z_mm": [
+            0.6,
+            40.6
+          ]
+        }
+      ]
+    },
+    {
+      "name": "m5-d49-h40",
+      "sha256": "3944430d868601b36fcd7933de38ed5077207a423a31e5bd5659e9a65a04a114",
+      "valid": true,
+      "solids": 1,
+      "cylinders": [
+        {
+          "diameter_mm": 4.9,
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "z_mm": [
+            0.6,
+            40.6
+          ]
+        }
+      ]
+    },
+    {
+      "name": "m5-d50-h40",
+      "sha256": "0c289600dff008dba8c7f4c7fe6a3939d87c03ef496bd1f0aad39baa4725ea0c",
+      "valid": true,
+      "solids": 1,
+      "cylinders": [
+        {
+          "diameter_mm": 5.0,
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "z_mm": [
+            0.6,
+            40.6
+          ]
+        }
+      ]
+    },
+    {
+      "name": "m5-d51-h40",
+      "sha256": "5e209736be31f382cf6821f0f0fff8cf2eb489dd1c6fdaf37c625936d536a166",
+      "valid": true,
+      "solids": 1,
+      "cylinders": [
+        {
+          "diameter_mm": 5.1,
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "z_mm": [
+            0.6,
+            40.6
+          ]
+        }
+      ]
+    },
+    {
+      "name": "m5-d52-h40",
+      "sha256": "401c40b4d5f1a2a4701ccfd88ea3f1f16681506a3853e63fef0bbc800768f4c1",
+      "valid": true,
+      "solids": 1,
+      "cylinders": [
+        {
+          "diameter_mm": 5.2,
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "z_mm": [
+            0.6,
+            40.6
+          ]
+        }
+      ]
+    },
+    {
+      "name": "m5-d53-h40",
+      "sha256": "bd43961ca0a4604e899ccf6bdf88cdd9ae641a340a78c692e6e56e05a9b2f0a2",
+      "valid": true,
+      "solids": 1,
+      "cylinders": [
+        {
+          "diameter_mm": 5.3,
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "z_mm": [
+            0.6,
+            40.6
+          ]
+        }
+      ]
+    },
+    {
+      "name": "m5-d54-h40",
+      "sha256": "a3fabcccd12bf90ed4443beb58b4dff5e8ec84d162cc4a5df0c97ab5c7f09cd5",
+      "valid": true,
+      "solids": 1,
+      "cylinders": [
+        {
+          "diameter_mm": 5.4,
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "z_mm": [
+            0.6,
+            40.6
+          ]
+        }
+      ]
+    },
+    {
+      "name": "m5-d55-h40",
+      "sha256": "761a4735e6caff65fd5360540fb57221cd9840dc873bafb3e46d76b05da64c98",
+      "valid": true,
+      "solids": 1,
+      "cylinders": [
+        {
+          "diameter_mm": 5.5,
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "z_mm": [
+            0.6,
+            40.6
+          ]
+        }
+      ]
+    },
+    {
+      "name": "m5-d56-h40",
+      "sha256": "62d175274eaad1557222dcfe0a3ef4bedbb60599d8faeb6134d97d050ff0dbd5",
+      "valid": true,
+      "solids": 1,
+      "cylinders": [
+        {
+          "diameter_mm": 5.6,
+          "axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "z_mm": [
+            0.6,
+            40.6
+          ]
+        }
+      ]
+    }
+  ]
+}

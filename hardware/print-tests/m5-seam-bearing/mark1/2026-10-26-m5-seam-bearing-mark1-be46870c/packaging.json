@@ -1,0 +1,36 @@
+{
+  "source_archive": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/print-tests/m5-seam-bearing/mark1/2026-10-26-m5-seam-bearing-mark1-be46870c/2026-10-26-m5-seam-bearing-mark1-be46870c.gcode.3mf",
+  "source_archive_sha256": "c49750ca85eef25715cccd0dad8ac5f526f3919069ba6565f10f002bf9c8a5bd",
+  "print_only_archive": "/Users/derekbredensteiner/Developer/homesodamachine/hardware/print-tests/m5-seam-bearing/mark1/2026-10-26-m5-seam-bearing-mark1-be46870c/m5-seam-bearing-mark1-print-only.gcode.3mf",
+  "print_only_archive_sha256": "53583248510be2615169e6e43e744e209df70135ec37ce1c4d83980729a708a5",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "7acd3f0d823d9ba3304d11da5ca48ec81cbdaba9582738e25ba1bd7e3fcef555"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "3D/Objects/object_1.model",
+    "3D/Objects/object_10.model",
+    "3D/Objects/object_11.model",
+    "3D/Objects/object_12.model",
+    "3D/Objects/object_13.model",
+    "3D/Objects/object_14.model",
+    "3D/Objects/object_15.model",
+    "3D/Objects/object_16.model",
+    "3D/Objects/object_17.model",
+    "3D/Objects/object_18.model",
+    "3D/Objects/object_2.model",
+    "3D/Objects/object_3.model",
+    "3D/Objects/object_4.model",
+    "3D/Objects/object_5.model",
+    "3D/Objects/object_6.model",
+    "3D/Objects/object_7.model",
+    "3D/Objects/object_8.model",
+    "3D/Objects/object_9.model",
+    "3D/_rels/3dmodel.model.rels",
+    "Metadata/cut_information.xml"
+  ]
+}
