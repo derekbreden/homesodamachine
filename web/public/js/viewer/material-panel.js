@@ -5,6 +5,7 @@ import { highlightParts, clearHighlight, scenePartNames } from "./part-highlight
 import { openMaterial, materialHash } from "./material-nav.js";
 import { makeMaterialSearch } from "./material-search.js";
 import { componentLocation, stepLabel, stepLocation } from "/contracts/step-locations.js";
+import { mountMaterialDrawing } from "./material-drawing.js";
 
 const el = (tag, className, text) => {
   const node = document.createElement(tag);
@@ -22,6 +23,8 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   const panel = el("aside", "material-panel");
   panel.setAttribute("aria-label", "Material explorer");
   workspace.append(panel);
+  const wrapper = workspace.querySelector(".cad-wrapper");
+  const drawingView = wrapper ? mountMaterialDrawing(workspace, wrapper) : null;
   let root = material || materialForFile(state.materialCatalog, file)?.id;
   let selected = root, selectedPath = [], tab = "bom";
   let selectedBody = null;
@@ -114,7 +117,21 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
         }); actions.prepend(open);
       }
     }
-    head.append(actions); headHost.replaceChildren(head);
+    head.append(actions);
+    const drawings = current?.documents?.filter(doc => doc.kind === "engineering-drawing" && doc.path.endsWith(".pdf")) || [];
+    drawingView?.setDrawing(drawings[0]);
+    for (const drawing of drawings) {
+      const featured = el("a", "material-drawing-feature");
+      featured.href = docHref(drawing.path);
+      featured.setAttribute("aria-label", "View engineering drawing: " + drawing.title);
+      featured.append(el("strong", "", "Engineering drawing"), el("span", "", "View finished part →"));
+      if (drawingView) featured.addEventListener("click", event => {
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        event.preventDefault(); drawingView.showDrawing(drawing);
+      });
+      head.append(featured);
+    }
+    headHost.replaceChildren(head);
     const rows = explodeBom(state.materialCatalog, root, options());
     const used = current ? materialUses(state.materialCatalog, current.id, options()) : { assemblies: [], tools: [], equipment: [] };
     const docs = materialDocuments(state.materialCatalog, (current || rootMaterial)?.id, options());
@@ -275,13 +292,17 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   window.addEventListener(HSM_EVENTS.STEP_MOUNTED, sync);
   window.addEventListener(HSM_EVENTS.MATERIAL_PICKED, picked);
   window.addEventListener(HSM_EVENTS.FAUCET_OPTIONS, sync);
-  const handle = { select, setRoot, sync, showBom: () => {
-    tab = "bom";
+  function show() {
     workspace.classList.add("materials-open");
     workspace.querySelector(".materials-toggle")?.setAttribute("aria-expanded", "true");
+  }
+  const handle = { select, setRoot, sync, show, closeDrawing: () => drawingView?.closeDrawing(), showBom: () => {
+    tab = "bom";
+    show();
     render();
   }, dispose: () => {
     disposed = true;
+    drawingView?.dispose();
     window.removeEventListener(HSM_EVENTS.STEP_MOUNTED, sync);
     window.removeEventListener(HSM_EVENTS.MATERIAL_PICKED, picked);
     window.removeEventListener(HSM_EVENTS.FAUCET_OPTIONS, sync);

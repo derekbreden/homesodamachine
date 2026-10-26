@@ -268,6 +268,7 @@ export function mountViewerRoutes(app, { hardwareDir, store, pointersPath }) {
     res.set("Cache-Control", "no-cache");
     res.type("html").send(renderDocumentReader({
       file: doc.rel, title: meta?.title || path.basename(doc.rel, ".pdf"),
+      embedded: req.query.embed === "1",
     }));
   });
 

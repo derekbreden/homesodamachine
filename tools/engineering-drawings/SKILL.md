@@ -135,3 +135,7 @@ and its current PDF as a worked example of the finish and source linkage.
 Reuse its drafting patterns, not its dimensions, tolerances, material, sheet
 size, or approval status. Keep a new drawing beside its part source and retain
 the project's existing export and publishing conventions.
+
+For publication on the materials page, follow the engineering-drawing document
+entry and PDF publication metadata described in `hardware/ledger/materials.md`.
+The material record drives the featured drawing action and 3D/Drawing switch.

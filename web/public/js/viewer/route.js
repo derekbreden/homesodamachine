@@ -78,7 +78,7 @@ window.addEventListener("popstate", () => {
   // Already showing the right thing? Nothing to do.
   if (want.type && state.currentDetail
       && state.currentDetail.type === want.type && state.currentDetail.file === want.file) {
-    if (want.material) state.materialPanel?.setRoot(want.material);
+    if (want.material) { state.materialPanel?.setRoot(want.material); state.materialPanel?.show(); }
     if (want.tab === "bom") state.materialPanel?.showBom();
     return;
   }
@@ -89,7 +89,7 @@ window.addEventListener("popstate", () => {
   if (want.type === "step" && state.currentDetail && state.currentDetail.type === "step"
       && ContentViewer.isOpen()) {
     routeToStep(want.path).then(() => {
-      if (want.material) state.materialPanel?.setRoot(want.material);
+      if (want.material) { state.materialPanel?.setRoot(want.material); state.materialPanel?.show(); }
       if (want.tab === "bom") state.materialPanel?.showBom();
     });
     return;

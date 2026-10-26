@@ -22,18 +22,19 @@ export function mountPdfjsAssets(app) {
   }
 }
 
-export function renderDocumentReader({ file, title }) {
+export function renderDocumentReader({ file, title, embedded = false }) {
   const url = `/docs/${file.split("/").map(encodeURIComponent).join("/")}`;
+  const readUrl = `/read/${file.split("/").map(encodeURIComponent).join("/")}`;
   return renderHead({
     title: `${title} · Home Soda Machine`,
-    pageClass: "site-interior",
+    pageClass: "site-interior" + (embedded ? " pdf-embedded" : ""),
     pageHead: `<link rel="stylesheet" href="${pdfjsBase}/web/pdf_viewer.css">
 <link rel="stylesheet" href="/css/document-reader.css">
 <script type="module" src="/document-reader.js"></script>`,
-  }) + renderNav({ active: "drawings" }) + `
-<main class="pdf-reader site-light" data-pdf-url="${escape(url)}?raw=1" data-pdfjs-base="${pdfjsBase}">
+  }) + (embedded ? "" : renderNav({ active: "drawings" })) + `
+<main class="pdf-reader site-light" data-pdf-url="${escape(url)}?raw=1" data-pdfjs-base="${pdfjsBase}" data-embedded="${embedded}">
   <header class="pdf-heading">
-    <a id="pdf-back" href="/drawings">Back</a>
+    ${embedded ? `<a href="${escape(readUrl)}" target="_blank" rel="noopener">Open full drawing</a>` : '<a id="pdf-back" href="/drawings">Back</a>'}
     <h1>${escape(title)}</h1>
     <a href="${escape(url)}?download=1" download>Download PDF</a>
   </header>
@@ -46,7 +47,7 @@ export function renderDocumentReader({ file, title }) {
     </div>
     <div class="pdf-control-group">
       <button id="pdf-zoom-out" type="button" aria-label="Zoom out" disabled>−</button>
-      <button id="pdf-fit" type="button" disabled>Fit width</button>
+      <button id="pdf-fit" type="button" disabled>${embedded ? "Fit page" : "Fit width"}</button>
       <button id="pdf-zoom-in" type="button" aria-label="Zoom in" disabled>+</button>
     </div>
   </div>
@@ -59,5 +60,5 @@ export function renderDocumentReader({ file, title }) {
       <div id="pdf-text" class="textLayer"></div>
     </div>
   </div>
-</main>` + renderFooter();
+</main>` + (embedded ? "</body></html>" : renderFooter());
 }
