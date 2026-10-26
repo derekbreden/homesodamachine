@@ -1,0 +1,134 @@
+{
+  "Mark2": {
+    "observed_at_utc": "2026-10-26T22:35:19.844371+00:00",
+    "job_id": "1378515009",
+    "gcode_state": "RUNNING",
+    "subtask_name": "m5-seam-bearing-mark2-print-only.gcode.3mf",
+    "layer_num": 0,
+    "total_layer_num": 169,
+    "print_error": 0,
+    "hms": [],
+    "nozzle_target_temper": 265.0,
+    "bed_target_temper": 26.0
+  },
+  "H2C": {
+    "job_id": "1377101665",
+    "gcode_state": "FINISH",
+    "subtask_name": "Left_reservoir_and_cap_-_PETG_0.24_mm",
+    "layer_num": 833,
+    "total_layer_num": 833,
+    "print_error": 0,
+    "hms": [],
+    "observed_at_utc": "2026-10-26T22:29:08.652287+00:00"
+  },
+  "start_slot": "A2",
+  "auto_refill_required": true,
+  "shared_circuit_minimum_spacing_seconds": 180,
+  "founder_bed_ready_quote": "Mark one is available, plate is glued and ready.",
+  "scope": "Read-only preflight; re-read before Send. Mark2 is not controlled by this launch.",
+  "Mark2_initial": {
+    "job_id": "1375153599",
+    "gcode_state": "FINISH",
+    "subtask_name": "2026-10-25-foam-shell-mark2-bdc6554c.gcode.3mf",
+    "layer_num": 889,
+    "total_layer_num": 889,
+    "print_error": 0,
+    "hms": [
+      {
+        "attr": 201326848,
+        "code": 131095
+      }
+    ],
+    "observed_at_utc": "2026-10-26T22:29:07.424083+00:00"
+  },
+  "submission_status": "Launched as Mark1 task 1378532609 after one Studio Send.",
+  "Mark2_final": {
+    "observed_at_utc": "2026-10-26T22:38:19.857782+00:00",
+    "job_id": "1378515009",
+    "subtask_name": "m5-seam-bearing-mark2-print-only.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 0,
+    "total_layer_num": 169,
+    "mc_percent": 0,
+    "mc_remaining_time": 254,
+    "nozzle_temper": 38.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 27.0,
+    "bed_target_temper": 27.0
+  },
+  "shared_circuit": {
+    "other_printer": "Mark2",
+    "job_id": "1378515009",
+    "first_same_task_observed_at_utc": "2026-10-26T22:35:19.844371+00:00",
+    "final_same_task_observed_at_utc": "2026-10-26T22:38:19.857782+00:00",
+    "minimum_spacing_seconds": 180,
+    "elapsed_same_task_observation_seconds": 180.013411
+  },
+  "Mark1_final": {
+    "observed_at_utc": "2026-10-26T22:38:20.519540+00:00",
+    "job_id": "1377101665",
+    "subtask_name": "Left_reservoir_and_cap_-_PETG_0.24_mm",
+    "gcode_state": "FINISH",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 833,
+    "total_layer_num": 833,
+    "mc_percent": 100,
+    "mc_remaining_time": 0,
+    "nozzle_temper": 28.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 27.0,
+    "bed_target_temper": 0.0,
+    "ams_slots": [
+      {
+        "slot": "A1",
+        "tray_type": null,
+        "tray_color": null,
+        "tray_info_idx": null,
+        "remain": null,
+        "state": 26
+      },
+      {
+        "slot": "A2",
+        "tray_type": "PETG",
+        "tray_color": "00000000",
+        "tray_info_idx": "GFG01",
+        "remain": 9,
+        "state": 11
+      },
+      {
+        "slot": "A3",
+        "tray_type": "PETG",
+        "tray_color": "00000000",
+        "tray_info_idx": "GFG01",
+        "remain": 100,
+        "state": 11
+      },
+      {
+        "slot": "A4",
+        "tray_type": "PETG",
+        "tray_color": "00000000",
+        "tray_info_idx": "GFG01",
+        "remain": 100,
+        "state": 11
+      }
+    ]
+  },
+  "send_dialog": {
+    "source": "cua_repl Bambu Studio Send print job screenshot",
+    "printer": "Mark1",
+    "left_tile": "A2 PETG L",
+    "Timelapse": "On",
+    "Auto Bed Leveling": "On",
+    "Flow Dynamics Calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto",
+    "Send_enabled": true,
+    "visible_job_title": "candidate_Right body and cap - overlap50",
+    "plate": "Engineering",
+    "auto_refill": "Green Auto Refill visible",
+    "route": "Native Studio slice of saved 50% editable candidate; exact current slice exported and reviewed before Send."
+  },
+  "launch": "launch.json"
+}

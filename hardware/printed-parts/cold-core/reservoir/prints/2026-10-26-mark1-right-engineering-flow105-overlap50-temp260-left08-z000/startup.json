@@ -1,0 +1,51 @@
+{
+  "observed_at_utc": "2026-10-26T22:40:34.743752+00:00",
+  "printer": "Mark1",
+  "job_id": "1378532609",
+  "status": {
+    "job_id": "1378532609",
+    "subtask_name": "Right_reservoir_and_cap_-_PETG_0.24_mm_overlap50",
+    "gcode_state": "RUNNING",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 0,
+    "total_layer_num": 833,
+    "mc_percent": 0,
+    "mc_remaining_time": 341,
+    "nozzle_temper": 179.0,
+    "nozzle_target_temper": 180.0,
+    "bed_temper": 27.0,
+    "bed_target_temper": 27.0,
+    "stg_cur": 74,
+    "nozzles": [
+      {
+        "id": 18,
+        "type": "HS01",
+        "diameter": 0.4
+      },
+      {
+        "id": 1,
+        "type": "HS01",
+        "diameter": 0.8
+      },
+      {
+        "id": 17,
+        "type": "HS00",
+        "diameter": 0.2
+      },
+      {
+        "id": 0,
+        "type": "HS00",
+        "diameter": 0.2
+      },
+      {
+        "id": 19,
+        "type": "HS01",
+        "diameter": 0.8
+      }
+    ]
+  },
+  "start_slot_selected": "A2",
+  "material_feed_scope": "A2 selected in the Send dialog; loaded-tray state at deposition is unobserved.",
+  "physical_scope": "Accepted active startup with no error/HMS. Right adhesion, current lid fit and water holding are unassessed."
+}

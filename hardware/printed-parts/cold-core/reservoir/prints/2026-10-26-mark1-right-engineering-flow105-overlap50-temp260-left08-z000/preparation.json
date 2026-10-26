@@ -1,0 +1,39 @@
+{
+  "recorded_on": "2026-10-26",
+  "source_project": "hardware/printed-parts/cold-core/reservoir/reservoir.3mf",
+  "source_project_sha256": "6963639743021f9eaae5d9ce500322f77124df25465ef735c119adbacf6446dd",
+  "candidate_project": ".cache/reservoir-right-overlap50-20261026/candidate.3mf",
+  "candidate_project_sha256": "20450185c9dd1890d74db395ffe85c979d4bea4491bcb31c6ef9ec2b94d6451b",
+  "baseline_task_id": "1377101665",
+  "baseline_physical_result": "../2026-10-26-mark1-left-engineering-flow105-overlap50-temp260-left08-z000/physical-result/physical-result.json",
+  "settings": "settings.json",
+  "settings_sha256": "f3eb5aa95b28b5a436161cd8cbf36a653b661daeba417a9a0a427e93aab58889",
+  "setting_changes_from_accepted_left_recipe": {},
+  "selected_parts": [
+    "reservoir-right",
+    "reservoir-cap-right"
+  ],
+  "current_source_step_sha256": {
+    "reservoir-right": "53bdb23481d31bbf030c496e27dffbc47273c5acf282db0f248e00c13ade753e",
+    "reservoir-cap-right": "de2f54c2c34fab9ad171db2e656191b3cc23f08233398d48b5560842e0c2f2bc"
+  },
+  "lid_geometry_scope": "Current matching right lid includes approved flush TPU tube-grip countersinks and air path; native STEP hash matches tube-grip-integration.json.",
+  "body_geometry_scope": "Current right body; integration record confirms body geometry unchanged.",
+  "placement": {
+    "from": {
+      "6": "1.000000000 0.000000000 0.000000000 0.000000000 1.000000000 0.000000000 0.000000000 0.000000000 1.000000000 617.000000000 160.000000000 99.949996948",
+      "8": "1.000000000 0.000000000 0.000000000 0.000000000 -1.000000000 0.000000000 0.000000000 0.000000000 -1.000000000 530.000000000 160.000000000 5.500000000"
+    },
+    "to": {
+      "6": "1.000000000 0.000000000 0.000000000 0.000000000 1.000000000 0.000000000 0.000000000 0.000000000 1.000000000 206.000000000 160.000000000 99.949996948",
+      "8": "1.000000000 0.000000000 0.000000000 0.000000000 -1.000000000 0.000000000 0.000000000 0.000000000 -1.000000000 119.000000000 160.000000000 5.500000000"
+    },
+    "method": "Select right pair; move from plate 2 onto plate 1 and shift 15 mm toward the fixed-left usable-bed center. Retain rotations, Z and spacing."
+  },
+  "nozzle": "Mark1 fixed left 0.8 mm Standard",
+  "plate": "Engineering Plate, glued and ready per Derek",
+  "start_slot": "A2",
+  "founder_quote": "All right, that reservoir print turned out well. It's holding water so far. So now that we've got that side, left I guess it was, with a 50% overlap, I'd like to get the other side, right side, with a 50% overlap, or whatever the other side is that you didn't just print. Mark one is available, plate is glued and ready.",
+  "status": "Launched as Mark1 task 1378532609; native slice reviewed.",
+  "launch": "launch.json"
+}

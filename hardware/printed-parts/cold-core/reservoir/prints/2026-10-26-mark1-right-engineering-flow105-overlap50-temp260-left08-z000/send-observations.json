@@ -1,0 +1,27 @@
+{
+  "acknowledged_at_utc": "2026-10-26T22:39:03.553720+00:00",
+  "reply": {
+    "command": "project_file",
+    "result": "SUCCESS",
+    "reason": "SUCCESS",
+    "err_code": 0
+  },
+  "events": [
+    {
+      "observed_at_utc": "2026-10-26T22:38:21.818159+00:00",
+      "job_id": "1377101665",
+      "subtask_name": "Left_reservoir_and_cap_-_PETG_0.24_mm",
+      "gcode_state": "FINISH",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 833
+    },
+    {
+      "observed_at_utc": "2026-10-26T22:39:03.553720+00:00",
+      "command": "project_file",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "err_code": 0
+    }
+  ]
+}
