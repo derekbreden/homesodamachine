@@ -1,0 +1,156 @@
+{
+  "views": [
+    {
+      "name": "soda",
+      "caption": "SODA lettering clears the fitting flange by 1.19 mm.",
+      "before": "soda-before.webp",
+      "after": "soda-after.webp",
+      "width": 900,
+      "height": 640,
+      "marks": [
+        {
+          "x": 452.4,
+          "y": 362.3,
+          "r": 32,
+          "label": "Letter-to-flange gap",
+          "at": [
+            77.23,
+            471.78,
+            318.4
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          87.3254135268389,
+          542.0352303297931,
+          360.71157230426473
+        ],
+        "target": [
+          77.3,
+          472,
+          319.3
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 5,
+        "near": 60.271797529218134,
+        "far": 149.08108767884494,
+        "aspect": 1.40625
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "bulkhead-carb",
+        "bulkhead-ring-carb",
+        "bulkhead-ring-carb-word*"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "1665d562e4ebaef364ae4293560edc2881021bd7e2d58db19de8516e4db95525",
+          "commit": "6a1fc87a2593168cc7abc23cd5b12d285c191025",
+          "taken": "2026-10-26T04:49:20.570Z",
+          "published": false
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "3bcb7be66b8a8a714dc8b26a5de54d28645fff7d69f2f12a347e18bea3b88369",
+          "commit": "db638aa05a5521258ef079386d7a11976052fb0f",
+          "published": true
+        }
+      },
+      "changed": [],
+      "withinMeshing": [
+        "bulkhead-ring-carb",
+        "bulkhead-ring-carb-word",
+        "bulkhead-ring-water-word",
+        "bulkhead-ring-water"
+      ]
+    },
+    {
+      "name": "tap",
+      "caption": "TAP lettering clears the fitting flange by 1.21 mm.",
+      "before": "tap-before.webp",
+      "after": "tap-after.webp",
+      "width": 900,
+      "height": 640,
+      "marks": [
+        {
+          "x": 449,
+          "y": 360.7,
+          "r": 32,
+          "label": "Letter-to-flange gap",
+          "at": [
+            36.55,
+            471.78,
+            350.3
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          41.19400090811516,
+          540.6117781226317,
+          395.82306754938566
+        ],
+        "target": [
+          36.55,
+          472,
+          351.2
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 5,
+        "near": 60.42814172258888,
+        "far": 149.23743368701412,
+        "aspect": 1.40625
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "bulkhead-water",
+        "bulkhead-ring-water",
+        "bulkhead-ring-water-word*"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "1665d562e4ebaef364ae4293560edc2881021bd7e2d58db19de8516e4db95525",
+          "commit": "6a1fc87a2593168cc7abc23cd5b12d285c191025",
+          "taken": "2026-10-26T04:49:20.570Z",
+          "published": false
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "3bcb7be66b8a8a714dc8b26a5de54d28645fff7d69f2f12a347e18bea3b88369",
+          "commit": "db638aa05a5521258ef079386d7a11976052fb0f",
+          "published": true
+        }
+      },
+      "changed": [],
+      "withinMeshing": [
+        "bulkhead-ring-carb",
+        "bulkhead-ring-carb-word",
+        "bulkhead-ring-water-word",
+        "bulkhead-ring-water"
+      ]
+    }
+  ]
+}
