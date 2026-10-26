@@ -1,0 +1,193 @@
+{
+  "views": [
+    {
+      "name": "right-snap",
+      "caption": "Full-depth lower hooks seat in the enclosure flanks; the centred tool port has one 45° roof.",
+      "before": "right-snap-before.webp",
+      "after": "right-snap-after.webp",
+      "width": 1000,
+      "height": 760,
+      "marks": [
+        {
+          "x": 507.1,
+          "y": 531.1,
+          "r": 27.9,
+          "label": "Lower hook",
+          "at": [
+            99.6,
+            48.2575,
+            168
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/enclosure/enclosure.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -100.58285117870051,
+          -450.69962794675126,
+          229.89571279467512
+        ],
+        "target": [
+          99,
+          48.2575,
+          180
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 30,
+        "near": 346.8191345356097,
+        "far": 931.4991749834436,
+        "aspect": 1.3157894736842106,
+        "section": {
+          "at": [
+            0,
+            48.2575,
+            175
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "*pump*retainer"
+      ],
+      "ghost": [],
+      "only": [
+        "*front*top",
+        "*pump*retainer"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "snapshot",
+          "sha256": "175fe335dc218fd53c5e141fe196debb6a4d5c35a80ccac601120f238517a1b0",
+          "commit": "09e7854ea837782a2a196e41c560f40d17823a67",
+          "taken": "2026-10-26T06:17:07.636Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "tree",
+          "sha256": "da81e89f01a9b15f60de048dcf8ed2611875fe9ad884b9c0712332c6f5f7d4a4",
+          "commit": "8c7470cbfd41b065ef40ac97001ef99083571cc5",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure_back_top",
+        "enclosure-back-top",
+        "enclosure-back-bottom",
+        "enclosure_back_bottom",
+        "enclosure-front-top",
+        "enclosure_front_top",
+        "enclosure-front-bottom",
+        "enclosure_front_bottom",
+        "enclosure-pump-retainer",
+        "stem-elbow-v-c",
+        "stem-elbow-v-d",
+        "stem-elbow-v-g",
+        "stem-elbow-v-j",
+        "stem-elbow-y-c",
+        "stem-elbow-y-d",
+        "stem-elbow-y-f",
+        "stem-elbow-y-g",
+        "tee-y-c",
+        "tee-y-d",
+        "tee-y-f",
+        "tee-y-g",
+        "enclosure_pump_retainer"
+      ],
+      "withinMeshing": []
+    },
+    {
+      "name": "retainer",
+      "caption": "The carrier, wings and lower hooks share one fore–aft span.",
+      "before": "retainer-before.webp",
+      "after": "retainer-after.webp",
+      "width": 1000,
+      "height": 760,
+      "model": "printed-parts/enclosure/enclosure/enclosure.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          205.48980330301285,
+          -157.48980330301285,
+          43.15713768789101
+        ],
+        "target": [
+          0,
+          48,
+          187
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 112,
+        "near": 190.5688419720833,
+        "far": 541.8477355823971,
+        "aspect": 1.3157894736842106
+      },
+      "highlight": [
+        "*pump*retainer"
+      ],
+      "ghost": [],
+      "only": [
+        "*pump*retainer"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "snapshot",
+          "sha256": "175fe335dc218fd53c5e141fe196debb6a4d5c35a80ccac601120f238517a1b0",
+          "commit": "09e7854ea837782a2a196e41c560f40d17823a67",
+          "taken": "2026-10-26T06:17:07.636Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "tree",
+          "sha256": "da81e89f01a9b15f60de048dcf8ed2611875fe9ad884b9c0712332c6f5f7d4a4",
+          "commit": "8c7470cbfd41b065ef40ac97001ef99083571cc5",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure_back_top",
+        "enclosure-back-top",
+        "enclosure-back-bottom",
+        "enclosure_back_bottom",
+        "enclosure-front-top",
+        "enclosure_front_top",
+        "enclosure-front-bottom",
+        "enclosure_front_bottom",
+        "enclosure-pump-retainer",
+        "stem-elbow-v-c",
+        "stem-elbow-v-d",
+        "stem-elbow-v-g",
+        "stem-elbow-v-j",
+        "stem-elbow-y-c",
+        "stem-elbow-y-d",
+        "stem-elbow-y-f",
+        "stem-elbow-y-g",
+        "tee-y-c",
+        "tee-y-d",
+        "tee-y-f",
+        "tee-y-g",
+        "enclosure_pump_retainer"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}

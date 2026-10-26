@@ -8,7 +8,7 @@ click: x=99.175 y=120.290 z=253.100
 click: x=-99.175 y=137.096 z=235.811
 click: x=99.175 y=136.961 z=235.811
 
-[ceiling] Specified supported pump-capture faces: the broad fixed block starts at the flange-bearing datum Z215.074, and the two fitted boss shoulders end at Z236.074. These planes have the supported-face allowance and close the pump capture when the underside retainer is tightened. The block continues upward into the housing. The native print reading identifies support access through the unloaded pump opening and motor bores before hardware installation; physical cleanup and bearing finish remain unqualified.
+[ceiling] Specified supported pump-capture faces: the broad fixed block starts at the flange-bearing datum Z215.074, and the two fitted boss shoulders end at Z236.074. These planes have the supported-face allowance and close the pump capture when the underside snap retainer is seated. The block continues upward into the housing. The native print reading identifies support access through the unloaded pump opening and motor bores before hardware installation; physical cleanup and bearing finish remain unqualified.
 alternatives: Filling the pump openings occupies the motor-first loading envelope. Sloping the entire underside removes the stated bearing datums. Retaining only the contact lands and adding separate ramps around them changes the approved plain broad block into additional outer boundaries.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=0.000 y=48.257 z=215.074
@@ -36,17 +36,15 @@ click: x=104.500 y=173.903 z=245.785
 click: x=-104.500 y=50.644 z=171.681
 click: x=104.500 y=50.644 z=171.681
 
-[ledge] Specified blind M3 fastener bores: the Ø4 mm RX-M3 insert pilots end at Z221.774 and meet Ø3.3 mm screw-tip reliefs ending at Z229.195. The annular transitions separate the insert installation envelope from the smaller steel-screw clearance; the closed ends preserve the blind root above the screw tips. Their native support branches are reached axially through the open pilots before installing inserts. Physical cleanup and root capacity remain unqualified.
-alternatives: Extending Ø4 mm to the tip removes the annular steps but enlarges the closed tip ceilings and removes more host section. A through bore removes the closed root. A sloping tip roof needs additional height beyond the specified full-diameter screw-tip relief and a corresponding change to the closed backing and dense-host region.
-file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=-0.190 y=47.615 z=221.774
-click: x=-93.670 y=46.435 z=221.774
-click: x=90.330 y=46.435 z=221.774
-click: x=-0.181 y=45.498 z=229.195
-click: x=-92.354 y=45.438 z=229.195
-click: x=91.646 y=45.438 z=229.195
-
 [slope] Wrong slope classification for the upper M5 passage relief: this is the ramped roof inside a 5.6 mm wide slot, with its two rising edges carried by the opposed slot walls. The classifier tests one adjacent wall and reports a sideways corbel; its grouped click is the mean of the mirrored roofs, not a physical point at X0. Retain Tree(auto)/Default in a fresh native preparation; this reading does not qualify bridge finish or support removal.
 alternatives: A level slot roof creates a flat ceiling. A gable running across the slot meets the 45-degree knuckle face along a V and restores a thin ridge. Filling the slot restores the bore-to-face knife edge.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=0.000 y=211.627 z=338.579
+
+[sliver] Functional hook-bearing floors of the approved pump snap. The 1.10 mm X land at Z165.045 runs from |X|98.5 to 99.6 and matches the seated hooks; the only interruption along Y is the requested central screwdriver port. These are the intended retention faces, not strips left by mismatched cuts. Their two 32.0075 mm runs supply 70.4165 mm² of nominal floor area per side. Native geometry and the current print receipt are in enclosure/pump-snap-review; this area is not a load-capacity result.
+alternatives: Enlarging this land requires a deeper hook engagement and greater inward hook travel. Removing it removes vertical capture. The approved common wing/hook Y ends and central release opening determine the two uninterrupted bearing runs.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-99.050 y=30.004 z=165.045
+click: x=-99.050 y=66.511 z=165.045
+click: x=99.050 y=30.004 z=165.045
+click: x=99.050 y=66.511 z=165.045
