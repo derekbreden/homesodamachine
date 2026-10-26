@@ -20,6 +20,7 @@
 .cad-workspace { display: flex; position: relative; width: 100%; height: 100%; min-width: 0; overflow: hidden; }
 .cad-stage { display: flex; flex: 1; flex-direction: column; position: relative; height: 100%; min-height: 0; min-width: 0; }
 .cad-stage > .cad-wrapper { flex: 1; width: 100%; height: auto; min-width: 0; min-height: 0; }
+.cad-workspace:not(.materials-open) .cad-crumb { max-width: calc(100% - 180px); }
 .material-view-switch { display: flex; align-self: flex-start; flex-shrink: 0; margin: 60px 12px 12px; border: 1px solid var(--border); border-radius: 7px; overflow: hidden; }
 .material-view-switch button { min-height: 38px; min-width: 68px; padding: 8px 14px; border: 0; background: var(--surface); color: var(--text); font: inherit; font-size: 0.8rem; cursor: pointer; }
 .material-view-switch button[aria-pressed=true] { background: var(--action); color: var(--on-action); font-weight: 600; }

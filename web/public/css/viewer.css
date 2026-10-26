@@ -534,7 +534,7 @@
 
    The whole trail scrolls sideways inside the pill rather than pushing the
    close button off the corner. */
-.cad-wrapper > .cad-crumb {
+.cad-crumb {
   position: absolute;
   top: calc(env(safe-area-inset-top, 0px) + 12px);
   left: calc(env(safe-area-inset-left, 0px) + 12px);
@@ -553,8 +553,8 @@
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
 }
-.cad-wrapper > .cad-crumb::-webkit-scrollbar { display: none; }
-.cad-wrapper > .cad-crumb.show { display: flex; }
+.cad-crumb::-webkit-scrollbar { display: none; }
+.cad-crumb.show { display: flex; }
 .cad-crumb-step {
   flex: 0 0 auto;
   padding: 3px 8px;

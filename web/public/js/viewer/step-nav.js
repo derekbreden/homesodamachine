@@ -134,7 +134,8 @@ function setFilename(file) {
 function syncCrumb(file) {
   const wrapper = state.currentCadWrapper;
   if (!wrapper) return;
-  let crumb = wrapper.querySelector(".cad-crumb");
+  const stage = wrapper.closest(".cad-stage") || wrapper;
+  let crumb = stage.querySelector(".cad-crumb");
   const pill = filenamePill(wrapper);
 
   // Nothing above this model: the pill says its name on its own, and the crumb
@@ -148,7 +149,7 @@ function syncCrumb(file) {
     crumb = document.createElement("div");
     crumb.className = "cad-crumb";
     crumb.setAttribute("aria-label", "Breadcrumb");
-    wrapper.appendChild(crumb);
+    stage.appendChild(crumb);
   }
   crumb.textContent = "";
   trail.forEach((ancestor, i) => {
