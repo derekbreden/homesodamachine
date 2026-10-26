@@ -20,6 +20,21 @@ export function memberUrl(file) {
   return state.memberUrls.get(file) || null;
 }
 
+/** Adopt the current publication before redrawing a changed model. */
+export async function refreshMemberUrls() {
+  try {
+    const response = await fetch('/api/objects', { cache: 'no-store' });
+    if (!response.ok) return false;
+    const { objects } = await response.json();
+    if (!objects || typeof objects !== 'object') return false;
+    state.memberUrls.clear();
+    for (const [file, url] of Object.entries(objects)) state.memberUrls.set(file, url);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 /** Whether this exact member was the last one loaded for `file`. */
 export function memberLoaded(file, url) {
   return state.memberLoaded.get(file) === url;

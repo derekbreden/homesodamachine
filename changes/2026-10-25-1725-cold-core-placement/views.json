@@ -76,6 +76,70 @@
         "cold-core/foam-cap-bottom"
       ],
       "withinMeshing": []
+    },
+    {
+      "name": "machine",
+      "caption": "The complete casing sits inside the enclosure after the appliance refresh retains its installed frame.",
+      "before": "machine-before.webp",
+      "after": "machine-after.webp",
+      "width": 1200,
+      "height": 1000,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          778.6945905263383,
+          -339.09625497977265,
+          699.0962549797727
+        ],
+        "target": [
+          0,
+          200,
+          160
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 350,
+        "near": 624.4703909038257,
+        "far": 1805.0625881696105,
+        "aspect": 1.2
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "cold-core/foam-*",
+        "enclosure-front-*",
+        "enclosure-back-*"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "5a966e8c4467d24a5e1f7635fd152d1ca084fa68114b18881ba13ee57661f940",
+          "commit": "5d2ba412a6355fdf92c669019d62eee9d1f3bec3",
+          "taken": "2026-10-26T01:47:16.186Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "40304e3cbbab37c2eefd63ed592d840fe60a102fe457592c97fbee199c0d64cd",
+          "commit": "5d2ba412a6355fdf92c669019d62eee9d1f3bec3",
+          "published": false
+        }
+      },
+      "changed": [
+        "cold-core/foam-cap-top",
+        "cold-core/foam-cap-lid-top",
+        "cold-core/foam-shell",
+        "cold-core/foam-cap-lid-bottom",
+        "cold-core/foam-cap-bottom"
+      ],
+      "withinMeshing": []
     }
   ]
 }
