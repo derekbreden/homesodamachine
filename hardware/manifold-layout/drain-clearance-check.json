@@ -637,7 +637,7 @@
         },
         {
           "name": "enclosure-front-top",
-          "gap_mm": 9.5401834,
+          "gap_mm": 2.5496353,
           "overlap_mm3": 0
         },
         {
@@ -1240,7 +1240,7 @@
         },
         {
           "name": "enclosure-front-top",
-          "gap_mm": 13.1391168,
+          "gap_mm": 6.3758829,
           "overlap_mm3": 0
         },
         {

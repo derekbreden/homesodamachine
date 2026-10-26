@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "recorded_utc": "2026-10-26T00:23:20.943465+00:00",
+  "recorded_utc": "2026-10-26T00:45:15.835507+00:00",
   "scope": "Manual native checks on the four finished enclosure pieces. Geometry only; no physical fit, bearing capacity, installation torque or lifetime qualification.",
   "customer_outcome": "One available M5x100 SKU at all four Y-seam stations, with the upper screw enclosed and both joints using three alternating knuckles.",
   "common_screw": {
@@ -16,20 +16,20 @@
     "listing_verified": "2026-10-25; Amazon Prime; 20 pieces at USD 7.70 before tax"
   },
   "input_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "a3d6521dbf5e1459153fd0ebd58ab4b6cd069b156c0b918eac0a118c4c585993",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "02e484b9f7f5f8506b740a37d7994438006149eeaab3b89acf5d26619cc4411b",
     "hardware/manifold-layout/above_core_routes.py": "fe980a854a87f0db84fcc66e6333a4066388a25e8228a106db70dcdca20fbfa5",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "2ba9088e82845791b11d2c0470560c149916357bd11482be34e91001f6fbc692",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "dff738bf8c511699aa1fa7e074dbbac56e62c402c750f01e7f630c5b552453bb",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "fcfe2befd2b8bfaff9ebb901ff6777061634988c6ca4b7f1ef8288a6cab01e7d",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "f856ca9785d5bef868b5eca804c7214f2a5a17cd5260727138a83f729765521d",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "fe1a99b351c2c0545a945f708c8e4f5da11d4fed74c85f01144f4002ba04e497",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh": "47431932dadfc69e990ec8218c8ca62d778df2fb904d251d402ac479f61899ef",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "8567ae6046356457fc4fd2a806a609abc02507faf9b534ac0b2105e5ca7d7d1b",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.stl": "76d2349b4769ecbe541d03859befc21956b47f0c3b7ccc5ab2fdf3cda575ed50",
     "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh": "10561b9fada6948af88eb66f50c5ff5de738a608267ca21173f4e10a87ccd8f7",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "481f83f6dc83ecb48c570981125771317cd3616845f27009ef082e74fced8a3a",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "58c08e549e1b7b34cbb8b6ae46a562f757bb1ce2855d3d4212574f4f624e1007",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "01e6c158f4e24692441d32abd2b1b3782a7a877bb3410d3ec125f0e4f4e568ba",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "1323845cedb38be25b74f9a9fb984fa39addee58a98be85ed1aa6362d044df00",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "464dc5ffabd1b3dd1f4108a9d0ac4aeee1f07938c92820bfa051ab479c4df97e",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "48752f7c2c8c1a4bd79b434c1abfd4242a277824053798744d48e99e6ac341cf"
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "19956ba91dc58b7ae2c60d01cd2f2c99ffc0b8337473dbab669d4baff83be650",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "12e79813e2e14d86f44e8e2b76f8d5337c774d22fbc960a99c53b5c0a561837e",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "e2c5f7ca13d8efc3764b5e671a7dabefa5cfbb2098eeabcd7844c94ed192f58b",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "dc197f298931893c1d14c55d5dfc637eca3b867ccbc19f70281627e413aa231f",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "15e9d6db6464d5d60778de1f21d02288ade25b7a83f2c195c41a1e78d77fa65e",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "db19d5339ea117b128898ce5c10a742ecec104909e2fa9822249d2809a0709e9"
   },
   "inputs_unchanged": true,
   "native_parts": {
@@ -186,7 +186,7 @@
   "status": "pass",
   "tube_routes": {
     "facts_file": "hardware/manifold-layout/enclosure-assembly.facts.json",
-    "facts_sha256": "3574a56896ff8fc02b9bed9a6f6f192241119e23a7f360e686ce9384990208db",
+    "facts_sha256": "3685c5cc773a04ba70dedeeed848b0d3402f6cf1c477959ac2222a93d8d51816",
     "scope": "Native line/arc paths emitted by the complete appliance assembly; stock bend radius and continuous endpoints. This is not a physical tube-holding result.",
     "routes": [
       {
