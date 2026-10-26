@@ -7809,7 +7809,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:dd2159876c4950718ef4d6b995142495315743c2f10df84ac11a9c9a7dc29470",
+  "input_fingerprint": "sha256:51f18935de289efc33cbd7ae4489df1ad41986d5c7799d3a459f9f468c56126f",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -11709,6 +11709,23 @@
       "event_ids": [],
       "order_date": {
         "precision": "day",
+        "value": "2026-10-25"
+      },
+      "order_id": "amazon:112-8643704-3927458",
+      "purchase_ids": [
+        "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96"
+      ],
+      "reference": "112-8643704-3927458",
+      "source_ids": [
+        "src-7101af811922496e9b6b06ff68e18484"
+      ],
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [],
+      "order_date": {
+        "precision": "day",
         "value": "2026-04-22"
       },
       "order_id": "amazon:112-8685000-6226628",
@@ -13602,11 +13619,17 @@
       },
       "order_id": "amazon:114-8768578-0217027",
       "purchase_ids": [
+        "pur-2b7d4e1a9c3f4e6b8a1d5c7e9f0a2b41",
+        "pur-3c8e5f2b0d4a4f7c9b2e6d8f0a1b3c52",
+        "pur-4d9f6a3c1e5b4a8d0c3f7e9a1b2c4d63",
+        "pur-5e0a7b4d2f6c4b9e1d4a8f0b2c3d5e74",
+        "pur-6f1b8c5e3a7d4c0f2e5b9a1c3d4e6f85",
         "pur-91bd3b099e80493ab591655550b439ca",
         "pur-a02ce33a2d984d9fbea615cbad793ab3"
       ],
       "reference": "114-8768578-0217027",
       "source_ids": [
+        "src-a35c93fcae5f41b1bdf124d53f16e8e4",
         "src-d814ffbbc33146fb887f9e1bdc6944a4"
       ],
       "vendor": "Amazon"
@@ -15687,6 +15710,23 @@
         "src-2f1601429d6545338d5a5eaaada1ba89",
         "src-3bee25f04ac04511b9b79200683fab02",
         "src-69cd4bc147fd4e9eb7b6db4f753f08e1"
+      ],
+      "vendor": "Bambu Lab"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-26"
+      },
+      "order_id": "bambu:us791135084148191233",
+      "purchase_ids": [
+        "pur-8b3d0e7a5c9f4e2b4a7d1c3e5f6a8b07"
+      ],
+      "reference": "us791135084148191233",
+      "source_ids": [
+        "src-8732dad07bf84f9492eca983fb4accb6"
       ],
       "vendor": "Bambu Lab"
     },
@@ -20833,12 +20873,15 @@
       "amount_minor": 2358,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
       "description": "BESSEY GSCC2.506 clutch-style bar clamps, 6\" opening × 2.5\" throat, 600 lb — C1/C2, the two outboard metal screw clamps of the tube insertion guide. Two clamps, $10.99 ea + $1.60 estimated tax, free shipping",
       "event_ids": [
         "evt-e5f1a5d1860941fe82124df7e77e67fe"
       ],
-      "fulfillment": "ON-ORDER",
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-250afee3f9d341c9a9d18d4e33c0fd0e",
       "merchant_charge_allocated_minor": 0,
@@ -20980,7 +21023,7 @@
       "event_ids": [
         "evt-d3b134e34785419c80b032d8ae15d6d1"
       ],
-      "fulfillment": "ON-ORDER",
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-25f35741f88e40729bec555987f79640",
       "merchant_charge_allocated_minor": 10723,
@@ -21882,6 +21925,53 @@
       "stream": "purchase",
       "unit_amount_minor": null,
       "vendor": "Polymaker"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 3231,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-10-19"
+      },
+      "description": "MEAN WELL IRM-90-12ST encapsulated 80 W / 12 V / 6.7 A PSU. $30.13 item price + $2.18 allocated tax",
+      "event_ids": [],
+      "fulfillment": "ACQUIRED",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-2b7d4e1a9c3f4e6b8a1d5c7e9f0a2b41",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-17"
+      },
+      "order_ids": [
+        "amazon:114-8768578-0217027"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-2b7d4e1a9c3f4e6b8a1d5c7e9f0a2b41",
+      "purpose": "components",
+      "quantity": 1,
+      "quantity_text": "1",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-17"
+      },
+      "row_date_basis": "order_date",
+      "section": "11. Enclosure hardware",
+      "service_period": null,
+      "source_ids": [
+        "src-a35c93fcae5f41b1bdf124d53f16e8e4"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
     },
     {
       "allocation_status": "all_project",
@@ -23323,15 +23413,65 @@
     {
       "allocation_status": "all_project",
       "amount_evidence": "estimate",
+      "amount_minor": 950,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-10-18"
+      },
+      "description": "iexcell M5 × 0.8 × 150 mm socket-head cap screws, 10 pc, 304 stainless. $8.86 item price + $0.64 allocated tax",
+      "event_ids": [],
+      "fulfillment": "ACQUIRED",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-3c8e5f2b0d4a4f7c9b2e6d8f0a1b3c52",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-17"
+      },
+      "order_ids": [
+        "amazon:114-8768578-0217027"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-3c8e5f2b0d4a4f7c9b2e6d8f0a1b3c52",
+      "purpose": "components",
+      "quantity": 1,
+      "quantity_text": "1 pk (10)",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-17"
+      },
+      "row_date_basis": "order_date",
+      "section": "11. Enclosure hardware",
+      "service_period": null,
+      "source_ids": [
+        "src-a35c93fcae5f41b1bdf124d53f16e8e4"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
       "amount_minor": 852,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
       "description": "Loctite Super Glue Plastics Bonding System 681925, heptane-base activator pen (4 g) + ethyl cyanoacrylate (2 g) — the activator primes the Beduan valve posts for the same retention trial. Two kits, $3.97 ea + $0.58 of the order's $2.00 estimated tax (split per unit at 7.25%), free shipping",
       "event_ids": [
         "evt-4f7b7d18ceab43979159e02bdb2a306d"
       ],
-      "fulfillment": "ON-ORDER",
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-3ce173932d6c45f184bcd60237a2c790",
       "merchant_charge_allocated_minor": 852,
@@ -25475,6 +25615,53 @@
       "stream": "purchase",
       "unit_amount_minor": null,
       "vendor": "Render"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 764,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-10-18"
+      },
+      "description": "BNUOK M3 × 6 mm Hex Socket Head Cap Screws, 120 pc, 12.9 alloy steel, black oxide. $7.12 item price + $0.52 allocated tax",
+      "event_ids": [],
+      "fulfillment": "ACQUIRED",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-4d9f6a3c1e5b4a8d0c3f7e9a1b2c4d63",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-17"
+      },
+      "order_ids": [
+        "amazon:114-8768578-0217027"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-4d9f6a3c1e5b4a8d0c3f7e9a1b2c4d63",
+      "purpose": "components",
+      "quantity": 1,
+      "quantity_text": "1 pk (120)",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-17"
+      },
+      "row_date_basis": "order_date",
+      "section": "11. Enclosure hardware",
+      "service_period": null,
+      "source_ids": [
+        "src-a35c93fcae5f41b1bdf124d53f16e8e4"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
     },
     {
       "allocation_status": "all_project",
@@ -27882,6 +28069,53 @@
       "stream": "purchase",
       "unit_amount_minor": null,
       "vendor": "BrewHardware"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 804,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-10-18"
+      },
+      "description": "SVLING M5 × 0.8 × 60 mm socket-head cap screws, 40 pc, 12.9 alloy steel, black. $7.50 item price + $0.54 allocated tax",
+      "event_ids": [],
+      "fulfillment": "ACQUIRED",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-5e0a7b4d2f6c4b9e1d4a8f0b2c3d5e74",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-17"
+      },
+      "order_ids": [
+        "amazon:114-8768578-0217027"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-5e0a7b4d2f6c4b9e1d4a8f0b2c3d5e74",
+      "purpose": "components",
+      "quantity": 1,
+      "quantity_text": "1 pk (40)",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-17"
+      },
+      "row_date_basis": "order_date",
+      "section": "11. Enclosure hardware",
+      "service_period": null,
+      "source_ids": [
+        "src-a35c93fcae5f41b1bdf124d53f16e8e4"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
     },
     {
       "allocation_status": "all_project",
@@ -30738,6 +30972,53 @@
     },
     {
       "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 768,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-10-19"
+      },
+      "description": "Small Parts M5 flat washers, DIN 125, 5.3 mm ID × 10 mm OD × 1 mm, 18-8 stainless, black oxide, 100 pc. $7.16 item price + $0.52 allocated tax",
+      "event_ids": [],
+      "fulfillment": "ACQUIRED",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-6f1b8c5e3a7d4c0f2e5b9a1c3d4e6f85",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-17"
+      },
+      "order_ids": [
+        "amazon:114-8768578-0217027"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-6f1b8c5e3a7d4c0f2e5b9a1c3d4e6f85",
+      "purpose": "components",
+      "quantity": 1,
+      "quantity_text": "1 pk (100)",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-17"
+      },
+      "row_date_basis": "order_date",
+      "section": "11. Enclosure hardware",
+      "service_period": null,
+      "source_ids": [
+        "src-a35c93fcae5f41b1bdf124d53f16e8e4"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
       "amount_evidence": "final_vendor_amount",
       "amount_minor": 5019,
       "contributes": true,
@@ -32039,6 +32320,50 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-amazon:114-7711911-5865013"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 826,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "SVLING M5 × 0.8 × 100 mm socket-head cap screws, 20 pc, 12.9 alloy steel, black — seam rods. $7.70 + $0.56 tax",
+      "event_ids": [],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-25"
+      },
+      "order_ids": [
+        "amazon:112-8643704-3927458"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96",
+      "purpose": "components",
+      "quantity": 1,
+      "quantity_text": "1 pk (20)",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-25"
+      },
+      "row_date_basis": "order_date",
+      "section": "11. Enclosure hardware",
+      "service_period": null,
+      "source_ids": [
+        "src-7101af811922496e9b6b06ff68e18484"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -34076,6 +34401,50 @@
     },
     {
       "allocation_status": "all_project",
+      "amount_evidence": "final_vendor_amount",
+      "amount_minor": 17156,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "H2C Induction Hotend (Right), standard flow, hardened steel: 0.8 mm ×2 ($79.98) + 0.6 mm ×2 ($79.98) + NE tax $11.60; shipping waived",
+      "event_ids": [],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-8b3d0e7a5c9f4e2b4a7d1c3e5f6a8b07",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-26"
+      },
+      "order_ids": [
+        "bambu:us791135084148191233"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-8b3d0e7a5c9f4e2b4a7d1c3e5f6a8b07",
+      "purpose": "equipment_tooling",
+      "quantity": null,
+      "quantity_text": "",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-26"
+      },
+      "row_date_basis": "order_date",
+      "section": "15. 3D printing equipment and filaments (Bambu Lab direct)",
+      "service_period": null,
+      "source_ids": [
+        "src-8732dad07bf84f9492eca983fb4accb6"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Bambu Lab"
+    },
+    {
+      "allocation_status": "all_project",
       "amount_evidence": "legacy_unverified",
       "amount_minor": 1778,
       "contributes": true,
@@ -35275,12 +35644,15 @@
       "amount_minor": 1286,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-10-18"
+      },
       "description": "MECCANIXITY UL1007 16 AWG solid tinned-copper hookup wire, white, 25 ft — fixed AC-1/2/3 and DC-1/2/4 runs, neutral conductors. $11.99 item price + $0.87 allocated tax",
       "event_ids": [
         "evt-7f73633b6a97457eaa442c0429f18359"
       ],
-      "fulfillment": "ON-ORDER",
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-91bd3b099e80493ab591655550b439ca",
       "merchant_charge_allocated_minor": 0,
@@ -36271,12 +36643,15 @@
       "amount_minor": 5579,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-10-15"
+      },
       "description": "CNCKitchen USA order #CNC3278 — Installation Tips SET+ Adapter compatible with 900M & T18 (T18 adapter with a male M5 thread + M2–M8 straight insert tips) + 90° Installation Tip for Tricky Places, Full Set M2 to M8 — right-angle insert tips for the FX-888D. The 90° M3 presses the 17 M3 inserts on back-top's +X wall bosses from inside the box, with the iron parallel to the wall. The 90° tips' female M5 threads need this adapter; the B0CS662NVK kit's adapter takes male-stud tips",
       "event_ids": [
         "evt-2619ee4d42f24811a5f57b01f6fa6a1f"
       ],
-      "fulfillment": "ON-ORDER",
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-9835cb05727440fa98029e6134ffd627",
       "merchant_charge_allocated_minor": 5579,
@@ -36762,12 +37137,15 @@
       "amount_minor": 2358,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-10-16"
+      },
       "description": "PureSec 1/4\" RO push-to-connect 90° elbow bulkhead, white polypropylene, 5-pack — reservoir draw bulkheads. $21.98 item price + $1.60 allocated tax",
       "event_ids": [
         "evt-9fd2d4a65f7d45a594a7ac3a6837d416"
       ],
-      "fulfillment": "ON-ORDER",
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-9c025ba9576044b38a4745d084361ea5",
       "merchant_charge_allocated_minor": 0,
@@ -37371,12 +37749,15 @@
       "amount_minor": 1286,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-10-19"
+      },
       "description": "MECCANIXITY UL1007 16 AWG solid tinned-copper hookup wire, black, 25 ft — fixed AC-1/2/3 and DC-1/2/4 runs, hot and DC conductors. $11.99 item price + $0.87 allocated tax",
       "event_ids": [
         "evt-7f73633b6a97457eaa442c0429f18359"
       ],
-      "fulfillment": "ON-ORDER",
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-a02ce33a2d984d9fbea615cbad793ab3",
       "merchant_charge_allocated_minor": 0,
@@ -37935,12 +38316,15 @@
       "amount_minor": 660,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-10-19"
+      },
       "description": "uxcell silicone flat washer, ⌀16 ID × ⌀24 OD × 3 mm, clear, 10-pack — reservoir bulkhead wet-side face seal. $6.15 item price + $0.45 allocated tax",
       "event_ids": [
         "evt-9fd2d4a65f7d45a594a7ac3a6837d416"
       ],
-      "fulfillment": "ON-ORDER",
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-a61e59a7635c4aa0887475454ad04b04",
       "merchant_charge_allocated_minor": 0,
@@ -38030,12 +38414,15 @@
       "amount_minor": 2114,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
       "description": "LOCTITE 406 instant adhesive, 20 g, low-viscosity ethyl cyanoacrylate for plastics and rubber — Beduan valve-post retention trial: wicked into the PET-GF sockets around primed posts. Two bottles, $9.86 ea + $1.42 of the order's $2.00 estimated tax (split per unit at 7.25%), free shipping",
       "event_ids": [
         "evt-4f7b7d18ceab43979159e02bdb2a306d"
       ],
-      "fulfillment": "ON-ORDER",
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-a667e3ee975c42218852bc7b225d75a8",
       "merchant_charge_allocated_minor": 2114,
@@ -44204,12 +44591,15 @@
       "amount_minor": 9640,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-10-13"
+      },
       "description": "Beduan 12 V 1/4\" inlet water solenoid (NC) — ten valves, $8.99 ea + $6.50 estimated tax, free shipping",
       "event_ids": [
         "evt-ef96ebf561264b5dafd229959a5acabe"
       ],
-      "fulfillment": "ON-ORDER",
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-d8a8a1e239ff48b6a6b19c43e22b4858",
       "merchant_charge_allocated_minor": 9640,
@@ -45381,12 +45771,15 @@
       "amount_minor": 4286,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-10-25"
+      },
       "description": "Klein Tools 54866MB MODbox roll dispenser (spool holder rail attachment) — spool rods on MODbox rails for the stranded wire reels a build cuts from (bom.md §9 ribbons, §11 hookup wire); adjustable width, 20 lb rating. Two at $19.98 ea + $2.90 allocated estimated NE tax, sold by Amazon.com, free shipping; Amazon order details verified 2026-10-24, arriving 2026-10-25",
       "event_ids": [
         "evt-f309b3ca14d1489d87b39daf5c7b7841"
       ],
-      "fulfillment": "ON-ORDER",
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-e17001f6d6074a8884e9e1b2af82fa1f",
       "merchant_charge_allocated_minor": 0,
@@ -47877,12 +48270,15 @@
       "amount_minor": 21245,
       "contributes": true,
       "currency": "USD",
-      "delivery_date": null,
+      "delivery_date": {
+        "precision": "day",
+        "value": "2026-10-14"
+      },
       "description": "Kamoer KPHM600-SW3B17 600 ml/min 12 V peristaltic pump, brush motor (BPT 6.4 mm ID × 9.6 mm OD, sold by Kamoer Fluid Tech Shanghai) — five pumps, $39.62 ea + $14.35 estimated tax, free shipping",
       "event_ids": [
         "evt-bad47324ad83426992a3db494d58e295"
       ],
-      "fulfillment": "ON-ORDER",
+      "fulfillment": "ACQUIRED",
       "invoice_date": null,
       "ledger_purchase_id": "pur-f4ddddb90dbd4ae2bba5008f74f8d4b6",
       "merchant_charge_allocated_minor": 21245,
@@ -57688,6 +58084,22 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-10-26"
+      },
+      "document_type": "order_details",
+      "note": "Signed-in Amazon order details: SVLING M5 x 100 mm socket-head cap screws, 20 pc, B0GHNNYVDH; $7.70 subtotal, $0.00 shipping, $0.56 estimated tax, $8.26 grand total; ordered 2026-10-25, arriving 2026-10-26. No charge or delivery is established.",
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "reference": "112-8643704-3927458",
+      "source_id": "src-7101af811922496e9b6b06ff68e18484",
+      "vendor": "Amazon",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-02-01"
       },
       "document_type": "order_confirmation",
@@ -57981,6 +58393,22 @@
       "source_id": "src-86fcdbb0f3a2433cb6c7239fa01e77b9",
       "vendor": "SendCutSend",
       "verified_at": "2026-10-04"
+    },
+    {
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-26"
+      },
+      "document_type": "email_order_confirmation",
+      "note": "Gmail order confirmation received 2026-10-26 01:21 America/Chicago: H2C Induction Hotend (Right) standard flow 0.8 mm hardened steel x2 USD 79.98 and 0.6 mm hardened steel x2 USD 79.98; USD 159.96 subtotal, USD 0.00 shipping, USD 11.60 tax (state 5.5% USD 8.80 + city 1.75% USD 2.80), USD 171.56 grand total and net payment. The order number's timestamp places the order at 2026-10-26 01:20 America/Chicago. No completed merchant charge is stated.",
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "reference": "us791135084148191233",
+      "source_id": "src-8732dad07bf84f9492eca983fb4accb6",
+      "vendor": "Bambu Lab",
+      "verified_at": "2026-10-26"
     },
     {
       "document_date": {
@@ -58555,6 +58983,23 @@
       "source_id": "src-a2bd31096c4043d284cad779b84c282d",
       "vendor": "Amazon",
       "verified_at": "2026-10-04"
+    },
+    {
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-26"
+      },
+      "document_type": "order_details",
+      "note": "Signed-in Amazon order details: MEAN WELL IRM-90-12ST B0CNRST18V $30.13, iexcell M5 x 150 mm B0DRB1XNWT $8.86, BNUOK M3 x 6 mm B0DJQH3WSX $7.12, SVLING M5 x 60 mm B0GHNHFYJN $7.50, Small Parts M5 washers B009OK27FI $7.16, MECCANIXITY UL1007 black and white $11.99 each; $84.75 subtotal, $0.00 shipping, $6.14 estimated tax, $90.89 grand total. Delivered 2026-10-18 and 2026-10-19 by line.",
+      "proves": [
+        "order_date",
+        "price",
+        "delivery"
+      ],
+      "reference": "114-8768578-0217027",
+      "source_id": "src-a35c93fcae5f41b1bdf124d53f16e8e4",
+      "vendor": "Amazon",
+      "verified_at": "2026-10-26"
     },
     {
       "document_date": {
@@ -60436,7 +60881,7 @@
       "basis": "Current procurement status, independently of payment evidence.",
       "by_status": [
         {
-          "amount_minor": 4593017,
+          "amount_minor": 4661921,
           "currency": "USD",
           "fulfillment": "ACQUIRED",
           "purchase_ids": [
@@ -60525,8 +60970,10 @@
             "pur-231e62f4d5184efe8dea6ec5f44a1a7a",
             "pur-2457df51398f4e368395d5ee52488c9b",
             "pur-24c3ed43ee7f4fa7b4ac854f8ff90935",
+            "pur-250afee3f9d341c9a9d18d4e33c0fd0e",
             "pur-253b15267a754671a90f8c5d31b997fb",
             "pur-256b2c67900b47178deeae21da804833",
+            "pur-25f35741f88e40729bec555987f79640",
             "pur-2652d8ca1192405996c3cbee93805c40",
             "pur-2663049b12ec451e9e083bf3989cb2d3",
             "pur-26a055757240455891e7ea95c995df3e",
@@ -60545,6 +60992,7 @@
             "pur-2adc38c7f40a47c0a7ce61c92ac8671d",
             "pur-2b02951001084d3da886fff6f90ab5ed",
             "pur-2b1b4051619a4c01885f6d2ca0f72b84",
+            "pur-2b7d4e1a9c3f4e6b8a1d5c7e9f0a2b41",
             "pur-2b9c812ca2194e2d9ae2537dd7079c90",
             "pur-2be9e821f4bd485c95fd41765171b1ba",
             "pur-2cab9c5a03c04046937351ade4988f85",
@@ -60574,6 +61022,8 @@
             "pur-3b72c994b94b43c29f76326060b40799",
             "pur-3bd5d44c62d84422b3dbe3310c70a21a",
             "pur-3be1b856906740fcbb8abccf195fcf8c",
+            "pur-3c8e5f2b0d4a4f7c9b2e6d8f0a1b3c52",
+            "pur-3ce173932d6c45f184bcd60237a2c790",
             "pur-3ce496aeefa54ba3ac576dd7b9d3ec91",
             "pur-3d23a62e17584a1fb6247b9bbf1c9575",
             "pur-3d76f4776f4b4092b93462762f916385",
@@ -60618,6 +61068,7 @@
             "pur-4ce8b4ab83a54bdfa2dc9e264ccd1b0e",
             "pur-4d8521eb40ef424c8a4aa2d5ba5025e3",
             "pur-4d96e721370148edbb8654697b9d1d4e",
+            "pur-4d9f6a3c1e5b4a8d0c3f7e9a1b2c4d63",
             "pur-4dab8c029f604a8e8c1c585de5567bab",
             "pur-4e67b837e2924692ab29eaaba49ae039",
             "pur-4ece7766dd31470b9b37994248982069",
@@ -60667,6 +61118,7 @@
             "pur-5cc9903a311f466796a8f5afbb32c1de",
             "pur-5ceb76c50ae54fffba3b019d5d0f792a",
             "pur-5da1ea9540d44a8897b0c2774fe1ff35",
+            "pur-5e0a7b4d2f6c4b9e1d4a8f0b2c3d5e74",
             "pur-5e4a44bbfad643e7944e14afd41c3448",
             "pur-5ea7267b075c4f1ebfb23ffa3cfb9580",
             "pur-5ed47473e5e14cb4bee71fc760ba4cfc",
@@ -60726,6 +61178,7 @@
             "pur-6e9a8d44f2e24b729ca4888aba4b57aa",
             "pur-6efcbbd5fcb44c888f18a2ef86a18960",
             "pur-6f026c64ba934cfa86597b5748ded272",
+            "pur-6f1b8c5e3a7d4c0f2e5b9a1c3d4e6f85",
             "pur-6f714d0f4e0b4fb4851561e01f5783b4",
             "pur-6fb9cbd2160040c983dc0055e58d4de1",
             "pur-6fdb34ee8f244808a9fc68ef8751a970",
@@ -60819,6 +61272,7 @@
             "pur-918d697bf0bb4f3d9d2a64c0880fc463",
             "pur-918df672831a4c4e95c0e052eb0bb356",
             "pur-919b9c3e559c445c81030adb1835e192",
+            "pur-91bd3b099e80493ab591655550b439ca",
             "pur-91bf8d5d3cfe41f096b1ae148d3fd635",
             "pur-92e9a8843e42401389b973926a963edc",
             "pur-9313936126aa425a919035693153c568",
@@ -60838,6 +61292,7 @@
             "pur-9795fe78ee6d4da5b43b92ef9cf3bf97",
             "pur-97a56b4c9691429f87b40c74bd003f43",
             "pur-980827d049cf41ef8ac67be0b46d35fc",
+            "pur-9835cb05727440fa98029e6134ffd627",
             "pur-9910099ea22c4c47900afde42039954e",
             "pur-9931009cf0e74b788958a69bc7951900",
             "pur-9975a463fa7c4564a160d7c783ef6b6a",
@@ -60847,6 +61302,7 @@
             "pur-9b0861ed2dcb409799dda9bb58e6a7e1",
             "pur-9b24ddfcac444a6398f62c24c98b000d",
             "pur-9b5e0854dbed4bdeac2c81202699d965",
+            "pur-9c025ba9576044b38a4745d084361ea5",
             "pur-9c16202031204275b3442cf21ec316be",
             "pur-9ce37e8a3bec40d39abe1e623bbc4bf2",
             "pur-9d460728372b4fa4ac76a549453697e0",
@@ -60859,6 +61315,7 @@
             "pur-9f4f2f41bd0e473e99f1ba6d885d8c3c",
             "pur-9f81aa36ad4e47ac8232415d46371a22",
             "pur-9fdd5aadd3a5416cb941df9d49ef528b",
+            "pur-a02ce33a2d984d9fbea615cbad793ab3",
             "pur-a065b01d45c946409f7342ac3e821a22",
             "pur-a0715d56214f4690b90294677aee5b42",
             "pur-a1316f2f48b34bd58a54999b032db5ac",
@@ -60870,7 +61327,9 @@
             "pur-a52a7f9d818044e8a32955ecd3a28d01",
             "pur-a53ccd97d110495190a9b5e728f00720",
             "pur-a5a649c9e5d44becb55d3921d1a625f7",
+            "pur-a61e59a7635c4aa0887475454ad04b04",
             "pur-a65c9eb5bab34a92879abe95032c7fad",
+            "pur-a667e3ee975c42218852bc7b225d75a8",
             "pur-a748e002d30f4feaa479ad9601062796",
             "pur-a802e5661d834484bde4de2d5459c9fc",
             "pur-a905c347f2ff42f5a0870c953cb18946",
@@ -60995,6 +61454,7 @@
             "pur-d7eab3c386f748a095e9643c083d30ed",
             "pur-d83d321239db48ee949f436e89843a22",
             "pur-d84786a4222e445d8af1bf8d2725bd01",
+            "pur-d8a8a1e239ff48b6a6b19c43e22b4858",
             "pur-d92c92ee98974e94a6c1c0e8aff69fcf",
             "pur-d93ee965bacf499aa09cd8ddb8f80f01",
             "pur-d9a7fc46c6a94ed792dea9b448ecdf05",
@@ -61017,6 +61477,7 @@
             "pur-e09e5d28db894792aef087da03caea51",
             "pur-e0dcd15ac4f14ade97ba39d3e3d970f0",
             "pur-e10019d90dec403e975b3237678b720d",
+            "pur-e17001f6d6074a8884e9e1b2af82fa1f",
             "pur-e18dac96913741de94ad4276a9f1e671",
             "pur-e2fc9bcf78a145f1973a4bcdd9baba61",
             "pur-e3b51d0b9ab04d81ac79343d5cbc1cd4",
@@ -61067,6 +61528,7 @@
             "pur-f34a0cbf6ba74d11887b5ec0c8206984",
             "pur-f35fe0e3500e48a39375f599a22c10b7",
             "pur-f388c05169ab4897ac280a4f223c0c5f",
+            "pur-f4ddddb90dbd4ae2bba5008f74f8d4b6",
             "pur-f6b7d75f40e1438eb4f40369415eae9b",
             "pur-f70555b4b44a48bfb6a721df7ce9c67a",
             "pur-f72654878f064c6181771847d3914c8d",
@@ -61124,31 +61586,21 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 139158,
+          "amount_minor": 94753,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
             "pur-1ead43e8eead4989adf3de560d23febe",
             "pur-242d69307ce84a69948b9e502ff3dd71",
-            "pur-250afee3f9d341c9a9d18d4e33c0fd0e",
-            "pur-25f35741f88e40729bec555987f79640",
             "pur-2c46198fe81f4cf7bf5a65d4e4ec638a",
-            "pur-3ce173932d6c45f184bcd60237a2c790",
             "pur-43767918757a4173a8b69a9b725d64fd",
             "pur-4eaf76e6557740d7b0e85e0be8664f71",
             "pur-6bc71f4f15b34503ac9bf8beea6ef815",
+            "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96",
             "pur-7f5e5ae2f85e4d74bca9edb78b7332f0",
-            "pur-91bd3b099e80493ab591655550b439ca",
-            "pur-9835cb05727440fa98029e6134ffd627",
-            "pur-9c025ba9576044b38a4745d084361ea5",
-            "pur-a02ce33a2d984d9fbea615cbad793ab3",
-            "pur-a61e59a7635c4aa0887475454ad04b04",
-            "pur-a667e3ee975c42218852bc7b225d75a8",
+            "pur-8b3d0e7a5c9f4e2b4a7d1c3e5f6a8b07",
             "pur-abd647629bfa41e1ae7de9bf129dbf44",
-            "pur-ae7d87fe77614d0098db388d7f0fa11d",
-            "pur-d8a8a1e239ff48b6a6b19c43e22b4858",
-            "pur-e17001f6d6074a8884e9e1b2af82fa1f",
-            "pur-f4ddddb90dbd4ae2bba5008f74f8d4b6"
+            "pur-ae7d87fe77614d0098db388d7f0fa11d"
           ],
           "unknown_amount_ids": []
         },
@@ -61167,27 +61619,17 @@
       "outstanding_purchase_ids": [
         "pur-1ead43e8eead4989adf3de560d23febe",
         "pur-242d69307ce84a69948b9e502ff3dd71",
-        "pur-250afee3f9d341c9a9d18d4e33c0fd0e",
-        "pur-25f35741f88e40729bec555987f79640",
         "pur-2c46198fe81f4cf7bf5a65d4e4ec638a",
-        "pur-3ce173932d6c45f184bcd60237a2c790",
         "pur-43767918757a4173a8b69a9b725d64fd",
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
         "pur-6bc71f4f15b34503ac9bf8beea6ef815",
+        "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96",
         "pur-7f5e5ae2f85e4d74bca9edb78b7332f0",
-        "pur-91bd3b099e80493ab591655550b439ca",
-        "pur-9835cb05727440fa98029e6134ffd627",
-        "pur-9c025ba9576044b38a4745d084361ea5",
-        "pur-a02ce33a2d984d9fbea615cbad793ab3",
-        "pur-a61e59a7635c4aa0887475454ad04b04",
-        "pur-a667e3ee975c42218852bc7b225d75a8",
+        "pur-8b3d0e7a5c9f4e2b4a7d1c3e5f6a8b07",
         "pur-abd647629bfa41e1ae7de9bf129dbf44",
         "pur-ae7d87fe77614d0098db388d7f0fa11d",
         "pur-b6c01a5b012340fc888139c1070dc054",
-        "pur-c887374045604177851c4a81cc779f0e",
-        "pur-d8a8a1e239ff48b6a6b19c43e22b4858",
-        "pur-e17001f6d6074a8884e9e1b2af82fa1f",
-        "pur-f4ddddb90dbd4ae2bba5008f74f8d4b6"
+        "pur-c887374045604177851c4a81cc779f0e"
       ],
       "returned_without_evidenced_refund_purchase_ids": []
     },
@@ -62198,9 +62640,9 @@
         },
         {
           "currency": "USD",
-          "estimate_minor": 102304,
+          "estimate_minor": 109647,
           "evidence_scope": "retrieved_records_only",
-          "final_vendor_amount_minor": 124656,
+          "final_vendor_amount_minor": 141812,
           "legacy_unverified_minor": 30634,
           "month": "2026-10",
           "purchase_ids": [
@@ -62212,19 +62654,26 @@
             "pur-250afee3f9d341c9a9d18d4e33c0fd0e",
             "pur-25f35741f88e40729bec555987f79640",
             "pur-27bb6c07598243e390e2ca407e908695",
+            "pur-2b7d4e1a9c3f4e6b8a1d5c7e9f0a2b41",
             "pur-2c46198fe81f4cf7bf5a65d4e4ec638a",
+            "pur-3c8e5f2b0d4a4f7c9b2e6d8f0a1b3c52",
             "pur-3ce173932d6c45f184bcd60237a2c790",
             "pur-406788001c4d41f39213bbd4ec7a35ad",
             "pur-43767918757a4173a8b69a9b725d64fd",
             "pur-45f46a866eb640d0be16bab2fd7493b3",
+            "pur-4d9f6a3c1e5b4a8d0c3f7e9a1b2c4d63",
             "pur-4eaf76e6557740d7b0e85e0be8664f71",
             "pur-5c066280c9c7489f8f90b851374b4995",
+            "pur-5e0a7b4d2f6c4b9e1d4a8f0b2c3d5e74",
             "pur-633abd30f0524d80a397fcee998a7658",
             "pur-65c979f1bb194148918426361d985f73",
             "pur-6bc71f4f15b34503ac9bf8beea6ef815",
+            "pur-6f1b8c5e3a7d4c0f2e5b9a1c3d4e6f85",
             "pur-6fb9cbd2160040c983dc0055e58d4de1",
+            "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96",
             "pur-7f5e5ae2f85e4d74bca9edb78b7332f0",
             "pur-87565d390bcc451a9fbfb44dc871d585",
+            "pur-8b3d0e7a5c9f4e2b4a7d1c3e5f6a8b07",
             "pur-8c01bda97e5f42a49e5b956f6f1a46c9",
             "pur-8d0598d87bd8438496d8a9fbf38dcf9a",
             "pur-91bd3b099e80493ab591655550b439ca",
@@ -62248,7 +62697,7 @@
             "pur-f7d7511ce9394cae80352c28342d27fd",
             "pur-f98feadd5dec4c1cba460dd7c74baa09"
           ],
-          "total_minor": 257594,
+          "total_minor": 282093,
           "unknown_amount_ids": []
         },
         {
@@ -62276,7 +62725,7 @@
       ],
       "purpose_totals": [
         {
-          "amount_minor": 1130507,
+          "amount_minor": 1137850,
           "currency": "USD",
           "purpose": "components"
         },
@@ -62296,7 +62745,7 @@
           "purpose": "engineering_software_services"
         },
         {
-          "amount_minor": 2204368,
+          "amount_minor": 2221524,
           "currency": "USD",
           "purpose": "equipment_tooling"
         },
@@ -62314,10 +62763,10 @@
       "totals": [
         {
           "currency": "USD",
-          "estimate_minor": 266357,
-          "final_vendor_amount_minor": 2079877,
+          "estimate_minor": 273700,
+          "final_vendor_amount_minor": 2097033,
           "legacy_unverified_minor": 2398968,
-          "total_minor": 4745202
+          "total_minor": 4769701
         }
       ],
       "undated_unallocated": [
@@ -62471,11 +62920,11 @@
       "by_currency": [
         {
           "currency": "USD",
-          "estimated_purchase_minor": 266357,
+          "estimated_purchase_minor": 273700,
           "legacy_unverified_purchase_minor": 2398968,
           "order_only_charge_allocation_minor": 6561,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 2986070,
+          "purchases_without_merchant_charge_minor": 3010569,
           "undated_charge_minor": 57998,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 922346,
@@ -62491,12 +62940,18 @@
         "pur-1394610e499a45c08ba665ed1200053c",
         "pur-242d69307ce84a69948b9e502ff3dd71",
         "pur-250afee3f9d341c9a9d18d4e33c0fd0e",
+        "pur-2b7d4e1a9c3f4e6b8a1d5c7e9f0a2b41",
+        "pur-3c8e5f2b0d4a4f7c9b2e6d8f0a1b3c52",
         "pur-3ce173932d6c45f184bcd60237a2c790",
         "pur-3e2e38c4658c47eba0f7b8efe6bb4734",
         "pur-406788001c4d41f39213bbd4ec7a35ad",
+        "pur-4d9f6a3c1e5b4a8d0c3f7e9a1b2c4d63",
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
         "pur-5090fe33ed404b20b5f3401171bf8565",
         "pur-5da1ea9540d44a8897b0c2774fe1ff35",
+        "pur-5e0a7b4d2f6c4b9e1d4a8f0b2c3d5e74",
+        "pur-6f1b8c5e3a7d4c0f2e5b9a1c3d4e6f85",
+        "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96",
         "pur-7cb5c1d8028249feb0e80687059fc82e",
         "pur-7f5e5ae2f85e4d74bca9edb78b7332f0",
         "pur-87565d390bcc451a9fbfb44dc871d585",
@@ -63169,6 +63624,7 @@
         "pur-2adc38c7f40a47c0a7ce61c92ac8671d",
         "pur-2b02951001084d3da886fff6f90ab5ed",
         "pur-2b1b4051619a4c01885f6d2ca0f72b84",
+        "pur-2b7d4e1a9c3f4e6b8a1d5c7e9f0a2b41",
         "pur-2b9c812ca2194e2d9ae2537dd7079c90",
         "pur-2be9e821f4bd485c95fd41765171b1ba",
         "pur-2c46198fe81f4cf7bf5a65d4e4ec638a",
@@ -63198,6 +63654,7 @@
         "pur-3b72c994b94b43c29f76326060b40799",
         "pur-3bd5d44c62d84422b3dbe3310c70a21a",
         "pur-3be1b856906740fcbb8abccf195fcf8c",
+        "pur-3c8e5f2b0d4a4f7c9b2e6d8f0a1b3c52",
         "pur-3ce496aeefa54ba3ac576dd7b9d3ec91",
         "pur-3d23a62e17584a1fb6247b9bbf1c9575",
         "pur-3d76f4776f4b4092b93462762f916385",
@@ -63236,6 +63693,7 @@
         "pur-4bcc03a034a74bb394f4afa9254bcb19",
         "pur-4c22e1848a354f34a9faf63033e7121d",
         "pur-4ce8b4ab83a54bdfa2dc9e264ccd1b0e",
+        "pur-4d9f6a3c1e5b4a8d0c3f7e9a1b2c4d63",
         "pur-4dab8c029f604a8e8c1c585de5567bab",
         "pur-4e67b837e2924692ab29eaaba49ae039",
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
@@ -63274,6 +63732,7 @@
         "pur-5cc9903a311f466796a8f5afbb32c1de",
         "pur-5ceb76c50ae54fffba3b019d5d0f792a",
         "pur-5da1ea9540d44a8897b0c2774fe1ff35",
+        "pur-5e0a7b4d2f6c4b9e1d4a8f0b2c3d5e74",
         "pur-5e4a44bbfad643e7944e14afd41c3448",
         "pur-5f0821e0f4ca451890e35f52acbcef24",
         "pur-5f32a9e9bb164a428dc6bb489ccd1b8b",
@@ -63321,6 +63780,7 @@
         "pur-6e9a8d44f2e24b729ca4888aba4b57aa",
         "pur-6efcbbd5fcb44c888f18a2ef86a18960",
         "pur-6f026c64ba934cfa86597b5748ded272",
+        "pur-6f1b8c5e3a7d4c0f2e5b9a1c3d4e6f85",
         "pur-6fb9cbd2160040c983dc0055e58d4de1",
         "pur-6fdb34ee8f244808a9fc68ef8751a970",
         "pur-6fefb1717dc14ed4bfb05d815886f6ba",
@@ -63345,6 +63805,7 @@
         "pur-78ea1f58114044aaa33af53b0930e8d0",
         "pur-791463522f344caf818637b6bed6a2ac",
         "pur-7a0bf59561314549bacf12589f4fd2f4",
+        "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96",
         "pur-7ab9e4672d6f45dcb02e637077481082",
         "pur-7abb69db05994f68b62e82e9a534ee1c",
         "pur-7c081a15a0504c4eac18cc184b6ee918",
@@ -63378,6 +63839,7 @@
         "pur-8b077cfa48914cb4aa77a40fc39a5fb4",
         "pur-8b2fe298e82c459cbced828202a060a2",
         "pur-8b3ac6c3e47c4429b8904abbe9d0740e",
+        "pur-8b3d0e7a5c9f4e2b4a7d1c3e5f6a8b07",
         "pur-8b3f786e6b894e7483513083fb01deda",
         "pur-8b726a47a23d43c7960ba13eab2167c1",
         "pur-8b8ba8e2137c4191a05b5752259df5bc",
@@ -63835,7 +64297,7 @@
       "coverage-fee7edc5545c4ce58fba854587790eb4: evidence coverage is partial",
       "Legacy order 112-0019658-3684217: row valuation USD 139.80, preserved project invoice USD 139.81; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
       "Legacy order 112-0066205-0960237: row valuation USD 423.94, preserved project invoice USD 423.95; historical allocation residual USD +0.01. Original prices retained; no balancing payment invented.",
-      "4 legacy named order(s) lack an exact invoice allocation check",
+      "5 legacy named order(s) lack an exact invoice allocation check",
       "1 preserved potentially project order(s) have no named Markdown row"
     ]
   }
