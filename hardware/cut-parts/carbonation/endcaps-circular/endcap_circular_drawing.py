@@ -1,7 +1,12 @@
-"""
-Engineering drawing (PDF) for the circular 2-hole carbonator end cap:
-an ANSI A landscape sheet with a 1:1 plan view of the disc, dimensions,
-a 1/4-18 NPT THRU tap callout, general notes, and a title block.
+"""Finished carbonator end cap, on one ANSI B landscape engineering sheet.
+
+The face view and location table describe the two tapped ports and the blind
+rod register. Section A-A identifies the plate faces and NPT entry direction;
+local section B-B shows the actual 135-degree drill point and tip-depth datum.
+All part dimensions come from the laser-blank/register source module. Thread
+lines are a conventional representation, not a model of the helical surfaces.
+
+Run with tools/cad-venv/bin/python. No CAD or cut-file geometry is changed.
 """
 
 import math
@@ -11,458 +16,361 @@ from pathlib import Path
 from reportlab.lib.units import inch
 from reportlab.pdfgen import canvas
 
-_here = Path(__file__).resolve()
-sys.path.insert(
-    0,
-    str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
-)
-sys.path.insert(
-    0,
-    str(next(p for p in _here.parents if p.name == "hardware") / "scripts"),
-)
-from docgen import substitute_py_comments
+HERE = Path(__file__).resolve().parent
+ROOT = next(p for p in HERE.parents if (p / "tools" / "docgen").is_dir())
+sys.path.insert(0, str(ROOT / "hardware" / "scripts"))
 from _cadq_export import export_pdf
 from endcap_circular_dxf import (
-    register_position, register_drill_diameter, register_depth,
+    disc_diameter,
+    disc_thickness,
+    hole_positions,
+    hole_radius,
+    register_position,
+    register_drill_diameter,
+    register_depth,
 )
 
-# Part geometry in inches, same disc as endcap_circular_dxf.py.
-
-# [4.86 in](DISC_D_IN) disc OD — tube ID 4.870 in minus 0.010 in slip-fit.
-disc_diameter = 4.860
-# [2.43 in](DISC_R_IN) disc radius.
-disc_radius = disc_diameter / 2
-# [0.25 in](DISC_THK_IN) 1/4" 316 SS plate thickness.
-disc_thickness = 0.250
-# [0.438 in](HOLE_D_IN) 7/16" tap drill for 1/4"-18 NPT.
-hole_diameter = 0.438
-# [0.219 in](HOLE_R_IN) hole radius.
-hole_radius = hole_diameter / 2
-# [1.5 in](HOLE_SPACING) center-to-center spacing along X.
-hole_spacing = 1.500
-# [0.75 in](HOLE_OFFSET_IN) each hole's |X| offset from disc center.
-hole_offset = hole_spacing / 2
-hole_positions = [(-hole_offset, 0.0), (+hole_offset, 0.0)]
-
-# Rod register is a blind in-house operation, read from the same datum as STEP.
-
-# Drawing revision date shown in the title block. A fixed constant rather
-# than date.today() so regenerating the PDF is byte-stable — a render on a
-# new day must not churn the committed file. ReportLab compresses the page
-# content stream, so this visible date can't be reached by the regex-based
-# canonicalizer in _cadq_export (unlike the /CreationDate metadata, which it
-# does pin). Bump on a real revision.
-revision_date = "2026-10-03"
-
-# Sheet layout in inches (ANSI A landscape).
-sheet_width = 11.0
-sheet_height = 8.5
-sheet_margin = 0.5
-
-# Title-block box in the bottom-right corner, inside the margin.
-title_block_width = 4.0
-title_block_height = 2.0
-title_block_x = sheet_width - sheet_margin - title_block_width
-title_block_y = sheet_margin
-
-# Part view occupies the left ~2/3 of the sheet, vertically centered.
-view_center_x = 3.3
-view_center_y = sheet_height / 2
-
-# Line weights in inches; 1 in = 72 pt.
-points_per_inch = 72
-border_line_width = 0.020 * points_per_inch
-part_line_width = 0.015 * points_per_inch
-thin_line_width = 0.008 * points_per_inch
-
-# ASME dash-dot pattern for centerlines, in points.
-centerline_dash = [6, 2, 1, 2]
-
-out_dir = Path(__file__).resolve().parent
-pdf_path = out_dir / "endcap-circular-2hole-drawing.pdf"
+PDF_PATH = HERE / "endcap-circular-2hole-drawing.pdf"
+REVISION_DATE = "2026-10-26"
+SHEET = (17 * inch, 11 * inch)
+MARGIN = 27
+VISIBLE = 0.85
+THIN = 0.35
+CENTER_DASH = (12, 3, 2, 3)
+CX, CY = 294, 490
+RADIUS = disc_diameter * inch / 2
 
 
-# ── Helpers ──────────────────────────────────────────────────────────
-
-def draw_border(c: canvas.Canvas) -> None:
-    c.setLineWidth(border_line_width)
-    c.setDash()
-    c.rect(
-        sheet_margin * inch,
-        sheet_margin * inch,
-        (sheet_width - 2 * sheet_margin) * inch,
-        (sheet_height - 2 * sheet_margin) * inch,
-        stroke=1,
-        fill=0,
-    )
-
-
-def draw_centermark(c: canvas.Canvas, cx: float, cy: float, size: float = 0.12) -> None:
-    """Short crosshair at a circle's center."""
-    c.setLineWidth(thin_line_width)
-    c.setDash()
-    c.line((cx - size) * inch, cy * inch, (cx + size) * inch, cy * inch)
-    c.line(cx * inch, (cy - size) * inch, cx * inch, (cy + size) * inch)
-
-
-def draw_centerline(c: canvas.Canvas, x1: float, y1: float, x2: float, y2: float) -> None:
-    c.setLineWidth(thin_line_width)
-    c.setDash(centerline_dash, 0)
-    c.line(x1 * inch, y1 * inch, x2 * inch, y2 * inch)
+def line(c, x1, y1, x2, y2, weight=THIN, dash=()):
+    c.setLineWidth(weight)
+    c.setDash(dash)
+    c.line(x1, y1, x2, y2)
     c.setDash()
 
 
-def _arrow(c: canvas.Canvas, x: float, y: float, dx: float, dy: float, size: float = 0.08) -> None:
-    """Tiny filled arrowhead with its tip at (x, y) pointing in direction (dx, dy)."""
-    length = math.hypot(dx, dy)
-    if length == 0:
-        return
-    unit_x, unit_y = dx / length, dy / length
-    perp_x, perp_y = -unit_y, unit_x
-    half_base = size * 0.35
+def text(c, x, y, value, size=9, bold=False, align="left"):
+    c.setFont("Helvetica-Bold" if bold else "Helvetica", size)
+    if align == "center":
+        c.drawCentredString(x, y, value)
+    elif align == "right":
+        c.drawRightString(x, y, value)
+    else:
+        c.drawString(x, y, value)
 
-    tip = (x, y)
-    base_x = x - unit_x * size
-    base_y = y - unit_y * size
-    left = (base_x + perp_x * half_base, base_y + perp_y * half_base)
-    right = (base_x - perp_x * half_base, base_y - perp_y * half_base)
 
+def arrow(c, tip, tail, length=6, width=2):
+    """A filled arrow whose point touches the feature or extension line."""
+    dx, dy = tip[0] - tail[0], tip[1] - tail[1]
+    norm = math.hypot(dx, dy)
+    ux, uy = dx / norm, dy / norm
+    bx, by = tip[0] - length * ux, tip[1] - length * uy
     p = c.beginPath()
-    p.moveTo(tip[0] * inch, tip[1] * inch)
-    p.lineTo(left[0] * inch, left[1] * inch)
-    p.lineTo(right[0] * inch, right[1] * inch)
+    p.moveTo(*tip)
+    p.lineTo(bx - width * uy, by + width * ux)
+    p.lineTo(bx + width * uy, by - width * ux)
     p.close()
     c.drawPath(p, stroke=0, fill=1)
 
 
-def draw_horizontal_dimension(
-    c: canvas.Canvas,
-    x1: float,
-    y1: float,
-    x2: float,
-    y2: float,
-    offset: float,
-    text: str,
-) -> None:
-    """Horizontal linear dimension between (x1, y1) and (x2, y2), at
-    y = max(y1, y2) + offset (or y1 + offset when y1 == y2)."""
-    c.setLineWidth(thin_line_width)
-    c.setDash()
-    c.setFillColorRGB(0, 0, 0)
-    c.setStrokeColorRGB(0, 0, 0)
-
-    dim_y = y1 + offset if abs(y1 - y2) < 1e-9 else max(y1, y2) + offset
-    extension_overshoot = 0.08 if offset > 0 else -0.08
-
-    c.line(x1 * inch, y1 * inch, x1 * inch, (dim_y + extension_overshoot) * inch)
-    c.line(x2 * inch, y2 * inch, x2 * inch, (dim_y + extension_overshoot) * inch)
-    c.line(x1 * inch, dim_y * inch, x2 * inch, dim_y * inch)
-    _arrow(c, x1, dim_y,  1, 0)
-    _arrow(c, x2, dim_y, -1, 0)
-    c.setFont("Helvetica", 8)
-    c.drawCentredString(((x1 + x2) / 2) * inch, (dim_y + 0.05) * inch, text)
+def leader(c, tip, knee, end, lines, size=9, above=5):
+    line(c, *tip, *knee)
+    line(c, *knee, *end)
+    arrow(c, tip, knee)
+    for i, value in enumerate(lines):
+        text(c, end[0] + 4, end[1] + above - i * 12, value, size)
 
 
-def draw_leader(
-    c: canvas.Canvas,
-    targets,
-    text_anchor,
-    text_lines,
-) -> None:
-    """Multileader: arrow tips at each (x, y) in `targets` share a common
-    shoulder at `text_anchor`, with `text_lines` stacked above it."""
-    c.setLineWidth(thin_line_width)
-    c.setDash()
-    c.setStrokeColorRGB(0, 0, 0)
-    c.setFillColorRGB(0, 0, 0)
-
-    text_x, text_y = text_anchor
-
-    # Horizontal shoulder shared by all leaders, on the side of the text
-    # anchor the targets sit.
-    shoulder_length = 0.35
-    target_avg_x = sum(x for x, _ in targets) / len(targets)
-    knee_x = text_x - shoulder_length if text_x > target_avg_x else text_x + shoulder_length
-    knee_y = text_y
-
-    c.line(knee_x * inch, knee_y * inch, text_x * inch, text_y * inch)
-
-    # One slanted leader per target, originating at the shared knee.
-    for tx, ty in targets:
-        c.line(tx * inch, ty * inch, knee_x * inch, knee_y * inch)
-        _arrow(c, tx, ty, tx - knee_x, ty - knee_y, size=0.10)
-
-    # Text block left-aligned, first line above the shoulder.
-    c.setFont("Helvetica", 9)
-    anchor_x = (text_x + 0.05) * inch
-    line_height = 0.14
-    for i, line in enumerate(text_lines):
-        c.drawString(anchor_x, (text_y + 0.04 - i * line_height) * inch, line)
+def horizontal_dimension(c, x1, x2, witness_y, dim_y, label, size=10):
+    sign = 1 if dim_y > witness_y else -1
+    for x in (x1, x2):
+        line(c, x, witness_y + sign * 4, x, dim_y + sign * 5)
+    line(c, x1, dim_y, x2, dim_y)
+    arrow(c, (x1, dim_y), (x2, dim_y))
+    arrow(c, (x2, dim_y), (x1, dim_y))
+    text(c, (x1 + x2) / 2, dim_y + 5, label, size, align="center")
 
 
-def draw_notes(c: canvas.Canvas) -> None:
-    """General notes block above the title block."""
-    x0 = title_block_x
-    y0 = title_block_y + title_block_height + 0.10
-    w = title_block_width
-    h = 1.55
-
-    c.setLineWidth(thin_line_width)
-    c.setDash()
-    c.rect(x0 * inch, y0 * inch, w * inch, h * inch, stroke=1, fill=0)
-
-    c.setFont("Helvetica-Bold", 9)
-    c.drawString((x0 + 0.08) * inch, (y0 + h - 0.20) * inch, "NOTES:")
-
-    notes = [
-        "1. REMOVE ALL BURRS AND SHARP EDGES.",
-        f"2. TAP BOTH HOLES 1/4-18 NPT, THRU FULL PLATE ({disc_thickness:.3f} IN).",
-        "3. NPT THREAD DEPTH: THRU (NO COUNTERBORE, NO SPOT-FACE).",
-        "4. BREAK OUTER EDGE 0.010 IN x 45\u00b0.",
-        "5. CUT/TAPPED PART IS SYMMETRIC \u2014 NO HANDEDNESS.",
-        "6. REGISTER: IN-HOUSE BLIND DRILL; DO NOT BREAK THRU.",
-        "7. REGISTER AXIS: 20 MM FROM TUBE INSIDE WALL; FLOAT DIA 36 MM.",
-    ]
-    c.setFont("Helvetica", 8)
-    line_height = 0.165
-    for i, note in enumerate(notes):
-        c.drawString((x0 + 0.10) * inch, (y0 + h - 0.40 - i * line_height) * inch, note)
+def vertical_dimension(c, x, y1, y2, witness_x, lines, outside=False):
+    """Text at the right; outside arrows make the thin plate legible."""
+    for y in (y1, y2):
+        line(c, witness_x + 4, y, x + 5, y)
+    if outside:
+        line(c, x, y1 - 13, x, y2 + 13)
+        arrow(c, (x, y1), (x, y1 - 13))
+        arrow(c, (x, y2), (x, y2 + 13))
+    else:
+        line(c, x, y1, x, y2)
+        arrow(c, (x, y1), (x, y2))
+        arrow(c, (x, y2), (x, y1))
+    y = (y1 + y2) / 2 + (len(lines) - 1) * 5 - 3
+    for i, value in enumerate(lines):
+        text(c, x + 9, y - i * 11, value, 9)
 
 
-def draw_title_block(c: canvas.Canvas) -> None:
-    x0 = title_block_x
-    y0 = title_block_y
-    w = title_block_width
-    h = title_block_height
+def center(c, x, y, half=13):
+    line(c, x - half, y, x + half, y, dash=CENTER_DASH)
+    line(c, x, y - half, x, y + half, dash=CENTER_DASH)
 
-    c.setLineWidth(border_line_width)
-    c.setDash()
-    c.rect(x0 * inch, y0 * inch, w * inch, h * inch, stroke=1, fill=0)
 
+def hatch(c, path, bounds, spacing=7):
+    """45-degree section lines, clipped to material, never to the hole."""
+    c.saveState()
+    c.clipPath(path, stroke=0, fill=0)
+    x0, y0, x1, y1 = bounds
+    for offset in range(math.floor(x0 - (y1 - y0)), math.ceil(x1) + 1, spacing):
+        line(c, offset, y0, offset + (y1 - y0), y1, 0.25)
+    c.restoreState()
+
+
+def path_from_points(c, points):
+    p = c.beginPath()
+    p.moveTo(*points[0])
+    for point in points[1:]:
+        p.lineTo(*point)
+    p.close()
+    return p
+
+
+def cutting_plane_ends(c, left, right, y, label, rise=21):
+    """The viewing arrows point up the inside-face view (+Y)."""
+    line(c, left, y, left + 16, y, 1.0)
+    line(c, right - 16, y, right, y, 1.0)
+    for x in (left, right):
+        line(c, x, y, x, y + rise, 1.0)
+        arrow(c, (x, y + rise), (x, y), length=8, width=2.5)
+        text(c, x, y + rise + 7, label, 11, bold=True, align="center")
+
+
+def face_view(c):
+    text(c, CX, 734, "INSIDE FACE VIEW", 12, bold=True, align="center")
+    text(c, CX, 718, "SCALE 1:1", 9, align="center")
+    c.setLineWidth(VISIBLE)
+    c.circle(CX, CY, RADIUS, stroke=1, fill=0)
+    line(c, CX - RADIUS - 13, CY, CX + RADIUS + 13, CY,
+         dash=CENTER_DASH)
+    line(c, CX, CY - RADIUS - 13, CX, CY + RADIUS + 13,
+         dash=CENTER_DASH)
+    # The visible minor circle and thin partial root arc identify internal
+    # threads. Neither graphic diameter is a finished-port inspection size.
+    for i, (px, py) in enumerate(hole_positions, 1):
+        x, y = CX + px * inch, CY + py * inch
+        minor = hole_radius * inch
+        c.setLineWidth(VISIBLE)
+        c.circle(x, y, minor, stroke=1, fill=0)
+        c.setLineWidth(THIN)
+        root = minor + 0.04 * inch
+        c.arc(x - root, y - root, x + root, y + root, 35, 270)
+        center(c, x, y, 24)
+        text(c, x, y + 31, f"P{i}", 10, bold=True, align="center")
+    rx, ry = CX + register_position[0] * inch, CY + register_position[1] * inch
+    c.setLineWidth(VISIBLE)
+    c.circle(rx, ry, register_drill_diameter * inch / 2, stroke=1, fill=0)
+    center(c, rx, ry, 10)
+    # A-A passes through the two ports. B-B is a local section at R1.
+    cutting_plane_ends(c, CX - RADIUS - 24, CX + RADIUS + 24, CY, "A")
+    line(c, rx - 28, ry, rx + 28, ry, dash=CENTER_DASH)
+    cutting_plane_ends(c, rx - 37, rx + 37, ry, "B", rise=16)
+    leader(c, (CX + hole_positions[1][0] * inch + 14, CY + 9),
+           (484, 600), (510, 600),
+           ["2X 1/4-18 NPT THRU", "TAP FROM OUTSIDE FACE", "P1, P2 - SEE NOTE 2"], 10)
+    leader(c, (rx + register_drill_diameter * inch / 2, ry - 2),
+           (429, 351), (510, 351),
+           ["R1 - BLIND ROD REGISTER", "SEE SECTION B-B"], 9)
+    # The witnesses start at the actual OD silhouette, not an imaginary
+    # rectangle tangent to the bottom of the disc.
+    horizontal_dimension(c, CX - RADIUS, CX + RADIUS, CY,
+                         286, f"Ø{disc_diameter:.3f}", 11)
+
+
+def port_section(c):
+    bottom = 226
+    top = bottom + disc_thickness * inch
+    left, right = CX - RADIUS, CX + RADIUS
+    outer = path_from_points(c, [(left, bottom), (right, bottom),
+                                (right, top), (left, top)])
+    hatch(c, outer, (left, bottom, right, top), spacing=6)
+    c.setLineWidth(VISIBLE)
+    c.drawPath(outer, stroke=1, fill=0)
+    for px, _ in hole_positions:
+        x = CX + px * inch
+        r_inside = hole_radius * inch
+        # Conventional thread envelope: taper is larger at the outside
+        # entry. The thread designation and functional trial govern fit.
+        r_outside = r_inside + disc_thickness * inch / 32
+        opening = path_from_points(c, [(x - r_outside, bottom),
+                                      (x + r_outside, bottom),
+                                      (x + r_inside, top), (x - r_inside, top)])
+        c.setFillColorRGB(1, 1, 1)
+        c.drawPath(opening, stroke=0, fill=1)
+        c.setFillColorRGB(0, 0, 0)
+        line(c, x - r_outside, bottom, x - r_inside, top, VISIBLE)
+        line(c, x + r_outside, bottom, x + r_inside, top, VISIBLE)
+        for sign in (-1, 1):
+            line(c, x + sign * (r_outside + 0.04 * inch), bottom,
+                 x + sign * (r_inside + 0.04 * inch), top)
+        line(c, x, bottom - 9, x, top + 9, dash=CENTER_DASH)
+    vertical_dimension(c, 493, bottom, top, right, [f"{disc_thickness:.3f}"],
+                       outside=True)
+    text(c, CX, 194, "SECTION A-A", 11, bold=True, align="center")
+    text(c, CX, 180, "SCALE 1:1 - THREADS SHOWN CONVENTIONALLY", 8,
+         align="center")
+    # Direct face labels make tap entry and OD preparation unambiguous.
+    leader(c, (left + 5, top), (82, 265), (45, 265),
+           ["INSIDE FACE"], 8.5, above=4)
+    leader(c, (right - 4, bottom), (526, 204), (540, 204),
+           ["OUTSIDE FACE", "NPT ENTRY / WELD FACE"], 8.5, above=4)
+
+
+def register_section(c):
+    scale = 4 * inch
+    x, top, half_width = 900, 630, 122
+    bottom = top - disc_thickness * scale
+    radius = register_drill_diameter * scale / 2
+    tip = top - register_depth * scale
+    point_angle = 135
+    point_height = radius / math.tan(math.radians(point_angle / 2))
+    shoulder = tip + point_height
+    text(c, x, 734, "SECTION B-B", 12, bold=True, align="center")
+    text(c, x, 718, "LOCAL VIEW AT R1 - SCALE 4:1", 9, align="center")
+    # Broken ends crop the plate locally; the V is the drill point, not a
+    # flat-bottom pocket. The source depth always ends at its deepest tip.
+    left, right = x - half_width, x + half_width
+    points = [(left, top), (x - radius, top), (x - radius, shoulder),
+              (x, tip), (x + radius, shoulder), (x + radius, top),
+              (right, top), (right, top - 23), (right + 4, top - 30),
+              (right - 4, top - 40), (right, top - 47), (right, bottom),
+              (left, bottom), (left, bottom + 23), (left - 4, bottom + 30),
+              (left + 4, bottom + 40), (left, bottom + 47)]
+    material = path_from_points(c, points)
+    hatch(c, material, (left - 5, bottom, right + 5, top), spacing=8)
+    c.setLineWidth(VISIBLE)
+    c.drawPath(material, stroke=1, fill=0)
+    line(c, x, bottom - 9, x, top + 18, dash=CENTER_DASH)
+    horizontal_dimension(c, x - radius, x + radius, top, 674, "Ø9/64", 10)
+    # Both depth witnesses originate on the inside face and actual drill tip.
+    vertical_dimension(c, 1050, tip, top, right, [f"{register_depth:.3f}", "TO TIP"])
+    # Extend the tip datum from the real point without painting through the
+    # section hatching. The first depth extension is continued to that point.
+    line(c, x + 4, tip, right + 4, tip)
+    remaining = disc_thickness - register_depth
+    vertical_dimension(c, 1125, bottom, tip, right,
+                       [f"{remaining:.3f} REF", "WEB"])
+    text(c, left, top + 13, "INSIDE FACE", 8.5)
+    text(c, left, bottom - 16, "OUTSIDE FACE", 8.5)
+    text(c, x, 526, "135° DRILL POINT", 9, align="center")
+    text(c, x, 511, "DO NOT BREAK THROUGH", 10, bold=True, align="center")
+
+
+def location_table(c):
+    left, right, top = 705, 1168, 455
+    columns = (left, left + 65, left + 154, left + 243, right)
+    row_height = 24
+    bottom = top - 4 * row_height
+    text(c, left, top + 14, "FEATURE LOCATIONS", 10, bold=True)
+    c.setLineWidth(THIN)
+    c.rect(left, bottom, right - left, top - bottom, stroke=1, fill=0)
+    for x in columns[1:-1]:
+        line(c, x, bottom, x, top)
+    for i in range(1, 4):
+        line(c, left, top - i * row_height, right, top - i * row_height)
+    headers = ("FEATURE", "X", "Y", "DESCRIPTION")
+    for i, value in enumerate(headers):
+        text(c, (columns[i] + columns[i + 1]) / 2, top - 16, value,
+             8.5, bold=True, align="center")
+    features = [("P1", *hole_positions[0], "THREADED PORT"),
+                ("P2", *hole_positions[1], "THREADED PORT"),
+                ("R1", *register_position, "BLIND ROD REGISTER")]
+    for row, (feature, x, y, description) in enumerate(features, 1):
+        baseline = top - row_height * row - 16
+        values = (feature, f"{x:.3f}", f"{y:.3f}", description)
+        for i, value in enumerate(values):
+            text(c, (columns[i] + columns[i + 1]) / 2, baseline, value,
+                 9, bold=i == 0, align="center")
+    text(c, left, bottom - 16,
+         "ORIGIN: DISC OD CENTER. +X RIGHT; +Y UP IN INSIDE FACE VIEW.", 8)
+    text(c, left, bottom - 29,
+         "COORDINATES LOCATE FEATURE AXES. HOLE AXES NORMAL TO FACES.", 8)
+
+
+def notes(c):
+    x, y = 661, 306
+    text(c, x, y, "FABRICATION NOTES", 10, bold=True)
     rows = [
-        ("PART",      "CARBONATOR END CAP, CIRCULAR, 2-HOLE NPT"),
-        ("MATERIAL",  "316 STAINLESS STEEL"),
-        ("THICKNESS", f"{disc_thickness:.3f} IN (1/4)"),
-        ("SCALE",     "1:1"),
-        ("UNITS",     "INCHES"),
-        ("TOLERANCE", "\u00b10.005 IN LINEAR, \u00b10.5\u00b0 ANGULAR (UNLESS NOTED)"),
-        ("DATE",      revision_date),
-        ("PROJECT",   "SODA FLAVOR INJECTOR \u2014 CARBONATOR"),
-        ("DRAWN BY",  "derekbreden@gmail.com"),
+        "1. BLANK: ENDCAP-CIRCULAR-2HOLE.DXF; TWO Ø0.438 LASER-CUT PILOTS.",
+        "2. CLEAR THE CUT LIP ON BOTH PORT FACES WITH AN 82° COUNTERSINK",
+        "    BEFORE TAPPING. NPT FORM: ASME B1.20.1. TARGET 4.5 TURNS",
+        "    ENGAGEMENT; VERIFY ELBOW FIT AND FINAL CLOCKING ON A TRIAL",
+        "    PART PER PRESSURE-VESSEL PROCEDURE, STEP 1.",
+        "3. R1 IS BLIND. TOP CAP ONLY: Ø5/32 AT THE SAME TIP DEPTH IS",
+        "    PERMITTED IF NEEDED FOR ROD-TIP FIT. BOTH CAPS START AT Ø9/64.",
+        "4. OD: CHAMFER THE INSIDE EDGE FOR INSERTION. OUTSIDE EDGE:",
+        "    REMOVE BURR ONLY; PRESERVE THE SQUARE CLOSURE-WELD CORNER.",
+        "5. REMOVE BURRS, CHIPS AND CUTTING FLUID. ROD TACK AND VESSEL",
+        "    WELDS: PRESSURE-VESSEL ASSEMBLY PROCEDURE.",
     ]
-    n = len(rows)
-    row_height = h / n
-    label_width = 1.05
-
-    c.setLineWidth(thin_line_width)
-    for i in range(1, n):
-        y = y0 + i * row_height
-        c.line(x0 * inch, y * inch, (x0 + w) * inch, y * inch)
-    # Label/value divider column
-    c.line((x0 + label_width) * inch, y0 * inch, (x0 + label_width) * inch, (y0 + h) * inch)
-
-    # rows is top->bottom in reading order; reportlab y grows up, so the
-    # topmost row sits at y0 + h - row_height.
-    for i, (label, value) in enumerate(rows):
-        ry = y0 + h - (i + 1) * row_height
-
-        c.setFont("Helvetica-Bold", 7)
-        c.drawString((x0 + 0.06) * inch, (ry + row_height / 2 - 0.04) * inch, label)
-
-        font_size = 10 if label == "PART" else 9
-        c.setFont("Helvetica", font_size)
-        max_value_width = (w - label_width - 0.10) * inch
-        text_width = c.stringWidth(value, "Helvetica", font_size)
-        while text_width > max_value_width and font_size > 6:
-            font_size -= 1
-            c.setFont("Helvetica", font_size)
-            text_width = c.stringWidth(value, "Helvetica", font_size)
-        c.drawString((x0 + label_width + 0.08) * inch, (ry + row_height / 2 - 0.04) * inch, value)
+    for i, value in enumerate(rows):
+        text(c, x, y - 19 - i * 12, value, 8.6)
 
 
-# ── Main view ────────────────────────────────────────────────────────
-
-def draw_main_view(c: canvas.Canvas) -> None:
-    c.setLineWidth(part_line_width)
-    c.setDash()
-    c.circle(view_center_x * inch, view_center_y * inch, disc_radius * inch, stroke=1, fill=0)
-
-    # Disc centerlines extend past the OD.
-    centerline_overshoot = 0.30
-    draw_centerline(
-        c,
-        view_center_x - disc_radius - centerline_overshoot, view_center_y,
-        view_center_x + disc_radius + centerline_overshoot, view_center_y,
-    )
-    draw_centerline(
-        c,
-        view_center_x, view_center_y - disc_radius - centerline_overshoot,
-        view_center_x, view_center_y + disc_radius + centerline_overshoot,
-    )
-
-    draw_centermark(c, view_center_x, view_center_y, size=0.18)
-
-    # Hole view positions = disc center + offset.
-    for hole_dx, hole_dy in hole_positions:
-        hole_cx = view_center_x + hole_dx
-        hole_cy = view_center_y + hole_dy
-        c.setLineWidth(part_line_width)
-        c.circle(hole_cx * inch, hole_cy * inch, hole_radius * inch, stroke=1, fill=0)
-        draw_centermark(c, hole_cx, hole_cy, size=hole_diameter * 0.85)
-
-    # Rod register — REFERENCE feature (in-house blind drill, not a cut).
-    # Phantom-dashed circle on the lower (−Y) centerline so it reads as
-    # not-a-cut, with a REF label and a radial locating dimension.
-    reg_cx = view_center_x + register_position[0]
-    reg_cy = view_center_y + register_position[1]
-    c.setLineWidth(thin_line_width)
-    c.setDash(centerline_dash, 0)
-    c.circle(reg_cx * inch, reg_cy * inch, (register_drill_diameter / 2) * inch, stroke=1, fill=0)
-    c.setDash()
-    draw_centermark(c, reg_cx, reg_cy, size=0.10)
-    c.setFont("Helvetica-Oblique", 7)
-    c.drawString((reg_cx + 0.14) * inch, (reg_cy + 0.05) * inch,
-                 f"REGISTER (REF): Ø{register_drill_diameter:.3f} BLIND")
-    c.drawString((reg_cx + 0.14) * inch, (reg_cy - 0.09) * inch,
-                 f"x {register_depth:.3f} TO DRILL TIP — SEE NOTE 6")
-
-    # Radial location of the register from disc center, dimensioned on the
-    # left of the −Y centerline (center → register, value placed beside).
-    reg_dim_x = view_center_x - 0.60
-    c.setLineWidth(thin_line_width)
-    c.line(view_center_x * inch, view_center_y * inch, (reg_dim_x - 0.08) * inch, view_center_y * inch)
-    c.line(reg_cx * inch, reg_cy * inch, (reg_dim_x - 0.08) * inch, reg_cy * inch)
-    c.line(reg_dim_x * inch, view_center_y * inch, reg_dim_x * inch, reg_cy * inch)
-    _arrow(c, reg_dim_x, view_center_y, 0, 1)
-    _arrow(c, reg_dim_x, reg_cy, 0, -1)
-    c.setFont("Helvetica", 8)
-    c.drawRightString((reg_dim_x - 0.04) * inch,
-                      ((view_center_y + reg_cy) / 2 - 0.04) * inch,
-                      f"{abs(register_position[1]):.4f}")
-
-    # ── Dimensions ──────────────────────────────────────────────────
-
-    # OD dimension placed below the disc.
-    draw_horizontal_dimension(
-        c,
-        view_center_x - disc_radius, view_center_y - disc_radius,
-        view_center_x + disc_radius, view_center_y - disc_radius,
-        offset=-0.70,
-        text=f"\u00d8{disc_diameter:.3f}",
-    )
-
-    # Hole center-to-center ([1.5 in](HOLE_SPACING)), placed above the holes, horizontal.
-    left_hole_cx = view_center_x + hole_positions[0][0]
-    right_hole_cx = view_center_x + hole_positions[1][0]
-    hole_spacing_dim_y = view_center_y + 0.45
-    c.setLineWidth(thin_line_width)
-    c.setDash()
-    c.line(left_hole_cx * inch, view_center_y * inch,
-           left_hole_cx * inch, (hole_spacing_dim_y + 0.08) * inch)
-    c.line(right_hole_cx * inch, view_center_y * inch,
-           right_hole_cx * inch, (hole_spacing_dim_y + 0.08) * inch)
-    c.line(left_hole_cx * inch, hole_spacing_dim_y * inch,
-           right_hole_cx * inch, hole_spacing_dim_y * inch)
-    _arrow(c, left_hole_cx, hole_spacing_dim_y, 1, 0)
-    _arrow(c, right_hole_cx, hole_spacing_dim_y, -1, 0)
-    c.setFont("Helvetica", 8)
-    c.drawCentredString(view_center_x * inch,
-                        (hole_spacing_dim_y + 0.05) * inch, "1.500")
-
-    # Hole position from disc center (two [0.75 in](HOLE_OFFSET_IN) dims, one each side,
-    # sharing the disc-center extension line).
-    half_spacing_dim_y = view_center_y + 0.90
-    c.line(view_center_x * inch, view_center_y * inch,
-           view_center_x * inch, (half_spacing_dim_y + 0.08) * inch)
-    c.line(left_hole_cx * inch, view_center_y * inch,
-           left_hole_cx * inch, (half_spacing_dim_y + 0.08) * inch)
-    c.line(left_hole_cx * inch, half_spacing_dim_y * inch,
-           view_center_x * inch, half_spacing_dim_y * inch)
-    _arrow(c, left_hole_cx, half_spacing_dim_y, 1, 0)
-    _arrow(c, view_center_x, half_spacing_dim_y, -1, 0)
-    c.drawCentredString(((left_hole_cx + view_center_x) / 2) * inch,
-                        (half_spacing_dim_y + 0.05) * inch, ".750")
-    c.line(right_hole_cx * inch, view_center_y * inch,
-           right_hole_cx * inch, (half_spacing_dim_y + 0.08) * inch)
-    c.line(right_hole_cx * inch, half_spacing_dim_y * inch,
-           view_center_x * inch, half_spacing_dim_y * inch)
-    _arrow(c, view_center_x, half_spacing_dim_y, 1, 0)
-    _arrow(c, right_hole_cx, half_spacing_dim_y, -1, 0)
-    c.drawCentredString(((right_hole_cx + view_center_x) / 2) * inch,
-                        (half_spacing_dim_y + 0.05) * inch, ".750")
-
-    # Tap callout. Two leaders approach the holes from the upper-right:
-    # arrow tip at the left hole's 12 o'clock, and at the right hole's
-    # upper-right quadrant (~45°).
-    sin45 = 0.707
-    left_dx, left_dy = hole_positions[0]
-    right_dx, right_dy = hole_positions[1]
-    tap_callout_targets = [
-        (view_center_x + left_dx, view_center_y + left_dy + hole_radius),
-        (view_center_x + right_dx + hole_radius * sin45,
-         view_center_y + right_dy + hole_radius * sin45),
-    ]
-    # Text anchor: upper-right of the view, above and right of the right hole.
-    tap_callout_text_anchor = (view_center_x + 1.60, view_center_y + 1.75)
-    draw_leader(
-        c,
-        tap_callout_targets,
-        tap_callout_text_anchor,
-        [
-            "2X \u00d8.438 THRU",
-            "    1/4-18 NPT THRU",
-        ],
-    )
+def title_block(c):
+    left, bottom, right, top = 635, MARGIN, SHEET[0] - MARGIN, 143
+    c.setLineWidth(0.7)
+    c.rect(left, bottom, right - left, top - bottom, stroke=1, fill=0)
+    line(c, left, 98, right, 98)
+    line(c, left, 65, right, 65)
+    line(c, 1010, 98, 1010, top)
+    text(c, left + 10, 125, "HOME SODA MACHINE", 8)
+    text(c, left + 10, 108, "CARBONATOR END CAP - FINISHED", 13, bold=True)
+    text(c, 1104, 124, "PROTOTYPE", 10, bold=True, align="center")
+    text(c, 1104, 109, "FOR REVIEW", 9, align="center")
+    for x in (866, 1030):
+        line(c, x, 65, x, 98)
+    for x, label, value in [(left + 10, "MATERIAL", "316 STAINLESS STEEL"),
+                            (876, "UNITS", "INCHES"),
+                            (1040, "QUANTITY", "2 PER CARBONATOR")]:
+        text(c, x, 87, label, 7)
+        text(c, x, 73, value, 9, bold=True)
+    fields = [(635, 815, "DRAWING", "END-CAP-01"),
+              (815, 867, "REV", "A"),
+              (867, 990, "DATE", REVISION_DATE),
+              (990, 1113, "SCALE", "AS SHOWN"),
+              (1113, 1197, "SHEET", "1 OF 1")]
+    for i, (a, b, label, value) in enumerate(fields):
+        if i:
+            line(c, a, bottom, a, 65)
+        text(c, a + 9, 53, label, 7)
+        text(c, a + 9, 37, value, 9, bold=True)
+    text(c, 47, 125, "UNLESS OTHERWISE SPECIFIED", 9, bold=True)
+    text(c, 47, 108, "LINEAR ±0.005 IN     ANGULAR ±0.5°", 10)
+    text(c, 47, 91, "REFERENCE DIMENSIONS ARE IDENTIFIED BY REF.", 8.5)
+    text(c, 47, 65, "DIMENSIONS GOVERN. DO NOT SCALE THE DRAWING.", 9, bold=True)
+    text(c, 47, 49, "ANSI B / 17 x 11 IN. PRINT AT 100% FOR THE STATED VIEW SCALES.", 8)
+    text(c, 47, 36, "MACHINED CAP COMMON TO TOP AND BOTTOM; ROD TACK IS AN ASSEMBLY OPERATION.", 8)
 
 
-# ── Driver ───────────────────────────────────────────────────────────
-
-def _build_pdf(out_path) -> None:
-    c = canvas.Canvas(str(out_path), pagesize=(sheet_width * inch, sheet_height * inch))
-    c.setTitle("Carbonator End Cap — Circular, 2-Hole NPT")
-    c.setAuthor("derekbreden@gmail.com")
-    c.setSubject("Engineering drawing — Xometry NPT tapping callout")
-
-    # Black strokes/fills throughout
+def build_pdf(path):
+    c = canvas.Canvas(str(path), pagesize=SHEET, invariant=1, pageCompression=1)
+    c.setTitle("Carbonator end cap - finished machined part")
+    c.setAuthor("Home Soda Machine / Codex")
+    c.setSubject("END-CAP-01 Rev A: tapped ports, blind float-rod register and face-specific edge preparation")
     c.setStrokeColorRGB(0, 0, 0)
     c.setFillColorRGB(0, 0, 0)
-
-    draw_border(c)
-    draw_main_view(c)
-    draw_notes(c)
-    draw_title_block(c)
-
-    # Sheet-top title
-    c.setFont("Helvetica-Bold", 12)
-    c.drawString(
-        (sheet_margin + 0.10) * inch,
-        (sheet_height - sheet_margin - 0.25) * inch,
-        "CARBONATOR END CAP — CIRCULAR, 2-HOLE NPT",
-    )
-
+    c.setLineWidth(1)
+    c.rect(MARGIN, MARGIN, SHEET[0] - 2 * MARGIN, SHEET[1] - 2 * MARGIN,
+           stroke=1, fill=0)
+    face_view(c)
+    port_section(c)
+    register_section(c)
+    location_table(c)
+    notes(c)
+    title_block(c)
     c.showPage()
     c.save()
 
 
-def main() -> None:
-    export_pdf(_build_pdf, str(pdf_path))
-    print(f"Exported: {pdf_path}")
-
-    variables = {
-        "DISC_D_IN": f"{disc_diameter:.4g} in",
-        "DISC_R_IN": f"{disc_radius:.4g} in",
-        "DISC_THK_IN": f"{disc_thickness:.4g} in",
-        "HOLE_D_IN": f"{hole_diameter:.4g} in",
-        "HOLE_R_IN": f"{hole_radius:.4g} in",
-        "HOLE_SPACING": f"{hole_spacing:.4g} in",
-        "HOLE_OFFSET_IN": f"{hole_offset:.4g} in",
-        "REGISTER_WALL": f"{disc_thickness - register_depth:.4g} in",
-    }
-    substitute_py_comments(
-        Path(__file__),
-        variables=variables,
-    )
-    print(f"-> {Path(__file__).name} (self)")
+def main():
+    export_pdf(build_pdf, str(PDF_PATH))
+    print(f"Exported: {PDF_PATH}")
 
 
 if __name__ == "__main__":
