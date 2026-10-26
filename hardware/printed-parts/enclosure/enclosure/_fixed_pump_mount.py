@@ -93,8 +93,11 @@ def wiring_passages(e, box):
             points_mm=[(0., rear_y, rear_z), (0., cy, rear_z)],
             diamond_half_span_mm=SHARED_HALF_SPAN),
         'front-top-pump-cross': dict(
-            points_mm=[(-70., cy, cross_z), (0., cy, cross_z), (70., cy, cross_z)],
-            diamond_half_span_mm=INTERNAL_WIRE_HALF_SPAN),
+            points_mm=[(min(x for x, _y, _z in box.pack.pump_trays), cy, cross_z),
+                       (0., cy, cross_z),
+                       (max(x for x, _y, _z in box.pack.pump_trays), cy, cross_z)],
+            roof_half_span_mm=INTERNAL_WIRE_HALF_SPAN,
+            floor_z_mm=motor_end-e.wall),
         'front-top-display-chimney': dict(
             points_mm=[(0., 79., cross_z), (0., 78., 321.)],
             bounds_mm=[-10., 10., 72., 84., rear_z, 334.]),
@@ -110,6 +113,23 @@ def _diamond_y(x, y, z, r):
                                cq.Vector(x+r,y,z), cq.Vector(x,y,z-r)], close=True)
 
 
+def _convex_corridor(e, shapes):
+    """One straight-sided display cable room containing its entry and chimney."""
+    vertices=[vertex.Center() for shape in shapes for vertex in shape.Vertices()]
+    points=sorted(set((p.y,p.z) for p in vertices))
+    def turn(a,b,c):
+        return (b[0]-a[0])*(c[1]-a[1])-(b[1]-a[1])*(c[0]-a[0])
+    def chain(sequence):
+        result=[]
+        for point in sequence:
+            while len(result)>1 and turn(result[-2],result[-1],point)<=1e-9:
+                result.pop()
+            result.append(point)
+        return result
+    outline=chain(points)[:-1]+chain(reversed(points))[:-1]
+    return e._yz_prism(min(p.x for p in vertices),max(p.x for p in vertices),outline)
+
+
 def wire_cuts(e, box):
     p = wiring_passages(e, box)
     shared = p['front-top-electrical']
@@ -123,11 +143,15 @@ def wire_cuts(e, box):
                        rear[2],box.pump_bay[2]+.01))
     cross = p['front-top-pump-cross']
     a, _mid, b = cross['points_mm']
-    r = cross['diamond_half_span_mm']
+    r = cross['roof_half_span_mm']
+    floor = cross['floor_z_mm']
+    # A single level floor joins both motor rooms and the shared outlet. It
+    # cannot leave a skin between two opposed diamond/cone faces.
     out.append(e._yz_prism(a[0], b[0],
-                          [(a[1]-r,a[2]), (a[1],a[2]+r),
-                           (a[1]+r,a[2]), (a[1],a[2]-r)]))
-    out.append(e._ybox(*p['front-top-display-chimney']['bounds_mm']))
+                          [(a[1]-r,floor), (a[1]+r,floor),
+                           (a[1]+r,a[2]), (a[1],a[2]+r),
+                           (a[1]-r,a[2])]))
+    chimney=e._ybox(*p['front-top-display-chimney']['bounds_mm'])
     link = p['front-top-display-link']
     a,b = link['points_mm']
     r = link['diamond_half_span_mm']
@@ -142,8 +166,9 @@ def wire_cuts(e, box):
             (min(point[axis] for point in points)-1.,
              max(point[axis] for point in points)+1.)]
     entry=e._ybox(*bounds).moved(cq.Location(plane))
-    run=cq.Solid.makeLoft([inner,_diamond_y(*b,r)],True)
-    out.append(entry.fuse(run).clean())
+    # The entry, rising link and chimney share one convex room. Its plain
+    # walls replace the thin banks between overlapping passage cuts.
+    out.append(_convex_corridor(e,[entry,inner,_diamond_y(*b,r),chimney]))
     return out
 
 
