@@ -77,25 +77,13 @@ def baffle(xy):
 
 
 def cap_candidate(side):
-    letter='a' if side==1 else 'b'
-    suffix='right' if side==1 else 'left'
-    cap=cq.importers.importStep(str(CORE/f'reservoir/reservoir-cap-{suffix}.step')).val()
-    cap=cap.translate((0,0,reservoir.cap_assembly_lift))
-    # Remove the old filter/baffle feature and restore the surrounding flat plate.
-    old=(side*reservoir.vent_position_x,reservoir.vent_position_y)
-    cap=cap.cut(cylinder(old,201.,LID_TOP+.1,reservoir.vent_boss_outer_diameter+.02))
-    cap=cap.fuse(cylinder(old,LID_BOTTOM,LID_TOP,reservoir.vent_boss_outer_diameter+.02))
-    grips={}
-    for name,xy in (('fill',reservoir.fill_position[side]),('draw',reservoir.draw_position[side])):
-        # Flat plate seat: the complete original hanging boss is removed.
-        cap=cap.cut(cylinder(xy,201.,LID_BOTTOM,reservoir.fill_boss_outer_diameter+.02))
-        cap=cut_seat(cap,xy,FLUID_GRIP)
-        grips[f'grip-{letter}-{name}']=grommet(xy,FLUID_GRIP)
-    vent=VENT_XY[letter]
-    cap=cut_seat(cap,vent,AIR_GRIP)
-    cap=cap.fuse(baffle(vent)).clean()
-    grips[f'grip-{letter}-air']=grommet(vent,AIR_GRIP)
-    return cap,grips
+    """The approved geometry is implemented by the production generator."""
+    letter = 'a' if side == 1 else 'b'
+    cap = reservoir.build_reservoir_cap(side).val().translate((0, 0, reservoir.cap_assembly_lift))
+    grips = {f'grip-{letter}-{name}': grommet(xy, FLUID_GRIP)
+             for name, xy in (('fill', reservoir.fill_position[side]), ('draw', reservoir.draw_position[side]))}
+    grips[f'grip-{letter}-air'] = grommet(VENT_XY[letter], AIR_GRIP)
+    return cap, grips
 
 
 def bb_row(shape):

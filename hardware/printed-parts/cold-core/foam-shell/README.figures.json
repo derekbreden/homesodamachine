@@ -17,6 +17,7 @@
     "FSHELL_BBOX_X": "-141.200 to 141.200 mm",
     "FSHELL_BBOX_Y": "-90.200 to 90.200 mm",
     "FSHELL_BBOX_Z": "-0.000 to 213.400 mm",
+    "FSHELL_FLOOR_T": "2 mm",
     "FSHELL_FORWARD_BAND": "6.94 mm",
     "FSHELL_OUTER_WALL": "2.38 mm",
     "FSHELL_OUTER_Y": "180.4",
@@ -59,8 +60,7 @@
     "TANK_R": "63.5 mm",
     "TIP_CLEAR": "2.1 mm",
     "TRANSITION_ARC_R": "8.42 mm",
-    "TUBE_HOLE_D": "7.5 mm",
-    "FSHELL_FLOOR_T": "2 mm"
+    "TUBE_HOLE_D": "7.5 mm"
   },
   "/hardware/printed-parts/cold-core/reservoir/reservoir.py": {
     "RESERVOIR_D": "48.5 mm",

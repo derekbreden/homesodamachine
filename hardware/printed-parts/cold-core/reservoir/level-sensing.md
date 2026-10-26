@@ -41,7 +41,7 @@ top and has a bottom shelf. The column drops into this dry channel after the
 foam pour has cured; it is mechanically captured by the shelf, sides and cap.
 It is not embedded in foam. The cable rises directly through the cap's
 **[7.5 mm](CONDUIT_BORE_D)** conduit at
-[reed-cable-a (134.5, 32.5), reed-cable-b (-134.5, 32.5)](REED_CONDUIT_XY).
+[reed-cable-a (130.2, 14), reed-cable-b (-133.8, -26)](REED_CONDUIT_XY).
 The −X face stays flat against the refrigeration base. The fluid draw is a dip
 tube down through the reservoir's own cap ([floor and dip tube](floor-and-dip-tube.md)).
 

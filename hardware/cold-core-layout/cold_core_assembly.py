@@ -49,6 +49,7 @@ import _bom as _bom_check                                # noqa: E402
 import prv_shroud as _shroud                             # noqa: E402
 import _cold_scorecard as _card                          # noqa: E402
 import _cold_core_style as _style                        # noqa: E402
+import _reservoir_ports as _tube_ports
 import _above_core_mounts as _above_mounts                # noqa: E402
 import above_core_parts as _above_parts                   # noqa: E402
 import above_core_routes as _above_routes                 # noqa: E402
@@ -102,7 +103,8 @@ for _n in _V.PORTS:
 # What holds the bodies that come in families, by the name each family shares.
 HELD_BY_PREFIX = (
     ("collet-", "elbow socket"),
-    ("vent-membrane-", "cap vent pocket"),
+    ("reservoir-grip-", "matching double countersink in reservoir lid"),
+    ("tube-reservoir-air-", "reservoir TPU air grip"),
     ("float-rod-", "body boss"),
     ("float-", "the rod it rides"),
     ("reed-carb-", "bridge pocket"),
@@ -132,6 +134,9 @@ def held_for(name: str) -> str:
 JOINED = {frozenset(p) for p in (
     ("evap-coil", "evap-tail-inlet"),
     ("evap-coil", "evap-tail-outlet"),
+    ("reservoir-b-fill-lower", "reservoir-grip-b-fill"),
+    ("tube-reservoir-air-a", "reservoir-grip-a-air"),
+    ("tube-reservoir-air-b", "reservoir-grip-b-air"),
 )}
 
 # Bodies the wrap RIDES ON rather than routes around. THE CARBONATOR IS THE ONE IT IS WOUND ON:
@@ -166,6 +171,9 @@ MADE_UP_ON = {
     # around — it is the fitting this line is made up on.
     "prv-vent": ("prv-shroud",),
     "reservoir-b-fill": ("reservoir-b-fill-lower", "reservoir-b-fill-upper"),
+    "reservoir-a": ("reservoir-grip-a-draw",),
+    "reservoir-b": ("reservoir-grip-b-draw",),
+    "reservoir-a-fill": ("reservoir-grip-a-fill",),
 }
 
 
@@ -212,6 +220,19 @@ def build_bodies() -> dict:
         side = gasket if stem.endswith("-right") else gasket.mirror("YZ")
         placed[f"{name}-gasket"] = side.translate(
             (0, 0, _foam.RESERVOIR_CAP_Z - side.BoundingBox().zmax))
+
+    for letter, side in (("a", +1), ("b", -1)):
+        # The seat starts at the reservoir plate's actual underside, independent
+        # of the body/gasket datums that place the complete cap.
+        import reservoir
+        z0 = _foam.RESERVOIR_CAP_Z + reservoir.cap_wall_height
+        for port, xy in (("fill", reservoir.fill_position[side]),
+                         ("draw", reservoir.draw_position[side])):
+            placed[f"reservoir-grip-{letter}-{port}"] = _tube_ports.build_grommet(
+                _tube_ports.liquid_grip, xy, z0)
+        placed[f"reservoir-grip-{letter}-air"] = _tube_ports.build_grommet(
+            _tube_ports.air_grip, _tube_ports.air_position[side], z0)
+        placed[f"tube-reservoir-air-{letter}"] = _tube_ports.build_air_tube(side, z0, _foam.cap_face_z)
 
     for plug, spec in _plugs.plug_specs.items():
         placed[f"copper-plug-{plug}"] = _plug_into_shell(

@@ -4,16 +4,17 @@ The [next candidate](recipe-reviews/2026-10-26-overlap50/README.md) uses **50%
 Infill/Wall overlap** with the latest 255/260 °C Engineering Plate / left
 0.8 mm recipe otherwise retained. It addresses the
 [reported two-hour leakage](water-hold-evidence/2026-10-26-two-hour-leak/physical-result.json)
-at the wall/fill line. Its settings and unchanged geometry are verified;
-native slicing and physical sealing remain unassessed. No new job is submitted.
+at the wall/fill line. Its saved settings and body geometry are verified; its
+frozen lid predates the flush grips. Native slicing and physical sealing remain
+unassessed. No new job is submitted.
 
 The [left body and matching lid](prints/2026-10-25-mark1-left-engineering-flow105-overlap30-temp260-left08-z000/README.md)
 have recorded launch **Mark1 task 1375878568**, accepted **22:03:53 CDT October 25 /
 03:03:53 UTC October 26**, on the fixed **left 0.8 mm Standard** hotend,
 glued **Engineering Plate**, **0.00 mm Z compensation**, A2 and automatic refill.
 The preceding [right reservoir](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/physical-result/physical-result.json)
-completed 833/833 layers and has a reported water hold. Its geometry, including
-the right lid's port/float-guide locations, matches current CAD. This plate
+completed 833/833 layers and has a reported water hold. Its body and float-guide
+location match current CAD; current lids carry the flush tube grips. This plate
 contains one left body and its matching lid.
 
 The [preceding right-hotend Engineering Plate article](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json)
@@ -115,8 +116,8 @@ Its **10°** wall-transition threshold is the [source-defined Arachne default](h
 ## The part and its seal
 
 The reservoir is a vented cup with 3 mm walls/floor and 6 mm internal corner
-fillets. Six M3 fasteners clamp a separate cap through a TPU gasket. The PTFE
-vent equalizes headspace pressure. Cold service is 8–15 °C.
+fillets. Six M3 fasteners clamp a separate cap through a TPU gasket. The independent 4 mm air
+tube equalizes headspace pressure. Cold service is 8–15 °C.
 
 Nothing pierces the cup below its rim: both lines enter through the cap, and the
 draw line goes on down to the floor as its own dip tube. The printed floor and

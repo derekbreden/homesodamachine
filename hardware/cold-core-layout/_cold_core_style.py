@@ -81,14 +81,16 @@ def colour_for(name: str):
         return _mat.C_SILICONE
     if name.endswith("-cap"):
         return _mat.C_RES_CAP
+    if name.startswith("reservoir-grip-"):
+        return _mat.M_TPU_BLACK
+    if name.startswith("tube-reservoir-air-"):
+        return _routing.color("drain-white")
     if name.startswith("reservoir"):
         return _mat.C_RESERVOIR
     if name.startswith("copper-plug"):
         return _mat.C_PLUG
     if name.startswith("evap-"):
         return _mat.M_COPPER
-    if name.startswith("vent-membrane"):
-        return _mat.M_PTFE_WHITE
     if name.startswith("float-rod"):
         return _mat.M_STAINLESS
     if name.startswith("float-"):

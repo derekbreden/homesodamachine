@@ -15,15 +15,18 @@ genrule(
         "pysrc/hardware/assembly/_pressure_vessel_sync.py",
         "hardware/assembly/acceptance-and-burn-in.md",
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+        "pysrc/hardware/manifold-layout/above_core.py",
         "pysrc/hardware/manifold-layout/manifold_layout.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
         "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
+        "pysrc/hardware/printed-parts/cold-core/_reservoir_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "pysrc/hardware/printed-parts/cold-core/reservoir/reservoir.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
@@ -41,6 +44,7 @@ genrule(
         "hardware/reference/g-ganen-pump/reference-parameters.json",
         "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json",
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
+        "pysrc/hardware/reference/neofit-stem-elbow/neofit_stem_elbow.py",
         "pysrc/hardware/reference/tee-connector/tee_connector.py",
         "pysrc/hardware/reference/y-divider/y_divider.py",
         "pysrc/hardware/scripts/_boxes.py",
@@ -262,6 +266,7 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
         "hardware/printed-parts/cold-core/_port_cuts.py",
         "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
+        "pysrc/hardware/printed-parts/cold-core/_reservoir_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
         "pysrc/hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
@@ -420,6 +425,7 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
         "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
         "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
+        "pysrc/hardware/printed-parts/cold-core/_reservoir_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "pysrc/hardware/printed-parts/cold-core/_water_pressure_regulator.py",
         "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
@@ -685,15 +691,18 @@ genrule(
         "firmware/lib/machine_policy/cold_policy.h",
         "pysrc/hardware/assembly/_firmware_and_commissioning_sync.py",
         "hardware/assembly/firmware-and-commissioning.md",
+        "pysrc/hardware/manifold-layout/above_core.py",
         "pysrc/hardware/manifold-layout/manifold_layout.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
         "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
+        "pysrc/hardware/printed-parts/cold-core/_reservoir_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "pysrc/hardware/printed-parts/cold-core/reservoir/reservoir.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
@@ -711,6 +720,7 @@ genrule(
         "hardware/reference/g-ganen-pump/reference-parameters.json",
         "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json",
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
+        "pysrc/hardware/reference/neofit-stem-elbow/neofit_stem_elbow.py",
         ":out/tee-connector/hardware/reference/tee-connector/tee-connector.step",
         "pysrc/hardware/reference/tee-connector/tee_connector.py",
         "pysrc/hardware/reference/y-divider/y_divider.py",
@@ -770,9 +780,11 @@ genrule(
         "hardware/assembly/handwork.md",
         "pysrc/hardware/cold-core-layout/_coil.py",
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+        "pysrc/hardware/manifold-layout/above_core.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
@@ -780,6 +792,7 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
         "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
         "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
+        "pysrc/hardware/printed-parts/cold-core/_reservoir_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
         "pysrc/hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
@@ -888,6 +901,7 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
         "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
         "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
+        "pysrc/hardware/printed-parts/cold-core/_reservoir_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "pysrc/hardware/printed-parts/cold-core/_water_pressure_regulator.py",
         "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
@@ -1028,9 +1042,11 @@ genrule(
         "pysrc/hardware/assembly/_pressure_vessel_sync.py",
         "hardware/assembly/pressure-vessel.md",
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+        "pysrc/hardware/manifold-layout/above_core.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
@@ -1198,9 +1214,11 @@ genrule(
         "pysrc/hardware/assembly/_weld_rotation_rig_sync.py",
         "hardware/assembly/weld-rotation-rig.md",
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+        "pysrc/hardware/manifold-layout/above_core.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
@@ -1327,6 +1345,8 @@ genrule(
         "pysrc/hardware/manifold-layout/above_core_routes.py",
         "pysrc/hardware/manifold-layout/soda_inlet.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
+        "pysrc/hardware/printed-parts/cadlib/print_mesh.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
@@ -1337,6 +1357,8 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
         "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
         "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
+        "pysrc/hardware/printed-parts/cold-core/_reservoir_ports.py",
+        "pysrc/hardware/printed-parts/cold-core/_show_skin.py",
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
         ":out/copper-plugs/hardware/printed-parts/cold-core/copper-plugs/copper-plug-port.step",
@@ -1442,9 +1464,11 @@ genrule(
         "pysrc/hardware/cold-core-layout/_fittings.py",
         "pysrc/hardware/cut-parts/carbonation/carbonator-tube/carbonator_tube_step.py",
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+        "pysrc/hardware/manifold-layout/above_core.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
@@ -1452,6 +1476,7 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
         "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
         "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
+        "pysrc/hardware/printed-parts/cold-core/_reservoir_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "pysrc/hardware/printed-parts/cold-core/prv-shroud/prv_shroud.py",
         "pysrc/hardware/printed-parts/cold-core/reservoir/reservoir.py",
@@ -2448,6 +2473,8 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
         "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
         "pysrc/hardware/printed-parts/cold-core/_reservoir_a_anchors.py",
+        "pysrc/hardware/printed-parts/cold-core/_reservoir_ports.py",
+        "pysrc/hardware/printed-parts/cold-core/_show_skin.py",
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "pysrc/hardware/printed-parts/cold-core/_water_pressure_regulator.py",
         "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
@@ -2808,6 +2835,7 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
         "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
         "pysrc/hardware/printed-parts/cold-core/_reservoir_a_anchors.py",
+        "pysrc/hardware/printed-parts/cold-core/_reservoir_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "pysrc/hardware/printed-parts/cold-core/_water_pressure_regulator.py",
         "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
@@ -2990,6 +3018,7 @@ genrule(
         "hardware/reference/jg-pp0208e-tee/branch-operating-measurements.json",
         ":out/kamoer-kphm400/hardware/reference/kamoer-kphm400/kamoer-kphm400.step",
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
+        "pysrc/hardware/reference/neofit-stem-elbow/neofit_stem_elbow.py",
         ":out/tee-connector/hardware/reference/tee-connector/tee-connector.step",
         "pysrc/hardware/reference/tee-connector/tee_connector.py",
         "pysrc/hardware/reference/y-divider/y_divider.py",
@@ -3163,9 +3192,11 @@ cp hardware/printed-parts/asse-straight-cuffs/asse-outlet-cuff.stl $$O5
 genrule(
     name = "cold-core-interface",
     srcs = [
+        "pysrc/hardware/manifold-layout/above_core.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
@@ -3214,9 +3245,11 @@ cp hardware/printed-parts/cold-core/_cold_core_interface.py $$O0
 genrule(
     name = "coil-mandrel",
     srcs = [
+        "pysrc/hardware/manifold-layout/above_core.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
         "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
@@ -3270,9 +3303,11 @@ cp hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py $$O1
 genrule(
     name = "copper-plugs",
     srcs = [
+        "pysrc/hardware/manifold-layout/above_core.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
         "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
@@ -3336,6 +3371,8 @@ genrule(
         "pysrc/hardware/manifold-layout/above_core_routes.py",
         "pysrc/hardware/manifold-layout/soda_inlet.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
+        "pysrc/hardware/printed-parts/cadlib/print_mesh.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
@@ -3346,6 +3383,8 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
         "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
         "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
+        "pysrc/hardware/printed-parts/cold-core/_reservoir_ports.py",
+        "pysrc/hardware/printed-parts/cold-core/_show_skin.py",
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "pysrc/hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py",
         ":out/foam-cap/hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
@@ -3437,6 +3476,7 @@ genrule(
         "pysrc/hardware/manifold-layout/soda_inlet.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
+        "pysrc/hardware/printed-parts/cadlib/print_mesh.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
@@ -3448,6 +3488,7 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
         "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
         "pysrc/hardware/printed-parts/cold-core/_reservoir_a_anchors.py",
+        "pysrc/hardware/printed-parts/cold-core/_reservoir_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_show_skin.py",
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
@@ -3547,6 +3588,7 @@ genrule(
         "pysrc/hardware/manifold-layout/above_core_routes.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
+        "pysrc/hardware/printed-parts/cadlib/print_mesh.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
@@ -3559,6 +3601,7 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
         "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
         "pysrc/hardware/printed-parts/cold-core/_reservoir_pocket_walls.py",
+        "pysrc/hardware/printed-parts/cold-core/_reservoir_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_show_skin.py",
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
@@ -3597,6 +3640,7 @@ genrule(
         "pysrc/hardware/scripts/_routing.py",
         "pysrc/hardware/scripts/_run_lock.py",
         "pysrc/hardware/scripts/_stated_bounds.py",
+        "pysrc/hardware/scripts/flute_payload.py",
         "pysrc/tools/docgen/__init__.py",
     ] + glob(
         [
@@ -3613,12 +3657,21 @@ genrule(
         "out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.stl",
         "out/foam-shell/hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step",
         "out/foam-shell/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step",
+        "out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.step",
+        "out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.step.mesh",
+        "out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.stl",
         "out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step",
+        "out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step.mesh",
+        "out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.stl",
         "out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step",
+        "out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step.mesh",
+        "out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.stl",
         "out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step",
         "out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-left.step",
-        "out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-retaining-ring.step",
         "out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-right.step",
+        "out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step",
+        "out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step.mesh",
+        "out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.stl",
         "out/foam-shell/hardware/printed-parts/cold-core/foam-shell/README.figures.json",
         "out/foam-shell/hardware/printed-parts/cold-core/foam-shell/README.md",
         "out/foam-shell/hardware/printed-parts/cold-core/reed-bridge/README.figures.json",
@@ -3638,24 +3691,33 @@ O0=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/foam-shell/f
 O1=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/foam-shell/foam-shell.stl)
 O2=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step)
 O3=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step)
-O4=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step)
-O5=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step)
-O6=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step)
-O7=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-left.step)
-O8=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-retaining-ring.step)
-O9=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-right.step)
-O10=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/foam-shell/README.figures.json)
-O11=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/foam-shell/README.md)
-O12=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reed-bridge/README.figures.json)
-O13=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reed-bridge/README.md)
-O14=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py)
-O15=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/floor-and-dip-tube.figures.json)
-O16=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/floor-and-dip-tube.md)
-O17=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/level-sensing.figures.json)
-O18=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/level-sensing.md)
-O19=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir.py)
-O20=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/vent.figures.json)
-O21=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/vent.md)
+O4=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.step)
+O5=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.step.mesh)
+O6=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.stl)
+O7=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step)
+O8=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step.mesh)
+O9=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.stl)
+O10=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step)
+O11=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step.mesh)
+O12=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.stl)
+O13=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step)
+O14=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-left.step)
+O15=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-right.step)
+O16=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step)
+O17=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step.mesh)
+O18=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.stl)
+O19=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/foam-shell/README.figures.json)
+O20=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/foam-shell/README.md)
+O21=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reed-bridge/README.figures.json)
+O22=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reed-bridge/README.md)
+O23=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py)
+O24=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/floor-and-dip-tube.figures.json)
+O25=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/floor-and-dip-tube.md)
+O26=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/level-sensing.figures.json)
+O27=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/level-sensing.md)
+O28=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir.py)
+O29=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/vent.figures.json)
+O30=$$PWD/$(location out/foam-shell/hardware/printed-parts/cold-core/reservoir/vent.md)
 for f in $(SRCS); do
   case $$f in
     */node_modules/*) continue;;
@@ -3671,31 +3733,40 @@ done
 cd work
 ln -sfn $$HSM_WORKSPACE/.cache .cache
 D=$$(find . -type f -name '*.step' -o -type f -name '*.dxf' -o -type f -name '*.stl' | sort | xargs cat 2>/dev/null | shasum -a 256 | cut -c1-32)
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/foam-shell/foam_shell.py > /dev/null
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py > /dev/null
-HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/reservoir/reservoir.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/foam-shell/foam_shell.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py > /dev/null
+HSM_REPO_ROOT=$$PWD HSM_INPUT_DIGEST=$$D env -u HSM_SKIP_MESH_PAYLOAD $$HSM_WORKSPACE/tools/cad-venv/bin/python hardware/printed-parts/cold-core/reservoir/reservoir.py > /dev/null
 cp hardware/printed-parts/cold-core/foam-shell/foam-shell.step $$O0
 cp hardware/printed-parts/cold-core/foam-shell/foam-shell.stl $$O1
 cp hardware/printed-parts/cold-core/reed-bridge/reed-bridge-setting-gauge.step $$O2
 cp hardware/printed-parts/cold-core/reed-bridge/reed-bridge.step $$O3
-cp hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step $$O4
-cp hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step $$O5
-cp hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step $$O6
-cp hardware/printed-parts/cold-core/reservoir/reservoir-left.step $$O7
-cp hardware/printed-parts/cold-core/reservoir/reservoir-retaining-ring.step $$O8
-cp hardware/printed-parts/cold-core/reservoir/reservoir-right.step $$O9
-cp hardware/printed-parts/cold-core/foam-shell/README.figures.json $$O10
-cp hardware/printed-parts/cold-core/foam-shell/README.md $$O11
-cp hardware/printed-parts/cold-core/reed-bridge/README.figures.json $$O12
-cp hardware/printed-parts/cold-core/reed-bridge/README.md $$O13
-cp hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py $$O14
-cp hardware/printed-parts/cold-core/reservoir/floor-and-dip-tube.figures.json $$O15
-cp hardware/printed-parts/cold-core/reservoir/floor-and-dip-tube.md $$O16
-cp hardware/printed-parts/cold-core/reservoir/level-sensing.figures.json $$O17
-cp hardware/printed-parts/cold-core/reservoir/level-sensing.md $$O18
-cp hardware/printed-parts/cold-core/reservoir/reservoir.py $$O19
-cp hardware/printed-parts/cold-core/reservoir/vent.figures.json $$O20
-cp hardware/printed-parts/cold-core/reservoir/vent.md $$O21
+cp hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.step $$O4
+cp hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.step.mesh $$O5
+cp hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.stl $$O6
+cp hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step $$O7
+cp hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step.mesh $$O8
+cp hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.stl $$O9
+cp hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step $$O10
+cp hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step.mesh $$O11
+cp hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.stl $$O12
+cp hardware/printed-parts/cold-core/reservoir/reservoir-gasket.step $$O13
+cp hardware/printed-parts/cold-core/reservoir/reservoir-left.step $$O14
+cp hardware/printed-parts/cold-core/reservoir/reservoir-right.step $$O15
+cp hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step $$O16
+cp hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step.mesh $$O17
+cp hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.stl $$O18
+cp hardware/printed-parts/cold-core/foam-shell/README.figures.json $$O19
+cp hardware/printed-parts/cold-core/foam-shell/README.md $$O20
+cp hardware/printed-parts/cold-core/reed-bridge/README.figures.json $$O21
+cp hardware/printed-parts/cold-core/reed-bridge/README.md $$O22
+cp hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py $$O23
+cp hardware/printed-parts/cold-core/reservoir/floor-and-dip-tube.figures.json $$O24
+cp hardware/printed-parts/cold-core/reservoir/floor-and-dip-tube.md $$O25
+cp hardware/printed-parts/cold-core/reservoir/level-sensing.figures.json $$O26
+cp hardware/printed-parts/cold-core/reservoir/level-sensing.md $$O27
+cp hardware/printed-parts/cold-core/reservoir/reservoir.py $$O28
+cp hardware/printed-parts/cold-core/reservoir/vent.figures.json $$O29
+cp hardware/printed-parts/cold-core/reservoir/vent.md $$O30
 """,
 )
 
@@ -3773,14 +3844,20 @@ genrule(
         ":out/endcap-circular-drawing/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.pdf",
         ":out/endcap-circular-step/hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step",
         "pysrc/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py",
+        "hardware/manifold-layout/above-core.json",
+        "pysrc/hardware/manifold-layout/above_core.py",
+        "pysrc/hardware/manifold-layout/above_core_routes.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
+        "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
+        "pysrc/hardware/printed-parts/cadlib/print_mesh.py",
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
-        "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
         "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
-        "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
+        "pysrc/hardware/printed-parts/cold-core/_reservoir_ports.py",
+        "pysrc/hardware/printed-parts/cold-core/_show_skin.py",
         "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
         ":out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/design.json",
         ":out/all-aero-float/hardware/printed-parts/cold-core/magnetic-float/all-aero/float-aero.step",
@@ -3794,6 +3871,8 @@ genrule(
         ":out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-left.step",
         ":out/foam-shell/hardware/printed-parts/cold-core/reservoir/reservoir-right.step",
         "pysrc/hardware/printed-parts/cold-core/reservoir/reservoir.py",
+        "pysrc/hardware/printed-parts/electronics/module_tray.py",
+        "pysrc/hardware/printed-parts/electronics/pcba-tray/pcba_tray.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py",
         "pysrc/hardware/printed-parts/enclosure/y-wall-of-back-top/_y_wall_dimensions.py",
@@ -3805,6 +3884,7 @@ genrule(
         "pysrc/hardware/reference/g-ganen-pump/integration-envelope/g_ganen_integration.py",
         "pysrc/hardware/reference/g-ganen-pump/integration-envelope/native_queries.py",
         "hardware/reference/g-ganen-pump/reference-parameters.json",
+        "pysrc/hardware/reference/neofit-achv44-check/neofit_achv44_check.py",
         "pysrc/hardware/scripts/_cadq_export.py",
         "pysrc/hardware/scripts/_material_base.py",
         "pysrc/hardware/scripts/_materials.py",
@@ -4260,6 +4340,7 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
         "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
         "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
+        "pysrc/hardware/printed-parts/cold-core/_reservoir_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "pysrc/hardware/printed-parts/cold-core/_water_pressure_regulator.py",
         "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
@@ -4956,6 +5037,10 @@ genrule(
         "pysrc/hardware/manifold-layout/_gas_chain.py",
         "pysrc/hardware/manifold-layout/_lines.py",
         "pysrc/hardware/manifold-layout/_scorecard.py",
+        "pysrc/hardware/manifold-layout/above_core.py",
+        "pysrc/hardware/manifold-layout/above_core_bom.py",
+        "pysrc/hardware/manifold-layout/above_core_parts.py",
+        "pysrc/hardware/manifold-layout/above_core_routes.py",
         "pysrc/hardware/manifold-layout/enclosure_assembly.py",
         "pysrc/hardware/manifold-layout/manifold_layout.py",
         "pysrc/hardware/printed-parts/asse-drain-adapter/asse_drain_adapter.py",
@@ -4968,6 +5053,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
@@ -4975,6 +5061,7 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
         "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
         "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
+        "pysrc/hardware/printed-parts/cold-core/_reservoir_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "pysrc/hardware/printed-parts/cold-core/_water_pressure_regulator.py",
         "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
@@ -5022,6 +5109,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/drawings/line-art/_blender_scene.py",
         "pysrc/hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-back.py",
         "pysrc/hardware/printed-parts/enclosure/drawings/line-art/enclosure-iso-front.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_above_core_shell.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
@@ -5106,10 +5194,12 @@ genrule(
         ":out/mq6-gas-sensor/hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step",
         "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
         "pysrc/hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
+        "pysrc/hardware/reference/neofit-achv44-check/neofit_achv44_check.py",
         ":out/neofit-bulkhead/hardware/reference/neofit-bulkhead/neofit-bulkhead.step",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "pysrc/hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
         "pysrc/hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py",
+        "pysrc/hardware/reference/neofit-stem-elbow/neofit_stem_elbow.py",
         ":out/riteav-keystone/hardware/reference/riteav-keystone/riteav-keystone.step",
         "pysrc/hardware/reference/riteav-keystone/riteav_keystone.py",
         ":out/seaflo-22-pump/hardware/reference/seaflo-22-pump/seaflo-22-pump.step",
@@ -5560,6 +5650,10 @@ genrule(
         "pysrc/hardware/manifold-layout/_gas_chain.py",
         "pysrc/hardware/manifold-layout/_lines.py",
         "pysrc/hardware/manifold-layout/_scorecard.py",
+        "pysrc/hardware/manifold-layout/above_core.py",
+        "pysrc/hardware/manifold-layout/above_core_bom.py",
+        "pysrc/hardware/manifold-layout/above_core_parts.py",
+        "pysrc/hardware/manifold-layout/above_core_routes.py",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scorecard.json",
         "pysrc/hardware/manifold-layout/enclosure_assembly.py",
@@ -5574,6 +5668,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
@@ -5581,6 +5676,7 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
         "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
         "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
+        "pysrc/hardware/printed-parts/cold-core/_reservoir_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "pysrc/hardware/printed-parts/cold-core/_water_pressure_regulator.py",
         "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
@@ -5597,6 +5693,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/data-ring/data_ring.py",
         "pysrc/hardware/printed-parts/enclosure/display-cover/display_cover.py",
         "pysrc/hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_above_core_shell.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
@@ -5652,9 +5749,11 @@ genrule(
         "pysrc/hardware/reference/molex-micro-fit-4/molex_micro_fit_4.py",
         "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
         "pysrc/hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
+        "pysrc/hardware/reference/neofit-achv44-check/neofit_achv44_check.py",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "pysrc/hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
         "pysrc/hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py",
+        "pysrc/hardware/reference/neofit-stem-elbow/neofit_stem_elbow.py",
         "pysrc/hardware/reference/riteav-keystone/riteav_keystone.py",
         "pysrc/hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
         "pysrc/hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py",
@@ -5845,6 +5944,10 @@ genrule(
         "pysrc/hardware/manifold-layout/_gas_chain.py",
         "pysrc/hardware/manifold-layout/_lines.py",
         "pysrc/hardware/manifold-layout/_scorecard.py",
+        "pysrc/hardware/manifold-layout/above_core.py",
+        "pysrc/hardware/manifold-layout/above_core_bom.py",
+        "pysrc/hardware/manifold-layout/above_core_parts.py",
+        "pysrc/hardware/manifold-layout/above_core_routes.py",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.facts.json",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scorecard.json",
         "pysrc/hardware/manifold-layout/enclosure_assembly.py",
@@ -5859,6 +5962,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/reeding.py",
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
+        "pysrc/hardware/printed-parts/cold-core/_above_core_mounts.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_float_interface.py",
         "pysrc/hardware/printed-parts/cold-core/_foam_cap.py",
@@ -5866,6 +5970,7 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
         "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
         "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
+        "pysrc/hardware/printed-parts/cold-core/_reservoir_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "pysrc/hardware/printed-parts/cold-core/_water_pressure_regulator.py",
         "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
@@ -5882,6 +5987,7 @@ genrule(
         "pysrc/hardware/printed-parts/enclosure/data-ring/data_ring.py",
         "pysrc/hardware/printed-parts/enclosure/display-cover/display_cover.py",
         "pysrc/hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_above_core_shell.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_retention.py",
@@ -5937,9 +6043,11 @@ genrule(
         "pysrc/hardware/reference/molex-micro-fit-4/molex_micro_fit_4.py",
         "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
         "pysrc/hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
+        "pysrc/hardware/reference/neofit-achv44-check/neofit_achv44_check.py",
         "pysrc/hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "pysrc/hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
         "pysrc/hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py",
+        "pysrc/hardware/reference/neofit-stem-elbow/neofit_stem_elbow.py",
         "pysrc/hardware/reference/riteav-keystone/riteav_keystone.py",
         "pysrc/hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
         "pysrc/hardware/reference/seaflo-discharge-chain/seaflo_discharge_chain.py",
@@ -6945,6 +7053,7 @@ cp hardware/printed-parts/fixtures/tube-miter-box/README.md $$O3
 genrule(
     name = "valve-socket-fit",
     srcs = [
+        "pysrc/hardware/manifold-layout/above_core.py",
         "pysrc/hardware/printed-parts/cadlib/cable_clip.py",
         "pysrc/hardware/printed-parts/cadlib/fits.py",
         "pysrc/hardware/printed-parts/cadlib/flute_skin.py",
@@ -6954,6 +7063,7 @@ genrule(
         "pysrc/hardware/printed-parts/cadlib/snap.py",
         "pysrc/hardware/printed-parts/cadlib/world_workplane.py",
         "pysrc/hardware/printed-parts/cold-core/_cold_core_interface.py",
+        "pysrc/hardware/printed-parts/enclosure/enclosure/_above_core_shell.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
         "pysrc/hardware/printed-parts/enclosure/enclosure/_display_wing_interface.py",
@@ -6990,6 +7100,7 @@ genrule(
         "hardware/reference/jg-pp0308e-elbow/scan-measurements.json",
         "pysrc/hardware/reference/kamoer-kphm400/kamoer_kphm400.py",
         "pysrc/hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
+        "pysrc/hardware/reference/neofit-stem-elbow/neofit_stem_elbow.py",
         "pysrc/hardware/reference/riteav-keystone/riteav_keystone.py",
         "pysrc/hardware/reference/tee-connector/tee_connector.py",
         "pysrc/hardware/reference/wago-221/wago_221.py",
@@ -9813,6 +9924,7 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
         "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
         "pysrc/hardware/printed-parts/cold-core/_reservoir_a_anchors.py",
+        "pysrc/hardware/printed-parts/cold-core/_reservoir_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "pysrc/hardware/printed-parts/cold-core/_water_pressure_regulator.py",
         "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
@@ -10366,6 +10478,10 @@ genrule(
         "hardware/manifold-layout/_gas_chain.py",
         "hardware/manifold-layout/_lines.py",
         "hardware/manifold-layout/_scorecard.py",
+        "hardware/manifold-layout/above_core.py",
+        "hardware/manifold-layout/above_core_bom.py",
+        "hardware/manifold-layout/above_core_parts.py",
+        "hardware/manifold-layout/above_core_routes.py",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.scorecard.json",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step",
         ":out/enclosure-assembly/hardware/manifold-layout/enclosure-assembly.step.mesh",
@@ -10382,6 +10498,7 @@ genrule(
         "hardware/printed-parts/cadlib/reeding.py",
         "hardware/printed-parts/cadlib/snap.py",
         "hardware/printed-parts/cadlib/world_workplane.py",
+        "hardware/printed-parts/cold-core/_above_core_mounts.py",
         "hardware/printed-parts/cold-core/_cold_core_interface.py",
         "hardware/printed-parts/cold-core/_float_interface.py",
         "hardware/printed-parts/cold-core/_foam_cap.py",
@@ -10389,6 +10506,7 @@ genrule(
         "hardware/printed-parts/cold-core/_outer_shell.py",
         "hardware/printed-parts/cold-core/_port_cuts.py",
         "hardware/printed-parts/cold-core/_reed_channels.py",
+        "hardware/printed-parts/cold-core/_reservoir_ports.py",
         "hardware/printed-parts/cold-core/_support_ring.py",
         "hardware/printed-parts/cold-core/_water_pressure_regulator.py",
         "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
@@ -10436,6 +10554,7 @@ genrule(
         "hardware/printed-parts/enclosure/data-ring/data_ring.py",
         "hardware/printed-parts/enclosure/display-cover/display_cover.py",
         "hardware/printed-parts/enclosure/display-gasket/display_gasket.py",
+        "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py",
         "hardware/printed-parts/enclosure/enclosure/_anchor_cap_interface.py",
         "hardware/printed-parts/enclosure/enclosure/_data_wing_interface.py",
         "hardware/printed-parts/enclosure/enclosure/_display_retention.py",
@@ -10558,10 +10677,12 @@ genrule(
         ":out/mq6-gas-sensor/hardware/reference/mq6-gas-sensor/mq6-gas-sensor.step",
         "hardware/reference/mq6-gas-sensor/mq6_gas_sensor.py",
         "hardware/reference/multiplex-asse1022/multiplex_asse1022.py",
+        "hardware/reference/neofit-achv44-check/neofit_achv44_check.py",
         ":out/neofit-bulkhead/hardware/reference/neofit-bulkhead/neofit-bulkhead.step",
         "hardware/reference/neofit-bulkhead/neofit_bulkhead.py",
         "hardware/reference/neofit-drain-bulkhead/neofit_drain_bulkhead.py",
         "hardware/reference/neofit-flavor-reducer/neofit_flavor_reducer.py",
+        "hardware/reference/neofit-stem-elbow/neofit_stem_elbow.py",
         ":out/riteav-keystone/hardware/reference/riteav-keystone/riteav-keystone.step",
         "hardware/reference/riteav-keystone/riteav_keystone.py",
         "hardware/reference/seaflo-22-pump/seaflo_22_pump.py",
@@ -10681,6 +10802,7 @@ genrule(
         "pysrc/hardware/printed-parts/cold-core/_outer_shell.py",
         "pysrc/hardware/printed-parts/cold-core/_port_cuts.py",
         "pysrc/hardware/printed-parts/cold-core/_reed_channels.py",
+        "pysrc/hardware/printed-parts/cold-core/_reservoir_ports.py",
         "pysrc/hardware/printed-parts/cold-core/_support_ring.py",
         "pysrc/hardware/printed-parts/cold-core/_water_pressure_regulator.py",
         "pysrc/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",
@@ -11842,6 +11964,14 @@ genrule(
     name = "pysrc-f6019aebdbc0",
     srcs = ["hardware/printed-parts/cold-core/_reservoir_pocket_walls.py"],
     outs = ["pysrc/hardware/printed-parts/cold-core/_reservoir_pocket_walls.py"],
+    tools = ["tools/bazel/pysrc.py"],
+    cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
+)
+
+genrule(
+    name = "pysrc-a636d4fd9ce0",
+    srcs = ["hardware/printed-parts/cold-core/_reservoir_ports.py"],
+    outs = ["pysrc/hardware/printed-parts/cold-core/_reservoir_ports.py"],
     tools = ["tools/bazel/pysrc.py"],
     cmd = "$$HSM_WORKSPACE/tools/cad-venv/bin/python $(location tools/bazel/pysrc.py) $(RULEDIR)/pysrc $(SRCS)",
 )

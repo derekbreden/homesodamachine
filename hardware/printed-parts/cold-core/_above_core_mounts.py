@@ -789,7 +789,7 @@ def reservoir_b_fill_link():
              upper_mouth)
     cup_height = core.foam_cap_height - core.head_pad_height
     core_world_z = spec['cap_lid_pose']['translation_mm'][2] - cup_height - core.foam_shell_outer_height
-    stem_tip = core_world_z + reservoir.cap_assembly_lift - reservoir.fill_boss_drop - 1.0
+    stem_tip = core_world_z + reservoir.cap_assembly_lift - 3.0
     return {
         'parts': {
             'reservoir-b-fill-lower': {

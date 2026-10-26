@@ -1,89 +1,46 @@
-# Flavor Reservoir Cap Vent
+# Reservoir air tubes
 
-Hydrophobic PTFE membrane filter inside the printed reservoir cap, plus a slotted splash-baffle cylinder hanging below the filter pocket. The vent lets air pass through the cap as the reservoir fills and drains, while blocking syrup splashes from reaching the membrane.
+Each reservoir has an independent, bidirectional **4 mm OD / 2.5 mm ID**
+neoFlo LLDPE air tube. Air enters as liquid is drawn out and leaves as the
+reservoir fills. The open upper end stands **6 mm above the outer foam cap**
+in the appliance's equipment space. Filtering is deferred.
 
-## Architecture
+## Lid and splash protection
 
-A ø[13 mm](FILTER_D) × [0.5 mm](FILTER_T) hydrophobic PTFE membrane filter (LVDALAB B0D41KT345) sits in a ø[13.3 mm](VENT_POCKET_D) × [2.75 mm](VENT_POCKET_DEPTH) cylindrical pocket at the top of the cap. A press-fit TPU 90A retaining ring holds the filter down. Below the pocket, a slotted splash-baffle cylinder hangs into the cap interior — any syrup that splashes up against the cap ceiling has to take a 90°-turn through one of the cylinder's side slots before it could reach the membrane.
+A TPU 90A spool seats in matching 45° countersinks through the lid's 4 mm
+flat plate. Both annular faces are flush. The air spool has a 6 mm waist,
+8 mm flares and 3.9 mm bore, with 0.3 mm lead-ins opening to 4.5 mm.
+Print two [reservoir-air-grip.step](reservoir-air-grip.step) parts per machine.
+The production geometry is shared in [../_reservoir_ports.py](../_reservoir_ports.py).
 
-Geometry constants in `reservoir.py` in this directory (`vent_pocket_*`, `vent_cylinder_*`, `vent_slot_*`, `vent_brim_*`). Headline values:
+The integral baffle below the lid has a closed floor and four 3 × 2 mm side
+slots. Its OD is 13 mm, ID 9 mm, total drop 3 mm and floor thickness 1 mm.
+The chamber clears the lower TPU flare. Air passes sideways through the
+slots to the tube opening; the closed floor intercepts direct upward splash.
+The tube ends 1 mm below the plate and 1 mm above the baffle floor.
 
-- Filter: ø[13 mm](FILTER_D) × [0.5 mm](FILTER_T), hydrophobic PTFE on PET backing
-- Pocket: ø[13.3 mm](VENT_POCKET_D) × [2.75 mm](VENT_POCKET_DEPTH) (filter thickness + retaining ring thickness)
-- Vent boss outer: ø[17.3 mm](VENT_BOSS_OD) ([2 mm](VENT_BOSS_WALL) wall around pocket)
-- Vent hole through cap: ø[5 mm](VENT_HOLE_D)
-- Splash-baffle cylinder: ø[10 mm](VENT_CYL_OD) OD × ø[5 mm](VENT_CYL_ID) ID, ~3 mm long, hanging below the cap ceiling
-- Splash-baffle slots: [4](VENT_SLOT_COUNT) slots, [3 mm](VENT_SLOT_W) wide × [2 mm](VENT_SLOT_H) tall, cut into the cylinder wall
+## Through the insulation
 
-## Function
+Air axes in the native cold-core frame are A **(120, -26)** and
+B **(-102, -32.5)** mm. The top foam-cap cup has an integral 5.2 mm passage
+with 2 mm printed wall at each station. Each passage continues through the
+pour lid. The 0.6 mm radial clearance lets the tube slide through; the TPU
+grip in the reservoir lid sets its insertion depth. Foam fills around the
+printed passage rather than contacting the tube.
 
-The reservoir is non-pressurized; the vent equalizes the air space
-above the liquid as the pump draws syrup up the dip tube and as the
-fill cycle refills it from above.
+The nominal straight cut length is **31.25 mm per tube**. Fit the three flush
+spools to each reservoir lid before closing it. Feed each air tube through
+the casing passage and its TPU grip, leaving 6 mm visible above the casing
+face. This places its lower end clear of the baffle floor. Keep the bore
+open in both directions. Existing white 4 mm stock supplies both pieces.
 
-Dry hydrophobic membrane vents pass air in both directions. During filling,
-outgoing air replaces the incoming liquid volume; during drawing, incoming air
-replaces the outgoing liquid volume. The required airflow is the larger of the
-fill and draw rates, as described in [Pall's tank-vent guidance](https://www.pall.com/en/food-beverage/tank-air-vent.html).
-No installed airflow or syrup-wetting result is recorded for this particular
-LVDALAB disc. Its restriction and fouling life are unqualified.
+## Qualification
 
-The splash-baffle cylinder shields the membrane from direct upward splash:
-liquid meets its closed bottom or wall, with a lateral turn through a slot
-required to reach the vent bore.
-
-## Path through the assembled casing
-
-The filter pocket opens below the top foam-cap floor. Current native geometry
-places the reservoir-cap top at Z213.15 mm and that floor's underside at
-Z213.5500001 mm: **0.4 mm nominal air clearance**. There is no dedicated
-reservoir-air conduit through the foam cap.
-
-The [October 25 review](tube-grip-vent-review.json) traces clear nominal paths
-from both vent positions across that gap and up the draw-conduit annuli,
-including reservoir B's two bends. With a 6.5 mm tube envelope in the 7.5 mm
-passage, the sampled annular paths have approximately 0.25 mm clearance to
-both tube and printed passage. These are geometric openings, not measured
-airflow. Printed contact, assembly and installed closures affect conductance.
-The loose fill/draw tube bores also provide air paths that bypass the membrane.
-
-A dedicated vent line per reservoir is the recommended candidate when defining
-the complete air boundary and tube grips. Preserve the splash baffle, route
-the line through a protected casing passage to outside the insulation, and
-place a hydrophobic filter at a sheltered, dry external termination. The line
-must pass air in both directions and remain free of liquid traps.
-
-The existing neoFlo **4 mm OD / 2.5 mm ID** stock is a plausible size for a
-short vent route. At an illustrative 0.6 L/min air demand, 0.3 m of straight
-dry tubing has a calculated drop of approximately **57 Pa / 0.0082 psi**.
-This excludes the membrane, bends, fittings and liquid contamination; it does
-not qualify a finished assembly. The [manufacturer sheet](https://assets.freshwatersystems.com/image/upload/s--N9disqrx--/gjtidjfc0tlprqbhb4ka.pdf)
-specifies that tube's ID and 25 mm minimum bend radius. No dedicated vent line
-or new tube grip is present in the current printed geometry.
-
-The [3D review proposal](tube-vent-proposal/README.md) provides independent
-straight air tubes through integral casing passages, with flush TPU grips in
-the reservoir lids and slotted splash baffles below. Its tube ends stand
-6 mm above the insulation in the equipment space. This initial candidate
-contains no filter; Derek has deferred filtering until the tube and grommet
-arrangement is evaluated. Native geometry and assembly clearances are
-recorded separately from physical fit and airflow qualification.
-
-The ø[13 mm](FILTER_D) × [0.5 mm](FILTER_T) filter is a standard lab-filter disc; laminated PTFE on PET support, held in 100-packs at $0.13/filter delivered.
-
-## Per-build parts
-
-Tracked in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13:
-
-- **2 LVDALAB PTFE membrane filters** (B0D41KT345), one per cap × 2 caps
-- **TPU 90A retaining rings** printed from the same gasket stock — not separately listed
-- **Splash-baffle cylinder** is part of the cap print, not a separate part
-
-## Service
-
-For bench replacement before the core is enclosed, the cap comes off via its
-six M3 × 12 screws; the retaining ring lifts out and the filter can be replaced.
-No membrane service-life result is recorded.
+[The approved review](tube-vent-proposal/README.md) records the dimensions
+and native assembly clearance. Geometry establishes an open path; printed
+grip, splash performance and installed airflow have no physical acceptance
+result yet. The [manufacturer tubing sheet](https://assets.freshwatersystems.com/image/upload/s--N9disqrx--/gjtidjfc0tlprqbhb4ka.pdf)
+specifies the 2.5 mm ID and 25 mm minimum bend radius. These short runs are straight.
 
 ## Sources
 [value](NAME) texts are updated by:

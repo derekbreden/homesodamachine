@@ -96,7 +96,13 @@ The pump tubes come fitted in the prepared pumps and are not counted here. A bar
 [`_fluid_topology_sync.py`](/hardware/topology/_fluid_topology_sync.py) prints every
 construction, known stock length and exposed path.
 
-Four of the seven conduits in the cold core's top cap are this circuit's: a fill and a draw for each reservoir.
+Each reservoir also has an independent, bidirectional air path: headspace →
+side-slotted splash baffle → 4 mm OD / 2.5 mm ID tube → equipment-space air
+above the foam cap. Its dedicated printed passage keeps insulation off the
+tube. These two passive air tubes do not cross-connect the reservoirs or use
+any valve. [Reservoir air paths](/hardware/printed-parts/cold-core/reservoir/vent.md).
+
+Four of the liquid conduits in the cold core's top cap are this circuit's: a fill and a draw for each reservoir.
 
 ### Shared
 

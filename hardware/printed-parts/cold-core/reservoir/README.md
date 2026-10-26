@@ -12,6 +12,24 @@ carries both mouths: the fill, and the dip tube the draw line becomes.
 [Level sensing](level-sensing.md) · [Floor and dip tube](floor-and-dip-tube.md) ·
 [Vent](vent.md)
 
+## Tube grips and air paths
+
+The 4 mm lid plate carries matched 45° countersinks for flush TPU spools:
+two 1/4-inch tube grips and one 4 mm air-tube grip per reservoir. Each air
+tube passes through its own integral foam-cap passage and opens 6 mm above
+the insulation. [Air tubes and splash baffles](vent.md) ·
+[Tube insertion and grip](floor-and-dip-tube.md).
+
+Print four [liquid-tube grips](reservoir-tube-grip.step) and two
+[air-tube grips](reservoir-air-grip.step) in TPU 90A per machine. The
+[approved review](tube-vent-proposal/README.md) defines their geometry;
+printed grip and splash performance remain unqualified. Frozen print archives
+retain the geometry of their tested articles. A fresh lid slice is required
+for these countersunk ports.
+
+The [native integration check](tube-grip-integration.json) records the flush
+seats, open air paths, casing clearance and unchanged body geometry.
+
 ## Two-hour leakage and next overlap candidate
 
 Derek reports that the most recent reservoir leaks a small amount after
@@ -23,7 +41,7 @@ marks establish leakage beside the base; the internal path is unconfirmed.
 The [next candidate](recipe-reviews/2026-10-26-overlap50/README.md) uses **50%
 Infill/Wall overlap**, with the latest **255/260 °C Engineering Plate / left
 0.8 mm** recipe otherwise retained. The candidate settings and unchanged
-geometry are verified; native slicing and a physical water-hold result are
+body geometry are verified; its frozen lid predates the flush grips. Native slicing and a physical water-hold result are
 pending. No new job is submitted. Earlier task-specific observations retain
 their recorded scope.
 
@@ -41,9 +59,9 @@ explicit task ID.
 
 The preceding [right reservoir, task 1374963298](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/physical-result/physical-result.json)
 completed 833/833 layers and **turned out well and is holding water**, as
-reported by Derek. Duration and water head are unspecified. Its right lid's
-geometry matches current CAD, including port/float-guide positions, so this
-plate includes the matching left lid with no additional right lid.
+reported by Derek. Duration and water head are unspecified. Its body and float-guide datums
+match current CAD. The recorded plate includes its matching left lid; current
+lids carry the flush tube grips described above.
 
 The preceding Engineering Plate **task 1374272357** has [reported right-hotend
 polymer buildup and a motion-step-loss warning](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json).

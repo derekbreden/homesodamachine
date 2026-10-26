@@ -60,8 +60,8 @@ every part used in the working assembly.
   terminals, ferrules, heat-shrink, braided sleeve, 16 AWG stranded silicone plus solid black/white stock, Wago 221-413, -415 and -420,
   the RJ11 keystone and plugs, and 4", 6" zip ties.
 - §12: the RC62 magnets, MDSR-7-10-15 reeds and the 1/8" 316 rod.
-- §13: ruthex short and full-length M3 inserts, M3×8, ×10, ×60 and 304 ×12 screws, and the PTFE
-  vent membranes.
+- §13: ruthex short and full-length M3 inserts, M3×8, ×10, ×60 and 304 ×12 screws.
+  Print the flush TPU tube grips and cut the independent air tubes from existing stock.
 
 **To buy:**
 - One John Guest PI0808S 1/4" stem plug for V-A's port
@@ -199,7 +199,7 @@ Build both closed before they go into the shell ([cold core §4](cold-core.md#4-
    with the real float, in water and in the actual syrup, before soldering. Then solder each
    column's four reeds onto its 5P ribbon, lace it with heat-shrink and prove every reed with
    the float.
-4. **Close:** the PTFE membrane and its TPU ring in the cap's vent pocket, the TPU gasket on the
+4. **Close:** the flush liquid/air TPU spools in their double countersinks, the TPU gasket on the
    wall top, the cap over the rod, six 304 M3×12.
 5. **Water test now:** fill each with water and leave them a few hours over a towel. The current
    reservoir recipe's water results are in the
