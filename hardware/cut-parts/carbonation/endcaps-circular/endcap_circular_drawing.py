@@ -14,6 +14,7 @@ import sys
 from pathlib import Path
 
 from reportlab.lib.units import inch
+from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfgen import canvas
 
 HERE = Path(__file__).resolve().parent
@@ -31,6 +32,7 @@ from endcap_circular_dxf import (
 )
 
 PDF_PATH = HERE / "endcap-circular-2hole-drawing.pdf"
+REVISION = "B"
 REVISION_DATE = "2026-10-26"
 SHEET = (17 * inch, 11 * inch)
 MARGIN = 27
@@ -72,12 +74,27 @@ def arrow(c, tip, tail, length=6, width=2):
     c.drawPath(p, stroke=0, fill=1)
 
 
-def leader(c, tip, knee, end, lines, size=9, above=5):
+def leader(c, tip, knee, end, lines, size=9):
+    """End the shoulder beside the first line, at the text's mid-height."""
     line(c, *tip, *knee)
     line(c, *knee, *end)
     arrow(c, tip, knee)
+    text_on_right = end[0] > knee[0]
+    text_x = end[0] + (4 if text_on_right else -4)
+    align = "left" if text_on_right else "right"
+    cap_height = pdfmetrics.getAscent("Helvetica", size)
     for i, value in enumerate(lines):
-        text(c, end[0] + 4, end[1] + above - i * 12, value, size)
+        text(c, text_x, end[1] - cap_height / 2 - i * 12,
+             value, size, align=align)
+
+
+def circular_leader(c, center_xy, radius, knee, end, lines, size=9):
+    """Touch the circle exactly, with the inclined line directed radially."""
+    dx, dy = knee[0] - center_xy[0], knee[1] - center_xy[1]
+    distance = math.hypot(dx, dy)
+    tip = (center_xy[0] + radius * dx / distance,
+           center_xy[1] + radius * dy / distance)
+    leader(c, tip, knee, end, lines, size)
 
 
 def horizontal_dimension(c, x1, x2, witness_y, dim_y, label, size=10):
@@ -170,12 +187,12 @@ def face_view(c):
     cutting_plane_ends(c, CX - RADIUS - 24, CX + RADIUS + 24, CY, "A")
     line(c, rx - 28, ry, rx + 28, ry, dash=CENTER_DASH)
     cutting_plane_ends(c, rx - 37, rx + 37, ry, "B", rise=16)
-    leader(c, (CX + hole_positions[1][0] * inch + 14, CY + 9),
-           (484, 600), (510, 600),
-           ["2X 1/4-18 NPT THRU", "TAP FROM OUTSIDE FACE", "P1, P2 - SEE NOTE 2"], 10)
-    leader(c, (rx + register_drill_diameter * inch / 2, ry - 2),
-           (429, 351), (510, 351),
-           ["R1 - BLIND ROD REGISTER", "SEE SECTION B-B"], 9)
+    circular_leader(c, (CX + hole_positions[1][0] * inch, CY), hole_radius * inch,
+                    (484, 600), (510, 600),
+                    ["2X 1/4-18 NPT THRU", "TAP FROM OUTSIDE FACE", "P1, P2 - SEE NOTE 2"], 10)
+    circular_leader(c, (rx, ry), register_drill_diameter * inch / 2,
+                    (429, 351), (510, 351),
+                    ["R1 - BLIND ROD REGISTER", "SEE SECTION B-B"], 9)
     # The witnesses start at the actual OD silhouette, not an imaginary
     # rectangle tangent to the bottom of the disc.
     horizontal_dimension(c, CX - RADIUS, CX + RADIUS, CY,
@@ -215,10 +232,10 @@ def port_section(c):
     text(c, CX, 180, "SCALE 1:1 - THREADS SHOWN CONVENTIONALLY", 8,
          align="center")
     # Direct face labels make tap entry and OD preparation unambiguous.
-    leader(c, (left + 5, top), (82, 265), (45, 265),
-           ["INSIDE FACE"], 8.5, above=4)
-    leader(c, (right - 4, bottom), (526, 204), (540, 204),
-           ["OUTSIDE FACE", "NPT ENTRY / WELD FACE"], 8.5, above=4)
+    leader(c, (left + 5, top), (148, 273), (123, 273),
+           ["INSIDE FACE"], 8.5)
+    leader(c, (405, bottom), (425, 190), (445, 190),
+           ["OUTSIDE FACE", "NPT ENTRY / WELD FACE"], 8.5)
 
 
 def register_section(c):
@@ -331,7 +348,7 @@ def title_block(c):
         text(c, x, 87, label, 7)
         text(c, x, 73, value, 9, bold=True)
     fields = [(635, 815, "DRAWING", "END-CAP-01"),
-              (815, 867, "REV", "A"),
+              (815, 867, "REV", REVISION),
               (867, 990, "DATE", REVISION_DATE),
               (990, 1113, "SCALE", "AS SHOWN"),
               (1113, 1197, "SHEET", "1 OF 1")]
@@ -352,7 +369,7 @@ def build_pdf(path):
     c = canvas.Canvas(str(path), pagesize=SHEET, invariant=1, pageCompression=1)
     c.setTitle("Carbonator end cap - finished machined part")
     c.setAuthor("Home Soda Machine / Codex")
-    c.setSubject("END-CAP-01 Rev A: tapped ports, blind float-rod register and face-specific edge preparation")
+    c.setSubject(f"END-CAP-01 Rev {REVISION}: tapped ports, blind float-rod register and face-specific edge preparation")
     c.setStrokeColorRGB(0, 0, 0)
     c.setFillColorRGB(0, 0, 0)
     c.setLineWidth(1)
