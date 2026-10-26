@@ -1,15 +1,19 @@
 {
-  "preparation": "hardware/print-tests/m5-seam-bearing/mark1/2026-10-26-m5-seam-bearing-mark1-be46870c",
-  "project": "hardware/print-tests/m5-seam-bearing/mark1/2026-10-26-m5-seam-bearing-mark1-be46870c/2026-10-26-m5-seam-bearing-mark1-be46870c.3mf",
-  "archive": "hardware/print-tests/m5-seam-bearing/mark1/2026-10-26-m5-seam-bearing-mark1-be46870c/2026-10-26-m5-seam-bearing-mark1-be46870c.gcode.3mf",
-  "print_only_archive": "hardware/print-tests/m5-seam-bearing/mark1/2026-10-26-m5-seam-bearing-mark1-be46870c/m5-seam-bearing-mark1-print-only.gcode.3mf",
-  "printer": "Mark1",
-  "connection_key": "H2C",
-  "submitted": false,
+  "preparation": "hardware/print-tests/m5-seam-bearing/mark2/2026-10-26-m5-seam-bearing-mark2-be46870c",
+  "project": "hardware/print-tests/m5-seam-bearing/mark2/2026-10-26-m5-seam-bearing-mark2-be46870c/2026-10-26-m5-seam-bearing-mark2-be46870c.3mf",
+  "archive": "hardware/print-tests/m5-seam-bearing/mark2/2026-10-26-m5-seam-bearing-mark2-be46870c/2026-10-26-m5-seam-bearing-mark2-be46870c.gcode.3mf",
+  "print_only_archive": "hardware/print-tests/m5-seam-bearing/mark2/2026-10-26-m5-seam-bearing-mark2-be46870c/m5-seam-bearing-mark2-print-only.gcode.3mf",
+  "printer": "Mark2",
+  "connection_key": "Mark2",
+  "submitted": true,
   "estimated_seconds": 15258.2607421875,
   "filament_g": 153.35,
   "objects": 18,
   "support_roads": 0,
   "minimum_bed_margin_mm": 92.856366,
-  "scope": "Prepared offline for the requested Mark1 session. No printer command sent."
+  "scope": "Submitted to Mark2; printer acceptance is recorded in launch.json. Physical fit remains unmeasured.",
+  "printer_task_id": "1378515009",
+  "accepted_at": "2026-10-26T22:32:05.613363+00:00",
+  "launch_record": "hardware/print-tests/m5-seam-bearing/mark2/2026-10-26-m5-seam-bearing-mark2-be46870c/launch.json",
+  "gcode_state": "PREPARE"
 }
