@@ -39,16 +39,17 @@ destroyed is a part that comes out by being destroyed.
   interior butt joints: Y-A to V-C, Y-B to V-D and the crossbar between Y-A and Y-B. Each
   pump tee reaches its fore valve on a short straight tube, not a butt
   ([`manifold-layout/`](/hardware/manifold-layout/README.md)).
-- **The pump dock closes once, at the factory.** The pump cradle pushes the four prepared pump
-  tubes' tips through front-top's tee wall into the four pump tees' branch collets, which stand
-  extended and grip them like any push-fit; those four collets hold the cradle home, and nothing
-  else retains it. Each tee's branch stands in a bore through the tee wall, which holds it in X
-  and Z; its fixed branch barrel lands on the bore face if the tee is pushed fore, and its lower
-  return stops it aft. Each upper tube stands straight under its fore valve, and each lower
-  return is two stem elbows and a straight tube
-  ([pump dock](/hardware/printed-parts/enclosure/pump-dock/README.md)). Once home, the cradle
-  does not come out: the collets cannot be released from the bay, and a pump that fails means a
-  factory teardown.
+- **The pump mount and dock close at the factory.** Both prepared pumps rise motor-first
+  from underneath loose front-top on the rectangular lower retainer. Three upward M3 × 60
+  screws capture their molded skirts against the integral upper pockets. Each prepared
+  tee/upper-tube/fore-valve group then approaches individually from aft, its extended branch
+  collet gripping and sealing a fixed pump tube. Each tee's branch stands in a bore through
+  the tee wall, which holds it in X and Z; its fixed branch barrel lands on the bore face if
+  the tee is pushed fore, and its lower return stops it aft. Each upper tube stands straight
+  under its fore valve, and each lower return is two stem elbows and a straight tube
+  ([pump dock](/hardware/printed-parts/enclosure/pump-dock/README.md)). Complete the pump
+  fastening, plumbing and accessible wiring before joining the front column. A pump that
+  fails means a factory teardown.
 - **The enclosure's rigid barbed lips close on sequential motions.** The first motion
   places each lip clear of its roof; the next slides it under the roof. Flat bearing faces
   retain the seam, and the Y seam's vertical screws prevent the reverse motion.
@@ -81,8 +82,9 @@ destroyed is a part that comes out by being destroyed.
   [`tee-connector observations`](/hardware/reference/tee-connector/README.md#observed-push-connect-action)
   establish insertion against spring-level collet tension and relocking after a small
   separating tug on the identified fittings. They carry no instrumented force and provide no
-  seal or endurance acceptance for the assembled dock. The force of pushing all four tubes home
-  at once, and each tee's aft stop through its return under that push, are unmeasured.
+  seal or endurance acceptance for the assembled dock. Each prepared tee group approaches
+  its secured tube individually; its actual seating force and the return's aft-stop capacity
+  remain unmeasured.
 - **Clearance around a fitting is not a placement criterion.** Room for a hand, a spanner or a
   collet release ranks below volume. Where a run needs room, it needs it to be *routed*, not to
   be reached.
