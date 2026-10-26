@@ -34,6 +34,9 @@ THICK = original.THICK
 WORD_SIZE = 4.6
 WORD_DEPTH = original.WORD_DEPTH
 WORD_RAISE = original.WORD_RAISE
+# Keep the short upper-row words above the water and soda fitting flanges
+# with at least the 1 mm assembly air gap. Chip outlines and clamp planes stay fixed.
+WORD_LIFT = {'water': .25, 'carb': .25}
 
 STATIONS = {
     'bulkhead-water': 'water', 'co2-inlet': 'co2',
@@ -87,7 +90,8 @@ def word(which):
     bottom = original.bottom(original.family(which))
     return letters.translate((-(b.xmin+b.xmax)/2,
                               THICK-WORD_DEPTH-b.ymin,
-                              (bottom+rise())/2-(b.zmin+b.zmax)/2))
+                              (bottom+rise())/2-(b.zmin+b.zmax)/2
+                              + WORD_LIFT.get(which, 0.)))
 
 
 @functools.cache
