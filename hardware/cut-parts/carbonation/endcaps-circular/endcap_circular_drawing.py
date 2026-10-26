@@ -32,7 +32,7 @@ from endcap_circular_dxf import (
 )
 
 PDF_PATH = HERE / "endcap-circular-2hole-drawing.pdf"
-REVISION = "B"
+REVISION = "C"
 REVISION_DATE = "2026-10-26"
 SHEET = (17 * inch, 11 * inch)
 MARGIN = 27
@@ -232,7 +232,7 @@ def port_section(c):
     text(c, CX, 180, "SCALE 1:1 - THREADS SHOWN CONVENTIONALLY", 8,
          align="center")
     # Direct face labels make tap entry and OD preparation unambiguous.
-    leader(c, (left + 5, top), (148, 273), (123, 273),
+    leader(c, (175, top), (140, 273), (110, 273),
            ["INSIDE FACE"], 8.5)
     leader(c, (405, bottom), (425, 190), (445, 190),
            ["OUTSIDE FACE", "NPT ENTRY / WELD FACE"], 8.5)
