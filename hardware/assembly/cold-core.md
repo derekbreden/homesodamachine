@@ -199,7 +199,7 @@ A finished cold core:
 - The carbonated-water outlet crossing the carbonator support ring at the ring's own 217° slot and the CO2 at the 307° slot, with all four bearing segments whole
 - Reed columns dropped into the reed channels, their cables up those same channels and out the cap's two reed conduits — the −X wall carries the two lane slots and nothing else
 - Both foam caps secured at their dry seats, [10](CAP_FACE_SCREWS) M3 × 25 SHCS each into the top- and bottom-face heat-set inserts, every head down in its lid counterbore — run a straightedge across each lid, nothing touches it before the plate does
-- External envelope ~[283 mm](SHELL_OUTER_X) × [181](CCORE_OUTER_Y) × [253.4 mm](CCORE_CAPPED_H) with both caps on — the shell alone is [213.4 mm](OUTER_H) tall, and the complete envelope includes both cups and lids
+- External envelope ~[282.4 mm](SHELL_OUTER_X) × [180.4](CCORE_OUTER_Y) × [253.4 mm](CCORE_CAPPED_H) with both caps on — the shell alone is [213.4 mm](OUTER_H) tall, and the complete envelope includes both cups and lids
 
 ## Open items
 
