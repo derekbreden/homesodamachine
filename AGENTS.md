@@ -23,6 +23,10 @@ See `marketing/target-market.md` for details.
 Derek makes all purchases. Agents make recommendations and may prepare carts
 for his review; they do not place orders or complete payments.
 
+## Questions
+
+Don't ask Derek what the repo already answers. What he owns and has on hand is in [`hardware/ledger/`](hardware/ledger/): every purchase in `purchases.md`, sorted by role into `bom.md`, `tools.md` and `inventory.md`. What he has seen and reported is in the Physical Evidence records below.
+
 ## Amazon Prime
 
 You have access to my Chrome which is signed in to my amazon through your MCP. I only care about Amazon Prime listings. Non-Prime listings are non-existent as far as I am concerned. Do not read them. Do not mention them. They do not exist.
@@ -47,7 +51,7 @@ Co-Authored-By: <the harness's line, when it adds one>
 
 Physical observations and acceptance records live beside the parts and reference hardware.
 The current index is [`hardware/mechanical-qualification/README.md`](hardware/mechanical-qualification/README.md), with enclosure results also in [`hardware/printed-parts/enclosure/print-readiness.md`](hardware/printed-parts/enclosure/print-readiness.md).
-Read the relevant records before asking the founder to reconstruct reported issues. Preserve accepted results and their scope, and link resolution evidence when recording an addressed issue.
+Preserve accepted results and their scope, and link resolution evidence when recording an addressed issue.
 For hardware optimizations, identify the customer outcome, supporting evidence and measurement needed to assess the candidate. Saved settings and geometric checks alone do not establish load capacity or lifetime.
 Existing specifications carry no presumption of correctness. Start from product requirements, load paths and applicable manufacturer guidance; justify deviations with evidence relevant to the property being assessed. Prefer a supported, straightforward correction when testing would not change that decision.
 Missing evidence is a limit on a claim, not automatically a task for the founder. Before requesting a measurement or test, explain the decision it changes, why it is worth the effort, the exact procedure, fixtures and tools, and acceptance criteria derived from the application. Use existing tools where possible; any requested purchase needs an Amazon Prime link and a clear purpose.
