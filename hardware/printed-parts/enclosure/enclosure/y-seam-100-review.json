@@ -306,5 +306,243 @@
       }
     ],
     "pass": true
+  },
+  "post_live_geometry_lint": {
+    "recorded_utc": "2026-10-26T02:00:05.031143+00:00",
+    "scope": "All seven mesh classes read once per identified published revision. Unchanged bottom meshes retain their earlier post-live readings. Ranking rows include existing answers; later answer edits do not imply another classifier run. This does not qualify physical printing, fit or strength.",
+    "tool": "hardware/scripts/geometry_lint.py",
+    "tool_sha256": "b98dd35377de1cbd69596adb48873ff1eb7859d21aaaa1403a4a9b879f5c8897",
+    "classes": [
+      "step",
+      "bump",
+      "sliver",
+      "ceiling",
+      "slope",
+      "thin",
+      "ledge"
+    ],
+    "publication_bindings": [
+      {
+        "file": "printed-parts/enclosure/enclosure/enclosure-front-bottom.step.mesh",
+        "sha256": "47431932dadfc69e990ec8218c8ca62d778df2fb904d251d402ac479f61899ef",
+        "live_sha256": "47431932dadfc69e990ec8218c8ca62d778df2fb904d251d402ac479f61899ef",
+        "matches": true
+      },
+      {
+        "file": "printed-parts/enclosure/enclosure/enclosure-back-bottom.step.mesh",
+        "sha256": "10561b9fada6948af88eb66f50c5ff5de738a608267ca21173f4e10a87ccd8f7",
+        "live_sha256": "10561b9fada6948af88eb66f50c5ff5de738a608267ca21173f4e10a87ccd8f7",
+        "matches": true
+      },
+      {
+        "file": "printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+        "sha256": "45f911ca164102662d34cc6bb33c01cbc54906c58564e64dff9474afd8a7cf2e",
+        "live_sha256": "45f911ca164102662d34cc6bb33c01cbc54906c58564e64dff9474afd8a7cf2e",
+        "matches": true
+      },
+      {
+        "file": "printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh",
+        "sha256": "19b61f8724714f1d2bb8568f124c09dd1b9922a2f0726aaf40547432dfcaa1f0",
+        "live_sha256": "19b61f8724714f1d2bb8568f124c09dd1b9922a2f0726aaf40547432dfcaa1f0",
+        "matches": true,
+        "recorded_utc": "2026-10-26T01:52:43.756586+00:00",
+        "native_files": {
+          "enclosure-back-top.step": "4058c5688746a7e8731f5756290ddd30948cc5b69360998a233b714f89d36178",
+          "enclosure-back-top.stl": "5cfa41be1623379e912c085b8f3e38898a6b4c5fcb4e381af49a9f78b60a61ed"
+        },
+        "lint_log_sha256": "fc7a63de256f1717ca2fada577cd5fbbd71c485589f5769ffd68db561def133b",
+        "stl_unchanged_after_scan": true
+      }
+    ],
+    "scans": [
+      {
+        "piece": "front-bottom",
+        "stl_sha256": "fe1a99b351c2c0545a945f708c8e4f5da11d4fed74c85f01144f4002ba04e497",
+        "printed_facets": 269396,
+        "ranked_or_open_rows_at_collection": 178,
+        "answered_face_rows_at_collection": 4,
+        "class_rows": {
+          "step": 0,
+          "bump": 0,
+          "sliver": 0,
+          "ceiling": 4,
+          "slope": 0,
+          "thin": 178,
+          "ledge": 0
+        },
+        "report_sha256": "15d67bfcfb8c5caf3bc788b832321c3b16a704fdd2ce44c2ee9df0b88c3742be"
+      },
+      {
+        "piece": "back-bottom",
+        "stl_sha256": "76d2349b4769ecbe541d03859befc21956b47f0c3b7ccc5ab2fdf3cda575ed50",
+        "printed_facets": 760658,
+        "ranked_or_open_rows_at_collection": 6,
+        "answered_face_rows_at_collection": 170,
+        "class_rows": {
+          "step": 1,
+          "bump": 0,
+          "sliver": 163,
+          "ceiling": 7,
+          "slope": 1,
+          "thin": 4,
+          "ledge": 0
+        },
+        "report_sha256": "f9747cf26c1ce311786ae1eda9800e58454adace97b76e24443c1c35824ec806"
+      },
+      {
+        "piece": "front-top",
+        "stl_sha256": "51e5bb0c134823e3036a68a48471220ceecea1a4b8c936b077d0405a05855e95",
+        "printed_facets": 510722,
+        "ranked_or_open_rows_at_collection": 17,
+        "answered_face_rows_at_collection": 7,
+        "class_rows": {
+          "step": 0,
+          "bump": 0,
+          "sliver": 6,
+          "ceiling": 5,
+          "slope": 1,
+          "thin": 6,
+          "ledge": 6
+        },
+        "report_sha256": "0d56e9499965c3f619be986f54e0919f93bd81763a6d9290215f3af83fd3ec04"
+      },
+      {
+        "piece": "back-top",
+        "stl_sha256": "5cfa41be1623379e912c085b8f3e38898a6b4c5fcb4e381af49a9f78b60a61ed",
+        "printed_facets": 966426,
+        "ranked_or_open_rows_at_collection": 23,
+        "answered_face_rows_at_collection": 39,
+        "class_rows": {
+          "step": 0,
+          "bump": 0,
+          "sliver": 3,
+          "ceiling": 34,
+          "slope": 4,
+          "thin": 14,
+          "ledge": 7
+        },
+        "report_sha256": "85764ac382a38fb8f7abeec359b02f4190c6e24dee60504afd3f2cc85da3bb9c"
+      }
+    ],
+    "current_upper_joint_findings": [
+      {
+        "class": "slope",
+        "description": "Wrong slope classification for the upper M5 passage relief: this is the ramped roof inside a 5.6 mm wide slot, with its two rising edges carried by the opposed slot walls. The classifier tests one adjacent wall and reports a sideways corbel; its grouped click is the mean of the mirrored roofs, not a physical point at X0. Retain Tree(auto)/Default in a fresh native preparation; this reading does not qualify bridge finish or support removal.",
+        "answered_in_scan": true,
+        "clicks": [
+          [
+            0.0,
+            211.627,
+            338.579
+          ]
+        ],
+        "piece": "front-top",
+        "answer_file": "hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-front-top.lint-answers",
+        "disposition": "Functional profile / classifier interpretation recorded at the exact pick in the lint-answer file."
+      },
+      {
+        "class": "ceiling",
+        "description": "40 mm\u00b2 flat print-down face at z=335.946 \u00b7 13.0 \u00d7 3.2 mm \u00b7 open to the bed (19.1 mm up)",
+        "answered_in_scan": false,
+        "clicks": [
+          [
+            -98.0,
+            216.425,
+            335.946
+          ]
+        ],
+        "piece": "back-top",
+        "answer_file": "hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-back-top.lint-answers",
+        "disposition": "Functional profile / classifier interpretation recorded at the exact pick in the lint-answer file."
+      },
+      {
+        "class": "ceiling",
+        "description": "40 mm\u00b2 flat print-down face at z=335.946 \u00b7 13.0 \u00d7 3.2 mm \u00b7 open to the bed (19.1 mm up)",
+        "answered_in_scan": false,
+        "clicks": [
+          [
+            98.0,
+            216.425,
+            335.946
+          ]
+        ],
+        "piece": "back-top",
+        "answer_file": "hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-back-top.lint-answers",
+        "disposition": "Functional profile / classifier interpretation recorded at the exact pick in the lint-answer file."
+      },
+      {
+        "class": "thin",
+        "description": "2.436 mm of material at its thinnest \u00b7 0.1 mm\u00b2 of surface under 2.5 mm \u00b7 spans 0.1 \u00d7 0.0 \u00d7 0.2 mm",
+        "answered_in_scan": false,
+        "clicks": [
+          [
+            -106.936,
+            218.01,
+            336.062
+          ],
+          [
+            -104.5,
+            218.01,
+            336.062
+          ]
+        ],
+        "piece": "back-top",
+        "answer_file": "hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-back-top.lint-answers",
+        "disposition": "Retained exterior flute/blend field on the approved 3 mm wall; 2.436/2.463 mm readings to its inner X face, distinct from the corrected broad knuckle-root return."
+      },
+      {
+        "class": "thin",
+        "description": "2.463 mm of material at its thinnest \u00b7 0.1 mm\u00b2 of surface under 2.5 mm \u00b7 spans 0.0 \u00d7 0.0 \u00d7 0.0 mm",
+        "answered_in_scan": false,
+        "clicks": [
+          [
+            106.963,
+            218.015,
+            336.188
+          ],
+          [
+            104.5,
+            218.015,
+            336.188
+          ]
+        ],
+        "piece": "back-top",
+        "answer_file": "hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-back-top.lint-answers",
+        "disposition": "Retained exterior flute/blend field on the approved 3 mm wall; 2.436/2.463 mm readings to its inner X face, distinct from the corrected broad knuckle-root return."
+      },
+      {
+        "class": "ceiling",
+        "description": "Required upper M5 passage-relief floors: these level ends stop the 5.6 mm passage slots where the clearance bore crosses the sloped middle-knuckle face. They remove the knife edge at that crossing. Back-top prints roof-down; retain Tree(auto)/Default and remove support through the exposed seam and bore before fitting the screw. Physical cleanup remains unqualified.",
+        "answered_in_scan": true,
+        "clicks": [
+          [
+            -97.7,
+            204.525,
+            321.146
+          ]
+        ],
+        "piece": "back-top",
+        "answer_file": "hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-back-top.lint-answers",
+        "disposition": "Functional profile / classifier interpretation recorded at the exact pick in the lint-answer file."
+      },
+      {
+        "class": "ceiling",
+        "description": "Required upper M5 passage-relief floors: these level ends stop the 5.6 mm passage slots where the clearance bore crosses the sloped middle-knuckle face. They remove the knife edge at that crossing. Back-top prints roof-down; retain Tree(auto)/Default and remove support through the exposed seam and bore before fitting the screw. Physical cleanup remains unqualified.",
+        "answered_in_scan": true,
+        "clicks": [
+          [
+            97.7,
+            204.525,
+            321.146
+          ]
+        ],
+        "piece": "back-top",
+        "answer_file": "hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-back-top.lint-answers",
+        "disposition": "Functional profile / classifier interpretation recorded at the exact pick in the lint-answer file."
+      }
+    ],
+    "current_upper_joint_unresolved_thin_step_or_sliver_rows": 0,
+    "retained_upper_exterior_flute_blend_rows": 2,
+    "outside_change_scope": "Remaining observations include existing exterior flute sections, accepted retention lips and component-mount/support profiles. These are not closed by the Y-seam screw change; whole-enclosure print readiness and physical load qualification remain separate."
   }
 }

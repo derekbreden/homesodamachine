@@ -1,8 +1,10 @@
 # Loads and retention review
 
 Each case: the load, its path, the feature that governs it, a hand-calculation margin and a
-verdict, for the enclosure at `fbc3e5dd3` and its regenerated quadrants; the pump-tube and
-cradle-seat cases read the current tree's dock. Physical evidence is in the
+verdict. The Y-seam cases use the current four M5×100 pin stacks and their
+[native review](../printed-parts/enclosure/enclosure/y-seam-100-review.json).
+The other enclosure calculations bind `fbc3e5dd3` and its regenerated quadrants;
+the pump-tube and cradle-seat cases bind the dock described below. Physical evidence is in the
 [register](README.md). The tee wall that holds the pump tees is outside this review.
 
 ## Basis and assumptions
@@ -24,8 +26,8 @@ cradle-seat cases read the current tree's dock. Physical evidence is in the
 | Two-hand lift by the handholds | 196 N per side with the dynamic factor | Fingers → 12 mm lifting ceiling → end walls and the lower knuckle stack standing on the ceiling at mid-span | One-hand case below governs | Adequate |
 | One-hand lift or tilt over the face-frame lip | 392 N on one ceiling | Ceiling bending over its 25.6 mm span from end wall to knuckle face, skin-only section 151 mm³: 16.6 MPa | 2.4 against in-layer tension | Adequate; the ceiling prints flat and bends along its layers |
 | Tops hanging on the Z rails during a lift | Tops' weight × 2 | Hooked arms on each flank's straight run, 4.5 mm arm and 5 mm lap over 150 mm or more | Under 0.2 N per mm of rail | Adequate |
-| Y seam under a lift | 23.5 N·m from the front column | Top laps in compression; the lower M5 rods in bearing on the knuckles: 46 N per side | Ligament shear-out of one knuckle is 8.8 kN | Adequate |
-| Y-seam head seat | Screw preload | Head on its printed floor, compression across layers | 31 MPa at a 1 N·m seat against an assumed 50 MPa; see [head recesses](#y-seam-head-recesses) | Adequate at a snug seat |
+| Y seam under a lift | 23.5 N·m from the assumed front-column load | Printed knuckles bear on four steel pins; their head/insert end pairs capture the opposite half's middle blocks. Running gaps and printed deflection determine first contact. The floor tongue has no tensile interlock and the top lap is not a qualified compression flange | Native geometry supplies no measured bearing, ligament-shear or assembled bending capacity | Unqualified for current geometry |
+| Y-seam head seat | Head seating; no designed middle-block clamp preload | Head on a printed floor; insert and head belong to the same half | 32.1 mm² nominal head-bearing area; no qualified torque-to-tension or printed compression allowable | Seat only; see [head recesses](#y-seam-head-recesses) |
 | Compressor posts, lateral shock (side or edge drop) | 4.5 kg × deceleration, shared by four posts | Ø12/Ø6.4 post bending at its root on the slab, across layers, lever about 10 mm | 2.1 at 10 g, 1.06 at 20 g, 0.71 at 30 g | Needs a physical observation; see below |
 | Compressor posts, vertical rebound | 4.5 kg × deceleration | Grommet top flange → washer → M5 screw → RX-M5x9.5 pull-out | 276 N per insert at 25 g, 552 N at 50 g | Adequate to about 50 g on an assumed 1 kN insert pull-out; drop acceptance is the evidence |
 | M3 wall-mount inserts (supply, relay, C14, boards) | C14 cord insertion, about 50 N; the 0.33 kg supply at 50 g, 162 N over its screws | Screw → ruthex M3 → boss; C14 insertion loads its two inserts in pull-out because the flange lands from inside | Under 100 N per insert against an assumed 300 N | Adequate |
@@ -34,8 +36,9 @@ cradle-seat cases read the current tree's dock. Physical evidence is in the
 
 ## Y-seam head recesses
 
-The four M5 seam screws seat in Ø9 openings, their head floors at Z40.8 and Z347: the lower
-heads' faces stand 6.55 mm above the handhold ceiling, the upper 3 mm inside the roof. The upper
+The four fully threaded M5×0.8×100 seam screws seat in Ø9 openings, their head floors
+at Z60.8 and Z347. The lower heads' faces stand 26.55 mm above the handhold ceiling;
+the upper heads stand 3 mm inside the roof. The upper
 axes stand at |X|97.7, 9.8 mm in from the exterior, and their M5 insert envelope stays 0.4 mm
 inside front-top's 13 mm knuckle face. The lower axes stand at |X|98.25, where the head passes the handhold's 3 mm inner
 wall, which stands 0.25 mm off the cold core.
@@ -48,10 +51,16 @@ above it; 3 mm at the plane needs the handhold roll at R4.5, and Derek asked on 
 the bottom grips match the top's rounding, so the roll stays R6 and the rim's lint row is
 answered with R4.5 as the alternative.
 
-**Bearing.** The head bears 32.1 mm² on its floor, compression across layers. A hand-snug seat
-of 0.5–1 N·m gives 500–1,000 N and 16–31 MPa, inside the assumed 50 MPa. At 2 N·m it reaches
-62 MPa and the head sinks into its floor. The joint carries its loads with the screws in
-bearing and has no designed preload; the heads seat snug.
+**Bearing and clamping.** A nominal Ø8.5 head over the Ø5.6 passage has 32.1 mm²
+of projected bearing area. Each head floor and insert block belong to the same
+quadrant: back-bottom at the lower stations and front-top at the upper stations.
+The screw retains the opposite quadrant's middle block as a pin through a clearance
+passage. Tightening seats the head; it does not directly squeeze that middle block
+between the end blocks. The Ø5.6 passages and 0.25 mm running fits are assembly
+clearances, not a zero-play fit. Printed variation, contact, wear and deflection
+set assembled movement. No installation torque or retained preload is qualified;
+stop when the head meets its floor. The nominal bearing area and solid host geometry
+do not establish printed load capacity or long-term rigidity.
 
 ## Compressor posts in a side drop
 
