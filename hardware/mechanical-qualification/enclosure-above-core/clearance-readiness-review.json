@@ -904,5 +904,13 @@
     "hardware/manifold-layout/enclosure_assembly.py": "9b78454edba0ef8c742d3609850fa753dee6a913e1019df73c0fea104fa85248",
     "hardware/printed-parts/enclosure/rear-identification/rear_identification.py": "4f4ae7be792c955c8431951b7139f14091c1c8ac7893771c5a698070856653cf"
   },
-  "interpretation": "The seventeen remaining sub-millimetre pairs require their own fit or routing decisions. Passing slices and intended contact classifications do not settle those interfaces."
+  "interpretation": "The sub-millimetre rows are CAD readings. The reported physical under-pump elbow fit is accepted in the linked attestation. The remaining interfaces retain their own fit or routing questions; passing slices and intended contact classifications do not settle them.",
+  "physical_fit_resolutions": [
+    {
+      "interface": "V-A union elbow under the G Ganen pump head",
+      "date": "2026-10-26",
+      "evidence": "hardware/reference/g-ganen-pump/under-head-tube/flat-elbow-observation.json#clearance_attestation",
+      "result": "Derek attests that the physical arrangement fits with approximately 1 mm clearance; the CAD model is conservative for this reported fit."
+    }
+  ]
 }
