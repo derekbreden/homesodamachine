@@ -1,0 +1,26 @@
+{
+  "recorded_on": "2026-10-26",
+  "source_candidate": ".cache/reservoir-overlap50-20261026/candidate.3mf",
+  "source_candidate_sha256": "7b7f7e6ac83c95721a65878668125440169338b8f6e205ee04175a1b3ca1fac8",
+  "source_recipe": "../../recipe-reviews/2026-10-26-overlap50/settings.json",
+  "settings": "settings.json",
+  "settings_sha256": "f3eb5aa95b28b5a436161cd8cbf36a653b661daeba417a9a0a427e93aab58889",
+  "selected_parts": [
+    "reservoir-left",
+    "reservoir-cap-left"
+  ],
+  "geometry": "Same left body and matching lid as task 1375878568; STEP hashes match the retained project report.",
+  "model_entries_sha256": {
+    "3D/3dmodel.model": "7f915479829c3813d2a2c35cc74f82a458a6d5051f9972d6d8f1539abf1e3370",
+    "3D/Objects/object_1.model": "261f1b728b7bf13b69b3eacf99a66203ff867cfdfcbe63f83021c1139aef26ae",
+    "3D/Objects/object_2.model": "f5c6c33e39dfa3ad4350bf475deff63f4dbc4a6a6b6d9f8743b9d1e1b128e28a",
+    "3D/_rels/3dmodel.model.rels": "8476bb89e574aa712abd83324565c9d9c6b2304afe5bc546eab241994d3628bc"
+  },
+  "requested_change": "50% Infill/Wall overlap",
+  "nozzle": "Mark1 fixed left 0.8 mm Standard",
+  "plate": "Engineering Plate, glued and ready per Derek",
+  "founder_ready_quote": "Mark 1 is clear and ready for your next print. Got the bed, the industrial plate glued and ready to go.",
+  "status": "Launched as Mark1 task 1377101665; native slice reviewed.",
+  "launch": "launch.json",
+  "lid_geometry_scope": "Frozen matching lid from the saved overlap candidate, with earlier ports. Current flush TPU-grip countersinks are not in this trial slice."
+}

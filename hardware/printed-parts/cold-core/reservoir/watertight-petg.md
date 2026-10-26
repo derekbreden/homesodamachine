@@ -1,12 +1,14 @@
 # Printing the reservoir in PETG
 
-The [next candidate](recipe-reviews/2026-10-26-overlap50/README.md) uses **50%
-Infill/Wall overlap** with the latest 255/260 °C Engineering Plate / left
-0.8 mm recipe otherwise retained. It addresses the
+The [50% overlap trial](prints/2026-10-26-mark1-left-engineering-flow105-overlap50-temp260-left08-z000/README.md)
+is running as **Mark1 task 1377101665**: left body and matching lid,
+**255/260 °C Engineering Plate / left 0.8 mm**, A2 with Auto Refill,
+zero added/effective Z trim and ironing Off. Native slicing is reviewed;
+startup is RUNNING, layer 0/833, with no error/HMS. Physical water holding
+remains unassessed. The saved matching lid has the earlier port geometry;
+the current flush-grip lid is a separate revision. The increased overlap addresses the
 [reported two-hour leakage](water-hold-evidence/2026-10-26-two-hour-leak/physical-result.json)
-at the wall/fill line. Its saved settings and body geometry are verified; its
-frozen lid predates the flush grips. Native slicing and physical sealing remain
-unassessed. No new job is submitted.
+at the wall/fill line. [Complete trial settings](prints/2026-10-26-mark1-left-engineering-flow105-overlap50-temp260-left08-z000/settings.json).
 
 The [left body and matching lid](prints/2026-10-25-mark1-left-engineering-flow105-overlap30-temp260-left08-z000/README.md)
 have recorded launch **Mark1 task 1375878568**, accepted **22:03:53 CDT October 25 /
@@ -52,7 +54,7 @@ identifies the current geometry and project. The baseline water-hold acceptance 
 `may-30-clear-06` in [water-hold-acceptance.json](water-hold-acceptance.json).
 Its water hold belongs to the historical May article. The 59° article [still leaks at the bottom and has a new vertical-edge defect](prints/2026-10-22-mark1-walls-t59-right08-z000/physical-result/physical-result.json). The preceding walls-only article has [reported seam leakage](prints/2026-10-21-mark1-walls-only-right08-z000-a4/physical-result/physical-result.json); corner-flatness and adhesion are not separately reported for that article.
 
-## Next Engineering Plate candidate
+## Current Engineering Plate trial
 
 | Parameter | Value |
 | --- | --- |
