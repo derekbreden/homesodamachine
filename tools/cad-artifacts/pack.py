@@ -261,6 +261,10 @@ BUNDLED_PAYLOAD_DIRS = (
 # The fit-trial assembly has a viewer payload. Its two separately printable
 # pieces are served from their STEP and STL without requiring duplicate payloads.
 BUNDLED_PAYLOAD_FILES = (
+    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step.mesh",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step.mesh",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step.mesh",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.step.mesh",
     "hardware/printed-parts/calibration/dual-nozzle-registration/dual-nozzle-registration.step.mesh",
     "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-001.step.mesh",
     "hardware/printed-parts/enclosure/nameplate/horizontal-wing-trial/nameplate-horizontal-wings-receiver.step.mesh",

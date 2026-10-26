@@ -429,3 +429,16 @@ safe to energize solely because the CAD paths connect.
 ## Sources
 [value](NAME) texts are updated by:
 - `/hardware/assembly/_internal_plumbing_sync.py`
+
+## Reservoir tube grips and passive air paths
+
+Each reservoir lid has two flush TPU 90A liquid-tube spools and one smaller
+air-tube spool in matching 45° countersinks. The dip tubes remain continuous
+from the draw fittings to the floors. B-fill retains its captured trimmed
+stem elbow; A-fill extends 1 mm through the flat lid into the headspace.
+
+Cut two nominal 31.25 mm pieces of white 4 mm OD / 2.5 mm ID LLDPE. Feed each
+through its dedicated foam-cap passage and air grip, leaving 6 mm above the
+outer cap face. Its lower end stands 1 mm above the baffle floor. Each air
+path is open in both directions and independent of the other reservoir.
+[Installation and dimensions](/hardware/printed-parts/cold-core/reservoir/vent.md).

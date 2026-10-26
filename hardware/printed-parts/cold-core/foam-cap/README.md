@@ -12,6 +12,13 @@ leaving the west approach open. The four DC/sensor junction wells and the earth
 boss remain accessible from above. Back-top carries V-A, V-K, their fitted
 plumbing, the complete inlet header, PSU, both relays and flow meter.
 
+Two independent reservoir air tubes have floor-rooted 5.2 mm passages through
+the cup's foam cavity, with 2 mm printed walls and matching openings through
+the lid. Each straight 4 mm tube passes through a flush TPU grip in its
+reservoir lid and ends 6 mm above this casing face. Native shell-frame axes
+are A (120, -26) and B (-102, -32.5) mm; the top cup/lid install after their
+shared 180° half-turn. [Tube and grip details](../reservoir/vent.md).
+
 V-B uses the shared V69 socket profile. Its wall travels with the populated
 core. V-A and V-K use back-top's sidewall-rooted seats; their open-bench
 preparation belongs to [internal plumbing](../../../assembly/internal-plumbing.md).

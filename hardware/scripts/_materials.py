@@ -70,7 +70,7 @@ M_SILICONE_BLACK = cq.Color(0.08, 0.08, 0.08)
 M_SILICONE_CLEAR = cq.Color(0.92, 0.92, 0.90, 0.60)
 # Sealproof clear PVC, the vent telltale stub over the ASSE 1022's barb.
 M_PVC_CLEAR = cq.Color(0.85, 0.90, 0.92, 0.45)
-# LVDALAB's PTFE membrane, in each reservoir cap's vent pocket — an opaque sintered white.
+# Opaque sintered PTFE reference material.
 M_PTFE_WHITE = cq.Color(0.93, 0.93, 0.92)
 # A moulded epoxy package, which is the black both 1-wire probes arrive in: the TO-92 body of
 # the DS18B20 carbonator probe and the DS18S20 coil probe (`ledger/bom.md` §5).

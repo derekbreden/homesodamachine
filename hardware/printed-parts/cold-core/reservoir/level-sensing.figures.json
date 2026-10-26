@@ -6,7 +6,7 @@
     "FLOAT_TRAVEL": "25.25\u2013188.15 mm",
     "REEDS_PER_RES": "4",
     "REED_CENTRES": "25.70, 79.70, 133.70, 187.70",
-    "REED_CONDUIT_XY": "reed-cable-a (134.5, 32.5), reed-cable-b (-134.5, 32.5)",
+    "REED_CONDUIT_XY": "reed-cable-a (130.2, 14), reed-cable-b (-133.8, -26)",
     "REED_PITCH": "54 mm",
     "RESERVOIR_ROD_LEN": "203.8 mm (8.02 in)",
     "ROD_DIAMETER": "3.175 mm",

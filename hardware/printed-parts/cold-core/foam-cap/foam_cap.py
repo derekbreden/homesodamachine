@@ -28,6 +28,7 @@ import _foam_cap as _foam_cap_module
 import _above_core_mounts as _above_mounts
 import _reservoir_a_anchors as _a_anchors
 import above_core_wiring
+import _reservoir_ports as reservoir_ports
 from _foam_cap import (
     build_foam_cap,
     build_foam_cap_lid,
@@ -418,7 +419,26 @@ def build_top_lid():
         lid = lid.union(_above_mounts.world_shape_in_cap(support))
     for passage in _a_anchors.cuts().values():
         lid = lid.cut(_above_mounts.world_shape_in_cap(passage))
-    return lid.clean()
+    return cut_reservoir_air_bores(lid, -.1, lid_total_height + .1).clean()
+
+
+def cut_reservoir_air_bores(shape, z0, z1):
+    """Straight air-tube passages in this cap's pre-install half-turn frame."""
+    for shell_xy in reservoir_ports.air_position.values():
+        xy = tuple(-v for v in shell_xy)
+        shape = shape.cut(reservoir_ports.cylinder(
+            xy, z0, z1, reservoir_ports.air_passage_diameter))
+    return shape
+
+
+def add_reservoir_air_passages(cap):
+    """Floor-rooted columns keep pour foam off both independent air tubes."""
+    diameter = reservoir_ports.air_passage_diameter + 2 * reservoir_ports.air_passage_wall
+    for shell_xy in reservoir_ports.air_position.values():
+        xy = tuple(-v for v in shell_xy)
+        cap = cap.union(reservoir_ports.cylinder(
+            xy, cap_shell_clearance, top_cap_height - cap_lid_clearance, diameter))
+    return cut_reservoir_air_bores(cap, -.1, top_cap_height + .1).clean()
 
 
 def main():
@@ -426,7 +446,7 @@ def main():
     # mouth-down (open ceiling −Z), so both stack onto the shell by Z-shift
     # alone and the bottom cap's screws land on the shell's existing bosses.
     plain_cap_top = build_foam_cap()
-    cap_top = add_deck_mounts(plain_cap_top)
+    cap_top = add_reservoir_air_passages(add_deck_mounts(plain_cap_top))
     cap_bottom = build_foam_cap(open_down=True)
     # Each lid's head pads face its own cap's mouth, so the two are built with
     # the same flag as the caps they close, not one derived from the other.
