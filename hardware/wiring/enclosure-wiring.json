@@ -42769,7 +42769,7 @@
     "Nominal and unlocated terminals remain visible in the graph and manifest; no exact donor termination is invented.",
     "The electrical graph does not qualify grounding, mains isolation, current capacity or energization."
   ],
-  "physical_scene_sha256": "30374ef9adf4624cf2d4d9b22291674095e46d06be2d98edfca2bbc094bcbab1",
+  "physical_scene_sha256": "6d560e611a483cb440f045076f3560d6874c579c4a08dd65307f69d6095cbb40",
   "source_sha256": {
     "hardware/wiring/installed/build.py": "28ba31fd5f3081c2073f4e25185173c05dbcb0f0c67a259d6c9ef0b955afc578",
     "hardware/wiring/installed/connections.py": "11528d05f94efb932dd4b9eee07f01578a401fc8bf37ff9d9cab50b3bd058000",
@@ -42786,8 +42786,8 @@
     "hardware/manifold-layout/above-core.json": "70de28e454278ad9676a14663dd97120ea7130c67e5e168ec1e69d7fba6b2fc6",
     "hardware/manifold-layout/above_core_wiring.py": "ee4bef33f1ec046b0cf6a4aeb1483edb173cb51f618382698f7073ce68990b46",
     "hardware/manifold-layout/enclosure-box.json": "3b8f760a0754d4cad939df7f8ceaf3047a35b3d8e707f602ea6b961548f4129e",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "a3d6521dbf5e1459153fd0ebd58ab4b6cd069b156c0b918eac0a118c4c585993",
-    "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "4ba186f9f597cd9bf8d0391a5ed8838ea11cfe114420cd63f4a4c93e66534e3b",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "02e484b9f7f5f8506b740a37d7994438006149eeaab3b89acf5d26619cc4411b",
+    "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "21347fde35872ea40dabe95ffd801a8dde3fc25cfe6a504696983d5f34d462f9",
     "hardware/printed-parts/cold-core/_above_core_mounts.py": "90a9f83c0ca9a96ba3ecabc8e336e51c8570e8cb76ceb81e58901e718fe883b1",
     "hardware/printed-parts/cold-core/_cold_core_interface.py": "1e99589ad5f8a062acaa6d4f2957774e0f4c29695e3856955258862208ae3c63",
     "hardware/assembly/harnesses/j2.json": "34ef4ac5c41910851100fd36a3f549b2028586440e250d0ebce949c8783c30a5",

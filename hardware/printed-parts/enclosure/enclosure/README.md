@@ -121,12 +121,16 @@ overlap and the [14 mm](SIDE_BAND) side band, its screw mid-overlap in Y.
   seats its head in front-top rather than directly clamping back-top axially.
   Front-top's −X blocks have a 5.1 mm inboard-aft chamfer (`y_stack_upper_chamfer`).
   Both 4 mm flavor tubes pass inboard of the stack on R25 detours before their rear rises.
+  The head block carries the complete rounded outer flank at its station. Its square aft end
+  keeps 3 mm beyond the shaft passage, and its fore root continues down into the lower block.
+  The head opening continues aft into the funnel opening without a narrow collar between them.
 
 The knuckle faces follow their pieces' print orientations: front-bottom's knuckle rises
 aft off its handhold roof, back-bottom's upper knuckle rises inboard off its skin and
 front-top's insert block rises inboard off its lip band. Front-top's head block has an
 aft-rising underside matched by back-top's middle block; back-top prints roof-down.
 Tree(auto)/Default remains the support policy for each fresh native preparation.
+Front-bottom's fore knuckle root stands directly on its handhold roof.
 The slopes run across the slide or close as the front half slides aft, and a top
 that rises toward a free face levels off one wall short of it. Every face between knuckles
 keeps a [0.25 mm](Y_STACK_GAP) running fit, measured square to the face.
