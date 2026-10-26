@@ -2,21 +2,21 @@
 
 Format: facts only. Direct quotes from Derek where applicable. Settings observed in committed `.3mf` snapshots. No interpretation, no hypothesis — analysis lives in the conversation, decisions land in the geometry.
 
-Geometry: the full cold-core foam shell, from [`foam_shell.py`](/hardware/printed-parts/cold-core/foam-shell/foam_shell.py). Outer footprint 283 × 181 mm, 213.4 mm tall; the four standing walls are 3.2 mm on a 2 mm floor. README is the geometry source-of-truth.
+Geometry: the full cold-core foam shell, from [`foam_shell.py`](/hardware/printed-parts/cold-core/foam-shell/foam_shell.py). The smooth casing is 282.4 × 180.4 mm, 213.4 mm tall, with ordinary 2.38 mm standing walls and a 2 mm floor. Local copper-cover seating stock is described in the casing integration receipt. README is the geometry source-of-truth.
 
-**Slice `foam-shell.stl`, not `foam-shell.step`.** The standing walls carry a fluted show skin that lives in the MESH and not in the solid, so the STEP beside it is a smooth prism — a plate sliced off it prints a part this machine does not have. The two foam caps are the same: `foam-cap-top.stl` and `foam-cap-bottom.stl`. Everywhere else on the machine the STEP is the whole of the part; on these three it is not. See README §The show skin.
+The launch record binds the exact `foam-shell.stl` embedded in the sliced project. The current shell, caps and lid edges have smooth surfaces. Historical fluted projects remain identified with their own attempts below.
 
 ## Stock
 
-**Polymaker Fiberon PET-GF15, black, on a 0.8 mm tungsten carbide nozzle, left hotend.** The
-shell and all four foam caps and lids ship on it ([bom.md §7](/hardware/ledger/bom.md)) — the
-same spool the enclosure's exterior runs, on the big nozzle instead of the exterior's 0.4
-([tools.md](/hardware/ledger/tools.md) "Which hotends fit an H2C"). Every abrasive nozzle runs
-left, and the left nozzle is also the one whose 325 × 320 × 320 mm envelope holds a part this
-size, so the abrasive path and the big-part path are one path.
+The recorded smooth-shell job uses **Polymaker Fiberon PET-GF15, black, on Mark2's
+fixed left hardened 0.4 mm Standard hotend**. Its left-nozzle envelope is
+325 × 320 × 320 mm. The [job record](prints/2026-10-25-mark2-left04-smooth238-z004/README.md)
+binds the archive and printer mapping.
 
-The plate uses 0.4 mm layers, `line_width` 0.82, `wall_loops` 2 classic and 15%
-gyroid. It takes the filament settings from the current shared
+The plate uses 0.20 mm first and 0.24 mm ordinary layers, 0.42 mm outer and
+0.45 mm inner lines, three classic wall loops and 15% gyroid in thick regions.
+Emitted outer walls request 200 mm/s and 5,000 mm/s² acceleration.
+It takes the filament settings from the shared
 [`petgf.3mf`](../../petgf.3mf):
 
 | | Value |
@@ -34,8 +34,8 @@ Drying is per spool, not per build: 100 °C × 10 h in the SUNLU E2 only if the 
 on moisture, and a 3 kg spool feeds the print from a PolyDryer Box XL rather than the E2
 ([tools.md](/hardware/ledger/tools.md) "What dries where").
 
-The historical physical attempts below used `Bambu PETG Basic`. Native PET-GF
-preparations do not establish a physical print result.
+Attempts 1 and 2 below use `Bambu PETG Basic`. The smooth PET-GF shell's reported
+physical result and digital audit are recorded with its launch below.
 
 ## Print attempt 1 (settings per [`foam-shell-8mm-high-flow.3mf`](foam-shell-8mm-high-flow.3mf))
 
@@ -98,7 +98,14 @@ G29.1 Z0.02. Timelapse and bed leveling On; flow and nozzle-offset Auto.
 
 The [job record](prints/2026-10-25-mark2-left04-smooth238-z004/README.md)
 binds geometry, settings, emitted paths and the accepted launch.
-Physical outcome is pending.
+Derek supplied seven photographs and reported: "Well, this turned out pretty
+awful here, at least in these parts that I've photographed for you here."
+The photographs show a rippled, locally porous patch at an upper long-wall
+corner and rough, porous vertical slot edges. The
+[sent-file audit](prints/2026-10-25-mark2-left04-smooth238-z004/post-print-audit/README.md)
+binds the supplied photographs by hash and checks the launch archive,
+embedded model and emitted paths. The exterior finish is a failed result.
+Fit, leak and load results were not supplied for this shell.
 
 First-layer readback at 16:48:22 CDT: RUNNING, 1/889, 265/80 °C,
 print error 0. Dirty nozzle-camera warning 0C00010000020017 may affect AI
