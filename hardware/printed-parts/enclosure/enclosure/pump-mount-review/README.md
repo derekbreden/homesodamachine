@@ -11,18 +11,44 @@ share the rear exit at X0/Z280.
 queries. [`print-review.json`](print-review.json) records the identified native
 slices. These are manual reviews, with no build, hook or scorecard integration.
 
-The current parts are front-top STEP `38930496…` and retainer STEP `bd394956…`.
+The current parts are front-top STEP `6120cf94…` and retainer STEP `bd394956…`.
 The original complete path receipts bind front-top `455cd05a…` and retainer
 `ea79019f…`; the report preserves those actual input hashes. Its
 `printed_stock_refinements` records bind the current parts separately. The
 retainer removes only the upper fore-corner films, preserving its lower land
-and screw columns. Front-top `d65c9d61…` has direct complete added-stock motion
-queries against the retained native hardware. The current front-top is its
-native material subset; removed stock cannot introduce a rigid collision.
-All nine front-top modifier boxes and both complete valve tray/post/bearing
-envelopes remain unchanged. The nearest fore-valve envelope is 5.55 mm below
-the removed stock. The intermediate `e0b491ba…` review retains its own scope
-and is not used as a subset inference for `d65c9d61…`.
+and screw columns. Complete added-stock motion queries identify front-top
+`08cc2019…`. The cleanout receipt identifies `481f83f6…` → `c9fdbec4…`, removing
+7,570.865 mm³ with zero added material. The separately bound M5 extensions
+identify `c9fdbec4…` → `7e676118…` and `7e676118…` → `6120cf94…`. The latter
+adds 83.232 mm³, removes no material and lies at Y212.7–217.8 within the
+declared Y197–218 joint band. All eleven current modifier boxes are identified. Four
+Y-seam hosts retain their exact-input M5 review; the other seven boxes, both
+complete valve tray/post/bearing envelopes and the fixed pump bearing/screw
+region retain their native material. The 3 mm backing below the glass seat,
+accepted wing/lip stock and clear cleanout apertures are unchanged. The earlier
+receipts retain their identified inputs and scope.
+
+The [M5-joint review](../y-seam-100-review.json) identifies the landed native
+quadrants. The latest top addition is separated from the complete
+pump-loading, casing, prepared fore-group, driver and closing-allowance
+domains; its smallest swept-domain bound is 69.951 mm at the fore groups.
+Its complete front-column slide clears the current lower assembly by at least
+159.40 mm; installed display and funnel-frame queries have zero overlap.
+Preceding additions retain their own recorded native queries and bounds.
+The current front-bottom `f856ca97…` removes 8,626.797 mm³
+from the original cached body and adds no material. These native comparisons
+extend the original rigid-path scope without treating the changed quadrants
+as unchanged hardware. The report binds the joint review's exact hash.
+
+The final named-body agreement comes from a small STEP subtree extracted
+directly from the frozen full-appliance export `8f7ed840…`, without importing
+the complete appliance into CAD. Its original geometry and ancestor placement
+records are retained. All 32 other cached hardware bodies agree natively;
+front-bottom agrees with its identified current `f856ca97…` part. The
+[`extraction receipt`](final-native-extraction.json) binds the actual full
+export and subset hashes. The full-appliance viewer names that same export,
+and the installation GLB includes all three retainer screws and inserts at
+X−92/0/+92, Y45.859. The earlier 33-body agreement retains its original inputs.
 
 | Recorded interaction | Native result |
 |---|---|
@@ -49,6 +75,17 @@ nominal/+0.40 mm takeup, display and funnel frame. The fixed bearing and screw
 stock through Z236.074 is unchanged. The shared passage has a 22 mm diamond
 section forward and a rear upper-half U breakout over the bulkhead lip;
 the terminal rooms close at 36° into continuous stock below the display seat.
+The cross passage ends at the motor axes, with a level Z274.224 floor and a
+45° roof. The display entry, link and chimney occupy one straight-sided
+corridor. The display wings retain their complete canonical 12 mm exits,
+17.223 mm from the pump inverse and 22.254 mm from the cross passage.
+The complete canonical display cutter has zero native overlap with front-top.
+Two plain side cleanouts connect the wing exits to the empty PCB room, each
+with a 69.3 × 4.96 mm nominal clear aperture. Their roofs retain 3 mm below
+the glass seat. They remain at least 13.84 mm from the pump inverse and
+8.84 mm from the outer silhouette. Clear supports through the empty display
+and PCB opening before installing the pumps and screen; physical support
+removal remains unqualified.
 Wire and Faston clearance retain their separate native review and physical
 fit limits.
 
@@ -74,16 +111,38 @@ When a final producer emits the same named hardware as a small native subset,
 compares every body by native serialization or two-way native Boolean difference.
 Its agreement record preserves the original path-query inputs and binds the
 final subset separately.
+`--front-bottom-reference <current-front-bottom.step>` compares the other 32
+bodies with their original cache inputs and front-bottom with its separately
+identified current native part. It appends a current agreement while retaining
+the earlier subset receipt and the old/new front-bottom stock comparison.
 `refine_review.py --old-directory <saved-native-parts> --stage all` appends an
 old/new native stock comparison and the required added-stock motion queries.
 It keeps the original path-query identities and checks the lower skirt land
 and screw-column stock separately.
 `verify_successor.py <saved-predecessor.step>` compares a subsequent front-top
 to its recorded predecessor. Any added material triggers direct complete
-stock-path queries against the original native baseline.
+stock-path queries against the original native baseline. Its optional
+`--delta-directory <directory>` retains native added/removed bodies and their
+exact input hashes for a separate manual reading.
 `verify_rear_breakout.py <saved-predecessor.step>` binds a removal-only rear
 breakout and checks every existing front-top modifier box plus the valve
 tray/post/bearing envelopes and pump guards.
+`verify_passage_stock.py <saved-predecessor.step>` compares both added and
+removed stock with those mounting regions and checks the canonical display
+pocket and wing-exit separation. `--regions <print-regions.json>` identifies
+the exact modifier specification read; `--cleanouts` adds the native aperture,
+glass-backing and retained upper-fit stock queries.
+`--joint-review <review.json> --joint-band-y 197 218` identifies intentional
+changes within the current M5 joint band while preserving the separate
+nonjoint mounting-stock and display-fit comparisons.
+`verify_main_joint_rebase.py` binds the landed joint review, compares its
+top/front-bottom native material with the original path inputs, and checks
+the complete swept domains affected by those additions.
+`extract_native_subset.py <aggregate.step> <cache-index.json> --out <subset.step>
+--report <receipt.json>` retains selected AP214 geometry and ancestor placement
+records for the final named-body comparison. `verify_export_lineage.py` checks
+viewer source headers and the six shown retainer-hardware stations using only
+the frozen export metadata.
 
 A complete translation is bounded by native minimum-distance intervals. Each
 proved interval is shorter than the current solid-to-solid gap, after a
