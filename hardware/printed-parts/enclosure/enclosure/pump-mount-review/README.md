@@ -1,5 +1,10 @@
 # Integral pump mount: native assembly reading
 
+These receipts bind the identified three-screw pump-mount articles listed below. The
+current snap-wing retainer and receivers are described in the
+[pump-snap review](../pump-snap-review/README.md); the receipts here do not qualify that
+interface or its print preparation.
+
 The upper fitted pump pockets belong to `enclosure-front-top`, in one broad body
 continuous into the display housing and roof. The plain rectangular
 `enclosure-pump-retainer` carries both pumps for motor-first insertion from the
@@ -11,17 +16,17 @@ share the rear exit at X0/Z280.
 queries. [`print-review.json`](print-review.json) records the identified native
 slices. These are manual reviews, with no build, hook or scorecard integration.
 
-The current parts are front-top STEP `6120cf94…` and retainer STEP `bd394956…`.
+The parts bound by these receipts are front-top STEP `6120cf94…` and retainer STEP `bd394956…`.
 The original complete path receipts bind front-top `455cd05a…` and retainer
 `ea79019f…`; the report preserves those actual input hashes. Its
-`printed_stock_refinements` records bind the current parts separately. The
+`printed_stock_refinements` records bind those parts separately. The
 retainer removes only the upper fore-corner films, preserving its lower land
 and screw columns. Complete added-stock motion queries identify front-top
 `08cc2019…`. The cleanout receipt identifies `481f83f6…` → `c9fdbec4…`, removing
 7,570.865 mm³ with zero added material. The separately bound M5 extensions
 identify `c9fdbec4…` → `7e676118…` and `7e676118…` → `6120cf94…`. The latter
 adds 83.232 mm³, removes no material and lies at Y212.7–217.8 within the
-declared Y197–218 joint band. All eleven current modifier boxes are identified. Four
+declared Y197–218 joint band. All eleven bound modifier boxes are identified. Four
 Y-seam hosts retain their exact-input M5 review; the other seven boxes, both
 complete valve tray/post/bearing envelopes and the fixed pump bearing/screw
 region retain their native material. The 3 mm backing below the glass seat,
@@ -32,10 +37,10 @@ The [M5-joint review](../y-seam-100-review.json) identifies the landed native
 quadrants. The latest top addition is separated from the complete
 pump-loading, casing, prepared fore-group, driver and closing-allowance
 domains; its smallest swept-domain bound is 69.951 mm at the fore groups.
-Its complete front-column slide clears the current lower assembly by at least
+Its complete front-column slide clears the bound lower assembly by at least
 159.40 mm; installed display and funnel-frame queries have zero overlap.
 Preceding additions retain their own recorded native queries and bounds.
-The current front-bottom `f856ca97…` removes 8,626.797 mm³
+The bound front-bottom `f856ca97…` removes 8,626.797 mm³
 from the original cached body and adds no material. These native comparisons
 extend the original rigid-path scope without treating the changed quadrants
 as unchanged hardware. The report binds the joint review's exact hash.
@@ -44,10 +49,10 @@ The final named-body agreement comes from a small STEP subtree extracted
 directly from the frozen full-appliance export `8f7ed840…`, without importing
 the complete appliance into CAD. Its original geometry and ancestor placement
 records are retained. All 32 other cached hardware bodies agree natively;
-front-bottom agrees with its identified current `f856ca97…` part. The
+front-bottom agrees with its identified `f856ca97…` part. The
 [`extraction receipt`](final-native-extraction.json) binds the actual full
 export and subset hashes. The full-appliance viewer names that same export,
-and the installation GLB includes all three retainer screws and inserts at
+and the installation GLB bound by these receipts includes all three retainer screws and inserts at
 X−92/0/+92, Y45.859. The earlier 33-body agreement retains its original inputs.
 
 | Recorded interaction | Native result |
@@ -103,10 +108,10 @@ retainer's non-bearing body remains 0.25 mm below the fixed mount. These native
 contacts establish the intended skirt capture, not printed preload or holding
 capacity.
 
-The two forward flank recesses have no mating feature on the current three-screw
+The two forward flank recesses have no mating feature on the bound three-screw
 retainer. Each is 6 mm deep and 56.515 mm long; the retainer stops 6.25 mm from
-its back wall. The snap-wing retainer under discussion is not part of these
-production STEP/STL inputs. The existing aft Z-joining rails are separate.
+its back wall. The snap-wing retainer is outside these identified
+STEP/STL inputs. The existing aft Z-joining rails are separate.
 
 The Y-seam passages are Ø5.6 mm around the nominal Ø5 mm outside-thread
 envelope. Their 0.6 mm nominal diametral air does not establish close lateral
@@ -115,7 +120,10 @@ decision. The installed appliance model includes all four M5 × 100 screws and
 four RX-M5x9.5 inserts; the screw bodies show thread envelopes, not smooth shanks
 or detailed helical contact.
 
-Run the geometry reading after exporting the named parts and appliance:
+## Receipt workflow
+
+The commands below belong to the bound three-screw reading and do not qualify the snap
+interface. Its geometry reading uses the named part and appliance exports:
 
 ```sh
 tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/pump-mount-review/review.py

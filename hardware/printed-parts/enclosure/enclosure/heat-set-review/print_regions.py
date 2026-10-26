@@ -1,4 +1,4 @@
-"""Require solid deposition through complete fastener hosts and their native roots.
+"""Require solid deposition through retention features and their native roots.
 
 These modifier boxes change infill within existing solids; they add no geometry.
 They do not supply a pullout or drop strength allowable.
@@ -121,17 +121,23 @@ def main():
         region('front-bottom',f'Condenser host and supporting finger {x:g}/{y:g}',
                [x-5,x+5,y-5,y+5,box.outer[4],tip])
     retainer_low, retainer_high = mesh_bounds['pump-retainer']
-    for fastener in fixed_mount.fasteners(e, box):
-        x, y = fastener['x'], fastener['y']
-        # Complete Ø4 insert hosts, screw-tip relief and three millimetres of
-        # closed backing belong to front-top's broad integral stock.
-        region('front-top', f'Pump-retainer insert, blind cap and upper mount root {x:g}/{y:g}',
-               [x-4, x+4, y-4, y+4, fastener['insert_mouth_z'],
-                fastener['pilot_end_z']+e.wall])
-        # The underside screw head transmits clamp load through the whole
-        # retainer thickness; reinforcement stays inside the existing solid.
-        region('pump-retainer', f'Pump-retainer screw head and full lower load path {x:g}/{y:g}',
-               [x-5, x+5, y-5, y+5, float(retainer_low[2]), float(retainer_high[2])])
+    mount = fixed_mount.datums(e, box)
+    snap = fixed_mount.snap_datums(e, box)
+    root_inner_x = snap['carrier_inner_x']-e.wall
+    for side, sign in (('west', -1), ('east', 1)):
+        # The printed, relaxed wing bounds include its outward tip spread.
+        # Carry the whole hook and flexure one wall into the filled upper root
+        # and the inboard carrier; the flex clearance remains empty.
+        xa, xb = ((float(retainer_low[0]), -root_inner_x) if sign < 0
+                  else (root_inner_x, float(retainer_high[0])))
+        region('pump-retainer', f'Pump snap {side} full-Y hook, wing and upper root',
+               [xa, xb, mount['y0'], mount['y1'], snap['floor_z'], snap['root_z']+e.wall])
+        # The complete bearing band continues through the exterior flank.
+        # The centre screwdriver port and its roof retain their native shape.
+        xa, xb = sorted((sign*snap['receiver_inner_x'], sign*snap['receiver_outer_x']))
+        region('front-top', f'Pump snap {side} receiver floor and full flank root',
+               [xa, xb, snap['receiver_y0'], snap['receiver_y1'],
+                snap['receiver_z0'], snap['receiver_z1']])
     above_core_regions(box, region)
     poses = {}
     for name, rows in pieces.items():
@@ -156,7 +162,7 @@ def main():
            Path(e._dock.__file__),
            Path(e._dock.plumbing.__file__),
            ROOT/'hardware/printed-parts/petgf.3mf']
-    report=dict(scope='Local 100% infill modifiers in existing native material; complete insert hosts, blind caps, roots and seam load paths. No load capacity or lifetime qualification.',
+    report=dict(scope='Local 100% infill modifiers in existing native material; complete insert hosts, blind caps, pump snap wings and receivers, roots and seam load paths. No load capacity or lifetime qualification.',
                 use='Manual print-preparation specification only. Modifier boxes intersect existing material and add no geometry. applied_source_bounds_mm clips each requested box to the model bounds before its prescribed print transform; plate X/Y nesting is separate. Bind a fresh native project and emitted paths to these hashes before production printing; this is not a build gate or a sliced-print result.',
                 coordinate_frames={name: 'Source STEP/STL coordinates in the appliance frame' for name in pieces},
                 print_poses=poses,

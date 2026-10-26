@@ -8,9 +8,12 @@ import math
 import cadquery as cq
 
 
-SCREW_LENGTH = 60.0
-SCREW_EDGE_X = 92.0
-HEAD_BEARING = 3.0
+WING_THICK = 2.4
+WING_INWARD_ROOM = 1.9
+WING_LENGTH = 21.0
+HOOK_REACH = 1.25
+RELAXED_SPREAD = .35
+SEATED_SPREAD = .10
 SHARED_HALF_SPAN = 11.0
 INTERNAL_WIRE_HALF_SPAN = 6.0
 DISPLAY_LINK_HALF_SPAN = 9.0
@@ -36,28 +39,64 @@ def datums(e, box):
 
 
 def fasteners(e, box):
-    d = datums(e, box)
-    seat = d['bottom_z']+HEAD_BEARING
-    tip = seat+SCREW_LENGTH
-    return [dict(x=x, y=d['head_y'], head_seat_z=seat,
-                 insert_mouth_z=d['bearing_z'],
-                 insert_top_z=d['bearing_z']+e.heatset_long_len,
-                 screw_tip_z=tip, pilot_end_z=tip+e.mount_bore_relief,
-                 retainer_bottom_z=d['bottom_z'],
-                 retainer_top_z=d['retainer_top_z'],
-                 screw_length_mm=SCREW_LENGTH)
-            for x in (-SCREW_EDGE_X, 0.0, SCREW_EDGE_X)]
+    """The integral snap retainer uses no separate fasteners."""
+    return ()
 
 
 def hardware(e, box):
-    """The three upward M3x60 screws and front-top's long M3 inserts."""
-    for label, f in zip(('left', 'centre', 'right'), fasteners(e, box)):
-        screw, insert = e._above_core_shell.closure_hardware(
-            f['x'], -f['y'], -f['head_seat_z'], -f['insert_mouth_z'],
-            length=f['screw_length_mm'])
-        for kind, part in (('screw', screw), ('insert', insert)):
-            yield f'pump-retainer-{label}-{kind}', part.rotate(
-                (0., 0., 0.), (1., 0., 0.), 180.), kind
+    return ()
+
+
+def snap_datums(e, box):
+    """Common end planes, spring section and receiver bearing/access surfaces."""
+    d = datums(e, box)
+    outer = d['x1']
+    floor = d['bottom_z']
+    cy = (d['y0']+d['y1'])/2.
+    return dict(
+        carrier_inner_x=outer-WING_THICK-WING_INWARD_ROOM,
+        wing_inner_x=outer-WING_THICK, wing_outer_x=outer,
+        hook_outer_x=outer+HOOK_REACH, hook_step_z=floor+3.,
+        hook_ramp_z=floor+5., root_z=floor+WING_LENGTH, floor_z=floor,
+        receiver_floor_z=floor-e.fits.slip,
+        receiver_inner_x=outer+e.fits.running,
+        receiver_back_x=outer+HOOK_REACH+SEATED_SPREAD,
+        receiver_outer_x=box.outer[1],
+        receiver_y0=d['y0']-e.fits.running,
+        receiver_y1=d['y1']+e.fits.running,
+        receiver_z0=e.z_seam+e.fits.running,
+        receiver_z1=e.z_seam+35., receiver_roof_z=e.z_seam+14.8,
+        port_inner_x=outer+e.fits.running,
+        port_outer_x=box.outer[1]-e.wall,
+        port_y0=cy-2.25, port_y1=cy+2.25)
+
+
+def snap_receivers(e, box, piece):
+    """One plain full-span pocket per flank, with a central tool opening and 45° roof."""
+    d = snap_datums(e, box)
+    for side in (-1., 1.):
+        x0, x1 = sorted((side*d['receiver_inner_x'],
+                         side*(d['receiver_outer_x']+.5)))
+        band = e._ybox(x0, x1, d['receiver_y0'], d['receiver_y1'],
+                       d['receiver_z0'], d['receiver_z1'])
+        stock = band.intersect(e._rounded_outer(box.outer))
+        reach = d['receiver_back_x']-d['receiver_inner_x']
+        pocket = e._xz_prism(d['receiver_y0'], d['receiver_y1'], [
+            (side*d['receiver_inner_x'], d['receiver_floor_z']),
+            (side*d['receiver_back_x'], d['receiver_floor_z']),
+            (side*d['receiver_back_x'], d['receiver_roof_z']),
+            (side*d['receiver_inner_x'], d['receiver_roof_z']+reach)])
+        x0, x1 = sorted((side*d['port_inner_x'], side*d['port_outer_x']))
+        port = e._ybox(x0, x1, d['port_y0'], d['port_y1'],
+                       d['receiver_z0'], d['receiver_roof_z'])
+        roof_drop = d['port_outer_x']-d['receiver_back_x']
+        corbel = e._xz_prism(d['port_y0'], d['port_y1'], [
+            (side*d['receiver_back_x'], d['receiver_roof_z']),
+            (side*d['port_outer_x'], d['receiver_roof_z']),
+            (side*d['port_outer_x'], d['receiver_roof_z']-roof_drop)])
+        receiver = stock.cut(pocket).cut(port).fuse(corbel).clean()
+        piece = piece.cut(band).fuse(receiver)
+    return piece.clean()
 
 
 def stock(e, box):
@@ -223,11 +262,6 @@ def fixed_cuts(e, box):
         out.append(e._ybox(x-TUBE_GATE_WIDTH/2.,x+TUBE_GATE_WIDTH/2.,
                            plate['fore_y']-.01,plate['wall_aft_y']+.01,
                            e.z_seam-20.,z+.01))
-    for f in fasteners(e,box):
-        out.append(e._zcyl(e.heatset_dia/2.,f['x'],f['y'],
-                           f['insert_mouth_z']-.1,f['insert_top_z']+e.mount_bore_relief))
-        out.append(e._zcyl(e.screw_clear_dia/2.,f['x'],f['y'],
-                           f['insert_top_z']-.01,f['pilot_end_z']))
     return out
 
 
@@ -262,16 +296,55 @@ def lower_voids(e, box):
     return out
 
 
-def retainer(e, box):
-    d=datums(e,box)
-    body=e._ybox(d['x0'],d['x1'],d['y0'],d['y1'],d['bottom_z'],d['retainer_top_z'])
-    for cutter in lower_voids(e,box):
-        body=body.cut(cutter)
-    for f in fasteners(e,box):
-        body=body.cut(e._zcyl(e.screw_clear_dia/2.,f['x'],f['y'],
-                              d['bottom_z']-.1,d['retainer_top_z']+1.))
-        body=body.cut(e._zcyl(e.head_cbore_dia/2.,f['x'],f['y'],
-                              d['bottom_z']-.1,f['head_seat_z']))
+def _wing(e, box, side, spread):
+    """A single extruded profile; cubic sides have zero slope at the upper root.
+
+    The standalone part carries the relaxed section. Assemblies carry the seated
+    section. This is a geometric pose, not a computed elastic response.
+    """
+    d, s = datums(e, box), snap_datums(e, box)
+    points = [(s['wing_inner_x'], s['floor_z']),
+              (s['hook_outer_x'], s['floor_z']),
+              (s['hook_outer_x'], s['hook_step_z']),
+              (s['wing_outer_x'], s['hook_ramp_z']),
+              (s['wing_outer_x'], s['root_z']),
+              (s['wing_inner_x'], s['root_z'])]
+    length = s['root_z']-s['floor_z']
+    def deflection(z):
+        t = (s['root_z']-z)/length
+        return spread*t*t*(3.-t)/2.
+    def slope(z):
+        t = (s['root_z']-z)/length
+        return -spread*(3.*t-1.5*t*t)/length
+    edges = []
+    for a, b in zip(points, points[1:]+points[:1]):
+        xa, za = a
+        xb, zb = b
+        pa = cq.Vector(side*(xa+deflection(za)), d['y0'], za)
+        pb = cq.Vector(side*(xb+deflection(zb)), d['y0'], zb)
+        if abs(zb-za)<1e-9 or not spread:
+            edges.append(cq.Edge.makeLine(pa, pb))
+        else:
+            da = cq.Vector(side*(xb-xa+slope(za)*(zb-za)), 0., zb-za)
+            db = cq.Vector(side*(xb-xa+slope(zb)*(zb-za)), 0., zb-za)
+            edges.append(cq.Edge.makeBezier([pa, pa+da/3., pb-db/3., pb]))
+    wire = cq.Wire.assembleEdges(edges)
+    return cq.Solid.extrudeLinear(wire, [], cq.Vector(0., d['y1']-d['y0'], 0.))
+
+
+def retainer(e, box, *, seated=False):
+    """Full-span upper roots and lower hooks, with the fitted pump wells retained."""
+    d, s = datums(e, box), snap_datums(e, box)
+    body = e._xz_prism(d['y0'], d['y1'], [
+        (d['x0'], d['retainer_top_z']), (d['x1'], d['retainer_top_z']),
+        (d['x1'], s['root_z']), (s['carrier_inner_x'], s['root_z']),
+        (s['carrier_inner_x'], d['bottom_z']),
+        (-s['carrier_inner_x'], d['bottom_z']),
+        (-s['carrier_inner_x'], s['root_z']), (d['x0'], s['root_z'])])
+    for cutter in lower_voids(e, box):
+        body = body.cut(cutter)
+    spread = SEATED_SPREAD if seated else RELAXED_SPREAD
+    body = body.fuse(*[_wing(e, box, side, spread) for side in (-1., 1.)])
     return e._unified(body)
 
 
@@ -279,7 +352,7 @@ def figures(e,box):
     if not (box.pump_bay and box.pack.pump_trays):
         return {}
     d=datums(e,box)
-    f=fasteners(e,box)[0]
+    s=snap_datums(e,box)
     return {
         'PUMP_RETAINER_W':f"{d['x1']-d['x0']:.6g} mm",
         'PUMP_RETAINER_D':f"{d['y1']-d['y0']:.6g} mm",
@@ -289,11 +362,12 @@ def figures(e,box):
         'PUMP_FLANGE_Z':f"{d['flange_z']:.6g} mm",
         'PUMP_FIXED_BEARING_Z':f"{d['bearing_z']:.6g} mm",
         'PUMP_SKIRT_SUPPORT_Z':f"{e.pump_skirt_support_z(box.pack.pump_trays):.6g} mm",
-        'PUMP_RETAINER_SCREW_COUNT':'3',
-        'PUMP_RETAINER_SCREW_LENGTH':f"{SCREW_LENGTH:g} mm",
-        'PUMP_RETAINER_HEAD_SEAT_Z':f"{f['head_seat_z']:.6g} mm",
-        'PUMP_RETAINER_INSERT_MOUTH_Z':f"{f['insert_mouth_z']:.6g} mm",
-        'PUMP_RETAINER_INSERT_TOP_Z':f"{f['insert_top_z']:.6g} mm",
+        'PUMP_RETAINER_SCREW_COUNT':'0',
+        'PUMP_SNAP_ROOT_Z':f"{s['root_z']:.6g} mm",
+        'PUMP_SNAP_WING_THICK':f"{WING_THICK:g} mm",
+        'PUMP_SNAP_LENGTH':f"{WING_LENGTH:g} mm",
+        'PUMP_SNAP_RECEIVER_FLOOR_Z':f"{s['receiver_floor_z']:.6g} mm",
+        'PUMP_SNAP_PORT_WIDTH':f"{s['port_y1']-s['port_y0']:g} mm",
         'PUMP_TUBE_GATE_WIDTH':f"{TUBE_GATE_WIDTH:g} mm",
         'PUMP_SHARED_WIRE_SPAN':f"{2*SHARED_HALF_SPAN:g} mm",
     }
