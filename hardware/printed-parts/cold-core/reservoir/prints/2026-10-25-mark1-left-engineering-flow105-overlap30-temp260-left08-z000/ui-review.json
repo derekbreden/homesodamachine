@@ -1,0 +1,39 @@
+{
+  "source": "cua_repl Bambu Studio Preview, filament grouping and Send print job in this chat.",
+  "reviewed_before_send_at_utc": "2026-10-26T03:03:53.127505+00:00",
+  "timestamp_scope": "Upper bound: review completed before the single Send was accepted.",
+  "archive": "2026-10-25-reservoir-left-cap-engineering-flow105-overlap30-temp260-left08-z000-a2-mark1.gcode.3mf",
+  "selected_parts": [
+    "reservoir-left",
+    "reservoir-cap-left"
+  ],
+  "preview": {
+    "plate": "Engineering Plate",
+    "nozzle_grouping": "Left PETG, right empty",
+    "layers": 833,
+    "estimate": "5h42m",
+    "mass_g": 444.28
+  },
+  "send_dialog": {
+    "source": "cua_repl Bambu Studio Send print job screenshot",
+    "printer": "Mark1",
+    "left_tile": "A2 PETG L",
+    "Timelapse": "On",
+    "Auto Bed Leveling": "On",
+    "Flow Dynamics Calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto",
+    "Send_enabled": true,
+    "visible_job_title": "2026-10-25-reservoir-left-cap-engineering-flow105-overlap30-temp260-left08-z000-a2-mark1.gcode_Left body and cap",
+    "plate": "Engineering",
+    "route": "Reviewed Engineering Plate print-only archive opened from staging; no reslice."
+  },
+  "auto_refill": "Green enabled indicator",
+  "nozzle_mismatch_warning": false,
+  "send_clicks": 1,
+  "accepted_job_id": "1375878568",
+  "additional_right_lid": "Omitted: printed geometry matches current source and project.",
+  "scope_clarification": [
+    "You're printing both a lid and a body, right?",
+    "The only thing that was optional was whether you were printing two lids or not."
+  ]
+}

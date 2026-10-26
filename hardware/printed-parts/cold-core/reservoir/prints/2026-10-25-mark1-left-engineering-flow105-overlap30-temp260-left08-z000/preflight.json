@@ -1,0 +1,259 @@
+{
+  "Mark1": {
+    "job_id": "1374963298",
+    "subtask_name": "Flavor_reservoirs_-_PETG_0.24_mm",
+    "gcode_state": "FINISH",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 833,
+    "total_layer_num": 833,
+    "mc_percent": 100,
+    "mc_remaining_time": 0,
+    "bed_temper": 38.0,
+    "bed_target_temper": 0.0,
+    "nozzle_temper": 37.0,
+    "nozzle_target_temper": 0.0,
+    "stg_cur": -1,
+    "cooling_fan_speed": "0",
+    "big_fan1_speed": "0",
+    "big_fan2_speed": "0",
+    "heatbreak_fan_speed": "0",
+    "observed_at_utc": "2026-10-26T02:45:55.348293+00:00",
+    "printer": "Mark1",
+    "timelapse": "disable",
+    "ams": {
+      "tray_now": "255",
+      "tray_tar": "255",
+      "ams_exist_bits": "1",
+      "tray_exist_bits": "e"
+    },
+    "ams_units": [
+      {
+        "unit": "0",
+        "trays": [
+          {
+            "id": "0",
+            "tray_type": null,
+            "tray_color": null,
+            "tray_info_idx": null,
+            "remain": null,
+            "state": 26
+          },
+          {
+            "id": "1",
+            "tray_type": "PETG",
+            "tray_color": "00000000",
+            "tray_info_idx": "GFG01",
+            "remain": 100,
+            "state": 11
+          },
+          {
+            "id": "2",
+            "tray_type": "PETG",
+            "tray_color": "00000000",
+            "tray_info_idx": "GFG01",
+            "remain": 100,
+            "state": 11
+          },
+          {
+            "id": "3",
+            "tray_type": "PETG",
+            "tray_color": "00000000",
+            "tray_info_idx": "GFG01",
+            "remain": 100,
+            "state": 11
+          }
+        ]
+      }
+    ],
+    "extruders": [
+      {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65535,
+        "temp": 41,
+        "stat": 0
+      },
+      {
+        "id": 1,
+        "hnow": 1,
+        "snow": 65279,
+        "temp": 37,
+        "stat": 0
+      }
+    ],
+    "nozzles": [
+      {
+        "id": 18,
+        "diameter": 0.4,
+        "type": "HS01"
+      },
+      {
+        "id": 1,
+        "diameter": 0.8,
+        "type": "HS01"
+      },
+      {
+        "id": 17,
+        "diameter": 0.2,
+        "type": "HS00"
+      },
+      {
+        "id": 0,
+        "diameter": 0.2,
+        "type": "HS00"
+      },
+      {
+        "id": 19,
+        "diameter": 0.8,
+        "type": "HS01"
+      }
+    ]
+  },
+  "Mark2": {
+    "job_id": "1375153599",
+    "subtask_name": "2026-10-25-foam-shell-mark2-bdc6554c.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "print_error": 0,
+    "hms": [
+      {
+        "attr": 201326848,
+        "code": 131095
+      }
+    ],
+    "layer_num": 83,
+    "total_layer_num": 889,
+    "mc_percent": 22,
+    "mc_remaining_time": 1067,
+    "bed_temper": 80.0,
+    "bed_target_temper": 80.0,
+    "nozzle_temper": 280.0,
+    "nozzle_target_temper": 280.0,
+    "stg_cur": 0,
+    "cooling_fan_speed": "0",
+    "big_fan1_speed": "0",
+    "big_fan2_speed": "4",
+    "heatbreak_fan_speed": "14",
+    "observed_at_utc": "2026-10-26T02:45:54.750624+00:00",
+    "printer": "Mark2",
+    "timelapse": "enable",
+    "ams": {
+      "tray_now": "0",
+      "tray_tar": "0",
+      "ams_exist_bits": "0",
+      "tray_exist_bits": "0"
+    },
+    "ams_units": [],
+    "extruders": [
+      {
+        "id": 0,
+        "hnow": 0,
+        "snow": 65535,
+        "temp": 53,
+        "stat": 0
+      },
+      {
+        "id": 1,
+        "hnow": 1,
+        "snow": 65024,
+        "temp": 18350360,
+        "stat": 197376
+      }
+    ],
+    "nozzles": [
+      {
+        "id": 17,
+        "diameter": 0.4,
+        "type": "HS01"
+      },
+      {
+        "id": 1,
+        "diameter": 0.4,
+        "type": "HS01"
+      },
+      {
+        "id": 0,
+        "diameter": 0.6,
+        "type": "HS01"
+      },
+      {
+        "id": 18,
+        "diameter": 0.2,
+        "type": "HS00"
+      },
+      {
+        "id": 20,
+        "diameter": 0.8,
+        "type": "HH01"
+      }
+    ]
+  },
+  "start_slot": "A2",
+  "spool_order": "A1 is empty; A2-A4 are matching clear PETG at the same reported 100%. Start A2, automatic refill On. Use most depleted matching spool first when depletion differs.",
+  "bed_clear_source": "Derek: The Mark 1 is glued and ready to go.",
+  "shared_circuit": {
+    "other_printer": "Mark2",
+    "job_id": "1375153599",
+    "observed_at_utc": "2026-10-26T02:45:54.750624+00:00",
+    "minimum_spacing_seconds": 180,
+    "accepted_at_utc_from_peer": "2026-10-25T21:26:12.736533+00:00",
+    "verification": "Re-read same active task before Send; no new start/resume by coordinated peer.",
+    "minimum_start_spacing_seconds_at_final_preflight": 1033.50339,
+    "peer_scope": "The shell-print agent confirms no Mark2 control or known physical resume after its accepted 21:26:12.736533 UTC launch; same running job re-read before Send."
+  },
+  "submission_status": "One Studio Send accepted as job 1375878568 at 22:03:53 CDT October 25 /03:03:53 UTC October 26; startup RUNNING, error 0, HMS empty.",
+  "Mark2_final": {
+    "observed_at_utc": "2026-10-26T03:03:08.254014+00:00",
+    "job_id": "1375153599",
+    "subtask_name": "2026-10-25-foam-shell-mark2-bdc6554c.gcode.3mf",
+    "gcode_state": "RUNNING",
+    "print_error": 0,
+    "hms": [
+      {
+        "attr": 201326848,
+        "code": 131095
+      }
+    ],
+    "layer_num": 94,
+    "total_layer_num": 889,
+    "mc_percent": 24,
+    "mc_remaining_time": 1048,
+    "nozzle_temper": 280.0,
+    "nozzle_target_temper": 280.0,
+    "bed_temper": 80.0,
+    "bed_target_temper": 80.0
+  },
+  "retained_hms_scope": "No retained Mark1 HMS at launch.",
+  "final_preflight_rechecked": true,
+  "Mark1_final": {
+    "observed_at_utc": "2026-10-26T03:03:09.310409+00:00",
+    "job_id": "1374963298",
+    "subtask_name": "Flavor_reservoirs_-_PETG_0.24_mm",
+    "gcode_state": "FINISH",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 833,
+    "total_layer_num": 833,
+    "mc_percent": 100,
+    "mc_remaining_time": 0,
+    "nozzle_temper": 35.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 34.0,
+    "bed_target_temper": 0.0
+  },
+  "send_dialog": {
+    "source": "cua_repl Bambu Studio Send print job screenshot",
+    "printer": "Mark1",
+    "left_tile": "A2 PETG L",
+    "Timelapse": "On",
+    "Auto Bed Leveling": "On",
+    "Flow Dynamics Calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto",
+    "Send_enabled": true,
+    "visible_job_title": "2026-10-25-reservoir-left-cap-engineering-flow105-overlap30-temp260-left08-z000-a2-mark1.gcode_Left body and cap",
+    "plate": "Engineering",
+    "route": "Reviewed Engineering Plate print-only archive opened from staging; no reslice."
+  },
+  "launch": "launch.json",
+  "startup": "startup.json"
+}

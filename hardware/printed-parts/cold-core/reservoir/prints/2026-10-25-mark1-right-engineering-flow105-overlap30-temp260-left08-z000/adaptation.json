@@ -40,7 +40,7 @@
   "plate_preparation": "Derek reports Engineering Plate cleaned and glued again; transparent PETG AMS connected to left hotend.",
   "added_user_z_trim_mm": 0,
   "expected_effective_z_trim_mm": 0,
-  "status": "Launched on Mark1 as job 1374963298; fixed left 0.8 mm identified and A1 selected with Auto Refill.",
+  "status": "FINISH 833/833; Derek reports it turned out well and is holding water.",
   "native_review": "native-review.json",
   "packaging": "packaging.json",
   "emitted_z_trim_mm": 0,
@@ -48,5 +48,7 @@
   "job_id": "1374963298",
   "launch": "launch.json",
   "startup": "startup.json",
-  "followup_authorization": "Try now."
+  "followup_authorization": "Try now.",
+  "physical_result": "physical-result/physical-result.json",
+  "terminal_observation": "terminal-observation.json"
 }

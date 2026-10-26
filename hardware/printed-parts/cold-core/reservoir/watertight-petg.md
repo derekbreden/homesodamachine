@@ -1,22 +1,24 @@
 # Printing the reservoir in PETG
 
-The [right reservoir and matching cap](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/README.md)
-are running as **Mark1 task 1374963298**, accepted **15:18:16 CDT / 20:18:16 UTC
-on October 25** through the identified **left 0.8 mm Standard** hotend on the
-cleaned, glued **Engineering Plate**, with **0.00 mm Z compensation**.
-Startup confirms A1 loaded on the left, RUNNING at layer 0/833 with no
-print error/HMS. Live frames show the cleared plate during preparation;
-model adhesion and water holding are unassessed.
+The [left body and matching lid](prints/2026-10-25-mark1-left-engineering-flow105-overlap30-temp260-left08-z000/README.md)
+are running as **Mark1 task 1375878568**, accepted **22:03:53 CDT October 25 /
+03:03:53 UTC October 26**, on the fixed **left 0.8 mm Standard** hotend,
+glued **Engineering Plate**, **0.00 mm Z compensation**, A2 and automatic refill.
+The preceding [right reservoir](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/physical-result/physical-result.json)
+completed 833/833 layers and has a reported water hold. Its geometry, including
+the right lid's port/float-guide locations, matches current CAD. This plate
+contains one left body and its matching lid.
 
 The [preceding right-hotend Engineering Plate article](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json)
 has reported polymer buildup and a photographed motion-step-loss warning.
 Fresh retained status is FAILED with no current error/HMS. The failure's
 cause and actual stop layer are unestablished.
 
-The retry's [complete settings](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/settings.json)
+The repeat's [complete settings](prints/2026-10-25-mark1-left-engineering-flow105-overlap30-temp260-left08-z000/settings.json)
 retain **255/260 °C**, flow 1.05, five walls, 30% overlap and **70 °C** bed.
-Only the nozzle assignment changes. **A1 (42%)** is selected before matching
-A2–A4 (100%). Send verifies Timelapse On, bed leveling On, flow dynamics Auto
+The complete recipe is retained for the opposite-side body/lid pair. **A2**
+starts before matching A3/A4, with A1 empty. Send verifies Timelapse On,
+bed leveling On, flow dynamics Auto
 and nozzle offset calibration Auto. Runtime timelapse activation at deposition
 is unobserved during layer 0 preparation.
 
@@ -128,12 +130,15 @@ surrounding air rather than residual moisture in the filament.
 
 ## Evidence and print records
 
-Both October five-wall / solid-floor articles are reported **holding water**
-on October 25: the completed **255/260 °C** left reservoir and the intentionally
+October five-wall / solid-floor articles reported **holding water** include
+the completed **255/260 °C** left reservoir on Textured PEI, the completed
+**255/260 °C** right reservoir on glued Engineering Plate, and the intentionally
 shortened **265/270 °C** reservoir. The older article's initial report was a
 one-hour hold. Total ongoing durations, water head and cap/gasket assembly
-sealing are unspecified. Retain the completed left article's settings for the
-right pair. [Left physical result](prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json) ·
+sealing are unspecified. The selected repeat retains the successful right
+article's Engineering Plate recipe for the left body and lid.
+[Right Engineering Plate result](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/physical-result/physical-result.json) ·
+[Left Textured PEI result](prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json) ·
 [Older physical result](prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json).
 
 The preceding walls-only article has reported seam leakage. Its underside photograph shows

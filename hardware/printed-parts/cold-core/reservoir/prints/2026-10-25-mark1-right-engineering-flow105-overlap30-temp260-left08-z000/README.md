@@ -1,19 +1,12 @@
 # Mark1 right reservoir and cap: left 0.8 mm Engineering Plate retry
 
-The **right reservoir and matching cap** are running as Mark1 **task
-1374963298**, accepted by one Studio Send at **15:18:16 CDT / 20:18:16 UTC
-on October 25**. The fixed **left 0.8 mm Standard** hotend is identified by
-fresh printer status. The cleaned, glued **Engineering Plate** uses **0.00 mm
-Z compensation**. [Launch receipt](launch.json) · [Preflight](preflight.json) ·
-[UI review](ui-review.json).
-
-Fresh startup reports **RUNNING, layer 0/833, print error 0 and no HMS**.
-At **15:22:29 CDT / 20:22:29 UTC**, AMS unit 0 tray 0 (**A1**) is loaded into
-the mounted left 0.8 mm nozzle, at 255/255 °C; the right nozzle is cold.
-Two changing live camera frames confirm the cleared Engineering Plate during
-preparation. Model deposition, body/cap attachment and water holding are
-unassessed. Timelapse is selected On; runtime remains disabled in preparation,
-so activation at deposition is unobserved. [Startup observations](startup.json).
+The **right reservoir and matching cap**, Mark1 **task 1374963298**, completed
+**833/833 layers**. Derek reports on October 25 that it **turned out well and
+is holding water**. It used the fixed **left 0.8 mm Standard** hotend, glued
+**Engineering Plate**, retained 255/260 °C recipe and **0.00 mm Z compensation**.
+Hold duration, water head, corner flatness and cap/gasket sealing are not
+separately assessed. [Physical result](physical-result/physical-result.json) ·
+[Terminal status](terminal-observation.json) · [Launch receipt](launch.json).
 
 The [nozzle-identification record](nozzle-read.json) preserves the earlier
 rejected remote read separately from the subsequent verified identification.
@@ -58,8 +51,8 @@ Send verifies **A1 PETG L**, Auto Refill, **Timelapse On, Bed Leveling On,
 Flow Dynamics Auto and Nozzle Offset Calibration Auto**. The same finished
 Mark2 task was freshly re-read before Send, establishing over **6,536 seconds**
 of start spacing. Archive and native G-code hashes remain unchanged after
-Studio import. No scheduled monitor is created or reactivated. Adhesion,
-nozzle performance during deposition and water holding are untested for this trial.
+Studio import. No scheduled monitor is created or reactivated. The reported finished result and water hold belong to this article;
+startup observations remain scoped to preparation.
 
 Derek authorized:
 

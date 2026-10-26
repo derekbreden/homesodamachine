@@ -1,0 +1,125 @@
+{
+  "native_application": "BambuStudio-02.08.02.61",
+  "source": "cua_repl native GUI slice and export",
+  "selected_parts": [
+    "reservoir-left",
+    "reservoir-cap-left"
+  ],
+  "selected_hotend": "Left 0.8 mm Standard",
+  "plate": "Engineering Plate",
+  "layer_count": 833,
+  "native_time_seconds": 20522,
+  "native_weight_g": 444.28,
+  "native_objects": [
+    {
+      "identify_id": "96",
+      "name": "reservoir-left",
+      "skipped": "false"
+    },
+    {
+      "identify_id": "118",
+      "name": "reservoir-cap-left",
+      "skipped": "false"
+    }
+  ],
+  "native_object_ids": [
+    96,
+    118
+  ],
+  "z_trim_commands": [
+    "G29.1 Z0 ; clear z-trim value first",
+    "G29.1 Z0"
+  ],
+  "added_user_z_trim_mm": 0,
+  "effective_plate_z_trim_mm": 0,
+  "bed_c_first_subsequent": [
+    70,
+    70
+  ],
+  "nozzle_c_first_subsequent": [
+    255,
+    260
+  ],
+  "placement": {
+    "model_support_brim_xy_bounds_mm": [
+      [
+        80.519003,
+        89.750003
+      ],
+      [
+        244.476997,
+        230.249997
+      ]
+    ],
+    "edge_margins_left_front_right_back_mm": [
+      80.519003,
+      89.750003,
+      80.52300299999999,
+      89.75000299999999
+    ],
+    "minimum_full_bead_edge_margin_mm": 80.519003,
+    "minimum_body_cap_full_bead_box_gap_mm": 10.042005999999986,
+    "deposited_move_count": 852222,
+    "support_move_count": 5314,
+    "scope": "Native deposited model, support and brim beads, including arc extrema and half-width. Vendor startup purge/calibration paths are excluded. Placement does not establish adhesion.",
+    "left_nozzle_usable_bed_bounds_mm": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        325.0,
+        320.0
+      ]
+    ]
+  },
+  "wall_cooling_above_cap_pwm_values": [
+    35.7,
+    38.25,
+    40.8,
+    43.35,
+    229.5
+  ],
+  "gcode_sha256": "9dd2a4327c077feef59ca32c22f1946859616e308d87951eaedd252974877da0",
+  "embedded_md5_verified": true,
+  "saved_recipe": "settings.json",
+  "studio_export_global_metadata_differences": {
+    "print_settings_id": {
+      "from": "Reservoir May Water 0.8 - solid walls overlap30 flow105",
+      "to": "Reservoir May Water 0.8 - solid walls overlap30 flow105(candidate.3mf)"
+    },
+    "curr_bed_type": {
+      "from": "Engineering Plate",
+      "to": "Textured PEI Plate"
+    },
+    "filament_map_mode": {
+      "from": "Manual",
+      "to": "Auto For Flush"
+    },
+    "extruder_ams_count": {
+      "from": [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      "to": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ]
+    },
+    "filament_settings_id": {
+      "from": [
+        "Reservoir May Water Clear 260C Flow1.05"
+      ],
+      "to": [
+        "Reservoir May Water Clear 260C Flow1.05(candidate.3mf)"
+      ]
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.8 Standard PETG zero Z trim",
+      "to": "Bambu Lab H2C 0.8 nozzle"
+    }
+  },
+  "metadata_scope": "Studio labels imported presets, reports its current printer resource/AMS counts and stores its global default plate/grouping. The selected plate is Manual/Engineering, emitted header is Engineering, native surface detection is Engineering and both Z-trim commands are zero. All remaining saved recipe values match the successful print.",
+  "supports": "Retained native Tree(auto)/Default, bed-only; full-bead support/model envelope checked.",
+  "physical_scope": "Slice and geometry review; new left article adhesion, finish and water holding unassessed."
+}

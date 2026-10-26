@@ -12,16 +12,22 @@ carries both mouths: the fill, and the dip tube the draw line becomes.
 [Level sensing](level-sensing.md) · [Floor and dip tube](floor-and-dip-tube.md) ·
 [Vent](vent.md)
 
-## Engineering Plate left-hotend retry
+## Engineering Plate left reservoir and lid
 
-The [right reservoir and matching cap](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/README.md)
-are running as **Mark1 task 1374963298**, accepted **15:18:16 CDT / 20:18:16 UTC
-on October 25**, through the identified **left 0.8 mm Standard** nozzle on the
-cleaned, glued **Engineering Plate**, with **0.00 mm Z compensation**.
-The recipe and geometry are retained. **A1 (42%)** starts before matching
-A2–A4 (100%), with automatic refill On. Fresh startup confirms A1 loaded on
-the left, **RUNNING, layer 0/833, error 0 and no HMS**. Live camera frames show
-the cleared plate during preparation; model adhesion remains unassessed.
+The [left body and matching lid](prints/2026-10-25-mark1-left-engineering-flow105-overlap30-temp260-left08-z000/README.md)
+are running as **Mark1 task 1375878568**, accepted **22:03:53 CDT October 25 /
+03:03:53 UTC October 26**, through the fixed **left 0.8 mm Standard** nozzle.
+The glued **Engineering Plate** recipe retains flow 1.05, five Arachne walls,
+30% overlap, 255/260 °C nozzle, 70 °C bed and **0.00 mm Z compensation**.
+**A2** starts with automatic refill; A1 is empty. Startup is RUNNING,
+layer 0/833, print error 0 and no HMS. New-article adhesion and water hold
+are unassessed.
+
+The preceding [right reservoir, task 1374963298](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/physical-result/physical-result.json)
+completed 833/833 layers and **turned out well and is holding water**, as
+reported by Derek. Duration and water head are unspecified. Its right lid's
+geometry matches current CAD, including port/float-guide positions, so this
+plate includes the matching left lid with no additional right lid.
 
 The preceding Engineering Plate **task 1374272357** has [reported right-hotend
 polymer buildup and a motion-step-loss warning](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json).
@@ -42,9 +48,9 @@ heads are unspecified. [Acceptance records](water-hold-acceptance.json).
 
 The selected repeat recipe uses **1.05 flow, five requested Arachne wall loops,
 30% Infill/Wall overlap and 255/260 °C** first/subsequent nozzle temperatures.
-Use the [Engineering Plate trial settings](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/settings.json)
-and [native source](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/packaging.json)
-for this retry through Mark1's left **0.8 mm Standard** nozzle. The completed
+Use the [Engineering Plate repeat settings](prints/2026-10-25-mark1-left-engineering-flow105-overlap30-temp260-left08-z000/settings.json)
+and [native source](prints/2026-10-25-mark1-left-engineering-flow105-overlap30-temp260-left08-z000/packaging.json)
+for this repeat through Mark1's left **0.8 mm Standard** nozzle. The completed
 left water-hold article used Textured PEI.
 
 [reservoir.3mf](reservoir.3mf) and [print-settings.json](print-settings.json)
@@ -114,8 +120,8 @@ Past settings, reported outcomes and source commits are in the
 [print log](print-log.md) and [September inspection record](history/seal-trial.md).
 Historical 3MFs are retained in Git.
 
-Reservoir leak results belong to the articles and process tested. Both October
-five-wall recipes have reported water holds: the completed
-255/260 °C left article and the shortened 265/270 °C article. Total ongoing hold
-durations and water heads are unspecified.
+Reservoir leak results belong to the articles and process tested. Reported October
+water holds include the completed 255/260 °C left article on Textured PEI,
+the completed 255/260 °C right article on glued Engineering Plate and the
+shortened 265/270 °C article. Total ongoing durations and water heads are unspecified.
 CAD clearance does not establish a print's sealing or finished float sliding.
