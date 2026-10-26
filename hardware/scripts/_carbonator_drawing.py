@@ -10,11 +10,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 for folder in ("hardware/cold-core-layout", "hardware/assembly",
-               "hardware/cut-parts/carbonation/endcaps-circular"):
+               "hardware/cut-parts/carbonation/endcaps-circular",
+               "hardware/cut-parts/carbonation/float-rod"):
     sys.path.insert(0, str(ROOT / folder))
 
 import _carbonator as carb
-import _pressure_vessel_sync as procedure
+import float_rod_dimensions as rod_spec
 import endcap_circular_dxf as cap
 import _float_interface as float_interface
 from endcap_circular_drawing import (
@@ -39,18 +40,20 @@ FLOAT_D = float_interface.diameter / MM
 FLOAT_H = float_interface.height / MM
 REG_D = cap.register_drill_diameter
 REG_DEPTH = cap.register_depth
-BLANK_LENGTH_MM = procedure.carbonator_rod_len
-BLANK_LENGTH = BLANK_LENGTH_MM / MM
+ROD_LENGTH = rod_spec.finished_length
+ROD_LENGTH_TOL = rod_spec.length_tolerance
+ROD_D_TOL = rod_spec.diameter_tolerance
+INSIDE_SPAN = rod_spec.inside_face_span
+INSIDE_SPAN_TOL = rod_spec.inside_face_span_tolerance
 FLOOR = RECESS + CAP_T
 CEILING = LENGTH - RECESS - CAP_T
 DRILL_HALF_ANGLE = math.radians(135 / 2)
 
-# A flat rod end contacts the cone above its tip. These figures position the
-# illustration, not a finished-length dimension or a new clearance requirement.
+# A flat rod end contacts the cone above its tip. The finished cut length is
+# controlled by FR-CARB-01; its upper end is located from the seated lower end.
 FLAT_SEAT_DEPTH = REG_DEPTH - ROD_D / (2 * math.tan(DRILL_HALF_ANGLE))
-DRAWN_TOP_ENGAGEMENT = FLAT_SEAT_DEPTH / 2
 ROD_BOTTOM = FLOOR - FLAT_SEAT_DEPTH
-ROD_TOP = CEILING + DRAWN_TOP_ENGAGEMENT
+ROD_TOP = ROD_BOTTOM + ROD_LENGTH
 
 
 def frame(c, sheet):
@@ -60,7 +63,8 @@ def frame(c, sheet):
     c.rect(27, 27, sheet[0] - 54, sheet[1] - 54, stroke=1, fill=0)
 
 
-def title_block(c, sheet, title, drawing, material, quantity, part_id):
+def title_block(c, sheet, title, drawing, material, quantity, part_id,
+                revision="A", status=("PROTOTYPE", "FOR REVIEW")):
     """Common family title block, independently sized for A and B sheets."""
     right, bottom, top = sheet[0] - 27, 27, 143
     left = right - 562
@@ -71,8 +75,8 @@ def title_block(c, sheet, title, drawing, material, quantity, part_id):
     line(c, right - 135, 98, right - 135, top)
     text(c, left + 10, 126, "HOME SODA MACHINE", 8)
     text(c, left + 10, 108, title, 11.5, bold=True)
-    text(c, right - 67.5, 125, "PROTOTYPE", 9, bold=True, align="center")
-    text(c, right - 67.5, 110, "FOR REVIEW", 9, align="center")
+    text(c, right - 67.5, 125, status[0], 9, bold=True, align="center")
+    text(c, right - 67.5, 110, status[1], 9, align="center")
     for x in (left + 235, left + 370):
         line(c, x, 65, x, 98)
     for x, label, value in ((left + 10, "MATERIAL", material),
@@ -81,7 +85,7 @@ def title_block(c, sheet, title, drawing, material, quantity, part_id):
         text(c, x, 87, label, 7)
         text(c, x, 73, value, 8.5, bold=True)
     fields = ((left, left + 175, "DRAWING", drawing),
-              (left + 175, left + 220, "REV", "A"),
+              (left + 175, left + 220, "REV", revision),
               (left + 220, left + 335, "DATE", "2026-10-26"),
               (left + 335, left + 452, "SCALE", "AS SHOWN"),
               (left + 452, right, "SHEET", "1 OF 1"))

@@ -109,7 +109,8 @@ def main():
         'CARB_RADIUS': f'{cap.register_radius*25.4:.3f} mm',
         'CARB_RADIUS_IN': f'{cap.register_radius:.4f} in',
         'RES_X': f'{res.rod_position_x:.2f} mm', 'RES_Y': f'{res.rod_position_y:g} mm',
-        'CARB_ROD_LENGTH': f'{pv.carbonator_rod_len:.2f} mm',
+        'CARB_ROD_LENGTH': (f'{pv.carbonator_rod_len/25.4:.3f} ±{pv.carbonator_rod_tolerance/25.4:.3f} in '
+                            f'({pv.carbonator_rod_len:.2f} ±{pv.carbonator_rod_tolerance:.2f} mm)'),
         'RES_ROD_LENGTH': f'{res.reservoir_rod_len:.3f} mm',
         'RES_ROD_CLEARANCE': f'{res.reservoir_rod_clearance:g} mm',
         'GUIDE_SLOP': f'{f.guide_radial_clearance:g} mm',
