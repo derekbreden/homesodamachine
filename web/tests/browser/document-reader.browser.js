@@ -7,8 +7,9 @@ import { start } from "../../server.js";
 
 const require = createRequire(new URL("../../../tools/render/package.json", import.meta.url));
 let browser, server, baseUrl;
-const screenshotDir = path.resolve("../.cache/pwa-pdf-reader");
+const screenshotDir = path.resolve(".cache/pwa-pdf-reader");
 const installGuide = "/read/install-guide/install-guide.pdf";
+const benchGuide = "/read/assembly-letter-guide/assembly-drill-and-weld-letter.pdf";
 before(async () => {
   browser = await require("puppeteer").launch({ headless: true });
   ({ server } = await start({ dev: true, port: 0 }));
@@ -76,7 +77,7 @@ test("phone guide links keep page targets, Back, page history and bounded zoom i
     });
     await rendered(page, 9);
     await boundedCanvas(page);
-    await page.click("#pdf-fit");
+    await page.select("#pdf-fit", "width");
     await rendered(page, 9);
     await page.setViewport({ width: 844, height: 390, deviceScaleFactor: 3, isMobile: true, hasTouch: true });
     await page.waitForFunction(() => parseFloat(document.getElementById("pdf-canvas").style.width) > 700);
@@ -155,5 +156,89 @@ test("embedded readers keep their toolbar unless a workspace explicitly owns the
     await rendered(page, 1);
     assert.equal(await page.$eval(".pdf-toolbar", toolbar => getComputedStyle(toolbar).display), "none");
     assert.equal(await page.$eval(".pdf-viewport", viewport => viewport.clientHeight), await page.evaluate(() => innerHeight));
+  } finally { await page.close(); }
+});
+
+test("standalone readers combine controls in one toolbar and offer page and width fitting", async () => {
+  const page = await browser.newPage();
+  const errors = [];
+  page.on("pageerror", error => errors.push(error.message));
+  try {
+    await page.setViewport({ width: 1440, height: 1000 });
+    await page.goto(baseUrl + benchGuide, { waitUntil: "domcontentloaded" });
+    await rendered(page, 1);
+    assert.equal(await page.$eval(".pdf-heading", header => header.getBoundingClientRect().height <= 80), true);
+    assert.equal(await page.$eval("#pdf-fit", select => select.value), "page");
+    const fit = await page.$eval(".pdf-paper", paper => {
+      const viewport = paper.parentElement, style = getComputedStyle(viewport);
+      return { width: paper.clientWidth, fits: paper.clientWidth <= viewport.clientWidth
+        && paper.clientHeight <= viewport.clientHeight - parseFloat(style.paddingTop) - parseFloat(style.paddingBottom) + 1 };
+    });
+    assert.equal(fit.fits, true);
+    await page.screenshot({ path: path.join(screenshotDir, "desktop-bench-reader.png") });
+    await page.select("#pdf-fit", "width");
+    await page.waitForFunction(width => parseFloat(document.getElementById("pdf-canvas").style.width) > width * 1.2
+      && document.querySelector(".pdf-viewport").getAttribute("aria-busy") === "false", {}, fit.width);
+    assert.equal(await page.$eval(".pdf-viewport", viewport => viewport.scrollWidth <= viewport.clientWidth + 1), true,
+      "fit width should clear the vertical scrollbar without horizontal overflow");
+    await page.select("#pdf-fit", "page");
+    await rendered(page, 1);
+    await page.click(".pdf-actions > summary");
+    assert.match(await page.$eval(".pdf-actions [download]", link => link.href), /\?download=1$/);
+    await page.keyboard.press("Escape");
+    assert.equal(await page.$eval(".pdf-actions", menu => menu.open), false);
+    await page.setViewport({ width: 320, height: 740, isMobile: true, hasTouch: true });
+    await page.goto(baseUrl + benchGuide, { waitUntil: "domcontentloaded" });
+    await rendered(page, 1);
+    assert.equal(await page.$eval(".pdf-heading", header => header.getBoundingClientRect().height <= 132), true);
+    assert.equal(await page.$eval(".pdf-toolbar", toolbar => {
+      const rect = toolbar.getBoundingClientRect(); return rect.left >= 0 && rect.right <= innerWidth;
+    }), true);
+    await page.click(".pdf-actions > summary");
+    assert.equal(await page.$eval(".pdf-menu-zoom", group => getComputedStyle(group).display), "flex");
+    await page.click('[data-pdf-zoom="in"]');
+    await page.waitForFunction(() => document.getElementById("pdf-fit").value === "custom");
+    await page.keyboard.press("Escape");
+    await page.select("#pdf-fit", "page");
+    await rendered(page, 1);
+    await page.screenshot({ path: path.join(screenshotDir, "phone-bench-reader.png") });
+    assert.deepEqual(errors, []);
+  } finally { await page.close(); }
+});
+
+test("document shelf searches and filters drawings, and reader Back keeps the selected results", async () => {
+  const page = await browser.newPage();
+  const search = 'input[aria-label="Find a document"]';
+  try {
+    await page.setViewport({ width: 1280, height: 900 });
+    await page.goto(baseUrl + "/drawings", { waitUntil: "domcontentloaded" });
+    await page.waitForSelector('.card-doc[data-kind="drawing"] img');
+    await page.waitForFunction(() => document.querySelector('.card-doc[data-kind="drawing"] img').naturalWidth > 0);
+    assert.equal(await page.$eval(".card-doc", card => card.getBoundingClientRect().top < 380), true,
+      "the library should put documents near the top of the page");
+    await page.screenshot({ path: path.join(screenshotDir, "desktop-document-shelf.png") });
+    await page.click(".document-filters > button:nth-child(2)");
+    await page.type(search, "HSM-000009");
+    assert.equal(await page.$$eval(".card-doc:not([hidden])", cards => cards.length), 1);
+    const results = page.url();
+    await Promise.all([page.waitForNavigation(), page.click(".card-doc:not([hidden])")]);
+    await rendered(page, 1);
+    assert.equal(await page.$eval("#pdf-pagination", group => group.hidden), true);
+    assert.equal(await page.$eval("#pdf-back", link => link.href), results);
+    await Promise.all([page.waitForNavigation(), page.click("#pdf-back")]);
+    await page.waitForSelector(search);
+    assert.equal(await page.$eval(search, input => input.value), "HSM-000009");
+    assert.equal(await page.$$eval(".card-doc:not([hidden])", cards => cards.length), 1);
+    await page.type(search, "nothing-matches");
+    await page.click(".document-empty button");
+    assert.equal(await page.$eval(search, input => input.value), "");
+    assert.equal(new URL(page.url()).search, "");
+    await page.setViewport({ width: 320, height: 740, isMobile: true, hasTouch: true });
+    await page.goto(baseUrl + "/drawings", { waitUntil: "domcontentloaded" });
+    await page.waitForSelector(".document-kind-select");
+    await page.select(".document-kind-select", "drawing");
+    assert.equal(await page.$$eval(".card-doc:not([hidden])", cards => cards.every(card => card.dataset.kind === "drawing")), true);
+    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
+    await page.screenshot({ path: path.join(screenshotDir, "phone-document-shelf.png") });
   } finally { await page.close(); }
 });

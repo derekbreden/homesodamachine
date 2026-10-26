@@ -15,10 +15,13 @@ const next = document.getElementById("pdf-next");
 const zoomIn = document.getElementById("pdf-zoom-in");
 const zoomOut = document.getElementById("pdf-zoom-out");
 const fit = document.getElementById("pdf-fit");
+const pagination = document.getElementById("pdf-pagination");
+const actions = reader.querySelector(".pdf-actions");
+const menuZoom = [...reader.querySelectorAll("[data-pdf-zoom]")];
 const retry = document.getElementById("pdf-retry");
 const MAX_PIXELS = 4 * 1024 * 1024;
 const MAX_DIMENSION = 4096;
-let pdfjs, pdf, currentPage = 1, zoom = 1, requested = 0, rendering = false;
+let pdfjs, pdf, currentPage = 1, zoom = 1, fitMode = "page", requested = 0, rendering = false;
 
 function pageFromHash() {
   const value = Number(new URLSearchParams(location.hash.slice(1)).get("page"));
@@ -33,6 +36,10 @@ function updateControls() {
   zoomOut.disabled = !pdf || zoom <= 0.5;
   zoomIn.disabled = !pdf || zoom >= 4;
   fit.disabled = !pdf;
+  pagination.hidden = !pdf || pdf.numPages <= 1;
+  fit.querySelector('[value="custom"]').hidden = zoom === 1;
+  fit.value = zoom === 1 ? fitMode : "custom";
+  for (const control of menuZoom) control.disabled = control.dataset.pdfZoom === "out" ? zoomOut.disabled : zoomIn.disabled;
   if (hostControls) window.parent.postMessage({ type: HSM_EVENTS.DOCUMENT_STATE,
     page: currentPage, pages: pdf?.numPages || 0, zoom, ready: !!pdf }, location.origin);
 }
@@ -52,6 +59,7 @@ async function renderRequestedPage() {
     const revision = requested;
     const pageNumber = currentPage;
     const pageZoom = zoom;
+    const pageFit = fitMode;
     let page;
     status.textContent = `Loading page ${pageNumber}…`;
     reader.classList.remove("pdf-ready", "pdf-error");
@@ -66,7 +74,7 @@ async function renderRequestedPage() {
       const style = getComputedStyle(viewportEl);
       const width = viewportEl.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
       const height = viewportEl.clientHeight - parseFloat(style.paddingTop) - parseFloat(style.paddingBottom);
-      const fitScale = embedded ? Math.min(Math.max(1, width) / natural.width, Math.max(1, height) / natural.height)
+      const fitScale = pageFit === "page" ? Math.min(Math.max(1, width) / natural.width, Math.max(1, height) / natural.height)
         : Math.max(1, width) / natural.width;
       const scale = fitScale * pageZoom;
       const viewport = page.getViewport({ scale });
@@ -130,14 +138,22 @@ input.addEventListener("keydown", event => {
 });
 zoomIn.addEventListener("click", () => { zoom = Math.min(4, zoom * 1.25); requestRender(); });
 zoomOut.addEventListener("click", () => { zoom = Math.max(0.5, zoom / 1.25); requestRender(); });
-fit.addEventListener("click", () => { zoom = 1; requestRender(); });
+function fitTo(mode) {
+  if (!pdf || !["page", "width"].includes(mode)) return;
+  fitMode = mode; zoom = 1; requestRender();
+}
+fit.addEventListener("change", () => fitTo(fit.value));
+for (const control of menuZoom) control.addEventListener("click", () => {
+  (control.dataset.pdfZoom === "out" ? zoomOut : zoomIn).click();
+});
+document.addEventListener("pointerdown", event => { if (!actions.contains(event.target)) actions.open = false; });
 window.addEventListener("message", event => {
   if (!hostControls || event.source !== window.parent || event.origin !== location.origin
       || event.data?.type !== HSM_EVENTS.DOCUMENT_COMMAND) return;
   const { command, page } = event.data;
   if (command === "zoom-in") zoomIn.click();
   else if (command === "zoom-out") zoomOut.click();
-  else if (command === "fit") fit.click();
+  else if (command === "fit") fitTo("page");
   else if (command === "page") goToPage(page);
   else if (command === "state") updateControls();
 });
@@ -145,12 +161,15 @@ retry.addEventListener("click", () => pdf ? requestRender() : location.reload())
 window.addEventListener("hashchange", () => goToPage(pageFromHash(), false));
 window.addEventListener("popstate", () => goToPage(pageFromHash(), false));
 document.addEventListener("keydown", event => {
+  if (event.key === "Escape" && actions.open) {
+    actions.open = false; actions.querySelector("summary").focus(); event.preventDefault(); return;
+  }
   if (embedded && event.key === "Escape") {
     event.preventDefault();
     window.parent.postMessage({ type: HSM_EVENTS.DOCUMENT_ESCAPE }, location.origin);
     return;
   }
-  if (event.target.closest("input, button, a")) return;
+  if (event.target.closest("input, select, button, a")) return;
   if (event.key === "ArrowLeft" || event.key === "PageUp") {
     event.preventDefault(); goToPage(currentPage - 1);
   } else if (event.key === "ArrowRight" || event.key === "PageDown") {

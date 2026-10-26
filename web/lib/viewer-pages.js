@@ -37,7 +37,7 @@ const TITLES = {
 const INTRO = {
   parts: { eyebrow: "Parts", title: "Explore the machine.", description: "The soda machine, the faucet, and the tools that bring them together. Open a model to explore its parts and documents." },
   charts: { eyebrow: "Charts", title: "How it all connects.", description: "Plumbing, wiring, and control diagrams for the machine." },
-  drawings: { eyebrow: "Drawings & guides", title: "Guides for the build.", description: "Assembly instructions, drawings, and reference documents for the machine and its tools." },
+  drawings: { title: "Drawings & guides", description: "Finished parts, assembly instructions and shop references." },
   pcb: { eyebrow: "Boards", title: "The circuit boards.", description: "Explore the electronics that control the machine and the faucet." },
 };
 
@@ -56,7 +56,7 @@ export function mountViewerPages(app) {
       res.send(
         renderHead({ title: TITLES[active], pageClass: `site-interior site-viewer-${active}` }) +
         renderNav({ active }) +
-        renderPageHeader(INTRO[active]) +
+        (active === "drawings" ? `<header class="document-library-header site-light"><div class="document-library-inner"><div><h1>${INTRO.drawings.title}</h1><p>${INTRO.drawings.description}</p></div><div id="document-search-slot"></div></div></header>` : renderPageHeader(INTRO[active])) +
         readFragment("viewer-body.html") +
         renderFooter({ siteFooter: true }),
       );

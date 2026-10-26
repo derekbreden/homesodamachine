@@ -146,42 +146,100 @@ function readableBytes(n) {
 }
 
 function buildDocumentsSection() {
-  const documents = state.documents;
-  const header = document.createElement("div");
-  header.className = "section-header";
-  header.textContent = "Documents";
-  state.gridEl.appendChild(header);
-
-  if (!documents || documents.length === 0) {
-    const empty = document.createElement("div");
-    empty.className = "empty-state";
-    empty.textContent = "No documents yet.";
-    state.gridEl.appendChild(empty);
+  const documents = state.documents || [];
+  const node = (tag, className, text) => {
+    const el = document.createElement(tag);
+    if (className) el.className = className;
+    if (text != null) el.textContent = text;
+    return el;
+  };
+  if (!documents.length) {
+    state.gridEl.append(node("p", "empty-state", "No documents yet."));
     return;
   }
-
-  const shelf = document.createElement("div");
-  shelf.className = "doc-shelf";
-  state.gridEl.appendChild(shelf);
-
-  for (const doc of documents) {
-    // An anchor, not a click handler: a document is a file at a URL, so
-    // middle-click, cmd-click and "copy link" all mean what they look like.
-    const el = document.createElement("a");
-    el.className = "card card-doc";
-    el.href = `/read/${doc.path.split("/").map(encodeURIComponent).join("/")}`;
-    // The cover's own pixel size, off the sidecar, so the card reserves its box
-    // before the picture lands and the shelf does not jump under the reader.
-    const size = doc.coverSize ? ` width="${doc.coverSize[0]}" height="${doc.coverSize[1]}"` : "";
-    const cover = doc.cover
-      ? `<img class="doc-cover" src="/thumbs/${doc.cover}" alt="${doc.title} cover"${size}>`
-      : `<div class="doc-cover placeholder">no cover</div>`;
-    const scale = doc.pages ? `${doc.pages} ${doc.pages === 1 ? "page" : "pages"} · ${readableBytes(doc.bytes)}` : readableBytes(doc.bytes);
-    el.innerHTML = cover +
-      `<div class="label card-caption"><span class="name-row"><span class="name">${doc.title}</span></span>` +
-      `<span class="dir">${doc.subtitle || ""}</span><span class="doc-scale">${scale}</span></div>`;
-    shelf.appendChild(el);
+  const owners = new Map();
+  for (const material of state.materialCatalog?.materials || []) for (const doc of material.documents || []) {
+    if (doc.kind !== "engineering-drawing") continue;
+    if (!owners.has(doc.path)) owners.set(doc.path, []);
+    owners.get(doc.path).push(material);
   }
+  const params = new URLSearchParams(location.search);
+  let active = ["drawing", "guide"].includes(params.get("type")) ? params.get("type") : "all";
+  const tools = node("div", "document-tools");
+  const search = node("div", "material-search");
+  const label = node("label", "", "Find a document");
+  const input = node("input"); input.type = "search"; input.autocomplete = "off";
+  input.placeholder = "Title, part number or subject…"; input.value = params.get("q") || "";
+  input.setAttribute("aria-label", "Find a document");
+  label.append(input); search.append(label);
+  const filters = node("div", "document-filters"); filters.setAttribute("role", "group");
+  filters.setAttribute("aria-label", "Document type");
+  const buttons = new Map();
+  for (const [kind, name] of [["all", "All"], ["drawing", "Engineering drawings"], ["guide", "Build guides"]]) {
+    const button = node("button", "", name); button.type = "button";
+    button.addEventListener("click", () => { active = kind; render(); });
+    buttons.set(kind, { button, name }); filters.append(button);
+  }
+  const pickerLabel = node("label", "document-kind-picker", "Show");
+  const picker = node("select", "document-kind-select"); picker.setAttribute("aria-label", "Document type");
+  for (const [kind, { name }] of buttons) { const option = node("option", "", name); option.value = kind; picker.append(option); }
+  picker.addEventListener("change", () => { active = picker.value; render(); });
+  pickerLabel.append(picker); filters.append(pickerLabel);
+  const status = node("p", "document-search-status"); status.setAttribute("role", "status");
+  const searchSlot = document.getElementById("document-search-slot");
+  if (searchSlot) searchSlot.replaceChildren(search); else tools.append(search);
+  tools.append(filters, status);
+  const shelf = node("div", "doc-shelf");
+  const cards = documents.map(doc => {
+    const material = owners.get(doc.path) || [], kind = material.length ? "drawing" : "guide";
+    const card = node("a", "card card-doc"); card.dataset.kind = kind;
+    card.href = "/read/" + doc.path.split("/").map(encodeURIComponent).join("/");
+    let cover;
+    if (doc.cover) {
+      cover = node("img", "doc-cover"); cover.src = "/thumbs/" + doc.cover; cover.alt = ""; cover.loading = "lazy";
+      if (doc.coverSize) [cover.width, cover.height] = doc.coverSize;
+    } else {
+      cover = node("div", "doc-cover placeholder", "PDF"); cover.setAttribute("aria-hidden", "true");
+    }
+    const caption = node("div", "label card-caption");
+    const nameRow = node("span", "name-row"); nameRow.append(node("span", "name", doc.title));
+    caption.append(node("span", "doc-kind", kind === "drawing" ? "Engineering drawing · " + material.map(m => m.id).join(", ") : "Build guide"),
+      nameRow, node("span", "dir", doc.subtitle || ""),
+      node("span", "doc-scale", (doc.pages ? doc.pages + (doc.pages === 1 ? " page · " : " pages · ") : "") + readableBytes(doc.bytes)));
+    card.append(cover, caption);
+    const text = [doc.title, doc.subtitle, ...material.flatMap(m => [m.id, m.description, ...(m.aliases || [])])].join(" ").toLowerCase();
+    return { card, kind, text };
+  }).sort((a, b) => Number(b.kind === "drawing") - Number(a.kind === "drawing"));
+  shelf.append(...cards.map(item => item.card));
+  const empty = node("div", "document-empty"); empty.append(node("p", "", "No documents match these filters."));
+  const clear = node("button", "", "Clear filters"); clear.type = "button";
+  clear.addEventListener("click", () => { input.value = ""; active = "all"; render(); input.focus(); });
+  empty.append(clear); state.gridEl.append(tools, shelf, empty);
+  function render() {
+    const words = input.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    const matches = cards.filter(item => words.every(word => item.text.includes(word)));
+    for (const [kind, { button, name }] of buttons) {
+      const count = matches.filter(item => kind === "all" || item.kind === kind).length;
+      button.textContent = name + " (" + count + ")";
+      picker.querySelector('option[value="' + kind + '"]').textContent = ({ all: "All documents", drawing: "Drawings", guide: "Build guides" })[kind] + " (" + count + ")";
+      button.setAttribute("aria-pressed", String(active === kind));
+    }
+    picker.value = active;
+    let shown = 0;
+    for (const item of cards) {
+      item.card.hidden = !matches.includes(item) || (active !== "all" && item.kind !== active);
+      if (!item.card.hidden) shown++;
+    }
+    empty.hidden = shown > 0;
+    status.textContent = shown + (shown === 1 ? " document" : " documents");
+    const url = new URL(location.href);
+    if (input.value.trim()) url.searchParams.set("q", input.value.trim()); else url.searchParams.delete("q");
+    if (active !== "all") url.searchParams.set("type", active); else url.searchParams.delete("type");
+    if (url.href !== location.href) history.replaceState(history.state, "", url);
+  }
+  input.addEventListener("input", render);
+  input.addEventListener("keydown", event => { if (event.key === "Escape") { input.value = ""; render(); } });
+  render();
 }
 
 // One viewer page area at a time. The path determines which section the
