@@ -1,0 +1,78 @@
+# Flush tube grips and reservoir air tubes
+
+Review proposal for hand-adjustable tube retention, splash obstruction and an
+explicit air path out of each reservoir. Production part generators and printed
+articles retain their existing geometry. This proposal includes unfiltered air
+tubes; filtering is deferred to a separate review with Derek.
+
+## Matched lid and TPU spool
+
+Each liquid port has a TPU spool captured through the lid's **4 mm flat plate**.
+The PETG seat and TPU insert have matching 45° faces at both ends. Both annular
+TPU end faces are flush with the corresponding plate faces. The candidate removes
+the hanging liquid-port guide bosses; the existing casing passages guide the
+tubes above the lid.
+
+The 1/4-inch insert has a 9 mm waist, 11 mm flares and a 6.2 mm bore, with
+0.4 mm entry chamfers opening to 7 mm. The straight captured waist is 2 mm long;
+each outer flare occupies 1 mm of plate thickness. These are candidate printed
+fits, not measured insertion or retention results. The nominal 6.35 mm tube has
+0.15 mm diametral interference; the recorded optical sample's 6.455 mm OD would
+have 0.255 mm. Both cases need compliant TPU, rather than a rigid-hole fit.
+
+The B-fill port retains its actual purchased elbow stem. A-fill receives a
+short tail extending through its grip into the headspace. The current dip tubes,
+reservoir bodies, rim gaskets, screws and float registers retain their datums.
+The 0.4 mm nominal gap above the lid is preserved.
+
+## Independent straight air tubes
+
+Each reservoir has its own continuous **4 mm OD / 2.5 mm ID** tube through a
+matching flush TPU insert. There is no shared air manifold or valve. The tube
+opens in the headspace at its lower end and 6 mm above the outer foam cap at
+its upper end, inside the appliance's equipment space. Flow is bidirectional.
+
+The candidate air axes in the native cold-core frame are A `(120, -26)` and
+B `(-102, -32.5)` mm. A 5.2 mm passage, with 2 mm printed wall, is integral
+with the foam-cap cup; its corresponding opening crosses the pour lid. The
+passage keeps pour foam off the tubing. Its 0.6 mm radial tube clearance is
+independent of the TPU grip at the reservoir lid.
+
+The air insert has a 6 mm waist, 8 mm flares and a 3.9 mm bore, with 0.3 mm
+entry chamfers opening to 4.5 mm. A closed-bottom, four-slot splash baffle is
+integral with the lid below it: 13 mm OD, 9 mm ID, 3 mm total drop, 1 mm floor,
+and 3 × 2 mm side slots. The tube tip ends 1 mm above that floor. The open
+9 mm chamber clears the TPU's lower flare. These short straight tubes need
+no bends, fittings, separate sleeves or added fasteners.
+
+## Fit evidence
+
+[fit-review.json](fit-review.json) records checks against the frozen native
+appliance assembly, including its wiring and other tube runs. Candidate solids
+are valid; each lid and the modified foam cup remains one solid. The lid/body
+and lid/gasket intersections are zero. The B-fill stem clears the PETG and has
+the intended small interference with its compliant TPU bore. The new baffles
+remain 4 mm above the float's highest upright position.
+
+The A air tube clears the water pump by 4.637 mm. B clears the nearest liquid
+line by 4.389 mm. Both air tubes clear their proposed casing passages by 0.6 mm.
+The 45° seats and flush faces are checked in native CAD; the inline views use
+meshes of those same candidate solids. The pump's display mesh has its own
+[provenance record](pump-display-provenance.json); native B-rep, rather than
+display triangles, supplies the fit clearances.
+
+Printed grip, insertion feel, splash performance and installed airflow remain
+unmeasured. These previews establish nominal geometry and assembly clearance.
+
+## Reproduce the review
+
+Run from the repository root, using an isolated output directory:
+
+```sh
+tools/cad-venv/bin/python hardware/printed-parts/cold-core/reservoir/tube-vent-proposal/read_context.py --output .cache/reservoir-tube-vent-context
+tools/cad-venv/bin/python hardware/printed-parts/cold-core/reservoir/tube-vent-proposal/proposal.py --native-cache .cache/reservoir-tube-vent-context --output .cache/reservoir-tube-vent-candidate
+tools/cad-venv/bin/python hardware/printed-parts/cold-core/reservoir/tube-vent-proposal/preview_mesh.py --source .cache/reservoir-tube-vent-candidate --output .cache/reservoir-tube-vent-meshes.b85
+```
+
+The scripts write only these explicit output locations. No production STEP,
+print recipe or printer job is changed.

@@ -61,6 +61,14 @@ not qualify a finished assembly. The [manufacturer sheet](https://assets.freshwa
 specifies that tube's ID and 25 mm minimum bend radius. No dedicated vent line
 or new tube grip is present in the current printed geometry.
 
+The [3D review proposal](tube-vent-proposal/README.md) provides independent
+straight air tubes through integral casing passages, with flush TPU grips in
+the reservoir lids and slotted splash baffles below. Its tube ends stand
+6 mm above the insulation in the equipment space. This initial candidate
+contains no filter; Derek has deferred filtering until the tube and grommet
+arrangement is evaluated. Native geometry and assembly clearances are
+recorded separately from physical fit and airflow qualification.
+
 The ø[13 mm](FILTER_D) × [0.5 mm](FILTER_T) filter is a standard lab-filter disc; laminated PTFE on PET support, held in 100-packs at $0.13/filter delivered.
 
 ## Per-build parts
