@@ -16,6 +16,12 @@ V-B uses the core lid's upright wall east of the PCB. The PCB and pump also
 remain on the core. Back-top carries the sidewall PSU, both raised relays,
 meter and its continuous inlet, holder and insulation.
 
+V-F's outlet, V-E's inlet and V-I's outlet each take a trimmed ATEU44W stem
+elbow. Their reservoir tubes pass below the funnel frame with 1.225 mm nominal
+air. The 4 mm flavor-A line crosses at Y156/Z288.5; the J9 ribbon's free fore
+bends pass below it. The fixed cable passage, connectors, valve poses and
+paired reservoir anchors retain their selected stations.
+
 ## Fixed front manifold and pump dock
 
 The eight front valves stand on two decks in `enclosure-front-top`. Four pump

@@ -234,15 +234,16 @@ def route_specifications(station):
 
     def route(identifier, source, destination, points, *, radius=14., spool='black',
               od=6.35, inside=4.24, source_depth=12.7, destination_depth=12.7,
-              suffix=None, note=''):
+              suffix=None, prefix=None, note=''):
         a, ua, _ = station(*source)
         b, ub, _ = station(*destination)
         outside = [a, *points, b] if suffix is None else [a, *points]
-        full = [_sub(a, _mul(ua, source_depth)), *outside]
+        full = ([_sub(a, _mul(ua, source_depth)), *outside] if prefix is None else
+                [prefix[-1]['points_mm'][-1], *points, *([b] if suffix is None else [])])
         if suffix is None:
             full.append(_sub(b, _mul(ub, destination_depth)))
         try:
-            segments = _rounded(full, radius)
+            segments = [*(prefix or []), *_rounded(full, radius)]
             if suffix is not None:
                 segments.extend(suffix)
                 segments.append(_line(b, _sub(b, _mul(ub, destination_depth))))
@@ -287,7 +288,7 @@ def route_specifications(station):
                        (-40., 380., hairpin_height),
                        (-40., start_a[1], hairpin_height), hairpin_start], r)
     route('fluid-18', ('valve-v-g', 'outlet'), ('bulkhead-flavor-a', 'tube-in'),
-          [(73.82, 166.24, 292.), (35., 135., 289.), (-68., 135., 289.),
+          [(73.82, 166.24, 292.5), (35., 156., 288.5), (-68., 156., 288.5),
            (-87., 198., 286.5), a_lane],
           radius=r, spool='flavor-black-4mm', od=4., inside=2.5, source_depth=10.,
           destination_depth=10.,
@@ -353,7 +354,15 @@ def route_specifications(station):
           suffix=[b_draw_rise_first, b_draw_rise_second, b_draw_down],
           note='B draw completes its westward offset aft of the drain cradle, then enters V-H from the fore corridor')
     b_fill = station('foam-assembly', 'reservoir-b-fill')[0]
-    route('fluid-24', ('valve-v-i', 'outlet'), ('foam-assembly', 'reservoir-b-fill'),
-          [(-82.1, 108.04, 296.175), (-82.1, 180., 296.175),
-           (-82.1, 245., 296.175), (b_fill[0], b_fill[1], 296.175)], destination_depth=0.)
+    b_fill_start, b_fill_axis, _ = station('reservoir-b-fill-turn', 'socket')
+    b_fill_cruise = 295.5
+    b_fill_rise, _ = _lane_transition(
+        b_fill_start, (0., 0., b_fill_cruise-b_fill_start[2]), 14.)
+    route('fluid-24', ('reservoir-b-fill-turn', 'socket'), ('foam-assembly', 'reservoir-b-fill'),
+          [(b_fill_start[0], 180., b_fill_cruise), (b_fill_start[0], 245., b_fill_cruise),
+           (b_fill[0], b_fill[1], b_fill_cruise)],
+          source_depth=16.891, destination_depth=0.,
+          prefix=[_line(_sub(b_fill_start, _mul(b_fill_axis, 16.891)), b_fill_start),
+                  *b_fill_rise],
+          note='B fill leaves the trimmed V-I stem elbow, rises gently below the frame and reaches the existing upper JG socket')
     return specifications

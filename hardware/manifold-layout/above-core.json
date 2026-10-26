@@ -2578,6 +2578,81 @@
         440.46479999999997,
         306.3760478805363
       ]
+    },
+    "reservoir-a-fill-turn": {
+      "rotation": [
+        [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation_mm": [
+        82.1,
+        108.04,
+        288.2202
+      ],
+      "geometry": "stem-elbow-trimmed"
+    },
+    "reservoir-a-draw-turn": {
+      "rotation": [
+        [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation_mm": [
+        22.35,
+        108.04,
+        288.2202
+      ],
+      "geometry": "stem-elbow-trimmed"
+    },
+    "reservoir-b-fill-turn": {
+      "rotation": [
+        [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "translation_mm": [
+        -82.1,
+        108.04,
+        288.2202
+      ],
+      "geometry": "stem-elbow-trimmed"
     }
   },
   "ceiling_pockets": {
@@ -6959,7 +7034,9 @@
       "native_routes": [
         "fluid-14"
       ],
-      "fittings": [],
+      "fittings": [
+        "reservoir-a-fill-turn"
+      ],
       "made": "drawn"
     },
     "fluid-16": {
@@ -6968,7 +7045,9 @@
       "native_routes": [
         "fluid-16"
       ],
-      "fittings": [],
+      "fittings": [
+        "reservoir-a-draw-turn"
+      ],
       "made": "drawn"
     },
     "fluid-24": {
@@ -6977,7 +7056,9 @@
       "native_routes": [
         "fluid-24"
       ],
-      "fittings": [],
+      "fittings": [
+        "reservoir-b-fill-turn"
+      ],
       "made": "drawn"
     },
     "fluid-26": {

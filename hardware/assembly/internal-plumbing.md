@@ -303,11 +303,11 @@ unbroken through its plain core guide. Only the connection points and
 paired-anchor centres/axes are fixed; the bends and displayed lengths between
 them illustrate routing and may change to clear installed hardware and
 wires. The current drawn warm spans are
-[472.625 mm](RESERVOIR_A_FILL_WARM) for `fluid-14` fill and
-[414.018 mm](RESERVOIR_A_DRAW_WARM) for `fluid-16` draw. Each includes a
-12.7 mm estimated front-valve receiving allowance. For the physical blank,
+[450.588 mm](RESERVOIR_A_FILL_WARM) for `fluid-14` fill and
+[391.974 mm](RESERVOIR_A_DRAW_WARM) for `fluid-16` draw. Each includes the
+16.891 mm receiving length in its front-valve ATEU44W stem elbow. For the physical blank,
 continue through the guide to the reservoir fill bore or dip-tube tip and
-replace the valve allowance with its actual fully seated insertion mark.
+replace the socket allowance with its actual fully seated insertion mark.
 The guide adds no fitting, insertion or cut. Tighten the pump screws before
 threading the draw tube; remove that tube for the affected screw's service.
 The nominal closed tie path is
@@ -315,10 +315,18 @@ The nominal closed tie path is
 unqualified. The [route record](/hardware/mechanical-qualification/enclosure-above-core/reservoir-a-route-review.json)
 preserves the selected line/arc definitions and contact scope.
 
+V-F's outlet, V-E's inlet and V-I's outlet each receive one ATEU44W stem
+elbow on front-top. Cut each male stem to its valve's marked tube stop
+(12.7 mm nominal in CAD), seat it fully and point the tube socket aft. The
+reservoir tubes leave these sockets below the funnel frame, then rise gently
+to the Z295.5 free runs. The nominal tube/frame gap is 1.225 mm. Flavor A's
+4 mm crossover runs at Y156/Z288.5; the J9 display ribbon's free bends pass
+below it while the printed cable mouth and connector positions remain fixed.
+
 Reservoir B fill turns through two actual compact fittings below the lid and emerges aft of the PCB at X−33/Y287.5. Its lower stem enters the reservoir cap's existing fill bore; the approximately 15.6 mm exposed link excludes the unmeasured JG socket insertion. Assemble the pair and link in the open cup before the top cap's pour ([cold core](cold-core.md) §3); the lid then closes over the lower 3.05 mm and upper 2.4 mm retaining covers. The upper cover has 0.25 mm nominal CAD air to the PCB tails; physical fit and retention load remain unqualified. A-fill and B-draw use shallow guide offsets. Dress and tag the front-top ends on the bench, and connect the remaining ends through the funnel opening before the frame goes in. Keep access to the lower returns' elbows and their collets.
 
-The drawn `fluid-24` span is [247.400 mm](RESERVOIR_B_FILL_WARM), including
-the 12.7 mm nominal V-I receiving allowance and ending at the upper JG socket
+The drawn `fluid-24` span is [225.698 mm](RESERVOIR_B_FILL_WARM), including
+the 16.891 mm receiving length in V-I's stem elbow and ending at the upper JG socket
 face. Add the actual JG receiving mark when preparing that physical tube;
 the cap's separate short link is another piece. Terminate both J10 power
 leads on the loose PCB before fastening the board to the core, then connect

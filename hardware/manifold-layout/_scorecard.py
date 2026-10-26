@@ -494,6 +494,8 @@ def _selected_mounts() -> tuple:
         "reservoir-b-fill-lower": ("foam-assembly", "cap-pocket"),
         "reservoir-b-fill-upper": ("foam-assembly", "cap-pocket"),
     }
+    fittings.update({name: (host, 'collet')
+                     for name, (host, _port) in bom.reservoir_gate_elbow_hosts().items()})
     import _above_core_mounts
     fittings.update({name: (datum['parent'], 'cradle')
                      for name, datum in _above_core_mounts.union_support_datums().items()
@@ -1185,11 +1187,14 @@ def selected_mate_contacts(a, placed, clashes) -> dict:
         'carbonator-fold': ('discharge-chain', selected_parts.check_reference().socket_depth('outlet')),
         'soda-stem-elbow': ('bulkhead-carb', 12.7),
     }
+    from above_core_bom import reservoir_gate_elbow_hosts
+    stem_hosts.update({name: (host, 12.7)
+                       for name, (host, _port) in reservoir_gate_elbow_hosts().items()})
     tube_hosts = (
-        ('tube-fluid-16', 'valve-v-e', 'inlet', 12.7),
-        ('tube-fluid-14', 'valve-v-f', 'outlet', 12.7),
+        ('tube-fluid-16', 'reservoir-a-draw-turn', 'socket', 16.891),
+        ('tube-fluid-14', 'reservoir-a-fill-turn', 'socket', 16.891),
         ('tube-fluid-26', 'valve-v-h', 'inlet', 12.7),
-        ('tube-fluid-24', 'valve-v-i', 'outlet', 12.7),
+        ('tube-fluid-24', 'reservoir-b-fill-turn', 'socket', 16.891),
         ('tube-above-core-water-in', 'bulkhead-water', 'inboard', 12.7),
         ('tube-soda-meter-bulkhead', 'digiten-flow', 'outlet', 15.7),
         ('tube-soda-core-rise', 'digiten-flow', 'inlet', 15.7),

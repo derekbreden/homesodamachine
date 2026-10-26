@@ -67,6 +67,13 @@ motor tab. J9 shares that rear mouth and rises through the display chimney;
 both ribbons are bare inside the print and SIG-7's braid ends aft of the mouth.
 The passage centres come from the same native geometry that cuts front-top.
 
+J9's free fore descent stations lie at Z281.5 beneath the 4 mm flavor-A
+crossover. The selected J1-positive-C/D free bends have a 0.6 mm west,
+0.8 mm aft offset. Electrical endpoints and the integral passage stations
+retain their selected coordinates. The
+[scoped native routing reading](../mechanical-qualification/enclosure-above-core/stem-elbow-routing-review.json)
+records these six free-bend changes with the front reservoir stem elbows.
+
 The compressor's three conductors share one jacket corridor below the funnel
 frame, through the gap between the valve banks and into the compressor bay.
 The annular jacket uses an 8 mm outside-diameter layout allowance. The three

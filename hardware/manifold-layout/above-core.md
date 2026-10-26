@@ -43,13 +43,25 @@ lower row flavor A/B outlet. C14 is at X−68.5/Z330 and RJ11 at X−30/Z274.376
 Reservoir A's selected routes are defined in
 [reservoir-a-routes.json](reservoir-a-routes.json). The fore seat's tube
 centres are X50.5/58 at Y205; the aft pair is X86.5/94 at Y304, all at
-Z259.5. The `fluid-14` fill warm span is 472.625 mm and the `fluid-16`
-draw span is 414.018 mm, including the estimated front-valve receiving ends.
+Z259.5. The `fluid-14` fill warm span is 450.588 mm and the `fluid-16`
+draw span is 391.974 mm, including the 16.891 mm receiving ends in their
+front-valve ATEU44W stem elbows.
 Each continues through its plain core guide without a joint or physical cut.
 Only the connection points and paired-anchor centres/axes are fixed;
 intervening bends, radii and displayed lengths illustrate routing and may
 change for installed clearance. The actual open seats and nominal retaining
 ties define the local fit where a tube bends away from an anchor.
+
+The front valves V-F, V-E and V-I carry three ATEU44W stem elbows, trimmed to
+their receiving valves' actual tube-stop marks (12.7 mm nominal in CAD).
+Their upper crowns clear the funnel frame by 3.933 mm. The reservoir tubes'
+upper free runs are centred at Z295.5 and clear the frame by 1.225 mm.
+The 4 mm flavor-A crossover lies at Y156/Z288.5. J9's four free fore dressing
+stations are at Z281.5; its fixed printed-passage stations are retained.
+The first free J1-positive-C/D bends are offset 0.6 mm west and 0.8 mm aft.
+All electrical endpoints and hardware mounting stations retain their selected
+coordinates. The scoped native routing record is
+[stem-elbow-routing-review.json](../mechanical-qualification/enclosure-above-core/stem-elbow-routing-review.json).
 
 ## Core entries
 
