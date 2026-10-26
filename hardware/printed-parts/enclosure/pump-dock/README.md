@@ -57,13 +57,14 @@ open; finish the display and loom before installing the funnel frame.
 
 Each wing, hook and carrier occupies the same Y14.25–82.265 span, 68.015 mm long.
 Its receiver spans Y14–82.515, leaving 0.25 mm at each end. The upper section joins the
-wing to the retainer continuously; the lower 21 mm is free to flex, with a 16 mm straight
-spring above its 5 mm hook and a 2.4 mm wall. The upper root is at Z186.195.
+wing to the retainer continuously; the lower [21 mm](PUMP_SNAP_LENGTH) is free to flex,
+with a 16 mm straight spring above its 5 mm hook and a [2.4 mm](PUMP_SNAP_WING_THICK) wall.
+The upper root is at Z = [186.195 mm](PUMP_SNAP_ROOT_Z).
 The hooks flex inward during upward insertion and spring outward into the receivers.
-The receiver floors at Z165.045 leave the specified 0.15 mm static allowance below the
+The receiver floors at Z = [165.045 mm](PUMP_SNAP_RECEIVER_FLOOR_Z) leave the specified 0.15 mm static allowance below the
 nominal hook-bearing faces at Z165.195.
 
-One 4.5 mm-wide opening at each receiver’s Y centre admits a small flathead screwdriver
+One [4.5 mm](PUMP_SNAP_PORT_WIDTH)-wide opening at each receiver’s Y centre admits a small flathead screwdriver
 from below. Its roof is one continuous 45° face, from X99.6/Z174.8 to X104.5/Z169.9 on the
 right, mirrored on the left, leaving 3 mm of outer wall. This solid corbel supports the
 roof while preserving the blade path. Use the receiver’s lower edge as the fulcrum to

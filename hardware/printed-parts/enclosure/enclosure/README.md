@@ -1143,17 +1143,18 @@ rails keep their complete working runs aft of the tee wall.
 
 Each side’s carrier, wing and lower hook share the retainer’s complete Y14.25–82.265 span.
 The receiver spans Y14–82.515, leaving 0.25 mm at either end. The upper region joins the
-wing to the retainer continuously down to Z186.195. Below it, a 2.4 mm wall supplies 16 mm
-of straight spring above a 5 mm hook: 21 mm total lower wing height. The roots remain at
+wing to the retainer continuously down to Z = [186.195 mm](PUMP_SNAP_ROOT_Z). Below it,
+a [2.4 mm](PUMP_SNAP_WING_THICK) wall supplies 16 mm of straight spring above a 5 mm hook:
+[21 mm](PUMP_SNAP_LENGTH) total lower wing height. The roots remain at
 the top and the retaining hooks at the bottom.
 
 Each hook’s nominal outer face is at |X|99.5. Its relaxed tip spreads outward 0.35 mm;
 the assembly representation uses 0.10 mm at the seated receiver back, |X|99.6. The resulting
 0.25 mm displacement is a geometric spring fit, without a force or lifetime qualification.
-The hook-bearing plane stays at Z165.195. Its receiver floor is at Z165.045, providing
+The hook-bearing plane stays at Z165.195. Its receiver floor is at Z = [165.045 mm](PUMP_SNAP_RECEIVER_FLOOR_Z), providing
 0.15 mm of static allowance without moving the fitted pump seats.
 
-One centred, 4.5 mm Y-wide screwdriver opening per side passes through |X|98.5–104.5
+One centred, [4.5 mm](PUMP_SNAP_PORT_WIDTH) Y-wide screwdriver opening per side passes through |X|98.5–104.5
 and opens from Z160.25. On the right its roof is one continuous 45° face from
 X99.6/Z174.8 to X104.5/Z169.9; the left is mirrored. This corbel leaves 3 mm of outer wall
 and preserves the blade’s path to the wing. The receiver’s lower edge supplies the fulcrum

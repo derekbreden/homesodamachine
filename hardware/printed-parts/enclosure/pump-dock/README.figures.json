@@ -35,6 +35,11 @@
     "DOCK_UPPER_TUBE": "15.25 mm",
     "DOCK_WALL_AFT_Y": "Y98.336",
     "DOCK_WALL_T": "15.821 mm",
+    "PUMP_SNAP_LENGTH": "21 mm",
+    "PUMP_SNAP_PORT_WIDTH": "4.5 mm",
+    "PUMP_SNAP_RECEIVER_FLOOR_Z": "165.045 mm",
+    "PUMP_SNAP_ROOT_Z": "186.195 mm",
+    "PUMP_SNAP_WING_THICK": "2.4 mm",
     "PUMP_TEE_COUNT": "4"
   }
 }
