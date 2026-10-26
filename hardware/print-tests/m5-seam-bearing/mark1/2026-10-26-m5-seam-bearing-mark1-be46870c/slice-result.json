@@ -1,0 +1,290 @@
+{
+  "error_string": "Success.",
+  "export_time": 4267,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 1014,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 230.75364685058594,
+        "Custom": 303.76165771484375,
+        "Flush": 15.0,
+        "Gap infill": 12.286467552185059,
+        "Inner wall": 1298.95556640625,
+        "Internal solid infill": 654.598876953125,
+        "Outer wall": 1719.6524658203125,
+        "Sparse infill": 9344.1923828125,
+        "Top surface": 126.7327880859375,
+        "Travel": 1562.0982666015625,
+        "Undefined": 1554.1583251953125
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 153.34556579589844,
+          "total_used_g": 153.34556579589844
+        }
+      ],
+      "generate_support_material_time": 2690,
+      "id": 1,
+      "infill_time": 6732,
+      "layer_filament_change": 0,
+      "main_predication": 14932.439453125,
+      "make_perimeters_time": 5010,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 14.0,
+            "height": 12.600000381469727,
+            "width": 20.0,
+            "x": 122.5,
+            "y": 93.0,
+            "z": 2.651363573136223e-10
+          },
+          "id": 5,
+          "name": "m5-d48-h12",
+          "triangle_count": 18204
+        },
+        {
+          "bbox": {
+            "depth": 14.0,
+            "height": 12.600000381469727,
+            "width": 20.0,
+            "x": 152.5,
+            "y": 93.0,
+            "z": 2.651363573136223e-10
+          },
+          "id": 9,
+          "name": "m5-d49-h12",
+          "triangle_count": 14042
+        },
+        {
+          "bbox": {
+            "depth": 14.0,
+            "height": 12.600000381469727,
+            "width": 20.0,
+            "x": 182.5,
+            "y": 93.0,
+            "z": 2.651363573136223e-10
+          },
+          "id": 13,
+          "name": "m5-d50-h12",
+          "triangle_count": 16776
+        },
+        {
+          "bbox": {
+            "depth": 14.0,
+            "height": 12.600000381469727,
+            "width": 20.0,
+            "x": 122.5,
+            "y": 117.0,
+            "z": 2.651363573136223e-10
+          },
+          "id": 17,
+          "name": "m5-d51-h12",
+          "triangle_count": 9158
+        },
+        {
+          "bbox": {
+            "depth": 14.0,
+            "height": 12.600000381469727,
+            "width": 20.0,
+            "x": 152.5,
+            "y": 117.0,
+            "z": 2.651363573136223e-10
+          },
+          "id": 21,
+          "name": "m5-d52-h12",
+          "triangle_count": 13552
+        },
+        {
+          "bbox": {
+            "depth": 14.0,
+            "height": 12.600000381469727,
+            "width": 20.0,
+            "x": 182.5,
+            "y": 117.0,
+            "z": 2.651363573136223e-10
+          },
+          "id": 25,
+          "name": "m5-d53-h12",
+          "triangle_count": 20492
+        },
+        {
+          "bbox": {
+            "depth": 14.0,
+            "height": 12.600000381469727,
+            "width": 20.0,
+            "x": 122.5,
+            "y": 141.0,
+            "z": 2.651363573136223e-10
+          },
+          "id": 29,
+          "name": "m5-d54-h12",
+          "triangle_count": 8704
+        },
+        {
+          "bbox": {
+            "depth": 14.0,
+            "height": 12.600000381469727,
+            "width": 20.0,
+            "x": 152.5,
+            "y": 141.0,
+            "z": 2.651363573136223e-10
+          },
+          "id": 33,
+          "name": "m5-d55-h12",
+          "triangle_count": 14970
+        },
+        {
+          "bbox": {
+            "depth": 14.0,
+            "height": 12.600000381469727,
+            "width": 20.0,
+            "x": 182.5,
+            "y": 141.0,
+            "z": 2.651363573136223e-10
+          },
+          "id": 37,
+          "name": "m5-d56-h12",
+          "triangle_count": 20222
+        },
+        {
+          "bbox": {
+            "depth": 14.0,
+            "height": 40.599998474121094,
+            "width": 20.0,
+            "x": 122.5,
+            "y": 165.0,
+            "z": -6.054534651411814e-11
+          },
+          "id": 41,
+          "name": "m5-d48-h40",
+          "triangle_count": 18008
+        },
+        {
+          "bbox": {
+            "depth": 14.0,
+            "height": 40.599998474121094,
+            "width": 20.0,
+            "x": 152.5,
+            "y": 165.0,
+            "z": -6.054534651411814e-11
+          },
+          "id": 45,
+          "name": "m5-d49-h40",
+          "triangle_count": 13946
+        },
+        {
+          "bbox": {
+            "depth": 14.0,
+            "height": 40.599998474121094,
+            "width": 20.0,
+            "x": 182.5,
+            "y": 165.0,
+            "z": -6.054534651411814e-11
+          },
+          "id": 49,
+          "name": "m5-d50-h40",
+          "triangle_count": 16700
+        },
+        {
+          "bbox": {
+            "depth": 14.0,
+            "height": 40.599998474121094,
+            "width": 20.0,
+            "x": 122.5,
+            "y": 189.0,
+            "z": -6.054534651411814e-11
+          },
+          "id": 53,
+          "name": "m5-d51-h40",
+          "triangle_count": 9172
+        },
+        {
+          "bbox": {
+            "depth": 14.0,
+            "height": 40.599998474121094,
+            "width": 20.0,
+            "x": 152.5,
+            "y": 189.0,
+            "z": -6.054534651411814e-11
+          },
+          "id": 57,
+          "name": "m5-d52-h40",
+          "triangle_count": 13532
+        },
+        {
+          "bbox": {
+            "depth": 14.0,
+            "height": 40.599998474121094,
+            "width": 20.0,
+            "x": 182.5,
+            "y": 189.0,
+            "z": -6.054534651411814e-11
+          },
+          "id": 61,
+          "name": "m5-d53-h40",
+          "triangle_count": 20386
+        },
+        {
+          "bbox": {
+            "depth": 14.0,
+            "height": 40.599998474121094,
+            "width": 20.0,
+            "x": 122.5,
+            "y": 213.0,
+            "z": -6.054534651411814e-11
+          },
+          "id": 65,
+          "name": "m5-d54-h40",
+          "triangle_count": 8710
+        },
+        {
+          "bbox": {
+            "depth": 14.0,
+            "height": 40.599998474121094,
+            "width": 20.0,
+            "x": 152.5,
+            "y": 213.0,
+            "z": -6.054534651411814e-11
+          },
+          "id": 69,
+          "name": "m5-d55-h40",
+          "triangle_count": 14992
+        },
+        {
+          "bbox": {
+            "depth": 14.0,
+            "height": 40.599998474121094,
+            "width": 20.0,
+            "x": 182.5,
+            "y": 213.0,
+            "z": -6.054534651411814e-11
+          },
+          "id": 73,
+          "name": "m5-d56-h40",
+          "triangle_count": 20008
+        }
+      ],
+      "sliced_time": 30686,
+      "sliced_time_with_cache": 15538,
+      "total_predication": 15258.2607421875,
+      "triangle_count": 271574,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 100.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 2
+}

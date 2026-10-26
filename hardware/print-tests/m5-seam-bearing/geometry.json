@@ -1,0 +1,619 @@
+{
+  "scope": "Nominal passage comparison for the acquired SVLING M5x50 screws; physical fit is unmeasured.",
+  "screw_stock": "hardware/ledger/inventory.md, Fab fixture: SVLING M5 x 0.8 x 50, B0GHNQFZYR",
+  "production_bore_mm": 5.6,
+  "parts": [
+    {
+      "name": "m5-d48-h12",
+      "diameter_mm": 4.8,
+      "bearing_length_mm": 12.0,
+      "height_mm": 12.6,
+      "underside_lead_in_mm": 0.6,
+      "bore_axis": [
+        0,
+        0,
+        1
+      ],
+      "bore_center_xy_mm": [
+        -3,
+        0
+      ],
+      "bounds_mm": [
+        [
+          -10.0,
+          -7.0,
+          0.0
+        ],
+        [
+          10.0,
+          7.0,
+          12.600000381469727
+        ]
+      ],
+      "cad_valid": true,
+      "solid_count": 1,
+      "mesh_watertight": true,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d48-h12.stl",
+      "stl_sha256": "30d0fa619ed0b162e333fcabe3502dfe0632446822e8d656feb2db51c4828273",
+      "step_sha256": "cac223567efb335b9ab1071df0bd4a777e3d1c01cb6560a8e87739970b64a99b"
+    },
+    {
+      "name": "m5-d49-h12",
+      "diameter_mm": 4.9,
+      "bearing_length_mm": 12.0,
+      "height_mm": 12.6,
+      "underside_lead_in_mm": 0.6,
+      "bore_axis": [
+        0,
+        0,
+        1
+      ],
+      "bore_center_xy_mm": [
+        -3,
+        0
+      ],
+      "bounds_mm": [
+        [
+          -10.0,
+          -7.0,
+          0.0
+        ],
+        [
+          10.0,
+          7.0,
+          12.600000381469727
+        ]
+      ],
+      "cad_valid": true,
+      "solid_count": 1,
+      "mesh_watertight": true,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d49-h12.stl",
+      "stl_sha256": "a819388187de139a08019730bdcd92ffb6a6fd5500550050cc1c51a6bccd98be",
+      "step_sha256": "eb17ba52cca26be7f4a361e65be429ce31f8fbb5e8610824eebf55d2c0cb3525"
+    },
+    {
+      "name": "m5-d50-h12",
+      "diameter_mm": 5.0,
+      "bearing_length_mm": 12.0,
+      "height_mm": 12.6,
+      "underside_lead_in_mm": 0.6,
+      "bore_axis": [
+        0,
+        0,
+        1
+      ],
+      "bore_center_xy_mm": [
+        -3,
+        0
+      ],
+      "bounds_mm": [
+        [
+          -10.0,
+          -7.0,
+          0.0
+        ],
+        [
+          10.0,
+          7.0,
+          12.600000381469727
+        ]
+      ],
+      "cad_valid": true,
+      "solid_count": 1,
+      "mesh_watertight": true,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d50-h12.stl",
+      "stl_sha256": "8a9a02f0af7acfc8fcaf3d926bde408a0b63e4557c7b469f9b385d9c36b25501",
+      "step_sha256": "2cbf051b96cff02cda3514196b3599c7b7c99cb96cee1e50eb07526037b4e887"
+    },
+    {
+      "name": "m5-d51-h12",
+      "diameter_mm": 5.1,
+      "bearing_length_mm": 12.0,
+      "height_mm": 12.6,
+      "underside_lead_in_mm": 0.6,
+      "bore_axis": [
+        0,
+        0,
+        1
+      ],
+      "bore_center_xy_mm": [
+        -3,
+        0
+      ],
+      "bounds_mm": [
+        [
+          -10.0,
+          -7.0,
+          0.0
+        ],
+        [
+          10.0,
+          7.0,
+          12.600000381469727
+        ]
+      ],
+      "cad_valid": true,
+      "solid_count": 1,
+      "mesh_watertight": true,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d51-h12.stl",
+      "stl_sha256": "5833880a890c7b4cc1bdf99829c48169007013484a499c7a7ded71c592f19e25",
+      "step_sha256": "3c3ae6319960fc1ca5ac32a5e7ccf6926cc0f327a69b9ec0f5e345f8e076d73f"
+    },
+    {
+      "name": "m5-d52-h12",
+      "diameter_mm": 5.2,
+      "bearing_length_mm": 12.0,
+      "height_mm": 12.6,
+      "underside_lead_in_mm": 0.6,
+      "bore_axis": [
+        0,
+        0,
+        1
+      ],
+      "bore_center_xy_mm": [
+        -3,
+        0
+      ],
+      "bounds_mm": [
+        [
+          -10.0,
+          -7.0,
+          0.0
+        ],
+        [
+          10.0,
+          7.0,
+          12.600000381469727
+        ]
+      ],
+      "cad_valid": true,
+      "solid_count": 1,
+      "mesh_watertight": true,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d52-h12.stl",
+      "stl_sha256": "e763de420a3aa53b34431d29bf3f90659a2a27222e27136cf7de16ae936a2273",
+      "step_sha256": "a152afb3b19fe75c07794cd79c90c8b83672d8bf06418c971c591d25e214662a"
+    },
+    {
+      "name": "m5-d53-h12",
+      "diameter_mm": 5.3,
+      "bearing_length_mm": 12.0,
+      "height_mm": 12.6,
+      "underside_lead_in_mm": 0.6,
+      "bore_axis": [
+        0,
+        0,
+        1
+      ],
+      "bore_center_xy_mm": [
+        -3,
+        0
+      ],
+      "bounds_mm": [
+        [
+          -10.0,
+          -7.0,
+          0.0
+        ],
+        [
+          10.0,
+          7.0,
+          12.600000381469727
+        ]
+      ],
+      "cad_valid": true,
+      "solid_count": 1,
+      "mesh_watertight": true,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d53-h12.stl",
+      "stl_sha256": "74bde10c6f470a70874f2f439d094749209cf18fa24002522aa93d9640da644c",
+      "step_sha256": "559a864165d984e38ef9508d763d30d2ad98ef289264c442bde3c8a41d44321e"
+    },
+    {
+      "name": "m5-d54-h12",
+      "diameter_mm": 5.4,
+      "bearing_length_mm": 12.0,
+      "height_mm": 12.6,
+      "underside_lead_in_mm": 0.6,
+      "bore_axis": [
+        0,
+        0,
+        1
+      ],
+      "bore_center_xy_mm": [
+        -3,
+        0
+      ],
+      "bounds_mm": [
+        [
+          -10.0,
+          -7.0,
+          0.0
+        ],
+        [
+          10.0,
+          7.0,
+          12.600000381469727
+        ]
+      ],
+      "cad_valid": true,
+      "solid_count": 1,
+      "mesh_watertight": true,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d54-h12.stl",
+      "stl_sha256": "d004624deeb5c09beed449825c3350c2782b9eaeafa0112bd3e3f0fa2b38d053",
+      "step_sha256": "ea84468a7a9a992f244c313a6180b6d1405dc36a45675bc2081ac5d9c85e9b1a"
+    },
+    {
+      "name": "m5-d55-h12",
+      "diameter_mm": 5.5,
+      "bearing_length_mm": 12.0,
+      "height_mm": 12.6,
+      "underside_lead_in_mm": 0.6,
+      "bore_axis": [
+        0,
+        0,
+        1
+      ],
+      "bore_center_xy_mm": [
+        -3,
+        0
+      ],
+      "bounds_mm": [
+        [
+          -10.0,
+          -7.0,
+          0.0
+        ],
+        [
+          10.0,
+          7.0,
+          12.600000381469727
+        ]
+      ],
+      "cad_valid": true,
+      "solid_count": 1,
+      "mesh_watertight": true,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d55-h12.stl",
+      "stl_sha256": "8f7d3b69023d6d143a557272878a50932580bbbd0d855273752c7ef015eb2e65",
+      "step_sha256": "bd39ceeeac7ec7624a71e968caf3f4dea37dafa4fa586a162f11d5e074ed7cf8"
+    },
+    {
+      "name": "m5-d56-h12",
+      "diameter_mm": 5.6,
+      "bearing_length_mm": 12.0,
+      "height_mm": 12.6,
+      "underside_lead_in_mm": 0.6,
+      "bore_axis": [
+        0,
+        0,
+        1
+      ],
+      "bore_center_xy_mm": [
+        -3,
+        0
+      ],
+      "bounds_mm": [
+        [
+          -10.0,
+          -7.0,
+          0.0
+        ],
+        [
+          10.0,
+          7.0,
+          12.600000381469727
+        ]
+      ],
+      "cad_valid": true,
+      "solid_count": 1,
+      "mesh_watertight": true,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d56-h12.stl",
+      "stl_sha256": "52bb1c6b76a49a059f766ae6406e87d7f912003caaef688b7d4afad517a63fe5",
+      "step_sha256": "e211edcab441fe2866c8afcab14c605e0ae7d812cae0b06f05291046a6994adb"
+    },
+    {
+      "name": "m5-d48-h40",
+      "diameter_mm": 4.8,
+      "bearing_length_mm": 40.0,
+      "height_mm": 40.6,
+      "underside_lead_in_mm": 0.6,
+      "bore_axis": [
+        0,
+        0,
+        1
+      ],
+      "bore_center_xy_mm": [
+        -3,
+        0
+      ],
+      "bounds_mm": [
+        [
+          -10.0,
+          -7.0,
+          0.0
+        ],
+        [
+          10.0,
+          7.0,
+          40.599998474121094
+        ]
+      ],
+      "cad_valid": true,
+      "solid_count": 1,
+      "mesh_watertight": true,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d48-h40.stl",
+      "stl_sha256": "edecbf5855a37ba58251c5df5371115c636323b70f1c1f826582b9d3afd6d631",
+      "step_sha256": "22d547d96db04fa3e8a883d844cadc6367f50b10b6fde97dd12a6b0c3d54fa8b"
+    },
+    {
+      "name": "m5-d49-h40",
+      "diameter_mm": 4.9,
+      "bearing_length_mm": 40.0,
+      "height_mm": 40.6,
+      "underside_lead_in_mm": 0.6,
+      "bore_axis": [
+        0,
+        0,
+        1
+      ],
+      "bore_center_xy_mm": [
+        -3,
+        0
+      ],
+      "bounds_mm": [
+        [
+          -10.0,
+          -7.0,
+          0.0
+        ],
+        [
+          10.0,
+          7.0,
+          40.599998474121094
+        ]
+      ],
+      "cad_valid": true,
+      "solid_count": 1,
+      "mesh_watertight": true,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d49-h40.stl",
+      "stl_sha256": "431850a6907948eb6f96a9733131703e9b38854e36cc48f626f9f1531c7c9d91",
+      "step_sha256": "3944430d868601b36fcd7933de38ed5077207a423a31e5bd5659e9a65a04a114"
+    },
+    {
+      "name": "m5-d50-h40",
+      "diameter_mm": 5.0,
+      "bearing_length_mm": 40.0,
+      "height_mm": 40.6,
+      "underside_lead_in_mm": 0.6,
+      "bore_axis": [
+        0,
+        0,
+        1
+      ],
+      "bore_center_xy_mm": [
+        -3,
+        0
+      ],
+      "bounds_mm": [
+        [
+          -10.0,
+          -7.0,
+          0.0
+        ],
+        [
+          10.0,
+          7.0,
+          40.599998474121094
+        ]
+      ],
+      "cad_valid": true,
+      "solid_count": 1,
+      "mesh_watertight": true,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d50-h40.stl",
+      "stl_sha256": "ab6ae3924ccdaa018afbbc02e03d168e7385ef502dfb10fb6f07c0b9d02ad077",
+      "step_sha256": "0c289600dff008dba8c7f4c7fe6a3939d87c03ef496bd1f0aad39baa4725ea0c"
+    },
+    {
+      "name": "m5-d51-h40",
+      "diameter_mm": 5.1,
+      "bearing_length_mm": 40.0,
+      "height_mm": 40.6,
+      "underside_lead_in_mm": 0.6,
+      "bore_axis": [
+        0,
+        0,
+        1
+      ],
+      "bore_center_xy_mm": [
+        -3,
+        0
+      ],
+      "bounds_mm": [
+        [
+          -10.0,
+          -7.0,
+          0.0
+        ],
+        [
+          10.0,
+          7.0,
+          40.599998474121094
+        ]
+      ],
+      "cad_valid": true,
+      "solid_count": 1,
+      "mesh_watertight": true,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d51-h40.stl",
+      "stl_sha256": "d898e09ac6582514d464b7d1f1ed02f77f1b7265475c1ec42d79cb7fd9f01584",
+      "step_sha256": "5e209736be31f382cf6821f0f0fff8cf2eb489dd1c6fdaf37c625936d536a166"
+    },
+    {
+      "name": "m5-d52-h40",
+      "diameter_mm": 5.2,
+      "bearing_length_mm": 40.0,
+      "height_mm": 40.6,
+      "underside_lead_in_mm": 0.6,
+      "bore_axis": [
+        0,
+        0,
+        1
+      ],
+      "bore_center_xy_mm": [
+        -3,
+        0
+      ],
+      "bounds_mm": [
+        [
+          -10.0,
+          -7.0,
+          0.0
+        ],
+        [
+          10.0,
+          7.0,
+          40.599998474121094
+        ]
+      ],
+      "cad_valid": true,
+      "solid_count": 1,
+      "mesh_watertight": true,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d52-h40.stl",
+      "stl_sha256": "81d7090329f6497b024e52f2bc0ad8acf446fc03b574007bebae670840657027",
+      "step_sha256": "401c40b4d5f1a2a4701ccfd88ea3f1f16681506a3853e63fef0bbc800768f4c1"
+    },
+    {
+      "name": "m5-d53-h40",
+      "diameter_mm": 5.3,
+      "bearing_length_mm": 40.0,
+      "height_mm": 40.6,
+      "underside_lead_in_mm": 0.6,
+      "bore_axis": [
+        0,
+        0,
+        1
+      ],
+      "bore_center_xy_mm": [
+        -3,
+        0
+      ],
+      "bounds_mm": [
+        [
+          -10.0,
+          -7.0,
+          0.0
+        ],
+        [
+          10.0,
+          7.0,
+          40.599998474121094
+        ]
+      ],
+      "cad_valid": true,
+      "solid_count": 1,
+      "mesh_watertight": true,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d53-h40.stl",
+      "stl_sha256": "cd3e44cc413aad3bc65e27a87411e7900b9df0062facb980460be30b103fa92e",
+      "step_sha256": "bd43961ca0a4604e899ccf6bdf88cdd9ae641a340a78c692e6e56e05a9b2f0a2"
+    },
+    {
+      "name": "m5-d54-h40",
+      "diameter_mm": 5.4,
+      "bearing_length_mm": 40.0,
+      "height_mm": 40.6,
+      "underside_lead_in_mm": 0.6,
+      "bore_axis": [
+        0,
+        0,
+        1
+      ],
+      "bore_center_xy_mm": [
+        -3,
+        0
+      ],
+      "bounds_mm": [
+        [
+          -10.0,
+          -7.0,
+          0.0
+        ],
+        [
+          10.0,
+          7.0,
+          40.599998474121094
+        ]
+      ],
+      "cad_valid": true,
+      "solid_count": 1,
+      "mesh_watertight": true,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d54-h40.stl",
+      "stl_sha256": "dcf0e349b2ccce7fe1d2a70ae3ea0c7e2161efcbdf28c2694e1ab6bad58c2ba7",
+      "step_sha256": "a3fabcccd12bf90ed4443beb58b4dff5e8ec84d162cc4a5df0c97ab5c7f09cd5"
+    },
+    {
+      "name": "m5-d55-h40",
+      "diameter_mm": 5.5,
+      "bearing_length_mm": 40.0,
+      "height_mm": 40.6,
+      "underside_lead_in_mm": 0.6,
+      "bore_axis": [
+        0,
+        0,
+        1
+      ],
+      "bore_center_xy_mm": [
+        -3,
+        0
+      ],
+      "bounds_mm": [
+        [
+          -10.0,
+          -7.0,
+          0.0
+        ],
+        [
+          10.0,
+          7.0,
+          40.599998474121094
+        ]
+      ],
+      "cad_valid": true,
+      "solid_count": 1,
+      "mesh_watertight": true,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d55-h40.stl",
+      "stl_sha256": "ff4a5662677c86d9ca323f070d9743eb7f17af51bb1b51d58773c74dc9514e91",
+      "step_sha256": "761a4735e6caff65fd5360540fb57221cd9840dc873bafb3e46d76b05da64c98"
+    },
+    {
+      "name": "m5-d56-h40",
+      "diameter_mm": 5.6,
+      "bearing_length_mm": 40.0,
+      "height_mm": 40.6,
+      "underside_lead_in_mm": 0.6,
+      "bore_axis": [
+        0,
+        0,
+        1
+      ],
+      "bore_center_xy_mm": [
+        -3,
+        0
+      ],
+      "bounds_mm": [
+        [
+          -10.0,
+          -7.0,
+          0.0
+        ],
+        [
+          10.0,
+          7.0,
+          40.599998474121094
+        ]
+      ],
+      "cad_valid": true,
+      "solid_count": 1,
+      "mesh_watertight": true,
+      "stl": "hardware/print-tests/m5-seam-bearing/parts/m5-d56-h40.stl",
+      "stl_sha256": "af38d5ed676b3c50435286860bb54bdd6dd8d18f05b014147c0ec2ed06db4062",
+      "step_sha256": "62d175274eaad1557222dcfe0a3ef4bedbb60599d8faeb6134d97d050ff0dbd5"
+    }
+  ]
+}
