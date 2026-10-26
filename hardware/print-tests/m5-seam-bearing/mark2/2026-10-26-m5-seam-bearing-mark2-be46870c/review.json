@@ -1,0 +1,144 @@
+{
+  "archive": "hardware/print-tests/m5-seam-bearing/mark2/2026-10-26-m5-seam-bearing-mark2-be46870c/2026-10-26-m5-seam-bearing-mark2-be46870c.gcode.3mf",
+  "archive_sha256": "ca8cf893e73d96d47bcf6e14b363ac5fd24aad347ace944f072de00ca00a43fd",
+  "gcode_md5_matches": true,
+  "emitted_z_trim_mm": [
+    0.0,
+    0.02
+  ],
+  "expected_emitted_textured_trim_mm": 0.02,
+  "layers": 169,
+  "project_check": true,
+  "bead_envelope_plate_mm": [
+    [
+      122.356366,
+      92.856366
+    ],
+    [
+      202.643634,
+      227.143634
+    ]
+  ],
+  "bed_margins_mm": {
+    "left": 122.356366,
+    "front": 92.856366,
+    "right": 122.35636600000001,
+    "back": 92.85636600000001
+  },
+  "minimum_bed_margin_mm": 92.856366,
+  "bed_border_mm": 80,
+  "fine_and_transition_bands": [],
+  "support_roads": 0,
+  "show_face_minimum_bead_clearance_mm": null,
+  "show_face_contacts": [],
+  "tie_window_support_crossings": [],
+  "ribbon_support_crossings": [],
+  "ribbons": [],
+  "fine_band_unbacked_roads": [],
+  "first_second_layer_stack": {
+    "1901": {
+      "second_layer_model_bead_area_mm2": 256.711155823406,
+      "fraction_over_first_layer": 0.929969908489628,
+      "second_layer_centerline_outside_first_mm": 21.84689980992443
+    },
+    "1902": {
+      "second_layer_model_bead_area_mm2": 255.88148891300028,
+      "fraction_over_first_layer": 0.928916611970303,
+      "second_layer_centerline_outside_first_mm": 22.11342456400442
+    },
+    "1903": {
+      "second_layer_model_bead_area_mm2": 255.03860532992886,
+      "fraction_over_first_layer": 0.9283180926748595,
+      "second_layer_centerline_outside_first_mm": 22.18869942125522
+    },
+    "1904": {
+      "second_layer_model_bead_area_mm2": 254.17201352260733,
+      "fraction_over_first_layer": 0.9276945872834871,
+      "second_layer_centerline_outside_first_mm": 22.384538661192614
+    },
+    "1905": {
+      "second_layer_model_bead_area_mm2": 253.02155923378302,
+      "fraction_over_first_layer": 0.9269747452162753,
+      "second_layer_centerline_outside_first_mm": 22.675816043301573
+    },
+    "1906": {
+      "second_layer_model_bead_area_mm2": 252.17401445808972,
+      "fraction_over_first_layer": 0.9263313780369009,
+      "second_layer_centerline_outside_first_mm": 23.206165279718544
+    },
+    "1907": {
+      "second_layer_model_bead_area_mm2": 251.31869468633894,
+      "fraction_over_first_layer": 0.9256724697579924,
+      "second_layer_centerline_outside_first_mm": 23.68097765881238
+    },
+    "1908": {
+      "second_layer_model_bead_area_mm2": 250.41730549875604,
+      "fraction_over_first_layer": 0.9249889410328067,
+      "second_layer_centerline_outside_first_mm": 23.574072025485144
+    },
+    "1909": {
+      "second_layer_model_bead_area_mm2": 249.48602299778997,
+      "fraction_over_first_layer": 0.9242756812412101,
+      "second_layer_centerline_outside_first_mm": 23.791838210171324
+    },
+    "1910": {
+      "second_layer_model_bead_area_mm2": 256.7128474985735,
+      "fraction_over_first_layer": 0.929963665303873,
+      "second_layer_centerline_outside_first_mm": 21.856548925639068
+    },
+    "1911": {
+      "second_layer_model_bead_area_mm2": 255.88774909090267,
+      "fraction_over_first_layer": 0.9289175226552421,
+      "second_layer_centerline_outside_first_mm": 22.113644539416335
+    },
+    "1912": {
+      "second_layer_model_bead_area_mm2": 255.03796057302281,
+      "fraction_over_first_layer": 0.9283229311091522,
+      "second_layer_centerline_outside_first_mm": 22.188305818553463
+    },
+    "1913": {
+      "second_layer_model_bead_area_mm2": 254.17155811847923,
+      "fraction_over_first_layer": 0.9276952485151855,
+      "second_layer_centerline_outside_first_mm": 22.384334351081918
+    },
+    "1914": {
+      "second_layer_model_bead_area_mm2": 253.02474427211916,
+      "fraction_over_first_layer": 0.9269691302626719,
+      "second_layer_centerline_outside_first_mm": 22.68307199451245
+    },
+    "1915": {
+      "second_layer_model_bead_area_mm2": 252.1746796300639,
+      "fraction_over_first_layer": 0.9263267387954338,
+      "second_layer_centerline_outside_first_mm": 23.205500078934303
+    },
+    "1916": {
+      "second_layer_model_bead_area_mm2": 251.3130809702882,
+      "fraction_over_first_layer": 0.9256761884720526,
+      "second_layer_centerline_outside_first_mm": 23.674907754226975
+    },
+    "1917": {
+      "second_layer_model_bead_area_mm2": 250.41679115939277,
+      "fraction_over_first_layer": 0.9249902635756414,
+      "second_layer_centerline_outside_first_mm": 23.575670106636696
+    },
+    "1918": {
+      "second_layer_model_bead_area_mm2": 249.48605185620403,
+      "fraction_over_first_layer": 0.9242708812739334,
+      "second_layer_centerline_outside_first_mm": 23.79258574335978
+    }
+  },
+  "solid_host_deposition": [],
+  "support_topology": {},
+  "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+  "checks": {
+    "archive": true,
+    "z_trim": true,
+    "bed_border": true,
+    "fine_and_transition_bands": true,
+    "show_faces_support_free": true,
+    "tie_windows_support_free": true,
+    "ribbons_support_free_and_printed": true,
+    "solid_hosts_sampled": true
+  },
+  "pass": true
+}

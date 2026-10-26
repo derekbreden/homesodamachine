@@ -12,7 +12,7 @@ smaller sizes deliberately include candidates that may require turning the screw
 The number engraved on each top is its nominal bore diameter in millimetres. The
 short blocks are at the front of the plate; the tall blocks are behind them.
 
-![Labeled sample placement on Mark1](plate-map.png)
+![Labeled sample placement on Mark2](plate-map.png)
 
 The bores print vertically, matching the front quadrants' +Z build and back-top's
 inverted vertical bores. Each plain block is 20 × 14 mm, with its label beside the
@@ -20,11 +20,17 @@ bore. A 0.6 mm conical lead-in opens the underside, excluding the first bed laye
 hole-edge bulge from the straight bearing. Total block heights are 12.6 and 40.6 mm.
 The top entry and complete straight bearing retain the specified diameter.
 
-## Mark1 print
+## Mark2 print
+
+Mark2 accepted **task 1378515009** at **17:32:05 CDT on October 26, 2026**.
+The [launch receipt](mark2/2026-10-26-m5-seam-bearing-mark2-be46870c/launch.json)
+identifies the submitted archive and its reviewed G-code hash. The send dialog
+verified left external PET-GF mapping, Timelapse On, Bed Leveling On, Flow
+Calibration Auto and Nozzle Offset Calibration Auto. Physical results are pending.
 
 The plate uses the current enclosure PET-GF recipe: **black Polymaker Fiberon
 PET-GF15 on the fixed left hardened 0.4 mm Standard hotend**, Textured PEI,
-Mark1's +0.18 mm user trim, 0.20 mm first layer and 0.24 mm later layers.
+Mark2's +0.04 mm user trim, 0.20 mm first layer and 0.24 mm later layers.
 There are two wall loops. Each small coupon uses 100% zig-zag infill to represent
 the enclosure's locally dense bearing hosts. Tree(auto)/Default, automatic brim,
 and the current localized cooling remain selected. Neither production geometry
@@ -34,7 +40,7 @@ nor the shared recipe is changed.
 print-only archive and manual review. The native estimate is **4 h 14 min and
 153.35 g**. All 18 objects are included, there are no emitted support paths,
 and the complete bead envelope stays at least **92.85 mm** from the usable bed
-edge. The emitted textured-plate trim is +0.16 mm. Preparation sends no command to a printer. The intended setup
+edge. The emitted textured-plate trim is +0.02 mm. Preparation sends no command to a printer. The intended setup
 requires the left 0.4 mm hardened hotend and black PET-GF; the clear-PETG reservoir's
 left 0.8 mm setup is a different configuration.
 
@@ -42,7 +48,7 @@ Generate and prepare manually:
 
 ```sh
 HSM_BUILD_SUPERSEDE=0 tools/cad-venv/bin/python hardware/print-tests/m5-seam-bearing/build.py
-tools/cad-venv/bin/python hardware/print-tests/m5-seam-bearing/prepare.py
+tools/cad-venv/bin/python hardware/print-tests/m5-seam-bearing/prepare.py Mark2
 ```
 
 ## Compare with the screws already on hand

@@ -1,0 +1,49 @@
+Mark2: FINISH, job 1375153599
+Imported m5-seam-bearing-mark2-print-only.gcode.3mf: m5-d48-h12, m5-d49-h12, m5-d50-h12, m5-d51-h12, m5-d52-h12, m5-d53-h12, m5-d54-h12, m5-d55-h12, m5-d56-h12, m5-d48-h40, m5-d49-h40, m5-d50-h40, m5-d51-h40, m5-d52-h40, m5-d53-h40, m5-d54-h40, m5-d55-h40, m5-d56-h40
+Dialog: Mark2; external spools mapped; Timelapse On, Auto bed leveling On, Flow dynamic calibration Auto, Nozzle Offset Calibration Auto
+Sending attempt 1: one foreground mouse click
+Printer reply: {"command": "project_file", "result": "SUCCESS", "reason": "SUCCESS", "err_code": 0}
+{
+  "printer": "Mark2",
+  "observed_at": "2026-10-26T22:32:05.613363+00:00",
+  "archive": {
+    "name": "m5-seam-bearing-mark2-print-only.gcode.3mf",
+    "sha256": "1758bb01bb70298a374a8998e3a9e8096db059a3fb695e386487e8e878c0844d",
+    "gcode_sha256": "9a36276e30f41b5c7100760e5bfa9f8d32d34061f186723e63fd1e88704d2fa9",
+    "slots": {
+      "1": {
+        "type": "PET-CF",
+        "colour": "161616"
+      }
+    },
+    "objects": [
+      "m5-d48-h12",
+      "m5-d49-h12",
+      "m5-d50-h12",
+      "m5-d51-h12",
+      "m5-d52-h12",
+      "m5-d53-h12",
+      "m5-d54-h12",
+      "m5-d55-h12",
+      "m5-d56-h12",
+      "m5-d48-h40",
+      "m5-d49-h40",
+      "m5-d50-h40",
+      "m5-d51-h40",
+      "m5-d52-h40",
+      "m5-d53-h40",
+      "m5-d54-h40",
+      "m5-d55-h40",
+      "m5-d56-h40"
+    ]
+  },
+  "printer_task_id": "1378515009",
+  "gcode_state": "PREPARE",
+  "subtask_name": "m5-seam-bearing-mark2-print-only.gcode.3mf",
+  "print_error": 0,
+  "hms": [],
+  "layer_num": 889,
+  "total_layer_num": 889,
+  "mc_remaining_time": 0
+}
+Launch record: /Users/derekbredensteiner/Developer/homesodamachine/.cache/printer-control/Mark2-1378515009-launch.json

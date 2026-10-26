@@ -1,0 +1,149 @@
+{
+  "printers": [
+    {
+      "printer": "H2C",
+      "observed_at": "2026-10-26T22:31:34.278392+00:00",
+      "job_id": "1377101665",
+      "gcode_state": "FINISH",
+      "subtask_name": "Left_reservoir_and_cap_-_PETG_0.24_mm",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 833,
+      "total_layer_num": 833,
+      "bed_target_temper": 0.0,
+      "nozzle_target_temper": 0.0,
+      "vir_slot": [
+        {
+          "bed_temp": "0",
+          "bed_temp_type": "0",
+          "cali_idx": -1,
+          "cols": [
+            "000000FF"
+          ],
+          "ctype": 2,
+          "drying_temp": "0",
+          "drying_time": "0",
+          "id": "254",
+          "nozzle_temp_max": "290",
+          "nozzle_temp_min": "260",
+          "remain": 0,
+          "tag_uid": "0000000000000000",
+          "total_len": 330000,
+          "tray_color": "000000FF",
+          "tray_diameter": "1.75",
+          "tray_id_name": "",
+          "tray_info_idx": "GFT01",
+          "tray_sub_brands": "",
+          "tray_type": "PET-CF",
+          "tray_uuid": "00000000000000000000000000000000",
+          "tray_weight": "0",
+          "xcam_info": "000000000000000000000000"
+        },
+        {
+          "bed_temp": "0",
+          "bed_temp_type": "0",
+          "cali_idx": -1,
+          "cols": [
+            "FFFFFFFF"
+          ],
+          "ctype": 2,
+          "drying_temp": "0",
+          "drying_time": "0",
+          "id": "255",
+          "nozzle_temp_max": "250",
+          "nozzle_temp_min": "200",
+          "remain": 0,
+          "tag_uid": "0000000000000000",
+          "total_len": 330000,
+          "tray_color": "FFFFFFFF",
+          "tray_diameter": "1.75",
+          "tray_id_name": "",
+          "tray_info_idx": "GFU03",
+          "tray_sub_brands": "",
+          "tray_type": "TPU",
+          "tray_uuid": "00000000000000000000000000000000",
+          "tray_weight": "0",
+          "xcam_info": "000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "printer": "Mark2",
+      "observed_at": "2026-10-26T22:31:34.580228+00:00",
+      "job_id": "1375153599",
+      "gcode_state": "FINISH",
+      "subtask_name": "2026-10-25-foam-shell-mark2-bdc6554c.gcode.3mf",
+      "print_error": 0,
+      "hms": [
+        {
+          "attr": 201326848,
+          "code": 131095
+        }
+      ],
+      "layer_num": 889,
+      "total_layer_num": 889,
+      "bed_target_temper": 0.0,
+      "nozzle_target_temper": 0.0,
+      "vir_slot": [
+        {
+          "bed_temp": "0",
+          "bed_temp_type": "0",
+          "cali_idx": -1,
+          "cols": [
+            "161616FF"
+          ],
+          "ctype": 2,
+          "drying_temp": "0",
+          "drying_time": "0",
+          "id": "254",
+          "nozzle_temp_max": "290",
+          "nozzle_temp_min": "260",
+          "remain": 0,
+          "tag_uid": "0000000000000000",
+          "total_len": 330000,
+          "tray_color": "161616FF",
+          "tray_diameter": "1.75",
+          "tray_id_name": "",
+          "tray_info_idx": "GFT01",
+          "tray_sub_brands": "",
+          "tray_type": "PET-CF",
+          "tray_uuid": "00000000000000000000000000000000",
+          "tray_weight": "0",
+          "xcam_info": "000000000000000000000000"
+        },
+        {
+          "bed_temp": "0",
+          "bed_temp_type": "0",
+          "cali_idx": -1,
+          "cols": [
+            "161616FF"
+          ],
+          "ctype": 2,
+          "drying_temp": "0",
+          "drying_time": "0",
+          "id": "255",
+          "nozzle_temp_max": "250",
+          "nozzle_temp_min": "200",
+          "remain": 0,
+          "tag_uid": "0000000000000000",
+          "total_len": 330000,
+          "tray_color": "161616FF",
+          "tray_diameter": "1.75",
+          "tray_id_name": "",
+          "tray_info_idx": "GFU04",
+          "tray_sub_brands": "",
+          "tray_type": "TPU",
+          "tray_uuid": "00000000000000000000000000000000",
+          "tray_weight": "0",
+          "xcam_info": "000000000000000000000000"
+        }
+      ]
+    }
+  ],
+  "startup_spacing_basis": "Mark1 has completed its October 26 reservoir job; its recorded launch at 09:18:30 CDT is more than three minutes before this send.",
+  "hms_interpretation": {
+    "code": "0C00-0100-0002-0017",
+    "meaning": "Nozzle camera lens is dirty; AI monitoring may be affected.",
+    "source": "hardware/printed-parts/faucet/finish-coupons/2026-10-15-edge-supports/base-mark2/startup-observation.json"
+  }
+}

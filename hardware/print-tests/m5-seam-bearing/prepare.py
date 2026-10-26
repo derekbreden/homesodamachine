@@ -1,5 +1,6 @@
-"""Manual Mark1 preparation using the enclosure's current recipe; never sends."""
+"""Manual printer-specific preparation using the enclosure recipe; never sends."""
 from pathlib import Path
+import argparse
 import importlib.util
 import json
 import sys
@@ -21,24 +22,27 @@ def compact_layout(footprints, low, high, spacing, yaw):
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('printer', choices=('Mark1', 'Mark2'), nargs='?', default='Mark1')
+    printer = parser.parse_args().printer
     geometry = json.loads((HERE / 'geometry.json').read_text())
     base = json.loads((TRIAL / 'pieces.json').read_text())
-    nozzle = base['pieces']['front-top']['nozzle']
+    nozzle = base['pieces']['front-top' if printer == 'Mark1' else 'back-top']['nozzle']
     spec = {key: base[key] for key in ('schema', 'profile', 'filament_mapping')}
-    spec['printers'] = {'Mark1': base['printers']['Mark1']}
+    spec['printers'] = {printer: base['printers'][printer]}
     spec['pieces'] = {'m5-seam-bearing': dict(
-        printer='Mark1', nozzle=nozzle, material='Polymaker Fiberon PET-GF15, black',
+        printer=printer, nozzle=nozzle, material='Polymaker Fiberon PET-GF15, black',
         plate_border_mm=80, spacing_mm=10,
         settings={'sparse_infill_density': {'value': '100%',
                   'reason': 'These small coupons represent the local dense seam-bearing hosts.'},
                   'sparse_infill_pattern': {'value': 'zig-zag',
                   'reason': 'Match the enclosure seam hosts, with the ordinary two wall loops.'}},
         parts=[dict(stl=p['stl'], name=p['name']) for p in geometry['parts']])}
-    path = HERE / 'plate-spec.json'
+    path = HERE / ('plate-spec.json' if printer == 'Mark1' else 'plate-spec-mark2.json')
     path.write_text(json.dumps(spec, indent=2) + '\n')
     trial.SPEC_PATH = path
     trial.layout = compact_layout
-    folder = trial.prepare('m5-seam-bearing', output=HERE / 'mark1')
+    folder = trial.prepare('m5-seam-bearing', output=HERE / printer.lower())
     archive = trial.slice_project(folder)
     import review
     result = review.review(folder, audit=False)
