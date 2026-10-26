@@ -1,0 +1,119 @@
+{
+  "views": [
+    {
+      "name": "routing",
+      "caption": "Three stem elbows and revised reservoir lines clear the unchanged frame. View cropped at Y235.",
+      "before": "routing-before.webp",
+      "after": "routing-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 582.1,
+          "y": 411,
+          "r": 15.8,
+          "label": "Stem elbow",
+          "at": [
+            82.1,
+            120,
+            288.22
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          577.5616117884957,
+          -82.52640505221248,
+          165.77288897463967
+        ],
+        "target": [
+          0,
+          165,
+          286
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 416.79796043440285,
+        "far": 1132.4247211356096,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            0,
+            235,
+            0
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "reservoir-a-fill-turn",
+        "reservoir-a-draw-turn",
+        "reservoir-b-fill-turn",
+        "tube-fluid-14",
+        "tube-fluid-16",
+        "tube-fluid-24"
+      ],
+      "ghost": [],
+      "only": [
+        "funnel-frame",
+        "valve-v-e",
+        "valve-v-f",
+        "valve-v-i",
+        "tube-fluid-14",
+        "tube-fluid-16",
+        "tube-fluid-24",
+        "tube-fluid-18",
+        "reservoir-a-fill-turn",
+        "reservoir-a-draw-turn",
+        "reservoir-b-fill-turn"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "0f0b923cf993501653402e5f2ceb589fe461de09ed4bf971ba34cf53809cb63f",
+          "commit": "4de3f429e080bc2def6f778fc58afefc1a43be46",
+          "taken": "2026-10-26T07:09:51.931Z",
+          "published": false
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "b4e29c9df0b1dc8a3f96a0f37eec1f0274c69a08e36b2cad5218eacbfc975c57",
+          "commit": "8a40499b44aa1a10b1fd4f9a05eca515153da73d",
+          "published": true
+        }
+      },
+      "changed": [
+        "reservoir-a-draw-turn",
+        "reservoir-a-fill-turn",
+        "reservoir-b-fill-turn",
+        "tube-fluid-14",
+        "tube-fluid-18",
+        "tube-fluid-16",
+        "tube-fluid-24",
+        "wire-J9-V12",
+        "wire-J9-GND",
+        "wire-J9-A",
+        "wire-J9-B",
+        "wire-J1-positive-D",
+        "wire-J1-positive-C"
+      ],
+      "withinMeshing": [
+        "cold-core/reservoir-a-cap"
+      ]
+    }
+  ]
+}
