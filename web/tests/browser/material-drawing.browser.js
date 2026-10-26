@@ -1,17 +1,21 @@
 import { test, before, after } from "node:test";
 import assert from "node:assert/strict";
 import { createRequire } from "node:module";
+import fs from "node:fs";
+import path from "node:path";
 import { start } from "../../server.js";
 
 const require = createRequire(new URL("../../../tools/render/package.json", import.meta.url));
 const materialUrl = "/3d#material:HSM-000009";
 const searchUrl = materialUrl + "?panel=materials";
 const capFile = "cut-parts/carbonation/endcaps-circular/endcap-circular-2hole.step";
+const reviewDir = path.resolve(".cache/material-workspace");
 let browser, server, baseUrl;
 before(async () => {
   browser = await require("puppeteer").launch({ headless: true });
   ({ server } = await start({ dev: true, port: 0 }));
   baseUrl = `http://127.0.0.1:${server.address().port}`;
+  fs.mkdirSync(reviewDir, { recursive: true });
 });
 after(async () => {
   await browser?.close();
@@ -82,7 +86,7 @@ test("3D thumbnails and model navigation start closed after an open materials pa
   } finally { await page.close(); }
 });
 
-test("the breadcrumb fills the title row above the drawing switch on desktop and phone", async () => {
+test("one workspace toolbar contains navigation, view mode and document controls on desktop and phone", async () => {
   const page = await browser.newPage();
   const parentFile = "printed-parts/calibration/soda-studies/the-pour.step";
   try {
@@ -96,15 +100,15 @@ test("the breadcrumb fills the title row above the drawing switch on desktop and
     const layout = await page.evaluate(() => {
       const crumb = document.querySelector(".cad-crumb.show").getBoundingClientRect();
       const switcher = document.querySelector(".material-view-switch").getBoundingClientRect();
-      return { top: crumb.top - document.querySelector(".cad-stage").getBoundingClientRect().top,
-        gap: switcher.top - crumb.bottom,
+      const header = document.querySelector(".cad-workspace-header").getBoundingClientRect();
+      return { height: header.height, sameRow: Math.abs((crumb.top + crumb.bottom) - (switcher.top + switcher.bottom)) < 2,
         titleHidden: getComputedStyle(document.querySelector(".cv-filename")).display === "none" };
     });
-    assert.equal(layout.top, 12);
-    assert.ok(layout.gap >= 0 && layout.gap <= 20, "the title row should sit directly above the switch");
+    assert.ok(layout.height <= 80 && layout.sameRow, "navigation and view mode should share one toolbar row");
     assert.equal(layout.titleHidden, true);
     await page.click(".material-view-switch button:last-child");
     await drawingReady(page);
+    await page.screenshot({ path: path.join(reviewDir, "desktop-drawing.png") });
     assert.equal(await page.$eval(".cad-crumb.show", crumb => getComputedStyle(crumb).visibility), "visible");
     await page.click(".cad-crumb-step");
     await materialReady(page, parentFile);
@@ -115,9 +119,9 @@ test("the breadcrumb fills the title row above the drawing switch on desktop and
     assert.equal(await page.$eval(".cad-crumb.show", crumb => {
       const rect = crumb.getBoundingClientRect();
       const toggle = document.querySelector(".materials-toggle").getBoundingClientRect();
-      const switcher = document.querySelector(".material-view-switch").getBoundingClientRect();
-      return rect.right < toggle.left && rect.bottom <= switcher.top;
-    }), true, "phone breadcrumbs should clear Materials and the view switch");
+      const header = document.querySelector(".cad-workspace-header").getBoundingClientRect();
+      return rect.right <= toggle.left && header.height <= 132 && document.documentElement.scrollWidth <= innerWidth;
+    }), true, "phone navigation should clear Materials and use at most two toolbar rows");
   } finally { await page.close(); }
 });
 
@@ -144,11 +148,9 @@ test("material search opens the pane and features a working drawing beside the p
     await materialReady(page);
     assert.ok(await page.$(".cad-workspace.materials-open"));
     assert.equal(await page.$eval(".materials-toggle", button => button.getAttribute("aria-expanded")), "true");
-    const featured = await page.$eval(".material-drawing-feature", link => ({
-      bottom: link.getBoundingClientRect().bottom,
-      tabs: document.querySelector(".material-tabs").getBoundingClientRect().top,
-    }));
-    assert.ok(featured.bottom < featured.tabs, "drawing should be above the relationship tabs");
+    assert.match(await page.$eval(".material-tabs [aria-selected=true]", tab => tab.textContent), /Documents/);
+    assert.equal(await page.$eval(".material-document:first-child", link => link.classList.contains("material-drawing-feature")), true);
+    assert.equal(await page.$eval(".material-tabs", tabs => tabs.textContent.includes("BOM (0)")), false);
     const pose = await cameraPose(page);
     const modelCanvas = await page.$("canvas.cad-viewport");
     await page.click(".material-drawing-feature");
@@ -156,7 +158,19 @@ test("material search opens the pane and features a working drawing beside the p
     assert.equal(await page.$eval(".material-view-switch button[aria-pressed=true]", button => button.textContent), "Drawing");
     assert.match(await frame.$eval("#pdf-text", text => text.textContent), /END-CAP-01/);
     assert.equal(await frame.$("#site-nav"), null, "embedded reading should keep the parent viewer's navigation");
-    assert.equal(await frame.$eval(".pdf-heading a", link => link.textContent), "Open full drawing");
+    assert.equal(await frame.$eval(".pdf-heading", heading => getComputedStyle(heading).display), "none");
+    assert.equal(await frame.$eval(".pdf-toolbar", toolbar => getComputedStyle(toolbar).display), "none");
+    assert.equal(await frame.$eval(".pdf-viewport", viewport => Math.abs(viewport.clientHeight - innerHeight) <= 1), true);
+    await page.click(".drawing-menu > summary");
+    assert.equal(await page.$eval(".drawing-pages", pages => pages.hidden), true, "single-sheet drawings need no pagination");
+    assert.match(await page.$eval(".drawing-download", link => link.href), /\?download=1$/);
+    assert.match(await page.$eval(".drawing-full-link", link => link.href), /endcap-circular-2hole-drawing\.pdf$/);
+    await page.keyboard.press("Escape");
+    assert.equal(await page.$eval(".drawing-menu", menu => menu.open), false);
+    assert.equal(await page.$eval(".material-view-switch button[aria-pressed=true]", button => button.textContent), "Drawing");
+    await page.click(".drawing-menu > summary");
+    await frame.click(".pdf-viewport");
+    await page.waitForFunction(() => !document.querySelector(".drawing-menu").open);
     const fit = await frame.$eval(".pdf-paper", paper => ({
       width: paper.clientWidth, height: paper.clientHeight,
       viewportWidth: paper.parentElement.clientWidth, viewportHeight: paper.parentElement.clientHeight,
@@ -164,6 +178,12 @@ test("material search opens the pane and features a working drawing beside the p
     }));
     assert.ok(fit.width <= fit.viewportWidth && fit.height <= fit.viewportHeight, "the initial drawing view should fit the entire sheet");
     assert.ok(fit.scrollWidth <= fit.viewportWidth, "fit page should not introduce horizontal scrolling");
+    await page.click(".drawing-zoom button:last-child");
+    await frame.waitForFunction(width => parseFloat(document.querySelector("#pdf-canvas").style.width) > width * 1.15
+      && document.querySelector(".pdf-viewport").getAttribute("aria-busy") === "false", {}, fit.width);
+    await page.click(".drawing-zoom button:nth-child(2)");
+    await frame.waitForFunction(width => Math.abs(parseFloat(document.querySelector("#pdf-canvas").style.width) - width) < 2
+      && document.querySelector(".pdf-viewport").getAttribute("aria-busy") === "false", {}, fit.width);
     assert.ok(await page.$(".cad-workspace.materials-open"), "desktop pane should remain open beside the drawing");
     await page.click(".material-view-switch button:first-child");
     assert.deepEqual(await cameraPose(page), pose);
@@ -206,8 +226,10 @@ test("phone searches start closed; manually opened materials and drawing preserv
     assert.equal(await page.$(".cad-workspace.materials-open"), null);
     assert.equal(await page.$eval(".materials-toggle", button => button.getAttribute("aria-expanded")), "false");
     assert.equal(await frame.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
-    await frame.click("#pdf-zoom-in");
+    await page.click(".drawing-zoom button:last-child");
     await frame.waitForFunction(() => document.querySelector(".pdf-viewport").getAttribute("aria-busy") === "false");
+    await page.screenshot({ path: path.join(reviewDir, "phone-drawing.png") });
+    await frame.click(".pdf-viewport");
     await page.keyboard.press("Escape");
     await page.waitForSelector(".cad-wrapper:not(.drawing-open)");
     assert.equal(await page.$eval(".material-view-switch button[aria-pressed=true]", button => button.textContent), "3D");
@@ -222,6 +244,26 @@ test("phone searches start closed; manually opened materials and drawing preserv
     await materialReady(page);
     await assertPane(page, false);
     assert.deepEqual(errors, []);
+  } finally { await page.close(); }
+});
+
+test("narrow phones keep touch controls in two rows and move zoom steps into the drawing menu", async () => {
+  const page = await browser.newPage();
+  try {
+    await page.setViewport({ width: 320, height: 740, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
+    await page.goto(baseUrl + materialUrl, { waitUntil: "domcontentloaded" });
+    await materialReady(page);
+    await page.click(".material-view-switch button:last-child");
+    const frame = await drawingReady(page);
+    assert.equal(await page.$eval(".cad-workspace-header", header => header.getBoundingClientRect().height <= 132), true);
+    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
+    await page.click(".drawing-menu > summary");
+    assert.equal(await page.$eval(".drawing-menu-zoom", controls => getComputedStyle(controls).display), "flex");
+    await page.click(".drawing-menu-zoom button:last-child");
+    await page.waitForFunction(() => document.querySelector(".drawing-zoom button:nth-child(2)").title.includes("125%"));
+    await page.keyboard.press("Escape");
+    await frame.waitForFunction(() => document.querySelector(".pdf-viewport").getAttribute("aria-busy") === "false");
+    await page.screenshot({ path: path.join(reviewDir, "narrow-phone-drawing.png") });
   } finally { await page.close(); }
 });
 
@@ -254,5 +296,35 @@ test("direct links and responsive layout apply the pane rules without storing a 
     await page.goto(baseUrl + searchUrl, { waitUntil: "domcontentloaded" });
     await materialReady(page);
     await assertPane(page, false);
+    await page.click(".material-view-switch button:last-child");
+    await drawingReady(page);
+    assert.equal(await page.$eval(".cad-workspace-header", header => header.getBoundingClientRect().height <= 80), true,
+      "landscape phones should keep one toolbar row");
+    await page.screenshot({ path: path.join(reviewDir, "landscape-phone-drawing.png") });
+  } finally { await page.close(); }
+});
+
+test("multi-page drawings expose pagination in the document menu", async () => {
+  const page = await browser.newPage();
+  const guide = fs.readFileSync("hardware/install-guide/install-guide.pdf");
+  try {
+    await page.setRequestInterception(true);
+    page.on("request", request => {
+      if (request.url().includes("/docs/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.pdf?raw=1")) {
+        void request.respond({ status: 200, contentType: "application/pdf", body: guide });
+      } else void request.continue();
+    });
+    await page.setViewport({ width: 1440, height: 1000 });
+    await page.goto(baseUrl + materialUrl, { waitUntil: "domcontentloaded" });
+    await materialReady(page);
+    await page.click(".material-view-switch button:last-child");
+    const frame = await drawingReady(page);
+    await page.click(".drawing-menu > summary");
+    assert.equal(await page.$eval(".drawing-pages", controls => controls.hidden), false);
+    assert.equal(await page.$eval(".drawing-pages input", input => input.max), "34");
+    await page.click('.drawing-pages button[aria-label="Next page"]');
+    await frame.waitForFunction(() => document.querySelector("#pdf-canvas").dataset.page === "2"
+      && document.querySelector(".pdf-viewport").getAttribute("aria-busy") === "false");
+    assert.equal(await page.$eval(".drawing-pages input", input => input.value), "2");
   } finally { await page.close(); }
 });

@@ -12,10 +12,10 @@ export function makeMaterialSearch({ compact = false } = {}) {
   const host = document.createElement("div");
   host.className = "material-search" + (compact ? " compact" : "");
   const label = document.createElement("label");
-  label.textContent = "Find a material";
+  label.textContent = compact ? "Find material" : "Find a material";
   const input = document.createElement("input");
   input.type = "search";
-  input.placeholder = "Description, part number or alias…";
+  input.placeholder = compact ? "Name or part number…" : "Description, part number or alias…";
   input.setAttribute("aria-label", "Find a material");
   input.autocomplete = "off";
   const results = document.createElement("div");

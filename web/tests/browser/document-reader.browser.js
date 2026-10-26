@@ -142,3 +142,18 @@ test("a PDF fetch failure stays in the app and can be retried", async () => {
     assert.equal(new URL(page.url()).pathname, installGuide);
   } finally { await page.close(); }
 });
+
+test("embedded readers keep their toolbar unless a workspace explicitly owns the controls", async () => {
+  const page = await browser.newPage();
+  try {
+    await page.goto(baseUrl + installGuide + "?embed=1", { waitUntil: "domcontentloaded" });
+    await rendered(page, 1);
+    assert.notEqual(await page.$eval(".pdf-toolbar", toolbar => getComputedStyle(toolbar).display), "none");
+    await page.click("#pdf-next");
+    await rendered(page, 2);
+    await page.goto(baseUrl + installGuide + "?embed=1&controls=host", { waitUntil: "domcontentloaded" });
+    await rendered(page, 1);
+    assert.equal(await page.$eval(".pdf-toolbar", toolbar => getComputedStyle(toolbar).display), "none");
+    assert.equal(await page.$eval(".pdf-viewport", viewport => viewport.clientHeight), await page.evaluate(() => innerHeight));
+  } finally { await page.close(); }
+});

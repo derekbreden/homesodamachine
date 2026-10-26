@@ -17,37 +17,62 @@
 .material-search-results strong { font-size: 0.82rem; font-weight: 600; }
 .material-search-results span { color: var(--text-2); font-size: 0.72rem; }
 .material-catalog-status { grid-column: 1 / -1; color: var(--text-3); }
-.cad-workspace { display: flex; position: relative; width: 100%; height: 100%; min-width: 0; overflow: hidden; }
-.cad-stage { display: flex; flex: 1; flex-direction: column; position: relative; height: 100%; min-height: 0; min-width: 0; }
+.cad-workspace { display: grid; grid-template: auto minmax(0, 1fr) / minmax(0, 1fr); position: relative; width: 100%; height: 100%; min-width: 0; overflow: hidden; }
+.cad-workspace.materials-open { grid-template-columns: minmax(0, 1fr) 370px; }
+.cad-workspace-header { grid-column: 1 / -1; display: flex; align-items: center; gap: 12px; padding: 12px; min-width: 0; position: relative; z-index: 50; background: var(--surface); border-bottom: 1px solid var(--border); }
+.cad-context { display: flex; align-items: center; flex: 1; min-width: 0; font-size: 15px; }
+.cad-title, .cad-drawing-subject { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.cad-title { padding: 8px 0; }
+.cad-drawing-subject { order: 1; font-weight: 600; }
+.cad-context > .cad-crumb { position: static; max-width: 100%; padding: 0; border: 0; background: none; border-radius: 0; font: inherit; -webkit-backdrop-filter: none; backdrop-filter: none; }
+.cad-context .cad-crumb-step, .cad-context .cad-crumb-here { padding: 8px; }
+.cad-context .cad-crumb-step:first-child { padding-left: 0; }
+.cad-view-tools, .cad-view-slot, .cad-document-slot, .cad-header-actions, .drawing-tools { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.cad-view-tools { gap: 12px; }
+.cad-view-tools:not(:has(.material-view-switch:not([hidden]))), .cad-view-slot:has(> [hidden]), .cad-document-slot:has(> [hidden]), .cad-view-slot:empty, .cad-document-slot:empty { display: none; }
+.cad-stage { grid-area: 2 / 1; display: flex; flex-direction: column; position: relative; height: 100%; min-height: 0; min-width: 0; z-index: 0; }
 .cad-stage > .cad-wrapper { flex: 1; width: 100%; height: auto; min-width: 0; min-height: 0; }
-.cad-workspace:not(.materials-open) .cad-crumb { max-width: calc(100% - 180px); }
-.material-view-switch { display: flex; align-self: flex-start; flex-shrink: 0; margin: 60px 12px 12px; border: 1px solid var(--border); border-radius: 7px; overflow: hidden; }
-.material-view-switch button { min-height: 38px; min-width: 68px; padding: 8px 14px; border: 0; background: var(--surface); color: var(--text); font: inherit; font-size: 0.8rem; cursor: pointer; }
+.material-view-switch { display: flex; flex-shrink: 0; border: 1px solid var(--border); border-radius: 7px; overflow: hidden; }
+.material-view-switch button { min-height: 44px; min-width: 52px; padding: 8px 12px; border: 0; background: var(--surface); color: var(--text); font: inherit; font-size: 0.8rem; cursor: pointer; }
 .material-view-switch button[aria-pressed=true] { background: var(--action); color: var(--on-action); font-weight: 600; }
 .material-view-switch button:focus-visible { outline: 2px solid var(--text); outline-offset: -4px; }
-.material-view-switch[hidden], .material-drawing-view[hidden] { display: none; }
+.material-view-switch[hidden], .material-drawing-view[hidden], .drawing-tools[hidden], .drawing-pages[hidden], .cad-drawing-subject[hidden] { display: none; }
+.drawing-zoom { display: flex; border: 1px solid var(--border); border-radius: 7px; overflow: hidden; }
+.drawing-tools button, .workspace-menu > summary { min-width: 44px; min-height: 44px; box-sizing: border-box; padding: 8px; border: 0; background: var(--surface); color: var(--text); font: inherit; font-size: 0.8rem; cursor: pointer; text-align: center; }
+.drawing-tools button:disabled { opacity: .4; cursor: default; }
+.drawing-tools button:hover:not(:disabled), .workspace-menu > summary:hover { background: var(--surface-2); }
+.drawing-tools :focus-visible, .workspace-menu > summary:focus-visible { outline: 2px solid var(--text); outline-offset: -3px; }
+.workspace-menu { position: relative; flex-shrink: 0; }
+.workspace-menu > summary { display: flex; justify-content: center; align-items: center; list-style: none; border: 1px solid var(--border); border-radius: 7px; font-size: 20px; line-height: 1; }
+.workspace-menu > summary::-webkit-details-marker { display: none; }
+.workspace-menu-body { position: absolute; z-index: 60; right: 0; top: calc(100% + 8px); width: max-content; max-width: min(300px, calc(100vw - 48px)); padding: 8px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text); box-shadow: 0 8px 32px #0005; }
+.workspace-menu-body > a, .workspace-menu-body > button { display: flex; align-items: center; min-height: 44px; box-sizing: border-box; padding: 8px 12px; width: 100%; border: 0; border-radius: 4px; color: var(--text); background: transparent; font: inherit; font-size: .8rem; text-decoration: none; text-align: left; }
+.workspace-menu-body > a:hover, .workspace-menu-body > button:hover { background: var(--surface-2); }
+.drawing-pages { display: flex; align-items: center; gap: 6px; padding-bottom: 8px; margin-bottom: 4px; border-bottom: 1px solid var(--border); font-size: .8rem; }
+.drawing-pages input { width: 48px; min-height: 44px; border: 1px solid var(--border); border-radius: 5px; background: var(--bg); color: var(--text); font: inherit; font-size: 16px; text-align: center; }
+.drawing-menu-zoom { display: none; }
 .material-drawing-view { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: white; z-index: 30; touch-action: auto; }
 .cad-wrapper.drawing-open > :not(.material-drawing-view) { visibility: hidden; pointer-events: none; }
 .cv-card:has(.drawing-open), .cad-wrapper.drawing-open { touch-action: auto; }
-.material-panel { box-sizing: border-box; flex: 0 0 370px; width: 370px; min-width: 0; height: 100%; background: var(--surface); color: var(--text); border-left: 1px solid var(--border); display: flex; flex-direction: column; padding-top: 52px; touch-action: pan-y; }
+.material-panel { grid-area: 2 / 2; position: relative; box-sizing: border-box; min-width: 0; height: 100%; background: var(--surface); color: var(--text); border-left: 1px solid var(--border); display: flex; flex-direction: column; touch-action: pan-y; }
 .cad-workspace:not(.materials-open) > .material-panel { display: none; }
-.material-panel > .material-search { width: auto; padding: 0 16px 12px; flex-shrink: 0; }
-.material-panel .material-search label { font-size: 0.8rem; }
-.material-panel .material-search input { font-size: 0.8rem; padding: 10px; background: var(--bg); }
+.material-panel > .material-search { width: auto; padding: 16px 16px 12px; flex-shrink: 0; }
+.material-panel .material-search label { grid-template-columns: auto minmax(0, 1fr); align-items: center; font-size: 0.8rem; }
+.material-panel .material-search input { font-size: 0.8rem; min-height: 44px; padding: 10px; background: var(--bg); }
+.material-panel .material-search-status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 .material-panel .material-search-results { position: absolute; top: 100%; left: 16px; right: 16px; max-height: min(45vh, 360px); z-index: 40; box-shadow: 0 8px 30px #0004; }
 .material-panel-scroll { overflow-y: auto; overscroll-behavior: contain; flex: 1; min-height: 0; touch-action: pan-y; padding-bottom: 30px; }
 .material-head-host, .material-tabs-host { flex-shrink: 0; }
-.material-panel-head { padding: 12px 16px 14px; }
+.material-panel-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: 8px; padding: 8px 16px 16px; }
+.material-panel-head > .material-context { grid-column: 1 / -1; }
 .material-panel h2 { font-size: 20px; line-height: 1.25; margin: 7px 0 12px; overflow-wrap: anywhere; }
 .material-panel h3 { margin: 22px 0 10px; font-size: 13px; }
 .material-eyebrow { font: 0.72rem/1.5 ui-monospace, monospace; color: var(--text-2); text-transform: uppercase; letter-spacing: .05em; }
 .material-context { display: block; text-align: left; padding: 0; margin-bottom: 12px; border: 0; background: transparent; color: var(--accent); cursor: pointer; font: inherit; font-size: 0.82rem; }
 .material-meta { display: block; color: var(--text-2); font-size: 0.72rem; line-height: 1.5; margin: 5px 0; }
 .material-actions { display: flex; gap: 9px; align-items: center; flex-wrap: wrap; }
-.material-drawing-feature { display: grid; gap: 6px; padding: 12px 14px; margin-top: 16px; border-radius: 7px; background: var(--action); color: var(--on-action); text-decoration: none; }
-.material-drawing-feature strong { font-size: 0.85rem; font-weight: 600; }
-.material-drawing-feature span { font-size: 0.75rem; line-height: 1.5; }
-.material-drawing-feature:hover { background: var(--action-hover); }
+.material-document.material-drawing-feature { border-left: 3px solid var(--accent); padding-left: 12px; background: var(--surface-2); }
+.material-document-kind { text-transform: uppercase; font-size: .7rem; letter-spacing: .05em; }
 .material-drawing-feature:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
 .material-actions button, .bom-tools button { border: 1px solid var(--border); border-radius: 5px; background: var(--bg); color: var(--text); padding: 6px 9px; font: inherit; font-size: 0.8rem; cursor: pointer; }
 .material-link { color: var(--accent); text-decoration: none; font-size: 0.82rem; display: inline-block; line-height: 1.6; }
@@ -81,21 +106,27 @@
 .material-document strong { font-size: 0.82rem; font-weight: 500; }
 .material-document span { color: var(--text-2); font-size: 0.72rem; }
 .material-related { display: grid; padding: 9px 0; border-bottom: 1px solid var(--border); }
-.materials-toggle { position: absolute; top: 12px; right: 58px; z-index: 42; padding: 8px 12px; border: 1px solid var(--border); border-radius: 7px; background: var(--surface); color: var(--text); font: inherit; font-size: 0.8rem; cursor: pointer; }
-.cv-card:has(.cad-workspace) > .cv-close { z-index: 43; }
+.materials-toggle { min-height: 44px; padding: 8px 12px; border: 1px solid var(--border); border-radius: 7px; background: var(--surface); color: var(--text); font: inherit; font-size: 0.8rem; cursor: pointer; }
+.materials-toggle[aria-expanded=true] { background: var(--surface-2); border-color: var(--text-2); }
+.cad-header-actions > .cv-close { position: static; display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; flex-shrink: 0; border: 1px solid var(--border); border-radius: 7px; color: var(--text); background: transparent; font: 24px/1 var(--font-sans); cursor: pointer; }
+.cv-card:has(.cad-workspace-header) > .cv-filename { display: none; }
 .material-record-workspace { width: 100%; height: 100%; display: flex; justify-content: center; overflow: hidden; background: var(--bg); }
 .material-record-workspace > .material-panel { width: min(100%, 740px); flex-basis: 740px; border: 0; padding-top: 64px; }
-@media (max-width: 1100px) and (min-width: 701px) { .material-panel { width: 330px; flex-basis: 330px; } }
+@media (max-width: 1100px) and (min-width: 701px) { .cad-workspace.materials-open { grid-template-columns: minmax(0, 1fr) 330px; } }
+@media (max-width: 700px) {
+  .cad-workspace-header { flex-wrap: wrap; gap: 8px; }
+  .cad-context { flex-basis: calc(100% - 160px); }
+  .cad-view-tools { order: 3; flex-basis: 100%; justify-content: space-between; gap: 8px; }
+}
 @media (max-width: 700px) {
   .assembly-row { grid-template-columns: minmax(0, 1fr); }
-  .cad-workspace > .material-panel { position: absolute; z-index: 35; inset: 0; width: 100%; height: 100%; padding-top: 52px; border: 0; }
+  .cad-workspace.materials-open { grid-template-columns: minmax(0, 1fr); }
+  .cad-workspace > .material-panel { grid-area: 2 / 1; z-index: 35; width: 100%; height: 100%; border: 0; }
   .cad-workspace.materials-open > .cad-stage { visibility: hidden; }
-  .material-view-switch button { min-height: 44px; }
-  .material-panel-head { padding-top: 6px; }
-  .material-panel h2 { font-size: 17px; }
-  .material-panel > .material-search { padding-bottom: 5px; }
-  .material-panel .material-search label { gap: 5px; }
-  .material-panel .material-search input { padding: 8px 10px; }
+  .cad-workspace.materials-open .cad-view-tools { display: none; }
   .material-record-workspace > .material-panel { flex-basis: 100%; width: 100%; }
-  .materials-toggle { right: 53px; top: 14px; }
+}
+@media (max-width: 360px) {
+  .drawing-zoom > :first-child, .drawing-zoom > :last-child { display: none; }
+  .drawing-menu-zoom { display: flex; align-items: center; gap: 8px; padding: 4px 8px 12px; border-bottom: 1px solid var(--border); }
 }

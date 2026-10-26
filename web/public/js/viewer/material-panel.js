@@ -33,14 +33,14 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   if (toggle) {
     toggle.type = "button";
     toggle.addEventListener("click", () => setOpen(!workspace.classList.contains("materials-open")));
-    workspace.append(toggle);
+    workspace.querySelector(".cad-header-actions").append(toggle);
     setOpen(false);
   }
   const closeOnMobile = () => { if (mobile.matches) setOpen(false); };
   mobile.addEventListener("change", closeOnMobile);
   const drawingView = wrapper ? mountMaterialDrawing(wrapper, { onShowDrawing: closeOnMobile }) : null;
   let root = material || materialForFile(state.materialCatalog, file)?.id;
-  let selected = root, selectedPath = [], tab = "bom";
+  let selected = root, selectedPath = [], tab = null;
   let selectedBody = null;
   const expanded = new Set();
   let lastFile = file;
@@ -58,7 +58,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
 
   function setRoot(id) {
     selectedBody = null;
-    root = id; selected = id; selectedPath = []; expanded.clear();
+    root = id; selected = id; selectedPath = []; expanded.clear(); tab = null;
     render();
     const path = contextPath();
     pendingRootFocus = path.length > 0 && state.mountedDetail?.file !== lastFile;
@@ -88,15 +88,17 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     const index = materialIndex(state.materialCatalog), current = index.get(selected), rootMaterial = index.get(root);
     const head = el("div", "material-panel-head");
     const actions = el("div", "material-actions");
+    const identity = el("div", "material-identity");
     if (rootMaterial && (selected !== root || selectedBody)) {
       const back = el("button", "material-context", "← " + rootMaterial.description);
       back.type = "button"; back.addEventListener("click", () => { clearHighlight(); select(root); }); head.append(back);
     }
-    head.append(el("span", "material-eyebrow", current ? `${current.id} · ${current.kind}` : selectedBody ? "Component in assembly" : "CAD model"));
-    head.append(el("h2", "", current?.description || (selectedBody || stepLabel(lastFile)).replace(/[-_]/g, " ") || "Material explorer"));
+    identity.append(el("span", "material-eyebrow", current ? `${current.id} · ${current.kind}` : selectedBody ? "Component in assembly" : "CAD model"));
+    identity.append(el("h2", "", current?.description || (selectedBody || stepLabel(lastFile)).replace(/[-_]/g, " ") || "Material explorer"));
+    head.append(identity);
     if (selectedBody) {
       const context = rootMaterial?.bom?.context?.find(item => item.bodies?.some(body => matchesBody(selectedBody, body)));
-      head.append(el("p", "material-meta", context?.description || "No material record linked to this component."));
+      identity.append(el("p", "material-meta", context?.description || "No material record linked to this component."));
       const open = el("button", "", "Open component"); open.type = "button";
       open.addEventListener("click", async () => {
         const { drillToComponent } = await import("./step-nav.js");
@@ -104,10 +106,10 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
       });
       actions.append(open);
     }
-    if (current?.manufacturer_number) head.append(el("p", "material-meta", "Manufacturer part: " + current.manufacturer_number));
+    if (current?.manufacturer_number) identity.append(el("p", "material-meta", "Manufacturer part: " + current.manufacturer_number));
     if (selectedPath.length) {
       const row = explodeBom(state.materialCatalog, root, options()).find((r) => pathKey(r.path) === pathKey(selectedPath));
-      if (row) head.append(el("p", "material-meta", `${quantity(row.quantity, row.item.unit)} in ${rootMaterial.description}`));
+      if (row) identity.append(el("p", "material-meta", `${quantity(row.quantity, row.item.unit)} in ${rootMaterial.description}`));
     }
     if (current) {
       const permanent = materialLink(current, "Permanent link");
@@ -123,27 +125,23 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
         }); actions.prepend(open);
       }
     }
-    head.append(actions);
-    const drawings = current?.documents?.filter(doc => doc.kind === "engineering-drawing" && doc.path.endsWith(".pdf")) || [];
-    drawingView?.setDrawing(drawings[0]);
-    for (const drawing of drawings) {
-      const featured = el("a", "material-drawing-feature");
-      featured.href = docHref(drawing.path);
-      featured.setAttribute("aria-label", "View engineering drawing: " + drawing.title);
-      featured.append(el("strong", "", "Engineering drawing"), el("span", "", "View finished part →"));
-      if (drawingView) featured.addEventListener("click", event => {
-        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-        event.preventDefault(); drawingView.showDrawing(drawing);
-      });
-      head.append(featured);
+    if (actions.childElementCount) {
+      const menu = el("details", "workspace-menu material-record-menu");
+      const summary = el("summary", "", "⋯"); summary.setAttribute("aria-label", "Material actions"); summary.title = "Material actions";
+      actions.classList.add("workspace-menu-body"); menu.append(summary, actions); head.append(menu);
     }
+    const drawings = current?.documents?.filter(doc => doc.kind === "engineering-drawing" && doc.path.endsWith(".pdf")) || [];
+    const activeDrawing = drawings.find(doc => doc.path === drawingView?.drawingPath()) || drawings[0];
+    drawingView?.setDrawing(activeDrawing ? { ...activeDrawing, subject: selected !== root ? current.description : null } : null);
     headHost.replaceChildren(head);
     const rows = explodeBom(state.materialCatalog, root, options());
     const used = current ? materialUses(state.materialCatalog, current.id, options()) : { assemblies: [], tools: [], equipment: [] };
     const docs = materialDocuments(state.materialCatalog, (current || rootMaterial)?.id, options());
     const counts = { bom: rows.length, used: used.assemblies.length + used.tools.length + used.equipment.length, docs: docs.length };
+    if (!tab) tab = counts.bom ? "bom" : counts.docs ? "docs" : counts.used ? "used" : "bom";
     const tabs = el("div", "material-tabs"); tabs.setAttribute("role", "tablist"); tabs.setAttribute("aria-label", "Material relationships");
-    for (const [key, label] of [["bom", "BOM"], ["used", "Where used"], ["docs", "Documents"]]) {
+    for (const [key, label] of [["bom", "BOM"], ["docs", "Documents"], ["used", "Where used"]]) {
+      if (!counts[key] && tab !== key) continue;
       const button = el("button", "", `${label} (${counts[key]})`); button.type = "button";
       if (key === "bom" && rootMaterial) button.title = `BOM items in ${rootMaterial.description}, including every nested level`;
       button.setAttribute("role", "tab"); button.setAttribute("aria-selected", String(tab === key));
@@ -232,9 +230,19 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
 
   function renderDocs(content, docs) {
     if (!docs.length) content.append(el("p", "material-empty", "No documents linked to this material or its assemblies."));
-    for (const d of docs) {
-      const link = el("a", "material-document"); link.href = docHref(d.path); link.target = "_blank"; link.rel = "noopener";
-      link.append(el("strong", "", d.title), el("span", "", `${d.path.endsWith(".pdf") ? "PDF" : "Details"}${d.inherited ? " · " + d.owner : ""}`)); content.append(link);
+    const ownDrawing = d => !d.inherited && d.kind === "engineering-drawing" && d.path.endsWith(".pdf");
+    for (const d of [...docs].sort((a, b) => Number(ownDrawing(b)) - Number(ownDrawing(a)))) {
+      const link = el("a", "material-document" + (ownDrawing(d) ? " material-drawing-feature" : ""));
+      link.href = docHref(d.path); link.target = "_blank"; link.rel = "noopener";
+      if (ownDrawing(d)) {
+        link.setAttribute("aria-label", "View engineering drawing: " + d.title);
+        link.append(el("span", "material-document-kind", "Engineering drawing"));
+        if (drawingView) link.addEventListener("click", event => {
+          if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+          event.preventDefault(); drawingView.showDrawing({ ...d, subject: selected !== root ? d.owner : null });
+        });
+      }
+      link.append(el("strong", "", d.title), el("span", "", ownDrawing(d) ? "Open in Drawing →" : `${d.path.endsWith(".pdf") ? "PDF" : "Details"}${d.inherited ? " · " + d.owner : ""}`)); content.append(link);
     }
   }
 
@@ -255,8 +263,9 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
     if (event?.type === HSM_EVENTS.FAUCET_OPTIONS) search.refresh();
     const mountedFile = state.mountedDetail?.file || file;
     if (file && mountedFile !== lastFile) {
+      drawingView?.closeDrawing();
       selectedBody = null;
-      lastFile = mountedFile; root = materialForFile(state.materialCatalog, mountedFile)?.id; selected = root; selectedPath = []; expanded.clear();
+      lastFile = mountedFile; root = materialForFile(state.materialCatalog, mountedFile)?.id; selected = root; selectedPath = []; expanded.clear(); tab = null;
     }
     render();
     if ((pendingRootFocus || (event?.type === HSM_EVENTS.STEP_MOUNTED && contextPath().length)) && state.mountedDetail?.file === lastFile) {
@@ -301,7 +310,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   // Visibility belongs to this navigation. Manual toggles last for this view;
   // model links start closed, and material lookups open only on desktop.
   function applyRoute({ panel = null, tab: requestedTab = null } = {}) {
-    tab = "bom";
+    tab = requestedTab === "bom" ? "bom" : null;
     setOpen(!mobile.matches && (panel === "materials" || requestedTab === "bom"));
     render();
   }

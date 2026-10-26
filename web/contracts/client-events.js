@@ -1,7 +1,6 @@
-// Client-side CustomEvents on window — the viewer's in-page signal bus. web/public/boot.js turns
-// WebSocket frames (web/contracts/ws-frames.js) and notification state into these; the viewer
-// modules (web/public/js/viewer/*.js) listen. Names are the exact strings passed to
-// CustomEvent / addEventListener; detail rides on event.detail.
+// Client signals shared by boot.js and the viewer. Most are CustomEvents on
+// window, with their payload in event.detail. DOCUMENT_* types travel in
+// same-origin postMessage data between the embedded reader and its workspace.
 
 export const HSM_EVENTS = {
   FILES_CHANGED: "hsm:files-changed",                 // { files: string[] } — refresh the changed cards
@@ -13,6 +12,8 @@ export const HSM_EVENTS = {
   STEP_MOUNTED: "hsm:step-mounted",                  // { file } — the STEP now drawn in the modal
   MATERIAL_PICKED: "hsm:material-picked",             // { file, name } — component selected in the model
   DOCUMENT_ESCAPE: "hsm:document-escape",             // embedded document asks to return to its parent view
+  DOCUMENT_COMMAND: "hsm:document-command",           // same-origin host → embedded reader: { command, page? }
+  DOCUMENT_STATE: "hsm:document-state",               // embedded reader → host: { page, pages, zoom, ready }
   FAUCET_OPTIONS: "hsm:faucet-options",              // viewer-internal: redraw the faucet card from state.faucetStyle / faucetFinish
 };
 

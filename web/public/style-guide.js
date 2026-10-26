@@ -63,6 +63,12 @@ for (const button of document.querySelectorAll('[data-guide-copy]')) button.addE
   }
 });
 
+for (const button of document.querySelectorAll('[data-guide-view]')) button.addEventListener('click', () => {
+  const toolbar = button.closest('.cad-workspace-header');
+  for (const mode of toolbar.querySelectorAll('[data-guide-view]')) mode.setAttribute('aria-pressed', String(mode === button));
+  toolbar.querySelector('.drawing-tools').hidden = button.dataset.guideView !== 'drawing';
+});
+
 for (const output of document.querySelectorAll('[data-guide-measure]')) {
   const sample = document.getElementById(output.dataset.guideMeasure);
   const style = getComputedStyle(sample);

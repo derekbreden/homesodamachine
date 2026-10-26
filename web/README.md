@@ -182,11 +182,22 @@ State sharing pattern is **one shared object** (`state.js`'s exported `state`). 
 
 3D thumbnails and plain model or material links start with the material companion collapsed. Search results carry `?panel=materials` and open it on desktop, including in new tabs and browser Back/Forward. Every navigation starts collapsed on narrow screens and touch devices without hover, including landscape phones. The **Materials** button opens a sidebar on desktop and a panel covering the viewer on phones; that manual choice applies to the current view. Entering the phone layout closes the pane. Component selection updates the material record while preserving whether the panel is open or closed. Closing the panel restores the model; material records without geometry open directly as a full panel. `material-panel.js` owns pane visibility and its button state; navigation applies the destination's intent through `applyRoute`.
 
-A material's own engineering drawing is featured above its relationship tabs.
-The **3D / Drawing** switch shows it in the model area using the embedded PDF
-reader, preserving the model's camera and selection. On phones, opening the
-drawing closes the materials pane to reveal the page. The reader retains zoom,
-page controls, a full-page link and PDF download; Escape returns to 3D.
+The workspace has one toolbar for the part name or breadcrumb, **3D / Drawing**,
+drawing controls, **Materials**, and Close. It uses one row on desktop and two
+when the view controls need their own row on phones. The embedded reader renders
+the sheet without a second header. Zoom and Fit stay in the workspace toolbar;
+the drawing's **⋯** menu holds the full reader, PDF download, and pagination for
+multi-page documents. On narrow phones, zoom steps also move into that menu.
+`DOCUMENT_COMMAND` and `DOCUMENT_STATE` messages connect the same-origin reader
+and its host controls. `?embed=1&controls=host` delegates the reader controls to
+the workspace; `?embed=1` includes the reader's own toolbar. Escape closes an
+open menu before returning to 3D.
+
+Assemblies open their BOM; parts with documents open Documents, with their own
+engineering drawing pinned first. Empty relationship tabs are omitted. Material
+actions, including the permanent link, sit in the record's **⋯** menu. The **3D /
+Drawing** switch preserves the model's camera and selection. On phones, opening
+the drawing closes the materials pane to reveal the sheet.
 
 Assembly cards, search results and expandable BOM rows show direct and total BOM-item counts. Direct counts cover immediate rows; totals follow every nested assembly path. Each row counts once regardless of its quantity. Faucet counts use the selected style and finish. On desktop, the card's underlined count link opens the Materials pane on its BOM tab; `#material:HSM-000001?tab=bom` preserves that intent in bookmarks and new tabs. On phones the tab is ready when **Materials** is opened. The model link opens with the pane collapsed. The Materials tabs count the displayed BOM's items, recorded uses (containing assembly paths and associated tools/equipment), and distinct linked documents, including documents inherited from containing assemblies.
 

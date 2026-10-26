@@ -360,9 +360,9 @@ function nameSurface(file, surface) {
   if (!wrapper) return;                      // headless: no chrome to name
   const said = surfaceText(file, surface);
   const card = wrapper.closest(".cv-card");
-  const pill = card && card.querySelector(".cv-filename");
+  const pill = card && (card.querySelector(".cad-title") || card.querySelector(".cv-filename"));
   if (pill) pill.title = said;
-  const here = (wrapper.closest(".cad-stage") || wrapper).querySelector(".cad-crumb-here");
+  const here = (wrapper.closest(".cad-workspace") || wrapper).querySelector(".cad-crumb-here");
   if (here) here.title = said;
 }
 
