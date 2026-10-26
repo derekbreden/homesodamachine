@@ -125,6 +125,7 @@ overlap and the [14 mm](SIDE_BAND) side band, its screw mid-overlap in Y.
   The head block carries the complete rounded outer flank at its station. Its underside
   retains full stock beneath the funnel clearance, and its fore root continues into the lower block.
   The head opening continues aft into the funnel opening without a narrow collar between them.
+  Behind that block's running end, back-top's middle-knuckle wall root continues into its roof.
 
 The knuckle faces follow their pieces' print orientations: front-bottom's knuckle rises
 aft off its handhold roof, back-bottom's upper knuckle rises inboard off its skin and
