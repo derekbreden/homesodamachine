@@ -691,6 +691,12 @@ to the exported appliance. The three reservoir tubes clear the funnel frame by
 mounts, core anchors, electrical endpoints and printed cable passages retain
 their selected positions. These are nominal CAD clearances.
 
+The [drain cradle side-clearance review](enclosure-above-core/cradle-side-clearance-review.json)
+binds its two 0.65 mm lower-side reliefs to the production export and reviewed
+Mark1 slice. The two Y elbows have 1.313 mm nominal air. The seat, complete
+snap wings, hooks and full-width 3 mm root backing retain their selected
+geometry; the removed stock is at least 6.237 mm from the purchased drain elbow.
+
 ## Maintaining the evidence
 
 For a physical issue or optimization, identify the affected interface and customer outcome,

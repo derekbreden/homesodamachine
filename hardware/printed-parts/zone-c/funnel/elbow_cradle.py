@@ -44,6 +44,8 @@ import elbow as _elbow                                        # noqa: E402
 WEB = 3.0              # the frame's bottom web under the socket
 SLIP = fits.slip       # radial growth of the scanned pocket profile
 WALL = 3.0             # block wall and floor beyond the elbow's widest section
+LOWER_SIDE_RELIEF = 0.65   # air to the neighbouring Y elbows, below the wing roots
+ROOT_STOCK = 3.0       # retain the full-width body under each wing
 HOLE_D = 11.25         # the 10.64 mm collet passes 0.3 mm a side; the 12.12 mm nose bears round it
 ELBOW_Z = -_elbow.FIXED_FACE   # the elbow's axis intersection, under the frame's underside
 BODY_TOP_STATION = 10.0   # vertical-leg station of the block's top, 1 mm under the root band's top
@@ -301,6 +303,16 @@ def build():
     s = stations()
     body = cq.Solid.makeBox(2 * half, y1 - y0, z1 - z0, cq.Vector(-half, y0, z0))
     body = body.cut(shadow(z1 + 2.0)).clean()
+    # Two plain lower faces clear the Y elbows. A 45 degree return keeps the
+    # complete upper body and wing roots at their selected width and stations.
+    for side in (-1, 1):
+        outline = [(half - LOWER_SIDE_RELIEF, z0 - 1), (half + 2, z0 - 1),
+                   (half + 2, z1 - ROOT_STOCK), (half, z1 - ROOT_STOCK),
+                   (half - LOWER_SIDE_RELIEF, z1 - ROOT_STOCK - LOWER_SIDE_RELIEF)]
+        wire = cq.Wire.makePolygon([cq.Vector(side * x, y0 - 1, z)
+                                   for x, z in outline], close=True)
+        tool = cq.Solid.extrudeLinear(wire, [], cq.Vector(0, y1 - y0 + 2, 0))
+        body = body.cut(tool)
     cradle = body
     for side in (-1, 1):
         for a, b, lo in ((s["w_in"], s["w_out"], z1 - 0.01),
