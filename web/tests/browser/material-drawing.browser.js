@@ -82,6 +82,45 @@ test("3D thumbnails and model navigation start closed after an open materials pa
   } finally { await page.close(); }
 });
 
+test("the breadcrumb fills the title row above the drawing switch on desktop and phone", async () => {
+  const page = await browser.newPage();
+  const parentFile = "printed-parts/calibration/soda-studies/the-pour.step";
+  try {
+    await page.setViewport({ width: 1440, height: 1000 });
+    await page.goto(baseUrl + "/3d#material:HSM-000180", { waitUntil: "domcontentloaded" });
+    await materialReady(page, parentFile);
+    await page.click(".materials-toggle");
+    await page.type(".material-panel .material-search input", "HSM-000009");
+    await page.click(".material-panel .material-search-results a");
+    await materialReady(page);
+    const layout = await page.evaluate(() => {
+      const crumb = document.querySelector(".cad-crumb.show").getBoundingClientRect();
+      const switcher = document.querySelector(".material-view-switch").getBoundingClientRect();
+      return { top: crumb.top - document.querySelector(".cad-stage").getBoundingClientRect().top,
+        gap: switcher.top - crumb.bottom,
+        titleHidden: getComputedStyle(document.querySelector(".cv-filename")).display === "none" };
+    });
+    assert.equal(layout.top, 12);
+    assert.ok(layout.gap >= 0 && layout.gap <= 20, "the title row should sit directly above the switch");
+    assert.equal(layout.titleHidden, true);
+    await page.click(".material-view-switch button:last-child");
+    await drawingReady(page);
+    assert.equal(await page.$eval(".cad-crumb.show", crumb => getComputedStyle(crumb).visibility), "visible");
+    await page.click(".cad-crumb-step");
+    await materialReady(page, parentFile);
+    await page.setViewport({ width: 390, height: 844 });
+    await page.goForward();
+    await materialReady(page);
+    await assertPane(page, false);
+    assert.equal(await page.$eval(".cad-crumb.show", crumb => {
+      const rect = crumb.getBoundingClientRect();
+      const toggle = document.querySelector(".materials-toggle").getBoundingClientRect();
+      const switcher = document.querySelector(".material-view-switch").getBoundingClientRect();
+      return rect.right < toggle.left && rect.bottom <= switcher.top;
+    }), true, "phone breadcrumbs should clear Materials and the view switch");
+  } finally { await page.close(); }
+});
+
 test("material search opens the pane and features a working drawing beside the preserved 3D view", async () => {
   const page = await browser.newPage();
   const errors = [];
