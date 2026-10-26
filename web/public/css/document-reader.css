@@ -27,6 +27,9 @@ body:has(.pdf-reader) { height: 100svh; min-height: 0; overflow: hidden; }
 #pdf-canvas { display: block; }
 .pdf-paper .textLayer { --total-scale-factor: var(--scale-factor); }
 .pdf-reader [hidden] { display: none; }
+.pdf-embedded .pdf-heading { justify-content: space-between; }
+.pdf-embedded .pdf-heading h1 { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.pdf-embedded .pdf-viewport { scrollbar-gutter: stable; }
 @media (max-width: 390px) {
   .pdf-heading { gap: 0.6rem; padding-block: 0.5rem; }
   .pdf-heading h1 { font-size: 0.875rem; }

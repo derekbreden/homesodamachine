@@ -54,6 +54,11 @@ function renderGuide(hardwareDir) {
   <div class="material-actions"><button type="button" data-guide-clear>Clear search</button></div>
   <a class="material-link" href="${documentLink(root.documents[0])}">Assembly guide</a>
 </div>`;
+  const endcapDrawing = find('HSM-000009').documents.find(document => document.kind === 'engineering-drawing');
+  const drawingMarkup = `<a class="material-drawing-feature" href="${documentLink(endcapDrawing)}">
+  <strong>Engineering drawing</strong>
+  <span>View finished part →</span>
+</a>`;
   const searchMarkup = `<div class="material-search">
   <label>Find a material<input id="guide-material-search" type="search" placeholder="Description, part number or alias…" aria-describedby="guide-search-status" autocomplete="off"></label>
   <p class="material-search-status" id="guide-search-status" role="status">3 sample materials. Try ‘insertion’ or ‘HSM-000005’.</p>
@@ -110,6 +115,7 @@ ${root.documents.map(document => `  <a class="material-document" href="${documen
   <section class="guide-section" id="controls" aria-labelledby="controls-title">
     <h2 class="cost-title" id="controls-title">Links and controls</h2>
     ${example({ id: 'buttons', title: 'Actions, links and keyboard focus', usage: 'Use a link for navigation and a button for an action. The orange button gives a primary action emphasis; the compact material button supports it. Try Tab to see their production focus indicators. These buttons focus and clear the search below.', markup: buttonsMarkup, sources: [['web/lib/landing.js', '.signup-btn'], ['web/public/css/materials.css', '.material-actions and .material-link']] })}
+    ${example({ id: 'engineering-drawing', title: 'Featured engineering drawing', usage: 'Place a part’s own engineering drawing beside its identity, above the BOM and supporting documents. In the 3D viewer this opens the Drawing view; this example opens the full document reader.', markup: drawingMarkup, sources: [['web/public/css/materials.css', '.material-drawing-feature'], ['web/public/js/viewer/material-panel.js', 'Material drawing action']] })}
     ${example({ id: 'search', title: 'Material search', usage: 'Give the field a visible label and supporting status. Results put the description first and the identity second. This working sample filters three catalog records; its result links open the real materials.', markup: searchMarkup, sources: [['web/public/css/materials.css', '.material-search'], ['web/public/js/viewer/material-search.js', 'Production search behavior']] })}
   </section>
   <section class="guide-section" id="data" aria-labelledby="data-title">
