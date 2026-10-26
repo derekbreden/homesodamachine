@@ -1,8 +1,26 @@
-[step] Bottom of the cap vent's closed splash brim. Its 0.75 mm offset from the gasket-rim plane follows the membrane pocket, 2.5 mm backing boss, 2 mm radial windows, and 1 mm brim stack. It is a free vent feature inside the reservoir, not a mating ledge or a residual wall fragment.
-click: x=-96.000 y=-32.500 z=0.750
+[ceiling] The closed splash-baffle floor bridges the 9 mm chamber and the 3 mm side-slot mouths when the lid prints exterior-face down. The four retained wall sectors join that floor to the plate. This is the reviewed splash barrier below the open tube tip; printed bridge finish remains unqualified.
+alternatives: An open floor loses the upward-splash barrier. A conical floor changes the reviewed 3 mm drop and tube-tip clearance; a support requiring removal through the 3 × 2 mm slots has no established removal result.
+file: hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step
+click: x=-102.000 y=-32.500 z=3.000
 
-[ceiling] Membrane-pocket floor, printed over the opening with the cap's exterior face on the bed. The 2.75 mm pocket depth includes 0.25 mm for retained bridge strands, while the boss below it preserves 2.5 mm of stock. The open pocket is accessible before fitting the membrane and TPU retaining ring.
-click: x=-96.000 y=-32.500 z=6.250
+[thin] The reviewed baffle has a 1 mm floor, 3 mm total drop and 1 mm of open space below the air-tube tip. These dimensions create the splash barrier while preserving the intake opening and the retained float clearance. No printed splash or durability result is claimed.
+alternatives: Thickening inward consumes the 1 mm intake clearance; thickening outward extends below the reviewed 3 mm baffle envelope. A deeper baffle requires another float-clearance review.
+file: hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step
+click: x=-105.713 y=-35.039 z=3.000
+click: x=-105.713 y=-35.039 z=2.000
 
-[ceiling] Inner face of the 1 mm closed splash brim below the vent. It bridges the 5 mm air bore and the four 3 mm radial windows between their angular ribs. The windows remain open for airflow; this is a short functional bridge and has no mating surface requiring dimensional clearance.
-click: x=-95.999 y=-32.500 z=1.750
+[thin] Existing rod-register section, outside the tube-port geometry change: its rod-clearance bore and 2 mm radial wall retain the rod register and the float-stop interface. The tube-grip implementation does not qualify its strength or lifetime.
+alternatives: Thickening the register changes an existing float-stop interface and needs its own fit review; this task retains the rod and float datums.
+file: hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step
+click: x=-107.945 y=32.883 z=3.833
+click: x=-109.900 y=33.304 z=3.833
+
+[ledge] The six flat counterbore floors are the M3 socket-head bearing faces. Their 5.8 mm diameter and depth seat the selected screw heads below the exterior face; these retained hardware seats require flat head contact.
+alternatives: Sloping the floors removes the screw-head bearing plane. Filling the counterbores makes the heads project into the 0.4 mm gap beneath the foam cap.
+file: hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step
+click: x=-124.316 y=-66.020 z=4.750
+click: x=-122.184 y=66.020 z=4.750
+click: x=-125.128 y=-0.862 z=4.750
+click: x=-88.628 y=-0.862 z=4.750
+click: x=-56.893 y=-65.774 z=4.750
+click: x=-56.910 y=65.790 z=4.750

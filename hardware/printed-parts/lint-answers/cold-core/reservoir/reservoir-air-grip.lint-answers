@@ -1,0 +1,7 @@
+[thin] The compliant TPU flange tapers to its circumference to mate the approved 45° countersink while its annular end is flush with the lid. These readings are at that required mating taper. Derek explicitly requested countersunk faces on both sides; insertion feel and edge durability remain untested.
+alternatives: A vertical edge land requires a stepped mating pocket or a changed flare profile; a proud flange consumes the casing clearance and violates the requested flush face. The matching 45° PETG/TPU profile is the approved design.
+file: hardware/printed-parts/cold-core/reservoir/reservoir-air-grip.step
+click: x=0.698 y=3.816 z=0.120
+click: x=0.698 y=3.816 z=0.000
+click: x=0.698 y=3.816 z=3.880
+click: x=0.698 y=3.816 z=4.000

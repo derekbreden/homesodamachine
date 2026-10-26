@@ -1,0 +1,13 @@
+[thin] The compliant TPU flange tapers to its circumference to mate the approved 45° countersink while its annular end is flush with the lid. These readings are at that required mating taper. Derek explicitly requested countersunk faces on both sides; insertion feel and edge durability remain untested.
+alternatives: A vertical edge land requires a stepped mating pocket or a changed flare profile; a proud flange consumes the casing clearance and violates the requested flush face. The matching 45° PETG/TPU profile is the approved design.
+file: hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step
+click: x=5.071 y=1.809 z=0.116
+click: x=5.071 y=1.809 z=0.000
+click: x=5.071 y=1.809 z=3.884
+click: x=5.071 y=1.809 z=4.000
+
+[thin] The 1.4 mm radial TPU waist is the selected 9 mm OD around the 6.2 mm gripping bore. This compliant section permits hand sliding with nominal 0.15 mm diametral tube interference, while the 11 mm flares capture the spool. Physical grip remains unqualified.
+alternatives: A larger waist changes both lid seats and the flare capture geometry. A smaller bore increases tube interference; a rigid sleeve does not provide the requested compliant grip.
+file: hardware/printed-parts/cold-core/reservoir/reservoir-tube-grip.step
+click: x=-2.965 y=0.904 z=2.800
+click: x=-4.308 y=1.300 z=2.800

@@ -183,6 +183,8 @@ def answers_path(stl):
 #: stays in the box's own frame; the sign only says which faces look print-down and where the
 #: bed is: +1 for a piece bedded on its Z- face, -1 for one bedded on its Z+ face.
 PRINT_UP = {"enclosure-back-top": -1.0, "funnel-mold/core": -1.0,
+            # reservoir/prepare_print.py beds each cap on its exterior Z+ face.
+            "reservoir/reservoir-cap-left": -1.0, "reservoir/reservoir-cap-right": -1.0,
             "foam-cap/foam-cap-bottom": -1.0, "prv-shroud/prv-shroud": -1.0,
             "asse-straight-cuffs/asse-inlet-cuff": -1.0, "asse-straight-cuffs/asse-outlet-cuff": -1.0,
             **{f"tube-collar/tube-collar-{which}": -1.0
