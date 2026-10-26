@@ -8415,6 +8415,90 @@
         "src-ed76085250f14e07816a73e4ce658525",
         "src-ae55c5c9340f446d9252acbc07d9463c"
       ]
+    },
+    "pur-2b7d4e1a9c3f4e6b8a1d5c7e9f0a2b41": {
+      "vendor": "Amazon",
+      "purpose": "components",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:114-8768578-0217027"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-a35c93fcae5f41b1bdf124d53f16e8e4"
+      ]
+    },
+    "pur-3c8e5f2b0d4a4f7c9b2e6d8f0a1b3c52": {
+      "vendor": "Amazon",
+      "purpose": "components",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:114-8768578-0217027"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-a35c93fcae5f41b1bdf124d53f16e8e4"
+      ]
+    },
+    "pur-4d9f6a3c1e5b4a8d0c3f7e9a1b2c4d63": {
+      "vendor": "Amazon",
+      "purpose": "components",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:114-8768578-0217027"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-a35c93fcae5f41b1bdf124d53f16e8e4"
+      ]
+    },
+    "pur-5e0a7b4d2f6c4b9e1d4a8f0b2c3d5e74": {
+      "vendor": "Amazon",
+      "purpose": "components",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:114-8768578-0217027"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-a35c93fcae5f41b1bdf124d53f16e8e4"
+      ]
+    },
+    "pur-6f1b8c5e3a7d4c0f2e5b9a1c3d4e6f85": {
+      "vendor": "Amazon",
+      "purpose": "components",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:114-8768578-0217027"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-a35c93fcae5f41b1bdf124d53f16e8e4"
+      ]
+    },
+    "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96": {
+      "vendor": "Amazon",
+      "purpose": "components",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:112-8643704-3927458"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-7101af811922496e9b6b06ff68e18484"
+      ]
+    },
+    "pur-8b3d0e7a5c9f4e2b4a7d1c3e5f6a8b07": {
+      "vendor": "Bambu Lab",
+      "purpose": "equipment_tooling",
+      "amount_evidence": "final_vendor_amount",
+      "order_ids": [
+        "bambu:us791135084148191233"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-8732dad07bf84f9492eca983fb4accb6"
+      ]
     }
   },
   "orders": {
@@ -14186,7 +14270,8 @@
       },
       "allocation_status": "all_project",
       "source_ids": [
-        "src-d814ffbbc33146fb887f9e1bdc6944a4"
+        "src-d814ffbbc33146fb887f9e1bdc6944a4",
+        "src-a35c93fcae5f41b1bdf124d53f16e8e4"
       ]
     },
     "pisco:8638": {
@@ -14247,6 +14332,30 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-ed76085250f14e07816a73e4ce658525"
+      ]
+    },
+    "amazon:112-8643704-3927458": {
+      "vendor": "Amazon",
+      "reference": "112-8643704-3927458",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-25"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-7101af811922496e9b6b06ff68e18484"
+      ]
+    },
+    "bambu:us791135084148191233": {
+      "vendor": "Bambu Lab",
+      "reference": "us791135084148191233",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-26"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-8732dad07bf84f9492eca983fb4accb6"
       ]
     }
   },
@@ -29564,6 +29673,52 @@
       "proves": [],
       "verified_at": "2026-10-24",
       "note": "Order-scoped Transactions lists the USD 354.89 debit In Progress (Pending) on 2026-10-24; this is an expected charge, without completed-charge or authorization proof. Delivery is pending."
+    },
+    "src-a35c93fcae5f41b1bdf124d53f16e8e4": {
+      "vendor": "Amazon",
+      "document_type": "order_details",
+      "reference": "114-8768578-0217027",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-26"
+      },
+      "proves": [
+        "order_date",
+        "price",
+        "delivery"
+      ],
+      "verified_at": "2026-10-26",
+      "note": "Signed-in Amazon order details: MEAN WELL IRM-90-12ST B0CNRST18V $30.13, iexcell M5 x 150 mm B0DRB1XNWT $8.86, BNUOK M3 x 6 mm B0DJQH3WSX $7.12, SVLING M5 x 60 mm B0GHNHFYJN $7.50, Small Parts M5 washers B009OK27FI $7.16, MECCANIXITY UL1007 black and white $11.99 each; $84.75 subtotal, $0.00 shipping, $6.14 estimated tax, $90.89 grand total. Delivered 2026-10-18 and 2026-10-19 by line."
+    },
+    "src-7101af811922496e9b6b06ff68e18484": {
+      "vendor": "Amazon",
+      "document_type": "order_details",
+      "reference": "112-8643704-3927458",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-26"
+      },
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "verified_at": "2026-10-26",
+      "note": "Signed-in Amazon order details: SVLING M5 x 100 mm socket-head cap screws, 20 pc, B0GHNNYVDH; $7.70 subtotal, $0.00 shipping, $0.56 estimated tax, $8.26 grand total; ordered 2026-10-25, arriving 2026-10-26. No charge or delivery is established."
+    },
+    "src-8732dad07bf84f9492eca983fb4accb6": {
+      "vendor": "Bambu Lab",
+      "document_type": "email_order_confirmation",
+      "reference": "us791135084148191233",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-26"
+      },
+      "proves": [
+        "price",
+        "order_date"
+      ],
+      "verified_at": "2026-10-26",
+      "note": "Gmail order confirmation received 2026-10-26 01:21 America/Chicago: H2C Induction Hotend (Right) standard flow 0.8 mm hardened steel x2 USD 79.98 and 0.6 mm hardened steel x2 USD 79.98; USD 159.96 subtotal, USD 0.00 shipping, USD 11.60 tax (state 5.5% USD 8.80 + city 1.75% USD 2.80), USD 171.56 grand total and net payment. The order number's timestamp places the order at 2026-10-26 01:20 America/Chicago. No completed merchant charge is stated."
     }
   },
   "coverage": [
