@@ -28,6 +28,7 @@ export async function openMaterial(id, pushHistory = true, { tab = null } = {}) 
     const materialPath = raw.startsWith("step:") ? parseStepHash(raw) : history.state?.materialPath || [file];
     history.replaceState({ materialPath }, "", "#" + materialHash(id, { tab }));
     state.materialPanel?.setRoot(id);
+    state.materialPanel?.show();
     if (tab === "bom") state.materialPanel?.showBom();
   } else {
     const depth = state.currentCadWrapper ? walkDepth() : 0;

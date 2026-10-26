@@ -180,7 +180,13 @@ State sharing pattern is **one shared object** (`state.js`'s exported `state`). 
 
 `GET /api/materials` reads [`hardware/ledger/materials.json`](/hardware/ledger/materials.json) through `lib/material-catalog.js`, resolving authored part-list imports such as the insertion fixture's `parts.json`. `contracts/materials.js` traverses quantities, ancestry and model bindings in the browser and Node. [`hardware/ledger/materials.md`](/hardware/ledger/materials.md) describes the catalog's identity and authoring rules. The financial BOM remains [`hardware/ledger/bom.md`](/hardware/ledger/bom.md).
 
-Model views start with the material companion collapsed. The **Materials** button opens a sidebar on desktop and a panel covering the viewer on phones. Component selection updates the material record while preserving whether the panel is open or closed. Closing the panel restores the model; material records without geometry open directly as a full panel.
+Model links start with the material companion collapsed. Material links, including search results, open it by default. The **Materials** button opens a sidebar on desktop and a panel covering the viewer on phones. Component selection updates the material record while preserving whether the panel is open or closed. Closing the panel restores the model; material records without geometry open directly as a full panel.
+
+A material's own engineering drawing is featured above its relationship tabs.
+The **3D / Drawing** switch shows it in the model area using the embedded PDF
+reader, preserving the model's camera and selection. On phones, opening the
+drawing closes the materials pane to reveal the page. The reader retains zoom,
+page controls, a full-page link and PDF download; Escape returns to 3D.
 
 Assembly cards, search results and expandable BOM rows show direct and total BOM-item counts. Direct counts cover immediate rows; totals follow every nested assembly path. Each row counts once regardless of its quantity. Faucet counts use the selected style and finish. The card's underlined count link opens the Materials pane on its BOM tab; `#material:HSM-000001?tab=bom` preserves that intent in bookmarks and new tabs. The model link opens with the pane collapsed. The Materials tabs count the displayed BOM's items, recorded uses (containing assembly paths and associated tools/equipment), and distinct linked documents, including documents inherited from containing assemblies.
 

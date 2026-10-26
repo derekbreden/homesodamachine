@@ -161,7 +161,10 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
   wrapper.className = "cad-wrapper";
   const workspace = document.createElement("div");
   workspace.className = "cad-workspace";
-  workspace.append(wrapper);
+  const stage = document.createElement("div");
+  stage.className = "cad-stage";
+  stage.append(wrapper);
+  workspace.append(stage);
   const materialPanel = type === "step" ? mountMaterialPanel(workspace, { file }) : null;
   const materialsToggle = document.createElement("button");
   materialsToggle.className = "materials-toggle";
@@ -225,6 +228,7 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
   // typing in tears the model down with it.
   const onEscape = (e) => {
     if (e.key !== "Escape" || !wrapper.isConnected) return;
+    if (materialPanel?.closeDrawing()) { e.preventDefault(); e.stopPropagation(); return; }
     const checks = wrapper.querySelector(".sc-modal");
     if (checks) { checks.remove(); e.preventDefault(); e.stopPropagation(); return; }
     if (closeRelated(wrapper, true)) { e.preventDefault(); e.stopPropagation(); }

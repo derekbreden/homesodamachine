@@ -2233,6 +2233,13 @@
       ],
       "aliases": [
         "endcap plates"
+      ],
+      "documents": [
+        {
+          "title": "Finished end cap engineering drawing",
+          "path": "cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.pdf",
+          "kind": "engineering-drawing"
+        }
       ]
     },
     {

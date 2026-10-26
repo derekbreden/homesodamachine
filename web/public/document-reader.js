@@ -1,6 +1,8 @@
 // A single rendered page keeps document reading inside the PWA and bounds
 // canvas memory, including on high-density phones and while zoomed in.
+import { HSM_EVENTS } from "/contracts/client-events.js";
 const reader = document.querySelector(".pdf-reader");
+const embedded = reader.dataset.embedded === "true";
 const viewportEl = reader.querySelector(".pdf-viewport");
 const paper = reader.querySelector(".pdf-paper");
 const canvas = document.getElementById("pdf-canvas");
@@ -58,7 +60,10 @@ async function renderRequestedPage() {
       const natural = page.getViewport({ scale: 1 });
       const style = getComputedStyle(viewportEl);
       const width = viewportEl.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
-      const scale = Math.max(1, width) / natural.width * pageZoom;
+      const height = viewportEl.clientHeight - parseFloat(style.paddingTop) - parseFloat(style.paddingBottom);
+      const fitScale = embedded ? Math.min(Math.max(1, width) / natural.width, Math.max(1, height) / natural.height)
+        : Math.max(1, width) / natural.width;
+      const scale = fitScale * pageZoom;
       const viewport = page.getViewport({ scale });
       const density = Math.min(window.devicePixelRatio || 1, 2,
         Math.sqrt(MAX_PIXELS / (viewport.width * viewport.height)),
@@ -106,7 +111,7 @@ function goToPage(value, push = true) {
   currentPage = Math.max(1, Math.min(pdf.numPages, number));
   const hash = `#page=${currentPage}`;
   if (location.hash !== hash) {
-    history[push ? "pushState" : "replaceState"](null, "", hash);
+    history[push && !embedded ? "pushState" : "replaceState"](null, "", hash);
   }
   requestRender();
 }
@@ -124,6 +129,11 @@ retry.addEventListener("click", () => pdf ? requestRender() : location.reload())
 window.addEventListener("hashchange", () => goToPage(pageFromHash(), false));
 window.addEventListener("popstate", () => goToPage(pageFromHash(), false));
 document.addEventListener("keydown", event => {
+  if (embedded && event.key === "Escape") {
+    event.preventDefault();
+    window.parent.postMessage({ type: HSM_EVENTS.DOCUMENT_ESCAPE }, location.origin);
+    return;
+  }
   if (event.target.closest("input, button, a")) return;
   if (event.key === "ArrowLeft" || event.key === "PageUp") {
     event.preventDefault(); goToPage(currentPage - 1);
@@ -139,7 +149,7 @@ window.addEventListener("resize", () => {
 
 try {
   const from = new URL(document.referrer);
-  if (from.origin === location.origin && !/^\/(read|docs)\//.test(from.pathname)) {
+  if (!embedded && from.origin === location.origin && !/^\/(read|docs)\//.test(from.pathname)) {
     document.getElementById("pdf-back").href = from.href;
   }
 } catch { /* Direct links return to the document shelf. */ }
