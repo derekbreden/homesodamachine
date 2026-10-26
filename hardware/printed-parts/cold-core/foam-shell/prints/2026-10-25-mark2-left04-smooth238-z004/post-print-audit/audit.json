@@ -1,0 +1,349 @@
+{
+  "archive_sha256": "eb7cace8315b75891dfa78034024dcf391ca1559159434847b05bd49f15bce89",
+  "launch_job": "1375153599",
+  "archive_matches_launch_receipt": true,
+  "source_stl_sha256": "b705e3aa5eee906839456b84d7f6419a655db4197b1483d9d05efb3d23149bcd",
+  "connect_copy_identical": true,
+  "stl": {
+    "facets": 44578,
+    "vertices": 22289,
+    "watertight": true,
+    "winding_consistent": true,
+    "bounds_mm": [
+      [
+        -141.1999969482422,
+        -90.19999694824219,
+        0.0
+      ],
+      [
+        141.1999969482422,
+        90.19999694824219,
+        213.39999389648438
+      ]
+    ],
+    "zero_area_faces": 0
+  },
+  "embedded_model": {
+    "vertices": 22289,
+    "facets": 44578,
+    "maximum_source_vertex_error_mm": 3.891486888827671e-06,
+    "all_oriented_triangles_match_source": true
+  },
+  "saved_settings": {
+    "fuzzy_skin": "none",
+    "seam_position": "aligned",
+    "seam_gap": "15%",
+    "seam_slope_type": "none",
+    "filament_scarf_seam_type": [
+      "none"
+    ],
+    "outer_wall_speed": [
+      "200",
+      "200",
+      "200",
+      "200",
+      "200"
+    ],
+    "outer_wall_acceleration": [
+      "5000",
+      "5000",
+      "5000",
+      "5000",
+      "5000"
+    ],
+    "inner_wall_speed": [
+      "300",
+      "300",
+      "300",
+      "300",
+      "300"
+    ],
+    "default_acceleration": [
+      "8000",
+      "8000",
+      "8000",
+      "8000",
+      "8000"
+    ],
+    "filament_max_volumetric_speed": [
+      "18",
+      "12",
+      "5"
+    ],
+    "filament_flow_ratio": [
+      "0.9555",
+      "1",
+      "1"
+    ],
+    "enable_pressure_advance": [
+      "0"
+    ],
+    "pressure_advance": [
+      "0.02"
+    ]
+  },
+  "gcode_sha256": "997f6329859e50dde11ca60b47fa16d7cf2ed7fad870896cae647fc1cc54c13a",
+  "gcode_matches_launch_receipt": true,
+  "gcode_md5_matches": true,
+  "stl_first_surface_probes": {
+    "long_face_Y_-1": {
+      "samples": 2322,
+      "hits": 2322,
+      "maximum_face_deviation_mm": 3.051757815342171e-06,
+      "hits_off_nominal_plane": 0,
+      "off_plane_samples": []
+    },
+    "long_face_Y_+1": {
+      "samples": 2322,
+      "hits": 2322,
+      "maximum_face_deviation_mm": 3.051757815342171e-06,
+      "hits_off_nominal_plane": 0,
+      "off_plane_samples": []
+    },
+    "front_panel_and_jambs": {
+      "samples": 63,
+      "hits": 63,
+      "maximum_face_deviation_mm": 3.0517578011313162e-06,
+      "hits_off_nominal_plane": 0
+    }
+  },
+  "vertical_slot_edge_probes": {
+    "middle_panel_slot_edge_Y_-1": {
+      "samples": 54,
+      "hits": 54,
+      "largest_edge_position_change_over_height_mm": 0.0,
+      "edge_position_ranges_by_x": {
+        "-140.9": [
+          -74.17500305175781,
+          -74.17500305175781
+        ],
+        "-140.5": [
+          -74.17500305175781,
+          -74.17500305175781
+        ],
+        "-140.0": [
+          -74.17500305175781,
+          -74.17500305175781
+        ],
+        "-139.5": [
+          -74.17500305175781,
+          -74.17500305175781
+        ],
+        "-139.0": [
+          -74.17500305175781,
+          -74.17500305175781
+        ],
+        "-138.5": [
+          -74.17500305175781,
+          -74.17500305175781
+        ]
+      }
+    },
+    "middle_panel_slot_edge_Y_+1": {
+      "samples": 54,
+      "hits": 54,
+      "largest_edge_position_change_over_height_mm": 0.0,
+      "edge_position_ranges_by_x": {
+        "-140.9": [
+          74.17500305175781,
+          74.17500305175781
+        ],
+        "-140.5": [
+          74.17500305175781,
+          74.17500305175781
+        ],
+        "-140.0": [
+          74.17500305175781,
+          74.17500305175781
+        ],
+        "-139.5": [
+          74.17500305175781,
+          74.17500305175781
+        ],
+        "-139.0": [
+          74.17500305175781,
+          74.17500305175781
+        ],
+        "-138.5": [
+          74.17500305175781,
+          74.17500305175781
+        ]
+      }
+    }
+  },
+  "parsed_layers_with_outer_walls": 889,
+  "flat_external_gcode": {
+    "X-negative": {
+      "segments": 967,
+      "layer_count": 879,
+      "normal_coordinate_range_plate_mm": [
+        21.51,
+        21.512888880413918
+      ],
+      "normal_coordinate_variation_mm": 0.0028888804139164392,
+      "maximum_within_move_normal_change_mm": 0.0017834900678259658,
+      "maximum_commanded_speed_mm_s": 200.0,
+      "maximum_commanded_acceleration_mm_s2": 5000.0
+    },
+    "Y-negative": {
+      "segments": 879,
+      "layer_count": 879,
+      "normal_coordinate_range_plate_mm": [
+        70.01001152457651,
+        70.014
+      ],
+      "normal_coordinate_variation_mm": 0.003988475423483351,
+      "maximum_within_move_normal_change_mm": 0.00396493271570364,
+      "maximum_commanded_speed_mm_s": 200.0,
+      "maximum_commanded_acceleration_mm_s2": 5000.0
+    },
+    "X-positive": {
+      "segments": 879,
+      "layer_count": 879,
+      "normal_coordinate_range_plate_mm": [
+        303.486,
+        303.49
+      ],
+      "normal_coordinate_variation_mm": 0.004000000000019099,
+      "maximum_within_move_normal_change_mm": 0.0,
+      "maximum_commanded_speed_mm_s": 200.0,
+      "maximum_commanded_acceleration_mm_s2": 5000.0
+    },
+    "Y-positive": {
+      "segments": 1149,
+      "layer_count": 879,
+      "normal_coordinate_range_plate_mm": [
+        249.513,
+        249.99
+      ],
+      "normal_coordinate_variation_mm": 0.47700000000000387,
+      "maximum_within_move_normal_change_mm": 0.47700000000000387,
+      "maximum_commanded_speed_mm_s": 200.0,
+      "maximum_commanded_acceleration_mm_s2": 5000.0,
+      "plain_face_normal_coordinate_variation_mm": 0.003980298758477829,
+      "intentional_vent_lip_segments": {
+        "count": 10,
+        "z_range_mm": [
+          168.44,
+          176.12
+        ],
+        "scope": "Bends into the specified PRV vent opening at native X near zero; not flat-face corrugation."
+      }
+    },
+    "slot-negative-corner": {
+      "segments": 782,
+      "layer_count": 782,
+      "normal_coordinate_range_plate_mm": [
+        78.965,
+        79.116
+      ],
+      "normal_coordinate_variation_mm": 0.15099999999999625,
+      "maximum_within_move_normal_change_mm": 0.0,
+      "maximum_commanded_speed_mm_s": 200.0,
+      "maximum_commanded_acceleration_mm_s2": 5000.0,
+      "straight_region_z_at_least_40_mm": {
+        "layers": 723,
+        "segments": 723,
+        "normal_coordinate_range_plate_mm": [
+          78.965,
+          78.965
+        ],
+        "normal_coordinate_variation_mm": 0.0,
+        "note": "The lower slot mouth has its specified rounded end; this isolates the straight vertical edge."
+      }
+    },
+    "slot-positive-corner": {
+      "segments": 782,
+      "layer_count": 782,
+      "normal_coordinate_range_plate_mm": [
+        240.884,
+        241.035
+      ],
+      "normal_coordinate_variation_mm": 0.15100000000001046,
+      "maximum_within_move_normal_change_mm": 0.0,
+      "maximum_commanded_speed_mm_s": 200.0,
+      "maximum_commanded_acceleration_mm_s2": 5000.0,
+      "straight_region_z_at_least_40_mm": {
+        "layers": 723,
+        "segments": 723,
+        "normal_coordinate_range_plate_mm": [
+          241.035,
+          241.035
+        ],
+        "normal_coordinate_variation_mm": 0.0,
+        "note": "The lower slot mouth has its specified rounded end; this isolates the straight vertical edge."
+      }
+    },
+    "slot-positive-middle": {
+      "segments": 782,
+      "layer_count": 782,
+      "normal_coordinate_range_plate_mm": [
+        233.965,
+        234.116
+      ],
+      "normal_coordinate_variation_mm": 0.15100000000001046,
+      "maximum_within_move_normal_change_mm": 0.0,
+      "maximum_commanded_speed_mm_s": 200.0,
+      "maximum_commanded_acceleration_mm_s2": 5000.0,
+      "straight_region_z_at_least_40_mm": {
+        "layers": 723,
+        "segments": 723,
+        "normal_coordinate_range_plate_mm": [
+          233.965,
+          233.965
+        ],
+        "normal_coordinate_variation_mm": 0.0,
+        "note": "The lower slot mouth has its specified rounded end; this isolates the straight vertical edge."
+      }
+    },
+    "slot-negative-middle": {
+      "segments": 786,
+      "layer_count": 782,
+      "normal_coordinate_range_plate_mm": [
+        85.884,
+        86.035
+      ],
+      "normal_coordinate_variation_mm": 0.15099999999999625,
+      "maximum_within_move_normal_change_mm": 0.0008645492760308571,
+      "maximum_commanded_speed_mm_s": 200.0,
+      "maximum_commanded_acceleration_mm_s2": 5000.0,
+      "straight_region_z_at_least_40_mm": {
+        "layers": 723,
+        "segments": 723,
+        "normal_coordinate_range_plate_mm": [
+          86.035,
+          86.035
+        ],
+        "normal_coordinate_variation_mm": 0.0,
+        "note": "The lower slot mouth has its specified rounded end; this isolates the straight vertical edge."
+      }
+    }
+  },
+  "outer_wall_continuous_runs": 4941,
+  "outer_wall_starts_near_front_slots_above_z20": {
+    "count": 0,
+    "native_region": {
+      "x_less_than_mm": -136,
+      "absolute_y_range_mm": [
+        69,
+        85
+      ],
+      "z_greater_than_mm": 20
+    }
+  },
+  "printer_held_file_check": {
+    "printer": "Mark2",
+    "operation": "read-only job archive retrieval",
+    "matches": []
+  },
+  "scope": "Recorded launch archive, byte-identical Bambu Connect input, complete embedded mesh and commanded G-code. No same-named archive was found in printer storage. This does not measure deposited flow, actual motion, firmware calibration or physical feature performance.",
+  "reported_photographs": {
+    "Photo 1": "198b156474ab6e539dec6b1b07d3cb5ea7465fce1c160b204032be0000efe865",
+    "Photo 2": "eb1f0216e37496c92d9c11a05b881d768a19b2e6c14eafdef8bf5b8958aaddad",
+    "Photo 3": "ed586262db03e67a5453011ed30a289f703921760c98436b4337e6f1d7c65094",
+    "Photo 4": "7bdef669d6ce07050895c24e895a5f93ab74c123e196794a3c0c4a8dac3da2da",
+    "Photo 5": "7be7794e36753718f2a970c7db8b1e8a5c984df45321e02f0a95d8ba55704ef8",
+    "Photo 6": "72d00c2915e0a11a16bff382127a560aba9961ef0baf98ed6ec46db770455f5d",
+    "Photo 7": "4db1a3f140b6081a7e1d14d781bb18d141fa21bcfaae566ac2f9ad97729582c7"
+  }
+}
