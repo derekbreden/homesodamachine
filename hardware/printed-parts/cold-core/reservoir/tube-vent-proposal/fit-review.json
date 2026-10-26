@@ -1,0 +1,158 @@
+{
+  "status": "Review candidate, not production geometry or a physical fit result.",
+  "baseline_assembly": {
+    "path": "hardware/manifold-layout/enclosure-assembly.step",
+    "sha256": "257021ee95bb8f5b45f15536f699ec6a961468c1e060c3ce5441c9c7c60a5081"
+  },
+  "dimensions_mm": {
+    "cap_plate_thickness": 4.0,
+    "cap_top_z": 213.15,
+    "cap_bottom_z": 209.15,
+    "existing_top_gap": 0.4000000999964186,
+    "fluid_grommet": {
+      "waist_d": 9.0,
+      "flare_d": 11.0,
+      "bore_d": 6.2,
+      "lead_d": 7.0,
+      "lead_h": 0.4
+    },
+    "air_grommet": {
+      "waist_d": 6.0,
+      "flare_d": 8.0,
+      "bore_d": 3.9,
+      "lead_d": 4.5,
+      "lead_h": 0.3
+    },
+    "vent_axes": {
+      "a": [
+        120.0,
+        -26.0
+      ],
+      "b": [
+        -102.0,
+        -32.5
+      ]
+    },
+    "air_tube_od": 4.0,
+    "air_tube_id": 2.5,
+    "air_tube_top_z": 239.4,
+    "air_tube_above_outer_cap": 6.0,
+    "air_tube_tip_to_baffle_floor": 1.0,
+    "passage_d": 5.2,
+    "passage_wall": 2.0,
+    "passage_radial_tube_clearance": 0.6000000000000001
+  },
+  "checks": {
+    "air-a-nearest-existing-objects": [
+      [
+        4.58939,
+        "cold-core/reservoir-a-gasket"
+      ],
+      [
+        4.63698,
+        "cold-core/g-ganen-pump"
+      ],
+      [
+        7.35272,
+        "cold-core/reservoir-a"
+      ],
+      [
+        13.350329,
+        "bulkhead-flavor-a"
+      ],
+      [
+        16.5,
+        "enclosure-back-top"
+      ],
+      [
+        17.338875,
+        "tube-fluid-18"
+      ],
+      [
+        45.055573,
+        "tube-fluid-28"
+      ],
+      [
+        91.369436,
+        "wire-PE-bus"
+      ]
+    ],
+    "air-a-proposed-cup-clearance": 0.5999999999999943,
+    "air-a-proposed-lid-clearance": 0.5999999999999939,
+    "cap-a-solid-count": 1,
+    "cap-a-valid": true,
+    "grip-a-flush-z": [
+      209.15,
+      213.15
+    ],
+    "grip-a-petg-intersection-mm3": 0.0,
+    "air-b-nearest-existing-objects": [
+      [
+        4.38904,
+        "tube-above-core-va-fore-feed"
+      ],
+      [
+        6.499229,
+        "wire-PE-bus"
+      ],
+      [
+        8.748367,
+        "wire-J2-COM"
+      ],
+      [
+        9.108716,
+        "wire-PE-carbonator"
+      ],
+      [
+        10.305549,
+        "cold-core/valve-v-b"
+      ],
+      [
+        12.825312,
+        "tube-fluid-16"
+      ],
+      [
+        14.766106,
+        "wire-J1-COM"
+      ],
+      [
+        15.638826,
+        "wire-J7-RB2"
+      ]
+    ],
+    "air-b-proposed-cup-clearance": 0.5999999999999943,
+    "air-b-proposed-lid-clearance": 0.5999999999999939,
+    "cap-b-solid-count": 1,
+    "cap-b-valid": true,
+    "grip-b-flush-z": [
+      209.15,
+      213.15
+    ],
+    "grip-b-petg-intersection-mm3": 0.0,
+    "cup-solid-count": 1,
+    "cup-valid": true,
+    "lid-valid": true,
+    "cap-a-body-intersection-mm3": 0.0,
+    "cap-a-gasket-intersection-mm3": 0.0,
+    "cap-b-body-intersection-mm3": 0.0,
+    "cap-b-gasket-intersection-mm3": 0.0,
+    "B-fill-elbow-to-PETG-intersection-mm3": 0.0,
+    "B-fill-elbow-to-TPU-nominal-interference-mm3": 4.842568725781888,
+    "float-upper-stop-top-z-mm": 202.15,
+    "new-baffle-below-lid-bottom-z-mm": 206.15,
+    "baffle-vertical-clearance-above-float-top-mm": 4.0
+  },
+  "limits": [
+    "Nominal CAD only; TPU insertion, sliding grip and printed fits need a trial.",
+    "Tube/grommet interference is intentional: nominal diametral 0.15mm for 1/4-inch tube; 0.10mm for air tube.",
+    "No filter, check valve, separate sleeve, clamp or fastener is proposed.",
+    "Air stubs end above the insulation inside the appliance, not outside the appliance enclosure.",
+    "Existing rigid B-fill elbow stem is retained; A-fill tail is extended through the shortened seat."
+  ],
+  "baseline_part_sha256": {
+    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step": "22ebb75f487a98b05b0cf18f3b779afe629de1e6364116d91f38903b0c1095e4",
+    "hardware/printed-parts/cold-core/reservoir/reservoir-cap-left.step": "70847bc00a185847da37d3fb88d951a2b3c401f26233dddb9a3bd903fe03c20a",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "43775ada9c87841a21f1f21da108773fc93a332f386f551f2f7c67cb609b362a",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "1a57043ecc7936ca320b3bb334a3f716ac9f786bf347b9ff7682f3291532c404"
+  }
+}
