@@ -12,6 +12,27 @@ The home page sets the visual language: Montserrat, cobalt introductions, pale c
 
 [`lib/style-guide.js`](/web/lib/style-guide.js) uses the shared shell, the exported cost and landing-button CSS, and [`public/css/materials.css`](/web/public/css/materials.css) directly. [`public/css/style-guide.css`](/web/public/css/style-guide.css) supplies documentation layout; [`public/style-guide.js`](/web/public/style-guide.js) supplies local demonstrations and reads displayed font sizes and colors from the browser. Match an existing pattern by its role and importance. Add examples when another reusable pattern needs a reference; correct existing pages where a specific problem is identified.
 
+[`public/css/workspace.css`](/web/public/css/workspace.css) supplies the shared
+action menus for model workspaces, document readers, and their style-guide
+examples. Each surface owns its toolbar layout.
+
+The document library at `/drawings` groups search with its page title and offers
+All, Engineering drawings, and Build guides filters. A material's
+`engineering-drawing` document tag supplies the drawing classification and part
+number search. Drawings appear first in the mixed shelf. Search and type filters
+live in the URL so reader Back returns to the same results. Phones use a type
+selector instead of a row of filter buttons. Covers show the whole sheet within
+consistent preview frames; a published drawing's cover is rendered from its
+final PDF and named in the PDF sidecar.
+
+Standalone document readers have one toolbar for Back, title, page navigation,
+fit mode, zoom, and a document action menu. They open fitted to the page; Fit
+width is available in the fit selector. Readers with one page omit pagination,
+and status announcements do not occupy a separate row after loading. On phones,
+page navigation stays visible and zoom steps move to the action menu when space
+is needed. Page links, browser history, downloads, selectable text, and bounded
+canvas memory use the shared reader implementation.
+
 ## Home page audience
 
 The home page is for someone who knows little more than "soda machine" and has no earlier context. Its main job is to explain the equipment under the kitchen counter, the dedicated faucet above it, and cold, carbonated soda poured into a glass. The integrated appliance is presented as under development. The one-time availability notification signup is a small secondary feature after the explanation. The [home page audience brief](/marketing/lincoln/working-materials.md#home-page-audience-brief) sets the priorities for [`lib/landing.js`](/web/lib/landing.js).

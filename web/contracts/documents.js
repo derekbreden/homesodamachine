@@ -24,6 +24,7 @@ const COMMITTED_DOCUMENT_FILES = new Set([
   "hardware/install-guide/install-guide.pdf.json",
   "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.pdf",
   "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.pdf.json",
+  "hardware/cut-parts/carbonation/endcaps-circular/endcap-circular-2hole-drawing.cover.png",
 ]);
 
 export function isCommittedDocumentFile(repoRel) {
