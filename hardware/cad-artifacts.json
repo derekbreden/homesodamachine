@@ -29,6 +29,7 @@
       "hardware/manifold-layout/enclosure_assembly.py",
       "hardware/manifold-layout/reservoir-a-routes.json",
       "hardware/scripts/_tools_totals.py",
+      "hardware/wiring/enclosure-wiring.csv",
       "hardware/wiring/enclosure-wiring.json",
       "hardware/wiring/installed/route-overrides.json"
     ],
@@ -1600,8 +1601,8 @@
     "hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png": "8a00340093b0dc25942826efdbb12236525daad39a98dc4f6d62c81b97c643fc",
     "hardware/install-guide/plumbing/modern/art/modern-water-off.png": "eb5623a33b96b53f5a3d451395f0cc6e4a7b8c6242bd600e0ab661f33765f27c",
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": "9d15c3c5ef60820f86c6cec68b200dfb5f43fda1dea5b86ec0600b8c53074fb7",
-    "hardware/manifold-layout/enclosure-assembly.step": "10d70a71d7084c9503db8785a38aa892e8290d63f6e8139424baa2d6725dbcd8",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "0f0b923cf993501653402e5f2ceb589fe461de09ed4bf971ba34cf53809cb63f",
+    "hardware/manifold-layout/enclosure-assembly.step": "886445fcc4c527793aa89b28eb4b282d9c4ca823d5c087a592eb5eeb8a5478bd",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "e9b374123f539ed11338d81e357ccaffd400d54159ef244a8df02721f639af22",
     "hardware/manifold-layout/manifold-layout.step": "5eef4a1580f9571e71cac2dda03eb02df691074e276b79e694b3ee3a2eedd1ad",
     "hardware/manifold-layout/manifold-layout.step.mesh": "e710b90db3148a6a790a5842f065c20e108c45112f6e1715ec8b7f8fbf1abab6",
     "hardware/pcb/pcba/out/pcba.bom.csv": "8e50da9512f4775249bb0a81e7ef8dc1059fbd3ed31513aaae1511838bb65209",
@@ -2735,8 +2736,8 @@
     "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-west-outer/body.stl": "9f4abb20c725e7b0ba2b8b42da55153db4d53a9fe736da71d565ab1d292f7f54",
     "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-west-outer/wet-shadow-blocker.stl": "52846b6501e3de851c8685c8143c2eda01a7318189c51f6d5056824f5cd53ff1",
     "hardware/printed-parts/enclosure/pump-dock/print-preparation/2026-10-18-asymmetric-wet-siraya85a-mark1/plates/enclosure-pump-return-west-outer/wet-void.stl": "4ba7d4254b61595c78b71715914ceff958a65f8a926f41e1b25753be8421e7fc",
-    "hardware/wiring/enclosure-wiring.step": "e94dc9881b6c19aeaaff21dde70705dea187c55eaca63220dd0b0660dfea0bab",
-    "hardware/wiring/enclosure-wiring.step.mesh": "d0d9bef438f73e5dac6e69ea860844a5b87097398fda2efd54d853c55ae612f2",
+    "hardware/wiring/enclosure-wiring.step": "413237a5c4dd1aeb28bb36a2ea995fa6b705f815d8954f85f585da4703ee287c",
+    "hardware/wiring/enclosure-wiring.step.mesh": "88f9868d198318999181fe7835d9f6689ab7508dc7a280f62e19111e558afae9",
     "hardware/reference/neofit-flavor-reducer/neofit-flavor-reducer.step": "28ad424a683a778950e17844c38cc98ad69bba0135cc0472d703d993221c17e2",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.stl": "fc308b454d8940727fd71e8a665b09bbfcb78d88d8ca0724ba7f1b3a304876f6",
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "9102cb883d745861f37e285142f384f307ede335e9258086fa9242004cc92f47",
@@ -3014,8 +3015,8 @@
     "hardware/install-guide/plumbing/modern/art/modern-tee-tug-check.png": 1791566298,
     "hardware/install-guide/plumbing/modern/art/modern-water-off.png": 1791566298,
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": 1791566298,
-    "hardware/manifold-layout/enclosure-assembly.step": 1792999072,
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1792999072,
+    "hardware/manifold-layout/enclosure-assembly.step": 1792999125,
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1792999125,
     "hardware/manifold-layout/manifold-layout.step": 1792740989,
     "hardware/manifold-layout/manifold-layout.step.mesh": 1792740989,
     "hardware/manifold-layout/studies/ceiling-fit/parts/back-wall.step": 1792743994,
@@ -4340,7 +4341,7 @@
     "hardware/reference/yyfkgcp-pogo-4p/pogo-4p-female.step": 1790919001,
     "hardware/reference/yyfkgcp-pogo-4p/pogo-4p-male.step": 1790919001,
     "hardware/reference/yzmsz-water-regulator/geometry/yzmsz-water-regulator.step": 1792828088,
-    "hardware/wiring/enclosure-wiring.step": 1792999072,
-    "hardware/wiring/enclosure-wiring.step.mesh": 1792999072
+    "hardware/wiring/enclosure-wiring.step": 1792999125,
+    "hardware/wiring/enclosure-wiring.step.mesh": 1792999125
   }
 }
