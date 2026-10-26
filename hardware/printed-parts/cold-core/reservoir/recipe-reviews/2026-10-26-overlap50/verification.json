@@ -26,11 +26,25 @@
   "all_other_settings_identical": true,
   "candidate_contains_gcode": false,
   "native_slice": {
-    "status": "pending",
+    "status": "passed",
     "application": "BambuStudio-02.08.02.61",
-    "produced_slice": false
+    "produced_slice": true,
+    "review": "../../prints/2026-10-26-mark1-left-engineering-flow105-overlap50-temp260-left08-z000/native-review.json",
+    "layer_count": 833,
+    "estimated_seconds": 20545,
+    "estimated_mass_g": 444.89,
+    "infill_wall_overlap": "50%",
+    "gcode_sha256": "2ed4fa6431c4e290a5a271caa6bf2df89495dd37de92de2bf7837a5594674de0",
+    "embedded_md5_verified": true,
+    "minimum_full_bead_edge_margin_mm": 80.519003,
+    "z_trim_commands": [
+      "G29.1 Z0 ; clear z-trim value first",
+      "G29.1 Z0"
+    ]
   },
-  "printer_job_submitted": false,
+  "printer_job_submitted": true,
   "physical_water_hold": "unassessed",
-  "scope": "Archive integrity and exact recipe delta only. No emitted-path or physical sealing result is claimed."
+  "scope": "Archive integrity, exact recipe delta and native slice review. Physical water holding is unassessed.",
+  "job_id": "1377101665",
+  "launch": "../../prints/2026-10-26-mark1-left-engineering-flow105-overlap50-temp260-left08-z000/launch.json"
 }

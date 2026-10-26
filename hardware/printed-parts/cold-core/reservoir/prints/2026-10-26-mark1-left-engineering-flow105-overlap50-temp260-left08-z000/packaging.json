@@ -1,0 +1,24 @@
+{
+  "source_archive": ".cache/reservoir-overlap50-20261026/left-pair-native.gcode.3mf",
+  "source_archive_sha256": "1291359eeead016b505942dc7d074aa93ec693ce15a646626149cf9840da4c0e",
+  "print_only_archive": ".cache/reservoir-overlap50-20261026/2026-10-26-reservoir-left-cap-engineering-flow105-overlap50-temp260-left08-z000-a2-mark1.gcode.3mf",
+  "print_only_archive_sha256": "e2f63c9f675fef2d5a7992c82507c3ca0a78dc14b65724aab1c4fe90cb4bef37",
+  "gcode_sha256": {
+    "Metadata/plate_1.gcode": "2ed4fa6431c4e290a5a271caa6bf2df89495dd37de92de2bf7837a5594674de0"
+  },
+  "gcode_byte_identical": true,
+  "changed_container_entries": [
+    "3D/3dmodel.model",
+    "Metadata/model_settings.config"
+  ],
+  "omitted_editable_geometry_entries": [
+    "Metadata/cut_information.xml"
+  ],
+  "selected_parts": [
+    "reservoir-left",
+    "reservoir-cap-left"
+  ],
+  "native_export_source": "cua_repl Bambu Studio Slice plate > Export plate sliced file; no G-code edits.",
+  "source_plate": 1,
+  "submitted_plate": 1
+}
