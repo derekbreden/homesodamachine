@@ -32,7 +32,7 @@ from endcap_circular_dxf import (
 )
 
 PDF_PATH = HERE / "endcap-circular-2hole-drawing.pdf"
-REVISION = "C"
+REVISION = "D"
 REVISION_DATE = "2026-10-26"
 SHEET = (17 * inch, 11 * inch)
 MARGIN = 27
@@ -191,8 +191,8 @@ def face_view(c):
                     (484, 600), (510, 600),
                     ["2X 1/4-18 NPT THRU", "TAP FROM OUTSIDE FACE", "P1, P2 - SEE NOTE 2"], 10)
     circular_leader(c, (rx, ry), register_drill_diameter * inch / 2,
-                    (429, 351), (510, 351),
-                    ["R1 - BLIND ROD REGISTER", "SEE SECTION B-B"], 9)
+                    (322, 415), (342, 415),
+                    ["R1 - BLIND REGISTER", "SEE SECTION B-B"], 9)
     # The witnesses start at the actual OD silhouette, not an imaginary
     # rectangle tangent to the bottom of the disc.
     horizontal_dimension(c, CX - RADIUS, CX + RADIUS, CY,

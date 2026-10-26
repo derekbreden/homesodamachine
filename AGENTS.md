@@ -67,6 +67,13 @@ host's visualization instructions. Reuse its shared theme helper for text,
 native controls, legends and canvas/WebGL colors. Save inline fragments in the
 current chat's visualization directory. This adds no automatic build or commit check.
 
+## Engineering Drawings
+
+For requested dimensioned mechanical part drawings, use the
+[engineering drawing workflow](tools/engineering-drawings/SKILL.md). It covers
+finished-part requirements, generation, and separate annotation and layout
+reviews within that drawing task.
+
 ## Publishing
 
 Complete requested repository changes by committing and pushing to `main` without asking for separate confirmation.
