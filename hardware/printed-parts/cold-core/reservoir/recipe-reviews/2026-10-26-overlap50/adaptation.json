@@ -6,18 +6,18 @@
   "baseline_task_context": "1375878568",
   "baseline_source_project": ".cache/reservoir-left-pair-engineering-20261025/candidate.3mf",
   "baseline_source_project_sha256": "a437cc147ceee8eecd011a271fa498f5c9d0d1b28a72d9899ce2b9b336c16584",
-  "candidate_project": ".cache/reservoir-overlap40-20261026/candidate.3mf",
-  "candidate_project_sha256": "fa8b389379bb76c96eb50d1394eeb5b513890ed074b397562e4cb5207abc0076",
+  "candidate_project": ".cache/reservoir-overlap50-20261026/candidate.3mf",
+  "candidate_project_sha256": "7b7f7e6ac83c95721a65878668125440169338b8f6e205ee04175a1b3ca1fac8",
   "settings": "settings.json",
-  "settings_sha256": "d1c35240efa14481d4425bc8030462eccdb6619fefe34269f05c9295c726eefc",
+  "settings_sha256": "f3eb5aa95b28b5a436161cd8cbf36a653b661daeba417a9a0a427e93aab58889",
   "setting_changes": {
     "infill_wall_overlap": {
       "from": "30%",
-      "to": "40%"
+      "to": "50%"
     },
     "print_settings_id": {
       "from": "Reservoir May Water 0.8 - solid walls overlap30 flow105",
-      "to": "Reservoir PETG 0.8 - five walls overlap40 flow105 260C"
+      "to": "Reservoir PETG 0.8 - five walls overlap50 flow105 260C"
     }
   },
   "physical_setting_changes": [
@@ -38,5 +38,5 @@
     "reservoir-cap-left"
   ],
   "reported_evidence": "../../water-hold-evidence/2026-10-26-two-hour-leak/physical-result.json",
-  "scope": "40% is an engineering trial selection, not a manufacturer sealing specification or demonstrated leak fix. The report identifies the most recent reservoir but supplies no explicit task ID."
+  "scope": "50% is an engineering trial selection, not a manufacturer sealing specification or demonstrated leak fix. The report identifies the most recent reservoir but supplies no explicit task ID."
 }
