@@ -1401,7 +1401,7 @@
       "purchase_id": "pur-e09e5d28db894792aef087da03caea51"
     }
   ],
-  "as_of": "2026-10-24",
+  "as_of": "2026-10-26",
   "coverage": [
     {
       "checked_at": "2026-10-04",
@@ -7809,7 +7809,7 @@
       ]
     }
   ],
-  "input_fingerprint": "sha256:51f18935de289efc33cbd7ae4489df1ad41986d5c7799d3a459f9f468c56126f",
+  "input_fingerprint": "sha256:a909217a37c32feebd9a0ae2b09e59360e030a2dfbf5f29174f96d139af3d1f3",
   "orders": [
     {
       "allocation_status": "all_project",
@@ -11769,6 +11769,28 @@
       "reference": "112-8759475-1611456",
       "source_ids": [
         "saved-amazon:112-8759475-1611456"
+      ],
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "event_ids": [],
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-26"
+      },
+      "order_id": "amazon:112-8772290-0884241",
+      "purchase_ids": [
+        "pur-3d8a298bd6054af6a120b520e7a8da65",
+        "pur-4fe40749fe864533992cc92b1e791c63",
+        "pur-5f404f5035cb425a9a8d90c69010a404",
+        "pur-a326599d5b464456b43259262c4808ba",
+        "pur-d95243a541864bd887feefcc369098d4",
+        "pur-f2a6d291d92649da94f37b960613d32e"
+      ],
+      "reference": "112-8772290-0884241",
+      "source_ids": [
+        "src-f1858fd8ad6e4488986599b5ba971c31"
       ],
       "vendor": "Amazon"
     },
@@ -23696,6 +23718,50 @@
       "vendor": "Anthropic"
     },
     {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 85693,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "Canon EOS R50 V mirrorless camera with RF-S 14-30mm F4-6.3 IS STM PZ lens kit — main camera of the carbonator weld filming plan: the kit lens focuses to 0.15 m at 0.38× for the joint details, and its 14 mm end frames the overall view. Sold by Amazon.com; $799.00 + $57.93 allocated estimated NE tax, free shipping; Amazon order details verified 2026-10-26, arriving 2026-10-27",
+      "event_ids": [],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-3d8a298bd6054af6a120b520e7a8da65",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-26"
+      },
+      "order_ids": [
+        "amazon:112-8772290-0884241"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-3d8a298bd6054af6a120b520e7a8da65",
+      "purpose": "equipment_tooling",
+      "quantity": 1,
+      "quantity_text": "1",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-26"
+      },
+      "row_date_basis": "order_date",
+      "section": "19. Video / marketing capture equipment",
+      "service_period": null,
+      "source_ids": [
+        "src-f1858fd8ad6e4488986599b5ba971c31"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
       "allocation_status": "mixed_partial",
       "amount_evidence": "estimate",
       "amount_minor": 2123,
@@ -25845,6 +25911,50 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-amazon:112-4443137-8148205"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 6756,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "SmallRig CT-10 aluminum tripod and monopod, 180 cm, 360° ball head — the fixed overall camera position. Sold by SmallRig; $69.99 − $7.00 SmallRig 10% promotion + $4.57 allocated estimated NE tax, free shipping; Amazon order details verified 2026-10-26, arriving 2026-10-27",
+      "event_ids": [],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-4fe40749fe864533992cc92b1e791c63",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-26"
+      },
+      "order_ids": [
+        "amazon:112-8772290-0884241"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-4fe40749fe864533992cc92b1e791c63",
+      "purpose": "equipment_tooling",
+      "quantity": 1,
+      "quantity_text": "1",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-26"
+      },
+      "row_date_basis": "order_date",
+      "section": "19. Video / marketing capture equipment",
+      "service_period": null,
+      "source_ids": [
+        "src-f1858fd8ad6e4488986599b5ba971c31"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -28397,6 +28507,50 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-amazon:112-3799575-6647414"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 1929,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "Anker USB-C dual-slot SD and microSD card reader — offloads camera cards to the M3 Air, which has no card slot. Sold by AnkerDirect; $17.99 + $1.30 allocated estimated NE tax, free shipping; Amazon order details verified 2026-10-26, arriving 2026-10-27",
+      "event_ids": [],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-5f404f5035cb425a9a8d90c69010a404",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-26"
+      },
+      "order_ids": [
+        "amazon:112-8772290-0884241"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-5f404f5035cb425a9a8d90c69010a404",
+      "purpose": "equipment_tooling",
+      "quantity": 1,
+      "quantity_text": "1",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-26"
+      },
+      "row_date_basis": "order_date",
+      "section": "19. Video / marketing capture equipment",
+      "service_period": null,
+      "source_ids": [
+        "src-f1858fd8ad6e4488986599b5ba971c31"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -38126,6 +38280,50 @@
     },
     {
       "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 16086,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "NEEWER NL-192AI 13\" bi-color LED panel kit, 3200–5600 K, two panels with stands, power adapters and built-in batteries — key and fill light for the weld video closeups. Sold by iphotoxx; $149.99 + $10.87 allocated estimated NE tax, free shipping; Amazon order details verified 2026-10-26, arriving 2026-10-27",
+      "event_ids": [],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-a326599d5b464456b43259262c4808ba",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-26"
+      },
+      "order_ids": [
+        "amazon:112-8772290-0884241"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-a326599d5b464456b43259262c4808ba",
+      "purpose": "equipment_tooling",
+      "quantity": 1,
+      "quantity_text": "1 kit (2)",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-26"
+      },
+      "row_date_basis": "order_date",
+      "section": "19. Video / marketing capture equipment",
+      "service_period": null,
+      "source_ids": [
+        "src-f1858fd8ad6e4488986599b5ba971c31"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
       "amount_evidence": "legacy_unverified",
       "amount_minor": 2974,
       "contributes": true,
@@ -44732,6 +44930,50 @@
     },
     {
       "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 9556,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "SmallRig CT25 horizontal overhead tripod, 164 cm, 5 kg ball-head payload — holds the R50 V above or obliquely over the bench for the joint closeups. Sold by SmallRig; $99.00 − $9.90 SmallRig 10% promotion + $6.46 allocated estimated NE tax, free shipping; Amazon order details verified 2026-10-26, arriving 2026-10-27",
+      "event_ids": [],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-d95243a541864bd887feefcc369098d4",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-26"
+      },
+      "order_ids": [
+        "amazon:112-8772290-0884241"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-d95243a541864bd887feefcc369098d4",
+      "purpose": "equipment_tooling",
+      "quantity": 1,
+      "quantity_text": "1",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-26"
+      },
+      "row_date_basis": "order_date",
+      "section": "19. Video / marketing capture equipment",
+      "service_period": null,
+      "source_ids": [
+        "src-f1858fd8ad6e4488986599b5ba971c31"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
       "amount_evidence": "legacy_unverified",
       "amount_minor": 696,
       "contributes": true,
@@ -48024,6 +48266,50 @@
       "source_ids": [
         "legacy-ledger-2026",
         "saved-amazon:114-4194868-8174607"
+      ],
+      "split_charge": false,
+      "stream": "purchase",
+      "unit_amount_minor": null,
+      "vendor": "Amazon"
+    },
+    {
+      "allocation_status": "all_project",
+      "amount_evidence": "estimate",
+      "amount_minor": 4825,
+      "contributes": true,
+      "currency": "USD",
+      "delivery_date": null,
+      "description": "SanDisk Extreme 128 GB SD card, UHS-I V30 (SDSDXV9-128G-GUCIN) — the R50 V's recording card. Sold by Amazon.com; $44.99 + $3.26 allocated estimated NE tax, free shipping; Amazon order details verified 2026-10-26, arriving 2026-10-27",
+      "event_ids": [],
+      "fulfillment": "ON-ORDER",
+      "invoice_date": null,
+      "ledger_purchase_id": "pur-f2a6d291d92649da94f37b960613d32e",
+      "merchant_charge_allocated_minor": 0,
+      "merchant_refund_allocated_minor": 0,
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-26"
+      },
+      "order_ids": [
+        "amazon:112-8772290-0884241"
+      ],
+      "payment_evidence": "unknown",
+      "price_basis": "row_total",
+      "purchase_id": "pur-f2a6d291d92649da94f37b960613d32e",
+      "purpose": "equipment_tooling",
+      "quantity": 1,
+      "quantity_text": "1",
+      "receipt_date": null,
+      "record_role": "purchase",
+      "row_date": {
+        "precision": "day",
+        "value": "2026-10-26"
+      },
+      "row_date_basis": "order_date",
+      "section": "19. Video / marketing capture equipment",
+      "service_period": null,
+      "source_ids": [
+        "src-f1858fd8ad6e4488986599b5ba971c31"
       ],
       "split_charge": false,
       "stream": "purchase",
@@ -60546,6 +60832,22 @@
     {
       "document_date": {
         "precision": "day",
+        "value": "2026-10-26"
+      },
+      "document_type": "order_details",
+      "note": "Signed-in Amazon order details and order summary: ordered 2026-10-26, all six items arriving 2026-10-27. Canon EOS R50 V with RF-S 14-30mm lens kit (B0F258T13X) at USD 799.00 and SanDisk Extreme 128 GB SD card (B0G8LT6J46) at USD 44.99, both sold by Amazon.com; SmallRig CT25 overhead tripod (B0F8TDJH4J) at USD 99.00 and SmallRig CT-10 tripod (B0B63VTW46) at USD 69.99, both sold by SmallRig; NEEWER NL-192AI two-panel light kit (B08TMBXLGD) at USD 149.99, sold by iphotoxx; Anker USB-C SD card reader (B07NW8RPYN) at USD 17.99, sold by AnkerDirect. USD 1,180.96 item subtotal, USD 0.00 shipping, USD 16.90 promotion, USD 84.39 estimated tax and USD 1,248.45 grand total. The promotion is the 10% SmallRig offer shown on both tripod listings and on none of the other four, allocated as 10% of each: USD 9.90 to the CT25 and 7.00 to the CT-10. The tax is not itemized; it is allocated in proportion to the post-promotion item price: USD 57.93 to the camera, 6.46 to the CT25, 4.57 to the CT-10, 10.87 to the lights, 3.26 to the SD card and 1.30 to the reader. Order-scoped Transactions list no transactions yet. No charge or delivery is established.",
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "reference": "112-8772290-0884241",
+      "source_id": "src-f1858fd8ad6e4488986599b5ba971c31",
+      "vendor": "Amazon",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "document_date": {
+        "precision": "day",
         "value": "2026-10-15"
       },
       "document_type": "order_details",
@@ -61586,21 +61888,27 @@
           "unknown_amount_ids": []
         },
         {
-          "amount_minor": 94753,
+          "amount_minor": 219598,
           "currency": "USD",
           "fulfillment": "ON-ORDER",
           "purchase_ids": [
             "pur-1ead43e8eead4989adf3de560d23febe",
             "pur-242d69307ce84a69948b9e502ff3dd71",
             "pur-2c46198fe81f4cf7bf5a65d4e4ec638a",
+            "pur-3d8a298bd6054af6a120b520e7a8da65",
             "pur-43767918757a4173a8b69a9b725d64fd",
             "pur-4eaf76e6557740d7b0e85e0be8664f71",
+            "pur-4fe40749fe864533992cc92b1e791c63",
+            "pur-5f404f5035cb425a9a8d90c69010a404",
             "pur-6bc71f4f15b34503ac9bf8beea6ef815",
             "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96",
             "pur-7f5e5ae2f85e4d74bca9edb78b7332f0",
             "pur-8b3d0e7a5c9f4e2b4a7d1c3e5f6a8b07",
+            "pur-a326599d5b464456b43259262c4808ba",
             "pur-abd647629bfa41e1ae7de9bf129dbf44",
-            "pur-ae7d87fe77614d0098db388d7f0fa11d"
+            "pur-ae7d87fe77614d0098db388d7f0fa11d",
+            "pur-d95243a541864bd887feefcc369098d4",
+            "pur-f2a6d291d92649da94f37b960613d32e"
           ],
           "unknown_amount_ids": []
         },
@@ -61620,16 +61928,22 @@
         "pur-1ead43e8eead4989adf3de560d23febe",
         "pur-242d69307ce84a69948b9e502ff3dd71",
         "pur-2c46198fe81f4cf7bf5a65d4e4ec638a",
+        "pur-3d8a298bd6054af6a120b520e7a8da65",
         "pur-43767918757a4173a8b69a9b725d64fd",
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
+        "pur-4fe40749fe864533992cc92b1e791c63",
+        "pur-5f404f5035cb425a9a8d90c69010a404",
         "pur-6bc71f4f15b34503ac9bf8beea6ef815",
         "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96",
         "pur-7f5e5ae2f85e4d74bca9edb78b7332f0",
         "pur-8b3d0e7a5c9f4e2b4a7d1c3e5f6a8b07",
+        "pur-a326599d5b464456b43259262c4808ba",
         "pur-abd647629bfa41e1ae7de9bf129dbf44",
         "pur-ae7d87fe77614d0098db388d7f0fa11d",
         "pur-b6c01a5b012340fc888139c1070dc054",
-        "pur-c887374045604177851c4a81cc779f0e"
+        "pur-c887374045604177851c4a81cc779f0e",
+        "pur-d95243a541864bd887feefcc369098d4",
+        "pur-f2a6d291d92649da94f37b960613d32e"
       ],
       "returned_without_evidenced_refund_purchase_ids": []
     },
@@ -62640,7 +62954,7 @@
         },
         {
           "currency": "USD",
-          "estimate_minor": 109647,
+          "estimate_minor": 234492,
           "evidence_scope": "retrieved_records_only",
           "final_vendor_amount_minor": 141812,
           "legacy_unverified_minor": 30634,
@@ -62658,13 +62972,16 @@
             "pur-2c46198fe81f4cf7bf5a65d4e4ec638a",
             "pur-3c8e5f2b0d4a4f7c9b2e6d8f0a1b3c52",
             "pur-3ce173932d6c45f184bcd60237a2c790",
+            "pur-3d8a298bd6054af6a120b520e7a8da65",
             "pur-406788001c4d41f39213bbd4ec7a35ad",
             "pur-43767918757a4173a8b69a9b725d64fd",
             "pur-45f46a866eb640d0be16bab2fd7493b3",
             "pur-4d9f6a3c1e5b4a8d0c3f7e9a1b2c4d63",
             "pur-4eaf76e6557740d7b0e85e0be8664f71",
+            "pur-4fe40749fe864533992cc92b1e791c63",
             "pur-5c066280c9c7489f8f90b851374b4995",
             "pur-5e0a7b4d2f6c4b9e1d4a8f0b2c3d5e74",
+            "pur-5f404f5035cb425a9a8d90c69010a404",
             "pur-633abd30f0524d80a397fcee998a7658",
             "pur-65c979f1bb194148918426361d985f73",
             "pur-6bc71f4f15b34503ac9bf8beea6ef815",
@@ -62680,6 +62997,7 @@
             "pur-9835cb05727440fa98029e6134ffd627",
             "pur-9c025ba9576044b38a4745d084361ea5",
             "pur-a02ce33a2d984d9fbea615cbad793ab3",
+            "pur-a326599d5b464456b43259262c4808ba",
             "pur-a61e59a7635c4aa0887475454ad04b04",
             "pur-a667e3ee975c42218852bc7b225d75a8",
             "pur-abd647629bfa41e1ae7de9bf129dbf44",
@@ -62690,14 +63008,16 @@
             "pur-cfc338b991f7400a851a0ea5a018e44e",
             "pur-d22466e29dac4d8ca46fdc5c575dde2c",
             "pur-d8a8a1e239ff48b6a6b19c43e22b4858",
+            "pur-d95243a541864bd887feefcc369098d4",
             "pur-e17001f6d6074a8884e9e1b2af82fa1f",
             "pur-e7fa6e37def64cf3baaf64a1a2458232",
             "pur-f24cd0a88f4b4a8ca76f3abc490f81b3",
+            "pur-f2a6d291d92649da94f37b960613d32e",
             "pur-f4ddddb90dbd4ae2bba5008f74f8d4b6",
             "pur-f7d7511ce9394cae80352c28342d27fd",
             "pur-f98feadd5dec4c1cba460dd7c74baa09"
           ],
-          "total_minor": 282093,
+          "total_minor": 406938,
           "unknown_amount_ids": []
         },
         {
@@ -62745,7 +63065,7 @@
           "purpose": "engineering_software_services"
         },
         {
-          "amount_minor": 2221524,
+          "amount_minor": 2346369,
           "currency": "USD",
           "purpose": "equipment_tooling"
         },
@@ -62763,10 +63083,10 @@
       "totals": [
         {
           "currency": "USD",
-          "estimate_minor": 273700,
+          "estimate_minor": 398545,
           "final_vendor_amount_minor": 2097033,
           "legacy_unverified_minor": 2398968,
-          "total_minor": 4769701
+          "total_minor": 4894546
         }
       ],
       "undated_unallocated": [
@@ -62920,11 +63240,11 @@
       "by_currency": [
         {
           "currency": "USD",
-          "estimated_purchase_minor": 273700,
+          "estimated_purchase_minor": 398545,
           "legacy_unverified_purchase_minor": 2398968,
           "order_only_charge_allocation_minor": 6561,
           "partial_charge_purchase_minor": 0,
-          "purchases_without_merchant_charge_minor": 3010569,
+          "purchases_without_merchant_charge_minor": 3135414,
           "undated_charge_minor": 57998,
           "undated_refund_minor": 0,
           "undated_unallocated_purchase_minor": 922346,
@@ -62943,13 +63263,16 @@
         "pur-2b7d4e1a9c3f4e6b8a1d5c7e9f0a2b41",
         "pur-3c8e5f2b0d4a4f7c9b2e6d8f0a1b3c52",
         "pur-3ce173932d6c45f184bcd60237a2c790",
+        "pur-3d8a298bd6054af6a120b520e7a8da65",
         "pur-3e2e38c4658c47eba0f7b8efe6bb4734",
         "pur-406788001c4d41f39213bbd4ec7a35ad",
         "pur-4d9f6a3c1e5b4a8d0c3f7e9a1b2c4d63",
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
+        "pur-4fe40749fe864533992cc92b1e791c63",
         "pur-5090fe33ed404b20b5f3401171bf8565",
         "pur-5da1ea9540d44a8897b0c2774fe1ff35",
         "pur-5e0a7b4d2f6c4b9e1d4a8f0b2c3d5e74",
+        "pur-5f404f5035cb425a9a8d90c69010a404",
         "pur-6f1b8c5e3a7d4c0f2e5b9a1c3d4e6f85",
         "pur-7a2c9d6f4b8e4d1a3f6c0b2d4e5f7a96",
         "pur-7cb5c1d8028249feb0e80687059fc82e",
@@ -62961,6 +63284,7 @@
         "pur-91bd3b099e80493ab591655550b439ca",
         "pur-9c025ba9576044b38a4745d084361ea5",
         "pur-a02ce33a2d984d9fbea615cbad793ab3",
+        "pur-a326599d5b464456b43259262c4808ba",
         "pur-a61e59a7635c4aa0887475454ad04b04",
         "pur-a667e3ee975c42218852bc7b225d75a8",
         "pur-ae7d87fe77614d0098db388d7f0fa11d",
@@ -62969,9 +63293,11 @@
         "pur-cfc338b991f7400a851a0ea5a018e44e",
         "pur-d0a38d1d52934be7866d5286a6a8271e",
         "pur-d8a8a1e239ff48b6a6b19c43e22b4858",
+        "pur-d95243a541864bd887feefcc369098d4",
         "pur-e17001f6d6074a8884e9e1b2af82fa1f",
         "pur-e7fa6e37def64cf3baaf64a1a2458232",
         "pur-f24cd0a88f4b4a8ca76f3abc490f81b3",
+        "pur-f2a6d291d92649da94f37b960613d32e",
         "pur-f4ddddb90dbd4ae2bba5008f74f8d4b6"
       ],
       "incomplete_coverage_ids": [
@@ -63658,6 +63984,7 @@
         "pur-3ce496aeefa54ba3ac576dd7b9d3ec91",
         "pur-3d23a62e17584a1fb6247b9bbf1c9575",
         "pur-3d76f4776f4b4092b93462762f916385",
+        "pur-3d8a298bd6054af6a120b520e7a8da65",
         "pur-3e422dd818e94af4b336e62fbe83e26f",
         "pur-3f24d066bf684d46943a5469ba0b74fc",
         "pur-3f610c61869547abb6f636978fb3c63c",
@@ -63698,6 +64025,7 @@
         "pur-4e67b837e2924692ab29eaaba49ae039",
         "pur-4eaf76e6557740d7b0e85e0be8664f71",
         "pur-4ece7766dd31470b9b37994248982069",
+        "pur-4fe40749fe864533992cc92b1e791c63",
         "pur-503ab7c363e14bc6a3b241f8f86b3afd",
         "pur-5090fe33ed404b20b5f3401171bf8565",
         "pur-5133bb7161d64ebc8dd128da8a97b6f0",
@@ -63737,6 +64065,7 @@
         "pur-5f0821e0f4ca451890e35f52acbcef24",
         "pur-5f32a9e9bb164a428dc6bb489ccd1b8b",
         "pur-5f39080fdb1b4961aae31ac2a7050338",
+        "pur-5f404f5035cb425a9a8d90c69010a404",
         "pur-5fae169d013f41d197ba6f7e6a43c212",
         "pur-5fd0030147254e7ea4b08f7f09ff66f7",
         "pur-60b1975ac8e740ba9b68c87b90dd9143",
@@ -63895,6 +64224,7 @@
         "pur-a2b0cf087f7f47a08b322850fdd38d9a",
         "pur-a306c668d8404ae7b814b49320456fb2",
         "pur-a315ebcc82034331b7c9b9a3f9714aa4",
+        "pur-a326599d5b464456b43259262c4808ba",
         "pur-a42cf53d49fa43ca9f11e1024291cc25",
         "pur-a52a7f9d818044e8a32955ecd3a28d01",
         "pur-a53ccd97d110495190a9b5e728f00720",
@@ -64000,6 +64330,7 @@
         "pur-d83d321239db48ee949f436e89843a22",
         "pur-d84786a4222e445d8af1bf8d2725bd01",
         "pur-d93ee965bacf499aa09cd8ddb8f80f01",
+        "pur-d95243a541864bd887feefcc369098d4",
         "pur-d9a7fc46c6a94ed792dea9b448ecdf05",
         "pur-dc2db914953b4bfc837b9ddc3c762e61",
         "pur-dc62fe3f57474f15be2c4afae3e10359",
@@ -64052,6 +64383,7 @@
         "pur-f1d4b8acb6c84ea08eea6c8722eea66a",
         "pur-f24cd0a88f4b4a8ca76f3abc490f81b3",
         "pur-f2837bd0bd16455988b931fefbefdc61",
+        "pur-f2a6d291d92649da94f37b960613d32e",
         "pur-f327ab43abf34b7089fb74f6bfa7a5bf",
         "pur-f34a0cbf6ba74d11887b5ec0c8206984",
         "pur-f35fe0e3500e48a39375f599a22c10b7",

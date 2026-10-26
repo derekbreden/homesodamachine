@@ -238,6 +238,12 @@ it is now on the abrasive path, so **the left hotend is the bottleneck hotend**
 | Tool | Source | Notes | $ |
 |---|---|---|---:|
 | **SanDisk Ultra Fit USB 3.1 256 GB** | [B07857Y17V](https://www.amazon.com/dp/B07857Y17V), [purchases.md §19](/hardware/ledger/purchases.md) | Plugs into H2C front USB for on-device per-print timelapse capture. 256 GB holds dozens of full-print MP4s. | [$45.41](T_SANDISK) |
+| **Canon EOS R50 V + RF-S 14-30mm F4-6.3 IS STM PZ** | [B0F258T13X](https://www.amazon.com/dp/B0F258T13X), [purchases.md §19](/hardware/ledger/purchases.md) | 24.2 MP APS-C. 4K 30p from the full sensor width, 4K 60p cropped, Full HD up to 120p. The power-zoom kit lens spans 22–48 mm equivalent and focuses to 0.15 m at 0.38× (Canon's figure), a field about 59 mm wide across the 22.3 mm sensor, so joint details need no macro lens. Records to full-size SD. Main camera of the [carbonator weld filming plan](/marketing/video/carbonator-weld-shooting-plan.md). | [$856.93](T_R50V) |
+| **SmallRig CT25 horizontal overhead tripod** | [B0F8TDJH4J](https://www.amazon.com/dp/B0F8TDJH4J), [purchases.md §19](/hardware/ledger/purchases.md) | 164 cm, with a horizontal center arm for overhead and oblique views; ball head rated 5 kg (listing). Holds the R50 V over the bench for joint closeups. | [$95.56](T_CT25) |
+| **SmallRig CT-10 tripod/monopod** | [B0B63VTW46](https://www.amazon.com/dp/B0B63VTW46), [purchases.md §19](/hardware/ledger/purchases.md) | 180 cm aluminum tripod that converts to a monopod; 360° ball head rated 33 lb (listing). The fixed overall camera position. | [$67.56](T_CT10) |
+| **NEEWER NL-192AI two-panel LED kit** | [B08TMBXLGD](https://www.amazon.com/dp/B08TMBXLGD), [purchases.md §19](/hardware/ledger/purchases.md) | Two 13" bi-color panels, 3200–5600 K, CRI 97+ (listing), dimmable, built-in 4000 mAh batteries, with two stands, two power adapters and a bag. Key and fill light for bench closeups. | [$160.86](T_NEEWER_PANELS) |
+| **SanDisk Extreme 128 GB SD (SDSDXV9-128G-GUCIN)** | [B0G8LT6J46](https://www.amazon.com/dp/B0G8LT6J46), [purchases.md §19](/hardware/ledger/purchases.md) | UHS-I, U3, V30; 230 MB/s read, 120 MB/s write (listing). The R50 V's recording card. | [$48.25](T_SD_EXTREME) |
+| **Anker USB-C dual-slot card reader** | [B07NW8RPYN](https://www.amazon.com/dp/B07NW8RPYN), [purchases.md §19](/hardware/ledger/purchases.md) | SD and microSD, UHS-I. Offloads camera cards to the M3 Air, which has no card slot; neither does the Anker 332 hub. | [$19.29](T_CARD_READER) |
 
 ## Named by the procedures, not on the ledger
 
@@ -258,7 +264,7 @@ the bench is Derek's to confirm. They carry no cost in the total below.
 
 ## Tools total
 
-Total tooling, acquired and on order: **[$18,099.25](TOOLS_TOTAL)**
+Total tooling, acquired and on order: **[$19,347.70](TOOLS_TOTAL)**
 
 ## Sources
 [value](NAME) texts are updated by:

@@ -2962,6 +2962,51 @@
           "quantity": 1
         }
       ]
+    },
+    "112-8772290-0884241": {
+      "ordered": "2026-10-26",
+      "subtotal": 1180.96,
+      "shipping": 0.0,
+      "promotion": -16.9,
+      "tax": 84.39,
+      "tax_estimated": true,
+      "total": 1248.45,
+      "status": "Ordered; arriving 2026-10-27",
+      "project": true,
+      "verified": "2026-10-26",
+      "expected_delivery": "2026-10-27",
+      "items": [
+        {
+          "asin": "B0F258T13X",
+          "title": "Canon EOS R50 V Mirrorless Camera RF-S14-30mm F4-6.3 IS STM PZ Lens Kit",
+          "quantity": 1
+        },
+        {
+          "asin": "B0F8TDJH4J",
+          "title": "SmallRig CT25 Horizontal Overhead Tripod",
+          "quantity": 1
+        },
+        {
+          "asin": "B0B63VTW46",
+          "title": "SmallRig CT-10 Aluminum Camera Ball Head Tripod & Monopod",
+          "quantity": 1
+        },
+        {
+          "asin": "B08TMBXLGD",
+          "title": "NEEWER NL-192AI 13\" LED Video Light Panel Kit, 2 Pack",
+          "quantity": 1
+        },
+        {
+          "asin": "B0G8LT6J46",
+          "title": "SanDisk 128GB Extreme SD Memory Card SDSDXV9-128G-GUCIN",
+          "quantity": 1
+        },
+        {
+          "asin": "B07NW8RPYN",
+          "title": "Anker SD Card Reader USB C, Dual Slots",
+          "quantity": 1
+        }
+      ]
     }
   }
 }

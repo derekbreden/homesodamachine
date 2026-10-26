@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-24",
+  "as_of": "2026-10-26",
   "reporting_period": {
     "start": "2026-01-01",
     "end": "2026-12-31"
@@ -8499,6 +8499,78 @@
       "source_ids": [
         "src-8732dad07bf84f9492eca983fb4accb6"
       ]
+    },
+    "pur-3d8a298bd6054af6a120b520e7a8da65": {
+      "vendor": "Amazon",
+      "purpose": "equipment_tooling",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:112-8772290-0884241"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-f1858fd8ad6e4488986599b5ba971c31"
+      ]
+    },
+    "pur-d95243a541864bd887feefcc369098d4": {
+      "vendor": "Amazon",
+      "purpose": "equipment_tooling",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:112-8772290-0884241"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-f1858fd8ad6e4488986599b5ba971c31"
+      ]
+    },
+    "pur-4fe40749fe864533992cc92b1e791c63": {
+      "vendor": "Amazon",
+      "purpose": "equipment_tooling",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:112-8772290-0884241"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-f1858fd8ad6e4488986599b5ba971c31"
+      ]
+    },
+    "pur-a326599d5b464456b43259262c4808ba": {
+      "vendor": "Amazon",
+      "purpose": "equipment_tooling",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:112-8772290-0884241"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-f1858fd8ad6e4488986599b5ba971c31"
+      ]
+    },
+    "pur-f2a6d291d92649da94f37b960613d32e": {
+      "vendor": "Amazon",
+      "purpose": "equipment_tooling",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:112-8772290-0884241"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-f1858fd8ad6e4488986599b5ba971c31"
+      ]
+    },
+    "pur-5f404f5035cb425a9a8d90c69010a404": {
+      "vendor": "Amazon",
+      "purpose": "equipment_tooling",
+      "amount_evidence": "estimate",
+      "order_ids": [
+        "amazon:112-8772290-0884241"
+      ],
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-f1858fd8ad6e4488986599b5ba971c31"
+      ]
     }
   },
   "orders": {
@@ -14356,6 +14428,18 @@
       "allocation_status": "all_project",
       "source_ids": [
         "src-8732dad07bf84f9492eca983fb4accb6"
+      ]
+    },
+    "amazon:112-8772290-0884241": {
+      "vendor": "Amazon",
+      "reference": "112-8772290-0884241",
+      "order_date": {
+        "precision": "day",
+        "value": "2026-10-26"
+      },
+      "allocation_status": "all_project",
+      "source_ids": [
+        "src-f1858fd8ad6e4488986599b5ba971c31"
       ]
     }
   },
@@ -29719,6 +29803,21 @@
       ],
       "verified_at": "2026-10-26",
       "note": "Gmail order confirmation received 2026-10-26 01:21 America/Chicago: H2C Induction Hotend (Right) standard flow 0.8 mm hardened steel x2 USD 79.98 and 0.6 mm hardened steel x2 USD 79.98; USD 159.96 subtotal, USD 0.00 shipping, USD 11.60 tax (state 5.5% USD 8.80 + city 1.75% USD 2.80), USD 171.56 grand total and net payment. The order number's timestamp places the order at 2026-10-26 01:20 America/Chicago. No completed merchant charge is stated."
+    },
+    "src-f1858fd8ad6e4488986599b5ba971c31": {
+      "vendor": "Amazon",
+      "document_type": "order_details",
+      "reference": "112-8772290-0884241",
+      "document_date": {
+        "precision": "day",
+        "value": "2026-10-26"
+      },
+      "proves": [
+        "order_date",
+        "price"
+      ],
+      "verified_at": "2026-10-26",
+      "note": "Signed-in Amazon order details and order summary: ordered 2026-10-26, all six items arriving 2026-10-27. Canon EOS R50 V with RF-S 14-30mm lens kit (B0F258T13X) at USD 799.00 and SanDisk Extreme 128 GB SD card (B0G8LT6J46) at USD 44.99, both sold by Amazon.com; SmallRig CT25 overhead tripod (B0F8TDJH4J) at USD 99.00 and SmallRig CT-10 tripod (B0B63VTW46) at USD 69.99, both sold by SmallRig; NEEWER NL-192AI two-panel light kit (B08TMBXLGD) at USD 149.99, sold by iphotoxx; Anker USB-C SD card reader (B07NW8RPYN) at USD 17.99, sold by AnkerDirect. USD 1,180.96 item subtotal, USD 0.00 shipping, USD 16.90 promotion, USD 84.39 estimated tax and USD 1,248.45 grand total. The promotion is the 10% SmallRig offer shown on both tripod listings and on none of the other four, allocated as 10% of each: USD 9.90 to the CT25 and 7.00 to the CT-10. The tax is not itemized; it is allocated in proportion to the post-promotion item price: USD 57.93 to the camera, 6.46 to the CT25, 4.57 to the CT-10, 10.87 to the lights, 3.26 to the SD card and 1.30 to the reader. Order-scoped Transactions list no transactions yet. No charge or delivery is established."
     }
   },
   "coverage": [
