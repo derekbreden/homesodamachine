@@ -1,6 +1,6 @@
 {
   "recorded_on": "2026-10-26",
-  "status": "Launched as Mark1 task 1377101665; left reservoir and matching lid, Engineering Plate, A2 with Auto Refill.",
+  "status": "Completed left task 1377101665 reported holding water. Right repeat launched as Mark1 task 1378532609.",
   "customer_outcome": "A reservoir that retains liquid without seepage at the floor-fill/wall boundary.",
   "baseline_settings": "../../prints/2026-10-25-mark1-left-engineering-flow105-overlap30-temp260-left08-z000/settings.json",
   "baseline_task_context": "1375878568",
@@ -40,5 +40,7 @@
   "reported_evidence": "../../water-hold-evidence/2026-10-26-two-hour-leak/physical-result.json",
   "scope": "50% is an engineering trial selection, not a manufacturer sealing specification or demonstrated leak fix. The report identifies the most recent reservoir but supplies no explicit task ID.",
   "launched_print": "../../prints/2026-10-26-mark1-left-engineering-flow105-overlap50-temp260-left08-z000/README.md",
-  "job_id": "1377101665"
+  "job_id": "1377101665",
+  "reported_physical_result": "../../prints/2026-10-26-mark1-left-engineering-flow105-overlap50-temp260-left08-z000/physical-result/physical-result.json",
+  "opposite_side_repeat": "../../prints/2026-10-26-mark1-right-engineering-flow105-overlap50-temp260-left08-z000/README.md"
 }

@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "reported_date": "2026-10-26",
+  "reported_by": "Derek",
+  "job_id": "1377101665",
+  "side": "left",
+  "status": "held_water",
+  "article_completion": "FINISH 833/833, print error 0 and HMS empty at fresh preflight.",
+  "observed_printer_at_utc": "2026-10-26T22:29:08.652287+00:00",
+  "original_quote": "All right, that reservoir print turned out well. It's holding water so far.",
+  "observation": "Completed left reservoir turned out well and is holding water so far, as reported by Derek.",
+  "ongoing_at_report": true,
+  "hold_duration_hours": null,
+  "fill_height_mm": null,
+  "water_temperature_C": null,
+  "recipe": "../settings.json",
+  "native_review": "../native-review.json",
+  "infill_wall_overlap_percent": 50,
+  "scope": "Qualitative water hold of the identified completed left article. Duration, water head, float movement and cap/gasket assembly sealing are not separately assessed."
+}

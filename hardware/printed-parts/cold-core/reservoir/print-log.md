@@ -804,3 +804,24 @@ error 0 and no HMS; model deposition, adhesion and water holding unassessed.
 Derek:
 
 > Mark 1 is clear and ready for your next print. Got the bed, the industrial plate glued and ready to go.
+
+## 2026-10-26 — left 50% water hold and right repeat
+
+Derek reports that the completed left **task 1377101665** turned out well
+and is holding water so far. Fresh status is FINISH 833/833, error 0 and no
+HMS. Duration and water head are unspecified.
+[Physical result](prints/2026-10-26-mark1-left-engineering-flow105-overlap50-temp260-left08-z000/physical-result/physical-result.json).
+
+The right reservoir and current matching flush-grip lid are running as
+**Mark1 task 1378532609**, accepted **2026-10-26T17:39:03.553720-05:00**, through one Studio Send and
+`project_file SUCCESS`. Saved settings match the left recipe: 50% overlap,
+flow 1.05, five Arachne walls, 255/260 °C nozzle, 70 °C Engineering Plate,
+left 0.8 mm Standard, A2 PETG with Auto Refill, no brim, zero trim and ironing
+Off. Native slice: **5 h 41 min, 443.37 g, 833 layers**, 80.519 mm full-bead
+inset. Mark2 task 1378515009 is observed for at least 180 seconds
+before Send. Startup has no error/HMS; physical right sealing is unassessed.
+[Native review and launch](prints/2026-10-26-mark1-right-engineering-flow105-overlap50-temp260-left08-z000/README.md).
+
+Derek:
+
+> All right, that reservoir print turned out well. It's holding water so far. So now that we've got that side, left I guess it was, with a 50% overlap, I'd like to get the other side, right side, with a 50% overlap, or whatever the other side is that you didn't just print. Mark one is available, plate is glued and ready.
