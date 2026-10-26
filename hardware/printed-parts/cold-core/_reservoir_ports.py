@@ -39,10 +39,9 @@ def spool_envelope(xy, z0, specification):
 
 
 def seat_tool(xy, z0, specification):
-    """The full mating profile, overshooting both plate faces for a clean cut."""
+    """Matching profile; retain the perimeter lip beneath a partially overlapping seat."""
     z1 = z0 + plate_thickness
     return spool_envelope(xy, z0, specification).fuse(
-        cylinder(xy, z0 - .1, z0, specification['flare_d']),
         cylinder(xy, z1, z1 + .1, specification['flare_d']))
 
 

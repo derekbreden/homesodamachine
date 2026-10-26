@@ -428,8 +428,8 @@
       "name": "reservoir-cap-right",
       "plate": 2,
       "source": "hardware/printed-parts/cold-core/reservoir/reservoir-cap-right.step",
-      "step_sha256": "76e74f14a279bc1de4a74a388320334ba80e45ff2c4011c2f24442baef3b657a",
-      "triangles": 17644,
+      "step_sha256": "de2f54c2c34fab9ad171db2e656191b3cc23f08233398d48b5560842e0c2f2bc",
+      "triangles": 17578,
       "watertight": true,
       "body_count": 1,
       "print_orientation": "exterior face down",
@@ -448,5 +448,5 @@
     }
   ],
   "scope": "Current CAD and declared no-ironing recipe. Historical water holds belong to their identified articles; physical outcomes belong to the print records.",
-  "project_sha256": "f4215ad298d9e3ca69940846c3a91181455015283946da0d7e914f953bed06d5"
+  "project_sha256": "6963639743021f9eaae5d9ce500322f77124df25465ef735c119adbacf6446dd"
 }
