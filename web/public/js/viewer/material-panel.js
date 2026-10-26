@@ -24,7 +24,7 @@ export function mountMaterialPanel(workspace, { file = null, material = null } =
   panel.setAttribute("aria-label", "Material explorer");
   workspace.append(panel);
   const wrapper = workspace.querySelector(".cad-wrapper");
-  const mobile = matchMedia("(max-width: 700px)");
+  const mobile = matchMedia("(max-width: 700px), (hover: none) and (pointer: coarse)");
   const toggle = wrapper ? el("button", "materials-toggle", "Materials") : null;
   function setOpen(open) {
     workspace.classList.toggle("materials-open", open);

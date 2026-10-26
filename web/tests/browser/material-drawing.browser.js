@@ -211,5 +211,9 @@ test("direct links and responsive layout apply the pane rules without storing a 
     await page.reload({ waitUntil: "domcontentloaded" });
     await materialReady(page);
     await assertPane(page, true);
+    await page.setViewport({ width: 844, height: 390, isMobile: true, hasTouch: true });
+    await page.goto(baseUrl + searchUrl, { waitUntil: "domcontentloaded" });
+    await materialReady(page);
+    await assertPane(page, false);
   } finally { await page.close(); }
 });
