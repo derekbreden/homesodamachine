@@ -1,16 +1,16 @@
 {
   "recorded_on": "2026-10-25",
-  "status": "Right-pair left 0.8 mm Engineering Plate retry running as Mark1 task 1374963298, accepted 15:18:16 CDT / 20:18:16 UTC October 25. Startup layer 0/833, no error/HMS; A1 loaded on left. Model adhesion and water holding unassessed.",
+  "status": "Left body and matching lid running as task 1375878568 on fixed left 0.8 mm, Engineering Plate, A2 with refill. Prior right task 1374963298 finished and has reported water hold.",
   "customer_outcome": "A flat, leak-free vented reservoir with acceptable appearance and less production time.",
   "trigger": "../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json",
   "priority": [
     {
-      "candidate": "Retry the same right reservoir and matching cap on the left 0.8 mm Standard hotend, with cleaned/glued Engineering Plate and retained recipe.",
-      "purpose": "Evaluate the user-selected left hotend after right-hotend polymer buildup and motion-step-loss report.",
-      "evidence": "../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json",
+      "candidate": "Repeat the left body and matching lid with the successful fixed-left 0.8 mm Engineering Plate recipe.",
+      "purpose": "Produce another water-holding reservoir on the opposite side.",
+      "evidence": "../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/physical-result/physical-result.json",
       "retained": "Flow 1.05, five Arachne walls at 10 degrees, overlap 30%, nozzle 255/260 C, bed 70 C, 0.30/0.24 mm layers, solid floor/cap fill, May motion/cooling, no brim, zero added/effective Engineering Z trim, ironing Off.",
-      "status": "Launched as task 1374963298 after fixed left 0.8 mm identification; startup A1 loaded, layer 0/833, no error/HMS.",
-      "prepared_record": "../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/README.md",
+      "status": "Launched as task 1375878568.",
+      "prepared_record": "../prints/2026-10-25-mark1-left-engineering-flow105-overlap30-temp260-left08-z000/README.md",
       "limits": "Photographs do not prove a general right-hotend defect or the order of buildup, nozzle contact, motion loss or adhesion changes."
     },
     {
@@ -88,23 +88,24 @@
     "evidence": "Current body/floor receives 90% commands; successful May profile also saves a 90% overhang override. No observed onset link isolates cooling as the cause.",
     "candidate": "Review supported-path fan inheritance if investigating curl; preserve the demonstrated May cooling as the baseline."
   },
-  "prepared_recipe": "../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/adaptation.json",
+  "prepared_recipe": "../prints/2026-10-25-mark1-left-engineering-flow105-overlap30-temp260-left08-z000/adaptation.json",
   "previous_completed_trial": {
-    "job_id": "1371867808",
-    "printer": "Mark1",
-    "recipe": "Five Arachne walls, flow 1.05, 30% overlap, 255/260 C, right 0.8 mm Standard",
-    "record": "../prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/README.md",
-    "status": "FINISH 833/833; Derek reports holding water on October 25.",
-    "physical_result": "../prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json"
-  },
-  "current_trial": {
     "job_id": "1374963298",
     "printer": "Mark1",
-    "side": "right model pair",
-    "hotend": "left 0.8 mm Standard",
+    "side": "right",
+    "hotend": "Fixed left 0.8 mm Standard",
     "record": "../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/README.md",
-    "start_slot": "A1",
-    "status": "RUNNING at startup layer 0/833, error 0, HMS empty; A1 loaded on left. Adhesion and sealing unassessed.",
+    "status": "FINISH 833/833; reported turned out well and holding water.",
+    "physical_result": "../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/physical-result/physical-result.json"
+  },
+  "current_trial": {
+    "job_id": "1375878568",
+    "printer": "Mark1",
+    "side": "left body and matching lid",
+    "hotend": "left 0.8 mm Standard",
+    "record": "../prints/2026-10-25-mark1-left-engineering-flow105-overlap30-temp260-left08-z000/README.md",
+    "start_slot": "A2",
+    "status": "RUNNING during preparation, layer 0/833, error 0, HMS empty; A2 loaded on fixed left 0.8 mm. New adhesion and water hold unassessed.",
     "plate": "Engineering Plate, cleaned and glued",
     "nozzle_c_first_subsequent": [
       255,
@@ -116,11 +117,11 @@
     ],
     "added_user_z_trim_mm": 0,
     "emitted_plate_z_trim_mm": 0,
-    "saved_setting_changes": "Filament assignment to left nozzle only, including per-plate mapping.",
-    "accepted_at_utc": "2026-10-25T20:18:16.702789+00:00",
-    "accepted_at_central": "2026-10-25T15:18:16.702789-05:00",
-    "launch": "../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/launch.json",
-    "startup": "../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/startup.json"
+    "saved_setting_changes": "Successful recipe retained; select opposite-side body/lid and center its placement.",
+    "accepted_at_utc": "2026-10-26T03:03:53.127505+00:00",
+    "accepted_at_central": "2026-10-25T22:03:53.127505-05:00",
+    "launch": "../prints/2026-10-25-mark1-left-engineering-flow105-overlap30-temp260-left08-z000/launch.json",
+    "startup": "../prints/2026-10-25-mark1-left-engineering-flow105-overlap30-temp260-left08-z000/startup.json"
   },
   "reported_water_hold": {
     "result": "../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json",
@@ -171,6 +172,12 @@
       "result": "../prints/2026-10-22-mark1-flow105-overlap30-right08-z000/physical-result/physical-result.json",
       "reported_on": "2026-10-25",
       "status": "Still holding water; initial one-hour report preserved, total duration unspecified."
+    },
+    {
+      "job_id": "1374963298",
+      "result": "../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/physical-result/physical-result.json",
+      "reported_on": "2026-10-25",
+      "status": "Holding water; duration and head unspecified."
     }
   ],
   "preceding_attempt": {

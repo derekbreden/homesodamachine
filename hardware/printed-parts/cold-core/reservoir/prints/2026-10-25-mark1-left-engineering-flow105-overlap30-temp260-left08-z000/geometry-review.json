@@ -1,0 +1,47 @@
+{
+  "recorded_on": "2026-10-25",
+  "previous_task_id": "1374963298",
+  "previous_parts": [
+    "reservoir-right",
+    "reservoir-cap-right"
+  ],
+  "selected_parts": [
+    "reservoir-left",
+    "reservoir-cap-left"
+  ],
+  "current_geometry_matches_preceding_project": true,
+  "matching_container_entries": {
+    "3D/3dmodel.model": "9b5b22407d5fc327319a742d7d3347131a530dfd0c0415c1e1eb260e00f3b922",
+    "3D/Objects/object_1.model": "261f1b728b7bf13b69b3eacf99a66203ff867cfdfcbe63f83021c1139aef26ae",
+    "3D/Objects/object_2.model": "f5c6c33e39dfa3ad4350bf475deff63f4dbc4a6a6b6d9f8743b9d1e1b128e28a",
+    "3D/Objects/object_3.model": "d1191d09198795eae555a331bb58ce8e7892459304d0b41c18af0c31869cfc4b",
+    "3D/Objects/object_4.model": "86b2de08c5b4707c4821e73d70b10ab64e8265e61e3e881e5f17f399a6cac6b0",
+    "3D/_rels/3dmodel.model.rels": "68bb669829f78c756ada0b7c64645595c77d5538d8312a2366b7cfbfc1bc9c95"
+  },
+  "current_step_hashes": {
+    "reservoir-left": "addefcf9f35e0298efb310b205bbc2b257a9de162b30700584d7454c9c36cdda",
+    "reservoir-cap-left": "70847bc00a185847da37d3fb88d951a2b3c401f26233dddb9a3bd903fe03c20a",
+    "reservoir-right": "53bdb23481d31bbf030c496e27dffbc47273c5acf282db0f248e00c13ade753e",
+    "reservoir-cap-right": "22ebb75f487a98b05b0cf18f3b779afe629de1e6364116d91f38903b0c1095e4"
+  },
+  "integration_record": "../../../magnetic-float/all-aero/integration-check.json",
+  "right_cap_float_rod_axis_xy_mm": [
+    106.25,
+    32.5
+  ],
+  "lid_decision": "Print the matching left lid with the left body. No additional right lid: the printed right-cap mesh and current geometry are unchanged, including port and float-guide positions.",
+  "left_body_mesh_sha256": "261f1b728b7bf13b69b3eacf99a66203ff867cfdfcbe63f83021c1139aef26ae",
+  "left_body_mesh_unchanged": true,
+  "placement": {
+    "from": {
+      "2": "1.000000000 0.000000000 0.000000000 0.000000000 1.000000000 0.000000000 0.000000000 0.000000000 1.000000000 221.000000000 160.000000000 99.949996948",
+      "4": "1.000000000 0.000000000 0.000000000 0.000000000 -1.000000000 0.000000000 0.000000000 0.000000000 -1.000000000 134.000000000 160.000000000 5.500000000"
+    },
+    "to": {
+      "2": "1.000000000 0.000000000 0.000000000 0.000000000 1.000000000 0.000000000 0.000000000 0.000000000 1.000000000 206.000000000 160.000000000 99.949996948",
+      "4": "1.000000000 0.000000000 0.000000000 0.000000000 -1.000000000 0.000000000 0.000000000 0.000000000 -1.000000000 119.000000000 160.000000000 5.500000000"
+    },
+    "change": "Shift the left body/cap pair 15 mm toward the fixed-left usable-bed center; retain orientations, Z and 10 mm interpart gap."
+  },
+  "scope": "Geometry/version matching only; physical lid fit and port/gasket sealing are not newly measured."
+}

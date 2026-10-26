@@ -1,0 +1,116 @@
+{
+  "printer": "Mark1",
+  "job_id": "1375878568",
+  "accepted_at_utc": "2026-10-26T03:03:53.127505+00:00",
+  "accepted_at_central": "2026-10-25T22:03:53.127505-05:00",
+  "acceptance_timestamp_scope": "project_file reply observation when present; otherwise first observation of the matching new running task.",
+  "first_new_task_observed_at_utc": "2026-10-26T03:03:54.598769+00:00",
+  "job": {
+    "job_id": "1375878568",
+    "subtask_name": "Left_reservoir_and_cap_-_PETG_0.24_mm",
+    "gcode_state": "PREPARE",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 833,
+    "total_layer_num": 833,
+    "mc_percent": 0,
+    "mc_remaining_time": 0,
+    "nozzle_temper": 34.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 34.0,
+    "bed_target_temper": 0.0
+  },
+  "previous_job_id": "1374963298",
+  "archive": ".cache/reservoir-left-pair-engineering-20261025/2026-10-25-reservoir-left-cap-engineering-flow105-overlap30-temp260-left08-z000-a2-mark1.gcode.3mf",
+  "archive_sha256": "f066f00beb87279b814c7887805f140a1c9883653f6d76d63d5074f24410639c",
+  "gcode_sha256": "9dd2a4327c077feef59ca32c22f1946859616e308d87951eaedd252974877da0",
+  "post_import_staged_archive_sha256": "f066f00beb87279b814c7887805f140a1c9883653f6d76d63d5074f24410639c",
+  "start_slot": "A2",
+  "available_refill_spools_at_preflight": [
+    "A3",
+    "A4"
+  ],
+  "auto_refill_enabled": true,
+  "spool_order": "A1 is empty; A2-A4 are matching clear PETG at the same reported 100%. Start A2, automatic refill On. Use most depleted matching spool first when depletion differs.",
+  "nozzle": "left 0.8 mm Standard",
+  "nozzle_c_first_subsequent": [
+    255,
+    260
+  ],
+  "user_z_trim_mm": 0,
+  "plate": "Engineering Plate",
+  "plate_z_compensation_mm": 0,
+  "options": {
+    "Timelapse": "On",
+    "Auto Bed Leveling": "On",
+    "Flow Dynamics Calibration": "Auto",
+    "Nozzle Offset Calibration": "Auto"
+  },
+  "submission": "cua_repl Bambu Studio Send print job, single Send click",
+  "command_acknowledgment": {
+    "command": "project_file",
+    "result": "SUCCESS",
+    "reason": "SUCCESS",
+    "err_code": 0
+  },
+  "shared_circuit": {
+    "other_printer": "Mark2",
+    "job_id": "1375153599",
+    "observed_at_utc": "2026-10-26T02:45:54.750624+00:00",
+    "minimum_spacing_seconds": 180,
+    "accepted_at_utc_from_peer": "2026-10-25T21:26:12.736533+00:00",
+    "verification": "Re-read same active task before Send; no new start/resume by coordinated peer.",
+    "minimum_start_spacing_seconds_at_final_preflight": 1033.50339
+  },
+  "events": [
+    {
+      "observed_at_utc": "2026-10-26T03:03:10.454640+00:00",
+      "job_id": "1374963298",
+      "subtask_name": "Flavor_reservoirs_-_PETG_0.24_mm",
+      "gcode_state": "FINISH",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 833
+    },
+    {
+      "observed_at_utc": "2026-10-26T03:03:53.127505+00:00",
+      "command": "project_file",
+      "result": "SUCCESS",
+      "reason": "SUCCESS",
+      "err_code": 0
+    },
+    {
+      "observed_at_utc": "2026-10-26T03:03:53.127505+00:00",
+      "job_id": 1375878568,
+      "subtask_name": "Left_reservoir_and_cap_-_PETG_0.24_mm",
+      "gcode_state": "FINISH",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 833
+    },
+    {
+      "observed_at_utc": "2026-10-26T03:03:53.291124+00:00",
+      "job_id": "1374963298",
+      "subtask_name": "Flavor_reservoirs_-_PETG_0.24_mm",
+      "gcode_state": "FINISH",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 833
+    },
+    {
+      "observed_at_utc": "2026-10-26T03:03:54.598769+00:00",
+      "job_id": "1375878568",
+      "subtask_name": "Left_reservoir_and_cap_-_PETG_0.24_mm",
+      "gcode_state": "PREPARE",
+      "print_error": 0,
+      "hms": [],
+      "layer_num": 833
+    }
+  ],
+  "founder_authorization": "That print turned out well also and is holding water also. So I'd like to print at least one more reservoir here. I'm not sure whether the one you just printed was left or right, but let's switch back to the other one, whatever the other one would be now. And so give me a new print of that. The Mark 1 is glued and ready to go. And then if the geometry hasn't changed and that last reservoir lid that we printed is good as far as the locations on everything and the current geometry, then great. I don't need anything else. But if we need to reprint that last lid to match the current geometry, then include that last lid on this new plate also. Do you follow me? Let me know.",
+  "scope_clarification": [
+    "You're printing both a lid and a body, right?",
+    "The only thing that was optional was whether you were printing two lids or not."
+  ],
+  "hms_scope": "No retained Mark1 HMS at launch."
+}
