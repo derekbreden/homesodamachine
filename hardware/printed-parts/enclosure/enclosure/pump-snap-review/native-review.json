@@ -1,0 +1,1042 @@
+{
+  "scope": "Manual current-export geometry and installation identity reading. The cubic relaxed/seated wing forms are geometric poses, not FEA. No printed fit, load capacity, creep, lifetime, release force or full-Y retraction qualification is established.",
+  "tolerances": {
+    "volume_mm3": 0.0001,
+    "native_area_mm2": 0.0001,
+    "native_linear_mm": 1e-05,
+    "viewer_bounds_mm": 0.002
+  },
+  "sources": [
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/pump-snap-review/baseline-hardware.json",
+      "sha256": "4c5366593ddd325516f2b95a229a65b85bccde0277fb237e3011def8b281ad43"
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/pump-snap-review/review.py",
+      "sha256": "24a39d651a1017e20da7db3d58f91ef9c8a88f143c765ba199edc0d23133556d"
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py",
+      "sha256": "465214f98f1930f45a8f79a774db9def71b9070687159f7cad5682781087ca00"
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "sha256": "52e08eb39a6ff3c406969f8120a85ecd2dee3786fbe6d52b936dc30ef3958c69"
+    },
+    {
+      "path": "hardware/manifold-layout/enclosure_assembly.py",
+      "sha256": "ca018a57f2546b7ddbce2773351b105357e58ffd048cb00160be7c2a5483ac4a"
+    },
+    {
+      "path": "hardware/manifold-layout/_scorecard.py",
+      "sha256": "d7b571a913284e1f655e3da7f288897976c38522d5791573be1e49eed051d7b1"
+    },
+    {
+      "path": "hardware/assembly/scenes/_scenes.py",
+      "sha256": "faf8a53ae99ed0923f6c4ba674ea227e0c653a3a1d81a0525c2e67c8f309bbe3"
+    },
+    {
+      "path": "hardware/assembly/scenes/render_scenes.py",
+      "sha256": "88b3211e281e60c1d94dca4295024f05a90161f460f65d1f5256a427cf40fc57"
+    },
+    {
+      "path": "hardware/scripts/flute_payload.py",
+      "sha256": "43244f598fd41292eae26a1dcc1b160539eb0adf9a54d43d24ce1cce68d21993"
+    },
+    {
+      "path": "hardware/scripts/_cadq_export.py",
+      "sha256": "b8f6e40c22217e392782391428a64360099297dacae1db5052ab73af4803e5ae"
+    },
+    {
+      "path": "hardware/scripts/_box_spec.py",
+      "sha256": "28a36eba80476971d762f9c8b941517c8978725de7fbe05a904d4f86199fcef8"
+    },
+    {
+      "path": "hardware/manifold-layout/enclosure-box.json",
+      "sha256": "3b8f760a0754d4cad939df7f8ceaf3047a35b3d8e707f602ea6b961548f4129e"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step",
+      "sha256": "7fc6f0bef4a08eca4400b04c19911f596c28b3d50c7de6f675eb60b1b76e4f80"
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl",
+      "sha256": "3650089a671ce9212a73ff9522553543a7e0fa4de942bf52a8e38777ef8b85c1"
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh",
+      "sha256": "abf046e62c1a9db931972e2f0ca1cfc1682e7183fd728b3c7c8858cabd25fd46"
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+      "sha256": "5cb0a70a28086ef1f10883d7f2aaf2e8978917e170514160120b819a64d009f5"
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+      "sha256": "3a60a0aa99bfe02acdb06028656336ae08d615c12babf207378997088db5dc6d"
+    },
+    {
+      "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+      "sha256": "3c8d937ac59834a7820f6ab5a8109db73908a2825769ca000b86ae69fbb55a4b"
+    },
+    {
+      "path": "hardware/manifold-layout/enclosure-assembly.step",
+      "sha256": "0bd3d2369c05a76819e6daa1fbc930e84dbe4a5122fcc5da5f64af49a773132c"
+    },
+    {
+      "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+      "sha256": "8bd8d5200ca92c91367e61a3ecc1096b1f93df804a83ed80ec58da0472b19a12"
+    },
+    {
+      "path": "hardware/assembly/scenes/glb/pump-mount.glb",
+      "sha256": "77784273de2567302baf0085af6c79295390447ac2151c00e98eb5b129616f49"
+    }
+  ],
+  "checks": [
+    {
+      "check": "enclosure-pump-retainer viewer lineage",
+      "native_sha256": "7fc6f0bef4a08eca4400b04c19911f596c28b3d50c7de6f675eb60b1b76e4f80",
+      "viewer_source_sha256": "7fc6f0bef4a08eca4400b04c19911f596c28b3d50c7de6f675eb60b1b76e4f80",
+      "pass": true
+    },
+    {
+      "check": "enclosure-front-top viewer lineage",
+      "native_sha256": "5cb0a70a28086ef1f10883d7f2aaf2e8978917e170514160120b819a64d009f5",
+      "viewer_source_sha256": "5cb0a70a28086ef1f10883d7f2aaf2e8978917e170514160120b819a64d009f5",
+      "pass": true
+    },
+    {
+      "check": "printed relaxed retainer native body",
+      "valid": true,
+      "solids": 1,
+      "bounds_mm": [
+        -99.85000009999999,
+        99.85000009999999,
+        14.2499999,
+        82.2650001,
+        165.1949999,
+        214.4240001
+      ],
+      "volume_mm3": 292216.57743262424,
+      "pass": true
+    },
+    {
+      "check": "seated retainer native body",
+      "valid": true,
+      "solids": 1,
+      "bounds_mm": [
+        -99.60000009999999,
+        99.60000009999999,
+        14.2499999,
+        82.2650001,
+        165.19499990000003,
+        214.4240001
+      ],
+      "volume_mm3": 292216.5774326255,
+      "pass": true
+    },
+    {
+      "check": "front-top native body",
+      "valid": true,
+      "solids": 1,
+      "bounds_mm": [
+        -107.50000010000002,
+        107.50000010000001,
+        4.999999899999998,
+        217.8000001,
+        160.2499999,
+        355.00000000002
+      ],
+      "volume_mm3": 2692662.541515858,
+      "pass": true
+    },
+    {
+      "check": "printed STEP matches relaxed source",
+      "removed_mm3": 0.0,
+      "added_mm3": 0.0,
+      "maximum_bound_delta_mm": 2.842170943040401e-14,
+      "pass": true
+    },
+    {
+      "check": "relaxed tip pose and common end planes",
+      "maximum_error_mm": 1.0000002248489182e-07,
+      "expected_tip_abs_x_mm": 99.85,
+      "full_y_mm": [
+        14.25,
+        82.265
+      ],
+      "pass": true
+    },
+    {
+      "check": "seated tip pose and common end planes",
+      "maximum_error_mm": 9.99999993922529e-08,
+      "expected_tip_abs_x_mm": 99.6,
+      "full_y_mm": [
+        14.25,
+        82.265
+      ],
+      "pass": true
+    },
+    {
+      "check": "fitted pump profile source and empty lower wells",
+      "preserved_profile_functions": [
+        {
+          "path": "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py",
+          "function": "lower_voids",
+          "ast_sha256": "1fab59cbc8669f2f1c2fc7c1fbd67eb6dbc4acc048f2ba035fc65fe9a4d32215",
+          "current_ast_sha256": "1fab59cbc8669f2f1c2fc7c1fbd67eb6dbc4acc048f2ba035fc65fe9a4d32215",
+          "unchanged": true
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+          "function": "_pump_lower_well",
+          "ast_sha256": "cd958c2f756649d502f0702363099e64af8418fbaca5c1870c57294217bf8905",
+          "current_ast_sha256": "cd958c2f756649d502f0702363099e64af8418fbaca5c1870c57294217bf8905",
+          "unchanged": true
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+          "function": "_outlet_fore_miter_wedges",
+          "ast_sha256": "63f0b21824c38cfb5300a92294967b0b1bec5a24edf80891f55c76a32348bf7d",
+          "current_ast_sha256": "63f0b21824c38cfb5300a92294967b0b1bec5a24edf80891f55c76a32348bf7d",
+          "unchanged": true
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+          "function": "_outlet_under_tangent_wedges",
+          "ast_sha256": "39fc4afab18dc9a7d9ace1240e95a51a00971b5e2eba844e3aa2eecf3cd2f4b7",
+          "current_ast_sha256": "39fc4afab18dc9a7d9ace1240e95a51a00971b5e2eba844e3aa2eecf3cd2f4b7",
+          "unchanged": true
+        },
+        {
+          "path": "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+          "function": "pump_skirt_support_z",
+          "ast_sha256": "089c0c840aac8e533384ccd7bfba193e1489e44adb098cc9769e66ae82ef4499",
+          "current_ast_sha256": "089c0c840aac8e533384ccd7bfba193e1489e44adb098cc9769e66ae82ef4499",
+          "unchanged": true
+        }
+      ],
+      "native_void_readings": [
+        {
+          "well": 1,
+          "relaxed_material_in_void_mm3": 0.0,
+          "seated_material_in_void_mm3": 0.0
+        },
+        {
+          "well": 2,
+          "relaxed_material_in_void_mm3": 0.0,
+          "seated_material_in_void_mm3": 0.0
+        }
+      ],
+      "scope": "Profile construction is unchanged from the frozen source commit; the current printed and seated solids keep those inverse spaces empty.",
+      "pass": true
+    },
+    {
+      "check": "-1 wing and hook share full Y span",
+      "wing_bounds_mm": [
+        -99.85000009999999,
+        -95.84999990119046,
+        14.249999899999995,
+        82.2650001,
+        165.1949999,
+        186.19400010000004
+      ],
+      "foot_bounds_mm": [
+        -99.85000009999999,
+        -96.12553459404761,
+        14.249999899999995,
+        82.2650001,
+        165.1949999,
+        168.19400010000004
+      ],
+      "maximum_y_error_mm": 1.0000000472132342e-07,
+      "pass": true
+    },
+    {
+      "check": "+1 wing and hook share full Y span",
+      "wing_bounds_mm": [
+        95.84999990119046,
+        99.85000009999999,
+        14.249999899999995,
+        82.2650001,
+        165.1949999,
+        186.19400010000004
+      ],
+      "foot_bounds_mm": [
+        96.12553459404761,
+        99.85000009999999,
+        14.249999899999995,
+        82.2650001,
+        165.1949999,
+        168.19400010000004
+      ],
+      "maximum_y_error_mm": 1.0000000472132342e-07,
+      "pass": true
+    },
+    {
+      "check": "seated retainer and receiver have no material overlap",
+      "shared_volume_mm3": 0.0,
+      "pass": true
+    },
+    {
+      "check": "receiver bearing floors and nominal clearances",
+      "floor_planes": [
+        {
+          "side": -1.0,
+          "faces": 2,
+          "area_mm2": 70.41649999999963,
+          "expected_area_mm2": 70.41649999999963,
+          "native_face_bounds_mm": [
+            [
+              -99.6,
+              -98.5,
+              50.5075,
+              82.515,
+              165.045,
+              165.045
+            ],
+            [
+              -99.6,
+              -98.5,
+              14.0,
+              46.0075,
+              165.045,
+              165.045
+            ]
+          ]
+        },
+        {
+          "side": 1.0,
+          "faces": 2,
+          "area_mm2": 70.41649999999963,
+          "expected_area_mm2": 70.41649999999963,
+          "native_face_bounds_mm": [
+            [
+              98.5,
+              99.6,
+              14.0,
+              46.0075,
+              165.045,
+              165.045
+            ],
+            [
+              98.5,
+              99.6,
+              50.5075,
+              82.515,
+              165.045,
+              165.045
+            ]
+          ]
+        }
+      ],
+      "floor_clearance_mm": [
+        0.14999990000004004,
+        0.14999990000004004
+      ],
+      "y_end_clearance_mm": [
+        0.2499999000000006,
+        0.24999990000000594,
+        0.2499999000000006,
+        0.24999990000000594
+      ],
+      "scope": "Nominal CAD clearances; printing variation and loaded displacement are unmeasured.",
+      "pass": true
+    },
+    {
+      "check": "continuous 45 degree pocket and screwdriver roof",
+      "roof_faces": [
+        {
+          "side": -1.0,
+          "profile_points_mm": [
+            [
+              -98.5,
+              48.2575,
+              175.89999999999998
+            ],
+            [
+              -99.6,
+              48.2575,
+              174.79999999999998
+            ],
+            [
+              -104.5,
+              48.2575,
+              169.89999999999998
+            ]
+          ],
+          "continuous_faces": [
+            {
+              "normal": [
+                0.7071067811865476,
+                0.0,
+                -0.7071067811865476
+              ],
+              "bounds_mm": [
+                -104.5,
+                -98.5,
+                14.0,
+                82.515,
+                169.9,
+                175.9
+              ],
+              "maximum_point_distance_mm": 3.1776437161565096e-14
+            }
+          ]
+        },
+        {
+          "side": 1.0,
+          "profile_points_mm": [
+            [
+              98.5,
+              48.2575,
+              175.89999999999998
+            ],
+            [
+              99.6,
+              48.2575,
+              174.79999999999998
+            ],
+            [
+              104.5,
+              48.2575,
+              169.89999999999998
+            ]
+          ],
+          "continuous_faces": [
+            {
+              "normal": [
+                -0.7071067811865476,
+                -0.0,
+                -0.7071067811865476
+              ],
+              "bounds_mm": [
+                98.5,
+                104.5,
+                14.0,
+                82.515,
+                169.9,
+                175.9
+              ],
+              "maximum_point_distance_mm": 3.1776437161565096e-14
+            }
+          ]
+        }
+      ],
+      "pass": true
+    },
+    {
+      "check": "centered 3.31 mm tool approach and lever samples",
+      "envelope_diameter_mm": 3.31,
+      "usable_y_air_each_mm": 0.595,
+      "angle_range_deg": [
+        0.0,
+        34.0
+      ],
+      "insertion_offset_range_mm": [
+        -15.0,
+        0.0
+      ],
+      "corbel_vertical_separation_bound_mm": 1.6499999999999773,
+      "sides": [
+        {
+          "side": -1.0,
+          "pivot_mm": [
+            -104.5,
+            48.2575,
+            160.25
+          ],
+          "sampled_poses": [
+            {
+              "angle_deg": 0.0,
+              "insertion_offset_mm": -15.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 0.0,
+              "insertion_offset_mm": -14.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 0.0,
+              "insertion_offset_mm": -13.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 0.0,
+              "insertion_offset_mm": -12.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 0.0,
+              "insertion_offset_mm": -11.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 0.0,
+              "insertion_offset_mm": -10.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 0.0,
+              "insertion_offset_mm": -9.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 0.0,
+              "insertion_offset_mm": -8.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 0.0,
+              "insertion_offset_mm": -7.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 0.0,
+              "insertion_offset_mm": -6.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 0.0,
+              "insertion_offset_mm": -5.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 0.0,
+              "insertion_offset_mm": -4.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 0.0,
+              "insertion_offset_mm": -3.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 0.0,
+              "insertion_offset_mm": -2.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 0.0,
+              "insertion_offset_mm": -1.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 0.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 0.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 2.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 4.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 6.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 8.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 10.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 12.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 14.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 16.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 18.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 20.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 22.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 24.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 26.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 28.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 30.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 32.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 34.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            }
+          ],
+          "maximum_fixed_receiver_overlap_mm3": 0.0,
+          "maximum_fixed_carrier_overlap_mm3": 0.0
+        },
+        {
+          "side": 1.0,
+          "pivot_mm": [
+            104.5,
+            48.2575,
+            160.25
+          ],
+          "sampled_poses": [
+            {
+              "angle_deg": 0.0,
+              "insertion_offset_mm": -15.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 0.0,
+              "insertion_offset_mm": -14.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 0.0,
+              "insertion_offset_mm": -13.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 0.0,
+              "insertion_offset_mm": -12.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 0.0,
+              "insertion_offset_mm": -11.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 0.0,
+              "insertion_offset_mm": -10.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 0.0,
+              "insertion_offset_mm": -9.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 0.0,
+              "insertion_offset_mm": -8.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 0.0,
+              "insertion_offset_mm": -7.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 0.0,
+              "insertion_offset_mm": -6.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 0.0,
+              "insertion_offset_mm": -5.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 0.0,
+              "insertion_offset_mm": -4.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 0.0,
+              "insertion_offset_mm": -3.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 0.0,
+              "insertion_offset_mm": -2.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 0.0,
+              "insertion_offset_mm": -1.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 0.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 0.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 2.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 4.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 6.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 8.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 10.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 12.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 14.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 16.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 18.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 20.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 22.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 24.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 26.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 28.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 30.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 32.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            },
+            {
+              "angle_deg": 34.0,
+              "insertion_offset_mm": 0.0,
+              "fixed_receiver_overlap_mm3": 0.0,
+              "fixed_carrier_overlap_mm3": 0.0
+            }
+          ],
+          "maximum_fixed_receiver_overlap_mm3": 0.0,
+          "maximum_fixed_carrier_overlap_mm3": 0.0
+        }
+      ],
+      "scope": "Discrete native samples of a conservative cylindrical tool envelope with front-top loose and its underside open. No continuous swept-volume proof, tip pressure, release force or simultaneous retraction of both wing ends.",
+      "pass": true
+    },
+    {
+      "check": "native appliance and viewer preserve members except six pump fasteners",
+      "native_count": 378,
+      "expected_count": 378,
+      "viewer_count": 378,
+      "missing_native": [],
+      "extra_native": [],
+      "missing_viewer": [],
+      "extra_viewer": [],
+      "retired_hardware_found": [],
+      "viewer_source_sha256": "0bd3d2369c05a76819e6daa1fbc930e84dbe4a5122fcc5da5f64af49a773132c",
+      "other_hardware_preserved": [
+        "bulkhead-carb-nut",
+        "bulkhead-drain-nut",
+        "bulkhead-flavor-a-nut",
+        "bulkhead-flavor-b-nut",
+        "bulkhead-water-nut",
+        "co2-inlet-nut",
+        "funnel-frame-back-east-insert",
+        "funnel-frame-back-east-screw",
+        "funnel-frame-back-west-insert",
+        "funnel-frame-back-west-screw",
+        "funnel-frame-front-east-insert",
+        "funnel-frame-front-east-screw",
+        "funnel-frame-front-west-insert",
+        "funnel-frame-front-west-screw",
+        "y-seam-east-lower-insert",
+        "y-seam-east-lower-screw",
+        "y-seam-east-upper-insert",
+        "y-seam-east-upper-screw",
+        "y-seam-west-lower-insert",
+        "y-seam-west-lower-screw",
+        "y-seam-west-upper-insert",
+        "y-seam-west-upper-screw"
+      ],
+      "pass": true
+    },
+    {
+      "check": "installation GLB preserves members except six pump fasteners",
+      "expected_count": 63,
+      "current_count": 63,
+      "missing": [],
+      "extra": [],
+      "retired_hardware_found": [],
+      "pass": true
+    },
+    {
+      "check": "enclosure-front-top is exact installed native geometry",
+      "valid": true,
+      "solids": 1,
+      "removed_mm3": 0.0,
+      "added_mm3": 0.0,
+      "maximum_bound_delta_mm": 0.0,
+      "pass": true
+    },
+    {
+      "check": "enclosure-pump-retainer is exact installed native geometry",
+      "valid": true,
+      "solids": 1,
+      "removed_mm3": 0.0,
+      "added_mm3": 0.0,
+      "maximum_bound_delta_mm": 2.842170943040401e-14,
+      "pass": true
+    },
+    {
+      "check": "viewer and GLB carry the seated wing pose",
+      "native_seated_bounds_mm": [
+        -99.60000009999999,
+        99.60000009999999,
+        14.2499999,
+        82.2650001,
+        165.19499990000003,
+        214.4240001
+      ],
+      "viewer_bounds_mm": [
+        -99.5999984741211,
+        99.5999984741211,
+        14.25,
+        82.26499938964844,
+        165.19500732421875,
+        214.4239959716797
+      ],
+      "glb_local_bounds_mm": [
+        -99.5999984741211,
+        99.5999984741211,
+        14.25,
+        82.26499938964844,
+        165.19500732421875,
+        214.4239959716797
+      ],
+      "maximum_viewer_bound_error_mm": 7.424218722462683e-06,
+      "maximum_glb_bound_error_mm": 7.424218722462683e-06,
+      "common_view_transforms": [
+        {
+          "matrix": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.2246467991473532e-16,
+            1.0,
+            0.0,
+            0.0,
+            -1.0,
+            1.2246467991473532e-16,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        }
+      ],
+      "pass": true
+    },
+    {
+      "check": "all inputs remain unchanged during the reading",
+      "changed_paths": [],
+      "pass": true
+    }
+  ],
+  "datums": {
+    "carrier": {
+      "flange_z": 214.674,
+      "bearing_z": 215.074,
+      "retainer_top_z": 214.424,
+      "bottom_z": 165.19500000000002,
+      "x0": -98.25,
+      "x1": 98.25,
+      "y0": 14.25,
+      "y1": 82.265,
+      "head_y": 45.859,
+      "motor_y": 44.859
+    },
+    "snap": {
+      "carrier_inner_x": 93.94999999999999,
+      "wing_inner_x": 95.85,
+      "wing_outer_x": 98.25,
+      "hook_outer_x": 99.5,
+      "hook_step_z": 168.19500000000002,
+      "hook_ramp_z": 170.19500000000002,
+      "root_z": 186.19500000000002,
+      "floor_z": 165.19500000000002,
+      "receiver_floor_z": 165.04500000000002,
+      "receiver_inner_x": 98.5,
+      "receiver_back_x": 99.6,
+      "receiver_outer_x": 107.5,
+      "receiver_y0": 14.0,
+      "receiver_y1": 82.515,
+      "receiver_z0": 160.25,
+      "receiver_z1": 195.0,
+      "receiver_roof_z": 174.8,
+      "port_inner_x": 98.5,
+      "port_outer_x": 104.5,
+      "port_y0": 46.0075,
+      "port_y1": 50.5075
+    },
+    "relaxed_tip_spread_mm": 0.35,
+    "seated_tip_spread_mm": 0.1
+  },
+  "status": "pass"
+}

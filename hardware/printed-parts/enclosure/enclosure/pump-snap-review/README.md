@@ -54,3 +54,11 @@ their current recipe.
 Printed fit, pump retention under load, creep, repeated use and removal remain
 physical qualifications. Accepted observations of the earlier pump fit,
 faucet display and funnel snap remain specific to their identified articles.
+
+The [offline print receipt](print-review.json) binds both current meshes, their region
+record, native projects, sliced archives and path reviews for Mark1’s left 0.4 mm nozzle
+in black PET-GF. Both native reviews pass. The retainer has no emitted support and a
+62.55 mm minimum bead-to-bed-edge margin; front-top records 31 support bodies and a
+25.27 mm minimum margin. The sampled snap-host bead coverage is at least 98.9% in the
+retainer and 99.5% in the receiver regions. These are emitted-path samples and support
+topology readings; physical cleanup, fit, force, retention and lifetime remain unqualified.

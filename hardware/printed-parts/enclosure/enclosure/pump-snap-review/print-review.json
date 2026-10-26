@@ -1,0 +1,1547 @@
+{
+  "schema": 1,
+  "recorded_utc": "2026-10-26T14:15:52+00:00",
+  "scope": "Offline native slices of the snap-wing pump retainer and its front-top receivers. This receipt binds current source meshes and region metadata to project settings, emitted paths, selected dense-host samples and support topology. It does not establish physical cleanup, surface finish, fit, insertion or release force, load capacity, retention, creep or lifetime.",
+  "method": "Metadata reading of completed trial-preparation/prepare.py --slice --review outputs; source, project, archive, review and region SHA-256 comparisons. No CAD regeneration, printer submission or automatic build/commit integration.",
+  "current_print_regions": {
+    "path": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
+    "sha256": "902961c7250191f32b679f05ba2a7390a08df5d56dea6abfa6b2422353066dea"
+  },
+  "archives_location_scope": "Native projects, sliced archives, G-code and detailed review artifacts remain in the repository-local .cache paths identified here; this tracked receipt contains metadata only.",
+  "printer_job_submitted": false,
+  "physical_test_performed": false,
+  "physical_evidence_scope": "The accepted pump cradle/cap, faucet display and funnel snap observations retain their identified article scopes and do not qualify the pump snap.",
+  "pieces": [
+    {
+      "piece": "enclosure-front-top",
+      "prepared_utc": "2026-10-26T07:40:20+00:00",
+      "source_stl": {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+        "sha256": "3a60a0aa99bfe02acdb06028656336ae08d615c12babf207378997088db5dc6d"
+      },
+      "source_step": {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+        "sha256": "5cb0a70a28086ef1f10883d7f2aaf2e8978917e170514160120b819a64d009f5"
+      },
+      "current_source_hashes_match_preparation": true,
+      "source_closed_mesh": {
+        "edges": 757101,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "source_facets": 504734,
+      "source_print_up": "+Z",
+      "source_to_build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "artifacts": {
+        "preparation": {
+          "path": ".cache/prints/pump-snap-production/2026-10-26-front-top-mark1-1da1945c/preparation.json",
+          "sha256": "b953ffc4ef201b7774660ced08dad4b324d423dbf44782d94e6cba7018585848"
+        },
+        "project": {
+          "path": ".cache/prints/pump-snap-production/2026-10-26-front-top-mark1-1da1945c/2026-10-26-front-top-mark1-1da1945c.3mf",
+          "sha256": "0a82af05f3ef1c0f5bf4211703a14628720028fe7b625d329e886709f7271f89"
+        },
+        "sliced_archive": {
+          "path": ".cache/prints/pump-snap-production/2026-10-26-front-top-mark1-1da1945c/2026-10-26-front-top-mark1-1da1945c.gcode.3mf",
+          "sha256": "3fd6f1e627af3c2dcf24d7887460a5a186fa9fbd3b2ca743416c8ba98da42f52"
+        },
+        "gcode": {
+          "path": ".cache/prints/pump-snap-production/2026-10-26-front-top-mark1-1da1945c/native/plate_1.gcode",
+          "sha256": "3ca4452c1782005cd24446c99ed8c408a50181446a9b8e466e6ca78beab3fff9"
+        },
+        "project_check": {
+          "path": ".cache/prints/pump-snap-production/2026-10-26-front-top-mark1-1da1945c/project-check.json",
+          "sha256": "63eb890346dc12360e4195c48de99dd44bb77d034ba4b55ef5aa4e2320885d06"
+        },
+        "native_path_review": {
+          "path": ".cache/prints/pump-snap-production/2026-10-26-front-top-mark1-1da1945c/review.json",
+          "sha256": "02b7a0f43f7a521e7b6492ba5d66dff761f21bdbac95c4584def6defdaba0dc3"
+        },
+        "support_audit": {
+          "path": ".cache/prints/pump-snap-production/2026-10-26-front-top-mark1-1da1945c/support-audit-1901.json",
+          "sha256": "65e639ff9278402297937ecf2458faa334d3b999cbadc0fb39d0f5e5b129a962"
+        },
+        "native_slice_result": {
+          "path": ".cache/prints/pump-snap-production/2026-10-26-front-top-mark1-1da1945c/slice-result.json",
+          "sha256": "150b7b5010e02908e8bffae0e466dd007cbf9bd47146ef7fc4fb4aba5587f694"
+        },
+        "slice_command": {
+          "path": ".cache/prints/pump-snap-production/2026-10-26-front-top-mark1-1da1945c/slice-command.json",
+          "sha256": "400bb0ccb02a023bc7d10112143ecec7ebee8c9dff641dc7b2c38148b34693b7"
+        },
+        "show_faces": {
+          "path": ".cache/prints/pump-snap-production/2026-10-26-front-top-mark1-1da1945c/show-faces.npz",
+          "sha256": "ae4c619548cf77c0f9c6697e9a2e87af9520738d1e2c3785b6569af765cedb94"
+        }
+      },
+      "profile": {
+        "path": "hardware/printed-parts/petgf.3mf",
+        "sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0"
+      },
+      "preparation_settings_sha256": "ffa90b5a544d80e2bdb4e77fdc99e92bc1a2f3b5afde625e70391607b4fef5f2",
+      "embedded_settings": {
+        "project_settings_member": "Metadata/project_settings.config",
+        "project_settings_sha256": "ffa90b5a544d80e2bdb4e77fdc99e92bc1a2f3b5afde625e70391607b4fef5f2",
+        "model_settings_member": "Metadata/model_settings.config",
+        "model_settings_sha256": "563bff1d6871dafb9a29512170a2dc6725e36c65da683ba3aabd5b8eed4e1ccc"
+      },
+      "region_record": {
+        "path": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
+        "sha256": "902961c7250191f32b679f05ba2a7390a08df5d56dea6abfa6b2422353066dea"
+      },
+      "region_record_sha256_at_preparation": "902961c7250191f32b679f05ba2a7390a08df5d56dea6abfa6b2422353066dea",
+      "current_region_hash_matches_preparation": true,
+      "part_process_overrides": null,
+      "slicer": "BambuStudio 02.08.02.61",
+      "printer_recipe": {
+        "printer": "Mark1",
+        "nozzle_side": "left",
+        "nozzle_mm": 0.4,
+        "material": "Polymaker Fiberon PET-GF15, black",
+        "bed_type": "Textured PEI Plate",
+        "requested_z_trim_mm": 0.18,
+        "emitted_textured_trim_mm": 0.16
+      },
+      "process": {
+        "printer_model": "Bambu Lab H2C",
+        "printer_variant": "0.4",
+        "printer_settings_id": "Bambu Lab H2C 0.4 Standard +0.18 Z trim",
+        "nozzle_diameter": [
+          "0.4",
+          "0.4"
+        ],
+        "layer_height": "0.24",
+        "initial_layer_print_height": "0.2",
+        "wall_loops": "2",
+        "sparse_infill_density": "15%",
+        "sparse_infill_pattern": "gyroid",
+        "top_shell_layers": "4",
+        "bottom_shell_layers": "3",
+        "enable_support": "1",
+        "support_type": "tree(auto)",
+        "support_style": "default",
+        "support_threshold_angle": "35",
+        "support_object_xy_distance": "0.5",
+        "support_top_z_distance": "0.45",
+        "support_bottom_z_distance": "0.3",
+        "support_interface_top_layers": "2",
+        "support_interface_bottom_layers": "2",
+        "support_interface_spacing": "0.5",
+        "support_on_build_plate_only": "0",
+        "brim_type": "auto_brim",
+        "fan_min_speed": [
+          "0"
+        ],
+        "fan_max_speed": [
+          "0"
+        ],
+        "overhang_fan_speed": [
+          "70"
+        ],
+        "overhang_fan_threshold": [
+          "50%"
+        ],
+        "additional_cooling_fan_speed": [
+          "0"
+        ]
+      },
+      "preparation_settings_changes": {
+        "extruder_ams_count": {
+          "from": [
+            "1#0|4#1",
+            "1#0|4#0"
+          ],
+          "to": [
+            "1#0|4#0",
+            "1#0|4#0"
+          ],
+          "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+        },
+        "support_filament": {
+          "from": "0",
+          "to": "1",
+          "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+        },
+        "support_interface_filament": {
+          "from": "0",
+          "to": "1",
+          "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+        },
+        "flush_into_support": {
+          "from": "1",
+          "to": "0",
+          "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+        },
+        "filament_colour": {
+          "from": [
+            "#000000"
+          ],
+          "to": [
+            "#000000"
+          ],
+          "reason": "Mark1's loaded black PET-GF colour reading."
+        },
+        "support_object_xy_distance": {
+          "from": "0.4",
+          "to": "0.5",
+          "reason": "Tree-trunk arches on front-top's top-facing seam land (v17 article). Front-top only; bottom Z 0.30 mm, top Z 0.45 mm and branch dimensions keep their profile values. enclosure/enclosure/support-bottom-gap/README.md."
+        }
+      },
+      "fine_layer_ranges": [
+        {
+          "min_z": 188.25423217773437,
+          "max_z": 194.83,
+          "options": {
+            "layer_height": "0.08"
+          },
+          "feature": "R6 roof side edges, level run + R18 display-to-roof roll"
+        }
+      ],
+      "modifier_count": 10,
+      "modifier_settings": [
+        {
+          "name": "Y seam knuckle and its wall root +1/231.35",
+          "sparse_infill_density": "100%",
+          "sparse_infill_pattern": "zig-zag"
+        },
+        {
+          "name": "Y seam knuckle and its wall root +1/321.5",
+          "sparse_infill_density": "100%",
+          "sparse_infill_pattern": "zig-zag"
+        },
+        {
+          "name": "Y seam knuckle and its wall root -1/231.35",
+          "sparse_infill_density": "100%",
+          "sparse_infill_pattern": "zig-zag"
+        },
+        {
+          "name": "Y seam knuckle and its wall root -1/321.5",
+          "sparse_infill_density": "100%",
+          "sparse_infill_pattern": "zig-zag"
+        },
+        {
+          "name": "Z rail, end stop and wall root -1",
+          "sparse_infill_density": "100%",
+          "sparse_infill_pattern": "zig-zag"
+        },
+        {
+          "name": "Z rail, end stop and wall root +1",
+          "sparse_infill_density": "100%",
+          "sparse_infill_pattern": "zig-zag"
+        },
+        {
+          "name": "Pump snap west receiver floor and full flank root",
+          "sparse_infill_density": "100%",
+          "sparse_infill_pattern": "zig-zag"
+        },
+        {
+          "name": "Pump snap east receiver floor and full flank root",
+          "sparse_infill_density": "100%",
+          "sparse_infill_pattern": "zig-zag"
+        },
+        {
+          "name": "Funnel frame receiver, blind cap and full flank root 1",
+          "sparse_infill_density": "100%",
+          "sparse_infill_pattern": "zig-zag"
+        },
+        {
+          "name": "Funnel frame receiver, blind cap and full flank root 2",
+          "sparse_infill_density": "100%",
+          "sparse_infill_pattern": "zig-zag"
+        }
+      ],
+      "modifiers": [
+        {
+          "name": "Y seam knuckle and its wall root +1/231.35",
+          "source_bounds_mm": [
+            [
+              -107.499,
+              197.0,
+              231.59999989999997
+            ],
+            [
+              -91.5,
+              217.7990030517578,
+              265.0
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              55.001000000000005,
+              245.5999984741211,
+              71.34999989999997
+            ],
+            [
+              71.0,
+              266.39900152587893,
+              104.75
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Y seam knuckle and its wall root +1/321.5",
+          "source_bounds_mm": [
+            [
+              -107.499,
+              197.0,
+              228.34999989999997
+            ],
+            [
+              -91.5,
+              217.7990030517578,
+              354.999
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              55.001000000000005,
+              245.5999984741211,
+              68.09999989999997
+            ],
+            [
+              71.0,
+              266.39900152587893,
+              194.74900000000002
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Y seam knuckle and its wall root -1/231.35",
+          "source_bounds_mm": [
+            [
+              91.5,
+              197.0,
+              231.59999989999997
+            ],
+            [
+              107.499,
+              217.7990030517578,
+              265.0
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              254.0,
+              245.5999984741211,
+              71.34999989999997
+            ],
+            [
+              269.999,
+              266.39900152587893,
+              104.75
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Y seam knuckle and its wall root -1/321.5",
+          "source_bounds_mm": [
+            [
+              91.5,
+              197.0,
+              228.34999989999997
+            ],
+            [
+              107.499,
+              217.7990030517578,
+              354.999
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              254.0,
+              245.5999984741211,
+              68.09999989999997
+            ],
+            [
+              269.999,
+              266.39900152587893,
+              194.74900000000002
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Z rail, end stop and wall root -1",
+          "source_bounds_mm": [
+            [
+              -107.499,
+              5.001,
+              160.251
+            ],
+            [
+              -90.0,
+              200.0,
+              177.8
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              55.001000000000005,
+              53.6009984741211,
+              0.0010000000000047748
+            ],
+            [
+              72.5,
+              248.5999984741211,
+              17.55000000000001
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Z rail, end stop and wall root +1",
+          "source_bounds_mm": [
+            [
+              90.0,
+              5.001,
+              160.251
+            ],
+            [
+              107.499,
+              200.0,
+              177.8
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              252.5,
+              53.6009984741211,
+              0.0010000000000047748
+            ],
+            [
+              269.999,
+              248.5999984741211,
+              17.55000000000001
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Pump snap west receiver floor and full flank root",
+          "source_bounds_mm": [
+            [
+              -107.499,
+              14.0,
+              160.251
+            ],
+            [
+              -98.5,
+              82.515,
+              195.0
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              55.001000000000005,
+              62.599998474121094,
+              0.0010000000000047748
+            ],
+            [
+              64.0,
+              131.11499847412108,
+              34.75
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Pump snap east receiver floor and full flank root",
+          "source_bounds_mm": [
+            [
+              98.5,
+              14.0,
+              160.251
+            ],
+            [
+              107.499,
+              82.515,
+              195.0
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              261.0,
+              62.599998474121094,
+              0.0010000000000047748
+            ],
+            [
+              269.999,
+              131.11499847412108,
+              34.75
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Funnel frame receiver, blind cap and full flank root 1",
+          "source_bounds_mm": [
+            [
+              -107.499,
+              118.99999207671873,
+              335.7999999
+            ],
+            [
+              -88.0,
+              130.99999207671874,
+              345.9999999
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              55.001000000000005,
+              167.59999055083983,
+              175.5499999
+            ],
+            [
+              74.5,
+              179.59999055083983,
+              185.74999989999998
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Funnel frame receiver, blind cap and full flank root 2",
+          "source_bounds_mm": [
+            [
+              88.0,
+              118.99999207671873,
+              335.7999999
+            ],
+            [
+              107.499,
+              130.99999207671874,
+              345.9999999
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              250.5,
+              167.59999055083983,
+              175.5499999
+            ],
+            [
+              269.999,
+              179.59999055083983,
+              185.74999989999998
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        }
+      ],
+      "project_check_result": {
+        "project_sha256_matches": true,
+        "objects": [
+          {
+            "name": "enclosure-front-top",
+            "vertices": 252353,
+            "source_sha256_matches": true,
+            "embedded_vertex_error_mm": 4.999999987376214e-07,
+            "placed_bounds_mm": [
+              [
+                55.0,
+                53.599998,
+                0.0
+              ],
+              [
+                270.0,
+                266.400002,
+                194.75
+              ]
+            ],
+            "bed_contact_z_mm": 0.0,
+            "blocked_facets": 4130,
+            "partially_painted_facets": 0,
+            "parts": {
+              "normal_part": 1,
+              "modifier_part": 10
+            },
+            "layer_ranges": [
+              [
+                188.2542,
+                194.83,
+                {
+                  "layer_height": "0.08"
+                }
+              ]
+            ],
+            "ribbon_and_fin_parts": 0,
+            "modifiers_expected": 10
+          }
+        ],
+        "z_trim_block": [
+          "+0.0",
+          "0.18 - 0.01",
+          "0.18 - 0.02",
+          "0.18 + 0.01",
+          "0.18"
+        ],
+        "cooling": {
+          "fan_min_speed": [
+            "0"
+          ],
+          "fan_max_speed": [
+            "0"
+          ],
+          "overhang_fan_speed": [
+            "70"
+          ],
+          "overhang_fan_threshold": [
+            "50%"
+          ],
+          "additional_cooling_fan_speed": [
+            "0"
+          ]
+        },
+        "support": {
+          "support_type": "tree(auto)",
+          "support_style": "default",
+          "support_object_xy_distance": "0.5",
+          "max_bridge_length": "0",
+          "tree_support_branch_diameter": "2",
+          "tree_support_branch_diameter_angle": "5",
+          "brim_type": "auto_brim"
+        },
+        "problems": [],
+        "pass": true
+      },
+      "native_slice_return_code": 0,
+      "native_slice_result": "Success.",
+      "existing_review_checks": {
+        "archive": true,
+        "z_trim": true,
+        "bed_border": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "tie_windows_support_free": true,
+        "ribbons_support_free_and_printed": true,
+        "solid_hosts_sampled": true
+      },
+      "existing_review_pass": true,
+      "gcode_md5_matches": true,
+      "layers": 1298,
+      "full_bead_envelope_plate_mm": [
+        [
+          54.825597,
+          53.425597
+        ],
+        [
+          277.51721499999996,
+          294.72621499999997
+        ]
+      ],
+      "full_bead_bed_margins_mm": {
+        "left": 54.825597,
+        "front": 53.425597,
+        "right": 47.482785000000035,
+        "back": 25.273785000000032
+      },
+      "minimum_full_bead_bed_margin_mm": 25.273785000000032,
+      "required_bed_border_mm": 20.0,
+      "solid_host_deposition": [
+        {
+          "object": 1901,
+          "name": "Y seam knuckle and its wall root +1/231.35",
+          "plate_bounds_mm": [
+            [
+              55.001000000000005,
+              245.5999984741211,
+              71.34999989999997
+            ],
+            [
+              71.0,
+              266.39900152587893,
+              104.75
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 71.72,
+              "coverage": 0.9937820878437578,
+              "stock_mm2": 128.40916042613074
+            },
+            {
+              "print_z_mm": 88.28,
+              "coverage": 0.9948277342630842,
+              "stock_mm2": 228.83569651084662
+            },
+            {
+              "print_z_mm": 104.6,
+              "coverage": 0.9931686876013707,
+              "stock_mm2": 228.83569363014254
+            }
+          ],
+          "minimum_coverage": 0.9931686876013707
+        },
+        {
+          "object": 1901,
+          "name": "Y seam knuckle and its wall root +1/321.5",
+          "plate_bounds_mm": [
+            [
+              55.001000000000005,
+              245.5999984741211,
+              68.09999989999997
+            ],
+            [
+              71.0,
+              266.39900152587893,
+              194.74900000000002
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 68.6,
+              "coverage": 0.9941601648768327,
+              "stock_mm2": 128.409160837206
+            },
+            {
+              "print_z_mm": 131.48,
+              "coverage": 0.9865499640387141,
+              "stock_mm2": 47.06488703650025
+            },
+            {
+              "print_z_mm": 194.44,
+              "coverage": 0.9923712959014575,
+              "stock_mm2": 152.87770049859157
+            }
+          ],
+          "minimum_coverage": 0.9865499640387141
+        },
+        {
+          "object": 1901,
+          "name": "Y seam knuckle and its wall root -1/231.35",
+          "plate_bounds_mm": [
+            [
+              254.0,
+              245.5999984741211,
+              71.34999989999997
+            ],
+            [
+              269.999,
+              266.39900152587893,
+              104.75
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 71.72,
+              "coverage": 0.9941782556785819,
+              "stock_mm2": 128.4091606988556
+            },
+            {
+              "print_z_mm": 88.28,
+              "coverage": 0.9938461810545705,
+              "stock_mm2": 241.83560679794505
+            },
+            {
+              "print_z_mm": 104.6,
+              "coverage": 0.9934526774357345,
+              "stock_mm2": 241.83560647989037
+            }
+          ],
+          "minimum_coverage": 0.9934526774357345
+        },
+        {
+          "object": 1901,
+          "name": "Y seam knuckle and its wall root -1/321.5",
+          "plate_bounds_mm": [
+            [
+              254.0,
+              245.5999984741211,
+              68.09999989999997
+            ],
+            [
+              269.999,
+              266.39900152587893,
+              194.74900000000002
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 68.6,
+              "coverage": 0.9936201919365921,
+              "stock_mm2": 128.40916084150868
+            },
+            {
+              "print_z_mm": 131.48,
+              "coverage": 0.9865782995036908,
+              "stock_mm2": 47.06488739409375
+            },
+            {
+              "print_z_mm": 194.44,
+              "coverage": 0.9921977887497972,
+              "stock_mm2": 152.87770028273616
+            }
+          ],
+          "minimum_coverage": 0.9865782995036908
+        },
+        {
+          "object": 1901,
+          "name": "Z rail, end stop and wall root -1",
+          "plate_bounds_mm": [
+            [
+              55.001000000000005,
+              53.6009984741211,
+              0.0010000000000047748
+            ],
+            [
+              72.5,
+              248.5999984741211,
+              17.55000000000001
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9981035839964066,
+              "stock_mm2": 1888.61206706503
+            },
+            {
+              "print_z_mm": 8.84,
+              "coverage": 0.993570101974672,
+              "stock_mm2": 1179.4211080862835
+            },
+            {
+              "print_z_mm": 17.24,
+              "coverage": 0.9939722007607988,
+              "stock_mm2": 1481.284522622135
+            }
+          ],
+          "minimum_coverage": 0.993570101974672
+        },
+        {
+          "object": 1901,
+          "name": "Z rail, end stop and wall root +1",
+          "plate_bounds_mm": [
+            [
+              252.5,
+              53.6009984741211,
+              0.0010000000000047748
+            ],
+            [
+              269.999,
+              248.5999984741211,
+              17.55000000000001
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9981880325565285,
+              "stock_mm2": 1888.6120137340201
+            },
+            {
+              "print_z_mm": 8.84,
+              "coverage": 0.99340520103192,
+              "stock_mm2": 1179.4211133136498
+            },
+            {
+              "print_z_mm": 17.24,
+              "coverage": 0.9941166886630987,
+              "stock_mm2": 1481.2845343392837
+            }
+          ],
+          "minimum_coverage": 0.99340520103192
+        },
+        {
+          "object": 1901,
+          "name": "Pump snap west receiver floor and full flank root",
+          "plate_bounds_mm": [
+            [
+              55.001000000000005,
+              62.599998474121094,
+              0.0010000000000047748
+            ],
+            [
+              64.0,
+              131.11499847412108,
+              34.75
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9980360966953714,
+              "stock_mm2": 588.5571205961028
+            },
+            {
+              "print_z_mm": 17.48,
+              "coverage": 0.9959767894730539,
+              "stock_mm2": 564.0561691071763
+            },
+            {
+              "print_z_mm": 34.52,
+              "coverage": 0.9951095923706078,
+              "stock_mm2": 564.006934756353
+            }
+          ],
+          "minimum_coverage": 0.9951095923706078
+        },
+        {
+          "object": 1901,
+          "name": "Pump snap east receiver floor and full flank root",
+          "plate_bounds_mm": [
+            [
+              261.0,
+              62.599998474121094,
+              0.0010000000000047748
+            ],
+            [
+              269.999,
+              131.11499847412108,
+              34.75
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9980487097247597,
+              "stock_mm2": 588.5567319055692
+            },
+            {
+              "print_z_mm": 17.48,
+              "coverage": 0.9965320577237815,
+              "stock_mm2": 564.0561794956577
+            },
+            {
+              "print_z_mm": 34.52,
+              "coverage": 0.9957521116920048,
+              "stock_mm2": 564.0069457173267
+            }
+          ],
+          "minimum_coverage": 0.9957521116920048
+        },
+        {
+          "object": 1901,
+          "name": "Funnel frame receiver, blind cap and full flank root 1",
+          "plate_bounds_mm": [
+            [
+              55.001000000000005,
+              167.59999055083983,
+              175.5499999
+            ],
+            [
+              74.5,
+              179.59999055083983,
+              185.74999989999998
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 176.12,
+              "coverage": 0.9935628368248933,
+              "stock_mm2": 224.13825896152318
+            },
+            {
+              "print_z_mm": 180.68,
+              "coverage": 0.9926446963087111,
+              "stock_mm2": 211.5732236541604
+            },
+            {
+              "print_z_mm": 185.48,
+              "coverage": 0.992809999038824,
+              "stock_mm2": 211.57323962468456
+            }
+          ],
+          "minimum_coverage": 0.9926446963087111
+        },
+        {
+          "object": 1901,
+          "name": "Funnel frame receiver, blind cap and full flank root 2",
+          "plate_bounds_mm": [
+            [
+              250.5,
+              167.59999055083983,
+              175.5499999
+            ],
+            [
+              269.999,
+              179.59999055083983,
+              185.74999989999998
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 176.12,
+              "coverage": 0.994771777443869,
+              "stock_mm2": 224.13825900156965
+            },
+            {
+              "print_z_mm": 180.68,
+              "coverage": 0.9931860647758858,
+              "stock_mm2": 211.57322463021862
+            },
+            {
+              "print_z_mm": 185.48,
+              "coverage": 0.992455912849541,
+              "stock_mm2": 211.5732389521827
+            }
+          ],
+          "minimum_coverage": 0.992455912849541
+        }
+      ],
+      "minimum_sampled_dense_host_coverage": 0.9865499640387141,
+      "minimum_sampled_snap_host_coverage": 0.9951095923706078,
+      "sampling_scope": "Three emitted bead-envelope area samples per listed modifier. These sampled coverage fractions do not establish complete deposited density or material strength.",
+      "support_roads": 985816,
+      "support_summary": {
+        "support_bodies": 31,
+        "interface_islands": null,
+        "bed_rooted_bodies": 13,
+        "model_rooted_bodies": 18,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 24,
+        "explicit_interface_islands": 11,
+        "shortest_labelled_build_up_mm": 3.074
+      },
+      "support_topology": {
+        "1901": {
+          "support_bodies": 31,
+          "interface_islands": null,
+          "bed_rooted_bodies": 13,
+          "model_rooted_bodies": 18,
+          "shortest_build_up_mm": null,
+          "bodies_without_interface_labels": 24,
+          "explicit_interface_islands": 11,
+          "shortest_labelled_build_up_mm": 3.074
+        }
+      },
+      "support_count_scope": "Native emitted-path topology from the hashed support audit; counts and interface labels are geometric readings, without a physical support-removal result.",
+      "show_face_contacts": [],
+      "show_face_minimum_bead_clearance_mm": null,
+      "tie_window_support_crossings": [],
+      "ribbon_support_crossings": [],
+      "fine_band_unbacked_roads": [
+        {
+          "object": 1901,
+          "band": "R6 roof side edges, level run",
+          "roads": 151501,
+          "unbacked_mm": 4775.761114776406,
+          "longest_mm": 203.01600000246285,
+          "bridge_mm": 1667.4118744000225,
+          "layers": 78
+        },
+        {
+          "object": 1901,
+          "band": "R18 display-to-roof roll",
+          "roads": 32631,
+          "unbacked_mm": 2403.0477160000464,
+          "longest_mm": 203.01600000246285,
+          "bridge_mm": 1667.4118744000225,
+          "layers": 30
+        }
+      ],
+      "first_second_layer_stack": {
+        "1901": {
+          "second_layer_model_bead_area_mm2": 9382.232960169114,
+          "fraction_over_first_layer": 0.9644355664357507,
+          "second_layer_centerline_outside_first_mm": 87.48581171105039
+        }
+      },
+      "review_scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+      "estimated_seconds": 143665.859375,
+      "native_material_estimate_g": 1204.6876220703125,
+      "slicer_warnings": [],
+      "submitted": false
+    },
+    {
+      "piece": "enclosure-pump-retainer",
+      "prepared_utc": "2026-10-26T07:40:08+00:00",
+      "source_stl": {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl",
+        "sha256": "3650089a671ce9212a73ff9522553543a7e0fa4de942bf52a8e38777ef8b85c1"
+      },
+      "source_step": {
+        "path": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step",
+        "sha256": "7fc6f0bef4a08eca4400b04c19911f596c28b3d50c7de6f675eb60b1b76e4f80"
+      },
+      "current_source_hashes_match_preparation": true,
+      "source_closed_mesh": {
+        "edges": 6456,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "source_facets": 4304,
+      "source_print_up": "+Z",
+      "source_to_build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "artifacts": {
+        "preparation": {
+          "path": ".cache/prints/pump-snap-production/2026-10-26-pump-retainer-mark1-80dd2a22/preparation.json",
+          "sha256": "f695065c9d74bc78b7b4c7150ebf7d26f0a2e1faf2efaf999ae7b5af59baf67f"
+        },
+        "project": {
+          "path": ".cache/prints/pump-snap-production/2026-10-26-pump-retainer-mark1-80dd2a22/2026-10-26-pump-retainer-mark1-80dd2a22.3mf",
+          "sha256": "13f61a3105b8909da0d78a1874ffad93b1fa725a71d3a3566dd51792f1ece3b9"
+        },
+        "sliced_archive": {
+          "path": ".cache/prints/pump-snap-production/2026-10-26-pump-retainer-mark1-80dd2a22/2026-10-26-pump-retainer-mark1-80dd2a22.gcode.3mf",
+          "sha256": "5f009bb2638cbe6ba008d63b6c9cdcbeee8e21b3da42865c2e4b8a5447edb478"
+        },
+        "gcode": {
+          "path": ".cache/prints/pump-snap-production/2026-10-26-pump-retainer-mark1-80dd2a22/native/plate_1.gcode",
+          "sha256": "fdae88c86121515b0f18ea7f676c734c51d35aaa410310f0d7c1c8aa580d6fc0"
+        },
+        "project_check": {
+          "path": ".cache/prints/pump-snap-production/2026-10-26-pump-retainer-mark1-80dd2a22/project-check.json",
+          "sha256": "e88eda248737bdac4bf0ffc4a59bec64e07151429f1198d1693d2ea54f79b14a"
+        },
+        "native_path_review": {
+          "path": ".cache/prints/pump-snap-production/2026-10-26-pump-retainer-mark1-80dd2a22/review.json",
+          "sha256": "7ef44af70bb887db04f9a1dbaeddc5a891b58f64fe1f3de28c58a06e76ea8d5f"
+        },
+        "support_audit": {
+          "path": ".cache/prints/pump-snap-production/2026-10-26-pump-retainer-mark1-80dd2a22/support-audit-1901.json",
+          "sha256": "e29582084eb104b1625977200b28b919feb591159cb1dfb72736c8c10fecd132"
+        },
+        "native_slice_result": {
+          "path": ".cache/prints/pump-snap-production/2026-10-26-pump-retainer-mark1-80dd2a22/slice-result.json",
+          "sha256": "0921ce2e5c2213e312122430a482d70b83da74de1a133fb83f6cc470343321e9"
+        },
+        "slice_command": {
+          "path": ".cache/prints/pump-snap-production/2026-10-26-pump-retainer-mark1-80dd2a22/slice-command.json",
+          "sha256": "75683dc6e4dae8bf249a9f5b8a76405e28ecab40847e8cc919fec4b0752f5762"
+        },
+        "show_faces": {
+          "path": ".cache/prints/pump-snap-production/2026-10-26-pump-retainer-mark1-80dd2a22/show-faces.npz",
+          "sha256": "a534113451218188594219d750b928abe9927acbd85a521dbfdd3928964a99ee"
+        }
+      },
+      "profile": {
+        "path": "hardware/printed-parts/petgf.3mf",
+        "sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0"
+      },
+      "preparation_settings_sha256": "e260d7352d96500b54bcd2bdedda312f1e67758e29d4e8af681880eff9f85ec0",
+      "embedded_settings": {
+        "project_settings_member": "Metadata/project_settings.config",
+        "project_settings_sha256": "e260d7352d96500b54bcd2bdedda312f1e67758e29d4e8af681880eff9f85ec0",
+        "model_settings_member": "Metadata/model_settings.config",
+        "model_settings_sha256": "477ce754edd99af43428e5b7b1a21b236006d0eb898a85ab7b52f5601933cb35"
+      },
+      "region_record": {
+        "path": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
+        "sha256": "902961c7250191f32b679f05ba2a7390a08df5d56dea6abfa6b2422353066dea"
+      },
+      "region_record_sha256_at_preparation": "902961c7250191f32b679f05ba2a7390a08df5d56dea6abfa6b2422353066dea",
+      "current_region_hash_matches_preparation": true,
+      "part_process_overrides": null,
+      "slicer": "BambuStudio 02.08.02.61",
+      "printer_recipe": {
+        "printer": "Mark1",
+        "nozzle_side": "left",
+        "nozzle_mm": 0.4,
+        "material": "Polymaker Fiberon PET-GF15, black",
+        "bed_type": "Textured PEI Plate",
+        "requested_z_trim_mm": 0.18,
+        "emitted_textured_trim_mm": 0.16
+      },
+      "process": {
+        "printer_model": "Bambu Lab H2C",
+        "printer_variant": "0.4",
+        "printer_settings_id": "Bambu Lab H2C 0.4 Standard +0.18 Z trim",
+        "nozzle_diameter": [
+          "0.4",
+          "0.4"
+        ],
+        "layer_height": "0.24",
+        "initial_layer_print_height": "0.2",
+        "wall_loops": "2",
+        "sparse_infill_density": "15%",
+        "sparse_infill_pattern": "gyroid",
+        "top_shell_layers": "4",
+        "bottom_shell_layers": "3",
+        "enable_support": "1",
+        "support_type": "tree(auto)",
+        "support_style": "default",
+        "support_threshold_angle": "35",
+        "support_object_xy_distance": "0.4",
+        "support_top_z_distance": "0.45",
+        "support_bottom_z_distance": "0.3",
+        "support_interface_top_layers": "2",
+        "support_interface_bottom_layers": "2",
+        "support_interface_spacing": "0.5",
+        "support_on_build_plate_only": "0",
+        "brim_type": "auto_brim",
+        "fan_min_speed": [
+          "0"
+        ],
+        "fan_max_speed": [
+          "0"
+        ],
+        "overhang_fan_speed": [
+          "70"
+        ],
+        "overhang_fan_threshold": [
+          "50%"
+        ],
+        "additional_cooling_fan_speed": [
+          "0"
+        ]
+      },
+      "preparation_settings_changes": {
+        "extruder_ams_count": {
+          "from": [
+            "1#0|4#1",
+            "1#0|4#0"
+          ],
+          "to": [
+            "1#0|4#0",
+            "1#0|4#0"
+          ],
+          "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+        },
+        "support_filament": {
+          "from": "0",
+          "to": "1",
+          "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+        },
+        "support_interface_filament": {
+          "from": "0",
+          "to": "1",
+          "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+        },
+        "flush_into_support": {
+          "from": "1",
+          "to": "0",
+          "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+        },
+        "filament_colour": {
+          "from": [
+            "#000000"
+          ],
+          "to": [
+            "#000000"
+          ],
+          "reason": "Mark1's loaded black PET-GF colour reading."
+        }
+      },
+      "fine_layer_ranges": [],
+      "modifier_count": 2,
+      "modifier_settings": [
+        {
+          "name": "Pump snap west full-Y hook, wing and upper root",
+          "sparse_infill_density": "100%",
+          "sparse_infill_pattern": "zig-zag"
+        },
+        {
+          "name": "Pump snap east full-Y hook, wing and upper root",
+          "sparse_infill_density": "100%",
+          "sparse_infill_pattern": "zig-zag"
+        }
+      ],
+      "modifiers": [
+        {
+          "name": "Pump snap west full-Y hook, wing and upper root",
+          "source_bounds_mm": [
+            [
+              -99.84899847412109,
+              14.251,
+              165.19600732421875
+            ],
+            [
+              -90.94999999999999,
+              82.26399938964843,
+              189.19500000000002
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              62.65100152587891,
+              125.99350030517579,
+              0.0010000000000047748
+            ],
+            [
+              71.55000000000001,
+              194.0064996948242,
+              23.99999267578127
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        },
+        {
+          "name": "Pump snap east full-Y hook, wing and upper root",
+          "source_bounds_mm": [
+            [
+              90.94999999999999,
+              14.251,
+              165.19600732421875
+            ],
+            [
+              99.84899847412109,
+              82.26399938964843,
+              189.19500000000002
+            ]
+          ],
+          "plate_bounds_mm": [
+            [
+              253.45,
+              125.99350030517579,
+              0.0010000000000047748
+            ],
+            [
+              262.3489984741211,
+              194.0064996948242,
+              23.99999267578127
+            ]
+          ],
+          "sparse_infill_density": "100%"
+        }
+      ],
+      "project_check_result": {
+        "project_sha256_matches": true,
+        "objects": [
+          {
+            "name": "enclosure-pump-retainer",
+            "vertices": 2150,
+            "source_sha256_matches": true,
+            "embedded_vertex_error_mm": 4.99511713769607e-07,
+            "placed_bounds_mm": [
+              [
+                62.650002,
+                125.9925,
+                3.2399999838617077e-07
+              ],
+              [
+                262.349998,
+                194.0075,
+                49.228988324
+              ]
+            ],
+            "bed_contact_z_mm": 3.2399999838617077e-07,
+            "blocked_facets": 0,
+            "partially_painted_facets": 0,
+            "parts": {
+              "normal_part": 1,
+              "modifier_part": 2
+            },
+            "layer_ranges": [],
+            "ribbon_and_fin_parts": 0,
+            "modifiers_expected": 2
+          }
+        ],
+        "z_trim_block": [
+          "+0.0",
+          "0.18 - 0.01",
+          "0.18 - 0.02",
+          "0.18 + 0.01",
+          "0.18"
+        ],
+        "cooling": {
+          "fan_min_speed": [
+            "0"
+          ],
+          "fan_max_speed": [
+            "0"
+          ],
+          "overhang_fan_speed": [
+            "70"
+          ],
+          "overhang_fan_threshold": [
+            "50%"
+          ],
+          "additional_cooling_fan_speed": [
+            "0"
+          ]
+        },
+        "support": {
+          "support_type": "tree(auto)",
+          "support_style": "default",
+          "support_object_xy_distance": "0.4",
+          "max_bridge_length": "0",
+          "tree_support_branch_diameter": "2",
+          "tree_support_branch_diameter_angle": "5",
+          "brim_type": "auto_brim"
+        },
+        "problems": [],
+        "pass": true
+      },
+      "native_slice_return_code": 0,
+      "native_slice_result": "Success.",
+      "existing_review_checks": {
+        "archive": true,
+        "z_trim": true,
+        "bed_border": true,
+        "fine_and_transition_bands": true,
+        "show_faces_support_free": true,
+        "tie_windows_support_free": true,
+        "ribbons_support_free_and_printed": true,
+        "solid_hosts_sampled": true
+      },
+      "existing_review_pass": true,
+      "gcode_md5_matches": true,
+      "layers": 205,
+      "full_bead_envelope_plate_mm": [
+        [
+          62.546878,
+          125.878948
+        ],
+        [
+          262.453122,
+          194.121052
+        ]
+      ],
+      "full_bead_bed_margins_mm": {
+        "left": 62.546878,
+        "front": 125.878948,
+        "right": 62.54687799999999,
+        "back": 125.87894800000001
+      },
+      "minimum_full_bead_bed_margin_mm": 62.54687799999999,
+      "required_bed_border_mm": 20.0,
+      "solid_host_deposition": [
+        {
+          "object": 1901,
+          "name": "Pump snap west full-Y hook, wing and upper root",
+          "plate_bounds_mm": [
+            [
+              62.65100152587891,
+              125.99350030517579,
+              0.0010000000000047748
+            ],
+            [
+              71.55000000000001,
+              194.0064996948242,
+              23.99999267578127
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.998533783037919,
+              "stock_mm2": 452.2671945244603
+            },
+            {
+              "print_z_mm": 12.2,
+              "coverage": 0.9891519220043579,
+              "stock_mm2": 367.26823657233933
+            },
+            {
+              "print_z_mm": 23.72,
+              "coverage": 0.9943160558097668,
+              "stock_mm2": 496.4948955444343
+            }
+          ],
+          "minimum_coverage": 0.9891519220043579
+        },
+        {
+          "object": 1901,
+          "name": "Pump snap east full-Y hook, wing and upper root",
+          "plate_bounds_mm": [
+            [
+              253.45,
+              125.99350030517579,
+              0.0010000000000047748
+            ],
+            [
+              262.3489984741211,
+              194.0064996948242,
+              23.99999267578127
+            ]
+          ],
+          "samples": [
+            {
+              "print_z_mm": 0.44,
+              "coverage": 0.9985191478433398,
+              "stock_mm2": 452.26719452445866
+            },
+            {
+              "print_z_mm": 12.2,
+              "coverage": 0.9892022944069965,
+              "stock_mm2": 367.2682365723392
+            },
+            {
+              "print_z_mm": 23.72,
+              "coverage": 0.9943160713427063,
+              "stock_mm2": 496.4948955444343
+            }
+          ],
+          "minimum_coverage": 0.9892022944069965
+        }
+      ],
+      "minimum_sampled_dense_host_coverage": 0.9891519220043579,
+      "minimum_sampled_snap_host_coverage": 0.9891519220043579,
+      "sampling_scope": "Three emitted bead-envelope area samples per listed modifier. These sampled coverage fractions do not establish complete deposited density or material strength.",
+      "support_roads": 0,
+      "support_summary": {
+        "support_bodies": 0,
+        "interface_islands": 0,
+        "bed_rooted_bodies": 0,
+        "model_rooted_bodies": 0,
+        "shortest_build_up_mm": null,
+        "bodies_without_interface_labels": 0,
+        "explicit_interface_islands": 0,
+        "shortest_labelled_build_up_mm": null
+      },
+      "support_topology": {
+        "1901": {
+          "support_bodies": 0,
+          "interface_islands": 0,
+          "bed_rooted_bodies": 0,
+          "model_rooted_bodies": 0,
+          "shortest_build_up_mm": null,
+          "bodies_without_interface_labels": 0,
+          "explicit_interface_islands": 0,
+          "shortest_labelled_build_up_mm": null
+        }
+      },
+      "support_count_scope": "Native emitted-path topology from the hashed support audit; counts and interface labels are geometric readings, without a physical support-removal result.",
+      "show_face_contacts": [],
+      "show_face_minimum_bead_clearance_mm": null,
+      "tie_window_support_crossings": [],
+      "ribbon_support_crossings": [],
+      "fine_band_unbacked_roads": [],
+      "first_second_layer_stack": {
+        "1901": {
+          "second_layer_model_bead_area_mm2": 7078.188527009021,
+          "fraction_over_first_layer": 0.9710451453818613,
+          "second_layer_centerline_outside_first_mm": 40.16872215110052
+        }
+      },
+      "review_scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations.",
+      "estimated_seconds": 13275.650390625,
+      "native_material_estimate_g": 124.65887451171875,
+      "slicer_warnings": [],
+      "submitted": false
+    }
+  ]
+}

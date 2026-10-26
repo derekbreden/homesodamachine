@@ -2,16 +2,16 @@
   "scope": "Pre-snap named-member baseline frozen before production rebuild. The native STEP and exact-source viewer payload identities are paired. Member census comes from the viewer payload and installation GLB; current review separately reads the replacement native STEP. This baseline is not a physical qualification.",
   "native_assembly": {
     "path": "hardware/manifold-layout/enclosure-assembly.step",
-    "sha256": "257021ee95bb8f5b45f15536f699ec6a961468c1e060c3ce5441c9c7c60a5081"
+    "sha256": "d34df2c019793de8f82391fdf2630b8bda15ca41a69170d6efaeab6c1d1be620"
   },
   "viewer_payload": {
     "path": "hardware/manifold-layout/enclosure-assembly.step.mesh",
-    "sha256": "3bcb7be66b8a8a714dc8b26a5de54d28645fff7d69f2f12a347e18bea3b88369"
+    "sha256": "b4e29c9df0b1dc8a3f96a0f37eec1f0274c69a08e36b2cad5218eacbfc975c57"
   },
-  "viewer_source_sha256": "257021ee95bb8f5b45f15536f699ec6a961468c1e060c3ce5441c9c7c60a5081",
+  "viewer_source_sha256": "d34df2c019793de8f82391fdf2630b8bda15ca41a69170d6efaeab6c1d1be620",
   "pump_mount_glb": {
     "path": "hardware/assembly/scenes/glb/pump-mount.glb",
-    "sha256": "70babc0f8069d0b1f390eeffb350cfa4d9687262f306f676fb89ba0ff0763953"
+    "sha256": "5362432bf87ac0a90936b724cd1e2cfb4b50f028d4e0845e636d111a818c8f30"
   },
   "retired_pump_hardware": [
     "pump-retainer-centre-insert",
@@ -127,15 +127,21 @@
     "cold-core/reservoir-b-fill-lower",
     "cold-core/reservoir-b-fill-upper",
     "cold-core/reservoir-b-gasket",
+    "cold-core/reservoir-grip-a-air",
+    "cold-core/reservoir-grip-a-draw",
+    "cold-core/reservoir-grip-a-fill",
+    "cold-core/reservoir-grip-b-air",
+    "cold-core/reservoir-grip-b-draw",
+    "cold-core/reservoir-grip-b-fill",
     "cold-core/tube-above-core-pump-check-link",
     "cold-core/tube-above-core-vb-yb-cross",
+    "cold-core/tube-reservoir-air-a",
+    "cold-core/tube-reservoir-air-b",
     "cold-core/tube-water-5",
     "cold-core/valve-v-b",
     "cold-core/vb-inlet-turn",
     "cold-core/vb-outlet-return",
     "cold-core/vb-outlet-stem",
-    "cold-core/vent-membrane-a",
-    "cold-core/vent-membrane-b",
     "cold-core/wago-gnd",
     "cold-core/wago-reeds-b",
     "cold-core/wago-sensors",
@@ -200,6 +206,9 @@
     "reg-va-elbow",
     "relay-1",
     "relay-2",
+    "reservoir-a-draw-turn",
+    "reservoir-a-fill-turn",
+    "reservoir-b-fill-turn",
     "soda-bend-holder",
     "soda-continuous-insulation",
     "soda-outlet-return-stem",
@@ -427,6 +436,9 @@
     "pump-retainer-left-screw",
     "pump-retainer-right-insert",
     "pump-retainer-right-screw",
+    "reservoir-a-draw-turn",
+    "reservoir-a-fill-turn",
+    "reservoir-b-fill-turn",
     "stem-elbow-v-c",
     "stem-elbow-v-d",
     "stem-elbow-v-g",
@@ -490,7 +502,7 @@
     "y-seam-west-upper-insert",
     "y-seam-west-upper-screw"
   ],
-  "source_commit": "09e7854ea837782a2a196e41c560f40d17823a67",
+  "source_commit": "441e977c3e596fa39e06f25d261bee39667868c1",
   "preserved_pump_profile_functions": [
     {
       "path": "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py",
@@ -517,5 +529,7 @@
       "function": "pump_skirt_support_z",
       "ast_sha256": "089c0c840aac8e533384ccd7bfba193e1489e44adb098cc9769e66ae82ef4499"
     }
-  ]
+  ],
+  "artifact_pointer_source_commit": "2eaea329d128836d567f242e6e87a7e187a4fb53",
+  "preserved_profile_source_commit": "09e7854ea837782a2a196e41c560f40d17823a67"
 }

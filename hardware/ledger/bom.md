@@ -271,7 +271,7 @@ trial articles have no pressure-life or wetted-service acceptance record.
 **Two M3 bodies, one hole.** ruthex's
 RX-M3x5.7 and RX-M3Sx4.0 are the same insert but for length — same ⌀4.6 knurl over the same
 ⌀4.0 recommended hole — so which one a station takes is a question about the depth of the bore
-it already cuts and never about its section. [49](M3_LONG_INSERTS) stations have that depth and
+it already cuts and never about its section. [46](M3_LONG_INSERTS) stations have that depth and
 take the full-length body; the [14](M3_SHORT_INSERTS) that do not are each paying for something
 else, named at the SKU rows below. Both bodies press with the same T18 tip into the same pocket.
 
@@ -296,7 +296,7 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 
 | Part | Notes | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| [ruthex RX-M3 × 5.7 full-length heat-set inserts, 100 pc](https://www.amazon.com/dp/B08BCRZZS3) | Ø4 recommended pilot. [28](FOAM_INSERTS) in the foam-cap clamp/deck stations, [12](RES_INSERTS) reservoir caps, [2](COND_INSERTS) condenser fingers and [4](ROOF_CLOSURE_INSERTS) funnel-frame ledges. Stock and blind relief follow each named host. Amazon 112-6100127: $10.71/100. | [49](M3_LONG_INSERTS) (of 100 pk) | $0.11 | [$5.25](M3_LONG_INSERTS_COST) <!--@fasteners--> |
+| [ruthex RX-M3 × 5.7 full-length heat-set inserts, 100 pc](https://www.amazon.com/dp/B08BCRZZS3) | Ø4 recommended pilot. [28](FOAM_INSERTS) in the foam-cap clamp/deck stations, [12](RES_INSERTS) reservoir caps, [2](COND_INSERTS) condenser fingers and [4](ROOF_CLOSURE_INSERTS) funnel-frame ledges. Stock and blind relief follow each named host. Amazon 112-6100127: $10.71/100. | [46](M3_LONG_INSERTS) (of 100 pk) | $0.11 | [$4.93](M3_LONG_INSERTS_COST) <!--@fasteners--> |
 | [ruthex RX-M3S × 4 short heat-set inserts, 100 pc](https://www.amazon.com/dp/B09ZHSGHXD) | Ø4 recommended pilot. [3](TOUCHFLO_INSERTS) faucet base, [5](SHELF_INSERTS) PSU/ground, [4](SHELF_SCREWS_RELAY) relay diagonals and [2](C14_INSERTS) C14. The PCB mounts use full-length inserts. Amazon 112-4234665: $10.71/100. | [14](M3_SHORT_INSERTS) (of 100 pk) | $0.11 | [$1.50](M3_SHORT_INSERTS_COST) <!--@fasteners--> |
 | [ruthex M5 Threaded Inserts, 50 pc, RX-M5x9.5 brass heat-set](https://www.amazon.com/dp/B07YSVXWS8) | M5 × 9.5 mm L × 7.1 mm OD knurled brass, Ø6.4 recommended pilot with at least 2.6 mm surrounding wall. [8](TOTAL_M5_INSERTS) per build: [4](FLOOR_SCREWS) compressor floor posts and [4](SEAM_INSERTS) Y-seam anchors, two in back-bottom and two in front-top. Blind relief and screw-tip clearance are checked on the complete printed hosts. Amazon 112-6038990-5011450 Aug 11: $9.99 + $0.72 tax = $10.71 ÷ 50 = $0.2142/ea | [8](TOTAL_M5_INSERTS) (of 50 pk) | $0.21 | [$1.71](M5_INSERTS_COST) <!--@fasteners--> |
 | [BNUOK M3 × 25 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, 60 pc](https://www.amazon.com/dp/B0DJQGF665) | foam-cap clamp screws (10 top + 10 bottom, each through cap lid + cap into a shell-face insert); Amazon 112-2495614 May 10: $7.99 + $0.58 tax = $8.57 ÷ 60 = $0.1428/ea | [20](FOAM_SCREWS) (of 60 pk) | $0.14 | $2.86 <!--@fasteners--> |
