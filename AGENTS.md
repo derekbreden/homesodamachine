@@ -18,14 +18,9 @@ There is no machine on the market that gives a home user this experience — tur
 
 See `marketing/target-market.md` for details.
 
-## Purchases
-
-Derek makes all purchases. Agents make recommendations and may prepare carts
-for his review; they do not place orders or complete payments.
-
 ## Questions
 
-Don't ask Derek what the repo already answers. What he owns and has on hand is in [`hardware/ledger/`](hardware/ledger/): every purchase in `purchases.md`, sorted by role into `bom.md`, `tools.md` and `inventory.md`. What he has seen and reported is in the Physical Evidence records below.
+Don't ask Derek what the repo already answers. What he owns and has on hand is in [`hardware/ledger/`](hardware/ledger/): every purchase in `purchases.md`, sorted by role into `bom.md`, `tools.md` and `inventory.md`.
 
 ## Amazon Prime
 
@@ -45,16 +40,7 @@ Derek: "<another passage, with ... marking a cut; a long one wraps onto
 Co-Authored-By: <the harness's line, when it adds one>
 ```
 
-`python3 ~/Developer/claude-code-setup/jsonl2md/jsonl2md.py whoami` prints the session title, marked `(auto-generated)` when Derek hasn't named the session; in a cloud session, the `Claude-Session:` link names it. Each `Derek:` line is a passage of his that the commit answers, quoted exactly — never paraphrased — and never anything the Privacy section keeps out of the repo. A commit nothing of his asked for has no `Derek:` line. `git log --format='%(trailers:key=Derek)'` reads them back.
-
-## Physical Evidence
-
-Physical observations and acceptance records live beside the parts and reference hardware.
-The current index is [`hardware/mechanical-qualification/README.md`](hardware/mechanical-qualification/README.md), with enclosure results also in [`hardware/printed-parts/enclosure/print-readiness.md`](hardware/printed-parts/enclosure/print-readiness.md).
-Preserve accepted results and their scope, and link resolution evidence when recording an addressed issue.
-For hardware optimizations, identify the customer outcome, supporting evidence and measurement needed to assess the candidate. Saved settings and geometric checks alone do not establish load capacity or lifetime.
-Existing specifications carry no presumption of correctness. Start from product requirements, load paths and applicable manufacturer guidance; justify deviations with evidence relevant to the property being assessed. Prefer a supported, straightforward correction when testing would not change that decision.
-Missing evidence is a limit on a claim, not automatically a task for the founder. Before requesting a measurement or test, explain the decision it changes, why it is worth the effort, the exact procedure, fixtures and tools, and acceptance criteria derived from the application. Use existing tools where possible; any requested purchase needs an Amazon Prime link and a clear purpose.
+`python3 ~/Developer/claude-code-setup/jsonl2md/jsonl2md.py whoami` prints the session title, marked `(auto-generated)` when Derek hasn't named the session; in a cloud session, the `Claude-Session:` link names it. Each `Derek:` line is a passage of his that the commit answers, quoted exactly — never paraphrased. A commit nothing of his asked for has no `Derek:` line. `git log --format='%(trailers:key=Derek)'` reads them back.
 
 ## Concerns
 
@@ -81,10 +67,6 @@ host's visualization instructions. Reuse its shared theme helper for text,
 native controls, legends and canvas/WebGL colors. Save inline fragments in the
 current chat's visualization directory. This adds no automatic build or commit check.
 
-## Privacy
-
-This repository is public. Do not include the founder's family relationships or private details about relatives in repository content, including examples and transcripts. Refer to participants generically, such as "nearby beta household."
-
 ## Publishing
 
-Complete requested repository changes by committing and pushing to `main` without asking for separate confirmation. For website changes, verify that the live site serves the update before reporting completion.
+Complete requested repository changes by committing and pushing to `main` without asking for separate confirmation.
