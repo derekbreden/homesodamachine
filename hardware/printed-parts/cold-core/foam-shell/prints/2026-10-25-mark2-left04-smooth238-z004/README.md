@@ -15,6 +15,7 @@ Both reservoir bodies and caps clear the finished shell in the native check.
 | Material | Black Fiberon PET-GF15; external 254, printer PET-CF #161616 |
 | Process | Classic, 3 wall loops; 0.42 mm outer / 0.45 mm inner |
 | Layers | 0.20 mm first, 0.24 mm ordinary; 889 layers |
+| Outer-wall motion | 200 mm/s commanded; 5,000 mm/s² acceleration |
 | Thick regions | 15% gyroid |
 | Temperatures | 265 °C first / 280 °C later; textured PEI 80 °C; chamber unheated |
 | Cooling | Ordinary/auxiliary off; 70% bridge/overhang at 50% unsupported width |
@@ -41,3 +42,9 @@ layer 1/889, 265 °C nozzle and 80 °C bed, print error 0. HMS
 **0C00010000020017** identifies a dirty nozzle-camera lens, which may affect
 AI monitoring. The print is continuing; Derek was notified. No first-layer
 surface or adhesion acceptance is inferred from the status.
+
+Derek's seven photographs report poor finish at an upper long-wall corner and
+the vertical slot edges. The [post-print sent-file audit](post-print-audit/README.md)
+finds no residual fluting or programmed holes matching those defects in the
+recorded launch archive. The exterior finish is a failed result; the motion
+recipe and physical deposition require assessment.
