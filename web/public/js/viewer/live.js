@@ -25,6 +25,7 @@ import { state } from "./state.js";
 import { getLoader } from "./loaders.js";
 import { paintStepThumb } from "./grid.js";
 import { forgetThumbnail } from "./step.js";
+import { refreshMemberUrls } from "./member.js";
 // Open-modal refresh resolves through detail-shims.js (hot); thumbnail renderers
 // stay static — a code edit rarely touches the tiny card render and re-importing
 // for it isn't worth it.
@@ -120,8 +121,19 @@ async function reloadCad(type, file) {
   return run;
 }
 
-window.addEventListener(HSM_EVENTS.FILES_CHANGED, (e) => {
-  for (const file of (e.detail && e.detail.files) || []) {
+window.addEventListener(HSM_EVENTS.FILES_CHANGED, async (e) => {
+  const files = e.detail?.files || [];
+  if (files.some(file => file.endsWith('.step') || file.endsWith('.glb'))) {
+    // Content-addressed URLs keep answering with the old bytes. Adopt the new
+    // publication before asking the changed cards or open model to redraw.
+    if (!await refreshMemberUrls()) {
+      for (const file of files) {
+        state.memberUrls.delete(file);
+        state.memberUrls.delete(`${file}.mesh`);
+      }
+    }
+  }
+  for (const file of files) {
     if (file.endsWith(".step")) {
       refreshStepCard(file);
       // Reload the model in place, then re-mount the scorecard bar so a live rebuild's fresh
