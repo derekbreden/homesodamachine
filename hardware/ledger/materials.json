@@ -1425,6 +1425,11 @@
       ],
       "documents": [
         {
+          "title": "Vessel weldment engineering drawing",
+          "path": "cold-core-layout/carbonator-vessel-weldment-drawing.pdf",
+          "kind": "engineering-drawing"
+        },
+        {
           "title": "Drill and weld guide",
           "path": "assembly-letter-guide/assembly-drill-and-weld-letter.pdf"
         },
@@ -1507,7 +1512,7 @@
             ]
           },
           {
-            "material": "HSM-000035",
+            "material": "HSM-000336",
             "quantity": 1,
             "unit": "ea",
             "bodies": [
@@ -6214,6 +6219,37 @@
         {
           "title": "Water-path assembly",
           "path": "assembly/internal-plumbing.md"
+        }
+      ]
+    },
+    {
+      "id": "HSM-000336",
+      "description": "Carbonator float guide rod \u00b7 316 stainless",
+      "kind": "manufactured",
+      "aliases": [
+        "carbonator rod",
+        "carbonator float rod",
+        "float-rod-carb",
+        "cut float guide rod"
+      ],
+      "documents": [
+        {
+          "title": "Float guide rod engineering drawing",
+          "path": "cut-parts/carbonation/float-rod/carbonator-float-rod-drawing.pdf",
+          "kind": "engineering-drawing"
+        },
+        {
+          "title": "Rod fitting and welding",
+          "path": "assembly/pressure-vessel.md"
+        },
+        {
+          "title": "Rod stock and allocation",
+          "path": "ledger/bom.md"
+        }
+      ],
+      "contexts": [
+        {
+          "material": "HSM-000003"
         }
       ]
     }
