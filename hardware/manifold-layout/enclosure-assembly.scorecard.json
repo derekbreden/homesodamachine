@@ -46,7 +46,7 @@
    "label": "Every placed body is declared in the fastening table",
    "kind": "gate",
    "status": "pass",
-   "value": "162/162 declared",
+   "value": "156/156 declared",
    "target": "all declared",
    "detail": [],
    "active": true
@@ -73,7 +73,7 @@
    "value": "0 clash, 0 unanswered",
    "target": "0 clash, 0 unanswered",
    "detail": [
-    "Selected nominal mates: 32/32 within finite insertion/thread/heat-set regions at the existing 1 mm\u00b3 contact floor; maximum outside 0.743481 mm\u00b3. Physical insertion, sealing and retention remain unqualified.",
+    "Selected nominal mates: 26/26 within finite insertion/thread/heat-set regions at the existing 1 mm\u00b3 contact floor; maximum outside 0.743481 mm\u00b3. Physical insertion, sealing and retention remain unqualified.",
     "Flavor reducer stems in their valve outlets: v-g 258.0 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; v-j 258.0 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it",
     "Stem elbows in their collets: v-c 77.2 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; v-d 77.2 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; v-g 77.2 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; v-j 77.2 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; y-c 0.2 mm\u00b3 in the stem, 0.224926 mm\u00b3 outside it; y-d 0.2 mm\u00b3 in the stem, 0.224926 mm\u00b3 outside it; y-f 0.2 mm\u00b3 in the stem, 0.224926 mm\u00b3 outside it; y-g 0.2 mm\u00b3 in the stem, 0.224926 mm\u00b3 outside it",
     "Drain stub in the plug's land: 17.02 mm\u00b3 in the push-on seal's ring, 0.000000 mm\u00b3 outside it"
@@ -197,9 +197,6 @@
     "y-seam-west-upper-screw \u2014 y-seam-west-upper-insert: 0.000 mm \u2014 excluded from the global pack floor",
     "y-seam-east-lower-screw \u2014 y-seam-east-lower-insert: 0.000 mm \u2014 excluded from the global pack floor",
     "y-seam-east-upper-screw \u2014 y-seam-east-upper-insert: 0.000 mm \u2014 excluded from the global pack floor",
-    "pump-retainer-left-screw \u2014 pump-retainer-left-insert: 0.000 mm \u2014 excluded from the global pack floor",
-    "pump-retainer-centre-screw \u2014 pump-retainer-centre-insert: 0.000 mm \u2014 excluded from the global pack floor",
-    "pump-retainer-right-screw \u2014 pump-retainer-right-insert: 0.000 mm \u2014 excluded from the global pack floor",
     "soda-core-rise \u2014 soda-continuous-insulation: 0.000 mm \u2014 excluded from the global pack floor",
     "g-ganen-pump \u2014 foam-assembly: 0.000 mm \u2014 excluded from the global pack floor",
     "vb-outlet-return \u2014 foam-assembly: 0.147 mm \u2014 excluded from the global pack floor",
@@ -511,7 +508,7 @@
    "label": "Every print-down slope on a ceiling-down piece has its stated carry",
    "kind": "goal",
    "status": "fail",
-   "value": "18 print-down slope(s): 5 under a body, 4 within 1 mm of one, 0 in a kept room, 9 could be columns",
+   "value": "18 print-down slope(s): 4 under a body, 5 within 1 mm of one, 0 in a kept room, 9 could be columns",
    "target": "no unaccounted slope a column could replace, and every named room standing",
    "detail": [
     "enclosure-back-top: a 45\u00b0 face at x -21.45..-19.52 y 459.30..462.30 z 291.27..294.27: a column of 146 mm\u00b3 rising 51.7 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=-0.707 z=0.707 \u00b7 thru x=-20.487 y=460.800 z=292.771\nclick: x=-20.487 y=460.800 z=292.771",
@@ -718,7 +715,7 @@
    "label": "A printed feature of another placed part fastens every body",
    "kind": "gate",
    "status": "pass",
-   "value": "124/124 mounted, 33 part of another body, 5 nothing fastens",
+   "value": "118/118 mounted, 33 part of another body, 5 nothing fastens",
    "target": "a printed joint per body",
    "detail": [
     "funnel: wall-capture \u2014 nothing fastens it; The silicone brim rests in the removable frame's roof surround. Its plug locates on the cradle snapped into the frame's web, with its sealing land on the drain stub. The funnel lifts out by hand for the dishwasher, the land sliding off the stub.",
@@ -734,7 +731,7 @@
    "label": "Every placement is stated as a rule, and the solid lands on it",
    "kind": "goal",
    "status": "fail",
-   "value": "132/162 stated",
+   "value": "126/156 stated",
    "target": "a stated rule per body, each landing on it",
    "detail": [
     "bulkhead-ring-carb: no seat states where it stands",

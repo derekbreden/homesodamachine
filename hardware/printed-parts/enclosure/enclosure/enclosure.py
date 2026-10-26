@@ -5032,7 +5032,7 @@ def _pump_lower_well(pump_trays):
 
 
 def pump_cartridge_figures(box):
-    """Current pump retainer, fixed inverse and underside fastener dimensions."""
+    """Current pump retainer, fixed inverse and snap dimensions."""
     return _fixed_pump_mount.figures(sys.modules[__name__], box)
 
 

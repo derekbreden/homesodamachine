@@ -12,6 +12,10 @@ payload (the pump retainer and front-top have the dedicated materializer above);
 `publish_now.py` grafts the changed payload into both viewer hosts — the enclosure aggregate
 and the appliance assembly — and tells the site.
 
+The pump retainer's standalone files carry its relaxed wings. Its installed shape belongs to
+both native assemblies and the installation GLBs. Rebuild those when changing the snap:
+the publisher retains their seated retainer surface instead of grafting the relaxed print mesh.
+
 After the publish is live — never before, and never as a gate in the build path — lint the
 piece you changed and fix what it flags while Derek is already looking:
 
