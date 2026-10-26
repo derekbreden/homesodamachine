@@ -172,6 +172,10 @@ click: x=104.500 y=213.453 z=275.571
 click: x=-106.310 y=327.030 z=174.575
 click: x=-106.310 y=327.028 z=174.661
 click: x=-104.500 y=327.028 z=173.586
+click: x=-104.500 y=213.448 z=203.576
+click: x=104.500 y=213.448 z=221.924
+click: x=-106.936 y=218.010 z=336.062
+click: x=106.963 y=218.015 z=336.188
 
 [ceiling] Outside the water-check/WAGO arrangement change and unresolved: these faces are in the retained rear-wall ledges and west plumbing-cradle region, outside the resized WAGO pockets. Their support placement and removal need their own review; this entry does not accept the flat print-down spans.
 alternatives: Reconcile each ledge with its mating hardware and print pose, or provide the appropriate removable support through its actual access. Those interfaces are not revised by the connector arrangement.
@@ -291,5 +295,5 @@ click: x=97.700 y=204.525 z=321.146
 [ceiling] Required full-section ends of the upper middle knuckle: these flats stop its rising face one nominal wall short of the free edge, preserving a square end and the running clearance to front-top's head block. Back-top prints roof-down. Tree(auto)/Default support leaves through the exposed seam before assembly; actual cleanup remains unqualified.
 alternatives: Running the slope to the free edge makes a tapered tip. Filling upward enters the head block's running envelope. Removing the end reduces the middle knuckle's retained section.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=-98.000 y=217.300 z=335.946
-click: x=98.000 y=217.300 z=335.946
+click: x=-98.000 y=216.425 z=335.946
+click: x=98.000 y=216.425 z=335.946
