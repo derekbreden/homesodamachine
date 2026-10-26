@@ -1,0 +1,321 @@
+{
+  "views": [
+    {
+      "name": "upper",
+      "caption": "Upper Y seam, section through the west screw axis. Front-top is amber: its roof head block and lower insert block capture the gray back-top middle block. The surrounding side wall and roof remain visible.",
+      "before": "upper-before.webp",
+      "after": "upper-after.webp",
+      "width": 1400,
+      "height": 1100,
+      "marks": [
+        {
+          "x": 700,
+          "y": 155.8,
+          "r": 49.4,
+          "label": "Head seat",
+          "at": [
+            -97.7,
+            208.9,
+            347
+          ]
+        },
+        {
+          "x": 700,
+          "y": 838.6,
+          "r": 63.5,
+          "label": "Enclosed tip",
+          "at": [
+            -97.7,
+            208.9,
+            250
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          721.5650047616533,
+          110.58819942860161,
+          340.1559002856992
+        ],
+        "target": [
+          -97.7,
+          208.9,
+          291
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 78,
+        "near": 393.1556669460151,
+        "far": 1288.6449638952072,
+        "aspect": 1.2727272727272727,
+        "section": {
+          "at": [
+            -97.7,
+            208.9,
+            291
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-front-top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-front-top",
+        "enclosure-back-top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "b528afad11d3191ba16955fd12c5ab59c2a4b423701d38e2e9a64542b0634943",
+          "commit": "a950df833a3ecf73a613df45d1d96597b3878bb7",
+          "taken": "2026-10-26T00:01:16.548Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "40304e3cbbab37c2eefd63ed592d840fe60a102fe457592c97fbee199c0d64cd",
+          "commit": "af89a7bdd53971b0d9943a6610cc883bd17dfc62",
+          "taken": "2026-10-26T02:00:08.417Z",
+          "published": true
+        }
+      },
+      "changed": [
+        "tube-fluid-18",
+        "enclosure-back-top",
+        "enclosure-front-top",
+        "tube-fluid-28",
+        "enclosure-front-bottom",
+        "enclosure-back-bottom"
+      ],
+      "withinMeshing": [
+        "tube-above-core-va-under-head",
+        "tube-above-core-va-fore-feed",
+        "cold-core/evap-coil",
+        "tube-above-core-water-in",
+        "funnel-frame",
+        "funnel",
+        "tube-above-core-vb-yb-link"
+      ]
+    },
+    {
+      "name": "lower",
+      "caption": "Lower Y seam, section through the west screw axis. Front-bottom is amber between the two gray back-bottom blocks. The deeper head pocket accommodates the common M5×100 without moving the insert under the Z seam.",
+      "before": "lower-before.webp",
+      "after": "lower-after.webp",
+      "width": 1400,
+      "height": 1100,
+      "marks": [
+        {
+          "x": 700,
+          "y": 790.7,
+          "r": 49.4,
+          "label": "Raised head seat",
+          "at": [
+            -98.25,
+            208.9,
+            60.8
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          711.8968666377194,
+          111.68237600347369,
+          143.60881199826315
+        ],
+        "target": [
+          -98.25,
+          208.9,
+          95
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 78,
+        "near": 384.92489110035365,
+        "far": 1270.4476997330298,
+        "aspect": 1.2727272727272727,
+        "section": {
+          "at": [
+            -98.25,
+            208.9,
+            95
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure-front-bottom"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-front-bottom",
+        "enclosure-back-bottom"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "b528afad11d3191ba16955fd12c5ab59c2a4b423701d38e2e9a64542b0634943",
+          "commit": "a950df833a3ecf73a613df45d1d96597b3878bb7",
+          "taken": "2026-10-26T00:01:16.548Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "40304e3cbbab37c2eefd63ed592d840fe60a102fe457592c97fbee199c0d64cd",
+          "commit": "af89a7bdd53971b0d9943a6610cc883bd17dfc62",
+          "taken": "2026-10-26T02:00:08.417Z",
+          "published": true
+        }
+      },
+      "changed": [
+        "tube-fluid-18",
+        "enclosure-back-top",
+        "enclosure-front-top",
+        "tube-fluid-28",
+        "enclosure-front-bottom",
+        "enclosure-back-bottom"
+      ],
+      "withinMeshing": [
+        "tube-above-core-va-under-head",
+        "tube-above-core-va-fore-feed",
+        "cold-core/evap-coil",
+        "tube-above-core-water-in",
+        "funnel-frame",
+        "funnel",
+        "tube-above-core-vb-yb-link"
+      ]
+    },
+    {
+      "name": "tubes",
+      "caption": "Interior view of the west corner, with the opposite wall removed. The two flavor tubes are amber; their R25 detours pass inboard of the longer upper joint.",
+      "before": "tubes-before.webp",
+      "after": "tubes-after.webp",
+      "width": 1400,
+      "height": 1100,
+      "marks": [
+        {
+          "x": 719.9,
+          "y": 638.7,
+          "r": 84.1,
+          "label": "Tube detours",
+          "at": [
+            -87,
+            222,
+            284
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          679.9050483577793,
+          -11.281514507333782,
+          451.5210096715559
+        ],
+        "target": [
+          -97.7,
+          222,
+          296
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 85,
+        "near": 405.66544053278244,
+        "far": 1301.1547374819745,
+        "aspect": 1.2727272727272727,
+        "section": {
+          "at": [
+            -60,
+            222,
+            296
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "tube-fluid-18",
+        "tube-fluid-28"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-front-top",
+        "enclosure-back-top",
+        "tube-fluid-18",
+        "tube-fluid-28"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "b528afad11d3191ba16955fd12c5ab59c2a4b423701d38e2e9a64542b0634943",
+          "commit": "a950df833a3ecf73a613df45d1d96597b3878bb7",
+          "taken": "2026-10-26T00:01:16.548Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "40304e3cbbab37c2eefd63ed592d840fe60a102fe457592c97fbee199c0d64cd",
+          "commit": "af89a7bdd53971b0d9943a6610cc883bd17dfc62",
+          "taken": "2026-10-26T02:00:08.417Z",
+          "published": true
+        }
+      },
+      "changed": [
+        "tube-fluid-18",
+        "enclosure-back-top",
+        "enclosure-front-top",
+        "tube-fluid-28",
+        "enclosure-front-bottom",
+        "enclosure-back-bottom"
+      ],
+      "withinMeshing": [
+        "tube-above-core-va-under-head",
+        "tube-above-core-va-fore-feed",
+        "cold-core/evap-coil",
+        "tube-above-core-water-in",
+        "funnel-frame",
+        "funnel",
+        "tube-above-core-vb-yb-link"
+      ]
+    }
+  ]
+}
