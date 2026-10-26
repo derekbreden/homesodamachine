@@ -1,8 +1,10 @@
 import { state } from "./state.js";
 import { searchMaterials, bomCounts, bomCountText } from "/contracts/materials.js";
 import { openMaterial, materialHash } from "./material-nav.js";
+import { stepHash, parseStepHash } from "./step-nav.js";
 
 const modelLabel = (file) => file.split("/").at(-1).replace(/\.step$/, "").replace(/[-_]/g, " ");
+const searchView = { panel: "materials" };
 
 // The same description lookup serves the grid and the model companion. CAD
 // representations without catalog identities remain discoverable by file name.
@@ -38,7 +40,7 @@ export function makeMaterialSearch({ compact = false } = {}) {
     status.textContent = count ? `${count} result${count === 1 ? "" : "s"}${count > 40 ? " · showing the first 40" : ""}` : "No matches. Try another description or part number.";
     for (const m of materials.slice(0, 40)) {
       const link = document.createElement("a");
-      link.href = "/3d#" + materialHash(m.id);
+      link.href = "/3d#" + materialHash(m.id, searchView);
       const title = document.createElement("strong"); title.textContent = m.description;
       const meta = document.createElement("span"); meta.textContent = `${m.id} · ${m.kind}`;
       const counts = bomCounts(state.materialCatalog, m.id, { finish: state.faucetFinish });
@@ -46,13 +48,13 @@ export function makeMaterialSearch({ compact = false } = {}) {
       link.append(title, meta);
       link.addEventListener("click", (event) => {
         if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-        event.preventDefault(); input.value = ""; update(); openMaterial(m.id);
+        event.preventDefault(); input.value = ""; update(); openMaterial(m.id, true, searchView);
       });
       results.append(link);
     }
     for (const file of files.slice(0, Math.max(0, 40 - materials.length))) {
       const link = document.createElement("a");
-      link.href = "/3d#step:" + encodeURIComponent(file);
+      link.href = "/3d#" + stepHash([file], searchView);
       const title = document.createElement("strong"); title.textContent = modelLabel(file);
       const meta = document.createElement("span"); meta.textContent = "CAD model · " + file;
       link.append(title, meta);
@@ -66,6 +68,9 @@ export function makeMaterialSearch({ compact = false } = {}) {
         } else {
           const { openDetail } = await import("./cad-detail.js"); openDetail(file);
         }
+        if (state.currentDetail?.file !== file) return;
+        history.replaceState(history.state, "", "#" + stepHash(parseStepHash(location.hash.slice(1)), searchView));
+        state.materialPanel?.applyRoute(searchView);
       });
       results.append(link);
     }

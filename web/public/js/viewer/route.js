@@ -50,17 +50,19 @@ function wantFromHash(raw) {
   if (raw.startsWith("material:")) {
     const [identity, query = ""] = raw.slice("material:".length).split("?");
     const id = decodeHash(identity);
-    const tab = new URLSearchParams(query).get("tab") === "bom" ? "bom" : null;
+    const params = new URLSearchParams(query);
+    const tab = params.get("tab") === "bom" ? "bom" : null;
+    const panel = params.get("panel");
     const file = modelForMaterial(state.materialCatalog, id)?.file;
     const remembered = history.state?.materialPath;
     const path = file && Array.isArray(remembered) && remembered.at(-1) === file ? remembered : [file];
-    return { type: file ? "step" : "material", file: file || id, path: file ? path : null, material: id, tab };
+    return { type: file ? "step" : "material", file: file || id, path: file ? path : null, material: id, tab, panel };
   }
   for (const [prefix, type] of Object.entries(HASH_PREFIXES)) {
     if (!raw.startsWith(prefix)) continue;
     if (type === "step") {
       const path = parseStepHash(raw);
-      return { type, file: path[path.length - 1], path, find: stepFind(raw) };
+      return { type, file: path[path.length - 1], path, find: stepFind(raw), panel: new URLSearchParams(raw.split("?")[1]).get("panel") };
     }
     return { type, file: decodeHash(raw).slice(prefix.length), path: null };
   }
@@ -78,8 +80,8 @@ window.addEventListener("popstate", () => {
   // Already showing the right thing? Nothing to do.
   if (want.type && state.currentDetail
       && state.currentDetail.type === want.type && state.currentDetail.file === want.file) {
-    if (want.material) { state.materialPanel?.setRoot(want.material); state.materialPanel?.show(); }
-    if (want.tab === "bom") state.materialPanel?.showBom();
+    if (want.material) state.materialPanel?.setRoot(want.material);
+    state.materialPanel?.applyRoute(want);
     return;
   }
   // STEP to STEP with the modal already up — the drill-down's own move, and the
@@ -89,13 +91,13 @@ window.addEventListener("popstate", () => {
   if (want.type === "step" && state.currentDetail && state.currentDetail.type === "step"
       && ContentViewer.isOpen()) {
     routeToStep(want.path).then(() => {
-      if (want.material) { state.materialPanel?.setRoot(want.material); state.materialPanel?.show(); }
-      if (want.tab === "bom") state.materialPanel?.showBom();
+      if (want.material) state.materialPanel?.setRoot(want.material);
+      state.materialPanel?.applyRoute(want);
     });
     return;
   }
   if (want.material && (want.type === "material" || state.currentDetail?.type === "material")) {
-    openMaterial(want.material, false, { tab: want.tab });
+    openMaterial(want.material, false, want);
     return;
   }
   // Close whatever is currently open (cad / mmd / pcb close paths differ
@@ -106,8 +108,8 @@ window.addEventListener("popstate", () => {
     else if (state.currentDetail.type === "material") { state.currentDetail = null; ContentViewer.close(); }
     else closeCadDetail(false);
   }
-  if (want.material) openMaterial(want.material, false, { tab: want.tab });
-  else if (want.type === "step") openDetail(want.file, false, want.path);
+  if (want.material) openMaterial(want.material, false, want);
+  else if (want.type === "step") { openDetail(want.file, false, want.path); state.materialPanel?.applyRoute(want); }
   else if (want.type) OPENERS[want.type](want.file, false);
 });
 
@@ -122,9 +124,12 @@ const FILE_KINDS = { ".mmd": "mmd", ".dxf": "dxf", ".glb": "glb", ".tsx": "pcb" 
 export function applyInitialRoute(occtPromise) {
   // A STEP waits on the occt loader; every other kind can open at once. The
   // timeout lets the grid finish laying out under the modal about to cover it.
-  const open = (type, file, push, path = null) => {
+  const open = (type, file, push, path = null, pane = {}) => {
     const go = () => setTimeout(
-      () => (type === "step" ? openDetail(file, push, path) : OPENERS[type](file, push)), 100);
+      () => {
+        if (type === "step") { openDetail(file, push, path); state.materialPanel?.applyRoute(pane); }
+        else OPENERS[type](file, push);
+      }, 100);
     if (type === "step") occtPromise.then(go); else go();
   };
 
@@ -137,7 +142,7 @@ export function applyInitialRoute(occtPromise) {
   const raw = location.hash.slice(1);
   const want = wantFromHash(raw);
   if (want.find) findWhenMounted(want.file, want.find);
-  if (want.material) { occtPromise.then(() => openMaterial(want.material, false, { tab: want.tab })); }
-  else if (want.type) open(want.type, want.file, false, want.path);
+  if (want.material) { occtPromise.then(() => openMaterial(want.material, false, want)); }
+  else if (want.type) open(want.type, want.file, false, want.path, want);
   else open("step", decodeHash(raw), false);
 }

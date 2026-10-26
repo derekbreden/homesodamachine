@@ -3,7 +3,7 @@ import { HSM_EVENTS } from "/contracts/client-events.js";
 
 // The drawing replaces the visible model, while its canvas, camera and selection
 // stay mounted. Only the selected material's own drawing is offered here.
-export function mountMaterialDrawing(workspace, wrapper) {
+export function mountMaterialDrawing(wrapper, { onShowDrawing } = {}) {
   const switcher = document.createElement("div");
   switcher.className = "material-view-switch";
   switcher.setAttribute("role", "group");
@@ -44,10 +44,7 @@ export function mountMaterialDrawing(workspace, wrapper) {
     wrapper.classList.add("drawing-open");
     model.setAttribute("aria-pressed", "false");
     drawing.setAttribute("aria-pressed", "true");
-    if (matchMedia("(max-width: 700px)").matches) {
-      workspace.classList.remove("materials-open");
-      workspace.querySelector(".materials-toggle")?.setAttribute("aria-expanded", "false");
-    }
+    onShowDrawing?.();
     stopAnimate();
   }
   function setDrawing(doc) {

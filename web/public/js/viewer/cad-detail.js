@@ -166,16 +166,6 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
   stage.append(wrapper);
   workspace.append(stage);
   const materialPanel = type === "step" ? mountMaterialPanel(workspace, { file }) : null;
-  const materialsToggle = document.createElement("button");
-  materialsToggle.className = "materials-toggle";
-  materialsToggle.type = "button";
-  materialsToggle.textContent = "Materials";
-  materialsToggle.setAttribute("aria-expanded", "false");
-  materialsToggle.addEventListener("click", () => {
-    const open = workspace.classList.toggle("materials-open");
-    materialsToggle.setAttribute("aria-expanded", String(open));
-  });
-  if (materialPanel) workspace.append(materialsToggle);
   wrapper.appendChild(renderer.domElement);
   wrapper.appendChild(gizmoCanvas);
   // Scrim + centered pill. The loaders toggle the scrim's display.
