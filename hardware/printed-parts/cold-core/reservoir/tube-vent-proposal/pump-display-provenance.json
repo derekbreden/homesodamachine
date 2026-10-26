@@ -1,0 +1,9 @@
+{
+  "payload": "hardware/manifold-layout/enclosure-assembly.step.mesh",
+  "payload_assembly_sha256": "257021ee95bb8f5b45f15536f699ec6a961468c1e060c3ce5441c9c7c60a5081",
+  "native_clearance_assembly_sha256": "359daa876635f901c1f7271ed5b2f27b5bfb2ce685380915a0d5c294ee8c529e",
+  "maximum_bbox_error_mm": 0.06573052363800258,
+  "sample_count": 60,
+  "maximum_sampled_vertex_to_native_distance_mm": 0.0005736595015419337,
+  "scope": "Purchased pump display context only; fit clearances use the frozen native B-rep, not this mesh."
+}
