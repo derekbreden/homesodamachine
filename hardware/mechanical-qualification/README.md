@@ -682,6 +682,13 @@ V-A elbow fitting with approximately 1 mm clearance. This accepts the reported
 physical pump/elbow fit. The conservative CAD closest-point readings retain
 their model scope.
 
+The [front reservoir routing review](enclosure-above-core/stem-elbow-routing-review.json)
+binds three ATEU44W stem elbows, four tube continuations and six free wire bends
+to the exported appliance. The three reservoir tubes clear the funnel frame by
+1.225 mm; the changed tube-to-wire pairs clear by at least 1.073 mm. The frame,
+mounts, core anchors, electrical endpoints and printed cable passages retain
+their selected positions. These are nominal CAD clearances.
+
 ## Maintaining the evidence
 
 For a physical issue or optimization, identify the affected interface and customer outcome,

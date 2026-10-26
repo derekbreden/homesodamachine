@@ -24,9 +24,9 @@ J1-positive-A,J1,V12,wago-mana.2,V-A.positive,22,327.561,proposed,nominal,modele
 J1-OUT2,J1,J1.OUT2,J1.OUT2,V-B.negative,22,170.527,proposed,nominal,modeled,fixed
 J1-positive-B,J1,V12,wago-mana.3,V-B.positive,22,111.586,proposed,nominal,modeled,fixed
 J1-OUT3,J1,J1.OUT3,J1.OUT3,V-C.negative,22,242.957,proposed,nominal,modeled,fixed
-J1-positive-C,J1,V12,wago-mana.4,V-C.positive,22,159.489,proposed,nominal,modeled,fixed
+J1-positive-C,J1,V12,wago-mana.4,V-C.positive,22,159.417,proposed,nominal,modeled,fixed
 J1-OUT4,J1,J1.OUT4,J1.OUT4,V-D.negative,22,215.498,proposed,nominal,modeled,fixed
-J1-positive-D,J1,V12,wago-mana.5,V-D.positive,22,180.227,proposed,nominal,modeled,fixed
+J1-positive-D,J1,V12,wago-mana.5,V-D.positive,22,180.202,proposed,nominal,modeled,fixed
 J1-OUT5,J1,J1.OUT5,J1.OUT5,V-E.negative,22,207.174,proposed,nominal,modeled,fixed
 J1-positive-E,J1,V12,wago-mana.6,V-E.positive,22,97.378,proposed,nominal,modeled,fixed
 J1-OUT6,J1,J1.OUT6,J1.OUT6,V-F.negative,22,204.664,proposed,nominal,modeled,fixed
@@ -89,10 +89,10 @@ J7-CLO,J7,CLO,J7.CLO,reed-carb-1.signal,22,406.39,proposed,nominal,nominal,fixed
 J7-carb-earth-1,J7,GND,reed-carb-2.GND,reed-carb-1.GND,22,28.152,proposed,nominal,nominal,fixed
 J7-CHI,J7,CHI,J7.CHI,reed-carb-2.signal,22,324.687,proposed,nominal,nominal,fixed
 J7-carb-earth-2,J7,GND,wago-reeds-b.3,reed-carb-2.GND,22,348.834,proposed,nominal,nominal,fixed
-J9-B,J9,B,J9.B,display.B,22,265.051,proposed,nominal,unlocated,fixed
-J9-A,J9,A,J9.A,display.A,22,267.329,proposed,nominal,unlocated,fixed
-J9-GND,J9,GND,J9.GND,display.GND,22,269.948,proposed,nominal,unlocated,fixed
-J9-V12,J9,V12,J9.V12,display.V12,22,272.891,proposed,nominal,unlocated,fixed
+J9-B,J9,B,J9.B,display.B,22,266.759,proposed,nominal,unlocated,fixed
+J9-A,J9,A,J9.A,display.A,22,268.966,proposed,nominal,unlocated,fixed
+J9-GND,J9,GND,J9.GND,display.GND,22,271.517,proposed,nominal,unlocated,fixed
+J9-V12,J9,V12,J9.V12,display.V12,22,274.397,proposed,nominal,unlocated,fixed
 J11-V5,J11,V5,J11.V5,mq6.1,22,331.816,proposed,nominal,nominal,fixed
 J11-GND,J11,GND,J11.GND,mq6.2,22,332.364,proposed,nominal,nominal,fixed
 J11-DOUT,J11,DOUT,J11.DOUT,mq6.3,22,325.506,proposed,nominal,nominal,fixed

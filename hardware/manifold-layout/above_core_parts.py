@@ -21,7 +21,7 @@ ROOT = HW.parent
 sys.path.insert(0, str(HW / 'scripts'))
 
 import above_core as layout
-from above_core_bom import (stem_elbow_names, core_stem_elbow_names,
+from above_core_bom import (stem_elbow_names, core_stem_elbow_names, reservoir_gate_elbow_hosts,
                             union_elbow_names, core_union_elbow_names)
 from _cadq_export import import_step
 from _materials import (C_C14, C_DIGITEN, C_PCBA, C_PSU, C_RELAY, C_VALVE,
@@ -329,6 +329,7 @@ def components():
         ('drain-outlet-stem', layout.specification()['fore_routes']['drain_stem_length_mm']),
         ('vb-inlet-turn', 12.7), ('vb-outlet-stem', 12.7),
         ('vb-outlet-return', 16.891), ('yb-stem-elbow', tee_reference().INSERTION)))
+    depths.update({name: 12.7 for name in reservoir_gate_elbow_hosts()})
     for name in ('carbonator-fold', 'gas-inlet-elbow', 'gas-lower-a',
                  'gas-lower-b', 'gas-upper-a', 'gas-upper-b'):
         depths[name] += layout.snapshot_pose(name).get('exposed_stem_mm', 0.)
@@ -373,6 +374,8 @@ def port_stations(name):
     trimmed branch's shoulder at the cuff mouth, while ``stem-tip`` names
     its engaged cut end.
     """
+    if name in reservoir_gate_elbow_hosts():
+        return {'socket': ((0., 19.05, 0.), (0., 1., 0.), 6.35)}
     if name in ('valve-v-a', 'valve-v-b', 'vk-solenoid'):
         return {'inlet': ((0., -29.75, 11.05), (0., -1., 0.), 6.35),
                 'outlet': ((0., 29.75, 11.05), (0., 1., 0.), 6.35)}
