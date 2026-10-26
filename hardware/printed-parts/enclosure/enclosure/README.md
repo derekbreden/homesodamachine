@@ -119,7 +119,8 @@ overlap and the [14 mm](SIDE_BAND) side band, its screw mid-overlap in Y.
   Z[330.4](Y_STACK_HEAD_INTERFACE). Both front-top blocks join its wall and capture
   back-top between them. The middle block retains its running fit; tightening the screw
   seats its head in front-top rather than directly clamping back-top axially.
-  Front-top's −X blocks have a 5.1 mm inboard-aft chamfer (`y_stack_upper_chamfer`).
+  Front-top's −X insert block has a 5.1 mm inboard-aft chamfer (`y_stack_upper_chamfer`).
+  The head block keeps its square corner, cut only by the funnel's actual clearance.
   Both 4 mm flavor tubes pass inboard of the stack on R25 detours before their rear rises.
   The head block carries the complete rounded outer flank at its station. Its underside
   retains full stock beneath the funnel clearance, and its fore root continues into the lower block.
