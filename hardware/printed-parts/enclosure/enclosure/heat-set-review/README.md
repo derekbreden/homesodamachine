@@ -2,11 +2,15 @@
 
 The customer outcome is an enclosure that keeps its internal components secured,
 captures both pumps in the fixed upper mount and lower retainer and can be handled without its joints opening.
-The [native audit](geometry-check.json) records 13 insert stations and 12 finished
-knuckles in the five enclosure pieces it hashes. Electronics and C14 hosts carried by
-the above-core assembly are outside that audit. The current insert schedule is
+The current insert schedule is
 [enclosure mechanical §1](/hardware/assembly/enclosure-mechanical.md#1-stage-the-printed-pieces).
-It reads complete installed insert
+The snap-fit pump retainer uses two integral wings and no separate fasteners or inserts.
+
+The [native audit](geometry-check.json) records 13 insert stations and 12 finished
+knuckles in the five enclosure pieces it hashes. Its three pump-retainer stations belong
+to the identified three-screw article; they are outside the current snap interface.
+Electronics and C14 hosts carried by the above-core assembly are outside that audit.
+The table below describes those bound exports. The audit reads complete installed insert
 envelopes, open pilots, blind relief, closed stock, insertion access and the Y seam's
 knuckles. Source and STEP hashes are checked before and after the run. These are geometry results;
 installed fit, pullout, torque, transport and drop performance require physical
@@ -14,7 +18,7 @@ qualification. The [seam and handhold review](../y-seam-plain-review.json) recor
 identified geometry and handhold scope. The [fit review](../y-seam-fit-review.json)
 records PET-GF-to-PET-GF gaps and complete local stock at four M5 insert hosts and
 four head floors for its bound inputs. The [M5×100 review](../y-seam-100-review.json)
-records the current head floors, blind caps, local assembly motion and screw passages.
+records its bound head floors, blind caps, local assembly motion and screw passages.
 
 ## Supplier constraints and screw stacks
 

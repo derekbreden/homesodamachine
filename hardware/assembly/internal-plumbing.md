@@ -10,7 +10,7 @@ The [fluid topology](/hardware/topology/fluid-topology.md) defines the valve
 functions and logical connections. A logical connection can contain several
 short tubes and directly inserted stem fittings.
 
-Load and screw-retain the pumps from below, then assemble the fixed front manifold while
+Load and snap-retain the pumps from below, then assemble the fixed front manifold while
 front-top is loose. Fit below-lid core
 plumbing before the PCB, then the pump, V-B and other core equipment.
 Prepare V-A, V-K, their fitted plumbing, the complete inlet header, ASSE and
@@ -182,9 +182,10 @@ Build to [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topol
 
 **This step begins on the bench with `enclosure-front-top` loose and both valve rows,
 pump tees, display and funnel frame absent.** Its upper fitted pump inverses are integral
-with the broad stock continuing into the display housing and roof. The plain rectangular
-`enclosure-pump-retainer` holds the fitted lower wells; three upward M3 × 60 screws into
-front-top capture the molded pump skirts between the two halves.
+with the broad stock continuing into the display housing and roof. The broad
+`enclosure-pump-retainer` holds the fitted lower wells. Its two integral, full-depth snap
+wings engage front-top’s flank receivers and retain the molded-skirt capture between
+the two fitted halves.
 
 Front-top also carries the valve trays and tee wall. Four bottom-open tube-loading gates
 lead into its collet openings and branch bores. The prepared pump tubes rise through these
@@ -221,12 +222,11 @@ Lay out the ten Beduan valves and the [6](MANIFOLD_TEES) PP0208E tees. Cut stati
    motor-first into front-top's fitted upper half. Guide each straight stub up its own
    bottom-open tee-wall gate while drawing the lead slack aft through the common wire
    passage. The lower fitted lands support the molded skirts and the integral upper
-   faces capture them from above. Drive the three M3 × 60 screws upward from the
-   retainer's underside into front-top's full-length M3 inserts, at X−92, X0 and X+92 on
-   the common head-centre Y station. Draw them down evenly and confirm both pumps are
-   firmly held without vertical play. The [accepted holder record](/hardware/reference/kamoer-kphm400/physical-fit.json)
+   faces capture them from above. Press the retainer upward so both upper-rooted wings
+   flex inward, then spring outward with their lower hooks seated on the receiver floors.
+   Inspect both engagements and confirm the pumps are seated against their fitted lands. The [accepted holder record](/hardware/reference/kamoer-kphm400/physical-fit.json)
    applies to its identified cradle and cap; physical fit and retention of this two-face
-   skirt capture remain unqualified. Complete all three screws while front-top is loose.
+   skirt capture remain unqualified. Complete both snap engagements while front-top is loose.
 
 4. **Fit all four tees with their upper tubes and fore valves.** Keep the rear valve row
    absent for this straight approach from aft. The upper tubes are `fluid-10`

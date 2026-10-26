@@ -281,6 +281,10 @@ def surfaces(directories=PIECES_DIRS):
     here, where both the payload and the solid beside it are open."""
     out = {}
     for step, _stl in pieces(directories):
+        # This unfluted spring prints relaxed; each assembly owns its seated
+        # geometry. Grafting the standalone mesh would spread its hooks again.
+        if step.stem == "enclosure-pump-retainer":
+            continue
         payload = step.with_name(step.name + ".mesh")
         held = read_payload(payload)
         if not held or len(held) != 1:

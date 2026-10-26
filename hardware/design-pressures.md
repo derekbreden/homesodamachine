@@ -40,8 +40,8 @@ destroyed is a part that comes out by being destroyed.
   pump tee reaches its fore valve on a short straight tube, not a butt
   ([`manifold-layout/`](/hardware/manifold-layout/README.md)).
 - **The pump mount and dock close at the factory.** Both prepared pumps rise motor-first
-  from underneath loose front-top on the rectangular lower retainer. Three upward M3 × 60
-  screws capture their molded skirts against the integral upper pockets. Each prepared
+  from underneath loose front-top on the broad lower retainer. Its two integral snap wings
+  secure the molded-skirt capture against the fitted upper pockets. Each prepared
   tee/upper-tube/fore-valve group then approaches individually from aft, its extended branch
   collet gripping and sealing a fixed pump tube. Each tee's branch stands in a bore through
   the tee wall, which holds it in X and Z; its fixed branch barrel lands on the bore face if

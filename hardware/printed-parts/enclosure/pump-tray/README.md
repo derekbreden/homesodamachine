@@ -28,7 +28,7 @@ and flat skirt-support lands. Production reads the pump's seated drop for the ac
 and lower land datums.
 
 The prepared pump/retainer unit enters motor-first from underneath loose front-top.
-Three M3 × 60 screws enter upward through the retainer into front-top, capturing the molded
+Two full-depth integral wings snap into front-top’s flank receivers, capturing the molded
 skirts between the fitted faces. The four tube stubs rise through bottom-open tee-wall
 gates. The [integral mount description](/hardware/printed-parts/enclosure/enclosure/README.md#integral-pump-mount)
 and [bench procedure](/hardware/assembly/internal-plumbing.md) define the complete assembly.
@@ -36,8 +36,10 @@ and [bench procedure](/hardware/assembly/internal-plumbing.md) define the comple
 ## Verification
 
 `pump_tray.py selftest` checks the case-derived source solid, locating profiles and reference
-clearances. Production native assembly and print readings are in the
-[pump-mount review](/hardware/printed-parts/enclosure/enclosure/pump-mount-review/README.md).
+clearances. The current snap geometry evidence is in the
+[pump-snap review](/hardware/printed-parts/enclosure/enclosure/pump-snap-review/README.md).
+The [pump-mount receipts](/hardware/printed-parts/enclosure/enclosure/pump-mount-review/README.md)
+bind their identified three-screw articles.
 
 The [accepted physical observation](/hardware/reference/kamoer-kphm400/physical-fit.json)
 records firm holding without observed vertical play in its identified separate cradle and

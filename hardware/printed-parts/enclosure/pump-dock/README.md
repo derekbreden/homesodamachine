@@ -1,16 +1,16 @@
 # Pump mount and tee wall
 
 Front-top contains the upper fitted pump inverses in one broad body that continues into the
-display housing and enclosure roof. A plain rectangular lower retainer,
-`enclosure-pump-retainer`, carries the fitted lower head wells and skirt lands. Three M3 × 60
-screws enter from its underside into full-length M3 inserts in front-top, at X−92, X0 and
-X+92 on the pumps' common head-centre Y station. The two printed halves capture each pump's
-molded skirt; the surrounding stock retains the enclosure's simple outer form.
+display housing and enclosure roof. The broad lower retainer, `enclosure-pump-retainer`,
+carries the fitted lower head wells and skirt lands. Two integral wings engage front-top’s
+flank receivers. Each wing is rooted at the top and carries its retaining hook at the bottom.
+The two printed halves capture each pump’s molded skirt; the surrounding stock retains the
+enclosure’s simple outer form.
 
 The pumps and retainer enter motor-first from the underside while front-top is loose.
 Four bottom-open gates in the tee wall admit their prepared 1/4-inch LLDPE stubs. Fit the
 four purchased John Guest PP0208E tees from aft after the retainer is secured, pushing each
-branch onto its fixed pump tube. The screw-fastened mount retains the pumps; each tee's
+branch onto its fixed pump tube. The snap-fit mount retains the pumps; each tee's
 branch collet grips and seals its own tube. Complete this work before front-top joins the
 populated lower enclosure.
 
@@ -42,8 +42,9 @@ Set the tips with both pumps seated in the loose lower retainer on the bench. Th
 tube setting jig bears on that flat rear face. Remove it before raising the prepared unit
 into front-top: the jig's broad body needs the space occupied by the fixed tee wall.
 Installed, the retainer's back stands [0.25 mm](DOCK_FRAME_GAP) ahead of the wall's bay face.
-The three upward screws clamp the molded skirts against the integral upper half. Reaching
-the underside fasteners after chassis closure requires a factory teardown.
+The two lower hooks seat on the receiver floors and retain the molded-skirt capture. Pump
+removal requires opening the front assembly and disconnecting its plumbing and motor leads.
+Each receiver has a central screwdriver opening to flex its wing inward for release.
 
 The pump and display leads share one rear passage through the continuous stock. Its
 22 mm diamond section is centred at X0/Z280; the rear upper half opens as a plain U
@@ -51,6 +52,23 @@ over the bulkhead lip through Y99. Thread DC-5's
 bare pump end through it before crimping and landing the Fastons on the loose pumps. Draw
 slack aft during motor-first insertion. SIG-7 uses the same passage with the display facet
 open; finish the display and loom before installing the funnel frame.
+
+## Snap wings and release access
+
+Each wing, hook and carrier occupies the same Y14.25–82.265 span, 68.015 mm long.
+Its receiver spans Y14–82.515, leaving 0.25 mm at each end. The upper section joins the
+wing to the retainer continuously; the lower 21 mm is free to flex, with a 16 mm straight
+spring above its 5 mm hook and a 2.4 mm wall. The upper root is at Z186.195.
+The hooks flex inward during upward insertion and spring outward into the receivers.
+The receiver floors at Z165.045 leave the specified 0.15 mm static allowance below the
+nominal hook-bearing faces at Z165.195.
+
+One 4.5 mm-wide opening at each receiver’s Y centre admits a small flathead screwdriver
+from below. Its roof is one continuous 45° face, from X99.6/Z174.8 to X104.5/Z169.9 on the
+right, mirrored on the left, leaving 3 mm of outer wall. This solid corbel supports the
+roof while preserving the blade path. Use the receiver’s lower edge as the fulcrum to
+push the wing inward until its hook clears. Support the pump/retainer unit while releasing
+both sides and lowering it.
 
 ## Factory assembly
 
@@ -63,7 +81,8 @@ absent while loading and securing the pumps.
 2. Thread the bare DC-5 pump end from the shared rear passage to the open underside. Crimp,
    ring out and land its Fastons on the loose pumps, with the +X pair serving pump A.
 3. Raise the prepared unit motor-first. Guide the four tubes up their loading gates while
-   drawing lead slack aft. Secure the retainer with its three upward M3 × 60 screws.
+   drawing lead slack aft. Press upward until both wings spring outward and their lower
+   hooks seat on the receiver floors. Inspect both engagements before fitting plumbing.
 4. With the rear valve row absent, make up each tee, upper tube and fore valve, then bring
    the group in from aft. Push the branch over its fixed pump tube and into its wall bore
    as the fore valve seats on its posts. Check the actual insertion marks. Seat all four
@@ -97,9 +116,11 @@ The factory tool is separate from the installed mount: the [tube setting jig](..
 
 The [accepted pump-holder fit](../../../reference/kamoer-kphm400/physical-fit.json) records
 firm holding without vertical play in its identified cradle and cap. The integral upper
-half and underside retainer use the fitted profiles with a direct two-face skirt capture;
-that revised assembly has no physical fit, retention, vibration or lifetime result.
-Nominal geometry and an assembly motion review establish only their stated geometric scope.
+half and snap-fit underside retainer use the fitted profiles with a direct two-face skirt
+capture. This assembly has no physical fit, retention, release-force, vibration, load-capacity
+or lifetime result. The [pump-snap review](../enclosure/pump-snap-review/README.md) records
+its geometry evidence. The [three-screw mount receipts](../enclosure/pump-mount-review/README.md)
+retain their identified inputs and scope; they do not qualify the snap interface.
 
 The assembled fluid path has no physical seal or cleaning acceptance. Each tee's seating
 force on its fixed pump tube, the tee's aft stop through its lower return, the pump head

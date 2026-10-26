@@ -5179,9 +5179,9 @@ def _unified(solid):
     return cq.Workplane(obj=solid).clean()
 
 
-def build_pump_retainer(box, halves_cache=None):
+def build_pump_retainer(box, halves_cache=None, *, seated=False):
     """The plain lower retainer installs upward through loose front-top's mouth."""
-    return _fixed_pump_mount.retainer(sys.modules[__name__], box)
+    return _fixed_pump_mount.retainer(sys.modules[__name__], box, seated=seated)
 
 
 def pump_dock_figures(box):
@@ -8350,6 +8350,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
     if y_side == "front" and z_side == "top" and box.pump_bay and plate:
         for cutter in _fixed_pump_mount.fixed_cuts(sys.modules[__name__], box):
             piece = piece.cut(cutter)
+        piece = _fixed_pump_mount.snap_receivers(sys.modules[__name__], box, piece)
     return _unified(piece)
 
 
@@ -8386,21 +8387,24 @@ def _report_facet(half, box):
           f"x {display_centre_x(outer):g})")
 
 
-def _report_split(pieces, core=None):
+def _report_split(pieces, core=None, box=None):
     for name, p in pieces.items():
         b = p.val().BoundingBox()
         fits = b.xlen <= H2C_X + 1 and b.ylen <= H2C_Y + 1 and b.zlen <= H2C_Z + 1
         print(f"  {name + ':':14s} X {b.xlen:5.0f} × Y {b.ylen:5.0f} × Z {b.zlen:5.0f} mm  "
               f"(Y[{b.ymin:.0f},{b.ymax:.0f}] Z[{b.zmin:.0f},{b.zmax:.0f}])  "
               f"H2C bed: {'fits' if fits else 'OVER'}")
-    names = list(pieces)
+    installed = dict(pieces)
+    if box is not None and "pump-retainer" in installed:
+        installed["pump-retainer"] = build_pump_retainer(box, seated=True)
+    names = list(installed)
     for i, a in enumerate(names):
         for b in names[i + 1:]:
-            v = pieces[a].val().intersect(pieces[b].val()).Volume()
+            v = installed[a].val().intersect(installed[b].val()).Volume()
             tag = "NO SHARED VOLUME; fit measured separately" if abs(v) <= 1e-6 else "INTERFERENCE"
             print(f"  {a} ∩ {b}: {v:.1f} mm³  ({tag})")
     if core is not None:
-        clash = max(core.intersect(p.val()).Volume() for p in pieces.values())
+        clash = max(core.intersect(p.val()).Volume() for p in installed.values())
         print(f"  cold core vs pieces: {clash:.1f} mm³ max overlap  "
               f"({'NO SHARED VOLUME; fit measured separately' if abs(clash) <= 1e-6 else 'CLASH'})")
 
@@ -8836,7 +8840,8 @@ def build_pieces(box):
     _silhouette_bound(pieces, box)
     assy = cq.Assembly(name="enclosure")
     for name, piece in pieces.items():
-        assy.add(piece, name=f"enclosure-{name}".replace("-", "_"),
+        installed = build_pump_retainer(box, seated=True) if name == "pump-retainer" else piece
+        assy.add(installed, name=f"enclosure-{name}".replace("-", "_"),
                  color=PIECE_COLORS[name])
     if box.pump_bay and box.pack.collet_plate:
         from _materials import M_STAINLESS, M_BRASS
@@ -9030,7 +9035,7 @@ def main():
     _report_facet(pieces["front-top"], box)
     _report_seams(box)
     _report_stacks(box)
-    _report_split(pieces, core)
+    _report_split(pieces, core, box)
 
     bo = box.outer
     # The loops this box's ribs close, read off the seats the pack actually bored for a zip tie;

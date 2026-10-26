@@ -362,9 +362,10 @@ numerical forces and endurance are not measured separately.
 
 The [pump mount](../printed-parts/enclosure/pump-dock/README.md) captures both molded
 pump skirts between front-top’s integral upper inverse and one broad lower retainer.
-Three underside M3×60 screws engage full-length inserts in the upper mount. Broad
-stock continues from that inverse into the roof and display housing; only the fitted
-hardware, loading gates and shared electrical route are open.
+Two integral, full-depth wings secure the lower retainer to flank receivers. Each has an
+upper root and a lower hook that bears on a receiver floor; a central screwdriver opening
+permits inward deflection for release. Broad stock continues from the fitted inverse into
+the roof and display housing, around the hardware rooms, loading gates and electrical route.
 
 The prepared pumps and retainer enter loose front-top motor-first from below.
 After the retainer is secured, each purchased PP0208E tee slides forward over its
@@ -372,10 +373,11 @@ fixed 1/4-inch LLDPE pump tube to the insertion stop. Front-top’s tee bores lo
 the fittings in X and Z. Fore-valve/tee groups precede the rear valves and lower
 returns. The collets grip the tubes; the printed mount carries the pumps.
 
-The [native assembly review](../printed-parts/enclosure/enclosure/pump-mount-review/native-review.json)
-and [native slice review](../printed-parts/enclosure/enclosure/pump-mount-review/print-review.json)
-bind their listed artifacts and motions, support contacts and deposition. They do
-not establish physical cleanup, fit, preload, load capacity or lifetime. The
+The [pump-snap review](../printed-parts/enclosure/enclosure/pump-snap-review/README.md)
+records the current geometric scope. The [three-screw mount receipts](../printed-parts/enclosure/enclosure/pump-mount-review/README.md)
+bind their listed artifacts and motions, support contacts and deposition. They do not
+qualify the snap interface. Physical cleanup, fit, insertion/release forces, retention,
+load capacity, vibration and lifetime of the snap-fit mount are unassessed. The
 [firm no-play physical result](../reference/kamoer-kphm400/physical-fit.json)
 remains scoped to the identified cradle/cap article.
 
@@ -532,7 +534,7 @@ published PLA/SPIROL insert loads cannot be transferred to ruthex inserts in thi
 | Cold-core cap stacks | Ten M3×25 stations per face with 5.7 mm inserts and 10.5 mm blind pilots. Dry printed seats have 0.15 mm static allowance; recessed 3M 425 exterior bands seal both casing seams at each end. The nominal stack envelope is 253.4 mm. The [native closure review](../printed-parts/cold-core/foam-cap/dry-closure-review.json) records floor stock, complete insert walls and screw-tip room. | The caps enclose cured insulation and carry no operating fluid or pressure. Reservoir gaskets retain their separate wet sealing role. Physical cap fit and local foil adhesion are unmeasured; the local seam construction does not qualify the complete vapor barrier or lifetime. |
 | Flavor reservoir caps | Six M3 screws; M3x12 engages 5.0 mm of each 5.7 mm insert. The body bosses are 10.0 mm OD. [Closure geometry](../printed-parts/cold-core/reservoir/reservoir.py). | Vented reservoirs carry liquid head and handling loads. Select the pattern and cap section for controlled gasket compression with allowance for relaxation. Insert length supplies anchorage; it does not by itself preserve gasket preload. |
 | Compressor | Four M5 stations follow the donor plate and grommets. [Mount geometry](../manifold-layout/enclosure_assembly.py). | The donor mounting pattern and isolation geometry provide a starting basis. They do not establish the strength of the printed posts, roots or floor under handling and transport. |
-| Fixed pump mount and lower retainer | Three underside M3×60 screws close the lower retainer against the pump skirts and engage RX-M3×5.7 inserts in front-top’s integral upper stock. | The linked native assembly and slice records establish their stated geometry/deposition. Physical fit, clamp preload, handling capacity, operating vibration and lifetime are unassessed; the earlier cradle/cap no-play report retains its own article scope. |
+| Fixed pump mount and snap-fit lower retainer | Two full-depth integral wings transfer load through their upper roots and lower hooks to front-top’s receiver floors. The fitted upper and lower lands capture the molded pump skirts. | The [pump-snap review](../printed-parts/enclosure/enclosure/pump-snap-review/README.md) records geometric scope. Physical fit, retention, insertion/release forces, handling capacity, operating vibration and lifetime are unassessed; the cradle/cap no-play report retains its own article scope. |
 
 The [floor thickness is 6.0 mm and grip roofs are 12.0 mm](../printed-parts/enclosure/enclosure/enclosure.py).
 Those geometric dimensions do not define load capacity. Engineering assessment must include

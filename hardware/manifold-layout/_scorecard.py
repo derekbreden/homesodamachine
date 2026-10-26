@@ -510,10 +510,6 @@ def _selected_mounts() -> tuple:
         base = f'funnel-frame-{datum["name"]}'
         rows.extend(((base+'-screw', host, 'thread'),
                      (base+'-insert', host, 'heat-set')))
-    for side in ('left', 'centre', 'right'):
-        base = f'pump-retainer-{side}'
-        rows.extend(((base+'-screw', 'enclosure-pump-retainer', 'thread'),
-                     (base+'-insert', 'enclosure-front-top', 'heat-set')))
     for side in ('west', 'east'):
         for station, host in (('lower', 'back-bottom'), ('upper', 'front-top')):
             base = f'y-seam-{side}-{station}'
@@ -1203,8 +1199,6 @@ def selected_mate_contacts(a, placed, clashes) -> dict:
     )
     closure_hosts = {f'funnel-frame-{column}-{side}': f'enclosure-{column}-top'
                      for column in ('front', 'back') for side in ('west', 'east')}
-    closure_hosts.update({f'pump-retainer-{side}': 'enclosure-front-top'
-                          for side in ('left', 'centre', 'right')})
     pending = {frozenset((hit.a, hit.b)): hit for hit in clashes}
     regions = {}
 
@@ -1251,10 +1245,6 @@ def selected_mate_contacts(a, placed, clashes) -> dict:
             for row in enc._funnel_frame_part.fastener_datums(
                 box.inner, box.y_joint, centre, enc.funnel_seat_z(box.outer))
         }
-        datums.update({
-            'pump-retainer-'+side: (row['x'], row['y'], row['insert_top_z'])
-            for side, row in zip(('left', 'centre', 'right'),
-                                 enc._fixed_pump_mount.fasteners(enc, box))})
         for base, host in closure_hosts.items():
             x, y, top = datums[base]
             start = (x, y, top - 5.7)
@@ -1514,11 +1504,6 @@ def selected_clearance_joints(a) -> set:
         # underside at the shell pilot. These are named fastener interfaces.
         pairs.add(frozenset(('funnel-frame', base + '-screw')))
         pairs.add(frozenset(('funnel-frame', base + '-insert')))
-    for side in ('left', 'centre', 'right'):
-        base = 'pump-retainer-'+side
-        pairs.add(frozenset((base+'-screw', base+'-insert')))
-        pairs.add(frozenset((base+'-screw', 'enclosure-pump-retainer')))
-        pairs.add(frozenset((base+'-insert', 'enclosure-front-top')))
     for side in ('west', 'east'):
         for station in ('lower', 'upper'):
             base = f'y-seam-{side}-{station}'
