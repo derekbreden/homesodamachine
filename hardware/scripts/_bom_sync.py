@@ -253,8 +253,8 @@ flat_washers_9_per_build = pump_mount_screws_per_build + ground_stack_washers_pe
 # crown and bored there for a ruthex M5. So the count is the pack's the way the shelf's is — a
 # body arriving on the floor with a hole pattern brings its posts, inserts and screws with it.
 #
-# THE FLOOR IS THE ONE M5 STATION IN THE APPLIANCE. A post stands in a Ø14 grommet bore rather
-# than on a board between its pin fields, so it takes the section for the larger insert.
+# The compressor posts and four Y-seam anchors take M5 inserts. A floor post stands in a
+# Ø14 grommet bore and carries the larger insert inside that section.
 floor_inserts_per_build = len(_floor_bosses)
 # One M5 down into each post's insert, through a fender washer that spans the grommet's bore —
 # 1:1 with the posts.

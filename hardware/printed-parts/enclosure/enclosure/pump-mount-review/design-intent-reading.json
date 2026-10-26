@@ -1,0 +1,377 @@
+{
+  "scope": "Manual design-intent reading of the current pump bay and Y-seam dimensions; not a physical qualification.",
+  "inputs": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "1f3b501a72db7684d8872c9e6f49cf8d1910b44c0ad32d7a8b6e18ad1fa500e4",
+    "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "21347fde35872ea40dabe95ffd801a8dde3fc25cfe6a504696983d5f34d462f9",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "6120cf946a471c4cbe44e6edc191978ab97a0c3204767c96577fd240da85614d",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step": "bd394956fa09afd0985161b9e8ffb699a7083fe7066ff0fed76446c837fb089f",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "4058c5688746a7e8731f5756290ddd30948cc5b69360998a233b714f89d36178"
+  },
+  "datums": {
+    "flange_z": 214.674,
+    "bearing_z": 215.074,
+    "retainer_top_z": 214.424,
+    "bottom_z": 165.19500000000002,
+    "x0": -98.25,
+    "x1": 98.25,
+    "y0": 14.25,
+    "y1": 82.265,
+    "head_y": 45.859,
+    "motor_y": 44.859
+  },
+  "inner": [
+    -104.5,
+    104.5,
+    14.0,
+    468.3,
+    -0.3500001000000047,
+    351.9999999
+  ],
+  "outer": [
+    -107.5,
+    107.5,
+    5.0,
+    471.3,
+    -6.000000100000005,
+    354.9999999
+  ],
+  "housing_back_y_mm": 92.74999207671873,
+  "pump_trays": [
+    [
+      52.225,
+      45.859,
+      214.925
+    ],
+    [
+      -52.225,
+      45.859,
+      214.925
+    ]
+  ],
+  "fasteners": [
+    {
+      "x": -92.0,
+      "y": 45.859,
+      "head_seat_z": 168.19500000000002,
+      "insert_mouth_z": 215.074,
+      "insert_top_z": 220.774,
+      "screw_tip_z": 228.19500000000002,
+      "pilot_end_z": 229.19500000000002,
+      "retainer_bottom_z": 165.19500000000002,
+      "retainer_top_z": 214.424,
+      "screw_length_mm": 60.0
+    },
+    {
+      "x": 0.0,
+      "y": 45.859,
+      "head_seat_z": 168.19500000000002,
+      "insert_mouth_z": 215.074,
+      "insert_top_z": 220.774,
+      "screw_tip_z": 228.19500000000002,
+      "pilot_end_z": 229.19500000000002,
+      "retainer_bottom_z": 165.19500000000002,
+      "retainer_top_z": 214.424,
+      "screw_length_mm": 60.0
+    },
+    {
+      "x": 92.0,
+      "y": 45.859,
+      "head_seat_z": 168.19500000000002,
+      "insert_mouth_z": 215.074,
+      "insert_top_z": 220.774,
+      "screw_tip_z": 228.19500000000002,
+      "pilot_end_z": 229.19500000000002,
+      "retainer_bottom_z": 165.19500000000002,
+      "retainer_top_z": 214.424,
+      "screw_length_mm": 60.0
+    }
+  ],
+  "upper_stock_volume_mm3": 1987797.6468455244,
+  "upper_stock_missing_mm3": 428613.08205498377,
+  "unexplained_upper_voids": [],
+  "forward_recesses": [
+    {
+      "side": "west",
+      "missing_mm3": 4274.229449999996,
+      "bounds_mm": [
+        -104.5,
+        -98.49999999999999,
+        26.0,
+        82.515,
+        165.19500000000002,
+        180.8
+      ],
+      "components": [
+        {
+          "volume_mm3": 4274.229449999996,
+          "bounds_mm": [
+            -104.5,
+            -98.49999999999999,
+            26.0,
+            82.515,
+            165.19500000000002,
+            180.8
+          ]
+        }
+      ]
+    },
+    {
+      "side": "east",
+      "missing_mm3": 4274.229449999997,
+      "bounds_mm": [
+        98.5,
+        104.5,
+        26.0,
+        82.515,
+        165.19500000000002,
+        180.8
+      ],
+      "components": [
+        {
+          "volume_mm3": 4274.229449999997,
+          "bounds_mm": [
+            98.5,
+            104.5,
+            26.0,
+            82.515,
+            165.19500000000002,
+            180.8
+          ]
+        }
+      ]
+    }
+  ],
+  "seam": {
+    "bore_diameter_mm": 5.6,
+    "nominal_screw_diameter_mm": 5.0,
+    "nominal_diametral_air_mm": 0.5999999999999996,
+    "rods": [
+      [
+        "lower",
+        60.80000000000001,
+        160.8,
+        100.0,
+        "back-bottom",
+        150.5,
+        160.0
+      ],
+      [
+        "upper",
+        346.9999999,
+        246.99999989999998,
+        100.0,
+        "front-top",
+        255.5,
+        265.0
+      ]
+    ],
+    "blocks": [
+      [
+        [
+          "back-bottom",
+          29.249999899999995,
+          61.10000000000001,
+          0.0,
+          0.3535533905932738
+        ],
+        [
+          "front-bottom",
+          61.453553390593285,
+          125.95,
+          0.3535533905932738,
+          0.3535533905932738
+        ],
+        [
+          "back-bottom",
+          126.30355339059328,
+          160.0,
+          0.3535533905932738,
+          0.0
+        ]
+      ],
+      [
+        [
+          "front-top",
+          231.34999989999997,
+          265.0,
+          0.0,
+          0.25
+        ],
+        [
+          "back-top",
+          265.25,
+          321.1464466094067,
+          0.25,
+          0.3535533905932738
+        ],
+        [
+          "front-top",
+          321.5,
+          354.9999999,
+          0.3535533905932738,
+          0.0
+        ]
+      ]
+    ]
+  },
+  "inputs_unchanged": true,
+  "contact_reading": {
+    "scope": "Native nominal skirt-contact reading, not measured printed preload or retention.",
+    "native_cache": ".cache/pump-mount-review/97806f7dd4877911ebf1d3a1e60d80a4ab978d57c74e2a479d08e3afcc62f5ea",
+    "pumps": [
+      {
+        "pump": "pump-a-head",
+        "lower": {
+          "distance_mm": 0.0,
+          "overlap_mm3": 0.0,
+          "common_area_mm2": 0.0,
+          "common_bounds_mm": null,
+          "faces": []
+        },
+        "upper": [
+          {
+            "takeup_mm": 0.0,
+            "distance_mm": 0.4000000000000057,
+            "overlap_mm3": 0.0,
+            "common_area_mm2": 0.0,
+            "common_bounds_mm": null,
+            "faces": []
+          },
+          {
+            "takeup_mm": 0.4,
+            "distance_mm": 0.0,
+            "overlap_mm3": 0.0,
+            "common_area_mm2": 0.0,
+            "common_bounds_mm": null,
+            "faces": []
+          }
+        ],
+        "lower_planar_contact": {
+          "z_mm": 206.674,
+          "area_mm2": 534.2158883700843,
+          "patches": [
+            {
+              "area_mm2": 143.31299999999925,
+              "bounds_mm": [
+                28.975,
+                75.475,
+                72.887,
+                75.969,
+                206.674,
+                206.674
+              ]
+            },
+            {
+              "area_mm2": 390.90288837008495,
+              "bounds_mm": [
+                20.919999999999575,
+                83.53000000000054,
+                14.55399999999945,
+                45.840955262170006,
+                206.674,
+                206.674
+              ]
+            }
+          ]
+        },
+        "upper_planar_contact": {
+          "z_mm": 215.074,
+          "area_mm2": 2163.0237865441923,
+          "patches": [
+            {
+              "area_mm2": 2163.0237865441923,
+              "bounds_mm": [
+                20.919999999999575,
+                83.53000000000054,
+                14.55399999999945,
+                75.969,
+                215.074,
+                215.074
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "pump": "pump-b-head",
+        "lower": {
+          "distance_mm": 0.0,
+          "overlap_mm3": 0.0,
+          "common_area_mm2": 0.0,
+          "common_bounds_mm": null,
+          "faces": []
+        },
+        "upper": [
+          {
+            "takeup_mm": 0.0,
+            "distance_mm": 0.4000000000000057,
+            "overlap_mm3": 0.0,
+            "common_area_mm2": 0.0,
+            "common_bounds_mm": null,
+            "faces": []
+          },
+          {
+            "takeup_mm": 0.4,
+            "distance_mm": 0.0,
+            "overlap_mm3": 0.0,
+            "common_area_mm2": 0.0,
+            "common_bounds_mm": null,
+            "faces": []
+          }
+        ],
+        "lower_planar_contact": {
+          "z_mm": 206.674,
+          "area_mm2": 534.2158883700199,
+          "patches": [
+            {
+              "area_mm2": 143.31299999999925,
+              "bounds_mm": [
+                -75.475,
+                -28.974999999999994,
+                72.887,
+                75.969,
+                206.674,
+                206.674
+              ]
+            },
+            {
+              "area_mm2": 390.9028883700207,
+              "bounds_mm": [
+                -83.53,
+                -20.91999999999945,
+                14.553999999995526,
+                45.84095526217,
+                206.674,
+                206.674
+              ]
+            }
+          ]
+        },
+        "upper_planar_contact": {
+          "z_mm": 215.074,
+          "area_mm2": 2163.02378654455,
+          "patches": [
+            {
+              "area_mm2": 2163.02378654455,
+              "bounds_mm": [
+                -83.53,
+                -20.91999999999945,
+                14.553999999995526,
+                75.969,
+                215.074,
+                215.074
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "bare_retainer_gap_at_0_4_takeup_mm": 0.25
+  },
+  "interpretation": {
+    "upper_stock": "Only the declared filled upper-mount region is covered by void purpose accounting.",
+    "forward_recesses": "No mating feature on the current three-screw retainer. Snap wings are under discussion and are not part of the bound production inputs.",
+    "bearing": "The 0.6 mm nominal diametral air does not establish close lateral support. Final printed fit remains a design decision.",
+    "qualification": "Native nominal geometry does not establish printed preload, load capacity or lifetime."
+  }
+}

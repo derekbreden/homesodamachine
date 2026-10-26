@@ -5377,6 +5377,32 @@ def _materialized_enclosure_pieces(box, materialized=False) -> dict:
     }
 
 
+def y_seam_hardware(box):
+    """The installed four M5x100 screws and RX-M5x9.5 insert envelopes.
+
+    The shaft is the nominal outside thread envelope of the fully threaded screw;
+    it does not represent a plain bearing shank or detailed helical contact.
+    The insert's 7.1 mm knurl envelope intentionally enters its 6.4 mm heat-set pilot.
+    """
+    for side, xi, sx in (('west', box.inner[0], 1.), ('east', box.inner[1], -1.)):
+        for station, seat, tip, _length, _owner, insert0, insert1 in _enc.y_stack_rods(box.inner):
+            x, y = _enc.y_stack_axis(xi, sx, box.y_joint, station)
+            upward = station == 'lower'
+            shaft0, shaft1 = sorted((seat, tip))
+            head0, head1 = (seat-5., seat) if upward else (seat, seat+5.)
+            screw = _enc._zcyl(2.5, x, y, shaft0, shaft1).fuse(
+                _enc._zcyl(4.25, x, y, head0, head1))
+            socket0, socket1 = (head0-.1, head0+2.5) if upward else (head1-2.5, head1+.1)
+            socket = (cq.Workplane('XY').workplane(offset=socket0).center(x, y)
+                      .polygon(6, 4./math.cos(math.pi/6.)).extrude(socket1-socket0).val())
+            screw = screw.cut(socket).clean()
+            insert = _enc._zcyl(3.55, x, y, insert0, insert1).cut(
+                _enc._zcyl(2.5, x, y, insert0-.1, insert1+.1)).clean()
+            name = f'y-seam-{side}-{station}'
+            yield name+'-screw', screw, M_DONOR_BLACK
+            yield name+'-insert', insert, M_BRASS
+
+
 def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     """The pack, what is seated in the walls, and the four printable pieces of the box."""
     a, _p, live_box = machine()
@@ -5482,6 +5508,8 @@ def build_enclosure_assembly(*, require_box_spec=False) -> cq.Assembly:
     _enc._handhold_bound(pieces, box)
     for name, piece in pieces.items():
         a.add(piece, name=f"enclosure-{name}", color=WALL_COLORS[name])
+    for name, part, colour in y_seam_hardware(box):
+        a.add(part, name=name, color=colour)
     if box.pump_bay and box.pack.collet_plate:
         pump_stations = {
             'pump-retainer-'+side: row

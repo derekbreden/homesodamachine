@@ -1544,6 +1544,70 @@
    317.3849605281867,
    342.1230478805363
   ],
+  "y-seam-east-lower-insert": [
+   94.7,
+   205.35,
+   150.5,
+   101.8,
+   212.45000000000002,
+   160.0
+  ],
+  "y-seam-east-lower-screw": [
+   94.0,
+   204.65,
+   55.80000000000001,
+   102.5,
+   213.15,
+   160.8
+  ],
+  "y-seam-east-upper-insert": [
+   94.15,
+   205.35,
+   255.5,
+   101.25,
+   212.45000000000002,
+   265.0
+  ],
+  "y-seam-east-upper-screw": [
+   93.45,
+   204.65,
+   246.99999989999998,
+   101.95,
+   213.15,
+   351.9999999
+  ],
+  "y-seam-west-lower-insert": [
+   -101.8,
+   205.35,
+   150.5,
+   -94.7,
+   212.45000000000002,
+   160.0
+  ],
+  "y-seam-west-lower-screw": [
+   -102.5,
+   204.65,
+   55.80000000000001,
+   -94.0,
+   213.15,
+   160.8
+  ],
+  "y-seam-west-upper-insert": [
+   -101.25,
+   205.35,
+   255.5,
+   -94.15,
+   212.45000000000002,
+   265.0
+  ],
+  "y-seam-west-upper-screw": [
+   -101.95,
+   204.65,
+   246.99999989999998,
+   -93.45,
+   213.15,
+   351.9999999
+  ],
   "ya-stem-elbow": [
    15.713486196697504,
    159.49599191875774,
@@ -2737,6 +2801,14 @@
   "vb-inlet-turn",
   "vb-outlet-return",
   "vb-outlet-stem",
+  "y-seam-east-lower-insert",
+  "y-seam-east-lower-screw",
+  "y-seam-east-upper-insert",
+  "y-seam-east-upper-screw",
+  "y-seam-west-lower-insert",
+  "y-seam-west-lower-screw",
+  "y-seam-west-upper-insert",
+  "y-seam-west-upper-screw",
   "ya-stem-elbow",
   "yb-stem-elbow"
  ],
@@ -8116,8 +8188,8 @@
   }
  ],
  "schema": 2,
- "sources": "2e632cdba15ed9ade2bc8334174cee44",
- "step": "2b03127cea9358fd7d20bd669ff5cca5",
+ "sources": "41c2cd5e317e64a9e9858c3cc1ff82cc",
+ "step": "8b8f7a9a6b0ff3a2cbdd1c670008e8ed",
  "valve_tray_stations": [
   [
    177.29,
