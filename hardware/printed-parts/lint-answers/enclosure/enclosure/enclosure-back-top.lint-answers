@@ -281,3 +281,15 @@ file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
 click: x=-34.000 y=459.225 z=292.350
 click: x=-34.000 y=444.725 z=311.850
 click: x=-34.000 y=459.225 z=331.350
+
+[ceiling] Required upper M5 passage-relief floors: these level ends stop the 5.6 mm passage slots where the clearance bore crosses the sloped middle-knuckle face. They remove the knife edge at that crossing. Back-top prints roof-down; retain Tree(auto)/Default and remove support through the exposed seam and bore before fitting the screw. Physical cleanup remains unqualified.
+alternatives: Filling the relief restores the bore-to-face knife edge. A sloped end meets the knuckle face in an arris; extending the slot through the block removes the retained bearing section.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-97.700 y=204.525 z=321.146
+click: x=97.700 y=204.525 z=321.146
+
+[ceiling] Required full-section ends of the upper middle knuckle: these flats stop its rising face one nominal wall short of the free edge, preserving a square end and the running clearance to front-top's head block. Back-top prints roof-down. Tree(auto)/Default support leaves through the exposed seam before assembly; actual cleanup remains unqualified.
+alternatives: Running the slope to the free edge makes a tapered tip. Filling upward enters the head block's running envelope. Removing the end reduces the middle knuckle's retained section.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
+click: x=-98.000 y=217.300 z=335.946
+click: x=98.000 y=217.300 z=335.946
