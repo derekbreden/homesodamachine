@@ -1,6 +1,17 @@
-[ledge] Required flat bearing faces for the three upward M3x60 socket-head screws: each Ø5.8 mm open underside counterbore reaches 3 mm into the retainer, from its bottom at Z165.195 to the head seat at Z168.195. The screw heads load these annular faces and the continuous stock above them. The identified native slice has three short bed-rooted support bodies, each reached directly through its open underside counterbore before assembly; physical removal effort and bearing finish remain unqualified.
-alternatives: A full-diameter through-hole removes the head-bearing annulus. A sloped or countersunk floor does not bear the specified socket-head screw and requires different hardware and a revised clamp stack. Filling the counterbore occupies the screw-head and driver envelope.
+[step] Wrong planar-step classification of the relaxed wing's continuous cubic extrusion. The reported parallel planes are fitted to adjacent bands of its tessellation. Each hook side is one extruded Bezier edge in _fixed_pump_mount._wing; the native/source identity review confirms the exported smooth shape. There is no 0.040 mm step or added cutout in the native hook. The relaxed and seated tip poses are geometrical states, not a computed elastic response.
+alternatives: A straight hook face would change the approved smooth relaxed-to-seated wing pose. Adding or trimming a 0.040 mm ledge would create the defect the classifier incorrectly reports.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
-click: x=-93.868 y=44.975 z=168.195
-click: x=90.132 y=44.975 z=168.195
-click: x=0.573 y=43.873 z=168.195
+click: x=-99.684 y=48.257 z=167.692
+click: x=99.684 y=48.257 z=167.692
+
+[ceiling] Required flex-clearance bridge at the approved upper wing root. Each 1.9 mm X opening runs along the full Y span and ends at Z186.195, defining the 21 mm lower flexible section after filling the upper gap. The current retainer native slice emits the entire part with no support; pump-snap-review/print-review.json binds that archive. This is a deliberate spring clearance, not an unintended enclosed roof.
+alternatives: Filling this remaining clearance joins the lower wing to the rigid carrier and prevents its inward travel. Moving its roof changes the approved flexible length. Splitting the span or adding separate access cuts introduces the unnecessary end edges Derek removed.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+click: x=-94.900 y=48.257 z=186.195
+click: x=94.900 y=48.257 z=186.195
+
+[thin] Required 2.4 mm nominal spring walls in the approved full-Y pump snap. The sampled 2.395 mm mesh result lies on those continuous curved walls; it is not a residual fin or an unrequested thinning pocket. The 21 mm lower wing supplies the required inward hook travel. The complete wings, hooks and upper roots have local 100% infill in the bound native print projects; retention and lifetime remain unmeasured.
+alternatives: A thicker wall changes spring stiffness and available bending travel; filling the clearance makes the snap rigid. Shortening the Y span restores the extra end edges Derek explicitly removed.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+click: x=-95.882 y=40.868 z=181.256
+click: x=95.882 y=40.868 z=181.256
