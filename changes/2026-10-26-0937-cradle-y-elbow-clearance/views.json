@@ -1,0 +1,89 @@
+{
+  "views": [
+    {
+      "name": "clearance",
+      "caption": "The plain cradle side clears the fixed Y-A elbow by 1.313 mm; both sides have the same relief.",
+      "before": "clearance-before.webp",
+      "after": "clearance-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 602.8,
+          "y": 450,
+          "r": 12.2,
+          "label": "Y-elbow clearance",
+          "at": [
+            15.05,
+            175.18,
+            276.72
+          ]
+        }
+      ],
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "perspective",
+        "position": [
+          14.9,
+          117.65159849821003,
+          283.6234081802148
+        ],
+        "target": [
+          14.9,
+          175.18,
+          276.72
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "fov": 45,
+        "near": 13.355776217381347,
+        "far": 141.11908451292607,
+        "aspect": 1.3333333333333333
+      },
+      "highlight": [
+        "elbow-cradle"
+      ],
+      "ghost": [],
+      "only": [
+        "elbow-cradle",
+        "ya-stem-elbow"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "b4e29c9df0b1dc8a3f96a0f37eec1f0274c69a08e36b2cad5218eacbfc975c57",
+          "commit": "441e977c3e596fa39e06f25d261bee39667868c1",
+          "taken": "2026-10-26T14:18:30.248Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "4f0e678faac700427fa246cbd9c5568f15fffc22254cc5566c76dacab52d5490",
+          "commit": "03b1239dab81a5d1de568e688aadfd0d4459b292",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure-front-top",
+        "enclosure-pump-retainer"
+      ],
+      "withinMeshing": [
+        "elbow-cradle",
+        "tube-above-core-va-fore-feed",
+        "tube-above-core-va-under-head",
+        "tube-above-core-water-in",
+        "tube-above-core-vb-yb-link",
+        "cold-core/evap-coil",
+        "funnel",
+        "enclosure-back-top",
+        "enclosure-back-bottom"
+      ]
+    }
+  ]
+}
