@@ -55,10 +55,25 @@ function renderGuide(hardwareDir) {
   <a class="material-link" href="${documentLink(root.documents[0])}">Assembly guide</a>
 </div>`;
   const endcapDrawing = find('HSM-000009').documents.find(document => document.kind === 'engineering-drawing');
-  const drawingMarkup = `<a class="material-drawing-feature" href="${documentLink(endcapDrawing)}">
-  <strong>Engineering drawing</strong>
-  <span>View finished part →</span>
+  const drawingMarkup = `<a class="material-document material-drawing-feature" href="${documentLink(endcapDrawing)}">
+  <span class="material-document-kind">Engineering drawing</span>
+  <strong>${escape(endcapDrawing.title)}</strong>
+  <span>Open in Drawing →</span>
 </a>`;
+  const workspaceMarkup = `<header class="cad-workspace-header" id="guide-workspace-toolbar">
+  <div class="cad-context"><div class="cad-title">Carbonator endcap · 316 stainless, 2 ports</div></div>
+  <div class="cad-view-tools">
+    <div class="cad-view-slot"><div class="material-view-switch" role="group" aria-label="Example material view">
+      <button type="button" aria-pressed="false" data-guide-view="3d">3D</button>
+      <button type="button" aria-pressed="true" data-guide-view="drawing">Drawing</button>
+    </div></div>
+    <div class="cad-document-slot"><div class="drawing-tools" role="group" aria-label="Example drawing controls">
+      <div class="drawing-zoom"><button type="button" aria-label="Zoom out">−</button><button type="button" aria-label="Fit drawing to page">Fit</button><button type="button" aria-label="Zoom in">+</button></div>
+      <details class="workspace-menu"><summary aria-label="Drawing actions">⋯</summary><div class="workspace-menu-body"><div class="drawing-menu-zoom"><span>Zoom</span><button type="button" aria-label="Zoom out">−</button><button type="button" aria-label="Zoom in">+</button></div><a href="${documentLink(endcapDrawing)}">Open full drawing</a><a href="/docs/${endcapDrawing.path}?download=1" download>Download PDF</a></div></details>
+    </div></div>
+  </div>
+  <div class="cad-header-actions"><button type="button" class="materials-toggle" aria-expanded="true">Materials</button><button type="button" class="cv-close" aria-label="Close">×</button></div>
+</header>`;
   const searchMarkup = `<div class="material-search">
   <label>Find a material<input id="guide-material-search" type="search" placeholder="Description, part number or alias…" aria-describedby="guide-search-status" autocomplete="off"></label>
   <p class="material-search-status" id="guide-search-status" role="status">3 sample materials. Try ‘insertion’ or ‘HSM-000005’.</p>
@@ -115,7 +130,8 @@ ${root.documents.map(document => `  <a class="material-document" href="${documen
   <section class="guide-section" id="controls" aria-labelledby="controls-title">
     <h2 class="cost-title" id="controls-title">Links and controls</h2>
     ${example({ id: 'buttons', title: 'Actions, links and keyboard focus', usage: 'Use a link for navigation and a button for an action. The orange button gives a primary action emphasis; the compact material button supports it. Try Tab to see their production focus indicators. These buttons focus and clear the search below.', markup: buttonsMarkup, sources: [['web/lib/landing.js', '.signup-btn'], ['web/public/css/materials.css', '.material-actions and .material-link']] })}
-    ${example({ id: 'engineering-drawing', title: 'Featured engineering drawing', usage: 'Place a part’s own engineering drawing beside its identity, above the BOM and supporting documents. In the 3D viewer this opens the Drawing view; this example opens the full document reader.', markup: drawingMarkup, sources: [['web/public/css/materials.css', '.material-drawing-feature'], ['web/public/js/viewer/material-panel.js', 'Material drawing action']] })}
+    ${example({ id: 'workspace', title: 'Model and drawing workspace', usage: 'Group part navigation, view mode, drawing tools and workspace actions in one toolbar. On phones the view tools occupy a second row. Zoom steps move into the drawing menu at narrow widths. This layout example switches modes; the production viewer connects zoom to the sheet.', markup: workspaceMarkup, sources: [['web/public/css/materials.css', '.cad-workspace-header'], ['web/public/js/viewer/material-drawing.js', 'Drawing mode and controls']] })}
+    ${example({ id: 'engineering-drawing', title: 'Featured engineering drawing', usage: 'Pin a part’s own engineering drawing first in Documents. Drawing is also a persistent workspace mode. The document row opens it in the viewer; this example opens the full reader.', markup: drawingMarkup, sources: [['web/public/css/materials.css', '.material-drawing-feature'], ['web/public/js/viewer/material-panel.js', 'Material documents']] })}
     ${example({ id: 'search', title: 'Material search', usage: 'Give the field a visible label and supporting status. Results put the description first and the identity second. This working sample filters three catalog records; its result links open the real materials.', markup: searchMarkup, sources: [['web/public/css/materials.css', '.material-search'], ['web/public/js/viewer/material-search.js', 'Production search behavior']] })}
   </section>
   <section class="guide-section" id="data" aria-labelledby="data-title">

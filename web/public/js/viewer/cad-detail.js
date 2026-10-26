@@ -164,7 +164,18 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
   const stage = document.createElement("div");
   stage.className = "cad-stage";
   stage.append(wrapper);
-  workspace.append(stage);
+  const header = document.createElement("header"); header.className = "cad-workspace-header";
+  const context = document.createElement("div"); context.className = "cad-context";
+  const title = document.createElement("div"); title.className = "cad-title";
+  title.textContent = materialForView(state.materialCatalog, file, { finish: state.faucetFinish })?.description || shortName(file, kind.ext).name;
+  context.append(title);
+  const viewTools = document.createElement("div"); viewTools.className = "cad-view-tools";
+  const views = document.createElement("div"); views.className = "cad-view-slot";
+  const documentTools = document.createElement("div"); documentTools.className = "cad-document-slot";
+  viewTools.append(views, documentTools);
+  const actions = document.createElement("div"); actions.className = "cad-header-actions";
+  header.append(context, viewTools, actions);
+  workspace.append(header, stage);
   const materialPanel = type === "step" ? mountMaterialPanel(workspace, { file }) : null;
   wrapper.appendChild(renderer.domElement);
   wrapper.appendChild(gizmoCanvas);
@@ -218,6 +229,8 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
   // typing in tears the model down with it.
   const onEscape = (e) => {
     if (e.key !== "Escape" || !wrapper.isConnected) return;
+    const menu = workspace.querySelector(".workspace-menu[open]");
+    if (menu) { menu.open = false; menu.querySelector("summary")?.focus(); e.preventDefault(); e.stopPropagation(); return; }
     if (materialPanel?.closeDrawing()) { e.preventDefault(); e.stopPropagation(); return; }
     const checks = wrapper.querySelector(".sc-modal");
     if (checks) { checks.remove(); e.preventDefault(); e.stopPropagation(); return; }
@@ -252,6 +265,8 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
     content: workspace,
     filename: shortName(file, kind.ext).name,
     onOpen: () => {
+      const close = workspace.closest(".cv-card")?.querySelector(".cv-close");
+      if (close) actions.append(close);
       // Wrapper has its real size now — size the renderer + start the loop.
       resizeRenderer();
       startAnimate();
@@ -273,6 +288,7 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
       // the modal stays the same UI surface.
       const wasUiDriven = state.currentDetail && state.currentDetail.type === type;
       document.removeEventListener("keydown", onEscape, true);
+      window.removeEventListener("blur", closeMenus);
       clearToolDrawer();
       clearFaucetOptions();
       clearFlavorPath();
@@ -313,6 +329,13 @@ export function openCadDetail(type, file, pushHistory = true, path = null) {
       if (wasUiDriven) dismissViewerHistory(walkDepth());
     },
   });
+  const closeMenus = (event) => {
+    for (const menu of workspace.querySelectorAll(".workspace-menu[open]")) {
+      if (event.type === "blur" || !menu.contains(event.target)) menu.open = false;
+    }
+  };
+  workspace.addEventListener("pointerdown", closeMenus);
+  window.addEventListener("blur", closeMenus);
 
   // Resolve the loader now (current-build code) rather than binding it at
   // import time, so opening a part after a code edit / deploy runs fresh code.

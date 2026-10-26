@@ -112,6 +112,8 @@ export function setTrail(files, pushedHistory = false) {
 // Stands where ContentViewer's filename pill stands, and takes its place while
 // there is a trail to show; with no trail the pill says it on its own.
 function filenamePill(wrapper) {
+  const heading = wrapper?.closest(".cad-workspace")?.querySelector(".cad-title");
+  if (heading) return heading;
   const card = wrapper && wrapper.closest(".cv-card");
   return card ? card.querySelector(".cv-filename") : null;
 }
@@ -134,8 +136,8 @@ function setFilename(file) {
 function syncCrumb(file) {
   const wrapper = state.currentCadWrapper;
   if (!wrapper) return;
-  const stage = wrapper.closest(".cad-stage") || wrapper;
-  let crumb = stage.querySelector(".cad-crumb");
+  const context = wrapper.closest(".cad-workspace")?.querySelector(".cad-context") || wrapper;
+  let crumb = context.querySelector(".cad-crumb");
   const pill = filenamePill(wrapper);
 
   // Nothing above this model: the pill says its name on its own, and the crumb
@@ -149,7 +151,7 @@ function syncCrumb(file) {
     crumb = document.createElement("div");
     crumb.className = "cad-crumb";
     crumb.setAttribute("aria-label", "Breadcrumb");
-    stage.appendChild(crumb);
+    context.appendChild(crumb);
   }
   crumb.textContent = "";
   trail.forEach((ancestor, i) => {
