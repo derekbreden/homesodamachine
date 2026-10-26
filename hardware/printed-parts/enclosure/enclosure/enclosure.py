@@ -484,7 +484,7 @@ upper_rod_len = lower_rod_len  # the same M5 × 100 enters front-top's roof head
 y_stack_lower_anchor_depth = 25.0  # anchor stock above the sloped passage, before fit allowance
 y_stack_lower_plane_over_seat = 0.3  # reference of the lower head block's aft-rising top
 y_stack_upper_datum = 265.0    # front-top's insert mouth, above its closed screw-tip pocket
-y_stack_upper_head_datum = 324.0  # head block's aft-rising underside at the Y seam plane
+y_stack_upper_head_datum = 321.5  # aft-rising underside; full stock beneath the funnel clearance
 screw_clear_dia = _interface.screw_clear_dia  # M3 shank clearance
 head_cbore_dia = _interface.head_cbore_dia    # M3 SHCS head counterbore
 heatset_dia = _interface.heatset_dia  # ruthex M3, ⌀4.0 recommended hole either length
@@ -3466,11 +3466,6 @@ def y_stack_axis(x_in, sx, y_joint, rod="upper"):
     return x_in + sx * inset, y_joint + lip_len / 2.0
 
 
-def y_stack_head_aft(y_joint):
-    """Upper head block's square aft end, three millimetres beyond its shaft passage."""
-    return y_joint + lip_len / 2.0 + y_stack_clearance_dia / 2.0 + wall
-
-
 def y_stack_rods(inner):
     """Each corner's two screws, the same both corners, as rows of
     `(rod, seat_z, tip_z, length, insert_piece, insert_z0, insert_z1)`: where the head's
@@ -3550,7 +3545,7 @@ def _y_knuckle(inner, outer, x_in, sx, y_joint, piece, z0, z1, depth):
         # shell's thin roof-edge strip outside it would split the head's surrounding stock.
         xa, xb = xs(-wall if head else fits.running, depth)
         root = y_joint - y_stack_front_root
-        aft = y_stack_head_aft(y_joint) if head else y_joint + lip_len
+        aft = y_joint + lip_len
         if bottom == "aft":
             # The underside rises aft from the seam plane; fore of it the root carries the
             # knuckle's whole section down into its own flank and handhold roof.
@@ -3606,7 +3601,6 @@ def _y_knuckle_air(x_in, sx, y_joint, piece, z0, z1, gap_below, gap_above, depth
         ya, yb = y_joint - 1.0, y_joint + lip_len + fits.running
         if piece == "front-top" and gap_below > 0.0:
             xa, xb = sorted((x_in - sx * (wall + 1.0), x_in + sx * (depth + 1.0)))
-            yb = y_stack_head_aft(y_joint) + fits.running
     else:
         ya, yb = y_joint, back_flank_start(y_joint) + 1.0
     return _y_between_faces(bottom, z0 - gap_below, top, z1 + gap_above, x_in, sx, y_joint,
