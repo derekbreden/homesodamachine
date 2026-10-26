@@ -16,7 +16,9 @@
   "unproven": {
     "_": "source.commit does not describe these members: an uncommitted path below reaches the rule that cuts one, its rule would not cut, or an interactive publication explicitly deferred that rule.",
     "paths": [
-      "changes/2026-10-25-1756-integral-pump-mount/entry.md",
+      "changes/2026-10-25-1725-cold-core-placement/machine-after.webp",
+      "changes/2026-10-25-1725-cold-core-placement/machine-before.webp",
+      "changes/2026-10-25-1725-cold-core-placement/views.json",
       "changes/2026-10-25-1930-m5-100-y-seams/entry.md",
       "changes/2026-10-25-1930-m5-100-y-seams/lower-after.webp",
       "changes/2026-10-25-1930-m5-100-y-seams/lower-before.webp",
@@ -1571,7 +1573,7 @@
     "hardware/install-guide/plumbing/modern/art/modern-water-off.png": "eb5623a33b96b53f5a3d451395f0cc6e4a7b8c6242bd600e0ab661f33765f27c",
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": "9d15c3c5ef60820f86c6cec68b200dfb5f43fda1dea5b86ec0600b8c53074fb7",
     "hardware/manifold-layout/enclosure-assembly.step": "359daa876635f901c1f7271ed5b2f27b5bfb2ce685380915a0d5c294ee8c529e",
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": "5a966e8c4467d24a5e1f7635fd152d1ca084fa68114b18881ba13ee57661f940",
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": "40304e3cbbab37c2eefd63ed592d840fe60a102fe457592c97fbee199c0d64cd",
     "hardware/manifold-layout/manifold-layout.step": "5eef4a1580f9571e71cac2dda03eb02df691074e276b79e694b3ee3a2eedd1ad",
     "hardware/manifold-layout/manifold-layout.step.mesh": "e710b90db3148a6a790a5842f065c20e108c45112f6e1715ec8b7f8fbf1abab6",
     "hardware/pcb/pcba/out/pcba.bom.csv": "8e50da9512f4775249bb0a81e7ef8dc1059fbd3ed31513aaae1511838bb65209",
@@ -2959,7 +2961,7 @@
     "hardware/install-guide/plumbing/modern/art/modern-water-off.png": 1791566298,
     "hardware/install-guide/plumbing/modern/art/modern-water-on.png": 1791566298,
     "hardware/manifold-layout/enclosure-assembly.step": 1792979195,
-    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1792979195,
+    "hardware/manifold-layout/enclosure-assembly.step.mesh": 1792979804,
     "hardware/manifold-layout/manifold-layout.step": 1792740989,
     "hardware/manifold-layout/manifold-layout.step.mesh": 1792740989,
     "hardware/manifold-layout/studies/ceiling-fit/parts/back-wall.step": 1792743994,
