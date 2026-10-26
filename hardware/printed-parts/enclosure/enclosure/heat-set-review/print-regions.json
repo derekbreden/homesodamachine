@@ -183,9 +183,9 @@
   "part_process_overrides": {},
   "source_sha256": {
     "hardware/printed-parts/enclosure/enclosure/heat-set-review/print_regions.py": "e333d9fcea4b3de2a4ecaffd7496233e39209ec961a3b5ef89a546268b1e14c4",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "20d60ba991f5ea24f8ec18d8db7474a7a7c00a4b312778fe1dfdfcc8bf54f351",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "a3d6521dbf5e1459153fd0ebd58ab4b6cd069b156c0b918eac0a118c4c585993",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "264bb52da73675dcd41f7fff8bc5fce6eabd06336fc3cf8b7a9b8560c21e5040",
-    "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "cd2e436bc08ca5cadba0bef11fa1b350c658ed86bd55c865c93cc37bc716c84f",
+    "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "4ba186f9f597cd9bf8d0391a5ed8838ea11cfe114420cd63f4a4c93e66534e3b",
     "hardware/manifold-layout/enclosure-box.json": "3b8f760a0754d4cad939df7f8ceaf3047a35b3d8e707f602ea6b961548f4129e",
     "hardware/printed-parts/enclosure/enclosure/_above_core_shell.py": "4977bcee4b7d3fef51a13b601473a66b0a010bf509fe883ab8ce5998fd225741",
     "hardware/manifold-layout/above_core.py": "0ad87c7c252ab3cfe803c0f2a63a9374d06d0005591509031328ad6e3203988f",
@@ -200,20 +200,20 @@
   },
   "native_artifact_sha256": {
     "front-bottom": {
-      ".step": "079a12fa5df0efa6b1faeaf6e65964a8b2ac8d377b5a7687ab49459c9ea6b676",
-      ".stl": "1a1c2762f71e07cb58823096768c2ba22a66a33d586b095ddedbbfc439a08c7b"
+      ".step": "2ba9088e82845791b11d2c0470560c149916357bd11482be34e91001f6fbc692",
+      ".stl": "dff738bf8c511699aa1fa7e074dbbac56e62c402c750f01e7f630c5b552453bb"
     },
     "front-top": {
-      ".step": "389304966e148d1b2a63bd4ee4f0798066ff57bb13d86d694b30fd53728e414e",
-      ".stl": "ffb9e0422a8b18adc74413d642e58be5ddcc97d298ca6e99dda7001b555a1383"
+      ".step": "481f83f6dc83ecb48c570981125771317cd3616845f27009ef082e74fced8a3a",
+      ".stl": "58c08e549e1b7b34cbb8b6ae46a562f757bb1ce2855d3d4212574f4f624e1007"
     },
     "back-bottom": {
-      ".step": "e99f51392a48254a98115b3188524943049adda76e2e7022f70f3e2ce7dd447b",
-      ".stl": "a967b77ebfbc7f52189bb5f1b9c5d445478cc1ab0c14745017e5143f2ebd7aa4"
+      ".step": "8567ae6046356457fc4fd2a806a609abc02507faf9b534ac0b2105e5ca7d7d1b",
+      ".stl": "76d2349b4769ecbe541d03859befc21956b47f0c3b7ccc5ab2fdf3cda575ed50"
     },
     "back-top": {
-      ".step": "3345fddfd46a9ad8c24ec1b220c58b973fd5d2920ea9688652eacfcac7392bf4",
-      ".stl": "405c0983a3b02a7a39163c617db301bd009b0afd875bc606a7bbb64970a981b7"
+      ".step": "1323845cedb38be25b74f9a9fb984fa39addee58a98be85ed1aa6362d044df00",
+      ".stl": "464dc5ffabd1b3dd1f4108a9d0ac4aeee1f07938c92820bfa051ab479c4df97e"
     },
     "pump-retainer": {
       ".step": "bd394956fa09afd0985161b9e8ffb699a7083fe7066ff0fed76446c837fb089f",
@@ -223,13 +223,13 @@
   "pieces": {
     "front-bottom": [
       {
-        "name": "Y seam knuckle and its wall root +1/41.4536",
+        "name": "Y seam knuckle and its wall root +1/61.4536",
         "machine_bounds_mm": [
           -107.5,
           -90.75,
           197.0,
           217.8,
-          38.45355329059326,
+          58.453553390593285,
           136.7
         ],
         "sparse_infill_density": "100%",
@@ -239,7 +239,7 @@
           -90.75,
           197.0,
           217.8,
-          38.45355329059326,
+          58.453553390593285,
           136.7
         ],
         "print_bounds_mm": [
@@ -247,18 +247,18 @@
           -90.75,
           197.0,
           217.8,
-          44.45355329059326,
+          64.45355339059329,
           142.7
         ]
       },
       {
-        "name": "Y seam knuckle and its wall root -1/41.4536",
+        "name": "Y seam knuckle and its wall root -1/61.4536",
         "machine_bounds_mm": [
           90.75,
           107.5,
           197.0,
           217.8,
-          38.45355329059327,
+          58.453553390593285,
           136.7
         ],
         "sparse_infill_density": "100%",
@@ -268,7 +268,7 @@
           107.5,
           197.0,
           217.8,
-          38.45355329059327,
+          58.453553390593285,
           136.7
         ],
         "print_bounds_mm": [
@@ -276,7 +276,7 @@
           107.5,
           197.0,
           217.8,
-          44.45355329059327,
+          64.45355339059329,
           142.7
         ]
       },
@@ -515,14 +515,14 @@
     ],
     "front-top": [
       {
-        "name": "Y seam knuckle and its wall root +1/281.35",
+        "name": "Y seam knuckle and its wall root +1/231.35",
         "machine_bounds_mm": [
           -107.5,
           -91.5,
           197.0,
           217.8,
-          281.5999999,
-          318.0
+          231.59999989999997,
+          265.0
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
@@ -531,27 +531,56 @@
           -91.5,
           197.0,
           217.8,
-          281.5999999,
-          318.0
+          231.59999989999997,
+          265.0
         ],
         "print_bounds_mm": [
           -107.5,
           -91.5,
           197.0,
           217.8,
-          121.3499999,
-          157.75
+          71.34999989999997,
+          104.75
         ]
       },
       {
-        "name": "Y seam knuckle and its wall root -1/281.35",
+        "name": "Y seam knuckle and its wall root +1/324",
+        "machine_bounds_mm": [
+          -107.5,
+          -91.5,
+          197.0,
+          217.8,
+          321.0,
+          354.9999999
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          -107.5,
+          -91.5,
+          197.0,
+          217.8,
+          321.0,
+          354.9999999
+        ],
+        "print_bounds_mm": [
+          -107.5,
+          -91.5,
+          197.0,
+          217.8,
+          160.75,
+          194.74999989999998
+        ]
+      },
+      {
+        "name": "Y seam knuckle and its wall root -1/231.35",
         "machine_bounds_mm": [
           91.5,
           107.5,
           197.0,
           217.8,
-          281.5999999,
-          318.0
+          231.59999989999997,
+          265.0
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
@@ -560,16 +589,45 @@
           107.5,
           197.0,
           217.8,
-          281.5999999,
-          318.0
+          231.59999989999997,
+          265.0
         ],
         "print_bounds_mm": [
           91.5,
           107.5,
           197.0,
           217.8,
-          121.3499999,
-          157.75
+          71.34999989999997,
+          104.75
+        ]
+      },
+      {
+        "name": "Y seam knuckle and its wall root -1/324",
+        "machine_bounds_mm": [
+          91.5,
+          107.5,
+          197.0,
+          217.8,
+          321.0,
+          354.9999999
+        ],
+        "sparse_infill_density": "100%",
+        "sparse_infill_pattern": "zig-zag",
+        "applied_source_bounds_mm": [
+          91.5,
+          107.5,
+          197.0,
+          217.8,
+          321.0,
+          354.9999999
+        ],
+        "print_bounds_mm": [
+          91.5,
+          107.5,
+          197.0,
+          217.8,
+          160.75,
+          194.74999989999998
         ]
       },
       {
@@ -784,8 +842,8 @@
           -90.75,
           200.0,
           219.81,
-          29.249999899999995,
-          55.899999900000005
+          29.24999989999999,
+          75.90000000000002
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
@@ -794,8 +852,8 @@
           -90.75,
           200.14999389648438,
           219.81,
-          29.249999899999995,
-          55.899999900000005
+          29.24999989999999,
+          75.90000000000002
         ],
         "print_bounds_mm": [
           -107.5,
@@ -803,7 +861,7 @@
           200.14999389648438,
           219.81,
           35.24999989999999,
-          61.899999900000005
+          81.90000000000002
         ]
       },
       {
@@ -842,8 +900,8 @@
           107.5,
           200.0,
           219.81,
-          29.249999899999995,
-          55.899999900000005
+          29.24999989999999,
+          75.90000000000002
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
@@ -852,8 +910,8 @@
           107.5,
           200.14999389648438,
           219.81,
-          29.249999899999995,
-          55.899999900000005
+          29.24999989999999,
+          75.90000000000002
         ],
         "print_bounds_mm": [
           90.75,
@@ -861,7 +919,7 @@
           200.14999389648438,
           219.81,
           35.24999989999999,
-          61.899999900000005
+          81.90000000000002
         ]
       },
       {
@@ -954,14 +1012,14 @@
     ],
     "back-top": [
       {
-        "name": "Y seam knuckle and its wall root +1/318.25",
+        "name": "Y seam knuckle and its wall root +1/265.25",
         "machine_bounds_mm": [
           -107.5,
           -91.5,
           200.0,
           219.81,
-          318.25,
-          354.9999999
+          265.25,
+          338.44644660940673
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
@@ -970,27 +1028,27 @@
           -91.5,
           200.14999389648438,
           219.81,
-          318.25,
-          354.9999999
+          265.25,
+          338.44644660940673
         ],
         "print_bounds_mm": [
           -107.5,
           -91.5,
           -219.81,
           -200.14999389648438,
-          1.0000002248489182e-07,
-          36.75
+          16.553553390593265,
+          89.75
         ]
       },
       {
-        "name": "Y seam knuckle and its wall root -1/318.25",
+        "name": "Y seam knuckle and its wall root -1/265.25",
         "machine_bounds_mm": [
           91.5,
           107.5,
           200.0,
           219.81,
-          318.25,
-          354.9999999
+          265.25,
+          338.44644660940673
         ],
         "sparse_infill_density": "100%",
         "sparse_infill_pattern": "zig-zag",
@@ -999,16 +1057,16 @@
           107.5,
           200.14999389648438,
           219.81,
-          318.25,
-          354.9999999
+          265.25,
+          338.44644660940673
         ],
         "print_bounds_mm": [
           91.5,
           107.5,
           -219.81,
           -200.14999389648438,
-          1.0000002248489182e-07,
-          36.75
+          16.553553390593265,
+          89.75
         ]
       },
       {

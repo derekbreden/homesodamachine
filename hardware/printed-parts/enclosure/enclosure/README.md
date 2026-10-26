@@ -104,28 +104,32 @@ overlap and the [14 mm](SIDE_BAND) side band, its screw mid-overlap in Y.
 
 - **The lower stack** is three knuckles inside the bottom pieces: back-bottom's
   knuckle over the handhold, front-bottom's, and back-bottom's under the Z seam. An
-  [M5 × 120](LOWER_ROD) drives up from the handhold ceiling at Z[29.25](Y_STACK_CEILING),
-  its head in the lower back knuckle, through front-bottom's knuckle into a ruthex RX-M5x9.5
+  [M5 × 100](LOWER_ROD) drives up from the handhold ceiling at Z[29.25](Y_STACK_CEILING),
+  its head seated at Z60.8 in the lower back knuckle, through front-bottom's knuckle into a ruthex RX-M5x9.5
   pressed into the top of the upper back knuckle, flush with the Z seam; its tip stands just
   past the insert's open top. Back-bottom holds the screw at both ends and front-bottom's
   knuckle hangs on it between them, so a pull that opens the seam meets the screw at two
-  faces, both on its plain shank, one wall below its 22 mm of thread. Nothing of either
+  faces, both bearing on its fully threaded shaft. Nothing of either
   bottom stands above the Z seam.
-- **The upper stack** stands under the roof, over the tap-water line on the −X flank:
-  front-top's knuckle, rooted on its lip band at Z[281.4](Y_STACK_UPPER_FLOOR), up to its
-  insert's mouth, and back-top’s from Z318.25 to the roof. An
-  [M5 × 50](UPPER_ROD) drives down from back-top's roof into the insert, so tightening it
-  holds front-top up against back-top, which also locks front-top's slide. Front-top's −X
-  knuckle gives its inboard-aft edge a 5.1 mm, 45° chamfer to the flavour line that turns
-  past that corner under the frame (`y_stack_upper_chamfer`).
+- **The upper stack**, from the head downward, is front-top's roof head block,
+  back-top's middle block and front-top's lower insert block. The
+  [M5 × 100](UPPER_ROD) enters from above and ends in a closed pocket below the insert.
+  Front-top's lower block rises from Z[231.3](Y_STACK_UPPER_FLOOR) to its insert mouth at
+  Z[265](Y_STACK_DATUM); the head block's underside crosses the screw axis at
+  Z[332.9](Y_STACK_HEAD_INTERFACE). Both front-top blocks join its wall and capture
+  back-top between them. The middle block retains its running fit; tightening the screw
+  seats its head in front-top rather than directly clamping back-top axially.
+  Front-top's −X blocks have a 5.1 mm inboard-aft chamfer (`y_stack_upper_chamfer`).
+  Both 4 mm flavor tubes pass inboard of the stack on R25 detours before their rear rises.
 
-No knuckle needs support. Each face that prints facing down rises 45° off its own piece's
-stock: front-bottom's knuckle rises aft off its handhold roof, back-bottom's upper knuckle
-rises inboard off its skin and front-top's rises inboard off its lip band; back-top prints on
-its roof. The slopes run across the slide or close as the front half slides aft, and a top
+The knuckle faces follow their pieces' print orientations: front-bottom's knuckle rises
+aft off its handhold roof, back-bottom's upper knuckle rises inboard off its skin and
+front-top's insert block rises inboard off its lip band. Front-top's head block has an
+aft-rising underside matched by back-top's middle block; back-top prints roof-down.
+Tree(auto)/Default remains the support policy for each fresh native preparation.
+The slopes run across the slide or close as the front half slides aft, and a top
 that rises toward a free face levels off one wall short of it. Every face between knuckles
-keeps a [0.25 mm](Y_STACK_GAP) running fit, measured square to the face, including the two
-the upper screw pulls together.
+keeps a [0.25 mm](Y_STACK_GAP) running fit, measured square to the face.
 
 The screws pass through printed [Ø5.6](Y_STACK_CLEARANCE) clearance holes. Each insert and
 the manufacturer's minimum stock round it, [Ø11.6](Y_STACK_INSERT_BOSS) about the axis, fit
@@ -133,7 +137,7 @@ inside the side band. The lower axes stand [9.25 mm](Y_STACK_LOWER_AXIS_OUT) in 
 where the head passes the handhold's inner wall on its way up; the upper axes
 [9.8 mm](Y_STACK_AXIS_OUT), which leaves 3 mm outboard of the roof opening and 3 mm inboard
 of front-top's insert. Each head bears on a printed floor in a Ø9 opening,
-[11.55 mm](Y_STACK_LOWER_CBORE) up into the handhold ceiling and [8 mm](Y_STACK_CBORE) down
+[31.55 mm](Y_STACK_LOWER_CBORE) up into the handhold ceiling and [8 mm](Y_STACK_CBORE) down
 into the roof. The lower opening ends on the plane of the handhold's inner wall; the upper
 one runs on into the funnel opening. Seat the heads with a 4 mm hex key and stop when they
 meet their floors; the printed joint has no qualified installation torque.
@@ -146,14 +150,14 @@ passes the handhold's inner wall with 0.14 mm to spare, and that wall stands 0.2
 cold core.
 
 Remove the two upper screws to free front-top, which draws fore off its rails. Removing all
-four lets the halves part. The upper screws need about 60 mm of clear space above the roof,
-the lower screws about 125 mm below the enclosure with the flank supported over the bench
+four lets the halves part. The upper screws need about 110 mm of clear space above the roof,
+the lower screws about 110 mm below the enclosure with the flank supported over the bench
 edge. The handhold's inner wall over the seam is front-bottom's, standing on its own floor
 tongue to the joint with back-bottom's wall, one fit under the lowest knuckle
 (`_handhold_frame`).
 
 A drop that opens the Y seam loads the screws in shear at the faces between knuckles: two
-per lower corner, one per upper corner. The floor tongue supplies no tensile interlock. Drop
+per lower corner and two per upper corner. The floor tongue supplies no tensile interlock. Drop
 resistance requires assembled physical qualification.
 
 ## Exterior disposal warning
@@ -1238,9 +1242,10 @@ nominal fastener stacks and sampled motion; the
 [funnel source](../../zone-c/funnel/README.md) owns its dimensions and physical
 qualification limits.
 
-The upper knuckle bearing is Z318.0 on front-top and Z318.25 on back-top,
-heights that fit the M5 × 50 screws on hand. The screw retains its full insert
-engagement; its blind tip relief follows the screw’s fixed head seat and length.
+The upper insert mouth is Z265 and the head seat is Z347. The fully threaded
+M5 × 100 retains 9.5 mm of insert engagement and ends at Z247 in a blind pilot
+with 2.5 mm nominal tip clearance. The source allows ±0.8 mm of screw length,
+leaving at least 1.7 mm beyond the longest tip.
 
 ## back-top's ceiling
 

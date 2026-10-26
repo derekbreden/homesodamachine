@@ -229,7 +229,7 @@
     "bulkhead-flavor-b \u2014 bulkhead-ring-flavor-b-word: 1.169 mm",
     "tee-y-a \u2014 elbow-cradle: 1.172 mm",
     "tee-y-b \u2014 elbow-cradle: 1.172 mm",
-    "fluid-18 \u2014 fluid-28: 1.176 mm",
+    "fluid-18 \u2014 fluid-28: 1.250 mm",
     "pump-inlet-barb-band \u2014 pump-inlet-tube-band: 1.265 mm",
     "pump-outlet-barb-band \u2014 pump-outlet-tube-band: 1.265 mm",
     "fluid-16 \u2014 g-ganen-pump: 1.288 mm",
@@ -504,7 +504,7 @@
    "label": "Every print-down slope on a ceiling-down piece has its stated carry",
    "kind": "goal",
    "status": "fail",
-   "value": "16 print-down slope(s): 4 under a body, 3 within 1 mm of one, 0 in a kept room, 9 could be columns",
+   "value": "18 print-down slope(s): 5 under a body, 4 within 1 mm of one, 0 in a kept room, 9 could be columns",
    "target": "no unaccounted slope a column could replace, and every named room standing",
    "detail": [
     "enclosure-back-top: a 45\u00b0 face at x -21.45..-19.52 y 459.30..462.30 z 291.27..294.27: a column of 146 mm\u00b3 rising 51.7 mm fits\nfile: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step\nfaceA: plane \u00b7 n x=0.000 y=-0.707 z=0.707 \u00b7 thru x=-20.487 y=460.800 z=292.771\nclick: x=-20.487 y=460.800 z=292.771",
@@ -697,7 +697,7 @@
    "label": "Every routed tube turns at or above its stock's minimum radius",
    "kind": "gate",
    "status": "pass",
-   "value": "B \u2014 97/97 corners at spec",
+   "value": "B \u2014 101/101 corners at spec",
    "target": "every corner \u2265 its stock's minimum (B)",
    "detail": [
     "grade = radius \u00f7 the stock's minimum \u2014 4 mm LLDPE R25; 1/4\" LLDPE R14; 1/4\" soft ACR copper R12.7",
@@ -803,8 +803,8 @@
    "value": "23/27 within span, 0 left loose",
    "target": "200 mm between held points",
    "detail": [
-    "fluid-18: 688.0 mm unheld, 488.0 over",
-    "fluid-28: 544.9 mm unheld, 344.9 over",
+    "fluid-18: 681.7 mm unheld, 481.7 over",
+    "fluid-28: 540.0 mm unheld, 340.0 over",
     "fluid-24: 247.4 mm unheld, 47.4 over",
     "fluid-26: 234.1 mm unheld, 34.1 over",
     "fluid-14: 192.7 mm, held at two paired lid seats (nominal restraint geometry)",
