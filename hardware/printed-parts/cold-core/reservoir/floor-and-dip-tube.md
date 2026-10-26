@@ -30,6 +30,20 @@ by hand, cut its end at 45°, and push it down the conduit and the draw bore unt
 the floor. The other end goes on to the draw valve with the rest of its run
 ([internal plumbing](/hardware/assembly/internal-plumbing.md)).
 
+The current 7.5 mm bores are guides with clearance around the 1/4-inch tube;
+they supply no specified axial grip. Derek reports easy tube insertion into
+the printed lid. The remote push-fit connection retains the tube at its
+fitting, while no local grip in the lid fixes the dip-tube depth.
+
+The [tube-grip review](tube-grip-vent-review.json) records a matched PETG/TPU
+candidate: a spool-shaped TPU insert with a cylindrical waist and 45° flares
+at both ends, seated flush in matching countersinks in the lid port. Both
+objects are designed together. The bore controls sliding grip; the flares
+capture the insert and block the direct splash gap. The present port spans
+11 mm through its boss, including the 4 mm cap plate, so its complete span
+sets the captured waist. Bore interference and printed retention have no
+physical result yet. This candidate is not in the current printed geometry.
+
 ## Open items
 
 - [ ] The floor and walls are the reservoir's fluid barrier — the print has to hold syrup under
