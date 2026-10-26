@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "part": "flavor-reservoir",
+  "reported_date": "2026-10-26",
+  "reported_by": "Derek",
+  "status": "leaked",
+  "article_identification": "Most recent reservoir print, as identified by Derek.",
+  "printer_task_id": null,
+  "task_binding_scope": "The latest recorded reservoir launch is Mark1 task 1375878568; the supplied report does not explicitly identify a task, side, plate or hotend. No prior task-specific water-hold record is reassigned.",
+  "reported_hold_duration_hours": 2,
+  "fill_height_mm": null,
+  "water_temperature_C": null,
+  "leak_volume_ml": null,
+  "reported_location": "Line between wall and infill.",
+  "visual_observation": "Small droplets and wet marks are visible on the work surface adjacent to the reservoir base. The photographs do not expose the internal leak path.",
+  "original_quotes": [
+    "our most recent reservoir print is leaking.",
+    "The tiny amount (not sure if you can even see) in this photo is after 2 hours.",
+    "It does appear to be precisely in the line between wall and infill. I know we increased that overlap some already, can we increase it more?"
+  ],
+  "photos": [
+    {
+      "path": "photo-1-base-crop.jpg",
+      "source_attachment": "Photo 1.jpg",
+      "source_sha256": "a558878fb5c3fb64e7d11dcc2c2d7029da4f36c6feea2f262ce201ed38e55bae",
+      "source_oriented_pixels": [
+        3840,
+        2880
+      ],
+      "crop_box_pixels": [
+        0,
+        589,
+        3032,
+        2632
+      ],
+      "transform": "Crop only, JPEG re-encoded at quality 95 without metadata.",
+      "sha256": "03eca179c0cf26614a0c54f06f6e7f35c6d0003c24ab6c5cff2a58700c2c10e7"
+    },
+    {
+      "path": "photo-2-base-crop.jpg",
+      "source_attachment": "Photo 2.jpg",
+      "source_sha256": "1a1db3947cb78186b48a6dcad84d5f0b9839c86ca103c6b8f1f8df8811647723",
+      "source_oriented_pixels": [
+        3840,
+        2880
+      ],
+      "crop_box_pixels": [
+        0,
+        379,
+        3032,
+        2632
+      ],
+      "transform": "Crop only, JPEG re-encoded at quality 95 without metadata.",
+      "sha256": "9d6da551e97f26fc275278b303a563e0988a0920df26aa644c5749bdb69bf9fc"
+    }
+  ],
+  "photo_scope": "Two close views retained from the four supplied photographs, cropped to the reservoir base and adjacent wet surface.",
+  "next_candidate": "../../recipe-reviews/2026-10-26-overlap40/README.md",
+  "scope": "Reported two-hour leakage of this article. The floor-fill/wall junction is the reported location, not a proven internal failure path. No physical result exists for the 40% candidate."
+}

@@ -762,3 +762,24 @@ Derek:
 > You're printing both a lid and a body, right?
 
 > The only thing that was optional was whether you were printing two lids or not.
+
+## 2026-10-26 — two-hour leak and 40% overlap candidate
+
+Derek reports a small amount of water after two hours on the most recent
+reservoir, at the line between wall and infill. The
+[physical record and two base photographs](water-hold-evidence/2026-10-26-two-hour-leak/physical-result.json)
+retain the observation without an unconfirmed task assignment. Earlier
+task-specific hold reports retain their scope.
+
+The [next candidate](recipe-reviews/2026-10-26-overlap40/README.md) selects
+40% Infill/Wall overlap with the latest 255/260 °C Engineering Plate / left
+0.8 mm recipe otherwise retained. Archive checks verify the exact setting
+delta and unchanged geometry/placement. Native slicing remains pending after
+two Studio CLI exits with signal 11, including an isolated-data-directory
+attempt. No new job is submitted and no sealing benefit is claimed.
+
+Derek:
+
+> The tiny amount (not sure if you can even see) in this photo is after 2 hours.
+
+> It does appear to be precisely in the line between wall and infill. I know we increased that overlap some already, can we increase it more?
