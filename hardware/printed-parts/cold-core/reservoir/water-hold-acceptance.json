@@ -253,10 +253,10 @@
       "water_temperature_C": null,
       "leak_volume_ml": null,
       "physical_result": "water-hold-evidence/2026-10-26-two-hour-leak/physical-result.json",
-      "next_candidate": "recipe-reviews/2026-10-26-overlap40/README.md",
+      "next_candidate": "recipe-reviews/2026-10-26-overlap50/README.md",
       "scope": "Applies to the reported article; task-specific earlier hold observations retain their recorded scope."
     }
   ],
-  "scope": "Water-hold and leakage observations apply to their identified articles and reported conditions. The October 26 two-hour leak report identifies the most recent reservoir without an explicit task ID. Earlier task-specific hold observations retain their scope; the 40% overlap candidate has no physical result.",
+  "scope": "Water-hold and leakage observations apply to their identified articles and reported conditions. The October 26 two-hour leak report identifies the most recent reservoir without an explicit task ID. Earlier task-specific hold observations retain their scope; the 50% overlap candidate has no physical result.",
   "clock_scope": "Printer file timestamps and timelapse filenames are preserved as reported; their different clock conventions are not normalized."
 }

@@ -1,6 +1,6 @@
 # Printing the reservoir in PETG
 
-The [next candidate](recipe-reviews/2026-10-26-overlap40/README.md) uses **40%
+The [next candidate](recipe-reviews/2026-10-26-overlap50/README.md) uses **50%
 Infill/Wall overlap** with the latest 255/260 °C Engineering Plate / left
 0.8 mm recipe otherwise retained. It addresses the
 [reported two-hour leakage](water-hold-evidence/2026-10-26-two-hour-leak/physical-result.json)
@@ -32,7 +32,7 @@ is unobserved during layer 0 preparation.
 The completed [255/260 °C left article](prints/2026-10-24-mark1-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json)
 and older 265/270 °C article are reported holding water on October 25. Both
 used Textured PEI with zero added user trim. The table describes the selected
-40% Engineering Plate candidate; it has no physical adhesion or sealing result yet.
+50% Engineering Plate candidate; it has no physical adhesion or sealing result yet.
 The root project and print-settings.json retain the 265/270 °C Textured PEI reference.
 
 [reservoir.3mf](reservoir.3mf) uses the **five-wall May Water adaptation**
@@ -68,7 +68,7 @@ Its water hold belongs to the historical May article. The 59° article [still le
 | Arachne wall transition angle | 10°, the Arachne default |
 | Fill / top / first-layer width | 0.80 mm |
 | Model fill | 100% zig-zag; top 3 layers with 0.8 mm minimum thickness; bottom 3 layers |
-| Infill / Wall overlap | 40%; physical result pending |
+| Infill / Wall overlap | 50%; physical result pending |
 | Floor construction | Modeled 3 mm floor, perimeter loops and solid fill |
 | Top / bottom pattern | Zig-zag |
 | Ironing, model and supports | Off |
@@ -142,7 +142,7 @@ the completed **255/260 °C** left reservoir on Textured PEI, the completed
 **255/260 °C** right reservoir on glued Engineering Plate, and the intentionally
 shortened **265/270 °C** reservoir. The older article's initial report was a
 one-hour hold. Total ongoing durations, water head and cap/gasket assembly
-sealing are unspecified. The selected 40% candidate uses that Engineering Plate
+sealing are unspecified. The selected 50% candidate uses that Engineering Plate
 recipe for the left body and lid, with increased overlap and no physical result.
 The October 26 report records leakage after two hours on the most recent article
 without an explicit task ID.

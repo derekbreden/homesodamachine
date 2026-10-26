@@ -20,7 +20,7 @@ Derek reports that the most recent reservoir leaks a small amount after
 retain that result without assigning an unconfirmed task ID. The visible wet
 marks establish leakage beside the base; the internal path is unconfirmed.
 
-The [next candidate](recipe-reviews/2026-10-26-overlap40/README.md) uses **40%
+The [next candidate](recipe-reviews/2026-10-26-overlap50/README.md) uses **50%
 Infill/Wall overlap**, with the latest **255/260 °C Engineering Plate / left
 0.8 mm** recipe otherwise retained. The candidate settings and unchanged
 geometry are verified; native slicing and a physical water-hold result are
