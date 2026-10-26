@@ -178,7 +178,11 @@ for xi, sx in ((box.inner[0], 1.0), (box.inner[1], -1.0)):
         ax, ay = e.y_stack_axis(xi, sx, box.y_joint, "lower" if rows is lower else "upper")
         for who, z0, z1, gap_below, gap_above in rows:
             knuckle = e._y_knuckle(box.inner, box.outer, xi, sx, box.y_joint, who, z0, z1, depth)
+            if who == 'front-top' and z0 == e.y_stack_upper_head_datum and box.pack.funnel:
+                knuckle = knuckle.cut(e._funnel_cut(box.inner, box.outer, box.pack.funnel))
             for cutter in bores:
+                knuckle = knuckle.cut(cutter)
+            for cutter in e._y_bore_reliefs(xi, sx, box.y_joint, box.inner, who):
                 knuckle = knuckle.cut(cutter)
             y_side, z_side = who.split('-')
             if z_side == 'bottom':

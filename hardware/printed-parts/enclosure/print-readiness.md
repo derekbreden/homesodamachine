@@ -127,6 +127,8 @@ window-cover holder broke. The [seam and frame review](enclosure/y-seam-plain-re
 records closed native quadrants, full funnel-brim bearing and sampled assembly motions
 for its listed artifacts. The [fit review](enclosure/y-seam-fit-review.json) records
 finite native gaps and complete local stock for its identified exports. The
+[M5×100 review](enclosure/y-seam-100-review.json) records the current three-block seams,
+finished screw passages, head floors, blind caps and local withdrawal motion. The
 [frame motion record](../zone-c/funnel/integration-review/rail-motion-check.json) records
 insertion and capture for its listed source and native hashes. Physical receiver/rail fit,
 cleanup, loom retention, load capacity and lifetime remain unqualified. The
