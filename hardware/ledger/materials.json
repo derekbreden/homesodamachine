@@ -4648,6 +4648,11 @@
       ],
       "documents": [
         {
+          "title": "Finished mounting plate engineering drawing",
+          "path": "cut-parts/faucet/under-counter-plate/under-counter-plate-drawing.pdf",
+          "kind": "engineering-drawing"
+        },
+        {
           "title": "Plate drawing and mounting",
           "path": "cut-parts/faucet/under-counter-plate/README.md"
         },

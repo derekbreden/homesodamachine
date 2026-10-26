@@ -31,6 +31,9 @@ const COMMITTED_DOCUMENT_FILES = new Set([
   "hardware/cut-parts/carbonation/float-rod/carbonator-float-rod-drawing.pdf",
   "hardware/cut-parts/carbonation/float-rod/carbonator-float-rod-drawing.pdf.json",
   "hardware/cut-parts/carbonation/float-rod/carbonator-float-rod-drawing.cover.png",
+  "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate-drawing.pdf",
+  "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate-drawing.pdf.json",
+  "hardware/cut-parts/faucet/under-counter-plate/under-counter-plate-drawing.cover.png",
 ]);
 
 export function isCommittedDocumentFile(repoRel) {
