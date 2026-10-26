@@ -1,0 +1,14 @@
+[
+  "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+  "--slice",
+  "0",
+  "--arrange",
+  "0",
+  "--orient",
+  "0",
+  "--outputdir",
+  "/Users/derekbredensteiner/Developer/homesodamachine/hardware/print-tests/m5-seam-bearing/mark1/2026-10-26-m5-seam-bearing-mark1-be46870c/native",
+  "--export-3mf",
+  "2026-10-26-m5-seam-bearing-mark1-be46870c.gcode.3mf",
+  "/Users/derekbredensteiner/Developer/homesodamachine/hardware/print-tests/m5-seam-bearing/mark1/2026-10-26-m5-seam-bearing-mark1-be46870c/2026-10-26-m5-seam-bearing-mark1-be46870c.3mf"
+]

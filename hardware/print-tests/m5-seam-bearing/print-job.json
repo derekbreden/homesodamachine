@@ -1,0 +1,15 @@
+{
+  "preparation": "hardware/print-tests/m5-seam-bearing/mark1/2026-10-26-m5-seam-bearing-mark1-be46870c",
+  "project": "hardware/print-tests/m5-seam-bearing/mark1/2026-10-26-m5-seam-bearing-mark1-be46870c/2026-10-26-m5-seam-bearing-mark1-be46870c.3mf",
+  "archive": "hardware/print-tests/m5-seam-bearing/mark1/2026-10-26-m5-seam-bearing-mark1-be46870c/2026-10-26-m5-seam-bearing-mark1-be46870c.gcode.3mf",
+  "print_only_archive": "hardware/print-tests/m5-seam-bearing/mark1/2026-10-26-m5-seam-bearing-mark1-be46870c/m5-seam-bearing-mark1-print-only.gcode.3mf",
+  "printer": "Mark1",
+  "connection_key": "H2C",
+  "submitted": false,
+  "estimated_seconds": 15258.2607421875,
+  "filament_g": 153.35,
+  "objects": 18,
+  "support_roads": 0,
+  "minimum_bed_margin_mm": 92.856366,
+  "scope": "Prepared offline for the requested Mark1 session. No printer command sent."
+}
