@@ -260,6 +260,12 @@ TOOLS = [
     ("Ryobi PCL206", "T_RYOBI_DRILL", FIXED(0.0)),    # owned, not on ledger
     ("ET-8550", "T_PRINTER", FIXED(0.0)),          # owned, not on ledger
     ("SanDisk Ultra Fit", "T_SANDISK", A("B07857Y17V")),
+    ("Canon EOS R50 V", "T_R50V", A("B0F258T13X")),
+    ("SmallRig CT25", "T_CT25", A("B0F8TDJH4J")),
+    ("SmallRig CT-10", "T_CT10", A("B0B63VTW46")),
+    ("NEEWER NL-192AI", "T_NEEWER_PANELS", A("B08TMBXLGD")),
+    ("SanDisk Extreme 128 GB", "T_SD_EXTREME", A("B0G8LT6J46")),
+    ("card reader", "T_CARD_READER", A("B07NW8RPYN")),
 ]
 
 

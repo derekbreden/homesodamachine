@@ -762,6 +762,12 @@ Storage and capture gear used to record print runs, fab work, and assembled-prod
 | <!--purchase:pur-dda6299d62b24ab2b5825ac5012dc7af--> SanDisk Ultra Fit USB 3.1 256 GB low-profile flash drive (SDCZ430-256G-G46) | [B07857Y17V](https://www.amazon.com/dp/B07857Y17V) | 1 | $45.41 | 112-0147397-3280206 | 2026-05-02 | 2026-05-04 | ACQUIRED |
 | <!--purchase:pur-b663096015424e18b2e6b0a486a29aad--> SanDisk Ultra Fit USB 3.2 Gen 1 256 GB low-profile flash drive, 400 MB/s (SDCZ430-256G-GAM46) — second timelapse-capture drive | [B0BY2TT9TD](https://www.amazon.com/dp/B0BY2TT9TD) | 1 | $46.02 | 112-1916518-0515440 | 2026-06-13 | 2026-06-14 | ACQUIRED |
 | <!--purchase:pur-60b1975ac8e740ba9b68c87b90dd9143--> DJI Mic Mini wireless lavalier system (1 TX + 1 RX) — on-camera audio for the fab and assembled-product footage | [B0DDLCLFFX](https://www.amazon.com/dp/B0DDLCLFFX) | 1 | $48.26 | 112-7291284-7101059 | 2026-04-13 | — | ACQUIRED |
+| <!--purchase:pur-3d8a298bd6054af6a120b520e7a8da65--> Canon EOS R50 V mirrorless camera with RF-S 14-30mm F4-6.3 IS STM PZ lens kit — main camera of the carbonator weld [filming plan](/marketing/video/carbonator-weld-shooting-plan.md): the kit lens focuses to 0.15 m at 0.38× for the joint details, and its 14 mm end frames the overall view. Sold by Amazon.com; $799.00 + $57.93 allocated estimated NE tax, free shipping; Amazon order details verified 2026-10-26, arriving 2026-10-27 | [B0F258T13X](https://www.amazon.com/dp/B0F258T13X) | 1 | $856.93 | 112-8772290-0884241 | 2026-10-26 | — | ON-ORDER |
+| <!--purchase:pur-d95243a541864bd887feefcc369098d4--> SmallRig CT25 horizontal overhead tripod, 164 cm, 5 kg ball-head payload — holds the R50 V above or obliquely over the bench for the joint closeups. Sold by SmallRig; $99.00 − $9.90 SmallRig 10% promotion + $6.46 allocated estimated NE tax, free shipping; Amazon order details verified 2026-10-26, arriving 2026-10-27 | [B0F8TDJH4J](https://www.amazon.com/dp/B0F8TDJH4J) | 1 | $95.56 | 112-8772290-0884241 | 2026-10-26 | — | ON-ORDER |
+| <!--purchase:pur-4fe40749fe864533992cc92b1e791c63--> SmallRig CT-10 aluminum tripod and monopod, 180 cm, 360° ball head — the fixed overall camera position. Sold by SmallRig; $69.99 − $7.00 SmallRig 10% promotion + $4.57 allocated estimated NE tax, free shipping; Amazon order details verified 2026-10-26, arriving 2026-10-27 | [B0B63VTW46](https://www.amazon.com/dp/B0B63VTW46) | 1 | $67.56 | 112-8772290-0884241 | 2026-10-26 | — | ON-ORDER |
+| <!--purchase:pur-a326599d5b464456b43259262c4808ba--> NEEWER NL-192AI 13" bi-color LED panel kit, 3200–5600 K, two panels with stands, power adapters and built-in batteries — key and fill light for the weld video closeups. Sold by iphotoxx; $149.99 + $10.87 allocated estimated NE tax, free shipping; Amazon order details verified 2026-10-26, arriving 2026-10-27 | [B08TMBXLGD](https://www.amazon.com/dp/B08TMBXLGD) | 1 kit (2) | $160.86 | 112-8772290-0884241 | 2026-10-26 | — | ON-ORDER |
+| <!--purchase:pur-f2a6d291d92649da94f37b960613d32e--> SanDisk Extreme 128 GB SD card, UHS-I V30 (SDSDXV9-128G-GUCIN) — the R50 V's recording card. Sold by Amazon.com; $44.99 + $3.26 allocated estimated NE tax, free shipping; Amazon order details verified 2026-10-26, arriving 2026-10-27 | [B0G8LT6J46](https://www.amazon.com/dp/B0G8LT6J46) | 1 | $48.25 | 112-8772290-0884241 | 2026-10-26 | — | ON-ORDER |
+| <!--purchase:pur-5f404f5035cb425a9a8d90c69010a404--> Anker USB-C dual-slot SD and microSD card reader — offloads camera cards to the M3 Air, which has no card slot. Sold by AnkerDirect; $17.99 + $1.30 allocated estimated NE tax, free shipping; Amazon order details verified 2026-10-26, arriving 2026-10-27 | [B07NW8RPYN](https://www.amazon.com/dp/B07NW8RPYN) | 1 | $19.29 | 112-8772290-0884241 | 2026-10-26 | — | ON-ORDER |
 
 ## 20. McMaster-Carr direct
 
@@ -819,17 +825,17 @@ Printed copies of the [install guide](/hardware/install-guide/README.md). Lulu o
 | Acquired hardware valuation — includes replaced/returned originals | [$40,176.90](LEDGER_ACQUIRED_HW) |
 | Engineering services (§18) | [$6,519.51](LEDGER_LABOR) |
 | Acquired procurement valuation (combined) | [$46,696.41](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$947.53](LEDGER_ON_ORDER) |
+| ON-ORDER | [$2,195.98](LEDGER_ON_ORDER) |
 | MISSING — not in hand | [$53.07](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Recorded procurement valuation — includes commitments** | [$47,697.01](LEDGER_GRAND_TOTAL) |
+| **Recorded procurement valuation — includes commitments** | [$48,945.46](LEDGER_GRAND_TOTAL) |
 
 Price evidence within the procurement valuation:
 
 | Amount basis | USD |
 |---|---|
 | Final vendor amounts | [$20,970.33](LEDGER_FINAL_VENDOR) |
-| Estimated amounts | [$2,737.00](LEDGER_ESTIMATES) |
+| Estimated amounts | [$3,985.45](LEDGER_ESTIMATES) |
 | Legacy / unverified amounts | [$23,989.68](LEDGER_LEGACY_UNVERIFIED) |
 
 Merchant-evidenced payments (project shares; includes the undated bucket):

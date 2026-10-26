@@ -1,15 +1,15 @@
 # Carbonator weld filming guide
 
 Thirty-three Letter pages with a separate illustrated instruction page for each
-of 25 shots. The camera records hands and work below shoulder level. Setup pages
-cover the overall and macro positions, lights, settings, sound and the separate
+of 25 shots. The cameras record hands and work below shoulder level. Setup pages
+cover the overall and detail positions, lights, settings, sound and the separate
 active-process camera arrangement. Each shot gives the camera, recording time,
 action, useful finished view and purpose in the edit.
 
-The assumed kit is the GoPro HERO13 Black, iPhone and DJI Mic Mini, plus the
-SmallRig CT-10, SmallRig CT25, NEEWER NL-192AI two-light kit and official GoPro
-Macro Lens Mod. A and B are two positions for the same GoPro. The phone records
-the external microphone. The framing sketches show composition, not actual weld
+Camera A is the GoPro HERO13 Black on the SmallRig CT-10 at the overall
+position; camera B is the Canon EOS R50 V with its 14-30 mm kit lens on the
+SmallRig CT25 at the detail position. The NEEWER NL-192AI two-light kit lights
+the closeups, and the iPhone records the DJI Mic Mini. The framing sketches show composition, not actual weld
 results or measured camera positions.
 
 The PDF is published on [the drawings shelf](https://homesodamachine.com/drawings).

@@ -10,26 +10,27 @@ reflections in stainless, windows and screens. Spoken observations can be
 recorded over a view of the part.
 
 Use the [illustrated filming guide](../../hardware/carbonator-filming-guide/README.md)
-for the shot-by-shot sequence and recording times. It assumes all four listed
-purchases, including the macro lens: one GoPro moves between a fixed overall
-position and a macro position, while the phone records the DJI microphone.
+for the shot-by-shot sequence and recording times. The GoPro holds a fixed
+overall position and the Canon EOS R50 V a detail position, while the phone
+records the DJI microphone.
 
-## What to buy
+## Equipment
 
-Use these four purchases for **$418.87 before tax**, at the prices checked in signed-in Amazon on October 17, 2026. Each selected offer displayed Prime. Delivery estimates and prices can change.
+| Item | Role |
+|---|---|
+| GoPro HERO13 Black, stock lens | Camera A: a fixed overall view showing hands, the welding head and the rotator below shoulder level. |
+| [Canon EOS R50 V with RF-S 14-30mm kit lens](https://www.amazon.com/dp/B0F258T13X) | Camera B: joint details and other closeups. Canon specifies the lens's closest focus as 0.15 m at 0.38× magnification at 30 mm, a field about 59 mm wide on the camera's 22.3 mm sensor. Zoomed out toward 14 mm it frames the whole cap. |
+| [SmallRig CT-10 camera tripod](https://www.amazon.com/dp/B0B63VTW46) | Holds camera A. |
+| [SmallRig CT25 horizontal overhead tripod](https://www.amazon.com/dp/B0F8TDJH4J) | Holds camera B above or obliquely over the bench so the rim does not hide the recessed joint. |
+| [NEEWER NL-192AI two-panel light kit](https://www.amazon.com/dp/B08TMBXLGD) | Two diffused panels, two adjustable stands, two power adapters, built-in batteries, and a carrying bag. One light defines the joint; the other lifts shadows or lights the wider setup. |
+| DJI Mic Mini and iPhone | Speech, recorded in Voice Memos. |
+| [SanDisk Extreme 128 GB SD card](https://www.amazon.com/dp/B0G8LT6J46) and [Anker USB-C card reader](https://www.amazon.com/dp/B07NW8RPYN) | Camera B's recording card and its transfer to the Mac. |
 
-| Item | Quantity | Price | Purpose |
-|---|---:|---:|---|
-| [SmallRig CT25 horizontal overhead tripod](https://www.amazon.com/dp/B0F8TDJH4J) | 1 | $99.00 | Supports the GoPro with its macro lens above or obliquely over the bench so the rim does not hide the recessed joint. |
-| [SmallRig CT-10 camera tripod](https://www.amazon.com/dp/B0B63VTW46) | 1 | $69.99 | Holds the GoPro in a fixed overall view showing hands, the welding head and the rotator below shoulder level. |
-| [NEEWER NL-192AI two-panel light kit](https://www.amazon.com/dp/B08TMBXLGD) | 1 kit | $149.99 | Two diffused panels, two adjustable stands, two power adapters, built-in batteries, and a carrying bag. One light defines the joint; the other lifts shadows or lights the wider setup. |
-| [Official GoPro Macro Lens Mod AEWAL-021](https://www.amazon.com/dp/B0DCLKZYFR) | 1 | $99.89 | Provides manually focused joint details from the same GoPro. |
-
-The guide assumes all four purchases. Move the same camera between the two tripod positions between operations. The macro lens focuses from 11 to 75 cm and provides focus peaking on the HERO13; [GoPro documents those functions](https://gopro.com/en/us/shop/mounts-accessories/macro-lens-mod/AEWAL-021.html?option-id=AEWAL-021).
+The ledger records these in [tools.md](../../hardware/ledger/tools.md). The two cameras can record at the same time: A can run through a dry demonstration or the attempt while B holds its detail.
 
 ### Where the equipment goes
 
-Put the CT-10 on the floor for a three-quarter overall view. The HERO13 has a built-in 1/4-20 mounting thread for the tripod's camera plate, shown in [GoPro's camera overview](https://gopro.com/en/us/out-of-the-box-experience/hero-13-black). Move the GoPro with the Macro Lens Mod to the CT25 for the close view. Extend its horizontal arm only as far as needed, orient a leg toward the extended load, and follow its instructions for setup and counterweight. Keep the camera support clear of the rotator, operator, pedal, and hoses.
+Put the CT-10 on the floor for a three-quarter overall view. The HERO13 has a built-in 1/4-20 mounting thread for the tripod's camera plate, shown in [GoPro's camera overview](https://gopro.com/en/us/out-of-the-box-experience/hero-13-black). Mount the R50 V on the CT25 for the close view. Extend its horizontal arm only as far as needed, orient a leg toward the extended load, and follow its instructions for setup and counterweight. Keep the camera supports clear of the rotator, operator, pedal, and hoses.
 
 For disabled-laser closeups, start with both lights at 5600 K, roughly 50 cm from the subject, with the main light above and to one side. Try the main light at 50% and the opposite fill at 20%, then adjust from the recorded image. Those are starting positions and settings. Keep the corner between wall and plate visible; reduce or move the fill if it erases the shadows that explain that corner. [NEEWER specifies](https://neewer.com/products/neewer-384-2-pack-3200k-5600k-cri-95-led-soft-video-light-kit-with-light-stand-and-handbag-built-in-lithium-battery-66600142) 20 W per panel, adjustable 3200–5600 K color, and the kit contents above.
 
@@ -83,9 +84,9 @@ Get the unwelded joint before tacking or welding changes it. Capture the actual 
 
 ## Camera roles and settings
 
-The available camera and sound kit is a GoPro HERO13 Black, an iPhone and a DJI Mic Mini transmitter and USB-C receiver. With the assumed purchases, position A uses the stock-lens GoPro on the CT-10 for an overall view; position B uses the same GoPro with the macro lens on the CT25 for details.
+The camera and sound kit is a GoPro HERO13 Black, a Canon EOS R50 V, an iPhone and a DJI Mic Mini transmitter and USB-C receiver. Position A uses the stock-lens GoPro on the CT-10 for an overall view; position B uses the R50 V on the CT25 for details.
 
-Keep the iPhone available for the DJI receiver and Voice Memos. For live speech accompanying GoPro footage, clap once with both recordings running. Spoken observations can be recorded over a stationary view of the part. Keep all process framing below shoulder level, including entry and exit.
+Keep the iPhone available for the DJI receiver and Voice Memos. For live speech accompanying camera footage, clap once with every recording running. Spoken observations can be recorded over a stationary view of the part. Keep all process framing below shoulder level, including entry and exit.
 
 ### GoPro
 
@@ -93,20 +94,26 @@ Use **4K, 30 fps, 16:9, Linear, standard SDR** for this horizontal video. Keep H
 
 Full-sensor 8:7 capture is available at 4K and 5.3K in supported frame rates. Choose it when the extra framing room matters, and use a lens mode offered by that preset. The 16:9 Linear profile above is the straightforward choice for showing mechanical geometry. See [GoPro's 8:7 mode information](https://community.gopro.com/s/article/HERO13-Black-8-7-Sensor-Information?language=en_US) and [Protune controls](https://community.gopro.com/s/article/HERO13-Black-Advanced-Protune-Controls-Explained?language=en_US).
 
-The stock lens supplies the overall view. For the macro position, let the HERO13 recognize the attached lens, select 4K at 30 fps in 16:9 where offered, and use a digital lens available in that profile. Start 15-25 cm from the selected joint arc and turn the focus ring. Examine a recorded sample at full size before the work changes the joint.
+### Canon EOS R50 V
+
+Set [Movie rec. size] to 3840×2160 at 29.97 fps, Standard (Long GOP); that size uses the full sensor width, while 59.94 fps crops it. Set [Movie rec. format] to XF-AVC S YCC420 8bit, the H.264 format Canon lists with the widest playback compatibility, and [Color mode] to the Standard Picture Style with [HDR shooting (PQ)] off, so the footage matches the GoPro's standard SDR. Turn Movie digital IS off on the tripod, as Canon recommends.
+
+Use movie manual exposure: 1/60 s, a starting aperture of f/8, and the lowest ISO that exposes the joint well. [Zebra settings] show where the stainless is clipping. Set the white balance to a 5600 K color temperature to match the lights. Set [Focus mode] to MF and focus with the lens ring, using [MF peaking settings] and the magnified view; the kit lens shares that ring between focus and a control function, selected in the camera menu. Turn the [Tally lamp] on so the lamp shows recording from the bench, and set [Auto pwr off temp.] to High for a long session, noting Canon's caution that camera and card then run hotter. The menu names and recommendations come from Canon's [R50 V manual](https://cam.start.canon/en/C021/manual/html/UG-04_Shooting_0040.html).
+
+For the joint detail, zoom to 30 mm and start about 20–25 cm from the surface. Depth of field is shallow this close: if only a sliver of the joint is sharp, close the aperture toward f/11 or move the camera back, and add light or ISO to compensate. Examine a recorded sample at full size before the work changes the joint.
 
 Keep the original 4K files. A crop from 3840 x 2160 to a 1920 x 1080 region gives a 2x linear punch-in for a 1080p edit before upscaling is needed; practical sharpness still depends on the source. Preserve matching full-resolution stills.
 
 ## How to make the explanation closeups
 
-Do these with the laser disabled. Reserve a quiet part of the bench where the macro camera and light can remain in place for several related shots.
+Do these with the laser disabled. Reserve a quiet part of the bench where the detail camera and light can remain in place for several related shots.
 
 1. **Support both the camera and the part.** Use a tripod or rigid mount. Keep the tube seated securely. Set the camera where touching the work does not shake it; a floor tripod isolates it from a vibrating bench better than a clamp attached to that bench.
 2. **Find the view that explains the joint.** Start above and to one side of the open tube, looking obliquely into the recessed cap. Adjust until the near rim stops hiding the joint and both mating surfaces are visible. A top view explains the circular path; the oblique detail explains the recess and corner.
 3. **Frame one idea.** Let the selected arc occupy roughly half to two-thirds of the picture width, with enough wall and plate around it to identify both surfaces. Leave about a quarter of the frame relatively plain for a label. Keep the main feature away from the bottom strip where subtitles may sit.
 4. **Light across the surface.** Put the diffused light above and to one side, initially about 45° from the camera direction. Move it while watching the image. Aim for a bright-to-dark transition that separates the wall from the plate without washing the joint into white glare. The angle visible on the screen matters more than the starting number.
 5. **Arrange reflections.** Stainless reflects the light and surroundings. With the laser disabled, a plain light or dark card outside the frame can create a broad reflection that defines an edge. Remove temporary cards and other filming props before active welding.
-6. **Make both surfaces readable.** Focus on the joint, then check the nearby wall and plate. If only a narrow sliver is sharp, back the camera away slightly or choose a less oblique view. Technical explanation benefits from readable geometry throughout the relevant area.
+6. **Make both surfaces readable.** Focus on the joint, then check the nearby wall and plate. If only a narrow sliver is sharp, close the aperture, back the camera away slightly or choose a less oblique view. Technical explanation benefits from readable geometry throughout the relevant area.
 7. **Record the clean view.** Start recording, move your hands away, allow five seconds to settle, hold everything still for 20–30 seconds, then leave another five seconds before touching the camera. This uninterrupted view is the clean plate for graphics.
 8. **Record a pointing version separately.** Without changing the framing, point beside the feature with a suitable pointer, withdraw it, and hold the clear view again. Say what the pointer identifies. Keep the tip from covering the edge or contacting prepared joint surfaces.
 9. **Add the disabled head and wire.** Hold them at the actual working pose and repeat a clear hold. Arrange the camera so the hand and nozzle do not hide the feature being explained. Capture a wider version if the tight view loses the relationship.
@@ -204,7 +211,7 @@ If a suitable active-process recording position is unavailable, collect the geom
 
 ## Order of work for a solo session
 
-1. **Set up the two useful views.** An overall stock-lens GoPro position and a separate supported macro position for the same camera. Put the light where it makes the joint readable. Charge devices, clear storage, clean lenses, and silence notifications.
+1. **Set up the two useful views.** The stock-lens GoPro at the overall position and the R50 V at the supported detail position. Put the light where it makes the joint readable. Charge devices, clear storage, clean lenses, and silence notifications.
 2. **Record a ten-second disabled sample.** Perform a representative hand movement, then hold the joint clear. Play it back at full size. The decision is whether the viewer can distinguish the wall, cap, seam, and wire without focus hunting, glare, or hand obstruction. Adjust the camera or light only if that answer is no.
 3. **Capture the unwelded geometry.** Overall, joint detail, clean plate, and still. Record internal features before they are enclosed.
 4. **Film preparation and dry demonstrations.** Collect the actual fit work, settings, pedal, full lap, and disabled head pose. Reuse the already planned dry run for these views where practical.
@@ -212,7 +219,7 @@ If a suitable active-process recording position is unavailable, collect the geom
 6. **Do the weld.** Let the full attempt run on camera without adjusting it during the pass.
 7. **Record the consequence.** Safely stop, capture the immediate observation, then film the unchanged bead and accessible interior when safe to approach.
 8. **Collect the quiet extras.** Finish with relevant B-roll, room tone, and a thumbnail still. Explain the observation separately from the suspected cause in the spoken notes.
-9. **Preserve the originals.** Follow [workflow.md](workflow.md) to transfer the GoPro clips and external audio. Transfer the original stills too. Keep the high-resolution sources for detail crops and freeze frames; make edit proxies separately.
+9. **Preserve the originals.** Follow [workflow.md](workflow.md) to transfer the GoPro clips, the R50 V's files and the external audio. Transfer the original stills too. Keep the high-resolution sources for detail crops and freeze frames; make edit proxies separately.
 
 Use clip notes such as `unwelded joint`, `dry rotation`, `actual attempt 1`, `bead before dressing`, and `room tone`. Say the label aloud at the beginning if writing it down is inconvenient, then pause before the usable shot. Distinguish another coupon, a dry demonstration, and the actual carbonator whenever clips could be confused.
 
