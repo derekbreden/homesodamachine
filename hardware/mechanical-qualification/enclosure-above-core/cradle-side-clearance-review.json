@@ -7,7 +7,7 @@
   "step_sha256": "9ac1a628a4db3b65daa4a9f52dce4c89b6a5dd34819c4be65cecb53bd091edf2",
   "stl_sha256": "e004d0d66121c4fdb3974f6345fca8800614e2cfcf74c9ed3fec9a00ee69634b",
   "native_review": {
-    "scope": "Manual lower-side relief candidate. All stock from three millimetres below the wing roots upward is retained; no seat, hook, wing or mating-part pose moves.",
+    "scope": "Manual lower-side relief reading. All stock from three millimetres below the wing roots upward is retained; no seat, hook, wing or mating-part pose moves.",
     "relief_each_side_mm": 0.65,
     "full_width_root_stock_mm": 3.0,
     "removed_volume_mm3": 743.6756744053021,
@@ -98,8 +98,19 @@
         ]
       }
     ],
-    "assembly_sha256": "ca32ffceac1c9ecc0433ed346b37ed8f1d6b8fdf2b276c0cca5dce031faf63f8",
-    "assembly_mesh_sha256": "5d57199c46254d40ec7f18dcdc5c18a6d0b97a47c48d3a6e3d9c71c372a2e217"
+    "approved_pump_geometry": [
+      {
+        "name": "enclosure-front-top",
+        "shape_difference_mm3": 0.0
+      },
+      {
+        "name": "enclosure-pump-retainer",
+        "shape_difference_mm3": 0.0
+      }
+    ],
+    "approved_pump_assembly_sha256": "0bd3d2369c05a76819e6daa1fbc930e84dbe4a5122fcc5da5f64af49a773132c",
+    "assembly_sha256": "97d1c8affb919214a0783aa3704fdc46c3b304939fc19d5f5608f4e48dddae35",
+    "assembly_mesh_sha256": "69b4fa8d9fb6b64bc4eeffb22ae595fb28ad075d460eb21888e401712eef5862"
   },
   "slice": {
     "directory": ".cache/prints/trial/2026-10-26-elbow-cradle-mark1-893473ce",
@@ -142,5 +153,13 @@
       }
     },
     "scope": "Commanded paths and bead envelopes from this archive. Support removal, surface finish, fit and strength are physical observations."
+  },
+  "after_publication_lint": {
+    "printed_facets": 8814,
+    "findings": 2,
+    "answered": 2,
+    "unanswered": 0,
+    "scope": "Both findings are the retained 1.3 mm cantilever wings, covered by the existing feature answers. No new open finding is reported.",
+    "answers_sha256": "5d51e228e5f6a2575a3a5043963d04a803ad4ae4026dd9515a71b142b5b4859d"
   }
 }
