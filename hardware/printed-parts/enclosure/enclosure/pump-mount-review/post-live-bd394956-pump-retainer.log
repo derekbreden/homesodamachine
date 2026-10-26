@@ -1,0 +1,35 @@
+enclosure-pump-retainer.stl · 9908 printed facets · 3 findings
+answers: hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-pump-retainer.lint-answers · read hardware/printed-parts/lint-answers/AGENTS.md before writing one
+
+  [ledge] 17.87 mm² flat face 0° off facing the bed · 5.8 × 5.8 mm · 3.0 mm up
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-93.868 y=44.975 z=168.195
+    click: x=-93.868 y=44.975 z=168.195
+
+  [ledge] 17.87 mm² flat face 0° off facing the bed · 5.8 × 5.8 mm · 3.0 mm up
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=90.132 y=44.975 z=168.195
+    click: x=90.132 y=44.975 z=168.195
+
+  [ledge] 17.87 mm² flat face 0° off facing the bed · 5.8 × 5.8 mm · 3.0 mm up
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=0.573 y=43.873 z=168.195
+    click: x=0.573 y=43.873 z=168.195
+        2.96 real         2.21 user         0.37 sys
+           545472512  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+               42695  page reclaims
+               12288  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                1577  voluntary context switches
+               10048  involuntary context switches
+         26769950705  instructions retired
+          9317860889  cycles elapsed
+           392496424  peak memory footprint

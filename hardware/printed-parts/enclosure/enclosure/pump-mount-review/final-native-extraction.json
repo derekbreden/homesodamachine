@@ -1,0 +1,51 @@
+{
+  "scope": "Manual AP214 record-closure extraction. Selected native geometry and ancestor assembly placements retain their original STEP records and IDs; unselected products and presentation styles are omitted. Import only the small subset for native named-body/placement agreement before treating extraction as qualified.",
+  "source": {
+    "path": "/private/tmp/hsm-pump-terminal-passages/hardware/manifold-layout/enclosure-assembly.step",
+    "sha256": "8f7ed84025d4f09dc4cd2b659f90c4b69d0307c10a0b0ea763178c4fef0e490e"
+  },
+  "subset": {
+    "path": "/private/tmp/hsm-final-6120-33-subset.step",
+    "sha256": "5d3f2f453b815494d1c6fa797a898f265db58ff7c2f2c237dfd98aeee28de60c"
+  },
+  "verification_source_sha256": "0e356ab90ef88208678dc4b632be33b6e8029dfc4a0ec926aa52d780c5687517",
+  "cache_index_sha256": "39b186ad15ffe3fe1c4198d9765b6788f70b3691cced9c4fbf8fa6c50c5792d3",
+  "wanted_names": [
+    "coil-v-e",
+    "coil-v-f",
+    "coil-v-h",
+    "coil-v-i",
+    "compressor",
+    "condenser+fan",
+    "display",
+    "enclosure-front-bottom",
+    "funnel-frame",
+    "fuse-clamp",
+    "mq6-sensor",
+    "pump-a-boss",
+    "pump-a-head",
+    "pump-a-motor",
+    "pump-b-boss",
+    "pump-b-head",
+    "pump-b-motor",
+    "tee-y-c",
+    "tee-y-d",
+    "tee-y-f",
+    "tee-y-g",
+    "tube-fluid-10",
+    "tube-fluid-11",
+    "tube-fluid-12",
+    "tube-fluid-13",
+    "tube-fluid-20",
+    "tube-fluid-21",
+    "tube-fluid-22",
+    "tube-fluid-23",
+    "valve-v-e",
+    "valve-v-f",
+    "valve-v-h",
+    "valve-v-i"
+  ],
+  "input_entity_count": 2610438,
+  "retained_entity_count": 246644,
+  "chosen_assembly_arc_count": 49
+}

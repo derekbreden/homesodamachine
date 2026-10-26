@@ -1,0 +1,1243 @@
+{
+  "schema": 1,
+  "recorded_utc": "2026-10-26T01:41:00+00:00",
+  "scope": "Manual post-publication geometry-lint readings of the exact published part revisions. All seven classes ran once per piece revision; raw logs are retained without rerunning to apply later answer edits. These classifier rows do not establish physical print cleanup, fit, strength or lifetime.",
+  "publication_binding": {
+    "source_commit": "b8cae0ae504a8cb5a678e5bcf53d8a1d66e2ec14",
+    "executor_byte_verification": {
+      "executor": "M5 agent, relayed and confirmed by root",
+      "scope": "The executor confirmed six live payload downloads matched local bytes after this publication, including the front-top payload below, before the recorded final lint run.",
+      "front_top_payload_sha256": "45f911ca164102662d34cc6bb33c01cbc54906c58564e64dff9474afd8a7cf2e"
+    },
+    "separate_objects_api_evidence": {
+      "source": "/tmp/hsm-coordination-live-receipt.json",
+      "source_sha256": "01b76eeffe952f0276745fdd083da48d969f131f113d951f0be64cf3b7f6c9ee",
+      "recorded_utc": "2026-10-26T01:35:45.232763+00:00",
+      "verification": "The live objects API names these current digest URLs. This API receipt alone does not establish downloaded-byte hashes.",
+      "assets": [
+        {
+          "file": "manifold-layout/enclosure-assembly.step.mesh",
+          "sha256": "9963fc61204a83760ea064da6187d11861ecd54c4529f002ed5c41ece911d3ac",
+          "live_url_names_current_digest": true
+        },
+        {
+          "file": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "sha256": "ce0de04836ef27fcef820150fa4075565513f6f449617f85c2792631668c3543",
+          "live_url_names_current_digest": true
+        },
+        {
+          "file": "printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+          "sha256": "45f911ca164102662d34cc6bb33c01cbc54906c58564e64dff9474afd8a7cf2e",
+          "live_url_names_current_digest": true
+        },
+        {
+          "file": "printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh",
+          "sha256": "5bc6e7e7f1f023512bf13aa3e3c5e1b3d0f356e274709ab4c1270d8deae3094f",
+          "live_url_names_current_digest": true
+        }
+      ]
+    }
+  },
+  "answers_sha256_at_389_run": {
+    "front-top": "442af83ba202660019de6549c89067f875d8a6b377b6b9b128357a4b82cc8cd4",
+    "pump-retainer": null
+  },
+  "runs": [
+    {
+      "revision": "initial-published-mount",
+      "artifact_revision": "455cd05a/ea79019f",
+      "source_commit": "ae7a3a7b5b653f7dada9dd6f9e367a7aeee9c8bf",
+      "tool_source_sha256": "b98dd35377de1cbd69596adb48873ff1eb7859d21aaaa1403a4a9b879f5c8897",
+      "pieces": [
+        {
+          "piece": "enclosure-front-top",
+          "source_step": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+          "step_sha256": "455cd05a225b6f47b252577cb25a45cf3e4fb81b63eb2dc0b39fa39a28d12dc0",
+          "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+          "stl_sha256": "a8a9d29f312c08500f173a683e2898c20e066cd58045320e8b0393d56be4dfad",
+          "command": "/usr/bin/time -l tools/cad-venv/bin/python hardware/scripts/geometry_lint.py hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl --all",
+          "run_count_for_this_piece_revision": 1,
+          "exit_status": 0,
+          "log": "hardware/printed-parts/enclosure/enclosure/pump-mount-review/initial-geometry-lint-front-top.log",
+          "log_sha256": "77ba38b65dc8d10a48b7fa40bc412a05f6f53a2b51d1902d73377dda0346dcb6",
+          "printed_facets": 495180,
+          "reported_findings": 47,
+          "reported_nonranked_answered": 6,
+          "raw_rows_including_answered": 53,
+          "rows_by_class": {
+            "step": 0,
+            "bump": 0,
+            "sliver": 6,
+            "ceiling": 5,
+            "slope": 1,
+            "thin": 35,
+            "ledge": 6
+          },
+          "classifier_failures": []
+        },
+        {
+          "piece": "enclosure-pump-retainer",
+          "source_step": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step",
+          "step_sha256": "ea79019f2cc2cfd7ac84decff522190f252ce17e70b2a4a075708bf8b23b7192",
+          "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl",
+          "stl_sha256": "c3e53daffc048a5b4a058e42edc2144d5aafb13ab29d47456a1f9973ec19573e",
+          "command": "/usr/bin/time -l tools/cad-venv/bin/python hardware/scripts/geometry_lint.py hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl --all",
+          "run_count_for_this_piece_revision": 1,
+          "exit_status": 0,
+          "log": "hardware/printed-parts/enclosure/enclosure/pump-mount-review/initial-geometry-lint-pump-retainer.log",
+          "log_sha256": "e45428251cc88642af2a635b6f73543ef6c92a177ab4de4c02f53641226fc421",
+          "printed_facets": 9988,
+          "reported_findings": 11,
+          "reported_nonranked_answered": 0,
+          "raw_rows_including_answered": 11,
+          "rows_by_class": {
+            "step": 0,
+            "bump": 0,
+            "sliver": 0,
+            "ceiling": 0,
+            "slope": 0,
+            "thin": 8,
+            "ledge": 3
+          },
+          "classifier_failures": []
+        }
+      ]
+    },
+    {
+      "revision": "post-live-flatback-u",
+      "artifact_revision": "38930496/bd394956",
+      "source_commit": "7c311ff2203af2c17996603e441460c0e2e0b0a4",
+      "tool_source_sha256": "b98dd35377de1cbd69596adb48873ff1eb7859d21aaaa1403a4a9b879f5c8897",
+      "pieces": [
+        {
+          "piece": "enclosure-front-top",
+          "source_step": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+          "step_sha256": "389304966e148d1b2a63bd4ee4f0798066ff57bb13d86d694b30fd53728e414e",
+          "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+          "stl_sha256": "ffb9e0422a8b18adc74413d642e58be5ddcc97d298ca6e99dda7001b555a1383",
+          "command": "/usr/bin/time -l tools/cad-venv/bin/python hardware/scripts/geometry_lint.py hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl --all",
+          "run_count_for_this_piece_revision": 1,
+          "exit_status": 0,
+          "log": "hardware/printed-parts/enclosure/enclosure/pump-mount-review/post-live-38930496-front-top.log",
+          "log_sha256": "7c1b9eaf85cac6a075c587421862aea47494bba5cd514af238d21050901b7c5a",
+          "printed_facets": 493104,
+          "reported_findings": 41,
+          "reported_nonranked_answered": 6,
+          "raw_rows_including_answered": 47,
+          "rows_by_class": {
+            "step": 0,
+            "bump": 0,
+            "sliver": 6,
+            "ceiling": 5,
+            "slope": 1,
+            "thin": 29,
+            "ledge": 6
+          },
+          "classifier_failures": []
+        },
+        {
+          "piece": "enclosure-pump-retainer",
+          "source_step": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step",
+          "step_sha256": "bd394956fa09afd0985161b9e8ffb699a7083fe7066ff0fed76446c837fb089f",
+          "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl",
+          "stl_sha256": "7acaafc7ca5af606f95abd77cab96267b509e82d3e006df01102ff21d5482c34",
+          "command": "/usr/bin/time -l tools/cad-venv/bin/python hardware/scripts/geometry_lint.py hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.stl --all",
+          "run_count_for_this_piece_revision": 1,
+          "exit_status": 0,
+          "log": "hardware/printed-parts/enclosure/enclosure/pump-mount-review/post-live-bd394956-pump-retainer.log",
+          "log_sha256": "08da6c0fd33b48cf427a31aecfede68b5f3b7f3917a6f6002f1e573a83efbfdc",
+          "printed_facets": 9908,
+          "reported_findings": 3,
+          "reported_nonranked_answered": 0,
+          "raw_rows_including_answered": 3,
+          "rows_by_class": {
+            "step": 0,
+            "bump": 0,
+            "sliver": 0,
+            "ceiling": 0,
+            "slope": 0,
+            "thin": 0,
+            "ledge": 3
+          },
+          "classifier_failures": []
+        }
+      ],
+      "revision_role": "Intermediate published front-top requiring native reconciliation; retainer is unchanged current bd394956.",
+      "publication_binding": [
+        {
+          "file": "manifold-layout/enclosure-assembly.step.mesh",
+          "sha256": "b528afad11d3191ba16955fd12c5ab59c2a4b423701d38e2e9a64542b0634943",
+          "live_sha256": "b528afad11d3191ba16955fd12c5ab59c2a4b423701d38e2e9a64542b0634943",
+          "matches": true
+        },
+        {
+          "file": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "sha256": "16aa1b7e455a1cf6b358b2874799aa46b6747671de286ca11d87073d57157d60",
+          "live_sha256": "16aa1b7e455a1cf6b358b2874799aa46b6747671de286ca11d87073d57157d60",
+          "matches": true
+        },
+        {
+          "file": "printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+          "sha256": "1c332d574540b160b4313aed6c0fa93935bab60cc6b827baf42076df64c219ba",
+          "live_sha256": "1c332d574540b160b4313aed6c0fa93935bab60cc6b827baf42076df64c219ba",
+          "matches": true
+        },
+        {
+          "file": "printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh",
+          "sha256": "5bc6e7e7f1f023512bf13aa3e3c5e1b3d0f356e274709ab4c1270d8deae3094f",
+          "live_sha256": "5bc6e7e7f1f023512bf13aa3e3c5e1b3d0f356e274709ab4c1270d8deae3094f",
+          "matches": true
+        },
+        {
+          "file": "assembly/scenes/glb/pump-mount.glb",
+          "sha256": "7aa0fe0e026418fa204587fedd94d9b57210873345ed285e588fbf8d7c8ef1a6",
+          "live_sha256": "7aa0fe0e026418fa204587fedd94d9b57210873345ed285e588fbf8d7c8ef1a6",
+          "matches": true
+        }
+      ]
+    },
+    {
+      "revision": "frozen-published-main-7e676118",
+      "revision_role": "Current final front-top; retainer remains the unchanged bd394956 revision already linted once.",
+      "source_commit_at_record": "066964bbe5cdb6a43501e5dcae02de4ea93edfcc",
+      "tool_source_sha256": "b98dd35377de1cbd69596adb48873ff1eb7859d21aaaa1403a4a9b879f5c8897",
+      "executor": "Root agent, after live hash confirmation.",
+      "pieces": [
+        {
+          "piece": "enclosure-front-top",
+          "source_step": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+          "step_sha256": "7e67611867786c885d0257da76ec4592d6dee1e9d3dee5eb915517a7f0678362",
+          "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+          "stl_sha256": "320f1eaef6c08c9bf0d9cde6c97124bd208af4e6334059af8c4a8ee12c6365bd",
+          "normalized_command": "tools/cad-venv/bin/python hardware/scripts/geometry_lint.py hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl --all",
+          "run_count_for_this_piece_revision": 1,
+          "exit_status": 0,
+          "log": "hardware/printed-parts/enclosure/enclosure/pump-mount-review/post-live-7e676118-front-top.log",
+          "log_sha256": "333a5bcad3580f046aec3eee4d7e1e590f68aab1ba8b6dfb582d8651a8201c3e",
+          "printed_facets": 510738,
+          "reported_findings": 19,
+          "reported_nonranked_answered": 6,
+          "raw_rows_including_answered": 25,
+          "rows_by_class": {
+            "step": 0,
+            "bump": 0,
+            "sliver": 6,
+            "ceiling": 5,
+            "slope": 1,
+            "thin": 6,
+            "ledge": 7
+          },
+          "classifier_failures": [],
+          "diagnostic_scope": "NumPy emits a two-dimensional-cross-product deprecation warning. All seven classifier passes complete; the warning is not a class failure.",
+          "answers_sha256_at_run": "442af83ba202660019de6549c89067f875d8a6b377b6b9b128357a4b82cc8cd4"
+        }
+      ],
+      "publication_binding_as_recorded": [
+        {
+          "file": "manifold-layout/enclosure-assembly.step.mesh",
+          "sha256": "05c26e2ae71a5a912bdd425732ed0a18ed18163d32c3c7fb611db946a9ad818b",
+          "live_sha256": "05c26e2ae71a5a912bdd425732ed0a18ed18163d32c3c7fb611db946a9ad818b",
+          "matches": true
+        },
+        {
+          "file": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "sha256": "36f59d5845602e44c363cb5ae958beb629f52970b6f48e4a469eea3023edaea9",
+          "live_sha256": "36f59d5845602e44c363cb5ae958beb629f52970b6f48e4a469eea3023edaea9",
+          "matches": true
+        },
+        {
+          "file": "printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh",
+          "sha256": "393e6fb0879f25973526ed740e933a6293e4a9058681e9fa30b3f60fe69bafd7",
+          "live_sha256": "393e6fb0879f25973526ed740e933a6293e4a9058681e9fa30b3f60fe69bafd7",
+          "matches": true
+        },
+        {
+          "file": "printed-parts/enclosure/enclosure/enclosure-pump-retainer.step.mesh",
+          "sha256": "5bc6e7e7f1f023512bf13aa3e3c5e1b3d0f356e274709ab4c1270d8deae3094f",
+          "live_sha256": "5bc6e7e7f1f023512bf13aa3e3c5e1b3d0f356e274709ab4c1270d8deae3094f",
+          "matches": true
+        },
+        {
+          "file": "assembly/scenes/glb/pump-mount.glb",
+          "sha256": "5e30b4f58f569327fc1284bc6f4de07e96b6218ac49a222d543b250ff7cc06a1",
+          "live_sha256": "5e30b4f58f569327fc1284bc6f4de07e96b6218ac49a222d543b250ff7cc06a1",
+          "matches": true
+        }
+      ],
+      "current_revision": false
+    },
+    {
+      "revision": "published-main-6120cf94",
+      "revision_role": "Current front-top, with the final upper M5 head-corner stock refinement. Retainer remains unchanged bd394956; no retainer rerun.",
+      "source_commit_at_publication": "b8cae0ae504a8cb5a678e5bcf53d8a1d66e2ec14",
+      "executor": "M5 agent; exact command, exit status, seven classifier passes, answer hash and post-publication order confirmed to root.",
+      "confirmation_scope": "Root relayed the M5 executor confirmation. This pump review did not duplicate the lint run.",
+      "pieces": [
+        {
+          "piece": "enclosure-front-top",
+          "source_step": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step",
+          "step_sha256": "6120cf946a471c4cbe44e6edc191978ab97a0c3204767c96577fd240da85614d",
+          "source_stl": "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl",
+          "stl_sha256": "51e5bb0c134823e3036a68a48471220ceecea1a4b8c936b077d0405a05855e95",
+          "normalized_command": "tools/cad-venv/bin/python hardware/scripts/geometry_lint.py hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl --all",
+          "run_count_for_this_piece_revision": 1,
+          "exit_status": 0,
+          "all_seven_classifier_passes_completed": true,
+          "log": "hardware/printed-parts/enclosure/enclosure/pump-mount-review/post-live-6120cf94-front-top.log",
+          "log_sha256": "8ed0da6846ef14609ed53acf36a57a1eb4f2a17d2cdd3240e379c9227238c4a6",
+          "printed_facets": 510722,
+          "reported_findings": 17,
+          "reported_nonranked_answered": 7,
+          "raw_rows_including_answered": 24,
+          "rows_by_class": {
+            "step": 0,
+            "bump": 0,
+            "sliver": 6,
+            "ceiling": 5,
+            "slope": 1,
+            "thin": 6,
+            "ledge": 6
+          },
+          "classifier_failures": [],
+          "diagnostic_scope": "The raw log retains the NumPy 2D-cross-product deprecation warning. The executor confirmed all seven classes completed; this warning is not a class failure.",
+          "answers_sha256_at_run": "9d72afa2291656d11f5878bea5c74948d90ffc9d134451e3711041fe86ffe3f1"
+        }
+      ]
+    }
+  ],
+  "snapshot_for_native_review": "/tmp/pump-mount-post-live-38930496",
+  "new_automatic_build_or_commit_checks": false,
+  "intermediate_389_disposition": {
+    "front_top": {
+      "status": "unresolved_new_thin_intersections",
+      "raw_class_rows": {
+        "step": 0,
+        "bump": 0,
+        "sliver": 6,
+        "ceiling": 5,
+        "slope": 1,
+        "thin": 29,
+        "ledge": 6
+      },
+      "accepted_existing_thin_rows": [
+        {
+          "classifier": "thin",
+          "line": "1.800 mm of material at its thinnest \u00b7 428.4 mm\u00b2 of surface under 2.5 mm \u00b7 spans 2.9 \u00d7 61.6 \u00d7 36.6 mm \u00b7 in 2 pieces",
+          "click_mm": [
+            [
+              -66.89,
+              19.433,
+              311.879
+            ],
+            [
+              -66.89,
+              18.533,
+              313.438
+            ]
+          ],
+          "answer_printed": true
+        },
+        {
+          "classifier": "thin",
+          "line": "1.800 mm of material at its thinnest \u00b7 428.4 mm\u00b2 of surface under 2.5 mm \u00b7 spans 2.9 \u00d7 61.6 \u00d7 36.6 mm \u00b7 in 2 pieces",
+          "click_mm": [
+            [
+              66.89,
+              19.433,
+              311.879
+            ],
+            [
+              66.89,
+              18.533,
+              313.438
+            ]
+          ],
+          "answer_printed": true
+        },
+        {
+          "classifier": "thin",
+          "line": "1.801 mm of material at its thinnest \u00b7 862.8 mm\u00b2 of surface under 2.5 mm \u00b7 spans 2.5 \u00d7 16.0 \u00d7 29.9 mm \u00b7 in 34 pieces",
+          "click_mm": [
+            [
+              106.301,
+              183.842,
+              291.282
+            ],
+            [
+              104.5,
+              183.842,
+              291.282
+            ]
+          ],
+          "answer_printed": false
+        },
+        {
+          "classifier": "thin",
+          "line": "1.808 mm of material at its thinnest \u00b7 432.2 mm\u00b2 of surface under 2.5 mm \u00b7 spans 2.5 \u00d7 8.6 \u00d7 30.1 mm \u00b7 in 24 pieces",
+          "click_mm": [
+            [
+              104.5,
+              173.903,
+              245.785
+            ],
+            [
+              106.308,
+              173.882,
+              245.785
+            ]
+          ],
+          "answer_printed": false
+        },
+        {
+          "classifier": "thin",
+          "line": "1.808 mm of material at its thinnest \u00b7 955.2 mm\u00b2 of surface under 2.5 mm \u00b7 spans 2.4 \u00d7 56.4 \u00d7 9.3 mm \u00b7 in 41 pieces",
+          "click_mm": [
+            [
+              -104.5,
+              50.644,
+              171.681
+            ],
+            [
+              -106.308,
+              50.65,
+              171.681
+            ]
+          ],
+          "answer_printed": false
+        },
+        {
+          "classifier": "thin",
+          "line": "1.808 mm of material at its thinnest \u00b7 951.6 mm\u00b2 of surface under 2.5 mm \u00b7 spans 2.4 \u00d7 56.4 \u00d7 9.4 mm \u00b7 in 41 pieces",
+          "click_mm": [
+            [
+              104.5,
+              50.644,
+              171.681
+            ],
+            [
+              106.308,
+              50.65,
+              171.681
+            ]
+          ],
+          "answer_printed": false
+        }
+      ],
+      "unresolved_thin_rows": 23,
+      "unresolved_thin_families": [
+        {
+          "family": "terminal-roof-side-boundaries",
+          "count": 5,
+          "status": "unresolved_native_family_review_requested",
+          "description": "Terminal roof intersections at X\u2248\u00b162.65; four sub-0.02 mm readings plus one 2.374 mm reading. Source-native section review must establish the actual remaining stock.",
+          "rows": [
+            {
+              "classifier": "thin",
+              "line": "0.017 mm of material at its thinnest \u00b7 2.9 mm\u00b2 of surface under 0.4 mm \u00b7 spans 0.3 \u00d7 8.6 \u00d7 0.9 mm \u00b7 in 3 pieces",
+              "click_mm": [
+                [
+                  -62.633,
+                  47.713,
+                  288.885
+                ],
+                [
+                  -62.65,
+                  47.713,
+                  288.885
+                ]
+              ],
+              "answer_printed": false
+            },
+            {
+              "classifier": "thin",
+              "line": "0.017 mm of material at its thinnest \u00b7 1.4 mm\u00b2 of surface under 0.4 mm \u00b7 spans 0.1 \u00d7 5.3 \u00d7 0.8 mm \u00b7 in 3 pieces",
+              "click_mm": [
+                [
+                  62.633,
+                  41.647,
+                  288.813
+                ],
+                [
+                  62.65,
+                  41.647,
+                  288.813
+                ]
+              ],
+              "answer_printed": false
+            },
+            {
+              "classifier": "thin",
+              "line": "0.018 mm of material at its thinnest \u00b7 0.2 mm\u00b2 of surface under 0.1 mm \u00b7 spans 0.1 \u00d7 1.1 \u00d7 0.2 mm",
+              "click_mm": [
+                [
+                  -62.633,
+                  42.085,
+                  288.9
+                ],
+                [
+                  -62.65,
+                  42.084,
+                  288.905
+                ]
+              ],
+              "answer_printed": false
+            },
+            {
+              "classifier": "thin",
+              "line": "0.018 mm of material at its thinnest \u00b7 0.7 mm\u00b2 of surface under 0.1 mm \u00b7 spans 0.1 \u00d7 1.1 \u00d7 0.2 mm",
+              "click_mm": [
+                [
+                  62.633,
+                  47.633,
+                  288.9
+                ],
+                [
+                  62.65,
+                  47.634,
+                  288.905
+                ]
+              ],
+              "answer_printed": false
+            },
+            {
+              "classifier": "thin",
+              "line": "2.374 mm of material at its thinnest \u00b7 0.6 mm\u00b2 of surface under 2.5 mm \u00b7 spans 0.0 \u00d7 0.0 \u00d7 0.0 mm",
+              "click_mm": [
+                [
+                  60.276,
+                  44.019,
+                  290.841
+                ],
+                [
+                  62.65,
+                  44.019,
+                  290.841
+                ]
+              ],
+              "answer_printed": false
+            }
+          ],
+          "final_resolution_binding": {
+            "final_run": "frozen-published-main-7e676118",
+            "step_sha256": "7e67611867786c885d0257da76ec4592d6dee1e9d3dee5eb915517a7f0678362",
+            "stl_sha256": "320f1eaef6c08c9bf0d9cde6c97124bd208af4e6334059af8c4a8ee12c6365bd",
+            "status": "No corresponding final thin finding. The six final thin rows belong to the accepted lips and approved flute walls listed under final_7e_disposition."
+          }
+        },
+        {
+          "family": "terminal-room-bayfoot",
+          "count": 4,
+          "status": "unresolved_native_family_review_requested",
+          "description": "Four films under the Z284.424 bayfoot plane at X\u2248\u00b166.603,Y\u224835.748/53.970.",
+          "rows": [
+            {
+              "classifier": "thin",
+              "line": "0.064 mm of material at its thinnest \u00b7 2.6 mm\u00b2 of surface under 0.2 mm \u00b7 spans 4.0 \u00d7 4.4 \u00d7 0.1 mm",
+              "click_mm": [
+                [
+                  -66.603,
+                  35.748,
+                  284.36
+                ],
+                [
+                  -66.603,
+                  35.748,
+                  284.424
+                ]
+              ],
+              "answer_printed": false
+            },
+            {
+              "classifier": "thin",
+              "line": "0.064 mm of material at its thinnest \u00b7 2.6 mm\u00b2 of surface under 0.2 mm \u00b7 spans 4.0 \u00d7 4.4 \u00d7 0.1 mm",
+              "click_mm": [
+                [
+                  66.603,
+                  35.748,
+                  284.36
+                ],
+                [
+                  66.603,
+                  35.748,
+                  284.424
+                ]
+              ],
+              "answer_printed": false
+            },
+            {
+              "classifier": "thin",
+              "line": "0.064 mm of material at its thinnest \u00b7 2.6 mm\u00b2 of surface under 0.2 mm \u00b7 spans 4.0 \u00d7 4.4 \u00d7 0.1 mm",
+              "click_mm": [
+                [
+                  -66.603,
+                  53.97,
+                  284.36
+                ],
+                [
+                  -66.603,
+                  53.97,
+                  284.424
+                ]
+              ],
+              "answer_printed": false
+            },
+            {
+              "classifier": "thin",
+              "line": "0.064 mm of material at its thinnest \u00b7 2.6 mm\u00b2 of surface under 0.2 mm \u00b7 spans 4.0 \u00d7 4.4 \u00d7 0.1 mm",
+              "click_mm": [
+                [
+                  66.603,
+                  53.97,
+                  284.36
+                ],
+                [
+                  66.603,
+                  53.97,
+                  284.424
+                ]
+              ],
+              "answer_printed": false
+            }
+          ],
+          "final_resolution_binding": {
+            "final_run": "frozen-published-main-7e676118",
+            "step_sha256": "7e67611867786c885d0257da76ec4592d6dee1e9d3dee5eb915517a7f0678362",
+            "stl_sha256": "320f1eaef6c08c9bf0d9cde6c97124bd208af4e6334059af8c4a8ee12c6365bd",
+            "status": "No corresponding final thin finding. The six final thin rows belong to the accepted lips and approved flute walls listed under final_7e_disposition."
+          }
+        },
+        {
+          "family": "terminal-cone-cross-passage",
+          "count": 8,
+          "status": "unresolved_native_family_review_requested",
+          "description": "Eight readings where the two terminal cones meet the cross-passage near X\u00b128.7..30.8,Z279.5..281.1.",
+          "rows": [
+            {
+              "classifier": "thin",
+              "line": "0.082 mm of material at its thinnest \u00b7 0.3 mm\u00b2 of surface under 0.2 mm \u00b7 spans 0.3 \u00d7 0.2 \u00d7 0.2 mm",
+              "click_mm": [
+                [
+                  30.611,
+                  47.848,
+                  280.872
+                ],
+                [
+                  30.611,
+                  47.79,
+                  280.931
+                ]
+              ],
+              "answer_printed": false
+            },
+            {
+              "classifier": "thin",
+              "line": "0.082 mm of material at its thinnest \u00b7 0.3 mm\u00b2 of surface under 0.2 mm \u00b7 spans 0.3 \u00d7 0.2 \u00d7 0.2 mm",
+              "click_mm": [
+                [
+                  -30.611,
+                  41.87,
+                  280.872
+                ],
+                [
+                  -30.611,
+                  41.928,
+                  280.931
+                ]
+              ],
+              "answer_printed": false
+            },
+            {
+              "classifier": "thin",
+              "line": "0.082 mm of material at its thinnest \u00b7 0.2 mm\u00b2 of surface under 0.2 mm \u00b7 spans 0.3 \u00d7 0.3 \u00d7 0.2 mm",
+              "click_mm": [
+                [
+                  -30.751,
+                  47.94,
+                  280.965
+                ],
+                [
+                  -30.751,
+                  47.882,
+                  281.023
+                ]
+              ],
+              "answer_printed": false
+            },
+            {
+              "classifier": "thin",
+              "line": "0.082 mm of material at its thinnest \u00b7 0.2 mm\u00b2 of surface under 0.2 mm \u00b7 spans 0.3 \u00d7 0.3 \u00d7 0.2 mm",
+              "click_mm": [
+                [
+                  30.751,
+                  41.778,
+                  280.965
+                ],
+                [
+                  30.751,
+                  41.836,
+                  281.023
+                ]
+              ],
+              "answer_printed": false
+            },
+            {
+              "classifier": "thin",
+              "line": "0.104 mm of material at its thinnest \u00b7 1.2 mm\u00b2 of surface under 0.4 mm \u00b7 spans 1.6 \u00d7 1.3 \u00d7 1.0 mm",
+              "click_mm": [
+                [
+                  28.726,
+                  46.612,
+                  279.606
+                ],
+                [
+                  28.726,
+                  46.539,
+                  279.68
+                ]
+              ],
+              "answer_printed": false
+            },
+            {
+              "classifier": "thin",
+              "line": "0.104 mm of material at its thinnest \u00b7 2.1 mm\u00b2 of surface under 0.4 mm \u00b7 spans 2.3 \u00d7 1.6 \u00d7 1.7 mm",
+              "click_mm": [
+                [
+                  -28.727,
+                  43.104,
+                  279.607
+                ],
+                [
+                  -28.727,
+                  43.178,
+                  279.681
+                ]
+              ],
+              "answer_printed": false
+            },
+            {
+              "classifier": "thin",
+              "line": "0.197 mm of material at its thinnest \u00b7 2.4 mm\u00b2 of surface under 0.4 mm \u00b7 spans 2.3 \u00d7 1.5 \u00d7 1.8 mm",
+              "click_mm": [
+                [
+                  28.678,
+                  43.014,
+                  279.566
+                ],
+                [
+                  28.678,
+                  43.154,
+                  279.705
+                ]
+              ],
+              "answer_printed": false
+            },
+            {
+              "classifier": "thin",
+              "line": "0.198 mm of material at its thinnest \u00b7 1.1 mm\u00b2 of surface under 0.4 mm \u00b7 spans 1.4 \u00d7 1.1 \u00d7 0.9 mm",
+              "click_mm": [
+                [
+                  -28.677,
+                  46.705,
+                  279.566
+                ],
+                [
+                  -28.677,
+                  46.565,
+                  279.706
+                ]
+              ],
+              "answer_printed": false
+            }
+          ],
+          "final_resolution_binding": {
+            "final_run": "frozen-published-main-7e676118",
+            "step_sha256": "7e67611867786c885d0257da76ec4592d6dee1e9d3dee5eb915517a7f0678362",
+            "stl_sha256": "320f1eaef6c08c9bf0d9cde6c97124bd208af4e6334059af8c4a8ee12c6365bd",
+            "status": "No corresponding final thin finding. The six final thin rows belong to the accepted lips and approved flute walls listed under final_7e_disposition."
+          }
+        },
+        {
+          "family": "shared-cross-passage",
+          "count": 3,
+          "status": "unresolved_native_family_review_requested",
+          "description": "Three central passage junction readings near X\u22127.304/+7.270/+9.533,Z282.6..284.0.",
+          "rows": [
+            {
+              "classifier": "thin",
+              "line": "0.101 mm of material at its thinnest \u00b7 7.2 mm\u00b2 of surface under 0.4 mm \u00b7 spans 3.9 \u00d7 4.0 \u00d7 3.7 mm \u00b7 in 2 pieces",
+              "click_mm": [
+                [
+                  -7.304,
+                  50.698,
+                  283.839
+                ],
+                [
+                  -7.233,
+                  50.698,
+                  283.767
+                ]
+              ],
+              "answer_printed": false
+            },
+            {
+              "classifier": "thin",
+              "line": "0.373 mm of material at its thinnest \u00b7 1.9 mm\u00b2 of surface under 0.8 mm \u00b7 spans 0.8 \u00d7 0.5 \u00d7 0.6 mm",
+              "click_mm": [
+                [
+                  7.27,
+                  51.116,
+                  283.73
+                ],
+                [
+                  7.27,
+                  50.854,
+                  283.995
+                ]
+              ],
+              "answer_printed": false
+            },
+            {
+              "classifier": "thin",
+              "line": "1.545 mm of material at its thinnest \u00b7 1.0 mm\u00b2 of surface under 2.5 mm \u00b7 spans 0.6 \u00d7 0.1 \u00d7 0.1 mm",
+              "click_mm": [
+                [
+                  9.533,
+                  50.51,
+                  283.651
+                ],
+                [
+                  8.441,
+                  50.51,
+                  282.559
+                ]
+              ],
+              "answer_printed": false
+            }
+          ],
+          "final_resolution_binding": {
+            "final_run": "frozen-published-main-7e676118",
+            "step_sha256": "7e67611867786c885d0257da76ec4592d6dee1e9d3dee5eb915517a7f0678362",
+            "stl_sha256": "320f1eaef6c08c9bf0d9cde6c97124bd208af4e6334059af8c4a8ee12c6365bd",
+            "status": "No corresponding final thin finding. The six final thin rows belong to the accepted lips and approved flute walls listed under final_7e_disposition."
+          }
+        },
+        {
+          "family": "chimney-display-link-forewall",
+          "count": 3,
+          "status": "unresolved_native_family_review_requested",
+          "description": "Three fore-chimney/link readings at Y\u224872, one at Z300.9 and two at Z314.8.",
+          "rows": [
+            {
+              "classifier": "thin",
+              "line": "0.029 mm of material at its thinnest \u00b7 7.6 mm\u00b2 of surface under 0.2 mm \u00b7 spans 4.5 \u00d7 7.1 \u00d7 4.1 mm \u00b7 in 2 pieces",
+              "click_mm": [
+                [
+                  -8.575,
+                  71.971,
+                  314.789
+                ],
+                [
+                  -8.575,
+                  72.0,
+                  314.789
+                ]
+              ],
+              "answer_printed": false
+            },
+            {
+              "classifier": "thin",
+              "line": "0.029 mm of material at its thinnest \u00b7 11.4 mm\u00b2 of surface under 0.2 mm \u00b7 spans 4.1 \u00d7 7.2 \u00d7 4.2 mm \u00b7 in 2 pieces",
+              "click_mm": [
+                [
+                  8.958,
+                  71.971,
+                  314.79
+                ],
+                [
+                  8.958,
+                  72.0,
+                  314.79
+                ]
+              ],
+              "answer_printed": false
+            },
+            {
+              "classifier": "thin",
+              "line": "0.722 mm of material at its thinnest \u00b7 56.4 mm\u00b2 of surface under 1.6 mm \u00b7 spans 19.0 \u00d7 1.6 \u00d7 1.7 mm",
+              "click_mm": [
+                [
+                  -0.208,
+                  72.0,
+                  300.877
+                ],
+                [
+                  -0.208,
+                  71.375,
+                  300.516
+                ]
+              ],
+              "answer_printed": false
+            }
+          ],
+          "final_resolution_binding": {
+            "final_run": "frozen-published-main-7e676118",
+            "step_sha256": "7e67611867786c885d0257da76ec4592d6dee1e9d3dee5eb915517a7f0678362",
+            "stl_sha256": "320f1eaef6c08c9bf0d9cde6c97124bd208af4e6334059af8c4a8ee12c6365bd",
+            "status": "No corresponding final thin finding. The six final thin rows belong to the accepted lips and approved flute walls listed under final_7e_disposition."
+          }
+        }
+      ],
+      "slope": {
+        "status": "unresolved_native_interface_review_requested",
+        "reason": "The cross-passage upper bank is reported along its X=-70 end wall; do not assume the class describes the intended support mechanism without a native section.",
+        "final_resolution_binding": {
+          "final_run": "frozen-published-main-7e676118",
+          "status": "The pump cross-passage slope is absent. The sole final slope row is in the M5 side-joint domain at Y211.627; it is retained separately without a pump-task waiver."
+        }
+      },
+      "required_functional_faces_scope": "Five flat ceilings and six fastener ledges retain their functional pump/WAGO and insert/screw geometry. Their emitted supports and access have a separate bound native slice record; no physical cleanup or bearing finish is established.",
+      "existing_set_aside_scope": "Six valve-yoke slivers retain Derek's set-aside scope, not acceptance. Two display-wing lips retain the identified accepted fit; four flute walls retain the explicit approved groove depth. These do not answer any new cavity-intersection row.",
+      "resolution_binding": {
+        "final_run": "frozen-published-main-7e676118",
+        "step_sha256": "7e67611867786c885d0257da76ec4592d6dee1e9d3dee5eb915517a7f0678362",
+        "stl_sha256": "320f1eaef6c08c9bf0d9cde6c97124bd208af4e6334059af8c4a8ee12c6365bd",
+        "status": "No corresponding final thin finding. The six final thin rows belong to the accepted lips and approved flute walls listed under final_7e_disposition."
+      }
+    },
+    "retainer": {
+      "status": "all_new_forewell_thin_rows_removed",
+      "initial_thin_rows": 8,
+      "current_thin_rows": 0,
+      "remaining_rows": 3,
+      "remaining_geometry": "Three flat open underside M3 socket-head bearing floors at Z168.195.",
+      "answer_file": "hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-pump-retainer.lint-answers",
+      "answer_file_sha256": "62ffc5c14d4ef821f19fd33ae524406923197eac15f2468be00941adff7a414d",
+      "no_rerun_after_answer_edit": true,
+      "physical_support_removal_and_bearing_finish": "unassessed"
+    }
+  },
+  "final_7e_disposition": {
+    "final_run": "frozen-published-main-7e676118",
+    "new_pump_display_thin_findings": 0,
+    "reported_thin_rows": [
+      {
+        "classifier": "thin",
+        "line": "1.800 mm of material at its thinnest \u00b7 428.4 mm\u00b2 of surface under 2.5 mm \u00b7 spans 2.9 \u00d7 61.6 \u00d7 36.6 mm \u00b7 in 2 pieces",
+        "click_mm": [
+          [
+            -66.89,
+            19.433,
+            311.879
+          ],
+          [
+            -66.89,
+            18.533,
+            313.438
+          ]
+        ],
+        "answer_printed": true
+      },
+      {
+        "classifier": "thin",
+        "line": "1.800 mm of material at its thinnest \u00b7 428.4 mm\u00b2 of surface under 2.5 mm \u00b7 spans 2.9 \u00d7 61.6 \u00d7 36.6 mm \u00b7 in 2 pieces",
+        "click_mm": [
+          [
+            66.89,
+            19.433,
+            311.879
+          ],
+          [
+            66.89,
+            18.533,
+            313.438
+          ]
+        ],
+        "answer_printed": true
+      },
+      {
+        "classifier": "thin",
+        "line": "1.801 mm of material at its thinnest \u00b7 862.8 mm\u00b2 of surface under 2.5 mm \u00b7 spans 2.5 \u00d7 16.0 \u00d7 29.9 mm \u00b7 in 34 pieces",
+        "click_mm": [
+          [
+            106.301,
+            183.842,
+            291.282
+          ],
+          [
+            104.5,
+            183.842,
+            291.282
+          ]
+        ],
+        "answer_printed": false
+      },
+      {
+        "classifier": "thin",
+        "line": "1.808 mm of material at its thinnest \u00b7 432.2 mm\u00b2 of surface under 2.5 mm \u00b7 spans 2.5 \u00d7 8.6 \u00d7 30.1 mm \u00b7 in 24 pieces",
+        "click_mm": [
+          [
+            104.5,
+            173.903,
+            245.785
+          ],
+          [
+            106.308,
+            173.882,
+            245.785
+          ]
+        ],
+        "answer_printed": false
+      },
+      {
+        "classifier": "thin",
+        "line": "1.808 mm of material at its thinnest \u00b7 955.2 mm\u00b2 of surface under 2.5 mm \u00b7 spans 2.4 \u00d7 56.4 \u00d7 9.3 mm \u00b7 in 41 pieces",
+        "click_mm": [
+          [
+            -104.5,
+            50.644,
+            171.681
+          ],
+          [
+            -106.308,
+            50.65,
+            171.681
+          ]
+        ],
+        "answer_printed": false
+      },
+      {
+        "classifier": "thin",
+        "line": "1.808 mm of material at its thinnest \u00b7 951.6 mm\u00b2 of surface under 2.5 mm \u00b7 spans 2.4 \u00d7 56.4 \u00d7 9.4 mm \u00b7 in 41 pieces",
+        "click_mm": [
+          [
+            104.5,
+            50.644,
+            171.681
+          ],
+          [
+            106.308,
+            50.65,
+            171.681
+          ]
+        ],
+        "answer_printed": false
+      }
+    ],
+    "scope": "All six final thin rows are the two identified accepted display-retention lips and four explicitly approved flute-wall readings. No corresponding final thin row remains in the23 intermediate389 pump/display families. These classifier results do not qualify physical cleanup or load capacity.",
+    "functional_pump_wago_faces": {
+      "ceiling_rows": 5,
+      "pump_fastener_ledge_rows": 6,
+      "reason": "Specified pump capture/boss bearing planes, WAGO retention roofs, and the stepped blind M3 insert/screw clearances. Face-specific answers describe their geometry and alternatives; native support access has its separate print reading."
+    },
+    "set_aside_valve_slivers": 6,
+    "set_aside_scope": "Derek set these aside; this is not acceptance.",
+    "remaining_outside_pump_task": {
+      "status": "Reported to root, not waived by this pump-mount review.",
+      "rows": [
+        {
+          "classifier": "slope",
+          "line": "45\u00b0 underside runs along a wall with no level foot \u00b7 slope dir +0.00,-1.00 vs wall n -1.00,+0.00 \u00b7 along 7.7 mm \u00b7 51 mm\u00b2",
+          "click_mm": [
+            [
+              0.0,
+              211.627,
+              338.579
+            ]
+          ],
+          "answer_printed": false
+        },
+        {
+          "classifier": "ledge",
+          "line": "13.01 mm\u00b2 flat face 0\u00b0 off facing the bed \u00b7 5.1 \u00d7 5.1 mm \u00b7 179.5 mm up",
+          "click_mm": [
+            [
+              -93.2,
+              216.1,
+              339.75
+            ]
+          ],
+          "answer_printed": false
+        }
+      ],
+      "domain": "M5 side-joint geometry, Y211.627 and Y216.100."
+    },
+    "retainer": {
+      "step_sha256": "bd394956fa09afd0985161b9e8ffb699a7083fe7066ff0fed76446c837fb089f",
+      "same_geometry_as_prior_post_live_run": true,
+      "rerun": false,
+      "raw_rows": 3,
+      "disposition": "Three required open underside socket-head bearing floors; exact answers retain physical cleanup and finish limits."
+    },
+    "print_access_review": {
+      "record": "hardware/printed-parts/enclosure/enclosure/pump-mount-review/intermediate-7e676118-print-review.json",
+      "record_sha256": "8983d12645cda0ea5c73e7532115b6508f8b111b268591f40a7a114c8581bc3a",
+      "front_top_step_sha256": "7e67611867786c885d0257da76ec4592d6dee1e9d3dee5eb915517a7f0678362",
+      "front_top_gcode_sha256": "23cb6a01302401c250b08884a630f4dd9a42cd45d131d6ae33e1568e5dbb85ef",
+      "native_review_pass": true,
+      "bodies_mapped": 29,
+      "closed_component_identified": false,
+      "minimum_wing_mouth_normal_clearance_mm": 0.20089510539727407,
+      "minimum_wing_mouth_y_end_clearance_mm": 0.46816291209938043,
+      "physical_cleanup_qualified": false,
+      "record_as_previously_linked": {
+        "record": "hardware/printed-parts/enclosure/enclosure/pump-mount-review/print-review.json",
+        "record_sha256": "d342a752474227b19ff48a1f88918ed354f7aa7892a6963d4024b8187a65b295"
+      },
+      "revision_role": "Identified 7e intermediate print evidence; this binding does not describe successor 6120."
+    },
+    "answer_files_after_reanchoring": {
+      "hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-front-top.lint-answers": "ca7bbb09e39c5f575c996d38980e650987929a82ff0f8ca31c113d100f7000ef",
+      "hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-pump-retainer.lint-answers": "62ffc5c14d4ef821f19fd33ae524406923197eac15f2468be00941adff7a414d"
+    },
+    "answer_reanchoring_scope": "Face-specific answers were reanchored to the actual final lint positions after that recorded run. The raw log and its answer-file hash remain unchanged; no lint rerun was performed.",
+    "revision_role": "Post-live 7e run retained at its original exact artifact scope; current successor is 6120."
+  },
+  "current_revision": "published-main-6120cf94",
+  "final_6120_disposition": {
+    "final_run": "published-main-6120cf94",
+    "new_pump_display_thin_findings": 0,
+    "reported_thin_rows": [
+      {
+        "classifier": "thin",
+        "line": "1.800 mm of material at its thinnest \u00b7 428.4 mm\u00b2 of surface under 2.5 mm \u00b7 spans 2.9 \u00d7 61.6 \u00d7 36.6 mm \u00b7 in 2 pieces",
+        "click_mm": [
+          [
+            -66.89,
+            19.433,
+            311.879
+          ],
+          [
+            -66.89,
+            18.533,
+            313.438
+          ]
+        ],
+        "answer_printed": true
+      },
+      {
+        "classifier": "thin",
+        "line": "1.800 mm of material at its thinnest \u00b7 428.4 mm\u00b2 of surface under 2.5 mm \u00b7 spans 2.9 \u00d7 61.6 \u00d7 36.6 mm \u00b7 in 2 pieces",
+        "click_mm": [
+          [
+            66.89,
+            19.433,
+            311.879
+          ],
+          [
+            66.89,
+            18.533,
+            313.438
+          ]
+        ],
+        "answer_printed": true
+      },
+      {
+        "classifier": "thin",
+        "line": "1.801 mm of material at its thinnest \u00b7 862.8 mm\u00b2 of surface under 2.5 mm \u00b7 spans 2.5 \u00d7 16.0 \u00d7 29.9 mm \u00b7 in 34 pieces",
+        "click_mm": [
+          [
+            106.301,
+            183.842,
+            291.282
+          ],
+          [
+            104.5,
+            183.842,
+            291.282
+          ]
+        ],
+        "answer_printed": false
+      },
+      {
+        "classifier": "thin",
+        "line": "1.808 mm of material at its thinnest \u00b7 432.2 mm\u00b2 of surface under 2.5 mm \u00b7 spans 2.5 \u00d7 8.6 \u00d7 30.1 mm \u00b7 in 24 pieces",
+        "click_mm": [
+          [
+            104.5,
+            173.903,
+            245.785
+          ],
+          [
+            106.308,
+            173.882,
+            245.785
+          ]
+        ],
+        "answer_printed": false
+      },
+      {
+        "classifier": "thin",
+        "line": "1.808 mm of material at its thinnest \u00b7 955.2 mm\u00b2 of surface under 2.5 mm \u00b7 spans 2.4 \u00d7 56.4 \u00d7 9.3 mm \u00b7 in 41 pieces",
+        "click_mm": [
+          [
+            -104.5,
+            50.644,
+            171.681
+          ],
+          [
+            -106.308,
+            50.65,
+            171.681
+          ]
+        ],
+        "answer_printed": false
+      },
+      {
+        "classifier": "thin",
+        "line": "1.808 mm of material at its thinnest \u00b7 951.6 mm\u00b2 of surface under 2.5 mm \u00b7 spans 2.4 \u00d7 56.4 \u00d7 9.4 mm \u00b7 in 41 pieces",
+        "click_mm": [
+          [
+            104.5,
+            50.644,
+            171.681
+          ],
+          [
+            106.308,
+            50.65,
+            171.681
+          ]
+        ],
+        "answer_printed": false
+      }
+    ],
+    "thin_scope": "The six current thin readings remain the same two accepted display-retention lips and four expressly approved flute-wall readings. None of the 23 intermediate389 pump/display intersection families appears in the final thin rows.",
+    "functional_pump_wago_faces": {
+      "ceiling_rows": 5,
+      "pump_fastener_ledge_rows": 6,
+      "scope": "Specified supported pump capture/boss shoulders, WAGO retention roofs and blind insert/steel-clearance transitions. Face-specific answers and the separate actual-path access reading retain physical-cleanup and strength limits."
+    },
+    "set_aside_valve_slivers": 6,
+    "set_aside_scope": "Derek set these aside; they are not accepted.",
+    "prior_7e_m5_rows": {
+      "square_head_corner_ledge": "Absent from the exact6120 raw log after the M5 corner stock refinement.",
+      "slope": "The M5 executor answers this as a grouped classification of a two-wall-supported slot roof, retaining native support/finish limits. It is not an unexamined pump-design waiver."
+    },
+    "new_unresolved_pump_design_rows": [],
+    "retainer": {
+      "step_sha256": "bd394956fa09afd0985161b9e8ffb699a7083fe7066ff0fed76446c837fb089f",
+      "same_geometry_as_prior_post_live_run": true,
+      "rerun": false,
+      "raw_rows": 3,
+      "scope": "Required open underside head-bearing floors; physical cleanup and finish remain unqualified."
+    },
+    "print_access_review": {
+      "record": "hardware/printed-parts/enclosure/enclosure/pump-mount-review/print-review.json",
+      "record_sha256": "4395ba99eb927e71e5b2ce9cd10fbe1f8f0693b4d3740738f604e81a705a9477",
+      "front_top_step_sha256": "6120cf946a471c4cbe44e6edc191978ab97a0c3204767c96577fd240da85614d",
+      "front_top_gcode_sha256": "92453e93a662340277431bd6908014eb73d72d425c324ffe8acb07fa9ca510b8",
+      "native_review_pass": true,
+      "bodies_mapped": 29,
+      "explicit_interface_islands": 14,
+      "bodies_without_interface_labels": 22,
+      "closed_component_identified": false,
+      "minimum_wing_mouth_normal_clearance_mm": 0.20089510539727407,
+      "minimum_wing_mouth_y_end_clearance_mm": 0.46816291209938043,
+      "physical_cleanup_qualified": false
+    },
+    "answer_files_after_reanchoring": {
+      "hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-front-top.lint-answers": "4e63545b7c5689f30a54729430949fc32a729517181a989e3f175f600849678a",
+      "hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-pump-retainer.lint-answers": "62ffc5c14d4ef821f19fd33ae524406923197eac15f2468be00941adff7a414d"
+    },
+    "answer_reanchoring_scope": "The exact executor answer-at-run hash is recorded in the6120 run. Current answers also include the separately supported pump/WAGO/retainer face anchors. No additional lint run was performed."
+  }
+}

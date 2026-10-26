@@ -1,0 +1,146 @@
+/private/tmp/hsm-pump-terminal-passages/hardware/scripts/geometry_lint.py:631: DeprecationWarning: Arrays of 2-dimensional vectors are deprecated. Use arrays of 3-dimensional vectors instead. (deprecated in NumPy 2.0)
+  twice = np.abs(np.cross(uv[:, 1] - uv[:, 0], uv[:, 2] - uv[:, 0]))
+enclosure-front-top.stl · 510738 printed facets · 19 findings · 6 answered
+answers: hardware/printed-parts/lint-answers/enclosure/enclosure/enclosure-front-top.lint-answers · read hardware/printed-parts/lint-answers/AGENTS.md before writing one
+
+  [ceiling] 10096 mm² flat print-down face at z=215.074 · 197.0 × 68.5 mm · open to the bed (54.8 mm up)
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=0.000 y=48.257 z=215.074
+    click: x=0.000 y=48.257 z=215.074
+
+  [ceiling] 607 mm² flat print-down face at z=236.074 · 53.5 × 53.5 mm · open to the bed (75.8 mm up)
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-52.225 y=44.859 z=236.074
+    click: x=-52.225 y=44.859 z=236.074
+
+  [ceiling] 607 mm² flat print-down face at z=236.074 · 53.5 × 53.5 mm · open to the bed (75.8 mm up)
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=52.225 y=44.859 z=236.074
+    click: x=52.225 y=44.859 z=236.074
+
+  [ceiling] 152 mm² flat print-down face at z=292.050 · 16.1 × 9.4 mm · drop 30.1–30.1 mm to material below
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=99.775 y=177.150 z=292.050
+    click: x=99.775 y=177.150 z=292.050
+
+  [ceiling] 82 mm² flat print-down face at z=258.150 · 9.4 × 8.7 mm · drop 30.3–30.3 mm to material below
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=99.775 y=173.450 z=258.150
+    click: x=99.775 y=173.450 z=258.150
+
+  [slope] 45° underside runs along a wall with no level foot · slope dir +0.00,-1.00 vs wall n -1.00,+0.00 · along 7.7 mm · 51 mm²
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    faceA: plane · n x=0.000 y=-0.707 z=-0.707 · thru x=0.000 y=211.627 z=338.579
+    faceB: plane · n x=-1.000 y=0.000 z=0.000 · thru x=-94.983 y=211.626 z=335.852
+    click: x=0.000 y=211.627 z=338.579
+
+  [thin] 1.800 mm of material at its thinnest · 428.4 mm² of surface under 2.5 mm · spans 2.9 × 61.6 × 36.6 mm · in 2 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-66.890 y=19.433 z=311.879
+    click: x=-66.890 y=18.533 z=313.438
+    answered: Accepted wing-retention lips: each reading is the 1.80 mm lip over one of the display cover's wings (3.84 - 1.44 - 0.60), which the accepted face-up cover needs: display-cover/face-up-trial records its 3.30 mm capture and the receiver passed the 2026-09-30 shake test.
+    alternatives: A thicker lip needs a deeper inset (cover below flush), thinner wings or less wing air, each a change to the accepted fit; the exits stay world-vertical so supports leave into the display storey.
+
+  [thin] 1.800 mm of material at its thinnest · 428.4 mm² of surface under 2.5 mm · spans 2.9 × 61.6 × 36.6 mm · in 2 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=66.890 y=19.433 z=311.879
+    click: x=66.890 y=18.533 z=313.438
+    answered: Accepted wing-retention lips: each reading is the 1.80 mm lip over one of the display cover's wings (3.84 - 1.44 - 0.60), which the accepted face-up cover needs: display-cover/face-up-trial records its 3.30 mm capture and the receiver passed the 2026-09-30 shake test.
+    alternatives: A thicker lip needs a deeper inset (cover below flush), thinner wings or less wing air, each a change to the accepted fit; the exits stay world-vertical so supports leave into the display storey.
+
+  [thin] 1.801 mm of material at its thinnest · 862.8 mm² of surface under 2.5 mm · spans 2.5 × 16.0 × 29.9 mm · in 34 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=106.301 y=183.842 z=291.282
+    click: x=104.500 y=183.842 z=291.282
+
+  [thin] 1.808 mm of material at its thinnest · 432.2 mm² of surface under 2.5 mm · spans 2.5 × 8.6 × 30.1 mm · in 24 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=104.500 y=173.903 z=245.785
+    click: x=106.308 y=173.882 z=245.785
+
+  [thin] 1.808 mm of material at its thinnest · 955.2 mm² of surface under 2.5 mm · spans 2.4 × 56.4 × 9.3 mm · in 41 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=-104.500 y=50.644 z=171.681
+    click: x=-106.308 y=50.650 z=171.681
+
+  [thin] 1.808 mm of material at its thinnest · 951.6 mm² of surface under 2.5 mm · spans 2.4 × 56.4 × 9.4 mm · in 41 pieces
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    click: x=104.500 y=50.644 z=171.681
+    click: x=106.308 y=50.650 z=171.681
+
+  [ledge] 4.01 mm² flat face 0° off facing the bed · 4.0 × 4.0 mm · 61.5 mm up
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-0.190 y=47.615 z=221.774
+    click: x=-0.190 y=47.615 z=221.774
+
+  [ledge] 4.01 mm² flat face 0° off facing the bed · 4.0 × 4.0 mm · 61.5 mm up
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-93.670 y=46.435 z=221.774
+    click: x=-93.670 y=46.435 z=221.774
+
+  [ledge] 4.01 mm² flat face 0° off facing the bed · 4.0 × 4.0 mm · 61.5 mm up
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=90.330 y=46.435 z=221.774
+    click: x=90.330 y=46.435 z=221.774
+
+  [ledge] 8.55 mm² flat face 0° off facing the bed · 3.3 × 3.3 mm · 68.9 mm up
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-0.181 y=45.498 z=229.195
+    click: x=-0.181 y=45.498 z=229.195
+
+  [ledge] 8.55 mm² flat face 0° off facing the bed · 3.3 × 3.3 mm · 68.9 mm up
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-92.354 y=45.438 z=229.195
+    click: x=-92.354 y=45.438 z=229.195
+
+  [ledge] 8.55 mm² flat face 0° off facing the bed · 3.3 × 3.3 mm · 68.9 mm up
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=91.646 y=45.438 z=229.195
+    click: x=91.646 y=45.438 z=229.195
+
+  [ledge] 13.01 mm² flat face 0° off facing the bed · 5.1 × 5.1 mm · 179.5 mm up
+    file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+    face: plane · n x=0.000 y=0.000 z=-1.000 · thru x=-93.200 y=216.100 z=339.750
+    click: x=-93.200 y=216.100 z=339.750
+
+  [sliver · answered] Set aside by Derek, not accepted: these six faces bound the 1.35 mm pockets the outer fore valves' coil yokes need in the flank. Flattening the flank needs those valves 1.35 mm inboard, which puts their upper tubes, or with the tees moved their pump tubes, 1.35 mm off straight and pushing on the tee and cartridge. Derek: "I don't love it. But it's not the highest priority problem."
+    alternatives: Move the outer fore valves 1.35 mm inboard and accept the bent upper tube, or move valve and tee together and accept the bent pump tube. Thinning the whole flank to the pocket floor drags the seam-rail and funnel-frame grooves outboard.
+    1.350 mm strip, 34.6 mm long
+    face: plane · n x=0.000 y=-1.000 z=0.000 · thru x=-99.175 y=153.902 z=253.100
+    edge: x=-99.175 y=153.902 z=270.389 → x=-99.175 y=153.902 z=235.811 · len 34.577 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-99.175 y=153.902 z=253.100
+
+  [sliver · answered] Set aside by Derek, not accepted: these six faces bound the 1.35 mm pockets the outer fore valves' coil yokes need in the flank. Flattening the flank needs those valves 1.35 mm inboard, which puts their upper tubes, or with the tees moved their pump tubes, 1.35 mm off straight and pushing on the tee and cartridge. Derek: "I don't love it. But it's not the highest priority problem."
+    alternatives: Move the outer fore valves 1.35 mm inboard and accept the bent upper tube, or move valve and tee together and accept the bent pump tube. Thinning the whole flank to the pocket floor drags the seam-rail and funnel-frame grooves outboard.
+    1.350 mm strip, 34.6 mm long
+    face: plane · n x=0.000 y=-1.000 z=0.000 · thru x=99.175 y=153.632 z=253.100
+    edge: x=99.175 y=153.632 z=270.389 → x=99.175 y=153.632 z=235.811 · len 34.577 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=99.175 y=153.632 z=253.100
+
+  [sliver · answered] Set aside by Derek, not accepted: these six faces bound the 1.35 mm pockets the outer fore valves' coil yokes need in the flank. Flattening the flank needs those valves 1.35 mm inboard, which puts their upper tubes, or with the tees moved their pump tubes, 1.35 mm off straight and pushing on the tee and cartridge. Derek: "I don't love it. But it's not the highest priority problem."
+    alternatives: Move the outer fore valves 1.35 mm inboard and accept the bent upper tube, or move valve and tee together and accept the bent pump tube. Thinning the whole flank to the pocket floor drags the seam-rail and funnel-frame grooves outboard.
+    1.350 mm strip, 34.6 mm long
+    face: plane · n x=0.000 y=1.000 z=0.000 · thru x=-99.175 y=120.290 z=253.100
+    edge: x=-99.175 y=120.290 z=270.389 → x=-99.175 y=120.290 z=235.811 · len 34.577 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=-99.175 y=120.290 z=253.100
+
+  [sliver · answered] Set aside by Derek, not accepted: these six faces bound the 1.35 mm pockets the outer fore valves' coil yokes need in the flank. Flattening the flank needs those valves 1.35 mm inboard, which puts their upper tubes, or with the tees moved their pump tubes, 1.35 mm off straight and pushing on the tee and cartridge. Derek: "I don't love it. But it's not the highest priority problem."
+    alternatives: Move the outer fore valves 1.35 mm inboard and accept the bent upper tube, or move valve and tee together and accept the bent pump tube. Thinning the whole flank to the pocket floor drags the seam-rail and funnel-frame grooves outboard.
+    1.350 mm strip, 34.6 mm long
+    face: plane · n x=0.000 y=1.000 z=0.000 · thru x=99.175 y=120.290 z=253.100
+    edge: x=99.175 y=120.290 z=270.389 → x=99.175 y=120.290 z=235.811 · len 34.577 · straight · dir x=0.000 y=0.000 z=-1.000
+    click: x=99.175 y=120.290 z=253.100
+
+  [sliver · answered] Set aside by Derek, not accepted: these six faces bound the 1.35 mm pockets the outer fore valves' coil yokes need in the flank. Flattening the flank needs those valves 1.35 mm inboard, which puts their upper tubes, or with the tees moved their pump tubes, 1.35 mm off straight and pushing on the tee and cartridge. Derek: "I don't love it. But it's not the highest priority problem."
+    alternatives: Move the outer fore valves 1.35 mm inboard and accept the bent upper tube, or move valve and tee together and accept the bent pump tube. Thinning the whole flank to the pocket floor drags the seam-rail and funnel-frame grooves outboard.
+    1.350 mm strip, 33.6 mm long
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=-99.175 y=137.096 z=235.811
+    edge: x=-99.175 y=120.290 z=235.811 → x=-99.175 y=153.902 z=235.811 · len 33.612 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=-99.175 y=137.096 z=235.811
+
+  [sliver · answered] Set aside by Derek, not accepted: these six faces bound the 1.35 mm pockets the outer fore valves' coil yokes need in the flank. Flattening the flank needs those valves 1.35 mm inboard, which puts their upper tubes, or with the tees moved their pump tubes, 1.35 mm off straight and pushing on the tee and cartridge. Derek: "I don't love it. But it's not the highest priority problem."
+    alternatives: Move the outer fore valves 1.35 mm inboard and accept the bent upper tube, or move valve and tee together and accept the bent pump tube. Thinning the whole flank to the pocket floor drags the seam-rail and funnel-frame grooves outboard.
+    1.350 mm strip, 33.3 mm long
+    face: plane · n x=0.000 y=0.000 z=1.000 · thru x=99.175 y=136.961 z=235.811
+    edge: x=99.175 y=120.290 z=235.811 → x=99.175 y=153.632 z=235.811 · len 33.342 · straight · dir x=0.000 y=1.000 z=0.000
+    click: x=99.175 y=136.961 z=235.811

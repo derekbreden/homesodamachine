@@ -957,5 +957,1533 @@
       "J13": 0.19999999999998863,
       "J9": 1.620396
     }
-  }
+  },
+  "terminal_passages_refinement_binding": {
+    "scope": "Fresh worktree source-native sweeps of all eight unchanged pump/display conductors against the frozen08cc2019 front-top and unchangedbd394956 retainer. Original query provenance above is retained.",
+    "frame": "enclosure-world XYZ; bounds_xxyyzz_mm use x0,x1,y0,y1,z0,z1",
+    "printed_stock_sha256": {
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "08cc201935f6bf345f48946be255b62d1cd8806ac3ebfa5c94fbf1675af7e290",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step": "bd394956fa09afd0985161b9e8ffb699a7083fe7066ff0fed76446c837fb089f"
+    },
+    "source_sha256": {
+      "hardware/wiring/installed/routes.py": "25a614a784977ba733ffb64962bedec8b4e81b1bf8ce7ff1e3d9873d3b7b7ec3",
+      "hardware/wiring/installed/route-overrides.json": "36538dc365902ce2ea3c91e5d2d1f27aa1da745e66b8b55a45417b6990780447",
+      "hardware/wiring/installed/terminals.py": "485ef865f493e321958309bdbf3527ae57adb91ae864d5b924ddaed5d56edf99",
+      "hardware/wiring/installed/connections.py": "11528d05f94efb932dd4b9eee07f01578a401fc8bf37ff9d9cab50b3bd058000",
+      "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "4ba186f9f597cd9bf8d0391a5ed8838ea11cfe114420cd63f4a4c93e66534e3b",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.py": "18e0a00ce830b81d069946282a0035174cc80851afe4172992c7fc449b92e943",
+      "hardware/manifold-layout/enclosure-box.json": "3b8f760a0754d4cad939df7f8ceaf3047a35b3d8e707f602ea6b961548f4129e",
+      "hardware/assembly/harnesses/j13.json": "ea324cc287dce7e8040ab8d3db355c8b6648cf9737dbd8e5598963eb33a2b7e1",
+      "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": "4b113913aafbb53d4e6f6f061558ae5ef5360982f5af71cc5afea59acaab274e",
+      "hardware/wiring/installed/model.py": "66f6a6ea2228d7a75bb9175f803c9b1c2b02ea05ac074b5da160e66a6722cfac"
+    },
+    "resolver_module_paths": {
+      "enclosure": "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "routes": "hardware/wiring/installed/routes.py"
+    },
+    "worktree_manifest_snapshot_sha256": "598fe2cd8c1784359ab6c9a613e895f9e7e44e9f6668d8e892f6b45927051324",
+    "native_printed_parts": {
+      "front-top": {
+        "valid": true,
+        "solid_count": 1
+      },
+      "retainer": {
+        "valid": true,
+        "solid_count": 1
+      }
+    },
+    "native_wire_comparisons": {
+      "J13-AM2": {
+        "segments_sha256": "4aab72a4f3e1c869b8bf3df1dd764f5df58964f829c79ec186bd4ae1f3f90e40",
+        "matches_worktree_manifest_curve": true,
+        "matches_predecessor_389_curve": true,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_xxyyzz_mm": [
+          -78.35012099648435,
+          57.075000100000025,
+          44.00899989999997,
+          245.05292012005037,
+          268.4,
+          284.85000010000005
+        ],
+        "stock_queries": {
+          "front-top": {
+            "minimum_distance_mm": 0.19999999999998863,
+            "common_mm3": 0.0
+          },
+          "retainer": {
+            "minimum_distance_mm": 60.22599999999997,
+            "common_mm3": 0.0
+          }
+        }
+      },
+      "J13-AM1": {
+        "segments_sha256": "a90cad339bf84aa851fa7b68cd29c267791de435d2b23ec402e4836492720f2d",
+        "matches_worktree_manifest_curve": true,
+        "matches_predecessor_389_curve": true,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_xxyyzz_mm": [
+          -78.34986699648434,
+          49.07500010000002,
+          43.0839999,
+          247.55292012005037,
+          268.4,
+          284.85000010000005
+        ],
+        "stock_queries": {
+          "front-top": {
+            "minimum_distance_mm": 0.19999999999998863,
+            "common_mm3": 0.0
+          },
+          "retainer": {
+            "minimum_distance_mm": 60.22599999999997,
+            "common_mm3": 0.0
+          }
+        }
+      },
+      "J13-BM2": {
+        "segments_sha256": "36a7305d4534ab9d8df92647c7c0292654e540b1774e3f7224eb155851ac0f54",
+        "matches_worktree_manifest_curve": true,
+        "matches_predecessor_389_curve": true,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_xxyyzz_mm": [
+          -78.34986699648437,
+          -0.07499989999999884,
+          43.0839999,
+          250.05292012005037,
+          268.4,
+          284.85000010000005
+        ],
+        "stock_queries": {
+          "front-top": {
+            "minimum_distance_mm": 0.19999999999998863,
+            "common_mm3": 0.0
+          },
+          "retainer": {
+            "minimum_distance_mm": 60.22599999999997,
+            "common_mm3": 0.0
+          }
+        }
+      },
+      "J13-BM1": {
+        "segments_sha256": "6459392519947f44b2f79defb07060a4923b60563e30e1e31a281b2e3de0e97c",
+        "matches_worktree_manifest_curve": true,
+        "matches_predecessor_389_curve": true,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_xxyyzz_mm": [
+          -78.34986699648434,
+          -1.9249998999999332,
+          44.008999899999985,
+          252.55292012005037,
+          268.4,
+          284.85000010000005
+        ],
+        "stock_queries": {
+          "front-top": {
+            "minimum_distance_mm": 0.19999999999998863,
+            "common_mm3": 0.0
+          },
+          "retainer": {
+            "minimum_distance_mm": 60.22599999999997,
+            "common_mm3": 0.0
+          }
+        }
+      },
+      "J9-B": {
+        "segments_sha256": "71c38302a013e225bd25315b8a3cc7968e4be2826f9ce92c7d00af69496779e6",
+        "matches_worktree_manifest_curve": true,
+        "matches_predecessor_389_curve": true,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_xxyyzz_mm": [
+          -17.050120996484367,
+          19.307018236065613,
+          58.489958067621856,
+          239.55292012005037,
+          268.4,
+          319.2008102870027
+        ],
+        "stock_queries": {
+          "front-top": {
+            "minimum_distance_mm": 1.7839727599198827,
+            "common_mm3": 0.0
+          },
+          "retainer": {
+            "minimum_distance_mm": 69.22599999999997,
+            "common_mm3": 0.0
+          }
+        }
+      },
+      "J9-A": {
+        "segments_sha256": "7a4a45de60ffad017a9417451aabadcdf3176da745c38b981b957b4e5a5b123e",
+        "matches_worktree_manifest_curve": true,
+        "matches_predecessor_389_curve": true,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_xxyyzz_mm": [
+          -17.050120996484363,
+          21.002977495450406,
+          58.489958067621835,
+          242.05292012005037,
+          268.4,
+          319.17784684067703
+        ],
+        "stock_queries": {
+          "front-top": {
+            "minimum_distance_mm": 3.0921203051149724,
+            "common_mm3": 0.0
+          },
+          "retainer": {
+            "minimum_distance_mm": 69.22599999999997,
+            "common_mm3": 0.0
+          }
+        }
+      },
+      "J9-GND": {
+        "segments_sha256": "c45c44ad584ed146c20f8cdc7025acc018446405bb62b3e2f927ea18fb7c1301",
+        "matches_worktree_manifest_curve": true,
+        "matches_predecessor_389_curve": true,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_xxyyzz_mm": [
+          -17.050120996484363,
+          22.84999920351564,
+          58.48995806762185,
+          244.55292012005037,
+          268.4,
+          319.1878960708507
+        ],
+        "stock_queries": {
+          "front-top": {
+            "minimum_distance_mm": 3.092120305114991,
+            "common_mm3": 0.0
+          },
+          "retainer": {
+            "minimum_distance_mm": 69.22599999999997,
+            "common_mm3": 0.0
+          }
+        }
+      },
+      "J9-V12": {
+        "segments_sha256": "5b86d900717b1a03a7a6588709ec2d62ba771b0bf31fd45457f863917678698e",
+        "matches_worktree_manifest_curve": true,
+        "matches_predecessor_389_curve": true,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_xxyyzz_mm": [
+          -17.049866996484365,
+          24.850003203515637,
+          58.48995806762185,
+          247.05292012005037,
+          268.4,
+          319.2299841165016
+        ],
+        "stock_queries": {
+          "front-top": {
+            "minimum_distance_mm": 1.783972759919873,
+            "common_mm3": 0.0
+          },
+          "retainer": {
+            "minimum_distance_mm": 69.22599999999997,
+            "common_mm3": 0.0
+          }
+        }
+      }
+    },
+    "all_eight_source_curves_unchanged_and_match_manifest": true,
+    "all_eight_valid_single_solids": true,
+    "all_sixteen_wire_stock_intersections_empty": true,
+    "all_sixteen_wire_stock_gaps_positive": true,
+    "retained_wago_clearance": {
+      "scope": "Fourteen unchanged WAGO conductors against the complete original455-to-frozen08cc added-stock bounding box; no body or region omitted.",
+      "method": "Rounded circular fillets lie inside the convex hull of their guide polyline. Each guide hull is expanded by the full insulation radius. A positive interval gap from the complete native added-stock box proves separation; retained stock is a subset of the exact original455 body whose full native wire gap was measured. The successor gap is bounded by the smaller of that old native gap and the added-stock interval gap.",
+      "original_front_top_sha256": "455cd05a225b6f47b252577cb25a45cf3e4fb81b63eb2dc0b39fa39a28d12dc0",
+      "successor_front_top_sha256": "08cc201935f6bf345f48946be255b62d1cd8806ac3ebfa5c94fbf1675af7e290",
+      "native_refinement_receipt": {
+        "path": "hardware/printed-parts/enclosure/enclosure/pump-mount-review/native-review.json",
+        "sha256": "81b8a003023a597857eb9ed0d3e492c2cae70def11181361c8e4bc2f0c23ad9c",
+        "role": "direct_added_stock_successor",
+        "added_volume_mm3": 57500.99987665155,
+        "complete_added_stock_bounds_xxyyzz_mm": [
+          -75.974,
+          75.974,
+          19.1313121216,
+          99.0000001,
+          265.9999999,
+          332.9982049807633
+        ]
+      },
+      "wire_bounds": [
+        {
+          "wire": "J1-COM",
+          "segments_sha256": "5629a535689385e98186b36b7522420e8ba4b3c949a6909f5be280433fa48464",
+          "matches_original_native_query": true,
+          "matches_worktree_manifest_curve": true,
+          "complete_rounded_guide_hull_with_insulation_bounds_xxyyzz_mm": [
+            -73.82997389648436,
+            86.89999999999999,
+            176.10000002005037,
+            272.0529200200504,
+            264.22999999999996,
+            277.93
+          ],
+          "separating_axis": "Y",
+          "added_stock_distance_lower_bound_mm": 77.09999992005038,
+          "original_native_stock_common_mm3": 0.0,
+          "original_native_stock_minimum_distance_mm": 9.28430934426465,
+          "successor_stock_minimum_distance_lower_bound_mm": 9.28430934426465
+        },
+        {
+          "wire": "J1-positive-A",
+          "segments_sha256": "2c441e439646d1d8e85da71b5c6875ba14a413bf24ea27a53ea3f5d27bd25d5a",
+          "matches_original_native_query": true,
+          "matches_worktree_manifest_curve": true,
+          "complete_rounded_guide_hull_with_insulation_bounds_xxyyzz_mm": [
+            -69.80410113,
+            86.89999999999999,
+            179.40795200000002,
+            338.33976053000004,
+            258.15,
+            320.53085000000004
+          ],
+          "separating_axis": "Y",
+          "added_stock_distance_lower_bound_mm": 80.40795190000003,
+          "original_native_stock_common_mm3": 0.0,
+          "original_native_stock_minimum_distance_mm": 9.568829604502309,
+          "successor_stock_minimum_distance_lower_bound_mm": 9.568829604502309
+        },
+        {
+          "wire": "J1-positive-B",
+          "segments_sha256": "673f79e321f4ed8dcc27bf0fc9be66838b0d574d1528c9ae615b2df7a8baddd2",
+          "matches_original_native_query": true,
+          "matches_worktree_manifest_curve": true,
+          "complete_rounded_guide_hull_with_insulation_bounds_xxyyzz_mm": [
+            81.2,
+            91.05,
+            180.25000000000003,
+            278.85434000000004,
+            276.15,
+            300.71000000000004
+          ],
+          "separating_axis": "Y",
+          "added_stock_distance_lower_bound_mm": 81.24999990000003,
+          "original_native_stock_common_mm3": 0.0,
+          "original_native_stock_minimum_distance_mm": 3.849412330313161,
+          "successor_stock_minimum_distance_lower_bound_mm": 3.849412330313161
+        },
+        {
+          "wire": "J1-positive-C",
+          "segments_sha256": "fc0288204493cab52e8575a74320615a6cc003fea7781f44e057cbabb5ecd965",
+          "matches_original_native_query": true,
+          "matches_worktree_manifest_curve": true,
+          "complete_rounded_guide_hull_with_insulation_bounds_xxyyzz_mm": [
+            14.050000000000017,
+            86.89999999999999,
+            124.24000000000002,
+            181.95000000000002,
+            164.47500000000005,
+            283.81
+          ],
+          "separating_axis": "Y",
+          "added_stock_distance_lower_bound_mm": 25.23999990000003,
+          "original_native_stock_common_mm3": 0.0,
+          "original_native_stock_minimum_distance_mm": 9.568829604502309,
+          "successor_stock_minimum_distance_lower_bound_mm": 9.568829604502309
+        },
+        {
+          "wire": "J1-positive-D",
+          "segments_sha256": "7afbafde87a0bf399a5c2016af7e6ed836c3a2a71ce0760b5245500388aba97a",
+          "matches_original_native_query": true,
+          "matches_worktree_manifest_curve": true,
+          "complete_rounded_guide_hull_with_insulation_bounds_xxyyzz_mm": [
+            -15.749999999999988,
+            86.89999999999999,
+            124.24000000000002,
+            181.95000000000002,
+            164.47500000000005,
+            289.77000000000004
+          ],
+          "separating_axis": "Y",
+          "added_stock_distance_lower_bound_mm": 25.23999990000003,
+          "original_native_stock_common_mm3": 0.0,
+          "original_native_stock_minimum_distance_mm": 9.28430934426465,
+          "successor_stock_minimum_distance_lower_bound_mm": 9.28430934426465
+        },
+        {
+          "wire": "J1-positive-E",
+          "segments_sha256": "091068332006bf66f63928acc5afe939a6f8d183dda62431dbb758adb45bd950",
+          "matches_original_native_query": true,
+          "matches_worktree_manifest_curve": true,
+          "complete_rounded_guide_hull_with_insulation_bounds_xxyyzz_mm": [
+            14.05000000000002,
+            86.89999999999999,
+            148.34,
+            174.05,
+            218.47500000000005,
+            265.93
+          ],
+          "separating_axis": "Y",
+          "added_stock_distance_lower_bound_mm": 49.33999990000001,
+          "original_native_stock_common_mm3": 0.0,
+          "original_native_stock_minimum_distance_mm": 9.28430934426465,
+          "successor_stock_minimum_distance_lower_bound_mm": 9.28430934426465
+        },
+        {
+          "wire": "J1-positive-F",
+          "segments_sha256": "4e00b9f9540b3e6d4c3ea3e5d7c4701dca36d8768dae08160f79e942b3b6f5d9",
+          "matches_original_native_query": true,
+          "matches_worktree_manifest_curve": true,
+          "complete_rounded_guide_hull_with_insulation_bounds_xxyyzz_mm": [
+            73.80000000000003,
+            86.89999999999999,
+            148.34,
+            174.05,
+            270.19,
+            286.37500000000006
+          ],
+          "separating_axis": "Y",
+          "added_stock_distance_lower_bound_mm": 49.33999990000001,
+          "original_native_stock_common_mm3": 0.0,
+          "original_native_stock_minimum_distance_mm": 9.568829604502328,
+          "successor_stock_minimum_distance_lower_bound_mm": 9.568829604502328
+        },
+        {
+          "wire": "J1-positive-G",
+          "segments_sha256": "f5b9327cc36f897d2b1b9eb603614d41b65031bbd704ac9d1e4d0a2c441fbfec",
+          "matches_original_native_query": true,
+          "matches_worktree_manifest_curve": true,
+          "complete_rounded_guide_hull_with_insulation_bounds_xxyyzz_mm": [
+            62.99999999999999,
+            86.89999999999999,
+            124.24,
+            174.05,
+            220.37500000000003,
+            277.85
+          ],
+          "separating_axis": "Y",
+          "added_stock_distance_lower_bound_mm": 25.2399999,
+          "original_native_stock_common_mm3": 0.0,
+          "original_native_stock_minimum_distance_mm": 9.568829604502328,
+          "successor_stock_minimum_distance_lower_bound_mm": 9.568829604502328
+        },
+        {
+          "wire": "J1-positive-H",
+          "segments_sha256": "a7fb4e3e7bcc6cbe83ff1c3ca64775ed81323e89c4d73f5234082aad4b9fd166",
+          "matches_original_native_query": true,
+          "matches_worktree_manifest_curve": true,
+          "complete_rounded_guide_hull_with_insulation_bounds_xxyyzz_mm": [
+            -15.749999999999984,
+            86.89999999999999,
+            148.34,
+            174.05,
+            218.47500000000005,
+            283.81
+          ],
+          "separating_axis": "Y",
+          "added_stock_distance_lower_bound_mm": 49.33999990000001,
+          "original_native_stock_common_mm3": 0.0,
+          "original_native_stock_minimum_distance_mm": 9.568829604502328,
+          "successor_stock_minimum_distance_lower_bound_mm": 9.568829604502328
+        },
+        {
+          "wire": "J2-COM",
+          "segments_sha256": "7aaa27b8ab674366efebf2c947fad4dfe6a2ff144d22a53a01b56d5db45d31e3",
+          "matches_original_native_query": true,
+          "matches_worktree_manifest_curve": true,
+          "complete_rounded_guide_hull_with_insulation_bounds_xxyyzz_mm": [
+            -35.33006989648437,
+            86.6,
+            172.1500000201,
+            272.0529200200504,
+            230.15,
+            275.25
+          ],
+          "separating_axis": "Y",
+          "added_stock_distance_lower_bound_mm": 73.14999992010002,
+          "original_native_stock_common_mm3": 0.0,
+          "original_native_stock_minimum_distance_mm": 9.58018788959799,
+          "successor_stock_minimum_distance_lower_bound_mm": 9.58018788959799
+        },
+        {
+          "wire": "J2-positive-I",
+          "segments_sha256": "8ee2e61f4353e6acc91a3bb8e495f7c57f8d7b6623081418a655a9cab8dca18d",
+          "matches_original_native_query": true,
+          "matches_worktree_manifest_curve": true,
+          "complete_rounded_guide_hull_with_insulation_bounds_xxyyzz_mm": [
+            -75.49999999999997,
+            86.6,
+            148.34,
+            178.85000000000002,
+            236.15,
+            283.37500000000006
+          ],
+          "separating_axis": "Y",
+          "added_stock_distance_lower_bound_mm": 49.33999990000001,
+          "original_native_stock_common_mm3": 0.0,
+          "original_native_stock_minimum_distance_mm": 9.93680028983173,
+          "successor_stock_minimum_distance_lower_bound_mm": 9.93680028983173
+        },
+        {
+          "wire": "J2-positive-J",
+          "segments_sha256": "76f540c22115563702a625d9204bfb724054102c020950542e739cda5108f019",
+          "matches_original_native_query": true,
+          "matches_worktree_manifest_curve": true,
+          "complete_rounded_guide_hull_with_insulation_bounds_xxyyzz_mm": [
+            -67.21999999999998,
+            86.6,
+            124.24,
+            175.94,
+            220.37500000000003,
+            243.85
+          ],
+          "separating_axis": "Y",
+          "added_stock_distance_lower_bound_mm": 25.2399999,
+          "original_native_stock_common_mm3": 0.0,
+          "original_native_stock_minimum_distance_mm": 9.93680028983173,
+          "successor_stock_minimum_distance_lower_bound_mm": 9.93680028983173
+        },
+        {
+          "wire": "J2-positive-fan",
+          "segments_sha256": "93d6781929eec4ba688384e05378d317ca8996226ade26115b3261dfa8f6a8c9",
+          "matches_original_native_query": true,
+          "matches_worktree_manifest_curve": true,
+          "complete_rounded_guide_hull_with_insulation_bounds_xxyyzz_mm": [
+            80.9,
+            96.35,
+            43.15,
+            174.3,
+            149.15,
+            249.85
+          ],
+          "separating_axis": "Z",
+          "added_stock_distance_lower_bound_mm": 16.149999899999983,
+          "original_native_stock_common_mm3": 0.0,
+          "original_native_stock_minimum_distance_mm": 2.187174176005783,
+          "successor_stock_minimum_distance_lower_bound_mm": 2.187174176005783
+        },
+        {
+          "wire": "J2-positive-K",
+          "segments_sha256": "0c9d33d919def0bff55eb1c8f369e65c8a80312c1a9e8eb49003c165f41b4287",
+          "matches_original_native_query": true,
+          "matches_worktree_manifest_curve": true,
+          "complete_rounded_guide_hull_with_insulation_bounds_xxyyzz_mm": [
+            68.10409887,
+            96.85,
+            172.60000000000002,
+            338.33976053000004,
+            254.15,
+            320.85
+          ],
+          "separating_axis": "Y",
+          "added_stock_distance_lower_bound_mm": 73.59999990000003,
+          "original_native_stock_common_mm3": 0.0,
+          "original_native_stock_minimum_distance_mm": 5.406830900399197,
+          "successor_stock_minimum_distance_lower_bound_mm": 5.406830900399197
+        }
+      ],
+      "all_fourteen_curves_identical_to_original_native_query": true,
+      "all_fourteen_match_worktree_manifest": true,
+      "all_fourteen_separated_from_complete_added_stock": true,
+      "all_fourteen_old_native_intersections_empty": true,
+      "minimum_added_stock_axis_gap_lower_bound_mm": 16.149999899999983,
+      "minimum_successor_stock_gap_lower_bound_mm": 2.187174176005783,
+      "physical_acceptance_claimed": false,
+      "worktree_manifest_snapshot_sha256": "598fe2cd8c1784359ab6c9a613e895f9e7e44e9f6668d8e892f6b45927051324",
+      "source_sha256": {
+        "hardware/wiring/installed/routes.py": "25a614a784977ba733ffb64962bedec8b4e81b1bf8ce7ff1e3d9873d3b7b7ec3",
+        "hardware/wiring/installed/route-overrides.json": "36538dc365902ce2ea3c91e5d2d1f27aa1da745e66b8b55a45417b6990780447",
+        "hardware/wiring/installed/terminals.py": "485ef865f493e321958309bdbf3527ae57adb91ae864d5b924ddaed5d56edf99",
+        "hardware/wiring/installed/connections.py": "11528d05f94efb932dd4b9eee07f01578a401fc8bf37ff9d9cab50b3bd058000",
+        "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "4ba186f9f597cd9bf8d0391a5ed8838ea11cfe114420cd63f4a4c93e66534e3b",
+        "hardware/printed-parts/enclosure/enclosure/enclosure.py": "18e0a00ce830b81d069946282a0035174cc80851afe4172992c7fc449b92e943",
+        "hardware/manifold-layout/enclosure-box.json": "3b8f760a0754d4cad939df7f8ceaf3047a35b3d8e707f602ea6b961548f4129e",
+        "hardware/assembly/harnesses/j13.json": "ea324cc287dce7e8040ab8d3db355c8b6648cf9737dbd8e5598963eb33a2b7e1",
+        "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": "4b113913aafbb53d4e6f6f061558ae5ef5360982f5af71cc5afea59acaab274e",
+        "hardware/wiring/installed/model.py": "66f6a6ea2228d7a75bb9175f803c9b1c2b02ea05ac074b5da160e66a6722cfac"
+      },
+      "resolver_module_paths": {
+        "enclosure": "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+        "routes": "hardware/wiring/installed/routes.py"
+      },
+      "curve_source": "Fresh resolver and manifest from the isolated candidate worktree; no root workspace routes or terminal records are inputs."
+    },
+    "physical_acceptance_claimed": false,
+    "evidence_limits": [
+      "Exact motor tabs, landed Faston receptacles and display screw terminals remain explicitly unlocated in the reference model. This is a proposed insulated-conductor clearance query, not physical connector acceptance."
+    ]
+  },
+  "combined_joint_stock_binding": {
+    "frame": "enclosure-world XYZ; bounds_xxyyzz_mm are x0,x1,y0,y1,z0,z1",
+    "printed_stock_sha256": {
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "c9fdbec4545c13f265f8c2435d5399ae2e3dad7dc8e8f9c844d18966b77264c4",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step": "bd394956fa09afd0985161b9e8ffb699a7083fe7066ff0fed76446c837fb089f"
+    },
+    "source_sha256": {
+      "hardware/wiring/installed/routes.py": "25a614a784977ba733ffb64962bedec8b4e81b1bf8ce7ff1e3d9873d3b7b7ec3",
+      "hardware/wiring/installed/route-overrides.json": "36538dc365902ce2ea3c91e5d2d1f27aa1da745e66b8b55a45417b6990780447",
+      "hardware/wiring/installed/terminals.py": "485ef865f493e321958309bdbf3527ae57adb91ae864d5b924ddaed5d56edf99",
+      "hardware/wiring/installed/connections.py": "11528d05f94efb932dd4b9eee07f01578a401fc8bf37ff9d9cab50b3bd058000",
+      "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "21347fde35872ea40dabe95ffd801a8dde3fc25cfe6a504696983d5f34d462f9",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.py": "a3d6521dbf5e1459153fd0ebd58ab4b6cd069b156c0b918eac0a118c4c585993",
+      "hardware/manifold-layout/enclosure-box.json": "3b8f760a0754d4cad939df7f8ceaf3047a35b3d8e707f602ea6b961548f4129e",
+      "hardware/assembly/harnesses/j13.json": "ea324cc287dce7e8040ab8d3db355c8b6648cf9737dbd8e5598963eb33a2b7e1",
+      "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": "4b113913aafbb53d4e6f6f061558ae5ef5360982f5af71cc5afea59acaab274e",
+      "hardware/wiring/installed/model.py": "66f6a6ea2228d7a75bb9175f803c9b1c2b02ea05ac074b5da160e66a6722cfac"
+    },
+    "source_input_files_unchanged_during_query": true,
+    "resolver_module_paths": {
+      "enclosure": "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "routes": "hardware/wiring/installed/routes.py"
+    },
+    "pre_export_worktree_manifest_sha256": "325d74f466997a55ff4f8301af98c6d840708bcdc6dc3a2b92147a56333f08bb",
+    "native_printed_parts": {
+      "front-top": {
+        "valid": true,
+        "solid_count": 1
+      },
+      "retainer": {
+        "valid": true,
+        "solid_count": 1
+      }
+    },
+    "method": "Resolve current worktree source curves from the actual pre-export worktree manifest terminals, compare exact segment hashes with retained native-query curves, sweep each full insulated conductor and query native minimum distance against the exact frozen emitted printed parts. A positive native gap certifies empty intersection; contacts also use native Boolean volume.",
+    "physical_acceptance_claimed": false,
+    "scope": "Native queries of the eight unchanged J13/J9 conductors against front-top c9fdbec4 and retainer bd394956. The earlier 08cc input and query records remain intact.",
+    "native_wire_comparisons": {
+      "J13-AM2": {
+        "segments_sha256": "4aab72a4f3e1c869b8bf3df1dd764f5df58964f829c79ec186bd4ae1f3f90e40",
+        "matches_pre_export_worktree_manifest_curve": true,
+        "matches_prior_native_query_curve": true,
+        "stock": "ribbon22",
+        "insulation_od_mm": 1.7,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_xxyyzz_mm": [
+          -78.35012099648435,
+          57.075000100000025,
+          44.00899989999997,
+          245.05292012005037,
+          268.4,
+          284.85000010000005
+        ],
+        "stock_queries": {
+          "front-top": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 0.19999999999998863
+          },
+          "retainer": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 60.22599999999997
+          }
+        }
+      },
+      "J13-AM1": {
+        "segments_sha256": "a90cad339bf84aa851fa7b68cd29c267791de435d2b23ec402e4836492720f2d",
+        "matches_pre_export_worktree_manifest_curve": true,
+        "matches_prior_native_query_curve": true,
+        "stock": "ribbon22",
+        "insulation_od_mm": 1.7,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_xxyyzz_mm": [
+          -78.34986699648434,
+          49.07500010000002,
+          43.0839999,
+          247.55292012005037,
+          268.4,
+          284.85000010000005
+        ],
+        "stock_queries": {
+          "front-top": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 0.19999999999998863
+          },
+          "retainer": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 60.22599999999997
+          }
+        }
+      },
+      "J13-BM2": {
+        "segments_sha256": "36a7305d4534ab9d8df92647c7c0292654e540b1774e3f7224eb155851ac0f54",
+        "matches_pre_export_worktree_manifest_curve": true,
+        "matches_prior_native_query_curve": true,
+        "stock": "ribbon22",
+        "insulation_od_mm": 1.7,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_xxyyzz_mm": [
+          -78.34986699648437,
+          -0.07499989999999884,
+          43.0839999,
+          250.05292012005037,
+          268.4,
+          284.85000010000005
+        ],
+        "stock_queries": {
+          "front-top": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 0.19999999999998863
+          },
+          "retainer": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 60.22599999999997
+          }
+        }
+      },
+      "J13-BM1": {
+        "segments_sha256": "6459392519947f44b2f79defb07060a4923b60563e30e1e31a281b2e3de0e97c",
+        "matches_pre_export_worktree_manifest_curve": true,
+        "matches_prior_native_query_curve": true,
+        "stock": "ribbon22",
+        "insulation_od_mm": 1.7,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_xxyyzz_mm": [
+          -78.34986699648434,
+          -1.9249998999999332,
+          44.008999899999985,
+          252.55292012005037,
+          268.4,
+          284.85000010000005
+        ],
+        "stock_queries": {
+          "front-top": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 0.19999999999998863
+          },
+          "retainer": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 60.22599999999997
+          }
+        }
+      },
+      "J9-B": {
+        "segments_sha256": "71c38302a013e225bd25315b8a3cc7968e4be2826f9ce92c7d00af69496779e6",
+        "matches_pre_export_worktree_manifest_curve": true,
+        "matches_prior_native_query_curve": true,
+        "stock": "ribbon22",
+        "insulation_od_mm": 1.7,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_xxyyzz_mm": [
+          -17.050120996484367,
+          19.307018236065613,
+          58.489958067621856,
+          239.55292012005037,
+          268.4,
+          319.2008102870027
+        ],
+        "stock_queries": {
+          "front-top": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 1.7839727599198827
+          },
+          "retainer": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 69.22599999999997
+          }
+        }
+      },
+      "J9-A": {
+        "segments_sha256": "7a4a45de60ffad017a9417451aabadcdf3176da745c38b981b957b4e5a5b123e",
+        "matches_pre_export_worktree_manifest_curve": true,
+        "matches_prior_native_query_curve": true,
+        "stock": "ribbon22",
+        "insulation_od_mm": 1.7,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_xxyyzz_mm": [
+          -17.050120996484363,
+          21.002977495450406,
+          58.489958067621835,
+          242.05292012005037,
+          268.4,
+          319.17784684067703
+        ],
+        "stock_queries": {
+          "front-top": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 3.0921203051149724
+          },
+          "retainer": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 69.22599999999997
+          }
+        }
+      },
+      "J9-GND": {
+        "segments_sha256": "c45c44ad584ed146c20f8cdc7025acc018446405bb62b3e2f927ea18fb7c1301",
+        "matches_pre_export_worktree_manifest_curve": true,
+        "matches_prior_native_query_curve": true,
+        "stock": "ribbon22",
+        "insulation_od_mm": 1.7,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_xxyyzz_mm": [
+          -17.050120996484363,
+          22.84999920351564,
+          58.48995806762185,
+          244.55292012005037,
+          268.4,
+          319.1878960708507
+        ],
+        "stock_queries": {
+          "front-top": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 3.092120305114991
+          },
+          "retainer": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 69.22599999999997
+          }
+        }
+      },
+      "J9-V12": {
+        "segments_sha256": "5b86d900717b1a03a7a6588709ec2d62ba771b0bf31fd45457f863917678698e",
+        "matches_pre_export_worktree_manifest_curve": true,
+        "matches_prior_native_query_curve": true,
+        "stock": "ribbon22",
+        "insulation_od_mm": 1.7,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_xxyyzz_mm": [
+          -17.049866996484365,
+          24.850003203515637,
+          58.48995806762185,
+          247.05292012005037,
+          268.4,
+          319.2299841165016
+        ],
+        "stock_queries": {
+          "front-top": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 1.783972759919873
+          },
+          "retainer": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 69.22599999999997
+          }
+        }
+      }
+    },
+    "wire_count": 8,
+    "stock_query_count": 16,
+    "all_curves_match_pre_export_worktree_manifest": true,
+    "all_curves_unchanged_from_prior_native_query": true,
+    "all_wires_valid_single_solids": true,
+    "all_stock_intersections_empty": true,
+    "all_native_stock_gaps_positive": true,
+    "retained_wago_stock_query": {
+      "path": "hardware/wiring/installed/manifold-wago-shift-review.json",
+      "key": "combined_joint_stock_binding",
+      "wire_count": 14,
+      "all_fourteen_native_stock_intersections_empty": true,
+      "all_fourteen_native_stock_gaps_positive": true
+    },
+    "evidence_limits": [
+      "Actual motor tabs, landed Faston receptacles and display screw terminals remain explicitly unlocated. These are native proposed insulated-wire queries; they do not establish physical connector fit or installed dressing."
+    ]
+  },
+  "canonical_export_binding": {
+    "frame": "enclosure-world XYZ; bounds_xxyyzz_mm are x0,x1,y0,y1,z0,z1",
+    "printed_stock_sha256": {
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "7e67611867786c885d0257da76ec4592d6dee1e9d3dee5eb915517a7f0678362",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step": "bd394956fa09afd0985161b9e8ffb699a7083fe7066ff0fed76446c837fb089f"
+    },
+    "source_sha256": {
+      "hardware/wiring/installed/build.py": "28ba31fd5f3081c2073f4e25185173c05dbcb0f0c67a259d6c9ef0b955afc578",
+      "hardware/wiring/installed/connections.py": "11528d05f94efb932dd4b9eee07f01578a401fc8bf37ff9d9cab50b3bd058000",
+      "hardware/wiring/installed/model.py": "66f6a6ea2228d7a75bb9175f803c9b1c2b02ea05ac074b5da160e66a6722cfac",
+      "hardware/wiring/installed/terminals.py": "485ef865f493e321958309bdbf3527ae57adb91ae864d5b924ddaed5d56edf99",
+      "hardware/wiring/installed/routes.py": "25a614a784977ba733ffb64962bedec8b4e81b1bf8ce7ff1e3d9873d3b7b7ec3",
+      "hardware/wiring/installed/route-overrides.json": "36538dc365902ce2ea3c91e5d2d1f27aa1da745e66b8b55a45417b6990780447",
+      "hardware/wiring/installed/terminations.py": "3ce8d897dc7b2266bae24bfcbfc4210c96f584ffb044f57b17b503719d2ac7e6",
+      "hardware/wiring/installed/step_merge.py": "9766a94b2b75fdb65342c5eb110dc7d68a15dbe8011b95dd6434b629921450db",
+      "hardware/wiring/installed/bundles.py": "e92f00001096f86fe485820a05b7ca912254d5dd6bcf8f5b1b928bfe8952c967",
+      "hardware/wiring/installed/bundle-routes.json": "a016b1d3f7e86cfe131eb512cad4181c5b0ad977c93bf9832741e3d7923696b7",
+      "hardware/wiring/installed/connector-map.json": "8986c0f9b7e7394d965af41546f90fd4425f8ccb98a6360db6bbff8ba64a2126",
+      "hardware/manifold-layout/above_core.py": "0ad87c7c252ab3cfe803c0f2a63a9374d06d0005591509031328ad6e3203988f",
+      "hardware/manifold-layout/above-core.json": "70de28e454278ad9676a14663dd97120ea7130c67e5e168ec1e69d7fba6b2fc6",
+      "hardware/manifold-layout/above_core_wiring.py": "ee4bef33f1ec046b0cf6a4aeb1483edb173cb51f618382698f7073ce68990b46",
+      "hardware/manifold-layout/enclosure-box.json": "3b8f760a0754d4cad939df7f8ceaf3047a35b3d8e707f602ea6b961548f4129e",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.py": "ff2f2cf9ea15a4eb64c8714e166b29bb712a7a5f6cb2c0f7d9c39a2ccdb930f0",
+      "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "21347fde35872ea40dabe95ffd801a8dde3fc25cfe6a504696983d5f34d462f9",
+      "hardware/printed-parts/cold-core/_above_core_mounts.py": "90a9f83c0ca9a96ba3ecabc8e336e51c8570e8cb76ceb81e58901e718fe883b1",
+      "hardware/printed-parts/cold-core/_cold_core_interface.py": "1e99589ad5f8a062acaa6d4f2957774e0f4c29695e3856955258862208ae3c63",
+      "hardware/assembly/harnesses/j2.json": "34ef4ac5c41910851100fd36a3f549b2028586440e250d0ebce949c8783c30a5",
+      "hardware/assembly/harnesses/j13.json": "ea324cc287dce7e8040ab8d3db355c8b6648cf9737dbd8e5598963eb33a2b7e1",
+      "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": "4b113913aafbb53d4e6f6f061558ae5ef5360982f5af71cc5afea59acaab274e"
+    },
+    "source_input_files_unchanged_during_query": true,
+    "resolver_module_paths": {
+      "enclosure": "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "routes": "hardware/wiring/installed/routes.py"
+    },
+    "query_manifest_sha256": "07a96f73113a8b0b4a9d7bfb6c4ebe069f065d0e98874c4774db1f765625acca",
+    "native_printed_parts": {
+      "front-top": {
+        "valid": true,
+        "solid_count": 1
+      },
+      "retainer": {
+        "valid": true,
+        "solid_count": 1
+      }
+    },
+    "method": "Resolve current worktree source curves from the actual pre-export worktree manifest terminals, compare exact segment hashes with retained native-query curves, sweep each full insulated conductor and query native minimum distance against the exact frozen emitted printed parts. A positive native gap certifies empty intersection; contacts also use native Boolean volume.",
+    "physical_acceptance_claimed": false,
+    "canonical_export": {
+      "canonical_manifest_sha256": "07a96f73113a8b0b4a9d7bfb6c4ebe069f065d0e98874c4774db1f765625acca",
+      "physical_base_sha256": "95987865c4fcb483b90aa4c03b70fcd79033827b3faa2869aba8b5b0290fb461",
+      "full_wired_aggregate_sha256": "b0cd9b9404cf3b16f0f7eec58f1ae368a12d54208aa2a3a83fdd8518becdc0d8",
+      "physical_base_method": "SHA256(step_merge.base_document(actual_final_aggregate_text).encode())",
+      "source_commit": "066964bbe5cdb6a43501e5dcae02de4ea93edfcc",
+      "manifest_source_entries_match_worktree_files": true,
+      "aggregate_path": "hardware/manifold-layout/enclosure-assembly.step",
+      "manifest_path": "hardware/wiring/enclosure-wiring.json",
+      "physical_base_definition": "step_merge.base_document excludes the marked installed-wiring block. Physical base and full wired aggregate identities are distinct.",
+      "native_aggregate_imported": false
+    },
+    "prior_c9_native_query_identity": {
+      "review_key": "combined_joint_stock_binding",
+      "front_top_sha256": "c9fdbec4545c13f265f8c2435d5399ae2e3dad7dc8e8f9c844d18966b77264c4",
+      "actual_query_manifest_sha256": "325d74f466997a55ff4f8301af98c6d840708bcdc6dc3a2b92147a56333f08bb"
+    },
+    "canonical_curve_hashes": {
+      "J13-AM2": "4aab72a4f3e1c869b8bf3df1dd764f5df58964f829c79ec186bd4ae1f3f90e40",
+      "J13-AM1": "a90cad339bf84aa851fa7b68cd29c267791de435d2b23ec402e4836492720f2d",
+      "J13-BM2": "36a7305d4534ab9d8df92647c7c0292654e540b1774e3f7224eb155851ac0f54",
+      "J13-BM1": "6459392519947f44b2f79defb07060a4923b60563e30e1e31a281b2e3de0e97c",
+      "J9-B": "71c38302a013e225bd25315b8a3cc7968e4be2826f9ce92c7d00af69496779e6",
+      "J9-A": "7a4a45de60ffad017a9417451aabadcdf3176da745c38b981b957b4e5a5b123e",
+      "J9-GND": "c45c44ad584ed146c20f8cdc7025acc018446405bb62b3e2f927ea18fb7c1301",
+      "J9-V12": "5b86d900717b1a03a7a6588709ec2d62ba771b0bf31fd45457f863917678698e",
+      "J1-COM": "5629a535689385e98186b36b7522420e8ba4b3c949a6909f5be280433fa48464",
+      "J1-positive-A": "2c441e439646d1d8e85da71b5c6875ba14a413bf24ea27a53ea3f5d27bd25d5a",
+      "J1-positive-B": "673f79e321f4ed8dcc27bf0fc9be66838b0d574d1528c9ae615b2df7a8baddd2",
+      "J1-positive-C": "fc0288204493cab52e8575a74320615a6cc003fea7781f44e057cbabb5ecd965",
+      "J1-positive-D": "7afbafde87a0bf399a5c2016af7e6ed836c3a2a71ce0760b5245500388aba97a",
+      "J1-positive-E": "091068332006bf66f63928acc5afe939a6f8d183dda62431dbb758adb45bd950",
+      "J1-positive-F": "4e00b9f9540b3e6d4c3ea3e5d7c4701dca36d8768dae08160f79e942b3b6f5d9",
+      "J1-positive-G": "f5b9327cc36f897d2b1b9eb603614d41b65031bbd704ac9d1e4d0a2c441fbfec",
+      "J1-positive-H": "a7fb4e3e7bcc6cbe83ff1c3ca64775ed81323e89c4d73f5234082aad4b9fd166",
+      "J2-COM": "7aaa27b8ab674366efebf2c947fad4dfe6a2ff144d22a53a01b56d5db45d31e3",
+      "J2-positive-I": "8ee2e61f4353e6acc91a3bb8e495f7c57f8d7b6623081418a655a9cab8dca18d",
+      "J2-positive-J": "76f540c22115563702a625d9204bfb724054102c020950542e739cda5108f019",
+      "J2-positive-fan": "93d6781929eec4ba688384e05378d317ca8996226ade26115b3261dfa8f6a8c9",
+      "J2-positive-K": "0c9d33d919def0bff55eb1c8f369e65c8a80312c1a9e8eb49003c165f41b4287"
+    },
+    "scope": "Fresh native queries of eight unchanged J13/J9 conductors against final7e676118 front-top and unchangedbd394956 retainer, with canonical export identities bound separately. Prior08cc and c9 actual-query inputs remain intact.",
+    "native_wire_comparisons": {
+      "J13-AM2": {
+        "segments_sha256": "4aab72a4f3e1c869b8bf3df1dd764f5df58964f829c79ec186bd4ae1f3f90e40",
+        "matches_canonical_manifest_curve": true,
+        "matches_prior_native_query_curve": true,
+        "stock": "ribbon22",
+        "insulation_od_mm": 1.7,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_xxyyzz_mm": [
+          -78.35012099648435,
+          57.075000100000025,
+          44.00899989999997,
+          245.05292012005037,
+          268.4,
+          284.85000010000005
+        ],
+        "stock_queries": {
+          "front-top": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 0.19999999999998863
+          },
+          "retainer": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 60.22599999999997
+          }
+        }
+      },
+      "J13-AM1": {
+        "segments_sha256": "a90cad339bf84aa851fa7b68cd29c267791de435d2b23ec402e4836492720f2d",
+        "matches_canonical_manifest_curve": true,
+        "matches_prior_native_query_curve": true,
+        "stock": "ribbon22",
+        "insulation_od_mm": 1.7,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_xxyyzz_mm": [
+          -78.34986699648434,
+          49.07500010000002,
+          43.0839999,
+          247.55292012005037,
+          268.4,
+          284.85000010000005
+        ],
+        "stock_queries": {
+          "front-top": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 0.19999999999998863
+          },
+          "retainer": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 60.22599999999997
+          }
+        }
+      },
+      "J13-BM2": {
+        "segments_sha256": "36a7305d4534ab9d8df92647c7c0292654e540b1774e3f7224eb155851ac0f54",
+        "matches_canonical_manifest_curve": true,
+        "matches_prior_native_query_curve": true,
+        "stock": "ribbon22",
+        "insulation_od_mm": 1.7,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_xxyyzz_mm": [
+          -78.34986699648437,
+          -0.07499989999999884,
+          43.0839999,
+          250.05292012005037,
+          268.4,
+          284.85000010000005
+        ],
+        "stock_queries": {
+          "front-top": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 0.19999999999998863
+          },
+          "retainer": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 60.22599999999997
+          }
+        }
+      },
+      "J13-BM1": {
+        "segments_sha256": "6459392519947f44b2f79defb07060a4923b60563e30e1e31a281b2e3de0e97c",
+        "matches_canonical_manifest_curve": true,
+        "matches_prior_native_query_curve": true,
+        "stock": "ribbon22",
+        "insulation_od_mm": 1.7,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_xxyyzz_mm": [
+          -78.34986699648434,
+          -1.9249998999999332,
+          44.008999899999985,
+          252.55292012005037,
+          268.4,
+          284.85000010000005
+        ],
+        "stock_queries": {
+          "front-top": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 0.19999999999998863
+          },
+          "retainer": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 60.22599999999997
+          }
+        }
+      },
+      "J9-B": {
+        "segments_sha256": "71c38302a013e225bd25315b8a3cc7968e4be2826f9ce92c7d00af69496779e6",
+        "matches_canonical_manifest_curve": true,
+        "matches_prior_native_query_curve": true,
+        "stock": "ribbon22",
+        "insulation_od_mm": 1.7,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_xxyyzz_mm": [
+          -17.050120996484367,
+          19.307018236065613,
+          58.489958067621856,
+          239.55292012005037,
+          268.4,
+          319.2008102870027
+        ],
+        "stock_queries": {
+          "front-top": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 1.7839727599198827
+          },
+          "retainer": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 69.22599999999997
+          }
+        }
+      },
+      "J9-A": {
+        "segments_sha256": "7a4a45de60ffad017a9417451aabadcdf3176da745c38b981b957b4e5a5b123e",
+        "matches_canonical_manifest_curve": true,
+        "matches_prior_native_query_curve": true,
+        "stock": "ribbon22",
+        "insulation_od_mm": 1.7,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_xxyyzz_mm": [
+          -17.050120996484363,
+          21.002977495450406,
+          58.489958067621835,
+          242.05292012005037,
+          268.4,
+          319.17784684067703
+        ],
+        "stock_queries": {
+          "front-top": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 3.0921203051149724
+          },
+          "retainer": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 69.22599999999997
+          }
+        }
+      },
+      "J9-GND": {
+        "segments_sha256": "c45c44ad584ed146c20f8cdc7025acc018446405bb62b3e2f927ea18fb7c1301",
+        "matches_canonical_manifest_curve": true,
+        "matches_prior_native_query_curve": true,
+        "stock": "ribbon22",
+        "insulation_od_mm": 1.7,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_xxyyzz_mm": [
+          -17.050120996484363,
+          22.84999920351564,
+          58.48995806762185,
+          244.55292012005037,
+          268.4,
+          319.1878960708507
+        ],
+        "stock_queries": {
+          "front-top": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 3.092120305114991
+          },
+          "retainer": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 69.22599999999997
+          }
+        }
+      },
+      "J9-V12": {
+        "segments_sha256": "5b86d900717b1a03a7a6588709ec2d62ba771b0bf31fd45457f863917678698e",
+        "matches_canonical_manifest_curve": true,
+        "matches_prior_native_query_curve": true,
+        "stock": "ribbon22",
+        "insulation_od_mm": 1.7,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_xxyyzz_mm": [
+          -17.049866996484365,
+          24.850003203515637,
+          58.48995806762185,
+          247.05292012005037,
+          268.4,
+          319.2299841165016
+        ],
+        "stock_queries": {
+          "front-top": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 1.783972759919873
+          },
+          "retainer": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 69.22599999999997
+          }
+        }
+      }
+    },
+    "wire_count": 8,
+    "stock_query_count": 16,
+    "all_curves_match_canonical_manifest": true,
+    "all_curves_unchanged_from_prior_native_query": true,
+    "all_wires_valid_single_solids": true,
+    "all_stock_intersections_empty": true,
+    "all_native_stock_gaps_positive": true,
+    "retained_wago_stock_query": {
+      "path": "hardware/wiring/installed/manifold-wago-shift-review.json",
+      "key": "canonical_export_binding",
+      "wire_count": 14,
+      "all_fourteen_native_stock_intersections_empty": true,
+      "all_fourteen_native_stock_gaps_positive": true
+    },
+    "evidence_limits": [
+      "Actual motor tabs, landed Faston receptacles and display screw terminals remain explicitly unlocated. These are native proposed insulated-wire queries; they do not establish physical connector fit or installed dressing."
+    ]
+  },
+  "headcorner_native_query_binding": {
+    "frame": "enclosure-world XYZ; bounds_xxyyzz_mm are x0,x1,y0,y1,z0,z1",
+    "printed_stock_sha256": {
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "6120cf946a471c4cbe44e6edc191978ab97a0c3204767c96577fd240da85614d",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step": "bd394956fa09afd0985161b9e8ffb699a7083fe7066ff0fed76446c837fb089f"
+    },
+    "source_sha256": {
+      "hardware/wiring/installed/build.py": "28ba31fd5f3081c2073f4e25185173c05dbcb0f0c67a259d6c9ef0b955afc578",
+      "hardware/wiring/installed/connections.py": "11528d05f94efb932dd4b9eee07f01578a401fc8bf37ff9d9cab50b3bd058000",
+      "hardware/wiring/installed/model.py": "66f6a6ea2228d7a75bb9175f803c9b1c2b02ea05ac074b5da160e66a6722cfac",
+      "hardware/wiring/installed/terminals.py": "485ef865f493e321958309bdbf3527ae57adb91ae864d5b924ddaed5d56edf99",
+      "hardware/wiring/installed/routes.py": "25a614a784977ba733ffb64962bedec8b4e81b1bf8ce7ff1e3d9873d3b7b7ec3",
+      "hardware/wiring/installed/route-overrides.json": "36538dc365902ce2ea3c91e5d2d1f27aa1da745e66b8b55a45417b6990780447",
+      "hardware/wiring/installed/terminations.py": "3ce8d897dc7b2266bae24bfcbfc4210c96f584ffb044f57b17b503719d2ac7e6",
+      "hardware/wiring/installed/step_merge.py": "9766a94b2b75fdb65342c5eb110dc7d68a15dbe8011b95dd6434b629921450db",
+      "hardware/wiring/installed/bundles.py": "e92f00001096f86fe485820a05b7ca912254d5dd6bcf8f5b1b928bfe8952c967",
+      "hardware/wiring/installed/bundle-routes.json": "a016b1d3f7e86cfe131eb512cad4181c5b0ad977c93bf9832741e3d7923696b7",
+      "hardware/wiring/installed/connector-map.json": "8986c0f9b7e7394d965af41546f90fd4425f8ccb98a6360db6bbff8ba64a2126",
+      "hardware/manifold-layout/above_core.py": "0ad87c7c252ab3cfe803c0f2a63a9374d06d0005591509031328ad6e3203988f",
+      "hardware/manifold-layout/above-core.json": "70de28e454278ad9676a14663dd97120ea7130c67e5e168ec1e69d7fba6b2fc6",
+      "hardware/manifold-layout/above_core_wiring.py": "ee4bef33f1ec046b0cf6a4aeb1483edb173cb51f618382698f7073ce68990b46",
+      "hardware/manifold-layout/enclosure-box.json": "3b8f760a0754d4cad939df7f8ceaf3047a35b3d8e707f602ea6b961548f4129e",
+      "hardware/printed-parts/enclosure/enclosure/enclosure.py": "23cad59b9f87abf10b16dd034844562116fc5ebaa9b35677b66e6924e2c4339c",
+      "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "21347fde35872ea40dabe95ffd801a8dde3fc25cfe6a504696983d5f34d462f9",
+      "hardware/printed-parts/cold-core/_above_core_mounts.py": "90a9f83c0ca9a96ba3ecabc8e336e51c8570e8cb76ceb81e58901e718fe883b1",
+      "hardware/printed-parts/cold-core/_cold_core_interface.py": "1e99589ad5f8a062acaa6d4f2957774e0f4c29695e3856955258862208ae3c63",
+      "hardware/assembly/harnesses/j2.json": "34ef4ac5c41910851100fd36a3f549b2028586440e250d0ebce949c8783c30a5",
+      "hardware/assembly/harnesses/j13.json": "ea324cc287dce7e8040ab8d3db355c8b6648cf9737dbd8e5598963eb33a2b7e1",
+      "hardware/printed-parts/enclosure/pump-tray/pump_tray.py": "4b113913aafbb53d4e6f6f061558ae5ef5360982f5af71cc5afea59acaab274e"
+    },
+    "source_input_files_unchanged_during_query": true,
+    "resolver_module_paths": {
+      "enclosure": "hardware/printed-parts/enclosure/enclosure/enclosure.py",
+      "routes": "hardware/wiring/installed/routes.py"
+    },
+    "actual_query_manifest_sha256": "c02a069f1dc1b520c5628ee82ca26ca6f0d359a223e97414aa11f164fa2333e9",
+    "native_printed_parts": {
+      "front-top": {
+        "valid": true,
+        "solid_count": 1
+      },
+      "retainer": {
+        "valid": true,
+        "solid_count": 1
+      }
+    },
+    "method": "Resolve current worktree source curves from the actual pre-export worktree manifest terminals, compare exact segment hashes with retained native-query curves, sweep each full insulated conductor and query native minimum distance against the exact frozen emitted printed parts. A positive native gap certifies empty intersection; contacts also use native Boolean volume.",
+    "physical_acceptance_claimed": false,
+    "query_manifest_physical_base_sha256": "d3eafc969317b84f6a86d5afcf66de38279e432f262d317c5fc0bc357d3d26f2",
+    "query_snapshot_scope": "Actual manifest snapshot used for terminal/route inputs at native-query time; final successor export binding is a separate record.",
+    "prior_7e_native_query_identity": {
+      "review_key": "canonical_export_binding",
+      "front_top_sha256": "7e67611867786c885d0257da76ec4592d6dee1e9d3dee5eb915517a7f0678362",
+      "actual_query_manifest_sha256": "07a96f73113a8b0b4a9d7bfb6c4ebe069f065d0e98874c4774db1f765625acca"
+    },
+    "copied_input_freeze": {
+      "path": "/tmp/pump-final-6120-freeze.json",
+      "sha256": "d31f9f84802f5a72348918aa41143a33c1cd93d4fb049057dc95a2b47ce97b8e"
+    },
+    "scope": "Fresh native queries of eight unchanged J13/J9 conductors against front-top6120cf94 and unchanged retainerbd394956. Earlier native-query scopes remain intact.",
+    "native_wire_comparisons": {
+      "J13-AM2": {
+        "segments_sha256": "4aab72a4f3e1c869b8bf3df1dd764f5df58964f829c79ec186bd4ae1f3f90e40",
+        "matches_query_manifest_curve": true,
+        "matches_prior_native_query_curve": true,
+        "stock": "ribbon22",
+        "insulation_od_mm": 1.7,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_xxyyzz_mm": [
+          -78.35012099648435,
+          57.075000100000025,
+          44.00899989999997,
+          245.05292012005037,
+          268.4,
+          284.85000010000005
+        ],
+        "stock_queries": {
+          "front-top": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 0.19999999999998863
+          },
+          "retainer": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 60.22599999999997
+          }
+        }
+      },
+      "J13-AM1": {
+        "segments_sha256": "a90cad339bf84aa851fa7b68cd29c267791de435d2b23ec402e4836492720f2d",
+        "matches_query_manifest_curve": true,
+        "matches_prior_native_query_curve": true,
+        "stock": "ribbon22",
+        "insulation_od_mm": 1.7,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_xxyyzz_mm": [
+          -78.34986699648434,
+          49.07500010000002,
+          43.0839999,
+          247.55292012005037,
+          268.4,
+          284.85000010000005
+        ],
+        "stock_queries": {
+          "front-top": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 0.19999999999998863
+          },
+          "retainer": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 60.22599999999997
+          }
+        }
+      },
+      "J13-BM2": {
+        "segments_sha256": "36a7305d4534ab9d8df92647c7c0292654e540b1774e3f7224eb155851ac0f54",
+        "matches_query_manifest_curve": true,
+        "matches_prior_native_query_curve": true,
+        "stock": "ribbon22",
+        "insulation_od_mm": 1.7,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_xxyyzz_mm": [
+          -78.34986699648437,
+          -0.07499989999999884,
+          43.0839999,
+          250.05292012005037,
+          268.4,
+          284.85000010000005
+        ],
+        "stock_queries": {
+          "front-top": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 0.19999999999998863
+          },
+          "retainer": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 60.22599999999997
+          }
+        }
+      },
+      "J13-BM1": {
+        "segments_sha256": "6459392519947f44b2f79defb07060a4923b60563e30e1e31a281b2e3de0e97c",
+        "matches_query_manifest_curve": true,
+        "matches_prior_native_query_curve": true,
+        "stock": "ribbon22",
+        "insulation_od_mm": 1.7,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_xxyyzz_mm": [
+          -78.34986699648434,
+          -1.9249998999999332,
+          44.008999899999985,
+          252.55292012005037,
+          268.4,
+          284.85000010000005
+        ],
+        "stock_queries": {
+          "front-top": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 0.19999999999998863
+          },
+          "retainer": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 60.22599999999997
+          }
+        }
+      },
+      "J9-B": {
+        "segments_sha256": "71c38302a013e225bd25315b8a3cc7968e4be2826f9ce92c7d00af69496779e6",
+        "matches_query_manifest_curve": true,
+        "matches_prior_native_query_curve": true,
+        "stock": "ribbon22",
+        "insulation_od_mm": 1.7,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_xxyyzz_mm": [
+          -17.050120996484367,
+          19.307018236065613,
+          58.489958067621856,
+          239.55292012005037,
+          268.4,
+          319.2008102870027
+        ],
+        "stock_queries": {
+          "front-top": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 1.7839727599198827
+          },
+          "retainer": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 69.22599999999997
+          }
+        }
+      },
+      "J9-A": {
+        "segments_sha256": "7a4a45de60ffad017a9417451aabadcdf3176da745c38b981b957b4e5a5b123e",
+        "matches_query_manifest_curve": true,
+        "matches_prior_native_query_curve": true,
+        "stock": "ribbon22",
+        "insulation_od_mm": 1.7,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_xxyyzz_mm": [
+          -17.050120996484363,
+          21.002977495450406,
+          58.489958067621835,
+          242.05292012005037,
+          268.4,
+          319.17784684067703
+        ],
+        "stock_queries": {
+          "front-top": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 3.0921203051149724
+          },
+          "retainer": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 69.22599999999997
+          }
+        }
+      },
+      "J9-GND": {
+        "segments_sha256": "c45c44ad584ed146c20f8cdc7025acc018446405bb62b3e2f927ea18fb7c1301",
+        "matches_query_manifest_curve": true,
+        "matches_prior_native_query_curve": true,
+        "stock": "ribbon22",
+        "insulation_od_mm": 1.7,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_xxyyzz_mm": [
+          -17.050120996484363,
+          22.84999920351564,
+          58.48995806762185,
+          244.55292012005037,
+          268.4,
+          319.1878960708507
+        ],
+        "stock_queries": {
+          "front-top": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 3.092120305114991
+          },
+          "retainer": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 69.22599999999997
+          }
+        }
+      },
+      "J9-V12": {
+        "segments_sha256": "5b86d900717b1a03a7a6588709ec2d62ba771b0bf31fd45457f863917678698e",
+        "matches_query_manifest_curve": true,
+        "matches_prior_native_query_curve": true,
+        "stock": "ribbon22",
+        "insulation_od_mm": 1.7,
+        "valid": true,
+        "solid_count": 1,
+        "bounds_xxyyzz_mm": [
+          -17.049866996484365,
+          24.850003203515637,
+          58.48995806762185,
+          247.05292012005037,
+          268.4,
+          319.2299841165016
+        ],
+        "stock_queries": {
+          "front-top": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 1.783972759919873
+          },
+          "retainer": {
+            "common_mm3": 0.0,
+            "minimum_distance_mm": 69.22599999999997
+          }
+        }
+      }
+    },
+    "wire_count": 8,
+    "stock_query_count": 16,
+    "all_curves_match_query_manifest": true,
+    "all_curves_unchanged_from_prior_native_query": true,
+    "all_wires_valid_single_solids": true,
+    "all_stock_intersections_empty": true,
+    "all_native_stock_gaps_positive": true,
+    "retained_wago_stock_query": {
+      "path": "hardware/wiring/installed/manifold-wago-shift-review.json",
+      "key": "headcorner_native_query_binding",
+      "wire_count": 14,
+      "all_fourteen_native_stock_intersections_empty": true,
+      "all_fourteen_native_stock_gaps_positive": true
+    },
+    "evidence_limits": [
+      "Actual motor tabs, landed Faston receptacles and display screw terminals remain explicitly unlocated. These are native proposed insulated-wire queries; they do not establish physical connector fit or installed dressing."
+    ]
+  },
+  "headcorner_canonical_export_binding": {
+    "scope": "Final canonical export identity and exact curve binding to the actual6120 native stock queries. All earlier native-query input identities and results remain unchanged.",
+    "canonical_export_commit": "b8cae0ae504a8cb5a678e5bcf53d8a1d66e2ec14",
+    "canonical_export_pointer_sha256": "ab8e279f985997fe2c549120889010bdee2dd8763f905a1c8316f3f862f73391",
+    "canonical_manifest": {
+      "path": "hardware/wiring/enclosure-wiring.json",
+      "sha256": "e3501ed442bb80617fa70b782f697efc2abec4d7aa819d78db42752a3abda5d6",
+      "physical_scene_sha256": "38df54a8a9e77ddb10d89e4bf8bbb41cf5e7fb685c3f80448f69ed47480939bf"
+    },
+    "full_wired_aggregate": {
+      "path": "hardware/manifold-layout/enclosure-assembly.step",
+      "sha256": "8f7ed84025d4f09dc4cd2b659f90c4b69d0307c10a0b0ea763178c4fef0e490e"
+    },
+    "physical_base": {
+      "sha256": "38df54a8a9e77ddb10d89e4bf8bbb41cf5e7fb685c3f80448f69ed47480939bf",
+      "method": "SHA256(step_merge.base_document(actual_final_aggregate_text).encode()); the marked installed-wiring block is excluded."
+    },
+    "printed_stock_sha256": {
+      "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "6120cf946a471c4cbe44e6edc191978ab97a0c3204767c96577fd240da85614d",
+      "hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step": "bd394956fa09afd0985161b9e8ffb699a7083fe7066ff0fed76446c837fb089f"
+    },
+    "native_query_record_key": "headcorner_native_query_binding",
+    "actual_native_query_manifest_sha256": "c02a069f1dc1b520c5628ee82ca26ca6f0d359a223e97414aa11f164fa2333e9",
+    "actual_native_query_manifest_physical_base_sha256": "d3eafc969317b84f6a86d5afcf66de38279e432f262d317c5fc0bc357d3d26f2",
+    "canonical_curve_comparisons": {
+      "J13-AM2": {
+        "native_query_segments_sha256": "4aab72a4f3e1c869b8bf3df1dd764f5df58964f829c79ec186bd4ae1f3f90e40",
+        "canonical_segments_sha256": "4aab72a4f3e1c869b8bf3df1dd764f5df58964f829c79ec186bd4ae1f3f90e40",
+        "identical": true
+      },
+      "J13-AM1": {
+        "native_query_segments_sha256": "a90cad339bf84aa851fa7b68cd29c267791de435d2b23ec402e4836492720f2d",
+        "canonical_segments_sha256": "a90cad339bf84aa851fa7b68cd29c267791de435d2b23ec402e4836492720f2d",
+        "identical": true
+      },
+      "J13-BM2": {
+        "native_query_segments_sha256": "36a7305d4534ab9d8df92647c7c0292654e540b1774e3f7224eb155851ac0f54",
+        "canonical_segments_sha256": "36a7305d4534ab9d8df92647c7c0292654e540b1774e3f7224eb155851ac0f54",
+        "identical": true
+      },
+      "J13-BM1": {
+        "native_query_segments_sha256": "6459392519947f44b2f79defb07060a4923b60563e30e1e31a281b2e3de0e97c",
+        "canonical_segments_sha256": "6459392519947f44b2f79defb07060a4923b60563e30e1e31a281b2e3de0e97c",
+        "identical": true
+      },
+      "J9-B": {
+        "native_query_segments_sha256": "71c38302a013e225bd25315b8a3cc7968e4be2826f9ce92c7d00af69496779e6",
+        "canonical_segments_sha256": "71c38302a013e225bd25315b8a3cc7968e4be2826f9ce92c7d00af69496779e6",
+        "identical": true
+      },
+      "J9-A": {
+        "native_query_segments_sha256": "7a4a45de60ffad017a9417451aabadcdf3176da745c38b981b957b4e5a5b123e",
+        "canonical_segments_sha256": "7a4a45de60ffad017a9417451aabadcdf3176da745c38b981b957b4e5a5b123e",
+        "identical": true
+      },
+      "J9-GND": {
+        "native_query_segments_sha256": "c45c44ad584ed146c20f8cdc7025acc018446405bb62b3e2f927ea18fb7c1301",
+        "canonical_segments_sha256": "c45c44ad584ed146c20f8cdc7025acc018446405bb62b3e2f927ea18fb7c1301",
+        "identical": true
+      },
+      "J9-V12": {
+        "native_query_segments_sha256": "5b86d900717b1a03a7a6588709ec2d62ba771b0bf31fd45457f863917678698e",
+        "canonical_segments_sha256": "5b86d900717b1a03a7a6588709ec2d62ba771b0bf31fd45457f863917678698e",
+        "identical": true
+      }
+    },
+    "all_canonical_curves_identical_to_actual_native_query": true,
+    "all_canonical_manifest_source_entries_match_worktree": true,
+    "all_native_query_source_files_unchanged": true,
+    "native_query_stock_intersections_empty": true,
+    "native_query_stock_gaps_positive": true,
+    "native_aggregate_imported": false,
+    "physical_acceptance_claimed": false
+  },
+  "current_export_binding": "headcorner_canonical_export_binding"
 }

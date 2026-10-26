@@ -1,4 +1,4 @@
-[sliver] Set aside by Derek, not accepted: these six faces bound the 1.35 mm pockets the outer fore valves' coil yokes need in the flank. Flattening the flank needs those valves 1.35 mm inboard, which puts their upper tubes, or with the tees moved their pump tubes, 1.35 mm off straight and pushing on the tee and cartridge. Derek: "I don't love it. But it's not the highest priority problem."
+[sliver] Set aside by Derek, not accepted: these six faces bound the 1.35 mm pockets the outer fore valves' coil yokes need in the flank. Flattening the flank needs those valves 1.35 mm inboard, which puts their upper tubes, or with the tees moved their pump tubes, 1.35 mm off straight and pushing on the tee and pump. Derek: "I don't love it. But it's not the highest priority problem."
 alternatives: Move the outer fore valves 1.35 mm inboard and accept the bent upper tube, or move valve and tee together and accept the bent pump tube. Thinning the whole flank to the pocket floor drags the seam-rail and funnel-frame grooves outboard.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=-99.175 y=153.902 z=253.100
@@ -8,19 +8,21 @@ click: x=99.175 y=120.290 z=253.100
 click: x=-99.175 y=137.096 z=235.811
 click: x=99.175 y=136.961 z=235.811
 
-[ceiling] The complete bay roof at Z284.674 is the lintel the pump cradle and its clamp slide in under at the factory, below the display/ridge storey. Support is accessible through the empty front bay before assembly. Its nominal opening is retained; physical support removal remains unqualified.
-alternatives: Filling beneath the roof enters the cradle's insertion path. Sloping its full width changes the required bay opening and lintel section.
+[ceiling] Specified supported pump-capture faces: the broad fixed block starts at the flange-bearing datum Z215.074, and the two fitted boss shoulders end at Z236.074. These planes have the supported-face allowance and close the pump capture when the underside retainer is tightened. The block continues upward into the housing. The native print reading identifies support access through the unloaded pump opening and motor bores before hardware installation; physical cleanup and bearing finish remain unqualified.
+alternatives: Filling the pump openings occupies the motor-first loading envelope. Sloping the entire underside removes the stated bearing datums. Retaining only the contact lands and adding separate ramps around them changes the approved plain broad block into additional outer boundaries.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=0.000 y=43.757 z=284.674
+click: x=0.000 y=48.257 z=215.074
+click: x=-52.225 y=44.859 z=236.074
+click: x=52.225 y=44.859 z=236.074
 
 [ceiling] Functional retention faces with stated support: each is the roof of a Wago pocket in the east manifold tower, Z258.15 over the 221-415 and Z292.05 over the 221-420, and holds the connector's end in its closed pocket. Under front-top's recipe (`max_bridge_length` 0) Tree(auto) carries each roof on support that enters through the pocket's open inboard face, and that support comes out the same way before the connector goes in. Removal effort remains unqualified.
 alternatives: A roof rising 45 degrees toward the open face, or the side wells' two-tab lid with its 45-degree ramp, needs the tower about 6.5 mm taller over the 221-420 and gives up the flat capture across the connector's end. A gable cannot fit in the 3.8 mm between the two stacked pockets. A longer bridge length in front-top's recipe would print both roofs as bridges, but it changes every other bridge on the piece.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=99.775 y=169.000 z=258.150
-click: x=99.775 y=169.000 z=292.050
+click: x=99.775 y=173.450 z=258.150
+click: x=99.775 y=177.150 z=292.050
 
 [thin] Accepted wing-retention lips: each reading is the 1.80 mm lip over one of the display cover's wings (3.84 - 1.44 - 0.60), which the accepted face-up cover needs: display-cover/face-up-trial records its 3.30 mm capture and the receiver passed the 2026-09-30 shake test.
-alternatives: A thicker lip needs a deeper inset (cover below flush), thinner wings or less wing air, each a change to the accepted fit; the exits stay world-vertical so supports leave into the display storey.
+alternatives: A thicker lip needs a deeper inset (cover below flush), thinner wings or less wing air, each a change to the accepted fit; the canonical wing lanes connect through two lower 69.3 by 4.96 mm cleanout mouths into the empty PCB room. Physical support-removal effort remains unqualified.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
 click: x=66.890 y=19.433 z=311.879
 click: x=-66.890 y=19.433 z=311.879
@@ -29,8 +31,20 @@ click: x=-66.517 y=19.269 z=311.784
 [thin] Approved by Derek as drawn: each reading is the wall a flute groove leaves on a 3 mm section. The 1.2 mm groove (`flute_depth`) leaves 1.8 mm between its floor and the inner face (enclosure README, Nothing may relieve into the outermost 3 mm of a fluted face), on front-top's flanks, two of them where the east manifold tower's Wago pockets bottom on the flank's 3 mm outer wall. Derek, 2026-10-21: "The flute grooves on 3mm walls is good with me and approved by me."
 alternatives: A 4.2 mm wall keeps 3 mm under every groove and takes 1.2 mm more of the room inside each flank; a shallower groove changes the texture the corner coupon set.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
-click: x=106.300 y=169.048 z=283.700
-click: x=104.500 y=169.048 z=254.648
+click: x=106.301 y=183.842 z=291.282
+click: x=104.500 y=173.903 z=245.785
+click: x=-104.500 y=50.644 z=171.681
+click: x=104.500 y=50.644 z=171.681
+
+[ledge] Specified blind M3 fastener bores: the Ø4 mm RX-M3 insert pilots end at Z221.774 and meet Ø3.3 mm screw-tip reliefs ending at Z229.195. The annular transitions separate the insert installation envelope from the smaller steel-screw clearance; the closed ends preserve the blind root above the screw tips. Their native support branches are reached axially through the open pilots before installing inserts. Physical cleanup and root capacity remain unqualified.
+alternatives: Extending Ø4 mm to the tip removes the annular steps but enlarges the closed tip ceilings and removes more host section. A through bore removes the closed root. A sloping tip roof needs additional height beyond the specified full-diameter screw-tip relief and a corresponding change to the closed backing and dense-host region.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step
+click: x=-0.190 y=47.615 z=221.774
+click: x=-93.670 y=46.435 z=221.774
+click: x=90.330 y=46.435 z=221.774
+click: x=-0.181 y=45.498 z=229.195
+click: x=-92.354 y=45.438 z=229.195
+click: x=91.646 y=45.438 z=229.195
 
 [slope] Wrong slope classification for the upper M5 passage relief: this is the ramped roof inside a 5.6 mm wide slot, with its two rising edges carried by the opposed slot walls. The classifier tests one adjacent wall and reports a sideways corbel; its grouped click is the mean of the mirrored roofs, not a physical point at X0. Retain Tree(auto)/Default in a fresh native preparation; this reading does not qualify bridge finish or support removal.
 alternatives: A level slot roof creates a flat ceiling. A gable running across the slot meets the 45-degree knuckle face along a V and restores a thin ridge. Filling the slot restores the bore-to-face knife edge.
