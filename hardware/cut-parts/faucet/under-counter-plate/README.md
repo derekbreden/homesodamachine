@@ -10,6 +10,15 @@ file: one closed outline, native lines/arcs, millimetres (`$INSUNITS=4`).
 [under_counter_plate.py](under_counter_plate.py) derives the rear opening
 from the same interface used by the faucet, rigid plate and TPU gasket.
 
+[Finished plate engineering drawing](under-counter-plate-drawing.pdf)
+(FCT-PLT-01, Rev A) defines the production profile in the DXF coordinate frame,
+channel widths and cap centers, thickness and finished edge requirements.
+Linear dimensions are ±0.13 mm unless specified; stock thickness is
+1.52 ±0.13 mm. The finished plate has a 0.10 mm maximum edge break and a
+0.25 mm maximum free-state gap on a flat inspection surface.
+[under_counter_plate_drawing.py](under_counter_plate_drawing.py) generates
+the sheet from the production outline and shared interface dimensions.
+
 | Feature | Dimension |
 |---|---|
 | Circular bearing outline | Ø54.55 mm, world center (0, 3.275) |
