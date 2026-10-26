@@ -13,17 +13,17 @@
     "FRONT_WALL": "9 mm",
     "GROMMET_SQUEEZE": "0.4",
     "LIP_UNDERWALL": "6 mm",
-    "LOWER_ROD": "M5 \u00d7 120",
+    "LOWER_ROD": "M5 \u00d7 100",
     "RAIL_TRAVEL_FRONT": "97.66 mm",
     "REAR_SEAM_CLEAR": "3 mm",
     "SIDE_BAND": "14 mm",
-    "UPPER_ROD": "M5 \u00d7 50",
+    "UPPER_ROD": "M5 \u00d7 100",
     "WALL_T": "3 mm",
     "Y_OVERLAP": "17.8 mm",
     "Y_SEAM": "200",
     "Y_STACK_CLEARANCE": "\u00d85.6",
     "Y_STACK_FRONT_ROOT": "3 mm",
-    "Y_STACK_UPPER_FLOOR": "281.4",
+    "Y_STACK_UPPER_FLOOR": "231.3",
     "Z_SEAM_FRONT": "160"
   }
 }

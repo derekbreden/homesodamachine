@@ -12,6 +12,7 @@ or an assembly.
     tools/cad-venv/bin/python hardware/scripts/materialize_pump_cartridge.py --pieces pump-retainer
     tools/cad-venv/bin/python hardware/scripts/materialize_pump_cartridge.py --pieces pump-retainer front-top
     tools/cad-venv/bin/python hardware/scripts/materialize_pump_cartridge.py --pieces back-top
+    tools/cad-venv/bin/python hardware/scripts/materialize_pump_cartridge.py --pieces front-bottom back-bottom front-top back-top
 
 All three siblings are completed in a temporary directory and seated only after the printed STL
 has passed the ordinary producer's own slicer-facing reading.  They seat STEP, STL, then payload:
@@ -78,13 +79,13 @@ def _declared_box(box_spec, enc):
 
 # The retainer has smooth functional faces; quadrant show faces take the outer flutes.
 DEFAULT_PIECES = ("pump-retainer", "front-top")
-PIECES = (*DEFAULT_PIECES, "back-top")
+PIECES = (*DEFAULT_PIECES, "back-top", "front-bottom", "back-bottom")
 
 
 def _builder(enc, name):
     if name == "pump-retainer":
         return enc.build_pump_retainer, lambda box: []
-    if name in ("front-top", "back-top"):
+    if name in ("front-top", "back-top", "front-bottom", "back-bottom"):
         def rails(box):
             # The ordinary producer's shadow bodies, read from retained STEP
             # exports; changing one bay part never rebuilds the other quadrants.
@@ -94,7 +95,8 @@ def _builder(enc, name):
             if box.pack.collet_plate:
                 berthed.append(enc._piece_mesh(enc._collet_plate_body(box.pack.collet_plate)))
             return enc.flute_rails(box, berthed)
-        return lambda box: enc.build_piece(box, name.split("-")[0], "top"), rails
+        column, level = name.split("-")
+        return lambda box: enc.build_piece(box, column, level), rails
     raise ValueError(f"{name!r} is not supported; this path stands {PIECES}")
 
 

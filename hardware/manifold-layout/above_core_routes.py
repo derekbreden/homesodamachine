@@ -104,6 +104,19 @@ def _rounded(points, radius):
     return segments
 
 
+def _lane_transition(start, displacement, radius):
+    """Two opposite circular bends between parallel +Y lanes in an X/Z plane."""
+    distance = _norm(displacement)
+    direction = _mul(displacement, 1. / distance)
+    angle = math.acos(1. - distance / (2. * radius))
+    axis = _cross((0., 1., 0.), direction)
+    first, point = _arc(start, (0., 1., 0.), axis, angle, radius)
+    tangent = _add(_mul((0., 1., 0.), math.cos(angle)),
+                   _mul(direction, math.sin(angle)))
+    second, point = _arc(point, tangent, _mul(axis, -1.), angle, radius)
+    return [first, second], point
+
+
 def _points(segments):
     result = []
     for segment in segments:
@@ -257,8 +270,8 @@ def route_specifications(station):
           note='Concealed 32.591 mm tube joins the coincident meter and rear-stem collet faces')
 
     # Both dispense lines retain R25 and their three-dimensional rear returns.
-    # Their west overpasses clear V-A below the rear frame receiver, outside
-    # the removable frame's lower body and the connector service paths.
+    # Their west lanes pass inboard of the enclosed M5x100 corner stack. A returns
+    # outboard before its rise; B returns in two stages to keep the rises apart.
     flavor_a = station('bulkhead-flavor-a', 'tube-in')[0]
     r = 25.
     diagonal = math.sqrt(.5)
@@ -267,13 +280,18 @@ def route_specifications(station):
     hairpin_height = 337.75
     hairpin_start = (start_a[0]-r, start_a[1], hairpin_height)
     hairpin, hairpin_end = _arc(hairpin_start, (1., 0., 0.), (0., 1., 0.), math.pi/2, r)
+    a_lane = (-87., 220., 286.5)
+    a_bends, a_point = _lane_transition(a_lane, (-7., 0., 0.), r)
+    a_rise, a_point = _lane_transition(a_point, (0., 0., 45.), r)
+    a_tail = _rounded([a_point, (-94., 310., 331.5), (-40., 350., 331.5),
+                       (-40., 380., hairpin_height),
+                       (-40., start_a[1], hairpin_height), hairpin_start], r)
     route('fluid-18', ('valve-v-g', 'outlet'), ('bulkhead-flavor-a', 'tube-in'),
           [(73.82, 166.24, 292.), (35., 135., 289.), (-68., 135., 289.),
-           (-94., 205., 281.5), (-94., 245., 281.5), (-94., 245., 331.5),
-           (-94., 300., 331.5), (-40., 340., 331.5),
-           (-40., 380., hairpin_height), (-40., start_a[1], hairpin_height), hairpin_start],
+           (-87., 198., 286.5), a_lane],
           radius=r, spool='flavor-black-4mm', od=4., inside=2.5, source_depth=10.,
-          destination_depth=10., suffix=[hairpin, _line(hairpin_end, start_a), arc_a])
+          destination_depth=10.,
+          suffix=[*a_bends, *a_rise, *a_tail, hairpin, _line(hairpin_end, start_a), arc_a])
 
     flavor_b = station('bulkhead-flavor-b', 'tube-in')[0]
     # R25 and the port fix the drop's Y from its X. Moving the drop east takes it aft, off
@@ -287,13 +305,16 @@ def route_specifications(station):
     arc_b, _ = _arc(b_lower_end, (b_east, b_aft, 0.), (0., 0., 1.), math.pi/2-b_heading, r)
     b_curve_start = (b_drop_x-r, b_drop_y, 343.)
     b_upper, b_upper_end = _arc(b_curve_start, (1., 0., 0.), (0., 1., 0.), math.pi/2, r)
+    b_lane = (-85.5, 232., 281.)
+    b_rise, b_point = _lane_transition(b_lane, (-3., 0., 45.), r)
+    b_bends, b_point = _lane_transition(b_point, (-5.5, 0., 0.), r)
+    b_tail = _rounded([b_point, (-94., 325., 326.), (-59., 350., 343.),
+                       (-59., b_drop_y, 343.), b_curve_start], r)
     route('fluid-28', ('valve-v-j', 'outlet'), ('bulkhead-flavor-b', 'tube-in'),
-          [(-73.82, 166.24, 283.), (-94., 210., 276.), (-94., 260., 276.),
-           (-94., 260., 326.), (-94., 310., 326.), (-59., 330., 343.),
-           (-59., 380., 343.), (-59., b_drop_y, 343.), b_curve_start],
+          [(-73.82, 166.24, 283.), (-85.5, 210., 281.), b_lane],
           radius=r, spool='flavor-black-4mm', od=4., inside=2.5,
           source_depth=10., destination_depth=10.,
-          suffix=[b_upper, _line(b_upper_end, start_b), b_lower, arc_b])
+          suffix=[*b_rise, *b_bends, *b_tail, b_upper, _line(b_upper_end, start_b), b_lower, arc_b])
 
     # Vent travels above the dry electronics and drops aft of the motor.
     vent = station('bulkhead-drain', 'inboard')[0]

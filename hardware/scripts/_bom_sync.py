@@ -317,8 +317,6 @@ assert not _display_stack, (
 # the roof into front-top's. The Z seams retain their sliding hooked rails.
 _seam_rods = _enc.y_stack_rods(_f.box["inner"])
 enclosure_seam_rods_per_build = 2 * len(_seam_rods)
-enclosure_seam_long_rods_per_build = 2 * sum(1 for r in _seam_rods if r[0] == "lower")
-enclosure_seam_short_rods_per_build = 2 * sum(1 for r in _seam_rods if r[0] == "upper")
 enclosure_seam_inserts_per_build = enclosure_seam_rods_per_build
 
 # The drop-in funnel frame fastens from above the continuous electronics ceiling.
@@ -541,10 +539,8 @@ def main(*, only_bom=False):
         "M3X12_TOTAL": f"{m3x12_per_build:.4g}",
         "M3X12_COST": pack_line_cost(m3x12_per_build, "8.57", 120),
         "SEAM_RODS": f"{enclosure_seam_rods_per_build:.4g}",
-        "SEAM_LONG_RODS": f"{enclosure_seam_long_rods_per_build:.4g}",
-        "SEAM_SHORT_RODS": f"{enclosure_seam_short_rods_per_build:.4g}",
-        "SEAM_LONG_SCREWS_COST": pack_line_cost(enclosure_seam_long_rods_per_build, "10.74", 10),
-        "SEAM_SHORT_SCREWS_COST": pack_line_cost(enclosure_seam_short_rods_per_build, "8.57", 40),
+        "SEAM_SCREW_UNIT_COST": pack_line_cost(1, "7.70", 20),
+        "SEAM_SCREWS_COST": pack_line_cost(enclosure_seam_rods_per_build, "7.70", 20),
         "SEAM_INSERTS": f"{enclosure_seam_inserts_per_build:.4g}",
         "DOCK_PUMP_TUBES": f"{len(_f.box['collet_plate']['holes'])}",
         "PUMP_TUBE_CUT": f"{ml.PUMP_TUBE_CUT:.3g} mm",
@@ -635,8 +631,6 @@ def main(*, only_bom=False):
             "TOTAL_M5_INSERTS": f"{total_m5_inserts_per_build:.4g}",
             "SEAM_INSERTS": f"{enclosure_seam_inserts_per_build:.4g}",
             "SEAM_RODS": f"{enclosure_seam_rods_per_build:.4g}",
-            "SEAM_LONG_RODS": f"{enclosure_seam_long_rods_per_build:.4g}",
-            "SEAM_SHORT_RODS": f"{enclosure_seam_short_rods_per_build:.4g}",
             "FOAM_CLAMP_INSERTS": f"{foam_cap_clamp_inserts_per_build:.4g}",
             "FOAM_SCREWS": f"{foam_cap_screws_per_build:.4g}",
             "FOAM_FACE_SCREWS": f"{inserts_per_foam_cap_face:.4g}",

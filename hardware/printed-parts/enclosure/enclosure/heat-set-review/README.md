@@ -2,9 +2,9 @@
 
 The customer outcome is an enclosure that keeps its internal components secured,
 captures both pumps in the fixed upper mount and lower retainer and can be handled without its joints opening.
-The [native audit](geometry-check.json) records 35 insert stations and 10 finished
-knuckles for the 2026-10-19 sources it hashes; those include pump-cartridge contact-pair
-inserts that no current piece carries. The current insert schedule is
+The [native audit](geometry-check.json) records 13 insert stations and 12 finished
+knuckles in the five enclosure pieces it hashes. Electronics and C14 hosts carried by
+the above-core assembly are outside that audit. The current insert schedule is
 [enclosure mechanical §1](/hardware/assembly/enclosure-mechanical.md#1-stage-the-printed-pieces).
 It reads complete installed insert
 envelopes, open pilots, blind relief, closed stock, insertion access and the Y seam's
@@ -13,8 +13,8 @@ installed fit, pullout, torque, transport and drop performance require physical
 qualification. The [seam and handhold review](../y-seam-plain-review.json) records its
 identified geometry and handhold scope. The [fit review](../y-seam-fit-review.json)
 records PET-GF-to-PET-GF gaps and complete local stock at four M5 insert hosts and
-four head floors for its bound inputs. The 35 station readings, 10 knuckle queries, screw
-engagement and blind-tip reserve retain the insert audit's recorded artifact scope.
+four head floors for its bound inputs. The [M5×100 review](../y-seam-100-review.json)
+records the current head floors, blind caps, local assembly motion and screw passages.
 
 ## Supplier constraints and screw stacks
 
@@ -34,11 +34,11 @@ frame. The rim at the handhold's R6 lip is in
 
 | Station | Body | Pilot depth | Nominal host / screw stack |
 | --- | --- | --- | --- |
-| Four Y-seam stack stations | M5, 9.5 mm | Lower 10.5 mm; upper 15.15 mm | Both are pressed into the top of their knuckles: the lower into back-bottom's knuckle under the Z seam, where the M5 × 120 enters from the deep end and its tip stands past the open top; the upper into front-top's knuckle under the funnel frame. Both keep full 9.5 mm engagement with the ±0.8 mm length allowance |
-| Seventeen electronics / ground stations | M3 short, 4.0 mm | At least 5.0 mm | Ø8 mm exposed hosts give 2 mm radial material from the Ø4 pilot; four PSU inserts seat on the actual wall face; four PCBA inserts start 2.25 mm behind the unchanged PCB mounting face |
+| Four Y-seam stack stations | M5, 9.5 mm | Lower 10.5 mm; upper 20.5 mm | Both are pressed into the top of their knuckles: the lower into back-bottom's knuckle under the Z seam, where the M5 × 100 enters from the deep end and its tip stands past the open top; the upper into front-top's lower knuckle above its closed tip pocket. Both keep full 9.5 mm engagement with the ±0.8 mm length allowance |
+| Electronics / ground stations (above-core hosts) | M3 short, 4.0 mm | At least 5.0 mm | Ø8 mm exposed hosts give 2 mm radial material from the Ø4 pilot; four PSU inserts seat on the actual wall face; four PCBA inserts start 2.25 mm behind the PCB mounting face |
 | Two condenser fingers | M3, 5.7 mm | 9.0 mm | Complete host and supporting finger |
 | Three pump-retainer stations | M3, 5.7 mm | Ø4 × 6.7 mm insert pilot, followed by narrower screw-tip relief | Upward M3×60 from underside head seats; 1 mm steel-tip clearance in front-top’s fixed mount |
-| Two C14 stations | M3 short, 4.0 mm | 5.25 mm | Full tunnel stock and closed rear wall |
+| Two C14 stations (above-core hosts) | M3 short, 4.0 mm | 5.25 mm | Full tunnel stock and closed rear wall |
 | Four compressor posts | M5, 9.5 mm | 10.5 mm | Manufacturer pilot and minimum surrounding stock |
 
 ## Native seam load paths
@@ -47,21 +47,23 @@ The Y seam stands at Y200 mm with a 17.8 mm overlap. Each ±X corner carries a s
 of knuckles alternating between the front and back pieces, its screw axis mid-overlap
 ([corner stacks](../README.md#seams--corner-stacks)). The lower stack is a three-knuckle
 hinge inside the bottom pieces: back-bottom's knuckle over the handhold, front-bottom's,
-and back-bottom's under the Z seam. An M5 × 120 drives up from the handhold ceiling through
+and back-bottom's under the Z seam. An M5 × 100 drives up from the handhold ceiling through
 all three into the insert pressed into the top of the upper back knuckle, so back-bottom
 holds the screw at both ends and front-bottom's knuckle hangs on it between them. The upper
-stack stands under the roof: front-top's knuckle under the funnel frame and back-top's roof
-knuckle, with an M5 × 50 driven down into front-top's insert. The lower blocks reach
+stack has front-top's roof head block, back-top's middle block and front-top's lower insert
+block. An M5 × 100 drives down through all three, with its tip enclosed in the lower block.
+The lower blocks reach
 13.75 mm from `interior_x`, leaving 0.25 mm to the core. Every face between knuckles keeps
 0.25 mm of running fit measured square to the face; knuckle faces that print facing down
 rise 45° off their own piece's stock. Clearance holes print at Ø5.6 mm. The audit reports
 nominal and minimum thread engagement with the ±0.8 mm screw-length allowance.
 
 A seam-opening load puts the screws in shear at the faces between knuckles: two per lower
-corner, one per upper corner. The lower M5 × 120 screws are partially threaded McMaster
-91290A290, whose 22 mm of thread at the tip lies within back-bottom's upper knuckle and the
-insert, so front-bottom's knuckle bears on the plain shank at both its faces; the upper
-M5 × 50 screws are fully threaded SVLING B0GHNQFZYR. The Ø5.6 mm
+corner and two per upper corner. All four screws are fully threaded
+[SVLING M5×0.8×100, B0GHNNYVDH](https://www.amazon.com/dp/B0GHNNYVDH/).
+Thread crests bear against the printed passages when a joint takes shear. At both heights,
+the head and insert belong to one enclosure half and capture the other half's middle block;
+the screw does not directly compress the middle block axially. The Ø5.6 mm
 printed holes have clearance around the nominal Ø5 mm screws; print variation and
 deflection determine which faces bear first. The audit reads every knuckle's whole native
 section, its length along the screw and its ligament fore and aft of the clearance hole.

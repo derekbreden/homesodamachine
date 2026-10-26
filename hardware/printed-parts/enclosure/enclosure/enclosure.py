@@ -99,14 +99,14 @@ mark the slide leaves on one.
 A knuckle is a block of one piece standing in the other's overlap: a front knuckle
 roots fore of the seam in its own flank and runs aft inside the back piece's skin, a
 back knuckle grows out of that skin and its flank. Every face between knuckles keeps a
-running fit, so the halves telescope. The lower rod is held by back-bottom at both ends
-and carries front-bottom's knuckle between them; the upper rod pulls front-top's knuckle
-up against back-top's.
+running fit, so the halves telescope. Back-bottom holds the lower screw at both ends,
+capturing front-bottom between them. Front-top holds the upper screw's head and insert,
+capturing back-top's middle knuckle. All four screws are fully threaded M5 × 100.
 
 A Z seam is held shut along its whole run rather than pinned at its ends: the
 rails' hooks bear over every millimetre both flanks carry, and the stop
-blocks and end walls close the travel. At each Y-seam corner the upper rod holds
-front-top up against back-top, which locks front-top's slide.
+blocks and end walls close the travel. At each Y-seam corner the upper screw pins
+front-top to back-top, retaining front-top on its slide.
 
 main() exports the four printable pieces (enclosure-front-bottom.step,
 enclosure-front-top.step, enclosure-back-bottom.step, enclosure-back-top.step)
@@ -470,7 +470,7 @@ y_stack_lower_axis_in = 6.25   # lower axis: its head passes the handhold's inne
 y_stack_high_depth = 13.0      # under the roof the stack stops outboard of the funnel's
                                # lift-off cover
 y_stack_front_root = wall      # how far a front knuckle roots fore of the seam, into its flank
-y_stack_clearance_dia = 5.6    # as-printed M5 clearance; lower screws partly threaded, uppers fully
+y_stack_clearance_dia = 5.6    # as-printed clearance for the common fully threaded M5 screw
 y_stack_cbore_dia = 9.0        # M5 SHCS head Ø8.5, knurled to Ø8.72
 y_stack_head_recess = 3.0      # head face inside the opening
 y_stack_head_h = 5.0           # ISO 4762 M5
@@ -479,13 +479,12 @@ y_stack_tip_clearance = 2.5    # nominal blind air beyond the upper screw's tip
 y_stack_screw_length_tolerance = 0.8  # length allowance used for both selected screws
 y_stack_upper_chamfer = 5.1    # front-top's −X knuckle gives its inboard-aft edge to the flavour
                                # line (`tube-fluid-1`) that turns past that corner under the frame
-lower_rod_len = 120.0          # ISO 4762 M5 × 120, handhold ceiling to the insert under the Z seam
-lower_rod_thread = 22.0        # ISO 4762 M5 b: its thread at the tip, the rest plain shank
-upper_rod_len = 50.0           # acquired ISO 4762 M5 × 50, roof to the upper front knuckle
-y_stack_upper_datum = 318.0    # front-top's upper knuckle ends here, where its M5 insert opens;
-                               # back-top's knuckle stands one seated running fit above it, at
-                               # Z318.25. From the head seat under the roof the M5 × 50 takes
-                               # the insert's whole depth
+lower_rod_len = 100.0          # common ISO 4762 M5 × 100, inserted from the handhold
+upper_rod_len = lower_rod_len  # the same M5 × 100 enters front-top's roof head block
+y_stack_lower_anchor_depth = 25.0  # anchor stock above the sloped passage, before fit allowance
+y_stack_lower_plane_over_seat = 0.3  # reference of the lower head block's aft-rising top
+y_stack_upper_datum = 265.0    # front-top's insert mouth, above its closed screw-tip pocket
+y_stack_upper_head_datum = 324.0  # head block's aft-rising underside at the Y seam plane
 screw_clear_dia = _interface.screw_clear_dia  # M3 shank clearance
 head_cbore_dia = _interface.head_cbore_dia    # M3 SHCS head counterbore
 heatset_dia = _interface.heatset_dia  # ruthex M3, ⌀4.0 recommended hole either length
@@ -3365,11 +3364,10 @@ def _ceiling_tongue_air(inner, y_joint):
 #     drives up from the handhold ceiling, its head in the lower back knuckle and its thread in
 #     an insert set in the top of the upper one, so back-bottom holds it at both ends and
 #     front-bottom's knuckle hangs on it between them.
-#   * THE UPPER STACK stands under the roof, over the tap-water line on the −X flank: front-top's
-#     knuckle under the funnel frame and back-top's from there to the roof. The screw drives down
-#     from back-top's roof into an insert in front-top's knuckle, so tightening it holds front-top
-#     up against back-top, which locks front-top's slide. With the two upper screws out,
-#     front-top draws off the front.
+#   * THE UPPER STACK is front-top's roof head block, back-top's middle knuckle, and front-top's
+#     lower insert block. The M5 × 100 drives down through all three into the lower block's
+#     blind pilot. Front-top holds both ends of the screw and captures back-top between them;
+#     the middle knuckle retains its running fit. With the screws out, front-top draws forward.
 #
 # Every face between knuckles keeps a running fit. A knuckle face that prints facing down rises
 # 45° off the stock its piece prints it on (`_y_knuckle_faces`), so no knuckle asks for
@@ -3407,16 +3405,16 @@ def _y_knuckle_faces(piece, gap_below, gap_above):
     knuckle grows aft off its handhold roof, so its underside rises aft, and the back knuckle it
     stands over takes that slope on its top. Back-bottom's upper knuckle grows off its own skin,
     so its underside rises inboard, and front-bottom's takes that slope on its top. Back-bottom's
-    lower knuckle bottoms on the handhold ceiling, which is the handhold's. Front-top's knuckle
-    grows off its own lip band, so its underside rises inboard; back-top prints roof-down, so
-    both its faces print facing up."""
+    lower knuckle bottoms on the handhold ceiling. Front-top's insert block rises inboard
+    off its lip band. Its roof head block rises aft, with the matching top of back-top's
+    middle block rising aft so that block grows forward when printed roof-down."""
     if piece == "front-bottom":
         return "aft", "in"
     if piece == "back-bottom":
         return ("in" if gap_below else "level"), ("aft" if gap_above else "level")
     if piece == "front-top":
-        return "in", "level"
-    return "level", "level"
+        return ("aft" if gap_below else "in"), "level"
+    return "level", "aft"
 
 
 def y_stack(inner):
@@ -3430,14 +3428,15 @@ def y_stack(inner):
     _bed, ceiling, crown = _handhold_levels(inner)
     sloped = fits.running * math.sqrt(2.0)
     seated = _y_stack_gap(False, False)
-    # Front-bottom's knuckle rises aft off its own handhold roof; back-bottom's roof under it
-    # keeps its whole `handhold_roof` section from the first plane the back quadrant has.
-    fb0 = crown + sloped - fits.slip
-    # The insert sits in the top of back-bottom's upper knuckle, which ends on the Z seam. That
-    # knuckle's underside, the face front-bottom's knuckle hangs under, crosses the lower screw
-    # on its plain shank: one wall below where the shortest screw's thread begins.
+    # The first interface follows the head seat, retaining the same bearing shoulder over
+    # the deeper head pocket. It also stays above the complete lifting-ceiling section.
     top = z_seam
-    bb0 = (top - lower_rod_thread - wall + sloped
+    lower_seat = top + y_stack_screw_length_tolerance - lower_rod_len
+    fb0 = max(crown + sloped - fits.slip,
+              lower_seat + y_stack_lower_plane_over_seat + sloped)
+    # Back-bottom's insert anchor ends on the Z seam, with its complete root under the
+    # back rail. The fully threaded screw bears on both faces of front-bottom's knuckle.
+    bb0 = (top - y_stack_lower_anchor_depth + sloped
            - (y_stack_lower_axis_in + y_stack_clearance_dia / 2.0))
     lower = (
         ("back-bottom", ceiling, fb0 - sloped, 0.0, sloped),
@@ -3455,7 +3454,8 @@ def y_stack(inner):
                    - wall - fits.slip)
     upper = (
         ("front-top", front_floor, datum, 0.0, seated),
-        ("back-top", datum + seated, roof, seated, 0.0),
+        ("back-top", datum + seated, y_stack_upper_head_datum - sloped, seated, sloped),
+        ("front-top", y_stack_upper_head_datum, roof, sloped, 0.0),
     )
     return lower, upper
 
@@ -3633,7 +3633,7 @@ def _y_stack_bores(x_in, sx, y_joint, inner):
 
 
 def _y_bore_reliefs(x_in, sx, y_joint, inner, name):
-    """Where the lower screw's passage crosses one of `name`'s 45° knuckle faces, at one corner.
+    """Slots where either screw's passage crosses `name`'s 45° knuckle faces.
 
     A vertical bore through a 45° face meets it on a 45° arris over the half where the face
     climbs away from the bore, when material stands above the face, or falls away from it, when
@@ -3645,42 +3645,44 @@ def _y_bore_reliefs(x_in, sx, y_joint, inner, name):
       * under a top, a level floor where the face reaches the knuckle's own edge on that side,
         or that stock over the lower screw's head seat, whichever stands higher.
 
-    The upper passage crosses only level faces."""
-    lx, ly = y_stack_axis(x_in, sx, y_joint, "lower")
+    The upper head block's slot stays below its complete three-millimetre head bearing."""
     rp = y_stack_clearance_dia / 2.0
-    stock = y_stack_lower_axis_in - fits.running - rp
-    seat = y_stack_rods(inner)[0][1]
-    run = rp + stock / math.sqrt(2.0)
     out = []
-    for piece, z0, z1, g0, g1 in y_stack(inner)[0]:
-        if piece != name:
-            continue
-        bottom, top = _y_knuckle_faces(piece, g0, g1)
-        for kind, level, t in ((bottom, z0, 1.0), (top, z1, -1.0)):
-            if kind == "level":
+    for index, (rod, inset) in enumerate((("lower", y_stack_lower_axis_in),
+                                           ("upper", y_stack_axis_in))):
+        lx, ly = y_stack_axis(x_in, sx, y_joint, rod)
+        stock = inset - fits.running - rp
+        seat = y_stack_rods(inner)[index][1]
+        run = rp + stock / math.sqrt(2.0)
+        for piece, z0, z1, g0, g1 in y_stack(inner)[index]:
+            if piece != name:
                 continue
-            f0 = _y_face_z(kind, level, x_in, sx, y_joint, lx, ly)
-            # `u` runs from the axis toward the arris: uphill under an underside (t = +1),
-            # downhill over a top (t = -1).
-            if t > 0:
-                section = [(0.0, f0 - 1.0), (0.0, f0 + 2.0 * run),
-                           (run, f0 + run), (run, f0 + run - 1.0)]
-            else:
-                # The knuckle's own face on the downhill side: a front knuckle's sliding face
-                # outboard, a back knuckle's seam face fore.
-                edge = (abs(lx - x_in) - fits.running if kind == "in" else ly - y_joint)
-                floor = max(f0 - edge, seat + stock)
-                reach = f0 - floor + 1.0
-                section = [(0.0, floor), (reach, floor), (reach, f0 + 1.0), (0.0, f0 + 1.0)]
-            if kind == "aft":
-                out.append(_yz_prism(lx - rp, lx + rp, [(ly + t * u, z) for u, z in section]))
-            else:
-                out.append(_xz_prism(ly - rp, ly + rp,
-                                     [(lx + sx * t * u, z) for u, z in section]))
+            # The upper insert pilot is blind: it never crosses this block's underside.
+            # Only the head/middle interface needs a passage-to-face relief there.
+            if rod == "upper" and piece == "front-top" and not g0:
+                continue
+            bottom, top = _y_knuckle_faces(piece, g0, g1)
+            for kind, level, t in ((bottom, z0, 1.0), (top, z1, -1.0)):
+                if kind == "level":
+                    continue
+                f0 = _y_face_z(kind, level, x_in, sx, y_joint, lx, ly)
+                if t > 0:
+                    section = [(0.0, f0 - 1.0), (0.0, f0 + 2.0 * run),
+                               (run, f0 + run), (run, f0 + run - 1.0)]
+                else:
+                    edge = (abs(lx - x_in) - fits.running if kind == "in" else ly - y_joint)
+                    floor = max(f0 - edge, seat + stock) if rod == "lower" else f0 - edge
+                    reach = f0 - floor + 1.0
+                    section = [(0.0, floor), (reach, floor), (reach, f0 + 1.0), (0.0, f0 + 1.0)]
+                if kind == "aft":
+                    out.append(_yz_prism(lx - rp, lx + rp, [(ly + t * u, z) for u, z in section]))
+                else:
+                    out.append(_xz_prism(ly - rp, ly + rp,
+                                         [(lx + sx * t * u, z) for u, z in section]))
     return out
 
 
-def _y_stacks(piece, inner, outer, y_joint, name):
+def _y_stacks(piece, inner, outer, y_joint, name, funnel=None):
     """One finished piece with both corner stacks grown into it and the other half's knuckles
     cut out of it. No later fuse fills a fit or bore; the shared handhold finish trims the
     bottom pieces' exterior afterwards."""
@@ -3694,8 +3696,10 @@ def _y_stacks(piece, inner, outer, y_joint, name):
                 piece = piece.cut(_y_knuckle_air(x_in, sx, y_joint, who, z0, z1, g0, g1, depth))
         for (who, z0, z1, _g0, _g1), depth in rows:
             if who == name:
-                piece = piece.fuse(_y_knuckle(inner, outer, x_in, sx, y_joint, who, z0, z1,
-                                              depth))
+                knuckle = _y_knuckle(inner, outer, x_in, sx, y_joint, who, z0, z1, depth)
+                if who == "front-top" and z0 == y_stack_upper_head_datum and funnel:
+                    knuckle = knuckle.cut(_funnel_cut(inner, outer, funnel))
+                piece = piece.fuse(knuckle)
         for cutter in _y_stack_bores(x_in, sx, y_joint, inner):
             piece = piece.cut(cutter)
         for cutter in _y_bore_reliefs(x_in, sx, y_joint, inner, name):
@@ -8319,7 +8323,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
         piece = piece.fuse(*disposal_letters(outer).Solids())
     # Final structural joinery: no later fuse fills a stack fit or bore. The bottom
     # handhold finish then cuts the same exterior profile through shell and knuckles.
-    piece = _y_stacks(piece, inner, outer, y_joint, f"{y_side}-{z_side}")
+    piece = _y_stacks(piece, inner, outer, y_joint, f"{y_side}-{z_side}", box.pack.funnel)
     if z_side == "bottom":
         piece = _finish_handholds(piece, inner)
     piece = _seam_fit_reliefs(piece, box, y_side, z_side)
@@ -8404,7 +8408,8 @@ def y_stack_figures(inner):
         "Y_STACK_LOWER_AXIS_OUT": f"{wall + y_stack_lower_axis_in:.4g} mm",
         "Y_STACK_CEILING": f"{lower[0][1]:.4g}",
         "Y_STACK_UPPER_FLOOR": f"{upper[0][1]:.4g}",
-        "Y_STACK_DATUM": f"{upper[-1][1]:.5g}",
+        "Y_STACK_DATUM": f"{upper[0][2]:.5g}",
+        "Y_STACK_HEAD_INTERFACE": f"{y_stack_upper_head_datum + lip_len / 2.0:.5g}",
         "Y_STACK_GAP": f"{fits.running:.3g} mm",
         "Y_STACK_CLEARANCE": f"Ø{y_stack_clearance_dia:.3g}",
         "Y_STACK_CBORE": f"{y_stack_cbore_depth:.3g} mm",
