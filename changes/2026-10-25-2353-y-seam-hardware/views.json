@@ -1,0 +1,88 @@
+{
+  "views": [
+    {
+      "name": "upper",
+      "caption": "An upper seam in section, including its installed screw and heat-set insert. Printed geometry is unchanged.",
+      "before": "upper-before.webp",
+      "after": "upper-after.webp",
+      "width": 1000,
+      "height": 1000,
+      "model": "manifold-layout/enclosure-assembly.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          723.7871553238517,
+          126.75128446761482,
+          337.0743577661926
+        ],
+        "target": [
+          -97.7,
+          208.9,
+          296
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 75,
+        "near": 392.3518513901539,
+        "far": 1287.841148339346,
+        "aspect": 1,
+        "section": {
+          "at": [
+            -97.7,
+            208.9,
+            296
+          ],
+          "normal": [
+            1,
+            0,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "y-seam-west-upper-screw",
+        "y-seam-west-upper-insert"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure-front-top",
+        "enclosure-back-top",
+        "y-seam-west-upper-screw",
+        "y-seam-west-upper-insert"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "snapshot",
+          "sha256": "40304e3cbbab37c2eefd63ed592d840fe60a102fe457592c97fbee199c0d64cd",
+          "commit": "6a1fc87a2593168cc7abc23cd5b12d285c191025",
+          "taken": "2026-10-26T04:35:46.490Z",
+          "published": true
+        },
+        "after": {
+          "payload": "manifold-layout/enclosure-assembly.step.mesh",
+          "from": "tree",
+          "sha256": "1665d562e4ebaef364ae4293560edc2881021bd7e2d58db19de8516e4db95525",
+          "commit": "23393ae1eb021d912db547bb71598edca8a52496",
+          "published": true
+        }
+      },
+      "changed": [
+        "y-seam-east-lower-screw",
+        "y-seam-east-upper-screw",
+        "y-seam-west-lower-screw",
+        "y-seam-west-upper-screw",
+        "y-seam-east-lower-insert",
+        "y-seam-east-upper-insert",
+        "y-seam-west-lower-insert",
+        "y-seam-west-upper-insert"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
