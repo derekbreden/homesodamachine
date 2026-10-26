@@ -91,16 +91,13 @@ records Derek's requirement to move that complete test plate toward the center.
 Use up the **most depleted suitable spool first**, then progress toward fuller
 spools. Remaining quantity is not a launch condition; no weighing is required.
 
-Mark1's AMS 2 Pro A carries Bambu PETG Translucent Clear (`GFG01`, transparent
-`00000000`) in **A1–A4**. Derek reports it connected to the installed **left
-0.8 mm Standard-flow** hotend for the [Engineering Plate reservoir retry](../hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/README.md).
-At its October 25 preflight, **A1 reports 42%** and **A2–A4 report 100%**.
-Select A1 first. **Task 1374963298** was accepted at **15:18:16 CDT / 20:18:16 UTC
-on October 25**, with **A1 PETG L** and green Auto Refill. Fresh status identifies
-the fixed left nozzle as **0.8 mm Standard** and confirms A1 loaded into it
-during startup. Studio's **Read All** identifies right-side induction hotends;
-the separate fixed-left read procedure and rejected remote-read result are
-preserved in the [nozzle-identification record](../hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/nozzle-read.json).
+Mark1's AMS 2 Pro A feeds the fixed **left 0.8 mm Standard-flow** hotend.
+**A1 is empty**. A2–A4 carry Bambu PETG Translucent Clear (`GFG01`, transparent
+`00000000`), each reporting 100% at the October 25 preflight.
+The [left reservoir and matching lid](../hardware/printed-parts/cold-core/reservoir/prints/2026-10-25-mark1-left-engineering-flow105-overlap30-temp260-left08-z000/README.md)
+start on **A2**, with automatic refill On, as **task 1375878568**, accepted
+**22:03:53 CDT October 25 /03:03:53 UTC October 26**. The preceding A1-started
+right reservoir completed and has reported water holding.
 
 AMS unit `0` addresses A1–A4 as trays `0`–`3`. **AMS filament backup is On**,
 freshly checked in Mark1's AMS Settings. A specific automatic backup priority

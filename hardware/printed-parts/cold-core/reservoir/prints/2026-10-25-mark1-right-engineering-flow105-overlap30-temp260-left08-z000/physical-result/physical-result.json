@@ -1,0 +1,26 @@
+{
+  "reported_on": "2026-10-25",
+  "recorded_at_utc": "2026-10-26T03:07:40.562400+00:00",
+  "recorded_at_central": "2026-10-25T22:07:40.562400-05:00",
+  "reported_by": "Derek",
+  "printer": "Mark1",
+  "job_id": "1374963298",
+  "side": "right",
+  "parts": [
+    "reservoir-right",
+    "reservoir-cap-right"
+  ],
+  "status": "held_water",
+  "quote": "That print turned out well also and is holding water also.",
+  "observation": "Derek reports the print turned out well and is holding water.",
+  "article_completion": "FINISH 833/833, freshly read before the next launch.",
+  "hold_duration_reported_hours": null,
+  "water_head_mm": null,
+  "corner_flatness": "Not separately reported or measured.",
+  "recipe": "../settings.json",
+  "nozzle": "Fixed left 0.8 mm Standard",
+  "plate": "Engineering Plate, glued",
+  "archive_sha256": "f28aa56d5fc36ea6e4a37df3d596e335fae64f038dc948bf5fa18fc6cde632e5",
+  "gcode_sha256": "e4ea8328d8d9c2d8154237d858fc611518bd9a4f110d82955a533f81322bf5ef",
+  "scope": "Water hold belongs to the identified completed right reservoir. Duration, water head, float movement and cap/gasket assembly sealing are not separately assessed."
+}

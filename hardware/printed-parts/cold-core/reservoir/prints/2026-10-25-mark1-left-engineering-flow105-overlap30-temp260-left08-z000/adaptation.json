@@ -1,0 +1,35 @@
+{
+  "recorded_on": "2026-10-25",
+  "baseline_task_id": "1374963298",
+  "baseline_settings": "../2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/settings.json",
+  "source_project": ".cache/reservoir-left08-engineering-20261025/candidate.3mf",
+  "source_project_sha256": "acc2a97102605025df73ab977277e478964e765290f9709261994be7739615f9",
+  "candidate_project": ".cache/reservoir-left-pair-engineering-20261025/candidate.3mf",
+  "candidate_project_sha256": "a437cc147ceee8eecd011a271fa498f5c9d0d1b28a72d9899ce2b9b336c16584",
+  "settings": "settings.json",
+  "settings_sha256": "8c97d8528fb4c1d85fa44c1176fde2b860957925e3764f029d9d44994ad5d8d7",
+  "setting_changes": {},
+  "all_saved_settings_identical": true,
+  "selected_parts": [
+    "reservoir-left",
+    "reservoir-cap-left"
+  ],
+  "composition_change": "Select opposite-side left body and matching lid; omit the already-current right lid and right body.",
+  "geometry_review": "geometry-review.json",
+  "nozzle": "Left 0.8 mm Standard",
+  "plate": "Engineering Plate, glued and ready per Derek",
+  "added_user_z_trim_mm": 0,
+  "effective_plate_z_trim_mm": 0,
+  "status": "Launched as Mark1 task 1375878568; left body and matching lid, A2 with automatic refill.",
+  "founder_quote": "That print turned out well also and is holding water also. So I'd like to print at least one more reservoir here. I'm not sure whether the one you just printed was left or right, but let's switch back to the other one, whatever the other one would be now. And so give me a new print of that. The Mark 1 is glued and ready to go. And then if the geometry hasn't changed and that last reservoir lid that we printed is good as far as the locations on everything and the current geometry, then great. I don't need anything else. But if we need to reprint that last lid to match the current geometry, then include that last lid on this new plate also. Do you follow me? Let me know.",
+  "scope_clarification": [
+    "You're printing both a lid and a body, right?",
+    "The only thing that was optional was whether you were printing two lids or not."
+  ],
+  "job_id": "1375878568",
+  "launch": "launch.json",
+  "startup": "startup.json",
+  "native_review": "native-review.json",
+  "packaging": "packaging.json",
+  "baseline_physical_result": "../2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/physical-result/physical-result.json"
+}

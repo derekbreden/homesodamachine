@@ -725,3 +725,40 @@ preparation. Model deposition, body/cap adhesion, surface finish and water
 holding remain unassessed. Runtime timelapse is disabled in preparation;
 activation at model deposition is unobserved. No monitor created/reactivated.
 [Launch and startup](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/README.md).
+
+## 2026-10-25 — right Engineering Plate water hold and left body/lid repeat
+
+Task **1374963298**, right reservoir and cap on fixed left 0.8 mm, is freshly
+**FINISH 833/833**, error 0 and HMS empty. Derek: **“That print turned out well also and is holding water also.”**
+Duration, water head and cap/gasket sealing are unspecified.
+[Physical result](prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/physical-result/physical-result.json).
+
+Current source STEP hashes and project meshes match the preceding print,
+including the right lid's port/float-guide locations. New plate: **one left
+body and its matching left lid**; no additional right lid is required.
+The successful recipe is retained, including Engineering Plate and zero
+added/effective Z compensation. Pair shifted 15 mm toward fixed-left bed center;
+minimum native full-bead inset 80.519 mm, body/cap gap 10.042 mm. Native Studio
+estimate **5 h 42 min 2 s, 444.28 g, 833 layers**. [Geometry review](prints/2026-10-25-mark1-left-engineering-flow105-overlap30-temp260-left08-z000/geometry-review.json).
+
+Studio verifies **Mark1, Engineering, A2 PETG L, Auto Refill, Timelapse On,
+Bed Leveling On, Flow Dynamics Auto, Nozzle Offset Calibration Auto**. A1 is
+empty, A2–A4 report 100%. One Send receives **project_file SUCCESS** at
+**22:03:53 CDT October 25 /03:03:53 UTC October 26**, creating **task 1375878568**.
+Same Mark2 task 1375153599 is freshly read, establishing at least 1,034 seconds
+since its initial preflight observation. Its owning agent confirms no start
+or resume since 21:26:12.736533 UTC; Mark2 exclusion runs through 03:06:53.127505 UTC.
+Startup RUNNING, layer 0/833, error 0, HMS empty. Fresh 22:08:07 CDT /
+03:08:07 UTC status confirms A2 loaded into the fixed left 0.8 mm nozzle. Two
+changing live frames show the clear glued Engineering Plate during preparation.
+Deposition and model adhesion are unassessed; runtime timelapse activation at
+deposition remains unobserved.
+[Launch and startup](prints/2026-10-25-mark1-left-engineering-flow105-overlap30-temp260-left08-z000/README.md).
+
+Derek:
+
+> That print turned out well also and is holding water also. So I'd like to print at least one more reservoir here. I'm not sure whether the one you just printed was left or right, but let's switch back to the other one, whatever the other one would be now. And so give me a new print of that. The Mark 1 is glued and ready to go. And then if the geometry hasn't changed and that last reservoir lid that we printed is good as far as the locations on everything and the current geometry, then great. I don't need anything else. But if we need to reprint that last lid to match the current geometry, then include that last lid on this new plate also. Do you follow me? Let me know.
+
+> You're printing both a lid and a body, right?
+
+> The only thing that was optional was whether you were printing two lids or not.

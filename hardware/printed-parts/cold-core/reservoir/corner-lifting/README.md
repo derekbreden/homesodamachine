@@ -1,15 +1,16 @@
 # Reservoir adhesion observations
 
-The [right-pair left-hotend Engineering Plate retry](../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/README.md)
-is running as **Mark1 task 1374963298**, accepted **15:18:16 CDT / 20:18:16 UTC
-on October 25**, with the same recipe and **0.00 mm Z compensation**.
-Fresh status identifies the fixed left 0.8 mm Standard hotend and confirms
-A1 loaded into it during preparation. A1 starts at 42%, before matching
-A2–A4 (100%), with automatic refill On. Startup is RUNNING, layer 0/833,
-print error 0 and no HMS. Two changing live frames show the cleared glued
-Engineering Plate during preparation; body/cap attachment and lift onset
-are unassessed. [Startup evidence](../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/startup.json).
-No scheduled monitor is created or reactivated.
+The [left body and matching lid](../prints/2026-10-25-mark1-left-engineering-flow105-overlap30-temp260-left08-z000/README.md)
+are running as **Mark1 task 1375878568**, accepted **22:03:53 CDT October 25 /
+03:03:53 UTC October 26**, with the retained recipe and **0.00 mm Z compensation**.
+The fixed left 0.8 mm Standard uses A2 with automatic refill; A1 is empty.
+Startup is RUNNING, layer 0/833, error 0 and no HMS. Model attachment and
+lift onset are unassessed. No scheduled monitor is created or reactivated.
+
+The [right Engineering Plate article, task 1374963298](../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/physical-result/physical-result.json)
+completed 833/833 layers. Derek reports it turned out well and is holding water.
+He does not separately report corner flatness, lift onset, hold duration or head.
+The opposite-side repeat retains its fixed-left 0.8 mm hotend and recipe.
 
 Engineering Plate **task 1374272357** has [reported right-hotend polymer
 buildup and a motion-step-loss warning](../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-right08-z000/physical-result/physical-result.json).
@@ -109,7 +110,7 @@ and a rough edge left after removal. His exact words and the recovered native
 settings are in the [historical recipe review](historical-recipe-review.json).
 The [recipe discussion](next-trial-options.json) takes the successful May
 Water recipe and ordinary Bambu motion settings as its reference. The selected
-[Engineering Plate trial settings](../prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/settings.json)
+[Engineering Plate trial settings](../prints/2026-10-25-mark1-left-engineering-flow105-overlap30-temp260-left08-z000/settings.json)
 retain the [five-wall adaptation](../recipe-reviews/2026-10-22-flow105-overlap30/adaptation.json).
 The root project retains the 265/270 °C reference recipe.
 

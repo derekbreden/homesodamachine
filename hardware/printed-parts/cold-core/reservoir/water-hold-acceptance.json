@@ -203,8 +203,44 @@
       "layer_height_mm": 0.24,
       "first_layer_height_mm": 0.3,
       "scope": "Reported water hold of the identified completed left reservoir. Duration and water head are unspecified; cap/gasket assembly sealing and particular surface concerns are not separately assessed."
+    },
+    {
+      "id": "october-25-engineering-left08-right",
+      "status": "held_water",
+      "printer": "Mark1",
+      "job_id": "1374963298",
+      "side": "right",
+      "print_date": "2026-10-25",
+      "reported_date": "2026-10-25",
+      "reported_by": "Derek",
+      "quote": "That print turned out well also and is holding water also.",
+      "observation": "Derek reports the print turned out well and is holding water.",
+      "ongoing_at_report": true,
+      "hold_duration_reported_hours": null,
+      "fill_height_mm": null,
+      "article_completion": "FINISH 833/833, freshly read before the next launch.",
+      "recipe": "prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/settings.json",
+      "physical_result": "prints/2026-10-25-mark1-right-engineering-flow105-overlap30-temp260-left08-z000/physical-result/physical-result.json",
+      "archive_sha256": "f28aa56d5fc36ea6e4a37df3d596e335fae64f038dc948bf5fa18fc6cde632e5",
+      "gcode_sha256": "e4ea8328d8d9c2d8154237d858fc611518bd9a4f110d82955a533f81322bf5ef",
+      "nozzle_mm": 0.8,
+      "nozzle_flow_type": "Standard",
+      "active_hotend": "left",
+      "plate": "Engineering Plate, glued",
+      "added_user_z_trim_mm": 0,
+      "effective_plate_z_trim_mm": 0,
+      "nozzle_c_first_subsequent": [
+        255,
+        260
+      ],
+      "flow_ratio": 1.05,
+      "wall_loops": 5,
+      "infill_wall_overlap_percent": 30,
+      "layer_height_mm": 0.24,
+      "first_layer_height_mm": 0.3,
+      "scope": "Water hold belongs to the identified completed right reservoir. Duration, water head, float movement and cap/gasket assembly sealing are not separately assessed."
     }
   ],
-  "scope": "May and both September recipes retain their reported water holds. Both October flow-1.05, five-wall, 30%-overlap articles are reported holding water: the shortened 265/270 C article and the completed 255/260 C left reservoir. Results apply to the identified articles and reported conditions.",
+  "scope": "Preserve the identified May and September water holds and all October accepted articles. Task 1374963298 adds a completed right reservoir printed through the fixed left 0.8 mm hotend on glued Engineering Plate, reported holding water. Each result applies to its identified article and reported conditions.",
   "clock_scope": "Printer file timestamps and timelapse filenames are preserved as reported; their different clock conventions are not normalized."
 }

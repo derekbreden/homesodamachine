@@ -1,0 +1,23 @@
+{
+  "printer": "Mark1",
+  "job_id": "1374963298",
+  "source": "Fresh tools/bambu_printer.py read before next authorized print.",
+  "status": {
+    "observed_at_utc": "2026-10-26T03:03:09.310409+00:00",
+    "job_id": "1374963298",
+    "subtask_name": "Flavor_reservoirs_-_PETG_0.24_mm",
+    "gcode_state": "FINISH",
+    "print_error": 0,
+    "hms": [],
+    "layer_num": 833,
+    "total_layer_num": 833,
+    "mc_percent": 100,
+    "mc_remaining_time": 0,
+    "nozzle_temper": 35.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 34.0,
+    "bed_target_temper": 0.0
+  },
+  "physical_result": "physical-result/physical-result.json",
+  "camera_scope": "Derek cleared the bed for the next print; no finished-article camera observation acquired."
+}
