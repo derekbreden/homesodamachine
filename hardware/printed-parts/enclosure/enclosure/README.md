@@ -116,13 +116,13 @@ overlap and the [14 mm](SIDE_BAND) side band, its screw mid-overlap in Y.
   [M5 × 100](UPPER_ROD) enters from above and ends in a closed pocket below the insert.
   Front-top's lower block rises from Z[231.3](Y_STACK_UPPER_FLOOR) to its insert mouth at
   Z[265](Y_STACK_DATUM); the head block's underside crosses the screw axis at
-  Z[332.9](Y_STACK_HEAD_INTERFACE). Both front-top blocks join its wall and capture
+  Z[330.4](Y_STACK_HEAD_INTERFACE). Both front-top blocks join its wall and capture
   back-top between them. The middle block retains its running fit; tightening the screw
   seats its head in front-top rather than directly clamping back-top axially.
   Front-top's −X blocks have a 5.1 mm inboard-aft chamfer (`y_stack_upper_chamfer`).
   Both 4 mm flavor tubes pass inboard of the stack on R25 detours before their rear rises.
-  The head block carries the complete rounded outer flank at its station. Its square aft end
-  keeps 3 mm beyond the shaft passage, and its fore root continues down into the lower block.
+  The head block carries the complete rounded outer flank at its station. Its underside
+  retains full stock beneath the funnel clearance, and its fore root continues into the lower block.
   The head opening continues aft into the funnel opening without a narrow collar between them.
 
 The knuckle faces follow their pieces' print orientations: front-bottom's knuckle rises

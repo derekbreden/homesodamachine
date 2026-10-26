@@ -1,17 +1,17 @@
 {
-  "generated_utc": "2026-10-26T00:50:52.908498+00:00",
+  "generated_utc": "2026-10-26T01:01:46.723090+00:00",
   "scope": "Full installed insert envelopes in retained native STEP solids; supported-face clearance is included. No printed fit, pullout, torque, transport or drop qualification.",
   "source_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "02e484b9f7f5f8506b740a37d7994438006149eeaab3b89acf5d26619cc4411b",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "ff2f2cf9ea15a4eb64c8714e166b29bb712a7a5f6cb2c0f7d9c39a2ccdb930f0",
     "hardware/printed-parts/enclosure/enclosure/_enclosure_interface.py": "264bb52da73675dcd41f7fff8bc5fce6eabd06336fc3cf8b7a9b8560c21e5040",
     "hardware/printed-parts/enclosure/enclosure/_fixed_pump_mount.py": "21347fde35872ea40dabe95ffd801a8dde3fc25cfe6a504696983d5f34d462f9",
     "hardware/manifold-layout/enclosure-box.json": "3b8f760a0754d4cad939df7f8ceaf3047a35b3d8e707f602ea6b961548f4129e"
   },
   "native_step_sha256": {
     "back-bottom": "8567ae6046356457fc4fd2a806a609abc02507faf9b534ac0b2105e5ca7d7d1b",
-    "back-top": "dc197f298931893c1d14c55d5dfc637eca3b867ccbc19f70281627e413aa231f",
+    "back-top": "530440749fc38bc43f4e0090fa3a7eefa243d1300e564a82c8c9078b882bd264",
     "front-bottom": "f856ca9785d5bef868b5eca804c7214f2a5a17cd5260727138a83f729765521d",
-    "front-top": "19956ba91dc58b7ae2c60d01cd2f2c99ffc0b8337473dbab669d4baff83be650",
+    "front-top": "7e67611867786c885d0257da76ec4592d6dee1e9d3dee5eb915517a7f0678362",
     "pump-retainer": "bd394956fa09afd0985161b9e8ffb699a7083fe7066ff0fed76446c837fb089f"
   },
   "inputs_unchanged": true,
@@ -613,13 +613,13 @@
       "piece": "back-top",
       "z_mm": [
         265.25,
-        323.6464466094067
+        321.1464466094067
       ],
       "rod_axis_mm": [
         -97.7,
         208.9
       ],
-      "bearing_length_mm": 58.39644660940672,
+      "bearing_length_mm": 55.89644660940672,
       "gaps_mm": [
         0.25,
         0.3535533905932738
@@ -631,14 +631,14 @@
       "side": "west",
       "piece": "front-top",
       "z_mm": [
-        324.0,
+        321.5,
         354.9999999
       ],
       "rod_axis_mm": [
         -97.7,
         208.9
       ],
-      "bearing_length_mm": 30.999999899999978,
+      "bearing_length_mm": 33.49999989999998,
       "gaps_mm": [
         0.3535533905932738,
         0.0
@@ -727,13 +727,13 @@
       "piece": "back-top",
       "z_mm": [
         265.25,
-        323.6464466094067
+        321.1464466094067
       ],
       "rod_axis_mm": [
         97.7,
         208.9
       ],
-      "bearing_length_mm": 58.39644660940672,
+      "bearing_length_mm": 55.89644660940672,
       "gaps_mm": [
         0.25,
         0.3535533905932738
@@ -745,14 +745,14 @@
       "side": "east",
       "piece": "front-top",
       "z_mm": [
-        324.0,
+        321.5,
         354.9999999
       ],
       "rod_axis_mm": [
         97.7,
         208.9
       ],
-      "bearing_length_mm": 30.999999899999978,
+      "bearing_length_mm": 33.49999989999998,
       "gaps_mm": [
         0.3535533905932738,
         0.0
