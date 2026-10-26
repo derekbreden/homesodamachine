@@ -1,0 +1,6 @@
+[ledge] Required flat bearing faces for the three upward M3x60 socket-head screws: each Ø5.8 mm open underside counterbore reaches 3 mm into the retainer, from its bottom at Z165.195 to the head seat at Z168.195. The screw heads load these annular faces and the continuous stock above them. The identified native slice has three short bed-rooted support bodies, each reached directly through its open underside counterbore before assembly; physical removal effort and bearing finish remain unqualified.
+alternatives: A full-diameter through-hole removes the head-bearing annulus. A sloped or countersunk floor does not bear the specified socket-head screw and requires different hardware and a revised clamp stack. Filling the counterbore occupies the screw-head and driver envelope.
+file: hardware/printed-parts/enclosure/enclosure/enclosure-pump-retainer.step
+click: x=-93.868 y=44.975 z=168.195
+click: x=90.132 y=44.975 z=168.195
+click: x=0.573 y=43.873 z=168.195

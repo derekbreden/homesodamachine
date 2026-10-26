@@ -833,6 +833,11 @@ readings describe the four quadrants and separate pump cradle/cap listed by thei
 STL digests. They do not qualify the integral pump mount, revised front-top or underside
 retainer. Current native print preparation and review are recorded beside the
 [pump-mount review](pump-mount-review/README.md).
+The current integral-mount front-top is STEP `6120cf94…`, paired with retainer
+`bd394956…`. The native assembly record binds these exact parts separately from
+its original complete-path inputs and identifies the M5-joint review for the
+four Y-seam hosts. Pump, valve, glass-seat, wing and cleanout stock keep their
+separate native comparisons.
 
 The 3MF snapshots are evidence inputs in Git history: four at
 `aef8f43c0eb3eef9c6525ecaa0a1ca52c5b8c71a`, the cap's crown-down project at
@@ -996,9 +1001,10 @@ opening; all three screw heads are reached from below before chassis closure.
 The **tee wall** grows from the seam region into the continuous upper stock. Each branch
 bore and collet opening has a teardropped roof. A narrow bottom-open gate admits the prepared
 tube from below without opening the entire branch-bore width. The remaining bore-face lands
-locate the fixed tee barrels. The shared wire passage above the pumps uses diamond roofs;
-its motor rooms close with 36° conical roofs. The display receiver keeps its required seats
-and support exits. The exact native slice supplies the support/contact reading for those
+locate the fixed tee barrels. The shared rear wire passage has a diamond roof forward of
+the bulkhead; its motor rooms close with 36° conical roofs. The cross passage has one level
+floor and a 45° roof. The display receiver keeps its required seats and complete 12 mm wing
+exits. The exact native slice supplies the support/contact reading for those
 functional faces; no earlier slice establishes cleanup of this geometry.
 
 The six rear fluid bores pass through the named 6 mm clamping land. Their
@@ -1154,9 +1160,10 @@ records the exact exports and assembly queries.
 DC-5 and SIG-7 use one rear wire passage through the continuous pump/display body. Its
 [22 mm](PUMP_SHARED_WIRE_SPAN) diamond passage is centred at X0/Z280 and opens through Y99.
 Its rear upper half opens straight over the bulkhead lip, leaving no tapered banks.
-The pump branches reach their terminal rooms through a crosswise diamond passage, while
-SIG-7 reaches the open display receiver through the chimney and display-link passage.
-These functional rooms retain printable sloping roofs around the required cable space.
+The pump branches reach their terminal rooms through a cross passage between the two motor
+axes. Its level floor at Z274.224 joins the motor rooms and shared outlet beneath a 45° roof.
+SIG-7 reaches the open display receiver through one straight-sided corridor containing the
+terminal entry, rising link and chimney.
 
 Thread DC-5's bare pump end from aft to the open underside before crimping the Fastons.
 Ring out and land the motor pairs while the pumps are loose, with +X serving pump A and
@@ -1197,9 +1204,12 @@ PCB-pocket corner.
 Each horizontal wing is 1.44 mm thick, projects 3.60 mm and spans 70 mm. It has
 0.60 mm clearance below the retaining roof and at least 3.00 mm of capture at
 full sideways float. The 1.80 mm lips carry the cover; its back seats directly
-against the receiver. The pockets keep their print-down support exits into the open underside of the
-display receiver. Remove their supports before fitting the pumps and screen, using the
-current native slice to identify the actual bodies and access routes.
+against the receiver. Each pocket keeps its complete 12 mm print-down exit into the empty
+display receiver. A plain side cleanout connects each wing exit to the empty PCB room, with
+a 69.3 × 4.96 mm nominal clear aperture and 3 mm retained below the glass seat. Clear supports
+through the open display and PCB room before fitting the pumps and screen, using the current
+native slice to identify the actual bodies and access routes. Physical support removal
+remains unqualified.
 
 The [accepted cover](../display-cover/face-up-trial/physical-acceptance.json)
 passes shaking and has acceptable appearance with a small residual bow. Its
@@ -1219,8 +1229,8 @@ smooth. Print meshes use a 0.005 mm absolute surface tolerance and 0.05 radian
 angular tolerance before the flute field is cut.
 
 The display loom shares the pump lead's rear exit at X0/Z280. Its unbraided
-ribbon follows the display-link passage from the module's nominal rear terminal plane to
-the chimney; the rear mouth also carries DC-5's pump ribbon. Keep both runs clear of the
+ribbon follows the common display corridor from the module's nominal rear terminal plane
+to the shared exit; the rear mouth also carries DC-5's pump ribbon. Keep both runs clear of the
 frame seats and closing slides. The [wiring procedure](../../../assembly/wiring.md) owns
 termination and dressing, and [The pump lead](#the-pump-lead) gives the bench threading order.
 

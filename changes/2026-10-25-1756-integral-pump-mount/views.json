@@ -1,0 +1,103 @@
+{
+  "views": [
+    {
+      "name": "section",
+      "caption": "The upper pump pockets belong to front-top; one plain lower retainer fastens from below.",
+      "before": "section-before.webp",
+      "after": "section-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 327.4,
+          "y": 330,
+          "r": 25.7,
+          "label": "Stock continues to roof",
+          "at": [
+            90,
+            45.859,
+            315
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/enclosure/enclosure.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          164.22856830950568,
+          507.7518483704846,
+          485.81428142557024
+        ],
+        "target": [
+          0,
+          45.859,
+          260
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 140,
+        "near": 261.06529743265713,
+        "far": 845.7724389714472,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            0,
+            45.859,
+            260
+          ],
+          "normal": [
+            0,
+            1,
+            0
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [],
+      "ghost": [],
+      "only": [
+        "enclosure_front_top",
+        "enclosure-front-top",
+        "enclosure_pump_cartridge",
+        "enclosure_pump_cap",
+        "enclosure_pump_retainer",
+        "enclosure-pump-retainer",
+        "pump-retainer-*"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "snapshot",
+          "sha256": "dfcdefac9647ea37131b7cd2a31aacfeb9a827f0d11a5d452a819aa8d631eea4",
+          "commit": "5f0e7d016c8631d0bd194fb5d6df64e92ce82ada",
+          "taken": "2026-10-25T21:31:40.026Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "file",
+          "sha256": "ce0de04836ef27fcef820150fa4075565513f6f449617f85c2792631668c3543",
+          "commit": "b8cae0ae504a8cb5a678e5bcf53d8a1d66e2ec14",
+          "published": true
+        }
+      },
+      "changed": [
+        "enclosure_pump_cartridge",
+        "enclosure_pump_retainer",
+        "enclosure_pump_cap",
+        "pump-retainer-centre-screw",
+        "pump-retainer-left-screw",
+        "pump-retainer-right-screw",
+        "pump-retainer-centre-insert",
+        "pump-retainer-left-insert",
+        "pump-retainer-right-insert",
+        "enclosure_front_top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
