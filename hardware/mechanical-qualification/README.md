@@ -677,7 +677,10 @@ show the passage used by the above-core V-A routing study. The
 [flat-elbow photographs](../reference/g-ganen-pump/under-head-tube/flat-elbow-observation.json)
 demonstrate the purchased union elbow lying beneath the pump head with both
 socket axes horizontal. These are physical fit observations on that sample;
-installed enclosure clearance and retention remain outside their scope.
+the same record includes Derek's October 26 attestation of the under-head
+V-A elbow fitting with approximately 1 mm clearance. This accepts the reported
+physical pump/elbow fit. The conservative CAD closest-point readings retain
+their model scope.
 
 ## Maintaining the evidence
 
