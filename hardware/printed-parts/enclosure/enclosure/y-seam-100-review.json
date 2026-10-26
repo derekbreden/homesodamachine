@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "recorded_utc": "2026-10-26T00:58:05.987673+00:00",
+  "recorded_utc": "2026-10-26T01:08:08.697866+00:00",
   "scope": "Manual native checks on the four finished enclosure pieces. Geometry only; no physical fit, bearing capacity, installation torque or lifetime qualification.",
   "customer_outcome": "One available M5x100 SKU at all four Y-seam stations, with the upper screw enclosed and both joints using three alternating knuckles.",
   "common_screw": {
@@ -16,7 +16,7 @@
     "listing_verified": "2026-10-25; Amazon Prime; 20 pieces at USD 7.70 before tax"
   },
   "input_sha256": {
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "ff2f2cf9ea15a4eb64c8714e166b29bb712a7a5f6cb2c0f7d9c39a2ccdb930f0",
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "1b41de2c05ae2cb0296a78154bf04e8eab562b28c2dd2ab1466c84ddd9f86ff6",
     "hardware/manifold-layout/above_core_routes.py": "fe980a854a87f0db84fcc66e6333a4066388a25e8228a106db70dcdca20fbfa5",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "f856ca9785d5bef868b5eca804c7214f2a5a17cd5260727138a83f729765521d",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.stl": "fe1a99b351c2c0545a945f708c8e4f5da11d4fed74c85f01144f4002ba04e497",
@@ -27,9 +27,9 @@
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step": "7e67611867786c885d0257da76ec4592d6dee1e9d3dee5eb915517a7f0678362",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.stl": "320f1eaef6c08c9bf0d9cde6c97124bd208af4e6334059af8c4a8ee12c6365bd",
     "hardware/printed-parts/enclosure/enclosure/enclosure-front-top.step.mesh": "393e6fb0879f25973526ed740e933a6293e4a9058681e9fa30b3f60fe69bafd7",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "530440749fc38bc43f4e0090fa3a7eefa243d1300e564a82c8c9078b882bd264",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "84f5ed22ed14086cd3cec551cdb600a814332b06897afbadd67152edd807ae4e",
-    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "04aca037c81930a386e3c57145fac0cdee9033b062cb0c06954b850d8d69d4b8"
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "4993c743d9841b90a083072c0b8eb34c23627c2ec4dd67311eea2b39090ec162",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.stl": "ec486f19308c6a0cc149326e3a908b401d60908e7cfa9c5f3f40e1c667855506",
+    "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step.mesh": "3f7a23101d22a0213b76374ee9d9dbe83370eaa75a09c430736ea8d3d5ee8b65"
   },
   "inputs_unchanged": true,
   "native_parts": {
@@ -186,7 +186,7 @@
   "status": "pass",
   "tube_routes": {
     "facts_file": "hardware/manifold-layout/enclosure-assembly.facts.json",
-    "facts_sha256": "6fc8e905af4b57d560a8816d0faacbc50d2bd3bf1a2dfefe4d787c220368ac4f",
+    "facts_sha256": "90cc3e36c5d0b0d1974ad27aa3820b745c3e9fcb691ffded49ea6511e3fba93e",
     "scope": "Native line/arc paths emitted by the complete appliance assembly; stock bend radius and continuous endpoints. This is not a physical tube-holding result.",
     "routes": [
       {
@@ -212,5 +212,99 @@
         "continuity_pass": true
       }
     ]
+  },
+  "full_enclosure_shaft_extremes": {
+    "scope": "Nominal \u00d85 steel shaft, fixed head seats, both \u00b10.8 mm length limits, intersected against all four native quadrants.",
+    "readings": [
+      {
+        "side": "west",
+        "station": "lower",
+        "length_delta_mm": -0.8,
+        "overlap_mm3": {
+          "front-bottom": 0.0,
+          "back-bottom": 0.0,
+          "front-top": 0.0,
+          "back-top": 0.0
+        }
+      },
+      {
+        "side": "west",
+        "station": "lower",
+        "length_delta_mm": 0.8,
+        "overlap_mm3": {
+          "front-bottom": 0.0,
+          "back-bottom": 0.0,
+          "front-top": 0.0,
+          "back-top": 0.0
+        }
+      },
+      {
+        "side": "west",
+        "station": "upper",
+        "length_delta_mm": -0.8,
+        "overlap_mm3": {
+          "front-bottom": 0.0,
+          "back-bottom": 0.0,
+          "front-top": 0.0,
+          "back-top": 0.0
+        }
+      },
+      {
+        "side": "west",
+        "station": "upper",
+        "length_delta_mm": 0.8,
+        "overlap_mm3": {
+          "front-bottom": 0.0,
+          "back-bottom": 0.0,
+          "front-top": 0.0,
+          "back-top": 0.0
+        }
+      },
+      {
+        "side": "east",
+        "station": "lower",
+        "length_delta_mm": -0.8,
+        "overlap_mm3": {
+          "front-bottom": 0.0,
+          "back-bottom": 0.0,
+          "front-top": 0.0,
+          "back-top": 0.0
+        }
+      },
+      {
+        "side": "east",
+        "station": "lower",
+        "length_delta_mm": 0.8,
+        "overlap_mm3": {
+          "front-bottom": 0.0,
+          "back-bottom": 0.0,
+          "front-top": 0.0,
+          "back-top": 0.0
+        }
+      },
+      {
+        "side": "east",
+        "station": "upper",
+        "length_delta_mm": -0.8,
+        "overlap_mm3": {
+          "front-bottom": 0.0,
+          "back-bottom": 0.0,
+          "front-top": 0.0,
+          "back-top": 0.0
+        }
+      },
+      {
+        "side": "east",
+        "station": "upper",
+        "length_delta_mm": 0.8,
+        "overlap_mm3": {
+          "front-bottom": 0.0,
+          "back-bottom": 0.0,
+          "front-top": 0.0,
+          "back-top": 0.0
+        }
+      }
+    ],
+    "pass": true
   }
 }
