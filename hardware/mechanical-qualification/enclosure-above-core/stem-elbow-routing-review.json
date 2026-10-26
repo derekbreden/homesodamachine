@@ -1,0 +1,1250 @@
+{
+  "recorded_at": "2026-10-26T02:31:52-05:00",
+  "scope": "Manual native-CAD review of three front reservoir stem elbows, four tube continuations and six free wire bends. Production exporter signatures match the reviewed native shapes and wire stations. This record supplies nominal geometry evidence, not physical fit, leakage, retention or lifetime acceptance.",
+  "assembly_sha256": "d34df2c019793de8f82391fdf2630b8bda15ca41a69170d6efaeab6c1d1be620",
+  "assembly_mesh_sha256": "b4e29c9df0b1dc8a3f96a0f37eec1f0274c69a08e36b2cad5218eacbfc975c57",
+  "baseline_native_assembly_sha256": "257021ee95bb8f5b45f15536f699ec6a961468c1e060c3ce5441c9c7c60a5081",
+  "source_sha256": {
+    "hardware/manifold-layout/_scorecard.py": "d9d797d505fc08d4ed4dd391a9eeb60ff58db10f024fc2d5c643c6d6606c051d",
+    "hardware/manifold-layout/above-core.json": "5b34c1204d816a92473346007f2f31d204ee95187b8db8c98563cd7a6427f92a",
+    "hardware/manifold-layout/above_core_bom.py": "ece02c4d7e6f7215e3505d0578ea7a5a7b61911aefd8f2a23c5b94eab33c5e3e",
+    "hardware/manifold-layout/above_core_parts.py": "65edd3fd32800c49e5c3ad303dfccb727b8ce9c6bd6c4da91a2489d304931a62",
+    "hardware/manifold-layout/above_core_routes.py": "7b61057c5afef96dcb9cc9004b855c4e1683dfa7102d3664fe5e22f478bfa2b7",
+    "hardware/manifold-layout/enclosure_assembly.py": "5c8c48a8b5a20cdc2d888af267fd89b2cffa6fcf258f56913eb6603f9d42a1e3",
+    "hardware/manifold-layout/reservoir-a-routes.json": "1c3749e78180d4d7dcc6ac60c83fdc01102f394be86ecc7ab769dde134be3b1a",
+    "hardware/wiring/installed/route-overrides.json": "4a334aa8ad6a15dc8a1ddc7cacddafbd4d4a9014cf14480de44fe28d290c7851"
+  },
+  "fittings": [
+    {
+      "name": "reservoir-a-fill-turn",
+      "host": "valve-v-f",
+      "port": "outlet",
+      "part": "NeoFit ATEU44W",
+      "male_stem_engagement_mm_nominal": 12.7,
+      "female_socket_engagement_mm": 16.891
+    },
+    {
+      "name": "reservoir-a-draw-turn",
+      "host": "valve-v-e",
+      "port": "inlet",
+      "part": "NeoFit ATEU44W",
+      "male_stem_engagement_mm_nominal": 12.7,
+      "female_socket_engagement_mm": 16.891
+    },
+    {
+      "name": "reservoir-b-fill-turn",
+      "host": "valve-v-i",
+      "port": "outlet",
+      "part": "NeoFit ATEU44W",
+      "male_stem_engagement_mm_nominal": 12.7,
+      "female_socket_engagement_mm": 16.891
+    }
+  ],
+  "installation": "Trim each male stem to the receiving valve actual tube-stop mark; 12.7 mm is the nominal CAD engagement. Fully seat each 6.35 mm tube in its 16.891 mm stem-elbow socket.",
+  "retained_interfaces": {
+    "frame_and_hardware_mounts": "No source or placement change.",
+    "reservoir_a_fore_anchor_centres_mm": [
+      [
+        50.5,
+        205,
+        259.5
+      ],
+      [
+        58,
+        205,
+        259.5
+      ]
+    ],
+    "reservoir_a_aft_anchor_centres_mm": [
+      [
+        86.5,
+        304,
+        259.5
+      ],
+      [
+        94,
+        304,
+        259.5
+      ]
+    ],
+    "core_guides_and_fluid_destinations": "All selected receiving endpoints and core guide passages retained.",
+    "electrical_endpoints_and_printed_passages_preserved": true
+  },
+  "routing": {
+    "reservoir_tube_minimum_free_bend_radius_mm": 14,
+    "flavor_a_tube_free_bend_radius_mm": 25,
+    "reservoir_tube_fore_cruise_centre_z_mm": 295.5,
+    "flavor_a_crossing_yz_mm": [
+      156,
+      288.5
+    ],
+    "j9_free_fore_station_z_mm": 281.5,
+    "j1_positive_c_d_free_station_offset_mm": [
+      -0.6,
+      0.8,
+      0
+    ]
+  },
+  "frame_gaps_mm": {
+    "reservoir-a-fill-turn": 3.9327999000000204,
+    "reservoir-a-draw-turn": 3.9327999000000204,
+    "reservoir-b-fill-turn": 3.9327999000000204,
+    "tube-fluid-14": 1.2249999000000003,
+    "tube-fluid-16": 1.2249999000000003,
+    "tube-fluid-24": 1.2249999000000003
+  },
+  "frame_closest_points": [
+    {
+      "name": "reservoir-a-fill-turn",
+      "gap_mm": 3.9327998999999636,
+      "a_mm": [
+        82.1,
+        116.04,
+        295.96720000000005
+      ],
+      "b_mm": [
+        82.1,
+        116.04,
+        299.8999999
+      ]
+    },
+    {
+      "name": "tube-fluid-14",
+      "gap_mm": 1.2249999000000003,
+      "a_mm": [
+        82.1,
+        145.9227722855664,
+        298.675
+      ],
+      "b_mm": [
+        82.1,
+        145.9227722855664,
+        299.8999999
+      ]
+    },
+    {
+      "name": "reservoir-a-draw-turn",
+      "gap_mm": 3.9327998999999636,
+      "a_mm": [
+        22.35,
+        116.04,
+        295.96720000000005
+      ],
+      "b_mm": [
+        22.35,
+        116.04,
+        299.8999999
+      ]
+    },
+    {
+      "name": "tube-fluid-16",
+      "gap_mm": 1.2249999000000003,
+      "a_mm": [
+        22.35,
+        145.9227722855664,
+        298.675
+      ],
+      "b_mm": [
+        22.35,
+        145.9227722855664,
+        299.8999999
+      ]
+    },
+    {
+      "name": "reservoir-b-fill-turn",
+      "gap_mm": 3.9327998999999636,
+      "a_mm": [
+        -82.1,
+        116.04,
+        295.96720000000005
+      ],
+      "b_mm": [
+        -82.1,
+        116.04,
+        299.8999999
+      ]
+    },
+    {
+      "name": "tube-fluid-24",
+      "gap_mm": 1.2249999000000003,
+      "a_mm": [
+        -82.1,
+        145.9227722855664,
+        298.675
+      ],
+      "b_mm": [
+        -82.1,
+        145.9227722855664,
+        299.8999999
+      ]
+    }
+  ],
+  "flavor_a_to_reservoir_tube_clearances": [
+    {
+      "parts": [
+        "tube-fluid-18",
+        "tube-fluid-14"
+      ],
+      "gap_mm": 1.1016510434273787,
+      "a_mm": [
+        42.31100072055157,
+        157.7847378764727,
+        291.25471060103024
+      ],
+      "b_mm": [
+        42.22518025223978,
+        157.6829082932003,
+        292.34828300589146
+      ]
+    },
+    {
+      "parts": [
+        "tube-fluid-18",
+        "tube-fluid-16"
+      ],
+      "gap_mm": 1.8249999999999889,
+      "a_mm": [
+        26.462261726979573,
+        156.00000020976353,
+        290.5
+      ],
+      "b_mm": [
+        26.46226172413254,
+        156.00000018548238,
+        292.325
+      ]
+    },
+    {
+      "parts": [
+        "tube-fluid-18",
+        "tube-fluid-24"
+      ],
+      "gap_mm": 3.262593632154013,
+      "a_mm": [
+        -81.42608219415868,
+        185.21589095736414,
+        289.0977779979354
+      ],
+      "b_mm": [
+        -81.76762586914275,
+        185.21589076295191,
+        292.34244518066004
+      ]
+    }
+  ],
+  "changed_wire_to_tube_clearances": [
+    {
+      "parts": [
+        "wire-J9-B",
+        "tube-fluid-18"
+      ],
+      "gap_mm": 1.9034626529250502,
+      "a_mm": [
+        18.290924257435915,
+        158.5537001085976,
+        285.54777432466125
+      ],
+      "b_mm": [
+        18.290924271969487,
+        157.30842808338124,
+        286.98738109537817
+      ]
+    },
+    {
+      "parts": [
+        "wire-J9-B",
+        "tube-fluid-16"
+      ],
+      "gap_mm": 8.273374678088825,
+      "a_mm": [
+        18.760262228257638,
+        171.0,
+        290.3801315313908
+      ],
+      "b_mm": [
+        26.160193622287238,
+        171.0,
+        294.0800969268637
+      ]
+    },
+    {
+      "parts": [
+        "wire-J9-A",
+        "tube-fluid-18"
+      ],
+      "gap_mm": 1.6068691020423413,
+      "a_mm": [
+        20.094749065522088,
+        158.25528534616035,
+        285.6851833582519
+      ],
+      "b_mm": [
+        20.094748922157507,
+        157.2505502554065,
+        286.9391912164833
+      ]
+    },
+    {
+      "parts": [
+        "wire-J9-A",
+        "tube-fluid-16"
+      ],
+      "gap_mm": 6.522512319818328,
+      "a_mm": [
+        20.72528868176412,
+        171.0,
+        290.4432324758906
+      ],
+      "b_mm": [
+        26.290830104777726,
+        171.0,
+        293.8443963400556
+      ]
+    },
+    {
+      "parts": [
+        "wire-J9-GND",
+        "tube-fluid-18"
+      ],
+      "gap_mm": 1.330211081307731,
+      "a_mm": [
+        21.90768412830063,
+        157.9916160385149,
+        285.8309605845557
+      ],
+      "b_mm": [
+        21.907684129360796,
+        157.19608997397074,
+        286.89707493183033
+      ]
+    },
+    {
+      "parts": [
+        "wire-J9-GND",
+        "tube-fluid-16"
+      ],
+      "gap_mm": 4.87724761230453,
+      "a_mm": [
+        22.668369724187627,
+        171.0,
+        290.5251482775584
+      ],
+      "b_mm": [
+        26.503439152195806,
+        171.0,
+        293.5384167279437
+      ]
+    },
+    {
+      "parts": [
+        "wire-J9-V12",
+        "tube-fluid-18"
+      ],
+      "gap_mm": 1.0725637315469856,
+      "a_mm": [
+        23.730713760087145,
+        157.75901851549702,
+        285.98077358172065
+      ],
+      "b_mm": [
+        23.730713768656546,
+        157.1449842330547,
+        286.86017955066535
+      ]
+    },
+    {
+      "parts": [
+        "wire-J9-V12",
+        "tube-fluid-16"
+      ],
+      "gap_mm": 3.4080322860090466,
+      "a_mm": [
+        24.57177478410033,
+        171.0,
+        290.62894923903394
+      ],
+      "b_mm": [
+        26.86426460487481,
+        171.0,
+        293.150689607138
+      ]
+    },
+    {
+      "parts": [
+        "wire-J1-positive-C",
+        "tube-fluid-18"
+      ],
+      "gap_mm": 1.6609198109683097,
+      "a_mm": [
+        70.54355140513294,
+        168.99444384842263,
+        272.9181965862446
+      ],
+      "b_mm": [
+        71.39333202657187,
+        167.5768303662337,
+        273.08220734506875
+      ]
+    },
+    {
+      "parts": [
+        "wire-J1-positive-C",
+        "tube-fluid-14"
+      ],
+      "gap_mm": 15.477198008702864,
+      "a_mm": [
+        66.8455765639375,
+        167.95606902950905,
+        265.97410157957756
+      ],
+      "b_mm": [
+        56.237015681941095,
+        179.22321376679562,
+        266.2054966586244
+      ]
+    },
+    {
+      "parts": [
+        "wire-J1-positive-C",
+        "tube-fluid-16"
+      ],
+      "gap_mm": 24.938628976853188,
+      "a_mm": [
+        66.46794325062677,
+        167.61902032301953,
+        265.05274622706526
+      ],
+      "b_mm": [
+        48.956385178467926,
+        185.36219169762595,
+        265.7312878263037
+      ]
+    },
+    {
+      "parts": [
+        "wire-J1-positive-D",
+        "tube-fluid-18"
+      ],
+      "gap_mm": 1.6255453847760581,
+      "a_mm": [
+        68.60507465207611,
+        168.35089313740247,
+        276.7172846188788
+      ],
+      "b_mm": [
+        69.49147870393521,
+        167.02150961060377,
+        277.016324906283
+      ]
+    },
+    {
+      "parts": [
+        "wire-J1-positive-D",
+        "tube-fluid-14"
+      ],
+      "gap_mm": 15.19111156793651,
+      "a_mm": [
+        62.64894885278617,
+        165.39369964426237,
+        271.7905872391754
+      ],
+      "b_mm": [
+        54.11050500240883,
+        177.77790608979876,
+        269.67014436142966
+      ]
+    },
+    {
+      "parts": [
+        "wire-J1-positive-D",
+        "tube-fluid-16"
+      ],
+      "gap_mm": 24.319696659094564,
+      "a_mm": [
+        61.63621937398154,
+        164.5265821618251,
+        270.8150769271592
+      ],
+      "b_mm": [
+        47.16104184078012,
+        183.9376484273923,
+        268.55070341414614
+      ]
+    }
+  ],
+  "wire_shape_review": [
+    {
+      "name": "J9-B",
+      "valid": true,
+      "endpoints_and_unchanged_guides_preserved": true,
+      "original_length_mm": 265.051,
+      "length_mm": 266.75913723212517
+    },
+    {
+      "name": "J9-A",
+      "valid": true,
+      "endpoints_and_unchanged_guides_preserved": true,
+      "original_length_mm": 267.329,
+      "length_mm": 268.96641390366966
+    },
+    {
+      "name": "J9-GND",
+      "valid": true,
+      "endpoints_and_unchanged_guides_preserved": true,
+      "original_length_mm": 269.948,
+      "length_mm": 271.51715555383686
+    },
+    {
+      "name": "J9-V12",
+      "valid": true,
+      "endpoints_and_unchanged_guides_preserved": true,
+      "original_length_mm": 272.891,
+      "length_mm": 274.39663744479054
+    },
+    {
+      "name": "J1-positive-C",
+      "valid": true,
+      "endpoints_and_unchanged_guides_preserved": true,
+      "original_length_mm": 159.489,
+      "length_mm": 159.41700646989557
+    },
+    {
+      "name": "J1-positive-D",
+      "valid": true,
+      "endpoints_and_unchanged_guides_preserved": true,
+      "original_length_mm": 180.227,
+      "length_mm": 180.20237029533507
+    }
+  ],
+  "wire_contact_scope": {
+    "new_intersection_pairs": [],
+    "existing_contact_comparison": [
+      {
+        "parts": [
+          "wire-J9-B",
+          "wire-J13-BM1"
+        ],
+        "gap_mm": 0.5553509298080836,
+        "a_mm": [
+          -1.9240960741957025,
+          112.83055631491051,
+          283.69023847484243
+        ],
+        "b_mm": [
+          -2.282599232776178,
+          112.97151588519425,
+          283.29021280057646
+        ],
+        "baseline_gap_mm": 0.6994581944841994
+      },
+      {
+        "parts": [
+          "wire-J9-A",
+          "wire-J9-B"
+        ],
+        "gap_mm": 0.052312800461450024,
+        "a_mm": [
+          19.323171518111245,
+          155.69007610919536,
+          282.2579045165865
+        ],
+        "b_mm": [
+          19.27265647261485,
+          155.6981000531448,
+          282.24692837910044
+        ],
+        "baseline_gap_mm": 0.0
+      },
+      {
+        "parts": [
+          "wire-J9-A",
+          "wire-J9-GND"
+        ],
+        "gap_mm": 0.05896243284186013,
+        "a_mm": [
+          20.974242400154345,
+          154.8965598010512,
+          282.17825860661196
+        ],
+        "b_mm": [
+          21.031340858873353,
+          154.88725125812869,
+          282.1896465619686
+        ],
+        "baseline_gap_mm": 0.0
+      },
+      {
+        "parts": [
+          "wire-J9-GND",
+          "wire-J9-V12"
+        ],
+        "gap_mm": 0.06507507907902287,
+        "a_mm": [
+          22.671197566819767,
+          154.0934457639405,
+          282.11762388425484
+        ],
+        "b_mm": [
+          22.734349115614588,
+          154.0828403365338,
+          282.129207178755
+        ],
+        "baseline_gap_mm": 0.0
+      },
+      {
+        "parts": [
+          "wire-J1-positive-C",
+          "wago-mana"
+        ],
+        "gap_mm": 0.0,
+        "a_mm": [
+          86.05,
+          181.10000000000002,
+          282.10999999999996
+        ],
+        "b_mm": [
+          86.05,
+          181.10000000000002,
+          282.10999999999996
+        ],
+        "baseline_gap_mm": 0.0,
+        "common_mm3": 0.0,
+        "baseline_common_mm3": 0.0
+      },
+      {
+        "parts": [
+          "wire-J1-positive-C",
+          "wire-J1-positive-E"
+        ],
+        "gap_mm": 0.0,
+        "a_mm": [
+          58.41444011601638,
+          159.77854990784317,
+          245.11159530813967
+        ],
+        "b_mm": [
+          58.41444011601638,
+          159.77854990784317,
+          245.11159530813967
+        ],
+        "baseline_gap_mm": 0.0,
+        "common_mm3": 1.412380649571913,
+        "baseline_common_mm3": 3.044135194623746
+      },
+      {
+        "parts": [
+          "wire-J1-positive-C",
+          "wire-J1-OUT7"
+        ],
+        "gap_mm": 0.0,
+        "a_mm": [
+          57.956650353637755,
+          157.90675767604486,
+          239.54743284643106
+        ],
+        "b_mm": [
+          57.956650353637755,
+          157.90675767604486,
+          239.54743284643106
+        ],
+        "baseline_gap_mm": 0.0,
+        "common_mm3": 2.5562494141294403,
+        "baseline_common_mm3": 2.9346951142802773
+      },
+      {
+        "parts": [
+          "wire-J1-positive-C",
+          "wire-J2-FAN"
+        ],
+        "gap_mm": 0.0,
+        "a_mm": [
+          53.097318671150234,
+          153.5121860642671,
+          228.3747676106671
+        ],
+        "b_mm": [
+          53.097318671150234,
+          153.5121860642671,
+          228.3747676106671
+        ],
+        "baseline_gap_mm": 0.0,
+        "common_mm3": 0.8456974266039311,
+        "baseline_common_mm3": 1.0116557319760169
+      },
+      {
+        "parts": [
+          "wire-J1-positive-C",
+          "terminal-compressor-cord-jacket"
+        ],
+        "gap_mm": 0.9910533785768868,
+        "a_mm": [
+          46.16286560791347,
+          146.2808153271688,
+          210.0
+        ],
+        "b_mm": [
+          46.52765798901525,
+          145.41868318397832,
+          210.32533288422252
+        ],
+        "baseline_gap_mm": 0.8841184796818331
+      },
+      {
+        "parts": [
+          "wire-J1-positive-D",
+          "wago-mana"
+        ],
+        "gap_mm": 0.0,
+        "a_mm": [
+          86.05,
+          181.10000000000002,
+          288.07
+        ],
+        "b_mm": [
+          86.05,
+          181.10000000000002,
+          288.07
+        ],
+        "baseline_gap_mm": 0.0,
+        "common_mm3": 0.0,
+        "baseline_common_mm3": 0.0
+      }
+    ],
+    "interpretation": "The changed bends introduce no intersection pair. Existing wire-only and wire-terminal contacts retain their separate harness-review scope; this local tube-routing review does not qualify the entire installed harness."
+  },
+  "production_equality_reading": {
+    "components": [
+      {
+        "name": "reservoir-a-fill-turn",
+        "passed": true,
+        "bounds_delta_mm": 0.0,
+        "centre_delta_mm": 1.4210854715202004e-14,
+        "volume_delta_mm3": 9.094947017729282e-13,
+        "signature": {
+          "valid": true,
+          "volume_mm3": 3361.3342739854206,
+          "centre_mm": [
+            82.09999998156928,
+            114.20346204164841,
+            287.49225275393803
+          ],
+          "bounds_mm": [
+            74.353,
+            101.9948,
+            269.47499999999997,
+            89.847,
+            127.09000000000002,
+            295.9672
+          ]
+        }
+      },
+      {
+        "name": "reservoir-a-draw-turn",
+        "passed": true,
+        "bounds_delta_mm": 0.0,
+        "centre_delta_mm": 1.4210854715202004e-14,
+        "volume_delta_mm3": 9.094947017729282e-13,
+        "signature": {
+          "valid": true,
+          "volume_mm3": 3361.3342739854206,
+          "centre_mm": [
+            22.34999998156929,
+            114.20346204164841,
+            287.49225275393803
+          ],
+          "bounds_mm": [
+            14.603000000000002,
+            101.9948,
+            269.47499999999997,
+            30.097,
+            127.09000000000002,
+            295.9672
+          ]
+        }
+      },
+      {
+        "name": "reservoir-b-fill-turn",
+        "passed": true,
+        "bounds_delta_mm": 0.0,
+        "centre_delta_mm": 1.4210854715202004e-14,
+        "volume_delta_mm3": 9.094947017729282e-13,
+        "signature": {
+          "valid": true,
+          "volume_mm3": 3361.3342739854206,
+          "centre_mm": [
+            -82.1000000184307,
+            114.20346204164841,
+            287.49225275393803
+          ],
+          "bounds_mm": [
+            -89.847,
+            101.9948,
+            269.47499999999997,
+            -74.353,
+            127.09000000000002,
+            295.9672
+          ]
+        }
+      },
+      {
+        "name": "tube-fluid-14",
+        "passed": true,
+        "bounds_delta_mm": 0.0,
+        "centre_delta_mm": 2.8421709430404007e-13,
+        "volume_delta_mm3": 2.1827872842550278e-11,
+        "signature": {
+          "valid": true,
+          "volume_mm3": 7907.650092205058,
+          "centre_mm": [
+            72.7326964635079,
+            258.20593334870756,
+            270.0977821826716
+          ],
+          "bounds_mm": [
+            33.82499989999999,
+            110.19900000000001,
+            253.39999989999998,
+            97.17500010000006,
+            429.4750001,
+            298.67500010000003
+          ]
+        }
+      },
+      {
+        "name": "tube-fluid-16",
+        "passed": true,
+        "bounds_delta_mm": 1.4210854715202004e-14,
+        "centre_delta_mm": 2.8421709430404007e-13,
+        "volume_delta_mm3": 4.8203219193965197e-11,
+        "signature": {
+          "valid": true,
+          "volume_mm3": 6879.010238643394,
+          "centre_mm": [
+            53.503861727180485,
+            261.0248209964273,
+            269.66771442545695
+          ],
+          "bounds_mm": [
+            19.174999899999992,
+            110.19900000000001,
+            253.39999989999995,
+            89.67500009999998,
+            411.17500010000003,
+            298.67500010000003
+          ]
+        }
+      },
+      {
+        "name": "tube-fluid-24",
+        "passed": true,
+        "bounds_delta_mm": 0.0,
+        "centre_delta_mm": 5.684341886080802e-14,
+        "volume_delta_mm3": 9.094947017729282e-13,
+        "signature": {
+          "valid": true,
+          "volume_mm3": 3960.9258664387116,
+          "centre_mm": [
+            -69.64033483864999,
+            214.6432201436793,
+            292.45633968073116
+          ],
+          "bounds_mm": [
+            -85.27500009999999,
+            110.19900000000001,
+            264.56239,
+            -29.82499990000006,
+            290.67500010000003,
+            298.67500010000003
+          ]
+        }
+      },
+      {
+        "name": "tube-fluid-18",
+        "passed": true,
+        "bounds_delta_mm": 0.0,
+        "centre_delta_mm": 1.0800249583553523e-12,
+        "volume_delta_mm3": 6.912159733474255e-11,
+        "signature": {
+          "valid": true,
+          "volume_mm3": 5007.3976109535415,
+          "centre_mm": [
+            -25.04215303349582,
+            285.45135552497266,
+            304.6306990912219
+          ],
+          "bounds_mm": [
+            -96.00000010000001,
+            153.9999999,
+            233.87220000000002,
+            75.82000009999999,
+            463.6,
+            339.7500001
+          ]
+        }
+      }
+    ],
+    "wires": [
+      {
+        "name": "J9-B",
+        "maximum_point_delta_mm": 0.0,
+        "length_mm": 266.759
+      },
+      {
+        "name": "J9-A",
+        "maximum_point_delta_mm": 0.0,
+        "length_mm": 268.966
+      },
+      {
+        "name": "J9-GND",
+        "maximum_point_delta_mm": 0.0,
+        "length_mm": 271.517
+      },
+      {
+        "name": "J9-V12",
+        "maximum_point_delta_mm": 0.0,
+        "length_mm": 274.397
+      },
+      {
+        "name": "J1-positive-C",
+        "maximum_point_delta_mm": 2.842170943040401e-14,
+        "length_mm": 159.417
+      },
+      {
+        "name": "J1-positive-D",
+        "maximum_point_delta_mm": 2.842170943040401e-14,
+        "length_mm": 180.202
+      }
+    ]
+  },
+  "existing_assembly_report": [
+    {
+      "id": "coverage",
+      "label": "Every placed body is declared in the fastening table",
+      "kind": "gate",
+      "status": "pass",
+      "value": "162/162 declared",
+      "target": "all declared",
+      "detail": [],
+      "active": true
+    },
+    {
+      "id": "pack-closes",
+      "label": "No two solids overlap (pack closes)",
+      "kind": "gate",
+      "status": "pass",
+      "value": "0 clash, 0 unanswered",
+      "target": "0 clash, 0 unanswered",
+      "detail": [
+        "Selected nominal mates: 32/32 within finite insertion/thread/heat-set regions at the existing 1 mm\u00b3 contact floor; maximum outside 0.743481 mm\u00b3. Physical insertion, sealing and retention remain unqualified.",
+        "Flavor reducer stems in their valve outlets: v-g 258.0 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; v-j 258.0 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it",
+        "Stem elbows in their collets: v-c 77.2 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; v-d 77.2 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; v-g 77.2 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; v-j 77.2 mm\u00b3 in the stem, 0.000000 mm\u00b3 outside it; y-c 0.2 mm\u00b3 in the stem, 0.224926 mm\u00b3 outside it; y-d 0.2 mm\u00b3 in the stem, 0.224926 mm\u00b3 outside it; y-f 0.2 mm\u00b3 in the stem, 0.224926 mm\u00b3 outside it; y-g 0.2 mm\u00b3 in the stem, 0.224926 mm\u00b3 outside it",
+        "Drain stub in the plug's land: 17.02 mm\u00b3 in the push-on seal's ring, 0.000000 mm\u00b3 outside it"
+      ],
+      "active": true
+    },
+    {
+      "id": "clearance-floor",
+      "label": "Pairs outside named pack-floor exclusions stand a millimetre apart",
+      "kind": "gate",
+      "status": "fail",
+      "value": "14 under, tightest 0.037 mm",
+      "target": "\u2265 1 mm",
+      "detail": [
+        "every body pair, and every drawn run against what its own line does not join it to \u2014 the exact solid distance, with boxes only as a prefilter",
+        "va-east-turn \u2014 foam-assembly: 0.037 mm \u2014 \u2717 under the global pack floor",
+        "va-east-turn \u2014 g-ganen-pump: 0.192 mm \u2014 \u2717 under the global pack floor",
+        "funnel \u2014 funnel-frame-front-west-screw: 0.200 mm \u2014 \u2717 under the global pack floor",
+        "funnel \u2014 funnel-frame-front-east-screw: 0.200 mm \u2014 \u2717 under the global pack floor",
+        "funnel \u2014 funnel-frame-back-west-screw: 0.200 mm \u2014 \u2717 under the global pack floor",
+        "funnel \u2014 funnel-frame-back-east-screw: 0.200 mm \u2014 \u2717 under the global pack floor",
+        "lower-pump-elbow \u2014 pump-inlet-tube-band: 0.393 mm \u2014 \u2717 under the global pack floor",
+        "ya-stem-elbow \u2014 elbow-cradle: 0.666 mm \u2014 \u2717 under the global pack floor",
+        "yb-stem-elbow \u2014 elbow-cradle: 0.666 mm \u2014 \u2717 under the global pack floor",
+        "funnel-frame \u2014 foam-assembly: 0.690 mm \u2014 \u2717 under the global pack floor",
+        "fluid-28 \u2014 gas-regulator: 0.800 mm \u2014 \u2717 under the global pack floor",
+        "fluid-28 \u2014 enclosure-back-top: 0.806 mm \u2014 \u2717 under the global pack floor",
+        "above-core-va-fore-feed \u2014 foam-assembly: 0.875 mm \u2014 \u2717 under the global pack floor",
+        "fluid-16 \u2014 lower-valve-elbow: 0.876 mm \u2014 \u2717 under the global pack floor",
+        "compressor \u2014 thermal-fuse: 0.000 mm \u2014 excluded from the global pack floor",
+        "compressor \u2014 fuse-clamp: 0.000 mm \u2014 excluded from the global pack floor",
+        "thermal-fuse \u2014 fuse-clamp: 0.000 mm \u2014 excluded from the global pack floor",
+        "tee-y-a \u2014 ya-stem-elbow: 0.000 mm \u2014 excluded from the global pack floor",
+        "valve-v-e \u2014 reservoir-a-draw-turn: 0.000 mm \u2014 excluded from the global pack floor",
+        "valve-v-g \u2014 flavor-reducer-v-g: 0.000 mm \u2014 excluded from the global pack floor",
+        "valve-v-f \u2014 reservoir-a-fill-turn: 0.000 mm \u2014 excluded from the global pack floor",
+        "tee-y-b \u2014 yb-stem-elbow: 0.000 mm \u2014 excluded from the global pack floor",
+        "valve-v-j \u2014 flavor-reducer-v-j: 0.000 mm \u2014 excluded from the global pack floor",
+        "valve-v-i \u2014 reservoir-b-fill-turn: 0.000 mm \u2014 excluded from the global pack floor",
+        "asse1022-assembly \u2014 asse-inlet-tpu: 0.000 mm \u2014 excluded from the global pack floor",
+        "asse1022-assembly \u2014 asse-outlet-tpu: 0.000 mm \u2014 excluded from the global pack floor",
+        "asse1022-assembly \u2014 asse-drain-adapter: 0.000 mm \u2014 excluded from the global pack floor",
+        "digiten-flow \u2014 soda-outlet-return-stem: 0.000 mm \u2014 excluded from the global pack floor",
+        "valve-v-a \u2014 reg-va-elbow: 0.000 mm \u2014 excluded from the global pack floor",
+        "valve-v-a \u2014 va-outlet-elbow: 0.000 mm \u2014 excluded from the global pack floor",
+        "vk-solenoid \u2014 tee-fold: 0.000 mm \u2014 excluded from the global pack floor",
+        "vk-solenoid \u2014 lower-valve-elbow: 0.000 mm \u2014 excluded from the global pack floor",
+        "vk-solenoid \u2014 soda-continuous-insulation: 0.000 mm \u2014 excluded from the global pack floor",
+        "asse-outlet-tpu \u2014 water-split: 0.000 mm \u2014 excluded from the global pack floor",
+        "water-split \u2014 tee-fold: 0.000 mm \u2014 excluded from the global pack floor",
+        "flow-regulator \u2014 reg-va-elbow: 0.000 mm \u2014 excluded from the global pack floor",
+        "gas-regulator \u2014 gas-inlet-elbow: 0.000 mm \u2014 excluded from the global pack floor",
+        "gas-regulator \u2014 gas-lower-a: 0.000 mm \u2014 excluded from the global pack floor",
+        "gas-check \u2014 gas-lower-b: 0.000 mm \u2014 excluded from the global pack floor",
+        "gas-check \u2014 gas-upper-a: 0.000 mm \u2014 excluded from the global pack floor",
+        "lower-valve-elbow \u2014 lower-pump-elbow: 0.000 mm \u2014 excluded from the global pack floor",
+        "lower-pump-elbow \u2014 pump-inlet-tpu: 0.000 mm \u2014 excluded from the global pack floor",
+        "gas-lower-a \u2014 gas-lower-b: 0.000 mm \u2014 excluded from the global pack floor",
+        "gas-upper-a \u2014 gas-upper-b: 0.000 mm \u2014 excluded from the global pack floor",
+        "soda-stem-elbow \u2014 soda-outlet-return-stem: 0.000 mm \u2014 excluded from the global pack floor",
+        "soda-stem-elbow \u2014 bulkhead-carb: 0.000 mm \u2014 excluded from the global pack floor",
+        "drain-outlet-stem \u2014 funnel-drain-union: 0.000 mm \u2014 excluded from the global pack floor",
+        "soda-bend-holder \u2014 soda-continuous-insulation: 0.000 mm \u2014 excluded from the global pack floor",
+        "soda-continuous-insulation \u2014 g-ganen-pump: 0.000 mm \u2014 excluded from the global pack floor",
+        "soda-continuous-insulation \u2014 pump-inlet-barb-band: 0.000 mm \u2014 excluded from the global pack floor",
+        "soda-continuous-insulation \u2014 pump-inlet-tpu: 0.000 mm \u2014 excluded from the global pack floor",
+        "bulkhead-water \u2014 bulkhead-water-nut: 0.000 mm \u2014 excluded from the global pack floor",
+        "bulkhead-water \u2014 bulkhead-ring-water: 0.000 mm \u2014 excluded from the global pack floor",
+        "co2-inlet \u2014 co2-inlet-nut: 0.000 mm \u2014 excluded from the global pack floor",
+        "co2-inlet \u2014 bulkhead-ring-co2: 0.000 mm \u2014 excluded from the global pack floor",
+        "bulkhead-drain \u2014 bulkhead-drain-nut: 0.000 mm \u2014 excluded from the global pack floor",
+        "bulkhead-drain \u2014 bulkhead-ring-drain: 0.000 mm \u2014 excluded from the global pack floor",
+        "bulkhead-carb \u2014 bulkhead-carb-nut: 0.000 mm \u2014 excluded from the global pack floor",
+        "bulkhead-carb \u2014 bulkhead-ring-carb: 0.000 mm \u2014 excluded from the global pack floor",
+        "bulkhead-flavor-a \u2014 bulkhead-flavor-a-nut: 0.000 mm \u2014 excluded from the global pack floor",
+        "bulkhead-flavor-a \u2014 bulkhead-ring-flavor-a: 0.000 mm \u2014 excluded from the global pack floor",
+        "bulkhead-flavor-b \u2014 bulkhead-flavor-b-nut: 0.000 mm \u2014 excluded from the global pack floor",
+        "bulkhead-flavor-b \u2014 bulkhead-ring-flavor-b: 0.000 mm \u2014 excluded from the global pack floor",
+        "carbonator-fold \u2014 discharge-chain: 0.000 mm \u2014 excluded from the global pack floor",
+        "discharge-chain \u2014 pump-outlet-tpu: 0.000 mm \u2014 excluded from the global pack floor",
+        "discharge-chain \u2014 pump-outlet-tube-band: 0.000 mm \u2014 excluded from the global pack floor",
+        "g-ganen-pump \u2014 pump-inlet-tpu: 0.000 mm \u2014 excluded from the global pack floor",
+        "g-ganen-pump \u2014 pump-outlet-tpu: 0.000 mm \u2014 excluded from the global pack floor",
+        "pcba \u2014 foam-assembly: 0.000 mm \u2014 excluded from the global pack floor",
+        "pump-inlet-barb-band \u2014 pump-inlet-tpu: 0.000 mm \u2014 excluded from the global pack floor",
+        "pump-inlet-tpu \u2014 pump-inlet-tube-band: 0.000 mm \u2014 excluded from the global pack floor",
+        "pump-outlet-barb-band \u2014 pump-outlet-tpu: 0.000 mm \u2014 excluded from the global pack floor",
+        "pump-outlet-tpu \u2014 pump-outlet-tube-band: 0.000 mm \u2014 excluded from the global pack floor",
+        "valve-v-b \u2014 vb-inlet-turn: 0.000 mm \u2014 excluded from the global pack floor",
+        "valve-v-b \u2014 vb-outlet-stem: 0.000 mm \u2014 excluded from the global pack floor",
+        "valve-v-b \u2014 foam-assembly: 0.000 mm \u2014 excluded from the global pack floor",
+        "ground-stack \u2014 foam-assembly: 0.000 mm \u2014 excluded from the global pack floor",
+        "funnel \u2014 funnel-cover: 0.000 mm \u2014 excluded from the global pack floor",
+        "funnel \u2014 funnel-frame: 0.000 mm \u2014 excluded from the global pack floor",
+        "funnel \u2014 elbow-cradle: 0.000 mm \u2014 excluded from the global pack floor",
+        "funnel \u2014 funnel-drain-stub: 0.000 mm \u2014 excluded from the global pack floor",
+        "funnel-frame \u2014 funnel-frame-front-west-screw: 0.000 mm \u2014 excluded from the global pack floor",
+        "funnel-frame \u2014 funnel-frame-front-west-insert: 0.000 mm \u2014 excluded from the global pack floor",
+        "funnel-frame \u2014 funnel-frame-front-east-screw: 0.000 mm \u2014 excluded from the global pack floor",
+        "funnel-frame \u2014 funnel-frame-front-east-insert: 0.000 mm \u2014 excluded from the global pack floor",
+        "funnel-frame \u2014 funnel-frame-back-west-screw: 0.000 mm \u2014 excluded from the global pack floor",
+        "funnel-frame \u2014 funnel-frame-back-west-insert: 0.000 mm \u2014 excluded from the global pack floor",
+        "funnel-frame \u2014 funnel-frame-back-east-screw: 0.000 mm \u2014 excluded from the global pack floor",
+        "funnel-frame \u2014 funnel-frame-back-east-insert: 0.000 mm \u2014 excluded from the global pack floor",
+        "bulkhead-ring-water \u2014 bulkhead-ring-water-word: 0.000 mm \u2014 excluded from the global pack floor",
+        "bulkhead-ring-co2 \u2014 bulkhead-ring-co2-word: 0.000 mm \u2014 excluded from the global pack floor",
+        "bulkhead-ring-drain \u2014 bulkhead-ring-drain-word: 0.000 mm \u2014 excluded from the global pack floor",
+        "bulkhead-ring-carb \u2014 bulkhead-ring-carb-word: 0.000 mm \u2014 excluded from the global pack floor",
+        "bulkhead-ring-flavor-a \u2014 bulkhead-ring-flavor-a-word: 0.000 mm \u2014 excluded from the global pack floor",
+        "bulkhead-ring-flavor-b \u2014 bulkhead-ring-flavor-b-word: 0.000 mm \u2014 excluded from the global pack floor",
+        "nameplate \u2014 nameplate-ink: 0.000 mm \u2014 excluded from the global pack floor",
+        "funnel-frame-front-west-screw \u2014 funnel-frame-front-west-insert: 0.000 mm \u2014 excluded from the global pack floor",
+        "funnel-frame-front-east-screw \u2014 funnel-frame-front-east-insert: 0.000 mm \u2014 excluded from the global pack floor",
+        "funnel-frame-back-west-screw \u2014 funnel-frame-back-west-insert: 0.000 mm \u2014 excluded from the global pack floor",
+        "funnel-frame-back-east-screw \u2014 funnel-frame-back-east-insert: 0.000 mm \u2014 excluded from the global pack floor",
+        "elbow-cradle \u2014 funnel-drain-union: 0.000 mm \u2014 excluded from the global pack floor",
+        "funnel-drain-union \u2014 funnel-drain-stub: 0.000 mm \u2014 excluded from the global pack floor",
+        "display \u2014 display-gasket: 0.000 mm \u2014 excluded from the global pack floor",
+        "display-cover \u2014 display-gasket: 0.000 mm \u2014 excluded from the global pack floor",
+        "y-seam-west-lower-screw \u2014 y-seam-west-lower-insert: 0.000 mm \u2014 excluded from the global pack floor",
+        "y-seam-west-upper-screw \u2014 y-seam-west-upper-insert: 0.000 mm \u2014 excluded from the global pack floor",
+        "y-seam-east-lower-screw \u2014 y-seam-east-lower-insert: 0.000 mm \u2014 excluded from the global pack floor",
+        "y-seam-east-upper-screw \u2014 y-seam-east-upper-insert: 0.000 mm \u2014 excluded from the global pack floor",
+        "pump-retainer-left-screw \u2014 pump-retainer-left-insert: 0.000 mm \u2014 excluded from the global pack floor",
+        "pump-retainer-centre-screw \u2014 pump-retainer-centre-insert: 0.000 mm \u2014 excluded from the global pack floor",
+        "pump-retainer-right-screw \u2014 pump-retainer-right-insert: 0.000 mm \u2014 excluded from the global pack floor",
+        "soda-core-rise \u2014 soda-continuous-insulation: 0.000 mm \u2014 excluded from the global pack floor",
+        "g-ganen-pump \u2014 foam-assembly: 0.000 mm \u2014 excluded from the global pack floor",
+        "vb-outlet-return \u2014 foam-assembly: 0.147 mm \u2014 excluded from the global pack floor",
+        "discharge-chain \u2014 foam-assembly: 0.147 mm \u2014 excluded from the global pack floor",
+        "funnel-frame \u2014 elbow-cradle: 0.150 mm \u2014 excluded from the global pack floor",
+        "wago-sensors \u2014 foam-assembly: 0.150 mm \u2014 excluded from the global pack floor",
+        "wago-v12 \u2014 foam-assembly: 0.150 mm \u2014 excluded from the global pack floor",
+        "wago-gnd \u2014 foam-assembly: 0.150 mm \u2014 excluded from the global pack floor",
+        "wago-reeds-b \u2014 foam-assembly: 0.150 mm \u2014 excluded from the global pack floor",
+        "soda-core-rise \u2014 soda-bend-holder: 0.224 mm \u2014 excluded from the global pack floor",
+        "funnel-frame \u2014 funnel-drain-union: 0.364 mm \u2014 excluded from the global pack floor",
+        "display \u2014 display-cover: 1.000 mm \u2014 excluded from the global pack floor",
+        "psu \u2014 relay-1: 1.000 mm",
+        "psu \u2014 foam-assembly: 1.000 mm",
+        "digiten-flow \u2014 soda-bend-holder: 1.000 mm",
+        "digiten-flow \u2014 soda-continuous-insulation: 1.000 mm",
+        "fluid-26 \u2014 pcba: 1.025 mm",
+        "fluid-26 \u2014 funnel-frame: 1.025 mm",
+        "digiten-flow \u2014 gas-check: 1.069 mm",
+        "co2-inlet \u2014 bulkhead-ring-co2-word: 1.081 mm",
+        "soda-continuous-insulation \u2014 foam-assembly: 1.100 mm",
+        "fluid-18 \u2014 fluid-14: 1.102 mm",
+        "gas-lower-a \u2014 foam-assembly: 1.139 mm",
+        "elbow-cradle \u2014 foam-assembly: 1.147 mm",
+        "fluid-14 \u2014 fluid-16: 1.151 mm",
+        "above-core-vb-yb-cross \u2014 g-ganen-pump: 1.162 mm",
+        "lower-valve-elbow \u2014 foam-assembly: 1.162 mm",
+        "bulkhead-drain \u2014 bulkhead-ring-drain-word: 1.164 mm",
+        "bulkhead-flavor-a \u2014 bulkhead-ring-flavor-a-word: 1.169 mm",
+        "bulkhead-flavor-b \u2014 bulkhead-ring-flavor-b-word: 1.169 mm",
+        "tee-y-a \u2014 elbow-cradle: 1.172 mm",
+        "tee-y-b \u2014 elbow-cradle: 1.172 mm",
+        "bulkhead-carb \u2014 bulkhead-ring-carb-word: 1.191 mm",
+        "bulkhead-water \u2014 bulkhead-ring-water-word: 1.217 mm",
+        "fluid-14 \u2014 funnel-frame: 1.225 mm",
+        "fluid-24 \u2014 funnel-frame: 1.225 mm",
+        "fluid-16 \u2014 funnel-frame: 1.225 mm",
+        "fluid-18 \u2014 fluid-28: 1.250 mm",
+        "pump-inlet-barb-band \u2014 pump-inlet-tube-band: 1.265 mm",
+        "pump-outlet-barb-band \u2014 pump-outlet-tube-band: 1.265 mm",
+        "fluid-16 \u2014 g-ganen-pump: 1.288 mm",
+        "fluid-14 \u2014 enclosure-back-top: 1.326 mm",
+        "fluid-14 \u2014 valve-v-b: 1.385 mm",
+        "fluid-18 \u2014 drain-vent: 1.491 mm",
+        "lower-pump-elbow \u2014 foam-assembly: 1.494 mm",
+        "g-ganen-pump \u2014 pump-outlet-barb-band: 1.518 mm",
+        "fluid-26 \u2014 wago-v12: 1.521 mm",
+        "fluid-18 \u2014 g-ganen-pump: 1.571 mm",
+        "drain-outlet-stem \u2014 elbow-cradle: 1.604 mm",
+        "va-outlet-elbow \u2014 foam-assembly: 1.639 mm",
+        "elbow-cradle \u2014 funnel-drain-stub: 1.641 mm",
+        "above-core-gas-core-drop \u2014 foam-assembly: 1.681 mm",
+        "above-core-pump-inlet-link \u2014 g-ganen-pump: 1.721 mm",
+        "fluid-16 \u2014 valve-v-b: 1.735 mm",
+        "above-core-pump-check-link \u2014 g-ganen-pump: 1.750 mm",
+        "g-ganen-pump \u2014 pump-inlet-barb-band: 1.761 mm",
+        "fluid-14 \u2014 g-ganen-pump: 1.822 mm",
+        "fluid-18 \u2014 fluid-16: 1.825 mm",
+        "above-core-gas-core-drop \u2014 fluid-14: 1.890 mm",
+        "soda-core-rise \u2014 pump-inlet-tpu: 1.891 mm",
+        "fluid-28 \u2014 drain-vent: 1.975 mm"
+      ],
+      "active": true
+    }
+  ],
+  "evidence_limits": [
+    "Native distances describe nominal solids. Installed tube and wire dressing must follow the recorded free bends.",
+    "The production assembly clearance-floor report remains red for other pairs; the physical under-pump V-A acceptance retains its own recorded scope.",
+    "No printed part is changed by this routing update."
+  ],
+  "initial_production_export_sha256": "886445fcc4c527793aa89b28eb4b282d9c4ca823d5c087a592eb5eeb8a5478bd",
+  "current_production_readback": {
+    "scope": "Scoped STEP readback after the approved reservoir air-seat export. All thirteen changed bodies match the reviewed native shapes; generated wire stations match the reviewed routes.",
+    "assembly_sha256": "d34df2c019793de8f82391fdf2630b8bda15ca41a69170d6efaeab6c1d1be620",
+    "assembly_mesh_sha256": "b4e29c9df0b1dc8a3f96a0f37eec1f0274c69a08e36b2cad5218eacbfc975c57",
+    "shape_comparison": [
+      {
+        "name": "reservoir-a-fill-turn",
+        "passed": true,
+        "bounds_delta_mm": 5.684341886080802e-14,
+        "centre_delta_mm": 3.410605131648481e-13,
+        "volume_delta_mm3": 1.9554136088117957e-10
+      },
+      {
+        "name": "reservoir-a-draw-turn",
+        "passed": true,
+        "bounds_delta_mm": 5.684341886080802e-14,
+        "centre_delta_mm": 3.410605131648481e-13,
+        "volume_delta_mm3": 1.9599610823206604e-10
+      },
+      {
+        "name": "reservoir-b-fill-turn",
+        "passed": true,
+        "bounds_delta_mm": 5.684341886080802e-14,
+        "centre_delta_mm": 2.984279490192421e-13,
+        "volume_delta_mm3": 2.737579052336514e-10
+      },
+      {
+        "name": "tube-fluid-14",
+        "passed": true,
+        "bounds_delta_mm": 1.0000001537946446e-07,
+        "centre_delta_mm": 3.979039320256561e-12,
+        "volume_delta_mm3": 7.457856554538012e-10
+      },
+      {
+        "name": "tube-fluid-16",
+        "passed": true,
+        "bounds_delta_mm": 1.0000002248489182e-07,
+        "centre_delta_mm": 3.524291969370097e-12,
+        "volume_delta_mm3": 1.0104486136697233e-09
+      },
+      {
+        "name": "tube-fluid-24",
+        "passed": true,
+        "bounds_delta_mm": 1.0000002248489182e-07,
+        "centre_delta_mm": 5.002220859751105e-12,
+        "volume_delta_mm3": 1.8053469830192626e-10
+      },
+      {
+        "name": "tube-fluid-18",
+        "passed": true,
+        "bounds_delta_mm": 9.999999406318238e-08,
+        "centre_delta_mm": 2.1884716261411086e-11,
+        "volume_delta_mm3": 2.7321220841258764e-09
+      },
+      {
+        "name": "wire-J9-B",
+        "passed": true,
+        "bounds_delta_mm": 8.324008149429574e-12,
+        "centre_delta_mm": 7.759126674500294e-12,
+        "volume_delta_mm3": 4.617959348252043e-10
+      },
+      {
+        "name": "wire-J9-A",
+        "passed": true,
+        "bounds_delta_mm": 7.958078640513122e-12,
+        "centre_delta_mm": 1.8758328224066645e-12,
+        "volume_delta_mm3": 5.19321474712342e-10
+      },
+      {
+        "name": "wire-J9-GND",
+        "passed": true,
+        "bounds_delta_mm": 4.945377440890297e-12,
+        "centre_delta_mm": 1.4210854715202004e-11,
+        "volume_delta_mm3": 4.3144154915353283e-10
+      },
+      {
+        "name": "wire-J9-V12",
+        "passed": true,
+        "bounds_delta_mm": 1.0000436390100731e-07,
+        "centre_delta_mm": 8.327560863108374e-12,
+        "volume_delta_mm3": 4.3507952796062455e-10
+      },
+      {
+        "name": "wire-J1-positive-C",
+        "passed": true,
+        "bounds_delta_mm": 1.0000007932831068e-07,
+        "centre_delta_mm": 1.759303813742008e-11,
+        "volume_delta_mm3": 5.093170329928398e-11
+      },
+      {
+        "name": "wire-J1-positive-D",
+        "passed": true,
+        "bounds_delta_mm": 9.999999406318238e-08,
+        "centre_delta_mm": 4.387601393318619e-12,
+        "volume_delta_mm3": 1.525108928035479e-10
+      }
+    ],
+    "wire_point_delta_mm": {
+      "J9-B": 0.0,
+      "J9-A": 0.0,
+      "J9-GND": 0.0,
+      "J9-V12": 0.0,
+      "J1-positive-C": 2.842170943040401e-14,
+      "J1-positive-D": 2.842170943040401e-14
+    },
+    "frame_gaps_mm": {
+      "reservoir-a-fill-turn": 3.9327999000000204,
+      "reservoir-a-draw-turn": 3.9327999000000204,
+      "reservoir-b-fill-turn": 3.9327999000000204,
+      "tube-fluid-14": 1.2249999000000003,
+      "tube-fluid-16": 1.2249999000000003,
+      "tube-fluid-24": 1.2249999000000003
+    }
+  }
+}

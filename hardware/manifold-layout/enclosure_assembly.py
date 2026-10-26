@@ -1351,7 +1351,8 @@ def _boxed(x0, x1, y0, y1, z0, z1):
 # core's own cap, which are the core's riders and nobody else's. The crossing runs to
 # the bulkheads and the pumps' own tubes are made up later and are not in the box yet.
 # The tee wall and its collet plate are integral with front-top.
-FRONT_RIDERS = ("valve-v-", "coil-v-", "tee-y-", "stem-elbow-", "turn-", "step-")
+FRONT_RIDERS = ("valve-v-", "coil-v-", "tee-y-", "stem-elbow-", "turn-", "step-",
+                "reservoir-a-fill-turn", "reservoir-a-draw-turn", "reservoir-b-fill-turn")
 # What rides THE CORE on its cart — everything standing on or cradled in the cap's lid
 # when the back assembly comes over: the water pump with its two elbows and their clamps,
 # the made-up check chain, and the three cap-cradled valves with their coils and port stubs.
