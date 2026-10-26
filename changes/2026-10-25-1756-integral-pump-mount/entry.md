@@ -11,6 +11,6 @@ Both pumps sit in the loose rectangular retainer while their four tubes and moto
 
 All four prepared tee, upper-tube and fore-valve groups install straight from aft before the rear valve row and returns. The two adjacent WAGO holders have one broad fore plane that clears this approach. Pump and display leads share one rear passage. The display housing has one flat inner back; the cable exit opens over the bulkhead lip. Two plain cleanouts open the display-wing support pockets into the empty PCB room while retaining 3 mm beneath the glass seat.
 
-The [native assembly review](/hardware/printed-parts/enclosure/enclosure/pump-mount-review/README.md) records complete loading and closing paths, screw access and neighboring hardware clearance. Both parts have reviewed native slices. Printed fit, cleanup and retention await the identified trial prints.
+The [native assembly review](https://github.com/derekbreden/homesodamachine/blob/main/hardware/printed-parts/enclosure/enclosure/pump-mount-review/README.md) records complete loading and closing paths, screw access and neighboring hardware clearance. Both parts have reviewed native slices. Printed fit, cleanup and retention await the identified trial prints.
 
 [Inspect the full installed machine](/3d?file=manifold-layout/enclosure-assembly.step) or the [pump installation view](/3d?file=assembly/scenes/glb/pump-mount.glb).
