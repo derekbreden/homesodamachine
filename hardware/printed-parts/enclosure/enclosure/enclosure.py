@@ -3581,6 +3581,12 @@ def _y_knuckle(inner, outer, x_in, sx, y_joint, piece, z0, z1, depth):
         body = body.fuse(_y_between_faces(bottom, z0, top, z1, x_in, sx, y_joint, xa, xb,
                                           y_joint + lip_len - 0.01,
                                           back_flank_start(y_joint) + 0.01, cap))
+        if piece == "back-top":
+            # Behind the front head block's running end, the middle knuckle's root
+            # continues into its own roof. Keep full flank stock through this return
+            # instead of leaving only the fluted telescope skin above the knuckle.
+            body = body.fuse(_ybox(xa, xb, y_joint + lip_len + fits.running,
+                                   back_flank_start(y_joint) + 0.01, z0, inner[5] + wall))
         if full:
             # Out to the arm's inboard face it runs on under the rail's stop block
             # (`_z_rail_heads`), so the arm's closed end stands on it rather than meeting its
