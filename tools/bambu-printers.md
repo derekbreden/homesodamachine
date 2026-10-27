@@ -92,12 +92,13 @@ Use up the **most depleted suitable spool first**, then progress toward fuller
 spools. Remaining quantity is not a launch condition; no weighing is required.
 
 Mark1's AMS 2 Pro A feeds the fixed **left 0.8 mm Standard-flow** hotend.
-**A1 is empty**. A2–A4 carry Bambu PETG Translucent Clear (`GFG01`, transparent
-`00000000`). At the October 26 right-repeat preflight, **A2 reports 9%**,
-and A3/A4 each report 100%. The
-[right 50% reservoir and current matching lid](../hardware/printed-parts/cold-core/reservoir/prints/2026-10-26-mark1-right-engineering-flow105-overlap50-temp260-left08-z000/README.md)
-start on **A2**, with Auto Refill visible, as **task 1378532609**.
-The completed left 50% article is reported holding water.
+**A1 and A2 are empty**. A3/A4 carry Bambu PETG Translucent Clear (`GFG01`, transparent
+`00000000`). At the October 26 lid-pair preflight, A1 and A2 report empty, **A3 reports
+73%** and A4 reports 100%. The
+[current left/right open-port lids](../hardware/printed-parts/cold-core/reservoir/prints/2026-10-26-mark1-lids-flush-grips-no-supports/README.md)
+start on **A3**, with Auto Refill visible, as **task 1379263645**. The preceding
+right reservoir, task 1378532609, completed 833/833. Refresh actual depletion
+before selecting later starting slots.
 
 AMS unit `0` addresses A1–A4 as trays `0`–`3`. **AMS filament backup is On**,
 freshly checked in Mark1's AMS Settings. A specific automatic backup priority
