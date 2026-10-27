@@ -1,0 +1,57 @@
+{
+  "source": "Current lid STEP versus the completed populated export lid",
+  "added_mm3": 147.73439999999925,
+  "removed_mm3": 0.0,
+  "addition_bounds_world_mm": [
+    34.0,
+    225.87934,
+    298.21,
+    43.2,
+    263.92934,
+    298.65000000000003
+  ],
+  "nearby_physical_bodies": [
+    {
+      "neighbor": "tube-fluid-18",
+      "gap_mm": 64.23154482703582
+    },
+    {
+      "neighbor": "tube-fluid-28",
+      "gap_mm": 118.38011853497544
+    },
+    {
+      "neighbor": "tube-fluid-14",
+      "gap_mm": 39.80638608684629
+    },
+    {
+      "neighbor": "tube-fluid-16",
+      "gap_mm": 36.05366198042957
+    },
+    {
+      "neighbor": "funnel-frame",
+      "gap_mm": 1.2499999000000344
+    },
+    {
+      "neighbor": "enclosure-back-top",
+      "gap_mm": 22.557975645156635
+    },
+    {
+      "neighbor": "wire-AC4-H",
+      "gap_mm": 10.230409745795447
+    },
+    {
+      "neighbor": "wire-AC5-N",
+      "gap_mm": 9.736579030994255
+    },
+    {
+      "neighbor": "wire-PE-bus",
+      "gap_mm": 10.32641534870139
+    },
+    {
+      "neighbor": "wire-J1-positive-A",
+      "gap_mm": 8.943694153865724
+    }
+  ],
+  "lid_valid": true,
+  "lid_solids": 1
+}

@@ -6,6 +6,8 @@ fore and the reed/GND ports face aft. Integral blank-backed wells retain
 3 mm stock and join the valve wall and lid. Seat the fore-facing connectors
 before installing V-B’s inlet plumbing.
 
+The wall and upper wells share the flat Z298.65 mm top plane.
+
 V-B’s native origin is X38/Y244.90434/Z279.41. Its inlet follows an R19.98
 minimum S-offset between the stem elbows; its return uses the crowned
 R28.66 minimum curve into the fixed Y-B fitting. The reservoir-A tubes
@@ -45,10 +47,10 @@ connections and retain the existing embedded passages. The
 against nearby physical bodies. Wire paths describe proposed dressing;
 they do not prescribe a physically packed cable bundle.
 
-The [prepared top-lid job](print/2026-10-27-foam-cap-lid-top-mark2-a1807ad0/preparation.json)
+The [prepared top-lid job](print/2026-10-27-foam-cap-lid-top-mark2-3f287a66/preparation.json)
 uses Mark2’s left 0.4 mm Standard nozzle and black PET-GF15, with
 Tree(auto)/Default supports. Its
-[native path review](print/2026-10-27-foam-cap-lid-top-mark2-a1807ad0/review.json)
+[native path review](print/2026-10-27-foam-cap-lid-top-mark2-3f287a66/review.json)
 passes: 211 layers, 21.2 mm minimum full-bead bed margin, matching archived
 G-code digest, and at least 99.31% sampled solid coverage through the fore
 receiver and lid root. The prepared STL digest matches the current lid.

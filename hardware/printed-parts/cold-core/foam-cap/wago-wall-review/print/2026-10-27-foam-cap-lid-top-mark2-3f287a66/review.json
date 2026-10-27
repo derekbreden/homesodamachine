@@ -1,6 +1,6 @@
 {
-  "archive": "hardware/printed-parts/cold-core/foam-cap/wago-wall-review/print/2026-10-27-foam-cap-lid-top-mark2-a1807ad0/2026-10-27-foam-cap-lid-top-mark2-a1807ad0.gcode.3mf",
-  "archive_sha256": "dedacf6ea130aa0f2750c8ce779e08c9f9e09e957e3830f68017850ca8f37f14",
+  "archive": "hardware/printed-parts/cold-core/foam-cap/wago-wall-review/print/2026-10-27-foam-cap-lid-top-mark2-3f287a66/2026-10-27-foam-cap-lid-top-mark2-3f287a66.gcode.3mf",
+  "archive_sha256": "778639422858f6f57aa761ff89f2efc4c246c1ea10f885b6b107c515301ae191",
   "gcode_md5_matches": true,
   "emitted_z_trim_mm": [
     0.0,
@@ -37,9 +37,9 @@
   "fine_band_unbacked_roads": [],
   "first_second_layer_stack": {
     "1901": {
-      "second_layer_model_bead_area_mm2": 48796.090834552095,
-      "fraction_over_first_layer": 0.9941010965645,
-      "second_layer_centerline_outside_first_mm": 117.51662038338564
+      "second_layer_model_bead_area_mm2": 48796.1006723318,
+      "fraction_over_first_layer": 0.9941006888165193,
+      "second_layer_centerline_outside_first_mm": 117.5476415667747
     }
   },
   "solid_host_deposition": [
