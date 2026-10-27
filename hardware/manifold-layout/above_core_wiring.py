@@ -30,6 +30,8 @@ SIZES = {'413': (18.8, 18.6, 8.4, 3, 1),
 IDENTITY = ((1., 0., 0.), (0., 1., 0.), (0., 0., 1.))
 PORTS_WEST = ((0., -1., 0.), (1., 0., 0.), (0., 0., 1.))
 PORTS_FORE = ((-1., 0., 0.), (0., -1., 0.), (0., 0., 1.))
+WALL_BACK_FORE = ((0., 0., -1.), (0., -1., 0.), (-1., 0., 0.))
+WALL_BACK_AFT = ((0., 0., -1.), (0., 1., 0.), (1., 0., 0.))
 EAST_FLANK = ((0., -1., 0.), (0., 0., -1.), (1., 0., 0.))
 WALL = 3.0
 FIT = .15
@@ -51,13 +53,18 @@ def placements():
                             ('wago-g', 331.5, 'C14 PE / ring-terminal ground bus')):
         put(name, '413', 'back-top', PORTS_FORE,
             (-34., 440. if name=='wago-n' else 454.5, z), purpose)
-    # The core junctions face the PCB and stagger their wire mouths around the
-    # B-draw passage. Their blank-backed wells sit wholly on the core lid.
-    for name, y, purpose in (('wago-sensors', 195., 'PCB J4 / temperature bus / flow meter common'),
-                            ('wago-v12', 218., 'PSU secondary / relay 2 COM / PCB J10 V12'),
-                            ('wago-gnd', 242., 'PSU secondary / pump negative / PCB J10 GND'),
-                            ('wago-reeds-b', 265., 'PCB J7 / reservoir B / carbonator reed common')):
-        put(name, '413', 'cold-core', PORTS_WEST, (7.5, y, 256.4), purpose)
+    # Two rows on the board-facing back of V-B's wall. Levers open west;
+    # wire mouths face away from the shared rear-half holder stock.
+    for name, y, z, turn, purpose in (
+            ('wago-sensors', 228.55, 286.1, WALL_BACK_FORE,
+             'PCB J4 / temperature bus / flow meter common'),
+            ('wago-v12', 228.55, 264., WALL_BACK_FORE,
+             'PSU secondary / relay 2 COM / PCB J10 V12'),
+            ('wago-gnd', 250.55, 264., WALL_BACK_AFT,
+             'PSU secondary / pump negative / PCB J10 GND'),
+            ('wago-reeds-b', 250.55, 286.1, WALL_BACK_AFT,
+             'PCB J7 / reservoir B / carbonator reed common')):
+        put(name, '413', 'cold-core', turn, (31.5, y, z), purpose)
     # These branch points travel with the complete front valve manifold.
     put('wago-mana', '420', 'front-top', EAST_FLANK, (95.20, 185.05, 277.),
         'J1 valve common and eight A-H coil branches')

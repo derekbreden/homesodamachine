@@ -12,10 +12,25 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'cadlib'))
 import fits
 
 CAP_NAME = 'reservoir-a-fore-snap-cap'
-CENTRE = (54.25, 209.75, 259.5)
+CENTRE = (54.25, 209.75, 258.5)
 WALL = 3.0
 CAP_LENGTH = 6.0
 SPRING_THICK = 1.44
+
+
+def world_point(point):
+    """Receiver-frame XYZ carried into the appliance's fore tube run."""
+    x, y, z = point
+    return CENTRE[0]+x, CENTRE[1]+y, CENTRE[2]+z
+
+
+def world_vector(vector):
+    x, y, z = vector
+    return x, y, z
+
+
+def installed(shape):
+    return shape.translate(CENTRE)
 
 
 def specification():
@@ -27,8 +42,9 @@ def specification():
     hook = ledge - .45
     return dict(
         closure='snap', cap_name=CAP_NAME, centre_world_mm=CENTRE,
-        tube_centers_world_mm=[(CENTRE[0]+side*pitch/2, CENTRE[1], CENTRE[2])
+        tube_centers_world_mm=[world_point((side*pitch/2, 0., 0.))
                                for side in (-1., 1.)],
+        tube_axis_world=world_vector((0., 1., 0.)),
         wall_mm=WALL, seat_radius_mm=radius, tube_pitch_mm=pitch,
         cap_length_mm=CAP_LENGTH, axial_clearance_mm=fits.running,
         shoulder_mm=WALL, station_length_mm=CAP_LENGTH+2*fits.running+2*WALL,
@@ -97,7 +113,7 @@ def base():
         body = body.fuse(_box(-s['wing_outer_x_mm'], s['wing_outer_x_mm'],
                               ya, yb, floor, top))
     body = body.cut(_seat_room(-half-.1, half+.1, top+1.)).clean()
-    return body.translate(CENTRE)
+    return installed(body)
 
 
 def cap():
@@ -138,4 +154,4 @@ def cap():
 
 
 def installed_cap():
-    return cap().translate(CENTRE)
+    return installed(cap())

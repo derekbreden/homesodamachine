@@ -7,19 +7,24 @@
     "centre_world_mm": [
       54.25,
       209.75,
-      259.5
+      258.5
     ],
     "tube_centers_world_mm": [
       [
         50.5,
         209.75,
-        259.5
+        258.5
       ],
       [
         58.0,
         209.75,
-        259.5
+        258.5
       ]
+    ],
+    "tube_axis_world": [
+      0.0,
+      1.0,
+      0.0
     ],
     "wall_mm": 3.0,
     "seat_radius_mm": 3.325,
@@ -57,54 +62,54 @@
     ]
   },
   "source_sha256": {
-    "tools/reviews/review_reservoir_a_snap.py": "74f1a9569c0185fe9ca862fbd80d1bb6cc8e7444ae2a4366d6523d4d24fe34a9",
-    "hardware/printed-parts/cold-core/_reservoir_a_snap.py": "83eacee416f52466a9e5879b890bc00843ab04399d7660a896fb0bcd52ed890c",
-    "hardware/printed-parts/cold-core/_reservoir_a_anchors.py": "7b8058992da3b67164ffa7c5f0b303254bfd708b3406119fa2c05c5b959db633",
-    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "89464565b3d23dedfd006d9c11fe0c54fea0030d1126b6f2b606fca69e1d4235",
-    "hardware/manifold-layout/above-core.json": "5b34c1204d816a92473346007f2f31d204ee95187b8db8c98563cd7a6427f92a",
+    "tools/reviews/review_reservoir_a_snap.py": "968845eb694b5728cf16de4998d17596b11606ca18b68d1d57a309ea8be40a21",
+    "hardware/printed-parts/cold-core/_reservoir_a_snap.py": "e479806978b4b96211bbd0bf38ecbeb9076939f240c65dfda2ab10e675f7ca58",
+    "hardware/printed-parts/cold-core/_reservoir_a_anchors.py": "085cdcdd2abb13a2484c9cb1f3d1213425947718ead939041815ab65c4d92e64",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py": "7e980fd5d8c3e72173927724054b5518669cf3fb59ae4e5bc8007582a97f9125",
+    "hardware/manifold-layout/above-core.json": "5f357819e9c3143ff330c02f6890a23c26f106742a329204eabfe76e4797a429",
     "hardware/reference/ground-ring-stack/ground_ring_stack.py": "9d4b4ca2b5a61f00667412a2f247aca6fd3e4a80e516cdeed0ada0afa659ad73",
-    "hardware/wiring/installed/route-overrides.json": "06b97bb70fd2c96fa8b0bf7fc2c0c15aa11e1c88e59cdb0dd154ea7f22fce1da"
+    "hardware/wiring/installed/route-overrides.json": "2cb5af09e42c4e2746e6eb7f7ad5e7662105120ad6b2a5d566c943bb57fe132f"
   },
   "artifact_sha256": {
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "502f1a135397e3adf0a876dca0b6e543c5860cf646c5ef160076c465e47a6349",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "0c44e0c057f5a11d54f36370190a44f66157384ea0cf4d91fd9cbdc9ee3fefbc",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "4946b339821f70fcdedfe8a3ddd7e178aa1aa42af094b58ab1cd2044f8dd09b2",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.stl": "2d141bd3eacb16811c49a6af4ca611a57338e3788155f266d71c7092d95473e1",
     "hardware/printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.step": "8f931c6c10b0c4df154cbf35a710f9555edba9a5a434f129805243fb16e05785",
     "hardware/printed-parts/cold-core/foam-cap/reservoir-a-fore-snap-cap.stl": "f20116e8e27b6ff4ce81905e24992838a1d1e5e622f2246fb73f173320cdcfed",
-    "hardware/wiring/enclosure-wiring.json": "882c62d02ef7b535a179cac4c4c3eca5a4427a4fec0b6586176817528a4a6df5",
-    "hardware/manifold-layout/enclosure-assembly.step": "93a3dafb2bf3c40db7330b64affa173a0135e446ef3872bd552a65c011a99dfe",
-    "hardware/cold-core-layout/cold-core-assembly.step": "a1452b01cf87b981723e5e267ca06a9b4bb82f6ce49c3320e314279a47871a3a"
+    "hardware/wiring/enclosure-wiring.json": "3c4e8078358eff56c7bd9911e33f31420ae95c0a8219cb481f65eedb9254e4cc",
+    "hardware/manifold-layout/enclosure-assembly.step": "1774c855ebb9f130aacb9b6dfde17f8e7185b7fa6d9f9b5031cb67a2bc4c5e78",
+    "hardware/cold-core-layout/cold-core-assembly.step": "d14a10768980006f0edd4953cdaa643449f887e093246ba534cab00c6c1f6924"
   },
   "receiver": {
     "valid": true,
     "solids": 1,
-    "volume_mm3": 1402.1049953475988,
+    "volume_mm3": 1402.1049953475992,
     "bounds_mm": [
       [
         41.885,
         203.5,
-        253.17499999999998
+        252.17499999999998
       ],
       [
         66.61500000000001,
         216.0,
-        260.40000000000003
+        259.40000000000003
       ]
     ]
   },
   "cap": {
     "valid": true,
     "solids": 1,
-    "volume_mm3": 929.487134386866,
+    "volume_mm3": 929.4871343868663,
     "bounds_mm": [
       [
         41.885000000000005,
         206.75,
-        254.0
+        253.0
       ],
       [
         66.615,
         212.75,
-        267.7
+        266.7
       ]
     ]
   },
@@ -116,19 +121,19 @@
       [
         40.88201482537313,
         206.7499999,
-        253.9999999
+        252.9999999
       ],
       [
         67.61798517462687,
         212.7500001,
-        267.7000001
+        266.7000001
       ]
     ]
   },
   "exported_lid": {
     "valid": true,
     "solids": 1,
-    "volume_mm3": 297570.09568102646,
+    "volume_mm3": 293677.05945103057,
     "bounds_mm": [
       [
         -141.20000009999998,
@@ -138,171 +143,87 @@
       [
         141.20000009999998,
         97.7000001,
-        51.21
+        50.65
       ]
     ]
   },
   "seated_receiver_cap_overlap_mm3": 0.0,
   "fixtures": {
-    "valve-v-b": {
+    "tube-above-core-drain-vb-east-link": {
+      "cap_seated_distance_mm": 9.768160690471795,
+      "cap_seated_overlap_mm3": 0.0,
+      "base_distance_mm": 16.835000000000036,
+      "base_overlap_mm3": 0.0,
+      "cap_motion_min_distance_mm": 3.193371211481249
+    },
+    "tube-fluid-14": {
+      "cap_seated_distance_mm": 0.14999999999996858,
+      "cap_seated_overlap_mm3": 0.0,
+      "base_distance_mm": 0.14999999999998356,
+      "base_overlap_mm3": 0.0,
+      "cap_motion_min_distance_mm": 0.14999999999996858
+    },
+    "tube-fluid-16": {
+      "cap_seated_distance_mm": 0.15000000529730184,
+      "cap_seated_overlap_mm3": 0.0,
+      "base_distance_mm": 0.14999971500785225,
+      "base_overlap_mm3": 0.0,
+      "cap_motion_min_distance_mm": 0.15000000529730184
+    },
+    "cold-core/valve-v-b": {
       "cap_seated_distance_mm": 6.318942975736659,
       "cap_seated_overlap_mm3": 0.0,
-      "base_distance_mm": 12.87743375770181,
+      "base_distance_mm": 13.283785803962726,
       "base_overlap_mm3": 0.0,
       "cap_motion_min_distance_mm": 2.4043399999999906
     },
-    "vb-inlet-turn": {
+    "cold-core/vb-inlet-turn": {
       "cap_seated_distance_mm": 6.960000000000036,
       "cap_seated_overlap_mm3": 0.0,
       "base_distance_mm": 12.460397403711164,
       "base_overlap_mm3": 0.0,
       "cap_motion_min_distance_mm": 0.3100000000000591
     },
-    "ground-stack": {
-      "cap_seated_distance_mm": 8.005534097488189,
+    "wire-J1-COM": {
+      "cap_seated_distance_mm": 6.530858183066562,
       "cap_seated_overlap_mm3": 0.0,
-      "base_distance_mm": 5.803735257543429,
+      "base_distance_mm": 9.84307263524597,
       "base_overlap_mm3": 0.0,
-      "cap_motion_min_distance_mm": 7.175950438836435
+      "cap_motion_min_distance_mm": 4.176690404346975
     },
-    "fluid-14": {
-      "cap_seated_distance_mm": 0.15000000000000188,
+    "wire-J2-COM": {
+      "cap_seated_distance_mm": 2.7621535654629397,
       "cap_seated_overlap_mm3": 0.0,
-      "base_distance_mm": 0.14999999999993494,
+      "base_distance_mm": 5.099486427017819,
       "base_overlap_mm3": 0.0,
-      "cap_motion_min_distance_mm": 0.15000000000000188
-    },
-    "fluid-16": {
-      "cap_seated_distance_mm": 0.14999999999996477,
-      "cap_seated_overlap_mm3": 0.0,
-      "base_distance_mm": 0.14999999999999117,
-      "base_overlap_mm3": 0.0,
-      "cap_motion_min_distance_mm": 0.14999999999996477
+      "cap_motion_min_distance_mm": 2.1899168434744793
     },
     "top-lid": {
       "cap_seated_distance_mm": 0.14999999999999147,
       "cap_seated_overlap_mm3": 0.0,
       "cap_motion_min_distance_mm": 0.14999999999999147
-    },
-    "wire-AC4-H": {
-      "cap_seated_distance_mm": 24.269933479653105,
-      "cap_seated_overlap_mm3": 0.0,
-      "base_distance_mm": 28.746747084564618,
-      "base_overlap_mm3": 0.0,
-      "cap_motion_min_distance_mm": 18.52665855313902
-    },
-    "wire-AC5-N": {
-      "cap_seated_distance_mm": 24.34086818774072,
-      "cap_seated_overlap_mm3": 0.0,
-      "base_distance_mm": 28.909211422030857,
-      "base_overlap_mm3": 0.0,
-      "cap_motion_min_distance_mm": 18.521185854840592
-    },
-    "wire-PE-bus": {
-      "cap_seated_distance_mm": 18.79422863405992,
-      "cap_seated_overlap_mm3": 0.0,
-      "base_distance_mm": 15.64143015370128,
-      "base_overlap_mm3": 0.0,
-      "cap_motion_min_distance_mm": 16.827881936217928
-    },
-    "wire-PE-carbonator": {
-      "cap_seated_distance_mm": 7.341918441897685,
-      "cap_seated_overlap_mm3": 0.0,
-      "base_distance_mm": 8.147402296891684,
-      "base_overlap_mm3": 0.0,
-      "cap_motion_min_distance_mm": 4.934725634101269
-    },
-    "wire-J1-COM": {
-      "cap_seated_distance_mm": 5.770081993406617,
-      "cap_seated_overlap_mm3": 0.0,
-      "base_distance_mm": 8.165830321934326,
-      "base_overlap_mm3": 0.0,
-      "cap_motion_min_distance_mm": 4.132368548826455
-    },
-    "wire-J1-positive-A": {
-      "cap_seated_distance_mm": 18.68226555891956,
-      "cap_seated_overlap_mm3": 0.0,
-      "base_distance_mm": 23.439794217145778,
-      "base_overlap_mm3": 0.0,
-      "cap_motion_min_distance_mm": 12.892204393517888
-    },
-    "wire-J1-OUT6": {
-      "cap_seated_distance_mm": 21.89758509365433,
-      "cap_seated_overlap_mm3": 0.0,
-      "base_distance_mm": 21.02162326617082,
-      "base_overlap_mm3": 0.0,
-      "cap_motion_min_distance_mm": 21.001381302990303
-    },
-    "wire-J1-OUT7": {
-      "cap_seated_distance_mm": 20.059093798309036,
-      "cap_seated_overlap_mm3": 0.0,
-      "base_distance_mm": 18.175878330336616,
-      "base_overlap_mm3": 0.0,
-      "cap_motion_min_distance_mm": 19.643214918193287
-    },
-    "wire-J2-COM": {
-      "cap_seated_distance_mm": 2.6999708557811175,
-      "cap_seated_overlap_mm3": 0.0,
-      "base_distance_mm": 4.4234481076547825,
-      "base_overlap_mm3": 0.0,
-      "cap_motion_min_distance_mm": 2.056883773532811
-    },
-    "wire-J2-FAN": {
-      "cap_seated_distance_mm": 19.21155808214572,
-      "cap_seated_overlap_mm3": 0.0,
-      "base_distance_mm": 18.85470074392633,
-      "base_overlap_mm3": 0.0,
-      "cap_motion_min_distance_mm": 18.30342109350995
-    },
-    "wire-J2-positive-K": {
-      "cap_seated_distance_mm": 21.931632753484916,
-      "cap_seated_overlap_mm3": 0.0,
-      "base_distance_mm": 21.974551288541807,
-      "base_overlap_mm3": 0.0,
-      "cap_motion_min_distance_mm": 20.243839266444574
-    },
-    "wire-J13-AM2": {
-      "cap_seated_distance_mm": 91.37518125323561,
-      "cap_seated_overlap_mm3": 0.0,
-      "base_distance_mm": 89.82011862431354,
-      "base_overlap_mm3": 0.0,
-      "cap_motion_min_distance_mm": 90.65106148070521
-    },
-    "wire-J13-AM1": {
-      "cap_seated_distance_mm": 91.99160329131325,
-      "cap_seated_overlap_mm3": 0.0,
-      "base_distance_mm": 90.57316479174497,
-      "base_overlap_mm3": 0.0,
-      "cap_motion_min_distance_mm": 91.13813724925541
-    },
-    "wire-flow-GND": {
-      "cap_seated_distance_mm": 42.97078556858738,
-      "cap_seated_overlap_mm3": 0.0,
-      "base_distance_mm": 41.96805464509684,
-      "base_overlap_mm3": 0.0,
-      "cap_motion_min_distance_mm": 42.466336146041236
     }
   },
   "axial_capture": [
     {
-      "offset_y_mm": -0.35,
-      "overlap_mm3": 2.2141999999998614
+      "offset_along_tubes_mm": -0.35,
+      "overlap_mm3": 2.2141999999998623
     },
     {
-      "offset_y_mm": -0.25,
+      "offset_along_tubes_mm": -0.25,
       "overlap_mm3": 0.0
     },
     {
-      "offset_y_mm": 0.0,
+      "offset_along_tubes_mm": 0.0,
       "overlap_mm3": 0.0
     },
     {
-      "offset_y_mm": 0.25,
+      "offset_along_tubes_mm": 0.25,
       "overlap_mm3": 0.0
     },
     {
-      "offset_y_mm": 0.35,
-      "overlap_mm3": 2.2141999999998614
+      "offset_along_tubes_mm": 0.35,
+      "overlap_mm3": 2.2141999999998627
     }
   ],
   "insertion_proxy": {
@@ -589,5 +510,5 @@
     "nominal_percent": 2.165292938293607,
     "with_extra_015_mm_percent": 2.887057251058142
   },
-  "scope": "Current digital geometry and offline print preparation. Physical snap fit, tube restraint, forces, creep, fatigue and load capacity are not qualified."
+  "scope": "Current digital geometry within 3 mm of the complete cap motion and offline print preparation. Physical snap fit, tube restraint, forces, creep, fatigue and load capacity are not qualified."
 }
