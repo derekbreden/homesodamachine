@@ -1,0 +1,102 @@
+{
+  "status": "Offline preparation and native path review; no printer submission.",
+  "submitted": false,
+  "source_sha256": {
+    "future/cable-clip-exploration/relay_ribbon_trial.py": "f515057601f9549137c4acd5e19e2518f74050163487e4377d8d948679ef6b25",
+    "future/cable-clip-exploration/parts/relay-ribbon-4p-print.stl": "6acfebc1f2bb0ec0ea6fd5bbc9a4570099358e9db7af67126279bd734e64d8af",
+    "future/cable-clip-exploration/parts/relay-ribbon-4p-print.step": "5fb35a7df057fa8d968ccd04c48e37fb87908b2946542cd6e6b9d95c277b36a6",
+    "future/cable-clip-exploration/parts/relay-ribbon-4p-installed.step": "5a5fe76549da910ac5f9832f22d006c23c1dc5ad4c6c39bdb249ac38cbf2e0da",
+    "future/cable-clip-exploration/geometry-report.json": "c5e030ee0441b106e516d643856ff22005bbdb1674450ba401e7652149f5e8e5"
+  },
+  "preparer_sha256": "d2b72ae2be8ce102f0f491bc048aee6fc264a5f80ca19237734175857831d34d",
+  "directory": "future/cable-clip-exploration/prints/2026-10-26-mark2-relay-ribbon/2026-10-26-relay-ribbon-4p-print-mark2-b4879c6b",
+  "project": "future/cable-clip-exploration/prints/2026-10-26-mark2-relay-ribbon/2026-10-26-relay-ribbon-4p-print-mark2-b4879c6b/2026-10-26-relay-ribbon-4p-print-mark2-b4879c6b.3mf",
+  "project_sha256": "ff10bba2ecd9d15a5699c5d1f6ae9bcf964148c73ead4f88e4a075084a6b7b84",
+  "archive": "future/cable-clip-exploration/prints/2026-10-26-mark2-relay-ribbon/2026-10-26-relay-ribbon-4p-print-mark2-b4879c6b/2026-10-26-relay-ribbon-4p-print-mark2-b4879c6b.gcode.3mf",
+  "archive_sha256": "b79413727666e0e78340b2f1ef180691a90c1160447b8c9ee00834567df39d22",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+  "printer": "Mark2",
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark2's 2026-10-24 jobs ran black PET-GF on its fixed left hardened 0.4 mm Standard-flow hotend (faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md, task 1372253517).",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "requested_z_trim_mm": 0.04,
+  "emitted_z_trim_mm": [
+    0.0,
+    0.02
+  ],
+  "process": {
+    "wall_loops": "2",
+    "sparse_infill_density": "15%",
+    "sparse_infill_pattern": "gyroid",
+    "layer_height": "0.24",
+    "initial_layer_print_height": "0.2",
+    "enable_support": "1",
+    "support_type": "tree(auto)",
+    "support_style": "default",
+    "brim_type": "auto_brim",
+    "brim_width": "5",
+    "filament_colour": [
+      "#161616"
+    ],
+    "filament_map": [
+      "1"
+    ],
+    "curr_bed_type": "Textured PEI Plate",
+    "overhang_fan_threshold": [
+      "50%"
+    ],
+    "overhang_fan_speed": [
+      "70"
+    ]
+  },
+  "model_pose": "Entry-down STL as exported, matching installed-up entry on the ceiling-down back-top. Host and outer arm start on the bed.",
+  "estimated_seconds": 515.8657836914062,
+  "estimated_filament_g": 1.2876335382461548,
+  "filaments": [
+    {
+      "filament_id": "GFT01",
+      "id": 1,
+      "main_used_g": 1.2876335382461548,
+      "total_used_g": 1.2876335382461548
+    }
+  ],
+  "slicer_warnings": "",
+  "native_preview_images": [
+    "future/cable-clip-exploration/prints/2026-10-26-mark2-relay-ribbon/2026-10-26-relay-ribbon-4p-print-mark2-b4879c6b/plate_1.png",
+    "future/cable-clip-exploration/prints/2026-10-26-mark2-relay-ribbon/2026-10-26-relay-ribbon-4p-print-mark2-b4879c6b/plate_1_small.png",
+    "future/cable-clip-exploration/prints/2026-10-26-mark2-relay-ribbon/2026-10-26-relay-ribbon-4p-print-mark2-b4879c6b/plate_no_light_1.png",
+    "future/cable-clip-exploration/prints/2026-10-26-mark2-relay-ribbon/2026-10-26-relay-ribbon-4p-print-mark2-b4879c6b/top_1.png",
+    "future/cable-clip-exploration/prints/2026-10-26-mark2-relay-ribbon/2026-10-26-relay-ribbon-4p-print-mark2-b4879c6b/pick_1.png"
+  ],
+  "native_review": "future/cable-clip-exploration/prints/2026-10-26-mark2-relay-ribbon/2026-10-26-relay-ribbon-4p-print-mark2-b4879c6b/review.json",
+  "native_review_pass": true,
+  "minimum_bead_margin_mm": 152.93395800000002,
+  "first_second_layer_stack": {
+    "1901": {
+      "second_layer_model_bead_area_mm2": 68.46175616122852,
+      "fraction_over_first_layer": 0.8404557297049449,
+      "second_layer_centerline_outside_first_mm": 8.897927816438227
+    }
+  },
+  "support_topology": {
+    "1901": {
+      "support_bodies": 0,
+      "interface_islands": 0,
+      "bed_rooted_bodies": 0,
+      "model_rooted_bodies": 0,
+      "shortest_build_up_mm": null,
+      "bodies_without_interface_labels": 0,
+      "explicit_interface_islands": 0,
+      "shortest_labelled_build_up_mm": null
+    }
+  },
+  "physical_evaluation": "Use the actual bare 22 AWG 4P relay ribbon to evaluate insertion, retention, slide, release and layer/root survival. Modeled stock dimensions are not caliper acceptance."
+}

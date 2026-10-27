@@ -1,0 +1,372 @@
+{
+  "piece": "tube-snap-retention-matrix",
+  "printer": "Mark2",
+  "connection_key": "Mark2",
+  "nozzle": {
+    "side": "left",
+    "diameter_mm": 0.4,
+    "flow": "Standard",
+    "hardened": true,
+    "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark2's 2026-10-24 jobs ran black PET-GF on its fixed left hardened 0.4 mm Standard-flow hotend (faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md, task 1372253517).",
+    "sliced_diameter_mm": 0.4,
+    "sliced_volume_type": "Standard"
+  },
+  "material": "Polymaker Fiberon PET-GF15, black",
+  "bed_type": "Textured PEI Plate",
+  "requested_z_trim_mm": 0.04,
+  "emitted_textured_trim_mm": 0.02,
+  "project": "future/tube-snap-exploration/prints/2026-10-26-mark2-retention-matrix/2026-10-26-tube-snap-retention-matrix-mark2-4f9f9960/2026-10-26-tube-snap-retention-matrix-mark2-4f9f9960.3mf",
+  "project_sha256": "6b45b358ead139701ea2767835a0334dc8c9858cd31a35aeba451e2f53eeea2b",
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "profile_sha256": "45c16e8c8517e0a205107d7b9f7412d013f51a8de7ecf86125cc940079d37ed0",
+  "settings_sha256": "046ab9c994ce0c9d86d6406fd80751cf02d41491b1a764f9f9abb56903158979",
+  "settings_changes": {
+    "extruder_ams_count": {
+      "from": [
+        "1#0|4#1",
+        "1#0|4#0"
+      ],
+      "to": [
+        "1#0|4#0",
+        "1#0|4#0"
+      ],
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "support_interface_filament": {
+      "from": "0",
+      "to": "1",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "flush_into_support": {
+      "from": "1",
+      "to": "0",
+      "reason": "Single external black PET-GF spool on the fixed left nozzle for model, support and interface."
+    },
+    "filament_colour": {
+      "from": [
+        "#000000"
+      ],
+      "to": [
+        "#161616"
+      ],
+      "reason": "Mark2's loaded black PET-GF colour reading."
+    }
+  },
+  "profile_changes": {
+    "machine_start_gcode": {
+      "from_sha256": "3cc9e41520dbf5622d6f9a96bce734db9d11b0b48b49f2abec047a6e01dc6a92",
+      "to_sha256": "b09bc598f2ed7c29dceb227188593905dfc663f0391b98ff708ef00e7ce01bee",
+      "requested_z_trim_mm": 0.04
+    },
+    "printer_settings_id": {
+      "from": "Bambu Lab H2C 0.4 nozzle 04 first layer by agent",
+      "to": "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+    },
+    "print_compatible_printers": {
+      "from": [
+        "Bambu Lab H2C 0.4 nozzle"
+      ],
+      "to": [
+        "Bambu Lab H2C 0.4 nozzle",
+        "Bambu Lab H2C 0.4 Standard +0.04 Z trim"
+      ]
+    }
+  },
+  "usable_plate_mm": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      325.0,
+      320.0
+    ]
+  ],
+  "plate_border_mm": 80,
+  "brim_allowance_mm": 0.0,
+  "plate_offset_mm": null,
+  "objects": [
+    {
+      "name": "tube-snap-row-a",
+      "identify_id": 1901,
+      "object_id": 2,
+      "stl": "future/tube-snap-exploration/parts/tube-snap-row-a-print.stl",
+      "stl_sha256": "c61347f053c744a914e7ba026bfe564082cb0624c5190368e3df1f181a3aac8d",
+      "step_sha256": "a18c25d668d6d933bb6967dd0e38281e2d7fb3e7ffd2ef1f17960f2f27e8e585",
+      "facets": 8170,
+      "closed": {
+        "edges": 12255,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        5.405121803283691
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        162.5,
+        142.0,
+        5.405121803283691
+      ],
+      "plate_bounds_mm": [
+        [
+          132.5,
+          134.0,
+          0.0
+        ],
+        [
+          192.5,
+          150.0,
+          10.810243606567383
+        ]
+      ],
+      "model_bed_margin_mm": 132.5,
+      "seam_enforcer": null,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    },
+    {
+      "name": "tube-snap-row-b",
+      "identify_id": 1902,
+      "object_id": 4,
+      "stl": "future/tube-snap-exploration/parts/tube-snap-row-b-print.stl",
+      "stl_sha256": "0db1fe57d5cd907773e63da5f9359c6410473e856b6d149f688e05ed465cbec0",
+      "step_sha256": "9b073e5f129d03e6f7d1a78c1083a1b6a8d3a89f8ac2e30e82e932255f14e6b4",
+      "facets": 13776,
+      "closed": {
+        "edges": 20664,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        5.602911472320557
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        162.5,
+        160.0,
+        5.602911472320557
+      ],
+      "plate_bounds_mm": [
+        [
+          132.5,
+          152.0,
+          0.0
+        ],
+        [
+          192.5,
+          168.0,
+          11.205822944641113
+        ]
+      ],
+      "model_bed_margin_mm": 132.5,
+      "seam_enforcer": null,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    },
+    {
+      "name": "tube-snap-row-c",
+      "identify_id": 1903,
+      "object_id": 6,
+      "stl": "future/tube-snap-exploration/parts/tube-snap-row-c-print.stl",
+      "stl_sha256": "7a553157543b2a7e6d0edc61c4974643f61defcb39282d4aeca7227b48a02280",
+      "step_sha256": "c4976973a9b44c2acb1384ee7a58605c60846de78a2e66f85781d3fd3f44d316",
+      "facets": 13458,
+      "closed": {
+        "edges": 20187,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_edges": 0,
+        "bodies": 1,
+        "closed_oriented_single_body": true
+      },
+      "pose": null,
+      "pose_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "yaw_degrees": 0,
+      "source_center_mm": [
+        0.0,
+        0.0,
+        5.800700664520264
+      ],
+      "build_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "translation_mm": [
+        162.5,
+        178.0,
+        5.800700664520264
+      ],
+      "plate_bounds_mm": [
+        [
+          132.5,
+          170.0,
+          0.0
+        ],
+        [
+          192.5,
+          186.0,
+          11.601401329040527
+        ]
+      ],
+      "model_bed_margin_mm": 132.5,
+      "seam_enforcer": null,
+      "object_settings": {},
+      "features": [],
+      "ranges": [],
+      "verify_spans": [],
+      "ribbons": [],
+      "tie_windows": [],
+      "modifiers": [],
+      "fins": []
+    }
+  ],
+  "pause": null,
+  "show_faces": "future/tube-snap-exploration/prints/2026-10-26-mark2-retention-matrix/2026-10-26-tube-snap-retention-matrix-mark2-4f9f9960/show-faces.npz",
+  "spec": "future/tube-snap-exploration/prints/2026-10-26-mark2-retention-matrix/job.json",
+  "spec_sha256": "05db9c36f799b03b9001e593fb9f844cabad27d5606001c1f2ad611293f789d4",
+  "tool_sha256": {
+    "hardware/printed-parts/enclosure/trial-preparation/_derive.py": "31256357a16f37d9f1516ce1ee1636c97559dfe54a1a2050ae661d622e6b3189",
+    "hardware/printed-parts/enclosure/trial-preparation/_mesh.py": "7ab22db36e370608f52df3709c4af1994c8e804ee06e101dcbf79210db99eead",
+    "hardware/printed-parts/enclosure/trial-preparation/_native.py": "1c99ce10842a141a942a19d7def2329512d14b676c00618496187e0d93cd29da",
+    "hardware/printed-parts/enclosure/trial-preparation/_seam.py": "9ffa509df701826563e18388fd3bcc57c604f4b2b8e5e4288821ddcd00bcb176",
+    "hardware/printed-parts/enclosure/trial-preparation/labels.py": "c326a74b104b894d81dcfd8eb00c93ebf602291816decaf241a01cf4818b672d",
+    "hardware/printed-parts/enclosure/trial-preparation/prepare.py": "525be245521bd721c1ee6795f37e80d9f1e9ace9c4f8fa08b857f88e83388d9a",
+    "hardware/printed-parts/enclosure/trial-preparation/review.py": "9bd303fe370842fd34eb559dc5f53f887f75c42e478c598737397dd49dd539f7",
+    "hardware/printed-parts/enclosure/trial-preparation/step_meshes.py": "b50f7b50f52f1e8516be3b1fc9ecdb10e87fb188f8b9bebc0fac56737320fc44"
+  },
+  "prepared_utc": "2026-10-27T03:22:59+00:00",
+  "sliced": true,
+  "submitted": false,
+  "archive": "future/tube-snap-exploration/prints/2026-10-26-mark2-retention-matrix/2026-10-26-tube-snap-retention-matrix-mark2-4f9f9960/2026-10-26-tube-snap-retention-matrix-mark2-4f9f9960.gcode.3mf",
+  "archive_sha256": "fc937a71172f499bd7e9603f780fa30e36152fae78476614c84745877f288b46",
+  "gcode_sha256": "25007a2cdb660b94726201dd7fc3c93f56d8b54dfff1bc6d29bbdb48f012841e",
+  "estimated_seconds": 1783.2666015625,
+  "slicer_warnings": []
+}

@@ -1,0 +1,70 @@
+{
+  "error_string": "Success.",
+  "export_time": 2561,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 47,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 2.830753803253174,
+        "Bridge": 2.798604726791382,
+        "Custom": 304.76629638671875,
+        "Flush": 15.0,
+        "Inner wall": 33.482975006103516,
+        "Internal solid infill": 28.718469619750977,
+        "Outer wall": 57.29032897949219,
+        "Overhang wall": 0.2879980206489563,
+        "Sparse infill": 28.740535736083984,
+        "Top surface": 1.5607823133468628,
+        "Travel": 49.370452880859375,
+        "Undefined": 40.3864860534668
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 1.2876335382461548,
+          "total_used_g": 1.2876335382461548
+        }
+      ],
+      "generate_support_material_time": 7,
+      "id": 1,
+      "infill_time": 15,
+      "layer_filament_change": 0,
+      "main_predication": 190.08346557617188,
+      "make_perimeters_time": 30,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 14.0,
+            "height": 19.700000762939453,
+            "width": 8.200006484985352,
+            "x": 158.39999389648438,
+            "y": 153.0,
+            "z": -4.697273681131264e-10
+          },
+          "id": 5,
+          "name": "relay-ribbon-4p-print",
+          "triangle_count": 48
+        }
+      ],
+      "sliced_time": 295,
+      "sliced_time_with_cache": 224,
+      "total_predication": 515.8657836914062,
+      "triangle_count": 48,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 15.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 2
+}

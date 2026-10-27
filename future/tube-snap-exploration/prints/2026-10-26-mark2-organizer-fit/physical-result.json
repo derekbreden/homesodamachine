@@ -1,0 +1,73 @@
+{
+  "schema": 1,
+  "part": "Three organizer-fit tube snaps on one comparison floor",
+  "status": "Qualitative physical comparison reported; retention loose overall",
+  "authority": "Derek, direct physical report in chat",
+  "observed_date": "2026-10-26",
+  "recorded_at_utc": "2026-10-27T03:24:25+00:00",
+  "printer": "Mark2",
+  "printer_task_id": "1379090194",
+  "archive": "future/tube-snap-exploration/prints/2026-10-26-mark2-organizer-fit/2026-10-26-tube-snap-three-bores-mark2-f10f7183/2026-10-26-tube-snap-three-bores-mark2-f10f7183.gcode.3mf",
+  "archive_sha256": "bb5fe8aebbc1413bfe84862a98baeb70ada5eae4f5f2feb7b3ff5b0d6242fc97",
+  "gcode_sha256": "d07ff6cdb08463b1e47e76f405dc2ebaaac6fc0d353605ea1ebcb136b8b802ab",
+  "project": "future/tube-snap-exploration/prints/2026-10-26-mark2-organizer-fit/2026-10-26-tube-snap-three-bores-mark2-f10f7183/2026-10-26-tube-snap-three-bores-mark2-f10f7183.3mf",
+  "project_sha256": "77c8aae1421eccefe8f359bd0a3594899b7a111895478486fcc7c2299a6857b6",
+  "source_sha256_at_preparation": {
+    "future/tube-snap-exploration/tube_snap_trial.py": "47e29d8833451e225a90c1a2acd423af91885bd70035a1f1d21f764fbf715296",
+    "future/tube-snap-exploration/parts/tube-snap-three-bores.stl": "8948e22e3179bed2697f03ede0d59258bbc91a3d2f45818377d00ec71b369af4",
+    "future/tube-snap-exploration/parts/tube-snap-three-bores.step": "f0744942930049e049135fc787f7d67211880d0a02cdce9f020df9d0250b1a2e",
+    "future/tube-snap-exploration/geometry-report.json": "4939dfc0dcb9bb3c54bb860d53026935a535c9ded8225919bbb4934d4b86a5ba"
+  },
+  "launch_receipt": "future/tube-snap-exploration/prints/2026-10-26-mark2-organizer-fit/launch.json",
+  "launch_receipt_sha256": "b4ebe56b1b04ebd38acd0341cd678e7ff40413f90317b1ed84664633f97368cf",
+  "observation": "On that print of the tube snaps, the smallest radius held best there, but I suspect that has more to do with them all being fairly loose overall. It's quite easy to remove the tube from them. It's just a little bit harder to insert than it is to remove. But that would be fine if it held more. So I'm thinking I'd like to see the wings be thicker and also wrap further around the circumference of the tube. Perhaps you can set up a two-axis evaluation here, a three-by-three grid. Do you follow me on this? Please make it so. Mark two is available.",
+  "follow_up_request": "So same radius on all of those, let's use the same radius as the smallest of the last round.",
+  "samples": [
+    {
+      "label": "A",
+      "position": "left",
+      "cad_bore_diameter_mm": 6.55,
+      "cad_bore_radius_mm": 3.275,
+      "relative_grip": "Held best of the three, within the reported loose overall result"
+    },
+    {
+      "label": "B",
+      "position": "centre",
+      "cad_bore_diameter_mm": 6.65,
+      "cad_bore_radius_mm": 3.325
+    },
+    {
+      "label": "C",
+      "position": "right",
+      "cad_bore_diameter_mm": 6.75,
+      "cad_bore_radius_mm": 3.375
+    }
+  ],
+  "reported_result": {
+    "all_three_fairly_loose": true,
+    "removal": "Quite easy",
+    "insertion_relative_to_removal": "A little harder",
+    "desired_change": "More holding grip"
+  },
+  "next_trial_requested": {
+    "matrix_shape": [
+      3,
+      3
+    ],
+    "axes": [
+      "wing thickness",
+      "circumferential wrap"
+    ],
+    "common_cad_bore_diameter_mm": 6.55,
+    "common_cad_bore_radius_mm": 3.275,
+    "printer": "Mark2"
+  },
+  "quantified_insertion_force_n": null,
+  "quantified_removal_force_n": null,
+  "quantified_retention_force_n": null,
+  "measured_printed_bore_diameter_mm": null,
+  "wing_fracture_reported": null,
+  "layer_or_root_separation_reported": null,
+  "permanent_set_reported": null,
+  "scope": "Qualitative tube insertion, removal and relative grip on the identified three-size print. The smallest known CAD bore is 6.55 mm; no physical bore measurement or numerical force was reported. No load-capacity, damage, fatigue or lifetime acceptance is established."
+}

@@ -1,0 +1,158 @@
+[
+  {
+    "printer": "Mark2",
+    "observed_at": "2026-10-27T03:27:44.443088+00:00",
+    "gcode_state": "FINISH",
+    "subtask_name": "2026-10-26-tube-snap-three-bores-mark2-f10f7183.gcode.3mf",
+    "mc_percent": 100,
+    "layer_num": 44,
+    "total_layer_num": 44,
+    "mc_remaining_time": 0,
+    "print_error": 0,
+    "hms": [
+      {
+        "attr": 201326848,
+        "code": 131095
+      }
+    ],
+    "nozzle_temper": 43.0,
+    "nozzle_target_temper": 0.0,
+    "bed_temper": 50.0,
+    "bed_target_temper": 0.0,
+    "lights_report": [
+      {
+        "mode": "on",
+        "node": "chamber_light"
+      },
+      {
+        "mode": "flashing",
+        "node": "work_light"
+      },
+      {
+        "mode": "on",
+        "node": "chamber_light2"
+      }
+    ],
+    "external_spools": {
+      "254": {
+        "type": "PET-CF",
+        "colour": "161616FF"
+      },
+      "255": {
+        "type": "TPU",
+        "colour": "161616FF"
+      }
+    },
+    "nozzle_type": "HS01-0.4",
+    "nozzles": [
+      {
+        "id": 17,
+        "type": "HS01",
+        "diameter": 0.4,
+        "sn": "20D06A611036799"
+      },
+      {
+        "id": 1,
+        "type": "HS01",
+        "diameter": 0.4,
+        "sn": "N/A"
+      },
+      {
+        "id": 0,
+        "type": "HS01",
+        "diameter": 0.6,
+        "sn": "20D06A5C1014313"
+      },
+      {
+        "id": 18,
+        "type": "HS00",
+        "diameter": 0.2,
+        "sn": "20D06A611037433"
+      },
+      {
+        "id": 20,
+        "type": "HH01",
+        "diameter": 0.8,
+        "sn": "20D06A5C3110240"
+      }
+    ]
+  },
+  {
+    "printer": "H2C",
+    "observed_at": "2026-10-27T03:27:44.004813+00:00",
+    "gcode_state": "RUNNING",
+    "subtask_name": "Right_reservoir_and_cap_-_PETG_0.24_mm_overlap50",
+    "mc_percent": 83,
+    "layer_num": 675,
+    "total_layer_num": 833,
+    "mc_remaining_time": 57,
+    "print_error": 0,
+    "hms": [
+      {
+        "attr": 117448960,
+        "code": 196610
+      }
+    ],
+    "nozzle_temper": 255.0,
+    "nozzle_target_temper": 255.0,
+    "bed_temper": 70.0,
+    "bed_target_temper": 70.0,
+    "lights_report": [
+      {
+        "mode": "on",
+        "node": "chamber_light"
+      },
+      {
+        "mode": "flashing",
+        "node": "work_light"
+      },
+      {
+        "mode": "on",
+        "node": "chamber_light2"
+      }
+    ],
+    "external_spools": {
+      "254": {
+        "type": "PET-CF",
+        "colour": "000000FF"
+      },
+      "255": {
+        "type": "TPU",
+        "colour": "FFFFFFFF"
+      }
+    },
+    "nozzle_type": "HS01-0.4",
+    "nozzles": [
+      {
+        "id": 18,
+        "type": "HS01",
+        "diameter": 0.4,
+        "sn": "20D06A611000397"
+      },
+      {
+        "id": 1,
+        "type": "HS01",
+        "diameter": 0.8,
+        "sn": "N/A"
+      },
+      {
+        "id": 17,
+        "type": "HS00",
+        "diameter": 0.2,
+        "sn": "20D06A5C1907799"
+      },
+      {
+        "id": 0,
+        "type": "HS00",
+        "diameter": 0.2,
+        "sn": "20D06A5C1907737"
+      },
+      {
+        "id": 19,
+        "type": "HS01",
+        "diameter": 0.8,
+        "sn": "20D06A610807096"
+      }
+    ]
+  }
+]

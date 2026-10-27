@@ -1,0 +1,14 @@
+[
+  "/Applications/BambuStudio.app/Contents/MacOS/BambuStudio",
+  "--slice",
+  "0",
+  "--arrange",
+  "0",
+  "--orient",
+  "0",
+  "--outputdir",
+  "/Users/derekbredensteiner/Developer/homesodamachine/future/tube-snap-exploration/prints/2026-10-26-mark2-retention-matrix/2026-10-26-tube-snap-retention-matrix-mark2-4f9f9960/native",
+  "--export-3mf",
+  "2026-10-26-tube-snap-retention-matrix-mark2-4f9f9960.gcode.3mf",
+  "/Users/derekbredensteiner/Developer/homesodamachine/future/tube-snap-exploration/prints/2026-10-26-mark2-retention-matrix/2026-10-26-tube-snap-retention-matrix-mark2-4f9f9960/2026-10-26-tube-snap-retention-matrix-mark2-4f9f9960.3mf"
+]

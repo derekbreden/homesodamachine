@@ -13,8 +13,11 @@ hardened 0.4 mm Standard-flow hotend**, with black PET-GF on external spool
 at **21:52 CDT on October 26**. The [launch receipt](launch.json) identifies
 the exact reviewed archive as RUNNING with print error 0 and no HMS entries.
 The [launch context](launch-context.json) records the start request, loaded
-material and peer-printer startup spacing. This is a startup observation;
-physical fit and wing survival remain unassessed.
+material and peer-printer startup spacing. The [physical result](physical-result.json)
+records loose retention across all three sizes. The smallest CAD bore, **Ø6.55 mm**,
+held best; removal was quite easy and insertion a little harder. Derek requests
+thicker wings and more circumferential wrap in a 3 × 3 comparison, keeping that
+same smallest bore. No numerical force or physical bore measurement was reported.
 
 - [Ready native print archive](2026-10-26-tube-snap-three-bores-mark2-f10f7183/2026-10-26-tube-snap-three-bores-mark2-f10f7183.gcode.3mf)
 - [Editable project](2026-10-26-tube-snap-three-bores-mark2-f10f7183/2026-10-26-tube-snap-three-bores-mark2-f10f7183.3mf)
@@ -35,8 +38,9 @@ The native review binds the source STL, source STEP and editable project to
 the sliced geometry and confirms **135.485 mm** minimum full-bead clearance
 to the usable bed edge. The six upper leaves each retain a connected emitted
 bead footprint through their layers. These are commanded-path readings;
-adhesion, wing survival and actual tube grip are the purpose of the test.
+the linked physical report supplies the qualitative grip comparison. Layer/root
+strength, numerical forces and lifetime remain unmeasured.
 
-Keep the left-to-right identity when removing the floor. Use the actual
-quarter-inch tube to compare insertion, seated grip, axial movement and
-release, and report the A/B/C position of any failure.
+The recorded left-to-right identity is A / B / C. The follow-up comparison
+uses A’s known **6.55 mm CAD bore** for every position and varies wing thickness
+and wrap; the quoted request and scope are in [physical-result.json](physical-result.json).

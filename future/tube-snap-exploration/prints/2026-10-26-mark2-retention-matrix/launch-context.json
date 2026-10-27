@@ -1,0 +1,20 @@
+{
+  "authorization": "Please make it so. Mark two is available.",
+  "radius_instruction": "So same radius on all of those, let's use the same radius as the smallest of the last round.",
+  "separation_instruction": "or print on separate pieces ... 3 pieces would do, so I can move them apart.",
+  "bed_clear_authority": "Derek's direct Mark2 availability and print request",
+  "preflight": "preflight.json",
+  "peer_startup_spacing": {
+    "printer": "Mark1 / H2C",
+    "fresh_status": "RUNNING",
+    "fresh_task_name": "Right_reservoir_and_cap_-_PETG_0.24_mm_overlap50",
+    "fresh_layer": 675,
+    "fresh_percent": 83,
+    "accepted_start_record": "hardware/printed-parts/cold-core/reservoir/prints/2026-10-26-mark1-right-engineering-flow105-overlap50-temp260-left08-z000/launch.json",
+    "accepted_start_utc": "2026-10-26T22:39:03.553720+00:00",
+    "seconds_to_launch_receipt": 17353.900623,
+    "required_seconds": 180
+  },
+  "archive_matches_review": true,
+  "result": "One Send accepted. Exact three-object reviewed archive RUNNING with print error0 and no HMS. No physical retention result inferred."
+}

@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "piece": "tube-snap-row-b",
+  "inputs": {
+    "gcode": "support-labels-1902.gcode",
+    "gcode_sha256": "cfde91556b1ad40189f8c6e5d2a89636415a76539a0dcd236d0a5b00e156eff4",
+    "model": "/Users/derekbredensteiner/Developer/homesodamachine/future/tube-snap-exploration/parts/tube-snap-row-b-print.stl",
+    "model_sha256": "0db1fe57d5cd907773e63da5f9359c6410473e856b6d149f688e05ed465cbec0",
+    "profile": "future/tube-snap-exploration/prints/2026-10-26-mark2-retention-matrix/2026-10-26-tube-snap-retention-matrix-mark2-4f9f9960/2026-10-26-tube-snap-retention-matrix-mark2-4f9f9960.3mf",
+    "profile_sha256": "6b45b358ead139701ea2767835a0334dc8c9858cd31a35aeba451e2f53eeea2b"
+  },
+  "slicer": "BambuStudio 02.08.02.61",
+  "first_layer_z_mm": 0.2,
+  "coordinate_frame": {
+    "plate_to_cad_transform": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      -162.5,
+      -160.0,
+      0.0
+    ],
+    "plate_to_cad_translation_mm": [
+      -162.5,
+      -160.0,
+      0.0
+    ]
+  },
+  "slicer_settings": {
+    "layer_height": "0.24",
+    "support_bottom_z_distance": "0.3",
+    "support_interface_bottom_layers": "2",
+    "support_interface_spacing": "0.5",
+    "support_interface_top_layers": "2",
+    "support_object_xy_distance": "0.4",
+    "support_on_build_plate_only": "0",
+    "support_style": "default",
+    "support_threshold_angle": "35",
+    "support_top_z_distance": "0.45",
+    "support_type": "tree(auto)"
+  },
+  "summary": {
+    "support_bodies": 0,
+    "interface_islands": 0,
+    "bed_rooted_bodies": 0,
+    "model_rooted_bodies": 0,
+    "shortest_build_up_mm": null,
+    "bodies_without_interface_labels": 0,
+    "explicit_interface_islands": 0,
+    "shortest_labelled_build_up_mm": null
+  },
+  "trees": [],
+  "interfaces": [],
+  "interface_feature_policy": "All support bodies are retained; unlabelled interfaces have unknown contact count and build-up."
+}
