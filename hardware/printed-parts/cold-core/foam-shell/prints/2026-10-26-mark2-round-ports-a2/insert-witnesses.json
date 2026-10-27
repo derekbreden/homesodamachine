@@ -1,0 +1,211 @@
+{
+  "shell_step_sha256": "1361297fddda44405aa78c345c7c94ab32bd9efe45c4f5bb8c2bbdcdf0c99de5",
+  "shell_stl_sha256": "8439f508969e98b72daa28e6231ea93bc9ac3d28841b7f797d72cf9b38f91995",
+  "supplier_reference": "https://www.igo3d.com/mediafiles/Sonstiges/Ruthex/ruthex_Datenblatt_RX-Serie.pdf",
+  "nominal_corner_pilot_to_outer_round_mm": 1.6960947032089386,
+  "pilot_diameter_mm": 4.0,
+  "full_depth_radial_wall_witnesses": [
+    {
+      "end": "bottom",
+      "axis_xy_mm": [
+        131.5,
+        86.25
+      ],
+      "minimum_required_wall_mm": 1.6,
+      "missing_annular_wall_mm3": 0.0,
+      "annular_stock_symmetric_difference_mm3": 0.0
+    },
+    {
+      "end": "top",
+      "axis_xy_mm": [
+        131.5,
+        86.25
+      ],
+      "minimum_required_wall_mm": 1.6,
+      "missing_annular_wall_mm3": 0.0,
+      "annular_stock_symmetric_difference_mm3": 0.0
+    },
+    {
+      "end": "bottom",
+      "axis_xy_mm": [
+        131.5,
+        -86.25
+      ],
+      "minimum_required_wall_mm": 1.6,
+      "missing_annular_wall_mm3": 0.0,
+      "annular_stock_symmetric_difference_mm3": 0.0
+    },
+    {
+      "end": "top",
+      "axis_xy_mm": [
+        131.5,
+        -86.25
+      ],
+      "minimum_required_wall_mm": 1.6,
+      "missing_annular_wall_mm3": 0.0,
+      "annular_stock_symmetric_difference_mm3": 0.0
+    },
+    {
+      "end": "bottom",
+      "axis_xy_mm": [
+        -131.5,
+        86.25
+      ],
+      "minimum_required_wall_mm": 1.6,
+      "missing_annular_wall_mm3": 0.0,
+      "annular_stock_symmetric_difference_mm3": 0.0
+    },
+    {
+      "end": "top",
+      "axis_xy_mm": [
+        -131.5,
+        86.25
+      ],
+      "minimum_required_wall_mm": 1.6,
+      "missing_annular_wall_mm3": 0.0,
+      "annular_stock_symmetric_difference_mm3": 0.0
+    },
+    {
+      "end": "bottom",
+      "axis_xy_mm": [
+        -131.5,
+        -86.25
+      ],
+      "minimum_required_wall_mm": 1.6,
+      "missing_annular_wall_mm3": 0.0,
+      "annular_stock_symmetric_difference_mm3": 0.0
+    },
+    {
+      "end": "top",
+      "axis_xy_mm": [
+        -131.5,
+        -86.25
+      ],
+      "minimum_required_wall_mm": 1.6,
+      "missing_annular_wall_mm3": 0.0,
+      "annular_stock_symmetric_difference_mm3": 0.0
+    },
+    {
+      "end": "bottom",
+      "axis_xy_mm": [
+        40.0,
+        86.5
+      ],
+      "minimum_required_wall_mm": 1.6,
+      "missing_annular_wall_mm3": 0.0,
+      "annular_stock_symmetric_difference_mm3": 0.0
+    },
+    {
+      "end": "top",
+      "axis_xy_mm": [
+        40.0,
+        86.5
+      ],
+      "minimum_required_wall_mm": 1.6,
+      "missing_annular_wall_mm3": 0.0,
+      "annular_stock_symmetric_difference_mm3": 0.0
+    },
+    {
+      "end": "bottom",
+      "axis_xy_mm": [
+        40.0,
+        -86.5
+      ],
+      "minimum_required_wall_mm": 1.6,
+      "missing_annular_wall_mm3": 0.0,
+      "annular_stock_symmetric_difference_mm3": 0.0
+    },
+    {
+      "end": "top",
+      "axis_xy_mm": [
+        40.0,
+        -86.5
+      ],
+      "minimum_required_wall_mm": 1.6,
+      "missing_annular_wall_mm3": 0.0,
+      "annular_stock_symmetric_difference_mm3": 0.0
+    },
+    {
+      "end": "bottom",
+      "axis_xy_mm": [
+        -40.0,
+        86.5
+      ],
+      "minimum_required_wall_mm": 1.6,
+      "missing_annular_wall_mm3": 0.0,
+      "annular_stock_symmetric_difference_mm3": 0.0
+    },
+    {
+      "end": "top",
+      "axis_xy_mm": [
+        -40.0,
+        86.5
+      ],
+      "minimum_required_wall_mm": 1.6,
+      "missing_annular_wall_mm3": 0.0,
+      "annular_stock_symmetric_difference_mm3": 0.0
+    },
+    {
+      "end": "bottom",
+      "axis_xy_mm": [
+        -40.0,
+        -86.5
+      ],
+      "minimum_required_wall_mm": 1.6,
+      "missing_annular_wall_mm3": 0.0,
+      "annular_stock_symmetric_difference_mm3": 0.0
+    },
+    {
+      "end": "top",
+      "axis_xy_mm": [
+        -40.0,
+        -86.5
+      ],
+      "minimum_required_wall_mm": 1.6,
+      "missing_annular_wall_mm3": 0.0,
+      "annular_stock_symmetric_difference_mm3": 0.0
+    },
+    {
+      "end": "bottom",
+      "axis_xy_mm": [
+        137.5,
+        0.0
+      ],
+      "minimum_required_wall_mm": 1.6,
+      "missing_annular_wall_mm3": 0.0,
+      "annular_stock_symmetric_difference_mm3": 0.0
+    },
+    {
+      "end": "top",
+      "axis_xy_mm": [
+        137.5,
+        0.0
+      ],
+      "minimum_required_wall_mm": 1.6,
+      "missing_annular_wall_mm3": 0.0,
+      "annular_stock_symmetric_difference_mm3": 0.0
+    },
+    {
+      "end": "bottom",
+      "axis_xy_mm": [
+        -137.5,
+        0.0
+      ],
+      "minimum_required_wall_mm": 1.6,
+      "missing_annular_wall_mm3": 0.0,
+      "annular_stock_symmetric_difference_mm3": 0.0
+    },
+    {
+      "end": "top",
+      "axis_xy_mm": [
+        -137.5,
+        0.0
+      ],
+      "minimum_required_wall_mm": 1.6,
+      "missing_annular_wall_mm3": 0.0,
+      "annular_stock_symmetric_difference_mm3": 0.0
+    }
+  ],
+  "all_pass": true,
+  "scope": "Exact native full-depth 1.6 mm annular stock and retention of the fixed insert seats; does not establish physical pull-out strength."
+}

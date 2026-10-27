@@ -57,3 +57,9 @@ fit and insertion still require inspection before use in an assembled unit.
 Density metadata uses Polymaker's [1.43 g/cm³ specification](https://fiberon.polymaker.com/wp-content/uploads/TDS_FIBERON-PET-GF15_V1.0_EN.pdf). The [metadata review](metadata-review.json) confirms that the correction leaves every executable G-code command unchanged. The [machine review](machine-review.json) records the explicit shell placement and absence of cover bodies.
 
 The [live-model review](live-review.json) confirms that the site serves the exact reviewed shell and full-machine payloads. The [geometry change](https://homesodamachine.com/changes/2026-10-26-2029-round-copper-exits) records the front wall from one camera.
+
+The [post-publish lint](post-publish-lint.txt) reports the retained insert features:
+ten Ø4 mm blind-pocket roofs and the minimum ligament beside a corner pilot.
+[Full-depth native witnesses](insert-witnesses.json) retain 1.6 mm material around
+all twenty insert pilots; the corner minimum is 1.696 mm. The casing, clamp
+pattern and prepared archive are unchanged by this review.
