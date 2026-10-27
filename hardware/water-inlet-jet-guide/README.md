@@ -1,31 +1,34 @@
-# Water-inlet jet drilling and welding guide
+# Build the water-inlet jet
 
-[The illustrated bench guide](water-inlet-jet-guide.pdf) follows the finished
-316 cap from a clamped handling blank through drilling, cutting, elbow fit,
-purging, welding, root inspection, cleaning and flow checking.
+The [illustrated build guide](water-inlet-jet-guide.pdf) follows the tools and
+parts in assembly order. It starts with the drilling fixture, makes the cap,
+connects the welding setup, then seats, tacks and welds the cap to the elbow.
 
-The largest setup and action pictures are on the drilling and welding pages.
-The [cap engineering drawing](../cold-core-layout/water-inlet-jet-cap-drawing.pdf)
-controls the component; [the fabrication procedure](../assembly/water-inlet-jet.md)
-holds its assembly requirements and qualification scope.
+| Phase | Pages | Physical build |
+|---|---|---|
+| A | 2-5 | Identify the two prints, load the rod, close the jaws with two horizontal clamps, attach the base with two vertical clamps |
+| B | 6-8 | Set depth, drill the handling blank, cut off and finish the cap |
+| C | 9-10 | Join the gas fittings; hold the elbow and seat the cap |
+| D | 11-13 | Aim at the seam, tack opposite sides and close the welded rim |
+| Reference | 14 | Drawings, machine manuals and supporting procedures |
 
-| Pages | Work at the bench |
-|---|---|
-| 1-2 | Operation map, bench kit and actual fitting measurements |
-| 3-5 | Four-clamp setup, stopped-spindle alignment, tip depth and drilling motion |
-| 6 | Cut the slice; finish and inspect both bore ends |
-| 7 | Separate argon purge branch and torch shielding |
-| 8-10 | Metal workholding, gun aim, opposing tacks and circumferential travel |
-| 11 | Sectioned-root comparison and coupon examination |
-| 12 | Clean, passivate, flow-check and install at Port 2 |
-| 13-14 | Coupon record, primary references and picture key |
+The opening map links to each phase, and PDF bookmarks identify every step.
+Pages 2-3 show the issued drilling-fixture STL geometry. The blue result box
+on each build page identifies the assembly carried to the next step.
 
-The cap dimensions are defined. Actual elbow fit, the small-joint numerical
-weld recipe and flow acceptance still require the recorded trial. The four-tack
-and opposite-arc pictures describe the coupon handling plan; the accepted
-record identifies the sequence used for production. Fitting bores, clamp
-frames and the illustrated fusion zone are schematics rather than measured
-catalog geometry or a predicted weld section.
+The finished product is HSM-000338: one HSM-000011 drilled cap and one
+purchased TAISHER elbow. Jaws, clamps, holder and gas fittings are bench tools.
+The [cap drawing](../cold-core-layout/water-inlet-jet-cap-drawing.pdf) and
+[welded elbow drawing](../cold-core-layout/water-inlet-jet-elbow-drawing.pdf)
+control the product. The
+[fabrication procedure](../assembly/water-inlet-jet.md) carries fitting
+measurements, sectioned trial weld, cleaning/passivation and flow checks.
+
+The metal body holder and separate cap restraint have no dimensioned build
+package. The guide identifies this physical assembly detail explicitly.
+Actual fitting compatibility, fixture grip and the small-joint weld recipe
+remain subject to the procedure's physical trial; pictures do not establish
+measured performance.
 
 ## Author and print
 
@@ -35,11 +38,11 @@ Run by hand from the repository root:
 tools/cad-venv/bin/python tools/water-inlet-jet-guide/build.py
 ```
 
-The generator uses the shared Letter-guide typography and vector primitives.
-It imports no CAD and runs no appliance build, printer or welder.
-[guide-sources.json](guide-sources.json) records the selected numeric inputs,
-source hashes, reference links and review scope. The PDF, cover and publication
-sidecar are committed for the document library and material page.
+The generator projects the issued STL files and uses the shared Letter-guide
+typography and vector primitives. It runs no appliance build, print job or
+welder. [guide-sources.json](guide-sources.json) records selected numeric
+inputs, file hashes and reference links. The PDF, cover and publication sidecar
+are committed for the document library and both jet material records.
 
-Print Letter, single sided, at 100% / no scaling. The pictures explain the
-setup; the engineering drawing and actual fit measurements govern sizes.
+Print Letter, single sided, at 100% / no scaling. Pictures explain placement
+and order; drawings and actual fitting measurements govern sizes.

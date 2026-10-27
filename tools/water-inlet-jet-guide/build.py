@@ -1,4 +1,4 @@
-"""Hand-author the illustrated jet drilling and welding bench guide.
+"""Hand-author the jet build guide, including its drilling-fixture assembly.
 
 No appliance build, print job or welding operation runs here. The numeric
 inputs and source receipt belong to this document's on-demand review.
@@ -17,10 +17,11 @@ sys.path.insert(0, str(ROOT / "tools/assembly-guides"))
 sys.path.insert(0, str(HERE))
 from common import *
 import jet_art as art
+import fixture_art as fixture
 
 GUIDE = ROOT / "hardware/water-inlet-jet-guide"
 PDF = ROOT / "output/pdf/water-inlet-jet-guide.pdf"
-TITLE = "Water-inlet jet: drilling and welding"
+TITLE = "Build the water-inlet jet"
 N = 14
 BASE = "https://homesodamachine.com"
 REPO = "https://github.com/derekbreden/homesodamachine/blob/main/"
@@ -28,37 +29,39 @@ REFS = {
     "S1": ("JET-CAP-01 Rev A: finished cap", BASE+"/read/cold-core-layout/water-inlet-jet-cap-drawing.pdf"),
     "S2": ("Jet fabrication and elbow fit", REPO+"hardware/assembly/water-inlet-jet.md"),
     "S3": ("Drilling jaws and four-clamp setup", REPO+"hardware/printed-parts/fixtures/water-inlet-jet/README.md"),
+    "S4": ("JET-ELB-01 Rev A: complete welded jet elbow", BASE+"/read/cold-core-layout/water-inlet-jet-elbow-drawing.pdf"),
     "M1": ("WEN 4208T drill press manual, pp. 5-6, 14, 16-17", "https://cdn.shopify.com/s/files/1/0012/0350/3168/files/4208T.manual.20220914.pdf?v=1664398265"),
     "M2": ("WEN BA4555 metal bandsaw manual", "https://cdn.shopify.com/s/files/1/0012/0350/3168/files/BA4555.manual.20211206.pdf?v=1649272733"),
     "M3": ("X1 Pro manual, installation, modes and red-dot alignment", "https://www.xlaserlab.com/pages/xlaserlab-x1-pro-instruction-manual"),
     "M4": ("X1 Pro shielding-gas installation", "https://eu.xlaserlab.com/blogs/academy/x1pro-laser-welder-unboxing-installation"),
-    "M5": ("Norseman: drilling feeds and speeds", "https://www.norsemandrill.com/feeds-speeds-drill.php"),
-    "M6": ("Nickel Institute 11026: stainless fabrication for water", "https://nickelinstitute.org/en/resources/technical-guides/fabricating-stainless-steels-for-the-water-industry-guidelines-for-achieving-top-performance-11026/"),
-    "M7": ("BSSA: cleaning before passivation", "https://bssa.org.uk/bssa_articles/passivation-of-stainless-steels/"),
 }
 SOURCES = [
     "tools/water-inlet-jet-guide/build.py",
     "tools/water-inlet-jet-guide/jet_art.py",
+    "tools/water-inlet-jet-guide/fixture_art.py",
     "tools/assembly-guides/common.py",
     "hardware/assembly/water-inlet-jet.md",
     "hardware/printed-parts/fixtures/water-inlet-jet/README.md",
     "hardware/printed-parts/fixtures/water-inlet-jet/water_inlet_jet_fixture.py",
+    "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.stl",
+    "hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.stl",
     "hardware/cold-core-layout/_water_inlet_jet.py",
     "hardware/cold-core-layout/water_inlet_jet_cap_drawing.py",
     "hardware/cold-core-layout/water-inlet-jet-cap-drawing.pdf",
+    "hardware/cold-core-layout/water-inlet-jet-elbow-drawing.pdf",
     "hardware/assembly/pressure-vessel.md",
     "hardware/assembly/acceptance-and-burn-in.md",
     "hardware/ledger/tools.md", "hardware/ledger/inventory.md",
 ]
 
 
-def numbers(relative, names):
+def numbers(relative, names, initial=None):
     """Read only this guide's simple scalar inputs without importing CAD."""
     tree=ast.parse((ROOT/relative).read_text())
     expr={target.id:node.value for node in tree.body if isinstance(node,ast.Assign)
           for target in node.targets if isinstance(target,ast.Name)}
     ops={ast.Add:operator.add,ast.Sub:operator.sub,ast.Mult:operator.mul,ast.Div:operator.truediv}
-    values={}
+    values=dict(initial or {})
     def calc(node):
         if isinstance(node,ast.Constant) and isinstance(node.value,(int,float)):return node.value
         if isinstance(node,ast.Name):return get(node.id)
@@ -75,14 +78,20 @@ LIMIT = numbers("hardware/cold-core-layout/water_inlet_jet_cap_drawing.py",["OD_
                           "RADIAL_OFFSET_MAX","AXIS_ANGLE_MAX","FACE_GAP_MAX",
                           "THICKNESS_VARIATION_MAX","HOLE_EDGE_BREAK_MAX"])
 D,T,BORE=(GEOM[k] for k in ["JET_CAP_D","JET_CAP_T","JET_PASSAGE_D"])
+FIXTURE = numbers("hardware/printed-parts/fixtures/water-inlet-jet/water_inlet_jet_fixture.py",
+                  ["BASE_X","BASE_Y","BASE_T","JAW_X","JAW_DEPTH","GRIP_Z",
+                   "HANDLING_BLANK_L","MIN_HANDLING_BLANK_L","OPEN_JAW_GAP",
+                   "GROOVE_R","JAW_CLAMP_X","BASE_CLAMP_X"],{"JET_CAP_D":D})
+fixture.FIXTURE=FIXTURE
+fixture.ROD_D=D
+
 
 
 def links(c, ids, n):
-    source="Sources "+", ".join(ids)+" (links on p. 14)"
-    footer(c,n,source,REFS[ids[0]][1])
+    footer(c,n,"Sources "+", ".join(ids)+" / links on p. 14",REFS[ids[0]][1])
 
 
-def steps(c, items, start=541):
+def steps(c, items, start=561):
     y=start
     for k,item in enumerate(items,1):
         box(c,33,y,21,21,BLUE,radius=5)
@@ -98,182 +107,153 @@ def lower(c, title, body):
     paragraph(c,body,45,712,520,10.2,12.3,max_height=27)
 
 
-def page(c,n,title,subtitle,artist,caption,items,check_title,check,refs):
-    begin_page(c)
-    header(c,n,title,subtitle,N,"JET / DRILL + WELD")
+def bookmark(c,n,title):
+    c.bookmarkPage(f"page-{n}")
+    c.addOutlineEntry(f"{n:02d}  {title}",f"page-{n}",level=0)
+
+
+def page(c,n,phase,title,subtitle,artist,caption,items,result_title,result,refs):
+    begin_page(c);bookmark(c,n,title)
+    header(c,n,title,subtitle,N,"JET BUILD / "+phase)
     panel(c,32,155,548,374)
     with Art(c,40,164) as a:artist(a)
     paragraph(c,caption,35,532,542,9.5,11.5,MUTED,24)
-    steps(c,items,start=561)
-    lower(c,check_title,check)
-    links(c,refs,n)
-    end_page(c)
+    steps(c,items)
+    lower(c,result_title,result)
+    links(c,refs,n);end_page(c)
 
 
 def cover(c):
-    begin_page(c)
-    header(c,1,"Drill the cap.\nWeld the jet.",
-           "Visual bench guide for the 316 water-inlet jet at carbonator Port 2.",N,"JET / DRILL + WELD")
+    begin_page(c);bookmark(c,1,TITLE)
+    header(c,1,"Build the\nwater-inlet jet.",
+           "Assemble the tools, drill and cut the cap, then weld it to the elbow.",N,"JET BUILD")
     panel(c,32,186,548,374)
-    with Art(c,40,197) as a:art.overview(a)
-    paragraph(c,"<b>Drilling: pp. 3-5.</b> Workholding, alignment, depth and the cutting motion.<br/>"
-              "<b>Welding: pp. 8-11.</b> Hold the parts, aim at the seam, tack, close the circumference and inspect the root.",
+    with Art(c,40,197) as a:fixture.build_map(a)
+    for row,target in enumerate([2,6,9,11]):
+        y=207+row*86
+        c.linkRect("",f"page-{target}",(52,H-y-72,568,H-y),relative=1,thickness=0)
+    paragraph(c,"<b>The finished jet has two parts:</b> one drilled 316 cap (HSM-000011) and one TAISHER elbow. Together they make HSM-000338.<br/>"
+              "The jaws, clamps, holder and gas fittings stay at the bench.",
               35,580,541,12.2,16,max_height=65)
-    lower(c,"FIRST BUILD: QUALIFY A SPARE ELBOW",
-          "The cap drawing defines the part. Elbow fit, the small-joint weld recipe and measured flow still need the coupon record on p. 13.")
-    links(c,["S1","S2"],1)
-    end_page(c)
-
-
-def preparation(c):
-    begin_page(c)
-    header(c,2,"Fit and bench kit","Measure the actual purchased fitting before making a batch.",N,"JET / DRILL + WELD")
-    panel(c,32,151,548,346)
-    with Art(c,40,160,.93) as a:art.fit(a)
-    rows=[
-        ("DRILL", "WEN 4208T; 1/16-inch cobalt stub; Tap Magic EP-Xtra; printed jaws; four C-clamps; backer."),
-        ("CUT / INSPECT", "WEN BA4555 + 24 TPI M42; caliper; magnifier; flat reference; suitable bore/face measurement tools."),
-        ("WELD", "X1 Pro; actual TAISHER 316L elbow; 316 cap; ER316L .030 wire if used; metal fixture; argon branch."),
-    ]
-    y=511
-    for label,body in rows:
-        text(c,label,34,y+12,9.6,"PlexBold",BLUE)
-        height=paragraph(c,body,127,y,449,10.6,13)
-        y+=max(height,26)+10
-    lower(c,"CONFIRM THE REAL FIT",
-          "Cap covers the bore and seats flat; the whole weld can reach its bore-side root. Finished cap/weld passes the tapped plate and projects into headspace.")
-    links(c,["S1","S2","M1","M3"],2)
-    end_page(c)
-
-
-def inspection_record(c):
-    begin_page(c)
-    header(c,13,"Record the accepted setup","Bind the measured joint, settings, sections and flow to one coupon identity.",N,"JET / DRILL + WELD")
-    text(c,"Coupon ID / date / operator",34,165,11,"PlexBold",BLUE)
-    box(c,34,174,542,31,PAPER,RULE)
-    sections=[
-        ("PART AND FIT",["Rod OD / cap thickness / finished bore", "Elbow bore / tip OD / flat land / chamfer",
-                         "Welded OD / tapped clearance / made-up projection"]),
-        ("X1 PRO AND GAS",["Nozzle / focus-tube setting / mode / power %", "Swing Hz / swing width mm / wire status + mm/s",
-                            "Pulse emission + interval (if used) / travel + tie-in sequence",
-                            "Shielding check / purge valve setting / restraint arrangement"]),
-        ("RESULT",["Sections: axis + tack/restart azimuth / photo IDs / root readable",
-                   "Thread fit / exit bore / oxide + residue removal / cleaning record",
-                   "Flow: inlet pressure / water temperature / time / mass / repeat runs"]),
-    ]
-    y=224
-    for title,fields in sections:
-        text(c,title,34,y,10.5,"PlexBold",BLUE);y+=10
-        for field in fields:
-            text(c,field,40,y+12,9.4,"Plex",MUTED)
-            box(c,34,y+18,542,14,PAPER,RULE)
-            y+=38
-        y+=9
-    lower(c,"RELEASE THE RECIPE WITH THE EVIDENCE",
-          "Retain settings, cap and elbow identities, photographs and section pieces. Production parts repeat the accepted setup and checks.")
-    links(c,["S2","M3"],13)
-    end_page(c)
+    lower(c,"START AT A / THE FIXTURE IS PART OF THIS BUILD",
+          "Pages 2-5 show the two prints, rod placement and all four clamps. Each blue result box tells you what is assembled before the next page.")
+    links(c,["S2","S3","S4"],1);end_page(c)
 
 
 def references(c):
-    begin_page(c)
-    header(c,14,"References and picture key","Editable vector guide / edition 2026-10-26 / Letter, single sided.",N,"JET / DRILL + WELD")
-    y=158
+    begin_page(c);bookmark(c,14,"Drawings and supporting instructions")
+    header(c,14,"Drawings and support","Use these references when you need a dimension, machine setting or post-build check.",N,"JET BUILD / REFERENCE")
+    y=157
     for key,(label,url) in REFS.items():
         text(c,key,35,y+12,10.5,"PlexBold",BLUE)
         height=paragraph(c,label,72,y,500,10.8,13.2,BLUE)
         c.linkURL(url,(72,H-y-height,576,H-y),relative=1)
-        y+=max(height,14)+11
-    box(c,32,454,548,118,ICE,radius=7)
-    text(c,"READ THE PICTURES",46,476,11,"PlexBold",BLUE)
-    paragraph(c,"<b>Coral:</b> drill, fresh cut, active tack or weld.<br/>"
-              "<b>Blue:</b> clamp, gas route, alignment, motion or measurement.<br/>"
-              "<b>Steel:</b> existing workpiece. Root pictures are idealized comparison sections.<br/>"
-              "Clamps, gun and fitting profiles are setup schematics. Measurements and JET-CAP-01 govern.",
-              46,488,515,10.8,14,max_height=76)
-    paragraph(c,"<b>Use the machine manuals at the bench.</b> Powered drill/saw: secure the work, remove the chuck key, use eye protection and keep gloves away from moving tooling. Laser work: establish the controlled area, specified laser PPE, extraction and working interlocks before activation.",
-              35,594,540,11.1,14,max_height=75)
-    lower(c,"WHAT THIS GUIDE ESTABLISHES",
-          "It explains the current drilling/welding sequence and inspection targets. The coupon supplies the actual fit, weld settings and acceptance evidence.")
-    links(c,["S1","S2","M1","M3"],14)
-    end_page(c)
+        y+=max(height,14)+10
+    box(c,32,381,548,132,ICE,radius=7)
+    text(c,"BEFORE THE JET GOES INTO SERVICE",46,403,11,"PlexBold",BLUE)
+    paragraph(c,"The fabrication procedure (S2) carries the fitting measurements, sectioned trial weld, cleaning/passivation and flow checks. The actual small-joint laser settings and metal holding fixture are not qualified or dimensioned build packages.<br/>"
+              "JET-CAP-01 controls the cap; JET-ELB-01 controls the complete welded elbow. A drill shank does not establish the finished bore tolerance.",
+              46,416,515,10.6,13.3,max_height=87)
+    text(c,"READ THE PICTURES",35,548,11,"PlexBold",BLUE)
+    paragraph(c,"Coral shows the active tool, cut, tack or weld. Blue shows clamps, motion and labels. The jaw pictures on pp. 2-3 come from the issued STL files. Gun, purchased fitting and clamp profiles are setup schematics; sizes come from the drawings and actual hardware.",
+              35,559,540,11,14,max_height=61)
+    paragraph(c,"<b>Machine setup:</b> secure the work and keep gloves away from moving drill/saw tooling. Laser work uses the manufacturer's controlled area, specified PPE, extraction and working interlocks. Read the machine manuals before activation.",
+              35,631,540,10.6,13.2,max_height=47)
+    lower(c,"PRINT AND USE AT THE BENCH",
+          "Letter, single sided, 100% / no scaling. Edition 2026-10-27. The drawings govern sizes; the assembly pictures explain placement and order.")
+    links(c,["S1","S2","S3","S4"],14);end_page(c)
 
 
 def build():
     PDF.parent.mkdir(parents=True,exist_ok=True)
     c=canvas.Canvas(str(PDF),pagesize=(W,H),invariant=1,pageCompression=1)
     c.setTitle(TITLE);c.setAuthor("Home Soda Machine / Codex")
-    cover(c);preparation(c)
-    page(c,3,"Clamp the long blank","Two clamps close the jaws. Two more attach the base to the drill table.",art.fixture,
-         "Isometric setup. A = horizontal jaw clamps; B = vertical table clamps. Real clamp frames must clear the stopped chuck and quill.",
-         ["Seat a flat-ended <b>50-60 mm blank</b> on the fixture floor. Tighten both A clamps evenly; the rod cannot turn, rock or lift and the jaw split stays visible.",
-          "Align the stopped drill <b>after closing the jaws</b>. Tighten both B clamps over the base and backer against a solid table edge.",
-          "Lower the stopped quill through the full planned stroke. Check the chuck, drill and all four clamps from front and side."],
-         "PHYSICAL GRIP COMES FIRST","The fixture's CAD is checked; its real grip and clamp clearance must be demonstrated on a scrap blank.",["S2","S3","M1"])
-    page(c,4,"Align and set the depth","The drill point goes deeper than the cap's final back face.",art.depth,
-         "Enlarged section, not to scale. The cone is the drill point; only the cylindrical part of the hole gives the full passage diameter.",
-         ["Mark the rod center. With power off, bring the stopped <b>1/16-inch stub drill</b> to that mark and use this end face as the depth zero.",
-          "Set/prove <b>3-4 mm to the drill tip</b>. Confirm the full-diameter portion extends below the eventual <b>2 mm cap</b> cut plane.",
-          "Lock the depth setting and verify it on the trial. The bit remains in the metal, well above the printed fixture floor."],
-         "PROVE THE STOP ON THE TRIAL","After cutting, both faces must expose the full bore. A remaining drill cone or membrane fails the through-hole requirement.",["S1","S2","M1"])
-    page(c,5,"Cut, retract, clear","Use the 1100 rpm belt setting as the recorded trial starting point.",art.drilling,
-         "Action sequence with the rod still clamped. The clamp bodies below the cutting end stay fixed while the drill advances and retracts.",
-         ["With the press unplugged, set the belt for <b>1100 rpm</b>, tension it and close the cover. Remove the chuck key; apply Tap Magic.",
-          "Feed enough to <b>cut chips</b>. Retract to clear chips and renew fluid, then continue to the proved stop; avoid rubbing in one spot.",
-          "Stop for squeal, stalled cutting, excessive heat, wander or work movement. Let the spindle stop before brushing chips or adjusting anything."],
-         "RECORD WHAT CUTS THIS STOCK","1100 rpm is a trial start, not a proved production recipe. Keep the accepted speed, drill and fixture setup with the coupon record.",["S2","S3","M1","M5"])
-    page(c,6,"Saw, face and deburr","Expose and inspect both ends of the tiny passage before welding.",art.saw_finish,
-         "Clamp the retained blank in the saw vise; leave the cutoff free into a tray. The larger drill shown is turned lightly by hand for a burr only.",
-         [f"Use the BA4555 at its low-speed trial setting with the <b>24 TPI M42</b> blade. Finish the cap to <b>{T:.2f} ±{LIMIT['THICKNESS_TOL']:.2f} mm</b>.",
-          f"Inspect both faces. Hole-edge break is <b>{LIMIT['HOLE_EDGE_BREAK_MAX']:.2f} mm MAX</b>; keep the square OD weld rim. Wash away chips/fluid and dry.",
-          f"Verify JET-CAP-01: OD {D:.2f} ±{LIMIT['OD_TOL']:.2f}; bore <b>{BORE-LIMIT['BORE_MINUS']:.4f}-{BORE+LIMIT['BORE_PLUS']:.4f} mm</b>. Use suitable gauges or optical measurement for this tiny bore."],
-         "A DRILL SHANK IS ONLY A QUICK CLEARANCE CHECK","It does not measure the finished hole tolerance. Retire the handling blank below 40 mm, or earlier if chuck clearance requires.",["S1","S2","M2"])
-    page(c,7,"Purge through the elbow","The tee feeds torch shielding and a needle-controlled internal purge.",art.purge,
-         "Gas-flow schematic. The metal branch enters the female port and vents through the jet. Clamp the elbow tip-up for welding, as on p. 8.",
-         ["Close the cylinder and depressurize before cutting the regulated <b>6 mm hose</b>. Assemble the metal branch and fit its final adapter in the elbow's female port.",
-          "Begin with the needle valve shut. Restore argon, check joints, then crack the valve for a <b>gentle flow out the jet</b>; keep that vent open.",
-          "Verify torch shielding while the purge flows. The shared upstream meter reads both branches; record the torch check and purge setting."],
-         "THE PURGE MUST NOT MOVE THE CAP","Use the X1 Pro gas supply requirements and the lowest component rating. No numeric jet-purge flow setting has been established.",["S2","M3","M4"])
-    page(c,8,"Hold it. Aim at the seam.","Restrain the cap and body before bringing the gun to the joint.",art.aim,
-         "Metal holding concept and enlarged joint. Aim/focus is at the cap-to-tip seam. Drawn gun angle is for visibility; set the actual nozzle/focus per its manual.",
-         ["Clamp the bare elbow body/hex to a metal fixture. Hold the cap flat and concentric with a separate metal restraint clear of the seam and jet passage.",
-          "Fit the chosen welding nozzle and check calibrated aim/focus. With laser output disabled, rehearse access around the whole seam while keeping nozzle and wire position consistent.",
-          "Establish shielding/purge and the X1 safety-clip/interlock connection. Remove the printed drilling jaws and production plastic fittings from this setup."],
-         "ROOT FUSION IS THE TARGET","A rim bead alone is insufficient. The coupon must show fusion through the cap/tip interface to the bore-side root (p. 11).",["S2","M3"])
-    page(c,9,"Tack opposite sides","Use the sacrificial elbow to establish the small-joint setup.",art.tacks,
-         "Proposed coupon handling sequence: top, opposite bottom, then right and opposite left. Black dots are completed tacks; coral is the next location.",
-         ["Select/record the X1 stainless setup for the actual joint. Record <b>mode, power, swing Hz/width, wire status/feed</b> and pulse emission/interval if used.",
-          "Place the first tack, stop and check seating. Tack the opposite side, check again, then make the other opposing pair shown.",
-          "Keep the cap centered, flat and the hole clear. Release the trigger before changing grip, restraint or fixture position."],
-         "THE JET RECIPE IS STILL A COUPON RESULT","The large vessel-closure settings and the manual's example screen values do not establish this small joint's settings.",["S2","M3"])
-    page(c,10,"Close the circumference","Keep each accessible arc and restart under control.",art.weld,
-         "A proposed trial path alternates opposite arcs before connecting the remaining sides. Every start/stop is included in the coupon's inspection evidence.",
-         ["Trace the seam with constant selected focus, angle, wire delivery and travel. Fuse the cap edge to the elbow tip while keeping the axial passage open.",
-          "Release the trigger to reposition. Re-establish the same setup, tie into the existing fusion boundary, and continue until the circumference is closed.",
-          "Check distortion and cap seating between segments. Record the exact tack/arc/restart sequence and any filler; change one trial variable at a time."],
-         "VERIFY BEFORE COPYING TO PRODUCTION","Complete thread fit and headspace projection checks, then section the sacrificial joint. Save only settings tied to an acceptable root.",["S2","M3"])
-    page(c,11,"Read the welded root","Section the coupon; judge the bore-side interface, not just the outer bead.",art.roots,
-         "Idealized comparison sections. Coral shows fusion or a defect location, not a predicted penetration profile. The real cap/tip overlap comes from measured fit.",
-         ["Secure the coupon body for cutting. Make an axial section through the jet and a second azimuth through a tack/restart region; dress the faces on a flat support.",
-          "Inspect and photograph the cap, root and bore. Require readable fusion to the bore-side root, with no water-connected lap crevice, crack, black scale or obstruction.",
-          "Retain sections with settings and fit readings. If saw/abrasive smear hides the root, resolve the preparation or examination before accepting the recipe."],
-         "ONE GOOD-LOOKING BEAD OR STREAM IS NOT ROOT EVIDENCE","Sectioning samples the circumference. Repeatability and inspection coverage remain part of the weld qualification record.",["S2","M6"])
-    page(c,12,"Clean, flow-check, install","Make the production elbow with the accepted joint and settings.",art.flow,
-         "Clean and passivate the accessible jet elbow separately. Water exits the installed cap below the top plate's inside face, into the CO2 headspace.",
-         ["Remove the temporary purge adapter. Flush both ways; inspect the bore. Remove weld oxide/heat tint by the qualified method before the citric bath, rinse and dry.",
-          "At recorded inlet pressure and water temperature, collect for a measured time and weigh the water; repeat. Record mass/time and reject perimeter leakage.",
-          "Repeat loose-plate fit, thread and projection checks. Install at <b>Port 2</b> after the bare vessel's hydro/passivation steps; verify clear downward jet travel."],
-         "FLOW LIMITS COME FROM THE QUALIFIED GEOMETRY","Open-air collection is not pressurized refill performance. Current citric process is about 4%, 30-60 min; cleaning/passivation acceptance remains in the procedure.",["S2","M7"])
-    inspection_record(c);references(c)
-    c.save()
-    receipt={"geometry_mm":GEOM,"finished_limits_mm":LIMIT,
+    cover(c)
+    fixed=REPO+"hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-fixed.stl"
+    loose=REPO+"hardware/printed-parts/fixtures/water-inlet-jet/water-inlet-jet-fixture-loose.stl"
+    page(c,2,"A / DRILL FIXTURE","Print the two jaws","One fixed base/jaw and one loose jaw form the rod holder.",fixture.print_parts,
+         "Issued STL geometry. The loose jaw is turned to show its groove. Both parts print on their flat Z=0 bottoms.",
+         [f"Print one <link href='{fixed}' color='#1749D1'><u>fixed-base STL</u></link> and one <link href='{loose}' color='#1749D1'><u>loose-jaw STL</u></link>. The base and rear jaw are a single part.",
+          "Use PET-GF15: <b>0.20 mm first layer, 0.24 mm normal layers, six walls, six top/bottom layers, 50% infill</b> as the fixture's starting profile.",
+          "Clear whiskers from the grooves and flat bottoms. Turn the loose jaw so its half-round groove faces the fixed jaw's groove."],
+         "YOU HAVE / THE TWO MATCHING PRINTS",f"The fixed base is {FIXTURE['BASE_X']:g} x {FIXTURE['BASE_Y']:g} mm. Both jaws support {FIXTURE['GRIP_Z']:g} mm of rod. Clamps join the parts; there are no assembly screws or inserts.",["S3"])
+    page(c,3,"A / DRILL FIXTURE","Load the rod and loose jaw","The rod stands on the base floor; the loose jaw slides on that same floor.",fixture.load_jaws,
+         "Exploded assembly: the loose jaw is offset to expose the seated rod. Set it on the base, then bring the two grooves together around the blank.",
+         ["Saw a <b>50-60 mm handling blank</b> from the 9.5 mm rod and remove end burrs. Lay the fixed base on the wood backer at the drill table.",
+          "Stand the blank in the fixed jaw's groove. Push it down onto the solid base floor; the blank projects above the jaws.",
+          "Place the loose jaw flat on the base, groove inward. Slide it toward the rod so the two grooves surround the blank."],
+         "YOU HAVE / A LOOSELY ASSEMBLED ROD HOLDER","One fixed base/jaw, one upright blank and one sliding loose jaw. The next page adds the two clamps that close it.",["S2","S3"])
+    page(c,4,"A / DRILL FIXTURE","Close the jaws with two clamps","Use two of the four C-clamps here. Their screw axes run horizontally.",fixture.jaw_plan,
+         "Top view. The A clamps press the front and rear outer jaw faces together, one on each side of the rod. Their frames wrap outward.",
+         [f"Place one <b>A clamp on each side of the rod</b>, near the flat lands about {FIXTURE['JAW_CLAMP_X']:g} mm left and right of its axis.",
+          "Put each pad on an outer jaw face. Turn the C-frame outward, away from the spindle; tighten the two clamps evenly.",
+          "Keep the split between the flat jaw faces visible. The rod must resist turning, rocking and lifting by a firm hand check."],
+         "YOU HAVE / THE ROD GRIPPED BETWEEN THE JAWS","The A clamps hold the rod. Leave them tightened while positioning the whole fixture under the stopped drill.",["S3","M1"])
+    page(c,5,"A / DRILL FIXTURE","Attach the base to the table","The other two C-clamps fasten the base and wood backer to the drill table.",art.fixture,
+         "A = the two horizontal jaw clamps already installed. B = the two vertical table clamps added here. The picture shows the complete setup.",
+         ["Fit the <b>1/16-inch stub drill with power off</b>. After tightening the A clamps, move the whole fixture until the stopped tip meets the rod center.",
+          f"Add one <b>B clamp on each base flange</b>, about {FIXTURE['BASE_CLAMP_X']:g} mm left/right of the rod. Clamp through the base and backer to a solid table edge.",
+          "With the spindle stopped, lower the quill through the planned stroke and turn the chuck by hand. Check tool clearance and square approach from front and side."],
+         "YOU HAVE / THE COMPLETE DRILLING FIXTURE INSTALLED","A grips the rod; B holds the base, backer and table together. Demonstrate the real grip and clearance on the first scrap blank.",["S3","M1"])
+    page(c,6,"B / MAKE THE CAP","Set the drilling depth","The point passes beyond the cap's eventual back face.",art.depth,
+         "Enlarged section. The orange cut plane marks the finished cap back face, not the bottom of the drill cone.",
+         ["Touch the stopped drill tip to the rod's top face. Use that face as the <b>depth zero</b>.",
+          "Set and prove the depth stop for <b>3-4 mm to the tip</b>. The full-diameter hole must extend past the eventual <b>2 mm cap</b> cut plane.",
+          "Lock the stop. The drill ends inside the stock, well above the printed floor; it does not drill through the whole handling blank."],
+         "YOU HAVE / THE AXIS AND DEPTH SET","Keep all four clamps in place. The next page makes the short hole in the long blank.",["S1","S2","M1"])
+    page(c,7,"B / MAKE THE CAP","Drill the short passage","Cut chips, retract to clear them, then continue to the depth stop.",art.drilling,
+         "The jaws stay clamped in all three pictures. Only the drill moves; the blank remains long enough to hold securely.",
+         ["Unplug the press to set its belt to the <b>1100 rpm trial starting setting</b>. Close the cover, remove the chuck key and apply Tap Magic.",
+          "Feed positively enough to cut chips. Retract to clear the flutes and renew fluid, then return to the proved stop without dwelling in one spot.",
+          "Stop for rod or fixture movement, squeal, stalled cutting, excessive heat or wander. Let the spindle stop before brushing chips or making adjustments."],
+         "YOU HAVE / A DRILLED END ON THE HANDLING BLANK","Release the jaws and take the rod to the saw. The small cap is cut off after drilling.",["S2","S3","M1"])
+    page(c,8,"B / MAKE THE CAP","Cut off the drilled cap","Keep the retained rod in the vise; let the small cutoff fall free.",art.saw_finish,
+         "The saw vise holds the retained stock. The larger drill at right is turned lightly by hand at each hole edge to remove a burr.",
+         [f"Use the BA4555 and 24 TPI M42 blade at the low-speed trial setting. Account for the kerf and finish the cap to <b>{T:.2f} +/-{LIMIT['THICKNESS_TOL']:.2f} mm</b>.",
+          f"Lightly remove the bore burrs at both ends: <b>{LIMIT['HOLE_EDGE_BREAK_MAX']:.2f} mm maximum edge break</b>. Keep the outside rim square for welding.",
+          "The hole must be open at full diameter through both faces. Use JET-CAP-01 for the cap's finished limits before seating it on the elbow."],
+         "YOU HAVE / THE FINISHED DRILLED CAP","For another cap, clear the jaw floor, reseat the rod and realign. Retire the handling blank below 40 mm, or sooner for chuck clearance.",["S1","S2","M2"])
+    page(c,9,"C / WELD SETUP","Join the welding gas fittings","Assemble this temporary branch from the owned tee, adapters, tube and valve.",art.purge,
+         "Connection order. The tee's straight run continues to the welder; its threaded branch reaches the elbow's female port through the metal fittings.",
+         ["Close the cylinder and depressurize. Cut the regulated <b>6 mm hose</b> square, insert the tee and seat both hose ends fully.",
+          "Thread the <b>FNPT coupling</b> onto the tee's male branch; add the first compression adapter. Join it to the needle valve with 1/4-inch OD stainless tube.",
+          "Use the second tube link and adapter from the valve to the elbow's female port. Begin with the valve closed; the drilled jet is the open vent."],
+         "YOU HAVE / THE GAS BRANCH ASSEMBLED","Set gentle internal flow and verify torch shielding with that branch open before welding. Operating details are in S2 and the X1 manual.",["S2","M3","M4"])
+    page(c,10,"C / WELD SETUP","Seat the cap on the elbow","The cap goes on the male end that enters the carbonator.",fixture.cap_seating,
+         "Two product parts and a local seating section. The purchased fitting profile is schematic; measure the actual bore and seating land.",
+         ["Hold the bare elbow <b>male tip upward</b> in a metal fixture. Grip the body, keeping the threads and cap seating land accessible.",
+          "Place the finished cap on the tip, centered and flat. Add a separate <b>metal cap restraint</b> clear of the jet hole and the tack locations.",
+          "Connect the gas adapter at the female port and the X1 safety clip/interlock at the metal work. Keep the printed drilling fixture out of this station."],
+         "HOLDING DETAIL TO RESOLVE","The body clamp and separate cap restraint are required. Their dimensions, hardware and fabrication details do not yet have an issued build package.",["S1","S2","S4","M3"])
+    page(c,11,"D / WELD THE JET","Put the gun at the seam","The target is the cap-to-tip interface around the outside rim.",fixture.seam_closeup,
+         "Enlarged joint. The drawn gun angle is for visibility; the actual nozzle, attitude and focus follow the machine setup for the trial joint.",
+         ["Install the chosen nozzle. With output disabled, put the calibrated aim/focus at the <b>cap-to-tip seam</b> shown above.",
+          "Rehearse access around the rim while the cap is restrained. Keep the wire endpoint at the joint and the small axial passage clear.",
+          "Use the small-joint coupon settings for mode, power, swing, wire and travel. Keep shielding and the gentle internal flow established."],
+         "YOU HAVE / THE GUN AIMED AT THE JOINT","The cap and elbow stay restrained while the first opposing tacks are made. Actual jet settings require the trial joint in S2.",["S2","S4","M3"])
+    page(c,12,"D / WELD THE JET","Tack opposite sides","Join the first pair, then the other pair, while keeping the cap seated.",art.tacks,
+         "Proposed handling order: top, opposite bottom, then right and opposite left. Black dots are completed tacks; coral marks the next location.",
+         ["Make the first tack at <b>12 o'clock</b>. Release the trigger and check that the cap is still centered and seated.",
+          "Tack opposite at <b>6 o'clock</b>, then make the <b>3 and 9 o'clock</b> pair. Reposition only with the trigger released.",
+          "Keep the restraint clear of the active location. Stop if the cap lifts, shifts or the small jet opening changes."],
+         "YOU HAVE / THE CAP LOCATED BY FOUR TACKS","The rim still needs the continuous circumferential weld on the next page. Keep the accepted tack order with the joint's settings.",["S2","S4","M3"])
+    page(c,13,"D / WELD THE JET","Close the welded rim","Work opposing arcs, then connect the remaining sides and tie-ins.",art.weld,
+         "Proposed travel order. Coral is the current arc; black is completed travel. Release the trigger before repositioning or changing the restraint.",
+         ["Trace the seam at the selected focus, attitude, wire delivery and travel. Fuse the cap to the elbow while keeping the jet passage open.",
+          "Work the opposing arc, then connect the other sides. Tie each restart into the existing fusion boundary until the rim is closed.",
+          "The finished assembly is <b>JET-ELB-01 / HSM-000338</b>. Its cap projects into the carbonator headspace when the elbow is installed at top Port 2."],
+         "YOU HAVE / THE WELDED WATER-INLET JET","The required fusion reaches the wetted root; a rim bead alone does not show it. Supporting qualification and post-build instructions are linked on p. 14.",["S2","S4","M3"])
+    references(c);c.save()
+    receipt={"geometry_mm":GEOM,"finished_limits_mm":LIMIT,"fixture_inputs_mm":FIXTURE,
              "primary_references":{k:{"title":v[0],"url":v[1]} for k,v in REFS.items()},
-             "review_scope":"Illustrated work sequence; no physical trial, welding or qualification performed",
-             "visual_focus":{"drilling_pages":[3,4,5],"welding_pages":[8,9,10,11]},
-             "authored_trial_choices":["opposing four-tack handling sequence","alternating accessible quarter arcs; final recipe depends on coupon"],
-             "edition_date":"2026-10-26"}
+             "review_scope":"Jet and drilling-fixture assembly sequence; no physical build or qualification performed",
+             "build_phases":{"drilling_fixture_pages":[2,3,4,5],"cap_pages":[6,7,8],"weld_setup_pages":[9,10],"welding_pages":[11,12,13],"support_page":14},
+             "mesh_figures":{"pages":[2,3],"sources":["water-inlet-jet-fixture-fixed.stl","water-inlet-jet-fixture-loose.stl"]},
+             "open_build_details":["dimensioned metal body holder and separate cap restraint"],
+             "authored_trial_choices":["opposing four-tack handling sequence","alternating accessible quarter arcs; actual recipe depends on coupon"],
+             "edition_date":"2026-10-27"}
     canonical=publish(PDF,GUIDE,TITLE,
-          "14 illustrated Letter pages · drilling setup and depth, gun aim, tack sequence and welded-root inspection",
+          "14 illustrated Letter pages: assemble the drilling fixture, make the cap, set up and weld the jet",
           N,SOURCES,extra=receipt)
     (GUIDE/"guide-sources.json").write_text(PDF.with_suffix('.sources.json').read_text())
     print(f"Published {canonical} ({N} pages)")

@@ -13,10 +13,12 @@ continuous circumferential joint and the required fusion to the wetted root.
 Fitting geometry is shown as reference; measured fit and small-joint weld
 qualification have the scope below.
 
-The [illustrated drilling and welding bench guide](../water-inlet-jet-guide/water-inlet-jet-guide.pdf)
-shows the clamping, drill-depth setup, drilling motion, gun placement, opposing
-tacks, circumferential travel and sectioned-root comparison. Its coupon record
-ties the actual fit and settings to the retained inspection evidence.
+The [illustrated jet build guide](../water-inlet-jet-guide/water-inlet-jet-guide.pdf)
+follows one physical build: print and assemble the drilling jaws, install all
+four clamps, drill and cut the cap, connect the welding setup, then seat, tack
+and weld the cap onto the elbow. Pages 2-5 cover the drilling fixture itself.
+Its final reference page links the drawings and supporting qualification,
+cleaning and flow procedures below.
 
 **Status: elbow fit and welding unqualified.** The
 [finished cap engineering drawing](../cold-core-layout/water-inlet-jet-cap-drawing.pdf)
@@ -178,6 +180,11 @@ Use the same elbow, rod material, cap dimensions and surface preparation as
 the production assembly. Remove cutting fluid, dirt and loose oxides before
 welding. Keep NPT tape, polymer purge fittings and the printed drilling
 fixture away from the weld zone; hold the bare elbow on a metal fixture.
+
+The metal holder must restrain the elbow body and the cap separately, leaving
+the jet passage and active weld location accessible. Its dimensions, hardware
+and fabrication details have no issued build package; the generic holding
+layout is not a fixture parts list.
 
 Set the elbow with its male tip facing up and the cap seated flat and
 concentric. Establish the gentle internal purge and torch shielding, then

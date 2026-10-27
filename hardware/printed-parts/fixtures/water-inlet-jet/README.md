@@ -12,6 +12,12 @@ blank before making caps. This is shop tooling, separate from the machine
 assembly. The fabrication procedure is
 [`water-inlet-jet.md`](/hardware/assembly/water-inlet-jet.md).
 
+The [illustrated jet build guide](/hardware/water-inlet-jet-guide/water-inlet-jet-guide.pdf)
+opens with the fixture assembly on pages 2-5: identify the two prints, load
+the rod between their grooves, close the jaws with two horizontal C-clamps,
+then attach the base and backer to the drill table with two vertical clamps.
+The following pages use that fixture to make the jet cap and assemble the jet.
+
 | File | Use |
 |---|---|
 | [`water_inlet_jet_fixture.py`](water_inlet_jet_fixture.py) | Generator, dimensions and geometric checks |
@@ -22,7 +28,8 @@ assembly. The fabrication procedure is
 ## Print and inspect
 
 Print both parts in the owned PET-GF15, flat on their exported Z=0 faces.
-The intended starting profile is 0.2 mm layers, six walls, six top/bottom
+The intended starting profile is a 0.20 mm first layer, 0.24 mm normal layers,
+six walls, six top/bottom
 layers and 50% infill. The jaws have vertical, open grooves and need no
 support. This profile and the grip have not had a physical trial.
 
