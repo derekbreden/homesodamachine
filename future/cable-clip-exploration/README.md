@@ -7,7 +7,8 @@ the actual complete ribbon section has not been measured.
 
 The one-piece clip has an 8 mm span along the cable, a 2.20 × 7.75 mm seat,
 a 1.45 mm entry and a 0.75 mm retaining beak. Its outer post, cap and 45°
-corbel use 3 mm stock. The coupon’s host wall is 3 mm thick and 14 mm long.
+corbel use 3 mm stock. The coupon’s host wall is 3 mm thick, 24 mm long and
+extends 6 mm below the hook. It stands on one 72 mm² wall-edge footprint.
 The [geometry report](geometry-report.json) binds the
 [generator](relay_ribbon_trial.py), installed and print-oriented native parts,
 modeled conductor clearance and source hashes. It records 0.25 mm seated
@@ -32,15 +33,16 @@ The guide and redressing are a site proposal, not production integration.
 ## Print preparation
 
 The [Mark2 job](prints/2026-10-26-mark2-relay-ribbon/README.md) is prepared and
-reviewed offline, with an **8 min 36 s** native estimate. It has not been submitted.
+reviewed offline, with a **10 min 1 s** native estimate. Submission awaits the
+three tube-snap matrix strips being removed from Mark2's bed.
 
-The installed-up mouth prints facing the bed because back-top prints ceiling-down.
-The coupon uses the same half-turn about X and a +19.70 mm Z translation.
-Its host ends at that exact **19.70 mm** height, so both the wall and outer arm
-start on the bed. The two bed islands join above the open pocket; a short bridge
-closes the 2.20 mm gap at print Z11.50 mm. Tree(auto)/Default supports remain
-enabled. The native paths contain no support or brim inside either the cable seat
-or entry corridor.
+The coupon prints in its **installed orientation, entry up**, translated 6 mm
+upward to put the host wall's bottom on the bed. Its total height is **25.70 mm**.
+The 45° hook corbel grows out of the wall beginning at print Z6 mm.
+The larger wall footprint supplies its bed attachment; the recipe requests no
+brim. Tree(auto)/Default supports remain enabled, and the emitted native slice
+has no support. The cable seat and entry corridor are clear. This fit coupon's
+orientation does not define the proposed enclosure quadrant's print pose.
 
 Use the actual bare 4P ribbon to assess insertion, grip, axial slide, release and
 layer/root survival. This coupon has no physical fit or retention result and does

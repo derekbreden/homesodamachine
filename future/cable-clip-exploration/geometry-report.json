@@ -1,7 +1,7 @@
 {
   "scope": "One bare 22 AWG 4P relay-ribbon fit coupon. No production geometry or wiring changes.",
   "source": "future/cable-clip-exploration/relay_ribbon_trial.py",
-  "source_sha256": "f515057601f9549137c4acd5e19e2518f74050163487e4377d8d948679ef6b25",
+  "source_sha256": "e4754169913a98e25f307cdb54efdf4111e308068a5a6ce3f95949c457379cee",
   "intended_stock": "BNTECHGO 22 AWG black silicone 4P ribbon, the J5 RELAYS loom stock",
   "stock_basis": "1.70 mm modeled insulated conductor OD on 1.85 mm modeled pitch; full physical ribbon section unmeasured.",
   "dimensions": {
@@ -15,56 +15,62 @@
     "beak_projection_mm": 0.75,
     "projection_from_wall_mm": 5.2,
     "host_wall_mm": 3.0,
-    "host_run_mm": 14.0,
-    "overall_print_height_mm": 19.7
+    "host_run_mm": 24.0,
+    "wall_below_hook_mm": 6.0,
+    "overall_print_height_mm": 25.7
   },
   "installed_frame": "X outward from wall; Z up; cable axis Y. Mouth opens upward.",
-  "print_pose": "Half-turn about X followed by +19.70 mm Z. Entry faces the bed, matching installed-up on ceiling-down back-top. In a +Z quadrant the same print pose corresponds to installed-down entry.",
+  "print_pose": "Installed orientation, translated +6.00 mm Z to put the wall bottom on the bed. Entry faces up. No rotation.",
   "print_pocket_bounds_mm": [
     0.0,
     -4.0,
-    3.75,
+    14.2,
     2.2,
     4.0,
-    11.5
+    21.95
   ],
   "print_entry_core_bounds_mm": [
     0.0,
     -4.0,
-    0.0,
+    21.95,
     1.4500000000000002,
     4.0,
-    3.75
+    25.7
   ],
-  "pocket_closure": {
-    "width_mm": 2.2,
-    "build_z_mm": 11.5,
-    "mechanism": "Short bridge between the standing wall and outer arm"
+  "corbel": {
+    "build_start_z_mm": 6.0,
+    "build_end_z_mm": 11.2,
+    "slope_degrees": 45
   },
-  "support_requirement": "No support or brim roads inside the cable seat or entry corridor; verify the emitted native slice with Tree(auto)/Default retained.",
+  "retaining_lip": {
+    "projection_mm": 0.75,
+    "build_underside_z_mm": 21.95,
+    "bearing": "Flat underside retaining the ribbon"
+  },
+  "support_requirement": "No brim. No support roads inside the cable seat or entry corridor; verify the emitted native slice with Tree(auto)/Default retained.",
   "print_native": {
     "valid": true,
     "solids": 1,
-    "volume_mm3": 1356.6099999999994,
+    "volume_mm3": 2379.61,
     "bounds_mm": [
-      -3.0000001000000016,
-      -7.0000001000000065,
-      -1.0000000355271367e-07,
-      5.200000100000002,
-      7.000000100000004,
-      19.700000100000004
+      -3.0000001,
+      -12.000000100000001,
+      -1.0000000177635683e-07,
+      5.200000100000004,
+      12.000000100000001,
+      25.700000100000004
     ]
   },
   "installed_native": {
     "valid": true,
     "solids": 1,
-    "volume_mm3": 1356.6100000000001,
+    "volume_mm3": 2379.61,
     "bounds_mm": [
       -3.0,
-      -7.0,
-      0.0,
+      -12.0,
+      -6.0,
       5.2,
-      7.0,
+      12.0,
       19.7
     ]
   },
@@ -90,21 +96,20 @@
       ]
     ],
     "bed_contact_face_areas_mm2": [
-      24.0,
-      42.0
+      72.0
     ],
-    "total_native_bed_contact_mm2": 66.0
+    "total_native_bed_contact_mm2": 72.0
   },
   "files": {
-    "future/cable-clip-exploration/parts/relay-ribbon-4p-print.stl": "6acfebc1f2bb0ec0ea6fd5bbc9a4570099358e9db7af67126279bd734e64d8af",
-    "future/cable-clip-exploration/parts/relay-ribbon-4p-print.step": "5fb35a7df057fa8d968ccd04c48e37fb87908b2946542cd6e6b9d95c277b36a6",
-    "future/cable-clip-exploration/parts/relay-ribbon-4p-installed.step": "5a5fe76549da910ac5f9832f22d006c23c1dc5ad4c6c39bdb249ac38cbf2e0da"
+    "future/cable-clip-exploration/parts/relay-ribbon-4p-print.stl": "c75a565756883d4a7efdd77d265f3f2e11d34db15a80d74aad42e23f7012ca29",
+    "future/cable-clip-exploration/parts/relay-ribbon-4p-print.step": "4d19a147169108a54a35e9cb40179697b49952b64df58ed3afd61522434531d3",
+    "future/cable-clip-exploration/parts/relay-ribbon-4p-installed.step": "2020394d72eec2f84d1457733b40453726050dc26041bbc0b8c7ed44eb97bff9"
   },
   "provenance": {
     "hardware/wiring/installed/model.py": "66f6a6ea2228d7a75bb9175f803c9b1c2b02ea05ac074b5da160e66a6722cfac",
     "hardware/wiring/installed/routes.py": "25a614a784977ba733ffb64962bedec8b4e81b1bf8ce7ff1e3d9873d3b7b7ec3",
     "hardware/assembly/cable-assemblies.md": "3fc6eb01e0d8e2b29831277ff486eaa2bcf0db64293fcc8aebc73ee4b8cf2d7f",
-    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "771f0fed128887ce022458fba62edf3f4410dfb9f9e5b0c47dfdbe4d33a62699"
+    "hardware/printed-parts/enclosure/enclosure/enclosure.py": "cd318c853b856eba715eb28aeea68bde865588c548eaaa64981a6dd47d56b99a"
   },
   "evaluation": "Use the actual bare 4P ribbon to compare entry force, seated retention, axial slide, release and layer/root survival. Does not test a braided sleeve, finished crimp or other conductor count.",
   "production_placement": "Proposed west-wall J5 bare fan-out guide; placement/redressing and equipment clearance have separate review. Coupon is not an integrated enclosure feature."

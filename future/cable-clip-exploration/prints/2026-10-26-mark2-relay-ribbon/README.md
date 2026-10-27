@@ -1,35 +1,38 @@
 # Bare J5 relay-ribbon coupon — Mark2
 
-The **8 min 36 s** job is prepared for Mark2’s left hardened 0.4 mm
+The **10 min 1 s** upright job is prepared for Mark2’s left hardened 0.4 mm
 Standard-flow nozzle in black Polymaker Fiberon PET-GF15. The editable project
-and sliced archive are ready; **no printer job has been submitted**.
+and sliced archive are ready. Submission awaits the three tube-snap matrix
+strips being removed from Mark2's bed.
 
 The [study](../../README.md) describes the bare 22 AWG 4P J5 ribbon and its
 proposed west-wall location. This coupon is not a production enclosure feature.
-The 3 mm host and clip print entry-down, matching an installed-up mouth on
-ceiling-down back-top. The host ends at the exact 19.70 mm clip height, giving
-both the wall and outer arm a bed face. Native contact areas are 42 and
-24 mm², respectively. The pocket closes across a 2.20 mm span at print Z11.50 mm.
+The clip prints **entry-up in its installed orientation**. The 3 mm host wall
+is 24 mm wide and extends 6 mm below the hook, giving one **72 mm²** native
+bed footprint. The hook grows from the wall on a 45° corbel starting at print
+Z6 mm. Overall print height is 25.70 mm. The 0.75 mm retaining lip keeps its
+flat underside.
 
-- [Editable project](2026-10-26-relay-ribbon-4p-print-mark2-b4879c6b/2026-10-26-relay-ribbon-4p-print-mark2-b4879c6b.3mf)
-- [Native print archive](2026-10-26-relay-ribbon-4p-print-mark2-b4879c6b/2026-10-26-relay-ribbon-4p-print-mark2-b4879c6b.gcode.3mf)
-- [Native preview](2026-10-26-relay-ribbon-4p-print-mark2-b4879c6b/plate_1.png)
+- [Editable project](2026-10-26-relay-ribbon-4p-upright-mark2-78832950/2026-10-26-relay-ribbon-4p-upright-mark2-78832950.3mf)
+- [Native print archive](2026-10-26-relay-ribbon-4p-upright-mark2-78832950/2026-10-26-relay-ribbon-4p-upright-mark2-78832950.gcode.3mf)
+- [Native preview](2026-10-26-relay-ribbon-4p-upright-mark2-78832950/plate_1.png)
 - [Offline preparation and native review](offline-review.json)
-- [Pocket, entry and bridge path reading](path-review.json)
+- [Pocket, entry, wall footprint and corbel path reading](path-review.json)
 - [Manual preparer](prepare.py), [path reader](path_review.py) and [local declaration](job.json)
 
-The shared PET-GF profile retains **Tree(auto)/Default supports and automatic
-brim**. It uses a 0.20 mm first layer, 0.24 mm normal layers, two wall loops
+The shared PET-GF profile retains **Tree(auto)/Default supports**. This coupon
+requests **no brim** and uses its larger wall footprint for bed attachment.
+It uses a 0.20 mm first layer, 0.24 mm normal layers, two wall loops
 and 15% gyroid infill. Mark2’s +0.04 mm user trim emits `G29.1 Z0.02` after
-the reset on Textured PEI. The native review passes with a **152.934 mm**
-minimum full-bead bed margin and a **1.29 g** profile-based material estimate.
+the reset on Textured PEI. The native review passes with a **147.916 mm**
+minimum full-bead bed margin and a **2.16 g** profile-based material estimate.
 
-The path reading finds **no support or brim in the cable seat or entry
-corridor**. The outer arm remains one connected bead section below the bridge,
-and every sampled layer above the first contacts the previous model layer.
-The second-layer roads all have some first-layer bead contact; their combined
-coverage over the first-layer footprint is 84.0%. These are commanded paths,
-not physical adhesion or bridge-finish acceptance.
+The path reading finds **no support or brim anywhere in the job**. The first
+and second model layers each have one connected footprint. Every second-layer
+road has some first-layer bead contact; combined overlap is **87.7%**. Each
+connected section containing the hook contacts the previous model layer,
+including its first corbel layer. These are commanded paths, not physical
+adhesion or surface-finish acceptance.
 
 Actual bare-ribbon entry, grip, axial slide, release and layer/root survival
-remain untested. No launch or production integration is included in this preparation.
+remain untested. This preparation does not integrate a production enclosure feature.
