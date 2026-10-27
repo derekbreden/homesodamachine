@@ -64,7 +64,10 @@ def export_mesh(entry, arrays, *, cold_core: bool, group_override=None):
     name = entry["name"]
     positions, normals, indices = arrays["pos"], arrays["nrm"], arrays["idx"]
     source_triangles = len(indices)
-    if name.startswith("enclosure-"):
+    sculpted_faucet = group_override == "faucet" and name in {"shell_base", "shell_tip"}
+    if sculpted_faucet:
+        target = 24000
+    elif name.startswith("enclosure-"):
         target = 18000
     elif name.startswith("foam-"):
         target = 6500
@@ -77,8 +80,24 @@ def export_mesh(entry, arrays, *, cold_core: bool, group_override=None):
         mesh.merge_vertices(digits_vertex=5)
         mesh = mesh.simplify_quadric_decimation(face_count=target, aggression=5)
         mesh = trimesh.graph.smooth_shade(mesh, angle=np.deg2rad(35), facet_minarea=20)
-        positions = np.asarray(mesh.vertices)
-        normals = np.asarray(mesh.vertex_normals)
+        reduced_positions = np.asarray(mesh.vertices)
+        reduced_normals = np.asarray(mesh.vertex_normals)
+        if sculpted_faucet:
+            # The film's curved highlights use the CAD normal field, rather
+            # than normals inferred from the larger display triangles. The
+            # crease-split mesh supplies a side hint at designed sharp edges.
+            from scipy.spatial import cKDTree
+            distance, nearest = cKDTree(positions).query(reduced_positions, k=24, workers=2)
+            candidates = normals[nearest]
+            candidates = candidates / np.maximum(np.linalg.norm(candidates, axis=2, keepdims=True), 1e-12)
+            agreement = np.maximum(np.einsum("ijk,ik->ij", candidates, reduced_normals), 0)
+            spread = np.maximum(.04, distance[:, :1] * .25 + .015)
+            weight = np.exp(-(distance - distance[:, :1]) / spread) * agreement ** 24
+            normal_sum = np.sum(candidates * weight[:, :, None], axis=1)
+            normal_length = np.linalg.norm(normal_sum, axis=1, keepdims=True)
+            reduced_normals = np.where(normal_length > 1e-12, normal_sum / np.maximum(normal_length, 1e-12), reduced_normals)
+        positions = reduced_positions
+        normals = reduced_normals
         indices = np.asarray(mesh.faces)
     native_bounds = bounds(positions)
     if cold_core:
@@ -91,12 +110,13 @@ def export_mesh(entry, arrays, *, cold_core: bool, group_override=None):
         "group": group_override or group(name),
         "color": [round(float(c), 6) for c in entry["color"]],
         "positions": np.round(positions, 3).reshape(-1).tolist(),
-        "normals": np.round(normals, 4).reshape(-1).tolist(),
+        "normals": np.round(normals, 6 if sculpted_faucet else 4).reshape(-1).tolist(),
         "indices": indices.reshape(-1).tolist(),
         "bounds": bounds(positions),
         "nativeBounds": native_bounds,
         "sourceTriangles": source_triangles,
         "triangles": int(len(indices)),
+        **({"normalSource": "Source CAD vertex-normal field; crease-aware transfer to the display mesh", "triangleBudget": target} if sculpted_faucet else {}),
     }
 
 
@@ -233,6 +253,7 @@ def main():
         "bundles": bundles,
         "coilPath": coil,
         "faucetDatums": "faucet-datums.json",
+        "faucetSurfaceNormals": "Source CAD vertex-normal field transferred to 24,000-triangle shell targets; crease sides retained.",
         "fonts": fonts,
         "licenses": license_sources,
         "notes": ["Enclosure and cold-core position/normal arrays share the enclosure frame; do not apply coldCoreToEnclosure twice. Faucet geometry uses its own mounting-axis frame.", "CAD display meshes use conservative quadric simplification for video; source design geometry is unchanged.", "Color triples are linear-sRGB and should be passed directly to THREE.Color without another sRGB-to-linear conversion.", "The standalone cold-core payload supplies the coil; the enclosure bundle does not duplicate its embedded cold core.", "Compressed bundles are the committed sources; plain JSON files are local working copies."]

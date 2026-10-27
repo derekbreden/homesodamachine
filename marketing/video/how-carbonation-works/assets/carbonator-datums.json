@@ -1,0 +1,494 @@
+{
+  "units": "mm",
+  "frame": "carbonator-local-y-up; inner floor y=0; axis x=z=0",
+  "nativeColdCoreMapping": [
+    "-cc.y",
+    "cc.z-44.70000",
+    "-cc.x"
+  ],
+  "enclosureMapping": [
+    "E.x",
+    "E.z-64.7",
+    "323.8-E.y"
+  ],
+  "jetExit": [
+    19.05,
+    124.746,
+    -0.0
+  ],
+  "jetEntrance": [
+    19.05,
+    126.746,
+    -0.0
+  ],
+  "jetDiameter": 1.5875,
+  "jetCapThickness": 2.0,
+  "waterLumen": [
+    [
+      -16.08246,
+      154.7,
+      17.10228
+    ],
+    [
+      0.55138,
+      154.7,
+      9.00503
+    ],
+    [
+      17.70131,
+      154.7,
+      0.65653
+    ],
+    [
+      17.87735,
+      154.68717,
+      0.57084
+    ],
+    [
+      18.05038,
+      154.64889,
+      0.48661
+    ],
+    [
+      18.21743,
+      154.58582,
+      0.40529
+    ],
+    [
+      18.37566,
+      154.49904,
+      0.32827
+    ],
+    [
+      18.52234,
+      154.39003,
+      0.25686
+    ],
+    [
+      18.65498,
+      154.26066,
+      0.19229
+    ],
+    [
+      18.7713,
+      154.11314,
+      0.13567
+    ],
+    [
+      18.86931,
+      153.95,
+      0.08796
+    ],
+    [
+      18.94734,
+      153.77403,
+      0.04998
+    ],
+    [
+      19.00404,
+      153.58823,
+      0.02237
+    ],
+    [
+      19.03846,
+      153.39579,
+      0.00562
+    ],
+    [
+      19.05,
+      153.2,
+      -0.0
+    ],
+    [
+      19.05,
+      126.746,
+      -0.0
+    ]
+  ],
+  "gasLumen": [
+    [
+      49.24667,
+      -27.7,
+      -24.79795
+    ],
+    [
+      34.94974,
+      -27.7,
+      -13.0571
+    ],
+    [
+      20.20921,
+      -27.7,
+      -0.95196
+    ],
+    [
+      20.0579,
+      -27.68717,
+      -0.82771
+    ],
+    [
+      19.90919,
+      -27.64889,
+      -0.70558
+    ],
+    [
+      19.7656,
+      -27.58582,
+      -0.58766
+    ],
+    [
+      19.62961,
+      -27.49904,
+      -0.47598
+    ],
+    [
+      19.50353,
+      -27.39003,
+      -0.37244
+    ],
+    [
+      19.38953,
+      -27.26066,
+      -0.27882
+    ],
+    [
+      19.28955,
+      -27.11314,
+      -0.19672
+    ],
+    [
+      19.2053,
+      -26.95,
+      -0.12754
+    ],
+    [
+      19.13824,
+      -26.77403,
+      -0.07246
+    ],
+    [
+      19.0895,
+      -26.58823,
+      -0.03244
+    ],
+    [
+      19.05992,
+      -26.39579,
+      -0.00814
+    ],
+    [
+      19.05,
+      -26.2,
+      -0.0
+    ],
+    [
+      19.05,
+      0.254,
+      -0.0
+    ]
+  ],
+  "outletLumen": [
+    [
+      -19.05,
+      0.254,
+      -0.0
+    ],
+    [
+      -19.05,
+      -26.2,
+      -0.0
+    ],
+    [
+      -19.05,
+      -26.39579,
+      0.01283
+    ],
+    [
+      -19.05,
+      -26.58823,
+      0.05111
+    ],
+    [
+      -19.05,
+      -26.77403,
+      0.11418
+    ],
+    [
+      -19.05,
+      -26.95,
+      0.20096
+    ],
+    [
+      -19.05,
+      -27.11314,
+      0.30997
+    ],
+    [
+      -19.05,
+      -27.26066,
+      0.43934
+    ],
+    [
+      -19.05,
+      -27.39003,
+      0.58686
+    ],
+    [
+      -19.05,
+      -27.49904,
+      0.75
+    ],
+    [
+      -19.05,
+      -27.58582,
+      0.92597
+    ],
+    [
+      -19.05,
+      -27.64889,
+      1.11177
+    ],
+    [
+      -19.05,
+      -27.68717,
+      1.30421
+    ],
+    [
+      -19.05,
+      -27.7,
+      1.5
+    ],
+    [
+      -19.05,
+      -27.7,
+      20.574
+    ],
+    [
+      -19.05,
+      -27.7,
+      39.074
+    ]
+  ],
+  "waterJetPassage": [
+    [
+      19.05,
+      126.746,
+      -0.0
+    ],
+    [
+      19.05,
+      124.746,
+      -0.0
+    ]
+  ],
+  "lumenDiameter": 6.35,
+  "recommendedFluidRadius": 2.7,
+  "gasExit": [
+    19.05,
+    0.254,
+    -0.0
+  ],
+  "waterOutlet": [
+    -19.05,
+    0.254,
+    -0.0
+  ],
+  "ports": {
+    "water-in": {
+      "corner": [
+        19.05,
+        154.7,
+        -0.0
+      ],
+      "maleTip": [
+        19.05,
+        126.746,
+        -0.0
+      ],
+      "elbowMouth": [
+        0.55138,
+        154.7,
+        9.00503
+      ],
+      "colletMouth": [
+        -16.08246,
+        154.7,
+        17.10228
+      ],
+      "up": [
+        -0.0,
+        -1.0,
+        -0.0
+      ],
+      "out": [
+        -0.89913,
+        0.0,
+        0.43769
+      ]
+    },
+    "co2-in": {
+      "corner": [
+        19.05,
+        -27.7,
+        -0.0
+      ],
+      "maleTip": [
+        19.05,
+        0.254,
+        -0.0
+      ],
+      "elbowMouth": [
+        34.94974,
+        -27.7,
+        -13.0571
+      ],
+      "colletMouth": [
+        49.24667,
+        -27.7,
+        -24.79795
+      ],
+      "up": [
+        -0.0,
+        1.0,
+        -0.0
+      ],
+      "out": [
+        0.77281,
+        0.0,
+        -0.63464
+      ]
+    },
+    "carb-water-out": {
+      "corner": [
+        -19.05,
+        -27.7,
+        -0.0
+      ],
+      "maleTip": [
+        -19.05,
+        0.254,
+        -0.0
+      ],
+      "elbowMouth": [
+        -19.05,
+        -27.7,
+        20.574
+      ],
+      "colletMouth": [
+        -19.05,
+        -27.7,
+        39.074
+      ],
+      "up": [
+        -0.0,
+        1.0,
+        -0.0
+      ],
+      "out": [
+        -0.0,
+        0.0,
+        1.0
+      ]
+    }
+  },
+  "vessel": {
+    "outerRadius": 63.5,
+    "innerRadius": 61.849,
+    "insideHeight": 127.00000000000001,
+    "tubeY": [
+      -12.7,
+      139.7
+    ],
+    "bottomPlateY": [
+      -6.35,
+      0
+    ],
+    "topPlateY": [
+      127,
+      133.35
+    ]
+  },
+  "guide": {
+    "axisXZ": [
+      0,
+      -41.849000000000004
+    ],
+    "diameter": 3.175,
+    "rangeY": [
+      -2.54,
+      129.54
+    ]
+  },
+  "float": {
+    "asset": "magnetic-float-cad.json",
+    "diameter": 36.0,
+    "height": 28.0,
+    "guideBoreDiameter": 4.8,
+    "pocketDepth": 3.6,
+    "localY": [
+      -14,
+      14
+    ],
+    "magnetCenter": [
+      0,
+      0,
+      0
+    ],
+    "magnetCenterBelowWater": 8.766105924664824,
+    "position": [
+      0,
+      "level-8.766",
+      -41.849000000000004
+    ],
+    "freeboardAtSizingDensity": 5.233894075335176,
+    "material": {
+      "bodyColor": "#d8d6cf",
+      "bodyRoughness": 0.78,
+      "bodyMetalness": 0,
+      "magnetColor": "#737d88",
+      "magnetRoughness": 0.35,
+      "magnetMetalness": 0.65
+    }
+  },
+  "bundles": [
+    {
+      "file": "carbonator-hardware-full.json",
+      "compressedFile": "carbonator-hardware-full.json.gz",
+      "meshes": 18,
+      "triangles": 20212,
+      "bytes": 1212610,
+      "compressedBytes": 240610,
+      "source": "hardware/cold-core-layout/cold-core-assembly.step",
+      "sourceSha256": "f8abee782cb4483131839efa791101aaeb236795c5e32fd27b344e9a2eab8f50"
+    },
+    {
+      "file": "carbonator-hardware-section.json",
+      "compressedFile": "carbonator-hardware-section.json.gz",
+      "meshes": 16,
+      "triangles": 11506,
+      "bytes": 699537,
+      "compressedBytes": 135262,
+      "source": "hardware/cold-core-layout/cold-core-assembly.step",
+      "sourceSha256": "f8abee782cb4483131839efa791101aaeb236795c5e32fd27b344e9a2eab8f50"
+    },
+    {
+      "file": "magnetic-float-cad.json",
+      "compressedFile": "magnetic-float-cad.json.gz",
+      "meshes": 2,
+      "triangles": 2520,
+      "bytes": 139230,
+      "compressedBytes": 24235,
+      "source": "hardware/printed-parts/cold-core/magnetic-float/all-aero/assembly.step",
+      "sourceSha256": "8a8166649e23bb9be37a099cc59603e0d43ba692e78871302f44688168c78a3d"
+    }
+  ],
+  "notes": [
+    "The same STEP shapes supply full hardware and exact Boolean half sections; all hardware needs no further coordinate rotation.",
+    "The half-space z<=0 passes through the port axes and retains the complete rod and float behind the section plane.",
+    "sectionFaceIndices is a flat vertex-index list of cut triangles; sectionTriangleOrdinals gives their face IDs in the original full index buffer.",
+    "Water and gas centerlines follow the layout elbow bores. The 6.35mm elbow bore is the repo's nominal layout placeholder, not a purchased-part measurement.",
+    "Reference collets model an external solid envelope without a flow bore. Fluid through that envelope is an explanatory overlay, not measured connector internals.",
+    "The float is the genuine current cylindrical 36 x 28 mm ASA Aero body with its enclosed coaxial RC62 ring. No external magnet puck belongs on its side.",
+    "The immersion offset is the repo's provisional 0.65 g/cc dry-foam buoyancy model; installed immersion requires calibration."
+  ]
+}
