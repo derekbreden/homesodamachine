@@ -255,8 +255,8 @@ def gas_check_support_datums():
     """The purchased check's fixed barrel band, carried into the east bay.
 
     The body scale and socket depths retain the vendor-reference estimates.
-    The eight-millimetre bearing stays inside its fixed cylindrical band. The
-    broad sidewall root retains at least three millimetres around its seat.
+    The eight-millimetre bearing stays inside its fixed cylindrical band.
+    Both gas seats share Z293..301 and join as one plain rectangular carrier.
     """
     sys.path.insert(0, str(HERE.parents[2] / 'reference/neofit-achv44-check'))
     import neofit_achv44_check as check
@@ -265,8 +265,9 @@ def gas_check_support_datums():
     inlet, _ = check.inlet()
     native_centre = (0., inlet[1] + (first + last) / 2., 0.)
     frame = layout.snapshot_pose('gas-check')
+    x, y, _z = layout.point(frame, native_centre)
     return {
-        'centre_world_mm': layout.point(frame, native_centre),
+        'centre_world_mm': (x, y, 297.),
         'axis_world': layout.vector(frame['rotation'], (0., 1., 0.)),
         'fixed_band_from_inlet_mm': (first, last),
         'body_radius_mm': body_radius,
@@ -338,6 +339,16 @@ def valve_seats():
     return result
 
 
+def tie_window(axis, lo, hi, a0, a1, z_mid):
+    """Straight tie passage with its existing 45-degree print-down closure."""
+    import enclosure
+    mid, half = (a0+a1)/2., (a1-a0)/2.
+    section = [(a0,z_mid+2.),(a1,z_mid+2.),(a1,z_mid-2.),
+               (mid,z_mid-2.-half),(a0,z_mid-2.)]
+    return (enclosure._xz_prism(lo,hi,section) if axis == 'y'
+            else enclosure._yz_prism(lo,hi,section))
+
+
 @functools.cache
 def fluid_supports():
     """Broad, open saddles on fixed roof/wall stock, with separate tie paths.
@@ -346,29 +357,19 @@ def fluid_supports():
     enter from the west. The 0.25 mm radial fit is nominal layout clearance;
     the restraints do not establish pressure capacity or service life.
     """
-    import enclosure
-
-    def window(axis, lo, hi, a0, a1, z_mid):
-        """A tie window through a saddle along `axis` ('x' or 'y'), `a0`..`a1` across it and
-        4 mm tall, its print-roof — the machine-lower edge on this ceiling-down piece —
-        closed at 45 degrees rather than laid flat across the window."""
-        mid, half = (a0 + a1) / 2., (a1 - a0) / 2.
-        section = [(a0, z_mid+2.), (a1, z_mid+2.), (a1, z_mid-2.), (mid, z_mid-2.-half),
-                   (a0, z_mid-2.)]
-        return (enclosure._xz_prism(lo, hi, section) if axis == 'y'
-                else enclosure._yz_prism(lo, hi, section))
-
     result = {}
     z = layout.pose('asse1022-assembly')['translation_mm'][2]
-    # Two six-millimetre bearings beside the ASSE's west-facing vent. Their
-    # lower planes pass above the populated core during the back-column ride.
-    # The east-sector seats retain at least 3.34 mm beneath the circular bore.
+    # The aft ASSE bearing shares the meter's broad fore roof column.
     x = 37.25
     for index, y in enumerate((340., 364.), 1):
+        if index == 2:
+            import _back_top_meter
+            result['asse-2'] = _back_top_meter.meter_supports()[0]
+            continue
         radius = 16.75
         saddle = box(x+7.25, x+radius+9., y-3., y+3., 315.92604788, 355.)
         saddle = saddle.cut(ycylinder(radius, x, z, y-3.1, y+3.1))
-        saddle = saddle.cut(window('y', y-3.1, y+3.1, x+radius+3., x+radius+5.5, z))
+        saddle = saddle.cut(tie_window('y', y-3.1, y+3.1, x+radius+3., x+radius+5.5, z))
         result[f'asse-{index}'] = saddle.clean()
     # The regulator's two diameters retain their own bearings. Its narrow
     # socket ends and the transverse outlet tube stay free of the supports.
@@ -377,11 +378,11 @@ def fluid_supports():
                               (2, -29.3541011287684, 12.25)):
         saddle = box(x-3., x+3., y, y+radius+9., z-radius-3., 355.)
         bore = cq.Solid.makeCylinder(radius, 6.2, cq.Vector(x-3.1, y, z), cq.Vector(1, 0, 0))
-        saddle = saddle.cut(bore, window('x', x-3.1, x+3.1, y+radius+3., y+radius+5.5, z))
+        saddle = saddle.cut(bore, tie_window('x', x-3.1, x+3.1, y+radius+3., y+radius+5.5, z))
         result[f'water-regulator-{index}'] = saddle.clean()
-    # Sidewall roots hold the folded, vertical gas pair without loading their
-    # interconnecting stem elbows. A closed tie window retains each body.
-    for name, y, z, radius in (('gas-regulator', 418.9526, 301., 11.),):
+    # Both seats join on common Z293/301 planes as one broad, flat carrier.
+    # Only the two circular bearings and their straight tie slots cut it.
+    for name, y, z, radius in (('gas-regulator', 418.9526, 297., 11.),):
         x = layout.snapshot_pose(name)['translation_mm'][0]
         saddle = box(x, 98.51, y-radius-3., y+radius+3., z-4., z+4.)
         saddle = saddle.cut(zcylinder(radius, x, y, z-4.1, z+4.1),
@@ -470,7 +471,8 @@ def apply(piece, box_spec, y_side, z_side):
     for feature in fluid_supports().values():
         piece = piece.fuse(feature)
     import _back_top_meter
-    for support in _back_top_meter.meter_supports():
+    # The fore meter/ASSE column has already joined as fluid_supports' asse-2.
+    for support in _back_top_meter.meter_supports()[1:]:
         piece = piece.fuse(support)
     # Keep the measured inlet opening clear after all integral mounts join.
     return piece.cut(*c14_rear_cutters())

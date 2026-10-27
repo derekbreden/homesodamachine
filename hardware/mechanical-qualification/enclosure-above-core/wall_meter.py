@@ -55,47 +55,34 @@ def contacts(shape, targets):
     return {'candidate_count': candidates, 'contacts': rows}
 
 
-def stock_probes(data):
-    """Complete quarter bearing, slot surround and wall landing witnesses."""
-    x, y, z = data['centre_world_mm']
-    radius, wall = data['seat_radius_mm'], data['wall_mm']
-    half = data['width_mm'] / 2.
-    low = data['seat_bottom_world_z_mm']
-    outer = cq.Solid.makeCylinder(radius + wall, 2. * half,
-                                  cq.Vector(x, y - half, z), cq.Vector(0, 1, 0))
-    quarter = outer.intersect(cq.Solid.makeBox(
-        radius + wall, 2. * half, radius + wall, cq.Vector(x, y - half, low)))
-    bore = cq.Solid.makeCylinder(radius, 2. * half + .2,
-                                 cq.Vector(x, y - half - .1, z), cq.Vector(0, 1, 0))
+def tie_slot(data):
     a, b = data['tie_slot_min_world_mm'], data['tie_slot_max_world_mm']
-    bottom = data['beam_bottom_world_z_mm']
-    surround = cq.Solid.makeBox(b[0] - a[0] + 6., b[1] - a[1] + 6., 3.,
-                                cq.Vector(a[0] - 3., a[1] - 3., bottom))
-    slot = cq.Solid.makeBox(b[0] - a[0], b[1] - a[1], 3.2,
-                            cq.Vector(a[0], a[1], bottom - .1))
-    root_x = data['wall_root_x_mm']
-    root_width = data.get('wall_landing_width_mm', data['beam_width_mm'])
-    landing = cq.Solid.makeBox(.01, root_width,
-        data.get('wall_landing_height_mm', 3.), cq.Vector(
-            root_x - .01, data['wall_lane_world_y_mm'] - root_width / 2.,
-            data.get('wall_landing_bottom_world_z_mm', bottom)))
-    return {'full_3mm_quarter_missing_mm3': quarter.cut(bore),
-            'full_3mm_slot_surround_missing_mm3': surround.cut(slot),
-            'wall_landing_missing_mm3': landing}
+    return cq.Solid.makeBox(*(b[i]-a[i] for i in range(3)), cq.Vector(*a))
 
 
-def neck_clearance(data):
-    """The two removed fore shoulder wedges, with no other shell allowance."""
-    points = data['beam_plan_world_xy_mm']
-    if not points:
-        return cq.Compound.makeCompound([])
-    x0, x1 = min(p[0] for p in points), max(p[0] for p in points)
-    y0, y1 = min(p[1] for p in points), max(p[1] for p in points)
-    bottom = data['beam_bottom_world_z_mm']
-    rectangle = cq.Solid.makeBox(x1 - x0, y1 - y0, 3., cq.Vector(x0, y0, bottom))
-    neck = (cq.Workplane('XY').polyline(points).close().extrude(3.).val()
-            .translate((0., 0., bottom)))
-    return rectangle.cut(neck)
+def stock_probes(data):
+    """Nominal 3 mm bearing, passage surround and direct roof landing."""
+    x, y, z = data['centre_world_mm']
+    radius = data['seat_radius_mm']
+    low, high = data['stock_min_world_mm'], data['stock_max_world_mm']
+    ends = [meter.layout.point(meter.layout.pose('digiten-flow'),(s,0.,0.))[1]
+            for s in data['native_bearing_band_mm']]
+    y0, y1 = min(ends), max(ends)
+    outer = cq.Solid.makeCylinder(radius+3.,y1-y0,cq.Vector(x,y0,z),cq.Vector(0,1,0))
+    west=max(x,low[0])
+    quarter = outer.intersect(cq.Solid.makeBox(x+radius+3.-west,y1-y0,
+        radius+3.,cq.Vector(west,y0,z-radius-3.)))
+    bore = cq.Solid.makeCylinder(radius,y1-y0+.2,
+        cq.Vector(x,y0-.1,z),cq.Vector(0,1,0))
+    a,b=data['tie_slot_min_world_mm'],data['tie_slot_max_world_mm']
+    backing=data['tie_backing_x_mm']
+    surround=cq.Solid.makeBox(high[0]-backing,9.,b[2]-a[2]+6.,
+        cq.Vector(backing,y-4.5,a[2]-3.))
+    landing=cq.Solid.makeBox(3.,high[1]-low[1],.01,
+        cq.Vector(high[0]-3.,low[1],data['roof_root_world_z_mm']-.01))
+    return {'full_3mm_bearing_missing_mm3':quarter.cut(bore),
+            'full_3mm_slot_surround_missing_mm3':surround.cut(tie_slot(data)),
+            'roof_landing_missing_mm3':landing}
 
 
 def bind_back_top(path, output):
@@ -109,21 +96,16 @@ def bind_back_top(path, output):
         name = 'meter-' + ('fore' if number == 0 else 'aft')
         support = meter.meter_supports()[number]
         x, y, z = data['centre_world_mm']
-        half = data['width_mm'] / 2.
         a, b = data['tie_slot_min_world_mm'], data['tie_slot_max_world_mm']
-        bottom = data['beam_bottom_world_z_mm']
-        slot = cq.Solid.makeBox(b[0] - a[0], b[1] - a[1], 3.,
-                                cq.Vector(a[0], a[1], bottom))
-        bore = cq.Solid.makeCylinder(data['seat_radius_mm'], 2. * half,
-                                     cq.Vector(x, y - half, z), cq.Vector(0, 1, 0))
+        slot = tie_slot(data)
+        bore = cq.Solid.makeCylinder(data['seat_radius_mm'], data['width_mm'],
+            cq.Vector(x,data['stock_min_world_mm'][1],z),cq.Vector(0,1,0))
         original = report['rows'][name]['datums']
         rows[name] = {
             'same_recorded_datums': json.loads(json.dumps(data)) == original,
             'source_support_missing_mm3': support.cut(stock).Volume(),
             'actual_tie_slot_stock_mm3': slot.intersect(stock).Volume(),
             'actual_seat_bore_stock_mm3': bore.intersect(stock).Volume(),
-            'neck_relief_stock_mm3': (neck_clearance(data).intersect(stock).Volume()
-                                     if data['beam_plan_world_xy_mm'] else 0.),
             **{key: probe.cut(stock).Volume()
                for key, probe in stock_probes(data).items()}}
     binding = {
@@ -134,9 +116,9 @@ def bind_back_top(path, output):
             str(Path(meter.__file__).relative_to(ROOT)): sha(Path(meter.__file__)),
             str(Path(__file__).relative_to(ROOT)): sha(Path(__file__))},
         'rows': rows,
-        'scope': ('Imported back-top versus the two unchanged source bracket solids, '
-                  'complete quarter/slot stock, open slots and bore air. The original '
-                  '172-target cached-neighbor/strip reading is preserved and is not replayed. '
+        'scope': ('Imported back-top versus the two recorded source pier solids, '
+                  'complete bearing/passage stock, open passages and bore air. The '
+                  'target-index neighbor/strip reading is preserved and is not replayed. '
                   'No installed-wire, whole-group motion or physical qualification is added.')}
     binding['passed_actual_stock'] = (
         binding['stock_valid'] and binding['stock_solids'] == 1
