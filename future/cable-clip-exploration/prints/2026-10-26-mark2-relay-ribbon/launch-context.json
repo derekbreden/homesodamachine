@@ -1,0 +1,27 @@
+{
+  "authorization": "Mark two is ready for your next test print there.",
+  "orientation_instruction": "Please print it in what you're calling the installed orientation.",
+  "bed_clear_authority": "Derek's direct Mark2 readiness and print request after the tube matrix completed.",
+  "preflight": "preflight.json",
+  "peer_startup_spacing": {
+    "printer": "Mark1 / H2C",
+    "fresh_status": "RUNNING",
+    "fresh_task_name": "Right_reservoir_and_cap_-_PETG_0.24_mm_overlap50",
+    "fresh_layer": 802,
+    "accepted_start_record": "hardware/printed-parts/cold-core/reservoir/prints/2026-10-26-mark1-right-engineering-flow105-overlap50-temp260-left08-z000/launch.json",
+    "accepted_start_utc": "2026-10-26T22:39:03.553720+00:00",
+    "seconds_to_launch_receipt": 19941.308275,
+    "required_seconds": 180
+  },
+  "archive_matches_review": true,
+  "print_pose": "Entry-up STL, with no rotation. The 24 by 3 mm wall edge starts on the bed; the 45 degree hook corbel starts 6 mm above it.",
+  "bed_attachment": {
+    "wall_footprint_mm": [
+      24,
+      3
+    ],
+    "wall_below_hook_mm": 6,
+    "brim": false
+  },
+  "result": "One Send accepted. Exact reviewed upright archive RUNNING with print error 0 and no HMS. No physical clip result inferred."
+}
