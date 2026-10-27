@@ -1,24 +1,25 @@
 {
-  "scope": "Manual reading of commanded paths and bead envelopes. Adhesion, bridge finish, release, layer bonding and cable grip remain physical observations.",
-  "archive": "future/cable-clip-exploration/prints/2026-10-26-mark2-relay-ribbon/2026-10-26-relay-ribbon-4p-print-mark2-b4879c6b/2026-10-26-relay-ribbon-4p-print-mark2-b4879c6b.gcode.3mf",
-  "archive_sha256": "b79413727666e0e78340b2f1ef180691a90c1160447b8c9ee00834567df39d22",
+  "scope": "Manual native bead reading of the upright fit coupon. Physical adhesion, ribbon grip and surface finish remain untested.",
+  "archive": "future/cable-clip-exploration/prints/2026-10-26-mark2-relay-ribbon/2026-10-26-relay-ribbon-4p-upright-mark2-78832950/2026-10-26-relay-ribbon-4p-upright-mark2-78832950.gcode.3mf",
+  "archive_sha256": "c0724b827595e1ccd7abb6535548460132de178925a7fff87f8944a32b083422",
   "source_sha256": {
-    "future/cable-clip-exploration/relay_ribbon_trial.py": "f515057601f9549137c4acd5e19e2518f74050163487e4377d8d948679ef6b25",
-    "future/cable-clip-exploration/parts/relay-ribbon-4p-print.stl": "6acfebc1f2bb0ec0ea6fd5bbc9a4570099358e9db7af67126279bd734e64d8af",
-    "future/cable-clip-exploration/parts/relay-ribbon-4p-print.step": "5fb35a7df057fa8d968ccd04c48e37fb87908b2946542cd6e6b9d95c277b36a6",
-    "future/cable-clip-exploration/parts/relay-ribbon-4p-installed.step": "5a5fe76549da910ac5f9832f22d006c23c1dc5ad4c6c39bdb249ac38cbf2e0da",
-    "future/cable-clip-exploration/geometry-report.json": "c5e030ee0441b106e516d643856ff22005bbdb1674450ba401e7652149f5e8e5"
+    "future/cable-clip-exploration/relay_ribbon_trial.py": "e4754169913a98e25f307cdb54efdf4111e308068a5a6ce3f95949c457379cee",
+    "future/cable-clip-exploration/parts/relay-ribbon-4p-print.stl": "c75a565756883d4a7efdd77d265f3f2e11d34db15a80d74aad42e23f7012ca29",
+    "future/cable-clip-exploration/parts/relay-ribbon-4p-print.step": "4d19a147169108a54a35e9cb40179697b49952b64df58ed3afd61522434531d3",
+    "future/cable-clip-exploration/parts/relay-ribbon-4p-installed.step": "2020394d72eec2f84d1457733b40453726050dc26041bbc0b8c7ed44eb97bff9",
+    "future/cable-clip-exploration/geometry-report.json": "c4c78487fa57e06cc9e8297369a2bb2dcdd09b59b5e0befce55de65356383f6e"
   },
   "features": {
-    "Inner wall": 683,
-    "Outer wall": 739,
-    "Bottom surface": 50,
-    "Internal solid infill": 550,
-    "Sparse infill": 1675,
-    "Top surface": 39,
-    "Overhang wall": 4,
-    "Bridge": 29,
-    "Floating vertical shell": 157
+    "Inner wall": 825,
+    "Outer wall": 1194,
+    "Bottom surface": 65,
+    "Internal solid infill": 544,
+    "Sparse infill": 3171,
+    "Floating vertical shell": 129,
+    "Bridge": 52,
+    "Top surface": 79,
+    "Gap infill": 3,
+    "Overhang wall": 3
   },
   "voids": [
     {
@@ -26,21 +27,21 @@
       "source_bounds_mm": [
         0.0,
         -4.0,
-        3.75,
+        14.2,
         2.2,
         4.0,
-        11.5
+        21.95
       ],
       "plate_bounds_mm": [
         [
           161.40000009536743,
           156.0,
-          3.75
+          14.2
         ],
         [
           163.60000009536742,
           164.0,
-          11.5
+          21.95
         ]
       ],
       "support_crossings": [],
@@ -51,21 +52,21 @@
       "source_bounds_mm": [
         0.0,
         -4.0,
-        0.0,
+        21.95,
         1.4500000000000002,
         4.0,
-        3.75
+        25.7
       ],
       "plate_bounds_mm": [
         [
           161.40000009536743,
           156.0,
-          0.0
+          21.95
         ],
         [
           162.85000009536742,
           164.0,
-          3.75
+          25.7
         ]
       ],
       "support_crossings": [],
@@ -73,1507 +74,756 @@
     }
   ],
   "no_support_in_seat_or_entry": true,
-  "no_brim_or_other_nonmodel_in_seat_or_entry": true,
+  "no_nonmodel_in_seat_or_entry": true,
+  "no_brim": true,
   "first_two_model_layers": [
     {
       "layer_top_z_mm": 0.2,
       "height_mm": 0.2,
-      "model_components": 2,
+      "model_components": 1,
       "component_areas_mm2": [
-        21.123216566382517,
-        36.42862007804639
+        63.106188065268014
       ]
     },
     {
       "layer_top_z_mm": 0.44,
       "height_mm": 0.24,
-      "model_components": 2,
+      "model_components": 1,
       "component_areas_mm2": [
-        26.506738702540737,
-        41.955017458687784
+        71.9550174586878
       ],
-      "bead_area_fraction_over_first": 0.8404557297049449,
-      "minimum_individual_road_contact_fraction": 0.11124592031863421,
-      "roads_without_any_bead_contact": 0,
-      "longest_centerline_without_bead_contact_mm": 0.0
+      "bead_area_fraction_over_first": 0.8769778233761278,
+      "minimum_individual_road_contact_fraction": 0.5735669028677718,
+      "roads_without_any_bead_contact": 0
     }
   ],
-  "outer_arm_below_bridge": {
-    "sampled_layers": 48,
-    "minimum_model_section_bead_coverage": 0.8798407713115494,
-    "layers_with_multiple_bead_islands": 0,
-    "layers_without_previous_model_contact_above_first": 0,
+  "hook_layers": {
+    "sampled_layers": 82,
+    "minimum_model_section_bead_coverage": 0.46115097144650424,
+    "layers_without_previous_model_contact": 0,
     "layers": [
       {
-        "layer_top_z_mm": 0.2,
-        "stock_area_mm2": 24.00799923706063,
-        "bead_coverage": 0.8798407713115494,
-        "model_components": 1,
-        "previous_layer_contact": null
-      },
-      {
-        "layer_top_z_mm": 0.44,
-        "stock_area_mm2": 24.00799923706063,
-        "bead_coverage": 0.9986509648939099,
-        "model_components": 1,
-        "previous_layer_contact": true
-      },
-      {
-        "layer_top_z_mm": 0.68,
-        "stock_area_mm2": 24.00799923706063,
-        "bead_coverage": 0.9979328074694798,
-        "model_components": 1,
-        "previous_layer_contact": true
-      },
-      {
-        "layer_top_z_mm": 0.92,
-        "stock_area_mm2": 24.00799923706063,
-        "bead_coverage": 0.9989954782383307,
-        "model_components": 1,
-        "previous_layer_contact": true
-      },
-      {
-        "layer_top_z_mm": 1.16,
-        "stock_area_mm2": 24.007999237060627,
-        "bead_coverage": 0.9989954782383307,
-        "model_components": 1,
-        "previous_layer_contact": true
-      },
-      {
-        "layer_top_z_mm": 1.4,
-        "stock_area_mm2": 24.00799923706063,
-        "bead_coverage": 0.9989954782383305,
-        "model_components": 1,
-        "previous_layer_contact": true
-      },
-      {
-        "layer_top_z_mm": 1.64,
-        "stock_area_mm2": 24.007999237060634,
-        "bead_coverage": 0.9989954782383303,
-        "model_components": 1,
-        "previous_layer_contact": true
-      },
-      {
-        "layer_top_z_mm": 1.88,
-        "stock_area_mm2": 24.007999237060627,
-        "bead_coverage": 0.9989954782383307,
-        "model_components": 1,
-        "previous_layer_contact": true
-      },
-      {
-        "layer_top_z_mm": 2.12,
-        "stock_area_mm2": 24.00799923706063,
-        "bead_coverage": 0.9989954782383305,
-        "model_components": 1,
-        "previous_layer_contact": true
-      },
-      {
-        "layer_top_z_mm": 2.36,
-        "stock_area_mm2": 24.007999237060634,
-        "bead_coverage": 0.9989954782383303,
-        "model_components": 1,
-        "previous_layer_contact": true
-      },
-      {
-        "layer_top_z_mm": 2.6,
-        "stock_area_mm2": 24.007999237060627,
-        "bead_coverage": 0.9989954782383307,
-        "model_components": 1,
-        "previous_layer_contact": true
-      },
-      {
-        "layer_top_z_mm": 2.84,
-        "stock_area_mm2": 24.00799923706063,
-        "bead_coverage": 0.9989954782383305,
-        "model_components": 1,
-        "previous_layer_contact": true
-      },
-      {
-        "layer_top_z_mm": 3.08,
-        "stock_area_mm2": 24.00799923706063,
-        "bead_coverage": 0.9989954782383303,
-        "model_components": 1,
-        "previous_layer_contact": true
-      },
-      {
-        "layer_top_z_mm": 3.32,
-        "stock_area_mm2": 24.00799923706063,
-        "bead_coverage": 0.9989954782383305,
-        "model_components": 1,
-        "previous_layer_contact": true
-      },
-      {
-        "layer_top_z_mm": 3.56,
-        "stock_area_mm2": 24.00799923706063,
-        "bead_coverage": 0.9989954782383305,
-        "model_components": 1,
-        "previous_layer_contact": true
-      },
-      {
-        "layer_top_z_mm": 3.8,
-        "stock_area_mm2": 24.00799923706063,
-        "bead_coverage": 0.9941552491627675,
-        "model_components": 1,
-        "previous_layer_contact": true
-      },
-      {
-        "layer_top_z_mm": 4.04,
-        "stock_area_mm2": 24.0,
-        "bead_coverage": 0.9981265577192726,
-        "model_components": 1,
-        "previous_layer_contact": true
-      },
-      {
-        "layer_top_z_mm": 4.28,
-        "stock_area_mm2": 24.0,
-        "bead_coverage": 0.9981265577192726,
-        "model_components": 1,
-        "previous_layer_contact": true
-      },
-      {
-        "layer_top_z_mm": 4.52,
-        "stock_area_mm2": 24.0,
-        "bead_coverage": 0.9981265577192726,
-        "model_components": 1,
-        "previous_layer_contact": true
-      },
-      {
-        "layer_top_z_mm": 4.76,
-        "stock_area_mm2": 24.0,
-        "bead_coverage": 0.9981265577192726,
-        "model_components": 1,
-        "previous_layer_contact": true
-      },
-      {
-        "layer_top_z_mm": 5.0,
-        "stock_area_mm2": 24.0,
-        "bead_coverage": 0.9981265577192726,
-        "model_components": 1,
-        "previous_layer_contact": true
-      },
-      {
-        "layer_top_z_mm": 5.24,
-        "stock_area_mm2": 24.0,
-        "bead_coverage": 0.9981265577192726,
-        "model_components": 1,
-        "previous_layer_contact": true
-      },
-      {
-        "layer_top_z_mm": 5.48,
-        "stock_area_mm2": 24.0,
-        "bead_coverage": 0.9981265577192725,
-        "model_components": 1,
-        "previous_layer_contact": true
-      },
-      {
-        "layer_top_z_mm": 5.72,
-        "stock_area_mm2": 24.0,
-        "bead_coverage": 0.9981265577192725,
-        "model_components": 1,
-        "previous_layer_contact": true
-      },
-      {
-        "layer_top_z_mm": 5.96,
-        "stock_area_mm2": 24.0,
-        "bead_coverage": 0.9981265577192725,
-        "model_components": 1,
-        "previous_layer_contact": true
-      },
-      {
         "layer_top_z_mm": 6.2,
-        "stock_area_mm2": 24.0,
-        "bead_coverage": 0.9981265577192725,
+        "stock_area_mm2": 0.6319992370604268,
+        "bead_coverage": 0.974560294778809,
         "model_components": 1,
-        "previous_layer_contact": true
+        "previous_model_contact": true
       },
       {
         "layer_top_z_mm": 6.44,
-        "stock_area_mm2": 24.0,
-        "bead_coverage": 0.9981265577192725,
+        "stock_area_mm2": 2.5519992370604996,
+        "bead_coverage": 0.9918908116310263,
         "model_components": 1,
-        "previous_layer_contact": true
+        "previous_model_contact": true
       },
       {
         "layer_top_z_mm": 6.68,
-        "stock_area_mm2": 24.0,
-        "bead_coverage": 0.9981265577192725,
+        "stock_area_mm2": 4.471999237060572,
+        "bead_coverage": 0.9951407810852672,
         "model_components": 1,
-        "previous_layer_contact": true
+        "previous_model_contact": true
       },
       {
         "layer_top_z_mm": 6.92,
-        "stock_area_mm2": 24.0,
-        "bead_coverage": 0.9981265577192725,
+        "stock_area_mm2": 6.391999237060418,
+        "bead_coverage": 0.9966003714216057,
         "model_components": 1,
-        "previous_layer_contact": true
+        "previous_model_contact": true
       },
       {
         "layer_top_z_mm": 7.16,
-        "stock_area_mm2": 24.0,
-        "bead_coverage": 0.9981265577192725,
+        "stock_area_mm2": 8.31199923706049,
+        "bead_coverage": 0.9958400103353531,
         "model_components": 1,
-        "previous_layer_contact": true
+        "previous_model_contact": true
       },
       {
         "layer_top_z_mm": 7.4,
-        "stock_area_mm2": 24.0,
-        "bead_coverage": 0.9981265577192725,
+        "stock_area_mm2": 10.231999237060563,
+        "bead_coverage": 0.9950936888003156,
         "model_components": 1,
-        "previous_layer_contact": true
+        "previous_model_contact": true
       },
       {
         "layer_top_z_mm": 7.64,
-        "stock_area_mm2": 24.0,
-        "bead_coverage": 0.9981265577192725,
+        "stock_area_mm2": 12.151999237060409,
+        "bead_coverage": 0.9572171653917373,
         "model_components": 1,
-        "previous_layer_contact": true
+        "previous_model_contact": true
       },
       {
         "layer_top_z_mm": 7.88,
-        "stock_area_mm2": 24.0,
-        "bead_coverage": 0.9981265577192725,
+        "stock_area_mm2": 14.071999237060481,
+        "bead_coverage": 0.8848751314811604,
         "model_components": 1,
-        "previous_layer_contact": true
+        "previous_model_contact": true
       },
       {
         "layer_top_z_mm": 8.12,
-        "stock_area_mm2": 24.0,
-        "bead_coverage": 0.9981265577192725,
+        "stock_area_mm2": 15.991999237060554,
+        "bead_coverage": 0.8302905661845,
         "model_components": 1,
-        "previous_layer_contact": true
+        "previous_model_contact": true
       },
       {
         "layer_top_z_mm": 8.36,
-        "stock_area_mm2": 24.0,
-        "bead_coverage": 0.9981265577192725,
+        "stock_area_mm2": 17.9119992370604,
+        "bead_coverage": 0.7820651015248383,
         "model_components": 1,
-        "previous_layer_contact": true
+        "previous_model_contact": true
       },
       {
         "layer_top_z_mm": 8.6,
-        "stock_area_mm2": 24.0,
-        "bead_coverage": 0.9981265577192725,
+        "stock_area_mm2": 19.831999237060472,
+        "bead_coverage": 0.7396361615592276,
         "model_components": 1,
-        "previous_layer_contact": true
+        "previous_model_contact": true
       },
       {
         "layer_top_z_mm": 8.84,
-        "stock_area_mm2": 24.0,
-        "bead_coverage": 0.9981265577192725,
+        "stock_area_mm2": 21.751999237060545,
+        "bead_coverage": 0.7029254165161366,
         "model_components": 1,
-        "previous_layer_contact": true
+        "previous_model_contact": true
       },
       {
         "layer_top_z_mm": 9.08,
-        "stock_area_mm2": 24.0,
-        "bead_coverage": 0.9981265577192725,
+        "stock_area_mm2": 23.671999237060618,
+        "bead_coverage": 0.6713427322509309,
         "model_components": 1,
-        "previous_layer_contact": true
+        "previous_model_contact": true
       },
       {
         "layer_top_z_mm": 9.32,
-        "stock_area_mm2": 24.0,
-        "bead_coverage": 0.9981265577192725,
+        "stock_area_mm2": 25.591999237060463,
+        "bead_coverage": 0.6432952930300562,
         "model_components": 1,
-        "previous_layer_contact": true
+        "previous_model_contact": true
       },
       {
         "layer_top_z_mm": 9.56,
-        "stock_area_mm2": 24.0,
-        "bead_coverage": 0.9981265577192725,
+        "stock_area_mm2": 27.511999237060536,
+        "bead_coverage": 0.6510311256912582,
         "model_components": 1,
-        "previous_layer_contact": true
+        "previous_model_contact": true
       },
       {
         "layer_top_z_mm": 9.8,
-        "stock_area_mm2": 24.0,
-        "bead_coverage": 0.9981265577192725,
+        "stock_area_mm2": 29.43199923706061,
+        "bead_coverage": 0.6077202487462661,
         "model_components": 1,
-        "previous_layer_contact": true
+        "previous_model_contact": true
       },
       {
         "layer_top_z_mm": 10.04,
-        "stock_area_mm2": 24.0,
-        "bead_coverage": 0.9981265577192725,
+        "stock_area_mm2": 31.351999237060454,
+        "bead_coverage": 0.5875690381546722,
         "model_components": 1,
-        "previous_layer_contact": true
+        "previous_model_contact": true
       },
       {
         "layer_top_z_mm": 10.28,
-        "stock_area_mm2": 24.0,
-        "bead_coverage": 0.9981265577192726,
+        "stock_area_mm2": 33.27199923706053,
+        "bead_coverage": 0.5688383344720203,
         "model_components": 1,
-        "previous_layer_contact": true
+        "previous_model_contact": true
       },
       {
         "layer_top_z_mm": 10.52,
-        "stock_area_mm2": 24.0,
-        "bead_coverage": 0.9981265577192726,
+        "stock_area_mm2": 35.1919992370606,
+        "bead_coverage": 0.5539307035602582,
         "model_components": 1,
-        "previous_layer_contact": true
+        "previous_model_contact": true
       },
       {
         "layer_top_z_mm": 10.76,
-        "stock_area_mm2": 24.0,
-        "bead_coverage": 0.9981265577192726,
+        "stock_area_mm2": 37.111999237060445,
+        "bead_coverage": 0.5403485989397498,
         "model_components": 1,
-        "previous_layer_contact": true
+        "previous_model_contact": true
       },
       {
         "layer_top_z_mm": 11.0,
-        "stock_area_mm2": 24.0,
-        "bead_coverage": 0.9981265577192726,
+        "stock_area_mm2": 39.03199923706052,
+        "bead_coverage": 0.5522392629892791,
         "model_components": 1,
-        "previous_layer_contact": true
+        "previous_model_contact": true
       },
       {
         "layer_top_z_mm": 11.24,
-        "stock_area_mm2": 24.0,
-        "bead_coverage": 0.9981265577192726,
+        "stock_area_mm2": 40.95199923706059,
+        "bead_coverage": 0.5466392220365545,
         "model_components": 1,
-        "previous_layer_contact": true
+        "previous_model_contact": true
       },
       {
         "layer_top_z_mm": 11.48,
-        "stock_area_mm2": 24.0,
-        "bead_coverage": 0.9981265577192723,
+        "stock_area_mm2": 41.59199923706046,
+        "bead_coverage": 0.5111823072629736,
         "model_components": 1,
-        "previous_layer_contact": true
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 11.72,
+        "stock_area_mm2": 41.59199923706046,
+        "bead_coverage": 0.4622551939847218,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 11.96,
+        "stock_area_mm2": 41.59199923706046,
+        "bead_coverage": 0.4611665927531945,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 12.2,
+        "stock_area_mm2": 41.59199923706046,
+        "bead_coverage": 0.46115097144650424,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 12.44,
+        "stock_area_mm2": 41.59199923706046,
+        "bead_coverage": 0.46436952742252774,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 12.68,
+        "stock_area_mm2": 41.59199923706046,
+        "bead_coverage": 0.4719951789856008,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 12.92,
+        "stock_area_mm2": 41.59199923706046,
+        "bead_coverage": 0.6124780047161614,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 13.16,
+        "stock_area_mm2": 41.59199923706046,
+        "bead_coverage": 0.9250479790507018,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 13.4,
+        "stock_area_mm2": 41.59199923706046,
+        "bead_coverage": 0.9986261048648053,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 13.64,
+        "stock_area_mm2": 41.59199923706046,
+        "bead_coverage": 0.9986261048648053,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 13.88,
+        "stock_area_mm2": 41.59199923706046,
+        "bead_coverage": 0.9986261048648053,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 14.12,
+        "stock_area_mm2": 41.59199923706046,
+        "bead_coverage": 0.9970272208160907,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 14.36,
+        "stock_area_mm2": 24.0,
+        "bead_coverage": 0.9981265577192726,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 14.6,
+        "stock_area_mm2": 24.0,
+        "bead_coverage": 0.9981265577192726,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 14.84,
+        "stock_area_mm2": 24.0,
+        "bead_coverage": 0.9981265577192726,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 15.08,
+        "stock_area_mm2": 24.0,
+        "bead_coverage": 0.9981265577192726,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 15.32,
+        "stock_area_mm2": 24.0,
+        "bead_coverage": 0.9981265577192726,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 15.56,
+        "stock_area_mm2": 24.0,
+        "bead_coverage": 0.9981265577192726,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 15.8,
+        "stock_area_mm2": 24.0,
+        "bead_coverage": 0.9981265577192726,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 16.04,
+        "stock_area_mm2": 24.0,
+        "bead_coverage": 0.9981265577192726,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 16.28,
+        "stock_area_mm2": 24.0,
+        "bead_coverage": 0.9981265577192726,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 16.52,
+        "stock_area_mm2": 24.0,
+        "bead_coverage": 0.9981265577192726,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 16.76,
+        "stock_area_mm2": 24.0,
+        "bead_coverage": 0.9981265577192726,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 17.0,
+        "stock_area_mm2": 24.0,
+        "bead_coverage": 0.9981265577192726,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 17.24,
+        "stock_area_mm2": 24.0,
+        "bead_coverage": 0.9981265577192726,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 17.48,
+        "stock_area_mm2": 24.0,
+        "bead_coverage": 0.9981265577192726,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 17.72,
+        "stock_area_mm2": 24.0,
+        "bead_coverage": 0.9981265577192726,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 17.96,
+        "stock_area_mm2": 24.0,
+        "bead_coverage": 0.9981265577192726,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 18.2,
+        "stock_area_mm2": 24.0,
+        "bead_coverage": 0.9981265577192726,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 18.44,
+        "stock_area_mm2": 24.0,
+        "bead_coverage": 0.9981265577192726,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 18.68,
+        "stock_area_mm2": 24.0,
+        "bead_coverage": 0.9981265577192726,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 18.92,
+        "stock_area_mm2": 24.0,
+        "bead_coverage": 0.9981265577192726,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 19.16,
+        "stock_area_mm2": 24.0,
+        "bead_coverage": 0.9981265577192726,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 19.4,
+        "stock_area_mm2": 24.0,
+        "bead_coverage": 0.9981265577192726,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 19.64,
+        "stock_area_mm2": 24.0,
+        "bead_coverage": 0.9981265577192726,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 19.88,
+        "stock_area_mm2": 24.0,
+        "bead_coverage": 0.9981265577192726,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 20.12,
+        "stock_area_mm2": 24.0,
+        "bead_coverage": 0.9981265577192726,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 20.36,
+        "stock_area_mm2": 24.0,
+        "bead_coverage": 0.9981265577192726,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 20.6,
+        "stock_area_mm2": 24.0,
+        "bead_coverage": 0.9981265577192726,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 20.84,
+        "stock_area_mm2": 24.0,
+        "bead_coverage": 0.9981265577192726,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 21.08,
+        "stock_area_mm2": 24.0,
+        "bead_coverage": 0.9981265577192726,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 21.32,
+        "stock_area_mm2": 24.0,
+        "bead_coverage": 0.9981265577192726,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 21.56,
+        "stock_area_mm2": 24.0,
+        "bead_coverage": 0.9981265577192726,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 21.8,
+        "stock_area_mm2": 24.0,
+        "bead_coverage": 0.9981265577192726,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 22.04,
+        "stock_area_mm2": 24.0,
+        "bead_coverage": 0.9981265577192726,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 22.28,
+        "stock_area_mm2": 30.0,
+        "bead_coverage": 0.9945859699897158,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 22.52,
+        "stock_area_mm2": 30.0,
+        "bead_coverage": 0.9984681635004234,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 22.76,
+        "stock_area_mm2": 30.0,
+        "bead_coverage": 0.9984681635004236,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 23.0,
+        "stock_area_mm2": 30.0,
+        "bead_coverage": 0.9984681635004236,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 23.24,
+        "stock_area_mm2": 30.0,
+        "bead_coverage": 0.9984681635004234,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 23.48,
+        "stock_area_mm2": 30.0,
+        "bead_coverage": 0.9984681635004234,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 23.72,
+        "stock_area_mm2": 30.0,
+        "bead_coverage": 0.9984681635004234,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 23.96,
+        "stock_area_mm2": 30.0,
+        "bead_coverage": 0.9984681635004234,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 24.2,
+        "stock_area_mm2": 30.0,
+        "bead_coverage": 0.9984681635004234,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 24.44,
+        "stock_area_mm2": 30.0,
+        "bead_coverage": 0.9984681635004234,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 24.68,
+        "stock_area_mm2": 30.0,
+        "bead_coverage": 0.9984681635004234,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 24.92,
+        "stock_area_mm2": 30.0,
+        "bead_coverage": 0.9984681635004234,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 25.16,
+        "stock_area_mm2": 29.280007999999953,
+        "bead_coverage": 0.9984454690676798,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 25.4,
+        "stock_area_mm2": 27.36000799999988,
+        "bead_coverage": 0.9979424054130419,
+        "model_components": 1,
+        "previous_model_contact": true
+      },
+      {
+        "layer_top_z_mm": 25.64,
+        "stock_area_mm2": 25.440008000000034,
+        "bead_coverage": 0.9888542613452018,
+        "model_components": 1,
+        "previous_model_contact": true
       }
     ]
   },
-  "pocket_closure_bridge_layers": [
+  "retaining_lip_layers": [
     {
-      "layer_top_z_mm": 11.72,
-      "height_mm": 0.240001,
-      "gap_footprint_bead_coverage": 0.9389754999999907,
-      "crossing_roads": [
-        {
-          "feature": "Inner wall",
-          "road_mm": [
-            161.217,
-            156.593,
-            161.6,
-            156.593,
-            0.45
-          ],
-          "length_over_gap_mm": 0.19999990463256268,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Overhang wall",
-          "road_mm": [
-            161.6,
-            156.593,
-            163.4,
-            156.593,
-            0.45
-          ],
-          "length_over_gap_mm": 1.8000000000000114,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Inner wall",
-          "road_mm": [
-            163.4,
-            156.593,
-            163.782,
-            156.593,
-            0.45
-          ],
-          "length_over_gap_mm": 0.2000000953674146,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Inner wall",
-          "road_mm": [
-            163.782,
-            163.407,
-            163.4,
-            163.407,
-            0.45
-          ],
-          "length_over_gap_mm": 0.2000000953674146,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Overhang wall",
-          "road_mm": [
-            163.4,
-            163.407,
-            161.6,
-            163.407,
-            0.45
-          ],
-          "length_over_gap_mm": 1.8000000000000114,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Inner wall",
-          "road_mm": [
-            161.6,
-            163.407,
-            161.217,
-            163.407,
-            0.45
-          ],
-          "length_over_gap_mm": 0.19999990463256268,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Outer wall",
-          "road_mm": [
-            161.231,
-            156.21,
-            161.6,
-            156.21,
-            0.42
-          ],
-          "length_over_gap_mm": 0.19999990463256268,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Overhang wall",
-          "road_mm": [
-            161.6,
-            156.21,
-            163.4,
-            156.21,
-            0.45
-          ],
-          "length_over_gap_mm": 1.8000000000000114,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Outer wall",
-          "road_mm": [
-            163.4,
-            156.21,
-            163.769,
-            156.21,
-            0.42
-          ],
-          "length_over_gap_mm": 0.2000000953674146,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Outer wall",
-          "road_mm": [
-            163.769,
-            163.79,
-            163.4,
-            163.79,
-            0.42
-          ],
-          "length_over_gap_mm": 0.2000000953674146,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Overhang wall",
-          "road_mm": [
-            163.4,
-            163.79,
-            161.6,
-            163.79,
-            0.45
-          ],
-          "length_over_gap_mm": 1.8000000000000114,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Outer wall",
-          "road_mm": [
-            161.6,
-            163.79,
-            161.25,
-            163.79,
-            0.42
-          ],
-          "length_over_gap_mm": 0.19999990463256268,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Bridge",
-          "road_mm": [
-            164.963,
-            157.282,
-            160.772,
-            157.282,
-            0.439804
-          ],
-          "length_over_gap_mm": 2.1999999999999886,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Bridge",
-          "road_mm": [
-            160.772,
-            157.67,
-            164.797,
-            157.67,
-            0.439804
-          ],
-          "length_over_gap_mm": 2.1999999999999886,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Bridge",
-          "road_mm": [
-            164.797,
-            158.059,
-            160.772,
-            158.059,
-            0.439804
-          ],
-          "length_over_gap_mm": 2.1999999999999886,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Bridge",
-          "road_mm": [
-            160.772,
-            158.447,
-            164.797,
-            158.447,
-            0.439804
-          ],
-          "length_over_gap_mm": 2.1999999999999886,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Bridge",
-          "road_mm": [
-            164.797,
-            158.835,
-            160.772,
-            158.835,
-            0.439804
-          ],
-          "length_over_gap_mm": 2.1999999999999886,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Bridge",
-          "road_mm": [
-            160.772,
-            159.223,
-            164.797,
-            159.223,
-            0.439804
-          ],
-          "length_over_gap_mm": 2.1999999999999886,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Bridge",
-          "road_mm": [
-            164.797,
-            159.612,
-            160.772,
-            159.612,
-            0.439804
-          ],
-          "length_over_gap_mm": 2.1999999999999886,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Bridge",
-          "road_mm": [
-            160.772,
-            160.0,
-            164.797,
-            160.0,
-            0.439804
-          ],
-          "length_over_gap_mm": 2.1999999999999886,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Bridge",
-          "road_mm": [
-            164.797,
-            160.388,
-            160.772,
-            160.388,
-            0.439804
-          ],
-          "length_over_gap_mm": 2.1999999999999886,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Bridge",
-          "road_mm": [
-            160.772,
-            160.777,
-            164.797,
-            160.777,
-            0.439804
-          ],
-          "length_over_gap_mm": 2.1999999999999886,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Bridge",
-          "road_mm": [
-            164.797,
-            161.165,
-            160.772,
-            161.165,
-            0.439804
-          ],
-          "length_over_gap_mm": 2.1999999999999886,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Bridge",
-          "road_mm": [
-            160.772,
-            161.553,
-            164.797,
-            161.553,
-            0.439804
-          ],
-          "length_over_gap_mm": 2.1999999999999886,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Bridge",
-          "road_mm": [
-            164.797,
-            161.942,
-            160.772,
-            161.942,
-            0.439804
-          ],
-          "length_over_gap_mm": 2.1999999999999886,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Bridge",
-          "road_mm": [
-            160.772,
-            162.33,
-            164.797,
-            162.33,
-            0.439804
-          ],
-          "length_over_gap_mm": 2.1999999999999886,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Bridge",
-          "road_mm": [
-            164.797,
-            162.718,
-            160.606,
-            162.718,
-            0.439804
-          ],
-          "length_over_gap_mm": 2.1999999999999886,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        }
+      "layer_top_z_mm": 22.28,
+      "features": {
+        "Inner wall": 33,
+        "Outer wall": 34,
+        "Sparse infill": 31,
+        "Overhang wall": 3,
+        "Bridge": 5,
+        "Internal solid infill": 4
+      },
+      "roads": [
+        [
+          163.491,
+          156.593,
+          163.782,
+          156.593,
+          0.45,
+          "Inner wall"
+        ],
+        [
+          163.782,
+          163.407,
+          163.443,
+          163.407,
+          0.45,
+          "Inner wall"
+        ],
+        [
+          163.443,
+          163.407,
+          163.443,
+          156.606,
+          0.45,
+          "Inner wall"
+        ],
+        [
+          163.491,
+          156.21,
+          163.769,
+          156.21,
+          0.42,
+          "Outer wall"
+        ],
+        [
+          163.769,
+          163.79,
+          163.4,
+          163.79,
+          0.42,
+          "Outer wall"
+        ],
+        [
+          163.4,
+          163.79,
+          163.06,
+          163.79,
+          0.45,
+          "Overhang wall"
+        ],
+        [
+          163.06,
+          163.79,
+          163.06,
+          156.21,
+          0.45,
+          "Overhang wall"
+        ],
+        [
+          163.06,
+          156.21,
+          163.4,
+          156.21,
+          0.45,
+          "Overhang wall"
+        ],
+        [
+          163.4,
+          156.21,
+          163.431,
+          156.21,
+          0.42,
+          "Outer wall"
+        ]
       ]
     },
     {
-      "layer_top_z_mm": 11.96,
-      "height_mm": 0.24,
-      "gap_footprint_bead_coverage": 0.999794725714069,
-      "crossing_roads": [
-        {
-          "feature": "Inner wall",
-          "road_mm": [
-            160.806,
-            156.593,
-            166.007,
-            156.593,
-            0.45
-          ],
-          "length_over_gap_mm": 2.1999999999999886,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Inner wall",
-          "road_mm": [
-            166.007,
-            163.407,
-            160.866,
-            163.407,
-            0.45
-          ],
-          "length_over_gap_mm": 2.1999999999999886,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Outer wall",
-          "road_mm": [
-            161.19,
-            156.21,
-            166.39,
-            156.21,
-            0.42
-          ],
-          "length_over_gap_mm": 2.1999999999999886,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Outer wall",
-          "road_mm": [
-            166.39,
-            163.79,
-            161.25,
-            163.79,
-            0.42
-          ],
-          "length_over_gap_mm": 2.1999999999999886,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Floating vertical shell",
-          "road_mm": [
-            165.623,
-            156.977,
-            160.772,
-            156.977,
-            0.419994
-          ],
-          "length_over_gap_mm": 2.1999999999999886,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Floating vertical shell",
-          "road_mm": [
-            160.772,
-            163.023,
-            165.623,
-            163.023,
-            0.419994
-          ],
-          "length_over_gap_mm": 2.1999999999999886,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Floating vertical shell",
-          "road_mm": [
-            165.255,
-            157.345,
-            161.14,
-            157.345,
-            0.419994
-          ],
-          "length_over_gap_mm": 2.1999999999999886,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Floating vertical shell",
-          "road_mm": [
-            161.14,
-            162.655,
-            165.255,
-            162.655,
-            0.419994
-          ],
-          "length_over_gap_mm": 2.1999999999999886,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Floating vertical shell",
-          "road_mm": [
-            164.886,
-            157.714,
-            161.509,
-            157.714,
-            0.419994
-          ],
-          "length_over_gap_mm": 2.091000095367434,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Floating vertical shell",
-          "road_mm": [
-            161.509,
-            157.714,
-            161.509,
-            162.286,
-            0.419994
-          ],
-          "length_over_gap_mm": 4.572000000000003,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Floating vertical shell",
-          "road_mm": [
-            161.509,
-            162.286,
-            164.886,
-            162.286,
-            0.419994
-          ],
-          "length_over_gap_mm": 2.091000095367434,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Floating vertical shell",
-          "road_mm": [
-            164.518,
-            158.082,
-            161.877,
-            158.082,
-            0.419994
-          ],
-          "length_over_gap_mm": 1.7230000953674107,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Floating vertical shell",
-          "road_mm": [
-            161.877,
-            158.082,
-            161.877,
-            161.918,
-            0.419994
-          ],
-          "length_over_gap_mm": 3.8360000000000127,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Floating vertical shell",
-          "road_mm": [
-            161.877,
-            161.918,
-            164.518,
-            161.918,
-            0.419994
-          ],
-          "length_over_gap_mm": 1.7230000953674107,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Floating vertical shell",
-          "road_mm": [
-            164.149,
-            158.451,
-            162.245,
-            158.451,
-            0.419994
-          ],
-          "length_over_gap_mm": 1.3550000953674157,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Floating vertical shell",
-          "road_mm": [
-            162.245,
-            158.451,
-            162.245,
-            161.549,
-            0.419994
-          ],
-          "length_over_gap_mm": 3.098000000000013,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Floating vertical shell",
-          "road_mm": [
-            162.245,
-            161.549,
-            164.149,
-            161.549,
-            0.419994
-          ],
-          "length_over_gap_mm": 1.3550000953674157,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Floating vertical shell",
-          "road_mm": [
-            163.781,
-            158.819,
-            162.614,
-            158.819,
-            0.419994
-          ],
-          "length_over_gap_mm": 0.986000095367416,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Floating vertical shell",
-          "road_mm": [
-            162.614,
-            158.819,
-            162.614,
-            161.181,
-            0.419994
-          ],
-          "length_over_gap_mm": 2.362000000000023,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Floating vertical shell",
-          "road_mm": [
-            162.614,
-            161.181,
-            163.781,
-            161.181,
-            0.419994
-          ],
-          "length_over_gap_mm": 0.986000095367416,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Floating vertical shell",
-          "road_mm": [
-            163.397,
-            159.403,
-            163.397,
-            159.203,
-            0.450564
-          ],
-          "length_over_gap_mm": 0.19999999999998863,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Floating vertical shell",
-          "road_mm": [
-            163.397,
-            159.203,
-            162.998,
-            159.203,
-            0.450564
-          ],
-          "length_over_gap_mm": 0.3990000000000009,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Floating vertical shell",
-          "road_mm": [
-            162.998,
-            159.203,
-            162.998,
-            160.797,
-            0.450564
-          ],
-          "length_over_gap_mm": 1.593999999999994,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Floating vertical shell",
-          "road_mm": [
-            162.998,
-            160.797,
-            163.397,
-            160.797,
-            0.450564
-          ],
-          "length_over_gap_mm": 0.3990000000000009,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Floating vertical shell",
-          "road_mm": [
-            163.397,
-            160.797,
-            163.397,
-            159.463,
-            0.450564
-          ],
-          "length_over_gap_mm": 1.3340000000000032,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        }
-      ]
-    },
-    {
-      "layer_top_z_mm": 12.2,
-      "height_mm": 0.24,
-      "gap_footprint_bead_coverage": 0.9998120991558742,
-      "crossing_roads": [
-        {
-          "feature": "Inner wall",
-          "road_mm": [
-            160.806,
-            156.593,
-            166.007,
-            156.593,
-            0.45
-          ],
-          "length_over_gap_mm": 2.1999999999999886,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Inner wall",
-          "road_mm": [
-            166.007,
-            163.407,
-            160.866,
-            163.407,
-            0.45
-          ],
-          "length_over_gap_mm": 2.1999999999999886,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Outer wall",
-          "road_mm": [
-            161.19,
-            156.21,
-            166.39,
-            156.21,
-            0.42
-          ],
-          "length_over_gap_mm": 2.1999999999999886,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Outer wall",
-          "road_mm": [
-            166.39,
-            163.79,
-            161.25,
-            163.79,
-            0.42
-          ],
-          "length_over_gap_mm": 2.1999999999999886,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Internal solid infill",
-          "road_mm": [
-            163.351,
-            161.16,
-            163.76,
-            161.16,
-            0.460594
-          ],
-          "length_over_gap_mm": 0.24900009536742118,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Internal solid infill",
-          "road_mm": [
-            163.76,
-            158.84,
-            163.351,
-            158.84,
-            0.460594
-          ],
-          "length_over_gap_mm": 0.24900009536742118,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Internal solid infill",
-          "road_mm": [
-            163.351,
-            158.84,
-            163.351,
-            161.1,
-            0.460594
-          ],
-          "length_over_gap_mm": 2.259999999999991,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Internal solid infill",
-          "road_mm": [
-            162.962,
-            161.549,
-            164.149,
-            161.549,
-            0.419994
-          ],
-          "length_over_gap_mm": 0.6380000953674312,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Internal solid infill",
-          "road_mm": [
-            164.149,
-            158.451,
-            162.962,
-            158.451,
-            0.419994
-          ],
-          "length_over_gap_mm": 0.6380000953674312,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Internal solid infill",
-          "road_mm": [
-            162.962,
-            158.451,
-            162.962,
-            161.489,
-            0.419994
-          ],
-          "length_over_gap_mm": 3.038000000000011,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Internal solid infill",
-          "road_mm": [
-            162.594,
-            161.918,
-            164.518,
-            161.918,
-            0.419994
-          ],
-          "length_over_gap_mm": 1.0060000953674262,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Internal solid infill",
-          "road_mm": [
-            164.518,
-            158.082,
-            162.594,
-            158.082,
-            0.419994
-          ],
-          "length_over_gap_mm": 1.0060000953674262,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Internal solid infill",
-          "road_mm": [
-            162.594,
-            158.082,
-            162.594,
-            161.858,
-            0.419994
-          ],
-          "length_over_gap_mm": 3.7760000000000105,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Internal solid infill",
-          "road_mm": [
-            162.225,
-            162.286,
-            164.886,
-            162.286,
-            0.419994
-          ],
-          "length_over_gap_mm": 1.375000095367426,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Internal solid infill",
-          "road_mm": [
-            164.886,
-            157.714,
-            162.225,
-            157.714,
-            0.419994
-          ],
-          "length_over_gap_mm": 1.375000095367426,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Internal solid infill",
-          "road_mm": [
-            162.225,
-            157.714,
-            162.225,
-            162.226,
-            0.419994
-          ],
-          "length_over_gap_mm": 4.5120000000000005,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Internal solid infill",
-          "road_mm": [
-            161.857,
-            162.655,
-            165.255,
-            162.655,
-            0.419994
-          ],
-          "length_over_gap_mm": 1.743000095367421,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Internal solid infill",
-          "road_mm": [
-            165.255,
-            157.345,
-            161.857,
-            157.345,
-            0.419994
-          ],
-          "length_over_gap_mm": 1.743000095367421,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Internal solid infill",
-          "road_mm": [
-            161.857,
-            157.345,
-            161.857,
-            162.595,
-            0.419994
-          ],
-          "length_over_gap_mm": 5.25,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Internal solid infill",
-          "road_mm": [
-            161.488,
-            163.023,
-            165.623,
-            163.023,
-            0.419994
-          ],
-          "length_over_gap_mm": 2.1120000953674207,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Internal solid infill",
-          "road_mm": [
-            165.623,
-            156.977,
-            161.488,
-            156.977,
-            0.419994
-          ],
-          "length_over_gap_mm": 2.1120000953674207,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        },
-        {
-          "feature": "Internal solid infill",
-          "road_mm": [
-            161.488,
-            156.977,
-            161.488,
-            162.963,
-            0.419994
-          ],
-          "length_over_gap_mm": 5.98599999999999,
-          "endpoint_bead_contacts_previous": [
-            true,
-            true
-          ]
-        }
+      "layer_top_z_mm": 22.52,
+      "features": {
+        "Inner wall": 9,
+        "Outer wall": 9,
+        "Sparse infill": 28,
+        "Internal solid infill": 12
+      },
+      "roads": [
+        [
+          163.443,
+          156.593,
+          166.007,
+          156.593,
+          0.45,
+          "Inner wall"
+        ],
+        [
+          166.007,
+          163.407,
+          163.443,
+          163.407,
+          0.45,
+          "Inner wall"
+        ],
+        [
+          163.443,
+          163.407,
+          163.443,
+          156.653,
+          0.45,
+          "Inner wall"
+        ],
+        [
+          163.06,
+          156.21,
+          166.39,
+          156.21,
+          0.42,
+          "Outer wall"
+        ],
+        [
+          166.39,
+          163.79,
+          163.06,
+          163.79,
+          0.42,
+          "Outer wall"
+        ],
+        [
+          163.06,
+          163.79,
+          163.06,
+          156.27,
+          0.42,
+          "Outer wall"
+        ]
       ]
     }
   ],
-  "interpretation": "The two bed islands belong to one native solid joined above the open pocket. Retain automatic supports; inspect emitted support and brim within the two source-bound voids. A road-centreline excursion alone does not imply loss of bead contact."
+  "interpretation": "A single 24 by 3 mm wall footprint starts on the bed. The hook grows from the wall on its 45 degree corbel beginning at Z6 mm. Hook contact follows each complete connected bead section through its wall attachment, including the first corbel layer. The 0.75 mm retaining lip keeps its flat underside. Tree(auto)/Default remains enabled; no brim is requested.",
+  "pass": true
 }

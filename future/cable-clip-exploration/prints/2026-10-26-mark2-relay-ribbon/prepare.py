@@ -17,7 +17,8 @@ HERE = Path(__file__).resolve().parent
 ROOT = next(p for p in HERE.parents if (p / "tools").is_dir())
 SHARED = ROOT / "hardware/printed-parts/enclosure/trial-preparation"
 STUDY = HERE.parents[1]
-PIECE = "relay-ribbon-4p-print"
+PIECE = "relay-ribbon-4p-upright"
+PART = "relay-ribbon-4p-print"
 
 
 def sha(path):
@@ -55,8 +56,11 @@ def declaration():
     shared = json.loads(shared_path.read_text())
     spec = {key: copy.deepcopy(value) for key, value in shared.items() if key != "pieces"}
     piece = copy.deepcopy(shared["pieces"]["factory-tools"])
-    piece.update(parts=[{"stl": relative(STUDY / "parts" / f"{PIECE}.stl")}],
-                 yaw_degrees=0, plate_border_mm=80)
+    piece.update(parts=[{"stl": relative(STUDY / "parts" / f"{PART}.stl")}],
+                 yaw_degrees=0, plate_border_mm=80,
+                 settings={"brim_type": {"value":"no_brim",
+                     "reason":"Derek requests the installed orientation and a larger wall footprint below the hook instead of a brim. The coupon has a 24 by 3 mm wall footprint and 6 mm of wall below the hook."},
+                     "brim_width":{"value":"0","reason":"No brim on this enlarged-wall fit coupon."}})
     spec["pieces"] = {PIECE: piece}
     spec["source_declaration"] = relative(shared_path)
     spec["source_declaration_sha256"] = sha(shared_path)
@@ -100,7 +104,7 @@ def summarize(directory, binding, review):
             "initial_layer_print_height", "enable_support", "support_type", "support_style",
             "brim_type", "brim_width", "filament_colour", "filament_map", "curr_bed_type",
             "overhang_fan_threshold", "overhang_fan_speed")},
-        "model_pose": "Entry-down STL as exported, matching installed-up entry on the ceiling-down back-top. Host and outer arm start on the bed.",
+        "model_pose": "Entry-up STL, with no rotation. The 24 by 3 mm wall edge starts on the bed; the 45 degree hook corbel starts 6 mm above it.",
         "estimated_seconds": plate["total_predication"],
         "estimated_filament_g": sum(float(f["total_used_g"]) for f in plate["filaments"]),
         "filaments": plate["filaments"],

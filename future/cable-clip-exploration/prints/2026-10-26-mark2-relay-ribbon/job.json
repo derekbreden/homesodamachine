@@ -23,7 +23,7 @@
     "flush_into_support": "0"
   },
   "pieces": {
-    "relay-ribbon-4p-print": {
+    "relay-ribbon-4p-upright": {
       "printer": "Mark2",
       "nozzle": {
         "side": "left",
@@ -40,7 +40,17 @@
         }
       ],
       "yaw_degrees": 0,
-      "plate_border_mm": 80
+      "plate_border_mm": 80,
+      "settings": {
+        "brim_type": {
+          "value": "no_brim",
+          "reason": "Derek requests the installed orientation and a larger wall footprint below the hook instead of a brim. The coupon has a 24 by 3 mm wall footprint and 6 mm of wall below the hook."
+        },
+        "brim_width": {
+          "value": "0",
+          "reason": "No brim on this enlarged-wall fit coupon."
+        }
+      }
     }
   },
   "source_declaration": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",

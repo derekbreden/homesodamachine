@@ -1,0 +1,71 @@
+{
+  "error_string": "Success.",
+  "export_time": 1325,
+  "layer_height": 0.23999999463558197,
+  "plate_index": 0,
+  "prepare_time": 19,
+  "return_code": 0,
+  "sliced_plates": [
+    {
+      "feature_type_times": {
+        "Bottom surface": 3.2886648178100586,
+        "Bridge": 5.515526294708252,
+        "Custom": 304.4624938964844,
+        "Flush": 15.0,
+        "Gap infill": 0.08261096477508545,
+        "Inner wall": 52.413814544677734,
+        "Internal solid infill": 29.190000534057617,
+        "Outer wall": 75.65030670166016,
+        "Overhang wall": 0.8260378241539001,
+        "Sparse infill": 52.35124206542969,
+        "Top surface": 3.3888816833496094,
+        "Travel": 67.40343475341797,
+        "Undefined": 58.7194709777832
+      },
+      "filament_change_times": 0,
+      "filaments": [
+        {
+          "filament_id": "GFT01",
+          "id": 1,
+          "main_used_g": 2.164299964904785,
+          "total_used_g": 2.164299964904785
+        }
+      ],
+      "generate_support_material_time": 3,
+      "id": 1,
+      "infill_time": 10,
+      "layer_filament_change": 0,
+      "main_predication": 275.1165771484375,
+      "make_perimeters_time": 10,
+      "obj_cached_cnt": 0,
+      "objects": [
+        {
+          "bbox": {
+            "depth": 24.0,
+            "height": 25.700000762939453,
+            "width": 8.200006484985352,
+            "x": 158.39999389648438,
+            "y": 148.0,
+            "z": -4.697273681131264e-10
+          },
+          "id": 5,
+          "name": "relay-ribbon-4p-print",
+          "triangle_count": 48
+        }
+      ],
+      "sliced_time": 96,
+      "sliced_time_with_cache": 64,
+      "total_predication": 600.8950805664062,
+      "triangle_count": 48,
+      "warning_message": ""
+    }
+  ],
+  "sparse_infill_density": 15.0,
+  "upward_compatible_machine": [
+    "Bambu Lab H2S 0.4 nozzle",
+    "Bambu Lab H2D 0.4 nozzle",
+    "Bambu Lab H2D Pro 0.4 nozzle",
+    "Bambu Lab A2L 0.4 nozzle"
+  ],
+  "wall_loops": 2
+}
