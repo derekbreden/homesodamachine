@@ -6604,14 +6604,8 @@ def _core_holds(solid, inner, stations, y0, y1, z0, z1, face=None):
     AND ITS TIP CARRIES A LEAD. The core rides IN under these feet — through the open
     Y-seam mouth, aft to its seat, the crown sliding under the bearing face at the same
     running allowance — so the foot's fore arris is eased 45° up toward the tip.
-    The clearance continues under the full flat foot after the lead.
-
-    ON BACK-TOP A BRACKET IN THE WET FIELD IS A FOOT ALONE. The rear wall's relief opens the
-    fluid grid's nut room from the field's floor up (`_above_core_shell.rear_geometry`), which
-    takes the leg and the gusset aft of the relief's face; across the field's span the bracket
-    stops at that floor, so no wedge of gusset is left standing fore of it."""
-    field = (None if face is None else
-             _above_core_shell.layout.specification()['rear_wall']['interior_panel_relief'])
+    The clearance continues under the full flat foot after the lead. Both
+    stations stand outside the wet-field recess and keep the complete leg."""
     face = inner[3] if face is None else face
     lead = 1.0
     for sx0, sx1, aft, crown in stations:
@@ -6622,9 +6616,6 @@ def _core_holds(solid, inner, stations, y0, y1, z0, z1, face=None):
         bracket = _yz_prism(sx0, sx1, (
             (tip + lead, crown), (back, crown), (back, crown + core_hold_rise),
             (tip, crown + core_hold_land), (tip, crown + lead)))
-        if field is not None:
-            bracket = bracket.cut(_ybox(field['xmin'], field['xmax'], tip - 1.0, back + 1.0,
-                                        field['zmin'], crown + core_hold_rise + 1.0))
         solid = solid.fuse(bracket)
     return solid
 

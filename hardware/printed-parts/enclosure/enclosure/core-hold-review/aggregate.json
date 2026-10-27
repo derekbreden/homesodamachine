@@ -1,0 +1,63 @@
+{
+  "hosts": {
+    "hardware/printed-parts/enclosure/enclosure/enclosure.step": {
+      "input_step_sha256": "61c02505cefdb94f67d8c647358df753c0aaf8092a5c091759ee9d6ba0e6a4b3",
+      "step_sha256": "cf33dd1d90ce9682b9b1199e7d98baf40fa572f68b66bec2cab5a731210a23c1",
+      "mesh_sha256": "a552cf811662b2c91dd0f6979bb210bf61eb80504abc27a1ffd6ebb757fa2524",
+      "unchanged_native_records": 466279,
+      "retained_viewer_members": 24,
+      "all_unrelated_native_records_and_viewer_arrays_retained": true
+    },
+    "hardware/manifold-layout/enclosure-assembly.step": {
+      "input_step_sha256": "c003b866d11f8986d21d458a48b994b2264d730709113447019ba57623819f4a",
+      "step_sha256": "6efe3cd09f226b8f5a370f1f4602c0ee5d2a0ead1e9021bc1919eed9a3185166",
+      "mesh_sha256": "030789253d281035360c88eafbbb3b484f27235ca330ac07b7f6b558214b7b0a",
+      "unchanged_native_records": 2708186,
+      "retained_viewer_members": 561,
+      "all_unrelated_native_records_and_viewer_arrays_retained": true
+    },
+    "hardware/assembly/scenes/glb/back-half.glb": {
+      "input_sha256": "b3f241bb1dc9707115977e948dbca2a6af4955188cfb1b412a74a32c013ab008",
+      "sha256": "ad7addd55e4f926cb8ef69d6851f3ac5c09c74c1ea8db606a41d8603db3d8afc",
+      "changed_piece_surfaces": 1
+    },
+    "hardware/assembly/scenes/glb/back-top.glb": {
+      "input_sha256": "ffde47f514e1c5a3bb9dea728e732a02a6b15aa060369bbd334229ba19a6214e",
+      "sha256": "cf4b1a097190c540a26e3abeffdb2a9ca9a1fb4de4f31be028fec2d7e5bb6bfc",
+      "changed_piece_surfaces": 1
+    }
+  },
+  "native_round_trip_symmetric_difference_mm3": 0.0,
+  "actual_native_neighbors": [
+    {
+      "name": "tube-fluid-18",
+      "added_stock_common_mm3": 0.0
+    },
+    {
+      "name": "tube-fluid-28",
+      "added_stock_common_mm3": 0.0
+    },
+    {
+      "name": "cold-core/foam-cap-top",
+      "added_stock_common_mm3": 0.0
+    },
+    {
+      "name": "cold-core/foam-cap-lid-top",
+      "added_stock_common_mm3": 0.0
+    },
+    {
+      "name": "wire-DC3-negative",
+      "added_stock_common_mm3": 0.0
+    }
+  ],
+  "current_native_300mm_closing": [
+    {
+      "name": "cold-core/foam-cap-top",
+      "swept_box_common_mm3": 0.0
+    },
+    {
+      "name": "cold-core/foam-cap-lid-top",
+      "swept_box_common_mm3": 0.0
+    }
+  ]
+}
