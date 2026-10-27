@@ -1,0 +1,332 @@
+{
+  "scope": "Only the water-check printed support and nominal tie move. All other lid geometry and hardware poses retained. Native geometry only; no physical strength, valve fit or tie-head qualification.",
+  "datums": {
+    "centre_world_mm": [
+      -32.80179966121266,
+      357.51298395987646,
+      280.16882837176047
+    ],
+    "fixed_band_from_inlet_mm": [
+      4.43650159122278,
+      20.1931249738797
+    ],
+    "bearing_from_inlet_mm": [
+      4.93650159122278,
+      13.73650159122278
+    ],
+    "fixed_band_radius_mm": 8.431478550423588,
+    "root_fore_y_mm": 353.1129839598765,
+    "root_aft_y_mm": 361.91298395987644,
+    "bearing_fore_y_mm": 353.1129839598765,
+    "seat_radius_mm": 8.581478550423588,
+    "half_width_mm": 11.581478550423588,
+    "stock_x_limits_world_mm": [
+      -32.80179966121266,
+      -21.220321110789072
+    ],
+    "tie_window_y_mm": [
+      356.1129839598765,
+      358.91298395987644
+    ],
+    "tie_window_z_mm": [
+      265.3873498213369,
+      268.5873498213369
+    ],
+    "tie_route_z_mm": 266.98734982133686,
+    "open_direction": "west-and-up",
+    "pump_driver_axis_world_mm": [
+      -30.868269476362286,
+      372.43545217260646,
+      253.4000061035156
+    ],
+    "pump_driver_radius_mm": 1.5933756729740645,
+    "wall_mm": 3.0
+  },
+  "nominal_tie": {
+    "segments": [
+      {
+        "kind": "line",
+        "points_mm": [
+          [
+            -33.35179966121266,
+            357.51298395987646,
+            266.98734982133686
+          ],
+          [
+            -20.67032111078907,
+            357.51298395987646,
+            266.98734982133686
+          ]
+        ],
+        "wide_axis": [
+          0.0,
+          1.0,
+          0.0
+        ]
+      },
+      {
+        "kind": "line",
+        "points_mm": [
+          [
+            -20.67032111078907,
+            357.51298395987646,
+            266.98734982133686
+          ],
+          [
+            -20.67032111078907,
+            357.51298395987646,
+            280.16882837176047
+          ]
+        ],
+        "wide_axis": [
+          0.0,
+          1.0,
+          0.0
+        ]
+      },
+      {
+        "kind": "line",
+        "points_mm": [
+          [
+            -20.67032111078907,
+            357.51298395987646,
+            280.16882837176047
+          ],
+          [
+            -26.152407617494926,
+            357.51298395987646,
+            286.20642246217943
+          ]
+        ],
+        "wide_axis": [
+          0.0,
+          1.0,
+          0.0
+        ]
+      },
+      {
+        "kind": "arc",
+        "points_mm": [
+          [
+            -26.152407617494926,
+            357.51298395987646,
+            286.20642246217943
+          ],
+          [
+            -38.73867824718015,
+            357.51298395987646,
+            286.90829642251936
+          ],
+          [
+            -39.62981837959375,
+            357.51298395987646,
+            274.33400898011206
+          ]
+        ],
+        "radius_mm": 8.981478550423589,
+        "sweep_degrees": 178.2760400942542,
+        "wide_axis": [
+          0.0,
+          -1.0,
+          0.0
+        ]
+      },
+      {
+        "kind": "line",
+        "points_mm": [
+          [
+            -39.62981837959375,
+            357.51298395987646,
+            274.33400898011206
+          ],
+          [
+            -33.35179966121266,
+            357.51298395987646,
+            266.98734982133686
+          ]
+        ],
+        "wide_axis": [
+          0.0,
+          1.0,
+          0.0
+        ]
+      }
+    ],
+    "length_mm": 71.62766296919236,
+    "stock": "6-inch narrow nylon tie",
+    "stock_length_mm": 152.4,
+    "width_mm": 2.5,
+    "thickness_mm": 0.8,
+    "fixed_band_plane_world_y_mm": 357.51298395987646,
+    "threading_height_mm": 3.1999999999999886,
+    "strip_basis": "Nominal layout allowance; purchased strap/head dimensions unmeasured"
+  },
+  "native_neighbors": [
+    {
+      "name": "tube-fluid-18",
+      "gap_mm": 53.17883357197589,
+      "common_mm3": 0
+    },
+    {
+      "name": "tube-fluid-28",
+      "gap_mm": 69.81773471159786,
+      "common_mm3": 0
+    },
+    {
+      "name": "cold-core/foam-cap-top",
+      "gap_mm": 7.723836533197392,
+      "common_mm3": 0
+    },
+    {
+      "name": "cold-core/line-water-in",
+      "gap_mm": 12.592446124567969,
+      "common_mm3": 0
+    },
+    {
+      "name": "cold-core/carbonator-fold",
+      "gap_mm": 25.386485321496373,
+      "common_mm3": 0
+    },
+    {
+      "name": "cold-core/discharge-chain",
+      "gap_mm": 0.149999999990289,
+      "common_mm3": 0
+    },
+    {
+      "name": "cold-core/g-ganen-pump",
+      "gap_mm": 1.5224682127235383,
+      "common_mm3": 0
+    },
+    {
+      "name": "cold-core/tube-above-core-pump-check-link",
+      "gap_mm": 5.406478550420285,
+      "common_mm3": 0
+    },
+    {
+      "name": "enclosure-back-top",
+      "gap_mm": 52.212667453761085,
+      "common_mm3": 0
+    },
+    {
+      "name": "wire-AC4-H",
+      "gap_mm": 25.320141411374646,
+      "common_mm3": 0
+    },
+    {
+      "name": "wire-AC5-N",
+      "gap_mm": 39.92589168534658,
+      "common_mm3": 0
+    },
+    {
+      "name": "wire-PE-bus",
+      "gap_mm": 43.83117162823953,
+      "common_mm3": 0
+    },
+    {
+      "name": "wire-PE-carbonator",
+      "gap_mm": 19.983901192921664,
+      "common_mm3": 0
+    },
+    {
+      "name": "wire-DC2-V12",
+      "gap_mm": 25.52002964268599,
+      "common_mm3": 0
+    },
+    {
+      "name": "wire-DC3-negative",
+      "gap_mm": 1.2912930592127607,
+      "common_mm3": 0
+    },
+    {
+      "name": "wire-J3-V5",
+      "gap_mm": 2.5603202143090726,
+      "common_mm3": 0
+    },
+    {
+      "name": "wire-J3-GND",
+      "gap_mm": 1.1003202143069948,
+      "common_mm3": 0
+    },
+    {
+      "name": "wire-J3-IO35",
+      "gap_mm": 3.640320214309071,
+      "common_mm3": 0
+    },
+    {
+      "name": "wire-J3-IO33",
+      "gap_mm": 2.1803242143090706,
+      "common_mm3": 0
+    },
+    {
+      "name": "wire-J4-3V3",
+      "gap_mm": 18.8525208744253,
+      "common_mm3": 0
+    },
+    {
+      "name": "wire-J4-IO26",
+      "gap_mm": 21.235373095494367,
+      "common_mm3": 0
+    },
+    {
+      "name": "wire-temp-GND",
+      "gap_mm": 22.964593709370394,
+      "common_mm3": 0
+    },
+    {
+      "name": "wire-J6-GND",
+      "gap_mm": 19.295097183927556,
+      "common_mm3": 0
+    },
+    {
+      "name": "wire-J6-RA1",
+      "gap_mm": 7.1230002472710305,
+      "common_mm3": 0
+    },
+    {
+      "name": "wire-J6-RA2",
+      "gap_mm": 17.823543067712112,
+      "common_mm3": 0
+    },
+    {
+      "name": "wire-J6-RA3",
+      "gap_mm": 7.131617276600456,
+      "common_mm3": 0
+    },
+    {
+      "name": "wire-J6-RA4",
+      "gap_mm": 20.0837696164235,
+      "common_mm3": 0
+    },
+    {
+      "name": "wire-J7-CLO",
+      "gap_mm": 22.53657076459226,
+      "common_mm3": 0
+    },
+    {
+      "name": "wire-J7-CHI",
+      "gap_mm": 20.3008230132198,
+      "common_mm3": 0
+    },
+    {
+      "name": "wire-J7-carb-earth-2",
+      "gap_mm": 18.3329640637167,
+      "common_mm3": 0
+    }
+  ],
+  "unrelated_lid_native_faces_edges_fingerprint_identical": true,
+  "outside_support_fingerprint": "6e5f338d79a428610501b285b8606c3b0e636c5c093604d6cf0ee7aa2d954c07",
+  "lid_valid": true,
+  "lid_solids": 1,
+  "lid_bounds_mm": [
+    -141.20000009999998,
+    141.20000009999998,
+    -90.2000001,
+    97.7000001,
+    -1.0000291588975187e-07,
+    50.65
+  ],
+  "stl_watertight": true,
+  "stl_faces": 99766,
+  "step_sha256": "56f77a81cf6a2b0e379a8cf70b43b86a5418d830761e83c0894bf9b36cbefec2",
+  "stl_sha256": "5eb05448d0827339fda508c56f24f055ed4df1cd0d5a8b501d0c6f46ed787dc5"
+}

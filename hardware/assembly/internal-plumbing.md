@@ -136,10 +136,10 @@ The same uncut tube continues through that plain guide to the carbonator's
 existing water-in adapter. Assemble the internal route before closing the core;
 the lid carries no water joint.
 Make up the check group on the open core, with the check's six-inch narrow tie
-already threaded beneath its east-quarter bearing ([cold core](cold-core.md) §3):
+already threaded through its east-quarter pedestal ([cold core](cold-core.md) §3):
 
-1. Fasten the pump first. Its west-fore foot screw goes in through the check
-   bridge's tool notch, before the check is in; the check body occupies that
+1. Fasten the pump first. The printed check pedestal leaves all four driver
+   approaches open before the check is in; the check body occupies one
    screw's tool column once it is seated.
 2. Push the discharge TPU elbow onto the pump's outlet barb (11 mm) and leave
    its barb clamp band open.

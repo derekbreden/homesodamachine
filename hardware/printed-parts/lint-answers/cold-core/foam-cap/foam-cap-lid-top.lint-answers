@@ -1,8 +1,3 @@
-[ceiling] Unavoidable flat over the pump: the water check's quarter bearing cantilevers 26.3 mm fore of its root, 15.2 mm over the lid face, and the pump's head stands under it to world Z262.8, 5.8 mm below the bridge. The flat underside is also the face the check's strap runs along. Tree(auto)/Default supports it from the lid face beside the pump's footprint; the open fore and west sides release them. Support removal is unqualified.
-alternatives: A root carried fore under the bearing, or a corbel, fills the space the pump's head occupies. A sloped underside spans the same head and leaves the strap no flat to bear on. Moving the bearing aft over its root takes it off the check's fixed barrel band.
-file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
-click: x=-45.463 y=-27.011 z=20.587
-
 [ceiling] Unavoidable flat over the PCB's wire lane: the V-B return union's bracket overhangs its root 4 mm fore and 4.3 mm aft at world Z275.64. DC1-V12 and PE-carbonator run beneath the fore overhang at Z273 and below, toward the PCB's aft wire-entry lands, and the strap's 2.8 mm tie window passes under the beam. The beam keeps 3.0 mm of floor under the union's leaning bore. Tree(auto)/Default supports it; the supports leave sideways from under the open overhangs.
 alternatives: A 45° corbel under the fore overhang reaches into the wire lane, which stands 3.6 mm below. Carrying the root fore under the beam closes that lane and the PCB's wire-entry lands. A deeper beam lowers the same flat toward the wires.
 file: hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step
