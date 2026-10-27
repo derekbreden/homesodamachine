@@ -1,5 +1,7 @@
 # How Carbonation Works
 
+[Watch the film on YouTube](https://youtu.be/fEWwkrJh5J4).
+
 A 1 minute 42 second narrated explainer, 1920 × 1080 at 30 fps. The film moves
 from the Sculpted faucet into the enclosure and cold core, then spends most of
 its running time on the carbonator's gas admission, water jet, entrainment,
