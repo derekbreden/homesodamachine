@@ -1,59 +1,55 @@
-# Direct tube-snap fit trial
+# Direct tube-snap retention trial
 
-Three filled-root snaps share one **54 × 14 × 3 mm floor**. The floor lies flat
-on the print bed, the tube axes run along Y, and the openings face up. The
-quarter-inch tube centre is 4.5 mm above the floor's top face. This is a
-physical comparison of grip, insertion and wing/root survival in that print
-orientation.
+The current comparison has **nine clips on three separate 60 × 16 × 3 mm
+strips**. Every clip has the same **R3.275 mm / Ø6.55 mm bore**, 8 mm span
+along the tube, filled lower root and tube centre 4.5 mm above the floor.
+The two experimental axes are wing thickness and circular wrap.
 
-The organizer's [accepted quarter-inch bore](../../hardware/printed-parts/faucet/umbilical-organizer/physical-acceptance.json)
-is **Ø6.65 mm**. Its [last A/B/C tuning round](../umbilical-organizer-exploration/diameter-increments-mark2/README.md)
-used **0.10 mm diameter steps**, as implemented by
-[`prepare_increment_trial.py`](../umbilical-organizer-exploration/prepare_increment_trial.py).
-The comparison here centres those steps on the accepted size.
+| Strip | Wing thickness | Column 1 | Column 2 | Column 3 |
+| --- | ---: | --- | --- | --- |
+| A | 1.44 mm | A1 — reference wrap | A2 — +5° per wing | A3 — +10° per wing |
+| B | 1.92 mm | B1 — reference wrap | B2 — +5° per wing | B3 — +10° per wing |
+| C | 2.40 mm | C1 — reference wrap | C2 — +5° per wing | C3 — +10° per wing |
 
-Facing the printer, the snaps are ordered **smallest to largest, left to
-right**. Mark the small-bore end before lifting the common floor off the bed.
+The reference circular end angle is 120.421° on each wing: 240.842° total
+circular coverage. Columns 2 and 3 have 250.842° and 260.842° total coverage.
+The rounded noses add their own surfaces beyond the circular seat. The
+outer radius and nose radius follow wing thickness; the bore remains fixed.
+Consequently the mouth width is an outcome of both axes, from 5.45 mm at A1
+to 4.414 mm at C3. It is not a third independently tuned parameter.
 
-| Position | Bore diameter | Relative to organizer | Nominal radial allowance around Ø6.35 tube |
-| --- | ---: | ---: | ---: |
-| A — left | 6.55 mm | −0.10 mm diameter | 0.10 mm |
-| B — centre | 6.65 mm | Organizer size | 0.15 mm |
-| C — right | 6.75 mm | +0.10 mm diameter | 0.20 mm |
+**A1 repeats the tested smallest-bore clip geometry**, verified by native
+Boolean comparison. The trial's [physical feedback](prints/2026-10-26-mark2-organizer-fit/physical-result.json)
+identifies that size as the best of the first three while reporting all
+three fairly loose and easy to remove. Quantified retention force remains
+unmeasured.
 
-Each snap has the same 8 mm span along the tube, 1.44 mm functional spring
-wall, 0.72 mm rounded nose, and 5.45 mm mouth. The nominal tube extends
-0.45 mm beyond each side of that mouth. The lower root is filled out to
-straight exterior sides across the full span. The outer radius follows the
-bore radius to retain the same spring thickness. There are no identification
-cuts or lettering on the comparison floor.
+Each sample has its identity raised 0.48 mm above the full 3 mm structural
+floor. Facing the printer, A is the front strip, B the middle strip and C
+the rear strip; columns 1–3 run left to right. **Separate the strips before
+testing with a long tube.** The tube runs along Y and then meets only its
+chosen clip, with the other two on that strip beside it along X.
 
-The organizer's accepted bores printed upright; these seats print horizontally.
-Its accepted fit therefore supplies the trial's diameter baseline, not an
-acceptance of this snap's grip. The organizer has 9.2 mm of straight tube
-contact between entrance chamfers; this snap has an 8 mm open seat. The short
-upper wings and bending across printed layers are part of the physical test.
-
-Try the actual quarter-inch tube in each position and compare insertion,
-seated grip, axial movement and release. Record any root separation, broken
-wing, permanent opening or tube damage with its A/B/C position. The desired
-result is the close fit Derek identified on the organizer. A printed result
-has not yet been reported for this trial.
+Compare push-in and pull-out effort on the actual quarter-inch tube, seated
+grip, axial movement, release and wing/root survival. Report the A1–C3 label
+with any permanent opening, fracture or tube damage. These are experimental
+fixtures, with no production assembly or accepted-retention claim.
 
 ## Preparation
 
-The [Mark2 print job](prints/2026-10-26-mark2-organizer-fit/README.md) contains
-the editable project, sliced archive and native review.
+The [Mark2 retention-matrix job](prints/2026-10-26-mark2-retention-matrix/README.md)
+contains the three-part editable project, sliced archive and native reviews.
+The three floors lie flat on the bed with the same layer direction as the
+first trial.
 
 ```sh
-tools/cad-venv/bin/python future/tube-snap-exploration/tube_snap_trial.py
-tools/cad-venv/bin/python future/tube-snap-exploration/prints/2026-10-26-mark2-organizer-fit/prepare.py
+tools/cad-venv/bin/python future/tube-snap-exploration/retention_matrix.py
+tools/cad-venv/bin/python future/tube-snap-exploration/prints/2026-10-26-mark2-retention-matrix/prepare.py
 ```
 
-The [generator](tube_snap_trial.py) writes the
-[STEP](parts/tube-snap-three-bores.step),
-[STL](parts/tube-snap-three-bores.stl) and
-[native geometry report](geometry-report.json). The report measures each
-native bore section and binds the organizer baseline and tuning evidence to
-their source hashes. The coupon is one connected solid with its bed face
-at Z=0.
+The [generator](retention_matrix.py) and
+[native geometry report](retention-matrix-geometry.json) bind all nine bore
+sections, the three individual solids, their STLs/STEPs and the A1 control.
+The earlier [organizer-sized bore trial](prints/2026-10-26-mark2-organizer-fit/README.md)
+retains its print archive and physical result. Its [generator](tube_snap_trial.py)
+also supplies the control shape for the current trial.

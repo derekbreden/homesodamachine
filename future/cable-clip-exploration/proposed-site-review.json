@@ -1,0 +1,286 @@
+{
+  "site": "Proposed J5 RELAYS bare-ribbon guide at west wall before relay fan-out.",
+  "production_integration": false,
+  "origin_world_mm": [
+    -98.5,
+    328.0,
+    275.925
+  ],
+  "section_xz_mm": [
+    [
+      0,
+      0
+    ],
+    [
+      5.2,
+      5.2
+    ],
+    [
+      5.2,
+      19.7
+    ],
+    [
+      2.2,
+      19.7
+    ],
+    [
+      1.45,
+      18.95
+    ],
+    [
+      1.45,
+      15.95
+    ],
+    [
+      2.2,
+      15.95
+    ],
+    [
+      2.2,
+      8.2
+    ],
+    [
+      0,
+      8.2
+    ]
+  ],
+  "host": "enclosure-back-top",
+  "host_inside_plane_x_mm": -98.5,
+  "host_outside_plane_x_mm": -107.5,
+  "host_wall_mm": 9.0,
+  "opening_world": "+Z",
+  "quadrant_build_world": "-Z",
+  "opening_relative_to_print": "down",
+  "ribbon_center_world_mm": [
+    -97.4,
+    328.0,
+    288.0
+  ],
+  "ribbon_axis_world": "Y",
+  "ribbon_width_axis_world": "Z",
+  "ribbon_depth_axis_world": "X",
+  "ribbon_envelope_model_mm": [
+    7.25,
+    1.7
+  ],
+  "seated_conductor_centers_world_mm": [
+    [
+      -97.4,
+      328.0,
+      285.225
+    ],
+    [
+      -97.4,
+      328.0,
+      287.075
+    ],
+    [
+      -97.4,
+      328.0,
+      288.925
+    ],
+    [
+      -97.4,
+      328.0,
+      290.775
+    ]
+  ],
+  "clip_bounds_world_mm": [
+    [
+      -98.5,
+      324.0,
+      275.925
+    ],
+    [
+      -93.3,
+      332.0,
+      295.625
+    ]
+  ],
+  "press_envelope_bounds_world_mm": [
+    [
+      -98.25,
+      324.0,
+      284.375
+    ],
+    [
+      -96.55,
+      332.0,
+      303.625
+    ]
+  ],
+  "dressing_change": {
+    "existing_world_station": {
+      "x": -95.0,
+      "y": 332.0,
+      "z": [
+        285.0,
+        287.0,
+        289.0,
+        291.0
+      ]
+    },
+    "wallward_mm": 2.4,
+    "pitch_from_mm": 2.0,
+    "pitch_to_mm": 1.85,
+    "new_straight_span_y_mm": [
+      324.0,
+      332.0
+    ],
+    "bare_window_required": true,
+    "current_sleeve": "1/4 inch PET braid",
+    "replaces_current_tie": false
+  },
+  "wall_ray_readings": [
+    [
+      324.0,
+      275.925,
+      [
+        -107.5,
+        -98.5
+      ]
+    ],
+    [
+      324.0,
+      288.0,
+      [
+        -107.5,
+        -98.5
+      ]
+    ],
+    [
+      324.0,
+      295.625,
+      [
+        -107.5,
+        -98.5
+      ]
+    ],
+    [
+      328.0,
+      275.925,
+      [
+        -107.5,
+        -98.5
+      ]
+    ],
+    [
+      328.0,
+      288.0,
+      [
+        -107.5,
+        -98.5
+      ]
+    ],
+    [
+      328.0,
+      295.625,
+      [
+        -107.5,
+        -98.5
+      ]
+    ],
+    [
+      332.0,
+      275.925,
+      [
+        -107.5,
+        -98.5
+      ]
+    ],
+    [
+      332.0,
+      288.0,
+      [
+        -107.5,
+        -98.5
+      ]
+    ],
+    [
+      332.0,
+      295.625,
+      [
+        -107.5,
+        -98.5
+      ]
+    ]
+  ],
+  "native_context_checks": [
+    {
+      "body": "valve-v-a",
+      "clip_clearance_mm": 0.8458988712399957,
+      "press_envelope_clearance_mm": 4.095898871239996,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0
+    },
+    {
+      "body": "tube-fluid-18",
+      "clip_clearance_mm": 35.66712786593725,
+      "press_envelope_clearance_mm": 28.881471852738226,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0
+    },
+    {
+      "body": "tube-fluid-28",
+      "clip_clearance_mm": 29.300811823563944,
+      "press_envelope_clearance_mm": 21.7116425153053,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0
+    },
+    {
+      "body": "cold-core/foam-cap-lid-top",
+      "clip_clearance_mm": 24.00553303043884,
+      "press_envelope_clearance_mm": 31.619188994586896,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0
+    },
+    {
+      "body": "wire-DC1-V12",
+      "clip_clearance_mm": 7.502698707914268,
+      "press_envelope_clearance_mm": 10.104741518519225,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0
+    },
+    {
+      "body": "wire-DC1-GND",
+      "clip_clearance_mm": 12.641803402726012,
+      "press_envelope_clearance_mm": 16.045042669321106,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0
+    }
+  ],
+  "current_dirty_power_wire_checks": [
+    {
+      "body": "DC1-V12",
+      "clip_clearance_mm": 7.502698707917476,
+      "press_envelope_clearance_mm": 10.10474151852468,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "native_valid": true
+    },
+    {
+      "body": "DC1-GND",
+      "clip_clearance_mm": 12.91329660546093,
+      "press_envelope_clearance_mm": 16.324497720800686,
+      "clip_overlap_mm3": 0.0,
+      "press_overlap_mm3": 0.0,
+      "native_valid": true
+    }
+  ],
+  "native_clip_valid": true,
+  "native_clip_solids": 1,
+  "native_wall_patch_union_valid": true,
+  "native_wall_patch_union_solids": 1,
+  "owner_clip_intrusion_mm3": 0.0,
+  "owner_press_intrusion_mm3": 0.0,
+  "native_assembly_sha256": "bfac33825d17a54fb525efa0c1068df09a6482a8f3994706b40f657cfae0ceb2",
+  "current_override_sha256": "b1a14ab193cf0a36770f7b9a8152e2b8cbbeb36106d8af2751a2d0b0b3c8ed43",
+  "source_scope": "J5 override records unchanged in current dirty source. DC1 local native fixtures use current dirty fixed-point paths. No aggregate rebuild.",
+  "limits": [
+    "Proposed local redressing, not a drop-in unchanged route.",
+    "New J5 connecting curves, braid transition, whole-quadrant assembly and service are not validated.",
+    "Model conductor envelope is not a physical full-ribbon measurement.",
+    "No insertion force, grip, layer strength or lifetime claim.",
+    "Actual slice must prove no supports inside the pocket; orientation alone is not evidence."
+  ]
+}

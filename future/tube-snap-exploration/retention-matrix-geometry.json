@@ -1,0 +1,437 @@
+{
+  "scope": "Two-axis physical retention experiment on three movable strips; no production change.",
+  "source": "future/tube-snap-exploration/retention_matrix.py",
+  "source_sha256": "a77225ec7e9924514a57c55720c8437bfe68b1a79eff914d1f199cb8d19e695b",
+  "bore_radius_mm": 3.275,
+  "bore_diameter_mm": 6.55,
+  "tube_nominal_od_mm": 6.35,
+  "reference_tip_angle_deg": 120.42102606277044,
+  "row_axis": "Wing thickness: A=1.44, B=1.92, C=2.40 mm",
+  "column_axis": "Additional circular wrap per wing: 1=0, 2=5, 3=10 degrees",
+  "rows": [
+    {
+      "row": "A",
+      "spring_wall_mm": 1.44,
+      "source_stl": "future/tube-snap-exploration/parts/tube-snap-row-a-print.stl",
+      "source_step": "future/tube-snap-exploration/parts/tube-snap-row-a-print.step",
+      "floor_xyz_mm": [
+        60.0,
+        16.0,
+        3.0
+      ],
+      "native": {
+        "valid": true,
+        "solids": 1,
+        "volume_mm3": 3707.689798158998,
+        "bounds_mm": [
+          -30.000000100000012,
+          -8.00000010000001,
+          -1.000000004440892e-07,
+          30.000000100000012,
+          8.00000010000001,
+          10.810467860590494
+        ]
+      }
+    },
+    {
+      "row": "B",
+      "spring_wall_mm": 1.92,
+      "source_stl": "future/tube-snap-exploration/parts/tube-snap-row-b-print.stl",
+      "source_step": "future/tube-snap-exploration/parts/tube-snap-row-b-print.step",
+      "floor_xyz_mm": [
+        60.0,
+        16.0,
+        3.0
+      ],
+      "native": {
+        "valid": true,
+        "solids": 1,
+        "volume_mm3": 3912.9611272102293,
+        "bounds_mm": [
+          -30.000000100000012,
+          -8.00000010000001,
+          -1.000000004440892e-07,
+          30.000000100000012,
+          8.00000010000001,
+          11.206121187393377
+        ]
+      }
+    },
+    {
+      "row": "C",
+      "spring_wall_mm": 2.4,
+      "source_stl": "future/tube-snap-exploration/parts/tube-snap-row-c-print.stl",
+      "source_step": "future/tube-snap-exploration/parts/tube-snap-row-c-print.step",
+      "floor_xyz_mm": [
+        60.0,
+        16.0,
+        3.0
+      ],
+      "native": {
+        "valid": true,
+        "solids": 1,
+        "volume_mm3": 4132.323570983289,
+        "bounds_mm": [
+          -30.000000100000012,
+          -8.00000010000001,
+          -1.000000004440892e-07,
+          30.000000100000012,
+          8.00000010000001,
+          11.601774514196256
+        ]
+      }
+    }
+  ],
+  "samples": [
+    {
+      "label": "A1",
+      "row": "A",
+      "column": 1,
+      "extra_wrap_per_wing_deg": 0.0,
+      "centre_x_mm": -20.0,
+      "centre_y_mm": 0.0,
+      "tube_axis_z_mm": 7.5,
+      "bore_diameter_mm": 6.55,
+      "bore_radius_mm": 3.275,
+      "outer_radius_mm": 4.715,
+      "spring_wall_mm": 1.44,
+      "tip_angle_deg": 120.42102606277044,
+      "circular_wrap_deg": 240.84205212554087,
+      "mouth_width_mm": 5.449999999999999,
+      "nominal_catch_per_jaw_mm": 0.4500000000000002,
+      "native_mid_bore_section_x_mm": [
+        -4.715,
+        -3.2749999999999986,
+        3.2750000000000057,
+        4.715
+      ],
+      "native_clip": {
+        "valid": true,
+        "solids": 1,
+        "volume_mm3": 269.8405679648643,
+        "bounds_mm": [
+          -24.715,
+          -4.0,
+          2.7849999999999984,
+          -15.285,
+          4.0,
+          10.242869249358446
+        ]
+      }
+    },
+    {
+      "label": "A2",
+      "row": "A",
+      "column": 2,
+      "extra_wrap_per_wing_deg": 5.0,
+      "centre_x_mm": 0.0,
+      "centre_y_mm": 0.0,
+      "tube_axis_z_mm": 7.5,
+      "bore_diameter_mm": 6.55,
+      "bore_radius_mm": 3.275,
+      "outer_radius_mm": 4.715,
+      "spring_wall_mm": 1.44,
+      "tip_angle_deg": 125.42102606277044,
+      "circular_wrap_deg": 250.84205212554087,
+      "mouth_width_mm": 5.071172126033661,
+      "nominal_catch_per_jaw_mm": 0.6394139369831695,
+      "native_mid_bore_section_x_mm": [
+        -4.715,
+        -3.275,
+        3.2749999999999986,
+        4.715
+      ],
+      "native_clip": {
+        "valid": true,
+        "solids": 1,
+        "volume_mm3": 277.8729920615626,
+        "bounds_mm": [
+          -4.715,
+          -4.0,
+          2.785,
+          4.715000000000001,
+          4.0,
+          10.535423154909394
+        ]
+      }
+    },
+    {
+      "label": "A3",
+      "row": "A",
+      "column": 3,
+      "extra_wrap_per_wing_deg": 10.0,
+      "centre_x_mm": 20.0,
+      "centre_y_mm": 0.0,
+      "tube_axis_z_mm": 7.5,
+      "bore_diameter_mm": 6.55,
+      "bore_radius_mm": 3.275,
+      "outer_radius_mm": 4.715,
+      "spring_wall_mm": 1.44,
+      "tip_angle_deg": 130.42102606277044,
+      "circular_wrap_deg": 260.8420521255409,
+      "mouth_width_mm": 4.642790300634983,
+      "nominal_catch_per_jaw_mm": 0.8536048496825082,
+      "native_mid_bore_section_x_mm": [
+        -4.715,
+        -3.274999999999995,
+        3.2749999999999986,
+        4.715
+      ],
+      "native_clip": {
+        "valid": true,
+        "solids": 1,
+        "volume_mm3": 285.90541615826106,
+        "bounds_mm": [
+          15.285,
+          -4.0,
+          2.785,
+          24.715,
+          4.0,
+          10.810355292160757
+        ]
+      }
+    },
+    {
+      "label": "B1",
+      "row": "B",
+      "column": 1,
+      "extra_wrap_per_wing_deg": 0.0,
+      "centre_x_mm": -20.0,
+      "centre_y_mm": 0.0,
+      "tube_axis_z_mm": 7.5,
+      "bore_diameter_mm": 6.55,
+      "bore_radius_mm": 3.275,
+      "outer_radius_mm": 5.195,
+      "spring_wall_mm": 1.92,
+      "tip_angle_deg": 120.42102606277044,
+      "circular_wrap_deg": 240.84205212554087,
+      "mouth_width_mm": 5.3839173967459315,
+      "nominal_catch_per_jaw_mm": 0.48304130162703407,
+      "native_mid_bore_section_x_mm": [
+        -5.195,
+        -3.2749999999999417,
+        3.274999999999949,
+        5.195
+      ],
+      "native_clip": {
+        "valid": true,
+        "solids": 1,
+        "volume_mm3": 351.0123936709895,
+        "bounds_mm": [
+          -25.195,
+          -4.0,
+          2.3049999999999997,
+          -14.805,
+          4.0,
+          10.604393309395
+        ]
+      }
+    },
+    {
+      "label": "B2",
+      "row": "B",
+      "column": 2,
+      "extra_wrap_per_wing_deg": 5.0,
+      "centre_x_mm": 0.0,
+      "centre_y_mm": 0.0,
+      "tube_axis_z_mm": 7.5,
+      "bore_diameter_mm": 6.55,
+      "bore_radius_mm": 3.275,
+      "outer_radius_mm": 5.195,
+      "spring_wall_mm": 1.92,
+      "tip_angle_deg": 125.42102606277044,
+      "circular_wrap_deg": 250.84205212554087,
+      "mouth_width_mm": 4.982331402691502,
+      "nominal_catch_per_jaw_mm": 0.6838342986542489,
+      "native_mid_bore_section_x_mm": [
+        -5.195,
+        -3.275,
+        3.2749999999999986,
+        5.195
+      ],
+      "native_clip": {
+        "valid": true,
+        "solids": 1,
+        "volume_mm3": 362.3656906420424,
+        "bounds_mm": [
+          -5.195,
+          -4.0,
+          2.304999999999999,
+          5.195000000000002,
+          4.0,
+          10.914522418283177
+        ]
+      }
+    },
+    {
+      "label": "B3",
+      "row": "B",
+      "column": 3,
+      "extra_wrap_per_wing_deg": 10.0,
+      "centre_x_mm": 20.0,
+      "centre_y_mm": 0.0,
+      "tube_axis_z_mm": 7.5,
+      "bore_diameter_mm": 6.55,
+      "bore_radius_mm": 3.275,
+      "outer_radius_mm": 5.195,
+      "spring_wall_mm": 1.92,
+      "tip_angle_deg": 130.42102606277044,
+      "circular_wrap_deg": 260.8420521255409,
+      "mouth_width_mm": 4.5282144989209385,
+      "nominal_catch_per_jaw_mm": 0.9108927505395306,
+      "native_mid_bore_section_x_mm": [
+        -5.195,
+        -3.2750000000000092,
+        3.2750000000000092,
+        5.195
+      ],
+      "native_clip": {
+        "valid": true,
+        "solids": 1,
+        "volume_mm3": 373.71898761309524,
+        "bounds_mm": [
+          14.805,
+          -4.0,
+          2.3049999999999997,
+          25.195,
+          4.0,
+          11.205971129487061
+        ]
+      }
+    },
+    {
+      "label": "C1",
+      "row": "C",
+      "column": 1,
+      "extra_wrap_per_wing_deg": 0.0,
+      "centre_x_mm": -20.0,
+      "centre_y_mm": 0.0,
+      "tube_axis_z_mm": 7.5,
+      "bore_diameter_mm": 6.55,
+      "bore_radius_mm": 3.275,
+      "outer_radius_mm": 5.675,
+      "spring_wall_mm": 2.4,
+      "tip_angle_deg": 120.42102606277044,
+      "circular_wrap_deg": 240.84205212554087,
+      "mouth_width_mm": 5.317834793491864,
+      "nominal_catch_per_jaw_mm": 0.516082603254068,
+      "native_mid_bore_section_x_mm": [
+        -5.675000000000001,
+        -3.274999999999949,
+        3.274999999999956,
+        5.675000000000001
+      ],
+      "native_clip": {
+        "valid": true,
+        "solids": 1,
+        "volume_mm3": 445.5682846990387,
+        "bounds_mm": [
+          -25.675,
+          -4.0,
+          1.8249999999999975,
+          -14.325,
+          4.0,
+          10.965917369431551
+        ]
+      }
+    },
+    {
+      "label": "C2",
+      "row": "C",
+      "column": 2,
+      "extra_wrap_per_wing_deg": 5.0,
+      "centre_x_mm": 0.0,
+      "centre_y_mm": 0.0,
+      "tube_axis_z_mm": 7.5,
+      "bore_diameter_mm": 6.55,
+      "bore_radius_mm": 3.275,
+      "outer_radius_mm": 5.675,
+      "spring_wall_mm": 2.4,
+      "tip_angle_deg": 125.42102606277044,
+      "circular_wrap_deg": 250.84205212554087,
+      "mouth_width_mm": 4.893490679349345,
+      "nominal_catch_per_jaw_mm": 0.7282546603253275,
+      "native_mid_bore_section_x_mm": [
+        -5.675,
+        -3.2750000000000012,
+        3.2749999999999995,
+        5.675
+      ],
+      "native_clip": {
+        "valid": true,
+        "solids": 1,
+        "volume_mm3": 460.564153632174,
+        "bounds_mm": [
+          -5.675,
+          -4.0,
+          1.8249999999999993,
+          5.675,
+          4.0,
+          11.293621681656957
+        ]
+      }
+    },
+    {
+      "label": "C3",
+      "row": "C",
+      "column": 3,
+      "extra_wrap_per_wing_deg": 10.0,
+      "centre_x_mm": 20.0,
+      "centre_y_mm": 0.0,
+      "tube_axis_z_mm": 7.5,
+      "bore_diameter_mm": 6.55,
+      "bore_radius_mm": 3.275,
+      "outer_radius_mm": 5.675,
+      "spring_wall_mm": 2.4,
+      "tip_angle_deg": 130.42102606277044,
+      "circular_wrap_deg": 260.8420521255409,
+      "mouth_width_mm": 4.4136386972068955,
+      "nominal_catch_per_jaw_mm": 0.9681806513965521,
+      "native_mid_bore_section_x_mm": [
+        -5.675000000000001,
+        -3.274999999999995,
+        3.274999999999995,
+        5.675000000000001
+      ],
+      "native_clip": {
+        "valid": true,
+        "solids": 1,
+        "volume_mm3": 475.5600225653095,
+        "bounds_mm": [
+          14.325,
+          -4.0,
+          1.8249999999999993,
+          25.675,
+          4.0,
+          11.601586966813363
+        ]
+      }
+    }
+  ],
+  "files": {
+    "future/tube-snap-exploration/parts/tube-snap-row-a-print.stl": "c61347f053c744a914e7ba026bfe564082cb0624c5190368e3df1f181a3aac8d",
+    "future/tube-snap-exploration/parts/tube-snap-row-a-print.step": "a18c25d668d6d933bb6967dd0e38281e2d7fb3e7ffd2ef1f17960f2f27e8e585",
+    "future/tube-snap-exploration/parts/tube-snap-row-b-print.stl": "0db1fe57d5cd907773e63da5f9359c6410473e856b6d149f688e05ed465cbec0",
+    "future/tube-snap-exploration/parts/tube-snap-row-b-print.step": "9b073e5f129d03e6f7d1a78c1083a1b6a8d3a89f8ac2e30e82e932255f14e6b4",
+    "future/tube-snap-exploration/parts/tube-snap-row-c-print.stl": "7a553157543b2a7e6d0edc61c4974643f61defcb39282d4aeca7227b48a02280",
+    "future/tube-snap-exploration/parts/tube-snap-row-c-print.step": "c4976973a9b44c2acb1384ee7a58605c60846de78a2e66f85781d3fd3f44d316"
+  },
+  "control": {
+    "source": "future/tube-snap-exploration/tube_snap_trial.py",
+    "source_sha256": "47e29d8833451e225a90c1a2acd423af91885bd70035a1f1d21f764fbf715296",
+    "missing_mm3": 0.0,
+    "extra_mm3": 0.0,
+    "scope": "A1 clip geometry only; new strip floor and raised identity labels are different."
+  },
+  "tube_axis_above_floor_mm": 4.5,
+  "clip_span_y_mm": 8.0,
+  "labels": {
+    "placement": "Front band of each strip",
+    "raised_mm": 0.48,
+    "purpose": "Permanent test identity after separating and moving the three strips"
+  },
+  "long_tube_access": "Each strip has just one row of clips across X. Separate the strips before testing; a straight tube along Y then meets only the selected clip.",
+  "print_pose": "Three 3 mm floors flat on the bed, mouths upward; same layer direction as the first trial.",
+  "design_basis": "Hold the bore and tube-axis height fixed. The outer radius and rounded-nose radius follow wall thickness; circular end angle sets the wrap axis. Mouth width is a measured consequence of both axes, not a separately tuned parameter.",
+  "physical_result_pending": true
+}

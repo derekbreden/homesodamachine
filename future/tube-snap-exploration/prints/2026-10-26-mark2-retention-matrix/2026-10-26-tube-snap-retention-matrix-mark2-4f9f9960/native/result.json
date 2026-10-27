@@ -1,0 +1,96 @@
+{
+    "error_string": "Success.",
+    "export_time": 3325,
+    "layer_height": 0.23999999463558197,
+    "plate_index": 0,
+    "prepare_time": 98,
+    "return_code": 0,
+    "sliced_plates": [
+        {
+            "feature_type_times": {
+                "Bottom surface": 116.59397888183594,
+                "Bridge": 262.63165283203125,
+                "Custom": 305.1833190917969,
+                "Flush": 15.0,
+                "Gap infill": 19.101879119873047,
+                "Inner wall": 127.13459777832031,
+                "Internal solid infill": 379.94378662109375,
+                "Outer wall": 198.67079162597656,
+                "Sparse infill": 85.86470794677734,
+                "Top surface": 59.96348190307617,
+                "Travel": 222.7426300048828,
+                "Undefined": 213.35067749023438
+            },
+            "filament_change_times": 0,
+            "filaments": [
+                {
+                    "filament_id": "GFT01",
+                    "id": 1,
+                    "main_used_g": 11.200849533081055,
+                    "total_used_g": 11.200849533081055
+                }
+            ],
+            "generate_support_material_time": 21,
+            "id": 1,
+            "infill_time": 245,
+            "layer_filament_change": 0,
+            "main_predication": 1457.475341796875,
+            "make_perimeters_time": 116,
+            "obj_cached_cnt": 0,
+            "objects": [
+                {
+                    "bbox": {
+                        "depth": 16.0,
+                        "height": 10.810243606567383,
+                        "width": 60.0,
+                        "x": 132.5,
+                        "y": 134.0,
+                        "z": -2.836912926795776e-10
+                    },
+                    "id": 5,
+                    "name": "tube-snap-row-a",
+                    "triangle_count": 8170
+                },
+                {
+                    "bbox": {
+                        "depth": 16.0,
+                        "height": 11.205821990966797,
+                        "width": 60.0,
+                        "x": 132.5,
+                        "y": 152.0,
+                        "z": 4.7651658974245947e-07
+                    },
+                    "id": 9,
+                    "name": "tube-snap-row-b",
+                    "triangle_count": 13776
+                },
+                {
+                    "bbox": {
+                        "depth": 16.0,
+                        "height": 11.601402282714844,
+                        "width": 60.0,
+                        "x": 132.5,
+                        "y": 170.0,
+                        "z": -4.763574281696492e-07
+                    },
+                    "id": 13,
+                    "name": "tube-snap-row-c",
+                    "triangle_count": 13458
+                }
+            ],
+            "sliced_time": 2627,
+            "sliced_time_with_cache": 2186,
+            "total_predication": 1783.2666015625,
+            "triangle_count": 35404,
+            "warning_message": ""
+        }
+    ],
+    "sparse_infill_density": 15.0,
+    "upward_compatible_machine": [
+        "Bambu Lab H2S 0.4 nozzle",
+        "Bambu Lab H2D 0.4 nozzle",
+        "Bambu Lab H2D Pro 0.4 nozzle",
+        "Bambu Lab A2L 0.4 nozzle"
+    ],
+    "wall_loops": 2
+}

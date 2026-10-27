@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "profile": "hardware/printed-parts/petgf.3mf",
+  "regions": "hardware/printed-parts/enclosure/enclosure/heat-set-review/print-regions.json",
+  "printers": {
+    "Mark1": {
+      "connection_key": "H2C",
+      "z_trim_mm": 0.18,
+      "filament_colour": "#000000"
+    },
+    "Mark2": {
+      "z_trim_mm": 0.04,
+      "filament_colour": "#161616"
+    }
+  },
+  "filament_mapping": {
+    "extruder_ams_count": [
+      "1#0|4#0",
+      "1#0|4#0"
+    ],
+    "support_filament": "1",
+    "support_interface_filament": "1",
+    "flush_into_support": "0"
+  },
+  "pieces": {
+    "tube-snap-retention-matrix": {
+      "printer": "Mark2",
+      "nozzle": {
+        "side": "left",
+        "diameter_mm": 0.4,
+        "flow": "Standard",
+        "hardened": true,
+        "reason": "Every abrasive stock runs on the left hotend (hardware/ledger/tools.md, Which hotends fit an H2C). Mark2's 2026-10-24 jobs ran black PET-GF on its fixed left hardened 0.4 mm Standard-flow hotend (faucet/industrial/prints/2026-10-24-buttons-sculpted-bands020-mark2/README.md, task 1372253517)."
+      },
+      "material": "Polymaker Fiberon PET-GF15, black",
+      "spacing_mm": 2,
+      "parts": [
+        {
+          "stl": "future/tube-snap-exploration/parts/tube-snap-row-a-print.stl",
+          "name": "tube-snap-row-a"
+        },
+        {
+          "stl": "future/tube-snap-exploration/parts/tube-snap-row-b-print.stl",
+          "name": "tube-snap-row-b"
+        },
+        {
+          "stl": "future/tube-snap-exploration/parts/tube-snap-row-c-print.stl",
+          "name": "tube-snap-row-c"
+        }
+      ],
+      "yaw_degrees": 0,
+      "plate_border_mm": 80,
+      "placement_offsets_xy_mm": [
+        [
+          0,
+          -18
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          18
+        ]
+      ],
+      "placement_reason": "Three separate60 x16 mm strips share a centered plate with2 mm gaps; source+X faces printer right."
+    }
+  },
+  "source_declaration": "hardware/printed-parts/enclosure/trial-preparation/pieces.json",
+  "source_declaration_sha256": "7d57172a977bc13ed1d606fd1017782d487e862fa0c2fa2415f0bf8dae9c8b62"
+}
