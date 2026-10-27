@@ -258,10 +258,10 @@ click: x=87.370 y=259.127 z=338.800
 click: x=-88.206 y=259.785 z=338.800
 click: x=87.194 y=259.785 z=338.800
 
-[ceiling] Unavoidable wet-field floor: the rear wall's relief opens the fluid grid's nut room from Z258 up (`interior_panel_relief`), and the wall's lower section and the east core hold's foot end on it. A 45-degree transition either enters the bottom row's nut room or takes the hold's foot. Tree(auto)/Default support stands from the bed through the open interior (slice 257a5648, interface 45) and leaves before assembly. Physical cleanup remains unqualified.
-alternatives: A lower relief floor thins the hold's foot; a higher one cuts the bottom row's nut room.
+[ceiling] Required lower edge of the rear port nut-access recess: this 67 x 3 mm face at Z258 is the step between the full rear wall below and the recessed clamping panel above. It is the boundary of the named access pocket. The current Mark2 preparation retains Tree(auto)/Default and its native bridge decisions; physical cleanup remains unqualified.
+alternatives: Extending the recess to the seam removes full rear-wall stock below the port field. Filling or sloping into the pocket changes its specified nut-access boundary. A different panel or pocket extent needs a complete port-clamping layout.
 file: hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step
-click: x=57.500 y=459.300 z=258.000
+click: x=57.500 y=463.800 z=258.000
 
 [ledge] Required meter seat ends: each quarter seat (`_back_top_meter.meter_supports`) stops at its collar's axis plane, open west and above for the meter to drop in; that 3 x 6 mm end looks at the bed and takes Tree(auto)/Default support in the meter's own room (slice 257a5648, interfaces 20 and 21), removed before the meter goes in.
 alternatives: Carrying the seat on round closes it over the meter's drop-in path; a column up to the ceiling stands in the meter's own envelope.

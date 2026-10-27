@@ -1,0 +1,100 @@
+{
+  "views": [
+    {
+      "name": "hold",
+      "caption": "The east core hold stands on the full rear wall, left of the port recess.",
+      "before": "hold-before.webp",
+      "after": "hold-after.webp",
+      "width": 1200,
+      "height": 900,
+      "marks": [
+        {
+          "x": 643.4,
+          "y": 411,
+          "r": 55.4,
+          "label": "Full-height root",
+          "at": [
+            16.5,
+            459,
+            279
+          ]
+        },
+        {
+          "x": 952,
+          "y": 535.5,
+          "r": 41.5,
+          "label": "Recess clear",
+          "at": [
+            61.1,
+            457,
+            256
+          ]
+        }
+      ],
+      "model": "printed-parts/enclosure/enclosure/enclosure.step",
+      "camera": {
+        "projection": "orthographic",
+        "position": [
+          -39.95756493039569,
+          -42.57564930395688,
+          598.724172047572
+        ],
+        "target": [
+          10,
+          457,
+          274
+        ],
+        "up": [
+          0,
+          0,
+          1
+        ],
+        "half": 65,
+        "near": 262.61554492999187,
+        "far": 910.3704093654187,
+        "aspect": 1.3333333333333333,
+        "section": {
+          "at": [
+            0,
+            450,
+            300
+          ],
+          "normal": [
+            0,
+            0,
+            1
+          ],
+          "removes": "the side the normal points to"
+        }
+      },
+      "highlight": [
+        "enclosure_back_top"
+      ],
+      "ghost": [],
+      "only": [
+        "enclosure_back_top"
+      ],
+      "xray": false,
+      "source": {
+        "before": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "snapshot",
+          "sha256": "54a27d387d07ace9c8ef8af2c432befbf49cf4fd9481a1c72b4c008272907e1b",
+          "commit": "bb9234fa14038d7d6ccecedcd8da5ad01ed401b7",
+          "taken": "2026-10-27T14:25:23.772Z",
+          "published": true
+        },
+        "after": {
+          "payload": "printed-parts/enclosure/enclosure/enclosure.step.mesh",
+          "from": "file",
+          "sha256": "a552cf811662b2c91dd0f6979bb210bf61eb80504abc27a1ffd6ebb757fa2524",
+          "commit": null
+        }
+      },
+      "changed": [
+        "enclosure_back_top"
+      ],
+      "withinMeshing": []
+    }
+  ]
+}
